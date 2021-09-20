@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, modules, ... }:
 
 {
   nix = {
@@ -44,8 +44,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  boot = {
-    kernelModules = [ ];
+  boot = let
+    kernelPackage = pkgs.linuxKernel.packagesFor pkgs.nur.repos.xddxdd.linux-xanmod-lantian;
+  in {
     kernelParams = [
       "vga=normal"
       "nofb"
@@ -55,7 +56,10 @@
       "swapaccount=1"
       "syscall.x32=y"
     ];
+    kernelPackages = kernelPackage;
     # extraModulePackages = with config.boot.kernelPackages; [ netatop ];
+
+    initrd.includeDefaultModules = false;
 
     loader = {
       grub = {
@@ -80,6 +84,10 @@
     man.enable = false;
     nixos.enable = false;
   };
+
+  disabledModules = [
+    "tasks/swraid.nix"
+  ];
 
   networking = {
     usePredictableInterfaceNames = false;
