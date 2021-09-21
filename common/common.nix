@@ -39,6 +39,8 @@
     ./apps/zsh.nix
     ./ssh-harden.nix
 
+    ./apps/qemu-user-static.nix
+
     ./apps/nginx.nix
   ];
 
@@ -73,7 +75,7 @@
       };
       efi.canTouchEfiVariables = false;
     };
-    tmpOnTmpfs = true;
+    # tmpOnTmpfs = true;
   };
 
   documentation = {
