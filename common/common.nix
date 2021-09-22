@@ -42,6 +42,7 @@
     ./apps/qemu-user-static.nix
 
     ./apps/nginx.nix
+    ./apps/ansible.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -1,0 +1,43 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+let
+  mitogen = pkgs.python39Packages.mitogen;
+in
+{
+  environment.systemPackages = with pkgs; [
+    ansible_2_10
+    mitogen
+  ];
+
+  environment.etc."ansible/ansible.cfg".text = ''
+    [default]
+    gathering = explicit
+    host_key_checking = False
+    strategy_plugins = ${mitogen}/lib/python3.9/site-packages/ansible_mitogen/plugins/strategy
+    strategy = mitogen_linear
+    interpreter_python = auto_silent
+    [ssh_connection]
+    pipelining = True
+    transfer_method = scp
+    retries = 3
+  '';
+
+  programs.ssh.extraConfig = ''
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+    VerifyHostKeyDNS yes
+    LogLevel ERROR
+
+    Host git.lantian.pub
+      User git
+      Port 22
+
+    Host *.lantian.pub
+      User root
+      Port 2222
+  '';
+}
