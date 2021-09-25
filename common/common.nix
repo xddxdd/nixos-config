@@ -43,6 +43,7 @@
 
     ./apps/nginx.nix
     ./apps/ansible.nix
+    ./apps/v2ray.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
