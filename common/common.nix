@@ -110,6 +110,8 @@
     crun
     git
     screen
+    wget
+    htop
   ];
 
   hardware.ksm.enable = true;

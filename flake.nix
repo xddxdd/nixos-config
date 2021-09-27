@@ -11,9 +11,13 @@
       url ="github:iosmanthus/nixos-vscode-server/add-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, deploy-rs, ... }@inputs:
   let
     defaultSystem = { system ? "x86_64-linux", modules ? [], overlay ? true }@config: nixpkgs.lib.nixosSystem {
       inherit system;
@@ -24,11 +28,29 @@
       ];
     };
   in {
-    nixosConfigurations."nixos" = defaultSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hosts/nixos/configuration.nix
-      ];
+    nixosConfigurations = {
+      "nixos" = defaultSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/nixos/configuration.nix
+        ];
+      };
+    };
+
+    deploy = {
+      sshUser = "root";
+      user = "root";
+      sshOpts = [ "-p" "2222" ];
+
+      nodes = {
+        "nixos" = {
+          hostname = "192.168.56.105";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."nixos";
+            magicRollback = false;
+          };
+        };
+      };
     };
   };
 }
