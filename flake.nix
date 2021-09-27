@@ -22,22 +22,24 @@
     };
   };
 
-  outputs = { self, nixpkgs, deploy-rs, ... }@inputs:
-  let
-    defaultSystem = { system ? "x86_64-linux", modules ? [], overlay ? true }@config: nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./common/common.nix
-        ./hosts/nixos/configuration.nix
-        (import ./common/home-manager.nix { inherit inputs; })
-      ];
-    };
-  in {
+  outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
+  {
     nixosConfigurations = {
-      "nixos" = defaultSystem {
+      "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
           ./hosts/nixos/configuration.nix
+        ];
+      };
+
+      "virmach-nl1g" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/virmach-nl1g/configuration.nix
         ];
       };
     };
@@ -45,14 +47,21 @@
     deploy = {
       sshUser = "root";
       user = "root";
-      sshOpts = [ "-p" "2222" ];
+      magicRollback = false;
 
       nodes = {
-        "nixos" = {
-          hostname = "192.168.56.105";
+        # "nixos" = {
+        #   hostname = "192.168.56.105";
+        #   profiles.system = {
+        #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."nixos";
+        #     sshOpts = [ "-p" "2222" ];
+        #   };
+        # };
+        "virmach-nl1g" = {
+          hostname = "virmach-nl1g.lantian.pub";
           profiles.system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."nixos";
-            magicRollback = false;
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."virmach-nl1g";
+            sshOpts = [ "-p" "2222" ];
           };
         };
       };
