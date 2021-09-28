@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../common/apps/tinc.nix
     ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
