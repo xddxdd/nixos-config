@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../../common/apps/tinc.nix
       ../../common/apps/babeld.nix
+      ../../common/apps/bird.nix
     ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
