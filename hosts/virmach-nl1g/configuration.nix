@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/apps/tinc.nix
+      ../../common/apps/babeld.nix
     ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
