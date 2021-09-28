@@ -133,6 +133,7 @@
     screen
     wget
     htop
+    tcpdump
   ];
 
   hardware.ksm.enable = true;
