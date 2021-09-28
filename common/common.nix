@@ -134,6 +134,7 @@
     wget
     htop
     tcpdump
+    python3Minimal
   ];
 
   hardware.ksm.enable = true;
