@@ -6,6 +6,7 @@
 
 let
   hosts = import ../../hosts.nix;
+  thisHost = builtins.getAttr config.networking.hostName hosts;
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
@@ -46,5 +47,21 @@ in
         ReplayWindow = 128;
       };
     };
+  };
+
+  environment.etc = {
+    "tinc/ltmesh/tinc-up".source = pkgs.writeScript "tinc-up-ltmesh" ''
+      #!${pkgs.stdenv.shell}
+      ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.autoconf=0
+      ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.accept_ra=0
+      ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.addr_gen_mode=1
+      ${pkgs.iproute2}/bin/ip addr add fe80::${builtins.toString thisHost.index}/64 dev $INTERFACE
+      ${pkgs.iproute2}/bin/ip addr add 169.254.0.${builtins.toString thisHost.index}/24 dev $INTERFACE
+      ${pkgs.iproute2}/bin/ip link set $INTERFACE mtu 1280
+      ${pkgs.iproute2}/bin/ip link set $INTERFACE up
+    '';
+    "tinc/ltmesh/tinc-down".source = pkgs.writeScript "tinc-down-ltmesh" ''
+      #!${pkgs.stdenv.shell}
+    '';
   };
 }
