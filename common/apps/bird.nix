@@ -3,6 +3,26 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+  otherHosts = builtins.removeAttrs hosts [config.networking.hostName];
+
+  sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
+
+  ltnetBGPPeer = hostname: { ltnet, ... }:
+    ''
+      protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
+        neighbor ${ltnet.IPv6Prefix}::1 internal;
+        ipv4 {
+          extended next hop yes;
+          import filter { ltnet_import_filter_v4(); };
+          export filter { ltnet_export_filter_v4(); };
+        };
+        ipv6 {
+          extended next hop yes;
+          import filter { ltnet_import_filter_v6(); };
+          export filter { ltnet_export_filter_v6(); };
+        };
+      };
+    '';
 in
 {
   services.bird2 = {
@@ -23,19 +43,19 @@ in
       }
 
       protocol static static_v4 {
-    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) (''
-        route 172.22.76.184/29 reject;
-        route 172.22.76.96/27 reject;
-        route 10.127.10.0/24 reject;
+    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) ''
+      route 172.22.76.184/29 reject;
+      route 172.22.76.96/27 reject;
+      route 10.127.10.0/24 reject;
 
-        route 172.22.76.96/29 reject;
-        route 172.22.76.104/29 reject;
-        route 172.22.76.112/29 reject;
-        route 172.22.76.120/29 reject;
+      route 172.22.76.96/29 reject;
+      route 172.22.76.104/29 reject;
+      route 172.22.76.112/29 reject;
+      route 172.22.76.120/29 reject;
 
-        route ${thisHost.dn42.IPv4}/32 reject;
-        route ${thisHost.neonetwork.IPv4}/32 reject;
-    '') + ''
+      route ${thisHost.dn42.IPv4}/32 reject;
+      route ${thisHost.neonetwork.IPv4}/32 reject;
+    '' + ''
         # Blackhole routes for private ranges
         route 10.0.0.0/8 reject;
         route 172.16.0.0/12 reject;
@@ -49,13 +69,13 @@ in
       };
 
       protocol static static_v6 {
-    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) (''
-        route fdbc:f9dc:67ad::/48 reject;
-        route fd10:127:10::/48 reject;
+    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) ''
+      route fdbc:f9dc:67ad::/48 reject;
+      route fd10:127:10::/48 reject;
 
-        route ${thisHost.dn42.IPv6}/128 reject;
-        route ${thisHost.neonetwork.IPv6}/128 reject;
-    '') + ''
+      route ${thisHost.dn42.IPv6}/128 reject;
+      route ${thisHost.neonetwork.IPv6}/128 reject;
+    '' + ''
         # Blackhole routes for private ranges
         route fc00::/7 reject;
 
@@ -93,9 +113,9 @@ in
       include "/etc/bird/neonetwork/base.conf";
 
       # GRC config must be below dn42 & neonetwork since it uses filters from them
-    '' + pkgs.lib.optionalString (builtins.hasAttr "burble_grc" thisHost.dn42 && thisHost.dn42.burble_grc) (''
+    '' + pkgs.lib.optionalString (builtins.hasAttr "burble_grc" thisHost.dn42 && thisHost.dn42.burble_grc) ''
       include "/etc/bird/dn42/burble_grc.conf";
-    '') + ''
+    '' + ''
 
       include "/etc/bird/docker/ospf.conf";
       include "/etc/bird/ltnet/bgp.conf";
@@ -202,7 +222,8 @@ in
 
     "bird/dn42/peers4.conf".text = "# TODO";
     "bird/dn42/peers6.conf".text = "# TODO";
-    "bird/ltnet/bgp_peers.conf".text = "# TODO";
+    "bird/ltnet/bgp_peers.conf".text =
+      builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts);
     "bird/neonetwork/peers.conf".text = "# TODO";
   };
 }

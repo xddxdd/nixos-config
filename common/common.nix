@@ -108,6 +108,12 @@
     tempAddresses = "disabled";
   };
 
+  systemd.network.enable = true;
+  environment.etc."systemd/networkd.conf".text = ''
+    [Network]
+    ManageForeignRoutes=false
+  '';
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 

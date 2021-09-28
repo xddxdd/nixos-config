@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../common/apps/ltnet.nix
       ../../common/apps/tinc.nix
       ../../common/apps/babeld.nix
       ../../common/apps/bird.nix
