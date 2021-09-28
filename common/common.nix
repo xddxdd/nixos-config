@@ -182,5 +182,7 @@
     dockerSocket.enable = true;
   };
 
+  virtualisation.oci-containers.backend = "podman";
+
   zramSwap.enable = true;
 }
