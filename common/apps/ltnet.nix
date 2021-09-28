@@ -17,6 +17,10 @@ in
       Name = "dummy0";
     };
 
+    networkConfig = {
+      IPv6PrivacyExtensions = false;
+    };
+
     addresses = [ ]
       ++ pkgs.lib.optionals (builtins.hasAttr "IPv4Prefix" thisHost.ltnet) [
       {
@@ -55,5 +59,17 @@ in
         };
       }
     ];
+  };
+
+  networking.bridges.ltnet.interfaces = [];
+  networking.interfaces.ltnet = {
+    ipv4.addresses = [{
+      address = thisHost.ltnet.IPv4Prefix + ".1";
+      prefixLength = 24;
+    }];
+    ipv6.addresses = [{
+      address = thisHost.ltnet.IPv6Prefix + "::1";
+      prefixLength = 80;
+    }];
   };
 }

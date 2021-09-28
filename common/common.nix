@@ -109,6 +109,7 @@
   };
 
   systemd.network.enable = true;
+  networking.useNetworkd = true;
   environment.etc."systemd/networkd.conf".text = ''
     [Network]
     ManageForeignRoutes=false
