@@ -4,61 +4,12 @@
 
 { config, pkgs, ... }:
 
-let
-  hosts = import ../../hosts.nix;
-  makeSSL = acmeName:
-    let
-      acmeHost = pkgs.lib.elemAt (pkgs.lib.splitString "_" acmeName) 0;
-    in
-    ''
-      ssl_stapling on;
-      ssl_stapling_file /srv/data/acme.sh/${acmeName}/ocsp.resp;
-    '';
-
-  commonVhostConf = ''
-    add_header X-Content-Type-Options 'nosniff';
-    add_header X-Frame-Options 'SAMEORIGIN';
-    add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-    add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
-    #add_header Access-Control-Allow-Origin '*';
-    add_header LT-Latency $request_time;
-    add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
-    add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"'; 
-    add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))'; 
-    add_header Cache-Control 'private'; 
-    add_header Referrer-Policy strict-origin-when-cross-origin;
-    add_header Permissions-Policy 'interest-cohort=()';
-
-    more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
-  '';
-
-  commonLocationConf = {
-    "/generate_204".extraConfig = ''
-      access_log off;
-      return 204;
-    '';
-
-    "/autoindex.html".extraConfig = ''
-      internal;
-      root /etc/nginx;
-    '';
-
-    "/status".extraConfig = ''
-      access_log off;
-      stub_status on;
-    '';
-
-    "/ray" = {
-      proxyPass = "http://127.0.0.1:13504";
-      proxyWebsockets = true;
-      extraConfig = ''
-        access_log off;
-        keepalive_timeout 1d;
-      '';
-    };
-  };
-in
 {
+  imports = [
+    ./nginx-lua.nix
+    ./nginx-vhosts.nix
+  ];
+
   # Disable checking nginx.conf
   nixpkgs.overlays = [
     (final: prev:
@@ -102,6 +53,7 @@ in
     sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
 
     commonHttpConfig = ''
+      access_log /var/log/nginx/access.$server_name.log;
       more_set_headers "Server: lantian";
 
       gzip on;
@@ -146,13 +98,21 @@ in
         "~image/avif" ".avif";
       }
 
+      map $server_addr $gopher_addr {
+        default               gopher.lantian.pub;
+        "~*^172\.22\."        gopher.lantian.dn42;
+        "~*^10\.127\."        gopher.lantian.neo;
+        "~*^fdbc:f9dc:67ad:"  gopher.lantian.dn42;
+        "~*^fd10:127:10:"     gopher.lantian.neo;
+      }
+
       port_in_redirect off;
       absolute_redirect off;
       server_name_in_redirect off;
 
       charset utf-8;
 
-      lua_package_path '/etc/nginx/conf/lua/?.lua;;';
+      lua_package_path '/etc/nginx/lua/?.lua;;';
     '';
 
     streamConfig = ''
@@ -175,52 +135,5 @@ in
 
       lua_package_path '/etc/nginx/conf/lua/?.lua;;';
     '';
-
-    virtualHosts = {
-      "lantian.pub" = {
-        addSSL = true;
-        http2 = true;
-        http3 = true;
-
-        locations = pkgs.lib.recursiveUpdate commonLocationConf {
-          "/" = {
-            index = "index.html index.htm";
-          };
-          "/assets/".extraConfig = ''
-            expires 31536000;
-          '';
-          "/usr/" = {
-            tryFiles = "$uri$avif_suffix$webp_suffix $uri$avif_suffix $uri$webp_suffix $uri =404";
-            extraConfig = ''
-              expires 31536000;
-              add_header Vary "Accept";
-              add_header Cache-Control "public, no-transform";
-            '';
-          };
-          "/favicon.ico".extraConfig = ''
-            expires 31536000;
-          '';
-          "/feed".tryFiles = "$uri /feed.xml /atom.xml =404";
-        };
-
-        root = "/srv/www/lantian.pub";
-
-        serverAliases = pkgs.lib.mapAttrsToList (k: v: k + ".lantian.pub") hosts;
-
-        sslCertificate = "/srv/data/acme.sh/lantian.pub_ecc/fullchain.cer";
-        sslCertificateKey = "/srv/data/acme.sh/lantian.pub_ecc/lantian.pub.key";
-
-        extraConfig = ''
-          gzip off;
-          gzip_static on;
-          brotli off;
-          brotli_static on;
-
-          error_page 404 /404.html;
-        ''
-        + makeSSL "lantian.pub_ecc"
-        + commonVhostConf;
-      };
-    };
   };
 }

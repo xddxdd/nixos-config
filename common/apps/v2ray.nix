@@ -4,6 +4,10 @@
 
 { config, pkgs, ... }:
 
+let
+  hosts = import ../../hosts.nix;
+  thisHost = builtins.getAttr config.networking.hostName hosts;
+in
 {
   services.v2ray = {
     enable = true;
@@ -22,7 +26,7 @@
       };
       "inbounds" = [
         {
-          "listen" = "127.0.0.1";
+          "listen" = "${thisHost.ltnet.IPv4Prefix}.1";
           "port" = 13504;
           "protocol" = "vless";
           "settings" = {
