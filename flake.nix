@@ -47,6 +47,7 @@
     deploy = {
       sshUser = "root";
       user = "root";
+      autoRollback = false;
       magicRollback = false;
 
       nodes = {

@@ -106,14 +106,18 @@
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
     tempAddresses = "disabled";
+    useNetworkd = true;
   };
 
   systemd.network.enable = true;
-  networking.useNetworkd = true;
   environment.etc."systemd/networkd.conf".text = ''
     [Network]
     ManageForeignRoutes=false
   '';
+  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
+    "" # clear old command
+    "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
+  ];
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
