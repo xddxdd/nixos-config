@@ -15,7 +15,24 @@ let
       ssl_stapling_file /srv/data/acme.sh/${acmeName}/ocsp.resp;
     '';
 
-  commonLocations = {
+  commonVhostConf = ''
+    add_header X-Content-Type-Options 'nosniff';
+    add_header X-Frame-Options 'SAMEORIGIN';
+    add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
+    add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
+    #add_header Access-Control-Allow-Origin '*';
+    add_header LT-Latency $request_time;
+    add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
+    add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"'; 
+    add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))'; 
+    add_header Cache-Control 'private'; 
+    add_header Referrer-Policy strict-origin-when-cross-origin;
+    add_header Permissions-Policy 'interest-cohort=()';
+
+    more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
+  '';
+
+  commonLocationConf = {
     "/generate_204".extraConfig = ''
       access_log off;
       return 204;
@@ -42,6 +59,30 @@ let
   };
 in
 {
+  # Disable checking nginx.conf
+  nixpkgs.overlays = [
+    (final: prev:
+      let
+        awkFormatNginx = builtins.toFile "awkFormat-nginx.awk" ''
+          awk -f
+          {sub(/^[ \t]+/,"");idx=0}
+          /\{/{ctx++;idx=1}
+          /\}/{ctx--}
+          {id="";for(i=idx;i<ctx;i++)id=sprintf("%s%s", id, "\t");printf "%s%s\n", id, $0}
+        '';
+      in
+      {
+        writers.writeNginxConfig = name: text: prev.runCommandLocal name
+          {
+            inherit text;
+            passAsFile = [ "text" ];
+            nativeBuildInputs = with pkgs; [ gawk gnused ];
+          } ''
+          awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
+        '';
+      })
+  ];
+
   services.nginx = {
     enable = true;
     enableReload = true;
@@ -111,21 +152,6 @@ in
 
       charset utf-8;
 
-      add_header X-Content-Type-Options 'nosniff';
-      add_header X-Frame-Options 'SAMEORIGIN';
-      add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-      add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
-      #add_header Access-Control-Allow-Origin '*';
-      add_header LT-Latency $request_time;
-      add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
-      add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"'; 
-      add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))'; 
-      add_header Cache-Control 'private'; 
-      add_header Referrer-Policy strict-origin-when-cross-origin;
-      add_header Permissions-Policy 'interest-cohort=()';
-
-      more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
-
       lua_package_path '/etc/nginx/conf/lua/?.lua;;';
     '';
 
@@ -154,9 +180,9 @@ in
       "lantian.pub" = {
         addSSL = true;
         http2 = true;
-        # http3 = true;
+        http3 = true;
 
-        locations = pkgs.lib.recursiveUpdate commonLocations {
+        locations = pkgs.lib.recursiveUpdate commonLocationConf {
           "/" = {
             index = "index.html index.htm";
           };
@@ -167,8 +193,8 @@ in
             tryFiles = "$uri$avif_suffix$webp_suffix $uri$avif_suffix $uri$webp_suffix $uri =404";
             extraConfig = ''
               expires 31536000;
-              #add_header Vary "Accept";
-              #add_header Cache-Control "public, no-transform";
+              add_header Vary "Accept";
+              add_header Cache-Control "public, no-transform";
             '';
           };
           "/favicon.ico".extraConfig = ''
@@ -191,7 +217,9 @@ in
           brotli_static on;
 
           error_page 404 /404.html;
-        '' + makeSSL "lantian.pub_ecc";
+        ''
+        + makeSSL "lantian.pub_ecc"
+        + commonVhostConf;
       };
     };
   };
