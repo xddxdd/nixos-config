@@ -35,6 +35,8 @@
     ./apps/zsh.nix
     ./ssh-harden.nix
 
+    ./components/route-chain.nix
+
     ./apps/qemu-user-static.nix
 
     ./apps/nginx.nix
