@@ -170,6 +170,11 @@
   # List services that you want to enable:
   services.haveged.enable = true;
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=50M
+    SystemMaxFileSize=10M
+  '';
+
   #virtualisation.docker = {
   #  enable = true;
   #  enableOnBoot = true;
