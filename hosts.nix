@@ -71,7 +71,7 @@
       IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
-  "oneprovider" = rec {
+  "soyoustart" = rec {
     index = 10;
     tincPub = ''
       -----BEGIN RSA PUBLIC KEY-----
@@ -89,8 +89,8 @@
       -----END RSA PUBLIC KEY-----
     '';
     public = rec {
-      IPv4 = "62.210.83.11";
-      IPv6 = "2001:470:1f13:882::1";
+      IPv4 = "51.77.66.117";
+      IPv6 = "2001:41d0:700:2475::1";
     };
     ltnet = rec {
       IPv4Prefix = "172.18.${builtins.toString index}";

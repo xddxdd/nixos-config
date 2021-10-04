@@ -25,6 +25,14 @@
   outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
   {
     nixosConfigurations = {
+      "soyoustart" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/soyoustart/configuration.nix
+        ];
+      };
       "virmach-nl1g" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -42,6 +50,13 @@
       magicRollback = false;
 
       nodes = {
+        "soyoustart" = {
+          hostname = "soyoustart.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."soyoustart";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
         "virmach-nl1g" = {
           hostname = "virmach-nl1g.lantian.pub";
           profiles.system = {

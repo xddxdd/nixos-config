@@ -58,6 +58,7 @@
       "cgroup_enable=memory"
       "swapaccount=1"
       "syscall.x32=y"
+      "net.ifnames=0"
     ];
     kernelPackages = kernelPackage;
     # extraModulePackages = with config.boot.kernelPackages; [ netatop ];
@@ -74,7 +75,7 @@
         splashImage = null;
         useOSProber = true;
       };
-      efi.canTouchEfiVariables = false;
+      efi.canTouchEfiVariables = true;
     };
     # tmpOnTmpfs = true;
   };
@@ -103,7 +104,6 @@
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
     tempAddresses = "disabled";
-    useNetworkd = true;
   };
 
   systemd.network.enable = true;
