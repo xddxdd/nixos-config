@@ -33,7 +33,7 @@ let
     add_header Alt-Svc 'h3=":443"; ma=86400';
   '';
 
-  commonLocationConf = {
+  addCommonLocationConf = pkgs.lib.recursiveUpdate {
     "/generate_204".extraConfig = ''
       access_log off;
       return 204;
@@ -62,7 +62,61 @@ let
         chunked_transfer_encoding off;
       '';
     };
+
+    "/oauth2/" = {
+      proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+      '';
+    };
+
+    "/oauth2/auth" = {
+      proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header Content-Length "";
+        proxy_pass_request_body off;
+      '';
+    };
   };
+
+  locationProxyConf = ''
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Host $host:443;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Original-URI $request_uri;
+
+    proxy_read_timeout 1d;
+    proxy_buffering off;
+    proxy_request_buffering on;
+    proxy_redirect off;
+    chunked_transfer_encoding off;
+  '';
+
+  # OAuth must go before proxy_pass!
+  locationOauthConf = ''
+    auth_request /oauth2/auth;
+    error_page 401 = /oauth2/start;
+
+    # pass information via X-User and X-Email headers to backend,
+    # requires running with --set-xauthrequest flag
+    auth_request_set $user   $upstream_http_x_auth_request_user;
+    auth_request_set $email  $upstream_http_x_auth_request_email;
+    proxy_set_header X-User  $user;
+    proxy_set_header X-Email $email;
+
+    # if you enabled --pass-access-token, this will pass the token to the backend
+    auth_request_set $token  $upstream_http_x_auth_request_access_token;
+    proxy_set_header X-Access-Token $token;
+  '';
 
   listenDefaultFlags = [
     "default_server"
@@ -89,8 +143,8 @@ let
     { addr = "[::]"; port = port; extraParameters = [ "plain" ] ++ listenDefaultFlags; }
   ];
 
-  confLantianPub = {
-    locations = pkgs.lib.recursiveUpdate commonLocationConf {
+  addConfLantianPub = pkgs.lib.recursiveUpdate {
+    locations = addCommonLocationConf {
       "/" = {
         index = "index.html index.htm";
       };
@@ -139,7 +193,7 @@ in
       '';
     };
 
-    "lantian.pub" = pkgs.lib.recursiveUpdate confLantianPub {
+    "lantian.pub" = addConfLantianPub {
       listen = listen443 ++ listen80;
       serverAliases = pkgs.lib.mapAttrsToList (k: v: k + ".lantian.pub") hosts;
       extraConfig = ''
@@ -153,7 +207,7 @@ in
       + makeSSL "lantian.pub_ecc"
       + commonVhostConf true;
     };
-    "lantian.dn42" = pkgs.lib.recursiveUpdate confLantianPub {
+    "lantian.dn42" = addConfLantianPub {
       listen = listen80;
       extraConfig = ''
         gzip off;
@@ -166,7 +220,7 @@ in
       + makeSSL "lantian.dn42_ecc"
       + commonVhostConf true;
     };
-    "lantian.neo" = pkgs.lib.recursiveUpdate confLantianPub {
+    "lantian.neo" = addConfLantianPub {
       listen = listen80;
       extraConfig = ''
         gzip off;
@@ -348,17 +402,39 @@ in
 
     "ci.lantian.pub" = {
       listen = listen443;
-      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+      locations = addCommonLocationConf {
+        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+      };
       extraConfig = makeSSL "lantian.pub_ecc";
     };
     "ci-github.lantian.pub" = {
       listen = listen443;
-      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+      locations = addCommonLocationConf {
+        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+      };
       extraConfig = makeSSL "lantian.pub_ecc";
     };
     "vault.lantian.pub" = {
       listen = listen443;
-      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+      locations = addCommonLocationConf {
+        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+      };
+      extraConfig = makeSSL "lantian.pub_ecc";
+    };
+
+    "asf.lantian.pub" = {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "/".extraConfig = locationOauthConf + ''
+          proxy_pass http://${thisHost.ltnet.IPv4Prefix}.1:13242;
+        '' + locationProxyConf;
+        "~* /Api/NLog".extraConfig = locationOauthConf + ''
+          proxy_pass http://${thisHost.ltnet.IPv4Prefix}.1:13242;
+          proxy_http_version 1.1;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Upgrade $http_upgrade;
+        '' + locationProxyConf;
+      };
       extraConfig = makeSSL "lantian.pub_ecc";
     };
   };

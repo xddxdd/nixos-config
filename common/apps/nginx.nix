@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  hosts = import ../../hosts.nix;
+  thisHost = builtins.getAttr config.networking.hostName hosts;
+in
 {
   imports = [
     ./nginx-lua.nix
@@ -79,6 +83,10 @@
       ssl_early_data on;
       ssl_dyn_rec_enable on;
 
+      proxy_buffer_size       128k;
+      proxy_buffers           4 256k;
+      proxy_busy_buffers_size 256k;
+
       vhost_traffic_status on;
       vhost_traffic_status_zone;
 
@@ -132,4 +140,23 @@
       lua_package_path '/etc/nginx/conf/lua/?.lua;;';
     '';
   };
+
+  services.oauth2_proxy = {
+    enable = true;
+    clientID = "oauth-proxy";
+    clientSecret = "***REMOVED***";
+    cookie = {
+      expire = "24h";
+      secret = "***REMOVED***";
+    };
+    email.domains = [ "*" ];
+    httpAddress = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+    provider = "oidc";
+    setXauthrequest = true;
+    extraConfig = {
+      oidc-issuer-url = "https://login.lantian.pub/auth/realms/master";
+    };
+  };
+  users.users.oauth2_proxy.group = "oauth2_proxy";
+  users.groups.oauth2_proxy = { };
 }
