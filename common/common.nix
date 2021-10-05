@@ -73,7 +73,6 @@
         #efiInstallAsRemovable = true;
         memtest86.enable = true;
         splashImage = null;
-        useOSProber = true;
       };
       efi.canTouchEfiVariables = true;
     };
@@ -175,18 +174,9 @@
     SystemMaxFileSize=10M
   '';
 
-  #virtualisation.docker = {
-  #  enable = true;
-  #  enableOnBoot = true;
-  #  autoPrune = {
-  #    enable = true;
-  #    flags = [ "-a" ];
-  #  };
-  #  extraOptions = "--userland-proxy=false --experimental=true --ip6tables=true --add-runtime=crun=${pkgs.crun}/bin/crun --default-runtime=crun";
-  #};
-
   virtualisation.podman = {
     enable = true;
+    defaultNetwork.dnsname.enable = true;
     dockerCompat = true;
     dockerSocket.enable = true;
   };

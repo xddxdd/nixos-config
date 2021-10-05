@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common/apps/ltnet.nix
-      ../../common/apps/tinc.nix
-      ../../common/apps/babeld.nix
-      ../../common/apps/bird.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../common/apps/ltnet.nix
+    ../../common/apps/tinc.nix
+    ../../common/apps/babeld.nix
+    ../../common/apps/bird.nix
+    ../../common/apps/drone-ci.nix
+  ];
 
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {

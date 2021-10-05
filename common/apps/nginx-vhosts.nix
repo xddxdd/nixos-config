@@ -181,7 +181,7 @@ in
 
     "www.lantian.pub" = {
       listen = listen443 ++ listen80;
-      locations."/".return = "301 $scheme://lantian.pub$request_uri";
+      globalRedirect = "lantian.pub";
       extraConfig = makeSSL "lantian.pub_ecc";
     };
 
@@ -344,6 +344,22 @@ in
           proxy_http_version plain;
         '';
       };
+    };
+
+    "ci.lantian.pub" = {
+      listen = listen443;
+      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+      extraConfig = makeSSL "lantian.pub_ecc";
+    };
+    "ci-github.lantian.pub" = {
+      listen = listen443;
+      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+      extraConfig = makeSSL "lantian.pub_ecc";
+    };
+    "vault.lantian.pub" = {
+      listen = listen443;
+      locations."/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+      extraConfig = makeSSL "lantian.pub_ecc";
     };
   };
 }
