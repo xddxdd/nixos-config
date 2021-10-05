@@ -9,6 +9,7 @@
     ../../common/apps/bird.nix
     ../../common/apps/drone-ci.nix
     ../../common/apps/asf.nix
+    ../../common/apps/hath.nix
   ];
 
   boot.loader.systemd-boot.enable = false;

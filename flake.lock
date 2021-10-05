@@ -38,6 +38,21 @@
         "type": "github"
       }
     },
+    "hath-nix": {
+      "locked": {
+        "lastModified": 1623558647,
+        "narHash": "sha256-r2Ikyi1gAaj0fer3CNoPPaSowEzAa3RF379d7FYzOOM=",
+        "owner": "poscat0x04",
+        "repo": "hath-nix",
+        "rev": "28180bd11ecc9496233671f39b2cbe8027faf563",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poscat0x04",
+        "repo": "hath-nix",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -133,6 +148,7 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
+        "hath-nix": "hath-nix",
         "home-manager": "home-manager",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",

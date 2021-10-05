@@ -24,5 +24,6 @@
         repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
       };
     })
+    inputs.hath-nix.overlay
   ];
 }

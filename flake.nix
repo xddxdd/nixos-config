@@ -16,6 +16,7 @@
       url = github:xddxdd/nur-packages;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hath-nix.url = github:poscat0x04/hath-nix;
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
