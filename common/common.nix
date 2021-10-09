@@ -144,6 +144,7 @@
     python3Minimal
     iptables
     nftables
+    dig
   ];
 
   hardware.ksm.enable = true;

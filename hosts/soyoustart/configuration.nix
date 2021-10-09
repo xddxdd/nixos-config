@@ -10,6 +10,8 @@
     ../../common/apps/drone-ci.nix
     ../../common/apps/asf.nix
     ../../common/apps/hath.nix
+    ../../common/apps/coredns.nix
+    ../../common/apps/powerdns-recursor.nix
   ];
 
   boot.loader.systemd-boot.enable = false;
@@ -27,6 +29,8 @@
   boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
 
   boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = pkgs.lib.mkForce 0;
+    "net.ipv4.conf.default.rp_filter" = pkgs.lib.mkForce 0;
     "net.ipv6.conf.all.autoconf" = pkgs.lib.mkForce 0;
     "net.ipv6.conf.all.accept_ra" = pkgs.lib.mkForce 0;
   };

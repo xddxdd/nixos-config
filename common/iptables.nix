@@ -102,4 +102,8 @@ in
   environment.systemPackages = with pkgs; [
     iptables
   ];
+
+  systemd.services.network-local-commands.unitConfig = {
+    After = pkgs.lib.mkForce "network-setup.service";
+  };
 }

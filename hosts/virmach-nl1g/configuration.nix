@@ -1,14 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common/apps/ltnet.nix
-      ../../common/apps/tinc.nix
-      ../../common/apps/babeld.nix
-      ../../common/apps/bird.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../common/apps/ltnet.nix
+    ../../common/apps/tinc.nix
+    ../../common/apps/babeld.nix
+    ../../common/apps/bird.nix
+    ../../common/apps/coredns.nix
+    ../../common/apps/powerdns-recursor.nix
+  ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
