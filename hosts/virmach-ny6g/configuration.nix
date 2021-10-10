@@ -11,6 +11,7 @@
     ../../common/apps/powerdns-recursor.nix
 
     ../../common/apps/keycloak.nix
+    ../../common/apps/quassel.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
