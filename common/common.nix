@@ -36,6 +36,7 @@
     ./iptables.nix
     ./ssh-harden.nix
 
+    ./components/php-switch.nix
     ./components/route-chain.nix
 
     ./apps/qemu-user-static.nix

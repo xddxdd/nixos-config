@@ -8,6 +8,7 @@ in
   imports = [
     ./nginx-lua.nix
     ./nginx-vhosts.nix
+    ./php-fpm.nix
   ];
 
   # Disable checking nginx.conf
