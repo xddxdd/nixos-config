@@ -66,22 +66,16 @@ let
     "/oauth2/" = {
       proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
       extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
         proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-      '';
+      '' + locationProxyConf;
     };
 
     "/oauth2/auth" = {
       proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
       extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Scheme $scheme;
         proxy_set_header Content-Length "";
         proxy_pass_request_body off;
-      '';
+      '' + locationProxyConf;
     };
 
     "~ .*\.php(\/.*)*$".extraConfig = locationPHPConf;
@@ -94,6 +88,7 @@ let
     proxy_set_header X-Forwarded-Host $host:443;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Scheme $scheme;
     proxy_set_header X-Original-URI $request_uri;
 
     proxy_read_timeout 1d;
@@ -473,6 +468,18 @@ in
           proxy_set_header Connection "upgrade";
           proxy_set_header Upgrade $http_upgrade;
         '' + locationProxyConf;
+      };
+      extraConfig = makeSSL "lantian.pub_ecc";
+    };
+
+    "login.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "= /".return = "302 /auth/admin/";
+        "/" = {
+          proxyPass = "http://127.0.0.1:13401";
+          extraConfig = locationProxyConf;
+        };
       };
       extraConfig = makeSSL "lantian.pub_ecc";
     };

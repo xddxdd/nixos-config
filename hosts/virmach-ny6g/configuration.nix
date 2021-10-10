@@ -9,6 +9,8 @@
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
     ../../common/apps/powerdns-recursor.nix
+
+    ../../common/apps/keycloak.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
