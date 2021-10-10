@@ -34,6 +34,14 @@
           ./hosts/soyoustart/configuration.nix
         ];
       };
+      "virmach-ny6g" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/virmach-ny6g/configuration.nix
+        ];
+      };
       "virmach-nl1g" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -55,6 +63,13 @@
           hostname = "soyoustart.lantian.pub";
           profiles.system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."soyoustart";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "virmach-ny6g" = {
+          hostname = "virmach-ny6g.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."virmach-ny6g";
             sshOpts = [ "-p" "2222" ];
           };
         };
