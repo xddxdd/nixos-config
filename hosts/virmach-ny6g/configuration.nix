@@ -12,6 +12,7 @@
 
     ../../common/apps/keycloak.nix
     ../../common/apps/quassel.nix
+    ../../common/apps/bird-lg-go.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only

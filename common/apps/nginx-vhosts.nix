@@ -18,7 +18,6 @@ let
     add_header X-Content-Type-Options 'nosniff';
     add_header X-Frame-Options 'SAMEORIGIN';
     add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-    add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
     #add_header Access-Control-Allow-Origin '*';
     add_header LT-Latency $request_time;
     add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
@@ -31,6 +30,7 @@ let
     more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
   '' + pkgs.lib.optionalString ssl ''
     add_header Alt-Svc 'h3=":443"; ma=86400';
+    add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
   '';
 
   addCommonLocationConf = pkgs.lib.recursiveUpdate {
@@ -242,7 +242,7 @@ in
       + commonVhostConf true;
     };
     "lantian.dn42" = addConfLantianPub {
-      listen = listen80;
+      listen = listen443 ++ listen80;
       extraConfig = ''
         gzip off;
         gzip_static on;
@@ -252,7 +252,7 @@ in
         error_page 404 /404.html;
       ''
       + makeSSL "lantian.dn42_ecc"
-      + commonVhostConf true;
+      + commonVhostConf false;
     };
     "lantian.neo" = addConfLantianPub {
       listen = listen80;
@@ -270,7 +270,8 @@ in
     "www.lantian.pub" = {
       listen = listen443 ++ listen80;
       globalRedirect = "lantian.pub";
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
 
     "gopher.lantian.pub" = {
@@ -290,7 +291,8 @@ in
       extraConfig = ''
         error_page 404 /404.gopher;
       ''
-      + makeSSL "lantian.pub_ecc";
+      + makeSSL "lantian.pub_ecc"
+      + commonVhostConf true;
     };
 
     "whois.lantian.pub" = {
@@ -365,7 +367,8 @@ in
         '';
       };
 
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
     "whois.stage2.local" = {
       listen = listen80;
@@ -437,23 +440,35 @@ in
     "ci.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "soyoustart") {
       listen = listen443;
       locations = addCommonLocationConf {
-        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+          extraConfig = locationProxyConf;
+        };
       };
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
     "ci-github.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "soyoustart") {
       listen = listen443;
       locations = addCommonLocationConf {
-        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+          extraConfig = locationProxyConf;
+        };
       };
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
     "vault.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "soyoustart") {
       listen = listen443;
       locations = addCommonLocationConf {
-        "/".proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+          extraConfig = locationProxyConf;
+        };
       };
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
 
     "asf.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "soyoustart") {
@@ -469,7 +484,8 @@ in
           proxy_set_header Upgrade $http_upgrade;
         '' + locationProxyConf;
       };
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
     };
 
     "login.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
@@ -481,7 +497,31 @@ in
           extraConfig = locationProxyConf;
         };
       };
-      extraConfig = makeSSL "lantian.pub_ecc";
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
+
+    "lg.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          extraConfig = locationProxyConf;
+        };
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
+    "lg.lantian.dn42" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
+      listen = listen80;
+      locations = addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          extraConfig = locationProxyConf;
+        };
+      };
+      extraConfig = makeSSL "lantian.dn42_ecc"
+        + commonVhostConf true;
     };
   };
 }

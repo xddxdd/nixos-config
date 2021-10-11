@@ -226,4 +226,43 @@ in
       builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts);
     "bird/neonetwork/peers.conf".text = "# TODO";
   };
+
+  systemd.services.bird-lgproxy-go-v4 = {
+    description = "Bird-lgproxy-go IPv4";
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.traceroute ];
+    environment = {
+      BIRD_SOCKET = "/run/bird.ctl";
+      BIRD6_SOCKET = "/run/bird.ctl";
+      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4Prefix}.1:8000";
+    };
+    unitConfig = {
+      After = "bird2.service";
+    };
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.nur.repos.xddxdd.bird-lgproxy-go}/bin/proxy";
+    };
+  };
+  systemd.services.bird-lgproxy-go-v6 = {
+    description = "Bird-lgproxy-go IPv6";
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.traceroute ];
+    environment = {
+      BIRD_SOCKET = "/run/bird.ctl";
+      BIRD6_SOCKET = "/run/bird.ctl";
+      BIRDLG_LISTEN = "[${thisHost.ltnet.IPv6Prefix}::1]:8000";
+    };
+    unitConfig = {
+      After = "bird2.service";
+    };
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.nur.repos.xddxdd.bird-lgproxy-go}/bin/proxy";
+    };
+  };
 }
