@@ -3,17 +3,19 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../common/apps/ltnet.nix
-    ../../common/apps/tinc.nix
+
     ../../common/apps/babeld.nix
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
+    ../../common/apps/ltnet.nix
     ../../common/apps/powerdns-recursor.nix
+    ../../common/apps/tinc.nix
 
+    ../../common/apps/bird-lg-go.nix
+    ../../common/apps/epicgames-claimer.nix
+    ../../common/apps/genshin-helper.nix
     ../../common/apps/keycloak.nix
     ../../common/apps/quassel.nix
-    ../../common/apps/bird-lg-go.nix
-    ../../common/apps/genshin-helper.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only

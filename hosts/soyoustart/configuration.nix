@@ -3,15 +3,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../common/apps/ltnet.nix
-    ../../common/apps/tinc.nix
+
     ../../common/apps/babeld.nix
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
+    ../../common/apps/ltnet.nix
     ../../common/apps/powerdns-recursor.nix
+    ../../common/apps/tinc.nix
 
-    ../../common/apps/drone-ci.nix
     ../../common/apps/asf.nix
+    ../../common/apps/drone-ci.nix
     ../../common/apps/hath.nix
   ];
 
