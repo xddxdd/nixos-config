@@ -10,20 +10,14 @@ in
     ./vault.nix
   ];
 
+  age.secrets.drone-ci-env.file = ../../secrets/drone-ci-env.age;
+  age.secrets.drone-ci-github-env.file = ../../secrets/drone-ci-github-env.age;
+  age.secrets.drone-ci-vault-env.file = ../../secrets/drone-ci-vault-env.age;
+
   virtualisation.oci-containers.containers = {
     drone = {
       image = "drone/drone:2";
-      environment = {
-        DRONE_GITEA_SERVER = "https://git.lantian.pub";
-        DRONE_GITEA_CLIENT_ID = "***REMOVED***";
-        DRONE_GITEA_CLIENT_SECRET = "***REMOVED***";
-        DRONE_RPC_SECRET = "***REMOVED***";
-        DRONE_SERVER_HOST = "ci.lantian.pub";
-        DRONE_SERVER_PROTO = "https";
-        DRONE_USER_CREATE = "username:lantian,admin:true";
-        DRONE_JSONNET_ENABLED = "true";
-        DRONE_STARLARK_ENABLED = "true";
-      };
+      environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       ports = [
         "${thisHost.ltnet.IPv4Prefix}.1:13080:80"
       ];
@@ -33,15 +27,7 @@ in
     };
     drone-runner = {
       image = "drone/drone-runner-docker:1";
-      environment = {
-        DRONE_RPC_PROTO = "http";
-        DRONE_RPC_HOST = "${thisHost.ltnet.IPv4Prefix}.1:13080";
-        DRONE_RPC_SECRET = "***REMOVED***";
-        DRONE_RUNNER_CAPACITY = "4";
-        DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://${thisHost.ltnet.IPv4Prefix}.1:13082";
-        DRONE_SECRET_PLUGIN_TOKEN = "***REMOVED***";
-      };
+      environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       volumes = [
         "/run/docker-dind:/run"
         "/cache:/cache"
@@ -53,17 +39,7 @@ in
     };
     drone-github = {
       image = "drone/drone:2";
-      environment = {
-        DRONE_GITHUB_CLIENT_ID = "***REMOVED***";
-        DRONE_GITHUB_CLIENT_SECRET = "***REMOVED***";
-        DRONE_RPC_SECRET = "***REMOVED***";
-        DRONE_SERVER_HOST = "ci-github.lantian.pub";
-        DRONE_SERVER_PROTO = "https";
-        DRONE_USER_CREATE = "username:xddxdd,admin:true";
-        DRONE_REGISTRATION_CLOSED = "true";
-        DRONE_JSONNET_ENABLED = "true";
-        DRONE_STARLARK_ENABLED = "true";
-      };
+      environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       ports = [
         "${thisHost.ltnet.IPv4Prefix}.1:13081:80"
       ];
@@ -73,15 +49,7 @@ in
     };
     drone-runner-github = {
       image = "drone/drone-runner-docker:1";
-    environment = {
-      DRONE_RPC_PROTO = "http";
-      DRONE_RPC_HOST = "${thisHost.ltnet.IPv4Prefix}.1:13081";
-      DRONE_RPC_SECRET = "***REMOVED***";
-      DRONE_RUNNER_CAPACITY = "4";
-      DRONE_RUNNER_NAME = "drone-docker";
-      DRONE_SECRET_PLUGIN_ENDPOINT = "http://${thisHost.ltnet.IPv4Prefix}.1:13082";
-      DRONE_SECRET_PLUGIN_TOKEN = "***REMOVED***";
-    };
+      environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       volumes = [
         "/run/docker-dind:/run"
         "/cache:/cache"
@@ -93,12 +61,7 @@ in
     };
     drone-vault = {
       image = "drone/vault";
-      environment = {
-        DRONE_DEBUG = "true";
-        DRONE_SECRET = "***REMOVED***";
-        VAULT_ADDR = "https://vault.lantian.pub";
-        VAULT_TOKEN = "***REMOVED***";
-      };
+      environmentFiles = [ config.age.secrets.drone-ci-vault-env.path ];
       ports = [
         "${thisHost.ltnet.IPv4Prefix}.1:13082:3000"
       ];

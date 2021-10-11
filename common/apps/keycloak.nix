@@ -1,10 +1,16 @@
 { pkgs, config, ... }:
 
 {
+  age.secrets.keycloak-dbpw = { 
+    file = ../../secrets/keycloak-dbpw.age;
+    mode = "0444";
+  };
+
   services.keycloak = {
     enable = true;
     bindAddress = "127.0.0.1";
-    database.passwordFile = "/srv/conf/keycloak/password";
+    database.createLocally = false;
+    database.passwordFile = config.age.secrets.keycloak-dbpw.path;
     frontendUrl = "https://login.lantian.pub/auth";
     httpPort = "13401";
     httpsPort = "13402";

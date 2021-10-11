@@ -21,6 +21,14 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # sops-nix = {
+    #   url = github:Mic92/sops-nix;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
@@ -29,6 +37,7 @@
       "soyoustart" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          inputs.agenix.nixosModules.age
           ./common/common.nix
           (import ./common/home-manager.nix { inherit inputs; })
           ./hosts/soyoustart/configuration.nix
@@ -37,6 +46,7 @@
       "virmach-ny6g" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          inputs.agenix.nixosModules.age
           ./common/common.nix
           (import ./common/home-manager.nix { inherit inputs; })
           ./hosts/virmach-ny6g/configuration.nix
@@ -45,6 +55,7 @@
       "virmach-nl1g" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          inputs.agenix.nixosModules.age
           ./common/common.nix
           (import ./common/home-manager.nix { inherit inputs; })
           ./hosts/virmach-nl1g/configuration.nix

@@ -73,6 +73,7 @@
   };
   "soyoustart" = rec {
     index = 10;
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFZz8i4n3uwXrVFyKn/QxHst3FpbYKB8uoR2YZzI4U6";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvgJ/jOYyXfRZ757JRnUe
@@ -145,6 +146,7 @@
   };
   "virmach-ny6g" = rec {
     index = 4;
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMjmwZpgsCSqgs4kTRqLbkS1uRnNTLGweRqK+YrXs7Qf";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA15U///0WfYk+VVKrBzyC
@@ -218,6 +220,7 @@
   };
   "virmach-nl1g" = rec {
     index = 6;
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA5J07sDCCcXavCT2M7daZFwQ3zdXkT6OJ94gszhWp/s";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyVVbrmGrDOzpt8UbgCer

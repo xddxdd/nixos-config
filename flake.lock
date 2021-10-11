@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631896269,
+        "narHash": "sha256-DAyCxJ8JacayOzGgGSfzrn7ghtsfL/EsCyk1NEUaAR8=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "daf1d773989ac5d949aeef03fce0fe27e583dbca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -112,11 +132,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1633910312,
-        "narHash": "sha256-CENO38Icn7dtwV6ocpLgJVkTOI2MMW0/aSDNgo3NFUI=",
+        "lastModified": 1633916170,
+        "narHash": "sha256-5OWtrcaf9++yjXgbcaS4RVJRXD+CcosLlgCyD8ZbwC4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b5367986d128bb7a1895dd9340ca64e9c4d3be1a",
+        "rev": "36834de4230f1b1d76303de44b9d3c9b06745d1c",
         "type": "github"
       },
       "original": {
@@ -147,6 +167,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "deploy-rs": "deploy-rs",
         "hath-nix": "hath-nix",
         "home-manager": "home-manager",
