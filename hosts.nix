@@ -74,19 +74,20 @@
   "soyoustart" = rec {
     index = 10;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEAvgJ/jOYyXfRZ757JRnUeJjDJndC8lLLdwcaP2IUUVFQ/euQHTRHk
-      qDrfJ4gPMbUvAYzXioC9WvqR8MCt0UN2X69iAtZzumG4asvNyM+rCR5wo8CpQh9u
-      mqCJrZLWLD/9B67VsMOS7kjNgJA521ksJSkTMgnTYb8Yo4OslRLfDvPzJ5j9D6y3
-      ChrEtmYPxg+wuH9Jt1tsyoR97uY+P9xR8cwaAnALvzritYxNWq6zMPt3BsWox6q4
-      PtwABVqxEQkT6zVgzmJ0VhWiLzlptAwEhaSmX71U7N794J2mwHtssM/mMxdmfl1R
-      y/1ZpWE6ofgVQgo8mE2od/xtdegi85RP9+pE49kYscqXMXii2hvOs8pfnYzCksXI
-      VVZbs0wrxJ/tXFEVMTFD/9yeXBAJ09RYmc7MlKcrKeN8LuKLGMRnVjx4mqOWhgdG
-      VCQvPAoJM2s3pic9FrfoqDelBVwVP6FJk7PnL981Xlw9BwIa84qkIIjEPdL9M/id
-      Cccg3cOqYfcwV5TK42amOZV84lWS2LPt7X1l4R5dYrrcapEtZdtimLxv9YdwS3wi
-      X5kfa4ApHC0sQ7SImy9OekOhX+zHoAGwMY5g7ynXfWIOzY3jGy8KmzQu5HgYp+89
-      sngyFPD3uplXm5zf/BnJ/CHPCIhgeizoqQOir44AhPKGKoDHjWsSoaUCAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvgJ/jOYyXfRZ757JRnUe
+      JjDJndC8lLLdwcaP2IUUVFQ/euQHTRHkqDrfJ4gPMbUvAYzXioC9WvqR8MCt0UN2
+      X69iAtZzumG4asvNyM+rCR5wo8CpQh9umqCJrZLWLD/9B67VsMOS7kjNgJA521ks
+      JSkTMgnTYb8Yo4OslRLfDvPzJ5j9D6y3ChrEtmYPxg+wuH9Jt1tsyoR97uY+P9xR
+      8cwaAnALvzritYxNWq6zMPt3BsWox6q4PtwABVqxEQkT6zVgzmJ0VhWiLzlptAwE
+      haSmX71U7N794J2mwHtssM/mMxdmfl1Ry/1ZpWE6ofgVQgo8mE2od/xtdegi85RP
+      9+pE49kYscqXMXii2hvOs8pfnYzCksXIVVZbs0wrxJ/tXFEVMTFD/9yeXBAJ09RY
+      mc7MlKcrKeN8LuKLGMRnVjx4mqOWhgdGVCQvPAoJM2s3pic9FrfoqDelBVwVP6FJ
+      k7PnL981Xlw9BwIa84qkIIjEPdL9M/idCccg3cOqYfcwV5TK42amOZV84lWS2LPt
+      7X1l4R5dYrrcapEtZdtimLxv9YdwS3wiX5kfa4ApHC0sQ7SImy9OekOhX+zHoAGw
+      MY5g7ynXfWIOzY3jGy8KmzQu5HgYp+89sngyFPD3uplXm5zf/BnJ/CHPCIhgeizo
+      qQOir44AhPKGKoDHjWsSoaUCAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "51.77.66.117";
@@ -145,19 +146,20 @@
   "virmach-ny6g" = rec {
     index = 4;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEA5t6vUXHBqjFsPybkP/frU5iMv6HJ61Pj+CDpK3Acdh5ABl2jvvMq
-      um1/HfTwPmQDnUDwbScOZbcORpW9x383QIWVOpBn78gvnk0xyW0i9XIAw7+OMgSK
-      bLDTlur+NpeXrmTMozbzCvXdDp+659cWx4cEG8iK4Dj1fXI2QpWdnBgUSXjAtKbp
-      hdAs4SxZev1q7/LgEKXIkoD6RjNg51qnIu8pmkylaJWTJnbuwnuzztmRK7sAOI5M
-      Bmw5/ZlpR1dZ512r4gRjuBYF5dQ/Ek7nDwQIpqJuoU/DmGYbeBqBU5VvCZXQeL6a
-      ATGCPeOYjBVF1/HHwFd8/aEat0IpAHq9REucK2SlMOa1JZH4ILdstxvdEkoJ0Vzk
-      pmy/5vTIAR1Bjcr+gfy5DaeEKAJ04asfhPph6yEALFnTy7UMEcvMCa5+6KScpk5J
-      Aui7qeuA+FYO2Cd+mnFTWnNr9rqE1exWZN9UqtZObuuDrY2LNPlDntpsrmh9P8wK
-      J+QnQYt1D2L0IG+ZuNkD85Br3+SNufjwON4HcFdii2lzGhPxi4JIsAM6mI22N8O7
-      Pf/XICGsBMaI2ARcpdKMunwAToL+BFnIeuxcrKz4u29Gr7zBMlA9qE6dBHBM+F3J
-      T0zEGOSkZjnBzutPfUpLjz1AW0hyNxuUejIT+P86Drrn1rtqxsv23VMCAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA15U///0WfYk+VVKrBzyC
+      FhIvcIZ/2aTbZGZ/Ne/L4uu1tGx5GRU0sIX6i/LuXeDrxWCqYRUk05nf2mGBwFiG
+      R5A/zbGApypr/pM9OwaQSBL05fV7PCisIuJj4oSZvasn+choHrnWWmZ568ApE+tH
+      WphtzLjPB8dd1tD8t6IkKWmjerGDh9EcJwAf+ocvwpqc0AAjgUNte4+GKa4ettyy
+      vg1xY9NpVzoydSWCeMAYxqP+i2m5797OMyYRPV/4KbV/0NYy5tVj0VMUdTXj+2JU
+      TDtBQWOqmUYRPDwYXOLBp8FFDNy9ftjQr7rRYXKQkLS/GWq8Pnp75UUHYSxQt6iI
+      jP+YmEpAhOWZXxpaucH/F5DJHWKS7k6Sr8keT1iWUacHXc2IN7bbhDmzYvFaRZ1d
+      ZoDNNnjJimzCyPIKYqy3l8BzSqpsSGQufsil26bbwr+7s4swq2pumgEWjS9n3K5M
+      VGBpDQwMdkP1lgZR0W3eGVscWGFbHs1K4zz1YikExGgpg61Up/5ymS4/7BdYnZsr
+      jNaEXf51vQeEvAEyzBtTaftKG+wKvjR4m2m4gcQ0+VNDQoUM7voi3OPd5Ja7l2tT
+      q4rz6zrFkAaDZjiy1sTJ+c4w22gQZdY+wcToQDG6r3d/sw5DIm41xs7uXjnx2r92
+      5VnT6fySR2XCoeSqezabpiECAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "107.172.197.108";
@@ -217,19 +219,20 @@
   "virmach-nl1g" = rec {
     index = 6;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEAyVVbrmGrDOzpt8UbgCer+2XJAWOQjzy2mMrNTgG/gcKvzhPCLgjD
-      XOEW5eUAAPHa8yalJKs/n7DaxeNzJSk5afckTABfCZt5F8f/J7F6AIjkD+TmUVpr
-      1mNU+bdrR4ZSiv5sy68FE90OnS0rphfeAajCV2kDgsz73y4gtUGU6rlESTvACvFE
-      RfakTcP8RzRk43ZPjdnbxdTk3wEyto55dVlwjiapDHDpIzYJnrdreed3m10wTpBG
-      +BMq1KsFAuZ2WsBownGhEA4PgMaVoT5kNQ3Tn3ymA0h6ocnfcwNyyMpg90k840AN
-      Zjb/y3HBoaPdKxaV3sWfp9kriHvvlKSlcSXGhep086MVtnmM/24PvW02Dql2inNm
-      LejHSF9giKbD1zX4DY7unjLt2oPfVjdtY1MEaZqTZ3baNICECo89w8LumPVk66PW
-      LmCSu6fKE1kPB7eepd/7VuNT92B62ufdfIWxthKXbs9exbhUwuBRpClhqIBfh4bN
-      mIXOmoc5Ly13VDwONn+WRkQT7hiFyuwWoNuCkW8yGwWZ5LuvpekDXBY51717FuT3
-      x90VKaKQmtA5wIX8wsCAtiLFJVfgZkQ2kMmFHt28O9xuo2wxCiR4Mc/S+JgVo+KT
-      XxP0QbcvworO+6DfmdDREUCMDu9g9riHBzVRZbvZNJc1omAUpZ5yLJsCAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyVVbrmGrDOzpt8UbgCer
+      +2XJAWOQjzy2mMrNTgG/gcKvzhPCLgjDXOEW5eUAAPHa8yalJKs/n7DaxeNzJSk5
+      afckTABfCZt5F8f/J7F6AIjkD+TmUVpr1mNU+bdrR4ZSiv5sy68FE90OnS0rphfe
+      AajCV2kDgsz73y4gtUGU6rlESTvACvFERfakTcP8RzRk43ZPjdnbxdTk3wEyto55
+      dVlwjiapDHDpIzYJnrdreed3m10wTpBG+BMq1KsFAuZ2WsBownGhEA4PgMaVoT5k
+      NQ3Tn3ymA0h6ocnfcwNyyMpg90k840ANZjb/y3HBoaPdKxaV3sWfp9kriHvvlKSl
+      cSXGhep086MVtnmM/24PvW02Dql2inNmLejHSF9giKbD1zX4DY7unjLt2oPfVjdt
+      Y1MEaZqTZ3baNICECo89w8LumPVk66PWLmCSu6fKE1kPB7eepd/7VuNT92B62ufd
+      fIWxthKXbs9exbhUwuBRpClhqIBfh4bNmIXOmoc5Ly13VDwONn+WRkQT7hiFyuwW
+      oNuCkW8yGwWZ5LuvpekDXBY51717FuT3x90VKaKQmtA5wIX8wsCAtiLFJVfgZkQ2
+      kMmFHt28O9xuo2wxCiR4Mc/S+JgVo+KTXxP0QbcvworO+6DfmdDREUCMDu9g9riH
+      BzVRZbvZNJc1omAUpZ5yLJsCAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "172.245.52.105";
