@@ -13,6 +13,7 @@
     ../../common/apps/keycloak.nix
     ../../common/apps/quassel.nix
     ../../common/apps/bird-lg-go.nix
+    ../../common/apps/genshin-helper.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
