@@ -4,12 +4,16 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../common/apps/ansible.nix
     ../../common/apps/babeld.nix
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
     ../../common/apps/ltnet.nix
     ../../common/apps/powerdns-recursor.nix
+    ../../common/apps/qemu-user-static.nix
     ../../common/apps/tinc.nix
+    ../../common/apps/v2ray.nix
+    ../../common/apps/zsh.nix
   ];
 
   nixpkgs.localSystem = { config = "aarch64-unknown-linux-gnu"; system = "aarch64-linux"; };

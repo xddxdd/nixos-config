@@ -31,19 +31,12 @@
   };
 
   imports = [
-    ./users.nix
-    ./apps/zsh.nix
     ./iptables.nix
     ./ssh-harden.nix
+    ./users.nix
 
     ./components/php-switch.nix
     ./components/route-chain.nix
-
-    ./apps/qemu-user-static.nix
-
-    ./apps/nginx.nix
-    ./apps/ansible.nix
-    ./apps/v2ray.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -52,14 +45,14 @@
     kernelPackage = pkgs.linuxKernel.packagesFor pkgs.nur.repos.xddxdd.linux-xanmod-lantian;
   in {
     kernelParams = [
-      "vga=normal"
-      "nofb"
-      "nomodeset"
       "audit=0"
       "cgroup_enable=memory"
+      "net.ifnames=0"
+      "nofb"
+      "nomodeset"
       "swapaccount=1"
       "syscall.x32=y"
-      "net.ifnames=0"
+      "vga=normal"
     ];
     kernelPackages = kernelPackage;
 
@@ -133,15 +126,17 @@
 
   environment.systemPackages = with pkgs; [
     crun
+    dig
     git
-    screen
-    wget
     htop
-    tcpdump
-    python3Minimal
+    inetutils
     iptables
     nftables
-    dig
+    openssl
+    python3Minimal
+    screen
+    tcpdump
+    wget
   ];
 
   hardware.ksm.enable = true;
