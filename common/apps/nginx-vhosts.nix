@@ -177,6 +177,19 @@ let
     { addr = "[::]"; port = port; extraParameters = [ "plain" ] ++ listenDefaultFlags; }
   ];
 
+  listenPlainProxyProtocol = port: [
+    { addr = "${thisHost.ltnet.IPv4Prefix}.1"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "[${thisHost.ltnet.IPv6Prefix}::1]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+  ];
+
+  listenProxyProtocol = ''
+    set_real_ip_from 127.0.0.0/8;
+    set_real_ip_from 172.18.0.0/16;
+    set_real_ip_from fe80::/16;
+    set_real_ip_from fdbc:f9dc:67ad::/48;
+    real_ip_header proxy_protocol;
+  '';
+
   addConfLantianPub = pkgs.lib.recursiveUpdate {
     locations = addCommonLocationConf {
       "/" = {
@@ -275,7 +288,7 @@ in
     };
 
     "gopher.lantian.pub" = {
-      listen = listen443 ++ listen80 ++ listenPlain 70;
+      listen = listen443 ++ listen80 ++ listenPlain 70 ++ listenPlainProxyProtocol 13270;
       root = "/srv/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
@@ -292,11 +305,12 @@ in
         error_page 404 /404.gopher;
       ''
       + makeSSL "lantian.pub_ecc"
-      + commonVhostConf true;
+      + commonVhostConf true
+      + listenProxyProtocol;
     };
 
     "whois.lantian.pub" = {
-      listen = listen443 ++ listen80 ++ listenPlain 43;
+      listen = listen443 ++ listen80 ++ listenPlain 43 ++ listenPlainProxyProtocol 13243;
       root = "/srv/cache/dn42-registry/data";
       serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
 
@@ -368,7 +382,7 @@ in
       };
 
       extraConfig = makeSSL "lantian.pub_ecc"
-        + commonVhostConf true;
+        + listenProxyProtocol;
     };
     "whois.stage2.local" = {
       listen = listen80;
