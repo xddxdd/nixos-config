@@ -41,6 +41,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  age.secrets.smtp-pass.file = ../secrets/smtp-pass.age;
+  age.secrets.smtp-pass.mode = "0444";
+
   boot = let
     kernelPackage = pkgs.linuxKernel.packagesFor pkgs.nur.repos.xddxdd.linux-xanmod-lantian;
   in {
@@ -149,6 +152,20 @@
     iotop.enable = true;
     less.enable = true;
     mosh.enable = true;
+    msmtp = {
+      enable = true;
+      accounts.default = {
+        auth = true;
+        host = "smtp.sendgrid.net";
+        port = 465;
+        from = "postmaster@lantian.pub";
+        user = "apikey";
+        passwordeval = "cat ${config.age.secrets.smtp-pass.path}";
+        tls = true;
+        tls_starttls = false;
+        tls_trust_file = "/etc/ssl/certs/ca-certificates.crt";
+      };
+    };
     mtr.enable = true;
     ssh.forwardX11 = true;
     traceroute.enable = true;
