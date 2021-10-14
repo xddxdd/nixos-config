@@ -35,6 +35,7 @@
     ./ssh-harden.nix
     ./users.nix
 
+    ./components/backup.nix
     ./components/php-switch.nix
     ./components/route-chain.nix
   ];
