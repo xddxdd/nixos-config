@@ -22,6 +22,7 @@
     ../../common/apps/genshin-helper.nix
     ../../common/apps/keycloak.nix
     ../../common/apps/quassel.nix
+    ../../common/apps/vaultwarden.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only

@@ -160,6 +160,7 @@
         port = 465;
         from = "postmaster@lantian.pub";
         user = "apikey";
+        # A copy of password is in vaultwarden-env.age
         passwordeval = "cat ${config.age.secrets.smtp-pass.path}";
         tls = true;
         tls_starttls = false;

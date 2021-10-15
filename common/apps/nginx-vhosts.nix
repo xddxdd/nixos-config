@@ -537,5 +537,26 @@ in
       extraConfig = makeSSL "lantian.dn42_ecc"
         + commonVhostConf true;
     };
+
+    "bitwarden.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://127.0.0.1:13772";
+          extraConfig = locationProxyConf;
+        };
+        "/notifications/hub" = {
+          proxyPass = "http://127.0.0.1:13773";
+          proxyWebsockets = true;
+          extraConfig = locationProxyConf;
+        };
+        "/notifications/hub/negotiate" = {
+          proxyPass = "http://127.0.0.1:13772";
+          extraConfig = locationProxyConf;
+        };
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
   };
 }
