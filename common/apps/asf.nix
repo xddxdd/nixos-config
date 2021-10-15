@@ -12,7 +12,7 @@ in
         "${thisHost.ltnet.IPv4Prefix}.1:13242:1242"
       ];
       volumes = [
-        "/srv/data/asf:/app/config"
+        "/var/lib/asf:/app/config"
       ];
     };
   };

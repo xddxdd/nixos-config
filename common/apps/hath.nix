@@ -1,10 +1,10 @@
 { pkgs, config, ... }:
 
 let
-  hathCacheDir = "/srv/cache/hath";
-  hathDataDir = "/srv/data/hath";
-  hathDownloadDir = "/srv/data/hath";
-  hathLogDir = "/srv/log/hath";
+  hathCacheDir = "/var/cache/hath";
+  hathDataDir = "/var/lib/hath";
+  hathDownloadDir = "/var/lib/hath";
+  hathLogDir = "/var/log/hath";
   hathTempDir = "/tmp/hath";
 in
 {

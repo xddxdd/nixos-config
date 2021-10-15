@@ -22,7 +22,7 @@ in
         "${thisHost.ltnet.IPv4Prefix}.1:13080:80"
       ];
       volumes = [
-        "/srv/data/drone:/data"
+        "/var/lib/drone:/data"
       ];
     };
     drone-runner = {
@@ -44,7 +44,7 @@ in
         "${thisHost.ltnet.IPv4Prefix}.1:13081:80"
       ];
       volumes = [
-        "/srv/data/drone-github:/data"
+        "/var/lib/drone-github:/data"
       ];
     };
     drone-runner-github = {
@@ -68,9 +68,11 @@ in
     };
     dind = {
       image = "docker:dind";
+      cmd = [ "--data-root" "/var/lib/docker-dind" ];
       volumes = [
         "/cache:/cache"
-        "/var/lib/docker-dind:/var/lib/docker"
+        "/srv:/srv"
+        "/var/lib:/var/lib"
         "/run/docker-dind:/run"
       ];
       extraOptions = [ "--privileged" ];

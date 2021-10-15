@@ -10,7 +10,7 @@ in
     package = pkgs.vault-bin;
     address = "${thisHost.ltnet.IPv4Prefix}.1:8200";
     storageBackend = "file";
-    storagePath = "/srv/data/vault";
+    storagePath = "/var/lib/vault";
     extraConfig = ''
       ui = 1
     '';

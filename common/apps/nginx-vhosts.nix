@@ -8,10 +8,10 @@ let
       acmeHost = pkgs.lib.elemAt (pkgs.lib.splitString "_" acmeName) 0;
     in
     ''
-      ssl_certificate /srv/data/acme.sh/${acmeName}/fullchain.cer;
-      ssl_certificate_key /srv/data/acme.sh/${acmeName}/${acmeHost}.key;
+      ssl_certificate /var/lib/acme.sh/${acmeName}/fullchain.cer;
+      ssl_certificate_key /var/lib/acme.sh/${acmeName}/${acmeHost}.key;
       ssl_stapling on;
-      ssl_stapling_file /srv/data/acme.sh/${acmeName}/ocsp.resp;
+      ssl_stapling_file /var/lib/acme.sh/${acmeName}/ocsp.resp;
     '';
 
   commonVhostConf = ssl: ''
