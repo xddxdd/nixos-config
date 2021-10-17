@@ -3,7 +3,7 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
-  otherHosts = builtins.removeAttrs hosts [config.networking.hostName];
+  otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
@@ -23,17 +23,39 @@ let
         };
       };
     '';
+
+  birdConfDir = ../files/bird;
+
+  birdLocalConf = pkgs.writeText "bird-local.conf" ''
+    define LTNET_IPv4 = ${thisHost.ltnet.IPv4Prefix}.1;
+    define LTNET_IPv6 = ${thisHost.ltnet.IPv6Prefix}::1;
+    define LTNET_AS = ${builtins.toString (4225470000 + thisHost.index)};
+
+    define DN42_AS = 4242422547;
+    define DN42_IPv4 = ${thisHost.dn42.IPv4};
+    define DN42_IPv6 = ${thisHost.dn42.IPv6};
+    define DN42_REGION = ${builtins.toString thisHost.dn42.region};
+
+    define NEONETWORK_AS = 4201270010;
+    define NEONETWORK_IPv4 = ${thisHost.neonetwork.IPv4};
+    define NEONETWORK_IPv6 = ${thisHost.neonetwork.IPv6};
+  '';
+
+  birdLtnetPeersConf = pkgs.writeText "bird-ltnet-peers.conf"
+    (builtins.concatStringsSep "\n"
+      (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts));
+
 in
 {
   services.bird2 = {
     enable = true;
     checkConfig = false;
     config = ''
-      include "/etc/bird/local.conf";
-      include "/etc/bird/network.conf";
-      include "/etc/bird/common/dn42_community_filters.conf";
-      include "/etc/bird/common/ltnet_community.conf";
-      include "/etc/bird/common/roa_monitor.conf";
+      include "${birdLocalConf}";
+      include "${birdConfDir}/network.conf";
+      include "${birdConfDir}/common/dn42_community_filters.conf";
+      include "${birdConfDir}/common/ltnet_community.conf";
+      include "${birdConfDir}/common/roa_monitor.conf";
 
       log stderr { error, fatal };
       #debug protocols all;
@@ -93,35 +115,35 @@ in
         roa4 {
           table roa_v4;
         };
-        # include "/etc/bird/dn42/dn42_bird2_roa4.conf";
-        # include "/etc/bird/neonetwork/neonetwork_bird2_roa4.conf";
+        include "/var/lib/bird/dn42/dn42_bird2_roa4.conf";
+        include "/var/lib/bird/neonetwork/neonetwork_bird2_roa4.conf";
       };
 
       protocol static static_roa6 {
         roa6 {
           table roa_v6;
         };
-        # include "/etc/bird/dn42/dn42_bird2_roa6.conf";
-        # include "/etc/bird/neonetwork/neonetwork_bird2_roa6.conf";
+        include "/var/lib/bird/dn42/dn42_bird2_roa6.conf";
+        include "/var/lib/bird/neonetwork/neonetwork_bird2_roa6.conf";
       };
 
       router id LTNET_IPv4;
 
       timeformat protocol iso long;
 
-      include "/etc/bird/dn42/base.conf";
-      include "/etc/bird/neonetwork/base.conf";
+      include "${birdConfDir}/dn42/base.conf";
+      include "${birdConfDir}/neonetwork/base.conf";
 
       # GRC config must be below dn42 & neonetwork since it uses filters from them
     '' + pkgs.lib.optionalString (builtins.hasAttr "burble_grc" thisHost.dn42 && thisHost.dn42.burble_grc) ''
-      include "/etc/bird/dn42/burble_grc.conf";
+      include "${birdConfDir}/dn42/burble_grc.conf";
     '' + ''
 
-      include "/etc/bird/docker/ospf.conf";
-      include "/etc/bird/ltnet/bgp.conf";
-      include "/etc/bird/ltnet/bgp_downstream.conf";
-      include "/etc/bird/ltnet/bgp_peers.conf";
-      #include "/etc/bird/ltnet/ustc_blacklist.conf";
+      include "${birdConfDir}/docker/ospf.conf";
+      include "${birdConfDir}/ltnet/bgp.conf";
+      include "${birdConfDir}/ltnet/bgp_downstream.conf";
+      include "${birdLtnetPeersConf}";
+      #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
 
       protocol direct sys_direct {
         interface "*";
@@ -191,40 +213,6 @@ in
         };
       };
     '';
-  };
-
-  environment.etc = {
-    "bird/local.conf".text = ''
-      define LTNET_IPv4 = ${thisHost.ltnet.IPv4Prefix}.1;
-      define LTNET_IPv6 = ${thisHost.ltnet.IPv6Prefix}::1;
-      define LTNET_AS = ${builtins.toString (4225470000 + thisHost.index)};
-
-      define DN42_AS = 4242422547;
-      define DN42_IPv4 = ${thisHost.dn42.IPv4};
-      define DN42_IPv6 = ${thisHost.dn42.IPv6};
-      define DN42_REGION = ${builtins.toString thisHost.dn42.region};
-
-      define NEONETWORK_AS = 4201270010;
-      define NEONETWORK_IPv4 = ${thisHost.neonetwork.IPv4};
-      define NEONETWORK_IPv6 = ${thisHost.neonetwork.IPv6};
-    '';
-
-    "bird/network.conf".source = ../files/bird/network.conf;
-    "bird/common/dn42_community_filters.conf".source = ../files/bird/common/dn42_community_filters.conf;
-    "bird/common/ltnet_community.conf".source = ../files/bird/common/ltnet_community.conf;
-    "bird/common/roa_monitor.conf".source = ../files/bird/common/roa_monitor.conf;
-    "bird/dn42/base.conf".source = ../files/bird/dn42/base.conf;
-    "bird/dn42/burble_grc.conf".source = ../files/bird/dn42/burble_grc.conf;
-    "bird/docker/ospf.conf".source = ../files/bird/docker/ospf.conf;
-    "bird/ltnet/bgp.conf".source = ../files/bird/ltnet/bgp.conf;
-    "bird/ltnet/bgp_downstream.conf".source = ../files/bird/ltnet/bgp_downstream.conf;
-    "bird/neonetwork/base.conf".source = ../files/bird/neonetwork/base.conf;
-
-    "bird/dn42/peers4.conf".text = "# TODO";
-    "bird/dn42/peers6.conf".text = "# TODO";
-    "bird/ltnet/bgp_peers.conf".text =
-      builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts);
-    "bird/neonetwork/peers.conf".text = "# TODO";
   };
 
   systemd.services.bird-lgproxy-go-v4 = {
