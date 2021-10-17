@@ -224,6 +224,14 @@ in
 
       locations = {
         "/".return = "444";
+        "= /.well-known/openid-configuration".extraConfig = ''
+          root ${../files/openid-configuration};
+          try_files /openid-configuration =404;
+        '';
+        "= /openid-configuration".extraConfig = ''
+          root ${../files/openid-configuration};
+          try_files /openid-configuration =404;
+        '';
         "/generate_204".return = "204";
       };
 
@@ -549,6 +557,19 @@ in
           proxyPass = "http://127.0.0.1:13772";
           extraConfig = locationProxyConf;
         };
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
+
+    "git.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny1g") {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://unix:/run/gitea/gitea.sock";
+          extraConfig = locationProxyConf;
+        };
+        "= /user/login".return = "302 /user/oauth2/Keycloak";
       };
       extraConfig = makeSSL "lantian.pub_ecc"
         + commonVhostConf true;

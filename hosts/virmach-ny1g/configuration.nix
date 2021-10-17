@@ -21,6 +21,8 @@ in
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
     ../../common/apps/zsh.nix
+
+    ../../common/apps/gitea.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
