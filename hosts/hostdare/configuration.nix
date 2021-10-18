@@ -43,7 +43,7 @@
     address = "2607:fcd0:100:b100::1";
   };
   networking.nameservers = [
-    "1.1.1.1"
+    "8.8.8.8"
   ];
 
   services."route-chain" = {

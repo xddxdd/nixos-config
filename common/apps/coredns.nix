@@ -75,12 +75,12 @@ in
             forward . ${thisHost.ltnet.IPv4Prefix}.55 ${thisHost.ltnet.IPv6Prefix}::55
           }
 
-          # Cloudflare
+          # Google DNS
           .:55 {
-            forward . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001 {
-              tls_servername cloudflare-dns.com
+            forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
+              tls_servername dns.google
               policy sequential
-              health_check 10s
+              health_check 1m
             }
             cache
           }
@@ -90,7 +90,7 @@ in
             forward . tls://45.90.28.61 tls://45.90.30.61 tls://2a07:a8c0::37:8897 tls://2a07:a8c1::37:8897 {
               tls_servername ${config.networking.hostName}-378897.dns.nextdns.io
               policy sequential
-              health_check 10s
+              health_check 1m
             }
             cache
           }

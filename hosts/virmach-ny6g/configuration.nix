@@ -44,7 +44,7 @@ in
     address = "107.172.197.1";
   };
   networking.nameservers = [
-    "1.1.1.1"
+    "8.8.8.8"
   ];
 
   networking.sits.henet = {

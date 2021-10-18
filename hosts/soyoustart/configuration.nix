@@ -67,7 +67,7 @@
     interface = "eth0";
   };
   networking.nameservers = [
-    "1.1.1.1"
+    "8.8.8.8"
   ];
 
   services."route-chain" = {
