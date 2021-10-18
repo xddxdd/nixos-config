@@ -47,7 +47,7 @@ in
     recommendedTlsSettings = true;
     resolver = {
       addresses = [
-        "1.1.1.1"
+        "8.8.8.8"
       ];
       ipv6 = false;
     };

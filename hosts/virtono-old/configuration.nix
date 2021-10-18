@@ -42,7 +42,7 @@
     address = "2001:ac8:20:3::1";
   };
   networking.nameservers = [
-    "1.1.1.1"
+    "8.8.8.8"
   ];
 
   services."route-chain" = {

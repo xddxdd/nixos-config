@@ -47,7 +47,7 @@
     address = "2605:6400:30::1";
   };
   networking.nameservers = [
-    "1.1.1.1"
+    "8.8.8.8"
   ];
 
   services."route-chain" = {
