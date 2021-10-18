@@ -574,5 +574,21 @@ in
       extraConfig = makeSSL "lantian.pub_ecc"
         + commonVhostConf true;
     };
+
+    "cloud.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny1g") {
+      listen = pkgs.lib.mkForce listen443;
+      extraConfig = makeSSL "lantian.pub_ecc";
+    };
+    "pma.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny1g") {
+      listen = listen443;
+      root = "/var/www/pma.lantian.pub";
+      locations = addCommonLocationConf {
+        "/" = {
+          index = "index.php";
+        };
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
   };
 }
