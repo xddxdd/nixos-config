@@ -41,7 +41,7 @@ let
 
     "/autoindex.html".extraConfig = ''
       internal;
-      root /etc/nginx;
+      root ${../files/autoindex};
     '';
 
     "/status".extraConfig = ''
@@ -207,7 +207,7 @@ let
       "/feed".tryFiles = "$uri /feed.xml /atom.xml =404";
     };
 
-    root = "/srv/www/lantian.pub";
+    root = "/var/www/lantian.pub";
   };
 in
 {
@@ -292,7 +292,7 @@ in
 
     "gopher.lantian.pub" = {
       listen = listen443 ++ listen80 ++ listenPlain 70 ++ listenPlainProxyProtocol 13270;
-      root = "/srv/www/lantian.pub";
+      root = "/var/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
       locations."/" = {
@@ -586,6 +586,31 @@ in
         "/" = {
           index = "index.php";
         };
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
+    "lab.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny1g") {
+      listen = listen443;
+      root = "/var/www/lab.lantian.pub";
+      locations = addCommonLocationConf {
+        "/" = {
+          index = "index.php index.html index.htm";
+          tryFiles = "$uri $uri/ =404";
+        };
+        "= /".extraConfig = ''
+          autoindex on;
+          add_after_body /autoindex.html;
+        '';
+        "/hobby-net".extraConfig = ''
+          autoindex on;
+          add_after_body /autoindex.html;
+        '';
+        "/zjui-ece385-scoreboard".extraConfig = ''
+          gzip off;
+          brotli off;
+          zstd off;
+        '';
       };
       extraConfig = makeSSL "lantian.pub_ecc"
         + commonVhostConf true;
