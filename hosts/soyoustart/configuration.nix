@@ -20,6 +20,7 @@
     ../../common/apps/asf.nix
     ../../common/apps/drone-ci.nix
     ../../common/apps/hath.nix
+    ../../common/apps/tg-bot-cleaner-bot.nix
   ];
 
   boot.loader.systemd-boot.enable = false;
