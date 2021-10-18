@@ -71,7 +71,6 @@ in
       cmd = [ "--data-root" "/var/lib/docker-dind" ];
       volumes = [
         "/cache:/cache"
-        "/srv:/srv"
         "/var/lib:/var/lib"
         "/run/docker-dind:/run"
       ];

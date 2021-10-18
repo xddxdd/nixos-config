@@ -314,7 +314,7 @@ in
 
     "whois.lantian.pub" = {
       listen = listen443 ++ listen80 ++ listenPlain 43 ++ listenPlainProxyProtocol 13243;
-      root = "/srv/cache/dn42-registry/data";
+      root = "/var/cache/dn42-registry/data";
       serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
 
       locations = {

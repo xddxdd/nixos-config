@@ -13,7 +13,7 @@ in
     ephemeral = true;
 
     bindMounts = {
-      "/srv" = { hostPath = "/srv"; isReadOnly = false; };
+      "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
     };
 
     privateNetwork = true;
@@ -109,7 +109,7 @@ in
           addNTA("0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa")
           addNTA("18.172.in-addr.arpa")
 
-          dofile("/srv/conf/powerdns-recursor/conf.d/fwd-dn42-interconnect.lua")
+          dofile("/var/lib/powerdns-recursor/fwd-dn42-interconnect.lua")
         '';
         serveRFC1918 = false;
         settings = {
@@ -120,7 +120,7 @@ in
           reuseport = "yes";
           server-id = "lantian";
           tcp-fast-open = "128";
-          include-dir = "/srv/conf/powerdns-recursor/conf.d";
+          include-dir = "/var/lib/powerdns-recursor";
           "forward-zones-recurse+" = ".=172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
         };
       };
