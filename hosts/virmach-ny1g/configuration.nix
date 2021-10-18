@@ -23,6 +23,7 @@ in
     ../../common/apps/zsh.nix
 
     ../../common/apps/gitea.nix
+    ../../common/apps/nextcloud.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
@@ -77,6 +78,8 @@ in
       "2001:470:8a6d::1/120"
     ];
   };
+
+  lantian.enable-php = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
