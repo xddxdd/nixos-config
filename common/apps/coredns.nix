@@ -7,14 +7,37 @@ let
   hostConfig = config;
   corednsContainerIP = 54;
   knotContainerIP = 55;
+
+  dnssecKeys = import ../../dnssec-keys.nix;
 in
+{
+  age.secrets = builtins.listToAttrs (pkgs.lib.flatten (builtins.map
+    (n: [
+      {
+        name = "${n}.key";
+        value = {
+          name = "${n}.key";
+          file = ../../secrets/dnssec + "/${n}.key.age";
+        };
+      }
+      {
+        name = "${n}.private";
+        value = {
+          name = "${n}.private";
+          file = ../../secrets/dnssec + "/${n}.private.age";
+        };
+      }
+    ])
+    dnssecKeys));
+} //
 {
   containers.coredns = {
     autoStart = true;
     ephemeral = true;
 
     bindMounts = {
-      "/srv" = { hostPath = "/srv"; isReadOnly = false; };
+      "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+      "/run/secrets" = { hostPath = "/run/secrets"; isReadOnly = true; };
     };
 
     forwardPorts = [
@@ -75,7 +98,7 @@ in
           # DN42 Lan Tian Authoritatives
           lantian.dn42:54 {
             bind 127.0.0.1
-            file "/srv/conf/bind/zones/lantian.dn42.zone"
+            file "/var/lib/zones/zones/lantian.dn42.zone"
           }
           _acme-challenge.lantian.dn42:54 {
             bind 127.0.0.1
@@ -83,7 +106,7 @@ in
           }
           asn.lantian.dn42:54 {
             bind 127.0.0.1
-            file "/srv/conf/bind/zones-ltnet/asn.lantian.dn42.zone"
+            file "/var/lib/zones/zones-ltnet/asn.lantian.dn42.zone"
           }
           lantian.dn42 {
             any
@@ -92,7 +115,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "/srv/conf/bind/dnssec/Klantian.dn42.+013+20109"
+              key file "${hostConfig.age.secrets."Klantian.dn42.+013+20109.private".path}"
             }
           }
 
@@ -101,9 +124,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/184_29.76.22.172.in-addr.arpa.zone"
+            file "/var/lib/zones/zones/184_29.76.22.172.in-addr.arpa.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/K184_29.76.22.172.in-addr.arpa.+013+08709"
+              key file "${hostConfig.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
             }
           }
           96/27.76.22.172.in-addr.arpa {
@@ -111,9 +134,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/96_27.76.22.172.in-addr.arpa.zone"
+            file "/var/lib/zones/zones/96_27.76.22.172.in-addr.arpa.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/K96_27.76.22.172.in-addr.arpa.+013+41969"
+              key file "${hostConfig.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
             }
           }
           d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa {
@@ -121,9 +144,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
+            file "/var/lib/zones/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
+              key file "${hostConfig.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
             }
           }
 
@@ -133,20 +156,20 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones-ltnet/neo.zone"
+            file "/var/lib/zones/zones-ltnet/neo.zone"
           }
           127.10.in-addr.arpa {
             any
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones-ltnet/127.10.in-addr.arpa.zone"
+            file "/var/lib/zones/zones-ltnet/127.10.in-addr.arpa.zone"
           }
 
           # NeoNetwork Lan Tian Authoritative
           lantian.neo:54 {
             bind 127.0.0.1
-            file "/srv/conf/bind/zones/lantian.neo.zone"
+            file "/var/lib/zones/zones/lantian.neo.zone"
           }
           _acme-challenge.lantian.neo:54 {
             bind 127.0.0.1
@@ -154,7 +177,7 @@ in
           }
           asn.lantian.neo:54 {
             bind 127.0.0.1
-            file "/srv/conf/bind/zones-ltnet/asn.lantian.neo.zone"
+            file "/var/lib/zones/zones-ltnet/asn.lantian.neo.zone"
           }
           lantian.neo {
             any
@@ -163,7 +186,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "/srv/conf/bind/dnssec/Klantian.neo.+013+47346"
+              key file "${hostConfig.age.secrets."Klantian.neo.+013+47346.private".path}"
             }
           }
 
@@ -172,9 +195,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/10.127.10.in-addr.arpa.zone"
+            file "/var/lib/zones/zones/10.127.10.in-addr.arpa.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/K10.127.10.in-addr.arpa.+013+53292"
+              key file "${hostConfig.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
             }
           }
           0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa {
@@ -182,9 +205,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
+            file "/var/lib/zones/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
+              key file "${hostConfig.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
             }
           }
 
@@ -194,9 +217,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones-ltnet/asn.lantian.pub.zone"
+            file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/Kasn.lantian.pub.+013+48539"
+              key file "${hostConfig.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
             }
           }
           dn42.lantian.pub {
@@ -204,9 +227,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/dn42.lantian.pub.zone"
+            file "/var/lib/zones/zones/dn42.lantian.pub.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/Kdn42.lantian.pub.+013+58078"
+              key file "${hostConfig.age.secrets."Kdn42.lantian.pub.+013+58078.private".path}"
             }
           }
           neo.lantian.pub {
@@ -214,9 +237,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/neo.lantian.pub.zone"
+            file "/var/lib/zones/zones/neo.lantian.pub.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/Kneo.lantian.pub.+013+53977"
+              key file "${hostConfig.age.secrets."Kneo.lantian.pub.+013+53977.private".path}"
             }
           }
           zt.lantian.pub {
@@ -224,9 +247,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/zt.lantian.pub.zone"
+            file "/var/lib/zones/zones/zt.lantian.pub.zone"
             dnssec {
-              key file "/srv/conf/bind/dnssec/Kzt.lantian.pub.+013+44508"
+              key file "${hostConfig.age.secrets."Kzt.lantian.pub.+013+44508.private".path}"
             }
           }
 
@@ -236,13 +259,13 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/srv/conf/bind/zones/18.172.in-addr.arpa.zone"
+            file "/var/lib/zones/zones/18.172.in-addr.arpa.zone"
           }
 
           # Public Internet Authoritative
           lantian.eu.org:54 {
             bind 127.0.0.1
-            file "/srv/conf/bind/zones/lantian.eu.org.zone"
+            file "/var/lib/zones/zones/lantian.eu.org.zone"
           }
           _acme-challenge.lantian.eu.org:54 {
             bind 127.0.0.1
@@ -255,7 +278,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "/srv/conf/bind/dnssec/Klantian.eu.org.+013+37106"
+              key file "${hostConfig.age.secrets."Klantian.eu.org.+013+37106.private".path}"
             }
           }
         '';
@@ -355,7 +378,7 @@ in
     ephemeral = true;
 
     bindMounts = {
-      "/srv" = { hostPath = "/srv"; isReadOnly = false; };
+      "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
     };
 
     privateNetwork = true;
@@ -381,7 +404,7 @@ in
           let
             dn42SlaveZone = name: ''
               - domain: ${name}
-                storage: /srv/conf/bind/zones-slave/
+                storage: /var/lib/zones/zones-slave/
                 file: ${name}.zone
                 refresh-min-interval: 1m
                 refresh-max-interval: 1d
@@ -391,7 +414,7 @@ in
             '';
             opennicSlaveZone = name: ''
               - domain: ${name}
-                storage: /srv/conf/bind/zones-slave/
+                storage: /var/lib/zones/zones-slave/
                 file: ${if name == "." then "root" else name}.zone
                 refresh-min-interval: 1h
                 refresh-max-interval: 1d
@@ -518,4 +541,8 @@ in
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /run/secrets 755 root root"
+  ];
 }
