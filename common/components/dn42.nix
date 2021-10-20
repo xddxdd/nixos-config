@@ -185,11 +185,9 @@ in
             dev-type      tun
             resolv-retry  infinite
             dev           ${interfaceName}
-            auth          SHA256
             comp-lzo
             persist-key
             persist-tun
-            tun-ipv6
             cipher        aes-256-cbc
             secret        ${v.tunnel.openvpnStaticKeyPath}
           '';
