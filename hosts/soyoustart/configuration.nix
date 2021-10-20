@@ -21,6 +21,7 @@
     ../../common/apps/drone-ci.nix
     ../../common/apps/hath.nix
     ../../common/apps/tg-bot-cleaner-bot.nix
+    ../../common/apps/xmrig.nix
   ];
 
   boot.loader.systemd-boot.enable = false;
