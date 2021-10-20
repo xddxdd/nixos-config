@@ -80,6 +80,13 @@
 
   lantian.enable-php = true;
 
+  services.beesd.filesystems.root = {
+    spec = "/";
+    hashTableSizeMB = 4096;
+    verbosity = "crit";
+    extraOptions = [ "--thread-count" "2" ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
