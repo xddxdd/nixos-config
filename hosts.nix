@@ -301,6 +301,7 @@
   };
   "oracle-vm1" = rec {
     index = 5;
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErp+D8ITlOFi946F3/GEq+QWsDX9myFeVAwaFBLfqfJ";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv7l7ixKfO1VVfhfnKdVK
@@ -337,6 +338,7 @@
   };
   "oracle-vm2" = rec {
     index = 7;
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzrBeumtGvE+EZ0qlHMs43DMQ+jBXawKa4ztYFS2cTb";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqk2NiTWBhuWGF5bVp0VI
@@ -373,6 +375,8 @@
   };
   "oracle-vm-arm" = rec {
     index = 12;
+    system = "aarch64-linux";
+    sshPub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINaMb598DMCrl3knaRaLzF5XVGCnjZSQQ5WKeYcZh88m";
     tincPub = ''
       -----BEGIN PUBLIC KEY-----
       MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApe1NKoMICXysW1iUKzRB
