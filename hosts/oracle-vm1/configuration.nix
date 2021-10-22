@@ -13,19 +13,31 @@
     ../../common/apps/tinc.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev";
+  };
 
-  networking.hostName = "virmach-nl1g"; # Define your hostname.
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
+
+  networking.hostName = "oracle-vm1"; # Define your hostname.
   networking.interfaces.eth0 = {
     ipv4.addresses = [
       {
-        address = "172.245.52.105";
+        address = "172.18.126.2";
         prefixLength = 24;
+      }
+    ];
+    ipv6.addresses = [
+      {
+        address = "2603:c021:8000:aaaa:2::1";
+        prefixLength = 64;
       }
     ];
   };
   networking.defaultGateway = {
-    address = "172.245.52.1";
+    address = "172.18.126.1";
   };
   networking.nameservers = [
     "1.1.1.1"
@@ -36,6 +48,11 @@
     routes = [
       "172.22.76.97/29"
     ];
+  };
+
+  services.openiscsi = {
+    enable = true;
+    name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   };
 
   # This value determines the NixOS release from which the default

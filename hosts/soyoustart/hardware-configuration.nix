@@ -4,33 +4,9 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.availableKernelModules = [
-    "ahci"
-    "sd_mod"
-
-    # Support USB keyboards, in case the boot fails and we only have
-    # a USB keyboard, or for LUKS passphrase prompt.
-    "uhci_hcd"
-    "ehci_hcd"
-    "ehci_pci"
-    "ohci_hcd"
-    "ohci_pci"
-    "xhci_hcd"
-    "xhci_pci"
-    "usbhid"
-    "hid_generic"
-
-    # Misc. x86 keyboard stuff.
-    "pcips2"
-    "atkbd"
-    "i8042"
-
-    # x86 RTC needed by the stage 2 init script.
-    "rtc_cmos"
+  imports = [
+    ../../common/system/general.nix
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     {

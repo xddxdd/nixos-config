@@ -34,6 +34,33 @@
   outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
   {
     nixosConfigurations = {
+      "oracle-vm1" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/oracle-vm1/configuration.nix
+        ];
+      };
+      "oracle-vm2" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/oracle-vm2/configuration.nix
+        ];
+      };
+      "oracle-vm-arm" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/oracle-vm-arm/configuration.nix
+        ];
+      };
       "soyoustart" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -70,6 +97,27 @@
       magicRollback = false;
 
       nodes = {
+        "oracle-vm1" = {
+          hostname = "oracle-vm1.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."oracle-vm1";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "oracle-vm2" = {
+          hostname = "oracle-vm2.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."oracle-vm2";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "oracle-vm-arm" = {
+          hostname = "oracle-vm-arm.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations."oracle-vm-arm";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
         "soyoustart" = {
           hostname = "soyoustart.lantian.pub";
           profiles.system = {

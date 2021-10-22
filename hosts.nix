@@ -257,19 +257,20 @@
   "oracle-vm1" = rec {
     index = 5;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEA1UoOx7GHS6vBxEnuLIBie/EikQHbgpS6DBtap2DJ7zmVFCWeC63t
-      wiqzm/DCyV7fc95GgfbeEHxkQcYklTKNRK6I/FffIrHP4wd4DUeRxRFvU4R/SpAI
-      /UEMhbhxGW2OEddFkNgeBEbrFF1HQHzvU8kwJ49DPcYWzs12lo3MWMVUGKdehpXS
-      giewdNMlEZj1eykBNe2Xl2/X1v7GSO/2pLr2UWgQcm92APX4WD6NufI/mvs1lOjQ
-      eTkNRIyb5vjEUlrsoyEyw+PEFGPlZzioirZ1C0w87VB7P7wuKOBUWE0yxTXvbriJ
-      favq5ZMd4vc5XwELi2iu2nCzh6gk2V5viBxnN65SOkNck+Q964gJRW3kK8AI1vCI
-      0QeQ4TeO1UTfIGBomoOOmOUGhwfpfLZ1FMS5Jo6He/FQZQQUpXzQAtjx4hMYb2gs
-      03G8MSe1HIkIyP/BaAhZ4nlLGURaB3hv/hJut0aJiz6V/yDOn4OFy9j8JXNIiTd7
-      RrzKUvasGXWKpIqNQFbs51Wjzh4dUAZRN7gsUTIbAp/dvCZPTjq90/8fV1PUQsOY
-      NngtFZWp78RJI43Vj/q/5aGjclUk4OndIh/c/YDHifFYwpfzX/DfZZt9taI8O287
-      BtFK5IjgGLQzj++GNhR6dN0hdtdKIGzpE4ZyPekgf2DI3zYtw077XH8CAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv7l7ixKfO1VVfhfnKdVK
+      Ww5hBoNUV2hmaafmYpsHfBoSKB+X7Rusf5cxeR3+trAwTt9j+AQLhA2tWldg7PPq
+      9l1JX0lNynRtWk0fkgDTBX39az/yMaSVxjSmDl+ZCkTzUWgKTrbYu7sCSV8gzRCk
+      HBQxOX6yUP0fkeSZ5Gu6el22bl2KaJChNxSRm7PemriKNjqMm6zLxZ3DARyHvZZs
+      suJY0XNtZR7CU4x+Bk0xGk0XgF57hnpU4LirFuDIPCOym/OWF3/jvI0ghvklY+Pb
+      bcM4DJowfoRNw1NpsI/4bsZRX4gn0cTCuA+E5X+2ccv6nbThDvJKuSNf+uzA8vwW
+      5Qvzat6+rZllzHfm2+LfYJYOB2/6hjYyOFp9sArZU6vetcAc3cz/qbjEH8I1qiEE
+      glKsOp82RinecJrSZOirADoQ8yYY7I0VcGhTk9dVhkyyUO7DY7wsOlrIdc1IDfVX
+      sGM4poDMgPxivNXOzmePQT8/kEvtyWaqMTto8ULdGNKfrQGGMAI1ABZdujbD6bEh
+      TUzkvNeSw8JX/2Lo7VK+G3IfkurWn/xV5I9+VFnV07VSRln2KX+vIapOr0EmGBiF
+      WswvMnrpp9p7a7c4nua7v/JZ8Ig4Fget7lUGznIXEIZcP3G+WEzXMzzxZIALslXJ
+      IeyZXPyoMMrygWbGZ4gxNvcCAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "132.145.123.138";
@@ -292,19 +293,20 @@
   "oracle-vm2" = rec {
     index = 7;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEAoKFyIdtRvNnPdi9s/cvpd32apQtf519AauXUiq+UPPAQHFqCWYCP
-      l/eyY8iAqVMSBvOut7LTYSCHFaH/K2rcIz9IQpDFi31Ev2VWqzyX1bfa+Lk5LgFb
-      azxhl/g4i3AU3+bksuHpC+4F9JihlLiM3VJUOnE6mmF050vGnzpFdg7vrs8avOKF
-      +OuSt8tHvYzK/EUWHOUW/kSskIQ7Xxl+Mr8D6/EzvIlAOsCO6BuvTFdCMe3ghAe4
-      LQKy6xa9dryDEbn7fKHmmJAK0uGpBvgpQPSORcwYfJijttf9sjwaKW+u3uUXGK5C
-      p1GpWuKDV9yVSCwyll1/e1ADPo7yvqcvQDSFbBxkNj3dM4odLEqkq8dRYbxqJNVA
-      R6ocjOgtMmYKiuRQ5tvPbAXpE0Dzaq9Az4hR7rhjbZv7hcDKAm0Q0BOMzAKER66E
-      ZFPDOpJGJy6k5rZGA6qrqazF7MYTs03GDUp6wyX1w+vz5xb7f1CRGSzMzLGKo4ri
-      3lWRiEtQt889sTtIVOw4AUO3b0sXTUDdDa3cs6aB81NnDOcjgRlF7QjHvab7MO6e
-      RKGoC+0P6uCkhIP2MCTz9D61NP/bFBxQrpTCdovQ68XX0WhYr6MPn4bUZkbgIzaJ
-      j7yN45MVrrisS5ZTiZhx7kq3KDQ9dhezZOOryDvvJy2bXsy4e8XX668CAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqk2NiTWBhuWGF5bVp0VI
+      lokejJWd+waPGjt2U619L2hNxTxnPNNUtc+0qOKYzyKMuN5QrQAjEgLVkTGZj2LN
+      SQX74VR6cYCuMiIzkvk0J5JbEuk5ly3bCPiaR2sBgpAQkN1O/YMTnZPraCB6MXJb
+      ol2G69+H0bBPpiND7uHm6+Nrsh/LlI+3FyIrWo5fFrNFkghRXwWa4sfphFob7RGO
+      N3xBSmSwBnIajxKKwDCVpUVX+gDqXsV7K/TkeitIxYPkAaYymd57bxtiIvaIoZUJ
+      /vfsXKKfOtojJtWa+y8GZ3KVkN0wFD2+Kt7wng9uiqJLzk7YwLVGTJsDoFzOtqXO
+      kuafWtEJMC6v94cWpTNJVxryyGqH5Y4JAg8fs5NBGvznu5GppjW8Nhe1a5ivbhTN
+      8Eg2bTc3+1aMrBOZRMaeP/8y4U0JXim03h4Gi5fAp4weQ6zfcN34fTLk4mvxrMXF
+      ml4eEYPmNBN6PbQwp8qSMHUuFaJbv0qAw4QqLBmTIbi1lyRh7DXe27ANtojPrfhc
+      z4mA0Qto6C41xHa0nJ/dHDdlXToOMnRzb2I4ScMka0M7jj/WUCKRbfGP4WIKP3ip
+      i7cJ6nUU+6gayALcOkCPKoPF4vmkk1SXVgaMZ+52b639cRf3Eqi0JbbCo1KYnfg4
+      +B/cDCcs26w3yY+Wwt4//9kCAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "140.238.54.105";
@@ -327,19 +329,20 @@
   "oracle-vm-arm" = rec {
     index = 12;
     tincPub = ''
-      -----BEGIN RSA PUBLIC KEY-----
-      MIICCgKCAgEAyDjdmYv6wOMnt/2X003oAuAsubuFVgRAjOJTTUy/Lt7KlPT8MPXS
-      nFmBhu5BPfdNkDLj8SFuvEHWzHcruqcuTYa1S7FzpLy+8XXUb8GkI4kYG1KXMV2e
-      jSLLTm7mgAaW86cghvaR6D3gHYpeS6RmcbMUmg1dQ2VtqRtzThlVkJCNs1OAXyVn
-      WJwsM3lYuNG2SXSbNokN+ubYONy8bNOknl9DMZKG5cRkdeJgkXv1N0JgNEZ31bE9
-      BCtz9eUmiGIPijxWsYZlBXF0vYEoWZCWjzSxxjqCQJTDjfu6jGr9s/8UwC31xjyz
-      BwrQrwk8fWKihJZLYdh0EqBoJjlxRgyOIuyMmIIkzA+oajn1mT7biubPvGLvQZbQ
-      NuFYURdM7I9Kigyl2zqtFbQp/FLSmstrT7Jq/rs3CEX1mOHwhrjOYGD9XK34GjlB
-      oGttclCne6vZSbHzyFz4pnJm94TuDU7bruBIMQ4Nxot5mh1Bmm2YPh5GSaxpvrRp
-      Cq2IPFqSQmfBjDMtJzU9YX5w7TPaOrg5PyFMlOKSbxiOGsVlHmgEP8ih+XiId90a
-      wZt2o2ZsCmIu2w4wfPYpLHKEb8V9p7edTvmb7BmeXw6Cg5mikEKU67wxlSzKUHXG
-      cYPGdqTApPp+W9Quvyz2DmnHqFinVcaLChhK6Jtzo2p9Eu/LB+qq5V8CAwEAAQ==
-      -----END RSA PUBLIC KEY-----
+      -----BEGIN PUBLIC KEY-----
+      MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApe1NKoMICXysW1iUKzRB
+      tLrNLxw8iQjwYstrIor4kruaxyx9Jr7syj2SOwALIq7IKU5esIPcPDOTRy1PQbXm
+      xrNpEl9OJNGAB+oK5k/H7jiK2OvRlAbuJ1O8C+lFX0KbxPi7WWYfKEav53o2bfaR
+      J7+asMQVZxfBVGhtyMfgGj9XwDFPKhH/CD7JDbhXCbVzKKwnwDvul5mOA321Yucv
+      DfwaFYhHVs272IdyamuEL+5dBdz6SEjZKRf+25m+vQ7PZ7puGg0vWcbKZ+FTVUUf
+      D6V0Y4H0lVx8KEFKZr9QtLbfJdcKuJQWBDZoEJZ25uid5WB9d66LNg/K/7cKsWee
+      +31ILf8G7OlhwOrwQlKcFEQ3jvWPNsVSmVftObds0kgHS7/haYLCFqrQXel1b3sW
+      9q0xPL6yzVB87CGDQ99A9jgz9YJVCjYKux15d3LSyxmbTYqSFgTBzpn9IV9PJGcD
+      vA2Sb0KlSA4IdbedpqC2rUrl/eYB6e1QbGu8qM5f0uP1yLupUFAwiJVKdqsHz867
+      fznh9ffnfyGE+vUI2sayweraACscRROk1D+QFTypEC03MezSl0RPwLNIRnwsJFBo
+      TM0idS4qKIAWD6t4pPIG6XQwWBMCRvP/s+Hm7MmuicPT/c2OjPyQNt53VJApkrUa
+      khQJgQgEEAsP0YoRJvVLcE8CAwEAAQ==
+      -----END PUBLIC KEY-----
     '';
     public = rec {
       IPv4 = "158.101.128.102";

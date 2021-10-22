@@ -8,6 +8,7 @@
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
     ../../common/apps/ltnet.nix
+    ../../common/apps/nginx.nix
     ../../common/apps/powerdns-recursor.nix
     ../../common/apps/tinc.nix
 

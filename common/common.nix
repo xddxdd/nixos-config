@@ -62,7 +62,6 @@
       "net.ifnames=0"
     ];
     kernelPackages = kernelPackage;
-    # extraModulePackages = with config.boot.kernelPackages; [ netatop ];
 
     initrd.includeDefaultModules = false;
 
@@ -70,12 +69,9 @@
       grub = {
         enable = true;
         version = 2;
-        #efiSupport = true;
-        #efiInstallAsRemovable = true;
         memtest86.enable = true;
         splashImage = null;
       };
-      efi.canTouchEfiVariables = true;
     };
     # tmpOnTmpfs = true;
   };
