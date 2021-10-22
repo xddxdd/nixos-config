@@ -14,4 +14,15 @@
     ];
     services.auto-fix-vscode-server.enable = true;
   };
+
+  nixpkgs.overlays = [
+    inputs.nur.overlay
+    (final: prev: {
+      nur = import inputs.nur {
+        nurpkgs = prev;
+        pkgs = prev;
+        repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
+      };
+    })
+  ];
 }

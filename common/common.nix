@@ -11,6 +11,13 @@
       experimental-features = nix-command flakes
     '';
 
+    binaryCaches = [
+      "https://xddxdd.cachix.org"
+    ];
+    binaryCachePublicKeys = [
+      "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+    ];
+
     autoOptimiseStore = true;
     gc = {
       automatic = true;
@@ -31,6 +38,8 @@
     ./users.nix
     ./apps/zsh.nix
     ./ssh-harden.nix
+
+    ./apps/nginx.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

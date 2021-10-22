@@ -95,12 +95,49 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1631773551,
+        "narHash": "sha256-X6jpuuqOwktx6s1dLq8lLD3PEnBajMZyFShlxwl7Y2I=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "92949f5f7eed38ee96096782ce0e45ea57fc54d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
+    "nur-xddxdd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631774008,
+        "narHash": "sha256-F+d8MWuZXR1jp4nnzk17sZjy8CA+RxERqvLx1vdFKAE=",
+        "owner": "xddxdd",
+        "repo": "nur-packages",
+        "rev": "d55afae92d7f45b8f91b0ca7139fa9037234da8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
         "home-manager": "home-manager",
         "nixos-vscode-server": "nixos-vscode-server",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nur": "nur",
+        "nur-xddxdd": "nur-xddxdd"
       }
     },
     "utils": {

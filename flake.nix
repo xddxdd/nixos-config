@@ -11,6 +11,11 @@
       url ="github:iosmanthus/nixos-vscode-server/add-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = github:nix-community/NUR;
+    nur-xddxdd = {
+      url = github:xddxdd/nur-packages;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
