@@ -43,7 +43,7 @@
     };
     vteIntegration = true;
     promptInit = ''
-      ${pkgs.neofetch}/bin/neofetch
+      #${pkgs.neofetch}/bin/neofetch --config /etc/neofetch.conf
 
       source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme
 
@@ -71,5 +71,10 @@
     ohMyZsh = {
       enable = true;
     };
+  };
+
+  environment.etc."neofetch.conf" = {
+    source = ../files/neofetch.conf;
+    mode = "0755";
   };
 }
