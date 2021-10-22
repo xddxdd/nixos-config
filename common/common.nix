@@ -33,6 +33,7 @@
   imports = [
     ./users.nix
     ./apps/zsh.nix
+    ./iptables.nix
     ./ssh-harden.nix
 
     ./components/route-chain.nix
@@ -98,9 +99,7 @@
     firewall.enable = false;
     firewall.checkReversePath = false;
     iproute2.enable = true;
-    nat.enable = true;
-    nat.enableIPv6 = true;
-    nat.externalInterface = "eth0";
+    nat.enable = false;
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
     tempAddresses = "disabled";
@@ -144,6 +143,8 @@
     htop
     tcpdump
     python3Minimal
+    iptables
+    nftables
   ];
 
   hardware.ksm.enable = true;
