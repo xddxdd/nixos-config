@@ -34,6 +34,21 @@
         peerIPv6LinkLocal = "fe80::3632";
       };
     };
+    chuj = {
+      remoteASN = 4242420340;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20340;
+        remoteAddress = "198.98.60.60";
+        remotePort = 22547;
+        wireguardPubkey = "fAw1m6CNu/FkqpeYm+3CSheTro3ZKiN9Fsrp0gHclTU=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.43.1";
+        peerIPv6LinkLocal = "fe80::340";
+      };
+    };
     fixmix = {
       remoteASN = 4242421876;
       peering.mpbgp = true;
