@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+  hosts = import ../../hosts.nix;
   mitogen = pkgs.python39Packages.mitogen;
 in
 {
@@ -21,6 +22,8 @@ in
     transfer_method = scp
     retries = 3
   '';
+
+  environment.etc."ansible/hosts".text = pkgs.lib.concatStringsSep "\n" (pkgs.lib.mapAttrsToList (n: v: n + ".lantian.pub") hosts);
 
   programs.ssh.extraConfig = ''
     StrictHostKeyChecking no

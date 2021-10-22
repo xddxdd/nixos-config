@@ -43,7 +43,7 @@ in
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Prefix" thisHost.ltnet) [
       {
         addressConfig = {
-          Address = thisHost.ltnet.IPv6Prefix + ".1/128";
+          Address = thisHost.ltnet.IPv6Prefix + "::1/128";
         };
       }
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" thisHost.dn42) [

@@ -7,6 +7,7 @@ in
 {
   services.v2ray = {
     enable = true;
+    package = pkgs.nur.repos.xddxdd.xray;
     config = {
       log = {
         loglevel = "warning";

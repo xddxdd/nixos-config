@@ -24,7 +24,7 @@
     device = "nodev";
   };
 
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages;
 
   networking.hostName = "oracle-vm-arm"; # Define your hostname.
   networking.interfaces.eth0 = {

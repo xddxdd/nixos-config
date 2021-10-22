@@ -155,9 +155,16 @@ in
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {
-      oidc-issuer-url = "https://login.lantian.pub/auth/realms/master";
+      oidc-issuer-url = "http://127.0.0.1";
+      insecure-oidc-skip-issuer-verification = "true";
     };
   };
   users.users.oauth2_proxy.group = "oauth2_proxy";
   users.groups.oauth2_proxy = { };
+
+  systemd.services.oauth2_proxy = {
+    unitConfig = {
+      After = pkgs.lib.mkForce "network.target nginx.service";
+    };
+  };
 }

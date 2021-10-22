@@ -54,13 +54,8 @@ let
       proxyWebsockets = true;
       extraConfig = ''
         access_log off;
-        proxy_read_timeout 1d;
         keepalive_timeout 1d;
-        proxy_buffering off;
-        proxy_request_buffering on;
-        proxy_redirect off;
-        chunked_transfer_encoding off;
-      '';
+      '' + locationProxyConf;
     };
 
     "/oauth2/" = {
