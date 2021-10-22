@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./dn42.nix
     ./hardware-configuration.nix
 
     ../../common/apps/ansible.nix

@@ -36,6 +36,7 @@
     ./users.nix
 
     ./components/backup.nix
+    ./components/dn42.nix
     ./components/php-switch.nix
     ./components/route-chain.nix
   ];
@@ -109,6 +110,7 @@
     "" # clear old command
     "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
   ];
+  services.resolved.enable = false;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

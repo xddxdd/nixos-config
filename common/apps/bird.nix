@@ -7,6 +7,76 @@ let
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
+  birdConfDir = ../files/bird;
+
+  filterNetwork = net: pkgs.lib.filterAttrs (n: v: v.peering.network == net);
+
+  externalDN42Peer = n: v:
+    let
+      interfaceName = "${v.peering.network}-${n}";
+    in
+    pkgs.lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
+      protocol bgp ${sanitizeHostname interfaceName}_v4 from dnpeers {
+        neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
+        local ${v.addressing.myIPv4} as ${pkgs.lib.toUpper v.peering.network}_AS;
+        ipv4 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+        };
+        ipv6 {
+          import none;
+          export none;
+        };
+      };
+    ''
+    + pkgs.lib.optionalString (v.addressing.peerIPv6 != null) ''
+      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+        neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
+        local ${v.addressing.myIPv6} as ${pkgs.lib.toUpper v.peering.network}_AS;
+        ipv4 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+        };
+        ipv6 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+        };
+      };
+    ''
+    + pkgs.lib.optionalString (v.addressing.peerIPv6Subnet != null) ''
+      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+        neighbor ${v.addressing.peerIPv6Subnet} as ${builtins.toString v.remoteASN};
+        local ${v.addressing.myIPv6Subnet} as ${pkgs.lib.toUpper v.peering.network}_AS;
+        ipv4 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+        };
+        ipv6 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+        };
+      };
+    ''
+    + pkgs.lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
+      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+        neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
+        local ${v.addressing.myIPv6LinkLocal} as ${pkgs.lib.toUpper v.peering.network}_AS;
+        ipv4 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+        };
+        ipv6 {
+          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+        };
+      };
+    ''
+  ;
+
+  birdDN42PeersConf = pkgs.writeText "bird-dn42-peers.conf"
+    (builtins.concatStringsSep "\n"
+      (pkgs.lib.mapAttrsToList externalDN42Peer (filterNetwork "dn42" config.services.dn42)));
+
   ltnetBGPPeer = hostname: { ltnet, ... }:
     ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
@@ -24,7 +94,9 @@ let
       };
     '';
 
-  birdConfDir = ../files/bird;
+  birdLtnetPeersConf = pkgs.writeText "bird-ltnet-peers.conf"
+    (builtins.concatStringsSep "\n"
+      (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts));
 
   birdLocalConf = pkgs.writeText "bird-local.conf" ''
     define LTNET_IPv4 = ${thisHost.ltnet.IPv4Prefix}.1;
@@ -36,14 +108,10 @@ let
     define DN42_IPv6 = ${thisHost.dn42.IPv6};
     define DN42_REGION = ${builtins.toString thisHost.dn42.region};
 
-    define NEONETWORK_AS = 4201270010;
-    define NEONETWORK_IPv4 = ${thisHost.neonetwork.IPv4};
-    define NEONETWORK_IPv6 = ${thisHost.neonetwork.IPv6};
+    define NEO_AS = 4201270010;
+    define NEO_IPv4 = ${thisHost.neonetwork.IPv4};
+    define NEO_IPv6 = ${thisHost.neonetwork.IPv6};
   '';
-
-  birdLtnetPeersConf = pkgs.writeText "bird-ltnet-peers.conf"
-    (builtins.concatStringsSep "\n"
-      (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts));
 
 in
 {
@@ -65,7 +133,7 @@ in
       }
 
       protocol static static_v4 {
-    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) ''
+    '' + pkgs.lib.optionalString (!(builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone)) ''
       route 172.22.76.184/29 reject;
       route 172.22.76.96/27 reject;
       route 10.127.10.0/24 reject;
@@ -91,7 +159,7 @@ in
       };
 
       protocol static static_v6 {
-    '' + pkgs.lib.optionalString (builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone) ''
+    '' + pkgs.lib.optionalString (!(builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone)) ''
       route fdbc:f9dc:67ad::/48 reject;
       route fd10:127:10::/48 reject;
 
@@ -131,17 +199,16 @@ in
 
       timeformat protocol iso long;
 
-      include "${birdConfDir}/dn42/base.conf";
-      include "${birdConfDir}/neonetwork/base.conf";
+      include "${birdConfDir}/dn42_neo_base.conf";
+      include "${birdDN42PeersConf}";
 
-      # GRC config must be below dn42 & neonetwork since it uses filters from them
     '' + pkgs.lib.optionalString (builtins.hasAttr "burble_grc" thisHost.dn42 && thisHost.dn42.burble_grc) ''
+      # GRC config must be below dn42 & neonetwork since it uses filters from them
       include "${birdConfDir}/dn42/burble_grc.conf";
-    '' + ''
 
-      include "${birdConfDir}/docker/ospf.conf";
-      include "${birdConfDir}/ltnet/bgp.conf";
-      include "${birdConfDir}/ltnet/bgp_downstream.conf";
+    '' + ''
+      include "${birdConfDir}/docker_ospf.conf";
+      include "${birdConfDir}/ltnet_bgp.conf";
       include "${birdLtnetPeersConf}";
       #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
 
@@ -184,7 +251,7 @@ in
             if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
             if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
             if net ~ DN42_NET_IPv4 then krt_prefsrc = DN42_IPv4;
-            if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = NEONETWORK_IPv4;
+            if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = NEO_IPv4;
             accept;
           };
         };
@@ -207,7 +274,7 @@ in
             if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
             if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
             if net ~ DN42_NET_IPv6 then krt_prefsrc = DN42_IPv6;
-            if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = NEONETWORK_IPv6;
+            if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = NEO_IPv6;
             accept;
           };
         };

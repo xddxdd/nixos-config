@@ -26,7 +26,7 @@
 
   boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
 
-  networking.hostName = "oracle-vm1"; # Define your hostname.
+  networking.hostName = "oracle-vm2"; # Define your hostname.
   networking.interfaces.eth0 = {
     ipv4.addresses = [
       {
