@@ -69,6 +69,15 @@
         version = 2;
         memtest86.enable = true;
         splashImage = null;
+
+        extraFiles = pkgs.lib.mkIf pkgs.stdenv.isx86_64 {
+          "netboot.xyz.lkrn" = ./files/netboot.xyz.lkrn;
+        };
+        extraEntries = pkgs.lib.optionalString pkgs.stdenv.isx86_64 ''
+          menuentry "Netboot.xyz" {
+            linux16 @bootRoot@/netboot.xyz.lkrn;
+          }
+        '';
       };
     };
     # tmpOnTmpfs = true;
