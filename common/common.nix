@@ -200,7 +200,8 @@
 
   virtualisation.podman = {
     enable = true;
-    defaultNetwork.dnsname.enable = true;
+    # Podman DNS conflicts with my authoritative resolver
+    defaultNetwork.dnsname.enable = false;
     dockerCompat = true;
     dockerSocket.enable = true;
   };
