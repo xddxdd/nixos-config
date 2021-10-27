@@ -126,6 +126,10 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
+  environment.variables = {
+    SYSTEMD_PAGER = "";
+  };
+
   environment.homeBinInPath = true;
   #environment.memoryAllocator.provider = "jemalloc";
 
