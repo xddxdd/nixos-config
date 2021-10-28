@@ -6,6 +6,7 @@
   services.dn42 = {
     anillc = {
       remoteASN = 4242422526;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -21,6 +22,7 @@
     };
     bin = {
       remoteASN = 4242422386;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 22386;
@@ -35,6 +37,7 @@
     };
     burble = {
       remoteASN = 4242422601;
+      latencyMs = 0;
       tunnel = {
         type = "wireguard";
         localPort = 22601;
@@ -49,6 +52,7 @@
     };
     byron = {
       remoteASN = 4242423916;
+      latencyMs = 27;
       tunnel = {
         type = "wireguard";
         localPort = 23916;
@@ -64,6 +68,7 @@
     };
     dgy = {
       remoteASN = 4242420826;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 20826;
@@ -93,6 +98,7 @@
     # };
     faker = {
       remoteASN = 4242423308;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -108,11 +114,12 @@
     };
     fixmix = {
       remoteASN = 4242421876;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 21876;
-        remoteAddress = "107.172.22.228";
+        remoteAddress = "185.215.247.224";
         remotePort = 22547;
         wireguardPubkey = "haGUA0ZiXX0GKugLbwU3q4PL8KMBV+ktgwKxPr0xxkc=";
       };
@@ -123,6 +130,7 @@
     };
     gatuno = {
       remoteASN = 4242420180;
+      latencyMs = 65;
       peering.mpbgp = true;
       tunnel = {
         type = "gre";
@@ -137,10 +145,11 @@
     };
     iedon = {
       remoteASN = 4242422189;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 22189;
-        remoteAddress = "172.86.125.57";
+        remoteAddress = "204.44.99.106";
         remotePort = 22193;
         wireguardPubkey = "DIw4TKAQelurK10Sh1qE6IiDKTqL1yciI5ItwBgcHFA=";
       };
@@ -152,6 +161,7 @@
     };
     kioubit = {
       remoteASN = 4242423914;
+      latencyMs = 71;
       tunnel = {
         type = "wireguard";
         localPort = 23914;
@@ -166,6 +176,7 @@
     };
     lazurite = {
       remoteASN = 4242422032;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -181,6 +192,7 @@
     };
     liki4 = {
       remoteASN = 4242420927;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "gre";
@@ -194,6 +206,7 @@
     };
     lss233 = {
       remoteASN = 4242421826;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 21826;
@@ -208,6 +221,7 @@
     };
     mayli = {
       remoteASN = 4242421123;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -223,6 +237,7 @@
     };
     miaotony = {
       remoteASN = 4242422688;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -253,6 +268,7 @@
     # };
     ncdwlq = {
       remoteASN = 4242423660;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -268,6 +284,7 @@
     };
     nicholas = {
       remoteASN = 4242421288;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -283,6 +300,7 @@
     };
     noctis = {
       remoteASN = 4242422339;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -298,6 +316,7 @@
     };
     nwn = {
       remoteASN = 4242420344;
+      latencyMs = 1; # estimated, down atm
       tunnel = {
         type = "wireguard";
         localPort = 20344;
@@ -313,6 +332,7 @@
     };
     oneacl = {
       remoteASN = 4242422633;
+      latencyMs = 29;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -324,22 +344,6 @@
       addressing = {
         peerIPv4 = "172.23.250.42";
         peerIPv6LinkLocal = "fe80::2633";
-      };
-    };
-    pastel = {
-      # penalized for routing problem
-      remoteASN = 4242422464;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22464;
-        remoteAddress = "las.dneo.moeternet.com";
-        remotePort = 22547;
-        wireguardPubkey = "viR4CoaJTBHROo/Bgbb27hQ2ttr8AbByGY/yOz3D3GY=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.191.194";
-        peerIPv6LinkLocal = "fe80::2464";
       };
     };
     # pomoke = {
@@ -372,6 +376,7 @@
     # };
     sunnet = {
       remoteASN = 4242423088;
+      latencyMs = 1;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -402,11 +407,11 @@
     # };
     tsingyao = {
       remoteASN = 4242423699;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 23699;
-        # DNS failure, passive only
-        # remoteAddress = "lax-us.tsingyao.pub";
+        remoteAddress = "lax-us.tsingyao.pub";
         remotePort = 23699;
         wireguardPubkey = "O9Xl/1dU8hZXBZ7F5f9nAuG+JhrRakdf95NaXsktAmg=";
       };
@@ -417,6 +422,7 @@
     };
     tyler = {
       remoteASN = 4242420415;
+      latencyMs = 1; # estimated, down atm
       tunnel = {
         type = "wireguard";
         localPort = 20415;
@@ -430,6 +436,7 @@
     };
     weiti = {
       remoteASN = 4242423905;
+      latencyMs = 1;
       tunnel = {
         type = "openvpn";
         localPort = 22547;
@@ -459,6 +466,7 @@
     # };
     x6c = {
       remoteASN = 4242420588;
+      latencyMs = 1; # estimated, down atm
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
@@ -474,6 +482,7 @@
     };
     yc = {
       remoteASN = 4242420904;
+      latencyMs = 18;
       tunnel = {
         type = "wireguard";
         localPort = 20904;
@@ -500,6 +509,7 @@
     # };
     yukari = {
       remoteASN = 4242421331;
+      latencyMs = 1;
       tunnel = {
         type = "wireguard";
         localPort = 21331;
@@ -526,5 +536,22 @@
     #     peerIPv6LinkLocal = "fe80::1";
     #   };
     # };
+    yura = {
+      # penalized for routing problem
+      remoteASN = 4242422464;
+      latencyMs = 8;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22464;
+        remoteAddress = "las.dneo.moeternet.com";
+        remotePort = 22547;
+        wireguardPubkey = "viR4CoaJTBHROo/Bgbb27hQ2ttr8AbByGY/yOz3D3GY=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.191.194";
+        peerIPv6LinkLocal = "fe80::2464";
+      };
+    };
   };
 }
