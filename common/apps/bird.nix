@@ -11,17 +11,36 @@ let
 
   filterNetwork = net: pkgs.lib.filterAttrs (n: v: v.peering.network == net);
 
+  latencyToDN42Community = latency:
+    if latency <= 3 then 1 else
+    if latency <= 7 then 2 else
+    if latency <= 20 then 3 else
+    if latency <= 55 then 4 else
+    if latency <= 148 then 5 else
+    if latency <= 403 then 6 else
+    if latency <= 1097 then 7 else
+    if latency <= 2981 then 8 else
+    9;
+
+  typeToDN42Community = type:
+    if type == "openvpn" then 33 else
+    if type == "wireguard" then 34 else
+    if type == "gre" then 31 else
+    31;
+
   externalDN42Peer = n: v:
     let
       interfaceName = "${v.peering.network}-${n}";
+      latency = builtins.toString (latencyToDN42Community v.latencyMs);
+      crypto = builtins.toString (typeToDN42Community v.tunnel.type);
     in
     pkgs.lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
       protocol bgp ${sanitizeHostname interfaceName}_v4 from dnpeers {
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${pkgs.lib.toUpper v.peering.network}_AS;
         ipv4 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
         };
         ipv6 {
           import none;
@@ -34,12 +53,12 @@ let
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${pkgs.lib.toUpper v.peering.network}_AS;
         ipv4 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
         };
         ipv6 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
         };
       };
     ''
@@ -48,12 +67,12 @@ let
         neighbor ${v.addressing.peerIPv6Subnet} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6Subnet} as ${pkgs.lib.toUpper v.peering.network}_AS;
         ipv4 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
         };
         ipv6 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
         };
       };
     ''
@@ -62,12 +81,12 @@ let
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${pkgs.lib.toUpper v.peering.network}_AS;
         ipv4 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
         };
         ipv6 {
-          import filter { dn42_update_flags(1,24,34); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(1,24,34); dn42_export_filter_ipv6(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
         };
       };
     ''

@@ -36,13 +36,14 @@ in
           type = pkgs.lib.types.int;
           default = 0;
         };
-        latency = pkgs.lib.mkOption {
+        latencyMs = pkgs.lib.mkOption {
           type = pkgs.lib.types.int;
           default = 0;
         };
 
         # Peering (BGP) configuration
         peering = pkgs.lib.mkOption {
+          default = {};
           type = pkgs.lib.types.submodule {
             options = {
               network = pkgs.lib.mkOption {
@@ -55,18 +56,15 @@ in
               };
             };
           };
-          default = {
-            network = "dn42";
-            mpbgp = false;
-          };
         };
 
         # Tunnel configuration
         tunnel = pkgs.lib.mkOption {
+          default = {};
           type = pkgs.lib.types.submodule {
             options = {
               type = pkgs.lib.mkOption {
-                type = pkgs.lib.types.str;
+                type = pkgs.lib.types.enum [ "openvpn" "wireguard" "gre" ];
                 default = "gre";
               };
               localPort = pkgs.lib.mkOption {
@@ -99,6 +97,7 @@ in
 
         # IP address inside tunnel
         addressing = pkgs.lib.mkOption {
+          default = {};
           type = pkgs.lib.types.submodule {
             options = {
               peerIPv4 = pkgs.lib.mkOption {
