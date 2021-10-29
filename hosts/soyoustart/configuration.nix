@@ -20,6 +20,7 @@
     ../../common/apps/asf.nix
     ../../common/apps/drone-ci.nix
     ../../common/apps/hath.nix
+    ../../common/apps/resilio.nix
     ../../common/apps/tg-bot-cleaner-bot.nix
     ../../common/apps/xmrig.nix
   ];

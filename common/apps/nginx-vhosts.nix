@@ -505,6 +505,17 @@ in
         + commonVhostConf true;
     };
 
+    "resilio.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "soyoustart") {
+      listen = listen443;
+      locations = addCommonLocationConf {
+        "/".extraConfig = locationOauthConf + ''
+          proxy_pass http://[::1]:13900;
+        '' + locationProxyConf;
+      };
+      extraConfig = makeSSL "lantian.pub_ecc"
+        + commonVhostConf true;
+    };
+
     "login.lantian.pub" = pkgs.lib.mkIf (config.networking.hostName == "virmach-ny6g") {
       listen = listen443;
       locations = addCommonLocationConf {
