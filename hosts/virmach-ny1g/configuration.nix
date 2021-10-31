@@ -41,6 +41,7 @@ in
     address = "107.172.134.1";
   };
   networking.nameservers = [
+    "172.18.0.253"
     "8.8.8.8"
   ];
 

@@ -42,6 +42,7 @@
     address = "2001:ac8:20:3::1";
   };
   networking.nameservers = [
+    "172.18.0.253"
     "8.8.8.8"
   ];
 
