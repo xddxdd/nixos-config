@@ -47,6 +47,7 @@
     address = "2605:6400:30::1";
   };
   networking.nameservers = [
+    "172.18.0.253"
     "8.8.8.8"
   ];
 

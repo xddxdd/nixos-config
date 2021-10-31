@@ -43,6 +43,7 @@
     address = "2607:fcd0:100:b100::1";
   };
   networking.nameservers = [
+    "172.18.0.253"
     "8.8.8.8"
   ];
 
