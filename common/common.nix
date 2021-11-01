@@ -144,6 +144,20 @@
   #  '';
   #};
 
+  # Disable systemd-nspawn container's default addresses.
+  environment.etc."systemd/network/80-container-ve.network".text = ''
+    [Match]
+    Name=ve-*
+    Driver=veth
+
+    [Network]
+    LinkLocalAddressing=ipv6
+    DHCPServer=no
+    IPMasquerade=both
+    LLDP=no
+    IPv6SendRA=no
+  '';
+
   environment.systemPackages = with pkgs; [
     crun
     dig

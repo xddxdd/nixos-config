@@ -144,7 +144,7 @@ in
       include "${birdConfDir}/common/ltnet_community.conf";
       include "${birdConfDir}/common/roa_monitor.conf";
 
-      log stderr { error, fatal };
+      log stderr { warning, error, fatal };
       #debug protocols all;
 
       protocol device sys_device {
@@ -226,7 +226,8 @@ in
       include "${birdConfDir}/dn42/burble_grc.conf";
 
     '' + ''
-      include "${birdConfDir}/docker_ospf.conf";
+      include "${birdConfDir}/docker_babel.conf";
+      #include "${birdConfDir}/docker_ospf.conf";
       include "${birdConfDir}/ltnet_bgp.conf";
       include "${birdLtnetPeersConf}";
       #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
