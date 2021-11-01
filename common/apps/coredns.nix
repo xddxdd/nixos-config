@@ -34,6 +34,7 @@ in
   containers.coredns = {
     autoStart = true;
     ephemeral = true;
+    additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
     bindMounts = {
       "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
@@ -46,16 +47,15 @@ in
     ];
 
     privateNetwork = true;
-    hostBridge = "ltnet";
-    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString corednsContainerIP}/24";
-    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString corednsContainerIP}/64";
+    hostAddress = "${thisHost.ltnet.IPv4Prefix}.1";
+    hostAddress6 = "${thisHost.ltnet.IPv6Prefix}::1";
+    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString corednsContainerIP}";
+    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString corednsContainerIP}";
 
     config = { config, pkgs, ... }: {
       system.stateVersion = "21.05";
       nixpkgs.pkgs = hostPkgs;
       networking.hostName = hostConfig.networking.hostName;
-      networking.defaultGateway = "${thisHost.ltnet.IPv4Prefix}.1";
-      networking.defaultGateway6 = "${thisHost.ltnet.IPv6Prefix}::1";
       networking.firewall.enable = false;
       services.journald.extraConfig = ''
         SystemMaxUse=50M
@@ -294,37 +294,23 @@ in
         checkConfig = false;
         config = ''
           log stderr { error, fatal };
+          router id ${thisHost.ltnet.IPv4Prefix}.${builtins.toString corednsContainerIP};
           protocol device {}
 
-          protocol ospf {
+          protocol babel {
             ipv4 {
               import none;
               export all;
             };
-            area 0.0.0.0 {
-              interface "*" {
-                type broadcast;
-                cost 1;
-                hello 2;
-                retransmit 2;
-                dead count 2;
-              };
-            };
-          }
-
-          protocol ospf v3 {
             ipv6 {
               import none;
               export all;
             };
-            area 0.0.0.0 {
-              interface "*" {
-                type broadcast;
-                cost 1;
-                hello 2;
-                retransmit 2;
-                dead count 2;
-              };
+            interface "eth*" {
+              type wired;
+              hello interval 1s;
+              update interval 1s;
+              port 6695;
             };
           }
 
@@ -376,22 +362,22 @@ in
   containers.coredns-knot = {
     autoStart = true;
     ephemeral = true;
+    additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
     bindMounts = {
       "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
     };
 
     privateNetwork = true;
-    hostBridge = "ltnet";
-    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString knotContainerIP}/24";
-    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString knotContainerIP}/64";
+    hostAddress = "${thisHost.ltnet.IPv4Prefix}.1";
+    hostAddress6 = "${thisHost.ltnet.IPv6Prefix}::1";
+    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString knotContainerIP}";
+    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString knotContainerIP}";
 
     config = { config, pkgs, ... }: {
       system.stateVersion = "21.05";
       nixpkgs.pkgs = hostPkgs;
       networking.hostName = hostConfig.networking.hostName;
-      networking.defaultGateway = "${thisHost.ltnet.IPv4Prefix}.1";
-      networking.defaultGateway6 = "${thisHost.ltnet.IPv6Prefix}::1";
       networking.firewall.enable = false;
       services.journald.extraConfig = ''
         SystemMaxUse=50M
