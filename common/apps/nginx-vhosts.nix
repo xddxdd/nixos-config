@@ -172,6 +172,11 @@ let
     { addr = "[::]"; port = port; extraParameters = [ "plain" ] ++ listenDefaultFlags; }
   ];
 
+  listenPlainProxyProtocol = port: [
+    { addr = "${thisHost.ltnet.IPv4Prefix}.1"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "[${thisHost.ltnet.IPv6Prefix}::1]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+  ];
+
   listenProxyProtocol = ''
     set_real_ip_from 127.0.0.0/8;
     set_real_ip_from 172.18.0.0/16;
@@ -286,7 +291,7 @@ in
     };
 
     "gopher.lantian.pub" = {
-      listen = listen443 ++ listen80 ++ listenPlain 70;
+      listen = listen443 ++ listen80 ++ listenPlain 70 ++ listenPlainProxyProtocol 13270;
       root = "/var/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
@@ -308,7 +313,7 @@ in
     };
 
     "whois.lantian.pub" = {
-      listen = listen443 ++ listen80 ++ listenPlain 43;
+      listen = listen443 ++ listen80 ++ listenPlain 43 ++ listenPlainProxyProtocol 13243;
       root = "/var/cache/dn42-registry/data";
       serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
 
