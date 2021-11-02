@@ -40,12 +40,14 @@ in
           server {
             listen 43;
             listen [::]:43;
-            proxy_pass ${thisHost.ltnet.IPv4Prefix}.1:43;
+            proxy_pass ${thisHost.ltnet.IPv4Prefix}.1:13243;
+            proxy_protocol on;
           }
           server {
             listen 70;
             listen [::]:70;
-            proxy_pass ${thisHost.ltnet.IPv4Prefix}.1:70;
+            proxy_pass ${thisHost.ltnet.IPv4Prefix}.1:13270;
+            proxy_protocol on;
           }
         }
       '';
