@@ -11,6 +11,8 @@ in
     ./php-fpm.nix
   ];
 
+  age.secrets.oauth2-proxy-conf.file = ../../secrets/oauth2-proxy-conf.age;
+
   # Disable checking nginx.conf
   nixpkgs.overlays = [
     (final: prev:
@@ -145,13 +147,12 @@ in
   services.oauth2_proxy = {
     enable = true;
     clientID = "oauth-proxy";
-    clientSecret = "***REMOVED***";
     cookie = {
       expire = "24h";
-      secret = "***REMOVED***";
     };
     email.domains = [ "*" ];
     httpAddress = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+    keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {
