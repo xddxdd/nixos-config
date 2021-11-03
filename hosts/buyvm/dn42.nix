@@ -234,6 +234,20 @@
         peerIPv6LinkLocal = "fe80::1535:2547";
       };
     };
+    kskb-uml = {
+      remoteASN = 4201271111;
+      latencyMs = 19;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 31111;
+        wireguardPubkey = "9pNKpUdPSERqELcTCcvOLSeZsSSyw3kNFYmZ7epZZ0k=";
+      };
+      addressing = {
+        peerIPv4 = "10.127.111.66";
+        peerIPv6LinkLocal = "fe80::aa:1111:42";
+      };
+    };
     # liangjw = {
     #   remoteASN = 4242420604;
     #   tunnel = {

@@ -140,6 +140,22 @@
         peerIPv6LinkLocal = "fe80::605";
       };
     };
+    kskb = {
+      remoteASN = 4242421817;
+      latencyMs = 35;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21817;
+        remoteAddress = "4.tw.kskb.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "jxCsSXtUSVjaP+eMWOyRsHg3JShQfBFEtyssMKWQaS8=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.77.33";
+        peerIPv6LinkLocal = "fe80::42:1817:1";
+      };
+    };
     # lemonrain = {
     #   remoteASN = 4242420226;
     #   tunnel = {
