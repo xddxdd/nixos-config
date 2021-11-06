@@ -226,5 +226,8 @@
 
   virtualisation.oci-containers.backend = "podman";
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
 }
