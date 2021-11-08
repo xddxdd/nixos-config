@@ -29,49 +29,39 @@ in
     ../../common/apps/vaultwarden.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [ "107.172.197.108/24" ];
+    gateway = [ "107.172.197.1" ];
+    matchConfig.Name = "eth0";
+    networkConfig.Tunnel = "henet";
+  };
 
-  networking.hostName = "virmach-ny6g"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "107.172.197.108";
-        prefixLength = 24;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "107.172.197.1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"
   ];
 
-  networking.sits.henet = {
-    remote = "209.51.161.14";
-    local = thisHost.public.IPv4;
-    dev = "eth0";
-    ttl = 255;
+  systemd.network.netdevs.henet = {
+    netdevConfig = {
+      Kind = "sit";
+      Name = "henet";
+      MTUBytes = "1480";
+    };
+    tunnelConfig = {
+      Local = thisHost.public.IPv4;
+      Remote = "209.51.161.14";
+      TTL = 255;
+    };
   };
-  networking.interfaces.henet = {
-    ipv6.addresses = [
-      {
-        address = "2001:470:1f06:c6f::2";
-        prefixLength = 64;
-      }
-      {
-        address = "2001:470:1f07:c6f::1";
-        prefixLength = 64;
-      }
-      {
-        address = "2001:470:8d00::1";
-        prefixLength = 48;
-      }
+
+  systemd.network.networks.henet = {
+    address = [
+      "2001:470:1f06:c6f::2/64"
+      "2001:470:1f07:c6f::1/64"
+      "2001:470:8d00::1/48"
     ];
-  };
-  networking.defaultGateway6 = {
-    address = "2001:470:1f06:c6f::1";
+    gateway = [ "2001:470:1f06:c6f::1" ];
+    matchConfig.Name = "henet";
   };
 
   services."route-chain" = {

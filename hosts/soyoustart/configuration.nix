@@ -25,49 +25,19 @@
     ../../common/apps/xmrig.nix
   ];
 
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub = {
-    efiSupport = true;
-    mirroredBoots = [
-      { devices = [ "nodev" ]; path = "/boot/esp0"; }
-      { devices = [ "nodev" ]; path = "/boot/esp1"; }
-      { devices = [ "nodev" ]; path = "/boot/esp2"; }
-      { devices = [ "nodev" ]; path = "/boot/esp3"; }
-    ];
-  };
-  boot.loader.efi.efiSysMountPoint = "/boot/EFI";
-
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
-
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.rp_filter" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.default.rp_filter" = pkgs.lib.mkForce 0;
-    "net.ipv6.conf.all.autoconf" = pkgs.lib.mkForce 0;
-    "net.ipv6.conf.all.accept_ra" = pkgs.lib.mkForce 0;
+  systemd.network.networks.eth0 = {
+    address = [ "51.77.66.117/24" "2001:41d0:700:2475::1/64" ];
+    gateway = [ "51.77.66.254" ];
+    routes = [{
+      # Special config since gateway isn't in subnet
+      routeConfig = {
+        Gateway = "2001:41d0:700:24ff:ff:ff:ff:ff";
+        GatewayOnLink = true;
+      };
+    }];
+    matchConfig.Name = "eth0";
   };
 
-  networking.hostName = "soyoustart"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "51.77.66.117";
-        prefixLength = 24;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2001:41d0:700:2475::1";
-        prefixLength = 64;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "51.77.66.254";
-  };
-  networking.defaultGateway6 = {
-    address = "2001:41d0:700:24FF:FF:FF:FF:FF";
-    interface = "eth0";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"

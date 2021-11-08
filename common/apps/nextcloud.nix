@@ -25,6 +25,8 @@
     occ = true;
   };
 
+  systemd.services.nextcloud-setup.enable = false;
+
   services.mysql = {
     enable = true;
     ensureDatabases = [ "nextcloud" ];

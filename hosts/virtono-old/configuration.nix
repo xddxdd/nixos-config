@@ -18,29 +18,12 @@
     ../../common/apps/zsh.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [ "45.138.97.165/24" "2001:ac8:20:3::433a:a05d/64" ];
+    gateway = [ "45.138.97.1" "2001:ac8:20:3::1" ];
+    matchConfig.Name = "eth0";
+  };
 
-  networking.hostName = "virtono-old"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "45.138.97.165";
-        prefixLength = 24;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2001:0ac8:0020:0003:0000:0000:433a:a05d";
-        prefixLength = 64;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "45.138.97.1";
-  };
-  networking.defaultGateway6 = {
-    address = "2001:ac8:20:3::1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"

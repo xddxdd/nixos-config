@@ -16,34 +16,13 @@
     ../../common/apps/zsh.nix
   ];
 
-  nixpkgs.localSystem = { config = "aarch64-unknown-linux-gnu"; system = "aarch64-linux"; };
-
-  boot.loader.grub = {
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    device = "nodev";
+  systemd.network.networks.eth0 = {
+    address = [ "172.18.126.4/24" ];
+    gateway = [ "172.18.126.1" ];
+    networkConfig.DHCP = "ipv6";
+    matchConfig.Name = "eth0";
   };
 
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages;
-
-  networking.hostName = "oracle-vm-arm"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "172.18.126.4";
-        prefixLength = 24;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2603:c021:8000:aaaa:4::1";
-        prefixLength = 64;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "172.18.126.1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"

@@ -108,6 +108,9 @@
     resolvconf.dnsSingleRequest = true;
     search = [ "lantian.pub" ];
     tempAddresses = "disabled";
+
+    # Use NixOS networking scripts for DNS
+    # useNetworkd = true;
   };
 
   systemd.network.enable = true;

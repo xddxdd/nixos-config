@@ -471,7 +471,8 @@
       tunnel = {
         type = "wireguard";
         localPort = 20588;
-        remoteAddress = "fnc.l.x6c.us";
+        # DNS failure
+        # remoteAddress = "fnc.l.x6c.us";
         remotePort = 22547;
         wireguardPubkey = "V4Cb9Jy5evG3XTUBrDWbneEE4IkP/hE8g35i4gQ53RM=";
       };

@@ -244,7 +244,8 @@
       tunnel = {
         type = "wireguard";
         localPort = 20588;
-        remoteAddress = "ewr.l.x6c.us";
+        # DNS failure
+        # remoteAddress = "ewr.l.x6c.us";
         remotePort = 22547;
         wireguardPubkey = "kbkhBKH8NUo8uUaAPn5Poif0hAsOzBpB7+xdBKSTqi8=";
       };

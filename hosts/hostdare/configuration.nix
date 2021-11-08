@@ -19,29 +19,12 @@
     ../../common/apps/zsh.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [ "185.186.147.110/23" "2607:fcd0:100:b100::198a:b7f6/64" ];
+    gateway = [ "185.186.146.1" "2607:fcd0:100:b100::1"];
+    matchConfig.Name = "eth0";
+  };
 
-  networking.hostName = "hostdare"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "185.186.147.110";
-        prefixLength = 23;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2607:fcd0:100:b100:0000:0000:198a:b7f6";
-        prefixLength = 64;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "185.186.146.1";
-  };
-  networking.defaultGateway6 = {
-    address = "2607:fcd0:100:b100::1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"
