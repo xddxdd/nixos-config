@@ -18,6 +18,19 @@
   nixpkgs.overlays = [
     inputs.nur.overlay
     (final: prev: {
+      rage = prev.stdenv.mkDerivation rec {
+        name = "rage";
+        version = prev.age.version;
+
+        phases = [ "installPhase" ];
+        installPhase = ''
+          mkdir -p $out/bin
+          ln -s ${prev.age}/bin/age $out/bin/rage
+          ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
+        '';
+      };
+    })
+    (final: prev: {
       nur = import inputs.nur {
         nurpkgs = prev;
         pkgs = prev;
