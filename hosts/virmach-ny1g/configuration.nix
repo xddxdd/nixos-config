@@ -20,28 +20,21 @@ in
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
     ../../common/apps/zsh.nix
-
-    ../../common/apps/bird-lg-go.nix
-    ../../common/apps/epicgames-claimer.nix
-    ../../common/apps/genshin-helper.nix
-    ../../common/apps/keycloak.nix
-    ../../common/apps/quassel.nix
-    ../../common/apps/vaultwarden.nix
   ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
-  networking.hostName = "virmach-ny6g"; # Define your hostname.
+  networking.hostName = "virmach-ny1g"; # Define your hostname.
   networking.interfaces.eth0 = {
     ipv4.addresses = [
       {
-        address = "107.172.197.108";
-        prefixLength = 24;
+        address = "107.172.134.89";
+        prefixLength = 25;
       }
     ];
   };
   networking.defaultGateway = {
-    address = "107.172.197.1";
+    address = "107.172.134.1";
   };
   networking.nameservers = [
     "1.1.1.1"
@@ -56,29 +49,29 @@ in
   networking.interfaces.henet = {
     ipv6.addresses = [
       {
-        address = "2001:470:1f06:c6f::2";
+        address = "2001:470:1f06:54d::2";
         prefixLength = 64;
       }
       {
-        address = "2001:470:1f07:c6f::1";
+        address = "2001:470:1f07:54d::1";
         prefixLength = 64;
       }
       {
-        address = "2001:470:8d00::1";
+        address = "2001:470:8a6d::1";
         prefixLength = 48;
       }
     ];
   };
   networking.defaultGateway6 = {
-    address = "2001:470:1f06:c6f::1";
+    address = "2001:470:1f06:54d::1";
   };
 
   services."route-chain" = {
     enable = true;
     routes = [
       "172.22.76.97/29"
-      "2001:470:1f07:c6f::1/120"
-      "2001:470:8d00::1/120"
+      "2001:470:1f07:54d::1/120"
+      "2001:470:8a6d::1/120"
     ];
   };
 

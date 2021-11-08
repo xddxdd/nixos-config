@@ -34,6 +34,33 @@
   outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
   {
     nixosConfigurations = {
+      "50kvm" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/50kvm/configuration.nix
+        ];
+      };
+      "buyvm" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/buyvm/configuration.nix
+        ];
+      };
+      "hostdare" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/hostdare/configuration.nix
+        ];
+      };
       "oracle-vm1" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -70,6 +97,15 @@
           ./hosts/soyoustart/configuration.nix
         ];
       };
+      "virmach-ny1g" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/virmach-ny1g/configuration.nix
+        ];
+      };
       "virmach-ny6g" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -88,6 +124,15 @@
           ./hosts/virmach-nl1g/configuration.nix
         ];
       };
+      "virtono-old" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.age
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs; })
+          ./hosts/virtono-old/configuration.nix
+        ];
+      };
     };
 
     deploy = {
@@ -97,6 +142,27 @@
       magicRollback = false;
 
       nodes = {
+        "50kvm" = {
+          hostname = "50kvm.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."50kvm";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "buyvm" = {
+          hostname = "buyvm.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."buyvm";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "hostdare" = {
+          hostname = "hostdare.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."hostdare";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
         "oracle-vm1" = {
           hostname = "oracle-vm1.lantian.pub";
           profiles.system = {
@@ -125,6 +191,13 @@
             sshOpts = [ "-p" "2222" ];
           };
         };
+        "virmach-ny1g" = {
+          hostname = "virmach-ny1g.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."virmach-ny1g";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
         "virmach-ny6g" = {
           hostname = "virmach-ny6g.lantian.pub";
           profiles.system = {
@@ -136,6 +209,13 @@
           hostname = "virmach-nl1g.lantian.pub";
           profiles.system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."virmach-nl1g";
+            sshOpts = [ "-p" "2222" ];
+          };
+        };
+        "virtono-old" = {
+          hostname = "virtono-old.lantian.pub";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."virtono-old";
             sshOpts = [ "-p" "2222" ];
           };
         };

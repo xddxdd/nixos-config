@@ -96,6 +96,7 @@
     nat.enable = false;
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
+    search = [ "lantian.pub" ];
     tempAddresses = "disabled";
   };
 
