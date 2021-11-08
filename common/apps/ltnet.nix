@@ -21,43 +21,19 @@ in
       IPv6PrivacyExtensions = false;
     };
 
-    addresses = [ ]
+    address = [ ]
       ++ pkgs.lib.optionals (builtins.hasAttr "IPv4Prefix" thisHost.ltnet) [
-      {
-        addressConfig = {
-          Address = thisHost.ltnet.IPv4Prefix + ".1/32";
-        };
-      }
+      (thisHost.ltnet.IPv4Prefix + ".1/32")
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" thisHost.dn42) [
-      {
-        addressConfig = {
-          Address = thisHost.dn42.IPv4 + "/32";
-        };
-      }
+      (thisHost.dn42.IPv4 + "/32")
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" thisHost.neonetwork) [
-      {
-        addressConfig = {
-          Address = thisHost.neonetwork.IPv4 + "/32";
-        };
-      }
+      (thisHost.neonetwork.IPv4 + "/32")
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Prefix" thisHost.ltnet) [
-      {
-        addressConfig = {
-          Address = thisHost.ltnet.IPv6Prefix + "::1/128";
-        };
-      }
+      (thisHost.ltnet.IPv6Prefix + "::1/128")
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" thisHost.dn42) [
-      {
-        addressConfig = {
-          Address = thisHost.dn42.IPv6 + "/128";
-        };
-      }
+      (thisHost.dn42.IPv6 + "/128")
     ] ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" thisHost.neonetwork) [
-      {
-        addressConfig = {
-          Address = thisHost.neonetwork.IPv6 + "/128";
-        };
-      }
+      (thisHost.neonetwork.IPv6 + "/128")
     ];
   };
 }

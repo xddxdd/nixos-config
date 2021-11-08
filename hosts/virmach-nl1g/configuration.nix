@@ -18,20 +18,12 @@
     ../../common/apps/zsh.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [ "172.245.52.105/24" ];
+    gateway = [ "172.245.52.1" ];
+    matchConfig.Name = "eth0";
+  };
 
-  networking.hostName = "virmach-nl1g"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "172.245.52.105";
-        prefixLength = 24;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "172.245.52.1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"

@@ -11,6 +11,14 @@
 
   boot.initrd.kernelModules = [ "nvme" ];
 
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev";
+  };
+
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
+
   fileSystems."/" =
     {
       device = "/dev/sda2";

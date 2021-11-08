@@ -19,33 +19,23 @@
     ../../common/apps/zsh.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [
+      "107.189.12.254/24"
+      "2605:6400:30:f22f::1/64"
+      "2605:6400:cac6::1/48"
+    ];
+    gateway = [ "107.189.12.1" ];
+    routes = [{
+      # Special config since gateway isn't in subnet
+      routeConfig = {
+        Gateway = "2605:6400:30::1";
+        GatewayOnLink = true;
+      };
+    }];
+    matchConfig.Name = "eth0";
+  };
 
-  networking.hostName = "buyvm"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "107.189.12.254";
-        prefixLength = 24;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2605:6400:30:f22f::1";
-        prefixLength = 48;
-      }
-      {
-        address = "2605:6400:cac6::1";
-        prefixLength = 64;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "107.189.12.1";
-  };
-  networking.defaultGateway6 = {
-    address = "2605:6400:30::1";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"

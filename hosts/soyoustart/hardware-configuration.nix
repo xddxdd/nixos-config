@@ -8,6 +8,19 @@
     ../../common/system/general.nix
   ];
 
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub = {
+    efiSupport = true;
+    mirroredBoots = [
+      { devices = [ "nodev" ]; path = "/boot/esp0"; }
+      { devices = [ "nodev" ]; path = "/boot/esp1"; }
+      { devices = [ "nodev" ]; path = "/boot/esp2"; }
+      { devices = [ "nodev" ]; path = "/boot/esp3"; }
+    ];
+  };
+  boot.loader.efi.efiSysMountPoint = "/boot/EFI";
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
+
   fileSystems."/" =
     {
       device = "/dev/sda2";

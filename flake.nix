@@ -47,6 +47,9 @@
               inputs.agenix.nixosModules.age
               ./common/common.nix
               (import ./common/home-manager.nix { inherit inputs; })
+              ({
+                networking.hostName = n;
+              })
               (./hosts + "/${n}/configuration.nix")
             ];
           });

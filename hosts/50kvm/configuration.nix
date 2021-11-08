@@ -23,49 +23,38 @@ in
     ../../common/apps/zsh.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  systemd.network.networks.eth0 = {
+    address = [ "23.226.61.104/27" ];
+    gateway = [ "23.226.61.97" ];
+    matchConfig.Name = "eth0";
+    networkConfig.Tunnel = "henet";
+  };
 
-  networking.hostName = "50kvm"; # Define your hostname.
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "23.226.61.104";
-        prefixLength = 27;
-      }
-    ];
-  };
-  networking.defaultGateway = {
-    address = "23.226.61.97";
-  };
   networking.nameservers = [
     "172.18.0.253"
     "8.8.8.8"
   ];
 
-  networking.sits.henet = {
-    remote = "216.218.221.6";
-    local = thisHost.public.IPv4;
-    dev = "eth0";
-    ttl = 255;
+  systemd.network.netdevs.henet = {
+    netdevConfig = {
+      Kind = "sit";
+      Name = "henet";
+    };
+    tunnelConfig = {
+      Local = thisHost.public.IPv4;
+      Remote = "216.218.221.6";
+      TTL = 255;
+    };
   };
-  networking.interfaces.henet = {
-    ipv6.addresses = [
-      {
-        address = "2001:470:18:10bd::2";
-        prefixLength = 64;
-      }
-      {
-        address = "2001:470:19:10bd::1";
-        prefixLength = 64;
-      }
-      {
-        address = "2001:470:fa1d::1";
-        prefixLength = 48;
-      }
+
+  systemd.network.networks.henet = {
+    address = [
+      "2001:470:18:10bd::2/64"
+      "2001:470:19:10bd::1/64"
+      "2001:470:fa1d::1/48"
     ];
-  };
-  networking.defaultGateway6 = {
-    address = "2001:470:18:10bd::1";
+    gateway = [ "2001:470:18:10bd::1" ];
+    matchConfig.Name = "henet";
   };
 
   services."route-chain" = {

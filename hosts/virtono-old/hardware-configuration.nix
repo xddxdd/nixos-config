@@ -14,6 +14,8 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+
   fileSystems."/" =
     {
       device = "/dev/vda1";
