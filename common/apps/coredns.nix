@@ -3,12 +3,12 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
-  hostPkgs = pkgs;
-  hostConfig = config;
   corednsContainerIP = 54;
   knotContainerIP = 55;
 
   dnssecKeys = import ../../dnssec-keys.nix;
+
+  container = import ../helpers/container.nix { inherit config pkgs; };
 in
 {
   age.secrets = builtins.listToAttrs (pkgs.lib.flatten (builtins.map
@@ -31,37 +31,32 @@ in
     dnssecKeys));
 } //
 {
-  containers.coredns = {
-    autoStart = true;
-    ephemeral = true;
-    additionalCapabilities = [ "CAP_NET_ADMIN" ];
+  containers.coredns = container {
+    containerIP = corednsContainerIP;
 
-    bindMounts = {
-      "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
-      "/run/secrets" = { hostPath = "/run/secrets"; isReadOnly = true; };
-    };
-
-    forwardPorts = [
-      { hostPort = 53; containerPort = 53; protocol = "tcp"; }
-      { hostPort = 53; containerPort = 53; protocol = "udp"; }
+    announcedIPv4 = [
+      "172.22.76.109"
+      "172.18.0.254"
+      "10.127.10.254"
+    ];
+    announcedIPv6 = [
+      "fdbc:f9dc:67ad:2547::54"
+      "fd10:127:10:2547::54"
     ];
 
-    privateNetwork = true;
-    hostAddress = "${thisHost.ltnet.IPv4Prefix}.1";
-    hostAddress6 = "${thisHost.ltnet.IPv6Prefix}::1";
-    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString corednsContainerIP}";
-    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString corednsContainerIP}";
+    outerConfig = {
+      bindMounts = {
+        "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+        "/run/secrets" = { hostPath = "/run/secrets"; isReadOnly = true; };
+      };
 
-    config = { config, pkgs, ... }: {
-      system.stateVersion = "21.05";
-      nixpkgs.pkgs = hostPkgs;
-      networking.hostName = hostConfig.networking.hostName;
-      networking.firewall.enable = false;
-      services.journald.extraConfig = ''
-        SystemMaxUse=50M
-        SystemMaxFileSize=10M
-      '';
+      forwardPorts = [
+        { hostPort = 53; containerPort = 53; protocol = "tcp"; }
+        { hostPort = 53; containerPort = 53; protocol = "udp"; }
+      ];
+    };
 
+    innerConfig = {
       services.coredns = {
         enable = true;
         package = pkgs.nur.repos.xddxdd.coredns;
@@ -115,7 +110,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "${hostConfig.age.secrets."Klantian.dn42.+013+20109.private".path}"
+              key file "${config.age.secrets."Klantian.dn42.+013+20109.private".path}"
             }
           }
 
@@ -126,7 +121,7 @@ in
 
             file "/var/lib/zones/zones/184_29.76.22.172.in-addr.arpa.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
+              key file "${config.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
             }
           }
           96/27.76.22.172.in-addr.arpa {
@@ -136,7 +131,7 @@ in
 
             file "/var/lib/zones/zones/96_27.76.22.172.in-addr.arpa.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
+              key file "${config.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
             }
           }
           d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa {
@@ -146,7 +141,7 @@ in
 
             file "/var/lib/zones/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
+              key file "${config.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
             }
           }
 
@@ -186,7 +181,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "${hostConfig.age.secrets."Klantian.neo.+013+47346.private".path}"
+              key file "${config.age.secrets."Klantian.neo.+013+47346.private".path}"
             }
           }
 
@@ -197,7 +192,7 @@ in
 
             file "/var/lib/zones/zones/10.127.10.in-addr.arpa.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
+              key file "${config.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
             }
           }
           0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa {
@@ -207,7 +202,7 @@ in
 
             file "/var/lib/zones/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
+              key file "${config.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
             }
           }
 
@@ -219,7 +214,7 @@ in
 
             file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
+              key file "${config.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
             }
           }
           dn42.lantian.pub {
@@ -229,7 +224,7 @@ in
 
             file "/var/lib/zones/zones/dn42.lantian.pub.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."Kdn42.lantian.pub.+013+58078.private".path}"
+              key file "${config.age.secrets."Kdn42.lantian.pub.+013+58078.private".path}"
             }
           }
           neo.lantian.pub {
@@ -239,7 +234,7 @@ in
 
             file "/var/lib/zones/zones/neo.lantian.pub.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."Kneo.lantian.pub.+013+53977.private".path}"
+              key file "${config.age.secrets."Kneo.lantian.pub.+013+53977.private".path}"
             }
           }
           zt.lantian.pub {
@@ -249,7 +244,7 @@ in
 
             file "/var/lib/zones/zones/zt.lantian.pub.zone"
             dnssec {
-              key file "${hostConfig.age.secrets."Kzt.lantian.pub.+013+44508.private".path}"
+              key file "${config.age.secrets."Kzt.lantian.pub.+013+44508.private".path}"
             }
           }
 
@@ -278,7 +273,7 @@ in
 
             forward . 127.0.0.1:54
             dnssec {
-              key file "${hostConfig.age.secrets."Klantian.eu.org.+013+37106.private".path}"
+              key file "${config.age.secrets."Klantian.eu.org.+013+37106.private".path}"
             }
           }
         '';
@@ -288,102 +283,19 @@ in
         DynamicUser = pkgs.lib.mkForce false;
         User = "root";
       };
-
-      services.bird2 = {
-        enable = true;
-        checkConfig = false;
-        config = ''
-          log stderr { error, fatal };
-          router id ${thisHost.ltnet.IPv4Prefix}.${builtins.toString corednsContainerIP};
-          protocol device {}
-
-          protocol babel {
-            ipv4 {
-              import none;
-              export all;
-            };
-            ipv6 {
-              import none;
-              export all;
-            };
-            interface "eth*" {
-              type wired;
-              hello interval 1s;
-              update interval 1s;
-              port 6695;
-            };
-          }
-
-          protocol static {
-            ipv4;
-            route 172.22.76.109/32 unreachable;
-            route 172.18.0.254/32 unreachable;
-            route 10.127.10.254/32 unreachable;
-          }
-
-          protocol static {
-            ipv6;
-            route fdbc:f9dc:67ad:2547::54/128 unreachable;
-            route fd10:127:10:2547::54/128 unreachable;
-          }
-        '';
-      };
-
-      services.resolved.enable = false;
-
-      systemd.network.enable = true;
-      systemd.network.netdevs.dummy0 = {
-        netdevConfig = {
-          Kind = "dummy";
-          Name = "dummy0";
-        };
-      };
-
-      systemd.network.networks.dummy0 = {
-        matchConfig = {
-          Name = "dummy0";
-        };
-
-        networkConfig = {
-          IPv6PrivacyExtensions = false;
-        };
-
-        addresses = [
-          { addressConfig = { Address = "172.22.76.109/32"; }; }
-          { addressConfig = { Address = "172.18.0.254/32"; }; }
-          { addressConfig = { Address = "10.127.10.254/32"; }; }
-          { addressConfig = { Address = "fdbc:f9dc:67ad:2547::54/128"; }; }
-          { addressConfig = { Address = "fd10:127:10:2547::54/128"; }; }
-        ];
-      };
     };
   };
 
-  containers.coredns-knot = {
-    autoStart = true;
-    ephemeral = true;
-    additionalCapabilities = [ "CAP_NET_ADMIN" ];
+  containers.coredns-knot = container {
+    containerIP = knotContainerIP;
 
-    bindMounts = {
-      "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+    outerConfig = {
+      bindMounts = {
+        "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+      };
     };
 
-    privateNetwork = true;
-    hostAddress = "${thisHost.ltnet.IPv4Prefix}.1";
-    hostAddress6 = "${thisHost.ltnet.IPv6Prefix}::1";
-    localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString knotContainerIP}";
-    localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString knotContainerIP}";
-
-    config = { config, pkgs, ... }: {
-      system.stateVersion = "21.05";
-      nixpkgs.pkgs = hostPkgs;
-      networking.hostName = hostConfig.networking.hostName;
-      networking.firewall.enable = false;
-      services.journald.extraConfig = ''
-        SystemMaxUse=50M
-        SystemMaxFileSize=10M
-      '';
-
+    innerConfig = {
       services.knot = {
         enable = true;
         extraConfig =
