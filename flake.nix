@@ -76,5 +76,10 @@
               };
             });
       };
+
+      dnsRecords = import ./dns/toplevel.nix rec {
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        dns = import ./common/components/dns/default.nix { inherit pkgs; };
+      };
     };
 }
