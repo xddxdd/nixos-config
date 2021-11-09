@@ -22,7 +22,7 @@ outerConfig // {
   localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP}";
   localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString containerIP}";
 
-  config = { ... }: innerConfig // {
+  config = { ... }: {
     system.stateVersion = config.system.stateVersion;
     nixpkgs.pkgs = pkgs;
     networking.hostName = config.networking.hostName;
@@ -31,6 +31,8 @@ outerConfig // {
       SystemMaxUse=50M
       SystemMaxFileSize=10M
     '';
+
+    imports = [ innerConfig ];
 
     services.bird2 = {
       enable = true;
