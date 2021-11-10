@@ -1,0 +1,72 @@
+kind: secret
+name: id_ed25519
+get:
+  path: kv/data/ssh
+  name: id_ed25519
+
+---
+
+kind: secret
+name: tg_token
+get:
+  path: kv/data/telegram
+  name: token
+
+---
+
+kind: secret
+name: tg_target
+get:
+  path: kv/data/telegram
+  name: target
+
+---
+
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: nix generate config
+    image: nixos/nix
+    environment:
+      SSH_KEY:
+        from_secret: id_ed25519
+    commands:
+      - nix-env -iA nixpkgs.nixFlakes nixpkgs.git
+      - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      - nix eval --raw ".#dnsRecords" > "dnsconfig.js"
+
+      - echo "$SSH_KEY" > /id_ed25519
+      - nix run "nixpkgs#age" -- -i "/id_ed25519" --decrypt -o "creds.json" "secrets/dnscontrol.age"
+
+      - mkdir -p zones
+      - nix run "nixpkgs#dnscontrol" -- push
+
+      - nslookup -type=txt hosts.lantian.pub | grep -E -o "\"(.*)\"" | tr -d "\"" > ansible_hosts
+      - cat ansible_hosts
+
+  - name: ansible deploy
+    image: xddxdd/ansible
+    environment:
+      SSH_KEY:
+        from_secret: id_ed25519
+    failure: ignore
+    commands:
+      # Install SSH key
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod 600 /root/.ssh/id_ed25519
+      # Run ansible
+      - ansible-playbook -i ansible_hosts dns/ansible_deploy.yml
+
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      status:
+        - success
+        - failure
