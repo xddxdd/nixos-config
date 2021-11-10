@@ -1,8 +1,8 @@
 deploy:
-	nix run github:serokell/deploy-rs -- .
+	nix run github:serokell/deploy-rs -- -s .
 
 verbose:
-	nix run github:serokell/deploy-rs -- . -- --show-trace
+	nix run github:serokell/deploy-rs -- -s . -- --show-trace
 
 update:
 	nix flake update
