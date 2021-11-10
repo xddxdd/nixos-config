@@ -1,0 +1,17 @@
+# Deploy PowerDNS zones
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Create directory
+    file:
+      path: /var/lib/zones/zones/
+      state: directory
+  - name: Deploy root zone file
+    synchronize:
+      src: ../zones/
+      dest: /var/lib/zones/zones/
+      checksum: yes
+      delete: yes
+  - name: Restart DNS servers
+    command: systemctl restart container@coredns.service container@coredns-knot.service
+    ignore_errors: yes
