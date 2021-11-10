@@ -354,5 +354,17 @@ dns.eval {
         ]
         ++ (commonPoem "2001:470:1f07:c6f::");
     })
+
+    (rec {
+      domain = "2605:6400:cac6::/48";
+      reverse = true;
+      providers = [ "henet" ];
+      records =
+        [
+          (PTR { name = "*"; target = "buyvm.lantian.pub."; })
+          (PTR { name = "2605:6400:cac6::1"; target = "buyvm.lantian.pub."; })
+        ]
+        ++ (commonPoem "2605:6400:cac6::");
+    })
   ];
 }
