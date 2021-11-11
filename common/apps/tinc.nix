@@ -7,7 +7,8 @@ let
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
   hostToTinc = hostname: { public
-                         , tincPub
+                         , tincPubRSA
+                         , tincPubEd25519
                          , ...
                          }:
     pkgs.lib.nameValuePair
@@ -15,11 +16,13 @@ let
       ({
         addresses = [ ]
           ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" public) [{ address = public.IPv4; }]
-          ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" public) [{ address = public.IPv6; }];
-        rsaPublicKey = tincPub;
+          ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" public) [{ address = public.IPv6; }]
+          ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Alt" public) [{ address = public.IPv6Alt; }]
+        ;
+        rsaPublicKey = tincPubRSA;
         settings = {
-          Compression = 1;
-          IndirectData = true;
+          Compression = 0;
+          Ed25519PublicKey = tincPubEd25519;
         };
       });
 in
@@ -36,8 +39,6 @@ in
       settings = {
         Interface = "ltmesh";
         Mode = "switch";
-        Broadcast = "direct";
-        DirectOnly = true;
         PriorityInheritance = true;
         ProcessPriority = "high";
         ReplayWindow = 128;
