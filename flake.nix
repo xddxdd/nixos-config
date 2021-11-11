@@ -27,13 +27,38 @@
     };
   };
 
-  outputs = { self, nixpkgs, nur, deploy-rs, ... }@inputs:
+  outputs = { self, nixpkgs, nur, deploy-rs, hath-nix, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
 
       # hostsList = [ "soyoustart" ];
       hostsList = lib.mapAttrsToList (n: v: n) hosts;
+
+      overlays = [
+        nur.overlay
+        (final: prev: {
+          rage = prev.stdenv.mkDerivation rec {
+            name = "rage";
+            version = prev.age.version;
+
+            phases = [ "installPhase" ];
+            installPhase = ''
+              mkdir -p $out/bin
+              ln -s ${prev.age}/bin/age $out/bin/rage
+              ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
+            '';
+          };
+        })
+        (final: prev: {
+          nur = import nur {
+            nurpkgs = prev;
+            pkgs = prev;
+            repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
+          };
+        })
+        hath-nix.overlay
+      ];
     in
     {
       nixosConfigurations = lib.genAttrs hostsList
@@ -45,11 +70,12 @@
             system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
             modules = [
               inputs.agenix.nixosModules.age
-              ./common/common.nix
-              (import ./common/home-manager.nix { inherit inputs; })
               ({
                 networking.hostName = n;
+                nixpkgs.overlays = overlays;
               })
+              ./common/common.nix
+              (import ./common/home-manager.nix { inherit inputs; })
               (./hosts + "/${n}/configuration.nix")
             ];
           });
