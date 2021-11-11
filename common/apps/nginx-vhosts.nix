@@ -50,7 +50,7 @@ let
     '';
 
     "/ray" = {
-      proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13504";
+      proxyPass = "http://127.0.0.1:13504";
       proxyWebsockets = true;
       extraConfig = ''
         access_log off;
