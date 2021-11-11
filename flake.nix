@@ -35,6 +35,8 @@
       # hostsList = [ "soyoustart" ];
       hostsList = lib.mapAttrsToList (n: v: n) hosts;
 
+      stateVersion = "21.05";
+
       overlays = [
         nur.overlay
         (final: prev: {
@@ -73,6 +75,7 @@
               ({
                 networking.hostName = n;
                 nixpkgs.overlays = overlays;
+                system.stateVersion = stateVersion;
               })
               ./common/common.nix
               (import ./common/home-manager.nix { inherit inputs; })
