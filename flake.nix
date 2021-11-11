@@ -78,7 +78,7 @@
                 system.stateVersion = stateVersion;
               })
               ./common/common.nix
-              (import ./common/home-manager.nix { inherit inputs; })
+              (import ./common/home-manager.nix { inherit inputs stateVersion; })
               (./hosts + "/${n}/configuration.nix")
             ];
           });
