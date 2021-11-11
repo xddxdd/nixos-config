@@ -27,7 +27,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nur, deploy-rs, hath-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nur, deploy-rs, hath-nix, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
@@ -67,9 +67,10 @@
         (n:
           let
             thisHost = builtins.getAttr n hosts;
+            system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
           in
           lib.nixosSystem {
-            system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
+            inherit system;
             modules = [
               inputs.agenix.nixosModules.age
               ({
@@ -78,9 +79,29 @@
                 system.stateVersion = stateVersion;
               })
               ./common/common.nix
-              (import ./common/home-manager.nix { inherit inputs; })
               (./hosts + "/${n}/configuration.nix")
             ];
+          });
+
+      homeManagerConfigurations = lib.genAttrs hostsList
+        (n:
+          let
+            thisHost = builtins.getAttr n hosts;
+            system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
+          in
+          home-manager.lib.homeManagerConfiguration rec {
+            inherit system stateVersion;
+            username = "lantian";
+            homeDirectory = "/home/${username}";
+            pkgs = import nixpkgs { inherit system overlays; };
+
+            configuration = { ... }: {
+              imports = [
+                ./common/home-lantian.nix
+                inputs.nixos-vscode-server.nixosModules.homeManager
+              ];
+              services.auto-fix-vscode-server.enable = true;
+            };
           });
 
       deploy = {
@@ -99,9 +120,11 @@
             in
             {
               hostname = hostname;
-              profiles.system = {
-                path = deploy-rs.lib."${system}".activate.nixos self.nixosConfigurations."${n}";
-                sshOpts = [ "-p" (builtins.toString sshPort) ];
+              sshOpts = [ "-p" (builtins.toString sshPort) ];
+              profilesOrder = [ "home-manager" "system" ];
+              profiles = {
+                system.path = deploy-rs.lib."${system}".activate.nixos self.nixosConfigurations."${n}";
+                home-manager.path = deploy-rs.lib."${system}".activate.home-manager self.homeManagerConfigurations."${n}";
               };
             });
       };
