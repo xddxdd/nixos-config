@@ -3,6 +3,8 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
 in
 {
   services.mysql = {
@@ -19,5 +21,17 @@ in
       skip-host-cache
       skip-name-resolve
     '';
+  };
+
+  services.nginx.virtualHosts."pma.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
+    listen = nginxHelper.listen443;
+    root = "/var/www/pma.lantian.pub";
+    locations = nginxHelper.addCommonLocationConf {
+      "/" = {
+        index = "index.php";
+      };
+    };
+    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+      + nginxHelper.commonVhostConf true;
   };
 }

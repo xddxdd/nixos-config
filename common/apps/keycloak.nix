@@ -1,7 +1,10 @@
 { pkgs, config, ... }:
 
+let
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+in
 {
-  age.secrets.keycloak-dbpw = { 
+  age.secrets.keycloak-dbpw = {
     file = ../../secrets/keycloak-dbpw.age;
     mode = "0444";
   };
@@ -28,5 +31,18 @@
         };
       }
     ];
+  };
+
+  services.nginx.virtualHosts."login.lantian.pub" = {
+    listen = nginxHelper.listen443;
+    locations = nginxHelper.addCommonLocationConf {
+      "= /".return = "302 /auth/admin/";
+      "/" = {
+        proxyPass = "http://127.0.0.1:13401";
+        extraConfig = nginxHelper.locationProxyConf;
+      };
+    };
+    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+      + nginxHelper.commonVhostConf true;
   };
 }

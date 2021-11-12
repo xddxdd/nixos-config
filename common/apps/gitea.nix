@@ -1,5 +1,8 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
+let
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+in
 {
   age.secrets.gitea-dbpw = {
     file = ../../secrets/gitea-dbpw.age;
@@ -76,4 +79,17 @@
   };
 
   users.groups.gitea = { };
+
+  services.nginx.virtualHosts."git.lantian.pub" = {
+    listen = nginxHelper.listen443;
+    locations = nginxHelper.addCommonLocationConf {
+      "/" = {
+        proxyPass = "http://unix:/run/gitea/gitea.sock";
+        extraConfig = nginxHelper.locationProxyConf;
+      };
+      "= /user/login".return = "302 /user/oauth2/Keycloak";
+    };
+    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+      + nginxHelper.commonVhostConf true;
+  };
 }

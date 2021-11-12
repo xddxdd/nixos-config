@@ -37,8 +37,8 @@
 
     ./components/backup.nix
     ./components/dn42.nix
-    ./components/php-switch.nix
     ./components/route-chain.nix
+    ./components/web-switch.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

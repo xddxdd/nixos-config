@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 
+let
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+in
 {
   age.secrets.vaultwarden-env.file = ../../secrets/vaultwarden-env.age;
 
@@ -24,5 +27,26 @@
       SMTP_TIMEOUT = 10;
     };
     environmentFile = config.age.secrets.vaultwarden-env.path;
+  };
+
+  services.nginx.virtualHosts."bitwarden.lantian.pub" = {
+    listen = nginxHelper.listen443;
+    locations = nginxHelper.addCommonLocationConf {
+      "/" = {
+        proxyPass = "http://127.0.0.1:13772";
+        extraConfig = nginxHelper.locationProxyConf;
+      };
+      "/notifications/hub" = {
+        proxyPass = "http://127.0.0.1:13773";
+        proxyWebsockets = true;
+        extraConfig = nginxHelper.locationProxyConf;
+      };
+      "/notifications/hub/negotiate" = {
+        proxyPass = "http://127.0.0.1:13772";
+        extraConfig = nginxHelper.locationProxyConf;
+      };
+    };
+    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+      + nginxHelper.commonVhostConf true;
   };
 }
