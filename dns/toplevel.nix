@@ -31,6 +31,9 @@ dns.eval {
         ++ lantianPub.email
         ++ lantianPub.externalServices
         ++ lantianPub.internalServices
+        ++ (commonHosts.LTNet "zt.${domain}")
+        ++ (commonHosts.DN42 "dn42.${domain}")
+        ++ (commonHosts.NeoNetwork "neo.${domain}")
       ;
     })
 
@@ -99,36 +102,6 @@ dns.eval {
         ++ (commonHosts.SSHFP domain)
         ++ (commonHosts.Wildcard domain)
         ++ commonNameservers.Public
-      ;
-    })
-
-    (rec {
-      domain = "neo.lantian.pub";
-      providers = [ "bind" ];
-      records =
-        [ ]
-        ++ commonNameservers.Public
-        ++ (commonHosts.NeoNetwork domain)
-      ;
-    })
-
-    (rec {
-      domain = "dn42.lantian.pub";
-      providers = [ "bind" ];
-      records =
-        [ ]
-        ++ commonNameservers.Public
-        ++ (commonHosts.DN42 domain)
-      ;
-    })
-
-    (rec {
-      domain = "zt.lantian.pub";
-      providers = [ "bind" ];
-      records =
-        [ ]
-        ++ commonNameservers.Public
-        ++ (commonHosts.LTNet domain)
       ;
     })
 

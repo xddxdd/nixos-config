@@ -54,7 +54,7 @@ rec {
     inherit name reverse ttl cloudflare;
     algorithm = 1;
     type = 1;
-    value = builtins.readFile (pkgs.runCommandLocal "sshfp-${name}-rsa-sha1.txt" { } ''
+    value = builtins.readFile (pkgs.runCommandLocal "sshfp-rsa-sha1.txt" { } ''
       echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
     '');
   };
@@ -62,7 +62,7 @@ rec {
     inherit name reverse ttl cloudflare;
     algorithm = 1;
     type = 2;
-    value = builtins.readFile (pkgs.runCommandLocal "sshfp-${name}-rsa-sha256.txt" { } ''
+    value = builtins.readFile (pkgs.runCommandLocal "sshfp-rsa-sha256.txt" { } ''
       echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
     '');
   };
@@ -70,7 +70,7 @@ rec {
     inherit name reverse ttl cloudflare;
     algorithm = 4;
     type = 1;
-    value = builtins.readFile (pkgs.runCommandLocal "sshfp-${name}-ed25519-sha1.txt" { } ''
+    value = builtins.readFile (pkgs.runCommandLocal "sshfp-ed25519-sha1.txt" { } ''
       echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
     '');
   };
@@ -78,7 +78,7 @@ rec {
     inherit name reverse ttl cloudflare;
     algorithm = 4;
     type = 2;
-    value = builtins.readFile (pkgs.runCommandLocal "sshfp-${name}-ed25519-sha256.txt" { } ''
+    value = builtins.readFile (pkgs.runCommandLocal "sshfp-ed25519-sha256.txt" { } ''
       echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
     '');
   };
