@@ -3,6 +3,8 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
 in
 {
   systemd.services.bird-lg-go = {
@@ -22,6 +24,32 @@ in
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur.repos.xddxdd.bird-lg-go}/bin/frontend";
+    };
+  };
+
+  services.nginx.virtualHosts = {
+    "lg.lantian.pub" = {
+      listen = nginxHelper.listen443;
+      locations = nginxHelper.addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          extraConfig = nginxHelper.locationProxyConf;
+        };
+      };
+      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
+    "lg.lantian.dn42" = {
+      listen = nginxHelper.listen80;
+      serverAliases = [ "lg.lantian.neo" ];
+      locations = nginxHelper.addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          extraConfig = nginxHelper.locationProxyConf;
+        };
+      };
+      extraConfig = nginxHelper.makeSSL "lantian.dn42_ecc"
+        + nginxHelper.commonVhostConf true;
     };
   };
 }

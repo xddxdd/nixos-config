@@ -70,4 +70,5 @@ in
   };
 
   lantian.enable-php = true;
+  lantian.enable-lab = true;
 }

@@ -3,6 +3,8 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+
+  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
 in
 {
   imports = [
@@ -83,4 +85,40 @@ in
     "d /var/lib/docker-dind 755 root root"
     "d /run/docker-dind 755 root root"
   ];
+
+  services.nginx.virtualHosts = {
+    "ci.lantian.pub" = {
+      listen = nginxHelper.listen443;
+      locations = nginxHelper.addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+          extraConfig = nginxHelper.locationProxyConf;
+        };
+      };
+      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
+    "ci-github.lantian.pub" = {
+      listen = nginxHelper.listen443;
+      locations = nginxHelper.addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+          extraConfig = nginxHelper.locationProxyConf;
+        };
+      };
+      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
+    "vault.lantian.pub" = {
+      listen = nginxHelper.listen443;
+      locations = nginxHelper.addCommonLocationConf {
+        "/" = {
+          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+          extraConfig = nginxHelper.locationProxyConf;
+        };
+      };
+      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
+  };
 }
