@@ -85,18 +85,9 @@ rec {
     (CNAME { name = "www"; target = "@"; cloudflare = true; })
   ]
   ++ (serveWithOwnNS "asn")
-  ++ (serveWithOwnNS "dn42")
-  ++ (serveWithOwnNS "neo")
-  ++ (serveWithOwnNS "zt")
   ++ [
     (DS { name = "asn"; keytag = 48539; algorithm = 13; digesttype = 2; digest = "7D653B29D41EDF8A607B3119AF7FF3F0C1AE6EBFD19AA6FA1CCF1590E74DE1B6"; ttl = "1d"; })
     (DS { name = "asn"; keytag = 48539; algorithm = 13; digesttype = 4; digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A"; ttl = "1d"; })
-    (DS { name = "dn42"; keytag = 58078; algorithm = 13; digesttype = 2; digest = "81A243A02CCC549E29AF8959F725E0D9B32DF57CCC1F3CE1EA5520DE3839AE27"; ttl = "1d"; })
-    (DS { name = "dn42"; keytag = 58078; algorithm = 13; digesttype = 4; digest = "70CE8555B82DFE3350E5B889B33B715B93EC2289F88F43B1F401037FD2F77C07B5ED45249EBBB99EDACCD50E521BFDC4"; ttl = "1d"; })
-    (DS { name = "neo"; keytag = 53977; algorithm = 13; digesttype = 2; digest = "95DA7BDF34B30EDAB194A4304888C130CE4B4F19A6F953B9C045341939CEB902"; ttl = "1d"; })
-    (DS { name = "neo"; keytag = 53977; algorithm = 13; digesttype = 4; digest = "FF20A56AA9E3C4F5AB3FB7B8520AD352A695198186224F4B893DF009CE4C7F96C92FF815B5D1F47209D31C1828006A3C"; ttl = "1d"; })
-    (DS { name = "zt"; keytag = 44508; algorithm = 13; digesttype = 2; digest = "A63BA97D0639ADB92D28FC6780C7BDAEFD2FF51F927AA1B6D17C9F147DEA2439"; ttl = "1d"; })
-    (DS { name = "zt"; keytag = 44508; algorithm = 13; digesttype = 4; digest = "AD99A5D4C58656CEACA84510BAE3DF9E3FB7A3C98F201D94FA45D1FCA0BFCC323BF3CBB56C3687CA2FBCF7C68702F117"; ttl = "1d"; })
   ]
   ;
 }

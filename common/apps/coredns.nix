@@ -6,7 +6,7 @@ let
   corednsContainerIP = 54;
   knotContainerIP = 55;
 
-  dnssecKeys = import ../../dnssec-keys.nix;
+  dnssecKeys = import ../helpers/dnssec-keys.nix;
 
   container = import ../helpers/container.nix { inherit config pkgs; };
 in
@@ -215,36 +215,6 @@ in
             file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
             dnssec {
               key file "${config.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
-            }
-          }
-          dn42.lantian.pub {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/dn42.lantian.pub.zone"
-            dnssec {
-              key file "${config.age.secrets."Kdn42.lantian.pub.+013+58078.private".path}"
-            }
-          }
-          neo.lantian.pub {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/neo.lantian.pub.zone"
-            dnssec {
-              key file "${config.age.secrets."Kneo.lantian.pub.+013+53977.private".path}"
-            }
-          }
-          zt.lantian.pub {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/zt.lantian.pub.zone"
-            dnssec {
-              key file "${config.age.secrets."Kzt.lantian.pub.+013+44508.private".path}"
             }
           }
 

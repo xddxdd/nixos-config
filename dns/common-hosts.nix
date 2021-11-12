@@ -28,54 +28,54 @@ in
       (n: v: (
         # A record
         pkgs.lib.optionals (builtins.hasAttr "IPv4" v.public) [
-          (A { name = n; address = v.public.IPv4; })
-          (A { name = "v4.${n}"; address = v.public.IPv4; })
+          (A { name = "${n}.${domain}."; address = v.public.IPv4; })
+          (A { name = "v4.${n}.${domain}."; address = v.public.IPv4; })
         ]
         # AAAA record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" v.public) [
-          (AAAA { name = n; address = v.public.IPv6; })
-          (AAAA { name = "v6.${n}"; address = v.public.IPv6; })
+          (AAAA { name = "${n}.${domain}."; address = v.public.IPv6; })
+          (AAAA { name = "v6.${n}.${domain}."; address = v.public.IPv6; })
         ]
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Alt" v.public) [
-          (AAAA { name = n; address = v.public.IPv6Alt; })
-          (AAAA { name = "v6.${n}"; address = v.public.IPv6Alt; })
+          (AAAA { name = "${n}.${domain}."; address = v.public.IPv6Alt; })
+          (AAAA { name = "v6.${n}.${domain}."; address = v.public.IPv6Alt; })
         ]
       ))
       hosts) ++ (pkgs.lib.mapAttrsToList
       (name: target: [
-        (CNAME { inherit name target; })
-        (CNAME { name = "v4.${name}"; target = "v4.${target}.${domain}."; })
-        (CNAME { name = "v6.${name}"; target = "v6.${target}.${domain}."; })
+        (CNAME { name = "${name}.${domain}."; inherit target; })
+        (CNAME { name = "v4.${name}.${domain}."; target = "v4.${target}.${domain}."; })
+        (CNAME { name = "v6.${name}.${domain}."; target = "v6.${target}.${domain}."; })
       ])
       replacedHosts));
 
   SSHFP = domain: pkgs.lib.flatten
     (pkgs.lib.mapAttrsToList
       (n: v: pkgs.lib.optionals (builtins.hasAttr "sshPubRSA" v) [
-        (SSHFP_RSA_SHA1 { name = n; pubkey = v.sshPubRSA; })
-        (SSHFP_RSA_SHA256 { name = n; pubkey = v.sshPubRSA; })
+        (SSHFP_RSA_SHA1 { name = "${n}.${domain}."; pubkey = v.sshPubRSA; })
+        (SSHFP_RSA_SHA256 { name = "${n}.${domain}."; pubkey = v.sshPubRSA; })
       ]
       ++ pkgs.lib.optionals (builtins.hasAttr "sshPubEd25519" v) [
-        (SSHFP_ED25519_SHA1 { name = n; pubkey = v.sshPubEd25519; })
-        (SSHFP_ED25519_SHA256 { name = n; pubkey = v.sshPubEd25519; })
+        (SSHFP_ED25519_SHA1 { name = "${n}.${domain}."; pubkey = v.sshPubEd25519; })
+        (SSHFP_ED25519_SHA256 { name = "${n}.${domain}."; pubkey = v.sshPubEd25519; })
       ])
       hosts);
 
   Wildcard = domain: pkgs.lib.flatten
     ((pkgs.lib.mapAttrsToList
       (n: v: [
-        (CNAME { name = "*.${n}"; target = n; })
+        (CNAME { name = "*.${n}.${domain}."; target = n; })
       ])
       hosts) ++ (pkgs.lib.mapAttrsToList
       (name: target: [
-        (CNAME { name = "*.${name}"; inherit target; })
+        (CNAME { name = "*.${name}.${domain}."; inherit target; })
       ])
       replacedHosts)
     );
 
   TXT = domain: pkgs.lib.flatten (pkgs.lib.mapAttrsToList
     (n: v: [
-      (TXT { name = "hosts"; contents = "${n}.${domain}"; })
+      (TXT { name = "hosts.${domain}."; contents = "${n}.${domain}"; })
     ])
     hosts);
 
@@ -84,24 +84,24 @@ in
       (n: v: (
         # A record
         pkgs.lib.optionals (builtins.hasAttr "IPv4Prefix" v.ltnet) [
-          (A { name = n; address = "${v.ltnet.IPv4Prefix}.1"; })
-          (A { name = "v4.${n}"; address = "${v.ltnet.IPv4Prefix}.1"; })
+          (A { name = "${n}.${domain}."; address = "${v.ltnet.IPv4Prefix}.1"; })
+          (A { name = "v4.${n}.${domain}."; address = "${v.ltnet.IPv4Prefix}.1"; })
         ]
         # AAAA record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Prefix" v.ltnet) [
-          (AAAA { name = n; address = "${v.ltnet.IPv6Prefix}::1"; })
-          (AAAA { name = "v6.${n}"; address = "${v.ltnet.IPv6Prefix}::1"; })
+          (AAAA { name = "${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::1"; })
+          (AAAA { name = "v6.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::1"; })
         ]
         ++ [
-          (CNAME { name = "*.${n}"; target = n; })
+          (CNAME { name = "*.${n}.${domain}."; target = n; })
         ]
       ))
       hosts) ++ (pkgs.lib.mapAttrsToList
       (name: target: [
-        (CNAME { inherit name target; })
-        (CNAME { name = "*.${name}"; inherit target; })
-        (CNAME { name = "v4.${name}"; target = "v4.${target}.${domain}."; })
-        (CNAME { name = "v6.${name}"; target = "v6.${target}.${domain}."; })
+        (CNAME { name = "${name}.${domain}."; inherit target; })
+        (CNAME { name = "*.${name}.${domain}."; inherit target; })
+        (CNAME { name = "v4.${name}.${domain}."; target = "v4.${target}.${domain}."; })
+        (CNAME { name = "v6.${name}.${domain}."; target = "v6.${target}.${domain}."; })
       ])
       replacedHosts));
 
@@ -124,27 +124,27 @@ in
       (n: v: (
         # A record
         pkgs.lib.optionals (builtins.hasAttr "IPv4" v.dn42) [
-          (A { name = n; address = v.dn42.IPv4; })
-          (A { name = "v4.${n}"; address = v.dn42.IPv4; })
-          (A { name = "dns-authoritative.${n}"; address = v.dn42.IPv4; })
+          (A { name = "${n}.${domain}."; address = v.dn42.IPv4; })
+          (A { name = "v4.${n}.${domain}."; address = v.dn42.IPv4; })
+          (A { name = "dns-authoritative.${n}.${domain}."; address = v.dn42.IPv4; })
         ]
         # AAAA record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" v.dn42) [
-          (AAAA { name = n; address = v.dn42.IPv6; })
-          (AAAA { name = "v6.${n}"; address = v.dn42.IPv6; })
-          (AAAA { name = "dns-recursive.${n}"; address = "${v.ltnet.IPv6Prefix}::53"; })
-          (AAAA { name = "dns-authoritative.${n}"; address = "${v.ltnet.IPv6Prefix}::54"; })
-          (AAAA { name = "dns-authoritative-backend.${n}"; address = "${v.ltnet.IPv6Prefix}::55"; })
+          (AAAA { name = "${n}.${domain}."; address = v.dn42.IPv6; })
+          (AAAA { name = "v6.${n}.${domain}."; address = v.dn42.IPv6; })
+          (AAAA { name = "dns-recursive.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::53"; })
+          (AAAA { name = "dns-authoritative.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::54"; })
+          (AAAA { name = "dns-authoritative-backend.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::55"; })
         ]
       ))
       hosts) ++ (pkgs.lib.mapAttrsToList
       (name: target: [
-        (CNAME { inherit name target; })
-        (CNAME { name = "dns-recursive.${name}"; target = "dns-recursive.${target}.${domain}."; })
-        (CNAME { name = "dns-authoritative.${name}"; target = "dns-authoritative.${target}.${domain}."; })
-        (CNAME { name = "dns-authoritative-backend.${name}"; target = "dns-authoritative-backend.${target}.${domain}."; })
-        (CNAME { name = "v4.${name}"; target = "v4.${target}.${domain}."; })
-        (CNAME { name = "v6.${name}"; target = "v6.${target}.${domain}."; })
+        (CNAME { name = "${name}.${domain}."; inherit target; })
+        (CNAME { name = "dns-recursive.${name}.${domain}."; target = "dns-recursive.${target}.${domain}."; })
+        (CNAME { name = "dns-authoritative.${name}.${domain}."; target = "dns-authoritative.${target}.${domain}."; })
+        (CNAME { name = "dns-authoritative-backend.${name}.${domain}."; target = "dns-authoritative-backend.${target}.${domain}."; })
+        (CNAME { name = "v4.${name}.${domain}."; target = "v4.${target}.${domain}."; })
+        (CNAME { name = "v6.${name}.${domain}."; target = "v6.${target}.${domain}."; })
       ])
       replacedHosts));
 
@@ -178,20 +178,20 @@ in
       (n: v: (
         # A record
         pkgs.lib.optionals (builtins.hasAttr "IPv4" v.neonetwork) [
-          (A { name = n; address = v.neonetwork.IPv4; })
-          (A { name = "v4.${n}"; address = v.neonetwork.IPv4; })
+          (A { name = "${n}.${domain}."; address = v.neonetwork.IPv4; })
+          (A { name = "v4.${n}.${domain}."; address = v.neonetwork.IPv4; })
         ]
         # AAAA record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" v.neonetwork) [
-          (AAAA { name = n; address = v.neonetwork.IPv6; })
-          (AAAA { name = "v6.${n}"; address = v.neonetwork.IPv6; })
+          (AAAA { name = "${n}.${domain}."; address = v.neonetwork.IPv6; })
+          (AAAA { name = "v6.${n}.${domain}."; address = v.neonetwork.IPv6; })
         ]
       ))
       hosts) ++ (pkgs.lib.mapAttrsToList
       (name: target: [
-        (CNAME { inherit name target; })
-        (CNAME { name = "v4.${name}"; target = "v4.${target}.${domain}."; })
-        (CNAME { name = "v6.${name}"; target = "v6.${target}.${domain}."; })
+        (CNAME { name = "${name}.${domain}."; inherit target; })
+        (CNAME { name = "v4.${name}.${domain}."; target = "v4.${target}.${domain}."; })
+        (CNAME { name = "v6.${name}.${domain}."; target = "v6.${target}.${domain}."; })
       ])
       replacedHosts));
 
