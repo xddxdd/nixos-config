@@ -51,7 +51,6 @@ rec {
 
     (CNAME { name = "home"; target = "xuyh0120.f3322.org."; })
 
-    (NS { name = "xip"; target = "ns-vultr.nono.io."; })
     (NS { name = "xip"; target = "ns-azure.nono.io."; })
     (NS { name = "xip"; target = "ns-gce.nono.io."; })
     (NS { name = "xip"; target = "ns-aws.nono.io."; })
