@@ -116,7 +116,7 @@ in
           server-id = "lantian";
           tcp-fast-open = "128";
           include-dir = "/var/lib/powerdns-recursor";
-          "forward-zones-recurse+" = ".=172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
+          "forward-zones-recurse+" = ".=172.22.76.109:56;[fdbc:f9dc:67ad:2547::54]:56";
         };
       };
     };
