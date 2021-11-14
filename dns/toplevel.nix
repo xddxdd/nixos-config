@@ -7,6 +7,7 @@ let
   commonHosts = import ./common-hosts.nix { inherit pkgs dns; };
   commonNameservers = import ./common-nameservers.nix { inherit pkgs dns; };
   commonPoem = import ./common-poem.nix { inherit pkgs dns; };
+  commonReverse = import ./common-reverse.nix { inherit pkgs dns; };
 
   lantianPub = import ./records-lantian-pub.nix { inherit pkgs dns; };
   xuyh0120Win = import ./records-xuyh0120-win.nix { inherit pkgs dns; };
@@ -131,17 +132,13 @@ dns.eval {
       providers = [ "bind" ];
       records =
         [
-          (PTR { name = "98"; target = "one.should.uphold.his.countrys.interest.with.his.life."; })
-          (PTR { name = "99"; target = "he.should.not.do.things."; })
-          (PTR { name = "100"; target = "just.to.pursue.his.personal.gains."; })
-          (PTR { name = "101"; target = "and.he.should.not.evade.responsibilities."; })
-          (PTR { name = "102"; target = "for.fear.of.personal.loss."; })
           (PTR { name = "108"; target = "whois.lantian.dn42."; })
           (PTR { name = "109"; target = "dns-authoritative.lantian.dn42."; })
           (PTR { name = "110"; target = "dns-recursive.lantian.dn42."; })
         ]
         ++ commonNameservers.DN42
         ++ (commonHosts.DN42ReverseIPv4 "lantian.dn42" 96 127)
+        ++ (commonPoem "" 98)
       ;
     })
 
@@ -197,7 +194,7 @@ dns.eval {
           (AAAA { name = "ns-anycast"; address = "fdbc:f9dc:67ad:2547::54"; })
 
           (A { name = "@"; address = "172.22.76.185"; ttl = "10m"; })
-          (AAAA { name = "@"; address = "fdbc:f9dc:67ad::dd:c85a:8a93"; ttl = "10m"; })
+          (AAAA { name = "@"; address = "fdbc:f9dc:67ad:3::1"; ttl = "10m"; })
           (CNAME { name = "*"; target = "@"; ttl = "10m"; })
 
           (A { name = "gopher"; address = "172.22.76.108"; })
@@ -208,8 +205,6 @@ dns.eval {
           (AAAA { name = "dns-authoritative"; address = "fdbc:f9dc:67ad:2547::54"; })
           (A { name = "dns-recursive"; address = "172.22.76.110"; })
           (AAAA { name = "dns-recursive"; address = "fdbc:f9dc:67ad:2547::53"; })
-
-          (NS { name = "dns-gatuno"; target = "ns1.gatuno.dn42."; })
         ]
         ++ commonNameservers.DN42
         ++ (commonHosts.DN42 domain)
@@ -256,88 +251,12 @@ dns.eval {
       ;
     })
 
-    (rec {
-      domain = "2001:470:fa1d::/48";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "50kvm.lantian.pub."; })
-          (PTR { name = "2001:470:fa1d::1"; target = "50kvm.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:fa1d::");
-    })
-
-    (rec {
-      domain = "2001:470:19:10bd::/64";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "50kvm.lantian.pub."; })
-          (PTR { name = "2001:470:19:10bd::1"; target = "50kvm.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:19:10bd::");
-    })
-
-    (rec {
-      domain = "2001:470:8a6d::/48";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "virmach-ny1g.lantian.pub."; })
-          (PTR { name = "2001:470:8a6d::1"; target = "virmach-ny1g.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:8a6d::");
-    })
-
-    (rec {
-      domain = "2001:470:1f07:54d::/64";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "virmach-ny1g.lantian.pub."; })
-          (PTR { name = "2001:470:1f07:54d::1"; target = "virmach-ny1g.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:1f07:54d::");
-    })
-
-    (rec {
-      domain = "2001:470:8d00::/48";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "virmach-ny6g.lantian.pub."; })
-          (PTR { name = "2001:470:8d00::1"; target = "virmach-ny6g.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:8d00::");
-    })
-
-    (rec {
-      domain = "2001:470:1f07:c6f::/64";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "virmach-ny6g.lantian.pub."; })
-          (PTR { name = "2001:470:1f07:c6f::1"; target = "virmach-ny6g.lantian.pub."; })
-        ]
-        ++ (commonPoem "2001:470:1f07:c6f::");
-    })
-
-    (rec {
-      domain = "2605:6400:cac6::/48";
-      reverse = true;
-      providers = [ "henet" ];
-      records =
-        [
-          (PTR { name = "*"; target = "buyvm.lantian.pub."; })
-          (PTR { name = "2605:6400:cac6::1"; target = "buyvm.lantian.pub."; })
-        ]
-        ++ (commonPoem "2605:6400:cac6::");
-    })
+    (commonReverse { prefix = "2001:470:fa1d::/48"; target = "50kvm.lantian.pub."; })
+    (commonReverse { prefix = "2001:470:19:10bd::/64"; target = "50kvm.lantian.pub."; })
+    (commonReverse { prefix = "2001:470:8a6d::/48"; target = "virmach-ny1g.lantian.pub."; })
+    (commonReverse { prefix = "2001:470:1f07:54d::/64"; target = "virmach-ny1g.lantian.pub."; })
+    (commonReverse { prefix = "2001:470:8d00::/48"; target = "virmach-ny6g.lantian.pub."; })
+    (commonReverse { prefix = "2001:470:1f07:c6f::/64"; target = "virmach-ny6g.lantian.pub."; })
+    (commonReverse { prefix = "2605:6400:cac6::/48"; target = "buyvm.lantian.pub."; })
   ];
 }

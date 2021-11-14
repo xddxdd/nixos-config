@@ -8,7 +8,7 @@ in
   services.vault = {
     enable = true;
     package = pkgs.vault-bin;
-    address = "${thisHost.ltnet.IPv4Prefix}.1:8200";
+    address = "${thisHost.ltnet.IPv4}:8200";
     storageBackend = "file";
     storagePath = "/var/lib/vault";
     extraConfig = ''

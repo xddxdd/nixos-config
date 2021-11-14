@@ -17,8 +17,8 @@ outerConfig // {
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
   privateNetwork = true;
-  hostAddress = "${thisHost.ltnet.IPv4Prefix}.1";
-  hostAddress6 = "${thisHost.ltnet.IPv6Prefix}::1";
+  hostAddress = thisHost.ltnet.IPv4;
+  hostAddress6 = thisHost.ltnet.IPv6;
   localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP}";
   localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString containerIP}";
 

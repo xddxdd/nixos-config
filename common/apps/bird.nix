@@ -99,7 +99,7 @@ let
   ltnetBGPPeer = hostname: { ltnet, ... }:
     ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
-        neighbor ${ltnet.IPv6Prefix}::1 internal;
+        neighbor ${ltnet.IPv6} internal;
         ipv4 {
           extended next hop yes;
           import filter { ltnet_import_filter_v4(); };
@@ -118,8 +118,8 @@ let
       (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts));
 
   birdLocalConf = pkgs.writeText "bird-local.conf" ''
-    define LTNET_IPv4 = ${thisHost.ltnet.IPv4Prefix}.1;
-    define LTNET_IPv6 = ${thisHost.ltnet.IPv6Prefix}::1;
+    define LTNET_IPv4 = ${thisHost.ltnet.IPv4};
+    define LTNET_IPv6 = ${thisHost.ltnet.IPv6};
     define LTNET_AS = ${builtins.toString (4225470000 + thisHost.index)};
 
     define DN42_AS = 4242422547;
@@ -309,7 +309,7 @@ in
     environment = {
       BIRD_SOCKET = "/run/bird.ctl";
       BIRD6_SOCKET = "/run/bird.ctl";
-      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4Prefix}.1:8000";
+      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4}:8000";
     };
     unitConfig = {
       After = "bird2.service";
@@ -328,7 +328,7 @@ in
     environment = {
       BIRD_SOCKET = "/run/bird.ctl";
       BIRD6_SOCKET = "/run/bird.ctl";
-      BIRDLG_LISTEN = "[${thisHost.ltnet.IPv6Prefix}::1]:8000";
+      BIRDLG_LISTEN = "[${thisHost.ltnet.IPv6}]:8000";
     };
     unitConfig = {
       After = "bird2.service";

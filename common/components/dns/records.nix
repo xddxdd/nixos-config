@@ -2,7 +2,7 @@
 
 let
   formatArg = s: if (builtins.isString s) then (pkgs.lib.escapeShellArg s) else (builtins.toString s);
-  formatName = name: reverse: "${if reverse then "REV(" else ""}${formatArg name}${if reverse then ")" else ""}";
+  formatName = name: reverse: if reverse then "REV(${formatArg name})" else (formatArg name);
 
   record_meta = { ttl ? null, cloudflare ? null }:
     (pkgs.lib.optionalString (ttl != null) ", TTL(${formatArg (builtins.toString ttl)})")

@@ -11,7 +11,7 @@ in
     asf = {
       image = "justarchi/archisteamfarm:released";
       ports = [
-        "${thisHost.ltnet.IPv4Prefix}.1:13242:1242"
+        "${thisHost.ltnet.IPv4}:13242:1242"
       ];
       volumes = [
         "/var/lib/asf:/app/config"
@@ -23,10 +23,10 @@ in
     listen = nginxHelper.listen443;
     locations = nginxHelper.addCommonLocationConf {
       "/".extraConfig = nginxHelper.locationOauthConf + ''
-        proxy_pass http://${thisHost.ltnet.IPv4Prefix}.1:13242;
+        proxy_pass http://${thisHost.ltnet.IPv4}:13242;
       '' + nginxHelper.locationProxyConf;
       "~* /Api/NLog".extraConfig = nginxHelper.locationOauthConf + ''
-        proxy_pass http://${thisHost.ltnet.IPv4Prefix}.1:13242;
+        proxy_pass http://${thisHost.ltnet.IPv4}:13242;
         proxy_http_version 1.1;
         proxy_set_header Connection "upgrade";
         proxy_set_header Upgrade $http_upgrade;

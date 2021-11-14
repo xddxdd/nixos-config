@@ -61,14 +61,14 @@ rec {
     };
 
     "/oauth2/" = {
-      proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+      proxyPass = "http://${thisHost.ltnet.IPv4}:14180";
       extraConfig = ''
         proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
       '' + locationProxyConf;
     };
 
     "/oauth2/auth" = {
-      proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+      proxyPass = "http://${thisHost.ltnet.IPv4}:14180";
       extraConfig = ''
         proxy_set_header Content-Length "";
         proxy_pass_request_body off;
@@ -175,8 +175,8 @@ rec {
   ];
 
   listenPlainProxyProtocol = port: [
-    { addr = "${thisHost.ltnet.IPv4Prefix}.1"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
-    { addr = "[${thisHost.ltnet.IPv6Prefix}::1]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "${thisHost.ltnet.IPv4}"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "[${thisHost.ltnet.IPv6}]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
   ];
 
   listenProxyProtocol = ''

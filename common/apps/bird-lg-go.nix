@@ -11,7 +11,7 @@ in
     description = "Bird-lg-go";
     wantedBy = [ "multi-user.target" ];
     environment = {
-      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4Prefix}.1:13180";
+      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4}:13180";
       BIRDLG_SERVERS = "50kvm,hostdare,virmach-ny1g,buyvm";
       BIRDLG_DOMAIN = "zt.lantian.pub";
       BIRDLG_WHOIS = "172.22.76.108";
@@ -32,7 +32,7 @@ in
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };
@@ -44,7 +44,7 @@ in
       serverAliases = [ "lg.lantian.neo" ];
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13180";
+          proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };

@@ -26,7 +26,9 @@
       IPv6Alt = "2001:470:fa1d::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -66,7 +68,9 @@
       IPv6 = "2607:fcd0:100:b100::198a:b7f6";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -106,7 +110,9 @@
       IPv6 = "2001:41d0:700:2475::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -146,7 +152,9 @@
       IPv6Alt = "2001:470:8a6d::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -187,7 +195,9 @@
       IPv6Alt = "2001:470:8d00::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -228,7 +238,9 @@
       IPv6Alt = "2605:6400:cac6::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -268,7 +280,9 @@
       IPv6 = "2001:ac8:20:3::433a:a05d";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -306,7 +320,9 @@
       IPv4 = "172.245.52.105";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -345,7 +361,9 @@
       IPv6 = "2603:c021:8000:aaaa:2::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -384,7 +402,9 @@
       IPv6 = "2603:c021:8000:aaaa:3::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {
@@ -424,7 +444,9 @@
       IPv6 = "2603:c021:8000:aaaa:4::1";
     };
     ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
       IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
     };
     dn42 = rec {

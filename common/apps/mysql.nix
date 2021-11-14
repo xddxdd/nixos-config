@@ -10,7 +10,7 @@ in
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
-    bind = "${thisHost.ltnet.IPv4Prefix}.1";
+    bind = thisHost.ltnet.IPv4;
     settings.mysqld = {
       innodb_autoinc_lock_mode = 2;
       innodb_file_per_table = 1;

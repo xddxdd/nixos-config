@@ -2,15 +2,10 @@
 
 with dns;
 [
-  (A { name = "vpshared"; address = "23.95.217.2"; })
-  (A { name = "www.vpshared"; address = "23.95.217.2"; })
-
-  (CNAME { name = "ipfs"; target = "cloudflare-ipfs.com."; })
   (CNAME { name = "lab"; target = "lab.lantian.pub."; })
   (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })
-  (ALIAS { name = "@"; target = "hostdare.lantian.pub."; })
+  (ALIAS { name = "@"; target = "lantian.pub."; })
 
-  (TXT { name = "smtp._domainkey"; contents = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDTxp7BMZ/qsCTbr2AbL/Lxrdnkq05XiytoVI4JVelrJs/52bVuXhNQl4BBj2r9m9DUfNLzW5/7EGFCJEkzU/8NlzxLUYxU+QNE/3yqEyB7dBAB5yA/lDXZN7rJTlkpvFqKkstbcqeqSHK5tvxVoOgOAPj5PZQOWALk9Z6LX6gEDQIDAQAB"; })
   (TXT { name = "@"; contents = "google-site-verification=dFXi0jyD7Qm4WrRUaC79-XQWAJ4UwcdNSbGNTI9IvLg"; })
 
   (MX { name = "@"; priority = 10; target = "mx1.forwardemail.net."; })
