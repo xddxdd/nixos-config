@@ -21,7 +21,7 @@ in
       image = "drone/drone:2";
       environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       ports = [
-        "${thisHost.ltnet.IPv4Prefix}.1:13080:80"
+        "${thisHost.ltnet.IPv4}:13080:80"
       ];
       volumes = [
         "/var/lib/drone:/data"
@@ -43,7 +43,7 @@ in
       image = "drone/drone:2";
       environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       ports = [
-        "${thisHost.ltnet.IPv4Prefix}.1:13081:80"
+        "${thisHost.ltnet.IPv4}:13081:80"
       ];
       volumes = [
         "/var/lib/drone-github:/data"
@@ -65,7 +65,7 @@ in
       image = "drone/vault";
       environmentFiles = [ config.age.secrets.drone-ci-vault-env.path ];
       ports = [
-        "${thisHost.ltnet.IPv4Prefix}.1:13082:3000"
+        "${thisHost.ltnet.IPv4}:13082:3000"
       ];
     };
     dind = {
@@ -91,7 +91,7 @@ in
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13080";
+          proxyPass = "http://${thisHost.ltnet.IPv4}:13080";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };
@@ -102,7 +102,7 @@ in
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:13081";
+          proxyPass = "http://${thisHost.ltnet.IPv4}:13081";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };
@@ -113,7 +113,7 @@ in
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4Prefix}.1:8200";
+          proxyPass = "http://${thisHost.ltnet.IPv4}:8200";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };

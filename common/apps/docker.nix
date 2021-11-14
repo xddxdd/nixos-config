@@ -27,7 +27,7 @@ in
         "path" = "${pkgs.crun}/bin/crun";
       };
     };
-    "metrics-addr" = "${thisHost.ltnet.IPv4Prefix}.1:9323";
+    "metrics-addr" = "${thisHost.ltnet.IPv4}:9323";
   };
 
   systemd.network.netdevs = {

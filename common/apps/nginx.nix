@@ -151,7 +151,7 @@ in
       expire = "24h";
     };
     email.domains = [ "*" ];
-    httpAddress = "http://${thisHost.ltnet.IPv4Prefix}.1:14180";
+    httpAddress = "http://${thisHost.ltnet.IPv4}:14180";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;
