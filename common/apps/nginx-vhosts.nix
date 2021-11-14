@@ -110,6 +110,19 @@ in
       extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
         + nginxHelper.commonVhostConf true;
     };
+    "xuyh0120.win" = {
+      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      serverAliases = [ "www.xuyh0120.win" ];
+      globalRedirect = "lantian.pub";
+      extraConfig = nginxHelper.makeSSL "xuyh0120.win_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
+    "lab.xuyh0120.win" = {
+      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      globalRedirect = "lab.lantian.pub";
+      extraConfig = nginxHelper.makeSSL "xuyh0120.win_ecc"
+        + nginxHelper.commonVhostConf true;
+    };
 
     "gopher.lantian.pub" = {
       listen = nginxHelper.listen443
