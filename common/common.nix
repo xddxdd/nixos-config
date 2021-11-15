@@ -93,6 +93,9 @@
   };
 
   disabledModules = [
+    "system/boot/luksroot.nix"
+    "tasks/encrypted-devices.nix"
+    "tasks/lvm.nix"
     "tasks/swraid.nix"
   ];
 
