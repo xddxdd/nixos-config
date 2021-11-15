@@ -19,7 +19,6 @@
     ];
   };
   boot.loader.efi.efiSysMountPoint = "/boot/EFI";
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
 
   fileSystems."/" =
     {

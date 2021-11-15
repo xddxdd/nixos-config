@@ -17,8 +17,6 @@
     device = "nodev";
   };
 
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_xanmod;
-
   fileSystems."/" =
     {
       device = "/dev/sda2";
