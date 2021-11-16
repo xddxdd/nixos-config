@@ -32,7 +32,7 @@ in
       environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       volumes = [
         "/run/docker-dind:/run"
-        "/cache:/cache"
+        "/var/cache/ci:/cache"
       ];
       dependsOn = [
         "drone"
@@ -54,7 +54,7 @@ in
       environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       volumes = [
         "/run/docker-dind:/run"
-        "/cache:/cache"
+        "/var/cache/ci:/cache"
       ];
       dependsOn = [
         "drone-github"
@@ -72,7 +72,7 @@ in
       image = "docker:dind";
       cmd = [ "--data-root" "/var/lib/docker-dind" ];
       volumes = [
-        "/cache:/cache"
+        "/var/cache/ci:/cache"
         "/var/lib:/var/lib"
         "/run/docker-dind:/run"
       ];
@@ -81,7 +81,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d /cache 755 root root"
+    "d /var/cache/ci 755 root root"
     "d /var/lib/docker-dind 755 root root"
     "d /run/docker-dind 755 root root"
   ];
