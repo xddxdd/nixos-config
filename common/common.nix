@@ -47,9 +47,7 @@
   age.secrets.smtp-pass.file = ../secrets/smtp-pass.age;
   age.secrets.smtp-pass.mode = "0444";
 
-  boot = let
-    kernelPackage = pkgs.linuxKernel.packagesFor pkgs.nur.repos.xddxdd.linux-xanmod-lantian;
-  in {
+  boot = {
     kernelParams = [
       "audit=0"
       "cgroup_enable=memory"
@@ -60,7 +58,7 @@
       "syscall.x32=y"
       "vga=normal"
     ];
-    kernelPackages = kernelPackage;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     initrd.includeDefaultModules = false;
 
