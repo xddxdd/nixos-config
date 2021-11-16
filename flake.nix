@@ -98,10 +98,17 @@
               system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
               hostname = if (builtins.hasAttr "hostname" thisHost) then thisHost.hostname else "${n}.lantian.pub";
               sshPort = if (builtins.hasAttr "sshPort" thisHost) then thisHost.sshPort else 2222;
+
+              nixosNextboot = base: deploy-rs.lib."${system}".activate.custom base.config.system.build.toplevel ''
+                # work around https://github.com/NixOS/nixpkgs/issues/73404
+                cd /tmp
+                $PROFILE/bin/switch-to-configuration boot
+              '';
             in
             {
               hostname = hostname;
               profiles.system = {
+                # path = nixosNextboot self.nixosConfigurations."${n}";
                 path = deploy-rs.lib."${system}".activate.nixos self.nixosConfigurations."${n}";
                 sshOpts = [ "-p" (builtins.toString sshPort) ];
               };
