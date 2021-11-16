@@ -28,6 +28,7 @@ outerConfig // {
     networking.hostName = config.networking.hostName;
     networking.firewall.enable = false;
     services.journald.extraConfig = ''
+      Storage=none
       SystemMaxUse=50M
       SystemMaxFileSize=10M
     '';
