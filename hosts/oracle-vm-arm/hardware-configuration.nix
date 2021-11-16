@@ -16,8 +16,6 @@
     device = "nodev";
   };
 
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages;
-
   fileSystems."/nix" = {
     device = "/dev/sda2";
     fsType = "btrfs";
