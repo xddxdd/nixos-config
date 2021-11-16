@@ -527,6 +527,7 @@
     yukari = {
       remoteASN = 4242421331;
       latencyMs = 1;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 21331;
