@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  imports = [ ./general.nix ];
+
   boot.initrd.postDeviceCommands =
     ''
       # Set the system time from the hardware clock to work around a

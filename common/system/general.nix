@@ -25,6 +25,4 @@
     # x86 RTC needed by the stage 2 init script.
     "rtc_cmos"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
 }

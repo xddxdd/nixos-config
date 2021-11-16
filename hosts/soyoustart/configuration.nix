@@ -54,7 +54,7 @@
   lantian.enable-php = true;
 
   services.beesd.filesystems.root = {
-    spec = "/";
+    spec = "/nix";
     hashTableSizeMB = 4096;
     verbosity = "crit";
     extraOptions = [ "--thread-count" "2" ];

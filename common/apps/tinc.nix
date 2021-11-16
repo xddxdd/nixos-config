@@ -7,8 +7,8 @@ let
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
   hostToTinc = hostname: { public
-                         , tincPubRSA
-                         , tincPubEd25519
+                         , tincPubRSA ? null
+                         , tincPubEd25519 ? null
                          , ...
                          }:
     pkgs.lib.nameValuePair
@@ -19,10 +19,10 @@ let
           ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" public) [{ address = public.IPv6; }]
           ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Alt" public) [{ address = public.IPv6Alt; }]
         ;
-        rsaPublicKey = tincPubRSA;
+        rsaPublicKey = pkgs.lib.mkIf (tincPubRSA != null) tincPubRSA;
         settings = {
           Compression = 0;
-          Ed25519PublicKey = tincPubEd25519;
+          Ed25519PublicKey = pkgs.lib.mkIf (tincPubEd25519 != null) tincPubEd25519;
         };
       });
 in
