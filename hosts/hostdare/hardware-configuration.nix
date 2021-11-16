@@ -8,17 +8,21 @@
     ../../common/system/qemu.nix
   ];
 
-  boot.initrd.availableKernelModules = [ ];
-  boot.initrd.kernelModules = [ ];
-
   boot.kernelModules = [ "nvme" ];
-  boot.extraModulePackages = [ ];
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.grub.mirroredBoots = [
+    { devices = [ "/dev/vda" ]; path = "/nix/boot"; }
+  ];
 
-  fileSystems."/" =
-    { device = "/dev/vda1";
-      fsType = "btrfs";
-      options = [ "compress-force=zstd" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/vda1";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/boot" = {
+    device = "/nix/boot";
+    options = [ "bind" ];
+  };
 }

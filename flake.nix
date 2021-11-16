@@ -25,6 +25,7 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = { self, nixpkgs, nur, deploy-rs, hath-nix, ... }@inputs:
@@ -72,6 +73,7 @@
             system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
             modules = [
               inputs.agenix.nixosModules.age
+              inputs.impermanence.nixosModules.impermanence
               ({
                 networking.hostName = n;
                 nixpkgs.overlays = overlays;

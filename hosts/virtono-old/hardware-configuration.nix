@@ -8,21 +8,21 @@
     ../../common/system/qemu.nix
   ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.loader.grub.mirroredBoots = [
+    { devices = [ "/dev/vda" ]; path = "/nix/boot"; }
+  ];
 
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  fileSystems."/nix" = {
+    device = "/dev/vda1";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" ];
+    neededForBoot = true;
+  };
 
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  fileSystems."/boot" = {
+    device = "/nix/boot";
+    options = [ "bind" ];
+  };
 
-  fileSystems."/" =
-    {
-      device = "/dev/vda1";
-      fsType = "btrfs";
-      options = [ "compress-force=zstd" ];
-    };
-
-  swapDevices =
-    [{ device = "/swapfile"; }];
+  swapDevices = [{ device = "/nix/swapfile"; }];
 }

@@ -5,7 +5,6 @@
 
 {
   imports = [
-    ../../common/system/general.nix
     ../../common/system/qemu.nix
   ];
 
@@ -19,16 +18,15 @@
 
   boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages;
 
-  fileSystems."/" =
-    {
-      device = "/dev/sda2";
-      fsType = "btrfs";
-      options = [ "compress-force=zstd" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/sda2";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/sda1";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/sda1";
+    fsType = "vfat";
+  };
 }

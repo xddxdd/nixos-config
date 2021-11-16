@@ -31,6 +31,7 @@
   };
 
   imports = [
+    ./impermanence.nix
     ./iptables.nix
     ./ssh-harden.nix
     ./users.nix
