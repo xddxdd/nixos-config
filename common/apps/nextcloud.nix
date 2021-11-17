@@ -28,7 +28,9 @@ in
     occ = true;
   };
 
-  systemd.services.nextcloud-setup.enable = false;
+  systemd.services.nextcloud-setup.unitConfig = {
+    After = "mysql.service";
+  };
 
   services.mysql = {
     enable = true;
