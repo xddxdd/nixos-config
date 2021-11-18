@@ -79,7 +79,47 @@
         '';
       };
     };
-    # tmpOnTmpfs = true;
+
+    kernel.sysctl = {
+      "net.core.default_qdisc" = "cake";
+      "net.ipv4.tcp_congestion_control" = "bbr";
+
+      # https://wiki.archlinux.org/title/Security#Kernel_hardening
+      "kernel.dmesg_restrict" = 1;
+      "kernel.kptr_restrict" = 1;
+      "net.core.bpf_jit_harden" = 1;
+      "kernel.unprivileged_bpf_disabled" = 1;
+      "kernel.yama.ptrace_scope" = 1;
+      "kernel.kexec_load_disabled" = 1;
+
+      # https://wiki.archlinux.org/title/sysctl
+      "net.ipv4.tcp_fastopen" = 3;
+      "net.ipv4.tcp_max_tw_buckets" = 2000000;
+      "net.ipv4.tcp_max_syn_backlog" = 8192;
+      "net.ipv4.tcp_tw_reuse"= 1;
+      "net.ipv4.tcp_fin_timeout" = 10;
+      "net.ipv4.tcp_slow_start_after_idle" = 0;
+      "net.ipv4.tcp_keepalive_time" = 60;
+      "net.ipv4.tcp_keepalive_intvl" = 10;
+      "net.ipv4.tcp_keepalive_probes" = 6;
+      "net.ipv4.tcp_mtu_probing" = 1;
+      "net.ipv4.tcp_syncookies" = 1;
+      "net.ipv4.conf.all.rp_filter" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.default.rp_filter" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.*.rp_filter" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.all.accept_redirects" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.default.accept_redirects" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.*.accept_redirects" = pkgs.lib.mkForce 0;
+      "net.ipv4.conf.all.secure_redirects" = 0;
+      "net.ipv4.conf.default.secure_redirects" = 0;
+      "net.ipv4.conf.*.secure_redirects" = 0;
+      "net.ipv4.conf.all.send_redirects" = 0;
+      "net.ipv4.conf.default.send_redirects" = 0;
+      "net.ipv4.conf.*.send_redirects" = 0;
+      "net.ipv6.conf.all.accept_redirects" = pkgs.lib.mkForce 0;
+      "net.ipv6.conf.default.accept_redirects" = pkgs.lib.mkForce 0;
+      "net.ipv6.conf.*.accept_redirects" = pkgs.lib.mkForce 0;
+    };
   };
 
   documentation = {
