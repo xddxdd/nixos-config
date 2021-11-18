@@ -60,18 +60,26 @@
 
       local lantian_whois = {}
 
-      local NONEXISTENT = "/nonexistent"
-
       function lantian_whois.file_path(subdir, target)
-        if target == nil then return NONEXISTENT end
+        if target == nil then return nil end
         return "/" .. subdir .. "/" .. string.gsub(target, "/", "_")
       end
 
       function lantian_whois.file_exists(path)
+        if path == nil then return false end
         local f = io.open(ngx.var.document_root .. path, "rb")
         if f == nil then return false end
         f:close()
         return true
+      end
+
+      function lantian_whois.file_read(path)
+        if path == nil then return nil end
+        local f = io.open(ngx.var.document_root .. path, "rb")
+        if f == nil then return nil end
+        local content = f:read("*all")
+        f:close()
+        return content
       end
 
       function lantian_whois.ipv4_parse(ip)
@@ -98,7 +106,7 @@
           if lantian_whois.file_exists(path) then return path end
         end
 
-        return NONEXISTENT
+        return nil
       end
 
       function lantian_whois.ipv6_parse(ip)
@@ -127,36 +135,7 @@
             if lantian_whois.file_exists(path) then return path end
           end
         end
-        return NONEXISTENT
-      end
-
-      function lantian_whois.ipv4_samenet(ip1, ip2, mask)
-        ip1 = lantian_whois.ipv4_parse(ip1)
-        ip2 = lantian_whois.ipv4_parse(ip2)
-        if mask ~= 0 then mask = bit.lshift(4294967295, 32 - mask) end
-        return bit.band(ip1, mask) == bit.band(ip2, mask)
-      end
-
-      function lantian_whois.ipv6_samenet(ip1, ip2, mask)
-        ip1 = lantian_whois.ipv6_parse(ip1)
-        ip2 = lantian_whois.ipv6_parse(ip2)
-        local idx = math.floor(mask / 8)
-        for i = idx + 1, 15 do
-          ip1[i] = 0
-          ip2[i] = 0
-        end
-
-        if mask < 128 then
-          mask = bit.lshift(255, 8 - mask % 8)
-          ip1[idx] = bit.band(ip1[idx], mask)
-          ip2[idx] = bit.band(ip2[idx], mask)
-        end
-
-        for i = 0, 15 do
-          if ip1[i] ~= ip2[i] then return false end
-        end
-
-        return true
+        return nil
       end
 
       return lantian_whois

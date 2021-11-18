@@ -8,6 +8,7 @@ in
   imports = [
     ./nginx-lua.nix
     ./nginx-vhosts.nix
+    ./nginx-whois-server.nix
     ./php-fpm.nix
   ];
 
@@ -142,6 +143,11 @@ in
 
       lua_package_path '/etc/nginx/conf/lua/?.lua;;';
     '';
+  };
+
+  systemd.services.nginx.serviceConfig = {
+    # Workaround Lua crash
+    MemoryDenyWriteExecute = pkgs.lib.mkForce false;
   };
 
   services.oauth2_proxy = {
