@@ -96,7 +96,7 @@
       "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_max_tw_buckets" = 2000000;
       "net.ipv4.tcp_max_syn_backlog" = 8192;
-      "net.ipv4.tcp_tw_reuse"= 1;
+      "net.ipv4.tcp_tw_reuse" = 1;
       "net.ipv4.tcp_fin_timeout" = 10;
       "net.ipv4.tcp_slow_start_after_idle" = 0;
       "net.ipv4.tcp_keepalive_time" = 60;
@@ -254,6 +254,18 @@
   security.sudo.wheelNeedsPassword = false;
 
   # List services that you want to enable:
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    interfaces = [ "ltmesh" ];
+    publish = {
+      enable = true;
+      addresses = true;
+      hinfo = true;
+      workstation = true;
+    };
+  };
+
   services.haveged.enable = true;
 
   services.journald.extraConfig = ''
