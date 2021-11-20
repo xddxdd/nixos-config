@@ -266,6 +266,11 @@
     };
   };
 
+  services.btrfs.autoScrub = pkgs.lib.mkIf (config.fileSystems."/nix".fsType == "btrfs") {
+    enable = true;
+    fileSystems = [ "/nix" ];
+  };
+
   services.haveged.enable = true;
 
   services.journald.extraConfig = ''
