@@ -22,7 +22,14 @@ outerConfig // {
   localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP}";
   localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString containerIP}";
 
+  bindMounts = {
+    "/nix/persistent" = { hostPath = "/nix/persistent"; isReadOnly = true; };
+  };
+
   config = { ... }: {
+    age.secrets = config.age.secrets;
+    age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
+
     system.stateVersion = config.system.stateVersion;
     nixpkgs.pkgs = pkgs;
     networking.hostName = config.networking.hostName;
@@ -33,7 +40,10 @@ outerConfig // {
       SystemMaxFileSize=10M
     '';
 
-    imports = [ innerConfig ];
+    imports = [
+      pkgs.flakeInputs.agenix.nixosModules.age
+      innerConfig
+    ];
 
     services.bird2 = {
       enable = true;

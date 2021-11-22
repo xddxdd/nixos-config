@@ -47,7 +47,6 @@ in
     outerConfig = {
       bindMounts = {
         "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
-        "/run/secrets" = { hostPath = "/run/secrets"; isReadOnly = true; };
       };
 
       forwardPorts = [
@@ -409,8 +408,4 @@ in
       };
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d /run/secrets 755 root root"
-  ];
 }

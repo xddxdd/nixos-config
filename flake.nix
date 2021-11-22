@@ -41,6 +41,12 @@
       overlays = [
         nur.overlay
         (final: prev: {
+          flakeInputs = inputs;
+          nur = import nur {
+            nurpkgs = prev;
+            pkgs = prev;
+            repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
+          };
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
@@ -51,13 +57,6 @@
               ln -s ${prev.age}/bin/age $out/bin/rage
               ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
             '';
-          };
-        })
-        (final: prev: {
-          nur = import nur {
-            nurpkgs = prev;
-            pkgs = prev;
-            repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
           };
         })
         hath-nix.overlay
