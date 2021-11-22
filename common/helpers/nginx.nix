@@ -35,6 +35,10 @@ rec {
     add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
   '';
 
+  noIndex = ''
+    add_header X-Robots-Tag 'noindex, nofollow';
+  '';
+
   addCommonLocationConf = pkgs.lib.recursiveUpdate {
     "/generate_204".extraConfig = ''
       access_log off;

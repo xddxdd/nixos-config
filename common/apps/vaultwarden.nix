@@ -47,6 +47,7 @@ in
       };
     };
     extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true;
+      + nginxHelper.commonVhostConf true
+      + nginxHelper.noIndex;
   };
 }

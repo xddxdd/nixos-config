@@ -146,7 +146,8 @@ in
       ''
       + nginxHelper.makeSSL "lantian.pub_ecc"
       + nginxHelper.commonVhostConf true
-      + nginxHelper.listenProxyProtocol;
+      + nginxHelper.listenProxyProtocol
+      + nginxHelper.noIndex;
     };
 
     "lab.lantian.pub" = pkgs.lib.mkIf (config.lantian.enable-lab) {
@@ -172,7 +173,8 @@ in
         '';
       };
       extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+        + nginxHelper.commonVhostConf true
+        + nginxHelper.noIndex;
     };
   };
 }
