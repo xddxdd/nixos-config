@@ -29,6 +29,7 @@ rec {
   externalServices = [
     (ALIAS { name = "@"; target = "hostdare.lantian.pub."; ttl = "10m"; })
 
+    (CNAME { name = "backblaze"; target = "f002.backblazeb2.com."; cloudflare = true; })
     (CNAME { name = "comments"; target = "cname.vercel-dns.com."; })
     (CNAME { name = "ga"; target = "lantian.pub."; cloudflare = true; })
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
