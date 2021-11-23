@@ -162,6 +162,12 @@ in
           autoindex on;
           add_after_body /autoindex.html;
         '';
+        "/dngzwxdq/".extraConfig = ''
+          alias ${pkgs.nur.repos.xddxdd.dngzwxdq}/;
+        '';
+        "/dnyjzsxj/".extraConfig = ''
+          alias ${pkgs.nur.repos.xddxdd.dnyjzsxj}/;
+        '';
         "/hobby-net".extraConfig = ''
           autoindex on;
           add_after_body /autoindex.html;
