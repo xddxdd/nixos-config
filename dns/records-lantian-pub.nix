@@ -40,10 +40,6 @@ rec {
     (A { name = "*.virmach-host"; address = "23.95.217.2"; })
     # (A { name = "virmach-host"; address = "23.95.217.2"; })
     (CNAME { name = "virmach-host"; target = "c792602.tier1.quicns.com."; })
-
-    (NS { name = "xip"; target = "ns-azure.nono.io."; })
-    (NS { name = "xip"; target = "ns-gce.nono.io."; })
-    (NS { name = "xip"; target = "ns-aws.nono.io."; })
   ];
 
   internalServices = [
