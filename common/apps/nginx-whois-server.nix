@@ -144,7 +144,7 @@ in
           proxy_http_version plain;
         '';
 
-        "~* \"^/([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/([0-9]+)$\"".extraConfig = ''
+        "~* \"^/([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)/([0-9]+)$\"".extraConfig = ''
           set $ip $1;
           set_by_lua_block $backend {
             local lantian_nginx = require "lantian_nginx";
@@ -177,7 +177,7 @@ in
           proxy_http_version plain;
         '';
 
-        "~* \"^/(.*)\.([a-zA-Z0-9]+)$\"".extraConfig = ''
+        "~* \"^/(.*)\\.([a-zA-Z0-9]+)$\"".extraConfig = ''
           set_by_lua $query_lower "return ngx.var.uri:lower():sub(2)";
           set_by_lua_block $backend {
             local lantian_nginx = require "lantian_nginx";
