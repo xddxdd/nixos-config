@@ -312,13 +312,13 @@
       tunnel = {
         type = "wireguard";
         localPort = 20245;
-        remoteAddress = "fran1.s.myl.moe";
+        remoteAddress = "fran.s.myl7.org";
         remotePort = 22547;
         wireguardPubkey = "zwufU+ZTC/WRQWby73istrYE5WaFh0W3Yh9dPSwnpVY=";
       };
       addressing = {
         peerIPv4 = "172.22.107.2";
-        peerIPv6LinkLocal = "fe80:245::2";
+        peerIPv6LinkLocal = "fe80::245";
       };
     };
     n0emis = {
