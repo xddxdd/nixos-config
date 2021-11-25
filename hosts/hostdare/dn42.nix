@@ -503,7 +503,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20904;
-        remoteAddress = "[2a0e:b107:270:8e0c::904]";
+        remoteAddress = "[2a0e:fd45:1000:167::2]";
         remotePort = 22547;
         wireguardPubkey = "EsxI5GO75zqC7E3vgxmaF1s93HHx+BI9dHeaNVKsa3o=";
       };
