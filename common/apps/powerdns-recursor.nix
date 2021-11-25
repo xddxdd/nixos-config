@@ -121,4 +121,8 @@ in
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/powerdns-recursor 700 container container"
+  ];
 }

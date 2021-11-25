@@ -414,4 +414,9 @@ in
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/knot 700 container container"
+    "d /var/lib/zones 755 container container"
+  ];
 }
