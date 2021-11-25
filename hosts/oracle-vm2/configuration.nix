@@ -15,6 +15,7 @@
     ../../common/apps/qemu-user-static.nix
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
+    ../../common/apps/yggdrasil.nix
     ../../common/apps/zsh.nix
   ];
 
@@ -41,4 +42,10 @@
     enable = true;
     name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   };
+
+  services.yggdrasil.config.Peers =
+    let
+      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
+    in
+    publicPeers [ "japan" ];
 }
