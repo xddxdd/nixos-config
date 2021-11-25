@@ -232,24 +232,46 @@ in
       include "${birdLtnetPeersConf}";
       #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
 
+      filter sys_import_v4 {
+        if net !~ KERNEL_IPv4 then reject;
+        bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
+        accept;
+      }
+
+      filter sys_import_v6 {
+        if net !~ KERNEL_IPv6 then reject;
+        bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
+        accept;
+      }
+
+      filter sys_export_v4 {
+        if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
+        if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
+        if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
+        if net ~ DN42_NET_IPv4 then krt_prefsrc = DN42_IPv4;
+        if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = NEO_IPv4;
+        accept;
+      }
+
+      filter sys_export_v6 {
+        if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
+        if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
+        if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
+        if net ~ DN42_NET_IPv6 then krt_prefsrc = DN42_IPv6;
+        if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = NEO_IPv6;
+        accept;
+      }
+
       protocol direct sys_direct {
         interface "*";
         ipv4 {
           preference 1000;
-          import filter {
-            if net !~ LTNET_IPv4_INT && net !~ LTNET_IPv4_NET && net !~ LTNET_IPv4_ANYCAST then reject;
-            bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
-            accept;
-          };
+          import filter sys_import_v4;
           export none;
         };
         ipv6 {
           preference 1000;
-          import filter {
-            if net !~ LTNET_IPv6_INT && net !~ LTNET_IPv6_NET && net !~ LTNET_IPv6_ANYCAST then reject;
-            bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
-            accept;
-          };
+          import filter sys_import_v6;
           export none;
         };
       };
@@ -261,19 +283,8 @@ in
         metric 4242;
         ipv4 {
           preference 100;
-          import filter {
-            if net !~ LTNET_IPv4_INT && net !~ LTNET_IPv4_NET && net !~ LTNET_IPv4_ANYCAST then reject;
-            bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
-            accept;
-          };
-          export filter {
-            if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
-            if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
-            if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
-            if net ~ DN42_NET_IPv4 then krt_prefsrc = DN42_IPv4;
-            if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = NEO_IPv4;
-            accept;
-          };
+          import filter sys_import_v4;
+          export filter sys_export_v4;
         };
       };
 
@@ -284,19 +295,8 @@ in
         metric 4242;
         ipv6 {
           preference 100;
-          import filter {
-            if net !~ LTNET_IPv6_INT && net !~ LTNET_IPv6_NET && net !~ LTNET_IPv6_ANYCAST then reject;
-            bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
-            accept;
-          };
-          export filter {
-            if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
-            if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
-            if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
-            if net ~ DN42_NET_IPv6 then krt_prefsrc = DN42_IPv6;
-            if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = NEO_IPv6;
-            accept;
-          };
+          import filter sys_import_v6;
+          export filter sys_export_v6;
         };
       };
     '';
