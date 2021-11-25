@@ -6,30 +6,8 @@ let
   corednsContainerIP = 54;
   knotContainerIP = 55;
 
-  dnssecKeys = import ../helpers/dnssec-keys.nix;
-
   container = import ../helpers/container.nix { inherit config pkgs; };
 in
-{
-  age.secrets = builtins.listToAttrs (pkgs.lib.flatten (builtins.map
-    (n: [
-      {
-        name = "${n}.key";
-        value = {
-          name = "${n}.key";
-          file = ../../secrets/dnssec + "/${n}.key.age";
-        };
-      }
-      {
-        name = "${n}.private";
-        value = {
-          name = "${n}.private";
-          file = ../../secrets/dnssec + "/${n}.private.age";
-        };
-      }
-    ])
-    dnssecKeys));
-} //
 {
   containers.coredns = container {
     containerIP = corednsContainerIP;
@@ -46,7 +24,7 @@ in
 
     outerConfig = {
       bindMounts = {
-        "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+        "/var/lib/zones" = { hostPath = "/var/lib/zones"; isReadOnly = false; };
       };
 
       forwardPorts = [
@@ -55,204 +33,231 @@ in
       ];
     };
 
-    innerConfig = {
-      services.coredns = {
-        enable = true;
-        package = pkgs.nur.repos.xddxdd.coredns;
-        config = ''
-          # Selfhosted Root Zone
-          . {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            forward . ${thisHost.ltnet.IPv4Prefix}.55 ${thisHost.ltnet.IPv6Prefix}::55
-          }
-
-          # Google DNS
-          .:55 {
-            forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
-              tls_servername dns.google
-              policy sequential
-              health_check 1m
+    innerConfig = { containerConfig, ... }:
+      let
+        dnssecKeys = import ../helpers/dnssec-keys.nix;
+      in
+      {
+        age.secrets = builtins.listToAttrs (pkgs.lib.flatten (builtins.map
+          (n: [
+            {
+              name = "${n}.key";
+              value = {
+                name = "${n}.key";
+                owner = "container";
+                group = "container";
+                file = ../../secrets/dnssec + "/${n}.key.age";
+              };
             }
-            cache
-          }
-
-          # NextDNS.io
-          .:56 {
-            forward . tls://45.90.28.61 tls://45.90.30.61 tls://2a07:a8c0::37:8897 tls://2a07:a8c1::37:8897 {
-              tls_servername ${config.networking.hostName}-378897.dns.nextdns.io
-              policy sequential
-              health_check 1m
+            {
+              name = "${n}.private";
+              value = {
+                name = "${n}.private";
+                owner = "container";
+                group = "container";
+                file = ../../secrets/dnssec + "/${n}.private.age";
+              };
             }
-            cache
-          }
+          ])
+          dnssecKeys));
 
-          # DN42 Lan Tian Authoritatives
-          lantian.dn42:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.dn42.zone"
-          }
-          _acme-challenge.lantian.dn42:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          asn.lantian.dn42:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones-ltnet/asn.lantian.dn42.zone"
-          }
-          lantian.dn42 {
-            any
-            bufsize 1232
-            loadbalance round_robin
+        services.coredns = {
+          enable = true;
+          package = pkgs.nur.repos.xddxdd.coredns;
+          config = ''
+            # Selfhosted Root Zone
+            . {
+              any
+              bufsize 1232
+              loadbalance round_robin
 
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${config.age.secrets."Klantian.dn42.+013+20109.private".path}"
+              forward . ${thisHost.ltnet.IPv4Prefix}.55 ${thisHost.ltnet.IPv6Prefix}::55
             }
-          }
 
-          184/29.76.22.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/184_29.76.22.172.in-addr.arpa.zone"
-            dnssec {
-              key file "${config.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
+            # Google DNS
+            .:55 {
+              forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
+                tls_servername dns.google
+                policy sequential
+                health_check 1m
+              }
+              cache
             }
-          }
-          96/27.76.22.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
 
-            file "/var/lib/zones/zones/96_27.76.22.172.in-addr.arpa.zone"
-            dnssec {
-              key file "${config.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
+            # NextDNS.io
+            .:56 {
+              forward . tls://45.90.28.61 tls://45.90.30.61 tls://2a07:a8c0::37:8897 tls://2a07:a8c1::37:8897 {
+                tls_servername ${config.networking.hostName}-378897.dns.nextdns.io
+                policy sequential
+                health_check 1m
+              }
+              cache
             }
-          }
-          d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
 
-            file "/var/lib/zones/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
-            dnssec {
-              key file "${config.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
+            # DN42 Lan Tian Authoritatives
+            lantian.dn42:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/zones/lantian.dn42.zone"
             }
-          }
-
-          # NeoNetwork Authoritative
-          neo {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones-ltnet/neo.zone"
-          }
-          127.10.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones-ltnet/127.10.in-addr.arpa.zone"
-          }
-
-          # NeoNetwork Lan Tian Authoritative
-          lantian.neo:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.neo.zone"
-          }
-          _acme-challenge.lantian.neo:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          asn.lantian.neo:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones-ltnet/asn.lantian.neo.zone"
-          }
-          lantian.neo {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${config.age.secrets."Klantian.neo.+013+47346.private".path}"
+            _acme-challenge.lantian.dn42:54 {
+              bind 127.0.0.1
+              forward . 172.18.10.56
             }
-          }
-
-          10.127.10.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/10.127.10.in-addr.arpa.zone"
-            dnssec {
-              key file "${config.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
+            asn.lantian.dn42:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/zones-ltnet/asn.lantian.dn42.zone"
             }
-          }
-          0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
+            lantian.dn42 {
+              any
+              bufsize 1232
+              loadbalance round_robin
 
-            file "/var/lib/zones/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
-            dnssec {
-              key file "${config.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
+              forward . 127.0.0.1:54
+              dnssec {
+                key file "${containerConfig.age.secrets."Klantian.dn42.+013+20109.private".path}"
+              }
             }
-          }
 
-          # LTNET Public Facing Addressing
-          asn.lantian.pub {
-            any
-            bufsize 1232
-            loadbalance round_robin
+            184/29.76.22.172.in-addr.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
 
-            file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
-            dnssec {
-              key file "${config.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
+              file "/var/lib/zones/zones/184_29.76.22.172.in-addr.arpa.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
+              }
             }
-          }
+            96/27.76.22.172.in-addr.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
 
-          # LTNET Authoritative
-          18.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/18.172.in-addr.arpa.zone"
-          }
-
-          # Public Internet Authoritative
-          lantian.eu.org:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.eu.org.zone"
-          }
-          _acme-challenge.lantian.eu.org:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          lantian.eu.org {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${config.age.secrets."Klantian.eu.org.+013+37106.private".path}"
+              file "/var/lib/zones/zones/96_27.76.22.172.in-addr.arpa.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
+              }
             }
-          }
-        '';
+            d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
+              }
+            }
+
+            # NeoNetwork Authoritative
+            neo {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones-ltnet/neo.zone"
+            }
+            127.10.in-addr.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones-ltnet/127.10.in-addr.arpa.zone"
+            }
+
+            # NeoNetwork Lan Tian Authoritative
+            lantian.neo:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/zones/lantian.neo.zone"
+            }
+            _acme-challenge.lantian.neo:54 {
+              bind 127.0.0.1
+              forward . 172.18.10.56
+            }
+            asn.lantian.neo:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/zones-ltnet/asn.lantian.neo.zone"
+            }
+            lantian.neo {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              forward . 127.0.0.1:54
+              dnssec {
+                key file "${containerConfig.age.secrets."Klantian.neo.+013+47346.private".path}"
+              }
+            }
+
+            10.127.10.in-addr.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones/10.127.10.in-addr.arpa.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
+              }
+            }
+            0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
+              }
+            }
+
+            # LTNET Public Facing Addressing
+            asn.lantian.pub {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
+              dnssec {
+                key file "${containerConfig.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
+              }
+            }
+
+            # LTNET Authoritative
+            18.172.in-addr.arpa {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/zones/18.172.in-addr.arpa.zone"
+            }
+
+            # Public Internet Authoritative
+            lantian.eu.org:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/zones/lantian.eu.org.zone"
+            }
+            _acme-challenge.lantian.eu.org:54 {
+              bind 127.0.0.1
+              forward . 172.18.10.56
+            }
+            lantian.eu.org {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              forward . 127.0.0.1:54
+              dnssec {
+                key file "${containerConfig.age.secrets."Klantian.eu.org.+013+37106.private".path}"
+              }
+            }
+          '';
+        };
+
+        systemd.services.coredns.serviceConfig = {
+          DynamicUser = pkgs.lib.mkForce false;
+          User = pkgs.lib.mkForce "container";
+        };
       };
-
-      systemd.services.coredns.serviceConfig = {
-        DynamicUser = pkgs.lib.mkForce false;
-        User = "root";
-      };
-    };
   };
 
   containers.coredns-knot = container {
@@ -260,11 +265,12 @@ in
 
     outerConfig = {
       bindMounts = {
-        "/var/lib" = { hostPath = "/var/lib"; isReadOnly = false; };
+        "/var/lib/knot" = { hostPath = "/var/lib/knot"; isReadOnly = false; };
+        "/var/lib/zones" = { hostPath = "/var/lib/zones"; isReadOnly = false; };
       };
     };
 
-    innerConfig = {
+    innerConfig = { ... }: {
       services.knot = {
         enable = true;
         extraConfig =
@@ -404,7 +410,7 @@ in
       };
 
       systemd.services.knot.serviceConfig = {
-        User = pkgs.lib.mkForce "root";
+        User = pkgs.lib.mkForce "container";
       };
     };
   };

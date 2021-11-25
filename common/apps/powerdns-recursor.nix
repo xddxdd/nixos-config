@@ -27,7 +27,7 @@ in
       };
     };
 
-    innerConfig = {
+    innerConfig = { ... }: {
       services.pdns-recursor = {
         enable = true;
         dns.address = "0.0.0.0, ::";

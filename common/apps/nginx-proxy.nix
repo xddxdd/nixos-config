@@ -21,7 +21,7 @@ in
       "fd10:127:10:2547::43"
     ];
 
-    innerConfig = {
+    innerConfig = {  ... }: {
       services.nginx.enable = true;
       services.nginx.config = ''
         events {
