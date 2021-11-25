@@ -3,6 +3,7 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+  hostConfig = config;
 in
 { containerIP
 , outerConfig ? { }
@@ -11,7 +12,7 @@ in
 , announcedIPv6 ? [ ]
 ,
 }:
-outerConfig // {
+pkgs.lib.recursiveUpdate outerConfig {
   autoStart = true;
   ephemeral = true;
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
@@ -26,23 +27,24 @@ outerConfig // {
     "/nix/persistent" = { hostPath = "/nix/persistent"; isReadOnly = true; };
   };
 
-  config = { ... }: {
-    age.secrets = config.age.secrets;
+  config = { config, ... }: {
     age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
-    system.stateVersion = config.system.stateVersion;
+    users.users.container = hostConfig.users.users.container;
+    users.groups.container = hostConfig.users.groups.container;
+
+    system.stateVersion = hostConfig.system.stateVersion;
     nixpkgs.pkgs = pkgs;
-    networking.hostName = config.networking.hostName;
+    networking.hostName = hostConfig.networking.hostName;
     networking.firewall.enable = false;
     services.journald.extraConfig = ''
-      Storage=none
       SystemMaxUse=50M
       SystemMaxFileSize=10M
     '';
 
     imports = [
       pkgs.flakeInputs.agenix.nixosModules.age
-      innerConfig
+      (innerConfig { containerConfig = config; })
     ];
 
     services.bird2 = {

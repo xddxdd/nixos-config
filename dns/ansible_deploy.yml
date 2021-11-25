@@ -12,6 +12,12 @@
       dest: /var/lib/zones/zones/
       checksum: yes
       delete: yes
+  - name: Chown
+    files:
+      dest: /var/lib/zones/zones
+      owner: container
+      group: container
+      recurse: yes
   - name: Restart DNS servers
     command: systemctl restart container@coredns.service container@coredns-knot.service
     ignore_errors: yes
