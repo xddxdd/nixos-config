@@ -16,6 +16,7 @@
     ../../common/apps/qemu-user-static.nix
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
+    ../../common/apps/yggdrasil.nix
     ../../common/apps/zsh.nix
   ];
 
@@ -49,4 +50,10 @@
       "2605:6400:cac6::1/120"
     ];
   };
+
+  services.yggdrasil.config.Peers =
+    let
+      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
+    in
+    publicPeers [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
 }

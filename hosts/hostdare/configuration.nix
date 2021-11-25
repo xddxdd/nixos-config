@@ -16,6 +16,7 @@
     ../../common/apps/qemu-user-static.nix
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
+    ../../common/apps/yggdrasil.nix
     ../../common/apps/zsh.nix
   ];
 
@@ -36,4 +37,10 @@
       "172.22.76.97/29"
     ];
   };
+
+  services.yggdrasil.config.Peers =
+    let
+      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
+    in
+    publicPeers [ "united-states" "canada" ];
 }
