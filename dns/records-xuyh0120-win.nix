@@ -4,13 +4,8 @@ with dns;
 [
   (CNAME { name = "lab"; target = "lab.lantian.pub."; })
   (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })
-  (ALIAS { name = "@"; target = "lantian.pub."; })
 
   (TXT { name = "@"; contents = "google-site-verification=dFXi0jyD7Qm4WrRUaC79-XQWAJ4UwcdNSbGNTI9IvLg"; })
-
-  (MX { name = "@"; priority = 10; target = "mx1.forwardemail.net."; })
-  (MX { name = "@"; priority = 10; target = "mx2.forwardemail.net."; })
-  (TXT { name = "@"; contents = "forward-email=xuyh0120@gmail.com"; })
 
   (CNAME { name = "s1._domainkey"; target = "s1.domainkey.u6126456.wl207.sendgrid.net."; })
   (CNAME { name = "s2._domainkey"; target = "s2.domainkey.u6126456.wl207.sendgrid.net."; })
