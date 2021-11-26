@@ -233,13 +233,13 @@ in
       #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
 
       filter sys_import_v4 {
-        if net !~ KERNEL_IPv4 then reject;
+        if net !~ RESERVED_IPv4 then reject;
         bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
         accept;
       }
 
       filter sys_import_v6 {
-        if net !~ KERNEL_IPv6 then reject;
+        if net !~ RESERVED_IPv6 then reject;
         bgp_large_community.add((DN42_AS, LT_POLICY, LT_POLICY_NOEXPORT));
         accept;
       }
