@@ -13,10 +13,9 @@ rec {
   domain = prefix;
   reverse = true;
   providers = [ "henet" ];
-  records =
-    [
-      (PTR { name = "*"; inherit target; })
-      (PTR { name = "${prefixIP}1"; inherit target; })
-    ]
-    ++ (commonPoem "${prefixIP}" 2);
+  records = [
+    (PTR { name = "*"; inherit target; })
+    (PTR { name = "${prefixIP}1"; inherit target; })
+    (commonPoem "${prefixIP}" 2)
+  ];
 }
