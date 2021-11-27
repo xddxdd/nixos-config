@@ -66,4 +66,9 @@
       publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
     in
     publicPeers [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
+
+  services.ftp-proxy = {
+    enable = true;
+    target = "ftpback-rbx2-162.ovh.net";
+  };
 }

@@ -18,6 +18,9 @@
     enable = config.services."route-chain".enable;
     description = "Route Chain";
     wantedBy = [ "multi-user.target" ];
+    unitConfig = {
+      After = "network.target";
+    };
     serviceConfig = {
       Type = "simple";
       Restart = "always";
