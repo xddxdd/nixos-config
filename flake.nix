@@ -84,6 +84,17 @@
             ];
           });
 
+      homeConfigurations = {
+        lantian = inputs.home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          username = "lantian";
+          homeDirectory = "/home/${username}";
+          inherit stateVersion;
+          configuration = import ./home/user.nix { inherit inputs stateVersion; };
+        };
+      };
+      lantian = self.homeConfigurations.lantian.activationPackage;
+
       deploy = {
         sshUser = "root";
         user = "root";
