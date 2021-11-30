@@ -17,6 +17,11 @@ let
       addresses = mainServer.public;
       ttl = "1h";
     };
+  apexGeoDNS = domain: ALIAS {
+    name = "${domain}.";
+    target = "56631131.xyz."; # Hosted on NS1.com for GeoDNS
+    ttl = "10m";
+  };
 
   lantianPub = import ./records-lantian-pub.nix { inherit pkgs dns; };
   xuyh0120Win = import ./records-xuyh0120-win.nix { inherit pkgs dns; };
@@ -33,7 +38,7 @@ dns.eval {
       domain = "lantian.pub";
       providers = [ "cloudflare" ];
       records = [
-        (apexRecords domain)
+        (apexGeoDNS domain)
         commonHosts.CAA
         (commonHosts.Normal domain true)
         (commonHosts.SSHFP domain)
@@ -52,7 +57,7 @@ dns.eval {
       domain = "xuyh0120.win";
       providers = [ "cloudflare" ];
       records = [
-        (apexRecords domain)
+        (apexGeoDNS domain)
         commonHosts.CAA
         (commonHosts.Normal domain true)
         (commonHosts.SSHFP domain)
