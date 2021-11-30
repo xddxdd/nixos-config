@@ -177,6 +177,9 @@ in
           brotli off;
           zstd off;
         '';
+        "= /robots.txt".extraConfig = ''
+          alias ${../files/robots-block.txt};
+        '';
       };
       extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
         + nginxHelper.commonVhostConf true
