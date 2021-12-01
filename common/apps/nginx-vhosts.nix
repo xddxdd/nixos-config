@@ -44,7 +44,7 @@ in
       ];
 
       locations = {
-        "/".return = "444";
+        "/".return = "301 https://$host$request_uri";
         "= /.well-known/openid-configuration".extraConfig = ''
           root ${../files/openid-configuration};
           try_files /openid-configuration =404;
@@ -65,7 +65,7 @@ in
     };
 
     "lantian.pub" = addConfLantianPub {
-      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      listen = nginxHelper.listen443;
       serverAliases = pkgs.lib.mapAttrsToList (k: v: k + ".lantian.pub") hosts;
       extraConfig = ''
         gzip off;
@@ -79,7 +79,7 @@ in
       + nginxHelper.commonVhostConf true;
     };
     "lantian.dn42" = addConfLantianPub {
-      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      listen = nginxHelper.listen80;
       extraConfig = ''
         gzip off;
         gzip_static on;
@@ -88,7 +88,6 @@ in
 
         error_page 404 /404.html;
       ''
-      + nginxHelper.makeSSL "lantian.dn42_ecc"
       + nginxHelper.commonVhostConf false;
     };
     "lantian.neo" = addConfLantianPub {
