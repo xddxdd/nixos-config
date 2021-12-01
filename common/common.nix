@@ -45,8 +45,15 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  age.secrets.smtp-pass.file = ../secrets/smtp-pass.age;
-  age.secrets.smtp-pass.mode = "0444";
+  age.secrets.smtp-pass = {
+    file = ../secrets/smtp-pass.age;
+    mode = "0444";
+  };
+
+  age.secrets.journalbeat-yml = {
+    file = ../secrets/journalbeat-yml.age;
+    name = "journalbeat.yml";
+  };
 
   boot = {
     kernelParams = [
@@ -278,6 +285,26 @@
     SystemMaxUse=50M
     SystemMaxFileSize=10M
   '';
+
+  systemd.services.journalbeat = let
+    stateDir = "journalbeat";
+  in{
+    description = "Journalbeat log shipper";
+    wantedBy = [ "multi-user.target" ];
+    preStart = ''
+      mkdir -p /var/lib/${stateDir}/data
+      mkdir -p /var/lib/${stateDir}/logs
+    '';
+    serviceConfig = {
+      StateDirectory = stateDir;
+      ExecStart = ''
+        ${pkgs.journalbeat7}/bin/journalbeat \
+          -c ${config.age.secrets.journalbeat-yml.path} \
+          -path.data /var/lib/${stateDir}/data \
+          -path.logs /var/lib/${stateDir}/logs'';
+      Restart = "always";
+    };
+  };
 
   virtualisation.podman = {
     enable = true;
