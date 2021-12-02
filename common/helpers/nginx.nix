@@ -82,6 +82,13 @@ rec {
     "~ .*\.php(\/.*)*$".extraConfig = locationPHPConf;
   };
 
+  locationBlockUserAgentConf = ''
+    if ($untrusted_user_agent) {
+      access_log off;
+      return 403;
+    }
+  '';
+
   locationProxyConf = ''
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
