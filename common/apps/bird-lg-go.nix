@@ -33,7 +33,9 @@ in
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
           proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
-          extraConfig = nginxHelper.locationProxyConf;
+          extraConfig = ''
+            if ($untrusted_user_agent) { return 403; }
+          '' + nginxHelper.locationProxyConf;
         };
       };
       extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
@@ -45,7 +47,9 @@ in
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
           proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
-          extraConfig = nginxHelper.locationProxyConf;
+          extraConfig = ''
+            if ($untrusted_user_agent) { return 403; }
+          '' + nginxHelper.locationProxyConf;
         };
       };
       extraConfig = nginxHelper.makeSSL "lantian.dn42_ecc"
