@@ -1,8 +1,6 @@
 { config, ... }:
 
 {
-  age.secrets.dn42-peering-hostdare-weiti.file = ../../secrets/dn42-peering/hostdare-weiti.age;
-
   services.dn42 = {
     anillc = {
       remoteASN = 4242422526;
@@ -448,21 +446,6 @@
       };
       addressing = {
         peerIPv4 = "172.23.151.195";
-      };
-    };
-    weiti = {
-      remoteASN = 4242423905;
-      latencyMs = 1;
-      tunnel = {
-        type = "openvpn";
-        localPort = 22547;
-        remoteAddress = "69.12.89.151";
-        remotePort = 22547;
-        openvpnStaticKeyPath = config.age.secrets.dn42-peering-hostdare-weiti.path;
-      };
-      addressing = {
-        peerIPv4 = "172.20.175.196";
-        peerIPv6LinkLocal = "fe80::42";
       };
     };
     # wsfnk = {

@@ -1,8 +1,6 @@
 { config, ... }:
 
 {
-  age.secrets.dn42-peering-virmach-ny1g-nelson.file = ../../secrets/dn42-peering/virmach-ny1g-nelson.age;
-
   services.dn42 = {
     baoshuo = {
       remoteASN = 4242420247;
@@ -112,20 +110,6 @@
       addressing = {
         peerIPv4 = "10.127.111.51";
         peerIPv6LinkLocal = "fe80::aa:1111:33";
-      };
-    };
-    nelson = {
-      remoteASN = 4242423615;
-      latencyMs = 16;
-      tunnel = {
-        type = "openvpn";
-        localPort = 23615;
-        remoteAddress = "66.185.21.124";
-        remotePort = 36152;
-        openvpnStaticKeyPath = config.age.secrets.dn42-peering-virmach-ny1g-nelson.path;
-      };
-      addressing = {
-        peerIPv4 = "172.20.39.120";
       };
     };
     oneacl = {
