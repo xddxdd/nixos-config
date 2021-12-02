@@ -1,3 +1,5 @@
+{ pkgs, config, ... }:
+
 {
   services.yggdrasil = {
     enable = true;
@@ -17,4 +19,7 @@
     };
     persistentKeys = true;
   };
+
+  systemd.services.yggdrasil.serviceConfig.ExecStart =
+    pkgs.lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel warn -useconffile /run/yggdrasil/yggdrasil.conf";
 }
