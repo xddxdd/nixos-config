@@ -57,7 +57,9 @@ in
     sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
 
     commonHttpConfig = ''
-      access_log /var/log/nginx/access.$server_name.log;
+      log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" "$http_user_agent"';
+      access_log syslog:server=unix:/dev/log,nohostname main;
       more_set_headers "Server: lantian";
 
       gzip on;
