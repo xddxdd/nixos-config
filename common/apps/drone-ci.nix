@@ -80,6 +80,19 @@ in
     };
   };
 
+  environment.systemPackages = [
+    (pkgs.stdenv.mkDerivation {
+      name = "docker-dind";
+      version = "0.0.1";
+
+      phases = [ "installPhase" ];
+      buildInputs = [ pkgs.makeWrapper ];
+      installPhase = ''
+        makeWrapper "${pkgs.docker}/bin/docker" "$out/bin/docker-dind" --set DOCKER_HOST "unix:///run/docker-dind/docker.sock"
+      '';
+    })
+  ];
+
   systemd.tmpfiles.rules = [
     "d /var/cache/ci 755 root root"
     "d /var/lib/docker-dind 755 root root"
