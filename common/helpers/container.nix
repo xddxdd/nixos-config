@@ -38,8 +38,7 @@ pkgs.lib.recursiveUpdate outerConfig {
     networking.hostName = hostConfig.networking.hostName;
     networking.firewall.enable = false;
     services.journald.extraConfig = ''
-      SystemMaxUse=50M
-      SystemMaxFileSize=10M
+      Storage=none
     '';
 
     imports = [
