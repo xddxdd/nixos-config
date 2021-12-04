@@ -119,6 +119,10 @@ in
           "forward-zones-recurse+" = ".=172.22.76.109:56;[fdbc:f9dc:67ad:2547::54]:56";
         };
       };
+      systemd.services.pdns-recursor.serviceConfig = {
+        DynamicUser = pkgs.lib.mkForce false;
+        User = pkgs.lib.mkForce "container";
+      };
     };
   };
 
