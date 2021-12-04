@@ -18,9 +18,9 @@
     wantedBy = [ "timers.target" ];
     partOf = [ "genshin-helper.service" ];
     timerConfig = {
-      OnCalendar = "*-*-* 09:00:00 Asia/Shanghai";
+      OnCalendar = "*-*-* 12:00:00 UTC";
       Persistent = true;
-      RandomizedDelaySec = "12h";
+      RandomizedDelaySec = "4h";
       Unit = "genshin-helper.service";
     };
   };
