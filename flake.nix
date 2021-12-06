@@ -61,28 +61,31 @@
         })
         hath-nix.overlay
       ];
+
+      systemFor = n: if (builtins.hasAttr "system" hosts."${n}") then hosts."${n}".system else "x86_64-linux";
+      hostnameFor = n: if (builtins.hasAttr "hostname" hosts."${n}") then hosts."${n}".hostname else "${n}.lantian.pub";
+      sshPortFor = n: if (builtins.hasAttr "sshPort" hosts."${n}") then hosts."${n}".sshPort else 2222;
+
+      modulesFor = n: [
+        ({
+          networking.hostName = n;
+          nixpkgs.overlays = overlays;
+          nixpkgs.system = systemFor n;
+          system.stateVersion = stateVersion;
+        })
+        inputs.agenix.nixosModules.age
+        inputs.impermanence.nixosModules.impermanence
+        ./common/common.nix
+        (import ./common/home-manager.nix { inherit inputs stateVersion; })
+        (./hosts + "/${n}/configuration.nix")
+      ];
     in
     {
       nixosConfigurations = lib.genAttrs hostsList
-        (n:
-          let
-            thisHost = builtins.getAttr n hosts;
-          in
-          lib.nixosSystem {
-            system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
-            modules = [
-              inputs.agenix.nixosModules.age
-              inputs.impermanence.nixosModules.impermanence
-              ({
-                networking.hostName = n;
-                nixpkgs.overlays = overlays;
-                system.stateVersion = stateVersion;
-              })
-              ./common/common.nix
-              (import ./common/home-manager.nix { inherit inputs stateVersion; })
-              (./hosts + "/${n}/configuration.nix")
-            ];
-          });
+        (n: lib.nixosSystem {
+          system = systemFor n;
+          modules = modulesFor n;
+        });
 
       homeConfigurations = {
         lantian = inputs.home-manager.lib.homeManagerConfiguration rec {
@@ -104,26 +107,36 @@
         nodes = lib.genAttrs hostsList
           (n:
             let
-              thisHost = builtins.getAttr n hosts;
-              system = if (builtins.hasAttr "system" thisHost) then thisHost.system else "x86_64-linux";
-              hostname = if (builtins.hasAttr "hostname" thisHost) then thisHost.hostname else "${n}.lantian.pub";
-              sshPort = if (builtins.hasAttr "sshPort" thisHost) then thisHost.sshPort else 2222;
-
-              nixosNextboot = base: deploy-rs.lib."${system}".activate.custom base.config.system.build.toplevel ''
+              nixosNextboot = base: deploy-rs.lib."${systemFor n}".activate.custom base.config.system.build.toplevel ''
                 # work around https://github.com/NixOS/nixpkgs/issues/73404
                 cd /tmp
                 $PROFILE/bin/switch-to-configuration boot
               '';
             in
             {
-              hostname = hostname;
+              hostname = hostnameFor n;
               profiles.system = {
                 # path = nixosNextboot self.nixosConfigurations."${n}";
-                path = deploy-rs.lib."${system}".activate.nixos self.nixosConfigurations."${n}";
-                sshOpts = [ "-p" (builtins.toString sshPort) ];
+                path = deploy-rs.lib."${systemFor n}".activate.nixos self.nixosConfigurations."${n}";
+                sshOpts = [ "-p" (builtins.toString (sshPortFor n)) ];
               };
             });
       };
+
+      colmena = {
+        meta.nixpkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
+      } // (lib.genAttrs hostsList
+        (n: {
+          deployment = {
+            targetHost = hostnameFor n;
+            targetPort = sshPortFor n;
+            targetUser = "root";
+          };
+
+          imports = modulesFor n;
+        }));
 
       dnsRecords = import ./dns/toplevel.nix rec {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
