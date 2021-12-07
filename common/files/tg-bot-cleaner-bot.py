@@ -62,7 +62,7 @@ with TelegramClient('tg', api_id, api_hash) as client:
         reply = await client.get_messages(channel_id, ids=reply_id)
 
         # Handle if replying to a message starting with / ...
-        if reply and len(reply.message) >= 1 and reply.message[0] == '/':
+        if reply and len(reply.message) >= 1 and reply.message[0] in '/\\':
             print('Bot %d new msg %d channel %d reply to %d' %
                   (user_id, msg_id, channel_id, reply_id))
 
@@ -114,7 +114,10 @@ with TelegramClient('tg', api_id, api_hash) as client:
 
             print('Del msg %d from no_delete set' % (reply.id))
             with no_delete_lock:
-                no_delete_set.remove(reply.id)
+                try:
+                    no_delete_set.remove(reply.id)
+                except KeyError:
+                    pass
 
     print('Bot cleaner is up and running')
     client.run_until_disconnected()
