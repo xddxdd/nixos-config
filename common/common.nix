@@ -68,7 +68,11 @@
     ];
     kernelPackages = pkgs.linuxPackages_latest;
 
-    initrd.includeDefaultModules = false;
+    initrd = {
+      compressor = "zstd";
+      compressorArgs = [ "-19" "-T0" ];
+      includeDefaultModules = false;
+    };
 
     loader = {
       grub = {
@@ -286,25 +290,27 @@
     SystemMaxFileSize=10M
   '';
 
-  systemd.services.journalbeat = let
-    stateDir = "journalbeat";
-  in{
-    description = "Journalbeat log shipper";
-    wantedBy = [ "multi-user.target" ];
-    preStart = ''
-      mkdir -p /var/lib/${stateDir}/data
-      mkdir -p /var/lib/${stateDir}/logs
-    '';
-    serviceConfig = {
-      StateDirectory = stateDir;
-      ExecStart = ''
-        ${pkgs.journalbeat7}/bin/journalbeat \
-          -c ${config.age.secrets.journalbeat-yml.path} \
-          -path.data /var/lib/${stateDir}/data \
-          -path.logs /var/lib/${stateDir}/logs'';
-      Restart = "always";
+  systemd.services.journalbeat =
+    let
+      stateDir = "journalbeat";
+    in
+    {
+      description = "Journalbeat log shipper";
+      wantedBy = [ "multi-user.target" ];
+      preStart = ''
+        mkdir -p /var/lib/${stateDir}/data
+        mkdir -p /var/lib/${stateDir}/logs
+      '';
+      serviceConfig = {
+        StateDirectory = stateDir;
+        ExecStart = ''
+          ${pkgs.journalbeat7}/bin/journalbeat \
+            -c ${config.age.secrets.journalbeat-yml.path} \
+            -path.data /var/lib/${stateDir}/data \
+            -path.logs /var/lib/${stateDir}/logs'';
+        Restart = "always";
+      };
     };
-  };
 
   virtualisation.podman = {
     enable = true;
