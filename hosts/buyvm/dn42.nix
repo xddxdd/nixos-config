@@ -75,6 +75,20 @@
         peerIPv6LinkLocal = "fe80::42:2601:31:1";
       };
     };
+    ccf = {
+      remoteASN = 4242422023;
+      latencyMs = 13;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22023;
+        remoteAddress = "185.196.220.38";
+        remotePort = 22547;
+        wireguardPubkey = "Fexv40BO3nCDIPyFytI0TWmN7XqBuLsFR+EItUKDn24=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::2023";
+      };
+    };
     dgy = {
       remoteASN = 4242420826;
       latencyMs = 48;
