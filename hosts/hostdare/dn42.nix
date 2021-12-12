@@ -404,6 +404,21 @@
         peerIPv6LinkLocal = "fe80::3088:193";
       };
     };
+    tanglc = {
+      remoteASN = 4242421586;
+      latencyMs = 8;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21586;
+        remoteAddress = "lv.dn42.serversc.com";
+        remotePort = 22547;
+        wireguardPubkey = "9CO2NAA7vDqnkHP1ro4c0+zm6wEHmdaAF3JMShfTlkA=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.75.32";
+        peerIPv6LinkLocal = "fe80::1586:1";
+      };
+    };
     # tech9 = {
     #   remoteASN = 4242421588;
     #   tunnel = {
