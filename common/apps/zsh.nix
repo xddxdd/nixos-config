@@ -33,10 +33,6 @@
     enable = true;
     enableBashCompletion = true;
     autosuggestions.enable = true;
-    syntaxHighlighting = {
-      enable = true;
-      highlighters = [ "main" "brackets" "pattern" ];
-    };
     vteIntegration = true;
     promptInit = import ../helpers/zshrc.nix { inherit config pkgs; };
     ohMyZsh = {
