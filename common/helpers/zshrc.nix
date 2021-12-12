@@ -3,6 +3,9 @@
 ''
   source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
+  [[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
+
+  POWERLEVEL9K_MODE="nerdfont-complete"
   POWERLEVEL9K_PROMPT_ON_NEWLINE=true
   POWERLEVEL9K_DISABLE_RPROMPT=true
   POWERLEVEL9K_STATUS_VERBOSE=false
