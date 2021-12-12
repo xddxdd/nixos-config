@@ -6,6 +6,7 @@
   imports = [
     (import ./user.nix { inherit inputs stateVersion; })
     ./components/fcitx.nix
+    ./components/mpv.nix
   ];
 
   services.auto-fix-vscode-server.enable = pkgs.lib.mkForce false;
