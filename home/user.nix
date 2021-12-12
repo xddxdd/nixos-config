@@ -79,6 +79,13 @@
 
     oh-my-zsh = {
       enable = true;
+      plugins = [
+        "adb"
+        "gitignore"
+        "nvm"
+        "pip"
+        "screen"
+      ];
     };
 
     initExtra = import ../common/helpers/zshrc.nix { inherit config pkgs; };
