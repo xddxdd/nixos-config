@@ -93,7 +93,8 @@
           username = "lantian";
           homeDirectory = "/home/${username}";
           inherit stateVersion;
-          configuration = import ./home/user.nix { inherit inputs stateVersion; };
+          # FIXME: Support remote deploy to GUI systems
+          configuration = import ./home/user-gui.nix { inherit inputs stateVersion; };
         };
       };
       lantian = self.homeConfigurations.lantian.activationPackage;

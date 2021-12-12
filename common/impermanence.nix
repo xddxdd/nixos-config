@@ -16,7 +16,7 @@
     ];
   };
 
-  age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
   fileSystems."/var".neededForBoot = true;
 
