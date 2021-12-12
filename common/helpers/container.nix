@@ -28,7 +28,7 @@ pkgs.lib.recursiveUpdate outerConfig {
   };
 
   config = { config, ... }: {
-    age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
+    age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
     users.users.container = hostConfig.users.users.container;
     users.groups.container = hostConfig.users.groups.container;
