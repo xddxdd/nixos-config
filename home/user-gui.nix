@@ -5,6 +5,7 @@
 {
   imports = [
     (import ./user.nix { inherit inputs stateVersion; })
+    ./components/conky.nix
     ./components/fcitx.nix
     ./components/fonts-archlinux.nix
     ./components/mpv.nix
