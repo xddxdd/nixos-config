@@ -6,6 +6,7 @@
   imports = [
     (import ./user.nix { inherit inputs stateVersion; })
     ./components/fcitx.nix
+    ./components/fonts-archlinux.nix
     ./components/mpv.nix
   ];
 
