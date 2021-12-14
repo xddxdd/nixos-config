@@ -30,7 +30,6 @@
 
   programs.ssh = {
     enable = true;
-    controlMaster = "yes";
     extraConfig = ''
       HostkeyAlgorithms +ssh-rsa
       PubkeyAcceptedAlgorithms +ssh-rsa
