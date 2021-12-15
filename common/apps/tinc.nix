@@ -6,23 +6,19 @@ let
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
-  hostToTinc = hostname: { public
-                         , tincPubRSA ? null
-                         , tincPubEd25519 ? null
-                         , ...
-                         }:
+  hostToTinc = k: v:
     pkgs.lib.nameValuePair
-      (sanitizeHostname hostname)
+      (sanitizeHostname k)
       ({
         addresses = [ ]
-          ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" public) [{ address = public.IPv4; }]
-          ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" public) [{ address = public.IPv6; }]
-          ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Alt" public) [{ address = public.IPv6Alt; }]
+          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] v) [{ address = v.public.IPv4; }]
+          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv6" ] v) [{ address = v.public.IPv6; }]
+          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv6Alt" ] v) [{ address = v.public.IPv6Alt; }]
         ;
-        rsaPublicKey = pkgs.lib.mkIf (tincPubRSA != null) tincPubRSA;
+        rsaPublicKey = pkgs.lib.mkIf (pkgs.lib.hasAttrByPath [ "tinc" "rsa" ] v) v.tinc.rsa;
         settings = {
           Compression = 0;
-          Ed25519PublicKey = pkgs.lib.mkIf (tincPubEd25519 != null) tincPubEd25519;
+          Ed25519PublicKey = pkgs.lib.mkIf (pkgs.lib.hasAttrByPath [ "tinc" "ed25519" ] v) v.tinc.ed25519;
         };
       });
 in
