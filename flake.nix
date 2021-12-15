@@ -34,7 +34,7 @@
       hosts = import ./hosts.nix;
 
       # hostsList = [ "soyoustart" ];
-      hostsList = lib.mapAttrsToList (n: v: n) hosts;
+      hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.mapAttrsToList (n: v: n) hosts);
 
       stateVersion = "21.05";
 
@@ -62,9 +62,9 @@
         hath-nix.overlay
       ];
 
-      systemFor = n: if (builtins.hasAttr "system" hosts."${n}") then hosts."${n}".system else "x86_64-linux";
-      hostnameFor = n: if (builtins.hasAttr "hostname" hosts."${n}") then hosts."${n}".hostname else "${n}.lantian.pub";
-      sshPortFor = n: if (builtins.hasAttr "sshPort" hosts."${n}") then hosts."${n}".sshPort else 2222;
+      systemFor = n: hosts."${n}".system or "x86_64-linux";
+      hostnameFor = n: hosts."${n}".hostname or "${n}.lantian.pub";
+      sshPortFor = n: hosts."${n}".sshPort or 2222;
 
       modulesFor = n: [
         ({

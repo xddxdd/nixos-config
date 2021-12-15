@@ -43,7 +43,8 @@ in
   ];
 
   Normal = domain: enableWildcard: forEachHost
-    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.public; inherit enableWildcard; })
+    (n: v: pkgs.lib.optionals (builtins.hasAttr "public" v)
+      (mapAddresses { name = "${n}.${domain}."; addresses = v.public; inherit enableWildcard; }))
   ;
 
   SSHFP = domain: forEachActiveHost
@@ -81,18 +82,19 @@ in
 
   DN42 = domain: enableWildcard: forEachHost
     (n: v: (
-      (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; inherit enableWildcard; })
-      # A record
-      ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" v.dn42) [
-        (A { name = "dns-authoritative.${n}.${domain}."; address = v.dn42.IPv4; })
-      ]
-      # AAAA record
-      ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" v.dn42) [
-        (AAAA { name = "dns-recursive.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::53"; })
-        (AAAA { name = "dns-authoritative.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::54"; })
-        (AAAA { name = "dns-authoritative-backend.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::55"; })
-      ]
-    ))
+      pkgs.lib.optionals (v.deploy or true) (
+        (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; inherit enableWildcard; })
+        # A record
+        ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" v.dn42) [
+          (A { name = "dns-authoritative.${n}.${domain}."; address = v.dn42.IPv4; })
+        ]
+        # AAAA record
+        ++ pkgs.lib.optionals (builtins.hasAttr "IPv6" v.dn42) [
+          (AAAA { name = "dns-recursive.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::53"; })
+          (AAAA { name = "dns-authoritative.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::54"; })
+          (AAAA { name = "dns-authoritative-backend.${n}.${domain}."; address = "${v.ltnet.IPv6Prefix}::55"; })
+        ]
+      )))
   ;
 
   # Special handling: split for IP ranges & keep only last part of IP
