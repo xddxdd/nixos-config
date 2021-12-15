@@ -47,13 +47,13 @@ in
   ;
 
   SSHFP = domain: forEachActiveHost
-    (n: v: pkgs.lib.optionals (builtins.hasAttr "sshPubRSA" v) [
-      (SSHFP_RSA_SHA1 { name = "${n}.${domain}."; pubkey = v.sshPubRSA; })
-      (SSHFP_RSA_SHA256 { name = "${n}.${domain}."; pubkey = v.sshPubRSA; })
+    (n: v: pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "ssh" "rsa" ] v) [
+      (SSHFP_RSA_SHA1 { name = "${n}.${domain}."; pubkey = v.ssh.rsa; })
+      (SSHFP_RSA_SHA256 { name = "${n}.${domain}."; pubkey = v.ssh.rsa; })
     ]
-    ++ pkgs.lib.optionals (builtins.hasAttr "sshPubEd25519" v) [
-      (SSHFP_ED25519_SHA1 { name = "${n}.${domain}."; pubkey = v.sshPubEd25519; })
-      (SSHFP_ED25519_SHA256 { name = "${n}.${domain}."; pubkey = v.sshPubEd25519; })
+    ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "ssh" "ed25519" ] v) [
+      (SSHFP_ED25519_SHA1 { name = "${n}.${domain}."; pubkey = v.ssh.ed25519; })
+      (SSHFP_ED25519_SHA256 { name = "${n}.${domain}."; pubkey = v.ssh.ed25519; })
     ])
   ;
 
