@@ -152,7 +152,7 @@ in
       }
 
       protocol static static_v4 {
-    '' + pkgs.lib.optionalString (!(builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone)) ''
+    '' + pkgs.lib.optionalString (!(thisHost.ltnet.alone or false)) ''
       route 172.22.76.184/29 reject;
       route 172.22.76.96/27 reject;
       route 10.127.10.0/24 reject;
@@ -178,7 +178,7 @@ in
       };
 
       protocol static static_v6 {
-    '' + pkgs.lib.optionalString (!(builtins.hasAttr "alone" thisHost.ltnet && thisHost.ltnet.alone)) ''
+    '' + pkgs.lib.optionalString (!(thisHost.ltnet.alone or false)) ''
       route fdbc:f9dc:67ad::/48 reject;
       route fd10:127:10::/48 reject;
 
@@ -221,7 +221,7 @@ in
       include "${birdConfDir}/dn42_neo_base.conf";
       include "${birdDN42PeersConf}";
 
-    '' + pkgs.lib.optionalString (builtins.hasAttr "burble_grc" thisHost.dn42 && thisHost.dn42.burble_grc) ''
+    '' + pkgs.lib.optionalString (thisHost.dn42.burble_grc or false) ''
       # GRC config must be below dn42 & neonetwork since it uses filters from them
       include "${birdConfDir}/dn42/burble_grc.conf";
 
