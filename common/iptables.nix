@@ -96,9 +96,7 @@ in
       After = "network.target";
     };
     serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
+      Type = "oneshot";
       ExecStart = "${pkgs.nftables}/bin/nft -f ${nftRules}";
     };
   };
