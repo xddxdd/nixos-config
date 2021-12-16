@@ -8,9 +8,15 @@ let
     ${pkgs.coreutils}/bin/rm -rf /var/backup/*
 
     ${pkgs.gnutar}/bin/tar \
+      --exclude=/var/lib/cni \
       --exclude=/var/lib/containers \
       --exclude=/var/lib/docker \
       --exclude=/var/lib/docker-dind \
+      --exclude=/var/lib/journalbeat \
+      --exclude=/var/lib/machines \
+      --exclude=/var/lib/private \
+      --exclude=/var/lib/systemd \
+      --exclude=/var/lib/udisks2 \
       -I ${pkgs.zstd}/bin/zstd -cf /var/backup/${config.networking.hostName}-$(date +%Y-%m-%d).tar.zst \
       /var/lib
 
