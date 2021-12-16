@@ -21,10 +21,8 @@
 
       redistribute proto 12 deny
       redistribute ip 172.18.0.0/16 allow
-      redistribute ip 200::/7 allow
       redistribute ip fdbc:f9dc:67ad::/48 allow
       redistribute local ip 172.18.0.0/16 allow
-      redistribute local ip 200::/7 allow
       redistribute local ip fdbc:f9dc:67ad::/48 allow
       redistribute local deny
     '';
