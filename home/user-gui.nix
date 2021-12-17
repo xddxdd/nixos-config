@@ -21,6 +21,7 @@
 
   home.packages = with pkgs; [
     colmena
+    inputs.agenix.packages."${system}".agenix
     rnix-lsp
   ];
 }
