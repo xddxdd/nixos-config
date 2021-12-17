@@ -41,6 +41,7 @@
     ./components/ftp-proxy.nix
     ./components/route-chain.nix
     ./components/web-switch.nix
+    ./components/wg-lantian.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

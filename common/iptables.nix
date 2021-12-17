@@ -42,6 +42,14 @@ let
 
       chain NAT_PREROUTING {
         type nat hook prerouting priority -95; policy accept;
+
+        # wg-lantian
+        ${pkgs.lib.optionalString
+          (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] thisHost)
+          "ip daddr ${thisHost.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2"}
+        ${pkgs.lib.optionalString
+          (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost)
+          "ip6 daddr ${thisHost.public.IPv6Subnet}2 dnat to fc00::2"}
       }
 
       chain NAT_INPUT {
@@ -55,8 +63,13 @@ let
       chain NAT_POSTROUTING {
         type nat hook postrouting priority 105; policy accept;
 
-        ip version 4 oifname "eth*" masquerade
-        ip version 4 oifname "virbr*" masquerade
+        # wg-lantian
+        ${pkgs.lib.optionalString
+          (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost)
+          "ip6 saddr fc00::2 snat to ${thisHost.public.IPv6Subnet}2"}
+
+        oifname "eth*" masquerade
+        oifname "virbr*" masquerade
       }
 
       # Helper chains
