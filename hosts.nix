@@ -1,5 +1,7 @@
 # Index 1-99: Servers
 # Index 100-199: Clients
+#
+# IPv6Subnet must be at least /96
 
 {
   "50kvm" = rec {
@@ -31,6 +33,7 @@
       IPv4 = "23.226.61.104";
       IPv6 = "2001:470:19:10bd::1";
       IPv6Alt = "2001:470:fa1d::1";
+      IPv6Subnet = "2001:470:fa1d:ffff::";
     };
     ltnet = rec {
       IPv4 = "${IPv4Prefix}.1";
@@ -123,6 +126,7 @@
     public = rec {
       IPv4 = "51.77.66.117";
       IPv6 = "2001:41d0:700:2475::1";
+      IPv6Subnet = "2001:41d0:700:2475::";
     };
     ltnet = rec {
       IPv4 = "${IPv4Prefix}.1";
@@ -169,6 +173,7 @@
       IPv4 = "107.172.134.89";
       IPv6 = "2001:470:1f07:54d::1";
       IPv6Alt = "2001:470:8a6d::1";
+      IPv6Subnet = "2001:470:8a6d:ffff::";
     };
     ltnet = rec {
       IPv4 = "${IPv4Prefix}.1";
@@ -216,6 +221,7 @@
       IPv4 = "107.172.197.108";
       IPv6 = "2001:470:1f07:c6f::1";
       IPv6Alt = "2001:470:8d00::1";
+      IPv6Subnet = "2001:470:8d00:ffff::";
     };
     ltnet = rec {
       IPv4 = "${IPv4Prefix}.1";
@@ -263,6 +269,7 @@
       IPv4 = "107.189.12.254";
       IPv6 = "2605:6400:30:f22f::1";
       IPv6Alt = "2605:6400:cac6::1";
+      IPv6Subnet = "2605:6400:cac6:ffff::";
     };
     ltnet = rec {
       IPv4 = "${IPv4Prefix}.1";
