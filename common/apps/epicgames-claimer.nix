@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  age.secrets.epicgames-claimer-env.file = ../../secrets/epicgames-claimer-env.age;
+
   virtualisation.oci-containers.containers.epicgames-claimer = {
-    image = "ghcr.io/jackblk/epicgames-freebies-claimer:latest";
+    image = "docker.io/luminoleon/epicgames-claimer:dev";
+    environmentFiles = [ config.age.secrets.epicgames-claimer-env.path ];
     volumes = [
-      "/var/lib/epicgames-claimer:/app/data"
+      "/var/lib/epicgames-claimer:/User_Data"
     ];
   };
 }
