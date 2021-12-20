@@ -9,6 +9,8 @@
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
     ../../common/apps/ltnet.nix
+    ../../common/apps/nginx-proxy.nix
+    ../../common/apps/nginx.nix
     ../../common/apps/powerdns-recursor.nix
     ../../common/apps/qemu-user-static.nix
     ../../common/apps/tinc.nix
