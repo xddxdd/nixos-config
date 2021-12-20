@@ -88,4 +88,6 @@
 
     initExtra = import ../common/helpers/zshrc.nix { inherit config pkgs; };
   };
+
+  xdg.configFile."htop/htoprc".source = ../common/files/htoprc;
 }
