@@ -5,7 +5,9 @@
 
   [[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
 
-  POWERLEVEL9K_MODE="nerdfont-complete"
+  if [ "$TERM_PROGRAM" != "vscode" ]; then
+    POWERLEVEL9K_MODE="nerdfont-complete"
+  fi
   POWERLEVEL9K_PROMPT_ON_NEWLINE=true
   POWERLEVEL9K_DISABLE_RPROMPT=true
   POWERLEVEL9K_STATUS_VERBOSE=false
@@ -18,8 +20,7 @@
   #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
   POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
   POWERLEVEL9K_CONTEXT_TEMPLATE="%n @ %m"
-  if [ $USER = "root" ]
-  then
+  if [ "$USER" = "root" ]; then
     POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{red}%F{white} # %k%f "
     POWERLEVEL9K_TIME_FOREGROUND='white'
     POWERLEVEL9K_TIME_BACKGROUND='red'
