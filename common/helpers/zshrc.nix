@@ -1,6 +1,14 @@
 { config, pkgs, ... }:
 
 ''
+  # https://wiki.archlinux.org/title/Color_output_in_console
+  alias diff='diff --color=auto'
+  alias grep='grep --color=auto'
+  alias ip='ip -color=auto'
+  export LESS='-R --use-color -Dd+r$Du+b'
+  alias ls='ls --color=auto'
+  export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
   source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
   [[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
