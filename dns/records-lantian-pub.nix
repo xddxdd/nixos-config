@@ -24,8 +24,10 @@ rec {
     (CNAME { name = "backblaze"; target = "f002.backblazeb2.com."; cloudflare = true; })
     (CNAME { name = "comments"; target = "cname.vercel-dns.com."; })
     (CNAME { name = "ga"; target = "lantian.pub."; cloudflare = true; })
+    (CNAME { name = "gcore"; target = "cl-47f440a2.gcdn.co."; })
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
     (CNAME { name = "netlify"; target = "lantian.netlify.com."; })
+    (CNAME { name = "render"; target = "lantian1998.onrender.com."; })
     (CNAME { name = "vercel"; target = "cname.vercel-dns.com."; })
     (TXT { name = "@"; contents = "google-site-verification=eySrj7tImhjLmyEzhvz6-esuzD2jdnQ8anx4qfIwApw"; })
 
