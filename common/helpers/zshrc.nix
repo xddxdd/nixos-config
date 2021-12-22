@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 ''
+  if [ "$TERM_PROGRAM" != "vscode" ]; then
+    export EDITOR="nano"
+  else
+    export EDITOR="code --wait"
+  fi
+
   # https://wiki.archlinux.org/title/Color_output_in_console
   alias diff='diff --color=auto'
   alias grep='grep --color=auto'
