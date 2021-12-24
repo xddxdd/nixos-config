@@ -15,7 +15,7 @@ let
 
   ptrPrefix = v: if (builtins.hasAttr "ptrPrefix" v) then "${v.ptrPrefix}." else "";
 
-  mapAddresses = { name, addresses, enableWildcard ? false, ttl ? "1d" }:
+  mapAddresses = { name, addresses, ttl ? "1d" }:
     # A record
     pkgs.lib.optionals (builtins.hasAttr "IPv4" addresses) [
       (A { name = "${name}"; address = addresses.IPv4; inherit ttl; })
@@ -29,9 +29,6 @@ let
     ++ pkgs.lib.optionals (builtins.hasAttr "IPv6Alt" addresses) [
       (AAAA { name = "${name}"; address = addresses.IPv6Alt; inherit ttl; })
       (AAAA { name = "v6.${name}"; address = addresses.IPv6Alt; inherit ttl; })
-    ]
-    ++ pkgs.lib.optionals enableWildcard [
-      (CNAME { name = "*.${name}"; target = name; inherit ttl; })
     ];
 in
 {
@@ -42,9 +39,9 @@ in
     (CAA { name = "@"; tag = "issuewild"; value = "letsencrypt.org"; })
   ];
 
-  Normal = domain: enableWildcard: forEachHost
+  Normal = domain: forEachHost
     (n: v: pkgs.lib.optionals (builtins.hasAttr "public" v)
-      (mapAddresses { name = "${n}.${domain}."; addresses = v.public; inherit enableWildcard; }))
+      (mapAddresses { name = "${n}.${domain}."; addresses = v.public; }))
   ;
 
   SSHFP = domain: forEachActiveHost
@@ -64,8 +61,8 @@ in
     ])
   ;
 
-  LTNet = domain: enableWildcard: forEachHost
-    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.ltnet; inherit enableWildcard; })
+  LTNet = domain: forEachHost
+    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.ltnet; })
   ;
 
   LTNetReverseIPv4 = domain: forEachActiveHost
@@ -80,10 +77,10 @@ in
     ])
   ;
 
-  DN42 = domain: enableWildcard: forEachHost
+  DN42 = domain: forEachHost
     (n: v: (
       pkgs.lib.optionals (v.deploy or true) (
-        (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; inherit enableWildcard; })
+        (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; })
         # A record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" v.dn42) [
           (A { name = "dns-authoritative.${n}.${domain}."; address = v.dn42.IPv4; })
@@ -118,8 +115,8 @@ in
     ])
   ;
 
-  NeoNetwork = domain: enableWildcard: forEachHost
-    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.neonetwork; inherit enableWildcard; })
+  NeoNetwork = domain: forEachHost
+    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.neonetwork; })
   ;
 
   NeoNetworkReverseIPv4 = domain: forEachActiveHost

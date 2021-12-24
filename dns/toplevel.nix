@@ -40,16 +40,16 @@ dns.eval {
       records = [
         (apexGeoDNS domain)
         commonHosts.CAA
-        (commonHosts.Normal domain true)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
         (commonHosts.TXT domain)
         commonRecords.ForwardEmail
         lantianPub.email
         lantianPub.externalServices
         lantianPub.internalServices
-        (commonHosts.LTNet "zt.${domain}" true)
-        (commonHosts.DN42 "dn42.${domain}" true)
-        (commonHosts.NeoNetwork "neo.${domain}" true)
+        (commonHosts.LTNet "zt.${domain}")
+        (commonHosts.DN42 "dn42.${domain}")
+        (commonHosts.NeoNetwork "neo.${domain}")
       ];
     })
 
@@ -59,7 +59,7 @@ dns.eval {
       records = [
         (apexGeoDNS domain)
         commonHosts.CAA
-        (commonHosts.Normal domain true)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
         commonRecords.ForwardEmail
         xuyh0120Win
@@ -72,7 +72,7 @@ dns.eval {
       records = [
         (apexRecords domain)
         commonHosts.CAA
-        (commonHosts.Normal domain false)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
       ];
     })
@@ -83,7 +83,7 @@ dns.eval {
       records = [
         (apexRecords domain)
         commonHosts.CAA
-        (commonHosts.Normal domain false)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
       ];
     })
@@ -94,7 +94,7 @@ dns.eval {
       records = [
         (apexRecords domain)
         commonHosts.CAA
-        (commonHosts.Normal domain false)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
       ];
     })
@@ -104,7 +104,7 @@ dns.eval {
       providers = [ "bind" "desec" ];
       records = [
         (apexRecords domain)
-        (commonHosts.Normal domain true)
+        (commonHosts.Normal domain)
         (commonHosts.SSHFP domain)
         commonNameservers.Public
       ];
@@ -193,7 +193,6 @@ dns.eval {
         (commonHosts.mapAddresses {
           name = "${domain}.";
           addresses = mainServer.dn42;
-          enableWildcard = true;
           ttl = "10m";
         })
 
@@ -230,7 +229,7 @@ dns.eval {
         })
 
         commonNameservers.DN42
-        (commonHosts.DN42 domain true)
+        (commonHosts.DN42 domain)
         (commonHosts.SSHFP domain)
       ];
     })
@@ -255,7 +254,6 @@ dns.eval {
         (commonHosts.mapAddresses {
           name = "${domain}.";
           addresses = mainServer.neonetwork;
-          enableWildcard = true;
           ttl = "10m";
         })
 
@@ -292,7 +290,7 @@ dns.eval {
         })
 
         commonNameservers.NeoNetwork
-        (commonHosts.NeoNetwork domain true)
+        (commonHosts.NeoNetwork domain)
         (commonHosts.SSHFP domain)
       ];
     })
