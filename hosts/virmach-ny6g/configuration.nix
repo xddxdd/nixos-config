@@ -27,6 +27,7 @@ in
     ../../common/apps/genshin-helper.nix
     ../../common/apps/keycloak.nix
     ../../common/apps/quassel.nix
+    ../../common/apps/resilio.nix
     ../../common/apps/vaultwarden.nix
   ];
 
