@@ -17,6 +17,8 @@
     ../../common/apps/v2ray.nix
     ../../common/apps/yggdrasil.nix
     ../../common/apps/zsh.nix
+
+    ../../common/apps/resilio.nix
   ];
 
   systemd.network.networks.eth0 = {
