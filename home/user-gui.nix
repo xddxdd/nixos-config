@@ -9,6 +9,7 @@
     ./components/fcitx.nix
     ./components/fonts-archlinux.nix
     ./components/mpv.nix
+    ./components/reset-touchpad.nix
   ];
 
   services.auto-fix-vscode-server.enable = pkgs.lib.mkForce false;
