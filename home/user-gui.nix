@@ -1,10 +1,10 @@
-{ inputs, stateVersion, ... }:
+{ inputs, overlays, stateVersion, ... }:
 
 { config, pkgs, ... }:
 
 {
   imports = [
-    (import ./user.nix { inherit inputs stateVersion; })
+    (import ./user.nix { inherit inputs overlays stateVersion; })
     ./components/conky.nix
     ./components/fcitx.nix
     ./components/fonts-archlinux.nix

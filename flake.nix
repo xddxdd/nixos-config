@@ -39,7 +39,6 @@
       stateVersion = "21.05";
 
       overlays = [
-        nur.overlay
         (final: prev: {
           flakeInputs = inputs;
           nur = import nur {
@@ -75,8 +74,9 @@
         })
         inputs.agenix.nixosModules.age
         inputs.impermanence.nixosModules.impermanence
+        inputs.nixos-vscode-server.nixosModules.system
         ./common/common.nix
-        (import ./common/home-manager.nix { inherit inputs stateVersion; })
+        (import ./common/home-manager.nix { inherit inputs overlays stateVersion; })
         (./hosts + "/${n}/configuration.nix")
       ];
     in
@@ -94,10 +94,19 @@
           homeDirectory = "/home/${username}";
           inherit stateVersion;
           # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix { inherit inputs stateVersion; };
+          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
+        };
+        root = inputs.home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          username = "root";
+          homeDirectory = "/root";
+          inherit stateVersion;
+          # FIXME: Support remote deploy to GUI systems
+          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
         };
       };
       lantian = self.homeConfigurations.lantian.activationPackage;
+      root = self.homeConfigurations.root.activationPackage;
 
       deploy = {
         sshUser = "root";

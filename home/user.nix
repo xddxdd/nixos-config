@@ -1,4 +1,4 @@
-{ inputs, stateVersion, ... }:
+{ inputs, overlays, stateVersion, ... }:
 
 { config, pkgs, lib, ... }:
 
@@ -6,6 +6,8 @@
   imports = [
     inputs.nixos-vscode-server.nixosModules.homeManager
   ];
+
+  nixpkgs.overlays = overlays;
 
   home.stateVersion = stateVersion;
 
