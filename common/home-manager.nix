@@ -1,7 +1,7 @@
-{ inputs, stateVersion, ... }:
+{ inputs, overlays, stateVersion, ... }:
 
 let
-  userConfig = import ../home/user.nix { inherit inputs stateVersion; };
+  userConfig = import ../home/user.nix { inherit inputs overlays stateVersion; };
 in
 {
   imports = [

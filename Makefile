@@ -5,7 +5,7 @@ verbose: FORCE
 	nix run github:serokell/deploy-rs -- -s . -- --show-trace
 
 home: FORCE
-	home-manager switch --flake .#lantian -b backup
+	home-manager switch --flake . -b backup
 
 update: FORCE
 	nix flake update
