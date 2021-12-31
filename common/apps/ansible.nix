@@ -11,7 +11,7 @@ in
   ];
 
   environment.etc."ansible/ansible.cfg".text = ''
-    [default]
+    [defaults]
     gathering = explicit
     host_key_checking = False
     strategy_plugins = ${mitogen}/lib/python3.9/site-packages/ansible_mitogen/plugins/strategy
@@ -23,7 +23,9 @@ in
     retries = 3
   '';
 
-  environment.etc."ansible/hosts".text = pkgs.lib.concatStringsSep "\n" (pkgs.lib.mapAttrsToList (n: v: n + ".lantian.pub") hosts);
+  environment.etc."ansible/hosts".text = pkgs.lib.concatStringsSep
+    "\n"
+    ([ "[all]" ] ++ (pkgs.lib.mapAttrsToList (n: v: n + ".lantian.pub") hosts));
 
   programs.ssh.extraConfig = ''
     StrictHostKeyChecking no
