@@ -12,6 +12,7 @@ let
       --exclude=/var/lib/containers \
       --exclude=/var/lib/docker \
       --exclude=/var/lib/docker-dind \
+      --exclude=/var/lib/filebeat \
       --exclude=/var/lib/journalbeat \
       --exclude=/var/lib/machines \
       --exclude=/var/lib/private \
