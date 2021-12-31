@@ -56,10 +56,9 @@ in
         "/generate_204".return = "204";
       };
 
-      rejectSSL = true;
-
       extraConfig = ''
         access_log off;
+        ssl_reject_handshake on;
         ssl_stapling off;
       '';
     };

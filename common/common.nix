@@ -51,10 +51,7 @@
     mode = "0444";
   };
 
-  age.secrets.journalbeat-yml = {
-    file = ../secrets/journalbeat-yml.age;
-    name = "journalbeat.yml";
-  };
+  age.secrets.filebeat-elasticsearch-pw.file = ../secrets/filebeat-elasticsearch-pw.age;
 
   boot = {
     kernelParams = [
@@ -291,27 +288,25 @@
     SystemMaxFileSize=10M
   '';
 
-  systemd.services.journalbeat =
-    let
-      stateDir = "journalbeat";
-    in
-    {
-      description = "Journalbeat log shipper";
-      wantedBy = [ "multi-user.target" ];
-      preStart = ''
-        mkdir -p /var/lib/${stateDir}/data
-        mkdir -p /var/lib/${stateDir}/logs
-      '';
-      serviceConfig = {
-        StateDirectory = stateDir;
-        ExecStart = ''
-          ${pkgs.journalbeat7}/bin/journalbeat \
-            -c ${config.age.secrets.journalbeat-yml.path} \
-            -path.data /var/lib/${stateDir}/data \
-            -path.logs /var/lib/${stateDir}/logs'';
-        Restart = "always";
+  services.filebeat = {
+    enable = true;
+    package = pkgs.filebeat7;
+    inputs = {
+      journald = {
+        type = "journald";
+        id = "everything";
       };
     };
+    settings = {
+      output.elasticsearch = {
+        hosts = [ "https://cloud.community.humio.com:9200" ];
+        username = "any-organization";
+        password = { _secret = config.age.secrets.filebeat-elasticsearch-pw.path; };
+        setup.template.enabled = false;
+        compression_level = 6;
+      };
+    };
+  };
 
   virtualisation.podman = {
     enable = true;

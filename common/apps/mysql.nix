@@ -10,17 +10,13 @@ in
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
-    bind = thisHost.ltnet.IPv4;
     settings.mysqld = {
+      bind-address = thisHost.ltnet.IPv4;
       innodb_autoinc_lock_mode = 2;
       innodb_file_per_table = 1;
       innodb_read_only_compressed = 0;
       performance_schema = false;
     };
-    extraOptions = ''
-      skip-host-cache
-      skip-name-resolve
-    '';
   };
 
   services.nginx.virtualHosts."pma.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {

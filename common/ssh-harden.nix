@@ -13,7 +13,6 @@
     passwordAuthentication = false;
     permitRootLogin = "prohibit-password";
     ports = [ 2222 ];
-    startWhenNeeded = true;
     ciphers = [
       "chacha20-poly1305@openssh.com"
       "aes256-gcm@openssh.com"
