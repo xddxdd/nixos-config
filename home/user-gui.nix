@@ -5,6 +5,7 @@
 {
   imports = [
     (import ./user.nix { inherit inputs overlays stateVersion; })
+    ./components/ansible.nix
     ./components/conky.nix
     ./components/fcitx.nix
     ./components/fonts-archlinux.nix
