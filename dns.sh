@@ -2,7 +2,7 @@
 CURR_DIR=$(pwd)
 
 TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
-nix eval --raw ".#dnsRecords" > "$TEMP_DIR/dnsconfig.js" --show-trace
+nix eval --raw ".#dnsRecords" > "$TEMP_DIR/dnsconfig.js" --show-trace || exit $?
 nix run "nixpkgs#age" -- -i "$HOME/.ssh/id_ed25519" --decrypt -o "$TEMP_DIR/creds.json" "secrets/dnscontrol.age"
 mkdir -p "$TEMP_DIR/zones"
 

@@ -1,8 +1,7 @@
-{ pkgs, dns, ... }:
+{ pkgs, dns, hosts, ... }:
 
 with dns;
 let
-  hosts = import ../hosts.nix;
   replacedHosts = {
     gigsgigscloud = hosts."50kvm";
     oneprovider = hosts."soyoustart";
