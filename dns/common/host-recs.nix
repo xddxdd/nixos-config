@@ -55,7 +55,7 @@ in
   ;
 
   TXT = domain: forEachActiveHost
-    (n: v: [
+    (n: v: pkgs.lib.optionals (v.deploy or true) [
       (TXT { name = "hosts.${domain}."; contents = "${n}.${domain}"; })
     ])
   ;
