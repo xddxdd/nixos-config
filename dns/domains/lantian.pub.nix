@@ -1,7 +1,7 @@
-{ pkgs, dns, ... }:
+{ pkgs, dns, common, ... }:
 
 with dns;
-rec {
+let
   serveWithOwnNS = name: [
     (NS { inherit name; target = "50kvm.lantian.pub."; })
     (NS { inherit name; target = "hostdare.lantian.pub."; })
@@ -64,4 +64,26 @@ rec {
     (DS { name = "asn"; keytag = 48539; algorithm = 13; digesttype = 4; digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A"; ttl = "1d"; })
   ]
   ;
-}
+in
+[
+  (rec {
+    domain = "lantian.pub";
+    providers = [ "cloudflare" ];
+    records = [
+      (common.apexGeoDNS domain)
+      common.hostRecs.CAA
+      (common.hostRecs.Normal domain)
+      (common.hostRecs.SSHFP domain)
+      (common.hostRecs.TXT domain)
+      common.records.ForwardEmail
+
+      (common.hostRecs.LTNet "zt.${domain}")
+      (common.hostRecs.DN42 "dn42.${domain}")
+      (common.hostRecs.NeoNetwork "neo.${domain}")
+
+      email
+      externalServices
+      internalServices
+    ];
+  })
+]

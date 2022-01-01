@@ -32,7 +32,7 @@ let
     [
       ("D(${formattedDomain}, REG_${registrar}, ${providerCommands}, DefaultTTL(${formatArg defaultTTL}), NAMESERVER_TTL(${formatArg nameserverTTL}));")
     ] ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") (pkgs.lib.flatten records));
-  mapDomains = builtins.map mapDomainFunc domains;
+  mapDomains = builtins.map mapDomainFunc (pkgs.lib.flatten domains);
 
 in
 builtins.concatStringsSep "\n" (
