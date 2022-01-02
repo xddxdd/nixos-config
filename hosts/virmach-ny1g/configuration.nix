@@ -22,9 +22,6 @@ in
     ../../common/apps/v2ray.nix
     ../../common/apps/yggdrasil.nix
     ../../common/apps/zsh.nix
-
-    ../../common/apps/gitea.nix
-    ../../common/apps/nextcloud.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -69,9 +66,6 @@ in
       "2001:470:8a6d::1/120"
     ];
   };
-
-  lantian.enable-php = true;
-  lantian.enable-lab = true;
 
   services.yggdrasil.config.Peers =
     let
