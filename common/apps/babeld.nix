@@ -15,7 +15,6 @@
     interfaces.ltmesh = { };
     extraConfig = ''
       kernel-priority 10000
-      reflect-kernel-metric true
       random-id true
       smoothing-half-life 16
 
