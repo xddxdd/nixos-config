@@ -21,5 +21,5 @@
   };
 
   systemd.services.yggdrasil.serviceConfig.ExecStart =
-    pkgs.lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel warn -useconffile /run/yggdrasil/yggdrasil.conf";
+    pkgs.lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel error -logto syslog -useconffile /run/yggdrasil/yggdrasil.conf";
 }
