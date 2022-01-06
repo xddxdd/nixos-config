@@ -295,6 +295,15 @@
       journald = {
         type = "journald";
         id = "everything";
+        processors = [
+          {
+            drop_event.when.or = [
+              { equals."systemd.unit" = "filebeat.service"; }
+              { equals."systemd.unit" = "resilio.service"; }
+              { equals."systemd.unit" = "yggdrasil.service"; }
+            ];
+          }
+        ];
       };
     };
     settings = {
@@ -302,8 +311,12 @@
         hosts = [ "https://cloud.community.humio.com:9200" ];
         username = "any-organization";
         password = { _secret = config.age.secrets.filebeat-elasticsearch-pw.path; };
-        setup.template.enabled = false;
         compression_level = 6;
+        index = "beat";
+      };
+      setup.template = {
+        name = "beat";
+        pattern = "beat";
       };
     };
   };
