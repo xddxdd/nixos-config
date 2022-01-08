@@ -3,6 +3,35 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+
+  fastcgiParams = ''
+    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_param  QUERY_STRING       $query_string;
+    fastcgi_param  REQUEST_METHOD     $request_method;
+    fastcgi_param  CONTENT_TYPE       $content_type;
+    fastcgi_param  CONTENT_LENGTH     $content_length;
+
+    fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+    fastcgi_param  REQUEST_URI        $request_uri;
+    fastcgi_param  DOCUMENT_URI       $document_uri;
+    fastcgi_param  DOCUMENT_ROOT      $document_root;
+    fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+    fastcgi_param  HTTPS              $https if_not_empty;
+
+    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+    fastcgi_param  SERVER_SOFTWARE    lantian;
+
+    fastcgi_param  REMOTE_ADDR        $remote_addr;
+    fastcgi_param  REMOTE_PORT        $remote_port;
+    fastcgi_param  SERVER_ADDR        $server_addr;
+    fastcgi_param  SERVER_PORT        443;
+    fastcgi_param  SERVER_NAME        $server_name;
+
+    fastcgi_param  SSL_CIPHER         $ssl_cipher;
+    fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
+    fastcgi_param  SSL_CURVES         $ssl_curves;
+    fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
+  '';
 in
 rec {
   makeSSL = acmeName:
@@ -79,7 +108,7 @@ rec {
       '' + locationProxyConf;
     };
 
-    "~ .*\.php(\/.*)*$".extraConfig = locationPHPConf;
+    "~ .*\.php(\/.*)*$".extraConfig = pkgs.lib.optionalString (config.lantian.enable-php) locationPHPConf;
   };
 
   locationBlockUserAgentConf = ''
@@ -123,41 +152,24 @@ rec {
     proxy_set_header X-Access-Token $token;
   '';
 
-  locationPHPConf = pkgs.lib.optionalString (config.lantian.enable-php) ''
+  locationPHPConf = ''
     try_files $fastcgi_script_name =404;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     fastcgi_pass unix:${config.services.phpfpm.pools.www.socket};
     fastcgi_index index.php;
-
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    fastcgi_param  QUERY_STRING       $query_string;
-    fastcgi_param  REQUEST_METHOD     $request_method;
-    fastcgi_param  CONTENT_TYPE       $content_type;
-    fastcgi_param  CONTENT_LENGTH     $content_length;
-
-    fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
-    fastcgi_param  REQUEST_URI        $request_uri;
-    fastcgi_param  DOCUMENT_URI       $document_uri;
-    fastcgi_param  DOCUMENT_ROOT      $document_root;
-    fastcgi_param  SERVER_PROTOCOL    $server_protocol;
-    fastcgi_param  HTTPS              $https if_not_empty;
-
-    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
-    fastcgi_param  SERVER_SOFTWARE    lantian;
-
-    fastcgi_param  REMOTE_ADDR        $remote_addr;
-    fastcgi_param  REMOTE_PORT        $remote_port;
-    fastcgi_param  SERVER_ADDR        $server_addr;
-    fastcgi_param  SERVER_PORT        443;
-    fastcgi_param  SERVER_NAME        $server_name;
-
-    fastcgi_param  SSL_CIPHER         $ssl_cipher;
-    fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
-    fastcgi_param  SSL_CURVES         $ssl_curves;
-    fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
-
+    ${fastcgiParams}
     # PHP only, required if PHP was built with --enable-force-cgi-redirect
     fastcgi_param  REDIRECT_STATUS    200;
+  '';
+
+  locationFcgiwrapConf = ''
+    gzip off;
+    brotli off;
+    zstd off;
+    try_files $fastcgi_script_name =404;
+    fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
+    fastcgi_index index.sh;
+    ${fastcgiParams}
   '';
 
   listenDefaultFlags = [
