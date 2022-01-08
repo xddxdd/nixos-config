@@ -17,6 +17,10 @@ in
         autoindex on;
         add_after_body /autoindex.html;
       '';
+      "/cgi-bin/" = {
+        index = "index.sh";
+        extraConfig = nginxHelper.locationFcgiwrapConf;
+      };
       "/hobby-net".extraConfig = ''
         autoindex on;
         add_after_body /autoindex.html;
@@ -33,6 +37,12 @@ in
     extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
       + nginxHelper.commonVhostConf true
       + nginxHelper.noIndex;
+  };
+
+  services.fcgiwrap = {
+    enable = true;
+    user = config.services.nginx.user;
+    group = config.services.nginx.group;
   };
 
   systemd.tmpfiles.rules = [
