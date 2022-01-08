@@ -44,12 +44,16 @@ let
         type nat hook prerouting priority -95; policy accept;
 
         # wg-lantian
-        ${pkgs.lib.optionalString
-          (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] thisHost)
-          "ip daddr ${thisHost.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2"}
-        ${pkgs.lib.optionalString
-          (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost)
-          "ip6 daddr ${thisHost.public.IPv6Subnet}2 dnat to fc00::2"}
+        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] thisHost) ''
+          ip daddr ${thisHost.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2
+          ip daddr ${thisHost.public.IPv4} udp dport { 51820 } dnat to 192.0.2.2
+          ip daddr ${thisHost.public.IPv4} tcp dport { 57912 } dnat to 192.0.2.3
+          ip daddr ${thisHost.public.IPv4} udp dport { 57912 } dnat to 192.0.2.3
+        ''}
+        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost) ''
+          ip6 daddr ${thisHost.public.IPv6Subnet}2 dnat to fc00::2
+          ip6 daddr ${thisHost.public.IPv6Subnet}3 dnat to fc00::3
+        ''}
       }
 
       chain NAT_INPUT {
@@ -64,9 +68,10 @@ let
         type nat hook postrouting priority 105; policy accept;
 
         # wg-lantian
-        ${pkgs.lib.optionalString
-          (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost)
-          "ip6 saddr fc00::2 snat to ${thisHost.public.IPv6Subnet}2"}
+        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] thisHost) ''
+          ip6 saddr fc00::2 snat to ${thisHost.public.IPv6Subnet}2
+          ip6 saddr fc00::3 snat to ${thisHost.public.IPv6Subnet}3
+        ''}
 
         oifname "eth*" masquerade
         oifname "virbr*" masquerade
