@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-
   nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
 
   addConfLantianPub = pkgs.lib.recursiveUpdate {
@@ -65,7 +62,7 @@ in
 
     "lantian.pub" = addConfLantianPub {
       listen = nginxHelper.listen443;
-      serverAliases = pkgs.lib.mapAttrsToList (k: v: k + ".lantian.pub") hosts;
+      serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
       extraConfig = ''
         gzip off;
         gzip_static on;
@@ -146,42 +143,6 @@ in
       + nginxHelper.commonVhostConf true
       + nginxHelper.listenProxyProtocol
       + nginxHelper.noIndex;
-    };
-
-    "lab.lantian.pub" = pkgs.lib.mkIf (config.lantian.enable-lab) {
-      listen = nginxHelper.listen443;
-      root = "/var/www/lab.lantian.pub";
-      locations = nginxHelper.addCommonLocationConf {
-        "/" = {
-          index = "index.php index.html index.htm";
-          tryFiles = "$uri $uri/ =404";
-        };
-        "= /".extraConfig = ''
-          autoindex on;
-          add_after_body /autoindex.html;
-        '';
-        "/dngzwxdq/".extraConfig = ''
-          alias ${pkgs.nur.repos.xddxdd.dngzwxdq}/;
-        '';
-        "/dnyjzsxj/".extraConfig = ''
-          alias ${pkgs.nur.repos.xddxdd.dnyjzsxj}/;
-        '';
-        "/hobby-net".extraConfig = ''
-          autoindex on;
-          add_after_body /autoindex.html;
-        '';
-        "/zjui-ece385-scoreboard".extraConfig = ''
-          gzip off;
-          brotli off;
-          zstd off;
-        '';
-        "= /robots.txt".extraConfig = ''
-          alias ${../files/robots-block.txt};
-        '';
-      };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true
-        + nginxHelper.noIndex;
     };
   };
 }
