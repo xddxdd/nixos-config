@@ -13,6 +13,7 @@ in
     ../../common/apps/bird.nix
     ../../common/apps/coredns.nix
     ../../common/apps/ltnet.nix
+    ../../common/apps/nginx-lab.nix
     ../../common/apps/nginx-proxy.nix
     ../../common/apps/nginx.nix
     ../../common/apps/powerdns-recursor.nix
@@ -78,7 +79,6 @@ in
   };
 
   lantian.enable-php = true;
-  lantian.enable-lab = true;
 
   services.yggdrasil.config.Peers =
     let
