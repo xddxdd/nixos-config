@@ -10,6 +10,10 @@
         publicKey = "6akFoVWQ0AHZXuehuLP8x25Wfqy1lDrmu8DAX97mMjg=";
         allowedIPs = [ "192.0.2.2/32" "fc00::2/128" ];
       })
+      ({
+        publicKey = "2Epd4gCH9OZ6IlArfDVuoucOxJTwj4hdl7ILX6CAZnI=";
+        allowedIPs = [ "192.0.2.3/32" "fc00::3/128" ];
+      })
     ];
   };
 }
