@@ -249,6 +249,22 @@
         peerIPv6LinkLocal = "fe80::1206";
       };
     };
+    moe233 = {
+      remoteASN = 4242420253;
+      latencyMs = 12;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20253;
+        remoteAddress = "sfo1.dn42.moe233.net";
+        remotePort = 22547;
+        wireguardPubkey = "C3SneO68SmagisYQ3wi5tYI2R9g5xedKkB56Y7rtPUo=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.69.161";
+        peerIPv6LinkLocal = "fe80::253";
+      };
+    };
     mayli = {
       remoteASN = 4242421123;
       latencyMs = 1;
