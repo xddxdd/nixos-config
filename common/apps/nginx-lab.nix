@@ -13,18 +13,13 @@ in
         index = "index.php index.html index.htm";
         tryFiles = "$uri $uri/ =404";
       };
-      "= /".extraConfig = ''
-        autoindex on;
-        add_after_body /autoindex.html;
-      '';
+      "= /".extraConfig = nginxHelper.locationAutoindexConf;
       "/cgi-bin/" = {
         index = "index.sh";
         extraConfig = nginxHelper.locationFcgiwrapConf;
       };
-      "/hobby-net".extraConfig = ''
-        autoindex on;
-        add_after_body /autoindex.html;
-      '';
+      "/glibc-for-debian-10-on-openvz".extraConfig = nginxHelper.locationAutoindexConf;
+      "/hobby-net".extraConfig = nginxHelper.locationAutoindexConf;
       "/zjui-ece385-scoreboard".extraConfig = ''
         gzip off;
         brotli off;
@@ -48,5 +43,6 @@ in
   systemd.tmpfiles.rules = [
     "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.nur.repos.xddxdd.dngzwxdq}"
     "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.nur.repos.xddxdd.dnyjzsxj}"
+    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.nur.repos.xddxdd.glibc-debian-openvz-files}"
   ];
 }
