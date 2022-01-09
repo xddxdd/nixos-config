@@ -157,6 +157,22 @@
         peerIPv6 = "fd42:4242:2189:ef::1";
       };
     };
+    jlu5 = {
+      remoteASN = 4242421080;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21080;
+        remoteAddress = "dn42-de-nbg01.jlu5.com";
+        remotePort = 22547;
+        wireguardPubkey = "H5XoB+8N4LoMAW4+vJ2jD6fO5vqQGZdj4MSip5clcCg=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.229.122";
+        peerIPv6LinkLocal = "fe80::122";
+      };
+    };
     kioubit = {
       remoteASN = 4242423914;
       latencyMs = 71;
