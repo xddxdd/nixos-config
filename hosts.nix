@@ -513,6 +513,53 @@
       IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
+  "terrahost" = rec {
+    index = 11;
+    ptrPrefix = "sandefjord.norway";
+    hostname = "194.32.107.228";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDL4OQIUTdyZynG4B+/1GFjMoQKX9xq1BVyOF8spXWNcUDqPUfetgA0H5CLILvUZTyR5thM7zS5gQdn01m1qznMXoGtOQqVBTLGS6ZV8J2rO3/vwKseJYh6rNiaImWu6mEu/G6k3v3xrtan9j+Y9X+vLPGHY90uASzYv45VaU/xW/4ChDLfQZitLW3lyGz3DZqXDTZZDzLeHCMwFFYw7GcIG67E30IoDd8300wqRg3sCeTb8XwqqhA2YDn/UuTJNQTHaRCFEt5x92FILmzbT1WxFYh3UXZ6VTGZQ+OLRbqhTq1IiyaV9B4reiglyAC6P8IMjpl3yqhF+pvJodSzIi6cEutbVZ7nP61nu2InsjvHfHumh5dPSJcpYmiOFcUtyLx/YKPHbw92B1yMWai5t+Y359xgJpJvIX8Tuoeu4S/zheAD1q2/8zf/ueCBZfniTU7xrdL3KJFcyLwqEWvUr+/ZtmjodGUj6jij0cqXCaDuqqy0/+HYmvVfBSZ11aQIM1liEa4w5y2gJyNW7fz613OvHd6JXglz9FSYlSmQudNYYaLGy7ltBQfInJXwzdcO+jmZjif9pjQBPXXVXUx9SErM30Dg8//gK4OR/YxhMyReIStQkVN1OPILyOGWFSo2ryCNpjwNHzHba18jZaS7HPt8ebL4KsULZEEVKozUK8ARcw==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3gI3Xp4vuhLA7syB110Dt46tAZQvBm+TEQ7Pg25HY7";
+    };
+    tinc = {
+      rsa = ''
+        -----BEGIN PUBLIC KEY-----
+        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAoBe5yTNcbpG8RJBGJ/Kb
+        w033UyMLAQ1ii3XoWkhLLwgp9frqDz2gFL0ZgkVSOE7X2KlAa11S536RL2XchMjU
+        VeCYRqTbpuPAFfEr7hXrbGL5u3hjpKp3huLgXh3bHhQXfWVICRkBH399ILzTp+GI
+        tVPV1WLAT0vjPqvsgIxP/3VDr5sv160hDFYX4etT50oXHHBupvzIgwfVAHPlGZ+Y
+        dPBczqR5qxkwUBIPEdlsjKeu4wJAQmy/R+TAwzMFYYzmqfiSMqh2HBCR5y7hEXRo
+        mU+zIcQEKOZle0Ptj12QcVfXgjiiCjQFbbmok40fhVGxmKN04lWlKn5d3euyuICq
+        /MT3DmPq/VT3gT5YKTvN0ZyG4+8VBLbRy2vFfIJq/Fwfh48ukQSXzatvmt+SVUq9
+        WcguMMjh+LW4zHVaACG8x7VIF4GsocguG43/2MIw08UKWhHW5VP6RPkUhxljejaR
+        +9nyPdsNbdz8EB3vj52WXvNyBAGS999Yi2scZcka4e5A5+6Fz+B0q+m2wTGGYnAY
+        7OA8Pw9o9vSJtHCZx+Yc/kjLjdCahABZZKanCUm8ELVLHCrY3iAv7qatrnWHj9F5
+        +yMouTz7RmrZF26sSCMADmTUj2IsInWaOtgSaaml75sg1Y3BifRb7cUmDYvzoPXj
+        CtJ/gWS6wt3dSlv4dLiF+5cCAwEAAQ==
+        -----END PUBLIC KEY-----
+      '';
+      ed25519 = "3mzD95izLNxVDFoUPgl6dA7a5HYAsAglJuT3xgTxnkI";
+    };
+    public = rec {
+      IPv4 = "194.32.107.228";
+      IPv6 = "2a03:94e0:ffff:194:32:107::228";
+    };
+    ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
+      IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
+      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.122";
+      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
+      region = 41;
+    };
+    neonetwork = rec {
+      IPv4 = "10.127.10.${builtins.toString index}";
+      IPv6 = "fd10:127:10:${builtins.toString index}::1";
+    };
+  };
   "lantian-hp-omen" = rec {
     index = 100;
     deploy = false;
