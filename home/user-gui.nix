@@ -16,7 +16,7 @@
   services.auto-fix-vscode-server.enable = pkgs.lib.mkForce false;
 
   programs.git.signing = {
-    key = "27F31700E751EC22";
+    key = "B50EC319385FCB0D";
     gpgPath = "/usr/bin/gpg";
     signByDefault = true;
   };
