@@ -111,6 +111,11 @@ rec {
     "~ .*\.php(\/.*)*$".extraConfig = pkgs.lib.optionalString (config.lantian.enable-php) locationPHPConf;
   };
 
+  locationAutoindexConf = ''
+    autoindex on;
+    add_after_body /autoindex.html;
+  '';
+
   locationBlockUserAgentConf = ''
     if ($untrusted_user_agent) {
       access_log off;
