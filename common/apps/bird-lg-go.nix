@@ -1,17 +1,14 @@
 { pkgs, config, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   systemd.services.bird-lg-go = {
     description = "Bird-lg-go";
     wantedBy = [ "multi-user.target" ];
     environment = {
-      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4}:13180";
+      BIRDLG_LISTEN = "127.0.0.1:${LT.portStr.BirdLgGo}";
       BIRDLG_SERVERS = "50kvm,hostdare,virmach-ny1g,buyvm";
       BIRDLG_DOMAIN = "zt.lantian.pub";
       BIRDLG_WHOIS = "172.22.76.108";
@@ -29,29 +26,29 @@ in
 
   services.nginx.virtualHosts = {
     "lg.lantian.pub" = {
-      listen = nginxHelper.listen443;
-      locations = nginxHelper.addCommonLocationConf {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
-          extraConfig = nginxHelper.locationBlockUserAgentConf
-            + nginxHelper.locationProxyConf;
+          proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
+          extraConfig = LT.nginx.locationBlockUserAgentConf
+            + LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
     "lg.lantian.dn42" = {
-      listen = nginxHelper.listen80;
+      listen = LT.nginx.listenHTTP;
       serverAliases = [ "lg.lantian.neo" ];
-      locations = nginxHelper.addCommonLocationConf {
+      locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4}:13180";
-          extraConfig = nginxHelper.locationBlockUserAgentConf
-            + nginxHelper.locationProxyConf;
+          proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
+          extraConfig = LT.nginx.locationBlockUserAgentConf
+            + LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = nginxHelper.makeSSL "lantian.dn42_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.dn42_ecc"
+        + LT.nginx.commonVhostConf true;
     };
   };
 }

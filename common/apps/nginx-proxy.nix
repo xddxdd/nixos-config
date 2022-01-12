@@ -1,15 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-  containerIP = 43;
-
-  container = import ../helpers/container.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
-  containers.nginx-proxy = container {
-    inherit containerIP;
+  containers.nginx-proxy = LT.container {
+    containerIP = LT.containerIP.nginxProxy;
 
     announcedIPv4 = [
       "172.22.76.108"
@@ -33,13 +29,13 @@ in
           server {
             listen 43;
             listen [::]:43;
-            proxy_pass ${thisHost.ltnet.IPv4}:13243;
+            proxy_pass ${LT.this.ltnet.IPv4}:${LT.portStr.WhoisProxyProtocol};
             proxy_protocol on;
           }
           server {
             listen 70;
             listen [::]:70;
-            proxy_pass ${thisHost.ltnet.IPv4}:13270;
+            proxy_pass ${LT.this.ltnet.IPv4}:${LT.portStr.GopherProxyProtocol};
             proxy_protocol on;
           }
         }

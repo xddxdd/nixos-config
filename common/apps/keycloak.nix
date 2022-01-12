@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   age.secrets.keycloak-dbpw = {
@@ -15,8 +15,8 @@ in
     database.createLocally = false;
     database.passwordFile = config.age.secrets.keycloak-dbpw.path;
     frontendUrl = "https://login.lantian.pub/auth";
-    httpPort = "13401";
-    httpsPort = "13402";
+    httpPort = LT.portStr.Keycloak.HTTP;
+    httpsPort = LT.portStr.Keycloak.HTTPS;
   };
 
   services.postgresql = {
@@ -34,16 +34,16 @@ in
   };
 
   services.nginx.virtualHosts."login.lantian.pub" = {
-    listen = nginxHelper.listen443;
-    locations = nginxHelper.addCommonLocationConf {
+    listen = LT.nginx.listenHTTPS;
+    locations = LT.nginx.addCommonLocationConf {
       "= /".return = "302 /auth/admin/";
       "/" = {
-        proxyPass = "http://127.0.0.1:13401";
-        extraConfig = nginxHelper.locationProxyConf;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
+        extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.noIndex;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex;
   };
 }

@@ -1,17 +1,20 @@
 { pkgs, config, ... }:
 
+let
+  LT = import ../helpers.nix {  inherit config pkgs; };
+in
 {
   services.yggdrasil = {
     enable = true;
     group = "wheel";
     config = {
-      Listen = [ "tls://[::]:13058" ];
+      Listen = [ "tls://[::]:${LT.portStr.Yggdrasil.Public}" ];
 
       MulticastInterfaces = [{
         Regex = "ltmesh";
         Beacon = true;
         Listen = true;
-        Port = 13059;
+        Port = LT.port.Yggdrasil.Multicast;
       }];
 
       IfName = "yggdrasil";

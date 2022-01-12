@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hosts, this, port, portStr, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-
   fastcgiParams = ''
     fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param  QUERY_STRING       $query_string;
@@ -85,7 +82,7 @@ rec {
     '';
 
     "/ray" = {
-      proxyPass = "http://127.0.0.1:13504";
+      proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
       proxyWebsockets = true;
       extraConfig = ''
         access_log off;
@@ -94,14 +91,14 @@ rec {
     };
 
     "/oauth2/" = {
-      proxyPass = "http://${thisHost.ltnet.IPv4}:14180";
+      proxyPass = "http://${this.ltnet.IPv4}:14180";
       extraConfig = ''
         proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
       '' + locationProxyConf;
     };
 
     "/oauth2/auth" = {
-      proxyPass = "http://${thisHost.ltnet.IPv4}:14180";
+      proxyPass = "http://${this.ltnet.IPv4}:14180";
       extraConfig = ''
         proxy_set_header Content-Length "";
         proxy_pass_request_body off;
@@ -185,16 +182,16 @@ rec {
     "so_keepalive=600:10:6"
   ];
 
-  listen443 = [
-    { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ]; }
-    { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ]; }
-    { addr = "0.0.0.0"; port = 443; extraParameters = [ "http3" ]; }
-    { addr = "[::]"; port = 443; extraParameters = [ "http3" ]; }
+  listenHTTPS = [
+    { addr = "0.0.0.0"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
+    { addr = "[::]"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
+    { addr = "0.0.0.0"; port = port.HTTPS; extraParameters = [ "http3" ]; }
+    { addr = "[::]"; port = port.HTTPS; extraParameters = [ "http3" ]; }
   ];
 
-  listen80 = [
-    { addr = "0.0.0.0"; port = 80; }
-    { addr = "[::]"; port = 80; }
+  listenHTTP = [
+    { addr = "0.0.0.0"; port = port.HTTP; }
+    { addr = "[::]"; port = port.HTTP; }
   ];
 
   listenPlain = port: [
@@ -203,8 +200,8 @@ rec {
   ];
 
   listenPlainProxyProtocol = port: [
-    { addr = "${thisHost.ltnet.IPv4}"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
-    { addr = "[${thisHost.ltnet.IPv6}]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "${this.ltnet.IPv4}"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
+    { addr = "[${this.ltnet.IPv6}]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
   ];
 
   listenProxyProtocol = ''

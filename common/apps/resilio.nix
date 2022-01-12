@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   services.resilio = {
@@ -10,7 +10,7 @@ in
     checkForUpdates = false;
     deviceName = config.networking.hostName;
     directoryRoot = "/nix/persistent/media";
-    httpListenPort = 13900;
+    httpListenPort = LT.port.ResilioSync;
     # Authentication is done by nginx
     httpLogin = "user";
     httpPass = "pass";
@@ -21,15 +21,15 @@ in
   ];
 
   services.nginx.virtualHosts."resilio-${config.networking.hostName}.lantian.pub" = {
-    listen = nginxHelper.listen443;
-    locations = nginxHelper.addCommonLocationConf {
-      "/".extraConfig = nginxHelper.locationOauthConf + ''
-        proxy_pass http://[::1]:13900;
+    listen = LT.nginx.listenHTTPS;
+    locations = LT.nginx.addCommonLocationConf {
+      "/".extraConfig = LT.nginx.locationOauthConf + ''
+        proxy_pass http://[::1]:${LT.portStr.ResilioSync};
         proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-      '' + nginxHelper.locationProxyConf;
+      '' + LT.nginx.locationProxyConf;
     };
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.noIndex;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex;
   };
 }

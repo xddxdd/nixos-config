@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   imports = [
@@ -26,7 +26,7 @@ in
       };
       environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       ports = [
-        "127.0.0.1:13080:80"
+        "127.0.0.1:${LT.portStr.Drone}:80"
       ];
       volumes = [
         "/var/lib/drone:/data"
@@ -44,7 +44,7 @@ in
       };
       environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       ports = [
-        "127.0.0.1:13081:80"
+        "127.0.0.1:${LT.portStr.DroneGitHub}:80"
       ];
       volumes = [
         "/var/lib/drone-github:/data"
@@ -56,14 +56,14 @@ in
     drone-runner = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DOCKER_HOST = "tcp://127.0.0.1:2375";
+        DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "127.0.0.1:13080";
+        DRONE_RPC_HOST = "127.0.0.1:${LT.portStr.Drone}";
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:13082";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
       };
       serviceConfig = {
         Type = "simple";
@@ -76,14 +76,14 @@ in
     drone-runner-github = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DOCKER_HOST = "tcp://127.0.0.1:2375";
+        DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "127.0.0.1:13081";
+        DRONE_RPC_HOST = "127.0.0.1:${LT.portStr.DroneGitHub}";
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:13082";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
       };
       serviceConfig = {
         Type = "simple";
@@ -96,9 +96,9 @@ in
     drone-vault = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DRONE_BIND = "127.0.0.1:13082";
+        DRONE_BIND = "127.0.0.1:${LT.portStr.DroneVault}";
         DRONE_DEBUG = "true";
-        VAULT_ADDR = "http://127.0.0.1:8200";
+        VAULT_ADDR = "http://127.0.0.1:${LT.portStr.Vault}";
       };
       serviceConfig = {
         Type = "simple";
@@ -112,26 +112,26 @@ in
 
   services.nginx.virtualHosts = {
     "ci.lantian.pub" = {
-      listen = nginxHelper.listen443;
-      locations = nginxHelper.addCommonLocationConf {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://127.0.0.1:13080";
-          extraConfig = nginxHelper.locationProxyConf;
+          proxyPass = "http://127.0.0.1:${LT.portStr.Drone}";
+          extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
     "ci-github.lantian.pub" = {
-      listen = nginxHelper.listen443;
-      locations = nginxHelper.addCommonLocationConf {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://127.0.0.1:13081";
-          extraConfig = nginxHelper.locationProxyConf;
+          proxyPass = "http://127.0.0.1:${LT.portStr.DroneGitHub}";
+          extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
   };
 }

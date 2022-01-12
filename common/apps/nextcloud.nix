@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   imports = [ ./mysql.nix ];
@@ -46,8 +46,8 @@ in
   };
 
   services.nginx.virtualHosts."cloud.lantian.pub" = {
-    listen = pkgs.lib.mkForce nginxHelper.listen443;
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.noIndex;
+    listen = pkgs.lib.mkForce LT.nginx.listenHTTPS;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.noIndex;
   };
 }

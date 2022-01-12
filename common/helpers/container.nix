@@ -1,8 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hosts, this, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
   hostConfig = config;
 in
 { containerIP
@@ -18,10 +16,10 @@ pkgs.lib.recursiveUpdate outerConfig {
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
   privateNetwork = true;
-  hostAddress = thisHost.ltnet.IPv4;
-  hostAddress6 = thisHost.ltnet.IPv6;
-  localAddress = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP}";
-  localAddress6 = "${thisHost.ltnet.IPv6Prefix}::${builtins.toString containerIP}";
+  hostAddress = this.ltnet.IPv4;
+  hostAddress6 = this.ltnet.IPv6;
+  localAddress = "${this.ltnet.IPv4Prefix}.${containerIP}";
+  localAddress6 = "${this.ltnet.IPv6Prefix}::${containerIP}";
 
   bindMounts = {
     "/nix/persistent" = { hostPath = "/nix/persistent"; isReadOnly = true; };
@@ -51,7 +49,7 @@ pkgs.lib.recursiveUpdate outerConfig {
       checkConfig = false;
       config = ''
         log stderr { error, fatal };
-        router id ${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP};
+        router id ${this.ltnet.IPv4Prefix}.${containerIP};
         protocol device {}
 
         protocol babel {

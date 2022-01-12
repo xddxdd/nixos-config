@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../helpers.nix {  inherit config pkgs; };
 
   vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
     configuration = {
@@ -31,7 +30,7 @@ let
             flags = [ "-a" ];
           };
           listenOptions = [
-            "0.0.0.0:2375"
+            "0.0.0.0:${LT.portStr.Docker}"
             "/run/docker.sock"
           ];
         };
@@ -56,7 +55,7 @@ in
     wantedBy = [ "multi-user.target" ];
     environment = {
       NIX_DISK_IMAGE = "/var/lib/vm/docker.qcow2";
-      QEMU_NET_OPTS = "hostfwd=tcp:127.0.0.1:2375-:2375,hostfwd=tcp:127.0.0.1:2223-:2222";
+      QEMU_NET_OPTS = "hostfwd=tcp:127.0.0.1:${LT.portStr.Docker}-:${LT.portStr.Docker},hostfwd=tcp:127.0.0.1:2223-:2222";
     };
     serviceConfig = {
       Type = "simple";
@@ -78,7 +77,7 @@ in
       phases = [ "installPhase" ];
       buildInputs = [ pkgs.makeWrapper ];
       installPhase = ''
-        makeWrapper "${pkgs.docker}/bin/docker" "$out/bin/docker-vm" --set DOCKER_HOST "tcp://127.0.0.1:2375"
+        makeWrapper "${pkgs.docker}/bin/docker" "$out/bin/docker-vm" --set DOCKER_HOST "tcp://127.0.0.1:${LT.portStr.Docker}"
       '';
     })
   ];
