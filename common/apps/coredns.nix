@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
 in
 {
   containers.coredns = LT.container {
@@ -402,6 +402,9 @@ in
 
       systemd.services.knot.serviceConfig = {
         User = pkgs.lib.mkForce "container";
+        Group = pkgs.lib.mkForce "container";
+
+        ReadWritePaths = [ "/var/lib/zones" ];
       };
     };
   };
