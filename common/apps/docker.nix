@@ -3,70 +3,83 @@
 let
   hosts = import ../../hosts.nix;
   thisHost = builtins.getAttr config.networking.hostName hosts;
+
+  vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
+    configuration = {
+      imports = [
+        ../ssh-harden.nix
+        ../users.nix
+      ];
+
+      boot.kernelPackages = pkgs.linuxPackages_latest;
+
+      networking.hostName = "docker";
+      networking.firewall.enable = false;
+
+      virtualisation = {
+        cores = 8;
+        diskSize = 100 * 1024;
+        graphics = false;
+        memorySize = 8192;
+        sharedDirectories.cache = { source = "/var/cache/ci"; target = "/cache"; };
+
+        docker = {
+          enable = true;
+          enableOnBoot = true;
+          autoPrune = {
+            enable = true;
+            flags = [ "-a" ];
+          };
+          listenOptions = [
+            "0.0.0.0:2375"
+            "/run/docker.sock"
+          ];
+        };
+      };
+
+      environment.etc."docker/daemon.json".text = builtins.toJSON {
+        "userland-proxy" = false;
+        "experimental" = true;
+        "default-runtime" = "crun";
+        "runtimes" = {
+          "crun" = {
+            "path" = "${pkgs.crun}/bin/crun";
+          };
+        };
+      };
+    };
+  }).vm;
 in
 {
-  virtualisation.podman.enable = pkgs.lib.mkForce false;
-  virtualisation.oci-containers.backend = pkgs.lib.mkForce "docker";
-
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    autoPrune = {
-      enable = true;
-      flags = [ "-a" ];
+  systemd.services.docker-vm = {
+    description = "Docker VM";
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      NIX_DISK_IMAGE = "/var/lib/vm/docker.qcow2";
+      QEMU_NET_OPTS = "hostfwd=tcp:127.0.0.1:2375-:2375,hostfwd=tcp:127.0.0.1:2223-:2222";
+    };
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${vmPackage}/bin/run-docker-vm";
     };
   };
 
-  environment.etc."docker/daemon.json".text = builtins.toJSON {
-    "userland-proxy" = false;
-    "experimental" = true;
-    "ip6tables" = true;
-    "default-runtime" = "crun";
-    "runtimes" = {
-      "crun" = {
-        "path" = "${pkgs.crun}/bin/crun";
-      };
-    };
-    "metrics-addr" = "${thisHost.ltnet.IPv4}:9323";
-  };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/vm 755 root root"
+  ];
 
-  systemd.network.netdevs = {
-    docker0.netdevConfig = {
-      Kind = "bridge";
-      Name = "docker0";
-    };
-    docker0-dummy.netdevConfig = {
-      Kind = "dummy";
-      Name = "docker0-dummy";
-    };
-  };
+  environment.systemPackages = [
+    (pkgs.stdenv.mkDerivation {
+      name = "docker-vm";
+      version = "0.0.1";
 
-  systemd.network.networks = {
-    docker0-dummy = {
-      matchConfig = {
-        Name = "docker0-dummy";
-      };
-
-      bridge = [
-        "docker0"
-      ];
-    };
-    docker0 = {
-      matchConfig = {
-        Name = "docker0";
-      };
-
-      networkConfig = {
-        IPv6PrivacyExtensions = false;
-      };
-
-      addresses = [
-        {
-          addressConfig = {
-            Address = "172.17.0.1/16";
-          };
-        }
-      ];
-    };
-  };
+      phases = [ "installPhase" ];
+      buildInputs = [ pkgs.makeWrapper ];
+      installPhase = ''
+        makeWrapper "${pkgs.docker}/bin/docker" "$out/bin/docker-vm" --set DOCKER_HOST "tcp://127.0.0.1:2375"
+      '';
+    })
+  ];
 }

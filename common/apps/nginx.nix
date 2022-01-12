@@ -142,21 +142,42 @@ in
       lua_package_path '/etc/nginx/lua/?.lua;;';
     '';
 
-    streamConfig = ''
+    streamConfig = let
+      ciphers = [
+        "ECDHE-ECDSA-AES256-GCM-SHA384"
+        "ECDHE-RSA-AES256-GCM-SHA384"
+        "ECDHE-ECDSA-CHACHA20-POLY1305"
+        "ECDHE-RSA-CHACHA20-POLY1305"
+        "ECDHE-ECDSA-AES128-GCM-SHA256"
+        "ECDHE-RSA-AES128-GCM-SHA256"
+        "DHE-RSA-AES256-GCM-SHA384"
+        "DHE-RSA-AES128-GCM-SHA256"
+      ];
+      curves = [
+        "p256_sidhp434"
+        "p256_sikep434"
+        "p256_frodo640aes"
+        "p256_bike1l1cpa"
+        "p256_kyber90s512"
+        "p256_ntru_hps2048509"
+        ":p256_lightsaber"
+        "prime256v1"
+        "secp384r1"
+        "secp521r1"
+      ];
+    in ''
       tcp_nodelay on;
       proxy_socket_keepalive on;
 
       ssl_protocols TLSv1.2 TLSv1.3;
-      ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+      ssl_ciphers ${builtins.concatStringsSep ":" ciphers};
       # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
       ssl_session_timeout 1d;
       ssl_session_cache shared:SSL_STREAM:10m;
       # Breaks forward secrecy: https://github.com/mozilla/server-side-tls/issues/135
       ssl_session_tickets off;
-      # We don't enable insecure ciphers by default, so this allows
-      # clients to pick the most performant, per https://github.com/mozilla/server-side-tls/issues/260
-      ssl_prefer_server_ciphers off;
-      ssl_ecdh_curve 'p256_sidhp434:p256_sikep434:p256_frodo640aes:p256_bike1l1cpa:p256_kyber90s512:p256_ntru_hps2048509:p256_lightsaber:prime256v1:secp384r1:secp521r1';
+      ssl_prefer_server_ciphers on;
+      ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
 
       server_traffic_status_zone;
 
