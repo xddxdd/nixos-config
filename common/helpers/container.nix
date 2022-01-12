@@ -47,7 +47,7 @@ pkgs.lib.recursiveUpdate outerConfig {
     ];
 
     services.bird2 = {
-      enable = true;
+      enable = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
       checkConfig = false;
       config = ''
         log stderr { error, fatal };

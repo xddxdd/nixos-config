@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-
   nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
 in
 {
@@ -19,92 +16,106 @@ in
   virtualisation.oci-containers.containers = {
     drone = {
       image = "drone/drone:2";
+      environment = {
+        DRONE_GITEA_SERVER = "https://git.lantian.pub";
+        DRONE_JSONNET_ENABLED = "true";
+        DRONE_SERVER_HOST = "ci.lantian.pub";
+        DRONE_SERVER_PROTO = "https";
+        DRONE_STARLARK_ENABLED = "true";
+        DRONE_USER_CREATE = "username:xddxdd,admin:true";
+      };
       environmentFiles = [ config.age.secrets.drone-ci-env.path ];
       ports = [
-        "${thisHost.ltnet.IPv4}:13080:80"
+        "127.0.0.1:13080:80"
       ];
       volumes = [
         "/var/lib/drone:/data"
       ];
     };
-    drone-runner = {
-      image = "drone/drone-runner-docker:1";
-      environmentFiles = [ config.age.secrets.drone-ci-env.path ];
-      volumes = [
-        "/run/docker-dind:/run"
-        "/var/cache/ci:/cache"
-      ];
-      dependsOn = [
-        "drone"
-        "drone-vault"
-      ];
-    };
     drone-github = {
       image = "drone/drone:2";
+      environment = {
+        DRONE_JSONNET_ENABLED = "true";
+        DRONE_REGISTRATION_CLOSED = "true";
+        DRONE_SERVER_HOST = "ci-github.lantian.pub";
+        DRONE_SERVER_PROTO = "https";
+        DRONE_STARLARK_ENABLED = "true";
+        DRONE_USER_CREATE = "username:xddxdd,admin:true";
+      };
       environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
       ports = [
-        "${thisHost.ltnet.IPv4}:13081:80"
+        "127.0.0.1:13081:80"
       ];
       volumes = [
         "/var/lib/drone-github:/data"
       ];
     };
-    drone-runner-github = {
-      image = "drone/drone-runner-docker:1";
-      environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
-      volumes = [
-        "/run/docker-dind:/run"
-        "/var/cache/ci:/cache"
-      ];
-      dependsOn = [
-        "drone-github"
-        "drone-vault"
-      ];
-    };
-    drone-vault = {
-      image = "drone/vault";
-      environmentFiles = [ config.age.secrets.drone-ci-vault-env.path ];
-      ports = [
-        "${thisHost.ltnet.IPv4}:13082:3000"
-      ];
-    };
-    dind = {
-      image = "docker:dind";
-      cmd = [ "--data-root" "/var/lib/docker-dind" ];
-      volumes = [
-        "/var/cache/ci:/cache"
-        "/var/lib:/var/lib"
-        "/run/docker-dind:/run"
-      ];
-      extraOptions = [ "--privileged" ];
-    };
   };
 
-  environment.systemPackages = [
-    (pkgs.stdenv.mkDerivation {
-      name = "docker-dind";
-      version = "0.0.1";
-
-      phases = [ "installPhase" ];
-      buildInputs = [ pkgs.makeWrapper ];
-      installPhase = ''
-        makeWrapper "${pkgs.docker}/bin/docker" "$out/bin/docker-dind" --set DOCKER_HOST "unix:///run/docker-dind/docker.sock"
-      '';
-    })
-  ];
-
-  systemd.tmpfiles.rules = [
-    "d /var/cache/ci 755 root root"
-    "d /var/lib/docker-dind 755 root root"
-    "d /run/docker-dind 755 root root"
-  ];
+  systemd.services = {
+    drone-runner = {
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        DOCKER_HOST = "tcp://127.0.0.1:2375";
+        # Make socket bind fail, this won't affect runner functionality
+        DRONE_HTTP_BIND = "255.255.255.255:65535";
+        DRONE_RPC_HOST = "127.0.0.1:13080";
+        DRONE_RPC_PROTO = "http";
+        DRONE_RUNNER_CAPACITY = "4";
+        DRONE_RUNNER_NAME = "drone-docker";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:13082";
+      };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-env.path;
+        ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+      };
+    };
+    drone-runner-github = {
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        DOCKER_HOST = "tcp://127.0.0.1:2375";
+        # Make socket bind fail, this won't affect runner functionality
+        DRONE_HTTP_BIND = "255.255.255.255:65535";
+        DRONE_RPC_HOST = "127.0.0.1:13081";
+        DRONE_RPC_PROTO = "http";
+        DRONE_RUNNER_CAPACITY = "4";
+        DRONE_RUNNER_NAME = "drone-docker";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:13082";
+      };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
+        ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+      };
+    };
+    drone-vault = {
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        DRONE_BIND = "127.0.0.1:13082";
+        DRONE_DEBUG = "true";
+        VAULT_ADDR = "http://127.0.0.1:8200";
+      };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-vault-env.path;
+        ExecStart = "${pkgs.nur.repos.xddxdd.drone-vault}/bin/drone-vault";
+      };
+    };
+  };
 
   services.nginx.virtualHosts = {
     "ci.lantian.pub" = {
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4}:13080";
+          proxyPass = "http://127.0.0.1:13080";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };
@@ -115,18 +126,7 @@ in
       listen = nginxHelper.listen443;
       locations = nginxHelper.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4}:13081";
-          extraConfig = nginxHelper.locationProxyConf;
-        };
-      };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
-    };
-    "vault.lantian.pub" = {
-      listen = nginxHelper.listen443;
-      locations = nginxHelper.addCommonLocationConf {
-        "/" = {
-          proxyPass = "http://${thisHost.ltnet.IPv4}:8200";
+          proxyPass = "http://127.0.0.1:13081";
           extraConfig = nginxHelper.locationProxyConf;
         };
       };
