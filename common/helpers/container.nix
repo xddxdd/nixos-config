@@ -1,25 +1,34 @@
-{ config, pkgs, hosts, this, ... }:
+{ config, pkgs, hosts, this, containerIP, ... }:
 
 let
   hostConfig = config;
 in
-{ containerIP
+{ name
 , outerConfig ? { }
 , innerConfig ? { }
 , announcedIPv4 ? [ ]
 , announcedIPv6 ? [ ]
 ,
 }:
+let
+  thisIP = containerIP."${name}";
+  thisUUID = builtins.readFile (pkgs.runCommandLocal "uuid-${name}" { } ''
+    ${pkgs.util-linux}/bin/uuidgen -n "@dns" -s -N "${name}" > $out
+  '');
+in
 pkgs.lib.recursiveUpdate outerConfig {
   autoStart = true;
-  ephemeral = true;
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
   privateNetwork = true;
   hostAddress = this.ltnet.IPv4;
   hostAddress6 = this.ltnet.IPv6;
-  localAddress = "${this.ltnet.IPv4Prefix}.${containerIP}";
-  localAddress6 = "${this.ltnet.IPv6Prefix}::${containerIP}";
+  localAddress = "${this.ltnet.IPv4Prefix}.${thisIP}";
+  localAddress6 = "${this.ltnet.IPv6Prefix}::${thisIP}";
+  extraFlags = [
+    "--link-journal=host"
+    "--uuid=${thisUUID}"
+  ];
 
   bindMounts = {
     "/nix/persistent" = { hostPath = "/nix/persistent"; isReadOnly = true; };
@@ -35,9 +44,6 @@ pkgs.lib.recursiveUpdate outerConfig {
     nixpkgs.pkgs = pkgs;
     networking.hostName = hostConfig.networking.hostName;
     networking.firewall.enable = false;
-    services.journald.extraConfig = ''
-      Storage=none
-    '';
 
     imports = [
       pkgs.flakeInputs.agenix.nixosModules.age
@@ -49,7 +55,7 @@ pkgs.lib.recursiveUpdate outerConfig {
       checkConfig = false;
       config = ''
         log stderr { error, fatal };
-        router id ${this.ltnet.IPv4Prefix}.${containerIP};
+        router id ${this.ltnet.IPv4Prefix}.${thisIP};
         protocol device {}
 
         protocol babel {

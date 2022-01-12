@@ -5,7 +5,7 @@ let
 in
 {
   containers.coredns = LT.container {
-    containerIP = LT.containerIP.coredns;
+    name = "coredns";
 
     announcedIPv4 = [
       "172.22.76.109"
@@ -252,7 +252,7 @@ in
   };
 
   containers.coredns-knot = LT.container {
-    containerIP = LT.containerIP.knot;
+    name = "knot";
 
     outerConfig = {
       bindMounts = {
