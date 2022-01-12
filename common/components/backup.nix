@@ -1,6 +1,20 @@
 { pkgs, config, ... }:
 
 let
+  backupExcluded = [
+    "/var/lib/cni"
+    "/var/lib/containers"
+    "/var/lib/docker"
+    "/var/lib/docker-dind"
+    "/var/lib/filebeat"
+    "/var/lib/journalbeat"
+    "/var/lib/machines"
+    "/var/lib/private"
+    "/var/lib/systemd"
+    "/var/lib/udisks2"
+    "/var/lib/vm"
+  ];
+
   backupScript = configPath: ''
     FILENAME=/var/backup/${config.networking.hostName}-$(${pkgs.coreutils}/bin/date +%Y-%m-%d).tar.zst
 
@@ -8,16 +22,7 @@ let
     ${pkgs.coreutils}/bin/rm -rf /var/backup/*
 
     ${pkgs.gnutar}/bin/tar \
-      --exclude=/var/lib/cni \
-      --exclude=/var/lib/containers \
-      --exclude=/var/lib/docker \
-      --exclude=/var/lib/docker-dind \
-      --exclude=/var/lib/filebeat \
-      --exclude=/var/lib/journalbeat \
-      --exclude=/var/lib/machines \
-      --exclude=/var/lib/private \
-      --exclude=/var/lib/systemd \
-      --exclude=/var/lib/udisks2 \
+      ${builtins.concatStringsSep " " (builtins.map (v: "--exclude=${v}") backupExcluded)} \
       -I ${pkgs.zstd}/bin/zstd -cf /var/backup/${config.networking.hostName}-$(date +%Y-%m-%d).tar.zst \
       /var/lib
 
