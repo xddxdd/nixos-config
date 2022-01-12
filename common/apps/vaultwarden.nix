@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   age.secrets.vaultwarden-env.file = ../../secrets/vaultwarden-env.age;
@@ -12,10 +12,10 @@ in
       SIGNUPS_ALLOWED = false;
       DOMAIN = "https://bitwarden.lantian.pub";
       ROCKET_ADDRESS = "127.0.0.1";
-      ROCKET_PORT = 13772;
+      ROCKET_PORT = LT.port.Vaultwarden.HTTP;
       WEBSOCKET_ENABLED = true;
       WEBSOCKET_ADDRESS = "127.0.0.1";
-      WEBSOCKET_PORT = 13773;
+      WEBSOCKET_PORT = LT.port.Vaultwarden.Websocket;
 
       SMTP_HOST = config.programs.msmtp.accounts.default.host;
       SMTP_FROM = config.programs.msmtp.accounts.default.from;
@@ -30,24 +30,24 @@ in
   };
 
   services.nginx.virtualHosts."bitwarden.lantian.pub" = {
-    listen = nginxHelper.listen443;
-    locations = nginxHelper.addCommonLocationConf {
+    listen = LT.nginx.listenHTTPS;
+    locations = LT.nginx.addCommonLocationConf {
       "/" = {
-        proxyPass = "http://127.0.0.1:13772";
-        extraConfig = nginxHelper.locationProxyConf;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
+        extraConfig = LT.nginx.locationProxyConf;
       };
       "/notifications/hub" = {
-        proxyPass = "http://127.0.0.1:13773";
+        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.Websocket}";
         proxyWebsockets = true;
-        extraConfig = nginxHelper.locationProxyConf;
+        extraConfig = LT.nginx.locationProxyConf;
       };
       "/notifications/hub/negotiate" = {
-        proxyPass = "http://127.0.0.1:13772";
-        extraConfig = nginxHelper.locationProxyConf;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
+        extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.noIndex;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex;
   };
 }

@@ -1,17 +1,14 @@
 { pkgs, config, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
     settings.mysqld = {
-      bind-address = thisHost.ltnet.IPv4;
+      bind-address = LT.this.ltnet.IPv4;
       innodb_autoinc_lock_mode = 2;
       innodb_file_per_table = 1;
       innodb_read_only_compressed = 0;
@@ -20,15 +17,15 @@ in
   };
 
   services.nginx.virtualHosts."pma.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
-    listen = nginxHelper.listen443;
+    listen = LT.nginx.listenHTTPS;
     root = "/var/www/pma.lantian.pub";
-    locations = nginxHelper.addCommonLocationConf {
+    locations = LT.nginx.addCommonLocationConf {
       "/" = {
         index = "index.php";
       };
     };
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.noIndex;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex;
   };
 }

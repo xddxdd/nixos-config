@@ -1,9 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-  otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
+  LT = import ../helpers.nix {  inherit config pkgs; };
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
@@ -115,21 +113,21 @@ let
 
   birdLtnetPeersConf = pkgs.writeText "bird-ltnet-peers.conf"
     (builtins.concatStringsSep "\n"
-      (pkgs.lib.mapAttrsToList ltnetBGPPeer otherHosts));
+      (pkgs.lib.mapAttrsToList ltnetBGPPeer LT.otherHosts));
 
   birdLocalConf = pkgs.writeText "bird-local.conf" ''
-    define LTNET_IPv4 = ${thisHost.ltnet.IPv4};
-    define LTNET_IPv6 = ${thisHost.ltnet.IPv6};
-    define LTNET_AS = ${builtins.toString (4225470000 + thisHost.index)};
+    define LTNET_IPv4 = ${LT.this.ltnet.IPv4};
+    define LTNET_IPv6 = ${LT.this.ltnet.IPv6};
+    define LTNET_AS = ${builtins.toString (4225470000 + LT.this.index)};
 
     define DN42_AS = 4242422547;
-    define DN42_IPv4 = ${thisHost.dn42.IPv4};
-    define DN42_IPv6 = ${thisHost.dn42.IPv6};
-    define DN42_REGION = ${builtins.toString thisHost.dn42.region};
+    define DN42_IPv4 = ${LT.this.dn42.IPv4};
+    define DN42_IPv6 = ${LT.this.dn42.IPv6};
+    define DN42_REGION = ${builtins.toString LT.this.dn42.region};
 
     define NEO_AS = 4201270010;
-    define NEO_IPv4 = ${thisHost.neonetwork.IPv4};
-    define NEO_IPv6 = ${thisHost.neonetwork.IPv6};
+    define NEO_IPv4 = ${LT.this.neonetwork.IPv4};
+    define NEO_IPv6 = ${LT.this.neonetwork.IPv6};
   '';
 
 in
@@ -152,7 +150,7 @@ in
       }
 
       protocol static static_v4 {
-    '' + pkgs.lib.optionalString (!(thisHost.ltnet.alone or false)) ''
+    '' + pkgs.lib.optionalString (!(LT.this.ltnet.alone or false)) ''
       route 172.22.76.184/29 reject;
       route 172.22.76.96/27 reject;
       route 10.127.10.0/24 reject;
@@ -162,8 +160,8 @@ in
       route 172.22.76.112/29 reject;
       route 172.22.76.120/29 reject;
 
-      route ${thisHost.dn42.IPv4}/32 reject;
-      route ${thisHost.neonetwork.IPv4}/32 reject;
+      route ${LT.this.dn42.IPv4}/32 reject;
+      route ${LT.this.neonetwork.IPv4}/32 reject;
     '' + ''
         # Blackhole routes for private ranges
         route 10.0.0.0/8 reject;
@@ -178,12 +176,12 @@ in
       };
 
       protocol static static_v6 {
-    '' + pkgs.lib.optionalString (!(thisHost.ltnet.alone or false)) ''
+    '' + pkgs.lib.optionalString (!(LT.this.ltnet.alone or false)) ''
       route fdbc:f9dc:67ad::/48 reject;
       route fd10:127:10::/48 reject;
 
-      route ${thisHost.dn42.IPv6}/128 reject;
-      route ${thisHost.neonetwork.IPv6}/128 reject;
+      route ${LT.this.dn42.IPv6}/128 reject;
+      route ${LT.this.neonetwork.IPv6}/128 reject;
     '' + ''
         # Blackhole routes for private ranges
         route fc00::/7 reject;
@@ -221,7 +219,7 @@ in
       include "${birdConfDir}/dn42_neo_base.conf";
       include "${birdDN42PeersConf}";
 
-    '' + pkgs.lib.optionalString (thisHost.dn42.burble_grc or false) ''
+    '' + pkgs.lib.optionalString (LT.this.dn42.burble_grc or false) ''
       # GRC config must be below dn42 & neonetwork since it uses filters from them
       include "${birdConfDir}/dn42/burble_grc.conf";
 
@@ -309,7 +307,7 @@ in
     environment = {
       BIRD_SOCKET = "/run/bird.ctl";
       BIRD6_SOCKET = "/run/bird.ctl";
-      BIRDLG_LISTEN = "${thisHost.ltnet.IPv4}:8000";
+      BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
     };
     unitConfig = {
       After = "bird2.service";
@@ -328,7 +326,7 @@ in
     environment = {
       BIRD_SOCKET = "/run/bird.ctl";
       BIRD6_SOCKET = "/run/bird.ctl";
-      BIRDLG_LISTEN = "[${thisHost.ltnet.IPv6}]:8000";
+      BIRDLG_LISTEN = "[${LT.this.ltnet.IPv6}]:8000";
     };
     unitConfig = {
       After = "bird2.service";

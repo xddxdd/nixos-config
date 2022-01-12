@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 
   addConfLantianPub = pkgs.lib.recursiveUpdate {
-    locations = nginxHelper.addCommonLocationConf {
+    locations = LT.nginx.addCommonLocationConf {
       "/" = {
         index = "index.html index.htm";
       };
@@ -32,12 +32,12 @@ in
   services.nginx.virtualHosts = {
     "localhost" = {
       listen = [
-        { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ] ++ nginxHelper.listenDefaultFlags; }
-        { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ] ++ nginxHelper.listenDefaultFlags; }
+        { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
+        { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
         { addr = "0.0.0.0"; port = 443; extraParameters = [ "default_server" "http3" "reuseport" ]; }
         { addr = "[::]"; port = 443; extraParameters = [ "default_server" "http3" "reuseport" ]; }
-        { addr = "0.0.0.0"; port = 80; extraParameters = nginxHelper.listenDefaultFlags; }
-        { addr = "[::]"; port = 80; extraParameters = nginxHelper.listenDefaultFlags; }
+        { addr = "0.0.0.0"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
+        { addr = "[::]"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
       ];
 
       locations = {
@@ -61,7 +61,7 @@ in
     };
 
     "lantian.pub" = addConfLantianPub {
-      listen = nginxHelper.listen443;
+      listen = LT.nginx.listenHTTPS;
       serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
       extraConfig = ''
         gzip off;
@@ -71,11 +71,11 @@ in
 
         error_page 404 /404.html;
       ''
-      + nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true;
+      + LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true;
     };
     "lantian.dn42" = addConfLantianPub {
-      listen = nginxHelper.listen80;
+      listen = LT.nginx.listenHTTP;
       extraConfig = ''
         gzip off;
         gzip_static on;
@@ -84,10 +84,10 @@ in
 
         error_page 404 /404.html;
       ''
-      + nginxHelper.commonVhostConf false;
+      + LT.nginx.commonVhostConf false;
     };
     "lantian.neo" = addConfLantianPub {
-      listen = nginxHelper.listen80;
+      listen = LT.nginx.listenHTTP;
       extraConfig = ''
         gzip off;
         gzip_static on;
@@ -96,34 +96,34 @@ in
 
         error_page 404 /404.html;
       ''
-      + nginxHelper.commonVhostConf false;
+      + LT.nginx.commonVhostConf false;
     };
 
     "www.lantian.pub" = {
-      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       globalRedirect = "lantian.pub";
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
     "xuyh0120.win" = {
-      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       serverAliases = [ "www.xuyh0120.win" ];
       globalRedirect = "lantian.pub";
-      extraConfig = nginxHelper.makeSSL "xuyh0120.win_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true;
     };
     "lab.xuyh0120.win" = {
-      listen = nginxHelper.listen443 ++ nginxHelper.listen80;
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       globalRedirect = "lab.lantian.pub";
-      extraConfig = nginxHelper.makeSSL "xuyh0120.win_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true;
     };
 
     "gopher.lantian.pub" = {
-      listen = nginxHelper.listen443
-        ++ nginxHelper.listen80
-        ++ nginxHelper.listenPlain 70
-        ++ nginxHelper.listenPlainProxyProtocol 13270;
+      listen = LT.nginx.listenHTTPS
+        ++ LT.nginx.listenHTTP
+        ++ LT.nginx.listenPlain LT.port.Gopher
+        ++ LT.nginx.listenPlainProxyProtocol LT.port.GopherProxyProtocol;
       root = "/var/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
@@ -139,10 +139,10 @@ in
       extraConfig = ''
         error_page 404 /404.gopher;
       ''
-      + nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.listenProxyProtocol
-      + nginxHelper.noIndex;
+      + LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.listenProxyProtocol
+      + LT.nginx.noIndex;
     };
   };
 }

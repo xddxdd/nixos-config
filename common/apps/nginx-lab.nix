@@ -1,25 +1,25 @@
 { config, pkgs, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
   labRoot = "/var/www/lab.lantian.pub";
 in
 {
   services.nginx.virtualHosts."lab.lantian.pub" = {
-    listen = nginxHelper.listen443;
+    listen = LT.nginx.listenHTTPS;
     root = labRoot;
-    locations = nginxHelper.addCommonLocationConf {
+    locations = LT.nginx.addCommonLocationConf {
       "/" = {
         index = "index.php index.html index.htm";
         tryFiles = "$uri $uri/ =404";
       };
-      "= /".extraConfig = nginxHelper.locationAutoindexConf;
+      "= /".extraConfig = LT.nginx.locationAutoindexConf;
       "/cgi-bin/" = {
         index = "index.sh";
-        extraConfig = nginxHelper.locationFcgiwrapConf;
+        extraConfig = LT.nginx.locationFcgiwrapConf;
       };
-      "/glibc-for-debian-10-on-openvz".extraConfig = nginxHelper.locationAutoindexConf;
-      "/hobby-net".extraConfig = nginxHelper.locationAutoindexConf;
+      "/glibc-for-debian-10-on-openvz".extraConfig = LT.nginx.locationAutoindexConf;
+      "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
       "/zjui-ece385-scoreboard".extraConfig = ''
         gzip off;
         brotli off;
@@ -29,9 +29,9 @@ in
         alias ${../files/robots-block.txt};
       '';
     };
-    extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-      + nginxHelper.commonVhostConf true
-      + nginxHelper.noIndex;
+    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex;
   };
 
   services.fcgiwrap = {

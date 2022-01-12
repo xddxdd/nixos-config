@@ -4,8 +4,7 @@ let
   myASN = 4242422547;
   myASNAbbr = 2547;
 
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../helpers.nix {  inherit config pkgs; };
   filterType = type: pkgs.lib.filterAttrs (n: v: v.tunnel.type == type);
 
   setupAddressing = interfaceName: v: ''
@@ -118,11 +117,11 @@ in
               };
               myIPv4 = pkgs.lib.mkOption {
                 type = pkgs.lib.types.str;
-                default = thisHost.dn42.IPv4;
+                default = LT.this.dn42.IPv4;
               };
               myIPv6 = pkgs.lib.mkOption {
                 type = pkgs.lib.types.str;
-                default = thisHost.dn42.IPv6;
+                default = LT.this.dn42.IPv6;
               };
               myIPv6Subnet = pkgs.lib.mkOption {
                 type = pkgs.lib.types.nullOr pkgs.lib.types.str;
@@ -179,7 +178,7 @@ in
             mode          p2p
             remote        ${v.tunnel.remoteAddress}
             rport         ${builtins.toString v.tunnel.remotePort}
-            local         ${thisHost.public.IPv4}
+            local         ${LT.this.public.IPv4}
             lport         ${builtins.toString v.tunnel.localPort}
             dev-type      tun
             resolv-retry  infinite
@@ -209,7 +208,7 @@ in
             After = "network.target";
           };
           script = ''
-            ${pkgs.iproute2}/bin/ip tunnel add ${interfaceName} mode gre remote ${v.tunnel.remoteAddress} local ${thisHost.public.IPv4} ttl 255
+            ${pkgs.iproute2}/bin/ip tunnel add ${interfaceName} mode gre remote ${v.tunnel.remoteAddress} local ${LT.this.public.IPv4} ttl 255
             ${pkgs.iproute2}/bin/ip link set ${interfaceName} up
           '' + pkgs.lib.optionalString (v.tunnel.mtu != null) ''
             ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}

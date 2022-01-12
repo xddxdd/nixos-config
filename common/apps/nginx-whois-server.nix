@@ -1,15 +1,15 @@
 { config, pkgs, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   services.nginx.virtualHosts = {
     "whois.lantian.pub" = {
-      listen = nginxHelper.listen443
-        ++ nginxHelper.listen80
-        ++ nginxHelper.listenPlain 43
-        ++ nginxHelper.listenPlainProxyProtocol 13243;
+      listen = LT.nginx.listenHTTPS
+        ++ LT.nginx.listenHTTP
+        ++ LT.nginx.listenPlain LT.port.Whois
+        ++ LT.nginx.listenPlainProxyProtocol LT.port.WhoisProxyProtocol;
       serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
 
       locations = {
@@ -26,12 +26,12 @@ in
         '';
       };
 
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.listenProxyProtocol;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.listenProxyProtocol;
     };
 
     "stage1.whois.local" = {
-      listen = nginxHelper.listen80;
+      listen = LT.nginx.listenHTTP;
       root = "/var/cache/dn42-registry/data";
       locations = {
         "/".extraConfig = ''
@@ -124,7 +124,7 @@ in
     };
 
     "stage2.whois.local" = {
-      listen = nginxHelper.listen80;
+      listen = LT.nginx.listenHTTP;
       locations = {
         "/".extraConfig = ''
           rewrite "^/([0-9]+)$" /AS$1 last;

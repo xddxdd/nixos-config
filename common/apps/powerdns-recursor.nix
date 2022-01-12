@@ -1,15 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
-  containerIP = 53;
-
-  container = import ../helpers/container.nix { inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
 in
 {
-  containers.powerdns-recursor = container {
-    inherit containerIP;
+  containers.powerdns-recursor = LT.container {
+    containerIP = LT.containerIP.powerdnsRecursor;
 
     announcedIPv4 = [
       "172.22.76.110"
@@ -111,7 +107,10 @@ in
           any-to-tcp = "yes";
           dont-query = "";
           qname-minimization = "no";
-          query-local-address = "${thisHost.ltnet.IPv4Prefix}.${builtins.toString containerIP}, ${thisHost.ltnet.IPv6Prefix}::${builtins.toString containerIP}";
+          query-local-address = builtins.concatStringsSep ", " [
+            "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.powerdnsRecursor}"
+            "${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.powerdnsRecursor}"
+          ];
           reuseport = "yes";
           server-id = "lantian";
           tcp-fast-open = "128";

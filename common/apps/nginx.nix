@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   imports = [
@@ -197,7 +196,7 @@ in
       expire = "24h";
     };
     email.domains = [ "*" ];
-    httpAddress = "http://${thisHost.ltnet.IPv4}:14180";
+    httpAddress = "http://${LT.this.ltnet.IPv4}:14180";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;

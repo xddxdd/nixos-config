@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 
 let
-  nginxHelper = import ../helpers/nginx.nix { inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
   services.vault = {
     enable = true;
     package = pkgs.vault-bin;
-    address = "127.0.0.1:8200";
+    address = "127.0.0.1:${LT.portStr.Vault}";
     storageBackend = "file";
     storagePath = "/var/lib/vault";
     extraConfig = ''
@@ -17,15 +17,15 @@ in
 
   services.nginx.virtualHosts = {
     "vault.lantian.pub" = {
-      listen = nginxHelper.listen443;
-      locations = nginxHelper.addCommonLocationConf {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://127.0.0.1:8200";
-          extraConfig = nginxHelper.locationProxyConf;
+          proxyPass = "http://127.0.0.1:${LT.portStr.Vault}";
+          extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = nginxHelper.makeSSL "lantian.pub_ecc"
-        + nginxHelper.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
   };
 }

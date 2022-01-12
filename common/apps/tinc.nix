@@ -1,8 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../helpers.nix {  inherit config pkgs; };
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
@@ -29,7 +28,7 @@ in
 
   services.tinc.networks = {
     ltmesh = {
-      hostSettings = pkgs.lib.mapAttrs' hostToTinc hosts;
+      hostSettings = pkgs.lib.mapAttrs' hostToTinc LT.hosts;
       interfaceType = "tap";
       name = sanitizeHostname config.networking.hostName;
       settings = {
@@ -48,8 +47,8 @@ in
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.autoconf=0
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.accept_ra=0
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.addr_gen_mode=1
-      ${pkgs.iproute2}/bin/ip addr add fe80::${builtins.toString thisHost.index}/64 dev $INTERFACE
-      ${pkgs.iproute2}/bin/ip addr add 169.254.0.${builtins.toString thisHost.index}/24 dev $INTERFACE
+      ${pkgs.iproute2}/bin/ip addr add fe80::${builtins.toString LT.this.index}/64 dev $INTERFACE
+      ${pkgs.iproute2}/bin/ip addr add 169.254.0.${builtins.toString LT.this.index}/24 dev $INTERFACE
       ${pkgs.iproute2}/bin/ip link set $INTERFACE mtu 1280
       ${pkgs.iproute2}/bin/ip link set $INTERFACE up
     '';
