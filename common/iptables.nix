@@ -73,6 +73,10 @@ let
           ip6 saddr fc00::3 snat to ${thisHost.public.IPv6Subnet}3
         ''}
 
+        # give nixos containers access to DN42
+        ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${thisHost.dn42.IPv4}
+        ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${thisHost.neonetwork.IPv4}
+
         oifname "eth*" masquerade
         oifname "virbr*" masquerade
       }
