@@ -5,7 +5,7 @@ let
 in
 {
   containers.nginx-proxy = LT.container {
-    containerIP = LT.containerIP.nginxProxy;
+    name = "nginx-proxy";
 
     announcedIPv4 = [
       "172.22.76.108"

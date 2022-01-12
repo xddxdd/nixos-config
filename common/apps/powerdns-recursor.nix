@@ -5,7 +5,7 @@ let
 in
 {
   containers.powerdns-recursor = LT.container {
-    containerIP = LT.containerIP.powerdnsRecursor;
+    name = "powerdns-recursor";
 
     announcedIPv4 = [
       "172.22.76.110"
@@ -108,8 +108,8 @@ in
           dont-query = "";
           qname-minimization = "no";
           query-local-address = builtins.concatStringsSep ", " [
-            "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.powerdnsRecursor}"
-            "${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.powerdnsRecursor}"
+            "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.powerdns-recursor}"
+            "${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.powerdns-recursor}"
           ];
           reuseport = "yes";
           server-id = "lantian";
