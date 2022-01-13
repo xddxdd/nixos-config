@@ -39,6 +39,7 @@ let
   internalServices = [
     (CNAME { name = "asf"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "bitwarden"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "buypass-ssl"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "ci"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "ci-github"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "cloud"; target = "virmach-ny6g"; cloudflare = true; })
@@ -47,7 +48,6 @@ let
     (CNAME { name = "gopher"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "irc"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "virmach-ny6g"; ttl = "1h"; })
-    (CNAME { name = "lab-alt"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "lg"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "pma"; target = "virmach-ny6g"; cloudflare = true; })
@@ -57,6 +57,7 @@ let
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "www"; target = "@"; cloudflare = true; })
+    (CNAME { name = "zerossl"; target = "soyoustart"; ttl = "1h"; })
   ]
   ++ (serveWithOwnNS "asn")
   ++ [
