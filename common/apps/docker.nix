@@ -20,6 +20,7 @@ let
         diskSize = 100 * 1024;
         graphics = false;
         memorySize = 8192;
+        sharedDirectories."acme.sh" = { source = "/var/lib/acme.sh"; target = "/var/lib/acme.sh"; };
         sharedDirectories.cache = { source = "/var/cache/ci"; target = "/cache"; };
 
         docker = {

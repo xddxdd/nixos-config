@@ -34,8 +34,15 @@ in
   mapAddresses = mapAddresses;
 
   CAA = [
+    # Let's Encrypt
     (CAA { name = "@"; tag = "issue"; value = "letsencrypt.org"; })
     (CAA { name = "@"; tag = "issuewild"; value = "letsencrypt.org"; })
+    # BuyPass
+    (CAA { name = "@"; tag = "issue"; value = "buypass.com"; })
+    (CAA { name = "@"; tag = "issuewild"; value = "buypass.com"; })
+    # ZeroSSL
+    (CAA { name = "@"; tag = "issue"; value = "sectigo.com"; })
+    (CAA { name = "@"; tag = "issuewild"; value = "sectigo.com"; })
   ];
 
   Normal = domain: forEachHost

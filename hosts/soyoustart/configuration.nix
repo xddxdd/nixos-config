@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../common/apps/acme-sh.nix
     ../../common/apps/ansible.nix
     ../../common/apps/babeld.nix
     ../../common/apps/bird.nix
@@ -21,6 +22,7 @@
     ../../common/apps/asf.nix
     ../../common/apps/drone-ci.nix
     ../../common/apps/hath.nix
+    ../../common/apps/nginx-ssltest.nix
     ../../common/apps/resilio.nix
     ../../common/apps/tg-bot-cleaner-bot.nix
     ../../common/apps/xmrig.nix

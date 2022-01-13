@@ -9,6 +9,7 @@ in
     ./dn42.nix
     ./hardware-configuration.nix
 
+    ../../common/apps/acme-sh.nix
     ../../common/apps/ansible.nix
     ../../common/apps/babeld.nix
     ../../common/apps/bird.nix
