@@ -17,10 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hath-nix.url = github:poscat0x04/hath-nix;
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +24,7 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, nixpkgs, nur, deploy-rs, hath-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nur, hath-nix, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
@@ -107,31 +103,6 @@
       };
       lantian = self.homeConfigurations.lantian.activationPackage;
       root = self.homeConfigurations.root.activationPackage;
-
-      deploy = {
-        sshUser = "root";
-        user = "root";
-        autoRollback = false;
-        magicRollback = false;
-
-        nodes = lib.genAttrs hostsList
-          (n:
-            let
-              nixosNextboot = base: deploy-rs.lib."${systemFor n}".activate.custom base.config.system.build.toplevel ''
-                # work around https://github.com/NixOS/nixpkgs/issues/73404
-                cd /tmp
-                $PROFILE/bin/switch-to-configuration boot
-              '';
-            in
-            {
-              hostname = hostnameFor n;
-              profiles.system = {
-                # path = nixosNextboot self.nixosConfigurations."${n}";
-                path = deploy-rs.lib."${systemFor n}".activate.nixos self.nixosConfigurations."${n}";
-                sshOpts = [ "-p" (builtins.toString (sshPortFor n)) ];
-              };
-            });
-      };
 
       colmena = {
         meta.nixpkgs = import nixpkgs {
