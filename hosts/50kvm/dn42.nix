@@ -18,21 +18,6 @@
         peerIPv6LinkLocal = "fe80::977";
       };
     };
-    burble = {
-      remoteASN = 4242422601;
-      latencyMs = 2;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22601;
-        remoteAddress = "dn42-hk-hkg1.burble.com";
-        remotePort = 22547;
-        wireguardPubkey = "pYZJfGrs/PesUrEdvPUikaOi895D8Tpaho7VFSyybW0=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.129.179";
-        peerIPv6LinkLocal = "fe80::42:2601:23:1";
-      };
-    };
     chuangzhu = {
       remoteASN = 4242423632;
       latencyMs = 36;
