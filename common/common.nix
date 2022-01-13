@@ -264,6 +264,11 @@
   security.sudo.wheelNeedsPassword = false;
 
   # List services that you want to enable:
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+  };
+
   services.avahi = {
     enable = true;
     nssmdns = true;
@@ -280,13 +285,6 @@
     enable = true;
     fileSystems = [ "/nix" ];
   };
-
-  services.haveged.enable = true;
-
-  services.journald.extraConfig = ''
-    SystemMaxUse=50M
-    SystemMaxFileSize=10M
-  '';
 
   services.filebeat = {
     enable = true;
@@ -320,6 +318,13 @@
       };
     };
   };
+
+  services.haveged.enable = true;
+  services.irqbalance.enable = true;
+  services.journald.extraConfig = ''
+    SystemMaxUse=50M
+    SystemMaxFileSize=10M
+  '';
 
   virtualisation.podman = {
     enable = true;
