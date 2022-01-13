@@ -1,8 +1,8 @@
 deploy: FORCE
-	nix run github:serokell/deploy-rs -- -s .
+	colmena apply --keep-result
 
 verbose: FORCE
-	nix run github:serokell/deploy-rs -- -s . -- --show-trace
+	colmena apply --keep-result --show-trace
 
 home: FORCE
 	home-manager switch --flake . -b backup
