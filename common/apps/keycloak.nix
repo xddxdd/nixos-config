@@ -19,6 +19,14 @@ in
     httpsPort = LT.portStr.Keycloak.HTTPS;
   };
 
+  systemd.services.keycloak.serviceConfig.DynamicUser = pkgs.lib.mkForce false;
+  users.users.keycloak = {
+    useDefaultShell = true;
+    group = "keycloak";
+    isSystemUser = true;
+  };
+  users.groups.keycloak = { };
+
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_13;
