@@ -30,7 +30,7 @@
       hosts = import ./hosts.nix;
 
       # hostsList = [ "soyoustart" ];
-      hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.mapAttrsToList (n: v: n) hosts);
+      hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.attrNames hosts);
 
       stateVersion = "21.05";
 

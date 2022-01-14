@@ -7,4 +7,4 @@ let
 in
 builtins.map
   (f: import (./domains + "/${f}") { inherit pkgs dns common hosts; })
-  (pkgs.lib.mapAttrsToList (k: v: k) (builtins.readDir ./domains))
+  (pkgs.lib.attrNames (builtins.readDir ./domains))

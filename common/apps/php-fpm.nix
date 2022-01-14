@@ -49,7 +49,7 @@
       default_socket_timeout = 60
     '';
 
-    # phpPackage = pkgs.php.withExtensions ({ enabled, all }: builtins.filter (v: !v.meta.broken) (pkgs.lib.mapAttrsToList (k: v: v) all));
+    # phpPackage = pkgs.php.withExtensions ({ enabled, all }: builtins.filter (v: !v.meta.broken) (pkgs.lib.attrValues all));
     phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
       gd zip xml pdo gmp ftp ffi dom bz2 zlib yaml exif curl apcu redis pgsql iconv event
       ctype sodium mysqli sockets openssl mysqlnd imagick gettext readline protobuf mbstring
