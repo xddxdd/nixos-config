@@ -10,6 +10,7 @@
     ./components/fcitx.nix
     ./components/fonts-archlinux.nix
     ./components/mpv.nix
+    ./components/profile-sync-daemon.nix
     ./components/reset-touchpad.nix
   ];
 
