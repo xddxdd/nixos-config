@@ -212,5 +212,9 @@ in
     unitConfig = {
       After = pkgs.lib.mkForce "network.target nginx.service";
     };
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "3";
+    };
   };
 }
