@@ -129,6 +129,10 @@
       "net.ipv6.conf.all.accept_redirects" = pkgs.lib.mkForce 0;
       "net.ipv6.conf.default.accept_redirects" = pkgs.lib.mkForce 0;
       "net.ipv6.conf.*.accept_redirects" = pkgs.lib.mkForce 0;
+
+      # Disable coredump
+      "fs.suid_dumpable" = 0;
+      "kernel.core_pattern" = pkgs.lib.mkForce "|${pkgs.coreutils}/bin/false";
     };
   };
 
@@ -229,6 +233,9 @@
   ];
 
   hardware.ksm.enable = true;
+
+  # Try to workaround VM crash
+  systemd.coredump.enable = false;
 
   programs = {
     #atop.enable = true;
@@ -338,6 +345,6 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 100;
+    memoryPercent = 50;
   };
 }
