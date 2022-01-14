@@ -3,7 +3,11 @@
 {
   environment.persistence."/nix/persistent" = {
     directories = [
-      "/var"
+      "/var/backup"
+      "/var/cache"
+      "/var/lib"
+      "/var/log"
+      "/var/www"
     ];
     files = [
       "/etc/machine-id"
@@ -17,8 +21,6 @@
   };
 
   age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
-
-  fileSystems."/var".neededForBoot = true;
 
   fileSystems."/" = {
     device = "tmpfs";

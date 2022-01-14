@@ -267,8 +267,13 @@
 
   security.dhparams.defaultBitSize = 4096;
   security.protectKernelImage = true;
-  security.sudo.execWheelOnly = true;
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo = {
+    execWheelOnly = true;
+    wheelNeedsPassword = false;
+    extraConfig = ''
+      Defaults lecture="never"
+    '';
+  };
 
   # List services that you want to enable:
   services.ananicy = {

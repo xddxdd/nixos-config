@@ -16,7 +16,6 @@
     device = "/dev/vda2";
     fsType = "btrfs";
     options = [ "compress-force=zstd" ];
-    neededForBoot = true;
   };
 
   fileSystems."/boot" = {
