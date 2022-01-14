@@ -2,7 +2,7 @@
 
 let
   hosts = import ../../hosts.nix;
-  hostsList = builtins.filter (k: hosts."${k}".deploy or true) (pkgs.lib.mapAttrsToList (n: v: n) hosts);
+  hostsList = builtins.filter (k: hosts."${k}".deploy or true) (pkgs.lib.attrNames hosts);
 in
 {
   xdg.configFile."ansible/ansible.cfg".text = ''
