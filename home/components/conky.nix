@@ -3,8 +3,8 @@
 let
   verticalSize = 16;
   spaceSize = 8;
-  alignX = 10;
-  widthChars = 42;
+  alignX = 12;
+  widthChars = 40;
 
   centerX = builtins.floor ((alignX + widthChars) / 2);
   alignRightCenter = widthChars - centerX;
@@ -54,6 +54,8 @@ let
     "${gray "Networking:"}"
     "${netUsage "eth0"}"
     "${netUsage "wlan0"}"
+    "${netUsage "wg-lantian"}"
+    "${netUsage "wg-cf-warp"}"
     "${gray "$hr"}"
     "${gray "Processes:"}${goto 20}${gray "    PID"}${goto 28}${gray "  CPU%"}${goto 35}${gray "  MEM%"}"
     "${processInfo 1}"
