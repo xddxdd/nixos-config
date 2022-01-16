@@ -28,46 +28,31 @@ in
         enable = true;
         dns.address = "0.0.0.0, ::";
         dns.allowFrom = [ "0.0.0.0/0" "::/0" ];
-        forwardZones = {
-          # DN42
-          "dn42" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "10.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "20.172.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "21.172.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "22.172.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "23.172.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "31.172.in-addr.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "d.f.ip6.arpa" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "hack" = "172.31.0.5";
-          "rzl" = "172.22.36.250";
-
-          # OpenNIC & FurNIC
-          "bbs" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "chan" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "cyb" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "dns.opennic.glue" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "dyn" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "epic" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "fur" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "geek" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "gopher" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "indy" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "libre" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          #"neo" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "null" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "o" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "opennic.glue" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "oss" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "oz" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "parody" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-          "pirate" = "172.22.76.109;fdbc:f9dc:67ad:2547::54";
-
-          # Emercoin
-          "bazar" = "185.122.58.37;2a06:8ec0:3::1:2c4e;172.106.88.242;2602:ffc5:30::1:5c47";
-          "coin" = "185.122.58.37;2a06:8ec0:3::1:2c4e;172.106.88.242;2602:ffc5:30::1:5c47";
-          "emc" = "185.122.58.37;2a06:8ec0:3::1:2c4e;172.106.88.242;2602:ffc5:30::1:5c47";
-          "lib" = "185.122.58.37;2a06:8ec0:3::1:2c4e;172.106.88.242;2602:ffc5:30::1:5c47";
-        };
+        forwardZones =
+          let
+            dn42Zones = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
+            # .neo zone not included for conflict with NeoNetwork
+            OpenNICZones = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
+            authoritativeZones = pkgs.lib.genAttrs
+              (dn42Zones ++ OpenNICZones)
+              (k: builtins.concatStringsSep ";" [
+                "172.22.76.109"
+                "fdbc:f9dc:67ad:2547::54"
+              ]);
+            emercoinZones = pkgs.lib.genAttrs
+              [ "bazar" "coin" "emc" "lib" ]
+              (k: builtins.concatStringsSep ";" [
+                "185.122.58.37"
+                "2a06:8ec0:3::1:2c4e"
+                "172.106.88.242"
+                "2602:ffc5:30::1:5c47"
+              ]);
+          in
+          authoritativeZones // emercoinZones // {
+            # DN42
+            "hack" = "172.31.0.5";
+            "rzl" = "172.22.36.250";
+          };
         luaConfig = ''
           addNTA("bbs")
           addNTA("chan")
@@ -115,7 +100,10 @@ in
           server-id = "lantian";
           tcp-fast-open = "128";
           include-dir = "/var/lib/powerdns-recursor";
-          "forward-zones-recurse+=." = "172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
+          "forward-zones-recurse+=." = builtins.concatStringsSep ";" [
+            "172.22.76.109:${LT.portStr.DNSUpstream}"
+            "[fdbc:f9dc:67ad:2547::54]:${LT.portStr.DNSUpstream}"
+          ];
         };
       };
       systemd.services.pdns-recursor.serviceConfig = {
