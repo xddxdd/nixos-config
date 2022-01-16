@@ -115,11 +115,7 @@ in
           server-id = "lantian";
           tcp-fast-open = "128";
           include-dir = "/var/lib/powerdns-recursor";
-          "forward-zones-recurse+=." = "172.22.76.109:56;[fdbc:f9dc:67ad:2547::54]:56";
-
-          # Bypass some frequently queried domains from NextDNS
-          "forward-zones-recurse+=epicgames.com" = "172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
-          "forward-zones-recurse+=community.humio.com" = "172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
+          "forward-zones-recurse+=." = "172.22.76.109:55;[fdbc:f9dc:67ad:2547::54]:55";
         };
       };
       systemd.services.pdns-recursor.serviceConfig = {

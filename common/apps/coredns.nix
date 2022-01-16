@@ -55,7 +55,40 @@ in
       services.coredns = {
         enable = true;
         package = pkgs.nur.repos.xddxdd.coredns;
-        config = ''
+        config = let
+          dnssec = key: if key != null then ''
+            dnssec {
+              key file "${containerConfig.age.secrets."${key}.private".path}"
+            }
+          '' else "";
+          localZone = zone: filename: ''
+            ${zone}:54 {
+              bind 127.0.0.1
+              file "/var/lib/zones/${filename}.zone"
+            }
+          '';
+          localForward = zone: dnssecKey: ''
+            ${zone} {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              forward . 127.0.0.1:54
+              ${dnssec dnssecKey}
+            }
+          '';
+          publicZone = zone: filename: dnssecKey: ''
+            ${zone} {
+              any
+              bufsize 1232
+              loadbalance round_robin
+
+              file "/var/lib/zones/${filename}.zone"
+              ${dnssec dnssecKey}
+            }
+          '';
+
+        in ''
           # Selfhosted Root Zone
           . {
             any
@@ -63,6 +96,7 @@ in
             loadbalance round_robin
 
             forward . ${LT.this.ltnet.IPv4Prefix}.55 ${LT.this.ltnet.IPv6Prefix}::55
+            ${dnssec null}
           }
 
           # Google DNS
@@ -75,172 +109,35 @@ in
             cache
           }
 
-          # NextDNS.io
-          .:56 {
-            forward . tls://45.90.28.61 tls://45.90.30.61 tls://2a07:a8c0::37:8897 tls://2a07:a8c1::37:8897 {
-              tls_servername ${config.networking.hostName}-378897.dns.nextdns.io
-              policy sequential
-              health_check 1m
-            }
-            cache
-          }
-
           # DN42 Lan Tian Authoritatives
-          lantian.dn42:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.dn42.zone"
-          }
-          _acme-challenge.lantian.dn42:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          asn.lantian.dn42:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones-ltnet/asn.lantian.dn42.zone"
-          }
-          lantian.dn42 {
-            any
-            bufsize 1232
-            loadbalance round_robin
+          ${localZone "lantian.dn42" "zones/lantian.dn42"}
+          ${localZone "asn.lantian.dn42" "zones-ltnet/asn.lantian.dn42"}
+          ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
 
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${containerConfig.age.secrets."Klantian.dn42.+013+20109.private".path}"
-            }
-          }
-
-          184/29.76.22.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/184_29.76.22.172.in-addr.arpa.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."K184_29.76.22.172.in-addr.arpa.+013+08709.private".path}"
-            }
-          }
-          96/27.76.22.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/96_27.76.22.172.in-addr.arpa.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."K96_27.76.22.172.in-addr.arpa.+013+41969.private".path}"
-            }
-          }
-          d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344.private".path}"
-            }
-          }
+          ${publicZone "184/29.76.22.172.in-addr.arpa" "zones/184_29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
+          ${publicZone "96/27.76.22.172.in-addr.arpa" "zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
+          ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
 
           # NeoNetwork Authoritative
-          neo {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones-ltnet/neo.zone"
-          }
-          127.10.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones-ltnet/127.10.in-addr.arpa.zone"
-          }
+          ${publicZone "neo" "zones-ltnet/neo" null}
+          ${publicZone "127.10.in-addr.arpa" "zones-ltnet/127.10.in-addr.arpa" null}
 
           # NeoNetwork Lan Tian Authoritative
-          lantian.neo:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.neo.zone"
-          }
-          _acme-challenge.lantian.neo:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          asn.lantian.neo:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones-ltnet/asn.lantian.neo.zone"
-          }
-          lantian.neo {
-            any
-            bufsize 1232
-            loadbalance round_robin
+          ${localZone "lantian.neo" "zones/lantian.neo"}
+          ${localZone "asn.lantian.neo" "zones-ltnet/asn.lantian.neo"}
+          ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
 
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${containerConfig.age.secrets."Klantian.neo.+013+47346.private".path}"
-            }
-          }
-
-          10.127.10.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/10.127.10.in-addr.arpa.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."K10.127.10.in-addr.arpa.+013+53292.private".path}"
-            }
-          }
-          0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807.private".path}"
-            }
-          }
+          ${publicZone "10.127.10.in-addr.arpa" "zones/10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
+          ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
 
           # LTNET Public Facing Addressing
-          asn.lantian.pub {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones-ltnet/asn.lantian.pub.zone"
-            dnssec {
-              key file "${containerConfig.age.secrets."Kasn.lantian.pub.+013+48539.private".path}"
-            }
-          }
+          ${publicZone "asn.lantian.pub" "zones-ltnet/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
 
           # LTNET Authoritative
-          18.172.in-addr.arpa {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/var/lib/zones/zones/18.172.in-addr.arpa.zone"
-          }
+          ${publicZone "18.172.in-addr.arpa" "zones/18.172.in-addr.arpa" null}
 
           # Public Internet Authoritative
-          lantian.eu.org:54 {
-            bind 127.0.0.1
-            file "/var/lib/zones/zones/lantian.eu.org.zone"
-          }
-          _acme-challenge.lantian.eu.org:54 {
-            bind 127.0.0.1
-            forward . 172.18.10.56
-          }
-          lantian.eu.org {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            forward . 127.0.0.1:54
-            dnssec {
-              key file "${containerConfig.age.secrets."Klantian.eu.org.+013+37106.private".path}"
-            }
-          }
+          ${publicZone "lantian.eu.org" "zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
         '';
       };
 
