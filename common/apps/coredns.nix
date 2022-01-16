@@ -62,7 +62,7 @@ in
             }
           '' else "";
           localZone = zone: filename: ''
-            ${zone}:54 {
+            ${zone}:${LT.portStr.DNSLocal} {
               bind 127.0.0.1
               file "/var/lib/zones/${filename}.zone"
             }
@@ -73,7 +73,7 @@ in
               bufsize 1232
               loadbalance round_robin
 
-              forward . 127.0.0.1:54
+              forward . 127.0.0.1:${LT.portStr.DNSLocal}
               ${dnssec dnssecKey}
             }
           '';
@@ -100,7 +100,7 @@ in
           }
 
           # Google DNS
-          .:55 {
+          .:${LT.portStr.DNSUpstream} {
             forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
               tls_servername dns.google
               policy sequential
