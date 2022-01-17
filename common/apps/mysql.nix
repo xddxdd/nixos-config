@@ -16,6 +16,13 @@ in
     };
   };
 
+  services.automysqlbackup = {
+    enable = true;
+    config = {
+      db_exclude = [ "information_schema" "performance_schema" "sys" "test" ];
+    };
+  };
+
   services.nginx.virtualHosts."pma.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
     listen = LT.nginx.listenHTTPS;
     root = "/var/www/pma.lantian.pub";
