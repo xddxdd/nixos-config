@@ -4,7 +4,7 @@ let
   verticalSize = 16;
   spaceSize = 8;
   alignX = 12;
-  widthChars = 40;
+  widthChars = 44;
 
   centerX = builtins.floor ((alignX + widthChars) / 2);
   alignRightCenter = widthChars - centerX;
@@ -45,6 +45,7 @@ let
     "${offset alignX} \${swapbar 4}"
     "${gray (padString "Battery:")} $battery_percent% $alignr $battery_time"
     "${offset alignX} \${battery_bar 4}"
+    "${gray (padString "GPU Power:")} \${exec cat /sys/bus/pci/drivers/vfio-pci/0000:01:00.0/power_state}"
     "${gray (padString "Processes:")} $running_processes ${gray "running /"} $processes ${gray "total"}"
     "${gray "$hr"}"
     "${gray "File systems:"}"
