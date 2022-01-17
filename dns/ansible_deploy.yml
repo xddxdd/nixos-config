@@ -14,6 +14,9 @@
       delete: yes
   - name: Chown
     shell: "chown -R container:container /var/lib/zones"
-  - name: Restart DNS servers
-    command: systemctl restart container@coredns.service container@coredns-knot.service
+  - name: Restart CoreDNS
+    command: nixos-container run coredns -- systemctl restart coredns
+    ignore_errors: yes
+  - name: Restart Knot DNS
+    command: nixos-container run coredns-knot -- knotc reload
     ignore_errors: yes
