@@ -15,16 +15,21 @@ let
     "/var/lib/vm"
   ];
 
-  backupScript = configPath: ''
-    FILENAME=/var/backup/${config.networking.hostName}-$(${pkgs.coreutils}/bin/date +%Y-%m-%d).tar.zst
+  backupIncluded = [
+    "/var/backup"
+    "/var/lib"
+  ];
 
-    ${pkgs.coreutils}/bin/mkdir -p /var/backup/
-    ${pkgs.coreutils}/bin/rm -rf /var/backup/*
+  backupScript = configPath: ''
+    FILENAME=/nix/backup/${config.networking.hostName}-$(${pkgs.coreutils}/bin/date +%Y-%m-%d).tar.zst
+
+    ${pkgs.coreutils}/bin/mkdir -p /nix/backup/
+    ${pkgs.coreutils}/bin/rm -rf /nix/backup/*
 
     ${pkgs.gnutar}/bin/tar \
       ${builtins.concatStringsSep " " (builtins.map (v: "--exclude=${v}") backupExcluded)} \
-      -I ${pkgs.zstd}/bin/zstd -cf /var/backup/${config.networking.hostName}-$(date +%Y-%m-%d).tar.zst \
-      /var/lib
+      -I ${pkgs.zstd}/bin/zstd -cf /nix/backup/${config.networking.hostName}-$(date +%Y-%m-%d).tar.zst \
+      ${builtins.concatStringsSep " " backupIncluded}
 
     echo "Uploading to Dropbox"
     ${pkgs.rclone}/bin/rclone --config ${configPath} mkdir dropbox:/Backups/ || ${pkgs.coreutils}/bin/true
