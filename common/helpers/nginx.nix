@@ -57,7 +57,6 @@ rec {
 
     more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
   '' + pkgs.lib.optionalString ssl ''
-    add_header Alt-Svc 'h3=":443"; ma=86400';
     add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
   '';
 
@@ -185,8 +184,6 @@ rec {
   listenHTTPS = [
     { addr = "0.0.0.0"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
     { addr = "[::]"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
-    { addr = "0.0.0.0"; port = port.HTTPS; extraParameters = [ "http3" ]; }
-    { addr = "[::]"; port = port.HTTPS; extraParameters = [ "http3" ]; }
   ];
 
   listenHTTP = [

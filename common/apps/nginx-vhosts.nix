@@ -34,8 +34,6 @@ in
       listen = [
         { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
         { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
-        { addr = "0.0.0.0"; port = 443; extraParameters = [ "default_server" "http3" "reuseport" ]; }
-        { addr = "[::]"; port = 443; extraParameters = [ "default_server" "http3" "reuseport" ]; }
         { addr = "0.0.0.0"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
         { addr = "[::]"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
       ];
