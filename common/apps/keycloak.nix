@@ -4,6 +4,8 @@ let
   LT = import ../helpers.nix {  inherit config pkgs; };
 in
 {
+  imports = [ ./postgresql.nix ];
+
   age.secrets.keycloak-dbpw = {
     file = ../../secrets/keycloak-dbpw.age;
     mode = "0444";
@@ -28,8 +30,6 @@ in
   users.groups.keycloak = { };
 
   services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_13;
     ensureDatabases = [ "keycloak" ];
     ensureUsers = [
       {
