@@ -1,6 +1,16 @@
 { pkgs, dns, common, ... }:
 
 with dns;
+let
+  emailCloudflareRouting = [
+    (MX { name = "@"; priority = 7; target = "isaac.mx.cloudflare.net."; })
+    (MX { name = "@"; priority = 38; target = "linda.mx.cloudflare.net."; })
+    (MX { name = "@"; priority = 14; target = "amir.mx.cloudflare.net."; })
+    (TXT { name = "@"; contents = "v=spf1 include:_spf.mx.cloudflare.net ~all"; })
+    (TXT { name = "@"; contents = "v=DMARC1; p=none"; })
+    (TXT { name = "_dmarc"; contents = "v=DMARC1; p=none"; })
+  ];
+in
 [
   (rec {
     domain = "xuyh0120.win";
@@ -10,7 +20,7 @@ with dns;
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
-      common.records.ForwardEmail
+      emailCloudflareRouting
 
       (CNAME { name = "lab"; target = "lab.lantian.pub."; })
       (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })

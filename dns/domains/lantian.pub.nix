@@ -20,6 +20,15 @@ let
     (TXT { name = "mail._domainkey"; contents = "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPEQZwB93q/rldPPECT+ghQEFm2ynfKZlsp3jzarEZ4qas+RQuINk6TmAE/l/q3mcWqr3g/rrmrZJUNsiM0IanlTBGMgG+V5n1KSADVUfuO9Z6LKpVRjRUXT4E/+lu/bBXvuTFVOzAzNC4yviJO2sIEYMfOB0bK2vdVMdKt88IpwIDAQAB"; })
   ];
 
+  emailCloudflareRouting = [
+    (MX { name = "@"; priority = 11; target = "isaac.mx.cloudflare.net."; })
+    (MX { name = "@"; priority = 81; target = "linda.mx.cloudflare.net."; })
+    (MX { name = "@"; priority = 29; target = "amir.mx.cloudflare.net."; })
+    (TXT { name = "@"; contents = "v=spf1 include:_spf.mx.cloudflare.net ~all"; })
+    (TXT { name = "@"; contents = "v=DMARC1; p=none"; })
+    (TXT { name = "_dmarc"; contents = "v=DMARC1; p=none"; })
+  ];
+
   externalServices = [
     (CNAME { name = "backblaze"; target = "f002.backblazeb2.com."; cloudflare = true; })
     (CNAME { name = "comments"; target = "cname.vercel-dns.com."; })
@@ -76,7 +85,7 @@ in
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       (common.hostRecs.TXT domain)
-      common.records.ForwardEmail
+      emailCloudflareRouting
 
       (common.hostRecs.LTNet "zt.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
