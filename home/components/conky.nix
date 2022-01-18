@@ -45,7 +45,7 @@ let
     "${offset alignX} \${swapbar 4}"
     "${gray (padString "Battery:")} $battery_percent% $alignr $battery_time"
     "${offset alignX} \${battery_bar 4}"
-    "${gray (padString "GPU Power:")} \${exec cat /sys/bus/pci/drivers/vfio-pci/0000:01:00.0/power_state}"
+    "${gray (padString "GPU Power:")} \${exec cat /sys/bus/pci/devices/0000:01:00.0/power_state}"
     "${gray (padString "Processes:")} $running_processes ${gray "running /"} $processes ${gray "total"}"
     "${gray "$hr"}"
     "${gray "File systems:"}"
