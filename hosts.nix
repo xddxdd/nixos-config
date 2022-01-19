@@ -288,51 +288,6 @@
       IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
-  "virtono-old" = rec {
-    index = 9;
-    ptrPrefix = "frankfurt.germany";
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDtj23Lfs8ab1zBkUmz0e0mdIWvDmWXam/wdX0r7H1hKtsjU2xLqRdGs30IrFQQw2pAdp9GEgDD+VDIXS6Ze5wv8TahpI4wPm4rjhf1LnNl7MRyOXePEGz+cM+Nyd8WRn/uKNdOVbprtr9TSbgA62XpAlaRMNKVuHFOZ5TTX/bix81tvIRu6Wb9s3ZyyiSbvz58sy2DpkQmFlv8nhWgnLhOIbTWrcSQ+dBiPgcLT+zzV/S7s+Opfr1PjRDEgBBIYgujsJzuRwBRGdOCSFU/B7KaCgvX7QO292emGPB/OlYk0cgBz2nQKzYSBC1zZ1UduHmnn7G1wTVDybaQUPGvip7mPF8rIx241fC4SSe7o7z9Gh1tLNM0d5HgJsaVTxqnuzfnTnn6AwHHB58thvuNZFIH17odXVc1Lcjmm+GzHVWjuWsTgaT1BQY9lpFDzvxIaT0MTT1ySx2/k2cc7SUBcwbUr0/MX+VXRG4zNQNgCmLkXQOhS0CBtwfGbdSkTnHT6hVpA29LlrFSufy4QcquYUPmCDTCLPloDHsZ8/6wnUCV0N5GB3UA8DfxdWbLYrwwiNeLr84i5zTOVGGGe3htZCT43JzeRVeLnTHBi+IL6lo9PlI45zpX3hr5FRzxpMgEIpaykSaEwST4VDRfIyLWc8iUrvuOQ35QrgbFzmS0uULoxw==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGkP3giLGDrua7AIx/REFEjfHJBhFeFo6nPVwJK4mSQ";
-    };
-    tinc = {
-      rsa = ''
-        -----BEGIN RSA PUBLIC KEY-----
-        MIICCgKCAgEApOZu+B5IRsSMIyiZNveGYYiZz/M+Qvvr5BWMfcNWDH1TfgujrVLn
-        0HIgf8QTKm1tkMkKcDBqqD6FfvX6LQsLpevkw4bNobTlugdA0U8c6t3p+dMSV34T
-        eIUiEBGlN8uzdr+oHf7aQ0neNM+j5aabOQ3pTq1GADAjCpT3ZTL5bMxbaKvwJDaB
-        zU22AR3zP2QGEMqY9t2TYd6wl2CCj3xT9OqYfEskgKlp0sGrnmutoJ1/PgLXAY6e
-        ZmVBYV/Cruu0m6wmos1p6HwzhSlHPf3tqiIp0K0TW2eYh95PsULBgMH7+xww+gdA
-        o28uGxrILr/AK5/81uzXAChdzQQo/BIFq8gnSCkqK9/OJUXUOi1izywBFCMH/wY/
-        BmkvAyes8evb53fhwAnKptd+KGjRr/R4ghgxSVo8DOuUUfC8pHJTYeqDfX5qxlf7
-        BuaWjr0C8BSiohh9zPipUibuAeAtCJrKj2WaYaUS1v0p2RSc2UnXWPM1C4nfJm2e
-        mTkdW52/+hzBAO7I498YKGOAF0O4z4vtjUpWOe3PBWPpNm8Trim/L0EFnxBI5nFr
-        p8m65wm2AQxbHDRXbT+zdJuLJWz0nzItcfU0AwWpvgFllAxkGAbxQ8fHUeAO+mhn
-        BjnMuH3e4FUAlJsJX8MQ48IVnute8oemURbKEVeifXR0banq3dVRM40CAwEAAQ==
-        -----END RSA PUBLIC KEY-----
-      '';
-      ed25519 = "LM76jAmSI3/Yav+KxG+kR+wsys5IPOLWLoYzksSD60E";
-    };
-    public = rec {
-      IPv4 = "45.138.97.165";
-      IPv6 = "2001:ac8:20:3::433a:a05d";
-    };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
-    dn42 = rec {
-      IPv4 = "172.22.76.189";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
-      region = 41;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
-    };
-  };
   "virmach-nl1g" = rec {
     index = 6;
     ptrPrefix = "amsterdam.netherlands";
