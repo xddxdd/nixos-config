@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
 
   vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
     configuration = {
@@ -16,12 +16,14 @@ let
       networking.firewall.enable = false;
 
       virtualisation = {
-        cores = 8;
-        diskSize = 100 * 1024;
-        graphics = false;
-        memorySize = 8192;
-        sharedDirectories."acme.sh" = { source = "/var/lib/acme.sh"; target = "/var/lib/acme.sh"; };
-        sharedDirectories.cache = { source = "/var/cache/ci"; target = "/cache"; };
+        vmVariant.virtualisation = {
+          cores = 8;
+          diskSize = 100 * 1024;
+          graphics = false;
+          memorySize = 8192;
+          sharedDirectories."acme.sh" = { source = "/var/lib/acme.sh"; target = "/var/lib/acme.sh"; };
+          sharedDirectories.cache = { source = "/var/cache/ci"; target = "/cache"; };
+        };
 
         docker = {
           enable = true;
