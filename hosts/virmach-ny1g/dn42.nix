@@ -238,5 +238,20 @@
         peerIPv6LinkLocal = "fe80::67:1";
       };
     };
+    xkww3n = {
+      remoteASN = 4242421513;
+      latencyMs = 18;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21513;
+        remoteAddress = "198.98.62.121";
+        remotePort = 22547;
+        wireguardPubkey = "PjS6RoBo4vcTPzQqpLeFkhkcvKSKJz6MeZfeGgGuYW8=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.101.113";
+        peerIPv6LinkLocal = "fe80::1113";
+      };
+    };
   };
 }
