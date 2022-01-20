@@ -65,9 +65,6 @@
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableVteIntegration = true;
 
     autocd = true;
     dotDir = ".config/zsh";

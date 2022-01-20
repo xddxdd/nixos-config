@@ -29,19 +29,11 @@
     TERM = "xterm-256color";
   };
 
-  programs.zsh = {
-    enable = true;
-    enableBashCompletion = true;
-    autosuggestions.enable = true;
-    vteIntegration = true;
-    promptInit = import ../helpers/zshrc.nix { inherit config pkgs; };
-    ohMyZsh = {
-      enable = true;
-    };
-  };
-
   environment.etc."neofetch.conf" = {
     source = ../files/neofetch.conf;
     mode = "0755";
   };
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }
