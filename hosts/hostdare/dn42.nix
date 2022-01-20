@@ -466,6 +466,23 @@
     #     peerIPv6LinkLocal = "fe80::1588";
     #   };
     # };
+    tristan = {
+      remoteASN = 4242420585;
+      latencyMs = 10;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20585;
+        # Peer cannot accept incoming connections
+        # remoteAddress = "us1.dn42.atolm.net";
+        remotePort = 22547;
+        wireguardPubkey = "9MeUJU6gHl4lDLK+UJ/OZTp6dPGY8+jLkDDKqmSPWSM=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.183.3";
+        peerIPv6LinkLocal = "fe80::585";
+      };
+    };
     tsingyao = {
       remoteASN = 4242423699;
       latencyMs = 1;
