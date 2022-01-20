@@ -188,6 +188,22 @@
         peerIPv6LinkLocal = "fe80::ade0";
       };
     };
+    kskb = {
+      remoteASN = 4242421817;
+      latencyMs = 10;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21817;
+        remoteAddress = "4.us.kskb.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "dZzVdXbQPnWPpHk8QfW/p+MfGzAkMBuWpxEIXzQCggY=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.77.40";
+        peerIPv6LinkLocal = "fe80::1817";
+      };
+    };
     lazurite = {
       remoteASN = 4242422032;
       latencyMs = 8;
