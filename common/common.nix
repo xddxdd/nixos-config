@@ -331,7 +331,6 @@
     };
   };
 
-  services.haveged.enable = true;
   services.irqbalance.enable = true;
   services.journald.extraConfig = ''
     SystemMaxUse=50M
