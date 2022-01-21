@@ -150,7 +150,8 @@
       tunnel = {
         type = "wireguard";
         localPort = 23735;
-        remoteAddress = "us1.dn42.cperrin.xyz";
+        # DNS failure, passive only
+        # remoteAddress = "us1.dn42.cperrin.xyz";
         remotePort = 52547;
         wireguardPubkey = "p3v600DE0VBgZmBXZACi9ei9FdP+6An4SZge6CicH3E=";
       };
