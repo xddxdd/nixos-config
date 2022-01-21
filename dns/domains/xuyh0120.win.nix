@@ -21,6 +21,7 @@ in
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       emailCloudflareRouting
+      (TXT { name = "_token._dnswl"; contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz"; })
 
       (CNAME { name = "lab"; target = "lab.lantian.pub."; })
       (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })

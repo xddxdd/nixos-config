@@ -86,6 +86,7 @@ in
       (common.hostRecs.SSHFP domain)
       (common.hostRecs.TXT domain)
       emailCloudflareRouting
+      (TXT { name = "_token._dnswl"; contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm"; })
 
       (common.hostRecs.LTNet "zt.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
