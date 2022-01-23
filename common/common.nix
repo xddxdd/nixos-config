@@ -58,13 +58,13 @@
       "audit=0"
       "cgroup_enable=memory"
       "net.ifnames=0"
-      "nofb"
-      "nomodeset"
       "swapaccount=1"
       "syscall.x32=y"
-      "vga=normal"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      if pkgs.stdenv.isx86_64
+      then pkgs.linuxKernel.packagesFor pkgs.nur.repos.xddxdd.linux-xanmod-lantian
+      else pkgs.linuxPackages_latest;
 
     initrd = {
       compressor = "zstd";
@@ -231,8 +231,6 @@
     tcpdump
     wget
   ];
-
-  hardware.ksm.enable = true;
 
   # Try to workaround VM crash
   systemd.coredump.enable = false;
