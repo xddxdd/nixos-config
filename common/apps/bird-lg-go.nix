@@ -1,20 +1,41 @@
 { pkgs, config, ... }:
 
 let
-  LT = import ../helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
+
+  lgproxyHosts = [
+    "50kvm"
+    "hostdare"
+    "virmach-ny1g"
+    "buyvm"
+  ];
+  lgproxyDomain = "bird-lg-go";
 in
 {
+  networking.hosts = builtins.listToAttrs
+    ((builtins.map
+      (n: {
+        name = LT.hosts.${n}.ltnet.IPv4;
+        value = [ "${n}.${lgproxyDomain}" ];
+      })
+      lgproxyHosts)
+    ++ [{
+      name = LT.this.ltnet.IPv4;
+      value = [ "local.${lgproxyDomain}" ];
+    }]);
+
   systemd.services.bird-lg-go = {
     description = "Bird-lg-go";
     wantedBy = [ "multi-user.target" ];
     environment = {
-      BIRDLG_LISTEN = "127.0.0.1:${LT.portStr.BirdLgGo}";
-      BIRDLG_SERVERS = "50kvm,hostdare,virmach-ny1g,buyvm";
-      BIRDLG_DOMAIN = "zt.lantian.pub";
-      BIRDLG_WHOIS = "172.22.76.108";
       BIRDLG_DNS_INTERFACE = "asn.lantian.dn42";
+      BIRDLG_DOMAIN = lgproxyDomain;
+      BIRDLG_LISTEN = "127.0.0.1:${LT.portStr.BirdLgGo}";
+      BIRDLG_NAME_FILTER = "^(sys|static)_";
       BIRDLG_NET_SPECIFIC_MODE = "dn42_shorten";
+      BIRDLG_SERVERS = builtins.concatStringsSep "," (lgproxyHosts ++ [ "local" ]);
       BIRDLG_TELEGRAM_BOT_NAME = "lantian_lg_bot";
+      BIRDLG_WHOIS = "172.22.76.108";
     };
     serviceConfig = {
       Type = "simple";
