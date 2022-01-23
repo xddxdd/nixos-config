@@ -12,12 +12,10 @@ in
 }:
 let
   thisIP = containerIP."${name}";
-  thisUUID = builtins.readFile (pkgs.runCommandLocal "uuid-${name}" { } ''
-    ${pkgs.util-linux}/bin/uuidgen -n "@dns" -s -N "${name}" > $out
-  '');
 in
 pkgs.lib.recursiveUpdate outerConfig {
   autoStart = true;
+  ephemeral = true;
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
 
   privateNetwork = true;
@@ -25,10 +23,6 @@ pkgs.lib.recursiveUpdate outerConfig {
   hostAddress6 = this.ltnet.IPv6;
   localAddress = "${this.ltnet.IPv4Prefix}.${thisIP}";
   localAddress6 = "${this.ltnet.IPv6Prefix}::${thisIP}";
-  extraFlags = [
-    "--link-journal=host"
-    "--uuid=${thisUUID}"
-  ];
 
   bindMounts = {
     "/nix/persistent" = { hostPath = "/nix/persistent"; isReadOnly = true; };
