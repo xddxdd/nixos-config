@@ -6,6 +6,7 @@ let
   vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
     configuration = {
       imports = [
+        ../components/qemu-user-static.nix
         ../ssh-harden.nix
         ../users.nix
       ];
@@ -14,6 +15,8 @@ let
 
       networking.hostName = "docker";
       networking.firewall.enable = false;
+
+      nixpkgs.overlays = config.nixpkgs.overlays;
 
       virtualisation = {
         vmVariant.virtualisation = {
