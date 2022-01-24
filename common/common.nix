@@ -39,6 +39,7 @@
     ./components/backup.nix
     ./components/dn42.nix
     ./components/ftp-proxy.nix
+    ./components/qemu-user-static.nix
     ./components/route-chain.nix
     ./components/web-switch.nix
     ./components/wg-lantian.nix

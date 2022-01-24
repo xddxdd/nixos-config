@@ -18,7 +18,6 @@ in
     ../../common/apps/nginx-proxy.nix
     ../../common/apps/nginx.nix
     ../../common/apps/powerdns-recursor.nix
-    ../../common/apps/qemu-user-static.nix
     ../../common/apps/shell.nix
     ../../common/apps/tinc.nix
     ../../common/apps/v2ray.nix
