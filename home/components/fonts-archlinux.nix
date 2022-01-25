@@ -50,6 +50,16 @@
         </edit>
       </match>
 
+      <!-- Emoji -->
+      <match target="pattern">
+        <test qual="any" name="family">
+          <string>emoji</string>
+        </test>
+        <edit name="family" mode="prepend" binding="strong">
+          <string>Blobmoji</string>
+        </edit>
+      </match>
+
       <!-- 中文默认字体使用思源黑体和思源宋体,不使用 Noto Sans CJK SC 是因为这个字体会在特定情况下显示片假字. -->
       <match>
         <test name="lang" compare="contains">
