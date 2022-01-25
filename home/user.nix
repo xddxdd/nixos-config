@@ -41,6 +41,7 @@
       LogLevel ERROR
     '';
 
+    controlPath = "none";
     forwardAgent = true;
     hashKnownHosts = false;
     userKnownHostsFile = "/dev/null";
