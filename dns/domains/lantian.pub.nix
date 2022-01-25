@@ -37,6 +37,11 @@ let
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
     (CNAME { name = "netlify"; target = "lantian.netlify.com."; })
     (CNAME { name = "render"; target = "lantian1998.onrender.com."; })
+
+    # Freshping & verification
+    (CNAME { name = "status"; target = "statuspage.freshping.io."; cloudflare = true; })
+    (CNAME { name = "737acf9b9d41aae168dbe658b5efada5cab2c445.status"; target = "667076964ffd2f999aa14ff100c5467dbaee91a0.fpverify.freshping.io."; })
+
     (CNAME { name = "vercel"; target = "cname.vercel-dns.com."; })
     (TXT { name = "@"; contents = "google-site-verification=eySrj7tImhjLmyEzhvz6-esuzD2jdnQ8anx4qfIwApw"; })
 
