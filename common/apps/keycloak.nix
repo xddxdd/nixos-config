@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  LT = import ../helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
 in
 {
   imports = [ ./postgresql.nix ];
@@ -19,6 +19,16 @@ in
     frontendUrl = "https://login.lantian.pub/auth";
     httpPort = LT.portStr.Keycloak.HTTP;
     httpsPort = LT.portStr.Keycloak.HTTPS;
+
+    extraConfig = {
+      "subsystem=datasources" = {
+        "data-source=KeycloakDS" = {
+          check-valid-connection-sql = "select 1";
+          background-validation = "true";
+          background-validation-millis = "5000";
+        };
+      };
+    };
   };
 
   systemd.services.keycloak.serviceConfig.DynamicUser = pkgs.lib.mkForce false;
