@@ -300,6 +300,8 @@ in
     '';
   };
 
+  systemd.services.bird2.serviceConfig.CPUQuota = "10%";
+
   systemd.services.bird-lgproxy-go = {
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];

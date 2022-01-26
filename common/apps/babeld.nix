@@ -26,4 +26,6 @@
       redistribute local deny
     '';
   };
+
+  systemd.services.babeld.serviceConfig.CPUQuota = "10%";
 }
