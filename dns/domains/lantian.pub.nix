@@ -64,6 +64,7 @@ let
     (CNAME { name = "lab"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "lg"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "pma"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "resilio-oracle-vm-arm"; target = "oracle-vm-arm"; cloudflare = true; })
     (CNAME { name = "resilio-soyoustart"; target = "soyoustart"; cloudflare = true; })
