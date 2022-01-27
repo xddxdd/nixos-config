@@ -7,6 +7,7 @@ let
     "/var/lib/docker"
     "/var/lib/docker-dind"
     "/var/lib/filebeat"
+    "/var/lib/grafana"
     "/var/lib/journalbeat"
     "/var/lib/machines"
     "/var/lib/private"
