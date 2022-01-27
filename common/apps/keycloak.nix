@@ -8,7 +8,8 @@ in
 
   age.secrets.keycloak-dbpw = {
     file = ../../secrets/keycloak-dbpw.age;
-    mode = "0444";
+    owner = "keycloak";
+    group = "keycloak";
   };
 
   services.keycloak = {
