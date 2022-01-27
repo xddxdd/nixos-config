@@ -8,6 +8,9 @@
   HTTPS = 443;
   Docker = 2375;
   Vault = 8200;
+  Prometheus.Daemon = 9090;
+  Prometheus.NodeExporter = 9100;
+  Prometheus.BirdExporter = 9324;
   Yggdrasil.Public = 13058;
   Yggdrasil.Multicast = 13059;
   Drone = 13080;

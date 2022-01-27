@@ -1,5 +1,8 @@
 { config, pkgs, modules, ... }:
 
+let
+  LT = import ./helpers.nix {  inherit config pkgs; };
+in
 {
   nix = {
     package = pkgs.nixUnstable;
@@ -340,6 +343,14 @@
     SystemMaxUse=50M
     SystemMaxFileSize=10M
   '';
+
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      port = LT.port.Prometheus.NodeExporter;
+      listenAddress = LT.this.ltnet.IPv4;
+    };
+  };
 
   virtualisation.podman = {
     enable = true;
