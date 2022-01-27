@@ -27,6 +27,7 @@ in
     ../../common/apps/epicgames-claimer.nix
     ../../common/apps/genshin-helper.nix
     ../../common/apps/gitea.nix
+    ../../common/apps/grafana.nix
     ../../common/apps/keycloak.nix
     ../../common/apps/nextcloud.nix
     ../../common/apps/quassel.nix
