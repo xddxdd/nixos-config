@@ -1,7 +1,7 @@
 { config, pkgs, modules, ... }:
 
 let
-  LT = import ./helpers.nix {  inherit config pkgs; };
+  LT = import ./helpers.nix { inherit config pkgs; };
 in
 {
   nix = {
@@ -349,6 +349,7 @@ in
       enable = true;
       port = LT.port.Prometheus.NodeExporter;
       listenAddress = LT.this.ltnet.IPv4;
+      enabledCollectors = [ "systemd" ];
     };
   };
 
