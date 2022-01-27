@@ -22,6 +22,7 @@ in
     protocol = "socket";
     domain = "dashboard.lantian.pub";
     rootUrl = "https://dashboard.lantian.pub/";
+    auth.anonymous.enable = true;
 
     database = {
       type = "postgres";
