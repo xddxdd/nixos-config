@@ -220,9 +220,9 @@ in
       include "${birdConfDir}/dn42_neo_base.conf";
       include "${birdDN42PeersConf}";
 
-    '' + pkgs.lib.optionalString (LT.this.dn42.burble_grc or false) ''
+    '' + pkgs.lib.optionalString (LT.this.dn42.peerWithGRC or false) ''
       # GRC config must be below dn42 & neonetwork since it uses filters from them
-      include "${birdConfDir}/dn42/burble_grc.conf";
+      include "${birdConfDir}/dn42_burble_grc.conf";
 
     '' + ''
       include "${birdConfDir}/docker_babel.conf";
