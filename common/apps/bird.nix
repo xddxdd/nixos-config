@@ -301,6 +301,14 @@ in
     '';
   };
 
+  services.prometheus.exporters = {
+    bird = {
+      enable = true;
+      port = LT.port.Prometheus.BirdExporter;
+      listenAddress = LT.this.ltnet.IPv4;
+    };
+  };
+
   systemd.services.bird2.serviceConfig.CPUQuota = "10%";
 
   systemd.services.bird-lgproxy-go = {

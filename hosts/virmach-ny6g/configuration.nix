@@ -30,6 +30,7 @@ in
     ../../common/apps/grafana.nix
     ../../common/apps/keycloak.nix
     ../../common/apps/nextcloud.nix
+    ../../common/apps/prometheus.nix
     ../../common/apps/quassel.nix
     ../../common/apps/resilio.nix
     ../../common/apps/vaultwarden.nix
