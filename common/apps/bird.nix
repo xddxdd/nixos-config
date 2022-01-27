@@ -9,15 +9,16 @@ let
 
   filterNetwork = net: pkgs.lib.filterAttrs (n: v: v.peering.network == net);
 
-  latencyToDN42Community = latency:
-    if latency <= 3 then 1 else
-    if latency <= 7 then 2 else
-    if latency <= 20 then 3 else
-    if latency <= 55 then 4 else
-    if latency <= 148 then 5 else
-    if latency <= 403 then 6 else
-    if latency <= 1097 then 7 else
-    if latency <= 2981 then 8 else
+  latencyToDN42Community = { latencyMs, badRouting, ...}:
+    if badRouting then 9 else
+    if latencyMs <= 3 then 1 else
+    if latencyMs <= 7 then 2 else
+    if latencyMs <= 20 then 3 else
+    if latencyMs <= 55 then 4 else
+    if latencyMs <= 148 then 5 else
+    if latencyMs <= 403 then 6 else
+    if latencyMs <= 1097 then 7 else
+    if latencyMs <= 2981 then 8 else
     9;
 
   typeToDN42Community = type:
@@ -29,7 +30,7 @@ let
   externalDN42Peer = n: v:
     let
       interfaceName = "${v.peering.network}-${n}";
-      latency = builtins.toString (latencyToDN42Community v.latencyMs);
+      latency = builtins.toString (latencyToDN42Community v);
       crypto = builtins.toString (typeToDN42Community v.tunnel.type);
     in
     pkgs.lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''

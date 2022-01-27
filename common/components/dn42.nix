@@ -39,6 +39,10 @@ in
           type = pkgs.lib.types.int;
           default = 0;
         };
+        badRouting = pkgs.lib.mkOption {
+          type = pkgs.lib.types.bool;
+          default = false;
+        };
 
         # Peering (BGP) configuration
         peering = pkgs.lib.mkOption {

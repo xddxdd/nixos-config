@@ -529,8 +529,8 @@
       };
     };
     # wsfnk = {
-    #   # penalized for routing problem
     #   remoteASN = 4242420524;
+    #   badRouting = true;
     #   tunnel = {
     #     type = "wireguard";
     #     localPort = 20524;
@@ -618,9 +618,9 @@
     #   };
     # };
     yura = {
-      # penalized for routing problem
       remoteASN = 4242422464;
       latencyMs = 8;
+      badRouting = true;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
