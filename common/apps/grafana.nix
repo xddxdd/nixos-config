@@ -53,6 +53,7 @@ in
     };
 
     extraOptions = {
+      AUTH_OAUTH_AUTO_LOGIN = "true";
       AUTH_GENERIC_OAUTH_ENABLED = "true";
       AUTH_GENERIC_OAUTH_NAME = "Keycloak";
       AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP = "true";
