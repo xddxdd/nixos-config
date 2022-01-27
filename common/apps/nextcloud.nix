@@ -14,12 +14,13 @@ in
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud22;
+    package = pkgs.nextcloud23;
     autoUpdateApps.enable = true;
     config = {
       adminpassFile = config.age.secrets.nextcloud-pw.path;
       adminuser = "lantian";
       dbtype = "mysql";
+      defaultPhoneRegion = "CN";
       overwriteProtocol = "https";
     };
     hostName = "cloud.lantian.pub";
