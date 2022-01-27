@@ -4,7 +4,7 @@ let
   LT = import ../helpers.nix { inherit config pkgs; };
 in
 {
-  imports = [ ./postgresql.nix ];
+  imports = [ ./mysql.nix ];
 
   age.secrets.grafana-dbpw = {
     file = ../../secrets/grafana-dbpw.age;
@@ -25,8 +25,8 @@ in
     auth.anonymous.enable = true;
 
     database = {
-      type = "postgres";
-      host = "localhost";
+      type = "mysql";
+      host = "/run/mysqld/mysqld.sock";
       user = "grafana";
       passwordFile = config.age.secrets.grafana-dbpw.path;
     };
@@ -71,13 +71,13 @@ in
   systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets.grafana-oauth.path;
   users.users.nginx.extraGroups = [ "grafana" ];
 
-  services.postgresql = {
+  services.mysql = {
     ensureDatabases = [ "grafana" ];
     ensureUsers = [
       {
         name = "grafana";
         ensurePermissions = {
-          "DATABASE grafana" = "ALL PRIVILEGES";
+          "grafana.*" = "ALL PRIVILEGES";
         };
       }
     ];
