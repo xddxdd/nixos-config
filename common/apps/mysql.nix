@@ -11,6 +11,7 @@ in
       bind-address = LT.this.ltnet.IPv4;
       innodb_autoinc_lock_mode = 2;
       innodb_file_per_table = 1;
+      innodb_flush_method = "fsync";
       innodb_read_only_compressed = 0;
       performance_schema = false;
     };
