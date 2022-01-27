@@ -6,7 +6,7 @@ let
 in
 rec {
   inherit hosts;
-  mainServer = hosts.hostdare;
+  mainServer = hosts.virmach-ny6g;
 
   hostRecs = import ./common/host-recs.nix importArgs;
   nameservers = import ./common/nameservers.nix importArgs;
@@ -18,7 +18,7 @@ rec {
     hostRecs.mapAddresses {
       name = "${domain}.";
       addresses = mainServer.public;
-      ttl = "1h";
+      ttl = "10m";
     };
   apexGeoDNS = domain:
     dns.ALIAS {
