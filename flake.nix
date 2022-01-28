@@ -22,6 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
 
   outputs = { self, nixpkgs, nur, hath-nix, ... }@inputs:
@@ -69,6 +70,7 @@
           system.stateVersion = stateVersion;
         })
         inputs.agenix.nixosModules.age
+        ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
         inputs.impermanence.nixosModules.impermanence
         inputs.nixos-vscode-server.nixosModules.system
         ./common/common.nix
