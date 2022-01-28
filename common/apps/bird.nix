@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  LT = import ../helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix { inherit config pkgs; };
 
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
@@ -9,7 +9,7 @@ let
 
   filterNetwork = net: pkgs.lib.filterAttrs (n: v: v.peering.network == net);
 
-  latencyToDN42Community = { latencyMs, badRouting, ...}:
+  latencyToDN42Community = { latencyMs, badRouting, ... }:
     if badRouting then 9 else
     if latencyMs <= 3 then 1 else
     if latencyMs <= 7 then 2 else
@@ -96,7 +96,7 @@ let
       (pkgs.lib.mapAttrsToList externalDN42Peer (filterNetwork "dn42" config.services.dn42)));
 
   ltnetBGPPeer = hostname: { ltnet, ... }:
-    ''
+    pkgs.lib.optionalString (!(ltnet.alone or false)) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
         neighbor ${ltnet.IPv6} internal;
         ipv4 {
@@ -227,9 +227,10 @@ in
     '' + ''
       include "${birdConfDir}/docker_babel.conf";
       #include "${birdConfDir}/docker_ospf.conf";
+    '' + pkgs.lib.optionalString (!(LT.this.ltnet.alone or false)) ''
       include "${birdConfDir}/ltnet_bgp.conf";
       include "${birdLtnetPeersConf}";
-      #include "${birdConfDir}/ltnet/ustc_blacklist.conf";
+    '' + ''
 
       filter sys_import_v4 {
         if net !~ RESERVED_IPv4 then reject;

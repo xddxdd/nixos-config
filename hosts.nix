@@ -36,6 +36,9 @@
       IPv6Subnet = "2001:470:fa1d:ffff::";
     };
     ltnet = rec {
+      # 50KVM's network has been very unstable recently
+      alone = true;
+
       IPv4 = "${IPv4Prefix}.1";
       IPv4Prefix = "172.18.${builtins.toString index}";
       IPv6 = "${IPv6Prefix}::1";
