@@ -6,7 +6,7 @@ let
 in
 rec {
   inherit hosts;
-  mainServer = hosts.virmach-ny6g;
+  mainServer = hosts.hostdare;
 
   hostRecs = import ./common/host-recs.nix importArgs;
   nameservers = import ./common/nameservers.nix importArgs;
