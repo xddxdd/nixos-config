@@ -11,6 +11,10 @@
 
   home.stateVersion = stateVersion;
 
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
