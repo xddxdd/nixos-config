@@ -14,5 +14,6 @@ rec {
 
   container = import helpers/container.nix _importArgs;
   nginx = import helpers/nginx.nix _importArgs;
+  serviceHarden = import helpers/service-harden.nix _importArgs;
   zshrc = import helpers/zshrc.nix _importArgs;
 }

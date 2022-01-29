@@ -65,7 +65,7 @@ in
         DRONE_RUNNER_NAME = "drone-docker";
         DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
       };
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
@@ -85,7 +85,7 @@ in
         DRONE_RUNNER_NAME = "drone-docker";
         DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
       };
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
@@ -100,7 +100,7 @@ in
         DRONE_DEBUG = "true";
         VAULT_ADDR = "http://127.0.0.1:${LT.portStr.Vault}";
       };
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         Type = "simple";
         Restart = "always";
         RestartSec = "3";

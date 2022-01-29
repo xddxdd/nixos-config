@@ -324,11 +324,14 @@ in
     unitConfig = {
       After = "bird2.service";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur.repos.xddxdd.bird-lgproxy-go}/bin/proxy";
+
+      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
     };
   };
 }
