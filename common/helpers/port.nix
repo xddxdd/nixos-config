@@ -26,4 +26,5 @@
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13772;
   ResilioSync = 13900;
+  Oauth2Proxy = 14180;
 }

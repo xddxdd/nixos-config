@@ -196,7 +196,7 @@ in
       expire = "24h";
     };
     email.domains = [ "*" ];
-    httpAddress = "http://${LT.this.ltnet.IPv4}:14180";
+    httpAddress = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;
@@ -212,7 +212,7 @@ in
     unitConfig = {
       After = pkgs.lib.mkForce "network.target nginx.service";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Restart = "always";
       RestartSec = "3";
     };

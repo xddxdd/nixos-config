@@ -32,7 +32,13 @@ in
     };
   };
 
-  systemd.services.keycloak.serviceConfig.DynamicUser = pkgs.lib.mkForce false;
+  systemd.services.keycloak.serviceConfig = LT.serviceHarden // {
+    AmbientCapabilities = pkgs.lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    CapabilityBoundingSet = pkgs.lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    DynamicUser = pkgs.lib.mkForce false;
+    MemoryDenyWriteExecute = false;
+  };
+
   users.users.keycloak = {
     useDefaultShell = true;
     group = "keycloak";

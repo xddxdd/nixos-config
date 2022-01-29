@@ -1,6 +1,8 @@
 { config, pkgs, hosts, this, port, portStr, ... }:
 
 let
+  LT = import ../helpers.nix {  inherit config pkgs; };
+
   fastcgiParams = ''
     fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param  QUERY_STRING       $query_string;
@@ -90,14 +92,14 @@ rec {
     };
 
     "/oauth2/" = {
-      proxyPass = "http://${this.ltnet.IPv4}:14180";
+      proxyPass = "http://${this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
       extraConfig = ''
         proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
       '' + locationProxyConf;
     };
 
     "/oauth2/auth" = {
-      proxyPass = "http://${this.ltnet.IPv4}:14180";
+      proxyPass = "http://${this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
       extraConfig = ''
         proxy_set_header Content-Length "";
         proxy_pass_request_body off;

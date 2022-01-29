@@ -37,7 +37,7 @@ in
       BIRDLG_TELEGRAM_BOT_NAME = "lantian_lg_bot";
       BIRDLG_WHOIS = "172.22.76.108";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
