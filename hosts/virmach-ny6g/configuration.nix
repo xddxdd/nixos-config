@@ -8,32 +8,18 @@ in
   imports = [
     ./hardware-configuration.nix
 
-    ../../common/apps/acme-sh.nix
-    ../../common/apps/ansible.nix
-    ../../common/apps/babeld.nix
-    ../../common/apps/bird.nix
-    ../../common/apps/coredns.nix
-    ../../common/apps/ltnet.nix
-    ../../common/apps/nginx-lab.nix
-    ../../common/apps/nginx-proxy.nix
-    ../../common/apps/nginx.nix
-    ../../common/apps/powerdns-recursor.nix
-    ../../common/apps/shell.nix
-    ../../common/apps/tinc.nix
-    ../../common/apps/v2ray.nix
-    ../../common/apps/yggdrasil.nix
-
-    ../../common/apps/bird-lg-go.nix
-    ../../common/apps/epicgames-claimer.nix
-    ../../common/apps/genshin-helper.nix
-    ../../common/apps/gitea.nix
-    ../../common/apps/grafana.nix
-    ../../common/apps/keycloak.nix
-    ../../common/apps/nextcloud.nix
-    ../../common/apps/prometheus.nix
-    ../../common/apps/quassel.nix
-    ../../common/apps/resilio.nix
-    ../../common/apps/vaultwarden.nix
+    ../../common/optional-apps/bird-lg-go.nix
+    ../../common/optional-apps/epicgames-claimer.nix
+    ../../common/optional-apps/genshin-helper.nix
+    ../../common/optional-apps/gitea.nix
+    ../../common/optional-apps/grafana.nix
+    ../../common/optional-apps/keycloak.nix
+    ../../common/optional-apps/nextcloud.nix
+    ../../common/optional-apps/nginx-lab.nix
+    ../../common/optional-apps/prometheus.nix
+    ../../common/optional-apps/quassel.nix
+    ../../common/optional-apps/resilio.nix
+    ../../common/optional-apps/vaultwarden.nix
   ];
 
   systemd.network.networks.eth0 = {

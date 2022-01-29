@@ -121,9 +121,8 @@
           imports = modulesFor n;
         }));
 
-      dnsRecords = import ./dns/toplevel.nix rec {
+      dnsRecords = import ./dns/toplevel.nix {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-        dns = import ./common/components/dns/default.nix { inherit pkgs; };
       };
     };
 }

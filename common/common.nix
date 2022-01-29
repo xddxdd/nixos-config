@@ -36,20 +36,11 @@ in
     };
   };
 
-  imports = [
-    ./impermanence.nix
-    ./iptables.nix
-    ./ssh-harden.nix
-    ./users.nix
-
-    ./components/backup.nix
-    ./components/dn42.nix
-    ./components/ftp-proxy.nix
-    ./components/qemu-user-static.nix
-    ./components/route-chain.nix
-    ./components/web-switch.nix
-    ./components/wg-lantian.nix
-  ];
+  imports =
+    let
+      ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
+    in
+    (ls ./required-apps) ++ (ls ./required-components);
 
   nixpkgs.config.allowUnfree = true;
 
