@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, ... }:
+{ config, pkgs, ... }:
 
 {
   environment.persistence."/nix/persistent" = {

@@ -3,20 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-
-    ../../common/apps/acme-sh.nix
-    ../../common/apps/ansible.nix
-    ../../common/apps/babeld.nix
-    ../../common/apps/bird.nix
-    ../../common/apps/coredns.nix
-    ../../common/apps/ltnet.nix
-    ../../common/apps/nginx-proxy.nix
-    ../../common/apps/nginx.nix
-    ../../common/apps/powerdns-recursor.nix
-    ../../common/apps/shell.nix
-    ../../common/apps/tinc.nix
-    ../../common/apps/v2ray.nix
-    ../../common/apps/yggdrasil.nix
   ];
 
   boot.kernelParams = [ "console=ttyS0,115200" ];

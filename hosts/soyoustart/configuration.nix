@@ -4,27 +4,13 @@
   imports = [
     ./hardware-configuration.nix
 
-    ../../common/apps/acme-sh.nix
-    ../../common/apps/ansible.nix
-    ../../common/apps/babeld.nix
-    ../../common/apps/bird.nix
-    ../../common/apps/coredns.nix
-    ../../common/apps/ltnet.nix
-    ../../common/apps/nginx-proxy.nix
-    ../../common/apps/nginx.nix
-    ../../common/apps/powerdns-recursor.nix
-    ../../common/apps/shell.nix
-    ../../common/apps/tinc.nix
-    ../../common/apps/v2ray.nix
-    ../../common/apps/yggdrasil.nix
-
-    ../../common/apps/asf.nix
-    ../../common/apps/drone-ci.nix
-    ../../common/apps/hath.nix
-    ../../common/apps/nginx-ssltest.nix
-    ../../common/apps/resilio.nix
-    ../../common/apps/tg-bot-cleaner-bot.nix
-    ../../common/apps/xmrig.nix
+    ../../common/optional-apps/asf.nix
+    ../../common/optional-apps/drone-ci.nix
+    ../../common/optional-apps/hath.nix
+    ../../common/optional-apps/nginx-ssltest.nix
+    ../../common/optional-apps/resilio.nix
+    ../../common/optional-apps/tg-bot-cleaner-bot.nix
+    ../../common/optional-apps/xmrig.nix
   ];
 
   systemd.network.networks.eth0 = {

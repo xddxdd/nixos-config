@@ -1,7 +1,7 @@
 { config, pkgs, modules, ... }:
 
 let
-  LT = import ./helpers.nix {  inherit config pkgs; };
+  LT = import ../helpers.nix {  inherit config pkgs; };
 
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker

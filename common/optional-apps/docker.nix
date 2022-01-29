@@ -6,9 +6,9 @@ let
   vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
     configuration = {
       imports = [
-        ../components/qemu-user-static.nix
-        ../ssh-harden.nix
-        ../users.nix
+        ../required-components/qemu-user-static.nix
+        ../required-components/ssh-harden.nix
+        ../required-components/users.nix
       ];
 
       boot.kernelPackages = pkgs.linuxPackages_latest;
