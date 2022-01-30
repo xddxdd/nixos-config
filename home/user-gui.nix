@@ -26,6 +26,7 @@
   home.packages = with pkgs; [
     colmena
     inputs.agenix.packages."${system}".agenix
+    nvfetcher-bin
     rnix-lsp
   ];
 }
