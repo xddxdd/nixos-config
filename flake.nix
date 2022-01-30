@@ -2,7 +2,10 @@
   description = "Lan Tian's NixOS Flake";
 
   inputs = {
+    # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,26 +19,32 @@
       url = github:xddxdd/nur-packages;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     hath-nix.url = github:poscat0x04/hath-nix;
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, nixpkgs, nur, hath-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nur, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
-
-      # hostsList = [ "soyoustart" ];
       hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.attrNames hosts);
 
       stateVersion = "21.05";
 
-      overlays = [
+      overlaysFor = system: [
         (final: prev: {
           flakeInputs = inputs;
           nur = import nur {
@@ -55,28 +64,33 @@
             '';
           };
         })
-        hath-nix.overlay
+        inputs.hath-nix.overlay
+        inputs.nvfetcher.overlay
       ];
 
       systemFor = n: hosts."${n}".system or "x86_64-linux";
       hostnameFor = n: hosts."${n}".hostname or "${n}.lantian.pub";
       sshPortFor = n: hosts."${n}".sshPort or 2222;
 
-      modulesFor = n: [
-        ({
-          networking.hostName = n;
-          nixpkgs.overlays = overlays;
-          nixpkgs.system = systemFor n;
-          system.stateVersion = stateVersion;
-        })
-        inputs.agenix.nixosModules.age
-        ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
-        inputs.impermanence.nixosModules.impermanence
-        inputs.nixos-vscode-server.nixosModules.system
-        ./common/common.nix
-        (import ./common/home-manager.nix { inherit inputs overlays stateVersion; })
-        (./hosts + "/${n}/configuration.nix")
-      ];
+      modulesFor = n:
+        let
+          system = systemFor n;
+          overlays = overlaysFor system;
+        in
+        [
+          ({
+            networking.hostName = n;
+            nixpkgs = { inherit system overlays; };
+            system.stateVersion = stateVersion;
+          })
+          inputs.agenix.nixosModules.age
+          ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
+          inputs.impermanence.nixosModules.impermanence
+          inputs.nixos-vscode-server.nixosModules.system
+          ./common/common.nix
+          (import ./common/home-manager.nix { inherit inputs overlays stateVersion; })
+          (./hosts + "/${n}/configuration.nix")
+        ];
     in
     {
       nixosConfigurations = lib.genAttrs hostsList
@@ -92,7 +106,10 @@
           homeDirectory = "/home/${username}";
           inherit stateVersion;
           # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
+          configuration = import ./home/user-gui.nix {
+            inherit inputs stateVersion;
+            overlays = overlaysFor system;
+          };
         };
         root = inputs.home-manager.lib.homeManagerConfiguration rec {
           system = "x86_64-linux";
@@ -100,7 +117,10 @@
           homeDirectory = "/root";
           inherit stateVersion;
           # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
+          configuration = import ./home/user-gui.nix {
+            inherit inputs stateVersion;
+            overlays = overlaysFor system;
+          };
         };
       };
       lantian = self.homeConfigurations.lantian.activationPackage;
