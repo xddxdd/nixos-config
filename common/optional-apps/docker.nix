@@ -3,7 +3,7 @@
 let
   LT = import ../helpers.nix { inherit config pkgs; };
 
-  vmPackage = (import "${pkgs.flakeInputs.nixpkgs}/nixos/default.nix" {
+  vmPackage = (import "${pkgs.flake.nixpkgs}/nixos/default.nix" {
     configuration = {
       imports = [
         ../required-components/qemu-user-static.nix

@@ -328,7 +328,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur.repos.xddxdd.bird-lgproxy-go}/bin/proxy";
+      ExecStart = "${pkgs.bird-lgproxy-go}/bin/proxy";
 
       AmbientCapabilities = [ "CAP_NET_ADMIN" ];
       CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];

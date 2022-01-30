@@ -40,7 +40,7 @@ in
   services.nginx = {
     enable = true;
     enableReload = true;
-    package = pkgs.nur.repos.xddxdd.openresty-lantian;
+    package = pkgs.openresty-lantian;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1d";
     recommendedGzipSettings = false; # use my own

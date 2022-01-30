@@ -4,7 +4,7 @@
   environment.etc = {
     "nginx/lua/lantian_nginx.lua".text = ''
       local ffi       = require "ffi"
-      local ltnginx   = ffi.load("${pkgs.nur.repos.xddxdd.libltnginx}/lib/libltnginx.so")
+      local ltnginx   = ffi.load("${pkgs.libltnginx}/lib/libltnginx.so")
 
       ffi.cdef[[
         char* whois_ip_lookup(char* cidr);

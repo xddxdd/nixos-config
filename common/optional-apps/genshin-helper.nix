@@ -5,7 +5,7 @@
 
   systemd.services.genshin-helper = {
     serviceConfig.Type = "oneshot";
-    script = "${pkgs.nur.repos.xddxdd.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
+    script = "${pkgs.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
     serviceConfig = {
       EnvironmentFile = config.age.secrets.genshin-impact-cookies.path;
     };
