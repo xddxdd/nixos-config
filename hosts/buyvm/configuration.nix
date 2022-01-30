@@ -6,8 +6,6 @@
     ./hardware-configuration.nix
   ];
 
-  boot.enableContainers = pkgs.lib.mkForce false;
-
   systemd.network.networks.eth0 = {
     address = [
       "107.189.12.254/24"
