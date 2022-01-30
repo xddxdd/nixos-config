@@ -31,4 +31,6 @@ in
       (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
     ];
   };
+
+  systemd.services.prometheus.serviceConfig = LT.serviceHarden;
 }

@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../helpers.nix { inherit config pkgs; };
+in
 {
   services.filebeat = {
     enable = true;
@@ -32,6 +35,11 @@
         pattern = "beat";
       };
     };
+  };
+
+  systemd.services.filebeat.serviceConfig = LT.serviceHarden // {
+    ProcSubset = "all";
+    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
   };
 
   services.journald.extraConfig = ''

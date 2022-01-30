@@ -40,6 +40,12 @@ in
     group = config.services.nginx.group;
   };
 
+  systemd.services.fcgiwrap.serviceConfig = LT.serviceHarden // {
+    ReadWritePaths = [
+      "/var/www/lab.lantian.pub"
+    ];
+  };
+
   systemd.tmpfiles.rules = [
     "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.nur.repos.xddxdd.dngzwxdq}"
     "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.nur.repos.xddxdd.dnyjzsxj}"

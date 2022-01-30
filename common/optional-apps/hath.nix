@@ -21,7 +21,6 @@ in
       RestartSec = "3";
       ExecStart = "${pkgs.hath}/bin/hath --cache-dir=${hathCacheDir} --data-dir=${hathDataDir} --download-dir=${hathDownloadDir} --log-dir=${hathLogDir} --temp-dir=${hathTempDir}";
 
-      DynamicUser = false;
       MemoryDenyWriteExecute = false;
       RuntimeDirectory = "hath";
       StateDirectory = "hath";

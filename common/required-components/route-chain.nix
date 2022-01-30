@@ -1,5 +1,8 @@
 { pkgs, config, options, ... }:
 
+let
+  LT = import ../helpers.nix { inherit config pkgs; };
+in
 {
   options.services."route-chain" = {
     enable = pkgs.lib.mkOption {
@@ -9,7 +12,7 @@
     };
     routes = pkgs.lib.mkOption {
       type = pkgs.lib.types.listOf pkgs.lib.types.string;
-      default = [];
+      default = [ ];
       description = "Routes to be handled by route-chain.";
     };
   };
@@ -21,11 +24,26 @@
     unitConfig = {
       After = "network.target";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur.repos.xddxdd.route-chain}/bin/route-chain ${builtins.concatStringsSep " " config.services."route-chain".routes}";
+
+      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+      DynamicUser = true;
+
+      PrivateDevices = false;
+      ProtectClock = false;
+      ProtectControlGroups = false;
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
+
+      # Enable @resources
+      SystemCallFilter = [
+        "@system-service"
+        "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
+      ];
     };
   };
 }

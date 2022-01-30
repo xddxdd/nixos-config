@@ -16,6 +16,13 @@ in
     httpPass = "pass";
   };
 
+  systemd.services.resilio.serviceConfig = LT.serviceHarden // {
+    ReadWritePaths = [
+      "/nix/persistent/media"
+    ];
+    StateDirectory = "resilio-sync";
+  };
+
   systemd.tmpfiles.rules = [
     "d /nix/persistent/media 755 rslsync rslsync"
   ];

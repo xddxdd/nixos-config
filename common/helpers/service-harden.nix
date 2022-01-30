@@ -3,7 +3,6 @@
 pkgs.lib.mapAttrs (k: v: pkgs.lib.mkOptionDefault v) {
   AmbientCapabilities = "";
   CapabilityBoundingSet = "";
-  DynamicUser = true;
   LockPersonality = true;
   MemoryDenyWriteExecute = true;
   NoNewPrivileges = true;
