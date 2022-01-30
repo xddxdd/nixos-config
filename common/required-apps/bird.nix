@@ -332,7 +332,8 @@ in
 
       AmbientCapabilities = [ "CAP_NET_ADMIN" ];
       CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
-      DynamicUser = true;
+      Group = "bird2";
+      User = "bird2";
     };
   };
 }
