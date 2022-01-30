@@ -90,11 +90,11 @@ in
         ...
       '';
 
-    "fcitx5/rime/moegirl.dict.yaml".source = "${pkgs.nur.repos.xddxdd.rime-moegirl}/share/rime-data/moegirl.dict.yaml";
-    "fcitx5/rime/zhwiki.dict.yaml".source = "${pkgs.nur.repos.xddxdd.rime-zhwiki}/share/rime-data/zhwiki.dict.yaml";
+    "fcitx5/rime/moegirl.dict.yaml".source = "${pkgs.rime-moegirl}/share/rime-data/moegirl.dict.yaml";
+    "fcitx5/rime/zhwiki.dict.yaml".source = "${pkgs.rime-zhwiki}/share/rime-data/zhwiki.dict.yaml";
   } // (builtins.listToAttrs (builtins.map
     (name: pkgs.lib.nameValuePair "fcitx5/rime/${name}.dict.yaml" {
-      source = "${pkgs.nur.repos.xddxdd.rime-dict}/share/rime-data/${name}.dict.yaml";
+      source = "${pkgs.rime-dict}/share/rime-data/${name}.dict.yaml";
     })
     rime-dict-files));
 }

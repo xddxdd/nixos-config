@@ -54,7 +54,7 @@ in
 
       services.coredns = {
         enable = true;
-        package = pkgs.nur.repos.xddxdd.coredns;
+        package = pkgs.coredns;
         config = let
           dnssec = key: if key != null then ''
             dnssec {

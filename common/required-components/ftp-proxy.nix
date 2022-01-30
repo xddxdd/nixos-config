@@ -28,7 +28,7 @@ in
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur.repos.xddxdd.ftp-proxy}/bin/ftp.proxy -D 21 -m ${config.services."ftp-proxy".target}";
+      ExecStart = "${pkgs.ftp-proxy}/bin/ftp.proxy -D 21 -m ${config.services."ftp-proxy".target}";
 
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

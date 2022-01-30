@@ -28,7 +28,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur.repos.xddxdd.route-chain}/bin/route-chain ${builtins.concatStringsSep " " config.services."route-chain".routes}";
+      ExecStart = "${pkgs.route-chain}/bin/route-chain ${builtins.concatStringsSep " " config.services."route-chain".routes}";
 
       AmbientCapabilities = [ "CAP_NET_ADMIN" ];
       CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];

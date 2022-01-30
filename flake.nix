@@ -14,7 +14,7 @@
       url = "github:iosmanthus/nixos-vscode-server/add-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = github:nix-community/NUR;
+    # nur.url = github:nix-community/NUR;
     nur-xddxdd = {
       url = github:xddxdd/nur-packages;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,12 +46,7 @@
 
       overlaysFor = system: [
         (final: prev: {
-          flakeInputs = inputs;
-          nur = import nur {
-            nurpkgs = prev;
-            pkgs = prev;
-            repoOverrides = { xddxdd = import inputs.nur-xddxdd { pkgs = prev; }; };
-          };
+          flake = inputs;
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
@@ -64,6 +59,7 @@
             '';
           };
         })
+        (final: prev: inputs.nur-xddxdd.packages."${system}")
         inputs.hath-nix.overlay
         inputs.nvfetcher.overlay
       ];

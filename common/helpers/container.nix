@@ -40,7 +40,7 @@ pkgs.lib.recursiveUpdate outerConfig {
     networking.firewall.enable = false;
 
     imports = [
-      pkgs.flakeInputs.agenix.nixosModules.age
+      pkgs.flake.agenix.nixosModules.age
       (innerConfig { containerConfig = config; })
     ];
 

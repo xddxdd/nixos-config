@@ -107,7 +107,7 @@ in
         Restart = "always";
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-vault-env.path;
-        ExecStart = "${pkgs.nur.repos.xddxdd.drone-vault}/bin/drone-vault";
+        ExecStart = "${pkgs.drone-vault}/bin/drone-vault";
         DynamicUser = true;
       };
     };

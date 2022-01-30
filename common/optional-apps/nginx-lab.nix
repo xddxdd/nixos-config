@@ -47,8 +47,8 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.nur.repos.xddxdd.dngzwxdq}"
-    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.nur.repos.xddxdd.dnyjzsxj}"
-    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.nur.repos.xddxdd.glibc-debian-openvz-files}"
+    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.dngzwxdq}"
+    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.dnyjzsxj}"
+    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.glibc-debian-openvz-files}"
   ];
 }
