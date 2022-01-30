@@ -18,7 +18,6 @@ in
   };
 
   systemd.services.v2ray.serviceConfig = LT.serviceHarden // {
-    DynamicUser = false;
     User = "v2ray";
     Group = "v2ray";
   };

@@ -215,6 +215,7 @@ in
     serviceConfig = LT.serviceHarden // {
       Restart = "always";
       RestartSec = "3";
+      DynamicUser = true;
     };
   };
 }

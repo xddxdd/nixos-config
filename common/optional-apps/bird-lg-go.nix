@@ -42,6 +42,7 @@ in
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur.repos.xddxdd.bird-lg-go}/bin/frontend";
+      DynamicUser = true;
     };
   };
 

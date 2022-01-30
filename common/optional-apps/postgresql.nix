@@ -14,6 +14,8 @@ in
     compression = "zstd";
   };
 
+  systemd.services.postgresql.serviceConfig = LT.serviceHarden;
+
   services.nginx.virtualHosts."pga.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
     listen = LT.nginx.listenHTTPS;
     root = "/var/www/pga.lantian.pub";

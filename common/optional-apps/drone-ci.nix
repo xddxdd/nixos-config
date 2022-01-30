@@ -71,6 +71,7 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-env.path;
         ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+        DynamicUser = true;
       };
     };
     drone-runner-github = {
@@ -91,6 +92,7 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
         ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+        DynamicUser = true;
       };
     };
     drone-vault = {
@@ -106,6 +108,7 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-vault-env.path;
         ExecStart = "${pkgs.nur.repos.xddxdd.drone-vault}/bin/drone-vault";
+        DynamicUser = true;
       };
     };
   };

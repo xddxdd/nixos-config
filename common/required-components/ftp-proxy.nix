@@ -29,10 +29,10 @@ in
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur.repos.xddxdd.ftp-proxy}/bin/ftp.proxy -D 21 -m ${config.services."ftp-proxy".target}";
-      User = "nobody";
 
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      DynamicUser = true;
     };
   };
 }

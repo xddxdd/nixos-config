@@ -21,7 +21,6 @@ in
       RestartSec = "5s";
       WorkingDirectory = "/var/lib/tg-bot-cleaner-bot";
       StateDirectory = "tg-bot-cleaner-bot";
-      DynamicUser = false;
       User = "tg-bot-cleaner-bot";
       Group = "tg-bot-cleaner-bot";
     };
