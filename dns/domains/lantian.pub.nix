@@ -86,7 +86,7 @@ in
     domain = "lantian.pub";
     providers = [ "cloudflare" ];
     records = [
-      (common.apexRecords domain)
+      (common.apexGeoDNS domain)
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
