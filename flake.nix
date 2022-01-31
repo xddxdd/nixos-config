@@ -24,7 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    hath-nix.url = github:poscat0x04/hath-nix;
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +35,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nur, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
@@ -44,7 +43,7 @@
 
       stateVersion = "21.05";
 
-      overlaysFor = system: [
+      overlays = [
         (final: prev: {
           flake = inputs;
           rage = prev.stdenv.mkDerivation rec {
@@ -59,8 +58,7 @@
             '';
           };
         })
-        (final: prev: inputs.nur-xddxdd.packages."${system}")
-        inputs.hath-nix.overlay
+        inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlay
       ];
 
@@ -71,7 +69,6 @@
       modulesFor = n:
         let
           system = systemFor n;
-          overlays = overlaysFor system;
         in
         [
           ({
@@ -102,10 +99,7 @@
           homeDirectory = "/home/${username}";
           inherit stateVersion;
           # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix {
-            inherit inputs stateVersion;
-            overlays = overlaysFor system;
-          };
+          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
         };
         root = inputs.home-manager.lib.homeManagerConfiguration rec {
           system = "x86_64-linux";
@@ -113,10 +107,7 @@
           homeDirectory = "/root";
           inherit stateVersion;
           # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix {
-            inherit inputs stateVersion;
-            overlays = overlaysFor system;
-          };
+          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
         };
       };
       lantian = self.homeConfigurations.lantian.activationPackage;

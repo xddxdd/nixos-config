@@ -158,32 +158,19 @@
         "type": "github"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1643514854,
-        "narHash": "sha256-nkTASZVA0zDwuJqiQj8umrKNMze03ssu1jlyuxtfUSQ=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "f8f929d3310d72e12fe56fef563a338fe6791eb7",
-        "type": "github"
-      },
-      "original": {
-        "id": "nur",
-        "type": "indirect"
-      }
-    },
     "nur-xddxdd": {
       "inputs": {
+        "hath-nix": "hath-nix",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1643530194,
-        "narHash": "sha256-HB5tXKHUUmWd/5reI6jSXbMY4MiM7p4YuIQbJMaJMHU=",
+        "lastModified": 1643608138,
+        "narHash": "sha256-j0qh0FA75OyiaLziq+PmMbJjUVb1ZjtIyK3Id9zbZTI=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "c22b2c53bcc2ddaab0e0e30cd85ef62960314fc6",
+        "rev": "73fe71dfab804a4e720802e40d8b6435d6970b23",
         "type": "github"
       },
       "original": {
@@ -221,12 +208,10 @@
         "agenix": "agenix",
         "flake-utils": "flake-utils",
         "flake-utils-plus": "flake-utils-plus",
-        "hath-nix": "hath-nix",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",
-        "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher"
       }
