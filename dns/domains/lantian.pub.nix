@@ -36,6 +36,8 @@ let
     (CNAME { name = "gcore"; target = "cl-47f440a2.gcdn.co."; })
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
     (CNAME { name = "netlify"; target = "lantian.netlify.com."; })
+    (A { name = "oracle-lb"; address = "140.238.39.120"; })
+    (AAAA { name = "oracle-lb"; address = "2603:c021:8000:aaaa:c15d:d2e2:da2d:af58"; })
     (CNAME { name = "render"; target = "lantian1998.onrender.com."; })
 
     # Freshping & verification
