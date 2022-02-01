@@ -4,6 +4,8 @@ let
   LT = import ../helpers.nix {  inherit config pkgs; };
 
   fastcgiParams = ''
+    set $path_info $fastcgi_path_info;
+
     fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param  QUERY_STRING       $query_string;
     fastcgi_param  REQUEST_METHOD     $request_method;
@@ -12,6 +14,8 @@ let
 
     fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
     fastcgi_param  REQUEST_URI        $request_uri;
+    fastcgi_param  PATH_INFO          $path_info;
+    fastcgi_param  PATH_TRANSLATED    $document_root$path_info;
     fastcgi_param  DOCUMENT_URI       $document_uri;
     fastcgi_param  DOCUMENT_ROOT      $document_root;
     fastcgi_param  SERVER_PROTOCOL    $server_protocol;
@@ -106,7 +110,12 @@ rec {
       '' + locationProxyConf;
     };
 
-    "~ .*\.php(\/.*)*$".extraConfig = pkgs.lib.optionalString (config.lantian.enable-php) locationPHPConf;
+    "~ ^.+?\\.php(/.*)?$".extraConfig = pkgs.lib.optionalString (config.lantian.enable-php) locationPHPConf;
+
+    "~ /\\.(?!well-known).*".extraConfig = ''
+      access_log off;
+      return 403;
+    '';
   };
 
   locationAutoindexConf = ''
@@ -162,7 +171,7 @@ rec {
     fastcgi_index index.php;
     ${fastcgiParams}
     # PHP only, required if PHP was built with --enable-force-cgi-redirect
-    fastcgi_param  REDIRECT_STATUS    200;
+    fastcgi_param REDIRECT_STATUS 200;
   '';
 
   locationFcgiwrapConf = ''
