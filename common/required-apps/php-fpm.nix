@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  services.phpfpm = pkgs.lib.mkIf config.lantian.enable-php {
+  services.phpfpm = {
     phpOptions = ''
       engine = On
       short_open_tag = On
@@ -57,7 +57,7 @@
     ]);
 
     pools = {
-      www = {
+      www = pkgs.lib.mkIf config.lantian.enable-php {
         user = config.services.nginx.user;
         settings = {
           "listen.owner" = config.services.nginx.user;
