@@ -42,6 +42,12 @@ let
       chain NAT_PREROUTING {
         type nat hook prerouting priority -95; policy accept;
 
+        # network namespace coredns
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns}:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns}:${LT.portStr.DNS}
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
+
         # wg-lantian
         ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] LT.this) ''
           ip daddr ${LT.this.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2
