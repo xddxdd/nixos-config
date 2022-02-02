@@ -13,6 +13,7 @@ let
 
   ipbin = "${pkgs.iproute2}/bin/ip";
   ipns = "${ipbin} netns exec ns-${name} ${ipbin}";
+  sysctl = "${ipbin} netns exec ns-${name} ${pkgs.procps}/bin/sysctl";
 in
 rec {
   setup = {
@@ -22,28 +23,21 @@ rec {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        PrivateNetwork = true;
+
         ExecStartPre = [
           "-${ipbin} netns delete ns-${name}"
         ];
         ExecStart = [
-          "${pkgs.coreutils}/bin/touch /run/netns/ns-${name}"
-          "${pkgs.util-linux}/bin/mount --bind /proc/self/ns/net /run/netns/ns-${name}"
-        ];
-        ExecStopPost = [
-          "${ipbin} netns delete ns-${name}"
-        ];
-      };
-    };
-    "netns-setup-${name}" = {
-      wantedBy = [ "multi-user.target" "network-online.target" ];
-      after = [ "network.target" "netns-instance-${name}.service" ];
-      bindsTo = [ "netns-instance-${name}.service" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-
-        ExecStart = [
+          # Setup namespace
+          "${ipbin} netns add ns-${name}"
+          "${ipns} link set lo up"
+          # Disable auto generated IPv6 link local address
+          "${sysctl} -w net.ipv6.conf.default.autoconf=0"
+          "${sysctl} -w net.ipv6.conf.all.autoconf=0"
+          "${sysctl} -w net.ipv6.conf.default.accept_ra=0"
+          "${sysctl} -w net.ipv6.conf.all.accept_ra=0"
+          "${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1"
+          "${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1"
           # Setup veth pair
           "${ipbin} link add ns-${interface} type veth peer ni-${interface}"
           "${ipbin} link set ni-${interface} netns ns-${name}"
@@ -71,6 +65,7 @@ rec {
         ExecStopPost = [
           "${ipbin} link del ns-${interface}"
           "${ipns} link del dummy0"
+          "${ipbin} netns delete ns-${name}"
         ];
       };
     };
@@ -83,8 +78,9 @@ rec {
         Type = "forking";
         Restart = "on-failure";
         ExecStart = "${pkgs.bird2}/bin/bird -c ${birdConfig} -s /run/bird.${name}.ctl -u bird2 -g bird2";
-        ExecStop = "${pkgs.bird2}/bin/birdc down";
+        ExecStop = "${pkgs.bird2}/bin/birdc -s /run/bird.${name}.ctl down";
 
+        # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
         CapabilityBoundingSet = [
           "CAP_CHOWN"
           "CAP_FOWNER"
@@ -105,12 +101,13 @@ rec {
     });
   };
 
-  bind = pkgs.lib.recursiveUpdate {
-    after = [ "netns-setup-${name}.service" ];
-    unitConfig.JoinsNamespaceOf = "netns-instance-${name}.service";
-    bindsTo = [ "netns-instance-${name}.service" ];
-    serviceConfig.PrivateNetwork = true;
-  };
+  bind = attr: {
+    after = (attr.after or [ ]) ++ [ "netns-instance-${name}.service" ];
+    bindsTo = (attr.bindsTo or [ ]) ++ [ "netns-instance-${name}.service" ];
+    serviceConfig = attr.serviceConfig // {
+      NetworkNamespacePath = "/run/netns/ns-${name}";
+    };
+  } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ]);
 
   birdEnabled = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
   birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''
