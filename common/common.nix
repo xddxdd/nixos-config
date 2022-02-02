@@ -171,6 +171,11 @@ in
     };
   };
 
+  systemd.tmpfiles.rules = [
+    # Support network namespaces
+    "d /run/netns 755 root root"
+  ];
+
   virtualisation.podman = {
     enable = true;
     # Podman DNS conflicts with my authoritative resolver
