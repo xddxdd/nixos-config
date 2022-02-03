@@ -112,6 +112,22 @@
         peerIPv6LinkLocal = "fe80::aa:1111:33";
       };
     };
+    lutoma = {
+      remoteASN = 64719;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 64719;
+        remoteAddress = "us-nyc.dn42.lutoma.org";
+        remotePort = 40003;
+        wireguardPubkey = "F+vuNKwb8wbDiZsdHgZnYUG8y3YxnLB8Hm/KpwC7w2w=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.119.10";
+        peerIPv6LinkLocal = "fe80::1312";
+      };
+    };
     oneacl = {
       remoteASN = 4242422633;
       latencyMs = 10;
