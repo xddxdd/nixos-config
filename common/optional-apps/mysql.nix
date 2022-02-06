@@ -24,13 +24,19 @@ in
     };
   };
 
+  age.secrets.phpmyadmin-conf = {
+    file = ../../secrets/phpmyadmin-conf.age;
+    owner = "nginx";
+    group = "nginx";
+  };
+  systemd.tmpfiles.rules = [
+    "L+ /etc/phpmyadmin/config.inc.php - - - - ${config.age.secrets.phpmyadmin-conf.path}"
+  ];
   services.nginx.virtualHosts."pma.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
     listen = LT.nginx.listenHTTPS;
-    root = "/var/www/pma.lantian.pub";
+    root = "${pkgs.phpmyadmin}";
     locations = LT.nginx.addCommonLocationConf {
-      "/" = {
-        index = "index.php";
-      };
+      "/".index = "index.php";
     };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
