@@ -9,7 +9,6 @@ in
     ./hardware-configuration.nix
 
     ../../common/optional-apps/bird-lg-go.nix
-    ../../common/optional-apps/epicgames-claimer.nix
     ../../common/optional-apps/freshrss.nix
     ../../common/optional-apps/genshin-helper.nix
     ../../common/optional-apps/gitea.nix
