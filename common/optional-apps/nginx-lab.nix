@@ -50,5 +50,6 @@ in
     "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.dngzwxdq}"
     "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.dnyjzsxj}"
     "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.glibc-debian-openvz-files}"
+    "L+ ${labRoot}/nixos-lantian.iso - - - - ${pkgs.nixos-cd-lantian}/iso/nixos-lantian.iso"
   ];
 }
