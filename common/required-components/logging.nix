@@ -4,6 +4,8 @@ let
   LT = import ../helpers.nix { inherit config pkgs; };
 in
 {
+  age.secrets.filebeat-elasticsearch-pw.file = ../../secrets/filebeat-elasticsearch-pw.age;
+
   services.filebeat = {
     enable = true;
     package = pkgs.filebeat7;
@@ -40,6 +42,9 @@ in
 
   systemd.services.filebeat.serviceConfig = LT.serviceHarden // {
     ProcSubset = "all";
+    ReadOnlyPaths = [
+      "/run"
+    ];
     RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
   };
 

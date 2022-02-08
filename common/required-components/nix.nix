@@ -7,14 +7,6 @@
       experimental-features = nix-command flakes
     '';
 
-    binaryCaches = [
-      "https://xddxdd.cachix.org"
-    ];
-    binaryCachePublicKeys = [
-      "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
-    ];
-
-    autoOptimiseStore = true;
     gc = {
       automatic = true;
       options = "-d";
@@ -24,6 +16,15 @@
     generateRegistryFromInputs = true;
     linkInputs = true;
     optimise.automatic = true;
+    settings = {
+      auto-optimise-store = true;
+      substituters = [
+        "https://xddxdd.cachix.org"
+      ];
+      trusted-public-keys = [
+        "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+      ];
+    };
     sshServe = {
       enable = true;
       keys = [

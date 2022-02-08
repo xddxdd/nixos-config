@@ -11,7 +11,7 @@
     enable = true;
     forwardX11 = true;
     passwordAuthentication = false;
-    permitRootLogin = "prohibit-password";
+    permitRootLogin = pkgs.lib.mkForce "prohibit-password";
     ports = [ 2222 ];
     ciphers = [
       "chacha20-poly1305@openssh.com"

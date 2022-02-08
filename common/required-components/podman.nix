@@ -1,0 +1,17 @@
+{ config, pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    crun
+  ];
+
+  virtualisation.podman = {
+    enable = true;
+    # Podman DNS conflicts with my authoritative resolver
+    defaultNetwork.dnsname.enable = false;
+    dockerCompat = true;
+    dockerSocket.enable = true;
+  };
+
+  virtualisation.oci-containers.backend = "podman";
+}
