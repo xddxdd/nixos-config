@@ -131,5 +131,7 @@
       dnsRecords = import ./dns/toplevel.nix {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
       };
+
+      nixosCD = import ./common/nixos-cd.nix { inherit inputs overlays stateVersion; };
     };
 }
