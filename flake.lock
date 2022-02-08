@@ -121,6 +121,27 @@
         "type": "github"
       }
     },
+    "keycloak-lantian": {
+      "inputs": {
+        "nixpkgs": [
+          "nur-xddxdd",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1644308498,
+        "narHash": "sha256-D27yMxq7009XqR4ZcPFc64nTmblpSGWDDk9Nvbs4JIs=",
+        "ref": "master",
+        "rev": "f38f3a70eafb8ff939e4d4b6f0afcdefaab88207",
+        "revCount": 14,
+        "type": "git",
+        "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
+      }
+    },
     "nixos-vscode-server": {
       "inputs": {
         "nixpkgs": [
@@ -161,16 +182,17 @@
     "nur-xddxdd": {
       "inputs": {
         "hath-nix": "hath-nix",
+        "keycloak-lantian": "keycloak-lantian",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1644191646,
-        "narHash": "sha256-jvJmHJitgO+Vp4IwiG1y0IQnqtpwrG9+zt+2d1BXqr8=",
+        "lastModified": 1644308653,
+        "narHash": "sha256-j4em4bF9VluXqJYMWiH7xS0VmyldlXDRlisoBBSkp2M=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "b635cce153a0e788fb158fd26d1c9da4e34345c7",
+        "rev": "72b0e7f90ffc8b43c306af3dc7ad446d9f314e6e",
         "type": "github"
       },
       "original": {
