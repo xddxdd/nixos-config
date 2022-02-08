@@ -1,5 +1,4 @@
 { inputs
-, overlays
 , stateVersion
 , ...
 }:
@@ -22,9 +21,8 @@ in
       boot.initrd.includeDefaultModules = lib.mkForce true;
 
       isoImage.isoName = lib.mkForce "nixos-lantian.iso";
-
       lantian.enableGUI = true;
-      nixpkgs = { inherit system overlays; };
+      networking.useDHCP = lib.mkForce true;
       system.stateVersion = stateVersion;
 
       imports = [
@@ -32,7 +30,7 @@ in
         ./required-components/environment.nix
         ./required-components/networking.nix
         ./required-components/nix.nix
-        ./required-components/qemu-user-static.nix
+        ./required-components/no-docs.nix
         ./required-components/ssh-harden.nix
         ./required-components/users.nix
       ];
