@@ -24,7 +24,8 @@ This repository holds the configuration files for all my VPS nodes.
   - Files
     - `common.nix`: Common configuration applied to every node.
     - `helpers`: Collection of short cuts. Calls definitions in `helpers` subdirectory.
-    - `home-manager.nix`: Used to apply Home Manager config. It's used directly by `flake.nix` instead of being imported in `nixosConfiguration`, so it's not located in the `required-components` subdirectory..
+    - `home-manager.nix`: Used to apply Home Manager config. It's used directly by `flake.nix` instead of being imported in `nixosConfiguration`, so it's not located in the `required-components` subdirectory.
+    - `nixos-cd.nix`: Used to create my customized NixOS installation CD.
 - `dns`: My custom Nix-to-DNSControl code that generates a DNSControl `config.js` file, controlling DNS records for my domains.
   - Subdirectories
     - `common`: Common records shared across domains.
