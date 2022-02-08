@@ -1,12 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  documentation = {
-    enable = false;
-    dev.enable = false;
-    doc.enable = false;
-    info.enable = false;
-    man.enable = false;
-    nixos.enable = false;
+  documentation = let
+    forceNo = pkgs.lib.mkOverride 1 false;
+  in {
+    enable = forceNo;
+    dev.enable = forceNo;
+    doc.enable = forceNo;
+    info.enable = forceNo;
+    man.enable = forceNo;
+    nixos.enable = forceNo;
   };
 }

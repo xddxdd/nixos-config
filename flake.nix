@@ -42,7 +42,7 @@
       hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.attrNames hosts);
 
       stateVersion = "21.05";
-      nixosCD = import ./common/nixos-cd.nix { inherit inputs overlays stateVersion; };
+      nixosCD = import ./common/nixos-cd.nix { inherit inputs stateVersion; };
 
       overlays = [
         (final: prev: {
