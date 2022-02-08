@@ -42,10 +42,12 @@
       hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.attrNames hosts);
 
       stateVersion = "21.05";
+      nixosCD = import ./common/nixos-cd.nix { inherit inputs overlays stateVersion; };
 
       overlays = [
         (final: prev: {
           flake = inputs;
+          nixos-cd-lantian = nixosCD;
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
@@ -132,6 +134,6 @@
         pkgs = import nixpkgs { system = "x86_64-linux"; };
       };
 
-      nixosCD = import ./common/nixos-cd.nix { inherit inputs overlays stateVersion; };
+      inherit nixosCD;
     };
 }
