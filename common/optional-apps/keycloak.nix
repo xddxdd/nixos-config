@@ -20,6 +20,7 @@ in
     frontendUrl = "https://login.lantian.pub/auth";
     httpPort = LT.portStr.Keycloak.HTTP;
     httpsPort = LT.portStr.Keycloak.HTTPS;
+    themes.lantian = pkgs.keycloak-lantian;
 
     extraConfig = {
       "subsystem=datasources" = {
