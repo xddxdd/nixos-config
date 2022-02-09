@@ -13,7 +13,6 @@
     ./components/mpv.nix
     ./components/profile-sync-daemon.nix
     ./components/reset-touchpad.nix
-    ./components/wayland.nix
   ];
 
   services.auto-fix-vscode-server.enable = pkgs.lib.mkForce false;
