@@ -39,16 +39,12 @@ let
             "0.0.0.0:${LT.portStr.Docker}"
             "/run/docker.sock"
           ];
-        };
-      };
 
-      environment.etc."docker/daemon.json".text = builtins.toJSON {
-        "userland-proxy" = false;
-        "experimental" = true;
-        "default-runtime" = "crun";
-        "runtimes" = {
-          "crun" = {
-            "path" = "${pkgs.crun}/bin/crun";
+          daemon.settings = {
+            userland-proxy = false;
+            experimental = true;
+            default-runtime = "crun";
+            runtimes.crun.path = "${pkgs.crun}/bin/crun";
           };
         };
       };
