@@ -246,7 +246,7 @@ in
 
       filter sys_export_v4 {
         if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
-        if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
+        # if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
         if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
         if net ~ DN42_NET_IPv4 then krt_prefsrc = DN42_IPv4;
         if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = NEO_IPv4;
@@ -255,7 +255,7 @@ in
 
       filter sys_export_v6 {
         if (DN42_AS, LT_ROA_ERROR, LT_ROA_FAIL) ~ bgp_large_community then reject;
-        if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
+        # if (DN42_AS, LT_ROA_ERROR, LT_ROA_UNKNOWN) ~ bgp_large_community then reject;
         if (DN42_AS, LT_POLICY, LT_POLICY_DROP) ~ bgp_large_community then dest = RTD_BLACKHOLE;
         if net ~ DN42_NET_IPv6 then krt_prefsrc = DN42_IPv6;
         if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = NEO_IPv6;
