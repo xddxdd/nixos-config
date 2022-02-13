@@ -519,4 +519,41 @@
       IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
+  "lantian-hp-omen" = rec {
+    index = 100;
+    deploy = false;
+    tinc = {
+      rsa = ''
+        -----BEGIN RSA PUBLIC KEY-----
+        MIICCgKCAgEAxOB+wflX3yAs2tl0Otr/UktPI3atUwqmTeZ4Od3t1lf9wdvs2o+L
+        t0bIbwXmjtIjyVkz8M99Ls1YLOUYH4o3O7xc6GaUVaRpqd3xbWtYPQ3ifzH1EbSk
+        yImFxAHZL4YHYdh0/IF3gjlmXyxCgpe79EtJyiaHJxoQdJRqICsKiRSgQVU6Uh6n
+        FxqFfbQCih2xJkRfk9HhjncvnSdGmftVu/ul+NYwe6PaJwtrwAdvVovfJQSATy9Q
+        XW08x2YpL2kX85ZtpiRbDnsNV/a8lRdflmtrMBuROfwUVlxfvUtBjPl0WLFxyGKL
+        C7xFaLplxmgFD38HTxFGbWxXLGMfjQvgeQPYQg9KRfy754SsaFmyInkXsQYfHpPV
+        PGcRBUvWWvG3JBnF+rwbcLldUlfUm8qubmsHQpG8+/gE0wTHI5jX0kw1ypo8x+6O
+        VjmsCZ7EkEbZ9hvCvnluWZ7b4yWkoiS/Au8K+jbtXYkPN5l4y5ZlcVDBHrZ8uFag
+        f18jXf7JAjNulJqUTs3uES7u2c2LB3F23X869Dzxri5DZGo3c8PyxTDf8IYcmbQu
+        zGbS3TrywQLC4Vvsdw2zOS71OclXYUrMg7M3Vpa42FfBmhzPgLhnRZAERqQCYoPq
+        WSohEWQ7COfi18pRBxFQSmcYnJF+VzDalEklQURGWzgo64Q0ABYDPIsCAwEAAQ==
+        -----END RSA PUBLIC KEY-----
+      '';
+      ed25519 = "xjJv/DrAB/OgucjkxQ9wCtO7crW1GUXKBfJ19dXFWjB";
+    };
+    ltnet = rec {
+      IPv4 = "${IPv4Prefix}.1";
+      IPv4Prefix = "172.18.${builtins.toString index}";
+      IPv6 = "${IPv6Prefix}::1";
+      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.114";
+      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
+      region = 42;
+    };
+    neonetwork = rec {
+      IPv4 = "10.127.10.${builtins.toString index}";
+      IPv6 = "fd10:127:10:${builtins.toString index}::1";
+    };
+  };
 }
