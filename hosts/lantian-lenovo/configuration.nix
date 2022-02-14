@@ -1,8 +1,15 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   imports = [
+    ../../nixos/client.nix
+
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/resilio.nix
   ];
 
   environment.persistence."/nix/persistent" = {
@@ -21,9 +28,5 @@
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
-  lantian.nginx-proxy.enable = pkgs.lib.mkForce false;
-  services.coredns.enable = pkgs.lib.mkForce false;
-  services.knot.enable = pkgs.lib.mkForce false;
-  services.nginx.enable = pkgs.lib.mkForce false;
-  services.pdns-recursor.enable = pkgs.lib.mkForce false;
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }

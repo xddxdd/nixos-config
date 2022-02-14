@@ -142,27 +142,6 @@
         "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
       }
     },
-    "nixos-vscode-server": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1621309617,
-        "narHash": "sha256-wVraqnUMkDzVRoicKB9hwd16u53lls8gDN2Df6CmoK8=",
-        "owner": "iosmanthus",
-        "repo": "nixos-vscode-server",
-        "rev": "b7d30b8afb614ea9da284ca8e9687689ae8fcfbd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "iosmanthus",
-        "ref": "add-flake",
-        "repo": "nixos-vscode-server",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1644033087,
@@ -232,7 +211,6 @@
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher"

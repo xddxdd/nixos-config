@@ -10,10 +10,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-vscode-server = {
-      url = "github:iosmanthus/nixos-vscode-server/add-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # nur.url = github:nix-community/NUR;
     nur-xddxdd = {
       url = github:xddxdd/nur-packages;
@@ -72,16 +68,16 @@
         in
         [
           ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
             networking.hostName = n;
             nixpkgs = { inherit system overlays; };
             system.stateVersion = stateVersion;
           })
           inputs.agenix.nixosModules.age
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
+          inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
-          inputs.nixos-vscode-server.nixosModules.system
-          ./common/common.nix
-          (import ./common/home-manager.nix { inherit inputs overlays stateVersion; })
           (./hosts + "/${n}/configuration.nix")
         ];
     in
@@ -92,22 +88,24 @@
           modules = modulesFor n;
         });
 
-      homeConfigurations = {
-        lantian = inputs.home-manager.lib.homeManagerConfiguration rec {
+      homeConfigurations = let
+        cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
           system = "x86_64-linux";
+          inherit stateVersion;
+          configuration = { config, pkgs, lib, ... }: {
+            nixpkgs.overlays = overlays;
+            home.stateVersion = stateVersion;
+            imports = [ home/client.nix ];
+          };
+        } // attrs);
+      in {
+        lantian = cfg rec {
           username = "lantian";
           homeDirectory = "/home/${username}";
-          inherit stateVersion;
-          # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
         };
-        root = inputs.home-manager.lib.homeManagerConfiguration rec {
-          system = "x86_64-linux";
+        root = cfg rec {
           username = "root";
           homeDirectory = "/root";
-          inherit stateVersion;
-          # FIXME: Support remote deploy to GUI systems
-          configuration = import ./home/user-gui.nix { inherit inputs overlays stateVersion; };
         };
       };
       lantian = self.homeConfigurations.lantian.activationPackage;
@@ -128,10 +126,10 @@
           imports = modulesFor n;
         }));
 
-      dnsRecords = import ./dns/toplevel.nix {
+      dnsRecords = import ./dns {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
       };
 
-      nixosCD = import ./common/nixos-cd.nix { inherit inputs overlays stateVersion; };
+      nixosCD = import ./nixos/nixos-cd.nix { inherit inputs overlays stateVersion; };
     };
 }

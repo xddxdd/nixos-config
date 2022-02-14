@@ -5,7 +5,7 @@
 
 {
   imports = [
-    ../../common/system/general.nix
+    ../../nixos/hardware/general.nix
   ];
 
   boot.loader.grub = {

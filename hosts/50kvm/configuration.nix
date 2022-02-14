@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./dn42.nix
     ./hardware-configuration.nix
   ];
@@ -28,7 +29,7 @@ in
       Name = "henet";
     };
     tunnelConfig = {
-      Local = thisHost.public.IPv4;
+      Local = LT.this.public.IPv4;
       Remote = "216.218.221.6";
       TTL = 255;
     };
@@ -53,9 +54,5 @@ in
     ];
   };
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "japan" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "japan" ];
 }

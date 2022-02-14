@@ -1,0 +1,146 @@
+{ config, pkgs, ... }:
+
+let
+  LT = import ../../helpers {  inherit config pkgs; };
+
+  addConfLantianPub = pkgs.lib.recursiveUpdate {
+    locations = LT.nginx.addCommonLocationConf {
+      "/" = {
+        index = "index.html index.htm";
+      };
+      "/assets/".extraConfig = ''
+        expires 31536000;
+      '';
+      "/usr/" = {
+        tryFiles = "$uri$avif_suffix$webp_suffix $uri$avif_suffix $uri$webp_suffix $uri =404";
+        extraConfig = ''
+          expires 31536000;
+          add_header Vary "Accept";
+          add_header Cache-Control "public, no-transform";
+        '';
+      };
+      "= /favicon.ico".extraConfig = ''
+        expires 31536000;
+      '';
+      "/feed".tryFiles = "$uri /feed.xml /atom.xml =404";
+    };
+
+    root = "/var/www/lantian.pub";
+  };
+in
+{
+  services.nginx.virtualHosts = {
+    "localhost" = {
+      listen = [
+        { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
+        { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
+        { addr = "0.0.0.0"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
+        { addr = "[::]"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
+      ];
+
+      locations = {
+        "/".return = "301 https://$host$request_uri";
+        "= /.well-known/openid-configuration".extraConfig = ''
+          root ${../files/openid-configuration};
+          try_files /openid-configuration =404;
+        '';
+        "= /openid-configuration".extraConfig = ''
+          root ${../files/openid-configuration};
+          try_files /openid-configuration =404;
+        '';
+        "/generate_204".return = "204";
+      };
+
+      extraConfig = ''
+        access_log off;
+        ssl_reject_handshake on;
+        ssl_stapling off;
+      '';
+    };
+
+    "lantian.pub" = addConfLantianPub {
+      listen = LT.nginx.listenHTTPS;
+      serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
+      extraConfig = ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+
+        error_page 404 /404.html;
+      ''
+      + LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true;
+    };
+    "lantian.dn42" = addConfLantianPub {
+      listen = LT.nginx.listenHTTP;
+      extraConfig = ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+
+        error_page 404 /404.html;
+      ''
+      + LT.nginx.commonVhostConf false;
+    };
+    "lantian.neo" = addConfLantianPub {
+      listen = LT.nginx.listenHTTP;
+      extraConfig = ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+
+        error_page 404 /404.html;
+      ''
+      + LT.nginx.commonVhostConf false;
+    };
+
+    "www.lantian.pub" = {
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
+      globalRedirect = "lantian.pub";
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
+    };
+    "xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
+      serverAliases = [ "www.xuyh0120.win" ];
+      globalRedirect = "lantian.pub";
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true;
+    };
+    "lab.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
+      globalRedirect = "lab.lantian.pub";
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true;
+    };
+
+    "gopher.lantian.pub" = {
+      listen = LT.nginx.listenHTTPS
+        ++ LT.nginx.listenHTTP
+        ++ LT.nginx.listenPlain LT.port.Gopher
+        ++ LT.nginx.listenPlainProxyProtocol LT.port.GopherProxyProtocol;
+      root = "/var/www/lantian.pub";
+      serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
+
+      locations."/" = {
+        index = "gophermap";
+        extraConfig = ''
+          sub_filter "{{server_addr}}\t{{server_port}}" "$gopher_addr\t$server_port";
+          sub_filter_once off;
+          sub_filter_types '*';
+        '';
+      };
+
+      extraConfig = ''
+        error_page 404 /404.gopher;
+      ''
+      + LT.nginx.makeSSL "lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.listenProxyProtocol
+      + LT.nginx.noIndex;
+    };
+  };
+}

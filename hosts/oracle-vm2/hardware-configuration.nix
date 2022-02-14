@@ -5,7 +5,7 @@
 
 {
   imports = [
-    ../../common/system/qemu.nix
+    ../../nixos/hardware/qemu.nix
   ];
 
   boot.initrd.kernelModules = [ "nvme" ];

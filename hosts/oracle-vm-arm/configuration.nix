@@ -1,10 +1,15 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./hardware-configuration.nix
 
-    ../../common/optional-apps/resilio.nix
+    ../../nixos/optional-apps/resilio.nix
   ];
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
@@ -28,9 +33,5 @@
     ];
   };
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "japan" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "japan" ];
 }
