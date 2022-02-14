@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
 let
-  publicPeers = pkgs.lib.importJSON ./public-peers.json;
+  publicPeers = lib.importJSON ./public-peers.json;
 in
-regions: pkgs.lib.flatten (builtins.map (region: publicPeers."${region}") regions)
+regions: lib.flatten (builtins.map (region: publicPeers."${region}") regions)
