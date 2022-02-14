@@ -302,6 +302,13 @@ in
     '';
   };
 
+  systemd.tmpfiles.rules = [
+    "f /var/lib/bird/dn42/dn42_bird2_roa4.conf 644 root root - # placebo"
+    "f /var/lib/bird/dn42/dn42_bird2_roa6.conf 644 root root - # placebo"
+    "f /var/lib/bird/neonetwork/neonetwork_bird2_roa4.conf 644 root root - # placebo"
+    "f /var/lib/bird/neonetwork/neonetwork_bird2_roa6.conf 644 root root - # placebo"
+  ];
+
   services.prometheus.exporters = {
     bird = {
       enable = true;

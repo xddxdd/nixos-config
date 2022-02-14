@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, options, pkgs, ... }:
 
 let
   LT = import ../helpers.nix { inherit config pkgs; };
@@ -29,6 +29,7 @@ let
 
   netns = LT.netns {
     name = "nginx-proxy";
+    enable = config.lantian.nginx-proxy.enable;
     announcedIPv4 = [
       "172.22.76.108"
       "172.18.0.243"
@@ -42,8 +43,15 @@ let
   };
 in
 {
-  systemd.services = netns.setup // {
+  options.lantian.nginx-proxy.enable = pkgs.lib.mkOption {
+    type = pkgs.lib.types.bool;
+    default = true;
+    description = "Enable nginx-proxy service.";
+  };
+
+  config.systemd.services = netns.setup // {
     nginx-proxy = netns.bind {
+      enable = config.lantian.nginx-proxy.enable;
       wantedBy = [ "multi-user.target" ];
       serviceConfig = LT.serviceHarden // {
         ExecStart = "${pkgs.openresty-lantian}/bin/nginx -c ${nginxConfig}";
