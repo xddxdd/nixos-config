@@ -3,6 +3,7 @@
 # Inspired by https://cloudnull.io/2019/04/running-services-in-network-name-spaces-with-systemd/
 
 { name
+, enable ? true
 , announcedIPv4 ? [ ]
 , announcedIPv6 ? [ ]
 , birdBindTo ? [ ]
@@ -18,6 +19,7 @@ in
 rec {
   setup = {
     "netns-instance-${name}" = {
+      inherit enable;
       wantedBy = [ "multi-user.target" "network-online.target" ];
       after = [ "network.target" ];
       serviceConfig = {
@@ -70,7 +72,8 @@ rec {
       };
     };
 
-    "netns-bird-${name}" = pkgs.lib.mkIf birdEnabled (bind {
+    "netns-bird-${name}" = bind {
+      enable = enable && birdEnabled;
       description = "BIRD (in netns ${name})";
       wantedBy = [ "multi-user.target" ];
       bindsTo = birdBindTo;
@@ -98,16 +101,18 @@ rec {
         SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
         MemoryDenyWriteExecute = "yes";
       };
-    });
+    };
   };
 
-  bind = attr: {
-    after = (attr.after or [ ]) ++ [ "netns-instance-${name}.service" ];
-    bindsTo = (attr.bindsTo or [ ]) ++ [ "netns-instance-${name}.service" ];
-    serviceConfig = attr.serviceConfig // {
-      NetworkNamespacePath = "/run/netns/ns-${name}";
-    };
-  } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ]);
+  bind = attr:
+    if enable then
+      ({
+        after = (attr.after or [ ]) ++ [ "netns-instance-${name}.service" ];
+        bindsTo = (attr.bindsTo or [ ]) ++ [ "netns-instance-${name}.service" ];
+        serviceConfig = attr.serviceConfig // {
+          NetworkNamespacePath = "/run/netns/ns-${name}";
+        };
+      } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ])) else attr;
 
   birdEnabled = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
   birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''

@@ -5,6 +5,7 @@ let
 
   corednsNetns = LT.netns {
     name = "coredns";
+    enable = config.services.coredns.enable;
     announcedIPv4 = [
       "172.22.76.109"
       "172.18.0.254"
@@ -18,32 +19,34 @@ let
   };
   corednsKnotNetns = LT.netns {
     name = "coredns-knot";
+    enable = config.services.knot.enable;
     birdBindTo = [ "knot.service" ];
   };
 in
 {
-  age.secrets = builtins.listToAttrs (pkgs.lib.flatten (builtins.map
-    (n: [
-      {
-        name = "${n}.key";
-        value = {
+  age.secrets = pkgs.lib.mkIf (config.services.coredns.enable || config.services.knot.enable)
+    (builtins.listToAttrs (pkgs.lib.flatten (builtins.map
+      (n: [
+        {
           name = "${n}.key";
-          owner = "container";
-          group = "container";
-          file = ../../secrets/dnssec + "/${n}.key.age";
-        };
-      }
-      {
-        name = "${n}.private";
-        value = {
+          value = {
+            name = "${n}.key";
+            owner = "container";
+            group = "container";
+            file = ../../secrets/dnssec + "/${n}.key.age";
+          };
+        }
+        {
           name = "${n}.private";
-          owner = "container";
-          group = "container";
-          file = ../../secrets/dnssec + "/${n}.private.age";
-        };
-      }
-    ])
-    LT.dnssecKeys));
+          value = {
+            name = "${n}.private";
+            owner = "container";
+            group = "container";
+            file = ../../secrets/dnssec + "/${n}.private.age";
+          };
+        }
+      ])
+      LT.dnssecKeys)));
 
   services.coredns = {
     enable = true;
@@ -293,7 +296,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = pkgs.lib.mkIf (config.services.coredns.enable || config.services.knot.enable) [
     "d /var/lib/zones 755 container container"
   ];
 }
