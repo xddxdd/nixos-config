@@ -112,6 +112,10 @@
               homeDirectory = "/root";
             };
           };
+
+        dnsRecords = import ./dns {
+          pkgs = import nixpkgs { inherit system; };
+        };
       });
 
       colmena = {
@@ -128,10 +132,6 @@
 
           imports = modulesFor n;
         }));
-
-      dnsRecords = import ./dns {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-      };
 
       nixosCD = import ./nixos/nixos-cd.nix { inherit inputs overlays stateVersion; };
     };
