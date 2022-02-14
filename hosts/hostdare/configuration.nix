@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./dn42.nix
     ./hardware-configuration.nix
   ];
@@ -24,9 +29,5 @@
     ];
   };
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "united-states" "canada" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }

@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./hardware-configuration.nix
   ];
 
@@ -31,9 +36,5 @@
     name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   };
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "japan" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "japan" ];
 }

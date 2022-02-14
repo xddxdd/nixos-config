@@ -1,16 +1,21 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./hardware-configuration.nix
 
-    ../../common/optional-apps/asf.nix
-    ../../common/optional-apps/drone-ci.nix
-    ../../common/optional-apps/hath.nix
-    ../../common/optional-apps/nginx-ssltest.nix
-    ../../common/optional-apps/resilio.nix
-    ../../common/optional-apps/tg-bot-cleaner-bot.nix
-    ../../common/optional-apps/xmrig.nix
+    ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/drone-ci.nix
+    ../../nixos/optional-apps/hath.nix
+    ../../nixos/optional-apps/nginx-ssltest.nix
+    ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/tg-bot-cleaner-bot.nix
+    ../../nixos/optional-apps/xmrig.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -48,11 +53,7 @@
     extraOptions = [ "--thread-count" "2" ];
   };
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
 
   services.ftp-proxy = {
     enable = true;

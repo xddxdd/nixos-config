@@ -1,0 +1,24 @@
+{ config, pkgs, lib, ... }:
+
+let
+  LT = import ../helpers { inherit config pkgs; };
+  homeConfig = import ../home/server.nix {
+    inherit config pkgs;
+    lib = lib // { hm = pkgs.flake.home-manager.lib.hm; };
+  };
+in
+{
+  imports =
+    let
+      ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
+    in
+    [ ]
+    ++ (ls ./common-apps)
+    ++ (ls ./server-apps)
+    ++ (ls ./common-components)
+    ++ (ls ./server-components)
+  ;
+
+  home-manager.users.root = homeConfig;
+  home-manager.users.lantian = homeConfig;
+}

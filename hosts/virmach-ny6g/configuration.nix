@@ -1,25 +1,26 @@
 { config, pkgs, ... }:
 
 let
-  hosts = import ../../hosts.nix;
-  thisHost = builtins.getAttr config.networking.hostName hosts;
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [
+    ../../nixos/server.nix
+
     ./hardware-configuration.nix
 
-    ../../common/optional-apps/bird-lg-go.nix
-    ../../common/optional-apps/freshrss.nix
-    ../../common/optional-apps/genshin-helper.nix
-    ../../common/optional-apps/gitea.nix
-    ../../common/optional-apps/grafana.nix
-    ../../common/optional-apps/keycloak.nix
-    ../../common/optional-apps/nextcloud.nix
-    ../../common/optional-apps/nginx-lab.nix
-    ../../common/optional-apps/prometheus.nix
-    ../../common/optional-apps/quassel.nix
-    ../../common/optional-apps/resilio.nix
-    ../../common/optional-apps/vaultwarden.nix
+    ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/freshrss.nix
+    ../../nixos/optional-apps/genshin-helper.nix
+    ../../nixos/optional-apps/gitea.nix
+    ../../nixos/optional-apps/grafana.nix
+    ../../nixos/optional-apps/keycloak.nix
+    ../../nixos/optional-apps/nextcloud.nix
+    ../../nixos/optional-apps/nginx-lab.nix
+    ../../nixos/optional-apps/prometheus.nix
+    ../../nixos/optional-apps/quassel.nix
+    ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/vaultwarden.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -41,7 +42,7 @@ in
       MTUBytes = "1480";
     };
     tunnelConfig = {
-      Local = thisHost.public.IPv4;
+      Local = LT.this.public.IPv4;
       Remote = "209.51.161.14";
       TTL = 255;
     };
@@ -68,9 +69,5 @@ in
 
   lantian.enable-php = true;
 
-  services.yggdrasil.config.Peers =
-    let
-      publicPeers = import ../../common/helpers/yggdrasil/public-peers.nix { inherit pkgs; };
-    in
-    publicPeers [ "united-states" "canada" ];
+  services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }
