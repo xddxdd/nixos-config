@@ -20,9 +20,11 @@
       auto-optimise-store = true;
       substituters = [
         "https://xddxdd.cachix.org"
+        "https://colmena.cachix.org"
       ];
       trusted-public-keys = [
         "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
       ];
     };
     sshServe = {
