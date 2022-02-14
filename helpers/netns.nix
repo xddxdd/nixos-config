@@ -1,4 +1,12 @@
-{ config, pkgs, hosts, this, containerIP, serviceHarden, ... }:
+{ config
+, pkgs
+, lib
+, hosts
+, this
+, containerIP
+, serviceHarden
+, ...
+}:
 
 # Inspired by https://cloudnull.io/2019/04/running-services-in-network-name-spaces-with-systemd/
 
@@ -139,7 +147,7 @@ rec {
 
     protocol static {
       ipv4;
-  '' + (pkgs.lib.concatStrings (builtins.map
+  '' + (lib.concatStrings (builtins.map
     (ip: ''
       route ${ip}/32 unreachable;
     '')
@@ -148,7 +156,7 @@ rec {
 
     protocol static {
       ipv6;
-  '' + (pkgs.lib.concatStrings (builtins.map
+  '' + (lib.concatStrings (builtins.map
     (ip: ''
       route ${ip}/128 unreachable;
     '')

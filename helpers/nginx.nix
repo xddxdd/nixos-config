@@ -1,8 +1,13 @@
-{ config, pkgs, hosts, this, port, portStr, ... }:
+{ config
+, lib
+, hosts
+, this
+, port
+, portStr
+, ...
+}:
 
 let
-  LT = import ./. {  inherit config pkgs; };
-
   fastcgiParams = ''
     set $path_info $fastcgi_path_info;
 
@@ -39,7 +44,7 @@ in
 rec {
   makeSSL = acmeName:
     let
-      acmeHost = pkgs.lib.elemAt (pkgs.lib.splitString "_" acmeName) 0;
+      acmeHost = lib.elemAt (lib.splitString "_" acmeName) 0;
     in
     ''
       ssl_certificate /var/lib/acme.sh/${acmeName}/fullchain.cer;
@@ -62,7 +67,7 @@ rec {
     add_header Permissions-Policy 'interest-cohort=()';
 
     more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
-  '' + pkgs.lib.optionalString ssl ''
+  '' + lib.optionalString ssl ''
     add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
   '';
 
@@ -70,7 +75,7 @@ rec {
     add_header X-Robots-Tag 'noindex, nofollow';
   '';
 
-  addCommonLocationConf = pkgs.lib.recursiveUpdate {
+  addCommonLocationConf = lib.recursiveUpdate {
     "/generate_204".extraConfig = ''
       access_log off;
       return 204;
@@ -96,21 +101,21 @@ rec {
     };
 
     "/oauth2/" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
+      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
       extraConfig = ''
         proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
       '' + locationProxyConf;
     };
 
     "/oauth2/auth" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
+      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
       extraConfig = ''
         proxy_set_header Content-Length "";
         proxy_pass_request_body off;
       '' + locationProxyConf;
     };
 
-    "~ ^.+?\\.php(/.*)?$".extraConfig = pkgs.lib.optionalString (config.lantian.enable-php) locationPHPConf;
+    "~ ^.+?\\.php(/.*)?$".extraConfig = lib.optionalString (config.lantian.enable-php) locationPHPConf;
 
     "~ /\\.(?!well-known).*".extraConfig = ''
       access_log off;

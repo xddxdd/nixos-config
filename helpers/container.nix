@@ -1,4 +1,4 @@
-{ config, pkgs, hosts, this, containerIP, ... }:
+{ config, pkgs, lib, hosts, this, containerIP, ... }:
 
 let
   hostConfig = config;
@@ -13,7 +13,7 @@ in
 let
   thisIP = containerIP."${name}";
 in
-pkgs.lib.recursiveUpdate outerConfig {
+lib.recursiveUpdate outerConfig {
   autoStart = true;
   ephemeral = true;
   additionalCapabilities = [ "CAP_NET_ADMIN" ];
@@ -71,7 +71,7 @@ pkgs.lib.recursiveUpdate outerConfig {
 
         protocol static {
           ipv4;
-      '' + (pkgs.lib.concatStrings (builtins.map
+      '' + (lib.concatStrings (builtins.map
         (ip: ''
           route ${ip}/32 unreachable;
         '')
@@ -80,7 +80,7 @@ pkgs.lib.recursiveUpdate outerConfig {
 
         protocol static {
           ipv6;
-      '' + (pkgs.lib.concatStrings (builtins.map
+      '' + (lib.concatStrings (builtins.map
         (ip: ''
           route ${ip}/128 unreachable;
         '')
