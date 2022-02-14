@@ -449,6 +449,22 @@
         peerIPv6LinkLocal = "fe80::3770";
       };
     };
+    spf = {
+      remoteASN = 4242421964;
+      latencyMs = 15;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21964;
+        remoteAddress = "nl1.dn42.southparkfan.org";
+        remotePort = 51835;
+        wireguardPubkey = "OBpyD/rruK4pOCgRVrWVoexBNHZadtn4qwPmrEjt0gY=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.24.33";
+        peerIPv6LinkLocal = "fe80::ade1";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 6;
