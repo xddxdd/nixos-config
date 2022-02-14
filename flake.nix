@@ -31,7 +31,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
@@ -80,6 +80,8 @@
           inputs.impermanence.nixosModules.impermanence
           (./hosts + "/${n}/configuration.nix")
         ];
+
+      eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
     {
       nixosConfigurations = lib.genAttrs hostsList
@@ -88,28 +90,29 @@
           modules = modulesFor n;
         });
 
-      homeConfigurations = let
-        cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
-          system = "x86_64-linux";
-          inherit stateVersion;
-          configuration = { config, pkgs, lib, ... }: {
-            nixpkgs.overlays = overlays;
-            home.stateVersion = stateVersion;
-            imports = [ home/client.nix ];
+      packages = eachSystem (system: {
+        homeConfigurations =
+          let
+            cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
+              inherit stateVersion system;
+              configuration = { config, pkgs, lib, ... }: {
+                nixpkgs.overlays = overlays;
+                home.stateVersion = stateVersion;
+                imports = [ home/client.nix ];
+              };
+            } // attrs);
+          in
+          {
+            lantian = cfg rec {
+              username = "lantian";
+              homeDirectory = "/home/${username}";
+            };
+            root = cfg rec {
+              username = "root";
+              homeDirectory = "/root";
+            };
           };
-        } // attrs);
-      in {
-        lantian = cfg rec {
-          username = "lantian";
-          homeDirectory = "/home/${username}";
-        };
-        root = cfg rec {
-          username = "root";
-          homeDirectory = "/root";
-        };
-      };
-      lantian = self.homeConfigurations.lantian.activationPackage;
-      root = self.homeConfigurations.root.activationPackage;
+      });
 
       colmena = {
         meta.nixpkgs = import nixpkgs {
