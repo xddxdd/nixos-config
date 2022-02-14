@@ -6,6 +6,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +59,7 @@
             '';
           };
         })
+        inputs.colmena.overlay
         inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlay
       ];
@@ -119,19 +125,17 @@
       });
 
       colmena = {
-        meta.nixpkgs = import nixpkgs {
-          system = "x86_64-linux";
+        meta.nixpkgs = { inherit lib; };
+        meta.nodeNixpkgs = lib.genAttrs hostsList (n: import nixpkgs { system = systemFor n; });
+      } // (lib.genAttrs hostsList (n: {
+        deployment = {
+          targetHost = hostnameFor n;
+          targetPort = sshPortFor n;
+          targetUser = "root";
         };
-      } // (lib.genAttrs hostsList
-        (n: {
-          deployment = {
-            targetHost = hostnameFor n;
-            targetPort = sshPortFor n;
-            targetUser = "root";
-          };
 
-          imports = modulesFor n;
-        }));
+        imports = modulesFor n;
+      }));
 
       nixosCD = import ./nixos/nixos-cd.nix { inherit inputs overlays stateVersion; };
     };
