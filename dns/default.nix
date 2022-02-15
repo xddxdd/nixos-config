@@ -30,6 +30,9 @@ let
   };
 in
 dns.eval {
+  registrars = {
+    doh = "DNSOVERHTTPS";
+  };
   providers = {
     bind = "BIND";
     cloudflare = "CLOUDFLAREAPI";

@@ -3,6 +3,7 @@
 [
   (rec {
     domain = "lantian.eu.org";
+    registrar = "doh";
     providers = [ "bind" "desec" ];
     records = [
       (common.apexRecords domain)

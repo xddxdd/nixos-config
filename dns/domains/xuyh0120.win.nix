@@ -14,6 +14,7 @@ in
 [
   (rec {
     domain = "xuyh0120.win";
+    registrar = "doh";
     providers = [ "cloudflare" ];
     records = [
       (common.apexGeoDNS domain)

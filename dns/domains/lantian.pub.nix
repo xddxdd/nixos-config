@@ -86,6 +86,7 @@ in
 [
   (rec {
     domain = "lantian.pub";
+    registrar = "doh";
     providers = [ "cloudflare" ];
     records = [
       (common.apexGeoDNS domain)
