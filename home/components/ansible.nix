@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  roles = import ../../helpers/roles.nix;
-  hosts = import ../../hosts.nix;
-  hostsList = builtins.filter (k: (hosts."${k}".role or roles.server) == roles.server) (pkgs.lib.attrNames hosts);
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   xdg.configFile."ansible/ansible.cfg".text = ''
@@ -20,7 +18,7 @@ in
 
   xdg.configFile."ansible/hosts".text = pkgs.lib.concatStringsSep
     "\n"
-    ([ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") hostsList));
+    ([ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (pkgs.lib.attrNames LT.serverHosts)));
 
   home.sessionVariables.ANSIBLE_CONFIG = "${config.home.homeDirectory}/.config/ansible/ansible.cfg";
 }

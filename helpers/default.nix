@@ -9,6 +9,8 @@ let
     hosts = import ../hosts.nix;
     this = builtins.getAttr config.networking.hostName hosts;
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
+    serverHosts = lib.filterAttrs (n: v: (v.role or roles.server) == roles.server) hosts;
+    nixosHosts = lib.filterAttrs (n: v: (v.role or roles.server) != roles.non-nixos) hosts;
 
     containerIP = import ./container-ip.nix;
     dnssecKeys = import ./dnssec-keys.nix;
