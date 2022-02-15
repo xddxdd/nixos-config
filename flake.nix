@@ -40,7 +40,8 @@
     let
       lib = nixpkgs.lib;
       hosts = import ./hosts.nix;
-      hostsList = builtins.filter (k: hosts."${k}".deploy or true) (lib.attrNames hosts);
+      roles = import helpers/roles.nix;
+      hostsList = builtins.filter (k: (hosts."${k}".role or roles.server) == roles.server or true) (lib.attrNames hosts);
 
       stateVersion = "21.05";
 

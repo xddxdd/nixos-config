@@ -14,6 +14,7 @@ let
     dnssecKeys = import ./dnssec-keys.nix;
     port = import ./port.nix;
     portStr = lib.mapAttrsRecursive (k: v: builtins.toString v) port;
+    roles = import ./roles.nix;
     serviceHarden = import ./service-harden.nix { inherit lib; };
   };
   callHelper = f: lib.callPackageWith

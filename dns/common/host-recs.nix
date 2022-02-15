@@ -2,6 +2,8 @@
 
 with dns;
 let
+  roles = import ../../helpers/roles.nix;
+
   replacedHosts = {
     gigsgigscloud = hosts."50kvm";
     oneprovider = hosts."soyoustart";
@@ -62,7 +64,7 @@ in
   ;
 
   TXT = domain: forEachActiveHost
-    (n: v: pkgs.lib.optionals (v.deploy or true) [
+    (n: v: pkgs.lib.optionals ((v.role or roles.server) == roles.server) [
       (TXT { name = "hosts.${domain}."; contents = "${n}.${domain}"; })
     ])
   ;
@@ -85,7 +87,7 @@ in
 
   DN42 = domain: forEachHost
     (n: v: (
-      pkgs.lib.optionals (v.deploy or true) (
+      pkgs.lib.optionals ((v.role or roles.server) == roles.server) (
         (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; })
         # A record
         ++ pkgs.lib.optionals (builtins.hasAttr "IPv4" v.dn42) [
