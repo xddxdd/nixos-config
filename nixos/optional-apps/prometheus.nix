@@ -10,7 +10,7 @@ let
         targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
         labels.instance = n;
       })
-      LT.hosts;
+      LT.serverHosts;
   };
 in
 {
