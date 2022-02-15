@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 
 let
+  roles = import ../../helpers/roles.nix;
   hosts = import ../../hosts.nix;
-  hostsList = builtins.filter (k: hosts."${k}".deploy or true) (pkgs.lib.attrNames hosts);
+  hostsList = builtins.filter (k: (hosts."${k}".role or roles.server) == roles.server) (pkgs.lib.attrNames hosts);
 in
 {
   xdg.configFile."ansible/ansible.cfg".text = ''
