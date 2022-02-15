@@ -3,6 +3,7 @@
 [
   (rec {
     domain = "lantian.pp.ua";
+    registrar = "doh";
     providers = [ "henet" "desec" ];
     records = [
       (common.apexRecords domain)
@@ -14,6 +15,7 @@
 
   (rec {
     domain = "ltn.pp.ua";
+    registrar = "doh";
     providers = [ "henet" "desec" ];
     records = [
       (common.apexRecords domain)
@@ -25,6 +27,7 @@
 
   (rec {
     domain = "xuyh0120.pp.ua";
+    registrar = "doh";
     providers = [ "henet" "desec" ];
     records = [
       (common.apexRecords domain)
