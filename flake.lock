@@ -45,6 +45,27 @@
         "type": "github"
       }
     },
+    "dwarffs": {
+      "inputs": {
+        "nix": "nix",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1643373830,
+        "narHash": "sha256-hlrpf0ss/LeiDTdcZInH1NlHUrxudDSrvuKyLThxGn0=",
+        "owner": "edolstra",
+        "repo": "dwarffs",
+        "rev": "69d73417d83ebeb7711912e33515d87049b39de0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "dwarffs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -183,7 +204,72 @@
         "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
       }
     },
+    "lowdown-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633514407,
+        "narHash": "sha256-Dw32tiMjdK9t3ETl5fzGrutQTzh2rufgZV4A/BbxuD4=",
+        "owner": "kristapsdz",
+        "repo": "lowdown",
+        "rev": "d2c2b44ff6c27b936ec27358a2653caaef8f73b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kristapsdz",
+        "repo": "lowdown",
+        "type": "github"
+      }
+    },
+    "nix": {
+      "inputs": {
+        "lowdown-src": "lowdown-src",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-regression": "nixpkgs-regression"
+      },
+      "locked": {
+        "lastModified": 1643311091,
+        "narHash": "sha256-gbhgy/rDn4Pbr5MqoOoMOeqbdcmA4GBojw3+4jR061w=",
+        "owner": "NixOS",
+        "repo": "nix",
+        "rev": "f05fefcd0306a8d24f42da52b1e8ea49e4b4c8d0",
+        "type": "github"
+      },
+      "original": {
+        "id": "nix",
+        "type": "indirect"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1632864508,
+        "narHash": "sha256-d127FIvGR41XbVRDPVvozUPQ/uRHbHwvfyKHwEt5xFM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "82891b5e2c2359d7e58d08849e4c89511ab94234",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-21.05-small",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-regression": {
+      "locked": {
+        "lastModified": 1643052045,
+        "narHash": "sha256-uGJ0VXIhWKGXxkeNnq4TvV3CIOkUJ3PAoLZ3HMzNVMw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1644033087,
         "narHash": "sha256-beskas17YPhrcnanzywake9/z+k+xOWmavW24YUN8ng=",
@@ -249,11 +335,12 @@
       "inputs": {
         "agenix": "agenix",
         "colmena": "colmena",
+        "dwarffs": "dwarffs",
         "flake-utils": "flake-utils",
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher"
       }
