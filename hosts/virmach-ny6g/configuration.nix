@@ -10,7 +10,6 @@ in
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/bird-lg-go.nix
-    ../../nixos/optional-apps/freshrss.nix
     ../../nixos/optional-apps/genshin-helper.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/grafana.nix
