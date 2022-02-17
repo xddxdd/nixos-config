@@ -11,6 +11,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+    dwarffs = {
+      url = "github:edolstra/dwarffs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,6 +86,7 @@
             system.stateVersion = stateVersion;
           })
           inputs.agenix.nixosModules.age
+          inputs.dwarffs.nixosModules.dwarffs
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
