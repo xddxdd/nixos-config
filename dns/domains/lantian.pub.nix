@@ -70,7 +70,6 @@ let
     (CNAME { name = "resilio-oracle-vm-arm"; target = "oracle-vm-arm"; cloudflare = true; })
     (CNAME { name = "resilio-soyoustart"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "resilio-virmach-ny6g"; target = "virmach-ny6g"; cloudflare = true; })
-    (CNAME { name = "rss"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "www"; target = "@"; cloudflare = true; })
