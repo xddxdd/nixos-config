@@ -10,23 +10,30 @@ in
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/x11vnc.nix
   ];
 
-  environment.persistence."/nix/persistent" = {
-    directories = [
-      "/etc/NetworkManager/system-connections"
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    aria
+    colmena
+    discord
+    firefox
+    google-chrome
+    mpv
+    nixos-cn.netease-cloud-music
+    rnix-lsp
+    tdesktop
+    thunderbird
+    tilix
+    vscode
+    wpsoffice
+    zoom-us
+  ];
 
-  networking.networkmanager = {
-    enable = true;
-    unmanaged = [ "interface-name:*,except:interface-name:eth*,except:interface-name:wlan*,except:interface-name:nm-*" ];
-  };
+  programs.steam.enable = true;
 
-  # Disable suspend on lid close
-  services.upower.ignoreLid = true;
-  services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchDocked = "ignore";
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }

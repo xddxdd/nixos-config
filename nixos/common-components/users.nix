@@ -13,6 +13,7 @@
     };
     lantian = {
       isNormalUser = true;
+      description = "Lan Tian";
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
       uid = 1000;
       hashedPassword = "***REMOVED***";
