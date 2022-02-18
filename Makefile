@@ -7,10 +7,13 @@ verbose: FORCE
 home: FORCE
 	home-manager switch --flake . -b backup
 
+nvfetcher: FORCE
+	nvfetcher -c nvfetcher.toml -o helpers/_sources
+
 update: FORCE
 	nix flake update
 
 update-nur: FORCE
-	nix flake lock --update-input nur --update-input nur-xddxdd
+	nix flake lock --update-input nur-xddxdd
 
 FORCE: ;

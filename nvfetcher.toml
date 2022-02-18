@@ -1,0 +1,28 @@
+
+[ulauncher-albert-calculate-anything]
+src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
+fetch.github = "tchar/ulauncher-albert-calculate-anything"
+
+[ulauncher-colorconverter]
+src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
+fetch.github = "sergius02/ulauncher-colorconverter"
+
+[ulauncher-emoji]
+src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
+fetch.github = "Ulauncher/ulauncher-emoji"
+
+[ulauncher-meme-my-text]
+src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
+fetch.github = "RNairn01/ulauncher-meme-my-text"
+
+[ulauncher-tldr]
+src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
+fetch.github = "dhelmr/ulauncher-tldr"
+
+[ulauncher-virtualbox]
+src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
+fetch.github = "luispabon/ulauncher-virtualbox"
+
+[ulauncher-vscode-recent]
+src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
+fetch.github = "plibither8/ulauncher-vscode-recent"
