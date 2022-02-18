@@ -14,7 +14,9 @@ in
     in
     [ ]
     ++ (ls ./common-apps)
+    ++ (ls ./client-apps)
     ++ (ls ./common-components)
+    ++ (ls ./client-components)
   ;
 
   home-manager.users.root = homeConfig;

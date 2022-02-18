@@ -19,6 +19,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-cn = {
+      url = "github:nixos-cn/flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
+    };
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nur.url = github:nix-community/NUR;
     nur-xddxdd = {
       url = github:xddxdd/nur-packages;
@@ -90,6 +99,8 @@
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
+          inputs.nix-ld.nixosModules.nix-ld
+          inputs.nixos-cn.nixosModules.nixos-cn
           (./hosts + "/${n}/configuration.nix")
         ];
 
@@ -110,7 +121,7 @@
               configuration = { config, pkgs, lib, ... }: {
                 nixpkgs.overlays = overlays;
                 home.stateVersion = stateVersion;
-                imports = [ home/client.nix ];
+                imports = [ home/non-nixos.nix ];
               };
             } // attrs);
           in

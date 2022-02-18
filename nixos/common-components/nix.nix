@@ -21,10 +21,12 @@
       substituters = [
         "https://xddxdd.cachix.org"
         "https://colmena.cachix.org"
+        "https://nixos-cn.cachix.org"
       ];
       trusted-public-keys = [
         "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
+        "nixos-cn.cachix.org-1:L0jEaL6w7kwQOPlLoCR3ADx+E3Q8SEFEcB9Jaibl0Xg="
       ];
     };
     sshServe = {

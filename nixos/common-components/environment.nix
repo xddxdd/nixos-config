@@ -7,6 +7,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.homeBinInPath = true;
+  environment.localBinInPath = true;
   environment.variables.SYSTEMD_PAGER = "";
   environment.systemPackages = with pkgs; [
     dig
