@@ -14,6 +14,7 @@
     ./components/profile-sync-daemon.nix
     ./components/reset-touchpad.nix
     ./components/ulauncher.nix
+    ./components/ulauncher-extensions.nix
   ];
 
   programs.git.signing = {

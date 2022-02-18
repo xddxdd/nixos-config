@@ -18,6 +18,7 @@ let
     portStr = lib.mapAttrsRecursive (k: v: builtins.toString v) port;
     roles = import ./roles.nix;
     serviceHarden = import ./service-harden.nix { inherit lib; };
+    sources = pkgs.callPackage _sources/generated.nix { };
   };
   callHelper = f: lib.callPackageWith
     (pkgs // args // { inherit config; })

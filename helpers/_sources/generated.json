@@ -1,0 +1,142 @@
+{
+    "ulauncher-tldr": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-tldr",
+        "src": {
+            "deepClone": false,
+            "owner": "dhelmr",
+            "name": null,
+            "repo": "ulauncher-tldr",
+            "type": "github",
+            "sha256": "sha256-NRNRhxzjzw2RTIrU8RZMMYlJQ7m+KC4PxpscJvpL2A8=",
+            "rev": "2ad5d29963db649775f68a7815af18509f4c287f",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "2ad5d29963db649775f68a7815af18509f4c287f",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-colorconverter": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-colorconverter",
+        "src": {
+            "deepClone": false,
+            "owner": "sergius02",
+            "name": null,
+            "repo": "ulauncher-colorconverter",
+            "type": "github",
+            "sha256": "sha256-UfRU7BpQUj26THzE8kYLIRUfe7voGvAcGDBTsl+yCwU=",
+            "rev": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-albert-calculate-anything": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-albert-calculate-anything",
+        "src": {
+            "deepClone": false,
+            "owner": "tchar",
+            "name": null,
+            "repo": "ulauncher-albert-calculate-anything",
+            "type": "github",
+            "sha256": "sha256-qpnU7yjRPqEdu8HFncACmofxOFOFENazCp3Cuw0/HE4=",
+            "rev": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-virtualbox": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-virtualbox",
+        "src": {
+            "deepClone": false,
+            "owner": "luispabon",
+            "name": null,
+            "repo": "ulauncher-virtualbox",
+            "type": "github",
+            "sha256": "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=",
+            "rev": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-vscode-recent": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-vscode-recent",
+        "src": {
+            "deepClone": false,
+            "owner": "plibither8",
+            "name": null,
+            "repo": "ulauncher-vscode-recent",
+            "type": "github",
+            "sha256": "sha256-56IsReaL/M13z6tpLK6hqEGn2qFJqJwjNfvuXNjSncY=",
+            "rev": "75b5ee36526a751a310af775cb1de8405bf81af7",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "75b5ee36526a751a310af775cb1de8405bf81af7",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-meme-my-text": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-meme-my-text",
+        "src": {
+            "deepClone": false,
+            "owner": "RNairn01",
+            "name": null,
+            "repo": "ulauncher-meme-my-text",
+            "type": "github",
+            "sha256": "sha256-vIWIl2qOWYVrCLhGoDXH4xTfhc+GhE9cVFuV1qjYaH0=",
+            "rev": "5d62830a7a92983a731e15645831f53d48dad913",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "5d62830a7a92983a731e15645831f53d48dad913",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "ulauncher-emoji": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "ulauncher-emoji",
+        "src": {
+            "deepClone": false,
+            "owner": "Ulauncher",
+            "name": null,
+            "repo": "ulauncher-emoji",
+            "type": "github",
+            "sha256": "sha256-VIWmv+vFByYS3VRuXqWOOORRu+zson+xOYg7havYM14=",
+            "rev": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    }
+}
