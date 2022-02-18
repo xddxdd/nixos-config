@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   systemd.services.x11vnc = {
     description = "X11VNC";
@@ -13,7 +16,8 @@
     };
     script = ''
       ${pkgs.x11vnc}/bin/x11vnc \
-        -listen localhost \
+        -listen ${LT.this.ltnet.IPv4} \
+        -6 -listen6 ${LT.this.ltnet.IPv6} \
         -forever \
         -nopw \
         -rfbport 5900 \
