@@ -15,6 +15,7 @@
     ./components/reset-touchpad.nix
     ./components/ulauncher.nix
     ./components/ulauncher-extensions.nix
+    ./components/xdg-user-dirs.nix
   ];
 
   programs.git.signing = {
