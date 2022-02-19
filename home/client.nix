@@ -1,7 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  LT = import ../helpers { inherit config pkgs; };
+in
 {
-  imports = [
-    ./non-nixos.nix
-  ];
+  imports =
+    let
+      ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
+    in
+    [ ]
+    ++ (ls ./common-apps)
+    # ++ (ls ./client-apps)
+    ++ (ls ./gui-apps)
+  ;
 }

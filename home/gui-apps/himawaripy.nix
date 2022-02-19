@@ -17,6 +17,7 @@ in {
     Service = {
       Type = "oneshot";
       ExecStart = "${himawaripy}/bin/himawaripy --auto-offset";
+      Environment = "PATH=/run/current-system/sw/bin:/usr/local/sbin:/usr/local/bin:/usr/bin";
     };
   };
 
