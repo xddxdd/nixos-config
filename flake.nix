@@ -104,6 +104,8 @@
           inputs.impermanence.nixosModules.impermanence
           inputs.nixos-cn.nixosModules.nixos-cn
           (./hosts + "/${n}/configuration.nix")
+        ] ++ lib.optionals (system == "x86_64-linux") [
+          inputs.nix-ld.nixosModules.nix-ld
         ];
 
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
