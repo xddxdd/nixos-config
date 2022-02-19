@@ -424,7 +424,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22339;
-        remoteAddress = "amsonia.nodes.noctis.link";
+        # remoteAddress = "amsonia.nodes.noctis.link";
         remotePort = 22547;
         wireguardPubkey = "DhGpUZuLtQnd3YXgBlIGXun8cRzrTWp3Bn3bHu0R5ys=";
       };

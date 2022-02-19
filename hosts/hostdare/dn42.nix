@@ -383,7 +383,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22339;
-        remoteAddress = "laver.nodes.noctis.link";
+        # remoteAddress = "laver.nodes.noctis.link";
         remotePort = 22547;
         wireguardPubkey = "n81DVZ/pE1lkKuzgb+FhGSgVxtGGhfTcq+DNb13PwBI=";
       };
