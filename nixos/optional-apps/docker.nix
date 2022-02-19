@@ -63,7 +63,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${vmPackage}/bin/run-docker-vm";
+      ExecStart = "${vmPackage}/bin/run-docker-vm -cpu host";
     };
   };
 
