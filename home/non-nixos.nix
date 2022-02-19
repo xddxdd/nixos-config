@@ -7,7 +7,7 @@
     ./components/ansible.nix
     ./components/conky.nix
     ./components/fcitx.nix
-    ./components/fonts-archlinux.nix
+    ./components/fonts.nix
     ./components/himawaripy.nix
     ./components/looking-glass.nix
     ./components/mpv.nix

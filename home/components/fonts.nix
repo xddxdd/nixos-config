@@ -10,13 +10,6 @@
         />
       </its:rules>
 
-      <description>Android Font Config</description>
-
-      <!-- Font directory list -->
-      <dir>/usr/share/fonts</dir>
-      <dir>/usr/local/share/fonts</dir>
-      <dir prefix="xdg">fonts</dir>
-
       <!-- 关闭内嵌点阵字体 -->
       <match target="font">
         <edit name="embeddedbitmap" mode="assign">
@@ -135,10 +128,6 @@
 
       <!-- Load local system customization file -->
       <include ignore_missing="yes">conf.d</include>
-
-      <!-- Font cache directory list -->
-      <cachedir>/var/cache/fontconfig</cachedir>
-      <cachedir prefix="xdg">fontconfig</cachedir>
 
       <config>
         <!-- Rescan configuration every 30 seconds when FcFontSetList is called -->
