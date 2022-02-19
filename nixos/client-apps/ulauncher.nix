@@ -4,7 +4,9 @@ let
   ulauncher = pkgs.ulauncher.overrideAttrs (old: {
     propagatedBuildInputs = with pkgs.python3Packages; old.propagatedBuildInputs ++  [
       fuzzywuzzy
+      pint
       pytz
+      simpleeval
     ];
   });
 in
@@ -12,7 +14,6 @@ in
   environment.systemPackages = [ ulauncher ];
 
   systemd.user.services.ulauncher = {
-    enable = false;
     environment = {
       XDG_DATA_DIRS = "/run/current-system/sw/share";
     };
