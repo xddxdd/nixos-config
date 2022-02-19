@@ -1,3 +1,8 @@
+{ config, pkgs, ... }:
+
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   services.babeld = {
     enable = true;
@@ -25,6 +30,9 @@
       redistribute local ip 172.18.0.0/16 allow
       redistribute local ip fdbc:f9dc:67ad::/48 allow
       redistribute local deny
+
+      install ip 172.18.0.0/16 pref-src ${LT.this.ltnet.IPv4}
+      install ip fdbc:f9dc:67ad::/48 pref-src ${LT.this.ltnet.IPv6}
     '';
   };
 
