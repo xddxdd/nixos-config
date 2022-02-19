@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  LT = import ../helpers { inherit config pkgs; };
+in
 {
   home.sessionPath = [
     "$HOME/.local/bin"

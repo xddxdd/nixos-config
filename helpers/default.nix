@@ -6,7 +6,8 @@
 
 let
   args = rec {
-    hosts = import ../hosts.nix;
+    constants = import ./constants.nix;
+    hosts = import ./hosts.nix;
     this = builtins.getAttr config.networking.hostName hosts;
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
     serverHosts = lib.filterAttrs (n: v: (v.role or roles.server) == roles.server) hosts;

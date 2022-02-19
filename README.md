@@ -24,8 +24,9 @@ This repository holds the configuration files for all my VPS nodes.
   - Subdirectories
     - `components`: Modules used in Home Manager configurations.
   - Files
-    - `user.nix`: Config applied on nodes without GUI. Currently this means all my VPS nodes.
-    - `user-gui.nix`: Config applied on nodes with GUI. Currently this means my Arch Linux desktop.
+    - `client.nix`: Config applied on nodes with GUI. Currently this means my laptop running NixOS.
+    - `non-nixos.nix`: Config applied on nodes with GUI. Currently this means my laptop running Arch Linux.
+    - `server.nix`: Config applied on nodes without GUI. Currently this means all my VPS nodes.
 - `hosts`: Host-specific NixOS system definitions. Each subdirectory refers to a host. The list of hosts is automatically obtained in `flake.nix`. Configs here usually control networking parameters, and host-specific tunings.
 - `nixos`: Common NixOS system definitions.
   - Used by all nodes (auto import in `client.nix`, `nixos-cd.nix`, `server.nix`)

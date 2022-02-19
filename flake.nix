@@ -52,11 +52,10 @@
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      hosts = import ./hosts.nix;
+      constants = import helpers/constants.nix;
+      hosts = import helpers/hosts.nix;
       roles = import helpers/roles.nix;
       hostsList = builtins.filter (k: (hosts."${k}".role or roles.server) != roles.non-nixos) (lib.attrNames hosts);
-
-      stateVersion = "21.05";
 
       overlays = [
         (final: prev: {
@@ -95,7 +94,7 @@
             home-manager.useUserPackages = true;
             networking.hostName = n;
             nixpkgs = { inherit system overlays; };
-            system.stateVersion = stateVersion;
+            system.stateVersion = constants.stateVersion;
           })
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
@@ -121,10 +120,11 @@
         homeConfigurations =
           let
             cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
-              inherit stateVersion system;
+              inherit system;
+              inherit (constants) stateVersion;
               configuration = { config, pkgs, lib, ... }: {
                 nixpkgs.overlays = overlays;
-                home.stateVersion = stateVersion;
+                home.stateVersion = constants.stateVersion;
                 imports = [ home/non-nixos.nix ];
               };
             } // attrs);
@@ -142,6 +142,7 @@
 
         dnsRecords = import ./dns {
           pkgs = import nixpkgs { inherit system; };
+          inherit hosts;
         };
       });
 
@@ -158,6 +159,9 @@
         imports = modulesFor n;
       }));
 
-      nixosCD = import ./nixos/nixos-cd.nix { inherit inputs overlays stateVersion; };
+      nixosCD = import ./nixos/nixos-cd.nix {
+        inherit inputs overlays;
+        inherit (constants) stateVersion;
+      };
     };
 }

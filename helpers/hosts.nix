@@ -4,7 +4,7 @@
 # IPv6Subnet must be at least /96
 
 let
-  roles = import helpers/roles.nix;
+  roles = import ./roles.nix;
 in
 {
   "50kvm" = rec {

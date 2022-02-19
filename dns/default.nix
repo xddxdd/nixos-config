@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, hosts, ... }:
 
 let
   dns = import ./core/default.nix { inherit pkgs; };
-  hosts = import ../hosts.nix;
   importArgs = { inherit pkgs dns hosts; };
 
   common = rec {

@@ -19,6 +19,12 @@ in
     ++ (ls ./client-components)
   ;
 
-  home-manager.users.root = homeConfig;
-  home-manager.users.lantian = homeConfig;
+  home-manager.users.root = {
+    home.stateVersion = LT.constants.stateVersion;
+    imports = [ homeConfig ];
+  };
+  home-manager.users.lantian = {
+    home.stateVersion = LT.constants.stateVersion;
+    imports = [ homeConfig ];
+  };
 }
