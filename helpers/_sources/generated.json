@@ -79,6 +79,26 @@
         "extract": null,
         "rustGitDeps": null
     },
+    "himawaripy": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "himawaripy",
+        "src": {
+            "deepClone": false,
+            "owner": "boramalper",
+            "name": null,
+            "repo": "himawaripy",
+            "type": "github",
+            "sha256": "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=",
+            "rev": "v2.2.0",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "v2.2.0",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
     "ulauncher-vscode-recent": {
         "pinned": false,
         "cargoLock": null,

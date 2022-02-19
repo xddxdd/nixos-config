@@ -3,7 +3,7 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     flake-utils.url = "github:numtide/flake-utils";
 
     colmena = {
@@ -13,10 +13,15 @@
     };
     dwarffs = {
       url = "github:edolstra/dwarffs";
+      inputs.nix.follows = "nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix = {
+      url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-cn = {
