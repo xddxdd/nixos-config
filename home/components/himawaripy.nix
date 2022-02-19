@@ -1,28 +1,16 @@
 { config, pkgs, ... }:
 
 let
-  himawaripy = pkgs.python3Packages.buildPythonPackage rec {
-    pname = "himawaripy";
-    version = "2.2.0";
+  LT = import ../../helpers { inherit config pkgs; };
 
-    src = pkgs.fetchFromGitHub {
-      owner = "boramalper";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=";
-    };
+  himawaripy = pkgs.python3Packages.buildPythonPackage rec {
+    inherit (LT.sources.himawaripy) pname version src;
 
     propagatedBuildInputs = with pkgs.python3Packages; [
       appdirs
       pillow
       dateutil
     ];
-
-    meta = with pkgs.lib; {
-      description = "Set near-realtime picture of Earth as your desktop background";
-      homepage = "https://github.com/boramalper/himawaripy";
-      license = with licenses; [ mit ];
-    };
   };
 in {
   systemd.user.services.himawaripy = {

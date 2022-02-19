@@ -1,3 +1,6 @@
+[himawaripy]
+src.github = "boramalper/himawaripy"
+fetch.github = "boramalper/himawaripy"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
