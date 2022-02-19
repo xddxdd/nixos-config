@@ -61,6 +61,9 @@
       overlays = [
         (final: prev: {
           flake = inputs;
+          babeld = prev.babeld.overrideAttrs (old: {
+            patches = [ pkgs/babeld.patch ];
+          });
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
@@ -99,7 +102,6 @@
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
-          inputs.nix-ld.nixosModules.nix-ld
           inputs.nixos-cn.nixosModules.nixos-cn
           (./hosts + "/${n}/configuration.nix")
         ];

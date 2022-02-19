@@ -48,7 +48,7 @@ in
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.accept_ra=0
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.$INTERFACE.addr_gen_mode=1
       ${pkgs.iproute2}/bin/ip addr add fe80::${builtins.toString LT.this.index}/64 dev $INTERFACE
-      ${pkgs.iproute2}/bin/ip addr add 169.254.0.${builtins.toString LT.this.index}/24 dev $INTERFACE
+      # ${pkgs.iproute2}/bin/ip addr add 169.254.0.${builtins.toString LT.this.index}/24 dev $INTERFACE
       ${pkgs.iproute2}/bin/ip link set $INTERFACE mtu 1280
       ${pkgs.iproute2}/bin/ip link set $INTERFACE up
     '';
