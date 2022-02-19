@@ -17,6 +17,7 @@
       kernel-priority 10000
       random-id true
       smoothing-half-life 16
+      v4-over-v6 true
 
       redistribute proto 12 deny
       redistribute ip 172.18.0.0/16 allow
