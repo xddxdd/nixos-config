@@ -35,5 +35,11 @@ in
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
+  services.beesd.filesystems.root = {
+    spec = "/nix";
+    hashTableSizeMB = 512;
+    verbosity = "crit";
+  };
+
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }
