@@ -65,9 +65,6 @@
       overlays = [
         (final: prev: {
           flake = inputs;
-          babeld = prev.babeld.overrideAttrs (old: {
-            patches = [ pkgs/babeld.patch ];
-          });
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
