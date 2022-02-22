@@ -7,9 +7,6 @@ verbose: FORCE
 home: FORCE
 	home-manager switch --flake . -b backup
 
-nvfetcher: FORCE
-	nvfetcher -c nvfetcher.toml -o helpers/_sources
-
 update: FORCE
 	nix flake update
 
