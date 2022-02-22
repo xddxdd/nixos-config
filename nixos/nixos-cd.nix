@@ -1,4 +1,5 @@
 { inputs
+, system
 , stateVersion
 , ...
 }:
@@ -8,7 +9,7 @@ let
   inherit (inputs.nixpkgs) lib;
 in
 (lib.nixosSystem rec {
-  system = "x86_64-linux";
+  inherit system;
   modules = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })

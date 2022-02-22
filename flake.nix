@@ -142,9 +142,9 @@
             };
           };
 
-        dnsRecords = import ./dns {
-          pkgs = import nixpkgs { inherit system; };
-          inherit hosts;
+        nixosCD = import ./nixos/nixos-cd.nix {
+          inherit inputs overlays system;
+          inherit (constants) stateVersion;
         };
       });
 
@@ -161,9 +161,34 @@
         imports = modulesFor n;
       }));
 
-      nixosCD = import ./nixos/nixos-cd.nix {
-        inherit inputs overlays;
-        inherit (constants) stateVersion;
-      };
+      apps = eachSystem (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs hosts; });
+        in
+        {
+          dnscontrol = pkgs.writeShellScriptBin "dnscontrol" ''
+            CURR_DIR=$(pwd)
+
+            TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
+            cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
+            ${pkgs.age}/bin/age -i "$HOME/.ssh/id_ed25519" --decrypt -o "$TEMP_DIR/creds.json" "secrets/dnscontrol.age"
+            mkdir -p "$TEMP_DIR/zones"
+
+            cd "$TEMP_DIR"
+            ${pkgs.dnscontrol}/bin/dnscontrol $*
+            RET=$?
+            rm -rf "$CURR_DIR/zones"
+            mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
+
+            cd "$CURR_DIR"
+            rm -rf "$TEMP_DIR"
+            exit $RET
+          '';
+
+          nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
+            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+          '';
+        });
     };
 }
