@@ -30,6 +30,7 @@ args // rec {
   container = callHelper ./container.nix;
   netns = callHelper ./netns.nix;
   nginx = callHelper ./nginx.nix;
+  uuid = callHelper ./uuid.nix;
   yggdrasil = callHelper ./yggdrasil;
   zshrc = callHelper ./zshrc.nix;
 }
