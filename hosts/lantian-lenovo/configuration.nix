@@ -9,6 +9,7 @@ in
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/libvirt.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
@@ -53,6 +54,14 @@ in
     INTEL_GPU_MAX_FREQ_ON_BAT = 350;
     INTEL_GPU_BOOST_FREQ_ON_AC = 1100;
     INTEL_GPU_BOOST_FREQ_ON_BAT = 350;
+  };
+
+  virtualisation.kvmgt = {
+    enable = true;
+    vgpus.i915-GVTg_V5_8.uuid = [
+      (LT.uuid "Intel GVT-g 1")
+      (LT.uuid "Intel GVT-g 2")
+    ];
   };
 
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
