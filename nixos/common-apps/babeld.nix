@@ -36,5 +36,8 @@ in
     '';
   };
 
-  systemd.services.babeld.serviceConfig.CPUQuota = "10%";
+  systemd.services.babeld = {
+    bindsTo = [ "tinc.ltmesh.service" ];
+    serviceConfig.CPUQuota = "10%";
+  };
 }
