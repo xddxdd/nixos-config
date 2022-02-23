@@ -2,6 +2,15 @@
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
+
+  droneNetns = LT.netns {
+    name = "drone";
+    birdBindTo = [ "drone.service" ];
+  };
+  droneGitHubNetns = LT.netns {
+    name = "drone-github";
+    birdBindTo = [ "drone-github.service" ];
+  };
 in
 {
   imports = [
@@ -13,53 +22,66 @@ in
   age.secrets.drone-ci-github-env.file = ../../secrets/drone-ci-github-env.age;
   age.secrets.drone-ci-vault-env.file = ../../secrets/drone-ci-vault-env.age;
 
-  virtualisation.oci-containers.containers = {
-    drone = {
-      image = "drone/drone:2";
+  systemd.services = droneNetns.setup // droneGitHubNetns.setup // {
+    drone = droneNetns.bind {
+      wantedBy = [ "multi-user.target" ];
       environment = {
+        DRONE_DATABASE_DRIVER = "sqlite3";
+        DRONE_DATABASE_DATASOURCE = "/var/lib/drone/database.sqlite";
         DRONE_GITEA_SERVER = "https://git.lantian.pub";
         DRONE_JSONNET_ENABLED = "true";
         DRONE_SERVER_HOST = "ci.lantian.pub";
+        DRONE_SERVER_PORT = ":80";
         DRONE_SERVER_PROTO = "https";
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:xddxdd,admin:true";
       };
-      environmentFiles = [ config.age.secrets.drone-ci-env.path ];
-      ports = [
-        "127.0.0.1:${LT.portStr.Drone}:80"
-      ];
-      volumes = [
-        "/var/lib/drone:/data"
-      ];
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-env.path;
+        ExecStart = "${pkgs.drone}/bin/drone-server";
+        StateDirectory = "drone";
+        User = "container";
+        Group = "container";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      };
     };
-    drone-github = {
-      image = "drone/drone:2";
+    drone-github = droneGitHubNetns.bind {
+      wantedBy = [ "multi-user.target" ];
       environment = {
+        DRONE_DATABASE_DRIVER = "sqlite3";
+        DRONE_DATABASE_DATASOURCE = "/var/lib/drone-github/database.sqlite";
         DRONE_JSONNET_ENABLED = "true";
         DRONE_REGISTRATION_CLOSED = "true";
         DRONE_SERVER_HOST = "ci-github.lantian.pub";
+        DRONE_SERVER_PORT = ":80";
         DRONE_SERVER_PROTO = "https";
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:xddxdd,admin:true";
       };
-      environmentFiles = [ config.age.secrets.drone-ci-github-env.path ];
-      ports = [
-        "127.0.0.1:${LT.portStr.DroneGitHub}:80"
-      ];
-      volumes = [
-        "/var/lib/drone-github:/data"
-      ];
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
+        ExecStart = "${pkgs.drone}/bin/drone-server";
+        StateDirectory = "drone-github";
+        User = "container";
+        Group = "container";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      };
     };
-  };
-
-  systemd.services = {
     drone-runner = {
       wantedBy = [ "multi-user.target" ];
       environment = {
         DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "127.0.0.1:${LT.portStr.Drone}";
+        DRONE_RPC_HOST = droneNetns.ipv4;
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
@@ -71,7 +93,6 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-env.path;
         ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
-        DynamicUser = true;
       };
     };
     drone-runner-github = {
@@ -80,7 +101,7 @@ in
         DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "127.0.0.1:${LT.portStr.DroneGitHub}";
+        DRONE_RPC_HOST = droneGitHubNetns.ipv4;
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
@@ -118,7 +139,7 @@ in
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.Drone}";
+          proxyPass = "http://${droneNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
@@ -129,7 +150,7 @@ in
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf {
         "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.DroneGitHub}";
+          proxyPass = "http://${droneGitHubNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };

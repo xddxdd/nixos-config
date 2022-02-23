@@ -25,6 +25,8 @@ let
   sysctl = "${ipbin} netns exec ns-${name} ${pkgs.procps}/bin/sysctl";
 in
 rec {
+  ipv4 = "${this.ltnet.IPv4Prefix}.${thisIP}";
+  ipv6 = "${this.ltnet.IPv6Prefix}::${thisIP}";
   setup = {
     "netns-instance-${name}" = {
       inherit enable;
@@ -54,15 +56,15 @@ rec {
           "${ipns} link set ni-${interface} name eth-ns"
           # Host side network config
           "${ipbin} link set ns-${interface} up"
-          "${ipbin} addr add ${this.ltnet.IPv4} peer ${this.ltnet.IPv4Prefix}.${thisIP} dev ns-${interface}"
+          "${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}"
           "${ipbin} -6 addr add ${this.ltnet.IPv6} dev ns-${interface}"
           "${ipbin} -6 addr add fe80::1/64 dev ns-${interface}"
-          "${ipbin} -6 route add ${this.ltnet.IPv6Prefix}::${thisIP} via fe80::${thisIP} dev ns-${interface}"
+          "${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}"
           # Namespace side network config
           "${ipns} link set eth-ns up"
-          "${ipns} addr add ${this.ltnet.IPv4Prefix}.${thisIP} peer ${this.ltnet.IPv4} dev eth-ns"
+          "${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth-ns"
           "${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns"
-          "${ipns} -6 addr add ${this.ltnet.IPv6Prefix}::${thisIP} dev eth-ns"
+          "${ipns} -6 addr add ${ipv6} dev eth-ns"
           "${ipns} -6 addr add fe80::${thisIP}/64 dev eth-ns"
           "${ipns} -6 route add default via fe80::1 dev eth-ns"
           # Announced addresses
@@ -125,7 +127,7 @@ rec {
   birdEnabled = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
   birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''
     log stderr { error, fatal };
-    router id ${this.ltnet.IPv4Prefix}.${thisIP};
+    router id ${ipv4};
     protocol device {}
 
     protocol babel {

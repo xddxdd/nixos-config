@@ -13,8 +13,6 @@
   Prometheus.BirdExporter = 9324;
   Yggdrasil.Public = 13058;
   Yggdrasil.Multicast = 13059;
-  Drone = 13080;
-  DroneGitHub = 13081;
   DroneVault = 13082;
   BirdLgGo = 13180;
   ASF = 13242;
