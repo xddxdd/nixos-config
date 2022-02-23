@@ -6,6 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     asf = {
+      extraOptions = [ "--pull" "always" ];
       image = "justarchi/archisteamfarm:released";
       ports = [
         "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242"
