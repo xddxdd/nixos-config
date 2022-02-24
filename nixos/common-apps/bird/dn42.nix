@@ -96,11 +96,13 @@ in
     function dn42_import_filter_ipv4() {
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
-        bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+        bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+        bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
         bgp_local_pref = 0;
       } else if (roa_check(roa_v4, net, bgp_path.last) = ROA_UNKNOWN) then {
         bgp_large_community.add(${community.LT_ROA_UNKNOWN});
-        # bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+        # bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+        # bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
         # bgp_local_pref = 0;
       }
       if net ~ RESERVED_IPv4 then accept;
@@ -111,7 +113,7 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
-      if ${community.LT_POLICY_NOEXPORT} ~ bgp_large_community then reject;
+      if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
 
       if net ~ [ 172.22.76.184/29+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 172.22.76.96/27+ ] then bgp_path.prepend(${DN42_AS});
@@ -121,7 +123,6 @@ in
         (bgp_path.last != 0 && roa_check(roa_v4, net, bgp_path.last) != ROA_VALID)
         || (bgp_path.last = 0 && roa_check(roa_v4, net, ${DN42_AS}) != ROA_VALID)
       ) then {
-        #print "[dn42 export] roa fail for ", net, " as ", bgp_path.last, " neighbor ", bgp_path.first;
         reject;
       }
       accept;
@@ -130,11 +131,13 @@ in
     function dn42_import_filter_ipv6() {
       if (roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
-        bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+        bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+        bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
         bgp_local_pref = 0;
       } else if (roa_check(roa_v6, net, bgp_path.last) = ROA_UNKNOWN) then {
         bgp_large_community.add(${community.LT_ROA_UNKNOWN});
-        # bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+        # bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+        # bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
         # bgp_local_pref = 0;
       }
       if net ~ RESERVED_IPv6 then accept;
@@ -145,7 +148,7 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
-      if ${community.LT_POLICY_NOEXPORT} ~ bgp_large_community then reject;
+      if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
 
       if net ~ [ fdbc:f9dc:67ad::/48+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ fd10:127:10::/48+ ] then bgp_path.prepend(${NEO_AS});
@@ -154,7 +157,6 @@ in
         (bgp_path.last != 0 && roa_check(roa_v6, net, bgp_path.last) != ROA_VALID)
         || (bgp_path.last = 0 && roa_check(roa_v6, net, ${DN42_AS}) != ROA_VALID)
       ) then {
-        #print "[dn42 export] roa fail for ", net, " as ", bgp_path.last, " neighbor ", bgp_path.first;
         reject;
       }
       accept;
