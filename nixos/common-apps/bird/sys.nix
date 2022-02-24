@@ -17,20 +17,22 @@ in
   kernel = ''
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
-      bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+      bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
 
     filter sys_import_v6 {
       if net !~ RESERVED_IPv6 then reject;
-      bgp_large_community.add(${community.LT_POLICY_NOEXPORT});
+      bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
 
     filter sys_export_v4 {
-      if ${community.LT_ROA_FAIL} ~ bgp_large_community then reject;
-      # if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then reject;
+      if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_BLACKHOLE;
+
+      krt_metric = 4242;
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
       ${pkgs.lib.optionalString (LT.this.dn42.IPv4 or "" != "") "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"}
@@ -40,9 +42,11 @@ in
     }
 
     filter sys_export_v6 {
-      if ${community.LT_ROA_FAIL} ~ bgp_large_community then reject;
-      # if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then reject;
+      if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_BLACKHOLE;
+
+      krt_metric = 4242;
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
       ${pkgs.lib.optionalString (LT.this.dn42.IPv4 or "" != "") "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"}
@@ -68,8 +72,7 @@ in
     protocol kernel sys_kernel_v4 {
       scan time 20;
       learn;
-      #merge paths yes;
-      metric 4242;
+      metric 0;
       ipv4 {
         preference 100;
         import filter sys_import_v4;
@@ -80,8 +83,7 @@ in
     protocol kernel sys_kernel_v6 {
       scan time 20;
       learn;
-      #merge paths yes;
-      metric 4242;
+      metric 0;
       ipv6 {
         preference 100;
         import filter sys_import_v6;
