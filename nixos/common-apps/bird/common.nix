@@ -1,0 +1,19 @@
+{ config, pkgs, ... }:
+
+let
+  LT = import ../../../helpers { inherit config pkgs; };
+in
+rec {
+  DN42_AS = "4242422547";
+  DN42_REGION = builtins.toString LT.this.dn42.region;
+  NEO_AS = "4201270010";
+
+  community = {
+    LT_POLICY_DROP = "(${DN42_AS}, 1, 2)";
+    LT_POLICY_NOEXPORT = "(${DN42_AS}, 1, 1)";
+    LT_ROA_FAIL = "(${DN42_AS}, 2547, 0)";
+    LT_ROA_UNKNOWN = "(${DN42_AS}, 2547, 1)";
+  };
+
+  sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
+}
