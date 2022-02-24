@@ -7,7 +7,7 @@ let
     community sanitizeHostname;
 
   peer = hostname: { ltnet, index, ... }:
-    pkgs.lib.optionalString (!(ltnet.alone or false)) ''
+    pkgs.lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
         neighbor fe80::${builtins.toString index}%'ltmesh' internal;
       };

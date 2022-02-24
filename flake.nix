@@ -57,10 +57,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      constants = import helpers/constants.nix;
-      hosts = import helpers/hosts.nix;
-      roles = import helpers/roles.nix;
-      hostsList = builtins.filter (k: (hosts."${k}".role or roles.server) != roles.non-nixos) (lib.attrNames hosts);
+      LT = import ./helpers { inherit lib; };
 
       overlays = [
         (final: prev: {
@@ -82,13 +79,9 @@
         inputs.nvfetcher.overlay
       ];
 
-      systemFor = n: hosts."${n}".system or "x86_64-linux";
-      hostnameFor = n: hosts."${n}".hostname or "${n}.lantian.pub";
-      sshPortFor = n: hosts."${n}".sshPort or 2222;
-
       modulesFor = n:
         let
-          system = systemFor n;
+          inherit (LT.hosts."${n}") system;
         in
         [
           ({
@@ -96,7 +89,7 @@
             home-manager.useUserPackages = true;
             networking.hostName = n;
             nixpkgs = { inherit system overlays; };
-            system.stateVersion = constants.stateVersion;
+            system.stateVersion = LT.constants.stateVersion;
           })
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
@@ -112,21 +105,21 @@
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
     {
-      nixosConfigurations = lib.genAttrs hostsList
-        (n: lib.nixosSystem {
-          system = systemFor n;
+      nixosConfigurations = lib.mapAttrs
+        (n: { system, ... }: lib.nixosSystem {
+          inherit system;
           modules = modulesFor n;
-        });
+        }) LT.nixosHosts;
 
       packages = eachSystem (system: {
         homeConfigurations =
           let
             cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
               inherit system;
-              inherit (constants) stateVersion;
+              inherit (LT.constants) stateVersion;
               configuration = { config, pkgs, lib, ... }: {
                 nixpkgs.overlays = overlays;
-                home.stateVersion = constants.stateVersion;
+                home.stateVersion = LT.constants.stateVersion;
                 imports = [ home/non-nixos.nix ];
               };
             } // attrs);
@@ -144,27 +137,27 @@
 
         nixosCD = import ./nixos/nixos-cd.nix {
           inherit inputs overlays system;
-          inherit (constants) stateVersion;
+          inherit (LT.constants) stateVersion;
         };
       });
 
       colmena = {
         meta.nixpkgs = { inherit lib; };
-        meta.nodeNixpkgs = lib.genAttrs hostsList (n: import nixpkgs { system = systemFor n; });
-      } // (lib.genAttrs hostsList (n: {
+        meta.nodeNixpkgs = lib.mapAttrs (n: v: import nixpkgs { inherit (v) system; }) LT.nixosHosts;
+      } // (lib.mapAttrs (n: { hostname, sshPort, ... }: {
         deployment = {
-          targetHost = hostnameFor n;
-          targetPort = sshPortFor n;
+          targetHost = hostname;
+          targetPort = sshPort;
           targetUser = "root";
         };
 
         imports = modulesFor n;
-      }));
+      }) LT.nixosHosts);
 
       apps = eachSystem (system:
         let
           pkgs = import nixpkgs { inherit system; };
-          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs hosts; });
+          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs; inherit (LT) hosts; });
         in
         {
           dnscontrol = pkgs.writeShellScriptBin "dnscontrol" ''

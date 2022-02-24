@@ -49,13 +49,13 @@ let
         fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
 
         # wg-lantian
-        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] LT.this) ''
+        ${pkgs.lib.optionalString (LT.this.public.IPv4 != "") ''
           ip daddr ${LT.this.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2
           ip daddr ${LT.this.public.IPv4} udp dport { 51820 } dnat to 192.0.2.2
           ip daddr ${LT.this.public.IPv4} tcp dport { 57912 } dnat to 192.0.2.3
           ip daddr ${LT.this.public.IPv4} udp dport { 57912 } dnat to 192.0.2.3
         ''}
-        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] LT.this) ''
+        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "") ''
           ip6 daddr ${LT.this.public.IPv6Subnet}2 dnat to fc00::2
           ip6 daddr ${LT.this.public.IPv6Subnet}3 dnat to fc00::3
         ''}
@@ -73,7 +73,7 @@ let
         type nat hook postrouting priority 105; policy accept;
 
         # wg-lantian
-        ${pkgs.lib.optionalString (pkgs.lib.hasAttrByPath [ "public" "IPv6Subnet" ] LT.this) ''
+        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "") ''
           ip6 saddr fc00::2 snat to ${LT.this.public.IPv6Subnet}2
           ip6 saddr fc00::3 snat to ${LT.this.public.IPv6Subnet}3
         ''}

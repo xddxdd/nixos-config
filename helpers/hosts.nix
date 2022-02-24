@@ -38,20 +38,9 @@ in
       IPv6Alt = "2001:470:fa1d::1";
       IPv6Subnet = "2001:470:fa1d:ffff::";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.186";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 52;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "hostdare" = rec {
@@ -83,20 +72,9 @@ in
       IPv4 = "185.186.147.110";
       IPv6 = "2607:fcd0:100:b100::198a:b7f6";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.185";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 44;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "soyoustart" = rec {
@@ -129,26 +107,14 @@ in
       IPv6 = "2001:41d0:700:2475::1";
       IPv6Subnet = "2001:41d0:700:2475::";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.113";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 41;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "virmach-ny1g" = rec {
     index = 8;
     ptrPrefix = "new-york.united-states";
-    hostname = "107.172.197.23";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4deGLTDTGKNoWDo5IDEK6R5wHymwdNnxrdsrL13/ayPy2B2zi5FuS6FFz0EEgaEEzD+9U6NCxxEypUU6uLjVAGlH7ILqyy0ASyIY3enGHkdv65gNIjNDymzQosR4kt5M/VmfEHJFf22tKTuV/CR6/fiCDe9xGEHbCv5r/0vzNnV4A/wijs1xoqD9x9AsUkkoo3SAUpeJljZxMD3CHNn03ROmXhnADIeX2hGiASfzwPS7tSEO9Mh7BDNJu8uRqkH3nlDIOenBHAjsuFQGed9WF03JHElyxO94AhoZwNzgeqjYxktU6pCAh2CnPKjuYeXUBSSPz/GOWkGYbgpHKOcvF5Kmu1f5H5+R1g5V04BN4PVjGvRU+iXd4hZCCHi6XqZ8v6fo15ECJ8EexTF7RIvGkzCLY/m0dtgIcBAXhzphvmzveGh1X3iS/eOMXWHugmmXnKfSA5Rl/1rU+ZcPJ1/Ju0A/6SyYy2MAJ4ZTEZGJSA9CrmrIYflr1LpRPq0WlSjChoXaz8WzBx6DxdeVDzRWLvlVbYfUa8cOalb0MVAwjCuo1pzg0ejbWj8b76p4diTEGyI7CbdRG45f7F7aqoSq3iW0CzivqZofs+5GaJgS8X7S4RTMJQWzCw93MLwyd0iiHxTeFp5RcYxL/L9HM/jQGk6fTkZ5JbHGhKOieDKtUQw==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5Oz+8RCV4amTUqd5BwLJ1gqkhyVhDItoevMwczN3Ry";
@@ -177,20 +143,9 @@ in
       IPv6Alt = "2001:470:8a6d::1";
       IPv6Subnet = "2001:470:8a6d:ffff::";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.190";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 42;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "virmach-ny6g" = rec {
@@ -224,21 +179,9 @@ in
       IPv6Alt = "2001:470:8d00::1";
       IPv6Subnet = "2001:470:8d00:ffff::";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.126";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 42;
-      pingfinderUUID = "***REMOVED***";
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "buyvm" = rec {
@@ -272,20 +215,9 @@ in
       IPv6Alt = "2605:6400:cac6::1";
       IPv6Subnet = "2605:6400:cac6:ffff::";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.187";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 41;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "virmach-nl1g" = rec {
@@ -316,20 +248,9 @@ in
     public = rec {
       IPv4 = "172.245.52.105";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.188";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 41;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "oracle-vm1" = rec {
@@ -361,20 +282,9 @@ in
       IPv4 = "132.145.123.138";
       IPv6 = "2603:c021:8000:aaaa:2::1";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.123";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 52;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "oracle-vm2" = rec {
@@ -406,20 +316,9 @@ in
       IPv4 = "140.238.54.105";
       IPv6 = "2603:c021:8000:aaaa:3::1";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.124";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 52;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "oracle-vm-arm" = rec {
@@ -452,20 +351,9 @@ in
       IPv4 = "158.101.128.102";
       IPv6 = "2603:c021:8000:aaaa:4::1";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.125";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 52;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "terrahost" = rec {
@@ -498,20 +386,9 @@ in
       IPv4 = "194.32.107.228";
       IPv6 = "2a03:94e0:ffff:194:32:107::228";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.122";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 41;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "lantian-hp-omen" = rec {
@@ -535,20 +412,9 @@ in
       '';
       ed25519 = "xjJv/DrAB/OgucjkxQ9wCtO7crW1GUXKBfJ19dXFWjB";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.114";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 42;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
   "lantian-lenovo" = rec {
@@ -578,20 +444,9 @@ in
       '';
       ed25519 = "3IO17i8Kr82h+aSBRjozwbL27eGoO5A+2gBI3iZ1SKE";
     };
-    ltnet = rec {
-      IPv4 = "${IPv4Prefix}.1";
-      IPv4Prefix = "172.18.${builtins.toString index}";
-      IPv6 = "${IPv6Prefix}::1";
-      IPv6Prefix = "fdbc:f9dc:67ad:${builtins.toString index}";
-    };
     dn42 = rec {
       IPv4 = "172.22.76.115";
-      IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 42;
-    };
-    neonetwork = rec {
-      IPv4 = "10.127.10.${builtins.toString index}";
-      IPv6 = "fd10:127:10:${builtins.toString index}::1";
     };
   };
 }

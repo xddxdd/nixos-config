@@ -90,6 +90,8 @@ let
       };
     ''
   ;
+
+  cfg = config.services.dn42 or { };
 in
 {
   common = ''
@@ -277,8 +279,8 @@ in
     }
   '';
 
-  hasPeers = config.services.dn42 or { } != { };
+  hasPeers = cfg != { };
 
   peers = builtins.concatStringsSep "\n"
-    (pkgs.lib.mapAttrsToList peer (filterNetwork "dn42" (config.services.dn42 or { })));
+    (pkgs.lib.mapAttrsToList peer (filterNetwork "dn42" cfg));
 }

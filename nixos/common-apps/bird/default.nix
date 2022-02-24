@@ -19,7 +19,7 @@ in
       sys.kernel
       anycast.babel
 
-    ] ++ pkgs.lib.optionals (LT.isThisRole LT.roles.server) [
+    ] ++ pkgs.lib.optionals (LT.this.role == LT.roles.server) [
       sys.roa
       sys.roaMonitor
 
@@ -28,7 +28,7 @@ in
       dn42.peers
       (pkgs.lib.optionalString (dn42.hasPeers) dn42.grc)
 
-    ] ++ pkgs.lib.optionals (!(LT.this.ltnet.alone or false)) [
+    ] ++ pkgs.lib.optionals (!LT.this.ltnet.alone) [
       ltnet.common
       ltnet.peers
     ]);
