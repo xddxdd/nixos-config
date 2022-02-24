@@ -17,6 +17,14 @@
     "net.ipv4.tcp_keepalive_probes" = 6;
     "net.ipv4.tcp_mtu_probing" = 1;
     "net.ipv4.tcp_syncookies" = 1;
+
+    "net.ipv4.conf.all.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv4.conf.default.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv4.conf.*.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv6.conf.all.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv6.conf.default.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv6.conf.*.forwarding" = pkgs.lib.mkForce 1;
+
     "net.ipv4.conf.all.rp_filter" = pkgs.lib.mkForce 0;
     "net.ipv4.conf.default.rp_filter" = pkgs.lib.mkForce 0;
     "net.ipv4.conf.*.rp_filter" = pkgs.lib.mkForce 0;
