@@ -10,7 +10,6 @@ let
     pkgs.lib.optionalString (!(ltnet.alone or false)) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
         neighbor fe80::${builtins.toString index}%'ltmesh' internal;
-        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
       };
     '';
 in
@@ -47,12 +46,12 @@ in
     }
 
     template bgp lantian_internal {
+      local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
       direct;
       enable extended messages on;
       hold time 30;
       keepalive time 3;
       ipv4 {
-        aigp originate;
         next hop self yes;
         import keep filtered;
         extended next hop yes;
@@ -60,7 +59,6 @@ in
         export filter ltnet_export_filter_v4;
       };
       ipv6 {
-        aigp originate;
         next hop self yes;
         import keep filtered;
         extended next hop yes;
@@ -68,39 +66,6 @@ in
         export filter ltnet_export_filter_v6;
       };
     };
-  '';
-
-  docker = ''
-    protocol babel ltdocker {
-      ipv4 {
-        import keep filtered;
-        import filter {
-          if net.len != 32 then reject;
-          accept;
-        };
-        export none;
-      };
-      ipv6 {
-        import keep filtered;
-        import filter {
-          if net.len != 128 then reject;
-          accept;
-        };
-        export none;
-      };
-      interface "ns-*" {
-        type wired;
-        hello interval 1s;
-        update interval 1s;
-        port 6695;
-      };
-      interface "ve-*" {
-        type wired;
-        hello interval 1s;
-        update interval 1s;
-        port 6695;
-      };
-    }
   '';
 
   peers = builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList peer LT.otherHosts);

@@ -10,14 +10,18 @@ let
     hosts = import ./hosts.nix;
     this = builtins.getAttr config.networking.hostName hosts;
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
-    serverHosts = lib.filterAttrs (n: v: (v.role or roles.server) == roles.server) hosts;
-    nixosHosts = lib.filterAttrs (n: v: (v.role or roles.server) != roles.non-nixos) hosts;
+
+    roles = import ./roles.nix;
+    isRole = { role ? roles.server, ... }: expected: role == expected;
+    isThisRole = isRole this;
+    serverHosts = lib.filterAttrs (n: v: isRole v roles.server) hosts;
+    nixosHosts = lib.filterAttrs (n: v: !(isRole v roles.non-nixos)) hosts;
 
     containerIP = import ./container-ip.nix;
     dnssecKeys = import ./dnssec-keys.nix;
     port = import ./port.nix;
     portStr = lib.mapAttrsRecursive (k: v: builtins.toString v) port;
-    roles = import ./roles.nix;
+
     serviceHarden = import ./service-harden.nix { inherit lib; };
     sources = pkgs.callPackage _sources/generated.nix { };
   };
