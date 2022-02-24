@@ -10,14 +10,14 @@ let
       (sanitizeHostname k)
       ({
         addresses = [ ]
-          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv4" ] v) [{ address = v.public.IPv4; }]
-          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv6" ] v) [{ address = v.public.IPv6; }]
-          ++ pkgs.lib.optionals (pkgs.lib.hasAttrByPath [ "public" "IPv6Alt" ] v) [{ address = v.public.IPv6Alt; }]
+          ++ pkgs.lib.optionals (v.public.IPv4 != "") [{ address = v.public.IPv4; }]
+          ++ pkgs.lib.optionals (v.public.IPv6 != "") [{ address = v.public.IPv6; }]
+          ++ pkgs.lib.optionals (v.public.IPv6Alt != "") [{ address = v.public.IPv6Alt; }]
         ;
-        rsaPublicKey = pkgs.lib.mkIf (pkgs.lib.hasAttrByPath [ "tinc" "rsa" ] v) v.tinc.rsa;
+        rsaPublicKey = pkgs.lib.mkIf (v.tinc.rsa != "") v.tinc.rsa;
         settings = {
           Compression = 0;
-          Ed25519PublicKey = pkgs.lib.mkIf (pkgs.lib.hasAttrByPath [ "tinc" "ed25519" ] v) v.tinc.ed25519;
+          Ed25519PublicKey = pkgs.lib.mkIf (v.tinc.ed25519 != "") v.tinc.ed25519;
         };
       });
 in

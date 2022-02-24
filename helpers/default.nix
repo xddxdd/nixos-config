@@ -1,5 +1,5 @@
-{ config
-, pkgs
+{ config ? { }
+, pkgs ? { }
 , lib ? pkgs.lib
 , ...
 }:
@@ -7,15 +7,15 @@
 let
   args = rec {
     constants = import ./constants.nix;
-    hosts = import ./hosts.nix;
+    hosts = builtins.mapAttrs
+      (import ./host-defaults.nix { inherit lib roles; })
+      (import ./hosts.nix);
     this = builtins.getAttr config.networking.hostName hosts;
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
     roles = import ./roles.nix;
-    isRole = { role ? roles.server, ... }: expected: role == expected;
-    isThisRole = isRole this;
-    serverHosts = lib.filterAttrs (n: v: isRole v roles.server) hosts;
-    nixosHosts = lib.filterAttrs (n: v: !(isRole v roles.non-nixos)) hosts;
+    serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;
+    nixosHosts = lib.filterAttrs (n: v: v.role != roles.non-nixos) hosts;
 
     containerIP = import ./container-ip.nix;
     dnssecKeys = import ./dnssec-keys.nix;
@@ -30,6 +30,7 @@ let
     f
     { };
 in
+if config == { } && pkgs == { } then args else
 args // rec {
   container = callHelper ./container.nix;
   netns = callHelper ./netns.nix;
