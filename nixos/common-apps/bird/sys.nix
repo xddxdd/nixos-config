@@ -45,7 +45,7 @@ in
 
     filter sys_export_v4 {
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_BLACKHOLE;
+      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
@@ -59,7 +59,7 @@ in
 
     filter sys_export_v6 {
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_BLACKHOLE;
+      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
