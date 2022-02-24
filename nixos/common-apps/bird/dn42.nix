@@ -277,6 +277,8 @@ in
     }
   '';
 
+  hasPeers = config.services.dn42 or { } != { };
+
   peers = builtins.concatStringsSep "\n"
     (pkgs.lib.mapAttrsToList peer (filterNetwork "dn42" (config.services.dn42 or { })));
 }

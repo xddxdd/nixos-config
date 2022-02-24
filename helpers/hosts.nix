@@ -48,8 +48,6 @@ in
       IPv4 = "172.22.76.186";
       IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 52;
-      peerWithGRC = true;
-      pingfinderUUID = "***REMOVED***";
     };
     neonetwork = rec {
       IPv4 = "10.127.10.${builtins.toString index}";
@@ -95,8 +93,6 @@ in
       IPv4 = "172.22.76.185";
       IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 44;
-      peerWithGRC = true;
-      pingfinderUUID = "***REMOVED***";
     };
     neonetwork = rec {
       IPv4 = "10.127.10.${builtins.toString index}";
@@ -191,8 +187,6 @@ in
       IPv4 = "172.22.76.190";
       IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 42;
-      peerWithGRC = true;
-      pingfinderUUID = "***REMOVED***";
     };
     neonetwork = rec {
       IPv4 = "10.127.10.${builtins.toString index}";
@@ -288,8 +282,6 @@ in
       IPv4 = "172.22.76.187";
       IPv6 = "fdbc:f9dc:67ad:${builtins.toString index}::1";
       region = 41;
-      peerWithGRC = true;
-      pingfinderUUID = "***REMOVED***";
     };
     neonetwork = rec {
       IPv4 = "10.127.10.${builtins.toString index}";

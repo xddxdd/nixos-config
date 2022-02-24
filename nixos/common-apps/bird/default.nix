@@ -3,6 +3,7 @@
 let
   LT = import ../../../helpers { inherit config pkgs; };
 
+  anycast = import ./anycast.nix { inherit config pkgs; };
   dn42 = import ./dn42.nix { inherit config pkgs; };
   ltnet = import ./ltnet.nix { inherit config pkgs; };
   sys = import ./sys.nix { inherit config pkgs; };
@@ -11,21 +12,26 @@ in
   services.bird2 = {
     enable = true;
     checkConfig = false;
-    config = builtins.concatStringsSep "\n" [
+    config = builtins.concatStringsSep "\n" ([
       sys.common
       sys.network
       sys.static
+      sys.kernel
+      anycast.babel
+
+    ] ++ pkgs.lib.optionals (LT.isThisRole LT.roles.server) [
       sys.roa
       sys.roaMonitor
-      sys.kernel
+
       dn42.communityFilters
       dn42.common
       dn42.peers
-      (pkgs.lib.optionalString (LT.this.dn42.peerWithGRC or false) dn42.grc)
-      ltnet.docker
-      (pkgs.lib.optionalString (!(LT.this.ltnet.alone or false)) ltnet.common)
-      (pkgs.lib.optionalString (!(LT.this.ltnet.alone or false)) ltnet.peers)
-    ];
+      (pkgs.lib.optionalString (dn42.hasPeers) dn42.grc)
+
+    ] ++ pkgs.lib.optionals (!(LT.this.ltnet.alone or false)) [
+      ltnet.common
+      ltnet.peers
+    ]);
   };
 
   systemd.tmpfiles.rules = [
