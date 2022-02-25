@@ -262,6 +262,22 @@
         peerIPv4 = "172.23.59.3";
       };
     };
+    sorasky = {
+      remoteASN = 4242420603;
+      latencyMs = 4;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20603;
+        remoteAddress = "hk02.nodes.mol.moe";
+        remotePort = 22547;
+        wireguardPubkey = "wNNbJyoFBrlpq53p61Ur8V2RNfS3U7KADlK7he64qRk=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.7.65";
+        peerIPv6LinkLocal = "fe80::603";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 2;
