@@ -13,7 +13,7 @@ let
     ];
   };
 in {
-  systemd.user.services.himawaripy = {
+  systemd.user.services.himawaripy = pkgs.lib.mkIf false {
     Service = {
       Type = "oneshot";
       ExecStart = "${himawaripy}/bin/himawaripy --auto-offset";
@@ -21,7 +21,7 @@ in {
     };
   };
 
-  systemd.user.timers.himawaripy = {
+  systemd.user.timers.himawaripy = pkgs.lib.mkIf false {
     Install = {
       WantedBy = [ "timers.target" ];
     };
