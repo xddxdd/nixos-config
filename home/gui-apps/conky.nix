@@ -72,6 +72,15 @@ let
   ];
 in
 {
+  systemd.user.services.conky = {
+    Service = {
+      ExecStart = "${pkgs.conky}/bin/conky --pause=5";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
   xdg.configFile."conky/conky.conf".text = ''
     conky.config = {
       alignment = 'top_right',
