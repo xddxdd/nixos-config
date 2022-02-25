@@ -3,7 +3,8 @@
 {
   home.packages = with pkgs; [
     colmena
-    pkgs.flake.agenix.packages."${system}".agenix
+    flake.agenix.packages."${system}".agenix
+    nix-tree
     nodePackages.node2nix
     nvfetcher-bin
     rnix-lsp
