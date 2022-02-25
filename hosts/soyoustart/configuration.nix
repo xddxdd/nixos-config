@@ -12,6 +12,7 @@ in
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/hath.nix
+    ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/nginx-ssltest.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot.nix
