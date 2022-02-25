@@ -104,12 +104,13 @@
 
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
-    {
+    rec {
       nixosConfigurations = lib.mapAttrs
         (n: { system, ... }: lib.nixosSystem {
           inherit system;
           modules = modulesFor n;
-        }) LT.nixosHosts;
+        })
+        LT.hosts;
 
       packages = eachSystem (system: {
         homeConfigurations =
@@ -144,15 +145,17 @@
       colmena = {
         meta.nixpkgs = { inherit lib; };
         meta.nodeNixpkgs = lib.mapAttrs (n: v: import nixpkgs { inherit (v) system; }) LT.nixosHosts;
-      } // (lib.mapAttrs (n: { hostname, sshPort, ... }: {
-        deployment = {
-          targetHost = hostname;
-          targetPort = sshPort;
-          targetUser = "root";
-        };
+      } // (lib.mapAttrs
+        (n: { hostname, sshPort, ... }: {
+          deployment = {
+            targetHost = hostname;
+            targetPort = sshPort;
+            targetUser = "root";
+          };
 
-        imports = modulesFor n;
-      }) LT.nixosHosts);
+          imports = modulesFor n;
+        })
+        LT.nixosHosts);
 
       apps = eachSystem (system:
         let
