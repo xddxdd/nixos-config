@@ -75,6 +75,8 @@ in
   systemd.user.services.conky = {
     Service = {
       ExecStart = "${pkgs.conky}/bin/conky --pause=5";
+      Restart = "always";
+      RestartSec = "3";
     };
     Install = {
       WantedBy = [ "default.target" ];
