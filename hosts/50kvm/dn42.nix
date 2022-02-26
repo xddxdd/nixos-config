@@ -265,7 +265,6 @@
     sorasky = {
       remoteASN = 4242420603;
       latencyMs = 4;
-      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 20603;
@@ -275,7 +274,7 @@
       };
       addressing = {
         peerIPv4 = "172.23.7.65";
-        peerIPv6LinkLocal = "fe80::603";
+        peerIPv6LinkLocal = "fe80::604";
       };
     };
     sunnet = {
