@@ -9,6 +9,7 @@ in
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/libvirt.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/x11vnc.nix
@@ -21,7 +22,6 @@ in
     firefox
     google-chrome
     mpv
-    nixos-cn.netease-cloud-music
     rnix-lsp
     tdesktop
     thunderbird
