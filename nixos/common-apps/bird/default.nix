@@ -49,6 +49,8 @@ in
     };
   };
 
+  systemd.services.bird2.reloadIfChanged = pkgs.lib.mkForce false;
+
   systemd.services.bird-lgproxy-go = {
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];

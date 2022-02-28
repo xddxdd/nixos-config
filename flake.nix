@@ -4,6 +4,7 @@
   inputs = {
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.url = "github:numtide/flake-utils";
 
     colmena = {
@@ -60,8 +61,12 @@
       LT = import ./helpers { inherit lib; };
 
       overlays = [
-        (final: prev: {
+        (final: prev: let
+          nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${prev.system}";
+        in {
           flake = inputs;
+          stable = nixpkgs-stable;
+          bird2 = nixpkgs-stable.bird2;
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
