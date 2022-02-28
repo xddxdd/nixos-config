@@ -31,7 +31,7 @@ in
       BIRDLG_DNS_INTERFACE = "asn.lantian.dn42";
       BIRDLG_DOMAIN = lgproxyDomain;
       BIRDLG_LISTEN = "127.0.0.1:${LT.portStr.BirdLgGo}";
-      BIRDLG_NAME_FILTER = "^(sys|static)_";
+      BIRDLG_NAME_FILTER = "^(ltdocker|sys_|static_)";
       BIRDLG_NET_SPECIFIC_MODE = "dn42_shorten";
       BIRDLG_SERVERS = builtins.concatStringsSep "," (lgproxyHosts ++ [ "local" ]);
       BIRDLG_TELEGRAM_BOT_NAME = "lantian_lg_bot";
