@@ -225,4 +225,41 @@ rec {
     set_real_ip_from fdbc:f9dc:67ad::/48;
     real_ip_header proxy_protocol;
   '';
+
+  sslConf = isStream:
+    let
+      ciphers = [
+        "ECDHE-ECDSA-AES256-GCM-SHA384"
+        "ECDHE-RSA-AES256-GCM-SHA384"
+        "ECDHE-ECDSA-CHACHA20-POLY1305"
+        "ECDHE-RSA-CHACHA20-POLY1305"
+        "ECDHE-ECDSA-AES128-GCM-SHA256"
+        "ECDHE-RSA-AES128-GCM-SHA256"
+        "DHE-RSA-AES256-GCM-SHA384"
+        "DHE-RSA-AES128-GCM-SHA256"
+      ];
+      curves = [
+        "p256_sidhp434"
+        "p256_sikep434"
+        "p256_frodo640aes"
+        "p256_bikel1"
+        "p256_kyber90s512"
+        "p256_ntru_hps2048509"
+        "p256_lightsaber"
+        "prime256v1"
+        "secp384r1"
+        "secp521r1"
+      ];
+    in
+    ''
+      ssl_ciphers ${builtins.concatStringsSep ":" ciphers};
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
+      ssl_session_tickets on;
+      ssl_prefer_server_ciphers on;
+      ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
+    '' + lib.optionalString (!isStream) ''
+      ssl_early_data on;
+      ssl_dyn_rec_enable on;
+    '';
 }
