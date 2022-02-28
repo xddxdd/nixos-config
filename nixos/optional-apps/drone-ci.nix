@@ -28,13 +28,14 @@ in
       environment = {
         DRONE_DATABASE_DRIVER = "sqlite3";
         DRONE_DATABASE_DATASOURCE = "/var/lib/drone/database.sqlite";
+        DRONE_GIT_ALWAYS_AUTH = "true";
         DRONE_GITEA_SERVER = "https://git.lantian.pub";
         DRONE_JSONNET_ENABLED = "true";
         DRONE_SERVER_HOST = "ci.lantian.pub";
         DRONE_SERVER_PORT = ":80";
         DRONE_SERVER_PROTO = "https";
         DRONE_STARLARK_ENABLED = "true";
-        DRONE_USER_CREATE = "username:xddxdd,admin:true";
+        DRONE_USER_CREATE = "username:lantian,admin:true";
       };
       serviceConfig = LT.serviceHarden // {
         Type = "simple";
