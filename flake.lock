@@ -332,6 +332,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1645885043,
+        "narHash": "sha256-wDATA3Tks+fG91q3XL673rPQDl58zLRmjdJXpmrUwXU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1622abf0e7890a3dac995f6eb5a92f56819ae38e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur-xddxdd": {
       "inputs": {
         "hath-nix": "hath-nix",
@@ -391,6 +407,7 @@
         "nix-ld": "nix-ld",
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-stable": "nixpkgs-stable",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher"
       }
