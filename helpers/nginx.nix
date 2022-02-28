@@ -177,6 +177,7 @@ rec {
     ${fastcgiParams}
     # PHP only, required if PHP was built with --enable-force-cgi-redirect
     fastcgi_param REDIRECT_STATUS 200;
+    fastcgi_read_timeout 300s;
   '';
 
   locationFcgiwrapConf = ''
