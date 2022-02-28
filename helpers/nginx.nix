@@ -117,7 +117,7 @@ rec {
 
     "~ ^.+?\\.php(/.*)?$".extraConfig = lib.optionalString (config.lantian.enable-php) locationPHPConf;
 
-    "~ /\\.(?!well-known).*".extraConfig = ''
+    "~ ^/\\.(?!well-known).*".extraConfig = ''
       access_log off;
       return 403;
     '';
