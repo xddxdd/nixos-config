@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [
@@ -37,7 +37,7 @@ in
       })
   ];
 
-  services.nginx = {
+  services.nginx = rec {
     enable = true;
     enableReload = true;
     package = pkgs.openresty-lantian;
@@ -46,14 +46,15 @@ in
     recommendedGzipSettings = false; # use my own
     recommendedOptimisation = true;
     recommendedProxySettings = false; # use my own
-    recommendedTlsSettings = true;
+    recommendedTlsSettings = false; # use my own
     resolver = {
       addresses = [
         "8.8.8.8"
       ];
       ipv6 = false;
     };
-    sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
+    sslProtocols = "TLSv1.2 TLSv1.3";
+    sslCiphers = null;
 
     commonHttpConfig = ''
       log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
@@ -84,9 +85,7 @@ in
       zstd_buffers 16 8k;
       zstd_static off;
 
-      ssl_ecdh_curve 'p256_sidhp434:p256_sikep434:p256_frodo640aes:p256_bikel1:p256_ntru_hps2048509:p256_lightsaber:prime256v1:secp384r1:secp521r1';
-      ssl_early_data on;
-      ssl_dyn_rec_enable on;
+      ${LT.nginx.sslConf false}
 
       proxy_buffer_size       128k;
       proxy_buffers           4 256k;
@@ -141,44 +140,13 @@ in
       lua_package_path '/etc/nginx/lua/?.lua;;';
     '';
 
-    streamConfig = let
-      ciphers = [
-        "ECDHE-ECDSA-AES256-GCM-SHA384"
-        "ECDHE-RSA-AES256-GCM-SHA384"
-        "ECDHE-ECDSA-CHACHA20-POLY1305"
-        "ECDHE-RSA-CHACHA20-POLY1305"
-        "ECDHE-ECDSA-AES128-GCM-SHA256"
-        "ECDHE-RSA-AES128-GCM-SHA256"
-        "DHE-RSA-AES256-GCM-SHA384"
-        "DHE-RSA-AES128-GCM-SHA256"
-      ];
-      curves = [
-        "p256_sidhp434"
-        "p256_sikep434"
-        "p256_frodo640aes"
-        "p256_bike1l1cpa"
-        "p256_kyber90s512"
-        "p256_ntru_hps2048509"
-        ":p256_lightsaber"
-        "prime256v1"
-        "secp384r1"
-        "secp521r1"
-      ];
-    in ''
+    streamConfig = ''
       tcp_nodelay on;
       proxy_socket_keepalive on;
-
-      ssl_protocols TLSv1.2 TLSv1.3;
-      ssl_ciphers ${builtins.concatStringsSep ":" ciphers};
-      # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
-      ssl_session_timeout 1d;
-      ssl_session_cache shared:SSL_STREAM:10m;
-      # Breaks forward secrecy: https://github.com/mozilla/server-side-tls/issues/135
-      ssl_session_tickets off;
-      ssl_prefer_server_ciphers on;
-      ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
-
       server_traffic_status_zone;
+
+      ssl_protocols ${sslProtocols};
+      ${LT.nginx.sslConf true}
 
       lua_package_path '/etc/nginx/conf/lua/?.lua;;';
     '';
