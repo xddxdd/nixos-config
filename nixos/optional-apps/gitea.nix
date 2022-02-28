@@ -15,8 +15,13 @@ in
     enableUnixSocket = true;
     appName = "Lan Tian @ Git";
     cookieSecure = true;
-    database.createDatabase = false;
-    database.passwordFile = config.age.secrets.gitea-dbpw.path;
+    database = {
+      type = "mysql";
+      socket = "/run/mysqld/mysqld.sock";
+      user = "gitea";
+      passwordFile = config.age.secrets.gitea-dbpw.path;
+      createDatabase = false;
+    };
     disableRegistration = true;
     domain = "git.lantian.pub";
     lfs.enable = true;
