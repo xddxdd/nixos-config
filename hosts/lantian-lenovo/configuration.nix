@@ -9,11 +9,20 @@ in
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/libvirt.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
+
+  environment.etc."intel-undervolt.conf".text = ''
+    undervolt 0 'CPU' -100
+    undervolt 1 'GPU' -100
+    undervolt 2 'CPU Cache' -100
+    undervolt 3 'System Agent' -100
+    undervolt 4 'Analog I/O' 0
+  '';
 
   environment.systemPackages = with pkgs; [
     aria
