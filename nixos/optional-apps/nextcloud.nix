@@ -16,6 +16,10 @@ in
     enable = true;
     package = pkgs.nextcloud23;
     autoUpdateApps.enable = true;
+    caching = {
+      apcu = true;
+      redis = true;
+    };
     config = {
       adminpassFile = config.age.secrets.nextcloud-pw.path;
       adminuser = "lantian";
@@ -27,6 +31,13 @@ in
     https = true;
     webfinger = true;
     occ = true;
+  };
+
+  services.redis.servers.nextcloud = {
+    enable = true;
+    port = 0;
+    databases = 1;
+    user = config.services.phpfpm.pools.nextcloud.user;
   };
 
   systemd.services.nextcloud-setup.unitConfig = {
