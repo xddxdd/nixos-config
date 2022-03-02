@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 
   addConfLantianPub = pkgs.lib.recursiveUpdate {
     locations = LT.nginx.addCommonLocationConf {
@@ -23,6 +23,31 @@ let
         expires 31536000;
       '';
       "/feed".tryFiles = "$uri /feed.xml /atom.xml =404";
+
+      # Matrix Federation
+      "= /.well-known/matrix/server".extraConfig =
+        let
+          # use 443 instead of the default 8448 port to unite
+          # the client-server and server-server port for simplicity
+          server = { "m.server" = "matrix.lantian.pub:${LT.portStr.Matrix.Public}"; };
+        in
+        ''
+          add_header Content-Type application/json;
+          return 200 '${builtins.toJSON server}';
+        '';
+      "= /.well-known/matrix/client".extraConfig =
+        let
+          client = {
+            "m.homeserver" = { "base_url" = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}"; };
+            "m.identity_server" = { "base_url" = "https://vector.im"; };
+          };
+          # ACAO required to allow element-web on any URL to request this json file
+        in
+        ''
+          add_header Content-Type application/json;
+          add_header Access-Control-Allow-Origin *;
+          return 200 '${builtins.toJSON client}';
+        '';
     };
 
     root = "/var/www/lantian.pub";

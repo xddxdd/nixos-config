@@ -8,6 +8,7 @@
   HTTPS = 443;
   Docker = 2375;
   Vault = 8200;
+  Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
   Prometheus.NodeExporter = 9100;
   Prometheus.BirdExporter = 9324;
@@ -23,6 +24,7 @@
   V2Ray = 13504;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13772;
+  Matrix.Synapse = 13808;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;
   NeteaseUnlock = 30001;

@@ -2,6 +2,8 @@
 
 with dns;
 let
+  inherit (common.hostRecs) fakeALIAS;
+
   serveWithOwnNS = name: [
     (NS { inherit name; target = "50kvm.lantian.pub."; })
     (NS { inherit name; target = "hostdare.lantian.pub."; })
@@ -65,6 +67,8 @@ let
     (CNAME { name = "lab"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "lg"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
+    (fakeALIAS { name = "matrix"; target = "virmach-ny6g"; ttl = "1h"; })
+    (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
     (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "pma-virmach-ny6g"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "pma-soyoustart"; target = "soyoustart"; cloudflare = true; })
@@ -75,13 +79,12 @@ let
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "www"; target = "@"; cloudflare = true; })
     (CNAME { name = "zerossl"; target = "soyoustart"; ttl = "1h"; })
-  ]
-  ++ (serveWithOwnNS "asn")
-  ++ [
+
+    (serveWithOwnNS "asn")
+
     (DS { name = "asn"; keytag = 48539; algorithm = 13; digesttype = 2; digest = "7D653B29D41EDF8A607B3119AF7FF3F0C1AE6EBFD19AA6FA1CCF1590E74DE1B6"; ttl = "1d"; })
     (DS { name = "asn"; keytag = 48539; algorithm = 13; digesttype = 4; digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A"; ttl = "1d"; })
-  ]
-  ;
+  ];
 in
 [
   (rec {
