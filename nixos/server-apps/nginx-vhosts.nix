@@ -29,7 +29,9 @@ let
         let
           # use 443 instead of the default 8448 port to unite
           # the client-server and server-server port for simplicity
-          server = { "m.server" = "matrix.lantian.pub:${LT.portStr.Matrix.Public}"; };
+          server = {
+            "m.server" = "matrix.lantian.pub:${LT.portStr.Matrix.Public}";
+          };
         in
         ''
           add_header Content-Type application/json;
@@ -38,8 +40,12 @@ let
       "= /.well-known/matrix/client".extraConfig =
         let
           client = {
-            "m.homeserver" = { "base_url" = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}"; };
-            "m.identity_server" = { "base_url" = "https://vector.im"; };
+            "m.homeserver" = {
+              "base_url" = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}";
+            };
+            "m.identity_server" = {
+              "base_url" = "https://vector.im";
+            };
           };
           # ACAO required to allow element-web on any URL to request this json file
         in

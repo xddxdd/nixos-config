@@ -11,7 +11,7 @@ in
     database_type = "psycopg2";
     database_user = "matrix-synapse";
     database_name = "matrix-synapse";
-    public_baseurl = "https://${config.services.matrix-synapse.server_name}:${LT.portStr.Matrix.Public}/";
+    public_baseurl = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}";
     server_name = config.networking.domain;
     listeners = [
       {
@@ -30,6 +30,10 @@ in
     ];
     url_preview_enabled = true;
     withJemalloc = true;
+    account_threepid_delegates = {
+      email = "https://vector.im";
+      msisdn = "https://vector.im";
+    };
     extraConfig = ''
       max_upload_size: "500M"
     '';
