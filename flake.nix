@@ -4,7 +4,6 @@
   inputs = {
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.url = "github:numtide/flake-utils";
 
     colmena = {
@@ -61,12 +60,18 @@
       LT = import ./helpers { inherit lib; };
 
       overlays = [
-        (final: prev: let
-          nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${prev.system}";
-        in {
+        (final: prev: {
           flake = inputs;
-          stable = nixpkgs-stable;
-          bird2 = nixpkgs-stable.bird2;
+          bird = prev.bird.overrideAttrs (old: rec {
+            version = "2.0.8";
+            src = prev.fetchurl {
+              sha256 = "1xp7f0im1v8pqqx3xqyfkd1nsxk8vnbqgrdrwnwhg8r5xs1xxlhr";
+              url = "ftp://bird.network.cz/pub/bird/bird2-2.0.8.tar.gz";
+            };
+            patches = [
+              (nixpkgs + "/pkgs/servers/bird/dont-create-sysconfdir-2.patch")
+            ];
+          });
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
