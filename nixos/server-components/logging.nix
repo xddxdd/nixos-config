@@ -7,7 +7,7 @@ in
   age.secrets.filebeat-elasticsearch-pw.file = ../../secrets/filebeat-elasticsearch-pw.age;
 
   services.filebeat = {
-    enable = false;
+    enable = true;
     package = pkgs.filebeat7;
     inputs = {
       journald = {
