@@ -18,6 +18,7 @@ in
             drop_event.when.or = [
               { equals."systemd.unit" = "filebeat.service"; }
               { equals."systemd.unit" = "hath.service"; }
+              { equals."systemd.unit" = "matrix-synapse.service"; }
               { equals."systemd.unit" = "resilio.service"; }
               { equals."systemd.unit" = "yggdrasil.service"; }
             ];
