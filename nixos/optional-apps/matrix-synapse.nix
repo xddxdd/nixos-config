@@ -11,6 +11,7 @@ in
     database_type = "psycopg2";
     database_user = "matrix-synapse";
     database_name = "matrix-synapse";
+    public_baseurl = "https://${config.services.matrix-synapse.server_name}:${LT.portStr.Matrix.Public}/";
     server_name = config.networking.domain;
     listeners = [
       {
@@ -27,9 +28,16 @@ in
         ];
       }
     ];
+    url_preview_enabled = true;
+    withJemalloc = true;
     extraConfig = ''
       max_upload_size: "500M"
     '';
+  };
+
+  systemd.services.matrix-synapse.serviceConfig = LT.serviceHarden // {
+    MemoryDenyWriteExecute = false;
+    StateDirectory = "matrix-synapse";
   };
 
   services.postgresql = {
