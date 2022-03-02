@@ -35,6 +35,23 @@ in
 {
   mapAddresses = mapAddresses;
 
+  fakeALIAS = { name, target, ttl ? "1d" }:
+    let
+      addresses = hosts."${target}".public;
+      ttl = "1d";
+    in
+    # A record
+    pkgs.lib.optionals (addresses.IPv4 != "") [
+      (A { name = "${name}"; address = addresses.IPv4; inherit ttl; })
+    ]
+    # AAAA record
+    ++ pkgs.lib.optionals (addresses.IPv6 != "") [
+      (AAAA { name = "${name}"; address = addresses.IPv6; inherit ttl; })
+    ]
+    ++ pkgs.lib.optionals (addresses.IPv6Alt or "" != "") [
+      (AAAA { name = "${name}"; address = addresses.IPv6Alt; inherit ttl; })
+    ];
+
   CAA = [
     # Let's Encrypt
     (CAA { name = "@"; tag = "issue"; value = "letsencrypt.org"; })

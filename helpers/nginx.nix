@@ -203,6 +203,11 @@ rec {
     { addr = "[::]"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
   ];
 
+  listenHTTPSPort = port: [
+    { addr = "0.0.0.0"; inherit port; extraParameters = [ "ssl" "http2" ]; }
+    { addr = "[::]"; inherit port; extraParameters = [ "ssl" "http2" ]; }
+  ];
+
   listenHTTP = [
     { addr = "0.0.0.0"; port = port.HTTP; }
     { addr = "[::]"; port = port.HTTP; }
