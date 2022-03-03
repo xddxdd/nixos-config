@@ -56,8 +56,7 @@ in
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.traceroute ];
     environment = {
-      BIRD_SOCKET = "/run/bird.ctl";
-      BIRD6_SOCKET = "/run/bird.ctl";
+      BIRD_SOCKET = "/run/bird/bird.ctl";
       BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
     };
     unitConfig = {
