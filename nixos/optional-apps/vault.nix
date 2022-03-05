@@ -1,9 +1,15 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
+  age.secrets.vault-unseal-key = {
+    file = ../../secrets/vault-unseal-key.age;
+    owner = config.systemd.services.vault.serviceConfig.User;
+    group = config.systemd.services.vault.serviceConfig.Group;
+  };
+
   services.vault = {
     enable = true;
     package = pkgs.vault-bin;
@@ -14,6 +20,17 @@ in
       ui = 1
     '';
   };
+
+  systemd.services.vault.serviceConfig.ExecStartPost =
+    let
+      script = pkgs.writeShellScript "vault-unseal" ''
+        sleep 10
+        ${config.services.vault.package}/bin/vault operator unseal \
+          -address=http://${config.services.vault.address} \
+          $(cat ${config.age.secrets.vault-unseal-key.path})
+      '';
+    in
+    "${script}";
 
   services.nginx.virtualHosts = {
     "vault.lantian.pub" = {
