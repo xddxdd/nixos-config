@@ -10,6 +10,18 @@
       "syscall.x32=y"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches =
+      let
+        p = name: {
+          inherit name; patch = ../../patches/kernel + "/${name}.patch";
+        };
+      in
+      [
+        (p "0001-drm-i915-gvt-Add-virtual-option-ROM-emulation")
+        (p "0003-intel-drm-use-max-clock")
+        (p "0004-hp-omen-fourzone")
+        (p "0008-hp-omen-mute-led")
+      ];
 
     initrd = {
       compressor = "zstd";
