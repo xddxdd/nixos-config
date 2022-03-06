@@ -5,6 +5,10 @@
   services.xserver.displayManager.sddm.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
+  programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
