@@ -30,14 +30,12 @@ in
 
   environment.systemPackages = with pkgs; [
     aria
+    audacious
     colmena
-    discord
     firefox
+    gnome.gedit
     google-chrome
     mpv
-    rnix-lsp
-    tdesktop
-    thunderbird
     vscode
     wpsoffice
     zoom-us
