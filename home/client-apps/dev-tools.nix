@@ -36,6 +36,13 @@ in
     # LaTeX
     texlive.combined.scheme-full
 
+    # NodeJS
+    nodejs
+    nodePackages.npm
+
+    # PHP
+    phpWithExtensions
+
     # Rust
     cargo
     rustc

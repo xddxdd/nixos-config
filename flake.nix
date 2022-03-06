@@ -77,6 +77,11 @@
               (nixpkgs + "/pkgs/servers/bird/dont-create-sysconfdir-2.patch")
             ];
           });
+          phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
+            gd zip xml pdo gmp ftp ffi dom bz2 zlib yaml exif curl apcu redis pgsql iconv event
+            ctype sodium mysqli sockets openssl mysqlnd imagick gettext readline protobuf mbstring
+            sqlite3 memcached maxminddb pdo_pgsql pdo_mysql pdo_sqlite
+          ]);
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
             version = prev.age.version;
