@@ -96,6 +96,11 @@ in
   };
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
+  services.xserver.libinput.touchpad = {
+    accelSpeed = "0.4";
+    clickMethod = "clickfinger";
+    disableWhileTyping = false;
+  };
 
   services.udev.extraHwdb = ''
     # Calc key

@@ -22,7 +22,9 @@ in
   services.xserver.enable = true;
   services.xserver.libinput.enable = true;
   services.xserver.libinput.touchpad = {
+    horizontalScrolling = true;
     naturalScrolling = true;
+    tapping = true;
     tappingDragLock = false;
   };
 
