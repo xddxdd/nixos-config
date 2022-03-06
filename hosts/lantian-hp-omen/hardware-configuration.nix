@@ -21,7 +21,11 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/23390759-5d5a-4708-8eeb-f72430c3274c";
+  boot.initrd.luks.devices."root" = {
+    allowDiscards = true;
+    bypassWorkqueues = true;
+    device = "/dev/disk/by-uuid/23390759-5d5a-4708-8eeb-f72430c3274c";
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B406-5B9F";
@@ -64,6 +68,15 @@
     fsType = "btrfs";
     options = [ "subvol=nix" "compress-force=zstd" ];
   };
+
+  swapDevices = [{
+    device = "/dev/disk/by-partuuid/6a423fb7-a6b9-934c-b587-246c03066e9f";
+    discardPolicy = "both";
+    randomEncryption = {
+      enable = true;
+      allowDiscards = true;
+    };
+  }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
