@@ -95,5 +95,7 @@ in
     ];
   };
 
+  services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
+
   users.users.lantian.extraGroups = [ "rslsync" ];
 }
