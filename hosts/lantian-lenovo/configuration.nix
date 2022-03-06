@@ -38,7 +38,6 @@ in
     rnix-lsp
     tdesktop
     thunderbird
-    tilix
     vscode
     wpsoffice
     zoom-us
