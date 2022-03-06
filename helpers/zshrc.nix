@@ -54,7 +54,7 @@
   ########################################
   # Import scripts
   ########################################
-  [[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
+  [[ -f "/etc/profile" ]] && emulate sh -c 'source /etc/profile'
   source ${pkgs.vte}/etc/profile.d/vte.sh
   source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
   source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
