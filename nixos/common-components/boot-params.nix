@@ -16,7 +16,7 @@
           inherit name; patch = ../../patches/kernel + "/${name}.patch";
         };
       in
-      [
+      pkgs.lib.optionals pkgs.stdenv.isx86_64 [
         (p "0001-drm-i915-gvt-Add-virtual-option-ROM-emulation")
         (p "0003-intel-drm-use-max-clock")
         (p "0004-hp-omen-fourzone")
