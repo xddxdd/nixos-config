@@ -177,8 +177,9 @@
         meta.nixpkgs = { inherit lib; };
         meta.nodeNixpkgs = lib.mapAttrs (n: v: import nixpkgs { inherit (v) system; }) LT.nixosHosts;
       } // (lib.mapAttrs
-        (n: { hostname, sshPort, ... }: {
+        (n: { hostname, sshPort, role, ... }: {
           deployment = {
+            allowLocalDeployment = role == LT.roles.client;
             targetHost = hostname;
             targetPort = sshPort;
             targetUser = "root";
