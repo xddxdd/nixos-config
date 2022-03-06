@@ -7,7 +7,7 @@ in
   imports = [ ./postgresql.nix ];
 
   age.secrets.keycloak-dbpw = {
-    file = ../../secrets/keycloak-dbpw.age;
+    file = pkgs.secrets + "/keycloak-dbpw.age";
     owner = "keycloak";
     group = "keycloak";
   };

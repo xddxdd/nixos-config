@@ -7,12 +7,12 @@ in
   imports = [ ./mysql.nix ];
 
   age.secrets.grafana-dbpw = {
-    file = ../../secrets/grafana-dbpw.age;
+    file = pkgs.secrets + "/grafana-dbpw.age";
     owner = "grafana";
     group = "grafana";
   };
   age.secrets.grafana-oauth = {
-    file = ../../secrets/grafana-oauth.age;
+    file = pkgs.secrets + "/grafana-oauth.age";
     owner = "grafana";
     group = "grafana";
   };

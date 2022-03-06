@@ -11,7 +11,7 @@ in
     ./php-fpm.nix
   ];
 
-  age.secrets.oauth2-proxy-conf.file = ../../secrets/oauth2-proxy-conf.age;
+  age.secrets.oauth2-proxy-conf.file = pkgs.secrets + "/oauth2-proxy-conf.age";
 
   # Disable checking nginx.conf
   nixpkgs.overlays = [

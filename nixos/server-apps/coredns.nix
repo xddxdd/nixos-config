@@ -33,7 +33,7 @@ in
             name = "${n}.key";
             owner = "container";
             group = "container";
-            file = ../../secrets/dnssec + "/${n}.key.age";
+            file = pkgs.secrets + "/dnssec/${n}.key.age";
           };
         }
         {
@@ -42,7 +42,7 @@ in
             name = "${n}.private";
             owner = "container";
             group = "container";
-            file = ../../secrets/dnssec + "/${n}.private.age";
+            file = pkgs.secrets + "/dnssec/${n}.private.age";
           };
         }
       ])

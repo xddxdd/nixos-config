@@ -6,7 +6,7 @@ in
 {
   age.secrets.v2ray-conf = {
     name = "v2ray.json";
-    file = ../../secrets/v2ray-conf.age;
+    file = pkgs.secrets + "/v2ray-conf.age";
     owner = "v2ray";
     group = "v2ray";
   };

@@ -5,7 +5,7 @@ let
 in
 {
   age.secrets.vault-unseal-key = {
-    file = ../../secrets/vault-unseal-key.age;
+    file = pkgs.secrets + "/vault-unseal-key.age";
     owner = config.systemd.services.vault.serviceConfig.User;
     group = config.systemd.services.vault.serviceConfig.Group;
   };

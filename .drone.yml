@@ -37,7 +37,6 @@ steps:
       - echo "$SSH_KEY" > $HOME/.ssh/id_ed25519
       - echo "StrictHostKeyChecking no" > $HOME/.ssh/config
       - chmod -R 400 $HOME/.ssh
-      - git submodule update --init --recursive
       - nix run ".#dnscontrol" -- push
 
   - name: ansible deploy

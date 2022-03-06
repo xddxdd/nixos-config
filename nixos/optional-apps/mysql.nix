@@ -25,7 +25,7 @@ in
   };
 
   age.secrets.phpmyadmin-conf = {
-    file = ../../secrets/phpmyadmin-conf.age;
+    file = pkgs.secrets + "/phpmyadmin-conf.age";
     owner = "nginx";
     group = "nginx";
   };

@@ -7,7 +7,7 @@ in
   imports = [ ./mysql.nix ];
 
   age.secrets.nextcloud-pw = {
-    file = ../../secrets/nextcloud-pw.age;
+    file = pkgs.secrets + "/nextcloud-pw.age";
     owner = "nextcloud";
     group = "nextcloud";
   };
