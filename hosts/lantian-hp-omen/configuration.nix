@@ -97,5 +97,11 @@ in
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
 
+  services.udev.extraHwdb = ''
+    # Calc key
+    evdev:atkbd:dmi:bvn*:bvr*:bd*:svnHP:pnOMEN*:pvr*
+      KEYBOARD_KEY_a1=!calc
+  '';
+
   users.users.lantian.extraGroups = [ "rslsync" ];
 }
