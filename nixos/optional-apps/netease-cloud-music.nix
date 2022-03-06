@@ -129,6 +129,16 @@ in
     options edns0
   '';
 
+  fileSystems."/home/lantian/.cache/netease-cloud-music" = {
+    device = "/home/lantian/.local/share/netease-cloud-music";
+    options = [ "bind" ];
+  };
+
+  fileSystems."/root/.cache/netease-cloud-music" = {
+    device = "/root/.local/share/netease-cloud-music";
+    options = [ "bind" ];
+  };
+
   systemd.services = netns.setup // {
     netns-netease-xray = {
       after = [ "netns-instance-netease.service" ];
@@ -160,6 +170,10 @@ in
       echo "Running netease-cloud-music as $USER"
       ${pkgs.iproute2}/bin/ip netns exec ns-netease \
         /run/wrappers/bin/sudo -u "$USER" \
+        env \
+          QT_AUTO_SCREEN_SCALE_FACTOR=$QT_AUTO_SCREEN_SCALE_FACTOR \
+          QT_SCREEN_SCALE_FACTORS=$QT_SCREEN_SCALE_FACTORS \
+          XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
         ${pkgs.nixos-cn.netease-cloud-music}/bin/netease-cloud-music \
         --ignore-certificate-errors
     '';
