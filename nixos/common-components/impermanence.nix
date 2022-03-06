@@ -25,7 +25,7 @@
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "relatime" "mode=755" "nosuid" "noexec" "nodev" ];
+    options = [ "relatime" "mode=755" "nosuid" "nodev" ];
   };
 
   services.btrfs.autoScrub = pkgs.lib.mkIf (config.fileSystems."/nix".fsType == "btrfs") {

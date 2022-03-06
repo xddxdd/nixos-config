@@ -54,6 +54,8 @@ in
     zoom-us
   ];
 
+  fileSystems."/".options = [ "size=64G" ];
+
   programs.steam.enable = true;
 
   virtualisation.virtualbox.host.enable = true;
