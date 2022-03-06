@@ -48,7 +48,6 @@ in
     gnome.gedit
     google-chrome
     mpv
-    tilix
     vscode
     wpsoffice
     zoom-us
