@@ -24,7 +24,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d /nix/persistent/media 755 rslsync rslsync"
+    "d /nix/persistent/media 775 rslsync rslsync"
   ];
 
   services.nginx.virtualHosts."resilio-${config.networking.hostName}.lantian.pub" = {

@@ -28,6 +28,7 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/5667-EE72";
     fsType = "vfat";
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

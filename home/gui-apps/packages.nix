@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   home.packages = with pkgs; [
     colmena

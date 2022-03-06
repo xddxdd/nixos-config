@@ -32,6 +32,7 @@ let
 in
 if config == { } && pkgs == { } then args else
 args // rec {
+  autostart = callHelper ./autostart.nix;
   container = callHelper ./container.nix;
   netns = callHelper ./netns.nix;
   nginx = callHelper ./nginx.nix;
