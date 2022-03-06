@@ -43,6 +43,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    secrets = {
+      url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +66,7 @@
       overlays = [
         (final: prev: {
           flake = inputs;
+          secrets = inputs.secrets;
           bird = prev.bird.overrideAttrs (old: rec {
             version = "2.0.8";
             src = prev.fetchurl {
@@ -178,7 +183,10 @@
 
             TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
             cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
-            ${pkgs.age}/bin/age -i "$HOME/.ssh/id_ed25519" --decrypt -o "$TEMP_DIR/creds.json" "secrets/dnscontrol.age"
+            ${pkgs.age}/bin/age \
+              -i "$HOME/.ssh/id_ed25519" \
+              --decrypt -o "$TEMP_DIR/creds.json" \
+              "${inputs.secrets}/dnscontrol.age"
             mkdir -p "$TEMP_DIR/zones"
 
             cd "$TEMP_DIR"

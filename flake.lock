@@ -392,7 +392,24 @@
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs",
         "nur-xddxdd": "nur-xddxdd",
-        "nvfetcher": "nvfetcher"
+        "nvfetcher": "nvfetcher",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646538555,
+        "narHash": "sha256-WnKhZvU/Qjf7CSs8mpnf+sU5FZ8IcM3OLfAGDteT6og=",
+        "ref": "master",
+        "rev": "0c77e0f24a82946c7508d9f8ca839ba589cdae50",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@github.com/xddxdd/nixos-secrets"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/xddxdd/nixos-secrets"
       }
     },
     "stable": {

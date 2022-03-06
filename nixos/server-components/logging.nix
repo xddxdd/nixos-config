@@ -4,7 +4,7 @@ let
   LT = import ../../helpers { inherit config pkgs; };
 in
 {
-  age.secrets.filebeat-elasticsearch-pw.file = ../../secrets/filebeat-elasticsearch-pw.age;
+  age.secrets.filebeat-elasticsearch-pw.file = pkgs.secrets + "/filebeat-elasticsearch-pw.age";
 
   services.filebeat = {
     enable = true;

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  age.secrets.genshin-impact-cookies.file = ../../secrets/genshin-impact-cookies.age;
+  age.secrets.genshin-impact-cookies.file = pkgs.secrets + "/genshin-impact-cookies.age";
 
   systemd.services.genshin-helper = {
     serviceConfig.Type = "oneshot";

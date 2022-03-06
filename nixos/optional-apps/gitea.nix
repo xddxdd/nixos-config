@@ -5,7 +5,7 @@ let
 in
 {
   age.secrets.gitea-dbpw = {
-    file = ../../secrets/gitea-dbpw.age;
+    file = pkgs.secrets + "/gitea-dbpw.age";
     owner = config.services.gitea.user;
     group = "gitea";
   };

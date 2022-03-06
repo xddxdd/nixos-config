@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  age.secrets.epicgames-claimer-env.file = ../../secrets/epicgames-claimer-env.age;
+  age.secrets.epicgames-claimer-env.file = pkgs.secrets + "/epicgames-claimer-env.age";
 
   virtualisation.oci-containers.containers.epicgames-claimer = {
     image = "docker.io/luminoleon/epicgames-claimer:dev";

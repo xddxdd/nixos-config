@@ -4,7 +4,7 @@ let
   LT = import ../../helpers {  inherit config pkgs; };
 in
 {
-  age.secrets.vaultwarden-env.file = ../../secrets/vaultwarden-env.age;
+  age.secrets.vaultwarden-env.file = pkgs.secrets + "/vaultwarden-env.age";
 
   services.vaultwarden = {
     enable = true;

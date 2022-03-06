@@ -2,7 +2,7 @@
 
 {
   age.secrets.smtp-pass = {
-    file = ../../secrets/smtp-pass.age;
+    file = pkgs.secrets + "/smtp-pass.age";
     mode = "0444";
   };
 

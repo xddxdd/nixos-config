@@ -9,7 +9,7 @@ let
   python = pkgs.python3.withPackages pythonPackages;
 in
 {
-  age.secrets.tg-bot-cleaner-bot.file = ../../secrets/tg-bot-cleaner-bot.age;
+  age.secrets.tg-bot-cleaner-bot.file = pkgs.secrets + "/tg-bot-cleaner-bot.age";
 
   systemd.services.tg-bot-cleaner-bot = {
     description = "A Bot that cleans other Telegram Bot messages";

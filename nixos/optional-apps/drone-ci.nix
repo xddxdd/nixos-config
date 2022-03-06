@@ -18,9 +18,9 @@ in
     ./vault.nix
   ];
 
-  age.secrets.drone-ci-env.file = ../../secrets/drone-ci-env.age;
-  age.secrets.drone-ci-github-env.file = ../../secrets/drone-ci-github-env.age;
-  age.secrets.drone-ci-vault-env.file = ../../secrets/drone-ci-vault-env.age;
+  age.secrets.drone-ci-env.file = pkgs.secrets + "/drone-ci-env.age";
+  age.secrets.drone-ci-github-env.file = pkgs.secrets + "/drone-ci-github-env.age";
+  age.secrets.drone-ci-vault-env.file = pkgs.secrets + "/drone-ci-vault-env.age";
 
   systemd.services = droneNetns.setup // droneGitHubNetns.setup // {
     drone = droneNetns.bind {

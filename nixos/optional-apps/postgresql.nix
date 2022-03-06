@@ -17,7 +17,7 @@ in
   systemd.services.postgresql.serviceConfig = LT.serviceHarden;
 
   age.secrets.phppgadmin-conf = {
-    file = ../../secrets/phppgadmin-conf.age;
+    file = pkgs.secrets + "/phppgadmin-conf.age";
     owner = "nginx";
     group = "nginx";
   };

@@ -25,7 +25,7 @@ let
   '';
 in
 {
-  config.age.secrets.wg-priv.file = ../../secrets/wg-priv + "/${config.networking.hostName}.age";
+  config.age.secrets.wg-priv.file = pkgs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
   options.services.dn42 = pkgs.lib.mkOption {
     type = pkgs.lib.types.attrsOf (pkgs.lib.types.submodule {
