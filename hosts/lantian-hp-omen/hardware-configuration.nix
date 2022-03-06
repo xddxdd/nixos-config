@@ -14,6 +14,7 @@
     device = "nodev";
     gfxmodeBios = "2560x1440x32,auto";
     gfxmodeEfi = "2560x1440x32,auto";
+    useOSProber = true;
   };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];

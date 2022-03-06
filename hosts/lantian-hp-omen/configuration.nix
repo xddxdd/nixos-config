@@ -16,21 +16,6 @@ in
     ../../nixos/optional-apps/x11vnc.nix
   ];
 
-  boot.loader.grub.extraEntries = ''
-    menuentry 'Arch Linux (linux-xanmod-lantian)' {
-      savedefault
-      search --set=drive1 --fs-uuid B406-5B9F
-      linux ($drive1)/vmlinuz-linux-xanmod-lantian root=/dev/mapper/root rw rootflags=subvol=archlinux rd.luks.name=23390759-5d5a-4708-8eeb-f72430c3274c=root rd.luks.options=timeout=0,password-echo=no rootflags=x-systemd.device-timeout=0 audit=0 cgroup_enable=memory net.ifnames=0 swapaccount=1 syscall.x32=y intel_iommu=on iommu=pt nowatchdog pcie_aspm=force loglevel=3
-      initrd ($drive1)/intel-ucode.img ($drive1)/initramfs-linux-xanmod-lantian.img
-    }
-    menuentry 'Arch Linux (linux)' {
-      savedefault
-      search --set=drive1 --fs-uuid B406-5B9F
-      linux ($drive1)/vmlinuz-linux root=/dev/mapper/root rw rootflags=subvol=archlinux rd.luks.name=23390759-5d5a-4708-8eeb-f72430c3274c=root rd.luks.options=timeout=0,password-echo=no rootflags=x-systemd.device-timeout=0 audit=0 cgroup_enable=memory net.ifnames=0 swapaccount=1 syscall.x32=y intel_iommu=on iommu=pt nowatchdog pcie_aspm=force loglevel=3
-      initrd ($drive1)/intel-ucode.img ($drive1)/initramfs-linux.img
-    }
-  '';
-
   environment.etc."intel-undervolt.conf".text = ''
     undervolt 0 'CPU' -80
     undervolt 1 'GPU' -80
@@ -43,7 +28,6 @@ in
     aria
     audacious
     colmena
-    discord
     firefox
     gnome.gedit
     google-chrome
