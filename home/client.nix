@@ -10,7 +10,7 @@ in
     in
     [ ]
     ++ (ls ./common-apps)
-    # ++ (ls ./client-apps)
+    ++ (ls ./client-apps)
     ++ (ls ./gui-apps)
   ;
 }

@@ -1,3 +1,6 @@
+local: FORCE
+	sudo nixos-rebuild switch --flake .
+
 deploy: FORCE
 	colmena apply --keep-result
 

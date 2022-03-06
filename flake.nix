@@ -88,6 +88,22 @@
               ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
             '';
           };
+          ulauncher = prev.ulauncher.overrideAttrs (old: {
+            propagatedBuildInputs = with prev.python3Packages; old.propagatedBuildInputs ++ [
+              fuzzywuzzy
+              pint
+              pytz
+              simpleeval
+            ];
+
+            nativeBuildInputs = old.nativeBuildInputs ++ [ prev.makeWrapper ];
+
+            preFixup = old.preFixup + ''
+              makeWrapperArgs+=(
+                --set XDG_DATA_DIRS "/run/current-system/sw/share"
+              )
+            '';
+          });
         })
         inputs.colmena.overlay
         inputs.nur-xddxdd.overlay

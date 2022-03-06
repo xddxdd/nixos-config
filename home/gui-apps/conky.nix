@@ -17,11 +17,16 @@ let
   padString = s: "${offset (alignX - pkgs.lib.stringLength s)}${s}";
 
   fsUsage = path: ""
+    + "\${if_mounted ${path}}"
     + "${gray (padString (path+":"))} \${fs_used_perc ${path}}% \$alignr \${fs_used ${path}} ${gray "/"} \${fs_size ${path}}\n"
-    + "${offset alignX} \${fs_bar 4 ${path}}";
+    + "${offset alignX} \${fs_bar 4 ${path}}\n"
+    + "\${endif}"
+  ;
   netUsage = interface: ""
+    + "\${if_up ${interface}}"
     + "${goto 0}${gray (padString (interface+":"))} ${gray "up:"} \${upspeed ${interface}}"
-    + "${goto centerX}${gray "down:"} \${downspeed ${interface}}"
+    + "${goto centerX}${gray "down:"} \${downspeed ${interface}}\n"
+    + "\${endif}"
   ;
   processInfo = i:
     let
@@ -45,19 +50,20 @@ let
     "${offset alignX} \${swapbar 4}"
     "${gray (padString "Battery:")} $battery_percent% $alignr $battery_time"
     "${offset alignX} \${battery_bar 4}"
-    "${gray (padString "GPU Power:")} \${exec cat /sys/bus/pci/devices/0000:01:00.0/power_state}"
-    "${gray (padString "Processes:")} $running_processes ${gray "running /"} $processes ${gray "total"}"
+    ("${gray (padString "GPU Power:")} \${head /sys/bus/pci/devices/0000:01:00.0/power_state 1}"
+      + "${goto 0}${gray (padString "Processes:")} $running_processes ${gray "running /"} $processes ${gray "total"}")
     "${gray "$hr"}"
     "${gray "File systems:"}"
-    "${fsUsage "/"}"
-    "${fsUsage "/mnt/c"}"
-    "${gray "$hr"}"
+    ("${fsUsage "/"}"
+      + "${fsUsage "/nix"}"
+      + "${fsUsage "/mnt/c"}"
+      + "${goto 0}${gray "$hr"}")
     "${gray "Networking:"}"
-    "${netUsage "eth0"}"
-    "${netUsage "wlan0"}"
-    "${netUsage "wg-lantian"}"
-    "${netUsage "wg-cf-warp"}"
-    "${gray "$hr"}"
+    ("${netUsage "eth0"}"
+      + "${netUsage "wlan0"}"
+      + "${netUsage "wg-lantian"}"
+      + "${netUsage "wg-cf-warp"}"
+      + "${goto 0}${gray "$hr"}")
     "${gray "Processes:"}${goto 20}${gray "    PID"}${goto 28}${gray "  CPU%"}${goto 35}${gray "  MEM%"}"
     "${processInfo 1}"
     "${processInfo 2}"

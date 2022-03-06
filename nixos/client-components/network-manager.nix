@@ -11,4 +11,6 @@
     enable = true;
     unmanaged = [ "interface-name:*,except:interface-name:eth*,except:interface-name:wlan*,except:interface-name:nm-*" ];
   };
+
+  users.users.lantian.extraGroups = [ "networkmanager" ];
 }

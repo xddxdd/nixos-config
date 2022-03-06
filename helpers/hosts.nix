@@ -393,7 +393,7 @@ in
   };
   "lantian-hp-omen" = rec {
     index = 100;
-    role = roles.non-nixos;
+    role = roles.client;
     tinc = {
       rsa = ''
         -----BEGIN RSA PUBLIC KEY-----

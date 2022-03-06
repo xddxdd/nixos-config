@@ -24,6 +24,10 @@ in
     undervolt 4 'Analog I/O' 0
   '';
 
+  environment.persistence."/nix/persistent".directories = [
+    "/home/lantian"
+  ];
+
   environment.systemPackages = with pkgs; [
     aria
     colmena
@@ -49,6 +53,7 @@ in
     spec = "/nix";
     hashTableSizeMB = 512;
     verbosity = "crit";
+    extraOptions = [ "-c" "2" ];
   };
 
   services.tlp.settings = {

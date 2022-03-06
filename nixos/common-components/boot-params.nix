@@ -20,6 +20,7 @@
     loader = {
       grub = {
         enable = true;
+        default = "saved";
         version = 2;
         splashImage = null;
       };
