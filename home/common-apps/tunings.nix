@@ -82,5 +82,10 @@ in
     initExtra = LT.zshrc;
   };
 
-  xdg.configFile."htop/htoprc".source = ../../nixos/files/htoprc;
+  xdg.configFile = {
+    "htop/htoprc".source = ../../nixos/files/htoprc;
+    "nixpkgs/config.nix".text = ''
+      { allowUnfree = true; }
+    '';
+  };
 }
