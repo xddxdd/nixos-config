@@ -31,6 +31,7 @@ in
     firefox
     gnome.gedit
     google-chrome
+    libsForQt5.ark
     mpv
     vscode
     wpsoffice
