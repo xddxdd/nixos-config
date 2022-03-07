@@ -3,7 +3,7 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     colmena = {
@@ -38,9 +38,9 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nur.url = github:nix-community/NUR;
+    # nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
-      url = github:xddxdd/nur-packages;
+      url = "github:xddxdd/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvfetcher = {
@@ -69,93 +69,16 @@
       LT = import ./helpers { inherit lib; };
 
       overlays = [
-        (final: prev: {
-          flake = inputs;
-          secrets = inputs.secrets;
-          bird = prev.bird.overrideAttrs (old: rec {
-            version = "2.0.8";
-            src = prev.fetchurl {
-              sha256 = "1xp7f0im1v8pqqx3xqyfkd1nsxk8vnbqgrdrwnwhg8r5xs1xxlhr";
-              url = "ftp://bird.network.cz/pub/bird/bird2-2.0.8.tar.gz";
-            };
-            patches = [
-              (nixpkgs + "/pkgs/servers/bird/dont-create-sysconfdir-2.patch")
-            ];
-          });
-          phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
-            gd
-            zip
-            xml
-            pdo
-            gmp
-            ftp
-            ffi
-            dom
-            bz2
-            zlib
-            yaml
-            exif
-            curl
-            apcu
-            redis
-            pgsql
-            iconv
-            event
-            ctype
-            sodium
-            mysqli
-            sockets
-            openssl
-            mysqlnd
-            imagick
-            gettext
-            readline
-            protobuf
-            mbstring
-            sqlite3
-            memcached
-            maxminddb
-            pdo_pgsql
-            pdo_mysql
-            pdo_sqlite
-          ]);
-          rage = prev.stdenv.mkDerivation rec {
-            name = "rage";
-            version = prev.age.version;
-
-            phases = [ "installPhase" ];
-            installPhase = ''
-              mkdir -p $out/bin
-              ln -s ${prev.age}/bin/age $out/bin/rage
-              ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
-            '';
-          };
-          ulauncher = prev.ulauncher.overrideAttrs (old: {
-            propagatedBuildInputs = with prev.python3Packages; old.propagatedBuildInputs ++ [
-              fuzzywuzzy
-              pint
-              pytz
-              simpleeval
-            ];
-
-            nativeBuildInputs = old.nativeBuildInputs ++ [ prev.makeWrapper ];
-
-            preFixup = old.preFixup + ''
-              makeWrapperArgs+=(
-                --set XDG_DATA_DIRS "/run/current-system/sw/share"
-              )
-            '';
-          });
-        })
         inputs.colmena.overlay
         inputs.nix-alien.overlay
         inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlay
+        (import ./overlay.nix { inherit inputs nixpkgs; })
       ];
 
       modulesFor = n:
         let
-          inherit (LT.hosts."${n}") system;
+          inherit (LT.hosts."${n}") system role;
         in
         [
           ({
@@ -174,6 +97,8 @@
           (./hosts + "/${n}/configuration.nix")
         ] ++ lib.optionals (system == "x86_64-linux") [
           inputs.nix-ld.nixosModules.nix-ld
+        ] ++ lib.optionals (role == LT.roles.client) [
+          inputs.nur-xddxdd.nixosModules.svpWithNvidia
         ];
 
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;

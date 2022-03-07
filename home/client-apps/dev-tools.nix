@@ -43,6 +43,9 @@ in
     # PHP
     phpWithExtensions
 
+    # Python
+    python3Packages.pip
+
     # Rust
     cargo
     rustc
