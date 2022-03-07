@@ -8,6 +8,9 @@
     script = "${pkgs.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
     serviceConfig = {
       EnvironmentFile = config.age.secrets.genshin-impact-cookies.path;
+      TimeoutSec = 900;
+      Restart = "on-failure";
+      RestartSec = 30;
     };
     unitConfig = {
       After = "network.target";
