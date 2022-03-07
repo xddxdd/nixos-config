@@ -9,6 +9,7 @@ in
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/libvirt.nix
@@ -28,26 +29,7 @@ in
     "/home/lantian"
   ];
 
-  environment.systemPackages = with pkgs; [
-    aria
-    audacious
-    colmena
-    firefox
-    gnome.gedit
-    google-chrome
-    libsForQt5.ark
-    mpv
-    vscode
-    wpsoffice
-    zoom-us
-  ];
-
   fileSystems."/".options = [ "size=100%" ];
-
-  programs.steam.enable = true;
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   services.beesd.filesystems.root = {
     spec = "/nix";

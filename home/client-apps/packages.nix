@@ -9,6 +9,7 @@ in
     element-desktop
     tdesktop
     thunderbird
+    ulauncher
   ];
 
   xdg.configFile = LT.autostart [

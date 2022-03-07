@@ -13,5 +13,7 @@
     dockerSocket.enable = true;
   };
 
+  users.users.lantian.extraGroups = [ "podman" ];
+
   virtualisation.oci-containers.backend = "podman";
 }

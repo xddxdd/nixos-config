@@ -10,19 +10,29 @@
   environment.localBinInPath = true;
   environment.variables.SYSTEMD_PAGER = "";
   environment.systemPackages = with pkgs; [
+    brotli
+    bzip2
     dig
     git
+    gzip
     htop
     inetutils
     iptables
     nftables
     openssl
+    p7zip
     pciutils
     python3Minimal
+    rar
     screen
     tcpdump
+    unar
+    unrar
+    unzip
     usbutils
     wget
+    zip
+    zstd
   ] ++ pkgs.lib.optionals pkgs.stdenv.isx86_64 [
     nix-alien
     nix-index
