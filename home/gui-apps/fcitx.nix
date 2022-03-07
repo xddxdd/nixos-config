@@ -1,6 +1,19 @@
 { config, pkgs, ... }:
 
 let
+  fcitx5-breeze = pkgs.stdenv.mkDerivation {
+    pname = "fcitx5-breeze";
+    version = "2.0.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/scratch-er/fcitx5-breeze/releases/download/v2.0.0/fcitx5-breeze-prebuilt-2.0.0.tar.gz";
+      sha256 = "0wwwvq90dcb21avdgcqq5w192ndr2m5fmswxblm3l2vcrh36h3jz";
+    };
+    installPhase = ''
+      mkdir $out
+      ./install.sh $out
+    '';
+  };
+
   rime-dict-files = [
     "luna_pinyin.anime"
     "luna_pinyin.basis"
@@ -29,6 +42,7 @@ let
 in
 {
   xdg.dataFile = {
+    "fcitx5/themes".source = "${fcitx5-breeze}/share/fcitx5/themes";
     "fcitx5/rime/default.custom.yaml".text = builtins.toJSON {
       patch = {
         schema_list = [ ({ schema = "luna_pinyin_simp"; }) ];
