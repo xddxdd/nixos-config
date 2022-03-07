@@ -56,6 +56,7 @@ in
   environment.variables = {
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
+    MOZ_DISABLE_RDD_SANDBOX = "1";
     LIBVA_DRIVER_NAME = "iHD";
     VDPAU_DRIVER = "va_gl";
   };
