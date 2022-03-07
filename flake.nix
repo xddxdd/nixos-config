@@ -29,6 +29,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,9 +83,41 @@
             ];
           });
           phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
-            gd zip xml pdo gmp ftp ffi dom bz2 zlib yaml exif curl apcu redis pgsql iconv event
-            ctype sodium mysqli sockets openssl mysqlnd imagick gettext readline protobuf mbstring
-            sqlite3 memcached maxminddb pdo_pgsql pdo_mysql pdo_sqlite
+            gd
+            zip
+            xml
+            pdo
+            gmp
+            ftp
+            ffi
+            dom
+            bz2
+            zlib
+            yaml
+            exif
+            curl
+            apcu
+            redis
+            pgsql
+            iconv
+            event
+            ctype
+            sodium
+            mysqli
+            sockets
+            openssl
+            mysqlnd
+            imagick
+            gettext
+            readline
+            protobuf
+            mbstring
+            sqlite3
+            memcached
+            maxminddb
+            pdo_pgsql
+            pdo_mysql
+            pdo_sqlite
           ]);
           rage = prev.stdenv.mkDerivation rec {
             name = "rage";
@@ -111,6 +148,7 @@
           });
         })
         inputs.colmena.overlay
+        inputs.nix-alien.overlay
         inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlay
       ];

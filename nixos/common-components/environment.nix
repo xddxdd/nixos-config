@@ -17,10 +17,16 @@
     iptables
     nftables
     openssl
+    pciutils
     python3Minimal
     screen
     tcpdump
+    usbutils
     wget
+  ] ++ pkgs.lib.optionals pkgs.stdenv.isx86_64 [
+    nix-alien
+    nix-index
+    nix-index-update
   ];
 
   hardware.ksm.enable = true;
