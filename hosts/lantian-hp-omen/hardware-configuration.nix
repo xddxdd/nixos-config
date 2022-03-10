@@ -40,12 +40,6 @@
     options = [ "subvol=home" "compress-force=zstd" ];
   };
 
-  fileSystems."/home/lantian/.cache" = {
-    device = "tmpfs";
-    fsType = "tmpfs";
-    options = [ "relatime" "mode=755" "nosuid" "nodev" "uid=1000" "gid=1" ];
-  };
-
   fileSystems."/home/lantian/Downloads" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
