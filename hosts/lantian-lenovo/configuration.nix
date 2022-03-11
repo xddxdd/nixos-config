@@ -13,6 +13,7 @@ in
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/libvirt.nix
+    ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
