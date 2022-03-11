@@ -17,6 +17,9 @@ in
     ../../nixos/optional-apps/x11vnc.nix
   ];
 
+  boot.kernelPackages = pkgs.lib.mkForce (pkgs.linuxPackagesFor pkgs.linux-xanmod-lantian);
+  hardware.ksm.enable = pkgs.lib.mkForce false;
+
   environment.etc."intel-undervolt.conf".text = ''
     undervolt 0 'CPU' -80
     undervolt 1 'GPU' -80
