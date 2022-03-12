@@ -9,19 +9,11 @@
       "swapaccount=1"
       "syscall.x32=y"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelPatches =
-      let
-        p = name: {
-          inherit name; patch = ../../patches/kernel + "/${name}.patch";
-        };
-      in
-      pkgs.lib.optionals pkgs.stdenv.isx86_64 [
-        (p "0001-drm-i915-gvt-Add-virtual-option-ROM-emulation")
-        (p "0003-intel-drm-use-max-clock")
-        (p "0004-hp-omen-fourzone")
-        (p "0008-hp-omen-mute-led")
-      ];
+    kernelPackages =
+      if pkgs.stdenv.isx86_64 then
+        pkgs.linuxPackagesFor pkgs.linux-xanmod-lantian
+      else pkgs.linuxPackages_latest;
+
 
     initrd = {
       compressor = "zstd";
