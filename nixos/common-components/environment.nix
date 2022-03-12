@@ -23,7 +23,6 @@
     p7zip
     pciutils
     python3Minimal
-    rar
     screen
     tcpdump
     unar
@@ -37,6 +36,7 @@
     nix-alien
     nix-index
     nix-index-update
+    rar # Doesn't suppport aarch64 for some reason
   ];
 
   hardware.ksm.enable = true;
