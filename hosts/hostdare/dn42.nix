@@ -650,5 +650,21 @@
         peerIPv6LinkLocal = "fe80::2464";
       };
     };
+    yuzu = {
+      remoteASN = 4242421131;
+      latencyMs = 9;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21131;
+        remoteAddress = "ipv4.phoenix.us.dn42.yuzu.im";
+        remotePort = 22547;
+        wireguardPubkey = "abDdEXgpaUNfEVPYLv1GTA+1TjkRbk5MNUi0fczYflw=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.109.34";
+        peerIPv6LinkLocal = "fe80::1131";
+      };
+    };
   };
 }
