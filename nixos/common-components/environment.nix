@@ -39,8 +39,6 @@
     rar # Doesn't suppport aarch64 for some reason
   ];
 
-  hardware.ksm.enable = true;
-
   # Try to workaround VM crash
   systemd.coredump.enable = false;
 
