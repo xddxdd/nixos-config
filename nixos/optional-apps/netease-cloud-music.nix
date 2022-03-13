@@ -167,9 +167,7 @@ in
     group = "root";
     capabilities = "cap_sys_admin+ep";
     source = pkgs.writeShellScript "netease-cloud-music" ''
-      echo "Running netease-cloud-music as $USER"
-      ${pkgs.iproute2}/bin/ip netns exec ns-netease \
-        /run/wrappers/bin/sudo -u "$USER" \
+      ${pkgs.netns-exec}/bin/netns-exec-dbus -- ns-netease \
         env \
           QT_AUTO_SCREEN_SCALE_FACTOR=$QT_AUTO_SCREEN_SCALE_FACTOR \
           QT_SCREEN_SCALE_FACTORS=$QT_SCREEN_SCALE_FACTORS \
