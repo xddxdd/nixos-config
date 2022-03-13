@@ -56,7 +56,7 @@ let
         '';
     };
 
-    root = "/var/www/lantian.pub";
+    root = "/nix/persistent/sync-servers/www/lantian.pub";
   };
 in
 {
@@ -153,7 +153,7 @@ in
         ++ LT.nginx.listenHTTP
         ++ LT.nginx.listenPlain LT.port.Gopher
         ++ LT.nginx.listenPlainProxyProtocol LT.port.GopherProxyProtocol;
-      root = "/var/www/lantian.pub";
+      root = "/nix/persistent/sync-servers/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
       locations."/" = {

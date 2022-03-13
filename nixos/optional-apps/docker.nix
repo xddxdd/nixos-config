@@ -26,6 +26,7 @@ let
           memorySize = 8192;
           sharedDirectories."acme.sh" = { source = "/var/lib/acme.sh"; target = "/var/lib/acme.sh"; };
           sharedDirectories.cache = { source = "/var/cache/ci"; target = "/cache"; };
+          sharedDirectories.sync = { source = "/nix/persistent/sync-servers"; target = "/sync"; };
         };
 
         docker = {
