@@ -74,12 +74,28 @@
 
   services.irqbalance.enable = true;
 
-  security.wrappers.bwrap = {
-    source = pkgs.bubblewrap + "/bin/bwrap";
-    owner = "root";
-    group = "root";
-    setuid = true;
-    setgid = true;
+  security.wrappers = {
+    bwrap = {
+      source = pkgs.bubblewrap + "/bin/bwrap";
+      owner = "root";
+      group = "root";
+      setuid = true;
+      setgid = true;
+    };
+    netns-exec = {
+      source = pkgs.netns-exec + "/bin/netns-exec";
+      owner = "root";
+      group = "root";
+      setuid = true;
+      setgid = true;
+    };
+    netns-exec-dbus = {
+      source = pkgs.netns-exec + "/bin/netns-exec-dbus";
+      owner = "root";
+      group = "root";
+      setuid = true;
+      setgid = true;
+    };
   };
 
   zramSwap = {

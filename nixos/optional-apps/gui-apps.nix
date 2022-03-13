@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -10,12 +10,14 @@ in
     audacious
     calibre
     colmena
+    (LT.wrapNetns "ns-wg-lantian" deluge)
     distrobox
     firefox
     gnome.gedit
     google-chrome
     libsForQt5.ark
     mpv
+    transmission-qt
     virt-manager
     vscode
     wechat-uos
