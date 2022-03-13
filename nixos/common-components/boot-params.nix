@@ -39,10 +39,6 @@
       "kernel.yama.ptrace_scope" = 1;
       "kernel.kexec_load_disabled" = 1;
 
-      # Disable coredump
-      "fs.suid_dumpable" = 0;
-      "kernel.core_pattern" = pkgs.lib.mkForce "|${pkgs.coreutils}/bin/false";
-
       # Other optimizations
       "kernel.nmi_watchdog" = 0;
     };

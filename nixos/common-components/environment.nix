@@ -41,9 +41,6 @@
     rar # Doesn't suppport aarch64 for some reason
   ];
 
-  # Try to workaround VM crash
-  systemd.coredump.enable = false;
-
   programs = {
     #atop.enable = true;
     #atop.netatop.enable = true;
