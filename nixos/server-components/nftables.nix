@@ -1,7 +1,7 @@
 { config, pkgs, modules, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker
@@ -50,15 +50,16 @@ let
 
         # wg-lantian
         ${pkgs.lib.optionalString (LT.this.public.IPv4 != "") ''
-          ip daddr ${LT.this.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.2
-          ip daddr ${LT.this.public.IPv4} udp dport { 51820 } dnat to 192.0.2.2
-          ip daddr ${LT.this.public.IPv4} tcp dport { 57912 } dnat to 192.0.2.3
-          ip daddr ${LT.this.public.IPv4} udp dport { 57912 } dnat to 192.0.2.3
+          ip daddr ${LT.this.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.100
+          ip daddr ${LT.this.public.IPv4} udp dport { 51820 } dnat to 192.0.2.100
+          ip daddr ${LT.this.public.IPv4} tcp dport { 57912 } dnat to 192.0.2.101
+          ip daddr ${LT.this.public.IPv4} udp dport { 57912 } dnat to 192.0.2.101
         ''}
-        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "") ''
-          ip6 daddr ${LT.this.public.IPv6Subnet}2 dnat to fc00::2
-          ip6 daddr ${LT.this.public.IPv6Subnet}3 dnat to fc00::3
-        ''}
+        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "")
+          (builtins.concatStringsSep "\n"
+            (pkgs.lib.mapAttrsToList (n: v:
+              "ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fc00::${builtins.toString v.index}"
+            ) (pkgs.lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts)))}
       }
 
       chain NAT_INPUT {
@@ -73,10 +74,11 @@ let
         type nat hook postrouting priority 105; policy accept;
 
         # wg-lantian
-        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "") ''
-          ip6 saddr fc00::2 snat to ${LT.this.public.IPv6Subnet}2
-          ip6 saddr fc00::3 snat to ${LT.this.public.IPv6Subnet}3
-        ''}
+        ${pkgs.lib.optionalString (LT.this.public.IPv6Subnet != "")
+          (builtins.concatStringsSep "\n"
+            (pkgs.lib.mapAttrsToList (n: v:
+              "ip6 saddr fc00::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
+            ) (pkgs.lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts)))}
 
         # give nixos containers access to DN42
         ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${LT.this.dn42.IPv4}

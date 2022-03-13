@@ -1,19 +1,23 @@
 { pkgs, config, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+
+  wg-pubkey = import (pkgs.secrets + "/config/wg-pubkey.nix");
+in
 {
   networking.wireguard.interfaces.wg-lantian = {
     ips = [ "192.0.2.1/24" "fc00::1/64" ];
     listenPort = 22547;
     privateKeyFile = config.age.secrets.wg-priv.path;
-    peers = [
-      ({
-        publicKey = "6akFoVWQ0AHZXuehuLP8x25Wfqy1lDrmu8DAX97mMjg=";
-        allowedIPs = [ "192.0.2.2/32" "fc00::2/128" ];
+    peers = pkgs.lib.mapAttrsToList
+      (n: v: {
+        publicKey = wg-pubkey."${n}";
+        allowedIPs = [
+          "192.0.2.${builtins.toString v.index}/32"
+          "fc00::${builtins.toString v.index}/128"
+        ];
       })
-      ({
-        publicKey = "2Epd4gCH9OZ6IlArfDVuoucOxJTwj4hdl7ILX6CAZnI=";
-        allowedIPs = [ "192.0.2.3/32" "fc00::3/128" ];
-      })
-    ];
+      (pkgs.lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts);
   };
 }
