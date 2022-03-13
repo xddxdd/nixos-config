@@ -13,30 +13,6 @@ in
 
   age.secrets.oauth2-proxy-conf.file = pkgs.secrets + "/oauth2-proxy-conf.age";
 
-  # Disable checking nginx.conf
-  nixpkgs.overlays = [
-    (final: prev:
-      let
-        awkFormatNginx = builtins.toFile "awkFormat-nginx.awk" ''
-          awk -f
-          {sub(/^[ \t]+/,"");idx=0}
-          /\{/{ctx++;idx=1}
-          /\}/{ctx--}
-          {id="";for(i=idx;i<ctx;i++)id=sprintf("%s%s", id, "\t");printf "%s%s\n", id, $0}
-        '';
-      in
-      {
-        writers.writeNginxConfig = name: text: prev.runCommandLocal name
-          {
-            inherit text;
-            passAsFile = [ "text" ];
-            nativeBuildInputs = with pkgs; [ gawk gnused ];
-          } ''
-          awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
-        '';
-      })
-  ];
-
   services.nginx = rec {
     enable = true;
     enableReload = true;

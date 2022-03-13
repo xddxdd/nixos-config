@@ -32,6 +32,7 @@ in
       '';
       ed25519 = "bb5Ld0HJaC9Jzkf8ad/labkOaEAnGc8XeclpWYNZeYL";
     };
+    syncthing = "PSIRDZ7-CFOIASN-QPS7X74-SRZQ44B-NS6R36H-DCXC6OK-T6PTBDF-7R6C5QU";
     public = rec {
       IPv4 = "23.226.61.104";
       IPv6 = "2001:470:19:10bd::1";
@@ -68,6 +69,7 @@ in
       '';
       ed25519 = "YDKx1u/2OP1jf6mou65URPaVBLPLbZY1ClwYK+257tF";
     };
+    syncthing = "Z6JHQ7G-P4WURZH-OPIK33T-UHHFTVU-2CGFEAE-CT7QEOO-LB2HC4D-YNJ72QZ";
     public = rec {
       IPv4 = "185.186.147.110";
       IPv6 = "2607:fcd0:100:b100::198a:b7f6";
@@ -102,6 +104,7 @@ in
       '';
       ed25519 = "MsUVokv6xh1tg9SXd/rMGF6iI+7FsDCrshiYU7Ro/lG";
     };
+    syncthing = "ZAURUE3-SQTDORN-WIMV6TB-HLO4KGS-V4DKCQR-4FR42KL-COMW4JD-NQDSTQ7";
     public = rec {
       IPv4 = "51.77.66.117";
       IPv6 = "2001:41d0:700:2475::1";
@@ -137,6 +140,7 @@ in
       '';
       ed25519 = "qEvOIJwbeExJCAy4FIGpXRJdKw2Ep5Q0VAA6FkuGA+O";
     };
+    syncthing = "OJOXTFG-UTGO6DK-O3HNZ5G-UOKDPJL-IH7IO3R-IYX4L3B-4QOFZUT-PWCHJQV";
     public = rec {
       IPv4 = "107.172.197.23";
       IPv6 = "2001:470:1f07:54d::1";
@@ -173,6 +177,7 @@ in
       '';
       ed25519 = "Z06vhOqNMAzbUPew2sGNzFwM72HrV6gXjmNYfBU2afC";
     };
+    syncthing = "POPMWR2-GAW4K5V-S3G6YTI-6KI6ZYN-KYUPVOF-LYWVMKL-M2IAYQM-TIRVEQT";
     public = rec {
       IPv4 = "107.172.197.108";
       IPv6 = "2001:470:1f07:c6f::1";
@@ -209,6 +214,7 @@ in
       '';
       ed25519 = "XoA62mYaC8/AV0AsyHy0b1UoDkDXjT/TZG2pSENlj8F";
     };
+    syncthing = "OSZPE2T-ABQZTBH-4IA5HUU-W7PGHCV-ZULYGXO-57TN7GM-B7UVQD5-O5EXTQ7";
     public = rec {
       IPv4 = "107.189.12.254";
       IPv6 = "2605:6400:30:f22f::1";
@@ -245,6 +251,7 @@ in
       '';
       ed25519 = "EGsgw69soQZI1sLY+s2BvN3FtbtTg+zUzJxuKP9fdsD";
     };
+    syncthing = "R7L6DJT-HMT6UFT-4RVOX2S-UXSCKWB-64NCBFL-XILYJVW-T63BJW3-QGMBUAZ";
     public = rec {
       IPv4 = "172.245.52.105";
     };
@@ -278,6 +285,7 @@ in
       '';
       ed25519 = "iRqfc3gAra3anWFbZ9NHAayZccoqcFNIdUWhXYCnqpC";
     };
+    syncthing = "KLUWWHQ-3FKFDU4-6RSS4FT-INZAP3G-4V4PZ5X-Z3XHH2I-GIN7NNS-GDREIQP";
     public = rec {
       IPv4 = "132.145.123.138";
       IPv6 = "2603:c021:8000:aaaa:2::1";
@@ -312,6 +320,7 @@ in
       '';
       ed25519 = "cKbtwcdG42qZMAt5LVfhucWbnekseHRaEuDAUIbyRpB";
     };
+    syncthing = "4PFMHUL-336XMHJ-WPIQPIX-MGKMDXS-5UFQNVF-IIC6ERE-2YNMCOF-5DFEWAU";
     public = rec {
       IPv4 = "140.238.54.105";
       IPv6 = "2603:c021:8000:aaaa:3::1";
@@ -347,6 +356,7 @@ in
       '';
       ed25519 = "qrL/DMKf4YmnN3K8Co/kKqX+BUY/16O9YMeI81kr4DK";
     };
+    syncthing = "PFMSOOM-APX676H-CKYGFUC-SNESC4K-SU3V4PK-BX7BCXH-MDNRTT2-RVO6XAJ";
     public = rec {
       IPv4 = "158.101.128.102";
       IPv6 = "2603:c021:8000:aaaa:4::1";
@@ -382,6 +392,7 @@ in
       '';
       ed25519 = "3mzD95izLNxVDFoUPgl6dA7a5HYAsAglJuT3xgTxnkI";
     };
+    syncthing = "6J6CMZP-2PATCDC-434O6MM-QULLX2U-EWVH2JE-J2UBCE6-Y54M27G-VCFHGAQ";
     public = rec {
       IPv4 = "194.32.107.228";
       IPv6 = "2a03:94e0:ffff:194:32:107::228";
