@@ -18,6 +18,7 @@
     htop
     inetutils
     iptables
+    jq
     nftables
     openssl
     p7zip
