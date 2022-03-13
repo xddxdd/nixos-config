@@ -31,6 +31,7 @@
     unzip
     usbutils
     wget
+    wireguard-tools
     zip
     zstd
   ] ++ pkgs.lib.optionals pkgs.stdenv.isx86_64 [
