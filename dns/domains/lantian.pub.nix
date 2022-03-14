@@ -56,6 +56,7 @@ let
 
   internalServices = [
     (CNAME { name = "asf"; target = "soyoustart"; cloudflare = true; })
+    (CNAME { name = "books"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "bitwarden"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "buypass-ssl"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "ci"; target = "soyoustart"; cloudflare = true; })

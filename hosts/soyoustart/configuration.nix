@@ -10,6 +10,7 @@ in
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/calibre-web.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/hath.nix
     ../../nixos/optional-apps/nextcloud.nix

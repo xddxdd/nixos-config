@@ -24,6 +24,7 @@
   V2Ray = 13504;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13772;
+  CalibreWeb = 13803;
   Matrix.Synapse = 13808;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;

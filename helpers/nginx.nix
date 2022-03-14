@@ -40,6 +40,23 @@ let
     fastcgi_param  SSL_CURVES         $ssl_curves;
     fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
   '';
+
+  _locationProxyConf = hideIP: ''
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP ${if hideIP then "127.0.0.1" else "$remote_addr"};
+    proxy_set_header X-Forwarded-For ${if hideIP then "127.0.0.1" else "$remote_addr"};
+    proxy_set_header X-Forwarded-Host $host:443;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Scheme $scheme;
+    proxy_set_header X-Original-URI $request_uri;
+
+    proxy_read_timeout 1d;
+    proxy_buffering off;
+    proxy_request_buffering on;
+    proxy_redirect off;
+    chunked_transfer_encoding off;
+  '';
 in
 rec {
   makeSSL = acmeName:
@@ -135,22 +152,8 @@ rec {
     }
   '';
 
-  locationProxyConf = ''
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Host $host:443;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Server $host;
-    proxy_set_header X-Scheme $scheme;
-    proxy_set_header X-Original-URI $request_uri;
-
-    proxy_read_timeout 1d;
-    proxy_buffering off;
-    proxy_request_buffering on;
-    proxy_redirect off;
-    chunked_transfer_encoding off;
-  '';
+  locationProxyConf = _locationProxyConf false;
+  locationProxyConfHideIP = _locationProxyConf true;
 
   # OAuth must go before proxy_pass!
   locationOauthConf = ''
@@ -159,10 +162,14 @@ rec {
 
     # pass information via X-User and X-Email headers to backend,
     # requires running with --set-xauthrequest flag
-    auth_request_set $user   $upstream_http_x_auth_request_user;
+    auth_request_set $user   $upstream_http_x_auth_request_preferred_username;
+    auth_request_set $uuid   $upstream_http_x_auth_request_user;
+    auth_request_set $groups $upstream_http_x_auth_request_groups;
     auth_request_set $email  $upstream_http_x_auth_request_email;
     proxy_set_header X-User  $user;
+    proxy_set_header X-Uuid  $uuid;
     proxy_set_header X-Email $email;
+    proxy_set_header X-Groups $groups;
 
     # if you enabled --pass-access-token, this will pass the token to the backend
     auth_request_set $token  $upstream_http_x_auth_request_access_token;
