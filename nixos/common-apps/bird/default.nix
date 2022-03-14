@@ -46,6 +46,7 @@ in
       enable = true;
       port = LT.port.Prometheus.BirdExporter;
       listenAddress = LT.this.ltnet.IPv4;
+      birdSocket = "/var/run/bird/bird.ctl";
     };
   };
 
