@@ -17,6 +17,7 @@ in
     flex
     gawk
     gcc
+    gdb
     gettext
     gnumake
     groff
