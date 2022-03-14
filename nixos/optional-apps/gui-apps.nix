@@ -11,6 +11,7 @@ in
     calibre
     colmena
     (LT.wrapNetns "ns-wg-lantian" deluge)
+    dingtalk
     distrobox
     firefox
     gnome.gedit
