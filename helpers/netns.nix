@@ -12,6 +12,7 @@
 
 { name
 , enable ? true
+, setupDefaultRoute ? true
 , announcedIPv4 ? [ ]
 , announcedIPv6 ? [ ]
 , birdBindTo ? [ ]
@@ -32,6 +33,45 @@ rec {
       inherit enable;
       wantedBy = [ "multi-user.target" "network-online.target" ];
       after = [ "network.target" ];
+      script = ''
+        # Setup namespace
+        ${ipbin} netns add ns-${name}
+        ${ipns} link set lo up
+        # Disable auto generated IPv6 link local address
+        ${sysctl} -w net.ipv6.conf.default.autoconf=0
+        ${sysctl} -w net.ipv6.conf.all.autoconf=0
+        ${sysctl} -w net.ipv6.conf.default.accept_ra=0
+        ${sysctl} -w net.ipv6.conf.all.accept_ra=0
+        ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1
+        ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1
+        # Setup veth pair
+        ${ipbin} link add ns-${interface} type veth peer ni-${interface}
+        ${ipbin} link set ni-${interface} netns ns-${name}
+        ${ipns} link set ni-${interface} name eth-ns
+        # Host side network config
+        ${ipbin} link set ns-${interface} up
+        ${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}
+        ${ipbin} -6 addr add ${this.ltnet.IPv6} dev ns-${interface}
+        ${ipbin} -6 addr add fe80::1/64 dev ns-${interface}
+        ${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}
+        # Namespace side network config
+        ${ipns} link set eth-ns up
+        ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth-ns
+        ${lib.optionalString setupDefaultRoute "${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns"}
+        ${ipns} -6 addr add ${ipv6} dev eth-ns
+        ${ipns} -6 addr add fe80::${thisIP}/64 dev eth-ns
+        ${lib.optionalString setupDefaultRoute "${ipns} -6 route add default via fe80::1 dev eth-ns"}
+      '' + (lib.optionalString birdEnabled ''
+        # Announced addresses
+        ${ipns} link add dummy0 type dummy
+        ${ipns} link set dummy0 up
+        ${builtins.concatStringsSep "\n"
+          (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0")
+          announcedIPv4)}
+        ${builtins.concatStringsSep "\n"
+          (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0")
+          announcedIPv6)}
+      '');
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -39,41 +79,6 @@ rec {
         ExecStartPre = [
           "-${ipbin} netns delete ns-${name}"
         ];
-        ExecStart = [
-          # Setup namespace
-          "${ipbin} netns add ns-${name}"
-          "${ipns} link set lo up"
-          # Disable auto generated IPv6 link local address
-          "${sysctl} -w net.ipv6.conf.default.autoconf=0"
-          "${sysctl} -w net.ipv6.conf.all.autoconf=0"
-          "${sysctl} -w net.ipv6.conf.default.accept_ra=0"
-          "${sysctl} -w net.ipv6.conf.all.accept_ra=0"
-          "${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1"
-          "${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1"
-          # Setup veth pair
-          "${ipbin} link add ns-${interface} type veth peer ni-${interface}"
-          "${ipbin} link set ni-${interface} netns ns-${name}"
-          "${ipns} link set ni-${interface} name eth-ns"
-          # Host side network config
-          "${ipbin} link set ns-${interface} up"
-          "${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}"
-          "${ipbin} -6 addr add ${this.ltnet.IPv6} dev ns-${interface}"
-          "${ipbin} -6 addr add fe80::1/64 dev ns-${interface}"
-          "${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}"
-          # Namespace side network config
-          "${ipns} link set eth-ns up"
-          "${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth-ns"
-          "${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns"
-          "${ipns} -6 addr add ${ipv6} dev eth-ns"
-          "${ipns} -6 addr add fe80::${thisIP}/64 dev eth-ns"
-          "${ipns} -6 route add default via fe80::1 dev eth-ns"
-          # Announced addresses
-          "${ipns} link add dummy0 type dummy"
-          "${ipns} link set dummy0 up"
-        ]
-        ++ (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0") announcedIPv4)
-        ++ (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0") announcedIPv6);
-
         ExecStopPost = [
           "${ipbin} link del ns-${interface}"
           "${ipns} link del dummy0"
@@ -123,6 +128,16 @@ rec {
           NetworkNamespacePath = "/run/netns/ns-${name}";
         };
       } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ])) else attr;
+
+  bindExisting =
+    if enable then
+      {
+        after = [ "netns-instance-${name}.service" ];
+        bindsTo = [ "netns-instance-${name}.service" ];
+        serviceConfig = {
+          NetworkNamespacePath = "/run/netns/ns-${name}";
+        };
+      } else { };
 
   birdEnabled = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
   birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''

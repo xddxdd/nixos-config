@@ -6,4 +6,5 @@
   coredns-knot = "55";
   drone = "101";
   drone-github = "102";
+  wg-lantian = "192";
 }

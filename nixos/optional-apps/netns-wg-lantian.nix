@@ -3,6 +3,11 @@
 let
   LT = import ../../helpers { inherit config pkgs; };
 
+  netns = LT.netns {
+    name = "wg-lantian";
+    setupDefaultRoute = false;
+  };
+
   wg-pubkey = import (pkgs.secrets + "/config/wg-pubkey.nix");
 in
 {
@@ -12,40 +17,6 @@ in
     nameserver 8.8.8.8
     options edns0
   '';
-
-  systemd.services."netns-instance-wg-lantian" =
-    let
-      name = "wg-lantian";
-      ipbin = "${pkgs.iproute2}/bin/ip";
-      ipns = "${ipbin} netns exec ns-${name} ${ipbin}";
-      sysctl = "${ipbin} netns exec ns-${name} ${pkgs.procps}/bin/sysctl";
-    in
-    {
-      wantedBy = [ "multi-user.target" "network.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-
-        ExecStartPre = [
-          "-${ipbin} netns delete ns-${name}"
-        ];
-        ExecStart = [
-          # Setup namespace
-          "${ipbin} netns add ns-${name}"
-          "${ipns} link set lo up"
-          # Disable auto generated IPv6 link local address
-          "${sysctl} -w net.ipv6.conf.default.autoconf=0"
-          "${sysctl} -w net.ipv6.conf.all.autoconf=0"
-          "${sysctl} -w net.ipv6.conf.default.accept_ra=0"
-          "${sysctl} -w net.ipv6.conf.all.accept_ra=0"
-          "${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1"
-          "${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1"
-        ];
-        ExecStopPost = [
-          "${ipbin} netns delete ns-${name}"
-        ];
-      };
-    };
 
   networking.wireguard.interfaces.wg-lantian = {
     ips = [
@@ -63,5 +34,12 @@ in
         persistentKeepalive = 25;
       })
     ];
+  };
+
+  systemd.services = netns.setup // {
+    "wireguard-wg-lantian" = netns.bindExisting // {
+      # Don't override network namespace
+      serviceConfig = { };
+    };
   };
 }
