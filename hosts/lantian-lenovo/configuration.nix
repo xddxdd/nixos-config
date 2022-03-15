@@ -11,6 +11,7 @@ in
 
     ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
+    ../../nixos/optional-apps/ipfs-client.nix
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/libvirt.nix

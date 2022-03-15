@@ -15,7 +15,7 @@ in
 
   environment.etc."netns/ns-wg-lantian/resolv.conf".text = ''
     nameserver 8.8.8.8
-    options edns0
+    options single-request edns0
   '';
 
   networking.wireguard.interfaces.wg-lantian = {
