@@ -1,12 +1,14 @@
 {
   Whois = 43;
-  DNS = 53;           # CoreDNS public serving port
-  DNSLocal = 54;      # CoreDNS local-only service port
-  DNSUpstream = 55;   # CoreDNS DoT proxy port
+  DNS = 53; # CoreDNS public serving port
+  DNSLocal = 54; # CoreDNS local-only service port
+  DNSUpstream = 55; # CoreDNS DoT proxy port
   Gopher = 70;
   HTTP = 80;
   HTTPS = 443;
   Docker = 2375;
+  IPFS.API = 5001;
+  IPFS.Gateway = 8080;
   Vault = 8200;
   Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
