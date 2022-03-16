@@ -1,11 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # services.fail2ban = {
-  #   enable = true;
-  #   bantime-increment.enable = true;
-  #   maxretry = 5;
-  # };
+  programs.ssh.package = pkgs.openssh_hpn;
 
   services.openssh = {
     enable = true;
