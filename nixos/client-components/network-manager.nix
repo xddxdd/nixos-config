@@ -7,6 +7,8 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [ iw ];
+
   networking.networkmanager = {
     enable = true;
     unmanaged = [ "interface-name:*,except:interface-name:eth*,except:interface-name:wlan*,except:interface-name:nm-*" ];

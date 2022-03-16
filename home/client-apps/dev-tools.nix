@@ -28,6 +28,17 @@ in
     texinfo
     which
 
+    # Golang
+    delve
+    go
+    go-outline
+    go-tools
+    go2nix
+    gomodifytags
+    gopls
+    gotests
+    impl
+
     # Haskell
     ghc
     haskell-language-server

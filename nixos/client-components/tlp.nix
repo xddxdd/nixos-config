@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  environment.systemPackages = [ config.boot.kernelPackages.x86_energy_perf_policy ];
+
   services.tlp = {
     enable = true;
     settings = {
-      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;

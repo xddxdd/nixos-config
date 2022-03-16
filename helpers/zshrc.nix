@@ -20,9 +20,6 @@
   ########################################
   # Powerlevel10k config
   ########################################
-  if [ "$TERM_PROGRAM" != "vscode" ]; then
-    POWERLEVEL9K_MODE="nerdfont-complete"
-  fi
   POWERLEVEL9K_PROMPT_ON_NEWLINE=true
   POWERLEVEL9K_DISABLE_RPROMPT=true
   POWERLEVEL9K_STATUS_VERBOSE=false
