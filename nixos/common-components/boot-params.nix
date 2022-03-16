@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  config.boot = {
+  boot = {
     kernelParams = [
       "audit=0"
       "cgroup_enable=memory"
@@ -13,7 +13,10 @@
       if pkgs.stdenv.isx86_64 then
         pkgs.linuxPackagesFor pkgs.linux-xanmod-lantian
       else pkgs.linuxPackages_latest;
-
+    kernelModules = [ "cryptodev" ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      cryptodev
+    ];
 
     initrd = {
       compressor = "zstd";
@@ -43,5 +46,4 @@
       "kernel.nmi_watchdog" = 0;
     };
   };
-
 }
