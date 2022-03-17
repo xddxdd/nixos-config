@@ -28,7 +28,7 @@ in
     interfaceNamespace = "ns-wg-lantian";
     peers = [
       ({
-        endpoint = "v4.buyvm.lantian.pub:22547";
+        endpoint = "${LT.hosts.buyvm.public.IPv4}:22547";
         publicKey = wg-pubkey.buyvm;
         allowedIPs = [ "0.0.0.0/0" "::/0" ];
         persistentKeepalive = 25;
