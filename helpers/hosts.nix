@@ -428,6 +428,7 @@ in
       '';
       ed25519 = "xjJv/DrAB/OgucjkxQ9wCtO7crW1GUXKBfJ19dXFWjB";
     };
+    syncthing = "SJS5Z6B-L2PH7PV-LHSOTQP-BX22TJ6-GVMWYKW-C54EU3S-4NAQ6EO-YIZE6AI";
     dn42 = rec {
       IPv4 = "172.22.76.114";
       region = 42;
@@ -460,6 +461,7 @@ in
       '';
       ed25519 = "3IO17i8Kr82h+aSBRjozwbL27eGoO5A+2gBI3iZ1SKE";
     };
+    syncthing = "KQLTC6O-CULFZ6S-ACXMI2D-PCJYAPU-UHGMONS-BLHO4K2-D5GANFG-CQXMDQ2";
     dn42 = rec {
       IPv4 = "172.22.76.115";
       region = 42;
