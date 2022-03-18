@@ -80,7 +80,7 @@ in
       addNTA("0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa")
       addNTA("18.172.in-addr.arpa")
 
-      dofile("/var/lib/powerdns-recursor/fwd-dn42-interconnect.lua")
+      dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
     '';
     serveRFC1918 = false;
     settings = {
@@ -94,7 +94,7 @@ in
       reuseport = "yes";
       server-id = "lantian";
       tcp-fast-open = "128";
-      include-dir = "/var/lib/powerdns-recursor";
+      include-dir = "/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf";
       "forward-zones-recurse+=." = builtins.concatStringsSep ";" [
         "172.22.76.109:${LT.portStr.DNSUpstream}"
         "[fdbc:f9dc:67ad:2547::54]:${LT.portStr.DNSUpstream}"
@@ -106,12 +106,12 @@ in
     pdns-recursor = netns.bind {
       serviceConfig = {
         DynamicUser = pkgs.lib.mkForce false;
+        ExecReload = [
+          ""
+          "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
+        ];
         User = pkgs.lib.mkForce "container";
       };
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d /var/lib/powerdns-recursor 700 container container"
-  ];
 }

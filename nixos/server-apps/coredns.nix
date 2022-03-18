@@ -62,7 +62,9 @@ in
         localZone = zone: filename: ''
           ${zone}:${LT.portStr.DNSLocal} {
             bind 127.0.0.1
-            file "/var/lib/zones/${filename}.zone"
+            file "/nix/persistent/sync-servers/${filename}.zone" {
+              reload 30s
+            }
           }
         '';
         localForward = zone: dnssecKey: ''
@@ -81,7 +83,9 @@ in
             bufsize 1232
             loadbalance round_robin
 
-            file "/var/lib/zones/${filename}.zone"
+            file "/nix/persistent/sync-servers/${filename}.zone" {
+              reload 30s
+            }
             ${dnssec dnssecKey}
           }
         '';
@@ -109,34 +113,34 @@ in
         }
 
         # DN42 Lan Tian Authoritatives
-        ${localZone "lantian.dn42" "zones/lantian.dn42"}
-        ${localZone "asn.lantian.dn42" "zones-ltnet/asn.lantian.dn42"}
+        ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
+        ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
         ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
 
-        ${publicZone "184/29.76.22.172.in-addr.arpa" "zones/184_29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
-        ${publicZone "96/27.76.22.172.in-addr.arpa" "zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
-        ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
+        ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
+        ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
+        ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
 
         # NeoNetwork Authoritative
-        ${publicZone "neo" "zones-ltnet/neo" null}
-        ${publicZone "127.10.in-addr.arpa" "zones-ltnet/127.10.in-addr.arpa" null}
+        ${publicZone "neo" "ltnet-scripts/zones/neo" null}
+        ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
 
         # NeoNetwork Lan Tian Authoritative
-        ${localZone "lantian.neo" "zones/lantian.neo"}
-        ${localZone "asn.lantian.neo" "zones-ltnet/asn.lantian.neo"}
+        ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
+        ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
         ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
 
-        ${publicZone "10.127.10.in-addr.arpa" "zones/10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
-        ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
+        ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
+        ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
 
         # LTNET Public Facing Addressing
-        ${publicZone "asn.lantian.pub" "zones-ltnet/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
+        ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
 
         # LTNET Authoritative
-        ${publicZone "18.172.in-addr.arpa" "zones/18.172.in-addr.arpa" null}
+        ${publicZone "18.172.in-addr.arpa" "ltnet-zones/18.172.in-addr.arpa" null}
 
         # Public Internet Authoritative
-        ${publicZone "lantian.eu.org" "zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
+        ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
       '';
   };
 
@@ -146,7 +150,7 @@ in
       let
         dn42SlaveZone = name: ''
           - domain: ${name}
-            storage: /var/lib/zones/zones-slave/
+            storage: /var/cache/zones/
             file: ${name}.zone
             refresh-min-interval: 1m
             refresh-max-interval: 1d
@@ -156,7 +160,7 @@ in
         '';
         opennicSlaveZone = name: ''
           - domain: ${name}
-            storage: /var/lib/zones/zones-slave/
+            storage: /var/cache/zones/
             file: ${if name == "." then "root" else name}.zone
             refresh-min-interval: 1h
             refresh-max-interval: 1d
@@ -291,7 +295,8 @@ in
         User = pkgs.lib.mkForce "container";
         Group = pkgs.lib.mkForce "container";
 
-        ReadWritePaths = [ "/var/lib/zones" "/tmp" ];
+        ReadWritePaths = [ "/tmp" ];
+        CacheDirectory = "zones";
       };
     };
   };
