@@ -40,6 +40,13 @@ in
     extraOptions = [ "-c" "2" ];
   };
 
+  services.beesd.filesystems.usb = {
+    spec = "/mnt/usb";
+    hashTableSizeMB = 1024;
+    verbosity = "crit";
+    extraOptions = [ "-c" "2" ];
+  };
+
   services.tlp.settings = {
     # Use powersave scheduler for intel_pstate
     CPU_SCALING_GOVERNOR_ON_AC = "powersave";
