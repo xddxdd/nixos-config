@@ -23,6 +23,7 @@
     openssl
     p7zip
     pciutils
+    pv
     python3Minimal
     screen
     tcpdump
