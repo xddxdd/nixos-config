@@ -154,16 +154,16 @@ in
       roa4 {
         table roa_v4;
       };
-      include "/var/lib/bird/dn42/dn42_bird2_roa4.conf";
-      include "/var/lib/bird/neonetwork/neonetwork_bird2_roa4.conf";
+      include "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf";
+      include "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf";
     };
 
     protocol static static_roa6 {
       roa6 {
         table roa_v6;
       };
-      include "/var/lib/bird/dn42/dn42_bird2_roa6.conf";
-      include "/var/lib/bird/neonetwork/neonetwork_bird2_roa6.conf";
+      include "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf";
+      include "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf";
     };
   '';
 

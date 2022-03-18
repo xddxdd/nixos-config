@@ -32,7 +32,7 @@ in
 
     "stage1.whois.local" = {
       listen = LT.nginx.listenHTTP;
-      root = "/var/cache/dn42-registry/data";
+      root = "/nix/persistent/sync-servers/ltnet-registry/dn42/data";
       locations = {
         "/".extraConfig = ''
           set_by_lua $uri_upper "return ngx.var.uri:upper()";
