@@ -23,15 +23,9 @@
   environment.shells = [ pkgs.zsh ];
   environment.systemPackages = with pkgs; [
     zsh-powerlevel10k
-    neofetch
   ];
   environment.variables = {
     TERM = "xterm-256color";
-  };
-
-  environment.etc."neofetch.conf" = {
-    source = ../files/neofetch.conf;
-    mode = "0755";
   };
 
   programs.zsh.enable = true;

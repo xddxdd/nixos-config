@@ -49,7 +49,7 @@ in
   services.nginx.virtualHosts = {
     "lg.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {
+      locations = LT.nginx.addNoIndexLocationConf {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
           extraConfig = LT.nginx.locationBlockUserAgentConf
@@ -62,7 +62,7 @@ in
     "lg.lantian.dn42" = {
       listen = LT.nginx.listenHTTP;
       serverAliases = [ "lg.lantian.neo" ];
-      locations = LT.nginx.addCommonLocationConf {
+      locations = LT.nginx.addNoIndexLocationConf {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
           extraConfig = LT.nginx.locationBlockUserAgentConf

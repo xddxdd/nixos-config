@@ -27,7 +27,7 @@ in
   services.nginx.virtualHosts."pga.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
     listen = LT.nginx.listenHTTPS;
     root = "${pkgs.phppgadmin}";
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "/".index = "index.php";
     };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"

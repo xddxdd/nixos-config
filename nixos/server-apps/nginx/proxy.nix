@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
 
   nginxConfig = pkgs.writeText "nginx-proxy.conf" ''
     daemon off;

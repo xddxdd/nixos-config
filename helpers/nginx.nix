@@ -1,4 +1,5 @@
 { config
+, pkgs
 , lib
 , hosts
 , this
@@ -100,7 +101,7 @@ rec {
 
     "/autoindex.html".extraConfig = ''
       internal;
-      root ${../nixos/files/autoindex};
+      root ${../nixos/server-apps/nginx/files/autoindex};
     '';
 
     "/status".extraConfig = ''
@@ -139,6 +140,20 @@ rec {
       return 403;
     '';
   };
+
+  addNoIndexLocationConf = lib.recursiveUpdate (addCommonLocationConf (
+    let
+      robotsTxt = pkgs.writeText "robots.txt" ''
+        User-agent: *
+        Disallow: /
+      '';
+    in
+    {
+      "= /robots.txt".extraConfig = ''
+        alias ${robotsTxt};
+      '';
+    }
+  ));
 
   locationAutoindexConf = ''
     autoindex on;

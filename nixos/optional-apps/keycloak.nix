@@ -61,7 +61,7 @@ in
 
   services.nginx.virtualHosts."login.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "= /".return = "302 /auth/admin/";
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
