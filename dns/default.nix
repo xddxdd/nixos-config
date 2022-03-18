@@ -1,32 +1,8 @@
 { pkgs, hosts, ... }:
 
 let
-  dns = import ./core/default.nix { inherit pkgs; };
-  importArgs = { inherit pkgs dns hosts; };
-
-  common = rec {
-    inherit hosts;
-    mainServer = hosts.hostdare;
-
-    hostRecs = import ./common/host-recs.nix importArgs;
-    nameservers = import ./common/nameservers.nix importArgs;
-    poem = import ./common/poem.nix importArgs;
-    records = import ./common/records.nix importArgs;
-    reverse = import ./common/reverse.nix importArgs;
-
-    apexRecords = domain:
-      hostRecs.mapAddresses {
-        name = "${domain}.";
-        addresses = mainServer.public;
-        ttl = "10m";
-      };
-    apexGeoDNS = domain:
-      dns.ALIAS {
-        name = "${domain}.";
-        target = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
-        ttl = "10m";
-      };
-  };
+  dns = import ./core { inherit pkgs; };
+  common = import ./common { inherit pkgs dns hosts; };
 in
 dns.eval {
   registrars = {
