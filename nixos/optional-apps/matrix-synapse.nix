@@ -61,7 +61,7 @@ in
   services.nginx.virtualHosts."matrix.lantian.pub" = {
     listen = LT.nginx.listenHTTPSPort LT.port.Matrix.Public;
     serverAliases = [ config.services.matrix-synapse.settings.server_name ];
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "/" = {
         proxyPass = "http://[::1]:${LT.portStr.Matrix.Synapse}";
         extraConfig = LT.nginx.locationProxyConf;

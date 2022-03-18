@@ -138,7 +138,7 @@ in
   services.nginx.virtualHosts = {
     "ci.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {
+      locations = LT.nginx.addNoIndexLocationConf {
         "/" = {
           proxyPass = "http://${droneNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;
@@ -149,7 +149,7 @@ in
     };
     "ci-github.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {
+      locations = LT.nginx.addNoIndexLocationConf {
         "/" = {
           proxyPass = "http://${droneGitHubNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
 
   pythonPackages = python-packages: with python-packages; [
     telethon
@@ -25,7 +25,7 @@ in
       Group = "tg-bot-cleaner-bot";
     };
     script = ''
-      ${python}/bin/python3 -u ${../files/tg-bot-cleaner-bot.py}
+      ${python}/bin/python3 -u ${./script.py}
     '';
   };
 

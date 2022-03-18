@@ -29,7 +29,7 @@ in
 
   services.nginx.virtualHosts."resilio-${config.networking.hostName}.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "/".extraConfig = LT.nginx.locationOauthConf + ''
         proxy_pass http://[::1]:${LT.portStr.ResilioSync};
         proxy_set_header Authorization "Basic dXNlcjpwYXNz";

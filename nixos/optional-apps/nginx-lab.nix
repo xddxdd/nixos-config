@@ -8,7 +8,7 @@ in
   services.nginx.virtualHosts."lab.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     root = labRoot;
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "/" = {
         index = "index.php index.html index.htm";
         tryFiles = "$uri $uri/ =404";
@@ -24,9 +24,6 @@ in
         gzip off;
         brotli off;
         zstd off;
-      '';
-      "= /robots.txt".extraConfig = ''
-        alias ${../files/robots-block.txt};
       '';
     };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"

@@ -1,18 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
+
+  luaPackage = pkgs.callPackage ./lua { };
 in
 {
-  imports = [
-    ./nginx-lua.nix
-    ./nginx-vhosts.nix
-    ./nginx-whois-server.nix
-    ./php-fpm.nix
-  ];
-
-  age.secrets.oauth2-proxy-conf.file = pkgs.secrets + "/oauth2-proxy-conf.age";
-
   services.nginx = rec {
     enable = true;
     enableReload = true;
@@ -113,7 +106,7 @@ in
 
       charset utf-8;
 
-      lua_package_path '/etc/nginx/lua/?.lua;;';
+      lua_package_path '${luaPackage}/?.lua;;';
     '';
 
     streamConfig = ''
@@ -124,42 +117,12 @@ in
       ssl_protocols ${sslProtocols};
       ${LT.nginx.sslConf true}
 
-      lua_package_path '/etc/nginx/conf/lua/?.lua;;';
+      lua_package_path '${luaPackage}/?.lua;;';
     '';
   };
 
   systemd.services.nginx.serviceConfig = {
     # Workaround Lua crash
     MemoryDenyWriteExecute = pkgs.lib.mkForce false;
-  };
-
-  services.oauth2_proxy = {
-    enable = true;
-    clientID = "oauth-proxy";
-    cookie = {
-      expire = "24h";
-    };
-    email.domains = [ "*" ];
-    httpAddress = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
-    keyFile = config.age.secrets.oauth2-proxy-conf.path;
-    provider = "oidc";
-    setXauthrequest = true;
-    extraConfig = {
-      oidc-issuer-url = "http://127.0.0.1";
-      insecure-oidc-skip-issuer-verification = "true";
-    };
-  };
-  users.users.oauth2_proxy.group = "oauth2_proxy";
-  users.groups.oauth2_proxy = { };
-
-  systemd.services.oauth2_proxy = {
-    unitConfig = {
-      After = pkgs.lib.mkForce "network.target nginx.service";
-    };
-    serviceConfig = LT.serviceHarden // {
-      Restart = "always";
-      RestartSec = "3";
-      DynamicUser = true;
-    };
   };
 }

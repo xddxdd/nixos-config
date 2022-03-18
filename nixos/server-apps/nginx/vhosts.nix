@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
 
   addConfLantianPub = pkgs.lib.recursiveUpdate {
     locations = LT.nginx.addCommonLocationConf {
@@ -72,11 +72,11 @@ in
       locations = {
         "/".return = "301 https://$host$request_uri";
         "= /.well-known/openid-configuration".extraConfig = ''
-          root ${../files/openid-configuration};
+          root ${files/openid-configuration};
           try_files /openid-configuration =404;
         '';
         "= /openid-configuration".extraConfig = ''
-          root ${../files/openid-configuration};
+          root ${files/openid-configuration};
           try_files /openid-configuration =404;
         '';
         "/generate_204".return = "204";

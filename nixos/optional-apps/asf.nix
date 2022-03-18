@@ -19,7 +19,7 @@ in
 
   services.nginx.virtualHosts."asf.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addNoIndexLocationConf {
       "/".extraConfig = LT.nginx.locationOauthConf + ''
         proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
       '' + LT.nginx.locationProxyConf;

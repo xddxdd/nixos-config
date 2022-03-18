@@ -1,0 +1,38 @@
+{ config, pkgs, ... }:
+
+let
+  LT = import ../../../helpers { inherit config pkgs; };
+in
+{
+  age.secrets.oauth2-proxy-conf.file = pkgs.secrets + "/oauth2-proxy-conf.age";
+
+  services.oauth2_proxy = {
+    enable = true;
+    clientID = "oauth-proxy";
+    cookie = {
+      expire = "24h";
+    };
+    email.domains = [ "*" ];
+    httpAddress = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
+    keyFile = config.age.secrets.oauth2-proxy-conf.path;
+    provider = "oidc";
+    setXauthrequest = true;
+    extraConfig = {
+      oidc-issuer-url = "http://127.0.0.1";
+      insecure-oidc-skip-issuer-verification = "true";
+    };
+  };
+  users.users.oauth2_proxy.group = "oauth2_proxy";
+  users.groups.oauth2_proxy = { };
+
+  systemd.services.oauth2_proxy = {
+    unitConfig = {
+      After = pkgs.lib.mkForce "network.target nginx.service";
+    };
+    serviceConfig = LT.serviceHarden // {
+      Restart = "always";
+      RestartSec = "3";
+      DynamicUser = true;
+    };
+  };
+}

@@ -83,7 +83,7 @@ in
   };
 
   xdg.configFile = {
-    "htop/htoprc".source = ../../nixos/files/htoprc;
+    "htop/htoprc".source = ../files/htoprc;
     "nixpkgs/config.nix".text = ''
       { allowUnfree = true; }
     '';
