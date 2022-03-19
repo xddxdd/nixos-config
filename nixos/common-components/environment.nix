@@ -19,10 +19,12 @@
     inetutils
     iptables
     jq
+    lbzip2
     nftables
     openssl
     p7zip
     pciutils
+    pigz
     pv
     python3Minimal
     screen

@@ -19,6 +19,7 @@ in
     libsForQt5.ark
     mpv
     transmission-qt
+    transmission-remote-gtk
     virt-manager
     vscode
     wechat-uos
