@@ -16,6 +16,7 @@ in
     ../../nixos/optional-apps/libvirt.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/transmission-daemon.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
 
@@ -59,6 +60,12 @@ in
     INTEL_GPU_MAX_FREQ_ON_BAT = 350;
     INTEL_GPU_BOOST_FREQ_ON_AC = 1100;
     INTEL_GPU_BOOST_FREQ_ON_BAT = 350;
+  };
+
+  services.transmission.settings.download-dir = "/mnt/usb/downloads";
+  systemd.services.transmission = {
+    after = [ "mnt-usb.mount" ];
+    requires = [ "mnt-usb.mount" ];
   };
 
   virtualisation.kvmgt = {
