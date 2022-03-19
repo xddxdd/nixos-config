@@ -3,12 +3,13 @@
 let
   LT = import ../../../helpers { inherit config pkgs; };
   inherit (import ./common.nix { inherit config pkgs; })
-    DN42_AS DN42_REGION NEO_AS
+    DN42_AS DN42_TEST_AS DN42_REGION NEO_AS
     community sanitizeHostname;
 
   peer = hostname: { ltnet, index, ... }:
     pkgs.lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
+        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fe80::${builtins.toString index}%'ltmesh' internal;
       };
     '';
@@ -46,7 +47,6 @@ in
     }
 
     template bgp lantian_internal {
-      local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
       direct;
       enable extended messages on;
       hold time 30;
@@ -65,6 +65,19 @@ in
         import filter ltnet_import_filter_v6;
         export filter ltnet_export_filter_v6;
       };
+    };
+  '';
+
+  dynamic = ''
+    protocol bgp ltdyn_v4 from lantian_internal {
+      local as ${DN42_AS};
+      neighbor range ${LT.this.ltnet.IPv4Prefix}.0/24 as ${DN42_TEST_AS};
+      dynamic name "ltdyn_v4_";
+    };
+    protocol bgp ltdyn_v6 from lantian_internal {
+      local as ${DN42_AS};
+      neighbor range ${LT.this.ltnet.IPv6Prefix}::0/64 as ${DN42_TEST_AS};
+      dynamic name "ltdyn_v6_";
     };
   '';
 

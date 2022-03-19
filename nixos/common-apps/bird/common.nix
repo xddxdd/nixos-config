@@ -5,6 +5,7 @@ let
 in
 rec {
   DN42_AS = "4242422547";
+  DN42_TEST_AS = "4242422557";
   DN42_REGION = builtins.toString LT.this.dn42.region;
   NEO_AS = "4201270010";
 

@@ -30,6 +30,7 @@ in
 
     ] ++ pkgs.lib.optionals (!LT.this.ltnet.alone) [
       ltnet.common
+      ltnet.dynamic
       ltnet.peers
     ]);
   };
