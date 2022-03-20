@@ -4,7 +4,7 @@
   let result = {};
   let country = null;
   for (let i = 0; i < elems.length; i++) {
-    if (elems[i].className == "statusgood") {
+    if (elems[i].className == "statusgood" || elems[i].className == "statusavg") {
       let innerElems= elems[i].getElementsByTagName("td");
       let address = null;
       for (let j = 0; j < innerElems.length; j++) {
