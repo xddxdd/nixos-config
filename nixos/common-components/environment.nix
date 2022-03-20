@@ -8,7 +8,10 @@
 
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
-  environment.variables.SYSTEMD_PAGER = "";
+  environment.variables = {
+    KOPIA_CHECK_FOR_UPDATES = "false";
+    SYSTEMD_PAGER = "";
+  };
   environment.systemPackages = with pkgs; [
     brotli
     bzip2
@@ -19,6 +22,7 @@
     inetutils
     iptables
     jq
+    kopia
     lbzip2
     nftables
     openssl
@@ -26,6 +30,7 @@
     pciutils
     pigz
     pv
+    pwgen
     python3Minimal
     screen
     tcpdump
