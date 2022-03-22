@@ -18,6 +18,7 @@ in
     google-chrome
     libsForQt5.ark
     mpv
+    osdlyrics
     transmission-qt
     transmission-remote-gtk
     virt-manager
