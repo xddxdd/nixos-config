@@ -46,4 +46,6 @@
       "kernel.nmi_watchdog" = 0;
     };
   };
+
+  console.earlySetup = true;
 }
