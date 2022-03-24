@@ -48,4 +48,11 @@
   };
 
   console.earlySetup = true;
+
+  systemd.services.systemd-sysctl.serviceConfig = {
+    ExecStart = [
+      ""
+      "/bin/sh -c \"${pkgs.systemd}/lib/systemd/systemd-sysctl; exit 0\""
+    ];
+  };
 }
