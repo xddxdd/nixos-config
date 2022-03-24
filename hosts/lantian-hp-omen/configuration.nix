@@ -19,6 +19,10 @@ in
     ../../nixos/optional-apps/x11vnc.nix
   ];
 
+  boot.loader.grub.fontSize = 24;
+  console.packages = with pkgs; [ terminus_font ];
+  console.font = "ter-v24n";
+
   environment.etc."intel-undervolt.conf".text = ''
     undervolt 0 'CPU' -80
     undervolt 1 'GPU' -80
