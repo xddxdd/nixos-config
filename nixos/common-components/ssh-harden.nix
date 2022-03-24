@@ -9,6 +9,7 @@
     passwordAuthentication = false;
     permitRootLogin = pkgs.lib.mkForce "prohibit-password";
     ports = [ 2222 ];
+    sftpServerExecutable = "internal-sftp";
     ciphers = [
       "chacha20-poly1305@openssh.com"
       "aes256-gcm@openssh.com"

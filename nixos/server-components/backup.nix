@@ -26,6 +26,7 @@ let
 
   kopiaIgnored = pkgs.writeText ".kopiaignore" ''
     media/
+    sftp-server/
     sync-servers/
     var/cache/
     var/lib/btrfs/
