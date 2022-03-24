@@ -20,7 +20,7 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/0faabb3f-212a-4060-bf8d-33cdc9462b57";
     fsType = "btrfs";
-    options = [ "subvol=nix" "compress-force=zstd" ];
+    options = [ "subvol=nix" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   fileSystems."/boot" = {

@@ -23,7 +23,7 @@
   fileSystems."/nix" = {
     device = "/dev/sda2";
     fsType = "btrfs";
-    options = [ "compress-force=zstd" ];
+    options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   fileSystems."/boot/esp0" = {

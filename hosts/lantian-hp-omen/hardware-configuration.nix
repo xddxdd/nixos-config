@@ -59,7 +59,7 @@
   fileSystems."/nix" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = [ "subvol=nix" "compress-force=zstd" ];
+    options = [ "subvol=nix" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   swapDevices = [{
