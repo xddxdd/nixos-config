@@ -30,6 +30,9 @@
         default = "saved";
         version = 2;
         splashImage = null;
+        font = pkgs.lib.mkDefault
+          "${pkgs.terminus_font_ttf}/share/fonts/truetype/TerminusTTF.ttf";
+        fontSize = pkgs.lib.mkDefault 16;
       };
     };
 

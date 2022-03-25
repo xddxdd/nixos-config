@@ -13,6 +13,7 @@
     source-han-mono
     source-han-sans
     source-han-serif
+    terminus_font_ttf
     ubuntu_font_family
     wqy_microhei
     wqy_zenhei
