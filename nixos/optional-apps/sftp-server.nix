@@ -7,7 +7,7 @@ in
 {
   users.users.sftp = {
     uid = 22;
-    home = "${sftpRoot}/sftp";
+    home = sftpRoot;
     group = "sftp";
     createHome = true;
     openssh.authorizedKeys.keys = sshKeys;
@@ -19,7 +19,7 @@ in
 
   services.openssh.extraConfig = ''
     Match User sftp
-      ForceCommand internal-sftp -d /sftp
+      ForceCommand internal-sftp
       PasswordAuthentication no
       ChrootDirectory ${sftpRoot}
       PermitTunnel no
@@ -27,8 +27,4 @@ in
       AllowTcpForwarding no
       X11Forwarding no
   '';
-
-  systemd.tmpfiles.rules = [
-    "d ${sftpRoot} 755 root root"
-  ];
 }

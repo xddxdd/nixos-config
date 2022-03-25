@@ -1,0 +1,101 @@
+diff --git a/regress/check-perm.c b/regress/check-perm.c
+index dac307d2..bc191f3b 100644
+--- a/regress/check-perm.c
++++ b/regress/check-perm.c
+@@ -34,43 +34,13 @@ fatal(const char *fmt, ...)
+ static void
+ safely_chroot(const char *path, uid_t uid)
+ {
+-	const char *cp;
+ 	char component[PATH_MAX];
+-	struct stat st;
+ 
+ 	if (*path != '/')
+ 		fatal("chroot path does not begin at root");
+ 	if (strlen(path) >= sizeof(component))
+ 		fatal("chroot path too long");
+ 
+-	/*
+-	 * Descend the path, checking that each component is a
+-	 * root-owned directory with strict permissions.
+-	 */
+-	for (cp = path; cp != NULL;) {
+-		if ((cp = strchr(cp, '/')) == NULL)
+-			strlcpy(component, path, sizeof(component));
+-		else {
+-			cp++;
+-			memcpy(component, path, cp - path);
+-			component[cp - path] = '\0';
+-		}
+-
+-		/* debug3("%s: checking '%s'", __func__, component); */
+-
+-		if (stat(component, &st) != 0)
+-			fatal("%s: stat(\"%s\"): %s", __func__,
+-			    component, strerror(errno));
+-		if (st.st_uid != 0 || (st.st_mode & 022) != 0)
+-			fatal("bad ownership or modes for chroot "
+-			    "directory %s\"%s\"",
+-			    cp == NULL ? "" : "component ", component);
+-		if (!S_ISDIR(st.st_mode))
+-			fatal("chroot path %s\"%s\" is not a directory",
+-			    cp == NULL ? "" : "component ", component);
+-
+-	}
+-
+ 	if (chdir(path) == -1)
+ 		fatal("Unable to chdir to chroot path \"%s\": "
+ 		    "%s", path, strerror(errno));
+diff --git a/session.c b/session.c
+index e67d24d2..7e651fbf 100644
+--- a/session.c
++++ b/session.c
+@@ -1306,43 +1306,13 @@ do_nologin(struct passwd *pw)
+ static void
+ safely_chroot(const char *path, uid_t uid)
+ {
+-	const char *cp;
+ 	char component[PATH_MAX];
+-	struct stat st;
+ 
+ 	if (!path_absolute(path))
+ 		fatal("chroot path does not begin at root");
+ 	if (strlen(path) >= sizeof(component))
+ 		fatal("chroot path too long");
+ 
+-	/*
+-	 * Descend the path, checking that each component is a
+-	 * root-owned directory with strict permissions.
+-	 */
+-	for (cp = path; cp != NULL;) {
+-		if ((cp = strchr(cp, '/')) == NULL)
+-			strlcpy(component, path, sizeof(component));
+-		else {
+-			cp++;
+-			memcpy(component, path, cp - path);
+-			component[cp - path] = '\0';
+-		}
+-	
+-		debug3_f("checking '%s'", component);
+-
+-		if (stat(component, &st) != 0)
+-			fatal_f("stat(\"%s\"): %s",
+-			    component, strerror(errno));
+-		if (st.st_uid != 0 || (st.st_mode & 022) != 0)
+-			fatal("bad ownership or modes for chroot "
+-			    "directory %s\"%s\"",
+-			    cp == NULL ? "" : "component ", component);
+-		if (!S_ISDIR(st.st_mode))
+-			fatal("chroot path %s\"%s\" is not a directory",
+-			    cp == NULL ? "" : "component ", component);
+-
+-	}
+-
+ 	if (chdir(path) == -1)
+ 		fatal("Unable to chdir to chroot path \"%s\": "
+ 		    "%s", path, strerror(errno));
+@@ -2711,4 +2681,3 @@ session_get_remote_name_or_ip(struct ssh *ssh, u_int utmp_size, int use_dns)
+ 		remote = ssh_remote_ipaddr(ssh);
+ 	return remote;
+ }
+-
