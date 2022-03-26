@@ -19,6 +19,7 @@ in
     libsForQt5.ark
     mpv
     osdlyrics
+    tigervnc
     transmission-qt
     transmission-remote-gtk
     virt-manager
