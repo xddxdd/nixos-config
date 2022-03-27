@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 
 {
+  environment.etc."ssdt1.dat".source = ./ssdt1.dat;
+
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
@@ -8,6 +10,14 @@
     qemu = {
       ovmf.enable = true;
       swtpm.enable = true;
+      verbatimConfig = ''
+        cgroup_device_acl = [
+          "/dev/null", "/dev/full", "/dev/zero",
+          "/dev/random", "/dev/urandom",
+          "/dev/ptmx", "/dev/kvm",
+          "/dev/kvmfr0"
+        ]
+      '';
     };
   };
 

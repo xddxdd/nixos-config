@@ -13,8 +13,8 @@ in
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/libvirt.nix
-    ../../nixos/optional-apps/nvidia-optimus.nix
+    ../../nixos/optional-apps/libvirt
+    ../../nixos/optional-apps/nvidia-prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/transmission-daemon.nix
