@@ -30,8 +30,6 @@ in
     zoom-us
   ];
 
-  programs.steam.enable = true;
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
