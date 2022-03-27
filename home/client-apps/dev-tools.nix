@@ -59,7 +59,6 @@ in
     python3Packages.pip
 
     # Rust
-    cargo
-    rustc
+    rustup
   ];
 }
