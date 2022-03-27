@@ -2,10 +2,20 @@
 
 {
   fonts.fonts = with pkgs; pkgs.lib.mkForce [
-    (nerdfonts.override { fonts = [ "FiraCode" "UbuntuMono" ]; })
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "FiraMono"
+        "Noto"
+        "Terminus"
+        "Ubuntu"
+        "UbuntuMono"
+      ];
+    })
     fira-code
     fira-code-symbols
     font-awesome
+    genshin-glyphs
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji-blob-bin
