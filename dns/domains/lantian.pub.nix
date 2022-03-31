@@ -48,10 +48,6 @@ let
 
     (CNAME { name = "vercel"; target = "cname.vercel-dns.com."; })
     (TXT { name = "@"; contents = "google-site-verification=eySrj7tImhjLmyEzhvz6-esuzD2jdnQ8anx4qfIwApw"; })
-
-    (A { name = "*.virmach-host"; address = "23.95.217.2"; })
-    # (A { name = "virmach-host"; address = "23.95.217.2"; })
-    (CNAME { name = "virmach-host"; target = "c792602.tier1.quicns.com."; })
   ];
 
   internalServices = [
