@@ -15,7 +15,8 @@ in
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
-  boot.kernelModules = [ "v4l2loopback" ];
+  # Don't autoload as it conflicts with physical camera on some programs
+  # boot.kernelModules = [ "v4l2loopback" ];
 
   users.users.lantian.extraGroups = [ "video" ];
 }

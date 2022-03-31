@@ -2,6 +2,14 @@
 
 let
   LT = import ../../helpers { inherit config pkgs; };
+
+  # Quickstart for wordle, set time offset to advance into next day
+  wordle = pkgs.writeShellScriptBin "wordle" ''
+    ${pkgs.libfaketime}/bin/faketime \
+      -f "+12h" \
+      ${pkgs.google-chrome}/bin/google-chrome-stable \
+      https://www.nytimes.com/games/wordle/index.html
+  '';
 in
 {
   environment.systemPackages = with pkgs; [
@@ -16,6 +24,7 @@ in
     firefox
     gnome.gedit
     google-chrome
+    libfaketime
     libsForQt5.ark
     mpv
     osdlyrics
@@ -26,6 +35,7 @@ in
     vscode
     wechat-uos
     wine-wechat
+    wordle
     wpsoffice
     zoom-us
   ];

@@ -9,7 +9,7 @@ in
     flake.agenix.packages."${system}".agenix
     nix-tree
     nodePackages.node2nix
-    nvfetcher-bin
+    nvfetcher
     rnix-lsp
   ];
 }

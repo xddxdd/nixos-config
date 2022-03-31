@@ -27,15 +27,6 @@ final: prev: {
     '';
   };
 
-  bind = prev.bind.overrideAttrs (old: rec {
-    patches = old.patches ++ [
-      # https://github.com/NixOS/nixpkgs/pull/163854/files
-      (final.fetchurl {
-        url = "https://gitlab.isc.org/isc-projects/bind9/-/commit/b465b29eaf5ad8b8882debff1f993b8288617f22.patch";
-        sha256 = "sha256-mjbvGs99Xs44mjMq40NmE0AEPZFETsi6317RR+LngLU=";
-      })
-    ];
-  });
   bird = prev.bird.overrideAttrs (old: rec {
     version = "2.0.8";
     src = prev.fetchurl {

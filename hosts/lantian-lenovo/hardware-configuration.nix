@@ -32,7 +32,7 @@
   fileSystems."/mnt/usb" = {
     device = "/dev/disk/by-uuid/dc601ca1-9f5f-4731-aab4-4460bdf1ca07";
     fsType = "btrfs";
-    options = [ "nofail" "compress-force=zstd" ];
+    options = [ "nofail" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

@@ -129,16 +129,6 @@ in
     options edns0
   '';
 
-  fileSystems."/home/lantian/.cache/netease-cloud-music" = {
-    device = "/home/lantian/.local/share/netease-cloud-music";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/root/.cache/netease-cloud-music" = {
-    device = "/root/.local/share/netease-cloud-music";
-    options = [ "bind" ];
-  };
-
   systemd.services = netns.setup // {
     netns-netease-xray = {
       after = [ "netns-instance-netease.service" ];
