@@ -34,19 +34,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       url = "github:xddxdd/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     secrets = {
       url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
@@ -72,7 +63,6 @@
         inputs.colmena.overlay
         inputs.nix-alien.overlay
         inputs.nur-xddxdd.overlay
-        inputs.nvfetcher.overlay
         (import ./overlay.nix { inherit inputs nixpkgs; })
       ];
 
@@ -95,8 +85,6 @@
           inputs.impermanence.nixosModules.impermanence
           inputs.nixos-cn.nixosModules.nixos-cn
           (./hosts + "/${n}/configuration.nix")
-        ] ++ lib.optionals (system == "x86_64-linux") [
-          inputs.nix-ld.nixosModules.nix-ld
         ] ++ lib.optionals (role == LT.roles.client) [
           inputs.nur-xddxdd.nixosModules.svpWithNvidia
         ];

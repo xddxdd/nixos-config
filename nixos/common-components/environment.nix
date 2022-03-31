@@ -58,6 +58,7 @@
     less.enable = true;
     mosh.enable = true;
     mtr.enable = true;
+    nix-ld.enable = pkgs.stdenv.isx86_64;
     ssh.forwardX11 = true;
     traceroute.enable = true;
   };

@@ -35,25 +35,25 @@
   fileSystems."/home" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = [ "subvol=home" "compress-force=zstd" ];
+    options = [ "subvol=home" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   fileSystems."/home/lantian/Downloads" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = [ "subvol=downloads-lantian" "compress-force=zstd" ];
+    options = [ "subvol=downloads-lantian" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
     fsType = "ntfs3";
-    options = [ "prealloc" "uid=1000" "gid=1" "fmask=0077" "dmask=0077" "discard" "nofail" ];
+    options = [ "ro" "prealloc" "uid=1000" "gid=1" "fmask=0077" "dmask=0077" "discard" "nofail" ];
   };
 
   fileSystems."/mnt/root" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = [ "compress-force=zstd" ];
+    options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
 
   fileSystems."/nix" = {
