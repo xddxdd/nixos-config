@@ -50,6 +50,21 @@
         peerIPv6LinkLocal = "fe80::340";
       };
     };
+    federico = {
+      remoteASN = 4242420262;
+      latencyMs = 18;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20262;
+        remoteAddress = "v4.ash-1.fedemtz66.tech";
+        remotePort = 22547;
+        wireguardPubkey = "pxl/yYYDx52hr3tRB+e4rgYNzzZ+2NqRJvHljwdlcE4=";
+      };
+      addressing = {
+        peerIPv4 = "192.168.202.62";
+        peerIPv6LinkLocal = "fe80::1234";
+      };
+    };
     fixmix = {
       remoteASN = 4242421876;
       latencyMs = 13;
