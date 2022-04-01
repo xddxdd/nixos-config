@@ -39,6 +39,11 @@ in
     ];
   };
 
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "lantian";
+  };
+
   # Firefox fixes
   environment.variables = {
     MOZ_X11_EGL = "1";
