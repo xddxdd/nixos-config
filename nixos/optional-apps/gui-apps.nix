@@ -21,6 +21,7 @@ in
     (LT.wrapNetns "ns-wg-lantian" deluge)
     dingtalk
     distrobox
+    filezilla
     firefox
     gnome.gedit
     google-chrome

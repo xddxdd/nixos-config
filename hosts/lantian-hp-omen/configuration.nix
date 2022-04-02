@@ -34,6 +34,10 @@ in
 
   fileSystems."/".options = [ "size=64G" ];
 
+  # This host has full disk encryption, no need to encrypt keyring
+  security.pam.services.login.enableGnomeKeyring = pkgs.lib.mkForce false;
+  security.pam.services.sddm.enableGnomeKeyring = pkgs.lib.mkForce false;
+
   services.beesd.filesystems.root = {
     spec = "/nix";
     hashTableSizeMB = 1024;
