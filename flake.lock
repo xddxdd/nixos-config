@@ -321,6 +321,9 @@
     },
     "nur-xddxdd": {
       "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
         "hath-nix": "hath-nix",
         "keycloak-lantian": "keycloak-lantian",
         "nixpkgs": [
@@ -328,11 +331,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1648366277,
-        "narHash": "sha256-PgdpqN7gF3fygHDn9TkFd7H18FPsbJvQy+jZ0pFNIX4=",
+        "lastModified": 1648874132,
+        "narHash": "sha256-EZ6nGYRo7lKp5Whx6RahBRD45nn7yPlTgstKD6uZNpw=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "5ab14507d0312953ea4f37c68c9fb02732eb33dc",
+        "rev": "3a2e1171429178606ff5fbbf02ccc509de709ce4",
         "type": "github"
       },
       "original": {

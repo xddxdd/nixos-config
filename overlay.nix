@@ -37,6 +37,19 @@ final: prev: {
       (nixpkgs + "/pkgs/servers/bird/dont-create-sysconfdir-2.patch")
     ];
   });
+  fcitx5-rime = prev.fcitx5-rime.overrideAttrs (old: rec {
+    cmakeFlags = [
+      "-DRIME_DATA_DIR=/run/current-system/sw/share/rime-data"
+    ];
+    postPatch = ''
+      sed -i "/fcitx5.yaml/d" data/CMakeLists.txt
+    '';
+    postInstall = ''
+      cd ..
+      mkdir -p $out/share/rime-data
+      cp data/fcitx5.yaml $out/share/rime-data/fcitx5.yaml
+    '';
+  });
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
     bz2
