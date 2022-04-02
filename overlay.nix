@@ -38,17 +38,9 @@ final: prev: {
     ];
   });
   fcitx5-rime = prev.fcitx5-rime.overrideAttrs (old: rec {
-    cmakeFlags = [
-      "-DRIME_DATA_DIR=/run/current-system/sw/share/rime-data"
+    patches = (old.patches or []) ++ [
+      patches/fcitx5-rime-path.patch
     ];
-    postPatch = ''
-      sed -i "/fcitx5.yaml/d" data/CMakeLists.txt
-    '';
-    postInstall = ''
-      cd ..
-      mkdir -p $out/share/rime-data
-      cp data/fcitx5.yaml $out/share/rime-data/fcitx5.yaml
-    '';
   });
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
