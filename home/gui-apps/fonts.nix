@@ -1,5 +1,5 @@
 {
-  xdg.configFile."fontconfig/fonts.conf".text = ''
+  xdg.configFile."fontconfig/conf.d/99-lantian.conf".text = ''
     <?xml version="1.0"?>
     <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
     <fontconfig>
@@ -23,7 +23,7 @@
           <string>serif</string>
         </test>
         <edit name="family" mode="prepend" binding="strong">
-          <string>Noto Serif</string>
+          <string>Source Han Serif SC</string>
         </edit>
       </match>
       <match target="pattern">
@@ -32,6 +32,7 @@
         </test>
         <edit name="family" mode="prepend" binding="strong">
           <string>Ubuntu</string>
+          <string>Source Han Sans SC</string>
         </edit>
       </match>
       <match target="pattern">
@@ -40,6 +41,7 @@
         </test>
         <edit name="family" mode="prepend" binding="strong">
           <string>Ubuntu Mono</string>
+          <string>Noto Sans Mono CJK SC</string>
         </edit>
       </match>
 
@@ -50,41 +52,6 @@
         </test>
         <edit name="family" mode="prepend" binding="strong">
           <string>Blobmoji</string>
-        </edit>
-      </match>
-
-      <!-- 中文默认字体使用思源黑体和思源宋体,不使用 Noto Sans CJK SC 是因为这个字体会在特定情况下显示片假字. -->
-      <match>
-        <test name="lang" compare="contains">
-          <string>zh</string>
-        </test>
-        <test name="family">
-          <string>serif</string>
-        </test>
-        <edit name="family" mode="prepend">
-          <string>Source Han Serif SC</string>
-        </edit>
-      </match>
-      <match>
-        <test name="lang" compare="contains">
-          <string>zh</string>
-        </test>
-        <test name="family">
-          <string>sans-serif</string>
-        </test>
-        <edit name="family" mode="prepend">
-          <string>Source Han Sans SC</string>
-        </edit>
-      </match>
-      <match>
-        <test name="lang" compare="contains">
-          <string>zh</string>
-        </test>
-        <test name="family">
-          <string>monospace</string>
-        </test>
-        <edit name="family" mode="prepend">
-          <string>Noto Sans Mono CJK SC</string>
         </edit>
       </match>
 
@@ -125,16 +92,6 @@
           <string>Source Han Serif SC</string>
         </edit>
       </match>
-
-      <!-- Load local system customization file -->
-      <include ignore_missing="yes">conf.d</include>
-
-      <config>
-        <!-- Rescan configuration every 30 seconds when FcFontSetList is called -->
-        <rescan>
-          <int>30</int>
-        </rescan>
-      </config>
     </fontconfig>
   '';
 }

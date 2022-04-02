@@ -8,6 +8,11 @@
       fcitx5-gtk
       fcitx5-rime
       libsForQt5.fcitx5-qt
+      rime-aurora-pinyin
+      rime-data
+      rime-dict
+      rime-moegirl
+      rime-zhwiki
     ];
   };
 
