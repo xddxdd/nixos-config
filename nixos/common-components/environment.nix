@@ -24,6 +24,7 @@
     jq
     kopia
     lbzip2
+    lsof
     nftables
     openssl
     p7zip

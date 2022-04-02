@@ -11,6 +11,7 @@ in
     binutils
     bison
     cmake
+    cppcheck
     fakeroot
     file
     findutils
@@ -60,7 +61,13 @@ in
 
     # Rust
     rustup
-  ];
+  ] ++ (if pkgs.stdenv.isx86_64 then [
+    # Kernel
+    linux-xanmod-lantian.dev
+  ] else [
+    # Kernel
+    linux_latest.dev
+  ]);
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
