@@ -23,5 +23,11 @@
     INPUT_METHOD = "fcitx";
     SDL_IM_MODULE = "fcitx";
     GLFW_IM_MODULE = "ibus";
+
+    NIX_RIME_DATA = "/run/current-system/sw/share/rime-data";
+  };
+
+  systemd.user.services.fcitx5-daemon.environment = {
+    NIX_RIME_DATA = "/run/current-system/sw/share/rime-data";
   };
 }
