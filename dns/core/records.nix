@@ -33,6 +33,8 @@ rec {
     record_2args "CNAME" name target reverse ttl cloudflare;
   DS = { name, keytag, algorithm, digesttype, digest, reverse ? false, ttl ? null, cloudflare ? null }:
     record_5args "DS" name keytag algorithm digesttype digest reverse ttl cloudflare;
+  IGNORE = { name, reverse ? false, ttl ? null, cloudflare ? null }:
+    record_1args "IGNORE" name reverse ttl null;
   MX = { name, priority, target, reverse ? false, ttl ? null, cloudflare ? null }:
     record_3args "MX" name priority target reverse ttl cloudflare;
   NAMESERVER = { name, reverse ? false, ttl ? null }:
