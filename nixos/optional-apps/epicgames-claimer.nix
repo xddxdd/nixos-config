@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   age.secrets.epicgames-claimer-env.file = pkgs.secrets + "/epicgames-claimer-env.age";

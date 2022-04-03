@@ -1,13 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
-  inherit (import ./common.nix { inherit config pkgs; })
+  LT = import ../../../helpers { inherit config pkgs lib; };
+  inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_TEST_AS DN42_REGION NEO_AS
     community sanitizeHostname;
 
   peer = hostname: { ltnet, index, ... }:
-    pkgs.lib.optionalString (!ltnet.alone) ''
+    lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
         local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fe80::${builtins.toString index}%'ltmesh' internal;
@@ -81,5 +81,5 @@ in
     };
   '';
 
-  peers = builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList peer LT.otherHosts);
+  peers = builtins.concatStringsSep "\n" (lib.mapAttrsToList peer LT.otherHosts);
 }

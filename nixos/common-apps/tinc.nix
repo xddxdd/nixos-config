@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
@@ -6,18 +6,18 @@ let
   sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 
   hostToTinc = k: v:
-    pkgs.lib.nameValuePair
+    lib.nameValuePair
       (sanitizeHostname k)
       ({
         addresses = [ ]
-          ++ pkgs.lib.optionals (v.public.IPv4 != "") [{ address = v.public.IPv4; }]
-          ++ pkgs.lib.optionals (v.public.IPv6 != "") [{ address = v.public.IPv6; }]
-          ++ pkgs.lib.optionals (v.public.IPv6Alt != "") [{ address = v.public.IPv6Alt; }]
+          ++ lib.optionals (v.public.IPv4 != "") [{ address = v.public.IPv4; }]
+          ++ lib.optionals (v.public.IPv6 != "") [{ address = v.public.IPv6; }]
+          ++ lib.optionals (v.public.IPv6Alt != "") [{ address = v.public.IPv6Alt; }]
         ;
-        rsaPublicKey = pkgs.lib.mkIf (v.tinc.rsa != "") v.tinc.rsa;
+        rsaPublicKey = lib.mkIf (v.tinc.rsa != "") v.tinc.rsa;
         settings = {
           Compression = 0;
-          Ed25519PublicKey = pkgs.lib.mkIf (v.tinc.ed25519 != "") v.tinc.ed25519;
+          Ed25519PublicKey = lib.mkIf (v.tinc.ed25519 != "") v.tinc.ed25519;
         };
       });
 in
@@ -28,7 +28,7 @@ in
 
   services.tinc.networks = {
     ltmesh = {
-      hostSettings = pkgs.lib.mapAttrs' hostToTinc LT.hosts;
+      hostSettings = lib.mapAttrs' hostToTinc LT.hosts;
       interfaceType = "tap";
       name = sanitizeHostname config.networking.hostName;
       settings = {

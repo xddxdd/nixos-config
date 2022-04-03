@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
@@ -58,7 +58,7 @@ in
   };
 
   services.nginx.virtualHosts."cloud.lantian.pub" = {
-    listen = pkgs.lib.mkForce LT.nginx.listenHTTPS;
+    listen = lib.mkForce LT.nginx.listenHTTPS;
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.noIndex;
   };

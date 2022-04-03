@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   lantian_nginx = pkgs.writeText "lantian_nginx.lua" ''

@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   # Quickstart for wordle, set time offset to advance into next day
   wordle = pkgs.writeShellScriptBin "wordle" ''

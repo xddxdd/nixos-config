@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   home.sessionPath = [

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   environment.persistence."/nix/persistent" = {
@@ -28,7 +28,7 @@
     options = [ "relatime" "mode=755" "nosuid" "nodev" ];
   };
 
-  services.btrfs.autoScrub = pkgs.lib.mkIf (config.fileSystems."/nix".fsType == "btrfs") {
+  services.btrfs.autoScrub = lib.mkIf (config.fileSystems."/nix".fsType == "btrfs") {
     enable = true;
     fileSystems = [ "/nix" ];
   };

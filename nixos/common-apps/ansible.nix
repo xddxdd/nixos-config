@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
   mitogen = pkgs.python39Packages.mitogen;
 in
 {
@@ -23,9 +23,9 @@ in
     retries = 3
   '';
 
-  environment.etc."ansible/hosts".text = pkgs.lib.concatStringsSep
+  environment.etc."ansible/hosts".text = lib.concatStringsSep
     "\n"
-    ([ "[all]" ] ++ (pkgs.lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
+    ([ "[all]" ] ++ (lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
 
   programs.ssh.extraConfig = ''
     StrictHostKeyChecking no

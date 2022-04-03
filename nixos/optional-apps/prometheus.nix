@@ -1,11 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   scrapeAllNodes = jobName: port: {
     job_name = jobName;
-    static_configs = pkgs.lib.mapAttrsToList
+    static_configs = lib.mapAttrsToList
       (n: v: {
         targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
         labels.instance = n;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   # https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
@@ -200,24 +200,24 @@ let
       flags =
         if !(matchCredentials -> openBinary)
         then throw "boot.binfmt.registrations.${name}: you can't specify openBinary = true when matchCredentials = true."
-        else pkgs.lib.optionalString preserveArgvZero "P" +
-          pkgs.lib.optionalString (openBinary && !matchCredentials) "O" +
-          pkgs.lib.optionalString matchCredentials "C" +
-          pkgs.lib.optionalString fixBinary "F";
+        else lib.optionalString preserveArgvZero "P" +
+          lib.optionalString (openBinary && !matchCredentials) "O" +
+          lib.optionalString matchCredentials "C" +
+          lib.optionalString fixBinary "F";
     in
-    pkgs.lib.optionalString enable ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
+    lib.optionalString enable ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
 in
 {
   environment.etc."binfmt.d/lantian.conf".text =
-    pkgs.lib.optionalString enabled
-      (pkgs.lib.concatStringsSep "\n" (pkgs.lib.mapAttrsToList makeBinfmtLine qemu-user-static));
-  systemd.additionalUpstreamSystemUnits = pkgs.lib.optionals enabled [
+    lib.optionalString enabled
+      (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));
+  systemd.additionalUpstreamSystemUnits = lib.optionals enabled [
     "proc-sys-fs-binfmt_misc.automount"
     "proc-sys-fs-binfmt_misc.mount"
     "systemd-binfmt.service"
   ];
-  nix.settings.extra-platforms = pkgs.lib.optionals (pkgs.stdenv.isx86_64 && enabled)
+  nix.settings.extra-platforms = lib.optionals (pkgs.stdenv.isx86_64 && enabled)
     [ "aarch64-linux" "arm-linux" "i686-linux" ];
 }

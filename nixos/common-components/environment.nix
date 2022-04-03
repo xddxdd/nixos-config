@@ -1,4 +1,4 @@
-{ config, pkgs, modules, ... }:
+{ config, pkgs, lib, modules, ... }:
 
 {
   # Set your time zone.
@@ -43,7 +43,7 @@
     wireguard-tools
     zip
     zstd
-  ] ++ pkgs.lib.optionals pkgs.stdenv.isx86_64 [
+  ] ++ lib.optionals pkgs.stdenv.isx86_64 [
     nix-alien
     nix-index
     nix-index-update

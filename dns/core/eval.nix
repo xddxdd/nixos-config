@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 { registrars ? { }
 , providers ? { }
@@ -6,15 +6,15 @@
 ,
 }:
 let
-  formatArg = s: if (builtins.isString s) then (pkgs.lib.escapeShellArg s) else (builtins.toString s);
+  formatArg = s: if (builtins.isString s) then (lib.escapeShellArg s) else (builtins.toString s);
 
   mapRegistrarFunc = n: v: "var REG_${n} = NewRegistrar('${n}', '${v}');";
   mapRegistrars = [
     (mapRegistrarFunc "none" "NONE")
-  ] ++ pkgs.lib.mapAttrsToList mapRegistrarFunc registrars;
+  ] ++ lib.mapAttrsToList mapRegistrarFunc registrars;
 
   mapProviderFunc = n: v: "var DNS_${n} = NewDnsProvider('${n}', '${v}');";
-  mapProviders = pkgs.lib.mapAttrsToList mapProviderFunc providers;
+  mapProviders = lib.mapAttrsToList mapProviderFunc providers;
 
   mapDomainFunc =
     { domain
@@ -31,13 +31,13 @@ let
     in
     [
       ("D(${formattedDomain}, REG_${registrar}, ${providerCommands}, DefaultTTL(${formatArg defaultTTL}), NAMESERVER_TTL(${formatArg nameserverTTL}));")
-    ] ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") (pkgs.lib.flatten records));
-  mapDomains = builtins.map mapDomainFunc (pkgs.lib.flatten domains);
+    ] ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") (lib.flatten records));
+  mapDomains = builtins.map mapDomainFunc (lib.flatten domains);
 
 in
 builtins.concatStringsSep "\n" (
-  (pkgs.lib.flatten mapRegistrars)
-  ++ (pkgs.lib.flatten mapProviders)
-  ++ (builtins.sort (a: b: a < b) (pkgs.lib.flatten mapDomains))
+  (lib.flatten mapRegistrars)
+  ++ (lib.flatten mapProviders)
+  ++ (builtins.sort (a: b: a < b) (lib.flatten mapDomains))
   ++ [ "" ]
 )

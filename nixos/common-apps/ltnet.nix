@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   systemd.network.netdevs.dummy0 = {
@@ -21,17 +21,17 @@ in
     };
 
     address = [ ]
-      ++ pkgs.lib.optionals (LT.this.ltnet.IPv4Prefix != "") [
+      ++ lib.optionals (LT.this.ltnet.IPv4Prefix != "") [
       (LT.this.ltnet.IPv4Prefix + ".1/32")
-    ] ++ pkgs.lib.optionals (LT.this.dn42.IPv4 != "") [
+    ] ++ lib.optionals (LT.this.dn42.IPv4 != "") [
       (LT.this.dn42.IPv4 + "/32")
-    ] ++ pkgs.lib.optionals (LT.this.neonetwork.IPv4 != "") [
+    ] ++ lib.optionals (LT.this.neonetwork.IPv4 != "") [
       (LT.this.neonetwork.IPv4 + "/32")
-    ] ++ pkgs.lib.optionals (LT.this.ltnet.IPv6Prefix != "") [
+    ] ++ lib.optionals (LT.this.ltnet.IPv6Prefix != "") [
       (LT.this.ltnet.IPv6Prefix + "::1/128")
-    ] ++ pkgs.lib.optionals (LT.this.dn42.IPv6 != "") [
+    ] ++ lib.optionals (LT.this.dn42.IPv6 != "") [
       (LT.this.dn42.IPv6 + "/128")
-    ] ++ pkgs.lib.optionals (LT.this.neonetwork.IPv6 != "") [
+    ] ++ lib.optionals (LT.this.neonetwork.IPv6 != "") [
       (LT.this.neonetwork.IPv6 + "/128")
     ];
   };

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cdemuDBusService = pkgs.stdenv.mkDerivation {

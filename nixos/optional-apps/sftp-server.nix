@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   sshKeys = import (pkgs.secrets + "/ssh/sftp.nix");

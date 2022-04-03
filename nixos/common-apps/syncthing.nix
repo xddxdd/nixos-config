@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   services.syncthing = {
@@ -11,17 +11,17 @@ in
     configDir = "/var/lib/syncthing";
     dataDir = "/nix/persistent/sync-servers";
 
-    devices = pkgs.lib.mapAttrs
+    devices = lib.mapAttrs
       (n: v: {
         autoAcceptFolders = false;
         id = v.syncthing;
         introducer = false;
       })
-      (pkgs.lib.filterAttrs (n: v: v.syncthing != "") LT.otherHosts);
+      (lib.filterAttrs (n: v: v.syncthing != "") LT.otherHosts);
 
     folders."sync-servers" = {
       path = "/nix/persistent/sync-servers";
-      devices = builtins.attrNames (pkgs.lib.filterAttrs (n: v: v.syncthing != "") LT.otherHosts);
+      devices = builtins.attrNames (lib.filterAttrs (n: v: v.syncthing != "") LT.otherHosts);
       type =
         if (config.systemd.services.drone.enable or false)
         then "sendreceive" else "receiveonly";

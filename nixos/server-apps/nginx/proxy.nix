@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 
   nginxConfig = pkgs.writeText "nginx-proxy.conf" ''
     daemon off;
@@ -42,8 +42,8 @@ let
   };
 in
 {
-  options.lantian.nginx-proxy.enable = pkgs.lib.mkOption {
-    type = pkgs.lib.types.bool;
+  options.lantian.nginx-proxy.enable = lib.mkOption {
+    type = lib.types.bool;
     default = true;
     description = "Enable nginx-proxy service.";
   };
@@ -60,7 +60,7 @@ in
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
         User = config.services.nginx.user;
         Group = config.services.nginx.group;
-        MemoryDenyWriteExecute = pkgs.lib.mkForce false;
+        MemoryDenyWriteExecute = lib.mkForce false;
         TemporaryFileSystem = [ "/var/log/nginx:mode=0777" ];
       };
     };

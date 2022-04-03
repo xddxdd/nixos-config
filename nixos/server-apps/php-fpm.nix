@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.phpfpm = {
@@ -52,7 +52,7 @@
     phpPackage = pkgs.phpWithExtensions;
 
     pools = {
-      www = pkgs.lib.mkIf config.lantian.enable-php {
+      www = lib.mkIf config.lantian.enable-php {
         user = config.services.nginx.user;
         settings = {
           "listen.owner" = config.services.nginx.user;

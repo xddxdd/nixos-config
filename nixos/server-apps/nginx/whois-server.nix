@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   LT = import ../../../helpers {  inherit config pkgs; };

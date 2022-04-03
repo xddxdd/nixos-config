@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   verticalSize = 16;
   spaceSize = 8;
@@ -16,7 +16,7 @@ let
   goto = n: "\${goto ${builtins.toString (n * spaceSize)}}";
   alignr = n: "\${alignr ${builtins.toString (n * spaceSize - 4)}}";
 
-  padString = s: "${offset (alignX - pkgs.lib.stringLength s)}${s}";
+  padString = s: "${offset (alignX - lib.stringLength s)}${s}";
 
   fsUsage = path: ""
     + "\${if_mounted ${path}}"
@@ -125,7 +125,7 @@ in
       }
 
       conky.text = [[
-      ${pkgs.lib.concatStrings (builtins.map (s: "${goto 0}${s}\n") conkyLines)}
+      ${lib.concatStrings (builtins.map (s: "${goto 0}${s}\n") conkyLines)}
       ]]
     '';
   };

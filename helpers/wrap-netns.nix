@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 netns: pkg: pkgs.stdenv.mkDerivation {
   inherit (pkg) pname version;

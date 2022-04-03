@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   xdg.configFile."ansible/ansible.cfg".text = ''
@@ -16,9 +16,9 @@ in
     retries = 3
   '';
 
-  xdg.configFile."ansible/hosts".text = pkgs.lib.concatStringsSep
+  xdg.configFile."ansible/hosts".text = lib.concatStringsSep
     "\n"
-    ([ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (pkgs.lib.attrNames LT.serverHosts)));
+    ([ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.serverHosts)));
 
   home.sessionVariables.ANSIBLE_CONFIG = "${config.home.homeDirectory}/.config/ansible/ansible.cfg";
 }

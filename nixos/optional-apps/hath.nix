@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   hathCacheDir = "/var/cache/hath";
   hathDataDir = "/var/lib/hath";

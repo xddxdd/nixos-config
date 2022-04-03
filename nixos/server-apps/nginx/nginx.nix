@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 
   luaPackage = pkgs.callPackage ./lua { };
 in
@@ -123,6 +123,6 @@ in
 
   systemd.services.nginx.serviceConfig = {
     # Workaround Lua crash
-    MemoryDenyWriteExecute = pkgs.lib.mkForce false;
+    MemoryDenyWriteExecute = lib.mkForce false;
   };
 }

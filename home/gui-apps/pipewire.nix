@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   xdg.configFile."pipewire/client.conf.d/override.conf".text = ''

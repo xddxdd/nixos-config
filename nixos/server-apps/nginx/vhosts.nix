@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 
-  addConfLantianPub = pkgs.lib.recursiveUpdate {
+  addConfLantianPub = lib.recursiveUpdate {
     locations = LT.nginx.addCommonLocationConf {
       "/" = {
         index = "index.html index.htm";

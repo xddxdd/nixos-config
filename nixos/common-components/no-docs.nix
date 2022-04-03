@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   documentation = let
-    forceNo = pkgs.lib.mkOverride 1 false;
+    forceNo = lib.mkOverride 1 false;
   in {
     enable = forceNo;
     dev.enable = forceNo;

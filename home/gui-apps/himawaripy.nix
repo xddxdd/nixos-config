@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   himawaripy = pkgs.python3Packages.buildPythonPackage rec {
     inherit (LT.sources.himawaripy) pname version src;
@@ -13,7 +13,7 @@ let
     ];
   };
 in {
-  systemd.user.services.himawaripy = pkgs.lib.mkIf false {
+  systemd.user.services.himawaripy = lib.mkIf false {
     Service = {
       Type = "oneshot";
       ExecStart = "${himawaripy}/bin/himawaripy --auto-offset";
@@ -21,7 +21,7 @@ in {
     };
   };
 
-  systemd.user.timers.himawaripy = pkgs.lib.mkIf false {
+  systemd.user.timers.himawaripy = lib.mkIf false {
     Install = {
       WantedBy = [ "timers.target" ];
     };

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
@@ -24,5 +24,5 @@ in
   };
 
   systemd.services.yggdrasil.serviceConfig.ExecStart =
-    pkgs.lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel error -logto syslog -useconffile /run/yggdrasil/yggdrasil.conf";
+    lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel error -logto syslog -useconffile /run/yggdrasil/yggdrasil.conf";
 }

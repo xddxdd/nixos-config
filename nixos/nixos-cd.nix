@@ -14,7 +14,7 @@ in
   modules = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
-    ({ pkgs, ... }: {
+    ({ pkgs, lib, ... }: {
       # Avoid cyclic dependency
       # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/cd-dvd/iso-image.nix
       boot.initrd.includeDefaultModules = lib.mkForce true;

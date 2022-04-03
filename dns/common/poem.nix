@@ -1,4 +1,4 @@
-{ pkgs, dns, ... }:
+{ pkgs, lib, dns, ... }:
 
 with dns;
 prefix: first: let
