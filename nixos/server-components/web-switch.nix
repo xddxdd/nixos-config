@@ -1,8 +1,8 @@
-{ pkgs, config, options, ... }:
+{ pkgs, lib, config, options, ... }:
 
 {
-  options.lantian.enable-php = pkgs.lib.mkOption {
-    type = pkgs.lib.types.bool;
+  options.lantian.enable-php = lib.mkOption {
+    type = lib.types.bool;
     default = false;
     description = "Enable PHP-FPM for Nginx.";
   };

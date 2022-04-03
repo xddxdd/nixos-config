@@ -1,4 +1,4 @@
-{ pkgs, dns, hosts, ... }@args:
+{ pkgs, lib, dns, hosts, ... }@args:
 
 rec {
   inherit hosts;

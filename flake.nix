@@ -149,7 +149,7 @@
       apps = eachSystem (system:
         let
           pkgs = import nixpkgs { inherit system; };
-          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs; inherit (LT) hosts; });
+          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; inherit (LT) hosts; });
         in
         {
           dnscontrol = pkgs.writeShellScriptBin "dnscontrol" ''

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Filter-Chain#virtual-surround

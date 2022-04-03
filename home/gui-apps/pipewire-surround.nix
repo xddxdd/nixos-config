@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   hesuvi-hrir = "${pkgs.hesuvi-hrir}/atmos.wav";

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   boot.initrd.availableKernelModules = [
@@ -16,7 +16,7 @@
     "xhci_pci"
     "usbhid"
     "hid_generic"
-  ] ++ pkgs.lib.optionals (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) [
+  ] ++ lib.optionals (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) [
     # Misc. x86 keyboard stuff.
     "pcips2"
     "atkbd"

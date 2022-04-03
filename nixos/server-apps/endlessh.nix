@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.

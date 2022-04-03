@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   cfgFile = pkgs.writeText "xmrig.json" (builtins.toJSON {

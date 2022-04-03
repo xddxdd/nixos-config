@@ -1,4 +1,4 @@
-{ pkgs, dns, common, ... }:
+{ pkgs, lib, dns, common, ... }:
 
 [
   (common.reverse { prefix = "2001:470:fa1d::/48"; target = "50kvm.lantian.pub."; })

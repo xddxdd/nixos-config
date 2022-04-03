@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   hashedPassword = import (pkgs.secrets + "/config/unix-hashed-pw.nix");

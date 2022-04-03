@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   netns = LT.netns {
     name = "wg-lantian";
@@ -31,7 +31,7 @@ in
     "A+ /var/lib/ipfs - - - - g:wheel:rwx,d:g:wheel:rwx"
   ];
 
-  systemd.services.ipfs = pkgs.lib.recursiveUpdate netns.bindExisting {
+  systemd.services.ipfs = lib.recursiveUpdate netns.bindExisting {
     serviceConfig = LT.serviceHarden // {
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       BindReadOnlyPaths = [ "/etc/netns/ns-wg-lantian/resolv.conf:/etc/resolv.conf" ];

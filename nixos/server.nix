@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../helpers { inherit config pkgs; };
+  LT = import ../helpers { inherit config pkgs lib; };
   homeConfig = import ../home/server.nix {
     inherit config pkgs;
     lib = lib // { hm = pkgs.flake.home-manager.lib.hm; };

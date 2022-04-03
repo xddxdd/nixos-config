@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   boot.kernel.sysctl = {
@@ -18,28 +18,28 @@
     "net.ipv4.tcp_mtu_probing" = 1;
     "net.ipv4.tcp_syncookies" = 1;
 
-    "net.ipv4.conf.all.forwarding" = pkgs.lib.mkForce 1;
-    "net.ipv4.conf.default.forwarding" = pkgs.lib.mkForce 1;
-    "net.ipv4.conf.*.forwarding" = pkgs.lib.mkForce 1;
-    "net.ipv6.conf.all.forwarding" = pkgs.lib.mkForce 1;
-    "net.ipv6.conf.default.forwarding" = pkgs.lib.mkForce 1;
-    "net.ipv6.conf.*.forwarding" = pkgs.lib.mkForce 1;
+    "net.ipv4.conf.all.forwarding" = lib.mkForce 1;
+    "net.ipv4.conf.default.forwarding" = lib.mkForce 1;
+    "net.ipv4.conf.*.forwarding" = lib.mkForce 1;
+    "net.ipv6.conf.all.forwarding" = lib.mkForce 1;
+    "net.ipv6.conf.default.forwarding" = lib.mkForce 1;
+    "net.ipv6.conf.*.forwarding" = lib.mkForce 1;
 
-    "net.ipv4.conf.all.rp_filter" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.default.rp_filter" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.*.rp_filter" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.all.accept_redirects" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.default.accept_redirects" = pkgs.lib.mkForce 0;
-    "net.ipv4.conf.*.accept_redirects" = pkgs.lib.mkForce 0;
+    "net.ipv4.conf.all.rp_filter" = lib.mkForce 0;
+    "net.ipv4.conf.default.rp_filter" = lib.mkForce 0;
+    "net.ipv4.conf.*.rp_filter" = lib.mkForce 0;
+    "net.ipv4.conf.all.accept_redirects" = lib.mkForce 0;
+    "net.ipv4.conf.default.accept_redirects" = lib.mkForce 0;
+    "net.ipv4.conf.*.accept_redirects" = lib.mkForce 0;
     "net.ipv4.conf.all.secure_redirects" = 0;
     "net.ipv4.conf.default.secure_redirects" = 0;
     "net.ipv4.conf.*.secure_redirects" = 0;
     "net.ipv4.conf.all.send_redirects" = 0;
     "net.ipv4.conf.default.send_redirects" = 0;
     "net.ipv4.conf.*.send_redirects" = 0;
-    "net.ipv6.conf.all.accept_redirects" = pkgs.lib.mkForce 0;
-    "net.ipv6.conf.default.accept_redirects" = pkgs.lib.mkForce 0;
-    "net.ipv6.conf.*.accept_redirects" = pkgs.lib.mkForce 0;
+    "net.ipv6.conf.all.accept_redirects" = lib.mkForce 0;
+    "net.ipv6.conf.default.accept_redirects" = lib.mkForce 0;
+    "net.ipv6.conf.*.accept_redirects" = lib.mkForce 0;
   };
 
   networking = {

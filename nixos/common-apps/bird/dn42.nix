@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
-  inherit (import ./common.nix { inherit config pkgs; })
+  LT = import ../../../helpers { inherit config pkgs lib; };
+  inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_REGION NEO_AS
     community sanitizeHostname;
 
-  filterNetwork = net: pkgs.lib.filterAttrs (n: v: v.peering.network == net);
+  filterNetwork = net: lib.filterAttrs (n: v: v.peering.network == net);
 
   latencyToDN42Community = { latencyMs, badRouting, ... }:
     if badRouting then 9 else
@@ -33,7 +33,7 @@ let
       crypto = builtins.toString (typeToDN42Community v.tunnel.type);
       localASN = if v.peering.network == "dn42" then DN42_AS else NEO_AS;
     in
-    pkgs.lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
+    lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
       protocol bgp ${sanitizeHostname interfaceName}_v4 from dnpeers {
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${localASN};
@@ -47,7 +47,7 @@ let
         };
       };
     ''
-    + pkgs.lib.optionalString (v.addressing.peerIPv6 != null) ''
+    + lib.optionalString (v.addressing.peerIPv6 != null) ''
       protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${localASN};
@@ -61,7 +61,7 @@ let
         };
       };
     ''
-    + pkgs.lib.optionalString (v.addressing.peerIPv6Subnet != null) ''
+    + lib.optionalString (v.addressing.peerIPv6Subnet != null) ''
       protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6Subnet} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6Subnet} as ${localASN};
@@ -75,7 +75,7 @@ let
         };
       };
     ''
-    + pkgs.lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
+    + lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
       protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${localASN};
@@ -282,5 +282,5 @@ in
   hasPeers = cfg != { };
 
   peers = builtins.concatStringsSep "\n"
-    (pkgs.lib.mapAttrsToList peer (filterNetwork "dn42" cfg));
+    (lib.mapAttrsToList peer (filterNetwork "dn42" cfg));
 }

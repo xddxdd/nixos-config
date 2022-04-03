@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   environment.etc."ssdt1.dat".source = ./ssdt1.dat;
@@ -24,6 +24,6 @@
   users.users.lantian.extraGroups = [ "libvirtd" ];
 
   boot.kernelParams =
-    (pkgs.lib.optionals config.hardware.cpu.intel.updateMicrocode [ "intel_iommu=on" "iommu=pt" ])
-    ++ (pkgs.lib.optionals config.hardware.cpu.amd.updateMicrocode [ "amd_iommu=on" ]);
+    (lib.optionals config.hardware.cpu.intel.updateMicrocode [ "intel_iommu=on" "iommu=pt" ])
+    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode [ "amd_iommu=on" ]);
 }

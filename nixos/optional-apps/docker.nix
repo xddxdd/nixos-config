@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   vmPackage = (import "${pkgs.flake.nixpkgs}/nixos/default.nix" {
     configuration = {

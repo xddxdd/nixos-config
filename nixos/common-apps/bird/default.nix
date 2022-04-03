@@ -1,12 +1,12 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 
-  anycast = import ./anycast.nix { inherit config pkgs; };
-  dn42 = import ./dn42.nix { inherit config pkgs; };
-  ltnet = import ./ltnet.nix { inherit config pkgs; };
-  sys = import ./sys.nix { inherit config pkgs; };
+  anycast = import ./anycast.nix { inherit config pkgs lib; };
+  dn42 = import ./dn42.nix { inherit config pkgs lib; };
+  ltnet = import ./ltnet.nix { inherit config pkgs lib; };
+  sys = import ./sys.nix { inherit config pkgs lib; };
 in
 {
   services.bird2 = {
@@ -19,16 +19,16 @@ in
       sys.kernel
       anycast.babel
 
-    ] ++ pkgs.lib.optionals (LT.this.role == LT.roles.server) [
+    ] ++ lib.optionals (LT.this.role == LT.roles.server) [
       sys.roa
       sys.roaMonitor
 
       dn42.communityFilters
       dn42.common
       dn42.peers
-      (pkgs.lib.optionalString (dn42.hasPeers) dn42.grc)
+      (lib.optionalString (dn42.hasPeers) dn42.grc)
 
-    ] ++ pkgs.lib.optionals (!LT.this.ltnet.alone) [
+    ] ++ lib.optionals (!LT.this.ltnet.alone) [
       ltnet.common
       ltnet.dynamic
       ltnet.peers
@@ -51,7 +51,7 @@ in
     };
   };
 
-  systemd.services.bird2.reloadIfChanged = pkgs.lib.mkForce false;
+  systemd.services.bird2.reloadIfChanged = lib.mkForce false;
 
   systemd.services.bird-lgproxy-go = {
     description = "Bird-lgproxy-go";

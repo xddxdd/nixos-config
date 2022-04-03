@@ -1,4 +1,4 @@
-{ pkgs, config, utils, ... }:
+{ pkgs, lib, config, utils, ... }:
 
 let
   kopiaStorage = {
@@ -102,7 +102,7 @@ in
       ln -s /nix $SNAPSHOT_DIR
 
     '') + (builtins.concatStringsSep "\n" (
-      pkgs.lib.mapAttrsToList kopiaScript kopiaStorage
+      lib.mapAttrsToList kopiaScript kopiaStorage
     )) + (if config.fileSystems."/nix".fsType == "btrfs" then ''
       # Remove snapshot
       ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
@@ -128,7 +128,7 @@ in
     "d /var/cache/kopia 700 root root"
     "d /var/log/kopia 700 root root"
     "C /nix/persistent/.kopiaignore - - - - ${kopiaIgnored}"
-  ] ++ (pkgs.lib.mapAttrsToList
+  ] ++ (lib.mapAttrsToList
     (n: v: "d /var/cache/kopia/${n} 700 root root")
     kopiaStorage);
 }

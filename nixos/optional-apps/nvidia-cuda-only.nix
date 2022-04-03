@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;

@@ -1,4 +1,4 @@
-{ pkgs, dns, common, hosts, ... }:
+{ pkgs, lib, dns, common, hosts, ... }:
 
 [
   (rec {

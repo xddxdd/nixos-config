@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 ''
   if [ "$TERM_PROGRAM" != "vscode" ]; then

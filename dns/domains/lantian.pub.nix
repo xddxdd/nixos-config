@@ -1,4 +1,4 @@
-{ pkgs, dns, common, ... }:
+{ pkgs, lib, dns, common, ... }:
 
 with dns;
 let

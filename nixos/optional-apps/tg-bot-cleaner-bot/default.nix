@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 
   pythonPackages = python-packages: with python-packages; [
     telethon

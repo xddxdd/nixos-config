@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   wg-pubkey = import (pkgs.secrets + "/config/wg-pubkey.nix");
 in
@@ -10,7 +10,7 @@ in
     ips = [ "192.0.2.1/24" "fc00::1/64" ];
     listenPort = 22547;
     privateKeyFile = config.age.secrets.wg-priv.path;
-    peers = pkgs.lib.mapAttrsToList
+    peers = lib.mapAttrsToList
       (n: v: {
         publicKey = wg-pubkey."${n}";
         allowedIPs = [
@@ -18,6 +18,6 @@ in
           "fc00::${builtins.toString v.index}/128"
         ];
       })
-      (pkgs.lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts);
+      (lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts);
   };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   xdg.configFile."mpv/mpv.conf".text = ''

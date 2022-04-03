@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 in
 rec {
   DN42_AS = "4242422547";

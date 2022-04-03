@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.ssh.package = pkgs.openssh_hpn.overrideAttrs (old: {
@@ -22,7 +22,7 @@
     enable = true;
     forwardX11 = true;
     passwordAuthentication = false;
-    permitRootLogin = pkgs.lib.mkForce "prohibit-password";
+    permitRootLogin = lib.mkForce "prohibit-password";
     ports = [ 2222 ];
     sftpServerExecutable = "internal-sftp";
     ciphers = [

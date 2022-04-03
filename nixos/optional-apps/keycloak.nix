@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   imports = [ ./postgresql.nix ];
@@ -34,9 +34,9 @@ in
   };
 
   systemd.services.keycloak.serviceConfig = LT.serviceHarden // {
-    AmbientCapabilities = pkgs.lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
-    CapabilityBoundingSet = pkgs.lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
-    DynamicUser = pkgs.lib.mkForce false;
+    AmbientCapabilities = lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    CapabilityBoundingSet = lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    DynamicUser = lib.mkForce false;
     MemoryDenyWriteExecute = false;
   };
 

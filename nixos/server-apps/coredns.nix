@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   corednsNetns = LT.netns {
     name = "coredns";
@@ -24,8 +24,8 @@ let
   };
 in
 {
-  age.secrets = pkgs.lib.mkIf (config.services.coredns.enable || config.services.knot.enable)
-    (builtins.listToAttrs (pkgs.lib.flatten (builtins.map
+  age.secrets = lib.mkIf (config.services.coredns.enable || config.services.knot.enable)
+    (builtins.listToAttrs (lib.flatten (builtins.map
       (n: [
         {
           name = "${n}.key";
@@ -249,7 +249,7 @@ in
 
         zone:
       ''
-      + (pkgs.lib.concatStringsSep "\n" (builtins.map dn42SlaveZone [
+      + (lib.concatStringsSep "\n" (builtins.map dn42SlaveZone [
         "dn42"
         "10.in-addr.arpa"
         "20.172.in-addr.arpa"
@@ -259,7 +259,7 @@ in
         "31.172.in-addr.arpa"
         "d.f.ip6.arpa"
       ]))
-      + (pkgs.lib.concatStringsSep "\n" (builtins.map opennicSlaveZone [
+      + (lib.concatStringsSep "\n" (builtins.map opennicSlaveZone [
         "."
         "opennic.glue"
         "dns.opennic.glue"
@@ -285,15 +285,15 @@ in
   systemd.services = corednsNetns.setup // corednsKnotNetns.setup // {
     coredns = corednsNetns.bind {
       serviceConfig = {
-        DynamicUser = pkgs.lib.mkForce false;
-        User = pkgs.lib.mkForce "container";
-        Group = pkgs.lib.mkForce "container";
+        DynamicUser = lib.mkForce false;
+        User = lib.mkForce "container";
+        Group = lib.mkForce "container";
       };
     };
     knot = corednsKnotNetns.bind {
       serviceConfig = {
-        User = pkgs.lib.mkForce "container";
-        Group = pkgs.lib.mkForce "container";
+        User = lib.mkForce "container";
+        Group = lib.mkForce "container";
 
         ReadWritePaths = [ "/tmp" ];
         CacheDirectory = "zones";
@@ -301,7 +301,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = pkgs.lib.mkIf (config.services.coredns.enable || config.services.knot.enable) [
+  systemd.tmpfiles.rules = lib.mkIf (config.services.coredns.enable || config.services.knot.enable) [
     "d /var/lib/zones 755 container container"
   ];
 }

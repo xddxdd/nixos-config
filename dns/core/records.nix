@@ -1,13 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
-  formatArg = s: if (builtins.isString s) then (pkgs.lib.escapeShellArg s) else (builtins.toString s);
+  formatArg = s: if (builtins.isString s) then (lib.escapeShellArg s) else (builtins.toString s);
   formatName = name: reverse: if reverse then "REV(${formatArg name})" else (formatArg name);
 
   record_meta = { ttl ? null, cloudflare ? null }:
-    (pkgs.lib.optionalString (ttl != null) ", TTL(${formatArg (builtins.toString ttl)})")
-    + (pkgs.lib.optionalString (cloudflare == true) ", CF_PROXY_ON")
-    + (pkgs.lib.optionalString (cloudflare == false) ", CF_PROXY_OFF");
+    (lib.optionalString (ttl != null) ", TTL(${formatArg (builtins.toString ttl)})")
+    + (lib.optionalString (cloudflare == true) ", CF_PROXY_ON")
+    + (lib.optionalString (cloudflare == false) ", CF_PROXY_OFF");
 
   record_1args = type: name: reverse: ttl: cloudflare:
     "${type}(${formatName name reverse}" + (record_meta { inherit ttl cloudflare; }) + ")";

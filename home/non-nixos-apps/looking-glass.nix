@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  xdg.configFile."looking-glass/client.ini".text = pkgs.lib.generators.toINI { } {
+  xdg.configFile."looking-glass/client.ini".text = lib.generators.toINI { } {
     app.shmFile = "/dev/kvmfr0";
     input.escapeKey = 119;
     input.rawMouse = "yes";

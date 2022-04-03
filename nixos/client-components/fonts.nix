@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  fonts.fonts = with pkgs; pkgs.lib.mkForce [
+  fonts.fonts = with pkgs; lib.mkForce [
     (nerdfonts.override {
       fonts = [
         "FiraCode"

@@ -1,13 +1,13 @@
-{ pkgs, dns, ... }:
+{ pkgs, lib, dns, ... }:
 
 with dns;
 
 { prefix, target }:
 let
-  prefixSplitted = pkgs.lib.splitString "/" prefix;
+  prefixSplitted = lib.splitString "/" prefix;
   prefixIP = builtins.elemAt prefixSplitted 0;
 
-  poem = import ./poem.nix { inherit pkgs dns; };
+  poem = import ./poem.nix { inherit pkgs lib dns; };
 in
 rec {
   domain = prefix;

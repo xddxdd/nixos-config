@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
-  inherit (import ./common.nix { inherit config pkgs; })
+  LT = import ../../../helpers { inherit config pkgs lib; };
+  inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_REGION NEO_AS
     community sanitizeHostname;
 
@@ -51,8 +51,8 @@ in
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
-      ${pkgs.lib.optionalString (LT.this.dn42.IPv4 != "") "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"}
-      ${pkgs.lib.optionalString (LT.this.neonetwork.IPv4 != "") "if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = ${LT.this.neonetwork.IPv4};"}
+      ${lib.optionalString (LT.this.dn42.IPv4 != "") "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"}
+      ${lib.optionalString (LT.this.neonetwork.IPv4 != "") "if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = ${LT.this.neonetwork.IPv4};"}
 
       accept;
     }
@@ -65,8 +65,8 @@ in
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
-      ${pkgs.lib.optionalString (LT.this.dn42.IPv4 != "") "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"}
-      ${pkgs.lib.optionalString (LT.this.neonetwork.IPv4 != "") "if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = ${LT.this.neonetwork.IPv6};"}
+      ${lib.optionalString (LT.this.dn42.IPv4 != "") "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"}
+      ${lib.optionalString (LT.this.neonetwork.IPv4 != "") "if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = ${LT.this.neonetwork.IPv6};"}
 
       accept;
     }
@@ -220,7 +220,7 @@ in
     }
 
     protocol static static_v4 {
-  '' + pkgs.lib.optionalString (!LT.this.ltnet.alone) ''
+  '' + lib.optionalString (!LT.this.ltnet.alone) ''
     route 172.22.76.184/29 reject;
     route 172.22.76.96/27 reject;
     route 10.127.10.0/24 reject;
@@ -246,7 +246,7 @@ in
     };
 
     protocol static static_v6 {
-  '' + pkgs.lib.optionalString (!LT.this.ltnet.alone) ''
+  '' + lib.optionalString (!LT.this.ltnet.alone) ''
     route fdbc:f9dc:67ad::/48 reject;
     route fd10:127:10::/48 reject;
 

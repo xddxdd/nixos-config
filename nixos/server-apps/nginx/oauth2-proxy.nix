@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 in
 {
   age.secrets.oauth2-proxy-conf.file = pkgs.secrets + "/oauth2-proxy-conf.age";
@@ -27,7 +27,7 @@ in
 
   systemd.services.oauth2_proxy = {
     unitConfig = {
-      After = pkgs.lib.mkForce "network.target nginx.service";
+      After = lib.mkForce "network.target nginx.service";
     };
     serviceConfig = LT.serviceHarden // {
       Restart = "always";

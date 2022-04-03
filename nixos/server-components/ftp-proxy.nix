@@ -1,17 +1,17 @@
-{ pkgs, config, options, ... }:
+{ pkgs, lib, config, options, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   options.services."ftp-proxy" = {
-    enable = pkgs.lib.mkOption {
-      type = pkgs.lib.types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Enable ftp-proxy service.";
     };
-    target = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
+    target = lib.mkOption {
+      type = lib.types.str;
       default = "";
       description = "Proxied FTP server.";
     };

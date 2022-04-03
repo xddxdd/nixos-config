@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 l: builtins.listToAttrs (builtins.map ({ name, command }: {
   name = "autostart/${name}.desktop";

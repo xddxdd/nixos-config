@@ -1,17 +1,17 @@
-{ pkgs, config, options, ... }:
+{ pkgs, lib, config, options, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   options.services."route-chain" = {
-    enable = pkgs.lib.mkOption {
-      type = pkgs.lib.types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Enable route-chain service.";
     };
-    routes = pkgs.lib.mkOption {
-      type = pkgs.lib.types.listOf pkgs.lib.types.string;
+    routes = lib.mkOption {
+      type = lib.types.listOf lib.types.string;
       default = [ ];
       description = "Routes to be handled by route-chain.";
     };

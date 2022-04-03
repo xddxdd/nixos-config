@@ -1,8 +1,8 @@
-{ pkgs, hosts, ... }:
+{ pkgs, lib, hosts, ... }:
 
 let
-  dns = import ./core { inherit pkgs; };
-  common = import ./common { inherit pkgs dns hosts; };
+  dns = import ./core { inherit pkgs lib; };
+  common = import ./common { inherit pkgs lib dns hosts; };
 in
 dns.eval {
   registrars = {
@@ -16,6 +16,6 @@ dns.eval {
     ns1 = "NS1";
   };
   domains = builtins.map
-    (f: import (./domains + "/${f}") { inherit pkgs dns common hosts; })
-    (pkgs.lib.attrNames (builtins.readDir ./domains));
+    (f: import (./domains + "/${f}") { inherit pkgs lib dns common hosts; })
+    (lib.attrNames (builtins.readDir ./domains));
 }

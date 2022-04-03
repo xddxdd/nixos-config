@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
   imports = [
@@ -35,8 +35,8 @@ in
   fileSystems."/".options = [ "size=64G" ];
 
   # This host has full disk encryption, no need to encrypt keyring
-  security.pam.services.login.enableGnomeKeyring = pkgs.lib.mkForce false;
-  security.pam.services.sddm.enableGnomeKeyring = pkgs.lib.mkForce false;
+  security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
+  security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
 
   services.beesd.filesystems.root = {
     spec = "/nix";
@@ -61,12 +61,12 @@ in
 
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 
-  services.resilio.directoryRoot = pkgs.lib.mkForce "/";
+  services.resilio.directoryRoot = lib.mkForce "/";
   systemd.services.resilio.serviceConfig = {
-    User = pkgs.lib.mkForce "lantian";
-    Group = pkgs.lib.mkForce "wheel";
-    PrivateMounts = pkgs.lib.mkForce false;
-    ProtectHome = pkgs.lib.mkForce false;
+    User = lib.mkForce "lantian";
+    Group = lib.mkForce "wheel";
+    PrivateMounts = lib.mkForce false;
+    ProtectHome = lib.mkForce false;
     ReadWritePaths = [
       "/home/lantian"
       "/mnt/root/files"

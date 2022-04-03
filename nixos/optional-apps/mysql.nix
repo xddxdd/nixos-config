@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
@@ -32,7 +32,7 @@ in
   systemd.tmpfiles.rules = [
     "L+ /etc/phpmyadmin/config.inc.php - - - - ${config.age.secrets.phpmyadmin-conf.path}"
   ];
-  services.nginx.virtualHosts."pma-${config.networking.hostName}.lantian.pub" = pkgs.lib.mkIf config.lantian.enable-php {
+  services.nginx.virtualHosts."pma-${config.networking.hostName}.lantian.pub" = lib.mkIf config.lantian.enable-php {
     listen = LT.nginx.listenHTTPS;
     root = "${pkgs.phpmyadmin}";
     locations = LT.nginx.addNoIndexLocationConf {

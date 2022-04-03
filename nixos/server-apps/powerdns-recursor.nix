@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs lib; };
 
   netns = LT.netns {
     name = "powerdns-recursor";
@@ -28,13 +28,13 @@ in
         dn42Zones = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
         # .neo zone not included for conflict with NeoNetwork
         OpenNICZones = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
-        authoritativeZones = pkgs.lib.genAttrs
+        authoritativeZones = lib.genAttrs
           (dn42Zones ++ OpenNICZones)
           (k: builtins.concatStringsSep ";" [
             "172.22.76.109"
             "fdbc:f9dc:67ad:2547::54"
           ]);
-        emercoinZones = pkgs.lib.genAttrs
+        emercoinZones = lib.genAttrs
           [ "bazar" "coin" "emc" "lib" ]
           (k: builtins.concatStringsSep ";" [
             "185.122.58.37"
@@ -105,12 +105,12 @@ in
   systemd.services = netns.setup // {
     pdns-recursor = netns.bind {
       serviceConfig = {
-        DynamicUser = pkgs.lib.mkForce false;
+        DynamicUser = lib.mkForce false;
         ExecReload = [
           ""
           "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
         ];
-        User = pkgs.lib.mkForce "container";
+        User = lib.mkForce "container";
       };
     };
   };
