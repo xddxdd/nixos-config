@@ -127,17 +127,17 @@
     };
     kskb = {
       remoteASN = 4242421817;
-      latencyMs = 35;
+      latencyMs = 2;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 21817;
-        remoteAddress = "4.tw.kskb.eu.org";
+        remoteAddress = "4.hk.kskb.eu.org";
         remotePort = 22547;
         wireguardPubkey = "jxCsSXtUSVjaP+eMWOyRsHg3JShQfBFEtyssMKWQaS8=";
       };
       addressing = {
-        peerIPv4 = "172.22.77.33";
+        peerIPv4 = "172.22.77.47";
         peerIPv6LinkLocal = "fe80::42:1817:1";
       };
     };
