@@ -13,6 +13,7 @@ dns.eval {
     cloudflare = "CLOUDFLAREAPI";
     desec = "DESEC";
     henet = "HEDNS";
+    ns1 = "NS1";
   };
   domains = builtins.map
     (f: import (./domains + "/${f}") { inherit pkgs dns common hosts; })
