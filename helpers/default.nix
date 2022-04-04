@@ -39,5 +39,4 @@ args // rec {
   uuid = callHelper ./uuid.nix;
   wrapNetns = callHelper ./wrap-netns.nix;
   yggdrasil = callHelper ./yggdrasil;
-  zshrc = callHelper ./zshrc.nix;
 }

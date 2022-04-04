@@ -27,6 +27,7 @@ in
     google-chrome
     libfaketime
     libsForQt5.ark
+    lm_sensors
     mpv
     osdlyrics
     tigervnc
