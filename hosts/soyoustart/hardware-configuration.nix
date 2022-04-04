@@ -20,8 +20,17 @@
   };
   boot.loader.efi.efiSysMountPoint = "/boot/EFI";
 
+  boot.initrd.kernelModules = [
+    "dm-raid"
+    "dm-integrity"
+    "raid0"
+    "raid1"
+    "raid10"
+    "raid456"
+  ];
+
   fileSystems."/nix" = {
-    device = "/dev/sda2";
+    device = "/dev/mapper/MyVolGroup-root";
     fsType = "btrfs";
     options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
