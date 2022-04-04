@@ -62,9 +62,10 @@ in
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 
   services.resilio.directoryRoot = lib.mkForce "/";
+  systemd.tmpfiles.rules = [
+    "A+ /mnt/root/files - - - - u:rslsync:rwx,g:rslsync:rwx,d:u:rslsync:rwx,d:g:rslsync:rwx"
+  ];
   systemd.services.resilio.serviceConfig = {
-    User = lib.mkForce "lantian";
-    Group = lib.mkForce "wheel";
     PrivateMounts = lib.mkForce false;
     ProtectHome = lib.mkForce false;
     ReadWritePaths = [

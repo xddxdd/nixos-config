@@ -12,17 +12,27 @@
         "UbuntuMono"
       ];
     })
+
+    corefonts
     fira-code
     fira-code-symbols
     font-awesome
     genshin-glyphs
+    liberation_ttf
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
     noto-fonts-emoji-blob-bin
     noto-fonts-extra
+    source-code-pro
+    source-han-code-jp
     source-han-mono
     source-han-sans
     source-han-serif
+    source-sans
+    source-sans-pro
+    source-serif
+    source-serif-pro
     terminus_font_ttf
     ubuntu_font_family
     wqy_microhei

@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let
+  LT = import ../../helpers { inherit config pkgs lib; };
+
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -44,12 +46,15 @@ in
     user = "lantian";
   };
 
-  # Firefox fixes
   environment.variables = {
+    # Firefox fixes
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
     MOZ_DISABLE_RDD_SANDBOX = "1";
     LIBVA_DRIVER_NAME = "iHD";
     VDPAU_DRIVER = "va_gl";
+
+    # SDL Soundfont
+    SDL_SOUNDFONTS = LT.constants.soundfontPath pkgs;
   };
 }
