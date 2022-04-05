@@ -5,7 +5,8 @@ let
   roles = import ../../helpers/roles.nix;
 
   replacedHosts = {
-    gigsgigscloud = hosts."50kvm";
+    "50kvm" = hosts."linkin";
+    gigsgigscloud = hosts."linkin";
     oneprovider = hosts."soyoustart";
     virmach-ny3ip = hosts."virmach-ny6g";
     virtono = hosts."buyvm";

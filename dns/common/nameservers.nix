@@ -3,7 +3,7 @@
 with dns;
 {
   Public = [
-    (NAMESERVER { name = "50kvm.lantian.pub."; })
+    (NAMESERVER { name = "linkin.lantian.pub."; })
     (NAMESERVER { name = "hostdare.lantian.pub."; })
     (NAMESERVER { name = "virmach-ny1g.lantian.pub."; })
     (NAMESERVER { name = "soyoustart.lantian.pub."; })
@@ -11,7 +11,7 @@ with dns;
   ];
 
   LTNet = [
-    (NAMESERVER { name = "50kvm.zt.lantian.pub."; })
+    (NAMESERVER { name = "linkin.zt.lantian.pub."; })
     (NAMESERVER { name = "hostdare.zt.lantian.pub."; })
     (NAMESERVER { name = "virmach-ny1g.zt.lantian.pub."; })
     (NAMESERVER { name = "soyoustart.zt.lantian.pub."; })
