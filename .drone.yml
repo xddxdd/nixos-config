@@ -49,6 +49,23 @@ steps:
     volumes:
       - name: sync
         path: /sync
+    when:
+      status:
+        - success
+
+  - name: deploy (no delete, for failure)
+    image: alpine:edge
+    commands:
+      # Run deploy
+      - apk add --no-cache rsync
+      - mkdir -p /sync/ltnet-zones
+      - rsync -ar zones/ /sync/ltnet-zones/
+    volumes:
+      - name: sync
+        path: /sync
+    when:
+      status:
+        - failure
 
   - name: send telegram notification
     image: appleboy/drone-telegram
