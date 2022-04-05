@@ -44,6 +44,41 @@ in
       region = 52;
     };
   };
+  "linkin" = rec {
+    index = 9;
+    ptrPrefix = "hong-kong.china";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkL37ZQV3RAmiM+TFOagMvmld8NRJcgQ37soAD13EcK9vJVA37vnzI/fKEYkP+oubBIQZBTnddLl8mSZlx0vC9alekpWFu2Y+HX7nm6qUef2O3pctZD0Br5AhNoye4k+Ly+FaVBddpUu9Z7H/yVlZarrA1XBQynyaIfcv5DOi5Jc6U5MVhs4qhBY8sElmYEV/Z103VbYpW4rZ+yw2sKmXFNAR5yL7jAiJQS+T3HWqEiicyT6ppLpy9nGkbbzHYQMxJqSdQ1TsRUK7TJepVEXGnuVCBOFKs74jXjzl3enABNmL2BiO9iiVo/rxWbLmV9k031sQMwCIsj/YYulDG3rFmbWiN5Wnm66X+201nDATJr0vzafojcLK2Pgxym1zVbKL6+bZOxES6WTqktFzj4eGa0ekoHKzgz0bXbSf3TNOHbt+WvXK+sgV8YVs9NUyA6X7JNCX1kooWoGS74nspdNZRa5ZAxTLmB62WwJefqdRotuE5sw1tzAjPXuyw8JOtrBZeYHDS26yJKlHV19EfWllbC1xFPXWcdJHCxgo2UiKC/ESP+xCJt/9zgsN8NboXvZp20lGVrel47c4MD63Ann6Wp/KV81xlV/URmPauJCDDDGXzhZBrc+5/is7EXY/3KqOvKfRJXcjjk8/kW2rmgul/fmdXfjaQ8wM3xUnwbFBc9Q==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDw/OsayZlH0vM33lenT7xU7YaCzZI/+buXBzI+zib8W";
+    };
+    tinc = {
+      rsa = ''
+        -----BEGIN PUBLIC KEY-----
+        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAkvvmrNLJAXFKZFIorx/Z
+        AIzV+5zzMlbDGL+HdcLbMqf6ZUQcdLD2Kc6bYrkYdXMCosizIK16HopXt4xjwrqP
+        5OpJDFY5nnQRsg49I1lAWoeUvnL6ZzJUPeMdRVHxxxPn4prXdEeXudF+PkHiZSqF
+        cWmBkspGAOIXVvOTc2XYZFD1BFlwdEQQ6Jp73A88fPTNVOFyzFUZ5ogADVZVPepP
+        ZZGEyIal+ocD5CWVf3KBgvIhgU5d7b1fdGUHuXoCY7+XI2Iya+k4ijecBoFSfLiL
+        5Qfh/rmrxcmTJbr1/oX4TqAICtPLwGgupLCE/iTZqlElRMurFXd+I9mGUtUskgfr
+        ILWhsuRiE0EvyDiI77LA6Y9PuKlVheSpyZHPjvmnaJSnsbkrgveaDbi7TSJIYcNk
+        EirCDQiBWw08kb3GOL5H/+EZNJuCmkWurH/Wo6zLgOyQnYr0LnZqfdjlR3MQgMRq
+        7WFXBodhxVxVTPCytmm9RE/hiBXjjKxesPjzcecqTLjktWni0gesIaLHGyuxbBFy
+        ZH3VW6pCOppDQO5SCyziTNTqHGcYqbzqGazKAhKZda60wOxC0ElVLAvIdwsHMXX2
+        uG9x7rspwrlbp8+sgSP1aFGi0ClcK3AIjE9Mz0wFlhhWGPpnwqc8j+2gBLjh9INP
+        utVlpAROMLwYDkndnqwOr7ECAwEAAQ==
+        -----END PUBLIC KEY-----
+      '';
+      ed25519 = "4yI+xXHiZ9397b5wUGuCIp3rjl1HKHb1QAjv6mNLecJ";
+    };
+    syncthing = "QPG2K6W-7JVQ3E4-AN637A6-FLLIVOI-MGWNLHE-5XGPJYE-JWUHZQX-GLPFYQ4";
+    public = rec {
+      IPv4 = "103.172.81.11";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.189";
+      region = 52;
+    };
+  };
   "hostdare" = rec {
     index = 3;
     ptrPrefix = "los-angeles.united-states";
