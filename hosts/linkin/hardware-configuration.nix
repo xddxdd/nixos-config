@@ -23,5 +23,6 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/0d62c682-21ac-4e46-8ab0-cbb3a5c09a73";
     fsType = "btrfs";
+    options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
 }
