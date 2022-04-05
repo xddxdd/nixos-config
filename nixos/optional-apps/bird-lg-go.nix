@@ -4,7 +4,7 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 
   lgproxyHosts = [
-    "50kvm"
+    "linkin"
     "hostdare"
     "virmach-ny1g"
     "buyvm"

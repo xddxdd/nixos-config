@@ -5,7 +5,7 @@
     domain = "lantian.neo";
     providers = [ "bind" ];
     records = [
-      (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."50kvm".neonetwork; })
+      (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."linkin".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."hostdare".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns4.${domain}."; addresses = hosts."buyvm".neonetwork; })

@@ -5,7 +5,7 @@ let
   inherit (common.hostRecs) fakeALIAS;
 
   serveWithOwnNS = name: [
-    (NS { inherit name; target = "50kvm.lantian.pub."; })
+    (NS { inherit name; target = "linkin.lantian.pub."; })
     (NS { inherit name; target = "hostdare.lantian.pub."; })
     (NS { inherit name; target = "virmach-ny1g.lantian.pub."; })
     (NS { inherit name; target = "buyvm.lantian.pub."; })
