@@ -49,13 +49,6 @@ in
 
   lantian.enable-php = true;
 
-  services.beesd.filesystems.root = {
-    spec = "/nix";
-    hashTableSizeMB = 4096;
-    verbosity = "crit";
-    extraOptions = [ "--thread-count" "2" ];
-  };
-
   services.yggdrasil.config.Peers = LT.yggdrasil [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
 
   services.ftp-proxy = {
