@@ -177,7 +177,6 @@ in
       table master4;
       peer table roa_fail_v4;
       export filter {
-        if ifname = "ltmesh" then reject;
         if ${community.LT_ROA_FAIL} ~ bgp_large_community then accept;
         reject;
       };
@@ -187,7 +186,6 @@ in
       table master4;
       peer table roa_unknown_v4;
       export filter {
-        if ifname = "ltmesh" then reject;
         if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then accept;
         reject;
       };
@@ -197,7 +195,6 @@ in
       table master6;
       peer table roa_fail_v6;
       export filter {
-        if ifname = "ltmesh" then reject;
         if ${community.LT_ROA_FAIL} ~ bgp_large_community then accept;
         reject;
       };
@@ -207,7 +204,6 @@ in
       table master6;
       peer table roa_unknown_v6;
       export filter {
-        if ifname = "ltmesh" then reject;
         if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then accept;
         reject;
       };
