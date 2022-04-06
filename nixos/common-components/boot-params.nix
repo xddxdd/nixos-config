@@ -7,7 +7,6 @@
       "cgroup_enable=memory"
       "net.ifnames=0"
       "swapaccount=1"
-      "syscall.x32=y"
     ];
     kernelPackages =
       if pkgs.stdenv.isx86_64 then
