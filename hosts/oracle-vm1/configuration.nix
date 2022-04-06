@@ -7,6 +7,7 @@ in
   imports = [
     ../../nixos/server.nix
 
+    ./dn42.nix
     ./hardware-configuration.nix
   ];
 
