@@ -28,23 +28,35 @@ in
     libfaketime
     libsForQt5.ark
     lm_sensors
+    minecraft
     mpv
     osdlyrics
+    (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
+    quasselClient
     tigervnc
     transmission-qt
     transmission-remote-gtk
     virt-manager
     vscode
     wechat-uos
+    wine
     wine-wechat
+    winetricks
     wordle
     wpsoffice
     zoom-us
   ];
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
+
+  users.users.lantian.extraGroups = [ "wireshark" ];
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
