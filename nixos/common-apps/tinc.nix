@@ -34,6 +34,7 @@ in
       settings = {
         Interface = "ltmesh";
         Mode = "switch";
+        PingInterval = 25;
         PriorityInheritance = true;
         ProcessPriority = "high";
         ReplayWindow = 128;
