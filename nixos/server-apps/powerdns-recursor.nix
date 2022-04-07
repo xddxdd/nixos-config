@@ -25,17 +25,15 @@ in
     dns.allowFrom = [ "0.0.0.0/0" "::/0" ];
     forwardZones =
       let
-        dn42Zones = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
-        # .neo zone not included for conflict with NeoNetwork
-        OpenNICZones = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
         authoritativeZones = lib.genAttrs
-          (dn42Zones ++ OpenNICZones)
+          # NeoNetwork is covered by fwd-dn42-interconnect
+          (with LT.constants; (dn42Zones ++ openNICZones))
           (k: builtins.concatStringsSep ";" [
             "172.22.76.109"
             "fdbc:f9dc:67ad:2547::54"
           ]);
         emercoinZones = lib.genAttrs
-          [ "bazar" "coin" "emc" "lib" ]
+          LT.constants.emercoinZones
           (k: builtins.concatStringsSep ";" [
             "185.122.58.37"
             "2a06:8ec0:3::1:2c4e"
