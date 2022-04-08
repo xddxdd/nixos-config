@@ -17,6 +17,7 @@ in
     ../../nixos/optional-apps/nvidia-cuda-only.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/wg-cf-warp.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
 
