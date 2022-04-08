@@ -5,11 +5,16 @@ let
 in
 {
   home.packages = with pkgs; [
+    # Bash
+    shellcheck
+
     # C
     autoconf
     automake
     binutils
     bison
+    clang-analyzer
+    clang-tools
     cmake
     cppcheck
     fakeroot
@@ -23,6 +28,7 @@ in
     gnumake
     groff
     libtool
+    lldb
     m4
     patch
     pkgconf
@@ -46,8 +52,14 @@ in
     haskellPackages.Cabal_3_6_2_0
     stack
 
+    # Jsonnet
+    jsonnet
+
     # LaTeX
     texlive.combined.scheme-full
+
+    # Lua
+    luajit
 
     # NodeJS
     nodejs
@@ -56,11 +68,23 @@ in
     # PHP
     phpWithExtensions
 
+    # Protobuf
+    protobuf
+
     # Python
     python3Packages.pip
 
     # Rust
     rustup
+
+    # Source Control
+    mercurialFull
+    subversion
+
+    # TOML
+    taplo-cli
+    taplo-lsp
+
   ] ++ (if pkgs.stdenv.isx86_64 then [
     # Kernel
     linux-xanmod-lantian.dev
