@@ -437,6 +437,76 @@ in
       region = 41;
     };
   };
+  "scaleway-fr-par" = rec {
+    index = 13;
+    ptrPrefix = "paris.france";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3/nmvMyf4amfWc1VEPW1JU6OTRtujri335Y0kbpO+rACDbISwrT4eCrxiYEpx9LuRirRMaVRaYNJB13QrvAz2OXjuvtbv/uIdXtvqkCkVZ1svnC0i9+7DtCJFwe2A6kINROAwvnwcFKOcn0vzj4w0nO2gAKYLhRhKbq2LvecBM6szhhhpvjoQk+TuAYGqq9f0HHFU4j0gPmL3EZrk41aHyNZeysgmFHI/OslFNXEg+BebqmEpMS0OZvluDU+BFgt7mdiioyTO167S2n5GTJ8NXpO03jOwC17n+ATTakTJ4On8MB66np8A9Qgd2MieO7m8728NZG7HJCP2A+QPTvTwabe84Y21YePuC2z5Z0t7+Z5YnrRouCZSMzHKrfLvzLll+HMT59eynEP3gN91W5SMr0wfJnCMl8II8LakVAEgKMXOGq3lEDGUryPJPPB5sR9ECz28YWE+b/TuwgPugGoP/GE9/4ZqGzNsaCO/J8o1DqVrGdmEUKwcYAHI7E9gZ5my4lUZc2qFKJCCBKnrfWyIcKrEpIUWI6wNFULRAUKozBueKs8eZsmbc3SKyoeri0WffpQALatBtTIjPzR+EP8oxPNog6tegLWZQ8DGYJ4eTcHowQ5rsYALADySwRPoi0l2wjzx2nVqXZ2zxaSMiCC/VaPTpiIs3HRxmTWQ0u1LNQ==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAnuzYD0V6YVpkVpjWLW8Ds+ZL5TKTjcIpnd/Rzqz5Rz";
+    };
+    tinc = {
+      rsa = ''
+        -----BEGIN PUBLIC KEY-----
+        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvq2vzkOwDyZkeSva4SO8
+        a1PHpxwMuUh/o+CL2Gen1VsIRG/EDJpRooOKsP3/+ut2TtXqmSlGHAYDTEd04uHb
+        C981HF5MULMq7Xw72AU5Y1aQkB0Ru5u1+wH+cv89SZU1v437bqWg2YKXGwGBdUaT
+        +OwG3XaKA+Q9mzyau5chQtrOfHOCYESKn0qiZ9kbMNglxqxXJrHLOVGSXMQDAWdc
+        a9bzUbQIf9Prx6QtqD6HhUmpZ0MfUJ3VX+twUTfQrDUnJbQjCts4Kf9WzkUFnINH
+        NC+IODtzWanHdSlQYFoZlAUplafciTli+Iyh0BZHt4ZvMkE80WohbQiB1lRnpkWG
+        vI+wMhKPVUnegoxRMKuIY+rMRYsupK44mONwrgW1EJmsaAJKcINW7upENGazbu4B
+        nQeDhp6mXlVLHqnDTXoL6vBE5BQZ146Ud9za5qw0BnfePcjySU2FJf9XP3sg3QLp
+        WlK4eFAcuwEPbGV9411npdUT4bLCBza2oQTaQN6EWmcCawxKbF7sm4AlEuSX+k0Q
+        iFmDMIUgyJYnNw2LxK1s/Rw4yOPsLE9KYDHAin3l+Wig+nuTIQrUt5O9v05X6Syz
+        M76J6TT9EqN6TSBDcGL3rl/Y03DBGMKVmnPRS1UEpzDoZOUlXW5w7GdqBfJOXvQd
+        ixGrN2AMVarN3WJdtzM/X5ECAwEAAQ==
+        -----END PUBLIC KEY-----
+      '';
+      ed25519 = "KcsytOp0/GG43seZzDDsSwcQQJ0Z+tpz2T8g/GO5nlN";
+    };
+    syncthing = "WLPTB6F-Q2JP4AG-WNVCEDC-GFKL7B3-Z5CUNLF-VRO7X5W-JBYCES2-GKBFQAY";
+    public = rec {
+      IPv6 = "2001:bc8:47a0:66b::1";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.121";
+      region = 41;
+    };
+  };
+  "scaleway-nl-ams" = rec {
+    index = 14;
+    ptrPrefix = "amsterdam.netherlands";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDT31X4dXf1P4ZB+/wkoPPuGOtK5rEbtqivVEIDKcIjhV2QgyZALVcD8D4vKKMsGPg7doxfmktCd9EI6taXzxVm2AMAc6FTeCPJT5wQhxmyNW4q+6uzcDIOM4R2lBY1w2JmbGub/BlQ5hbHi6mubPrgyV90QMSES1v325+g0ADADBKjWPX+040XechcAHdBGHLkdRg845ZKLjq9eXSrfeS8MnkABr1x1ArpSoU62ayb2jocNxxyzHx9Mq7Hnh00m3iU22Ep/K328d86KqjjjziijkSCeY4ajwfnDE49Art7UQP+WqS/mOCA1bfSB9a9zIueRcPcpsyG+5g/+pgTzYtf8ph7Hb+LrX/jHdQavxJmTGqpBl5ShqiwctyjAtnKQV21NYZ/1UyEvCHYa6SJuoFCdiPQsNv+qBnE0/ToiaD6rLCvVzu3RPT3NWCWQruUiaRpYndGvjuoGlvqnZJG5P65r/bVnIC4N+FNvoZMBas7yc3YkB/orQB7q9CptYYqIFis6t5eikdnBmwYTW07VoiixNBvKnGCBFYz6PKrrsGDyGGHPgeUxhz5BDCsp4TSvAyYoALfgtOsrbho6Q7yn84R9NbronCtA1SggBlheaqQeEVT3Ngy6eGdwUmJN6C4Z0LekUw+OK+Zo2h5hZWjWFwT5qYTU5e9lFH0mYg3M87h+Q==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAbD6JvBPs6NkUJe95OMSppNacVzpizA5/rpNqVtXwdM";
+    };
+    tinc = {
+      rsa = ''
+        -----BEGIN PUBLIC KEY-----
+        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA+7zNf0uy/QcBsFU78jrX
+        dZChlnDYCyg6SMDFXj7QC1nhY4K5rGtnmAkWWWDy6tEJ85Xi1mIl4HF6Y126+lNv
+        4xWUlxy/u+MLThskuvlotKOmoppn+H+Ll06KcTZucgcPB3VqAITVulYG86v9PJWk
+        IExhBwAOERMhWr++jLYviBcUrZjZTejNY5FQr4aDTtQlBPRQoR8Jn2sSMdbeilbh
+        9X67R044fd1jHBAgSGCeE7p+zQ1XMRPtNaJvdE9h0M35SRLxr+cIhCOZ0J6OqVMt
+        kLKzfFBvbDjb0IQ04RL+leHmlzq7CN2qTgyxOBJUXBqJ3DoAKQScYhlUMEGdrpJ0
+        6tiqLoToR6VJuI+0k7jDpFmZEqylbTBANRA+unA0du+rSU3RsO7nfTKorGagSJHU
+        SSvvVTOXKlpepoAErLImHQX6mo075MwETk5JPJsC+Atgq2tUNsikkGUzSvWUvA8H
+        0K02cXhTMTitvxzuuk1Bnck5FMnu7gw4FzYw3ZZAoiFTlbakgfAdqvbstGUgyLWa
+        BtR0b9QuVCpYVgdSvlDFLlQbkRxcoaPNwqKHmmhWNAm9evQtdjALn75TCLOBjnKE
+        XhA3QUWm5sxespBVwAZRvrR7kDHI9kh5iqPThkDG4MQBqzllYfBWQCki9MJVcpo6
+        +qF7eoCJ5Ob+W/AcwE4++/sCAwEAAQ==
+        -----END PUBLIC KEY-----
+      '';
+      ed25519 = "7sS86J823UECj68mihJuC9zjBY1HJLUdghLCPOxCPXO";
+    };
+    syncthing = "GRHOOWC-KP6A3UM-SWZPHBW-6TVVZBH-O6VDDIC-X2CP63R-H37KHIE-L5AUIQN";
+    public = rec {
+      IPv6 = "2001:bc8:1828:292::1";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.120";
+      region = 41;
+    };
+  };
   "lantian-hp-omen" = rec {
     index = 100;
     role = roles.client;
