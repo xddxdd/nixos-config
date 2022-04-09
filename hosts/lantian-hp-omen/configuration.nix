@@ -67,6 +67,8 @@ in
     "A+ /mnt/root/files - - - - u:rslsync:rwx,g:rslsync:rwx,d:u:rslsync:rwx,d:g:rslsync:rwx"
   ];
   systemd.services.resilio.serviceConfig = {
+    User = lib.mkForce "lantian";
+    Group = lib.mkForce "wheel";
     PrivateMounts = lib.mkForce false;
     ProtectHome = lib.mkForce false;
     ReadWritePaths = [
@@ -74,6 +76,7 @@ in
       "/mnt/root/files"
     ];
   };
+  users.users.rslsync.createHome = lib.mkForce false;
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
   services.xserver.libinput.touchpad = {
