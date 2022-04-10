@@ -72,7 +72,8 @@ let
       "/run/kopia-repository.config"}
 
     ${pkgs.kopia}/bin/kopia snapshot create \
-      /nix/.snapshot/persistent
+      /nix/.snapshot/persistent \
+      || HAS_ERROR=1
 
     rm -f $KOPIA_CONFIG_PATH
   '';
@@ -90,6 +91,7 @@ in
     serviceConfig.Type = "oneshot";
     script = ''
       SNAPSHOT_DIR=/nix/.snapshot
+      HAS_ERROR=0
 
     '' + (if config.fileSystems."/nix".fsType == "btrfs" then ''
       # Btrfs snapshot
@@ -111,7 +113,9 @@ in
       # Remove snapshot
       rm -f $SNAPSHOT_DIR
 
-    '');
+    '') + ''
+      exit $HAS_ERROR
+    '';
   };
 
   systemd.timers.backup = {
