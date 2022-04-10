@@ -17,6 +17,7 @@ in
     };
   };
 
+  # Manually add EVENT permission to automysqlbackup user!
   services.automysqlbackup = {
     enable = true;
     config = {
