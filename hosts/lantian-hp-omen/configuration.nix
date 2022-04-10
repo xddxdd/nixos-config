@@ -26,9 +26,9 @@ in
   console.font = "ter-v24n";
 
   environment.etc."intel-undervolt.conf".text = ''
-    undervolt 0 'CPU' -60
-    undervolt 1 'GPU' -60
-    undervolt 2 'CPU Cache' 0
+    undervolt 0 'CPU' -40
+    undervolt 1 'GPU' -40
+    undervolt 2 'CPU Cache' -40
     undervolt 3 'System Agent' 0
     undervolt 4 'Analog I/O' 0
   '';
