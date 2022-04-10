@@ -24,7 +24,7 @@ let
     };
   };
 
-  kopiaIgnored = pkgs.writeText ".kopiaignore" ''
+  kopiaIgnored = ''
     media/
     sftp-server/
     sync-servers/
@@ -93,6 +93,10 @@ in
       SNAPSHOT_DIR=/nix/.snapshot
       HAS_ERROR=0
 
+      cat >/nix/persistent/.kopiaignore <<EOF
+      ${kopiaIgnored}
+      EOF
+
     '' + (if config.fileSystems."/nix".fsType == "btrfs" then ''
       # Btrfs snapshot
       [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
@@ -131,7 +135,6 @@ in
   systemd.tmpfiles.rules = [
     "d /var/cache/kopia 700 root root"
     "d /var/log/kopia 700 root root"
-    "C /nix/persistent/.kopiaignore - - - - ${kopiaIgnored}"
   ] ++ (lib.mapAttrsToList
     (n: v: "d /var/cache/kopia/${n} 700 root root")
     kopiaStorage);
