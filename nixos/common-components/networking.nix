@@ -63,6 +63,7 @@
   environment.etc."systemd/networkd.conf".text = ''
     [Network]
     ManageForeignRoutes=false
+    ManageForeignRoutingPolicyRules=false
   '';
   systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
     "" # clear old command
