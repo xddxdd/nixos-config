@@ -17,6 +17,8 @@ let
 
   ptrPrefix = v: if (v.ptrPrefix != "") then "${v.ptrPrefix}." else "";
 
+  hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";
+
   mapAddresses = { name, addresses, ttl ? "1d" }:
     # A record
     lib.optionals (addresses.IPv4 != "") [
@@ -34,7 +36,7 @@ let
     ];
 in
 {
-  mapAddresses = mapAddresses;
+  inherit hasPublicIP mapAddresses;
 
   fakeALIAS = { name, target, ttl ? "1d" }:
     let
@@ -66,7 +68,10 @@ in
   ];
 
   Normal = domain: forEachHost
-    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.public; })
+    (n: v: mapAddresses {
+      name = "${n}.${domain}.";
+      addresses = if hasPublicIP v then v.public else v.ltnet;
+    })
   ;
 
   SSHFP = domain: forEachActiveHost
