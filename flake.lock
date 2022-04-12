@@ -134,21 +134,6 @@
         "type": "github"
       }
     },
-    "hath-nix": {
-      "locked": {
-        "lastModified": 1623558647,
-        "narHash": "sha256-r2Ikyi1gAaj0fer3CNoPPaSowEzAa3RF379d7FYzOOM=",
-        "owner": "poscat0x04",
-        "repo": "hath-nix",
-        "rev": "28180bd11ecc9496233671f39b2cbe8027faf563",
-        "type": "github"
-      },
-      "original": {
-        "owner": "poscat0x04",
-        "repo": "hath-nix",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -324,18 +309,17 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "hath-nix": "hath-nix",
         "keycloak-lantian": "keycloak-lantian",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1649272534,
-        "narHash": "sha256-/WheEpFRuBfEtKoI9yAXOjjgefzb2LpM6s13QjVszfM=",
+        "lastModified": 1649748746,
+        "narHash": "sha256-pNudtAXbYpFNZZAXdFDXESiAbUuSPxGIXWiOlXCnok0=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "2df6f2b2dfa9dfa1a60a66562a550f39915023fe",
+        "rev": "390fae085262834b2f85643282e9cf1cff45a8f2",
         "type": "github"
       },
       "original": {
