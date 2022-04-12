@@ -32,7 +32,7 @@
     pigz
     pv
     pwgen
-    python3Minimal
+    python3Full
     screen
     tcpdump
     unar
