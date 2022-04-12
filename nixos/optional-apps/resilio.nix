@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   services.resilio = {
@@ -27,16 +27,29 @@ in
     "d /nix/persistent/media 775 rslsync rslsync"
   ];
 
-  services.nginx.virtualHosts."resilio-${config.networking.hostName}.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addNoIndexLocationConf {
-      "/".extraConfig = LT.nginx.locationOauthConf + ''
-        proxy_pass http://[::1]:${LT.portStr.ResilioSync};
-        proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-      '' + LT.nginx.locationProxyConf;
+  services.nginx.virtualHosts = {
+    "resilio-${config.networking.hostName}.lantian.pub" = {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addNoIndexLocationConf {
+        "/".extraConfig = LT.nginx.locationOauthConf + ''
+          proxy_pass http://[::1]:${LT.portStr.ResilioSync};
+          proxy_set_header Authorization "Basic dXNlcjpwYXNz";
+        '' + LT.nginx.locationProxyConf;
+      };
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex;
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+    "resilio.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addNoIndexLocationConf {
+        "/".extraConfig = ''
+          proxy_pass http://[::1]:${LT.portStr.ResilioSync};
+          proxy_set_header Authorization "Basic dXNlcjpwYXNz";
+        '' + LT.nginx.locationProxyConf;
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex;
+    };
   };
 }
