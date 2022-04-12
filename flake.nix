@@ -64,8 +64,7 @@
         inputs.colmena.overlay
         inputs.nix-alien.overlay
         inputs.nur-xddxdd.overlay
-        (import ./overlay.nix { inherit inputs nixpkgs; })
-      ];
+      ] ++ (import ./overlays { inherit inputs nixpkgs; });
 
       modulesFor = n:
         let
