@@ -23,7 +23,8 @@
   programs.ssh = {
     enable = true;
     extraConfig = ''
-      HostkeyAlgorithms +ssh-rsa
+      HostKeyAlgorithms +ssh-rsa
+      KexAlgorithms ^sntrup761x25519-sha512@openssh.com
       PubkeyAcceptedAlgorithms +ssh-rsa
 
       StrictHostKeyChecking no
@@ -39,11 +40,21 @@
     matchBlocks = {
       "git.lantian.pub" = lib.hm.dag.entryBefore [ "*.lantian.pub" ] {
         user = "git";
-        # port = 22;
+        port = 2222;
+        extraOptions = {
+          "HostKeyAlgorithms" = "ssh-ed25519";
+          "KexAlgorithms" = "sntrup761x25519-sha512@openssh.com";
+          "PubkeyAcceptedAlgorithms" = "ssh-ed25519";
+        };
       };
       "*.lantian.pub" = {
         user = "root";
         port = 2222;
+        extraOptions = {
+          "HostKeyAlgorithms" = "ssh-ed25519";
+          "KexAlgorithms" = "sntrup761x25519-sha512@openssh.com";
+          "PubkeyAcceptedAlgorithms" = "ssh-ed25519";
+        };
       };
       "*.illinois.edu" = {
         user = "yuhuixu2";
