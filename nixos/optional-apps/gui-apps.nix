@@ -25,6 +25,7 @@ in
     firefox
     gnome.gedit
     google-chrome
+    gopherus
     libfaketime
     libsForQt5.ark
     lm_sensors
@@ -40,7 +41,6 @@ in
     vscode
     wechat-uos
     wine
-    wine-wechat
     winetricks
     wordle
     wpsoffice
