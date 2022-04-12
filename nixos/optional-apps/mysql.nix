@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   services.mysql = {
@@ -33,14 +33,26 @@ in
   systemd.tmpfiles.rules = [
     "L+ /etc/phpmyadmin/config.inc.php - - - - ${config.age.secrets.phpmyadmin-conf.path}"
   ];
-  services.nginx.virtualHosts."pma-${config.networking.hostName}.lantian.pub" = lib.mkIf config.lantian.enable-php {
-    listen = LT.nginx.listenHTTPS;
-    root = "${pkgs.phpmyadmin}";
-    locations = LT.nginx.addNoIndexLocationConf {
-      "/".index = "index.php";
+
+  services.nginx.virtualHosts = lib.mkIf config.lantian.enable-php {
+    "pma-${config.networking.hostName}.lantian.pub" = {
+      listen = LT.nginx.listenHTTPS;
+      root = "${pkgs.phpmyadmin}";
+      locations = LT.nginx.addNoIndexLocationConf {
+        "/".index = "index.php";
+      };
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex;
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+    "pma.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      root = "${pkgs.phpmyadmin}";
+      locations = LT.nginx.addNoIndexLocationConf {
+        "/".index = "index.php";
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex;
+    };
   };
 }
