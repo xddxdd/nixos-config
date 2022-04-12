@@ -28,6 +28,7 @@ lib.mapAttrs (k: v: lib.mkOptionDefault v) {
   SystemCallErrorNumber = "EPERM";
   SystemCallFilter = [
     "@system-service"
-    "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @resources @swap"
+    # Route-chain and OpenJ9 requires @resources calls
+    "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
   ];
 }

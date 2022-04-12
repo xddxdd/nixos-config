@@ -38,12 +38,6 @@ in
       ProtectClock = false;
       ProtectControlGroups = false;
       RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
-
-      # Enable @resources
-      SystemCallFilter = [
-        "@system-service"
-        "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
-      ];
     };
   };
 }
