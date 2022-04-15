@@ -41,7 +41,6 @@ let
     "${gray (padString "Hostname:")} $nodename"
     "${gray (padString "Kernel:")} $kernel"
     "${gray (padString "Arch:")} $machine"
-    "${gray (padString "Uptime:")} $uptime"
     "${gray (padString "Load:")} ${gray "1m"} \${loadavg 1} ${gray "/ 5m"} \${loadavg 2} ${gray "/ 15m"} \${loadavg 3}"
     "${gray "$hr"}"
     "${gray (padString "CPU:")} $cpu% $alignr $freq_g GHz"
