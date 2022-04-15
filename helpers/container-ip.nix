@@ -1,6 +1,7 @@
 {
   netease = "2";
   nginx-proxy = "43";
+  yggdrasil-alfis = "52";
   powerdns-recursor = "53";
   coredns = "54";
   coredns-knot = "55";

@@ -48,6 +48,10 @@ let
         fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
         fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
 
+        # network namespace yggdrasil-alfis
+        fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.yggdrasil-alfis}:${LT.portStr.YggdrasilAlfis}
+        fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.yggdrasil-alfis}]:${LT.portStr.YggdrasilAlfis}
+
         # wg-lantian
         ${lib.optionalString (LT.this.public.IPv4 != "") ''
           ip daddr ${LT.this.public.IPv4} tcp dport { 51820 } dnat to 192.0.2.100

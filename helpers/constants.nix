@@ -8,4 +8,5 @@
   # .neo zone not included for conflict with NeoNetwork
   openNICZones = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
   emercoinZones = [ "bazar" "coin" "emc" "lib" ];
+  yggdrasilAlfisZones = ["anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg"];
 }

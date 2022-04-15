@@ -20,6 +20,7 @@ in
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/vaultwarden.nix
+    ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
   systemd.network.networks.eth0 = {

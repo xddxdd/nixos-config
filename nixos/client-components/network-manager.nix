@@ -8,7 +8,7 @@ in
     builtins.concatStringsSep "\n"
       (lib.flatten
         ((builtins.map (n: [ "server=/${n}/172.18.0.253" "server=/${n}/fdbc:f9dc:67ad:2547::53" ])
-          (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones)))
+          (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)))
         ++ [ "" ]));
 
   environment.persistence."/nix/persistent" = {
