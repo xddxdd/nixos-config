@@ -43,6 +43,7 @@ let
     var/lib/systemd/
     var/lib/udisks2/
     var/lib/vm/
+    var/lib/yggdrasil-alfis/
     var/log/
   '';
 

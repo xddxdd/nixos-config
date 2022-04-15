@@ -29,7 +29,7 @@ in
           # NeoNetwork is covered by fwd-dn42-interconnect
           (with LT.constants; (dn42Zones ++ openNICZones))
           (k: builtins.concatStringsSep ";" [
-            "172.22.76.109"
+            "172.18.0.254"
             "fdbc:f9dc:67ad:2547::54"
           ]);
         emercoinZones = lib.genAttrs
@@ -46,26 +46,19 @@ in
         "hack" = "172.31.0.5";
         "rzl" = "172.22.36.250";
       };
+    forwardZonesRecurse =
+      let
+        yggdrasilAlfisZones = lib.genAttrs
+          # NeoNetwork is covered by fwd-dn42-interconnect
+          LT.constants.yggdrasilAlfisZones
+          (k: builtins.concatStringsSep ";" [
+            "fdbc:f9dc:67ad:2547::52"
+          ]);
+      in
+      yggdrasilAlfisZones;
     luaConfig = ''
-      addNTA("bbs")
-      addNTA("chan")
-      addNTA("cyb")
-      addNTA("dns.opennic.glue")
-      addNTA("dyn")
-      addNTA("epic")
-      addNTA("fur")
-      addNTA("geek")
-      addNTA("gopher")
-      addNTA("indy")
-      addNTA("libre")
-      -- addNTA("neo")
-      addNTA("null")
-      addNTA("o")
-      addNTA("opennic.glue")
-      addNTA("oss")
-      addNTA("oz")
-      addNTA("parody")
-      addNTA("pirate")
+      ${builtins.concatStringsSep "\n" (builtins.map (n: "addNTA(\"${n}\")")
+        (with LT.constants; (openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)))}
 
       -- Special DNS zone not handled by ltnet-scripts
       addNTA("rzl")
