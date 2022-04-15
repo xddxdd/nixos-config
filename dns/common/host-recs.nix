@@ -85,12 +85,6 @@ in
     ])
   ;
 
-  TXT = domain: forEachActiveHost
-    (n: v: lib.optionals (v.role == roles.server) [
-      (TXT { name = "hosts.${domain}."; contents = "${n}.${domain}"; })
-    ])
-  ;
-
   LTNet = domain: forEachHost
     (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.ltnet; })
   ;
@@ -159,5 +153,9 @@ in
     (n: v: lib.optionals (v.neonetwork.IPv6 != "") [
       (PTR { name = v.neonetwork.IPv6; target = "${ptrPrefix v}${n}.${domain}."; reverse = true; })
     ])
+  ;
+
+  Yggdrasil = domain: forEachHost
+    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.yggdrasil; })
   ;
 }

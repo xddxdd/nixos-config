@@ -24,6 +24,11 @@ in
       emailCloudflareRouting
       (TXT { name = "_token._dnswl"; contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz"; })
 
+      (common.hostRecs.LTNet "zt.${domain}")
+      (common.hostRecs.DN42 "dn42.${domain}")
+      (common.hostRecs.NeoNetwork "neo.${domain}")
+      (common.hostRecs.Yggdrasil "ygg.${domain}")
+
       (CNAME { name = "lab"; target = "lab.lantian.pub."; })
       (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })
 

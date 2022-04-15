@@ -38,5 +38,9 @@ n: v: lib.recursiveUpdate
     IPv4 = "10.127.10.${builtins.toString v.index}";
     IPv6 = "fd10:127:10:${builtins.toString v.index}::1";
   };
+  yggdrasil = {
+    IPv4 = "";
+    IPv6 = "";
+  };
 }
   v
