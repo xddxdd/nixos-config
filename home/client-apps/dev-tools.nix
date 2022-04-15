@@ -49,7 +49,7 @@ in
     # Haskell
     ghc
     haskell-language-server
-    haskellPackages.Cabal_3_6_2_0
+    haskellPackages.Cabal_3_6_3_0
     stack
 
     # Jsonnet

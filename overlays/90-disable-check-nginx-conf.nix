@@ -10,10 +10,6 @@ let
   '';
 in
 final: prev: rec {
-  flake = inputs;
-  secrets = inputs.secrets;
-
-  # Disable checking nginx.conf
   writers = prev.writers // {
     writeNginxConfig = name: text: final.runCommandLocal name
       {
