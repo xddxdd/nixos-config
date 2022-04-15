@@ -10,6 +10,11 @@
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       common.nameservers.Public
+
+      (common.hostRecs.LTNet "zt.${domain}")
+      (common.hostRecs.DN42 "dn42.${domain}")
+      (common.hostRecs.NeoNetwork "neo.${domain}")
+      (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
   })
 ]

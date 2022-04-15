@@ -40,6 +40,7 @@ in
       IPv4 = "172.22.76.189";
       region = 52;
     };
+    yggdrasil.IPv6 = "200:3fa5:78e8:f74f:d078:6477:246e:bd0f";
   };
   "linkin" = rec {
     index = 1;
@@ -78,6 +79,7 @@ in
       IPv4 = "172.22.76.186";
       region = 52;
     };
+    yggdrasil.IPv6 = "202:afa9:dd3c:34eb:22a5:851a:11b9:356";
   };
   "hostdare" = rec {
     index = 3;
@@ -113,6 +115,7 @@ in
       IPv4 = "172.22.76.185";
       region = 44;
     };
+    yggdrasil.IPv6 = "200:425d:96c:e84b:3520:1db4:b6ca:ed91";
   };
   "soyoustart" = rec {
     index = 10;
@@ -149,6 +152,7 @@ in
       IPv4 = "172.22.76.113";
       region = 41;
     };
+    yggdrasil.IPv6 = "201:8a4:ea18:3575:7450:92af:a4a6:2ec";
   };
   "virmach-ny1g" = rec {
     index = 8;
@@ -186,6 +190,7 @@ in
       IPv4 = "172.22.76.190";
       region = 42;
     };
+    yggdrasil.IPv6 = "201:724e:e8fa:b4fd:8674:916c:44bf:54a2";
   };
   "virmach-ny6g" = rec {
     index = 4;
@@ -223,6 +228,7 @@ in
       IPv4 = "172.22.76.126";
       region = 42;
     };
+    yggdrasil.IPv6 = "200:3dc6:b526:4907:14ab:cb02:c5e9:2306";
   };
   "buyvm" = rec {
     index = 2;
@@ -260,6 +266,7 @@ in
       IPv4 = "172.22.76.187";
       region = 41;
     };
+    yggdrasil.IPv6 = "200:f71e:b96e:90fa:2f29:d816:e104:ab92";
   };
   "virmach-nl1g" = rec {
     index = 6;
@@ -294,6 +301,7 @@ in
       IPv4 = "172.22.76.188";
       region = 41;
     };
+    yggdrasil.IPv6 = "200:ab7f:ec87:b013:e814:eed7:7819:9ec6";
   };
   "oracle-vm1" = rec {
     index = 5;
@@ -329,6 +337,7 @@ in
       IPv4 = "172.22.76.123";
       region = 52;
     };
+    yggdrasil.IPv6 = "203:ad5c:7556:91f:e61c:774b:7f2:9162";
   };
   "oracle-vm2" = rec {
     index = 7;
@@ -364,6 +373,7 @@ in
       IPv4 = "172.22.76.124";
       region = 52;
     };
+    yggdrasil.IPv6 = "200:66b2:e1fb:e4e6:301c:8fbc:950c:7cf0";
   };
   "oracle-vm-arm" = rec {
     index = 12;
@@ -400,6 +410,7 @@ in
       IPv4 = "172.22.76.125";
       region = 52;
     };
+    yggdrasil.IPv6 = "203:1160:3010:f27:1872:3a30:590f:ec8";
   };
   "terrahost" = rec {
     index = 11;
@@ -436,6 +447,7 @@ in
       IPv4 = "172.22.76.122";
       region = 41;
     };
+    yggdrasil.IPv6 = "200:e0f6:8e20:ea3c:df88:3357:f0f6:ee1f";
   };
   "scaleway-fr-par" = rec {
     index = 13;
@@ -471,6 +483,7 @@ in
       IPv4 = "172.22.76.121";
       region = 41;
     };
+    yggdrasil.IPv6 = "201:c38c:4884:b853:6041:2d3c:bec4:c97c";
   };
   "scaleway-nl-ams" = rec {
     index = 14;
@@ -506,6 +519,7 @@ in
       IPv4 = "172.22.76.120";
       region = 41;
     };
+    yggdrasil.IPv6 = "202:935c:d5de:9015:9060:7c25:39d3:f3c3";
   };
   "lantian-hp-omen" = rec {
     index = 100;
@@ -538,6 +552,7 @@ in
       IPv4 = "172.22.76.114";
       region = 42;
     };
+    yggdrasil.IPv6 = "200:89bd:cf68:6583:f5a7:1ce2:bf8c:a11";
   };
   "lantian-lenovo" = rec {
     index = 101;
@@ -571,5 +586,6 @@ in
       IPv4 = "172.22.76.115";
       region = 42;
     };
+    yggdrasil.IPv6 = "200:ed7f:781c:28ae:a150:5774:869:3c36";
   };
 }
