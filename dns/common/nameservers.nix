@@ -11,11 +11,11 @@ with dns;
   ];
 
   LTNet = [
-    (NAMESERVER { name = "linkin.zt.lantian.pub."; })
-    (NAMESERVER { name = "hostdare.zt.lantian.pub."; })
-    (NAMESERVER { name = "virmach-ny1g.zt.lantian.pub."; })
-    (NAMESERVER { name = "soyoustart.zt.lantian.pub."; })
-    (NAMESERVER { name = "buyvm.zt.lantian.pub."; })
+    (NAMESERVER { name = "linkin.ltnet.lantian.pub."; })
+    (NAMESERVER { name = "hostdare.ltnet.lantian.pub."; })
+    (NAMESERVER { name = "virmach-ny1g.ltnet.lantian.pub."; })
+    (NAMESERVER { name = "soyoustart.ltnet.lantian.pub."; })
+    (NAMESERVER { name = "buyvm.ltnet.lantian.pub."; })
   ];
 
   DN42 = [

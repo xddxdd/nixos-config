@@ -7,7 +7,7 @@
     providers = [ "bind" ];
     records = [
       common.nameservers.LTNet
-      (common.hostRecs.LTNetReverseIPv4 "zt.lantian.pub")
+      (common.hostRecs.LTNetReverseIPv4 "ltnet.lantian.pub")
     ];
   })
 
