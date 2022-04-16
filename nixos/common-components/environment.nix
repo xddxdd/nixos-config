@@ -34,6 +34,7 @@
     pwgen
     python3Full
     screen
+    smartmontools
     tcpdump
     unar
     unrar
