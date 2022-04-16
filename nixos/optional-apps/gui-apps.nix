@@ -23,6 +23,7 @@ in
     distrobox
     filezilla
     firefox
+    gimp-with-plugins
     gnome.gedit
     google-chrome
     gopherus
