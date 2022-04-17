@@ -2,16 +2,6 @@
 
 let
   kopiaStorage = {
-    ibm-cos = {
-      "type" = "s3";
-      "config" = {
-        "bucket" = { _secret = config.age.secrets.kopia-ibm-cos-bucket.path; };
-        "endpoint" = "s3.us.cloud-object-storage.appdomain.cloud";
-        "accessKeyID" = { _secret = config.age.secrets.kopia-ibm-cos-ak.path; };
-        "secretAccessKey" = { _secret = config.age.secrets.kopia-ibm-cos-sk.path; };
-        "sessionToken" = "";
-      };
-    };
     scaleway = {
       "type" = "s3";
       "config" = {
@@ -80,9 +70,6 @@ let
   '';
 in
 {
-  age.secrets.kopia-ibm-cos-ak.file = pkgs.secrets + "/kopia/ibm-cos-ak.age";
-  age.secrets.kopia-ibm-cos-bucket.file = pkgs.secrets + "/kopia/ibm-cos-bucket.age";
-  age.secrets.kopia-ibm-cos-sk.file = pkgs.secrets + "/kopia/ibm-cos-sk.age";
   age.secrets.kopia-pw.file = pkgs.secrets + "/kopia/pw.age";
   age.secrets.kopia-scaleway-ak.file = pkgs.secrets + "/kopia/scaleway-ak.age";
   age.secrets.kopia-scaleway-bucket.file = pkgs.secrets + "/kopia/scaleway-bucket.age";
