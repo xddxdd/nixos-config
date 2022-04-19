@@ -1,6 +1,8 @@
 { pkgs, lib, config, utils, ... }:
 
 let
+  LT = import ../../helpers { inherit config pkgs; };
+
   kopiaStorage = {
     scaleway = {
       "type" = "s3";
@@ -10,6 +12,21 @@ let
         "accessKeyID" = { _secret = config.age.secrets.kopia-scaleway-ak.path; };
         "secretAccessKey" = { _secret = config.age.secrets.kopia-scaleway-sk.path; };
         "sessionToken" = "";
+      };
+    };
+    soyoustart = {
+      "type" = "sftp";
+      "config" = {
+        "path" = "/Kopia";
+        "host" = "soyoustart.lantian.pub";
+        "port" = 2222;
+        "username" = "sftp";
+        "password" = "";
+        "keyfile" = config.age.secrets.sftp-privkey.path;
+        "knownHostsData" = "[soyoustart.lantian.pub]:2222 ${LT.hosts.soyoustart.ssh.ed25519}";
+        "externalSSH" = false;
+        "sshCommand" = "ssh";
+        "dirShards" = null;
       };
     };
   };
@@ -74,6 +91,7 @@ in
   age.secrets.kopia-scaleway-ak.file = pkgs.secrets + "/kopia/scaleway-ak.age";
   age.secrets.kopia-scaleway-bucket.file = pkgs.secrets + "/kopia/scaleway-bucket.age";
   age.secrets.kopia-scaleway-sk.file = pkgs.secrets + "/kopia/scaleway-sk.age";
+  age.secrets.sftp-privkey.file = pkgs.secrets + "/sftp-privkey.age";
 
   systemd.services.backup = {
     serviceConfig.Type = "oneshot";
