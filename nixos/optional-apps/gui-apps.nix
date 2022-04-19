@@ -21,16 +21,22 @@ in
     (LT.wrapNetns "ns-wg-lantian" deluge)
     dingtalk
     distrobox
+    docker-machine
+    docker-machine-kvm
+    docker-machine-kvm2
     filezilla
     firefox
     gimp-with-plugins
     gnome.gedit
     google-chrome
     gopherus
+    kubectl
+    kubernetes-helm
     libfaketime
     libsForQt5.ark
     lm_sensors
     minecraft
+    minikube
     mpv
     osdlyrics
     (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)

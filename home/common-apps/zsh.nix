@@ -21,6 +21,8 @@
       plugins = [
         "adb"
         "gitignore"
+        "kubectl"
+        "minikube"
         "nvm"
         "pip"
         "screen"
