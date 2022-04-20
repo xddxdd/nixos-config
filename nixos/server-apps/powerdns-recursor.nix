@@ -44,7 +44,6 @@ in
       authoritativeZones // emercoinZones // {
         # DN42
         "hack" = "172.31.0.5";
-        "rzl" = "172.22.36.250";
       };
     forwardZonesRecurse =
       let
@@ -59,9 +58,6 @@ in
     luaConfig = ''
       ${builtins.concatStringsSep "\n" (builtins.map (n: "addNTA(\"${n}\")")
         (with LT.constants; (openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)))}
-
-      -- Special DNS zone not handled by ltnet-scripts
-      addNTA("rzl")
 
       -- Internal zones where DNSSEC will fail
       addNTA("lantian.dn42")
