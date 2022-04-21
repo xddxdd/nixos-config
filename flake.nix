@@ -147,10 +147,21 @@
 
       apps = eachSystem (system:
         let
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs { inherit overlays system; };
           dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; inherit (LT) hosts; });
         in
         {
+          colmena = pkgs.writeShellScriptBin "colmena" ''
+            ACTION=$1; shift;
+            if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
+              ${pkgs.colmena}/bin/colmena $ACTION --evaluator streaming --keep-result $*
+              exit $?
+            else
+              ${pkgs.colmena}/bin/colmena $ACTION $*
+              exit $?
+            fi
+          '';
+
           dnscontrol = pkgs.writeShellScriptBin "dnscontrol" ''
             CURR_DIR=$(pwd)
 
