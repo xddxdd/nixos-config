@@ -35,7 +35,7 @@ in
   services.nginx.virtualHosts = {
     "vault.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addNoIndexLocationConf {
+      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Vault}";
           extraConfig = LT.nginx.locationProxyConf;

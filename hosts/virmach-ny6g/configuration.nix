@@ -67,7 +67,5 @@ in
     ];
   };
 
-  lantian.enable-php = true;
-
   services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
 }

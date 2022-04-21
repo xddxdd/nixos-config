@@ -1,34 +1,55 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
   labRoot = "/var/www/lab.lantian.pub";
 in
 {
   services.nginx.virtualHosts."lab.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     root = labRoot;
-    locations = LT.nginx.addNoIndexLocationConf {
-      "/" = {
-        index = "index.php index.html index.htm";
-        tryFiles = "$uri $uri/ =404";
+    locations = LT.nginx.addCommonLocationConf
+      {
+        noindex = true;
+        phpfpmSocket = config.services.phpfpm.pools.lab.socket;
+      }
+      {
+        "/" = {
+          index = "index.php index.html index.htm";
+          tryFiles = "$uri $uri/ =404";
+        };
+        "= /".extraConfig = LT.nginx.locationAutoindexConf;
+        "/cgi-bin/" = {
+          index = "index.sh";
+          extraConfig = LT.nginx.locationFcgiwrapConf;
+        };
+        "/glibc-for-debian-10-on-openvz".extraConfig = LT.nginx.locationAutoindexConf;
+        "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
+        "/zjui-ece385-scoreboard".extraConfig = ''
+          gzip off;
+          brotli off;
+          zstd off;
+        '';
       };
-      "= /".extraConfig = LT.nginx.locationAutoindexConf;
-      "/cgi-bin/" = {
-        index = "index.sh";
-        extraConfig = LT.nginx.locationFcgiwrapConf;
-      };
-      "/glibc-for-debian-10-on-openvz".extraConfig = LT.nginx.locationAutoindexConf;
-      "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
-      "/zjui-ece385-scoreboard".extraConfig = ''
-        gzip off;
-        brotli off;
-        zstd off;
-      '';
-    };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
+  };
+
+  services.phpfpm.pools.lab = {
+    phpPackage = pkgs.phpWithExtensions;
+    user = config.services.nginx.user;
+    settings = {
+      "listen.owner" = config.services.nginx.user;
+      "pm" = "ondemand";
+      "pm.max_children" = "8";
+      "pm.process_idle_timeout" = "10s";
+      "pm.max_requests" = "1000";
+      "pm.status_path" = "/php-fpm-status.php";
+      "ping.path" = "/ping.php";
+      "ping.response" = "pong";
+      "request_terminate_timeout" = "300";
+    };
   };
 
   services.fcgiwrap = {
