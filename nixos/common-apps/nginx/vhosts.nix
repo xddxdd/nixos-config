@@ -4,7 +4,7 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
 
   addConfLantianPub = lib.recursiveUpdate {
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
         index = "index.html index.htm";
       };

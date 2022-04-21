@@ -86,7 +86,7 @@ in
 
   services.nginx.virtualHosts."dashboard.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addNoIndexLocationConf {
+    locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "/" = {
         proxyPass = "http://unix:${config.services.grafana.socket}";
         extraConfig = LT.nginx.locationProxyConf;

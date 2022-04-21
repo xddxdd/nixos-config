@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   age.secrets.gitea-dbpw = {
@@ -87,7 +87,7 @@ in
 
   services.nginx.virtualHosts."git.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {
+    locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
         extraConfig = LT.nginx.locationProxyConf;

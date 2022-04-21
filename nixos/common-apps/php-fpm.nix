@@ -48,24 +48,5 @@
       allow_url_include = Off
       default_socket_timeout = 60
     '';
-
-    phpPackage = pkgs.phpWithExtensions;
-
-    pools = {
-      www = lib.mkIf config.lantian.enable-php {
-        user = config.services.nginx.user;
-        settings = {
-          "listen.owner" = config.services.nginx.user;
-          "pm" = "ondemand";
-          "pm.max_children" = "8";
-          "pm.process_idle_timeout" = "10s";
-          "pm.max_requests" = "1000";
-          "pm.status_path" = "/php-fpm-status.php";
-          "ping.path" = "/ping.php";
-          "ping.response" = "pong";
-          "request_terminate_timeout" = "300";
-        };
-      };
-    };
   };
 }

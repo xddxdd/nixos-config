@@ -30,7 +30,7 @@ in
   services.nginx.virtualHosts = {
     "resilio-${config.networking.hostName}.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addNoIndexLocationConf {
+      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/".extraConfig = LT.nginx.locationOauthConf + ''
           proxy_pass http://[::1]:${LT.portStr.ResilioSync};
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";
@@ -42,7 +42,7 @@ in
     };
     "resilio.localhost" = {
       listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addNoIndexLocationConf {
+      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/".extraConfig = ''
           proxy_pass http://[::1]:${LT.portStr.ResilioSync};
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";

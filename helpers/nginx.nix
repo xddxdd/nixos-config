@@ -93,67 +93,67 @@ rec {
     add_header X-Robots-Tag 'noindex, nofollow';
   '';
 
-  addCommonLocationConf = lib.recursiveUpdate {
-    "/generate_204".extraConfig = ''
-      access_log off;
-      return 204;
-    '';
-
-    "/autoindex.html".extraConfig = ''
-      internal;
-      root ${../nixos/common-apps/nginx/files/autoindex};
-    '';
-
-    "/status".extraConfig = ''
-      access_log off;
-      stub_status on;
-    '';
-
-    "/ray" = {
-      proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        access_log off;
-        keepalive_timeout 1d;
-      '' + locationProxyConf;
-    };
-
-    "/oauth2/" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-      extraConfig = ''
-        proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-      '' + locationProxyConf;
-    };
-
-    "/oauth2/auth" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-      extraConfig = ''
-        proxy_set_header Content-Length "";
-        proxy_pass_request_body off;
-      '' + locationProxyConf;
-    };
-
-    "~ ^.+?\\.php(/.*)?$".extraConfig = lib.optionalString (config.lantian.enable-php) locationPHPConf;
-
-    "~ ^/\\.(?!well-known).*".extraConfig = ''
-      access_log off;
-      return 403;
-    '';
-  };
-
-  addNoIndexLocationConf = lib.recursiveUpdate (addCommonLocationConf (
+  addCommonLocationConf =
+    { phpfpmSocket ? null
+    , noindex ? false
+    }:
     let
       robotsTxt = pkgs.writeText "robots.txt" ''
         User-agent: *
         Disallow: /
       '';
     in
-    {
-      "= /robots.txt".extraConfig = ''
+    lib.recursiveUpdate {
+      "/generate_204".extraConfig = ''
+        access_log off;
+        return 204;
+      '';
+
+      "/autoindex.html".extraConfig = ''
+        internal;
+        root ${../nixos/common-apps/nginx/files/autoindex};
+      '';
+
+      "/status".extraConfig = ''
+        access_log off;
+        stub_status on;
+      '';
+
+      "/ray" = {
+        proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
+        proxyWebsockets = true;
+        extraConfig = ''
+          access_log off;
+          keepalive_timeout 1d;
+        '' + locationProxyConf;
+      };
+
+      "/oauth2/" = {
+        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+        extraConfig = ''
+          proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+        '' + locationProxyConf;
+      };
+
+      "/oauth2/auth" = {
+        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+        extraConfig = ''
+          proxy_set_header Content-Length "";
+          proxy_pass_request_body off;
+        '' + locationProxyConf;
+      };
+
+      "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+
+      "~ ^/\\.(?!well-known).*".extraConfig = ''
+        access_log off;
+        return 403;
+      '';
+
+      "= /robots.txt".extraConfig = lib.optionalString noindex ''
         alias ${robotsTxt};
       '';
-    }
-  ));
+    };
 
   locationAutoindexConf = ''
     autoindex on;
@@ -191,10 +191,10 @@ rec {
     proxy_set_header X-Access-Token $token;
   '';
 
-  locationPHPConf = ''
+  locationPHPConf = phpfpmSocket: lib.optionalString (phpfpmSocket != null) ''
     try_files $fastcgi_script_name =404;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
-    fastcgi_pass unix:${config.services.phpfpm.pools.www.socket};
+    fastcgi_pass unix:${phpfpmSocket};
     fastcgi_index index.php;
     ${fastcgiParams}
     # PHP only, required if PHP was built with --enable-force-cgi-redirect

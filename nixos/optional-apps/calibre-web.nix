@@ -22,7 +22,7 @@ in
   services.nginx.virtualHosts = {
     "books.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addNoIndexLocationConf {
+      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/".extraConfig = LT.nginx.locationOauthConf + ''
           proxy_pass http://127.0.0.1:${LT.portStr.CalibreWeb};
         '' + LT.nginx.locationProxyConfHideIP;

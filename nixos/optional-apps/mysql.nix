@@ -34,13 +34,45 @@ in
     "L+ /etc/phpmyadmin/config.inc.php - - - - ${config.age.secrets.phpmyadmin-conf.path}"
   ];
 
-  services.nginx.virtualHosts = lib.mkIf config.lantian.enable-php {
+  services.phpfpm.pools.pma = {
+    phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
+      curl
+      gd
+      mbstring
+      mysqli
+      mysqlnd
+      openssl
+      pdo
+      pdo_mysql
+      xml
+      zip
+    ]);
+    user = config.services.nginx.user;
+    settings = {
+      "listen.owner" = config.services.nginx.user;
+      "pm" = "ondemand";
+      "pm.max_children" = "8";
+      "pm.process_idle_timeout" = "10s";
+      "pm.max_requests" = "1000";
+      "pm.status_path" = "/php-fpm-status.php";
+      "ping.path" = "/ping.php";
+      "ping.response" = "pong";
+      "request_terminate_timeout" = "300";
+    };
+  };
+
+  services.nginx.virtualHosts = {
     "pma-${config.networking.hostName}.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phpmyadmin}";
-      locations = LT.nginx.addNoIndexLocationConf {
-        "/".index = "index.php";
-      };
+      locations = LT.nginx.addCommonLocationConf
+        {
+          noindex = true;
+          phpfpmSocket = config.services.phpfpm.pools.pma.socket;
+        }
+        {
+          "/".index = "index.php";
+        };
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex;
@@ -48,9 +80,14 @@ in
     "pma.localhost" = {
       listen = LT.nginx.listenHTTP;
       root = "${pkgs.phpmyadmin}";
-      locations = LT.nginx.addNoIndexLocationConf {
-        "/".index = "index.php";
-      };
+      locations = LT.nginx.addCommonLocationConf
+        {
+          noindex = true;
+          phpfpmSocket = config.services.phpfpm.pools.pma.socket;
+        }
+        {
+          "/".index = "index.php";
+        };
       extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex;
     };
