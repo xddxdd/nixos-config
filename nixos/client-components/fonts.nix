@@ -35,6 +35,9 @@
     source-serif-pro
     terminus_font_ttf
     ubuntu_font_family
+    vistafonts
+    vistafonts-chs
+    vistafonts-cht
     wqy_microhei
     wqy_zenhei
   ];
