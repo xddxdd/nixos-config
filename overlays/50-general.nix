@@ -4,16 +4,6 @@ let
   lib = nixpkgs.lib;
 in
 final: prev: rec {
-  bird = prev.bird.overrideAttrs (old: rec {
-    version = "2.0.8";
-    src = prev.fetchurl {
-      sha256 = "1xp7f0im1v8pqqx3xqyfkd1nsxk8vnbqgrdrwnwhg8r5xs1xxlhr";
-      url = "ftp://bird.network.cz/pub/bird/bird2-2.0.8.tar.gz";
-    };
-    patches = [
-      (nixpkgs + "/pkgs/servers/bird/dont-create-sysconfdir-2.patch")
-    ];
-  });
   fcitx5-rime = prev.fcitx5-rime.overrideAttrs (old: rec {
     patches = (old.patches or [ ]) ++ [
       ../patches/fcitx5-rime-path.patch
