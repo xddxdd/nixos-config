@@ -50,6 +50,22 @@
         peerIPv6LinkLocal = "fe80::340";
       };
     };
+    daniel = {
+      remoteASN = 4242421878;
+      latencyMs = 22;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21878;
+        remoteAddress = "216.93.159.11";
+        remotePort = 22547;
+        wireguardPubkey = "n7qx26W2n143VUgjU/+2Iro4CaCtEQqryzU8fBOgV2Q=";
+      };
+      addressing = {
+        peerIPv4 = "10.224.212.120";
+        peerIPv6LinkLocal = "fe80::1878";
+      };
+    };
     federico = {
       remoteASN = 4242420262;
       latencyMs = 18;
