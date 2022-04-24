@@ -38,6 +38,9 @@ in
     CapabilityBoundingSet = lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
     DynamicUser = lib.mkForce false;
     MemoryDenyWriteExecute = false;
+
+    Restart = "always";
+    RestartSec = "10s";
   };
 
   users.users.keycloak = {
