@@ -151,42 +151,51 @@
           dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; inherit (LT) hosts; });
         in
         {
-          colmena = pkgs.writeShellScriptBin "colmena" ''
-            ACTION=$1; shift;
-            if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-              ${pkgs.colmena}/bin/colmena $ACTION --evaluator streaming --keep-result $*
-              exit $?
-            else
-              ${pkgs.colmena}/bin/colmena $ACTION $*
-              exit $?
-            fi
-          '';
+          colmena = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "colmena" ''
+              ACTION=$1; shift;
+              if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
+                ${pkgs.colmena}/bin/colmena $ACTION --evaluator streaming --keep-result $*
+                exit $?
+              else
+                ${pkgs.colmena}/bin/colmena $ACTION $*
+                exit $?
+              fi
+            '');
+          };
 
-          dnscontrol = pkgs.writeShellScriptBin "dnscontrol" ''
-            CURR_DIR=$(pwd)
+          dnscontrol = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "dnscontrol" ''
+              CURR_DIR=$(pwd)
 
-            TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
-            cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
-            ${pkgs.age}/bin/age \
-              -i "$HOME/.ssh/id_ed25519" \
-              --decrypt -o "$TEMP_DIR/creds.json" \
-              "${inputs.secrets}/dnscontrol.age"
-            mkdir -p "$TEMP_DIR/zones"
+              TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
+              cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
+              ${pkgs.age}/bin/age \
+                -i "$HOME/.ssh/id_ed25519" \
+                --decrypt -o "$TEMP_DIR/creds.json" \
+                "${inputs.secrets}/dnscontrol.age"
+              mkdir -p "$TEMP_DIR/zones"
 
-            cd "$TEMP_DIR"
-            ${pkgs.dnscontrol}/bin/dnscontrol $*
-            RET=$?
-            rm -rf "$CURR_DIR/zones"
-            mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
+              cd "$TEMP_DIR"
+              ${pkgs.dnscontrol}/bin/dnscontrol $*
+              RET=$?
+              rm -rf "$CURR_DIR/zones"
+              mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
 
-            cd "$CURR_DIR"
-            rm -rf "$TEMP_DIR"
-            exit $RET
-          '';
+              cd "$CURR_DIR"
+              rm -rf "$TEMP_DIR"
+              exit $RET
+            '');
+          };
 
-          nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
-            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
-          '';
+          nvfetcher = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
+              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+            '');
+          };
         });
     };
 }
