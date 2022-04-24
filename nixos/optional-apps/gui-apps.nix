@@ -35,10 +35,12 @@ in
     libfaketime
     libsForQt5.ark
     lm_sensors
+    (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     minecraft
     minikube
     mpv
     osdlyrics
+    playonlinux
     (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
     quasselClient
     tigervnc
