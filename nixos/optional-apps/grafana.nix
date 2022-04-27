@@ -39,8 +39,8 @@ in
 
       (grafanaPlugin {
         pname = "yesoreyeram-infinity-datasource";
-        version = "0.8.0";
-        zipHash = "sha256-JDacbdgNoT1vczD7pj0tVKwR3SRmRg1AXdZ5Ak6tzfk=";
+        version = "0.8.8";
+        zipHash = "sha256-SiG3fimQjJ+qLq59So6zaGanpf8gg8sjsFSMfABf62o=";
       })
     ];
 
