@@ -170,6 +170,13 @@ rec {
   locationProxyConf = _locationProxyConf false;
   locationProxyConfHideIP = _locationProxyConf true;
 
+  # Basic auth must go before proxy_pass!
+  locationBasicAuthConf = ''
+    auth_basic "Restricted";
+    auth_basic_user_file ${config.age.secrets.htpasswd.path};
+    proxy_set_header X-User $remote_user;
+  '';
+
   # OAuth must go before proxy_pass!
   locationOauthConf = ''
     auth_request /oauth2/auth;
