@@ -23,7 +23,7 @@ in
     "books.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { noindex = true; } {
-        "/".extraConfig = LT.nginx.locationOauthConf + ''
+        "/".extraConfig = LT.nginx.locationBasicAuthConf + ''
           proxy_pass http://127.0.0.1:${LT.portStr.CalibreWeb};
         '' + LT.nginx.locationProxyConfHideIP;
       };
@@ -34,7 +34,7 @@ in
 
   systemd.services.calibre-web.serviceConfig = LT.serviceHarden // {
     ReadOnlyPaths = [
-      "/nix/persistent/media/Calibre Library"
+      "\"/nix/persistent/media/Calibre Library\""
     ];
   };
 
