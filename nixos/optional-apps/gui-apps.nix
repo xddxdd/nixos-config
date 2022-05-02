@@ -18,12 +18,15 @@ in
     audacious
     calibre
     colmena
+    deepspeech-gpu
+    deepspeech-wrappers
     (LT.wrapNetns "ns-wg-lantian" deluge)
     dingtalk
     distrobox
     docker-machine
     docker-machine-kvm
     docker-machine-kvm2
+    ffmpeg
     filezilla
     firefox
     gimp-with-plugins
@@ -36,6 +39,7 @@ in
     libsForQt5.ark
     lm_sensors
     (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
+    mediainfo
     minecraft
     minikube
     mpv

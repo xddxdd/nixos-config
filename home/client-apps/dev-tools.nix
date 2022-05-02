@@ -72,6 +72,7 @@ in
     protobuf
 
     # Python
+    conda
     python3Packages.pip
 
     # Rust
