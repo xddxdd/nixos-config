@@ -53,14 +53,6 @@ in
     # Use powersave scheduler for intel_pstate
     CPU_SCALING_GOVERNOR_ON_AC = "powersave";
     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-    # On battery GPU is locked to min frequency
-    INTEL_GPU_MIN_FREQ_ON_AC = 350;
-    INTEL_GPU_MIN_FREQ_ON_BAT = 350;
-    INTEL_GPU_MAX_FREQ_ON_AC = 1100;
-    INTEL_GPU_MAX_FREQ_ON_BAT = 350;
-    INTEL_GPU_BOOST_FREQ_ON_AC = 1100;
-    INTEL_GPU_BOOST_FREQ_ON_BAT = 350;
   };
 
   services.transmission.settings.download-dir = "/mnt/usb/downloads";
