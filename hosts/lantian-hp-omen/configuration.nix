@@ -35,6 +35,12 @@ in
 
   fileSystems."/".options = [ "size=64G" ];
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+  services.blueman.enable = true;
+
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
   security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
