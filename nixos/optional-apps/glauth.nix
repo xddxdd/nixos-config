@@ -8,11 +8,11 @@ let
   cfg = pkgs.writeText "glauth.cfg" ''
     [ldap]
       enabled = true
-      listen = "${LT.this.ltnet.IPv4}:389"
+      listen = "${LT.this.ltnet.IPv4}:${LT.portStr.LDAP}"
 
     [ldaps]
       enabled = true
-      listen = "${LT.this.ltnet.IPv4}:636"
+      listen = "${LT.this.ltnet.IPv4}:${LT.portStr.LDAPS}"
       cert = "${LT.nginx.getSSLCert "lantian.pub_ecc"}"
       key = "${LT.nginx.getSSLKey "lantian.pub_ecc"}"
 

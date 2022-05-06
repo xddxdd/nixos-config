@@ -101,7 +101,7 @@ in
           }
         '';
       };
-      "= /user/login".return = "302 /user/oauth2/Keycloak";
+      "= /user/login".return = "302 /user/oauth2/Konnect";
     };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true;
