@@ -12,6 +12,7 @@ in
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/genshin-helper.nix
     ../../nixos/optional-apps/gitea.nix
+    ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/keycloak.nix
     ../../nixos/optional-apps/matrix-synapse.nix
