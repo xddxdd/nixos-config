@@ -4,7 +4,7 @@ let
   myASN = 4242422547;
   myASNAbbr = 2547;
 
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
   setupAddressing = interfaceName: v: ''
@@ -46,7 +46,7 @@ in
 
         # Peering (BGP) configuration
         peering = lib.mkOption {
-          default = {};
+          default = { };
           type = lib.types.submodule {
             options = {
               network = lib.mkOption {
@@ -63,7 +63,7 @@ in
 
         # Tunnel configuration
         tunnel = lib.mkOption {
-          default = {};
+          default = { };
           type = lib.types.submodule {
             options = {
               type = lib.mkOption {
@@ -100,7 +100,7 @@ in
 
         # IP address inside tunnel
         addressing = lib.mkOption {
-          default = {};
+          default = { };
           type = lib.types.submodule {
             options = {
               peerIPv4 = lib.mkOption {
@@ -200,6 +200,14 @@ in
 
   config.systemd.services =
     let
+      cfgToWgQuick = n: v:
+        let
+          interfaceName = "${v.peering.network}-${n}";
+        in
+        lib.nameValuePair "wg-quick-${interfaceName}" ({
+          serviceConfig.ExecStartPre = [ "-${pkgs.iproute2}/bin/ip link del ${interfaceName}" ];
+        });
+
       cfgToGRE = n: v:
         let
           interfaceName = "${v.peering.network}-${n}";
@@ -223,5 +231,6 @@ in
         }
       ;
     in
-    lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
+    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42))
+    // (lib.mapAttrs' cfgToWgQuick (filterType "wireguard" config.services.dn42));
 }
