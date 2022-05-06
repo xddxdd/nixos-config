@@ -6,7 +6,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    ansible_2_10
+    ansible
     mitogen
   ];
 

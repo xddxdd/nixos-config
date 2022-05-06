@@ -14,22 +14,22 @@ in
 
   services.keycloak = {
     enable = true;
-    bindAddress = "127.0.0.1";
     database.createLocally = false;
     database.passwordFile = config.age.secrets.keycloak-dbpw.path;
-    frontendUrl = "https://login.lantian.pub/auth";
-    httpPort = LT.portStr.Keycloak.HTTP;
-    httpsPort = LT.portStr.Keycloak.HTTPS;
     themes.lantian = pkgs.keycloak-lantian;
 
-    extraConfig = {
-      "subsystem=datasources" = {
-        "data-source=KeycloakDS" = {
-          check-valid-connection-sql = "select 1";
-          background-validation = "true";
-          background-validation-millis = "5000";
-        };
-      };
+    # sslCertificate = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
+    # sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";
+
+    settings = {
+      hostname = "login.lantian.pub";
+      http-enabled = true;
+      http-host = "127.0.0.1";
+      http-port = LT.port.Keycloak.HTTP;
+      http-relative-path = "/auth";
+      https-port = LT.port.Keycloak.HTTPS;
+      hostname-strict-backchannel = true;
+      proxy = "edge";
     };
   };
 

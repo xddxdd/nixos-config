@@ -4,11 +4,6 @@ let
   lib = nixpkgs.lib;
 in
 final: prev: rec {
-  fcitx5-rime = prev.fcitx5-rime.overrideAttrs (old: rec {
-    patches = (old.patches or [ ]) ++ [
-      ../patches/fcitx5-rime-path.patch
-    ];
-  });
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
     bz2
@@ -58,6 +53,7 @@ final: prev: rec {
     '';
   };
   tdesktop = prev.tdesktop.overrideAttrs (old: {
+    enableParallelBuilding = true;
     postPatch = old.postPatch + ''
       for ttf in Telegram/lib_ui/fonts/*.ttf; do
           rm $ttf
