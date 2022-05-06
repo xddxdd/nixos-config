@@ -5,7 +5,9 @@
   DNSUpstream = 55; # CoreDNS DoT proxy port
   Gopher = 70;
   HTTP = 80;
+  LDAP = 389;
   HTTPS = 443;
+  LDAPS = 636;
   Docker = 2375;
   YggdrasilAlfis = 4244;
   IPFS.API = 5001;
@@ -29,6 +31,7 @@
   Vaultwarden.Websocket = 13773;
   CalibreWeb = 13803;
   Matrix.Synapse = 13808;
+  Konnect = 13877;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;
   NeteaseUnlock = 30001;

@@ -14,7 +14,7 @@ in
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/grafana.nix
-    ../../nixos/optional-apps/keycloak.nix
+    ../../nixos/optional-apps/konnect
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/nginx-lab.nix
     ../../nixos/optional-apps/prometheus.nix
