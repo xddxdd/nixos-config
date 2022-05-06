@@ -130,5 +130,6 @@ in
   systemd.services.nginx.serviceConfig = {
     # Workaround Lua crash
     MemoryDenyWriteExecute = lib.mkForce false;
+    SystemCallFilter = lib.mkForce [ ];
   };
 }
