@@ -60,6 +60,14 @@ let
   '';
 in
 rec {
+  getSSLCert = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}/fullchain.cer";
+
+  getSSLKey = acmeName:
+    let
+      acmeHost = lib.elemAt (lib.splitString "_" acmeName) 0;
+    in
+    "/nix/persistent/sync-servers/acme.sh/${acmeName}/${acmeHost}.key";
+
   makeSSL = acmeName:
     let
       acmeHost = lib.elemAt (lib.splitString "_" acmeName) 0;
