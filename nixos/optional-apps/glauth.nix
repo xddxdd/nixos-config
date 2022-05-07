@@ -5,6 +5,10 @@ let
 
   glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
 
+  hexdump = s: builtins.readFile (pkgs.runCommandLocal "hexdump.txt" { } ''
+    echo -n '${s}' | ${pkgs.unixtools.xxd}/bin/xxd -pu | tr -d '\n' > $out
+  '');
+
   cfg = pkgs.writeText "glauth.cfg" ''
     [ldap]
       enabled = true
@@ -31,14 +35,14 @@ let
       mail = "${glauthUsers.lantian.mail}"
       uidnumber = 1000
       primarygroup = 100
-      passbcrypt = "${glauthUsers.lantian.passbcrypt}"
+      passbcrypt = "${hexdump glauthUsers.lantian.passBcrypt}"
 
     [[users]]
       name = "serviceuser"
       mail = "serviceuser@example.com"
       uidnumber = 60000
       primarygroup = 60000
-      passbcrypt = "${glauthUsers.serviceuser.passbcrypt}"
+      passbcrypt = "${hexdump glauthUsers.serviceuser.passBcrypt}"
       [[users.capabilities]]
         action = "search"
         object = "*"
