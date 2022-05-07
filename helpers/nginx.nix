@@ -58,6 +58,14 @@ let
     proxy_redirect off;
     chunked_transfer_encoding off;
   '';
+
+  htpasswdFile =
+    let
+      glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
+    in
+    pkgs.writeText "htpasswd" ''
+      lantian:${glauthUsers.lantian.passBcrypt}
+    '';
 in
 rec {
   getSSLCert = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}/fullchain.cer";
@@ -181,7 +189,7 @@ rec {
   # Basic auth must go before proxy_pass!
   locationBasicAuthConf = ''
     auth_basic "Restricted";
-    auth_basic_user_file ${config.age.secrets.htpasswd.path};
+    auth_basic_user_file ${htpasswdFile};
     proxy_set_header X-User $remote_user;
   '';
 

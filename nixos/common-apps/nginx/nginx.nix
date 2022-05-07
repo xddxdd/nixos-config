@@ -6,12 +6,6 @@ let
   luaPackage = pkgs.callPackage ./lua { };
 in
 {
-  age.secrets.htpasswd = {
-    file = pkgs.secrets + "/htpasswd.age";
-    owner = "nginx";
-    group = "nginx";
-  };
-
   services.nginx = rec {
     enable = true;
     enableReload = true;
