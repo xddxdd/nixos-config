@@ -21,6 +21,7 @@ in
       "/nix/persistent/media"
     ];
     StateDirectory = "resilio-sync";
+    TimeoutStopSec = "10";
   };
 
   systemd.tmpfiles.rules = [
