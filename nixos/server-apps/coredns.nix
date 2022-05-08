@@ -50,7 +50,7 @@ in
 
   services.coredns = {
     enable = true;
-    package = pkgs.coredns;
+    package = pkgs.coredns-lantian;
     config =
       let
         dnssec = key:
@@ -141,6 +141,11 @@ in
 
         # Public Internet Authoritative
         ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
+
+        # Meshname
+        meshname {
+          meshname
+        }
       '';
   };
 
