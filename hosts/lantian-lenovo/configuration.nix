@@ -63,9 +63,8 @@ in
 
   virtualisation.kvmgt = {
     enable = true;
-    vgpus.i915-GVTg_V5_8.uuid = [
+    vgpus.i915-GVTg_V5_4.uuid = [
       (LT.uuid "Intel GVT-g 1")
-      (LT.uuid "Intel GVT-g 2")
     ];
   };
 
