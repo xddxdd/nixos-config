@@ -132,6 +132,7 @@
       colmena = {
         meta.nixpkgs = { inherit lib; };
         meta.nodeNixpkgs = lib.mapAttrs (n: v: import nixpkgs { inherit (v) system; }) LT.nixosHosts;
+        meta.machinesFile = ./machines;
       } // (lib.mapAttrs
         (n: { hostname, sshPort, role, ... }: {
           deployment = {
