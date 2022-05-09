@@ -53,7 +53,7 @@ in
     virt-manager
     vscode
     wechat-uos
-    wine
+    wineWowPackages.stable
     winetricks
     wordle
     wpsoffice
