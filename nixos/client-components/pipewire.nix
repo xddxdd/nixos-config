@@ -1,11 +1,79 @@
 { config, pkgs, lib, ... }:
 
 let
+  defaultCfg = {
+    client = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client.conf.json");
+    client-rt = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client-rt.conf.json");
+    jack = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/jack.conf.json");
+    pipewire = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire.conf.json");
+    pipewire-pulse = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire-pulse.conf.json");
+  };
+
   hesuvi-hrir = "${pkgs.hesuvi-hrir}/atmos.wav";
 in
 {
-  # https://gitlab.freedesktop.org/pipewire/pipewire/-/blob/master/src/daemon/filter-chain/sink-virtual-surround-7.1-hesuvi.conf
-  xdg.configFile."pipewire/pipewire.conf.d/surround.conf".text = ''
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    pulse.enable = true;
+
+    media-session.enable = false;
+    wireplumber.enable = true;
+
+    config = {
+      client = {
+        "stream.properties"."resample.quality" = 10;
+      };
+      client-rt = {
+        "stream.properties"."resample.quality" = 10;
+      };
+      jack = {
+        "stream.properties"."resample.quality" = 10;
+      };
+      pipewire-pulse = {
+        "stream.properties"."resample.quality" = 10;
+      };
+
+      pipewire = {
+        "context.modules" = defaultCfg.pipewire."context.modules" ++ [
+          ({
+            name = "libpipewire-module-filter-chain";
+            args = {
+              "node.name" = "rnnoise_source";
+              "node.description" = "Noise Canceling source";
+              "media.name" = "Noise Canceling source";
+              "filter.graph" = {
+                nodes = [
+                  {
+                    type = "ladspa";
+                    name = "rnnoise";
+                    plugin = "${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so";
+                    label = "noise_suppressor_stereo";
+                    control = {
+                      "VAD Threshold (%)" = 50.0;
+                    };
+                  }
+                ];
+              };
+              "capture.props" = {
+                "node.passive" = true;
+              };
+              "playback.props" = {
+                "media.class" = "Audio/Source";
+              };
+            };
+          })
+        ];
+      };
+    };
+  };
+
+  # For some reason PipeWire fails to start when this is converted to JSON
+  environment.etc."pipewire/pipewire.conf.d/surround.conf".text = ''
     context.modules = [
       { name = libpipewire-module-filter-chain
         args = {
@@ -102,4 +170,6 @@ in
       }
     ]
   '';
+
+  users.users.lantian.extraGroups = [ "audio" ];
 }
