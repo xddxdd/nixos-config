@@ -24,20 +24,7 @@
   programs.seahorse.enable = true;
   programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
 
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-    pulse.enable = true;
-
-    media-session.enable = false;
-    wireplumber.enable = true;
-  };
-
-  users.users.lantian.extraGroups = [ "video" "audio" "users" "input" ];
+  users.users.lantian.extraGroups = [ "video" "users" "input" ];
 
   xdg = {
     portal = {
