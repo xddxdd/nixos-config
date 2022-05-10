@@ -26,6 +26,7 @@
     lbzip2
     lsof
     nftables
+    nix-prefetch
     openssl
     p7zip
     pciutils
