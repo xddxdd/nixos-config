@@ -17,7 +17,7 @@
     fira-code
     fira-code-symbols
     font-awesome
-    genshin-glyphs
+    hoyo-glyphs
     liberation_ttf
     noto-fonts
     noto-fonts-cjk-sans
