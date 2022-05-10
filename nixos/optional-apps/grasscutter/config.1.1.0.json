@@ -1,0 +1,87 @@
+{
+  "DatabaseUrl": "mongodb://localhost:27017",
+  "DatabaseCollection": "grasscutter",
+  "RESOURCE_FOLDER": "./resources/",
+  "DATA_FOLDER": "./data/",
+  "PACKETS_FOLDER": "./packets/",
+  "DUMPS_FOLDER": "./dumps/",
+  "KEY_FOLDER": "./keys/",
+  "SCRIPTS_FOLDER": "./resources/Scripts/",
+  "PLUGINS_FOLDER": "./plugins/",
+  "LANGUAGE_FOLDER": "./languages/",
+  "DebugMode": "NONE",
+  "RunMode": "HYBRID",
+  "GameServer": {
+    "Name": "Test",
+    "Ip": "0.0.0.0",
+    "PublicIp": "127.0.0.1",
+    "Port": 22102,
+    "PublicPort": 0,
+    "DispatchServerDatabaseUrl": "mongodb://localhost:27017",
+    "DispatchServerDatabaseCollection": "grasscutter",
+    "InventoryLimitWeapon": 2000,
+    "InventoryLimitRelic": 2000,
+    "InventoryLimitMaterial": 2000,
+    "InventoryLimitFurniture": 2000,
+    "InventoryLimitAll": 30000,
+    "MaxAvatarsInTeam": 4,
+    "MaxAvatarsInTeamMultiplayer": 4,
+    "MaxEntityLimit": 1000,
+    "WatchGacha": false,
+    "ServerNickname": "Server",
+    "ServerAvatarId": 10000007,
+    "ServerNameCardId": 210001,
+    "ServerLevel": 1,
+    "ServerWorldLevel": 1,
+    "ServerSignature": "Server Signature",
+    "WelcomeEmotes": [
+      2007,
+      1002,
+      4010
+    ],
+    "WelcomeMotd": "Welcome to Grasscutter emu",
+    "WelcomeMailTitle": "Welcome to Grasscutter!",
+    "WelcomeMailSender": "Lawnmower",
+    "WelcomeMailContent": "Hi there!\r\nFirst of all, welcome to Grasscutter. If you have any issues, please let us know so that Lawnmower can help you! \r\n\r\nCheck out our:\r\n\u003ctype\u003d\"browser\" text\u003d\"Discord\" href\u003d\"https://discord.gg/T5vZU6UyeG\"/\u003e",
+    "WelcomeMailItems": [
+      {
+        "itemId": 13509,
+        "itemCount": 1,
+        "itemLevel": 1
+      },
+      {
+        "itemId": 201,
+        "itemCount": 10000,
+        "itemLevel": 1
+      }
+    ],
+    "EnableOfficialShop": true,
+    "Game": {
+      "ADVENTURE_EXP_RATE": 1.0,
+      "MORA_RATE": 1.0,
+      "DOMAIN_DROP_RATE": 1.0
+    }
+  },
+  "DispatchServer": {
+    "Ip": "0.0.0.0",
+    "PublicIp": "127.0.0.1",
+    "Port": 443,
+    "PublicPort": 0,
+    "KeystorePath": "./keystore.p12",
+    "KeystorePassword": "123456",
+    "UseSSL": true,
+    "FrontHTTPS": true,
+    "CORS": false,
+    "CORSAllowedOrigins": [
+      "*"
+    ],
+    "AutomaticallyCreateAccounts": false,
+    "defaultPermissions": [
+      ""
+    ],
+    "GameServers": []
+  },
+  "LocaleLanguage": "en_US",
+  "DefaultLanguage": "en",
+  "OpenStamina": true
+}

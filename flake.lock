@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1652158162,
-        "narHash": "sha256-c2ulj4HHRERgXUvdZ8pSrVz+txylNkuuskkW8MuxCQI=",
+        "lastModified": 1652162053,
+        "narHash": "sha256-ewk0A6cS904MspmIWkcdtFuLjSpbmPT1PH0c694RyNo=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "666a50ef9aef14d45cb2ba6bef12a3a075104f4d",
+        "rev": "27713744c69ea14a6d9593bd6c5e592feadee0d7",
         "type": "github"
       },
       "original": {
@@ -373,11 +373,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1651961305,
-        "narHash": "sha256-QgwhWXcC0MP2La9mSMOed9CZsXs5mP4vL6WBQ5Cf3Ns=",
+        "lastModified": 1652160868,
+        "narHash": "sha256-fRAshoOAEPGhQj4RYvymrAXJJYpZekAWSnltQNnq8Zw=",
         "ref": "refs/heads/master",
-        "rev": "79f8b7085e38c6fd13456c8b93ecbf4395509c20",
-        "revCount": 20,
+        "rev": "85946e61afcf5ba98107cb200ccfb62984f9c65a",
+        "revCount": 21,
         "type": "git",
         "url": "ssh://git@github.com/xddxdd/nixos-secrets"
       },

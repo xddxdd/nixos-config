@@ -1,5 +1,6 @@
 {
   netease = "2";
+  grasscutter = "26";
   nginx-proxy = "43";
   yggdrasil-alfis = "52";
   powerdns-recursor = "53";
