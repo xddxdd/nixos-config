@@ -32,9 +32,9 @@ let
   ];
 
   externalServices = [
-    (CNAME { name = "backblaze"; target = "f002.backblazeb2.com."; cloudflare = true; })
+    (IGNORE { name = "backblaze"; }) # Handled by CF Worker
     (CNAME { name = "comments"; target = "cname.vercel-dns.com."; })
-    (CNAME { name = "ga"; target = "lantian.pub."; cloudflare = true; })
+    (IGNORE { name = "ga"; }) # Handled by CF Worker
     (CNAME { name = "gcore"; target = "cl-47f440a2.gcdn.co."; })
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
     (CNAME { name = "netlify"; target = "lantian.netlify.com."; })
