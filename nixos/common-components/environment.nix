@@ -33,7 +33,10 @@
     pigz
     pv
     pwgen
-    python3Full
+    (python3Full.withPackages (p: with p; [
+      autopep8
+      pip
+    ]))
     screen
     smartmontools
     tcpdump
