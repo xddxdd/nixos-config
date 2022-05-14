@@ -72,8 +72,9 @@ in
     protobuf
 
     # Python
+    black
     conda
-    python3Packages.pip
+    yapf
 
     # Rust
     rustup
