@@ -36,6 +36,7 @@
     (python3Full.withPackages (p: with p; [
       autopep8
       pip
+      requests
     ]))
     screen
     smartmontools
