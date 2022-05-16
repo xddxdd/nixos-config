@@ -52,7 +52,7 @@ in
     nginx-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = LT.serviceHarden // {
-        ExecStart = "${pkgs.openresty-lantian}/bin/nginx -c ${nginxConfig}";
+        ExecStart = "${pkgs.lantianCustomized.openresty}/bin/nginx -c ${nginxConfig}";
         Restart = "always";
         RestartSec = "10s";
 
