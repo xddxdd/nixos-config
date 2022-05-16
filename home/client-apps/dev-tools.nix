@@ -89,7 +89,7 @@ in
 
   ] ++ (if pkgs.stdenv.isx86_64 then [
     # Kernel
-    linux-xanmod-lantian.dev
+    lantianCustomized.linux-xanmod-lantian.dev
   ] else [
     # Kernel
     linux_latest.dev

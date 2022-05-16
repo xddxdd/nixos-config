@@ -9,7 +9,7 @@ in
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.openresty-lantian;
+    package = pkgs.lantianCustomized.openresty;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1d";
     recommendedGzipSettings = false; # use my own

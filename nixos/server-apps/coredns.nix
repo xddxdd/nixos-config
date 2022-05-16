@@ -50,7 +50,7 @@ in
 
   services.coredns = {
     enable = true;
-    package = pkgs.coredns-lantian;
+    package = pkgs.lantianCustomized.coredns;
     config =
       let
         dnssec = key:

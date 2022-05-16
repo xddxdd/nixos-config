@@ -65,9 +65,9 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.dngzwxdq}"
-    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.dnyjzsxj}"
+    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.lantianPersonal.dngzwxdq}"
+    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.lantianPersonal.dnyjzsxj}"
     "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"
-    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.glibc-debian-openvz-files}"
+    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.lantianPersonal.glibc-debian-openvz-files}"
   ];
 }

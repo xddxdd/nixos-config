@@ -16,7 +16,7 @@ in
     enable = true;
     database.createLocally = false;
     database.passwordFile = config.age.secrets.keycloak-dbpw.path;
-    themes.lantian = pkgs.keycloak-lantian;
+    themes.lantian = pkgs.lantianCustomized.keycloak-lantian;
 
     # sslCertificate = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
     # sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";

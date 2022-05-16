@@ -21,7 +21,7 @@
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${pkgs.nbfc-lantian}/bin/nbfc_service -c ${cfg}";
+        ExecStart = "${pkgs.lantianCustomized.nbfc-linux}/bin/nbfc_service -c ${cfg}";
         TimeoutStopSec = "5";
       };
     };

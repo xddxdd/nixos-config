@@ -12,7 +12,7 @@
       let
         kpkg =
           if pkgs.stdenv.isx86_64 then
-            pkgs.linuxPackagesFor pkgs.linux-xanmod-lantian
+            pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian
           else pkgs.linuxPackages_latest;
       in
       kpkg.extend (final: prev: {
