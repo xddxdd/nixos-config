@@ -33,11 +33,6 @@
     pigz
     pv
     pwgen
-    (python3Full.withPackages (p: with p; [
-      autopep8
-      pip
-      requests
-    ]))
     screen
     smartmontools
     tcpdump
@@ -49,12 +44,19 @@
     wireguard-tools
     zip
     zstd
-  ] ++ lib.optionals pkgs.stdenv.isx86_64 [
+  ] ++ (if pkgs.stdenv.isx86_64 then [
     nix-alien
     nix-index
     nix-index-update
+    (python3Full.withPackages (p: with p; [
+      autopep8
+      pip
+      requests
+    ]))
     rar # Doesn't suppport aarch64 for some reason
-  ];
+  ] else [
+    python3Full
+  ]);
 
   programs = {
     #atop.enable = true;
