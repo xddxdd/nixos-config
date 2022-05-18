@@ -4,10 +4,11 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 
   lgproxyHosts = [
-    "linkin"
-    "hostdare"
-    "virmach-ny1g"
     "buyvm"
+    "hostdare"
+    "linkin"
+    "oracle-vm1"
+    "virmach-ny1g"
   ];
   lgproxyDomain = "bird-lg-go";
 in
