@@ -30,6 +30,22 @@
         peerIPv6LinkLocal = "fe80::2575";
       };
     };
+    baiyu = {
+      remoteASN = 4242421901;
+      latencyMs = 5;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21901;
+        remoteAddress = "node1.vultr.fra.europe.dn42.dalao-home.com";
+        remotePort = 22547;
+        wireguardPubkey = "Fq441bovZ0RAmgGPn+bbd2xLht9Mbsgw5YCa5bFgsm0=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.221.65";
+        peerIPv6LinkLocal = "fe80::1901:2761:0:1";
+      };
+    };
     baoshuo = {
       remoteASN = 4242420247;
       latencyMs = 13;

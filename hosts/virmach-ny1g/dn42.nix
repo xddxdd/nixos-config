@@ -2,6 +2,22 @@
 
 {
   services.dn42 = {
+    baiyu = {
+      remoteASN = 4242421901;
+      latencyMs = 11;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21901;
+        remoteAddress = "node1.vultr.jfk.america.dn42.dalao-home.com";
+        remotePort = 22547;
+        wireguardPubkey = "aH4/aJ99U2IUoUe0sUswQ74txIaTf7yb7vc9OZsqpyg=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.221.66";
+        peerIPv6LinkLocal = "fe80::1901:8401:0:1";
+      };
+    };
     baoshuo = {
       remoteASN = 4242420247;
       latencyMs = 26;
