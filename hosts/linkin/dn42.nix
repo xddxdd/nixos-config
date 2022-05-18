@@ -18,6 +18,22 @@
         peerIPv6LinkLocal = "fe80::977";
       };
     };
+    bb-pgqm = {
+      remoteASN = 4242420549;
+      latencyMs = 194;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20549;
+        remoteAddress = "hkg.hkg.dn42.bb-pgqm.com";
+        remotePort = 22547;
+        wireguardPubkey = "jtE83RMoN49bs8TOetxrGdzqywz2BI+uT1qJrGI7GVU=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.56.2";
+        peerIPv6LinkLocal = "fe80::549:3441:0:1";
+      };
+    };
     chuangzhu = {
       remoteASN = 4242423632;
       latencyMs = 36;

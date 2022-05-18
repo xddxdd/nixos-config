@@ -60,6 +60,22 @@
         peerIPv6LinkLocal = "fe80::beef:b";
       };
     };
+    bb-pgqm = {
+      remoteASN = 4242420549;
+      latencyMs = 6;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20549;
+        remoteAddress = "lux.lux.dn42.bb-pgqm.com";
+        remotePort = 22547;
+        wireguardPubkey = "Yt27ZQW8ZTQDvK/PQ+cUw+sVaUJzWGGy1BKF5UzAJEs=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.56.6";
+        peerIPv6LinkLocal = "fe80::549:4421:0:1";
+      };
+    };
     burble = {
       remoteASN = 4242422601;
       latencyMs = 6;
