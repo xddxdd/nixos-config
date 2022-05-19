@@ -19,7 +19,7 @@ rec {
   apexGeoDNS = domain:
     dns.ALIAS {
       name = "${domain}.";
-      target = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
+      target = records.GeoDNSTarget;
       ttl = "10m";
     };
 }

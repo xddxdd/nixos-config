@@ -10,6 +10,7 @@
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
+      common.records.Libravatar
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
@@ -27,6 +28,7 @@
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
+      common.records.Libravatar
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
@@ -44,6 +46,7 @@
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
+      common.records.Libravatar
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")

@@ -98,6 +98,7 @@ in
       (common.hostRecs.SSHFP domain)
       emailCloudflareRouting
       (TXT { name = "_token._dnswl"; contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm"; })
+      common.records.Libravatar
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
