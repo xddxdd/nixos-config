@@ -146,6 +146,22 @@
         peerIPv4 = "172.20.129.169";
       };
     };
+    est-it = {
+      remoteASN = 4242422206;
+      latencyMs = 14;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22206;
+        remoteAddress = "de1.dn42.est-it.de";
+        remotePort = 13238;
+        wireguardPubkey = "qgnbahUNQ5h4sp5+c8nAdWx64aebEZSOD9aS41tocBs=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.131.144";
+        peerIPv6LinkLocal = "fe80::2206";
+      };
+    };
     fixmix = {
       remoteASN = 4242421876;
       latencyMs = 11;
