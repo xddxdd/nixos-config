@@ -8,12 +8,6 @@
     onBoot = "ignore";
     onShutdown = "shutdown";
     qemu = {
-      package = pkgs.callPackage ./qemu {
-        inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices Cocoa Hypervisor;
-        inherit (pkgs.darwin.stubs) rez setfile;
-        inherit (pkgs.darwin) sigtool;
-      };
-
       ovmf.enable = true;
       swtpm.enable = true;
       verbatimConfig = ''

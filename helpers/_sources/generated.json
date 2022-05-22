@@ -1,162 +1,154 @@
 {
-    "ulauncher-tldr": {
+    "himawaripy": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "himawaripy",
+        "passthru": null,
         "pinned": false,
-        "cargoLock": null,
-        "name": "ulauncher-tldr",
         "src": {
             "deepClone": false,
-            "owner": "dhelmr",
-            "name": null,
-            "repo": "ulauncher-tldr",
-            "type": "github",
-            "sha256": "sha256-NRNRhxzjzw2RTIrU8RZMMYlJQ7m+KC4PxpscJvpL2A8=",
-            "rev": "2ad5d29963db649775f68a7815af18509f4c287f",
+            "fetchSubmodules": false,
             "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "2ad5d29963db649775f68a7815af18509f4c287f",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "ulauncher-colorconverter": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "ulauncher-colorconverter",
-        "src": {
-            "deepClone": false,
-            "owner": "sergius02",
             "name": null,
-            "repo": "ulauncher-colorconverter",
-            "type": "github",
-            "sha256": "sha256-UfRU7BpQUj26THzE8kYLIRUfe7voGvAcGDBTsl+yCwU=",
-            "rev": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
+            "owner": "boramalper",
+            "repo": "himawaripy",
+            "rev": "v2.2.0",
+            "sha256": "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=",
+            "type": "github"
         },
-        "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
+        "version": "v2.2.0"
     },
     "ulauncher-albert-calculate-anything": {
-        "pinned": false,
-        "cargoLock": null,
+        "cargoLocks": null,
+        "extract": null,
         "name": "ulauncher-albert-calculate-anything",
+        "passthru": null,
+        "pinned": false,
         "src": {
             "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
             "owner": "tchar",
-            "name": null,
             "repo": "ulauncher-albert-calculate-anything",
-            "type": "github",
-            "sha256": "sha256-qpnU7yjRPqEdu8HFncACmofxOFOFENazCp3Cuw0/HE4=",
             "rev": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
+            "sha256": "sha256-qpnU7yjRPqEdu8HFncACmofxOFOFENazCp3Cuw0/HE4=",
+            "type": "github"
         },
-        "version": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
+        "version": "ee0903174c8b87cd1f7c3b6c1acef10702547507"
     },
-    "ulauncher-virtualbox": {
+    "ulauncher-colorconverter": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ulauncher-colorconverter",
+        "passthru": null,
         "pinned": false,
-        "cargoLock": null,
-        "name": "ulauncher-virtualbox",
         "src": {
             "deepClone": false,
-            "owner": "luispabon",
-            "name": null,
-            "repo": "ulauncher-virtualbox",
-            "type": "github",
-            "sha256": "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=",
-            "rev": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
+            "fetchSubmodules": false,
             "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "himawaripy": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "himawaripy",
-        "src": {
-            "deepClone": false,
-            "owner": "boramalper",
             "name": null,
-            "repo": "himawaripy",
-            "type": "github",
-            "sha256": "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=",
-            "rev": "v2.2.0",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
+            "owner": "sergius02",
+            "repo": "ulauncher-colorconverter",
+            "rev": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
+            "sha256": "sha256-UfRU7BpQUj26THzE8kYLIRUfe7voGvAcGDBTsl+yCwU=",
+            "type": "github"
         },
-        "version": "v2.2.0",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "ulauncher-vscode-recent": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "ulauncher-vscode-recent",
-        "src": {
-            "deepClone": false,
-            "owner": "plibither8",
-            "name": null,
-            "repo": "ulauncher-vscode-recent",
-            "type": "github",
-            "sha256": "sha256-56IsReaL/M13z6tpLK6hqEGn2qFJqJwjNfvuXNjSncY=",
-            "rev": "75b5ee36526a751a310af775cb1de8405bf81af7",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "75b5ee36526a751a310af775cb1de8405bf81af7",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "ulauncher-meme-my-text": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "ulauncher-meme-my-text",
-        "src": {
-            "deepClone": false,
-            "owner": "RNairn01",
-            "name": null,
-            "repo": "ulauncher-meme-my-text",
-            "type": "github",
-            "sha256": "sha256-vIWIl2qOWYVrCLhGoDXH4xTfhc+GhE9cVFuV1qjYaH0=",
-            "rev": "5d62830a7a92983a731e15645831f53d48dad913",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "5d62830a7a92983a731e15645831f53d48dad913",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
+        "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a"
     },
     "ulauncher-emoji": {
-        "pinned": false,
-        "cargoLock": null,
+        "cargoLocks": null,
+        "extract": null,
         "name": "ulauncher-emoji",
+        "passthru": null,
+        "pinned": false,
         "src": {
             "deepClone": false,
-            "owner": "Ulauncher",
-            "name": null,
-            "repo": "ulauncher-emoji",
-            "type": "github",
-            "sha256": "sha256-VIWmv+vFByYS3VRuXqWOOORRu+zson+xOYg7havYM14=",
-            "rev": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
+            "fetchSubmodules": false,
             "leaveDotGit": false,
-            "fetchSubmodules": false
+            "name": null,
+            "owner": "Ulauncher",
+            "repo": "ulauncher-emoji",
+            "rev": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
+            "sha256": "sha256-VIWmv+vFByYS3VRuXqWOOORRu+zson+xOYg7havYM14=",
+            "type": "github"
         },
-        "version": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
-        "passthru": null,
+        "version": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c"
+    },
+    "ulauncher-meme-my-text": {
+        "cargoLocks": null,
         "extract": null,
-        "rustGitDeps": null
+        "name": "ulauncher-meme-my-text",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "RNairn01",
+            "repo": "ulauncher-meme-my-text",
+            "rev": "5d62830a7a92983a731e15645831f53d48dad913",
+            "sha256": "sha256-vIWIl2qOWYVrCLhGoDXH4xTfhc+GhE9cVFuV1qjYaH0=",
+            "type": "github"
+        },
+        "version": "5d62830a7a92983a731e15645831f53d48dad913"
+    },
+    "ulauncher-tldr": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ulauncher-tldr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dhelmr",
+            "repo": "ulauncher-tldr",
+            "rev": "2ad5d29963db649775f68a7815af18509f4c287f",
+            "sha256": "sha256-NRNRhxzjzw2RTIrU8RZMMYlJQ7m+KC4PxpscJvpL2A8=",
+            "type": "github"
+        },
+        "version": "2ad5d29963db649775f68a7815af18509f4c287f"
+    },
+    "ulauncher-virtualbox": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ulauncher-virtualbox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "luispabon",
+            "repo": "ulauncher-virtualbox",
+            "rev": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
+            "sha256": "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=",
+            "type": "github"
+        },
+        "version": "d8f495df3c7f41ee8493b207d17f06fc0372c84e"
+    },
+    "ulauncher-vscode-recent": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ulauncher-vscode-recent",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "plibither8",
+            "repo": "ulauncher-vscode-recent",
+            "rev": "610dc19a6bab76fd9438e1059aba849201a4a4aa",
+            "sha256": "sha256-HgRC27BjY7q7i/bwu4aH00rC9uDszP1QuF4Qtg7mDpM=",
+            "type": "github"
+        },
+        "version": "610dc19a6bab76fd9438e1059aba849201a4a4aa"
     }
 }
