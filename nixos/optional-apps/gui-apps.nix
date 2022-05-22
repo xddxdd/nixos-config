@@ -28,7 +28,7 @@ in
     docker-machine-kvm2
     ffmpeg
     filezilla
-    firefox
+    firefox-wayland
     gimp-with-plugins
     gnome.gedit
     google-chrome
@@ -53,7 +53,7 @@ in
     virt-manager
     vscode
     wechat-uos
-    wineWowPackages.stable
+    wineWowPackages.wayland
     winetricks
     wordle
     wpsoffice

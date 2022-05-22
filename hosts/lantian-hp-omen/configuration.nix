@@ -20,7 +20,6 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/systemd-boot-uefi-secure-boot.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
-    ../../nixos/optional-apps/x11vnc.nix
   ];
 
   boot.loader.grub.fontSize = 24;
@@ -34,6 +33,13 @@ in
     undervolt 3 'System Agent' 0
     undervolt 4 'Analog I/O' 0
   '';
+
+  environment.variables = {
+    # Wayland scaling
+    GDK_SCALE = "1";
+    GDK_DPI_SCALE = "1.5";
+    QT_WAYLAND_FORCE_DPI = "144";
+  };
 
   fileSystems."/".options = [ "size=64G" ];
 
