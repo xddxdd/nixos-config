@@ -5,7 +5,7 @@ l: builtins.listToAttrs (builtins.map
     let
       startScript = pkgs.writeShellScript "start.sh" ''
         sleep 5
-        ${command}
+        exec ${command}
       '';
     in
     {
