@@ -9,7 +9,7 @@ in
     element-desktop
     gcdemu
     tdesktop
-    thunderbird
+    thunderbird-wayland
     ulauncher
   ];
 
@@ -18,7 +18,7 @@ in
     ({ name = "element"; command = "${pkgs.element-desktop}/bin/element-desktop --hidden"; })
     ({ name = "gcdemu"; command = "${pkgs.gcdemu}/bin/gcdemu"; })
     ({ name = "telegram"; command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart"; })
-    ({ name = "thunderbird"; command = "${pkgs.thunderbird}/bin/thunderbird"; })
+    ({ name = "thunderbird"; command = "${pkgs.thunderbird-wayland}/bin/thunderbird"; })
     ({ name = "ulauncher"; command = "${pkgs.ulauncher}/bin/ulauncher --hide-window"; })
   ];
 }

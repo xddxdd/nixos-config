@@ -2,8 +2,21 @@
 
 let
   lib = nixpkgs.lib;
+
+  plasma5Overrides = sfinal: sprev: rec {
+    plasma5 = sprev.plasma5.overrideScope' (ssfinal: ssprev: {
+      plasma-workspace = ssprev.plasma-workspace.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          ../patches/plasma-workspace-no-dpi-scaling.patch
+        ];
+      });
+    });
+  };
 in
 final: prev: rec {
+  libsForQt5 = prev.libsForQt5.overrideScope' plasma5Overrides;
+  plasma5Packages = prev.plasma5Packages.overrideScope' plasma5Overrides;
+
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
     bz2

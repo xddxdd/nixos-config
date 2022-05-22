@@ -19,7 +19,6 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/systemd-boot-uefi-secure-boot.nix
     ../../nixos/optional-apps/transmission-daemon.nix
-    ../../nixos/optional-apps/x11vnc.nix
   ];
 
   environment.etc."intel-undervolt.conf".text = ''
@@ -33,6 +32,13 @@ in
   environment.persistence."/nix/persistent".directories = [
     "/home/lantian"
   ];
+
+  environment.variables = {
+    # Wayland scaling
+    GDK_SCALE = "1";
+    GDK_DPI_SCALE = "1.25";
+    QT_WAYLAND_FORCE_DPI = "120";
+  };
 
   fileSystems."/".options = [ "size=100%" ];
 
