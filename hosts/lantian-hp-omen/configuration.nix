@@ -34,12 +34,7 @@ in
     undervolt 4 'Analog I/O' 0
   '';
 
-  environment.variables = {
-    # Wayland scaling
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1.5";
-    QT_WAYLAND_FORCE_DPI = "144";
-  };
+  lantian.wayland-hidpi = 1.5;
 
   fileSystems."/".options = [ "size=64G" ];
 

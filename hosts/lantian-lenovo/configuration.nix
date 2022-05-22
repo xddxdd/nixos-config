@@ -33,12 +33,7 @@ in
     "/home/lantian"
   ];
 
-  environment.variables = {
-    # Wayland scaling
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1.25";
-    QT_WAYLAND_FORCE_DPI = "120";
-  };
+  lantian.wayland-hidpi = 1.25;
 
   fileSystems."/".options = [ "size=100%" ];
 
