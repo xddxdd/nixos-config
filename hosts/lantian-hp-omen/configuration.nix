@@ -8,7 +8,7 @@ in
     ../../nixos/client.nix
 
     ./hardware-configuration.nix
-    ./nbfc.nix
+    # ./nbfc.nix
 
     ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
