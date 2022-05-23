@@ -16,6 +16,7 @@ in
     aria
     android-tools
     audacious
+    bilibili
     calibre
     colmena
     deepspeech-gpu
@@ -40,6 +41,7 @@ in
     lm_sensors
     (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     mediainfo
+    megatools
     minecraft
     minikube
     mpv

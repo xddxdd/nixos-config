@@ -13,7 +13,7 @@
     };
 
     systemd-boot = {
-      configurationLimit = 32;
+      configurationLimit = 8;
       consoleMode = "max";
       editor = false;
       memtest86.enable = true;
