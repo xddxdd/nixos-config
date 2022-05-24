@@ -2,11 +2,9 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
-
-  listenIP = "127.53.53.53";
 in
 {
-  networking.nameservers = [ listenIP ];
+  networking.nameservers = [ LT.constants.localDNSBindIP ];
 
   services.coredns = {
     enable = true;
@@ -17,7 +15,7 @@ in
         forwardToLtnet = zone: ''
           ${zone} {
             any
-            bind ${listenIP}
+            bind ${LT.constants.localDNSBindIP}
             bufsize 1232
             loadbalance round_robin
 
@@ -31,7 +29,7 @@ in
           ''
             . {
               any
-              bind ${listenIP}
+              bind ${LT.constants.localDNSBindIP}
               bufsize 1232
               loadbalance round_robin
 
