@@ -18,11 +18,6 @@ in
     networkConfig.Tunnel = "henet";
   };
 
-  networking.nameservers = [
-    "172.18.0.253"
-    "8.8.8.8"
-  ];
-
   systemd.network.netdevs.henet = {
     netdevConfig = {
       Kind = "sit";

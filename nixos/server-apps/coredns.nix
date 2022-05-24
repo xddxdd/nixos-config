@@ -3,8 +3,8 @@
 let
   LT = import ../../helpers { inherit config pkgs lib; };
 
-  corednsNetns = LT.netns {
-    name = "coredns";
+  corednsAuthoritativeNetns = LT.netns {
+    name = "coredns-authoritative";
     enable = config.services.coredns.enable;
     announcedIPv4 = [
       "172.22.76.109"
@@ -15,82 +15,55 @@ let
       "fdbc:f9dc:67ad:2547::54"
       "fd10:127:10:2547::54"
     ];
-    birdBindTo = [ "coredns.service" ];
+    birdBindTo = [ "coredns-authoritative.service" ];
   };
   corednsKnotNetns = LT.netns {
     name = "coredns-knot";
     enable = config.services.knot.enable;
     birdBindTo = [ "knot.service" ];
   };
-in
-{
-  age.secrets = lib.mkIf (config.services.coredns.enable || config.services.knot.enable)
-    (builtins.listToAttrs (lib.flatten (builtins.map
-      (n: [
-        {
-          name = "${n}.key";
-          value = {
-            name = "${n}.key";
-            owner = "container";
-            group = "container";
-            file = pkgs.secrets + "/dnssec/${n}.key.age";
-          };
+
+  corednsConfig =
+    let
+      dnssec = key:
+        if key != null then ''
+          dnssec {
+            key file "${config.age.secrets."${key}.private".path}"
+          }
+        '' else "";
+      localZone = zone: filename: ''
+        ${zone}:${LT.portStr.DNSLocal} {
+          bind 127.0.0.1
+          file "/nix/persistent/sync-servers/${filename}.zone" {
+            reload 30s
+          }
         }
-        {
-          name = "${n}.private";
-          value = {
-            name = "${n}.private";
-            owner = "container";
-            group = "container";
-            file = pkgs.secrets + "/dnssec/${n}.private.age";
-          };
+      '';
+      localForward = zone: dnssecKey: ''
+        ${zone} {
+          any
+          bufsize 1232
+          loadbalance round_robin
+
+          forward . 127.0.0.1:${LT.portStr.DNSLocal}
+          ${dnssec dnssecKey}
         }
-      ])
-      LT.dnssecKeys)));
+      '';
+      publicZone = zone: filename: dnssecKey: ''
+        ${zone} {
+          any
+          bufsize 1232
+          loadbalance round_robin
 
-  services.coredns = {
-    enable = true;
-    package = pkgs.lantianCustomized.coredns;
-    config =
-      let
-        dnssec = key:
-          if key != null then ''
-            dnssec {
-              key file "${config.age.secrets."${key}.private".path}"
-            }
-          '' else "";
-        localZone = zone: filename: ''
-          ${zone}:${LT.portStr.DNSLocal} {
-            bind 127.0.0.1
-            file "/nix/persistent/sync-servers/${filename}.zone" {
-              reload 30s
-            }
+          file "/nix/persistent/sync-servers/${filename}.zone" {
+            reload 30s
           }
-        '';
-        localForward = zone: dnssecKey: ''
-          ${zone} {
-            any
-            bufsize 1232
-            loadbalance round_robin
+          ${dnssec dnssecKey}
+        }
+      '';
 
-            forward . 127.0.0.1:${LT.portStr.DNSLocal}
-            ${dnssec dnssecKey}
-          }
-        '';
-        publicZone = zone: filename: dnssecKey: ''
-          ${zone} {
-            any
-            bufsize 1232
-            loadbalance round_robin
-
-            file "/nix/persistent/sync-servers/${filename}.zone" {
-              reload 30s
-            }
-            ${dnssec dnssecKey}
-          }
-        '';
-
-      in
+    in
+    pkgs.writeText "Corefile"
       ''
         # Selfhosted Root Zone
         . {
@@ -147,7 +120,30 @@ in
           meshname
         }
       '';
-  };
+in
+{
+  age.secrets = (builtins.listToAttrs (lib.flatten (builtins.map
+    (n: [
+      {
+        name = "${n}.key";
+        value = {
+          name = "${n}.key";
+          owner = "container";
+          group = "container";
+          file = pkgs.secrets + "/dnssec/${n}.key.age";
+        };
+      }
+      {
+        name = "${n}.private";
+        value = {
+          name = "${n}.private";
+          owner = "container";
+          group = "container";
+          file = pkgs.secrets + "/dnssec/${n}.private.age";
+        };
+      }
+    ])
+    LT.dnssecKeys)));
 
   services.knot = {
     enable = true;
@@ -287,12 +283,23 @@ in
       ]));
   };
 
-  systemd.services = corednsNetns.setup // corednsKnotNetns.setup // {
-    coredns = corednsNetns.bind {
-      serviceConfig = {
-        DynamicUser = lib.mkForce false;
-        User = lib.mkForce "container";
-        Group = lib.mkForce "container";
+  systemd.services = corednsAuthoritativeNetns.setup // corednsKnotNetns.setup // {
+    coredns-authoritative = corednsAuthoritativeNetns.bind {
+      description = "Coredns for authoritative zones";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = LT.serviceHarden // {
+        LimitNPROC = 512;
+        LimitNOFILE = 1048576;
+        ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
+        Restart = "on-failure";
+
+        User = "container";
+        Group = "container";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
       };
     };
     knot = corednsKnotNetns.bind {
