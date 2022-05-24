@@ -18,11 +18,6 @@ in
     matchConfig.Name = "eth0";
   };
 
-  networking.nameservers = [
-    "172.18.0.253"
-    "2001:4860:4860::8888"
-  ];
-
   services."route-chain" = {
     enable = true;
     routes = [

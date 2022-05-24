@@ -43,10 +43,10 @@ let
         type nat hook prerouting priority -95; policy accept;
 
         # network namespace coredns
-        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns}:${LT.portStr.DNS}
-        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns}:${LT.portStr.DNS}
-        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
-        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns}]:${LT.portStr.DNS}
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
 
         # network namespace yggdrasil-alfis
         fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.yggdrasil-alfis}:${LT.portStr.YggdrasilAlfis}
