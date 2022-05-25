@@ -92,7 +92,7 @@ in
         identifierRegistration
         "/run/konnect-identifier-registration.yaml"}
 
-      ${pkgs.konnect}/bin/konnectd serve \
+      exec ${pkgs.konnect}/bin/konnectd serve \
         --listen=127.0.0.1:${LT.portStr.Konnect} \
         --iss=https://login.lantian.pub \
         --identifier-client-path=${identifierWebapp} \

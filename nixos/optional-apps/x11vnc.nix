@@ -15,7 +15,7 @@ in
       RestartSec = "3";
     };
     script = ''
-      ${pkgs.x11vnc}/bin/x11vnc \
+      exec ${pkgs.x11vnc}/bin/x11vnc \
         -listen ${LT.this.ltnet.IPv4} \
         -6 -listen6 ${LT.this.ltnet.IPv6} \
         -forever \

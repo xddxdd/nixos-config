@@ -5,8 +5,8 @@
 
   systemd.services.genshin-helper = {
     serviceConfig.Type = "oneshot";
-    script = "${pkgs.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
     serviceConfig = {
+      ExecStart = "${pkgs.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
       EnvironmentFile = config.age.secrets.genshin-impact-cookies.path;
       TimeoutSec = 900;
       Restart = "on-failure";
