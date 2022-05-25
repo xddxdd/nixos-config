@@ -5,7 +5,7 @@ let
 
   consoleFontSize =
     let
-      targetSize = builtins.floor (config.lantian.wayland-hidpi * 16);
+      targetSize = builtins.floor (config.lantian.hidpi * 16);
     in
     if targetSize >= 30 then 32
     else if targetSize >= 26 then 28
@@ -18,18 +18,18 @@ let
     else 12;
 in
 {
-  options.lantian.wayland-hidpi = lib.mkOption {
+  options.lantian.hidpi = lib.mkOption {
     type = lib.types.float;
     default = 1;
     description = "HiDPI scaling for Wayland";
   };
 
   config = {
-    environment.variables = {
-      GDK_SCALE = "1";
-      GDK_DPI_SCALE = builtins.toString config.lantian.wayland-hidpi;
-      QT_WAYLAND_FORCE_DPI = builtins.toString (builtins.floor (config.lantian.wayland-hidpi * 96));
-    };
+    # environment.variables = {
+    #   GDK_SCALE = "1";
+    #   GDK_DPI_SCALE = builtins.toString config.lantian.hidpi;
+    #   QT_WAYLAND_FORCE_DPI = builtins.toString (builtins.floor (config.lantian.hidpi * 96));
+    # };
 
     boot.loader.grub.fontSize = consoleFontSize;
     console.packages = with pkgs; [ terminus_font ];

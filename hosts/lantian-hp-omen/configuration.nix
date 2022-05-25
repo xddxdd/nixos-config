@@ -31,7 +31,7 @@ in
     undervolt 4 'Analog I/O' 0
   '';
 
-  lantian.wayland-hidpi = 1.5;
+  lantian.hidpi = 1.5;
 
   fileSystems."/".options = [ "size=64G" ];
 

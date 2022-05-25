@@ -34,7 +34,7 @@ in
     "/home/lantian"
   ];
 
-  lantian.wayland-hidpi = 1.25;
+  lantian.hidpi = 1.25;
 
   fileSystems."/".options = [ "size=100%" ];
 
