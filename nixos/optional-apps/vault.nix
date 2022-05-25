@@ -25,7 +25,7 @@ in
     let
       script = pkgs.writeShellScript "vault-unseal" ''
         sleep 10
-        ${config.services.vault.package}/bin/vault operator unseal \
+        exec ${config.services.vault.package}/bin/vault operator unseal \
           -address=http://${config.services.vault.address} \
           $(cat ${config.age.secrets.vault-unseal-key.path})
       '';

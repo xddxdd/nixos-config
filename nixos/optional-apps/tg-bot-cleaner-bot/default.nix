@@ -25,7 +25,7 @@ in
       Group = "tg-bot-cleaner-bot";
     };
     script = ''
-      ${python}/bin/python3 -u ${./script.py}
+      exec ${python}/bin/python3 -u ${./script.py}
     '';
   };
 

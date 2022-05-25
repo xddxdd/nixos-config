@@ -20,11 +20,11 @@
 
     script = ''
       ${lib.optionalString (!config.boot.isContainer) "modprobe wireguard"}
-      wg-quick up ${config.age.secrets.wg-cf-warp.path}
+      exec wg-quick up ${config.age.secrets.wg-cf-warp.path}
     '';
 
     preStop = ''
-      wg-quick down ${config.age.secrets.wg-cf-warp.path}
+      exec wg-quick down ${config.age.secrets.wg-cf-warp.path}
     '';
   };
 }
