@@ -19,6 +19,7 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/systemd-boot-uefi-secure-boot.nix
     ../../nixos/optional-apps/transmission-daemon.nix
+    ../../nixos/optional-apps/x11vnc.nix
   ];
 
   environment.etc."intel-undervolt.conf".text = ''
