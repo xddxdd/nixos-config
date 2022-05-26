@@ -2,9 +2,24 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
+
+  backupDNSServers = [
+    "8.8.8.8"
+    "2001:4860:4860::8888"
+  ];
+
+  bypassedDomains = [
+    "cachix.org"
+    "hath.network"
+    "humio.com"
+    "lantian.pub"
+    "nixos.org"
+    "resilio.com"
+    "syncthing.net"
+  ];
 in
 {
-  networking.nameservers = [ LT.constants.localDNSBindIP ];
+  networking.nameservers = [ LT.constants.localDNSBindIP ] ++ backupDNSServers;
 
   services.coredns = {
     enable = true;
@@ -56,11 +71,7 @@ in
             }
           ''
         ]
-        ++ (builtins.map forwardToGoogleDNS [
-          "humio.com"
-          "resilio.com"
-          "syncthing.net"
-        ])
+        ++ (builtins.map forwardToGoogleDNS bypassedDomains)
         ++ (builtins.map forwardToLtnet
           (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)))
         ++ [ "" ]
