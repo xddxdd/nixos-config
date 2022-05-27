@@ -4,6 +4,7 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 
   v2rayConf = {
+    dns.servers = [ "https+local://dns.nextdns.io/378897/${config.networking.hostName}" ];
     inbounds = [{
       listen = "127.0.0.1";
       port = LT.portStr.V2Ray;
