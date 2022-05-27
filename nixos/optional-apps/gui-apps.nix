@@ -23,10 +23,6 @@ in
     deepspeech-wrappers
     (LT.wrapNetns "ns-wg-lantian" deluge)
     dingtalk
-    distrobox
-    docker-machine
-    docker-machine-kvm
-    docker-machine-kvm2
     ffmpeg
     filezilla
     firefox
@@ -43,7 +39,6 @@ in
     mediainfo
     megatools
     minecraft
-    minikube
     mpv
     osdlyrics
     playonlinux
