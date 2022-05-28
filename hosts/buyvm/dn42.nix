@@ -370,6 +370,22 @@
     #     peerIPv6LinkLocal = "fe80::1555";
     #   };
     # };
+    marek = {
+      remoteASN = 4242422923;
+      latencyMs = 13;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22923;
+        remoteAddress = "p2p-router.de";
+        remotePort = 52547;
+        wireguardPubkey = "hmR5tJCQEAse2FRNUctA8B/1B3brnNFMmVZGaO6CLQM=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.149.226";
+        peerIPv6LinkLocal = "fe80::2924";
+      };
+    };
     matwolf = {
       remoteASN = 4242420688;
       latencyMs = 29;

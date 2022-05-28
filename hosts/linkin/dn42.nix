@@ -217,6 +217,24 @@
     #     peerIPv6LinkLocal = "fe80::216:3eff:fef0:5e15";
     #   };
     # };
+    marek = {
+      remoteASN = 4242422923;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22923;
+        # IPv6 high latency
+        # remoteAddress = "gaylord-hkg.de";
+        remoteAddress = "103.73.66.184";
+        remotePort = 52547;
+        wireguardPubkey = "kJ3jo/7Od0Jy/7ae2LqFYMWMhvc5QiUttRtN+u3YfwE=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.149.227";
+        peerIPv6LinkLocal = "fe80::2925";
+      };
+    };
     neochen = {
       remoteASN = 4201270000;
       latencyMs = 55;
@@ -233,6 +251,21 @@
         peerIPv4 = "10.127.2.22";
         myIPv6LinkLocal = "fe80::10";
         peerIPv6LinkLocal = "fe80::2:22";
+      };
+    };
+    purofle = {
+      remoteASN = 4242422886;
+      latencyMs = 3;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22886;
+        remoteAddress = "137.116.166.197";
+        remotePort = 22547;
+        wireguardPubkey = "jzHrpkgwV7wVzK2xVTWLGQ16Lti80pRHF9fvZ+CX6Ag=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.90.96";
+        peerIPv6LinkLocal = "fe80::2886";
       };
     };
     # racime = {
