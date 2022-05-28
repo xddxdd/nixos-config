@@ -42,6 +42,7 @@ let
     var/lib/docker/
     var/lib/docker-dind/
     var/lib/filebeat/
+    var/lib/GeoIP/
     var/lib/grafana/
     var/lib/machines/
     var/lib/os-prober/
