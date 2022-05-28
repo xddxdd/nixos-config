@@ -8,5 +8,6 @@
   coredns-knot = "55";
   drone = "101";
   drone-github = "102";
+  plausible = "138";
   wg-lantian = "192";
 }

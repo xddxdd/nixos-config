@@ -12,6 +12,7 @@
   YggdrasilAlfis = 4244;
   IPFS.API = 5001;
   IPFS.Gateway = 8080;
+  Clickhouse = 8123;
   Vault = 8200;
   Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
@@ -29,6 +30,7 @@
   V2Ray = 13504;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
+  Plausible = 13800;
   CalibreWeb = 13803;
   Matrix.Synapse = 13808;
   Konnect = 13877;

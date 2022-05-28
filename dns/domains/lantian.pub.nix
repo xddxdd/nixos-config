@@ -67,6 +67,7 @@ let
     (fakeALIAS { name = "matrix"; target = "virmach-ny6g"; ttl = "1h"; })
     (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
     (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "zerossl"; target = "soyoustart"; ttl = "1h"; })

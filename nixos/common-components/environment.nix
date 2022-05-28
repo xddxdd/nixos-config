@@ -1,6 +1,11 @@
 { config, pkgs, lib, modules, ... }:
 
 {
+  age.secrets.default-pw = {
+    file = pkgs.secrets + "/default-pw.age";
+    mode = "0444";
+  };
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
