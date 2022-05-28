@@ -33,6 +33,7 @@ in
     kubectl
     kubernetes-helm
     libfaketime
+    librewolf
     libsForQt5.ark
     lm_sensors
     (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
