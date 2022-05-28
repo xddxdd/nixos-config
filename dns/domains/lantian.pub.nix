@@ -69,7 +69,6 @@ let
     (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
-    (CNAME { name = "www"; target = "@"; cloudflare = true; })
     (CNAME { name = "zerossl"; target = "soyoustart"; ttl = "1h"; })
 
     (serveWithOwnNS "asn")
