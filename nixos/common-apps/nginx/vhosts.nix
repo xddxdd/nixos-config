@@ -19,6 +19,10 @@ let
           add_header Cache-Control "public, no-transform";
         '';
       };
+      "= /api/event" = {
+        proxyPass = "http://${LT.hosts."virmach-ny6g".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
+        extraConfig = LT.nginx.locationProxyConf;
+      };
       "= /favicon.ico".extraConfig = ''
         expires 31536000;
       '';

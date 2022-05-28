@@ -124,7 +124,7 @@ rec {
       ({
         after = (attr.after or [ ]) ++ [ "netns-instance-${name}.service" ];
         bindsTo = (attr.bindsTo or [ ]) ++ [ "netns-instance-${name}.service" ];
-        serviceConfig = attr.serviceConfig // {
+        serviceConfig = (attr.serviceConfig or { }) // {
           NetworkNamespacePath = "/run/netns/ns-${name}";
         };
       } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ])) else attr;

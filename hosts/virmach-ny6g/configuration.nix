@@ -17,6 +17,7 @@ in
     ../../nixos/optional-apps/konnect
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/nginx-lab.nix
+    ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/prometheus.nix
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/resilio.nix

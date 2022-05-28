@@ -6,12 +6,6 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.nextcloud-pw = {
-    file = pkgs.secrets + "/nextcloud-pw.age";
-    owner = "nextcloud";
-    group = "nextcloud";
-  };
-
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud23;
@@ -21,7 +15,7 @@ in
       redis = true;
     };
     config = {
-      adminpassFile = config.age.secrets.nextcloud-pw.path;
+      adminpassFile = config.age.secrets.default-pw.path;
       adminuser = "lantian";
       dbtype = "mysql";
       defaultPhoneRegion = "CN";
