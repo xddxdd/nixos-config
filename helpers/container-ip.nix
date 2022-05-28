@@ -6,6 +6,7 @@
   powerdns-recursor = "53";
   coredns-authoritative = "54";
   coredns-knot = "55";
+  coredns-client = "56";
   drone = "101";
   drone-github = "102";
   plausible = "138";
