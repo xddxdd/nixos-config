@@ -72,6 +72,7 @@ in
       requires = [ "postgresql.service" ];
       environment = {
         RELEASE_DISTRIBUTION = "none";
+        GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
       };
       serviceConfig = {
         DynamicUser = lib.mkForce false;
