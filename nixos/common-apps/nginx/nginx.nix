@@ -9,7 +9,11 @@ in
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.lantianCustomized.openresty;
+    package = pkgs.lantianCustomized.openresty.override {
+      openssl-oqs = pkgs.openssl-oqs.override {
+        cryptodev = config.boot.kernelPackages.cryptodev;
+      };
+    };
     proxyResolveWhileRunning = true;
     proxyTimeout = "1d";
     recommendedGzipSettings = false; # use my own
