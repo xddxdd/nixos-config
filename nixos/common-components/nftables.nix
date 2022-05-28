@@ -42,15 +42,17 @@ let
       chain NAT_PREROUTING {
         type nat hook prerouting priority -95; policy accept;
 
-        # network namespace coredns
-        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
-        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
-        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
-        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
+        ${lib.optionalString (LT.this.role == LT.roles.server) ''
+          # network namespace coredns
+          fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
+          fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
+          fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
+          fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
 
-        # network namespace yggdrasil-alfis
-        fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.yggdrasil-alfis}:${LT.portStr.YggdrasilAlfis}
-        fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.yggdrasil-alfis}]:${LT.portStr.YggdrasilAlfis}
+          # network namespace yggdrasil-alfis
+          fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.yggdrasil-alfis}:${LT.portStr.YggdrasilAlfis}
+          fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.yggdrasil-alfis}]:${LT.portStr.YggdrasilAlfis}
+        ''}
 
         # wg-lantian
         ${lib.optionalString (LT.this.public.IPv4 != "") ''
@@ -84,12 +86,15 @@ let
               "ip6 saddr fc00::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
             ) (lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts)))}
 
-        # give nixos containers access to DN42
-        ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${LT.this.dn42.IPv4}
-        ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
+        ${lib.optionalString (LT.this.role == LT.roles.server) ''
+          # give nixos containers access to DN42
+          ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${LT.this.dn42.IPv4}
+          ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
+        ''}
 
         oifname "eth*" masquerade
         oifname "virbr*" masquerade
+        oifname "wlan*" masquerade
       }
 
       # Helper chains

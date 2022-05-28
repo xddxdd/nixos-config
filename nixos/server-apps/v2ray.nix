@@ -43,7 +43,7 @@ let
       }
       {
         protocol = "freedom";
-        settings.redirect = "${LT.constants.localDNSBindIP}:55";
+        settings.redirect = "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}:55";
         tag = "dns";
       }
       {

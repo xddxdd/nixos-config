@@ -3,6 +3,10 @@
 let
   LT = import ../../helpers { inherit config pkgs lib; };
 
+  corednsClientNetns = LT.netns {
+    name = "coredns-client";
+  };
+
   backupDNSServers = [
     "8.8.8.8"
     "2001:4860:4860::8888"
@@ -19,7 +23,7 @@ let
   ];
 in
 {
-  networking.nameservers = [ LT.constants.localDNSBindIP ] ++ backupDNSServers;
+  networking.nameservers = [ "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}" ] ++ backupDNSServers;
 
   services.coredns = {
     enable = true;
@@ -30,7 +34,6 @@ in
         forwardToNextDNS = zone: ''
           ${zone} {
             any
-            bind ${LT.constants.localDNSBindIP}
             bufsize 1232
             loadbalance round_robin
 
@@ -46,7 +49,6 @@ in
         forwardToLtnet = zone: ''
           ${zone} {
             any
-            bind ${LT.constants.localDNSBindIP}
             bufsize 1232
             loadbalance round_robin
 
@@ -57,7 +59,6 @@ in
         forwardToGoogleDNS = zone: ''
           ${zone} {
             any
-            bind ${LT.constants.localDNSBindIP}
             bufsize 1232
             loadbalance round_robin
 
@@ -68,16 +69,17 @@ in
           }
         '';
 
-        cfgEntriesClient = [ (forwardToNextDNS ".") ]
-          ++ (builtins.map forwardToGoogleDNS bypassedDomains)
-          ++ (builtins.map forwardToLtnet
+        cfgEntries = (
+          if LT.this.role == LT.roles.client
+          then [ (forwardToNextDNS ".") ] ++ (builtins.map forwardToGoogleDNS bypassedDomains)
+          else [ (forwardToGoogleDNS ".") ]
+        ) ++ (builtins.map forwardToLtnet
           (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
-        cfgEntriesServer = [ (forwardToGoogleDNS ".") ]
-          ++ (builtins.map forwardToLtnet
-          (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
-
-        cfgEntries = if LT.this.role == LT.roles.client then cfgEntriesClient else cfgEntriesServer;
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
+  };
+
+  systemd.services = corednsClientNetns.setup // {
+    coredns = corednsClientNetns.bind { };
   };
 }
