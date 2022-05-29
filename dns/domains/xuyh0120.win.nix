@@ -17,7 +17,9 @@ in
     registrar = "doh";
     providers = [ "cloudflare" ];
     records = [
-      (common.apexGeoDNS domain)
+      (dns.ALIAS { name = "${domain}."; target = common.records.GeoDNSTarget; ttl = "10m"; })
+      (dns.CNAME { name = "www.${domain}."; target = "${domain}."; cloudflare = true; })
+
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
