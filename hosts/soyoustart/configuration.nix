@@ -15,7 +15,6 @@ in
     ../../nixos/optional-apps/grasscutter
     ../../nixos/optional-apps/hath.nix
     ../../nixos/optional-apps/nextcloud.nix
-    ../../nixos/optional-apps/nginx-ssltest.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
