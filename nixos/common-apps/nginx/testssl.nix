@@ -1,28 +1,23 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers { inherit config pkgs lib; };
 in
 {
   services.nginx.virtualHosts = {
     "buypass-ssl.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      root = "/var/www/buypass-ssl.lantian.pub";
-      locations."/".index = "index.htm";
+      root = "/nix/persistent/sync-servers/www/buypass-ssl.lantian.pub";
+      locations."/".index = "testssl.htm";
       extraConfig = LT.nginx.makeSSL "buypass-ssl.lantian.pub_ecc"
         + LT.nginx.commonVhostConf true;
     };
     "zerossl.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      root = "/var/www/zerossl.lantian.pub";
-      locations."/".index = "index.htm";
+      root = "/nix/persistent/sync-servers/www/zerossl.lantian.pub";
+      locations."/".index = "testssl.htm";
       extraConfig = LT.nginx.makeSSL "zerossl.lantian.pub_ecc"
         + LT.nginx.commonVhostConf true;
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d /var/www/buypass-ssl.lantian.pub 755 root root"
-    "d /var/www/zerossl.lantian.pub 755 root root"
-  ];
 }
