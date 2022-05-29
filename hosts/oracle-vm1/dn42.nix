@@ -1,6 +1,9 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
+  age.secrets.dn42-pingfinder-uuid.file = pkgs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
+  services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
+
   services.dn42 = {
     baiyu = {
       remoteASN = 4242421901;
