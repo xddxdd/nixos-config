@@ -53,7 +53,7 @@ let
     (CNAME { name = "asf"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "books"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "bitwarden"; target = "virmach-ny6g"; ttl = "1h"; })
-    (CNAME { name = "buypass-ssl"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "buypass-ssl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
     (CNAME { name = "ci"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "ci-github"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "cloud"; target = "soyoustart"; cloudflare = true; })
@@ -69,7 +69,7 @@ let
     (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
-    (CNAME { name = "zerossl"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "zerossl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
 
     (serveWithOwnNS "asn")
 
@@ -91,7 +91,9 @@ in
     registrar = "doh";
     providers = [ "cloudflare" ];
     records = [
-      (common.apexGeoDNS domain)
+      (dns.ALIAS { name = "${domain}."; target = common.records.GeoDNSTarget; ttl = "10m"; })
+      (dns.CNAME { name = "www.${domain}."; target = "${domain}."; cloudflare = true; })
+
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)

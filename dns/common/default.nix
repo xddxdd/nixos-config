@@ -16,8 +16,4 @@ rec {
       addresses = mainServer.public;
       ttl = "10m";
     };
-  apexGeoDNS = domain: [
-    (dns.ALIAS { name = "${domain}."; target = records.GeoDNSTarget; ttl = "10m"; })
-    (dns.CNAME { name = "www.${domain}."; target = "${domain}."; cloudflare = true; })
-  ];
 }
