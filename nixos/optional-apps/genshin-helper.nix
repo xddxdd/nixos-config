@@ -4,8 +4,8 @@
   age.secrets.genshin-impact-cookies.file = pkgs.secrets + "/genshin-impact-cookies.age";
 
   systemd.services.genshin-helper = {
-    serviceConfig.Type = "oneshot";
     serviceConfig = {
+      Type = "oneshot";
       ExecStart = "${pkgs.genshin-checkin-helper}/bin/genshin-checkin-helper-once";
       EnvironmentFile = config.age.secrets.genshin-impact-cookies.path;
       TimeoutSec = 900;
