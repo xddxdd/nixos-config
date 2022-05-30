@@ -89,19 +89,19 @@ in
 
       map $http_user_agent $untrusted_user_agent {
         default           0;
-        ~*profound        1;
-        ~*scrapyproject   1;
-        ~*netcrawler      1;
-        ~*nmap            1;
-        ~*sqlmap          1;
-        ~*slowhttptest    1;
-        ~*nikto           1;
-        ~*jersey          1;
         ~*brandwatch      1;
+        ~*jersey          1;
         ~*magpie-crawler  1;
         ~*mechanize       1;
+        ~*netcrawler      1;
+        ~*nikto           1;
+        ~*nmap            1;
+        ~*profound        1;
         ~*python-requests 1;
         ~*redback         1;
+        ~*scrapyproject   1;
+        ~*slowhttptest    1;
+        ~*sqlmap          1;
       }
 
       port_in_redirect off;

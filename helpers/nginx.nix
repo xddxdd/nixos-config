@@ -119,57 +119,59 @@ rec {
         Disallow: /
       '';
     in
-    lib.recursiveUpdate {
-      "/generate_204".extraConfig = ''
-        access_log off;
-        return 204;
-      '';
-
-      "/autoindex.html".extraConfig = ''
-        internal;
-        root ${../nixos/common-apps/nginx/files/autoindex};
-      '';
-
-      "/status".extraConfig = ''
-        access_log off;
-        stub_status on;
-      '';
-
-      "/ray" = {
-        proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
-        proxyWebsockets = true;
-        extraConfig = ''
+    lib.recursiveUpdate
+      ({
+        "/generate_204".extraConfig = ''
           access_log off;
-          keepalive_timeout 1d;
-        '' + locationProxyConf;
-      };
+          return 204;
+        '';
 
-      "/oauth2/" = {
-        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-        extraConfig = ''
-          proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-        '' + locationProxyConf;
-      };
+        "/autoindex.html".extraConfig = ''
+          internal;
+          root ${../nixos/common-apps/nginx/files/autoindex};
+        '';
 
-      "/oauth2/auth" = {
-        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-        extraConfig = ''
-          proxy_set_header Content-Length "";
-          proxy_pass_request_body off;
-        '' + locationProxyConf;
-      };
+        "/status".extraConfig = ''
+          access_log off;
+          stub_status on;
+        '';
 
-      "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+        "/ray" = {
+          proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            access_log off;
+            keepalive_timeout 1d;
+          '' + locationProxyConf;
+        };
 
-      "~ ^/\\.(?!well-known).*".extraConfig = ''
-        access_log off;
-        return 403;
-      '';
+        "/oauth2/" = {
+          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          extraConfig = ''
+            proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+          '' + locationProxyConf;
+        };
 
-      "= /robots.txt".extraConfig = lib.optionalString noindex ''
-        alias ${robotsTxt};
-      '';
-    };
+        "/oauth2/auth" = {
+          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          extraConfig = ''
+            proxy_set_header Content-Length "";
+            proxy_pass_request_body off;
+          '' + locationProxyConf;
+        };
+
+        "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+
+        "~ ^/\\.(?!well-known).*".extraConfig = ''
+          access_log off;
+          return 403;
+        '';
+      }
+      // (if noindex then {
+        "= /robots.txt".extraConfig = ''
+          alias ${robotsTxt};
+        '';
+      } else { }));
 
   locationAutoindexConf = ''
     autoindex on;
