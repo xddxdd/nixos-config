@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
 
   glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
 
@@ -10,7 +10,7 @@ let
   };
 in
 {
-  imports = [ ./postgresql.nix ];
+  imports = [ ../postgresql.nix ];
 
   age.secrets.plausible-release-cookie = {
     file = pkgs.secrets + "/plausible-release-cookie.age";
@@ -24,6 +24,11 @@ in
   };
 
   services.clickhouse.enable = true;
+  environment.etc = {
+    # With changes from https://theorangeone.net/posts/calming-down-clickhouse/
+    "clickhouse-server/config.d/custom.xml".source = lib.mkForce ./custom-config.xml;
+    "clickhouse-server/users.d/custom.xml".source = lib.mkForce ./custom-users.xml;
+  };
 
   services.plausible = {
     enable = true;
@@ -66,7 +71,11 @@ in
   };
 
   systemd.services = netns.setup // {
-    clickhouse = netns.bind { };
+    clickhouse = netns.bind {
+      serviceConfig = {
+        ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+      };
+    };
     plausible = netns.bind {
       after = [ "postgresql.service" ];
       requires = [ "postgresql.service" ];
