@@ -4,6 +4,66 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
 
   luaPackage = pkgs.callPackage ./lua { };
+
+  opensslConfig = pkgs.writeText "openssl.conf" ''
+    openssl_conf = openssl_init
+
+    [openssl_init]
+    providers = provider_sect
+
+    [provider_sect]
+    oqsprovider = oqsprovider_sect
+    default = default_sect
+    # fips = fips_sect
+
+    [default_sect]
+    activate = 1
+
+    #[fips_sect]
+    #activate = 1
+
+    [oqsprovider_sect]
+    activate = 1
+    module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
+  '';
+
+  nginxSslConf = isStream:
+    let
+      ciphers = [
+        "ECDHE-ECDSA-AES256-GCM-SHA384"
+        "ECDHE-RSA-AES256-GCM-SHA384"
+        "ECDHE-ECDSA-CHACHA20-POLY1305"
+        "ECDHE-RSA-CHACHA20-POLY1305"
+        "ECDHE-ECDSA-AES128-GCM-SHA256"
+        "ECDHE-RSA-AES128-GCM-SHA256"
+        "DHE-RSA-AES256-GCM-SHA384"
+        "DHE-RSA-AES128-GCM-SHA256"
+      ];
+      curves = [
+        "p256_sidhp434"
+        "p256_sikep434"
+        "p256_frodo640aes"
+        "p256_bikel1"
+        "p256_kyber90s512"
+        "p256_ntru_hps2048509"
+        "p256_lightsaber"
+        "prime256v1"
+        "secp384r1"
+        "secp521r1"
+      ];
+    in
+    ''
+      ssl_ciphers ${builtins.concatStringsSep ":" ciphers};
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
+      ssl_session_tickets on;
+      ssl_prefer_server_ciphers on;
+      ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
+      ssl_conf_command Options KTLS;
+    '' + lib.optionalString (!isStream) ''
+      ssl_early_data on;
+      ssl_dyn_rec_enable on;
+    '';
 in
 {
   services.nginx = rec {
@@ -58,7 +118,7 @@ in
       zstd_buffers 16 8k;
       zstd_static off;
 
-      ${LT.nginx.sslConf false}
+      ${nginxSslConf false}
 
       proxy_buffer_size       128k;
       proxy_buffers           4 256k;
@@ -119,15 +179,20 @@ in
       server_traffic_status_zone;
 
       ssl_protocols ${sslProtocols};
-      ${LT.nginx.sslConf true}
+      ${nginxSslConf true}
 
       lua_package_path '${luaPackage}/?.lua;;';
     '';
   };
 
-  systemd.services.nginx.serviceConfig = {
-    # Workaround Lua crash
-    MemoryDenyWriteExecute = lib.mkForce false;
-    SystemCallFilter = lib.mkForce [ ];
+  systemd.services.nginx = {
+    environment = {
+      OPENSSL_CONF = builtins.toString opensslConfig;
+    };
+    serviceConfig = {
+      # Workaround Lua crash
+      MemoryDenyWriteExecute = lib.mkForce false;
+      SystemCallFilter = lib.mkForce [ ];
+    };
   };
 }
