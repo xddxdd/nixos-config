@@ -29,7 +29,7 @@ let
 
   nginxSslConf = isStream:
     let
-      ciphers = [
+      ciphersForTLS1_2 = [
         "ECDHE-ECDSA-AES256-GCM-SHA384"
         "ECDHE-RSA-AES256-GCM-SHA384"
         "ECDHE-ECDSA-CHACHA20-POLY1305"
@@ -37,7 +37,13 @@ let
         "ECDHE-ECDSA-AES128-GCM-SHA256"
         "ECDHE-RSA-AES128-GCM-SHA256"
         "DHE-RSA-AES256-GCM-SHA384"
+        "DHE-RSA-CHACHA20-POLY1305"
         "DHE-RSA-AES128-GCM-SHA256"
+      ];
+      ciphersForTLS1_3 = [
+        "TLS_AES_256_GCM_SHA384"
+        "TLS_CHACHA20_POLY1305_SHA256"
+        "TLS_AES_128_GCM_SHA256"
       ];
       curves = [
         "p256_sidhp434"
@@ -53,13 +59,15 @@ let
       ];
     in
     ''
-      ssl_ciphers ${builtins.concatStringsSep ":" ciphers};
+      ssl_ciphers ${builtins.concatStringsSep ":" ciphersForTLS1_2};
       ssl_session_timeout 1d;
       ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
       ssl_session_tickets on;
       ssl_prefer_server_ciphers on;
       ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
+      ssl_conf_command Ciphersuites ${builtins.concatStringsSep ":" ciphersForTLS1_3};
       ssl_conf_command Options KTLS;
+      ssl_conf_command Options PrioritizeChaCha;
     '' + lib.optionalString (!isStream) ''
       ssl_early_data on;
       ssl_dyn_rec_enable on;
