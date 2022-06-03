@@ -103,6 +103,10 @@ in
       access_log syslog:server=unix:/dev/log,nohostname main;
       more_set_headers "Server: lantian";
 
+      aio threads;
+      directio 1m;
+      # sendfile on; # defined by recommendedOptimisation
+
       gzip on;
       gzip_disable "msie6";
       gzip_vary on;
