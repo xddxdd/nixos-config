@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [ ./mysql.nix ];
@@ -54,6 +54,6 @@ in
   services.nginx.virtualHosts."cloud.xuyh0120.win" = {
     listen = lib.mkForce LT.nginx.listenHTTPS;
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex false;
   };
 }

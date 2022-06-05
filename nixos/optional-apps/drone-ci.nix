@@ -138,25 +138,27 @@ in
   services.nginx.virtualHosts = {
     "ci.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
           proxyPass = "http://${droneNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
     };
     "ci-github.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
           proxyPass = "http://${droneGitHubNetns.ipv4}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
     };
   };
 }

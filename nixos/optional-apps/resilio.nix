@@ -31,7 +31,7 @@ in
   services.nginx.virtualHosts = {
     "resilio-${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/".extraConfig = LT.nginx.locationOauthConf + ''
           proxy_pass http://[::1]:${LT.portStr.ResilioSync};
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";
@@ -39,18 +39,18 @@ in
       };
       extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex;
+        + LT.nginx.noIndex true;
     };
     "resilio.localhost" = {
       listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/".extraConfig = ''
           proxy_pass http://[::1]:${LT.portStr.ResilioSync};
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";
         '' + LT.nginx.locationProxyConf;
       };
       extraConfig = LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex;
+        + LT.nginx.noIndex true;
     };
   };
 }

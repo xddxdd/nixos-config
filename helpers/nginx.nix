@@ -105,22 +105,24 @@ rec {
     add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
   '';
 
-  noIndex = ''
-    add_header X-Robots-Tag 'noindex, nofollow';
-  '';
-
-  addCommonLocationConf =
-    { phpfpmSocket ? null
-    , noindex ? false
-    }:
+  noIndex = enableRobotsTxtRule:
     let
       robotsTxt = pkgs.writeText "robots.txt" ''
         User-agent: *
         Disallow: /
       '';
     in
+    ''
+      add_header X-Robots-Tag 'noindex, nofollow';
+    '' + (lib.optionalString enableRobotsTxtRule ''
+      location = /robots.txt {
+        alias ${robotsTxt};
+      }
+    '');
+
+  addCommonLocationConf = { phpfpmSocket ? null }:
     lib.recursiveUpdate
-      ({
+      {
         "/generate_204".extraConfig = ''
           access_log off;
           return 204;
@@ -166,12 +168,7 @@ rec {
           access_log off;
           return 403;
         '';
-      }
-      // (if noindex then {
-        "= /robots.txt".extraConfig = ''
-          alias ${robotsTxt};
-        '';
-      } else { }));
+      };
 
   locationAutoindexConf = ''
     autoindex on;
@@ -180,8 +177,8 @@ rec {
 
   locationBlockUserAgentConf = ''
     if ($untrusted_user_agent) {
-      access_log off;
-      return 403;
+    access_log off;
+    return 403;
     }
   '';
 
@@ -217,7 +214,7 @@ rec {
   '';
 
   locationPHPConf = phpfpmSocket: lib.optionalString (phpfpmSocket != null) ''
-    try_files $fastcgi_script_name =404;
+    try_files $fastcgi_script_name = 404;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     fastcgi_pass unix:${phpfpmSocket};
     fastcgi_index index.php;
@@ -231,7 +228,7 @@ rec {
     gzip off;
     brotli off;
     zstd off;
-    try_files $fastcgi_script_name =404;
+    try_files $fastcgi_script_name = 404;
     fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
     fastcgi_index index.sh;
     ${fastcgiParams}

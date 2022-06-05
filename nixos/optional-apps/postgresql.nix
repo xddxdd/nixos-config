@@ -48,15 +48,12 @@ in
     listen = LT.nginx.listenHTTPS;
     root = "${pkgs.phppgadmin}";
     locations = LT.nginx.addCommonLocationConf
-      {
-        noindex = true;
-        phpfpmSocket = config.services.phpfpm.pools.pga.socket;
-      }
+      { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
       {
         "/".index = "index.php";
       };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 }
