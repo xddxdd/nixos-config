@@ -35,8 +35,6 @@ let
     (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
 
-    (CNAME { name = "feeds"; target = "virmach-ny6g"; ttl = "1h"; })
-
     # Services with independent instances on numerous nodes
     (lib.mapAttrsToList
       (n: v: [

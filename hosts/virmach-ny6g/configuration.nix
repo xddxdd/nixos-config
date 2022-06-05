@@ -16,7 +16,6 @@ in
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/konnect
     ../../nixos/optional-apps/matrix-synapse.nix
-    ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/nginx-lab.nix
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/prometheus.nix
