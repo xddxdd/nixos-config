@@ -1,11 +1,11 @@
 {
-  "issuer": "https://login.lantian.pub",
-  "authorization_endpoint": "https://login.lantian.pub/signin/v1/identifier/_/authorize",
-  "token_endpoint": "https://login.lantian.pub/konnect/v1/token",
-  "userinfo_endpoint": "https://login.lantian.pub/konnect/v1/userinfo",
-  "end_session_endpoint": "https://login.lantian.pub/signin/v1/identifier/_/endsession",
-  "check_session_iframe": "https://login.lantian.pub/konnect/v1/session/check-session.html",
-  "jwks_uri": "https://login.lantian.pub/konnect/v1/jwks.json",
+  "issuer": "https://login.xuyh0120.win",
+  "authorization_endpoint": "https://login.xuyh0120.win/signin/v1/identifier/_/authorize",
+  "token_endpoint": "https://login.xuyh0120.win/konnect/v1/token",
+  "userinfo_endpoint": "https://login.xuyh0120.win/konnect/v1/userinfo",
+  "end_session_endpoint": "https://login.xuyh0120.win/signin/v1/identifier/_/endsession",
+  "check_session_iframe": "https://login.xuyh0120.win/konnect/v1/session/check-session.html",
+  "jwks_uri": "https://login.xuyh0120.win/konnect/v1/jwks.json",
   "scopes_supported": [
     "openid",
     "offline_access",

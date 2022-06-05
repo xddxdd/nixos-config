@@ -21,7 +21,7 @@ in
       defaultPhoneRegion = "CN";
       overwriteProtocol = "https";
     };
-    hostName = "cloud.lantian.pub";
+    hostName = "cloud.xuyh0120.win";
     https = true;
     webfinger = true;
     occ = true;
@@ -51,9 +51,9 @@ in
     ];
   };
 
-  services.nginx.virtualHosts."cloud.lantian.pub" = {
+  services.nginx.virtualHosts."cloud.xuyh0120.win" = {
     listen = lib.mkForce LT.nginx.listenHTTPS;
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.noIndex;
   };
 }

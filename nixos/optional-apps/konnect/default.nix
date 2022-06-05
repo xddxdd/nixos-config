@@ -31,8 +31,8 @@ let
         name = "Grafana";
         application_type = "web";
         trusted = true;
-        redirect_uris = [ "https://dashboard.lantian.pub/login/generic_oauth" ];
-        origins = [ "https://dashboard.lantian.pub" ];
+        redirect_uris = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
+        origins = [ "https://dashboard.xuyh0120.win" ];
       })
       ({
         id = "nextcloud";
@@ -40,8 +40,8 @@ let
         name = "Nextcloud";
         application_type = "web";
         trusted = true;
-        redirect_uris = [ "https://cloud.lantian.pub/apps/sociallogin/custom_oidc/konnect" ];
-        origins = [ "https://cloud.lantian.pub" ];
+        redirect_uris = [ "https://cloud.xuyh0120.win/apps/sociallogin/custom_oidc/konnect" ];
+        origins = [ "https://cloud.xuyh0120.win" ];
       })
       ({
         id = "oauth-proxy";
@@ -94,14 +94,14 @@ in
 
       exec ${pkgs.konnect}/bin/konnectd serve \
         --listen=127.0.0.1:${LT.portStr.Konnect} \
-        --iss=https://login.lantian.pub \
+        --iss=https://login.xuyh0120.win \
         --identifier-client-path=${identifierWebapp} \
         --identifier-registration-conf=/run/konnect-identifier-registration.yaml \
         ldap
     '';
   };
 
-  services.nginx.virtualHosts."login.lantian.pub" = {
+  services.nginx.virtualHosts."login.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "/" = {
@@ -109,7 +109,7 @@ in
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

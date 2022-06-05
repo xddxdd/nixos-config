@@ -10,7 +10,7 @@ in
     enable = true;
     config = {
       SIGNUPS_ALLOWED = false;
-      DOMAIN = "https://bitwarden.lantian.pub";
+      DOMAIN = "https://bitwarden.xuyh0120.win";
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = LT.port.Vaultwarden.HTTP;
       WEBSOCKET_ENABLED = true;
@@ -29,7 +29,7 @@ in
     environmentFile = config.age.secrets.vaultwarden-env.path;
   };
 
-  services.nginx.virtualHosts."bitwarden.lantian.pub" = {
+  services.nginx.virtualHosts."bitwarden.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "/" = {
@@ -46,7 +46,7 @@ in
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

@@ -45,7 +45,7 @@ in
 
     server = {
       port = LT.port.Plausible;
-      baseUrl = "https://stats.lantian.pub";
+      baseUrl = "https://stats.xuyh0120.win";
       disableRegistration = true;
       secretKeybaseFile = config.age.secrets.plausible-secret.path;
     };
@@ -58,7 +58,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."stats.lantian.pub" = {
+  services.nginx.virtualHosts."stats.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
@@ -66,7 +66,7 @@ in
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true;
   };
 

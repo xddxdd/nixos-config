@@ -28,7 +28,7 @@ in
   };
 
   services.nginx.virtualHosts = {
-    "books.lantian.pub" = {
+    "books.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.calibre-cops}";
       locations = LT.nginx.addCommonLocationConf
@@ -60,7 +60,7 @@ in
             internal;
           '';
         };
-      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
   };
@@ -72,7 +72,7 @@ in
     }
     $config['calibre_directory'] = '${calibreLibrary}/';
     $config['calibre_internal_directory'] = '/calibre/';
-    $config['cops_full_url'] = 'https://books.lantian.pub/';
+    $config['cops_full_url'] = 'https://books.xuyh0120.win/';
     $config['cops_title_default'] = 'Lan Tian @ Books';
     $config['default_timezone'] = '${config.time.timeZone}';
     $config['cops_x_accel_redirect'] = "X-Accel-Redirect";

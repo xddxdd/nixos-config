@@ -20,14 +20,14 @@ in
   };
 
   services.nginx.virtualHosts = {
-    "books.lantian.pub" = {
+    "books.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/".extraConfig = LT.nginx.locationBasicAuthConf + ''
           proxy_pass http://127.0.0.1:${LT.portStr.CalibreWeb};
         '' + LT.nginx.locationProxyConfHideIP;
       };
-      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
   };
