@@ -64,7 +64,7 @@ in
 
   services.nginx.virtualHosts."login.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+    locations = LT.nginx.addCommonLocationConf { } {
       "= /".return = "302 /auth/admin/";
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
@@ -73,6 +73,6 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 }

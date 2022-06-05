@@ -19,7 +19,7 @@ in
 
   services.nginx.virtualHosts."asf.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+    locations = LT.nginx.addCommonLocationConf { } {
       "/".extraConfig = LT.nginx.locationOauthConf + ''
         proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
       '' + LT.nginx.locationProxyConf;
@@ -32,6 +32,6 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 }

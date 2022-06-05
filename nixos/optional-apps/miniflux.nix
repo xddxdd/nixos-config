@@ -20,13 +20,14 @@ in
   services.nginx.virtualHosts = {
     "feeds.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/".extraConfig = LT.nginx.locationBasicAuthConf + ''
           proxy_pass http://127.0.0.1:${LT.portStr.Miniflux};
         '' + LT.nginx.locationProxyConf;
       };
       extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true;
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
     };
   };
 

@@ -66,30 +66,24 @@ in
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phpmyadmin}";
       locations = LT.nginx.addCommonLocationConf
-        {
-          noindex = true;
-          phpfpmSocket = config.services.phpfpm.pools.pma.socket;
-        }
+        { phpfpmSocket = config.services.phpfpm.pools.pma.socket; }
         {
           "/".index = "index.php";
         };
       extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex;
+        + LT.nginx.noIndex true;
     };
     "pma.localhost" = {
       listen = LT.nginx.listenHTTP;
       root = "${pkgs.phpmyadmin}";
       locations = LT.nginx.addCommonLocationConf
-        {
-          noindex = true;
-          phpfpmSocket = config.services.phpfpm.pools.pma.socket;
-        }
+        { phpfpmSocket = config.services.phpfpm.pools.pma.socket; }
         {
           "/".index = "index.php";
         };
       extraConfig = LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex;
+        + LT.nginx.noIndex true;
     };
   };
 }

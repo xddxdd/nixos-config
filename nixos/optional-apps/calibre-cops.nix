@@ -32,10 +32,7 @@ in
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.calibre-cops}";
       locations = LT.nginx.addCommonLocationConf
-        {
-          noindex = true;
-          phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket;
-        }
+        { phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket; }
         {
           "/" = {
             index = "index.php";

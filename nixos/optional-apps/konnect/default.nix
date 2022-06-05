@@ -103,7 +103,7 @@ in
 
   services.nginx.virtualHosts."login.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+    locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Konnect}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -111,6 +111,6 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 }

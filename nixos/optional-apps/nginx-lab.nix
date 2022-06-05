@@ -9,10 +9,7 @@ in
     listen = LT.nginx.listenHTTPS;
     root = labRoot;
     locations = LT.nginx.addCommonLocationConf
-      {
-        noindex = true;
-        phpfpmSocket = config.services.phpfpm.pools.lab.socket;
-      }
+      { phpfpmSocket = config.services.phpfpm.pools.lab.socket; }
       {
         "/" = {
           index = "index.php index.html index.htm";
@@ -33,7 +30,7 @@ in
       };
     extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 
   services.phpfpm.pools.lab = {

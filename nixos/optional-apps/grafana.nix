@@ -86,7 +86,7 @@ in
 
   services.nginx.virtualHosts."dashboard.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+    locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
         proxyPass = "http://unix:${config.services.grafana.socket}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -94,6 +94,6 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
   };
 }

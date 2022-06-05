@@ -175,7 +175,7 @@ in
       + LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.listenProxyProtocol
-      + LT.nginx.noIndex;
+      + LT.nginx.noIndex true;
     };
   };
 }

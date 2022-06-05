@@ -50,7 +50,7 @@ in
   services.nginx.virtualHosts = {
     "lg.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
           extraConfig = LT.nginx.locationBlockUserAgentConf
@@ -58,12 +58,13 @@ in
         };
       };
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
     };
     "lg.lantian.dn42" = {
       listen = LT.nginx.listenHTTP;
       serverAliases = [ "lg.lantian.neo" ];
-      locations = LT.nginx.addCommonLocationConf { noindex = true; } {
+      locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
           extraConfig = LT.nginx.locationBlockUserAgentConf
@@ -71,7 +72,8 @@ in
         };
       };
       extraConfig = LT.nginx.makeSSL "lantian.dn42_ecc"
-        + LT.nginx.commonVhostConf true;
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
     };
   };
 }
