@@ -10,6 +10,22 @@ let
     (TXT { name = "@"; contents = "v=DMARC1; p=none"; })
     (TXT { name = "_dmarc"; contents = "v=DMARC1; p=none"; })
   ];
+
+  externalServices = [
+    (TXT { name = "@"; contents = "google-site-verification=dFXi0jyD7Qm4WrRUaC79-XQWAJ4UwcdNSbGNTI9IvLg"; })
+
+    (CNAME { name = "s1._domainkey"; target = "s1.domainkey.u6126456.wl207.sendgrid.net."; })
+    (CNAME { name = "s2._domainkey"; target = "s2.domainkey.u6126456.wl207.sendgrid.net."; })
+    (CNAME { name = "em3816"; target = "u6126456.wl207.sendgrid.net."; })
+    (CNAME { name = "url9203"; target = "sendgrid.net."; })
+    (CNAME { name = "6126456"; target = "sendgrid.net."; })
+  ];
+
+  internalServices = [
+    (CNAME { name = "lab"; target = "lab.lantian.pub."; })
+
+    (CNAME { name = "feeds"; target = "virmach-ny6g"; ttl = "1h"; })
+  ];
 in
 [
   (rec {
@@ -32,16 +48,8 @@ in
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
 
-      (CNAME { name = "lab"; target = "lab.lantian.pub."; })
-      (CNAME { name = "*"; target = "soyoustart.lantian.pub."; })
-
-      (TXT { name = "@"; contents = "google-site-verification=dFXi0jyD7Qm4WrRUaC79-XQWAJ4UwcdNSbGNTI9IvLg"; })
-
-      (CNAME { name = "s1._domainkey"; target = "s1.domainkey.u6126456.wl207.sendgrid.net."; })
-      (CNAME { name = "s2._domainkey"; target = "s2.domainkey.u6126456.wl207.sendgrid.net."; })
-      (CNAME { name = "em3816"; target = "u6126456.wl207.sendgrid.net."; })
-      (CNAME { name = "url9203"; target = "sendgrid.net."; })
-      (CNAME { name = "6126456"; target = "sendgrid.net."; })
+      externalServices
+      internalServices
     ];
   })
 ]
