@@ -34,7 +34,6 @@
   CalibreWeb = 13803;
   Matrix.Synapse = 13808;
   Konnect = 13877;
-  Miniflux = 13880;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;
   NeteaseUnlock = 30001;
