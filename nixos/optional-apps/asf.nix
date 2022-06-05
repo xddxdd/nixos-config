@@ -17,7 +17,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."asf.lantian.pub" = {
+  services.nginx.virtualHosts."asf.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "/".extraConfig = LT.nginx.locationOauthConf + ''
@@ -30,7 +30,7 @@ in
         proxy_set_header Upgrade $http_upgrade;
       '' + LT.nginx.locationProxyConf;
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

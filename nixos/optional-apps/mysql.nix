@@ -62,7 +62,7 @@ in
   };
 
   services.nginx.virtualHosts = {
-    "pma-${config.networking.hostName}.lantian.pub" = {
+    "pma-${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phpmyadmin}";
       locations = LT.nginx.addCommonLocationConf
@@ -73,7 +73,7 @@ in
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex;
     };

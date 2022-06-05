@@ -22,7 +22,7 @@ in
     # sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";
 
     settings = {
-      hostname = "login.lantian.pub";
+      hostname = "login.xuyh0120.win";
       http-enabled = true;
       http-host = "127.0.0.1";
       http-port = LT.port.Keycloak.HTTP;
@@ -62,7 +62,7 @@ in
     ];
   };
 
-  services.nginx.virtualHosts."login.lantian.pub" = {
+  services.nginx.virtualHosts."login.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "= /".return = "302 /auth/admin/";
@@ -71,7 +71,7 @@ in
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

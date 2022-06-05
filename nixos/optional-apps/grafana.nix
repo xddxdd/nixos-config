@@ -20,8 +20,8 @@ in
   services.grafana = {
     enable = true;
     protocol = "socket";
-    domain = "dashboard.lantian.pub";
-    rootUrl = "https://dashboard.lantian.pub/";
+    domain = "dashboard.xuyh0120.win";
+    rootUrl = "https://dashboard.xuyh0120.win/";
     auth.anonymous.enable = true;
 
     database = {
@@ -58,9 +58,9 @@ in
       AUTH_GENERIC_OAUTH_NAME = "Konnect";
       AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP = "true";
       AUTH_GENERIC_OAUTH_SCOPES = "openid profile email";
-      AUTH_GENERIC_OAUTH_AUTH_URL = "https://login.lantian.pub/signin/v1/identifier/_/authorize";
-      AUTH_GENERIC_OAUTH_TOKEN_URL = "https://login.lantian.pub/konnect/v1/token";
-      AUTH_GENERIC_OAUTH_API_URL = "https://login.lantian.pub/konnect/v1/userinfo";
+      AUTH_GENERIC_OAUTH_AUTH_URL = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
+      AUTH_GENERIC_OAUTH_TOKEN_URL = "https://login.xuyh0120.win/konnect/v1/token";
+      AUTH_GENERIC_OAUTH_API_URL = "https://login.xuyh0120.win/konnect/v1/userinfo";
       AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
 
       UNIFIED_ALERTING_ENABLED = "true";
@@ -84,7 +84,7 @@ in
     ];
   };
 
-  services.nginx.virtualHosts."dashboard.lantian.pub" = {
+  services.nginx.virtualHosts."dashboard.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { noindex = true; } {
       "/" = {
@@ -92,7 +92,7 @@ in
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

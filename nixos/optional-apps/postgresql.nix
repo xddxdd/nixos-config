@@ -44,7 +44,7 @@ in
   systemd.tmpfiles.rules = [
     "L+ /etc/phppgadmin/config.inc.php - - - - ${config.age.secrets.phppgadmin-conf.path}"
   ];
-  services.nginx.virtualHosts."pga.lantian.pub" = {
+  services.nginx.virtualHosts."pga.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
     root = "${pkgs.phppgadmin}";
     locations = LT.nginx.addCommonLocationConf
@@ -55,7 +55,7 @@ in
       {
         "/".index = "index.php";
       };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex;
   };

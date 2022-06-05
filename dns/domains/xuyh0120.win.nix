@@ -1,7 +1,9 @@
-{ pkgs, lib, dns, common, ... }:
+{ pkgs, lib, dns, common, hosts, ... }:
 
 with dns;
 let
+  inherit (common.hostRecs) hasPublicIP;
+
   emailCloudflareRouting = [
     (MX { name = "@"; priority = 7; target = "isaac.mx.cloudflare.net."; })
     (MX { name = "@"; priority = 38; target = "linda.mx.cloudflare.net."; })
@@ -22,9 +24,26 @@ let
   ];
 
   internalServices = [
+    (CNAME { name = "asf"; target = "soyoustart"; cloudflare = true; })
+    (CNAME { name = "books"; target = "soyoustart"; cloudflare = true; })
+    (CNAME { name = "bitwarden"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "cloud"; target = "soyoustart"; cloudflare = true; })
+    (CNAME { name = "dashboard"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "lab.lantian.pub."; })
+    (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
 
     (CNAME { name = "feeds"; target = "virmach-ny6g"; ttl = "1h"; })
+
+    # Services with independent instances on numerous nodes
+    (lib.mapAttrsToList
+      (n: v: [
+        (CNAME { name = "pma-${n}"; target = n; cloudflare = hasPublicIP v; })
+        (CNAME { name = "resilio-${n}"; target = n; cloudflare = hasPublicIP v; })
+      ])
+      hosts)
   ];
 in
 [

@@ -33,7 +33,7 @@ in
     "${script}";
 
   services.nginx.virtualHosts = {
-    "vault.lantian.pub" = {
+    "vault.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { noindex = true; } {
         "/" = {
@@ -41,7 +41,7 @@ in
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
   };
