@@ -53,5 +53,20 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    syc = {
+      remoteASN = 4242420458;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20458;
+        remoteAddress = "jp1.dn42.huajitech.net";
+        remotePort = 22547;
+        wireguardPubkey = "lLcWnM8vTogYe4H96zSeKmtz8MBL+g0ajnMcFDsYIk8=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::458";
+      };
+    };
   };
 }
