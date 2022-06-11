@@ -139,7 +139,7 @@ rec {
         '';
 
         "/ray" = {
-          proxyPass = "http://127.0.0.1:${portStr.V2Ray}";
+          proxyPass = "http://unix:/run/v2ray/v2ray.sock";
           proxyWebsockets = true;
           extraConfig = ''
             access_log off;
