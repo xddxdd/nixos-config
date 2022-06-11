@@ -27,7 +27,6 @@
   GopherProxyProtocol = 13270;
   Keycloak.HTTP = 13401;
   Keycloak.HTTPS = 13402;
-  V2Ray = 13504;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;

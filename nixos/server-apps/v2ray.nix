@@ -6,8 +6,8 @@ let
   v2rayConf = {
     dns.servers = [ "https+local://dns.nextdns.io/378897/${config.networking.hostName}" ];
     inbounds = [{
-      listen = "127.0.0.1";
-      port = LT.portStr.V2Ray;
+      listen = "/run/v2ray/v2ray.sock";
+      port = 0;
       protocol = "vless";
       settings = {
         clients = [{
@@ -125,8 +125,8 @@ in
 {
   age.secrets.v2ray-key = {
     file = pkgs.secrets + "/v2ray-key.age";
-    owner = "v2ray";
-    group = "v2ray";
+    owner = "nginx";
+    group = "nginx";
   };
 
   systemd.services.v2ray = {
@@ -134,6 +134,8 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
+      rm -f /run/v2ray/v2ray.sock
+
       ${utils.genJqSecretsReplacementSnippet
         v2rayConf
         "/run/v2ray/config.json"}
@@ -141,15 +143,9 @@ in
       exec ${pkgs.xray}/bin/v2ray -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
-      User = "v2ray";
-      Group = "v2ray";
+      User = "nginx";
+      Group = "nginx";
       RuntimeDirectory = "v2ray";
     };
   };
-
-  users.users.v2ray = {
-    group = "v2ray";
-    isSystemUser = true;
-  };
-  users.groups.v2ray = { };
 }
