@@ -7,7 +7,7 @@ let
 in
 {
   services.phpfpm.pools.calibre-cops = {
-    phpPackage = pkgs.php74.withExtensions ({ enabled, all }: with all; enabled ++ [
+    phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
       gd
       intl
       sqlite3

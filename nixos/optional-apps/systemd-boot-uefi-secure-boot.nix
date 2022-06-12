@@ -12,6 +12,7 @@
         sha256 = "0s24q76cg0gn4m1ik5lls3m7lqkvxlf6p64h3ml21jx5xrhkb7wi";
       };
       "EFI/Boot/loader.efi" = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-bootx64.efi";
+      "EFI/systemd/systemd-bootx64.efi" = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-bootx64.efi";
     };
   };
 }
