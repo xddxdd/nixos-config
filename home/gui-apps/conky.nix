@@ -80,7 +80,7 @@ let
 in
 {
   xdg.configFile = (LT.autostart [
-    ({ name = "conky"; command = "${pkgs.conky}/bin/conky --pause=1"; })
+    ({ name = "conky"; command = "${pkgs.conky}/bin/conky --pause=5"; })
   ]) // {
     "conky/conky.conf".text = ''
       conky.config = {
