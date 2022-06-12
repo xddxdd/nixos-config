@@ -22,7 +22,6 @@ in
     deepspeech-gpu
     deepspeech-wrappers
     (LT.wrapNetns "ns-wg-lantian" deluge)
-    dingtalk
     ffmpeg
     filezilla
     firefox
@@ -41,9 +40,11 @@ in
     megatools
     minecraft
     mpv
+    nix-top
     osdlyrics
     playonlinux
     (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
+    qq
     quasselClient
     tigervnc
     transmission-qt

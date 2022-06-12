@@ -5,9 +5,14 @@
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
 
     colmena = {
       url = "github:zhaofengli/colmena";
+      inputs.flake-compat.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
@@ -18,7 +23,9 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.flake-compat.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
     };
     nix = {
       url = "github:NixOS/nix";
