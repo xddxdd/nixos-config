@@ -532,6 +532,21 @@
     #     peerIPv6LinkLocal = "fe80::1588";
     #   };
     # };
+    tivipax = {
+      remoteASN = 4242422778;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22778;
+        remoteAddress = "v4.lax1.tivipax.tk";
+        remotePort = 22547;
+        wireguardPubkey = "cPtZSwHTMrzsIv88mnnkMHyjItsRQqHJqdGQ/+ix9Bs=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.42.137";
+        peerIPv6LinkLocal = "fe80::2778";
+      };
+    };
     tristan = {
       remoteASN = 4242420585;
       latencyMs = 10;
