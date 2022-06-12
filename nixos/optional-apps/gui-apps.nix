@@ -22,6 +22,7 @@ in
     deepspeech-gpu
     deepspeech-wrappers
     (LT.wrapNetns "ns-wg-lantian" deluge)
+    dingtalk
     ffmpeg
     filezilla
     firefox
@@ -34,6 +35,7 @@ in
     libfaketime
     librewolf
     libsForQt5.ark
+    linphone
     lm_sensors
     (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     mediainfo
