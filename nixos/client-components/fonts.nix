@@ -17,6 +17,7 @@
     fira-code
     fira-code-symbols
     font-awesome
+    hanazono
     hoyo-glyphs
     liberation_ttf
     noto-fonts
@@ -34,6 +35,7 @@
     source-serif
     source-serif-pro
     terminus_font_ttf
+    th-fonts.tshyn
     ubuntu_font_family
     vistafonts
     vistafonts-chs
@@ -42,12 +44,24 @@
     wqy_zenhei
   ];
 
-  fonts.fontconfig = {
-    defaultFonts = {
-      emoji = [ "Blobmoji" ];
-      serif = [ "Noto Serif" "Source Han Serif SC" ];
-      sansSerif = [ "Ubuntu" "Source Han Sans SC" ];
-      monospace = [ "Ubuntu Mono" "Noto Sans Mono CJK SC" ];
+  # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
+  fonts.fontconfig =
+    let
+      fallback = [
+        "HanaMinA"
+        "HanaMinB"
+        "TH-Tshyn-P0"
+        "TH-Tshyn-P1"
+        "TH-Tshyn-P2"
+        "TH-Tshyn-P16"
+      ];
+    in
+    {
+      defaultFonts = {
+        emoji = [ "Blobmoji" ];
+        serif = [ "Noto Serif" "Source Han Serif SC" ] ++ fallback;
+        sansSerif = [ "Ubuntu" "Source Han Sans SC" ] ++ fallback;
+        monospace = [ "Ubuntu Mono" "Noto Sans Mono CJK SC" ] ++ fallback;
+      };
     };
-  };
 }
