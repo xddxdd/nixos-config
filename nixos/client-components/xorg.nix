@@ -50,8 +50,6 @@ in
     # Firefox fixes
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
-    LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl";
 
     # SDL Soundfont
     SDL_SOUNDFONTS = LT.constants.soundfontPath pkgs;
