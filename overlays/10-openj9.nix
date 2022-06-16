@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, ... }:
+{ inputs, lib, ... }:
 
 final: prev: rec {
   jdk8 = prev.openj9-ibm-semeru.jdk-bin-8;

@@ -1,0 +1,16 @@
+diff --git a/pkgs/build-support/writers/default.nix b/pkgs/build-support/writers/default.nix
+index cf9362ca072..15ae8dd3895 100644
+--- a/pkgs/build-support/writers/default.nix
++++ b/pkgs/build-support/writers/default.nix
+@@ -205,11 +205,9 @@ let
+   writeNginxConfig = name: text: pkgs.runCommandLocal name {
+     inherit text;
+     passAsFile = [ "text" ];
+-    nativeBuildInputs = [ gixy ];
+   } /* sh */ ''
+     # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
+     awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
+-    gixy $out
+   '';
+ 
+   # writePerl takes a name an attributeset with libraries and some perl sourcecode and

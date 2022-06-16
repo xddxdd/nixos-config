@@ -62,16 +62,26 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, flake-utils, ... }@inputs:
     let
-      lib = nixpkgs.lib;
-      LT = import ./helpers { inherit lib; };
+      ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
+      nixpkgs = (inputs.flake-utils-plus.lib.mkFlake {
+        inherit self inputs;
+        channels.nixpkgs = {
+          input = inputs.nixpkgs;
+          patches = ls ./patches/nixpkgs;
+          overlaysBuilder = channels: [
+            inputs.colmena.overlay
+            inputs.nix-alien.overlay
+            inputs.nixos-cn.overlay
+            inputs.nur-xddxdd.overlay
+          ] ++ (import ./overlays { inherit inputs lib; });
+        };
+        outputsBuilder = channels: channels;
+      }).nixpkgs;
 
-      overlays = [
-        inputs.colmena.overlay
-        inputs.nix-alien.overlay
-        inputs.nur-xddxdd.overlay
-      ] ++ (import ./overlays { inherit inputs nixpkgs; });
+      lib = nixpkgs."x86_64-linux".lib;
+      LT = import ./helpers { inherit lib; };
 
       modulesFor = n:
         let
@@ -82,7 +92,6 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             networking.hostName = n;
-            nixpkgs = { inherit system overlays; };
             system.stateVersion = LT.constants.stateVersion;
           })
           inputs.agenix.nixosModules.age
@@ -90,7 +99,6 @@
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
-          inputs.nixos-cn.nixosModules.nixos-cn
           (./hosts + "/${n}/configuration.nix")
         ] ++ lib.optionals (role == LT.roles.client) [
           inputs.nur-xddxdd.nixosModules.svpWithNvidia
@@ -113,7 +121,6 @@
               inherit system;
               inherit (LT.constants) stateVersion;
               configuration = { config, pkgs, lib, ... }: {
-                nixpkgs.overlays = overlays;
                 home.stateVersion = LT.constants.stateVersion;
                 imports = [ home/non-nixos.nix ];
               };
@@ -131,14 +138,14 @@
           };
 
         nixosCD = import ./nixos/nixos-cd.nix {
-          inherit inputs overlays system;
+          inherit inputs system;
           inherit (LT.constants) stateVersion;
         };
       });
 
       colmena = {
         meta.nixpkgs = { inherit lib; };
-        meta.nodeNixpkgs = lib.mapAttrs (n: v: import nixpkgs { inherit (v) system; }) LT.nixosHosts;
+        meta.nodeNixpkgs = lib.mapAttrs (n: { system, ... }: nixpkgs."${system}") LT.nixosHosts;
         meta.machinesFile = ./machines;
       } // (lib.mapAttrs
         (n: { hostname, sshPort, role, ... }: {
@@ -155,7 +162,7 @@
 
       apps = eachSystem (system:
         let
-          pkgs = import nixpkgs { inherit overlays system; };
+          pkgs = nixpkgs."${system}";
           dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; inherit (LT) hosts; });
         in
         {

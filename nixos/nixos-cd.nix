@@ -1,7 +1,6 @@
 { inputs
 , system
 , stateVersion
-, overlays
 , ...
 }:
 
@@ -20,7 +19,6 @@ in
       boot.initrd.includeDefaultModules = lib.mkForce true;
       boot.kernelPackages = lib.mkForce pkgs.zfs.latestCompatibleLinuxPackages;
       boot.loader.grub.enable = lib.mkForce false;
-      nixpkgs.overlays = overlays;
 
       isoImage.isoName = lib.mkForce "nixos-lantian.iso";
       networking.useDHCP = lib.mkForce true;
