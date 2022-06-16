@@ -40,6 +40,9 @@
 
       # Other optimizations
       "kernel.nmi_watchdog" = 0;
+
+      # https://askubuntu.com/a/402940/1038244
+      "vm.oom_kill_allocating_task" = 1;
     };
   };
 }
