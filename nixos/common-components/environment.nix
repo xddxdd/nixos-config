@@ -1,5 +1,8 @@
 { config, pkgs, lib, modules, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
 {
   age.secrets.default-pw = {
     file = pkgs.secrets + "/default-pw.age";
@@ -92,6 +95,15 @@
   services.ananicy = {
     enable = true;
     package = pkgs.ananicy-cpp;
+  };
+
+  services.earlyoom = {
+    enable = true;
+    enableNotifications = LT.this.role == LT.roles.client;
+    freeMemThreshold = 3;
+    freeMemKillThreshold = 2;
+    freeSwapThreshold = 3;
+    freeSwapKillThreshold = 2;
   };
 
   services.irqbalance.enable = true;
