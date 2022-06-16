@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, ... }:
+{ inputs, lib, ... }:
 
 final: prev: rec {
   flake = inputs;

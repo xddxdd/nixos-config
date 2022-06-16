@@ -9,6 +9,7 @@ This repository holds the configuration files for all my VPS nodes.
 - Secret management with [agenix](https://github.com/ryantm/agenix)
 - [QEMU user mode emulation for most architectures](nixos/common-components/qemu-user-static.nix)
 - [Using Nix Flakes](flake.nix)
+- [Nixpkgs patching](flake.nix)
 
 ## Host Types
 
