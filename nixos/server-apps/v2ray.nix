@@ -51,7 +51,7 @@ let
         settings.servers = [{
           address = "music.desperadoj.com";
           method = "aes-128-gcm";
-          password = "desperadoj.com_free_proxy_d39m";
+          password = "desperadoj.com_free_proxy_etg0";
           port = 30001;
         }];
         tag = "music";
