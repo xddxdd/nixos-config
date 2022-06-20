@@ -16,8 +16,10 @@ in
     aria
     android-tools
     audacious
+    baidupcs-go
     bilibili
     calibre
+    cloudpan189-go
     colmena
     deepspeech-gpu
     deepspeech-wrappers
@@ -58,6 +60,7 @@ in
     winetricks
     wordle
     wpsoffice
+    yuzu
     zoom-us
   ];
 
