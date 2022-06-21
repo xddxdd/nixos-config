@@ -11,6 +11,16 @@ let
     "8.8.8.8"
     "2001:4860:4860::8888"
   ];
+
+  bypassedDomains = [
+    "cachix.org"
+    "hath.network"
+    "humio.com"
+    "lantian.pub"
+    "nixos.org"
+    "resilio.com"
+    "syncthing.net"
+  ];
 in
 {
   networking.nameservers = [ "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}" ] ++ backupDNSServers;
@@ -46,9 +56,24 @@ in
             cache
           }
         '';
+        forwardToGoogleDNS = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
 
-        cfgEntries = [ (forwardToNextDNS ".") ]
-          ++ (builtins.map forwardToLtnet
+            forward . 8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844 {
+              tls_servername dns.google
+            }
+            cache
+          }
+        '';
+
+        cfgEntries = (
+          if LT.this.role == LT.roles.client
+          then [ (forwardToNextDNS ".") ] ++ (builtins.map forwardToGoogleDNS bypassedDomains)
+          else [ (forwardToGoogleDNS ".") ]
+        ) ++ (builtins.map forwardToLtnet
           (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
