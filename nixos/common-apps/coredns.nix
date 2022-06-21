@@ -69,11 +69,9 @@ in
           }
         '';
 
-        cfgEntries = (
-          if LT.this.role == LT.roles.client
-          then [ (forwardToNextDNS ".") ] ++ (builtins.map forwardToGoogleDNS bypassedDomains)
-          else [ (forwardToGoogleDNS ".") ]
-        ) ++ (builtins.map forwardToLtnet
+        cfgEntries = [ (forwardToNextDNS ".") ]
+          ++ (builtins.map forwardToGoogleDNS bypassedDomains)
+          ++ (builtins.map forwardToLtnet
           (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
