@@ -335,5 +335,20 @@
         peerIPv6LinkLocal = "fe80::1113";
       };
     };
+    ytc233 = {
+      remoteASN = 4242423054;
+      latencyMs = 62;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23054;
+        remoteAddress = "lv.moeclub.top";
+        remotePort = 22547;
+        wireguardPubkey = "DVt4r1oluoeX+nwevQ5FldlHQ4l3JVj1lfyHEQGUBm8=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.246.65";
+        peerIPv6LinkLocal = "fe80::3054";
+      };
+    };
   };
 }
