@@ -2,6 +2,7 @@
 
 {
   boot.kernelParams = [
+    "ibt=off"
     "nofb"
     "nomodeset"
     "vga=normal"
