@@ -26,10 +26,10 @@ in
     ];
   };
 
-  services.openiscsi = {
-    enable = true;
-    name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
-  };
+  # services.openiscsi = {
+  #   enable = true;
+  #   name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
+  # };
 
   services.yggdrasil.config.Peers = LT.yggdrasil [ "india" "japan" "south-korea" ];
 }

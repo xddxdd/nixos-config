@@ -13,8 +13,11 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    aria
+    (LT.wrapNetns "ns-wg-lantian" deluge)
+    (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
+    (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     android-tools
+    aria
     audacious
     baidupcs-go
     bilibili
@@ -23,11 +26,11 @@ in
     colmena
     deepspeech-gpu
     deepspeech-wrappers
-    (LT.wrapNetns "ns-wg-lantian" deluge)
     dingtalk
     ffmpeg
     filezilla
     firefox
+    flake.agenix.packages."${system}".agenix
     gimp-with-plugins
     gnome.gedit
     google-chrome
@@ -39,25 +42,27 @@ in
     libsForQt5.ark
     linphone
     lm_sensors
-    (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     mediainfo
     megatools
     minecraft
     mpv
     nix-top
+    nix-tree
+    nodePackages.node2nix
+    nvfetcher
     osdlyrics
     playonlinux
-    (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
     qq
     quasselClient
+    rnix-lsp
     tigervnc
     transmission-qt
     transmission-remote-gtk
     virt-manager
     vscode
     wechat-uos
-    wineWowPackages.stable
     winetricks
+    wineWowPackages.stable
     wordle
     wpsoffice
     yuzu
