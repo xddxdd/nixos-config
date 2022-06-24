@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  hashedPassword = import (pkgs.secrets + "/unix-hashed-pw.nix");
+  unixHashedPassword = import (pkgs.secrets + "/unix-hashed-pw.nix");
   sshKeys = import (pkgs.secrets + "/ssh/lantian.nix");
 in
 {
@@ -9,11 +9,13 @@ in
   users.mutableUsers = false;
   users.users = {
     root = {
-      inherit hashedPassword;
+      initialHashedPassword = unixHashedPassword;
+      hashedPassword = unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
     };
     lantian = {
-      inherit hashedPassword;
+      initialHashedPassword = unixHashedPassword;
+      hashedPassword = unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
