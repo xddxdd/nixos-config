@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  hashedPassword = import (pkgs.secrets + "/config/unix-hashed-pw.nix");
+  hashedPassword = import (pkgs.secrets + "/unix-hashed-pw.nix");
   sshKeys = import (pkgs.secrets + "/ssh/lantian.nix");
 in
 {

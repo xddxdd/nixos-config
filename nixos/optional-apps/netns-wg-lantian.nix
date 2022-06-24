@@ -8,7 +8,7 @@ let
     setupDefaultRoute = false;
   };
 
-  wg-pubkey = import (pkgs.secrets + "/config/wg-pubkey.nix");
+  wg-pubkey = import (pkgs.secrets + "/wg-pubkey.nix");
 in
 {
   age.secrets.wg-priv.file = pkgs.secrets + "/wg-priv/${config.networking.hostName}.age";
