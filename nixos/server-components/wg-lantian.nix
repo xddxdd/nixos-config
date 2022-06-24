@@ -3,7 +3,7 @@
 let
   LT = import ../../helpers { inherit config pkgs lib; };
 
-  wg-pubkey = import (pkgs.secrets + "/config/wg-pubkey.nix");
+  wg-pubkey = import (pkgs.secrets + "/wg-pubkey.nix");
 in
 {
   networking.wireguard.interfaces.wg-lantian = {
