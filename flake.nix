@@ -68,6 +68,10 @@
       nixpkgs = (inputs.flake-utils-plus.lib.mkFlake {
         inherit self inputs;
         channels.nixpkgs = {
+          config = {
+            allowUnfree = true;
+            # contentAddressedByDefault = true;
+          };
           input = inputs.nixpkgs;
           patches = ls ./patches/nixpkgs;
           overlaysBuilder = channels: [
