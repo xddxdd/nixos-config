@@ -1,6 +1,7 @@
 { inputs, lib, ... }:
 
 final: prev: rec {
+  # linux-pam = prev.linux-pam.override { withLibxcrypt = true; };
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
     bz2
