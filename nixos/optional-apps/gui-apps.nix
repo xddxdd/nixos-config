@@ -26,7 +26,6 @@ in
     colmena
     deepspeech-gpu
     deepspeech-wrappers
-    dingtalk
     ffmpeg
     filezilla
     firefox
