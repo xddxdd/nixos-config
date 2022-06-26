@@ -35,7 +35,6 @@
     source-serif
     source-serif-pro
     terminus_font_ttf
-    th-fonts.tshyn
     ubuntu_font_family
     vistafonts
     vistafonts-chs
@@ -50,10 +49,6 @@
       fallback = [
         "HanaMinA"
         "HanaMinB"
-        "TH-Tshyn-P0"
-        "TH-Tshyn-P1"
-        "TH-Tshyn-P2"
-        "TH-Tshyn-P16"
       ];
     in
     {
