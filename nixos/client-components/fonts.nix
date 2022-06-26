@@ -17,6 +17,7 @@
     fira-code
     fira-code-symbols
     font-awesome
+    kaixinsong-fonts
     hanazono
     hoyo-glyphs
     liberation_ttf
@@ -47,6 +48,8 @@
   fonts.fontconfig =
     let
       fallback = [
+        "KaiXinSongA"
+        "KaiXinSongB"
         "HanaMinA"
         "HanaMinB"
       ];
