@@ -2,22 +2,17 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
-
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
 in
 {
+  boot.extraModprobeConfig = ''
+    options i915 enable_fbc=1 ${lib.optionalString (!config.virtualisation.kvmgt.enable) "enable_guc=3"}
+  '';
+
   environment.systemPackages = with pkgs; [
     clinfo
     libva-utils
     vdpauinfo
     intel-gpu-tools
-    nvidia-offload
   ];
 
   # Hardware

@@ -21,7 +21,7 @@ in
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/nvidia-only.nix
+    ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/systemd-boot-uefi-secure-boot.nix
