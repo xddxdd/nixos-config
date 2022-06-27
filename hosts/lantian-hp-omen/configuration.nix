@@ -2,6 +2,12 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
+
+  resetKeyboardBacklight = pkgs.writeShellScriptBin "reset-keyboard-backlight" ''
+    for F in /sys/devices/platform/hp-wmi/rgb_zones/*; do
+      echo "0f84fa" | sudo tee $F
+    done
+  '';
 in
 {
   imports = [
