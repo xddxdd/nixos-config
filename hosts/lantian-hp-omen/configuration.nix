@@ -45,6 +45,7 @@ in
     enable = true;
     powerOnBoot = false;
   };
+  hardware.xpadneo.enable = true;
 
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
