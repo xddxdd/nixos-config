@@ -24,5 +24,5 @@ in
     ];
   };
 
-  services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
+  services.yggdrasil.regions = [ "united-states" "canada" ];
 }

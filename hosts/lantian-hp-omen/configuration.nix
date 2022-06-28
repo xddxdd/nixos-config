@@ -64,7 +64,7 @@ in
     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
   };
 
-  services.yggdrasil.config.Peers = LT.yggdrasil [ "united-states" "canada" ];
+  services.yggdrasil.regions = [ "united-states" "canada" ];
 
   services.resilio.directoryRoot = lib.mkForce "/";
   systemd.tmpfiles.rules = [
