@@ -3,6 +3,14 @@
 let
   LT = import ../../helpers { inherit config pkgs lib; };
 
+  yggdrasilPublicPeers = builtins.filter (v: v != null) (builtins.map
+    (v:
+      let
+        matchResult = (builtins.match "^tls://([^:]*[a-zA-z][^:]*):.*$" v);
+      in
+      if matchResult == null then null else builtins.head matchResult)
+    (lib.flatten (lib.mapAttrsToList (k: v: v) (lib.importJSON ./yggdrasil/public-peers.json))));
+
   corednsClientNetns = LT.netns {
     name = "coredns-client";
   };
@@ -14,13 +22,14 @@ let
 
   bypassedDomains = [
     "cachix.org"
+    "dn42.us"
     "hath.network"
     "humio.com"
     "lantian.pub"
     "nixos.org"
     "resilio.com"
     "syncthing.net"
-  ];
+  ] ++ yggdrasilPublicPeers;
 in
 {
   networking.nameservers = [ "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}" ] ++ backupDNSServers;
