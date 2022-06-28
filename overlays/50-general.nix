@@ -67,13 +67,5 @@ final: prev: rec {
       pytz
       simpleeval
     ];
-
-    nativeBuildInputs = old.nativeBuildInputs ++ [ prev.makeWrapper ];
-
-    preFixup = old.preFixup + ''
-      makeWrapperArgs+=(
-        --set XDG_DATA_DIRS "/run/current-system/sw/share"
-      )
-    '';
   });
 }
