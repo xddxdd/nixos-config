@@ -1,5 +1,5 @@
 diff --git a/main.py b/main.py
-index ce13dbf..ca7acc1 100644
+index 0f194ec..97a30d4 100644
 --- a/main.py
 +++ b/main.py
 @@ -31,7 +31,7 @@ class Utils:
@@ -7,7 +7,7 @@ index ce13dbf..ca7acc1 100644
  
  class Code:
 -	path_dirs = ("/usr/bin", "/bin", "/snap/bin")
-+	path_dirs = ("/run/current-system/sw/bin", "/usr/bin", "/bin", "/snap/bin")
++	path_dirs = os.environ['PATH'].split(':')
  	variants = ("Code", "VSCodium")
  
  	def __init__(self):
