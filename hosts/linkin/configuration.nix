@@ -51,5 +51,5 @@ in
     ];
   };
 
-  services.yggdrasil.config.Peers = LT.yggdrasil [ "india" "japan" "south-korea" ];
+  services.yggdrasil.regions = [ "india" "japan" "south-korea" ];
 }

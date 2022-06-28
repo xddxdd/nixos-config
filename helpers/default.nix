@@ -38,5 +38,4 @@ args // rec {
   nginx = callHelper ./nginx.nix;
   uuid = callHelper ./uuid.nix;
   wrapNetns = callHelper ./wrap-netns.nix;
-  yggdrasil = callHelper ./yggdrasil;
 }
