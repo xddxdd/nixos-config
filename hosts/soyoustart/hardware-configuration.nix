@@ -8,7 +8,6 @@
     ../../nixos/hardware/general.nix
   ];
 
-  boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {
     efiSupport = true;
     mirroredBoots = [
