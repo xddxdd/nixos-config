@@ -24,7 +24,6 @@ in
     ../../nixos/optional-apps/nvidia/only.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
-    ../../nixos/optional-apps/systemd-boot-uefi-secure-boot.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
     ../../nixos/optional-apps/x11vnc.nix
   ];
