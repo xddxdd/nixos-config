@@ -10,7 +10,6 @@
 
   boot.loader.grub = {
     efiSupport = true;
-    efiInstallAsRemovable = true;
     device = "nodev";
     gfxmodeBios = "2560x1440x32,auto";
     gfxmodeEfi = "2560x1440x32,auto";
