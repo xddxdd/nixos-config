@@ -516,6 +516,22 @@
         peerIPv6LinkLocal = "fe80::3770";
       };
     };
+    ricky = {
+      remoteASN = 4242422458;
+      latencyMs = 13;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22458;
+        remoteAddress = "ipv4.nl-ams-a.nodes.pigeonhole.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "QJnmWUnPS9wKKkLHHuWBYMGAI20MH9OEo28O4qr5DV8=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.145.25";
+        peerIPv6LinkLocal = "fe80::2458";
+      };
+    };
     spf = {
       remoteASN = 4242421964;
       latencyMs = 15;

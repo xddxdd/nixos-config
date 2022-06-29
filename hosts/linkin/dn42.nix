@@ -300,6 +300,22 @@
     #     peerIPv6 = "fd6d:3f59:4c68::2";
     #   };
     # };
+    ricky = {
+      remoteASN = 4242422458;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22458;
+        remoteAddress = "cn-hkg-a.nodes.pigeonhole.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "9O4ABGmh+EXPnOynhW60aByE3qorcV7UsAC9n55g6CQ=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.145.18";
+        peerIPv6LinkLocal = "fe80::2458";
+      };
+    };
     ruixuan = {
       remoteASN = 4242422433;
       latencyMs = 2;
