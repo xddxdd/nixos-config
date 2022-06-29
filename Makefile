@@ -1,6 +1,9 @@
 all: FORCE
 	@nix run .#colmena -- apply
 
+build: FORCE
+	@nix run .#colmena -- build
+
 local: FORCE
 	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
 
@@ -12,6 +15,7 @@ verbose: FORCE
 
 update: FORCE
 	@nix flake update
+	@nix run .#nvfetcher
 
 update-nur: FORCE
 	@nix flake lock --update-input nur-xddxdd
