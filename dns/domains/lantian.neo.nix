@@ -9,7 +9,7 @@
       (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."hostdare".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns4.${domain}."; addresses = hosts."buyvm".neonetwork; })
-      (common.hostRecs.mapAddresses { name = "ns5.${domain}."; addresses = hosts."virmach-nl1g".neonetwork; })
+      (common.hostRecs.mapAddresses { name = "ns5.${domain}."; addresses = hosts."soyoustart".neonetwork; })
       (common.hostRecs.mapAddresses {
         name = "ns-anycast.${domain}.";
         addresses = {
