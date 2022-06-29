@@ -5,22 +5,6 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
-    baiyu = {
-      remoteASN = 4242421901;
-      latencyMs = 2;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 21901;
-        remoteAddress = "node1.vultr.nrt.asia.dn42.dalao-home.com";
-        remotePort = 22547;
-        wireguardPubkey = "KYnacNZP+hZtLsbhUhKjrREFbxKIPKZqtO8P3kaptTs=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.221.69";
-        peerIPv6LinkLocal = "fe80::1901:3921:0:1";
-      };
-    };
     bb-pgqm = {
       remoteASN = 4242420549;
       latencyMs = 3;

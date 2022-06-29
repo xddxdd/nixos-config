@@ -5,19 +5,6 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
-    # alanyhq = {
-    #   remoteASN = 4242420916;
-    #   tunnel = {
-    #     type = "wireguard";
-    #     localPort = 20916;
-    #     remoteAddress = "de-fra.dn42.alanyhq.network";
-    #     remotePort = 22547;
-    #     wireguardPubkey = "MNAlzp0owhb8i7rdqpS1GxuSNlotV9lGFsxYb4IxWGI=";
-    #   };
-    #   addressing = {
-    #     peerIPv4 = "172.22.123.4";
-    #   };
-    # };
     androw = {
       remoteASN = 4242422575;
       latencyMs = 16;
@@ -49,24 +36,10 @@
         peerIPv6LinkLocal = "fe80::1901:2761:0:1";
       };
     };
-    baoshuo = {
-      remoteASN = 4242420247;
-      latencyMs = 13;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20247;
-        remoteAddress = "eu1.dn42.as141776.net";
-        remotePort = 22547;
-        wireguardPubkey = "edTGR6Fs0rwAmGzWx/Zl6xxksYveRo+d75wWjxQYN0g=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.250.91";
-        peerIPv6LinkLocal = "fe80::247";
-      };
-    };
     bastelfr = {
       remoteASN = 4242423668;
       latencyMs = 13;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 23668;
@@ -138,17 +111,6 @@
         peerIPv6LinkLocal = "fe80::826";
       };
     };
-    durlej = {
-      remoteASN = 4242422033;
-      latencyMs = 26;
-      tunnel = {
-        type = "gre";
-        remoteAddress = "80.211.240.147";
-      };
-      addressing = {
-        peerIPv4 = "172.20.129.169";
-      };
-    };
     est-it = {
       remoteASN = 4242422206;
       latencyMs = 14;
@@ -181,45 +143,6 @@
         peerIPv6LinkLocal = "fe80::1876";
       };
     };
-    gareth = {
-      remoteASN = 4242423937;
-      latencyMs = 35;
-      tunnel = {
-        type = "gre";
-        remoteAddress = "217.155.5.231";
-      };
-      addressing = {
-        peerIPv4 = "172.23.162.97";
-      };
-    };
-    # gfa = {
-    #   remoteASN = 4242421097;
-    #   tunnel = {
-    #     type = "gre";
-    #     localPort = 21097;
-    #     remoteAddress = "dn42-nl-2.4679.ar";
-    #     remotePort = 52547;
-    #     wireguardPubkey = "iYvucYTTYVSketQvKkRuG5PKEE/UgpxSKZWSX0CUuzk=";
-    #   };
-    #   addressing = {
-    #     peerIPv4 = "172.21.68.29";
-    #     peerIPv6LinkLocal = "fe80::29:100";
-    #   };
-    # };
-    # gregoire = {
-    #   remoteASN = 4242421789;
-    #   tunnel = {
-    #     type = "gre";
-    #     localPort = 21789;
-    #     remoteAddress = "217.12.209.150";
-    #     remotePort = 22547;
-    #     wireguardPubkey = "ifxB+zSOdT5vJ/HfdXjvphy962rfezrA9CWYe4ISTgE=";
-    #   };
-    #   addressing = {
-    #     peerIPv4 = "172.21.93.97";
-    #     peerIPv6LinkLocal = "fe80::17:89";
-    #   };
-    # };
     iedon = {
       remoteASN = 4242422189;
       latencyMs = 5;
@@ -252,22 +175,6 @@
         peerIPv6LinkLocal = "fe80::3618";
       };
     };
-    jg-awsl = {
-      remoteASN = 4242422188;
-      latencyMs = 10;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22188;
-        remoteAddress = "dn42-ams4.jg-awsl.xyz";
-        remotePort = 22547;
-        wireguardPubkey = "BfKaOkGCPy6PPb+mBday7iErZJEm5zZGx90Bq4VsTkM=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.231.110";
-        peerIPv6LinkLocal = "fe80::2188";
-      };
-    };
     jlu5 = {
       remoteASN = 4242421080;
       latencyMs = 11;
@@ -282,21 +189,6 @@
       addressing = {
         peerIPv4 = "172.20.229.117";
         peerIPv6LinkLocal = "fe80::117";
-      };
-    };
-    kaaass = {
-      remoteASN = 4242421535;
-      latencyMs = 31;
-      tunnel = {
-        type = "wireguard";
-        localPort = 21535;
-        remoteAddress = "fin.wd.kas.pub";
-        remotePort = 22547;
-        wireguardPubkey = "KO2mxfCYA3J28ot09QKXLhsNcHKVCdq4LkK6E04kInk=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.150.130";
-        peerIPv6LinkLocal = "fe80::1535:2547";
       };
     };
     kskb = {
@@ -329,20 +221,6 @@
         peerIPv6LinkLocal = "fe80::aa:1111:42";
       };
     };
-    # liangjw = {
-    #   remoteASN = 4242420604;
-    #   tunnel = {
-    #     type = "wireguard";
-    #     localPort = 20604;
-    #     remoteAddress = "de1.dn42.cas7.moe";
-    #     remotePort = 22547;
-    #     wireguardPubkey = "KBKx5rWTFM0VfONOLiItlBDl5DmpzUprvb8ZnFHlvhk=";
-    #   };
-    #   addressing = {
-    #     peerIPv4 = "172.23.89.3";
-    #     peerIPv6LinkLocal = "fe80::604:3";
-    #   };
-    # };
     lutoma = {
       remoteASN = 64719;
       latencyMs = 5;
@@ -359,20 +237,6 @@
         peerIPv6LinkLocal = "fe80::1312";
       };
     };
-    # marcel = {
-    #   remoteASN = 4242421555;
-    #   tunnel = {
-    #     type = "wireguard";
-    #     localPort = 21555;
-    #     remoteAddress = "152.89.244.163";
-    #     remotePort = 42547;
-    #     wireguardPubkey = "tp/vNnNJVYDsgk2bHWBR7hyuc4gWGxdrldzei3+U9iU=";
-    #   };
-    #   addressing = {
-    #     peerIPv4 = "172.20.233.34";
-    #     peerIPv6LinkLocal = "fe80::1555";
-    #   };
-    # };
     marek = {
       remoteASN = 4242422923;
       latencyMs = 13;
@@ -387,36 +251,6 @@
       addressing = {
         peerIPv4 = "172.22.149.226";
         peerIPv6LinkLocal = "fe80::2924";
-      };
-    };
-    matwolf = {
-      remoteASN = 4242420688;
-      latencyMs = 29;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20688;
-        remoteAddress = "dn42-it01.wolf.network";
-        remotePort = 52547;
-        wireguardPubkey = "zQKdKiappowslCIbEyCiqLwrwUc6APcyEBIkIvzA6nw=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.28.224";
-        peerIPv6 = "fda5:a8a8:9989:4242::1";
-      };
-    };
-    mgot = {
-      remoteASN = 4242420449;
-      latencyMs = 15;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20449;
-        remoteAddress = "161.97.157.50";
-        remotePort = 45879;
-        wireguardPubkey = "dftbPMcUAFmopjgUMx1zRHKO4hzwN40fMqf8TWe/1nE=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.99.249";
       };
     };
     myl = {
@@ -482,22 +316,6 @@
       addressing = {
         peerIPv4 = "172.21.99.191";
         peerIPv6LinkLocal = "fe80::1592";
-      };
-    };
-    noctis = {
-      remoteASN = 4242422339;
-      latencyMs = 12;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22339;
-        # remoteAddress = "amsonia.nodes.noctis.link";
-        remotePort = 22547;
-        wireguardPubkey = "DhGpUZuLtQnd3YXgBlIGXun8cRzrTWp3Bn3bHu0R5ys=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.37.2";
-        peerIPv6LinkLocal = "fe80::2339:2";
       };
     };
     periloso = {
