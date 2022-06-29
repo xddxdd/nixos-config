@@ -268,41 +268,6 @@ in
     };
     yggdrasil.IPv6 = "200:f71e:b96e:90fa:2f29:d816:e104:ab92";
   };
-  "virmach-nl1g" = rec {
-    index = 6;
-    ptrPrefix = "amsterdam.netherlands";
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfDXWrr5hWPxEclnCSh4KwNIuiFTiO2gFSv1NU/uFgalc9Vv/HDEgECpK96OjyubzuFk2XpnAX789TdTIA51lgCpOExuectMgv1kOiyZ5MXgQQfNqhTUkWaXaUshMdn9wFdQvfX9bLCybfN2QnlpEoh5lts4wDJGeY0qmUThEt1tVgtLYk7AHaNc+TjNnmCBqVOApcgmJDIxE5GCma3fWyThFKRbSKqckNHPfGH1qkWK2REVmhlr5bAumVstmW0fdk71UhRYj5YRI1/9TwZAUFCgq27Frgv0s3VM6jXB7yAj923wm9ig2MnkouLdsCa2KoaTW20BTDokpZ7IUrI2lFOUglVQ7H1Oi/tzF8Hjfm1j7PuM1OjFtzXOke0bOFUB81mN8nLFQauS9bCK/q4Tn+ld8k5kiL+Pe3vpTdFpjBQ0zeRTyM986l3p89ckhditT/+H0hGJ2W0IOhP0oEdBoNkG6YDbO7JAEJlJTDJ6FlgkpM0MEiywFZj6EIzF5wMhHUkZABkpQf2WcnyACUb+N2T1d19XoGM9F7rV0gNJViR8BDkyjkK2R1Ss6AOCoy9FFUVo7mp8k7/x8vAYDU/BUZjIef4cZIJ/qa8jxj8zPcH8K7I2hTMNmX4Ijp8S75fvr9vzFLo5C2es0RZoVrRFZq+Ujnh2cojZHpwKl5ZTvzOQ==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILVJfiWHLJ8pP96XuGq5plTFj5gcY7gIAqxPQHxVuJLx";
-    };
-    tinc = {
-      rsa = ''
-        -----BEGIN RSA PUBLIC KEY-----
-        MIICCgKCAgEAub9DXIxVpEnh8EuvOzy1/IMWkt0sGDlJxj7C7IBMu18JhDA25W6B
-        TTUiz/n5I/DzBSxoMGUDA2Kj3Q3Afr2e7mZvtYj621m2ctscX3/J0pbKwhK8q/C2
-        V4ZeNPxMkCra5luuhV6ZmUyJ1VibL4rz1QeRu72TwSuNifdohGSINcrdGmSNYw69
-        fMDjWTpjmqHt3gdad8J4/Tv1lOKKhpNf0pFqzhDOVSpiATYXHOBqRn1V8iFJ41W5
-        qhZmHmIuVL/H9NCr95d2pcneQ6VGdPyx3HIsJwMk7+p737715uvxZiUXk44//twr
-        Xdjzcr5YmXSQAcycQ985M+3aKzbRoTfZpA4XoDpqEgkdERLnrvxPDoFeRq+jvoP8
-        NW8w1ozBA0cw9Y9jlyXhXG5ug4wLsJ6sEpH03XPQeSsSGoy8tBVit8EwZpd3ALy0
-        2QbWCQaJ+PpX9+V5UI5mOv54ZaIGv2aSDRN8Uh30RytBEHVdTdLfTbgT3BNooSSf
-        kr5D1TrEeG8bHQ24Cq6Dw9zTc9rDj7vXQXOnKUhTK9+1JEuQ62mJXdjX2YTIP3o/
-        B34twYcS819kvPCGmrupMasTn7BLwrLwpaiKfd80CmvbYs+xWM/nSQ8fdkjVmXDk
-        uPgTSMToDUHQIXC7jojYQ7glhXcoLlaH3mJq6/cbbinEapvAZLyGotUCAwEAAQ==
-        -----END RSA PUBLIC KEY-----
-      '';
-      ed25519 = "EGsgw69soQZI1sLY+s2BvN3FtbtTg+zUzJxuKP9fdsD";
-    };
-    syncthing = "R7L6DJT-HMT6UFT-4RVOX2S-UXSCKWB-64NCBFL-XILYJVW-T63BJW3-QGMBUAZ";
-    public = rec {
-      IPv4 = "172.245.52.105";
-    };
-    dn42 = rec {
-      IPv4 = "172.22.76.188";
-      region = 41;
-    };
-    yggdrasil.IPv6 = "200:ab7f:ec87:b013:e814:eed7:7819:9ec6";
-  };
   "oracle-vm1" = rec {
     index = 5;
     ptrPrefix = "tokyo.japan";
