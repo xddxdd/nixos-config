@@ -8,8 +8,11 @@
     ../../nixos/hardware/general.nix
   ];
 
-  boot.loader.grub.enable = lib.mkForce false;
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev";
+  };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.kernelModules = [ "kvm-intel" ];

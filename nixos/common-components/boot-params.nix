@@ -11,14 +11,6 @@
         "${pkgs.terminus_font_ttf}/share/fonts/truetype/TerminusTTF.ttf";
       fontSize = lib.mkDefault 16;
     };
-
-    systemd-boot = {
-      configurationLimit = 8;
-      consoleMode = "max";
-      editor = false;
-      memtest86.enable = true;
-      netbootxyz.enable = true;
-    };
   };
 
   console.earlySetup = true;
