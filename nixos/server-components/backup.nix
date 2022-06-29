@@ -29,6 +29,16 @@ let
         "dirShards" = null;
       };
     };
+    storj = {
+      "type" = "s3";
+      "config" = {
+        "bucket" = { _secret = config.age.secrets.kopia-storj-bucket.path; };
+        "endpoint" = "gateway.storjshare.io";
+        "accessKeyID" = { _secret = config.age.secrets.kopia-storj-ak.path; };
+        "secretAccessKey" = { _secret = config.age.secrets.kopia-storj-sk.path; };
+        "sessionToken" = "";
+      };
+    };
   };
 
   kopiaIgnored = ''
@@ -92,6 +102,9 @@ in
   age.secrets.kopia-scaleway-ak.file = pkgs.secrets + "/kopia/scaleway-ak.age";
   age.secrets.kopia-scaleway-bucket.file = pkgs.secrets + "/kopia/scaleway-bucket.age";
   age.secrets.kopia-scaleway-sk.file = pkgs.secrets + "/kopia/scaleway-sk.age";
+  age.secrets.kopia-storj-ak.file = pkgs.secrets + "/kopia/storj-ak.age";
+  age.secrets.kopia-storj-bucket.file = pkgs.secrets + "/kopia/storj-bucket.age";
+  age.secrets.kopia-storj-sk.file = pkgs.secrets + "/kopia/storj-sk.age";
   age.secrets.sftp-privkey.file = pkgs.secrets + "/sftp-privkey.age";
 
   systemd.services.backup = {
