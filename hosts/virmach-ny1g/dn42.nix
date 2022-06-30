@@ -137,8 +137,8 @@
       tunnel = {
         type = "wireguard";
         localPort = 22458;
-        remoteAddress = "us-mci-a.nodes.pigeonhole.eu.org";
-        remotePort = 22547;
+        remoteAddress = "natv4.us-mci-a.nodes.pigeonhole.eu.org";
+        remotePort = 42547;
         wireguardPubkey = "XjX37H3ZYd9QuGu+M1Ut6RLlDu3J+8ib3grbanlp0Vs=";
       };
       addressing = {
