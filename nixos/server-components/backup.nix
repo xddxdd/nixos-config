@@ -46,6 +46,7 @@ let
     sftp-server/
     sync-servers/
     var/cache/
+    var/lib/asterisk/
     var/lib/btrfs/
     var/lib/cni/
     var/lib/containers/
