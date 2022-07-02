@@ -29,7 +29,6 @@
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;
-  CalibreWeb = 13803;
   Konnect = 13877;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;
