@@ -120,6 +120,10 @@ rec {
       }
     '');
 
+  noAccessLog = ''
+    access_log off;
+  '';
+
   addCommonLocationConf = { phpfpmSocket ? null }:
     lib.recursiveUpdate
       {

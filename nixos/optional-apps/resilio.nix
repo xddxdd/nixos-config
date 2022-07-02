@@ -50,7 +50,8 @@ in
         '' + LT.nginx.locationProxyConf;
       };
       extraConfig = LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+        + LT.nginx.noIndex true
+        + LT.nginx.noAccessLog;
     };
   };
 }
