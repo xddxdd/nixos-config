@@ -59,9 +59,9 @@ let
     (CNAME { name = "lg"; target = "virmach-ny6g"; cloudflare = true; })
     (fakeALIAS { name = "matrix"; target = "virmach-ny6g"; ttl = "1h"; })
     (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
-    (SRV { name = "_sip._udp"; priority = 0; weight = 0; port = 5060; target = "virmach-ny6g"; })
-    (SRV { name = "_sip._tcp"; priority = 0; weight = 0; port = 5060; target = "virmach-ny6g"; })
-    (SRV { name = "_sips._tcp"; priority = 0; weight = 0; port = 5061; target = "virmach-ny6g"; })
+    (SRV { name = "_sip._udp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
+    (SRV { name = "_sip._tcp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
+    (SRV { name = "_sips._tcp"; priority = 0; weight = 0; port = 5061; target = "soyoustart"; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "zerossl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
 
