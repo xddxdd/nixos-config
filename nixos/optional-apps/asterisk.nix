@@ -11,6 +11,12 @@ let
 
     [${number}](template-aor)
   '';
+
+  generateMusicDialplan = number: music: ''
+    exten => ${number},1,Answer()
+    same  =>           n,Playback(${pkgs.flake.nixos-asterisk-music}/${music})
+    same  =>           n,Hangup()
+  '';
 in
 {
   age.secrets.asterisk-pw = {
@@ -85,6 +91,7 @@ in
         identify_by=username,auth_username
         rewrite_contact=yes
         media_encryption=sdes
+        media_encryption_optimistic=yes
 
         [template-auth](!)
         type=auth
@@ -112,10 +119,25 @@ in
         exten => _X!        ,1,Goto(dest-local,''${EXTEN},1)
 
         [dest-local]
+        ${generateMusicDialplan "0001" "nightglow"}
+        ${generateMusicDialplan "0002" "rubia"}
+        ${generateMusicDialplan "0003" "ye_hang_xing"}
+
         exten => 1000,1,Dial(PJSIP/1000)
+        same  =>      n,Hangup()
+
         exten => 1001,1,Dial(PJSIP/1001)
-        exten => _X!,1,Playback(im-sorry&check-number-dial-again)
+        same  =>      n,Hangup()
+
+        exten => _X!,1,Answer()
+        same  =>     n,Playback(im-sorry&check-number-dial-again)
+        same  =>     n,Hangup()
       '';
     };
+  };
+
+  systemd.services.asterisk = {
+    path = with pkgs; [ mpg123 ];
+    reloadIfChanged = true;
   };
 }
