@@ -1,6 +1,16 @@
 { inputs, lib, ... }:
 
 final: prev: rec {
+  drone = prev.drone.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ../patches/drone-server-listen-unix.patch
+    ];
+  });
+  drone-vault = prev.drone-vault.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ../patches/drone-vault-listen-unix.patch
+    ];
+  });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches = (old.patches or []) ++ [
       ../patches/matrix-synapse-listen-unix.patch

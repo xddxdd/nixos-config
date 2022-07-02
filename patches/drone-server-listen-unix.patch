@@ -1,0 +1,32 @@
+diff --git a/server/server.go b/server/server.go
+index 93db19d8..92cef8e4 100644
+--- a/server/server.go
++++ b/server/server.go
+@@ -17,6 +17,7 @@ package server
+ import (
+ 	"context"
+ 	"crypto/tls"
++	"net"
+ 	"net/http"
+ 	"os"
+ 	"path/filepath"
+@@ -67,7 +68,18 @@ func (s Server) listenAndServe(ctx context.Context) error {
+ 
+ 		return s1.Shutdown(ctxShutdown)
+ 	})
+-	g.Go(s1.ListenAndServe)
++	unixSocketPath := os.Getenv("DRONE_SERVER_UNIX")
++	if unixSocketPath != "" {
++		l, err := net.Listen("unix", unixSocketPath)
++		if err != nil {
++			return err
++		}
++		g.Go(func() error {
++			return s1.Serve(l)
++		})
++	} else {
++		g.Go(s1.ListenAndServe)
++	}
+ 	return g.Wait()
+ }
+ 
