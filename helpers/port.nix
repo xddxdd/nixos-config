@@ -31,7 +31,6 @@
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;
   CalibreWeb = 13803;
-  Matrix.Synapse = 13808;
   Konnect = 13877;
   ResilioSync = 13900;
   Oauth2Proxy = 14180;

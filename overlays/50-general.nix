@@ -1,6 +1,11 @@
 { inputs, lib, ... }:
 
 final: prev: rec {
+  matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ../patches/matrix-synapse-listen-unix.patch
+    ];
+  });
   # linux-pam = prev.linux-pam.override { withLibxcrypt = true; };
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu

@@ -1,0 +1,13 @@
+--- a/synapse/app/_base.py
++++ b/synapse/app/_base.py
+@@ -163,7 +163,10 @@ def listen_tcp(bind_addresses, port, factory, reactor=reactor, backlog=50):
+     r = []
+     for address in bind_addresses:
+         try:
+-            r.append(reactor.listenTCP(port, factory, backlog, address))
++            if address[0] == "/":
++                r.append(reactor.listenUNIX(address, factory, backlog))
++            else:
++                r.append(reactor.listenTCP(port, factory, backlog, address))
+         except error.CannotListenError as e:
+             check_bind_error(e, address, bind_addresses)
