@@ -2,15 +2,6 @@
 
 let
   LT = import ../../helpers {  inherit config pkgs; };
-
-  droneNetns = LT.netns {
-    name = "drone";
-    birdBindTo = [ "drone.service" ];
-  };
-  droneGitHubNetns = LT.netns {
-    name = "drone-github";
-    birdBindTo = [ "drone-github.service" ];
-  };
 in
 {
   imports = [
@@ -22,8 +13,8 @@ in
   age.secrets.drone-ci-github-env.file = pkgs.secrets + "/drone-ci-github-env.age";
   age.secrets.drone-ci-vault-env.file = pkgs.secrets + "/drone-ci-vault-env.age";
 
-  systemd.services = droneNetns.setup // droneGitHubNetns.setup // {
-    drone = droneNetns.bind {
+  systemd.services = {
+    drone = {
       wantedBy = [ "multi-user.target" ];
       environment = {
         DRONE_DATABASE_DRIVER = "sqlite3";
@@ -33,6 +24,7 @@ in
         DRONE_JSONNET_ENABLED = "true";
         DRONE_SERVER_HOST = "ci.lantian.pub";
         DRONE_SERVER_PORT = ":80";
+        DRONE_SERVER_UNIX = "/run/drone/drone.sock";
         DRONE_SERVER_PROTO = "https";
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:lantian,admin:true";
@@ -44,13 +36,15 @@ in
         EnvironmentFile = config.age.secrets.drone-ci-env.path;
         ExecStart = "${pkgs.drone}/bin/drone-server";
         StateDirectory = "drone";
+        RuntimeDirectory = "drone";
         User = "container";
         Group = "container";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        UMask = "000";
       };
     };
-    drone-github = droneGitHubNetns.bind {
+    drone-github = {
       wantedBy = [ "multi-user.target" ];
       environment = {
         DRONE_DATABASE_DRIVER = "sqlite3";
@@ -59,6 +53,7 @@ in
         DRONE_REGISTRATION_CLOSED = "true";
         DRONE_SERVER_HOST = "ci-github.lantian.pub";
         DRONE_SERVER_PORT = ":80";
+        DRONE_SERVER_UNIX = "/run/drone-github/drone-github.sock";
         DRONE_SERVER_PROTO = "https";
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:xddxdd,admin:true";
@@ -70,10 +65,12 @@ in
         EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
         ExecStart = "${pkgs.drone}/bin/drone-server";
         StateDirectory = "drone-github";
+        RuntimeDirectory = "drone-github";
         User = "container";
         Group = "container";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        UMask = "000";
       };
     };
     drone-runner = {
@@ -82,11 +79,11 @@ in
         DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = droneNetns.ipv4;
+        DRONE_RPC_HOST = "drone.localhost";
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
       };
       serviceConfig = LT.serviceHarden // {
         Type = "simple";
@@ -102,11 +99,11 @@ in
         DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = droneGitHubNetns.ipv4;
+        DRONE_RPC_HOST = "drone-github.localhost";
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://127.0.0.1:${LT.portStr.DroneVault}";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
       };
       serviceConfig = LT.serviceHarden // {
         Type = "simple";
@@ -120,8 +117,7 @@ in
     drone-vault = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DRONE_BIND = "127.0.0.1:${LT.portStr.DroneVault}";
-        DRONE_DEBUG = "true";
+        DRONE_UNIX_SOCKET = "/run/drone-vault/drone-vault.sock";
         VAULT_ADDR = "http://127.0.0.1:${LT.portStr.Vault}";
       };
       serviceConfig = LT.serviceHarden // {
@@ -130,7 +126,10 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-vault-env.path;
         ExecStart = "${pkgs.drone-vault}/bin/drone-vault";
-        DynamicUser = true;
+        RuntimeDirectory = "drone-vault";
+        User = "container";
+        Group = "container";
+        UMask = "000";
       };
     };
   };
@@ -140,7 +139,7 @@ in
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
-          proxyPass = "http://${droneNetns.ipv4}";
+          proxyPass = "http://unix:/run/drone/drone.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
@@ -148,16 +147,53 @@ in
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
+
+    "drone.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://unix:/run/drone/drone.sock";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+
     "ci-github.lantian.pub" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
-          proxyPass = "http://${droneGitHubNetns.ipv4}";
+          proxyPass = "http://unix:/run/drone-github/drone-github.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
         + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+
+    "drone-github.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://unix:/run/drone-github/drone-github.sock";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+
+    "drone-vault.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://unix:/run/drone-vault/drone-vault.sock";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
   };
