@@ -68,24 +68,15 @@ let
     '';
 in
 rec {
-  getSSLCert = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}/fullchain.cer";
-
-  getSSLKey = acmeName:
-    let
-      acmeHost = lib.elemAt (lib.splitString "_" acmeName) 0;
-    in
-    "/nix/persistent/sync-servers/acme.sh/${acmeName}/${acmeHost}.key";
-
-  makeSSL = acmeName:
-    let
-      acmeHost = lib.elemAt (lib.splitString "_" acmeName) 0;
-    in
-    ''
-      ssl_certificate /nix/persistent/sync-servers/acme.sh/${acmeName}/fullchain.cer;
-      ssl_certificate_key /nix/persistent/sync-servers/acme.sh/${acmeName}/${acmeHost}.key;
-      ssl_stapling on;
-      ssl_stapling_file /nix/persistent/sync-servers/acme.sh/${acmeName}/ocsp.resp;
-    '';
+  getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
+  getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
+  getSSLKey = acmeName: "${getSSLPath acmeName}/${lib.elemAt (lib.splitString "_" acmeName) 0}.key";
+  makeSSL = acmeName: ''
+    ssl_certificate ${getSSLCert acmeName};
+    ssl_certificate_key ${getSSLKey acmeName};
+    ssl_stapling on;
+    ssl_stapling_file ${getSSLPath acmeName}/ocsp.resp;
+  '';
 
   commonVhostConf = ssl: ''
     add_header X-Content-Type-Options 'nosniff';
@@ -128,55 +119,53 @@ rec {
     deny all;
   '';
 
-  addCommonLocationConf = { phpfpmSocket ? null }:
-    lib.recursiveUpdate
-      {
-        "/generate_204".extraConfig = ''
-          access_log off;
-          return 204;
-        '';
+  addCommonLocationConf = { phpfpmSocket ? null }: lib.recursiveUpdate {
+    "/generate_204".extraConfig = ''
+      access_log off;
+      return 204;
+    '';
 
-        "/autoindex.html".extraConfig = ''
-          internal;
-          root ${../nixos/common-apps/nginx/files/autoindex};
-        '';
+    "/autoindex.html".extraConfig = ''
+      internal;
+      root ${../nixos/common-apps/nginx/files/autoindex};
+    '';
 
-        "/status".extraConfig = ''
-          access_log off;
-          stub_status on;
-        '';
+    "/status".extraConfig = ''
+      access_log off;
+      stub_status on;
+    '';
 
-        "/ray" = {
-          proxyPass = "http://unix:/run/v2ray/v2ray.sock";
-          proxyWebsockets = true;
-          extraConfig = ''
-            access_log off;
-            keepalive_timeout 1d;
-          '' + locationProxyConf;
-        };
+    "/ray" = {
+      proxyPass = "http://unix:/run/v2ray/v2ray.sock";
+      proxyWebsockets = true;
+      extraConfig = ''
+        access_log off;
+        keepalive_timeout 1d;
+      '' + locationProxyConf;
+    };
 
-        "/oauth2/" = {
-          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-          extraConfig = ''
-            proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-          '' + locationProxyConf;
-        };
+    "/oauth2/" = {
+      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+      extraConfig = ''
+        proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+      '' + locationProxyConf;
+    };
 
-        "/oauth2/auth" = {
-          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-          extraConfig = ''
-            proxy_set_header Content-Length "";
-            proxy_pass_request_body off;
-          '' + locationProxyConf;
-        };
+    "/oauth2/auth" = {
+      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+      extraConfig = ''
+        proxy_set_header Content-Length "";
+        proxy_pass_request_body off;
+      '' + locationProxyConf;
+    };
 
-        "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+    "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
 
-        "~ ^/\\.(?!well-known).*".extraConfig = ''
-          access_log off;
-          return 403;
-        '';
-      };
+    "~ ^/\\.(?!well-known).*".extraConfig = ''
+      access_log off;
+      return 403;
+    '';
+  };
 
   locationAutoindexConf = ''
     autoindex on;
@@ -250,11 +239,7 @@ rec {
     "so_keepalive=600:10:6"
   ];
 
-  listenHTTPS = [
-    { addr = "0.0.0.0"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
-    { addr = "[::]"; port = port.HTTPS; extraParameters = [ "ssl" "http2" ]; }
-  ];
-
+  listenHTTPS = listenHTTPSPort port.HTTPS;
   listenHTTPSPort = port: [
     { addr = "0.0.0.0"; inherit port; extraParameters = [ "ssl" "http2" ]; }
     { addr = "[::]"; inherit port; extraParameters = [ "ssl" "http2" ]; }
