@@ -25,8 +25,8 @@ in
       };
       listeners = [
         {
-          port = LT.port.Matrix.Synapse;
-          bind_addresses = [ "127.0.0.1" "::1" ];
+          port = 0;
+          bind_addresses = [ "/run/matrix-synapse/matrix-synapse.sock" ];
           type = "http";
           tls = false;
           x_forwarded = true;
@@ -44,6 +44,7 @@ in
   systemd.services.matrix-synapse.serviceConfig = LT.serviceHarden // {
     MemoryDenyWriteExecute = false;
     StateDirectory = "matrix-synapse";
+    RuntimeDirectory = "matrix-synapse";
   };
 
   services.postgresql = {
@@ -63,7 +64,7 @@ in
     serverAliases = [ config.services.matrix-synapse.settings.server_name ];
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
-        proxyPass = "http://[::1]:${LT.portStr.Matrix.Synapse}";
+        proxyPass = "http://unix:/run/matrix-synapse/matrix-synapse.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
