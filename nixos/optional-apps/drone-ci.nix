@@ -158,7 +158,7 @@ in
       };
       extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.noAccessLog;
+        + LT.nginx.serveLocalhost;
     };
 
     "ci-github.lantian.pub" = {
@@ -184,7 +184,7 @@ in
       };
       extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.noAccessLog;
+        + LT.nginx.serveLocalhost;
     };
 
     "drone-vault.localhost" = {
@@ -197,7 +197,7 @@ in
       };
       extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.noAccessLog;
+        + LT.nginx.serveLocalhost;
     };
   };
 }
