@@ -81,7 +81,7 @@ in
         [template-local-devices](!)
         type=endpoint
         context=src-local
-        allow=!all,opus,speex,ulaw,alaw,g729
+        allow=opus,speex,speex16,speex32,ulaw,alaw
         identify_by=username,auth_username
         rewrite_contact=yes
         media_encryption=sdes
