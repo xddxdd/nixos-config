@@ -28,7 +28,7 @@ in
     deepspeech-wrappers
     discord
     element-desktop
-    ffmpeg
+    ffmpeg-full
     filezilla
     firefox
     flake.agenix.packages."${system}".agenix

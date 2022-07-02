@@ -31,6 +31,10 @@
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-asterisk-music = {
+      url = "git+ssh://git@git.lantian.pub:2222/lantian/nixos-asterisk-music.git";
+      flake = false;
+    };
     nixos-cn = {
       url = "github:nixos-cn/flakes";
       inputs.nixpkgs.follows = "nixpkgs";
