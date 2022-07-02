@@ -27,6 +27,11 @@ in
 
   services.asterisk = {
     enable = true;
+    package = pkgs.asterisk.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        ln -s ${pkgs.asterisk-g72x}/lib/asterisk/modules/codec_g729.so $out/lib/asterisk/modules/codec_g729.so
+      '';
+    });
 
     confFiles = {
       "logger.conf" = ''
