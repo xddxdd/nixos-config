@@ -55,9 +55,13 @@ let
     var/lib/GeoIP/
     var/lib/grafana/
     var/lib/machines/
+    var/lib/matrix-synapse/media
     var/lib/os-prober/
     var/lib/private/
     var/lib/prometheus/
+    var/lib/resilio-sync/*.db
+    var/lib/resilio-sync/*.db-wal
+    var/lib/syncthing/*.db
     var/lib/systemd/
     var/lib/udisks2/
     var/lib/vm/
