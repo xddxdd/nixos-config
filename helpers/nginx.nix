@@ -120,8 +120,12 @@ rec {
       }
     '');
 
-  noAccessLog = ''
+  serveLocalhost = ''
     access_log off;
+
+    allow 127.0.0.1;
+    allow ::1;
+    deny all;
   '';
 
   addCommonLocationConf = { phpfpmSocket ? null }:
