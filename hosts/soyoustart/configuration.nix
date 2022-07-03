@@ -10,7 +10,7 @@ in
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asf.nix
-    ../../nixos/optional-apps/asterisk.nix
+    ../../nixos/optional-apps/asterisk
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/hath.nix
