@@ -39,6 +39,9 @@ in
         context=src-local
         allow=speex32,g722,speex16,g729,g726,ilbc,speex,opus,alaw,ulaw
         identify_by=username,auth_username
+        direct_media=no
+        rtp_symmetric=yes
+        force_rport=yes
         rewrite_contact=yes
         media_encryption=sdes
         media_encryption_optimistic=yes
