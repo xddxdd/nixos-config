@@ -19,12 +19,16 @@ rec {
     type=transport
     protocol=udp
     bind=0.0.0.0:5060
+    tos=cs3
+    cos=3
     ${natSettings}
 
     [transport-ipv4-tcp]
     type=transport
     protocol=tcp
     bind=0.0.0.0:5060
+    tos=cs3
+    cos=3
     ${natSettings}
 
     [transport-ipv4-tls]
@@ -34,18 +38,24 @@ rec {
     cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
     priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
     method=tlsv1_2
+    tos=cs3
+    cos=3
     ${natSettings}
 
     [transport-ipv6-udp]
     type=transport
     protocol=udp
     bind=[::]:5060
+    tos=cs3
+    cos=3
     ${natSettings}
 
     [transport-ipv6-tcp]
     type=transport
     protocol=tcp
     bind=[::]:5060
+    tos=cs3
+    cos=3
     ${natSettings}
 
     [transport-ipv6-tls]
@@ -55,6 +65,8 @@ rec {
     cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
     priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
     method=tlsv1_2
+    tos=cs3
+    cos=3
     ${natSettings}
   '';
 }
