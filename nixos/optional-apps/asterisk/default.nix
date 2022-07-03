@@ -42,6 +42,10 @@ in
         rewrite_contact=yes
         media_encryption=sdes
         media_encryption_optimistic=yes
+        tos_audio=ef
+        cos_audio=5
+        tos_video=af41
+        cos_audio=4
 
         [template-auth](!)
         type=auth
