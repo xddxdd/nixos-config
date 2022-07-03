@@ -12,11 +12,49 @@ let
     [${number}](template-aor)
   '';
 
-  generateMusicDialplan = number: music: ''
-    exten => ${number},1,Answer()
-    same  =>           n,Playback(${pkgs.flake.nixos-asterisk-music}/${music})
-    same  =>           n,Hangup()
-  '';
+  enumerateList = builtins.foldl'
+    (l: ll: l ++ [{
+      index = builtins.length l;
+      value = ll;
+    }])
+    [ ];
+
+  prefixZeros = length: s:
+    if (builtins.stringLength s) < length
+    then prefixZeros length ("0" + s)
+    else s;
+
+  generateDestLocalForwardMusic = digits: musics:
+    let
+      randomForwardRule = ''
+        exten => 0000,1,Goto(dest-music,''${RAND(1,${builtins.toString (builtins.length musics)})},1)
+        same => n,Hangup()
+      '';
+
+      individualRules = lib.genList
+        (i: ''
+          exten => ${prefixZeros digits (builtins.toString (i + 1))},1,Goto(dest-music,${builtins.toString (i + 1)},1)
+          same => n,Hangup()
+        '')
+        (builtins.length musics);
+    in
+    builtins.concatStringsSep "\n"
+      ([ randomForwardRule ] ++ individualRules);
+
+  generateDestMusic = musics: builtins.concatStringsSep "\n"
+    (builtins.map
+      ({ index, value }: ''
+        exten => ${builtins.toString (index + 1)},1,Answer()
+        same => n,Playback(${pkgs.flake.nixos-asterisk-music}/${value})
+        same => n,Hangup()
+      '')
+      (enumerateList musics));
+
+  musics = [
+    "nightglow"
+    "rubia"
+    "ye_hang_xing"
+  ];
 in
 {
   age.secrets.asterisk-pw = {
@@ -121,12 +159,12 @@ in
       "extensions.conf" = ''
         [src-local]
         exten => _42402547X.,1,Goto(dest-local,''${EXTEN:8},1)
+        same  =>             n,Hangup()
         exten => _X!        ,1,Goto(dest-local,''${EXTEN},1)
+        same  =>             n,Hangup()
 
         [dest-local]
-        ${generateMusicDialplan "0001" "nightglow"}
-        ${generateMusicDialplan "0002" "rubia"}
-        ${generateMusicDialplan "0003" "ye_hang_xing"}
+        ${generateDestLocalForwardMusic 4 musics}
 
         exten => 1000,1,Dial(PJSIP/1000)
         same  =>      n,Hangup()
@@ -137,6 +175,9 @@ in
         exten => _X!,1,Answer()
         same  =>     n,Playback(im-sorry&check-number-dial-again)
         same  =>     n,Hangup()
+
+        [dest-music]
+        ${generateDestMusic musics}
       '';
 
       "codecs.conf" = ''
