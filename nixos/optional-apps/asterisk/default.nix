@@ -37,7 +37,7 @@ in
         [template-local-devices](!)
         type=endpoint
         context=src-local
-        allow=speex32,g722,speex16,g729,g726,ilbc,speex,opus,alaw,ulaw
+        allow=g722,alaw,ulaw,opus,speex32,speex16,g729,g726,ilbc,speex
         identify_by=username,auth_username
         direct_media=no
         rtp_symmetric=yes
