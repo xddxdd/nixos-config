@@ -26,19 +26,7 @@ in
 
   services.asterisk = {
     enable = true;
-    package = (pkgs.asterisk.override { withOpus = false; }).overrideAttrs (old: {
-      inherit (LT.sources.asterisk) pname version src;
-
-      postInstall = (old.postInstall or "") + ''
-        ln -s ${pkgs.asteriskDigiumCodecs.opus}/codec_opus.so $out/lib/asterisk/modules/codec_opus.so
-        ln -s ${pkgs.asteriskDigiumCodecs.opus}/format_ogg_opus.so $out/lib/asterisk/modules/format_ogg_opus.so
-        ln -s ${pkgs.asteriskDigiumCodecs.opus}/codec_opus_config-en_US.xml $out/var/lib/asterisk/documentation/thirdparty/codec_opus_config-en_US.xml
-        ln -s ${pkgs.asteriskDigiumCodecs.silk}/codec_silk.so $out/lib/asterisk/modules/codec_silk.so
-        ln -s ${pkgs.asteriskDigiumCodecs.siren7}/codec_siren7.so $out/lib/asterisk/modules/codec_siren7.so
-        ln -s ${pkgs.asteriskDigiumCodecs.siren14}/codec_siren14.so $out/lib/asterisk/modules/codec_siren14.so
-        ln -s ${pkgs.asterisk-g72x}/lib/asterisk/modules/codec_g729.so $out/lib/asterisk/modules/codec_g729.so
-      '';
-    });
+    package = pkgs.lantianCustomized.asterisk;
 
     confFiles = {
       "pjsip.conf" = ''
@@ -54,7 +42,7 @@ in
         [template-local-devices](!)
         type=endpoint
         context=src-local
-        allow=g722,alaw,ulaw,opus,speex32,speex16,g729,g726,ilbc,speex
+        allow=opus,g722,alaw,ulaw,speex32,speex16,g729,g726,ilbc,speex
         identify_by=username,auth_username
         direct_media=no
         rtp_symmetric=yes
