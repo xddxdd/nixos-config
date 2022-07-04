@@ -1,4 +1,18 @@
 {
+    "asterisk": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8XdXOP6WedZgL4OpbsZzUyT+elCAD8Ccl6cMx8fPAMg=",
+            "type": "url",
+            "url": "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.5.0.tar.gz"
+        },
+        "version": "19.5.0"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "extract": null,
