@@ -3,13 +3,33 @@
 let
   LT = import ../../../helpers { inherit config pkgs; };
 
-  inherit (pkgs.callPackage ./common.nix {}) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix { }) dialRule enumerateList prefixZeros;
 
   musics = [
     "nightglow"
     "rubia"
     "ye_hang_xing"
   ];
+
+  getMusicPath = music:
+    let
+      converted = pkgs.stdenvNoCC.mkDerivation {
+        pname = music;
+        version = "1.0";
+        src = pkgs.flake.nixos-asterisk-music + "/${music}.mp3";
+
+        nativeBuildInputs = with pkgs; [ ffmpeg ];
+
+        phases = [ "installPhase" ];
+        installPhase = ''
+          mkdir -p $out
+          ffmpeg -i ${pkgs.flake.nixos-asterisk-music}/${music}.mp3 \
+            -ar 48000 -ac 1 -acodec pcm_s16le -f s16le \
+            $out/${music}.sln48
+        '';
+      };
+    in
+    "${converted}/${music}";
 in
 rec {
   destLocalForwardMusic = digits:
@@ -30,7 +50,7 @@ rec {
     (builtins.map
       ({ index, value }: dialRule (builtins.toString (index + 1)) [
         "Answer()"
-        "Playback(${pkgs.flake.nixos-asterisk-music}/${value})"
+        "Playback(${getMusicPath value})"
       ])
       (enumerateList musics));
 }
