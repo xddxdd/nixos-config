@@ -35,6 +35,18 @@ let
         origins = [ "https://dashboard.xuyh0120.win" ];
       })
       ({
+        id = "miniflux";
+        secret = { _secret = config.age.secrets.konnect-miniflux-secret.path; };
+        name = "Miniflux";
+        application_type = "web";
+        trusted = true;
+        redirect_uris = [
+          "https://rss.xuyh0120.win/oauth2/oidc/callback"
+          "https://rss.xuyh0120.win/oauth2/oidc/redirect"
+        ];
+        origins = [ "https://rss.xuyh0120.win" ];
+      })
+      ({
         id = "nextcloud";
         secret = { _secret = config.age.secrets.konnect-nextcloud-secret.path; };
         name = "Nextcloud";
@@ -61,6 +73,7 @@ in
   age.secrets.glauth-bindpw.file = pkgs.secrets + "/glauth-bindpw.age";
   age.secrets.konnect-gitea-secret.file = pkgs.secrets + "/konnect/gitea-secret.age";
   age.secrets.konnect-grafana-secret.file = pkgs.secrets + "/konnect/grafana-secret.age";
+  age.secrets.konnect-miniflux-secret.file = pkgs.secrets + "/konnect/miniflux-secret.age";
   age.secrets.konnect-nextcloud-secret.file = pkgs.secrets + "/konnect/nextcloud-secret.age";
   age.secrets.konnect-oauth-proxy-secret.file = pkgs.secrets + "/konnect/oauth-proxy-secret.age";
 
