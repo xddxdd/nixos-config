@@ -32,6 +32,7 @@ let
     (CNAME { name = "lab"; target = "lab.lantian.pub."; })
     (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "rss"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
 
