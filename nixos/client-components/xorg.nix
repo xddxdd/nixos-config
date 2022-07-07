@@ -49,5 +49,8 @@ in
 
     # SDL Soundfont
     SDL_SOUNDFONTS = LT.constants.soundfontPath pkgs;
+
+    # Webkit2gtk fixes
+    WEBKIT_DISABLE_COMPOSITING_MODE = "1";
   };
 }
