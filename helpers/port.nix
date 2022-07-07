@@ -12,7 +12,6 @@
   YggdrasilAlfis = 4244;
   IPFS.API = 5001;
   IPFS.Gateway = 8080;
-  Clickhouse = 8123;
   Vault = 8200;
   Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
@@ -26,7 +25,6 @@
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;
   Konnect = 13877;
-  ResilioSync = 13900;
   Oauth2Proxy = 14180;
   NeteaseUnlock = 30001;
 }
