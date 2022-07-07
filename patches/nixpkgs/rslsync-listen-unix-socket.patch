@@ -1,0 +1,21 @@
+diff --git a/nixos/modules/services/networking/resilio.nix b/nixos/modules/services/networking/resilio.nix
+index 89127850641..82862113849 100644
+--- a/nixos/modules/services/networking/resilio.nix
++++ b/nixos/modules/services/networking/resilio.nix
+@@ -256,9 +256,15 @@ in
+         Restart   = "on-abort";
+         UMask     = "0002";
+         User      = "rslsync";
+-        ExecStart = ''
++        RuntimeDirectory = "rslsync";
++        ExecStart = pkgs.writeShellScript "rslsync-start" ''
++          exec ${pkgs.ip2unix}/bin/ip2unix -r in,tcp,port=${toString cfg.httpListenPort},path=/run/rslsync/rslsync.sock \
+           ${resilioSync}/bin/rslsync --nodaemon --config ${configFile}
+         '';
++        ExecStartPost = pkgs.writeShellScript "rslsync-post" ''
++          while [ ! -S /run/rslsync/rslsync.sock ]; do sleep 1; done
++          chmod 777 /run/rslsync/rslsync.sock
++        '';
+       };
+     };
+   };

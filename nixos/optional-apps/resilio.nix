@@ -10,7 +10,6 @@ in
     checkForUpdates = false;
     deviceName = config.networking.hostName;
     directoryRoot = "/nix/persistent/media";
-    httpListenPort = LT.port.ResilioSync;
     # Authentication is done by nginx
     httpLogin = "user";
     httpPass = "pass";
@@ -33,7 +32,7 @@ in
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { } {
         "/".extraConfig = LT.nginx.locationOauthConf + ''
-          proxy_pass http://[::1]:${LT.portStr.ResilioSync};
+          proxy_pass http://unix:/run/rslsync/rslsync.sock;
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";
         '' + LT.nginx.locationProxyConf;
       };
@@ -45,7 +44,7 @@ in
       listen = LT.nginx.listenHTTP;
       locations = LT.nginx.addCommonLocationConf { } {
         "/".extraConfig = ''
-          proxy_pass http://[::1]:${LT.portStr.ResilioSync};
+          proxy_pass http://unix:/run/rslsync/rslsync.sock;
           proxy_set_header Authorization "Basic dXNlcjpwYXNz";
         '' + LT.nginx.locationProxyConf;
       };
