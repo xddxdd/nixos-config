@@ -15,13 +15,13 @@ let
       server {
         listen 43;
         listen [::]:43;
-        proxy_pass ${LT.this.ltnet.IPv4}:${LT.portStr.WhoisProxyProtocol};
+        proxy_pass unix:/run/nginx/whois.sock;
         proxy_protocol on;
       }
       server {
         listen 70;
         listen [::]:70;
-        proxy_pass ${LT.this.ltnet.IPv4}:${LT.portStr.GopherProxyProtocol};
+        proxy_pass unix:/run/nginx/gopher.sock;
         proxy_protocol on;
       }
     }

@@ -250,16 +250,6 @@ rec {
     { addr = "[::]"; port = port.HTTP; }
   ];
 
-  listenPlain = port: [
-    { addr = "0.0.0.0"; port = port; extraParameters = [ "plain" ] ++ listenDefaultFlags; }
-    { addr = "[::]"; port = port; extraParameters = [ "plain" ] ++ listenDefaultFlags; }
-  ];
-
-  listenPlainProxyProtocol = port: [
-    { addr = "${this.ltnet.IPv4}"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
-    { addr = "[${this.ltnet.IPv6}]"; port = port; extraParameters = [ "plain" "proxy_protocol" ] ++ listenDefaultFlags; }
-  ];
-
   listenProxyProtocol = ''
     set_real_ip_from 127.0.0.0/8;
     set_real_ip_from 172.18.0.0/16;

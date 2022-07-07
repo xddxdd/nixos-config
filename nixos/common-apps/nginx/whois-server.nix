@@ -1,20 +1,17 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../../helpers {  inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
 in
 {
   services.nginx.virtualHosts = {
     "whois.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS
-        ++ LT.nginx.listenHTTP
-        ++ LT.nginx.listenPlain LT.port.Whois
-        ++ LT.nginx.listenPlainProxyProtocol LT.port.WhoisProxyProtocol;
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
 
       locations = {
         "/".extraConfig = ''
-          proxy_pass http://127.0.0.1;
+          proxy_pass http://unix:/run/nginx/whois-stage1.sock;
           proxy_set_header Host "stage1.whois.local";
           add_before_body /lantian-prepend;
         '';
@@ -27,11 +24,16 @@ in
       };
 
       extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.listenProxyProtocol;
+        + LT.nginx.listenProxyProtocol
+        + ''
+        listen unix:/run/nginx/whois.sock plain proxy_protocol default_server;
+      '';
     };
 
     "stage1.whois.local" = {
-      listen = LT.nginx.listenHTTP;
+      extraConfig = ''
+        listen unix:/run/nginx/whois-stage1.sock default_server;
+      '';
       root = "/nix/persistent/sync-servers/ltnet-registry/dn42/data";
       locations = {
         "/".extraConfig = ''
@@ -117,14 +119,16 @@ in
 
         "@fallback".extraConfig = ''
           internal;
-          proxy_pass http://127.0.0.1;
+          proxy_pass http://unix:/run/nginx/whois-stage2.sock;
           proxy_set_header Host "stage2.whois.local";
         '';
       };
     };
 
     "stage2.whois.local" = {
-      listen = LT.nginx.listenHTTP;
+      extraConfig = ''
+        listen unix:/run/nginx/whois-stage2.sock default_server;
+      '';
       locations = {
         "/".extraConfig = ''
           rewrite "^/([0-9]+)$" /AS$1 last;

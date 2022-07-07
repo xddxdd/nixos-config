@@ -22,8 +22,6 @@
   Yggdrasil.Multicast = 13059;
   BirdLgGo = 13180;
   ASF = 13242;
-  WhoisProxyProtocol = 13243;
-  GopherProxyProtocol = 13270;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;

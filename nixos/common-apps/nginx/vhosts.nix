@@ -153,10 +153,7 @@ in
     };
 
     "gopher.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS
-        ++ LT.nginx.listenHTTP
-        ++ LT.nginx.listenPlain LT.port.Gopher
-        ++ LT.nginx.listenPlainProxyProtocol LT.port.GopherProxyProtocol;
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       root = "/nix/persistent/sync-servers/www/lantian.pub";
       serverAliases = [ "gopher.lantian.dn42" "gopher.lantian.neo" ];
 
@@ -170,6 +167,7 @@ in
       };
 
       extraConfig = ''
+        listen unix:/run/nginx/gopher.sock plain proxy_protocol default_server;
         error_page 404 /404.gopher;
       ''
       + LT.nginx.makeSSL "lantian.pub_ecc"

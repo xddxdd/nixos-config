@@ -42,6 +42,12 @@ let
       chain NAT_PREROUTING {
         type nat hook prerouting priority -95; policy accept;
 
+        # nginx whois & gopher server
+        fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.nginx-proxy}:${LT.portStr.Whois}
+        fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.nginx-proxy}:${LT.portStr.Gopher}
+        fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.nginx-proxy}]:${LT.portStr.Whois}
+        fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.nginx-proxy}]:${LT.portStr.Gopher}
+
         ${lib.optionalString (LT.this.role == LT.roles.server) ''
           # network namespace coredns
           fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-authoritative}:${LT.portStr.DNS}
