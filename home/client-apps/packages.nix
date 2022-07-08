@@ -80,7 +80,7 @@ in
     ({ name = "element"; command = "${pkgs.element-desktop}/bin/element-desktop --hidden"; })
     ({ name = "gcdemu"; command = "${pkgs.gcdemu}/bin/gcdemu"; })
     ({ name = "linphone"; command = "${pkgs.linphone}/bin/linphone"; })
-    ({ name = "newsflash"; command = "${pkgs.newsflash}/bin/com.gitlab.newsflash"; })
+    ({ name = "newsflash"; command = "${pkgs.newsflash}/bin/com.gitlab.newsflash -h"; })
     ({ name = "telegram"; command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart"; })
     ({ name = "thunderbird"; command = "${pkgs.thunderbird}/bin/thunderbird"; })
     ({ name = "ulauncher"; command = "${pkgs.ulauncher}/bin/ulauncher --hide-window"; })
