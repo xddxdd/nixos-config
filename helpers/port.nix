@@ -8,7 +8,6 @@
   LDAP = 389;
   HTTPS = 443;
   LDAPS = 636;
-  Docker = 2375;
   YggdrasilAlfis = 4244;
   IPFS.API = 5001;
   IPFS.Gateway = 8080;
