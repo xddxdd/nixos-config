@@ -47,6 +47,11 @@ let
           fsType = "9p";
           options = [ "ro" "trans=virtio" "version=9p2000.L" "cache=loose" ];
         };
+        "/var/lib/docker" = {
+          device = "/dev/vda";
+          fsType = "btrfs";
+          options = [ "compress-force=zstd" ];
+        };
       } // (builtins.listToAttrs (builtins.map
         ({ name, host, vm }: {
           name = vm;
@@ -80,7 +85,7 @@ let
           default-runtime = "crun";
           experimental = true;
           runtimes.crun.path = "${pkgs.crun}/bin/crun";
-          storage-driver = "overlay2";
+          storage-driver = "btrfs";
           userland-proxy = false;
         };
       };
@@ -93,11 +98,17 @@ let
   }).system;
 
   vmStartScript = pkgs.writeShellScript "vm-start" ''
+    if [ ! -f /var/lib/vm/docker.img ]; then
+      echo "Please create /var/lib/vm/docker.img and format to ext4 manually"
+      exit 1
+    fi
+
     exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
       -cpu host \
       -m 16384 \
       -smp 8 \
       -device virtio-rng-pci \
+      -drive file=/var/lib/vm/docker.img,if=virtio,format=raw \
       -net nic,netdev=user.0,model=virtio \
       -netdev "user,id=user.0,hostfwd=tcp:127.0.0.1:${LT.portStr.Docker}-:${LT.portStr.Docker},hostfwd=tcp:127.0.0.1:2223-:2222" \
       -virtfs local,path=/nix/store,security_model=none,readonly=on,mount_tag=nix-store \
