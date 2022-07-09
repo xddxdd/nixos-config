@@ -31,7 +31,7 @@ in
     environment = {
       BIRDLG_DNS_INTERFACE = "asn.lantian.dn42";
       BIRDLG_DOMAIN = lgproxyDomain;
-      BIRDLG_LISTEN = "127.0.0.1:${LT.portStr.BirdLgGo}";
+      BIRDLG_LISTEN = "/run/bird-lg-go/bird-lg-go.sock";
       BIRDLG_NAME_FILTER = "^(ltdocker|sys_|static_|ltdyn_)";
       BIRDLG_NET_SPECIFIC_MODE = "dn42_shorten";
       BIRDLG_SERVERS = builtins.concatStringsSep "," (lgproxyHosts ++ [ "local" ]);
@@ -44,6 +44,8 @@ in
       RestartSec = "3";
       ExecStart = "${pkgs.bird-lg-go}/bin/frontend";
       DynamicUser = true;
+      RuntimeDirectory = "bird-lg-go";
+      UMask = "000";
     };
   };
 
@@ -52,7 +54,7 @@ in
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
+          proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           extraConfig = LT.nginx.locationBlockUserAgentConf
             + LT.nginx.locationProxyConf;
         };
@@ -66,7 +68,7 @@ in
       serverAliases = [ "lg.lantian.neo" ];
       locations = LT.nginx.addCommonLocationConf { } {
         "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.BirdLgGo}";
+          proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           extraConfig = LT.nginx.locationBlockUserAgentConf
             + LT.nginx.locationProxyConf;
         };
