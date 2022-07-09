@@ -18,7 +18,6 @@
   Prometheus.BirdExporter = 9324;
   Yggdrasil.Public = 13058;
   Yggdrasil.Multicast = 13059;
-  BirdLgGo = 13180;
   ASF = 13242;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
