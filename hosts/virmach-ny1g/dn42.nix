@@ -68,6 +68,22 @@
         peerIPv6LinkLocal = "fe80::123";
       };
     };
+    kclg = {
+      remoteASN = 4242421877;
+      latencyMs = 11;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21877;
+        remoteAddress = "lilie.lilynet.work";
+        remotePort = 22547;
+        wireguardPubkey = "jYwRBFYATL1spAlXKGI4rkY/27s9ufiD98ctzvP/1GI=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.180.1";
+        peerIPv6LinkLocal = "fe80::1d89";
+      };
+    };
     kskb-uml = {
       remoteASN = 4201271111;
       latencyMs = 29;
