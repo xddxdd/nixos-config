@@ -77,7 +77,7 @@ let
           flags = [ "-a" ];
         };
         listenOptions = [
-          "0.0.0.0:2375"
+          "0.0.0.0:${LT.portStr.Docker.Docker}"
           "/run/docker.sock"
         ];
 
@@ -103,18 +103,14 @@ let
       exit 1
     fi
 
-    exec \
-    ${pkgs.ip2unix}/bin/ip2unix \
-      -r in,tcp,port=2375,path=/run/docker-vm/docker.sock \
-      -r in,tcp,port=2222,path=/run/docker-vm/ssh.sock \
-    ${pkgs.qemu_kvm}/bin/qemu-kvm \
+    exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
       -cpu host \
       -m 16384 \
       -smp 8 \
       -device virtio-rng-pci \
       -drive file=/var/lib/vm/docker.img,if=virtio,format=raw \
       -net nic,netdev=user.0,model=virtio \
-      -netdev "user,id=user.0,hostfwd=tcp:127.0.0.1:2375-:2375,hostfwd=tcp:127.0.0.1:2222-:2222" \
+      -netdev "user,id=user.0,hostfwd=tcp:127.0.0.1:${LT.portStr.Docker.Docker}-:${LT.portStr.Docker.Docker},hostfwd=tcp:127.0.0.1:${LT.portStr.Docker.SSH}-:2222" \
       -virtfs local,path=/nix/store,security_model=none,readonly=on,mount_tag=nix-store \
       ${builtins.concatStringsSep "\n" (builtins.map
         ({name, host, vm}: "-virtfs local,path=${host},security_model=none,mount_tag=${name} \\")
@@ -135,8 +131,6 @@ in
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${vmStartScript}";
-      RuntimeDirectory = "docker-vm";
-      UMask = "000";
     };
   };
 
@@ -146,12 +140,12 @@ in
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "docker-vm" ''
-      export DOCKER_HOST=unix:///run/docker-vm/docker.sock
+      export DOCKER_HOST=127.0.0.1:${LT.portStr.Docker.Docker}
       exec ${pkgs.docker}/bin/docker "$@"
     '')
     (pkgs.writeShellScriptBin "ssh-docker-vm" ''
       exec ${pkgs.openssh}/bin/ssh \
-        -o "ProxyCommand ${pkgs.socat}/bin/socat - UNIX-CLIENT:/run/docker-vm/ssh.sock" \
+        -p ${LT.portStr.Docker.SSH} \
         root@localhost
     '')
   ];
