@@ -76,7 +76,7 @@ in
     drone-runner = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
+        DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
         DRONE_RPC_HOST = "drone.localhost";
@@ -96,7 +96,7 @@ in
     drone-runner-github = {
       wantedBy = [ "multi-user.target" ];
       environment = {
-        DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
+        DOCKER_HOST = "tcp://127.0.0.1:${LT.portStr.Docker.Docker}";
         # Make socket bind fail, this won't affect runner functionality
         DRONE_HTTP_BIND = "255.255.255.255:65535";
         DRONE_RPC_HOST = "drone-github.localhost";
