@@ -22,9 +22,12 @@ let
         enabled = true;
       };
       streamSettings = {
-        network = "ws";
+        network = "grpc";
         security = "none";
-        wsSettings.path = "/ray";
+        grpcSettings = {
+          serviceName = "ray";
+          multiMode = true;
+        };
       };
     }];
     log = {
