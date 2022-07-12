@@ -21,6 +21,22 @@
         peerIPv6LinkLocal = "fe80::549:3921:0:1";
       };
     };
+    ffee = {
+      remoteASN = 4242423397;
+      latencyMs = 9;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23397;
+        remoteAddress = "dn42-tyo-jp-1.ffeeco.coffee";
+        remotePort = 22547;
+        wireguardPubkey = "UfMRvQLt7xXDMxixjVuDNSinS1bBcmkqEcOrDAqR90c=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.162.135";
+        peerIPv6LinkLocal = "fe80::8c7:62ff:feaa:fc47";
+      };
+    };
     kskb = {
       remoteASN = 4242421817;
       latencyMs = 2;
