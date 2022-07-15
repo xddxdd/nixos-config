@@ -17,10 +17,12 @@
       in
       kpkg.extend (final: prev: {
         acpi-ec = final.callPackage ./acpi-ec.nix { };
+        nullfsvfs = final.callPackage ./nullfsvfs.nix { };
       });
-    kernelModules = [ "cryptodev" ];
+    kernelModules = [ "cryptodev" "nullfs" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
+      nullfsvfs
     ];
 
     initrd = {
