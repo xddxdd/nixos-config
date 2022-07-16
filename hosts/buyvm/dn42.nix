@@ -284,24 +284,6 @@
         peerIPv6LinkLocal = "fe80::42:42:1";
       };
     };
-    neochen = {
-      remoteASN = 4201270000;
-      latencyMs = 16;
-      peering.network = "neo";
-      tunnel = {
-        type = "wireguard";
-        localPort = 30000;
-        # remoteAddress = "caasih.neocloud.tw";
-        remotePort = 54323;
-        wireguardPubkey = "0cONH3BEJrFDnUs9WgcW9ghxNDjwwGEmDLbhgZ5Vnz4=";
-      };
-      addressing = {
-        myIPv4 = "10.127.10.2";
-        myIPv6 = "fd10:127:10:2::1";
-        peerIPv4 = "10.127.2.16";
-        peerIPv6 = "fd10:127:5f37:59df::2:16";
-      };
-    };
     nils = {
       remoteASN = 4242421592;
       latencyMs = 13;
