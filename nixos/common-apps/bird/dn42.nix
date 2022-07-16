@@ -6,8 +6,6 @@ let
     DN42_AS DN42_REGION NEO_AS
     community sanitizeHostname;
 
-  filterNetwork = net: lib.filterAttrs (n: v: v.peering.network == net);
-
   latencyToDN42Community = { latencyMs, badRouting, ... }:
     if badRouting then 9 else
     if latencyMs <= 3 then 1 else
@@ -282,5 +280,5 @@ in
   hasPeers = cfg != { };
 
   peers = builtins.concatStringsSep "\n"
-    (lib.mapAttrsToList peer (filterNetwork "dn42" cfg));
+    (lib.mapAttrsToList peer cfg);
 }
