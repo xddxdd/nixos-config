@@ -7,7 +7,9 @@ let
   LT = import ../../helpers { inherit config pkgs; };
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
-  setupAddressing = interfaceName: v: ''
+  setupAddressing = interfaceName: v: lib.optionalString (v.tunnel.mtu != null) ''
+    ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
+  '' + ''
     ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
   '' + lib.optionalString (v.addressing.peerIPv4 != null) ''
     ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4} peer ${v.addressing.peerIPv4} dev ${interfaceName}
@@ -148,27 +150,26 @@ in
   };
 
   config.networking.wireguard.enable = true;
-
-  config.networking.wg-quick.interfaces =
+  config.networking.wireguard.interfaces =
     let
-      cfgToWgQuick = n: v:
+      cfgToWg = n: v:
         let
           interfaceName = "${v.peering.network}-${n}";
         in
         lib.nameValuePair interfaceName ({
+          allowedIPsAsRoutes = false;
           listenPort = v.tunnel.localPort;
-          mtu = v.tunnel.mtu;
           peers = [{
             allowedIPs = [ "0.0.0.0/0" "::/0" ];
+            dynamicEndpointRefreshSeconds = 3600;
             endpoint = lib.mkIf (v.tunnel.remoteAddress != null) "${v.tunnel.remoteAddress}:${builtins.toString v.tunnel.remotePort}";
             publicKey = v.tunnel.wireguardPubkey;
           }];
-          postUp = setupAddressing interfaceName v;
+          postSetup = setupAddressing interfaceName v;
           privateKeyFile = config.age.secrets.wg-priv.path;
-          table = "off";
         });
     in
-    lib.mapAttrs' cfgToWgQuick (filterType "wireguard" config.services.dn42);
+    lib.mapAttrs' cfgToWg (filterType "wireguard" config.services.dn42);
 
   config.services.openvpn.servers =
     let
@@ -200,14 +201,6 @@ in
 
   config.systemd.services =
     let
-      cfgToWgQuick = n: v:
-        let
-          interfaceName = "${v.peering.network}-${n}";
-        in
-        lib.nameValuePair "wg-quick-${interfaceName}" ({
-          serviceConfig.ExecStartPre = [ "-${pkgs.iproute2}/bin/ip link del ${interfaceName}" ];
-        });
-
       cfgToGRE = n: v:
         let
           interfaceName = "${v.peering.network}-${n}";
@@ -231,6 +224,5 @@ in
         }
       ;
     in
-    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42))
-    // (lib.mapAttrs' cfgToWgQuick (filterType "wireguard" config.services.dn42));
+    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42));
 }
