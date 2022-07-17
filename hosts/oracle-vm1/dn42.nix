@@ -53,6 +53,22 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    ricky = {
+      remoteASN = 4242422458;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22458;
+        remoteAddress = "jp-tyo-a.nodes.pigeonhole.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "OEjDZMJF1USPznWEf2UbbdHexNAlP1/EKkKTN95Nx0Q=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.145.19";
+        peerIPv6LinkLocal = "fe80::2458";
+      };
+    };
     syc = {
       remoteASN = 4242420458;
       latencyMs = 1;
