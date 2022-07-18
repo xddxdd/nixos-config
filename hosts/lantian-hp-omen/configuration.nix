@@ -88,10 +88,11 @@ in
     disableWhileTyping = false;
   };
 
+  # Calc key & Remap pause to delete
   services.udev.extraHwdb = ''
-    # Calc key
     evdev:atkbd:dmi:bvn*:bvr*:bd*:svnHP:pnOMEN*:pvr*
       KEYBOARD_KEY_a1=!calc
+      KEYBOARD_KEY_c5=delete
   '';
 
   users.users.lantian.extraGroups = [ "rslsync" ];
