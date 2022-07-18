@@ -8,13 +8,13 @@
 let
   formatArg = s: if (builtins.isString s) then (lib.escapeShellArg s) else (builtins.toString s);
 
-  mapRegistrarFunc = n: v: "var REG_${n} = NewRegistrar('${n}', '${v}');";
+  mapRegistrarFunc = n: "var REG_${n} = NewRegistrar('${n}');";
   mapRegistrars = [
-    (mapRegistrarFunc "none" "NONE")
-  ] ++ lib.mapAttrsToList mapRegistrarFunc registrars;
+    (mapRegistrarFunc "none")
+  ] ++ builtins.map mapRegistrarFunc registrars;
 
-  mapProviderFunc = n: v: "var DNS_${n} = NewDnsProvider('${n}', '${v}');";
-  mapProviders = lib.mapAttrsToList mapProviderFunc providers;
+  mapProviderFunc = n: "var DNS_${n} = NewDnsProvider('${n}');";
+  mapProviders = builtins.map mapProviderFunc providers;
 
   mapDomainFunc =
     { domain
