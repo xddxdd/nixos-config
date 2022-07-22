@@ -88,6 +88,10 @@ in
                 type = lib.types.nullOr lib.types.str;
                 default = null;
               };
+              wireguardPresharedKeyFile = lib.mkOption {
+                type = lib.types.nullOr lib.types.path;
+                default = null;
+              };
               openvpnStaticKeyPath = lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;
@@ -164,6 +168,7 @@ in
             dynamicEndpointRefreshSeconds = 3600;
             endpoint = lib.mkIf (v.tunnel.remoteAddress != null) "${v.tunnel.remoteAddress}:${builtins.toString v.tunnel.remotePort}";
             publicKey = v.tunnel.wireguardPubkey;
+            presharedKeyFile = v.tunnel.wireguardPresharedKeyFile;
           }];
           postSetup = setupAddressing interfaceName v;
           privateKeyFile = config.age.secrets.wg-priv.path;
