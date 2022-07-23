@@ -14,6 +14,7 @@ in
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/hath.nix
+    ../../nixos/optional-apps/minio.nix
     ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix

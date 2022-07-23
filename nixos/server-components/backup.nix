@@ -57,6 +57,7 @@ let
     var/lib/grafana/
     var/lib/machines/
     var/lib/matrix-synapse/media
+    var/lib/minio/data
     var/lib/os-prober/
     var/lib/private/
     var/lib/prometheus/
