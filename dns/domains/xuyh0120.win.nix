@@ -31,8 +31,10 @@ let
     (CNAME { name = "dashboard"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "lab.lantian.pub."; })
     (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "minio"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
     (CNAME { name = "rss"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "s3"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
 
