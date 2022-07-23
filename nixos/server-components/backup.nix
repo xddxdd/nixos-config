@@ -15,18 +15,13 @@ let
       };
     };
     soyoustart = {
-      "type" = "sftp";
+      "type" = "s3";
       "config" = {
-        "path" = "/Kopia";
-        "host" = "soyoustart.lantian.pub";
-        "port" = 2222;
-        "username" = "sftp";
-        "password" = "";
-        "keyfile" = config.age.secrets.sftp-privkey.path;
-        "knownHostsData" = "[soyoustart.lantian.pub]:2222 ${LT.hosts.soyoustart.ssh.ed25519}";
-        "externalSSH" = false;
-        "sshCommand" = "ssh";
-        "dirShards" = null;
+        "bucket" = { _secret = config.age.secrets.kopia-minio-bucket.path; };
+        "endpoint" = "s3.xuyh0120.win";
+        "accessKeyID" = { _secret = config.age.secrets.kopia-minio-ak.path; };
+        "secretAccessKey" = { _secret = config.age.secrets.kopia-minio-sk.path; };
+        "sessionToken" = "";
       };
     };
     storj = {
@@ -104,6 +99,9 @@ let
   '';
 in
 {
+  age.secrets.kopia-minio-ak.file = pkgs.secrets + "/kopia/minio-ak.age";
+  age.secrets.kopia-minio-bucket.file = pkgs.secrets + "/kopia/minio-bucket.age";
+  age.secrets.kopia-minio-sk.file = pkgs.secrets + "/kopia/minio-sk.age";
   age.secrets.kopia-pw.file = pkgs.secrets + "/kopia/pw.age";
   age.secrets.kopia-scaleway-ak.file = pkgs.secrets + "/kopia/scaleway-ak.age";
   age.secrets.kopia-scaleway-bucket.file = pkgs.secrets + "/kopia/scaleway-bucket.age";
