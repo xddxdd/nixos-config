@@ -6,6 +6,12 @@ in
 {
   imports = [ ./mysql.nix ];
 
+  age.secrets.nextcloud-s3-secret = {
+    file = pkgs.secrets + "/nextcloud-s3-secret.age";
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
+
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud23;
@@ -20,6 +26,17 @@ in
       dbtype = "mysql";
       defaultPhoneRegion = "CN";
       overwriteProtocol = "https";
+
+      objectstore.s3 = {
+        enable = true;
+        key = "nextcloud";
+        region = "us-east-1";
+        bucket = "nextcloud";
+        autocreate = false;
+        hostname = "s3.xuyh0120.win";
+        secretFile = config.age.secrets.nextcloud-s3-secret.path;
+        usePathStyle = true;
+      };
     };
     hostName = "cloud.xuyh0120.win";
     https = true;
