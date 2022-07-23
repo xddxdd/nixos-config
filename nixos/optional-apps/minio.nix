@@ -12,8 +12,8 @@ in
 
   services.minio = {
     enable = true;
-    listenAddress = ":${LT.portStr.Minio.Listen}";
-    consoleAddress = ":${LT.portStr.Minio.Console}";
+    listenAddress = "127.0.0.1:${LT.portStr.Minio.Listen}";
+    consoleAddress = "127.0.0.1:${LT.portStr.Minio.Console}";
     rootCredentialsFile = config.age.secrets.minio-admin.path;
   };
 
