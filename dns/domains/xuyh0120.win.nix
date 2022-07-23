@@ -26,16 +26,16 @@ let
   internalServices = [
     (CNAME { name = "asf"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "books"; target = "soyoustart"; cloudflare = true; })
-    (CNAME { name = "bitwarden"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "bitwarden"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "cloud"; target = "soyoustart"; cloudflare = true; })
-    (CNAME { name = "dashboard"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "dashboard"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "lab.lantian.pub."; })
-    (CNAME { name = "login"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "login"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "minio"; target = "soyoustart"; cloudflare = true; })
-    (CNAME { name = "pga"; target = "virmach-ny6g"; cloudflare = true; })
-    (CNAME { name = "rss"; target = "virmach-ny6g"; cloudflare = true; })
+    (CNAME { name = "pga"; target = "soyoustart"; cloudflare = true; })
+    (CNAME { name = "rss"; target = "soyoustart"; cloudflare = true; })
     (CNAME { name = "s3"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "stats"; target = "virmach-ny6g"; ttl = "1h"; })
+    (CNAME { name = "stats"; target = "soyoustart"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "soyoustart"; cloudflare = true; })
 
     # Services with independent instances on numerous nodes

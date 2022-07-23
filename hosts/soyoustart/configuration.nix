@@ -11,14 +11,26 @@ in
 
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/asterisk
+    ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
+    ../../nixos/optional-apps/gitea.nix
+    ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/hath.nix
+    ../../nixos/optional-apps/konnect
+    ../../nixos/optional-apps/matrix-synapse.nix
+    ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/minio.nix
     ../../nixos/optional-apps/nextcloud.nix
+    ../../nixos/optional-apps/nginx-lab.nix
+    ../../nixos/optional-apps/plausible
+    ../../nixos/optional-apps/prometheus.nix
+    ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
+    ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/xmrig.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];

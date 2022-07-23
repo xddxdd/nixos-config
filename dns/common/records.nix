@@ -19,7 +19,7 @@ rec {
   GeoDNSTarget = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
 
   Libravatar = [
-    (fakeALIAS { name = "avatar"; target = "virmach-ny6g"; ttl = "1h"; })
+    (fakeALIAS { name = "avatar"; target = "hostdare"; ttl = "1h"; })
 
     # Use fixed domain, vhost not set up for all domains for now
     (SRV { name = "_avatars._tcp"; priority = 0; weight = 0; port = 80; target = "avatar.lantian.pub."; })
