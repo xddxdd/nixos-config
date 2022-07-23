@@ -9,20 +9,8 @@ in
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/genshin-helper.nix
-    ../../nixos/optional-apps/gitea.nix
-    ../../nixos/optional-apps/glauth.nix
-    ../../nixos/optional-apps/grafana.nix
-    ../../nixos/optional-apps/konnect
-    ../../nixos/optional-apps/matrix-synapse.nix
-    ../../nixos/optional-apps/miniflux.nix
-    ../../nixos/optional-apps/nginx-lab.nix
-    ../../nixos/optional-apps/plausible
-    ../../nixos/optional-apps/prometheus.nix
-    ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/resilio.nix
-    ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
