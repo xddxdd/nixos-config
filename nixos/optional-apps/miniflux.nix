@@ -6,7 +6,7 @@ in
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.konnect-miniflux-secret = {
+  age.secrets.miniflux-konnect-secret = {
     file = pkgs.secrets + "/konnect/miniflux-secret.age";
     owner = "miniflux";
     group = "miniflux";
@@ -23,7 +23,7 @@ in
 
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_CLIENT_ID = "miniflux";
-      OAUTH2_CLIENT_SECRET_FILE = config.age.secrets.konnect-miniflux-secret.path;
+      OAUTH2_CLIENT_SECRET_FILE = config.age.secrets.miniflux-konnect-secret.path;
       OAUTH2_REDIRECT_URL = "https://rss.xuyh0120.win/oauth2/oidc/callback";
       OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://login.xuyh0120.win";
       OAUTH2_USER_CREATION = "1";
