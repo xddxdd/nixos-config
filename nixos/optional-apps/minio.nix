@@ -40,6 +40,9 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+      + LT.nginx.noIndex true
+      + ''
+      access_log off;
+    '';
   };
 }
