@@ -7,6 +7,7 @@
   coredns-authoritative = "54";
   coredns-knot = "55";
   coredns-client = "56";
+  docker = "79";
   drone = "101";
   drone-github = "102";
   plausible = "138";
