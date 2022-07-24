@@ -68,6 +68,7 @@
     ManageForeignRoutes=false
     ManageForeignRoutingPolicyRules=false
   '';
+  systemd.services.systemd-networkd.restartIfChanged = false;
   systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
     "" # clear old command
     "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
