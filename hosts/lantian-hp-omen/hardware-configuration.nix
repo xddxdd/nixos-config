@@ -45,8 +45,8 @@
 
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
-    fsType = "ntfs3";
-    options = [ "ro" "prealloc" "uid=1000" "gid=1" "fmask=0077" "dmask=0077" "discard" "nofail" ];
+    fsType = "ntfs";
+    options = [ "rw" "uid=1000" ];
   };
 
   fileSystems."/mnt/root" = {
