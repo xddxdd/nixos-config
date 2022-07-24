@@ -48,6 +48,7 @@
     };
 
     supportedFilesystems = [
+      "ntfs"
       "zfs"
     ];
   };
