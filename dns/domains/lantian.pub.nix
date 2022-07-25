@@ -72,7 +72,7 @@ let
   ];
 in
 [
-  (rec {
+  rec {
     domain = "lantian.pub";
     registrar = "doh";
     providers = [ "cloudflare" ];
@@ -96,5 +96,5 @@ in
       externalServices
       internalServices
     ];
-  })
+  }
 ]

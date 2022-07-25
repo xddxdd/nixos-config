@@ -2,5 +2,5 @@
 
 final: prev: rec {
   flake = inputs;
-  secrets = inputs.secrets;
+  inherit (inputs) secrets;
 }

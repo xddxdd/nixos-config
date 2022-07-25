@@ -35,7 +35,7 @@ in
 
   services.phpfpm.pools.lab = {
     phpPackage = pkgs.phpWithExtensions;
-    user = config.services.nginx.user;
+    inherit (config.services.nginx) user;
     settings = {
       "listen.owner" = config.services.nginx.user;
       "pm" = "ondemand";
@@ -51,8 +51,7 @@ in
 
   services.fcgiwrap = {
     enable = true;
-    user = config.services.nginx.user;
-    group = config.services.nginx.group;
+    inherit (config.services.nginx) user group;
   };
 
   systemd.services.fcgiwrap.serviceConfig = LT.serviceHarden // {

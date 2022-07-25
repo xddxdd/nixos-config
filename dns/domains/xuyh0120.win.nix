@@ -48,7 +48,7 @@ let
   ];
 in
 [
-  (rec {
+  rec {
     domain = "xuyh0120.win";
     registrar = "doh";
     providers = [ "cloudflare" ];
@@ -71,5 +71,5 @@ in
       externalServices
       internalServices
     ];
-  })
+  }
 ]

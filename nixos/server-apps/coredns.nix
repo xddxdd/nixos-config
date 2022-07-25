@@ -5,7 +5,7 @@ let
 
   corednsAuthoritativeNetns = LT.netns {
     name = "coredns-authoritative";
-    enable = config.services.coredns.enable;
+    inherit (config.services.coredns) enable;
     announcedIPv4 = [
       "172.22.76.109"
       "172.18.0.254"
@@ -19,7 +19,7 @@ let
   };
   corednsKnotNetns = LT.netns {
     name = "coredns-knot";
-    enable = config.services.knot.enable;
+    inherit (config.services.knot) enable;
     birdBindTo = [ "knot.service" ];
   };
 
@@ -122,7 +122,7 @@ let
       '';
 in
 {
-  age.secrets = (builtins.listToAttrs (lib.flatten (builtins.map
+  age.secrets = builtins.listToAttrs (lib.flatten (builtins.map
     (n: [
       {
         name = "${n}.key";
@@ -143,7 +143,7 @@ in
         };
       }
     ])
-    LT.dnssecKeys)));
+    LT.dnssecKeys));
 
   services.knot = {
     enable = true;

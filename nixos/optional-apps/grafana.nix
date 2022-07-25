@@ -46,8 +46,7 @@ in
 
     smtp = with config.programs.msmtp.accounts.default; {
       enable = true;
-      host = host;
-      user = user;
+      inherit host user;
       passwordFile = config.age.secrets.smtp-pass.path;
       fromAddress = from;
     };

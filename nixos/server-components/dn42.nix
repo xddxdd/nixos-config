@@ -160,7 +160,7 @@ in
         let
           interfaceName = "${v.peering.network}-${n}";
         in
-        lib.nameValuePair interfaceName ({
+        lib.nameValuePair interfaceName {
           allowedIPsAsRoutes = false;
           listenPort = v.tunnel.localPort;
           peers = [{
@@ -172,7 +172,7 @@ in
           }];
           postSetup = setupAddressing interfaceName v;
           privateKeyFile = config.age.secrets.wg-priv.path;
-        });
+        };
     in
     lib.mapAttrs' cfgToWg (filterType "wireguard" config.services.dn42);
 
@@ -182,7 +182,7 @@ in
         let
           interfaceName = "${v.peering.network}-${n}";
         in
-        lib.nameValuePair interfaceName ({
+        lib.nameValuePair interfaceName {
           config = ''
             proto         udp
             mode          p2p
@@ -200,7 +200,7 @@ in
             secret        ${v.tunnel.openvpnStaticKeyPath}
           '';
           up = setupAddressing interfaceName v;
-        });
+        };
     in
     lib.mapAttrs' cfgToOpenVPN (filterType "openvpn" config.services.dn42);
 
@@ -229,5 +229,5 @@ in
         }
       ;
     in
-    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42));
+    lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
 }

@@ -1,7 +1,7 @@
 { pkgs, lib, dns, common, ... }:
 
 [
-  (rec {
+  rec {
     domain = "lantian.eu.org";
     registrar = "doh";
     providers = [ "bind" "desec" ];
@@ -17,5 +17,5 @@
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
-  })
+  }
 ]

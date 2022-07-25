@@ -69,7 +69,7 @@
   outputs = { self, flake-utils, ... }@inputs:
     let
       ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
-      nixpkgs = (inputs.flake-utils-plus.lib.mkFlake {
+      inherit (inputs.flake-utils-plus.lib.mkFlake {
         inherit self inputs;
         channels.nixpkgs = {
           config = {
@@ -86,9 +86,9 @@
           ] ++ (import ./overlays { inherit inputs lib; });
         };
         outputsBuilder = channels: channels;
-      }).nixpkgs;
+      }) nixpkgs;
 
-      lib = nixpkgs."x86_64-linux".lib;
+      inherit (nixpkgs."x86_64-linux") lib;
       LT = import ./helpers { inherit lib; };
 
       modulesFor = n:
@@ -96,12 +96,12 @@
           inherit (LT.hosts."${n}") system role;
         in
         [
-          ({
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             networking.hostName = n;
             system.stateVersion = LT.constants.stateVersion;
-          })
+          }
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
@@ -186,6 +186,13 @@
                 ${pkgs.colmena}/bin/colmena $ACTION $*
                 exit $?
               fi
+            '');
+          };
+
+          check = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "check" ''
+              ${pkgs.statix}/bin/statix check . -i _sources
             '');
           };
 

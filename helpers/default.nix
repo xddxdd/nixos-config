@@ -20,7 +20,7 @@ let
     containerIP = import ./container-ip.nix;
     dnssecKeys = import ./dnssec-keys.nix;
     port = import ./port.nix;
-    portStr = lib.mapAttrsRecursive (k: v: builtins.toString v) port;
+    portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
 
     serviceHarden = import ./service-harden.nix { inherit lib; };
     sources = pkgs.callPackage _sources/generated.nix { };

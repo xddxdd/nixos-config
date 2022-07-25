@@ -1,7 +1,7 @@
 { pkgs, lib, dns, common, ... }:
 
 [
-  (rec {
+  rec {
     domain = "172.18.0.0/16";
     reverse = true;
     providers = [ "bind" ];
@@ -9,18 +9,18 @@
       common.nameservers.LTNet
       (common.hostRecs.LTNetReverseIPv4 "ltnet.lantian.pub")
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "184_29.76.22.172.in-addr.arpa";
     providers = [ "bind" ];
     records = [
       common.nameservers.DN42
       (common.hostRecs.DN42ReverseIPv4 "lantian.dn42" 184 191)
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "96_27.76.22.172.in-addr.arpa";
     providers = [ "bind" ];
     records = [
@@ -32,9 +32,9 @@
       (common.hostRecs.DN42ReverseIPv4 "lantian.dn42" 96 127)
       (common.poem "" 98)
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "10.127.10.0/24";
     reverse = true;
     providers = [ "bind" ];
@@ -42,9 +42,9 @@
       common.nameservers.NeoNetwork
       (common.hostRecs.NeoNetworkReverseIPv4 "lantian.neo")
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "fdbc:f9dc:67ad::/48";
     reverse = true;
     providers = [ "bind" ];
@@ -52,9 +52,9 @@
       common.nameservers.DN42
       (common.hostRecs.DN42ReverseIPv6 "lantian.dn42")
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "fd10:127:10::/48";
     reverse = true;
     providers = [ "bind" ];
@@ -62,5 +62,5 @@
       common.nameservers.NeoNetwork
       (common.hostRecs.NeoNetworkReverseIPv6 "lantian.neo")
     ];
-  })
+  }
 ]

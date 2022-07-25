@@ -1,7 +1,7 @@
 { pkgs, lib, dns, common, ... }:
 
 [
-  (rec {
+  rec {
     domain = "lantian.pp.ua";
     registrar = "doh";
     providers = [ "henet" "desec" ];
@@ -17,9 +17,9 @@
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "ltn.pp.ua";
     registrar = "doh";
     providers = [ "henet" "desec" ];
@@ -35,9 +35,9 @@
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
-  })
+  }
 
-  (rec {
+  rec {
     domain = "xuyh0120.pp.ua";
     registrar = "doh";
     providers = [ "henet" "desec" ];
@@ -53,5 +53,5 @@
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
-  })
+  }
 ]

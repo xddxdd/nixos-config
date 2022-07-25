@@ -2,7 +2,7 @@
 
 with dns;
 [
-  (rec {
+  rec {
     domain = "56631131.xyz";
     registrar = "doh";
     providers = [ "ns1" ];
@@ -17,5 +17,5 @@ with dns;
       (NS { name = "xip"; target = "ns-gce.sslip.io."; })
       (NS { name = "xip"; target = "ns-azure.sslip.io."; })
     ];
-  })
+  }
 ]

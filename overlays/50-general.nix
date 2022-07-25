@@ -56,7 +56,7 @@ final: prev: rec {
   ]);
   rage = prev.stdenv.mkDerivation rec {
     name = "rage";
-    version = prev.age.version;
+    inherit (prev.age) version;
 
     phases = [ "installPhase" ];
     installPhase = ''

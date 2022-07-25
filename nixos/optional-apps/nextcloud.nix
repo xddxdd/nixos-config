@@ -48,7 +48,7 @@ in
     enable = true;
     port = 0;
     databases = 1;
-    user = config.services.phpfpm.pools.nextcloud.user;
+    inherit (config.services.phpfpm.pools.nextcloud) user;
   };
 
   systemd.services.nextcloud-setup.unitConfig = {

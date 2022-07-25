@@ -27,12 +27,12 @@ in
     privateKeyFile = config.age.secrets.wg-priv.path;
     interfaceNamespace = "ns-wg-lantian";
     peers = [
-      ({
+      {
         endpoint = "${LT.hosts.buyvm.public.IPv4}:22547";
         publicKey = wg-pubkey.buyvm;
         allowedIPs = [ "0.0.0.0/0" "::/0" ];
         persistentKeepalive = 25;
-      })
+      }
     ];
   };
 

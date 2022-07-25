@@ -56,7 +56,7 @@ in
       };
     };
 
-    innerConfig = { ... }: {
+    innerConfig = _: {
       networking = {
         firewall.enable = false;
         firewall.checkReversePath = false;

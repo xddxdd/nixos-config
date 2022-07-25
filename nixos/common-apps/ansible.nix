@@ -2,7 +2,7 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
-  mitogen = pkgs.python39Packages.mitogen;
+  inherit (pkgs.python3Packages) mitogen;
 in
 {
   environment.systemPackages = with pkgs; [

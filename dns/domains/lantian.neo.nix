@@ -1,7 +1,7 @@
 { pkgs, lib, dns, common, hosts, ... }:
 
 [
-  (rec {
+  rec {
     domain = "lantian.neo";
     providers = [ "bind" ];
     records = [
@@ -60,5 +60,5 @@
       (common.hostRecs.NeoNetwork domain)
       (common.hostRecs.SSHFP domain)
     ];
-  })
+  }
 ]
