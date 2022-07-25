@@ -162,6 +162,7 @@
             targetHost = hostname;
             targetPort = sshPort;
             targetUser = "root";
+            tags = [ role ];
           };
 
           imports = modulesFor n;

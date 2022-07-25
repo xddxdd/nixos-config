@@ -1,3 +1,6 @@
+servers: FORCE
+	@nix run .#colmena -- apply --on @server
+
 all: FORCE
 	@nix run .#colmena -- apply
 
