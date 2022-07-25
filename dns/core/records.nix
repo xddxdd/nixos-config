@@ -6,8 +6,8 @@ let
 
   record_meta = { ttl ? null, cloudflare ? null }:
     (lib.optionalString (ttl != null) ", TTL(${formatArg (builtins.toString ttl)})")
-    + (lib.optionalString (cloudflare == true) ", CF_PROXY_ON")
-    + (lib.optionalString (cloudflare == false) ", CF_PROXY_OFF");
+    + (lib.optionalString cloudflare ", CF_PROXY_ON")
+    + (lib.optionalString (!cloudflare) ", CF_PROXY_OFF");
 
   record_1args = type: name: reverse: ttl: cloudflare:
     "${type}(${formatName name reverse}" + (record_meta { inherit ttl cloudflare; }) + ")";

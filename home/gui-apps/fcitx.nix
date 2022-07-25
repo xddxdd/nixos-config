@@ -26,7 +26,7 @@ in
     "fcitx5/themes".source = "${pkgs.fcitx5-breeze}/share/fcitx5/themes";
     "fcitx5/rime/default.custom.yaml".text = builtins.toJSON {
       patch = {
-        schema_list = [ ({ schema = "aurora_pinyin"; }) ];
+        schema_list = [ { schema = "aurora_pinyin"; } ];
         "menu/page_size" = 9;
         "ascii_composer/good_old_caps_lock" = true;
         "ascii_composer/switch_key" = {

@@ -1,6 +1,6 @@
 { lib, ... }:
 
-lib.mapAttrs (k: v: lib.mkOptionDefault v) {
+lib.mapAttrs (k: lib.mkOptionDefault) {
   AmbientCapabilities = "";
   CapabilityBoundingSet = "";
   LockPersonality = true;

@@ -4,7 +4,7 @@ let
   LT = import ../helpers { inherit config pkgs lib; };
   homeConfig = import ../home/client.nix {
     inherit config pkgs;
-    lib = lib // { hm = pkgs.flake.home-manager.lib.hm; };
+    lib = lib // { inherit (pkgs.flake.home-manager.lib) hm; };
   };
 in
 {

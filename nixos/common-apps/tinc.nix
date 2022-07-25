@@ -8,7 +8,7 @@ let
   hostToTinc = k: v:
     lib.nameValuePair
       (sanitizeHostname k)
-      ({
+      {
         addresses = [ ]
           ++ lib.optionals (v.public.IPv4 != "") [{ address = v.public.IPv4; }]
           ++ lib.optionals (v.public.IPv6 != "") [{ address = v.public.IPv6; }]
@@ -19,7 +19,7 @@ let
           Compression = 0;
           Ed25519PublicKey = lib.mkIf (v.tinc.ed25519 != "") v.tinc.ed25519;
         };
-      });
+      };
 in
 {
   environment.systemPackages = with pkgs; [

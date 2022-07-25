@@ -79,7 +79,7 @@ in
     enableReload = true;
     package = pkgs.lantianCustomized.openresty.override {
       openssl-oqs = pkgs.openssl-oqs.override {
-        cryptodev = config.boot.kernelPackages.cryptodev;
+        inherit (config.boot.kernelPackages) cryptodev;
       };
     };
     proxyResolveWhileRunning = true;

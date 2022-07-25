@@ -26,7 +26,7 @@ in
       dn42.communityFilters
       dn42.common
       dn42.peers
-      (lib.optionalString (dn42.hasPeers) dn42.grc)
+      (lib.optionalString dn42.hasPeers dn42.grc)
 
     ] ++ lib.optionals (!LT.this.ltnet.alone) [
       ltnet.common

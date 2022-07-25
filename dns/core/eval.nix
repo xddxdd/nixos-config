@@ -30,7 +30,7 @@ let
       formattedDomain = "${if reverse then "REV(" else ""}${formatArg domain}${if reverse then ")" else ""}";
     in
     [
-      ("D(${formattedDomain}, REG_${registrar}, ${providerCommands}, DefaultTTL(${formatArg defaultTTL}), NAMESERVER_TTL(${formatArg nameserverTTL}));")
+      "D(${formattedDomain}, REG_${registrar}, ${providerCommands}, DefaultTTL(${formatArg defaultTTL}), NAMESERVER_TTL(${formatArg nameserverTTL}));"
     ] ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") (lib.flatten records));
   mapDomains = builtins.map mapDomainFunc (lib.flatten domains);
 

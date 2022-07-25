@@ -18,7 +18,7 @@ in
   };
 
   config.systemd.services.ftp-proxy = {
-    enable = config.services."ftp-proxy".enable;
+    inherit (config.services."ftp-proxy") enable;
     description = "FTP Proxy";
     wantedBy = [ "multi-user.target" ];
     unitConfig = {

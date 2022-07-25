@@ -40,7 +40,7 @@ in
 
       pipewire = {
         "context.modules" = defaultCfg.pipewire."context.modules" ++ [
-          ({
+          {
             name = "libpipewire-module-filter-chain";
             args = {
               "node.name" = "rnnoise_source";
@@ -66,7 +66,7 @@ in
                 "media.class" = "Audio/Source";
               };
             };
-          })
+          }
         ];
       };
     };

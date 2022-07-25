@@ -1,7 +1,7 @@
 { pkgs, lib, dns, common, hosts, ... }:
 
 [
-  (rec {
+  rec {
     domain = "lantian.dn42";
     providers = [ "bind" ];
     records = [
@@ -60,5 +60,5 @@
       (common.hostRecs.DN42 domain)
       (common.hostRecs.SSHFP domain)
     ];
-  })
+  }
 ]

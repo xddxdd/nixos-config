@@ -18,7 +18,7 @@ in
   };
 
   config.systemd.services.route-chain = {
-    enable = config.services."route-chain".enable;
+    inherit (config.services."route-chain") enable;
     description = "Route Chain";
     wantedBy = [ "multi-user.target" ];
     unitConfig = {

@@ -16,7 +16,7 @@ let
 
   identifierRegistration = {
     clients = [
-      ({
+      {
         id = "gitea";
         secret = { _secret = config.age.secrets.konnect-gitea-secret.path; };
         name = "Gitea";
@@ -24,8 +24,8 @@ let
         trusted = true;
         redirect_uris = [ "https://git.lantian.pub/user/oauth2/Konnect/callback" ];
         origins = [ "https://git.lantian.pub" ];
-      })
-      ({
+      }
+      {
         id = "grafana";
         secret = { _secret = config.age.secrets.konnect-grafana-secret.path; };
         name = "Grafana";
@@ -33,8 +33,8 @@ let
         trusted = true;
         redirect_uris = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
         origins = [ "https://dashboard.xuyh0120.win" ];
-      })
-      ({
+      }
+      {
         id = "miniflux";
         secret = { _secret = config.age.secrets.konnect-miniflux-secret.path; };
         name = "Miniflux";
@@ -45,8 +45,8 @@ let
           "https://rss.xuyh0120.win/oauth2/oidc/redirect"
         ];
         origins = [ "https://rss.xuyh0120.win" ];
-      })
-      ({
+      }
+      {
         id = "nextcloud";
         secret = { _secret = config.age.secrets.konnect-nextcloud-secret.path; };
         name = "Nextcloud";
@@ -54,8 +54,8 @@ let
         trusted = true;
         redirect_uris = [ "https://cloud.xuyh0120.win/apps/sociallogin/custom_oidc/konnect" ];
         origins = [ "https://cloud.xuyh0120.win" ];
-      })
-      ({
+      }
+      {
         id = "oauth-proxy";
         secret = { _secret = config.age.secrets.konnect-oauth-proxy-secret.path; };
         name = "OAuth Proxy";
@@ -65,7 +65,7 @@ let
         id_token_signed_response_alg = "RS256";
         request_object_signing_alg = "RS256";
         token_endpoint_auth_signing_alg = "RS256";
-      })
+      }
     ];
   };
 in

@@ -5,7 +5,7 @@ let
 
   netns = LT.netns {
     name = "powerdns-recursor";
-    enable = config.services.pdns-recursor.enable;
+    inherit (config.services.pdns-recursor) enable;
     announcedIPv4 = [
       "172.22.76.110"
       "172.18.0.253"

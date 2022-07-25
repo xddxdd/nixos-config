@@ -21,12 +21,12 @@ in
     stateDir = "prometheus";
 
     scrapeConfigs = [
-      ({
+      {
         job_name = "prometheus";
         static_configs = [{
           targets = [ "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}" ];
         }];
-      })
+      }
       (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
     ];

@@ -47,7 +47,7 @@ in
       xml
       zip
     ]);
-    user = config.services.nginx.user;
+    inherit (config.services.nginx) user;
     settings = {
       "listen.owner" = config.services.nginx.user;
       "pm" = "ondemand";
