@@ -1,6 +1,15 @@
 { config, pkgs, lib, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
 {
+  environment.systemPackages = with pkgs; [
+    (material-kwin-decoration.overrideAttrs (old: {
+      inherit (LT.sources.material-kwin-decoration) version src;
+    }))
+  ];
+
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.sddm.enable = true;
 
