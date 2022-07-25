@@ -10,6 +10,9 @@ in
     ./hardware-configuration.nix
   ];
 
+  # rage crashes on this node
+  age.ageBin = "${pkgs.age}/bin/age";
+
   systemd.network.networks.eth0 = {
     address = [ "23.226.61.104/27" ];
     gateway = [ "23.226.61.97" ];
