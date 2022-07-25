@@ -54,17 +54,6 @@ final: prev: rec {
     zip
     zlib
   ]);
-  rage = prev.stdenv.mkDerivation rec {
-    name = "rage";
-    inherit (prev.age) version;
-
-    phases = [ "installPhase" ];
-    installPhase = ''
-      mkdir -p $out/bin
-      ln -s ${prev.age}/bin/age $out/bin/rage
-      ln -s ${prev.age}/bin/age-keygen $out/bin/rage-keygen
-    '';
-  };
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch = old.postPatch + ''
