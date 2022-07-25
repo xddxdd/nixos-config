@@ -1,19 +1,10 @@
-[asterisk]
-src.github_tag = "asterisk/asterisk"
-src.include_regex = "[0-9\\.]+"
-fetch.url = "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-$ver.tar.gz"
-
-[asterisk-codec2]
-src.git = "https://github.com/traud/asterisk-codec2.git"
-fetch.github = "traud/asterisk-codec2"
-
-[asterisk-ilbc]
-src.git = "https://github.com/traud/asterisk-ilbc.git"
-fetch.github = "traud/asterisk-ilbc"
-
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
+
+[material-kwin-decoration]
+src.git = "https://github.com/Zren/material-decoration.git"
+fetch.github = "Zren/material-decoration"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
