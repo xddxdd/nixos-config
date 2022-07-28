@@ -55,11 +55,20 @@ in
     # Jsonnet
     jsonnet
 
+    # Kubernetes
+    kubectl
+    kubernetes-helm
+
     # LaTeX
     texlive.combined.scheme-full
 
     # Lua
     luajit
+
+    # Nix
+    flake.agenix.packages."${system}".agenix
+    nodePackages.node2nix
+    rnix-lsp
 
     # NodeJS
     nodejs
