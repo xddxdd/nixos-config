@@ -31,14 +31,11 @@ in
     ffmpeg-full
     filezilla
     firefox
-    flake.agenix.packages."${system}".agenix
     gcdemu
     gimp-with-plugins
     gnome.gedit
     google-chrome
     gopherus
-    kubectl
-    kubernetes-helm
     libfaketime
     librewolf
     libsForQt5.ark
@@ -51,19 +48,18 @@ in
     newsflash
     nix-top
     nix-tree
-    nodePackages.node2nix
     nvfetcher
     osdlyrics
     playonlinux
     qq
     quasselClient
-    rnix-lsp
     tdesktop
     thunderbird
     tigervnc
     transmission-qt
     transmission-remote-gtk
     ulauncher
+    vagrant
     virt-manager
     vscode
     wechat-uos
