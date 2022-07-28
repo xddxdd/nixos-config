@@ -31,8 +31,8 @@ rec {
   setup = {
     "netns-instance-${name}" = {
       inherit enable;
-      wantedBy = [ "multi-user.target" "network-online.target" ];
-      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" "network.target" ];
+      after = [ "network-pre.target" ];
       script = ''
         # Setup namespace
         ${ipbin} netns add ns-${name}
