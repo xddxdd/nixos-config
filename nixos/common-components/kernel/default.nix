@@ -1,6 +1,9 @@
 { pkgs, lib, config, ... }:
 
-{
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
+lib.mkIf (!config.boot.isContainer) {
   boot = {
     kernelParams = [
       "audit=0"

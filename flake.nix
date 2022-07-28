@@ -45,6 +45,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-openvz = {
+      url = "github:zhaofengli/nixos-openvz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       url = "github:xddxdd/nur-packages";
@@ -93,7 +97,7 @@
 
       modulesFor = n:
         let
-          inherit (LT.hosts."${n}") system role;
+          inherit (LT.hosts."${n}") system role openvz;
         in
         [
           {
@@ -105,21 +109,25 @@
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
-          inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
-          (./hosts + "/${n}/configuration.nix")
+          inputs.home-manager.nixosModules.home-manager
         ] ++ lib.optionals (role == LT.roles.client) [
           inputs.nur-xddxdd.nixosModules.svpWithNvidia
+        ] ++ lib.optionals openvz [
+          inputs.nixos-openvz.nixosModules.ovz-container
+          inputs.nixos-openvz.nixosModules.ovz-installer
+        ] ++ [
+          (./hosts + "/${n}/configuration.nix")
         ];
 
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
     rec {
       nixosConfigurations = lib.mapAttrs
-        (n: { system, ... }: lib.nixosSystem {
-          inherit system;
-          modules = modulesFor n;
-        })
+        (n: { system, ... }:
+          nixpkgs."${system}".nixos {
+            imports = modulesFor n;
+          })
         LT.hosts;
 
       packages = eachSystem (system: {

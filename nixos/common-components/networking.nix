@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
 {
-  boot.kernel.sysctl = {
+  boot.kernel.sysctl = lib.mkIf (!config.boot.isContainer) {
     "net.core.default_qdisc" = "cake";
     "net.ipv4.tcp_congestion_control" = "bbr";
 

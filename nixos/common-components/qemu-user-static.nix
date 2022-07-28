@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let
+  LT = import ../../helpers { inherit config pkgs lib; };
+
   # https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
   qemu-user-static = {
     qemu-aarch64_be-static = {
@@ -209,7 +211,7 @@ let
 
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
 in
-{
+lib.mkIf (!config.boot.isContainer) {
   environment.etc."binfmt.d/lantian.conf".text =
     lib.optionalString enabled
       (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));

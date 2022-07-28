@@ -109,7 +109,7 @@ in
   };
 
   services.ananicy = {
-    enable = true;
+    enable = !config.boot.isContainer;
     package = pkgs.ananicy-cpp;
   };
 
@@ -122,7 +122,7 @@ in
     freeSwapKillThreshold = 2;
   };
 
-  services.irqbalance.enable = true;
+  services.irqbalance.enable = !config.boot.isContainer;
 
   security.wrappers = {
     bwrap = {
@@ -149,7 +149,7 @@ in
   };
 
   zramSwap = {
-    enable = true;
+    enable = !config.boot.isContainer;
     memoryPercent = 50;
   };
 }

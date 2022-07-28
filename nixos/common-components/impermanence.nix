@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
+lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
     directories = [
       "/var/backup"
@@ -22,13 +25,15 @@
 
   age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
-  fileSystems."/" = {
-    device = "tmpfs";
-    fsType = "tmpfs";
-    options = [ "relatime" "mode=755" "nosuid" "nodev" ];
+  fileSystems = {
+    "/" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [ "relatime" "mode=755" "nosuid" "nodev" ];
+    };
   };
 
-  services.btrfs.autoScrub = lib.mkIf (config.fileSystems."/nix".fsType == "btrfs") {
+  services.btrfs.autoScrub = lib.mkIf (builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs") {
     enable = true;
     fileSystems = [ "/nix" ];
   };
