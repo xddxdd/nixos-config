@@ -134,6 +134,7 @@ let
 in
 {
   systemd.services.nftables = {
+    enable = !config.boot.isContainer;
     description = "Nftables rules";
     wantedBy = [ "multi-user.target" ];
     unitConfig = {

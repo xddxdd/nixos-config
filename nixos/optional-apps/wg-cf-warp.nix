@@ -19,7 +19,7 @@
     };
 
     script = ''
-      ${lib.optionalString (!config.boot.isContainer) "modprobe wireguard"}
+      ${lib.optionalString (!config.config.boot.isContainer) "modprobe wireguard"}
       exec wg-quick up ${config.age.secrets.wg-cf-warp.path}
     '';
 

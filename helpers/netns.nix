@@ -42,8 +42,8 @@ rec {
         ${sysctl} -w net.ipv6.conf.all.autoconf=0
         ${sysctl} -w net.ipv6.conf.default.accept_ra=0
         ${sysctl} -w net.ipv6.conf.all.accept_ra=0
-        ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1
-        ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1
+        ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
+        ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
         # Setup veth pair
         ${ipbin} link add ns-${interface} type veth peer ni-${interface}
         ${ipbin} link set ni-${interface} netns ns-${name}

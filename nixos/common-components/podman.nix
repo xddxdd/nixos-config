@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  LT = import ../../helpers { inherit config pkgs lib; };
+in
+lib.mkIf (!config.boot.isContainer) {
   environment.systemPackages = with pkgs; [
     crun
   ];

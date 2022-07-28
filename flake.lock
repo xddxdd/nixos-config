@@ -294,6 +294,26 @@
         "type": "github"
       }
     },
+    "nixos-openvz": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657922433,
+        "narHash": "sha256-wfDWA7m4onh6/ZfBXiyLh1GwqSGwCzzgrnxpX5kVrNg=",
+        "owner": "zhaofengli",
+        "repo": "nixos-openvz",
+        "rev": "a2eae2624ae9d317ac2e18c6b3c3f6403aea1287",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zhaofengli",
+        "repo": "nixos-openvz",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1657784809,
@@ -389,6 +409,7 @@
         "nix-alien": "nix-alien",
         "nixos-asterisk-music": "nixos-asterisk-music",
         "nixos-cn": "nixos-cn",
+        "nixos-openvz": "nixos-openvz",
         "nixpkgs": "nixpkgs",
         "nur-xddxdd": "nur-xddxdd",
         "secrets": "secrets"
