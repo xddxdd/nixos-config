@@ -87,7 +87,7 @@ in
     [Network]
     LinkLocalAddressing=ipv6
     DHCPServer=no
-    IPMasquerade=both
+    IPMasquerade=no
     LLDP=no
     IPv6SendRA=no
   '';
