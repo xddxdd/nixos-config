@@ -301,15 +301,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1659204572,
-        "narHash": "sha256-D2R1+oM3FsQNl9wjmhW65ZqDdFjBWMmhaR4aYLlVR9o=",
-        "owner": "xddxdd",
+        "lastModified": 1659207528,
+        "narHash": "sha256-Bw6JXe6A7k4PSR29lIqbAWHaiw6BxCDuARawsyT7jz0=",
+        "owner": "zhaofengli",
         "repo": "nixos-openvz",
-        "rev": "c8811a8aafbb0767c0eedac6cc2cff71a57b9f2f",
+        "rev": "8dfcfe23bbc67ec82a16ac8870a9771a9bf12976",
         "type": "github"
       },
       "original": {
-        "owner": "xddxdd",
+        "owner": "zhaofengli",
         "repo": "nixos-openvz",
         "type": "github"
       }

@@ -114,7 +114,7 @@ in
   };
 
   services.earlyoom = {
-    enable = true;
+    enable = !config.boot.isContainer;
     enableNotifications = LT.this.role == LT.roles.client;
     freeMemThreshold = 3;
     freeMemKillThreshold = 2;
