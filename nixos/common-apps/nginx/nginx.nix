@@ -199,6 +199,7 @@ in
 
   systemd.services.nginx = {
     environment = {
+      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
       OPENSSL_CONF = builtins.toString opensslConfig;
     };
     serviceConfig = {

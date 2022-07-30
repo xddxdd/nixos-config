@@ -8,7 +8,6 @@ in
 
   services.matrix-synapse = {
     enable = true;
-    withJemalloc = true;
     settings = {
       max_upload_size = "500M";
       public_baseurl = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}";
@@ -41,10 +40,15 @@ in
     };
   };
 
-  systemd.services.matrix-synapse.serviceConfig = LT.serviceHarden // {
-    MemoryDenyWriteExecute = false;
-    StateDirectory = "matrix-synapse";
-    RuntimeDirectory = "matrix-synapse";
+  systemd.services.matrix-synapse = {
+    environment = {
+      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+    };
+    serviceConfig = LT.serviceHarden // {
+      MemoryDenyWriteExecute = false;
+      StateDirectory = "matrix-synapse";
+      RuntimeDirectory = "matrix-synapse";
+    };
   };
 
   services.postgresql = {
