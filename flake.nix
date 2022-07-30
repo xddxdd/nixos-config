@@ -46,8 +46,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-openvz = {
-      # url = "github:zhaofengli/nixos-openvz";
-      url = "github:xddxdd/nixos-openvz";
+      url = "github:zhaofengli/nixos-openvz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nur.url = "github:nix-community/NUR";
