@@ -46,7 +46,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-openvz = {
-      url = "github:zhaofengli/nixos-openvz";
+      # url = "github:zhaofengli/nixos-openvz";
+      url = "github:xddxdd/nixos-openvz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nur.url = "github:nix-community/NUR";
@@ -129,6 +130,8 @@
             imports = modulesFor n;
           })
         LT.hosts;
+
+      openvz = lib.mapAttrs (n: v: v.config.system.build.tarball) nixosConfigurations;
 
       packages = eachSystem (system: {
         homeConfigurations =

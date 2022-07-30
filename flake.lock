@@ -301,15 +301,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1657922433,
-        "narHash": "sha256-wfDWA7m4onh6/ZfBXiyLh1GwqSGwCzzgrnxpX5kVrNg=",
-        "owner": "zhaofengli",
+        "lastModified": 1659204572,
+        "narHash": "sha256-D2R1+oM3FsQNl9wjmhW65ZqDdFjBWMmhaR4aYLlVR9o=",
+        "owner": "xddxdd",
         "repo": "nixos-openvz",
-        "rev": "a2eae2624ae9d317ac2e18c6b3c3f6403aea1287",
+        "rev": "c8811a8aafbb0767c0eedac6cc2cff71a57b9f2f",
         "type": "github"
       },
       "original": {
-        "owner": "zhaofengli",
+        "owner": "xddxdd",
         "repo": "nixos-openvz",
         "type": "github"
       }
@@ -418,11 +418,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1658590887,
-        "narHash": "sha256-k5XuEWmFFX1RWhBrZ69Bsb1agTp/xvr7hv/L3X1uQH0=",
+        "lastModified": 1659205393,
+        "narHash": "sha256-TdXEsKUaSFvxeVmMgSAt5emqasnkXHV1CwoHfQ/EKsg=",
         "ref": "refs/heads/master",
-        "rev": "fd9ac973136a69703a156f16d82d04dba944b0e5",
-        "revCount": 37,
+        "rev": "86efed12dfdcfdbb03ffdf3eaf8fad301ec808ad",
+        "revCount": 38,
         "type": "git",
         "url": "ssh://git@github.com/xddxdd/nixos-secrets"
       },

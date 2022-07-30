@@ -36,7 +36,7 @@ in
         Mode = "switch";
         PingInterval = 25;
         PriorityInheritance = true;
-        ProcessPriority = "high";
+        ProcessPriority = lib.mkIf (!config.boot.isContainer) "high";
         ReplayWindow = 128;
       };
     };
