@@ -11,12 +11,12 @@
       tunnel = {
         type = "wireguard";
         localPort = 22575;
-        remoteAddress = "par2.fr.androw.eu";
+        remoteAddress = "par3.fr.androw.eu";
         remotePort = 22547;
-        wireguardPubkey = "jlHp4FYZ69xdlaknLxBY3Uuv1xjsHoHH9qHe4b7BP2o=";
+        wireguardPubkey = "P7L62FCA7wdH2mr6T3mif90Ms4cImhZjFiuHgqE6yig=";
       };
       addressing = {
-        peerIPv4 = "172.23.186.39";
+        peerIPv4 = "172.23.186.33";
         peerIPv6LinkLocal = "fe80::2575";
       };
     };
