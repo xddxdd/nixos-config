@@ -84,6 +84,8 @@ in
         GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
       };
       serviceConfig = {
+        Restart = "always";
+        RestartSec = "3";
         DynamicUser = lib.mkForce false;
         User = "plausible";
         Group = "plausible";
