@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 
-{
+lib.mkIf (!config.boot.isContainer) {
   boot.kernelParams = [
     "nofb"
     "nomodeset"

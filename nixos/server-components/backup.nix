@@ -3,6 +3,8 @@
 let
   LT = import ../../helpers { inherit config pkgs; };
 
+  isBtrfsRoot = builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs";
+
   kopiaStorage = {
     scaleway = {
       "type" = "s3";
@@ -121,7 +123,7 @@ in
       ${kopiaIgnored}
       EOF
 
-    '' + (if config.fileSystems."/nix".fsType == "btrfs" then ''
+    '' + (if isBtrfsRoot then ''
       # Btrfs snapshot
       [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
       ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
@@ -133,7 +135,7 @@ in
 
     '') + (builtins.concatStringsSep "\n" (
       lib.mapAttrsToList kopiaScript kopiaStorage
-    )) + (if config.fileSystems."/nix".fsType == "btrfs" then ''
+    )) + (if isBtrfsRoot then ''
       # Remove snapshot
       ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
 
