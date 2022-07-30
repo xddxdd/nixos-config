@@ -157,7 +157,6 @@ in
   "virmach-ny1g" = rec {
     index = 8;
     ptrPrefix = "new-york.united-states";
-    hostname = "216.52.57.200";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4deGLTDTGKNoWDo5IDEK6R5wHymwdNnxrdsrL13/ayPy2B2zi5FuS6FFz0EEgaEEzD+9U6NCxxEypUU6uLjVAGlH7ILqyy0ASyIY3enGHkdv65gNIjNDymzQosR4kt5M/VmfEHJFf22tKTuV/CR6/fiCDe9xGEHbCv5r/0vzNnV4A/wijs1xoqD9x9AsUkkoo3SAUpeJljZxMD3CHNn03ROmXhnADIeX2hGiASfzwPS7tSEO9Mh7BDNJu8uRqkH3nlDIOenBHAjsuFQGed9WF03JHElyxO94AhoZwNzgeqjYxktU6pCAh2CnPKjuYeXUBSSPz/GOWkGYbgpHKOcvF5Kmu1f5H5+R1g5V04BN4PVjGvRU+iXd4hZCCHi6XqZ8v6fo15ECJ8EexTF7RIvGkzCLY/m0dtgIcBAXhzphvmzveGh1X3iS/eOMXWHugmmXnKfSA5Rl/1rU+ZcPJ1/Ju0A/6SyYy2MAJ4ZTEZGJSA9CrmrIYflr1LpRPq0WlSjChoXaz8WzBx6DxdeVDzRWLvlVbYfUa8cOalb0MVAwjCuo1pzg0ejbWj8b76p4diTEGyI7CbdRG45f7F7aqoSq3iW0CzivqZofs+5GaJgS8X7S4RTMJQWzCw93MLwyd0iiHxTeFp5RcYxL/L9HM/jQGk6fTkZ5JbHGhKOieDKtUQw==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5Oz+8RCV4amTUqd5BwLJ1gqkhyVhDItoevMwczN3Ry";
@@ -196,7 +195,6 @@ in
   "virmach-ny6g" = rec {
     index = 4;
     ptrPrefix = "new-york.united-states";
-    hostname = "216.52.57.20";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnpgMzepBss2c522NQot++GUiQ/TLBRwfXD8zfD2XTgnsZwAgRp6A7kCbVAu/CJ5O7UqaFYK6UhiQvPwHdkpLluy7a5ifZrI74dvkRgMg84P5YZXPxNiWWOQH8peiJFZJxG0wKC2ZVP1PmNp/OJJD22dtEXrDlu7lVzIHoIoSoT8qiqIx4VP3jJSM+t4ruuTi44Vvw0S4TjvPfENUcOKrU3nvbpliVkNpuPQROKi26Oz7o2jAVE8QME6Yvh8NVxUQTgqR5lHxBhuP2PTfnKtv6WIJf1xL5EF4WywL1uObc4w3qIAHrRj6ioZD/nFqgaQJpKO3+lmkRhz5iwXPfU19xPq5j0sDRPvoeE8F/P5QgMXJFnDR40YxBtvxUqAbNE9WR4pd0AdX0QwTrWQecAkDXpaY/L524JO5eJacbi/VCLvc3+QLNJDgOeXmIHv2oSF6Rpm2Q+/Tze9YdyjDvdhOmC59kRXx70Vs4SAArU7iF0mVbM8vTCV13DfQCUrf5XoJCX5lekhdIFnj/dju3lJr29POfThquzT6PndL9aRD0mA1ZNR1dk9wwvvv12bVoTgoEiVdSVLY934aMxO7wXSDhsivXXUrexk/lrC6nIF5y4PiORQK/5qtxFwn1tdFMNYb3j8PZcWkfOXErf+ZTarDYTXr6tciEB49WMadeJniOBQ==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMjmwZpgsCSqgs4kTRqLbkS1uRnNTLGweRqK+YrXs7Qf";
@@ -491,7 +489,6 @@ in
   "ethernetservers" = rec {
     index = 6;
     ptrPrefix = "new-york.united-states";
-    hostname = "74.201.26.46";
     openvz = true;
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDw+gahlerAFB35GN2mBpoDV88nVQJNHiQcUna6Edfmv8ZcOkblRjrE69lr8QUXsczSMiVeNOZEjWqMrb4OhezK3ZkxeWZm1xr1pffW1EkgRcozMKikJeYgYybMlWSeJRERP5WUbPwAzVQGK7duODjL2Uac3oEdNmSjG6qwgO21Wg1wzgW1P22Jm+CmsqA+t9mDQ4Sbn0RFJ/H6IepEWbN7qmFjgyoWSLIKaRP1R7c+RA0yXj57ysbnsIT/mO+HW9FWiFsi9gyDHjlArmo8HXgDj21zuoEKju8ENG6WKjr2a/QBRkcIwTS+Gsm7FWmTpTnIg2gnfNWjHMSJrHqKy2BvYwU/4VBuSVoGeB/V/NpoHNVWk9zbCkC9guHiJzi/HkLQX2iNfBQ9FMeJOMIh5SJCTzvG/iKW89kIVaOE3IBNU4wI2CAv0yulcoRUEeeSnBfJmXzGbHG+0iys7rlcuLXjpXKwiACRiNvLQEfjIfOOarh4LtEktdVy0YmKvj0IEWiEgSmtpv9lBQMOPQEXBJHVJJNKOvrY0A0vcFcyABnIh1L0eev6TZdUCWovPy8xhsu8uTRz7cEKOUmuQqFE78P3qLhgOLhe/0xKdrtyJgO0eF6GRJTxU1mo5LLSgagRfSO6OZeDCnYWn3xOLRE03uj3fVNaRASUQKNWxIRLTysX4Q==";
