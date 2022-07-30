@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ../../nixos/none.nix
+    ../../nixos/server.nix
   ];
 
   boot.loader.grub.enable = lib.mkForce false;

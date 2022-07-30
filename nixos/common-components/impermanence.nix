@@ -2,6 +2,8 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
+
+  isBtrfsRoot = builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs";
 in
 lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
@@ -33,7 +35,7 @@ lib.mkIf (!config.boot.isContainer) {
     };
   };
 
-  services.btrfs.autoScrub = lib.mkIf (builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs") {
+  services.btrfs.autoScrub = lib.mkIf isBtrfsRoot {
     enable = true;
     fileSystems = [ "/nix" ];
   };
