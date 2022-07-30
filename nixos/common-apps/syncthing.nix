@@ -39,6 +39,10 @@ in
   };
   users.groups.rslsync = { };
 
+  systemd.services.syncthing.environment = {
+    LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+  };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/syncthing 755 rslsync rslsync"
     "d /nix/persistent/sync-servers 775 root root"

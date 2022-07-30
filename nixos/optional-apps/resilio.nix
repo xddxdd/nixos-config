@@ -15,12 +15,17 @@ in
     httpPass = "pass";
   };
 
-  systemd.services.resilio.serviceConfig = LT.serviceHarden // {
-    ReadWritePaths = [
-      "/nix/persistent/media"
-    ];
-    StateDirectory = "resilio-sync";
-    TimeoutStopSec = "10";
+  systemd.services.resilio = {
+    environment = {
+      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+    };
+    serviceConfig = LT.serviceHarden // {
+      ReadWritePaths = [
+        "/nix/persistent/media"
+      ];
+      StateDirectory = "resilio-sync";
+      TimeoutStopSec = "10";
+    };
   };
 
   systemd.tmpfiles.rules = [
