@@ -44,7 +44,7 @@ in
 
   services.prometheus.exporters = {
     bird = {
-      enable = true;
+      enable = LT.this.role == LT.roles.server;
       port = LT.port.Prometheus.BirdExporter;
       listenAddress = LT.this.ltnet.IPv4;
       birdSocket = "/var/run/bird/bird.ctl";
@@ -52,6 +52,7 @@ in
   };
 
   systemd.services.bird-lgproxy-go = {
+    enable = LT.this.role == LT.roles.server;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.traceroute ];
