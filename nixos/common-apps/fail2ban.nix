@@ -7,10 +7,10 @@ in
   environment.systemPackages = [ config.services.fail2ban.package ];
 
   services.fail2ban = {
-    enable = true;
+    enable = !LT.this.openvz;
     maxretry = 5;
-    banaction = if config.boot.isContainer then "iptables-multiport" else "nftables-multiport";
-    banaction-allports = if config.boot.isContainer then "iptables-allports" else "nftables-allports";
+    banaction = "nftables-multiport";
+    banaction-allports = "nftables-allports";
     packageFirewall = pkgs.nftables;
     ignoreIP = [
       "10.0.0.0/8"
