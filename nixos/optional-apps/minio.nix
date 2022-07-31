@@ -27,7 +27,12 @@ in
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+      + LT.nginx.noIndex true
+      + ''
+      client_body_buffer_size 512k;
+      client_body_timeout 52w;
+      client_max_body_size 0;
+    '';
   };
 
   services.nginx.virtualHosts."s3.xuyh0120.win" = {
@@ -43,6 +48,9 @@ in
       + LT.nginx.noIndex true
       + ''
       access_log off;
+      client_body_buffer_size 512k;
+      client_body_timeout 52w;
+      client_max_body_size 0;
     '';
   };
 }
