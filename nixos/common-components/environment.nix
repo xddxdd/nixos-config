@@ -82,6 +82,8 @@ in
     python3Full
   ]);
 
+  hardware.ksm.enable = !config.boot.isContainer;
+
   home-manager.backupFileExtension = "bak";
 
   programs = {
