@@ -1,5 +1,8 @@
 { pkgs, lib, config, ... }:
 
+let
+  useCustomKernel = !config.boot.isContainer && pkgs.stdenv.isx86_64;
+in
 lib.mkIf (!config.boot.isContainer) {
   boot = {
     kernelParams = [
@@ -11,7 +14,7 @@ lib.mkIf (!config.boot.isContainer) {
     kernelPackages =
       let
         kpkg =
-          if pkgs.stdenv.isx86_64 then
+          if useCustomKernel then
             pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian
           else pkgs.linuxPackages_latest;
       in
@@ -55,7 +58,7 @@ lib.mkIf (!config.boot.isContainer) {
     ];
   };
 
-  fileSystems."/run/nullfs" = {
+  fileSystems."/run/nullfs" = lib.mkIf useCustomKernel {
     device = "nullfs";
     fsType = "nullfs";
     options = [ "noatime" "mode=777" "nosuid" "nodev" "noexec" ];

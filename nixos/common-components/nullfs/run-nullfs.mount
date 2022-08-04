@@ -1,0 +1,11 @@
+[Unit]
+Description=Nullfs
+
+[Mount]
+What=none
+Where=/run/nullfs
+Type=fuse.nullfs
+Options=rw,noatime,nosuid,nodev,noexec,allow_other
+StandardOutput=journal
+StandardError=journal
+Environment="IN_SYSTEMD=1"
