@@ -1,8 +1,5 @@
 { pkgs, lib, config, ... }:
 
-let
-  LT = import ../../helpers { inherit config pkgs lib; };
-in
 lib.mkIf (!config.boot.isContainer) {
   boot = {
     kernelParams = [
@@ -54,5 +51,11 @@ lib.mkIf (!config.boot.isContainer) {
       "ntfs"
       "zfs"
     ];
+  };
+
+  fileSystems."/run/nullfs" = {
+    device = "nullfs";
+    fsType = "nullfs";
+    options = [ "noatime" "mode=777" "nosuid" "nodev" "noexec" ];
   };
 }
