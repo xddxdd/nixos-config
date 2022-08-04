@@ -1,7 +1,0 @@
-[Unit]
-Description=Nullfs
-Before=sysinit.target
-
-[Automount]
-Where=/run/nullfs
-TimeoutIdleSec=30
