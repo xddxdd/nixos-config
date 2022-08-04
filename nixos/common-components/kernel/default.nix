@@ -26,6 +26,8 @@ lib.mkIf (!config.boot.isContainer) {
     ];
 
     initrd = {
+      inherit (config.boot) kernelModules;
+
       compressor = "zstd";
       compressorArgs = [ "-19" "-T0" ];
       includeDefaultModules = false;
