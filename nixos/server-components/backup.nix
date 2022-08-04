@@ -86,7 +86,13 @@ let
   kopiaScript = name: storage: ''
     export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
     export KOPIA_CONFIG_PATH=/run/kopia-repository.config
-    export KOPIA_LOG_DIR=/var/log/kopia
+
+    if [ -d /run/nullfs ]; then
+      export KOPIA_LOG_DIR=/run/nullfs
+    else
+      export KOPIA_LOG_DIR=/var/log/kopia
+    fi
+
     export KOPIA_PASSWORD=$(cat ${config.age.secrets.kopia-pw.path})
 
     ${utils.genJqSecretsReplacementSnippet
