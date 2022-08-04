@@ -7,6 +7,7 @@ let
 in
 lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
+    hideMounts = true;
     directories = [
       "/var/backup"
       "/var/cache"
