@@ -18,7 +18,7 @@
     daemonIOSchedClass = "idle";
     gc = {
       automatic = true;
-      options = "-d";
+      options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
     generateNixPathFromInputs = true;
