@@ -58,4 +58,6 @@ in
         + LT.nginx.serveLocalhost;
     };
   };
+
+  users.users.lantian.extraGroups = [ "rslsync" ];
 }
