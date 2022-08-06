@@ -9,6 +9,7 @@ lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
     directories = [
+      "/tmp"
       "/var/backup"
       "/var/cache"
       "/var/lib"
