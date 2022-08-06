@@ -42,6 +42,7 @@ let
     media/
     sftp-server/
     sync-servers/
+    tmp/
     var/cache/
     var/lib/asterisk/
     var/lib/btrfs/
