@@ -111,7 +111,7 @@ in
   };
 
   services.ananicy = {
-    enable = !config.boot.isContainer;
+    enable = LT.this.role == LT.roles.client && !config.boot.isContainer;
     package = pkgs.ananicy-cpp;
   };
 
