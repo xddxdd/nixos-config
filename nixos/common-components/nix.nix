@@ -1,6 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {
+
+  age.secrets.nix-privkey = {
+    name = "nix-privkey.pem";
+    file = pkgs.secrets + "/nix/privkey.age";
+  };
+  age.secrets.nix-s3-secret.file = pkgs.secrets + "/nix/s3-secret.age";
+
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
@@ -21,6 +28,7 @@
     settings = {
       auto-optimise-store = true;
       substituters = [
+        "s3://nix?endpoint=s3.xuyh0120.win"
         # "https://cache.ngi0.nixos.org"
         "https://xddxdd.cachix.org"
         "https://colmena.cachix.org"
@@ -36,4 +44,9 @@
       ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ /run/nix-privkey.pem - - - - ${config.age.secrets.nix-privkey.path}"
+    "L+ /root/.aws/credentials - - - - ${config.age.secrets.nix-s3-secret.path}"
+  ];
 }

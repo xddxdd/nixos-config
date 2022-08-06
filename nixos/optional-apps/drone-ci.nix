@@ -73,7 +73,8 @@ in
         UMask = "000";
       };
     };
-    drone-runner = {
+
+    drone-docker = {
       wantedBy = [ "multi-user.target" ];
       environment = {
         DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
@@ -93,7 +94,7 @@ in
         ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
       };
     };
-    drone-runner-github = {
+    drone-docker-github = {
       wantedBy = [ "multi-user.target" ];
       environment = {
         DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
@@ -114,6 +115,48 @@ in
         DynamicUser = true;
       };
     };
+
+    drone-exec = {
+      path = with pkgs; [ git nix ];
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        # Make socket bind fail, this won't affect runner functionality
+        DRONE_HTTP_BIND = "255.255.255.255:65535";
+        DRONE_RPC_HOST = "drone.localhost";
+        DRONE_RPC_PROTO = "http";
+        DRONE_RUNNER_CAPACITY = "4";
+        DRONE_RUNNER_NAME = "drone-exec";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+      };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-env.path;
+        ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
+      };
+    };
+    drone-exec-github = {
+      path = with pkgs; [ git nix ];
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        # Make socket bind fail, this won't affect runner functionality
+        DRONE_HTTP_BIND = "255.255.255.255:65535";
+        DRONE_RPC_HOST = "drone-github.localhost";
+        DRONE_RPC_PROTO = "http";
+        DRONE_RUNNER_CAPACITY = "4";
+        DRONE_RUNNER_NAME = "drone-exec";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+      };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
+        ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
+      };
+    };
+
     drone-vault = {
       wantedBy = [ "multi-user.target" ];
       environment = {
