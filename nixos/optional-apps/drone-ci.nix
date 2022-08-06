@@ -117,7 +117,7 @@ in
     };
 
     drone-exec = {
-      path = with pkgs; [ git nix ];
+      path = with pkgs; [ bash coreutils git nix ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         # Make socket bind fail, this won't affect runner functionality
@@ -138,7 +138,7 @@ in
       };
     };
     drone-exec-github = {
-      path = with pkgs; [ git nix ];
+      path = with pkgs; [ bash coreutils git nix ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         # Make socket bind fail, this won't affect runner functionality
