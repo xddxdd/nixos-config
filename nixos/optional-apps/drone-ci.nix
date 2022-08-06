@@ -134,6 +134,7 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-env.path;
         ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
+        Nice = "19";
       };
     };
     drone-exec-github = {
@@ -154,6 +155,7 @@ in
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
         ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
+        Nice = "19";
       };
     };
 
