@@ -31,7 +31,6 @@ in
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/vaultwarden.nix
-    ../../nixos/optional-apps/xmrig.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
