@@ -24,7 +24,7 @@ get:
 
 kind: pipeline
 type: docker
-name: default
+name: docker
 
 steps:
   - name: nix generate config
@@ -83,3 +83,18 @@ volumes:
   - name: sync
     host:
       path: /sync
+
+---
+
+kind: pipeline
+type: exec
+name: exec
+
+steps:
+  - name: nix upload
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: "/root/.aws/credentials"
+    commands:
+    - nix run .#colmena -- build
+    - sh -c 'nix store sign -k /run/nix-privkey.pem .gcroots/*'
+    - sh -c 'nix copy --to "s3://nix?endpoint=s3.xuyh0120.win" .gcroots/*'
