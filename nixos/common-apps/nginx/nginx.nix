@@ -46,8 +46,6 @@ let
         "TLS_AES_128_GCM_SHA256"
       ];
       curves = [
-        "p256_sidhp434"
-        "p256_sikep434"
         "p256_frodo640aes"
         "p256_bikel1"
         "p256_kyber90s512"
