@@ -37,12 +37,6 @@
     options = [ "subvol=home" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
-  fileSystems."/home/lantian/Downloads" = {
-    device = "/dev/mapper/root";
-    fsType = "btrfs";
-    options = [ "subvol=downloads-lantian" "compress-force=zstd" "nosuid" "nodev" ];
-  };
-
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
     fsType = "ntfs";
