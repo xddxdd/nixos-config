@@ -24,7 +24,7 @@ get:
 
 kind: pipeline
 type: docker
-name: docker
+name: dnscontrol
 
 steps:
   - name: nix generate config
@@ -88,13 +88,36 @@ volumes:
 
 kind: pipeline
 type: exec
-name: exec
+name: nix cache (current)
 
 steps:
   - name: nix upload
     environment:
       AWS_SHARED_CREDENTIALS_FILE: "/root/.aws/credentials"
     commands:
-    - nix run .#colmena -- build
-    - sh -c 'nix store sign -k /run/nix-privkey.pem .gcroots/*'
-    - sh -c 'nix copy --to "s3://nix?endpoint=s3.xuyh0120.win" .gcroots/*'
+      - nix run .#colmena -- build
+      - nix store sign -k /run/nix-privkey.pem .gcroots/*
+      - nix copy --to "s3://nix?endpoint=s3.xuyh0120.win" .gcroots/*
+
+---
+
+kind: pipeline
+type: exec
+name: nix cache (latest)
+
+steps:
+  - name: nix upload
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: "/root/.aws/credentials"
+      SSH_KEY:
+        from_secret: id_ed25519
+    commands:
+      # SSH key
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod -R 600 /root/.ssh/id_ed25519
+
+      # Nix flake update
+      - nix flake update
+      - nix run .#colmena -- build
+      - nix store sign -k /run/nix-privkey.pem .gcroots/*
+      - nix copy --to "s3://nix?endpoint=s3.xuyh0120.win" .gcroots/*
