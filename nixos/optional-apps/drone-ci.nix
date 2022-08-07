@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [
@@ -117,7 +117,13 @@ in
     };
 
     drone-exec = {
-      path = with pkgs; [ bash coreutils git nix ];
+      path = with pkgs; [
+        bash
+        coreutils
+        git
+        nix
+        config.programs.ssh.package
+      ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         # Make socket bind fail, this won't affect runner functionality
@@ -138,7 +144,13 @@ in
       };
     };
     drone-exec-github = {
-      path = with pkgs; [ bash coreutils git nix ];
+      path = with pkgs; [
+        bash
+        coreutils
+        git
+        nix
+        config.programs.ssh.package
+      ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         # Make socket bind fail, this won't affect runner functionality
