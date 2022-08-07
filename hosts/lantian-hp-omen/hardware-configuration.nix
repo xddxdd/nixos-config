@@ -55,6 +55,13 @@
     options = [ "subvol=nix" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
+  fileSystems."/nix/persistent" = {
+    device = "/dev/mapper/root";
+    fsType = "btrfs";
+    options = [ "subvol=persistent" "compress-force=zstd" "nosuid" "nodev" ];
+    neededForBoot = true;
+  };
+
   swapDevices = [{
     device = "/dev/disk/by-partuuid/6a423fb7-a6b9-934c-b587-246c03066e9f";
     discardPolicy = "both";
