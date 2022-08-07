@@ -51,7 +51,6 @@ lib.mkIf (!config.boot.isContainer) {
 
     supportedFilesystems = [
       "ntfs"
-      "zfs"
     ];
   };
 
