@@ -2,6 +2,7 @@
 
 {
 
+  age.secrets.nix-access-token.file = pkgs.secrets + "/nix/access-token.age";
   age.secrets.nix-privkey = {
     name = "nix-privkey.pem";
     file = pkgs.secrets + "/nix/privkey.age";
@@ -12,6 +13,7 @@
     package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes ca-derivations
+      !include ${config.age.secrets.nix-access-token.path}
     '';
 
     daemonCPUSchedPolicy = "idle";
