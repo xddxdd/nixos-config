@@ -20,6 +20,10 @@ in
     networkConfig.Tunnel = "henet";
   };
 
+  systemd.network.networks.dummy0.address = [
+    "fdbc:f9dc:67ad::8b:c606:ba01/128"
+  ];
+
   systemd.network.netdevs.henet = {
     netdevConfig = {
       Kind = "sit";
