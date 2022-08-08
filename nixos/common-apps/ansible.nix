@@ -33,6 +33,11 @@ in
     VerifyHostKeyDNS yes
     LogLevel ERROR
 
+    Host eu.nixbuild.net
+      User root
+      Port 22
+      PubkeyAcceptedKeyTypes ssh-ed25519
+
     Host git.lantian.pub
       User git
       Port 22

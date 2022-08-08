@@ -19,6 +19,13 @@
     userKnownHostsFile = "/dev/null";
 
     matchBlocks = {
+      "eu.nixbuild.net" = {
+        user = "root";
+        port = 22;
+        extraOptions = {
+          "PubkeyAcceptedKeyTypes" = "ssh-ed25519";
+        };
+      };
       "git.lantian.pub" = lib.hm.dag.entryBefore [ "*.lantian.pub" ] {
         user = "git";
         port = 2222;

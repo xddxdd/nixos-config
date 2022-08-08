@@ -65,6 +65,10 @@ final: prev: rec {
     '';
   });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
+    nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [
+      gobject-introspection
+    ]);
+
     propagatedBuildInputs = with prev.python3Packages; old.propagatedBuildInputs ++ [
       fuzzywuzzy
       pint
