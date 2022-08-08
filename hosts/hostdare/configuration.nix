@@ -17,6 +17,10 @@ in
     matchConfig.Name = "eth0";
   };
 
+  systemd.network.networks.dummy0.address = [
+    "fdbc:f9dc:67ad::dd:c85a:8a93/128"
+  ];
+
   services."route-chain" = {
     enable = true;
     routes = [
