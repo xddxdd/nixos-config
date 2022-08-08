@@ -12,4 +12,14 @@ lib.mkIf config.boot.isContainer {
 
   networking.wireguard.interfaces = lib.mkForce { };
   networking.wg-quick.interfaces = lib.mkForce { };
+
+  systemd.services.yggdrasil.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "root";
+  };
+
+  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = lib.mkForce [
+    "" # clear old command
+    "${pkgs.coreutils}/bin/true"
+  ];
 }
