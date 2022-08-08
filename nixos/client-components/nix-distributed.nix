@@ -23,13 +23,14 @@ in
           sshKey = "/home/lantian/.ssh/id_ed25519";
           sshUser = "root";
           maxJobs = 100;
+          speedFactor = 100;
           supportedFeatures = [ "benchmark" "big-parallel" ];
         };
       in
       [
         (mkBuildMachine "oracle-vm-arm")
-        (mkBuildMachine "soyoustart")
-        nixBuildNet
+        # (mkBuildMachine "soyoustart")
+        # nixBuildNet
       ];
   };
 }
