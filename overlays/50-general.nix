@@ -1,6 +1,13 @@
 { inputs, lib, ... }:
 
 final: prev: rec {
+  calibre = prev.calibre.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      rm $out/share/applications/calibre-ebook-edit.desktop
+      rm $out/share/applications/calibre-ebook-viewer.desktop
+      rm $out/share/applications/calibre-lrfviewer.desktop
+    '';
+  });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/drone-server-listen-unix.patch
