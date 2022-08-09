@@ -8,6 +8,16 @@ let
       echo "0f84fa" | sudo tee $F
     done
   '';
+
+  bindfsMountOptions = [
+    "force-user=lantian"
+    "force-group=wheel"
+    "create-for-user=rslsync"
+    "create-for-group=rslsync"
+    "chown-ignore"
+    "chgrp-ignore"
+    "xattr-none"
+  ];
 in
 {
   imports = [
@@ -54,7 +64,12 @@ in
     spec = "/nix";
     hashTableSizeMB = 1024;
     verbosity = "crit";
-    extraOptions = [ "-c" "2" ];
+  };
+
+  services.beesd.filesystems.usb = {
+    spec = "/mnt/usb";
+    hashTableSizeMB = 16384;
+    verbosity = "crit";
   };
 
   services.tlp.settings = {
@@ -78,4 +93,52 @@ in
       KEYBOARD_KEY_a1=!calc
       KEYBOARD_KEY_c5=delete
   '';
+
+  # Bind mounts
+  fileSystems = {
+    "/home/lantian/Backups" = {
+      device = "/nix/persistent/media/Backups";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/Calibre Library" = {
+      device = "/nix/persistent/media/Calibre Library";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/Music/CloudMusic" = {
+      device = "/nix/persistent/media/CloudMusic";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/Documents" = {
+      device = "/nix/persistent/media/Documents";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/LegacyOS" = {
+      device = "/nix/persistent/media/LegacyOS";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/Pictures" = {
+      device = "/nix/persistent/media/Pictures";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+    "/home/lantian/Secrets" = {
+      device = "/nix/persistent/media/Secrets";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
+
+    "/home/lantian/Software" = {
+      device = "/mnt/root/files/Software";
+      options = [ "bind" ];
+    };
+    "/home/lantian/.local/share/yuzu" = {
+      device = "/mnt/root/files/Yuzu";
+      options = [ "bind" ];
+    };
+  };
 }
