@@ -34,6 +34,12 @@ in
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
+  services.beesd.filesystems.root = {
+    spec = "/nix";
+    hashTableSizeMB = 1024;
+    verbosity = "crit";
+  };
+
   systemd.network.networks.eth0 = {
     address = [ "51.77.66.117/24" "2001:41d0:700:2475::1/64" ];
     gateway = [ "51.77.66.254" ];
