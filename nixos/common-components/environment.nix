@@ -150,6 +150,8 @@ in
     };
   };
 
+  system.fsPackages = [ pkgs.bindfs ];
+
   zramSwap = {
     enable = !config.boot.isContainer;
     memoryPercent = 50;
