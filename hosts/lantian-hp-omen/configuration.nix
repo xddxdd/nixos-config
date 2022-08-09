@@ -62,13 +62,13 @@ in
 
   services.beesd.filesystems.root = {
     spec = "/nix";
-    hashTableSizeMB = 1024;
+    hashTableSizeMB = 128;
     verbosity = "crit";
   };
 
   services.beesd.filesystems.usb = {
     spec = "/mnt/usb";
-    hashTableSizeMB = 16384;
+    hashTableSizeMB = 2048;
     verbosity = "crit";
   };
 

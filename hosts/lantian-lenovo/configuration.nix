@@ -39,7 +39,7 @@ in
 
   services.beesd.filesystems.root = {
     spec = "/nix";
-    hashTableSizeMB = 512;
+    hashTableSizeMB = 64;
     verbosity = "crit";
     extraOptions = [ "-c" "2" ];
   };
