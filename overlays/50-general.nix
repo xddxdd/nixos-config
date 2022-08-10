@@ -8,6 +8,11 @@ final: prev: rec {
       rm $out/share/applications/calibre-lrfviewer.desktop
     '';
   });
+  dnscontrol = prev.dnscontrol.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/dnscontrol-ns1-fix.patch
+    ];
+  });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/drone-server-listen-unix.patch

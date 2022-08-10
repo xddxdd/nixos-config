@@ -1,0 +1,40 @@
+From 2789e8c907dad910f289c6b2c8b35cbd5d30140d Mon Sep 17 00:00:00 2001
+From: Costas Drogos <costas.drogos@gmail.com>
+Date: Tue, 9 Aug 2022 20:34:16 +0200
+Subject: [PATCH] ns1: workaround an issue with ns1 API
+
+NS1 api returns a different message these days, which breaks error handling.
+
+Until a fix is merged upstream, work around the issue by attempting to match the
+stray error ourselves.
+
+relates to #1667.
+---
+ providers/ns1/ns1Provider.go | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/providers/ns1/ns1Provider.go b/providers/ns1/ns1Provider.go
+index ea5d84fa5..298a48efb 100644
+--- a/providers/ns1/ns1Provider.go
++++ b/providers/ns1/ns1Provider.go
+@@ -2,6 +2,7 @@ package ns1
+ 
+ import (
+ 	"encoding/json"
++	"errors"
+ 	"fmt"
+ 	"net/http"
+ 	"strconv"
+@@ -61,6 +62,12 @@ func (n *nsone) EnsureDomainExists(domain string) error {
+ 		return nil
+ 	}
+ 
++	newZoneExistsError := errors.New("invalid: FQDN already exists in the view")
++	if errors.As(err, &newZoneExistsError) {
++		// XXX: FIX: This is an ugly workaround for https://github.com/ns1/ns1-go/issues/163. Remove when resolved.
++		return nil
++	}
++
+ 	return err
+ }
+ 
