@@ -49,6 +49,7 @@ in
     nix-top
     nix-tree
     nvfetcher
+    openvpn
     osdlyrics
     playonlinux
     qq
@@ -61,6 +62,7 @@ in
     ulauncher
     vagrant
     virt-manager
+    vopono
     vscode
     wechat-uos
     winetricks
