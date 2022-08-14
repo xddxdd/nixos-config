@@ -104,6 +104,21 @@
         peerIPv6LinkLocal = "fe80::2548";
       };
     };
+    jindan = {
+      remoteASN = 4242422399;
+      latencyMs = 4;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22399;
+        remoteAddress = "112.213.124.196";
+        remotePort = 22547;
+        wireguardPubkey = "2Dgn3dnXXRnH19sxfeqOwMMptYW5PjytsCHhMCqpqig=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.51.100";
+        peerIPv6LinkLocal = "fe80::2399";
+      };
+    };
     kaikai = {
       remoteASN = 4242421488;
       latencyMs = 55;
