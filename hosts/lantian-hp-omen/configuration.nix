@@ -71,6 +71,7 @@ in
     hashTableSizeMB = 2048;
     verbosity = "crit";
   };
+  systemd.services."beesd@usb".wantedBy = lib.mkForce [ ];
 
   services.tlp.settings = {
     # Use powersave scheduler for intel_pstate
