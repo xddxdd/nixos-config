@@ -32,7 +32,7 @@ in
       BIRDLG_DNS_INTERFACE = "asn.lantian.dn42";
       BIRDLG_DOMAIN = lgproxyDomain;
       BIRDLG_LISTEN = "/run/bird-lg-go/bird-lg-go.sock";
-      BIRDLG_NAME_FILTER = "^(ltdocker|sys_|static_|ltdyn_)";
+      BIRDLG_NAME_FILTER = "^(ltdocker|sys_|static_|ltdyn_|ltnet_lantian_)";
       BIRDLG_NET_SPECIFIC_MODE = "dn42_shorten";
       BIRDLG_SERVERS = builtins.concatStringsSep "," (lgproxyHosts ++ [ "local" ]);
       BIRDLG_TELEGRAM_BOT_NAME = "lantian_lg_bot";
