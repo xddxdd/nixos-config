@@ -486,44 +486,6 @@ in
     };
     yggdrasil.IPv6 = "202:935c:d5de:9015:9060:7c25:39d3:f3c3";
   };
-  "ethernetservers" = rec {
-    index = 6;
-    ptrPrefix = "new-york.united-states";
-    openvz = true;
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDw+gahlerAFB35GN2mBpoDV88nVQJNHiQcUna6Edfmv8ZcOkblRjrE69lr8QUXsczSMiVeNOZEjWqMrb4OhezK3ZkxeWZm1xr1pffW1EkgRcozMKikJeYgYybMlWSeJRERP5WUbPwAzVQGK7duODjL2Uac3oEdNmSjG6qwgO21Wg1wzgW1P22Jm+CmsqA+t9mDQ4Sbn0RFJ/H6IepEWbN7qmFjgyoWSLIKaRP1R7c+RA0yXj57ysbnsIT/mO+HW9FWiFsi9gyDHjlArmo8HXgDj21zuoEKju8ENG6WKjr2a/QBRkcIwTS+Gsm7FWmTpTnIg2gnfNWjHMSJrHqKy2BvYwU/4VBuSVoGeB/V/NpoHNVWk9zbCkC9guHiJzi/HkLQX2iNfBQ9FMeJOMIh5SJCTzvG/iKW89kIVaOE3IBNU4wI2CAv0yulcoRUEeeSnBfJmXzGbHG+0iys7rlcuLXjpXKwiACRiNvLQEfjIfOOarh4LtEktdVy0YmKvj0IEWiEgSmtpv9lBQMOPQEXBJHVJJNKOvrY0A0vcFcyABnIh1L0eev6TZdUCWovPy8xhsu8uTRz7cEKOUmuQqFE78P3qLhgOLhe/0xKdrtyJgO0eF6GRJTxU1mo5LLSgagRfSO6OZeDCnYWn3xOLRE03uj3fVNaRASUQKNWxIRLTysX4Q==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL6bxgfkBuG7h2EplMyUucMwOjV/e1lr1lW5f2OFvesq";
-    };
-    tinc = {
-      rsa = ''
-        -----BEGIN PUBLIC KEY-----
-        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA27kZOse6hun46M5V2MGQ
-        gRFvgt3C6G+QzmzI7gqVDRofjg3PVwNcVDIjB2F3OdyMDXzFeUqrmEenLqCHKC9S
-        V9xyO0ursUyA8Fsg1mlTk0e6Vg5hf1H/OPGFWJH9Yosgmr+v9VKcASWUSH5bRHtc
-        XNitCUBhunsEcL5A7VzX9cI8yYE6/ZoN6CFGp7u+UKd9SwGzg32WSe4LdiUn/y6I
-        IXXeknzDxkZhjBDGn+ShskAlMcvKZ5CdZpYQLqH2CyDcVsg/8oj3el8++vgWJV7R
-        baZl+pAzkGzoj2PTpTGoR7totYKOs6JOWcAY/UrVhb6L5QlZfUaKRyz1a5hUeP5S
-        fT6cLXzGGNeWBVSo0e92H69R3PrN+Kfzuq3SlFm1V/sTUj9GZRXDa/X/Znv5/GdT
-        8xbeZirmEdCWcIgUXZqaEhszEjQuJMdJSFmy21WiQMCUWN2Fl8Vv57rJq9elFdhq
-        4xooNkp0w5Lz9+gpYFiyvhEmNwQ3CdSrceHuHuqn6YfamwGLpv+Ac4TehQ1SSw93
-        RV9bWEndZx1iCR92yzhhT9xpcYx/zvG5eB1w+nNGnSmgVdRu8Da/mSeq7h0Agh7l
-        mALF9aN9Mcoq+5RHlviUEn4jIane4tpIbBctJe0G3zV/eQqhULnIfEB3LO39r0CO
-        uixlsF1Dsx8Jy6ESGA0GZeMCAwEAAQ==
-        -----END PUBLIC KEY-----
-      '';
-      ed25519 = "ZE3iNMxptOCshdXN9mcbb80pCIrD5AKSeo84BHoWgLG";
-    };
-    syncthing = "K4V6OVY-JXN67LP-FZS2OCY-BDMU26T-W3PNGJN-2CBLZJF-FMQZKLS-GCVBXAF";
-    public = rec {
-      IPv4 = "74.201.26.46";
-      IPv6 = "2602:fe90:101:127::dc93";
-    };
-    dn42 = rec {
-      IPv4 = "172.22.76.116";
-      region = 42;
-    };
-    yggdrasil.IPv6 = "200:4ba1:5b6e:3843:8e22:90ee:9539:23c3";
-  };
   "lantian-hp-omen" = rec {
     index = 100;
     role = roles.client;
