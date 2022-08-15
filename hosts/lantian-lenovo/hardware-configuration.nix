@@ -22,6 +22,12 @@
     options = [ "subvol=nix" "compress-force=zstd" "nosuid" "nodev" ];
   };
 
+  fileSystems."/mnt/root" = {
+    device = "/dev/disk/by-uuid/0faabb3f-212a-4060-bf8d-33cdc9462b57";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" "nosuid" "nodev" ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/5667-EE72";
     fsType = "vfat";
