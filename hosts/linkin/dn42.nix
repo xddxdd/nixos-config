@@ -4,8 +4,6 @@
   age.secrets.dn42-pingfinder-uuid.file = pkgs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
-  age.secrets.wg-psk-xtex.file = pkgs.secrets + "/wg-psk/linkin-xtex.age";
-
   services.dn42 = {
     arnie97 = {
       remoteASN = 4242420977;
@@ -289,22 +287,6 @@
       addressing = {
         peerIPv4 = "172.23.131.206";
         peerIPv6 = "fd62:c9e2:af95:206::1";
-      };
-    };
-    xtex = {
-      remoteASN = 4242420361;
-      latencyMs = 300;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20361;
-        remoteAddress = "101.33.232.80";
-        remotePort = 10240;
-        wireguardPubkey = "yaLBtUxByJE3151yUDS5K2u7ejHM/aPJj2bzYqYZygI=";
-        wireguardPresharedKeyFile = config.age.secrets.wg-psk-xtex.path;
-      };
-      addressing = {
-        peerIPv4 = "172.20.206.64";
-        peerIPv6LinkLocal = "fe80::0361";
       };
     };
   };
