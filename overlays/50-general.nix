@@ -3,9 +3,7 @@
 final: prev: rec {
   calibre = prev.calibre.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
-      rm $out/share/applications/calibre-ebook-edit.desktop
-      rm $out/share/applications/calibre-ebook-viewer.desktop
-      rm $out/share/applications/calibre-lrfviewer.desktop
+      sed -i "/MimeType=/d" $out/share/applications/*.desktop
     '';
   });
   dnscontrol = prev.dnscontrol.overrideAttrs (old: {
