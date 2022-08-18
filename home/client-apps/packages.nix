@@ -55,7 +55,7 @@ in
     qq
     quasselClient
     tdesktop
-    thunderbird
+    thunderbird-91
     tigervnc
     transmission-qt
     transmission-remote-gtk
@@ -79,7 +79,7 @@ in
     { name = "gcdemu"; command = "${pkgs.gcdemu}/bin/gcdemu"; }
     { name = "newsflash"; command = "${pkgs.newsflash}/bin/com.gitlab.newsflash -h"; }
     { name = "telegram"; command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart"; }
-    { name = "thunderbird"; command = "${pkgs.thunderbird}/bin/thunderbird"; }
+    { name = "thunderbird"; command = "${pkgs.thunderbird-91}/bin/thunderbird"; }
     { name = "ulauncher"; command = "${pkgs.ulauncher}/bin/ulauncher --hide-window"; }
   ];
 }
