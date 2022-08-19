@@ -126,6 +126,16 @@ in
       fd00::/8+
     ];
 
+    define LTNET_IPv4 = [
+      172.18.0.0/16+,
+      10.127.10.0/24+
+    ];
+
+    define LTNET_IPv6 = [
+      fdbc:f9dc:67ad::/48+,
+      fd10:127:10::/48
+    ];
+
     define NEONETWORK_NET_IPv4 = [
       10.127.0.0/16+
     ];

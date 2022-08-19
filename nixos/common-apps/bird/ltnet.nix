@@ -9,12 +9,42 @@ let
   peer = hostname: { ltnet, index, ... }:
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
-        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fe80::${builtins.toString index}%'ltmesh-${builtins.toString index}' internal;
+        local fdbc:f9dc:67ad:${builtins.toString LT.this.index}::1 as ${DN42_AS};
+        neighbor fdbc:f9dc:67ad:${builtins.toString index}::1 internal;
       };
     '';
 in
 {
+  babel = ''
+    filter ltbabel_filter_v4 {
+      if net ~ LTNET_IPv4 then accept;
+      reject;
+    }
+
+    filter ltbabel_filter_v6 {
+      if net ~ LTNET_IPv6 then accept;
+      reject;
+    }
+
+    protocol babel ltbabel {
+      ipv4 {
+        import filter ltbabel_filter_v4;
+        export filter ltbabel_filter_v4;
+      };
+      ipv6 {
+        import filter ltbabel_filter_v6;
+        export filter ltbabel_filter_v6;
+      };
+      randomize router id yes;
+      interface "ltmesh*" {
+        type tunnel;
+        rtt min 0ms;
+        rtt max 1000ms;
+        rtt decay 42;
+      };
+    }
+  '';
+
   common = ''
     filter ltnet_import_filter_v4 {
       if bgp_local_pref > 5 then {
@@ -22,11 +52,13 @@ in
       } else {
         bgp_local_pref = 0;
       }
+      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v4 {
+      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -37,17 +69,18 @@ in
       } else {
         bgp_local_pref = 0;
       }
+      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v6 {
+      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
     template bgp lantian_internal {
-      direct;
       enable extended messages on;
       hold time 30;
       keepalive time 3;

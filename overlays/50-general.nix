@@ -1,6 +1,7 @@
 { inputs, lib, ... }:
 
 final: prev: rec {
+  bird = final.bird-babel-rtt;
   calibre = prev.calibre.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
       sed -i "/MimeType=/d" $out/share/applications/*.desktop
