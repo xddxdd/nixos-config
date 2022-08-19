@@ -165,7 +165,6 @@ in
           listenPort = v.tunnel.localPort;
           peers = [{
             allowedIPs = [ "0.0.0.0/0" "::/0" ];
-            dynamicEndpointRefreshSeconds = 3600;
             endpoint = lib.mkIf (v.tunnel.remoteAddress != null) "${v.tunnel.remoteAddress}:${builtins.toString v.tunnel.remotePort}";
             publicKey = v.tunnel.wireguardPubkey;
             presharedKeyFile = v.tunnel.wireguardPresharedKeyFile;
