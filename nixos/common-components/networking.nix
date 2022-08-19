@@ -92,18 +92,18 @@ in
     IPv6SendRA=no
   '';
 
-  # Multicast DNS
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    interfaces = [ "ltmesh" ];
-    publish = {
-      enable = true;
-      addresses = true;
-      hinfo = true;
-      workstation = true;
-    };
-  };
+  # # Multicast DNS
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns = true;
+  #   interfaces = [ "ltmesh" ];
+  #   publish = {
+  #     enable = true;
+  #     addresses = true;
+  #     hinfo = true;
+  #     workstation = true;
+  #   };
+  # };
 
   # Support network namespaces
   systemd.tmpfiles.rules = [
