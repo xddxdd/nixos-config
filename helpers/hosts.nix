@@ -489,7 +489,7 @@ in
   "lantian-hp-omen" = rec {
     index = 100;
     role = roles.client;
-    hostname = "fe80::100%ltmesh";
+    hostname = "127.0.0.1";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDE4CLCfkSGU7NMz4n5yp8AEdds7br0Ehe0e/RFCBz7wmqC6JeFgwapZefDwdI5av5UnBP1dqmi602OBF9yTCQ0yL1FLYTgkfWjGZSpRWOW69rQGsSGHMF/BExNQnVzmIrlMHlWtyQvDsI6tycMAiPBh2e2jcCzjGQSsHIE2d8TNN3XaA1Mht9dC7pAQqT3QUeYbUud2xWh0jCLLX+fLe9F41O9//TLLX/Lergf8Nxlu9BBM8l3t7JQBFq0QmzFSL+ODnlMCq/yEkXTOTNUNo9hzuLIr3qTX3jmYb4iF+WmeAfTcA1i0JWeMo/TilWhKsoBkYanIBCz9tctpqB2xFOWlC8UKXlgRwDRftDXTIrHMu2RvshB6bKxfV54yYAkMp7p/Alfq+4aYDjE10e0IRxB3AGsyVDH7eGWxbdDJSblu2zNaZfFmIARVU7Kc1bJHe05NmAOSwIparSh/ge4Nv3+i+ZQr6GPUv8ILHJEyn1kladwX0tubqXyR8caETe0FL0=";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZp2mN9BALoEjCyvAK27k5AZwOmQqU6ZWi+SXvYezBe";
@@ -522,7 +522,8 @@ in
   "lantian-lenovo" = rec {
     index = 101;
     role = roles.client;
-    hostname = "fe80::101%ltmesh";
+    hostname = "192.168.0.186";
+    # hostname = "fe80::101%ltmesh";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZcTivKNdS8+var7e60bl8JZPJhhbfHuOhmVwVt3zsoi6vOeMKjOLT+HKgvjGL6ctRB4bafdf24FdGlyWsbA7WC6Dmt7IcKVkPkMXzRfMF9KqngyYHnC5gwyraEkJ9BXZBYnAQeLKs7YQBb7LwQNXwaKsSRewyWSu//6EVqd/1NrzgOP8AXL446jjzoUizFN5f0xM/9b7wllH70VnvKVIGa2djU87QtX0XHda2yyx+GmCy9ic2qtn3Tpu0h6ex89p/ppymq4WxF5GizPF3neqp6K2EEAOfD667c+B/C8EYD8ltt3kBcOxNj7udk5ZwAmpDIf6U8gZxyaxaZ1vUWdrfw/AsQehQDi9wRr/Z77Bc57WnNI3Ib3TpcbAc+UE313Pg557WO8msyIgG2fovCrgj1Ez8eM54y/JDD6ekez8zSBNggm4D8m9MufDd9EohCP02t6rIKLrQmHAYOeKIVqwc49pF0yNk1ddJZSgMJszYY1km82V9zUtX6Kr2CoRyrJ+tWOxb8K95V/RqYC9Ll/r3hqc7uMFvgg8B0N1hIUpQDnqNQIhfz8ysjVeHrS/S3+w/Kg80TPSQhv9nXhXQ255UC2OCX5Eu9f9DYFewxBcDxKTEU52/yxkigmiYRsSOAVMdfkpGgDYPdrO8hIS++qclbeTLiW9a7PIO350fwLYX3w==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+dRFR7ZEU/XyPl4EyAsWD/cSDdWkoa2OL9A2WAMllG";

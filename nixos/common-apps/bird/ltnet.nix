@@ -10,7 +10,7 @@ let
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
         local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fe80::${builtins.toString index}%'ltmesh' internal;
+        neighbor fe80::${builtins.toString index}%'ltmesh-${builtins.toString index}' internal;
       };
     '';
 in
