@@ -7,8 +7,8 @@ let
   LT = import ../../helpers { inherit config pkgs; };
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
-  setupAddressing = interfaceName: v: ''
-    ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString (if v.tunnel.mtu != null then v.tunnel.mtu else 1400)}
+  setupAddressing = interfaceName: v: lib.optionalString (v.tunnel.mtu != null) ''
+    ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
   '' + ''
     ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
   '' + lib.optionalString (v.addressing.peerIPv4 != null) ''
