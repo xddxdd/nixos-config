@@ -2,6 +2,10 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
+
+  syncthingCli = pkgs.writeShellScriptBin "syncthing-cli" ''
+    exec ${config.services.syncthing.package}/bin/syncthing cli --home /var/lib/syncthing "$@"
+  '';
 in
 {
   services.syncthing = {
@@ -10,6 +14,15 @@ in
     group = "rslsync";
     configDir = "/var/lib/syncthing";
     dataDir = "/nix/persistent/sync-servers";
+
+    extraOptions = {
+      options = {
+        localAnnounceEnabled = false;
+        announceLANAddresses = false;
+        maxSendKbps = 100;
+        maxRecvKbps = 100;
+      };
+    };
 
     devices = lib.mapAttrs
       (n: v: {
@@ -30,7 +43,7 @@ in
     };
   };
 
-  environment.systemPackages = [ config.services.syncthing.package ];
+  environment.systemPackages = [ config.services.syncthing.package syncthingCli ];
 
   # Reuse user of resilio sync
   users.users.rslsync = {
