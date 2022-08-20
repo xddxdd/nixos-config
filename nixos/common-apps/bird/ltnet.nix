@@ -36,6 +36,7 @@ in
         export filter ltbabel_filter_v6;
       };
       randomize router id yes;
+      metric decay 180s;
       interface "ltmesh*" {
         type tunnel;
         rtt min 0ms;
