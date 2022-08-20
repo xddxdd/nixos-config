@@ -168,6 +168,9 @@ in
       direct;
       enable extended messages on;
       enforce first as on;
+      graceful restart yes;
+      long lived graceful restart yes;
+
       ipv4 {
         next hop self yes;
         import keep filtered;
@@ -262,6 +265,8 @@ in
       local ${LT.this.dn42.IPv6} as ${DN42_AS};
       neighbor fd42:4242:2601:ac12::1 as 4242422602;
       multihop;
+      graceful restart yes;
+      long lived graceful restart yes;
 
       ipv4 {
         add paths tx;

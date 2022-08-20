@@ -85,6 +85,9 @@ in
       enable extended messages on;
       hold time 30;
       keepalive time 3;
+      graceful restart yes;
+      long lived graceful restart yes;
+
       ipv4 {
         next hop self yes;
         import keep filtered;
@@ -108,11 +111,15 @@ in
     protocol bgp ltdyn_v4 from lantian_internal {
       local as ${DN42_AS};
       neighbor range ${LT.this.ltnet.IPv4Prefix}.0/24 as ${DN42_TEST_AS};
+      graceful restart yes;
+      long lived graceful restart yes;
       dynamic name "ltdyn_v4_";
     };
     protocol bgp ltdyn_v6 from lantian_internal {
       local as ${DN42_AS};
       neighbor range ${LT.this.ltnet.IPv6Prefix}::0/64 as ${DN42_TEST_AS};
+      graceful restart yes;
+      long lived graceful restart yes;
       dynamic name "ltdyn_v6_";
     };
   '';
