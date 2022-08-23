@@ -18,6 +18,7 @@ in
           hostName = "localhost";
           maxJobs = 4;
           speedFactor = 4;
+          supportedFeatures = [ "benchmark" "big-parallel" ];
         };
         mkBuildMachine = n: {
           inherit (LT.hosts."${n}") system;
@@ -26,6 +27,7 @@ in
           hostName = LT.hosts."${n}".hostname;
           maxJobs = 4;
           speedFactor = 4;
+          supportedFeatures = [ "benchmark" "big-parallel" ];
         };
         nixBuildNet = {
           hostName = "eu.nixbuild.net";

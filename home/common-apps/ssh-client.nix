@@ -35,6 +35,9 @@
           "PubkeyAcceptedAlgorithms" = "ssh-ed25519";
         };
       };
+      "localhost" = {
+        port = 2222;
+      };
       "*.lantian.pub" = {
         user = "root";
         port = 2222;
