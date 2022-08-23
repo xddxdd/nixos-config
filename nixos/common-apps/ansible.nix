@@ -42,6 +42,9 @@ in
       User git
       Port 22
 
+    Host localhost
+      Port 2222
+
     Host *.lantian.pub
       User root
       Port 2222
