@@ -11,15 +11,25 @@ in
     distributedBuilds = true;
     buildMachines =
       let
+        localhost = {
+          inherit (config.nixpkgs) system;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
+          hostName = "localhost";
+          maxJobs = 4;
+          speedFactor = 4;
+        };
         mkBuildMachine = n: {
           inherit (LT.hosts."${n}") system;
           sshKey = "/home/lantian/.ssh/id_ed25519";
           sshUser = "root";
           hostName = LT.hosts."${n}".hostname;
+          maxJobs = 4;
+          speedFactor = 4;
         };
         nixBuildNet = {
           hostName = "eu.nixbuild.net";
-          system = "x86_64-linux";
+          systems = [ "x86_64-linux" "aarch64-linux" ];
           sshKey = "/home/lantian/.ssh/id_ed25519";
           sshUser = "root";
           maxJobs = 100;
@@ -28,9 +38,10 @@ in
         };
       in
       [
+        localhost
         (mkBuildMachine "oracle-vm-arm")
         # (mkBuildMachine "soyoustart")
-        # nixBuildNet
+        nixBuildNet
       ];
   };
 }
