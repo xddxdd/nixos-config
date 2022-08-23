@@ -40,10 +40,10 @@ in
         };
       in
       [
-        localhost
+        # localhost
         (mkBuildMachine "oracle-vm-arm")
         # (mkBuildMachine "soyoustart")
-        nixBuildNet
+        # nixBuildNet
       ];
   };
 }
