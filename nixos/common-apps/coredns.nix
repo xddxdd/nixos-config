@@ -21,19 +21,16 @@ in
 
     config =
       let
-        forwardToNextDNS = zone: ''
+        forwardToGoogleDNS = zone: ''
           ${zone} {
             any
             bufsize 1232
             loadbalance round_robin
 
-            forward . tls://45.90.28.0 tls://45.90.30.0 tls://2a07:a8c0::0 tls://2a07:a8c1::0 {
-              tls_servername ${config.networking.hostName}-378897.dns.nextdns.io
+            forward . 8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844 {
+              tls_servername dns.google
             }
-            cache {
-              success 32768 86400 3600
-              denial 32768 86400 3600
-            }
+            cache
           }
         '';
         forwardToLtnet = zone: ''
@@ -47,7 +44,7 @@ in
           }
         '';
 
-        cfgEntries = [ (forwardToNextDNS ".") ]
+        cfgEntries = [ (forwardToGoogleDNS ".") ]
           ++ (builtins.map forwardToLtnet
           (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
       in
