@@ -4,10 +4,25 @@ let
   LT = import ../../helpers {  inherit config pkgs; };
 in
 {
+  imports = [ ./postgresql.nix ];
+
   age.secrets.vaultwarden-env.file = pkgs.secrets + "/vaultwarden-env.age";
+
+  services.postgresql = {
+    ensureDatabases = [ "vaultwarden" ];
+    ensureUsers = [
+      {
+        name = "vaultwarden";
+        ensurePermissions = {
+          "DATABASE \"vaultwarden\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+  };
 
   services.vaultwarden = {
     enable = true;
+    dbBackend = "postgresql";
     config = {
       SIGNUPS_ALLOWED = false;
       DOMAIN = "https://bitwarden.xuyh0120.win";
@@ -16,6 +31,8 @@ in
       WEBSOCKET_ENABLED = true;
       WEBSOCKET_ADDRESS = "127.0.0.1";
       WEBSOCKET_PORT = LT.port.Vaultwarden.Websocket;
+
+      DATABASE_URL = "postgresql:///vaultwarden?host=/run/postgresql";
 
       SMTP_HOST = config.programs.msmtp.accounts.default.host;
       SMTP_FROM = config.programs.msmtp.accounts.default.from;
