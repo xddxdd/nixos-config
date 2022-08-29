@@ -4,11 +4,7 @@ let
   LT = import ../../helpers { inherit config pkgs; };
 in
 {
-  age.secrets.gitea-dbpw = {
-    file = pkgs.secrets + "/gitea-dbpw.age";
-    owner = config.services.gitea.user;
-    group = "gitea";
-  };
+  imports = [ ./mysql.nix ];
 
   services.gitea = {
     enable = true;
@@ -18,8 +14,8 @@ in
     database = {
       type = "mysql";
       socket = "/run/mysqld/mysqld.sock";
-      user = "gitea";
-      passwordFile = config.age.secrets.gitea-dbpw.path;
+      user = "git";
+      name = "gitea";
       createDatabase = false;
     };
     disableRegistration = true;
@@ -73,6 +69,16 @@ in
         USER = "apikey";
       };
     };
+  };
+
+  services.mysql = {
+    ensureDatabases = [ "gitea" ];
+    ensureUsers = [{
+      name = "git";
+      ensurePermissions = {
+        "gitea.*" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   users.users.git = {

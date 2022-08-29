@@ -6,11 +6,6 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.grafana-dbpw = {
-    file = pkgs.secrets + "/grafana-dbpw.age";
-    owner = "grafana";
-    group = "grafana";
-  };
   age.secrets.grafana-oauth = {
     file = pkgs.secrets + "/grafana-oauth.age";
     owner = "grafana";
@@ -28,7 +23,6 @@ in
       type = "mysql";
       host = "/run/mysqld/mysqld.sock";
       user = "grafana";
-      passwordFile = config.age.secrets.grafana-dbpw.path;
     };
 
     declarativePlugins = with pkgs.grafanaPlugins; [
@@ -73,14 +67,12 @@ in
 
   services.mysql = {
     ensureDatabases = [ "grafana" ];
-    ensureUsers = [
-      {
-        name = "grafana";
-        ensurePermissions = {
-          "grafana.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    ensureUsers = [{
+      name = "grafana";
+      ensurePermissions = {
+        "grafana.*" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   services.nginx.virtualHosts."dashboard.xuyh0120.win" = {
