@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  LT = import ../../helpers {  inherit config pkgs; };
+  LT = import ../../helpers { inherit config pkgs; };
 in
 {
   imports = [ ./postgresql.nix ];
@@ -10,14 +10,12 @@ in
 
   services.postgresql = {
     ensureDatabases = [ "vaultwarden" ];
-    ensureUsers = [
-      {
-        name = "vaultwarden";
-        ensurePermissions = {
-          "DATABASE \"vaultwarden\"" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    ensureUsers = [{
+      name = "vaultwarden";
+      ensurePermissions = {
+        "DATABASE \"vaultwarden\"" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   services.vaultwarden = {

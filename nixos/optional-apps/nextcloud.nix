@@ -58,14 +58,12 @@ in
   services.mysql = {
     enable = true;
     ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [
-      {
-        name = "nextcloud";
-        ensurePermissions = {
-          "nextcloud.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    ensureUsers = [{
+      name = "nextcloud";
+      ensurePermissions = {
+        "nextcloud.*" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   services.nginx.virtualHosts."cloud.xuyh0120.win" = {

@@ -53,14 +53,12 @@ in
 
   services.postgresql = {
     ensureDatabases = [ "matrix-synapse" ];
-    ensureUsers = [
-      {
-        name = "matrix-synapse";
-        ensurePermissions = {
-          "DATABASE \"matrix-synapse\"" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    ensureUsers = [{
+      name = "matrix-synapse";
+      ensurePermissions = {
+        "DATABASE \"matrix-synapse\"" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   services.nginx.virtualHosts."matrix.lantian.pub" = {
