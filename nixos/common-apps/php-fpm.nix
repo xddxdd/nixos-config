@@ -1,5 +1,11 @@
 { config, pkgs, lib, ... }:
 
+let
+  qqwryDB = pkgs.fetchurl {
+    url = "https://github.com/out0fmemory/qqwry.dat/raw/master/qqwry_lastest.dat";
+    hash = "sha256-ZfzgGSd+hOIFvqAgKE6GajZwN4GaDRx+awqYwMPh5kI=";
+  };
+in
 {
   services.phpfpm = {
     phpOptions = ''
@@ -49,4 +55,9 @@
       default_socket_timeout = 60
     '';
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/qqwry 755 root root"
+    "L+ /var/lib/qqwry/qqwry.dat - - - - ${qqwryDB}"
+  ];
 }
