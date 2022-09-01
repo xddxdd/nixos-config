@@ -68,7 +68,6 @@ in
     zip
     zstd
   ] ++ (if pkgs.stdenv.isx86_64 then [
-    nix-alien
     nix-index
     nix-index-update
     (python3Full.withPackages (p: with p; [
@@ -95,7 +94,6 @@ in
     less.enable = true;
     mosh.enable = true;
     mtr.enable = true;
-    nix-ld.enable = pkgs.stdenv.isx86_64;
     ssh.forwardX11 = true;
     traceroute.enable = true;
   };
