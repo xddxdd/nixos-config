@@ -220,9 +220,5 @@ lib.mkIf (!config.boot.isContainer) {
     "proc-sys-fs-binfmt_misc.mount"
     "systemd-binfmt.service"
   ];
-  nix.settings.extra-platforms = lib.optionals (pkgs.stdenv.isx86_64 && enabled) [
-    # "aarch64-linux"
-    # "arm-linux"
-    "i686-linux"
-  ];
+  nix.settings.extra-platforms = lib.optionals (pkgs.stdenv.isx86_64 && enabled) lib.platforms.linux;
 }
