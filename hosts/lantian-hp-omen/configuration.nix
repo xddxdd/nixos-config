@@ -28,9 +28,9 @@ in
 
     ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
+    ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
@@ -57,6 +57,8 @@ in
     powerOnBoot = false;
   };
   hardware.xpadneo.enable = true;
+
+  networking.hosts."192.168.0.186" = [ "jellyfin.xuyh0120.win" ];
 
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;

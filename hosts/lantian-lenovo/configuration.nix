@@ -11,9 +11,10 @@ in
 
     ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
+    ../../nixos/optional-apps/jellyfin.nix
+    ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
@@ -61,17 +62,15 @@ in
     CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
   };
 
-  services.transmission.settings.download-dir = "/mnt/usb/downloads";
-  systemd.services.transmission = {
+  systemd.services.jellyfin = {
     after = [ "mnt-usb.mount" ];
     requires = [ "mnt-usb.mount" ];
   };
 
-  virtualisation.kvmgt = {
-    enable = true;
-    vgpus.i915-GVTg_V5_4.uuid = [
-      (LT.uuid "Intel GVT-g 1")
-    ];
+  services.transmission.settings.download-dir = "/mnt/usb/downloads";
+  systemd.services.transmission = {
+    after = [ "mnt-usb.mount" ];
+    requires = [ "mnt-usb.mount" ];
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
