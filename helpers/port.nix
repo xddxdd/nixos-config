@@ -26,7 +26,5 @@
   Minio.Listen = 13900;
   Minio.Console = 13901;
   Oauth2Proxy = 14180;
-  WGMesh.Start = 14500;
-  WGMesh.Stop = 14755;
   NeteaseUnlock = 30001;
 }

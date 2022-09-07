@@ -16,24 +16,24 @@ let
 in
 {
   babel = ''
-    filter ltbabel_filter_v4 {
+    filter ltmesh_filter_v4 {
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltbabel_filter_v6 {
+    filter ltmesh_filter_v6 {
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
-    protocol babel ltbabel {
+    protocol babel ltmesh {
       ipv4 {
-        import filter ltbabel_filter_v4;
-        export filter ltbabel_filter_v4;
+        import filter ltmesh_filter_v4;
+        export filter ltmesh_filter_v4;
       };
       ipv6 {
-        import filter ltbabel_filter_v6;
-        export filter ltbabel_filter_v6;
+        import filter ltmesh_filter_v6;
+        export filter ltmesh_filter_v6;
       };
       randomize router id yes;
       metric decay 180s;
