@@ -9,8 +9,8 @@ let
   peer = hostname: { ltnet, index, ... }:
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
-        local fdbc:f9dc:67ad:${builtins.toString LT.this.index}::1 as ${DN42_AS};
-        neighbor fdbc:f9dc:67ad:${builtins.toString index}::1 internal;
+        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
+        neighbor fe80::${builtins.toString index}%'ltmesh' internal;
       };
     '';
 in
@@ -66,13 +66,11 @@ in
       } else {
         bgp_local_pref = 0;
       }
-      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v4 {
-      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -83,18 +81,17 @@ in
       } else {
         bgp_local_pref = 0;
       }
-      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v6 {
-      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
     template bgp lantian_internal {
+      direct;
       enable extended messages on;
       hold time 30;
       keepalive time 3;
