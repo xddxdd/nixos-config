@@ -16,10 +16,6 @@ pkgs.writeText "nft.conf" ''
       meta l4proto icmp icmp type timestamp-reply drop
       meta l4proto icmp icmp type timestamp-request drop
 
-      # MSS clamping
-      iifname "dn42*" jump MSS_CLAMPING_1400
-      iifname "ltmesh*" jump MSS_CLAMPING_1400
-
       # Block non-DN42 traffic in DN42
       iifname "dn42*" jump DN42_INPUT
     }
@@ -31,12 +27,6 @@ pkgs.writeText "nft.conf" ''
       iifname "dn42*" oifname "eth*" reject
       iifname "dn42*" oifname "henet" reject
 
-      # MSS clamping
-      iifname "dn42*" jump MSS_CLAMPING_1400
-      iifname "ltmesh*" jump MSS_CLAMPING_1400
-      oifname "dn42*" jump MSS_CLAMPING_1400
-      oifname "ltmesh*" jump MSS_CLAMPING_1400
-
       # Block non-DN42 traffic in DN42
       iifname "dn42*" jump DN42_INPUT
       oifname "dn42*" jump DN42_OUTPUT
@@ -44,11 +34,6 @@ pkgs.writeText "nft.conf" ''
 
     chain FILTER_OUTPUT {
       type filter hook output priority 5; policy accept;
-
-      # MSS clamping
-      oifname "dn42*" jump MSS_CLAMPING_1400
-      oifname "ltmesh*" jump MSS_CLAMPING_1400
-
       oifname "dn42*" jump DN42_OUTPUT
     }
 
@@ -142,12 +127,6 @@ pkgs.writeText "nft.conf" ''
       ip6 daddr fe80::/10 return
       ip6 daddr ff00::/8 return
       reject with icmpx type admin-prohibited
-    }
-
-    chain MSS_CLAMPING_1400 {
-      ip protocol tcp tcp flags syn tcp option maxseg size set 1360
-      ip6 nexthdr tcp tcp flags syn tcp option maxseg size set 1340
-      return
     }
   }
 ''
