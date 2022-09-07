@@ -75,6 +75,12 @@ final: prev: rec {
       sed -i 's/DemiBold/Bold/g' Telegram/lib_ui/ui/style/style_core_font.cpp
     '';
   });
+  tinc_pre = prev.tinc_pre.overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [ final.miniupnpc ];
+    configureFlags = (old.configureFlags or [ ]) ++ [
+      "--enable-miniupnpc"
+    ];
+  });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [
       gobject-introspection

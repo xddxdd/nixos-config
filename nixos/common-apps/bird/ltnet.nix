@@ -36,9 +36,10 @@ in
         export filter ltmesh_filter_v6;
       };
       randomize router id yes;
-      metric decay 180s;
+      metric decay 30s;
       interface "ltmesh*" {
         type tunnel;
+        rtt cost 1000;
         rtt min 0ms;
         rtt max 1000ms;
         rtt decay 42;

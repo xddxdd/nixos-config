@@ -39,6 +39,7 @@ in
         PriorityInheritance = true;
         ProcessPriority = lib.mkIf (!config.boot.isContainer) "high";
         ReplayWindow = 128;
+        UPnP = LT.this.role == LT.roles.client;
       };
     };
   };
