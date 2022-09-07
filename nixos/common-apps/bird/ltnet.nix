@@ -16,24 +16,36 @@ let
 in
 {
   babel = ''
-    filter ltmesh_filter_v4 {
+    filter ltmesh_import_filter_v4 {
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_filter_v6 {
+    filter ltmesh_export_filter_v4 {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if net ~ LTNET_IPv4 then accept;
+      reject;
+    }
+
+    filter ltmesh_import_filter_v6 {
+      if net ~ LTNET_IPv6 then accept;
+      reject;
+    }
+
+    filter ltmesh_export_filter_v6 {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
     protocol babel ltmesh {
       ipv4 {
-        import filter ltmesh_filter_v4;
-        export filter ltmesh_filter_v4;
+        import filter ltmesh_import_filter_v4;
+        export filter ltmesh_export_filter_v4;
       };
       ipv6 {
-        import filter ltmesh_filter_v6;
-        export filter ltmesh_filter_v6;
+        import filter ltmesh_import_filter_v6;
+        export filter ltmesh_export_filter_v6;
       };
       randomize router id yes;
       metric decay 30s;
