@@ -16,7 +16,4 @@ in
   ];
 
   users.users.lantian.extraGroups = [ "wireshark" ];
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
 }

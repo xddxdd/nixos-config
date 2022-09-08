@@ -3,7 +3,7 @@
 let
   lantian_nginx = pkgs.writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"
-    local ltnginx   = ffi.load("${pkgs.libltnginx}/lib/libltnginx.so")
+    local ltnginx   = ffi.load("${pkgs.lantianPersonal.libltnginx}/lib/libltnginx.so")
 
     ffi.cdef[[
       char* whois_ip_lookup(char* cidr);

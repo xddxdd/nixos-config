@@ -25,7 +25,6 @@ in
     mailerPasswordFile = config.age.secrets.smtp-pass.path;
     rootUrl = "https://git.lantian.pub/";
     ssh.clonePort = 2222;
-    ssh.enable = true;
     user = "git";
 
     settings = {
