@@ -12,7 +12,7 @@
 
     colmena = {
       url = "github:zhaofengli/colmena";
-      inputs.flake-compat.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
@@ -23,7 +23,6 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.flake-compat.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
@@ -38,7 +37,7 @@
     nixos-cn = {
       url = "github:nixos-cn/flakes";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
+      inputs.flake-utils.follows = "flake-utils";
     };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -230,9 +229,10 @@
             '');
           };
 
-          nvfetcher = {
+          update = {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
+            program = builtins.toString (pkgs.writeShellScript "update" ''
+              nix flake update
               ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
             '');
           };
