@@ -31,6 +31,23 @@ in
     };
   };
 
+  systemd.services.douban-openapi-server = {
+    description = "Douban OpenAPI Server";
+    wantedBy = [ "multi-user.target" ];
+    script = ''
+      exec ${pkgs.douban-openapi-server}/bin/douban-openapi-server \
+        --access-logfile - \
+        -b 127.0.0.1:5000 \
+        -w 3
+    '';
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      TimeoutStopSec = "5";
+    };
+  };
+
   systemd.services.jellyfin = {
     environment = {
       JELLYFIN_kestrel__socket = "true";
@@ -46,14 +63,4 @@ in
   };
 
   users.users.jellyfin.extraGroups = [ "video" "render" ];
-
-  virtualisation.oci-containers.containers = {
-    douban-openapi-server = {
-      extraOptions = [ "--pull" "always" ];
-      image = "caryyu/douban-openapi-server:latest";
-      ports = [
-        "127.0.0.1:5000:5000"
-      ];
-    };
-  };
 }
