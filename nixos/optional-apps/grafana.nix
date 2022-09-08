@@ -62,7 +62,15 @@ in
     };
   };
 
-  systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets.grafana-oauth.path;
+  systemd.services.grafana.serviceConfig = {
+    EnvironmentFile = config.age.secrets.grafana-oauth.path;
+
+    ExecStartPost = pkgs.writeShellScript "grafana-post" ''
+      while [ ! -S /run/grafana/grafana.sock ]; do sleep 1; done
+      chmod 777 /run/grafana/grafana.sock
+    '';
+  };
+
   users.users.nginx.extraGroups = [ "grafana" ];
 
   services.mysql = {

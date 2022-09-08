@@ -14,7 +14,6 @@ in
       server_name = config.networking.domain;
       url_preview_enabled = true;
       account_threepid_delegates = {
-        email = "https://vector.im";
         msisdn = "https://vector.im";
       };
       database = {
