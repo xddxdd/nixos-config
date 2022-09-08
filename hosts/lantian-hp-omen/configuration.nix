@@ -58,8 +58,6 @@ in
   };
   hardware.xpadneo.enable = true;
 
-  networking.hosts."192.168.0.186" = [ "jellyfin.xuyh0120.win" ];
-
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
   security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
