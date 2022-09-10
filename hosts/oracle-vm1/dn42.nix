@@ -70,6 +70,37 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    merlyn = {
+      remoteASN = 4242422380;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22380;
+        remoteAddress = "tokyo.merlyn.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "iHBahOdFjLlSPhd12L+cp5wgIT/+eWl0mjnahi8yNQ0=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.125.254";
+        peerIPv6LinkLocal = "fe80::5400:4ff:fe1e:b4e9";
+      };
+    };
+    potat0 = {
+      remoteASN = 4242421816;
+      latencyMs = 4;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21816;
+        remoteAddress = "jp1.dn42.potat0.cc";
+        remotePort = 22547;
+        wireguardPubkey = "Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.246.2";
+        peerIPv6LinkLocal = "fe80::1816";
+      };
+    };
     ricky = {
       remoteASN = 4242422458;
       latencyMs = 2;
