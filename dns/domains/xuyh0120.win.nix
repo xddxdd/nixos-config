@@ -42,8 +42,8 @@ let
     # Services with independent instances on numerous nodes
     (lib.mapAttrsToList
       (n: v: [
-        (CNAME { name = "pma-${n}"; target = n; cloudflare = hasPublicIP v; })
-        (CNAME { name = "resilio-${n}"; target = n; cloudflare = hasPublicIP v; })
+        (CNAME { name = "pma-${n}"; target = n; ttl = "1h"; })
+        (CNAME { name = "resilio-${n}"; target = n; ttl = "1h"; })
       ])
       hosts)
   ];
