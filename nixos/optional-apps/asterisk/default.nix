@@ -95,12 +95,12 @@ in
       "extensions.conf" = ''
         [src-anonymous]
         ; Only allow anonymous inbound call to test numbers
-        ${dialRule "_424025470X." [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
-        ${dialRule "_0X!" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
+        ${dialRule "_424025470XXX" [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
+        ${dialRule "_0XXX" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
 
         [src-local]
-        ${dialRule "_42402547X." [ "Goto(dest-local,\${EXTEN:8},1)" ]}
-        ${dialRule "_X!" [ "Goto(dest-local,\${EXTEN},1)" ]}
+        ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+        ${dialRule "_XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
         [src-zadarma]
         ; All calls go to 0000
@@ -109,10 +109,7 @@ in
         [dest-local]
         ${destLocalForwardMusic 4}
         ${destLocal}
-
-        exten => _X!,1,Answer()
-        same  =>     n,Playback(im-sorry&check-number-dial-again)
-        same  =>     n,Hangup()
+        ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
 
         [dest-music]
         ${destMusic}
