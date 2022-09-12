@@ -86,11 +86,12 @@ in
         "/generate_204".return = "204";
       };
 
+      # Enable TLSv1 on default vhost, so config on other vhosts work
       extraConfig = ''
         access_log off;
         ssl_reject_handshake on;
         ssl_stapling off;
-      '';
+      '' + LT.nginx.enableTLSv1;
     };
 
     "lantian.pub" = addConfLantianPub {

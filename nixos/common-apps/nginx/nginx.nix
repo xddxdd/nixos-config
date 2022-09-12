@@ -10,6 +10,7 @@ let
 
     [openssl_init]
     providers = provider_sect
+    ssl_conf = ssl_sect
 
     [provider_sect]
     oqsprovider = oqsprovider_sect
@@ -25,6 +26,13 @@ let
     [oqsprovider_sect]
     activate = 1
     module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
+
+    [ssl_sect]
+    system_default = ssl_default_sect
+
+    [ssl_default_sect]
+    MinProtocol = TLSv1
+    CipherString = DEFAULT:@SECLEVEL=0
   '';
 
   nginxSslConf = isStream:
