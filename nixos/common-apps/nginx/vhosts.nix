@@ -91,8 +91,7 @@ in
       extraConfig = ''
         access_log off;
       ''
-      + LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.enableTLSv1;
+      + LT.nginx.makeSSL "xuyh0120.win_ecc";
     };
 
     "localhost" = {

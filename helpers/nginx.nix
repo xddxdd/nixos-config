@@ -66,34 +66,6 @@ let
     pkgs.writeText "htpasswd" ''
       lantian:${glauthUsers.lantian.passBcrypt}
     '';
-
-    ciphersForTLS1 = [
-      "ECDHE-ECDSA-AES256-GCM-SHA384"
-      "ECDHE-RSA-AES256-GCM-SHA384"
-      "ECDHE-ECDSA-CHACHA20-POLY1305"
-      "ECDHE-RSA-CHACHA20-POLY1305"
-      "ECDHE-ECDSA-AES128-GCM-SHA256"
-      "ECDHE-RSA-AES128-GCM-SHA256"
-      "DHE-RSA-AES256-GCM-SHA384"
-      "DHE-RSA-CHACHA20-POLY1305"
-      "DHE-RSA-AES128-GCM-SHA256"
-      "ECDHE-ECDSA-AES256-SHA384"
-      "ECDHE-RSA-AES256-SHA384"
-      "ECDHE-ECDSA-AES256-SHA"
-      "ECDHE-RSA-AES256-SHA"
-      "ECDHE-ECDSA-AES128-SHA256"
-      "ECDHE-RSA-AES128-SHA256"
-      "ECDHE-ECDSA-AES128-SHA"
-      "ECDHE-RSA-AES128-SHA"
-      "DHE-RSA-AES256-SHA256"
-      "DHE-RSA-AES128-SHA256"
-      "AES256-GCM-SHA384"
-      "AES128-GCM-SHA256"
-      "AES256-SHA256"
-      "AES128-SHA256"
-      "AES256-SHA"
-      "AES128-SHA"
-    ];
 in
 rec {
   getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
@@ -104,11 +76,6 @@ rec {
     ssl_certificate_key ${getSSLKey acmeName};
     ssl_stapling on;
     ssl_stapling_file ${getSSLPath acmeName}/ocsp.resp;
-  '';
-
-  enableTLSv1 = ''
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-    ssl_ciphers ${builtins.concatStringsSep ":" ciphersForTLS1};
   '';
 
   commonVhostConf = ssl: ''

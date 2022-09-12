@@ -58,8 +58,7 @@ in
           '';
         };
       extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.enableTLSv1;
+        + LT.nginx.commonVhostConf true;
     };
   };
 
