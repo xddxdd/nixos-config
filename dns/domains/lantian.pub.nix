@@ -59,9 +59,6 @@ let
     (CNAME { name = "lg"; target = "soyoustart"; cloudflare = true; })
     (fakeALIAS { name = "matrix"; target = "soyoustart"; ttl = "1h"; })
     (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
-    (SRV { name = "_sip._udp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
-    (SRV { name = "_sip._tcp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
-    (SRV { name = "_sips._tcp"; priority = 0; weight = 0; port = 5061; target = "soyoustart"; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "zerossl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
 
@@ -86,6 +83,7 @@ in
       emailCloudflareRouting
       (TXT { name = "_token._dnswl"; contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm"; })
       common.records.Libravatar
+      common.records.SIP
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")

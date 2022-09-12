@@ -11,6 +11,7 @@
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       common.records.Libravatar
+      common.records.SIP
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
@@ -29,6 +30,7 @@
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       common.records.Libravatar
+      common.records.SIP
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
@@ -47,6 +49,7 @@
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
       common.records.Libravatar
+      common.records.SIP
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")

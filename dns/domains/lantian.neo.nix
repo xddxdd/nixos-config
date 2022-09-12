@@ -5,6 +5,8 @@
     domain = "lantian.neo";
     providers = [ "bind" ];
     records = [
+      common.records.SIP
+
       (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."linkin".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."hostdare".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".neonetwork; })

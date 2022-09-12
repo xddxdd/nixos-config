@@ -11,6 +11,7 @@
       (common.hostRecs.SSHFP domain)
       common.nameservers.Public
       common.records.Libravatar
+      common.records.SIP
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
