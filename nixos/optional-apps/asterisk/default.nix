@@ -101,6 +101,7 @@ in
         [src-local]
         ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
         ${dialRule "_XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
+        ${dialRule "_X!" [ "Goto(dest-url,\${EXTEN},1)" ]}
 
         [src-zadarma]
         ; All calls go to 0000
@@ -113,6 +114,9 @@ in
 
         [dest-music]
         ${destMusic}
+
+        [dest-url]
+        ${dialRule "_X!" [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
       '';
 
       "logger.conf" = builtins.readFile ./config/logger.conf;
