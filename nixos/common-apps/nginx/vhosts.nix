@@ -3,6 +3,18 @@
 let
   LT = import ../../../helpers { inherit config pkgs lib; };
 
+  localhostLocations = {
+    "= /.well-known/openid-configuration".extraConfig = ''
+      root ${files/openid-configuration};
+      try_files /openid-configuration =404;
+    '';
+    "= /openid-configuration".extraConfig = ''
+      root ${files/openid-configuration};
+      try_files /openid-configuration =404;
+    '';
+    "/generate_204".return = "204";
+  };
+
   addConfLantianPub = lib.recursiveUpdate {
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
@@ -65,33 +77,37 @@ let
 in
 {
   services.nginx.virtualHosts = {
-    "localhost" = {
+    "localhost-https" = {
       listen = [
         { addr = "0.0.0.0"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
         { addr = "[::]"; port = 443; extraParameters = [ "ssl" "http2" ] ++ LT.nginx.listenDefaultFlags; }
-        { addr = "0.0.0.0"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
-        { addr = "[::]"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
       ];
 
-      locations = {
-        "/".return = "301 https://$host$request_uri";
-        "= /.well-known/openid-configuration".extraConfig = ''
-          root ${files/openid-configuration};
-          try_files /openid-configuration =404;
-        '';
-        "= /openid-configuration".extraConfig = ''
-          root ${files/openid-configuration};
-          try_files /openid-configuration =404;
-        '';
-        "/generate_204".return = "204";
+      locations = localhostLocations // {
+        "/".return = "444";
       };
 
       # Enable TLSv1 on default vhost, so config on other vhosts work
       extraConfig = ''
         access_log off;
-        ssl_reject_handshake on;
-        ssl_stapling off;
-      '' + LT.nginx.enableTLSv1;
+      ''
+      + LT.nginx.makeSSL "xuyh0120.win_ecc"
+      + LT.nginx.enableTLSv1;
+    };
+
+    "localhost" = {
+      listen = [
+        { addr = "0.0.0.0"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
+        { addr = "[::]"; port = 80; extraParameters = LT.nginx.listenDefaultFlags; }
+      ];
+
+      locations = localhostLocations // {
+        "/".return = "301 https://$host$request_uri";
+      };
+
+      extraConfig = ''
+        access_log off;
+      '';
     };
 
     "lantian.pub" = addConfLantianPub {
