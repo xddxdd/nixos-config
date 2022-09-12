@@ -98,7 +98,7 @@ in
 rec {
   getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
   getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
-  getSSLKey = acmeName: "${getSSLPath acmeName}/${lib.elemAt (lib.splitString "_" acmeName) 0}.key";
+  getSSLKey = acmeName: "${getSSLPath acmeName}/${builtins.head (lib.splitString "_" acmeName)}.key";
   makeSSL = acmeName: ''
     ssl_certificate ${getSSLCert acmeName};
     ssl_certificate_key ${getSSLKey acmeName};
