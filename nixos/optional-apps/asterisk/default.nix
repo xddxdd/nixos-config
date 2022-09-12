@@ -73,6 +73,13 @@ in
         ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
 
         ;;;;;;;;;;;;;;;;;;;;;
+        ; Anonymous calling
+        ;;;;;;;;;;;;;;;;;;;;;
+
+        [anonymous](template-endpoint-common)
+        context=src-anonymous
+
+        ;;;;;;;;;;;;;;;;;;;;;
         ; Local devices
         ;;;;;;;;;;;;;;;;;;;;;
 
@@ -86,6 +93,11 @@ in
       # - 0000-0099: music
       # - 1000-1999: real users
       "extensions.conf" = ''
+        [src-anonymous]
+        ; Only allow anonymous inbound call to test numbers
+        ${dialRule "_424025470XXX" [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
+        ${dialRule "_0XXX" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
+
         [src-local]
         ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
         ${dialRule "_XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
