@@ -25,4 +25,10 @@ rec {
     (SRV { name = "_avatars._tcp"; priority = 0; weight = 0; port = 80; target = "avatar.lantian.pub."; })
     (SRV { name = "_avatars-sec._tcp"; priority = 0; weight = 0; port = 443; target = "avatar.lantian.pub."; })
   ];
+
+  SIP = [
+    (SRV { name = "_sip._udp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
+    (SRV { name = "_sip._tcp"; priority = 0; weight = 0; port = 5060; target = "soyoustart"; })
+    (SRV { name = "_sips._tcp"; priority = 0; weight = 0; port = 5061; target = "soyoustart"; })
+  ];
 }

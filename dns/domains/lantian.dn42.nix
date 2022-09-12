@@ -5,6 +5,8 @@
     domain = "lantian.dn42";
     providers = [ "bind" ];
     records = [
+      common.records.SIP
+
       (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."linkin".dn42; })
       (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."hostdare".dn42; })
       (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".dn42; })
