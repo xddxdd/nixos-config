@@ -13,7 +13,7 @@ in
 rec {
   localDevices = builtins.concatStringsSep "\n" (builtins.map
     (number: ''
-      [${number}](template-local-devices)
+      [${number}](template-endpoint-common,template-endpoint-local)
       auth=${number}
       aors=${number}
       callerid=Lan Tian <${number}>
