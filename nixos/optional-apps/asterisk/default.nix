@@ -4,6 +4,7 @@ let
   LT = import ../../../helpers { inherit config pkgs; };
 
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
   inherit (pkgs.callPackage ./transports.nix args) transports;
@@ -39,11 +40,9 @@ in
         ; Templates
         ;;;;;;;;;;;;;;;;;;;;;
 
-        [template-local-devices](!)
+        [template-endpoint-common](!)
         type=endpoint
-        context=src-local
         allow=opus,g722,alaw,ulaw,speex32,speex16,g729,g726,ilbc,speex
-        identify_by=username,auth_username
         direct_media=no
         rtp_symmetric=yes
         force_rport=yes
@@ -55,6 +54,10 @@ in
         tos_video=af41
         cos_audio=4
 
+        [template-endpoint-local](!)
+        context=src-local
+        identify_by=username,auth_username
+
         [template-auth](!)
         type=auth
         auth_type=userpass
@@ -65,13 +68,16 @@ in
         remove_existing=yes
 
         ;;;;;;;;;;;;;;;;;;;;;
+        ; External trunks
+        ;;;;;;;;;;;;;;;;;;;;;
+        ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
+
+        ;;;;;;;;;;;;;;;;;;;;;
         ; Anonymous calling
         ;;;;;;;;;;;;;;;;;;;;;
 
-        [anonymous]
-        type=endpoint
+        [anonymous](template-endpoint-common)
         context=src-anonymous
-        allow=opus,g722,alaw,ulaw,speex32,speex16,g729,g726,ilbc,speex
 
         ;;;;;;;;;;;;;;;;;;;;;
         ; Local devices
@@ -95,6 +101,10 @@ in
         [src-local]
         ${dialRule "_42402547X." [ "Goto(dest-local,\${EXTEN:8},1)" ]}
         ${dialRule "_X!" [ "Goto(dest-local,\${EXTEN},1)" ]}
+
+        [src-zadarma]
+        ; All calls go to 0000
+        ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
 
         [dest-local]
         ${destLocalForwardMusic 4}
