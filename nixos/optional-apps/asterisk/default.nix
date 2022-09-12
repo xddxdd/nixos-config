@@ -65,6 +65,15 @@ in
         remove_existing=yes
 
         ;;;;;;;;;;;;;;;;;;;;;
+        ; Anonymous calling
+        ;;;;;;;;;;;;;;;;;;;;;
+
+        [anonymous]
+        type=endpoint
+        context=src-anonymous
+        allow=opus,g722,alaw,ulaw,speex32,speex16,g729,g726,ilbc,speex
+
+        ;;;;;;;;;;;;;;;;;;;;;
         ; Local devices
         ;;;;;;;;;;;;;;;;;;;;;
 
@@ -74,14 +83,18 @@ in
         #include ${config.age.secrets.asterisk-pw.path}
       '';
 
+      # Number plan:
+      # - 0000-0099: music
+      # - 1000-1999: real users
       "extensions.conf" = ''
+        [src-anonymous]
+        ; Only allow anonymous inbound call to test numbers
+        ${dialRule "_424025470X." [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
+        ${dialRule "_0X!" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
+
         [src-local]
-        ${dialRule "_42402547X." [
-          "Goto(dest-local,\${EXTEN:8},1)"
-        ]}
-        ${dialRule "_X!" [
-          "Goto(dest-local,\${EXTEN},1)"
-        ]}
+        ${dialRule "_42402547X." [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+        ${dialRule "_X!" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
         [dest-local]
         ${destLocalForwardMusic 4}
