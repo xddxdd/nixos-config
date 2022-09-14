@@ -26,7 +26,6 @@ in
     ./hardware-configuration.nix
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
