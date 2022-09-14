@@ -9,7 +9,6 @@ in
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/gui-apps.nix
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/libvirt
