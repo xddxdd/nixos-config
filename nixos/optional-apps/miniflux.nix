@@ -17,6 +17,7 @@ in
     config = {
       LISTEN_ADDR = "/run/miniflux/miniflux.sock";
       BASE_URL = "https://rss.xuyh0120.win/";
+      POLLING_PARSING_ERROR_LIMIT = "0";
       CLEANUP_ARCHIVE_UNREAD_DAYS = "-1";
       CLEANUP_ARCHIVE_READ_DAYS = "-1";
       HTTPS = "1";
