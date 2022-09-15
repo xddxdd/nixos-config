@@ -17,6 +17,11 @@ final: prev: rec {
       ../patches/drone-vault-listen-unix.patch
     ];
   });
+  jellyfin = prev.jellyfin.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/jellyfin-volume-normalization.patch
+    ];
+  });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/matrix-synapse-listen-unix.patch

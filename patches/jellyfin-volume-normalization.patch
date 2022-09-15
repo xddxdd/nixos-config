@@ -1,0 +1,33 @@
+diff --git a/Jellyfin.Api/Helpers/AudioHelper.cs b/Jellyfin.Api/Helpers/AudioHelper.cs
+index 27497cd59..4debba658 100644
+--- a/Jellyfin.Api/Helpers/AudioHelper.cs
++++ b/Jellyfin.Api/Helpers/AudioHelper.cs
+@@ -155,6 +155,7 @@ namespace Jellyfin.Api.Helpers
+             StreamingHelpers.AddDlnaHeaders(state, _httpContextAccessor.HttpContext.Response.Headers, streamingRequest.Static || isTranscodeCached, streamingRequest.StartTimeTicks, _httpContextAccessor.HttpContext.Request, _dlnaManager);
+ 
+             // Static stream
++            /*
+             if (streamingRequest.Static)
+             {
+                 var contentType = state.GetMimeType("." + state.OutputContainer, false) ?? state.GetMimeType(state.MediaPath);
+@@ -169,6 +170,7 @@ namespace Jellyfin.Api.Helpers
+                     state.MediaPath,
+                     contentType);
+             }
++            */
+ 
+             // Need to start ffmpeg (because media can't be returned directly)
+             var encodingOptions = _serverConfigurationManager.GetEncodingOptions();
+diff --git a/MediaBrowser.Controller/MediaEncoding/EncodingHelper.cs b/MediaBrowser.Controller/MediaEncoding/EncodingHelper.cs
+index 1d1077716..dbccc0d05 100644
+--- a/MediaBrowser.Controller/MediaEncoding/EncodingHelper.cs
++++ b/MediaBrowser.Controller/MediaEncoding/EncodingHelper.cs
+@@ -5534,7 +5534,7 @@ namespace MediaBrowser.Controller.MediaEncoding
+ 
+             return string.Format(
+                 CultureInfo.InvariantCulture,
+-                "{0} {1}{7}{8} -threads {2}{3} {4} -id3v2_version 3 -write_id3v1 1{6} -y \"{5}\"",
++                "{0} {1}{7}{8} -threads {2}{3} {4} -af volume=replaygain=track -id3v2_version 3 -write_id3v1 1{6} -y \"{5}\"",
+                 inputModifier,
+                 GetInputArgument(state, encodingOptions, null),
+                 threads,
