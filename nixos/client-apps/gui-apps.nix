@@ -4,6 +4,8 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 in
 {
+  programs.java.enable = true;
+
   programs.steam.enable = true;
 
   programs.wireshark = {
