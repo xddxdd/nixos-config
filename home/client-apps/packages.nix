@@ -43,7 +43,6 @@ in
     lm_sensors
     mediainfo
     megatools
-    minecraft
     mpv
     newsflash
     nix-top
@@ -52,6 +51,7 @@ in
     openvpn
     osdlyrics
     playonlinux
+    polymc
     qq
     quasselClient
     tdesktop
