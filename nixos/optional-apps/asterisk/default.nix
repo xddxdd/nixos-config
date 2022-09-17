@@ -7,6 +7,7 @@ let
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
+  inherit (pkgs.callPackage ./templates.nix args) templates;
   inherit (pkgs.callPackage ./transports.nix args) transports;
 
   cfg = config.services.asterisk;
@@ -31,51 +32,16 @@ in
 
     confFiles = {
       "pjsip.conf" = ''
-        ;;;;;;;;;;;;;;;;;;;;;
         ; Transports
-        ;;;;;;;;;;;;;;;;;;;;;
         ${transports}
 
-        ;;;;;;;;;;;;;;;;;;;;;
         ; Templates
-        ;;;;;;;;;;;;;;;;;;;;;
+        ${templates}
 
-        [template-endpoint-common](!)
-        type=endpoint
-        allow=opus,g722,alaw,ulaw,speex32,speex16,g729,g726,ilbc,speex
-        direct_media=no
-        rtp_symmetric=yes
-        force_rport=yes
-        rewrite_contact=yes
-        media_encryption=sdes
-        media_encryption_optimistic=yes
-        tos_audio=ef
-        cos_audio=5
-        tos_video=af41
-        cos_audio=4
-
-        [template-endpoint-local](!)
-        context=src-local
-        identify_by=username,auth_username
-
-        [template-auth](!)
-        type=auth
-        auth_type=userpass
-
-        [template-aor](!)
-        type=aor
-        max_contacts=1
-        remove_existing=yes
-
-        ;;;;;;;;;;;;;;;;;;;;;
         ; External trunks
-        ;;;;;;;;;;;;;;;;;;;;;
         ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
 
-        ;;;;;;;;;;;;;;;;;;;;;
         ; Local devices
-        ;;;;;;;;;;;;;;;;;;;;;
-
         ${localDevices}
 
         ; Include passwords
