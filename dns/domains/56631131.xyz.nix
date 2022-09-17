@@ -11,8 +11,8 @@ with dns;
       common.records.Libravatar
       common.records.SIP
 
-      (A { name = "virmach-host"; address = "23.95.217.2"; })
-      (A { name = "*.virmach-host"; address = "23.95.217.2"; })
+      (A { name = "virmach-host"; address = "149.57.231.2"; })
+      (A { name = "*.virmach-host"; address = "149.57.231.2"; })
       (IGNORE { name = "geo"; })
 
       (NS { name = "xip"; target = "ns-aws.sslip.io."; })
