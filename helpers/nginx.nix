@@ -75,7 +75,8 @@ rec {
     ssl_certificate ${getSSLCert acmeName};
     ssl_certificate_key ${getSSLKey acmeName};
     ssl_stapling on;
-    ssl_stapling_file ${getSSLPath acmeName}/ocsp.resp;
+    ssl_stapling_verify on;
+    ssl_trusted_certificate ${getSSLCert acmeName};
   '';
 
   commonVhostConf = ssl: ''
