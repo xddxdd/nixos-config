@@ -98,7 +98,6 @@ in
     traceroute.enable = true;
   };
 
-  security.dhparams.defaultBitSize = 4096;
   security.protectKernelImage = true;
   security.sudo = {
     execWheelOnly = true;
