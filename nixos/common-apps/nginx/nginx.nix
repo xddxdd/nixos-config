@@ -77,6 +77,8 @@ let
     '';
 in
 {
+  boot.kernelModules = [ "tls" ];
+
   services.nginx = rec {
     enable = true;
     enableReload = true;
