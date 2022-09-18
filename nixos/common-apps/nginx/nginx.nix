@@ -70,6 +70,7 @@ let
       ssl_conf_command Ciphersuites ${builtins.concatStringsSep ":" ciphersForTLS1_3};
       ssl_conf_command Options KTLS;
       ssl_conf_command Options PrioritizeChaCha;
+      ssl_dhparam ${files/dhparam.pem};
     '' + lib.optionalString (!isStream) ''
       ssl_early_data on;
       ssl_dyn_rec_enable on;
