@@ -40,6 +40,7 @@ let
     fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
     fastcgi_param  SSL_CURVES         $ssl_curves;
     fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
+    fastcgi_param  SSL_EARLY_DATA     $ssl_early_data;
   '';
 
   _locationProxyConf = hideIP: ''
@@ -51,6 +52,14 @@ let
     proxy_set_header X-Forwarded-Server $host;
     proxy_set_header X-Scheme $scheme;
     proxy_set_header X-Original-URI $request_uri;
+
+    proxy_set_header LT-SSL-Cipher $ssl_cipher;
+    proxy_set_header LT-SSL-Ciphers $ssl_ciphers;
+    proxy_set_header LT-SSL-Curves $ssl_curves;
+    proxy_set_header LT-SSL-Protocol $ssl_protocol;
+    proxy_set_header LT-SSL-Early-Data $ssl_early_data;
+    # Compatibility with common recommendations
+    proxy_set_header Early-Data $ssl_early_data;
 
     proxy_read_timeout 1d;
     proxy_buffering off;
