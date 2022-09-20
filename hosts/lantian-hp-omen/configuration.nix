@@ -34,7 +34,6 @@ in
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
-    ../../nixos/optional-apps/x11vnc.nix
   ];
 
   environment.etc."intel-undervolt.conf".text = ''
