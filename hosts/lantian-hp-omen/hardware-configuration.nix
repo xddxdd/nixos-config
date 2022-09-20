@@ -31,7 +31,7 @@
     options = [ "fmask=0077" "dmask=0077" ];
   };
 
-  fileSystems."/home" = {
+  fileSystems."/nix/persistent/home" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
     options = [ "subvol=home" "compress-force=zstd" "nosuid" "nodev" ];

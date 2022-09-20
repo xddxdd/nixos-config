@@ -97,47 +97,47 @@ in
 
   # Bind mounts
   fileSystems = {
-    "/home/lantian/Backups" = {
+    "/home/lantian/Backups" = lib.mkForce {
       device = "/nix/persistent/media/Backups";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/Calibre Library" = {
+    "/home/lantian/Calibre Library" = lib.mkForce {
       device = "/nix/persistent/media/Calibre Library";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/Music/CloudMusic" = {
+    "/home/lantian/Music/CloudMusic" = lib.mkForce {
       device = "/nix/persistent/media/CloudMusic";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/Documents" = {
+    "/home/lantian/Documents" = lib.mkForce {
       device = "/nix/persistent/media/Documents";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/LegacyOS" = {
+    "/home/lantian/LegacyOS" = lib.mkForce {
       device = "/nix/persistent/media/LegacyOS";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/Pictures" = {
+    "/home/lantian/Pictures" = lib.mkForce {
       device = "/nix/persistent/media/Pictures";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/Secrets" = {
+    "/home/lantian/Secrets" = lib.mkForce {
       device = "/nix/persistent/media/Secrets";
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
 
-    "/home/lantian/Software" = {
+    "/home/lantian/Software" = lib.mkForce {
       device = "/mnt/root/files/Software";
       options = [ "bind" ];
     };
-    "/home/lantian/.local/share/yuzu" = {
+    "/home/lantian/.local/share/yuzu" = lib.mkForce {
       device = "/mnt/root/files/Yuzu";
       options = [ "bind" ];
     };
