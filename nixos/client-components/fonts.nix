@@ -26,6 +26,7 @@
     noto-fonts-cjk-serif
     noto-fonts-emoji-blob-bin
     noto-fonts-extra
+    plangothic-fonts.allideo
     source-code-pro
     source-han-code-jp
     source-han-mono
@@ -47,19 +48,25 @@
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
   fonts.fontconfig =
     let
-      fallback = [
-        "KaiXinSongA"
-        "KaiXinSongB"
+      sansFallback = [
+        "Plangothic P1"
+        "Plangothic P2"
         "HanaMinA"
         "HanaMinB"
+      ];
+      serifFallback = [
+        "HanaMinA"
+        "HanaMinB"
+        "Plangothic P1"
+        "Plangothic P2"
       ];
     in
     {
       defaultFonts = {
         emoji = [ "Blobmoji" ];
-        serif = [ "Noto Serif" "Source Han Serif SC" ] ++ fallback;
-        sansSerif = [ "Ubuntu" "Source Han Sans SC" ] ++ fallback;
-        monospace = [ "Ubuntu Mono" "Noto Sans Mono CJK SC" ] ++ fallback;
+        serif = [ "Noto Serif" "Source Han Serif SC" ] ++ serifFallback;
+        sansSerif = [ "Ubuntu" "Source Han Sans SC" ] ++ sansFallback;
+        monospace = [ "Ubuntu Mono" "Noto Sans Mono CJK SC" ] ++ sansFallback;
       };
     };
 }

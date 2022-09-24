@@ -17,6 +17,16 @@ let
       exit 1
     }
   '';
+
+  pythonCustomized = (pkgs.python3Full.withPackages (p: with p; (if pkgs.stdenv.isx86_64 then [
+    autopep8
+  ] else [ ]) ++ [
+    pip
+    requests
+    numpy
+    scipy
+    matplotlib
+  ]));
 in
 {
   age.secrets.default-pw = {
@@ -56,6 +66,7 @@ in
     pigz
     pv
     pwgen
+    pythonCustomized
     screen
     smartmontools
     tcpdump
@@ -70,16 +81,9 @@ in
   ] ++ (if pkgs.stdenv.isx86_64 then [
     nix-index
     nix-index-update
-    (python3Full.withPackages (p: with p; [
-      autopep8
-      pip
-      requests
-    ]))
     rar # Doesn't suppport aarch64 for some reason
     x86-arch-level
-  ] else [
-    python3Full
-  ]);
+  ] else [ ]);
 
   hardware.ksm.enable = !config.boot.isContainer;
 
