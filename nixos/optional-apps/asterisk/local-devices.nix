@@ -6,8 +6,11 @@ let
   inherit (pkgs.callPackage ./common.nix { }) dialRule enumerateList prefixZeros;
 
   localNumbers = [
-    "1000"
-    "1001"
+    "1000"  # Laptop (Linphone)
+    "1001"  # Phone (Linphone)
+    "1002"  # Bria
+    "1003"  # Reserved
+    "1004"  # Reserved
   ];
 in
 rec {
