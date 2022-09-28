@@ -28,6 +28,8 @@
     "raid456"
   ];
 
+  services.lvm.dmeventd.enable = true;
+
   fileSystems."/nix" = {
     device = "/dev/mapper/MyVolGroup-root";
     fsType = "btrfs";
