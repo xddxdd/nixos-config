@@ -7,7 +7,7 @@ let
   replacedHosts = {
     "50kvm" = hosts."linkin";
     gigsgigscloud = hosts."linkin";
-    oneprovider = hosts."soyoustart";
+    soyoustart = hosts."oneprovider";
     virmach-ny3ip = hosts."virmach-ny6g";
     virtono = hosts."buyvm";
   };

@@ -42,7 +42,7 @@ in
       [
         # localhost
         (mkBuildMachine "oracle-vm-arm")
-        # (mkBuildMachine "soyoustart")
+        # (mkBuildMachine "oneprovider")
         # nixBuildNet
       ];
   };

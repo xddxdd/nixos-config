@@ -16,7 +16,7 @@ let
         "sessionToken" = "";
       };
     };
-    soyoustart = {
+    oneprovider = {
       "type" = "s3";
       "config" = {
         "bucket" = { _secret = config.age.secrets.kopia-minio-bucket.path; };

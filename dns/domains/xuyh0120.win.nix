@@ -24,20 +24,20 @@ let
   ];
 
   internalServices = [
-    (CNAME { name = "asf"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "books"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "bitwarden"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "cloud"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "dashboard"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "asf"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "books"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "bitwarden"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "cloud"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "dashboard"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "jellyfin"; target = "lantian-lenovo"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "lab.lantian.pub."; ttl = "1h"; })
-    (CNAME { name = "login"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "minio"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "pga"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "rss"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "s3"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "stats"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "vault"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "login"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "minio"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "pga"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "rss"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "s3"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "stats"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "vault"; target = "oneprovider"; ttl = "1h"; })
 
     # Services with independent instances on numerous nodes
     (lib.mapAttrsToList

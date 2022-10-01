@@ -117,7 +117,7 @@ in
     };
     yggdrasil.IPv6 = "200:425d:96c:e84b:3520:1db4:b6ca:ed91";
   };
-  "soyoustart" = rec {
+  "oneprovider" = rec {
     index = 10;
     ptrPrefix = "paris.france";
     ssh = {
@@ -144,9 +144,9 @@ in
     };
     syncthing = "ZAURUE3-SQTDORN-WIMV6TB-HLO4KGS-V4DKCQR-4FR42KL-COMW4JD-NQDSTQ7";
     public = rec {
-      IPv4 = "51.77.66.117";
-      IPv6 = "2001:41d0:700:2475::1";
-      IPv6Subnet = "2001:41d0:700:2475::";
+      IPv4 = "51.159.15.98";
+      # IPv6 = "2001:0bc8:1201:0706:8634:97ff:fe11:7b94";
+      # IPv6Subnet = "2001:41d0:700:2475::";
     };
     dn42 = rec {
       IPv4 = "172.22.76.113";
