@@ -9,7 +9,7 @@ let
     (NS { inherit name; target = "hostdare.lantian.pub."; })
     (NS { inherit name; target = "virmach-ny1g.lantian.pub."; })
     (NS { inherit name; target = "buyvm.lantian.pub."; })
-    (NS { inherit name; target = "soyoustart.lantian.pub."; })
+    (NS { inherit name; target = "oneprovider.lantian.pub."; })
   ];
 
   email = [
@@ -51,13 +51,13 @@ let
 
   internalServices = [
     (CNAME { name = "buypass-ssl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
-    (CNAME { name = "ci"; target = "soyoustart"; cloudflare = true; })
-    (CNAME { name = "ci-github"; target = "soyoustart"; cloudflare = true; })
-    (CNAME { name = "git"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "ci"; target = "oneprovider"; cloudflare = true; })
+    (CNAME { name = "ci-github"; target = "oneprovider"; cloudflare = true; })
+    (CNAME { name = "git"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "gopher"; target = "hostdare"; ttl = "1h"; })
-    (CNAME { name = "lab"; target = "soyoustart"; ttl = "1h"; })
-    (CNAME { name = "lg"; target = "soyoustart"; cloudflare = true; })
-    (fakeALIAS { name = "matrix"; target = "soyoustart"; ttl = "1h"; })
+    (CNAME { name = "lab"; target = "oneprovider"; ttl = "1h"; })
+    (CNAME { name = "lg"; target = "oneprovider"; cloudflare = true; })
+    (fakeALIAS { name = "matrix"; target = "oneprovider"; ttl = "1h"; })
     (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
     (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "zerossl"; target = common.records.GeoDNSTarget; ttl = "1h"; })

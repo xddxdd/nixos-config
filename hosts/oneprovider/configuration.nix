@@ -41,15 +41,8 @@ in
   };
 
   systemd.network.networks.eth0 = {
-    address = [ "51.77.66.117/24" "2001:41d0:700:2475::1/64" ];
-    gateway = [ "51.77.66.254" ];
-    routes = [{
-      # Special config since gateway isn't in subnet
-      routeConfig = {
-        Gateway = "2001:41d0:700:24ff:ff:ff:ff:ff";
-        GatewayOnLink = true;
-      };
-    }];
+    address = [ "51.159.15.98/24" "2001:0bc8:1201:0706:8634:97ff:fe11:7b94/64" ];
+    gateway = [ "51.159.15.1" ];
     matchConfig.Name = "eth0";
   };
 
@@ -57,14 +50,8 @@ in
     enable = true;
     routes = [
       "172.22.76.97/29"
-      "2001:41d0:700:2475::1/120"
     ];
   };
 
   services.yggdrasil.regions = [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
-
-  services.ftp-proxy = {
-    enable = true;
-    target = "ftpback-rbx2-162.ovh.net";
-  };
 }
