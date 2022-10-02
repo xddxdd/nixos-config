@@ -42,5 +42,7 @@
   #   options = [ "fmask=0077" "dmask=0077" ];
   # };
 
+  swapDevices = [{ device = "/dev/disk/by-partuuid/0d5cd03d-01"; }];
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }
