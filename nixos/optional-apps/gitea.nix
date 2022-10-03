@@ -10,7 +10,6 @@ in
     enable = true;
     enableUnixSocket = true;
     appName = "Lan Tian @ Git";
-    cookieSecure = true;
     database = {
       type = "mysql";
       socket = "/run/mysqld/mysqld.sock";
@@ -18,13 +17,10 @@ in
       name = "gitea";
       createDatabase = false;
     };
-    disableRegistration = true;
     domain = "git.lantian.pub";
     lfs.enable = true;
-    log.level = "Warn";
     mailerPasswordFile = config.age.secrets.smtp-pass.path;
     rootUrl = "https://git.lantian.pub/";
-    ssh.clonePort = 2222;
     user = "git";
 
     settings = {
@@ -37,9 +33,11 @@ in
         DESCRIPTION = "Lan Tian's Git service.";
         KEYWORDS = "go,git,self-hosted,gitea";
       };
+      log.level = "Warn";
       server = {
         LANDING_PAGE = "explore";
         SSH_DOMAIN = "git.lantian.pub";
+        SSH_PORT = 2222;
       };
       repository = {
         DEFAULT_PRIVATE = "private";
@@ -60,6 +58,7 @@ in
         REQUIRE_SIGNIN_VIEW = false;
         SHOW_REGISTRATION_BUTTON = false;
       };
+      session.COOKIE_SECURE = true;
       mailer = {
         ENABLED = true;
         FROM = "postmaster@lantian.pub";

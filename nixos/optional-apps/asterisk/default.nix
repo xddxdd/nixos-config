@@ -88,7 +88,6 @@ in
   systemd.services.asterisk = {
     path = with pkgs; [ mpg123 ];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
-    reloadIfChanged = true;
 
     preStart = ''
       # Copy skeleton directory tree to /var
