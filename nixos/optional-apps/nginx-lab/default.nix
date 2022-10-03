@@ -65,6 +65,9 @@ in
     "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.callPackage pkgs/dnyjzsxj.nix { }}"
     "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.callPackage pkgs/glibc-debian-openvz-files.nix { }}"
     "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"
+    "L+ ${labRoot}/mota-24 - - - - ${pkgs.callPackage pkgs/mota-24.nix { }}"
+    "L+ ${labRoot}/mota-51 - - - - ${pkgs.callPackage pkgs/mota-51.nix { }}"
+    "L+ ${labRoot}/mota-xinxin - - - - ${pkgs.callPackage pkgs/mota-xinxin.nix { }}"
     "L+ ${labRoot}/testssl.html - - - - /nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm"
   ];
 }
