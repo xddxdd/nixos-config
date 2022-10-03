@@ -17,7 +17,7 @@ in
     services.yggdrasil = {
       enable = true;
       group = "wheel";
-      config = {
+      settings = {
         Listen = [ "tls://[::]:${LT.portStr.Yggdrasil.Public}" ];
 
         MulticastInterfaces = [{
