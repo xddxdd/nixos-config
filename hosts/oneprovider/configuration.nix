@@ -23,7 +23,7 @@ in
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/minio.nix
     ../../nixos/optional-apps/nextcloud.nix
-    ../../nixos/optional-apps/nginx-lab.nix
+    ../../nixos/optional-apps/nginx-lab
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/prometheus.nix
     ../../nixos/optional-apps/quassel.nix
