@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers { inherit config pkgs; };
   labRoot = "/var/www/lab.lantian.pub";
 in
 {
@@ -61,9 +61,9 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.lantianPersonal.dngzwxdq}"
-    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.lantianPersonal.dnyjzsxj}"
-    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.lantianPersonal.glibc-debian-openvz-files}"
+    "L+ ${labRoot}/dngzwxdq - - - - ${pkgs.callPackage pkgs/dngzwxdq.nix { }}"
+    "L+ ${labRoot}/dnyjzsxj - - - - ${pkgs.callPackage pkgs/dnyjzsxj.nix { }}"
+    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${pkgs.callPackage pkgs/glibc-debian-openvz-files.nix { }}"
     "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"
     "L+ ${labRoot}/testssl.html - - - - /nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm"
   ];
