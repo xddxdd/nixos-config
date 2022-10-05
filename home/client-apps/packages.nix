@@ -50,12 +50,12 @@ in
     nvfetcher
     openvpn
     osdlyrics
-    playonlinux
+    payload-dumper-go
     polymc
     qq
     quasselClient
     tdesktop
-    thunderbird-91
+    thunderbird
     tigervnc
     transmission-qt
     transmission-remote-gtk
@@ -69,7 +69,7 @@ in
     wineWowPackages.stable
     wordle
     wpsoffice
-    yuzu
+    yuzu-mainline
     zoom-us
   ];
 
@@ -79,7 +79,7 @@ in
     { name = "gcdemu"; command = "${pkgs.gcdemu}/bin/gcdemu"; }
     { name = "newsflash"; command = "${pkgs.newsflash}/bin/com.gitlab.newsflash -h"; }
     { name = "telegram"; command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart"; }
-    { name = "thunderbird"; command = "${pkgs.thunderbird-91}/bin/thunderbird"; }
+    { name = "thunderbird"; command = "${pkgs.thunderbird}/bin/thunderbird"; }
     { name = "ulauncher"; command = "${pkgs.ulauncher}/bin/ulauncher --hide-window"; }
   ];
 

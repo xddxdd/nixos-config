@@ -44,7 +44,7 @@ let
     '';
   };
 
-  liefOld = lief.overrideAttrs (old: {
+  liefOld = (lief.overrideAttrs (old: {
     version = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
     src = fetchFromGitHub {
       owner = "lief-project";
@@ -52,7 +52,7 @@ let
       rev = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
       sha256 = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
     };
-  });
+  })).override { python = python39; };
 
   ppkAssertOld = fetchFromGitHub {
     owner = "gpakosz";

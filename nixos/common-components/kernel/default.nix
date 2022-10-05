@@ -20,16 +20,17 @@ lib.mkIf (!config.boot.isContainer) {
         acpi-ec = final.callPackage ./acpi-ec.nix { };
         nullfsvfs = final.callPackage ./nullfsvfs.nix { };
 
-        nvidia_x11 = prev.nvidia_x11.overrideAttrs (old: {
-          postFixup = (old.postFixup or "") + ''
-            ${nvlax}/bin/nvlax_fbc \
-              -i $out/lib/libnvidia-fbc.so.${old.version} \
-              -o $out/lib/libnvidia-fbc.so.${old.version}
-            ${nvlax}/bin/nvlax_encode \
-              -i $out/lib/libnvidia-encode.so.${old.version} \
-              -o $out/lib/libnvidia-encode.so.${old.version}
-          '';
-        });
+        # Build failure on latest nixpkgs
+        # nvidia_x11 = prev.nvidia_x11.overrideAttrs (old: {
+        #   postFixup = (old.postFixup or "") + ''
+        #     ${nvlax}/bin/nvlax_fbc \
+        #       -i $out/lib/libnvidia-fbc.so.${old.version} \
+        #       -o $out/lib/libnvidia-fbc.so.${old.version}
+        #     ${nvlax}/bin/nvlax_encode \
+        #       -i $out/lib/libnvidia-encode.so.${old.version} \
+        #       -o $out/lib/libnvidia-encode.so.${old.version}
+        #   '';
+        # });
       });
     kernelModules = [ "cryptodev" "nullfs" ];
     extraModulePackages = with config.boot.kernelPackages; [
