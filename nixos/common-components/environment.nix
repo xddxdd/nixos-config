@@ -48,6 +48,9 @@ in
 
       [openssl_init]
       providers = provider_sect
+      ssl_conf = ssl_sect
+
+      ### Providers
 
       [provider_sect]
       oqsprovider = oqsprovider_sect
@@ -63,6 +66,14 @@ in
       [oqsprovider_sect]
       activate = 1
       module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
+
+      # SSL Options
+
+      [ssl_sect]
+      system_default = system_default_sect
+
+      [system_default_sect]
+      Groups = prime256v1:secp384r1:secp521r1:X25519:X448:p256_frodo640aes:p256_bikel1:p256_ntru_hps2048509:p256_lightsaber:p256_kyber90s512
     '');
     SYSTEMD_PAGER = "";
   };
