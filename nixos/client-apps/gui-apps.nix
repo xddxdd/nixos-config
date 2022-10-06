@@ -15,6 +15,7 @@ in
 
   services.udev.packages = with pkgs; [
     android-udev-rules
+    libfido2
   ];
 
   users.users.lantian.extraGroups = [ "wireshark" ];
