@@ -5,28 +5,6 @@ let
 
   luaPackage = pkgs.callPackage ./lua { };
 
-  opensslConfig = pkgs.writeText "openssl.conf" ''
-    openssl_conf = openssl_init
-
-    [openssl_init]
-    providers = provider_sect
-
-    [provider_sect]
-    oqsprovider = oqsprovider_sect
-    default = default_sect
-    # fips = fips_sect
-
-    [default_sect]
-    activate = 1
-
-    #[fips_sect]
-    #activate = 1
-
-    [oqsprovider_sect]
-    activate = 1
-    module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
-  '';
-
   nginxSslConf = isStream:
     let
       ciphersForTLS1_2 = [
@@ -205,7 +183,7 @@ in
   systemd.services.nginx = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
-      OPENSSL_CONF = builtins.toString opensslConfig;
+      OPENSSL_CONF = config.environment.variables.OPENSSL_CONF;
     };
     serviceConfig = {
       # Workaround Lua crash
