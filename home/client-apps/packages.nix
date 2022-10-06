@@ -22,6 +22,7 @@ in
     baidupcs-go
     bilibili
     calibre
+    chromium-oqs-bin
     cloudpan189-go
     colmena
     deepspeech-gpu
