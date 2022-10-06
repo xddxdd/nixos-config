@@ -69,6 +69,7 @@ in
     wineWowPackages.stable
     wordle
     wpsoffice
+    yubikey-manager-qt
     yuzu-mainline
     zoom-us
   ];
