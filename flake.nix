@@ -229,6 +229,13 @@
             '');
           };
 
+          nvfetcher = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
+              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+            '');
+          };
+
           update = {
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "update" ''

@@ -23,6 +23,17 @@
       sha256 = "sha256-n+yUmBUrkS+06qLnzl2P6CTQZZbDtJLy+2mDPCcQz9M=";
     });
   };
+  transmission-web-control = {
+    pname = "transmission-web-control";
+    version = "0bbe64d28667a72130aded6e6d6826efa68566ad";
+    src = fetchFromGitHub ({
+      owner = "ronggang";
+      repo = "transmission-web-control";
+      rev = "0bbe64d28667a72130aded6e6d6826efa68566ad";
+      fetchSubmodules = false;
+      sha256 = "sha256-JMgrbnf6fe3rRO8oWQabchYrUPobwqGJPnbutUtOewU=";
+    });
+  };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
     version = "ee0903174c8b87cd1f7c3b6c1acef10702547507";

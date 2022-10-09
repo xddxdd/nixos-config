@@ -6,6 +6,10 @@ fetch.github = "boramalper/himawaripy"
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"
 
+[transmission-web-control]
+src.git = "https://github.com/ronggang/transmission-web-control.git"
+fetch.github = "ronggang/transmission-web-control"
+
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 fetch.github = "tchar/ulauncher-albert-calculate-anything"
