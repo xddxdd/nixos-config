@@ -30,6 +30,7 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
+    ../../nixos/optional-apps/transmission-daemon.nix
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
