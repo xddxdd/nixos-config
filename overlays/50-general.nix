@@ -1,6 +1,10 @@
 { inputs, lib, ... }:
 
-final: prev: rec {
+final: prev:
+let
+  sources = final.callPackage ../helpers/_sources/generated.nix { };
+in
+rec {
   bird = final.bird-babel-rtt;
   calibre = prev.calibre.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
@@ -80,6 +84,12 @@ final: prev: rec {
     configureFlags = (old.configureFlags or [ ]) ++ [
       "--enable-miniupnpc"
     ];
+  });
+  transmission = prev.transmission.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      mv $out/share/transmission/web/index.html $out/share/transmission/web/index.original.html
+      cp -r ${sources.transmission-web-control.src}/src/* $out/share/transmission/web/
+    '';
   });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [

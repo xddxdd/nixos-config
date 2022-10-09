@@ -10,6 +10,7 @@ in
     group = "wheel";
     downloadDirPermissions = "775";
     settings = {
+      download-dir = lib.mkDefault "/nix/persistent/media/Transmission";
       incomplete-dir-enabled = false;
       peer-port = 57912;
       rpc-bind-address = LT.this.ltnet.IPv4;
