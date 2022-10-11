@@ -185,6 +185,10 @@ in
 
   system.fsPackages = [ pkgs.bindfs ];
 
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=30s
+  '';
+
   zramSwap = {
     enable = !config.boot.isContainer;
     memoryPercent = 50;
