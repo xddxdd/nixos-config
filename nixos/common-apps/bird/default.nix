@@ -35,6 +35,8 @@ in
     ]);
   };
 
+  systemd.services.bird2.serviceConfig.CPUQuota = "10%";
+
   systemd.tmpfiles.rules = [
     "f /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf 644 root root - # placebo"
     "f /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf 644 root root - # placebo"

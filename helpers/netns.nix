@@ -97,6 +97,7 @@ rec {
         Restart = "on-failure";
         ExecStart = "${pkgs.bird}/bin/bird -c ${birdConfig} -s /run/bird.${name}.ctl -u bird2 -g bird2";
         ExecStop = "${pkgs.bird}/bin/birdc -s /run/bird.${name}.ctl down";
+        CPUQuota = "10%";
 
         # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
         CapabilityBoundingSet = [
