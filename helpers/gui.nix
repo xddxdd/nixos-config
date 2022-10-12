@@ -8,7 +8,7 @@
         text = ''
           [Desktop Entry]
           Name=${name}
-          Exec=${command}
+          Exec=sh -c "sleep 5; exec ${command}"
           Type=Application
           X-KDE-autostart-after=panel
         '';
