@@ -3,11 +3,6 @@
 {
   gtk = {
     enable = true;
-    cursorTheme = {
-      package = pkgs.libsForQt5.breeze-qt5;
-      name = "breeze_cursor";
-      size = 24;
-    };
     font = {
       package = pkgs.ubuntu_font_family;
       name = "Ubuntu";
@@ -21,5 +16,18 @@
       package = pkgs.breeze-gtk;
       name = "Breeze-Dark";
     };
+  };
+
+  home.pointerCursor = {
+    package = pkgs.libsForQt5.breeze-qt5;
+    name = "breeze_cursors";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  xsession = {
+    enable = true;
+    preferStatusNotifierItems = true;
   };
 }
