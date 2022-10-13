@@ -48,6 +48,15 @@
     };
   };
 
+  systemd.services.nix-daemon = {
+    environment = {
+      TMPDIR = "/var/cache/nix";
+    };
+    serviceConfig = {
+      CacheDirectory = "nix";
+    };
+  };
+
   systemd.tmpfiles.rules = [
     "L+ /run/nix-privkey.pem - - - - ${config.age.secrets.nix-privkey.path}"
     "L+ /root/.aws/credentials - - - - ${config.age.secrets.nix-s3-secret.path}"
