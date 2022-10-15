@@ -143,11 +143,6 @@ in
     '';
   };
 
-  services.ananicy = {
-    enable = LT.this.role == LT.roles.client && !config.boot.isContainer;
-    package = pkgs.ananicy-cpp;
-  };
-
   services.irqbalance.enable = !config.boot.isContainer;
 
   security.wrappers = {
