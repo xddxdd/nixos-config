@@ -148,15 +148,6 @@ in
     package = pkgs.ananicy-cpp;
   };
 
-  services.earlyoom = {
-    enable = !config.boot.isContainer;
-    enableNotifications = LT.this.role == LT.roles.client;
-    freeMemThreshold = 3;
-    freeMemKillThreshold = 2;
-    freeSwapThreshold = 3;
-    freeSwapKillThreshold = 2;
-  };
-
   services.irqbalance.enable = !config.boot.isContainer;
 
   security.wrappers = {
