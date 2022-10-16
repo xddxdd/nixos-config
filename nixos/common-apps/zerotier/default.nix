@@ -25,8 +25,12 @@ in
     joinNetworks = [ "af78bf9436f191fd" ];
   };
 
-  systemd.services.zerotierone.preStart = ''
-    mkdir -p /var/lib/zerotier-one
-    cat ${pkgs.writeText "local.conf" configFile} > /var/lib/zerotier-one/local.conf
-  '';
+  systemd.services.zerotierone = {
+    preStart = ''
+      mkdir -p /var/lib/zerotier-one
+      cat ${pkgs.writeText "local.conf" configFile} > /var/lib/zerotier-one/local.conf
+    '';
+    restartIfChanged = false;
+    serviceConfig.MemoryMax = "64M";
+  };
 }
