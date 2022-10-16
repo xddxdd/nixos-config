@@ -104,28 +104,14 @@ pkgs.writeText "nft.conf" ''
 
     # Helper chains
     chain DN42_INPUT {
-      ip saddr 172.20.0.0/14 return
-      ip saddr 172.31.0.0/16 return
-      ip saddr 10.0.0.0/8 return
-      ip saddr 169.254.0.0/16 return
-      ip saddr 192.168.0.0/16 return
-      ip saddr 224.0.0.0/4 return
-      ip6 saddr fd00::/8 return
-      ip6 saddr fe80::/10 return
-      ip6 saddr ff00::/8 return
+      ${builtins.concatStringsSep "\n" (builtins.map (p: "ip saddr ${p} return") LT.constants.dn42IPv4)}
+      ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6 saddr ${p} return") LT.constants.dn42IPv6)}
       reject with icmpx type admin-prohibited
     }
 
     chain DN42_OUTPUT {
-      ip daddr 172.20.0.0/14 return
-      ip daddr 172.31.0.0/16 return
-      ip daddr 10.0.0.0/8 return
-      ip daddr 169.254.0.0/16 return
-      ip daddr 192.168.0.0/16 return
-      ip daddr 224.0.0.0/4 return
-      ip6 daddr fd00::/8 return
-      ip6 daddr fe80::/10 return
-      ip6 daddr ff00::/8 return
+      ${builtins.concatStringsSep "\n" (builtins.map (p: "ip daddr ${p} return") LT.constants.dn42IPv4)}
+      ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6 daddr ${p} return") LT.constants.dn42IPv6)}
       reject with icmpx type admin-prohibited
     }
   }
