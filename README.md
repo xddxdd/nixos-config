@@ -5,11 +5,15 @@ This repository holds the configuration files for all my VPS nodes.
 ## Features
 
 - [Full system root-on-tmpfs](nixos/common-components/impermanence.nix), using [impermanence](https://github.com/nix-community/impermanence)
-- [Nftables instead of iptables](nixos/server-components/nftables.nix)
-- Secret management with [agenix](https://github.com/ryantm/agenix)
-- [QEMU user mode emulation for most architectures](nixos/common-components/qemu-user-static.nix)
+  - [Nftables instead of iptables](nixos/server-components/nftables.nix)
+  - Secret management with [agenix](https://github.com/ryantm/agenix)
+  - [QEMU user mode emulation for most architectures](nixos/common-components/qemu-user-static.nix)
 - [Using Nix Flakes](flake.nix)
-- [Nixpkgs patching](flake.nix)
+  - [Nixpkgs patching](flake.nix)
+- [Additional kernel modules](nixos/common-components/kernel/default.nix):
+  - [Nvlax](https://github.com/illnyang/nvlax) based [NVIDIA driver patching](nixos/common-components/kernel/nvlax/default.nix)
+  - [OpenVPN DCO](nixos/common-components/kernel/ovpn-dco.nix)
+- [Open Quantum Safe](https://github.com/open-quantum-safe/oqs-provider) based [Post-Quantum Cryptography support for OpenSSL](nixos/common-components/environment.nix)
 
 ## Host Types
 
