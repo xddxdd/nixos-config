@@ -52,7 +52,10 @@ let
       rev = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
       sha256 = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
     };
-  })).override { python = python39; };
+
+    # https://github.com/lief-project/LIEF/issues/770
+    patches = [ ./lief-setuptools.patch ];
+  }));
 
   ppkAssertOld = fetchFromGitHub {
     owner = "gpakosz";
@@ -71,7 +74,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
   };
 
-  patches = [ ../../../patches/nvlax-cpm.patch ];
+  patches = [ ./nvlax-cpm.patch ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zycoreOld zydisOld liefOld ];
