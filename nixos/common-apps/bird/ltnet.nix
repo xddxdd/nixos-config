@@ -9,8 +9,8 @@ let
   peer = hostname: { ltnet, index, ... }:
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
-        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fe80::${builtins.toString index}%'ltmesh' internal;
+        local fc00::2547:${builtins.toString LT.this.index} as ${DN42_AS};
+        neighbor fc00::2547:${builtins.toString index}%'zthnhe4bol' internal;
       };
     '';
 in
@@ -49,7 +49,7 @@ in
       };
       randomize router id yes;
       metric decay 30s;
-      interface "ltmesh*" {
+      interface "zthnhe4bol" {
         type tunnel;
         rtt cost 1000;
         rtt min 0ms;

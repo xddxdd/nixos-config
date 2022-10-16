@@ -13,10 +13,6 @@ n: v: lib.recursiveUpdate
     ed25519 = "";
     rsa = "";
   };
-  tinc = {
-    ed25519 = "";
-    rsa = "";
-  };
   syncthing = "";
   public = {
     IPv4 = "";
