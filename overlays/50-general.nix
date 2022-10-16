@@ -31,7 +31,19 @@ rec {
       ../patches/matrix-synapse-listen-unix.patch
     ];
   });
-  # linux-pam = prev.linux-pam.override { withLibxcrypt = true; };
+  openvpn = prev.openvpn.overrideAttrs (old: {
+    inherit (sources.openvpn) version src;
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);
+    buildInputs = (old.buildInputs or [ ]) ++ (with final; [
+      docutils
+      libcap_ng
+      libnl
+      lz4
+    ]);
+    configureFlags = (old.configureFlags or [ ]) ++ [
+      "--enable-dco"
+    ];
+  });
   phpWithExtensions = prev.php.withExtensions ({ enabled, all }: with all; enabled ++ [
     apcu
     bz2
