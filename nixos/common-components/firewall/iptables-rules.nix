@@ -72,31 +72,17 @@ let
 
   dn42Chains = ''
     # DN42_INPUT chain
-    iptables -A DN42_INPUT -s 172.20.0.0/14 -j ACCEPT
-    iptables -A DN42_INPUT -s 172.31.0.0/16 -j ACCEPT
-    iptables -A DN42_INPUT -s 10.0.0.0/8 -j ACCEPT
-    iptables -A DN42_INPUT -s 169.254.0.0/16 -j ACCEPT
-    iptables -A DN42_INPUT -s 192.168.0.0/16 -j ACCEPT
-    iptables -A DN42_INPUT -s 224.0.0.0/4 -j ACCEPT
+    ${builtins.concatStringsSep "\n" (builtins.map (p: "iptables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.internalIPv4)}
     iptables -A DN42_INPUT -j REJECT
 
-    ip6tables -A DN42_INPUT -s fd00::/8 -j ACCEPT
-    ip6tables -A DN42_INPUT -s fe80::/10 -j ACCEPT
-    ip6tables -A DN42_INPUT -s ff00::/8 -j ACCEPT
+    ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6tables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.internalIPv6)}
     ip6tables -A DN42_INPUT -j REJECT
 
     # DN42_OUTPUT chain
-    iptables -A DN42_OUTPUT -d 172.20.0.0/14 -j ACCEPT
-    iptables -A DN42_OUTPUT -d 172.31.0.0/16 -j ACCEPT
-    iptables -A DN42_OUTPUT -d 10.0.0.0/8 -j ACCEPT
-    iptables -A DN42_OUTPUT -d 169.254.0.0/16 -j ACCEPT
-    iptables -A DN42_OUTPUT -d 192.168.0.0/16 -j ACCEPT
-    iptables -A DN42_OUTPUT -d 224.0.0.0/4 -j ACCEPT
+    ${builtins.concatStringsSep "\n" (builtins.map (p: "iptables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.internalIPv4)}
     iptables -A DN42_OUTPUT -j REJECT
 
-    ip6tables -A DN42_OUTPUT -d fd00::/8 -j ACCEPT
-    ip6tables -A DN42_OUTPUT -d fe80::/10 -j ACCEPT
-    ip6tables -A DN42_OUTPUT -d ff00::/8 -j ACCEPT
+    ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6tables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.internalIPv6)}
     ip6tables -A DN42_OUTPUT -j REJECT
   '';
 in

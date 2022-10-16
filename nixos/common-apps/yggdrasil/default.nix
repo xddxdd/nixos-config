@@ -21,7 +21,7 @@ in
         Listen = [ "tls://[::]:${LT.portStr.Yggdrasil.Public}" ];
 
         MulticastInterfaces = [{
-          Regex = "ltmesh.*";
+          Regex = "zthnhe4bol";
           Beacon = true;
           Listen = true;
           Port = LT.port.Yggdrasil.Multicast;
