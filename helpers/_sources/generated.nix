@@ -23,6 +23,17 @@
       sha256 = "sha256-n+yUmBUrkS+06qLnzl2P6CTQZZbDtJLy+2mDPCcQz9M=";
     });
   };
+  ovpn-dco = {
+    pname = "ovpn-dco";
+    version = "3ba6c07ababd4d491c77f5327f8105bead6ddccc";
+    src = fetchFromGitHub ({
+      owner = "OpenVPN";
+      repo = "ovpn-dco";
+      rev = "3ba6c07ababd4d491c77f5327f8105bead6ddccc";
+      fetchSubmodules = false;
+      sha256 = "sha256-Z7VxdUVHjsKYfFxFoGoWW6XaWSRaKW+eKyM4BqGz2ps=";
+    });
+  };
   transmission-web-control = {
     pname = "transmission-web-control";
     version = "0bbe64d28667a72130aded6e6d6826efa68566ad";

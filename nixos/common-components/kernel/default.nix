@@ -19,6 +19,7 @@ lib.mkIf (!config.boot.isContainer) {
       kpkg.extend (final: prev: {
         acpi-ec = final.callPackage ./acpi-ec.nix { };
         nullfsvfs = final.callPackage ./nullfsvfs.nix { };
+        ovpn-dco = final.callPackage ./ovpn-dco.nix { };
 
         # Build failure on latest nixpkgs
         nvidia_x11 = prev.nvidia_x11.overrideAttrs (old: {
@@ -32,10 +33,11 @@ lib.mkIf (!config.boot.isContainer) {
           '';
         });
       });
-    kernelModules = [ "cryptodev" "nullfs" ];
+    kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
       nullfsvfs
+      ovpn-dco
     ];
 
     initrd = {

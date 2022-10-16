@@ -6,6 +6,10 @@ fetch.github = "boramalper/himawaripy"
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"
 
+[ovpn-dco]
+src.git = "https://github.com/OpenVPN/ovpn-dco.git"
+fetch.github = "OpenVPN/ovpn-dco"
+
 [transmission-web-control]
 src.git = "https://github.com/ronggang/transmission-web-control.git"
 fetch.github = "ronggang/transmission-web-control"
