@@ -20,8 +20,9 @@ let
         '';
       };
       "= /api/event" = {
-        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
-        extraConfig = LT.nginx.locationProxyConf;
+        return  = "200";
+        # proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
+        # extraConfig = LT.nginx.locationProxyConf;
       };
       "= /favicon.ico".extraConfig = ''
         expires 31536000;
