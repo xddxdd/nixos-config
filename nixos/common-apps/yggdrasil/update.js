@@ -18,6 +18,7 @@
       if (address == null) continue;
       if (country != null) {
         result[country].push(address);
+        result[country].sort();
       }
     } else if (elems[i].className == "") {
       country = elems[i].innerText;

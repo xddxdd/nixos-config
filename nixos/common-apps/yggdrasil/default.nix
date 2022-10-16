@@ -4,7 +4,7 @@ let
   LT = import ../../../helpers { inherit config pkgs; };
 
   publicPeers = lib.importJSON ./public-peers.json;
-  regionsToServers = regions: lib.flatten (builtins.map (region: publicPeers."${region}") regions);
+  regionsToServers = regions: lib.flatten (builtins.map (region: publicPeers."${region}" or [ ]) regions);
 in
 {
   options.services.yggdrasil.regions = lib.mkOption {
