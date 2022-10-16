@@ -10,7 +10,7 @@
   emercoinZones = [ "bazar" "coin" "emc" "lib" ];
   yggdrasilAlfisZones = ["anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg"];
 
-  internalIPv4 = [
+  dn42IPv4 = [
     "172.20.0.0/14"
     "172.31.0.0/16"
     "10.0.0.0/8"
@@ -19,7 +19,7 @@
     "224.0.0.0/4"
   ];
 
-  internalIPv6 = [
+  dn42IPv6 = [
     "fd00::/8"
     "fe80::/10"
     "ff00::/8"
