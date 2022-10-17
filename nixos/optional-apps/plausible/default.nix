@@ -62,9 +62,8 @@ in
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
-        return = "200";
-        # proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
-        # extraConfig = LT.nginx.locationProxyConf;
+        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
+        extraConfig = LT.nginx.locationProxyConf;
       };
     };
     extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
@@ -78,7 +77,6 @@ in
       };
     };
     plausible = netns.bind {
-      enable = false;
       after = [ "postgresql.service" ];
       requires = [ "postgresql.service" ];
       environment = {
