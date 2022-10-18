@@ -22,6 +22,7 @@ in
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/minio.nix
+    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/nginx-lab
     ../../nixos/optional-apps/plausible
