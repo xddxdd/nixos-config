@@ -17,6 +17,7 @@ rec {
   ];
 
   GeoDNSTarget = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
+  GeoDNSAlias = "lantian.pub."; # Cloudflare handled alias to reduce query count on NS1
 
   Libravatar = [
     (fakeALIAS { name = "avatar"; target = "hostdare"; ttl = "1h"; })
