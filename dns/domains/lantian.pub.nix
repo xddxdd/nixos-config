@@ -33,7 +33,6 @@ let
 
   externalServices = [
     (IGNORE { name = "backblaze"; }) # Handled by CF Worker
-    (CNAME { name = "comments"; target = "cname.vercel-dns.com."; })
     (CNAME { name = "gcore"; target = "cl-47f440a2.gcdn.co."; })
     (CNAME { name = "github-pages"; target = "lantian1998.github.io."; })
     (CNAME { name = "netlify"; target = "lantian.netlify.com."; })
@@ -53,6 +52,7 @@ let
     (CNAME { name = "buypass-ssl"; target = common.records.GeoDNSTarget; ttl = "1h"; })
     (CNAME { name = "ci"; target = "oneprovider"; cloudflare = true; })
     (CNAME { name = "ci-github"; target = "oneprovider"; cloudflare = true; })
+    (CNAME { name = "comments"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "git"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "gopher"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "oneprovider"; ttl = "1h"; })
