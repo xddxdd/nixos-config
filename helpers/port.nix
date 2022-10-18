@@ -12,6 +12,7 @@
   IPFS.API = 5001;
   IPFS.Gateway = 8080;
   Vault = 8200;
+  Waline = 8360;
   Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
   Prometheus.NodeExporter = 9100;
