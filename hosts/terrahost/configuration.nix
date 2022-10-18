@@ -9,6 +9,7 @@ in
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
