@@ -42,6 +42,7 @@ in
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
   environment.variables = {
+    DXVK_LOG_PATH = "none";
     KOPIA_CHECK_FOR_UPDATES = "false";
     OPENSSL_CONF = builtins.toString (pkgs.writeText "openssl.conf" ''
       openssl_conf = openssl_init
