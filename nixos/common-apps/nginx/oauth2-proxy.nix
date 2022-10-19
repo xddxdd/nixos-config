@@ -20,6 +20,7 @@ in
     extraConfig = {
       oidc-issuer-url = "https://login.xuyh0120.win";
       insecure-oidc-skip-issuer-verification = "true";
+      insecure-oidc-allow-unverified-email = "true";
     };
   };
   users.users.oauth2_proxy.group = "oauth2_proxy";
