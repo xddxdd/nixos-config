@@ -25,6 +25,7 @@ in
     chromium-oqs-bin
     cloudpan189-go
     colmena
+    dbeaver
     deepspeech-gpu
     deepspeech-wrappers
     discord

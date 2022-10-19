@@ -21,6 +21,10 @@ final: prev: rec {
   jre_headless = jre;
   jre_minimal = jre;
 
+  dbeaver = prev.dbeaver.override {
+    jdk = final.openjdk11;
+    maven = prev.maven.override { jdk = final.openjdk11; };
+  };
   hath = prev.hath.override { inherit jre_headless; };
   grasscutter = prev.grasscutter.override { inherit jre_headless; };
   polymc = prev.polymc.override {
