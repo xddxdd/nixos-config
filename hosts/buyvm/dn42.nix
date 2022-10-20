@@ -198,7 +198,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 21817;
-        remoteAddress = "6.de.kskb.eu.org";
+        # remoteAddress = "6.de.kskb.eu.org";
         remotePort = 22547;
         wireguardPubkey = "Sxn9qXnzu3gSBQFZ0vCh5t5blUJYgD+iHlCCG2hexg4=";
       };
