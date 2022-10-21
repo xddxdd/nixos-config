@@ -18,7 +18,7 @@ let
     }
   '';
 
-  pythonCustomized = (pkgs.python3Full.withPackages (p: with p; (if pkgs.stdenv.isx86_64 then [
+  pythonCustomized = pkgs.python3Full.withPackages (p: with p; (if pkgs.stdenv.isx86_64 then [
     autopep8
   ] else [ ]) ++ [
     pip
@@ -26,7 +26,7 @@ let
     numpy
     scipy
     matplotlib
-  ]));
+  ]);
 in
 {
   age.secrets.default-pw = {

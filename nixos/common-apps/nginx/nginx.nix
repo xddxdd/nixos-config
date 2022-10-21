@@ -187,7 +187,7 @@ in
   systemd.services.nginx = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
-      OPENSSL_CONF = config.environment.variables.OPENSSL_CONF;
+      inherit (config.environment.variables) OPENSSL_CONF;
     };
     serviceConfig = {
       # Workaround Lua crash

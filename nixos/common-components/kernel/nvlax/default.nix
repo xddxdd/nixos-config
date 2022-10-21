@@ -44,7 +44,7 @@ let
     '';
   };
 
-  liefOld = (lief.overrideAttrs (old: {
+  liefOld = lief.overrideAttrs (old: {
     version = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
     src = fetchFromGitHub {
       owner = "lief-project";
@@ -55,7 +55,7 @@ let
 
     # https://github.com/lief-project/LIEF/issues/770
     patches = [ ./lief-setuptools.patch ];
-  }));
+  });
 
   ppkAssertOld = fetchFromGitHub {
     owner = "gpakosz";
