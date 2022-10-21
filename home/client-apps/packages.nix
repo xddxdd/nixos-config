@@ -53,7 +53,7 @@ in
     openvpn
     osdlyrics
     payload-dumper-go
-    # polymc
+    prismlauncher
     qq
     quasselClient
     tdesktop

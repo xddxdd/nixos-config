@@ -27,7 +27,7 @@ final: prev: rec {
   };
   hath = prev.hath.override { inherit jre_headless; };
   grasscutter = prev.grasscutter.override { inherit jre_headless; };
-  polymc = prev.polymc.override {
+  prismlauncher = prev.prismlauncher.override {
     jdk = final.openjdk;
     jdk8 = null;
     jdks = [ jdk jdk17 jdk11 jdk8 ]
