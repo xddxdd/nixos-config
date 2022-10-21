@@ -121,8 +121,6 @@ in
 
   hardware.ksm.enable = !config.boot.isContainer;
 
-  home-manager.backupFileExtension = "bak";
-
   programs = {
     #atop.enable = true;
     #atop.netatop.enable = true;

@@ -9,13 +9,13 @@ in
   users.mutableUsers = false;
   users.users = {
     root = {
-      initialHashedPassword = unixHashedPassword;
-      hashedPassword = unixHashedPassword;
+      initialHashedPassword = lib.mkForce unixHashedPassword;
+      hashedPassword = lib.mkForce unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
     };
     lantian = {
-      initialHashedPassword = unixHashedPassword;
-      hashedPassword = unixHashedPassword;
+      initialHashedPassword = lib.mkForce unixHashedPassword;
+      hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.

@@ -1,17 +1,15 @@
 { inputs
+, nixpkgs
+, lib
 , system
-, stateVersion
+, constants
 , ...
 }:
 
-let
-  inherit (inputs) nixpkgs;
-  inherit (inputs.nixpkgs) lib;
-in
-(lib.nixosSystem rec {
-  inherit system;
-  modules = [
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+(nixpkgs."${system}".nixos rec {
+  imports = [
+    inputs.agenix.nixosModules.age
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
     ({ pkgs, lib, ... }: {
       # Avoid cyclic dependency
@@ -22,15 +20,34 @@ in
 
       isoImage.isoName = lib.mkForce "nixos-lantian.iso";
       networking.useDHCP = lib.mkForce true;
-      system.stateVersion = stateVersion;
+      system.stateVersion = constants.stateVersion;
 
       environment.etc."nixos-config".source = inputs.self;
 
-      imports =
-        let
-          ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
-        in
-        builtins.filter (v: (builtins.match "(.*)impermanence\\.nix" (builtins.toString v)) == null) (ls ./common-components);
+      nix = {
+        package = pkgs.nixUnstable;
+        extraOptions = ''
+          experimental-features = nix-command flakes ca-derivations
+        '';
+        generateNixPathFromInputs = true;
+        generateRegistryFromInputs = true;
+        linkInputs = true;
+        settings = {
+          auto-optimise-store = true;
+          inherit (constants.nix) substituters trusted-public-keys;
+        };
+      };
+
+      imports = [
+        ./common-components/cacert.nix
+        ./common-components/environment.nix
+        ./common-components/networking.nix
+        ./common-components/no-docs.nix
+        ./common-components/qemu-user-static.nix
+        ./common-components/ssh-harden.nix
+        ./common-components/users.nix
+        ./common-components/wireguard-fix.nix
+      ];
     })
   ];
 }).config.system.build.isoImage
