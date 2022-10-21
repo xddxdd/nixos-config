@@ -31,6 +31,11 @@ rec {
       ../patches/matrix-synapse-listen-unix.patch
     ];
   });
+  nix-top = prev.nix-top.overrideAttrs (old: {
+    postPatch = (old.postInstall or "") + ''
+      substituteInPlace nix-top --replace "/tmp" "/var/cache/nix"
+    '';
+  });
   openvpn = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);
