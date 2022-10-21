@@ -7,10 +7,9 @@
 let
   args = rec {
     constants = import ./constants.nix;
-    hosts = builtins.mapAttrs
-      (import ./host-defaults.nix { inherit lib roles; })
-      (import ./hosts.nix);
-    this = builtins.getAttr config.networking.hostName hosts;
+    hosts = builtins.mapAttrs hostDefaults (import ./hosts.nix);
+    hostDefaults = import ./host-defaults.nix { inherit lib roles; };
+    this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
     roles = import ./roles.nix;

@@ -14,8 +14,8 @@
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
     };
     dwarffs = {
       url = "github:edolstra/dwarffs";
@@ -101,8 +101,11 @@
         in
         [
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            home-manager = {
+              backupFileExtension = "bak";
+              useGlobalPkgs = true;
+              useUserPackages = true;
+            };
             networking.hostName = n;
             system.stateVersion = LT.constants.stateVersion;
           }
@@ -156,8 +159,8 @@
           };
 
         nixosCD = import ./nixos/nixos-cd.nix {
-          inherit inputs system;
-          inherit (LT.constants) stateVersion;
+          inherit inputs nixpkgs lib system;
+          inherit (LT) constants;
         };
       });
 
