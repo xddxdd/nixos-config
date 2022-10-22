@@ -19,7 +19,7 @@ lib.mkIf (!config.boot.isContainer) {
     } // (if pkgs.stdenv.isx86_64 then {
       efiInstallAsRemovable = lib.mkForce false;
       extraInstallCommands = lib.optionalString config.boot.loader.grub.efiSupport
-        (lib.concatStringsSep "\n" (builtins.map
+        (lib.concatMapStringsSep "\n"
           (args:
             let
               efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
@@ -30,7 +30,7 @@ lib.mkIf (!config.boot.isContainer) {
               cp -f ${args.path}/EFI/grub/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi \
                 || cp -f ${args.path}/EFI/${bootloaderId}/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi
             '')
-          config.boot.loader.grub.mirroredBoots));
+          config.boot.loader.grub.mirroredBoots);
 
     } else {
       efiInstallAsRemovable = true;

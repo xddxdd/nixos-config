@@ -250,7 +250,7 @@ in
 
         zone:
       ''
-      + (lib.concatStringsSep "\n" (builtins.map dn42SlaveZone [
+      + (lib.concatMapStringsSep "\n" dn42SlaveZone [
         "dn42"
         "10.in-addr.arpa"
         "20.172.in-addr.arpa"
@@ -259,8 +259,8 @@ in
         "23.172.in-addr.arpa"
         "31.172.in-addr.arpa"
         "d.f.ip6.arpa"
-      ]))
-      + (lib.concatStringsSep "\n" (builtins.map opennicSlaveZone [
+      ])
+      + (lib.concatMapStringsSep "\n" opennicSlaveZone [
         "."
         "opennic.glue"
         "dns.opennic.glue"
@@ -280,7 +280,7 @@ in
         "oz"
         "parody"
         "pirate"
-      ]));
+      ]);
   };
 
   systemd.services = corednsAuthoritativeNetns.setup // corednsKnotNetns.setup // {

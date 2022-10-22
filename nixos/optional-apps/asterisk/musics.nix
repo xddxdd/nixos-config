@@ -46,11 +46,10 @@ rec {
     in
     builtins.concatStringsSep "\n" ([ randomForwardRule ] ++ individualRules);
 
-  destMusic = builtins.concatStringsSep "\n"
-    (builtins.map
-      ({ index, value }: dialRule (builtins.toString (index + 1)) [
-        "Answer()"
-        "Playback(${getMusicPath value})"
-      ])
-      (enumerateList musics));
+  destMusic = lib.concatMapStringsSep "\n"
+    ({ index, value }: dialRule (builtins.toString (index + 1)) [
+      "Answer()"
+      "Playback(${getMusicPath value})"
+    ])
+    (enumerateList musics);
 }

@@ -146,13 +146,11 @@ in
 
     # Reserved range, where system is allowed to operate
     define RESERVED_IPv4 = [
-    ${builtins.concatStringsSep ",\n"
-      (builtins.map (t: t + "+") reservedIPv4)}
+    ${lib.concatMapStringsSep ",\n" (t: t + "+") reservedIPv4}
     ];
 
     define RESERVED_IPv6 = [
-    ${builtins.concatStringsSep ",\n"
-      (builtins.map (t: t + "+") reservedIPv6)}
+    ${lib.concatMapStringsSep ",\n" (t: t + "+") reservedIPv6}
     ];
   '';
 
@@ -241,8 +239,7 @@ in
     route ${LT.this.neonetwork.IPv4}/32 reject;
 
     # Blackhole routes for private ranges
-    ${builtins.concatStringsSep "\n"
-      (builtins.map (t: "route ${t} reject;") reservedIPv4)}
+    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") reservedIPv4}
   '' + ''
       ipv4 {
         preference 10000;
@@ -260,8 +257,7 @@ in
     route ${LT.this.neonetwork.IPv6}/128 reject;
 
     # Blackhole routes for private ranges
-    ${builtins.concatStringsSep "\n"
-      (builtins.map (t: "route ${t} reject;") reservedIPv6)}
+    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") reservedIPv6}
   '' + ''
       ipv6 {
         preference 10000;

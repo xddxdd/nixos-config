@@ -72,17 +72,17 @@ let
 
   dn42Chains = ''
     # DN42_INPUT chain
-    ${builtins.concatStringsSep "\n" (builtins.map (p: "iptables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.dn42IPv4)}
+    ${lib.concatMapStringsSep "\n" (p: "iptables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.dn42IPv4}
     iptables -A DN42_INPUT -j REJECT
 
-    ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6tables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.dn42IPv6)}
+    ${lib.concatMapStringsSep "\n" (p: "ip6tables -A DN42_INPUT -s ${p} -j ACCEPT") LT.constants.dn42IPv6}
     ip6tables -A DN42_INPUT -j REJECT
 
     # DN42_OUTPUT chain
-    ${builtins.concatStringsSep "\n" (builtins.map (p: "iptables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.dn42IPv4)}
+    ${lib.concatMapStringsSep "\n" (p: "iptables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.dn42IPv4}
     iptables -A DN42_OUTPUT -j REJECT
 
-    ${builtins.concatStringsSep "\n" (builtins.map (p: "ip6tables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.dn42IPv6)}
+    ${lib.concatMapStringsSep "\n" (p: "ip6tables -A DN42_OUTPUT -d ${p} -j ACCEPT") LT.constants.dn42IPv6}
     ip6tables -A DN42_OUTPUT -j REJECT
   '';
 in

@@ -38,13 +38,14 @@ in
         wsrep_retry_autocommit = 3;
         wsrep_provider = "${pkgs.mariadb-galera}/lib/galera/libgalera_smm.so";
         wsrep_cluster_name = "lantian";
-        wsrep_cluster_address = "gcomm://" + builtins.concatStringsSep ","
-          (builtins.map (n: LT.hosts."${n}".ltnet.IPv4) [
+        wsrep_cluster_address = "gcomm://" + lib.concatMapStringsSep ","
+          (n: LT.hosts."${n}".ltnet.IPv4)
+          [
             "oneprovider"
             "oracle-vm-arm"
             "terrahost"
             "virmach-ny6g"
-          ]);
+          ];
         wsrep_sst_method = "rsync_wan";
         wsrep_node_address = LT.this.ltnet.IPv4;
         wsrep_node_incoming_address = LT.this.ltnet.IPv4;
