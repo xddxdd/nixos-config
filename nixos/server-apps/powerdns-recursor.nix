@@ -56,8 +56,8 @@ in
       in
       yggdrasilAlfisZones;
     luaConfig = ''
-      ${builtins.concatStringsSep "\n" (builtins.map (n: "addNTA(\"${n}\")")
-        (with LT.constants; (openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)))}
+      ${lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
+        (with LT.constants; (openNICZones ++ emercoinZones ++ yggdrasilAlfisZones))}
 
       -- Internal zones where DNSSEC will fail
       addNTA("lantian.dn42")

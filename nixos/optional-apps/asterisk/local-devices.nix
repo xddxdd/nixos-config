@@ -14,7 +14,7 @@ let
   ];
 in
 rec {
-  localDevices = builtins.concatStringsSep "\n" (builtins.map
+  localDevices = lib.concatMapStringsSep "\n"
     (number: ''
       [${number}](template-endpoint-common,template-endpoint-local)
       auth=${number}
@@ -23,11 +23,11 @@ rec {
 
       [${number}](template-aor)
     '')
-    localNumbers);
+    localNumbers;
 
-  destLocal = builtins.concatStringsSep "\n" (builtins.map
+  destLocal = lib.concatMapStringsSep "\n"
     (number: dialRule number [
       "Dial(PJSIP/${number})"
     ])
-    localNumbers);
+    localNumbers;
 }

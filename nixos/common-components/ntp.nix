@@ -21,8 +21,8 @@ in
     enable = true;
     servers = [ ];
     extraConfig = ''
-      ${builtins.concatStringsSep "\n" (builtins.map (k: "server ${k} ${serverOption}") ntpServers)}
-      ${builtins.concatStringsSep "\n" (builtins.map (k: "pool ${k} ${serverOption}") ntpPools)}
+      ${lib.concatMapStringsSep "\n" (k: "server ${k} ${serverOption}") ntpServers}
+      ${lib.concatMapStringsSep "\n" (k: "pool ${k} ${serverOption}") ntpPools}
 
       rtcsync
       cmdport 0

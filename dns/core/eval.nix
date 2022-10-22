@@ -26,7 +26,7 @@ let
     , records
     }:
     let
-      providerCommands = builtins.concatStringsSep ", " (builtins.map (n: "DnsProvider(DNS_${n})") providers);
+      providerCommands = lib.concatMapStringsSep ", " (n: "DnsProvider(DNS_${n})") providers;
       formattedDomain = "${if reverse then "REV(" else ""}${formatArg domain}${if reverse then ")" else ""}";
     in
     [

@@ -65,12 +65,12 @@ rec {
         # Announced addresses
         ${ipns} link add dummy0 type dummy
         ${ipns} link set dummy0 up
-        ${builtins.concatStringsSep "\n"
-          (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0")
-          announcedIPv4)}
-        ${builtins.concatStringsSep "\n"
-          (builtins.map (ip: "${ipns} addr add ${ip} dev dummy0")
-          announcedIPv6)}
+        ${lib.concatMapStringsSep "\n"
+          (ip: "${ipns} addr add ${ip} dev dummy0")
+          announcedIPv4}
+        ${lib.concatMapStringsSep "\n"
+          (ip: "${ipns} addr add ${ip} dev dummy0")
+          announcedIPv6}
       '');
       serviceConfig = {
         Type = "oneshot";
