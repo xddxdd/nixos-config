@@ -27,6 +27,7 @@ in
     # ./nbfc.nix
 
     ../../nixos/optional-apps/intel-undervolt.nix
+    ../../nixos/optional-apps/ksmbd.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
@@ -72,6 +73,19 @@ in
     verbosity = "crit";
   };
   systemd.services."beesd@usb".wantedBy = lib.mkForce [ ];
+
+  services.ksmbd = {
+    enable = true;
+    config = {
+      "lantian" = {
+        "path" = "/home/lantian";
+        "read only" = false;
+        "force user" = "lantian";
+        "force group" = "users";
+        "valid users" = "lantian";
+      };
+    };
+  };
 
   services.tlp.settings = {
     # Use powersave scheduler for intel_pstate
