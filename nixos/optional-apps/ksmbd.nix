@@ -8,31 +8,39 @@ let
     then (if x then "yes" else "no")
     else builtins.toString x;
 
-  ksmbdConfig = lib.recursiveUpdate
-    {
-      global = {
-        "deadtime" = 3600;
-        "map to guest" = "bad user";
-        "netbios name" = config.networking.hostName;
-        "restrict anonymous" = 1;
-        "server string" = config.networking.hostName;
-      };
-    }
-    config.services.ksmbd.config;
+  smbAttrsToString = k: v: ''
+    [${k}]
+    ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "${k} = ${smbToString v}") v)}
+  '';
 
-  configText = builtins.concatStringsSep "\n" (lib.mapAttrsToList
-    (k: v: ''
-      [${k}]
-      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "${k} = ${smbToString v}") v)}
-    '')
-    ksmbdConfig);
+  ksmbdGlobal = lib.recursiveUpdate
+    {
+      "deadtime" = 3600;
+      "map to guest" = "bad user";
+      "netbios name" = config.networking.hostName;
+      "restrict anonymous" = 1;
+      "server string" = config.networking.hostName;
+    }
+    config.services.ksmbd.globalConfig;
+
+  ksmbdShares = config.services.ksmbd.shares;
+
+  configText = builtins.concatStringsSep "\n"
+    ([ (smbAttrsToString "global" ksmbdGlobal) ]
+      ++ lib.mapAttrsToList smbAttrsToString ksmbdShares);
 in
 {
   options = {
     services.ksmbd = {
       enable = lib.mkEnableOption "Enable Kernel SMBD";
 
-      config = lib.mkOption {
+      globalConfig = lib.mkOption {
+        default = { };
+        description = "Global config";
+        type = lib.types.attrsOf lib.types.unspecified;
+      };
+
+      shares = lib.mkOption {
         default = { };
         description = "Shared resources";
         type = lib.types.attrsOf (lib.types.attrsOf lib.types.unspecified);
@@ -62,7 +70,6 @@ in
         Type = "forking";
         PIDFile = "/tmp/ksmbd.lock";
         ExecStart = "${pkgs.ksmbd-tools}/bin/ksmbd.mountd";
-        ExecReload = "${pkgs.ksmbd-tools}/bin/ksmbd.control --reload";
         ExecStop = "${pkgs.ksmbd-tools}/bin/ksmbd.control --shutdown";
 
         Restart = "always";
