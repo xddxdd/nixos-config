@@ -76,7 +76,7 @@ in
 
   services.ksmbd = {
     enable = true;
-    config = {
+    shares = {
       "lantian" = {
         "path" = "/home/lantian";
         "read only" = false;
