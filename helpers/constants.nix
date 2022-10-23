@@ -1,29 +1,20 @@
 {
-  stateVersion = "22.05";
+  dn42 = {
+    IPv4 = [
+      "172.20.0.0/14"
+      "172.31.0.0/16"
+      "10.0.0.0/8"
+      "169.254.0.0/16"
+      "192.168.0.0/16"
+      "224.0.0.0/4"
+    ];
 
-  soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
-
-  dn42Zones = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
-  neonetworkZones = [ "neo" ];
-  # .neo zone not included for conflict with NeoNetwork
-  openNICZones = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
-  emercoinZones = [ "bazar" "coin" "emc" "lib" ];
-  yggdrasilAlfisZones = ["anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg"];
-
-  dn42IPv4 = [
-    "172.20.0.0/14"
-    "172.31.0.0/16"
-    "10.0.0.0/8"
-    "169.254.0.0/16"
-    "192.168.0.0/16"
-    "224.0.0.0/4"
-  ];
-
-  dn42IPv6 = [
-    "fd00::/8"
-    "fe80::/10"
-    "ff00::/8"
-  ];
+    IPv6 = [
+      "fd00::/8"
+      "fe80::/10"
+      "ff00::/8"
+    ];
+  };
 
   nix = {
     substituters = [
@@ -42,5 +33,18 @@
       "nixos-cn.cachix.org-1:L0jEaL6w7kwQOPlLoCR3ADx+E3Q8SEFEcB9Jaibl0Xg="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
+  };
+
+  stateVersion = "22.05";
+
+  soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
+
+  zones = {
+    DN42 = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
+    NeoNetwork = [ "neo" ];
+    # .neo zone not included for conflict with NeoNetwork
+    OpenNIC = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
+    Emercoin = [ "bazar" "coin" "emc" "lib" ];
+    YggdrasilAlfis = ["anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg"];
   };
 }
