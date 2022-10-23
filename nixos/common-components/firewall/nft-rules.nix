@@ -104,14 +104,14 @@ pkgs.writeText "nft.conf" ''
 
     # Helper chains
     chain DN42_INPUT {
-      ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.dn42IPv4}
-      ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.dn42IPv6}
+      ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.dn42.IPv4}
+      ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.dn42.IPv6}
       reject with icmpx type admin-prohibited
     }
 
     chain DN42_OUTPUT {
-      ${lib.concatMapStringsSep "\n" (p: "ip daddr ${p} return") LT.constants.dn42IPv4}
-      ${lib.concatMapStringsSep "\n" (p: "ip6 daddr ${p} return") LT.constants.dn42IPv6}
+      ${lib.concatMapStringsSep "\n" (p: "ip daddr ${p} return") LT.constants.dn42.IPv4}
+      ${lib.concatMapStringsSep "\n" (p: "ip6 daddr ${p} return") LT.constants.dn42.IPv6}
       reject with icmpx type admin-prohibited
     }
   }

@@ -46,7 +46,7 @@ in
 
         cfgEntries = [ (forwardToGoogleDNS ".") ]
           ++ (builtins.map forwardToLtnet
-          (with LT.constants; (dn42Zones ++ neonetworkZones ++ openNICZones ++ emercoinZones ++ yggdrasilAlfisZones)));
+          (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ YggdrasilAlfis)));
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
   };

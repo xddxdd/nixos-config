@@ -25,15 +25,15 @@ in
     dns.allowFrom = [ "0.0.0.0/0" "::/0" ];
     forwardZones =
       let
-        authoritativeZones = lib.genAttrs
+        authoritative = lib.genAttrs
           # NeoNetwork is covered by fwd-dn42-interconnect
-          (with LT.constants; (dn42Zones ++ openNICZones))
+          (with LT.constants.zones; (DN42 ++ OpenNIC))
           (k: builtins.concatStringsSep ";" [
             "172.18.0.254"
             "fdbc:f9dc:67ad:2547::54"
           ]);
-        emercoinZones = lib.genAttrs
-          LT.constants.emercoinZones
+        emercoin = lib.genAttrs
+          LT.constants.zones.Emercoin
           (k: builtins.concatStringsSep ";" [
             "185.122.58.37"
             "2a06:8ec0:3::1:2c4e"
@@ -41,23 +41,23 @@ in
             "2602:ffc5:30::1:5c47"
           ]);
       in
-      authoritativeZones // emercoinZones // {
+      authoritative // emercoin // {
         # DN42
         "hack" = "172.31.0.5";
       };
     forwardZonesRecurse =
       let
-        yggdrasilAlfisZones = lib.genAttrs
+        yggdrasilAlfis = lib.genAttrs
           # NeoNetwork is covered by fwd-dn42-interconnect
-          LT.constants.yggdrasilAlfisZones
+          LT.constants.zones.YggdrasilAlfis
           (k: builtins.concatStringsSep ";" [
             "fdbc:f9dc:67ad:2547::52"
           ]);
       in
-      yggdrasilAlfisZones;
+      yggdrasilAlfis;
     luaConfig = ''
       ${lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
-        (with LT.constants; (openNICZones ++ emercoinZones ++ yggdrasilAlfisZones))}
+        (with LT.constants.zones; (OpenNIC ++ Emercoin ++ YggdrasilAlfis))}
 
       -- Internal zones where DNSSEC will fail
       addNTA("lantian.dn42")
