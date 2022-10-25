@@ -34,12 +34,6 @@
     options = [ "fmask=0077" "dmask=0077" ];
   };
 
-  fileSystems."/mnt/usb" = {
-    device = "/dev/disk/by-uuid/dc601ca1-9f5f-4731-aab4-4460bdf1ca07";
-    fsType = "btrfs";
-    options = [ "nofail" "compress-force=zstd" "nosuid" "nodev" ];
-  };
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
