@@ -14,16 +14,6 @@ in
 
   services.grafana = {
     enable = true;
-    protocol = "socket";
-    domain = "dashboard.xuyh0120.win";
-    rootUrl = "https://dashboard.xuyh0120.win/";
-    auth.anonymous.enable = true;
-
-    database = {
-      type = "mysql";
-      host = "/run/mysqld/mysqld.sock";
-      user = "grafana";
-    };
 
     declarativePlugins = with pkgs.grafanaPlugins; [
       grafana-clock-panel
@@ -38,27 +28,50 @@ in
       })
     ];
 
-    smtp = with config.programs.msmtp.accounts.default; {
-      enable = true;
-      inherit host user;
-      passwordFile = config.age.secrets.smtp-pass.path;
-      fromAddress = from;
-    };
-
-    extraOptions = {
-      AUTH_OAUTH_AUTO_LOGIN = "true";
-      AUTH_GENERIC_OAUTH_ENABLED = "true";
-      AUTH_GENERIC_OAUTH_NAME = "Konnect";
-      AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP = "true";
-      AUTH_GENERIC_OAUTH_SCOPES = "openid profile email";
-      AUTH_GENERIC_OAUTH_AUTH_URL = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
-      AUTH_GENERIC_OAUTH_TOKEN_URL = "https://login.xuyh0120.win/konnect/v1/token";
-      AUTH_GENERIC_OAUTH_API_URL = "https://login.xuyh0120.win/konnect/v1/userinfo";
-      AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
-
-      UNIFIED_ALERTING_ENABLED = "true";
-      LOG_MODE = "syslog";
-      LOG_LEVEL = "error";
+    settings = {
+      auth = {
+        oauth_auto_login = "true";
+      };
+      "auth.anonymous" = {
+        enabled = "true";
+      };
+      "auth.generic_oauth" = {
+        enabled = "true";
+        name = "Konnect";
+        allow_sign_up = "true";
+        scopes = "openid profile email";
+        auth_url = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
+        token_url = "https://login.xuyh0120.win/konnect/v1/token";
+        api_utl = "https://login.xuyh0120.win/konnect/v1/userinfo";
+        role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
+      };
+      database = {
+        type = "mysql";
+        host = "/run/mysqld/mysqld.sock";
+        user = "grafana";
+      };
+      log = {
+        mode = "syslog";
+        level = "error";
+      };
+      paths = {
+        provisioning = lib.mkForce "";
+      };
+      server = {
+        protocol = "socket";
+        domain = "dashboard.xuyh0120.win";
+        root_url = "https://dashboard.xuyh0120.win/";
+        socket = "/run/grafana/grafana.sock";
+      };
+      smtp = with config.programs.msmtp.accounts.default; {
+        enabled = true;
+        inherit host user;
+        password = "$__file{${config.age.secrets.smtp-pass.path}}";
+        from_address = from;
+      };
+      unified_alerting = {
+        enabled = "true";
+      };
     };
   };
 
@@ -66,8 +79,8 @@ in
     EnvironmentFile = config.age.secrets.grafana-oauth.path;
 
     ExecStartPost = pkgs.writeShellScript "grafana-post" ''
-      while [ ! -S /run/grafana/grafana.sock ]; do sleep 1; done
-      chmod 777 /run/grafana/grafana.sock
+      while [ ! -S ${config.services.grafana.settings.server.socket} ]; do sleep 1; done
+      chmod 777 ${config.services.grafana.settings.server.socket}
     '';
   };
 
