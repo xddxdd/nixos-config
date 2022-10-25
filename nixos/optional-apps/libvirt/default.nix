@@ -3,6 +3,8 @@
 {
   environment.etc."ssdt1.dat".source = ./ssdt1.dat;
 
+  security.polkit.enable = true;
+
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
