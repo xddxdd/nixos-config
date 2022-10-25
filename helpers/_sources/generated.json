@@ -50,11 +50,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "252e5d6888261d7b2aae1034c834fba8a393cef4",
-            "sha256": "sha256-G4lDomCNGpbh2qCJZBoelWld9SoMxzoPsZTaUUFkwX8=",
+            "rev": "77829be280b3b280f35d1ca4947900f3c5e5dd26",
+            "sha256": "sha256-1JCbfKLfxDUXLtovfuzsPITqzvPxwxadZe7VHNt7YGs=",
             "type": "github"
         },
-        "version": "252e5d6888261d7b2aae1034c834fba8a393cef4"
+        "version": "77829be280b3b280f35d1ca4947900f3c5e5dd26"
     },
     "ovpn-dco": {
         "cargoLocks": null,
@@ -69,11 +69,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "3ba6c07ababd4d491c77f5327f8105bead6ddccc",
-            "sha256": "sha256-Z7VxdUVHjsKYfFxFoGoWW6XaWSRaKW+eKyM4BqGz2ps=",
+            "rev": "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b",
+            "sha256": "sha256-ZP7pwcAyFdV3T7UqksnhhPAIoSaCkwnzQsIuhy8s54g=",
             "type": "github"
         },
-        "version": "3ba6c07ababd4d491c77f5327f8105bead6ddccc"
+        "version": "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b"
     },
     "transmission-web-control": {
         "cargoLocks": null,

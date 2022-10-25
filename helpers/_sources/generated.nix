@@ -25,24 +25,24 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "252e5d6888261d7b2aae1034c834fba8a393cef4";
+    version = "77829be280b3b280f35d1ca4947900f3c5e5dd26";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "252e5d6888261d7b2aae1034c834fba8a393cef4";
+      rev = "77829be280b3b280f35d1ca4947900f3c5e5dd26";
       fetchSubmodules = false;
-      sha256 = "sha256-G4lDomCNGpbh2qCJZBoelWld9SoMxzoPsZTaUUFkwX8=";
+      sha256 = "sha256-1JCbfKLfxDUXLtovfuzsPITqzvPxwxadZe7VHNt7YGs=";
     });
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "3ba6c07ababd4d491c77f5327f8105bead6ddccc";
+    version = "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "3ba6c07ababd4d491c77f5327f8105bead6ddccc";
+      rev = "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b";
       fetchSubmodules = false;
-      sha256 = "sha256-Z7VxdUVHjsKYfFxFoGoWW6XaWSRaKW+eKyM4BqGz2ps=";
+      sha256 = "sha256-ZP7pwcAyFdV3T7UqksnhhPAIoSaCkwnzQsIuhy8s54g=";
     });
   };
   transmission-web-control = {
