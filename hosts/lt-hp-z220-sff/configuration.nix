@@ -35,6 +35,8 @@ in
     ../../nixos/optional-apps/transmission-daemon.nix
   ];
 
+  powerManagement.powertop.enable = true;
+
   # services.beesd.filesystems.root = {
   #   spec = "/nix";
   #   hashTableSizeMB = 32;
