@@ -60,6 +60,8 @@ in
     };
   };
 
+  services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
+
   services.yggdrasil.regions = [ "united-states" "canada" ];
 
   systemd.services.jellyfin = {

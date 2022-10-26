@@ -20,16 +20,14 @@ in
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
     };
     serviceConfig = LT.serviceHarden // {
-      ReadWritePaths = [
-        "/nix/persistent/media"
-      ];
+      ReadWritePaths = [ config.services.resilio.directoryRoot ];
       StateDirectory = "resilio-sync";
       TimeoutStopSec = "10";
     };
   };
 
   systemd.tmpfiles.rules = [
-    "d /nix/persistent/media 775 rslsync rslsync"
+    "d ${config.services.resilio.directoryRoot} 775 rslsync rslsync"
   ];
 
   services.nginx.virtualHosts = {
