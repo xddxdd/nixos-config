@@ -67,13 +67,6 @@ in
     verbosity = "crit";
   };
 
-  services.beesd.filesystems.usb = {
-    spec = "/mnt/usb";
-    hashTableSizeMB = 2048;
-    verbosity = "crit";
-  };
-  systemd.services."beesd@usb".wantedBy = lib.mkForce [ ];
-
   services.ksmbd = {
     enable = true;
     shares = {

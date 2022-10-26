@@ -28,22 +28,30 @@ in
     ../../nixos/client-components/network-manager.nix
 
     ../../nixos/optional-apps/ksmbd.nix
+    ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/transmission-daemon.nix
   ];
 
-  # services.beesd.filesystems.root = {
-  #   spec = "/nix";
-  #   hashTableSizeMB = 128;
-  #   verbosity = "crit";
-  # };
+  services.beesd.filesystems.root = {
+    spec = "/nix";
+    hashTableSizeMB = 32;
+    verbosity = "crit";
+  };
+
+  services.beesd.filesystems.storage = {
+    spec = "/mnt/storage";
+    hashTableSizeMB = 2048;
+    verbosity = "crit";
+  };
 
   services.ksmbd = {
     enable = true;
     shares = {
-      "lantian" = {
-        "path" = "/home/lantian";
+      "storage" = {
+        "path" = "/mnt/storage";
         "read only" = false;
         "force user" = "lantian";
         "force group" = "users";
@@ -53,4 +61,15 @@ in
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
+
+  systemd.services.jellyfin = {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+  };
+
+  services.transmission.settings.download-dir = "/mnt/storage/downloads";
+  systemd.services.transmission = {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+  };
 }

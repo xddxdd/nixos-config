@@ -42,7 +42,6 @@ in
     librewolf
     libsForQt5.ark
     linphone
-    lm_sensors
     mediainfo
     megatools
     mpv
