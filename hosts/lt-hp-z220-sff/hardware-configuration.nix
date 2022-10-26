@@ -33,7 +33,7 @@
     options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
 
-  swapDevices = [ ];
+  swapDevices = [{ device = "/dev/disk/by-uuid/7456f3ed-6ab8-44de-96fb-42d51835e489"; }];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
