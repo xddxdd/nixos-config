@@ -145,6 +145,8 @@ in
 
   services.irqbalance.enable = !config.boot.isContainer;
 
+  services.udisks2.enable = !config.boot.isContainer;
+
   security.wrappers = {
     bwrap = {
       source = pkgs.bubblewrap + "/bin/bwrap";
