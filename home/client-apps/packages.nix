@@ -46,8 +46,6 @@ in
     megatools
     mpv
     newsflash
-    nix-top
-    nix-tree
     nvfetcher
     openvpn
     osdlyrics
