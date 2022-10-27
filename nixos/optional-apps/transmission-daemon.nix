@@ -10,6 +10,7 @@ in
     group = "wheel";
     downloadDirPermissions = "775";
     settings = {
+      cache-size-mb = 64;
       download-dir = lib.mkDefault "/nix/persistent/media/Transmission";
       download-queue-enabled = false;
       idle-seeding-limit-enabled = false;
