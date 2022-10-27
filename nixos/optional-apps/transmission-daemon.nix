@@ -11,11 +11,18 @@ in
     downloadDirPermissions = "775";
     settings = {
       download-dir = lib.mkDefault "/nix/persistent/media/Transmission";
+      download-queue-enabled = false;
+      idle-seeding-limit-enabled = false;
       incomplete-dir-enabled = false;
+      peer-limit-global = 10000;
+      peer-limit-per-torrent = 10000;
       peer-port = 57912;
+      queue-stalled-enabled = false;
+      rename-partial-files = true;
       rpc-bind-address = LT.this.ltnet.IPv4;
       rpc-host-whitelist-enabled = false;
       rpc-whitelist-enabled = false;
+      seed-queue-enabled = false;
     };
   };
 }
