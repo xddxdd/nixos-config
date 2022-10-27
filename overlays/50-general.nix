@@ -21,6 +21,11 @@ rec {
       ../patches/drone-vault-listen-unix.patch
     ];
   });
+  flexget = prev.flexget.overrideAttrs (old: {
+    propagatedBuildInputs = with prev.python3Packages; old.propagatedBuildInputs ++ [
+      cloudscraper
+    ];
+  });
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/jellyfin-volume-normalization.patch
