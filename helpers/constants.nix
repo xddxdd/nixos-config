@@ -18,7 +18,7 @@
 
   nix = {
     substituters = [
-      "s3://nix?endpoint=s3.xuyh0120.win"
+      # "s3://nix?endpoint=s3.xuyh0120.win"
       "https://cache.ngi0.nixos.org"
       "https://xddxdd.cachix.org"
       "https://colmena.cachix.org"
@@ -26,7 +26,7 @@
       "https://cuda-maintainers.cachix.org"
     ];
     trusted-public-keys = [
-      "nix:FXFCqBRF2PXcExvV31yQQHZTyRnIsnLZiHtu/i0xZ1c="
+      # "nix:FXFCqBRF2PXcExvV31yQQHZTyRnIsnLZiHtu/i0xZ1c="
       "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
       "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
       "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
