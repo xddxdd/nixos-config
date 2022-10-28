@@ -39,17 +39,17 @@ in
 
   powerManagement.powertop.enable = true;
 
-  # services.beesd.filesystems.root = {
-  #   spec = "/nix";
-  #   hashTableSizeMB = 32;
-  #   verbosity = "crit";
-  # };
+  services.beesd.filesystems.root = {
+    spec = "/nix";
+    hashTableSizeMB = 32;
+    verbosity = "crit";
+  };
 
-  # services.beesd.filesystems.storage = {
-  #   spec = "/mnt/storage";
-  #   hashTableSizeMB = 2048;
-  #   verbosity = "crit";
-  # };
+  services.beesd.filesystems.storage = {
+    spec = "/mnt/storage";
+    hashTableSizeMB = 2048;
+    verbosity = "crit";
+  };
 
   services.ksmbd = {
     enable = true;
