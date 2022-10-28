@@ -38,6 +38,7 @@ in
     gnome.gedit
     google-chrome
     gopherus
+    jellyfin-media-player
     libfaketime
     librewolf
     libsForQt5.ark
