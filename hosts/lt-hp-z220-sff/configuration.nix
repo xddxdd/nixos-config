@@ -78,10 +78,10 @@ in
   services.transmission.settings = {
     download-dir = "/mnt/storage/downloads";
 
-    # Speed limit of ourbits
-    speed-limit-down = 51200;
-    speed-limit-down-enabled = true;
-    speed-limit-up = 51200;
+    # Speed limit of private trackets
+    speed-limit-down = 25600;
+    speed-limit-down-enabled = false;
+    speed-limit-up = 25600;
     speed-limit-up-enabled = true;
   };
   system.activationScripts.transmission-download-auto =
