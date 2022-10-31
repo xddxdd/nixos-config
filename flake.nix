@@ -165,16 +165,17 @@
       });
 
       colmena = {
+        meta.allowApplyAll = false;
         meta.nixpkgs = { inherit lib; };
         meta.nodeNixpkgs = lib.mapAttrs (n: { system, ... }: nixpkgs."${system}") LT.nixosHosts;
       } // (lib.mapAttrs
-        (n: { hostname, sshPort, role, ... }: {
+        (n: { hostname, sshPort, role, manualDeploy, ... }: {
           deployment = {
             allowLocalDeployment = role == LT.roles.client;
             targetHost = hostname;
             targetPort = sshPort;
             targetUser = "root";
-            tags = [ role ];
+            tags = [ role ] ++ (lib.optional (!manualDeploy) "default");
           };
 
           imports = modulesFor n;

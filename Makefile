@@ -2,7 +2,7 @@ servers: FORCE
 	@nix run .#colmena -- apply --on @server
 
 all: FORCE
-	@nix run .#colmena -- apply
+	@nix run .#colmena -- apply --on @default
 
 build: FORCE
 	@nix run .#colmena -- build
@@ -14,7 +14,7 @@ clean: FORCE
 	@nix run .#colmena -- exec -- nix-collect-garbage -d
 
 verbose: FORCE
-	@nix run .#colmena -- apply --show-trace
+	@nix run .#colmena -- apply --on @default --show-trace
 
 update: FORCE
 	@nix flake update
