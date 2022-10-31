@@ -15,11 +15,23 @@ in
     after = [ "network.target" ];
     wants = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+    script = ''
+      exec ${pkgs.jre_headless}/bin/java \
+        -Xms16m -Xmx128m \
+        -XX:+ClassRelationshipVerifier \
+        -Xtune:virtualized \
+        -jar ${pkgs.hath}/opt/HentaiAtHome.jar \
+        --cache-dir=${hathCacheDir} \
+        --data-dir=${hathDataDir} \
+        --download-dir=${hathDownloadDir} \
+        --log-dir=${hathLogDir} \
+        --temp-dir=${hathTempDir} \
+        --use-less-memory
+    '';
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.hath}/bin/hath --cache-dir=${hathCacheDir} --data-dir=${hathDataDir} --download-dir=${hathDownloadDir} --log-dir=${hathLogDir} --temp-dir=${hathTempDir}";
 
       MemoryDenyWriteExecute = false;
       RuntimeDirectory = "hath";
