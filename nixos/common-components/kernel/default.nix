@@ -14,7 +14,7 @@ lib.mkIf (!config.boot.isContainer) {
           if pkgs.stdenv.isx86_64 then
             pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian
           else pkgs.linuxPackages_latest;
-        nvlax = pkgs.callPackage ./nvlax { };
+        nvlax = pkgs.callPackage ./nvlax.nix { };
       in
       kpkg.extend (final: prev: {
         acpi-ec = final.callPackage ./acpi-ec.nix { };
