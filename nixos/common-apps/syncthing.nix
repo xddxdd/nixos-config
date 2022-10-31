@@ -40,6 +40,7 @@ in
   users.groups.rslsync = { };
 
   systemd.services.syncthing.environment = {
+    GOGC = "1";
     LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
   };
 
