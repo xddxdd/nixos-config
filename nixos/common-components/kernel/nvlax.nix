@@ -54,7 +54,7 @@ let
     };
 
     # https://github.com/lief-project/LIEF/issues/770
-    patches = [ ./lief-setuptools.patch ];
+    patches = [ ../../../patches/nvlax-lief-setuptools.patch ];
   });
 
   ppkAssertOld = fetchFromGitHub {
@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
   };
 
-  patches = [ ./nvlax-cpm.patch ];
+  patches = [ ../../../patches/nvlax-cpm.patch ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zycoreOld zydisOld liefOld ];
