@@ -15,6 +15,13 @@ in
         "/var/lib/asf:/app/config"
       ];
     };
+    gameshub = {
+      extraOptions = [ "--pull" "always" ];
+      image = "lupohan44/games_hub";
+      volumes = [
+        "/var/lib/gameshub:/home/wd"
+      ];
+    };
   };
 
   services.nginx.virtualHosts."asf.xuyh0120.win" = {
