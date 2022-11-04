@@ -387,17 +387,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1666505279,
-        "narHash": "sha256-YZWJ5cmM9KZHv1ZlWs9JnlapOcJXtTqo62If1+r0T4c=",
-        "owner": "xddxdd",
-        "repo": "nur-packages",
-        "rev": "c3d10cfe6f24b4a7790c095db0afbd11693009d4",
-        "type": "github"
+        "lastModified": 1667523555,
+        "narHash": "sha256-fyr6zQITDd8D+r1eG+aGg0YILtF3Hih+vLZZZcF8dro=",
+        "ref": "refs/heads/master",
+        "rev": "0a46671a72b5bde868234046f4c9c49f2cb99156",
+        "revCount": 388,
+        "type": "git",
+        "url": "file:///home/lantian/Projects/nur-packages"
       },
       "original": {
-        "owner": "xddxdd",
-        "repo": "nur-packages",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/lantian/Projects/nur-packages"
       }
     },
     "poetry2nix": {
