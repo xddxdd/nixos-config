@@ -24,7 +24,6 @@ let
     pip
     requests
     numpy
-    scipy
     matplotlib
   ]);
 in
