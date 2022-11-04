@@ -12,26 +12,46 @@ lib.mkIf (!config.boot.isContainer) {
       let
         kpkg =
           if pkgs.stdenv.isx86_64 then
-            pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian
+            pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-lto
           else pkgs.linuxPackages_latest;
         nvlax = pkgs.callPackage ./nvlax.nix { };
+        llvmOverride = p:
+          if pkgs.stdenv.isx86_64 then
+            p.overrideAttrs
+              (old: {
+                makeFlags = (old.makeFlags or [ ]) ++ [ "LLVM=1" "LLVM_IAS=1" ];
+              }) else p;
+        # NVLAX doesn't support clang built kernel
+        nvidiaOverride = llvmOverride;
+        # nvidiaOverride = p: llvmOverride (p.overrideAttrs (old: {
+        #   postFixup = (old.postFixup or "") + ''
+        #     # ${nvlax}/bin/nvlax_fbc \
+        #     #   -i $out/lib/libnvidia-fbc.so.${old.version} \
+        #     #   -o $out/lib/libnvidia-fbc.so.${old.version}
+        #     ${nvlax}/bin/nvlax_encode \
+        #       -i $out/lib/libnvidia-encode.so.${old.version} \
+        #       -o $out/lib/libnvidia-encode.so.${old.version}
+        #   '';
+        # }));
       in
       kpkg.extend (final: prev: {
-        acpi-ec = final.callPackage ./acpi-ec.nix { };
-        nullfsvfs = final.callPackage ./nullfsvfs.nix { };
-        ovpn-dco = final.callPackage ./ovpn-dco.nix { };
-
-        # Build failure on latest nixpkgs
-        nvidia_x11 = prev.nvidia_x11.overrideAttrs (old: {
-          postFixup = (old.postFixup or "") + ''
-            ${nvlax}/bin/nvlax_fbc \
-              -i $out/lib/libnvidia-fbc.so.${old.version} \
-              -o $out/lib/libnvidia-fbc.so.${old.version}
-            ${nvlax}/bin/nvlax_encode \
-              -i $out/lib/libnvidia-encode.so.${old.version} \
-              -o $out/lib/libnvidia-encode.so.${old.version}
+        acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
+        cryptodev = llvmOverride prev.cryptodev;
+        kvmfr = llvmOverride prev.kvmfr;
+        nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
+        ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
+        v4l2loopback = llvmOverride prev.v4l2loopback;
+        virtualbox = llvmOverride prev.virtualbox;
+        x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace Makefile \
+              --replace "gcc" "cc"
           '';
         });
+
+        # Build failure on latest nixpkgs
+        nvidia_x11 = nvidiaOverride prev.nvidia_x11;
+        nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
       });
     kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ];
     extraModulePackages = with config.boot.kernelPackages; [
