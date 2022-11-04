@@ -138,7 +138,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 23397;
-        remoteAddress = "dn42-la-us-1.ffeeco.coffee";
+        # remoteAddress = "dn42-la-us-1.ffeeco.coffee";
         remotePort = 22547;
         wireguardPubkey = "ee6gKhvQDngc8rIR1IhHz1ng2M7UHzIY598TICJUPm0=";
       };
