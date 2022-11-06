@@ -67,6 +67,7 @@ in
 
     # Nix
     flake.agenix.packages."${system}".agenix
+    nil
     nodePackages.node2nix
     rnix-lsp
 
