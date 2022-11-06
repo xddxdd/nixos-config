@@ -37,6 +37,21 @@
         peerIPv6LinkLocal = "fe80::8c7:62ff:feaa:fc47";
       };
     };
+    ifreetion = {
+      remoteASN = 4242421255;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21255;
+        remoteAddress = "dn42-jp-nrt2.acgcl.net";
+        remotePort = 32547;
+        wireguardPubkey = "iRtfmmbhLn59caa8z9HTa4ZHG9L0xYWcrKmAs/ehGmo=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1060";
+      };
+    };
     k1t3ab = {
       remoteASN = 4242421591;
       latencyMs = 79;

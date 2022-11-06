@@ -36,6 +36,21 @@
         peerIPv6LinkLocal = "fe80::1234";
       };
     };
+    ifreetion = {
+      remoteASN = 4242421255;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21255;
+        remoteAddress = "dn42-us-nyc1.acgcl.net";
+        remotePort = 32547;
+        wireguardPubkey = "nPj3l9HhMVoWgjBPCGIzTvrDO5ogcEWm8IkycQWz/jA=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::10a0";
+      };
+    };
     imlonghao = {
       remoteASN = 4242421888;
       latencyMs = 1;
