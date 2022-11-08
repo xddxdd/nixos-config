@@ -10,6 +10,10 @@ fetch.github = "Zren/material-decoration"
 src.github = "abbbi/nullfsvfs"
 fetch.github = "abbbi/nullfsvfs"
 
+[nvidia-patch]
+src.git = "https://github.com/keylase/nvidia-patch.git"
+fetch.github = "keylase/nvidia-patch"
+
 [openvpn]
 src.git = "https://github.com/OpenVPN/openvpn.git"
 fetch.github = "OpenVPN/openvpn"
