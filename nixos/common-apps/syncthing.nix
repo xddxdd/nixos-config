@@ -6,8 +6,8 @@ in
 {
   services.syncthing = {
     enable = true;
-    user = "rslsync";
-    group = "rslsync";
+    user = "root";
+    group = "root";
     configDir = "/var/lib/syncthing";
     dataDir = "/nix/persistent/sync-servers";
 
@@ -32,21 +32,13 @@ in
 
   environment.systemPackages = [ config.services.syncthing.package ];
 
-  # Reuse user of resilio sync
-  users.users.rslsync = {
-    uid = config.ids.uids.rslsync;
-    group = "rslsync";
-  };
-  users.groups.rslsync = { };
-
   systemd.services.syncthing.environment = {
     GOGC = "1";
     LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/syncthing 755 rslsync rslsync"
+    "d /var/lib/syncthing 755 root root"
     "d /nix/persistent/sync-servers 775 root root"
-    "A+ /nix/persistent/sync-servers - - - - u:rslsync:rwx,g:rslsync:rwx,d:u:rslsync:rwx,d:g:rslsync:rwx"
   ];
 }

@@ -12,8 +12,8 @@ let
   bindfsMountOptions = [
     "force-user=lantian"
     "force-group=wheel"
-    "create-for-user=rslsync"
-    "create-for-group=rslsync"
+    "create-for-user=root"
+    "create-for-group=root"
     "chown-ignore"
     "chgrp-ignore"
     "xattr-none"
