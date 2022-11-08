@@ -37,6 +37,7 @@ in
     ../../nixos/optional-apps/yggdrasil-alfis.nix
 
     ../../nixos/optional-cron-jobs/ssl-certs.nix
+    ../../nixos/optional-cron-jobs/testssl.nix
   ];
 
   services.beesd.filesystems.root = {
