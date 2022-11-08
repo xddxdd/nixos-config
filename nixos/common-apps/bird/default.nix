@@ -19,11 +19,13 @@ in
       sys.kernel
       anycast.babel
 
+      # Used by ltnet
+      dn42.communityFilters
+
     ] ++ lib.optionals (LT.this.role == LT.roles.server) [
       sys.roa
       sys.roaMonitor
 
-      dn42.communityFilters
       dn42.common
       dn42.peers
       (lib.optionalString dn42.hasPeers dn42.grc)
