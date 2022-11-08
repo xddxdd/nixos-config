@@ -16,6 +16,4 @@ rec {
     LT_ROA_FAIL = "(${DN42_AS}, 2547, 0)";
     LT_ROA_UNKNOWN = "(${DN42_AS}, 2547, 1)";
   };
-
-  sanitizeHostname = builtins.replaceStrings [ "-" ] [ "_" ];
 }

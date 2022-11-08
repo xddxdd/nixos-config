@@ -4,7 +4,7 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
   inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_REGION NEO_AS
-    community sanitizeHostname;
+    community;
 
   latencyToDN42Community = { latencyMs, badRouting, ... }:
     if badRouting then 9 else
@@ -32,7 +32,7 @@ let
       localASN = if v.peering.network == "dn42" then DN42_AS else NEO_AS;
     in
     lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
-      protocol bgp ${sanitizeHostname interfaceName}_v4 from dnpeers {
+      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${localASN};
         ipv4 {
@@ -46,7 +46,7 @@ let
       };
     ''
     + lib.optionalString (v.addressing.peerIPv6 != null) ''
-      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${localASN};
         ipv4 {
@@ -60,7 +60,7 @@ let
       };
     ''
     + lib.optionalString (v.addressing.peerIPv6Subnet != null) ''
-      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6Subnet} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6Subnet} as ${localASN};
         ipv4 {
@@ -74,7 +74,7 @@ let
       };
     ''
     + lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
-      protocol bgp ${sanitizeHostname interfaceName}_v6 from dnpeers {
+      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${localASN};
         ipv4 {

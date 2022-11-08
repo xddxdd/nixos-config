@@ -15,7 +15,10 @@ let
   forEachActiveHost = mapFunc: (lib.mapAttrsToList mapFunc hosts);
   forEachHost = mapFunc: (lib.mapAttrsToList mapFunc (hosts // replacedHosts));
 
-  ptrPrefix = v: if (v.ptrPrefix != "") then "${v.ptrPrefix}." else "";
+  ptrPrefix = v:
+    if v.city != null
+    then "${lib.replaceChars ["_"] ["-"] v.city.sanitized}."
+    else "";
 
   hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";
 

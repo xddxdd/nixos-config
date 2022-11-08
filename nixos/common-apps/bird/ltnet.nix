@@ -4,13 +4,19 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
   inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_TEST_AS DN42_REGION NEO_AS
-    community sanitizeHostname;
+    community;
 
-  peer = hostname: { ltnet, index, ... }:
+  peer = hostname: { ltnet, index, city, ... }:
     lib.optionalString (!ltnet.alone) ''
-      protocol bgp ltnet_${sanitizeHostname hostname} from lantian_internal {
+      protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fc00::2547:${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fc00::2547:${builtins.toString index}%'zthnhe4bol' internal;
+        ipv4 {
+          cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
+        };
+        ipv6 {
+          cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
+        };
       };
     '';
 in
@@ -61,11 +67,6 @@ in
 
   common = ''
     filter ltnet_import_filter_v4 {
-      if bgp_local_pref > 5 then {
-        bgp_local_pref = bgp_local_pref - 5;
-      } else {
-        bgp_local_pref = 0;
-      }
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -76,11 +77,6 @@ in
     }
 
     filter ltnet_import_filter_v6 {
-      if bgp_local_pref > 5 then {
-        bgp_local_pref = bgp_local_pref - 5;
-      } else {
-        bgp_local_pref = 0;
-      }
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
