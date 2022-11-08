@@ -4,7 +4,7 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
   inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_REGION NEO_AS
-    community sanitizeHostname;
+    community;
 
   reservedIPv4 = [
     "10.0.0.0/8"

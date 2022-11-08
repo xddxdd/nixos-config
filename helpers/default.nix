@@ -7,11 +7,12 @@
 let
   args = rec {
     constants = import ./constants.nix;
-    hosts = builtins.mapAttrs hostDefaults (import ./hosts.nix);
+    hosts = builtins.mapAttrs hostDefaults (import ./hosts.nix { inherit roles geo; });
     hostDefaults = import ./host-defaults.nix { inherit lib roles; };
     this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
+    geo = import ./geo.nix { inherit pkgs lib sanitizeName; };
     roles = import ./roles.nix;
     serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;
     nixosHosts = lib.filterAttrs (n: v: v.role != roles.non-nixos) hosts;
@@ -21,6 +22,7 @@ let
     port = import ./port.nix;
     portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
 
+    sanitizeName = callHelper ./sanitize-name.nix;
     serviceHarden = import ./service-harden.nix { inherit lib; };
     sources = pkgs.callPackage _sources/generated.nix { };
   };

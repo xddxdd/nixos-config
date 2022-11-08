@@ -11,6 +11,10 @@
       flake = false;
     };
 
+    cities-json = {
+      url = "github:lutangar/cities.json";
+      flake = false;
+    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.flake-compat.follows = "flake-compat";
@@ -186,7 +190,7 @@
       apps = eachSystem (system:
         let
           pkgs = nixpkgs."${system}";
-          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; inherit (LT) hosts; });
+          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; });
         in
         {
           colmena = {

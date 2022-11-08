@@ -3,7 +3,7 @@
 n: v: lib.recursiveUpdate
 {
   hostname = "${n}.lantian.pub";
-  ptrPrefix = "";
+  city = null;
   role = roles.server;
   sshPort = 2222;
   system = "x86_64-linux";
