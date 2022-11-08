@@ -4,17 +4,27 @@ let
   LT = import ../../../helpers { inherit config pkgs lib; };
   inherit (import ./common.nix { inherit config pkgs lib; })
     DN42_AS DN42_TEST_AS DN42_REGION NEO_AS
-    community;
+    community latencyToDN42Community typeToDN42Community;
 
   peer = hostname: { ltnet, index, city, ... }:
+    let
+      latencyCommunity = builtins.toString (latencyToDN42Community {
+        latencyMs = LT.geo.rttMs LT.this.city city;
+        badRouting = false;
+      });
+    in
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fc00::2547:${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fc00::2547:${builtins.toString index}%'zthnhe4bol' internal;
         ipv4 {
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v4(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v4(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v6(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v6(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
@@ -22,23 +32,23 @@ let
 in
 {
   babel = ''
-    filter ltmesh_import_filter_v4 {
+    function ltmesh_import_filter_v4() {
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v4 {
+    function ltmesh_export_filter_v4() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_import_filter_v6 {
+    function ltmesh_import_filter_v6() {
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v6 {
+    function ltmesh_export_filter_v6() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
@@ -46,12 +56,12 @@ in
 
     protocol babel ltmesh {
       ipv4 {
-        import filter ltmesh_import_filter_v4;
-        export filter ltmesh_export_filter_v4;
+        import filter { ltmesh_import_filter_v4(); };
+        export filter { ltmesh_export_filter_v4(); };
       };
       ipv6 {
-        import filter ltmesh_import_filter_v6;
-        export filter ltmesh_export_filter_v6;
+        import filter { ltmesh_import_filter_v6(); };
+        export filter { ltmesh_export_filter_v6(); };
       };
       randomize router id yes;
       metric decay 30s;
@@ -66,22 +76,22 @@ in
   '';
 
   common = ''
-    filter ltnet_import_filter_v4 {
+    function ltnet_import_filter_v4() {
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
-    filter ltnet_export_filter_v4 {
+    function ltnet_export_filter_v4() {
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
-    filter ltnet_import_filter_v6 {
+    function ltnet_import_filter_v6() {
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
-    filter ltnet_export_filter_v6 {
+    function ltnet_export_filter_v6() {
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
@@ -99,16 +109,16 @@ in
         import keep filtered;
         ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
         add paths yes;
-        import filter ltnet_import_filter_v4;
-        export filter ltnet_export_filter_v4;
+        import filter { ltnet_import_filter_v4(); };
+        export filter { ltnet_export_filter_v4(); };
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
         add paths yes;
-        import filter ltnet_import_filter_v6;
-        export filter ltnet_export_filter_v6;
+        import filter { ltnet_import_filter_v6(); };
+        export filter { ltnet_export_filter_v6(); };
       };
     };
   '';
