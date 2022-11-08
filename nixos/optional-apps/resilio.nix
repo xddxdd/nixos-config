@@ -20,6 +20,8 @@ in
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
     };
     serviceConfig = LT.serviceHarden // {
+      User = lib.mkForce "root";
+      Group = lib.mkForce "root";
       ReadWritePaths = [ config.services.resilio.directoryRoot ];
       StateDirectory = "resilio-sync";
       TimeoutStopSec = "10";
@@ -27,7 +29,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${config.services.resilio.directoryRoot} 775 rslsync rslsync"
+    "d ${config.services.resilio.directoryRoot} 775 root root"
   ];
 
   services.nginx.virtualHosts = {
@@ -56,6 +58,4 @@ in
         + LT.nginx.serveLocalhost;
     };
   };
-
-  users.users.lantian.extraGroups = [ "rslsync" ];
 }
