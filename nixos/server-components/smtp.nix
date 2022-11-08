@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  LT = import ../../helpers { inherit config pkgs; };
+in
 {
   age.secrets.smtp-pass = {
     file = pkgs.secrets + "/smtp-pass.age";
@@ -20,5 +23,32 @@
       tls_starttls = false;
       tls_trust_file = "/etc/ssl/certs/ca-certificates.crt";
     };
+  };
+
+  systemd.services."notify-email@" = {
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart =
+        let
+          script = pkgs.writeShellScript "notify-email" ''
+            MAILTO="$(echo ${LT.constants.emailRecipientBase64} | base64 -d)"
+            HOSTNAME=$2
+            UNIT=$1
+
+            exec sendmail -t <<EOF
+            To: $MAILTO
+            Subject: Status report for $UNIT on $HOSTNAME
+
+            Status report for $UNIT on $HOSTNAME:
+
+            $(systemctl status $UNIT)
+
+            $(journalctl -u $UNIT)
+            EOF
+          '';
+        in
+        ''${script} "%I" "%H"'';
+    };
+    path = with pkgs; [ inetutils msmtp ];
   };
 }
