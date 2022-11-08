@@ -1,5 +1,40 @@
 { pkgs, lib, config, ... }:
 
+let
+  LT = import ../../../helpers { inherit config pkgs lib; };
+
+  kpkg =
+    if pkgs.stdenv.isx86_64 then
+      pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-lto
+    else pkgs.linuxPackages_latest;
+  llvmOverride = p:
+    if pkgs.stdenv.isx86_64 then
+      p.overrideAttrs
+        (old: {
+          makeFlags = (old.makeFlags or [ ]) ++ [ "LLVM=1" "LLVM_IAS=1" ];
+        }) else p;
+  nvidiaOverride = p: llvmOverride (p.overrideAttrs (old: {
+    # Somehow fixup phase is ran twice
+    postFixup = (old.postFixup or "") + ''
+      SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
+        | grep '"${old.version}"' \
+        | head -n1 \
+        | cut -d"'" -f2)
+      SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
+        | grep '"${old.version}"' \
+        | head -n1 \
+        | cut -d"'" -f2)
+
+      echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
+      sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
+      LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+
+      echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
+      sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
+      LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+    '';
+  }));
+in
 lib.mkIf (!config.boot.isContainer) {
   boot = {
     kernelParams = [
@@ -8,51 +43,25 @@ lib.mkIf (!config.boot.isContainer) {
       "net.ifnames=0"
       "swapaccount=1"
     ];
-    kernelPackages =
-      let
-        kpkg =
-          if pkgs.stdenv.isx86_64 then
-            pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-lto
-          else pkgs.linuxPackages_latest;
-        nvlax = pkgs.callPackage ./nvlax.nix { };
-        llvmOverride = p:
-          if pkgs.stdenv.isx86_64 then
-            p.overrideAttrs
-              (old: {
-                makeFlags = (old.makeFlags or [ ]) ++ [ "LLVM=1" "LLVM_IAS=1" ];
-              }) else p;
-        # NVLAX doesn't support clang built kernel
-        nvidiaOverride = llvmOverride;
-        # nvidiaOverride = p: llvmOverride (p.overrideAttrs (old: {
-        #   postFixup = (old.postFixup or "") + ''
-        #     # ${nvlax}/bin/nvlax_fbc \
-        #     #   -i $out/lib/libnvidia-fbc.so.${old.version} \
-        #     #   -o $out/lib/libnvidia-fbc.so.${old.version}
-        #     ${nvlax}/bin/nvlax_encode \
-        #       -i $out/lib/libnvidia-encode.so.${old.version} \
-        #       -o $out/lib/libnvidia-encode.so.${old.version}
-        #   '';
-        # }));
-      in
-      kpkg.extend (final: prev: {
-        acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
-        cryptodev = llvmOverride prev.cryptodev;
-        kvmfr = llvmOverride prev.kvmfr;
-        nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
-        ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
-        v4l2loopback = llvmOverride prev.v4l2loopback;
-        virtualbox = llvmOverride prev.virtualbox;
-        x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            substituteInPlace Makefile \
-              --replace "gcc" "cc"
-          '';
-        });
-
-        # Build failure on latest nixpkgs
-        nvidia_x11 = nvidiaOverride prev.nvidia_x11;
-        nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
+    kernelPackages = kpkg.extend (final: prev: {
+      acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
+      cryptodev = llvmOverride prev.cryptodev;
+      kvmfr = llvmOverride prev.kvmfr;
+      nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
+      ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
+      v4l2loopback = llvmOverride prev.v4l2loopback;
+      virtualbox = llvmOverride prev.virtualbox;
+      x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace Makefile \
+            --replace "gcc" "cc"
+        '';
       });
+
+      # Build failure on latest nixpkgs
+      nvidia_x11 = nvidiaOverride prev.nvidia_x11;
+      nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
+    });
     kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev

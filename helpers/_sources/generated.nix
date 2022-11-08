@@ -34,15 +34,26 @@
       sha256 = "sha256-yn9FPlruJiCKO6tJWvFNJpABHlW/EQf2i/iDKRchRds=";
     });
   };
+  nvidia-patch = {
+    pname = "nvidia-patch";
+    version = "505783353c1ceac4178f14c0649ecc8a8ef8266d";
+    src = fetchFromGitHub ({
+      owner = "keylase";
+      repo = "nvidia-patch";
+      rev = "505783353c1ceac4178f14c0649ecc8a8ef8266d";
+      fetchSubmodules = false;
+      sha256 = "sha256-F15VfAK98Lw/lfJf4qVFgCg9kWmkprRLoysPZGQ+EeU=";
+    });
+  };
   openvpn = {
     pname = "openvpn";
-    version = "dbf142ffe597b21aa09a47677ea2061b74a9354e";
+    version = "036517d5e06c1254233d51893b3a196a3cd37492";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "dbf142ffe597b21aa09a47677ea2061b74a9354e";
+      rev = "036517d5e06c1254233d51893b3a196a3cd37492";
       fetchSubmodules = false;
-      sha256 = "sha256-31dH8qIaRGjUgf6D/ifSiBv+B1tX3dCd4pVXMFJJKks=";
+      sha256 = "sha256-JgOyDzsFhIrfLita7YdxGllDp8hkEa4fRj4aHUq8JWA=";
     });
   };
   ovpn-dco = {
