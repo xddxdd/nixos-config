@@ -5,9 +5,6 @@
     "$HOME/.local/bin"
   ];
 
-  # https://github.com/nix-community/home-manager/issues/3342
-  manual.manpages.enable = false;
-
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;

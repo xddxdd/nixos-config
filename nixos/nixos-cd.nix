@@ -42,7 +42,6 @@
         ./common-components/cacert.nix
         ./common-components/environment.nix
         ./common-components/networking.nix
-        ./common-components/no-docs.nix
         ./common-components/qemu-user-static.nix
         ./common-components/ssh-harden.nix
         ./common-components/users.nix
