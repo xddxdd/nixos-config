@@ -35,6 +35,8 @@ in
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/waline.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
+
+    ../../nixos/optional-cron-jobs/ssl-certs.nix
   ];
 
   services.beesd.filesystems.root = {
