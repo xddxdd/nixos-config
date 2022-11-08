@@ -86,7 +86,6 @@
             inputs.colmena.overlay
             inputs.nix-alien.overlay
             inputs.nixos-cn.overlay
-            inputs.nur-xddxdd.overlay
           ] ++ (import ./overlays { inherit inputs lib; });
         };
         outputsBuilder = channels: channels;
@@ -100,22 +99,24 @@
           inherit (LT.hosts."${n}") system role openvz;
         in
         [
-          {
+          ({ config, ... }: {
             home-manager = {
               backupFileExtension = "bak";
               useGlobalPkgs = true;
               useUserPackages = true;
             };
             networking.hostName = n;
+            nixpkgs.overlays = [
+              (inputs.nur-xddxdd.overlays.custom
+                config.boot.kernelPackages.nvidia_x11)
+            ];
             system.stateVersion = LT.constants.stateVersion;
-          }
+          })
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.impermanence.nixosModules.impermanence
           inputs.home-manager.nixosModules.home-manager
-        ] ++ lib.optionals (role == LT.roles.client) [
-          inputs.nur-xddxdd.nixosModules.svpWithNvidia
         ] ++ lib.optionals openvz [
           inputs.nixos-openvz.nixosModules.ovz-container
           inputs.nixos-openvz.nixosModules.ovz-installer

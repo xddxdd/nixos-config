@@ -13,27 +13,36 @@ let
         (old: {
           makeFlags = (old.makeFlags or [ ]) ++ [ "LLVM=1" "LLVM_IAS=1" ];
         }) else p;
-  nvidiaOverride = p: llvmOverride (p.overrideAttrs (old: {
-    # Somehow fixup phase is ran twice
-    postFixup = (old.postFixup or "") + ''
-      SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
-        | grep '"${old.version}"' \
-        | head -n1 \
-        | cut -d"'" -f2)
-      SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
-        | grep '"${old.version}"' \
-        | head -n1 \
-        | cut -d"'" -f2)
+  nvidiaOverride = p:
+    let
+      patched = llvmOverride (p.overrideAttrs (old: {
+        # Somehow fixup phase is ran twice
+        postFixup = (old.postFixup or "") + ''
+          SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
+            | grep '"${old.version}"' \
+            | head -n1 \
+            | cut -d"'" -f2)
+          SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
+            | grep '"${old.version}"' \
+            | head -n1 \
+            | cut -d"'" -f2)
 
-      echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
-      sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
-      LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+          echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
+          sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
+          LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
 
-      echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
-      sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
-      LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
-    '';
-  }));
+          echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
+          sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
+          LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+        '';
+      }));
+    in
+    patched.overrideAttrs (old: {
+      passthru = old.passthru // {
+        settings = old.passthru.settings.override { nvidia_x11 = patched; };
+        persistenced = old.passthru.persistenced.override { nvidia_x11 = patched; };
+      };
+    });
 in
 lib.mkIf (!config.boot.isContainer) {
   boot = {
@@ -43,7 +52,7 @@ lib.mkIf (!config.boot.isContainer) {
       "net.ifnames=0"
       "swapaccount=1"
     ];
-    kernelPackages = kpkg.extend (final: prev: {
+    kernelPackages = kpkg.extend (final: prev: rec {
       acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
       cryptodev = llvmOverride prev.cryptodev;
       kvmfr = llvmOverride prev.kvmfr;
@@ -58,9 +67,23 @@ lib.mkIf (!config.boot.isContainer) {
         '';
       });
 
-      # Build failure on latest nixpkgs
-      nvidia_x11 = nvidiaOverride prev.nvidia_x11;
       nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
+
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
+      nvidia_x11 = nvidiaPackages.stable;
+      nvidia_x11_beta = nvidiaPackages.beta;
+      nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
+      nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
+      nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
+      nvidia_x11_production = nvidiaPackages.production;
+      nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
+
+      # this is not a replacement for nvidia_x11*
+      # only the opensource kernel driver exposed for hydra to build
+      nvidia_x11_beta_open = nvidiaPackages.beta.open;
+      nvidia_x11_production_open = nvidiaPackages.production.open;
+      nvidia_x11_stable_open = nvidiaPackages.stable.open;
+      nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
     });
     kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ];
     extraModulePackages = with config.boot.kernelPackages; [
