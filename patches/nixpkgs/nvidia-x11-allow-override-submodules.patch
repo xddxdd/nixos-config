@@ -1,0 +1,49 @@
+diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
+index ea9dbcabd0e..5a44f1419d6 100644
+--- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
++++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
+@@ -109,11 +109,12 @@ let
+         nvidia_x11 = self;
+         broken = brokenOpen;
+       }) openSha256;
+-      settings = (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256) {
++      settings = (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256) {
++        nvidia_x11 = self;
+         withGtk2 = preferGtk2;
+         withGtk3 = !preferGtk2;
+       };
+-      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256;
++      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix hash) { nvidia_x11 = self; }) persistencedSha256;
+       inherit persistencedVersion settingsVersion;
+       compressFirmware = false;
+     } // optionalAttrs (!i686bundled) {
+diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
+index 5276dfd2aff..8a3b223a828 100644
+--- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
++++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
+@@ -1,8 +1,9 @@
+-nvidia_x11: sha256:
++sha256:
+ 
+ { stdenv
+ , lib
+ , fetchFromGitHub
++, nvidia_x11
+ , m4
+ , libtirpc
+ }:
+diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
+index 884ccdd6c52..2ae728e3a72 100644
+--- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
++++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
+@@ -1,8 +1,9 @@
+-nvidia_x11: sha256:
++sha256:
+ 
+ { stdenv, lib, fetchFromGitHub, fetchpatch, pkg-config, m4, jansson, gtk2, dbus, gtk3
+ , libXv, libXrandr, libXext, libXxf86vm, libvdpau
+ , librsvg, wrapGAppsHook
++, nvidia_x11
+ , withGtk2 ? false, withGtk3 ? true
+ }:
+ 

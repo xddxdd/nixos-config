@@ -54,6 +54,7 @@ in
     prismlauncher
     qq
     quasselClient
+    svp
     tdesktop
     thunderbird
     tigervnc
