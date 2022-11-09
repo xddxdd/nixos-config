@@ -86,18 +86,12 @@
           };
           input = inputs.nixpkgs;
           patches = ls ./patches/nixpkgs;
-          overlaysBuilder = channels: [
-            inputs.colmena.overlay
-            inputs.nix-alien.overlay
-            inputs.nixos-cn.overlay
-            inputs.nur-xddxdd.overlays.default
-          ] ++ (import ./overlays { inherit inputs lib; });
         };
         outputsBuilder = channels: channels;
       }) nixpkgs;
 
       inherit (nixpkgs."x86_64-linux") lib;
-      LT = import ./helpers { inherit lib; };
+      LT = import ./helpers { inherit lib inputs; };
 
       modulesFor = n:
         let
@@ -110,6 +104,13 @@
               useGlobalPkgs = true;
               useUserPackages = true;
             };
+            nixpkgs.overlays = [
+              inputs.colmena.overlay
+              inputs.nix-alien.overlay
+              inputs.nixos-cn.overlay
+              (inputs.nur-xddxdd.overlays.custom
+                config.boot.kernelPackages.nvidia_x11)
+            ] ++ (import ./overlays { inherit inputs lib; });
             networking.hostName = n;
             system.stateVersion = LT.constants.stateVersion;
           })
@@ -187,7 +188,8 @@
       apps = eachSystem (system:
         let
           pkgs = nixpkgs."${system}";
-          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib; });
+          colmena = inputs.colmena.packages."${system}".colmena;
+          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib inputs; });
         in
         {
           colmena = {
@@ -195,10 +197,10 @@
             program = builtins.toString (pkgs.writeShellScript "colmena" ''
               ACTION=$1; shift;
               if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-                ${pkgs.colmena}/bin/colmena $ACTION --keep-result $*
+                ${colmena}/bin/colmena $ACTION --keep-result $*
                 exit $?
               else
-                ${pkgs.colmena}/bin/colmena $ACTION $*
+                ${colmena}/bin/colmena $ACTION $*
                 exit $?
               fi
             '');
