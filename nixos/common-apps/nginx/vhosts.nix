@@ -45,7 +45,7 @@ let
         let
           client = {
             "m.homeserver" = {
-              "base_url" = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}";
+              "base_url" = "https://matrix.lantian.pub";
             };
             "m.identity_server" = {
               "base_url" = "https://vector.im";
