@@ -85,7 +85,8 @@ lib.mkIf (!config.boot.isContainer) {
       nvidia_x11_stable_open = nvidiaPackages.stable.open;
       nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
     });
-    kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" "winesync" ];
+    kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ]
+      ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
       nullfsvfs
