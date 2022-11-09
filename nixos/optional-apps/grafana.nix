@@ -100,7 +100,7 @@ in
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
-        proxyPass = "http://unix:${config.services.grafana.socket}";
+        proxyPass = "http://unix:${config.services.grafana.settings.server.socket}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
