@@ -1,6 +1,7 @@
 { config ? { }
 , pkgs ? { }
 , lib ? pkgs.lib
+, inputs ? pkgs.flake or null
 , ...
 }:
 
@@ -12,7 +13,7 @@ let
     this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
-    geo = import ./geo.nix { inherit pkgs lib sanitizeName; };
+    geo = import ./geo.nix { inherit pkgs lib sanitizeName inputs; };
     roles = import ./roles.nix;
     serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;
     nixosHosts = lib.filterAttrs (n: v: v.role != roles.non-nixos) hosts;

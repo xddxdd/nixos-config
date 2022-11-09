@@ -1,7 +1,7 @@
-{ pkgs, lib, sanitizeName, ... }:
+{ pkgs, lib, sanitizeName, inputs, ... }:
 
 let
-  citiesJson = builtins.fromJSON (builtins.readFile (pkgs.flake.cities-json + "/cities.json"));
+  citiesJson = builtins.fromJSON (builtins.readFile (inputs.cities-json + "/cities.json"));
 in
 rec {
   cities = builtins.listToAttrs

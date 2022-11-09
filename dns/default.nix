@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 let
-  LT = import ../helpers { inherit pkgs lib; };
+  LT = import ../helpers { inherit pkgs lib inputs; };
   inherit (LT) hosts;
 
   dns = import ./core { inherit pkgs lib; };
