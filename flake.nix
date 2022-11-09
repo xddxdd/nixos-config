@@ -90,6 +90,7 @@
             inputs.colmena.overlay
             inputs.nix-alien.overlay
             inputs.nixos-cn.overlay
+            inputs.nur-xddxdd.overlays.default
           ] ++ (import ./overlays { inherit inputs lib; });
         };
         outputsBuilder = channels: channels;
@@ -110,10 +111,6 @@
               useUserPackages = true;
             };
             networking.hostName = n;
-            nixpkgs.overlays = [
-              (inputs.nur-xddxdd.overlays.custom
-                config.boot.kernelPackages.nvidia_x11)
-            ];
             system.stateVersion = LT.constants.stateVersion;
           })
           inputs.agenix.nixosModules.age
