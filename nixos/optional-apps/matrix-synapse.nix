@@ -10,7 +10,7 @@ in
     enable = true;
     settings = {
       max_upload_size = "500M";
-      public_baseurl = "https://matrix.lantian.pub:${LT.portStr.Matrix.Public}";
+      public_baseurl = "https://matrix.lantian.pub";
       server_name = config.networking.domain;
       url_preview_enabled = true;
       media_store_path = "${config.services.matrix-synapse.dataDir}/media";
