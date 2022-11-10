@@ -210,6 +210,22 @@
         peerIPv6LinkLocal = "fe80::122";
       };
     };
+    keuin = {
+      remoteASN = 4242421966;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21966;
+        remoteAddress = "server1.connect.keuin.cc";
+        remotePort = 22547;
+        wireguardPubkey = "jW4UOzA/9ggGzk0PkqW563SzE5pn5X8DvZz/+hD+mRo=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.36.65";
+        peerIPv6LinkLocal = "fe80::1966";
+      };
+    };
     kioubit = {
       remoteASN = 4242423914;
       latencyMs = 71;
