@@ -38,7 +38,7 @@ let
           };
         in
         ''
-          add_header Content-Type application/json;
+          default_type application/json;
           return 200 '${builtins.toJSON server}';
         '';
       "= /.well-known/matrix/client".extraConfig =
@@ -54,7 +54,7 @@ let
           # ACAO required to allow element-web on any URL to request this json file
         in
         ''
-          add_header Content-Type application/json;
+          default_type application/json;
           add_header Access-Control-Allow-Origin *;
           return 200 '${builtins.toJSON client}';
         '';
