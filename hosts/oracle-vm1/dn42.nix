@@ -5,6 +5,22 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
+    atolm = {
+      remoteASN = 4242420585;
+      latencyMs = 3;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20585;
+        remoteAddress = "jp1.dn42.atolm.net";
+        remotePort = 22547;
+        wireguardPubkey = "nO4iuPSTPDVyq16TGlIanQatEtdYiY0WsSF2yS4Dbxo=";
+      };
+      addressing = {
+        # peerIPv4 = "172.20.56.4";
+        peerIPv6LinkLocal = "fe80::585";
+      };
+    };
     bb-pgqm = {
       remoteASN = 4242420549;
       latencyMs = 3;
