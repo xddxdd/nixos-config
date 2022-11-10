@@ -60,6 +60,7 @@
     };
     # nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
+      # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -125,6 +126,7 @@
           ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
           inputs.impermanence.nixosModules.impermanence
           inputs.home-manager.nixosModules.home-manager
+          inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
         ] ++ lib.optionals openvz [
           inputs.nixos-openvz.nixosModules.ovz-container
           inputs.nixos-openvz.nixosModules.ovz-installer
