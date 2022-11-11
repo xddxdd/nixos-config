@@ -9,11 +9,7 @@ let
 
   configFile = builtins.toJSON {
     settings = {
-      interfacePrefixBlacklist = whitelistToBlacklist [
-        "eth"
-        "henet"
-        "wlan"
-      ];
+      interfacePrefixBlacklist = whitelistToBlacklist LT.constants.wanInterfacePrefixes;
       multipathMode = 2;
       softwareUpdate = "disable";
     };
