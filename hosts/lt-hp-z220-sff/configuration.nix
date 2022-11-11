@@ -38,6 +38,9 @@ in
   # ECC RAM
   hardware.rasdaemon.enable = true;
 
+  # Handle multiple NICs
+  networking.usePredictableInterfaceNames = lib.mkForce true;
+
   # Reduce idle power consumption
   powerManagement.powertop.enable = true;
 

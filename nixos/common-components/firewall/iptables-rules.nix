@@ -102,6 +102,12 @@ in
   # Forward chain
   iptables -A LT_FORWARD -i dn42+ -o eth+ -j REJECT
   ip6tables -A LT_FORWARD -i dn42+ -o eth+ -j REJECT
+  iptables -A LT_FORWARD -i dn42+ -o en+ -j REJECT
+  ip6tables -A LT_FORWARD -i dn42+ -o en+ -j REJECT
+  iptables -A LT_FORWARD -i dn42+ -o wlan+ -j REJECT
+  ip6tables -A LT_FORWARD -i dn42+ -o wlan+ -j REJECT
+  iptables -A LT_FORWARD -i dn42+ -o wl+ -j REJECT
+  ip6tables -A LT_FORWARD -i dn42+ -o wl+ -j REJECT
   iptables -A LT_FORWARD -i dn42+ -o venet+ -j REJECT
   ip6tables -A LT_FORWARD -i dn42+ -o venet+ -j REJECT
   iptables -A LT_FORWARD -i dn42+ -o henet -j REJECT
@@ -117,7 +123,9 @@ in
   # NAT Postrouting Chain
   # Empty for now
   iptables -t nat -A LT_NAT_POST -o eth+ -j MASQUERADE
+  iptables -t nat -A LT_NAT_POST -o en+ -j MASQUERADE
   iptables -t nat -A LT_NAT_POST -o venet+ -j MASQUERADE
   iptables -t nat -A LT_NAT_POST -o virbr+ -j MASQUERADE
   iptables -t nat -A LT_NAT_POST -o wlan+ -j MASQUERADE
+  iptables -t nat -A LT_NAT_POST -o wl+ -j MASQUERADE
 ''

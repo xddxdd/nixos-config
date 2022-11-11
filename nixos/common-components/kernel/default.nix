@@ -49,9 +49,10 @@ lib.mkIf (!config.boot.isContainer) {
     kernelParams = [
       "audit=0"
       "cgroup_enable=memory"
-      "net.ifnames=0"
       "swapaccount=1"
-    ];
+    ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
+      "net.ifnames=0"
+    ]);
     kernelPackages = kpkg.extend (final: prev: rec {
       acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
       cryptodev = llvmOverride prev.cryptodev;

@@ -24,8 +24,7 @@ pkgs.writeText "nft.conf" ''
       type filter hook forward priority 5; policy accept;
 
       # DN42 firewall rules
-      iifname "dn42*" oifname "eth*" reject
-      iifname "dn42*" oifname "henet" reject
+      ${lib.concatMapStringsSep "\n" (p: ''iifname "dn42*" oifname "${p}*" reject'') LT.constants.wanInterfacePrefixes}
 
       # Block non-DN42 traffic in DN42
       iifname "dn42*" jump DN42_INPUT
@@ -96,10 +95,7 @@ pkgs.writeText "nft.conf" ''
         ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
       ''}
 
-      oifname "eth*" masquerade
-      oifname "venet*" masquerade
-      oifname "virbr*" masquerade
-      oifname "wlan*" masquerade
+      ${lib.concatMapStringsSep "\n" (p: ''oifname "${p}*" masquerade'') (LT.constants.wanInterfacePrefixes ++ [ "virbr" ])}
     }
 
     # Helper chains

@@ -41,6 +41,15 @@
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
 
+  wanInterfacePrefixes = [
+    "en"
+    "eth"
+    "henet"
+    "venet"
+    "wl"
+    "wlan"
+  ];
+
   zones = {
     DN42 = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
     NeoNetwork = [ "neo" ];
