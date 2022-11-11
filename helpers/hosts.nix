@@ -70,7 +70,9 @@
     syncthing = "ZAURUE3-SQTDORN-WIMV6TB-HLO4KGS-V4DKCQR-4FR42KL-COMW4JD-NQDSTQ7";
     public = rec {
       IPv4 = "51.159.15.98";
-      IPv6 = "2001:0bc8:1201:0706:8634:97ff:fe11:7b94";
+      IPv6 = "2001:470:1f13:3b1::1";
+      IPv6Alt = "2001:470:cab6::1";
+      IPv6Subnet = "2001:470:cab6:ffff::";
     };
     dn42 = rec {
       IPv4 = "172.22.76.113";
