@@ -39,7 +39,22 @@ in
       };
 
       pipewire = {
-        "context.modules" = defaultCfg.pipewire."context.modules" ++ [
+        "context.modules" = [
+          {
+            name = "libpipewire-module-rt";
+            args = {
+              "nice.level" = -11;
+              "rt.prio" = 88;
+              "rt.time.soft" = -1;
+              "rt.time.hard" = -1;
+            };
+            flags = [ "ifexists" "nofail" ];
+          }
+        ]
+        ++ (builtins.filter
+          (v: (v.name or "") != "libpipewire-module-rt")
+          defaultCfg.pipewire."context.modules")
+        ++ [
           {
             name = "libpipewire-module-filter-chain";
             args = {
