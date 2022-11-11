@@ -21,6 +21,12 @@ in
   services.transmission.settings = {
     download-dir = "/mnt/storage/downloads";
 
+    # Limit parallel downloads to avoid system lockup
+    download-queue-enabled = lib.mkForce true;
+    download-queue-size = 5;
+    idle-seeding-limit-enabled = lib.mkForce true;
+    idle-seeding-limit = 10;
+
     # Speed limit of private trackets
     speed-limit-down = 25600;
     speed-limit-down-enabled = false;
