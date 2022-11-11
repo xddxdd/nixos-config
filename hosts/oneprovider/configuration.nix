@@ -47,9 +47,35 @@ in
   };
 
   systemd.network.networks.eth0 = {
-    address = [ "51.159.15.98/24" "2001:0bc8:1201:0706:8634:97ff:fe11:7b94/64" ];
+    address = [ "51.159.15.98/24" ];
     gateway = [ "51.159.15.1" ];
     matchConfig.Name = "eth0";
+    networkConfig = {
+      IPv6AcceptRA = false;
+      Tunnel = "henet";
+    };
+  };
+
+  systemd.network.netdevs.henet = {
+    netdevConfig = {
+      Kind = "sit";
+      Name = "henet";
+    };
+    tunnelConfig = {
+      Local = LT.this.public.IPv4;
+      Remote = "216.66.84.42";
+      TTL = 255;
+    };
+  };
+
+  systemd.network.networks.henet = {
+    address = [
+      "2001:470:1f12:3b1::2/64"
+      "2001:470:1f13:3b1::1/64"
+      "2001:470:cab6::1/48"
+    ];
+    gateway = [ "2001:470:1f12:3b1::1" ];
+    matchConfig.Name = "henet";
   };
 
   services."route-chain" = {
