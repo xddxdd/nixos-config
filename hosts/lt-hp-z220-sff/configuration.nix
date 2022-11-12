@@ -35,6 +35,8 @@ in
     ../../nixos/optional-apps/resilio.nix
   ];
 
+  boot.kernelParams = [ "pci=realloc,assign-busses" ];
+
   # ECC RAM
   hardware.rasdaemon.enable = true;
 
@@ -55,6 +57,8 @@ in
     hashTableSizeMB = 2048;
     verbosity = "crit";
   };
+
+  services.fwupd.enable = true;
 
   services.ksmbd = {
     enable = true;
