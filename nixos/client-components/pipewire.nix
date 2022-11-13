@@ -50,8 +50,27 @@ let
             { type = builtin label = convolver name = convLFE_R config = { filename = "${hrir}" channel = 13 } }
 
             # stereo output
-            { type = builtin label = mixer name = mixL }
-            { type = builtin label = mixer name = mixR }
+            # Reduce volume to prevent clipping
+            { type = builtin label = mixer name = mixL control = {
+              "Gain 1" = 0.5
+              "Gain 2" = 0.5
+              "Gain 3" = 0.5
+              "Gain 4" = 0.5
+              "Gain 5" = 0.5
+              "Gain 6" = 0.5
+              "Gain 7" = 0.5
+              "Gain 8" = 0.5
+            } }
+            { type = builtin label = mixer name = mixR control = {
+              "Gain 1" = 0.5
+              "Gain 2" = 0.5
+              "Gain 3" = 0.5
+              "Gain 4" = 0.5
+              "Gain 5" = 0.5
+              "Gain 6" = 0.5
+              "Gain 7" = 0.5
+              "Gain 8" = 0.5
+            } }
           ]
           links = [
             # input
