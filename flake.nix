@@ -197,6 +197,27 @@
         let
           pkgs = nixpkgs."${system}";
           dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib inputs; });
+
+          dnscontrol = pkgs.buildGoModule rec {
+            pname = "dnscontrol";
+            version = "3af61f2cd4ad9929ed21cadac7787edc56e67018";
+
+            src = pkgs.fetchFromGitHub {
+              owner = "xddxdd";
+              repo = "dnscontrol";
+              rev = version;
+              sha256 = "sha256-Fzb383JfQ2VaIJR0Un3PQ35z7Bjh0aTyHMCZxEQ6lqw=";
+            };
+
+            vendorSha256 = "sha256-f6O5JcaDVtpp9RRzAYVqefeVpw0sHRSbvLSry79mvMI=";
+
+            ldflags = [ "-s" "-w" ];
+
+            preCheck = ''
+              # requires network
+              rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
+            '';
+          };
         in
         {
           colmena = {
@@ -234,7 +255,7 @@
               mkdir -p "$TEMP_DIR/zones"
 
               cd "$TEMP_DIR"
-              ${pkgs.dnscontrol}/bin/dnscontrol $*
+              ${dnscontrol}/bin/dnscontrol $*
               RET=$?
               rm -rf "$CURR_DIR/zones"
               mv "$TEMP_DIR/zones" "$CURR_DIR/zones"

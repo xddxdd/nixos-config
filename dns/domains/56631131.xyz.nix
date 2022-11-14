@@ -4,8 +4,8 @@ with dns;
 [
   rec {
     domain = "56631131.xyz";
-    registrar = "doh";
-    providers = [ "ns1" ];
+    registrar = "none";
+    providers = [ "ns1" "gcore" ];
     records = [
       common.hostRecs.CAA
       common.records.Libravatar

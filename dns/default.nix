@@ -15,6 +15,7 @@ dns.eval {
     "bind"
     "cloudflare"
     "desec"
+    "gcore"
     "henet"
     "ns1"
   ];
