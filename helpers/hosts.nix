@@ -7,7 +7,7 @@
 {
   "50kvm-old" = rec {
     index = 9;
-    city = geo.cities."HK Hong Kong";
+    city = geo.cities."CN Hong Kong";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCw1fEo3i7HViqekWReTW+jF7Nlw86ZYjez9zYq960PcuF9X/MaUjXCoUNuAs7km9AGc3RexPcX7sdth5qA2V7JH/KewARI2qiBZVCeX8DnSl27iVSkEeHFnoDQeSgrOnmQwd6N1ELpcJatGzWLA6FagobJm90HlbKW1uSwbh1TprDPtyFVLhaoyjIuTd+K3obCGZQiBY9Hmuiq0pTUM+PXgC4hRy5gsWnuLupDRSHDkPpAfXAND6decx6Xpx7GGtGQRbZ5xw0ZOPrphuVowagjMq7eQXivrc3S6LdqErdqnbVGUzV7EqJluRqWuH/j3XMUnrXxryJ/JpR7tMssc4xacRI0zD8J5jRGDDTvV+2RNarYC9bfHLVpdWHkELI1M2iNOehiYCzqO0ay5cVqEf3ynRe1HZIRp6Z7nI6dot/TjiQMx5+DGz1YTBvWL7NieZ9RjIKRus9qFZXDgK/8ZWylsVvRjemMv2Nno7l5js+7c5R9pfMO6NZiH4o8AJEus5Wx+M+A4hxXZAU7dGgcJPlhKCKZuIoVJTQnuctKN/ff+AeXNoZTM7MPdbNlzZ5ogrTXuCO9vXCohRlxXNBwGUYR4hUXF2nC+RBGCpYSUVypmpexRlbNpec6E6q+Q9BMltrQ/bRbGoNN4oateowFjiYS5uBqBUm6iXONWLNwUAdLpQ==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/8Bj5bOf+14ZrrvUdQNxBWjl0ZZ64D4wnUw9T5rK9N";
@@ -24,7 +24,7 @@
   };
   "linkin" = rec {
     index = 1;
-    city = geo.cities."HK Hong Kong";
+    city = geo.cities."CN Hong Kong";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkL37ZQV3RAmiM+TFOagMvmld8NRJcgQ37soAD13EcK9vJVA37vnzI/fKEYkP+oubBIQZBTnddLl8mSZlx0vC9alekpWFu2Y+HX7nm6qUef2O3pctZD0Br5AhNoye4k+Ly+FaVBddpUu9Z7H/yVlZarrA1XBQynyaIfcv5DOi5Jc6U5MVhs4qhBY8sElmYEV/Z103VbYpW4rZ+yw2sKmXFNAR5yL7jAiJQS+T3HWqEiicyT6ppLpy9nGkbbzHYQMxJqSdQ1TsRUK7TJepVEXGnuVCBOFKs74jXjzl3enABNmL2BiO9iiVo/rxWbLmV9k031sQMwCIsj/YYulDG3rFmbWiN5Wnm66X+201nDATJr0vzafojcLK2Pgxym1zVbKL6+bZOxES6WTqktFzj4eGa0ekoHKzgz0bXbSf3TNOHbt+WvXK+sgV8YVs9NUyA6X7JNCX1kooWoGS74nspdNZRa5ZAxTLmB62WwJefqdRotuE5sw1tzAjPXuyw8JOtrBZeYHDS26yJKlHV19EfWllbC1xFPXWcdJHCxgo2UiKC/ESP+xCJt/9zgsN8NboXvZp20lGVrel47c4MD63Ann6Wp/KV81xlV/URmPauJCDDDGXzhZBrc+5/is7EXY/3KqOvKfRJXcjjk8/kW2rmgul/fmdXfjaQ8wM3xUnwbFBc9Q==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDw/OsayZlH0vM33lenT7xU7YaCzZI/+buXBzI+zib8W";

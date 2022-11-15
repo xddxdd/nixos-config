@@ -6,9 +6,15 @@ in
 rec {
   cities = builtins.listToAttrs
     (builtins.map
-      ({ country, name, ... }@args: lib.nameValuePair "${country} ${name}" (args // {
-        sanitized = sanitizeName "${country} ${name}";
-      }))
+      (args:
+        let
+          # Mark entire China region as CN
+          country = if builtins.elem args.country [ "CN" "HK" "MO" "TW" ] then "CN" else args.country;
+          name = args.name;
+        in
+        lib.nameValuePair "${country} ${name}" (args // {
+          sanitized = sanitizeName "${country} ${name}";
+        }))
       citiesJson);
 
   distance = a: b:
