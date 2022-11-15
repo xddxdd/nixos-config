@@ -35,7 +35,13 @@ in
       persistentKeys = true;
     };
 
-    systemd.services.yggdrasil.serviceConfig.ExecStart =
-      lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel error -logto syslog -useconffile /run/yggdrasil/yggdrasil.conf";
+    systemd.services.yggdrasil.serviceConfig = {
+      ExecStart =
+        lib.mkForce "${config.services.yggdrasil.package}/bin/yggdrasil -loglevel error -logto syslog -useconffile /run/yggdrasil/yggdrasil.conf";
+
+      # Disable logging
+      StandardOutput = "null";
+      StandardError = "null";
+    };
   };
 }

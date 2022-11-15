@@ -40,6 +40,10 @@ in
       LogsDirectory = "hath";
       User = "hath";
       Group = "hath";
+
+      # Disable logging
+      StandardOutput = "null";
+      StandardError = "null";
     };
   };
 

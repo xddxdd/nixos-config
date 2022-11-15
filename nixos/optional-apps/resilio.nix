@@ -25,6 +25,10 @@ in
       ReadWritePaths = [ config.services.resilio.directoryRoot ];
       StateDirectory = "resilio-sync";
       TimeoutStopSec = "10";
+
+      # Disable logging
+      StandardOutput = "null";
+      StandardError = "null";
     };
   };
 

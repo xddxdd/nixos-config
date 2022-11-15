@@ -33,7 +33,10 @@ in
         DESCRIPTION = "Lan Tian's Git service.";
         KEYWORDS = "go,git,self-hosted,gitea";
       };
-      log.level = "Warn";
+      log = {
+        LEVEL = "Error";
+        ENABLE_XORM_LOG = false;
+      };
       server = {
         LANDING_PAGE = "explore";
         SSH_DOMAIN = "git.lantian.pub";
