@@ -171,7 +171,7 @@
         type = "wireguard";
         localPort = 22923;
         # IPv6 high latency
-        # remoteAddress = "gaylord-hkg.de";
+        # remoteAddress = "herzstein.mk16.de";
         remoteAddress = "103.73.66.184";
         remotePort = 52547;
         wireguardPubkey = "kJ3jo/7Od0Jy/7ae2LqFYMWMhvc5QiUttRtN+u3YfwE=";
