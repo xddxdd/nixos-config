@@ -247,7 +247,7 @@
     };
     yggdrasil.IPv6 = "202:935c:d5de:9015:9060:7c25:39d3:f3c3";
   };
-  "lantian-hp-omen" = rec {
+  "lt-hp-omen" = rec {
     index = 100;
     role = roles.client;
     city = geo.cities."US Chicago";
@@ -263,7 +263,7 @@
     };
     yggdrasil.IPv6 = "200:89bd:cf68:6583:f5a7:1ce2:bf8c:a11";
   };
-  "lantian-lenovo" = rec {
+  "lt-lenovo" = rec {
     index = 101;
     role = roles.client;
     city = geo.cities."US Chicago";
