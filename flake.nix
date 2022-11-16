@@ -262,6 +262,8 @@
             exit $RET
           '';
 
+          gcore = mkApp (import scripts/gcore.nix { inherit pkgs lib inputs LT; });
+
           nvfetcher = mkApp ''
             ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
           '';
