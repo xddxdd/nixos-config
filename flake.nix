@@ -198,6 +198,11 @@
           pkgs = nixpkgs."${system}";
           dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib inputs; });
 
+          mkApp = script: {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "script" script);
+          };
+
           dnscontrol = pkgs.buildGoModule rec {
             pname = "dnscontrol";
             version = "3af61f2cd4ad9929ed21cadac7787edc56e67018";
@@ -220,66 +225,51 @@
           };
         in
         {
-          colmena = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "colmena" ''
-              ACTION=$1; shift;
-              if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-                colmena $ACTION --keep-result $*
-                exit $?
-              else
-                colmena $ACTION $*
-                exit $?
-              fi
-            '');
-          };
+          colmena = mkApp ''
+            ACTION=$1; shift;
+            if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
+              colmena $ACTION --keep-result $*
+              exit $?
+            else
+              colmena $ACTION $*
+              exit $?
+            fi
+          '';
 
-          check = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "check" ''
-              ${pkgs.statix}/bin/statix check . -i _sources
-            '');
-          };
+          check = mkApp ''
+            ${pkgs.statix}/bin/statix check . -i _sources
+          '';
 
-          dnscontrol = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "dnscontrol" ''
-              CURR_DIR=$(pwd)
+          dnscontrol = mkApp ''
+            CURR_DIR=$(pwd)
 
-              TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
-              cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
-              ${pkgs.age}/bin/age \
-                -i "$HOME/.ssh/id_ed25519" \
-                --decrypt -o "$TEMP_DIR/creds.json" \
-                "${inputs.secrets}/dnscontrol.age"
-              mkdir -p "$TEMP_DIR/zones"
+            TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
+            cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
+            ${pkgs.age}/bin/age \
+              -i "$HOME/.ssh/id_ed25519" \
+              --decrypt -o "$TEMP_DIR/creds.json" \
+              "${inputs.secrets}/dnscontrol.age"
+            mkdir -p "$TEMP_DIR/zones"
 
-              cd "$TEMP_DIR"
-              ${dnscontrol}/bin/dnscontrol $*
-              RET=$?
-              rm -rf "$CURR_DIR/zones"
-              mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
+            cd "$TEMP_DIR"
+            ${dnscontrol}/bin/dnscontrol $*
+            RET=$?
+            rm -rf "$CURR_DIR/zones"
+            mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
 
-              cd "$CURR_DIR"
-              rm -rf "$TEMP_DIR"
-              exit $RET
-            '');
-          };
+            cd "$CURR_DIR"
+            rm -rf "$TEMP_DIR"
+            exit $RET
+          '';
 
-          nvfetcher = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
-              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
-            '');
-          };
+          nvfetcher = mkApp ''
+            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+          '';
 
-          update = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "update" ''
-              nix flake update
-              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
-            '');
-          };
+          update = mkApp ''
+            nix flake update
+            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+          '';
         });
     };
 }
