@@ -17,7 +17,6 @@ dns.eval {
     "desec"
     "gcore"
     "henet"
-    "ns1"
   ];
   domains = builtins.map
     (f: import (./domains + "/${f}") { inherit pkgs lib dns common hosts; })

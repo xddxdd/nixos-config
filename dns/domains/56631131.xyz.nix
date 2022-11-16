@@ -5,11 +5,17 @@ with dns;
   rec {
     domain = "56631131.xyz";
     registrar = "none";
-    providers = [ "ns1" "gcore" ];
+    providers = [ "gcore" ];
     records = [
       common.hostRecs.CAA
+      (common.hostRecs.Normal domain)
       common.records.Libravatar
       common.records.SIP
+
+      (common.hostRecs.LTNet "ltnet.${domain}")
+      (common.hostRecs.DN42 "dn42.${domain}")
+      (common.hostRecs.NeoNetwork "neo.${domain}")
+      (common.hostRecs.Yggdrasil "ygg.${domain}")
 
       (A { name = "virmach-host"; address = "149.57.231.2"; })
       (A { name = "*.virmach-host"; address = "149.57.231.2"; })
