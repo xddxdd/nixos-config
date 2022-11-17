@@ -4,30 +4,14 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 
   v2rayConf = {
-    dns.servers = [ "https+local://dns.nextdns.io/378897/${config.networking.hostName}" ];
     inbounds = [{
-      listen = "/run/v2ray/v2ray.sock";
-      port = 0;
-      protocol = "vless";
-      settings = {
-        clients = [{
-          flow = "xtls-rprx-direct";
-          id = { _secret = config.age.secrets.v2ray-key.path; };
-          level = 0;
-        }];
-        decryption = "none";
-      };
+      listen = "127.0.0.1";
+      port = LT.port.V2Ray.SocksClient;
+      protocol = "socks";
+      settings.udp = true;
       sniffing = {
         destOverride = [ "http" "tls" ];
         enabled = true;
-      };
-      streamSettings = {
-        network = "grpc";
-        security = "none";
-        grpcSettings = {
-          serviceName = "ray";
-          multiMode = true;
-        };
       };
     }];
     log.loglevel = "warning";
@@ -43,9 +27,30 @@ let
         tag = "blackhole";
       }
       {
-        protocol = "freedom";
-        settings.redirect = "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}:55";
-        tag = "dns";
+        protocol = "vless";
+        settings.vnext = [
+          {
+            address = LT.hosts."hostdare".public.IPv4;
+            port = 443;
+            users = [{
+              id = { _secret = config.age.secrets.v2ray-key.path; };
+              encryption = "none";
+              level = 0;
+            }];
+          }
+        ];
+        streamSettings = {
+          network = "grpc";
+          security = "tls";
+          tlsSettings.serverName = "lantian.pub";
+          grpcSettings = {
+            serviceName = "ray";
+            multiMode = true;
+            idle_timeout = 25;
+            health_check_timeout = 10;
+          };
+        };
+        tag = "proxy";
       }
       {
         protocol = "shadowsocks";
@@ -67,11 +72,6 @@ let
       balancers = [ ];
       domainStrategy = "IPOnDemand";
       rules = [
-        {
-          outboundTag = "dns";
-          port = 53;
-          type = "field";
-        }
         {
           domain = [
             "full:api.iplay.163.com"
@@ -117,6 +117,16 @@ let
         {
           outboundTag = "block";
           protocol = [ "bittorrent" ];
+          type = "field";
+        }
+        {
+          domain = [ "geosite:cn" ];
+          outboundTag = "proxy";
+          type = "field";
+        }
+        {
+          ip = [ "geoip:cn" ];
+          outboundTag = "proxy";
           type = "field";
         }
       ];

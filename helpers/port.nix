@@ -8,6 +8,7 @@
   LDAP = 389;
   HTTPS = 443;
   LDAPS = 636;
+  V2Ray.SocksClient = 1080;
   YggdrasilAlfis = 4244;
   IPFS.API = 5001;
   IPFS.Gateway = 8080;
