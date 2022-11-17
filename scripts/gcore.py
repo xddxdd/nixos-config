@@ -10,16 +10,25 @@ with open(sys.argv[2]) as f:
     RECORDS = json.load(f)
 
 def get_uptimerobot_status():
-    result = requests.post('https://api.uptimerobot.com/v2/getMonitors', {
-        "api_key": UPTIMEROBOT_KEY,
-        "format": "json",
-        "types": "1",
-    }).json()
-
-    # FIXME: pagination not handled
     d = {}
-    for rec in result['monitors']:
-        d[urlparse(rec['url']).hostname] = rec['status'] == 2
+
+    def _get(offset):
+        result = requests.post('https://api.uptimerobot.com/v2/getMonitors', {
+            "api_key": UPTIMEROBOT_KEY,
+            "format": "json",
+            "types": "1",
+            "offset": offset,
+        }).json()
+
+        for rec in result['monitors']:
+            d[urlparse(rec['url']).hostname] = rec['status'] == 2
+
+        return result
+
+    result = _get(0)
+    while result["pagination"]["offset"] + result["pagination"]["limit"] < result["pagination"]["total"]:
+        result = _get(result["pagination"]["offset"] + result["pagination"]["limit"])
+
     return d
 
 STATUS = get_uptimerobot_status()
