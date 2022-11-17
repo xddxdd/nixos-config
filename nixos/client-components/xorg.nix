@@ -8,6 +8,10 @@ in
     options i915 enable_fbc=1 ${lib.optionalString (!config.virtualisation.kvmgt.enable) "enable_guc=3"}
   '';
 
+  boot.kernel.sysctl = {
+    "dev.i915.perf_stream_paranoid" = 0;
+  };
+
   environment.systemPackages = with pkgs; [
     clinfo
     libva-utils
