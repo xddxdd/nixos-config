@@ -64,10 +64,7 @@ in
 
   environment.systemPackages = [
     nvidia_x11.bin
-
-    # nvidia-settings doesn't work with clang lto
-    # nvidia_x11.settings
-
+    nvidia_x11.settings
     nvidia_x11.persistenced
 
     nvidiaSwitchVFIOScript

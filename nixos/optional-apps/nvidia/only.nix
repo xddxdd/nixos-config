@@ -6,9 +6,6 @@
   hardware.nvidia.powerManagement.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # nvidia-settings doesn't work with clang lto
-  hardware.nvidia.nvidiaSettings = false;
-
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";
     VDPAU_DRIVER = "nvidia";
