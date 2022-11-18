@@ -2,22 +2,6 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
-
-  resetKeyboardBacklight = pkgs.writeShellScriptBin "reset-keyboard-backlight" ''
-    for F in /sys/devices/platform/hp-wmi/rgb_zones/*; do
-      echo "0f84fa" | sudo tee $F
-    done
-  '';
-
-  bindfsMountOptions = [
-    "force-user=lantian"
-    "force-group=wheel"
-    "create-for-user=root"
-    "create-for-group=root"
-    "chown-ignore"
-    "chgrp-ignore"
-    "xattr-none"
-  ];
 in
 {
   imports = [
@@ -32,6 +16,7 @@ in
     ../../nixos/optional-apps/ksmbd.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
+    ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
   ];
 
