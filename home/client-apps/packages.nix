@@ -31,6 +31,7 @@ in
     google-chrome-dev
     gopherus
     jellyfin-media-player
+    jellyfin-mpv-shim
     libfaketime
     librewolf
     libsForQt5.ark
