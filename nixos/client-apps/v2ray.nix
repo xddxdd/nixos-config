@@ -14,7 +14,10 @@ let
         enabled = true;
       };
     }];
-    log.loglevel = "warning";
+    log = {
+      access = "none";
+      loglevel = "warning";
+    };
     outbounds = [
       {
         protocol = "freedom";
