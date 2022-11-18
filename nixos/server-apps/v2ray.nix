@@ -4,7 +4,6 @@ let
   LT = import ../../helpers { inherit config pkgs lib; };
 
   v2rayConf = {
-    dns.servers = [ "https+local://dns.nextdns.io/378897/${config.networking.hostName}" ];
     inbounds = [{
       listen = "/run/v2ray/v2ray.sock";
       port = 0;
@@ -30,7 +29,10 @@ let
         };
       };
     }];
-    log.loglevel = "warning";
+    log = {
+      access = "none";
+      loglevel = "warning";
+    };
     outbounds = [
       {
         protocol = "freedom";
