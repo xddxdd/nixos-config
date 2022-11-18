@@ -30,16 +30,12 @@ let
         tag = "blackhole";
       }
       {
-        protocol = "vless";
-        settings.vnext = [
+        protocol = "trojan";
+        settings.servers = [
           {
             address = LT.hosts."hostdare".public.IPv4;
             port = 443;
-            users = [{
-              id = { _secret = config.age.secrets.v2ray-key.path; };
-              encryption = "none";
-              level = 0;
-            }];
+            password = { _secret = config.age.secrets.v2ray-key.path; };
           }
         ];
         streamSettings = {
@@ -48,7 +44,7 @@ let
           tlsSettings.serverName = "lantian.pub";
           grpcSettings = {
             serviceName = "ray";
-            multiMode = true;
+            multiMode = false;
             idle_timeout = 25;
             health_check_timeout = 10;
           };

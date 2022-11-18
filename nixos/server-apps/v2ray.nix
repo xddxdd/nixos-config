@@ -7,12 +7,10 @@ let
     inbounds = [{
       listen = "/run/v2ray/v2ray.sock";
       port = 0;
-      protocol = "vless";
+      protocol = "trojan";
       settings = {
         clients = [{
-          flow = "xtls-rprx-direct";
-          id = { _secret = config.age.secrets.v2ray-key.path; };
-          level = 0;
+          password = { _secret = config.age.secrets.v2ray-key.path; };
         }];
         decryption = "none";
       };
@@ -25,7 +23,7 @@ let
         security = "none";
         grpcSettings = {
           serviceName = "ray";
-          multiMode = true;
+          multiMode = false;
         };
       };
     }];
