@@ -5,7 +5,7 @@ let
 
   kpkg =
     if pkgs.stdenv.isx86_64 then
-      pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian
+      pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-lto
     else pkgs.linuxPackages_latest;
   llvmOverride = p:
     if pkgs.stdenv.isx86_64 then
