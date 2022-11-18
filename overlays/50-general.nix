@@ -31,6 +31,13 @@ rec {
       ../patches/jellyfin-volume-normalization.patch
     ];
   });
+  jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ makeWrapper ]);
+    postFixup = (old.postFixup or "") + ''
+      wrapProgram "$out/bin/jellyfinmediaplayer" \
+        --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
+    '';
+  });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/matrix-synapse-listen-unix.patch
