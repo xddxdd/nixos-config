@@ -11,6 +11,7 @@ in
     ./media-center.nix
 
     ../../nixos/client-components/network-manager.nix
+    ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/flexget.nix
     ../../nixos/optional-apps/ksmbd.nix
@@ -27,9 +28,6 @@ in
 
   # Handle multiple NICs
   networking.usePredictableInterfaceNames = lib.mkForce true;
-
-  # Reduce idle power consumption
-  powerManagement.powertop.enable = true;
 
   services.beesd.filesystems.root = {
     spec = "/nix";
@@ -59,6 +57,11 @@ in
   };
 
   services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
+
+  services.tlp.settings = {
+    TLP_PERSISTENT_DEFAULT = 1;
+    
+  };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
 }
