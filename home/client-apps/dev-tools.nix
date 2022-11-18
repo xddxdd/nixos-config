@@ -101,7 +101,7 @@ in
 
   ] ++ (if pkgs.stdenv.isx86_64 then [
     # Kernel
-    lantianCustomized.linux-xanmod-lantian.dev
+    lantianCustomized.linux-xanmod-lantian-lto.dev
   ] else [
     # Kernel
     linux_latest.dev
