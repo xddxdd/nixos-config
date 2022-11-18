@@ -2,14 +2,6 @@
 
 let
   LT = import ../../helpers { inherit config pkgs lib; };
-
-  # Quickstart for wordle, set time offset to advance into next day
-  wordle = pkgs.writeShellScriptBin "wordle" ''
-    ${pkgs.libfaketime}/bin/faketime \
-      -f "+12h" \
-      ${pkgs.google-chrome}/bin/google-chrome-stable \
-      https://www.nytimes.com/games/wordle/index.html
-  '';
 in
 {
   home.packages = with pkgs; [
@@ -36,7 +28,7 @@ in
     gcdemu
     gimp-with-plugins
     gnome.gedit
-    google-chrome
+    google-chrome-dev
     gopherus
     jellyfin-media-player
     libfaketime
@@ -68,7 +60,6 @@ in
     wechat-uos
     winetricks
     wineWowPackages.stable
-    wordle
     wpsoffice
     yubikey-manager-qt
     yuzu-mainline
