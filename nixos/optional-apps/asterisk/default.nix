@@ -73,10 +73,10 @@ in
         [dest-local]
         ${destLocalForwardMusic 4}
         ${destLocal}
-        ${dialRule "2000" [ "Goto(dest-local,\$[2000+\${RAND(1,3)}],1)" ]}
-        ${dialRule "2001" [ "Goto(app-lenny,talk,1)" ]}
+        ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2003)},1)" ]}
+        ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
         ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
-        ${dialRule "2003" [ "Goto(app-beverly,talk,1)" ]}
+        ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
         ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
 
         [dest-music]
