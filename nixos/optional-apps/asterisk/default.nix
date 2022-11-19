@@ -5,6 +5,7 @@ let
 
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
+  inherit (pkgs.callPackage ./lenny.nix args) dialLenny;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
   inherit (pkgs.callPackage ./templates.nix args) templates;
@@ -61,9 +62,13 @@ in
         ; All calls go to 0000
         ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
 
+        [app-lenny]
+        ${dialLenny}
+
         [dest-local]
         ${destLocalForwardMusic 4}
         ${destLocal}
+        ${dialRule "2000" [ "Goto(app-lenny,talk,1)" ]}
         ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
 
         [dest-music]
