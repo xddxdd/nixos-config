@@ -47,6 +47,8 @@ in
         # FFVPX must be disabled for VAAPI AV1 to work
         "media.ffvpx.enabled" = false;
         "media.hardware-video-decoding.force-enabled" = true;
+        "media.rdd-ffvpx.enabled" = false;
+        "media.utility-ffvpx.enabled" = false;
         "security.insecure_connection_text.enabled" = true;
         "security.insecure_connection_text.pbmode.enabled" = true;
         "security.osclientcerts.autoload" = true;
