@@ -3,9 +3,10 @@
 let
   LT = import ../../../helpers { inherit config pkgs; };
 
+  inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
+  inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
-  inherit (pkgs.callPackage ./lenny.nix args) dialLenny;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
   inherit (pkgs.callPackage ./templates.nix args) templates;
@@ -52,6 +53,9 @@ in
       # Number plan:
       # - 0000-0099: music
       # - 1000-1999: real users
+      # - 2000: lenny
+      # - 2001: asty-crapper (jordan)
+      #         https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/
       "extensions.conf" = ''
         [src-local]
         ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
@@ -62,13 +66,11 @@ in
         ; All calls go to 0000
         ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
 
-        [app-lenny]
-        ${dialLenny}
-
         [dest-local]
         ${destLocalForwardMusic 4}
         ${destLocal}
         ${dialRule "2000" [ "Goto(app-lenny,talk,1)" ]}
+        ${dialRule "2001" [ "Goto(app-asty-crapper,b,1)" ]}
         ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
 
         [dest-music]
@@ -76,7 +78,9 @@ in
 
         [dest-url]
         ${dialRule "_X!" [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
-      '';
+      ''
+      + dialLenny
+      + dialAstyCrapper;
 
       "logger.conf" = builtins.readFile ./config/logger.conf;
       "codecs.conf" = builtins.readFile ./config/codecs.conf;
