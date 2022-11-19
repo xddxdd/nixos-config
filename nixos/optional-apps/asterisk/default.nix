@@ -53,8 +53,9 @@ in
       # Number plan:
       # - 0000-0099: music
       # - 1000-1999: real users
-      # - 2000: lenny
-      # - 2001: asty-crapper (jordan)
+      # - 2000: random between lenny and jordan
+      # - 2001: lenny
+      # - 2002: jordan (asty-crapper)
       #         https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/
       "extensions.conf" = ''
         [src-local]
@@ -69,8 +70,9 @@ in
         [dest-local]
         ${destLocalForwardMusic 4}
         ${destLocal}
-        ${dialRule "2000" [ "Goto(app-lenny,talk,1)" ]}
-        ${dialRule "2001" [ "Goto(app-asty-crapper,b,1)" ]}
+        ${dialRule "2000" [ "Goto(dest-local,\$[2000+\${RAND(1,2)}],1)" ]}
+        ${dialRule "2001" [ "Goto(app-lenny,talk,1)" ]}
+        ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
         ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
 
         [dest-music]
