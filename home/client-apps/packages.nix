@@ -24,7 +24,6 @@ in
     element-desktop
     ffmpeg-full
     filezilla
-    firefox
     gcdemu
     gimp-with-plugins
     gnome.gedit
