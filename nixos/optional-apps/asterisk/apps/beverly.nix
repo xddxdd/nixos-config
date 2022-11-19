@@ -21,9 +21,15 @@ in
 {
   dialBeverly = ''
     [app-beverly]
+    exten => b,1,Ringing()
+    same => n,Wait(''${RAND(2,10)})
+    same => n,Answer()
+    same => n,Goto(app-beverly-loop,talk,1)
+
+    [app-beverly-loop]
     exten => talk,1,Set(i=''${IF($["0''${i}"="037"]?7:$[0''${i}+1])})
     exten => talk,2,Playback(${beverly}/Beverly''${i})
     exten => talk,3,BackgroundDetect(${beverly}/backgroundnoise,1500)
-    exten => talk,4,Goto(app-beverly,talk,3)
+    exten => talk,4,Goto(app-beverly-loop,talk,3)
   '';
 }

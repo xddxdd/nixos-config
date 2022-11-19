@@ -22,9 +22,15 @@ in
 {
   dialLenny = ''
     [app-lenny]
+    exten => b,1,Ringing()
+    same => n,Wait(''${RAND(2,10)})
+    same => n,Answer()
+    same => n,Goto(app-lenny-loop,talk,1)
+
+    [app-lenny-loop]
     exten => talk,1,Set(i=''${IF($["0''${i}"="016"]?7:$[0''${i}+1])})
     exten => talk,2,Playback(${lenny}/Lenny''${i})
     exten => talk,3,BackgroundDetect(${lenny}/backgroundnoise,1500)
-    exten => talk,4,Goto(app-lenny,talk,3)
+    exten => talk,4,Goto(app-lenny-loop,talk,3)
   '';
 }

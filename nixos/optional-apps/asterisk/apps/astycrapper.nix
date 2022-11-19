@@ -27,7 +27,10 @@ in
 {
   dialAstyCrapper = ''
     [app-asty-crapper]
-    exten => b,1,Goto(app-asty-crapper-hello,b,1)
+    exten => b,1,Ringing()
+    same => n,Wait(''${RAND(2,10)})
+    same => n,Answer()
+    same => n,Goto(app-asty-crapper-hello,b,1)
 
     [app-asty-crapper-hello]
     exten => b,1,Set(HELLO=''${IF($["0''${HELLO}"="02"]?1:$[0''${HELLO}+1])})
