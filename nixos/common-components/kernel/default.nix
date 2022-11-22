@@ -100,6 +100,7 @@ lib.mkIf (!config.boot.isContainer) {
       compressor = "zstd";
       compressorArgs = [ "-19" "-T0" ];
       includeDefaultModules = false;
+      systemd.enable = true;
     };
 
     kernel.sysctl = {
