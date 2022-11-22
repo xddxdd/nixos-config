@@ -69,11 +69,11 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "505783353c1ceac4178f14c0649ecc8a8ef8266d",
-            "sha256": "sha256-F15VfAK98Lw/lfJf4qVFgCg9kWmkprRLoysPZGQ+EeU=",
+            "rev": "5db98c1d6cbccf63fe0841ac5544148f315f3e9d",
+            "sha256": "sha256-3ECUEx6WeOFG+0PB2Pus9SvmIBhiBr5qBhdCu9oKlO0=",
             "type": "github"
         },
-        "version": "505783353c1ceac4178f14c0649ecc8a8ef8266d"
+        "version": "5db98c1d6cbccf63fe0841ac5544148f315f3e9d"
     },
     "openvpn": {
         "cargoLocks": null,
@@ -88,11 +88,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "036517d5e06c1254233d51893b3a196a3cd37492",
-            "sha256": "sha256-JgOyDzsFhIrfLita7YdxGllDp8hkEa4fRj4aHUq8JWA=",
+            "rev": "543f709f13bca9887cabd4545554539f18346e3c",
+            "sha256": "sha256-dH9aDB9NyZY+d69buXf7iZVePJGfw+4zal401fFU4LE=",
             "type": "github"
         },
-        "version": "036517d5e06c1254233d51893b3a196a3cd37492"
+        "version": "543f709f13bca9887cabd4545554539f18346e3c"
     },
     "ovpn-dco": {
         "cargoLocks": null,

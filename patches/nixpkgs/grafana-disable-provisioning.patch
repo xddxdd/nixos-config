@@ -1,11 +1,11 @@
 diff --git a/nixos/modules/services/monitoring/grafana.nix b/nixos/modules/services/monitoring/grafana.nix
-index 9e15844f7dd..181f2efb206 100644
+index 9b3068796d8..459812a1d2d 100644
 --- a/nixos/modules/services/monitoring/grafana.nix
 +++ b/nixos/modules/services/monitoring/grafana.nix
-@@ -343,7 +343,7 @@ in {
-                   ln -sf ''${muteTimingsFile} $out/alerting/muteTimings.yaml
-                   \'\'
+@@ -352,7 +352,7 @@ in {
                '';
+               default = provisionConfDir;
+               defaultText = "directory with links to files generated from services.grafana.provision";
 -              type = types.path;
 +              type = types.str;
              };
