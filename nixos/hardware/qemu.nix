@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
   imports = [ ./general.nix ];

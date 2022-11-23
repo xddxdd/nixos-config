@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 
   mysqlenv-common = pkgs.buildEnv {
     name = "mysql-path-env-common";
@@ -64,7 +64,7 @@ in
   };
 
   age.secrets.phpmyadmin-conf = {
-    file = pkgs.secrets + "/phpmyadmin-conf.age";
+    file = inputs.secrets + "/phpmyadmin-conf.age";
     owner = "nginx";
     group = "nginx";
   };

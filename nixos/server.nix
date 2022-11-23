@@ -1,11 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../helpers { inherit config pkgs lib; };
-  homeConfig = import ../home/server.nix {
-    inherit config pkgs;
-    lib = lib // { inherit (pkgs.flake.home-manager.lib) hm; };
-  };
+  LT = import ../helpers args;
+  homeConfig = import ../home/server.nix (args // {
+    lib = lib // { inherit (inputs.home-manager.lib) hm; };
+  });
 in
 {
   imports =

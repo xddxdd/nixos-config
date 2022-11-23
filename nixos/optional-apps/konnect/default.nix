@@ -1,7 +1,7 @@
-{ pkgs, lib, config, utils, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
   identifierWebapp = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "konnect-identifier-webapp";
@@ -70,12 +70,12 @@ let
   };
 in
 {
-  age.secrets.glauth-bindpw.file = pkgs.secrets + "/glauth-bindpw.age";
-  age.secrets.konnect-gitea-secret.file = pkgs.secrets + "/konnect/gitea-secret.age";
-  age.secrets.konnect-grafana-secret.file = pkgs.secrets + "/konnect/grafana-secret.age";
-  age.secrets.konnect-miniflux-secret.file = pkgs.secrets + "/konnect/miniflux-secret.age";
-  age.secrets.konnect-nextcloud-secret.file = pkgs.secrets + "/konnect/nextcloud-secret.age";
-  age.secrets.konnect-oauth-proxy-secret.file = pkgs.secrets + "/konnect/oauth-proxy-secret.age";
+  age.secrets.glauth-bindpw.file = inputs.secrets + "/glauth-bindpw.age";
+  age.secrets.konnect-gitea-secret.file = inputs.secrets + "/konnect/gitea-secret.age";
+  age.secrets.konnect-grafana-secret.file = inputs.secrets + "/konnect/grafana-secret.age";
+  age.secrets.konnect-miniflux-secret.file = inputs.secrets + "/konnect/miniflux-secret.age";
+  age.secrets.konnect-nextcloud-secret.file = inputs.secrets + "/konnect/nextcloud-secret.age";
+  age.secrets.konnect-oauth-proxy-secret.file = inputs.secrets + "/konnect/oauth-proxy-secret.age";
 
   systemd.services.konnect = {
     wantedBy = [ "multi-user.target" ];

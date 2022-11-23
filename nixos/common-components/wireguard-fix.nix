@@ -1,4 +1,4 @@
-{ pkgs, lib, config, options, ... }:
+{ pkgs, lib, config, options, utils, inputs, ... }@args:
 
 {
   config.systemd.services =

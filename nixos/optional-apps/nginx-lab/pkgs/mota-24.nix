@@ -6,10 +6,7 @@
 , ...
 } @ args:
 
-let
-  helpers = callPackage ../helpers.nix { };
-in
-stdenv.mkDerivation (helpers.compressStaticAssets rec {
+stdenv.mkDerivation rec {
   pname = "mota-24";
   version = "20220620";
 
@@ -35,4 +32,4 @@ stdenv.mkDerivation (helpers.compressStaticAssets rec {
       $out/editor* \
       $out/常用工具
   '';
-})
+}

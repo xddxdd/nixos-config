@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   home.packages = with pkgs; [
@@ -66,7 +66,7 @@ in
     luajit
 
     # Nix
-    flake.agenix.packages."${system}".agenix
+    inputs.agenix.packages."${system}".agenix
     nil
     nixfmt
     nixpkgs-fmt

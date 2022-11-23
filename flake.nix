@@ -81,6 +81,7 @@
       ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
       inherit (inputs.flake-utils-plus.lib.mkFlake {
         inherit self inputs;
+        supportedSystems = flake-utils.lib.allSystems;
         channels.nixpkgs = {
           config = {
             allowUnfree = true;
@@ -94,32 +95,44 @@
 
       inherit (nixpkgs."x86_64-linux") lib;
       LT = import ./helpers { inherit lib inputs; };
+      specialArgs = { inherit inputs; };
 
       modulesFor = n:
         let
-          inherit (LT.hosts."${n}") system role;
+          inherit (LT.hosts."${n}") system hostname sshPort role manualDeploy;
         in
         [
           ({ config, ... }: {
+            deployment = {
+              allowLocalDeployment = role == LT.roles.client;
+              targetHost = hostname;
+              targetPort = sshPort;
+              targetUser = "root";
+              tags = [ role ] ++ (lib.optional (!manualDeploy) "default");
+            };
             home-manager = {
               backupFileExtension = "bak";
+              extraSpecialArgs = specialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;
             };
-            nixpkgs.overlays = [
-              inputs.colmena.overlay
-              inputs.nix-alien.overlay
-              inputs.nixos-cn.overlay
-              inputs.nil.overlays.nil
-              (inputs.nur-xddxdd.overlays.custom
-                config.boot.kernelPackages.nvidia_x11)
-            ] ++ (import ./overlays { inherit inputs lib; });
+            nixpkgs = {
+              overlays = [
+                inputs.colmena.overlay
+                inputs.nix-alien.overlay
+                inputs.nixos-cn.overlay
+                inputs.nil.overlays.nil
+                (inputs.nur-xddxdd.overlays.custom
+                  config.boot.kernelPackages.nvidia_x11)
+              ] ++ (import ./overlays { inherit inputs lib; });
+              pkgs = nixpkgs."${system}";
+            };
             networking.hostName = n;
             system.stateVersion = LT.constants.stateVersion;
           })
           inputs.agenix.nixosModules.age
           inputs.dwarffs.nixosModules.dwarffs
-          ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
+          inputs.flake-utils-plus.nixosModules.autoGenFromInputs
           inputs.impermanence.nixosModules.impermanence
           inputs.home-manager.nixosModules.home-manager
           inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
@@ -127,13 +140,19 @@
           (./hosts + "/${n}/configuration.nix")
         ];
 
+      extraModulesFor = n: [
+        inputs.colmena.nixosModules.deploymentOptions
+      ];
+
       eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
     rec {
       nixosConfigurations = lib.mapAttrs
         (n: { system, ... }:
-          nixpkgs."${system}".nixos {
-            imports = modulesFor n;
+          inputs.nixpkgs.lib.nixosSystem {
+            inherit system specialArgs;
+            modules = modulesFor n;
+            extraModules = extraModulesFor n;
           })
         LT.hosts;
 
@@ -170,99 +189,24 @@
         meta.allowApplyAll = false;
         meta.nixpkgs = { inherit lib; };
         meta.nodeNixpkgs = lib.mapAttrs (n: { system, ... }: nixpkgs."${system}") LT.nixosHosts;
-      } // (lib.mapAttrs
-        (n: { hostname, sshPort, role, manualDeploy, ... }: {
-          deployment = {
-            allowLocalDeployment = role == LT.roles.client;
-            targetHost = hostname;
-            targetPort = sshPort;
-            targetUser = "root";
-            tags = [ role ] ++ (lib.optional (!manualDeploy) "default");
-          };
-
-          imports = modulesFor n;
-        })
-        LT.nixosHosts);
+        meta.specialArgs = specialArgs;
+      } // (lib.mapAttrs (n: v: { imports = modulesFor n; }) LT.nixosHosts);
 
       apps = eachSystem (system:
         let
           pkgs = nixpkgs."${system}";
-          dnsRecords = pkgs.writeText "dnsconfig.js" (import ./dns { inherit pkgs lib inputs; });
-
-          mkApp = script: {
+          mkApp = path: {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "script" script);
-          };
-
-          dnscontrol = pkgs.buildGoModule rec {
-            pname = "dnscontrol";
-            version = "3af61f2cd4ad9929ed21cadac7787edc56e67018";
-
-            src = pkgs.fetchFromGitHub {
-              owner = "xddxdd";
-              repo = "dnscontrol";
-              rev = version;
-              sha256 = "sha256-Fzb383JfQ2VaIJR0Un3PQ35z7Bjh0aTyHMCZxEQ6lqw=";
-            };
-
-            vendorSha256 = "sha256-f6O5JcaDVtpp9RRzAYVqefeVpw0sHRSbvLSry79mvMI=";
-
-            ldflags = [ "-s" "-w" ];
-
-            preCheck = ''
-              # requires network
-              rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
-            '';
+            program = builtins.toString (pkgs.writeShellScript "script" (pkgs.callPackage path specialArgs));
           };
         in
         {
-          colmena = mkApp ''
-            ACTION=$1; shift;
-            if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-              colmena $ACTION --keep-result $*
-              exit $?
-            else
-              colmena $ACTION $*
-              exit $?
-            fi
-          '';
-
-          check = mkApp ''
-            ${pkgs.statix}/bin/statix check . -i _sources
-          '';
-
-          dnscontrol = mkApp ''
-            CURR_DIR=$(pwd)
-
-            TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
-            cp ${dnsRecords} $TEMP_DIR/dnsconfig.js
-            ${pkgs.age}/bin/age \
-              -i "$HOME/.ssh/id_ed25519" \
-              --decrypt -o "$TEMP_DIR/creds.json" \
-              "${inputs.secrets}/dnscontrol.age"
-            mkdir -p "$TEMP_DIR/zones"
-
-            cd "$TEMP_DIR"
-            ${dnscontrol}/bin/dnscontrol $*
-            RET=$?
-            rm -rf "$CURR_DIR/zones"
-            mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
-
-            cd "$CURR_DIR"
-            rm -rf "$TEMP_DIR"
-            exit $RET
-          '';
-
-          gcore = mkApp (import scripts/gcore.nix { inherit pkgs lib inputs LT; });
-
-          nvfetcher = mkApp ''
-            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
-          '';
-
-          update = mkApp ''
-            nix flake update
-            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
-          '';
+          colmena = mkApp ./scripts/colmena.nix;
+          check = mkApp ./scripts/check.nix;
+          dnscontrol = mkApp ./scripts/dnscontrol.nix;
+          gcore = mkApp ./scripts/gcore;
+          nvfetcher = mkApp ./scripts/nvfetcher.nix;
+          update = mkApp ./scripts/update.nix;
         });
     };
 }

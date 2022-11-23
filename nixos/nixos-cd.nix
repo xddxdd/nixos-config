@@ -1,17 +1,16 @@
 { inputs
 , nixpkgs
 , lib
-, system
 , constants
 , ...
 }:
 
-(nixpkgs."${system}".nixos rec {
+(nixpkgs.nixos {
   imports = [
     inputs.agenix.nixosModules.age
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     ({ lib, config, ... }: inputs.flake-utils-plus.nixosModules.autoGenFromInputs { inherit lib config inputs; })
-    ({ pkgs, lib, ... }: {
+    ({ pkgs, lib, config, utils, inputs, ... }@args: {
       # Avoid cyclic dependency
       # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/cd-dvd/iso-image.nix
       boot.initrd.includeDefaultModules = lib.mkForce true;
@@ -39,10 +38,11 @@
       };
 
       imports = [
+        inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+
         ./common-components/cacert.nix
         ./common-components/environment.nix
         ./common-components/networking.nix
-        ./common-components/qemu-user-static.nix
         ./common-components/ssh-harden.nix
         ./common-components/users.nix
         ./common-components/wireguard-fix.nix

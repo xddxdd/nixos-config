@@ -1,7 +1,7 @@
-{ config, options, pkgs, lib, utils, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   options.services."dn42-pingfinder" = {

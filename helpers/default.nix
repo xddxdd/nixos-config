@@ -1,12 +1,14 @@
 { config ? { }
 , pkgs ? { }
 , lib ? pkgs.lib
-, inputs ? pkgs.flake or null
+, inputs
 , ...
 }:
 
 let
   args = rec {
+    inherit config pkgs lib inputs;
+
     constants = import ./constants.nix;
     hosts = builtins.mapAttrs hostDefaults (import ./hosts.nix { inherit roles geo; });
     hostDefaults = import ./host-defaults.nix { inherit lib roles; };
@@ -28,7 +30,7 @@ let
     sources = pkgs.callPackage _sources/generated.nix { };
   };
   callHelper = f: lib.callPackageWith
-    (pkgs // args // { inherit config; })
+    (pkgs // args)
     f
     { };
 in

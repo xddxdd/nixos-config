@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
   # Fix ulauncher startup error

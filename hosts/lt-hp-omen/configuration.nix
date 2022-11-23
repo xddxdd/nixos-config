@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   resetKeyboardBacklight = pkgs.writeShellScriptBin "reset-keyboard-backlight" ''
     for F in /sys/devices/platform/hp-wmi/rgb_zones/*; do

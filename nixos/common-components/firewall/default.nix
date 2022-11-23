@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }@args:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker

@@ -1,17 +1,17 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   netns = LT.netns {
     name = "wg-lantian";
     setupDefaultRoute = false;
   };
 
-  wg-pubkey = import (pkgs.secrets + "/wg-pubkey.nix");
+  wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
 in
 {
-  age.secrets.wg-priv.file = pkgs.secrets + "/wg-priv/${config.networking.hostName}.age";
+  age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
   environment.etc."netns/ns-wg-lantian/resolv.conf".text = ''
     nameserver 8.8.8.8

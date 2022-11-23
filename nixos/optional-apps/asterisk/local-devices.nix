@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers args;
 
-  inherit (pkgs.callPackage ./common.nix { }) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
 
   localNumbers = [
     "1000"  # Laptop (Linphone)

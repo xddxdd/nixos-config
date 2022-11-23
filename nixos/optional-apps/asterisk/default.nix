@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }@args:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers args;
 
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
@@ -24,7 +24,7 @@ let
 in
 {
   age.secrets.asterisk-pw = {
-    file = pkgs.secrets + "/asterisk-pw.age";
+    file = inputs.secrets + "/asterisk-pw.age";
     owner = "asterisk";
     group = "asterisk";
   };

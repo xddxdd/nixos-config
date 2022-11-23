@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   services.postgresql = {
@@ -37,7 +37,7 @@ in
   };
 
   age.secrets.phppgadmin-conf = {
-    file = pkgs.secrets + "/phppgadmin-conf.age";
+    file = inputs.secrets + "/phppgadmin-conf.age";
     owner = "nginx";
     group = "nginx";
   };

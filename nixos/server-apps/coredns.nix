@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   corednsAuthoritativeNetns = LT.netns {
     name = "coredns-authoritative";
@@ -130,7 +130,7 @@ in
           name = "${n}.key";
           owner = "container";
           group = "container";
-          file = pkgs.secrets + "/dnssec/${n}.key.age";
+          file = inputs.secrets + "/dnssec/${n}.key.age";
         };
       }
       {
@@ -139,7 +139,7 @@ in
           name = "${n}.private";
           owner = "container";
           group = "container";
-          file = pkgs.secrets + "/dnssec/${n}.private.age";
+          file = inputs.secrets + "/dnssec/${n}.private.age";
         };
       }
     ])

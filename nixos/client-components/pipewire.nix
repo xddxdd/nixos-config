@@ -1,14 +1,14 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   defaultCfg = {
-    client = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client.conf.json");
-    client-rt = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client-rt.conf.json");
-    jack = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/jack.conf.json");
-    pipewire = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire.conf.json");
-    pipewire-pulse = lib.importJSON (pkgs.flake.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire-pulse.conf.json");
+    client = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client.conf.json");
+    client-rt = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client-rt.conf.json");
+    jack = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/jack.conf.json");
+    pipewire = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire.conf.json");
+    pipewire-pulse = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire-pulse.conf.json");
   };
 
   mkVirtualSurroundSink = name: hrir:

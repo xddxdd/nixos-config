@@ -1,7 +1,7 @@
-{ pkgs, lib, config, utils, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 
   isBtrfsRoot = builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs";
 
@@ -108,17 +108,17 @@ let
   '';
 in
 {
-  age.secrets.kopia-minio-ak.file = pkgs.secrets + "/kopia/minio-ak.age";
-  age.secrets.kopia-minio-bucket.file = pkgs.secrets + "/kopia/minio-bucket.age";
-  age.secrets.kopia-minio-sk.file = pkgs.secrets + "/kopia/minio-sk.age";
-  age.secrets.kopia-pw.file = pkgs.secrets + "/kopia/pw.age";
-  age.secrets.kopia-scaleway-ak.file = pkgs.secrets + "/kopia/scaleway-ak.age";
-  age.secrets.kopia-scaleway-bucket.file = pkgs.secrets + "/kopia/scaleway-bucket.age";
-  age.secrets.kopia-scaleway-sk.file = pkgs.secrets + "/kopia/scaleway-sk.age";
-  age.secrets.kopia-storj-ak.file = pkgs.secrets + "/kopia/storj-ak.age";
-  age.secrets.kopia-storj-bucket.file = pkgs.secrets + "/kopia/storj-bucket.age";
-  age.secrets.kopia-storj-sk.file = pkgs.secrets + "/kopia/storj-sk.age";
-  age.secrets.sftp-privkey.file = pkgs.secrets + "/sftp-privkey.age";
+  age.secrets.kopia-minio-ak.file = inputs.secrets + "/kopia/minio-ak.age";
+  age.secrets.kopia-minio-bucket.file = inputs.secrets + "/kopia/minio-bucket.age";
+  age.secrets.kopia-minio-sk.file = inputs.secrets + "/kopia/minio-sk.age";
+  age.secrets.kopia-pw.file = inputs.secrets + "/kopia/pw.age";
+  age.secrets.kopia-scaleway-ak.file = inputs.secrets + "/kopia/scaleway-ak.age";
+  age.secrets.kopia-scaleway-bucket.file = inputs.secrets + "/kopia/scaleway-bucket.age";
+  age.secrets.kopia-scaleway-sk.file = inputs.secrets + "/kopia/scaleway-sk.age";
+  age.secrets.kopia-storj-ak.file = inputs.secrets + "/kopia/storj-ak.age";
+  age.secrets.kopia-storj-bucket.file = inputs.secrets + "/kopia/storj-bucket.age";
+  age.secrets.kopia-storj-sk.file = inputs.secrets + "/kopia/storj-sk.age";
+  age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
   systemd.services.backup = {
     serviceConfig.Type = "oneshot";

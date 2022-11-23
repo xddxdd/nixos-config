@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
   systemd.services.intel-undervolt = {

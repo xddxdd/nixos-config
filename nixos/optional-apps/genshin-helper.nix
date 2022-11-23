@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
-  age.secrets.genshin-impact-cookies.file = pkgs.secrets + "/genshin-impact-cookies.age";
+  age.secrets.genshin-impact-cookies.file = inputs.secrets + "/genshin-impact-cookies.age";
 
   systemd.services.genshin-helper = {
     serviceConfig = {

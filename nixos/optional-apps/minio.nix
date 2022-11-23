@@ -1,11 +1,11 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   age.secrets.minio-admin = {
-    file = pkgs.secrets + "/minio-admin.age";
+    file = inputs.secrets + "/minio-admin.age";
     owner = "minio";
     group = "minio";
   };

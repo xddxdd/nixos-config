@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
-  luaPackage = pkgs.callPackage ./lua { };
+  luaPackage = pkgs.callPackage ./lua args;
 
   nginxSslConf = isStream:
     let

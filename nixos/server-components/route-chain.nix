@@ -1,7 +1,7 @@
-{ pkgs, lib, config, options, ... }:
+{ pkgs, lib, config, options, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   options.services."route-chain" = {

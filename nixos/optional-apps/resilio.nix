@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   services.resilio = {

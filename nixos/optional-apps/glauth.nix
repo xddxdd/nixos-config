@@ -1,9 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
-  glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   hexdump = s: builtins.readFile (pkgs.runCommandLocal "hexdump.txt" { } ''
     echo -n '${s}' | ${pkgs.unixtools.xxd}/bin/xxd -pu | tr -d '\n' > $out

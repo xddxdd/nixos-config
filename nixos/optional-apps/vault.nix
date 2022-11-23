@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   age.secrets.vault-unseal-key = {
-    file = pkgs.secrets + "/vault-unseal-key.age";
+    file = inputs.secrets + "/vault-unseal-key.age";
     owner = config.systemd.services.vault.serviceConfig.User;
     group = config.systemd.services.vault.serviceConfig.Group;
   };

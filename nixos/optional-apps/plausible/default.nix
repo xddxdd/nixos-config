@@ -1,9 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers args;
 
-  glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   netns = LT.netns {
     name = "plausible";
@@ -13,12 +13,12 @@ in
   imports = [ ../postgresql.nix ];
 
   age.secrets.plausible-release-cookie = {
-    file = pkgs.secrets + "/plausible-release-cookie.age";
+    file = inputs.secrets + "/plausible-release-cookie.age";
     owner = "plausible";
     group = "plausible";
   };
   age.secrets.plausible-secret = {
-    file = pkgs.secrets + "/plausible-secret.age";
+    file = inputs.secrets + "/plausible-secret.age";
     owner = "plausible";
     group = "plausible";
   };

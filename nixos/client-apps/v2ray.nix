@@ -1,7 +1,7 @@
-{ config, pkgs, lib, utils, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   v2rayConf = {
     inbounds = [{
@@ -85,7 +85,7 @@ let
 in
 {
   age.secrets.v2ray-key = {
-    file = pkgs.secrets + "/v2ray-key.age";
+    file = inputs.secrets + "/v2ray-key.age";
     owner = "nginx";
     group = "nginx";
   };

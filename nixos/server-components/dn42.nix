@@ -1,10 +1,10 @@
-{ pkgs, lib, config, options, ... }:
+{ pkgs, lib, config, options, utils, inputs, ... }@args:
 
 let
   myASN = 4242422547;
   myASNAbbr = 2547;
 
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
   setupAddressing = interfaceName: v: lib.optionalString (v.tunnel.mtu != null) ''
@@ -27,7 +27,7 @@ let
   '';
 in
 {
-  config.age.secrets.wg-priv.file = pkgs.secrets + "/wg-priv/${config.networking.hostName}.age";
+  config.age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
   options.services.dn42 = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule {

@@ -1,12 +1,12 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.vaultwarden-env.file = pkgs.secrets + "/vaultwarden-env.age";
+  age.secrets.vaultwarden-env.file = inputs.secrets + "/vaultwarden-env.age";
 
   services.mysql = {
     ensureDatabases = [ "vaultwarden" ];

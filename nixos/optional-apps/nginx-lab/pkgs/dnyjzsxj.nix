@@ -6,10 +6,7 @@
 , ...
 } @ args:
 
-let
-  helpers = callPackage ../helpers.nix { };
-in
-stdenv.mkDerivation (helpers.compressStaticAssets rec {
+stdenv.mkDerivation rec {
   pname = "dnyjzsxj";
   version = "1.0.0";
 
@@ -36,4 +33,4 @@ stdenv.mkDerivation (helpers.compressStaticAssets rec {
 
     IFS="$OIFS"
   '';
-})
+}

@@ -1,13 +1,13 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   imports = [ ./mysql.nix ];
 
   age.secrets.grafana-oauth = {
-    file = pkgs.secrets + "/grafana-oauth.age";
+    file = inputs.secrets + "/grafana-oauth.age";
     owner = "grafana";
     group = "grafana";
   };

@@ -1,12 +1,12 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
-  anycast = import ./anycast.nix { inherit config pkgs lib; };
-  dn42 = import ./dn42.nix { inherit config pkgs lib; };
-  ltnet = import ./ltnet.nix { inherit config pkgs lib; };
-  sys = import ./sys.nix { inherit config pkgs lib; };
+  anycast = import ./anycast.nix args;
+  dn42 = import ./dn42.nix args;
+  ltnet = import ./ltnet.nix args;
+  sys = import ./sys.nix args;
 in
 {
   services.bird2 = {

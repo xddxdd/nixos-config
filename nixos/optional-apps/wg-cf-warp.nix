@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
   age.secrets.wg-cf-warp = {
-    file = pkgs.secrets + "/wgcf/${config.networking.hostName}.conf.age";
+    file = inputs.secrets + "/wgcf/${config.networking.hostName}.conf.age";
     name = "wg-cf-warp.conf";
   };
   systemd.services.wg-cf-warp = {

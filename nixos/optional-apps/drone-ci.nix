@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   imports = [
@@ -9,9 +9,9 @@ in
     ./vault.nix
   ];
 
-  age.secrets.drone-ci-env.file = pkgs.secrets + "/drone-ci-env.age";
-  age.secrets.drone-ci-github-env.file = pkgs.secrets + "/drone-ci-github-env.age";
-  age.secrets.drone-ci-vault-env.file = pkgs.secrets + "/drone-ci-vault-env.age";
+  age.secrets.drone-ci-env.file = inputs.secrets + "/drone-ci-env.age";
+  age.secrets.drone-ci-github-env.file = inputs.secrets + "/drone-ci-github-env.age";
+  age.secrets.drone-ci-vault-env.file = inputs.secrets + "/drone-ci-vault-env.age";
 
   systemd.services = {
     drone = {

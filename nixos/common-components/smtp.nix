@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   age.secrets.smtp-pass = {
-    file = pkgs.secrets + "/smtp-pass.age";
+    file = inputs.secrets + "/smtp-pass.age";
     mode = "0444";
   };
 
