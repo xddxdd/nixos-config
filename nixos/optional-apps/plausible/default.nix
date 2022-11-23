@@ -30,6 +30,8 @@ in
     "clickhouse-server/users.d/custom.xml".source = lib.mkForce ./custom-users.xml;
   };
 
+  services.epmd.enable = lib.mkForce false;
+
   services.plausible = {
     enable = true;
     releaseCookiePath = config.age.secrets.plausible-release-cookie.path;
