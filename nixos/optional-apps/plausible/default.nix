@@ -62,7 +62,7 @@ in
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
-        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
+        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
@@ -77,11 +77,18 @@ in
       };
     };
     plausible = netns.bind {
-      after = [ "postgresql.service" ];
-      requires = [ "postgresql.service" ];
       environment = {
         RELEASE_DISTRIBUTION = "none";
         GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
+        # LISTEN_IP = LT.this.ltnet.IPv4;
+        RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
+          -kernel inet_dist_use_interface "{127,0,0,1}"
+        '';
+        ERL_EPMD_ADDRESS = "127.0.0.1";
+
+        STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
+        RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
+        HOME = lib.mkForce "/run/plausible";
       };
       serviceConfig = {
         Restart = "always";
@@ -89,6 +96,9 @@ in
         DynamicUser = lib.mkForce false;
         User = "plausible";
         Group = "plausible";
+        StateDirectory = lib.mkForce "";
+        RuntimeDirectory = "plausible";
+        WorkingDirectory = lib.mkForce "/run/plausible";
       };
     };
   };

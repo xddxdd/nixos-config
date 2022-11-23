@@ -20,7 +20,7 @@ let
         '';
       };
       "= /api/event" = {
-        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:13800";
+        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
       "= /favicon.ico".extraConfig = ''
