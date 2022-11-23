@@ -156,12 +156,12 @@ in
       ipv4 {
         next hop self yes;
         import keep filtered;
-        ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
+        extended next hop yes;
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
-        ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
+        extended next hop yes;
       };
     };
   '';

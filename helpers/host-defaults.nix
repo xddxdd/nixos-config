@@ -7,7 +7,6 @@ n: v: lib.recursiveUpdate
   role = roles.server;
   sshPort = 2222;
   system = "x86_64-linux";
-  openvz = false;
   manualDeploy = false;
 
   ssh = {
