@@ -74,8 +74,11 @@ in
 
   systemd.services = netns.setup // {
     clickhouse = netns.bind {
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+        MemoryDenyWriteExecute = lib.mkForce false;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+        SystemCallFilter = lib.mkForce [ ];
       };
     };
     plausible = netns.bind {
@@ -92,7 +95,7 @@ in
         RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
         HOME = lib.mkForce "/run/plausible";
       };
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         Restart = "always";
         RestartSec = "3";
         DynamicUser = lib.mkForce false;
