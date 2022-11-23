@@ -44,16 +44,30 @@ in
   systemd.tmpfiles.rules = [
     "L+ /etc/phppgadmin/config.inc.php - - - - ${config.age.secrets.phppgadmin-conf.path}"
   ];
-  services.nginx.virtualHosts."pga.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    root = "${pkgs.phppgadmin}";
-    locations = LT.nginx.addCommonLocationConf
-      { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
-      {
-        "/".index = "index.php";
-      };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+  services.nginx.virtualHosts = {
+    "pga.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS;
+      root = "${pkgs.phppgadmin}";
+      locations = LT.nginx.addCommonLocationConf
+        { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
+        {
+          "/".index = "index.php";
+        };
+      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+    "pga.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      root = "${pkgs.phppgadmin}";
+      locations = LT.nginx.addCommonLocationConf
+        { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
+        {
+          "/".index = "index.php";
+        };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true
+        + LT.nginx.serveLocalhost;
+    };
   };
 }
