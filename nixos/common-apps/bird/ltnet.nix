@@ -107,7 +107,7 @@ in
       ipv4 {
         next hop self yes;
         import keep filtered;
-        ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
+        extended next hop yes;
         add paths yes;
         import filter { ltnet_import_filter_v4(); };
         export filter { ltnet_export_filter_v4(); };
@@ -115,7 +115,7 @@ in
       ipv6 {
         next hop self yes;
         import keep filtered;
-        ${lib.optionalString (!LT.this.openvz) "extended next hop yes;"}
+        extended next hop yes;
         add paths yes;
         import filter { ltnet_import_filter_v6(); };
         export filter { ltnet_export_filter_v6(); };

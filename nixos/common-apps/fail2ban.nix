@@ -9,9 +9,9 @@ in
   services.fail2ban = {
     enable = true;
     maxretry = 5;
-    banaction = if LT.this.openvz then "iptables-multiport" else "nftables-multiport";
-    banaction-allports = if LT.this.openvz then "iptables-allports" else "nftables-allports";
-    packageFirewall = if LT.this.openvz then pkgs.iptables-legacy else pkgs.nftables;
+    banaction = "nftables-multiport";
+    banaction-allports = "nftables-allports";
+    packageFirewall = pkgs.nftables;
     ignoreIP = [
       "10.0.0.0/8"
       "172.16.0.0/12"

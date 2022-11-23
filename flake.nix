@@ -54,10 +54,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-openvz = {
-      url = "github:zhaofengli/nixos-openvz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
@@ -101,7 +97,7 @@
 
       modulesFor = n:
         let
-          inherit (LT.hosts."${n}") system role openvz;
+          inherit (LT.hosts."${n}") system role;
         in
         [
           ({ config, ... }: {
@@ -127,9 +123,6 @@
           inputs.impermanence.nixosModules.impermanence
           inputs.home-manager.nixosModules.home-manager
           inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
-        ] ++ lib.optionals openvz [
-          inputs.nixos-openvz.nixosModules.ovz-container
-          inputs.nixos-openvz.nixosModules.ovz-installer
         ] ++ [
           (./hosts + "/${n}/configuration.nix")
         ];
@@ -143,8 +136,6 @@
             imports = modulesFor n;
           })
         LT.hosts;
-
-      openvz = lib.mapAttrs (n: v: v.config.system.build.tarball) nixosConfigurations;
 
       packages = eachSystem (system: {
         homeConfigurations =
