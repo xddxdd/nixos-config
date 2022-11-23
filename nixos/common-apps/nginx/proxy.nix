@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
   nginxConfig = pkgs.writeText "nginx-proxy.conf" ''
     daemon off;

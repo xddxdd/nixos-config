@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 lib.mkIf (!config.boot.isContainer) {
   boot.kernelParams = [

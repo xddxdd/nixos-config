@@ -5,6 +5,7 @@
 , this
 , port
 , portStr
+, inputs
 , ...
 }:
 
@@ -70,7 +71,7 @@ let
 
   htpasswdFile =
     let
-      glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
+      glauthUsers = import (inputs.secrets + "/glauth-users.nix");
     in
     pkgs.writeText "htpasswd" ''
       lantian:${glauthUsers.lantian.passBcrypt}

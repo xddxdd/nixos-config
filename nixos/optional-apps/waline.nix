@@ -1,10 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
-  age.secrets.waline-env.file = pkgs.secrets + "/waline-env.age";
+  age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
 
   virtualisation.oci-containers.containers = {
     waline = {

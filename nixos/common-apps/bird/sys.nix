@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
-  inherit (import ./common.nix { inherit config pkgs lib; })
+  LT = import ../../../helpers args;
+  inherit (import ./common.nix args)
     DN42_AS DN42_REGION NEO_AS
     community;
 

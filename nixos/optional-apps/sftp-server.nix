@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  sshKeys = import (pkgs.secrets + "/ssh/sftp.nix");
+  sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
   sftpRoot = "/nix/persistent/sftp-server";
 in
 {

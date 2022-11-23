@@ -1,15 +1,15 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
-  age.secrets.nix-access-token.file = pkgs.secrets + "/nix/access-token.age";
+  age.secrets.nix-access-token.file = inputs.secrets + "/nix/access-token.age";
   age.secrets.nix-privkey = {
     name = "nix-privkey.pem";
-    file = pkgs.secrets + "/nix/privkey.age";
+    file = inputs.secrets + "/nix/privkey.age";
   };
-  age.secrets.nix-s3-secret.file = pkgs.secrets + "/nix/s3-secret.age";
+  age.secrets.nix-s3-secret.file = inputs.secrets + "/nix/s3-secret.age";
 
   nix = {
     package = pkgs.nixUnstable;

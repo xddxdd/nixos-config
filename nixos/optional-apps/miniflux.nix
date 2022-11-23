@@ -1,13 +1,13 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
   imports = [ ./postgresql.nix ];
 
   age.secrets.miniflux-konnect-secret = {
-    file = pkgs.secrets + "/konnect/miniflux-secret.age";
+    file = inputs.secrets + "/konnect/miniflux-secret.age";
     owner = "miniflux";
     group = "miniflux";
   };

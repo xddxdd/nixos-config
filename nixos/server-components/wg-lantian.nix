@@ -1,9 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
-  wg-pubkey = import (pkgs.secrets + "/wg-pubkey.nix");
+  wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
 in
 {
   networking.wireguard.interfaces.wg-lantian = {

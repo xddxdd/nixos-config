@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs lib; };
+  LT = import ../../../helpers args;
 
   pythonPackages = python-packages: with python-packages; [
     telethon
@@ -9,7 +9,7 @@ let
   python = pkgs.python3.withPackages pythonPackages;
 in
 {
-  age.secrets.tg-bot-cleaner-bot.file = pkgs.secrets + "/tg-bot-cleaner-bot.age";
+  age.secrets.tg-bot-cleaner-bot.file = inputs.secrets + "/tg-bot-cleaner-bot.age";
 
   systemd.services.tg-bot-cleaner-bot = {
     description = "A Bot that cleans other Telegram Bot messages";

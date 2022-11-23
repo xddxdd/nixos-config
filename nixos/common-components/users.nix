@@ -1,10 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  # unixHashedPassword = import (pkgs.secrets + "/unix-hashed-pw.nix");
-  glauthUsers = import (pkgs.secrets + "/glauth-users.nix");
+  # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
   unixHashedPassword = glauthUsers.lantian.passBcrypt;
-  sshKeys = import (pkgs.secrets + "/ssh/lantian.nix");
+  sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
 in
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.

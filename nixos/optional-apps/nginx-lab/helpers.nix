@@ -1,10 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
-  compressStaticAssets = attrs: attrs // {
-    nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ (with pkgs; [ gzip brotli zstd parallel ]);
+  compressStaticAssets = p: p.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with pkgs; [ gzip brotli zstd parallel ]);
 
-    postFixup = (attrs.postFixup or "") + ''
+    postFixup = (old.postFixup or "") + ''
       OIFS="$IFS"
       IFS=$'\n'
 
@@ -18,5 +18,5 @@
 
       IFS="$OIFS"
     '';
-  };
+  });
 }

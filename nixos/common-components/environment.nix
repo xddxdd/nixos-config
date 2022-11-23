@@ -1,7 +1,7 @@
-{ config, pkgs, lib, modules, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 
   # https://unix.stackexchange.com/a/631226
   x86-arch-level = pkgs.writeScriptBin "x86-arch-level" ''
@@ -29,7 +29,7 @@ let
 in
 {
   age.secrets.default-pw = {
-    file = pkgs.secrets + "/default-pw.age";
+    file = inputs.secrets + "/default-pw.age";
     mode = "0444";
   };
 

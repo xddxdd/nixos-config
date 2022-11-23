@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
-  age.secrets.geoipupdate-license.file = pkgs.secrets + "/geoipupdate-license.age";
+  age.secrets.geoipupdate-license.file = inputs.secrets + "/geoipupdate-license.age";
 
   services.geoipupdate = {
     enable = true;

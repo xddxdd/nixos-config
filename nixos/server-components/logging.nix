@@ -1,10 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs lib; };
+  LT = import ../../helpers args;
 in
 {
-  age.secrets.filebeat-elasticsearch-pw.file = pkgs.secrets + "/filebeat-elasticsearch-pw.age";
+  age.secrets.filebeat-elasticsearch-pw.file = inputs.secrets + "/filebeat-elasticsearch-pw.age";
 
   services.filebeat = {
     enable = true;

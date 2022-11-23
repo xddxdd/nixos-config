@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hosts, this, containerIP, ... }:
+{ config, pkgs, lib, hosts, this, containerIP, inputs, ... }:
 
 let
   hostConfig = config;
@@ -40,7 +40,7 @@ lib.recursiveUpdate outerConfig {
     networking.firewall.enable = false;
 
     imports = [
-      pkgs.flake.agenix.nixosModules.age
+      inputs.agenix.nixosModules.age
       (innerConfig { containerConfig = config; })
     ];
 

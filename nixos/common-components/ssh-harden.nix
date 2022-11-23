@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 {
   programs.ssh.package = pkgs.openssh_hpn.overrideAttrs (old: {

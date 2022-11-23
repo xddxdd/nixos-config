@@ -1,7 +1,7 @@
-{ pkgs, lib, config, utils, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers { inherit config pkgs; };
+  LT = import ../../helpers args;
 in
 {
   systemd.services.ssl-certs = {

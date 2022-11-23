@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers { inherit config pkgs; };
+  LT = import ../../../helpers args;
 
-  inherit (pkgs.callPackage ./common.nix { }) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
 
   musics = [
     "nightglow"
@@ -16,14 +16,14 @@ let
       converted = pkgs.stdenvNoCC.mkDerivation {
         pname = music;
         version = "1.0";
-        src = pkgs.flake.nixos-asterisk-music + "/${music}.mp3";
+        src = inputs.nixos-asterisk-music + "/${music}.mp3";
 
         nativeBuildInputs = with pkgs; [ ffmpeg ];
 
         phases = [ "installPhase" ];
         installPhase = ''
           mkdir -p $out
-          ffmpeg -i ${pkgs.flake.nixos-asterisk-music}/${music}.mp3 \
+          ffmpeg -i ${inputs.nixos-asterisk-music}/${music}.mp3 \
             -ar 48000 -ac 1 -acodec pcm_s16le -f s16le \
             $out/${music}.sln48
         '';
