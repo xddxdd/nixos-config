@@ -40,6 +40,8 @@ in
     ../../nixos/optional-cron-jobs/testssl.nix
   ];
 
+  boot.initrd.systemd.enable = lib.mkForce false;
+
   services.beesd.filesystems.root = {
     spec = "/nix";
     hashTableSizeMB = 1024;
