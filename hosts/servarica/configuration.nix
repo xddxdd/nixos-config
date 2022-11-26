@@ -15,8 +15,8 @@ in
   boot.initrd.systemd.enable = lib.mkForce false;
 
   systemd.network.networks.eth0 = {
-    address = [ "104.152.209.126/24" ];
-    gateway = [ "104.152.209.1" ];
+    address = [ "104.152.209.126/24" "2602:ffd5:1:160::1/36" ];
+    gateway = [ "104.152.209.1" "2602:ffd5:1:100::1" ];
     matchConfig.Name = "eth0";
   };
 

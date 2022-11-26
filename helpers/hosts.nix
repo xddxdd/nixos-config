@@ -258,6 +258,7 @@
     syncthing = "Y77CCX3-ATQ7TNT-KOISQ6W-G27E6AE-3RHJRWM-JOK33WD-H5CUT7T-T6MZGAM";
     public = rec {
       IPv4 = "104.152.209.126";
+      IPv6 = "2602:ffd5:1:160::1";
     };
     dn42 = rec {
       IPv4 = "172.22.76.119";
