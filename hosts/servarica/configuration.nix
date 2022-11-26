@@ -8,6 +8,8 @@ in
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/resilio.nix
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
