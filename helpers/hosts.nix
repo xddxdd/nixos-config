@@ -247,6 +247,24 @@
     };
     yggdrasil.IPv6 = "202:935c:d5de:9015:9060:7c25:39d3:f3c3";
   };
+  "servarica" = rec {
+    index = 6;
+    city = geo.cities."CA Montréal";
+    hostname = "104.152.209.126";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQClxxprXEYNHdbrxA6P0vIzWqSaZ3/sbVacLdTolj5epwc/aklqXbBI5zDH4tac3RmEOBIVNW3PHMZcOAnwD0eo+WbCFw6qkckZBQFAAmroqI5RExonnXgTbuCqQld/kjVtmU/Wnf72yk/BQm8cWfmhPi0I9siERqkzV9lV0vow3jYPgUtA0u5kBU76iBU2X5VYv75Gim7/xC3Fe7c8Oo8LQQdMwSVfAJzC6tPMYQWo/BaDRQfHGyJqfVYq/BSCUhYev361P9gA+L0EMq3b+ohb2v2FqSwQnvbnAkWq4EVL4JpqJ8kboxGVCQTayz6kTu6BYwgvGmSKZo1/mlVEUrlbFK7hPlTH2THfR0ZLiNjJ1Ael1cjOdIRPG0EHhhafRAAYfaDRxO8UZqPg1XjzQCqmliQPBhxnr18VibRph3b+s8Xbi2prPvdPbIy4etZA3RJFbU9HyGoJxtFKWylJ/zeDoVIvdYC/6dtqTd22Aw8VNHein77RmVMInqZwVjvy7PFsnyFX2OnQk7hxghxMY7MkD1eg+Y5CuChkrV1y0pXUhczes44qMjYGkM5Zz5yRP1qLX3pyf1Sash7JDfeU9CoM2RUe1q36knNSwufia2tSUh2C1YxG9yTTxbB53NhcP4wukkmt4NG4XJWTTaX3typf0+ooNQUAB06Tal4vl0dBGw==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICD/HKWrYGo0Ip5ktr4KOWLRg+FHkRkhEi8rfFf3RifQ";
+    };
+    syncthing = "Y77CCX3-ATQ7TNT-KOISQ6W-G27E6AE-3RHJRWM-JOK33WD-H5CUT7T-T6MZGAM";
+    public = rec {
+      IPv4 = "104.152.209.126";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.119";
+      region = 44;
+    };
+    yggdrasil.IPv6 = "200:3723:d855:cd47:db0e:9a1:7412:2450";
+  };
   "lt-hp-omen" = rec {
     index = 100;
     role = roles.client;
