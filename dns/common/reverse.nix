@@ -12,7 +12,7 @@ in
 rec {
   domain = prefix;
   reverse = true;
-  registrar = "doh";
+  registrar = "none";
   providers = [ "henet" ];
   records = [
     (PTR { name = "*"; inherit target; })
