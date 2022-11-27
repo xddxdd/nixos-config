@@ -4,7 +4,7 @@ with dns;
 [
   rec {
     domain = "56631131.xyz";
-    registrar = "none";
+    registrar = "doh";
     providers = [ "gcore" ];
     records = [
       common.hostRecs.CAA
