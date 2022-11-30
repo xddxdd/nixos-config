@@ -56,6 +56,10 @@ lib.mkIf (!config.boot.isContainer) {
     kernelPackages = kpkg.extend (final: prev: rec {
       acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
       cryptodev = llvmOverride prev.cryptodev;
+
+      # Disabled for crashing on latest kernel
+      # i915-sriov = llvmOverride (final.callPackage ./i915-sriov.nix { });
+
       kvmfr = llvmOverride prev.kvmfr;
       nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
       ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
@@ -90,6 +94,10 @@ lib.mkIf (!config.boot.isContainer) {
       ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
+
+      # Disabled for crashing on latest kernel
+      # i915-sriov
+
       nullfsvfs
       ovpn-dco
     ];

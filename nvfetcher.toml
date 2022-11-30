@@ -2,6 +2,10 @@
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
 
+[i915-sriov-dkms]
+src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
+fetch.github = "strongtz/i915-sriov-dkms"
+
 [material-kwin-decoration]
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"

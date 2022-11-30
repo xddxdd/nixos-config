@@ -18,6 +18,25 @@
         },
         "version": "v2.2.0"
     },
+    "i915-sriov-dkms": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "i915-sriov-dkms",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "strongtz",
+            "repo": "i915-sriov-dkms",
+            "rev": "a2385b699636d8394e19fb4078f6d3bd63ee6c0f",
+            "sha256": "sha256-faGJA6YIO/TjyjMwW4x6zSZ4xUR1rnaQepCsM5XSCR0=",
+            "type": "github"
+        },
+        "version": "a2385b699636d8394e19fb4078f6d3bd63ee6c0f"
+    },
     "material-kwin-decoration": {
         "cargoLocks": null,
         "extract": null,
@@ -69,11 +88,11 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "5db98c1d6cbccf63fe0841ac5544148f315f3e9d",
-            "sha256": "sha256-3ECUEx6WeOFG+0PB2Pus9SvmIBhiBr5qBhdCu9oKlO0=",
+            "rev": "ff6a75a729e7998f57bbf30ca7249b2beb0e222f",
+            "sha256": "sha256-EZM+/c0aMX7S1aUqxqsp+0MSKk/07I4maer1QPFFvKU=",
             "type": "github"
         },
-        "version": "5db98c1d6cbccf63fe0841ac5544148f315f3e9d"
+        "version": "ff6a75a729e7998f57bbf30ca7249b2beb0e222f"
     },
     "openvpn": {
         "cargoLocks": null,
@@ -88,11 +107,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "543f709f13bca9887cabd4545554539f18346e3c",
-            "sha256": "sha256-dH9aDB9NyZY+d69buXf7iZVePJGfw+4zal401fFU4LE=",
+            "rev": "c291c95f6c45a858495520c8c1c6aa3aabb58fd7",
+            "sha256": "sha256-iU3pEK3aea66buxiCs1j32ZIvMOrkk6DPCc5pERnALk=",
             "type": "github"
         },
-        "version": "543f709f13bca9887cabd4545554539f18346e3c"
+        "version": "c291c95f6c45a858495520c8c1c6aa3aabb58fd7"
     },
     "ovpn-dco": {
         "cargoLocks": null,
