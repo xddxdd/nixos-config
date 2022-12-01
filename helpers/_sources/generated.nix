@@ -34,6 +34,17 @@
       sha256 = "sha256-n+yUmBUrkS+06qLnzl2P6CTQZZbDtJLy+2mDPCcQz9M=";
     });
   };
+  nft-fullcone = {
+    pname = "nft-fullcone";
+    version = "0d3e2bedf939fb380dc32d44d0767d283671637a";
+    src = fetchFromGitHub ({
+      owner = "fullcone-nat-nftables";
+      repo = "nft-fullcone";
+      rev = "0d3e2bedf939fb380dc32d44d0767d283671637a";
+      fetchSubmodules = false;
+      sha256 = "sha256-2tijkfBoHYdZxe0jzvpT8xeMwa6z2IbBy+52slVe774=";
+    });
+  };
   nullfsvfs = {
     pname = "nullfsvfs";
     version = "v0.13";
@@ -58,13 +69,13 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "c291c95f6c45a858495520c8c1c6aa3aabb58fd7";
+    version = "cde3edb132abd5091b2fbee83c0af43ee4e6e009";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "c291c95f6c45a858495520c8c1c6aa3aabb58fd7";
+      rev = "cde3edb132abd5091b2fbee83c0af43ee4e6e009";
       fetchSubmodules = false;
-      sha256 = "sha256-iU3pEK3aea66buxiCs1j32ZIvMOrkk6DPCc5pERnALk=";
+      sha256 = "sha256-t3bndeW6SaK7waPN+EGmKOWDFhmN2qvsFvIjffzbpsY=";
     });
   };
   ovpn-dco = {

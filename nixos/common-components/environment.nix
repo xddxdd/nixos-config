@@ -91,7 +91,7 @@ in
     kopia
     lbzip2
     lsof
-    nftables
+    nftables-fullcone
     nix-prefetch
     openssl
     p7zip

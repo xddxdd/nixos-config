@@ -4,7 +4,7 @@ let
   LT = import ../../../helpers args;
 in
 pkgs.writeText "nft.conf" ''
-  #${pkgs.nftables}/bin/nft -f
+  #${pkgs.nftables-fullcone}/bin/nft -f
   table inet lantian
   delete table inet lantian
 
@@ -95,7 +95,7 @@ pkgs.writeText "nft.conf" ''
         ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
       ''}
 
-      ${lib.concatMapStringsSep "\n" (p: ''oifname "${p}*" masquerade'') (LT.constants.wanInterfacePrefixes ++ [ "virbr" ])}
+      ${lib.concatMapStringsSep "\n" (p: ''oifname "${p}*" fullcone'') (LT.constants.wanInterfacePrefixes ++ [ "virbr" ])}
     }
 
     # Helper chains

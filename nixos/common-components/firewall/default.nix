@@ -16,7 +16,7 @@ in
     };
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.nftables}/bin/nft -f ${nftRules}";
+      ExecStart = "${pkgs.nftables-fullcone}/bin/nft -f ${nftRules}";
     };
   };
 }

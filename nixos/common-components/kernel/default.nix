@@ -61,6 +61,7 @@ lib.mkIf (!config.boot.isContainer) {
       # i915-sriov = llvmOverride (final.callPackage ./i915-sriov.nix { });
 
       kvmfr = llvmOverride prev.kvmfr;
+      nft-fullcone = llvmOverride (final.callPackage ./nft-fullcone.nix { });
       nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
       ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
       v4l2loopback = llvmOverride prev.v4l2loopback;
@@ -90,7 +91,7 @@ lib.mkIf (!config.boot.isContainer) {
       nvidia_x11_stable_open = nvidiaPackages.stable.open;
       nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
     });
-    kernelModules = [ "cryptodev" "nullfs" "ovpn-dco" ]
+    kernelModules = [ "cryptodev" "nft_fullcone" "nullfs" "ovpn-dco" ]
       ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
@@ -98,6 +99,7 @@ lib.mkIf (!config.boot.isContainer) {
       # Disabled for crashing on latest kernel
       # i915-sriov
 
+      nft-fullcone
       nullfsvfs
       ovpn-dco
     ];
