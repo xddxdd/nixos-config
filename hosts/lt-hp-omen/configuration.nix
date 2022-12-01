@@ -26,7 +26,6 @@ in
     ./hardware-configuration.nix
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/ksmbd.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
@@ -36,14 +35,6 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
   ];
-
-  environment.etc."intel-undervolt.conf".text = ''
-    undervolt 0 'CPU' -40
-    undervolt 1 'GPU' -40
-    undervolt 2 'CPU Cache' -40
-    undervolt 3 'System Agent' 0
-    undervolt 4 'Analog I/O' 0
-  '';
 
   environment.systemPackages = [ resetKeyboardBacklight ];
 
