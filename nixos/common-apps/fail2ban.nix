@@ -11,7 +11,7 @@ in
     maxretry = 5;
     banaction = "nftables-multiport";
     banaction-allports = "nftables-allports";
-    packageFirewall = pkgs.nftables;
+    packageFirewall = pkgs.nftables-fullcone;
     ignoreIP = [
       "10.0.0.0/8"
       "172.16.0.0/12"
