@@ -27,9 +27,6 @@ update-nur: FORCE
 	@nix flake lock --update-input nur-xddxdd
 
 reboot: FORCE
-	@ansible all --forks=1 -a "reboot"
-
-wait: FORCE
-	@ansible all -m wait_for_connection
+	@ansible-playbook rolling-reboot.yml
 
 FORCE: ;
