@@ -71,7 +71,7 @@
     k1t3ab = {
       remoteASN = 4242421591;
       latencyMs = 79;
-      # peering.mpbgp = true;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 21591;
@@ -81,8 +81,7 @@
       };
       addressing = {
         peerIPv4 = "172.23.69.192";
-        peerIPv6 = "fd41:c44d:1c1e::";
-        # peerIPv6LinkLocal = "fe80::1591";
+        peerIPv6LinkLocal = "fe80::1591";
       };
     };
     kskb = {
