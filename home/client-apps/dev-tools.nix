@@ -67,6 +67,7 @@ in
 
     # Nix
     inputs.agenix.packages."${system}".agenix
+    alejandra
     nil
     nixfmt
     nixpkgs-fmt
