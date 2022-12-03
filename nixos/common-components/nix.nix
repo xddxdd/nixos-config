@@ -14,7 +14,6 @@ in
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-derivations
       !include ${config.age.secrets.nix-access-token.path}
     '';
 
@@ -30,7 +29,17 @@ in
     linkInputs = true;
     optimise.automatic = true;
     settings = {
+      # https://jackson.dev/post/nix-reasonable-defaults/
       auto-optimise-store = true;
+      connect-timeout = 5;
+      experimental-features = "nix-command flakes ca-derivations";
+      fallback = true;
+      keep-outputs = true;
+      log-lines = 25;
+      max-free = 1024 * 1024 * 1024;
+      min-free = 128 * 1024 * 1024;
+      warn-dirty = false;
+
       inherit (LT.constants.nix) substituters trusted-public-keys;
     };
   };
