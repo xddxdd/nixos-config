@@ -12,9 +12,17 @@
   };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+
+  boot.initrd.kernelModules = [
+    "dm-raid"
+    "dm-integrity"
+    "raid0"
+    "raid1"
+    "raid10"
+    "raid456"
+  ];
+
+  services.lvm.dmeventd.enable = true;
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/E5D4-ECE6";
@@ -28,7 +36,7 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/disk/by-uuid/24f12806-58d8-4524-8604-3c313106bd64";
+    device = "/dev/mapper/MyVolGroup-storage";
     fsType = "btrfs";
     options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
