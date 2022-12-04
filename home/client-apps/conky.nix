@@ -5,8 +5,8 @@ let
 
   verticalSize = 16;
   spaceSize = verticalSize / 2;
-  alignX = 12;
-  widthChars = 44;
+  alignX = 11;
+  widthChars = 40;
 
   centerX = builtins.floor ((alignX + widthChars) / 2);
   alignRightCenter = widthChars - centerX;
@@ -20,62 +20,61 @@ let
 
   fsUsage = path: ""
     + "\${if_mounted ${path}}"
-    + "${gray (padString (path+":"))} \${fs_used_perc ${path}}% \$alignr \${fs_used ${path}} ${gray "/"} \${fs_size ${path}}\n"
-    + "${offset alignX} \${fs_bar 4 ${path}}\n"
+    + (kv path "\${fs_used_perc ${path}}% \$alignr \${fs_used ${path}} ${gray "/"} \${fs_size ${path}}")
+    + (kv "" "\${fs_bar 4 ${path}}")
+    + "\${endif}"
+  ;
+  netGateway = ""
+    + "\${if_gw}"
+    + (kv "Gateway" "$gw_ip ${gray "%"} $gw_iface")
     + "\${endif}"
   ;
   netUsage = interface: ""
     + "\${if_up ${interface}}"
-    + "${goto 0}${gray (padString (interface+":"))} ${gray "up:"} \${upspeed ${interface}}"
-    + "${goto centerX}${gray "down:"} \${downspeed ${interface}}\n"
+    + (kv interface "${gray "IP:"} \${addrs ${interface}}")
+    + (kv "" "${gray "up:"} \${upspeed ${interface}}${goto centerX}${gray "down:"} \${downspeed ${interface}}")
     + "\${endif}"
   ;
   processInfo = i:
     let
       n = builtins.toString i;
     in
-    ""
-    + " \${top name ${n}}${goto 20}\${top pid ${n}}${goto 28}\${top cpu ${n}}${goto 35}\${top mem ${n}}";
+    "${reset}${gray "\${top name ${n}}"}${goto 20}\${top pid ${n}}${goto 28}\${top cpu ${n}}${goto 35}\${top mem ${n}}\n";
 
-  conkyLines = [
-    "${gray (padString "Hostname:")} $nodename"
-    "${gray (padString "Kernel:")} $kernel"
-    "${gray (padString "Arch:")} $machine"
-    "${gray (padString "Load:")} ${gray "1m"} \${loadavg 1} ${gray "/ 5m"} \${loadavg 2} ${gray "/ 15m"} \${loadavg 3}"
-    "${gray "$hr"}"
-    "${gray (padString "CPU:")} $cpu% $alignr $freq_g GHz"
-    "${offset alignX} \${cpubar 4}"
-    "${gray (padString "RAM:")} $memperc% $alignr $mem ${gray "/"} $memmax"
-    "${offset alignX} \${membar 4}"
-    "${gray (padString "SWAP:")} $swapperc% $alignr $swap ${gray "/"} $swapmax"
-    "${offset alignX} \${swapbar 4}"
-    "${gray (padString "Battery:")} $battery_percent% $alignr $battery_time"
-    "${offset alignX} \${battery_bar 4}"
-    ("${gray (padString "GPU Power:")} \${head /sys/bus/pci/devices/0000:01:00.0/power_state 1}"
-      + "${goto 0}${gray (padString "Processes:")} $running_processes ${gray "running /"} $processes ${gray "total"}")
-    "${gray "$hr"}"
-    "${gray "File systems:"}"
-    ("${fsUsage "/"}"
-      + "${fsUsage "/nix"}"
-      + "${fsUsage "/mnt/c"}"
-      + "${goto 0}${gray "$hr"}")
-    "${gray "Networking:"}"
-    ("${netUsage "eth0"}"
-      + "${netUsage "wlan0"}"
-      + "${netUsage "wg-lantian"}"
-      + "${netUsage "wg-cf-warp"}"
-      + "${goto 0}${gray "$hr"}")
-    "${gray "Processes:"}${goto 20}${gray "    PID"}${goto 28}${gray "  CPU%"}${goto 35}${gray "  MEM%"}"
-    "${processInfo 1}"
-    "${processInfo 2}"
-    "${processInfo 3}"
-    "${processInfo 4}"
-    "${processInfo 5}"
-    "${processInfo 6}"
-    "${processInfo 7}"
-    "${processInfo 8}"
-    "${processInfo 9}"
-    "${processInfo 10}"
+  kv = k: v: "${reset}${kvNoLF k v}\n";
+  kvNoLF = k: v: "${reset}${gray (padString (if k != "" then k + ":" else ""))} ${v}";
+  sep = "${reset}${gray "$hr"}\n";
+  reset = "${goto 0}";
+
+  conkyLines = lib.flatten [
+    (kv "Hostname" "$nodename")
+    (kv "Kernel" "$kernel")
+    (kv "Arch" "$machine")
+    (kv "Load" "${gray "1m"} \${loadavg 1} ${gray "/ 5m"} \${loadavg 2} ${gray "/ 15m"} \${loadavg 3}")
+    sep
+
+    (kv "CPU" "$cpu% $alignr $freq_g GHz")
+    (kv "" "\${cpubar 4}")
+    (kv "RAM" "$memperc% $alignr $mem ${gray "/"} $memmax")
+    (kv "" "\${membar 4}")
+    (kv "SWAP" "$swapperc% $alignr $swap ${gray "/"} $swapmax")
+    (kv "" "\${swapbar 4}")
+    (kv "Battery" "$battery_percent% $alignr $battery_time")
+    (kv "" "\${battery_bar 4}")
+    ("\${if_existing /sys/bus/pci/devices/0000:01:00.0/power_state}" + (kvNoLF "GPU Power" "\${head /sys/bus/pci/devices/0000:01:00.0/power_state 1}") + "\${endif}")
+    (kv "Processes" "$running_processes ${gray "running /"} $processes ${gray "total"}")
+    (kv "Threads" "$running_threads ${gray "running /"} $threads ${gray "total"}")
+    sep
+
+    (builtins.map fsUsage [ "/" "/nix" "/mnt/c" ])
+    sep
+
+    netGateway
+    (builtins.map netUsage [ "eth0" "wlan0" "wg-lantian" "wg-cf-warp" ])
+    sep
+
+    "${reset}${goto 24}${gray "PID"}${goto 30}${gray "CPU%"}${goto 37}${gray "MEM%"}\n"
+    (builtins.map processInfo (lib.range 1 10))
   ];
 in
 {
@@ -124,7 +123,7 @@ in
       }
 
       conky.text = [[
-      ${lib.concatStrings (builtins.map (s: "${goto 0}${s}\n") conkyLines)}
+      ${lib.concatStrings conkyLines}
       ]]
     '';
   };
