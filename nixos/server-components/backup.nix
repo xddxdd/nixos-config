@@ -104,6 +104,8 @@ let
       /nix/.snapshot/persistent \
       || HAS_ERROR=1
 
+    ${pkgs.kopia}/bin/kopia maintenance run || true
+
     rm -f $KOPIA_CONFIG_PATH
   '';
 in
