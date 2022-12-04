@@ -2,7 +2,8 @@
 
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    ../../nixos/hardware/general.nix
+    ../../nixos/hardware/lvm.nix
   ];
 
   boot.loader.grub = {
@@ -10,21 +11,6 @@
     device = "nodev";
     useOSProber = true;
   };
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-
-  boot.initrd.kernelModules = [
-    "dm-cache"
-    "dm-integrity"
-    "dm-raid"
-    "dm-writecache"
-    "raid0"
-    "raid1"
-    "raid10"
-    "raid456"
-  ];
-
-  services.lvm.dmeventd.enable = true;
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/E5D4-ECE6";

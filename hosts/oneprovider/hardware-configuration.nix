@@ -6,23 +6,13 @@
 {
   imports = [
     ../../nixos/hardware/general.nix
+    ../../nixos/hardware/lvm.nix
   ];
 
   boot.loader.grub.devices = [
     "/dev/sda"
     "/dev/sdb"
   ];
-
-  boot.initrd.kernelModules = [
-    "dm-raid"
-    "dm-integrity"
-    "raid0"
-    "raid1"
-    "raid10"
-    "raid456"
-  ];
-
-  services.lvm.dmeventd.enable = true;
 
   fileSystems."/nix" = {
     device = "/dev/mapper/MyVolGroup-root";

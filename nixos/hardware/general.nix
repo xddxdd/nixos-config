@@ -16,6 +16,7 @@
     "xhci_pci"
     "usbhid"
     "hid_generic"
+    "usb_storage"
   ] ++ lib.optionals (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) [
     # Misc. x86 keyboard stuff.
     "pcips2"
