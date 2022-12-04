@@ -21,6 +21,7 @@ in
     ../../nixos/optional-apps/resilio.nix
   ];
 
+  boot.initrd.systemd.enable = lib.mkForce false;
   boot.kernelParams = [ "pci=realloc,assign-busses" ];
 
   # ECC RAM
@@ -60,7 +61,6 @@ in
 
   services.tlp.settings = {
     TLP_PERSISTENT_DEFAULT = 1;
-    
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
