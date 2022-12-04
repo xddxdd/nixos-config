@@ -14,8 +14,10 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
   boot.initrd.kernelModules = [
-    "dm-raid"
+    "dm-cache"
     "dm-integrity"
+    "dm-raid"
+    "dm-writecache"
     "raid0"
     "raid1"
     "raid10"
@@ -45,8 +47,6 @@
     enable = true;
     fileSystems = [ "/mnt/storage" ];
   };
-
-  swapDevices = [{ device = "/dev/disk/by-uuid/7456f3ed-6ab8-44de-96fb-42d51835e489"; }];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
