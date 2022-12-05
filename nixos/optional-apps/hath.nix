@@ -18,8 +18,6 @@ in
     script = ''
       exec ${pkgs.jre_headless}/bin/java \
         -Xms16m -Xmx128m \
-        -XX:+ClassRelationshipVerifier \
-        -Xtune:virtualized \
         -jar ${pkgs.hath}/opt/HentaiAtHome.jar \
         --cache-dir=${hathCacheDir} \
         --data-dir=${hathDataDir} \

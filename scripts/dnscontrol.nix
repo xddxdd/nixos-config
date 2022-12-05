@@ -6,32 +6,12 @@
 , buildGoModule
 , fetchFromGitHub
 , age
+, dnscontrol
 , ...
 }@args:
 
 let
   dnsRecords = writeText "dnsconfig.js" (callPackage ../dns args);
-
-  dnscontrol = buildGoModule rec {
-    pname = "dnscontrol";
-    version = "3af61f2cd4ad9929ed21cadac7787edc56e67018";
-
-    src = fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "dnscontrol";
-      rev = version;
-      sha256 = "sha256-Fzb383JfQ2VaIJR0Un3PQ35z7Bjh0aTyHMCZxEQ6lqw=";
-    };
-
-    vendorSha256 = "sha256-f6O5JcaDVtpp9RRzAYVqefeVpw0sHRSbvLSry79mvMI=";
-
-    ldflags = [ "-s" "-w" ];
-
-    preCheck = ''
-      # requires network
-      rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
-    '';
-  };
 in
 ''
   CURR_DIR=$(pwd)

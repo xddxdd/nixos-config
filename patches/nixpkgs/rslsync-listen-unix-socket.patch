@@ -1,16 +1,28 @@
 diff --git a/nixos/modules/services/networking/resilio.nix b/nixos/modules/services/networking/resilio.nix
-index 89127850641..82862113849 100644
+index cc9495bf238..0eb5e12e35f 100644
 --- a/nixos/modules/services/networking/resilio.nix
 +++ b/nixos/modules/services/networking/resilio.nix
-@@ -256,9 +256,15 @@ in
-         Restart   = "on-abort";
-         UMask     = "0002";
+@@ -54,12 +54,6 @@ let
+ 
+   createConfig = pkgs.writeShellScriptBin "create-resilio-config" ''
+     ${pkgs.jq}/bin/jq \
+-      '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
+-      ${
+-        lib.concatMapStringsSep " \\\n  "
+-        (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
+-        sharedFoldersSecretFiles
+-      } \
+       <${configFile} \
+       >${runConfigPath}
+   '';
+@@ -279,9 +273,14 @@ in
          User      = "rslsync";
+         RuntimeDirectory = "rslsync";
+         ExecStartPre = "${createConfig}/bin/create-resilio-config";
 -        ExecStart = ''
-+        RuntimeDirectory = "rslsync";
 +        ExecStart = pkgs.writeShellScript "rslsync-start" ''
 +          exec ${pkgs.ip2unix}/bin/ip2unix -r in,tcp,port=${toString cfg.httpListenPort},path=/run/rslsync/rslsync.sock \
-           ${resilioSync}/bin/rslsync --nodaemon --config ${configFile}
+           ${resilioSync}/bin/rslsync --nodaemon --config ${runConfigPath}
          '';
 +        ExecStartPost = pkgs.writeShellScript "rslsync-post" ''
 +          while [ ! -S /run/rslsync/rslsync.sock ]; do sleep 1; done
