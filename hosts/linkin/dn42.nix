@@ -28,7 +28,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20549;
-        remoteAddress = "hkg.hkg.dn42.bb-pgqm.com";
+        # remoteAddress = "hkg.hkg.dn42.bb-pgqm.com";
         remotePort = 22547;
         wireguardPubkey = "jtE83RMoN49bs8TOetxrGdzqywz2BI+uT1qJrGI7GVU=";
       };

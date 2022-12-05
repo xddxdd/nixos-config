@@ -59,7 +59,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20549;
-        remoteAddress = "lux.lux.dn42.bb-pgqm.com";
+        # remoteAddress = "lux.lux.dn42.bb-pgqm.com";
         remotePort = 22547;
         wireguardPubkey = "Yt27ZQW8ZTQDvK/PQ+cUw+sVaUJzWGGy1BKF5UzAJEs=";
       };

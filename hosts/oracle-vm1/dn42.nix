@@ -28,7 +28,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20549;
-        remoteAddress = "tyo.jpn.dn42.bb-pgqm.com";
+        # remoteAddress = "tyo.jpn.dn42.bb-pgqm.com";
         remotePort = 22547;
         wireguardPubkey = "9wF7vXyJ+uBUb3At/SODOkaBSEQSdvpdtCwRL9kiuFc=";
       };
