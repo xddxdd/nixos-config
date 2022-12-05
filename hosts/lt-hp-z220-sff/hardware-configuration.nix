@@ -26,7 +26,7 @@
   fileSystems."/mnt/storage" = {
     device = "/dev/mapper/MyVolGroup-storage";
     fsType = "btrfs";
-    options = [ "compress-force=zstd" "nosuid" "nodev" ];
+    options = [ "compress-force=zstd" "nosuid" "nodev" "nofail" ];
   };
 
   services.btrfs.autoScrub = {
