@@ -26,4 +26,6 @@
     fsType = "ext4";
     options = [ "nosuid" "nodev" ];
   };
+
+  swapDevices = [{ device = "/dev/mapper/debian-swap"; }];
 }
