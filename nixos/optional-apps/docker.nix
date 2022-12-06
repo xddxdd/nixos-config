@@ -73,10 +73,9 @@ in
       '';
       services.timesyncd.enable = false;
 
-      systemd.services.docker.serviceConfig.ExecStartPost = pkgs.writeShellScript "docker-post" ''
-        while [ ! -S /run/docker-vm/docker.sock ]; do sleep 1; done
-        chmod 777 /run/docker-vm/docker.sock
-      '';
+      systemd.sockets.docker.socketConfig = {
+        SocketMode = lib.mkForce "0666";
+      };
 
       virtualisation.docker = {
         enable = true;
@@ -91,7 +90,6 @@ in
 
         daemon.settings = {
           experimental = true;
-          storage-driver = "btrfs";
           userland-proxy = false;
         };
       };
