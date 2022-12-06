@@ -1,5 +1,5 @@
 diff --git a/nixos/modules/services/networking/resilio.nix b/nixos/modules/services/networking/resilio.nix
-index cc9495bf238..0eb5e12e35f 100644
+index cc9495bf238..d4175c27b24 100644
 --- a/nixos/modules/services/networking/resilio.nix
 +++ b/nixos/modules/services/networking/resilio.nix
 @@ -54,12 +54,6 @@ let
@@ -15,7 +15,24 @@ index cc9495bf238..0eb5e12e35f 100644
        <${configFile} \
        >${runConfigPath}
    '';
-@@ -279,9 +273,14 @@ in
+@@ -259,16 +253,6 @@ in
+         }
+       ];
+ 
+-    users.users.rslsync = {
+-      description     = "Resilio Sync Service user";
+-      home            = cfg.storagePath;
+-      createHome      = true;
+-      uid             = config.ids.uids.rslsync;
+-      group           = "rslsync";
+-    };
+-
+-    users.groups.rslsync = {};
+-
+     systemd.services.resilio = with pkgs; {
+       description = "Resilio Sync Service";
+       wantedBy    = [ "multi-user.target" ];
+@@ -279,9 +263,14 @@ in
          User      = "rslsync";
          RuntimeDirectory = "rslsync";
          ExecStartPre = "${createConfig}/bin/create-resilio-config";
