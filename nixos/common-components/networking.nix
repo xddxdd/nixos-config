@@ -61,6 +61,17 @@ in
     search = [ "lantian.pub" ];
     tempAddresses = "disabled";
 
+    hosts = {
+      "0.0.0.0" = [
+        "sg-public-data-api.hoyoverse.com"
+        "log-upload-os.hoyoverse.com"
+        "overseauspider.yuanshen.com"
+        "public-data-api.mihoyo.com"
+        "log-upload.mihoyo.com"
+        "uspider.yuanshen.com"
+      ];
+    };
+
     # Use NixOS networking scripts for DNS
     # useNetworkd = true;
   };
