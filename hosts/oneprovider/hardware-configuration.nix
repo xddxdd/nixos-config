@@ -20,17 +20,17 @@
     options = [ "compress-force=zstd" "nosuid" "nodev" ];
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "/dev/mapper/MyVolGroup-storage";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" "nosuid" "nodev" ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/0E72-608D";
     fsType = "vfat";
     options = [ "fmask=0077" "dmask=0077" ];
   };
-
-  # fileSystems."/boot/esp1" = {
-  #   device = "/dev/disk/by-uuid/22B6-EB16";
-  #   fsType = "vfat";
-  #   options = [ "fmask=0077" "dmask=0077" ];
-  # };
 
   swapDevices = [{ device = "/dev/disk/by-partuuid/0d5cd03d-01"; }];
 
