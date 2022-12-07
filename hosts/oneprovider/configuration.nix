@@ -42,12 +42,6 @@ in
 
   boot.initrd.systemd.enable = lib.mkForce false;
 
-  services.beesd.filesystems.root = {
-    spec = "/nix";
-    hashTableSizeMB = 1024;
-    verbosity = "crit";
-  };
-
   systemd.network.networks.eth0 = {
     address = [ "51.159.15.98/24" ];
     gateway = [ "51.159.15.1" ];
@@ -79,6 +73,25 @@ in
     gateway = [ "2001:470:1f12:3b1::1" ];
     matchConfig.Name = "henet";
   };
+
+  lantian.hath = {
+    cacheDir = "/mnt/storage/hath/cache";
+    downloadDir = "/mnt/storage/hath/download";
+  };
+
+  services.beesd.filesystems.root = {
+    spec = "/nix";
+    hashTableSizeMB = 1024;
+    verbosity = "crit";
+  };
+
+  services.beesd.filesystems.storage = {
+    spec = "/mnt/storage";
+    hashTableSizeMB = 2048;
+    verbosity = "crit";
+  };
+
+  services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
 
   services."route-chain" = {
     enable = true;
