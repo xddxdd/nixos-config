@@ -43,7 +43,9 @@ in
         auth_url = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
         token_url = "https://login.xuyh0120.win/konnect/v1/token";
         api_url = "https://login.xuyh0120.win/konnect/v1/userinfo";
-        role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
+
+        # Kopano Konnect doesn't support groups, allow everyone authenticated as admin
+        role_attribute_path = "'Admin'";
       };
       database = {
         type = "mysql";
