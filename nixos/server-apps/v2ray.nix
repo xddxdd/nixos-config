@@ -141,7 +141,7 @@ in
         v2rayConf
         "/run/v2ray/config.json"}
 
-      exec ${pkgs.xray}/bin/v2ray -config /run/v2ray/config.json
+      exec ${pkgs.xray}/bin/xray -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
       User = "nginx";
