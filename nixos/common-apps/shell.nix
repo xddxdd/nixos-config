@@ -20,14 +20,15 @@
     "ffffff"
   ];
 
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.shells = [ pkgs.zsh ];
-  environment.systemPackages = with pkgs; [
-    zsh-powerlevel10k
-  ];
   environment.variables = {
     TERM = "xterm-256color";
   };
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableGlobalCompInit = false;
+  };
   users.defaultUserShell = pkgs.zsh;
 }
