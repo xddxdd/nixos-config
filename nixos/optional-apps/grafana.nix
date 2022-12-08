@@ -42,7 +42,7 @@ in
         scopes = "openid profile email";
         auth_url = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
         token_url = "https://login.xuyh0120.win/konnect/v1/token";
-        api_utl = "https://login.xuyh0120.win/konnect/v1/userinfo";
+        api_url = "https://login.xuyh0120.win/konnect/v1/userinfo";
         role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
       };
       database = {
