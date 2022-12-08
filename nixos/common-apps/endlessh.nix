@@ -34,18 +34,9 @@ let
   '';
 in
 {
-  systemd.services.endlessh = {
-    description = "Endlessh";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      ExecStart = "${pkgs.endlessh}/bin/endlessh -f ${cfg}";
-
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      DynamicUser = true;
-    };
+  services.endlessh = {
+    enable = true;
+    port = 22;
+    extraOptions = [ "-f" "${cfg}" ];
   };
 }
