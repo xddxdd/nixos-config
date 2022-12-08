@@ -27,8 +27,9 @@ in
           targets = [ "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}" ];
         }];
       }
-      (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
+      (scrapeAllNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
+      (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
     ];
   };
 

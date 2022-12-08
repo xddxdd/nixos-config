@@ -18,6 +18,7 @@
   Prometheus.Daemon = 9090;
   Prometheus.NodeExporter = 9100;
   Prometheus.BirdExporter = 9324;
+  Prometheus.EndlesshGo = 9322;
   Yggdrasil.Public = 13058;
   Yggdrasil.Multicast = 13059;
   ASF = 13242;
