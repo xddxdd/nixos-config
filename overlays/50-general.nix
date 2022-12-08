@@ -132,4 +132,11 @@ rec {
       simpleeval
     ];
   });
+  zsh-autopair = prev.zsh-autopair.overrideAttrs (old: {
+    inherit (sources.zsh-autopair) version src;
+    installPhase = ''
+      mkdir -p $out/share/zsh/zsh-autopair
+      cp -r *.zsh $out/share/zsh/zsh-autopair/
+    '';
+  });
 }

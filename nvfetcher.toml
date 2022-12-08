@@ -61,3 +61,7 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 [ulauncher-vscode-recent]
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
+
+[zsh-autopair]
+src.git = "https://github.com/hlissner/zsh-autopair.git"
+fetch.github = "hlissner/zsh-autopair"
