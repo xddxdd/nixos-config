@@ -71,6 +71,8 @@ let
 in
 {
   age.secrets.glauth-bindpw.file = inputs.secrets + "/glauth-bindpw.age";
+  age.secrets.konnect--privkey.file = inputs.secrets + "/konnect/_privkey.age";
+  age.secrets.konnect--encryption.file = inputs.secrets + "/konnect/_encryption.age";
   age.secrets.konnect-gitea-secret.file = inputs.secrets + "/konnect/gitea-secret.age";
   age.secrets.konnect-grafana-secret.file = inputs.secrets + "/konnect/grafana-secret.age";
   age.secrets.konnect-miniflux-secret.file = inputs.secrets + "/konnect/miniflux-secret.age";
@@ -110,6 +112,8 @@ in
         --iss=https://login.xuyh0120.win \
         --identifier-client-path=${identifierWebapp} \
         --identifier-registration-conf=/run/konnect-identifier-registration.yaml \
+        --signing-private-key=${config.age.secrets.konnect--privkey.path} \
+        --encryption-secret=${config.age.secrets.konnect--encryption.path} \
         ldap
     '';
   };
