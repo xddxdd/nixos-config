@@ -43,6 +43,10 @@ in
     https = true;
     webfinger = true;
     occ = true;
+
+    extraOptions = {
+      "integrity.check.disabled" = true;
+    };
   };
 
   services.redis.servers.nextcloud = {
@@ -69,7 +73,7 @@ in
 
   services.nginx.virtualHosts."cloud.xuyh0120.win" = {
     listen = lib.mkForce LT.nginx.listenHTTPS;
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.noIndex false;
+    # Nextcloud sends "X-Robots-Tag: none" itself, no need for LT.nginx.noIndex
+    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc";
   };
 }
