@@ -115,6 +115,9 @@ in
     };
   };
 
+  # https://github.com/NixOS/nixpkgs/issues/135888
+  services.nscd.enableNsncd = true;
+
   # Support network namespaces
   systemd.tmpfiles.rules = [
     "d /run/netns 755 root root"
