@@ -17,8 +17,8 @@ with dns;
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
 
-      (A { name = "virmach-host"; address = "149.57.231.2"; })
-      (A { name = "*.virmach-host"; address = "149.57.231.2"; })
+      (A { name = "virmach-host"; address = "31.222.203.3"; })
+      (A { name = "*.virmach-host"; address = "31.222.203.3"; })
       (IGNORE { name = "geo"; })
 
       (NS { name = "xip"; target = "ns-aws.sslip.io."; })
