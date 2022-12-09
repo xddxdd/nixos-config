@@ -48,6 +48,11 @@ rec {
       substituteInPlace nix-top --replace "/tmp" "/var/cache/nix"
     '';
   });
+  oh-my-zsh = prev.oh-my-zsh.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/oh-my-zsh-disable-compdump.patch
+    ];
+  });
   openvpn = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);

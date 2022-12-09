@@ -8,9 +8,10 @@
     enableSyntaxHighlighting = true;
     enableVteIntegration = true;
 
-    completionInit = lib.mkForce ''
-      autoload -U compinit && compinit -D
-    '';
+    # # Unused since I'm using oh-my-zsh
+    # completionInit = lib.mkForce ''
+    #   autoload -U compinit && compinit -D
+    # '';
 
     autocd = true;
     dotDir = ".config/zsh";
@@ -20,14 +21,38 @@
       path = "$ZDOTDIR/.zsh_history";
     };
 
-    historySubstringSearch = {
+    oh-my-zsh = {
       enable = true;
-      # https://github.com/zsh-users/zsh-history-substring-search/issues/138
-      searchUpKey = "^[OA";
-      searchDownKey = "^[OB";
+      custom = builtins.toString (pkgs.linkFarm "oh-my-zsh-custom" {
+        "themes/powerlevel10k.zsh-theme" = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
+        "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
+        "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+        "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+      });
+      extraConfig = ''
+        # Disable zsh permission check
+        export ZSH_DISABLE_COMPFIX=true
+      '';
+      plugins = [
+        "adb"
+        "autopair"
+        "bd"
+        "gitignore"
+        "kubectl"
+        "nix-shell"
+        "nvm"
+        "pip"
+        "screen"
+        "you-should-use"
+        "z"
+      ];
+      theme = "powerlevel10k";
     };
 
     envExtra = ''
+      [[ -f "/etc/profile" ]] && emulate sh -c 'source /etc/profile'
+
       if [ "$TERM_PROGRAM" != "vscode" ]; then
         export EDITOR="nano"
       else
@@ -74,25 +99,18 @@
       # zsh-syntax-highlighting config
       ########################################
       ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+
+      ########################################
+      # zsh-z config
+      ########################################
+      ZSHZ_DATA="$ZDOTDIR/.z"
+      ZSHZ_EXCLUDE_DIRS=(/nix/store)
+      ZSHZ_TILDE=1
+      ZSHZ_TRAILING_SLASH=1
     '';
 
     initExtraFirst = ''
       [[ -n "$ZSH_ZPROF" ]] && zmodload zsh/zprof
-    '';
-
-    # These plugins should be loaded right before compinit
-    initExtraBeforeCompInit = ''
-      source ${pkgs.zsh-z}/share/zsh-z/zsh-z.plugin.zsh
-    '';
-
-    initExtra = ''
-      [[ -f "/etc/profile" ]] && emulate sh -c 'source /etc/profile'
-      source ${pkgs.vte}/etc/profile.d/vte.sh
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ${pkgs.zsh-autopair}/share/zsh/zsh-autopair/autopair.plugin.zsh
-      source ${pkgs.zsh-bd}/share/zsh-bd/bd.zsh
-      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
     '';
   };
 }
