@@ -9,6 +9,7 @@ let
     "nightglow"
     "rubia"
     "ye_hang_xing"
+    "cage"
   ];
 
   getMusicPath = music:
