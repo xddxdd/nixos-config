@@ -9,11 +9,34 @@ let
   };
 in
 {
+  # https://github.com/mozilla/policy-templates/blob/master/README.md
   environment.etc."firefox/policies/policies.json".text = builtins.toJSON {
     policies = {
       DisableAppUpdate = true;
+      DisabledCiphers = {
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" = false;
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256" = false;
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256" = false;
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256" = false;
+        "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384" = false;
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384" = false;
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" = true;
+        "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" = true;
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" = true;
+        "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" = true;
+        "TLS_DHE_RSA_WITH_AES_128_CBC_SHA" = true;
+        "TLS_DHE_RSA_WITH_AES_256_CBC_SHA" = true;
+        "TLS_RSA_WITH_AES_128_GCM_SHA256" = true;
+        "TLS_RSA_WITH_AES_256_GCM_SHA384" = true;
+        "TLS_RSA_WITH_AES_128_CBC_SHA" = true;
+        "TLS_RSA_WITH_AES_256_CBC_SHA" = true;
+        "TLS_RSA_WITH_3DES_EDE_CBC_SHA" = true;
+      };
       DisablePocket = true;
+      DisableProfileImport = true;
+      DisableProfileRefresh = true;
       DisableSetDesktopBackground = true;
+      DisableTelemetry = true;
       DisplayMenuBar = "never";
       DontCheckDefaultBrowser = true;
       FirefoxHome = {
