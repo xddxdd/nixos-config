@@ -11,6 +11,10 @@ in
     ./hardware-configuration.nix
   ];
 
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+  };
+
   systemd.network.networks.eth0 = {
     address = [
       "107.189.12.254/24"
