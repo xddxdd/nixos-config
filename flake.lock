@@ -311,11 +311,11 @@
     "nixos-asterisk-music": {
       "flake": false,
       "locked": {
-        "lastModified": 1656921848,
-        "narHash": "sha256-mZ58MoTBW8zNSxoExdvPPHk875V9allqrnKj2UkF/q0=",
+        "lastModified": 1670658232,
+        "narHash": "sha256-Y9kAe8sfHsxLMIc+dgurvb3oCVSAMNevpXdNVxzXJk0=",
         "ref": "refs/heads/master",
-        "rev": "171d831d453e8c81d1ecd819439f665dcd280289",
-        "revCount": 3,
+        "rev": "b8c7e3939d4105ad5b4a4bfaa9b504b139ea7c3e",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@git.lantian.pub:2222/lantian/nixos-asterisk-music.git"
       },
