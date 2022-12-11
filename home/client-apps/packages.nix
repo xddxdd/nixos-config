@@ -15,7 +15,6 @@ in
     baidupcs-go
     bilibili
     calibre
-    chromium-oqs-bin
     cloudpan189-go
     colmena
     dbeaver
@@ -28,7 +27,6 @@ in
     gcdemu
     gimp-with-plugins
     gnome.gedit
-    google-chrome-dev
     gopherus
     jellyfin-media-player
     jellyfin-mpv-shim
