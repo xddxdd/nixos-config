@@ -32,6 +32,7 @@ in
     gopherus
     jellyfin-media-player
     jellyfin-mpv-shim
+    kdenlive
     libfaketime
     librewolf
     libsForQt5.ark
