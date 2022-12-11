@@ -38,6 +38,10 @@ in
       DisableSetDesktopBackground = true;
       DisableTelemetry = true;
       DisplayMenuBar = "never";
+      DNSOverHTTPS = {
+        Enabled = false;
+        Locked = true;
+      };
       DontCheckDefaultBrowser = true;
       FirefoxHome = {
         Highlights = false;

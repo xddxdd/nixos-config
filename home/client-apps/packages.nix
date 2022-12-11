@@ -48,7 +48,6 @@ in
     quasselClient
     svp
     tdesktop
-    thunderbird
     tigervnc
     transmission-qt
     transmission-remote-gtk
