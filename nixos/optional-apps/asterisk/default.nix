@@ -54,6 +54,7 @@ in
 
       # Number plan:
       # - 0000-0099: music
+      # - 0100: milliwatt (1004hz)
       # - 1000-1999: real users
       # - 2000: random between all call bots
       # - 2001: lenny
@@ -78,6 +79,7 @@ in
 
         [dest-local]
         ${destLocalForwardMusic 4}
+        ${dialRule "0100" [ "Answer()" "Milliwatt(m)" ]}
         ${destLocal}
         ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2003)},1)" ]}
         ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
