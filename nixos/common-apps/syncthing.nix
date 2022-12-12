@@ -10,6 +10,8 @@ in
     group = "root";
     configDir = "/var/lib/syncthing";
     dataDir = "/nix/persistent/sync-servers";
+    overrideDevices = true;
+    overrideFolders = true;
 
     devices = lib.mapAttrs
       (n: v: {
