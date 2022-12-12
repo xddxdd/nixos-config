@@ -42,6 +42,7 @@ in
         ${templates}
 
         ; External trunks
+        ${externalTrunk { name = "sdf"; number = "2293"; url = "sip.sdf.org"; }}
         ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
 
         ; Local devices
@@ -62,9 +63,14 @@ in
       #         https://worldofprankcalls.com/beverly/
       "extensions.conf" = ''
         [src-local]
+        ${dialRule "_733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
         ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
         ${dialRule "_XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
         ${dialRule "_X!" [ "Goto(dest-url,\${EXTEN},1)" ]}
+
+        [src-sdf]
+        ; All calls go to 0000
+        ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
 
         [src-zadarma]
         ; All calls go to 0000
