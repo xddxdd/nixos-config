@@ -24,4 +24,6 @@
     device = "/nix/boot";
     options = [ "bind" ];
   };
+
+  swapDevices = [{ device = "/dev/vda2"; }];
 }
