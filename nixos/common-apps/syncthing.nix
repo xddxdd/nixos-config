@@ -28,6 +28,15 @@ in
       ignorePerms = true;
       ignoreDelete = false;
     };
+
+    extraOptions = {
+      options = {
+        startBrowser = false;
+        natEnabled = LT.this.role != LT.roles.server;
+        urAccepted = -1;
+        progressUpdateIntervalS = -1;
+      };
+    };
   };
 
   environment.systemPackages = [ config.services.syncthing.package ];
