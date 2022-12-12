@@ -253,6 +253,22 @@
         peerIPv6LinkLocal = "fe80::2924";
       };
     };
+    matwolf = {
+      remoteASN = 4242420688;
+      latencyMs = 25;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20688;
+        remoteAddress = "dn42-it-fe01.wolf.network";
+        remotePort = 42547;
+        wireguardPubkey = "pHGGXwEX3JBPt+Fs0hMHcnbHaGsd3hPk7EMAf+EJqj0=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.28.225";
+        peerIPv6LinkLocal = "fe80::42:0688:42:2547";
+      };
+    };
     myl = {
       remoteASN = 4242420245;
       latencyMs = 0;
