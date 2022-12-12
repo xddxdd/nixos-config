@@ -7,6 +7,11 @@ lib.mkIf (!config.boot.isContainer) {
     "vga=normal"
   ];
 
+  # Very aggressive swapping
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+  };
+
   boot.loader.grub = {
     memtest86.enable = true;
 
