@@ -101,8 +101,10 @@ in
       enable extended messages on;
       hold time 30;
       keepalive time 3;
-      graceful restart yes;
-      long lived graceful restart yes;
+
+      # DO NOT USE: causes delayed updates when network is unstable
+      # graceful restart yes;
+      # long lived graceful restart yes;
 
       ipv4 {
         next hop self yes;
