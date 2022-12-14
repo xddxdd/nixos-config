@@ -350,18 +350,18 @@
     };
     spf = {
       remoteASN = 4242421964;
-      latencyMs = 15;
+      latencyMs = 8;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 21964;
-        remoteAddress = "nl1.dn42.southparkfan.org";
-        remotePort = 51835;
-        wireguardPubkey = "OBpyD/rruK4pOCgRVrWVoexBNHZadtn4qwPmrEjt0gY=";
+        remoteAddress = "nl2.dn42.southparkfan.org";
+        remotePort = 42547;
+        wireguardPubkey = "GsmcrWbFTcje5e+hmc0D6qonrkTpHksGZuk0cLBjDmY=";
       };
       addressing = {
-        peerIPv4 = "172.23.24.33";
-        peerIPv6LinkLocal = "fe80::ade1";
+        peerIPv4 = "172.23.24.35";
+        peerIPv6LinkLocal = "fe80::ade0";
       };
     };
     sunnet = {
