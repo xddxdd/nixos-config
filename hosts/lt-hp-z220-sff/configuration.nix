@@ -22,7 +22,10 @@ in
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
-  boot.kernelParams = [ "pci=realloc,assign-busses" ];
+  boot.kernelParams = [
+    "console=ttyS0,115200"
+    "pci=realloc,assign-busses"
+  ];
 
   # ECC RAM
   hardware.rasdaemon.enable = true;
