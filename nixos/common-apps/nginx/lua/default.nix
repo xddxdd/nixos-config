@@ -1,9 +1,13 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ linkFarm
+, lantianPersonal
+, writeText
+, ...
+}@args:
 
 let
-  lantian_nginx = pkgs.writeText "lantian_nginx.lua" ''
+  lantian_nginx = writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"
-    local ltnginx   = ffi.load("${pkgs.lantianPersonal.libltnginx}/lib/libltnginx.so")
+    local ltnginx   = ffi.load("${lantianPersonal.libltnginx}/lib/libltnginx.so")
 
     ffi.cdef[[
       char* whois_ip_lookup(char* cidr);
@@ -39,7 +43,7 @@ let
     return lantian_nginx
   '';
 
-  lantian_whois = pkgs.writeText "lantian_whois.lua" ''
+  lantian_whois = writeText "lantian_whois.lua" ''
     local bit       = require("bit")
     local ffi       = require "ffi"
     local ffi_cdef  = ffi.cdef
@@ -140,13 +144,7 @@ let
     return lantian_whois
   '';
 in
-pkgs.stdenv.mkDerivation {
-  pname = "nginx-lua";
-  version = "1.0.0";
-  phases = [ "installPhase" ];
-  installPhase = ''
-    mkdir -p $out
-    ln -s ${lantian_nginx} $out/lantian_nginx.lua
-    ln -s ${lantian_whois} $out/lantian_whois.lua
-  '';
+linkFarm "nginx-lua" {
+  "lantian_nginx.lua" = lantian_nginx;
+  "lantian_whois.lua" = lantian_whois;
 }

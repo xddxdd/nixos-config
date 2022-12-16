@@ -3,7 +3,7 @@
 let
   LT = import ../../../helpers args;
 
-  addConfLantianPub = lib.recursiveUpdate {
+  addConfLantianPub = args: lib.recursiveUpdate args {
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
         index = "index.html index.htm";
@@ -61,6 +61,15 @@ let
     };
 
     root = "/nix/persistent/sync-servers/www/lantian.pub";
+
+    extraConfig = ''
+      gzip off;
+      gzip_static on;
+      brotli off;
+      brotli_static on;
+
+      error_page 404 /404.html;
+    '' + args.extraConfig;
   };
 in
 {
@@ -96,40 +105,16 @@ in
     "lantian.pub" = addConfLantianPub {
       listen = LT.nginx.listenHTTPS;
       serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
-      extraConfig = ''
-        gzip off;
-        gzip_static on;
-        brotli off;
-        brotli_static on;
-
-        error_page 404 /404.html;
-      ''
-      + LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true;
+      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+        + LT.nginx.commonVhostConf true;
     };
     "lantian.dn42" = addConfLantianPub {
       listen = LT.nginx.listenHTTP;
-      extraConfig = ''
-        gzip off;
-        gzip_static on;
-        brotli off;
-        brotli_static on;
-
-        error_page 404 /404.html;
-      ''
-      + LT.nginx.commonVhostConf false;
+      extraConfig = LT.nginx.commonVhostConf false;
     };
     "lantian.neo" = addConfLantianPub {
       listen = LT.nginx.listenHTTP;
-      extraConfig = ''
-        gzip off;
-        gzip_static on;
-        brotli off;
-        brotli_static on;
-
-        error_page 404 /404.html;
-      ''
-      + LT.nginx.commonVhostConf false;
+      extraConfig = LT.nginx.commonVhostConf false;
     };
 
     "www.lantian.pub" = {
