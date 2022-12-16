@@ -32,8 +32,6 @@ let
         "x25519_bikel1"
         "p256_kyber90s512"
         "x25519_kyber90s512"
-        "p256_ntru_hps2048509"
-        "x25519_ntru_hps2048509"
         "prime256v1"
         "secp384r1"
         "x25519"
@@ -62,7 +60,7 @@ in
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.lantianCustomized.openresty.override {
+    package = pkgs.lantianCustomized.nginx.override {
       openssl-oqs = pkgs.openssl-oqs.override {
         inherit (config.boot.kernelPackages) cryptodev;
       };
