@@ -83,12 +83,14 @@ in
     spec = "/nix";
     hashTableSizeMB = 1024;
     verbosity = "crit";
+    extraOptions = [ "--loadavg-target" "4" ];
   };
 
   services.beesd.filesystems.storage = {
     spec = "/mnt/storage";
     hashTableSizeMB = 2048;
     verbosity = "crit";
+    extraOptions = [ "--loadavg-target" "4" ];
   };
 
   services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
