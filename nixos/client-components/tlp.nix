@@ -19,6 +19,8 @@
       CPU_MAX_PERF_ON_BAT = 100;
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MIN_PERF_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
       NMI_WATCHDOG = 0;
       PCIE_ASPM_ON_AC = "performance";
       PCIE_ASPM_ON_BAT = "powersupersave";
