@@ -71,12 +71,6 @@ in
     };
   };
 
-  services.tlp.settings = {
-    # Use powersave scheduler for intel_pstate
-    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-  };
-
   services.yggdrasil.regions = [ "united-states" "canada" ];
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";

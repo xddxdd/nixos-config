@@ -43,10 +43,6 @@ in
   };
 
   services.tlp.settings = {
-    # Use powersave scheduler for intel_pstate
-    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
     CPU_MIN_PERF_ON_AC = lib.mkForce "0";
     CPU_MAX_PERF_ON_AC = lib.mkForce "50";
     CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
