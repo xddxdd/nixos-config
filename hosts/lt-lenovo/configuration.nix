@@ -39,7 +39,7 @@ in
     spec = "/nix";
     hashTableSizeMB = 64;
     verbosity = "crit";
-    extraOptions = [ "-c" "2" ];
+    extraOptions = [ "--thread-count" "2" "--loadavg-target" "4" ];
   };
 
   services.tlp.settings = {

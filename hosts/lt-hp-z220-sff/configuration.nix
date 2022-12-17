@@ -37,12 +37,14 @@ in
     spec = "/nix";
     hashTableSizeMB = 32;
     verbosity = "crit";
+    extraOptions = [ "--loadavg-target" "4" ];
   };
 
   services.beesd.filesystems.storage = {
     spec = "/mnt/storage";
     hashTableSizeMB = 2048;
     verbosity = "crit";
+    extraOptions = [ "--loadavg-target" "4" ];
   };
 
   services.fwupd.enable = true;

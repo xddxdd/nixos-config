@@ -56,6 +56,7 @@ in
     spec = "/nix";
     hashTableSizeMB = 128;
     verbosity = "crit";
+    extraOptions = [ "--loadavg-target" "8" ];
   };
 
   services.ksmbd = {
