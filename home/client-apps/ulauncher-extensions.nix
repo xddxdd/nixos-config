@@ -4,10 +4,10 @@ let
   LT = import ../../helpers args;
 in
 {
-  xdg.dataFile = {
-    "ulauncher/extensions/com.github.dhelmr.ulauncher-tldr".source = LT.sources.ulauncher-tldr.src;
-    "ulauncher/extensions/com.github.luispabon.ulauncher-virtualbox".source = LT.sources.ulauncher-virtualbox.src;
-    "ulauncher/extensions/com.github.plibither8.ulauncher-vscode-recent".source = pkgs.stdenv.mkDerivation {
+  xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" {
+    "com.github.dhelmr.ulauncher-tldr" = LT.sources.ulauncher-tldr.src;
+    "com.github.luispabon.ulauncher-virtualbox" = LT.sources.ulauncher-virtualbox.src;
+    "com.github.plibither8.ulauncher-vscode-recent" = pkgs.stdenv.mkDerivation {
       inherit (LT.sources.ulauncher-vscode-recent) pname version src;
       patches = [ ../../patches/ulauncher-vscode-recent-path.patch ];
       installPhase = ''
@@ -15,9 +15,9 @@ in
         cp -r * $out/
       '';
     };
-    "ulauncher/extensions/com.github.rnairn01.ulauncher-meme-my-text".source = LT.sources.ulauncher-meme-my-text.src;
-    "ulauncher/extensions/com.github.sergius02.ulauncher-colorconverter".source = LT.sources.ulauncher-colorconverter.src;
-    "ulauncher/extensions/com.github.tchar.ulauncher-albert-calculate-anything".source = LT.sources.ulauncher-albert-calculate-anything.src;
-    "ulauncher/extensions/com.github.ulauncher.ulauncher-emoji".source = LT.sources.ulauncher-emoji.src;
+    "com.github.rnairn01.ulauncher-meme-my-text" = LT.sources.ulauncher-meme-my-text.src;
+    "com.github.sergius02.ulauncher-colorconverter" = LT.sources.ulauncher-colorconverter.src;
+    "com.github.tchar.ulauncher-albert-calculate-anything" = LT.sources.ulauncher-albert-calculate-anything.src;
+    "com.github.ulauncher.ulauncher-emoji" = LT.sources.ulauncher-emoji.src;
   };
 }
