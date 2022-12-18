@@ -109,8 +109,6 @@
               inputs.colmena.overlay
               inputs.nix-alien.overlay
               inputs.nixos-cn.overlay
-              (inputs.nur-xddxdd.overlays.custom
-                config.boot.kernelPackages.nvidia_x11)
             ] ++ (import ./overlays { inherit inputs; });
           };
           networking.hostName = lib.mkForce (lib.removePrefix "_" n);
@@ -121,6 +119,7 @@
         inputs.dwarffs.nixosModules.dwarffs
         inputs.impermanence.nixosModules.impermanence
         inputs.home-manager.nixosModules.home-manager
+        inputs.nur-xddxdd.nixosModules.setupOverlay
         inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
         (./hosts + "/${n}/configuration.nix")
       ];
