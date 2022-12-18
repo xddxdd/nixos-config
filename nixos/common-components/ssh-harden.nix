@@ -20,6 +20,8 @@
 
   services.openssh = {
     enable = true;
+    startWhenNeeded = true;
+
     forwardX11 = true;
     passwordAuthentication = false;
     permitRootLogin = lib.mkForce "prohibit-password";
