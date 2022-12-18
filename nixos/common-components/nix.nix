@@ -34,6 +34,7 @@ in
       connect-timeout = 5;
       experimental-features = "nix-command flakes ca-derivations";
       fallback = true;
+      keep-going = true;
       keep-outputs = true;
       log-lines = 25;
       max-free = 1024 * 1024 * 1024;
