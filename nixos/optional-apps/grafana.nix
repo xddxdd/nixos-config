@@ -61,6 +61,7 @@
         domain = "dashboard.xuyh0120.win";
         root_url = "https://dashboard.xuyh0120.win/";
         socket = "/run/grafana/grafana.sock";
+        socket_mode = "0777";
       };
       smtp = with config.programs.msmtp.accounts.default; {
         enabled = true;
@@ -76,11 +77,8 @@
 
   systemd.services.grafana.serviceConfig = {
     EnvironmentFile = config.age.secrets.grafana-oauth.path;
-
-    ExecStartPost = pkgs.writeShellScript "grafana-post" ''
-      while [ ! -S ${config.services.grafana.settings.server.socket} ]; do sleep 1; done
-      chmod 777 ${config.services.grafana.settings.server.socket}
-    '';
+    Restart = "on-failure";
+    SystemCallFilter = [ "@chown" ];
   };
 
   users.users.nginx.extraGroups = [ "grafana" ];

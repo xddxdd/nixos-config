@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://h5mota.com/games/24/24.zip";
-    sha256 = "02w9lr1y4wdpc3ymhp9n8ms39b43994xvqcfcifh0vmqafhd77kr";
+    sha256 = "0na2xl11z2yag0gjw4asaaizxxg2sghynaq3xzi0c5c4klf6kr47";
   };
 
   nativeBuildInputs = [ unar ];

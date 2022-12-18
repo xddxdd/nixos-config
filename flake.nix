@@ -5,12 +5,21 @@
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     cities-json = {
       url = "github:lutangar/cities.json";
       flake = false;
@@ -35,6 +44,7 @@
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     nixos-asterisk-music = {
       url = "git+ssh://git@git.lantian.pub:2222/lantian/nixos-asterisk-music.git";
       flake = false;
@@ -59,15 +69,6 @@
     secrets = {
       url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
       flake = false;
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    impermanence.url = "github:nix-community/impermanence";
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
