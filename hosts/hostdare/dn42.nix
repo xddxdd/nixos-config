@@ -484,7 +484,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22778;
-        remoteAddress = "v4.lax1.tivipax.tk";
+        # remoteAddress = "v4.lax1.tivipax.tk";
         remotePort = 22547;
         wireguardPubkey = "cPtZSwHTMrzsIv88mnnkMHyjItsRQqHJqdGQ/+ix9Bs=";
       };
