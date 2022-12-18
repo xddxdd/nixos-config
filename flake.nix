@@ -83,7 +83,7 @@
         ({ config, ... }: {
           deployment =
             let
-              inherit (LT.hosts."${n}" or LT.hostDefaults) hostname sshPort role manualDeploy;
+              inherit (LT.hosts."${n}" or (LT.hostDefaults n { })) hostname sshPort role manualDeploy;
             in
             {
               allowLocalDeployment = role == LT.roles.client;
@@ -133,29 +133,26 @@
 
       hosts = lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (n: {
         inherit specialArgs;
+        inherit (LT.hosts."${n}" or (LT.hostDefaults n { })) system;
         modules = modulesFor n;
-        system = LT.hosts."${n}".system or "x86_64-linux";
       });
 
       outputsBuilder = channels:
         let
           pkgs = channels.nixpkgs;
           inherit (pkgs) system;
-
-          mkApp = path: {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "script" (pkgs.callPackage path specialArgs));
-          };
         in
         {
-          apps = {
-            colmena = mkApp ./scripts/colmena.nix;
-            check = mkApp ./scripts/check.nix;
-            dnscontrol = mkApp ./scripts/dnscontrol.nix;
-            gcore = mkApp ./scripts/gcore;
-            nvfetcher = mkApp ./scripts/nvfetcher.nix;
-            update = mkApp ./scripts/update.nix;
-          };
+          apps = lib.mapAttrs
+            (n: v: flake-utils.lib.mkApp { drv = pkgs.writeShellScriptBin "script" (pkgs.callPackage v specialArgs); })
+            {
+              colmena = ./scripts/colmena.nix;
+              check = ./scripts/check.nix;
+              dnscontrol = ./scripts/dnscontrol.nix;
+              gcore = ./scripts/gcore;
+              nvfetcher = ./scripts/nvfetcher.nix;
+              update = ./scripts/update.nix;
+            };
         };
 
       colmenaHive = LT.flake.mkColmenaHive
