@@ -24,18 +24,29 @@
     generateNixPathFromInputs = true;
     generateRegistryFromInputs = true;
     linkInputs = true;
+    nrBuildUsers = 0;
     optimise.automatic = true;
     settings = {
       # https://jackson.dev/post/nix-reasonable-defaults/
+      auto-allocate-uids = true;
       auto-optimise-store = true;
       connect-timeout = 5;
-      experimental-features = "nix-command flakes ca-derivations";
+      experimental-features = builtins.concatStringsSep " " [
+        "ca-derivations"
+        "flakes"
+        "nix-command"
+      ];
+      extra-experimental-features = builtins.concatStringsSep " " [
+        "auto-allocate-uids"
+        "cgroups"
+      ];
       fallback = true;
       keep-going = true;
       keep-outputs = true;
       log-lines = 25;
       max-free = 1024 * 1024 * 1024;
       min-free = 128 * 1024 * 1024;
+      use-cgroups = true;
       warn-dirty = false;
 
       inherit (LT.constants.nix) substituters trusted-public-keys;
