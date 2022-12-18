@@ -4,10 +4,6 @@
 { config, pkgs, lib, modulesPath, ... }:
 
 {
-  imports = [
-    ../../nixos/hardware/general.nix
-  ];
-
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

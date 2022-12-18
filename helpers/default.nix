@@ -15,6 +15,7 @@ let
     this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
+    flake = import ./flake.nix { inherit lib; };
     geo = import ./geo.nix { inherit pkgs lib sanitizeName inputs; };
     roles = import ./roles.nix;
     serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;

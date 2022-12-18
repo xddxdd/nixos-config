@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../nixos/hardware/general.nix
     ../../nixos/hardware/lvm.nix
   ];
 

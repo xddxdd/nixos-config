@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 
 final: prev: rec {
   nixos-cn = prev.nixos-cn // {
