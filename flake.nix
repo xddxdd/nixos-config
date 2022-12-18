@@ -31,11 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -121,7 +116,6 @@
                 inputs.colmena.overlay
                 inputs.nix-alien.overlay
                 inputs.nixos-cn.overlay
-                inputs.nil.overlays.nil
                 (inputs.nur-xddxdd.overlays.custom
                   config.boot.kernelPackages.nvidia_x11)
               ] ++ (import ./overlays { inherit inputs lib; });
