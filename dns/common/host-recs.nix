@@ -17,7 +17,7 @@ let
 
   ptrPrefix = v:
     if v.city != null
-    then "${lib.replaceChars ["_"] ["-"] v.city.sanitized}."
+    then "${lib.replaceStrings ["_"] ["-"] v.city.sanitized}."
     else "";
 
   hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";

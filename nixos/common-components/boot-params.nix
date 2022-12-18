@@ -20,7 +20,7 @@ lib.mkIf (!config.boot.isContainer) {
           (args:
             let
               efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
-              efiSysMountPoint' = lib.replaceChars [ "/" ] [ "-" ] efiSysMountPoint;
+              efiSysMountPoint' = lib.replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
               bootloaderId = if args.efiBootloaderId == null then "NixOS${efiSysMountPoint'}" else args.efiBootloaderId;
             in
             ''

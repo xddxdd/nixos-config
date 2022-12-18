@@ -58,24 +58,24 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "fc96aeba40b42b8d248c96c7ee0c366902e96bbc";
+    version = "e9dcdbc9d701021f03eb628fdc534f552c2e1125";
     src = fetchFromGitHub ({
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "fc96aeba40b42b8d248c96c7ee0c366902e96bbc";
+      rev = "e9dcdbc9d701021f03eb628fdc534f552c2e1125";
       fetchSubmodules = false;
-      sha256 = "sha256-EDUfoX49bmXFiHeZVkLAvsCvqwTWiRg0W/WF13WPLcA=";
+      sha256 = "sha256-9fodbeXqeauK05wfubocem68Sqhq8tSZaZM4IfJ6UJk=";
     });
   };
   openvpn = {
     pname = "openvpn";
-    version = "0f904615bd2eac9d246055ff1ca4e4da95586f86";
+    version = "97929d16a4eb05cb521a469ff4eaca32761699f3";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "0f904615bd2eac9d246055ff1ca4e4da95586f86";
+      rev = "97929d16a4eb05cb521a469ff4eaca32761699f3";
       fetchSubmodules = false;
-      sha256 = "sha256-EMwQK2Mcub7C+jj5KPK3SE2asmMN+gjUjjk5tjKrh28=";
+      sha256 = "sha256-jM0UySf/dEBkx3+mDV38o+LGu7yVRw65wyVhuboO86k=";
     });
   };
   ovpn-dco = {
@@ -146,13 +146,13 @@
   };
   ulauncher-tldr = {
     pname = "ulauncher-tldr";
-    version = "2ad5d29963db649775f68a7815af18509f4c287f";
+    version = "9783c7798dac82007ab85fb2d9f4185e5be104bf";
     src = fetchFromGitHub ({
       owner = "dhelmr";
       repo = "ulauncher-tldr";
-      rev = "2ad5d29963db649775f68a7815af18509f4c287f";
+      rev = "9783c7798dac82007ab85fb2d9f4185e5be104bf";
       fetchSubmodules = false;
-      sha256 = "sha256-NRNRhxzjzw2RTIrU8RZMMYlJQ7m+KC4PxpscJvpL2A8=";
+      sha256 = "sha256-3sHhU8Oknq84f584zdHA42NxZ7wCqOoqFwYtzRVvFGc=";
     });
   };
   ulauncher-virtualbox = {
