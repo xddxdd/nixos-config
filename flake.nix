@@ -71,136 +71,97 @@
     };
   };
 
-  outputs = { self, flake-utils, ... }@inputs:
+  outputs = { self, flake-utils, flake-utils-plus, ... }@inputs:
     let
       ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
-      inherit (inputs.flake-utils-plus.lib.mkFlake {
-        inherit self inputs;
-        supportedSystems = flake-utils.lib.allSystems;
-        channels.nixpkgs = {
-          config = {
-            allowUnfree = true;
-            # contentAddressedByDefault = true;
-          };
-          input = inputs.nixpkgs;
-          patches = ls ./patches/nixpkgs;
-        };
-        outputsBuilder = channels: channels;
-      }) nixpkgs;
 
-      inherit (nixpkgs."x86_64-linux") lib;
+      inherit (inputs.nixpkgs) lib;
       LT = import ./helpers { inherit lib inputs; };
       specialArgs = { inherit inputs; };
 
-      modulesFor = n:
-        let
-          inherit (LT.hosts."${n}") system hostname sshPort role manualDeploy;
-        in
-        [
-          ({ config, ... }: {
-            deployment = {
+      modulesFor = n: [
+        ({ config, ... }: {
+          deployment =
+            let
+              inherit (LT.hosts."${n}" or LT.hostDefaults) hostname sshPort role manualDeploy;
+            in
+            {
               allowLocalDeployment = role == LT.roles.client;
               targetHost = hostname;
               targetPort = sshPort;
               targetUser = "root";
               tags = [ role ] ++ (lib.optional (!manualDeploy) "default");
             };
-            home-manager = {
-              backupFileExtension = "bak";
-              extraSpecialArgs = specialArgs;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-            nixpkgs = {
-              overlays = [
-                inputs.colmena.overlay
-                inputs.nix-alien.overlay
-                inputs.nixos-cn.overlay
-                (inputs.nur-xddxdd.overlays.custom
-                  config.boot.kernelPackages.nvidia_x11)
-              ] ++ (import ./overlays { inherit inputs lib; });
-              pkgs = nixpkgs."${system}";
-            };
-            networking.hostName = n;
-            system.stateVersion = LT.constants.stateVersion;
-          })
-          inputs.agenix.nixosModules.age
-          inputs.dwarffs.nixosModules.dwarffs
-          inputs.flake-utils-plus.nixosModules.autoGenFromInputs
-          inputs.impermanence.nixosModules.impermanence
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
-        ] ++ [
-          (./hosts + "/${n}/configuration.nix")
-        ];
-
-      extraModulesFor = n: [
-        inputs.colmena.nixosModules.deploymentOptions
-      ];
-
-      eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
-    in
-    rec {
-      nixosConfigurations = lib.mapAttrs
-        (n: { system, ... }:
-          inputs.nixpkgs.lib.nixosSystem {
-            inherit system specialArgs;
-            modules = modulesFor n;
-            extraModules = extraModulesFor n;
-          })
-        LT.hosts;
-
-      packages = eachSystem (system: {
-        homeConfigurations =
-          let
-            cfg = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
-              inherit system;
-              inherit (LT.constants) stateVersion;
-              configuration = { config, pkgs, lib, ... }: {
-                home.stateVersion = LT.constants.stateVersion;
-                imports = [ home/non-nixos.nix ];
-              };
-            } // attrs);
-          in
-          {
-            lantian = cfg rec {
-              username = "lantian";
-              homeDirectory = "/home/${username}";
-            };
-            root = cfg rec {
-              username = "root";
-              homeDirectory = "/root";
-            };
+          home-manager = {
+            backupFileExtension = "bak";
+            extraSpecialArgs = specialArgs;
+            useGlobalPkgs = true;
+            useUserPackages = true;
           };
-
-        nixosCD = import ./nixos/nixos-cd.nix {
-          inherit inputs nixpkgs lib system;
-          inherit (LT) constants;
+          nixpkgs = {
+            overlays = [
+              inputs.colmena.overlay
+              inputs.nix-alien.overlay
+              inputs.nixos-cn.overlay
+              (inputs.nur-xddxdd.overlays.custom
+                config.boot.kernelPackages.nvidia_x11)
+            ] ++ (import ./overlays { inherit inputs; });
+          };
+          networking.hostName = lib.mkForce (lib.removePrefix "_" n);
+          system.stateVersion = LT.constants.stateVersion;
+        })
+        inputs.agenix.nixosModules.age
+        inputs.colmena.nixosModules.deploymentOptions
+        inputs.dwarffs.nixosModules.dwarffs
+        inputs.impermanence.nixosModules.impermanence
+        inputs.home-manager.nixosModules.home-manager
+        inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+        (./hosts + "/${n}/configuration.nix")
+      ];
+    in
+    flake-utils-plus.lib.mkFlake {
+      inherit self inputs;
+      supportedSystems = flake-utils.lib.allSystems;
+      channels.nixpkgs = {
+        config = {
+          allowUnfree = true;
+          # contentAddressedByDefault = true;
         };
+        input = inputs.nixpkgs;
+        patches = ls ./patches/nixpkgs;
+      };
+
+      hosts = lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (n: {
+        inherit specialArgs;
+        modules = modulesFor n;
+        system = LT.hosts."${n}".system or "x86_64-linux";
       });
 
-      colmena = {
-        meta.allowApplyAll = false;
-        meta.nixpkgs = { inherit lib; };
-        meta.nodeNixpkgs = lib.mapAttrs (n: { system, ... }: nixpkgs."${system}") LT.nixosHosts;
-        meta.specialArgs = specialArgs;
-      } // (lib.mapAttrs (n: v: { imports = modulesFor n; }) LT.nixosHosts);
-
-      apps = eachSystem (system:
+      outputsBuilder = channels:
         let
-          pkgs = nixpkgs."${system}";
+          pkgs = channels.nixpkgs;
+          inherit (pkgs) system;
+
           mkApp = path: {
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "script" (pkgs.callPackage path specialArgs));
           };
         in
         {
-          colmena = mkApp ./scripts/colmena.nix;
-          check = mkApp ./scripts/check.nix;
-          dnscontrol = mkApp ./scripts/dnscontrol.nix;
-          gcore = mkApp ./scripts/gcore;
-          nvfetcher = mkApp ./scripts/nvfetcher.nix;
-          update = mkApp ./scripts/update.nix;
-        });
+          apps = {
+            colmena = mkApp ./scripts/colmena.nix;
+            check = mkApp ./scripts/check.nix;
+            dnscontrol = mkApp ./scripts/dnscontrol.nix;
+            gcore = mkApp ./scripts/gcore;
+            nvfetcher = mkApp ./scripts/nvfetcher.nix;
+            update = mkApp ./scripts/update.nix;
+          };
+        };
+
+      colmenaHive = LT.flake.mkColmenaHive
+        { allowApplyAll = false; }
+        (lib.filterAttrs (n: v: !lib.hasPrefix "_" n) self.nixosConfigurations);
+
+      nixosCD = self.nixosConfigurations._nixos-cd.config.system.build.isoImage;
     };
 }

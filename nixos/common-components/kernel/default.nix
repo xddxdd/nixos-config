@@ -53,44 +53,45 @@ lib.mkIf (!config.boot.isContainer) {
     ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
       "net.ifnames=0"
     ]);
-    kernelPackages = kpkg.extend (final: prev: rec {
-      acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
-      cryptodev = llvmOverride prev.cryptodev;
+    kernelPackages = kpkg.extend
+      (final: prev: rec {
+        acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
+        cryptodev = llvmOverride prev.cryptodev;
 
-      # Disabled for crashing on latest kernel
-      # i915-sriov = llvmOverride (final.callPackage ./i915-sriov.nix { });
+        # Disabled for crashing on latest kernel
+        # i915-sriov = llvmOverride (final.callPackage ./i915-sriov.nix { });
 
-      kvmfr = llvmOverride prev.kvmfr;
-      nft-fullcone = llvmOverride (final.callPackage ./nft-fullcone.nix { });
-      nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
-      ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
-      v4l2loopback = llvmOverride prev.v4l2loopback;
-      virtualbox = llvmOverride prev.virtualbox;
-      x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace Makefile \
-            --replace "gcc" "cc"
-        '';
+        kvmfr = llvmOverride prev.kvmfr;
+        nft-fullcone = llvmOverride (final.callPackage ./nft-fullcone.nix { });
+        nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
+        ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
+        v4l2loopback = llvmOverride prev.v4l2loopback;
+        virtualbox = llvmOverride prev.virtualbox;
+        x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace Makefile \
+              --replace "gcc" "cc"
+          '';
+        });
+
+        nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
+
+        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
+        nvidia_x11 = nvidiaPackages.stable;
+        nvidia_x11_beta = nvidiaPackages.beta;
+        nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
+        nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
+        nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
+        nvidia_x11_production = nvidiaPackages.production;
+        nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
+
+        # this is not a replacement for nvidia_x11*
+        # only the opensource kernel driver exposed for hydra to build
+        nvidia_x11_beta_open = nvidiaPackages.beta.open;
+        nvidia_x11_production_open = nvidiaPackages.production.open;
+        nvidia_x11_stable_open = nvidiaPackages.stable.open;
+        nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
       });
-
-      nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
-
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
-      nvidia_x11 = nvidiaPackages.stable;
-      nvidia_x11_beta = nvidiaPackages.beta;
-      nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
-      nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
-      nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
-      nvidia_x11_production = nvidiaPackages.production;
-      nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
-
-      # this is not a replacement for nvidia_x11*
-      # only the opensource kernel driver exposed for hydra to build
-      nvidia_x11_beta_open = nvidiaPackages.beta.open;
-      nvidia_x11_production_open = nvidiaPackages.production.open;
-      nvidia_x11_stable_open = nvidiaPackages.stable.open;
-      nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
-    });
     kernelModules = [ "cryptodev" "nft_fullcone" "nullfs" "ovpn-dco" ]
       ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
     extraModulePackages = with config.boot.kernelPackages; [
@@ -109,7 +110,6 @@ lib.mkIf (!config.boot.isContainer) {
 
       compressor = "zstd";
       compressorArgs = [ "-19" "-T0" ];
-      includeDefaultModules = false;
       systemd.enable = true;
     };
 
