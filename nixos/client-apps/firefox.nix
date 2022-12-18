@@ -18,17 +18,19 @@ in
         "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256" = false;
         "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384" = false;
         "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384" = false;
-        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" = true;
-        "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" = true;
-        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" = true;
-        "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" = true;
-        "TLS_DHE_RSA_WITH_AES_128_CBC_SHA" = true;
-        "TLS_DHE_RSA_WITH_AES_256_CBC_SHA" = true;
-        "TLS_RSA_WITH_AES_128_GCM_SHA256" = true;
-        "TLS_RSA_WITH_AES_256_GCM_SHA384" = true;
-        "TLS_RSA_WITH_AES_128_CBC_SHA" = true;
-        "TLS_RSA_WITH_AES_256_CBC_SHA" = true;
-        "TLS_RSA_WITH_3DES_EDE_CBC_SHA" = true;
+
+        # Reenabled for breaking many sites
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" = false;
+        "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" = false;
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" = false;
+        "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" = false;
+        "TLS_DHE_RSA_WITH_AES_128_CBC_SHA" = false;
+        "TLS_DHE_RSA_WITH_AES_256_CBC_SHA" = false;
+        "TLS_RSA_WITH_AES_128_GCM_SHA256" = false;
+        "TLS_RSA_WITH_AES_256_GCM_SHA384" = false;
+        "TLS_RSA_WITH_AES_128_CBC_SHA" = false;
+        "TLS_RSA_WITH_AES_256_CBC_SHA" = false;
+        "TLS_RSA_WITH_3DES_EDE_CBC_SHA" = false;
       };
       DisablePocket = true;
       DisableProfileImport = true;
@@ -68,12 +70,15 @@ in
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
         "gfx.x11-egl.force-enabled" = true;
+        "media.av1.enabled" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         # FFVPX must be disabled for VAAPI AV1 to work
         "media.ffvpx.enabled" = false;
         "media.hardware-video-decoding.force-enabled" = true;
+        "media.hls.enabled" = true;
         "media.rdd-ffvpx.enabled" = false;
         "media.utility-ffvpx.enabled" = false;
+        "media.videocontrols.picture-in-picture.enabled" = false;
         "security.insecure_connection_text.enabled" = true;
         "security.insecure_connection_text.pbmode.enabled" = true;
         "security.osclientcerts.autoload" = true;
