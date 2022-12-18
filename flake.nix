@@ -124,6 +124,19 @@
         inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
         (./hosts + "/${n}/configuration.nix")
       ];
+
+      # https://github.com/zhaofengli/colmena/blob/main/src/nix/hive/eval.nix
+      mkColmenaHive = metaConfig: nodes: with builtins; rec {
+        __schema = "v0";
+        inherit metaConfig nodes;
+
+        toplevel = lib.mapAttrs (_: v: v.config.system.build.toplevel) nodes;
+        deploymentConfig = lib.mapAttrs (_: v: v.config.deployment) nodes;
+        deploymentConfigSelected = names: lib.filterAttrs (name: _: elem name names) deploymentConfig;
+        evalSelected = names: lib.filterAttrs (name: _: elem name names) toplevel;
+        evalSelectedDrvPaths = names: lib.mapAttrs (_: v: v.drvPath) (evalSelected names);
+        introspect = f: f { inherit lib; pkgs = nixpkgs; nodes = uncheckedNodes; };
+      };
     in
     flake-utils-plus.lib.mkFlake {
       inherit self inputs;
@@ -166,7 +179,7 @@
             };
         };
 
-      colmenaHive = LT.flake.mkColmenaHive
+      colmenaHive = mkColmenaHive
         { allowApplyAll = false; }
         (lib.filterAttrs (n: v: !lib.hasPrefix "_" n) self.nixosConfigurations);
 
