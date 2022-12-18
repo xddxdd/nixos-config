@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   avatars = pkgs.stdenv.mkDerivation rec {
     pname = "avatars";
     version = "1.0";

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
   environment.systemPackages = [ config.boot.kernelPackages.x86_energy_perf_policy ];

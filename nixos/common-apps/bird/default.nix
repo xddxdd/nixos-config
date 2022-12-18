@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   anycast = import ./anycast.nix args;
   dn42 = import ./dn42.nix args;
   ltnet = import ./ltnet.nix args;

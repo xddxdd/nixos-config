@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../helpers args;
-in
 {
   xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" {
     "com.github.dhelmr.ulauncher-tldr" = LT.sources.ulauncher-tldr.src;

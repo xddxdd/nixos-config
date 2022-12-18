@@ -1,8 +1,6 @@
-{ pkgs, lib, inputs, ... }@args:
+{ pkgs, lib, LT, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   py = pkgs.python3.withPackages (p: with p; [ requests ]);
 
   script = ./gcore.py;

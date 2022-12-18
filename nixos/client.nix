@@ -1,7 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../helpers args;
   homeConfig = import ../home/client.nix (args // {
     lib = lib // { inherit (inputs.home-manager.lib) hm; };
   });

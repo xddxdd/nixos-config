@@ -77,7 +77,13 @@
 
       inherit (inputs.nixpkgs) lib;
       LT = import ./helpers { inherit lib inputs; };
-      specialArgs = { inherit inputs; };
+      specialArgsFor = n: {
+        inherit inputs;
+        LT = import ./helpers {
+          inherit lib inputs;
+          inherit (self.nixosConfigurations."${n}") config pkgs;
+        };
+      };
 
       modulesFor = n: [
         ({ config, ... }: {
@@ -94,7 +100,7 @@
             };
           home-manager = {
             backupFileExtension = "bak";
-            extraSpecialArgs = specialArgs;
+            extraSpecialArgs = specialArgsFor n;
             useGlobalPkgs = true;
             useUserPackages = true;
           };
@@ -132,9 +138,9 @@
       };
 
       hosts = lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (n: {
-        inherit specialArgs;
         inherit (LT.hosts."${n}" or (LT.hostDefaults n { })) system;
         modules = modulesFor n;
+        specialArgs = specialArgsFor n;
       });
 
       outputsBuilder = channels:
@@ -144,7 +150,12 @@
         in
         {
           apps = lib.mapAttrs
-            (n: v: flake-utils.lib.mkApp { drv = pkgs.writeShellScriptBin "script" (pkgs.callPackage v specialArgs); })
+            (n: v: flake-utils.lib.mkApp {
+              drv = pkgs.writeShellScriptBin "script" (pkgs.callPackage v {
+                inherit inputs;
+                LT = import ./helpers { inherit lib inputs pkgs; };
+              });
+            })
             {
               colmena = ./scripts/colmena.nix;
               check = ./scripts/check.nix;

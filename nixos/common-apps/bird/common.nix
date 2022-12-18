@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../../helpers args;
-in
 rec {
   DN42_AS = "4242422547";
   DN42_TEST_AS = "4242422557";

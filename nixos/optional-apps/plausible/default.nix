@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   netns = LT.netns {

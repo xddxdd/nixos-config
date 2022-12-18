@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../helpers args;
-in
 {
   age.secrets.nix-access-token.file = inputs.secrets + "/nix/access-token.age";
   age.secrets.nix-privkey = {

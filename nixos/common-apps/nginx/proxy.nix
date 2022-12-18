@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   nginxConfig = pkgs.writeText "nginx-proxy.conf" ''
     daemon off;
     error_log syslog:server=unix:/dev/log,nohostname crit;

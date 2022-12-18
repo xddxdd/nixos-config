@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../helpers args;
-in
 {
   boot.extraModprobeConfig = ''
     options i915 enable_fbc=1 ${lib.optionalString (!config.virtualisation.kvmgt.enable) "enable_guc=3"}

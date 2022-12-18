@@ -1,8 +1,6 @@
-{ pkgs, lib, config, options, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, options, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   publicPeers = lib.importJSON ./public-peers.json;
   regionsToServers = regions: lib.flatten (builtins.map (region: publicPeers."${region}" or [ ]) regions);
 in

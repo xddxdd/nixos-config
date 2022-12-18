@@ -1,10 +1,9 @@
-{ pkgs, lib, config, options, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, options, utils, inputs, ... }@args:
 
 let
   myASN = 4242422547;
   myASNAbbr = 2547;
 
-  LT = import ../../helpers args;
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
   setupAddressing = interfaceName: v: lib.optionalString (v.tunnel.mtu != null) ''

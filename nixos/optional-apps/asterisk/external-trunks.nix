@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../../helpers args;
-in
 rec {
   externalTrunk = { name, number, url }: ''
     [${name}]
