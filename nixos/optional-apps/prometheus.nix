@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   scrapeAllNodes = jobName: port: {
     job_name = jobName;
     static_configs = lib.mapAttrsToList

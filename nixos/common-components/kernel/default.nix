@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   kpkg =
     if pkgs.stdenv.isx86_64 then
       pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-lto

@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   corednsAuthoritativeNetns = LT.netns {
     name = "coredns-authoritative";
     inherit (config.services.coredns) enable;

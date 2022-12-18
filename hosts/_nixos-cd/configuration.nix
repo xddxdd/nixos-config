@@ -1,8 +1,5 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-let
-  LT = import ../../helpers args;
-in
 {
   # Avoid cyclic dependency
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/cd-dvd/iso-image.nix

@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   beverly = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "beverly";
     version = "1.0";

@@ -1,7 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
   inherit (import ./helpers.nix args) compressStaticAssets;
   labRoot = "/var/www/lab.lantian.pub";
 in

@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   identifierWebapp = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "konnect-identifier-webapp";
     version = "1.0.0";

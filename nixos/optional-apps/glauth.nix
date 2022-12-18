@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   hexdump = s: builtins.readFile (pkgs.runCommandLocal "hexdump.txt" { } ''

@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   himawaripy = pkgs.python3Packages.buildPythonPackage rec {
     inherit (LT.sources.himawaripy) pname version src;
 

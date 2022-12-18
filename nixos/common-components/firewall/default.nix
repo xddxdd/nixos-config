@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker
   nftRules = pkgs.callPackage ./nft-rules.nix args;

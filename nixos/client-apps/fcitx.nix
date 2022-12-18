@@ -1,4 +1,4 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
   i18n.inputMethod = {

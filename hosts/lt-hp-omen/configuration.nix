@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   resetKeyboardBacklight = pkgs.writeShellScriptBin "reset-keyboard-backlight" ''
     for F in /sys/devices/platform/hp-wmi/rgb_zones/*; do
       echo "0f84fa" | sudo tee $F

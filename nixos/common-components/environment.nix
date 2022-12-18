@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   # https://unix.stackexchange.com/a/631226
   x86-arch-level = pkgs.writeScriptBin "x86-arch-level" ''
     #!${pkgs.gawk}/bin/awk -f

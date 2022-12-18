@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   defaultCfg = {
     client = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client.conf.json");
     client-rt = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client-rt.conf.json");

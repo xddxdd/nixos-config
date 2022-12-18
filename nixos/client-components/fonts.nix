@@ -1,4 +1,4 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
   fonts.fonts = with pkgs; lib.mkForce [

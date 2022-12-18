@@ -1,8 +1,6 @@
-{ pkgs, lib, config, options, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, options, utils, inputs, ... }@args:
 
 let
-  LT = import ../../helpers args;
-
   consoleFontSize =
     let
       targetSize = builtins.floor (config.lantian.hidpi * 16);

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
   age.secrets.genshin-impact-cookies.file = inputs.secrets + "/genshin-impact-cookies.age";

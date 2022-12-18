@@ -1,8 +1,6 @@
-{ pkgs, lib, config, utils, inputs, ... }@args:
+{ pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  LT = import ../../../helpers args;
-
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
 
   # http://www.cs.columbia.edu/~hgs/audio/codecs.html

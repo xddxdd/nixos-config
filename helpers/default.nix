@@ -35,7 +35,6 @@ let
     f
     { };
 in
-if config == { } && pkgs == { } then args else
 args // rec {
   container = callHelper ./container.nix;
   gui = callHelper ./gui.nix;
