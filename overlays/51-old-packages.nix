@@ -1,11 +1,14 @@
 { inputs, ... }:
 
 final: prev:
+let
+  pkgs-22-05 = inputs.nixpkgs-22-05.legacyPackages."${final.system}";
+  pkgs-22-11 = inputs.nixpkgs-22-11.legacyPackages."${final.system}";
+in
 rec {
-  inherit (inputs.nixpkgs-22-05.legacyPackages."${final.system}")
-    plausible;
-
   # clisp: https://github.com/NixOS/nixpkgs/pull/205270
-  inherit (inputs.nixpkgs-22-11.legacyPackages."${final.system}")
-    clisp;
+  inherit (pkgs-22-11) clisp;
+
+  # plausible: crashes on oneprovider with latest erlang runtime
+  plausible = prev.plausible.override { beamPackages = pkgs-22-05.beamPackages; };
 }
