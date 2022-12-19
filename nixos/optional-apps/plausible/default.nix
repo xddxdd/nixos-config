@@ -82,12 +82,15 @@ in
     plausible = netns.bind {
       environment = {
         RELEASE_DISTRIBUTION = "none";
-        GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
-        # LISTEN_IP = LT.this.ltnet.IPv4;
+        LISTEN_IP = "0.0.0.0";
         RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
           -kernel inet_dist_use_interface "{127,0,0,1}"
         '';
         ERL_EPMD_ADDRESS = "127.0.0.1";
+
+        GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
+        GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
+        IP_GEOLOCATION_DB = "/var/lib/GeoIP/GeoLite2-City.mmdb";
 
         STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
         RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
@@ -99,7 +102,7 @@ in
         DynamicUser = lib.mkForce false;
         User = "plausible";
         Group = "plausible";
-        StateDirectory = lib.mkForce "";
+        StateDirectory = lib.mkForce "plausible";
         RuntimeDirectory = "plausible";
         WorkingDirectory = lib.mkForce "/run/plausible";
       };
