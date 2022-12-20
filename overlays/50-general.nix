@@ -5,6 +5,20 @@ let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 rec {
+  audacious = prev.audacious.overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      mv "$out/bin/audacious" "$out/bin/.audacious-orig"
+
+      cat > "$out/bin/audacious" <<EOF
+      #!/bin/sh
+      "$out/bin/.audacious-orig" "\$@" &
+      sleep 1
+      exec "${final.osdlyrics}/bin/osdlyrics"
+      EOF
+
+      chmod +x "$out/bin/audacious"
+    '';
+  });
   bird = final.bird-babel-rtt;
   calibre = prev.calibre.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
