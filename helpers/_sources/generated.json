@@ -126,11 +126,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "97929d16a4eb05cb521a469ff4eaca32761699f3",
-            "sha256": "sha256-jM0UySf/dEBkx3+mDV38o+LGu7yVRw65wyVhuboO86k=",
+            "rev": "e567f34262b0670fd51cbbcb6c6866b046454cee",
+            "sha256": "sha256-1ZgZ41pyA4/goWYieEMB5aThYFjD0GRxgE5CKEYX7Go=",
             "type": "github"
         },
-        "version": "97929d16a4eb05cb521a469ff4eaca32761699f3"
+        "version": "e567f34262b0670fd51cbbcb6c6866b046454cee"
     },
     "ovpn-dco": {
         "cargoLocks": null,

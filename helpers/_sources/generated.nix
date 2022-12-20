@@ -69,13 +69,13 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "97929d16a4eb05cb521a469ff4eaca32761699f3";
+    version = "e567f34262b0670fd51cbbcb6c6866b046454cee";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "97929d16a4eb05cb521a469ff4eaca32761699f3";
+      rev = "e567f34262b0670fd51cbbcb6c6866b046454cee";
       fetchSubmodules = false;
-      sha256 = "sha256-jM0UySf/dEBkx3+mDV38o+LGu7yVRw65wyVhuboO86k=";
+      sha256 = "sha256-1ZgZ41pyA4/goWYieEMB5aThYFjD0GRxgE5CKEYX7Go=";
     });
   };
   ovpn-dco = {
