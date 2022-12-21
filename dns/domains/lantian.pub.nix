@@ -52,7 +52,7 @@ let
     (CNAME { name = "buypass-ssl"; target = common.records.GeoDNSAlias; ttl = "1h"; })
     (CNAME { name = "ci"; target = "oneprovider"; cloudflare = true; })
     (CNAME { name = "ci-github"; target = "oneprovider"; cloudflare = true; })
-    (CNAME { name = "comments"; target = common.records.GeoDNSAlias; ttl = "1h"; })
+    (CNAME { name = "comments"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "git"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "gopher"; target = "hostdare"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "oneprovider"; ttl = "1h"; })

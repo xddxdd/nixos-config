@@ -17,14 +17,22 @@ let
           add_header Cache-Control "public, no-transform";
         '';
       };
-      "= /api/event" = {
-        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
-        extraConfig = LT.nginx.locationProxyConf;
-      };
       "= /favicon.ico".extraConfig = ''
         expires 31536000;
       '';
       "/feed".tryFiles = "$uri /feed.xml /atom.xml =404";
+
+      # Plausible Analytics
+      "= /api/event" = {
+        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
+        extraConfig = LT.nginx.locationProxyConf;
+      };
+
+      # Waline
+      "/comment".extraConfig = ''
+        proxy_pass http://${LT.hosts."oneprovider".ltnet.IPv4}:${LT.portStr.Waline};
+        proxy_set_header REMOTE-HOST $remote_addr;
+      '' + LT.nginx.locationProxyConf;
 
       # Matrix Federation
       "= /.well-known/matrix/server".extraConfig =
