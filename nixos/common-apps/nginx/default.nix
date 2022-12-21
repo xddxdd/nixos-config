@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./ingress-proxy.nix
     ./libravatar.nix
     ./nginx.nix
     ./oauth2-proxy.nix
