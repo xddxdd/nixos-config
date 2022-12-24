@@ -1,6 +1,8 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
+  fonts.fontDir.enable = true;
+
   fonts.fonts = with pkgs; lib.mkForce [
     (nerdfonts.override {
       fonts = [

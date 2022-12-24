@@ -35,6 +35,13 @@ in
   time.timeZone = "America/Chicago";
 
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
+
+  location = {
+    provider = if LT.this.role == LT.roles.client then "geoclue2" else "manual";
+    latitude = LT.this.city.lat;
+    longitude = LT.this.city.lng;
+  };
 
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
@@ -129,6 +136,11 @@ in
     mtr.enable = true;
     ssh.forwardX11 = true;
     traceroute.enable = true;
+
+    fuse = {
+      mountMax = 32767;
+      userAllowOther = true;
+    };
   };
 
   security.protectKernelImage = true;
