@@ -22,7 +22,10 @@ in
     in
     {
       enable = true;
+      enableFccUnlock = true;
+      enableStrongSwan = true;
       dns = "none";
+      firewallBackend = "none";
       unmanaged = [ unmanagedConfig ];
     };
 

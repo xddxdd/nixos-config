@@ -6,7 +6,6 @@
     (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
     (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
     an-anime-game-launcher-gtk-bin
-    android-tools
     aria
     audacious
     baidupcs-go
