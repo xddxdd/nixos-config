@@ -121,7 +121,10 @@ in
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
   systemd.services.backup = {
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      CPUQuota = "40%";
+    };
     script = ''
       SNAPSHOT_DIR=/nix/.snapshot
       HAS_ERROR=0
