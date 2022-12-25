@@ -25,6 +25,7 @@
         TimeoutSec = 900;
         RuntimeDirectory = "dn42-pingfinder";
         WorkingDirectory = "/run/dn42-pingfinder";
+        CPUQuota = "10%";
       };
       unitConfig = {
         After = "network.target";
