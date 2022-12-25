@@ -131,6 +131,8 @@ in
       mysqlenv-rsync
     ];
     restartIfChanged = false;
-    # postStart = lib.mkForce "";
+    serviceConfig = {
+      Restart = lib.mkForce "on-failure";
+    };
   };
 }
