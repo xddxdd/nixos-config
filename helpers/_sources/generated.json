@@ -1,4 +1,23 @@
 {
+    "auto-mihoyo-bbs": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "auto-mihoyo-bbs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "coolxitech",
+            "repo": "AutoMihoyoBBS",
+            "rev": "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0",
+            "sha256": "sha256-fm819U4663uVqBaDyLP4CdXMDo23eh1ayhIFT+N2PrQ=",
+            "type": "github"
+        },
+        "version": "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "extract": null,
@@ -31,11 +50,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "a2385b699636d8394e19fb4078f6d3bd63ee6c0f",
-            "sha256": "sha256-faGJA6YIO/TjyjMwW4x6zSZ4xUR1rnaQepCsM5XSCR0=",
+            "rev": "a856a71792dca338c0c48a5a90daebd75ff03747",
+            "sha256": "sha256-WQs+pIlo4l2bMDjaVYUXUkbVuQyVu2worovQU87qKlc=",
             "type": "github"
         },
-        "version": "a2385b699636d8394e19fb4078f6d3bd63ee6c0f"
+        "version": "a856a71792dca338c0c48a5a90daebd75ff03747"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -126,11 +145,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "e567f34262b0670fd51cbbcb6c6866b046454cee",
-            "sha256": "sha256-1ZgZ41pyA4/goWYieEMB5aThYFjD0GRxgE5CKEYX7Go=",
+            "rev": "1413b38d0eacafb6c03c701236fe546f44f39a8d",
+            "sha256": "sha256-Xwc9CKO9lgg2mfISOoax/LE8hqT7witekTYsrNWZ7KU=",
             "type": "github"
         },
-        "version": "e567f34262b0670fd51cbbcb6c6866b046454cee"
+        "version": "1413b38d0eacafb6c03c701236fe546f44f39a8d"
     },
     "ovpn-dco": {
         "cargoLocks": null,
