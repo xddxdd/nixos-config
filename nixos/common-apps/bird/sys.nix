@@ -241,6 +241,8 @@ in
     route 172.22.76.120/29 reject;
 
     route ${LT.this.dn42.IPv4}/32 reject;
+    route 172.18.${builtins.toString LT.this.index}.0/24 reject;
+    route ${LT.this.ltnet.IPv4}/32 reject;
     route ${LT.this.neonetwork.IPv4}/32 reject;
 
     # Blackhole routes for private ranges
@@ -259,6 +261,9 @@ in
     route fd10:127:10::/48 reject;
 
     route ${LT.this.dn42.IPv6}/128 reject;
+    route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
+    route ${LT.this.ltnet.IPv6}/128 reject;
+    route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
     route ${LT.this.neonetwork.IPv6}/128 reject;
 
     # Blackhole routes for private ranges
