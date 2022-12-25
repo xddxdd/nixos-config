@@ -1,0 +1,17 @@
+diff --git a/captcha.py b/captcha.py
+index 2580309..d0ba7e5 100644
+--- a/captcha.py
++++ b/captcha.py
+@@ -1,8 +1,11 @@
++import os
+ from request import http
+ from loghelper import log
+ 
+-# 请自行到人人打码官网注册并充值后获取appkey填写到下面 
++# 请自行到人人打码官网注册并充值后获取appkey填写到下面
+ appkey = ""
++if os.getenv("AutoMihoyoBBS_appkey") is not None:
++    appkey = os.getenv("AutoMihoyoBBS_appkey")
+ 
+ 
+ def game_captcha(gt: str, challenge: str):
