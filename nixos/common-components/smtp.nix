@@ -38,9 +38,9 @@
 
             Status report for $UNIT on $HOSTNAME:
 
-            $(systemctl status $UNIT)
+            $(systemctl status --lines=0 $UNIT)
 
-            $(journalctl -u $UNIT)
+            $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value $UNIT))
             EOF
           '';
         in
