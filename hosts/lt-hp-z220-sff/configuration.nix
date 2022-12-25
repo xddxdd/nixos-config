@@ -6,12 +6,12 @@
 
     ./hardware-configuration.nix
     ./media-center.nix
+    ./shares.nix
 
     ../../nixos/client-components/network-manager.nix
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/flexget.nix
-    ../../nixos/optional-apps/ksmbd.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
@@ -47,26 +47,10 @@
 
   services.fwupd.enable = true;
 
-  services.ksmbd = {
-    enable = true;
-    shares = {
-      "storage" = {
-        "path" = "/mnt/storage";
-        "read only" = false;
-        "force user" = "lantian";
-        "force group" = "users";
-        "valid users" = "lantian";
-      };
-    };
-  };
-
-  services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
-
   services.tlp.settings = {
     TLP_PERSISTENT_DEFAULT = 1;
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
 
-  users.users.sftp.home = lib.mkForce "/mnt/storage";
 }
