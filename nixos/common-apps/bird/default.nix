@@ -60,7 +60,11 @@ in
     enable = LT.this.role == LT.roles.server;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.traceroute ];
+    path = with pkgs; [
+      mtr
+      # Disabled traceroute for DoS possibility (on myself)
+      # traceroute
+    ];
     environment = {
       BIRD_SOCKET = "/run/bird/bird.ctl";
       BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
@@ -74,8 +78,11 @@ in
       RestartSec = "3";
       ExecStart = "${pkgs.bird-lgproxy-go}/bin/proxy";
 
-      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+      # Needed by mtr and traceroute
+      AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+      SystemCallFilter = [ ];
+
       Group = "bird2";
       User = "bird2";
 
