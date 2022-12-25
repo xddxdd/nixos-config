@@ -78,6 +78,9 @@ in
       CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
       Group = "bird2";
       User = "bird2";
+
+      CPUQuota = "10%";
+      TasksMax = 10;
     };
   };
 }
