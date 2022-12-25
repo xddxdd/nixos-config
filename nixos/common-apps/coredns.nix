@@ -31,6 +31,18 @@ in
             cache
           }
         '';
+        forwardTo114DNS = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+
+            forward . 114.114.114.114 114.114.115.115 {
+              tls_servername dns.google
+            }
+            cache
+          }
+        '';
         forwardToLtnet = zone: ''
           ${zone} {
             any
@@ -42,8 +54,11 @@ in
           }
         '';
 
-        cfgEntries = [ (forwardToGoogleDNS ".") ]
-          ++ (builtins.map forwardToLtnet
+        cfgEntries = [
+          (forwardToGoogleDNS ".")
+          (forwardTo114DNS "kuxi.tech")
+        ]
+        ++ (builtins.map forwardToLtnet
           (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ YggdrasilAlfis)));
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
