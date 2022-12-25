@@ -16,6 +16,7 @@
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/sftp-server.nix
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
@@ -66,4 +67,6 @@
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
+
+  users.users.sftp.home = lib.mkForce "/mnt/storage";
 }

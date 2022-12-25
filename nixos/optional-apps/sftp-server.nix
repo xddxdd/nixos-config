@@ -2,12 +2,11 @@
 
 let
   sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
-  sftpRoot = "/nix/persistent/sftp-server";
 in
 {
   users.users.sftp = {
     uid = 22;
-    home = sftpRoot;
+    home = "/nix/persistent/sftp-server";
     group = "sftp";
     createHome = true;
     openssh.authorizedKeys.keys = sshKeys;
@@ -21,7 +20,7 @@ in
     Match User sftp
       ForceCommand internal-sftp
       PasswordAuthentication no
-      ChrootDirectory ${sftpRoot}
+      ChrootDirectory ${config.users.users.sftp.home}
       PermitTunnel no
       AllowAgentForwarding no
       AllowTcpForwarding no
