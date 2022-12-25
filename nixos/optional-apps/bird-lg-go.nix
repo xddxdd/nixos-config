@@ -44,8 +44,6 @@ in
       DynamicUser = true;
       RuntimeDirectory = "bird-lg-go";
       UMask = "000";
-      CPUQuota = "10%";
-      TasksMax = 10;
     };
   };
 
