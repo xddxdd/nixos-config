@@ -24,6 +24,10 @@ in
       StateDirectory = "auto-mihoyo-bbs";
       WorkingDirectory = "/var/lib/auto-mihoyo-bbs";
     };
+    unitConfig = {
+      OnSuccess = "notify-email@%n.service";
+      OnFailure = "notify-email@%n.service";
+    };
     after = [ "network.target" ];
     script = ''
       export AutoMihoyoBBS_appkey=$(cat /var/lib/auto-mihoyo-bbs/appkey)
