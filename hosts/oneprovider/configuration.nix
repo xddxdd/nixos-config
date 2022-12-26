@@ -34,6 +34,9 @@
     ../../nixos/optional-apps/waline.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
 
+    # Unusable, cannot pass captcha
+    # ../../nixos/optional-apps/epic-awesome-gamer.nix
+
     ../../nixos/optional-cron-jobs/ssl-certs.nix
     ../../nixos/optional-cron-jobs/testssl.nix
   ];
