@@ -34,6 +34,7 @@ lib.mkIf (!config.boot.isContainer) {
 
   services.btrfs.autoScrub = lib.mkIf isBtrfsRoot {
     enable = true;
+    interval = "weekly";
     fileSystems = [ "/nix" ];
   };
 }
