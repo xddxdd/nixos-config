@@ -48,6 +48,7 @@ lib.mkIf (!config.boot.isContainer) {
       "audit=0"
       "cgroup_enable=memory"
       "swapaccount=1"
+      "split_lock_detect=off"
     ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
       "net.ifnames=0"
     ]);
