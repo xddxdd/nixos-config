@@ -117,6 +117,17 @@ rec {
     zip
     zlib
   ]);
+  prismlauncher = prev.prismlauncher.override {
+    jdks = (with final; [
+      openjdk8
+      openjdk11
+      openjdk17
+    ]) ++ (with final.openj9-ibm-semeru; [
+      jdk-bin-11
+      jdk-bin-17
+      jdk-bin-8
+    ]);
+  };
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch = old.postPatch + ''
