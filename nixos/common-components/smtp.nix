@@ -31,16 +31,17 @@
             MAILTO="$(echo ${LT.constants.emailRecipientBase64} | base64 -d)"
             HOSTNAME=$2
             UNIT=$1
+            systemctl is-failed "$UNIT" && FLAG="❎" || FLAG="✅"
 
             exec sendmail -t <<EOF
             To: $MAILTO
-            Subject: Status report for $UNIT on $HOSTNAME
+            Subject: $FLAG Status report for $UNIT on $HOSTNAME
 
             Status report for $UNIT on $HOSTNAME:
 
-            $(systemctl status --lines=0 $UNIT)
+            $(systemctl status --lines=0 "$UNIT")
 
-            $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value $UNIT))
+            $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
             EOF
           '';
         in
