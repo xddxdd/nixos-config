@@ -32,7 +32,7 @@
   networking.usePredictableInterfaceNames = lib.mkForce true;
 
   services.beesd.filesystems.root = {
-    spec = "/nix";
+    spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 32;
     verbosity = "crit";
     extraOptions = [ "--loadavg-target" "4" ];

@@ -44,7 +44,7 @@ in
   security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
 
   services.beesd.filesystems.root = {
-    spec = "/nix";
+    spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
     extraOptions = [ "--loadavg-target" "8" ];

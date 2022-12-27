@@ -33,7 +33,7 @@
   fileSystems."/".options = [ "size=100%" ];
 
   services.beesd.filesystems.root = {
-    spec = "/nix";
+    spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 64;
     verbosity = "crit";
     extraOptions = [ "--thread-count" "2" "--loadavg-target" "4" ];
