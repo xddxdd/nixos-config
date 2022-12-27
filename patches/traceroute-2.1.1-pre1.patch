@@ -1,0 +1,98 @@
+diff -Nrup traceroute-2.1.0/ChangeLog traceroute-2.1.1/ChangeLog
+--- traceroute-2.1.0/ChangeLog	2016-03-08 20:20:01.000000000 +0300
++++ traceroute-2.1.1/ChangeLog	2022-12-27 03:39:41.000000000 +0300
+@@ -1,3 +1,14 @@
++2022-12-27  Dmitry Butskoy  <Dmitry@Butskoy.name> - 2.1.1
++
++	*  Interpret ipv4-mapped ipv6 addresses (::ffff:A.B.C.D) as true ipv4.
++
++	   There are no ipv4-mapped addresses in the real network which we
++	   operate on, so use just ipv4 in such cases, but allow users
++	   to specify it this way for convenience.
++
++	*  Return back more robast poll(2) loop handling.
++
++
+ 2016-03-08  Dmitry Butskoy  <Dmitry@Butskoy.name> - 2.1.0
+ 
+ 	*  Improve the main loop for better interactivity.
+diff -Nrup traceroute-2.1.0/VERSION traceroute-2.1.1/VERSION
+--- traceroute-2.1.0/VERSION	2016-02-27 23:05:04.000000000 +0300
++++ traceroute-2.1.1/VERSION	2022-12-27 02:55:39.000000000 +0300
+@@ -1 +1 @@
+-#define VERSION 2.1.0
++#define VERSION 2.1.1
+diff -Nrup traceroute-2.1.0/traceroute/poll.c traceroute-2.1.1/traceroute/poll.c
+--- traceroute-2.1.0/traceroute/poll.c	2016-03-07 19:20:56.000000000 +0300
++++ traceroute-2.1.1/traceroute/poll.c	2022-12-27 03:00:18.000000000 +0300
+@@ -64,28 +64,23 @@ static int cleanup_polls (void) {
+ 
+ 
+ void do_poll (double timeout, void (*callback) (int fd, int revents)) {
+-	int nfds;
+-	int msecs = ceil (timeout * 1000);
++	int nfds, n, i;
+ 
+-	while ((nfds = cleanup_polls ()) > 0) {
+-	    int i, n;
++	nfds = cleanup_polls ();
+ 
+-	    n = poll (pfd, nfds, msecs);
++	if (!nfds)  return;
+ 
+-	    if (n <= 0) {
+-		if (n == 0 || errno == EINTR)
+-			return;
+-		error ("poll");
+-	    }
++	n = poll (pfd, nfds, ceil(timeout * 1000));
++	if (n < 0) {
++	    if (errno == EINTR)  return;
++	    error ("poll");
++	}
+ 
+-	    for (i = 0; n && i < num_polls; i++) {
+-		if (pfd[i].revents) {
+-		    callback (pfd[i].fd, pfd[i].revents);
+-		    n--;
+-		}
++	for (i = 0; n && i < num_polls; i++) {
++	    if (pfd[i].revents) {
++		callback (pfd[i].fd, pfd[i].revents);
++		n--;
+ 	    }
+-
+-	    msecs = 0;	    /*  no more wait, just eat all the pending   */
+ 	}
+ 
+ 	return;
+diff -Nrup traceroute-2.1.0/traceroute/traceroute.c traceroute-2.1.1/traceroute/traceroute.c
+--- traceroute-2.1.0/traceroute/traceroute.c	2016-03-08 01:17:23.000000000 +0300
++++ traceroute-2.1.1/traceroute/traceroute.c	2022-12-27 03:28:15.000000000 +0300
+@@ -223,6 +223,15 @@ static int getaddr (const char *name, so
+ 
+ 	freeaddrinfo (res);
+ 
++	/*  No v4mapped addresses in real network, interpret it as ipv4 anyway   */
++	if (addr->sa.sa_family == AF_INET6 &&
++	    IN6_IS_ADDR_V4MAPPED (&addr->sin6.sin6_addr)
++	) {
++	    if (af == AF_INET6)  return -1;
++	    addr->sa.sa_family = AF_INET;
++	    addr->sin.sin_addr.s_addr = addr->sin6.sin6_addr.s6_addr32[3];
++	}
++
+ 	return 0;
+ }
+ 
+diff -Nrup traceroute-2.1.0/traceroute.spec traceroute-2.1.1/traceroute.spec
+--- traceroute-2.1.0/traceroute.spec	2016-02-27 23:05:04.000000000 +0300
++++ traceroute-2.1.1/traceroute.spec	2022-12-27 02:55:39.000000000 +0300
+@@ -1,6 +1,6 @@
+ Summary: Traces the route taken by packets over an IPv4/IPv6 network
+ Name: traceroute
+-Version: 2.1.0
++Version: 2.1.1
+ Release: 1%{?dist}
+ Group: Applications/Internet
+ License: GPLv2+

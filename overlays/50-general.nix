@@ -144,6 +144,11 @@ rec {
       "--enable-miniupnpc"
     ];
   });
+  traceroute = prev.traceroute.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ../patches/traceroute-2.1.1-pre1.patch
+    ];
+  });
   transmission = prev.transmission.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
       mv $out/share/transmission/web/index.html $out/share/transmission/web/index.original.html
