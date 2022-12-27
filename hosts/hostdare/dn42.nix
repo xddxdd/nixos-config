@@ -390,7 +390,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 23660;
-        remoteAddress = "us1.dn42.ncdwlq.space";
+        # remoteAddress = "us1.dn42.ncdwlq.space";
         remotePort = 22547;
         wireguardPubkey = "nWK3ZsUOksoz9/rKy6LwZmmQhYnM00sJFPOOMXrNh2s=";
       };
