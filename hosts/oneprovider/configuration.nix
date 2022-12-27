@@ -81,14 +81,14 @@
   };
 
   services.beesd.filesystems.root = {
-    spec = "/nix";
+    spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 1024;
     verbosity = "crit";
     extraOptions = [ "--loadavg-target" "4" ];
   };
 
   services.beesd.filesystems.storage = {
-    spec = "/mnt/storage";
+    spec = config.fileSystems."/mnt/storage".device;
     hashTableSizeMB = 2048;
     verbosity = "crit";
     extraOptions = [ "--loadavg-target" "4" ];
