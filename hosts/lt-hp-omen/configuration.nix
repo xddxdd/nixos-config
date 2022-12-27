@@ -1,12 +1,6 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  resetKeyboardBacklight = pkgs.writeShellScriptBin "reset-keyboard-backlight" ''
-    for F in /sys/devices/platform/hp-wmi/rgb_zones/*; do
-      echo "0f84fa" | sudo tee $F
-    done
-  '';
-
   bindfsMountOptions = [
     "force-user=lantian"
     "force-group=wheel"
@@ -22,6 +16,7 @@ in
     ../../nixos/client.nix
 
     ./hardware-configuration.nix
+    ./hp-keyboard-backlight
     # ./nbfc.nix
 
     ../../nixos/optional-apps/ksmbd.nix
@@ -33,8 +28,6 @@ in
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
   ];
-
-  environment.systemPackages = [ resetKeyboardBacklight ];
 
   lantian.hidpi = 1.5;
 
