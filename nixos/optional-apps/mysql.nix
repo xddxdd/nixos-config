@@ -133,6 +133,7 @@ in
     restartIfChanged = false;
     serviceConfig = {
       Restart = lib.mkForce "on-failure";
+      TimeoutStartSec = 300;
     };
   };
 }
