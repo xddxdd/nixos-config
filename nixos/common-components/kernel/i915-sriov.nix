@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   INSTALL_MOD_PATH = placeholder "out";
 
+  inherit (kernel) makeFlags;
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';

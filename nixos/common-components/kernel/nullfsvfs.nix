@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ../../../patches/nullfsvfs-change-reported-free-space.patch ];
 
+  inherit (kernel) makeFlags;
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';

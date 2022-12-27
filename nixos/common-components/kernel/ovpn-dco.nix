@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "pic" "format" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = kernel.makeFlags ++ [
+    "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   prePatch = ''
     # Skip depmod
