@@ -61,9 +61,8 @@ in
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [
-      mtr
-      # Disabled traceroute for DoS possibility (on myself)
-      # traceroute
+      # mtr
+      traceroute
     ];
     environment = {
       BIRD_SOCKET = "/run/bird/bird.ctl";
