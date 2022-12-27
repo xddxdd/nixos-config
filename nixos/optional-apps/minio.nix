@@ -50,4 +50,9 @@
       client_max_body_size 0;
     '';
   };
+
+  systemd.services.minio.environment = {
+    # https://www.reddit.com/r/btrfs/comments/zq44ib/file_corruption_with_minio_dev_blames_btrfs/
+    MINIO_API_DISABLE_ODIRECT = "true";
+  };
 }
