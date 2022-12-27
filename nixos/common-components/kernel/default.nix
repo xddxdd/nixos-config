@@ -47,8 +47,9 @@ lib.mkIf (!config.boot.isContainer) {
     kernelParams = [
       "audit=0"
       "cgroup_enable=memory"
-      "swapaccount=1"
+      "log_buf_len=1048576"
       "split_lock_detect=off"
+      "swapaccount=1"
     ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
       "net.ifnames=0"
     ]);
