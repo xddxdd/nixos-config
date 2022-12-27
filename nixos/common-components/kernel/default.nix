@@ -54,17 +54,9 @@ lib.mkIf (!config.boot.isContainer) {
     ]);
     kernelPackages = kpkg.extend
       (final: prev: rec {
-        acpi-ec = llvmOverride (final.callPackage ./acpi-ec.nix { });
+        # Fixes for kernel modules that don't use kernel.makeFlags
         cryptodev = llvmOverride prev.cryptodev;
-
-        # Disabled for crashing on latest kernel
-        # i915-sriov = llvmOverride (final.callPackage ./i915-sriov.nix { });
-
         kvmfr = llvmOverride prev.kvmfr;
-        nft-fullcone = llvmOverride (final.callPackage ./nft-fullcone.nix { });
-        nullfsvfs = llvmOverride (final.callPackage ./nullfsvfs.nix { });
-        ovpn-dco = llvmOverride (final.callPackage ./ovpn-dco.nix { });
-        v4l2loopback = llvmOverride prev.v4l2loopback;
         virtualbox = llvmOverride prev.virtualbox;
         x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
           postPatch = (old.postPatch or "") + ''
@@ -73,9 +65,17 @@ lib.mkIf (!config.boot.isContainer) {
           '';
         });
 
+        # Custom kernel packages
+        acpi-ec = final.callPackage ./acpi-ec.nix { };
+        i915-sriov = final.callPackage ./i915-sriov.nix { };
+        nft-fullcone = final.callPackage ./nft-fullcone.nix { };
+        nullfsvfs = final.callPackage ./nullfsvfs.nix { };
+        ovpn-dco = final.callPackage ./ovpn-dco.nix { };
+
+        # Patched NVIDIA drivers
+        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
         nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
 
-        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
         nvidia_x11 = nvidiaPackages.stable;
         nvidia_x11_beta = nvidiaPackages.beta;
         nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
