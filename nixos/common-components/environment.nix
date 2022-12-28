@@ -154,6 +154,14 @@ in
 
   services.irqbalance.enable = !config.boot.isContainer;
 
+  services.journald.extraConfig = ''
+    Audit=no
+    ForwardToSyslog=no
+    ForwardToKMsg=no
+    ForwardToConsole=no
+    ForwardToWall=no
+  '';
+
   services.udisks2.enable = !config.boot.isContainer;
 
   security.wrappers = {

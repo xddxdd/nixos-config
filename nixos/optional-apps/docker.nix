@@ -66,6 +66,9 @@
 
       services.journald.extraConfig = ''
         Storage=volatile
+        ForwardToSyslog=no
+        ForwardToKMsg=no
+        ForwardToConsole=no
         ForwardToWall=no
       '';
       services.timesyncd.enable = false;
