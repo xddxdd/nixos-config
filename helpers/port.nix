@@ -16,6 +16,7 @@
   Waline = 8360;
   Matrix.Public = 8448;
   Prometheus.Daemon = 9090;
+  Prometheus.AlertManager = 9093;
   Prometheus.NodeExporter = 9100;
   Prometheus.BirdExporter = 9324;
   Prometheus.EndlesshGo = 9322;
