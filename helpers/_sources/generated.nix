@@ -25,13 +25,13 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "a856a71792dca338c0c48a5a90daebd75ff03747";
+    version = "9dd1db612a6b3022915b80e2c320aab71e5d364e";
     src = fetchFromGitHub ({
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "a856a71792dca338c0c48a5a90daebd75ff03747";
+      rev = "9dd1db612a6b3022915b80e2c320aab71e5d364e";
       fetchSubmodules = false;
-      sha256 = "sha256-WQs+pIlo4l2bMDjaVYUXUkbVuQyVu2worovQU87qKlc=";
+      sha256 = "sha256-zahWvafARuyJLtjDWzljAnUwG7aMjilRSM8eQXEUNFo=";
     });
   };
   material-kwin-decoration = {
@@ -58,13 +58,13 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.13";
+    version = "v0.14";
     src = fetchFromGitHub ({
       owner = "abbbi";
       repo = "nullfsvfs";
-      rev = "v0.13";
+      rev = "v0.14";
       fetchSubmodules = false;
-      sha256 = "sha256-yn9FPlruJiCKO6tJWvFNJpABHlW/EQf2i/iDKRchRds=";
+      sha256 = "sha256-Dp2o/Rq77yY68DfCW2xeQC+5W54jywnfril2J8yquQc=";
     });
   };
   nvidia-patch = {
@@ -80,13 +80,13 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "1413b38d0eacafb6c03c701236fe546f44f39a8d";
+    version = "c7416160fb2e5a66d5801e4b789751a7480e6384";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "1413b38d0eacafb6c03c701236fe546f44f39a8d";
+      rev = "c7416160fb2e5a66d5801e4b789751a7480e6384";
       fetchSubmodules = false;
-      sha256 = "sha256-Xwc9CKO9lgg2mfISOoax/LE8hqT7witekTYsrNWZ7KU=";
+      sha256 = "sha256-tKtq2eq6CyMQDXVF9kV/TYsRCmPAZ+O6pWamPi3sChM=";
     });
   };
   ovpn-dco = {
