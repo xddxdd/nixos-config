@@ -46,6 +46,5 @@
   services.journald.extraConfig = ''
     SystemMaxUse=50M
     SystemMaxFileSize=10M
-    ForwardToWall=no
   '';
 }
