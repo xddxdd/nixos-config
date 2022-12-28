@@ -50,11 +50,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "a856a71792dca338c0c48a5a90daebd75ff03747",
-            "sha256": "sha256-WQs+pIlo4l2bMDjaVYUXUkbVuQyVu2worovQU87qKlc=",
+            "rev": "9dd1db612a6b3022915b80e2c320aab71e5d364e",
+            "sha256": "sha256-zahWvafARuyJLtjDWzljAnUwG7aMjilRSM8eQXEUNFo=",
             "type": "github"
         },
-        "version": "a856a71792dca338c0c48a5a90daebd75ff03747"
+        "version": "9dd1db612a6b3022915b80e2c320aab71e5d364e"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -107,11 +107,11 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.13",
-            "sha256": "sha256-yn9FPlruJiCKO6tJWvFNJpABHlW/EQf2i/iDKRchRds=",
+            "rev": "v0.14",
+            "sha256": "sha256-Dp2o/Rq77yY68DfCW2xeQC+5W54jywnfril2J8yquQc=",
             "type": "github"
         },
-        "version": "v0.13"
+        "version": "v0.14"
     },
     "nvidia-patch": {
         "cargoLocks": null,
@@ -145,11 +145,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "1413b38d0eacafb6c03c701236fe546f44f39a8d",
-            "sha256": "sha256-Xwc9CKO9lgg2mfISOoax/LE8hqT7witekTYsrNWZ7KU=",
+            "rev": "c7416160fb2e5a66d5801e4b789751a7480e6384",
+            "sha256": "sha256-tKtq2eq6CyMQDXVF9kV/TYsRCmPAZ+O6pWamPi3sChM=",
             "type": "github"
         },
-        "version": "1413b38d0eacafb6c03c701236fe546f44f39a8d"
+        "version": "c7416160fb2e5a66d5801e4b789751a7480e6384"
     },
     "ovpn-dco": {
         "cargoLocks": null,
