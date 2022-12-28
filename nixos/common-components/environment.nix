@@ -186,6 +186,13 @@ in
     DefaultTimeoutStopSec=30s
   '';
 
+  systemd.tmpfiles.rules = [
+    # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
+    "w /sys/module/kernel/parameters/crash_kexec_post_notifiers - - - - Y"
+    # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
+    "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
+  ];
+
   zramSwap = {
     enable = !config.boot.isContainer;
     memoryPercent = 50;
