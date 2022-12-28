@@ -196,6 +196,19 @@
         peerIPv6LinkLocal = "fe80::2886";
       };
     };
+    rhinelab = {
+      remoteASN = 4242420670;
+      # Unknown latency
+      latencyMs = 10;
+      tunnel = {
+        type = "gre";
+        remoteAddress = "103.48.184.68";
+      };
+      addressing = {
+        myIPv4 = "172.20.232.193";
+        peerIPv4 = "172.20.232.194";
+      };
+    };
     ricky = {
       remoteASN = 4242422458;
       latencyMs = 1;
