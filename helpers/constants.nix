@@ -16,8 +16,6 @@
     ];
   };
 
-  emailRecipientBase64 = "Yjk4MDEyMEBob3RtYWlsLmNvbQo=";
-
   nix = {
     substituters = [
       # "s3://nix?endpoint=s3.xuyh0120.win"
