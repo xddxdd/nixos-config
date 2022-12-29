@@ -1,6 +1,9 @@
 { pkgs, lib, dns, common, ... }:
 
 with dns;
+let
+  inherit (common.hostRecs) fakeALIAS;
+in
 [
   rec {
     domain = "56631131.xyz";
@@ -16,6 +19,9 @@ with dns;
       (common.hostRecs.DN42 "dn42.${domain}")
       (common.hostRecs.NeoNetwork "neo.${domain}")
       (common.hostRecs.Yggdrasil "ygg.${domain}")
+
+      (fakeALIAS { name = "${domain}."; target = "oneprovider"; ttl = "1h"; })
+      (CNAME { name = "www.${domain}."; target = "${domain}."; })
 
       (A { name = "virmach-host"; address = "31.222.203.3"; })
       (A { name = "*.virmach-host"; address = "31.222.203.3"; })
