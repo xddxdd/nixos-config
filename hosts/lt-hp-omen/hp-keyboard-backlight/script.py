@@ -29,22 +29,38 @@ def set_color(color: tuple[int]) -> None:
         with open(os.path.join(path, zone), 'a') as f:
             f.write('%02x%02x%02x\n' % color)
 
+def get_load() -> float:
+    return max([os.getloadavg()[0] / os.cpu_count(), 0])
+
+def is_lid_open() -> bool:
+    with open('/proc/acpi/button/lid/LID0/state') as f:
+        return 'open' in f.read()
+
 if __name__ == "__main__":
-    last_load = -1
-    while True:
-        load = max([os.getloadavg()[0] / os.cpu_count(), 0])
-        # print(load)
+    last_state = None
+    try:
+        while True:
+            state = {
+                "load": get_load(),
+                "lid_open": is_lid_open(),
+            }
 
-        if load != last_load:
-            last_load = load
+            if state != last_state:
+                last_state = state
 
-            blend_idx = int(load)
-            if blend_idx >= len(COLORS) - 1:
-                result_color = COLORS[-1]
-            else:
-                result_color = blend_color(COLORS[blend_idx], COLORS[blend_idx + 1], load - blend_idx)
+                if state['lid_open']:
+                    blend_idx = int(state['load'])
+                    if blend_idx >= len(COLORS) - 1:
+                        result_color = COLORS[-1]
+                    else:
+                        result_color = blend_color(COLORS[blend_idx], COLORS[blend_idx + 1], state['load'] - blend_idx)
+                else:
+                    # Disable backlight if lid is closed
+                    result_color = (0, 0, 0)
 
-            # print(result_color)
-            set_color(result_color)
+                # print(result_color)
+                set_color(result_color)
 
-        time.sleep(1)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        set_color(COLORS[0])
