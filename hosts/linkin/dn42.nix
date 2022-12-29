@@ -199,10 +199,10 @@
     rhinelab = {
       remoteASN = 4242420670;
       # Unknown latency
-      latencyMs = 10;
+      latencyMs = 4;
       tunnel = {
         type = "gre";
-        remoteAddress = "103.48.184.68";
+        remoteAddress = "103.46.184.68";
       };
       addressing = {
         myIPv4 = "172.20.232.193";
