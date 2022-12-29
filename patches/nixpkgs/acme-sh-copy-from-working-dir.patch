@@ -1,0 +1,13 @@
+diff --git a/pkgs/tools/admin/acme-sh/default.nix b/pkgs/tools/admin/acme-sh/default.nix
+index d6c661583e6..dfb401c3080 100644
+--- a/pkgs/tools/admin/acme-sh/default.nix
++++ b/pkgs/tools/admin/acme-sh/default.nix
+@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
+     runHook preInstall
+ 
+     mkdir -p $out $out/bin $out/libexec
+-    cp -R $src/* $_
++    cp -R * $_
+     makeWrapper $out/libexec/acme.sh $out/bin/acme.sh \
+       --prefix PATH : "${binPath}"
+ 

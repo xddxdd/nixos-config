@@ -5,6 +5,11 @@ let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 rec {
+  acme-sh = prev.acme-sh.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/acme-sh-gcore-dns.patch
+    ];
+  });
   audacious = prev.audacious.overrideAttrs (old: {
     postFixup = (old.postFixup or "") + ''
       mv "$out/bin/audacious" "$out/bin/.audacious-orig"
@@ -145,7 +150,7 @@ rec {
     ];
   });
   traceroute = prev.traceroute.overrideAttrs (old: {
-    patches = (old.patches or []) ++ [
+    patches = (old.patches or [ ]) ++ [
       ../patches/traceroute-2.1.1-pre1.patch
     ];
   });
