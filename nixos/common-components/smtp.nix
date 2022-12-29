@@ -1,5 +1,8 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
+let
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
+in
 {
   age.secrets.smtp-pass = {
     file = inputs.secrets + "/smtp-pass.age";
@@ -28,7 +31,7 @@
       ExecStart =
         let
           script = pkgs.writeShellScript "notify-email" ''
-            MAILTO="$(echo ${LT.constants.emailRecipientBase64} | base64 -d)"
+            MAILTO="${glauthUsers.lantian.mail}"
             HOSTNAME=$2
             UNIT=$1
             systemctl is-failed "$UNIT" && FLAG="❎" || FLAG="✅"
