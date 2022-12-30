@@ -19,8 +19,6 @@ in
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       TimeoutSec = 3600;
-      Restart = "on-failure";
-      RestartSec = 30;
       StateDirectory = "auto-mihoyo-bbs";
       WorkingDirectory = "/var/lib/auto-mihoyo-bbs";
     };
