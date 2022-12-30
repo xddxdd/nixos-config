@@ -29,6 +29,8 @@ in
     ../../nixos/optional-apps/wg-cf-warp.nix
   ];
 
+  boot.kernelParams = [ "nvme_core.default_ps_max_latency_us=2147483647" ];
+
   lantian.hidpi = 1.5;
 
   fileSystems."/".options = [ "size=64G" ];
