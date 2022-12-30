@@ -13,6 +13,12 @@ let
         (old: {
           makeFlags = (old.makeFlags or [ ]) ++ [ "LLVM=1" "LLVM_IAS=1" ];
         }) else p;
+  makefileOverride = p: p.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace Makefile \
+        --replace "gcc" "cc"
+    '';
+  });
   nvidiaOverride = p:
     let
       patched = llvmOverride (p.overrideAttrs (old: {
@@ -61,12 +67,8 @@ lib.mkIf (!config.boot.isContainer) {
         cryptodev = llvmOverride prev.cryptodev;
         kvmfr = llvmOverride prev.kvmfr;
         virtualbox = llvmOverride prev.virtualbox;
-        x86_energy_perf_policy = (llvmOverride prev.x86_energy_perf_policy).overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            substituteInPlace Makefile \
-              --replace "gcc" "cc"
-          '';
-        });
+        turbostat = makefileOverride (llvmOverride prev.turbostat);
+        x86_energy_perf_policy = makefileOverride (llvmOverride prev.x86_energy_perf_policy);
 
         # Custom kernel packages
         acpi-ec = final.callPackage ./acpi-ec.nix { };
@@ -135,6 +137,10 @@ lib.mkIf (!config.boot.isContainer) {
       "ntfs"
     ];
   };
+
+  environment.systemPackages = with config.boot.kernelPackages; lib.optionals pkgs.stdenv.isx86_64 [
+    turbostat
+  ];
 
   fileSystems."/run/nullfs" = {
     device = "nullfs";
