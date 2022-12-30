@@ -165,6 +165,7 @@ in
     '';
   };
 
+  services.fstrim.enable = !config.boot.isContainer;
   services.irqbalance.enable = !config.boot.isContainer;
 
   services.journald.extraConfig = ''
