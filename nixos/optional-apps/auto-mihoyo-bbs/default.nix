@@ -23,8 +23,8 @@ in
       WorkingDirectory = "/var/lib/auto-mihoyo-bbs";
     };
     unitConfig = {
-      OnSuccess = "notify-email@%n.service";
-      OnFailure = "notify-email@%n.service";
+      OnSuccess = "notify-email-success@%n.service";
+      OnFailure = "notify-email-fail@%n.service";
     };
     after = [ "network.target" ];
     script = ''

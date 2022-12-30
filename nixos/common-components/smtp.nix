@@ -2,6 +2,26 @@
 
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
+
+  notifyScript = pkgs.writeShellScript "notify-email" ''
+    MAILTO="${glauthUsers.lantian.mail}"
+    HOSTNAME=$2
+    UNIT=$1
+    STATE=$3
+
+    [ "$STATE" = "success" ] && FLAG="✅" || FLAG="❎"
+
+    exec sendmail -t <<EOF
+    To: $MAILTO
+    Subject: $FLAG Status report for $UNIT on $HOSTNAME
+
+    Status report for $UNIT on $HOSTNAME:
+
+    $(systemctl status --lines=0 "$UNIT")
+
+    $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
+    EOF
+  '';
 in
 {
   age.secrets.smtp-pass = {
@@ -25,30 +45,18 @@ in
     };
   };
 
-  systemd.services."notify-email@" = {
+  systemd.services."notify-email-success@" = {
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart =
-        let
-          script = pkgs.writeShellScript "notify-email" ''
-            MAILTO="${glauthUsers.lantian.mail}"
-            HOSTNAME=$2
-            UNIT=$1
-            systemctl is-failed "$UNIT" && FLAG="❎" || FLAG="✅"
+      ExecStart = ''${notifyScript} "%I" "%H" "success"'';
+    };
+    path = with pkgs; [ inetutils msmtp ];
+  };
 
-            exec sendmail -t <<EOF
-            To: $MAILTO
-            Subject: $FLAG Status report for $UNIT on $HOSTNAME
-
-            Status report for $UNIT on $HOSTNAME:
-
-            $(systemctl status --lines=0 "$UNIT")
-
-            $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
-            EOF
-          '';
-        in
-        ''${script} "%I" "%H"'';
+  systemd.services."notify-email-fail@" = {
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart = ''${notifyScript} "%I" "%H" "fail"'';
     };
     path = with pkgs; [ inetutils msmtp ];
   };
