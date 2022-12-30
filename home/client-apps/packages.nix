@@ -18,12 +18,14 @@
     deepspeech-wrappers
     discord
     element-desktop
+    exiftool
     ffmpeg-full
     filezilla
     gcdemu
     gimp-with-plugins
     gnome.gedit
     gopherus
+    imagemagick
     jellyfin-media-player
     jellyfin-mpv-shim
     kdenlive
