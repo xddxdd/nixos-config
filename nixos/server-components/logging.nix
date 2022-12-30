@@ -42,9 +42,4 @@
     ];
     RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
   };
-
-  services.journald.extraConfig = ''
-    SystemMaxUse=50M
-    SystemMaxFileSize=10M
-  '';
 }

@@ -156,10 +156,13 @@ in
 
   services.journald.extraConfig = ''
     Audit=no
-    ForwardToSyslog=no
-    ForwardToKMsg=no
     ForwardToConsole=no
+    ForwardToKMsg=no
+    ForwardToSyslog=no
     ForwardToWall=no
+    Storage=volatile
+    SystemMaxFileSize=10M
+    SystemMaxUse=10M
   '';
 
   services.udisks2.enable = !config.boot.isContainer;
