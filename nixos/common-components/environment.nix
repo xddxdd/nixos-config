@@ -16,6 +16,19 @@ let
     }
   '';
 
+  opensslCurves = [
+    "p256_frodo640aes"
+    "x25519_frodo640aes"
+    "p256_bikel1"
+    "x25519_bikel1"
+    "p256_kyber90s512"
+    "x25519_kyber90s512"
+    "prime256v1"
+    "secp384r1"
+    "x25519"
+    "x448"
+  ];
+
   pythonCustomized = pkgs.python3Full.withPackages (p: with p; (if pkgs.stdenv.isx86_64 then [
     autopep8
   ] else [ ]) ++ [
@@ -79,7 +92,7 @@ in
       system_default = system_default_sect
 
       [system_default_sect]
-      Groups = prime256v1:secp384r1:secp521r1:X25519:X448:p256_frodo640aes:p256_bikel1:p256_ntru_hps2048509:p256_lightsaber:p256_kyber90s512
+      Groups = ${builtins.concatStringsSep ":" opensslCurves}
     '');
     SYSTEMD_PAGER = "";
   };
