@@ -41,6 +41,7 @@
     openvpn
     osdlyrics
     payload-dumper-go
+    powertop
     prismlauncher
     qq
     quasselClient
