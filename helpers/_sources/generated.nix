@@ -3,6 +3,17 @@
 {
   auto-mihoyo-bbs = {
     pname = "auto-mihoyo-bbs";
+    version = "16014b46e0c69f33e0a49833921468b9e4f3bd3f";
+    src = fetchFromGitHub ({
+      owner = "Womsxd";
+      repo = "AutoMihoyoBBS";
+      rev = "16014b46e0c69f33e0a49833921468b9e4f3bd3f";
+      fetchSubmodules = false;
+      sha256 = "sha256-wVbHed0BcOhBjP+J7Q6ZTms5z96PVL6VUSOq56dWb/U=";
+    });
+  };
+  auto-mihoyo-bbs-rrocr = {
+    pname = "auto-mihoyo-bbs-rrocr";
     version = "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0";
     src = fetchFromGitHub ({
       owner = "coolxitech";
@@ -25,13 +36,13 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "9dd1db612a6b3022915b80e2c320aab71e5d364e";
+    version = "9996e5c11aad87acaea9060a539084f9a5e90952";
     src = fetchFromGitHub ({
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "9dd1db612a6b3022915b80e2c320aab71e5d364e";
+      rev = "9996e5c11aad87acaea9060a539084f9a5e90952";
       fetchSubmodules = false;
-      sha256 = "sha256-zahWvafARuyJLtjDWzljAnUwG7aMjilRSM8eQXEUNFo=";
+      sha256 = "sha256-TlpaULil4jPX2KPDfw17OUc6mXU+LMVzoO3sj+AjZls=";
     });
   };
   material-kwin-decoration = {
@@ -80,13 +91,13 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "c7416160fb2e5a66d5801e4b789751a7480e6384";
+    version = "a10564c71608dca6172a89dc458e6e23254d600b";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "c7416160fb2e5a66d5801e4b789751a7480e6384";
+      rev = "a10564c71608dca6172a89dc458e6e23254d600b";
       fetchSubmodules = false;
-      sha256 = "sha256-tKtq2eq6CyMQDXVF9kV/TYsRCmPAZ+O6pWamPi3sChM=";
+      sha256 = "sha256-yZdkLINgE7GIf2ZutKrwBLkJGI/CNzt0EzCpde3ZRTU=";
     });
   };
   ovpn-dco = {
