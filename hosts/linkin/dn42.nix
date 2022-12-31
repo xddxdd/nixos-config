@@ -197,7 +197,7 @@
       };
     };
     rhinelab = {
-      remoteASN = 4242420670;
+      remoteASN = 24124;
       # Unknown latency
       latencyMs = 4;
       tunnel = {
