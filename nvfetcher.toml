@@ -1,4 +1,8 @@
 [auto-mihoyo-bbs]
+src.git = "https://github.com/Womsxd/AutoMihoyoBBS.git"
+fetch.github = "Womsxd/AutoMihoyoBBS"
+
+[auto-mihoyo-bbs-rrocr]
 src.git = "https://github.com/coolxitech/AutoMihoyoBBS.git"
 src.branch = "rrocr"
 fetch.github = "coolxitech/AutoMihoyoBBS"
