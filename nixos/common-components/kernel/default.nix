@@ -96,8 +96,15 @@ lib.mkIf (!config.boot.isContainer) {
         nvidia_x11_stable_open = nvidiaPackages.stable.open;
         nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
       });
-    kernelModules = [ "cryptodev" "nft_fullcone" "nullfs" "ovpn-dco" ]
-      ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
+    kernelModules = [
+      "cryptodev"
+      "nft_fullcone"
+      "nullfs"
+
+      # Disabled for incompatibility with 6.1 kernel
+      # "ovpn-dco"
+    ]
+    ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
     extraModulePackages = with config.boot.kernelPackages; [
       cryptodev
 
@@ -106,7 +113,9 @@ lib.mkIf (!config.boot.isContainer) {
 
       nft-fullcone
       nullfsvfs
-      ovpn-dco
+
+      # Disabled for incompatibility with 6.1 kernel
+      # ovpn-dco
     ];
 
     initrd = {
