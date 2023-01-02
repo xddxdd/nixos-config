@@ -35,7 +35,7 @@ in
   # Sonarr
   ########################################
 
-  systemd.services.jackett = netns.bind { };
+  systemd.services.prowlarr = netns.bind { };
 
   systemd.services.sonarr = netns.bind {
     after = [ "mnt-storage.mount" ];
