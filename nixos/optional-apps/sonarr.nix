@@ -20,6 +20,7 @@
     enable = true;
     user = "lantian";
     group = "users";
+    dataDir = "/var/lib/sonarr";
   };
   systemd.services.sonarr = {
     serviceConfig = LT.serviceHarden // {
