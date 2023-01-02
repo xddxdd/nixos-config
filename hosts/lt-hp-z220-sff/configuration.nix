@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ./media-center.nix
     ./shares.nix
-    ./sonarr.nix
 
     ../../nixos/client-components/network-manager.nix
     ../../nixos/client-components/tlp.nix
