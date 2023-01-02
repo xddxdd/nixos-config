@@ -25,18 +25,15 @@ in
     requires = [ "mnt-storage.mount" ];
   };
 
+  systemd.tmpfiles.rules = [
+    "d /mnt/storage 755 root root"
+    "d ${sonarrDownloadPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+  ];
+
   ########################################
   # Sonarr
   ########################################
-
-  system.activationScripts.sonarr-download-auto =
-    let
-      cfg = config.services.sonarr;
-    in
-    ''
-      install -d -m 0775 -o '${cfg.user}' -g '${cfg.group}' '${sonarrDownloadPath}'
-      install -d -m 0775 -o '${cfg.user}' -g '${cfg.group}' '${sonarrMediaPath}'
-    '';
 
   systemd.services.jackett = netns.bind { };
 
@@ -44,8 +41,6 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
-      AmbientCapabilities = "CAP_DAC_READ_SEARCH";
-      CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
       BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
     };
   };
@@ -54,8 +49,6 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
-      AmbientCapabilities = "CAP_DAC_READ_SEARCH";
-      CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
       BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
     };
   };
