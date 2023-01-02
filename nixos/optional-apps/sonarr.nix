@@ -5,16 +5,14 @@
     ./qbittorrent.nix
   ];
 
-  services.jackett = {
-    enable = true;
-    user = "lantian";
-    group = "users";
-  };
-  systemd.services.jackett = {
+  services.prowlarr.enable = true;
+  systemd.services.prowlarr = {
     serviceConfig = LT.serviceHarden // {
-      StateDirectory = "jackett";
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
       MemoryDenyWriteExecute = false;
-      ProcSubset = "all";
+      DynamicUser = lib.mkForce false;
+      User = "lantian";
+      Group = "users";
     };
   };
 
