@@ -56,10 +56,12 @@ pkgs.writeText "nft.conf" ''
 
       # wg-lantian
       ${lib.optionalString (LT.this.public.IPv4 != "") ''
-        ip daddr ${LT.this.public.IPv4} tcp dport { 51820, 51821 } dnat to 192.0.2.100
-        ip daddr ${LT.this.public.IPv4} udp dport { 51820, 51821 } dnat to 192.0.2.100
-        ip daddr ${LT.this.public.IPv4} tcp dport { 57912 } dnat to 192.0.2.101
-        ip daddr ${LT.this.public.IPv4} udp dport { 57912 } dnat to 192.0.2.101
+        ip daddr ${LT.this.public.IPv4} tcp dport { ${LT.portStr.Deluge.P2P} } dnat to 192.0.2.100
+        ip daddr ${LT.this.public.IPv4} udp dport { ${LT.portStr.Deluge.P2P} } dnat to 192.0.2.100
+        ip daddr ${LT.this.public.IPv4} tcp dport { ${LT.portStr.Transmission.P2P} } dnat to 192.0.2.101
+        ip daddr ${LT.this.public.IPv4} udp dport { ${LT.portStr.Transmission.P2P} } dnat to 192.0.2.101
+        ip daddr ${LT.this.public.IPv4} tcp dport { ${LT.portStr.qBitTorrent.P2P} } dnat to 192.0.2.102
+        ip daddr ${LT.this.public.IPv4} udp dport { ${LT.portStr.qBitTorrent.P2P} } dnat to 192.0.2.102
       ''}
       ${lib.optionalString (LT.this.public.IPv6Subnet != "")
         (builtins.concatStringsSep "\n"

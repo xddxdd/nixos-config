@@ -15,7 +15,7 @@
       incomplete-dir-enabled = false;
       peer-limit-global = 10000;
       peer-limit-per-torrent = 10000;
-      peer-port = 57912;
+      peer-port = LT.port.Transmission.P2P;
       peer-socket-tos = "lowcost";
       queue-stalled-enabled = false;
       rename-partial-files = true;
