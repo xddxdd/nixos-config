@@ -51,6 +51,7 @@ let
     var/lib/filebeat/
     var/lib/GeoIP/
     var/lib/grafana/
+    var/lib/jellyfin/transcodes/
     var/lib/machines/
     var/lib/matrix-synapse/media
     var/lib/minio/data

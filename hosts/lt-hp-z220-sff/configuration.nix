@@ -11,6 +11,9 @@
     ../../nixos/client-components/network-manager.nix
     ../../nixos/client-components/tlp.nix
 
+    ../../nixos/server-components/backup.nix
+    ../../nixos/server-components/logging.nix
+
     ../../nixos/optional-apps/flexget.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
