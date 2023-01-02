@@ -1,7 +1,7 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  qbittorrent = pkgs.qbittorrent-nox;
+  qbittorrent = pkgs.qbittorrent-enhanced-edition-nox;
 in
 {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix
