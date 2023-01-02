@@ -44,6 +44,8 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
+      AmbientCapabilities = "CAP_DAC_READ_SEARCH";
+      CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
       BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
     };
   };
@@ -52,6 +54,8 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
+      AmbientCapabilities = "CAP_DAC_READ_SEARCH";
+      CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
       BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
     };
   };
