@@ -4,7 +4,7 @@
   services.transmission = {
     enable = true;
     user = "lantian";
-    group = "wheel";
+    group = "users";
     downloadDirPermissions = "775";
     settings = {
       cache-size-mb = 64;
