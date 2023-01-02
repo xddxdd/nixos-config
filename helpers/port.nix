@@ -27,8 +27,12 @@
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;
   Konnect = 13877;
+  qBitTorrent.WebUI = 13808;
   Minio.Listen = 13900;
   Minio.Console = 13901;
   Oauth2Proxy = 14180;
   NeteaseUnlock = 30001;
+  Deluge.P2P = 51820;
+  qBitTorrent.P2P = 56314;
+  Transmission.P2P = 57912;
 }
