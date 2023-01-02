@@ -57,11 +57,15 @@ rec {
         # Namespace side network config
         ${ipns} link set eth-ns up
         ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth-ns
-        ${lib.optionalString setupDefaultRoute "${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns"}
         ${ipns} -6 addr add ${ipv6} dev eth-ns
         ${ipns} -6 addr add fe80::${thisIP}/64 dev eth-ns
-        ${lib.optionalString setupDefaultRoute "${ipns} -6 route add default via fe80::1 dev eth-ns"}
-      '' + (lib.optionalString birdEnabled ''
+      '' + (if setupDefaultRoute then ''
+        ${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns
+        ${ipns} -6 route add default via fe80::1 dev eth-ns
+      '' else ''
+        ${ipns} route add 172.18.0.0/16 via ${this.ltnet.IPv4} dev eth-ns
+        ${ipns} -6 route add fdbc:f9dc:67ad::/48 via fe80::1 dev eth-ns
+      '') + (lib.optionalString birdEnabled ''
         # Announced addresses
         ${ipns} link add dummy0 type dummy
         ${ipns} link set dummy0 up
