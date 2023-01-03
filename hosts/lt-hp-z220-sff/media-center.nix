@@ -6,6 +6,7 @@ let
     setupDefaultRoute = false;
   };
 
+  flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   radarrDownloadPath = "/mnt/storage/downloads-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
@@ -15,6 +16,7 @@ in
   imports = [
     ../../nixos/client-components/xorg.nix
 
+    ../../nixos/optional-apps/flexget.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/sonarr.nix
     ../../nixos/optional-apps/transmission-daemon.nix
@@ -29,6 +31,7 @@ in
 
   systemd.tmpfiles.rules = [
     "d /mnt/storage 755 root root"
+    "d ${flexgetAutoDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
     "d ${radarrDownloadPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${sonarrDownloadPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
@@ -116,18 +119,12 @@ in
     speed-limit-up = 25600;
     speed-limit-up-enabled = true;
   };
-  system.activationScripts.transmission-download-auto =
-    let
-      cfg = config.services.transmission;
-    in
-    ''
-      install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '/mnt/storage/downloads-auto'
-    '';
+
   systemd.services.transmission = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig.BindPaths = [
-      "/mnt/storage/downloads-auto"
+      flexgetAutoDownloadPath
       radarrDownloadPath
       sonarrDownloadPath
     ];
