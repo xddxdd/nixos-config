@@ -6,11 +6,12 @@ let
     setupDefaultRoute = false;
   };
 
+  transmissionDownloadPath = "/mnt/storage/downloads";
+  transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";
+  qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
   flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
-  radarrDownloadPath = "/mnt/storage/downloads-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
-  sonarrDownloadPath = "/mnt/storage/downloads-sonarr";
 in
 {
   imports = [
@@ -32,9 +33,9 @@ in
   systemd.tmpfiles.rules = [
     "d /mnt/storage 755 root root"
     "d ${flexgetAutoDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
-    "d ${radarrDownloadPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
+    "d ${transmissionSonarrDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
+    "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
-    "d ${sonarrDownloadPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
     "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
     "d /var/lib/nas-tools 755 lantian users"
   ];
@@ -75,7 +76,11 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
-      BindPaths = [ radarrMediaPath radarrDownloadPath ];
+      BindPaths = [
+        radarrMediaPath
+        transmissionSonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
     };
   };
 
@@ -83,7 +88,11 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
-      BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
+      BindPaths = [
+        sonarrMediaPath
+        transmissionSonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
     };
   };
 
@@ -92,10 +101,7 @@ in
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
       BindPaths = [
-        radarrDownloadPath
-        radarrMediaPath
-        sonarrMediaPath
-        sonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
       ];
     };
   };
@@ -105,7 +111,7 @@ in
   ########################################
 
   services.transmission.settings = {
-    download-dir = "/mnt/storage/downloads";
+    download-dir = transmissionDownloadPath;
 
     # Limit parallel downloads to avoid system lockup
     download-queue-enabled = lib.mkForce true;
@@ -124,9 +130,9 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig.BindPaths = [
+      transmissionDownloadPath
+      transmissionSonarrDownloadPath
       flexgetAutoDownloadPath
-      radarrDownloadPath
-      sonarrDownloadPath
     ];
   };
 }
