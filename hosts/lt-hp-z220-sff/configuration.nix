@@ -14,7 +14,6 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
-    ../../nixos/optional-apps/flexget.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
