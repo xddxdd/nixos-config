@@ -16,6 +16,20 @@
     };
   };
 
+  services.radarr = {
+    enable = true;
+    user = "lantian";
+    group = "users";
+    dataDir = "/var/lib/radarr";
+  };
+  systemd.services.radarr = {
+    serviceConfig = LT.serviceHarden // {
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+      StateDirectory = "radarr";
+      MemoryDenyWriteExecute = false;
+    };
+  };
+
   services.sonarr = {
     enable = true;
     user = "lantian";
