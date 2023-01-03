@@ -22,6 +22,7 @@
   Prometheus.EndlesshGo = 9322;
   Yggdrasil.Public = 13058;
   Yggdrasil.Multicast = 13059;
+  FlareSolverr = 13191;
   ASF = 13242;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
