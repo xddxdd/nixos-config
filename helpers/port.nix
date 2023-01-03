@@ -24,6 +24,7 @@
   Yggdrasil.Multicast = 13059;
   FlareSolverr = 13191;
   ASF = 13242;
+  NeteaseUnlock = 13301;
   Vaultwarden.HTTP = 13772;
   Vaultwarden.Websocket = 13773;
   Plausible = 13800;
@@ -32,8 +33,6 @@
   Minio.Listen = 13900;
   Minio.Console = 13901;
   Oauth2Proxy = 14180;
-  NeteaseUnlock = 30001;
-  Deluge.P2P = 51820;
-  qBitTorrent.P2P = 56314;
-  Transmission.P2P = 57912;
+  WGLanTian.ForwardStart = 30010;
+  WGLanTian.ForwardStop = 32559;
 }

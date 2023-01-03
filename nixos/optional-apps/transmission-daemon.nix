@@ -15,7 +15,7 @@
       incomplete-dir-enabled = false;
       peer-limit-global = 10000;
       peer-limit-per-torrent = 10000;
-      peer-port = LT.port.Transmission.P2P;
+      peer-port = LT.port.WGLanTian.ForwardStart + (LT.this.index - 1) * 10 + 9;
       peer-socket-tos = "lowcost";
       queue-stalled-enabled = false;
       rename-partial-files = true;
