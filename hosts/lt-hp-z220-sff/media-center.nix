@@ -35,6 +35,8 @@ in
   # Sonarr
   ########################################
 
+  systemd.services.flaresolverr = netns.bind { };
+
   systemd.services.prowlarr = netns.bind { };
 
   systemd.services.sonarr = netns.bind {
