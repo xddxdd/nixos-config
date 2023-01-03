@@ -133,6 +133,18 @@ rec {
       jdk-bin-8
     ]);
   };
+  qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
+    # Sonarr retries with different release when adding existing torrent
+    patches = (old.patches or []) ++ [
+      ../patches/qbittorrent-force-add-torrent-return-success.patch
+    ];
+  });
+  qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
+    # Sonarr retries with different release when adding existing torrent
+    patches = (old.patches or []) ++ [
+      ../patches/qbittorrent-force-add-torrent-return-success.patch
+    ];
+  });
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch = old.postPatch + ''
