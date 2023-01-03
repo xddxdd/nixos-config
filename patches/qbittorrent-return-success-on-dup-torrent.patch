@@ -1,0 +1,22 @@
+diff --git a/src/base/bittorrent/sessionimpl.cpp b/src/base/bittorrent/sessionimpl.cpp
+index 935e1136b..b1aa7a655 100644
+--- a/src/base/bittorrent/sessionimpl.cpp
++++ b/src/base/bittorrent/sessionimpl.cpp
+@@ -2693,7 +2693,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
+     // We should not add the torrent if it is already
+     // processed or is pending to add to session
+     if (m_loadingTorrents.contains(id) || (infoHash.isHybrid() && m_loadingTorrents.contains(altID)))
+-        return false;
++        return true;
+ 
+     if (Torrent *torrent = findTorrent(infoHash); torrent)
+     {
+@@ -2703,7 +2703,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
+             torrent->setMetadata(std::get<TorrentInfo>(source));
+         }
+ 
+-        return false;
++        return true;
+     }
+ 
+     // It looks illogical that we don't just use an existing handle,
