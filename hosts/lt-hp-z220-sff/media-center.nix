@@ -37,32 +37,7 @@ in
     "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
-    "d /var/lib/nas-tools 755 lantian users"
   ];
-
-  ########################################
-  # NAS-Tools
-  ########################################
-
-  virtualisation.oci-containers.containers = {
-    nas-tools = {
-      extraOptions = [ "--pull" "always" ];
-      image = "jxxghp/nas-tools";
-      ports = [
-        "${LT.this.ltnet.IPv4}:3000:3000"
-      ];
-      environment = {
-        PUID = "1000";
-        PGID = "100";
-        UMASK = "002";
-        NASTOOL_AUTO_UPDATE = "false";
-      };
-      volumes = [
-        "/var/lib/nas-tools:/config"
-        "/mnt/storage:/mnt/storage"
-      ];
-    };
-  };
 
   ########################################
   # Sonarr
