@@ -1,0 +1,16 @@
+diff --git a/src/webui/api/torrentscontroller.cpp b/src/webui/api/torrentscontroller.cpp
+index 72483e09d..d1c170950 100644
+--- a/src/webui/api/torrentscontroller.cpp
++++ b/src/webui/api/torrentscontroller.cpp
+@@ -736,10 +736,7 @@ void TorrentsController::addAction()
+         partialSuccess |= BitTorrent::Session::instance()->addTorrent(result.value(), addTorrentParams);
+     }
+ 
+-    if (partialSuccess)
+-        setResult(u"Ok."_qs);
+-    else
+-        setResult(u"Fails."_qs);
++    setResult(u"Ok."_qs);
+ }
+ 
+ void TorrentsController::addTrackersAction()
