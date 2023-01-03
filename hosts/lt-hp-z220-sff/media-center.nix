@@ -6,6 +6,8 @@ let
     setupDefaultRoute = false;
   };
 
+  radarrMediaPath = "/mnt/storage/media-radarr";
+  radarrDownloadPath = "/mnt/storage/downloads-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
   sonarrDownloadPath = "/mnt/storage/downloads-sonarr";
 in
@@ -27,6 +29,8 @@ in
 
   systemd.tmpfiles.rules = [
     "d /mnt/storage 755 root root"
+    "d ${radarrDownloadPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
+    "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${sonarrDownloadPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
     "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
   ];
@@ -38,6 +42,14 @@ in
   systemd.services.flaresolverr = netns.bind { };
 
   systemd.services.prowlarr = netns.bind { };
+
+  systemd.services.radarr = netns.bind {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [ radarrMediaPath radarrDownloadPath ];
+    };
+  };
 
   systemd.services.sonarr = netns.bind {
     after = [ "mnt-storage.mount" ];
@@ -51,7 +63,12 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
-      BindPaths = [ sonarrMediaPath sonarrDownloadPath ];
+      BindPaths = [
+        radarrDownloadPath
+        radarrMediaPath
+        sonarrMediaPath
+        sonarrDownloadPath
+      ];
     };
   };
 
@@ -86,6 +103,8 @@ in
     requires = [ "mnt-storage.mount" ];
     serviceConfig.BindPaths = [
       "/mnt/storage/downloads-auto"
+      radarrDownloadPath
+      sonarrDownloadPath
     ];
   };
 }
