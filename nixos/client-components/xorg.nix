@@ -17,13 +17,16 @@
   ];
 
   # Hardware
-  services.xserver.enable = true;
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad = {
-    horizontalScrolling = true;
-    naturalScrolling = true;
-    tapping = true;
-    tappingDragLock = false;
+  services.xserver = {
+    enable = true;
+    exportConfiguration = true;
+    libinput.enable = true;
+    libinput.touchpad = {
+      horizontalScrolling = true;
+      naturalScrolling = true;
+      tapping = true;
+      tappingDragLock = false;
+    };
   };
 
   hardware.opengl = {
