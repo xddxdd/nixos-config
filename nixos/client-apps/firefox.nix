@@ -92,12 +92,8 @@
       "gfx.x11-egl.force-enabled" = true;
       "media.av1.enabled" = true;
       "media.ffmpeg.vaapi.enabled" = true;
-      # FFVPX must be disabled for VAAPI AV1 to work
-      "media.ffvpx.enabled" = false;
       "media.hardware-video-decoding.force-enabled" = true;
       "media.hls.enabled" = true;
-      "media.rdd-ffvpx.enabled" = false;
-      "media.utility-ffvpx.enabled" = false;
       "media.videocontrols.picture-in-picture.enabled" = false;
       "security.insecure_connection_text.enabled" = true;
       "security.insecure_connection_text.pbmode.enabled" = true;
