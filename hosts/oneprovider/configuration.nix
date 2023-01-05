@@ -93,6 +93,8 @@
     extraOptions = [ "--loadavg-target" "4" ];
   };
 
+  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
+
   services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
 
   services."route-chain" = {
