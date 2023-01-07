@@ -7,8 +7,8 @@ let
 
   configFile = builtins.toJSON {
     settings = {
+      defaultBondingPolicy = "balance-xor";
       interfacePrefixBlacklist = whitelistToBlacklist LT.constants.wanInterfacePrefixes;
-      multipathMode = 2;
       softwareUpdate = "disable";
     };
   };
@@ -24,7 +24,6 @@ in
       mkdir -p /var/lib/zerotier-one
       cat ${pkgs.writeText "local.conf" configFile} > /var/lib/zerotier-one/local.conf
     '';
-    restartIfChanged = false;
     serviceConfig.MemoryMax = "64M";
   };
 }
