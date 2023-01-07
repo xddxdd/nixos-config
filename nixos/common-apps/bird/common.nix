@@ -28,6 +28,7 @@ rec {
 
   typeToDN42Community = type:
     if type == "openvpn" then 33 else
+    if type == "zerotier" then 33 else
     if type == "wireguard" then 34 else
     if type == "gre" then 31 else
     31;

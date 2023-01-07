@@ -68,7 +68,7 @@ in
           type = lib.types.submodule {
             options = {
               type = lib.mkOption {
-                type = lib.types.enum [ "openvpn" "wireguard" "gre" ];
+                type = lib.types.enum [ "openvpn" "zerotier" "wireguard" "gre" ];
                 default = "gre";
               };
               localPort = lib.mkOption {
