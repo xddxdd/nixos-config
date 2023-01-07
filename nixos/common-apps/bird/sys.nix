@@ -5,6 +5,12 @@ let
     DN42_AS DN42_REGION NEO_AS
     community;
 
+  excludedInterfacesFromDirect = [
+    "dn42-*"
+    "neo-*"
+    "zt*"
+  ];
+
   reservedIPv4 = [
     "10.0.0.0/8"
     "172.16.0.0/12"
@@ -77,7 +83,7 @@ in
     }
 
     protocol direct sys_direct {
-      interface "-zt*", "*";
+      interface ${lib.concatMapStringsSep ", " (v: ''"-${v}"'') excludedInterfacesFromDirect}, "*";
       ipv4 {
         preference 1000;
         import filter sys_import_v4;
