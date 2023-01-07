@@ -46,6 +46,7 @@ let
 
         # Block non-DN42 traffic in DN42
         iifname "dn42*" jump DN42_INPUT
+        iifname "zt*" jump DN42_INPUT
       }
 
       chain FILTER_FORWARD {
@@ -56,12 +57,15 @@ let
 
         # Block non-DN42 traffic in DN42
         iifname "dn42*" jump DN42_INPUT
+        iifname "zt*" jump DN42_INPUT
         oifname "dn42*" jump DN42_OUTPUT
+        oifname "zt*" jump DN42_OUTPUT
       }
 
       chain FILTER_OUTPUT {
         type filter hook output priority 5; policy accept;
         oifname "dn42*" jump DN42_OUTPUT
+        oifname "zt*" jump DN42_OUTPUT
       }
 
       chain NAT_PREROUTING {
@@ -106,12 +110,14 @@ let
 
       # Helper chains
       chain DN42_INPUT {
+        iifname "zthnhe4bol" return
         ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.dn42.IPv4}
         ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.dn42.IPv6}
         reject with icmpx type admin-prohibited
       }
 
       chain DN42_OUTPUT {
+        oifname "zthnhe4bol" return
         ${lib.concatMapStringsSep "\n" (p: "ip daddr ${p} return") LT.constants.dn42.IPv4}
         ${lib.concatMapStringsSep "\n" (p: "ip6 daddr ${p} return") LT.constants.dn42.IPv6}
         reject with icmpx type admin-prohibited
