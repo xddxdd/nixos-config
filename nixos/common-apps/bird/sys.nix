@@ -77,7 +77,7 @@ in
     }
 
     protocol direct sys_direct {
-      interface "*";
+      interface "-zt*", "*";
       ipv4 {
         preference 1000;
         import filter sys_import_v4;
