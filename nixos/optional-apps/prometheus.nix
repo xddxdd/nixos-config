@@ -23,7 +23,6 @@ in
 
     alertmanagers = [{
       scheme = "http";
-      path_prefix = "/alertmanager";
       static_configs = [{
         targets = [
           "localhost:${LT.portStr.Prometheus.AlertManager}"
