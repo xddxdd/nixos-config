@@ -6,7 +6,6 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
