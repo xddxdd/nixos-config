@@ -37,6 +37,20 @@
         },
         "version": "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0"
     },
+    "googleearth-pro": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "googleearth-pro",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=",
+            "type": "url",
+            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb"
+        },
+        "version": "7.3.6.9285"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "extract": null,
@@ -145,11 +159,11 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "e9dcdbc9d701021f03eb628fdc534f552c2e1125",
-            "sha256": "sha256-9fodbeXqeauK05wfubocem68Sqhq8tSZaZM4IfJ6UJk=",
+            "rev": "0fa91702480a85c70e23b51203c4ac0b25a20b65",
+            "sha256": "sha256-+BkDUfVqqYMAG62OarNPJiNfghvHpOhhMlS5H+SV1dQ=",
             "type": "github"
         },
-        "version": "e9dcdbc9d701021f03eb628fdc534f552c2e1125"
+        "version": "0fa91702480a85c70e23b51203c4ac0b25a20b65"
     },
     "openvpn": {
         "cargoLocks": null,
@@ -164,11 +178,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "a10564c71608dca6172a89dc458e6e23254d600b",
-            "sha256": "sha256-yZdkLINgE7GIf2ZutKrwBLkJGI/CNzt0EzCpde3ZRTU=",
+            "rev": "b20daf274304ee30daa839910e633c96307a4744",
+            "sha256": "sha256-IseSqrOc185Xdx1qkPHcPh4aG9uePf3MMLbzuNXIMKc=",
             "type": "github"
         },
-        "version": "a10564c71608dca6172a89dc458e6e23254d600b"
+        "version": "b20daf274304ee30daa839910e633c96307a4744"
     },
     "ovpn-dco": {
         "cargoLocks": null,

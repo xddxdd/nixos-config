@@ -45,6 +45,14 @@ rec {
       cloudscraper
     ];
   });
+  googleearth-pro = prev.googleearth-pro.overrideAttrs (old: rec {
+    inherit (sources.googleearth-pro) version src;
+    unpackPhase = ''
+      # deb file contains a setuid binary, so 'dpkg -x' doesn't work here
+      dpkg --fsys-tarfile ${src} | tar --extract
+    '';
+    meta = builtins.removeAttrs old.meta [ "knownVulnerabilities" ];
+  });
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/jellyfin-volume-normalization.patch
@@ -135,13 +143,13 @@ rec {
   };
   qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or []) ++ [
+    patches = (old.patches or [ ]) ++ [
       ../patches/qbittorrent-return-success-on-dup-torrent.patch
     ];
   });
   qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or []) ++ [
+    patches = (old.patches or [ ]) ++ [
       ../patches/qbittorrent-return-success-on-dup-torrent.patch
     ];
   });

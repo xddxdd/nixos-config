@@ -23,6 +23,14 @@
       sha256 = "sha256-fm819U4663uVqBaDyLP4CdXMDo23eh1ayhIFT+N2PrQ=";
     });
   };
+  googleearth-pro = {
+    pname = "googleearth-pro";
+    version = "7.3.6.9285";
+    src = fetchurl {
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb";
+      sha256 = "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=";
+    };
+  };
   himawaripy = {
     pname = "himawaripy";
     version = "v2.2.0";
@@ -80,24 +88,24 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "e9dcdbc9d701021f03eb628fdc534f552c2e1125";
+    version = "0fa91702480a85c70e23b51203c4ac0b25a20b65";
     src = fetchFromGitHub ({
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "e9dcdbc9d701021f03eb628fdc534f552c2e1125";
+      rev = "0fa91702480a85c70e23b51203c4ac0b25a20b65";
       fetchSubmodules = false;
-      sha256 = "sha256-9fodbeXqeauK05wfubocem68Sqhq8tSZaZM4IfJ6UJk=";
+      sha256 = "sha256-+BkDUfVqqYMAG62OarNPJiNfghvHpOhhMlS5H+SV1dQ=";
     });
   };
   openvpn = {
     pname = "openvpn";
-    version = "a10564c71608dca6172a89dc458e6e23254d600b";
+    version = "b20daf274304ee30daa839910e633c96307a4744";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "a10564c71608dca6172a89dc458e6e23254d600b";
+      rev = "b20daf274304ee30daa839910e633c96307a4744";
       fetchSubmodules = false;
-      sha256 = "sha256-yZdkLINgE7GIf2ZutKrwBLkJGI/CNzt0EzCpde3ZRTU=";
+      sha256 = "sha256-IseSqrOc185Xdx1qkPHcPh4aG9uePf3MMLbzuNXIMKc=";
     });
   };
   ovpn-dco = {
