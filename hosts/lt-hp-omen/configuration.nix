@@ -88,6 +88,11 @@ in
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
+    "/home/lantian/Books" = lib.mkForce {
+      device = "/nix/persistent/media/Books";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
+    };
     "/home/lantian/Calibre Library" = lib.mkForce {
       device = "/nix/persistent/media/Calibre Library";
       fsType = "fuse.bindfs";
