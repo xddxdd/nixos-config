@@ -240,6 +240,12 @@ in
     route 172.22.76.96/27 reject;
     route 10.127.10.0/24 reject;
 
+    # Workaround ghosting
+    route 172.22.76.96/29 reject;
+    route 172.22.76.104/29 reject;
+    route 172.22.76.112/29 reject;
+    route 172.22.76.120/29 reject;
+
     route ${LT.this.dn42.IPv4}/32 reject;
     route 172.18.${builtins.toString LT.this.index}.0/24 reject;
     route ${LT.this.ltnet.IPv4}/32 reject;
