@@ -30,6 +30,8 @@ in
       (NS { name = "xip"; target = "ns-aws.sslip.io."; })
       (NS { name = "xip"; target = "ns-gce.sslip.io."; })
       (NS { name = "xip"; target = "ns-azure.sslip.io."; })
+
+      (TXT { name = "@"; contents = "google-site-verification=LQvBzSL4-2NbbqM2208pYGLsRSw_hw132GGUvnShQGU"; })
     ];
   }
 ]
