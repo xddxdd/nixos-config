@@ -76,6 +76,9 @@
     nodejs
     nodePackages.npm
 
+    # Packaging
+    dpkg
+
     # PHP
     phpWithExtensions
 

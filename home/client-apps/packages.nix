@@ -24,6 +24,7 @@
     gcdemu
     gimp-with-plugins
     gnome.gedit
+    googleearth-pro
     gopherus
     imagemagick
     jellyfin-media-player
@@ -59,6 +60,7 @@
     winetricks
     wineWowPackages.stable
     wpsoffice
+    yt-dlp
     yubikey-manager-qt
     yuzu-mainline
     zoom-us
