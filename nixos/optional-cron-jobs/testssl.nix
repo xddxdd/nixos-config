@@ -4,6 +4,7 @@ let
   targets = [
     "lab.lantian.pub"
     "buypass-ssl.lantian.pub"
+    "google-ssl.lantian.pub"
     "zerossl.lantian.pub"
   ];
 in
