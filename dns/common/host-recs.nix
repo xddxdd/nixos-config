@@ -36,6 +36,9 @@ let
     ++ lib.optionals (addresses.IPv6Alt or "" != "") [
       (AAAA { name = "${name}"; address = addresses.IPv6Alt; inherit ttl; })
       (AAAA { name = "v6.${name}"; address = addresses.IPv6Alt; inherit ttl; })
+    ]
+    ++ [
+      (CNAME { name = "*.${name}"; target = name; inherit ttl; })
     ];
 in
 {
