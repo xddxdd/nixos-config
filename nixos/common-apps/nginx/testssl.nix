@@ -1,27 +1,21 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
-{
-  services.nginx.virtualHosts = {
-    "buypass-ssl.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "/nix/persistent/sync-servers/www/buypass-ssl.lantian.pub";
-      locations."/".index = "testssl.htm";
-      extraConfig = LT.nginx.makeSSL "buypass-ssl.lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
-    };
-    "google-ssl.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "/nix/persistent/sync-servers/www/google-ssl.lantian.pub";
-      locations."/".index = "testssl.htm";
-      extraConfig = LT.nginx.makeSSL "google-ssl.lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
-    };
-    "zerossl.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "/nix/persistent/sync-servers/www/zerossl.lantian.pub";
-      locations."/".index = "testssl.htm";
-      extraConfig = LT.nginx.makeSSL "zerossl.lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
-    };
+let
+  mkTestSSL = name: lib.nameValuePair "${name}.lantian.pub" {
+    listen = LT.nginx.listenHTTPS;
+    root = "/nix/persistent/sync-servers/www/${name}.lantian.pub";
+    locations."/".index = "testssl.htm";
+    extraConfig = LT.nginx.makeSSL "${name}.lantian.pub_ecc"
+      + LT.nginx.commonVhostConf true;
   };
+in
+{
+  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map mkTestSSL [
+    "buypass-ssl"
+    "google-ssl"
+    "google-test-ssl"
+    "letsencrypt-ssl"
+    "letsencrypt-test-ssl"
+    "zerossl"
+  ]);
 }

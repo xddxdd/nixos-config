@@ -3,8 +3,12 @@
 let
   targets = [
     "lab.lantian.pub"
+
     "buypass-ssl.lantian.pub"
     "google-ssl.lantian.pub"
+    "google-test-ssl.lantian.pub"
+    "letsencrypt-ssl.lantian.pub"
+    "letsencrypt-test-ssl.lantian.pub"
     "zerossl.lantian.pub"
   ];
 in
