@@ -2,6 +2,8 @@
 
 let
   homeDir = "/nix/persistent/sync-servers/acme.sh";
+
+  subdomains = builtins.concatStringsSep " " (lib.mapAttrsToList (n: v: n) LT.hosts);
 in
 {
   environment.systemPackages = [
@@ -24,5 +26,20 @@ in
           --add-flags "--auto-upgrade 0"
       '';
     })
+
+    (pkgs.writeShellScriptBin "acme.sh-auto" ''
+      set -x
+
+      for SUBDOMAIN in ${subdomains}; do
+        if [ ! -f "${homeDir}/$SUBDOMAIN.xuyh0120.win/$SUBDOMAIN.xuyh0120.win.cer" ]; then
+          acme.sh --issue --dns dns_cf -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win
+        fi
+        if [ ! -f "${homeDir}/$SUBDOMAIN.xuyh0120.win_ecc/$SUBDOMAIN.xuyh0120.win.cer" ]; then
+          acme.sh --issue --dns dns_cf -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win -k ec-256
+        fi
+      done
+
+      find ${homeDir}/ -type f -exec chmod 644 -- {} +
+    '')
   ];
 }
