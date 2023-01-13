@@ -68,6 +68,9 @@ in
     # BuyPass
     (CAA { name = "@"; tag = "issue"; value = "buypass.com"; })
     (CAA { name = "@"; tag = "issuewild"; value = "buypass.com"; })
+    # Google
+    (CAA { name = "@"; tag = "issue"; value = "pki.goog; cansignhttpexchanges=yes"; })
+    (CAA { name = "@"; tag = "issuewild"; value = "pki.goog; cansignhttpexchanges=yes"; })
     # ZeroSSL
     (CAA { name = "@"; tag = "issue"; value = "sectigo.com"; })
     (CAA { name = "@"; tag = "issuewild"; value = "sectigo.com"; })
