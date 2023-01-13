@@ -66,7 +66,7 @@
   };
 
   services.nginx.virtualHosts = {
-    "pma-${config.networking.hostName}.xuyh0120.win" = {
+    "pma.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phpmyadmin}";
       locations = LT.nginx.addCommonLocationConf
@@ -74,7 +74,7 @@
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };

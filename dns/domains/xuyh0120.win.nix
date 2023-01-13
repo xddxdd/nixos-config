@@ -38,14 +38,6 @@ let
     (CNAME { name = "s3"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "stats"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "vault"; target = "oneprovider"; ttl = "1h"; })
-
-    # Services with independent instances on numerous nodes
-    (lib.mapAttrsToList
-      (n: v: [
-        (CNAME { name = "pma-${n}"; target = n; ttl = "1h"; })
-        (CNAME { name = "resilio-${n}"; target = n; ttl = "1h"; })
-      ])
-      hosts)
   ];
 in
 [
