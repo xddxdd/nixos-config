@@ -207,7 +207,9 @@ in
 
   system.fsPackages = [ pkgs.bindfs ];
 
+  # https://github.com/systemd/systemd/issues/25376
   systemd.extraConfig = ''
+    DefaultOOMPolicy=continue
     DefaultTimeoutStopSec=30s
   '';
 
