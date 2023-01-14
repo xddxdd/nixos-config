@@ -20,7 +20,8 @@
 
   services.openssh = {
     enable = true;
-    forwardX11 = true;
+    forwardX11 = false;
+    logLevel = "ERROR";
     passwordAuthentication = false;
     permitRootLogin = lib.mkForce "prohibit-password";
     ports = [ 2222 ];
