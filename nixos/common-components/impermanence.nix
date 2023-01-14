@@ -1,7 +1,7 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  isBtrfsRoot = builtins.hasAttr "/nix" config.fileSystems && config.fileSystems."/nix".fsType == "btrfs";
+  isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
 in
 lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
