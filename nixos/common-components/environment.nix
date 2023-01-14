@@ -147,7 +147,6 @@ in
     less.enable = true;
     mosh.enable = true;
     mtr.enable = true;
-    ssh.forwardX11 = true;
     traceroute.enable = true;
 
     fuse = {

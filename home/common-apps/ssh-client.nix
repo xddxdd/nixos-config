@@ -8,7 +8,6 @@
       KexAlgorithms ^sntrup761x25519-sha512@openssh.com
       PubkeyAcceptedAlgorithms +ssh-rsa
 
-      ForwardX11 no
       StrictHostKeyChecking no
       VerifyHostKeyDNS yes
       LogLevel ERROR

@@ -16,6 +16,8 @@
 
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 7;
+
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";
@@ -26,16 +28,11 @@
     linkInputs = true;
     optimise.automatic = true;
     settings = {
-      # https://jackson.dev/post/nix-reasonable-defaults/
       auto-optimise-store = true;
-      connect-timeout = 5;
-      experimental-features = "nix-command flakes ca-derivations";
+      experimental-features = lib.mkForce "nix-command flakes ca-derivations";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
-      log-lines = 25;
-      max-free = 1024 * 1024 * 1024;
-      min-free = 128 * 1024 * 1024;
       warn-dirty = false;
 
       inherit (LT.constants.nix) substituters trusted-public-keys;
