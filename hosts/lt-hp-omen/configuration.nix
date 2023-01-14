@@ -9,6 +9,12 @@ let
     "chown-ignore"
     "chgrp-ignore"
     "xattr-none"
+    "x-gvfs-hide"
+  ];
+
+  bindMountOptions = [
+    "bind"
+    "x-gvfs-hide"
   ];
 in
 {
@@ -126,11 +132,11 @@ in
 
     "/home/lantian/Software" = lib.mkForce {
       device = "/mnt/root/files/Software";
-      options = [ "bind" ];
+      options = bindMountOptions;
     };
     "/home/lantian/.local/share/yuzu" = lib.mkForce {
       device = "/mnt/root/files/Yuzu";
-      options = [ "bind" ];
+      options = bindMountOptions;
     };
   };
 }
