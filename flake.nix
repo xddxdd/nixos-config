@@ -70,6 +70,10 @@
       url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
       flake = false;
     };
+    srvos = {
+      url = "github:numtide/srvos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, flake-utils, flake-utils-plus, ... }@inputs:
@@ -122,6 +126,7 @@
         inputs.home-manager.nixosModules.home-manager
         inputs.nur-xddxdd.nixosModules.setupOverlay
         inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+        inputs.srvos.nixosModules.common
         (./hosts + "/${n}/configuration.nix")
       ];
 

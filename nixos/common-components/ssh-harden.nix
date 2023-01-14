@@ -3,7 +3,7 @@
 {
   programs.ssh.package = pkgs.openssh_hpn.overrideAttrs (old: {
     doCheck = false;
-    patches = (old.patches or []) ++ [
+    patches = (old.patches or [ ]) ++ [
       # OpenSSH requires all directories in path to chroot be writable only for
       # root, to avoid a security issue described in:
       #
@@ -20,9 +20,7 @@
 
   services.openssh = {
     enable = true;
-    forwardX11 = false;
     logLevel = "ERROR";
-    passwordAuthentication = false;
     permitRootLogin = lib.mkForce "prohibit-password";
     ports = [ 2222 ];
     sftpServerExecutable = "internal-sftp";

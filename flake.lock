@@ -430,7 +430,8 @@
         "nixpkgs-22-05": "nixpkgs-22-05",
         "nixpkgs-22-11": "nixpkgs-22-11",
         "nur-xddxdd": "nur-xddxdd",
-        "secrets": "secrets"
+        "secrets": "secrets",
+        "srvos": "srvos"
       }
     },
     "secrets": {
@@ -447,6 +448,26 @@
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/xddxdd/nixos-secrets"
+      }
+    },
+    "srvos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673541162,
+        "narHash": "sha256-NLmHL+lRxlDL1dD8gplSTGkUToqyOOLDanJQdEu0s5Y=",
+        "owner": "numtide",
+        "repo": "srvos",
+        "rev": "91e842dcce70e182ab53d7ca4dd017b67bb4e013",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "srvos",
+        "type": "github"
       }
     },
     "stable": {

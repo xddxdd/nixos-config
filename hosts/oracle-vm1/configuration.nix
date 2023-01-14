@@ -8,8 +8,6 @@
     ./hardware-configuration.nix
   ];
 
-  boot.kernelParams = [ "console=ttyS0,115200" ];
-
   systemd.network.networks.eth0 = {
     address = [ "172.18.126.2/24" ];
     gateway = [ "172.18.126.1" ];

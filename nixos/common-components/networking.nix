@@ -69,8 +69,8 @@
       ];
     };
 
-    # Use NixOS networking scripts for DNS
-    # useNetworkd = true;
+    # systemd-networkd breaks resolv.conf
+    useNetworkd = lib.mkForce false;
   };
 
   systemd.network.enable = true;
@@ -111,9 +111,6 @@
       workstation = true;
     };
   };
-
-  # https://github.com/NixOS/nixpkgs/issues/135888
-  services.nscd.enableNsncd = true;
 
   # Support network namespaces
   systemd.tmpfiles.rules = [
