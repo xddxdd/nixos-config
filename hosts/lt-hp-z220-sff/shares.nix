@@ -31,6 +31,7 @@
       "chown-ignore"
       "chgrp-ignore"
       "xattr-none"
+      "x-gvfs-hide"
     ];
   };
 
