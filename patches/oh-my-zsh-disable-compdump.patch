@@ -12,10 +12,10 @@ index fed00d21..94350a3d 100644
  }
  
 diff --git a/oh-my-zsh.sh b/oh-my-zsh.sh
-index 29d39ca2..efee2667 100644
+index e94c2f41..efee2667 100644
 --- a/oh-my-zsh.sh
 +++ b/oh-my-zsh.sh
-@@ -107,43 +107,7 @@ if [[ -z "$ZSH_COMPDUMP" ]]; then
+@@ -107,46 +107,7 @@ if [[ -z "$ZSH_COMPDUMP" ]]; then
    ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
  fi
  
@@ -55,7 +55,10 @@ index 29d39ca2..efee2667 100644
 -unset zcompdump_revision zcompdump_fpath zcompdump_refresh
 -
 -# zcompile the completion dump file if the .zwc is older or missing.
--zrecompile -q -p "$ZSH_COMPDUMP" && command rm -f "$ZSH_COMPDUMP.zwc.old"
+-if command mkdir "${ZSH_COMPDUMP}.lock" 2>/dev/null; then
+-  zrecompile -q -p "$ZSH_COMPDUMP"
+-  command rm -rf "$ZSH_COMPDUMP.zwc.old" "${ZSH_COMPDUMP}.lock" 
+-fi
 +compinit -D
  
  # Load all of the config files in ~/oh-my-zsh that end in .zsh

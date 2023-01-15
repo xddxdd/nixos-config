@@ -8,7 +8,7 @@ lib.mkIf (!config.boot.isContainer) {
   virtualisation.podman = {
     enable = true;
     # Podman DNS conflicts with my authoritative resolver
-    defaultNetwork.dnsname.enable = false;
+    defaultNetwork.settings.dns_enabled = false;
     dockerCompat = true;
     dockerSocket.enable = true;
   };
