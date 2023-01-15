@@ -2,24 +2,6 @@ diff --git a/nf_nat_fullcone.c b/nf_nat_fullcone.c
 index 0757ef9..91a7d2a 100644
 --- a/nf_nat_fullcone.c
 +++ b/nf_nat_fullcone.c
-@@ -854,7 +854,7 @@ static uint16_t find_appropriate_port6(struct net *net, const u16 zone,
- 		/* for now we do the same thing for both --random and --random-fully */
-
- 		/* select a random starting point */
--		start = (uint16_t) (prandom_u32() % (u32) range_size);
-+		start = (uint16_t) (get_random_u32() % (u32) range_size);
- 	} else {
-
- 		if ((original_port >= min && original_port <= min + range_size - 1)
-@@ -927,7 +927,7 @@ static uint16_t find_appropriate_port(struct net *net, const u16 zone,
- 		/* for now we do the same thing for both --random and --random-fully */
-
- 		/* select a random starting point */
--		start = (uint16_t) (prandom_u32() % (u32) range_size);
-+		start = (uint16_t) (get_random_u32() % (u32) range_size);
- 	} else {
-
- 		if ((original_port >= min && original_port <= min + range_size - 1)
 @@ -1122,7 +1122,7 @@ static unsigned int nf_nat_handle_prerouting(u8 nfproto, struct sk_buff *skb, un
  	enum ip_conntrack_info ctinfo;
  	struct nf_conntrack_tuple *ct_tuple_origin;

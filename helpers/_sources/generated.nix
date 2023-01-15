@@ -55,24 +55,24 @@
   };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
-    version = "973949761f609f9c676c5b2b7c6d9560661d34c3";
+    version = "4784647e622c37a078cb119626916ac53155bdb9";
     src = fetchFromGitHub ({
       owner = "Zren";
       repo = "material-decoration";
-      rev = "973949761f609f9c676c5b2b7c6d9560661d34c3";
+      rev = "4784647e622c37a078cb119626916ac53155bdb9";
       fetchSubmodules = false;
-      sha256 = "sha256-n+yUmBUrkS+06qLnzl2P6CTQZZbDtJLy+2mDPCcQz9M=";
+      sha256 = "sha256-CW8z07gAMYxJrvvbDYFKw7VS/OmoDxuRunvZOMDI5xU=";
     });
   };
   nft-fullcone = {
     pname = "nft-fullcone";
-    version = "0d3e2bedf939fb380dc32d44d0767d283671637a";
+    version = "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c";
     src = fetchFromGitHub ({
       owner = "fullcone-nat-nftables";
       repo = "nft-fullcone";
-      rev = "0d3e2bedf939fb380dc32d44d0767d283671637a";
+      rev = "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c";
       fetchSubmodules = false;
-      sha256 = "sha256-2tijkfBoHYdZxe0jzvpT8xeMwa6z2IbBy+52slVe774=";
+      sha256 = "sha256-ymgUwBGY7kEWS9qzbG6T3sQ416fzGJapvTNgPBRreFk=";
     });
   };
   nullfsvfs = {
@@ -99,24 +99,24 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "b20daf274304ee30daa839910e633c96307a4744";
+    version = "cf545d603ecd9fbacc6bd519efaa92d60f944287";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "b20daf274304ee30daa839910e633c96307a4744";
+      rev = "cf545d603ecd9fbacc6bd519efaa92d60f944287";
       fetchSubmodules = false;
-      sha256 = "sha256-IseSqrOc185Xdx1qkPHcPh4aG9uePf3MMLbzuNXIMKc=";
+      sha256 = "sha256-49TOccZU2vPt410+y1IbuxrzzTV9UYFaNvqYdlz472Q=";
     });
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b";
+    version = "2fbc4e8fa4ce20c2ee7d2a1014dbdf5f375dc76d";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "d1d53564e17d807aed2b945ea3d4ec35bdd9f09b";
+      rev = "2fbc4e8fa4ce20c2ee7d2a1014dbdf5f375dc76d";
       fetchSubmodules = false;
-      sha256 = "sha256-ZP7pwcAyFdV3T7UqksnhhPAIoSaCkwnzQsIuhy8s54g=";
+      sha256 = "sha256-kUYUB19pYYjnXAHQBhL+x0Hv/88JAYDt4290ZxsL23I=";
     });
   };
   transmission-web-control = {
