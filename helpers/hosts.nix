@@ -213,40 +213,6 @@
     };
     yggdrasil.IPv6 = "200:e0f6:8e20:ea3c:df88:3357:f0f6:ee1f";
   };
-  "scaleway-fr-par" = rec {
-    index = 13;
-    city = geo.cities."FR Paris";
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3/nmvMyf4amfWc1VEPW1JU6OTRtujri335Y0kbpO+rACDbISwrT4eCrxiYEpx9LuRirRMaVRaYNJB13QrvAz2OXjuvtbv/uIdXtvqkCkVZ1svnC0i9+7DtCJFwe2A6kINROAwvnwcFKOcn0vzj4w0nO2gAKYLhRhKbq2LvecBM6szhhhpvjoQk+TuAYGqq9f0HHFU4j0gPmL3EZrk41aHyNZeysgmFHI/OslFNXEg+BebqmEpMS0OZvluDU+BFgt7mdiioyTO167S2n5GTJ8NXpO03jOwC17n+ATTakTJ4On8MB66np8A9Qgd2MieO7m8728NZG7HJCP2A+QPTvTwabe84Y21YePuC2z5Z0t7+Z5YnrRouCZSMzHKrfLvzLll+HMT59eynEP3gN91W5SMr0wfJnCMl8II8LakVAEgKMXOGq3lEDGUryPJPPB5sR9ECz28YWE+b/TuwgPugGoP/GE9/4ZqGzNsaCO/J8o1DqVrGdmEUKwcYAHI7E9gZ5my4lUZc2qFKJCCBKnrfWyIcKrEpIUWI6wNFULRAUKozBueKs8eZsmbc3SKyoeri0WffpQALatBtTIjPzR+EP8oxPNog6tegLWZQ8DGYJ4eTcHowQ5rsYALADySwRPoi0l2wjzx2nVqXZ2zxaSMiCC/VaPTpiIs3HRxmTWQ0u1LNQ==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAnuzYD0V6YVpkVpjWLW8Ds+ZL5TKTjcIpnd/Rzqz5Rz";
-    };
-    syncthing = "WLPTB6F-Q2JP4AG-WNVCEDC-GFKL7B3-Z5CUNLF-VRO7X5W-JBYCES2-GKBFQAY";
-    public = rec {
-      IPv6 = "2001:bc8:47a0:66b::1";
-    };
-    dn42 = rec {
-      IPv4 = "172.22.76.121";
-      region = 41;
-    };
-    yggdrasil.IPv6 = "201:c38c:4884:b853:6041:2d3c:bec4:c97c";
-  };
-  "scaleway-nl-ams" = rec {
-    index = 14;
-    city = geo.cities."NL Amsterdam";
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDT31X4dXf1P4ZB+/wkoPPuGOtK5rEbtqivVEIDKcIjhV2QgyZALVcD8D4vKKMsGPg7doxfmktCd9EI6taXzxVm2AMAc6FTeCPJT5wQhxmyNW4q+6uzcDIOM4R2lBY1w2JmbGub/BlQ5hbHi6mubPrgyV90QMSES1v325+g0ADADBKjWPX+040XechcAHdBGHLkdRg845ZKLjq9eXSrfeS8MnkABr1x1ArpSoU62ayb2jocNxxyzHx9Mq7Hnh00m3iU22Ep/K328d86KqjjjziijkSCeY4ajwfnDE49Art7UQP+WqS/mOCA1bfSB9a9zIueRcPcpsyG+5g/+pgTzYtf8ph7Hb+LrX/jHdQavxJmTGqpBl5ShqiwctyjAtnKQV21NYZ/1UyEvCHYa6SJuoFCdiPQsNv+qBnE0/ToiaD6rLCvVzu3RPT3NWCWQruUiaRpYndGvjuoGlvqnZJG5P65r/bVnIC4N+FNvoZMBas7yc3YkB/orQB7q9CptYYqIFis6t5eikdnBmwYTW07VoiixNBvKnGCBFYz6PKrrsGDyGGHPgeUxhz5BDCsp4TSvAyYoALfgtOsrbho6Q7yn84R9NbronCtA1SggBlheaqQeEVT3Ngy6eGdwUmJN6C4Z0LekUw+OK+Zo2h5hZWjWFwT5qYTU5e9lFH0mYg3M87h+Q==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAbD6JvBPs6NkUJe95OMSppNacVzpizA5/rpNqVtXwdM";
-    };
-    syncthing = "GRHOOWC-KP6A3UM-SWZPHBW-6TVVZBH-O6VDDIC-X2CP63R-H37KHIE-L5AUIQN";
-    public = rec {
-      IPv6 = "2001:bc8:1828:292::1";
-    };
-    dn42 = rec {
-      IPv4 = "172.22.76.120";
-      region = 41;
-    };
-    yggdrasil.IPv6 = "202:935c:d5de:9015:9060:7c25:39d3:f3c3";
-  };
   "servarica" = rec {
     index = 6;
     city = geo.cities."CA Montréal";
