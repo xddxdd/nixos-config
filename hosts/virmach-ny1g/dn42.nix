@@ -15,8 +15,10 @@
       addressing = {
         myIPv4 = "172.23.217.90";
         peerIPv4 = "172.23.217.65";
+        IPv4SubnetMask = 27;
         myIPv6 = "fde4:da74:55b2:3a9b:4999:939e:a04:1298";
         peerIPv6 = "fde4:da74:55b2:3a9b:4999:93ef:7d96:e6be";
+        IPv6SubnetMask = 80;
       };
     };
     chuangzhu = {
