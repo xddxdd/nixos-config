@@ -16,11 +16,12 @@ lib.mkIf (!config.boot.isContainer) {
         "VirtualBox VMs"
 
         # Preserved cache
-        ".cache/mesa_shader_cache"        # Intel GPU Shader Cache
-        ".cache/netease-cloud-music/Cef"  # NetEase Cloud Music Login State
-        ".cache/nix-index"                # nix-index index data
-        ".cache/nvidia"                   # NVIDIA GPU Shader Cache
-        ".cache/tldr-python"              # Ulauncher TLDR plugin
+        ".cache/com.github.tchar.calculate-anything"  # Ulauncher calculator plugin
+        ".cache/mesa_shader_cache"                    # Intel GPU Shader Cache
+        ".cache/netease-cloud-music/Cef"              # NetEase Cloud Music Login State
+        ".cache/nix-index"                            # nix-index index data
+        ".cache/nvidia"                               # NVIDIA GPU Shader Cache
+        ".cache/tldr-python"                          # Ulauncher TLDR plugin
 
         # XDG config folders
         ".config"
