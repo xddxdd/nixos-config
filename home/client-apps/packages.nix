@@ -46,7 +46,7 @@
     prismlauncher
     qq
     quasselClient
-    space-cadet-pinball
+    space-cadet-pinball-full-tilt
     svp
     tdesktop
     tigervnc
