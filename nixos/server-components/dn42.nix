@@ -6,24 +6,45 @@ let
 
   filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
 
-  setupAddressing = interfaceName: v: lib.optionalString (v.tunnel.mtu != null) ''
-    ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
-  '' + ''
-    ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
-  '' + lib.optionalString (v.addressing.peerIPv4 != null) ''
-    ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4} peer ${v.addressing.peerIPv4} dev ${interfaceName}
-  '' + lib.optionalString (v.addressing.peerIPv6 != null) ''
-    ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6} peer ${v.addressing.peerIPv6} dev ${interfaceName}
-    ${pkgs.iproute2}/bin/ip route add ${v.addressing.peerIPv6}/128 src ${v.addressing.myIPv6} dev ${interfaceName}
-  '' + lib.optionalString (v.addressing.peerIPv6 == null) ''
-    ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/128 dev ${interfaceName}
-  '' + lib.optionalString (v.addressing.myIPv6Subnet != null) ''
-    ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6Subnet}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
-  '' + ''
-    ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.autoconf=0
-    ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.accept_ra=0
-    ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.addr_gen_mode=1
-  '';
+  setupAddressing = interfaceName: v:
+    let
+      mtu = lib.optionalString (v.tunnel.mtu != null) ''
+        ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
+      '' + ''
+        ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
+      '';
+
+      ipv4 =
+        if v.addressing.IPv4SubnetMask == 32
+        then
+          (if v.addressing.peerIPv4 == null then ''
+            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/32 dev ${interfaceName}
+          '' else ''
+            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4} peer ${v.addressing.peerIPv4} dev ${interfaceName}
+          '')
+        else ''
+          ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/${builtins.toString v.addressing.IPv4SubnetMask} dev ${interfaceName}
+        '';
+
+      ipv6 =
+        if v.addressing.IPv6SubnetMask == 128
+        then
+          (''
+            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/128 dev ${interfaceName}
+          '' + lib.optionalString (v.addressing.peerIPv6 != null) ''
+            ${pkgs.iproute2}/bin/ip route add ${v.addressing.peerIPv6}/128 src ${v.addressing.myIPv6} dev ${interfaceName}
+          '')
+        else ''
+          ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
+        '';
+
+      sysctl = ''
+        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.autoconf=0
+        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.accept_ra=0
+        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.addr_gen_mode=1
+      '';
+    in
+    mtu + ipv4 + ipv6 + sysctl;
 in
 {
   config.age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
@@ -116,10 +137,6 @@ in
                 type = lib.types.nullOr lib.types.str;
                 default = null;
               };
-              peerIPv6Subnet = lib.mkOption {
-                type = lib.types.nullOr lib.types.str;
-                default = null;
-              };
               peerIPv6LinkLocal = lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;
@@ -132,17 +149,17 @@ in
                 type = lib.types.str;
                 default = LT.this.dn42.IPv6;
               };
-              myIPv6Subnet = lib.mkOption {
-                type = lib.types.nullOr lib.types.str;
-                default = null;
-              };
               myIPv6LinkLocal = lib.mkOption {
                 type = lib.types.str;
                 default = "fe80::2547";
               };
+              IPv4SubnetMask = lib.mkOption {
+                type = lib.types.int;
+                default = 32;
+              };
               IPv6SubnetMask = lib.mkOption {
                 type = lib.types.int;
-                default = 0;
+                default = 128;
               };
             };
           };
@@ -211,10 +228,9 @@ in
         lib.nameValuePair "gre-${interfaceName}" {
           serviceConfig.Type = "oneshot";
           serviceConfig.RemainAfterExit = true;
+          after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
-          unitConfig = {
-            After = "network.target";
-          };
+
           script = ''
             ${pkgs.iproute2}/bin/ip tunnel add ${interfaceName} mode gre remote ${v.tunnel.remoteAddress} local ${LT.this.public.IPv4} ttl 255
             ${pkgs.iproute2}/bin/ip link set ${interfaceName} up
@@ -226,6 +242,25 @@ in
           '';
         }
       ;
+
+      cfgToZeroTier = n: v:
+        let
+          interfaceName = "${v.peering.network}-${n}";
+        in
+        lib.nameValuePair "zerotier-${interfaceName}" {
+          serviceConfig.Type = "oneshot";
+          serviceConfig.RemainAfterExit = true;
+          after = [ "network.target" "zerotierone.service" ];
+          requires = [ "network.target" "zerotierone.service" ];
+          wantedBy = [ "multi-user.target" ];
+
+          script = setupAddressing interfaceName v;
+          preStop = ''
+            ${pkgs.iproute2}/bin/ip addr flush ${interfaceName}
+          '';
+        }
+      ;
     in
-    lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
+    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42))
+    // (lib.mapAttrs' cfgToZeroTier (filterType "zerotier" config.services.dn42));
 }

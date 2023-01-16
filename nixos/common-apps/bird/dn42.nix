@@ -40,20 +40,6 @@ let
         };
       };
     ''
-    + lib.optionalString (v.addressing.peerIPv6Subnet != null) ''
-      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
-        neighbor ${v.addressing.peerIPv6Subnet} as ${builtins.toString v.remoteASN};
-        local ${v.addressing.myIPv6Subnet} as ${localASN};
-        ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
-        };
-        ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
-        };
-      };
-    ''
     + lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
       protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
