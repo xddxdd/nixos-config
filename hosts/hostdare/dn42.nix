@@ -486,7 +486,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20458;
-        remoteAddress = "us-west1.dn42.huajitech.net";
+        # remoteAddress = "us-west1.dn42.huajitech.net";
         remotePort = 22547;
         wireguardPubkey = "Y13v0Xzf6zJQGtL2qJSwVyLNSxipYoGpq4y/5aU7omg=";
       };
