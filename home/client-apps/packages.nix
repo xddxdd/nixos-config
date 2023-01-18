@@ -33,6 +33,7 @@
     libfaketime
     librewolf
     libsForQt5.ark
+    libsForQt5.kpat
     linphone
     mediainfo
     megatools
