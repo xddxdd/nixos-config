@@ -49,6 +49,9 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     wants = [ "network.target" ];
+    path = with pkgs; [
+      xorg.xorgserver
+    ];
     environment = {
       HOME = "/run/flaresolverr";
       HOST = "127.0.0.1";
