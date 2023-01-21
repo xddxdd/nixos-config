@@ -70,6 +70,9 @@ rec {
       ../patches/matrix-synapse-listen-unix.patch
     ];
   });
+  miniupnpd = prev.miniupnpd.override {
+    iptables = final.iptables-legacy;
+  };
   nix-top = prev.nix-top.overrideAttrs (old: {
     postPatch = (old.postInstall or "") + ''
       substituteInPlace nix-top --replace "/tmp" "/var/cache/nix"

@@ -14,6 +14,7 @@
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/libvirt
+    ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
@@ -98,6 +99,17 @@
   };
 
   services.fwupd.enable = true;
+
+  services.miniupnpd = {
+    # Can only enable actively used interfaces
+    internalIPs = [
+      "ens2f0"
+      # "ens2f1"
+      # "ens2f2"
+      # "ens2f3"
+    ];
+    externalInterface = "eno1.201";
+  };
 
   services.tlp.settings = {
     TLP_PERSISTENT_DEFAULT = 1;
