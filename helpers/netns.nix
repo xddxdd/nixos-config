@@ -3,6 +3,7 @@
 , lib
 , hosts
 , this
+, constants
 , containerIP
 , serviceHarden
 , ...
@@ -63,8 +64,8 @@ rec {
         ${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns
         ${ipns} -6 route add default via fe80::1 dev eth-ns
       '' else ''
-        ${ipns} route add 172.18.0.0/16 via ${this.ltnet.IPv4} dev eth-ns
-        ${ipns} -6 route add fdbc:f9dc:67ad::/48 via fe80::1 dev eth-ns
+        ${lib.concatMapStringsSep "\n" (route: "${ipns} route add ${route} via ${this.ltnet.IPv4} dev eth-ns") constants.reserved.IPv4}
+        ${lib.concatMapStringsSep "\n" (route: "${ipns} -6 route add ${route} via fe80::1 dev eth-ns") constants.reserved.IPv6}
       '') + (lib.optionalString birdEnabled ''
         # Announced addresses
         ${ipns} link add dummy0 type dummy
