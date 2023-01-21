@@ -8,7 +8,6 @@
     ./media-center.nix
     ./shares.nix
 
-    ../../nixos/client-components/network-manager.nix
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
@@ -29,6 +28,60 @@
 
   # Handle multiple NICs
   networking.usePredictableInterfaceNames = lib.mkForce true;
+
+  systemd.network.networks.eno1 = {
+    networkConfig = {
+      DHCP = "no";
+      VLAN = [ "eno1.201" ];
+    };
+    matchConfig.Name = "eno1";
+  };
+
+  systemd.network.netdevs."eno1.201" = {
+    netdevConfig = {
+      Kind = "vlan";
+      Name = "eno1.201";
+    };
+    vlanConfig = {
+      Id = 201;
+    };
+  };
+
+  systemd.network.networks."eno1.201" = {
+    networkConfig.DHCP = "yes";
+    matchConfig.Name = "eno1.201";
+  };
+
+  systemd.network.networks.ens2f0 = {
+    address = [ "192.168.1.2/24" ];
+    networkConfig.DHCP = "no";
+    networkConfig.DHCPServer = "yes";
+    dhcpServerConfig = {
+      PoolOffset = 10;
+      PoolSize = 200;
+      EmitDNS = "yes";
+      DNS = config.networking.nameservers;
+    };
+    matchConfig.Name = "ens2f0";
+  };
+
+  systemd.network.networks.ens2f1 = {
+    address = [ "192.168.1.3/24" ];
+    networkConfig.DHCP = "no";
+    matchConfig.Name = "ens2f1";
+  };
+
+  systemd.network.networks.ens2f2 = {
+    address = [ "192.168.1.4/24" ];
+    networkConfig.DHCP = "no";
+    matchConfig.Name = "ens2f2";
+  };
+
+  systemd.network.networks.ens2f3 = {
+    address = [ "192.168.1.5/24" ];
+    networkConfig.DHCP = "no";
+    matchConfig.Name = "ens2f3";
+  };
 
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;
