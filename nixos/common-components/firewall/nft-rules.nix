@@ -111,31 +111,65 @@ let
         ${lib.concatMapStringsSep "\n" (p: ''oifname "${p}*" fullcone'') (LT.constants.wanInterfacePrefixes ++ [ "virbr" ])}
       }
 
+      # Sets
+      set RESERVED_IPV4 {
+        type ipv4_addr
+        flags constant, interval
+        elements = { ${builtins.concatStringsSep ", " LT.constants.reserved.IPv4} }
+      }
+
+      set RESERVED_IPV6 {
+        type ipv6_addr
+        flags constant, interval
+        elements = { ${builtins.concatStringsSep ", " LT.constants.reserved.IPv6} }
+      }
+
+      set DN42_IPV4 {
+        type ipv4_addr
+        flags constant, interval
+        elements = { ${builtins.concatStringsSep ", " LT.constants.dn42.IPv4} }
+      }
+
+      set DN42_IPV6 {
+        type ipv6_addr
+        flags constant, interval
+        elements = { ${builtins.concatStringsSep ", " LT.constants.dn42.IPv6} }
+      }
+
+      set PUBLIC_FIREWALLED_PORTS {
+        type inet_service
+        flags constant
+        elements = {
+          # Samba
+          137, 138, 139, 445
+        }
+      }
+
       # Helper chains
       chain PUBLIC_INPUT {
         # Allow private ranges
-        ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.reserved.IPv4}
-        ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.reserved.IPv6}
+        ip saddr @RESERVED_IPV4 return
+        ip6 saddr @RESERVED_IPV6 return
 
         # Block ports
         # Samba
-        tcp dport { 137, 138, 139, 445 } reject with tcp reset
-        udp dport { 137, 138, 139, 445 } reject with icmpx type port-unreachable
+        tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
+        udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
 
         return
       }
 
       chain DN42_INPUT {
         iifname "zthnhe4bol" return
-        ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.dn42.IPv4}
-        ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.dn42.IPv6}
+        ip saddr @DN42_IPV4 return
+        ip6 saddr @DN42_IPV6 return
         reject with icmpx type admin-prohibited
       }
 
       chain DN42_OUTPUT {
         oifname "zthnhe4bol" return
-        ${lib.concatMapStringsSep "\n" (p: "ip daddr ${p} return") LT.constants.dn42.IPv4}
-        ${lib.concatMapStringsSep "\n" (p: "ip6 daddr ${p} return") LT.constants.dn42.IPv6}
+        ip daddr @DN42_IPV4 return
+        ip6 daddr @DN42_IPV6 return
         reject with icmpx type admin-prohibited
       }
     }
