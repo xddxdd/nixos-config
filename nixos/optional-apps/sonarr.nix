@@ -67,6 +67,7 @@
       WorkingDirectory = "/run/flaresolverr";
 
       MemoryDenyWriteExecute = false;
+      SystemCallFilter = lib.mkForce [ ];
     };
   };
 }
