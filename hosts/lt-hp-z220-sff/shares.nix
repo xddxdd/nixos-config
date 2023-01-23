@@ -2,19 +2,20 @@
 
 {
   imports = [
-    ../../nixos/optional-apps/ksmbd.nix
+    ../../nixos/optional-apps/samba.nix
   ];
 
-  services.ksmbd = {
-    enable = true;
-    shares = {
-      "storage" = {
-        "path" = "/mnt/storage";
-        "read only" = false;
-        "force user" = "lantian";
-        "force group" = "users";
-        "valid users" = "lantian";
-      };
+  services.samba.shares = {
+    "storage" = {
+      "path" = "/mnt/storage";
+      "browseable" = "yes";
+      "read only" = "no";
+      "guest ok" = "no";
+      "create mask" = "0644";
+      "directory mask" = "0755";
+      "force user" = "lantian";
+      "force group" = "users";
+      "valid users" = "lantian";
     };
   };
 
