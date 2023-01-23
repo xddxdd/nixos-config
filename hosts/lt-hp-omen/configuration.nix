@@ -25,13 +25,13 @@ in
     ./hp-keyboard-backlight
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/ksmbd.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/wg-cf-warp.nix
   ];
 
@@ -58,16 +58,17 @@ in
     extraOptions = [ "--loadavg-target" "8" ];
   };
 
-  services.ksmbd = {
-    enable = true;
-    shares = {
-      "lantian" = {
-        "path" = "/home/lantian";
-        "read only" = false;
-        "force user" = "lantian";
-        "force group" = "users";
-        "valid users" = "lantian";
-      };
+  services.samba.shares = {
+    "lantian" = {
+      "path" = "/home/lantian";
+      "browseable" = "yes";
+      "read only" = "no";
+      "guest ok" = "no";
+      "create mask" = "0644";
+      "directory mask" = "0755";
+      "force user" = "lantian";
+      "force group" = "users";
+      "valid users" = "lantian";
     };
   };
 
