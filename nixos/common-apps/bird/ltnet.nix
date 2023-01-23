@@ -38,6 +38,7 @@ in
 
     function ltmesh_export_filter_v4() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
@@ -49,6 +50,7 @@ in
 
     function ltmesh_export_filter_v6() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
@@ -81,6 +83,8 @@ in
     }
 
     function ltnet_export_filter_v4() {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -91,6 +95,8 @@ in
     }
 
     function ltnet_export_filter_v6() {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
