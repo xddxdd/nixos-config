@@ -47,6 +47,9 @@ let
         # Block non-DN42 traffic in DN42
         iifname "dn42*" jump DN42_INPUT
         iifname "zt*" jump DN42_INPUT
+
+        # Block certain ports from public internet
+        jump PUBLIC_INPUT
       }
 
       chain FILTER_FORWARD {
@@ -109,6 +112,19 @@ let
       }
 
       # Helper chains
+      chain PUBLIC_INPUT {
+        # Allow private ranges
+        ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.reserved.IPv4}
+        ${lib.concatMapStringsSep "\n" (p: "ip6 saddr ${p} return") LT.constants.reserved.IPv6}
+
+        # Block ports
+        # Samba
+        tcp dport { 137, 138, 139, 445 } reject with tcp reset
+        udp dport { 137, 138, 139, 445 } reject with icmpx type port-unreachable
+
+        return
+      }
+
       chain DN42_INPUT {
         iifname "zthnhe4bol" return
         ${lib.concatMapStringsSep "\n" (p: "ip saddr ${p} return") LT.constants.dn42.IPv4}
