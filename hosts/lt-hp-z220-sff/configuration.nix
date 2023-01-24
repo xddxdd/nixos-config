@@ -53,6 +53,13 @@
     matchConfig.Name = "eno1.201";
   };
 
+  systemd.network.networks.dummy0.address = [
+    "192.168.1.2/32"
+    "192.168.1.3/32"
+    "192.168.1.4/32"
+    "192.168.1.5/32"
+  ];
+
   systemd.network.networks.ens2f0 = {
     address = [ "192.168.1.2/24" ];
     networkConfig.DHCP = "no";
@@ -101,12 +108,11 @@
   services.fwupd.enable = true;
 
   services.miniupnpd = {
-    # Can only enable actively used interfaces
     internalIPs = [
-      "ens2f0"
-      # "ens2f1"
-      # "ens2f2"
-      # "ens2f3"
+      "192.168.1.2"
+      "192.168.1.3"
+      "192.168.1.4"
+      "192.168.1.5"
     ];
     externalInterface = "eno1.201";
   };
