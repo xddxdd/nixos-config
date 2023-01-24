@@ -21,17 +21,25 @@
 
     knownHosts = builtins.listToAttrs (lib.flatten (lib.mapAttrsToList
       (n: v:
+        let
+          hostNames = [
+            "${n}.lantian.pub"
+            "[${n}.lantian.pub]:2222"
+            "${n}.xuyh0120.win"
+            "[${n}.xuyh0120.win]:2222"
+          ];
+        in
         (lib.optional ((LT.hosts."${n}".ssh.rsa or "") != "") {
           name = "${n}-rsa";
           value = {
-            hostNames = [ "${n}.lantian.pub" "${n}.xuyh0120.win" ];
+            inherit hostNames;
             publicKey = LT.hosts."${n}".ssh.rsa;
           };
         })
         ++ (lib.optional ((LT.hosts."${n}".ssh.ed25519 or "") != "") {
           name = "${n}-ed25519";
           value = {
-            hostNames = [ "${n}.lantian.pub" "${n}.xuyh0120.win" ];
+            inherit hostNames;
             publicKey = LT.hosts."${n}".ssh.ed25519;
           };
         })
