@@ -55,6 +55,7 @@ lib.mkIf (!config.boot.isContainer) {
     kernelParams = [
       "audit=0"
       "cgroup_enable=memory"
+      "delayacct"
       "log_buf_len=1048576"
       "split_lock_detect=off"
       "swapaccount=1"
