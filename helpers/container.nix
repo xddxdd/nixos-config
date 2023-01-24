@@ -108,15 +108,8 @@ lib.recursiveUpdate outerConfig {
         IPv6PrivacyExtensions = false;
       };
 
-      addresses = (builtins.map
-        (ip: {
-          addressConfig = { Address = "${ip}/32"; };
-        })
-        announcedIPv4) ++ (builtins.map
-        (ip: {
-          addressConfig = { Address = "${ip}/128"; };
-        })
-        announcedIPv6);
+      address = (builtins.map (ip: "${ip}/32") announcedIPv4)
+        ++ (builtins.map (ip: "${ip}/128") announcedIPv6);
     };
   };
 }
