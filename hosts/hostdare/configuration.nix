@@ -4,7 +4,6 @@
   imports = [
     ../../nixos/server.nix
 
-    ./dn42.nix
     ./hardware-configuration.nix
   ];
 
@@ -13,10 +12,6 @@
     gateway = [ "185.186.146.1" "2607:fcd0:100:b100::1"];
     matchConfig.Name = "eth0";
   };
-
-  systemd.network.networks.dummy0.address = [
-    "fdbc:f9dc:67ad::dd:c85a:8a93/128"
-  ];
 
   services."route-chain" = {
     enable = true;
