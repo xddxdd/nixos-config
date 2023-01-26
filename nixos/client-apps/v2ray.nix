@@ -31,7 +31,7 @@ let
         protocol = "trojan";
         settings.servers = [
           {
-            address = LT.hosts."hostdare".public.IPv4;
+            address = LT.hosts."v-ps-sjc".public.IPv4;
             port = 443;
             password = { _secret = config.age.secrets.v2ray-key.path; };
           }

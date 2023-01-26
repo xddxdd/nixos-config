@@ -2,7 +2,7 @@
 
 rec {
   inherit hosts;
-  mainServer = hosts.hostdare;
+  mainServer = hosts.oneprovider;
 
   hostRecs = import ./host-recs.nix args;
   nameservers = import ./nameservers.nix args;

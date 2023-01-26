@@ -6,7 +6,7 @@ let
 
   serveWithOwnNS = name: [
     (NS { inherit name; target = "linkin.lantian.pub."; })
-    (NS { inherit name; target = "hostdare.lantian.pub."; })
+    (NS { inherit name; target = "v-ps-sjc.lantian.pub."; })
     (NS { inherit name; target = "virmach-ny1g.lantian.pub."; })
     (NS { inherit name; target = "buyvm.lantian.pub."; })
     (NS { inherit name; target = "oneprovider.lantian.pub."; })
@@ -53,12 +53,12 @@ let
     (CNAME { name = "ci-github"; target = "oneprovider"; cloudflare = true; })
     (CNAME { name = "comments"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "git"; target = "oneprovider"; ttl = "1h"; })
-    (CNAME { name = "gopher"; target = "hostdare"; ttl = "1h"; })
+    (CNAME { name = "gopher"; target = "v-ps-sjc"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "lg"; target = "oneprovider"; cloudflare = true; })
     (fakeALIAS { name = "matrix"; target = "oneprovider"; ttl = "1h"; })
     (SRV { name = "_matrix._tcp"; priority = 10; weight = 0; port = 8448; target = "matrix"; })
-    (CNAME { name = "whois"; target = "hostdare"; ttl = "1h"; })
+    (CNAME { name = "whois"; target = "v-ps-sjc"; ttl = "1h"; })
 
     (serveWithOwnNS "asn")
 
