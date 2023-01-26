@@ -3,7 +3,7 @@
 let
   lgproxyHosts = [
     "buyvm"
-    "hostdare"
+    "v-ps-sjc"
     "linkin"
     "oracle-vm1"
     "virmach-ny1g"
