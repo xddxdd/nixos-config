@@ -169,7 +169,7 @@
       peering.mpbgp = true;
       tunnel = {
         type = "gre";
-        remoteAddress = "186.96.168.147";
+        remoteAddress = "140.148.244.157";
       };
       addressing = {
         peerIPv4 = "172.22.122.1";
