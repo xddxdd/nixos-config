@@ -12,7 +12,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22375;
-        remoteAddress = "us1.4k1ra.ml";
+        # remoteAddress = "us1.4k1ra.ml";
         remotePort = 22547;
         wireguardPubkey = "VUUIB+ji/0sH4wmFwYDHL6yUsgXvy9NysKOM8RQ9qGs=";
       };
