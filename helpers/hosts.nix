@@ -43,7 +43,7 @@
     yggdrasil.IPv6 = "202:afa9:dd3c:34eb:22a5:851a:11b9:356";
   };
   "hostdare" = rec {
-    index = 3;
+    index = 13;
     city = geo.cities."US Los Angeles";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfK8gSS4EXf1yGprWEMYMbEuUkQ3ngITHgTfgbx98qONTm/loSMhNqN2VM1haCjCV8h4PUAd11mPjzzci08wQD/5aSbQnrx+ku8vkT8D+hNTzdxSGTTbvOIGsfTB26JPH0cFklJTz1hQSD9mOPl6IkdP9qKtlTmTf/NrER3ClEaKRfgjgrpkJ+IvlNLIO4Lgm47xoh3Jj8TUZd+qowcHjvilE+XY9tTIYypaRp1vA6D8sgNp9aIObpYO/XzuMGabaGHJO5bPWjIw/Fw+mDctNVtWLxczis/qTGYWMUUVbmMGpmvfZQ955xnXoY4hCgbOe2gTVHJuRboGE0qTNr7WxxPfEHJdIfsSs64OeBX2QwbAs1126PAQABKYorJGsjOo+sbymVxYa6gklJXZsr7fwCcOzWzcYQvqgplipFdrwzol/KyyhHASg6mVoTdzudbBYpqYwc/a/vQpLxeDw905fq6tp8OPYTHJvW2X5ad6ld8dK0IOjbYR9YD3ls0tRCYiD+cgwdY5OVecLRdeuKfX3MyWwH1ObBqA9Ge3NrGvxirqO6Dgd0rhdc6VepHEVKCIZ86ugcJXAu5Yyr7z9IEBT7W2uCeLnl9Fb6jwHh2sd67oYt+uO/UDL2yibZWuzFxCpfPxXAnULhtF4zjQXg6hhQinaisfnVFz7mccJY1sx/xw==";
@@ -55,10 +55,29 @@
       IPv6 = "2607:fcd0:100:b100::198a:b7f6";
     };
     dn42 = rec {
-      IPv4 = "172.22.76.185";
+      IPv4 = "172.22.76.117";
       region = 44;
     };
     yggdrasil.IPv6 = "200:425d:96c:e84b:3520:1db4:b6ca:ed91";
+  };
+  "v-ps-sjc" = rec {
+    index = 3;
+    hostname = "80.66.196.80";
+    city = geo.cities."US San Jose";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4aYURWnQGEkxYueAnGgZQbrQA+SHNLRgpJZd+2J9DyKdtoqXRhSjGEAGJkqBg8alWadaYJ15wvKj5BHoTQCao6XXzuxsP35Y+xtaWJ0wJ5ZJ3/J8l4z0V/85EdYqxPInQe0cpfqTEt+lnqlOOeq4f9522OMErSzefAk/MHp+OxDWr2ZdrZVggGVFpujFdCU3ckM8NMCZUufOXX2+wXQfkMXd3umGaM3oMJl6bIEyqtLwlCWnSuMEXS5JwnZ3lhKg73PO5tRaq2FcL8RXaph9uiHWmP/ch2RTnJ4xjmbhiGQuaebtCUnfW6sDZPfOv5KOx5T4V8yBOtnyDPoS2mYKva1I9HztW4JgzWzTRonFqbaH61jFalyWPTPMt/W1gQWZEnWbCewt+jBGUApBTaxDnKXywGxyjpb7MOfdLAuDkr19p9PR04G5BOw940CXeU3K0KvLjwsQN3ptHL4t6GesNWcZ3x8cxZbvi3n58GUgGjjxTro+TXgzqPU9U7JYeFPwdgoytBSPucA4DheYCkV6/V30tX8UETpGuSzWUplyVCbbXbZYGh6ulce3X4xXn0Nir3F4bzTCQlvzTWz8zkmHW1QERmStVhMJD2K7JWpe0h97zzi+jFv9QLLnfBBKjia02s7if3sZTjk4jI59B3X9Fmf3faeNXIoDMRBJcIwFtyw==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH7jqK5IsCqMJqJUhAk2oQBQHhvxEb2q39BKNi1VsyOg";
+    };
+    syncthing = "IZ7VNMO-BUICN7H-4ZSECE4-AXFDFUP-YA2R5HF-O7KDX73-DNV6R2A-XFWQLQU";
+    public = rec {
+      IPv4 = "80.66.196.80";
+      IPv6 = "2604:a840:2::ed";
+    };
+    dn42 = rec {
+      IPv4 = "172.22.76.185";
+      region = 44;
+    };
+    yggdrasil.IPv6 = "202:b546:589e:f485:896c:3454:6dc8:3c6e";
   };
   "oneprovider" = rec {
     index = 10;
