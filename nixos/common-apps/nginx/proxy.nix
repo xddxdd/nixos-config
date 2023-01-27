@@ -42,24 +42,26 @@ in
 {
   options.lantian.nginx-proxy.enable = lib.mkOption {
     type = lib.types.bool;
-    default = true;
+    default = !(builtins.elem LT.tags.low-ram LT.this.tags);
     description = "Enable nginx-proxy service.";
   };
 
-  config.systemd.services = netns.setup // {
-    nginx-proxy = netns.bind {
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = LT.serviceHarden // {
-        ExecStart = "${config.services.nginx.package}/bin/nginx -c ${nginxConfig}";
-        Restart = "always";
-        RestartSec = "10s";
+  config = lib.mkIf (config.lantian.nginx-proxy.enable) {
+    systemd.services = netns.setup // {
+      nginx-proxy = netns.bind {
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = LT.serviceHarden // {
+          ExecStart = "${config.services.nginx.package}/bin/nginx -c ${nginxConfig}";
+          Restart = "always";
+          RestartSec = "10s";
 
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
-        User = config.services.nginx.user;
-        Group = config.services.nginx.group;
-        MemoryDenyWriteExecute = lib.mkForce false;
-        TemporaryFileSystem = [ "/var/log/nginx:mode=0777" ];
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
+          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
+          User = config.services.nginx.user;
+          Group = config.services.nginx.group;
+          MemoryDenyWriteExecute = lib.mkForce false;
+          TemporaryFileSystem = [ "/var/log/nginx:mode=0777" ];
+        };
       };
     };
   };
