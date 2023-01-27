@@ -22,7 +22,7 @@
 
       (common.hostRecs.mapAddresses {
         name = "${domain}.";
-        addresses = common.mainServer.neonetwork;
+        addresses = common.fallbackServer.neonetwork;
         ttl = "10m";
       })
 

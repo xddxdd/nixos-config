@@ -2,7 +2,7 @@
 
 rec {
   inherit hosts;
-  mainServer = hosts.oneprovider;
+  fallbackServer = hosts.v-ps-sjc;
 
   hostRecs = import ./host-recs.nix args;
   nameservers = import ./nameservers.nix args;
@@ -13,7 +13,7 @@ rec {
   apexRecords = domain:
     hostRecs.mapAddresses {
       name = "${domain}.";
-      addresses = mainServer.public;
+      addresses = fallbackServer.public;
       ttl = "10m";
     };
 }
