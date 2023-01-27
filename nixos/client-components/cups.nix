@@ -9,6 +9,11 @@
       brlaser
       cnijfilter2
       epson-escpr
+      foomatic-db
+      foomatic-db-engine
+      foomatic-db-nonfree
+      foomatic-db-ppds-withNonfreeDb
+      foomatic-filters
       gutenprint
       gutenprintBin
       hplip

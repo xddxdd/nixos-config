@@ -143,7 +143,9 @@ let
         flags constant
         elements = {
           # Samba
-          137, 138, 139, 445
+          137, 138, 139, 445,
+          # CUPS
+          631
         }
       }
 
