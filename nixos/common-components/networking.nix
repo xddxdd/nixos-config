@@ -108,6 +108,7 @@
       enable = true;
       addresses = true;
       hinfo = true;
+      userServices = true;
       workstation = true;
     };
   };

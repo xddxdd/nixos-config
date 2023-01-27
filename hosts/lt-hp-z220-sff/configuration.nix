@@ -8,6 +8,7 @@
     ./media-center.nix
     ./shares.nix
 
+    ../../nixos/client-components/cups.nix
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
@@ -103,6 +104,13 @@
     hashTableSizeMB = 2048;
     verbosity = "crit";
     extraOptions = [ "--loadavg-target" "4" ];
+  };
+
+  services.avahi.enable = lib.mkForce true;
+  services.printing = {
+    browsing = true;
+    listenAddresses = [ "127.0.0.1:631" "192.168.1.2:631" ];
+    allowFrom = [ "all" ];
   };
 
   services.fwupd.enable = true;
