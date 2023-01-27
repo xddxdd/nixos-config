@@ -119,7 +119,7 @@ let
         }
       '';
 in
-{
+lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
   age.secrets = builtins.listToAttrs (lib.flatten (builtins.map
     (n: [
       {

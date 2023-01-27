@@ -136,10 +136,13 @@ rec {
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
 
-  tags = lib.genAttrs [
-    "client"
-    "server"
-  ] (v: v);
+  tags = lib.genAttrs
+    [
+      "client"
+      "low-ram"
+      "server"
+    ]
+    (v: v);
 
   wanInterfacePrefixes = [
     "en"

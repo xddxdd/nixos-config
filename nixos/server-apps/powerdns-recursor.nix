@@ -16,7 +16,7 @@ let
     birdBindTo = [ "pdns-recursor.service" ];
   };
 in
-{
+lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
   services.pdns-recursor = {
     enable = true;
     dns.address = "0.0.0.0, ::";
