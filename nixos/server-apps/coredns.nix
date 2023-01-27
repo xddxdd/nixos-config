@@ -69,7 +69,7 @@ let
           bufsize 1232
           loadbalance round_robin
 
-          forward . ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-knot} ${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-knot}
+          forward . ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot} ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
           ${dnssec null}
         }
 
@@ -141,7 +141,7 @@ in
         };
       }
     ])
-    LT.dnssecKeys));
+    LT.constants.dnssecKeys));
 
   services.knot = {
     enable = true;
@@ -184,8 +184,8 @@ in
 
         remote:
         - id: dn42
-          via: ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-knot}
-          via: ${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-knot}
+          via: ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot}
+          via: ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
 
           # {b,j}.master.delegation-servers.dn42
           address: fd42:180:3de0:30::1@${LT.portStr.DNS}
@@ -200,8 +200,8 @@ in
           # address: fdcf:8538:9ad5:1111::2@${LT.portStr.DNS}
 
         - id: opennic
-          via: ${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-knot}
-          via: ${LT.this.ltnet.IPv6Prefix}::${LT.containerIP.coredns-knot}
+          via: ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot}
+          via: ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
           address: 161.97.219.84@${LT.portStr.DNS}
           address: 94.103.153.176@${LT.portStr.DNS}
           address: 178.63.116.152@${LT.portStr.DNS}

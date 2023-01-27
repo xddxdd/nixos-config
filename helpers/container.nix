@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hosts, this, containerIP, inputs, ... }:
+{ config, pkgs, lib, hosts, this, constants, inputs, ... }:
 
 let
   hostConfig = config;
@@ -11,7 +11,7 @@ in
 ,
 }:
 let
-  thisIP = containerIP."${name}";
+  thisIP = constants.containerIP."${name}";
 in
 lib.recursiveUpdate outerConfig {
   autoStart = true;

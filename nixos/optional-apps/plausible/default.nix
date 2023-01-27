@@ -62,7 +62,7 @@ in
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf { } {
       "/" = {
-        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
+        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.plausible}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };

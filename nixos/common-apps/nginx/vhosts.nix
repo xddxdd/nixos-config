@@ -24,7 +24,7 @@ let
 
       # Plausible Analytics
       "= /api/event" = {
-        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.containerIP.plausible}:${LT.portStr.Plausible}";
+        proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.constants.containerIP.plausible}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
 

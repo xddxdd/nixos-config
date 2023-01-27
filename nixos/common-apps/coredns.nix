@@ -11,7 +11,7 @@ let
   ];
 in
 {
-  networking.nameservers = [ "${LT.this.ltnet.IPv4Prefix}.${LT.containerIP.coredns-client}" ] ++ backupDNSServers;
+  networking.nameservers = [ "${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-client}" ] ++ backupDNSServers;
 
   services.coredns = {
     enable = true;
