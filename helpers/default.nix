@@ -31,29 +31,26 @@ mkScope (call: rec {
   inherit config pkgs lib inputs;
 
   constants = call ./constants.nix;
+  inherit (constants) port portStr;
+
+  sources = call _sources/generated.nix;
+
   hosts = builtins.mapAttrs hostDefaults (call ./hosts.nix);
   hostDefaults = call ./host-defaults.nix;
   this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
-  geo = call ./geo.nix;
-  roles = call ./roles.nix;
   serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;
   nixosHosts = lib.filterAttrs (n: v: v.role != roles.non-nixos) hosts;
 
-  containerIP = call ./container-ip.nix;
-  dnssecKeys = call ./dnssec-keys.nix;
-  port = call ./port.nix;
-  portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
-
-  sanitizeName = call ./sanitize-name.nix;
-  serviceHarden = call ./service-harden.nix;
-  sources = call _sources/generated.nix;
-
   container = call ./container.nix;
+  geo = call ./geo.nix;
   gui = call ./gui.nix;
   netns = call ./netns.nix;
   nginx = call ./nginx.nix;
+  roles = call ./roles.nix;
+  sanitizeName = call ./sanitize-name.nix;
+  serviceHarden = call ./service-harden.nix;
   uuid = call ./uuid.nix;
   wrapNetns = call ./wrap-netns.nix;
 })

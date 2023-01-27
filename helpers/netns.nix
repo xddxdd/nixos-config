@@ -4,7 +4,6 @@
 , hosts
 , this
 , constants
-, containerIP
 , serviceHarden
 , ...
 }:
@@ -19,7 +18,7 @@
 , birdBindTo ? [ ]
 }:
 let
-  thisIP = containerIP."${name}";
+  thisIP = constants.containerIP."${name}";
   interface = builtins.substring 0 12 name;
 
   ipbin = "${pkgs.iproute2}/bin/ip";
