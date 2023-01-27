@@ -74,11 +74,13 @@ let
       chain NAT_PREROUTING {
         type nat hook prerouting priority -95; policy accept;
 
-        # nginx whois & gopher server
-        fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.nginx-proxy}:${LT.portStr.Whois}
-        fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.nginx-proxy}:${LT.portStr.Gopher}
-        fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.nginx-proxy}]:${LT.portStr.Whois}
-        fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.nginx-proxy}]:${LT.portStr.Gopher}
+        ${lib.optionalString config.lantian.nginx-proxy.enable ''
+          # nginx whois & gopher server
+          fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.nginx-proxy}:${LT.portStr.Whois}
+          fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.nginx-proxy}:${LT.portStr.Gopher}
+          fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.nginx-proxy}]:${LT.portStr.Whois}
+          fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.nginx-proxy}]:${LT.portStr.Gopher}
+        ''}
 
         ${serverPortForwards}
         ${wg-lantian}
