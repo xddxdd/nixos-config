@@ -31,7 +31,7 @@ mkScope (call: rec {
   inherit config pkgs lib inputs;
 
   constants = call ./constants.nix;
-  inherit (constants) port portStr;
+  inherit (constants) port portStr tags;
 
   sources = call _sources/generated.nix;
 
@@ -39,16 +39,13 @@ mkScope (call: rec {
   hostDefaults = call ./host-defaults.nix;
   this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
-
-  serverHosts = lib.filterAttrs (n: v: v.role == roles.server) hosts;
-  nixosHosts = lib.filterAttrs (n: v: v.role != roles.non-nixos) hosts;
+  serverHosts = lib.filterAttrs (n: v: builtins.elem tags.server v.tags) hosts;
 
   container = call ./container.nix;
   geo = call ./geo.nix;
   gui = call ./gui.nix;
   netns = call ./netns.nix;
   nginx = call ./nginx.nix;
-  roles = call ./roles.nix;
   sanitizeName = call ./sanitize-name.nix;
   serviceHarden = call ./service-harden.nix;
   uuid = call ./uuid.nix;

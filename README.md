@@ -20,12 +20,11 @@ This repository holds the configuration files for all my VPS nodes.
 My hosts are categorized into three types:
 
 - `client`: A host running NixOS. Usually a desktop/laptop running a desktop environment.
-- `non-nixos`: A host running another Linux distribution, with a GUI. Usually only Home-Manager settings are applied.
 - `server`: A host running NixOS without GUI. Usually a VM running on a cloud provider.
 
 In addition, there is a virtual (combined) category:
 
-- `gui`: Includes all hosts from `client` and `non-nixos`
+- `gui`: Includes all hosts from `client`
 
 ## Folder Structure
 
@@ -44,12 +43,10 @@ In addition, there is a virtual (combined) category:
   - Subdirectories
     - `common-apps`: Apps used by all nodes.
     - `client-apps`: Apps used by `client` nodes.
-    - `gui-apps`: Apps used by `client` and `non-nixos` nodes.
-    - `non-nixos-apps`: Apps used by `non-nixos` nodes.
+    - `gui-apps`: Apps used by `client` nodes.
 
   - Files
     - `client.nix`: Config applied on `client` nodes.
-    - `non-nixos.nix`: Config applied on `non-nixos` nodes.
     - `server.nix`: Config applied on `server` nodes.
 
 - `hosts`: Host-specific NixOS system definitions. Each subdirectory refers to a host. The list of hosts is automatically obtained in `flake.nix`. Configs here usually control networking parameters, and host-specific tunings.

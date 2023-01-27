@@ -16,6 +16,6 @@ in
           "fc00::${builtins.toString v.index}/128"
         ];
       })
-      (lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts);
+      (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts);
   };
 }

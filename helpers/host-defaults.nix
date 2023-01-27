@@ -1,10 +1,10 @@
-{ lib, roles, ... }:
+{ lib, ... }:
 
 n: v: lib.recursiveUpdate
 {
   hostname = "${n}.lantian.pub";
   city = null;
-  role = roles.server;
+  tags = [ ];
   sshPort = 2222;
   system = "x86_64-linux";
   manualDeploy = false;

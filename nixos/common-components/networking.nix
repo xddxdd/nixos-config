@@ -102,7 +102,7 @@
 
   # Multicast DNS
   services.avahi = {
-    enable = LT.this.role == LT.roles.client;
+    enable = builtins.elem LT.tags.client LT.this.tags;
     nssmdns = true;
     publish = {
       enable = true;

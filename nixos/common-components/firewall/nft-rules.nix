@@ -1,7 +1,7 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  serverPortForwards = lib.optionalString (LT.this.role == LT.roles.server) ''
+  serverPortForwards = lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
     # network namespace coredns
     fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-authoritative}:${LT.portStr.DNS}
     fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-authoritative}:${LT.portStr.DNS}
@@ -100,9 +100,9 @@ let
           (builtins.concatStringsSep "\n"
             (lib.mapAttrsToList (n: v:
               "ip6 saddr fc00::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
-            ) (lib.filterAttrs (n: v: v.role != LT.roles.server) LT.hosts)))}
+            ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)))}
 
-        ${lib.optionalString (LT.this.role == LT.roles.server) ''
+        ${lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
           # give nixos containers access to DN42
           ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${LT.this.dn42.IPv4}
           ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
