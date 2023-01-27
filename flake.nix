@@ -94,14 +94,14 @@
         ({ config, ... }: {
           deployment =
             let
-              inherit (LT.hosts."${n}" or (LT.hostDefaults n { })) hostname sshPort role manualDeploy;
+              inherit (LT.hosts."${n}" or (LT.hostDefaults n { })) hostname sshPort tags manualDeploy;
             in
             {
-              allowLocalDeployment = role == LT.roles.client;
+              allowLocalDeployment = builtins.elem LT.tags.client tags;
               targetHost = hostname;
               targetPort = sshPort;
               targetUser = "root";
-              tags = [ role ] ++ (lib.optional (!manualDeploy) "default");
+              tags = tags ++ (lib.optional (!manualDeploy) "default");
             };
           home-manager = {
             backupFileExtension = "bak";

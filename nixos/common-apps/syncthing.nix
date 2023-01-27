@@ -31,7 +31,7 @@
     extraOptions = {
       options = {
         startBrowser = false;
-        natEnabled = LT.this.role != LT.roles.server;
+        natEnabled = !(builtins.elem LT.tags.server LT.this.tags);
         urAccepted = -1;
         progressUpdateIntervalS = -1;
       };

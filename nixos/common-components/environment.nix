@@ -51,7 +51,7 @@ in
   i18n.supportedLocales = [ "all" ];
 
   location = {
-    provider = if LT.this.role == LT.roles.client then "geoclue2" else "manual";
+    provider = if builtins.elem LT.tags.client LT.this.tags then "geoclue2" else "manual";
     latitude = LT.this.city.lat;
     longitude = LT.this.city.lng;
   };

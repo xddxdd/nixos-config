@@ -30,5 +30,5 @@
     enable = true;
     enableGlobalCompInit = false;
   };
-  users.defaultUserShell = if LT.this.role == LT.roles.client then pkgs.zsh else pkgs.bash;
+  users.defaultUserShell = if builtins.elem LT.tags.client LT.this.tags then pkgs.zsh else pkgs.bash;
 }

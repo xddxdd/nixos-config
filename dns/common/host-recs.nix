@@ -2,7 +2,8 @@
 
 with dns;
 let
-  roles = import ../../helpers/roles.nix;
+  constants = pkgs.callPackage ../../helpers/constants.nix { };
+  inherit (constants) tags;
 
   replacedHosts = {
     "50kvm" = hosts."linkin";
@@ -113,7 +114,7 @@ in
 
   DN42 = domain: forEachHost
     (n: v: (
-      lib.optionals (v.role == roles.server) (
+      lib.optionals (builtins.elem tags.server v.tags) (
         (mapAddresses { name = "${n}.${domain}."; addresses = v.dn42; })
         # A record
         ++ lib.optionals (v.dn42.IPv4 != "") [
