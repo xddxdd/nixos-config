@@ -61,6 +61,7 @@ in
   environment.variables = {
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
+    ENVFS_RESOLVE_ALWAYS = "1";
     KOPIA_CHECK_FOR_UPDATES = "false";
     OPENSSL_CONF = builtins.toString (pkgs.writeText "openssl.conf" ''
       openssl_conf = openssl_init
@@ -164,6 +165,7 @@ in
     '';
   };
 
+  services.envfs.enable = true;
   services.fstrim.enable = !config.boot.isContainer;
   services.irqbalance.enable = !config.boot.isContainer;
 
