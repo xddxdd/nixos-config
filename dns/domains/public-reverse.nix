@@ -1,9 +1,6 @@
 { pkgs, lib, dns, common, ... }:
 
 [
-  (common.reverse { prefix = "2001:470:fa1d::/48"; target = "linkin.lantian.pub."; })
-  (common.reverse { prefix = "2001:470:19:10bd::/64"; target = "linkin.lantian.pub."; })
-
   (common.reverse { prefix = "2001:470:8a6d::/48"; target = "virmach-ny1g.lantian.pub."; })
   (common.reverse { prefix = "2001:470:1f07:54d::/64"; target = "virmach-ny1g.lantian.pub."; })
 

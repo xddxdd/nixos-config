@@ -7,7 +7,7 @@
     records = [
       common.records.SIP
 
-      (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."linkin".neonetwork; })
+      (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."v-ps-hkg".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."v-ps-sjc".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".neonetwork; })
       (common.hostRecs.mapAddresses { name = "ns4.${domain}."; addresses = hosts."buyvm".neonetwork; })
