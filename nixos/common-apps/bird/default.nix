@@ -86,7 +86,6 @@ in
       User = "bird2";
 
       CPUQuota = "10%";
-      TasksMax = 10;
     };
   };
 }
