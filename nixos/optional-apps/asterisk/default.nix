@@ -109,12 +109,20 @@ in
     };
   };
 
-  services.fail2ban.jails.asterisk = ''
-    enabled  = true
-    filter   = asterisk
-    backend  = auto
-    logpath  = /var/log/asterisk/security.log
-  '';
+  services.fail2ban.jails = {
+    asterisk = ''
+      enabled  = true
+      filter   = asterisk
+      backend  = auto
+      logpath  = /var/log/asterisk/asterisk.log
+    '';
+    asterisk-security = ''
+      enabled  = true
+      filter   = asterisk
+      backend  = auto
+      logpath  = /var/log/asterisk/security.log
+    '';
+  };
 
   systemd.services.asterisk = {
     path = with pkgs; [ mpg123 ];
