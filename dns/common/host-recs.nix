@@ -6,8 +6,9 @@ let
   inherit (constants) tags;
 
   replacedHosts = {
-    "50kvm" = hosts."linkin";
-    gigsgigscloud = hosts."linkin";
+    "50kvm" = hosts."v-ps-hkg";
+    gigsgigscloud = hosts."v-ps-hkg";
+    linkin = hosts."v-ps-hkg";
     hostdare = hosts."v-ps-sjc";
     soyoustart = hosts."oneprovider";
     virmach-ny3ip = hosts."virmach-ny6g";

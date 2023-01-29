@@ -23,9 +23,10 @@
     };
     yggdrasil.IPv6 = "200:3fa5:78e8:f74f:d078:6477:246e:bd0f";
   };
-  "linkin" = {
-    index = 1;
+  "linkin-old" = {
+    index = 14;
     tags = with tags; [ server ];
+    hostname = "103.172.81.11";
     city = geo.cities."CN Hong Kong";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkL37ZQV3RAmiM+TFOagMvmld8NRJcgQ37soAD13EcK9vJVA37vnzI/fKEYkP+oubBIQZBTnddLl8mSZlx0vC9alekpWFu2Y+HX7nm6qUef2O3pctZD0Br5AhNoye4k+Ly+FaVBddpUu9Z7H/yVlZarrA1XBQynyaIfcv5DOi5Jc6U5MVhs4qhBY8sElmYEV/Z103VbYpW4rZ+yw2sKmXFNAR5yL7jAiJQS+T3HWqEiicyT6ppLpy9nGkbbzHYQMxJqSdQ1TsRUK7TJepVEXGnuVCBOFKs74jXjzl3enABNmL2BiO9iiVo/rxWbLmV9k031sQMwCIsj/YYulDG3rFmbWiN5Wnm66X+201nDATJr0vzafojcLK2Pgxym1zVbKL6+bZOxES6WTqktFzj4eGa0ekoHKzgz0bXbSf3TNOHbt+WvXK+sgV8YVs9NUyA6X7JNCX1kooWoGS74nspdNZRa5ZAxTLmB62WwJefqdRotuE5sw1tzAjPXuyw8JOtrBZeYHDS26yJKlHV19EfWllbC1xFPXWcdJHCxgo2UiKC/ESP+xCJt/9zgsN8NboXvZp20lGVrel47c4MD63Ann6Wp/KV81xlV/URmPauJCDDDGXzhZBrc+5/is7EXY/3KqOvKfRJXcjjk8/kW2rmgul/fmdXfjaQ8wM3xUnwbFBc9Q==";
@@ -39,10 +40,30 @@
       IPv6Subnet = "2001:470:fa1d:ffff::";
     };
     dn42 = {
-      IPv4 = "172.22.76.186";
+      IPv4 = "172.22.76.118";
       region = 52;
     };
     yggdrasil.IPv6 = "202:afa9:dd3c:34eb:22a5:851a:11b9:356";
+  };
+  "v-ps-hkg" = {
+    index = 1;
+    tags = with tags; [ server ];
+    hostname = "95.214.164.82";
+    city = geo.cities."CN Hong Kong";
+    ssh = {
+      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChQcbvCQd/LwHhTC44LsjMBdR6Kv8RVXWWQN363niVrZiPjFkkNNH7eqzgzUjrlhZh/gkWEoAUoJUJ/YJFJVB6HfoubS3wFA54qzY3hkcHBCLEQXiW9rG8p41WJxdjduJrOboNWKsxsuhkwaP1xCK9SBJOII6/tEZGXg6Ajvi19qR6OqKC9n7Q0+fT16QNKUn8AOCinTYaKug8Zxlgw9cKHVmAuI9+g5gpEpBkbGZnflGnHDp9p7ZbAWHInek+9HgUd0Vc2fzLKDbteTz7uTL4tQyxatgdYSOQK5yFvHhVShCxOJNBk4W6cTjhrMHvz8AuG3O0jGdQNIhS0KMzI/d37w6n/S5hXCRQoHi1X48pc0z8Kqf6ej/aAoh8rejUz1SoZJR+y2KailFAYGX4dAYPolcIBVYt+RfLeclnmybapXrv+PcslZbBUkBncPm7rK+u0b5IV1o9PPBZHklsJlA7LVtOMAGvaH1j4ZQCrnRQo+IYL/4jSqC1vnM7XjARQDAKAxnoT7FwzKPUU3Or121Vw+WaI4kCZgzJZfrQHQU2BkKYeYn7nuWTkhn0qEdHomCIeoiPiuQnF+NNH/oN+pI53Uyflv+19DcTv4jV2gq0L5+ifXonYf0e9Eujql4Fai5Cltd71ee6wa/DagcpXMd1QDCmQCVuMkB/tFp7q45OJQ==";
+      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDOr1Sq4OSSjirG3kVybjypj0s7nEtx4F23ISgxSRQvV";
+    };
+    syncthing = "MLT5UUV-TVPLVYW-J6YTC4E-G4GXX3H-RNICX6M-OCUQHVP-BG4QKBO-H5G5IQI";
+    public = {
+      IPv4 = "95.214.164.82";
+      IPv6 = "2403:2c80:b::12cc";
+    };
+    dn42 = {
+      IPv4 = "172.22.76.186";
+      region = 52;
+    };
+    yggdrasil.IPv6 = "201:306c:9e8c:3e57:aad4:2046:ed1a:2745";
   };
   "hostdare-old" = {
     index = 13;

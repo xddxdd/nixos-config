@@ -3,9 +3,9 @@
 let
   lgproxyHosts = [
     "buyvm"
-    "v-ps-sjc"
-    "linkin"
     "oracle-vm1"
+    "v-ps-hkg"
+    "v-ps-sjc"
     "virmach-ny1g"
   ];
   lgproxyDomain = "bird-lg-go";
