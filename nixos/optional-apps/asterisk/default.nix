@@ -67,8 +67,8 @@ in
       "extensions.conf" = ''
         [src-anonymous]
         ; Only allow anonymous inbound call to test numbers
-        ${dialRule "_424025470XXX" [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
-        ${dialRule "_0XXX" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
+        ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+        ${dialRule "_[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
         [src-local]
         ${dialRule "_733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
