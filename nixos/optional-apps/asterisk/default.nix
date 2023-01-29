@@ -43,6 +43,10 @@ in
         ${externalTrunk { name = "sdf"; number = "2293"; url = "sip.sdf.org"; }}
         ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
 
+        ; Anonymous calling
+        [anonymous](template-endpoint-common)
+        context=src-anonymous
+
         ; Local devices
         ${localDevices}
 
@@ -61,6 +65,11 @@ in
       # - 2003: beverly
       #         https://worldofprankcalls.com/beverly/
       "extensions.conf" = ''
+        [src-anonymous]
+        ; Only allow anonymous inbound call to test numbers
+        ${dialRule "_424025470XXX" [ "Goto(dest-local,0\${EXTEN:9},1)" ]}
+        ${dialRule "_0XXX" [ "Goto(dest-local,0\${EXTEN:1},1)" ]}
+
         [src-local]
         ${dialRule "_733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
         ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
