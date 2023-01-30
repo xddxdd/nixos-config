@@ -14,10 +14,6 @@
       !include ${config.age.secrets.nix-access-token.path}
     '';
 
-    daemonCPUSchedPolicy = "idle";
-    daemonIOSchedClass = "idle";
-    daemonIOSchedPriority = 7;
-
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";
