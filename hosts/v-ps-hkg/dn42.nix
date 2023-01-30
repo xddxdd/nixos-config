@@ -231,7 +231,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20603;
-        remoteAddress = "hk02.nodes.mol.moe";
+        # remoteAddress = "hk02.nodes.mol.moe";
         remotePort = 22547;
         wireguardPubkey = "wNNbJyoFBrlpq53p61Ur8V2RNfS3U7KADlK7he64qRk=";
       };
