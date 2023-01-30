@@ -35,9 +35,6 @@
     syncthing = "QPG2K6W-7JVQ3E4-AN637A6-FLLIVOI-MGWNLHE-5XGPJYE-JWUHZQX-GLPFYQ4";
     public = {
       IPv4 = "103.172.81.11";
-      IPv6 = "2001:470:19:10bd::1";
-      IPv6Alt = "2001:470:fa1d::1";
-      IPv6Subnet = "2001:470:fa1d:ffff::";
     };
     dn42 = {
       IPv4 = "172.22.76.118";
