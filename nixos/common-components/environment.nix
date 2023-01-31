@@ -208,45 +208,18 @@ in
 
   system.fsPackages = [ pkgs.bindfs ];
 
-  systemd = {
-    # Given that our systems are headless, emergency mode is useless.
-    # We prefer the system to attempt to continue booting so
-    # that we can hopefully still access it remotely.
-    enableEmergencyMode = builtins.elem LT.tags.client LT.this.tags;
+  # https://github.com/systemd/systemd/issues/25376
+  systemd.extraConfig = ''
+    DefaultOOMPolicy=continue
+    DefaultTimeoutStopSec=30s
+  '';
 
-    # For more detail, see:
-    #   https://0pointer.de/blog/projects/watchdog.html
-    watchdog = {
-      # systemd will send a signal to the hardware watchdog at half
-      # the interval defined here, so every 10s.
-      # If the hardware watchdog does not get a signal for 20s,
-      # it will forcefully reboot the system.
-      runtimeTime = "20s";
-      # Forcefully reboot if the final stage of the reboot
-      # hangs without progress for more than 30s.
-      # For more info, see:
-      #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
-      rebootTime = "30s";
-    };
-
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-    '';
-
-    # https://github.com/systemd/systemd/issues/25376
-    extraConfig = ''
-      DefaultOOMPolicy=continue
-      DefaultTimeoutStopSec=30s
-    '';
-
-    tmpfiles.rules = [
-      # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
-      "w /sys/module/kernel/parameters/crash_kexec_post_notifiers - - - - Y"
-      # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
-      "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
-    ];
-  };
+  systemd.tmpfiles.rules = [
+    # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
+    "w /sys/module/kernel/parameters/crash_kexec_post_notifiers - - - - Y"
+    # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
+    "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
+  ];
 
   zramSwap = {
     enable = !config.boot.isContainer;

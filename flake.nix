@@ -127,8 +127,6 @@
         inputs.nur-xddxdd.nixosModules.setupOverlay
         inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
         inputs.srvos.nixosModules.common
-        inputs.srvos.nixosModules.mixins-terminfo
-        inputs.srvos.nixosModules.mixins-trusted-nix-caches
         (./hosts + "/${n}/configuration.nix")
       ];
 
