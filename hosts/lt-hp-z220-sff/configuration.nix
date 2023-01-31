@@ -61,7 +61,7 @@
     "192.168.1.5/32"
   ];
 
-  systemd.network.networks.ens2f0 = {
+  systemd.network.networks.ens3f0 = {
     address = [ "192.168.1.2/24" ];
     networkConfig.DHCP = "no";
     networkConfig.DHCPServer = "yes";
@@ -71,25 +71,25 @@
       EmitDNS = "yes";
       DNS = config.networking.nameservers;
     };
-    matchConfig.Name = "ens2f0";
+    matchConfig.Name = "ens3f0";
   };
 
-  systemd.network.networks.ens2f1 = {
+  systemd.network.networks.ens3f1 = {
     address = [ "192.168.1.3/24" ];
     networkConfig.DHCP = "no";
-    matchConfig.Name = "ens2f1";
+    matchConfig.Name = "ens3f1";
   };
 
-  systemd.network.networks.ens2f2 = {
+  systemd.network.networks.ens3f2 = {
     address = [ "192.168.1.4/24" ];
     networkConfig.DHCP = "no";
-    matchConfig.Name = "ens2f2";
+    matchConfig.Name = "ens3f2";
   };
 
-  systemd.network.networks.ens2f3 = {
+  systemd.network.networks.ens3f3 = {
     address = [ "192.168.1.5/24" ];
     networkConfig.DHCP = "no";
-    matchConfig.Name = "ens2f3";
+    matchConfig.Name = "ens3f3";
   };
 
   services.beesd.filesystems.root = {
