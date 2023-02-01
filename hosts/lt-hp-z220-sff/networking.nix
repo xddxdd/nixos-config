@@ -46,9 +46,18 @@
   ];
 
   systemd.network.networks.ens3f0 = {
-    address = [ "192.168.1.2/24" ];
-    networkConfig.DHCP = "no";
-    networkConfig.DHCPServer = "yes";
+    address = [
+      "192.168.1.2/24"
+      "2001:470:e89e:2::1/64"
+    ];
+    ipv6Prefixes = [{
+      ipv6PrefixConfig.Prefix = "2001:470:e89e:2::/64";
+    }];
+    networkConfig = {
+      DHCP = "no";
+      DHCPServer = "yes";
+      IPv6SendRA = "yes";
+    };
     dhcpServerConfig = {
       PoolOffset = 10;
       PoolSize = 200;
@@ -59,19 +68,28 @@
   };
 
   systemd.network.networks.ens3f1 = {
-    address = [ "192.168.1.3/24" ];
+    address = [
+      "192.168.1.3/24"
+      "2001:470:e89e:3::1/64"
+    ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f1";
   };
 
   systemd.network.networks.ens3f2 = {
-    address = [ "192.168.1.4/24" ];
+    address = [
+      "192.168.1.4/24"
+      "2001:470:e89e:4::1/64"
+    ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f2";
   };
 
   systemd.network.networks.ens3f3 = {
-    address = [ "192.168.1.5/24" ];
+    address = [
+      "192.168.1.5/24"
+      "2001:470:e89e:5::1/64"
+    ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f3";
   };
