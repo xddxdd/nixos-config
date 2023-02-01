@@ -110,7 +110,10 @@ let
           ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
         ''}
 
-        ${lib.concatMapStringsSep "\n" (p: ''oifname "${p}*" fullcone'') (LT.constants.wanInterfacePrefixes ++ [ "virbr" ])}
+        ${lib.concatMapStringsSep "\n" (p: ''
+          ip saddr @RESERVED_IPV4 oifname "${p}*" fullcone
+          ip6 saddr @RESERVED_IPV6 oifname "${p}*" fullcone
+        '') LT.constants.wanInterfacePrefixes}
       }
 
       # Sets
