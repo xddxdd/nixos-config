@@ -68,7 +68,7 @@ let
     sep
 
     netGateway
-    (builtins.map netUsage [ "eth0" "wlan0" "wg-lantian" "wg-cf-warp" ])
+    (builtins.map netUsage [ "eth0" "wlan0" "wg-lantian" ])
     sep
 
     "${reset}${goto 24}${gray "PID"}${goto 30}${gray "CPU%"}${goto 37}${gray "MEM%"}\n"
