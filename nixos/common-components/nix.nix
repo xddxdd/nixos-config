@@ -19,7 +19,7 @@
     daemonIOSchedPriority = 7;
 
     gc = {
-      automatic = true;
+      automatic = !(builtins.elem LT.tags.client LT.this.tags);
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
