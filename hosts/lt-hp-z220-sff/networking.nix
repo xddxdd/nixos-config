@@ -50,13 +50,9 @@
       "192.168.1.2/24"
       "2001:470:e89e:2::1/64"
     ];
-    ipv6Prefixes = [{
-      ipv6PrefixConfig.Prefix = "2001:470:e89e:2::/64";
-    }];
     networkConfig = {
       DHCP = "no";
       DHCPServer = "yes";
-      IPv6SendRA = "yes";
     };
     dhcpServerConfig = {
       PoolOffset = 10;
