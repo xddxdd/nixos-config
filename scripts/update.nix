@@ -1,5 +1,8 @@
 { nvfetcher, ... }:
+let
+  nvfetcherCmd = import ./nvfetcher.nix { inherit nvfetcher; };
+in
 ''
   nix flake update
-  ${nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+  ${nvfetcherCmd}
 ''
