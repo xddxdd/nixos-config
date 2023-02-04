@@ -59,7 +59,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20549;
-        # remoteAddress = "lux.lux.dn42.bb-pgqm.com";
+        remoteAddress = "lux.lux.dn42.bb-pgqm.com";
         remotePort = 22547;
         wireguardPubkey = "Yt27ZQW8ZTQDvK/PQ+cUw+sVaUJzWGGy1BKF5UzAJEs=";
       };
@@ -198,7 +198,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 21817;
-        # remoteAddress = "6.de.kskb.eu.org";
+        remoteAddress = "6.de.kskb.eu.org";
         remotePort = 22547;
         wireguardPubkey = "Sxn9qXnzu3gSBQFZ0vCh5t5blUJYgD+iHlCCG2hexg4=";
       };
@@ -449,8 +449,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20588;
-        # DNS failure
-        # remoteAddress = "fra.l.x6c.us";
+        remoteAddress = "fra.l.x6c.us";
         remotePort = 22547;
         wireguardPubkey = "tZ9TXziiPdFvEN+u7fICse0RnGmp6tI/zOB9uo0Fjik=";
       };

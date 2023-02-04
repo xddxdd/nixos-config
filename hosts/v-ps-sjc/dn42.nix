@@ -12,7 +12,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22375;
-        # remoteAddress = "us1.4k1ra.ml";
+        remoteAddress = "us1.4k1ra.ml";
         remotePort = 22547;
         wireguardPubkey = "VUUIB+ji/0sH4wmFwYDHL6yUsgXvy9NysKOM8RQ9qGs=";
       };
@@ -122,7 +122,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 23308;
-        # remoteAddress = "lax01.dn42.testnet.cyou";
+        remoteAddress = "lax01.dn42.testnet.cyou";
         remotePort = 42547;
         wireguardPubkey = "fxzL3/spstTHn0cxaAlVZHIfa1VQP06FKjJL9P/Zzgg=";
       };
@@ -138,7 +138,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 23397;
-        # remoteAddress = "dn42-la-us-1.ffeeco.coffee";
+        remoteAddress = "dn42-la-us-1.ffeeco.coffee";
         remotePort = 22547;
         wireguardPubkey = "ee6gKhvQDngc8rIR1IhHz1ng2M7UHzIY598TICJUPm0=";
       };
@@ -390,7 +390,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 23660;
-        # remoteAddress = "us1.dn42.ncdwlq.space";
+        remoteAddress = "us1.dn42.ncdwlq.space";
         remotePort = 22547;
         wireguardPubkey = "nWK3ZsUOksoz9/rKy6LwZmmQhYnM00sJFPOOMXrNh2s=";
       };
@@ -486,7 +486,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20458;
-        # remoteAddress = "us-west1.dn42.huajitech.net";
+        remoteAddress = "us-west1.dn42.huajitech.net";
         remotePort = 22547;
         wireguardPubkey = "Y13v0Xzf6zJQGtL2qJSwVyLNSxipYoGpq4y/5aU7omg=";
       };
@@ -500,7 +500,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22778;
-        # remoteAddress = "v4.lax1.tivipax.tk";
+        remoteAddress = "v4.lax1.tivipax.tk";
         remotePort = 22547;
         wireguardPubkey = "cPtZSwHTMrzsIv88mnnkMHyjItsRQqHJqdGQ/+ix9Bs=";
       };
@@ -516,8 +516,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 20585;
-        # Peer cannot accept incoming connections
-        # remoteAddress = "us1.dn42.atolm.net";
+        remoteAddress = "us1.dn42.atolm.net";
         remotePort = 22547;
         wireguardPubkey = "9MeUJU6gHl4lDLK+UJ/OZTp6dPGY8+jLkDDKqmSPWSM=";
       };
