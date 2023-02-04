@@ -159,4 +159,8 @@ lib.mkIf (!config.boot.isContainer) {
   services.udev.extraRules = ''
     KERNEL=="winesync", MODE="0644"
   '';
+
+  systemd.services.systemd-sysctl.serviceConfig = {
+    Restart = "on-failure";
+  };
 }

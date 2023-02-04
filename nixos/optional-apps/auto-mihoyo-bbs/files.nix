@@ -1,19 +1,18 @@
 { stdenvNoCC
-, sources
+, fetchurl
+, zstd
 , ...
 }:
 
-let
-  rrocrSrc = sources.auto-mihoyo-bbs-rrocr.src;
-in
 stdenvNoCC.mkDerivation {
-  inherit (sources.auto-mihoyo-bbs) pname version src;
+  pname = "auto-mihoyo-bbs";
+  version = "1.0.0";
+  src = fetchurl {
+    url = "https://backblaze.lantian.pub/auto-mihoyo-bbs.tar.zst";
+    sha256 = "0h06iyrnlrpbym2k4xdn4hbmywg64h00r7nddr7dgxv9xy7csgss";
+  };
 
-  prePatch = ''
-    cp ${rrocrSrc}/captcha.py .
-  '';
-
-  patches = [ ./auto-mihoyo-bbs-appkey-from-env.patch ];
+  nativeBuildInputs = [ zstd ];
 
   installPhase = ''
     mkdir -p $out/
