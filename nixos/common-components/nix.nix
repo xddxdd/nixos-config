@@ -1,7 +1,11 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 {
-  age.secrets.nix-access-token.file = inputs.secrets + "/nix/access-token.age";
+  age.secrets.nix-access-token = {
+    file = inputs.secrets + "/nix/access-token.age";
+    group = "wheel";
+    mode = "0440";
+  };
   age.secrets.nix-privkey = {
     name = "nix-privkey.pem";
     file = inputs.secrets + "/nix/privkey.age";
