@@ -1,44 +1,7 @@
 {
-    "auto-mihoyo-bbs": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "auto-mihoyo-bbs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Womsxd",
-            "repo": "AutoMihoyoBBS",
-            "rev": "16014b46e0c69f33e0a49833921468b9e4f3bd3f",
-            "sha256": "sha256-wVbHed0BcOhBjP+J7Q6ZTms5z96PVL6VUSOq56dWb/U=",
-            "type": "github"
-        },
-        "version": "16014b46e0c69f33e0a49833921468b9e4f3bd3f"
-    },
-    "auto-mihoyo-bbs-rrocr": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "auto-mihoyo-bbs-rrocr",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "coolxitech",
-            "repo": "AutoMihoyoBBS",
-            "rev": "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0",
-            "sha256": "sha256-fm819U4663uVqBaDyLP4CdXMDo23eh1ayhIFT+N2PrQ=",
-            "type": "github"
-        },
-        "version": "c0ea7aaf9ba6a2def0633a7fa73f83104a241cc0"
-    },
     "googleearth-pro": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "googleearth-pro",
         "passthru": null,
@@ -53,6 +16,7 @@
     },
     "himawaripy": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "himawaripy",
         "passthru": null,
@@ -72,6 +36,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
+        "date": "2022-12-30",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -91,6 +56,7 @@
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
+        "date": "2023-01-15",
         "extract": null,
         "name": "material-kwin-decoration",
         "passthru": null,
@@ -102,14 +68,15 @@
             "name": null,
             "owner": "Zren",
             "repo": "material-decoration",
-            "rev": "4784647e622c37a078cb119626916ac53155bdb9",
-            "sha256": "sha256-CW8z07gAMYxJrvvbDYFKw7VS/OmoDxuRunvZOMDI5xU=",
+            "rev": "0e989e5b815b64ee5bca989f983da68fa5556644",
+            "sha256": "sha256-Ncn5jxkuN4ZBWihfycdQwpJ0j4sRpBGMCl6RNiH4mXg=",
             "type": "github"
         },
-        "version": "4784647e622c37a078cb119626916ac53155bdb9"
+        "version": "0e989e5b815b64ee5bca989f983da68fa5556644"
     },
     "nft-fullcone": {
         "cargoLocks": null,
+        "date": "2023-01-10",
         "extract": null,
         "name": "nft-fullcone",
         "passthru": null,
@@ -129,6 +96,7 @@
     },
     "nullfsvfs": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "nullfsvfs",
         "passthru": null,
@@ -148,6 +116,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
+        "date": "2023-01-25",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -159,14 +128,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "0fa91702480a85c70e23b51203c4ac0b25a20b65",
-            "sha256": "sha256-+BkDUfVqqYMAG62OarNPJiNfghvHpOhhMlS5H+SV1dQ=",
+            "rev": "f8f4ce72a847371f925e3188b23060602729f1ad",
+            "sha256": "sha256-rmJTd6sMSdMLPLVhKFmDPvYIjAO1CtCqqGdFxu0g3TA=",
             "type": "github"
         },
-        "version": "0fa91702480a85c70e23b51203c4ac0b25a20b65"
+        "version": "f8f4ce72a847371f925e3188b23060602729f1ad"
     },
     "openvpn": {
         "cargoLocks": null,
+        "date": "2023-02-02",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -178,14 +148,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "cf545d603ecd9fbacc6bd519efaa92d60f944287",
-            "sha256": "sha256-49TOccZU2vPt410+y1IbuxrzzTV9UYFaNvqYdlz472Q=",
+            "rev": "b761cb9bc942b6077f0b6e2b85a72e33fc618a0f",
+            "sha256": "sha256-D4Jlk0fvBMZv7wuNLY4pbeAPQUdZkuVePF3XkZoSA5Q=",
             "type": "github"
         },
-        "version": "cf545d603ecd9fbacc6bd519efaa92d60f944287"
+        "version": "b761cb9bc942b6077f0b6e2b85a72e33fc618a0f"
     },
     "ovpn-dco": {
         "cargoLocks": null,
+        "date": "2023-01-25",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -197,14 +168,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "2fbc4e8fa4ce20c2ee7d2a1014dbdf5f375dc76d",
-            "sha256": "sha256-kUYUB19pYYjnXAHQBhL+x0Hv/88JAYDt4290ZxsL23I=",
+            "rev": "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7",
+            "sha256": "sha256-nKUJI0+1DYGvWMKlnXEWNQ5Fgl+GZnYtD/Y/pp7vXGk=",
             "type": "github"
         },
-        "version": "2fbc4e8fa4ce20c2ee7d2a1014dbdf5f375dc76d"
+        "version": "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7"
     },
     "transmission-web-control": {
         "cargoLocks": null,
+        "date": "2022-02-23",
         "extract": null,
         "name": "transmission-web-control",
         "passthru": null,
@@ -224,6 +196,7 @@
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
+        "date": "2021-08-12",
         "extract": null,
         "name": "ulauncher-albert-calculate-anything",
         "passthru": null,
@@ -243,6 +216,7 @@
     },
     "ulauncher-colorconverter": {
         "cargoLocks": null,
+        "date": "2020-12-06",
         "extract": null,
         "name": "ulauncher-colorconverter",
         "passthru": null,
@@ -262,6 +236,7 @@
     },
     "ulauncher-emoji": {
         "cargoLocks": null,
+        "date": "2021-08-08",
         "extract": null,
         "name": "ulauncher-emoji",
         "passthru": null,
@@ -281,6 +256,7 @@
     },
     "ulauncher-meme-my-text": {
         "cargoLocks": null,
+        "date": "2021-05-07",
         "extract": null,
         "name": "ulauncher-meme-my-text",
         "passthru": null,
@@ -300,6 +276,7 @@
     },
     "ulauncher-tldr": {
         "cargoLocks": null,
+        "date": "2022-12-17",
         "extract": null,
         "name": "ulauncher-tldr",
         "passthru": null,
@@ -319,6 +296,7 @@
     },
     "ulauncher-virtualbox": {
         "cargoLocks": null,
+        "date": "2020-09-23",
         "extract": null,
         "name": "ulauncher-virtualbox",
         "passthru": null,
@@ -338,6 +316,7 @@
     },
     "ulauncher-vscode-recent": {
         "cargoLocks": null,
+        "date": "2022-05-19",
         "extract": null,
         "name": "ulauncher-vscode-recent",
         "passthru": null,
@@ -357,6 +336,7 @@
     },
     "zsh-autopair": {
         "cargoLocks": null,
+        "date": "2022-10-03",
         "extract": null,
         "name": "zsh-autopair",
         "passthru": null,

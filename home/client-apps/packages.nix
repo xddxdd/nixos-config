@@ -22,7 +22,7 @@
     ffmpeg-full
     filezilla
     gcdemu
-    gimp-with-plugins
+    gimp
     gnome.gedit
     googleearth-pro
     gopherus
