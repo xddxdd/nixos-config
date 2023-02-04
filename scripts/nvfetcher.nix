@@ -1,4 +1,5 @@
 { nvfetcher, ... }:
 ''
-  ${nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o helpers/_sources
+  [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
+  ${nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o helpers/_sources
 ''
