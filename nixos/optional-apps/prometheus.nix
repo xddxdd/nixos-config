@@ -82,17 +82,20 @@ in
               };
             }
 
+            # # System Load
+            # # Disabled for spurius warnings from servarica
+            # (rec {
+            #   alert = "node_load1_90percent";
+            #   expr = ''node_load1 / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) >= 0.9'';
+            #   for = "30m";
+            #   labels.severity = "warning";
+            #   annotations = {
+            #     summary = "⚠️ {{$labels.alias}}: Running on high load.";
+            #     description = "{{$labels.alias}} is running with > 90% total load for ${for}.";
+            #   };
+            # })
+
             # CPU usage
-            (rec {
-              alert = "node_load1_90percent";
-              expr = ''node_load1 / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) >= 0.9'';
-              for = "30m";
-              labels.severity = "warning";
-              annotations = {
-                summary = "⚠️ {{$labels.alias}}: Running on high load.";
-                description = "{{$labels.alias}} is running with > 90% total load for ${for}.";
-              };
-            })
             (rec {
               alert = "node_cpu_util_90percent";
               expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.9'';
