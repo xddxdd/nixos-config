@@ -225,6 +225,21 @@
         peerIPv6LinkLocal = "fe80::2458";
       };
     };
+    rubick = {
+      remoteASN = 4242423451;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23451;
+        remoteAddress = "103.172.135.171";
+        remotePort = 22547;
+        wireguardPubkey = "3RiYYcOW4AJeO5RRMezDHjDCOGKjUz/1lmdpVHcdSkc=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.165.192";
+        peerIPv6LinkLocal = "fe80::3451";
+      };
+    };
     sorasky = {
       remoteASN = 4242420603;
       latencyMs = 4;
