@@ -90,7 +90,7 @@ in
 
     # Limit parallel downloads to avoid system lockup
     download-queue-enabled = lib.mkForce true;
-    download-queue-size = 5;
+    download-queue-size = 20;
     queue-stalled-enabled = lib.mkForce true;
     queue-stalled-minutes = 10;
 
