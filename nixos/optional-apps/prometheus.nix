@@ -133,7 +133,7 @@ in
           + builtins.toString config.programs.msmtp.accounts.default.port;
         smtp_auth_username = config.programs.msmtp.accounts.default.user;
         smtp_auth_password_file = config.age.secrets.smtp-pass.path;
-        smtp_require_tls = config.programs.msmtp.accounts.default.tls;
+        smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
       };
       route = {
         group_by = [ "alertname" "alias" ];
