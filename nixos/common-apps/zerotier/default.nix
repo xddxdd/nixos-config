@@ -7,7 +7,6 @@ let
 
   configFile = builtins.toJSON {
     settings = {
-      defaultBondingPolicy = "balance-xor";
       interfacePrefixBlacklist = whitelistToBlacklist LT.constants.wanInterfacePrefixes;
       softwareUpdate = "disable";
     };
