@@ -6,6 +6,8 @@
 
     ./dn42.nix
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/auto-mihoyo-bbs
   ];
 
   systemd.network.networks.eth0 = {
