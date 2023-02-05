@@ -8,4 +8,6 @@ in
 rec {
   # plausible: crashes on oneprovider with latest erlang runtime
   plausible = prev.plausible.override { beamPackages = pkgs-22-05.beamPackages; };
+
+  inherit (pkgs-22-05) linuxPackages_6_0;
 }
