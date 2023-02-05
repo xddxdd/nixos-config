@@ -132,7 +132,7 @@ in
           + ":"
           + builtins.toString config.programs.msmtp.accounts.default.port;
         smtp_auth_username = config.programs.msmtp.accounts.default.user;
-        smtp_auth_password_file = config.age.secrets.smtp-pass.path;
+        smtp_auth_password = { _secret = config.age.secrets.smtp-pass.path; };
         smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
       };
       route = {
@@ -153,4 +153,12 @@ in
   };
 
   systemd.services.prometheus.serviceConfig = LT.serviceHarden;
+
+  systemd.services.alertmanager = {
+    preStart = lib.mkForce ''
+      ${utils.genJqSecretsReplacementSnippet
+        config.services.prometheus.alertmanager.configuration
+        "/tmp/alert-manager-substituted.yaml"}
+    '';
+  };
 }
