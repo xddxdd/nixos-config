@@ -1,8 +1,30 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
+let
+  mkSRIOVConfig = nicID: vfID: ''
+    [SR-IOV]
+    VirtualFunction=${builtins.toString vfID}
+    MACSpoofCheck=no
+    Trust=yes
+    MACAddress=42:42:42:25:47:${builtins.toString nicID}${builtins.toString vfID}
+  '';
+in
 {
   # Handle multiple NICs
   networking.usePredictableInterfaceNames = lib.mkForce true;
+
+  # SR-IOV
+  boot.extraModprobeConfig = ''
+    options igb max_vfs=7
+    options vfio-pci ids=8086:1520
+  '';
+  boot.blacklistedKernelModules = [ "igbvf" ];
+  boot.kernelModules = [ "vfio-pci" ];
+
+  # # Alternative way to set VF number
+  # services.udev.extraRules = ''
+  #   ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x1521", ATTR{sriov_numvfs}="7"
+  # '';
 
   ########################################
   # CenturyLink Uplink
@@ -48,7 +70,7 @@
   systemd.network.networks.ens3f0 = {
     address = [
       "192.168.1.2/24"
-      "2001:470:e89e:2::1/64"
+      "2001:470:e89e:1::2/64"
     ];
     networkConfig = {
       DHCP = "no";
@@ -61,33 +83,37 @@
       DNS = config.networking.nameservers;
     };
     matchConfig.Name = "ens3f0";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
   };
 
   systemd.network.networks.ens3f1 = {
     address = [
       "192.168.1.3/24"
-      "2001:470:e89e:3::1/64"
+      "2001:470:e89e:1::3/64"
     ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f1";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
   };
 
   systemd.network.networks.ens3f2 = {
     address = [
       "192.168.1.4/24"
-      "2001:470:e89e:4::1/64"
+      "2001:470:e89e:1::4/64"
     ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f2";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
   };
 
   systemd.network.networks.ens3f3 = {
     address = [
       "192.168.1.5/24"
-      "2001:470:e89e:5::1/64"
+      "2001:470:e89e:1::5/64"
     ];
     networkConfig.DHCP = "no";
     matchConfig.Name = "ens3f3";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
   };
 
   services.miniupnpd = {
