@@ -59,7 +59,7 @@ in
           (forwardTo114DNS "kuxi.tech")
         ]
         ++ (builtins.map forwardToLtnet
-          (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ YggdrasilAlfis)));
+          (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ YggdrasilAlfis ++ CRXN)));
       in
       builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
   };
