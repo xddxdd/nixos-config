@@ -25,7 +25,7 @@ lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
       let
         authoritative = lib.genAttrs
           # NeoNetwork is covered by fwd-dn42-interconnect
-          (with LT.constants.zones; (DN42 ++ OpenNIC))
+          (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN))
           (k: builtins.concatStringsSep ";" [
             "172.18.0.254"
             "fdbc:f9dc:67ad:2547::54"
@@ -55,7 +55,7 @@ lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
       yggdrasilAlfis;
     luaConfig = ''
       ${lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
-        (with LT.constants.zones; (OpenNIC ++ Emercoin ++ YggdrasilAlfis))}
+        (with LT.constants.zones; (OpenNIC ++ Emercoin ++ YggdrasilAlfis ++ CRXN))}
 
       -- Internal zones where DNSSEC will fail
       addNTA("lantian.dn42")

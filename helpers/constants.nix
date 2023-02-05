@@ -160,5 +160,6 @@ rec {
     OpenNIC = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
     Emercoin = [ "bazar" "coin" "emc" "lib" ];
     YggdrasilAlfis = [ "anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg" ];
+    CRXN = [ "crxn" ];
   };
 }
