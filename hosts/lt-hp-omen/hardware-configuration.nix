@@ -36,7 +36,11 @@
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
     fsType = "ntfs";
-    options = [ "rw" "uid=1000" ];
+    options = [
+      "rw"
+      "uid=${builtins.toString config.users.users.lantian.uid}"
+      "gid=${builtins.toString config.users.groups.wheel.gid}"
+    ];
   };
 
   fileSystems."/mnt/root" = {
