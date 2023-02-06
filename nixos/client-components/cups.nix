@@ -3,6 +3,7 @@
 {
   services.printing = {
     enable = true;
+    startWhenNeeded = false;
     drivers = with pkgs; [
       brgenml1cupswrapper
       brgenml1lpr
@@ -21,7 +22,23 @@
       samsung-unified-linux-driver
       splix
     ];
+
+    browsedConf = ''
+      CreateIPPPrinterQueues All
+    '';
+
+    cups-pdf = {
+      enable = true;
+      instances.cups-pdf = {
+        installPrinter = true;
+        settings.Out = "/var/lib/cups-pdf";
+      };
+    };
   };
 
   services.system-config-printer.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/cups-pdf 755 root root"
+  ];
 }

@@ -46,6 +46,7 @@
   services.avahi.enable = lib.mkForce true;
   services.printing = {
     browsing = true;
+    defaultShared = true;
     listenAddresses = [ "127.0.0.1:631" "192.168.1.2:631" ];
     allowFrom = [ "all" ];
   };

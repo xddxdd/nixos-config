@@ -27,7 +27,15 @@
         hosts deny = 0.0.0.0/0 ::/0
         guest account = nobody
         map to guest = bad user
+        printing = CUPS
       '';
+    shares = {
+      "printers" = {
+        "path" = "/var/tmp";
+        "printable" = "yes";
+        "valid users" = "lantian";
+      };
+    };
   };
 
   services.samba-wsdd = {
