@@ -26,6 +26,39 @@ in
   #   ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x1521", ATTR{sriov_numvfs}="7"
   # '';
 
+  # FireQOS
+  environment.systemPackages = with pkgs; [ firehol ];
+  services.fireqos = {
+    enable = true;
+    config = ''
+      interface eno1.201 world-out output rate 940mbit ethernet minrate 1kbit
+        class voip commit 1mbit
+          match ports 5060,5061         # SIP
+          match udp sports 10000:10100  # RTP
+          match dports 3478,5349        # STUN
+
+        class interactive commit 20%
+          match dports 0:1023     # Privileged ports (well defined services)
+          match dports 8080,8443  # Other useful ports
+          match icmp              # Ping
+          match tcp dports 5223   # Apple push notifications
+
+        class synacks commit 2%
+          match tcp syn
+          match tcp ack
+
+        class default commit 1kbit
+
+        class torrents commit 1kbit
+          match protocol 41     # HE Tunnelbroker IPv6 isn't used for clients
+          match udp dport 22547 # WireGuard to VPN server
+          match sports 16384:65535 dports 16384:65535
+    '';
+  };
+  systemd.services.fireqos.preStart = ''
+    ${pkgs.ethtool}/bin/ethtool -K eno1.201 tso off gso off gro off
+  '';
+
   ########################################
   # CenturyLink Uplink
   ########################################
