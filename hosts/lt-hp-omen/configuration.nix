@@ -139,4 +139,21 @@ in
       options = bindMountOptions;
     };
   };
+
+  # Auto mount samba share
+  age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";
+  fileSystems."/mnt/share" = {
+    device = "//192.168.1.2/storage";
+    fsType = "cifs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
+      "credentials=${config.age.secrets.samba-credentials.path}"
+      "uid=${builtins.toString config.users.users.lantian.uid}"
+      "gid=${builtins.toString config.users.groups.wheel.gid}"
+    ];
+  };
 }
