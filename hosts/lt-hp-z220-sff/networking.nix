@@ -1,6 +1,36 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
+  mkRouteTable = table: route4: route6: [
+    {
+      routeConfig = {
+        Destination = route4;
+        Table = table;
+      };
+    }
+    {
+      routeConfig = {
+        Destination = route6;
+        Table = table;
+      };
+    }
+  ];
+
+  mkRoutingPolicy = table: ipv4: ipv6: [
+    {
+      routingPolicyRuleConfig = {
+        From = ipv4;
+        Table = table;
+      };
+    }
+    {
+      routingPolicyRuleConfig = {
+        From = ipv6;
+        Table = table;
+      };
+    }
+  ];
+
   mkSRIOVConfig = nicID: vfID: ''
     [SR-IOV]
     VirtualFunction=${builtins.toString vfID}
@@ -82,6 +112,8 @@ in
       EmitDNS = "yes";
       DNS = config.networking.nameservers;
     };
+    routes = mkRouteTable 30 "192.168.1.0/24" "2001:470:e89e:1::/64";
+    routingPolicyRules = mkRoutingPolicy 30 "192.168.1.2" "2001:470:e89e:1::2";
     matchConfig.Name = "ens3f0";
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
   };
@@ -92,6 +124,8 @@ in
       "2001:470:e89e:1::3/64"
     ];
     networkConfig.DHCP = "no";
+    routes = mkRouteTable 31 "192.168.1.0/24" "2001:470:e89e:1::/64";
+    routingPolicyRules = mkRoutingPolicy 31 "192.168.1.3" "2001:470:e89e:1::3";
     matchConfig.Name = "ens3f1";
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
   };
@@ -102,6 +136,8 @@ in
       "2001:470:e89e:1::4/64"
     ];
     networkConfig.DHCP = "no";
+    routes = mkRouteTable 32 "192.168.1.0/24" "2001:470:e89e:1::/64";
+    routingPolicyRules = mkRoutingPolicy 32 "192.168.1.4" "2001:470:e89e:1::4";
     matchConfig.Name = "ens3f2";
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
   };
@@ -112,6 +148,8 @@ in
       "2001:470:e89e:1::5/64"
     ];
     networkConfig.DHCP = "no";
+    routes = mkRouteTable 33 "192.168.1.0/24" "2001:470:e89e:1::/64";
+    routingPolicyRules = mkRoutingPolicy 33 "192.168.1.5" "2001:470:e89e:1::5";
     matchConfig.Name = "ens3f3";
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
   };
