@@ -10,34 +10,37 @@
       let
         localhost = {
           inherit (config.nixpkgs) system;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
           hostName = "localhost";
           maxJobs = 4;
+          protocol = null;
           speedFactor = 4;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
           supportedFeatures = [ "benchmark" "big-parallel" ];
         };
         mkBuildMachine = n: {
           inherit (LT.hosts."${n}") system;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
           hostName = LT.hosts."${n}".hostname;
           maxJobs = 4;
+          protocol = "ssh-ng";
           speedFactor = 4;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
           supportedFeatures = [ "benchmark" "big-parallel" ];
         };
         nixBuildNet = {
           hostName = "eu.nixbuild.net";
-          systems = [ "x86_64-linux" "aarch64-linux" ];
+          maxJobs = 100;
+          protocol = "ssh-ng";
+          speedFactor = 100;
           sshKey = "/home/lantian/.ssh/id_ed25519";
           sshUser = "root";
-          maxJobs = 100;
-          speedFactor = 100;
           supportedFeatures = [ "benchmark" "big-parallel" ];
+          systems = [ "x86_64-linux" "aarch64-linux" ];
         };
       in
       [
-        # localhost
+        localhost
         (mkBuildMachine "oracle-vm-arm")
         # (mkBuildMachine "oneprovider")
         # nixBuildNet
