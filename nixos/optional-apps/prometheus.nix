@@ -95,17 +95,18 @@ in
             #   };
             # })
 
-            # CPU usage
-            (rec {
-              alert = "node_cpu_util_90percent";
-              expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.9'';
-              for = "30m";
-              labels.severity = "warning";
-              annotations = {
-                summary = "⚠️ {{$labels.alias}}: High CPU utilization.";
-                description = "{{$labels.alias}} has total CPU utilization over 90% for ${for}.";
-              };
-            })
+            # # CPU usage
+            # # Disabled for spurius warnings from servarica
+            # (rec {
+            #   alert = "node_cpu_util_90percent";
+            #   expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.9'';
+            #   for = "30m";
+            #   labels.severity = "warning";
+            #   annotations = {
+            #     summary = "⚠️ {{$labels.alias}}: High CPU utilization.";
+            #     description = "{{$labels.alias}} has total CPU utilization over 90% for ${for}.";
+            #   };
+            # })
 
             # RAM usage
             (rec {
