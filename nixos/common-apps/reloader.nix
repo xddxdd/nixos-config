@@ -6,11 +6,11 @@
     script = ''
       echo "Reloading..."
     '' + (lib.optionalString config.services.bird2.enable ''
-      systemctl reload bird2.service
+      systemctl reload bird2.service || true
     '') + (lib.optionalString config.services.knot.enable ''
-      systemctl reload knot.service
+      systemctl reload knot.service || true
     '') + (lib.optionalString config.services.pdns-recursor.enable ''
-      systemctl reload pdns-recursor.service
+      systemctl reload pdns-recursor.service || true
     '');
     unitConfig = {
       After = "network.target";
