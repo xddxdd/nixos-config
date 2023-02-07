@@ -32,6 +32,7 @@ in
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/samba.nix
+    ../../nixos/optional-apps/touchegg
   ];
 
   boot.kernelParams = [ "nvme_core.default_ps_max_latency_us=2147483647" ];
