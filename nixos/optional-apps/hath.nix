@@ -65,10 +65,6 @@
           config.lantian.hath.logDir
           config.lantian.hath.tempDir
         ];
-
-        # Disable logging
-        StandardOutput = "null";
-        StandardError = "null";
       };
     };
 

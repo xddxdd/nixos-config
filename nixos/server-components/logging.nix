@@ -14,10 +14,13 @@
           {
             drop_event.when.or = [
               { equals."systemd.unit" = "filebeat.service"; }
+              { equals."systemd.unit" = "hath.service"; }
               { equals."systemd.unit" = "matrix-synapse.service"; }
               { equals."systemd.unit" = "prowlarr.service"; }
               { equals."systemd.unit" = "radarr.service"; }
+              { equals."systemd.unit" = "resilio.service"; }
               { equals."systemd.unit" = "sonarr.service"; }
+              { equals."systemd.unit" = "yggdrasil.service"; }
             ];
           }
         ];
