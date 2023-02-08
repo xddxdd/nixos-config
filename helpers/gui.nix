@@ -11,6 +11,7 @@
           Exec=sh -c "sleep 5; exec ${command}"
           Type=Application
           X-KDE-autostart-after=panel
+          X-KDE-autostart-phase=2
         '';
       };
     })
