@@ -7,20 +7,16 @@
     }))
   ];
 
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5 = {
+    enable = true;
+    # If enabled on wayland, app autostart don't reliably work
+    runUsingSystemd = false;
+  };
+  services.xserver.displayManager.defaultSession = "plasmawayland";
 
-  services.xserver.displayManager.sddm.settings = {
-    Theme = {
-      Current = "breeze";
-      CursorTheme = "breeze_cursors";
-      Font = "Ubuntu,10,-1,5,50,0,0,0,0,0";
-    };
-
-    Users = {
-      MaximumUid = 60513;
-      MinimumUid = 1000;
-    };
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    greeter.enable = false;
   };
 
   programs.dconf.enable = true;
@@ -29,6 +25,7 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
   programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+  programs.xwayland.enable = true;
 
   users.users.lantian.extraGroups = [ "video" "users" "input" ];
 

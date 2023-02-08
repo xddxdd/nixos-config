@@ -41,7 +41,6 @@
     newsflash
     nvfetcher
     openvpn
-    osdlyrics
     payload-dumper-go
     powertop
     prismlauncher
