@@ -2,16 +2,14 @@
 
 {
   imports = [
-    ../../nixos/client.nix
+    ../../nixos/server.nix
 
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/nvidia/prime.nix
-    ../../nixos/optional-apps/obs-studio.nix
+    ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
   ];
 
@@ -27,7 +25,7 @@
     "/home/lantian"
   ];
 
-  lantian.hidpi = 1.25;
+  # lantian.hidpi = 1.25;
 
   fileSystems."/".options = [ "size=100%" ];
 

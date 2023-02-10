@@ -42,6 +42,9 @@
 
   boot.initrd.systemd.enable = lib.mkForce false;
 
+  # ECC RAM
+  hardware.rasdaemon.enable = true;
+
   systemd.network.networks.eth0 = {
     address = [ "51.159.15.98/24" ];
     gateway = [ "51.159.15.1" ];
