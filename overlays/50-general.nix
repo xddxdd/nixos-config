@@ -39,11 +39,6 @@ rec {
     '';
     meta = builtins.removeAttrs old.meta [ "knownVulnerabilities" ];
   });
-  hostapd = prev.hostapd.overrideAttrs (old: {
-    extraConfig = (old.extraConfig or "") + ''
-      CONFIG_IEEE80211AX=y
-    '';
-  });
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/jellyfin-volume-normalization.patch
