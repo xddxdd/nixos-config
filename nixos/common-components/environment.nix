@@ -106,6 +106,7 @@ in
     htop
     inetutils
     iptables
+    iw
     jq
     kopia
     lbzip2
@@ -179,6 +180,8 @@ in
     SystemMaxFileSize=10M
     SystemMaxUse=10M
   '';
+
+  services.udev.packages = [ pkgs.crda ];
 
   services.udisks2.enable = !config.boot.isContainer;
 

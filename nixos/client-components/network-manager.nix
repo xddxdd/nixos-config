@@ -12,8 +12,6 @@ in
     ];
   };
 
-  environment.systemPackages = with pkgs; [ iw ];
-
   networking.networkmanager =
     let
       unmanagedConfig = builtins.concatStringsSep "," ([
