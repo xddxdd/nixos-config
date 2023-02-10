@@ -22,12 +22,14 @@ in
   kernel = ''
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
+      if net.len = 32 then reject;
       bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
 
     filter sys_import_v6 {
       if net !~ RESERVED_IPv6 then reject;
+      if net.len = 128 then reject;
       bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
