@@ -16,7 +16,6 @@
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
@@ -47,7 +46,7 @@
   services.printing = {
     browsing = true;
     defaultShared = true;
-    listenAddresses = [ "127.0.0.1:631" "192.168.1.2:631" ];
+    listenAddresses = [ "127.0.0.1:631" "192.168.0.2:631" ];
     allowFrom = [ "all" ];
   };
 

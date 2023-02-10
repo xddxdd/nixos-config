@@ -14,8 +14,8 @@
   ];
 
   systemd.network.networks."eth0" = {
-    address = [ "192.168.1.6/24" ];
-    gateway = [ "192.168.1.2" ];
+    address = [ "192.168.0.6/24" ];
+    gateway = [ "192.168.0.1" ];
     matchConfig.Name = "eth0";
   };
 
