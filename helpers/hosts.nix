@@ -300,8 +300,7 @@
     index = 101;
     tags = with tags; [ client ];
     city = geo.cities."US Chicago";
-    manualDeploy = true;
-    hostname = "192.168.1.6";
+    hostname = "192.168.0.6";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZcTivKNdS8+var7e60bl8JZPJhhbfHuOhmVwVt3zsoi6vOeMKjOLT+HKgvjGL6ctRB4bafdf24FdGlyWsbA7WC6Dmt7IcKVkPkMXzRfMF9KqngyYHnC5gwyraEkJ9BXZBYnAQeLKs7YQBb7LwQNXwaKsSRewyWSu//6EVqd/1NrzgOP8AXL446jjzoUizFN5f0xM/9b7wllH70VnvKVIGa2djU87QtX0XHda2yyx+GmCy9ic2qtn3Tpu0h6ex89p/ppymq4WxF5GizPF3neqp6K2EEAOfD667c+B/C8EYD8ltt3kBcOxNj7udk5ZwAmpDIf6U8gZxyaxaZ1vUWdrfw/AsQehQDi9wRr/Z77Bc57WnNI3Ib3TpcbAc+UE313Pg557WO8msyIgG2fovCrgj1Ez8eM54y/JDD6ekez8zSBNggm4D8m9MufDd9EohCP02t6rIKLrQmHAYOeKIVqwc49pF0yNk1ddJZSgMJszYY1km82V9zUtX6Kr2CoRyrJ+tWOxb8K95V/RqYC9Ll/r3hqc7uMFvgg8B0N1hIUpQDnqNQIhfz8ysjVeHrS/S3+w/Kg80TPSQhv9nXhXQ255UC2OCX5Eu9f9DYFewxBcDxKTEU52/yxkigmiYRsSOAVMdfkpGgDYPdrO8hIS++qclbeTLiW9a7PIO350fwLYX3w==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+dRFR7ZEU/XyPl4EyAsWD/cSDdWkoa2OL9A2WAMllG";
@@ -317,7 +316,7 @@
     index = 102;
     tags = with tags; [ ];
     city = geo.cities."US Chicago";
-    hostname = "192.168.1.2";
+    hostname = "192.168.0.2";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCuvMMZMBtnht1T7dYrfyI8HZibbPDXaJRcX0EDWgue8IB/z+Fhquqfp1LjUqYklR13Oyfh7I7EIz5z0V/QlklnJPsuht+LvW7lEpk3NzSwhFrXktOzqjn+bICHL+KxZDaEHxIXm+AaXh+cH+VrrdD2WKrgMtZAv+8gvLHW51t73W5oiyiefBJfMHba7EHvRNh9enXCzhWzp4pJdlWDd1Iu80P/dmpKWSjtFlSFzXl9Pv22IbdDSsHkdNbf9vucjL69LOzB49gIQIhvIxIMdtQZPzMR4iEn0BqvVDqyXjRz7l91/btduK2mFD/JECb9VTOlx+FrKPOk+cXZDSbfNcp6a3p62iaPEXNqh+y2vXJdVMxkVKwVZOSsNpw4SRwS0E/p8F3nUj6rEaqiikMW19tct5F2As0Yi2/7aW6JBiP1Wc118GztvQyQjtAy2w3142nK4N2O2IWTa5fvO4UHk4NqnYzNZT6aTZftcT/4Y47T7zPlSZdaix9Q1oQuXZolUPD8trGo1wVgiIhFeO4vMP7xDoQ/689bWPbb8HD4tA8JD238wAyYttlsr4sa62Lz0MyGwn1XASCmQ+7Y1uKZr5j2VBpjosDfoDq01ax5QDt8MdkBSfml8QtY9jBpq82t89PVXXoefkndZAFvuYfYyaG6g5pQ/3BUnWlfvPQ4ekZfIw==";
       ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHq9gnvAZdEt84vZf83s4+T+3AhPVY/xz2o5qbqR8ftx";
