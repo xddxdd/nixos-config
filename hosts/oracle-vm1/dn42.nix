@@ -127,7 +127,7 @@
         wireguardPubkey = "Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=";
       };
       addressing = {
-        peerIPv4 = "172.23.246.2";
+        peerIPv4 = "172.23.246.4";
         peerIPv6LinkLocal = "fe80::1816";
       };
     };
