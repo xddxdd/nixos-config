@@ -164,6 +164,110 @@ in
     externalInterface = "eno1.201";
   };
 
+  # Wi-Fi AP
+  # Disabled, not working well
+
+  # systemd.network.networks.wlan1 = {
+  #   address = [
+  #     "192.168.2.1/24"
+  #   ];
+  #   networkConfig = {
+  #     DHCP = "no";
+  #     DHCPServer = "yes";
+  #   };
+  #   dhcpServerConfig = {
+  #     PoolOffset = 10;
+  #     PoolSize = 200;
+  #     EmitDNS = "yes";
+  #     DNS = config.networking.nameservers;
+  #   };
+  #   matchConfig.Name = "wlan1";
+  # };
+
+  # systemd.services.hostapd-wlan1 =
+  #   let
+  #     # cfg = pkgs.writeText "hostapd.conf" ''
+  #     #   interface=wlan1
+  #     #   driver=nl80211
+
+  #     #   ssid=Lan Tian Test
+  #     #   wpa=2
+  #     #   wpa_key_mgmt=SAE
+  #     #   wpa_passphrase=9876547210.33
+  #     #   rsn_pairwise=CCMP
+  #     #   group_cipher=CCMP
+
+  #     #   hw_mode=a
+  #     #   # wmm_enabled=1
+  #     #   # ieee80211n=1
+  #     #   # ieee80211ac=1
+  #     #   ieee80211w=2
+  #     #   beacon_prot=1
+  #     #   ieee80211ax=1
+  #     #   # vht_oper_chwidth=2
+  #     #   # he_su_beamformer=1
+  #     #   # he_su_beamformee=1
+  #     #   # he_mu_beamformer=1
+  #     #   # he_oper_chwidth=2
+
+  #     #   channel=1
+  #     #   op_class=134
+  #     #   he_oper_centr_freq_seg0_idx=15
+
+  #     #   country_code=CA
+  #     #   ieee80211d=1
+
+  #     #   ctrl_interface=/run/hostapd-wlan1
+  #     #   ctrl_interface_group=wheel
+
+  #     #   noscan=1
+  #     # '';
+  #     cfg = pkgs.writeText "hostapd.conf" ''
+  #       interface=wlan1
+  #       driver=nl80211
+
+  #       ssid=Lan Tian Test
+  #       wpa=2
+  #       wpa_key_mgmt=WPA-PSK
+  #       wpa_passphrase=9876547210.33
+  #       rsn_pairwise=CCMP
+  #       group_cipher=CCMP
+
+  #       hw_mode=a
+  #       # wmm_enabled=1
+  #       # ieee80211w=2
+  #       # beacon_prot=1
+  #       ieee80211n=1
+  #       ieee80211ac=1
+  #       ht_capab=[HT40+]
+
+  #       channel=36
+  #       vht_oper_chwidth=1
+  #       vht_oper_centr_freq_seg0_idx=42
+
+  #       country_code=CA
+  #       ieee80211d=1
+  #       ieee80211h=1
+
+  #       ctrl_interface=/run/hostapd-wlan1
+  #       ctrl_interface_group=wheel
+
+  #       noscan=1
+  #     '';
+  #   in
+  #   {
+  #     path = [ pkgs.hostapd ];
+  #     # after = [ "sys-subsystem-net-devices-wlan1.device" ];
+  #     # bindsTo = [ "sys-subsystem-net-devices-wlan1.device" ];
+  #     requiredBy = [ "network-link-wlan1.service" ];
+  #     wantedBy = [ "multi-user.target" ];
+
+  #     serviceConfig = {
+  #       ExecStart = "${pkgs.hostapd}/bin/hostapd ${cfg}";
+  #       Restart = "always";
+  #     };
+  #   };
+
   ########################################
   # HE.NET Tunnelbroker
   ########################################
