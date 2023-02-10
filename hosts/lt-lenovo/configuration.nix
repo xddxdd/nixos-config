@@ -13,6 +13,12 @@
     ../../nixos/optional-apps/resilio.nix
   ];
 
+  systemd.network.networks."eth0" = {
+    address = [ "192.168.1.6/24" ];
+    gateway = [ "192.168.1.2" ];
+    matchConfig.Name = "eth0";
+  };
+
   environment.etc."intel-undervolt.conf".text = ''
     undervolt 0 'CPU' -100
     undervolt 1 'GPU' -100
