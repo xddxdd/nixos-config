@@ -48,17 +48,17 @@ in
         groups = [{
           name = "node_exporter";
           rules = [
-            # SystemD service
-            {
-              alert = "node_systemd_service_failed";
-              expr = ''node_systemd_unit_state{state="failed"} == 1'';
-              for = "10m";
-              labels.severity = "warning";
-              annotations = {
-                summary = "⚠️ {{$labels.alias}}: Service {{$labels.name}} failed to start.";
-                description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
-              };
-            }
+            # # SystemD service
+            # {
+            #   alert = "node_systemd_service_failed";
+            #   expr = ''node_systemd_unit_state{state="failed"} == 1'';
+            #   for = "10m";
+            #   labels.severity = "warning";
+            #   annotations = {
+            #     summary = "⚠️ {{$labels.alias}}: Service {{$labels.name}} failed to start.";
+            #     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
+            #   };
+            # }
 
             # Filesystem
             {
