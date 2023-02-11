@@ -70,4 +70,55 @@
       SystemCallFilter = lib.mkForce [ ];
     };
   };
+
+  services.nginx.virtualHosts = {
+    "sonarr.${config.networking.hostName}.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+    "sonarr.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true
+        + LT.nginx.serveLocalhost;
+    };
+    "radarr.${config.networking.hostName}.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+    "radarr.localhost" = {
+      listen = LT.nginx.listenHTTP;
+      locations = LT.nginx.addCommonLocationConf { } {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+      };
+      extraConfig = LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true
+        + LT.nginx.serveLocalhost;
+    };
+  };
 }

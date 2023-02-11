@@ -29,7 +29,6 @@ let
     (CNAME { name = "bitwarden"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "cloud"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "dashboard"; target = "oneprovider"; ttl = "1h"; })
-    (CNAME { name = "jellyfin"; target = "lt-lenovo"; ttl = "1h"; })
     (CNAME { name = "lab"; target = "lab.lantian.pub."; ttl = "1h"; })
     (CNAME { name = "login"; target = "oneprovider"; ttl = "1h"; })
     (CNAME { name = "minio"; target = "oneprovider"; ttl = "1h"; })

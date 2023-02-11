@@ -15,23 +15,25 @@ in
   services.jellyfin.enable = true;
 
   services.nginx.virtualHosts = {
-    "jellyfin.xuyh0120.win" = {
+    "jellyfin.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf { } {
-        "/".extraConfig = ''
-          proxy_pass http://unix:/run/jellyfin/socket;
-        '' + LT.nginx.locationProxyConf;
+        "/" = {
+          proxyPass = "http://unix:/run/jellyfin/socket";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
       };
-      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
     "jellyfin.localhost" = {
       listen = LT.nginx.listenHTTP;
       locations = LT.nginx.addCommonLocationConf { } {
-        "/".extraConfig = ''
-          proxy_pass http://unix:/run/jellyfin/socket;
-        '' + LT.nginx.locationProxyConf;
+        "/" = {
+          proxyPass = "http://unix:/run/jellyfin/socket";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
       };
       extraConfig = LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
