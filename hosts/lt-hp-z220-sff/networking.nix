@@ -71,11 +71,7 @@ in
       "2001:470:e89e::2/64"
     ];
     gateway = [ "192.168.0.1" ];
-    networkConfig = {
-      DHCP = "no";
-      # Temporarily disable
-      # Tunnel = "henet";
-    };
+    networkConfig.DHCP = "no";
     routes = mkRouteTable 30 "192.168.0.0/24" "2001:470:e89e:1::/64";
     routingPolicyRules = mkRoutingPolicy 30 "192.168.0.2" "2001:470:e89e:1::2";
     matchConfig.Name = "ens3f0";
@@ -217,54 +213,4 @@ in
         Restart = "always";
       };
     };
-
-  ########################################
-  # HE.NET Tunnelbroker
-  ########################################
-
-  systemd.network.netdevs.henet = {
-    netdevConfig = {
-      Kind = "sit";
-      Name = "henet";
-    };
-    tunnelConfig = {
-      Local = "192.168.0.2";
-      Remote = "216.218.226.238";
-      TTL = 255;
-    };
-  };
-
-  systemd.network.networks.henet = {
-    address = [
-      "2001:470:a:1a6::2/64"
-      "2001:470:b:1a6::1/64"
-      "2001:470:e89e::1/48"
-    ];
-    gateway = [ "2001:470:a:1a6::1" ];
-    matchConfig.Name = "henet";
-  };
-
-  age.secrets.henet-update-ip.file = inputs.secrets + "/henet-update-ip-lt-hp-z220-sff.age";
-
-  systemd.services.henet-update-ip = {
-    after = [ "network.target" ];
-    requires = [ "network.target" ];
-    script = ''
-      URL=$(cat "${config.age.secrets.henet-update-ip.path}")
-      exec ${pkgs.curl}/bin/curl "$URL"
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-    };
-  };
-
-  systemd.timers.henet-update-ip = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "henet-update-ip.service" ];
-    timerConfig = {
-      OnCalendar = "*:0/15";
-      Persistent = true;
-      Unit = "henet-update-ip.service";
-    };
-  };
 }
