@@ -80,10 +80,12 @@ rec {
     V2Ray.SocksClient = 1080;
     YggdrasilAlfis = 4244;
     IPFS.API = 5001;
+    Radarr = 7878;
     IPFS.Gateway = 8080;
     Vault = 8200;
     Waline = 8360;
     Matrix.Public = 8448;
+    Sonarr = 8989;
     Prometheus.Daemon = 9090;
     Prometheus.AlertManager = 9093;
     Prometheus.NodeExporter = 9100;
