@@ -1,36 +1,6 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  mkRouteTable = table: route4: route6: [
-    {
-      routeConfig = {
-        Destination = route4;
-        Table = table;
-      };
-    }
-    {
-      routeConfig = {
-        Destination = route6;
-        Table = table;
-      };
-    }
-  ];
-
-  mkRoutingPolicy = table: ipv4: ipv6: [
-    {
-      routingPolicyRuleConfig = {
-        From = ipv4;
-        Table = table;
-      };
-    }
-    {
-      routingPolicyRuleConfig = {
-        From = ipv6;
-        Table = table;
-      };
-    }
-  ];
-
   mkSRIOVConfig = nicID: vfID: ''
     [SR-IOV]
     VirtualFunction=${builtins.toString vfID}
@@ -61,74 +31,70 @@ in
   ########################################
 
   systemd.network.networks.eno1 = {
-    networkConfig.Bridge = "br0";
+    networkConfig.Bridge = "wan-br";
     matchConfig.Name = "eno1";
   };
 
   systemd.network.networks.ens3f0 = {
+    networkConfig.Bond = "wan-bond";
+    matchConfig.Name = "ens3f0";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
+  };
+
+  systemd.network.networks.ens3f1 = {
+    networkConfig.Bond = "wan-bond";
+    matchConfig.Name = "ens3f1";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
+  };
+
+  systemd.network.networks.ens3f2 = {
+    networkConfig.Bond = "wan-bond";
+    matchConfig.Name = "ens3f2";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
+  };
+
+  systemd.network.networks.ens3f3 = {
+    networkConfig.Bond = "wan-bond";
+    matchConfig.Name = "ens3f3";
+    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
+  };
+
+  systemd.network.netdevs.wan-bond = {
+    netdevConfig = {
+      Kind = "bond";
+      Name = "wan-bond";
+    };
+    bondConfig = {
+      Mode = "balance-alb";
+      TransmitHashPolicy = "encap3+4";
+    };
+  };
+
+  systemd.network.networks.wan-bond = {
+    matchConfig.Name = "wan-bond";
+    networkConfig.Bridge = "wan-br";
+  };
+
+  systemd.network.netdevs.wan-br = {
+    netdevConfig = {
+      Kind = "bridge";
+      Name = "wan-br";
+    };
+  };
+
+  systemd.network.networks.wan-br = {
+    matchConfig.Name = "wan-br";
     address = [
       "192.168.0.2/24"
       "2001:470:e89e::2/64"
     ];
     gateway = [ "192.168.0.1" ];
     networkConfig.DHCP = "no";
-    routes = mkRouteTable 30 "192.168.0.0/24" "2001:470:e89e:1::/64";
-    routingPolicyRules = mkRoutingPolicy 30 "192.168.0.2" "2001:470:e89e:1::2";
-    matchConfig.Name = "ens3f0";
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
-  };
-
-  systemd.network.networks.ens3f1 = {
-    address = [
-      "192.168.0.3/24"
-      "2001:470:e89e::3/64"
-    ];
-    networkConfig.DHCP = "no";
-    routes = mkRouteTable 31 "192.168.0.0/24" "2001:470:e89e:1::/64";
-    routingPolicyRules = mkRoutingPolicy 31 "192.168.0.3" "2001:470:e89e:1::3";
-    matchConfig.Name = "ens3f1";
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
-  };
-
-  systemd.network.networks.ens3f2 = {
-    address = [
-      "192.168.0.4/24"
-      "2001:470:e89e::4/64"
-    ];
-    networkConfig.DHCP = "no";
-    routes = mkRouteTable 32 "192.168.0.0/24" "2001:470:e89e:1::/64";
-    routingPolicyRules = mkRoutingPolicy 32 "192.168.0.4" "2001:470:e89e:1::4";
-    matchConfig.Name = "ens3f2";
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
-  };
-
-  systemd.network.networks.ens3f3 = {
-    networkConfig.Bridge = "br0";
-    matchConfig.Name = "ens3f3";
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
-  };
-
-  systemd.network.netdevs.br0 = {
-    netdevConfig = {
-      Kind = "bridge";
-      Name = "br0";
-    };
-  };
-
-  systemd.network.networks.br0 = {
-    matchConfig.Name = "br0";
-    address = [
-      "192.168.0.5/24"
-      "2001:470:e89e::5/64"
-    ];
-    networkConfig.DHCP = "no";
-    routes = mkRouteTable 33 "192.168.0.0/24" "2001:470:e89e:1::/64";
-    routingPolicyRules = mkRoutingPolicy 33 "192.168.0.5" "2001:470:e89e:1::5";
   };
 
   # Wi-Fi AP
   systemd.network.networks.wlan1 = {
-    networkConfig.Bridge = "br0";
+    networkConfig.Bridge = "wan-br";
     matchConfig.Name = "wlan1";
   };
 
@@ -136,10 +102,10 @@ in
     let
       cfg = pkgs.writeText "hostapd.conf" ''
         interface=wlan1
-        bridge=br0
+        bridge=wan-br
         driver=nl80211
 
-        ssid=Lan Tian Test
+        ssid=Lan Tian 6GHz
         wpa=2
         wpa_key_mgmt=SAE
         wpa_passphrase=9876547210.33
@@ -150,10 +116,10 @@ in
         ieee80211w=2
         beacon_prot=1
         ieee80211ax=1
-        # he_su_beamformer=1
-        # he_su_beamformee=1
-        # he_mu_beamformer=1
-        # he_oper_chwidth=2
+        he_su_beamformer=1
+        he_su_beamformee=1
+        he_mu_beamformer=1
+        he_oper_chwidth=2
 
         channel=1
         op_class=134
