@@ -149,6 +149,7 @@ rec {
     "eth"
     "henet"
     "venet"
+    "wan"
     "wl"
     "wlan"
   ];

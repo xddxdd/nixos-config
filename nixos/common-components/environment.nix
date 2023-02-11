@@ -98,6 +98,7 @@ in
     SYSTEMD_PAGER = "";
   };
   environment.systemPackages = with pkgs; [
+    bridge-utils
     brotli
     bzip2
     dig
