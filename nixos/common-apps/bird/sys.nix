@@ -22,14 +22,14 @@ in
   kernel = ''
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
-      if net.len = 32 then reject;
+      if net !~ LTNET_IPv4 && net.len = 32 then reject;
       bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
 
     filter sys_import_v6 {
       if net !~ RESERVED_IPv6 then reject;
-      if net.len = 128 then reject;
+      if net !~ LTNET_IPv6 && net.len = 128 then reject;
       bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
       accept;
     }
@@ -124,7 +124,7 @@ in
 
     define LTNET_IPv6 = [
       fdbc:f9dc:67ad::/48+,
-      fd10:127:10::/48
+      fd10:127:10::/48+
     ];
 
     define NEONETWORK_NET_IPv4 = [
