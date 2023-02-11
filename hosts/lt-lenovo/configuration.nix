@@ -5,6 +5,7 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+    ./media-center.nix
 
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/libvirt
@@ -50,4 +51,15 @@
   };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
+
+  # Mount samba share
+  age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";
+  fileSystems."/mnt/storage" = {
+    device = "//192.168.0.2/storage";
+    fsType = "cifs";
+    options = [
+      "nofail"
+      "credentials=${config.age.secrets.samba-credentials.path}"
+    ];
+  };
 }

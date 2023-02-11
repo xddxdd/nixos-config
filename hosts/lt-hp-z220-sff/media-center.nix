@@ -18,17 +18,11 @@ in
     ../../nixos/client-components/xorg.nix
 
     ../../nixos/optional-apps/flexget.nix
-    ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/sonarr.nix
     ../../nixos/optional-apps/transmission-daemon.nix
   ];
 
   services.xserver.enable = lib.mkForce false;
-
-  systemd.services.jellyfin = {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
-  };
 
   systemd.tmpfiles.rules = [
     "d /mnt/storage 755 root root"
