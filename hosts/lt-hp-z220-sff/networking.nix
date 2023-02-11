@@ -10,9 +10,6 @@ let
   '';
 in
 {
-  # Handle multiple NICs
-  networking.usePredictableInterfaceNames = lib.mkForce true;
-
   # SR-IOV
   boot.extraModprobeConfig = ''
     options igb max_vfs=7
@@ -30,32 +27,47 @@ in
   # LAN
   ########################################
 
-  systemd.network.networks.eno1 = {
+  systemd.network.networks.eth0-onboard = {
     networkConfig.Bridge = "wan-br";
-    matchConfig.Name = "eno1";
+    matchConfig = {
+      PermanentMACAddress = "6c:3b:e5:16:65:b3";
+      Driver = "e1000e";
+    };
   };
 
-  systemd.network.networks.ens3f0 = {
+  systemd.network.networks.eth0-i350 = {
     networkConfig.Bond = "wan-bond";
-    matchConfig.Name = "ens3f0";
+    matchConfig = {
+      PermanentMACAddress = "a0:36:9f:36:f0:bc";
+      Driver = "igb";
+    };
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
   };
 
-  systemd.network.networks.ens3f1 = {
+  systemd.network.networks.eth1-i350 = {
     networkConfig.Bond = "wan-bond";
-    matchConfig.Name = "ens3f1";
+    matchConfig = {
+      PermanentMACAddress = "a0:36:9f:36:f0:bd";
+      Driver = "igb";
+    };
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
   };
 
-  systemd.network.networks.ens3f2 = {
+  systemd.network.networks.eth2-i350 = {
     networkConfig.Bond = "wan-bond";
-    matchConfig.Name = "ens3f2";
+    matchConfig = {
+      PermanentMACAddress = "a0:36:9f:36:f0:be";
+      Driver = "igb";
+    };
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
   };
 
-  systemd.network.networks.ens3f3 = {
+  systemd.network.networks.eth3-i350 = {
     networkConfig.Bond = "wan-bond";
-    matchConfig.Name = "ens3f3";
+    matchConfig = {
+      PermanentMACAddress = "a0:36:9f:36:f0:bf";
+      Driver = "igb";
+    };
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
   };
 
@@ -93,6 +105,11 @@ in
   };
 
   # Wi-Fi AP
+  systemd.network.networks.wlan0 = {
+    networkConfig.Bridge = "wan-br";
+    matchConfig.Name = "wlan0";
+  };
+
   systemd.network.networks.wlan1 = {
     networkConfig.Bridge = "wan-br";
     matchConfig.Name = "wlan1";
