@@ -28,6 +28,13 @@
         guest account = nobody
         map to guest = bad user
         printing = CUPS
+
+        # Performance tuning
+        min receivefile size = 16384
+        getwd cache = yes
+        socket options = TCP_NODELAY IPTOS_LOWDELAY
+        read raw = yes
+        write raw = yes
       '';
     shares = {
       "printers" = {
