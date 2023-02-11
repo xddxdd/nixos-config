@@ -42,7 +42,16 @@ let
   };
 in
 {
-  home.packages = [
+  home.file.".pcem/roms".source = pkgs.fetchFromGitHub {
+    owner = "BaRRaKudaRain";
+    repo = "PCem-ROMs";
+    rev = "v17.0";
+    sha256 = "sha256-pAKxoATSYmwpNYy5WAIQmKYuAEE9INBsswvmKLuJ+50=";
+  };
+
+  home.packages = with pkgs; [
+    dosbox
+    pcem
     winntMips
   ];
 }
