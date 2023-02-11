@@ -87,6 +87,7 @@ rec {
     Matrix.Public = 8448;
     Sonarr = 8989;
     Prometheus.Daemon = 9090;
+    Transmission = 9091;
     Prometheus.AlertManager = 9093;
     Prometheus.NodeExporter = 9100;
     Prometheus.BirdExporter = 9324;
