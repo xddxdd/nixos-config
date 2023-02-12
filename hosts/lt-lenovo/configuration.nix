@@ -7,11 +7,17 @@
     ./hardware-configuration.nix
     ./media-center.nix
 
+    ../../nixos/client-components/network-manager.nix
+
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
+  ];
+
+  networking.networkmanager.unmanaged = lib.mkForce [
+    "interface-name:*,except:interface-name:wl*"
   ];
 
   systemd.network.networks."eth0" = {

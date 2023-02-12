@@ -6,6 +6,11 @@ fetch.url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
 
+[hostapd]
+src.git = "https://w1.fi/hostap.git"
+src.branch = "main"
+fetch.git = "https://w1.fi/hostap.git"
+
 [i915-sriov-dkms]
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
