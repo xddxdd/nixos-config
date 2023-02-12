@@ -10,7 +10,6 @@
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
-    ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
@@ -51,10 +50,6 @@
   };
 
   services.fwupd.enable = true;
-
-  services.tlp.settings = {
-    TLP_PERSISTENT_DEFAULT = 1;
-  };
 
   services.yggdrasil.regions = [ "united-states" "canada" ];
 }
