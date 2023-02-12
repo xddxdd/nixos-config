@@ -8,6 +8,26 @@ let
     Trust=yes
     MACAddress=42:42:42:25:47:${builtins.toString nicID}${builtins.toString vfID}
   '';
+
+  mkHostapd = interface: cfg: {
+    path = [ pkgs.hostapd ];
+    after = [ "sys-subsystem-net-devices-${interface}.device" ];
+    bindsTo = [ "sys-subsystem-net-devices-${interface}.device" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig =
+      let
+        cfgFile = pkgs.writeText "hostapd.conf" (''
+          interface=${interface}
+          ctrl_interface=/run/hostapd-${interface}
+          ctrl_interface_group=wheel
+        '' + cfg);
+      in
+      {
+        ExecStart = "${pkgs.hostapd}/bin/hostapd ${cfgFile}";
+        Restart = "always";
+      };
+  };
 in
 {
   # SR-IOV
@@ -92,14 +112,15 @@ in
       Kind = "bridge";
       Name = "wan-br";
     };
+    extraConfig = ''
+      [Bridge]
+      STP=yes
+    '';
   };
 
   systemd.network.networks.wan-br = {
     matchConfig.Name = "wan-br";
-    address = [
-      "192.168.0.2/24"
-      "2001:470:e89e::2/64"
-    ];
+    address = [ "192.168.0.2/24" ];
     gateway = [ "192.168.0.1" ];
     networkConfig.DHCP = "no";
   };
@@ -115,86 +136,92 @@ in
     matchConfig.Name = "wlan1";
   };
 
-  # # Disable for interface name changing across reboots
-  # systemd.services.hostapd-wlan1 =
-  #   let
-  #     cfg = pkgs.writeText "hostapd.conf" ''
-  #       interface=wlan1
-  #       bridge=wan-br
-  #       driver=nl80211
+  # 6GHz
+  systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
+    driver=nl80211
 
-  #       ssid=Lan Tian 6GHz
-  #       wpa=2
-  #       wpa_key_mgmt=SAE
-  #       wpa_passphrase=9876547210.33
-  #       rsn_pairwise=CCMP
-  #       group_cipher=CCMP
+    ssid=Lan Tian Test 6GHz
+    wpa=2
+    wpa_key_mgmt=SAE
+    wpa_passphrase=9876547210.33
+    rsn_pairwise=CCMP
+    group_cipher=CCMP
 
-  #       hw_mode=a
-  #       ieee80211w=2
-  #       beacon_prot=1
-  #       ieee80211ax=1
-  #       he_su_beamformer=1
-  #       he_su_beamformee=1
-  #       he_mu_beamformer=1
-  #       he_oper_chwidth=2
+    hw_mode=a
+    ieee80211w=2
+    beacon_prot=1
+    ieee80211ax=1
+    he_su_beamformer=1
+    he_su_beamformee=1
+    he_mu_beamformer=1
+    he_oper_chwidth=2
+    unsol_bcast_probe_resp_interval=20
 
-  #       channel=1
-  #       op_class=134
-  #       he_oper_centr_freq_seg0_idx=15
+    channel=1
+    op_class=134
+    he_oper_centr_freq_seg0_idx=15
 
-  #       country_code=CA
-  #       ieee80211d=1
-  #       ieee80211h=1
+    country_code=CA
+    country3=0x04
+    # ieee80211d=1
+    # ieee80211h=1
+  '';
 
-  #       ctrl_interface=/run/hostapd-wlan1
-  #       ctrl_interface_group=wheel
+  # # 5GHz
+  # systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
+  #   driver=nl80211
 
-  #       noscan=1
-  #     '';
-  #     # cfg = pkgs.writeText "hostapd.conf" ''
-  #     #   interface=wlan1
-  #     #   driver=nl80211
+  #   ssid=Lan Tian Test 5GHz
+  #   wpa=2
+  #   wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
+  #   wpa_passphrase=9876547210.33
+  #   rsn_pairwise=CCMP
+  #   group_cipher=CCMP
 
-  #     #   ssid=Lan Tian Test
-  #     #   wpa=2
-  #     #   wpa_key_mgmt=WPA-PSK
-  #     #   wpa_passphrase=9876547210.33
-  #     #   rsn_pairwise=CCMP
-  #     #   group_cipher=CCMP
+  #   hw_mode=a
+  #   wmm_enabled=1
+  #   ieee80211w=2
+  #   beacon_prot=1
+  #   ieee80211n=1
+  #   ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
+  #   ieee80211ac=1
+  #   vht_capab=[MAX-MPDU-11454][VHT160][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC-2BY1][SU-BEAMFORMER][SU-BEAMFORMEE][MU-BEAMFORMER][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]
+  #   ieee80211ax=1
 
-  #     #   hw_mode=a
-  #     #   # wmm_enabled=1
-  #     #   # ieee80211w=2
-  #     #   # beacon_prot=1
-  #     #   ieee80211n=1
-  #     #   ieee80211ac=1
-  #     #   ht_capab=[HT40+]
+  #   channel=36
+  #   vht_oper_chwidth=1
+  #   vht_oper_centr_freq_seg0_idx=42
 
-  #     #   channel=36
-  #     #   vht_oper_chwidth=1
-  #     #   vht_oper_centr_freq_seg0_idx=42
+  #   country_code=CA
+  #   country3=0x04
+  #   # ieee80211d=1
+  #   # ieee80211h=1
+  # '';
 
-  #     #   country_code=CA
-  #     #   ieee80211d=1
-  #     #   ieee80211h=1
+  # 2.4GHz
+  systemd.services.hostapd-wlan0 = mkHostapd "wlan0" ''
+    driver=nl80211
 
-  #     #   ctrl_interface=/run/hostapd-wlan1
-  #     #   ctrl_interface_group=wheel
+    ssid=Lan Tian Test 2.4GHz
+    wpa=2
+    wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
+    wpa_passphrase=9876547210.33
+    rsn_pairwise=CCMP
+    group_cipher=CCMP
 
-  #     #   noscan=1
-  #     # '';
-  #   in
-  #   {
-  #     path = [ pkgs.hostapd ];
-  #     # after = [ "sys-subsystem-net-devices-wlan1.device" ];
-  #     # bindsTo = [ "sys-subsystem-net-devices-wlan1.device" ];
-  #     # requiredBy = [ "network-link-wlan1.service" ];
-  #     wantedBy = [ "multi-user.target" ];
+    hw_mode=g
+    ieee80211w=2
+    beacon_prot=1
+    ieee80211n=1
+    ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
 
-  #     serviceConfig = {
-  #       ExecStart = "${pkgs.hostapd}/bin/hostapd ${cfg}";
-  #       Restart = "always";
-  #     };
-  #   };
+    channel=acs_survey
+    acs_num_scans=5
+
+    country_code=CA
+    country3=0x04
+    # ieee80211d=1
+    # ieee80211h=1
+  '';
+
 }
