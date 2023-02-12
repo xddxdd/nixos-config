@@ -47,7 +47,12 @@ rec {
         # Setup veth pair
         ${ipbin} link add ns-${interface} type veth peer ni-${interface}
         ${ipbin} link set ni-${interface} netns ns-${name}
-        ${ipns} link set ni-${interface} name eth-ns
+        ${ipns} link set ni-${interface} name eth0
+        # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
+        ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
+        ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
+        ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
+        ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
         # Host side network config
         ${ipbin} link set ns-${interface} up
         ${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}
@@ -55,16 +60,16 @@ rec {
         ${ipbin} -6 addr add fe80::1/64 dev ns-${interface}
         ${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}
         # Namespace side network config
-        ${ipns} link set eth-ns up
-        ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth-ns
-        ${ipns} -6 addr add ${ipv6} dev eth-ns
-        ${ipns} -6 addr add fe80::${thisIP}/64 dev eth-ns
+        ${ipns} link set eth0 up
+        ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth0
+        ${ipns} -6 addr add ${ipv6} dev eth0
+        ${ipns} -6 addr add fe80::${thisIP}/64 dev eth0
       '' + (if setupDefaultRoute then ''
-        ${ipns} route add default via ${this.ltnet.IPv4} dev eth-ns
-        ${ipns} -6 route add default via fe80::1 dev eth-ns
+        ${ipns} route add default via ${this.ltnet.IPv4} dev eth0
+        ${ipns} -6 route add default via fe80::1 dev eth0
       '' else ''
-        ${lib.concatMapStringsSep "\n" (route: "${ipns} route add ${route} via ${this.ltnet.IPv4} dev eth-ns") constants.reserved.IPv4}
-        ${lib.concatMapStringsSep "\n" (route: "${ipns} -6 route add ${route} via fe80::1 dev eth-ns") constants.reserved.IPv6}
+        ${lib.concatMapStringsSep "\n" (route: "${ipns} route add ${route} via ${this.ltnet.IPv4} dev eth0") constants.reserved.IPv4}
+        ${lib.concatMapStringsSep "\n" (route: "${ipns} -6 route add ${route} via fe80::1 dev eth0") constants.reserved.IPv6}
       '') + (lib.optionalString birdEnabled ''
         # Announced addresses
         ${ipns} link add dummy0 type dummy

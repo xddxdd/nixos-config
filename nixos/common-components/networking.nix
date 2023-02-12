@@ -43,12 +43,12 @@
 
     # Force ARP respond on same interface
     # https://serverfault.com/questions/834512/why-does-linux-answer-to-arp-on-incorrect-interfaces
-    "net.ipv4.conf.all.arp_ignore" = 1;
+    # But do not set all or *
+    # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
+    "net.ipv4.conf.all.arp_ignore" = 0;
     "net.ipv4.conf.default.arp_ignore" = 1;
-    "net.ipv4.conf.*.arp_ignore" = 1;
-    "net.ipv4.conf.all.arp_announce" = 2;
+    "net.ipv4.conf.all.arp_announce" = 0;
     "net.ipv4.conf.default.arp_announce" = 2;
-    "net.ipv4.conf.*.arp_announce" = 2;
   };
 
   networking = {
