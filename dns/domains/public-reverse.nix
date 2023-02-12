@@ -10,5 +10,8 @@
   (common.reverse { prefix = "2001:470:cab6::/48"; target = "oneprovider.lantian.pub."; })
   (common.reverse { prefix = "2001:470:1f13:3b1::/64"; target = "oneprovider.lantian.pub."; })
 
+  (common.reverse { prefix = "2001:470:e825::/48"; target = "lt-hp-z220-sff.lantian.pub."; })
+  (common.reverse { prefix = "2001:470:b:50::/64"; target = "lt-hp-z220-sff.lantian.pub."; })
+
   (common.reverse { prefix = "2605:6400:cac6::/48"; target = "buyvm.lantian.pub."; })
 ]
