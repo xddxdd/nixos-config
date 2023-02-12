@@ -1,6 +1,24 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
+  mkRouteTable = table: routes: builtins.map
+    (r: {
+      routeConfig = {
+        Destination = r;
+        Table = table;
+      };
+    })
+    routes;
+
+  mkRoutingPolicy = table: ips: builtins.map
+    (ip: {
+      routingPolicyRuleConfig = {
+        From = builtins.head (lib.splitString "/" ip);
+        Table = table;
+      };
+    })
+    ips;
+
   mkSRIOVConfig = nicID: vfID: ''
     [SR-IOV]
     VirtualFunction=${builtins.toString vfID}
@@ -28,89 +46,120 @@ let
         Restart = "always";
       };
   };
+
+  onboard = "6c:3b:e5:16:65:b3";
+  i350-1 = "a0:36:9f:36:f0:bc";
+  i350-2 = "a0:36:9f:36:f0:bd";
+  i350-3 = "a0:36:9f:36:f0:be";
+  i350-4 = "a0:36:9f:36:f0:bf";
+
+  mkLANRouteTable = table: mkRouteTable table [ "192.168.0.0/24" "2001:470:e825::/64" ];
 in
 {
   # SR-IOV
   boot.extraModprobeConfig = ''
-    options igb max_vfs=7
     options vfio-pci ids=8086:1520
   '';
   boot.blacklistedKernelModules = [ "igbvf" ];
   boot.kernelModules = [ "vfio-pci" ];
 
-  # # Alternative way to set VF number
-  # services.udev.extraRules = ''
-  #   ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x1521", ATTR{sriov_numvfs}="7"
-  # '';
+  services.udev.extraRules = ''
+    SUBSYSTEM=="net", ATTR{address}=="${i350-1}", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ATTR{address}=="${i350-2}", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ATTR{address}=="${i350-3}", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ATTR{address}=="${i350-4}", ATTR{device/sriov_numvfs}="7"
+  '';
+
+  ########################################
+  # CenturyLink Uplink
+  ########################################
+
+  systemd.network.networks.onboard = {
+    networkConfig = {
+      DHCP = "no";
+      VLAN = [ "wan.201" ];
+    };
+    matchConfig = {
+      PermanentMACAddress = onboard;
+      Driver = "e1000e";
+    };
+  };
+
+  systemd.network.netdevs."wan.201" = {
+    netdevConfig = {
+      Kind = "vlan";
+      Name = "wan.201";
+    };
+    vlanConfig = {
+      Id = 201;
+    };
+  };
+
+  systemd.network.networks."wan.201" = {
+    networkConfig = {
+      DHCP = "yes";
+      Tunnel = "henet";
+    };
+    matchConfig.Name = "wan.201";
+  };
 
   ########################################
   # LAN
   ########################################
 
-  systemd.network.networks.eth0-onboard = {
-    networkConfig.Bridge = "wan-br";
-    matchConfig = {
-      PermanentMACAddress = "6c:3b:e5:16:65:b3";
-      Driver = "e1000e";
-    };
-  };
+  systemd.network.networks.dummy0.address = [
+    "192.168.0.2/32"
+    "192.168.0.3/32"
+    "192.168.0.4/32"
+    "192.168.0.5/32"
+  ];
 
-  systemd.network.networks.eth0-i350 = {
-    networkConfig.Bond = "wan-bond";
+  systemd.network.networks.i350-1 = {
+    networkConfig.Bridge = "lan-br";
     matchConfig = {
-      PermanentMACAddress = "a0:36:9f:36:f0:bc";
+      PermanentMACAddress = i350-1;
       Driver = "igb";
     };
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
   };
 
-  systemd.network.networks.eth1-i350 = {
-    networkConfig.Bond = "wan-bond";
+  systemd.network.networks.i350-2 = rec {
+    address = [ "192.168.0.3/24" "2001:470:e825::3/64" ];
     matchConfig = {
-      PermanentMACAddress = "a0:36:9f:36:f0:bd";
+      PermanentMACAddress = i350-2;
       Driver = "igb";
     };
+    routes = mkLANRouteTable 32;
+    routingPolicyRules = mkRoutingPolicy 32 address;
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
   };
 
-  systemd.network.networks.eth2-i350 = {
-    networkConfig.Bond = "wan-bond";
+  systemd.network.networks.i350-3 = rec {
+    address = [ "192.168.0.4/24" "2001:470:e825::4/64" ];
     matchConfig = {
-      PermanentMACAddress = "a0:36:9f:36:f0:be";
+      PermanentMACAddress = i350-3;
       Driver = "igb";
     };
+    routes = mkLANRouteTable 33;
+    routingPolicyRules = mkRoutingPolicy 33 address;
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
   };
 
-  systemd.network.networks.eth3-i350 = {
-    networkConfig.Bond = "wan-bond";
+  systemd.network.networks.i350-4 = rec {
+    address = [ "192.168.0.5/24" "2001:470:e825::5/64" ];
     matchConfig = {
-      PermanentMACAddress = "a0:36:9f:36:f0:bf";
+      PermanentMACAddress = i350-4;
       Driver = "igb";
     };
+    routes = mkLANRouteTable 34;
+    routingPolicyRules = mkRoutingPolicy 34 address;
     extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
   };
 
-  systemd.network.netdevs.wan-bond = {
-    netdevConfig = {
-      Kind = "bond";
-      Name = "wan-bond";
-    };
-    bondConfig = {
-      Mode = "balance-alb";
-      TransmitHashPolicy = "encap3+4";
-    };
-  };
-
-  systemd.network.networks.wan-bond = {
-    matchConfig.Name = "wan-bond";
-    networkConfig.Bridge = "wan-br";
-  };
-
-  systemd.network.netdevs.wan-br = {
+  systemd.network.netdevs.lan-br = {
     netdevConfig = {
       Kind = "bridge";
-      Name = "wan-br";
+      Name = "lan-br";
     };
     extraConfig = ''
       [Bridge]
@@ -118,21 +167,41 @@ in
     '';
   };
 
-  systemd.network.networks.wan-br = {
-    matchConfig.Name = "wan-br";
-    address = [ "192.168.0.2/24" ];
-    gateway = [ "192.168.0.1" ];
-    networkConfig.DHCP = "no";
+  systemd.network.networks.lan-br = rec {
+    matchConfig.Name = "lan-br";
+    address = [ "192.168.0.2/24" "2001:470:e825::2/64" ];
+    networkConfig = {
+      DHCP = "no";
+      DHCPServer = "yes";
+    };
+    dhcpServerConfig = {
+      PoolOffset = 10;
+      PoolSize = 200;
+      EmitDNS = "yes";
+      DNS = config.networking.nameservers;
+    };
+    routes = mkLANRouteTable 31;
+    routingPolicyRules = mkRoutingPolicy 31 address;
+  };
+
+  services.miniupnpd = {
+    internalIPs = [
+      "192.168.0.2"
+      "192.168.0.3"
+      "192.168.0.4"
+      "192.168.0.5"
+    ];
+    externalInterface = "wan.201";
   };
 
   # Wi-Fi AP
   systemd.network.networks.wlan0 = {
-    networkConfig.Bridge = "wan-br";
+    networkConfig.Bridge = "lan-br";
     matchConfig.Name = "wlan0";
   };
 
   systemd.network.networks.wlan1 = {
-    networkConfig.Bridge = "wan-br";
+    networkConfig.Bridge = "lan-br";
     matchConfig.Name = "wlan1";
   };
 
@@ -227,4 +296,53 @@ in
     ieee80211h=1
   '';
 
+  ########################################
+  # HE.NET Tunnelbroker
+  ########################################
+
+  systemd.network.netdevs.henet = {
+    netdevConfig = {
+      Kind = "sit";
+      Name = "henet";
+    };
+    tunnelConfig = {
+      Local = "dhcp4";
+      Remote = "216.218.226.238";
+      TTL = 255;
+    };
+  };
+
+  systemd.network.networks.henet = {
+    address = [
+      "2001:470:a:50::2/64"
+      "2001:470:b:50::1/64"
+      "2001:470:e825::1/48"
+    ];
+    gateway = [ "2001:470:a:50::1" ];
+    matchConfig.Name = "henet";
+  };
+
+  age.secrets.henet-update-ip.file = inputs.secrets + "/henet-update-ip-lt-hp-z220-sff.age";
+
+  systemd.services.henet-update-ip = {
+    after = [ "network.target" ];
+    requires = [ "network.target" ];
+    script = ''
+      URL=$(cat "${config.age.secrets.henet-update-ip.path}")
+      exec ${pkgs.curl}/bin/curl "$URL"
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+
+  systemd.timers.henet-update-ip = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "henet-update-ip.service" ];
+    timerConfig = {
+      OnCalendar = "*:0/15";
+      Persistent = true;
+      Unit = "henet-update-ip.service";
+    };
+  };
 }

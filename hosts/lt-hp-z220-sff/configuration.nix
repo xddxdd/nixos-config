@@ -15,6 +15,7 @@
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/libvirt
+    ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
