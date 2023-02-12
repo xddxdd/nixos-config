@@ -136,67 +136,69 @@ in
     matchConfig.Name = "wlan1";
   };
 
-  # 6GHz
-  systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
-    driver=nl80211
-
-    ssid=Lan Tian Test 6GHz
-    wpa=2
-    wpa_key_mgmt=SAE
-    wpa_passphrase=9876547210.33
-    rsn_pairwise=CCMP
-    group_cipher=CCMP
-
-    hw_mode=a
-    ieee80211w=2
-    beacon_prot=1
-    ieee80211ax=1
-    he_su_beamformer=1
-    he_su_beamformee=1
-    he_mu_beamformer=1
-    he_oper_chwidth=2
-    unsol_bcast_probe_resp_interval=20
-
-    channel=1
-    op_class=134
-    he_oper_centr_freq_seg0_idx=15
-
-    country_code=CA
-    country3=0x04
-    # ieee80211d=1
-    # ieee80211h=1
-  '';
-
-  # # 5GHz
+  # # 6GHz
   # systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
   #   driver=nl80211
 
-  #   ssid=Lan Tian Test 5GHz
+  #   ssid=Lan Tian Test 6GHz
   #   wpa=2
-  #   wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
+  #   wpa_key_mgmt=SAE
   #   wpa_passphrase=9876547210.33
   #   rsn_pairwise=CCMP
   #   group_cipher=CCMP
 
   #   hw_mode=a
-  #   wmm_enabled=1
   #   ieee80211w=2
   #   beacon_prot=1
-  #   ieee80211n=1
-  #   ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
-  #   ieee80211ac=1
-  #   vht_capab=[MAX-MPDU-11454][VHT160][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC-2BY1][SU-BEAMFORMER][SU-BEAMFORMEE][MU-BEAMFORMER][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]
   #   ieee80211ax=1
+  #   he_su_beamformer=1
+  #   he_su_beamformee=1
+  #   he_mu_beamformer=1
+  #   he_oper_chwidth=2
+  #   unsol_bcast_probe_resp_interval=20
 
-  #   channel=36
-  #   vht_oper_chwidth=1
-  #   vht_oper_centr_freq_seg0_idx=42
+  #   channel=1
+  #   op_class=134
+  #   he_oper_centr_freq_seg0_idx=15
 
-  #   country_code=CA
+  #   country_code=US
   #   country3=0x04
   #   # ieee80211d=1
   #   # ieee80211h=1
   # '';
+
+  # 5GHz
+  systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
+    driver=nl80211
+
+    ssid=Lan Tian Test 5GHz
+    wpa=2
+    wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
+    wpa_passphrase=9876547210.33
+    rsn_pairwise=CCMP
+    group_cipher=CCMP
+
+    hw_mode=a
+    wmm_enabled=1
+    ieee80211w=2
+    beacon_prot=1
+
+    ieee80211n=1
+    ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
+    ieee80211ac=1
+    # Disable beamforming for weird antenna setup
+    vht_capab=[MAX-MPDU-11454][VHT160][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC-2BY1][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]
+    ieee80211ax=1
+
+    channel=149
+    vht_oper_chwidth=2
+    vht_oper_centr_freq_seg0_idx=163
+
+    country_code=US
+    country3=0x04
+    ieee80211d=1
+    ieee80211h=1
+  '';
 
   # 2.4GHz
   systemd.services.hostapd-wlan0 = mkHostapd "wlan0" ''
@@ -212,16 +214,17 @@ in
     hw_mode=g
     ieee80211w=2
     beacon_prot=1
+
     ieee80211n=1
     ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
 
     channel=acs_survey
     acs_num_scans=5
 
-    country_code=CA
+    country_code=US
     country3=0x04
-    # ieee80211d=1
-    # ieee80211h=1
+    ieee80211d=1
+    ieee80211h=1
   '';
 
 }
