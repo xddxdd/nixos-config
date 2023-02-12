@@ -35,6 +35,11 @@
         socket options = TCP_NODELAY IPTOS_LOWDELAY
         read raw = yes
         write raw = yes
+
+        # Windows XP access
+        server min protocol = NT1
+        lanman auth = yes
+        ntlm auth = yes
       '';
     shares = {
       "printers" = {
