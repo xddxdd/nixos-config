@@ -102,7 +102,7 @@
   };
   "oneprovider" = {
     index = 10;
-    tags = with tags; [ server ];
+    tags = with tags; [ nix-builder server ];
     cpuThreads = 8;
     city = geo.cities."FR Paris";
     ssh = {
@@ -225,7 +225,7 @@
   };
   "oracle-vm-arm" = {
     index = 12;
-    tags = with tags; [ server ];
+    tags = with tags; [ nix-builder server ];
     cpuThreads = 4;
     city = geo.cities."JP Tokyo";
     system = "aarch64-linux";
@@ -284,7 +284,7 @@
   };
   "lt-hp-omen" = {
     index = 100;
-    tags = with tags; [ client ];
+    tags = with tags; [ client nix-builder ];
     cpuThreads = 16;
     city = geo.cities."US Chicago";
     hostname = "127.0.0.1";
@@ -301,7 +301,7 @@
   };
   "lt-lenovo" = {
     index = 101;
-    tags = with tags; [ client ];
+    tags = with tags; [ client nix-builder ];
     cpuThreads = 8;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.6";
@@ -318,7 +318,7 @@
   };
   "lt-hp-z220-sff" = {
     index = 102;
-    tags = with tags; [ ];
+    tags = with tags; [ nix-builder ];
     cpuThreads = 4;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.2";

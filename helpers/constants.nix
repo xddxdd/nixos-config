@@ -143,6 +143,7 @@ rec {
     [
       "client"
       "low-ram"
+      "nix-builder"
       "server"
     ]
     (v: v);
