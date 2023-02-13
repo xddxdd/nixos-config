@@ -28,11 +28,13 @@ in
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/samba.nix
+
+    # Doesn't work
+    # ../../nixos/optional-apps/nix-distributed.nix
   ];
 
   boot.kernelParams = [ "nvme_core.default_ps_max_latency_us=2147483647" ];
