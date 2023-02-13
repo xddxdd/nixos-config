@@ -8,6 +8,7 @@ n: v: lib.recursiveUpdate
   sshPort = 2222;
   system = "x86_64-linux";
   manualDeploy = false;
+  cpuThreads = 1;
 
   ssh = {
     ed25519 = "";
