@@ -39,7 +39,9 @@ mkScope (call: rec {
   hostDefaults = call ./host-defaults.nix;
   this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName { });
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
-  serverHosts = lib.filterAttrs (n: v: builtins.elem tags.server v.tags) hosts;
+
+  hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
+  serverHosts = hostsWithTag tags.server;
 
   container = call ./container.nix;
   geo = call ./geo.nix;
