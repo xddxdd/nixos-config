@@ -8,39 +8,28 @@
     distributedBuilds = true;
     buildMachines =
       let
-        localhost = {
-          inherit (config.nixpkgs) system;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
-          hostName = "localhost";
-          maxJobs = 4;
-          speedFactor = 4;
-          supportedFeatures = [ "benchmark" "big-parallel" ];
-        };
-        mkBuildMachine = n: {
-          inherit (LT.hosts."${n}") system;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
-          hostName = LT.hosts."${n}".hostname;
-          maxJobs = 4;
-          speedFactor = 4;
-          supportedFeatures = [ "benchmark" "big-parallel" ];
-        };
-        nixBuildNet = {
-          hostName = "eu.nixbuild.net";
-          systems = [ "x86_64-linux" "aarch64-linux" ];
-          sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
-          maxJobs = 100;
-          speedFactor = 100;
-          supportedFeatures = [ "benchmark" "big-parallel" ];
-        };
+        mkBuildMachine = n:
+          let
+            isLocal = n == config.networking.hostName;
+          in
+          {
+            inherit (LT.hosts."${n}") system;
+            hostName = LT.hosts."${n}".hostname;
+            maxJobs = LT.hosts."${n}".cpuThreads;
+            speedFactor = LT.hosts."${n}".cpuThreads;
+            supportedFeatures = [ "benchmark" "big-parallel" ];
+          } // (if isLocal then {
+            hostName = "localhost";
+            protocol = null;
+          } else {
+            protocol = "ssh-ng";
+            sshKey = "/home/lantian/.ssh/id_ed25519";
+            sshUser = "root";
+          });
       in
       [
-        # localhost
+        (mkBuildMachine "lt-hp-omen")
         (mkBuildMachine "oracle-vm-arm")
-        # (mkBuildMachine "oneprovider")
-        # nixBuildNet
       ];
   };
 }

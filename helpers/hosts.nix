@@ -103,6 +103,7 @@
   "oneprovider" = {
     index = 10;
     tags = with tags; [ server ];
+    cpuThreads = 8;
     city = geo.cities."FR Paris";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5a2K6h3RbZpNnRMCHdd2wH1H3MJtiSUe0UhhE/6MnE6GJEgP1Kbt0JBVwMn/UEaKfcdHdUhSQGg95q8Z87gbuyvmXiAj1xFyqdOTrZwqyLDPj9gCe/krA/02z6O9hxaqF2FMJwudcqq0Um/ppxbHGkFH+KURzbdIH/CSBuyrqGl6v/lWbmyI4H4NpZZCo37y8NVicfTsljDxcQpQzy7iEXvwAdjqQI8HSxM+8Kx5BIuV5rAmJzF1Pb+GaZXodvVRIULa3zvfUfaEhYbKTukgvwdwMSB5eigO6WRjqJWgz9/6VCy/JRZ3UQVNRh98FZVBktj3qN4WsR/NpcmS7eFv7p1WWnWj/YjxtPTlB7jUnA8wthqCqyCOQi8ABbt/hmSqmTVbpDm/IWefsgdJIjarkreEToeEne3BSwJ/crhLejitpMjM5RvcOurpUY14kZTBwbcE8gB0TS7j73+GvXLHs7FSkeVpdDC6gW4RZkYmMcT0+H/mybASET0bgMwCakIZ8QSVGJ49JWmvXRYRNlBjoHu44HITa5R8ya2OjxLunPXbk7d9EUyyejLwq33+zRucJD7NiokKyLxfgS9zqlr1kV44ehP04mg+mHKKDxdKoY1bYlYbBXDNi/RSP65MlGBcznAECOyQAoxWLtdK0mW+tJpGkCGt2iplDoF5dJHhG5w==";
@@ -225,6 +226,7 @@
   "oracle-vm-arm" = {
     index = 12;
     tags = with tags; [ server ];
+    cpuThreads = 4;
     city = geo.cities."JP Tokyo";
     system = "aarch64-linux";
     ssh = {
@@ -283,6 +285,7 @@
   "lt-hp-omen" = {
     index = 100;
     tags = with tags; [ client ];
+    cpuThreads = 16;
     city = geo.cities."US Chicago";
     hostname = "127.0.0.1";
     ssh = {
@@ -299,6 +302,7 @@
   "lt-lenovo" = {
     index = 101;
     tags = with tags; [ client ];
+    cpuThreads = 8;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.6";
     ssh = {
@@ -315,6 +319,7 @@
   "lt-hp-z220-sff" = {
     index = 102;
     tags = with tags; [ ];
+    cpuThreads = 4;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.2";
     ssh = {
