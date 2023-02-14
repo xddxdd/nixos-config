@@ -23,10 +23,6 @@
       splix
     ];
 
-    browsedConf = ''
-      CreateIPPPrinterQueues All
-    '';
-
     cups-pdf = {
       enable = true;
       instances.cups-pdf = {
@@ -37,6 +33,16 @@
   };
 
   services.system-config-printer.enable = true;
+
+  systemd.services.cups.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "3";
+  };
+
+  systemd.services.cups-browsed.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "3";
+  };
 
   systemd.tmpfiles.rules = [
     "d /var/lib/cups-pdf 755 root root"

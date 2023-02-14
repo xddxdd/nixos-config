@@ -48,6 +48,10 @@ let
         iifname "dn42*" jump DN42_INPUT
         iifname "zt*" jump DN42_INPUT
 
+        # Block Avahi Multicast DNS on ZeroTier
+        iifname "zt*" udp sport 5353 reject
+        iifname "zt*" udp dport 5353 reject
+
         # Block certain ports from public internet
         jump PUBLIC_INPUT
       }
@@ -69,6 +73,10 @@ let
         type filter hook output priority 5; policy accept;
         oifname "dn42*" jump DN42_OUTPUT
         oifname "zt*" jump DN42_OUTPUT
+
+        # Block Avahi Multicast DNS on ZeroTier
+        oifname "zt*" udp sport 5353 reject
+        oifname "zt*" udp dport 5353 reject
       }
 
       chain NAT_PREROUTING {
