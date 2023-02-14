@@ -155,6 +155,7 @@ let
       # Helper chains
       chain PUBLIC_INPUT {
         # Allow private ranges
+        iifname "lo" return
         ip saddr @RESERVED_IPV4 return
         ip6 saddr @RESERVED_IPV6 return
 
