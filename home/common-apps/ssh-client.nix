@@ -47,9 +47,6 @@
           "PubkeyAcceptedAlgorithms" = "ssh-ed25519";
         };
       };
-      "*.illinois.edu" = {
-        user = "yuhuixu2";
-      };
       "github.com" = {
         user = "git";
       };

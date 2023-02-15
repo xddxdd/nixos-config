@@ -8,7 +8,7 @@ let
     assert v.cpuThreads > 0;
     if isLocal then null else {
       inherit (v) system;
-      hostName = v.hostname;
+      hostName = "${n}.lantian.pub";
       maxJobs = v.cpuThreads;
       protocol = "ssh-ng";
       speedFactor = v.cpuThreads;
