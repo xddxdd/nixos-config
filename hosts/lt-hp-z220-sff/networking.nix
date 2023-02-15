@@ -64,10 +64,10 @@ in
   boot.kernelModules = [ "vfio-pci" ];
 
   services.udev.extraRules = ''
-    SUBSYSTEM=="net", ATTR{address}=="${i350-1}", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ATTR{address}=="${i350-2}", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ATTR{address}=="${i350-3}", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ATTR{address}=="${i350-4}", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-1}", NAME="eth-i350-1", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-2}", NAME="eth-i350-2", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-3}", NAME="eth-i350-3", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-4}", NAME="eth-i350-4", ATTR{device/sriov_numvfs}="7"
   '';
 
   ########################################
