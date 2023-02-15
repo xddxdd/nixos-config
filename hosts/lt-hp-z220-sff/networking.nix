@@ -19,14 +19,6 @@ let
     })
     ips;
 
-  mkSRIOVConfig = nicID: vfID: ''
-    [SR-IOV]
-    VirtualFunction=${builtins.toString vfID}
-    MACSpoofCheck=no
-    Trust=yes
-    MACAddress=42:42:42:25:47:${builtins.toString nicID}${builtins.toString vfID}
-  '';
-
   mkHostapd = interface: cfg: {
     path = [ pkgs.hostapd ];
     after = [ "sys-subsystem-net-devices-${interface}.device" ];
@@ -120,7 +112,6 @@ in
       PermanentMACAddress = i350-1;
       Driver = "igb";
     };
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 0) 7);
   };
 
   systemd.network.networks.i350-2 = rec {
@@ -131,7 +122,6 @@ in
     };
     routes = mkLANRouteTable 32;
     routingPolicyRules = mkRoutingPolicy 32 address;
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 1) 7);
   };
 
   systemd.network.networks.i350-3 = rec {
@@ -142,7 +132,6 @@ in
     };
     routes = mkLANRouteTable 33;
     routingPolicyRules = mkRoutingPolicy 33 address;
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 2) 7);
   };
 
   systemd.network.networks.i350-4 = rec {
@@ -153,7 +142,6 @@ in
     };
     routes = mkLANRouteTable 34;
     routingPolicyRules = mkRoutingPolicy 34 address;
-    extraConfig = builtins.concatStringsSep "\n" (builtins.genList (mkSRIOVConfig 3) 7);
   };
 
   systemd.network.netdevs.lan-br = {
