@@ -22,28 +22,28 @@
   };
   hostapd = {
     pname = "hostapd";
-    version = "56662f36da3c1fec8e604b5d5b682abe50e0d525";
+    version = "9f5f066d27f920f526f8a18d6138ae9fd03bb707";
     src = fetchgit {
       url = "https://w1.fi/hostap.git";
-      rev = "56662f36da3c1fec8e604b5d5b682abe50e0d525";
+      rev = "9f5f066d27f920f526f8a18d6138ae9fd03bb707";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-TuAlzQGBOfXGqP66T09fmsHILeualBsDOUz+Mt4y6a4=";
+      sha256 = "sha256-EDEJ5l6VjPxOr6XGPqXmbcL9dZXotnpbQh2mhFmpJwk=";
     };
-    date = "2023-02-10";
+    date = "2023-02-14";
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "9996e5c11aad87acaea9060a539084f9a5e90952";
+    version = "b05664092a49017ccd06a85993098a08de599093";
     src = fetchFromGitHub ({
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "9996e5c11aad87acaea9060a539084f9a5e90952";
+      rev = "b05664092a49017ccd06a85993098a08de599093";
       fetchSubmodules = false;
-      sha256 = "sha256-TlpaULil4jPX2KPDfw17OUc6mXU+LMVzoO3sj+AjZls=";
+      sha256 = "sha256-Da1B5A+BOcgaSx0EdYxvmSCwxogC4ZKDPf5DRrBCNg4=";
     });
-    date = "2022-12-30";
+    date = "2023-02-14";
   };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
@@ -94,15 +94,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "e80720ef9399d7a4e3469cf1004d064643e0f4dd";
+    version = "b9e0e4060798ed88d2170702f2935754616b1200";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "e80720ef9399d7a4e3469cf1004d064643e0f4dd";
+      rev = "b9e0e4060798ed88d2170702f2935754616b1200";
       fetchSubmodules = false;
-      sha256 = "sha256-pYEdFXUG1DZT27n5l41ksGn6wUtn9hyS6SU/cOF+BMA=";
+      sha256 = "sha256-rxusuJrCPBEGYCs8j6OeL5D09z6/K6Hj/WswrT1Uf9M=";
     });
-    date = "2023-02-10";
+    date = "2023-02-14";
   };
   ovpn-dco = {
     pname = "ovpn-dco";

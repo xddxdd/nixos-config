@@ -151,6 +151,9 @@
       channels.nixpkgs = {
         config = {
           allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-20.3.11"
+          ];
           # contentAddressedByDefault = true;
         };
         input = inputs.nixpkgs;
