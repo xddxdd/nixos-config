@@ -302,7 +302,9 @@
   "lt-lenovo" = {
     index = 101;
     tags = with tags; [ client nix-builder ];
-    cpuThreads = 8;
+    # CPU for lt-lenovo is throttled to 50%
+    # cpuThreads = 8;
+    cpuThreads = 4;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.6";
     ssh = {
