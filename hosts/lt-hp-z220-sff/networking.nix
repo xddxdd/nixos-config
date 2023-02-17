@@ -1,24 +1,6 @@
 { pkgs, lib, LT, config, utils, inputs, ... }@args:
 
 let
-  mkRouteTable = table: routes: builtins.map
-    (r: {
-      routeConfig = {
-        Destination = r;
-        Table = table;
-      };
-    })
-    routes;
-
-  mkRoutingPolicy = table: ips: builtins.map
-    (ip: {
-      routingPolicyRuleConfig = {
-        From = builtins.head (lib.splitString "/" ip);
-        Table = table;
-      };
-    })
-    ips;
-
   mkHostapd = interface: cfg: {
     path = [ pkgs.hostapd ];
     after = [ "sys-subsystem-net-devices-${interface}.device" ];
@@ -44,8 +26,6 @@ let
   i350-2 = "a0:36:9f:36:f0:bd";
   i350-3 = "a0:36:9f:36:f0:be";
   i350-4 = "a0:36:9f:36:f0:bf";
-
-  mkLANRouteTable = table: mkRouteTable table [ "192.168.0.0/24" "2001:470:e825::/64" ];
 in
 {
   # SR-IOV
@@ -101,47 +81,54 @@ in
 
   systemd.network.networks.dummy0.address = [
     "192.168.0.2/32"
-    "192.168.0.3/32"
-    "192.168.0.4/32"
-    "192.168.0.5/32"
   ];
 
   systemd.network.networks.i350-1 = {
-    networkConfig.Bridge = "lan-br";
+    networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-1;
       Driver = "igb";
     };
   };
 
-  systemd.network.networks.i350-2 = rec {
-    address = [ "192.168.0.3/24" "2001:470:e825::3/64" ];
+  systemd.network.networks.i350-2 = {
+    networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-2;
       Driver = "igb";
     };
-    routes = mkLANRouteTable 32;
-    routingPolicyRules = mkRoutingPolicy 32 address;
   };
 
-  systemd.network.networks.i350-3 = rec {
-    address = [ "192.168.0.4/24" "2001:470:e825::4/64" ];
+  systemd.network.networks.i350-3 = {
+    networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-3;
       Driver = "igb";
     };
-    routes = mkLANRouteTable 33;
-    routingPolicyRules = mkRoutingPolicy 33 address;
   };
 
-  systemd.network.networks.i350-4 = rec {
-    address = [ "192.168.0.5/24" "2001:470:e825::5/64" ];
+  systemd.network.networks.i350-4 = {
+    networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-4;
       Driver = "igb";
     };
-    routes = mkLANRouteTable 34;
-    routingPolicyRules = mkRoutingPolicy 34 address;
+  };
+
+  systemd.network.netdevs.lan-bond = {
+    netdevConfig = {
+      Kind = "bond";
+      Name = "lan-bond";
+    };
+    bondConfig = {
+      Mode = "balance-alb";
+      TransmitHashPolicy = "encap3+4";
+    };
+  };
+
+  systemd.network.networks.lan-bond = {
+    matchConfig.Name = "lan-bond";
+    networkConfig.Bridge = "lan-br";
   };
 
   systemd.network.netdevs.lan-br = {
@@ -155,7 +142,7 @@ in
     '';
   };
 
-  systemd.network.networks.lan-br = rec {
+  systemd.network.networks.lan-br = {
     matchConfig.Name = "lan-br";
     address = [ "192.168.0.2/24" "2001:470:e825::2/64" ];
     networkConfig = {
@@ -168,8 +155,6 @@ in
       EmitDNS = "yes";
       DNS = config.networking.nameservers;
     };
-    routes = mkLANRouteTable 31;
-    routingPolicyRules = mkRoutingPolicy 31 address;
   };
 
   services.miniupnpd = {
