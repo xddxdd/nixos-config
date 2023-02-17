@@ -59,6 +59,9 @@
     # LaTeX
     texlive.combined.scheme-full
 
+    # Linux headers
+    LT.config.boot.kernelPackages.kernel.dev
+
     # Lua
     luajit
 
@@ -100,14 +103,7 @@
     # TOML
     taplo-cli
     taplo-lsp
-
-  ] ++ (if pkgs.stdenv.isx86_64 then [
-    # Kernel
-    lantianCustomized.linux-xanmod-lantian-lto.dev
-  ] else [
-    # Kernel
-    linux_latest.dev
-  ]);
+  ];
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
