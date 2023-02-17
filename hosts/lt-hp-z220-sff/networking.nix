@@ -158,12 +158,7 @@ in
   };
 
   services.miniupnpd = {
-    internalIPs = [
-      "192.168.0.2"
-      "192.168.0.3"
-      "192.168.0.4"
-      "192.168.0.5"
-    ];
+    internalIPs = [ "192.168.0.2" ];
     externalInterface = "wan.201";
   };
 
