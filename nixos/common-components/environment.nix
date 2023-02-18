@@ -89,6 +89,7 @@ in
     DXVK_STATE_CACHE_PATH = "/tmp";
     ENVFS_RESOLVE_ALWAYS = "1";
     KOPIA_CHECK_FOR_UPDATES = "false";
+    NIXPKGS_ALLOW_INSECURE = "1";
     OPENSSL_CONF = builtins.toString (pkgs.writeText "openssl.conf" ''
       openssl_conf = openssl_init
 
