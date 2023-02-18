@@ -298,6 +298,26 @@
         "type": "github"
       }
     },
+    "nix-environments": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1675241763,
+        "narHash": "sha256-1GLLwM0RdxFTOL5g3wIF3XqdawyG5MJLo3ocByFLBQM=",
+        "owner": "nix-community",
+        "repo": "nix-environments",
+        "rev": "5f9206226b5d8fe3422317098ab28cae7e8158d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-environments",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -459,6 +479,7 @@
         "impermanence": "impermanence",
         "nix": "nix",
         "nix-alien": "nix-alien",
+        "nix-environments": "nix-environments",
         "nixos-asterisk-music": "nixos-asterisk-music",
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs",
