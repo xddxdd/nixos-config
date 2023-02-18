@@ -7,7 +7,7 @@ let
     "1000"  # Laptop (Linphone)
     "1001"  # Phone (Linphone)
     "1002"  # Bria
-    "1003"  # Reserved
+    "1003"  # Grandstream HT801
     "1004"  # Reserved
   ];
 in
