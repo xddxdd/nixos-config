@@ -145,6 +145,7 @@ rec {
       "low-ram"
       "nix-builder"
       "server"
+      "x86_64-v3"
     ]
     (v: v);
 

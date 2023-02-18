@@ -284,7 +284,7 @@
   };
   "lt-hp-omen" = {
     index = 100;
-    tags = with tags; [ client nix-builder ];
+    tags = with tags; [ client nix-builder x86_64-v3 ];
     cpuThreads = 16;
     city = geo.cities."US Chicago";
     hostname = "127.0.0.1";
@@ -301,7 +301,7 @@
   };
   "lt-lenovo" = {
     index = 101;
-    tags = with tags; [ client nix-builder ];
+    tags = with tags; [ client nix-builder x86_64-v3 ];
     # CPU for lt-lenovo is throttled to 50%
     # cpuThreads = 8;
     cpuThreads = 4;
