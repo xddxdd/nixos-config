@@ -113,6 +113,7 @@
   services.avahi = {
     enable = builtins.elem LT.tags.client LT.this.tags;
     nssmdns = true;
+    reflector = true;
     publish = {
       enable = true;
       addresses = true;

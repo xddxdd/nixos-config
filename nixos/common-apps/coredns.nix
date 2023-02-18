@@ -53,11 +53,18 @@ in
             cache
           }
         '';
+        mdns = zone: ''
+          ${zone} {
+            mdns ${zone} 1
+          }
+        '';
 
         cfgEntries = [
           (forwardToGoogleDNS ".")
           (forwardTo114DNS "kuxi.tech")
         ]
+        # Not working well
+        # ++ lib.optional config.services.avahi.enable (mdns "local")
         ++ (builtins.map forwardToLtnet
           (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ YggdrasilAlfis ++ CRXN)));
       in
