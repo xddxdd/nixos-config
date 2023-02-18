@@ -3,7 +3,11 @@
 let
   kpkg =
     if pkgs.stdenv.isx86_64
-    then pkgs.linuxPackagesFor pkgs.lantianCustomized.linux-xanmod-lantian-unstable-lto
+    then
+      (if builtins.elem LT.tags.x86_64-v3 LT.this.tags
+      then pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v3-lto
+      else pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v1-lto)
+    # TODO: update to 6.1 once 6.1.12 is in nixpkgs
     else pkgs.linuxPackages_6_0;
   llvmOverride = p:
     if pkgs.stdenv.isx86_64 then
