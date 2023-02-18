@@ -112,13 +112,13 @@ in
   services.fail2ban.jails = {
     asterisk = ''
       enabled  = true
-      filter   = asterisk
+      filter   = asterisk-lantian
       backend  = auto
       logpath  = /var/log/asterisk/asterisk.log
     '';
     asterisk-security = ''
       enabled  = true
-      filter   = asterisk
+      filter   = asterisk-lantian
       backend  = auto
       logpath  = /var/log/asterisk/security.log
     '';
