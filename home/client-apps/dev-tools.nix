@@ -73,6 +73,7 @@
     nixfmt
     nixpkgs-fmt
     nodePackages.node2nix
+    nurl
     rnix-lsp
 
     # NodeJS
