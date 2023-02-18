@@ -104,8 +104,10 @@ in
       + dialBeverly
       + dialLenny;
 
-      "logger.conf" = builtins.readFile ./config/logger.conf;
       "codecs.conf" = builtins.readFile ./config/codecs.conf;
+      "logger.conf" = builtins.readFile ./config/logger.conf;
+      "res_fax.conf" = builtins.readFile ./config/res_fax.conf;
+      "udptl.conf" = builtins.readFile ./config/udptl.conf;
     };
   };
 

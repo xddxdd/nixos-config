@@ -32,6 +32,11 @@ let
     "alaw"    # 64Kbps
     "ulaw"    # 64Kbps
 
+    # # T.140 Text
+    # # Unsupported: https://issues.asterisk.org/jira/browse/ASTERISK-28654
+    # "red"
+    # "t140"
+
     # Obsolete
     "silk24"
     "silk16"
@@ -65,6 +70,10 @@ rec {
     cos_audio=5
     tos_video=af41
     cos_video=4
+    t38_udptl=yes
+    t38_udptl_ec=redundancy
+    t38_udptl_nat=yes
+    fax_detect=no
 
     [template-endpoint-local](!)
     context=src-local
