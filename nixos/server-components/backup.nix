@@ -52,6 +52,7 @@ let
     var/lib/GeoIP/
     var/lib/grafana/
     var/lib/jellyfin/transcodes/
+    var/lib/libvirt/
     var/lib/machines/
     var/lib/matrix-synapse/media
     var/lib/minio/data
