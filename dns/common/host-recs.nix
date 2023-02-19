@@ -105,7 +105,11 @@ in
         aaaa = (lib.optional (v.public.IPv6 != "") v.public.IPv6)
           ++ (lib.optional (v.public.IPv6Alt != "") v.public.IPv6Alt);
       })
-      (lib.filterAttrs (n: v: builtins.elem tags.server v.tags) hosts));
+      (lib.filterAttrs
+        (n: v:
+          (builtins.elem tags.server v.tags)
+            && (builtins.elem tags.public-facing v.tags))
+        hosts));
   } // args);
 
   LTNet = domain: forEachHost

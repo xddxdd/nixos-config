@@ -144,6 +144,7 @@ rec {
       "client"
       "low-ram"
       "nix-builder"
+      "public-facing"
       "server"
       "x86_64-v3"
     ]
