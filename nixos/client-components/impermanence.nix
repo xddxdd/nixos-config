@@ -34,6 +34,7 @@ lib.mkIf (!config.boot.isContainer) {
         # Other configs
         ".android"
         ".conda"
+        ".fly"
         ".kde4"
         ".kube"
         ".librewolf"
