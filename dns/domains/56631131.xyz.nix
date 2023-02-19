@@ -27,6 +27,7 @@ in
       (A { name = "virmach-host"; address = "31.222.203.3"; })
       (A { name = "*.virmach-host"; address = "31.222.203.3"; })
       (IGNORE { name = "geo"; })
+      (IGNORE { name = "geo-test"; })
 
       (NS { name = "xip"; target = "ns-aws.sslip.io."; })
       (NS { name = "xip"; target = "ns-gce.sslip.io."; })
