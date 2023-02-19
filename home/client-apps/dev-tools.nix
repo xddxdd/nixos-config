@@ -32,6 +32,9 @@
     texinfo
     which
 
+    # Fly.io
+    flyctl
+
     # Golang
     delve
     go
