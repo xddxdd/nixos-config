@@ -55,6 +55,7 @@ in
       (TXT { name = "_token._dnswl"; contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz"; })
       common.records.Libravatar
       common.records.SIP
+      (common.hostRecs.GeoInfo { name = "geoinfo"; ttl = "1h"; })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")

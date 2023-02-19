@@ -14,6 +14,7 @@ in
       (common.hostRecs.Normal domain)
       common.records.Libravatar
       common.records.SIP
+      (common.hostRecs.GeoInfo { name = "geoinfo"; ttl = "1h"; })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")

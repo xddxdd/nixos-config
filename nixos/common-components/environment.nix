@@ -60,6 +60,7 @@ let
     numpy
     matplotlib
   ] else [ ]) ++ [
+    dnspython
     pip
     requests
   ]);
