@@ -97,6 +97,17 @@ in
     ])
   ;
 
+  GeoInfo = args: TXT ({
+    contents = builtins.toJSON (builtins.mapAttrs
+      (k: v: {
+        inherit (v.city) lat lng;
+        a = lib.optional (v.public.IPv4 != "") v.public.IPv4;
+        aaaa = (lib.optional (v.public.IPv6 != "") v.public.IPv6)
+          ++ (lib.optional (v.public.IPv6Alt != "") v.public.IPv6Alt);
+      })
+      (lib.filterAttrs (n: v: builtins.elem tags.server v.tags) hosts));
+  } // args);
+
   LTNet = domain: forEachHost
     (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.ltnet; })
   ;
