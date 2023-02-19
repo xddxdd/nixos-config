@@ -46,7 +46,7 @@ in
     providers = [ "cloudflare" ];
     records = [
       (dns.ALIAS { name = "${domain}."; target = common.records.GeoDNSTarget; ttl = "10m"; })
-      (dns.CNAME { name = "www.${domain}."; target = "${domain}."; cloudflare = true; })
+      (dns.CNAME { name = "www.${domain}."; target = common.records.GeoDNSTarget; ttl = "10m"; })
 
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
