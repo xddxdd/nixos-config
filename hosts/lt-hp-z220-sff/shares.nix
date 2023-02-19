@@ -13,7 +13,7 @@
       "guest ok" = "no";
       "create mask" = "0644";
       "directory mask" = "0755";
-      "force user" = "lantian";
+      "force user" = "root";
       "force group" = "users";
       "valid users" = "lantian";
     };
