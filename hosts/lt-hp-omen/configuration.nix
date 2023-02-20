@@ -149,14 +149,16 @@ in
     device = "//192.168.0.2/storage";
     fsType = "cifs";
     options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.device-timeout=5s"
-      "x-systemd.mount-timeout=5s"
+      "_netdev"
       "credentials=${config.age.secrets.samba-credentials.path}"
-      "uid=${builtins.toString config.users.users.lantian.uid}"
       "gid=${builtins.toString config.users.groups.wheel.gid}"
+      "noauto"
+      "uid=${builtins.toString config.users.users.lantian.uid}"
+      "users"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=5s"
     ];
   };
 }
