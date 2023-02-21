@@ -22,4 +22,7 @@
     device = "/dev/vda1";
     fsType = "ext4";
   };
+
+  # Needed, or kopia backup fails
+  swapDevices = [{ device = "/dev/vda3"; }];
 }
