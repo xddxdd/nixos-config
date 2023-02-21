@@ -143,6 +143,7 @@ lib.mkIf (!config.boot.isContainer) {
 
       # https://askubuntu.com/a/402940/1038244
       "vm.oom_kill_allocating_task" = 1;
+      "vm.swappiness" = 10;
     };
 
     supportedFilesystems = [
