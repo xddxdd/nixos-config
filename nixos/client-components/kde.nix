@@ -9,15 +9,29 @@
 
   services.xserver.desktopManager.plasma5 = {
     enable = true;
-    # If enabled on wayland, app autostart don't reliably work
-    runUsingSystemd = false;
+    runUsingSystemd = true;
   };
   services.xserver.displayManager.defaultSession = "plasmawayland";
+  services.xserver.displayManager.lightdm.enable = false;
 
-  services.xserver.displayManager.lightdm = {
+  services.greetd = {
     enable = true;
-    greeter.enable = false;
+    restart = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.greetd}/bin/agreety --cmd startplasma-wayland";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "startplasma-wayland";
+        user = "lantian";
+      };
+    };
   };
+
+  environment.etc."greetd/environments".text = ''
+    startplasma-wayland
+  '';
 
   programs.dconf.enable = true;
 
