@@ -156,7 +156,7 @@
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
-            "electron-20.3.11"
+            "electron-19.0.7"
           ];
           # contentAddressedByDefault = true;
         };
