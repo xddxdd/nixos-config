@@ -14,7 +14,6 @@ n: v: lib.recursiveUpdate
     ed25519 = "";
     rsa = "";
   };
-  syncthing = "";
   public = {
     IPv4 = "";
     IPv6 = "";
