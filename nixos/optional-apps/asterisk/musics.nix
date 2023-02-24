@@ -8,6 +8,11 @@ let
     "rubia"
     "ye_hang_xing"
     "cage"
+    "550w_moss"
+    "lai_zi_tian_tang_de_mo_gui"
+    "zen_me_hai_bu_ai"
+    "chen_yi_xun_gu_yong_zhe"
+    "zu_ya_na_xi_gu_yong_zhe"
   ];
 
   getMusicPath = music:
