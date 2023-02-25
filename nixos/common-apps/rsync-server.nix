@@ -15,8 +15,8 @@ in
     settings = {
       global = {
         address = LT.this.ltnet.IPv4;
-        gid = "nobody";
-        uid = "nobody";
+        gid = "root";
+        uid = "root";
         "use chroot" = true;
       };
 
