@@ -5,6 +5,21 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
+    "5746xxxxx" = {
+      remoteASN = 4242421566;
+      latencyMs = 10;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21566;
+        remoteAddress = "172.93.43.9";
+        remotePort = 22547;
+        wireguardPubkey = "XvMLP/vbrhDML0/1XAewaZK4ixtfbgtpqDYlncOEKiQ=";
+      };
+      addressing = {
+        myIPv4 = "172.20.171.170";
+        peerIPv4 = "172.20.171.169";
+      };
+    };
     akira = {
       remoteASN = 4242422375;
       latencyMs = 11;
