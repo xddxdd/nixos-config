@@ -88,7 +88,7 @@ in
         [dest-local]
         ${destLocalForwardMusic 4}
         ${dialRule "0100" [ "Answer()" "Milliwatt(m)" ]}
-        ${dialRule "0101" [ "Answer()" "ReceiveFAX(/var/lib/asterisk/fax-\${EPOCH}.tiff, f)" ]}
+        ${dialRule "0101" [ "Answer()" "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)" ]}
         ${destLocal}
         ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2003)},1)" ]}
         ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
@@ -142,4 +142,8 @@ in
       done
     '';
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/asterisk/fax 755 asterisk asterisk"
+  ];
 }
