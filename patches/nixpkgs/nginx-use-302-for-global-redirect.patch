@@ -1,0 +1,13 @@
+diff --git a/nixos/modules/services/web-servers/nginx/default.nix b/nixos/modules/services/web-servers/nginx/default.nix
+index bc5b4be5109..8408c0fed47 100644
+--- a/nixos/modules/services/web-servers/nginx/default.nix
++++ b/nixos/modules/services/web-servers/nginx/default.nix
+@@ -361,7 +361,7 @@ let
+           ${optionalString (vhost.root != null) "root ${vhost.root};"}
+           ${optionalString (vhost.globalRedirect != null) ''
+             location / {
+-              return 301 http${optionalString hasSSL "s"}://${vhost.globalRedirect}$request_uri;
++              return 302 http${optionalString hasSSL "s"}://${vhost.globalRedirect}$request_uri;
+             }
+           ''}
+           ${optionalString hasSSL ''
