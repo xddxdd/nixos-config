@@ -142,6 +142,13 @@ in
       extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
+    "ltn.pw" = {
+      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
+      serverAliases = [ "www.ltn.pw" ];
+      globalRedirect = "lantian.pub";
+      extraConfig = LT.nginx.makeSSL "ltn.pw_ecc"
+        + LT.nginx.commonVhostConf true;
+    };
 
     "gopher.lantian.pub" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
