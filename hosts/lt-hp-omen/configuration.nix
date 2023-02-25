@@ -37,7 +37,10 @@ in
     # ../../nixos/optional-apps/nix-distributed.nix
   ];
 
-  boot.kernelParams = [ "nvme_core.default_ps_max_latency_us=2147483647" ];
+  boot.kernelParams = [
+    "cfg80211.ieee80211_regdom=US"
+    "nvme_core.default_ps_max_latency_us=2147483647"
+  ];
 
   lantian.hidpi = 1.5;
 

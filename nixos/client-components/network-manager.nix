@@ -12,6 +12,8 @@ in
     ];
   };
 
+  hardware.wirelessRegulatoryDatabase = true;
+
   networking.networkmanager =
     let
       unmanagedConfig = builtins.concatStringsSep "," ([
