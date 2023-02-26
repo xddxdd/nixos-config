@@ -31,7 +31,6 @@
     ../../nixos/optional-apps/transmission-daemon.nix
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/waline.nix
-    ../../nixos/optional-apps/yggdrasil-alfis.nix
 
     # Unusable, cannot pass captcha
     # ../../nixos/optional-apps/epic-awesome-gamer.nix
@@ -107,5 +106,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
 }

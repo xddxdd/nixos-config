@@ -56,7 +56,6 @@
     CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
   };
 
-  services.yggdrasil.regions = [ "united-states" "canada" ];
 
   # Mount samba share
   age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";

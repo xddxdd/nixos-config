@@ -77,7 +77,6 @@ in
     };
   };
 
-  services.yggdrasil.regions = [ "united-states" "canada" ];
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
   services.xserver.libinput.touchpad = {

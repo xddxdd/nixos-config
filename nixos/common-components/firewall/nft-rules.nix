@@ -7,10 +7,6 @@ let
     fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-authoritative}:${LT.portStr.DNS}
     fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
     fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
-
-    # network namespace yggdrasil-alfis
-    fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip to ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.yggdrasil-alfis}:${LT.portStr.YggdrasilAlfis}
-    fib daddr type local tcp dport ${LT.portStr.YggdrasilAlfis} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.yggdrasil-alfis}]:${LT.portStr.YggdrasilAlfis}
   '';
 
   wg-lantian = (lib.optionalString (LT.this.public.IPv4 != "")

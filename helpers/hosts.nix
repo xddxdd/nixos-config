@@ -20,8 +20,7 @@
       IPv4 = "172.22.76.189";
       region = 52;
     };
-    yggdrasil.IPv6 = "200:3fa5:78e8:f74f:d078:6477:246e:bd0f";
-  };
+    };
   "linkin-old" = {
     index = 14;
     tags = with tags; [ server ];
@@ -38,8 +37,7 @@
       IPv4 = "172.22.76.118";
       region = 52;
     };
-    yggdrasil.IPv6 = "202:afa9:dd3c:34eb:22a5:851a:11b9:356";
-  };
+    };
   "v-ps-hkg" = {
     index = 1;
     tags = with tags; [ public-facing server ];
@@ -57,8 +55,7 @@
       IPv4 = "172.22.76.186";
       region = 52;
     };
-    yggdrasil.IPv6 = "201:306c:9e8c:3e57:aad4:2046:ed1a:2745";
-  };
+    };
   "hostdare-old" = {
     index = 13;
     tags = with tags; [ server ];
@@ -75,8 +72,7 @@
       IPv4 = "172.22.76.117";
       region = 44;
     };
-    yggdrasil.IPv6 = "200:425d:96c:e84b:3520:1db4:b6ca:ed91";
-  };
+    };
   "v-ps-sjc" = {
     index = 3;
     tags = with tags; [ public-facing server ];
@@ -93,8 +89,7 @@
       IPv4 = "172.22.76.185";
       region = 44;
     };
-    yggdrasil.IPv6 = "202:b546:589e:f485:896c:3454:6dc8:3c6e";
-  };
+    };
   "oneprovider" = {
     index = 10;
     tags = with tags; [ nix-builder public-facing server ];
@@ -114,8 +109,7 @@
       IPv4 = "172.22.76.113";
       region = 41;
     };
-    yggdrasil.IPv6 = "201:8a4:ea18:3575:7450:92af:a4a6:2ec";
-  };
+    };
   "virmach-ny1g" = {
     index = 8;
     tags = with tags; [ public-facing server ];
@@ -134,8 +128,7 @@
       IPv4 = "172.22.76.190";
       region = 42;
     };
-    yggdrasil.IPv6 = "201:724e:e8fa:b4fd:8674:916c:44bf:54a2";
-  };
+    };
   "virmach-ny6g" = {
     index = 4;
     tags = with tags; [ public-facing server ];
@@ -154,8 +147,7 @@
       IPv4 = "172.22.76.126";
       region = 42;
     };
-    yggdrasil.IPv6 = "200:3dc6:b526:4907:14ab:cb02:c5e9:2306";
-  };
+    };
   "buyvm" = {
     index = 2;
     tags = with tags; [ low-ram server ];
@@ -174,8 +166,7 @@
       IPv4 = "172.22.76.187";
       region = 41;
     };
-    yggdrasil.IPv6 = "200:f71e:b96e:90fa:2f29:d816:e104:ab92";
-  };
+    };
   "oracle-vm1" = {
     index = 5;
     tags = with tags; [ public-facing server ];
@@ -192,8 +183,7 @@
       IPv4 = "172.22.76.123";
       region = 52;
     };
-    yggdrasil.IPv6 = "203:ad5c:7556:91f:e61c:774b:7f2:9162";
-  };
+    };
   "oracle-vm2" = {
     index = 7;
     tags = with tags; [ public-facing server ];
@@ -210,8 +200,7 @@
       IPv4 = "172.22.76.124";
       region = 52;
     };
-    yggdrasil.IPv6 = "200:66b2:e1fb:e4e6:301c:8fbc:950c:7cf0";
-  };
+    };
   "oracle-vm-arm" = {
     index = 12;
     tags = with tags; [ nix-builder public-facing server ];
@@ -230,8 +219,7 @@
       IPv4 = "172.22.76.125";
       region = 52;
     };
-    yggdrasil.IPv6 = "203:1160:3010:f27:1872:3a30:590f:ec8";
-  };
+    };
   "terrahost" = {
     index = 11;
     tags = with tags; [ public-facing server ];
@@ -248,8 +236,7 @@
       IPv4 = "172.22.76.122";
       region = 41;
     };
-    yggdrasil.IPv6 = "200:e0f6:8e20:ea3c:df88:3357:f0f6:ee1f";
-  };
+    };
   "servarica" = {
     index = 6;
     tags = with tags; [ server ];
@@ -266,8 +253,7 @@
       IPv4 = "172.22.76.119";
       region = 44;
     };
-    yggdrasil.IPv6 = "200:3723:d855:cd47:db0e:9a1:7412:2450";
-  };
+    };
   "lt-hp-omen" = {
     index = 100;
     tags = with tags; [ client nix-builder x86_64-v3 ];
@@ -282,8 +268,7 @@
       IPv4 = "172.22.76.114";
       region = 42;
     };
-    yggdrasil.IPv6 = "200:89bd:cf68:6583:f5a7:1ce2:bf8c:a11";
-  };
+    };
   "lt-lenovo" = {
     index = 101;
     tags = with tags; [ client nix-builder x86_64-v3 ];
@@ -300,8 +285,7 @@
       IPv4 = "172.22.76.115";
       region = 42;
     };
-    yggdrasil.IPv6 = "200:ed7f:781c:28ae:a150:5774:869:3c36";
-  };
+    };
   "lt-hp-z220-sff" = {
     index = 102;
     tags = with tags; [ nix-builder ];
@@ -316,6 +300,5 @@
       IPv4 = "172.22.76.116";
       region = 42;
     };
-    yggdrasil.IPv6 = "200:8f67:1a55:411a:94e7:8c34:e012:32c1";
-  };
+    };
 }

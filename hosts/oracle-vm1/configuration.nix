@@ -27,5 +27,4 @@
   #   name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   # };
 
-  services.yggdrasil.regions = [ "india" "japan" "south-korea" ];
 }

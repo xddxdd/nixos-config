@@ -52,5 +52,4 @@
 
   services.fwupd.enable = true;
 
-  services.yggdrasil.regions = [ "united-states" "canada" ];
 }

@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/resilio.nix
-    ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -29,5 +28,4 @@
   #   name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   # };
 
-  services.yggdrasil.regions = [ "india" "japan" "south-korea" ];
 }

@@ -38,5 +38,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "germany" "france" "luxembourg" "netherlands" "united-kingdom" ];
 }

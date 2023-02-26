@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/resilio.nix
-    ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -49,5 +48,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "united-states" "canada" ];
 }

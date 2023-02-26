@@ -43,19 +43,9 @@ lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
         # DN42
         "hack" = "172.31.0.5";
       };
-    forwardZonesRecurse =
-      let
-        yggdrasilAlfis = lib.genAttrs
-          # NeoNetwork is covered by fwd-dn42-interconnect
-          LT.constants.zones.YggdrasilAlfis
-          (k: builtins.concatStringsSep ";" [
-            "fdbc:f9dc:67ad:2547::52"
-          ]);
-      in
-      yggdrasilAlfis;
     luaConfig = ''
       ${lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
-        (with LT.constants.zones; (OpenNIC ++ Emercoin ++ YggdrasilAlfis ++ CRXN))}
+        (with LT.constants.zones; (OpenNIC ++ Emercoin ++ CRXN))}
 
       -- Internal zones where DNSSEC will fail
       addNTA("lantian.dn42")
