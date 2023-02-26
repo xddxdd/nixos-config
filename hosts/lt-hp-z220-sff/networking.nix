@@ -3,8 +3,6 @@
 let
   mkHostapd = interface: cfg: {
     path = [ pkgs.hostapd ];
-    after = [ "sys-subsystem-net-devices-${interface}.device" ];
-    bindsTo = [ "sys-subsystem-net-devices-${interface}.device" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig =
@@ -26,6 +24,8 @@ let
   i350-2 = "a0:36:9f:36:f0:bd";
   i350-3 = "a0:36:9f:36:f0:be";
   i350-4 = "a0:36:9f:36:f0:bf";
+  mt7916-2_4g = "00:0a:52:08:38:2e";
+  mt7916-5g = "00:0a:52:08:38:2f";
 in
 {
   # SR-IOV
@@ -40,6 +40,8 @@ in
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-2}", NAME="eth-i350-2", ATTR{device/sriov_numvfs}="7"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-3}", NAME="eth-i350-3", ATTR{device/sriov_numvfs}="7"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-4}", NAME="eth-i350-4", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-2_4g}", NAME="wlan-2_4g"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-5g}", NAME="wlan-5g"
   '';
 
   ########################################
@@ -163,18 +165,18 @@ in
   };
 
   # Wi-Fi AP
-  systemd.network.networks.wlan0 = {
+  systemd.network.networks.wlan-2_4g = {
     networkConfig.Bridge = "lan-br";
-    matchConfig.Name = "wlan0";
+    matchConfig.Name = "wlan-2_4g";
   };
 
-  systemd.network.networks.wlan1 = {
+  systemd.network.networks.wlan-5g = {
     networkConfig.Bridge = "lan-br";
-    matchConfig.Name = "wlan1";
+    matchConfig.Name = "wlan-5g";
   };
 
   # # 6GHz
-  # systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
+  # systemd.services.hostapd-wlan-5g = mkHostapd "wlan-5g" ''
   #   driver=nl80211
 
   #   ssid=Lan Tian Test 6GHz
@@ -205,7 +207,7 @@ in
   # '';
 
   # 5GHz
-  systemd.services.hostapd-wlan1 = mkHostapd "wlan1" ''
+  systemd.services.hostapd-wlan-5g = mkHostapd "wlan-5g" ''
     driver=nl80211
 
     ssid=Lan Tian Test 5GHz
@@ -238,7 +240,7 @@ in
   '';
 
   # 2.4GHz
-  systemd.services.hostapd-wlan0 = mkHostapd "wlan0" ''
+  systemd.services.hostapd-wlan-2_4g = mkHostapd "wlan-2_4g" ''
     driver=nl80211
 
     ssid=Lan Tian Test 2.4GHz
