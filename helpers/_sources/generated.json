@@ -36,7 +36,7 @@
     },
     "hostapd": {
         "cargoLocks": null,
-        "date": "2023-02-14",
+        "date": "2023-02-23",
         "extract": null,
         "name": "hostapd",
         "passthru": null,
@@ -46,16 +46,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9f5f066d27f920f526f8a18d6138ae9fd03bb707",
-            "sha256": "sha256-EDEJ5l6VjPxOr6XGPqXmbcL9dZXotnpbQh2mhFmpJwk=",
+            "rev": "2c32026827695e7e0bcb099361339e4a347bb983",
+            "sha256": "sha256-PsBiLCjY38nL8uVELf8YZWNOpB2hm9aSqQNVZfxhiHU=",
             "type": "git",
             "url": "https://w1.fi/hostap.git"
         },
-        "version": "9f5f066d27f920f526f8a18d6138ae9fd03bb707"
+        "version": "2c32026827695e7e0bcb099361339e4a347bb983"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-02-14",
+        "date": "2023-02-22",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -67,11 +67,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "b05664092a49017ccd06a85993098a08de599093",
-            "sha256": "sha256-Da1B5A+BOcgaSx0EdYxvmSCwxogC4ZKDPf5DRrBCNg4=",
+            "rev": "52935bf46392e97e3170809d219f270bb39b6bf7",
+            "sha256": "sha256-poH11BMuFvvzFneTSDKVA2BofpizegWdunPLF2QVehU=",
             "type": "github"
         },
-        "version": "b05664092a49017ccd06a85993098a08de599093"
+        "version": "52935bf46392e97e3170809d219f270bb39b6bf7"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -155,7 +155,7 @@
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-02-14",
+        "date": "2023-02-25",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -167,11 +167,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "b9e0e4060798ed88d2170702f2935754616b1200",
-            "sha256": "sha256-rxusuJrCPBEGYCs8j6OeL5D09z6/K6Hj/WswrT1Uf9M=",
+            "rev": "24e1d8ff87b189247d56261a9497b1f509b286df",
+            "sha256": "sha256-f+ZmQ3RvbvsN8Zxzzoi6A+W68RAIeUVpLijQpCET/GQ=",
             "type": "github"
         },
-        "version": "b9e0e4060798ed88d2170702f2935754616b1200"
+        "version": "24e1d8ff87b189247d56261a9497b1f509b286df"
     },
     "ovpn-dco": {
         "cargoLocks": null,
