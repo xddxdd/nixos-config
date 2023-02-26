@@ -16,7 +16,7 @@
         wireguardPubkey = "XvMLP/vbrhDML0/1XAewaZK4ixtfbgtpqDYlncOEKiQ=";
       };
       addressing = {
-        myIPv4 = "172.20.171.170";
+        # myIPv4 = "172.20.171.170";
         peerIPv4 = "172.20.171.169";
       };
     };
