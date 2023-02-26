@@ -23,6 +23,7 @@ in
 
     ./hardware-configuration.nix
     ./hp-keyboard-backlight
+    ./nandsim.nix
     # ./nbfc.nix
 
     ../../nixos/optional-apps/libvirt
