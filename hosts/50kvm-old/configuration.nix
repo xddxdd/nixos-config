@@ -23,5 +23,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "india" "japan" "south-korea" ];
 }

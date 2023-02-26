@@ -16,7 +16,6 @@
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
       (common.hostRecs.NeoNetwork "neo.${domain}")
-      (common.hostRecs.Yggdrasil "ygg.${domain}")
     ];
   }
 ]

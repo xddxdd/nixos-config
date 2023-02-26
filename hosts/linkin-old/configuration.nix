@@ -5,8 +5,6 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/optional-apps/yggdrasil-alfis.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -26,5 +24,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "india" "japan" "south-korea" ];
 }

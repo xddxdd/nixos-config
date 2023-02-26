@@ -7,7 +7,6 @@ rec {
     netease = "2";
     grasscutter = "26";
     nginx-proxy = "43";
-    yggdrasil-alfis = "52";
     powerdns-recursor = "53";
     coredns-authoritative = "54";
     coredns-knot = "55";
@@ -79,7 +78,6 @@ rec {
     LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
-    YggdrasilAlfis = 4244;
     IPFS.API = 5001;
     Radarr = 7878;
     IPFS.Gateway = 8080;
@@ -93,8 +91,6 @@ rec {
     Prometheus.NodeExporter = 9100;
     Prometheus.BirdExporter = 9324;
     Prometheus.EndlesshGo = 9322;
-    Yggdrasil.Public = 13058;
-    Yggdrasil.Multicast = 13059;
     FlareSolverr = 13191;
     ASF = 13242;
     NeteaseUnlock = 13301;
@@ -167,7 +163,6 @@ rec {
     # .neo zone not included for conflict with NeoNetwork
     OpenNIC = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
     Emercoin = [ "bazar" "coin" "emc" "lib" ];
-    YggdrasilAlfis = [ "anon" "btn" "conf" "index" "merch" "mirror" "mob" "screen" "srv" "ygg" ];
     CRXN = [ "crxn" ];
   };
 }

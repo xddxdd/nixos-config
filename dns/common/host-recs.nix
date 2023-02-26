@@ -181,8 +181,4 @@ in
       (PTR { name = v.neonetwork.IPv6; target = "${ptrPrefix v}${n}.${domain}."; reverse = true; })
     ])
   ;
-
-  Yggdrasil = domain: forEachHost
-    (n: v: mapAddresses { name = "${n}.${domain}."; addresses = v.yggdrasil; })
-  ;
 }

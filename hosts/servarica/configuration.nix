@@ -24,5 +24,4 @@
     ];
   };
 
-  services.yggdrasil.regions = [ "united-states" "canada" ];
 }
