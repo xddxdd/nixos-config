@@ -59,15 +59,15 @@
   };
   nft-fullcone = {
     pname = "nft-fullcone";
-    version = "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c";
+    version = "5a21ca29b7da429174951d1801a9681a25982d10";
     src = fetchFromGitHub ({
       owner = "fullcone-nat-nftables";
       repo = "nft-fullcone";
-      rev = "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c";
+      rev = "5a21ca29b7da429174951d1801a9681a25982d10";
       fetchSubmodules = false;
-      sha256 = "sha256-ymgUwBGY7kEWS9qzbG6T3sQ416fzGJapvTNgPBRreFk=";
+      sha256 = "sha256-DpbLiNtS0sY0gEnGImQ84/5GXGtwMdd6/K6JNJaFkow=";
     });
-    date = "2023-01-10";
+    date = "2023-02-26";
   };
   nullfsvfs = {
     pname = "nullfsvfs";
