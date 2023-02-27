@@ -95,7 +95,7 @@
     },
     "nft-fullcone": {
         "cargoLocks": null,
-        "date": "2023-01-10",
+        "date": "2023-02-26",
         "extract": null,
         "name": "nft-fullcone",
         "passthru": null,
@@ -107,11 +107,11 @@
             "name": null,
             "owner": "fullcone-nat-nftables",
             "repo": "nft-fullcone",
-            "rev": "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c",
-            "sha256": "sha256-ymgUwBGY7kEWS9qzbG6T3sQ416fzGJapvTNgPBRreFk=",
+            "rev": "5a21ca29b7da429174951d1801a9681a25982d10",
+            "sha256": "sha256-DpbLiNtS0sY0gEnGImQ84/5GXGtwMdd6/K6JNJaFkow=",
             "type": "github"
         },
-        "version": "95ad79bc6d15c64b2770fe8b7092a64d5c2a293c"
+        "version": "5a21ca29b7da429174951d1801a9681a25982d10"
     },
     "nullfsvfs": {
         "cargoLocks": null,

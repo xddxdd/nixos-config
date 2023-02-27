@@ -58,7 +58,9 @@ lib.mkIf (!config.boot.isContainer) {
       "audit=0"
       "cgroup_enable=memory"
       "delayacct"
+      "ibt=off"
       "log_buf_len=1048576"
+      "nvme_core.default_ps_max_latency_us=2147483647"
       "split_lock_detect=off"
       "swapaccount=1"
     ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
