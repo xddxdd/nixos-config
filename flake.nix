@@ -201,6 +201,8 @@
             nvfetcher = ./scripts/nvfetcher.nix;
             update = ./scripts/update.nix;
           };
+
+        formatter = pkgs.alejandra;
       };
 
       colmenaHive =
