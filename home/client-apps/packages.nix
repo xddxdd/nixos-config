@@ -1,10 +1,16 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   home.packages = with pkgs; [
     (LT.wrapNetns "ns-wg-lantian" deluge)
     (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
-    (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
+    (lutris.override {extraPkgs = p: with p; [xdelta];})
     an-anime-game-launcher-gtk-bin
     aria
     audacious
@@ -68,12 +74,30 @@
   ];
 
   xdg.configFile = LT.gui.autostart [
-    { name = "discord"; command = "${pkgs.discord}/bin/discord --start-minimized"; }
-    { name = "element"; command = "${pkgs.element-desktop}/bin/element-desktop --hidden"; }
-    { name = "gcdemu"; command = "${pkgs.gcdemu}/bin/gcdemu"; }
-    { name = "telegram"; command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart"; }
-    { name = "thunderbird"; command = "${pkgs.thunderbird}/bin/thunderbird"; }
-    { name = "ulauncher"; command = "${pkgs.ulauncher}/bin/ulauncher --hide-window"; }
+    {
+      name = "discord";
+      command = "${pkgs.discord}/bin/discord --start-minimized";
+    }
+    {
+      name = "element";
+      command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
+    }
+    {
+      name = "gcdemu";
+      command = "${pkgs.gcdemu}/bin/gcdemu";
+    }
+    {
+      name = "telegram";
+      command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart";
+    }
+    {
+      name = "thunderbird";
+      command = "${pkgs.thunderbird}/bin/thunderbird";
+    }
+    {
+      name = "ulauncher";
+      command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
+    }
   ];
 
   xdg.dataFile = builtins.listToAttrs (lib.flatten (builtins.map
@@ -87,5 +111,5 @@
           else LT.gui.resizeIcon size ../files/mikozilla-fireyae-petals.png;
       }
     ])
-    [ 8 10 14 16 22 24 32 36 40 48 64 72 96 128 192 256 480 512 ]));
+    [8 10 14 16 22 24 32 36 40 48 64 72 96 128 192 256 480 512]));
 }

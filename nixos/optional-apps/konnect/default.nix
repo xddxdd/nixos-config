@@ -1,11 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   identifierWebapp = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "konnect-identifier-webapp";
     version = "1.0.0";
     src = ./identifier-webapp.tar.zst;
-    nativeBuildInputs = with pkgs; [ zstd ];
+    nativeBuildInputs = with pkgs; [zstd];
     installPhase = ''
       mkdir -p $out
       cp -r * $out/
@@ -16,25 +22,25 @@ let
     clients = [
       {
         id = "gitea";
-        secret = { _secret = config.age.secrets.konnect-gitea-secret.path; };
+        secret = {_secret = config.age.secrets.konnect-gitea-secret.path;};
         name = "Gitea";
         application_type = "web";
         trusted = true;
-        redirect_uris = [ "https://git.lantian.pub/user/oauth2/Konnect/callback" ];
-        origins = [ "https://git.lantian.pub" ];
+        redirect_uris = ["https://git.lantian.pub/user/oauth2/Konnect/callback"];
+        origins = ["https://git.lantian.pub"];
       }
       {
         id = "grafana";
-        secret = { _secret = config.age.secrets.konnect-grafana-secret.path; };
+        secret = {_secret = config.age.secrets.konnect-grafana-secret.path;};
         name = "Grafana";
         application_type = "web";
         trusted = true;
-        redirect_uris = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
-        origins = [ "https://dashboard.xuyh0120.win" ];
+        redirect_uris = ["https://dashboard.xuyh0120.win/login/generic_oauth"];
+        origins = ["https://dashboard.xuyh0120.win"];
       }
       {
         id = "miniflux";
-        secret = { _secret = config.age.secrets.konnect-miniflux-secret.path; };
+        secret = {_secret = config.age.secrets.konnect-miniflux-secret.path;};
         name = "Miniflux";
         application_type = "web";
         trusted = true;
@@ -42,20 +48,20 @@ let
           "https://rss.xuyh0120.win/oauth2/oidc/callback"
           "https://rss.xuyh0120.win/oauth2/oidc/redirect"
         ];
-        origins = [ "https://rss.xuyh0120.win" ];
+        origins = ["https://rss.xuyh0120.win"];
       }
       {
         id = "nextcloud";
-        secret = { _secret = config.age.secrets.konnect-nextcloud-secret.path; };
+        secret = {_secret = config.age.secrets.konnect-nextcloud-secret.path;};
         name = "Nextcloud";
         application_type = "web";
         trusted = true;
-        redirect_uris = [ "https://cloud.xuyh0120.win/apps/sociallogin/custom_oidc/konnect" ];
-        origins = [ "https://cloud.xuyh0120.win" ];
+        redirect_uris = ["https://cloud.xuyh0120.win/apps/sociallogin/custom_oidc/konnect"];
+        origins = ["https://cloud.xuyh0120.win"];
       }
       {
         id = "oauth-proxy";
-        secret = { _secret = config.age.secrets.konnect-oauth-proxy-secret.path; };
+        secret = {_secret = config.age.secrets.konnect-oauth-proxy-secret.path;};
         name = "OAuth Proxy";
         application_type = "web";
         trusted = true;
@@ -66,8 +72,7 @@ let
       }
     ];
   };
-in
-{
+in {
   age.secrets.glauth-bindpw.file = inputs.secrets + "/glauth-bindpw.age";
   age.secrets.konnect--privkey.file = inputs.secrets + "/konnect/_privkey.age";
   age.secrets.konnect--encryption.file = inputs.secrets + "/konnect/_encryption.age";
@@ -78,14 +83,16 @@ in
   age.secrets.konnect-oauth-proxy-secret.file = inputs.secrets + "/konnect/oauth-proxy-secret.age";
 
   systemd.services.konnect = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-    };
+    wantedBy = ["multi-user.target"];
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+      };
     environment = {
       LDAP_URI = "ldap://${LT.this.ltnet.IPv4}:${LT.portStr.LDAP}";
       LDAP_BINDDN = "cn=serviceuser,dc=lantian,dc=pub";
@@ -118,13 +125,14 @@ in
 
   services.nginx.virtualHosts."login.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Konnect}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };

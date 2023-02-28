@@ -1,7 +1,11 @@
-{ pkgs, lib, LT, inputs, ... }@args:
-
-let
-  py = pkgs.python3.withPackages (p: with p; [ requests ]);
+{
+  pkgs,
+  lib,
+  LT,
+  inputs,
+  ...
+} @ args: let
+  py = pkgs.python3.withPackages (p: with p; [requests]);
 
   script = ./gcore.py;
 
@@ -15,18 +19,18 @@ let
         v.public.IPv4
       ];
       # AAAA record
-      AAAA = lib.optionals (v.public.IPv6 != "") [
-        v.public.IPv6
-      ]
-      ++ lib.optionals (v.public.IPv6Alt or "" != "") [
-        v.public.IPv6Alt
-      ];
-      CNAME = [ "${k}.lantian.pub" ];
+      AAAA =
+        lib.optionals (v.public.IPv6 != "") [
+          v.public.IPv6
+        ]
+        ++ lib.optionals (v.public.IPv6Alt or "" != "") [
+          v.public.IPv6Alt
+        ];
+      CNAME = ["${k}.lantian.pub"];
       inherit (v.city) lat lng;
     })
     LT.serverHosts));
-in
-''
+in ''
   CURR_DIR=$(pwd)
   TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
   ${pkgs.age}/bin/age \

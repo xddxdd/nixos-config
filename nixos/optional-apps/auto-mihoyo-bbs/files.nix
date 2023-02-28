@@ -1,9 +1,9 @@
-{ stdenvNoCC
-, fetchurl
-, zstd
-, ...
+{
+  stdenvNoCC,
+  fetchurl,
+  zstd,
+  ...
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "auto-mihoyo-bbs";
   version = "1.0.0";
@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "0h06iyrnlrpbym2k4xdn4hbmywg64h00r7nddr7dgxv9xy7csgss";
   };
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   installPhase = ''
     mkdir -p $out/

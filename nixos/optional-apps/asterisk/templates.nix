@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
 
   # http://www.cs.columbia.edu/~hgs/audio/codecs.html
@@ -16,21 +22,21 @@ let
     "speex32" # <44.2Kbps
 
     # 16KHz
-    "amrwb"   # <23.85Kbps
-    "siren7"  # 16/24/32Kbps
+    "amrwb" # <23.85Kbps
+    "siren7" # 16/24/32Kbps
     "speex16" # <44.2Kbps
-    "g722"    # 64Kbps
+    "g722" # 64Kbps
 
     # 8KHz
-    "g729"    # 8Kbps
-    "amr"     # <12.2Kbps
+    "g729" # 8Kbps
+    "amr" # <12.2Kbps
     "gsm-efr" # 12.2Kbps
-    "gsm"     # 13Kbps
-    "g726"    # 16/24/32/40Kbps
-    "speex"   # <24.6Kbps
-    "ilbc"    # 13.3/15.2Kbps
-    "alaw"    # 64Kbps
-    "ulaw"    # 64Kbps
+    "gsm" # 13Kbps
+    "g726" # 16/24/32/40Kbps
+    "speex" # <24.6Kbps
+    "ilbc" # 13.3/15.2Kbps
+    "alaw" # 64Kbps
+    "ulaw" # 64Kbps
 
     # # T.140 Text
     # # Unsupported: https://issues.asterisk.org/jira/browse/ASTERISK-28654
@@ -54,8 +60,7 @@ let
     "slin12"
     "slin"
   ];
-in
-rec {
+in rec {
   templates = ''
     [template-endpoint-common](!)
     type=endpoint

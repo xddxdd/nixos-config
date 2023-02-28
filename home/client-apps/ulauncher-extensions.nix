@@ -1,12 +1,18 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" {
     "com.github.dhelmr.ulauncher-tldr" = LT.sources.ulauncher-tldr.src;
     "com.github.luispabon.ulauncher-virtualbox" = LT.sources.ulauncher-virtualbox.src;
     "com.github.plibither8.ulauncher-vscode-recent" = pkgs.stdenv.mkDerivation {
       inherit (LT.sources.ulauncher-vscode-recent) pname version src;
-      patches = [ ../../patches/ulauncher-vscode-recent-path.patch ];
+      patches = [../../patches/ulauncher-vscode-recent-path.patch];
       installPhase = ''
         mkdir -p $out/
         cp -r * $out/

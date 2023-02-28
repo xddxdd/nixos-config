@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   environment.systemPackages = with pkgs; [
     (material-kwin-decoration.overrideAttrs (old: {
       inherit (LT.sources.material-kwin-decoration) version src;
@@ -41,7 +47,7 @@
   programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
   programs.xwayland.enable = true;
 
-  users.users.lantian.extraGroups = [ "video" "users" "input" ];
+  users.users.lantian.extraGroups = ["video" "users" "input"];
 
   xdg = {
     portal = {

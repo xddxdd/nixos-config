@@ -1,15 +1,21 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   inherit (import ./helpers.nix args) compressStaticAssets;
   labRoot = "/var/www/lab.lantian.pub";
-in
-{
+in {
   services.nginx.virtualHosts."lab.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     root = labRoot;
-    locations = LT.nginx.addCommonLocationConf
-      { phpfpmSocket = config.services.phpfpm.pools.lab.socket; }
+    locations =
+      LT.nginx.addCommonLocationConf
+      {phpfpmSocket = config.services.phpfpm.pools.lab.socket;}
       {
         "/" = {
           index = "index.php index.html index.htm";
@@ -28,7 +34,8 @@ in
           zstd off;
         '';
       };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
@@ -54,20 +61,21 @@ in
     inherit (config.services.nginx) user group;
   };
 
-  systemd.services.fcgiwrap.serviceConfig = LT.serviceHarden // {
-    ReadWritePaths = [
-      "/var/www/lab.lantian.pub"
-    ];
-  };
+  systemd.services.fcgiwrap.serviceConfig =
+    LT.serviceHarden
+    // {
+      ReadWritePaths = [
+        "/var/www/lab.lantian.pub"
+      ];
+    };
 
   systemd.tmpfiles.rules = let
-    dngzwxdq = compressStaticAssets (pkgs.callPackage pkgs/dngzwxdq.nix { });
-    dnyjzsxj = compressStaticAssets (pkgs.callPackage pkgs/dnyjzsxj.nix { });
-    glibc-debian-openvz-files = pkgs.callPackage pkgs/glibc-debian-openvz-files.nix { };
-    mota-24 = compressStaticAssets (pkgs.callPackage pkgs/mota-24.nix { });
-    mota-51 = compressStaticAssets (pkgs.callPackage pkgs/mota-51.nix { });
-    mota-xinxin = compressStaticAssets (pkgs.callPackage pkgs/mota-xinxin.nix { });
-
+    dngzwxdq = compressStaticAssets (pkgs.callPackage pkgs/dngzwxdq.nix {});
+    dnyjzsxj = compressStaticAssets (pkgs.callPackage pkgs/dnyjzsxj.nix {});
+    glibc-debian-openvz-files = pkgs.callPackage pkgs/glibc-debian-openvz-files.nix {};
+    mota-24 = compressStaticAssets (pkgs.callPackage pkgs/mota-24.nix {});
+    mota-51 = compressStaticAssets (pkgs.callPackage pkgs/mota-51.nix {});
+    mota-xinxin = compressStaticAssets (pkgs.callPackage pkgs/mota-xinxin.nix {});
   in [
     "L+ ${labRoot}/dngzwxdq - - - - ${dngzwxdq}"
     "L+ ${labRoot}/dnyjzsxj - - - - ${dnyjzsxj}"

@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   himawaripy = pkgs.python3Packages.buildPythonPackage rec {
     inherit (LT.sources.himawaripy) pname version src;
 
@@ -21,7 +27,7 @@ in {
 
   systemd.user.timers.himawaripy = lib.mkIf false {
     Install = {
-      WantedBy = [ "timers.target" ];
+      WantedBy = ["timers.target"];
     };
     Timer = {
       OnCalendar = "*:0/10";

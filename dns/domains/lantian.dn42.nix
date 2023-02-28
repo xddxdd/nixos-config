@@ -1,17 +1,37 @@
-{ pkgs, lib, dns, common, hosts, ... }:
-
-[
+{
+  pkgs,
+  lib,
+  dns,
+  common,
+  hosts,
+  ...
+}: [
   rec {
     domain = "lantian.dn42";
-    providers = [ "bind" ];
+    providers = ["bind"];
     records = [
       common.records.SIP
 
-      (common.hostRecs.mapAddresses { name = "ns1.${domain}."; addresses = hosts."v-ps-hkg".dn42; })
-      (common.hostRecs.mapAddresses { name = "ns2.${domain}."; addresses = hosts."v-ps-sjc".dn42; })
-      (common.hostRecs.mapAddresses { name = "ns3.${domain}."; addresses = hosts."virmach-ny1g".dn42; })
-      (common.hostRecs.mapAddresses { name = "ns4.${domain}."; addresses = hosts."buyvm".dn42; })
-      (common.hostRecs.mapAddresses { name = "ns5.${domain}."; addresses = hosts."oneprovider".dn42; })
+      (common.hostRecs.mapAddresses {
+        name = "ns1.${domain}.";
+        addresses = hosts."v-ps-hkg".dn42;
+      })
+      (common.hostRecs.mapAddresses {
+        name = "ns2.${domain}.";
+        addresses = hosts."v-ps-sjc".dn42;
+      })
+      (common.hostRecs.mapAddresses {
+        name = "ns3.${domain}.";
+        addresses = hosts."virmach-ny1g".dn42;
+      })
+      (common.hostRecs.mapAddresses {
+        name = "ns4.${domain}.";
+        addresses = hosts."buyvm".dn42;
+      })
+      (common.hostRecs.mapAddresses {
+        name = "ns5.${domain}.";
+        addresses = hosts."oneprovider".dn42;
+      })
       (common.hostRecs.mapAddresses {
         name = "ns-anycast.${domain}.";
         addresses = {

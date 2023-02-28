@@ -1,12 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   netns = LT.netns {
     name = "wg-lantian";
     setupDefaultRoute = false;
   };
-in
-{
+in {
   services.ipfs = {
     enable = true;
     apiAddress = "/ip4/${netns.ipv4}/tcp/${LT.portStr.IPFS.API}";
@@ -20,7 +25,7 @@ in
           "http://127.0.0.1:5001"
           "https://webui.ipfs.io"
         ];
-        Access-Control-Allow-Methods = [ "PUT" "POST" ];
+        Access-Control-Allow-Methods = ["PUT" "POST"];
       };
     };
   };
@@ -30,19 +35,21 @@ in
   ];
 
   systemd.services.ipfs = lib.recursiveUpdate netns.bindExisting {
-    serviceConfig = LT.serviceHarden // {
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      BindReadOnlyPaths = [ "/etc/netns/ns-wg-lantian/resolv.conf:/etc/resolv.conf" ];
-      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        BindReadOnlyPaths = ["/etc/netns/ns-wg-lantian/resolv.conf:/etc/resolv.conf"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+      };
   };
 
   systemd.sockets.ipfs-api.enable = false;
   systemd.sockets.ipfs-gateway.enable = false;
 
   systemd.sockets.ipfs-proxy-api = {
-    wantedBy = [ "sockets.target" ];
+    wantedBy = ["sockets.target"];
     socketConfig = {
       ListenStream = [
         "127.0.0.1:${LT.portStr.IPFS.API}"
@@ -53,15 +60,15 @@ in
   };
 
   systemd.services.ipfs-proxy-api = {
-    after = [ "network.target" ];
-    requires = [ "network.target" ];
+    after = ["network.target"];
+    requires = ["network.target"];
     serviceConfig = {
       ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd ${netns.ipv4}:${LT.portStr.IPFS.API}";
     };
   };
 
   systemd.sockets.ipfs-proxy-gateway = {
-    wantedBy = [ "sockets.target" ];
+    wantedBy = ["sockets.target"];
     socketConfig = {
       ListenStream = [
         "127.0.0.1:${LT.portStr.IPFS.Gateway}"
@@ -72,8 +79,8 @@ in
   };
 
   systemd.services.ipfs-proxy-gateway = {
-    after = [ "network.target" ];
-    requires = [ "network.target" ];
+    after = ["network.target"];
+    requires = ["network.target"];
     serviceConfig = {
       ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd ${netns.ipv4}:${LT.portStr.IPFS.Gateway}";
     };

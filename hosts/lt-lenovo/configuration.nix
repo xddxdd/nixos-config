@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/server.nix
 
@@ -21,8 +27,8 @@
   ];
 
   systemd.network.networks."eth0" = {
-    address = [ "192.168.0.6/24" "2001:470:e825::6/64" ];
-    gateway = [ "192.168.0.2" "2001:470:e825::2" ];
+    address = ["192.168.0.6/24" "2001:470:e825::6/64"];
+    gateway = ["192.168.0.2" "2001:470:e825::2"];
     matchConfig.Name = "eth0";
   };
 
@@ -40,13 +46,13 @@
 
   # lantian.hidpi = 1.25;
 
-  fileSystems."/".options = [ "size=100%" ];
+  fileSystems."/".options = ["size=100%"];
 
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 64;
     verbosity = "crit";
-    extraOptions = [ "--thread-count" "2" "--loadavg-target" "4" ];
+    extraOptions = ["--thread-count" "2" "--loadavg-target" "4"];
   };
 
   services.tlp.settings = {
@@ -55,7 +61,6 @@
     CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
     CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
   };
-
 
   # Mount samba share
   age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";

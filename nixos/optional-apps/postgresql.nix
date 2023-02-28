@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_14;
@@ -14,11 +20,17 @@
   systemd.services.postgresql.serviceConfig = LT.serviceHarden;
 
   services.phpfpm.pools.pga = {
-    phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
-      pdo
-      pdo_pgsql
-      pgsql
-    ]);
+    phpPackage = pkgs.php.withExtensions ({
+      enabled,
+      all,
+    }:
+      with all;
+        enabled
+        ++ [
+          pdo
+          pdo_pgsql
+          pgsql
+        ]);
     inherit (config.services.nginx) user;
     settings = {
       "listen.owner" = config.services.nginx.user;
@@ -45,24 +57,28 @@
     "pga.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phppgadmin}";
-      locations = LT.nginx.addCommonLocationConf
-        { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
+      locations =
+        LT.nginx.addCommonLocationConf
+        {phpfpmSocket = config.services.phpfpm.pools.pga.socket;}
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+      extraConfig =
+        LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
     "pga.localhost" = {
       listen = LT.nginx.listenHTTP;
       root = "${pkgs.phppgadmin}";
-      locations = LT.nginx.addCommonLocationConf
-        { phpfpmSocket = config.services.phpfpm.pools.pga.socket; }
+      locations =
+        LT.nginx.addCommonLocationConf
+        {phpfpmSocket = config.services.phpfpm.pools.pga.socket;}
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.commonVhostConf true
+      extraConfig =
+        LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
         + LT.nginx.serveLocalhost;
     };

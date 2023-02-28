@@ -1,14 +1,19 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   netns = LT.netns {
     name = "plausible";
   };
-in
-{
-  imports = [ ../postgresql.nix ];
+in {
+  imports = [../postgresql.nix];
 
   age.secrets.plausible-release-cookie = {
     file = inputs.secrets + "/plausible-release-cookie.age";
@@ -60,58 +65,65 @@ in
 
   services.nginx.virtualHosts."stats.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.plausible}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true;
   };
 
-  systemd.services = netns.setup // {
-    clickhouse = netns.bind {
-      serviceConfig = LT.serviceHarden // {
-        ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
-        MemoryDenyWriteExecute = lib.mkForce false;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
-        SystemCallFilter = lib.mkForce [ ];
+  systemd.services =
+    netns.setup
+    // {
+      clickhouse = netns.bind {
+        serviceConfig =
+          LT.serviceHarden
+          // {
+            ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+            MemoryDenyWriteExecute = lib.mkForce false;
+            RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+            SystemCallFilter = lib.mkForce [];
+          };
+      };
+      plausible = netns.bind {
+        environment = {
+          RELEASE_DISTRIBUTION = "none";
+          LISTEN_IP = "0.0.0.0";
+          RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
+            -kernel inet_dist_use_interface "{127,0,0,1}"
+          '';
+          ERL_EPMD_ADDRESS = "127.0.0.1";
+
+          GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
+          GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
+          IP_GEOLOCATION_DB = "/var/lib/GeoIP/GeoLite2-City.mmdb";
+
+          STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
+          RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
+          HOME = lib.mkForce "/run/plausible";
+        };
+        serviceConfig =
+          LT.serviceHarden
+          // {
+            Restart = "always";
+            RestartSec = "3";
+            DynamicUser = lib.mkForce false;
+            User = "plausible";
+            Group = "plausible";
+            StateDirectory = lib.mkForce "plausible";
+            RuntimeDirectory = "plausible";
+            WorkingDirectory = lib.mkForce "/run/plausible";
+          };
       };
     };
-    plausible = netns.bind {
-      environment = {
-        RELEASE_DISTRIBUTION = "none";
-        LISTEN_IP = "0.0.0.0";
-        RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
-          -kernel inet_dist_use_interface "{127,0,0,1}"
-        '';
-        ERL_EPMD_ADDRESS = "127.0.0.1";
-
-        GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
-        GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
-        IP_GEOLOCATION_DB = "/var/lib/GeoIP/GeoLite2-City.mmdb";
-
-        STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
-        RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
-        HOME = lib.mkForce "/run/plausible";
-      };
-      serviceConfig = LT.serviceHarden // {
-        Restart = "always";
-        RestartSec = "3";
-        DynamicUser = lib.mkForce false;
-        User = "plausible";
-        Group = "plausible";
-        StateDirectory = lib.mkForce "plausible";
-        RuntimeDirectory = "plausible";
-        WorkingDirectory = lib.mkForce "/run/plausible";
-      };
-    };
-  };
 
   users.users.plausible = {
     group = "plausible";
     isSystemUser = true;
   };
-  users.groups.plausible = { };
+  users.groups.plausible = {};
 }

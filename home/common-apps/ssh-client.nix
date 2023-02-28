@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   programs.ssh = {
     enable = true;
     extraConfig = ''
@@ -26,7 +32,7 @@
           "PubkeyAcceptedKeyTypes" = "ssh-ed25519";
         };
       };
-      "git.lantian.pub" = lib.hm.dag.entryBefore [ "*.lantian.pub" ] {
+      "git.lantian.pub" = lib.hm.dag.entryBefore ["*.lantian.pub"] {
         user = "git";
         port = 2222;
         extraOptions = {

@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/server.nix
 
@@ -9,8 +15,8 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = [ "216.52.57.200/24" ];
-    gateway = [ "216.52.57.1" ];
+    address = ["216.52.57.200/24"];
+    gateway = ["216.52.57.1"];
     matchConfig.Name = "eth0";
     networkConfig.Tunnel = "henet";
   };
@@ -33,7 +39,7 @@
       "2001:470:1f07:54d::1/64"
       "2001:470:8a6d::1/48"
     ];
-    gateway = [ "2001:470:1f06:54d::1" ];
+    gateway = ["2001:470:1f06:54d::1"];
     matchConfig.Name = "henet";
   };
 
@@ -45,5 +51,4 @@
       "2001:470:8a6d::1/120"
     ];
   };
-
 }

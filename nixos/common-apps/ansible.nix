@@ -1,9 +1,14 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  inherit (pkgs.python3Packages) mitogen;
-in
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  inherit (pkgs.python3Packages) mitogen;
+in {
   environment.systemPackages = with pkgs; [
     ansible
     mitogen
@@ -22,9 +27,10 @@ in
     retries = 3
   '';
 
-  environment.etc."ansible/hosts".text = lib.concatStringsSep
+  environment.etc."ansible/hosts".text =
+    lib.concatStringsSep
     "\n"
-    ([ "[all]" ] ++ (lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
+    (["[all]"] ++ (lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
 
   programs.ssh.extraConfig = ''
     StrictHostKeyChecking no

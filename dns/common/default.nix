@@ -1,6 +1,10 @@
-{ pkgs, lib, dns, hosts, ... }@args:
-
-rec {
+{
+  pkgs,
+  lib,
+  dns,
+  hosts,
+  ...
+} @ args: rec {
   inherit hosts;
   fallbackServer = hosts.v-ps-sjc;
 

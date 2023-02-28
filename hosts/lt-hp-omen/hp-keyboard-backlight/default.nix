@@ -1,9 +1,15 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   systemd.services.hp-keyboard-backlight = {
     description = "HP Omen Keyboard Backlight";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "simple";
       Restart = "always";

@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   cfgFile = pkgs.writeText "xmrig.json" (builtins.toJSON {
     autosave = true;
     donate-level = 0;
@@ -16,19 +22,20 @@ let
       rdmsr = true;
       wrmsr = true;
     };
-    pools = [{
-      url = "pool.supportxmr.com:443";
-      user = "42k8RvF6Y8N6gGkhxYd653GnZynJbBJyR9cvw55CW31M4MAGtvE4HAd53AVpZ7VyywWShhQixb73Ycxv9EvtEbGv4bm29VC";
-      pass = config.networking.hostName;
-      keepalive = true;
-      tls = true;
-    }];
+    pools = [
+      {
+        url = "pool.supportxmr.com:443";
+        user = "42k8RvF6Y8N6gGkhxYd653GnZynJbBJyR9cvw55CW31M4MAGtvE4HAd53AVpZ7VyywWShhQixb73Ycxv9EvtEbGv4bm29VC";
+        pass = config.networking.hostName;
+        keepalive = true;
+        tls = true;
+      }
+    ];
   });
-in
-{
+in {
   systemd.services.xmrig = {
     description = "XMRig";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     unitConfig = {
       After = "network.target";
     };

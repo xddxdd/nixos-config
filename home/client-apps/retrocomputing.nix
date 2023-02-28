@@ -1,11 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   winntMips = pkgs.stdenvNoCC.mkDerivation {
     pname = "winnt-mips";
     version = "1.0";
 
-    nativeBuildInputs = with pkgs; [ unzip ];
+    nativeBuildInputs = with pkgs; [unzip];
 
     src = pkgs.fetchurl {
       url = "https://web.archive.org/web/20150809205748if_/http://hpoussineau.free.fr/qemu/firmware/magnum-4000/setup.zip";
@@ -40,8 +46,7 @@ let
       chmod +x $out/bin/winnt-mips
     '';
   };
-in
-{
+in {
   home.file.".pcem/roms".source = pkgs.fetchFromGitHub {
     owner = "BaRRaKudaRain";
     repo = "PCem-ROMs";

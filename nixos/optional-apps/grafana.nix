@@ -1,7 +1,13 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./mysql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./mysql.nix];
 
   age.secrets.grafana-oauth = {
     file = inputs.secrets + "/grafana-oauth.age";
@@ -78,24 +84,26 @@
   systemd.services.grafana.serviceConfig = {
     EnvironmentFile = config.age.secrets.grafana-oauth.path;
     Restart = "on-failure";
-    SystemCallFilter = [ "@chown" ];
+    SystemCallFilter = ["@chown"];
   };
 
-  users.users.nginx.extraGroups = [ "grafana" ];
+  users.users.nginx.extraGroups = ["grafana"];
 
   services.mysql = {
-    ensureDatabases = [ "grafana" ];
-    ensureUsers = [{
-      name = "grafana";
-      ensurePermissions = {
-        "grafana.*" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["grafana"];
+    ensureUsers = [
+      {
+        name = "grafana";
+        ensurePermissions = {
+          "grafana.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.nginx.virtualHosts."dashboard.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://unix:${config.services.grafana.settings.server.socket}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -106,7 +114,8 @@
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };

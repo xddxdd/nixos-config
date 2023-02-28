@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/none.nix
 
@@ -23,7 +29,7 @@
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
-  boot.kernelParams = [ "pci=realloc,assign-busses" ];
+  boot.kernelParams = ["pci=realloc,assign-busses"];
 
   # ECC RAM
   hardware.rasdaemon.enable = true;
@@ -32,24 +38,23 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 32;
     verbosity = "crit";
-    extraOptions = [ "--loadavg-target" "4" ];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   services.beesd.filesystems.storage = {
     spec = config.fileSystems."/mnt/storage".device;
     hashTableSizeMB = 2048;
     verbosity = "crit";
-    extraOptions = [ "--loadavg-target" "4" ];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   services.avahi.enable = lib.mkForce true;
   services.printing = {
     browsing = true;
     defaultShared = true;
-    listenAddresses = [ "127.0.0.1:631" "192.168.0.2:631" ];
-    allowFrom = [ "all" ];
+    listenAddresses = ["127.0.0.1:631" "192.168.0.2:631"];
+    allowFrom = ["all"];
   };
 
   services.fwupd.enable = true;
-
 }

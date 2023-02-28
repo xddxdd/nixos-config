@@ -1,11 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   environment.etc = {
     "fail2ban/action.d/nftables-lantian.conf".source = lib.mkForce ./action.d/nftables-lantian.conf;
     "fail2ban/filter.d/asterisk-lantian.conf".source = lib.mkForce ./filter.d/asterisk-lantian.conf;
   };
-  environment.systemPackages = [ config.services.fail2ban.package ];
+  environment.systemPackages = [config.services.fail2ban.package];
 
   services.fail2ban = {
     enable = true;

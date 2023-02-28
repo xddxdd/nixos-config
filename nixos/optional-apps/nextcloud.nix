@@ -1,7 +1,13 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./mysql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./mysql.nix];
 
   age.secrets.nextcloud-s3-secret = {
     file = inputs.secrets + "/nextcloud-s3-secret.age";
@@ -59,13 +65,15 @@
 
   services.mysql = {
     enable = true;
-    ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [{
-      name = "nextcloud";
-      ensurePermissions = {
-        "nextcloud.*" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["nextcloud"];
+    ensureUsers = [
+      {
+        name = "nextcloud";
+        ensurePermissions = {
+          "nextcloud.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.nginx.virtualHosts."cloud.xuyh0120.win" = {

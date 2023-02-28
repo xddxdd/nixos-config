@@ -1,22 +1,27 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   mkHostapd = interface: cfg: {
-    path = [ pkgs.hostapd ];
-    wantedBy = [ "multi-user.target" ];
+    path = [pkgs.hostapd];
+    wantedBy = ["multi-user.target"];
 
-    serviceConfig =
-      let
-        cfgFile = pkgs.writeText "hostapd.conf" (''
+    serviceConfig = let
+      cfgFile = pkgs.writeText "hostapd.conf" (''
           interface=${interface}
           ctrl_interface=/run/hostapd-${interface}
           ctrl_interface_group=wheel
-        '' + cfg);
-      in
-      {
-        ExecStart = "${pkgs.hostapd}/bin/hostapd ${cfgFile}";
-        Restart = "always";
-      };
+        ''
+        + cfg);
+    in {
+      ExecStart = "${pkgs.hostapd}/bin/hostapd ${cfgFile}";
+      Restart = "always";
+    };
   };
 
   onboard = "6c:3b:e5:16:65:b3";
@@ -26,14 +31,13 @@ let
   i350-4 = "a0:36:9f:36:f0:bf";
   mt7916-2_4g = "00:0a:52:08:38:2e";
   mt7916-5g = "00:0a:52:08:38:2f";
-in
-{
+in {
   # SR-IOV
   boot.extraModprobeConfig = ''
     options vfio-pci ids=8086:1520
   '';
-  boot.blacklistedKernelModules = [ "igbvf" ];
-  boot.kernelModules = [ "vfio-pci" ];
+  boot.blacklistedKernelModules = ["igbvf"];
+  boot.kernelModules = ["vfio-pci"];
 
   services.udev.extraRules = ''
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-1}", NAME="eth-i350-1", ATTR{device/sriov_numvfs}="7"
@@ -51,7 +55,7 @@ in
   systemd.network.networks.onboard = {
     networkConfig = {
       DHCP = "no";
-      VLAN = [ "wan.201" ];
+      VLAN = ["wan.201"];
     };
     matchConfig = {
       PermanentMACAddress = onboard;
@@ -146,7 +150,7 @@ in
 
   systemd.network.networks.lan-br = {
     matchConfig.Name = "lan-br";
-    address = [ "192.168.0.2/24" "2001:470:e825::2/64" ];
+    address = ["192.168.0.2/24" "2001:470:e825::2/64"];
     networkConfig = {
       DHCP = "no";
       DHCPServer = "yes";
@@ -160,7 +164,7 @@ in
   };
 
   services.miniupnpd = {
-    internalIPs = [ "192.168.0.2" ];
+    internalIPs = ["192.168.0.2"];
     externalInterface = "wan.201";
   };
 
@@ -288,15 +292,15 @@ in
       "2001:470:b:50::1/64"
       "2001:470:e825::1/48"
     ];
-    gateway = [ "2001:470:a:50::1" ];
+    gateway = ["2001:470:a:50::1"];
     matchConfig.Name = "henet";
   };
 
   age.secrets.henet-update-ip.file = inputs.secrets + "/henet-update-ip-lt-hp-z220-sff.age";
 
   systemd.services.henet-update-ip = {
-    after = [ "network.target" ];
-    requires = [ "network.target" ];
+    after = ["network.target"];
+    requires = ["network.target"];
     script = ''
       URL=$(cat "${config.age.secrets.henet-update-ip.path}")
       exec ${pkgs.curl}/bin/curl "$URL"
@@ -307,8 +311,8 @@ in
   };
 
   systemd.timers.henet-update-ip = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "henet-update-ip.service" ];
+    wantedBy = ["timers.target"];
+    partOf = ["henet-update-ip.service"];
     timerConfig = {
       OnCalendar = "*:0/15";
       Persistent = true;

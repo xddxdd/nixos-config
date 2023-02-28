@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
@@ -19,8 +25,7 @@ let
   varlibdir = "/var/lib/asterisk";
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
-in
-{
+in {
   age.secrets.asterisk-pw = {
     file = inputs.secrets + "/asterisk-pw.age";
     owner = "asterisk";
@@ -40,8 +45,16 @@ in
         ${templates}
 
         ; External trunks
-        ${externalTrunk { name = "sdf"; number = "2293"; url = "sip.sdf.org"; }}
-        ${externalTrunk { name = "zadarma"; number = "286901"; url = "sip.zadarma.com"; }}
+        ${externalTrunk {
+          name = "sdf";
+          number = "2293";
+          url = "sip.sdf.org";
+        }}
+        ${externalTrunk {
+          name = "zadarma";
+          number = "286901";
+          url = "sip.zadarma.com";
+        }}
 
         ; Anonymous calling
         [anonymous](template-endpoint-common)
@@ -65,46 +78,47 @@ in
       #         https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/
       # - 2003: beverly
       #         https://worldofprankcalls.com/beverly/
-      "extensions.conf" = ''
-        [src-anonymous]
-        ; Only allow anonymous inbound call to test numbers
-        ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
-        ${dialRule "_[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
+      "extensions.conf" =
+        ''
+          [src-anonymous]
+          ; Only allow anonymous inbound call to test numbers
+          ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
+          ${dialRule "_[02-9]XXX" ["Goto(dest-local,\${EXTEN},1)"]}
 
-        [src-local]
-        ${dialRule "_733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
-        ${dialRule "_42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
-        ${dialRule "_XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
-        ${dialRule "_X!" [ "Goto(dest-url,\${EXTEN},1)" ]}
+          [src-local]
+          ${dialRule "_733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
+          ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
+          ${dialRule "_XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "_X!" ["Goto(dest-url,\${EXTEN},1)"]}
 
-        [src-sdf]
-        ; All calls go to 0000
-        ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
+          [src-sdf]
+          ; All calls go to 0000
+          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
-        [src-zadarma]
-        ; All calls go to 0000
-        ${dialRule "_X!" [ "Goto(dest-local,0000,1)" ]}
+          [src-zadarma]
+          ; All calls go to 0000
+          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
-        [dest-local]
-        ${destLocalForwardMusic 4}
-        ${dialRule "0100" [ "Answer()" "Milliwatt(m)" ]}
-        ${dialRule "0101" [ "Answer()" "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)" ]}
-        ${destLocal}
-        ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2003)},1)" ]}
-        ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
-        ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
-        ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
-        ${dialRule "_X!" [ "Answer()" "Playback(im-sorry&check-number-dial-again)" ]}
+          [dest-local]
+          ${destLocalForwardMusic 4}
+          ${dialRule "0100" ["Answer()" "Milliwatt(m)"]}
+          ${dialRule "0101" ["Answer()" "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"]}
+          ${destLocal}
+          ${dialRule "2000" ["Goto(dest-local,\${RAND(2001,2003)},1)"]}
+          ${dialRule "2001" ["Goto(app-lenny,b,1)"]}
+          ${dialRule "2002" ["Goto(app-asty-crapper,b,1)"]}
+          ${dialRule "2003" ["Goto(app-beverly,b,1)"]}
+          ${dialRule "_X!" ["Answer()" "Playback(im-sorry&check-number-dial-again)"]}
 
-        [dest-music]
-        ${destMusic}
+          [dest-music]
+          ${destMusic}
 
-        [dest-url]
-        ${dialRule "_X!" [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
-      ''
-      + dialAstyCrapper
-      + dialBeverly
-      + dialLenny;
+          [dest-url]
+          ${dialRule "_X!" ["Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"]}
+        ''
+        + dialAstyCrapper
+        + dialBeverly
+        + dialLenny;
 
       "codecs.conf" = builtins.readFile ./config/codecs.conf;
       "logger.conf" = builtins.readFile ./config/logger.conf;
@@ -129,7 +143,7 @@ in
   };
 
   systemd.services.asterisk = {
-    path = with pkgs; [ mpg123 ];
+    path = with pkgs; [mpg123];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
 
     preStart = ''

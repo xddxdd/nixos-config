@@ -1,26 +1,34 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  netns = LT.netns { name = "netease"; };
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  netns = LT.netns {name = "netease";};
 
   # https://desperadoj.com/16.html
   xrayConfig = pkgs.writeText "config.json" (builtins.toJSON {
-    inbounds = [{
-      listen = "${LT.this.ltnet.IPv4Prefix}.1";
-      port = LT.port.NeteaseUnlock;
-      protocol = "dokodemo-door";
-      settings = {
-        network = "tcp,udp";
-        followRedirect = true;
-      };
-      sniffing = {
-        destOverride = [
-          "http"
-          "tls"
-        ];
-        enabled = true;
-      };
-    }];
+    inbounds = [
+      {
+        listen = "${LT.this.ltnet.IPv4Prefix}.1";
+        port = LT.port.NeteaseUnlock;
+        protocol = "dokodemo-door";
+        settings = {
+          network = "tcp,udp";
+          followRedirect = true;
+        };
+        sniffing = {
+          destOverride = [
+            "http"
+            "tls"
+          ];
+          enabled = true;
+        };
+      }
+    ];
 
     log.loglevel = "warning";
 
@@ -58,7 +66,7 @@ let
     ];
 
     routing = {
-      balancers = [ ];
+      balancers = [];
       domainStrategy = "IPOnDemand";
       rules = [
         {
@@ -116,8 +124,7 @@ let
       ];
     };
   });
-in
-{
+in {
   environment.systemPackages = with pkgs; [
     nixos-cn.netease-cloud-music
   ];
@@ -127,28 +134,30 @@ in
     options edns0
   '';
 
-  systemd.services = netns.setup // {
-    netns-netease-xray = {
-      after = [ "netns-instance-netease.service" ];
-      bindsTo = [ "netns-instance-netease.service" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStartPre = [
-          # Redirect all connection to xray
-          "${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
-          # Block IPv6 to prevent leaks
-          "${pkgs.iptables}/bin/ip6tables -A INPUT -i ns-netease -j REJECT"
-        ];
-        ExecStart = "${pkgs.xray}/bin/xray -c ${xrayConfig}";
-        ExecStopPost = [
-          "${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
-          "${pkgs.iptables}/bin/ip6tables -D INPUT -i ns-netease -j REJECT"
-        ];
-        Restart = "always";
-        RestartSec = "10s";
+  systemd.services =
+    netns.setup
+    // {
+      netns-netease-xray = {
+        after = ["netns-instance-netease.service"];
+        bindsTo = ["netns-instance-netease.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          ExecStartPre = [
+            # Redirect all connection to xray
+            "${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
+            # Block IPv6 to prevent leaks
+            "${pkgs.iptables}/bin/ip6tables -A INPUT -i ns-netease -j REJECT"
+          ];
+          ExecStart = "${pkgs.xray}/bin/xray -c ${xrayConfig}";
+          ExecStopPost = [
+            "${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
+            "${pkgs.iptables}/bin/ip6tables -D INPUT -i ns-netease -j REJECT"
+          ];
+          Restart = "always";
+          RestartSec = "10s";
+        };
       };
     };
-  };
 
   security.wrappers.netease-cloud-music = {
     owner = "root";

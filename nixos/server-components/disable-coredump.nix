@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   systemd.coredump.enable = false;
 
   boot.kernel.sysctl = lib.mkIf (!config.boot.isContainer) {

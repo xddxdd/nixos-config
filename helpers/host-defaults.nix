@@ -1,10 +1,9 @@
-{ lib, ... }:
-
-n: v: lib.recursiveUpdate
+{lib, ...}: n: v:
+lib.recursiveUpdate
 {
   hostname = "${n}.lantian.pub";
   city = null;
-  tags = [ ];
+  tags = [];
   sshPort = 2222;
   system = "x86_64-linux";
   manualDeploy = false;
@@ -36,4 +35,4 @@ n: v: lib.recursiveUpdate
     IPv6 = "fd10:127:10:${builtins.toString v.index}::1";
   };
 }
-  v
+v

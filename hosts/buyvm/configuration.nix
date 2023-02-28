@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/server.nix
 
@@ -14,14 +20,16 @@
       "2605:6400:30:f22f::1/64"
       "2605:6400:cac6::1/48"
     ];
-    gateway = [ "107.189.12.1" ];
-    routes = [{
-      # Special config since gateway isn't in subnet
-      routeConfig = {
-        Gateway = "2605:6400:30::1";
-        GatewayOnLink = true;
-      };
-    }];
+    gateway = ["107.189.12.1"];
+    routes = [
+      {
+        # Special config since gateway isn't in subnet
+        routeConfig = {
+          Gateway = "2605:6400:30::1";
+          GatewayOnLink = true;
+        };
+      }
+    ];
     matchConfig.Name = "eth0";
   };
 
@@ -37,5 +45,4 @@
       "2605:6400:cac6::1/120"
     ];
   };
-
 }

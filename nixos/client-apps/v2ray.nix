@@ -1,17 +1,25 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   v2rayConf = {
-    inbounds = [{
-      listen = "127.0.0.1";
-      port = LT.port.V2Ray.SocksClient;
-      protocol = "socks";
-      settings.udp = true;
-      sniffing = {
-        destOverride = [ "http" "tls" ];
-        enabled = true;
-      };
-    }];
+    inbounds = [
+      {
+        listen = "127.0.0.1";
+        port = LT.port.V2Ray.SocksClient;
+        protocol = "socks";
+        settings.udp = true;
+        sniffing = {
+          destOverride = ["http" "tls"];
+          enabled = true;
+        };
+      }
+    ];
     log = {
       access = "none";
       loglevel = "warning";
@@ -33,7 +41,7 @@ let
           {
             address = LT.hosts."v-ps-sjc".public.IPv4;
             port = 443;
-            password = { _secret = config.age.secrets.v2ray-key.path; };
+            password = {_secret = config.age.secrets.v2ray-key.path;};
           }
         ];
         streamSettings = {
@@ -59,29 +67,28 @@ let
       uplinkOnly = 0;
     };
     routing = {
-      balancers = [ ];
+      balancers = [];
       domainStrategy = "IPOnDemand";
       rules = [
         {
           outboundTag = "block";
-          protocol = [ "bittorrent" ];
+          protocol = ["bittorrent"];
           type = "field";
         }
         {
-          domain = [ "geosite:cn" ];
+          domain = ["geosite:cn"];
           outboundTag = "proxy";
           type = "field";
         }
         {
-          ip = [ "geoip:cn" ];
+          ip = ["geoip:cn"];
           outboundTag = "proxy";
           type = "field";
         }
       ];
     };
   };
-in
-{
+in {
   age.secrets.v2ray-key = {
     file = inputs.secrets + "/v2ray-key.age";
     owner = "nginx";
@@ -90,8 +97,8 @@ in
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     script = ''
       rm -f /run/v2ray/v2ray.sock
 
@@ -101,10 +108,12 @@ in
 
       exec ${pkgs.xray}/bin/xray -config /run/v2ray/config.json
     '';
-    serviceConfig = LT.serviceHarden // {
-      User = "nginx";
-      Group = "nginx";
-      RuntimeDirectory = "v2ray";
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        User = "nginx";
+        Group = "nginx";
+        RuntimeDirectory = "v2ray";
+      };
   };
 }

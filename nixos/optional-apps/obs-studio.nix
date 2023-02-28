@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   environment.systemPackages = with pkgs; [
     obs-studio
     obs-studio-plugins.looking-glass-obs
@@ -15,5 +21,5 @@
   # Don't autoload as it conflicts with physical camera on some programs
   # boot.kernelModules = [ "v4l2loopback" ];
 
-  users.users.lantian.extraGroups = [ "video" ];
+  users.users.lantian.extraGroups = ["video"];
 }

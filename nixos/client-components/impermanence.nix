@@ -1,5 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args:
 lib.mkIf (!config.boot.isContainer) {
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
@@ -50,7 +57,7 @@ lib.mkIf (!config.boot.isContainer) {
         ".wine"
         ".zoom"
       ];
-      files = [ ];
+      files = [];
     };
   };
 }

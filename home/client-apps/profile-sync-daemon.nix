@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   xdg.configFile."psd/psd.conf".text = ''
     # https://github.com/graysky2/profile-sync-daemon/blob/master/common/psd.conf
     USE_OVERLAYFS="yes"

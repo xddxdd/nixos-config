@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   xdg.configFile."mpv/mpv.conf".text = ''
     hwdec=auto-copy
     hwdec-codecs=all

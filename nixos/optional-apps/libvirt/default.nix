@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   environment.etc."ssdt1.dat".source = ./ssdt1.dat;
 
   security.polkit.enable = true;
@@ -23,9 +29,9 @@
     };
   };
 
-  users.users.lantian.extraGroups = [ "libvirtd" ];
+  users.users.lantian.extraGroups = ["libvirtd"];
 
   boot.kernelParams =
-    (lib.optionals config.hardware.cpu.intel.updateMicrocode [ "intel_iommu=on" "iommu=pt" ])
-    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode [ "amd_iommu=on" ]);
+    (lib.optionals config.hardware.cpu.intel.updateMicrocode ["intel_iommu=on" "iommu=pt"])
+    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode ["amd_iommu=on"]);
 }

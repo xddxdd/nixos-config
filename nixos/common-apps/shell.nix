@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   console.colors = [
     "000000"
     "ff5370"
@@ -20,8 +26,8 @@
     "ffffff"
   ];
 
-  environment.pathsToLink = [ "/share/zsh" ];
-  environment.shells = [ pkgs.zsh ];
+  environment.pathsToLink = ["/share/zsh"];
+  environment.shells = [pkgs.zsh];
   environment.variables = {
     TERM = "xterm-256color";
   };
@@ -30,5 +36,8 @@
     enable = true;
     enableGlobalCompInit = false;
   };
-  users.defaultUserShell = if builtins.elem LT.tags.client LT.this.tags then pkgs.zsh else pkgs.bash;
+  users.defaultUserShell =
+    if builtins.elem LT.tags.client LT.this.tags
+    then pkgs.zsh
+    else pkgs.bash;
 }

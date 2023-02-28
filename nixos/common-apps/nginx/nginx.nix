@@ -1,45 +1,54 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   luaPackage = pkgs.callPackage ./lua args;
 
-  nginxSslConf = isStream:
-    let
-      ciphersForTLS1_2 = [
-        "ECDHE-ECDSA-AES256-GCM-SHA384"
-        "ECDHE-RSA-AES256-GCM-SHA384"
-        "ECDHE-ECDSA-CHACHA20-POLY1305"
-        "ECDHE-RSA-CHACHA20-POLY1305"
-        "ECDHE-ECDSA-AES128-GCM-SHA256"
-        "ECDHE-RSA-AES128-GCM-SHA256"
-        "DHE-RSA-AES256-GCM-SHA384"
-        "DHE-RSA-CHACHA20-POLY1305"
-        "DHE-RSA-AES128-GCM-SHA256"
-      ];
-      ciphersForTLS1_3 = [
-        "TLS_AES_256_GCM_SHA384"
-        "TLS_CHACHA20_POLY1305_SHA256"
-        "TLS_AES_128_GCM_SHA256"
-      ];
-      curves = [
-        # Determined with Chromium OQS curve list
-        # https://test.openquantumsafe.org/
-        "p256_frodo640aes"
-        "x25519_frodo640aes"
-        "p256_bikel1"
-        "x25519_bikel1"
-        "p256_kyber90s512"
-        "x25519_kyber90s512"
-        "prime256v1"
-        "secp384r1"
-        "x25519"
-        "x448"
-      ];
-    in
+  nginxSslConf = isStream: let
+    ciphersForTLS1_2 = [
+      "ECDHE-ECDSA-AES256-GCM-SHA384"
+      "ECDHE-RSA-AES256-GCM-SHA384"
+      "ECDHE-ECDSA-CHACHA20-POLY1305"
+      "ECDHE-RSA-CHACHA20-POLY1305"
+      "ECDHE-ECDSA-AES128-GCM-SHA256"
+      "ECDHE-RSA-AES128-GCM-SHA256"
+      "DHE-RSA-AES256-GCM-SHA384"
+      "DHE-RSA-CHACHA20-POLY1305"
+      "DHE-RSA-AES128-GCM-SHA256"
+    ];
+    ciphersForTLS1_3 = [
+      "TLS_AES_256_GCM_SHA384"
+      "TLS_CHACHA20_POLY1305_SHA256"
+      "TLS_AES_128_GCM_SHA256"
+    ];
+    curves = [
+      # Determined with Chromium OQS curve list
+      # https://test.openquantumsafe.org/
+      "p256_frodo640aes"
+      "x25519_frodo640aes"
+      "p256_bikel1"
+      "x25519_bikel1"
+      "p256_kyber90s512"
+      "x25519_kyber90s512"
+      "prime256v1"
+      "secp384r1"
+      "x25519"
+      "x448"
+    ];
+  in
     ''
       ssl_ciphers ${builtins.concatStringsSep ":" ciphersForTLS1_2};
       ssl_session_timeout 1d;
-      ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
+      ssl_session_cache shared:${
+        if isStream
+        then "SSL_STREAM"
+        else "SSL_HTTP"
+      }:10m;
       ssl_session_tickets on;
       ssl_prefer_server_ciphers on;
       ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
@@ -47,13 +56,13 @@ let
       ssl_conf_command Options KTLS;
       ssl_conf_command Options PrioritizeChaCha;
       ssl_dhparam ${files/dhparam.pem};
-    '' + lib.optionalString (!isStream) ''
+    ''
+    + lib.optionalString (!isStream) ''
       ssl_early_data on;
       ssl_dyn_rec_enable on;
     '';
-in
-{
-  boot.kernelModules = [ "tls" ];
+in {
+  boot.kernelModules = ["tls"];
 
   services.nginx = rec {
     enable = true;
@@ -186,7 +195,7 @@ in
     serviceConfig = {
       # Workaround Lua crash
       MemoryDenyWriteExecute = lib.mkForce false;
-      SystemCallFilter = lib.mkForce [ ];
+      SystemCallFilter = lib.mkForce [];
     };
   };
 }
