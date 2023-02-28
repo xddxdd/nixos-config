@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   programs.adb.enable = true;
 
   programs.java.enable = true;
@@ -16,7 +22,7 @@
     libfido2
   ];
 
-  users.users.lantian.extraGroups = [ "adbusers" "wireshark" ];
+  users.users.lantian.extraGroups = ["adbusers" "wireshark"];
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;

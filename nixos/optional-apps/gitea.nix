@@ -1,7 +1,13 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./mysql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./mysql.nix];
 
   services.gitea = {
     enable = true;
@@ -70,13 +76,15 @@
   };
 
   services.mysql = {
-    ensureDatabases = [ "gitea" ];
-    ensureUsers = [{
-      name = "git";
-      ensurePermissions = {
-        "gitea.*" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["gitea"];
+    ensureUsers = [
+      {
+        name = "git";
+        ensurePermissions = {
+          "gitea.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   users.users.git = {
@@ -87,11 +95,11 @@
     isSystemUser = true;
   };
 
-  users.groups.gitea = { };
+  users.groups.gitea = {};
 
   services.nginx.virtualHosts."git.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
         extraConfig = LT.nginx.locationProxyConf;
@@ -114,7 +122,8 @@
       };
       "= /user/login".return = "302 /user/oauth2/Konnect";
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true;
   };
 }

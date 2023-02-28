@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
@@ -52,7 +58,7 @@
   };
 
   networking = {
-    hostId = builtins.readFile (pkgs.runCommandLocal "hostid.txt" { } ''
+    hostId = builtins.readFile (pkgs.runCommandLocal "hostid.txt" {} ''
       echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%0X' | sh > $out
     '');
     usePredictableInterfaceNames = false;
@@ -64,7 +70,7 @@
     nat.enable = false;
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
-    search = [ "lantian.pub" ];
+    search = ["lantian.pub"];
     tempAddresses = "disabled";
 
     hosts = {

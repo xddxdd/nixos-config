@@ -1,8 +1,4 @@
-{ lib
-, ...
-}:
-
-rec {
+{lib, ...}: rec {
   containerIP = {
     netease = "2";
     grasscutter = "26";
@@ -136,7 +132,8 @@ rec {
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
 
-  tags = lib.genAttrs
+  tags =
+    lib.genAttrs
     [
       "client"
       "low-ram"
@@ -158,11 +155,11 @@ rec {
   ];
 
   zones = {
-    DN42 = [ "dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa" ];
-    NeoNetwork = [ "neo" ];
+    DN42 = ["dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa"];
+    NeoNetwork = ["neo"];
     # .neo zone not included for conflict with NeoNetwork
-    OpenNIC = [ "bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate" ];
-    Emercoin = [ "bazar" "coin" "emc" "lib" ];
-    CRXN = [ "crxn" ];
+    OpenNIC = ["bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate"];
+    Emercoin = ["bazar" "coin" "emc" "lib"];
+    CRXN = ["crxn"];
   };
 }

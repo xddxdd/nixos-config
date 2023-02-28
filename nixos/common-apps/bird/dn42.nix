@@ -1,17 +1,31 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  inherit
+    (import ./common.nix args)
+    DN42_AS
+    DN42_REGION
+    NEO_AS
+    community
+    latencyToDN42Community
+    typeToDN42Community
+    ;
 
-let
-  inherit (import ./common.nix args)
-    DN42_AS DN42_REGION NEO_AS
-    community latencyToDN42Community typeToDN42Community;
-
-  peer = n: v:
-    let
-      interfaceName = "${v.peering.network}-${n}";
-      latency = builtins.toString (latencyToDN42Community v);
-      crypto = builtins.toString (typeToDN42Community v.tunnel.type);
-      localASN = if v.peering.network == "dn42" then DN42_AS else NEO_AS;
-    in
+  peer = n: v: let
+    interfaceName = "${v.peering.network}-${n}";
+    latency = builtins.toString (latencyToDN42Community v);
+    crypto = builtins.toString (typeToDN42Community v.tunnel.type);
+    localASN =
+      if v.peering.network == "dn42"
+      then DN42_AS
+      else NEO_AS;
+  in
     lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
       protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
@@ -53,12 +67,10 @@ let
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
         };
       };
-    ''
-  ;
+    '';
 
-  cfg = config.services.dn42 or { };
-in
-{
+  cfg = config.services.dn42 or {};
+in {
   common = ''
     function dn42_import_filter_ipv4() {
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
@@ -253,8 +265,9 @@ in
     }
   '';
 
-  hasPeers = cfg != { };
+  hasPeers = cfg != {};
 
-  peers = builtins.concatStringsSep "\n"
+  peers =
+    builtins.concatStringsSep "\n"
     (lib.mapAttrsToList peer cfg);
 }

@@ -1,9 +1,14 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
-in
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
+in {
   users.users.sftp = {
     uid = 22;
     home = "/nix/persistent/sftp-server";

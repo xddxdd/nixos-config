@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   bindfsMountOptions = [
     "force-user=lantian"
     "force-group=wheel"
@@ -16,8 +22,7 @@ let
     "bind"
     "x-gvfs-hide"
   ];
-in
-{
+in {
   imports = [
     ../../nixos/client.nix
 
@@ -44,7 +49,7 @@ in
 
   lantian.hidpi = 1.5;
 
-  fileSystems."/".options = [ "size=64G" ];
+  fileSystems."/".options = ["size=64G"];
 
   hardware.bluetooth = {
     enable = true;
@@ -60,7 +65,7 @@ in
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
-    extraOptions = [ "--loadavg-target" "8" ];
+    extraOptions = ["--loadavg-target" "8"];
   };
 
   services.samba.shares = {
@@ -76,7 +81,6 @@ in
       "valid users" = "lantian";
     };
   };
-
 
   services.xserver.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
   services.xserver.libinput.touchpad = {

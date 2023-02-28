@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/server.nix
 
@@ -9,8 +15,8 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = [ "172.18.126.2/24" ];
-    gateway = [ "172.18.126.1" ];
+    address = ["172.18.126.2/24"];
+    gateway = ["172.18.126.1"];
     networkConfig.DHCP = "ipv6";
     matchConfig.Name = "eth0";
   };
@@ -26,5 +32,4 @@
   #   enable = true;
   #   name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
   # };
-
 }

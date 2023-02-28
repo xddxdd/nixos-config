@@ -1,9 +1,16 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  whitelistToBlacklist = wl: lib.splitString "\n" (builtins.readFile (pkgs.runCommandLocal "wl2bl.out" { } ''
-    ${pkgs.python3Minimal}/bin/python3 ${./whitelist_to_blacklist.py} ${lib.escapeShellArgs wl} > $out
-  ''));
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  whitelistToBlacklist = wl:
+    lib.splitString "\n" (builtins.readFile (pkgs.runCommandLocal "wl2bl.out" {} ''
+      ${pkgs.python3Minimal}/bin/python3 ${./whitelist_to_blacklist.py} ${lib.escapeShellArgs wl} > $out
+    ''));
 
   configFile = builtins.toJSON {
     settings = {
@@ -11,11 +18,10 @@ let
       softwareUpdate = "disable";
     };
   };
-in
-{
+in {
   services.zerotierone = {
     enable = true;
-    joinNetworks = [ "af78bf9436f191fd" ];
+    joinNetworks = ["af78bf9436f191fd"];
   };
 
   systemd.services.zerotierone = {

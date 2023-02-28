@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, chmlib-utils
-, callPackage
-, ...
+{
+  lib,
+  stdenv,
+  fetchurl,
+  chmlib-utils,
+  callPackage,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "dnyjzsxj";
   version = "1.0.0";

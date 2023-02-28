@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   age.secrets.nix-access-token = {
     file = inputs.secrets + "/nix/access-token.age";
     group = "wheel";

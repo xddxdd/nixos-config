@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   age.secrets.oauth2-proxy-conf.file = inputs.secrets + "/oauth2-proxy-conf.age";
 
   services.oauth2_proxy = {
@@ -9,7 +15,7 @@
     cookie = {
       expire = "24h";
     };
-    email.domains = [ "*" ];
+    email.domains = ["*"];
     httpAddress = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
@@ -21,16 +27,18 @@
     };
   };
   users.users.oauth2_proxy.group = "oauth2_proxy";
-  users.groups.oauth2_proxy = { };
+  users.groups.oauth2_proxy = {};
 
   systemd.services.oauth2_proxy = {
     unitConfig = {
       After = lib.mkForce "network.target nginx.service";
     };
-    serviceConfig = LT.serviceHarden // {
-      Restart = "always";
-      RestartSec = "3";
-      DynamicUser = true;
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Restart = "always";
+        RestartSec = "3";
+        DynamicUser = true;
+      };
   };
 }

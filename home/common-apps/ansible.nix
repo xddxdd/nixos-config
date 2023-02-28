@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   xdg.configFile."ansible/ansible.cfg".text = ''
     [defaults]
     gathering = explicit
@@ -13,9 +19,10 @@
     retries = 3
   '';
 
-  xdg.configFile."ansible/hosts".text = lib.concatStringsSep
+  xdg.configFile."ansible/hosts".text =
+    lib.concatStringsSep
     "\n"
-    ([ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.serverHosts)));
+    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.serverHosts)));
 
   home.sessionVariables.ANSIBLE_CONFIG = "${config.home.homeDirectory}/.config/ansible/ansible.cfg";
 }

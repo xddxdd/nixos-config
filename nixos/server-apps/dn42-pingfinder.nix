@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   options.services."dn42-pingfinder" = {
     uuidFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -33,8 +39,8 @@
     };
 
     systemd.timers.dn42-pingfinder = {
-      wantedBy = [ "timers.target" ];
-      partOf = [ "dn42-pingfinder.service" ];
+      wantedBy = ["timers.target"];
+      partOf = ["dn42-pingfinder.service"];
       timerConfig = {
         OnCalendar = "*:0/5";
         Persistent = true;

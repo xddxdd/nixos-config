@@ -1,9 +1,15 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   virtualisation.oci-containers.containers = {
     asf = {
-      extraOptions = [ "--pull" "always" ];
+      extraOptions = ["--pull" "always"];
       image = "justarchi/archisteamfarm:released";
       ports = [
         "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242"
@@ -13,7 +19,7 @@
       ];
     };
     gameshub = {
-      extraOptions = [ "--pull" "always" ];
+      extraOptions = ["--pull" "always"];
       image = "lupohan44/games_hub";
       volumes = [
         "/var/lib/gameshub:/home/wd"
@@ -23,18 +29,25 @@
 
   services.nginx.virtualHosts."asf.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
-      "/".extraConfig = LT.nginx.locationOauthConf + ''
-        proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
-      '' + LT.nginx.locationProxyConf;
-      "~* /Api/NLog".extraConfig = LT.nginx.locationOauthConf + ''
-        proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
-        proxy_http_version 1.1;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Upgrade $http_upgrade;
-      '' + LT.nginx.locationProxyConf;
+    locations = LT.nginx.addCommonLocationConf {} {
+      "/".extraConfig =
+        LT.nginx.locationOauthConf
+        + ''
+          proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
+        ''
+        + LT.nginx.locationProxyConf;
+      "~* /Api/NLog".extraConfig =
+        LT.nginx.locationOauthConf
+        + ''
+          proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
+          proxy_http_version 1.1;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Upgrade $http_upgrade;
+        ''
+        + LT.nginx.locationProxyConf;
     };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };

@@ -1,40 +1,34 @@
-{ pkgs
-, lib
-, inputs
-, writeText
-, callPackage
-, buildGoModule
-, fetchFromGitHub
-, age
-, ...
-}@args:
-
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  writeText,
+  callPackage,
+  buildGoModule,
+  fetchFromGitHub,
+  age,
+  ...
+} @ args: let
   dnsRecords = writeText "dnsconfig.js" (callPackage ../dns args);
 
   dnscontrol = pkgs.dnscontrol;
   # dnscontrol = buildGoModule rec {
   #   pname = "dnscontrol";
   #   version = "2f76fa1240feffaff551c7f546552ad0269efaac";
-
   #   src = fetchFromGitHub {
   #     owner = "xddxdd";
   #     repo = "dnscontrol";
   #     rev = version;
   #     sha256 = "sha256-jgvN7LlTM+vTiuQSzjmWEXJ8tMXZxbrNoHTwH1/Q3U4=";
   #   };
-
   #   vendorSha256 = "sha256-BixsHrfkM0RaYoTDxmmq5ytX4GPSQu/kj/3KiGpSJ4A=";
-
   #   ldflags = [ "-s" "-w" ];
-
   #   preCheck = ''
   #     # requires network
   #     rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
   #   '';
   # };
-in
-''
+in ''
   CURR_DIR=$(pwd)
 
   TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)

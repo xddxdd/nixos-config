@@ -1,41 +1,48 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   loggingConf = {
     Serilog = {
-      Using = [ "Serilog.Sinks.Console" ];
+      Using = ["Serilog.Sinks.Console"];
       MinimumLevel = "Warning";
-      WriteTo = [{ Name = "Console"; }];
-      Enrich = [ "FromLogContext" "WithMachineName" "WithThreadId" ];
+      WriteTo = [{Name = "Console";}];
+      Enrich = ["FromLogContext" "WithMachineName" "WithThreadId"];
       Properties.Application = "Jellyfin";
     };
   };
-in
-{
+in {
   services.jellyfin.enable = true;
 
   services.nginx.virtualHosts = {
     "jellyfin.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf { } {
+      locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+      extraConfig =
+        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
     "jellyfin.localhost" = {
       listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf { } {
+      locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig = LT.nginx.commonVhostConf true
+      extraConfig =
+        LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
         + LT.nginx.serveLocalhost;
     };
@@ -43,19 +50,21 @@ in
 
   systemd.services.douban-openapi-server = {
     description = "Douban OpenAPI Server";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     script = ''
       exec ${pkgs.douban-openapi-server}/bin/douban-openapi-server \
         --access-logfile - \
         -b 127.0.0.1:5000 \
         -w 3
     '';
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      TimeoutStopSec = "5";
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        TimeoutStopSec = "5";
+      };
   };
 
   systemd.services.jellyfin = {
@@ -75,5 +84,5 @@ in
     };
   };
 
-  users.users.jellyfin.extraGroups = [ "video" "render" ];
+  users.users.jellyfin.extraGroups = ["video" "render"];
 }

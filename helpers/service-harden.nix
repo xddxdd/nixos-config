@@ -1,5 +1,4 @@
-{ lib, ... }:
-
+{lib, ...}:
 lib.mapAttrs (k: lib.mkOptionDefault) {
   AmbientCapabilities = "";
   CapabilityBoundingSet = "";
@@ -20,7 +19,7 @@ lib.mapAttrs (k: lib.mkOptionDefault) {
   ProtectProc = "invisible";
   ProtectSystem = "strict";
   RemoveIPC = true;
-  RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+  RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
   RestrictNamespaces = true;
   RestrictRealtime = true;
   RestrictSUIDSGID = true;

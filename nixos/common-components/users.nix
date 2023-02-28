@@ -1,12 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
   unixHashedPassword = glauthUsers.lantian.passBcrypt;
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
-in
-{
+in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
   users.users = {
@@ -20,7 +25,7 @@ in
       hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
-      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+      extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
     };

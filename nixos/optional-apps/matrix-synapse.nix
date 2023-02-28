@@ -1,7 +1,13 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./postgresql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./postgresql.nix];
 
   services.matrix-synapse = {
     enable = true;
@@ -22,26 +28,26 @@
       listeners = [
         {
           port = 0;
-          bind_addresses = [ "/run/matrix-synapse/federation.sock" ];
+          bind_addresses = ["/run/matrix-synapse/federation.sock"];
           type = "http";
           tls = false;
           x_forwarded = true;
           resources = [
             {
-              names = [ "federation" ];
+              names = ["federation"];
               compress = false;
             }
           ];
         }
         {
           port = 0;
-          bind_addresses = [ "/run/matrix-synapse/client.sock" ];
+          bind_addresses = ["/run/matrix-synapse/client.sock"];
           type = "http";
           tls = false;
           x_forwarded = true;
           resources = [
             {
-              names = [ "client" ];
+              names = ["client"];
               compress = false;
             }
           ];
@@ -54,21 +60,25 @@
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
     };
-    serviceConfig = LT.serviceHarden // {
-      MemoryDenyWriteExecute = false;
-      StateDirectory = "matrix-synapse";
-      RuntimeDirectory = "matrix-synapse";
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        MemoryDenyWriteExecute = false;
+        StateDirectory = "matrix-synapse";
+        RuntimeDirectory = "matrix-synapse";
+      };
   };
 
   services.postgresql = {
-    ensureDatabases = [ "matrix-synapse" ];
-    ensureUsers = [{
-      name = "matrix-synapse";
-      ensurePermissions = {
-        "DATABASE \"matrix-synapse\"" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["matrix-synapse"];
+    ensureUsers = [
+      {
+        name = "matrix-synapse";
+        ensurePermissions = {
+          "DATABASE \"matrix-synapse\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.nginx.virtualHosts."matrix-federation.lantian.pub" = {
@@ -77,34 +87,36 @@
       "matrix.lantian.pub"
       config.services.matrix-synapse.settings.server_name
     ];
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/federation.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
 
   services.nginx.virtualHosts."matrix-client.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    serverAliases = [ "matrix.lantian.pub" ];
-    locations = LT.nginx.addCommonLocationConf { } {
+    serverAliases = ["matrix.lantian.pub"];
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
 
   systemd.services.synapse-compress-state = {
-    after = [ "matrix-synapse.service" ];
-    requires = [ "matrix-synapse.service" ];
+    after = ["matrix-synapse.service"];
+    requires = ["matrix-synapse.service"];
     script = ''
       exec ${pkgs.matrix-synapse-tools.rust-synapse-compress-state}/bin/synapse_auto_compressor \
         -p "host=/run/postgresql user=matrix-synapse dbname=matrix-synapse" \
@@ -118,8 +130,8 @@
   };
 
   systemd.timers.synapse-compress-state = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "synapse-compress-state.service" ];
+    wantedBy = ["timers.target"];
+    partOf = ["synapse-compress-state.service"];
     timerConfig = {
       OnCalendar = "daily";
       Persistent = true;

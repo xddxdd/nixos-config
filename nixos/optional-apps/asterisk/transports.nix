@@ -1,9 +1,14 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
-in
-rec {
+in rec {
   transports = ''
     [template-transport-common](!)
     type=transport

@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   # https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada
   ls-iommu = pkgs.writeScriptBin "ls-iommu" ''
     shopt -s nullglob
@@ -55,17 +61,23 @@ let
     "x448"
   ];
 
-  pythonCustomized = pkgs.python3Full.withPackages (p: with p; (if pkgs.stdenv.isx86_64 then [
-    autopep8
-    numpy
-    matplotlib
-  ] else [ ]) ++ [
-    dnspython
-    pip
-    requests
-  ]);
-in
-{
+  pythonCustomized = pkgs.python3Full.withPackages (p:
+    with p;
+      (
+        if pkgs.stdenv.isx86_64
+        then [
+          autopep8
+          numpy
+          matplotlib
+        ]
+        else []
+      )
+      ++ [
+        dnspython
+        pip
+        requests
+      ]);
+in {
   age.secrets.default-pw = {
     file = inputs.secrets + "/default-pw.age";
     mode = "0444";
@@ -75,10 +87,13 @@ in
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = [ "all" ];
+  i18n.supportedLocales = ["all"];
 
   location = {
-    provider = if builtins.elem LT.tags.client LT.this.tags then "geoclue2" else "manual";
+    provider =
+      if builtins.elem LT.tags.client LT.this.tags
+      then "geoclue2"
+      else "manual";
     latitude = LT.this.city.lat;
     longitude = LT.this.city.lng;
   };
@@ -126,48 +141,54 @@ in
     '');
     SYSTEMD_PAGER = "";
   };
-  environment.systemPackages = with pkgs; [
-    bridge-utils
-    brotli
-    bzip2
-    dig
-    git
-    gzip
-    htop
-    inetutils
-    iptables
-    iw
-    jq
-    kopia
-    lbzip2
-    lsof
-    nftables-fullcone
-    nix-prefetch
-    openssl
-    p7zip
-    pciutils
-    pigz
-    pv
-    pwgen
-    pythonCustomized
-    screen
-    smartmontools
-    tcpdump
-    unar
-    unrar
-    unzip
-    usbutils
-    wget
-    wireguard-tools
-    zip
-    zstd
-  ] ++ (if pkgs.stdenv.isx86_64 then [
-    ls-iommu
-    nix-index
-    nix-index-update
-    rar # Doesn't suppport aarch64 for some reason
-    x86-arch-level
-  ] else [ ]);
+  environment.systemPackages = with pkgs;
+    [
+      bridge-utils
+      brotli
+      bzip2
+      dig
+      git
+      gzip
+      htop
+      inetutils
+      iptables
+      iw
+      jq
+      kopia
+      lbzip2
+      lsof
+      nftables-fullcone
+      nix-prefetch
+      openssl
+      p7zip
+      pciutils
+      pigz
+      pv
+      pwgen
+      pythonCustomized
+      screen
+      smartmontools
+      tcpdump
+      unar
+      unrar
+      unzip
+      usbutils
+      wget
+      wireguard-tools
+      zip
+      zstd
+    ]
+    ++ (
+      if pkgs.stdenv.isx86_64
+      then [
+        ls-iommu
+        nix-index
+        nix-index-update
+        rar # Doesn't suppport aarch64 for some reason
+        x86-arch-level
+      ]
+      else []
+    );
 
   hardware.ksm.enable = !config.boot.isContainer;
 
@@ -212,7 +233,7 @@ in
     SystemMaxUse=10M
   '';
 
-  services.udev.packages = [ pkgs.crda ];
+  services.udev.packages = [pkgs.crda];
 
   services.udisks2.enable = !config.boot.isContainer;
 
@@ -240,7 +261,7 @@ in
     };
   };
 
-  system.fsPackages = [ pkgs.bindfs ];
+  system.fsPackages = [pkgs.bindfs];
 
   systemd = {
     # Given that our systems are headless, emergency mode is useless.

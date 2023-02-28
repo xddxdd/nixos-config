@@ -1,6 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     ../../nixos/hardware/lvm.nix
   ];
@@ -19,18 +23,18 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/ecba570c-c3e4-47e3-be09-5ee7baec5534";
     fsType = "btrfs";
-    options = [ "compress-force=zstd" "nosuid" "nodev" ];
+    options = ["compress-force=zstd" "nosuid" "nodev"];
   };
 
   fileSystems."/mnt/storage" = {
     device = "/dev/mapper/MyVolGroup-storage";
     fsType = "btrfs";
-    options = [ "compress-force=zstd" "nosuid" "nodev" "nofail" ];
+    options = ["compress-force=zstd" "nosuid" "nodev" "nofail"];
   };
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/mnt/storage" ];
+    fileSystems = ["/mnt/storage"];
   };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -1,10 +1,16 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   services.nginx.virtualHosts = {
     "whois.lantian.pub" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      serverAliases = [ "whois.lantian.dn42" "whois.lantian.neo" ];
+      serverAliases = ["whois.lantian.dn42" "whois.lantian.neo"];
 
       locations = {
         "/".extraConfig = ''
@@ -20,11 +26,12 @@
         '';
       };
 
-      extraConfig = LT.nginx.makeSSL "lantian.pub_ecc"
+      extraConfig =
+        LT.nginx.makeSSL "lantian.pub_ecc"
         + LT.nginx.listenProxyProtocol
         + ''
-        listen unix:/run/nginx/whois.sock plain proxy_protocol default_server;
-      '';
+          listen unix:/run/nginx/whois.sock plain proxy_protocol default_server;
+        '';
     };
 
     "stage1.whois.local" = {

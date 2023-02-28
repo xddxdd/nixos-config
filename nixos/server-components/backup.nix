@@ -1,36 +1,42 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
 
   kopiaStorage = {
     scaleway = {
       "type" = "s3";
       "config" = {
-        "bucket" = { _secret = config.age.secrets.kopia-scaleway-bucket.path; };
+        "bucket" = {_secret = config.age.secrets.kopia-scaleway-bucket.path;};
         "endpoint" = "s3.fr-par.scw.cloud";
-        "accessKeyID" = { _secret = config.age.secrets.kopia-scaleway-ak.path; };
-        "secretAccessKey" = { _secret = config.age.secrets.kopia-scaleway-sk.path; };
+        "accessKeyID" = {_secret = config.age.secrets.kopia-scaleway-ak.path;};
+        "secretAccessKey" = {_secret = config.age.secrets.kopia-scaleway-sk.path;};
         "sessionToken" = "";
       };
     };
     oneprovider = {
       "type" = "s3";
       "config" = {
-        "bucket" = { _secret = config.age.secrets.kopia-minio-bucket.path; };
+        "bucket" = {_secret = config.age.secrets.kopia-minio-bucket.path;};
         "endpoint" = "s3.xuyh0120.win";
-        "accessKeyID" = { _secret = config.age.secrets.kopia-minio-ak.path; };
-        "secretAccessKey" = { _secret = config.age.secrets.kopia-minio-sk.path; };
+        "accessKeyID" = {_secret = config.age.secrets.kopia-minio-ak.path;};
+        "secretAccessKey" = {_secret = config.age.secrets.kopia-minio-sk.path;};
         "sessionToken" = "";
       };
     };
     storj = {
       "type" = "s3";
       "config" = {
-        "bucket" = { _secret = config.age.secrets.kopia-storj-bucket.path; };
+        "bucket" = {_secret = config.age.secrets.kopia-storj-bucket.path;};
         "endpoint" = "gateway.storjshare.io";
-        "accessKeyID" = { _secret = config.age.secrets.kopia-storj-ak.path; };
-        "secretAccessKey" = { _secret = config.age.secrets.kopia-storj-sk.path; };
+        "accessKeyID" = {_secret = config.age.secrets.kopia-storj-ak.path;};
+        "secretAccessKey" = {_secret = config.age.secrets.kopia-storj-sk.path;};
         "sessionToken" = "";
       };
     };
@@ -108,8 +114,7 @@ let
 
     rm -f $KOPIA_CONFIG_PATH
   '';
-in
-{
+in {
   age.secrets.kopia-minio-ak.file = inputs.secrets + "/kopia/minio-ak.age";
   age.secrets.kopia-minio-bucket.file = inputs.secrets + "/kopia/minio-bucket.age";
   age.secrets.kopia-minio-sk.file = inputs.secrets + "/kopia/minio-sk.age";
@@ -127,42 +132,55 @@ in
       Type = "oneshot";
       CPUQuota = "40%";
     };
-    script = ''
-      SNAPSHOT_DIR=/nix/.snapshot
-      HAS_ERROR=0
+    script =
+      ''
+        SNAPSHOT_DIR=/nix/.snapshot
+        HAS_ERROR=0
 
-      cat >/nix/persistent/.kopiaignore <<EOF
-      ${kopiaIgnored}
-      EOF
+        cat >/nix/persistent/.kopiaignore <<EOF
+        ${kopiaIgnored}
+        EOF
 
-    '' + (if isBtrfsRoot then ''
-      # Btrfs snapshot
-      [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
+      ''
+      + (
+        if isBtrfsRoot
+        then ''
+          # Btrfs snapshot
+          [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
+          ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
 
-    '' else ''
-      # Fake snapshot with link
-      [ -e "$SNAPSHOT_DIR" ] && rm -f $SNAPSHOT_DIR
-      ln -s /nix $SNAPSHOT_DIR
+        ''
+        else ''
+          # Fake snapshot with link
+          [ -e "$SNAPSHOT_DIR" ] && rm -f $SNAPSHOT_DIR
+          ln -s /nix $SNAPSHOT_DIR
 
-    '') + (builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList kopiaScript kopiaStorage
-    )) + (if isBtrfsRoot then ''
-      # Remove snapshot
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
+        ''
+      )
+      + (builtins.concatStringsSep "\n" (
+        lib.mapAttrsToList kopiaScript kopiaStorage
+      ))
+      + (
+        if isBtrfsRoot
+        then ''
+          # Remove snapshot
+          ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
 
-    '' else ''
-      # Remove snapshot
-      rm -f $SNAPSHOT_DIR
+        ''
+        else ''
+          # Remove snapshot
+          rm -f $SNAPSHOT_DIR
 
-    '') + ''
-      exit $HAS_ERROR
-    '';
+        ''
+      )
+      + ''
+        exit $HAS_ERROR
+      '';
   };
 
   systemd.timers.backup = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "backup.service" ];
+    wantedBy = ["timers.target"];
+    partOf = ["backup.service"];
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
@@ -170,10 +188,12 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/cache/kopia 700 root root"
-    "d /var/log/kopia 700 root root"
-  ] ++ (lib.mapAttrsToList
-    (n: v: "d /var/cache/kopia/${n} 700 root root")
-    kopiaStorage);
+  systemd.tmpfiles.rules =
+    [
+      "d /var/cache/kopia 700 root root"
+      "d /var/log/kopia 700 root root"
+    ]
+    ++ (lib.mapAttrsToList
+      (n: v: "d /var/cache/kopia/${n} 700 root root")
+      kopiaStorage);
 }

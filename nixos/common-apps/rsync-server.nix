@@ -1,9 +1,14 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  primaryServer = "oneprovider";
-in
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  primaryServer = "oneprovider";
+in {
   ########################################
   # Server
   ########################################
@@ -28,11 +33,13 @@ in
     };
   };
 
-  systemd.services.rsync.serviceConfig = LT.serviceHarden // {
-    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-    ReadOnlyPaths = [ "/nix/persistent/sync-servers" ];
-  };
+  systemd.services.rsync.serviceConfig =
+    LT.serviceHarden
+    // {
+      AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+      CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+      ReadOnlyPaths = ["/nix/persistent/sync-servers"];
+    };
 
   systemd.sockets.rsync.listenStreams = lib.mkForce [
     "${LT.this.ltnet.IPv4}:${LT.portStr.Rsync}"
@@ -44,10 +51,12 @@ in
 
   systemd.services.rsync-nix-persistent-sync-servers = {
     enable = config.networking.hostName != primaryServer;
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      BindPaths = [ "/nix/persistent/sync-servers" ];
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Type = "oneshot";
+        BindPaths = ["/nix/persistent/sync-servers"];
+      };
     script = ''
       exec ${pkgs.rsync}/bin/rsync \
         -aczrq --delete-after --timeout=300 \
@@ -58,8 +67,8 @@ in
 
   systemd.timers.rsync-nix-persistent-sync-servers = {
     enable = config.networking.hostName != primaryServer;
-    wantedBy = [ "timers.target" ];
-    partOf = [ "rsync-nix-persistent-sync-servers.service" ];
+    wantedBy = ["timers.target"];
+    partOf = ["rsync-nix-persistent-sync-servers.service"];
     timerConfig = {
       OnCalendar = "hourly";
       RandomizedDelaySec = "1h";

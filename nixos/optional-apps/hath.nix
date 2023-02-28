@@ -1,6 +1,13 @@
-{ pkgs, lib, LT, config, options, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  options,
+  utils,
+  inputs,
+  ...
+} @ args: {
   options.lantian.hath = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -31,9 +38,9 @@
   config = lib.mkIf config.lantian.hath.enable {
     systemd.services.hath = {
       description = "Hentai@Home";
-      after = [ "network.target" ];
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script = ''
         exec ${pkgs.jre_headless}/bin/java \
           -Xms16m -Xmx128m \
@@ -45,29 +52,30 @@
           --temp-dir=${config.lantian.hath.tempDir} \
           --use-less-memory
       '';
-      serviceConfig = LT.serviceHarden // {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = "3";
 
-        MemoryDenyWriteExecute = false;
-        RuntimeDirectory = "hath";
-        StateDirectory = "hath";
-        CacheDirectory = "hath";
-        LogsDirectory = "hath";
-        User = "hath";
-        Group = "hath";
+          MemoryDenyWriteExecute = false;
+          RuntimeDirectory = "hath";
+          StateDirectory = "hath";
+          CacheDirectory = "hath";
+          LogsDirectory = "hath";
+          User = "hath";
+          Group = "hath";
 
-        ReadWritePaths = [
-          config.lantian.hath.cacheDir
-          config.lantian.hath.dataDir
-          config.lantian.hath.downloadDir
-          config.lantian.hath.logDir
-          config.lantian.hath.tempDir
-        ];
-      };
+          ReadWritePaths = [
+            config.lantian.hath.cacheDir
+            config.lantian.hath.dataDir
+            config.lantian.hath.downloadDir
+            config.lantian.hath.logDir
+            config.lantian.hath.tempDir
+          ];
+        };
     };
-
 
     systemd.tmpfiles.rules = [
       "d ${config.lantian.hath.cacheDir} 755 hath hath"
@@ -81,6 +89,6 @@
       group = "hath";
       isSystemUser = true;
     };
-    users.groups.hath = { };
+    users.groups.hath = {};
   };
 }

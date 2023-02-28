@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   beverly = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "beverly";
     version = "1.0";
@@ -15,8 +21,7 @@ let
       cp * $out/
     '';
   };
-in
-{
+in {
   dialBeverly = ''
     [app-beverly]
     exten => b,1,Ringing()

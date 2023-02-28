@@ -1,15 +1,14 @@
-{ config
-, pkgs
-, lib
-, hosts
-, this
-, port
-, portStr
-, inputs
-, ...
-}:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  hosts,
+  this,
+  port,
+  portStr,
+  inputs,
+  ...
+}: let
   fastcgiParams = ''
     set $path_info $fastcgi_path_info;
 
@@ -46,8 +45,16 @@ let
 
   _locationProxyConf = hideIP: ''
     proxy_set_header Host $host;
-    proxy_set_header X-Real-IP ${if hideIP then "127.0.0.1" else "$remote_addr"};
-    proxy_set_header X-Forwarded-For ${if hideIP then "127.0.0.1" else "$remote_addr"};
+    proxy_set_header X-Real-IP ${
+      if hideIP
+      then "127.0.0.1"
+      else "$remote_addr"
+    };
+    proxy_set_header X-Forwarded-For ${
+      if hideIP
+      then "127.0.0.1"
+      else "$remote_addr"
+    };
     proxy_set_header X-Forwarded-Host $host:443;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Forwarded-Server $host;
@@ -69,15 +76,13 @@ let
     chunked_transfer_encoding off;
   '';
 
-  htpasswdFile =
-    let
-      glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-    in
+  htpasswdFile = let
+    glauthUsers = import (inputs.secrets + "/glauth-users.nix");
+  in
     pkgs.writeText "htpasswd" ''
       lantian:${glauthUsers.lantian.passBcrypt}
     '';
-in
-rec {
+in rec {
   getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
   getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
   getSSLKey = acmeName: "${getSSLPath acmeName}/${builtins.head (lib.splitString "_" acmeName)}.key";
@@ -89,34 +94,36 @@ rec {
     ssl_trusted_certificate ${getSSLCert acmeName};
   '';
 
-  commonVhostConf = ssl: ''
-    add_header X-Content-Type-Options 'nosniff';
-    add_header X-Frame-Options 'SAMEORIGIN';
-    add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-    #add_header Access-Control-Allow-Origin '*';
-    add_header LT-Latency $request_time;
-    add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
-    add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"';
-    add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))';
-    add_header Cache-Control 'private';
-    add_header Referrer-Policy strict-origin-when-cross-origin;
-    add_header Permissions-Policy 'interest-cohort=()';
+  commonVhostConf = ssl:
+    ''
+      add_header X-Content-Type-Options 'nosniff';
+      add_header X-Frame-Options 'SAMEORIGIN';
+      add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
+      #add_header Access-Control-Allow-Origin '*';
+      add_header LT-Latency $request_time;
+      add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
+      add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"';
+      add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))';
+      add_header Cache-Control 'private';
+      add_header Referrer-Policy strict-origin-when-cross-origin;
+      add_header Permissions-Policy 'interest-cohort=()';
 
-    more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
-  '' + lib.optionalString ssl ''
-    add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
-  '';
+      more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
+    ''
+    + lib.optionalString ssl ''
+      add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
+    '';
 
-  noIndex = enableRobotsTxtRule:
-    let
-      robotsTxt = pkgs.writeText "robots.txt" ''
-        User-agent: *
-        Disallow: /
-      '';
-    in
+  noIndex = enableRobotsTxtRule: let
+    robotsTxt = pkgs.writeText "robots.txt" ''
+      User-agent: *
+      Disallow: /
+    '';
+  in
     ''
       add_header X-Robots-Tag 'noindex, nofollow';
-    '' + (lib.optionalString enableRobotsTxtRule ''
+    ''
+    + (lib.optionalString enableRobotsTxtRule ''
       location = /robots.txt {
         alias ${robotsTxt};
       }
@@ -130,58 +137,63 @@ rec {
     deny all;
   '';
 
-  addCommonLocationConf = { phpfpmSocket ? null }: lib.recursiveUpdate {
-    "/generate_204".extraConfig = ''
-      access_log off;
-      return 204;
-    '';
+  addCommonLocationConf = {phpfpmSocket ? null}:
+    lib.recursiveUpdate {
+      "/generate_204".extraConfig = ''
+        access_log off;
+        return 204;
+      '';
 
-    "/autoindex.html".extraConfig = ''
-      internal;
-      root ${../nixos/common-apps/nginx/files/autoindex};
-    '';
+      "/autoindex.html".extraConfig = ''
+        internal;
+        root ${../nixos/common-apps/nginx/files/autoindex};
+      '';
 
-    "/status".extraConfig = ''
-      access_log off;
-      stub_status on;
-    '';
+      "/status".extraConfig = ''
+        access_log off;
+        stub_status on;
+      '';
 
-    "/ray".extraConfig = ''
-      if ($content_type !~ "application/grpc") {
-        return 404;
-      }
-      access_log off;
-      client_body_buffer_size 512k;
-      client_body_timeout 52w;
-      client_max_body_size 0;
-      grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
-      grpc_read_timeout 52w;
-      grpc_set_header X-Real-IP $remote_addr;
-      keepalive_timeout 52w;
-    '';
+      "/ray".extraConfig = ''
+        if ($content_type !~ "application/grpc") {
+          return 404;
+        }
+        access_log off;
+        client_body_buffer_size 512k;
+        client_body_timeout 52w;
+        client_max_body_size 0;
+        grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
+        grpc_read_timeout 52w;
+        grpc_set_header X-Real-IP $remote_addr;
+        keepalive_timeout 52w;
+      '';
 
-    "/oauth2/" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-      extraConfig = ''
-        proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-      '' + locationProxyConf;
+      "/oauth2/" = {
+        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+        extraConfig =
+          ''
+            proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+          ''
+          + locationProxyConf;
+      };
+
+      "/oauth2/auth" = {
+        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+        extraConfig =
+          ''
+            proxy_set_header Content-Length "";
+            proxy_pass_request_body off;
+          ''
+          + locationProxyConf;
+      };
+
+      "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+
+      "~ ^/\\.(?!well-known).*".extraConfig = ''
+        access_log off;
+        return 403;
+      '';
     };
-
-    "/oauth2/auth" = {
-      proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-      extraConfig = ''
-        proxy_set_header Content-Length "";
-        proxy_pass_request_body off;
-      '' + locationProxyConf;
-    };
-
-    "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
-
-    "~ ^/\\.(?!well-known).*".extraConfig = ''
-      access_log off;
-      return 403;
-    '';
-  };
 
   locationAutoindexConf = ''
     autoindex on;
@@ -226,16 +238,17 @@ rec {
     proxy_set_header X-Access-Token $token;
   '';
 
-  locationPHPConf = phpfpmSocket: lib.optionalString (phpfpmSocket != null) ''
-    try_files $fastcgi_script_name = 404;
-    fastcgi_split_path_info ^(.+\.php)(/.*)$;
-    fastcgi_pass unix:${phpfpmSocket};
-    fastcgi_index index.php;
-    ${fastcgiParams}
-    # PHP only, required if PHP was built with --enable-force-cgi-redirect
-    fastcgi_param REDIRECT_STATUS 200;
-    fastcgi_read_timeout 300s;
-  '';
+  locationPHPConf = phpfpmSocket:
+    lib.optionalString (phpfpmSocket != null) ''
+      try_files $fastcgi_script_name = 404;
+      fastcgi_split_path_info ^(.+\.php)(/.*)$;
+      fastcgi_pass unix:${phpfpmSocket};
+      fastcgi_index index.php;
+      ${fastcgiParams}
+      # PHP only, required if PHP was built with --enable-force-cgi-redirect
+      fastcgi_param REDIRECT_STATUS 200;
+      fastcgi_read_timeout 300s;
+    '';
 
   locationFcgiwrapConf = ''
     gzip off;
@@ -257,13 +270,27 @@ rec {
 
   listenHTTPS = listenHTTPSPort port.HTTPS;
   listenHTTPSPort = port: [
-    { addr = "0.0.0.0"; inherit port; extraParameters = [ "ssl" "http2" ]; }
-    { addr = "[::]"; inherit port; extraParameters = [ "ssl" "http2" ]; }
+    {
+      addr = "0.0.0.0";
+      inherit port;
+      extraParameters = ["ssl" "http2"];
+    }
+    {
+      addr = "[::]";
+      inherit port;
+      extraParameters = ["ssl" "http2"];
+    }
   ];
 
   listenHTTP = [
-    { addr = "0.0.0.0"; port = port.HTTP; }
-    { addr = "[::]"; port = port.HTTP; }
+    {
+      addr = "0.0.0.0";
+      port = port.HTTP;
+    }
+    {
+      addr = "[::]";
+      port = port.HTTP;
+    }
   ];
 
   listenProxyProtocol = ''

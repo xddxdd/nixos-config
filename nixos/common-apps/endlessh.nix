@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
     Port 22
@@ -30,12 +36,11 @@ let
     #   6 = Use IPv6 only
     BindFamily 0
   '';
-in
-{
+in {
   services.endlessh = {
     enable = builtins.elem LT.tags.low-ram LT.this.tags;
     port = 22;
-    extraOptions = [ "-f" "${cfg}" ];
+    extraOptions = ["-f" "${cfg}"];
   };
 
   services.endlessh-go = {

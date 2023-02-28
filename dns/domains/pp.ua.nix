@@ -1,10 +1,14 @@
-{ pkgs, lib, dns, common, ... }:
-
-[
+{
+  pkgs,
+  lib,
+  dns,
+  common,
+  ...
+}: [
   rec {
     domain = "lantian.pp.ua";
     registrar = "doh";
-    providers = [ "henet" "desec" ];
+    providers = ["henet" "desec"];
     records = [
       (common.apexRecords domain)
       common.hostRecs.CAA
@@ -22,7 +26,7 @@
   rec {
     domain = "ltn.pp.ua";
     registrar = "doh";
-    providers = [ "henet" "desec" ];
+    providers = ["henet" "desec"];
     records = [
       (common.apexRecords domain)
       common.hostRecs.CAA
@@ -40,7 +44,7 @@
   rec {
     domain = "xuyh0120.pp.ua";
     registrar = "doh";
-    providers = [ "henet" "desec" ];
+    providers = ["henet" "desec"];
     records = [
       (common.apexRecords domain)
       common.hostRecs.CAA

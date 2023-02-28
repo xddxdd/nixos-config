@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   systemd.services.intel-undervolt = {
     after = ["multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target"];
     wantedBy = ["multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target"];

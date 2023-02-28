@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, chmlib-utils
-, callPackage
-, ...
+{
+  lib,
+  stdenv,
+  fetchurl,
+  chmlib-utils,
+  callPackage,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "dngzwxdq";
   version = "4.5.0";

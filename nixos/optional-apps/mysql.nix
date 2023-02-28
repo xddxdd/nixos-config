@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
@@ -25,7 +31,7 @@
   services.automysqlbackup = {
     enable = true;
     config = {
-      db_exclude = [ "information_schema" "performance_schema" "sys" "test" ];
+      db_exclude = ["information_schema" "performance_schema" "sys" "test"];
     };
   };
 
@@ -39,18 +45,24 @@
   ];
 
   services.phpfpm.pools.pma = {
-    phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
-      curl
-      gd
-      mbstring
-      mysqli
-      mysqlnd
-      openssl
-      pdo
-      pdo_mysql
-      xml
-      zip
-    ]);
+    phpPackage = pkgs.php.withExtensions ({
+      enabled,
+      all,
+    }:
+      with all;
+        enabled
+        ++ [
+          curl
+          gd
+          mbstring
+          mysqli
+          mysqlnd
+          openssl
+          pdo
+          pdo_mysql
+          xml
+          zip
+        ]);
     inherit (config.services.nginx) user;
     settings = {
       "listen.owner" = config.services.nginx.user;
@@ -69,24 +81,28 @@
     "pma.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phpmyadmin}";
-      locations = LT.nginx.addCommonLocationConf
-        { phpfpmSocket = config.services.phpfpm.pools.pma.socket; }
+      locations =
+        LT.nginx.addCommonLocationConf
+        {phpfpmSocket = config.services.phpfpm.pools.pma.socket;}
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+      extraConfig =
+        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
     "pma.localhost" = {
       listen = LT.nginx.listenHTTP;
       root = "${pkgs.phpmyadmin}";
-      locations = LT.nginx.addCommonLocationConf
-        { phpfpmSocket = config.services.phpfpm.pools.pma.socket; }
+      locations =
+        LT.nginx.addCommonLocationConf
+        {phpfpmSocket = config.services.phpfpm.pools.pma.socket;}
         {
           "/".index = "index.php";
         };
-      extraConfig = LT.nginx.commonVhostConf true
+      extraConfig =
+        LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
         + LT.nginx.serveLocalhost;
     };

@@ -1,18 +1,26 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./mysql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./mysql.nix];
 
   age.secrets.vaultwarden-env.file = inputs.secrets + "/vaultwarden-env.age";
 
   services.mysql = {
-    ensureDatabases = [ "vaultwarden" ];
-    ensureUsers = [{
-      name = "vaultwarden";
-      ensurePermissions = {
-        "vaultwarden.*" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["vaultwarden"];
+    ensureUsers = [
+      {
+        name = "vaultwarden";
+        ensurePermissions = {
+          "vaultwarden.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.vaultwarden = {
@@ -43,7 +51,7 @@
 
   services.nginx.virtualHosts."bitwarden.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } {
+    locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -58,7 +66,8 @@
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };

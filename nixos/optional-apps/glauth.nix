@@ -1,11 +1,18 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
-  hexdump = s: builtins.readFile (pkgs.runCommandLocal "hexdump.txt" { } ''
-    echo -n '${s}' | ${pkgs.unixtools.xxd}/bin/xxd -pu | tr -d '\n' > $out
-  '');
+  hexdump = s:
+    builtins.readFile (pkgs.runCommandLocal "hexdump.txt" {} ''
+      echo -n '${s}' | ${pkgs.unixtools.xxd}/bin/xxd -pu | tr -d '\n' > $out
+    '');
 
   cfg = pkgs.writeText "glauth.cfg" ''
     [ldap]
@@ -56,17 +63,18 @@ let
     [api]
       enabled = false
   '';
-in
-{
+in {
   systemd.services.glauth = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      ExecStart = "${pkgs.glauth}/bin/glauth -c ${cfg}";
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-    };
+    wantedBy = ["multi-user.target"];
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        ExecStart = "${pkgs.glauth}/bin/glauth -c ${cfg}";
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+      };
   };
 }

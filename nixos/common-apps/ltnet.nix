@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   systemd.network.netdevs.dummy0 = {
     netdevConfig = {
       Kind = "dummy";
@@ -17,19 +23,25 @@
       IPv6PrivacyExtensions = false;
     };
 
-    address = [ ]
+    address =
+      []
       ++ lib.optionals (LT.this.ltnet.IPv4Prefix != "") [
-      (LT.this.ltnet.IPv4Prefix + ".1/32")
-    ] ++ lib.optionals (LT.this.dn42.IPv4 != "") [
-      (LT.this.dn42.IPv4 + "/32")
-    ] ++ lib.optionals (LT.this.neonetwork.IPv4 != "") [
-      (LT.this.neonetwork.IPv4 + "/32")
-    ] ++ lib.optionals (LT.this.ltnet.IPv6Prefix != "") [
-      (LT.this.ltnet.IPv6Prefix + "::1/128")
-    ] ++ lib.optionals (LT.this.dn42.IPv6 != "") [
-      (LT.this.dn42.IPv6 + "/128")
-    ] ++ lib.optionals (LT.this.neonetwork.IPv6 != "") [
-      (LT.this.neonetwork.IPv6 + "/128")
-    ];
+        (LT.this.ltnet.IPv4Prefix + ".1/32")
+      ]
+      ++ lib.optionals (LT.this.dn42.IPv4 != "") [
+        (LT.this.dn42.IPv4 + "/32")
+      ]
+      ++ lib.optionals (LT.this.neonetwork.IPv4 != "") [
+        (LT.this.neonetwork.IPv4 + "/32")
+      ]
+      ++ lib.optionals (LT.this.ltnet.IPv6Prefix != "") [
+        (LT.this.ltnet.IPv6Prefix + "::1/128")
+      ]
+      ++ lib.optionals (LT.this.dn42.IPv6 != "") [
+        (LT.this.dn42.IPv6 + "/128")
+      ]
+      ++ lib.optionals (LT.this.neonetwork.IPv6 != "") [
+        (LT.this.neonetwork.IPv6 + "/128")
+      ];
   };
 }

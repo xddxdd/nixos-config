@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   netns = LT.netns {
     name = "wg-lantian";
     setupDefaultRoute = false;
@@ -12,8 +18,7 @@ let
   flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
-in
-{
+in {
   imports = [
     ../../nixos/client-components/xorg.nix
 
@@ -37,37 +42,41 @@ in
   # Sonarr
   ########################################
 
-  systemd.services.flaresolverr = netns.bind { };
+  systemd.services.flaresolverr = netns.bind {};
 
-  systemd.services.prowlarr = netns.bind { };
+  systemd.services.prowlarr = netns.bind {};
 
   systemd.services.radarr = netns.bind {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
-    serviceConfig = LT.serviceHarden // {
-      BindPaths = [
-        radarrMediaPath
-        transmissionSonarrDownloadPath
-        qBitTorrentSonarrDownloadPath
-      ];
-    };
+    after = ["mnt-storage.mount"];
+    requires = ["mnt-storage.mount"];
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        BindPaths = [
+          radarrMediaPath
+          transmissionSonarrDownloadPath
+          qBitTorrentSonarrDownloadPath
+        ];
+      };
   };
 
   systemd.services.sonarr = netns.bind {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
-    serviceConfig = LT.serviceHarden // {
-      BindPaths = [
-        sonarrMediaPath
-        transmissionSonarrDownloadPath
-        qBitTorrentSonarrDownloadPath
-      ];
-    };
+    after = ["mnt-storage.mount"];
+    requires = ["mnt-storage.mount"];
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        BindPaths = [
+          sonarrMediaPath
+          transmissionSonarrDownloadPath
+          qBitTorrentSonarrDownloadPath
+        ];
+      };
   };
 
   systemd.services.qbittorrent = netns.bind {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
+    after = ["mnt-storage.mount"];
+    requires = ["mnt-storage.mount"];
     serviceConfig = {
       BindPaths = [
         qBitTorrentSonarrDownloadPath
@@ -105,8 +114,8 @@ in
   };
 
   systemd.services.transmission = {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
+    after = ["mnt-storage.mount"];
+    requires = ["mnt-storage.mount"];
     serviceConfig.BindPaths = [
       transmissionDownloadPath
       transmissionSonarrDownloadPath

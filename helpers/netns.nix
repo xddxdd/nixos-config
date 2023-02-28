@@ -1,86 +1,91 @@
-{ config
-, pkgs
-, lib
-, hosts
-, this
-, constants
-, serviceHarden
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  hosts,
+  this,
+  constants,
+  serviceHarden,
+  ...
 }:
-
 # Inspired by https://cloudnull.io/2019/04/running-services-in-network-name-spaces-with-systemd/
-
-{ name
-, enable ? true
-, setupDefaultRoute ? true
-, announcedIPv4 ? [ ]
-, announcedIPv6 ? [ ]
-, birdBindTo ? [ ]
-}:
-let
+{
+  name,
+  enable ? true,
+  setupDefaultRoute ? true,
+  announcedIPv4 ? [],
+  announcedIPv6 ? [],
+  birdBindTo ? [],
+}: let
   thisIP = constants.containerIP."${name}";
   interface = builtins.substring 0 12 name;
 
   ipbin = "${pkgs.iproute2}/bin/ip";
   ipns = "${ipbin} netns exec ns-${name} ${ipbin}";
   sysctl = "${ipbin} netns exec ns-${name} ${pkgs.procps}/bin/sysctl";
-in
-rec {
+in rec {
   ipv4 = "${this.ltnet.IPv4Prefix}.${thisIP}";
   ipv6 = "${this.ltnet.IPv6Prefix}::${thisIP}";
   setup = {
     "netns-instance-${name}" = {
       inherit enable;
-      wantedBy = [ "multi-user.target" "network.target" ];
-      after = [ "network-pre.target" ];
-      script = ''
-        # Setup namespace
-        ${ipbin} netns add ns-${name}
-        ${ipns} link set lo up
-        # Disable auto generated IPv6 link local address
-        ${sysctl} -w net.ipv6.conf.default.autoconf=0
-        ${sysctl} -w net.ipv6.conf.all.autoconf=0
-        ${sysctl} -w net.ipv6.conf.default.accept_ra=0
-        ${sysctl} -w net.ipv6.conf.all.accept_ra=0
-        ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
-        ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
-        # Setup veth pair
-        ${ipbin} link add ns-${interface} type veth peer ni-${interface}
-        ${ipbin} link set ni-${interface} netns ns-${name}
-        ${ipns} link set ni-${interface} name eth0
-        # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
-        ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
-        ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
-        ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
-        ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
-        # Host side network config
-        ${ipbin} link set ns-${interface} up
-        ${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}
-        ${ipbin} -6 addr add ${this.ltnet.IPv6} dev ns-${interface}
-        ${ipbin} -6 addr add fe80::1/64 dev ns-${interface}
-        ${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}
-        # Namespace side network config
-        ${ipns} link set eth0 up
-        ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth0
-        ${ipns} -6 addr add ${ipv6} dev eth0
-        ${ipns} -6 addr add fe80::${thisIP}/64 dev eth0
-      '' + (if setupDefaultRoute then ''
-        ${ipns} route add default via ${this.ltnet.IPv4} dev eth0
-        ${ipns} -6 route add default via fe80::1 dev eth0
-      '' else ''
-        ${lib.concatMapStringsSep "\n" (route: "${ipns} route add ${route} via ${this.ltnet.IPv4} dev eth0") constants.reserved.IPv4}
-        ${lib.concatMapStringsSep "\n" (route: "${ipns} -6 route add ${route} via fe80::1 dev eth0") constants.reserved.IPv6}
-      '') + (lib.optionalString birdEnabled ''
-        # Announced addresses
-        ${ipns} link add dummy0 type dummy
-        ${ipns} link set dummy0 up
-        ${lib.concatMapStringsSep "\n"
-          (ip: "${ipns} addr add ${ip} dev dummy0")
-          announcedIPv4}
-        ${lib.concatMapStringsSep "\n"
-          (ip: "${ipns} addr add ${ip} dev dummy0")
-          announcedIPv6}
-      '');
+      wantedBy = ["multi-user.target" "network.target"];
+      after = ["network-pre.target"];
+      script =
+        ''
+          # Setup namespace
+          ${ipbin} netns add ns-${name}
+          ${ipns} link set lo up
+          # Disable auto generated IPv6 link local address
+          ${sysctl} -w net.ipv6.conf.default.autoconf=0
+          ${sysctl} -w net.ipv6.conf.all.autoconf=0
+          ${sysctl} -w net.ipv6.conf.default.accept_ra=0
+          ${sysctl} -w net.ipv6.conf.all.accept_ra=0
+          ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
+          ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
+          # Setup veth pair
+          ${ipbin} link add ns-${interface} type veth peer ni-${interface}
+          ${ipbin} link set ni-${interface} netns ns-${name}
+          ${ipns} link set ni-${interface} name eth0
+          # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
+          ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
+          ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
+          ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
+          ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
+          # Host side network config
+          ${ipbin} link set ns-${interface} up
+          ${ipbin} addr add ${this.ltnet.IPv4} peer ${ipv4} dev ns-${interface}
+          ${ipbin} -6 addr add ${this.ltnet.IPv6} dev ns-${interface}
+          ${ipbin} -6 addr add fe80::1/64 dev ns-${interface}
+          ${ipbin} -6 route add ${ipv6} via fe80::${thisIP} dev ns-${interface}
+          # Namespace side network config
+          ${ipns} link set eth0 up
+          ${ipns} addr add ${ipv4} peer ${this.ltnet.IPv4} dev eth0
+          ${ipns} -6 addr add ${ipv6} dev eth0
+          ${ipns} -6 addr add fe80::${thisIP}/64 dev eth0
+        ''
+        + (
+          if setupDefaultRoute
+          then ''
+            ${ipns} route add default via ${this.ltnet.IPv4} dev eth0
+            ${ipns} -6 route add default via fe80::1 dev eth0
+          ''
+          else ''
+            ${lib.concatMapStringsSep "\n" (route: "${ipns} route add ${route} via ${this.ltnet.IPv4} dev eth0") constants.reserved.IPv4}
+            ${lib.concatMapStringsSep "\n" (route: "${ipns} -6 route add ${route} via fe80::1 dev eth0") constants.reserved.IPv6}
+          ''
+        )
+        + (lib.optionalString birdEnabled ''
+          # Announced addresses
+          ${ipns} link add dummy0 type dummy
+          ${ipns} link set dummy0 up
+          ${lib.concatMapStringsSep "\n"
+            (ip: "${ipns} addr add ${ip} dev dummy0")
+            announcedIPv4}
+          ${lib.concatMapStringsSep "\n"
+            (ip: "${ipns} addr add ${ip} dev dummy0")
+            announcedIPv6}
+        '');
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -99,7 +104,7 @@ rec {
     "netns-bird-${name}" = bind {
       enable = enable && birdEnabled;
       description = "BIRD (in netns ${name})";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       bindsTo = birdBindTo;
       serviceConfig = {
         Type = "forking";
@@ -130,64 +135,74 @@ rec {
   };
 
   bind = attr:
-    if enable then
+    if enable
+    then
       ({
-        after = (attr.after or [ ]) ++ [ "netns-instance-${name}.service" ];
-        bindsTo = (attr.bindsTo or [ ]) ++ [ "netns-instance-${name}.service" ];
-        serviceConfig = (attr.serviceConfig or { }) // {
-          NetworkNamespacePath = "/run/netns/ns-${name}";
-        };
-      } // (builtins.removeAttrs attr [ "after" "bindsTo" "serviceConfig" ])) else attr;
+          after = (attr.after or []) ++ ["netns-instance-${name}.service"];
+          bindsTo = (attr.bindsTo or []) ++ ["netns-instance-${name}.service"];
+          serviceConfig =
+            (attr.serviceConfig or {})
+            // {
+              NetworkNamespacePath = "/run/netns/ns-${name}";
+            };
+        }
+        // (builtins.removeAttrs attr ["after" "bindsTo" "serviceConfig"]))
+    else attr;
 
   bindExisting =
-    if enable then
-      {
-        after = [ "netns-instance-${name}.service" ];
-        bindsTo = [ "netns-instance-${name}.service" ];
-        serviceConfig = {
-          NetworkNamespacePath = "/run/netns/ns-${name}";
-        };
-      } else { };
+    if enable
+    then {
+      after = ["netns-instance-${name}.service"];
+      bindsTo = ["netns-instance-${name}.service"];
+      serviceConfig = {
+        NetworkNamespacePath = "/run/netns/ns-${name}";
+      };
+    }
+    else {};
 
   birdEnabled = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
   birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''
-    log stderr { error, fatal };
-    router id ${ipv4};
-    protocol device {}
+      log stderr { error, fatal };
+      router id ${ipv4};
+      protocol device {}
 
-    protocol babel {
-      ipv4 {
-        import none;
-        export all;
-      };
-      ipv6 {
-        import none;
-        export all;
-      };
-      interface "eth*" {
-        type wired;
-        hello interval 1s;
-        update interval 1s;
-        port 6695;
-      };
-    }
+      protocol babel {
+        ipv4 {
+          import none;
+          export all;
+        };
+        ipv6 {
+          import none;
+          export all;
+        };
+        interface "eth*" {
+          type wired;
+          hello interval 1s;
+          update interval 1s;
+          port 6695;
+        };
+      }
 
-    protocol static {
-      ipv4;
-  '' + (lib.concatStrings (builtins.map
-    (ip: ''
-      route ${ip}/32 unreachable;
-    '')
-    announcedIPv4)) + ''
-    }
+      protocol static {
+        ipv4;
+    ''
+    + (lib.concatStrings (builtins.map
+      (ip: ''
+        route ${ip}/32 unreachable;
+      '')
+      announcedIPv4))
+    + ''
+      }
 
-    protocol static {
-      ipv6;
-  '' + (lib.concatStrings (builtins.map
-    (ip: ''
-      route ${ip}/128 unreachable;
-    '')
-    announcedIPv6)) + ''
-    }
-  '');
+      protocol static {
+        ipv6;
+    ''
+    + (lib.concatStrings (builtins.map
+      (ip: ''
+        route ${ip}/128 unreachable;
+      '')
+      announcedIPv6))
+    + ''
+      }
+    '');
 }

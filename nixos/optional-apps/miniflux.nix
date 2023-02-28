@@ -1,7 +1,13 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
-  imports = [ ./postgresql.nix ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [./postgresql.nix];
 
   age.secrets.miniflux-konnect-secret = {
     file = inputs.secrets + "/konnect/miniflux-secret.age";
@@ -34,21 +40,21 @@
 
   services.nginx.virtualHosts."rss.xuyh0120.win" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf { } (
+    locations = LT.nginx.addCommonLocationConf {} (
       let
         proxyConfig = {
           proxyPass = "http://unix:/run/miniflux/miniflux.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
-      in
-      {
+      in {
         "/" = proxyConfig;
         # Bypass oauth-proxy for URL conflicts
         "/oauth2/" = proxyConfig;
         "/oauth2/auth" = proxyConfig;
       }
     );
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
@@ -65,5 +71,5 @@
     group = "miniflux";
     isSystemUser = true;
   };
-  users.groups.miniflux = { };
+  users.groups.miniflux = {};
 }

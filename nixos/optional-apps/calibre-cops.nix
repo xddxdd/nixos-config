@@ -1,9 +1,15 @@
-{ pkgs, lib, LT, config, options, utils, inputs, ... }@args:
-
-let
-  calibreLibrary = config.services.calibre-cops.libraryPath;
-in
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  options,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  calibreLibrary = config.services.calibre-cops.libraryPath;
+in {
   options.services.calibre-cops = {
     libraryPath = lib.mkOption {
       type = lib.types.path;
@@ -14,12 +20,18 @@ in
 
   config = {
     services.phpfpm.pools.calibre-cops = {
-      phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; enabled ++ [
-        gd
-        intl
-        sqlite3
-        xml
-      ]);
+      phpPackage = pkgs.php.withExtensions ({
+        enabled,
+        all,
+      }:
+        with all;
+          enabled
+          ++ [
+            gd
+            intl
+            sqlite3
+            xml
+          ]);
       inherit (config.services.nginx) user;
       settings = {
         "listen.owner" = config.services.nginx.user;
@@ -38,8 +50,9 @@ in
       "books.xuyh0120.win" = {
         listen = LT.nginx.listenHTTPS;
         root = "${pkgs.calibre-cops}";
-        locations = LT.nginx.addCommonLocationConf
-          { phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket; }
+        locations =
+          LT.nginx.addCommonLocationConf
+          {phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket;}
           {
             "/" = {
               index = "index.php";
@@ -64,7 +77,8 @@ in
               internal;
             '';
           };
-        extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc"
+        extraConfig =
+          LT.nginx.makeSSL "xuyh0120.win_ecc"
           + LT.nginx.commonVhostConf true;
       };
     };

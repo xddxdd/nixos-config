@@ -1,20 +1,33 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
-  inherit (import ./common.nix args)
-    DN42_AS DN42_REGION NEO_AS
-    community;
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
+  inherit
+    (import ./common.nix args)
+    DN42_AS
+    DN42_REGION
+    NEO_AS
+    community
+    ;
 
   excludedInterfacesFromDirect = [
     "dn42-*"
     "neo-*"
     "zt*"
   ];
-in
-{
+in {
   common = ''
     log stderr { warning, error, fatal };
-    router id ${if LT.this.dn42.IPv4 != "" then LT.this.dn42.IPv4 else LT.this.ltnet.IPv4};
+    router id ${
+      if LT.this.dn42.IPv4 != ""
+      then LT.this.dn42.IPv4
+      else LT.this.ltnet.IPv4
+    };
     timeformat protocol iso long;
     #debug protocols all;
   '';
@@ -211,57 +224,64 @@ in
     };
   '';
 
-  static = ''
-    protocol device sys_device {
-      scan time 10;
-    }
+  static =
+    ''
+      protocol device sys_device {
+        scan time 10;
+      }
 
-    protocol static static_v4 {
-  '' + (lib.optionalString (!LT.this.ltnet.alone) ''
-    route 172.22.76.184/29 reject;
-    route 172.22.76.96/27 reject;
-    route 10.127.10.0/24 reject;
+      protocol static static_v4 {
+    ''
+    + (lib.optionalString (!LT.this.ltnet.alone) ''
+      route 172.22.76.184/29 reject;
+      route 172.22.76.96/27 reject;
+      route 10.127.10.0/24 reject;
 
-    # Workaround ghosting
-    route 172.22.76.96/29 reject;
-    route 172.22.76.104/29 reject;
-    route 172.22.76.112/29 reject;
-    route 172.22.76.120/29 reject;
+      # Workaround ghosting
+      route 172.22.76.96/29 reject;
+      route 172.22.76.104/29 reject;
+      route 172.22.76.112/29 reject;
+      route 172.22.76.120/29 reject;
 
-    route ${LT.this.dn42.IPv4}/32 reject;
-    route 172.18.${builtins.toString LT.this.index}.0/24 reject;
-    route ${LT.this.ltnet.IPv4}/32 reject;
-    route ${LT.this.neonetwork.IPv4}/32 reject;
-  '') + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
-    # Blackhole routes for private ranges
-    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
-  '') + ''
-      ipv4 {
-        preference 10000;
-        import all;
-        export none;
+      route ${LT.this.dn42.IPv4}/32 reject;
+      route 172.18.${builtins.toString LT.this.index}.0/24 reject;
+      route ${LT.this.ltnet.IPv4}/32 reject;
+      route ${LT.this.neonetwork.IPv4}/32 reject;
+    '')
+    + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
+      # Blackhole routes for private ranges
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
+    '')
+    + ''
+        ipv4 {
+          preference 10000;
+          import all;
+          export none;
+        };
       };
-    };
 
-    protocol static static_v6 {
-  '' + (lib.optionalString (!LT.this.ltnet.alone) ''
-    route fdbc:f9dc:67ad::/48 reject;
-    route fd10:127:10::/48 reject;
+      protocol static static_v6 {
+    ''
+    + (lib.optionalString (!LT.this.ltnet.alone) ''
+      route fdbc:f9dc:67ad::/48 reject;
+      route fd10:127:10::/48 reject;
 
-    route ${LT.this.dn42.IPv6}/128 reject;
-    route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
-    route ${LT.this.ltnet.IPv6}/128 reject;
-    route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
-    route ${LT.this.neonetwork.IPv6}/128 reject;
-  '') + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
-    # Blackhole routes for private ranges
-    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
-  '') + ''
-      ipv6 {
-        preference 10000;
-        import all;
-        export none;
-      };
-    }
-  '';
+      route ${LT.this.dn42.IPv6}/128 reject;
+      route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
+      route ${LT.this.ltnet.IPv6}/128 reject;
+      route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
+      route ${LT.this.neonetwork.IPv6}/128 reject;
+    '')
+    + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
+      # Blackhole routes for private ranges
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
+    '')
+    + ''
+        ipv6 {
+          preference 10000;
+          import all;
+          export none;
+        };
+      }
+    '';
 }

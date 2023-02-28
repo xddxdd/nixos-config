@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   age.secrets.filebeat-elasticsearch-pw.file = inputs.secrets + "/filebeat-elasticsearch-pw.age";
 
   services.filebeat = {
@@ -13,14 +19,14 @@
         processors = [
           {
             drop_event.when.or = [
-              { equals."systemd.unit" = "filebeat.service"; }
-              { equals."systemd.unit" = "hath.service"; }
-              { equals."systemd.unit" = "matrix-synapse.service"; }
-              { equals."systemd.unit" = "prowlarr.service"; }
-              { equals."systemd.unit" = "radarr.service"; }
-              { equals."systemd.unit" = "resilio.service"; }
-              { equals."systemd.unit" = "sonarr.service"; }
-              { equals."systemd.unit" = "yggdrasil.service"; }
+              {equals."systemd.unit" = "filebeat.service";}
+              {equals."systemd.unit" = "hath.service";}
+              {equals."systemd.unit" = "matrix-synapse.service";}
+              {equals."systemd.unit" = "prowlarr.service";}
+              {equals."systemd.unit" = "radarr.service";}
+              {equals."systemd.unit" = "resilio.service";}
+              {equals."systemd.unit" = "sonarr.service";}
+              {equals."systemd.unit" = "yggdrasil.service";}
             ];
           }
         ];
@@ -28,9 +34,9 @@
     };
     settings = {
       output.elasticsearch = {
-        hosts = [ "https://cloud.community.humio.com:9200" ];
+        hosts = ["https://cloud.community.humio.com:9200"];
         username = "any-organization";
-        password = { _secret = config.age.secrets.filebeat-elasticsearch-pw.path; };
+        password = {_secret = config.age.secrets.filebeat-elasticsearch-pw.path;};
         compression_level = 6;
         index = "beat";
       };
@@ -41,11 +47,13 @@
     };
   };
 
-  systemd.services.filebeat.serviceConfig = LT.serviceHarden // {
-    ProcSubset = "all";
-    ReadOnlyPaths = [
-      "/run"
-    ];
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
-  };
+  systemd.services.filebeat.serviceConfig =
+    LT.serviceHarden
+    // {
+      ProcSubset = "all";
+      ReadOnlyPaths = [
+        "/run"
+      ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK"];
+    };
 }

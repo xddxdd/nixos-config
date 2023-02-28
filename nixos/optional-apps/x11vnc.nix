@@ -1,11 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   systemd.services.x11vnc = {
     description = "X11VNC";
-    wantedBy = [ "graphical.target" ];
-    after = [ "display-manager.service" ];
-    bindsTo = [ "display-manager.service" ];
+    wantedBy = ["graphical.target"];
+    after = ["display-manager.service"];
+    bindsTo = ["display-manager.service"];
     serviceConfig = {
       Type = "simple";
       Restart = "always";

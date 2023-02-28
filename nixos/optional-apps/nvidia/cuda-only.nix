@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
 
   nvidiaSwitchVFIOScript = pkgs.writeShellScriptBin "nvidia-switch-vfio" ''
@@ -52,15 +58,16 @@ let
 
     exit 0
   '';
-in
-{
-  services.xserver.drivers = [{
-    name = "modesetting";
-    display = true;
-    deviceSection = ''
-      BusID "PCI:0:2:0"
-    '';
-  }];
+in {
+  services.xserver.drivers = [
+    {
+      name = "modesetting";
+      display = true;
+      deviceSection = ''
+        BusID "PCI:0:2:0"
+      '';
+    }
+  ];
 
   environment.systemPackages = [
     nvidia_x11.bin
@@ -86,7 +93,7 @@ in
   systemd.services = {
     "nvidia-persistenced" = {
       description = "NVIDIA Persistence Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         Restart = "always";
@@ -97,10 +104,10 @@ in
     };
   };
 
-  boot.extraModulePackages = [ nvidia_x11.bin ];
+  boot.extraModulePackages = [nvidia_x11.bin];
 
   # nvidia-uvm is required by CUDA applications.
-  boot.kernelModules = [ "nvidia-uvm" ];
+  boot.kernelModules = ["nvidia-uvm"];
 
   services.udev.extraRules = ''
     # Create /dev/nvidia-uvm when the nvidia-uvm module is loaded.
@@ -128,7 +135,7 @@ in
     options nvidia "NVreg_DynamicPowerManagement=0x02"
   '';
 
-  boot.blacklistedKernelModules = [ "nouveau" "nvidiafb" "nvidia" "nvidia-drm" "nvidia-modeset" ];
+  boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-drm" "nvidia-modeset"];
 
   services.acpid.enable = true;
 

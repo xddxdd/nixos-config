@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, unar
-, callPackage
-, ...
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unar,
+  callPackage,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "mota-24";
   version = "20220620";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0na2xl11z2yag0gjw4asaaizxxg2sghynaq3xzi0c5c4klf6kr47";
   };
 
-  nativeBuildInputs = [ unar ];
+  nativeBuildInputs = [unar];
 
   unpackPhase = ''
     unar -e gb18030 $src

@@ -1,6 +1,12 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
 {
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ../../nixos/server.nix
 
@@ -45,8 +51,8 @@
   hardware.rasdaemon.enable = true;
 
   systemd.network.networks.eth0 = {
-    address = [ "51.159.15.98/24" ];
-    gateway = [ "51.159.15.1" ];
+    address = ["51.159.15.98/24"];
+    gateway = ["51.159.15.1"];
     matchConfig.Name = "eth0";
     networkConfig = {
       IPv6AcceptRA = false;
@@ -72,7 +78,7 @@
       "2001:470:1f13:3b1::1/64"
       "2001:470:cab6::1/48"
     ];
-    gateway = [ "2001:470:1f12:3b1::1" ];
+    gateway = ["2001:470:1f12:3b1::1"];
     matchConfig.Name = "henet";
   };
 
@@ -85,14 +91,14 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 1024;
     verbosity = "crit";
-    extraOptions = [ "--loadavg-target" "4" ];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   services.beesd.filesystems.storage = {
     spec = config.fileSystems."/mnt/storage".device;
     hashTableSizeMB = 2048;
     verbosity = "crit";
-    extraOptions = [ "--loadavg-target" "4" ];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
@@ -105,5 +111,4 @@
       "172.22.76.97/29"
     ];
   };
-
 }

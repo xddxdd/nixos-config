@@ -1,30 +1,40 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-let
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: let
   v2rayConf = {
-    inbounds = [{
-      listen = "/run/v2ray/v2ray.sock";
-      port = 0;
-      protocol = "trojan";
-      settings = {
-        clients = [{
-          password = { _secret = config.age.secrets.v2ray-key.path; };
-        }];
-        decryption = "none";
-      };
-      sniffing = {
-        destOverride = [ "http" "tls" ];
-        enabled = true;
-      };
-      streamSettings = {
-        network = "grpc";
-        security = "none";
-        grpcSettings = {
-          serviceName = "ray";
-          multiMode = false;
+    inbounds = [
+      {
+        listen = "/run/v2ray/v2ray.sock";
+        port = 0;
+        protocol = "trojan";
+        settings = {
+          clients = [
+            {
+              password = {_secret = config.age.secrets.v2ray-key.path;};
+            }
+          ];
+          decryption = "none";
         };
-      };
-    }];
+        sniffing = {
+          destOverride = ["http" "tls"];
+          enabled = true;
+        };
+        streamSettings = {
+          network = "grpc";
+          security = "none";
+          grpcSettings = {
+            serviceName = "ray";
+            multiMode = false;
+          };
+        };
+      }
+    ];
     log = {
       access = "none";
       loglevel = "warning";
@@ -47,12 +57,14 @@ let
       }
       {
         protocol = "shadowsocks";
-        settings.servers = [{
-          address = "music.desperadoj.com";
-          method = "aes-128-gcm";
-          password = "desperadoj.com_free_proxy_etg0";
-          port = 30001;
-        }];
+        settings.servers = [
+          {
+            address = "music.desperadoj.com";
+            method = "aes-128-gcm";
+            password = "desperadoj.com_free_proxy_etg0";
+            port = 30001;
+          }
+        ];
         tag = "music";
       }
     ];
@@ -62,7 +74,7 @@ let
       uplinkOnly = 0;
     };
     routing = {
-      balancers = [ ];
+      balancers = [];
       domainStrategy = "IPOnDemand";
       rules = [
         {
@@ -114,14 +126,13 @@ let
         }
         {
           outboundTag = "block";
-          protocol = [ "bittorrent" ];
+          protocol = ["bittorrent"];
           type = "field";
         }
       ];
     };
   };
-in
-{
+in {
   age.secrets.v2ray-key = {
     file = inputs.secrets + "/v2ray-key.age";
     owner = "nginx";
@@ -130,8 +141,8 @@ in
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     script = ''
       rm -f /run/v2ray/v2ray.sock
 
@@ -141,10 +152,12 @@ in
 
       exec ${pkgs.xray}/bin/xray -config /run/v2ray/config.json
     '';
-    serviceConfig = LT.serviceHarden // {
-      User = "nginx";
-      Group = "nginx";
-      RuntimeDirectory = "v2ray";
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        User = "nginx";
+        Group = "nginx";
+        RuntimeDirectory = "v2ray";
+      };
   };
 }

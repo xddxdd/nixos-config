@@ -1,7 +1,17 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args:
-
-rec {
-  externalTrunk = { name, number, url }: ''
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: rec {
+  externalTrunk = {
+    name,
+    number,
+    url,
+  }: ''
     [${name}]
     type=registration
     outbound_auth=${name}
