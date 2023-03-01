@@ -13,6 +13,8 @@
     ./hardware-configuration.nix
     ./media-center.nix
 
+    ../../nixos/hardware/ignore-nice-load.nix
+
     ../../nixos/client-components/network-manager.nix
 
     ../../nixos/optional-apps/intel-undervolt.nix
@@ -53,13 +55,6 @@
     hashTableSizeMB = 64;
     verbosity = "crit";
     extraOptions = ["--thread-count" "2" "--loadavg-target" "4"];
-  };
-
-  services.tlp.settings = {
-    CPU_MIN_PERF_ON_AC = lib.mkForce "0";
-    CPU_MAX_PERF_ON_AC = lib.mkForce "50";
-    CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
-    CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
   };
 
   # Mount samba share
