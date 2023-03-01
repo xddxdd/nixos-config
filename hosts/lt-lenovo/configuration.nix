@@ -46,7 +46,10 @@
     "/home/lantian"
   ];
 
-  # lantian.hidpi = 1.25;
+  services.tlp.settings = {
+    TLP_DEFAULT_MODE = "BAT";
+    TLP_PERSISTENT_DEFAULT = 1;
+  };
 
   fileSystems."/".options = ["size=100%"];
 

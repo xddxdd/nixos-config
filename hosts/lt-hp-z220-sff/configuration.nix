@@ -59,4 +59,9 @@
   };
 
   services.fwupd.enable = true;
+
+  services.tlp.settings = {
+    TLP_DEFAULT_MODE = "BAT";
+    TLP_PERSISTENT_DEFAULT = 1;
+  };
 }
