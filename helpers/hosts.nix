@@ -258,7 +258,7 @@
   };
   "lt-hp-omen" = {
     index = 100;
-    tags = with tags; [client nix-builder x86_64-v3];
+    tags = with tags; [client i915-sriov nix-builder x86_64-v3];
     cpuThreads = 16;
     city = geo.cities."US Chicago";
     hostname = "127.0.0.1";

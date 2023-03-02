@@ -7,8 +7,15 @@
   inputs,
   ...
 } @ args: {
-  boot.extraModprobeConfig = ''
-    options i915 enable_fbc=1 ${lib.optionalString (!config.virtualisation.kvmgt.enable) "enable_guc=3"}
+  boot.extraModprobeConfig = let
+    enableGucFlag =
+      if config.virtualisation.kvmgt.enable
+      then 0
+      else if builtins.elem LT.tags.i915-sriov LT.this.tags
+      then 7
+      else 3;
+  in ''
+    options i915 enable_fbc=1 enable_guc=${builtins.toString enableGucFlag}
   '';
 
   boot.kernel.sysctl = {

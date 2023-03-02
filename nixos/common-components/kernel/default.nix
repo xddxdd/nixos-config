@@ -125,23 +125,18 @@ in
           "cryptodev"
           "nft_fullcone"
           "nullfs"
-
-          # Disabled for incompatibility with 6.1 kernel
-          # "ovpn-dco"
+          "ovpn-dco"
         ]
         ++ lib.optionals pkgs.stdenv.isx86_64 ["winesync"];
-      extraModulePackages = with config.boot.kernelPackages; [
-        cryptodev
-
-        # Disabled for crashing on latest kernel
-        # i915-sriov
-
-        nft-fullcone
-        nullfsvfs
-
-        # Disabled for incompatibility with 6.1 kernel
-        # ovpn-dco
-      ];
+      extraModulePackages = with config.boot.kernelPackages; ([
+          cryptodev
+          nft-fullcone
+          nullfsvfs
+          ovpn-dco
+        ]
+        ++ lib.optionals (builtins.elem LT.tags.i915-sriov LT.this.tags) [
+          i915-sriov
+        ]);
 
       initrd = {
         inherit (config.boot) kernelModules;
@@ -187,6 +182,20 @@ in
     services.udev.extraRules = ''
       KERNEL=="winesync", MODE="0644"
     '';
+
+    systemd.services.i915-sriov = {
+      enable = builtins.elem LT.tags.i915-sriov LT.this.tags;
+      description = "Enable i915 SRIOV";
+      wantedBy = ["multi-user.target"];
+      after = ["systemd-modules-load.service"];
+      requires = ["systemd-modules-load.service"];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        I915_PATH=/sys/devices/pci0000:00/0000:00:02.0
+        NUMVFS=$(cat "$I915_PATH/sriov_totalvfs")
+        echo "$NUMVFS" > "$I915_PATH/sriov_numvfs"
+      '';
+    };
 
     systemd.services.systemd-sysctl.serviceConfig = {
       Restart = "on-failure";

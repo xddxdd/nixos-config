@@ -135,11 +135,15 @@
   tags =
     lib.genAttrs
     [
+      # Usage
       "client"
-      "low-ram"
       "nix-builder"
       "public-facing"
       "server"
+
+      # Hardware
+      "i915-sriov"
+      "low-ram"
       "x86_64-v3"
     ]
     (v: v);
