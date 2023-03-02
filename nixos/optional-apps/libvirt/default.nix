@@ -33,5 +33,6 @@
 
   boot.kernelParams =
     (lib.optionals config.hardware.cpu.intel.updateMicrocode ["intel_iommu=on" "iommu=pt"])
-    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode ["amd_iommu=on"]);
+    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode ["amd_iommu=on"])
+    ++ ["pcie_acs_override=downstream,multifunction"];
 }

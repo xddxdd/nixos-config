@@ -12,10 +12,6 @@ in
     pname = "i915-sriov";
     inherit (sources.i915-sriov-dkms) version src;
 
-    patches = [
-      ../../../patches/i915-sriov-dkms-xanmod.patch
-    ];
-
     hardeningDisable = ["pic" "format"];
     nativeBuildInputs = kernel.moduleBuildDependencies;
 
