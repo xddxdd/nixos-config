@@ -51,17 +51,14 @@
     var/lib/libvirt/
     var/lib/machines/
     var/lib/matrix-synapse/media
-    var/lib/minio/data
     var/lib/os-prober/
     var/lib/private/
     var/lib/prometheus/
     var/lib/resilio-sync/*.db
     var/lib/resilio-sync/*.db-wal
-    var/lib/syncthing/*.db
     var/lib/systemd/
     var/lib/udisks2/
     var/lib/vm/
-    var/lib/yggdrasil-alfis/
     var/log/
   '';
 
