@@ -11,9 +11,9 @@
     if pkgs.stdenv.isx86_64
     then
       (
-        if builtins.elem LT.tags.x86_64-v3 LT.this.tags
-        then pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v3-lto
-        else pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v1-lto
+        if builtins.elem LT.tags.x86_64-v1 LT.this.tags
+        then pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v1-lto
+        else pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v3-lto
       )
     # TODO: update to 6.1 once 6.1.12 is in nixpkgs
     else pkgs.linuxPackages_6_0;
