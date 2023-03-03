@@ -8,6 +8,7 @@
     coredns-knot = "55";
     coredns-client = "56";
     docker = "79";
+    kms = "88";
     drone = "101";
     drone-github = "102";
     plausible = "138";
@@ -74,6 +75,7 @@
     LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
+    KMS = 1688;
     IPFS.API = 5001;
     Radarr = 7878;
     IPFS.Gateway = 8080;

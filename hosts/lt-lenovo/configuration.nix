@@ -22,6 +22,7 @@
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/vlmcsd.nix
   ];
 
   networking.networkmanager.unmanaged = lib.mkForce [

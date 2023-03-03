@@ -38,6 +38,7 @@ in {
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/samba.nix
+    ../../nixos/optional-apps/vlmcsd.nix
 
     # Disabled since remote nix builds in /tmp
     # ../../nixos/optional-apps/nix-distributed.nix

@@ -63,7 +63,7 @@
       url = "github:nix-community/nix-environments";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nur.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
@@ -132,6 +132,7 @@
       inputs.dwarffs.nixosModules.dwarffs
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
+      inputs.nur.nixosModules.nur
       inputs.nur-xddxdd.nixosModules.setupOverlay
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.srvos.nixosModules.common
