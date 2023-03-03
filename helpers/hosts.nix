@@ -23,23 +23,6 @@
       region = 52;
     };
   };
-  "linkin-old" = {
-    index = 14;
-    tags = with tags; [server x86_64-v1];
-    hostname = "103.172.81.11";
-    city = geo.cities."CN Hong Kong";
-    ssh = {
-      rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkL37ZQV3RAmiM+TFOagMvmld8NRJcgQ37soAD13EcK9vJVA37vnzI/fKEYkP+oubBIQZBTnddLl8mSZlx0vC9alekpWFu2Y+HX7nm6qUef2O3pctZD0Br5AhNoye4k+Ly+FaVBddpUu9Z7H/yVlZarrA1XBQynyaIfcv5DOi5Jc6U5MVhs4qhBY8sElmYEV/Z103VbYpW4rZ+yw2sKmXFNAR5yL7jAiJQS+T3HWqEiicyT6ppLpy9nGkbbzHYQMxJqSdQ1TsRUK7TJepVEXGnuVCBOFKs74jXjzl3enABNmL2BiO9iiVo/rxWbLmV9k031sQMwCIsj/YYulDG3rFmbWiN5Wnm66X+201nDATJr0vzafojcLK2Pgxym1zVbKL6+bZOxES6WTqktFzj4eGa0ekoHKzgz0bXbSf3TNOHbt+WvXK+sgV8YVs9NUyA6X7JNCX1kooWoGS74nspdNZRa5ZAxTLmB62WwJefqdRotuE5sw1tzAjPXuyw8JOtrBZeYHDS26yJKlHV19EfWllbC1xFPXWcdJHCxgo2UiKC/ESP+xCJt/9zgsN8NboXvZp20lGVrel47c4MD63Ann6Wp/KV81xlV/URmPauJCDDDGXzhZBrc+5/is7EXY/3KqOvKfRJXcjjk8/kW2rmgul/fmdXfjaQ8wM3xUnwbFBc9Q==";
-      ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDw/OsayZlH0vM33lenT7xU7YaCzZI/+buXBzI+zib8W";
-    };
-    public = {
-      IPv4 = "103.172.81.11";
-    };
-    dn42 = {
-      IPv4 = "172.22.76.118";
-      region = 52;
-    };
-  };
   "v-ps-hkg" = {
     index = 1;
     tags = with tags; [public-facing server];
