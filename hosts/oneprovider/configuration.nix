@@ -36,6 +36,7 @@
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/transmission-daemon.nix
     ../../nixos/optional-apps/vaultwarden.nix
+    ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/waline.nix
 
     # Unusable, cannot pass captcha
