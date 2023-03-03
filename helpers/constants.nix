@@ -142,7 +142,7 @@
       # Hardware
       "i915-sriov"
       "low-ram"
-      "x86_64-v3"
+      "x86_64-v1"
     ]
     (v: v);
 

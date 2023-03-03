@@ -9,7 +9,7 @@
 }: {
   "50kvm-old" = {
     index = 9;
-    tags = with tags; [server];
+    tags = with tags; [server x86_64-v1];
     city = geo.cities."CN Hong Kong";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCw1fEo3i7HViqekWReTW+jF7Nlw86ZYjez9zYq960PcuF9X/MaUjXCoUNuAs7km9AGc3RexPcX7sdth5qA2V7JH/KewARI2qiBZVCeX8DnSl27iVSkEeHFnoDQeSgrOnmQwd6N1ELpcJatGzWLA6FagobJm90HlbKW1uSwbh1TprDPtyFVLhaoyjIuTd+K3obCGZQiBY9Hmuiq0pTUM+PXgC4hRy5gsWnuLupDRSHDkPpAfXAND6decx6Xpx7GGtGQRbZ5xw0ZOPrphuVowagjMq7eQXivrc3S6LdqErdqnbVGUzV7EqJluRqWuH/j3XMUnrXxryJ/JpR7tMssc4xacRI0zD8J5jRGDDTvV+2RNarYC9bfHLVpdWHkELI1M2iNOehiYCzqO0ay5cVqEf3ynRe1HZIRp6Z7nI6dot/TjiQMx5+DGz1YTBvWL7NieZ9RjIKRus9qFZXDgK/8ZWylsVvRjemMv2Nno7l5js+7c5R9pfMO6NZiH4o8AJEus5Wx+M+A4hxXZAU7dGgcJPlhKCKZuIoVJTQnuctKN/ff+AeXNoZTM7MPdbNlzZ5ogrTXuCO9vXCohRlxXNBwGUYR4hUXF2nC+RBGCpYSUVypmpexRlbNpec6E6q+Q9BMltrQ/bRbGoNN4oateowFjiYS5uBqBUm6iXONWLNwUAdLpQ==";
@@ -25,7 +25,7 @@
   };
   "linkin-old" = {
     index = 14;
-    tags = with tags; [server];
+    tags = with tags; [server x86_64-v1];
     hostname = "103.172.81.11";
     city = geo.cities."CN Hong Kong";
     ssh = {
@@ -60,7 +60,7 @@
   };
   "hostdare-old" = {
     index = 13;
-    tags = with tags; [server];
+    tags = with tags; [server x86_64-v1];
     city = geo.cities."US Los Angeles";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfK8gSS4EXf1yGprWEMYMbEuUkQ3ngITHgTfgbx98qONTm/loSMhNqN2VM1haCjCV8h4PUAd11mPjzzci08wQD/5aSbQnrx+ku8vkT8D+hNTzdxSGTTbvOIGsfTB26JPH0cFklJTz1hQSD9mOPl6IkdP9qKtlTmTf/NrER3ClEaKRfgjgrpkJ+IvlNLIO4Lgm47xoh3Jj8TUZd+qowcHjvilE+XY9tTIYypaRp1vA6D8sgNp9aIObpYO/XzuMGabaGHJO5bPWjIw/Fw+mDctNVtWLxczis/qTGYWMUUVbmMGpmvfZQ955xnXoY4hCgbOe2gTVHJuRboGE0qTNr7WxxPfEHJdIfsSs64OeBX2QwbAs1126PAQABKYorJGsjOo+sbymVxYa6gklJXZsr7fwCcOzWzcYQvqgplipFdrwzol/KyyhHASg6mVoTdzudbBYpqYwc/a/vQpLxeDw905fq6tp8OPYTHJvW2X5ad6ld8dK0IOjbYR9YD3ls0tRCYiD+cgwdY5OVecLRdeuKfX3MyWwH1ObBqA9Ge3NrGvxirqO6Dgd0rhdc6VepHEVKCIZ86ugcJXAu5Yyr7z9IEBT7W2uCeLnl9Fb6jwHh2sd67oYt+uO/UDL2yibZWuzFxCpfPxXAnULhtF4zjQXg6hhQinaisfnVFz7mccJY1sx/xw==";
@@ -241,7 +241,7 @@
   };
   "servarica" = {
     index = 6;
-    tags = with tags; [server];
+    tags = with tags; [server x86_64-v1];
     city = geo.cities."CA Montréal";
     ssh = {
       rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQClxxprXEYNHdbrxA6P0vIzWqSaZ3/sbVacLdTolj5epwc/aklqXbBI5zDH4tac3RmEOBIVNW3PHMZcOAnwD0eo+WbCFw6qkckZBQFAAmroqI5RExonnXgTbuCqQld/kjVtmU/Wnf72yk/BQm8cWfmhPi0I9siERqkzV9lV0vow3jYPgUtA0u5kBU76iBU2X5VYv75Gim7/xC3Fe7c8Oo8LQQdMwSVfAJzC6tPMYQWo/BaDRQfHGyJqfVYq/BSCUhYev361P9gA+L0EMq3b+ohb2v2FqSwQnvbnAkWq4EVL4JpqJ8kboxGVCQTayz6kTu6BYwgvGmSKZo1/mlVEUrlbFK7hPlTH2THfR0ZLiNjJ1Ael1cjOdIRPG0EHhhafRAAYfaDRxO8UZqPg1XjzQCqmliQPBhxnr18VibRph3b+s8Xbi2prPvdPbIy4etZA3RJFbU9HyGoJxtFKWylJ/zeDoVIvdYC/6dtqTd22Aw8VNHein77RmVMInqZwVjvy7PFsnyFX2OnQk7hxghxMY7MkD1eg+Y5CuChkrV1y0pXUhczes44qMjYGkM5Zz5yRP1qLX3pyf1Sash7JDfeU9CoM2RUe1q36knNSwufia2tSUh2C1YxG9yTTxbB53NhcP4wukkmt4NG4XJWTTaX3typf0+ooNQUAB06Tal4vl0dBGw==";
@@ -258,7 +258,7 @@
   };
   "lt-hp-omen" = {
     index = 100;
-    tags = with tags; [client i915-sriov nix-builder x86_64-v3];
+    tags = with tags; [client i915-sriov nix-builder];
     cpuThreads = 16;
     city = geo.cities."US Chicago";
     hostname = "127.0.0.1";
@@ -273,7 +273,7 @@
   };
   "lt-lenovo" = {
     index = 101;
-    tags = with tags; [client nix-builder x86_64-v3];
+    tags = with tags; [client nix-builder];
     # CPU for lt-lenovo is throttled to 50%
     # cpuThreads = 8;
     cpuThreads = 4;
@@ -290,7 +290,7 @@
   };
   "lt-hp-z220-sff" = {
     index = 102;
-    tags = with tags; [nix-builder];
+    tags = with tags; [nix-builder x86_64-v1];
     cpuThreads = 4;
     city = geo.cities."US Chicago";
     hostname = "192.168.0.2";
