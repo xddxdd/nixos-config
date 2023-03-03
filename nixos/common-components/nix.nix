@@ -16,7 +16,6 @@
     name = "nix-privkey.pem";
     file = inputs.secrets + "/nix/privkey.age";
   };
-  age.secrets.nix-s3-secret.file = inputs.secrets + "/nix/s3-secret.age";
 
   nix = {
     package = pkgs.nixUnstable;
@@ -57,6 +56,5 @@
 
   systemd.tmpfiles.rules = [
     "L+ /run/nix-privkey.pem - - - - ${config.age.secrets.nix-privkey.path}"
-    "L+ /root/.aws/credentials - - - - ${config.age.secrets.nix-s3-secret.path}"
   ];
 }

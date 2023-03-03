@@ -104,22 +104,12 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
-      name = "minio";
-      target = "oneprovider";
-      ttl = "1h";
-    })
-    (CNAME {
       name = "pga";
       target = "oneprovider";
       ttl = "1h";
     })
     (CNAME {
       name = "rss";
-      target = "oneprovider";
-      ttl = "1h";
-    })
-    (CNAME {
-      name = "s3";
       target = "oneprovider";
       ttl = "1h";
     })

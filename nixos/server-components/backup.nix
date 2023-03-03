@@ -20,16 +20,6 @@
         "sessionToken" = "";
       };
     };
-    oneprovider = {
-      "type" = "s3";
-      "config" = {
-        "bucket" = {_secret = config.age.secrets.kopia-minio-bucket.path;};
-        "endpoint" = "s3.xuyh0120.win";
-        "accessKeyID" = {_secret = config.age.secrets.kopia-minio-ak.path;};
-        "secretAccessKey" = {_secret = config.age.secrets.kopia-minio-sk.path;};
-        "sessionToken" = "";
-      };
-    };
     storj = {
       "type" = "s3";
       "config" = {
@@ -115,9 +105,6 @@
     rm -f $KOPIA_CONFIG_PATH
   '';
 in {
-  age.secrets.kopia-minio-ak.file = inputs.secrets + "/kopia/minio-ak.age";
-  age.secrets.kopia-minio-bucket.file = inputs.secrets + "/kopia/minio-bucket.age";
-  age.secrets.kopia-minio-sk.file = inputs.secrets + "/kopia/minio-sk.age";
   age.secrets.kopia-pw.file = inputs.secrets + "/kopia/pw.age";
   age.secrets.kopia-scaleway-ak.file = inputs.secrets + "/kopia/scaleway-ak.age";
   age.secrets.kopia-scaleway-bucket.file = inputs.secrets + "/kopia/scaleway-bucket.age";
