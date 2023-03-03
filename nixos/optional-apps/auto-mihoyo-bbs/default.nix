@@ -45,7 +45,10 @@ in {
     wantedBy = ["timers.target"];
     partOf = ["auto-mihoyo-bbs.service"];
     timerConfig = {
-      OnCalendar = "*-*-* 14:30:00";
+      OnCalendar = [
+        "*-*-* 02:30:00"
+        "*-*-* 14:30:00"
+      ];
       Persistent = true;
       RandomizedDelaySec = "4h";
       Unit = "auto-mihoyo-bbs.service";
