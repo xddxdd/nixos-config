@@ -74,6 +74,7 @@
     Rsync = 873;
     V2Ray.SocksClient = 1080;
     KMS = 1688;
+    Quassel = 4242;
     IPFS.API = 5001;
     Radarr = 7878;
     IPFS.Gateway = 8080;
