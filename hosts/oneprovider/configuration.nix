@@ -20,7 +20,6 @@
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/grafana.nix
-    ../../nixos/optional-apps/hath.nix
     ../../nixos/optional-apps/konnect
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/miniflux.nix
@@ -38,9 +37,6 @@
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/waline.nix
-
-    # Unusable, cannot pass captcha
-    # ../../nixos/optional-apps/epic-awesome-gamer.nix
 
     ../../nixos/optional-cron-jobs/ssl-certs.nix
     ../../nixos/optional-cron-jobs/testssl.nix
@@ -81,11 +77,6 @@
     ];
     gateway = ["2001:470:1f12:3b1::1"];
     matchConfig.Name = "henet";
-  };
-
-  lantian.hath = {
-    cacheDir = "/mnt/storage/hath/cache";
-    downloadDir = "/mnt/storage/hath/download";
   };
 
   services.beesd.filesystems.root = {
