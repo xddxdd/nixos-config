@@ -20,6 +20,21 @@
         "sessionToken" = "";
       };
     };
+    servarica = {
+      "type" = "sftp";
+      "config" = {
+        "path" = "/backups-kopia";
+        "host" = "servarica.lantian.pub";
+        "port" = 2222;
+        "username" = "sftp";
+        "password" = "";
+        "keyfile" = config.age.secrets.sftp-privkey.path;
+        "knownHostsFile" = "/etc/ssh/ssh_known_hosts";
+        "externalSSH" = false;
+        "sshCommand" = "ssh";
+        "dirShards" = null;
+      };
+    };
     storj = {
       "type" = "s3";
       "config" = {
