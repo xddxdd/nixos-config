@@ -9,7 +9,27 @@
 } @ args: let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
 
+  kopiaSftpStorageCommon = {
+    "port" = 2222;
+    "username" = "sftp";
+    "password" = "";
+    "keyfile" = config.age.secrets.sftp-privkey.path;
+    "knownHostsFile" = "/etc/ssh/ssh_known_hosts";
+    "externalSSH" = false;
+    "sshCommand" = "ssh";
+    "dirShards" = null;
+  };
+
   kopiaStorage = {
+    lt-hp-z220-sff =
+      kopiaSftpStorageCommon
+      // {
+        "type" = "sftp";
+        "config" = {
+          "path" = "/backups-kopia";
+          "host" = "lt-hp-z220-sff.lantian.pub";
+        };
+      };
     scaleway = {
       "type" = "s3";
       "config" = {
@@ -20,21 +40,15 @@
         "sessionToken" = "";
       };
     };
-    servarica = {
-      "type" = "sftp";
-      "config" = {
-        "path" = "/backups-kopia";
-        "host" = "servarica.lantian.pub";
-        "port" = 2222;
-        "username" = "sftp";
-        "password" = "";
-        "keyfile" = config.age.secrets.sftp-privkey.path;
-        "knownHostsFile" = "/etc/ssh/ssh_known_hosts";
-        "externalSSH" = false;
-        "sshCommand" = "ssh";
-        "dirShards" = null;
+    servarica =
+      kopiaSftpStorageCommon
+      // {
+        "type" = "sftp";
+        "config" = {
+          "path" = "/backups-kopia";
+          "host" = "servarica.lantian.pub";
+        };
       };
-    };
     storj = {
       "type" = "s3";
       "config" = {
@@ -131,6 +145,7 @@ in {
       Type = "oneshot";
       CPUQuota = "40%";
     };
+    unitConfig.OnFailure = "notify-email-fail@%n.service";
     script =
       ''
         SNAPSHOT_DIR=/nix/.snapshot
