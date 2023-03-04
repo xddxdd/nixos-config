@@ -14,7 +14,7 @@
         Type = "oneshot";
         ReadWritePaths = ["/nix/persistent/sync-servers/acme.sh"];
       };
-    unitConfig.OnFailure = "notify-email-success@%n.service";
+    unitConfig.OnFailure = "notify-email-fail@%n.service";
     script = ''
       exec ${pkgs.acme-sh}/bin/acme.sh \
         --config-home /nix/persistent/sync-servers/acme.sh \
