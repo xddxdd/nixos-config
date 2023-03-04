@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/sftp-server.nix
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
