@@ -11,26 +11,31 @@
     name,
     number,
     url,
+    protocol ? "sip",
+    extraRegistrationConfig ? "",
+    extraEndpointConfig ? "",
   }: ''
     [${name}]
     type=registration
     outbound_auth=${name}
-    server_uri=sip:${url}
-    client_uri=sip:${number}@${url}
+    server_uri=${protocol}:${url}
+    client_uri=${protocol}:${number}@${url}
     retry_interval=60
     expiration=120
     contact_user=${number}
     line=yes
     endpoint=${name}
+    ${extraRegistrationConfig}
 
     [${name}](template-endpoint-common)
     context=src-${name}
     outbound_auth=${name}
     from_user=${number}
     aors=${name}
+    ${extraEndpointConfig}
 
     [${name}](template-aor)
-    contact=sip:${url}
+    contact=${protocol}:${url}
 
     [${name}]
     type=identify

@@ -71,6 +71,7 @@ in rec {
     rewrite_contact=yes
     media_encryption=sdes
     media_encryption_optimistic=yes
+    dtmf_mode=rfc4733
     tos_audio=ef
     cos_audio=5
     tos_video=af41

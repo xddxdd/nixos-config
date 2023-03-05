@@ -33,9 +33,12 @@ in rec {
     [transport-ipv4-tls](template-transport-common)
     protocol=tls
     bind=0.0.0.0:5061
+    ca_list_file=/etc/ssl/certs/ca-certificates.crt
     cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
     priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
     method=tlsv1_2
+    verify_client=no
+    verify_server=yes
     external_media_address=${LT.this.public.IPv4}
     external_signaling_address=${LT.this.public.IPv4}
 
@@ -54,9 +57,12 @@ in rec {
     [transport-ipv6-tls](template-transport-common)
     protocol=tls
     bind=[::]:5061
+    ca_list_file=/etc/ssl/certs/ca-certificates.crt
     cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
     priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
     method=tlsv1_2
+    verify_client=no
+    verify_server=yes
     external_media_address=${LT.this.public.IPv6}
     external_signaling_address=${LT.this.public.IPv6}
   '';
