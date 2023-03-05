@@ -110,13 +110,13 @@ in {
 
           [src-telnyx]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
+          ${dialRule "_+X!" ["Goto(src-telnyx,\${EXTEN:1},1)"]}
           ; All calls go to 0000
           ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
           [src-zadarma]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
+          ${dialRule "_+X!" ["Goto(src-zadarma,\${EXTEN:1},1)"]}
           ; All calls go to 0000
           ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
