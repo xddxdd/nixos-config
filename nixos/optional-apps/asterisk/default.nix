@@ -54,22 +54,16 @@ in {
           name = "telnyx";
           number = "recount9550";
           url = "sip.telnyx.com";
-          # protocol = "sips";
-          extraRegistrationConfig = ''
-            transport=transport-ipv4-tls
-          '';
+          protocol = "sips";
           extraEndpointConfig = ''
             allow=!all,amrwb,opus,g722,ulaw,alaw,g729
-            media_encryption=no
+            media_encryption_optimistic=no
           '';
         }}
         ${externalTrunk {
           name = "zadarma";
           number = "286901";
           url = "sip.zadarma.com";
-          extraRegistrationConfig = ''
-            transport=transport-ipv4-udp
-          '';
         }}
 
         ; Anonymous calling
