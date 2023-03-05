@@ -51,9 +51,25 @@ in {
           url = "sip.sdf.org";
         }}
         ${externalTrunk {
+          name = "telnyx";
+          number = "recount9550";
+          url = "sip.telnyx.com";
+          # protocol = "sips";
+          extraRegistrationConfig = ''
+            transport=transport-ipv4-tls
+          '';
+          extraEndpointConfig = ''
+            allow=!all,amrwb,opus,g722,ulaw,alaw,g729
+            media_encryption=no
+          '';
+        }}
+        ${externalTrunk {
           name = "zadarma";
           number = "286901";
           url = "sip.zadarma.com";
+          extraRegistrationConfig = ''
+            transport=transport-ipv4-udp
+          '';
         }}
 
         ; Anonymous calling
@@ -89,13 +105,24 @@ in {
           ${dialRule "_733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
           ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
           ${dialRule "_XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "_NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
           ${dialRule "_X!" ["Goto(dest-url,\${EXTEN},1)"]}
 
           [src-sdf]
+          ; Remove international call prefix
+          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
+          ; All calls go to 0000
+          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
+
+          [src-telnyx]
+          ; Remove international call prefix
+          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
           ; All calls go to 0000
           ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
           [src-zadarma]
+          ; Remove international call prefix
+          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
           ; All calls go to 0000
           ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
