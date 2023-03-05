@@ -37,14 +37,6 @@ in rec {
         cloudscraper
       ];
   });
-  googleearth-pro = prev.googleearth-pro.overrideAttrs (old: {
-    inherit (sources.googleearth-pro) version src;
-    unpackPhase = ''
-      # deb file contains a setuid binary, so 'dpkg -x' doesn't work here
-      dpkg --fsys-tarfile $src | tar --extract
-    '';
-    meta = builtins.removeAttrs old.meta ["knownVulnerabilities"];
-  });
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches =
       (old.patches or [])
