@@ -21,15 +21,15 @@
   };
 
   kopiaStorage = {
-    lt-hp-z220-sff =
-      kopiaSftpStorageCommon
-      // {
-        "type" = "sftp";
-        "config" = {
+    lt-hp-z220-sff = {
+      "type" = "sftp";
+      "config" =
+        kopiaSftpStorageCommon
+        // {
           "path" = "/backups-kopia";
           "host" = "lt-hp-z220-sff.lantian.pub";
         };
-      };
+    };
     scaleway = {
       "type" = "s3";
       "config" = {
@@ -40,15 +40,15 @@
         "sessionToken" = "";
       };
     };
-    servarica =
-      kopiaSftpStorageCommon
-      // {
-        "type" = "sftp";
-        "config" = {
+    servarica = {
+      "type" = "sftp";
+      "config" =
+        kopiaSftpStorageCommon
+        // {
           "path" = "/backups-kopia";
           "host" = "servarica.lantian.pub";
         };
-      };
+    };
     storj = {
       "type" = "s3";
       "config" = {
