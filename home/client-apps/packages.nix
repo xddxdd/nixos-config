@@ -30,7 +30,7 @@
     gcdemu
     gimp
     gnome.gedit
-    googleearth-pro
+    google-earth-pro
     gopherus
     imagemagick
     jellyfin-media-player

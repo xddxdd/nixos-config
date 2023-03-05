@@ -1,19 +1,4 @@
 {
-    "googleearth-pro": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "googleearth-pro",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=",
-            "type": "url",
-            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb"
-        },
-        "version": "7.3.6.9285"
-    },
     "himawaripy": {
         "cargoLocks": null,
         "date": null,
