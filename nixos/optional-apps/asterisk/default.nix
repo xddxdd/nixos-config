@@ -46,6 +46,15 @@ in {
 
         ; External trunks
         ${externalTrunk {
+          name = "callcentric";
+          number = "17778435933";
+          url = "sip.callcentric.net";
+          extraEndpointConfig = ''
+            allow=!all,ulaw,alaw
+            media_encryption=no
+          '';
+        }}
+        ${externalTrunk {
           name = "sdf";
           number = "2293";
           url = "sip.sdf.org";
@@ -99,8 +108,15 @@ in {
           ${dialRule "_733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
           ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
           ${dialRule "_XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "_777XXXXXXX" ["Dial(PJSIP/1\${EXTEN}@callcentric)"]}
           ${dialRule "_NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
           ${dialRule "_X!" ["Goto(dest-url,\${EXTEN},1)"]}
+
+          [src-callcentric]
+          ; Remove international call prefix
+          ${dialRule "_+X!" ["Goto(src-callcentric,\${EXTEN:1},1)"]}
+          ; All calls go to 0000
+          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
 
           [src-sdf]
           ; Remove international call prefix
