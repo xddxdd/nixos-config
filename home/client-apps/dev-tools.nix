@@ -93,6 +93,7 @@
     dpkg
 
     # PHP
+    phpPackages.composer
     phpWithExtensions
 
     # Protobuf
