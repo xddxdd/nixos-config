@@ -65,7 +65,7 @@ in {
           url = "sip.telnyx.com";
           protocol = "sips";
           extraEndpointConfig = ''
-            allow=!all,amrwb,opus,g722,ulaw,alaw,g729
+            allow=!all,opus,g722,ulaw,alaw,g729
             media_encryption_optimistic=no
           '';
         }}
