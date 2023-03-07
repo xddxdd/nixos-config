@@ -109,6 +109,7 @@ in {
           [src-local]
           ${dialRule "733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
           ${dialRule "42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
+          ${dialRule "XXX" ["Dial(PJSIP/\${EXTEN}@telnyx)"]}
           ${dialRule "XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
           ${dialRule "777XXXXXXX" ["Dial(PJSIP/1\${EXTEN}@callcentric)"]}
           ${dialRule "NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
