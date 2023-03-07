@@ -90,7 +90,9 @@ in {
       # - 0000-0099: music
       # - 0100: milliwatt (1004hz)
       # - 0101: fax receiver
-      # - 1000-1999: real users
+      # - 0200-0299: conference room
+      # - 1000-1998: real users
+      # - 1999: ring group (1000 & 1001)
       # - 2000: random between all call bots
       # - 2001: lenny
       # - 2002: jordan (asty-crapper)
@@ -127,8 +129,8 @@ in {
           [src-telnyx]
           ; Remove international call prefix
           ${dialRule "_+X!" ["Goto(src-telnyx,\${EXTEN:1},1)"]}
-          ; All calls go to 0000
-          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
+          ; All calls go to ring group
+          ${dialRule "_X!" ["Goto(dest-local,1999,1)"]}
 
           [src-zadarma]
           ; Remove international call prefix
@@ -140,7 +142,13 @@ in {
           ${destLocalForwardMusic 4}
           ${dialRule "0100" ["Answer()" "Milliwatt(m)"]}
           ${dialRule "0101" ["Answer()" "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"]}
+          ${dialRule "02XX" ["Answer()" "ConfBridge(\${EXTEN:2})"]}
           ${destLocal}
+          ${dialRule "1999" [
+            "Set(DIALGROUP(mygroup,add)=PJSIP/1000)"
+            "Set(DIALGROUP(mygroup,add)=PJSIP/1001)"
+            "Dial(\${DIALGROUP(mygroup)})"
+          ]}
           ${dialRule "2000" ["Goto(dest-local,\${RAND(2001,2003)},1)"]}
           ${dialRule "2001" ["Goto(app-lenny,b,1)"]}
           ${dialRule "2002" ["Goto(app-asty-crapper,b,1)"]}
