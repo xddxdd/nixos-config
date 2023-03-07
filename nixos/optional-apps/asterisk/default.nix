@@ -103,40 +103,40 @@ in {
         ''
           [src-anonymous]
           ; Only allow anonymous inbound call to test numbers
-          ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
-          ${dialRule "_[02-9]XXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
+          ${dialRule "[02-9]XXX" ["Goto(dest-local,\${EXTEN},1)"]}
 
           [src-local]
-          ${dialRule "_733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
-          ${dialRule "_42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
-          ${dialRule "_XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
-          ${dialRule "_777XXXXXXX" ["Dial(PJSIP/1\${EXTEN}@callcentric)"]}
-          ${dialRule "_NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
-          ${dialRule "_X!" ["Goto(dest-url,\${EXTEN},1)"]}
+          ${dialRule "733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
+          ${dialRule "42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
+          ${dialRule "XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "777XXXXXXX" ["Dial(PJSIP/1\${EXTEN}@callcentric)"]}
+          ${dialRule "NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
+          ${dialRule "X!" ["Goto(dest-url,\${EXTEN},1)"]}
 
           [src-callcentric]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-callcentric,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" ["Goto(src-callcentric,\${EXTEN:1},1)"]}
           ; All calls go to 0000
-          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
 
           [src-sdf]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
           ; All calls go to 0000
-          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
 
           [src-telnyx]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-telnyx,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" ["Goto(src-telnyx,\${EXTEN:1},1)"]}
           ; All calls go to ring group
-          ${dialRule "_X!" ["Goto(dest-local,1999,1)"]}
+          ${dialRule "X!" ["Goto(dest-local,1999,1)"]}
 
           [src-zadarma]
           ; Remove international call prefix
-          ${dialRule "_+X!" ["Goto(src-zadarma,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" ["Goto(src-zadarma,\${EXTEN:1},1)"]}
           ; All calls go to 0000
-          ${dialRule "_X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
 
           [dest-local]
           ${destLocalForwardMusic 4}
@@ -153,13 +153,13 @@ in {
           ${dialRule "2001" ["Goto(app-lenny,b,1)"]}
           ${dialRule "2002" ["Goto(app-asty-crapper,b,1)"]}
           ${dialRule "2003" ["Goto(app-beverly,b,1)"]}
-          ${dialRule "_X!" ["Answer()" "Playback(im-sorry&check-number-dial-again)"]}
+          ${dialRule "X!" ["Answer()" "Playback(im-sorry&check-number-dial-again)"]}
 
           [dest-music]
           ${destMusic}
 
           [dest-url]
-          ${dialRule "_X!" ["Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"]}
+          ${dialRule "X!" ["Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"]}
         ''
         + dialAstyCrapper
         + dialBeverly

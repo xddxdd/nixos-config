@@ -15,7 +15,7 @@
         same => n,${ll}
       '')
     ''
-      exten => ${number},1,${builtins.head rules}
+      exten => _${number},1,${builtins.head rules}
     ''
     ((builtins.tail rules) ++ ["Hangup()"]);
 
