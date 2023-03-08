@@ -338,6 +338,146 @@
         },
         "version": "610dc19a6bab76fd9438e1059aba849201a4a4aa"
     },
+    "yourls": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "yourls",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "YOURLS",
+            "repo": "YOURLS",
+            "rev": "1.9.2",
+            "sha256": "sha256-eV8TMWa4woIjRJhuptS7MDVdgItOo5towjKYNlruIKo=",
+            "type": "github"
+        },
+        "version": "1.9.2"
+    },
+    "yourls-404-if-not-found": {
+        "cargoLocks": null,
+        "date": "2022-04-22",
+        "extract": null,
+        "name": "yourls-404-if-not-found",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "YOURLS",
+            "repo": "404-if-not-found",
+            "rev": "eaff0956b29ea869f39613211f0070bc047e3345",
+            "sha256": "sha256-6RzNZjt1YrN/gGJdWSWEc0dyBqrKTq/6Nwso1MOEwQM=",
+            "type": "github"
+        },
+        "version": "eaff0956b29ea869f39613211f0070bc047e3345"
+    },
+    "yourls-always-302": {
+        "cargoLocks": null,
+        "date": "2020-08-22",
+        "extract": null,
+        "name": "yourls-always-302",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tinjaw",
+            "repo": "Always-302",
+            "rev": "c704f3d285fae60e0c49445c499a5bf4b235d411",
+            "sha256": "sha256-llZagwjVWSXCupIzDQ90Rid6icKQ3PL5xoqIC0NzImg=",
+            "type": "github"
+        },
+        "version": "c704f3d285fae60e0c49445c499a5bf4b235d411"
+    },
+    "yourls-dont-log-crawlers": {
+        "cargoLocks": null,
+        "date": "2023-02-07",
+        "extract": null,
+        "name": "yourls-dont-log-crawlers",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "luixxiul",
+            "repo": "dont-log-crawlers",
+            "rev": "425d47d97fe913166dae4bf7054a8be6227f475b",
+            "sha256": "sha256-VtlE1KPSFYjVR0ZMfb86cYKc27FZwJq8VU+Sb4cR62w=",
+            "type": "github"
+        },
+        "version": "425d47d97fe913166dae4bf7054a8be6227f475b"
+    },
+    "yourls-dont-track-admins": {
+        "cargoLocks": null,
+        "date": "2022-05-30",
+        "extract": null,
+        "name": "yourls-dont-track-admins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dgw",
+            "repo": "yourls-dont-track-admins",
+            "rev": "be87e385a52fb452d6b8c70e9fc28ca060a63f62",
+            "sha256": "sha256-GWCUpxPfD/bqwGS1Rhu12HVDK7hgQVCv2mlcI5OOvUg=",
+            "type": "github"
+        },
+        "version": "be87e385a52fb452d6b8c70e9fc28ca060a63f62"
+    },
+    "yourls-login-timeout": {
+        "cargoLocks": null,
+        "date": "2019-04-01",
+        "extract": null,
+        "name": "yourls-login-timeout",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "reanimus",
+            "repo": "yourls-login-timeout",
+            "rev": "1a8eee5a5104c15660952abc49b79486d81917c6",
+            "sha256": "sha256-YGz09e2Fd9R1LcXVIGSjvlF7Hzn6KLB2ZiTL/jPlkSA=",
+            "type": "github"
+        },
+        "version": "1a8eee5a5104c15660952abc49b79486d81917c6"
+    },
+    "yourls-sleeky": {
+        "cargoLocks": null,
+        "date": "2021-06-27",
+        "extract": null,
+        "name": "yourls-sleeky",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Flynntes",
+            "repo": "Sleeky",
+            "rev": "f7978d9d426e4373a02785c5c008920f4bec7a96",
+            "sha256": "sha256-Y8w9awNm1s3FpNRrwhCvyvDj4hg51GAKzcWKOoOnipA=",
+            "type": "github"
+        },
+        "version": "f7978d9d426e4373a02785c5c008920f4bec7a96"
+    },
     "zsh-autopair": {
         "cargoLocks": null,
         "date": "2022-10-03",

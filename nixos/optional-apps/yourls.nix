@@ -6,7 +6,34 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  root = "/var/www/ltn.pw";
+
+  yourlsAddons = {
+    "user/plugins/404-if-not-found" = LT.sources.yourls-404-if-not-found.src;
+    "user/plugins/Always-302" = LT.sources.yourls-always-302.src;
+    "user/plugins/dont-log-crawlers" = LT.sources.yourls-dont-log-crawlers.src;
+    "user/plugins/sleeky-backend" = LT.sources.yourls-sleeky.src + "/sleeky-backend";
+    "user/plugins/yourls-dont-track-admins" = LT.sources.yourls-dont-track-admins.src;
+    "user/plugins/yourls-login-timeout" = LT.sources.yourls-login-timeout.src;
+  };
+
+  yourlsAddonsInstall = builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "cp -r ${v} ${k}") yourlsAddons);
+
+  yourlsPackage = pkgs.stdenvNoCC.mkDerivation {
+    inherit (LT.sources.yourls) pname version src;
+
+    buildPhase = ''
+      ln -sf ${root}/user/config.php user/config.php
+      ${yourlsAddonsInstall}
+    '';
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r * $out/
+    '';
+  };
+in {
   imports = [./mysql.nix];
 
   services.phpfpm.pools.yourls = {
@@ -48,7 +75,7 @@
   services.nginx.virtualHosts = {
     "ltn.pw" = {
       listen = LT.nginx.listenHTTPS;
-      root = "/var/www/ltn.pw";
+      root = "${yourlsPackage}";
       locations =
         LT.nginx.addCommonLocationConf
         {phpfpmSocket = config.services.phpfpm.pools.yourls.socket;}
@@ -85,4 +112,15 @@
   };
 
   users.groups.yourls = {};
+
+  systemd.tmpfiles.rules =
+    lib.mapAttrsToList
+    (k: v: "L+ ${root}/${k} - - - - ${v}") {
+      "user/plugins/404-if-not-found" = LT.sources.yourls-404-if-not-found.src;
+      "user/plugins/Always-302" = LT.sources.yourls-always-302.src;
+      "user/plugins/dont-log-crawlers" = LT.sources.yourls-dont-log-crawlers.src;
+      "user/plugins/sleeky-backend" = LT.sources.yourls-sleeky.src + "/sleeky-backend";
+      "user/plugins/yourls-dont-track-admins" = LT.sources.yourls-dont-track-admins.src;
+      "user/plugins/yourls-login-timeout" = LT.sources.yourls-login-timeout.src;
+    };
 }

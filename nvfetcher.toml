@@ -67,6 +67,34 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 
+[yourls]
+src.github = "YOURLS/YOURLS"
+fetch.github = "YOURLS/YOURLS"
+
+[yourls-404-if-not-found]
+src.git = "https://github.com/YOURLS/404-if-not-found.git"
+fetch.github = "YOURLS/404-if-not-found"
+
+[yourls-always-302]
+src.git = "https://github.com/tinjaw/Always-302.git"
+fetch.github = "tinjaw/Always-302"
+
+[yourls-dont-log-crawlers]
+src.git = "https://github.com/luixxiul/dont-log-crawlers.git"
+fetch.github = "luixxiul/dont-log-crawlers"
+
+[yourls-dont-track-admins]
+src.git = "https://github.com/dgw/yourls-dont-track-admins.git"
+fetch.github = "dgw/yourls-dont-track-admins"
+
+[yourls-login-timeout]
+src.git = "https://github.com/reanimus/yourls-login-timeout.git"
+fetch.github = "reanimus/yourls-login-timeout"
+
+[yourls-sleeky]
+src.git = "https://github.com/Flynntes/Sleeky"
+fetch.github = "Flynntes/Sleeky"
+
 [zsh-autopair]
 src.git = "https://github.com/hlissner/zsh-autopair.git"
 fetch.github = "hlissner/zsh-autopair"
