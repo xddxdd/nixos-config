@@ -204,6 +204,89 @@
     });
     date = "2022-05-19";
   };
+  yourls = {
+    pname = "yourls";
+    version = "1.9.2";
+    src = fetchFromGitHub ({
+      owner = "YOURLS";
+      repo = "YOURLS";
+      rev = "1.9.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-eV8TMWa4woIjRJhuptS7MDVdgItOo5towjKYNlruIKo=";
+    });
+  };
+  yourls-404-if-not-found = {
+    pname = "yourls-404-if-not-found";
+    version = "eaff0956b29ea869f39613211f0070bc047e3345";
+    src = fetchFromGitHub ({
+      owner = "YOURLS";
+      repo = "404-if-not-found";
+      rev = "eaff0956b29ea869f39613211f0070bc047e3345";
+      fetchSubmodules = false;
+      sha256 = "sha256-6RzNZjt1YrN/gGJdWSWEc0dyBqrKTq/6Nwso1MOEwQM=";
+    });
+    date = "2022-04-22";
+  };
+  yourls-always-302 = {
+    pname = "yourls-always-302";
+    version = "c704f3d285fae60e0c49445c499a5bf4b235d411";
+    src = fetchFromGitHub ({
+      owner = "tinjaw";
+      repo = "Always-302";
+      rev = "c704f3d285fae60e0c49445c499a5bf4b235d411";
+      fetchSubmodules = false;
+      sha256 = "sha256-llZagwjVWSXCupIzDQ90Rid6icKQ3PL5xoqIC0NzImg=";
+    });
+    date = "2020-08-22";
+  };
+  yourls-dont-log-crawlers = {
+    pname = "yourls-dont-log-crawlers";
+    version = "425d47d97fe913166dae4bf7054a8be6227f475b";
+    src = fetchFromGitHub ({
+      owner = "luixxiul";
+      repo = "dont-log-crawlers";
+      rev = "425d47d97fe913166dae4bf7054a8be6227f475b";
+      fetchSubmodules = false;
+      sha256 = "sha256-VtlE1KPSFYjVR0ZMfb86cYKc27FZwJq8VU+Sb4cR62w=";
+    });
+    date = "2023-02-07";
+  };
+  yourls-dont-track-admins = {
+    pname = "yourls-dont-track-admins";
+    version = "be87e385a52fb452d6b8c70e9fc28ca060a63f62";
+    src = fetchFromGitHub ({
+      owner = "dgw";
+      repo = "yourls-dont-track-admins";
+      rev = "be87e385a52fb452d6b8c70e9fc28ca060a63f62";
+      fetchSubmodules = false;
+      sha256 = "sha256-GWCUpxPfD/bqwGS1Rhu12HVDK7hgQVCv2mlcI5OOvUg=";
+    });
+    date = "2022-05-30";
+  };
+  yourls-login-timeout = {
+    pname = "yourls-login-timeout";
+    version = "1a8eee5a5104c15660952abc49b79486d81917c6";
+    src = fetchFromGitHub ({
+      owner = "reanimus";
+      repo = "yourls-login-timeout";
+      rev = "1a8eee5a5104c15660952abc49b79486d81917c6";
+      fetchSubmodules = false;
+      sha256 = "sha256-YGz09e2Fd9R1LcXVIGSjvlF7Hzn6KLB2ZiTL/jPlkSA=";
+    });
+    date = "2019-04-01";
+  };
+  yourls-sleeky = {
+    pname = "yourls-sleeky";
+    version = "f7978d9d426e4373a02785c5c008920f4bec7a96";
+    src = fetchFromGitHub ({
+      owner = "Flynntes";
+      repo = "Sleeky";
+      rev = "f7978d9d426e4373a02785c5c008920f4bec7a96";
+      fetchSubmodules = false;
+      sha256 = "sha256-Y8w9awNm1s3FpNRrwhCvyvDj4hg51GAKzcWKOoOnipA=";
+    });
+    date = "2021-06-27";
+  };
   zsh-autopair = {
     pname = "zsh-autopair";
     version = "396c38a7468458ba29011f2ad4112e4fd35f78e6";
