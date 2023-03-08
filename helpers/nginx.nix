@@ -240,7 +240,7 @@ in rec {
 
   locationPHPConf = phpfpmSocket:
     lib.optionalString (phpfpmSocket != null) ''
-      try_files $fastcgi_script_name = 404;
+      try_files $fastcgi_script_name =404;
       fastcgi_split_path_info ^(.+\.php)(/.*)$;
       fastcgi_pass unix:${phpfpmSocket};
       fastcgi_index index.php;
@@ -254,7 +254,7 @@ in rec {
     gzip off;
     brotli off;
     zstd off;
-    try_files $fastcgi_script_name = 404;
+    try_files $fastcgi_script_name =404;
     fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
     fastcgi_index index.sh;
     ${fastcgiParams}
