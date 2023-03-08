@@ -168,10 +168,9 @@ in {
         LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
-    "ltn.pw" = {
+    "www.ltn.pw" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      serverAliases = ["www.ltn.pw"];
-      globalRedirect = "lantian.pub";
+      globalRedirect = "ltn.pw";
       extraConfig =
         LT.nginx.makeSSL "ltn.pw_ecc"
         + LT.nginx.commonVhostConf true;

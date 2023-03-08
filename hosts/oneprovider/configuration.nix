@@ -36,6 +36,7 @@
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/waline.nix
+    ../../nixos/optional-apps/yourls.nix
 
     ../../nixos/optional-cron-jobs/ssl-certs.nix
     ../../nixos/optional-cron-jobs/testssl.nix

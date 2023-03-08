@@ -47,12 +47,12 @@ in [
     records = [
       (dns.ALIAS {
         name = "${domain}.";
-        target = common.records.GeoDNSTarget;
+        target = "oneprovider.ltn.pw.";
         ttl = "10m";
       })
       (dns.CNAME {
         name = "www.${domain}.";
-        target = common.records.GeoDNSTarget;
+        target = "oneprovider.ltn.pw.";
         ttl = "10m";
       })
 
