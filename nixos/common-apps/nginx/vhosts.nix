@@ -146,9 +146,10 @@ in {
       extraConfig = LT.nginx.commonVhostConf false;
     };
 
+    # Don't use globalRedirect, it adds http:// prefix
     "www.lantian.pub" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      globalRedirect = "lantian.pub";
+      locations."/".return = "302 https://lantian.pub$request_uri";
       extraConfig =
         LT.nginx.makeSSL "lantian.pub_ecc"
         + LT.nginx.commonVhostConf true;
@@ -156,21 +157,21 @@ in {
     "xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
       serverAliases = ["www.xuyh0120.win"];
-      globalRedirect = "lantian.pub";
+      locations."/".return = "302 https://lantian.pub$request_uri";
       extraConfig =
         LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
     "lab.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      globalRedirect = "lab.lantian.pub";
+      locations."/".return = "302 https://lab.lantian.pub$request_uri";
       extraConfig =
         LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true;
     };
     "www.ltn.pw" = {
       listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      globalRedirect = "ltn.pw";
+      locations."/".return = "302 https://ltn.pw$request_uri";
       extraConfig =
         LT.nginx.makeSSL "ltn.pw_ecc"
         + LT.nginx.commonVhostConf true;
