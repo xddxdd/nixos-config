@@ -35,7 +35,6 @@
 
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
 
     ../../nixos/common-components/cacert.nix
     ../../nixos/common-components/environment.nix
