@@ -222,7 +222,7 @@
   };
   "vultr-sea" = {
     index = 12;
-    tags = with tags; [server];
+    tags = with tags; [low-ram server];
     city = geo.cities."US Seattle";
     hostname = "144.202.83.81";
     ssh = {
