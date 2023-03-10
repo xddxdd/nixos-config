@@ -32,4 +32,7 @@
     device = "/nix/boot";
     options = ["bind"];
   };
+
+  # Needed, or kopia backup fails
+  swapDevices = [{device = "/dev/vda2";}];
 }
