@@ -14,7 +14,10 @@ lib.mkIf (!config.boot.isContainer) {
     grub =
       {
         enable = true;
-        default = "saved";
+        default =
+          if builtins.elem LT.tags.client LT.this.tags
+          then "saved"
+          else 0;
         version = 2;
         splashImage = null;
         font =
