@@ -137,6 +137,22 @@
         peerIPv6LinkLocal = "fe80::605";
       };
     };
+    kioubit = {
+      remoteASN = 4242423914;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23914;
+        remoteAddress = "hk1.g-load.eu";
+        remotePort = 22547;
+        wireguardPubkey = "sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.53.105";
+        peerIPv6LinkLocal = "fe80::ade0";
+      };
+    };
     kskb = {
       remoteASN = 4242421817;
       latencyMs = 2;
