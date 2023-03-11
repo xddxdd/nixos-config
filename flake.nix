@@ -40,6 +40,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+    kioubit-ipv6-canvas-streamer = {
+      url = "git+https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git";
+      flake = false;
+    };
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
