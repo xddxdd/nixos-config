@@ -275,11 +275,11 @@
     "kioubit-ipv6-canvas-streamer": {
       "flake": false,
       "locked": {
-        "lastModified": 1678534431,
-        "narHash": "sha256-61iW6CuMPbXLdYToOfvvwaBBprfeFVW4Eztb3cp/hX4=",
+        "lastModified": 1678577351,
+        "narHash": "sha256-ho0ocPwiNsFcgD4iah5/WVZ3cwlJbEbgoheeTvgcrDs=",
         "ref": "refs/heads/master",
-        "rev": "7c7dd4737c20330380bd6b2cdc7a965507482798",
-        "revCount": 9,
+        "rev": "35d1016f0b94086e3fedc7a0ed00ac58e521472e",
+        "revCount": 10,
         "type": "git",
         "url": "https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git"
       },
