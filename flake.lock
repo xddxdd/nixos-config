@@ -272,6 +272,22 @@
         "type": "github"
       }
     },
+    "kioubit-ipv6-canvas-streamer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678534431,
+        "narHash": "sha256-61iW6CuMPbXLdYToOfvvwaBBprfeFVW4Eztb3cp/hX4=",
+        "ref": "refs/heads/master",
+        "rev": "7c7dd4737c20330380bd6b2cdc7a965507482798",
+        "revCount": 9,
+        "type": "git",
+        "url": "https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git"
+      }
+    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -529,6 +545,7 @@
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "kioubit-ipv6-canvas-streamer": "kioubit-ipv6-canvas-streamer",
         "nix": "nix",
         "nix-alien": "nix-alien",
         "nix-environments": "nix-environments",
@@ -546,11 +563,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1678421423,
-        "narHash": "sha256-eMHBhJZazXUeq2eJFA+JmwuPCDJq3Ijq8A+Ng1rMurE=",
+        "lastModified": 1678534035,
+        "narHash": "sha256-kMRCBiHvq+/JS23k0j8En9Wja+mSsCO2FOLsue7FmPQ=",
         "ref": "refs/heads/master",
-        "rev": "e5e4b33b110cde6d394a464eaa4bbac1739f80e9",
-        "revCount": 77,
+        "rev": "0dfdd9568f4275f3f317a28ca0385de768250fc1",
+        "revCount": 78,
         "type": "git",
         "url": "ssh://git@github.com/xddxdd/nixos-secrets"
       },

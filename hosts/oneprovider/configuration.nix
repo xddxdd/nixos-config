@@ -11,6 +11,7 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+    ./kioubit-ipv6-canvas-streamer.nix
 
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/asterisk
