@@ -29,6 +29,7 @@
   i350-2 = "a0:36:9f:36:f0:bd";
   i350-3 = "a0:36:9f:36:f0:be";
   i350-4 = "a0:36:9f:36:f0:bf";
+  i225v = "88:c9:b3:b5:04:83";
   mt7916-2_4g = "00:0a:52:08:38:2e";
   mt7916-5g = "00:0a:52:08:38:2f";
 in {
@@ -44,6 +45,7 @@ in {
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-2}", NAME="eth-i350-2", ATTR{device/sriov_numvfs}="7"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-3}", NAME="eth-i350-3", ATTR{device/sriov_numvfs}="7"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-4}", NAME="eth-i350-4", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i225v}", NAME="eth-i225v"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-2_4g}", NAME="wlan-2_4g"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-5g}", NAME="wlan-5g"
   '';
@@ -121,6 +123,14 @@ in {
     };
   };
 
+  systemd.network.networks.i225v = {
+    networkConfig.Bridge = "lan-br";
+    matchConfig = {
+      PermanentMACAddress = i225v;
+      Driver = "igc";
+    };
+  };
+
   systemd.network.netdevs.lan-bond = {
     netdevConfig = {
       Kind = "bond";
@@ -168,107 +178,107 @@ in {
     externalInterface = "wan.201";
   };
 
-  # Wi-Fi AP
-  systemd.network.networks.wlan-2_4g = {
-    networkConfig.Bridge = "lan-br";
-    matchConfig.Name = "wlan-2_4g";
-  };
+  # # Wi-Fi AP
+  # systemd.network.networks.wlan-2_4g = {
+  #   networkConfig.Bridge = "lan-br";
+  #   matchConfig.Name = "wlan-2_4g";
+  # };
 
-  systemd.network.networks.wlan-5g = {
-    networkConfig.Bridge = "lan-br";
-    matchConfig.Name = "wlan-5g";
-  };
+  # systemd.network.networks.wlan-5g = {
+  #   networkConfig.Bridge = "lan-br";
+  #   matchConfig.Name = "wlan-5g";
+  # };
 
-  # # 6GHz
+  # # # 6GHz
+  # # systemd.services.hostapd-wlan-5g = mkHostapd "wlan-5g" ''
+  # #   driver=nl80211
+
+  # #   ssid=Lan Tian Test 6GHz
+  # #   wpa=2
+  # #   wpa_key_mgmt=SAE
+  # #   wpa_passphrase=9876547210.33
+  # #   rsn_pairwise=CCMP
+  # #   group_cipher=CCMP
+
+  # #   hw_mode=a
+  # #   ieee80211w=2
+  # #   beacon_prot=1
+  # #   ieee80211ax=1
+  # #   he_su_beamformer=1
+  # #   he_su_beamformee=1
+  # #   he_mu_beamformer=1
+  # #   he_oper_chwidth=2
+  # #   unsol_bcast_probe_resp_interval=20
+
+  # #   channel=1
+  # #   op_class=134
+  # #   he_oper_centr_freq_seg0_idx=15
+
+  # #   country_code=US
+  # #   country3=0x04
+  # #   # ieee80211d=1
+  # #   # ieee80211h=1
+  # # '';
+
+  # # 5GHz
   # systemd.services.hostapd-wlan-5g = mkHostapd "wlan-5g" ''
   #   driver=nl80211
 
-  #   ssid=Lan Tian Test 6GHz
+  #   ssid=Lan Tian Test 5GHz
   #   wpa=2
-  #   wpa_key_mgmt=SAE
+  #   wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
   #   wpa_passphrase=9876547210.33
   #   rsn_pairwise=CCMP
   #   group_cipher=CCMP
 
   #   hw_mode=a
+  #   wmm_enabled=1
   #   ieee80211w=2
   #   beacon_prot=1
-  #   ieee80211ax=1
-  #   he_su_beamformer=1
-  #   he_su_beamformee=1
-  #   he_mu_beamformer=1
-  #   he_oper_chwidth=2
-  #   unsol_bcast_probe_resp_interval=20
 
-  #   channel=1
-  #   op_class=134
-  #   he_oper_centr_freq_seg0_idx=15
+  #   ieee80211n=1
+  #   ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
+  #   ieee80211ac=1
+  #   # Disable beamforming for weird antenna setup
+  #   vht_capab=[MAX-MPDU-11454][VHT160][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC-2BY1][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]
+  #   ieee80211ax=1
+
+  #   channel=149
+  #   vht_oper_chwidth=2
+  #   vht_oper_centr_freq_seg0_idx=163
 
   #   country_code=US
   #   country3=0x04
-  #   # ieee80211d=1
-  #   # ieee80211h=1
+  #   ieee80211d=1
+  #   ieee80211h=1
   # '';
 
-  # 5GHz
-  systemd.services.hostapd-wlan-5g = mkHostapd "wlan-5g" ''
-    driver=nl80211
+  # # 2.4GHz
+  # systemd.services.hostapd-wlan-2_4g = mkHostapd "wlan-2_4g" ''
+  #   driver=nl80211
 
-    ssid=Lan Tian Test 5GHz
-    wpa=2
-    wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
-    wpa_passphrase=9876547210.33
-    rsn_pairwise=CCMP
-    group_cipher=CCMP
+  #   ssid=Lan Tian Test 2.4GHz
+  #   wpa=2
+  #   wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
+  #   wpa_passphrase=9876547210.33
+  #   rsn_pairwise=CCMP
+  #   group_cipher=CCMP
 
-    hw_mode=a
-    wmm_enabled=1
-    ieee80211w=2
-    beacon_prot=1
+  #   hw_mode=g
+  #   ieee80211w=2
+  #   beacon_prot=1
 
-    ieee80211n=1
-    ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
-    ieee80211ac=1
-    # Disable beamforming for weird antenna setup
-    vht_capab=[MAX-MPDU-11454][VHT160][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC-2BY1][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]
-    ieee80211ax=1
+  #   ieee80211n=1
+  #   ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
 
-    channel=149
-    vht_oper_chwidth=2
-    vht_oper_centr_freq_seg0_idx=163
+  #   channel=acs_survey
+  #   acs_num_scans=5
 
-    country_code=US
-    country3=0x04
-    ieee80211d=1
-    ieee80211h=1
-  '';
-
-  # 2.4GHz
-  systemd.services.hostapd-wlan-2_4g = mkHostapd "wlan-2_4g" ''
-    driver=nl80211
-
-    ssid=Lan Tian Test 2.4GHz
-    wpa=2
-    wpa_key_mgmt=WPA-PSK WPA-PSK-SHA256 SAE
-    wpa_passphrase=9876547210.33
-    rsn_pairwise=CCMP
-    group_cipher=CCMP
-
-    hw_mode=g
-    ieee80211w=2
-    beacon_prot=1
-
-    ieee80211n=1
-    ht_capab=[LDPC][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935]
-
-    channel=acs_survey
-    acs_num_scans=5
-
-    country_code=US
-    country3=0x04
-    ieee80211d=1
-    ieee80211h=1
-  '';
+  #   country_code=US
+  #   country3=0x04
+  #   ieee80211d=1
+  #   ieee80211h=1
+  # '';
 
   ########################################
   # HE.NET Tunnelbroker
