@@ -130,6 +130,14 @@ in {
       fd00::/8+
     ];
 
+    define DN42_HIGH_BW_IPv4 = [
+      # nothing
+    ];
+
+    define DN42_HIGH_BW_IPv6 = [
+      fdcf:8538:9ad5::/48+    # Kioubit's IPv6 canvas
+    ];
+
     define LTNET_IPv4 = [
       10.127.10.0/24+,
       172.18.0.0/16+,
