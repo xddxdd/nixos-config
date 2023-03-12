@@ -272,22 +272,6 @@
         "type": "github"
       }
     },
-    "kioubit-ipv6-canvas-streamer": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1678577351,
-        "narHash": "sha256-ho0ocPwiNsFcgD4iah5/WVZ3cwlJbEbgoheeTvgcrDs=",
-        "ref": "refs/heads/master",
-        "rev": "35d1016f0b94086e3fedc7a0ed00ac58e521472e",
-        "revCount": 10,
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/kioubit-ipv6-canvas-streamer.git"
-      }
-    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -545,7 +529,6 @@
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "kioubit-ipv6-canvas-streamer": "kioubit-ipv6-canvas-streamer",
         "nix": "nix",
         "nix-alien": "nix-alien",
         "nix-environments": "nix-environments",
