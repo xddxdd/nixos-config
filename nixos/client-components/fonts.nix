@@ -69,11 +69,11 @@
       "Plangothic P2"
     ];
   in {
-    defaultFonts = {
+    defaultFonts = rec {
       emoji = ["Blobmoji"];
-      serif = ["Noto Serif" "Source Han Serif SC"] ++ serifFallback;
-      sansSerif = ["Ubuntu" "Source Han Sans SC"] ++ sansFallback;
-      monospace = ["Ubuntu Mono" "Noto Sans Mono CJK SC"] ++ sansFallback;
+      serif = ["Noto Serif" "Source Han Serif SC"] ++ emoji ++ serifFallback;
+      sansSerif = ["Ubuntu" "Source Han Sans SC"] ++ emoji ++ sansFallback;
+      monospace = ["Ubuntu Mono" "Noto Sans Mono CJK SC"] ++ emoji ++ sansFallback;
     };
   };
 }
