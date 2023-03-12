@@ -31,8 +31,8 @@
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
           import none;
@@ -45,12 +45,12 @@
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
         };
       };
     ''
@@ -59,12 +59,12 @@
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
         };
       };
     '';
@@ -72,7 +72,7 @@
   cfg = config.services.dn42 or {};
 in {
   common = ''
-    function dn42_import_filter_ipv4() {
+    function dn42_import_filter_ipv4(int local_asn) {
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
         bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
@@ -88,7 +88,7 @@ in {
       reject;
     }
 
-    function dn42_export_filter_ipv4() {
+    function dn42_export_filter_ipv4(int local_asn) {
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
@@ -97,6 +97,14 @@ in {
       if net ~ [ 172.22.76.184/29+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 172.22.76.96/27+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 10.127.10.0/24+ ] then bgp_path.prepend(${NEO_AS});
+
+      if net ~ DN42_HIGH_BW_IPv4 then {
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+      }
 
       if (
         (bgp_path.last != 0 && roa_check(roa_v4, net, bgp_path.last) != ROA_VALID)
@@ -107,7 +115,7 @@ in {
       accept;
     }
 
-    function dn42_import_filter_ipv6() {
+    function dn42_import_filter_ipv6(int local_asn) {
       if (roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
         bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
@@ -123,7 +131,7 @@ in {
       reject;
     };
 
-    function dn42_export_filter_ipv6() {
+    function dn42_export_filter_ipv6(int local_asn) {
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
@@ -131,6 +139,14 @@ in {
 
       if net ~ [ fdbc:f9dc:67ad::/48+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ fd10:127:10::/48+ ] then bgp_path.prepend(${NEO_AS});
+
+      if net ~ DN42_HIGH_BW_IPv6 then {
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+        bgp_path.prepend(local_asn);
+      }
 
       if (
         (bgp_path.last != 0 && roa_check(roa_v6, net, bgp_path.last) != ROA_VALID)
@@ -254,13 +270,13 @@ in {
       ipv4 {
         add paths tx;
         import none;
-        export filter { dn42_export_filter_ipv4(); };
+        export filter { dn42_export_filter_ipv4(${DN42_AS}); };
       };
 
       ipv6 {
         add paths tx;
         import none;
-        export filter { dn42_export_filter_ipv4(); };
+        export filter { dn42_export_filter_ipv6(${DN42_AS}); };
       };
     }
   '';
