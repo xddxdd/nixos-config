@@ -11,38 +11,6 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
-    bri = {
-      remoteASN = 4242422825;
-      latencyMs = 5;
-      # peering.mpbgp = true;
-      tunnel = {
-        type = "zerotier";
-      };
-      addressing = {
-        myIPv4 = "172.23.217.90";
-        peerIPv4 = "172.23.217.65";
-        IPv4SubnetMask = 27;
-        myIPv6 = "fde4:da74:55b2:3a9b:4999:939e:a04:1298";
-        peerIPv6 = "fde4:da74:55b2:3a9b:4999:93ef:7d96:e6be";
-        IPv6SubnetMask = 80;
-      };
-    };
-    chuangzhu = {
-      remoteASN = 4242423632;
-      latencyMs = 35;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 23632;
-        remoteAddress = "chokeberry.link.melty.land";
-        remotePort = 42547;
-        wireguardPubkey = "oCgzClTd8nECzDqS20/dKaitAHUN1TgIIeVZKAsJ1FA=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.36.35";
-        peerIPv6LinkLocal = "fe80::3632";
-      };
-    };
     exabyte = {
       remoteASN = 4242423340;
       latencyMs = 2;
@@ -72,21 +40,6 @@
       addressing = {
         peerIPv4 = "192.168.202.62";
         peerIPv6LinkLocal = "fe80::1234";
-      };
-    };
-    ifreetion = {
-      remoteASN = 4242421255;
-      latencyMs = 2;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 21255;
-        remoteAddress = "dn42-us-nyc1.acgcl.net";
-        remotePort = 32547;
-        wireguardPubkey = "nPj3l9HhMVoWgjBPCGIzTvrDO5ogcEWm8IkycQWz/jA=";
-      };
-      addressing = {
-        peerIPv6LinkLocal = "fe80::10a0";
       };
     };
     imlonghao = {
@@ -119,22 +72,6 @@
       addressing = {
         peerIPv4 = "172.20.229.123";
         peerIPv6LinkLocal = "fe80::123";
-      };
-    };
-    kclg = {
-      remoteASN = 4242421877;
-      latencyMs = 11;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 21877;
-        remoteAddress = "lilie.lilynet.work";
-        remotePort = 22547;
-        wireguardPubkey = "jYwRBFYATL1spAlXKGI4rkY/27s9ufiD98ctzvP/1GI=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.180.1";
-        peerIPv6LinkLocal = "fe80::1d89";
       };
     };
     kioubit = {
@@ -294,21 +231,6 @@
         peerIPv6LinkLocal = "fe80::1588";
       };
     };
-    weilence = {
-      remoteASN = 4242423739;
-      latencyMs = 67;
-      tunnel = {
-        type = "wireguard";
-        localPort = 23739;
-        remoteAddress = "107.173.153.239";
-        remotePort = 22547;
-        wireguardPubkey = "h+WR54NcjUQ0f7dsxxexqcD0VuKEefCBqW85c3WuGx0=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.225.1";
-        peerIPv6 = "fd33:c25e:9d77::1";
-      };
-    };
     xkww3n = {
       remoteASN = 4242421513;
       latencyMs = 18;
@@ -322,21 +244,6 @@
       addressing = {
         peerIPv4 = "172.21.101.113";
         peerIPv6LinkLocal = "fe80::1113";
-      };
-    };
-    ytc233 = {
-      remoteASN = 4242423054;
-      latencyMs = 62;
-      tunnel = {
-        type = "wireguard";
-        localPort = 23054;
-        remoteAddress = "lv.moeclub.top";
-        remotePort = 22547;
-        wireguardPubkey = "DVt4r1oluoeX+nwevQ5FldlHQ4l3JVj1lfyHEQGUBm8=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.246.65";
-        peerIPv6LinkLocal = "fe80::3054";
       };
     };
   };

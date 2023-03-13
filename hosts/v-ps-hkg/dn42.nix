@@ -27,22 +27,6 @@
         peerIPv6LinkLocal = "fe80::977";
       };
     };
-    bb-pgqm = {
-      remoteASN = 4242420549;
-      latencyMs = 194;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20549;
-        remoteAddress = "hkg.hkg.dn42.bb-pgqm.com";
-        remotePort = 22547;
-        wireguardPubkey = "jtE83RMoN49bs8TOetxrGdzqywz2BI+uT1qJrGI7GVU=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.56.2";
-        peerIPv6LinkLocal = "fe80::549:3441:0:1";
-      };
-    };
     chuangzhu = {
       remoteASN = 4242423632;
       latencyMs = 36;
@@ -57,22 +41,6 @@
       addressing = {
         peerIPv4 = "172.23.36.33";
         peerIPv6LinkLocal = "fe80::3632";
-      };
-    };
-    ffee = {
-      remoteASN = 4242423397;
-      latencyMs = 3;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 23397;
-        remoteAddress = "dn42-hk-cn-1.ffeeco.coffee";
-        remotePort = 22547;
-        wireguardPubkey = "yz29NnFR7kYsO5VMGoU0TnLjbcymFyVfkXmhe4vwQzc=";
-      };
-      addressing = {
-        peerIPv4 = "172.22.162.131";
-        peerIPv6LinkLocal = "fe80::8ac:6bff:fec2:e718";
       };
     };
     iedon = {
@@ -106,21 +74,6 @@
       addressing = {
         peerIPv4 = "172.20.51.100";
         peerIPv6LinkLocal = "fe80::2548";
-      };
-    };
-    jindan = {
-      remoteASN = 4242422399;
-      latencyMs = 4;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22399;
-        remoteAddress = "112.213.124.196";
-        remotePort = 22547;
-        wireguardPubkey = "2Dgn3dnXXRnH19sxfeqOwMMptYW5PjytsCHhMCqpqig=";
-      };
-      addressing = {
-        peerIPv4 = "172.20.51.100";
-        peerIPv6LinkLocal = "fe80::2399";
       };
     };
     kaikai = {
@@ -206,6 +159,7 @@
     purofle = {
       remoteASN = 4242422886;
       latencyMs = 3;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 22886;
@@ -260,21 +214,6 @@
       addressing = {
         peerIPv4 = "172.20.165.192";
         peerIPv6LinkLocal = "fe80::3451";
-      };
-    };
-    sorasky = {
-      remoteASN = 4242420603;
-      latencyMs = 4;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20603;
-        remoteAddress = "hk02.nodes.mol.moe";
-        remotePort = 22547;
-        wireguardPubkey = "wNNbJyoFBrlpq53p61Ur8V2RNfS3U7KADlK7he64qRk=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.7.65";
-        peerIPv6LinkLocal = "fe80::604";
       };
     };
     sunnet = {
