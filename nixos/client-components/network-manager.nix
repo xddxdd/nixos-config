@@ -8,7 +8,7 @@
   ...
 } @ args: let
   managedPrefix =
-    LT.constants.wanInterfacePrefixes
+    LT.constants.interfacePrefixes.WAN
     ++ [
       "nm-"
     ];

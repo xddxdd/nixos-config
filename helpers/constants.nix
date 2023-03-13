@@ -20,15 +20,20 @@
       "172.20.0.0/14"
       "172.31.0.0/16"
       "10.0.0.0/8"
-      "169.254.0.0/16"
-      "192.168.0.0/16"
-      "224.0.0.0/4"
     ];
 
     IPv6 = [
       "fd00::/8"
-      "fe80::/10"
-      "ff00::/8"
+    ];
+  };
+
+  neonetwork = {
+    IPv4 = [
+      "10.127.0.0/16"
+    ];
+
+    IPv6 = [
+      "fd10:127::/32"
     ];
   };
 
@@ -147,15 +152,27 @@
     ]
     (v: v);
 
-  wanInterfacePrefixes = [
-    "en"
-    "eth"
-    "henet"
-    "venet"
-    "wan"
-    "wl"
-    "wlan"
-  ];
+  interfacePrefixes = {
+    WAN = [
+      "en"
+      "eth"
+      "henet"
+      "venet"
+      "wan"
+      "wl"
+      # "wlan" # covered by wl
+    ];
+    DN42 = [
+      "dn42"
+      "neo"
+    ];
+    LAN = [
+      "lan"
+      "ns"
+      "vboxnet"
+      "virbr"
+    ];
+  };
 
   zones = {
     DN42 = ["dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa"];
