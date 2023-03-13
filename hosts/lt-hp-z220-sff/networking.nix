@@ -24,7 +24,7 @@
     };
   };
 
-  onboard = "6c:3b:e5:16:65:b3";
+  board = "6c:3b:e5:16:65:b3";
   i350-1 = "a0:36:9f:36:f0:bc";
   i350-2 = "a0:36:9f:36:f0:bd";
   i350-3 = "a0:36:9f:36:f0:be";
@@ -40,12 +40,13 @@ in {
   boot.blacklistedKernelModules = ["igbvf"];
   boot.kernelModules = ["vfio-pci"];
 
+  # Do not use eth* as name, they are reserved for WAN ports
   services.udev.extraRules = ''
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-1}", NAME="eth-i350-1", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-2}", NAME="eth-i350-2", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-3}", NAME="eth-i350-3", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-4}", NAME="eth-i350-4", ATTR{device/sriov_numvfs}="7"
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i225v}", NAME="eth-i225v"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-1}", NAME="lan-i350-1", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-2}", NAME="lan-i350-2", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-3}", NAME="lan-i350-3", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i350-4}", NAME="lan-i350-4", ATTR{device/sriov_numvfs}="7"
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${i225v}", NAME="lan-i225v"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-2_4g}", NAME="wlan-2_4g"
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${mt7916-5g}", NAME="wlan-5g"
   '';
@@ -54,33 +55,33 @@ in {
   # CenturyLink Uplink
   ########################################
 
-  systemd.network.networks.onboard = {
+  systemd.network.networks.eth-board = {
     networkConfig = {
       DHCP = "no";
-      VLAN = ["wan.201"];
+      VLAN = ["eth-board.201"];
     };
     matchConfig = {
-      PermanentMACAddress = onboard;
+      PermanentMACAddress = board;
       Driver = "e1000e";
     };
   };
 
-  systemd.network.netdevs."wan.201" = {
+  systemd.network.netdevs."eth-board.201" = {
     netdevConfig = {
       Kind = "vlan";
-      Name = "wan.201";
+      Name = "eth-board.201";
     };
     vlanConfig = {
       Id = 201;
     };
   };
 
-  systemd.network.networks."wan.201" = {
+  systemd.network.networks."eth-board.201" = {
     networkConfig = {
       DHCP = "yes";
       Tunnel = "henet";
     };
-    matchConfig.Name = "wan.201";
+    matchConfig.Name = "eth-board.201";
   };
 
   ########################################
@@ -91,7 +92,7 @@ in {
     "192.168.0.2/32"
   ];
 
-  systemd.network.networks.i350-1 = {
+  systemd.network.networks.lan-i350-1 = {
     networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-1;
@@ -99,7 +100,7 @@ in {
     };
   };
 
-  systemd.network.networks.i350-2 = {
+  systemd.network.networks.lan-i350-2 = {
     networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-2;
@@ -107,7 +108,7 @@ in {
     };
   };
 
-  systemd.network.networks.i350-3 = {
+  systemd.network.networks.lan-i350-3 = {
     networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-3;
@@ -115,7 +116,7 @@ in {
     };
   };
 
-  systemd.network.networks.i350-4 = {
+  systemd.network.networks.lan-i350-4 = {
     networkConfig.Bond = "lan-bond";
     matchConfig = {
       PermanentMACAddress = i350-4;
@@ -123,7 +124,7 @@ in {
     };
   };
 
-  systemd.network.networks.i225v = {
+  systemd.network.networks.lan-i225v = {
     networkConfig.Bridge = "lan-br";
     matchConfig = {
       PermanentMACAddress = i225v;
@@ -175,7 +176,7 @@ in {
 
   services.miniupnpd = {
     internalIPs = ["192.168.0.2"];
-    externalInterface = "wan.201";
+    externalInterface = "eth-board.201";
   };
 
   # # Wi-Fi AP
