@@ -14,7 +14,7 @@
 
   configFile = builtins.toJSON {
     settings = {
-      interfacePrefixBlacklist = whitelistToBlacklist LT.constants.wanInterfacePrefixes;
+      interfacePrefixBlacklist = whitelistToBlacklist LT.constants.interfacePrefixes.WAN;
       softwareUpdate = "disable";
     };
   };

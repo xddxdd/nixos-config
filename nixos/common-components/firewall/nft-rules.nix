@@ -15,6 +15,31 @@
     fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-authoritative}]:${LT.portStr.DNS}
   '';
 
+  ipv4Set = name: value: ''
+    set ${name} {
+      type ipv4_addr
+      flags constant, interval
+      elements = { ${builtins.concatStringsSep ", " value} }
+    }
+  '';
+
+  ipv6Set = name: value: ''
+    set ${name} {
+      type ipv6_addr
+      flags constant, interval
+      elements = { ${builtins.concatStringsSep ", " value} }
+    }
+  '';
+
+  interfaceSets = builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''
+      set INTERFACE_${k} {
+        type ifname
+        flags constant, interval
+        elements = { ${builtins.concatStringsSep ", " (builtins.map (v: v + "*") v)} }
+      }
+    '')
+    LT.constants.interfacePrefixes);
+
   wg-lantian =
     (
       lib.optionalString (LT.this.public.IPv4 != "")
@@ -49,10 +74,6 @@
         meta l4proto icmp icmp type timestamp-reply drop
         meta l4proto icmp icmp type timestamp-request drop
 
-        # Block non-DN42 traffic in DN42
-        iifname "dn42*" jump DN42_INPUT
-        iifname "zt*" jump DN42_INPUT
-
         # Block Avahi Multicast DNS on ZeroTier
         iifname "zt*" udp sport 5353 reject
         iifname "zt*" udp dport 5353 reject
@@ -65,19 +86,11 @@
         type filter hook forward priority 5; policy accept;
 
         # DN42 firewall rules
-        ${lib.concatMapStringsSep "\n" (p: ''iifname "dn42*" oifname "${p}*" reject'') LT.constants.wanInterfacePrefixes}
-
-        # Block non-DN42 traffic in DN42
-        iifname "dn42*" jump DN42_INPUT
-        iifname "zt*" jump DN42_INPUT
-        oifname "dn42*" jump DN42_OUTPUT
-        oifname "zt*" jump DN42_OUTPUT
+        iifname @INTERFACE_DN42 jump DN42_FORWARD
       }
 
       chain FILTER_OUTPUT {
         type filter hook output priority 5; policy accept;
-        oifname "dn42*" jump DN42_OUTPUT
-        oifname "zt*" jump DN42_OUTPUT
 
         # Block Avahi Multicast DNS on ZeroTier
         oifname "zt*" udp sport 5353 reject
@@ -117,43 +130,26 @@
           n: v: "ip6 saddr fc00::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
         ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)))}
 
-        ${lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
-      # give nixos containers access to DN42
-      ip saddr 172.18.0.0/16 oifname "dn42-*" snat to ${LT.this.dn42.IPv4}
-      ip saddr 172.18.0.0/16 oifname "neo-*" snat to ${LT.this.neonetwork.IPv4}
-    ''}
+        # give LAN access to DN42
+        ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 snat to ${LT.this.neonetwork.IPv4}
+        ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 snat to ${LT.this.dn42.IPv4}
+        ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 snat to ${LT.this.neonetwork.IPv6}
+        ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 snat to ${LT.this.dn42.IPv6}
 
-        ${lib.concatMapStringsSep "\n" (p: ''
-        ip saddr @RESERVED_IPV4 oifname "${p}*" fullcone
-        ip6 saddr @RESERVED_IPV6 oifname "${p}*" fullcone
-      '')
-      LT.constants.wanInterfacePrefixes}
+        ip saddr @RESERVED_IPV4 oifname @INTERFACE_WAN fullcone
+        ip6 saddr @RESERVED_IPV6 oifname @INTERFACE_WAN fullcone
       }
 
-      # Sets
-      set RESERVED_IPV4 {
-        type ipv4_addr
-        flags constant, interval
-        elements = { ${builtins.concatStringsSep ", " LT.constants.reserved.IPv4} }
-      }
+      # Interface sets
+      ${interfaceSets}
 
-      set RESERVED_IPV6 {
-        type ipv6_addr
-        flags constant, interval
-        elements = { ${builtins.concatStringsSep ", " LT.constants.reserved.IPv6} }
-      }
-
-      set DN42_IPV4 {
-        type ipv4_addr
-        flags constant, interval
-        elements = { ${builtins.concatStringsSep ", " LT.constants.dn42.IPv4} }
-      }
-
-      set DN42_IPV6 {
-        type ipv6_addr
-        flags constant, interval
-        elements = { ${builtins.concatStringsSep ", " LT.constants.dn42.IPv6} }
-      }
+      # IP Sets
+      ${ipv4Set "RESERVED_IPV4" LT.constants.reserved.IPv4}
+      ${ipv6Set "RESERVED_IPV6" LT.constants.reserved.IPv6}
+      ${ipv4Set "DN42_IPV4" LT.constants.dn42.IPv4}
+      ${ipv6Set "DN42_IPV6" LT.constants.dn42.IPv6}
+      ${ipv4Set "NEONETWORK_IPV4" LT.constants.neonetwork.IPv4}
+      ${ipv6Set "NEONETWORK_IPV6" LT.constants.neonetwork.IPv6}
 
       set PUBLIC_FIREWALLED_PORTS {
         type inet_service
@@ -185,17 +181,11 @@
         return
       }
 
-      chain DN42_INPUT {
-        iifname "zthnhe4bol" return
-        ip saddr @DN42_IPV4 return
-        ip6 saddr @DN42_IPV6 return
-        reject with icmpx type admin-prohibited
-      }
-
-      chain DN42_OUTPUT {
-        oifname "zthnhe4bol" return
+      chain DN42_FORWARD {
+        fib daddr type local return
         ip daddr @DN42_IPV4 return
         ip6 daddr @DN42_IPV6 return
+        oifname @INTERFACE_DN42 return
         reject with icmpx type admin-prohibited
       }
     }
