@@ -9,6 +9,7 @@
 } @ args: {
   services.transmission = {
     enable = true;
+    package = pkgs.lantianCustomized.transmission-with-webui;
     user = "lantian";
     group = "users";
     downloadDirPermissions = "775";

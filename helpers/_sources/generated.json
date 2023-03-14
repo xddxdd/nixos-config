@@ -21,7 +21,7 @@
     },
     "hostapd": {
         "cargoLocks": null,
-        "date": "2023-02-23",
+        "date": "2023-03-09",
         "extract": null,
         "name": "hostapd",
         "passthru": null,
@@ -31,16 +31,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2c32026827695e7e0bcb099361339e4a347bb983",
-            "sha256": "sha256-PsBiLCjY38nL8uVELf8YZWNOpB2hm9aSqQNVZfxhiHU=",
+            "rev": "4e86692ff18b7b7f037cad6795325c2e3b989873",
+            "sha256": "sha256-VH307K6+ZHPVukH52lw4qwkx8ktPIlssQHBg3mqVQ2w=",
             "type": "git",
             "url": "https://w1.fi/hostap.git"
         },
-        "version": "2c32026827695e7e0bcb099361339e4a347bb983"
+        "version": "4e86692ff18b7b7f037cad6795325c2e3b989873"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-02-22",
+        "date": "2023-03-08",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -52,11 +52,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "52935bf46392e97e3170809d219f270bb39b6bf7",
-            "sha256": "sha256-poH11BMuFvvzFneTSDKVA2BofpizegWdunPLF2QVehU=",
+            "rev": "10709e39edde863798cb5a728ea9794843d04b93",
+            "sha256": "sha256-oXg0mt/Aa/TFDmRd66Y+2+b/K0MO26ln557/IyRNPA0=",
             "type": "github"
         },
-        "version": "52935bf46392e97e3170809d219f270bb39b6bf7"
+        "version": "10709e39edde863798cb5a728ea9794843d04b93"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -112,15 +112,15 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.14",
-            "sha256": "sha256-Dp2o/Rq77yY68DfCW2xeQC+5W54jywnfril2J8yquQc=",
+            "rev": "v0.15",
+            "sha256": "sha256-VDLI/geDwZwWTLRAeEsU4WdirqjPX9mmuZLkg0EP+Aw=",
             "type": "github"
         },
-        "version": "v0.14"
+        "version": "v0.15"
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-02-11",
+        "date": "2023-03-14",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -132,15 +132,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "1e793b67a7a3a1fc6efdacb40a78099c0253b5ef",
-            "sha256": "sha256-o0l4vKLUtdkhBQQooRTvZmbuUZH8UGsZDyT5wVA0D8w=",
+            "rev": "6c974eaa04b28e84ad26e532a77b085b223083bb",
+            "sha256": "sha256-zmeVMxHz1A3myBn8AlUhJwol16UmbkHZH/Zx71YzKlg=",
             "type": "github"
         },
-        "version": "1e793b67a7a3a1fc6efdacb40a78099c0253b5ef"
+        "version": "6c974eaa04b28e84ad26e532a77b085b223083bb"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-02-25",
+        "date": "2023-03-13",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -152,15 +152,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "24e1d8ff87b189247d56261a9497b1f509b286df",
-            "sha256": "sha256-f+ZmQ3RvbvsN8Zxzzoi6A+W68RAIeUVpLijQpCET/GQ=",
+            "rev": "fe0853d2e72dd3a639a95e420ad7eeed6b49e81b",
+            "sha256": "sha256-4U3qApt3ELr9BZ0k+6XeRnzBT/9mJ4zh8z7npy4V33Y=",
             "type": "github"
         },
-        "version": "24e1d8ff87b189247d56261a9497b1f509b286df"
+        "version": "fe0853d2e72dd3a639a95e420ad7eeed6b49e81b"
     },
     "ovpn-dco": {
         "cargoLocks": null,
-        "date": "2023-01-25",
+        "date": "2023-03-09",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -172,31 +172,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7",
-            "sha256": "sha256-nKUJI0+1DYGvWMKlnXEWNQ5Fgl+GZnYtD/Y/pp7vXGk=",
+            "rev": "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd",
+            "sha256": "sha256-yIPEYjDYIwqm8ftBMK/GSimV/N05in++2vrLFpYm5ps=",
             "type": "github"
         },
-        "version": "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7"
-    },
-    "transmission-web-control": {
-        "cargoLocks": null,
-        "date": "2022-02-23",
-        "extract": null,
-        "name": "transmission-web-control",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ronggang",
-            "repo": "transmission-web-control",
-            "rev": "0bbe64d28667a72130aded6e6d6826efa68566ad",
-            "sha256": "sha256-JMgrbnf6fe3rRO8oWQabchYrUPobwqGJPnbutUtOewU=",
-            "type": "github"
-        },
-        "version": "0bbe64d28667a72130aded6e6d6826efa68566ad"
+        "version": "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

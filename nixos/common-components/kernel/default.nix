@@ -125,7 +125,8 @@ in
           "cryptodev"
           "nft_fullcone"
           "nullfs"
-          "ovpn-dco"
+          # Temporarily disabled for build failure
+          # "ovpn-dco"
         ]
         ++ lib.optionals pkgs.stdenv.isx86_64 ["winesync"];
       extraModulePackages = with config.boot.kernelPackages; ([
