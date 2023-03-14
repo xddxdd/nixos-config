@@ -14,28 +14,28 @@
   };
   hostapd = {
     pname = "hostapd";
-    version = "2c32026827695e7e0bcb099361339e4a347bb983";
+    version = "4e86692ff18b7b7f037cad6795325c2e3b989873";
     src = fetchgit {
       url = "https://w1.fi/hostap.git";
-      rev = "2c32026827695e7e0bcb099361339e4a347bb983";
+      rev = "4e86692ff18b7b7f037cad6795325c2e3b989873";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-PsBiLCjY38nL8uVELf8YZWNOpB2hm9aSqQNVZfxhiHU=";
+      sha256 = "sha256-VH307K6+ZHPVukH52lw4qwkx8ktPIlssQHBg3mqVQ2w=";
     };
-    date = "2023-02-23";
+    date = "2023-03-09";
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "52935bf46392e97e3170809d219f270bb39b6bf7";
+    version = "10709e39edde863798cb5a728ea9794843d04b93";
     src = fetchFromGitHub ({
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "52935bf46392e97e3170809d219f270bb39b6bf7";
+      rev = "10709e39edde863798cb5a728ea9794843d04b93";
       fetchSubmodules = false;
-      sha256 = "sha256-poH11BMuFvvzFneTSDKVA2BofpizegWdunPLF2QVehU=";
+      sha256 = "sha256-oXg0mt/Aa/TFDmRd66Y+2+b/K0MO26ln557/IyRNPA0=";
     });
-    date = "2023-02-22";
+    date = "2023-03-08";
   };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
@@ -63,62 +63,50 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.14";
+    version = "v0.15";
     src = fetchFromGitHub ({
       owner = "abbbi";
       repo = "nullfsvfs";
-      rev = "v0.14";
+      rev = "v0.15";
       fetchSubmodules = false;
-      sha256 = "sha256-Dp2o/Rq77yY68DfCW2xeQC+5W54jywnfril2J8yquQc=";
+      sha256 = "sha256-VDLI/geDwZwWTLRAeEsU4WdirqjPX9mmuZLkg0EP+Aw=";
     });
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "1e793b67a7a3a1fc6efdacb40a78099c0253b5ef";
+    version = "6c974eaa04b28e84ad26e532a77b085b223083bb";
     src = fetchFromGitHub ({
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "1e793b67a7a3a1fc6efdacb40a78099c0253b5ef";
+      rev = "6c974eaa04b28e84ad26e532a77b085b223083bb";
       fetchSubmodules = false;
-      sha256 = "sha256-o0l4vKLUtdkhBQQooRTvZmbuUZH8UGsZDyT5wVA0D8w=";
+      sha256 = "sha256-zmeVMxHz1A3myBn8AlUhJwol16UmbkHZH/Zx71YzKlg=";
     });
-    date = "2023-02-11";
+    date = "2023-03-14";
   };
   openvpn = {
     pname = "openvpn";
-    version = "24e1d8ff87b189247d56261a9497b1f509b286df";
+    version = "fe0853d2e72dd3a639a95e420ad7eeed6b49e81b";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "24e1d8ff87b189247d56261a9497b1f509b286df";
+      rev = "fe0853d2e72dd3a639a95e420ad7eeed6b49e81b";
       fetchSubmodules = false;
-      sha256 = "sha256-f+ZmQ3RvbvsN8Zxzzoi6A+W68RAIeUVpLijQpCET/GQ=";
+      sha256 = "sha256-4U3qApt3ELr9BZ0k+6XeRnzBT/9mJ4zh8z7npy4V33Y=";
     });
-    date = "2023-02-25";
+    date = "2023-03-13";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7";
+    version = "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "3b3df4a3abadfbb8c903469d08e51f577e8e3bd7";
+      rev = "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd";
       fetchSubmodules = false;
-      sha256 = "sha256-nKUJI0+1DYGvWMKlnXEWNQ5Fgl+GZnYtD/Y/pp7vXGk=";
+      sha256 = "sha256-yIPEYjDYIwqm8ftBMK/GSimV/N05in++2vrLFpYm5ps=";
     });
-    date = "2023-01-25";
-  };
-  transmission-web-control = {
-    pname = "transmission-web-control";
-    version = "0bbe64d28667a72130aded6e6d6826efa68566ad";
-    src = fetchFromGitHub ({
-      owner = "ronggang";
-      repo = "transmission-web-control";
-      rev = "0bbe64d28667a72130aded6e6d6826efa68566ad";
-      fetchSubmodules = false;
-      sha256 = "sha256-JMgrbnf6fe3rRO8oWQabchYrUPobwqGJPnbutUtOewU=";
-    });
-    date = "2022-02-23";
+    date = "2023-03-09";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
