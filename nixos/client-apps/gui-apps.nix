@@ -9,6 +9,8 @@
 } @ args: {
   programs.adb.enable = true;
 
+  programs.an-anime-game-launcher.enable = true;
+
   programs.java.enable = true;
 
   programs.steam.enable = true;
