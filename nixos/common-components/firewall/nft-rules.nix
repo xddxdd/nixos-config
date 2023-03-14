@@ -136,8 +136,8 @@
         ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 snat to ${LT.this.neonetwork.IPv6}
         ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 snat to ${LT.this.dn42.IPv6}
 
-        ip saddr @RESERVED_IPV4 oifname @INTERFACE_WAN fullcone
-        ip6 saddr @RESERVED_IPV6 oifname @INTERFACE_WAN fullcone
+        ip saddr @RESERVED_IPV4 oifname @INTERFACE_WAN masquerade
+        ip6 saddr @RESERVED_IPV6 oifname @INTERFACE_WAN masquerade
       }
 
       # Interface sets
