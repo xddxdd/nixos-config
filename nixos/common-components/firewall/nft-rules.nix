@@ -79,7 +79,7 @@
         iifname "zt*" udp dport 5353 reject
 
         # Block certain ports from public internet
-        jump PUBLIC_INPUT
+        iifname @INTERFACE_WAN jump PUBLIC_INPUT
       }
 
       chain FILTER_FORWARD {
@@ -168,16 +168,9 @@
 
       # Helper chains
       chain PUBLIC_INPUT {
-        # Allow private ranges
-        iifname "lo" return
-        ip saddr @RESERVED_IPV4 return
-        ip6 saddr @RESERVED_IPV6 return
-
         # Block ports
-        # Samba
         tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
         udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
-
         return
       }
 
