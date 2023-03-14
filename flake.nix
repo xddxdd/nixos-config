@@ -16,6 +16,10 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    aagl-gtk-on-nix = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -127,6 +131,7 @@
         networking.hostName = lib.mkForce (lib.removePrefix "_" n);
         system.stateVersion = LT.constants.stateVersion;
       })
+      (inputs.aagl-gtk-on-nix + "/module/default.nix")
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.dwarffs.nixosModules.dwarffs
