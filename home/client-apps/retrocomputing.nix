@@ -55,6 +55,7 @@ in {
   };
 
   home.packages = with pkgs; [
+    basiliskii
     dosbox
     pcem
     winntMips
