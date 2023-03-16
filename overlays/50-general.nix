@@ -9,6 +9,9 @@ in rec {
       ];
   });
   bird = final.bird-babel-rtt;
+  brlaser = prev.brlaser.overrideAttrs (old: {
+    inherit (sources.brlaser) version src;
+  });
   calibre = prev.calibre.overrideAttrs (old: {
     postInstall =
       (old.postInstall or "")

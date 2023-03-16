@@ -1,3 +1,8 @@
+[brlaser]
+src.git = "https://github.com/Owl-Maintain/brlaser.git"
+src.branch = "definitions"
+fetch.github = "Owl-Maintain/brlaser"
+
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
