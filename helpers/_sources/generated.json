@@ -1,4 +1,24 @@
 {
+    "brlaser": {
+        "cargoLocks": null,
+        "date": "2023-03-14",
+        "extract": null,
+        "name": "brlaser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Owl-Maintain",
+            "repo": "brlaser",
+            "rev": "648f5c858d468a5c08136aab7dce44b2649df3f9",
+            "sha256": "sha256-35H0N6x0VAddIpDBA6k74qhPPi3VvaTNiaY/+AXDcnw=",
+            "type": "github"
+        },
+        "version": "648f5c858d468a5c08136aab7dce44b2649df3f9"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "date": null,
