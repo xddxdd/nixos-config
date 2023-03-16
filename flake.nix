@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -123,6 +128,7 @@
           overlays =
             [
               inputs.colmena.overlay
+              inputs.nil.overlays.nil
               inputs.nix-alien.overlay
               inputs.nixos-cn.overlay
             ]
