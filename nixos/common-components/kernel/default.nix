@@ -208,11 +208,7 @@ in
       '';
     };
 
-    systemd.services.systemd-sysctl = {
-      after = ["bin.mount"];
-      requires = ["bin.mount"];
-      serviceConfig = {
-        Restart = "on-failure";
-      };
+    systemd.services.systemd-sysctl.serviceConfig = {
+      Restart = "on-failure";
     };
   }
