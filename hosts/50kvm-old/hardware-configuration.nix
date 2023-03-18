@@ -12,7 +12,7 @@
     ../../nixos/hardware/qemu.nix
   ];
 
-  boot.kernelModules = ["nvme"];
+  boot.initrd.kernelModules = ["nvme"];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 

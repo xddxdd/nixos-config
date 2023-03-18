@@ -140,7 +140,7 @@ in
         ]);
 
       initrd = {
-        inherit (config.boot) kernelModules;
+        kernelModules = ["nullfs"];
 
         compressor = "zstd";
         compressorArgs = ["-19" "-T0"];
