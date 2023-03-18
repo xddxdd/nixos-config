@@ -37,6 +37,7 @@
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
     ../../nixos/common-components/cacert.nix
+    ../../nixos/common-components/envfs.nix
     ../../nixos/common-components/environment.nix
     ../../nixos/common-components/networking.nix
     ../../nixos/common-components/ssh-harden.nix
