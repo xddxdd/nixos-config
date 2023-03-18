@@ -70,6 +70,5 @@ My hosts are categorized into three types:
 
   - Supplemental files
     - `hardware`: Common hardware configuration snippets, including LVM and QEMU VMs.
-    - `nixos-cd.nix`: Used to create my customized NixOS installation CD.
     - `optional-apps`: Apps that are used by some nodes. Manual imports required in host-specific definitions.
     - `optional-cron-jobs`: Cron jobs that are used by some nodes. Manual imports required in host-specific definitions.

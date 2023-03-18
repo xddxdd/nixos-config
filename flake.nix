@@ -221,7 +221,5 @@
         mkColmenaHive
         {allowApplyAll = false;}
         (lib.filterAttrs (n: v: !lib.hasPrefix "_" n) self.nixosConfigurations);
-
-      nixosCD = self.nixosConfigurations._nixos-cd.config.system.build.isoImage;
     };
 }
