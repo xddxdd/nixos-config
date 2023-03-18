@@ -95,6 +95,7 @@
     Prometheus.NodeExporter = 9100;
     Prometheus.BirdExporter = 9324;
     Prometheus.EndlesshGo = 9322;
+    Prowlarr = 9696;
     FlareSolverr = 13191;
     ASF = 13242;
     NeteaseUnlock = 13301;
