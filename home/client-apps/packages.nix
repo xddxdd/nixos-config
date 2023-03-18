@@ -33,7 +33,6 @@
     gopherus
     imagemagick
     jellyfin-media-player
-    jellyfin-mpv-shim
     kdenlive
     libfaketime
     librewolf
