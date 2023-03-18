@@ -218,6 +218,7 @@ in {
     '';
   };
 
+  services.envfs.enable = true;
   services.fstrim.enable = !config.boot.isContainer;
   services.irqbalance.enable = !config.boot.isContainer;
 
