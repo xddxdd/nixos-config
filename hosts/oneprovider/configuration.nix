@@ -15,7 +15,6 @@
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/asterisk
     ../../nixos/optional-apps/bird-lg-go.nix
-    ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
@@ -91,8 +90,6 @@
     verbosity = "crit";
     extraOptions = ["--loadavg-target" "4"];
   };
-
-  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
 
