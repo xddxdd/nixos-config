@@ -8,6 +8,10 @@
   modulesPath,
   ...
 }: {
+  imports = [
+    ../../nixos/hardware/sgx.nix
+  ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

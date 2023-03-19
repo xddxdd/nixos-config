@@ -71,11 +71,4 @@
       "credentials=${config.age.secrets.samba-credentials.path}"
     ];
   };
-
-  # Intel SGX
-  services.aesmd.enable = true;
-  hardware.cpu.intel.sgx = {
-    provision.enable = true;
-    enableDcapCompat = true;
-  };
 }
