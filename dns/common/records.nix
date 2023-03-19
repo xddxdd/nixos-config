@@ -77,21 +77,21 @@ in
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "oneprovider";
+        target = "vultr-sea";
       })
       (SRV {
         name = "_sip._tcp";
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "oneprovider";
+        target = "vultr-sea";
       })
       (SRV {
         name = "_sips._tcp";
         priority = 0;
         weight = 0;
         port = 5061;
-        target = "oneprovider";
+        target = "vultr-sea";
       })
     ];
   }

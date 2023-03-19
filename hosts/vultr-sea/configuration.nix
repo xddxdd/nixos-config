@@ -11,6 +11,9 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/asterisk
   ];
 
   systemd.network.networks.eth0 = {
