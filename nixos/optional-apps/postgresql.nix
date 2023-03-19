@@ -54,7 +54,7 @@
     "L+ /etc/phppgadmin/config.inc.php - - - - ${config.age.secrets.phppgadmin-conf.path}"
   ];
   services.nginx.virtualHosts = {
-    "pga.xuyh0120.win" = {
+    "pga.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       root = "${pkgs.phppgadmin}";
       locations =
@@ -64,7 +64,7 @@
           "/".index = "index.php";
         };
       extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
+        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
