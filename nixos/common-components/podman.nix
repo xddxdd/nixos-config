@@ -14,6 +14,10 @@ lib.mkIf (!config.boot.isContainer) {
 
   virtualisation.podman = {
     enable = true;
+    autoPrune = {
+      enable = true;
+      flags = ["-af"];
+    };
     # Podman DNS conflicts with my authoritative resolver
     defaultNetwork.settings.dns_enabled = false;
     dockerCompat = true;

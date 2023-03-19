@@ -82,7 +82,7 @@
         enableOnBoot = true;
         autoPrune = {
           enable = true;
-          flags = ["-a"];
+          flags = ["-af"];
         };
         listenOptions = [
           "/run/docker-vm/docker.sock"
