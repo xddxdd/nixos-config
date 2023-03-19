@@ -188,6 +188,20 @@ in {
     '';
   };
 
+  services.logrotate = {
+    enable = true;
+    settings = {
+      asterisk = {
+        files = "/var/log/asterisk/*.log";
+        su = "asterisk asterisk";
+        frequency = "daily";
+        rotate = 5;
+        copytruncate = true;
+        compress = true;
+      };
+    };
+  };
+
   systemd.services.asterisk = {
     path = with pkgs; [mpg123];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
