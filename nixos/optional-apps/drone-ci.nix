@@ -9,6 +9,7 @@
 } @ args: {
   imports = [
     ./docker.nix
+    ./postgresql.nix
     ./vault.nix
   ];
 
@@ -20,8 +21,8 @@
     drone = {
       wantedBy = ["multi-user.target"];
       environment = {
-        DRONE_DATABASE_DRIVER = "sqlite3";
-        DRONE_DATABASE_DATASOURCE = "/var/lib/drone/database.sqlite";
+        DRONE_DATABASE_DRIVER = "postgres";
+        DRONE_DATABASE_DATASOURCE = "host=/run/postgresql user=drone dbname=drone";
         DRONE_GIT_ALWAYS_AUTH = "true";
         DRONE_GITEA_SERVER = "https://git.lantian.pub";
         DRONE_JSONNET_ENABLED = "true";
@@ -40,10 +41,9 @@
           RestartSec = "3";
           EnvironmentFile = config.age.secrets.drone-ci-env.path;
           ExecStart = "${pkgs.drone}/bin/drone-server";
-          StateDirectory = "drone";
           RuntimeDirectory = "drone";
-          User = "container";
-          Group = "container";
+          User = "drone";
+          Group = "drone";
           AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
           CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
           UMask = "000";
@@ -52,8 +52,8 @@
     drone-github = {
       wantedBy = ["multi-user.target"];
       environment = {
-        DRONE_DATABASE_DRIVER = "sqlite3";
-        DRONE_DATABASE_DATASOURCE = "/var/lib/drone-github/database.sqlite";
+        DRONE_DATABASE_DRIVER = "postgres";
+        DRONE_DATABASE_DATASOURCE = "host=/run/postgresql user=drone-github dbname=drone-github";
         DRONE_JSONNET_ENABLED = "true";
         DRONE_REGISTRATION_CLOSED = "true";
         DRONE_SERVER_HOST = "ci-github.lantian.pub";
@@ -71,10 +71,9 @@
           RestartSec = "3";
           EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
           ExecStart = "${pkgs.drone}/bin/drone-server";
-          StateDirectory = "drone-github";
           RuntimeDirectory = "drone-github";
-          User = "container";
-          Group = "container";
+          User = "drone-github";
+          Group = "drone-github";
           AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
           CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
           UMask = "000";
@@ -275,4 +274,33 @@
         + LT.nginx.serveLocalhost;
     };
   };
+
+  services.postgresql = {
+    ensureDatabases = ["drone" "drone-github"];
+    ensureUsers = [
+      {
+        name = "drone";
+        ensurePermissions = {
+          "DATABASE \"drone\"" = "ALL PRIVILEGES";
+        };
+      }
+      {
+        name = "drone-github";
+        ensurePermissions = {
+          "DATABASE \"drone-github\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+  };
+
+  users.users.drone = {
+    group = "drone";
+    isSystemUser = true;
+  };
+  users.users.drone-github = {
+    group = "drone-github";
+    isSystemUser = true;
+  };
+  users.groups.drone = {};
+  users.groups.drone-github = {};
 }
