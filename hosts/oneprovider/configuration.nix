@@ -13,7 +13,6 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asf.nix
-    ../../nixos/optional-apps/asterisk
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/gitea.nix
