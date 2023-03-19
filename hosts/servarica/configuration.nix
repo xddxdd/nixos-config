@@ -12,6 +12,7 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
   ];
