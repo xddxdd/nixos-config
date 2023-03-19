@@ -1,20 +1,4 @@
 {lib, ...}: rec {
-  containerIP = {
-    netease = "2";
-    grasscutter = "26";
-    nginx-proxy = "43";
-    powerdns-recursor = "53";
-    coredns-authoritative = "54";
-    coredns-knot = "55";
-    coredns-client = "56";
-    docker = "79";
-    kms = "88";
-    drone = "101";
-    drone-github = "102";
-    plausible = "138";
-    wg-lantian = "192";
-  };
-
   dn42 = {
     IPv4 = [
       "172.20.0.0/14"

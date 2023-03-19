@@ -9,9 +9,7 @@
 } @ args: let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
-  netns = LT.netns {
-    name = "plausible";
-  };
+  netns = config.lantian.netns.plausible;
 in {
   imports = [../postgresql.nix];
 
@@ -24,6 +22,10 @@ in {
     file = inputs.secrets + "/plausible-secret.age";
     owner = "plausible";
     group = "plausible";
+  };
+
+  lantian.netns.plausible = {
+    ipSuffix = "138";
   };
 
   services.clickhouse.enable = true;
@@ -67,7 +69,7 @@ in {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
-        proxyPass = "http://${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.plausible}:${LT.portStr.Plausible}";
+        proxyPass = "http://${config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
@@ -76,50 +78,48 @@ in {
       + LT.nginx.commonVhostConf true;
   };
 
-  systemd.services =
-    netns.setup
-    // {
-      clickhouse = netns.bind {
-        serviceConfig =
-          LT.serviceHarden
-          // {
-            ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
-            MemoryDenyWriteExecute = lib.mkForce false;
-            RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-            SystemCallFilter = lib.mkForce [];
-          };
-      };
-      plausible = netns.bind {
-        environment = {
-          RELEASE_DISTRIBUTION = "none";
-          LISTEN_IP = "0.0.0.0";
-          RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
-            -kernel inet_dist_use_interface "{127,0,0,1}"
-          '';
-          ERL_EPMD_ADDRESS = "127.0.0.1";
-
-          GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
-          GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
-          IP_GEOLOCATION_DB = "/var/lib/GeoIP/GeoLite2-City.mmdb";
-
-          STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
-          RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
-          HOME = lib.mkForce "/run/plausible";
+  systemd.services = {
+    clickhouse = netns.bind {
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+          MemoryDenyWriteExecute = lib.mkForce false;
+          RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+          SystemCallFilter = lib.mkForce [];
         };
-        serviceConfig =
-          LT.serviceHarden
-          // {
-            Restart = "always";
-            RestartSec = "3";
-            DynamicUser = lib.mkForce false;
-            User = "plausible";
-            Group = "plausible";
-            StateDirectory = lib.mkForce "plausible";
-            RuntimeDirectory = "plausible";
-            WorkingDirectory = lib.mkForce "/run/plausible";
-          };
-      };
     };
+    plausible = netns.bind {
+      environment = {
+        RELEASE_DISTRIBUTION = "none";
+        LISTEN_IP = "0.0.0.0";
+        RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
+          -kernel inet_dist_use_interface "{127,0,0,1}"
+        '';
+        ERL_EPMD_ADDRESS = "127.0.0.1";
+
+        GEOLITE2_COUNTRY_DB = "/var/lib/GeoIP/GeoLite2-Country.mmdb";
+        GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
+        IP_GEOLOCATION_DB = "/var/lib/GeoIP/GeoLite2-City.mmdb";
+
+        STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
+        RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
+        HOME = lib.mkForce "/run/plausible";
+      };
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          Restart = "always";
+          RestartSec = "3";
+          DynamicUser = lib.mkForce false;
+          User = "plausible";
+          Group = "plausible";
+          StateDirectory = lib.mkForce "plausible";
+          RuntimeDirectory = "plausible";
+          WorkingDirectory = lib.mkForce "/run/plausible";
+        };
+    };
+  };
 
   users.users.plausible = {
     group = "plausible";

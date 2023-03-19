@@ -7,25 +7,8 @@
   inputs,
   ...
 } @ args: let
-  corednsAuthoritativeNetns = LT.netns {
-    name = "coredns-authoritative";
-    inherit (config.services.coredns) enable;
-    announcedIPv4 = [
-      "172.22.76.109"
-      "172.18.0.254"
-      "10.127.10.254"
-    ];
-    announcedIPv6 = [
-      "fdbc:f9dc:67ad:2547::54"
-      "fd10:127:10:2547::54"
-    ];
-    birdBindTo = ["coredns-authoritative.service"];
-  };
-  corednsKnotNetns = LT.netns {
-    name = "coredns-knot";
-    inherit (config.services.knot) enable;
-    birdBindTo = ["knot.service"];
-  };
+  corednsAuthoritativeNetns = config.lantian.netns.coredns-authoritative;
+  corednsKnotNetns = config.lantian.netns.coredns-knot;
 
   corednsConfig = let
     dnssec = key:
@@ -75,7 +58,7 @@
         bufsize 1232
         loadbalance round_robin
 
-        forward . ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot} ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
+        forward . ${config.lantian.netns.coredns-knot.ipv4} ${config.lantian.netns.coredns-knot.ipv6}
         ${dnssec null}
       }
 
@@ -149,6 +132,28 @@ in
       ])
       LT.constants.dnssecKeys));
 
+    lantian.netns = {
+      coredns-authoritative = {
+        ipSuffix = "54";
+        inherit (config.services.coredns) enable;
+        announcedIPv4 = [
+          "172.22.76.109"
+          "172.18.0.254"
+          "10.127.10.254"
+        ];
+        announcedIPv6 = [
+          "fdbc:f9dc:67ad:2547::54"
+          "fd10:127:10:2547::54"
+        ];
+        birdBindTo = ["coredns-authoritative.service"];
+      };
+      coredns-knot = {
+        ipSuffix = "55";
+        inherit (config.services.knot) enable;
+        birdBindTo = ["knot.service"];
+      };
+    };
+
     services.knot = {
       enable = true;
       extraConfig = let
@@ -193,8 +198,8 @@ in
 
           remote:
           - id: dn42
-            via: ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot}
-            via: ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
+            via: ${config.lantian.netns.coredns-knot.ipv4}
+            via: ${config.lantian.netns.coredns-knot.ipv6}
 
             # {b,j}.master.delegation-servers.dn42
             address: fd42:180:3de0:30::1@${LT.portStr.DNS}
@@ -209,8 +214,8 @@ in
             # address: fdcf:8538:9ad5:1111::2@${LT.portStr.DNS}
 
           - id: opennic
-            via: ${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-knot}
-            via: ${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.coredns-knot}
+            via: ${config.lantian.netns.coredns-knot.ipv4}
+            via: ${config.lantian.netns.coredns-knot.ipv6}
             address: 161.97.219.84@${LT.portStr.DNS}
             address: 94.103.153.176@${LT.portStr.DNS}
             address: 178.63.116.152@${LT.portStr.DNS}
@@ -290,40 +295,37 @@ in
         ]);
     };
 
-    systemd.services =
-      corednsAuthoritativeNetns.setup
-      // corednsKnotNetns.setup
-      // {
-        coredns-authoritative = corednsAuthoritativeNetns.bind {
-          description = "Coredns for authoritative zones";
-          after = ["network.target"];
-          wantedBy = ["multi-user.target"];
-          serviceConfig =
-            LT.serviceHarden
-            // {
-              LimitNPROC = 512;
-              LimitNOFILE = 1048576;
-              ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
-              ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
-              Restart = "on-failure";
+    systemd.services = {
+      coredns-authoritative = corednsAuthoritativeNetns.bind {
+        description = "Coredns for authoritative zones";
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig =
+          LT.serviceHarden
+          // {
+            LimitNPROC = 512;
+            LimitNOFILE = 1048576;
+            ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
+            Restart = "on-failure";
 
-              User = "container";
-              Group = "container";
-              AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-              CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-              RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-            };
-        };
-        knot = corednsKnotNetns.bind {
-          serviceConfig = {
-            User = lib.mkForce "container";
-            Group = lib.mkForce "container";
-
-            ReadWritePaths = ["/tmp"];
-            CacheDirectory = "zones";
+            User = "container";
+            Group = "container";
+            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+            CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+            RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
           };
+      };
+      knot = corednsKnotNetns.bind {
+        serviceConfig = {
+          User = lib.mkForce "container";
+          Group = lib.mkForce "container";
+
+          ReadWritePaths = ["/tmp"];
+          CacheDirectory = "zones";
         };
       };
+    };
 
     systemd.tmpfiles.rules = lib.mkIf (config.services.coredns.enable || config.services.knot.enable) [
       "d /var/lib/zones 755 container container"

@@ -7,22 +7,24 @@
   inputs,
   ...
 } @ args: let
-  netns = LT.netns {
-    name = "powerdns-recursor";
-    inherit (config.services.pdns-recursor) enable;
-    announcedIPv4 = [
-      "172.22.76.110"
-      "172.18.0.253"
-      "10.127.10.253"
-    ];
-    announcedIPv6 = [
-      "fdbc:f9dc:67ad:2547::53"
-      "fd10:127:10:2547::53"
-    ];
-    birdBindTo = ["pdns-recursor.service"];
-  };
+  netns = config.lantian.netns.powerdns-recursor;
 in
   lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
+    lantian.netns.powerdns-recursor = {
+      ipSuffix = "53";
+      inherit (config.services.pdns-recursor) enable;
+      announcedIPv4 = [
+        "172.22.76.110"
+        "172.18.0.253"
+        "10.127.10.253"
+      ];
+      announcedIPv6 = [
+        "fdbc:f9dc:67ad:2547::53"
+        "fd10:127:10:2547::53"
+      ];
+      birdBindTo = ["pdns-recursor.service"];
+    };
+
     services.pdns-recursor = {
       enable = true;
       dns.address = "0.0.0.0, ::";
@@ -75,8 +77,8 @@ in
         loglevel = 3;
         qname-minimization = "no";
         query-local-address = builtins.concatStringsSep ", " [
-          "${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.powerdns-recursor}"
-          "${LT.this.ltnet.IPv6Prefix}::${LT.constants.containerIP.powerdns-recursor}"
+          config.lantian.netns.powerdns-recursor.ipv4
+          config.lantian.netns.powerdns-recursor.ipv6
         ];
         reuseport = "yes";
         server-id = "lantian";
@@ -89,18 +91,16 @@ in
       };
     };
 
-    systemd.services =
-      netns.setup
-      // {
-        pdns-recursor = netns.bind {
-          serviceConfig = {
-            DynamicUser = lib.mkForce false;
-            ExecReload = [
-              ""
-              "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
-            ];
-            User = lib.mkForce "container";
-          };
+    systemd.services = {
+      pdns-recursor = netns.bind {
+        serviceConfig = {
+          DynamicUser = lib.mkForce false;
+          ExecReload = [
+            ""
+            "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
+          ];
+          User = lib.mkForce "container";
         };
       };
+    };
   }

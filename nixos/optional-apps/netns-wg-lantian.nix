@@ -7,10 +7,7 @@
   inputs,
   ...
 } @ args: let
-  netns = LT.netns {
-    name = "wg-lantian";
-    setupDefaultRoute = false;
-  };
+  netns = config.lantian.netns.wg-lantian;
 
   wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
 in {
@@ -20,6 +17,11 @@ in {
     nameserver 8.8.8.8
     options single-request edns0
   '';
+
+  lantian.netns.wg-lantian = {
+    ipSuffix = "192";
+    enableDefaultRoute = false;
+  };
 
   networking.wireguard.interfaces.wg-lantian = {
     ips = [
@@ -39,14 +41,12 @@ in {
     ];
   };
 
-  systemd.services =
-    netns.setup
-    // {
-      "wireguard-wg-lantian" =
-        netns.bindExisting
-        // {
-          # Don't override network namespace
-          serviceConfig = {};
-        };
-    };
+  systemd.services = {
+    "wireguard-wg-lantian" =
+      netns.bindExisting
+      // {
+        # Don't override network namespace
+        serviceConfig = {};
+      };
+  };
 }

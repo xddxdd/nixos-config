@@ -7,10 +7,7 @@
   inputs,
   ...
 } @ args: let
-  netns = LT.netns {
-    name = "wg-lantian";
-    setupDefaultRoute = false;
-  };
+  netns = config.lantian.netns.wg-lantian;
 
   transmissionDownloadPath = "/mnt/storage/downloads";
   transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";
