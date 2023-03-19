@@ -12,6 +12,8 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/asterisk
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
