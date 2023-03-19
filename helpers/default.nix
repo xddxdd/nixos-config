@@ -37,13 +37,27 @@ in
 
     sources = call _sources/generated.nix;
 
-    hosts = builtins.mapAttrs hostDefaults (call ./hosts.nix);
-    hostDefaults = call ./host-defaults.nix;
-    this = hosts."${config.networking.hostName}" or (hostDefaults config.networking.hostName {});
+    hosts =
+      lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts))
+      (n:
+        (lib.evalModules {
+          modules = [
+            ./host-options.nix
+            (../hosts + "/${n}/host.nix")
+          ];
+          specialArgs = {
+            inherit geo tags;
+            name = n;
+          };
+        })
+        .config);
+    this = hosts."${config.networking.hostName}";
     otherHosts = builtins.removeAttrs hosts [config.networking.hostName];
 
     hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
     serverHosts = hostsWithTag tags.server;
+
+    ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
 
     container = call ./container.nix;
     geo = call ./geo.nix;
