@@ -34,37 +34,23 @@ in
 
     constants = call ./constants.nix;
     inherit (constants) port portStr tags;
+    geo = call ./geo.nix;
 
     sources = call _sources/generated.nix;
 
-    hosts =
-      lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts))
-      (n:
-        (lib.evalModules {
-          modules = [
-            ./host-options.nix
-            (../hosts + "/${n}/host.nix")
-          ];
-          specialArgs = {
-            inherit geo tags;
-            name = n;
-          };
-        })
-        .config);
+    hosts = call ./fn/hosts.nix;
     this = hosts."${config.networking.hostName}";
     otherHosts = builtins.removeAttrs hosts [config.networking.hostName];
 
     hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
     serverHosts = hostsWithTag tags.server;
 
-    ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
-
-    container = call ./container.nix;
-    geo = call ./geo.nix;
-    gui = call ./gui.nix;
-    nginx = call ./nginx.nix;
-    sanitizeName = call ./sanitize-name.nix;
-    serviceHarden = call ./service-harden.nix;
-    uuid = call ./uuid.nix;
-    wrapNetns = call ./wrap-netns.nix;
+    container = call ./fn/container.nix;
+    gui = call ./fn/gui.nix;
+    ls = call ./fn/ls.nix;
+    nginx = call ./fn/nginx.nix;
+    sanitizeName = call ./fn/sanitize-name.nix;
+    serviceHarden = call ./fn/service-harden.nix;
+    uuid = call ./fn/uuid.nix;
+    wrapNetns = call ./fn/wrap-netns.nix;
   })
