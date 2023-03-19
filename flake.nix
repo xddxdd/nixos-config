@@ -95,10 +95,11 @@
     flake-utils-plus,
     ...
   } @ inputs: let
-    ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
-
     inherit (inputs.nixpkgs) lib;
-    LT = import ./helpers {inherit lib inputs;};
+    LT = import ./helpers {
+      inherit lib inputs;
+      inherit (self) nixosConfigurations;
+    };
     specialArgsFor = n: {
       inherit inputs;
       LT = import ./helpers {
@@ -108,10 +109,12 @@
       };
     };
 
+    inherit (LT) ls;
+
     modulesFor = n: [
       ({config, ...}: {
         deployment = let
-          inherit (LT.hosts."${n}" or (LT.hostDefaults n {})) hostname sshPort tags manualDeploy;
+          inherit (LT.hosts."${n}") hostname sshPort tags manualDeploy;
         in {
           allowLocalDeployment = builtins.elem LT.tags.client tags;
           targetHost = hostname;
@@ -188,7 +191,7 @@
       };
 
       hosts = lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (n: {
-        inherit (LT.hosts."${n}" or (LT.hostDefaults n {})) system;
+        inherit (LT.hosts."${n}") system;
         modules = modulesFor n;
         specialArgs = specialArgsFor n;
       });
