@@ -146,7 +146,7 @@ in rec {
 
       "/autoindex.html".extraConfig = ''
         internal;
-        root ${../nixos/common-apps/nginx/files/autoindex};
+        root ${../../nixos/common-apps/nginx/files/autoindex};
       '';
 
       "/status".extraConfig = ''
