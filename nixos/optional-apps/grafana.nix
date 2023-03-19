@@ -59,9 +59,6 @@
         mode = "syslog";
         level = "error";
       };
-      paths = {
-        provisioning = lib.mkForce "";
-      };
       server = {
         protocol = "socket";
         domain = "dashboard.xuyh0120.win";
