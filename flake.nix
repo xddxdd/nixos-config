@@ -103,6 +103,7 @@
       inherit inputs;
       LT = import ./helpers {
         inherit lib inputs;
+        inherit (self) nixosConfigurations;
         inherit (self.nixosConfigurations."${n}") config pkgs;
       };
     };

@@ -12,13 +12,12 @@
 in
   {
     name,
+    ipSuffix,
     outerConfig ? {},
     innerConfig ? {},
     announcedIPv4 ? [],
     announcedIPv6 ? [],
-  }: let
-    thisIP = constants.containerIP."${name}";
-  in
+  }:
     lib.recursiveUpdate outerConfig {
       autoStart = true;
       ephemeral = true;
@@ -27,8 +26,8 @@ in
       privateNetwork = true;
       hostAddress = this.ltnet.IPv4;
       hostAddress6 = this.ltnet.IPv6;
-      localAddress = "${this.ltnet.IPv4Prefix}.${thisIP}";
-      localAddress6 = "${this.ltnet.IPv6Prefix}::${thisIP}";
+      localAddress = "${this.ltnet.IPv4Prefix}.${ipSuffix}";
+      localAddress6 = "${this.ltnet.IPv6Prefix}::${ipSuffix}";
 
       bindMounts = {
         "/nix/persistent" = {
@@ -59,7 +58,7 @@ in
           config =
             ''
               log stderr { error, fatal };
-              router id ${this.ltnet.IPv4Prefix}.${thisIP};
+              router id ${this.ltnet.IPv4Prefix}.${ipSuffix};
               protocol device {}
 
               protocol babel {

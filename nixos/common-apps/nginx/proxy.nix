@@ -31,19 +31,7 @@
     }
   '';
 
-  netns = LT.netns {
-    name = "nginx-proxy";
-    announcedIPv4 = [
-      "172.22.76.108"
-      "172.18.0.243"
-      "10.127.10.243"
-    ];
-    announcedIPv6 = [
-      "fdbc:f9dc:67ad:2547::43"
-      "fd10:127:10:2547::43"
-    ];
-    birdBindTo = ["nginx-proxy.service"];
-  };
+  netns = config.lantian.netns.nginx-proxy;
 in {
   options.lantian.nginx-proxy.enable = lib.mkOption {
     type = lib.types.bool;
@@ -52,26 +40,36 @@ in {
   };
 
   config = lib.mkIf (config.lantian.nginx-proxy.enable) {
-    systemd.services =
-      netns.setup
-      // {
-        nginx-proxy = netns.bind {
-          wantedBy = ["multi-user.target"];
-          serviceConfig =
-            LT.serviceHarden
-            // {
-              ExecStart = "${config.services.nginx.package}/bin/nginx -c ${nginxConfig}";
-              Restart = "always";
-              RestartSec = "10s";
+    lantian.netns.nginx-proxy = {
+      ipSuffix = "43";
+      announcedIPv4 = [
+        "172.22.76.108"
+        "172.18.0.243"
+        "10.127.10.243"
+      ];
+      announcedIPv6 = [
+        "fdbc:f9dc:67ad:2547::43"
+        "fd10:127:10:2547::43"
+      ];
+      birdBindTo = ["nginx-proxy.service"];
+    };
 
-              AmbientCapabilities = ["CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE"];
-              CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE"];
-              User = config.services.nginx.user;
-              Group = config.services.nginx.group;
-              MemoryDenyWriteExecute = lib.mkForce false;
-              TemporaryFileSystem = ["/var/log/nginx:mode=0777"];
-            };
+    systemd.services.nginx-proxy = netns.bind {
+      wantedBy = ["multi-user.target"];
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          ExecStart = "${config.services.nginx.package}/bin/nginx -c ${nginxConfig}";
+          Restart = "always";
+          RestartSec = "10s";
+
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE"];
+          User = config.services.nginx.user;
+          Group = config.services.nginx.group;
+          MemoryDenyWriteExecute = lib.mkForce false;
+          TemporaryFileSystem = ["/var/log/nginx:mode=0777"];
         };
-      };
+    };
   };
 }

@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  netns = LT.netns {name = "netease";};
+  netns = config.lantian.netns.netease;
 
   # https://desperadoj.com/16.html
   xrayConfig = pkgs.writeText "config.json" (builtins.toJSON {
@@ -134,30 +134,32 @@ in {
     options edns0
   '';
 
-  systemd.services =
-    netns.setup
-    // {
-      netns-netease-xray = {
-        after = ["netns-instance-netease.service"];
-        bindsTo = ["netns-instance-netease.service"];
-        wantedBy = ["multi-user.target"];
-        serviceConfig = {
-          ExecStartPre = [
-            # Redirect all connection to xray
-            "${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
-            # Block IPv6 to prevent leaks
-            "${pkgs.iptables}/bin/ip6tables -A INPUT -i ns-netease -j REJECT"
-          ];
-          ExecStart = "${pkgs.xray}/bin/xray -c ${xrayConfig}";
-          ExecStopPost = [
-            "${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
-            "${pkgs.iptables}/bin/ip6tables -D INPUT -i ns-netease -j REJECT"
-          ];
-          Restart = "always";
-          RestartSec = "10s";
-        };
+  lantian.netns.netease = {
+    ipSuffix = "2";
+  };
+
+  systemd.services = {
+    netns-netease-xray = {
+      after = ["netns-instance-netease.service"];
+      bindsTo = ["netns-instance-netease.service"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        ExecStartPre = [
+          # Redirect all connection to xray
+          "${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
+          # Block IPv6 to prevent leaks
+          "${pkgs.iptables}/bin/ip6tables -A INPUT -i ns-netease -j REJECT"
+        ];
+        ExecStart = "${pkgs.xray}/bin/xray -c ${xrayConfig}";
+        ExecStopPost = [
+          "${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -i ns-netease -p tcp -j REDIRECT --to-ports ${LT.portStr.NeteaseUnlock}"
+          "${pkgs.iptables}/bin/ip6tables -D INPUT -i ns-netease -j REJECT"
+        ];
+        Restart = "always";
+        RestartSec = "10s";
       };
     };
+  };
 
   security.wrappers.netease-cloud-music = {
     owner = "root";

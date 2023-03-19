@@ -7,16 +7,18 @@
   inputs,
   ...
 } @ args: let
-  corednsClientNetns = LT.netns {
-    name = "coredns-client";
-  };
+  netns = config.lantian.netns.coredns-client;
 
   backupDNSServers = [
     "8.8.8.8"
     "2001:4860:4860::8888"
   ];
 in {
-  networking.nameservers = ["${LT.this.ltnet.IPv4Prefix}.${LT.constants.containerIP.coredns-client}"] ++ backupDNSServers;
+  networking.nameservers = [config.lantian.netns.coredns-client.ipv4] ++ backupDNSServers;
+
+  lantian.netns.coredns-client = {
+    ipSuffix = "56";
+  };
 
   services.coredns = {
     enable = true;
@@ -76,9 +78,5 @@ in {
       builtins.concatStringsSep "\n" (cfgEntries ++ [""]);
   };
 
-  systemd.services =
-    corednsClientNetns.setup
-    // {
-      coredns = corednsClientNetns.bind {};
-    };
+  systemd.services.coredns = netns.bind {};
 }

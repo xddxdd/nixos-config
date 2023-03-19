@@ -3,6 +3,7 @@
   pkgs ? {},
   lib ? pkgs.lib,
   inputs,
+  nixosConfigurations ? null,
   ...
 }: let
   mkScope = f: let
@@ -29,7 +30,7 @@
     scope;
 in
   mkScope (call: rec {
-    inherit config pkgs lib inputs;
+    inherit config pkgs lib inputs nixosConfigurations;
 
     constants = call ./constants.nix;
     inherit (constants) port portStr tags;
@@ -47,7 +48,6 @@ in
     container = call ./container.nix;
     geo = call ./geo.nix;
     gui = call ./gui.nix;
-    netns = call ./netns.nix;
     nginx = call ./nginx.nix;
     sanitizeName = call ./sanitize-name.nix;
     serviceHarden = call ./service-harden.nix;

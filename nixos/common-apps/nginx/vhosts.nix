@@ -31,7 +31,7 @@
 
         # Plausible Analytics
         "= /api/event" = {
-          proxyPass = "http://${LT.hosts."oneprovider".ltnet.IPv4Prefix}.${LT.constants.containerIP.plausible}:${LT.portStr.Plausible}";
+          proxyPass = "http://${LT.nixosConfigurations."oneprovider".config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
           extraConfig = LT.nginx.locationProxyConf;
         };
 
