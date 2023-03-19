@@ -70,7 +70,7 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "asf";
-      target = "vultr-sea";
+      target = "oneprovider";
       ttl = "1h";
     })
     (CNAME {
