@@ -40,13 +40,6 @@ in rec {
         cloudscraper
       ];
   });
-  jellyfin = prev.jellyfin.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/jellyfin-volume-normalization.patch
-      ];
-  });
   jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [makeWrapper]);
     postFixup =
