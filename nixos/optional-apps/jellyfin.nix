@@ -27,6 +27,10 @@ in {
           proxyPass = "http://unix:/run/jellyfin/socket";
           extraConfig = LT.nginx.locationProxyConf;
         };
+        "= /web/" = {
+          proxyPass = "http://unix:/run/jellyfin/socket:/web/index.html";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
       };
       extraConfig =
         LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
@@ -38,6 +42,10 @@ in {
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
+          extraConfig = LT.nginx.locationProxyConf;
+        };
+        "= /web/" = {
+          proxyPass = "http://unix:/run/jellyfin/socket:/web/index.html";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
