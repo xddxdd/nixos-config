@@ -98,6 +98,12 @@ in {
     evdev:atkbd:dmi:bvn*:bvr*:bd*:svnHP:pnOMEN*:pvr*
       KEYBOARD_KEY_a1=!calc
       KEYBOARD_KEY_c5=delete
+      KEYBOARD_KEY_4f=f13
+      KEYBOARD_KEY_50=f14
+      KEYBOARD_KEY_51=f15
+      KEYBOARD_KEY_4b=mail
+      KEYBOARD_KEY_4c=bookmarks
+      KEYBOARD_KEY_4d=computer
   '';
 
   # Bind mounts
