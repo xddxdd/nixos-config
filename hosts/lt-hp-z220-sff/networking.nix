@@ -155,6 +155,7 @@ in {
     };
     extraConfig = ''
       [Bridge]
+      HairPin=yes
       STP=yes
     '';
   };
