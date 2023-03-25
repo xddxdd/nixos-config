@@ -34,6 +34,10 @@
   boot.initrd.systemd.enable = lib.mkForce false;
   boot.kernelParams = ["pci=realloc,assign-busses"];
 
+  # Tesla P4 vGPU
+  lantian.kernel = pkgs.lantianLinuxXanmod.v6_0-x86_64-v1-lto;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_vgpu;
+
   # ECC RAM
   hardware.rasdaemon.enable = true;
 
