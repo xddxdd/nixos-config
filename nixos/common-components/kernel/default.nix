@@ -117,24 +117,7 @@ in {
           nvidia_x11_production = nvidiaPackages.production;
           nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
 
-          nvidia_x11_vgpu = nvidiaPackages.stable.overrideAttrs (old: rec {
-            name = "nvidia-x11-${version}-${final.kernel.version}";
-            version = "525.85.07";
-            src = pkgs.requireFile rec {
-              name = "NVIDIA-Linux-x86_64-${version}-vgpu-kvm.run";
-              sha256 = "0f4h2wlsbbi59z9jyz4drlslmgmiairnfiw3ahybmgl8lapzhvdy";
-              url = "https://www.nvidia.com/object/vGPU-software-driver.html";
-              message = ''
-                Unfortunately, we cannot download file ${name} automatically.
-                This file can be extracted from vGPU driver's zip file.
-                Please go to ${url} to download it yourself, and add it to the Nix store
-                using either
-                  nix-store --add-fixed sha256 ${name}
-                or
-                  nix-prefetch-url --type sha256 file:///path/to/${name}
-              '';
-            };
-          });
+          nvidia_x11_vgpu = nvidiaOverride (final.callPackage ./nvidia-x11-vgpu/generic.nix {});
 
           # this is not a replacement for nvidia_x11*
           # only the opensource kernel driver exposed for hydra to build

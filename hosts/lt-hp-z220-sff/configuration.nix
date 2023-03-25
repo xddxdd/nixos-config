@@ -25,7 +25,7 @@
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/nvidia/cuda-only.nix
+    ../../nixos/optional-apps/nvidia/vgpu-only.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/vlmcsd.nix
@@ -36,7 +36,6 @@
 
   # Tesla P4 vGPU
   lantian.kernel = pkgs.lantianLinuxXanmod.v6_0-x86_64-v1-lto;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_vgpu;
 
   # ECC RAM
   hardware.rasdaemon.enable = true;
