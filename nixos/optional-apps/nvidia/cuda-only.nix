@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
+  nvidia_x11 = config.hardware.nvidia.package;
 
   nvidiaSwitchVFIOScript = pkgs.writeShellScriptBin "nvidia-switch-vfio" ''
     PCI_ADDR=0000:01:00.0
