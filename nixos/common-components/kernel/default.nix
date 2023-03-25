@@ -7,16 +7,6 @@
   inputs,
   ...
 } @ args: let
-  kpkg =
-    if pkgs.stdenv.isx86_64
-    then
-      (
-        if builtins.elem LT.tags.x86_64-v1 LT.this.tags
-        then pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v1-lto
-        else pkgs.linuxPackagesFor pkgs.lantianLinuxXanmod.x86_64-v3-lto
-      )
-    # TODO: update to 6.1 once 6.1.12 is in nixpkgs
-    else pkgs.linuxPackages_6_0;
   llvmOverride = p:
     if pkgs.stdenv.isx86_64
     then
@@ -67,8 +57,22 @@
           persistenced = old.passthru.persistenced.override {nvidia_x11 = patched;};
         };
     });
-in
-  lib.mkIf (!config.boot.isContainer) {
+in {
+  options = {
+    lantian.kernel = lib.mkOption {
+      type = lib.types.package;
+      default =
+        if pkgs.stdenv.isx86_64
+        then
+          (
+            if builtins.elem LT.tags.x86_64-v1 LT.this.tags
+            then pkgs.lantianLinuxXanmod.x86_64-v1-lto
+            else pkgs.lantianLinuxXanmod.x86_64-v3-lto
+          )
+        else pkgs.linux_6_1;
+    };
+  };
+  config = {
     boot = {
       kernelParams =
         [
@@ -85,7 +89,7 @@ in
           "net.ifnames=0"
         ]);
       kernelPackages =
-        kpkg.extend
+        (pkgs.linuxPackagesFor config.lantian.kernel).extend
         (final: prev: rec {
           # Fixes for kernel modules that don't use kernel.makeFlags
           cryptodev = llvmOverride prev.cryptodev;
@@ -112,6 +116,25 @@ in
           nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
           nvidia_x11_production = nvidiaPackages.production;
           nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
+
+          nvidia_x11_vgpu = nvidiaPackages.stable.overrideAttrs (old: rec {
+            name = "nvidia-x11-${version}-${final.kernel.version}";
+            version = "525.85.07";
+            src = pkgs.requireFile rec {
+              name = "NVIDIA-Linux-x86_64-${version}-vgpu-kvm.run";
+              sha256 = "0f4h2wlsbbi59z9jyz4drlslmgmiairnfiw3ahybmgl8lapzhvdy";
+              url = "https://www.nvidia.com/object/vGPU-software-driver.html";
+              message = ''
+                Unfortunately, we cannot download file ${name} automatically.
+                This file can be extracted from vGPU driver's zip file.
+                Please go to ${url} to download it yourself, and add it to the Nix store
+                using either
+                  nix-store --add-fixed sha256 ${name}
+                or
+                  nix-prefetch-url --type sha256 file:///path/to/${name}
+              '';
+            };
+          });
 
           # this is not a replacement for nvidia_x11*
           # only the opensource kernel driver exposed for hydra to build
@@ -215,4 +238,5 @@ in
         Restart = "on-failure";
       };
     };
-  }
+  };
+}
