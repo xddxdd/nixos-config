@@ -11,7 +11,6 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-    ./media-center.nix
 
     ../../nixos/hardware/ignore-nice-load.nix
 
