@@ -20,6 +20,7 @@ in {
     ../../nixos/client-components/xorg.nix
 
     ../../nixos/optional-apps/flexget.nix
+    ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/sonarr.nix
     ../../nixos/optional-apps/transmission-daemon.nix
   ];
