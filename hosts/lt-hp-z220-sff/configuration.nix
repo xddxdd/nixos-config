@@ -22,6 +22,7 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
+    ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
