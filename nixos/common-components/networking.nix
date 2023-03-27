@@ -73,8 +73,8 @@
     search = ["lantian.pub"];
     tempAddresses = "disabled";
 
-    # systemd-networkd breaks resolv.conf
-    useNetworkd = lib.mkForce false;
+    # systemd-networkd breaks resolv.conf, but fixed with resolv-conf-setup.service
+    useNetworkd = lib.mkForce true;
   };
 
   systemd.network.enable = true;
@@ -89,6 +89,39 @@
     "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
   ];
   services.resolved.enable = false;
+
+  systemd.services.network-setup-resolv-conf = let
+    cfg = config.networking;
+  in {
+    description = "Setup resolv.conf";
+    after = ["network-pre.target" "systemd-udevd.service" "systemd-sysctl.service"];
+    before = ["network.target" "shutdown.target"];
+    wants = ["network.target"];
+    conflicts = ["shutdown.target"];
+    wantedBy = ["multi-user.target"];
+
+    unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+
+    unitConfig.DefaultDependencies = false;
+
+    script = ''
+      # Set the static DNS configuration, if given.
+      ${pkgs.openresolv}/sbin/resolvconf -m 1 -a static <<EOF
+      ${lib.optionalString (cfg.nameservers != [] && cfg.domain != null) ''
+        domain ${cfg.domain}
+      ''}
+      ${lib.optionalString (cfg.search != []) ("search " + lib.concatStringsSep " " cfg.search)}
+      ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
+        nameserver ${ns}
+      '')}
+      EOF
+    '';
+  };
 
   # Disable systemd-nspawn container's default addresses.
   environment.etc."systemd/network/80-container-ve.network".text = ''
