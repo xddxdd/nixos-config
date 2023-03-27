@@ -221,6 +221,9 @@
         formatter = pkgs.alejandra;
       };
 
+      # Export for nixos-secrets
+      inherit lib LT;
+
       colmenaHive =
         mkColmenaHive
         {allowApplyAll = false;}
