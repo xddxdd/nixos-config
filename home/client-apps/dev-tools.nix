@@ -102,6 +102,8 @@
     # Python
     black
     conda
+    micromamba
+    virtualenv
     yapf
 
     # Rust
