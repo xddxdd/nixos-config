@@ -20,7 +20,7 @@
 
   systemd.services.resilio = {
     environment = {
-      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so:${pkgs.libxcrypt}/lib/libcrypt.so.1";
     };
     serviceConfig =
       LT.serviceHarden
