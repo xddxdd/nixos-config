@@ -7,14 +7,6 @@
   inputs,
   ...
 } @ args: let
-  defaultCfg = {
-    client = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client.conf.json");
-    client-rt = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/client-rt.conf.json");
-    jack = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/jack.conf.json");
-    pipewire = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire.conf.json");
-    pipewire-pulse = lib.importJSON (inputs.nixpkgs + "/nixos/modules/services/desktops/pipewire/daemon/pipewire-pulse.conf.json");
-  };
-
   mkVirtualSurroundSink = name: hrir: let
     gain = 0.5;
   in ''
@@ -123,71 +115,54 @@ in {
     jack.enable = true;
     pulse.enable = true;
 
-    media-session.enable = false;
     wireplumber.enable = true;
+  };
 
-    config = {
-      client = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      client-rt = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      jack = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      pipewire-pulse = {
-        "stream.properties"."resample.quality" = 10;
-      };
+  environment.etc."pipewire/pipewire.conf.d/rtprio.conf".text = builtins.toJSON {
+    "context.modules" = [
+      {
+        name = "libpipewire-module-rt";
+        args = {
+          "nice.level" = -11;
+          "rt.prio" = 88;
+          "rt.time.soft" = -1;
+          "rt.time.hard" = -1;
+        };
+        flags = ["ifexists" "nofail"];
+      }
+    ];
+  };
 
-      pipewire = {
-        "context.modules" =
-          [
-            {
-              name = "libpipewire-module-rt";
-              args = {
-                "nice.level" = -11;
-                "rt.prio" = 88;
-                "rt.time.soft" = -1;
-                "rt.time.hard" = -1;
-              };
-              flags = ["ifexists" "nofail"];
-            }
-          ]
-          ++ (builtins.filter
-            (v: (v.name or "") != "libpipewire-module-rt")
-            defaultCfg.pipewire."context.modules")
-          ++ [
-            {
-              name = "libpipewire-module-filter-chain";
-              args = {
-                "node.name" = "rnnoise_source";
-                "node.description" = "Noise Canceling source";
-                "media.name" = "Noise Canceling source";
-                "filter.graph" = {
-                  nodes = [
-                    {
-                      type = "ladspa";
-                      name = "rnnoise";
-                      plugin = "${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so";
-                      label = "noise_suppressor_stereo";
-                      control = {
-                        "VAD Threshold (%)" = 50.0;
-                      };
-                    }
-                  ];
+  environment.etc."pipewire/pipewire.conf.d/noise-cancelling.conf".text = builtins.toJSON {
+    "context.modules" = [
+      {
+        name = "libpipewire-module-filter-chain";
+        args = {
+          "node.name" = "rnnoise_source";
+          "node.description" = "Noise Canceling source";
+          "media.name" = "Noise Canceling source";
+          "filter.graph" = {
+            nodes = [
+              {
+                type = "ladspa";
+                name = "rnnoise";
+                plugin = "${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so";
+                label = "noise_suppressor_stereo";
+                control = {
+                  "VAD Threshold (%)" = 50.0;
                 };
-                "capture.props" = {
-                  "node.passive" = true;
-                };
-                "playback.props" = {
-                  "media.class" = "Audio/Source";
-                };
-              };
-            }
-          ];
-      };
-    };
+              }
+            ];
+          };
+          "capture.props" = {
+            "node.passive" = true;
+          };
+          "playback.props" = {
+            "media.class" = "Audio/Source";
+          };
+        };
+      }
+    ];
   };
 
   # For some reason PipeWire fails to start when this is converted to JSON

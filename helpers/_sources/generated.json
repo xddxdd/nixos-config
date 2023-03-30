@@ -41,7 +41,7 @@
     },
     "hostapd": {
         "cargoLocks": null,
-        "date": "2023-03-17",
+        "date": "2023-03-29",
         "extract": null,
         "name": "hostapd",
         "passthru": null,
@@ -51,12 +51,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a0403c0239c46b6af9aeb0c6ddab1e41146fa209",
-            "sha256": "sha256-1eNQZwhQrrrnR65BZSAlx8OGHza06Bn2CLmU7N/4plY=",
+            "rev": "bb945b98fefc64887dffb40773a19d77585cee42",
+            "sha256": "sha256-bDxMWjvgyNdBUH8pXJ+yMl3vBBoz57LOJEZHAGSDyS0=",
             "type": "git",
             "url": "https://w1.fi/hostap.git"
         },
-        "version": "a0403c0239c46b6af9aeb0c6ddab1e41146fa209"
+        "version": "bb945b98fefc64887dffb40773a19d77585cee42"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
@@ -140,7 +140,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-03-17",
+        "date": "2023-03-24",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -152,15 +152,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "a231375cd3c3c01d4e43e5c409a28a1672d66728",
-            "sha256": "sha256-kfrISigBy/VZDb+RtkWlLMsEqardssR6kUDLj6XdxC4=",
+            "rev": "81772668d61ce52cd3d5fc2b6dd6f86f43d39197",
+            "sha256": "sha256-zlVIm48YDilqXhm1DE6+6q5bRewzfHveSkYnuqUptyE=",
             "type": "github"
         },
-        "version": "a231375cd3c3c01d4e43e5c409a28a1672d66728"
+        "version": "81772668d61ce52cd3d5fc2b6dd6f86f43d39197"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-03-17",
+        "date": "2023-03-29",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -172,15 +172,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "514eefb14ace41a5790e59b81654d1d5eed60670",
-            "sha256": "sha256-AgotcdwdFeCfhe7cvoJrmRLxg/2gDtCTk7hkZO2WYHs=",
+            "rev": "846951665a60424b98097ad0a77ec6cb1c3d05ac",
+            "sha256": "sha256-k3tGu0l1Cd9oomo7FEkjGCYXOA5UaWlurcjmmejNJvg=",
             "type": "github"
         },
-        "version": "514eefb14ace41a5790e59b81654d1d5eed60670"
+        "version": "846951665a60424b98097ad0a77ec6cb1c3d05ac"
     },
     "ovpn-dco": {
         "cargoLocks": null,
-        "date": "2023-03-09",
+        "date": "2023-03-28",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -192,11 +192,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd",
-            "sha256": "sha256-yIPEYjDYIwqm8ftBMK/GSimV/N05in++2vrLFpYm5ps=",
+            "rev": "961c60d0d8b8d45a21028e0479397c9c5604b81e",
+            "sha256": "sha256-Rl8MhWb42cJZ/rDNFss3ubkx3BRpyh/K9P8d0/pEwsY=",
             "type": "github"
         },
-        "version": "0a5fa0a69b51af666deb657e5ff19ac6e499b0fd"
+        "version": "961c60d0d8b8d45a21028e0479397c9c5604b81e"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

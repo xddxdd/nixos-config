@@ -49,6 +49,9 @@ in rec {
           --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
       '';
   });
+  mailutils = prev.mailutils.overrideAttrs (old: {
+    doCheck = false;
+  });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches =
       (old.patches or [])
@@ -56,9 +59,6 @@ in rec {
         ../patches/matrix-synapse-listen-unix.patch
       ];
   });
-  miniupnpd = prev.miniupnpd.override {
-    iptables = final.iptables-legacy;
-  };
   nix-top = prev.nix-top.overrideAttrs (old: {
     postPatch =
       (old.postInstall or "")
@@ -162,6 +162,7 @@ in rec {
         ../patches/qbittorrent-return-success-on-dup-torrent.patch
       ];
   });
+  resilio-sync = prev.resilio-sync.override {libxcrypt = final.libxcrypt-legacy;};
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch =
