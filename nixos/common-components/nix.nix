@@ -51,6 +51,7 @@
     };
     serviceConfig = {
       CacheDirectory = "nix";
+      Nice = 19;
     };
   };
 
