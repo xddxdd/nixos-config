@@ -15,7 +15,7 @@ in
       inherit (config.services.pdns-recursor) enable;
       announcedIPv4 = [
         "172.22.76.110"
-        "172.18.0.253"
+        "198.18.0.253"
         "10.127.10.253"
       ];
       announcedIPv6 = [
@@ -36,7 +36,7 @@ in
           (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN))
           (k:
             builtins.concatStringsSep ";" [
-              "172.18.0.254"
+              "198.18.0.254"
               "fdbc:f9dc:67ad:2547::54"
             ]);
         emercoin =
@@ -66,7 +66,7 @@ in
         addNTA("lantian.neo")
         addNTA("10.127.10.in-addr.arpa")
         addNTA("0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa")
-        addNTA("18.172.in-addr.arpa")
+        addNTA("18.198.in-addr.arpa")
 
         dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
       '';

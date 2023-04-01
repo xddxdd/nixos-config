@@ -97,7 +97,7 @@
       ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
 
       # LTNET Authoritative
-      ${publicZone "18.172.in-addr.arpa" "ltnet-zones/18.172.in-addr.arpa" null}
+      ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
 
       # Public Internet Authoritative
       ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
@@ -138,7 +138,7 @@ in
         inherit (config.services.coredns) enable;
         announcedIPv4 = [
           "172.22.76.109"
-          "172.18.0.254"
+          "198.18.0.254"
           "10.127.10.254"
         ];
         announcedIPv6 = [

@@ -6,7 +6,7 @@
   ...
 }: [
   rec {
-    domain = "172.18.0.0/16";
+    domain = "198.18.0.0/16";
     reverse = true;
     providers = ["bind"];
     records = [
