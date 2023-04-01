@@ -168,5 +168,14 @@
     OpenNIC = ["bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate"];
     Emercoin = ["bazar" "coin" "emc" "lib"];
     CRXN = ["crxn"];
+    Ltnet = [
+      "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
+      "10.127.10.in-addr.arpa"
+      "18.198.in-addr.arpa"
+      "19.198.in-addr.arpa"
+      "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
+      "lantian.dn42"
+      "lantian.neo"
+    ];
   };
 }
