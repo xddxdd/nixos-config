@@ -11,7 +11,27 @@
     providers = ["bind"];
     records = [
       common.nameservers.LTNet
-      (common.hostRecs.LTNetReverseIPv4 "ltnet.lantian.pub")
+      (common.hostRecs.LTNetReverseIPv4_16 "ltnet.lantian.pub")
+    ];
+  }
+
+  rec {
+    domain = "198.19.0.0/16";
+    reverse = true;
+    providers = ["bind"];
+    records = [
+      common.nameservers.LTNet
+      (common.hostRecs.LTNetReverseIPv4_16 "ltnet.lantian.pub")
+    ];
+  }
+
+  rec {
+    domain = "fdbc:f9dc:67ad::/48";
+    reverse = true;
+    providers = ["bind"];
+    records = [
+      common.nameservers.DN42
+      (common.hostRecs.LTNetReverseIPv6_64 "lantian.dn42")
     ];
   }
 
@@ -53,17 +73,7 @@
     providers = ["bind"];
     records = [
       common.nameservers.NeoNetwork
-      (common.hostRecs.NeoNetworkReverseIPv4 "lantian.neo")
-    ];
-  }
-
-  rec {
-    domain = "fdbc:f9dc:67ad::/48";
-    reverse = true;
-    providers = ["bind"];
-    records = [
-      common.nameservers.DN42
-      (common.hostRecs.DN42ReverseIPv6 "lantian.dn42")
+      (common.hostRecs.LTNetReverseIPv4_24 "lantian.neo")
     ];
   }
 
@@ -73,7 +83,7 @@
     providers = ["bind"];
     records = [
       common.nameservers.NeoNetwork
-      (common.hostRecs.NeoNetworkReverseIPv6 "lantian.neo")
+      (common.hostRecs.LTNetReverseIPv6_64 "lantian.neo")
     ];
   }
 ]

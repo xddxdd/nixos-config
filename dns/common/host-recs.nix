@@ -222,27 +222,40 @@ in {
         addresses = v.ltnet;
       });
 
-  LTNetReverseIPv4 = domain:
+  LTNetReverseIPv4_16 = domain:
     forEachActiveHost
-    (n: v:
-      lib.optionals (v.ltnet.IPv4Prefix != "") [
-        (PTR {
-          name = v.ltnet.IPv4;
-          target = "${ptrPrefix v}${n}.${domain}.";
-          reverse = true;
-        })
-      ]);
+    (n: v: [
+      (PTR {
+        name = "*.${builtins.toString v.index}";
+        target = "${ptrPrefix v}${n}.${domain}.";
+      })
+    ]);
 
-  LTNetReverseIPv6 = domain:
+  LTNetReverseIPv4_24 = domain:
     forEachActiveHost
-    (n: v:
-      lib.optionals (v.ltnet.IPv6Prefix != "") [
-        (PTR {
-          name = v.ltnet.IPv6;
-          target = "${ptrPrefix v}${n}.${domain}.";
-          reverse = true;
-        })
-      ]);
+    (n: v: [
+      (PTR {
+        name = builtins.toString v.index;
+        target = "${ptrPrefix v}${n}.${domain}.";
+      })
+    ]);
+
+  LTNetReverseIPv6_64 = domain:
+    forEachActiveHost
+    (n: v: let
+      prepend = s:
+        if (builtins.length s) < 4
+        then prepend (["0"] ++ s)
+        else s;
+      indexList = prepend (lib.stringToCharacters (builtins.toString v.index));
+      indexInterspersed = lib.intersperse "." indexList;
+      indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
+    in [
+      (PTR {
+        name = "*.${indexStr}";
+        target = "${ptrPrefix v}${n}.${domain}.";
+      })
+    ]);
 
   DN42 = domain:
     forEachHost
@@ -294,17 +307,6 @@ in {
           })
         ]);
 
-  DN42ReverseIPv6 = domain:
-    forEachActiveHost
-    (n: v:
-      lib.optionals (v.dn42.IPv6 != "") [
-        (PTR {
-          name = v.dn42.IPv6;
-          target = "${ptrPrefix v}${n}.${domain}.";
-          reverse = true;
-        })
-      ]);
-
   NeoNetwork = domain:
     forEachHost
     (n: v:
@@ -312,26 +314,4 @@ in {
         name = "${n}.${domain}.";
         addresses = v.neonetwork;
       });
-
-  NeoNetworkReverseIPv4 = domain:
-    forEachActiveHost
-    (n: v:
-      lib.optionals (v.neonetwork.IPv4 != "") [
-        (PTR {
-          name = v.neonetwork.IPv4;
-          target = "${ptrPrefix v}${n}.${domain}.";
-          reverse = true;
-        })
-      ]);
-
-  NeoNetworkReverseIPv6 = domain:
-    forEachActiveHost
-    (n: v:
-      lib.optionals (v.neonetwork.IPv6 != "") [
-        (PTR {
-          name = v.neonetwork.IPv6;
-          target = "${ptrPrefix v}${n}.${domain}.";
-          reverse = true;
-        })
-      ]);
 }

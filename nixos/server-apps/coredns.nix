@@ -98,6 +98,7 @@
 
       # LTNET Authoritative
       ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
+      ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
 
       # Public Internet Authoritative
       ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
