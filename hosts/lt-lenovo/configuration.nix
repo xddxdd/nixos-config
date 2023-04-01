@@ -25,6 +25,8 @@
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
+  lantian.kernel = pkgs.lantianLinuxXanmod.latest-x86_64-v3-lto;
+
   networking.networkmanager.unmanaged = lib.mkForce [
     "interface-name:*,except:interface-name:wl*"
   ];
