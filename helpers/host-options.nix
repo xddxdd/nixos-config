@@ -102,7 +102,7 @@
       };
       IPv4Prefix = lib.mkOption {
         type = lib.types.str;
-        default = "172.18.${builtins.toString config.index}";
+        default = "198.18.${builtins.toString config.index}";
       };
       IPv6 = lib.mkOption {
         type = lib.types.str;

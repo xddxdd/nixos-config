@@ -10,7 +10,7 @@
   lantian.netns.kms = {
     ipSuffix = "88";
     announcedIPv4 = [
-      "172.18.0.252"
+      "198.18.0.252"
       "10.127.10.252"
     ];
     announcedIPv6 = [
