@@ -33,7 +33,7 @@ in
         authoritative =
           lib.genAttrs
           # NeoNetwork is covered by fwd-dn42-interconnect
-          (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN))
+          (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Ltnet))
           (k:
             builtins.concatStringsSep ";" [
               "198.18.0.254"
@@ -56,20 +56,12 @@ in
           # DN42
           "hack" = "172.31.0.5";
         };
-      luaConfig = ''
-        ${lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
-          (with LT.constants.zones; (OpenNIC ++ Emercoin ++ CRXN))}
-
-        -- Internal zones where DNSSEC will fail
-        addNTA("lantian.dn42")
-        addNTA("d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa")
-        addNTA("lantian.neo")
-        addNTA("10.127.10.in-addr.arpa")
-        addNTA("0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa")
-        addNTA("18.198.in-addr.arpa")
-
-        dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
-      '';
+      luaConfig =
+        (lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")")
+          (with LT.constants.zones; (OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)))
+        + ''
+          dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
+        '';
       serveRFC1918 = false;
       settings = {
         any-to-tcp = "yes";
