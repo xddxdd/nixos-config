@@ -224,6 +224,9 @@
       # Export for nixos-secrets
       inherit lib LT;
 
+      ipv4List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts));
+      ipv6List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts));
+
       colmenaHive =
         mkColmenaHive
         {allowApplyAll = false;}
