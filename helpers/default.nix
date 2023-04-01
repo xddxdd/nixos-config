@@ -51,6 +51,7 @@ in
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
     serviceHarden = call ./fn/service-harden.nix;
+    translit = call ./fn/translit.nix;
     uuid = call ./fn/uuid.nix;
     wrapNetns = call ./fn/wrap-netns.nix;
   })
