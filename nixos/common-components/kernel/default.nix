@@ -66,8 +66,8 @@ in {
         then
           (
             if builtins.elem LT.tags.x86_64-v1 LT.this.tags
-            then pkgs.lantianLinuxXanmod.x86_64-v1-lto
-            else pkgs.lantianLinuxXanmod.x86_64-v3-lto
+            then pkgs.lantianLinuxXanmod.lts-x86_64-v1-lto
+            else pkgs.lantianLinuxXanmod.lts-x86_64-v3-lto
           )
         else pkgs.linux_6_1;
     };
