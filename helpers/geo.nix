@@ -2,6 +2,7 @@
   pkgs,
   lib,
   sanitizeName,
+  translit,
   inputs,
   ...
 }: let
@@ -16,7 +17,7 @@ in rec {
           if builtins.elem args.country ["CN" "HK" "MO" "TW"]
           then "CN"
           else args.country;
-        name = args.name;
+        name = translit args.name;
       in
         lib.nameValuePair "${country} ${name}" (args
           // {
