@@ -104,6 +104,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "private";
+      target = "oneprovider.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "rss";
       target = "oneprovider";
       ttl = "1h";

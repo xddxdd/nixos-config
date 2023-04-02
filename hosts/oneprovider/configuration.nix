@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/nginx-lab
+    ../../nixos/optional-apps/nginx-private.nix
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/prometheus.nix
     ../../nixos/optional-apps/quassel.nix

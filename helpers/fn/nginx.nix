@@ -7,6 +7,7 @@
   port,
   portStr,
   inputs,
+  constants,
   ...
 }: let
   fastcgiParams = ''
@@ -136,6 +137,15 @@ in rec {
     allow ::1;
     deny all;
   '';
+
+  servePrivate =
+    (lib.concatMapStringsSep "\n" (ip: "allow ${ip};")
+      (constants.reserved.IPv4 ++ constants.reserved.IPv6))
+    + ''
+      allow 127.0.0.1;
+      allow ::1;
+      deny all;
+    '';
 
   addCommonLocationConf = {phpfpmSocket ? null}:
     lib.recursiveUpdate {
