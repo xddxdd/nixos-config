@@ -15,8 +15,6 @@
     ./networking.nix
     ./shares.nix
 
-    ../../nixos/hardware/ignore-nice-load.nix
-
     ../../nixos/client-components/cups.nix
 
     ../../nixos/server-components/backup.nix
