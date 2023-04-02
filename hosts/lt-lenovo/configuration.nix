@@ -25,8 +25,6 @@
     "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
   ];
 
-  lantian.kernel = pkgs.lantianLinuxXanmod.latest-x86_64-v3-lto;
-
   networking.networkmanager.unmanaged = lib.mkForce [
     "interface-name:*,except:interface-name:wl*"
   ];
@@ -50,6 +48,10 @@
   ];
 
   services.tlp.settings = {
+    CPU_MAX_PERF_ON_AC = lib.mkForce "50";
+    CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
+    CPU_MIN_PERF_ON_AC = lib.mkForce "0";
+    CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
     TLP_DEFAULT_MODE = "BAT";
     TLP_PERSISTENT_DEFAULT = 1;
   };
@@ -61,13 +63,6 @@
     hashTableSizeMB = 64;
     verbosity = "crit";
     extraOptions = ["--thread-count" "2" "--loadavg-target" "4"];
-  };
-
-  services.tlp.settings = {
-    CPU_MIN_PERF_ON_AC = lib.mkForce "0";
-    CPU_MAX_PERF_ON_AC = lib.mkForce "50";
-    CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
-    CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
   };
 
   # Mount samba share
