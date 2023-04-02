@@ -23,6 +23,8 @@
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/vlmcsd.nix
+
+    "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
   ];
 
   lantian.kernel = pkgs.lantianLinuxXanmod.latest-x86_64-v3-lto;
