@@ -12,6 +12,10 @@
   originalConfig = lib.importJSON (pkgs.grasscutter + "/opt/config.example.json");
 
   cfg = lib.recursiveUpdate originalConfig {
+    account = {
+      autoCreate = true;
+      EXPERIMENTAL_RealPassword = true;
+    };
     server = {
       http.accessAddress = "${LT.this.ltnet.IPv4Prefix}.${ipSuffix}";
       game = {
