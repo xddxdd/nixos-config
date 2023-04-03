@@ -80,6 +80,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     secrets = {
+      # url = "/home/lantian/Projects/nixos-secrets";
       url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
       flake = false;
     };
