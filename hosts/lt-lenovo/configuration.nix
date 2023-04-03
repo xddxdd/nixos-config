@@ -16,6 +16,7 @@
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/grasscutter.nix
     ../../nixos/optional-apps/intel-undervolt.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netns-wg-lantian.nix
