@@ -16,6 +16,7 @@
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
+    ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
@@ -60,7 +61,7 @@
 
   services.fwupd.enable = true;
 
-  services.tlp.settings = {
+  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "BAT";
     TLP_PERSISTENT_DEFAULT = 1;
   };
