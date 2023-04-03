@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/client-components/network-manager.nix
+    ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/intel-undervolt.nix
@@ -47,13 +48,13 @@
     "/home/lantian"
   ];
 
-  services.tlp.settings = {
-    CPU_MAX_PERF_ON_AC = lib.mkForce "50";
-    CPU_MAX_PERF_ON_BAT = lib.mkForce "50";
-    CPU_MIN_PERF_ON_AC = lib.mkForce "0";
-    CPU_MIN_PERF_ON_BAT = lib.mkForce "0";
+  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
+    CPU_MAX_PERF_ON_AC = "50";
+    CPU_MAX_PERF_ON_BAT = "50";
+    CPU_MIN_PERF_ON_AC = "0";
+    CPU_MIN_PERF_ON_BAT = "0";
     TLP_DEFAULT_MODE = "BAT";
-    TLP_PERSISTENT_DEFAULT = 1;
+    TLP_PERSISTENT_DEFAULT = "1";
   };
 
   fileSystems."/".options = ["size=100%"];
