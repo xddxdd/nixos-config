@@ -19,4 +19,7 @@
     LIBVA_DRIVER_NAME = "nvidia";
     VDPAU_DRIVER = "nvidia";
   };
+
+  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
 }

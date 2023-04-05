@@ -59,4 +59,7 @@ in {
   boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-drm" "nvidia-modeset"];
 
   services.acpid.enable = true;
+
+  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
 }

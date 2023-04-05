@@ -143,4 +143,7 @@ in {
     LIBVA_DRIVER_NAME = "iHD";
     VDPAU_DRIVER = "va_gl";
   };
+
+  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
 }
