@@ -38,7 +38,7 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
-  swapDevices = [{device = "/mnt/root/swapfile";}];
+  swapDevices = [{device = "/dev/disk/by-uuid/5f169057-e0d3-4093-9c8f-5a2c04f3d400";}];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
