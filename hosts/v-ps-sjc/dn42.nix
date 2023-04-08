@@ -73,6 +73,21 @@
         peerIPv6 = "fd6c:c6ed:38d5::dd:7cf:4e9";
       };
     };
+    emerald = {
+      remoteASN = 4242421151;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21151;
+        remoteAddress = "a.dn42.emeraldgames.top";
+        remotePort = 22547;
+        wireguardPubkey = "4caJOfpzFGdAyG7yVGXELTb/UTkm+Ey/G1tI41J5SBc=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.222.128";
+        peerIPv6 = "fd44:429d:3900::";
+      };
+    };
     gatuno = {
       remoteASN = 4242420180;
       latencyMs = 65;
