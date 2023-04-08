@@ -1,0 +1,27 @@
+diff --git a/nixos/modules/services/misc/bepasty.nix b/nixos/modules/services/misc/bepasty.nix
+index 70d07629493..3a844e560cd 100644
+--- a/nixos/modules/services/misc/bepasty.nix
++++ b/nixos/modules/services/misc/bepasty.nix
+@@ -68,6 +68,14 @@ in
+               '';
+           };
+ 
++          extraConfigFile = mkOption {
++            type = types.nullOr types.str;
++            description = lib.mdDoc ''
++              Path of file to be included as extra configuration.
++              '';
++            default = null;
++          };
++
+           secretKey = mkOption {
+             type = types.str;
+             description = lib.mdDoc ''
+@@ -154,6 +162,7 @@ in
+               SECRET_KEY="$(cat "${server.secretKeyFile}")"
+               DEFAULT_PERMISSIONS="${server.defaultPermissions}"
+               ${server.extraConfig}
++              $(cat "${server.extraConfigFile}")
+               EOF
+             '';
+             ExecStart = ''${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
