@@ -32,6 +32,8 @@
     options = ["compress-force=zstd" "nosuid" "nodev" "nofail"];
   };
 
+  swapDevices = [{device = "/dev/disk/by-uuid/3c75369b-7de9-4cff-82f7-5bf3f8ad2492";}];
+
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = ["/mnt/storage"];
