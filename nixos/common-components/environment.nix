@@ -228,9 +228,9 @@ in {
     ForwardToKMsg=no
     ForwardToSyslog=no
     ForwardToWall=no
-    Storage=volatile
+    Storage=persistent
     SystemMaxFileSize=10M
-    SystemMaxUse=10M
+    SystemMaxUse=100M
   '';
 
   services.udev.packages = [pkgs.crda];
