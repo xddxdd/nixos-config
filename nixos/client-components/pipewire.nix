@@ -118,61 +118,72 @@ in {
     wireplumber.enable = true;
   };
 
-  environment.etc."pipewire/pipewire.conf.d/rtprio.conf".text = builtins.toJSON {
-    "context.modules" = [
-      {
-        name = "libpipewire-module-rt";
-        args = {
-          "nice.level" = -11;
-          "rt.prio" = 88;
-          "rt.time.soft" = -1;
-          "rt.time.hard" = -1;
-        };
-        flags = ["ifexists" "nofail"];
-      }
-    ];
-  };
+  environment.etc = {
+    "pipewire/pipewire.conf.d/rtprio.conf".text = builtins.toJSON {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-rt";
+          args = {
+            "nice.level" = -11;
+            "rt.prio" = 88;
+            "rt.time.soft" = -1;
+            "rt.time.hard" = -1;
+          };
+          flags = ["ifexists" "nofail"];
+        }
+      ];
+    };
 
-  environment.etc."pipewire/pipewire.conf.d/noise-cancelling.conf".text = builtins.toJSON {
-    "context.modules" = [
-      {
-        name = "libpipewire-module-filter-chain";
-        args = {
-          "node.name" = "rnnoise_source";
-          "node.description" = "Noise Canceling source";
-          "media.name" = "Noise Canceling source";
-          "filter.graph" = {
-            nodes = [
-              {
-                type = "ladspa";
-                name = "rnnoise";
-                plugin = "${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so";
-                label = "noise_suppressor_stereo";
-                control = {
-                  "VAD Threshold (%)" = 50.0;
-                };
-              }
-            ];
+    "pipewire/pipewire.conf.d/noise-cancelling.conf".text = builtins.toJSON {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-filter-chain";
+          args = {
+            "node.name" = "rnnoise_source";
+            "node.description" = "Noise Canceling source";
+            "media.name" = "Noise Canceling source";
+            "filter.graph" = {
+              nodes = [
+                {
+                  type = "ladspa";
+                  name = "rnnoise";
+                  plugin = "${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so";
+                  label = "noise_suppressor_stereo";
+                  control = {
+                    "VAD Threshold (%)" = 50.0;
+                  };
+                }
+              ];
+            };
+            "capture.props" = {
+              "node.passive" = true;
+            };
+            "playback.props" = {
+              "media.class" = "Audio/Source";
+            };
           };
-          "capture.props" = {
-            "node.passive" = true;
-          };
-          "playback.props" = {
-            "media.class" = "Audio/Source";
-          };
-        };
-      }
-    ];
-  };
+        }
+      ];
+    };
 
-  # For some reason PipeWire fails to start when this is converted to JSON
-  environment.etc."pipewire/pipewire.conf.d/surround.conf".text = ''
-    context.modules = [
-      ${mkVirtualSurroundSink "Dolby Atmos" "${pkgs.hesuvi-hrir}/atmos.wav"}
-      ${mkVirtualSurroundSink "DTS Headphone:X" "${pkgs.hesuvi-hrir}/dtshx.wav"}
-      ${mkVirtualSurroundSink "Windows Sonic" "${pkgs.hesuvi-hrir}/sonic.wav"}
-    ]
-  '';
+    # For some reason PipeWire fails to start when this is converted to JSON
+    "pipewire/pipewire.conf.d/surround.conf".text = ''
+      context.modules = [
+        ${mkVirtualSurroundSink "Dolby Atmos" "${pkgs.hesuvi-hrir}/atmos.wav"}
+        ${mkVirtualSurroundSink "DTS Headphone:X" "${pkgs.hesuvi-hrir}/dtshx.wav"}
+        ${mkVirtualSurroundSink "Windows Sonic" "${pkgs.hesuvi-hrir}/sonic.wav"}
+      ]
+    '';
+
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+      bluez_monitor.properties = {
+      	["bluez5.enable-sbc-xq"] = true,
+      	["bluez5.enable-msbc"] = true,
+      	["bluez5.enable-hw-volume"] = true,
+      	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '';
+  };
 
   users.users.lantian.extraGroups = ["audio"];
 }
