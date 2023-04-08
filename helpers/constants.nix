@@ -81,6 +81,7 @@
     Prometheus.EndlesshGo = 9322;
     Prowlarr = 9696;
     FlareSolverr = 13191;
+    Bepasty = 13237;
     ASF = 13242;
     NeteaseUnlock = 13301;
     Vaultwarden.HTTP = 13772;

@@ -51,6 +51,11 @@ in [
         ttl = "10m";
       })
       (dns.CNAME {
+        name = "pb.${domain}.";
+        target = "oneprovider.ltn.pw.";
+        ttl = "10m";
+      })
+      (dns.CNAME {
         name = "www.${domain}.";
         target = "oneprovider.ltn.pw.";
         ttl = "10m";
