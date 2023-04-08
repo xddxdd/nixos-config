@@ -167,7 +167,7 @@ in {
 
         # https://askubuntu.com/a/402940/1038244
         "vm.oom_kill_allocating_task" = 1;
-        "vm.swappiness" = 10;
+        "vm.swappiness" = 100;
       };
 
       supportedFilesystems = [
