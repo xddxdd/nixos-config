@@ -25,7 +25,10 @@ in {
       hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
-      extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+      extraGroups = [
+        "systemd-journal"
+        "wheel"
+      ];
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
     };
