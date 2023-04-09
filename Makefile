@@ -16,9 +16,6 @@ local: FORCE
 clean: FORCE
 	@nix run .#colmena -- exec -- nix-collect-garbage -d
 
-verbose: FORCE
-	@nix run .#colmena -- apply --on @default --show-trace
-
 update: FORCE
 	@nix flake update
 	@nix run .#nvfetcher
