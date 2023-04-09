@@ -18,7 +18,7 @@ in
     announcedIPv4 ? [],
     announcedIPv6 ? [],
   }:
-    lib.recursiveUpdate outerConfig {
+    lib.recursiveUpdate {
       autoStart = true;
       ephemeral = true;
       additionalCapabilities = ["CAP_NET_ADMIN"];
@@ -126,4 +126,4 @@ in
             ++ (builtins.map (ip: "${ip}/128") announcedIPv6);
         };
       };
-    }
+    } outerConfig
