@@ -50,11 +50,11 @@ lib.mkIf (!config.boot.isContainer) {
         ".rustup"
         ".stack"
         ".steam"
-
         ".thunderbird"
         ".vagrant.d"
         ".vscode"
         ".wine"
+        ".Xilinx"
         ".zoom"
       ];
       files = [];

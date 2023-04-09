@@ -41,6 +41,9 @@
     # Fly.io
     flyctl
 
+    # FPGA
+    (nur.repos.lschuermann.vivado-2022_2.override {libxcrypt = libxcrypt-legacy;})
+
     # Golang
     delve
     go
