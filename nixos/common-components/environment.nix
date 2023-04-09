@@ -8,7 +8,7 @@
   ...
 } @ args: let
   # https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada
-  ls-iommu = pkgs.writeScriptBin "ls-iommu" ''
+  ls-iommu = pkgs.writeShellScriptBin "ls-iommu" ''
     shopt -s nullglob
     lastgroup=""
     for g in `find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V`; do
@@ -31,6 +31,22 @@
             done
         done
     done
+  '';
+
+  # https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
+  nix-store-add = pkgs.writeShellScriptBin "nix-store-add" ''
+    if [ -z "$1" ]; then
+      echo "Usage: nix-store-add path/to/file"
+      exit 1
+    fi
+
+    sudo unshare -m bash -x <<EOF
+    hash=\$(nix-hash --type sha256 --flat --base32 $1)
+    storepath=\$(nix-store --print-fixed-path sha256 \$hash \$(basename $1))
+    mount -o remount,rw /nix/store
+    cp $1 \$storepath
+    printf "\$storepath\n\n0\n" | nix-store --register-validity --reregister
+    EOF
   '';
 
   # https://unix.stackexchange.com/a/631226
@@ -159,6 +175,7 @@ in {
       lsof
       nftables-fullcone
       nix-prefetch
+      nix-store-add
       openssl
       p7zip
       pciutils
