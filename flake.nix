@@ -136,6 +136,7 @@
               inputs.nil.overlays.nil
               inputs.nix-alien.overlay
               inputs.nixos-cn.overlay
+              inputs.nur.overlay
             ]
             ++ (import ./overlays {inherit inputs;});
         };
@@ -148,7 +149,6 @@
       inputs.dwarffs.nixosModules.dwarffs
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
-      inputs.nur.nixosModules.nur
       inputs.nur-xddxdd.nixosModules.setupOverlay
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.srvos.nixosModules.common
