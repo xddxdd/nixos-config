@@ -50,7 +50,6 @@ in {
   ];
 
   lantian.hidpi = 1.5;
-  lantian.kernel = pkgs.lantianLinuxXanmod.latest-x86_64-v3-lto;
 
   fileSystems."/".options = ["size=64G"];
 
