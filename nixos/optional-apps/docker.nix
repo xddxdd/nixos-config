@@ -92,6 +92,7 @@
         daemon.settings = {
           experimental = true;
           userland-proxy = false;
+          runtimes.runsc.path = "${pkgs.gvisor}/bin/runsc";
         };
       };
     };
