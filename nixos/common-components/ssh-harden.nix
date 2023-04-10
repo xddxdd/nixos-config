@@ -6,7 +6,15 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  ltnetSSHConfig = ''
+    Port 2222
+    HostKeyAlgorithms ssh-ed25519
+    KexAlgorithms sntrup761x25519-sha512@openssh.com
+    Ciphers aes256-gcm@openssh.com
+    PubkeyAcceptedAlgorithms ssh-ed25519
+  '';
+in {
   programs.ssh = {
     package = pkgs.openssh_hpn.overrideAttrs (old: {
       doCheck = false;
@@ -63,8 +71,8 @@
       LogLevel = "ERROR";
       PermitRootLogin = lib.mkForce "prohibit-password";
       Ciphers = [
-        "chacha20-poly1305@openssh.com"
         "aes256-gcm@openssh.com"
+        "chacha20-poly1305@openssh.com"
         "aes128-gcm@openssh.com"
       ];
       KexAlgorithms = [
@@ -80,4 +88,41 @@
       ];
     };
   };
+
+  programs.ssh.extraConfig = ''
+    Host eu.nixbuild.net
+      User root
+      Port 22
+      PubkeyAcceptedKeyTypes ssh-ed25519
+
+    Host git.lantian.pub
+      User git
+      ${ltnetSSHConfig}
+
+    Host *.lantian.pub
+      User root
+      ${ltnetSSHConfig}
+
+    Host localhost
+      ${ltnetSSHConfig}
+
+    Host *
+      ForwardAgent no
+      Compression no
+      ServerAliveInterval 0
+      ServerAliveCountMax 3
+      HashKnownHosts no
+      UserKnownHostsFile /dev/null
+      ControlMaster no
+      ControlPath none
+      ControlPersist no
+
+      HostKeyAlgorithms +ssh-rsa
+      KexAlgorithms ^sntrup761x25519-sha512@openssh.com
+      PubkeyAcceptedAlgorithms +ssh-rsa
+
+      StrictHostKeyChecking no
+      VerifyHostKeyDNS yes
+      LogLevel ERROR
+  '';
 }
