@@ -31,36 +31,4 @@ in {
     lib.concatStringsSep
     "\n"
     (["[all]"] ++ (lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
-
-  programs.ssh.extraConfig = ''
-    StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null
-    VerifyHostKeyDNS yes
-    LogLevel ERROR
-
-    Host eu.nixbuild.net
-      User root
-      Port 22
-      PubkeyAcceptedKeyTypes ssh-ed25519
-
-    Host git.lantian.pub
-      User git
-      Port 2222
-      HostKeyAlgorithms ssh-ed25519
-      KexAlgorithms sntrup761x25519-sha512@openssh.com
-      PubkeyAcceptedAlgorithms ssh-ed25519
-
-    Host localhost
-      Port 2222
-      HostKeyAlgorithms ssh-ed25519
-      KexAlgorithms sntrup761x25519-sha512@openssh.com
-      PubkeyAcceptedAlgorithms ssh-ed25519
-
-    Host *.lantian.pub
-      User root
-      Port 2222
-      HostKeyAlgorithms ssh-ed25519
-      KexAlgorithms sntrup761x25519-sha512@openssh.com
-      PubkeyAcceptedAlgorithms ssh-ed25519
-  '';
 }
