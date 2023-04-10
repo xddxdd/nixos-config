@@ -18,6 +18,11 @@ in {
   programs.ssh = {
     package = pkgs.openssh_hpn.overrideAttrs (old: {
       doCheck = false;
+      configureFlags =
+        (old.configureFlags or [])
+        ++ [
+          "--with-ssl-engine"
+        ];
       patches =
         (old.patches or [])
         ++ [
