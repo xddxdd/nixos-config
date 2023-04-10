@@ -6,8 +6,7 @@
   utils,
   inputs,
   ...
-} @ args:
-lib.mkIf (!config.boot.isContainer) {
+} @ args: {
   boot.loader.efi.canTouchEfiVariables = false;
 
   boot.loader = {
