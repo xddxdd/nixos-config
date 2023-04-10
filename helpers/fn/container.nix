@@ -126,4 +126,5 @@ in
             ++ (builtins.map (ip: "${ip}/128") announcedIPv6);
         };
       };
-    } outerConfig
+    }
+    outerConfig

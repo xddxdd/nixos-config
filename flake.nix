@@ -98,13 +98,13 @@
   } @ inputs: let
     inherit (inputs.nixpkgs) lib;
     LT = import ./helpers {
-      inherit lib inputs;
+      inherit lib inputs self;
       inherit (self) nixosConfigurations;
     };
     specialArgsFor = n: {
       inherit inputs;
       LT = import ./helpers {
-        inherit lib inputs;
+        inherit lib inputs self;
         inherit (self) nixosConfigurations;
         inherit (self.nixosConfigurations."${n}") config pkgs;
       };
@@ -113,22 +113,12 @@
     inherit (LT) ls;
 
     modulesFor = n: [
-      ({config, ...}: {
-        deployment = let
-          inherit (LT.hosts."${n}") hostname sshPort tags manualDeploy;
-        in {
-          allowLocalDeployment = builtins.elem LT.tags.client tags;
-          targetHost = hostname;
-          targetPort = sshPort;
-          targetUser = "root";
-          tags = tags ++ (lib.optional (!manualDeploy) "default");
-        };
-        home-manager = {
-          backupFileExtension = "bak";
-          extraSpecialArgs = specialArgsFor n;
-          useGlobalPkgs = true;
-          useUserPackages = true;
-        };
+      ({
+        config,
+        pkgs,
+        ...
+      }: {
+        home-manager.extraSpecialArgs = specialArgsFor n;
         nixpkgs = {
           overlays =
             [
@@ -156,25 +146,6 @@
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
       (./hosts + "/${n}/configuration.nix")
     ];
-
-    # https://github.com/zhaofengli/colmena/blob/main/src/nix/hive/eval.nix
-    mkColmenaHive = metaConfig: nodes:
-      with builtins; rec {
-        __schema = "v0";
-        inherit metaConfig nodes;
-
-        toplevel = lib.mapAttrs (_: v: v.config.system.build.toplevel) nodes;
-        deploymentConfig = lib.mapAttrs (_: v: v.config.deployment) nodes;
-        deploymentConfigSelected = names: lib.filterAttrs (name: _: elem name names) deploymentConfig;
-        evalSelected = names: lib.filterAttrs (name: _: elem name names) toplevel;
-        evalSelectedDrvPaths = names: lib.mapAttrs (_: v: v.drvPath) (evalSelected names);
-        introspect = f:
-          f {
-            inherit lib;
-            pkgs = nixpkgs;
-            nodes = uncheckedNodes;
-          };
-      };
   in
     flake-utils-plus.lib.mkFlake {
       inherit self inputs;
@@ -225,12 +196,13 @@
 
       # Export for nixos-secrets
       inherit lib LT;
+      exportPkgs = self.pkgs;
 
       ipv4List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts));
       ipv6List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts));
 
       colmenaHive =
-        mkColmenaHive
+        LT.mkColmenaHive
         {allowApplyAll = false;}
         (lib.filterAttrs (n: v: !lib.hasPrefix "_" n) self.nixosConfigurations);
     };

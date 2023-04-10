@@ -4,6 +4,7 @@
   lib ? pkgs.lib,
   inputs,
   nixosConfigurations ? null,
+  self ? null,
   ...
 }: let
   mkScope = f: let
@@ -45,9 +46,12 @@ in
     hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
     serverHosts = hostsWithTag tags.server;
 
+    patchedPkgs = lib.mapAttrs (k: v: v.path) self.pkgs."${this.system}";
+
     container = call ./fn/container.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
+    mkColmenaHive = call ./fn/mk-colmena-hive.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
     serviceHarden = call ./fn/service-harden.nix;
