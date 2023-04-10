@@ -7,9 +7,7 @@
   inputs,
   ...
 } @ args: {
-  environment.systemPackages = with pkgs; [
-    crun
-  ];
+  environment.systemPackages = config.virtualisation.podman.extraPackages;
 
   virtualisation.podman = {
     enable = true;
@@ -21,6 +19,10 @@
     defaultNetwork.settings.dns_enabled = false;
     dockerCompat = true;
     dockerSocket.enable = true;
+
+    extraPackages = with pkgs; [
+      gvisor
+    ];
   };
 
   users.users.lantian.extraGroups = ["podman"];
