@@ -31,17 +31,11 @@
 in {
   options.lantian.hidpi = lib.mkOption {
     type = lib.types.float;
-    default = 1;
+    default = 1.0;
     description = "HiDPI scaling for Wayland";
   };
 
   config = {
-    # environment.variables = {
-    #   GDK_SCALE = "1";
-    #   GDK_DPI_SCALE = builtins.toString config.lantian.hidpi;
-    #   QT_WAYLAND_FORCE_DPI = builtins.toString (builtins.floor (config.lantian.hidpi * 96));
-    # };
-
     boot.loader.grub.fontSize = consoleFontSize;
     console.packages = with pkgs; [terminus_font];
     console.font = "ter-v${builtins.toString consoleFontSize}n";

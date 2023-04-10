@@ -8,12 +8,10 @@
   ...
 } @ args: {
   imports = [
+    ../../nixos/client.nix
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/client-components/network-manager.nix
-    ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/grasscutter.nix
@@ -45,9 +43,7 @@
     undervolt 4 'Analog I/O' 0
   '';
 
-  environment.persistence."/nix/persistent".directories = [
-    "/home/lantian"
-  ];
+  services.greetd.enable = lib.mkForce false;
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     CPU_MAX_PERF_ON_AC = "50";
