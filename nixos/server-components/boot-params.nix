@@ -6,8 +6,7 @@
   utils,
   inputs,
   ...
-} @ args:
-lib.mkIf (!config.boot.isContainer) {
+} @ args: {
   boot.kernelParams = [
     "nofb"
     "nomodeset"
