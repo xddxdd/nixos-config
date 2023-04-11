@@ -143,6 +143,15 @@ in {
     description = "v2ray Daemon";
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
+    environment = let
+      assets = pkgs.symlinkJoin {
+        name = "v2ray-assets";
+        paths = with pkgs; [v2ray-geoip v2ray-domain-list-community];
+      };
+    in {
+      V2RAY_LOCATION_ASSET = "${assets}/share/v2ray";
+      XRAY_LOCATION_ASSET = "${assets}/share/v2ray";
+    };
     script = ''
       rm -f /run/v2ray/v2ray.sock
 

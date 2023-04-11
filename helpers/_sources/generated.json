@@ -41,7 +41,7 @@
     },
     "hostapd": {
         "cargoLocks": null,
-        "date": "2023-03-29",
+        "date": "2023-04-03",
         "extract": null,
         "name": "hostapd",
         "passthru": null,
@@ -51,16 +51,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bb945b98fefc64887dffb40773a19d77585cee42",
-            "sha256": "sha256-bDxMWjvgyNdBUH8pXJ+yMl3vBBoz57LOJEZHAGSDyS0=",
+            "rev": "302d761a85732625054cb81ba3a29d2e0dd5a118",
+            "sha256": "sha256-xAaiJKuOsKkfjztbREY9jlSL/t+oPkUbW/uOtB7t5K4=",
             "type": "git",
             "url": "https://w1.fi/hostap.git"
         },
-        "version": "bb945b98fefc64887dffb40773a19d77585cee42"
+        "version": "302d761a85732625054cb81ba3a29d2e0dd5a118"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-03-15",
+        "date": "2023-04-04",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -72,11 +72,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "f3442a6f9c5e1b022e9d1f578b61ad371b12bd24",
-            "sha256": "sha256-cctTOMZFU88MMeUe1CwhdNChcU430Nm9G2v+LQhnQkI=",
+            "rev": "2e91f9a71f1e36e8461a0255828bd551778356af",
+            "sha256": "sha256-3gYp0jf/Qs4ZtsjnNw3ip+SBUt1xqntftfLQ6+k440k=",
             "type": "github"
         },
-        "version": "f3442a6f9c5e1b022e9d1f578b61ad371b12bd24"
+        "version": "2e91f9a71f1e36e8461a0255828bd551778356af"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -140,7 +140,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-03-24",
+        "date": "2023-04-08",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -152,15 +152,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "81772668d61ce52cd3d5fc2b6dd6f86f43d39197",
-            "sha256": "sha256-zlVIm48YDilqXhm1DE6+6q5bRewzfHveSkYnuqUptyE=",
+            "rev": "70a388b1e90f60ff13c548ee0678cf848b52146e",
+            "sha256": "sha256-qoW3ZKymUwTgsp1wpSYNP6Oq3G5gQhOT+Ox5UeEKG8c=",
             "type": "github"
         },
-        "version": "81772668d61ce52cd3d5fc2b6dd6f86f43d39197"
+        "version": "70a388b1e90f60ff13c548ee0678cf848b52146e"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-03-29",
+        "date": "2023-03-30",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -172,11 +172,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "846951665a60424b98097ad0a77ec6cb1c3d05ac",
-            "sha256": "sha256-k3tGu0l1Cd9oomo7FEkjGCYXOA5UaWlurcjmmejNJvg=",
+            "rev": "93343fdf00f44a683faf12c448a31ef66f6e39ee",
+            "sha256": "sha256-PVmMFB+ysA+LGf/HNQMh3yVhefUDi0Rq3MbCxP/k6ZE=",
             "type": "github"
         },
-        "version": "846951665a60424b98097ad0a77ec6cb1c3d05ac"
+        "version": "93343fdf00f44a683faf12c448a31ef66f6e39ee"
     },
     "ovpn-dco": {
         "cargoLocks": null,

@@ -21,8 +21,7 @@
       foomatic-db-nonfree
       foomatic-db-ppds-withNonfreeDb
       foomatic-filters
-      # FIXME: reenable after no longer broken
-      # gutenprint
+      gutenprint
       gutenprintBin
       hplip
       hplipWithPlugin

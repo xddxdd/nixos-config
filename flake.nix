@@ -155,6 +155,7 @@
           allowUnfree = true;
           permittedInsecurePackages = [
             "electron-19.0.7"
+            "openssh-with-hpn-9.2p1"
             "python-2.7.18.6"
           ];
           # contentAddressedByDefault = true;
@@ -171,7 +172,6 @@
 
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
-        inherit (pkgs) system;
       in {
         apps =
           lib.mapAttrs
