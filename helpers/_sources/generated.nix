@@ -26,28 +26,28 @@
   };
   hostapd = {
     pname = "hostapd";
-    version = "bb945b98fefc64887dffb40773a19d77585cee42";
+    version = "302d761a85732625054cb81ba3a29d2e0dd5a118";
     src = fetchgit {
       url = "https://w1.fi/hostap.git";
-      rev = "bb945b98fefc64887dffb40773a19d77585cee42";
+      rev = "302d761a85732625054cb81ba3a29d2e0dd5a118";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-bDxMWjvgyNdBUH8pXJ+yMl3vBBoz57LOJEZHAGSDyS0=";
+      sha256 = "sha256-xAaiJKuOsKkfjztbREY9jlSL/t+oPkUbW/uOtB7t5K4=";
     };
-    date = "2023-03-29";
+    date = "2023-04-03";
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "f3442a6f9c5e1b022e9d1f578b61ad371b12bd24";
+    version = "2e91f9a71f1e36e8461a0255828bd551778356af";
     src = fetchFromGitHub ({
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "f3442a6f9c5e1b022e9d1f578b61ad371b12bd24";
+      rev = "2e91f9a71f1e36e8461a0255828bd551778356af";
       fetchSubmodules = false;
-      sha256 = "sha256-cctTOMZFU88MMeUe1CwhdNChcU430Nm9G2v+LQhnQkI=";
+      sha256 = "sha256-3gYp0jf/Qs4ZtsjnNw3ip+SBUt1xqntftfLQ6+k440k=";
     });
-    date = "2023-03-15";
+    date = "2023-04-04";
   };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
@@ -86,27 +86,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "81772668d61ce52cd3d5fc2b6dd6f86f43d39197";
+    version = "70a388b1e90f60ff13c548ee0678cf848b52146e";
     src = fetchFromGitHub ({
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "81772668d61ce52cd3d5fc2b6dd6f86f43d39197";
+      rev = "70a388b1e90f60ff13c548ee0678cf848b52146e";
       fetchSubmodules = false;
-      sha256 = "sha256-zlVIm48YDilqXhm1DE6+6q5bRewzfHveSkYnuqUptyE=";
+      sha256 = "sha256-qoW3ZKymUwTgsp1wpSYNP6Oq3G5gQhOT+Ox5UeEKG8c=";
     });
-    date = "2023-03-24";
+    date = "2023-04-08";
   };
   openvpn = {
     pname = "openvpn";
-    version = "846951665a60424b98097ad0a77ec6cb1c3d05ac";
+    version = "93343fdf00f44a683faf12c448a31ef66f6e39ee";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "846951665a60424b98097ad0a77ec6cb1c3d05ac";
+      rev = "93343fdf00f44a683faf12c448a31ef66f6e39ee";
       fetchSubmodules = false;
-      sha256 = "sha256-k3tGu0l1Cd9oomo7FEkjGCYXOA5UaWlurcjmmejNJvg=";
+      sha256 = "sha256-PVmMFB+ysA+LGf/HNQMh3yVhefUDi0Rq3MbCxP/k6ZE=";
     });
-    date = "2023-03-29";
+    date = "2023-03-30";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
