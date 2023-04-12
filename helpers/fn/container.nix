@@ -42,10 +42,21 @@ in
         users.users.container = hostConfig.users.users.container;
         users.groups.container = hostConfig.users.groups.container;
 
-        system.stateVersion = hostConfig.system.stateVersion;
+        nix.enable = false;
         nixpkgs.pkgs = pkgs;
-        networking.hostName = hostConfig.networking.hostName;
-        networking.firewall.enable = false;
+        nixpkgs.overlays = hostConfig.nixpkgs.overlays;
+
+        system.stateVersion = hostConfig.system.stateVersion;
+        networking = {
+          hostName = hostConfig.networking.hostName;
+          firewall.enable = false;
+          firewall.checkReversePath = false;
+          nat.enable = false;
+          useDHCP = false;
+        };
+
+        services.journald.extraConfig = hostConfig.services.journald.extraConfig;
+        services.timesyncd.enable = false;
 
         imports = [
           inputs.agenix.nixosModules.age
