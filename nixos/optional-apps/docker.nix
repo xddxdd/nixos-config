@@ -61,19 +61,6 @@
     };
 
     innerConfig = _: {
-      networking = {
-        firewall.enable = false;
-        firewall.checkReversePath = false;
-        nat.enable = false;
-        useDHCP = false;
-      };
-
-      nix.enable = false;
-      nixpkgs.overlays = config.nixpkgs.overlays;
-
-      services.journald.extraConfig = config.services.journald.extraConfig;
-      services.timesyncd.enable = false;
-
       systemd.sockets.docker.socketConfig = {
         SocketMode = lib.mkForce "0666";
       };
