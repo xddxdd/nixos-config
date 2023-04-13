@@ -91,7 +91,6 @@ in {
     disableWhileTyping = false;
   };
 
-  virtualisation.lxd.enable = true;
   virtualisation.waydroid.enable = true;
 
   # Calc key & Remap pause to delete
