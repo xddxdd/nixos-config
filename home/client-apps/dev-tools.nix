@@ -116,6 +116,10 @@
     mercurialFull
     subversion
 
+    # Terraform
+    terraform
+    terranix
+
     # TOML
     taplo-cli
     taplo-lsp
