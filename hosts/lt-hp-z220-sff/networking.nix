@@ -168,8 +168,8 @@ in {
       DHCPServer = "yes";
     };
     dhcpServerConfig = {
-      PoolOffset = 10;
-      PoolSize = 200;
+      PoolOffset = 100;
+      PoolSize = 100;
       EmitDNS = "yes";
       DNS = config.networking.nameservers;
     };
