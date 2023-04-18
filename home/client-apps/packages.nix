@@ -23,6 +23,7 @@
     deepspeech-gpu
     deepspeech-wrappers
     discord
+    distrobox
     element-desktop
     exiftool
     ffmpeg-full
