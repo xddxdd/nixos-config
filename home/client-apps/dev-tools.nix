@@ -65,6 +65,9 @@
     jsonnet
 
     # Kubernetes
+    arkade
+    faas-cli # OpenFaaS
+    lens
     kubectl
     kubernetes-helm
 
