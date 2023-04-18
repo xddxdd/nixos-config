@@ -45,6 +45,7 @@
         ".kube"
         ".librewolf"
         ".mozilla"
+        ".openfaas"
         ".pcem"
         ".rustup"
         ".stack"
