@@ -60,4 +60,10 @@
       files = [];
     };
   };
+
+  # Impermanence will copy permissions from source dir
+  # Chown to lantian:lantian
+  systemd.tmpfiles.rules = [
+    "d /nix/persistent/home/lantian 700 lantian lantian"
+  ];
 }

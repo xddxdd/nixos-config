@@ -25,12 +25,15 @@ in {
       hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
+      group = "lantian";
       extraGroups = [
         "systemd-journal"
+        "users"
         "wheel"
       ];
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
+      createHome = true;
     };
     container = {
       uid = 65533;
@@ -40,6 +43,9 @@ in {
   };
 
   users.groups = {
+    lantian = {
+      gid = 1000;
+    };
     container = {
       gid = 65533;
     };

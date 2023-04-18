@@ -43,7 +43,7 @@
     options = [
       "rw"
       "uid=${builtins.toString config.users.users.lantian.uid}"
-      "gid=${builtins.toString config.users.groups.wheel.gid}"
+      "gid=${builtins.toString config.users.groups.lantian.gid}"
     ];
   };
 

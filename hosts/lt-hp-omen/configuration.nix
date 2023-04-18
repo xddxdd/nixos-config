@@ -9,7 +9,7 @@
 } @ args: let
   bindfsMountOptions = [
     "force-user=lantian"
-    "force-group=wheel"
+    "force-group=lantian"
     "create-for-user=root"
     "create-for-group=root"
     "chown-ignore"
@@ -78,8 +78,8 @@ in {
       "guest ok" = "no";
       "create mask" = "0644";
       "directory mask" = "0755";
-      "force user" = "root";
-      "force group" = "users";
+      "force user" = "lantian";
+      "force group" = "lantian";
       "valid users" = "lantian";
     };
   };
@@ -167,7 +167,7 @@ in {
     options = [
       "_netdev"
       "credentials=${config.age.secrets.samba-credentials.path}"
-      "gid=${builtins.toString config.users.groups.wheel.gid}"
+      "gid=${builtins.toString config.users.groups.lantian.gid}"
       "noauto"
       "uid=${builtins.toString config.users.users.lantian.uid}"
       "users"
