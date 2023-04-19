@@ -105,8 +105,15 @@
       }
     }
   '';
+
+  realtimeLimitUS = 5000000;
 in {
   security.rtkit.enable = true;
+  systemd.services.rtkit-daemon.serviceConfig.ExecStart = [
+    "" # Override command in rtkit package's service file
+    "${pkgs.rtkit}/libexec/rtkit-daemon --rttime-usec-max=${builtins.toString realtimeLimitUS}"
+  ];
+
   services.pipewire = {
     enable = true;
 
@@ -126,8 +133,8 @@ in {
           args = {
             "nice.level" = -11;
             "rt.prio" = 88;
-            "rt.time.soft" = -1;
-            "rt.time.hard" = -1;
+            "rt.time.soft" = realtimeLimitUS;
+            "rt.time.hard" = realtimeLimitUS;
           };
           flags = ["ifexists" "nofail"];
         }
