@@ -9,7 +9,7 @@ with dns; {
     (NAMESERVER {name = "v-ps-hkg.lantian.pub.";})
     (NAMESERVER {name = "v-ps-sjc.lantian.pub.";})
     (NAMESERVER {name = "virmach-ny1g.lantian.pub.";})
-    (NAMESERVER {name = "oneprovider.lantian.pub.";})
+    (NAMESERVER {name = "hetzner-de.lantian.pub.";})
     (NAMESERVER {name = "buyvm.lantian.pub.";})
   ];
 
@@ -17,7 +17,7 @@ with dns; {
     (NAMESERVER {name = "v-ps-hkg.ltnet.lantian.pub.";})
     (NAMESERVER {name = "v-ps-sjc.ltnet.lantian.pub.";})
     (NAMESERVER {name = "virmach-ny1g.ltnet.lantian.pub.";})
-    (NAMESERVER {name = "oneprovider.ltnet.lantian.pub.";})
+    (NAMESERVER {name = "hetzner-de.ltnet.lantian.pub.";})
     (NAMESERVER {name = "buyvm.ltnet.lantian.pub.";})
   ];
 

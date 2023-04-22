@@ -28,7 +28,7 @@ with dns; let
     })
     (NS {
       inherit name;
-      target = "oneprovider.lantian.pub.";
+      target = "hetzner-de.lantian.pub.";
     })
   ];
 
@@ -144,22 +144,22 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "ci";
-      target = "oneprovider";
+      target = "hetzner-de";
       cloudflare = true;
     })
     (CNAME {
       name = "ci-github";
-      target = "oneprovider";
+      target = "hetzner-de";
       cloudflare = true;
     })
     (CNAME {
       name = "comments";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "git";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
@@ -169,17 +169,17 @@ with dns; let
     })
     (CNAME {
       name = "lab";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "lg";
-      target = "oneprovider";
+      target = "hetzner-de";
       cloudflare = true;
     })
     (fakeALIAS {
       name = "matrix";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (SRV {

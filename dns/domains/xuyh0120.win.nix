@@ -70,7 +70,7 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "asf";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
@@ -80,17 +80,17 @@ with dns; let
     })
     (CNAME {
       name = "bitwarden";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "cloud";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "dashboard";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
@@ -100,27 +100,27 @@ with dns; let
     })
     (CNAME {
       name = "login";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "private";
-      target = "oneprovider.ltnet.xuyh0120.win.";
+      target = "hetzner-de.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
     (CNAME {
       name = "rss";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "stats";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
       name = "vault";
-      target = "oneprovider";
+      target = "hetzner-de";
       ttl = "1h";
     })
   ];
