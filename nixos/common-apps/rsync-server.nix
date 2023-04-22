@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  primaryServer = "oneprovider";
+  primaryServer = "hetzner-de";
 in {
   ########################################
   # Server

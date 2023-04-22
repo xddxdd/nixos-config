@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 10;
-  tags = with tags; [nix-builder public-facing server];
+  tags = with tags; [nix-builder server];
   cpuThreads = 8;
   city = geo.cities."FR Paris";
   ssh = {

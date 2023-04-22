@@ -47,17 +47,17 @@ in [
     records = [
       (dns.ALIAS {
         name = "${domain}.";
-        target = "oneprovider.ltn.pw.";
+        target = "hetzner-de.ltn.pw.";
         ttl = "10m";
       })
       (dns.CNAME {
         name = "pb.${domain}.";
-        target = "oneprovider.ltn.pw.";
+        target = "hetzner-de.ltn.pw.";
         ttl = "10m";
       })
       (dns.CNAME {
         name = "www.${domain}.";
-        target = "oneprovider.ltn.pw.";
+        target = "hetzner-de.ltn.pw.";
         ttl = "10m";
       })
 
