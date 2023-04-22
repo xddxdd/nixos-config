@@ -29,6 +29,8 @@
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/vlmcsd.nix
+
+    "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
   boot.initrd.systemd.enable = lib.mkForce false;
