@@ -26,7 +26,8 @@
   };
 in {
   systemd.tmpfiles.rules = [
-    "d /var/lib/grasscutter 755 root root"
+    "d /var/lib/grasscutter 755 container container"
+    "d /var/lib/mongodb-grasscutter 755 container container"
   ];
 
   containers.grasscutter = LT.container {
@@ -38,8 +39,12 @@ in {
 
     outerConfig = {
       bindMounts = {
-        "/var/lib" = {
+        "/var/lib/grasscutter" = {
           hostPath = "/var/lib/grasscutter";
+          isReadOnly = false;
+        };
+        "/var/lib/mongodb-grasscutter" = {
+          hostPath = "/var/lib/mongodb-grasscutter";
           isReadOnly = false;
         };
       };
@@ -48,7 +53,11 @@ in {
       services.mongodb = {
         enable = true;
         quiet = true;
+        user = "container";
+        dbpath = "/var/lib/mongodb-grasscutter";
       };
+
+      systemd.services.mongodb.serviceConfig.Group = "container";
 
       systemd.services.grasscutter = {
         wantedBy = ["multi-user.target"];
