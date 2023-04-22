@@ -20,9 +20,9 @@
     dockerCompat = true;
     dockerSocket.enable = true;
 
-    extraPackages = with pkgs; [
+    extraPackages = lib.optionals pkgs.stdenv.isx86_64 (with pkgs; [
       gvisor
-    ];
+    ]);
   };
 
   users.users.lantian.extraGroups = ["podman"];
