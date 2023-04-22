@@ -5,7 +5,6 @@
 } @ args: {
   index = 14;
   tags = with tags; [public-facing server];
-  hostname = "142.132.236.113";
   system = "aarch64-linux";
   cpuThreads = 8;
   city = geo.cities."DE Falkenstein";
