@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  ipSuffix = "27";
+  anycastIP = "198.18.0.27";
 
   originalConfig = lib.importJSON (pkgs.grasscutter + "/opt/config.example.json");
 
@@ -17,10 +17,10 @@
       EXPERIMENTAL_RealPassword = true;
     };
     server = {
-      http.accessAddress = "${LT.this.ltnet.IPv4Prefix}.${ipSuffix}";
+      http.accessAddress = anycastIP;
       game = {
         enableConsole = false;
-        accessAddress = "${LT.this.ltnet.IPv4Prefix}.${ipSuffix}";
+        accessAddress = anycastIP;
       };
     };
   };
@@ -31,7 +31,10 @@ in {
 
   containers.grasscutter = LT.container {
     name = "grasscutter";
-    inherit ipSuffix;
+    ipSuffix = "27";
+    announcedIPv4 = [
+      "198.18.0.27"
+    ];
 
     outerConfig = {
       bindMounts = {
