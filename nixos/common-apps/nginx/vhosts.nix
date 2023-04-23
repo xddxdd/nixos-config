@@ -86,7 +86,7 @@
     };
 in {
   services.nginx.virtualHosts = {
-    "localhost" = {
+    "_default" = {
       listen = [
         {
           addr = "0.0.0.0";
@@ -128,6 +128,12 @@ in {
         ssl_reject_handshake on;
         ssl_stapling off;
       '';
+    };
+
+    "localhost" = {
+      listen = LT.nginx.listenHTTP;
+      root = "/var/www/localhost";
+      extraConfig = LT.nginx.commonVhostConf false;
     };
 
     "lantian.pub" = addConfLantianPub {
