@@ -40,7 +40,7 @@ in ''
   mkdir -p "$TEMP_DIR/zones"
 
   cd "$TEMP_DIR"
-  ${dnscontrol}/bin/dnscontrol $*
+  ${dnscontrol}/bin/dnscontrol --diff2 $*
   RET=$?
   rm -rf "$CURR_DIR/zones"
   mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
