@@ -3,9 +3,17 @@ src.git = "https://github.com/Owl-Maintain/brlaser.git"
 src.branch = "definitions"
 fetch.github = "Owl-Maintain/brlaser"
 
+[dashboard-icons]
+src.git = "https://github.com/walkxcode/dashboard-icons.git"
+fetch.github = "walkxcode/dashboard-icons"
+
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
+
+[homer]
+src.github = "bastienwirtz/homer"
+fetch.url = "https://github.com/bastienwirtz/homer/releases/download/$ver/homer.zip"
 
 [hostapd]
 src.git = "https://w1.fi/hostap.git"
