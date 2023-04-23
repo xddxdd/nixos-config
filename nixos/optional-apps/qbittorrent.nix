@@ -41,7 +41,9 @@ in {
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-          extraConfig = LT.nginx.locationProxyConf;
+          extraConfig =
+            LT.nginx.locationProxyConf
+            + LT.nginx.locationCORSConf;
         };
       };
       extraConfig =
@@ -54,7 +56,9 @@ in {
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-          extraConfig = LT.nginx.locationProxyConf;
+          extraConfig =
+            LT.nginx.locationProxyConf
+            + LT.nginx.locationCORSConf;
         };
       };
       extraConfig =
