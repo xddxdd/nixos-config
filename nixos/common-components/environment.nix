@@ -173,6 +173,7 @@ in {
       kopia
       lbzip2
       lsof
+      mbuffer
       nftables-fullcone
       nix-prefetch
       nix-store-add
