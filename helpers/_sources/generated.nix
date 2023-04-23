@@ -13,6 +13,18 @@
     });
     date = "2023-03-14";
   };
+  dashboard-icons = {
+    pname = "dashboard-icons";
+    version = "4646cc2706d9afd2276ab9f8bf0111ea65e0e19d";
+    src = fetchFromGitHub ({
+      owner = "walkxcode";
+      repo = "dashboard-icons";
+      rev = "4646cc2706d9afd2276ab9f8bf0111ea65e0e19d";
+      fetchSubmodules = false;
+      sha256 = "sha256-djIBqsMitY5zd3VzrYb6+kQoMT6oii8wguVHiI5Eizc=";
+    });
+    date = "2023-04-23";
+  };
   himawaripy = {
     pname = "himawaripy";
     version = "v2.2.0";
@@ -23,6 +35,14 @@
       fetchSubmodules = false;
       sha256 = "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=";
     });
+  };
+  homer = {
+    pname = "homer";
+    version = "v23.02.2";
+    src = fetchurl {
+      url = "https://github.com/bastienwirtz/homer/releases/download/v23.02.2/homer.zip";
+      sha256 = "sha256-M9KuZm0F5S8EuAwfMvBZ9Yve4ImwF69MSDa5Qqpd9XA=";
+    };
   };
   hostapd = {
     pname = "hostapd";

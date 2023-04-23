@@ -66,6 +66,7 @@
       CloudPrintProxyEnabled = false;
 
       # Startup, Home page and New Tab page
+      HomepageLocation = "chrome://new-tab-page";
       ShowHomeButton = true;
     };
   };

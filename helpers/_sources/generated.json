@@ -19,6 +19,26 @@
         },
         "version": "648f5c858d468a5c08136aab7dce44b2649df3f9"
     },
+    "dashboard-icons": {
+        "cargoLocks": null,
+        "date": "2023-04-23",
+        "extract": null,
+        "name": "dashboard-icons",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "walkxcode",
+            "repo": "dashboard-icons",
+            "rev": "4646cc2706d9afd2276ab9f8bf0111ea65e0e19d",
+            "sha256": "sha256-djIBqsMitY5zd3VzrYb6+kQoMT6oii8wguVHiI5Eizc=",
+            "type": "github"
+        },
+        "version": "4646cc2706d9afd2276ab9f8bf0111ea65e0e19d"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "date": null,
@@ -38,6 +58,21 @@
             "type": "github"
         },
         "version": "v2.2.0"
+    },
+    "homer": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "homer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-M9KuZm0F5S8EuAwfMvBZ9Yve4ImwF69MSDa5Qqpd9XA=",
+            "type": "url",
+            "url": "https://github.com/bastienwirtz/homer/releases/download/v23.02.2/homer.zip"
+        },
+        "version": "v23.02.2"
     },
     "hostapd": {
         "cargoLocks": null,
