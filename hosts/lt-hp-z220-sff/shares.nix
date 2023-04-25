@@ -25,7 +25,7 @@
     };
   };
 
-  services.resilio.directoryRoot = lib.mkForce "/mnt/storage/media";
+  lantian.resilio.storage = "/mnt/storage/media";
 
   fileSystems."/run/sftp" = lib.mkForce {
     device = "/mnt/storage";

@@ -7,71 +7,92 @@
   inputs,
   ...
 } @ args: {
-  services.resilio = {
-    enable = true;
-    enableWebUI = true;
-    checkForUpdates = false;
-    deviceName = config.networking.hostName;
-    directoryRoot = "/nix/persistent/media";
-    # Authentication is done by nginx
-    httpLogin = "user";
-    httpPass = "pass";
+  options.lantian.resilio.storage = lib.mkOption {
+    type = lib.types.str;
+    default = "/nix/persistent/media";
+    description = "Storage path for Resilio Sync";
   };
 
-  systemd.services.resilio = {
-    environment = {
-      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so:${pkgs.libxcrypt}/lib/libcrypt.so.1";
+  config = {
+    fileSystems."/run/rslfiles" = {
+      device = config.lantian.resilio.storage;
+      fsType = "fuse.bindfs";
+      options = [
+        "force-user=${config.systemd.services.resilio.serviceConfig.User}"
+        "force-group=${config.systemd.services.resilio.serviceConfig.Group}"
+        "create-for-user=root"
+        "create-for-group=root"
+        "chown-ignore"
+        "chgrp-ignore"
+        "xattr-none"
+        "x-gvfs-hide"
+      ];
     };
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        User = lib.mkForce "root";
-        Group = lib.mkForce "root";
-        ReadWritePaths = [config.services.resilio.directoryRoot];
-        StateDirectory = "resilio-sync";
-        TimeoutStopSec = "10";
 
-        # Disable logging
-        StandardOutput = "null";
-        StandardError = "null";
-      };
-  };
-
-  systemd.tmpfiles.rules = [
-    "d ${config.services.resilio.directoryRoot} 775 root root"
-  ];
-
-  services.nginx.virtualHosts = {
-    "resilio.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
-        "/".extraConfig =
-          LT.nginx.locationOauthConf
-          + ''
-            proxy_pass http://unix:/run/rslsync/rslsync.sock;
-            proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-          ''
-          + LT.nginx.locationProxyConf;
-      };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+    services.resilio = {
+      enable = true;
+      enableWebUI = true;
+      checkForUpdates = false;
+      deviceName = config.networking.hostName;
+      directoryRoot = lib.mkForce "/run/rslfiles";
+      # Authentication is done by nginx
+      httpLogin = "user";
+      httpPass = "pass";
     };
-    "resilio.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
-        "/".extraConfig =
-          ''
-            proxy_pass http://unix:/run/rslsync/rslsync.sock;
-            proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-          ''
-          + LT.nginx.locationProxyConf;
+
+    systemd.services.resilio = {
+      after = ["run-rslfiles.mount"];
+      requires = ["run-rslfiles.mount"];
+      environment = {
+        LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          User = "rslsync";
+          Group = "rslsync";
+          ReadWritePaths = ["/run/rslfiles"];
+          StateDirectory = "resilio-sync";
+          TimeoutStopSec = "10";
+        };
+    };
+
+    systemd.tmpfiles.rules = [
+      "d ${config.lantian.resilio.storage} 755 root root"
+    ];
+
+    services.nginx.virtualHosts = {
+      "resilio.${config.networking.hostName}.xuyh0120.win" = {
+        listen = LT.nginx.listenHTTPS;
+        locations = LT.nginx.addCommonLocationConf {} {
+          "/".extraConfig =
+            LT.nginx.locationOauthConf
+            + ''
+              proxy_pass http://unix:/run/rslsync/rslsync.sock;
+              proxy_set_header Authorization "Basic dXNlcjpwYXNz";
+            ''
+            + LT.nginx.locationProxyConf;
+        };
+        extraConfig =
+          LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+          + LT.nginx.commonVhostConf true
+          + LT.nginx.noIndex true;
+      };
+      "resilio.localhost" = {
+        listen = LT.nginx.listenHTTP;
+        locations = LT.nginx.addCommonLocationConf {} {
+          "/".extraConfig =
+            ''
+              proxy_pass http://unix:/run/rslsync/rslsync.sock;
+              proxy_set_header Authorization "Basic dXNlcjpwYXNz";
+            ''
+            + LT.nginx.locationProxyConf;
+        };
+        extraConfig =
+          LT.nginx.commonVhostConf true
+          + LT.nginx.noIndex true
+          + LT.nginx.serveLocalhost;
+      };
     };
   };
 }
