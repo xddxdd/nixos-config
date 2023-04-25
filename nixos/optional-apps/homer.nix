@@ -24,7 +24,6 @@ in {
     listen = LT.nginx.listenHTTP;
     root = pkgs.linkFarm "homer" {
       "_custom" = "/var/www/localhost";
-      "_dashboard-icons" = LT.sources.dashboard-icons.src;
       "_homer" = homer;
     };
     # try_files + alias won't work because https://trac.nginx.org/nginx/ticket/97
@@ -40,4 +39,8 @@ in {
       + LT.nginx.noIndex true
       + LT.nginx.serveLocalhost;
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ /var/www/localhost/_dashboard-icons - - - - ${LT.sources.dashboard-icons.src}"
+  ];
 }
