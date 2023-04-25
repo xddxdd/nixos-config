@@ -134,11 +134,6 @@ in {
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-    "/home/lantian/LegacyOS" = lib.mkForce {
-      device = "/nix/persistent/media/LegacyOS";
-      fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
-    };
     "/home/lantian/Pictures" = lib.mkForce {
       device = "/nix/persistent/media/Pictures";
       fsType = "fuse.bindfs";
