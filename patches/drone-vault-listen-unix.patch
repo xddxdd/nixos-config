@@ -1,8 +1,8 @@
 diff --git a/main.go b/main.go
-index da280ff..66a46ae 100644
+index ab5c514..981dd5c 100644
 --- a/main.go
 +++ b/main.go
-@@ -6,14 +6,15 @@ package main
+@@ -6,6 +6,7 @@ package main
  
  import (
  	"context"
@@ -10,15 +10,6 @@ index da280ff..66a46ae 100644
  	"net/http"
  	"time"
  
- 	"github.com/drone/drone-go/plugin/secret"
- 	"github.com/drone/drone-vault/plugin"
- 	"github.com/drone/drone-vault/plugin/token"
--	"github.com/drone/drone-vault/plugin/token/kubernetes"
- 	"github.com/drone/drone-vault/plugin/token/approle"
-+	"github.com/drone/drone-vault/plugin/token/kubernetes"
- 
- 	"github.com/hashicorp/vault/api"
- 	"github.com/kelseyhightower/envconfig"
 @@ -38,6 +39,7 @@ var envs = []string{
  
  type config struct {
@@ -26,8 +17,8 @@ index da280ff..66a46ae 100644
 +	UnixSocket         string        `envconfig:"DRONE_UNIX_SOCKET"`
  	Debug              bool          `envconfig:"DRONE_DEBUG"`
  	Secret             string        `envconfig:"DRONE_SECRET"`
- 	VaultAddr          string        `envconfig:"VAULT_ADDR"`
-@@ -132,10 +134,21 @@ func main() {
+ 	DisallowForks      bool          `envconfig:"DRONE_DISALLOW_FORKS"`
+@@ -137,10 +139,21 @@ func main() {
  		})
  	}
  

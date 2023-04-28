@@ -4,7 +4,8 @@
   ...
 } @ args: {
   index = 100;
-  tags = with tags; [client i915-sriov nix-builder];
+  # Temporarily remove i915-sriov for build failure
+  tags = with tags; [client nix-builder];
   cpuThreads = 16;
   city = geo.cities."US Chicago";
   hostname = "127.0.0.1";
