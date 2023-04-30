@@ -162,7 +162,6 @@ in rec {
         ../patches/qbittorrent-return-success-on-dup-torrent.patch
       ];
   });
-  resilio-sync = prev.resilio-sync.override {libxcrypt = final.libxcrypt-legacy;};
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch =

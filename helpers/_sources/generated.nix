@@ -15,15 +15,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "e063a4921474d3229c590318ab154232ceaee5a0";
+    version = "3e68dea71beec56bce9292d3b9ebca42ea1fa2b1";
     src = fetchFromGitHub ({
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "e063a4921474d3229c590318ab154232ceaee5a0";
+      rev = "3e68dea71beec56bce9292d3b9ebca42ea1fa2b1";
       fetchSubmodules = false;
-      sha256 = "sha256-lLzzxL8P8NToSnhx2QoD8wpLnv4hSToonR+JxpR7GXo=";
+      sha256 = "sha256-7TCZ2vDh2OxR8nC2fG22Vklr4TiOE3mPDFBScG5L1FU=";
     });
-    date = "2023-04-25";
+    date = "2023-04-30";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -46,16 +46,16 @@
   };
   hostapd = {
     pname = "hostapd";
-    version = "230ca559cbc50a3a76b15a514ac0810422ed86c7";
+    version = "73372322038d2617f2be4542c0f2a5fa846fe911";
     src = fetchgit {
       url = "https://w1.fi/hostap.git";
-      rev = "230ca559cbc50a3a76b15a514ac0810422ed86c7";
+      rev = "73372322038d2617f2be4542c0f2a5fa846fe911";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-sre+VPT95zz7pS1F8mhMtsA+ESIXo64pVQIPzpHBweQ=";
+      sha256 = "sha256-1sPgai+jgThEvX0fjJDkMEpDMv8iYeqgt8LV+D3Ywn4=";
     };
-    date = "2023-04-26";
+    date = "2023-04-28";
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
@@ -106,15 +106,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "e8fd7f7fa0452d91b19d34eb8fcfafd445b665c0";
+    version = "a42791cefa9a19df159220577653fccc1ec814f8";
     src = fetchFromGitHub ({
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "e8fd7f7fa0452d91b19d34eb8fcfafd445b665c0";
+      rev = "a42791cefa9a19df159220577653fccc1ec814f8";
       fetchSubmodules = false;
-      sha256 = "sha256-PxjVxA5+7PwsP6EueHOlad2ae6/Z+9+KjX4LhJPzq/w=";
+      sha256 = "sha256-eH1HkFZh+/EA006HkWbgK0kwnpfkpwPs4+ewW88CeXA=";
     });
-    date = "2023-04-21";
+    date = "2023-04-30";
   };
   openvpn = {
     pname = "openvpn";
