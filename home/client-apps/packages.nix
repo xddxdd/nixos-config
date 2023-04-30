@@ -31,7 +31,8 @@
     gcdemu
     gimp
     gnome.gedit
-    google-earth-pro
+    # Disabled for build failure
+    # google-earth-pro
     gopherus
     imagemagick
     jellyfin-media-player
@@ -59,7 +60,8 @@
     transmission-qt
     transmission-remote-gtk
     ulauncher
-    vagrant
+    # Temporarily disabled for build failure
+    # vagrant
     virt-manager
     vopono
     vscode

@@ -11,7 +11,6 @@
 
   services.gitea = {
     enable = true;
-    enableUnixSocket = true;
     appName = "Lan Tian @ Git";
     database = {
       type = "mysql";
@@ -20,10 +19,8 @@
       name = "gitea";
       createDatabase = false;
     };
-    domain = "git.lantian.pub";
     lfs.enable = true;
     mailerPasswordFile = config.age.secrets.smtp-pass.path;
-    rootUrl = "https://git.lantian.pub/";
     user = "git";
 
     settings = {
@@ -41,7 +38,10 @@
         ENABLE_XORM_LOG = false;
       };
       server = {
+        DOMAIN = "git.lantian.pub";
         LANDING_PAGE = "explore";
+        PROTOCOL = "http+unix";
+        ROOT_URL = "https://git.lantian.pub/";
         SSH_DOMAIN = "git.lantian.pub";
         SSH_PORT = 2222;
       };
