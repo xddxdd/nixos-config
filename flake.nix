@@ -34,6 +34,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    composer2nix = {
+      url = "github:svanderburg/composer2nix";
+      flake = false;
+    };
     dwarffs = {
       url = "github:edolstra/dwarffs";
       inputs.nix.follows = "nix";
