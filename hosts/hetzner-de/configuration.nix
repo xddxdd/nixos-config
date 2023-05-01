@@ -36,6 +36,8 @@
 
     ../../nixos/optional-cron-jobs/ssl-certs.nix
     ../../nixos/optional-cron-jobs/testssl.nix
+
+    "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
   systemd.network.networks.eth0 = {
