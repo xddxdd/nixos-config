@@ -8,6 +8,7 @@
   ...
 } @ args: let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
+  isMaintenanceHost = config.networking.hostName == "hetzner-de";
 
   kopiaSftpStorageCommon = {
     "port" = 2222;
@@ -106,30 +107,33 @@
     "formatBlobCacheDuration" = 900000000000;
   };
 
-  kopiaScript = name: storage: ''
-    export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
-    export KOPIA_CONFIG_PATH=/run/kopia-repository.config
+  kopiaScript = name: storage: (''
+      export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
+      export KOPIA_CONFIG_PATH=/run/kopia-repository.config
 
-    if [ -d /run/nullfs ]; then
-      export KOPIA_LOG_DIR=/run/nullfs
-    else
-      export KOPIA_LOG_DIR=/var/log/kopia
-    fi
+      if [ -d /run/nullfs ]; then
+        export KOPIA_LOG_DIR=/run/nullfs
+      else
+        export KOPIA_LOG_DIR=/var/log/kopia
+      fi
 
-    export KOPIA_PASSWORD=$(cat ${config.age.secrets.kopia-pw.path})
+      export KOPIA_PASSWORD=$(cat ${config.age.secrets.kopia-pw.path})
 
-    ${utils.genJqSecretsReplacementSnippet
-      (kopiaConfig name storage)
-      "/run/kopia-repository.config"}
+      ${utils.genJqSecretsReplacementSnippet
+        (kopiaConfig name storage)
+        "/run/kopia-repository.config"}
 
-    ${pkgs.kopia}/bin/kopia snapshot create \
-      /nix/.snapshot/persistent \
-      || HAS_ERROR=1
-
-    ${pkgs.kopia}/bin/kopia maintenance run || true
-
-    rm -f $KOPIA_CONFIG_PATH
-  '';
+      ${pkgs.kopia}/bin/kopia snapshot create \
+        /nix/.snapshot/persistent \
+        || HAS_ERROR=1
+    ''
+    + (lib.optionalString isMaintenanceHost ''
+      ${pkgs.kopia}/bin/kopia maintenance set --owner=root@${config.networking.hostName}
+      ${pkgs.kopia}/bin/kopia maintenance run
+    '')
+    + ''
+      rm -f $KOPIA_CONFIG_PATH
+    '');
 in {
   age.secrets.kopia-pw.file = inputs.secrets + "/kopia/pw.age";
   age.secrets.kopia-scaleway-ak.file = inputs.secrets + "/kopia/scaleway-ak.age";
