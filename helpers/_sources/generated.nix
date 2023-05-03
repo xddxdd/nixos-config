@@ -128,6 +128,18 @@
     });
     date = "2023-04-11";
   };
+  openwrt-mt76 = {
+    pname = "openwrt-mt76";
+    version = "cddbd796bbc649debe457f7b34b200bbda4fcc53";
+    src = fetchFromGitHub ({
+      owner = "openwrt";
+      repo = "mt76";
+      rev = "cddbd796bbc649debe457f7b34b200bbda4fcc53";
+      fetchSubmodules = false;
+      sha256 = "sha256-oPns25hthF/hlU2SrwhOj55PrYsaSNVP/ULvb7Pb6fc=";
+    });
+    date = "2023-04-18";
+  };
   ovpn-dco = {
     pname = "ovpn-dco";
     version = "961c60d0d8b8d45a21028e0479397c9c5604b81e";

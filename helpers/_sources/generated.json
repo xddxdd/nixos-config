@@ -213,6 +213,26 @@
         },
         "version": "fafb05f6f3a7a1b46c278961ec8d2d8970f01096"
     },
+    "openwrt-mt76": {
+        "cargoLocks": null,
+        "date": "2023-04-18",
+        "extract": null,
+        "name": "openwrt-mt76",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "openwrt",
+            "repo": "mt76",
+            "rev": "cddbd796bbc649debe457f7b34b200bbda4fcc53",
+            "sha256": "sha256-oPns25hthF/hlU2SrwhOj55PrYsaSNVP/ULvb7Pb6fc=",
+            "type": "github"
+        },
+        "version": "cddbd796bbc649debe457f7b34b200bbda4fcc53"
+    },
     "ovpn-dco": {
         "cargoLocks": null,
         "date": "2023-03-28",

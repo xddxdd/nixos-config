@@ -44,6 +44,10 @@ fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/OpenVPN/openvpn.git"
 fetch.github = "OpenVPN/openvpn"
 
+[openwrt-mt76]
+src.git = "https://github.com/openwrt/mt76"
+fetch.github = "openwrt/mt76"
+
 [ovpn-dco]
 src.git = "https://github.com/OpenVPN/ovpn-dco.git"
 fetch.github = "OpenVPN/ovpn-dco"
