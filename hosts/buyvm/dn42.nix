@@ -343,6 +343,20 @@
         peerIPv6LinkLocal = "fe80::1588";
       };
     };
+    tobias = {
+      remoteASN = 4242420577;
+      latencyMs = 16;
+      tunnel = {
+        type = "wireguard";
+        mtu = 1412;
+        localPort = 20577;
+        # Dynamic endpoint
+        wireguardPubkey = "SPfVzZHC6U+8oAJ0rd0foq0PH9xRYKGRVHLosV1WbXc=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::577:1";
+      };
+    };
     uffsalot = {
       remoteASN = 4242420780;
       latencyMs = 6;
