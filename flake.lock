@@ -372,11 +372,7 @@
       }
     },
     "nix-environments": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
         "lastModified": 1678557501,
         "narHash": "sha256-9hSg/sQSCojNxRGdTqlAlzsQXsLqIj6FU0huL/k6a7Y=",

@@ -73,7 +73,7 @@
     };
     nix-environments = {
       url = "github:nix-community/nix-environments";
-      inputs.nixpkgs.follows = "nixpkgs";
+      flake = false;
     };
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
