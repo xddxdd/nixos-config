@@ -31,4 +31,6 @@
     fsType = "btrfs";
     options = ["compress-force=zstd" "nosuid" "nodev"];
   };
+
+  swapDevices = [{device = "/dev/sda2";}];
 }
