@@ -13,7 +13,10 @@
     app.shmFile = "/dev/kvmfr0";
     input.escapeKey = 119;
     input.rawMouse = "yes";
+    spice.enable = "yes";
+    win.autoScreensaver = "yes";
     win.fullScreen = "yes";
-    spice.enable = "no";
+    win.jitRender = "yes";
+    win.quickSplash = "yes";
   };
 }
