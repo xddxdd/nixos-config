@@ -49,6 +49,14 @@ in rec {
           --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
       '';
   });
+  looking-glass-client = prev.looking-glass-client.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [makeWrapper]);
+    postFixup =
+      (old.postFixup or "")
+      + ''
+        wrapProgram $out/bin/looking-glass-client --unset WAYLAND_DISPLAY
+      '';
+  });
   mailutils = prev.mailutils.overrideAttrs (old: {
     doCheck = false;
   });
