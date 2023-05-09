@@ -38,11 +38,6 @@ in {
 
     confFiles = {
       "pjsip.conf" = ''
-        ; Allow unlimited retries for registration
-        [registration]
-        auth_rejection_permanent=no
-        max_retries=0
-
         ; Transports
         ${transports}
 

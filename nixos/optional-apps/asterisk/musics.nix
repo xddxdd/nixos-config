@@ -10,34 +10,37 @@
   inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
 
   musics = [
-    "nightglow"
-    "rubia"
-    "ye_hang_xing"
-    "cage"
-    "550w_moss"
-    "lai_zi_tian_tang_de_mo_gui"
-    "zen_me_hai_bu_ai"
-    "chen_yi_xun_gu_yong_zhe"
-    "zu_ya_na_xi_gu_yong_zhe"
+    "nightglow.mp3"
+    "rubia.mp3"
+    "ye_hang_xing.mp3"
+    "cage.mp3"
+    "550w_moss.mp3"
+    "lai_zi_tian_tang_de_mo_gui.mp3"
+    "zen_me_hai_bu_ai.mp3"
+    "chen_yi_xun_gu_yong_zhe.mp3"
+    "zu_ya_na_xi_gu_yong_zhe.mp3"
   ];
 
-  getMusicPath = music: let
-    converted = pkgs.stdenvNoCC.mkDerivation {
-      pname = music;
-      version = "1.0";
-      src = inputs.nixos-asterisk-music + "/${music}.mp3";
-
-      nativeBuildInputs = with pkgs; [ffmpeg];
-
-      phases = ["installPhase"];
-      installPhase = ''
-        mkdir -p $out
-        ffmpeg -i ${inputs.nixos-asterisk-music}/${music}.mp3 \
-          -ar 48000 -ac 1 -acodec pcm_s16le -f s16le \
-          $out/${music}.sln48
-      '';
+  musicSrc = pkgs.stdenvNoCC.mkDerivation {
+    pname = "nixos-asterisk-music";
+    version = "1.0";
+    src = pkgs.fetchurl {
+      url = "https://private.xuyh0120.win/nixos-asterisk-music.tar.zst";
+      sha256 = "11dmwim2g7qrdp4q4l7mp4c9j3wax0iv152hrqz0aajbirqnfxs6";
     };
-  in "${converted}/${music}";
+
+    nativeBuildInputs = with pkgs; [ffmpeg zstd];
+
+    installPhase = ''
+      mkdir -p $out
+      ls -alh
+      for F in *; do
+        ffmpeg -i $F \
+          -ar 48000 -ac 1 -acodec pcm_s16le -f s16le \
+          $out/$F.sln48
+      done
+    '';
+  };
 in rec {
   destLocalForwardMusic = digits: let
     randomForwardRule = dialRule "0000" [
@@ -62,7 +65,7 @@ in rec {
     }:
       dialRule (builtins.toString (index + 1)) [
         "Answer()"
-        "Playback(${getMusicPath value})"
+        "Playback(${musicSrc}/${value})"
       ])
     (enumerateList musics);
 }
