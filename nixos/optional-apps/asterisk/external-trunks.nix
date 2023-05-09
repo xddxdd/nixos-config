@@ -25,6 +25,12 @@
     contact_user=${number}
     line=yes
     endpoint=${name}
+    ; Allow unlimited retries for registration
+    auth_rejection_permanent=no
+    max_retries=0
+    retry_interval=30
+    fatal_retry_interval=60
+    forbidden_retry_interval=60
     ${extraRegistrationConfig}
 
     [${name}](template-endpoint-common)

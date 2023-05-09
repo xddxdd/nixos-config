@@ -408,22 +408,6 @@
         "type": "github"
       }
     },
-    "nixos-asterisk-music": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1677220328,
-        "narHash": "sha256-hcE9AQlCW16VYBQyi5lCsgPhvxGlPW1ptD+XNCzIpZI=",
-        "ref": "refs/heads/master",
-        "rev": "fa96681c29d12f7e7ce790023137e71533bf9648",
-        "revCount": 5,
-        "type": "git",
-        "url": "ssh://git@git.lantian.pub:2222/lantian/nixos-asterisk-music.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@git.lantian.pub:2222/lantian/nixos-asterisk-music.git"
-      }
-    },
     "nixos-cn": {
       "inputs": {
         "flake-utils": [
@@ -567,7 +551,6 @@
         "nix": "nix",
         "nix-alien": "nix-alien",
         "nix-environments": "nix-environments",
-        "nixos-asterisk-music": "nixos-asterisk-music",
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs",
         "nixpkgs-22-05": "nixpkgs-22-05",
