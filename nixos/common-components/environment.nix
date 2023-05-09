@@ -119,7 +119,6 @@ in {
   environment.variables = {
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
-    ENVFS_RESOLVE_ALWAYS = "1";
     KOPIA_CHECK_FOR_UPDATES = "false";
     NIX_REMOTE = "daemon";
     NIXPKGS_ALLOW_INSECURE = "1";
@@ -236,7 +235,6 @@ in {
     '';
   };
 
-  services.envfs.enable = true;
   services.fstrim.enable = !config.boot.isContainer;
   services.irqbalance.enable = !config.boot.isContainer;
 
