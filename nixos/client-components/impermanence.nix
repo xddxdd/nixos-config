@@ -49,7 +49,6 @@
         ".pcem"
         ".rustup"
         ".stack"
-        ".steam"
         ".terraform.d"
         ".thunderbird"
         ".vagrant.d"
