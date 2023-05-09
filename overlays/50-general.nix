@@ -55,6 +55,12 @@ in rec {
       (old.postFixup or "")
       + ''
         wrapProgram $out/bin/looking-glass-client --unset WAYLAND_DISPLAY
+
+        # Do not start terminal for looking glass client
+        sed "/Terminal=true/d" $out/share/applications/looking-glass-client.desktop > looking-glass-client.desktop
+        rm -rf $out/share/applications
+        mkdir -p $out/share/applications
+        mv looking-glass-client.desktop $out/share/applications/looking-glass-client.desktop
       '';
   });
   mailutils = prev.mailutils.overrideAttrs (old: {
