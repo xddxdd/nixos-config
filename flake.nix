@@ -67,10 +67,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-environments = {
-      url = "github:nix-community/nix-environments";
-      flake = false;
-    };
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
