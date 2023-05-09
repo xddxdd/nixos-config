@@ -40,7 +40,6 @@
       "https://colmena.cachix.org"
       "https://nixos-cn.cachix.org"
       "https://cuda-maintainers.cachix.org"
-      "https://ezkea.cachix.org" # an-anime-game-launcher
     ];
     trusted-public-keys = [
       "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="

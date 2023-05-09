@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "aagl-gtk-on-nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1682098437,
-        "narHash": "sha256-WkKR3XiKxa+PdvNJgdizAHKc0Nn0s5fbgV1CZwA4OQ4=",
-        "owner": "ezKEa",
-        "repo": "aagl-gtk-on-nix",
-        "rev": "a2a46fb8d99090f2c841a28fddcea4aeaee36748",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ezKEa",
-        "repo": "aagl-gtk-on-nix",
-        "type": "github"
-      }
-    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -520,7 +504,6 @@
     },
     "root": {
       "inputs": {
-        "aagl-gtk-on-nix": "aagl-gtk-on-nix",
         "agenix": "agenix",
         "cities-json": "cities-json",
         "colmena": "colmena",
