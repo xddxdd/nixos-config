@@ -8,8 +8,8 @@
   ...
 } @ args: {
   home.packages = with pkgs; [
-    (LT.wrapNetns "ns-wg-lantian" deluge)
-    (LT.wrapNetns "ns-wg-lantian" qbittorrent-enhanced-edition)
+    (LT.wrapNetns "wg-lantian" deluge)
+    (LT.wrapNetns "wg-lantian" qbittorrent-enhanced-edition)
     (lutris.override {extraPkgs = p: with p; [xdelta];})
     appimage-run
     aria

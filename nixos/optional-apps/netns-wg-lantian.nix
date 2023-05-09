@@ -13,7 +13,7 @@
 in {
   age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
-  environment.etc."netns/ns-wg-lantian/resolv.conf".text = ''
+  environment.etc."netns/wg-lantian/resolv.conf".text = ''
     nameserver 8.8.8.8
     options single-request edns0
   '';
@@ -30,7 +30,7 @@ in {
     ];
     listenPort = 22547;
     privateKeyFile = config.age.secrets.wg-priv.path;
-    interfaceNamespace = "ns-wg-lantian";
+    interfaceNamespace = "wg-lantian";
     peers = [
       {
         endpoint = "${LT.hosts.buyvm.public.IPv4}:22547";

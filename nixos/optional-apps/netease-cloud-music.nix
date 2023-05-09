@@ -129,7 +129,7 @@ in {
     nixos-cn.netease-cloud-music
   ];
 
-  environment.etc."netns/ns-netease/resolv.conf".text = ''
+  environment.etc."netns/netease/resolv.conf".text = ''
     nameserver 114.114.114.114
     options edns0
   '';
@@ -166,7 +166,7 @@ in {
     group = "root";
     capabilities = "cap_sys_admin+ep";
     source = pkgs.writeShellScript "netease-cloud-music" ''
-      ${pkgs.netns-exec}/bin/netns-exec-dbus -- ns-netease \
+      ${pkgs.netns-exec}/bin/netns-exec-dbus -- netease \
         env \
           QT_AUTO_SCREEN_SCALE_FACTOR=$QT_AUTO_SCREEN_SCALE_FACTOR \
           QT_SCREEN_SCALE_FACTORS=$QT_SCREEN_SCALE_FACTORS \
