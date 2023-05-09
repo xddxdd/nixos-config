@@ -371,22 +371,6 @@
         "type": "github"
       }
     },
-    "nix-environments": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1678557501,
-        "narHash": "sha256-9hSg/sQSCojNxRGdTqlAlzsQXsLqIj6FU0huL/k6a7Y=",
-        "owner": "nix-community",
-        "repo": "nix-environments",
-        "rev": "0cba9129f3b86ebaef5dd5af3320316d2c90ba90",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nix-environments",
-        "type": "github"
-      }
-    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -550,7 +534,6 @@
         "nil": "nil",
         "nix": "nix",
         "nix-alien": "nix-alien",
-        "nix-environments": "nix-environments",
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs",
         "nixpkgs-22-05": "nixpkgs-22-05",
