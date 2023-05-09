@@ -18,7 +18,10 @@
   };
 in {
   programs.chromium.extraOpts.HomepageLocation = lib.mkForce "http://localhost";
-  programs.firefox.policies.Homepage.URL = lib.mkForce "http://localhost";
+  programs.firefox.policies = {
+    Homepage.URL = lib.mkForce "http://localhost";
+    ShowHomeButton = lib.mkForce true;
+  };
 
   services.nginx.virtualHosts."localhost" = lib.mkForce {
     listen = LT.nginx.listenHTTP;
