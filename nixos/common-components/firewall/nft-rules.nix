@@ -111,6 +111,10 @@
     + ''
         ${serverPortForwards}
         ${wg-lantian}
+
+        # Redirect all KMS requests to internal server
+        tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip to 198.18.0.252:${LT.portStr.KMS}
+        tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
       }
 
       chain NAT_INPUT {
@@ -119,6 +123,10 @@
 
       chain NAT_OUTPUT {
         type nat hook output priority -95; policy accept;
+
+        # Redirect all KMS requests to internal server
+        tcp dport ${LT.portStr.KMS} dnat ip to 198.18.0.252:${LT.portStr.KMS}
+        tcp dport ${LT.portStr.KMS} dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
       }
 
       chain NAT_POSTROUTING {
