@@ -67,7 +67,7 @@
                 serviceConfig =
                   (attr.serviceConfig or {})
                   // {
-                    NetworkNamespacePath = "/run/netns/ns-${name}";
+                    NetworkNamespacePath = "/run/netns/${name}";
                   };
               }
               // (builtins.removeAttrs attr ["after" "bindsTo" "serviceConfig"]))
@@ -81,7 +81,7 @@
             after = ["netns-instance-${name}.service"];
             bindsTo = ["netns-instance-${name}.service"];
             serviceConfig = {
-              NetworkNamespacePath = "/run/netns/ns-${name}";
+              NetworkNamespacePath = "/run/netns/${name}";
             };
           }
           else {};
@@ -108,8 +108,8 @@ in {
       (lib.mapAttrsToList (name: value: let
           interface = builtins.substring 0 12 name;
           ipbin = "${pkgs.iproute2}/bin/ip";
-          ipns = "${ipbin} netns exec ns-${name} ${ipbin}";
-          sysctl = "${ipbin} netns exec ns-${name} ${pkgs.procps}/bin/sysctl";
+          ipns = "${ipbin} netns exec ${name} ${ipbin}";
+          sysctl = "${ipbin} netns exec ${name} ${pkgs.procps}/bin/sysctl";
 
           birdConfig = pkgs.writeText "bird-netns-${name}.conf" (''
               log stderr { error, fatal };
@@ -163,7 +163,7 @@ in {
             script =
               ''
                 # Setup namespace
-                ${ipbin} netns add ns-${name}
+                ${ipbin} netns add ${name}
                 ${ipns} link set lo up
                 # Disable auto generated IPv6 link local address
                 ${sysctl} -w net.ipv6.conf.default.autoconf=0
@@ -174,7 +174,7 @@ in {
                 ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
                 # Setup veth pair
                 ${ipbin} link add ns-${interface} type veth peer ni-${interface}
-                ${ipbin} link set ni-${interface} netns ns-${name}
+                ${ipbin} link set ni-${interface} netns ${name}
                 ${ipns} link set ni-${interface} name eth0
                 # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
                 ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
@@ -220,12 +220,12 @@ in {
               RemainAfterExit = true;
 
               ExecStartPre = [
-                "-${ipbin} netns delete ns-${name}"
+                "-${ipbin} netns delete ${name}"
               ];
               ExecStopPost = [
                 "${ipbin} link del ns-${interface}"
                 "${ipns} link del dummy0"
-                "${ipbin} netns delete ns-${name}"
+                "${ipbin} netns delete ${name}"
               ];
             };
           })
