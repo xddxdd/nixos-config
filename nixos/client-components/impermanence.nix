@@ -38,6 +38,7 @@
         ".ssh"
 
         # Other configs
+        ".aMule"
         ".android"
         ".conda"
         ".fly"
