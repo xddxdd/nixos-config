@@ -55,6 +55,7 @@
     qq
     quasselClient
     space-cadet-pinball-full-tilt
+    steam-run
     svp
     tdesktop
     tigervnc
