@@ -34,13 +34,13 @@
         local fc00::2547:${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fc00::2547:${builtins.toString index}%'zthnhe4bol' internal;
         ipv4 {
-          import filter { dn42_update_flags(${latencyCommunity},24,34,false); ltnet_import_filter_v4(); };
-          export filter { dn42_update_flags(${latencyCommunity},24,34,false); ltnet_export_filter_v4(); };
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v4(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v4(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
-          import filter { dn42_update_flags(${latencyCommunity},24,34,false); ltnet_import_filter_v6(); };
-          export filter { dn42_update_flags(${latencyCommunity},24,34,false); ltnet_export_filter_v6(); };
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v6(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v6(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };

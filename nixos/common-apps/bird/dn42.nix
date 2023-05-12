@@ -31,8 +31,8 @@
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto},true); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto},true); dn42_export_filter_ipv4(${localASN}); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
           import none;
@@ -45,12 +45,12 @@
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto},true); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto},true); dn42_export_filter_ipv4(${localASN}); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto},true); dn42_import_filter_ipv6(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto},true); dn42_export_filter_ipv6(${localASN}); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
         };
       };
     ''
@@ -59,12 +59,12 @@
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${localASN};
         ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto},true); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto},true); dn42_export_filter_ipv4(${localASN}); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
         };
         ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto},true); dn42_import_filter_ipv6(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto},true); dn42_export_filter_ipv6(${localASN}); };
+          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
         };
       };
     '';
@@ -233,7 +233,7 @@ in {
       else return 0;
     }
 
-    function dn42_update_flags(int link_latency; int link_bandwidth; int link_crypto; bool link_ebgp)
+    function dn42_update_flags(int link_latency; int link_bandwidth; int link_crypto)
     int dn42_latency;
     int dn42_bandwidth;
     int dn42_crypto;
@@ -243,32 +243,14 @@ in {
       dn42_crypto = dn42_update_crypto(link_crypto) - 30;
       if source != RTS_BGP then { bgp_community.add((64511, ${DN42_REGION})); }
 
-      # WARNING: NEVER cause priority inversion in iBGP!
+      bgp_local_pref = 200;
 
-      # Range:
-      # - 300-400: eBGP peer, same region
-      # - 200-300: iBGP peer, same region
-      # - 100-200: eBGP peer, different region
-      # -   0-100: iBGP peer, different region
-      # -       0: bgp_path.len >= 10
-
-      if bgp_path.len >= 10 then {
-        bgp_local_pref = 0;
-
-      } else {
-        bgp_local_pref = 200;
-
-        if dn42_get_region() = ${DN42_REGION} && dn42_latency <= 5 then {
-          bgp_local_pref = bgp_local_pref + 200;
-        }
-
-        if link_ebgp then {
-          bgp_local_pref = bgp_local_pref - 100;
-        }
-
-        bgp_local_pref = bgp_local_pref - dn42_latency;
-        bgp_local_pref = bgp_local_pref - 10 * bgp_path.len;
+      if dn42_get_region() = ${DN42_REGION} && dn42_latency <= 5 then {
+        bgp_local_pref = bgp_local_pref + 100;
       }
+
+      bgp_local_pref = bgp_local_pref - dn42_latency;
+      bgp_local_pref = bgp_local_pref - 10 * bgp_path.len;
 
       return true;
     }
