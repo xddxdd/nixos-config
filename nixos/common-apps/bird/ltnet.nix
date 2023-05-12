@@ -99,8 +99,11 @@ in {
     }
 
     function ltnet_export_filter_v4() {
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
+      # Static protocol routes are all defined as unreachable
+      if source != RTS_STATIC then {
+        if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+        if ifindex = 0 then reject;
+      }
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -111,8 +114,11 @@ in {
     }
 
     function ltnet_export_filter_v6() {
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
+      # Static protocol routes are all defined as unreachable
+      if source != RTS_STATIC then {
+        if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+        if ifindex = 0 then reject;
+      }
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
@@ -131,7 +137,8 @@ in {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        add paths yes;
+        # DO NOT ENABLE. Other nodes may prefer a secondary route from us.
+        # add paths yes;
         import filter { ltnet_import_filter_v4(); };
         export filter { ltnet_export_filter_v4(); };
       };
@@ -139,7 +146,8 @@ in {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        add paths yes;
+        # DO NOT ENABLE. Other nodes may prefer a secondary route from us.
+        # add paths yes;
         import filter { ltnet_import_filter_v6(); };
         export filter { ltnet_export_filter_v6(); };
       };
