@@ -43,6 +43,7 @@
     libsForQt5.ark
     libsForQt5.kpat
     linphone
+    matrix-synapse-tools.synadm
     mediainfo
     megatools
     mpv
