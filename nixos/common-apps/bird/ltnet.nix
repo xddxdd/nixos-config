@@ -33,39 +33,38 @@
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fc00::2547:${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fc00::2547:${builtins.toString index}%'zthnhe4bol' internal;
-        # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
-          import filter ltnet_import_filter_v4;
-          export filter ltnet_export_filter_v4;
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v4(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v4(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
-          import filter ltnet_import_filter_v6;
-          export filter ltnet_import_filter_v6;
+          import filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_import_filter_v6(); };
+          export filter { dn42_update_flags(${latencyCommunity},24,34); ltnet_export_filter_v6(); };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
     '';
 in {
   babel = ''
-    filter ltmesh_import_filter_v4 {
+    function ltmesh_import_filter_v4() {
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v4 {
+    function ltmesh_export_filter_v4() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_import_filter_v6 {
+    function ltmesh_import_filter_v6() {
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v6 {
+    function ltmesh_export_filter_v6() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_IPv6 then accept;
@@ -74,12 +73,12 @@ in {
 
     protocol babel ltmesh {
       ipv4 {
-        import filter ltmesh_import_filter_v4;
-        export filter ltmesh_export_filter_v4;
+        import filter { ltmesh_import_filter_v4(); };
+        export filter { ltmesh_export_filter_v4(); };
       };
       ipv6 {
-        import filter ltmesh_import_filter_v6;
-        export filter ltmesh_export_filter_v6;
+        import filter { ltmesh_import_filter_v6(); };
+        export filter { ltmesh_export_filter_v6(); };
       };
       randomize router id yes;
       metric decay 30s;
@@ -94,24 +93,24 @@ in {
   '';
 
   common = ''
-    filter ltnet_import_filter_v4 {
+    function ltnet_import_filter_v4() {
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
-    filter ltnet_export_filter_v4 {
+    function ltnet_export_filter_v4() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
-    filter ltnet_import_filter_v6 {
+    function ltnet_import_filter_v6() {
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
-    filter ltnet_export_filter_v6 {
+    function ltnet_export_filter_v6() {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ RESERVED_IPv6 then accept;
@@ -133,16 +132,16 @@ in {
         import keep filtered;
         extended next hop yes;
         add paths yes;
-        import filter ltnet_import_filter_v4;
-        export filter ltnet_export_filter_v4;
+        import filter { ltnet_import_filter_v4(); };
+        export filter { ltnet_export_filter_v4(); };
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
         add paths yes;
-        import filter ltnet_import_filter_v6;
-        export filter ltnet_export_filter_v6;
+        import filter { ltnet_import_filter_v6(); };
+        export filter { ltnet_export_filter_v6(); };
       };
     };
   '';
