@@ -138,7 +138,10 @@
     ];
   in
     flake-utils-plus.lib.mkFlake {
-      inherit self inputs;
+      inherit self;
+      inputs = {
+        inherit (inputs) nixpkgs;
+      };
       supportedSystems = flake-utils.lib.allSystems;
       channels.nixpkgs = {
         config = {
