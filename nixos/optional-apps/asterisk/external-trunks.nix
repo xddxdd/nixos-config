@@ -21,7 +21,6 @@
     server_uri=${protocol}:${url}
     client_uri=${protocol}:${number}@${url}
     retry_interval=60
-    expiration=120
     contact_user=${number}
     line=yes
     endpoint=${name}
