@@ -21,7 +21,7 @@
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2023-04-30",
+        "date": "2023-05-08",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "3e68dea71beec56bce9292d3b9ebca42ea1fa2b1",
-            "sha256": "sha256-7TCZ2vDh2OxR8nC2fG22Vklr4TiOE3mPDFBScG5L1FU=",
+            "rev": "85549dec02318c850d073dbd3a2def0abd87adc9",
+            "sha256": "sha256-7QFW8qh2/Jn7wbauMgst82ZlcH1umnmUPQOnygpX5zQ=",
             "type": "github"
         },
-        "version": "3e68dea71beec56bce9292d3b9ebca42ea1fa2b1"
+        "version": "85549dec02318c850d073dbd3a2def0abd87adc9"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -76,7 +76,7 @@
     },
     "hostapd": {
         "cargoLocks": null,
-        "date": "2023-04-28",
+        "date": "2023-05-04",
         "extract": null,
         "name": "hostapd",
         "passthru": null,
@@ -86,16 +86,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "73372322038d2617f2be4542c0f2a5fa846fe911",
-            "sha256": "sha256-1sPgai+jgThEvX0fjJDkMEpDMv8iYeqgt8LV+D3Ywn4=",
+            "rev": "cc8a09a48a5c99189adff9de4f390b00e86706d2",
+            "sha256": "sha256-Iab+k279mjTEJIMltijsHZRpEUzgc5yv+pPSC/dWNEM=",
             "type": "git",
             "url": "https://w1.fi/hostap.git"
         },
-        "version": "73372322038d2617f2be4542c0f2a5fa846fe911"
+        "version": "cc8a09a48a5c99189adff9de4f390b00e86706d2"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-04-26",
+        "date": "2023-05-08",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -107,11 +107,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "cc684d3172ee49455afc74fc02f8bb2aa75943ed",
-            "sha256": "sha256-FmtuzzYhHQyXFc7vX94PnzYUlOz8+kHOsuw/o3zBRjU=",
+            "rev": "991bfa01fca3bc3794152dc57b0421814c7c2445",
+            "sha256": "sha256-mVQsgmOkpnv7lvPHpX1cr7lpCaz15tGg3bFJlV+3X4o=",
             "type": "github"
         },
-        "version": "cc684d3172ee49455afc74fc02f8bb2aa75943ed"
+        "version": "991bfa01fca3bc3794152dc57b0421814c7c2445"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -175,7 +175,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-04-30",
+        "date": "2023-05-04",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -187,15 +187,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "a42791cefa9a19df159220577653fccc1ec814f8",
-            "sha256": "sha256-eH1HkFZh+/EA006HkWbgK0kwnpfkpwPs4+ewW88CeXA=",
+            "rev": "b240ee53ac2f9035ee810b7f9b0b455b3876086f",
+            "sha256": "sha256-VY0XtLc0jfqoeSLD5l90tCoKpcHBkpmgNNKH6bmnVc4=",
             "type": "github"
         },
-        "version": "a42791cefa9a19df159220577653fccc1ec814f8"
+        "version": "b240ee53ac2f9035ee810b7f9b0b455b3876086f"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-04-11",
+        "date": "2023-05-10",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -207,11 +207,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "fafb05f6f3a7a1b46c278961ec8d2d8970f01096",
-            "sha256": "sha256-Lm7ljVJJPmXGcxRnQiERk9WXfD4oAkXIJy6QTeAEpRY=",
+            "rev": "f4850745709c5b80ab7d09c03a86c5ceea6d10a2",
+            "sha256": "sha256-AO0pW1m95IEu9WNpUorTgDXVeVIUIT1GFZlwRBIDFFs=",
             "type": "github"
         },
-        "version": "fafb05f6f3a7a1b46c278961ec8d2d8970f01096"
+        "version": "f4850745709c5b80ab7d09c03a86c5ceea6d10a2"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
