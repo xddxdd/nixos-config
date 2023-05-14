@@ -1,5 +1,5 @@
 diff --git a/pkgs/servers/web-apps/plausible/default.nix b/pkgs/servers/web-apps/plausible/default.nix
-index b3abd130d93..83b301212a8 100644
+index f9371bd916f..7eda57e8c2f 100644
 --- a/pkgs/servers/web-apps/plausible/default.nix
 +++ b/pkgs/servers/web-apps/plausible/default.nix
 @@ -12,20 +12,20 @@
@@ -26,6 +26,15 @@ index b3abd130d93..83b301212a8 100644
    };
  
    yarnDeps = mkYarnModules {
+@@ -71,7 +71,7 @@ beamPackages.mixRelease {
+   meta = with lib; {
+     license = licenses.agpl3Plus;
+     # broken since the deprecation of nodejs_16
+-    broken = true;
++    broken = false;
+     homepage = "https://plausible.io/";
+     description = " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.";
+     maintainers = with maintainers; [ ];
 diff --git a/pkgs/servers/web-apps/plausible/package.json b/pkgs/servers/web-apps/plausible/package.json
 index 2fb83b8e14a..0d33b0b5a8d 100644
 --- a/pkgs/servers/web-apps/plausible/package.json

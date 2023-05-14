@@ -1,0 +1,45 @@
+diff --git a/nixos/modules/virtualisation/nixos-containers.nix b/nixos/modules/virtualisation/nixos-containers.nix
+index d54e2ed3f3ae1..c3949564d4bde 100644
+--- a/nixos/modules/virtualisation/nixos-containers.nix
++++ b/nixos/modules/virtualisation/nixos-containers.nix
+@@ -515,6 +515,10 @@ in
+                     in [ extraConfig ] ++ (map (x: x.value) defs);
+                   prefix = [ "containers" name ];
+                   inherit (config) specialArgs;
++
++                  # The system is inherited from the host above.
++                  # Set it to null, to remove the "legacy" entrypoint's non-hermetic default.
++                  system = null;
+                 }).config;
+               };
+             };
+diff --git a/nixos/tests/containers-imperative.nix b/nixos/tests/containers-imperative.nix
+index 3007efaf88710..22b664a90e170 100644
+--- a/nixos/tests/containers-imperative.nix
++++ b/nixos/tests/containers-imperative.nix
+@@ -25,6 +25,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
+               system.stateVersion = "18.03";
+             };
+           };
++
++          # The system is inherited from the host above.
++          # Set it to null, to remove the "legacy" entrypoint's non-hermetic default.
++          system = null;
+         };
+       in with pkgs; [
+         stdenv stdenvNoCC emptyContainer.config.containers.foo.path
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 22efeb42ebffc..fa0947bf2db45 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -39009,6 +39009,10 @@ with pkgs;
+                   then configuration
+                   else [configuration]
+                 );
++
++                # The system is inherited from the current pkgs above.
++                # Set it to null, to remove the "legacy" entrypoint's non-hermetic default.
++                system = null;
+             };
+       in
+         c.config.system.build // c;
