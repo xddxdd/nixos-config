@@ -36,7 +36,6 @@
     "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
-  boot.initrd.systemd.enable = lib.mkForce false;
   boot.kernelParams = ["pci=realloc,assign-busses"];
 
   # ECC RAM
