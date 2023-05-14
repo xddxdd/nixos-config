@@ -102,7 +102,7 @@ in {
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  i18n.defaultLocale = "zh_CN.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   i18n.supportedLocales = ["all"];
 
   location = {
