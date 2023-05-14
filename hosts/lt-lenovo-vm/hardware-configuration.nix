@@ -30,6 +30,12 @@
     options = ["compress-force=zstd" "nosuid" "nodev"];
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "/dev/vdb1";
+    fsType = "btrfs";
+    options = ["compress-force=zstd" "nosuid" "nodev"];
+  };
+
   fileSystems."/boot" = {
     device = "/nix/boot";
     options = ["bind"];

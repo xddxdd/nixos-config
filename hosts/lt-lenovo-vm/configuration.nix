@@ -11,6 +11,8 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/resilio.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -18,6 +20,8 @@
     gateway = ["192.168.0.2"];
     matchConfig.Name = "eth0";
   };
+
+  lantian.resilio.storage = "/mnt/storage/media";
 
   services."route-chain" = {
     enable = true;
