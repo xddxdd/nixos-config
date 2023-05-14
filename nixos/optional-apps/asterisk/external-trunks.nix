@@ -26,7 +26,7 @@
     endpoint=${name}
     ; Allow unlimited retries for registration
     auth_rejection_permanent=no
-    max_retries=0
+    max_retries=1000000
     retry_interval=30
     fatal_retry_interval=60
     forbidden_retry_interval=60
