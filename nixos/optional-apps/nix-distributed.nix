@@ -23,9 +23,20 @@
         sshUser = "root";
         supportedFeatures = ["benchmark" "big-parallel"];
       };
+
+  nixBuildNet = {
+    hostName = "eu.nixbuild.net";
+    systems = ["x86_64-linux" "aarch64-linux"];
+    sshKey = "/home/lantian/.ssh/id_ed25519";
+    sshUser = "root";
+    maxJobs = 100;
+    speedFactor = 100;
+    supportedFeatures = ["benchmark" "big-parallel"];
+  };
 in {
   nix = {
     distributedBuilds = true;
-    buildMachines = lib.filter (v: v != null) (lib.mapAttrsToList mkBuildMachine (LT.hostsWithTag LT.tags.nix-builder));
+    buildMachines = [nixBuildNet];
+    # buildMachines = lib.filter (v: v != null) (lib.mapAttrsToList mkBuildMachine (LT.hostsWithTag LT.tags.nix-builder));
   };
 }
