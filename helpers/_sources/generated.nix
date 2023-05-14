@@ -38,10 +38,10 @@
   };
   homer = {
     pname = "homer";
-    version = "v23.02.2";
+    version = "v23.05.1";
     src = fetchurl {
-      url = "https://github.com/bastienwirtz/homer/releases/download/v23.02.2/homer.zip";
-      sha256 = "sha256-M9KuZm0F5S8EuAwfMvBZ9Yve4ImwF69MSDa5Qqpd9XA=";
+      url = "https://github.com/bastienwirtz/homer/releases/download/v23.05.1/homer.zip";
+      sha256 = "sha256-oxZjcZH1R+6vPF3ZzFKvupvpkBVHiqM3xjMyPupYEY0=";
     };
   };
   hostapd = {
@@ -118,27 +118,27 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "f4850745709c5b80ab7d09c03a86c5ceea6d10a2";
+    version = "cf496476b364f8613bacd48e10d6a1bbbf0aceda";
     src = fetchFromGitHub ({
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "f4850745709c5b80ab7d09c03a86c5ceea6d10a2";
+      rev = "cf496476b364f8613bacd48e10d6a1bbbf0aceda";
       fetchSubmodules = false;
-      sha256 = "sha256-AO0pW1m95IEu9WNpUorTgDXVeVIUIT1GFZlwRBIDFFs=";
+      sha256 = "sha256-E7KkavG7dAV4E3SZ2QbT1ZMTYfsOB/yTWxoE5kZ6JrY=";
     });
-    date = "2023-05-10";
+    date = "2023-05-13";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "cddbd796bbc649debe457f7b34b200bbda4fcc53";
+    version = "969b7b5ebd129068ca56e4b0d831593a2f92382f";
     src = fetchFromGitHub ({
       owner = "openwrt";
       repo = "mt76";
-      rev = "cddbd796bbc649debe457f7b34b200bbda4fcc53";
+      rev = "969b7b5ebd129068ca56e4b0d831593a2f92382f";
       fetchSubmodules = false;
-      sha256 = "sha256-oPns25hthF/hlU2SrwhOj55PrYsaSNVP/ULvb7Pb6fc=";
+      sha256 = "sha256-FESdB0sk07xbWmHyc7MyG/uS1wGJc26+stOUZwZ5qoA=";
     });
-    date = "2023-04-18";
+    date = "2023-05-13";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
