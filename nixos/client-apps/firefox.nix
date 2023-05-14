@@ -10,6 +10,7 @@
   # https://github.com/mozilla/policy-templates/blob/master/README.md
   programs.firefox = {
     enable = true;
+    languagePacks = ["zh-CN"];
     policies = {
       DisableAppUpdate = true;
       DisabledCiphers = {
