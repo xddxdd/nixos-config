@@ -73,6 +73,13 @@ in rec {
         ../patches/matrix-synapse-listen-unix.patch
       ];
   });
+  mtdutils = prev.mtdutils.overrideAttrs (old: {
+    postFixup =
+      (old.postFixup or "")
+      + ''
+        sed -i "s#/bin/mount#${final.util-linux}/bin/mount#g" $out/bin/mount.ubifs
+      '';
+  });
   nix-top = prev.nix-top.overrideAttrs (old: {
     postPatch =
       (old.postInstall or "")
