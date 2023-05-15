@@ -8,8 +8,10 @@
   ...
 } @ args: {
   # drivers/mtd/nand/raw/nand_ids.c
-  boot.kernelModules = ["nandsim"];
-  boot.extraModprobeConfig = ''
-    options nandsim first_id_byte=0x72 parts=1024
-  '';
+  boot.kernelModules = ["ubi"];
+
+  environment.systemPackages = with pkgs; [
+    mtdutils
+    ubi_reader
+  ];
 }
