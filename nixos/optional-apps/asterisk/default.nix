@@ -148,6 +148,7 @@ in {
           ${dialRule "1999" [
             "Set(DIALGROUP(mygroup,add)=PJSIP/1000)"
             "Set(DIALGROUP(mygroup,add)=PJSIP/1001)"
+            "Set(DIALGROUP(mygroup,add)=PJSIP/1003)"
             "Dial(\${DIALGROUP(mygroup)})"
           ]}
           ${dialRule "2000" ["Goto(dest-local,\${RAND(2001,2003)},1)"]}
