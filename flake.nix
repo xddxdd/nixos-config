@@ -58,6 +58,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.flake-utils.follows = "flake-utils";
@@ -115,8 +119,10 @@
             [
               inputs.colmena.overlay
               inputs.nil.overlays.nil
+              inputs.nix.overlays.default
               inputs.nix-alien.overlay
               inputs.nixos-cn.overlay
+              inputs.nixpkgs-wayland.overlay
               inputs.nur.overlay
             ]
             ++ (import ./overlays {inherit inputs;});

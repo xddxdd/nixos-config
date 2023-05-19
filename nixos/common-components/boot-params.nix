@@ -17,7 +17,6 @@
           if builtins.elem LT.tags.client LT.this.tags
           then "saved"
           else 0;
-        version = 2;
         splashImage = null;
         font =
           lib.mkDefault

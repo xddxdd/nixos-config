@@ -30,7 +30,7 @@
   # Manually add EVENT permission to automysqlbackup user!
   services.automysqlbackup = {
     enable = true;
-    config = {
+    settings = {
       db_exclude = ["information_schema" "performance_schema" "sys" "test"];
     };
   };
