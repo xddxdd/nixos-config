@@ -74,6 +74,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "git+ssh://git@github.com/xddxdd/nixos-secrets";
@@ -124,6 +129,7 @@
               inputs.nixos-cn.overlay
               inputs.nixpkgs-wayland.overlay
               inputs.nur.overlay
+              inputs.nvfetcher.overlays.default
             ]
             ++ (import ./overlays {inherit inputs;});
         };
