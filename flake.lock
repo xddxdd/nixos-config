@@ -189,6 +189,22 @@
         "type": "github"
       }
     },
+    "flake-compat_5": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -671,6 +687,30 @@
         "type": "github"
       }
     },
+    "nvfetcher": {
+      "inputs": {
+        "flake-compat": "flake-compat_5",
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1684337341,
+        "narHash": "sha256-v9bOz/mZ58kS1x2YYfPoWy6CfK3w1R/ZyZmqSCs1QO8=",
+        "owner": "berberman",
+        "repo": "nvfetcher",
+        "rev": "d3226cb40df74dd6b432d5ce15bbcb05f3825ce2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "berberman",
+        "repo": "nvfetcher",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -693,6 +733,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
+        "nvfetcher": "nvfetcher",
         "secrets": "secrets",
         "srvos": "srvos"
       }
