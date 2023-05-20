@@ -41,9 +41,12 @@ in {
       ReadOnlyPaths = ["/nix/persistent/sync-servers"];
     };
 
-  systemd.sockets.rsync.listenStreams = lib.mkForce [
-    "${LT.this.ltnet.IPv4}:${LT.portStr.Rsync}"
-  ];
+  systemd.sockets.rsync = {
+    listenStreams = lib.mkForce [
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Rsync}"
+    ];
+    socketConfig.FreeBind = true;
+  };
 
   ########################################
   # Client
