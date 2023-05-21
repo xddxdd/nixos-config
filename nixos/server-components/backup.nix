@@ -108,6 +108,8 @@
   };
 
   kopiaScript = name: storage: (''
+      echo "Backing up to ${name}"
+
       export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
       export KOPIA_CONFIG_PATH=/run/kopia-repository.config
 
