@@ -126,6 +126,7 @@
         "/run/kopia-repository.config"}
 
       ${pkgs.kopia}/bin/kopia snapshot create \
+        --parallel=5 \
         /nix/.snapshot/persistent \
         || HAS_ERROR=1
     ''
