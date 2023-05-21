@@ -148,6 +148,7 @@ in {
     serviceConfig = {
       Type = "oneshot";
       CPUQuota = "40%";
+      TimeoutSec = "43200";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
     script =
