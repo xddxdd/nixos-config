@@ -24,7 +24,10 @@
     };
 
     address =
-      []
+      [
+        "198.18.0.1/32"
+        "fdbc:f9dc:67ad::1/128"
+      ]
       ++ lib.optionals (LT.this.ltnet.IPv4Prefix != "") [
         (LT.this.ltnet.IPv4Prefix + ".1/32")
       ]
@@ -43,5 +46,10 @@
       ++ lib.optionals (LT.this.neonetwork.IPv6 != "") [
         (LT.this.neonetwork.IPv6 + "/128")
       ];
+  };
+
+  lantian.ip-dedupe = {
+    "198.18.0.1/32" = "ltnet";
+    "fdbc:f9dc:67ad::1/128" = "ltnet";
   };
 }
