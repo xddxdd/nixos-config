@@ -277,6 +277,10 @@ in [
         name = "geoinfo";
         ttl = "1h";
       })
+      (TXT {
+        name = "@";
+        contents = "MS=ms22955481";
+      })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
