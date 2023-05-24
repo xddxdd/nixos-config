@@ -57,7 +57,10 @@ in {
     ];
   };
 
-  systemd.services.endlessh-go.serviceConfig.BindReadOnlyPaths = [
-    "/var/lib/GeoIP"
-  ];
+  systemd.services.endlessh-go = {
+    after = ["network.target"];
+    serviceConfig.BindReadOnlyPaths = [
+      "/var/lib/GeoIP"
+    ];
+  };
 }
