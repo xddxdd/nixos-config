@@ -18,7 +18,7 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 16;
     verbosity = "crit";
-    extraOptions = ["--thread-count" "1" "--loadavg-target" "1"];
+    extraOptions = ["--loadavg-target" "1"];
   };
 
   systemd.network.networks.eth0 = {

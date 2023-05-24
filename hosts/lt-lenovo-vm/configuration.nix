@@ -19,14 +19,14 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 16;
     verbosity = "crit";
-    extraOptions = ["--thread-count" "1" "--loadavg-target" "4"];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   services.beesd.filesystems.storage = {
     spec = config.fileSystems."/mnt/storage".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
-    extraOptions = ["--thread-count" "1" "--loadavg-target" "4"];
+    extraOptions = ["--loadavg-target" "4"];
   };
 
   systemd.network.networks.eth0 = {
