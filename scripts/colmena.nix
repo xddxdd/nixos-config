@@ -5,7 +5,7 @@
 }: ''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-    colmena $ACTION --keep-result --show-trace --evaluator streaming $*
+    colmena $ACTION --keep-result --show-trace $*
     exit $?
   else
     colmena $ACTION $*
