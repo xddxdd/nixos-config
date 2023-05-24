@@ -68,7 +68,7 @@ in {
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
-    extraOptions = ["--thread-count" "1" "--loadavg-target" "8"];
+    extraOptions = ["--loadavg-target" "8"];
   };
 
   services.samba.shares = {
