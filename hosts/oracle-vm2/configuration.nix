@@ -13,6 +13,13 @@
     ./hardware-configuration.nix
   ];
 
+  services.beesd.filesystems.root = {
+    spec = config.fileSystems."/nix".device;
+    hashTableSizeMB = 16;
+    verbosity = "crit";
+    extraOptions = ["--loadavg-target" "1"];
+  };
+
   systemd.network.networks.eth0 = {
     address = ["172.18.126.3/24"];
     gateway = ["172.18.126.1"];

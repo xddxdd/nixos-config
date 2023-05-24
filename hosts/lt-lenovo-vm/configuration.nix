@@ -15,6 +15,20 @@
     ../../nixos/optional-apps/resilio.nix
   ];
 
+  services.beesd.filesystems.root = {
+    spec = config.fileSystems."/nix".device;
+    hashTableSizeMB = 16;
+    verbosity = "crit";
+    extraOptions = ["--loadavg-target" "4"];
+  };
+
+  services.beesd.filesystems.storage = {
+    spec = config.fileSystems."/mnt/storage".device;
+    hashTableSizeMB = 128;
+    verbosity = "crit";
+    extraOptions = ["--loadavg-target" "4"];
+  };
+
   systemd.network.networks.eth0 = {
     address = ["192.168.0.10/24"];
     gateway = ["192.168.0.2"];
