@@ -40,6 +40,13 @@
     "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
+  services.beesd.filesystems.root = {
+    spec = config.fileSystems."/nix".device;
+    hashTableSizeMB = 16;
+    verbosity = "crit";
+    extraOptions = ["--loadavg-target" "1"];
+  };
+
   systemd.network.networks.eth0 = {
     address = ["142.132.236.113/24" "2a01:4f8:c012:6530::1/64"];
     matchConfig.Name = "eth0";
