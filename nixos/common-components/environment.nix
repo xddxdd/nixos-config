@@ -250,6 +250,7 @@ in {
   '';
 
   services.udev.packages = with pkgs; [
+    android-udev-rules
     crda
     libftdi1
   ];
