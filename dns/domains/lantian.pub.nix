@@ -190,6 +190,11 @@ with dns; let
       target = "matrix";
     })
     (CNAME {
+      name = "tools";
+      target = common.records.GeoDNSTarget;
+      ttl = "1h";
+    })
+    (CNAME {
       name = "whois";
       target = "v-ps-sjc";
       ttl = "1h";

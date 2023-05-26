@@ -7,7 +7,6 @@
   inputs,
   ...
 } @ args: let
-  inherit (LT.nginx) compressStaticAssets;
   labRoot = "/var/www/lab.lantian.pub";
 in {
   services.nginx.virtualHosts."lab.lantian.pub" = {
@@ -26,13 +25,20 @@ in {
           index = "index.sh";
           extraConfig = LT.nginx.locationFcgiwrapConf;
         };
-        "/glibc-for-debian-10-on-openvz".extraConfig = LT.nginx.locationAutoindexConf;
         "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
         "/zjui-ece385-scoreboard".extraConfig = ''
           gzip off;
           brotli off;
           zstd off;
         '';
+
+        # 302 to tools.lantian.pub
+        "/dngzwxdq".return = "302 https://tools.lantian.pub$request_uri";
+        "/dnyjzsxj".return = "302 https://tools.lantian.pub$request_uri";
+        "/glibc-for-debian-10-on-openvz".return = "302 https://tools.lantian.pub$request_uri";
+        "/mota-24".return = "302 https://tools.lantian.pub$request_uri";
+        "/mota-51".return = "302 https://tools.lantian.pub$request_uri";
+        "/mota-xinxin".return = "302 https://tools.lantian.pub$request_uri";
       };
     extraConfig =
       LT.nginx.makeSSL "lantian.pub_ecc"
@@ -69,21 +75,8 @@ in {
       ];
     };
 
-  systemd.tmpfiles.rules = let
-    dngzwxdq = compressStaticAssets (pkgs.callPackage pkgs/dngzwxdq.nix {});
-    dnyjzsxj = compressStaticAssets (pkgs.callPackage pkgs/dnyjzsxj.nix {});
-    glibc-debian-openvz-files = pkgs.callPackage pkgs/glibc-debian-openvz-files.nix {};
-    mota-24 = compressStaticAssets (pkgs.callPackage pkgs/mota-24.nix {});
-    mota-51 = compressStaticAssets (pkgs.callPackage pkgs/mota-51.nix {});
-    mota-xinxin = compressStaticAssets (pkgs.callPackage pkgs/mota-xinxin.nix {});
-  in [
-    "L+ ${labRoot}/dngzwxdq - - - - ${dngzwxdq}"
-    "L+ ${labRoot}/dnyjzsxj - - - - ${dnyjzsxj}"
-    "L+ ${labRoot}/glibc-for-debian-10-on-openvz - - - - ${glibc-debian-openvz-files}"
+  systemd.tmpfiles.rules = [
     "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"
-    "L+ ${labRoot}/mota-24 - - - - ${mota-24}"
-    "L+ ${labRoot}/mota-51 - - - - ${mota-51}"
-    "L+ ${labRoot}/mota-xinxin - - - - ${mota-xinxin}"
     "L+ ${labRoot}/testssl.html - - - - /nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm"
   ];
 }
