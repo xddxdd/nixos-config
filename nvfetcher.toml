@@ -28,6 +28,10 @@ fetch.github = "strongtz/i915-sriov-dkms"
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"
 
+[mihoyo-bbs-tools]
+src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
+fetch.github = "Womsxd/MihoyoBBSTools"
+
 [nft-fullcone]
 src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
