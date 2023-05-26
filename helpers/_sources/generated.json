@@ -133,6 +133,26 @@
         },
         "version": "0e989e5b815b64ee5bca989f983da68fa5556644"
     },
+    "mihoyo-bbs-tools": {
+        "cargoLocks": null,
+        "date": "2023-05-16",
+        "extract": null,
+        "name": "mihoyo-bbs-tools",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Womsxd",
+            "repo": "MihoyoBBSTools",
+            "rev": "e5c02f2888492e04c66ed7aeb051f17e5e9dcb3e",
+            "sha256": "sha256-miiJ+D90B3TnNAon5DMs56xFTGeV64k2JdKsysVQKfs=",
+            "type": "github"
+        },
+        "version": "e5c02f2888492e04c66ed7aeb051f17e5e9dcb3e"
+    },
     "nft-fullcone": {
         "cargoLocks": null,
         "date": "2023-04-15",
