@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  inherit (import ./helpers.nix args) compressStaticAssets;
+  inherit (LT.nginx) compressStaticAssets;
   labRoot = "/var/www/lab.lantian.pub";
 in {
   services.nginx.virtualHosts."lab.lantian.pub" = {

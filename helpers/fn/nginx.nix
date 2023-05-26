@@ -341,4 +341,26 @@ in rec {
     set_real_ip_from fdbc:f9dc:67ad::/48;
     real_ip_header proxy_protocol;
   '';
+
+  compressStaticAssets = p:
+    p.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with pkgs; [gzip brotli zstd parallel]);
+
+      postFixup =
+        (old.postFixup or "")
+        + ''
+          OIFS="$IFS"
+          IFS=$'\n'
+
+          for FILE in $(find $out/ -type f); do
+            echo "gzip -9 -k -f \"$FILE\"" >> parallel.lst
+            echo "brotli -9 -k -f \"$FILE\"" >> parallel.lst
+            echo "zstd --no-progress -19 -k -f \"$FILE\"" >> parallel.lst
+          done
+
+          parallel -j$(nproc) < parallel.lst
+
+          IFS="$OIFS"
+        '';
+    });
 }
