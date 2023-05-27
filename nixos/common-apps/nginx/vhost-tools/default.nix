@@ -17,6 +17,8 @@
     mota-xinxin = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-xinxin.nix {});
   };
 in {
+  networking.hosts."127.0.0.1" = ["tools.lantian.pub"];
+
   services.nginx.virtualHosts."tools.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     root = pkgs.linkFarm "tools" tools;
