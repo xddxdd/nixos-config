@@ -56,6 +56,7 @@
     prismlauncher
     qq
     quasselClient
+    remmina
     space-cadet-pinball-full-tilt
     steam-run
     svp
