@@ -3,6 +3,10 @@ src.git = "https://github.com/Owl-Maintain/brlaser.git"
 src.branch = "definitions"
 fetch.github = "Owl-Maintain/brlaser"
 
+[cyberchef]
+src.github = "gchq/CyberChef"
+fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
+
 [dashboard-icons]
 src.git = "https://github.com/walkxcode/dashboard-icons.git"
 fetch.github = "walkxcode/dashboard-icons"

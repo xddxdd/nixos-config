@@ -8,6 +8,7 @@
   ...
 } @ args: let
   tools = {
+    cyberchef = LT.nginx.compressStaticAssets (pkgs.callPackage ./cyberchef.nix {inherit (LT) sources;});
     dngzwxdq = LT.nginx.compressStaticAssets (pkgs.callPackage ./dngzwxdq.nix {});
     dnyjzsxj = LT.nginx.compressStaticAssets (pkgs.callPackage ./dnyjzsxj.nix {});
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix {};

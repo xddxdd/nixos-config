@@ -19,6 +19,21 @@
         },
         "version": "648f5c858d468a5c08136aab7dce44b2649df3f9"
     },
+    "cyberchef": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cyberchef",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hIVxO67tX87UfiVDswcgMryeVB0ZYrnug1a2Fe+gdKI=",
+            "type": "url",
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.4.0/CyberChef_v10.4.0.zip"
+        },
+        "version": "v10.4.0"
+    },
     "dashboard-icons": {
         "cargoLocks": null,
         "date": "2023-05-08",
