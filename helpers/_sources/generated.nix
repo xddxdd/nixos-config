@@ -13,6 +13,14 @@
     };
     date = "2023-03-14";
   };
+  cyberchef = {
+    pname = "cyberchef";
+    version = "v10.4.0";
+    src = fetchurl {
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.4.0/CyberChef_v10.4.0.zip";
+      sha256 = "sha256-hIVxO67tX87UfiVDswcgMryeVB0ZYrnug1a2Fe+gdKI=";
+    };
+  };
   dashboard-icons = {
     pname = "dashboard-icons";
     version = "85549dec02318c850d073dbd3a2def0abd87adc9";
