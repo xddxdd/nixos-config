@@ -83,6 +83,8 @@
     Bepasty = 13237;
     ASF = 13242;
     NeteaseUnlock = 13301;
+    Keycloak.HTTP = 13401;
+    Keycloak.HTTPS = 13402;
     Vaultwarden.HTTP = 13772;
     Vaultwarden.Websocket = 13773;
     Plausible = 13800;
