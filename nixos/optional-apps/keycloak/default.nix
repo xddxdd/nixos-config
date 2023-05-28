@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: {
-  imports = [./postgresql.nix];
+  imports = [../postgresql.nix];
 
   age.secrets.keycloak-dbpw = {
     file = inputs.secrets + "/keycloak-dbpw.age";
@@ -24,7 +24,7 @@
       username = "keycloak";
       passwordFile = config.age.secrets.keycloak-dbpw.path;
     };
-    # themes.lantian = pkgs.lantianCustomized.keycloak-lantian;
+    themes.lantian = pkgs.callPackage ./theme-lantian.nix {inherit (LT) sources;};
 
     sslCertificate = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
     sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";

@@ -128,6 +128,25 @@
         },
         "version": "991bfa01fca3bc3794152dc57b0421814c7c2445"
     },
+    "keycloak-lantian": {
+        "cargoLocks": null,
+        "date": "2022-03-15",
+        "extract": null,
+        "name": "keycloak-lantian",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "ae034b600c62a9a460d3e16897ad485e837a5e8a",
+            "sha256": "sha256-fE9gOjkbho/2Pct/gZi5iMoXyf0a7rWPZxon8yDDzsQ=",
+            "type": "git",
+            "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
+        },
+        "version": "ae034b600c62a9a460d3e16897ad485e837a5e8a"
+    },
     "material-kwin-decoration": {
         "cargoLocks": null,
         "date": "2023-01-15",
