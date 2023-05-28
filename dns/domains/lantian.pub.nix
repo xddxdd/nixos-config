@@ -177,6 +177,11 @@ with dns; let
       target = "hetzner-de";
       cloudflare = true;
     })
+    (CNAME {
+      name = "login";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
     (fakeALIAS {
       name = "matrix";
       target = "hetzner-de";
