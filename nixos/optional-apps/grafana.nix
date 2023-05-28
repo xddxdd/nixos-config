@@ -40,15 +40,13 @@
       };
       "auth.generic_oauth" = {
         enabled = "true";
-        name = "Konnect";
+        name = "Keycloak";
         allow_sign_up = "true";
-        scopes = "openid profile email";
-        auth_url = "https://login.xuyh0120.win/signin/v1/identifier/_/authorize";
-        token_url = "https://login.xuyh0120.win/konnect/v1/token";
-        api_url = "https://login.xuyh0120.win/konnect/v1/userinfo";
-
-        # Kopano Konnect doesn't support groups, allow everyone authenticated as admin
-        role_attribute_path = "'Admin'";
+        scopes = "microprofile-jwt";
+        auth_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/auth";
+        token_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/token";
+        api_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/userinfo";
+        role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
       };
       database = {
         type = "mysql";
