@@ -88,7 +88,6 @@
     Vaultwarden.HTTP = 13772;
     Vaultwarden.Websocket = 13773;
     Plausible = 13800;
-    Konnect = 13877;
     qBitTorrent.WebUI = 13808;
     Oauth2Proxy = 14180;
     WGLanTian.ForwardStart = 30010;
