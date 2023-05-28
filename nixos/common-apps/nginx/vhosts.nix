@@ -112,14 +112,6 @@ in {
 
       locations = {
         "/".return = "301 https://$host$request_uri";
-        "= /.well-known/openid-configuration".extraConfig = ''
-          root ${files/openid-configuration};
-          try_files /openid-configuration =404;
-        '';
-        "= /openid-configuration".extraConfig = ''
-          root ${files/openid-configuration};
-          try_files /openid-configuration =404;
-        '';
         "/generate_204".return = "204";
       };
 
