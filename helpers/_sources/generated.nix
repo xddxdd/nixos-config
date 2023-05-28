@@ -77,6 +77,19 @@
     };
     date = "2023-05-08";
   };
+  keycloak-lantian = {
+    pname = "keycloak-lantian";
+    version = "ae034b600c62a9a460d3e16897ad485e837a5e8a";
+    src = fetchgit {
+      url = "https://git.lantian.pub/lantian/keycloak-lantian.git";
+      rev = "ae034b600c62a9a460d3e16897ad485e837a5e8a";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-fE9gOjkbho/2Pct/gZi5iMoXyf0a7rWPZxon8yDDzsQ=";
+    };
+    date = "2022-03-15";
+  };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
     version = "0e989e5b815b64ee5bca989f983da68fa5556644";

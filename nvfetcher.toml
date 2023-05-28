@@ -28,6 +28,10 @@ fetch.git = "https://w1.fi/hostap.git"
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
 
+[keycloak-lantian]
+src.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
+fetch.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
+
 [material-kwin-decoration]
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"

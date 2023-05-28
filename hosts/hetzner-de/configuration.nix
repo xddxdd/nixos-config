@@ -19,7 +19,7 @@
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/grafana.nix
-    ../../nixos/optional-apps/keycloak.nix
+    ../../nixos/optional-apps/keycloak
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/mysql.nix
