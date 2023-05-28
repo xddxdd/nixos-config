@@ -21,7 +21,7 @@
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {
-      oidc-issuer-url = "https://login.xuyh0120.win";
+      oidc-issuer-url = "https://login.lantian.pub/realms/master";
       insecure-oidc-skip-issuer-verification = "true";
       insecure-oidc-allow-unverified-email = "true";
     };
