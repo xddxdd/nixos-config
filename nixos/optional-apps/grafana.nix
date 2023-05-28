@@ -42,7 +42,7 @@
         enabled = "true";
         name = "Keycloak";
         allow_sign_up = "true";
-        scopes = "microprofile-jwt";
+        scopes = "openid profile email microprofile-jwt";
         auth_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/auth";
         token_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/token";
         api_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/userinfo";
