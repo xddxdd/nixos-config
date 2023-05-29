@@ -68,7 +68,7 @@ in {
     enable = true;
     enableReload = true;
     package = pkgs.lantianCustomized.nginx.override {
-      openssl-oqs = pkgs.openssl-oqs.override {
+      openssl_3_0 = pkgs.openssl_3_0.override {
         inherit (config.boot.kernelPackages) cryptodev;
       };
     };

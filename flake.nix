@@ -142,6 +142,7 @@
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
       inputs.nur-xddxdd.nixosModules.setupOverlay
+      inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.srvos.nixosModules.common
       inputs.srvos.nixosModules.mixins-terminfo
