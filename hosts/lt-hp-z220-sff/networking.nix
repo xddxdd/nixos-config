@@ -162,12 +162,13 @@ in {
 
   systemd.network.networks.lan-br = {
     matchConfig.Name = "lan-br";
-    address = ["192.168.0.2/24" "2001:470:e825::2/64"];
+    address = ["192.168.0.2/24" "198.19.102.1/24" "2001:470:e825::2/64"];
     networkConfig = {
       DHCP = "no";
       DHCPServer = "yes";
     };
     dhcpServerConfig = {
+      ServerAddress = "198.19.102.1/24";
       PoolOffset = 100;
       PoolSize = 100;
       EmitDNS = "yes";
@@ -176,7 +177,7 @@ in {
   };
 
   services.miniupnpd = {
-    internalIPs = ["192.168.0.2"];
+    internalIPs = ["192.168.0.2" "198.19.102.1"];
     externalInterface = "eth-board.201";
   };
 

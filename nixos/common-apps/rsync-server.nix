@@ -27,7 +27,7 @@ in {
 
       sync-servers = {
         "read only" = true;
-        "hosts allow" = "198.18.0.0/16";
+        "hosts allow" = "198.18.0.0/15";
         path = "/nix/persistent/sync-servers";
       };
     };
