@@ -64,19 +64,6 @@
     }
   '';
 
-  opensslCurves = [
-    "p256_frodo640aes"
-    "x25519_frodo640aes"
-    "p256_bikel1"
-    "x25519_bikel1"
-    "p256_kyber90s512"
-    "x25519_kyber90s512"
-    "prime256v1"
-    "secp384r1"
-    "x25519"
-    "x448"
-  ];
-
   pythonCustomized = pkgs.python3Full.withPackages (p:
     with p;
       (
@@ -122,38 +109,6 @@ in {
     KOPIA_CHECK_FOR_UPDATES = "false";
     NIX_REMOTE = "daemon";
     NIXPKGS_ALLOW_INSECURE = "1";
-    OPENSSL_CONF = builtins.toString (pkgs.writeText "openssl.conf" ''
-      openssl_conf = openssl_init
-
-      [openssl_init]
-      providers = provider_sect
-      ssl_conf = ssl_sect
-
-      ### Providers
-
-      [provider_sect]
-      oqsprovider = oqsprovider_sect
-      default = default_sect
-      # fips = fips_sect
-
-      [default_sect]
-      activate = 1
-
-      #[fips_sect]
-      #activate = 1
-
-      [oqsprovider_sect]
-      activate = 1
-      module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
-
-      # SSL Options
-
-      [ssl_sect]
-      system_default = system_default_sect
-
-      [system_default_sect]
-      Groups = ${builtins.concatStringsSep ":" opensslCurves}
-    '');
     SYSTEMD_PAGER = "";
   };
   environment.systemPackages = with pkgs;
@@ -223,6 +178,22 @@ in {
     fuse = {
       mountMax = 32767;
       userAllowOther = true;
+    };
+
+    openssl-oqs-provider = {
+      enable = true;
+      curves = [
+        "p256_frodo640aes"
+        "x25519_frodo640aes"
+        "p256_bikel1"
+        "x25519_bikel1"
+        "p256_kyber90s512"
+        "x25519_kyber90s512"
+        "prime256v1"
+        "secp384r1"
+        "x25519"
+        "x448"
+      ];
     };
   };
 
