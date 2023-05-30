@@ -3,39 +3,59 @@
   lib,
   dns,
   ...
-}:
-with dns; {
-  Public = [
-    (NAMESERVER {name = "v-ps-hkg.lantian.pub.";})
-    (NAMESERVER {name = "v-ps-sjc.lantian.pub.";})
-    (NAMESERVER {name = "virmach-ny1g.lantian.pub.";})
-    (NAMESERVER {name = "hetzner-de.lantian.pub.";})
-    (NAMESERVER {name = "buyvm.lantian.pub.";})
+}: let
+  PublicServers = [
+    "v-ps-hkg.lantian.pub."
+    "v-ps-sjc.lantian.pub."
+    "virmach-ny1g.lantian.pub."
+    "hetzner-de.lantian.pub."
+    "buyvm.lantian.pub."
   ];
 
-  LTNet = [
-    (NAMESERVER {name = "v-ps-hkg.ltnet.lantian.pub.";})
-    (NAMESERVER {name = "v-ps-sjc.ltnet.lantian.pub.";})
-    (NAMESERVER {name = "virmach-ny1g.ltnet.lantian.pub.";})
-    (NAMESERVER {name = "hetzner-de.ltnet.lantian.pub.";})
-    (NAMESERVER {name = "buyvm.ltnet.lantian.pub.";})
+  LTNetServers = [
+    "v-ps-hkg.ltnet.lantian.pub."
+    "v-ps-sjc.ltnet.lantian.pub."
+    "virmach-ny1g.ltnet.lantian.pub."
+    "hetzner-de.ltnet.lantian.pub."
+    "buyvm.ltnet.lantian.pub."
   ];
 
-  DN42 = [
-    (NAMESERVER {name = "ns1.lantian.dn42.";})
-    (NAMESERVER {name = "ns2.lantian.dn42.";})
-    (NAMESERVER {name = "ns3.lantian.dn42.";})
-    (NAMESERVER {name = "ns4.lantian.dn42.";})
-    (NAMESERVER {name = "ns5.lantian.dn42.";})
-    (NAMESERVER {name = "ns-anycast.lantian.dn42.";})
+  DN42Servers = [
+    "ns1.lantian.dn42."
+    "ns2.lantian.dn42."
+    "ns3.lantian.dn42."
+    "ns4.lantian.dn42."
+    "ns5.lantian.dn42."
+    "ns-anycast.lantian.dn42."
   ];
 
-  NeoNetwork = [
-    (NAMESERVER {name = "ns1.lantian.neo.";})
-    (NAMESERVER {name = "ns2.lantian.neo.";})
-    (NAMESERVER {name = "ns3.lantian.neo.";})
-    (NAMESERVER {name = "ns4.lantian.neo.";})
-    (NAMESERVER {name = "ns5.lantian.neo.";})
-    (NAMESERVER {name = "ns-anycast.lantian.neo.";})
+  NeoNetworkServers = [
+    "ns1.lantian.neo."
+    "ns2.lantian.neo."
+    "ns3.lantian.neo."
+    "ns4.lantian.neo."
+    "ns5.lantian.neo."
+    "ns-anycast.lantian.neo."
   ];
+
+  mapNameservers = builtins.map (n: dns.NAMESERVER {name = n;});
+  mapNSRecords = servers: name:
+    builtins.map (n:
+      dns.NS {
+        inherit name;
+        target = n;
+      })
+    servers;
+in {
+  Public = mapNameservers PublicServers;
+  PublicNSRecords = mapNSRecords PublicServers;
+
+  LTNet = mapNameservers LTNetServers;
+  LTNetNSRecords = mapNSRecords LTNetServers;
+
+  DN42 = mapNameservers DN42Servers;
+  DN42NSRecords = mapNSRecords DN42Servers;
+
+  NeoNetwork = mapNameservers NeoNetworkServers;
+  NeoNetworkRecords = mapNSRecords NeoNetworkServers;
 }
