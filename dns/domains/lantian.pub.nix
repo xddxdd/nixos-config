@@ -8,29 +8,7 @@
 }:
 with dns; let
   inherit (common.hostRecs) fakeALIAS;
-
-  serveWithOwnNS = name: [
-    (NS {
-      inherit name;
-      target = "v-ps-hkg.lantian.pub.";
-    })
-    (NS {
-      inherit name;
-      target = "v-ps-sjc.lantian.pub.";
-    })
-    (NS {
-      inherit name;
-      target = "virmach-ny1g.lantian.pub.";
-    })
-    (NS {
-      inherit name;
-      target = "buyvm.lantian.pub.";
-    })
-    (NS {
-      inherit name;
-      target = "hetzner-de.lantian.pub.";
-    })
-  ];
+  inherit (common.nameservers) PublicNSRecords;
 
   email = [
     (CNAME {
@@ -205,8 +183,7 @@ with dns; let
       ttl = "1h";
     })
 
-    (serveWithOwnNS "asn")
-
+    (PublicNSRecords "asn")
     (DS {
       name = "asn";
       keytag = 48539;
@@ -223,6 +200,9 @@ with dns; let
       digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A";
       ttl = "1d";
     })
+
+    # Active Directory
+    (PublicNSRecords "ad")
 
     # SSL tests
     (CNAME {

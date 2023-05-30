@@ -81,6 +81,15 @@
       ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
       ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
 
+      # LTNET Active Directory
+      ad.lantian.pub {
+        any
+        bufsize 1232
+        loadbalance round_robin
+
+        forward . 198.19.102.11:53
+      }
+
       # NeoNetwork Authoritative
       ${publicZone "neo" "ltnet-scripts/zones/neo" null}
       ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
