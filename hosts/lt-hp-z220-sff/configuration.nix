@@ -60,7 +60,7 @@
   services.printing = {
     browsing = true;
     defaultShared = true;
-    listenAddresses = ["127.0.0.1:631" "192.168.0.2:631" "198.18.102.1:631"];
+    listenAddresses = ["127.0.0.1:631" "198.18.102.1:631"];
     allowFrom = ["all"];
   };
 

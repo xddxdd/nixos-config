@@ -88,10 +88,6 @@ in {
   # LAN
   ########################################
 
-  systemd.network.networks.dummy0.address = [
-    "192.168.0.2/32"
-  ];
-
   systemd.network.networks.lan-i350-1 = {
     networkConfig.Bond = "lan-bond";
     matchConfig = {
@@ -162,7 +158,7 @@ in {
 
   systemd.network.networks.lan-br = {
     matchConfig.Name = "lan-br";
-    address = ["192.168.0.2/24" "198.19.102.1/24" "2001:470:e825::2/64"];
+    address = ["198.19.102.1/24" "2001:470:e825::2/64"];
     networkConfig = {
       DHCP = "no";
       DHCPServer = "yes";
@@ -177,7 +173,7 @@ in {
   };
 
   services.miniupnpd = {
-    internalIPs = ["192.168.0.2" "198.19.102.1"];
+    internalIPs = ["198.19.102.1"];
     externalInterface = "eth-board.201";
   };
 
