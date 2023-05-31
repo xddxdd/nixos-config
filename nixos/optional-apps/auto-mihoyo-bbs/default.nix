@@ -29,6 +29,8 @@ in {
         TimeoutSec = 3600;
         StateDirectory = "auto-mihoyo-bbs";
         WorkingDirectory = "/var/lib/auto-mihoyo-bbs";
+        Restart = "on-failure";
+        RestartSec = "1800";
       };
     unitConfig = {
       OnSuccess = "notify-email-success@%n.service";
