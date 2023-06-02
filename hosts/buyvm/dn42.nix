@@ -357,6 +357,21 @@
         peerIPv6LinkLocal = "fe80::577:1";
       };
     };
+    ty3r0x = {
+      remoteASN = 4242422596;
+      latencyMs = 13;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22596;
+        remoteAddress = "incognet.chaox.ro";
+        remotePort = 22547;
+        wireguardPubkey = "sxIWYIrbJKKnUjnQ/SIbcUlhYsBGZcAujnT9Xn5mdFw=";
+      };
+      addressing = {
+        # peerIPv4 = "172.20.191.129";
+        peerIPv6LinkLocal = "fe80::2596:5";
+      };
+    };
     uffsalot = {
       remoteASN = 4242420780;
       latencyMs = 6;

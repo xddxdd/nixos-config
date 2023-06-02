@@ -231,6 +231,21 @@
         peerIPv6LinkLocal = "fe80::1588";
       };
     };
+    ty3r0x = {
+      remoteASN = 4242422596;
+      latencyMs = 18;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22596;
+        remoteAddress = "racknerd.chaox.ro";
+        remotePort = 22547;
+        wireguardPubkey = "rZYo5BZ4D8Y5VSwCoAI+qDvtBM+HuRtG6YVvR0cZ3gs=";
+      };
+      addressing = {
+        # peerIPv4 = "172.20.191.129";
+        peerIPv6LinkLocal = "fe80::2596:7";
+      };
+    };
     xkww3n = {
       remoteASN = 4242421513;
       latencyMs = 18;
