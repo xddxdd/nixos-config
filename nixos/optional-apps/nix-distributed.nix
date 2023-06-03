@@ -36,9 +36,8 @@
 in {
   nix = {
     distributedBuilds = true;
-    buildMachines =
-      [nixBuildNet]
-      ++ (lib.filter (v: v != null)
-        (lib.mapAttrsToList mkBuildMachine (LT.hostsWithTag LT.tags.nix-builder)));
+    buildMachines = [nixBuildNet];
+    # ++ (lib.filter (v: v != null)
+    #   (lib.mapAttrsToList mkBuildMachine (LT.hostsWithTag LT.tags.nix-builder)));
   };
 }
