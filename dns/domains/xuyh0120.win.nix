@@ -7,38 +7,6 @@
   ...
 }:
 with dns; let
-  inherit (common.hostRecs) hasPublicIP;
-
-  emailCloudflareRouting = [
-    (MX {
-      name = "@";
-      priority = 7;
-      target = "isaac.mx.cloudflare.net.";
-    })
-    (MX {
-      name = "@";
-      priority = 38;
-      target = "linda.mx.cloudflare.net.";
-    })
-    (MX {
-      name = "@";
-      priority = 14;
-      target = "amir.mx.cloudflare.net.";
-    })
-    (TXT {
-      name = "@";
-      contents = "v=spf1 include:_spf.mx.cloudflare.net ~all";
-    })
-    (TXT {
-      name = "@";
-      contents = "v=DMARC1; p=none";
-    })
-    (TXT {
-      name = "_dmarc";
-      contents = "v=DMARC1; p=none";
-    })
-  ];
-
   externalServices = [
     (TXT {
       name = "@";
@@ -139,7 +107,7 @@ in [
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
-      emailCloudflareRouting
+      common.records.MXRoute
       (TXT {
         name = "_token._dnswl";
         contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz";
