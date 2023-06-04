@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 in rec {
   transports = ''
     [template-transport-common](!)

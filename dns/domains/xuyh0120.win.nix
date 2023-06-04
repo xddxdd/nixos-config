@@ -107,6 +107,7 @@ in [
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
+      (common.records.Autoconfig domain)
       common.records.MXRoute
       (TXT {
         name = "_token._dnswl";

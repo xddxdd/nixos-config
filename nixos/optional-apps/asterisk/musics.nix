@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   musics = [
     "nightglow.mp3"
@@ -67,5 +67,5 @@ in rec {
         "Answer()"
         "Playback(${musicSrc}/${value})"
       ])
-    (enumerateList musics);
+    (LT.enumerateList musics);
 }

@@ -49,6 +49,7 @@ in
     patchedPkgs = lib.mapAttrs (k: v: v.path) self.pkgs."${this.system}";
 
     container = call ./fn/container.nix;
+    enumerateList = call ./fn/enumerate-list.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
     mkColmenaHive = call ./fn/mk-colmena-hive.nix;

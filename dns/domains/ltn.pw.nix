@@ -30,6 +30,7 @@
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
+      (common.records.Autoconfig domain)
       common.records.MXRoute
       common.records.Libravatar
       common.records.SIP
