@@ -41,36 +41,6 @@ with dns; let
     })
   ];
 
-  emailCloudflareRouting = [
-    (MX {
-      name = "@";
-      priority = 11;
-      target = "isaac.mx.cloudflare.net.";
-    })
-    (MX {
-      name = "@";
-      priority = 81;
-      target = "linda.mx.cloudflare.net.";
-    })
-    (MX {
-      name = "@";
-      priority = 29;
-      target = "amir.mx.cloudflare.net.";
-    })
-    (TXT {
-      name = "@";
-      contents = "v=spf1 include:_spf.mx.cloudflare.net ~all";
-    })
-    (TXT {
-      name = "@";
-      contents = "v=DMARC1; p=none";
-    })
-    (TXT {
-      name = "_dmarc";
-      contents = "v=DMARC1; p=none";
-    })
-  ];
-
   externalServices = [
     (IGNORE {name = "backblaze";}) # Handled by CF Worker
     (CNAME {
@@ -256,7 +226,7 @@ in [
       common.hostRecs.CAA
       (common.hostRecs.Normal domain)
       (common.hostRecs.SSHFP domain)
-      emailCloudflareRouting
+      common.records.MXRoute
       (TXT {
         name = "_token._dnswl";
         contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm";
