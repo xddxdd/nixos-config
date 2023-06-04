@@ -21,8 +21,6 @@
     cloudpan189-go
     colmena
     dbeaver
-    deepspeech-gpu
-    deepspeech-wrappers
     discord
     distrobox
     element-desktop

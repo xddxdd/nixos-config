@@ -6,4 +6,5 @@ in rec {
   plausible = prev.plausible.override {beamPackages = pkgs-22-05.beamPackages;};
 
   inherit (pkgs-22-05) linuxPackages_6_0 mysql57;
+  inherit (pkgs-22-11) clickhouse;
 }

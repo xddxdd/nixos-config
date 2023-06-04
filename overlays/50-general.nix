@@ -150,7 +150,8 @@ in rec {
         sodium
         sqlite3
         xml
-        yaml
+        # FIXME: Disabled for build failure
+        # yaml
         zip
         zlib
       ]);
