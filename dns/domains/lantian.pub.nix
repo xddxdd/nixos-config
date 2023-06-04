@@ -31,14 +31,6 @@ with dns; let
       name = "6126456";
       target = "sendgrid.net.";
     })
-    (TXT {
-      name = "@";
-      contents = "yandex-verification: f211240a4ac20462";
-    })
-    (TXT {
-      name = "mail._domainkey";
-      contents = "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPEQZwB93q/rldPPECT+ghQEFm2ynfKZlsp3jzarEZ4qas+RQuINk6TmAE/l/q3mcWqr3g/rrmrZJUNsiM0IanlTBGMgG+V5n1KSADVUfuO9Z6LKpVRjRUXT4E/+lu/bBXvuTFVOzAzNC4yviJO2sIEYMfOB0bK2vdVMdKt88IpwIDAQAB";
-    })
   ];
 
   externalServices = [
