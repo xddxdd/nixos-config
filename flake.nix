@@ -36,7 +36,6 @@
     };
     dwarffs = {
       url = "github:edolstra/dwarffs";
-      inputs.nix.follows = "nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -47,10 +46,6 @@
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-    nix = {
-      url = "github:NixOS/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
     nixos-cn = {
@@ -73,11 +68,6 @@
       url = "github:xddxdd/nur-packages";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
@@ -124,12 +114,10 @@
             [
               inputs.colmena.overlay
               inputs.nil.overlays.nil
-              inputs.nix.overlays.default
               inputs.nix-alien.overlay
               inputs.nixos-cn.overlay
               inputs.nixpkgs-wayland.overlay
               inputs.nur.overlay
-              inputs.nvfetcher.overlays.default
             ]
             ++ (import ./overlays {inherit inputs;});
         };
@@ -162,6 +150,7 @@
           permittedInsecurePackages = [
             "electron-19.0.7"
             "openssh-with-hpn-9.2p1"
+            "openssl-1.1.1u"
             "python-2.7.18.6"
           ];
           # contentAddressedByDefault = true;
