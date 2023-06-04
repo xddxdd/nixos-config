@@ -7,6 +7,21 @@
   inherit (pkgs.callPackage ./host-recs.nix args) fakeALIAS;
 in
   with dns; rec {
+    Autoconfig = domain: [
+      (CNAME {
+        name = "autoconfig";
+        target = GeoDNSTarget;
+        ttl = "1h";
+      })
+      (SRV {
+        name = "_autodiscover._tcp";
+        priority = 0;
+        weight = 0;
+        port = 443;
+        target = "autoconfig.${domain}.";
+      })
+    ];
+
     ForwardEmail = [
       (MX {
         name = "@";

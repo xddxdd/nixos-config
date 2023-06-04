@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   localNumbers = [
     "1000" # Laptop (Linphone)

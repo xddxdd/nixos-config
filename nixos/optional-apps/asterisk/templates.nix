@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  inherit (pkgs.callPackage ./common.nix args) dialRule enumerateList prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   # http://www.cs.columbia.edu/~hgs/audio/codecs.html
   # https://www.speex.org/comparison/
