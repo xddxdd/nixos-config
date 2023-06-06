@@ -33,6 +33,8 @@
     ../../nixos/optional-apps/smartrent-auto-lock
     ../../nixos/optional-apps/vlmcsd.nix
 
+    ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
+
     "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
