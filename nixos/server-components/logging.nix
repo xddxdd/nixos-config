@@ -22,6 +22,7 @@
               {equals."systemd.unit" = "filebeat.service";}
               {equals."systemd.unit" = "hath.service";}
               {equals."systemd.unit" = "matrix-synapse.service";}
+              {equals."systemd.unit" = "podman-archiveteam.service";}
               {equals."systemd.unit" = "prowlarr.service";}
               {equals."systemd.unit" = "radarr.service";}
               {equals."systemd.unit" = "resilio.service";}
