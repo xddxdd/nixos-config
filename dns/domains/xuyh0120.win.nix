@@ -38,7 +38,7 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "asf";
-      target = "hetzner-de";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
