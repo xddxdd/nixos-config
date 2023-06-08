@@ -25,6 +25,9 @@
     ]);
   };
 
+  systemd.services.podman-auto-update.enable = true;
+  systemd.timers.podman-auto-update.enable = true;
+
   users.users.lantian.extraGroups = ["podman"];
 
   virtualisation.oci-containers.backend = "podman";
