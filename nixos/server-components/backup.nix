@@ -96,8 +96,8 @@
     inherit storage;
     "caching" = {
       "cacheDirectory" = "/var/cache/kopia/${name}";
-      "maxCacheSize" = 10485760;
-      "maxMetadataCacheSize" = 10485760;
+      "maxCacheSize" = 104857600;
+      "maxMetadataCacheSize" = 104857600;
       "maxListCacheDuration" = 30;
     };
     "hostname" = config.networking.hostName;
@@ -134,7 +134,7 @@
     ''
     + (lib.optionalString isMaintenanceHost ''
       ${pkgs.kopia}/bin/kopia maintenance set --owner=root@${config.networking.hostName}
-      ${pkgs.kopia}/bin/kopia maintenance run
+      ${pkgs.kopia}/bin/kopia maintenance run --log-level=debug
     '')
     + ''
       rm -f $KOPIA_CONFIG_PATH
