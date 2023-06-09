@@ -12,7 +12,6 @@
 
     ./hardware-configuration.nix
     ./media-center.nix
-    ./networking.nix
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
@@ -26,7 +25,6 @@
     ../../nixos/optional-apps/grasscutter.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/resilio.nix
@@ -58,11 +56,17 @@
     extraOptions = ["--loadavg-target" "4"];
   };
 
+  systemd.network.networks.eth0 = {
+    address = ["192.168.0.3/24"];
+    gateway = ["192.168.0.1"];
+    matchConfig.Name = "eth0";
+  };
+
   services.avahi.enable = lib.mkForce true;
   services.printing = {
     browsing = true;
     defaultShared = true;
-    listenAddresses = ["127.0.0.1:631" "198.18.102.1:631"];
+    listenAddresses = ["127.0.0.1:631" "192.168.0.3:631"];
     allowFrom = ["all"];
   };
 
