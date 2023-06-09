@@ -8,7 +8,7 @@
   ...
 } @ args: let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
-  isMaintenanceHost = config.networking.hostName == "hetzner-de";
+  isMaintenanceHost = config.networking.hostName == "terrahost";
 
   kopiaSftpStorageCommon = {
     "port" = 2222;
