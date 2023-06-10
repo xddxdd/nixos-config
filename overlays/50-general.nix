@@ -184,18 +184,6 @@ in rec {
         ../patches/qbittorrent-return-success-on-dup-torrent.patch
       ];
   });
-  tdesktop = prev.tdesktop.overrideAttrs (old: {
-    enableParallelBuilding = true;
-    postPatch =
-      old.postPatch
-      + ''
-        for ttf in Telegram/lib_ui/fonts/*.ttf; do
-            rm $ttf
-            touch $ttf
-        done
-        sed -i 's/DemiBold/Bold/g' Telegram/lib_ui/ui/style/style_core_font.cpp
-      '';
-  });
   tinc_pre = prev.tinc_pre.overrideAttrs (old: {
     buildInputs = (old.buildInputs or []) ++ [final.miniupnpc];
     configureFlags =
