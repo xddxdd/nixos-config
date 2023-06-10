@@ -56,10 +56,15 @@
     extraOptions = ["--loadavg-target" "4"];
   };
 
-  systemd.network.networks.eth0 = {
+  # Rename to LAN to apply correct firewall rules
+  services.udev.extraRules = ''
+    SUBSYSTEM=="net", ACTION=="add", ATTR{device/vendor}=="0x8086", ATTR{device/device}=="0x1502",NAME="lan0"
+  '';
+
+  systemd.network.networks.lan0 = {
     address = ["192.168.0.3/24"];
     gateway = ["192.168.0.1"];
-    matchConfig.Name = "eth0";
+    matchConfig.Name = "lan0";
   };
 
   services.avahi.enable = lib.mkForce true;
