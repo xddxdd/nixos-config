@@ -23,6 +23,18 @@ def bbs_captcha(gt: str, challenge: str):
 
 def geetest(gt: str, challenge: str, referer: str):
     try:
+        log.info("查询打码余额")
+        response = http.post('http://2captcha.com/res.php', params={
+            'key': appkey,
+            'action': 'getbalance',
+            'json': 1,
+        }, timeout=60)
+        data = response.json()
+        if data.get('status', 0) == 0:
+            log.error(f'查询打码余额出错 {response.text}')
+            return None
+        log.info(f"打码余额 {data['request']}")
+
         log.info("提交打码任务")
         response = http.post('http://2captcha.com/in.php', params={
             'method': 'geetest',
@@ -31,6 +43,7 @@ def geetest(gt: str, challenge: str, referer: str):
             'challenge': challenge,
             'pageurl': referer,
             'json': 1,
+            'lang': 'zh',
         }, timeout=60)
         data = response.json()
         if data.get('status', 0) == 0:
