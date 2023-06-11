@@ -20,7 +20,6 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
-    ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/grasscutter.nix
     ../../nixos/optional-apps/glauth.nix
