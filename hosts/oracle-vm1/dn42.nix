@@ -183,5 +183,21 @@
         peerIPv6LinkLocal = "fe80::33";
       };
     };
+    wenlong = {
+      remoteASN = 4242422366;
+      latencyMs = 2;
+      # peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22366;
+        remoteAddress = "149.62.44.85";
+        remotePort = 22547;
+        wireguardPubkey = "hPe0oxxBMOJOqbCfjTdg8nHIrrx4hslqNaHKjwDMygw=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.109.161";
+        peerIPv6LinkLocal = "fe80::1423:1";
+      };
+    };
   };
 }
