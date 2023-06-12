@@ -6,15 +6,10 @@
   utils,
   inputs,
   ...
-} @ args: let
-  netns = config.lantian.netns.step-ca;
-in {
-  lantian.netns.step-ca = {
-    ipSuffix = "31";
-    birdBindTo = ["step-ca.service"];
-  };
+} @ args: {
+  imports = [./postgresql.nix];
 
-  systemd.services."step-ca" = netns.bind {
+  systemd.services."step-ca" = {
     description = "Step-CA";
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
@@ -41,12 +36,24 @@ in {
   services.nginx.virtualHosts."ca.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     locations = LT.nginx.addCommonLocationConf {} {
-      "/".proxyPass = "https://${netns.ipv4}:443";
+      "/".return = "https://ca.lantian.pub:444$request_uri";
     };
     extraConfig =
       LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
+  };
+
+  services.postgresql = {
+    ensureDatabases = ["step-ca"];
+    ensureUsers = [
+      {
+        name = "step-ca";
+        ensurePermissions = {
+          "DATABASE \"step-ca\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   users.users.step-ca = {
