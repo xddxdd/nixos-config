@@ -83,6 +83,11 @@ with dns; let
 
   internalServices = [
     (CNAME {
+      name = "ca";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "ci";
       target = "hetzner-de";
       cloudflare = true;

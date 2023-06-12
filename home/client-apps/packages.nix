@@ -6,7 +6,12 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  step-cli-wrapped = pkgs.writeShellScriptBin "step" ''
+    export STEPPATH="$HOME/.local/share/step"
+    exec ${pkgs.step-cli}/bin/step "$@"
+  '';
+in {
   home.packages = with pkgs; [
     (LT.wrapNetns "wg-lantian" amule-dlp)
     (LT.wrapNetns "wg-lantian" deluge)
@@ -57,6 +62,7 @@
     remmina
     space-cadet-pinball-full-tilt
     steam-run
+    step-cli-wrapped
     svp
     tdesktop
     tigervnc
