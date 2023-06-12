@@ -63,8 +63,7 @@
     transmission-qt
     transmission-remote-gtk
     ulauncher
-    # Temporarily disabled for build failure
-    # vagrant
+    vagrant
     virt-manager
     vopono
     vscode
@@ -72,6 +71,7 @@
     winetricks
     wineWowPackages.stable
     wpsoffice
+    xca
     yt-dlp
     yubikey-manager-qt
     yuzu-mainline
