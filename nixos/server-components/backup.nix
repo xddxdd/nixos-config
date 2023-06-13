@@ -96,8 +96,8 @@
     inherit storage;
     "caching" = {
       "cacheDirectory" = "/var/cache/kopia/${name}";
-      "maxCacheSize" = 104857600;
-      "maxMetadataCacheSize" = 104857600;
+      "maxCacheSize" = 1073741824;
+      "maxMetadataCacheSize" = 1073741824;
       "maxListCacheDuration" = 30;
     };
     "hostname" = config.networking.hostName;
