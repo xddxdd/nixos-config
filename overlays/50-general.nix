@@ -1,13 +1,6 @@
 {inputs, ...}: final: prev: let
   sources = final.callPackage ../helpers/_sources/generated.nix {};
 in rec {
-  acme-sh = prev.acme-sh.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/acme-sh-gcore-dns.patch
-      ];
-  });
   bird = final.bird-babel-rtt;
   brlaser = prev.brlaser.overrideAttrs (old: {
     inherit (sources.brlaser) version src;
