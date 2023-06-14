@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "3f8d2b67eb25a28a1d8d8dd2562d0606b325404e";
+    version = "167afee0f822efa88593ad5387daca9af5790245";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "3f8d2b67eb25a28a1d8d8dd2562d0606b325404e";
+      rev = "167afee0f822efa88593ad5387daca9af5790245";
       fetchSubmodules = false;
-      sha256 = "sha256-lFgEgA6iWRAxZ2e1OJA4q44PjEXHtIj3g05b4Y//gDg=";
+      sha256 = "sha256-3Jq9EhgpO6qRGB5ziIHdq5fgDbPkmDqETzv1XZhhBK8=";
     };
-    date = "2023-05-28";
+    date = "2023-06-11";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -51,19 +51,6 @@
       url = "https://github.com/bastienwirtz/homer/releases/download/v23.05.1/homer.zip";
       sha256 = "sha256-oxZjcZH1R+6vPF3ZzFKvupvpkBVHiqM3xjMyPupYEY0=";
     };
-  };
-  hostapd = {
-    pname = "hostapd";
-    version = "d3ed34bacdaa1436e6a3fa8355e32cdc87cc9455";
-    src = fetchgit {
-      url = "https://w1.fi/hostap.git";
-      rev = "d3ed34bacdaa1436e6a3fa8355e32cdc87cc9455";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-/hyl4SOnAbyTbEhHS+aXsOz8BE5w6NAWBrlO1lLbR3s=";
-    };
-    date = "2023-06-01";
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
@@ -139,27 +126,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "301b2d860af3bdd0667e2bba6b5fc2672406ed8e";
+    version = "3358c5d92e61d42c1557432e82ccda445d3fa082";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "301b2d860af3bdd0667e2bba6b5fc2672406ed8e";
+      rev = "3358c5d92e61d42c1557432e82ccda445d3fa082";
       fetchSubmodules = false;
-      sha256 = "sha256-ALr0h+ghdn0xXYY6IpTwx6KZW4/Bm9puZKV+N8sTF8k=";
+      sha256 = "sha256-Cr7tTSj3LR3FEBgZ15IEOBa1ogqXDGYPfASc7uDfBnM=";
     };
-    date = "2023-06-02";
+    date = "2023-06-03";
   };
   openvpn = {
     pname = "openvpn";
-    version = "72d70b5d8a9d6ac01134df006a03607a79e76294";
+    version = "68e45eda7b75b412d7e2568adb2e07a94d3cf594";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "72d70b5d8a9d6ac01134df006a03607a79e76294";
+      rev = "68e45eda7b75b412d7e2568adb2e07a94d3cf594";
       fetchSubmodules = false;
-      sha256 = "sha256-0jVF+O98bHxMgQABE9QChCRHiuZsDiLyq7bphEk/5qA=";
+      sha256 = "sha256-kb6jeORwLvmClLPUJuRfMaJp0tV56HOH8O8hErEOkHw=";
     };
-    date = "2023-05-27";
+    date = "2023-06-03";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
