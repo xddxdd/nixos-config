@@ -12,7 +12,6 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
   ];
 
