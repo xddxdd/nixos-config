@@ -22,7 +22,7 @@
   xdg.configFile."ansible/hosts".text =
     lib.concatStringsSep
     "\n"
-    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.serverHosts)));
+    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts)));
 
   home.sessionVariables.ANSIBLE_CONFIG = "${config.home.homeDirectory}/.config/ansible/ansible.cfg";
 }
