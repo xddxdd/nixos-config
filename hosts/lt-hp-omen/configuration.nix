@@ -161,7 +161,7 @@ in {
   # Auto mount samba share
   age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";
   fileSystems."/mnt/share" = {
-    device = "//198.18.102.1/storage";
+    device = "//198.18.101.1/storage";
     fsType = "cifs";
     options = [
       "_netdev"
