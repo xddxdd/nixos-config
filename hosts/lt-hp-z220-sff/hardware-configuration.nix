@@ -5,10 +5,6 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    ../../nixos/hardware/lvm.nix
-  ];
-
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
@@ -26,18 +22,7 @@
     options = ["compress-force=zstd" "nosuid" "nodev"];
   };
 
-  fileSystems."/mnt/storage" = {
-    device = "/dev/mapper/MyVolGroup-storage";
-    fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev" "nofail"];
-  };
-
   swapDevices = [{device = "/dev/disk/by-uuid/3c75369b-7de9-4cff-82f7-5bf3f8ad2492";}];
-
-  services.btrfs.autoScrub = {
-    enable = true;
-    fileSystems = ["/mnt/storage"];
-  };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
