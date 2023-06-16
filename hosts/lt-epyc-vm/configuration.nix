@@ -17,9 +17,6 @@
     ../../nixos/client-components/cups.nix
     ../../nixos/client-components/tlp.nix
 
-    ../../nixos/server-components/backup.nix
-    ../../nixos/server-components/logging.nix
-
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/grasscutter.nix
     ../../nixos/optional-apps/glauth.nix
