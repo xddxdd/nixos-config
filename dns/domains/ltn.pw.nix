@@ -36,7 +36,7 @@
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
-        ttl = "1h";
+        ttl = "10m";
       })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
