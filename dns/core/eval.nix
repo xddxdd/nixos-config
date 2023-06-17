@@ -27,8 +27,8 @@
     reverse ? false,
     registrar ? "none",
     providers,
-    defaultTTL ? "1d",
-    nameserverTTL ? "1d",
+    defaultTTL ? "1h",
+    nameserverTTL ? "1h",
     # HENET disables wildcard for normal domains (not reverse ones) by default
     enableWildcard ? !(!reverse && builtins.elem "henet" providers),
     records,

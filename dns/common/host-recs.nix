@@ -33,7 +33,7 @@ with dns; let
   mapAddresses = {
     name,
     addresses,
-    ttl ? "1d",
+    ttl ? "1h",
   }:
   # A record
     lib.optionals (addresses.IPv4 != "") [
@@ -86,10 +86,10 @@ in {
   fakeALIAS = {
     name,
     target,
-    ttl ? "1d",
+    ttl ? "1h",
   }: let
     addresses = hosts."${target}".public;
-    ttl = "1d";
+    ttl = "1h";
   in
     # A record
     lib.optionals (addresses.IPv4 != "") [
