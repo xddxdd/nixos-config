@@ -4,7 +4,8 @@
   ...
 } @ args: {
   index = 101;
-  tags = with tags; [server];
+  tags = with tags; [nix-builder server];
+  cpuThreads = 64;
   city = geo.cities."US Chicago";
   hostname = "192.168.0.10";
   ssh = {
