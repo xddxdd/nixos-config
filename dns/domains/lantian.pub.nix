@@ -85,7 +85,7 @@ with dns; let
     (CNAME {
       name = "ca";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "ci";
@@ -100,22 +100,22 @@ with dns; let
     (CNAME {
       name = "comments";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "git";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "gopher";
       target = "v-ps-sjc";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "lab";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "lg";
@@ -125,12 +125,12 @@ with dns; let
     (CNAME {
       name = "login";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (fakeALIAS {
       name = "matrix";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (SRV {
       name = "_matrix._tcp";
@@ -142,12 +142,12 @@ with dns; let
     (CNAME {
       name = "tools";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "whois";
       target = "v-ps-sjc";
-      ttl = "1h";
+      ttl = "10m";
     })
 
     (PublicNSRecords "asn")
@@ -175,32 +175,32 @@ with dns; let
     (CNAME {
       name = "buypass-ssl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "google-ssl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "google-test-ssl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "letsencrypt-ssl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "letsencrypt-test-ssl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "zerossl";
       target = common.records.GeoDNSTarget;
-      ttl = "1h";
+      ttl = "10m";
     })
   ];
 in [
@@ -233,7 +233,7 @@ in [
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
-        ttl = "1h";
+        ttl = "10m";
       })
       (TXT {
         name = "@";

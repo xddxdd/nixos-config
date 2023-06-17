@@ -19,7 +19,7 @@ in [
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
-        ttl = "1h";
+        ttl = "10m";
       })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
@@ -29,7 +29,7 @@ in [
       (fakeALIAS {
         name = "${domain}.";
         target = "hetzner-de";
-        ttl = "1h";
+        ttl = "10m";
       })
       (CNAME {
         name = "www.${domain}.";

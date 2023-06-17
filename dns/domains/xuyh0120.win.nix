@@ -39,52 +39,52 @@ with dns; let
     (CNAME {
       name = "asf";
       target = "terrahost";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "books";
       target = "servarica";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "bitwarden";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "cloud";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "dashboard";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "lab";
       target = "lab.lantian.pub.";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "private";
       target = "hetzner-de.ltnet.xuyh0120.win.";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "rss";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "stats";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
     (CNAME {
       name = "vault";
       target = "hetzner-de";
-      ttl = "1h";
+      ttl = "10m";
     })
   ];
 in [
@@ -117,7 +117,7 @@ in [
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
-        ttl = "1h";
+        ttl = "10m";
       })
 
       (common.hostRecs.LTNet "ltnet.${domain}")
