@@ -71,7 +71,7 @@ in {
       };
     };
     proxyResolveWhileRunning = true;
-    proxyTimeout = "1d";
+    proxyTimeout = "1h";
     recommendedGzipSettings = false; # use my own
     recommendedOptimisation = true;
     recommendedProxySettings = false; # use my own
