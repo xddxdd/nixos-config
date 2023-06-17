@@ -25,6 +25,11 @@
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/vlmcsd.nix
+
+    ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
+
+    "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
+    "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
   services.beesd.filesystems.root = {
