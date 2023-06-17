@@ -46,4 +46,6 @@
     enable = true;
     fileSystems = ["/mnt/storage"];
   };
+
+  services.qemuGuest.enable = true;
 }
