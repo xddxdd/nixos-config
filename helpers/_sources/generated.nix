@@ -126,15 +126,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "3358c5d92e61d42c1557432e82ccda445d3fa082";
+    version = "63a77cc0e58f1f544f16fb4496b8aeca84d8010e";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "3358c5d92e61d42c1557432e82ccda445d3fa082";
+      rev = "63a77cc0e58f1f544f16fb4496b8aeca84d8010e";
       fetchSubmodules = false;
-      sha256 = "sha256-Cr7tTSj3LR3FEBgZ15IEOBa1ogqXDGYPfASc7uDfBnM=";
+      sha256 = "sha256-AS/+0EPO8ClO/FfxSTFLQIxxctqOznFivwoEqTmEC8Y=";
     };
-    date = "2023-06-03";
+    date = "2023-06-17";
   };
   openvpn = {
     pname = "openvpn";
