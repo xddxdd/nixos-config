@@ -87,7 +87,7 @@
         bufsize 1232
         loadbalance round_robin
 
-        forward . 198.19.102.11:53
+        forward . 192.168.0.11:53
       }
 
       # NeoNetwork Authoritative
