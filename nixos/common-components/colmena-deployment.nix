@@ -7,13 +7,13 @@
   inputs,
   ...
 } @ args: let
-  inherit (LT.this) hostname sshPort tags manualDeploy;
+  inherit (LT.this) hostname sshPort tags manualDeploy system;
 in {
   deployment = {
     allowLocalDeployment = builtins.elem LT.tags.client tags;
     targetHost = hostname;
     targetPort = sshPort;
     targetUser = "root";
-    tags = tags ++ (lib.optional (!manualDeploy) "default");
+    tags = tags ++ [system] ++ (lib.optional (!manualDeploy) "default");
   };
 }
