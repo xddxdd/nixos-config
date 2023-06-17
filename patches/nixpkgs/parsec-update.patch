@@ -1,0 +1,31 @@
+diff --git a/pkgs/applications/misc/parsec/bin.nix b/pkgs/applications/misc/parsec/bin.nix
+index 7aae31152f7..7a543c3bc6d 100644
+--- a/pkgs/applications/misc/parsec/bin.nix
++++ b/pkgs/applications/misc/parsec/bin.nix
+@@ -5,6 +5,7 @@
+ , alsa-lib, openssl, udev
+ , libglvnd
+ , libX11, libXcursor, libXi, libXrandr
++, libXfixes
+ , libpulseaudio
+ , libva
+ , ffmpeg
+@@ -15,8 +16,8 @@ stdenvNoCC.mkDerivation {
+   version = "150_86e";
+ 
+   src = fetchurl {
+-    url = "https://web.archive.org/web/20230124210253/https://builds.parsecgaming.com/package/parsec-linux.deb";
+-    sha256 = "sha256-wwBy86TdrHaH9ia40yh24yd5G84WTXREihR+9I6o6uU=";
++    url = "https://web.archive.org/web/20230524005700/https://builds.parsecgaming.com/package/parsec-linux.deb";
++    sha256 = "1rgam27g8zhli9278k8nrqdpj9z3fqld7f16ys3pdb6xlkrp4063";
+   };
+ 
+   unpackPhase = ''
+@@ -48,6 +49,7 @@ stdenvNoCC.mkDerivation {
+     libXcursor
+     libXi
+     libXrandr
++    libXfixes
+   ];
+ 
+   prepareParsec = ''
