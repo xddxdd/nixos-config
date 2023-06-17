@@ -11,7 +11,7 @@ in
       (CNAME {
         name = "autoconfig";
         target = GeoDNSTarget;
-        ttl = "10m";
+        ttl = "1h";
       })
       (SRV {
         name = "_autodiscover._tcp";
@@ -66,7 +66,7 @@ in
       (fakeALIAS {
         name = "avatar";
         target = "v-ps-sjc";
-        ttl = "10m";
+        ttl = "1h";
       })
 
       # Use fixed domain, vhost not set up for all domains for now
