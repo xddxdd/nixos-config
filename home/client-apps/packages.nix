@@ -54,6 +54,7 @@ in {
     newsflash
     nvfetcher
     openvpn
+    parsec-bin
     payload-dumper-go
     powertop
     prismlauncher

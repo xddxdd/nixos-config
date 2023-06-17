@@ -47,6 +47,7 @@
         ".librewolf"
         ".mozilla"
         ".openfaas"
+        ".parsec"
         ".pcem"
         ".rustup"
         ".stack"
