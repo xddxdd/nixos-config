@@ -15,7 +15,7 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = ["172.18.126.2/24"];
+    address = ["172.18.126.2/24" "2603:c021:8000:aaaa:2::1/56"];
     gateway = ["172.18.126.1"];
     networkConfig.DHCP = "ipv6";
     matchConfig.Name = "eth0";

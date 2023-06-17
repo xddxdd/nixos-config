@@ -56,7 +56,7 @@
       (lib.concatStrings
         (lib.mapAttrsToList
           (n: v: ''
-            ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fc00::${builtins.toString v.index}
+            ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad::${builtins.toString v.index}
           '')
           LT.hosts))
     );
@@ -113,7 +113,7 @@
         ${wg-lantian}
 
         # Redirect all KMS requests to internal server
-        tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip to 198.18.0.252:${LT.portStr.KMS}
+        tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip to 198.19.0.252:${LT.portStr.KMS}
         tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
       }
 
@@ -125,7 +125,7 @@
         type nat hook output priority -95; policy accept;
 
         # Redirect all KMS requests to internal server
-        tcp dport ${LT.portStr.KMS} dnat ip to 198.18.0.252:${LT.portStr.KMS}
+        tcp dport ${LT.portStr.KMS} dnat ip to 198.19.0.252:${LT.portStr.KMS}
         tcp dport ${LT.portStr.KMS} dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
       }
 
@@ -138,7 +138,7 @@
       lib.optionalString (LT.this.public.IPv6Subnet != "")
       (builtins.concatStringsSep "\n"
         (lib.mapAttrsToList (
-          n: v: "ip6 saddr fc00::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
+          n: v: "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
         ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)))
     )
     + ''
