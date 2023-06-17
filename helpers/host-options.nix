@@ -98,7 +98,7 @@
       };
       IPv4 = lib.mkOption {
         type = lib.types.str;
-        default = "${config.ltnet.IPv4Prefix}.1";
+        default = "198.18.0.${builtins.toString config.index}";
       };
       IPv4Prefix = lib.mkOption {
         type = lib.types.str;
@@ -106,7 +106,7 @@
       };
       IPv6 = lib.mkOption {
         type = lib.types.str;
-        default = "${config.ltnet.IPv6Prefix}::1";
+        default = "fdbc:f9dc:67ad::${builtins.toString config.index}";
       };
       IPv6Prefix = lib.mkOption {
         type = lib.types.str;

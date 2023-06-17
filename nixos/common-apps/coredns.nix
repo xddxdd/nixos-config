@@ -55,7 +55,7 @@ in {
           bufsize 1232
           loadbalance round_robin
 
-          forward . 198.18.0.253 fdbc:f9dc:67ad:2547::53
+          forward . 198.19.0.253 fdbc:f9dc:67ad:2547::53
           cache
         }
       '';

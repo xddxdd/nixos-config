@@ -148,7 +148,7 @@ in
         inherit (config.services.coredns) enable;
         announcedIPv4 = [
           "172.22.76.109"
-          "198.18.0.254"
+          "198.19.0.254"
           "10.127.10.254"
         ];
         announcedIPv6 = [

@@ -15,7 +15,7 @@ in
       inherit (config.services.pdns-recursor) enable;
       announcedIPv4 = [
         "172.22.76.110"
-        "198.18.0.253"
+        "198.19.0.253"
         "10.127.10.253"
       ];
       announcedIPv6 = [
@@ -36,7 +36,7 @@ in
           (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Ltnet))
           (k:
             builtins.concatStringsSep ";" [
-              "198.18.0.254"
+              "198.19.0.254"
               "fdbc:f9dc:67ad:2547::54"
             ]);
         emercoin =

@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  anycastIP = "198.18.0.27";
+  anycastIP = "198.19.0.27";
 
   originalConfig = lib.importJSON (pkgs.grasscutter + "/opt/config.example.json");
 
@@ -33,9 +33,7 @@ in {
   containers.grasscutter = LT.container {
     name = "grasscutter";
     ipSuffix = "27";
-    announcedIPv4 = [
-      "198.18.0.27"
-    ];
+    announcedIPv4 = [anycastIP];
 
     outerConfig = {
       bindMounts = {
