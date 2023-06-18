@@ -148,6 +148,10 @@
           ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 snat to ${LT.this.neonetwork.IPv6}
           ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 snat to ${LT.this.dn42.IPv6}
 
+          # 198.18.0.200-255, fdbc:f9dc:67ad::200-255 is for devices without BGP sessions
+          ip daddr 198.18.0.200-198.18.0.255 snat to ${LT.this.ltnet.IPv4}
+          ip6 daddr fdbc:f9dc:67ad::200-fdbc:f9dc:67ad::255 snat to ${LT.this.ltnet.IPv6}
+
           ip saddr @RESERVED_IPV4 ip daddr != @RESERVED_IPV4 masquerade
           ip6 saddr @RESERVED_IPV6 ip6 daddr != @RESERVED_IPV6 masquerade
         }
