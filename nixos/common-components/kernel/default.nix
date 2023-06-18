@@ -60,16 +60,16 @@
 in {
   options = {
     lantian.kernel = lib.mkOption {
-      type = lib.types.package;
+      type = lib.types.attrs;
       default =
         if pkgs.stdenv.isx86_64
         then
           (
             if builtins.elem LT.tags.x86_64-v1 LT.this.tags
-            then pkgs.lantianLinuxXanmod.lts-x86_64-v1-lto
-            else pkgs.lantianLinuxXanmod.lts-x86_64-v3-lto
+            then pkgs.lantianLinuxXanmodPackages.lts-x86_64-v1-lto
+            else pkgs.lantianLinuxXanmodPackages.lts-x86_64-v3-lto
           )
-        else pkgs.linux_6_1;
+        else pkgs.linuxPackages_6_1;
     };
   };
   config = {
@@ -89,7 +89,7 @@ in {
           "net.ifnames=0"
         ]);
       kernelPackages =
-        (pkgs.linuxPackagesFor config.lantian.kernel).extend
+        config.lantian.kernel.extend
         (final: prev: rec {
           # Fixes for kernel modules that don't use kernel.makeFlags
           cryptodev = llvmOverride prev.cryptodev;
