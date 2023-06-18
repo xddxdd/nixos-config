@@ -1,12 +1,12 @@
 diff --git a/pkgs/applications/misc/parsec/bin.nix b/pkgs/applications/misc/parsec/bin.nix
-index 7aae31152f7..7a543c3bc6d 100644
+index 7aae31152f7..3f59712570e 100644
 --- a/pkgs/applications/misc/parsec/bin.nix
 +++ b/pkgs/applications/misc/parsec/bin.nix
 @@ -5,6 +5,7 @@
  , alsa-lib, openssl, udev
  , libglvnd
  , libX11, libXcursor, libXi, libXrandr
-+, libXfixes
++, libXfixes, vulkan-loader
  , libpulseaudio
  , libva
  , ffmpeg
@@ -21,11 +21,12 @@ index 7aae31152f7..7a543c3bc6d 100644
    };
  
    unpackPhase = ''
-@@ -48,6 +49,7 @@ stdenvNoCC.mkDerivation {
+@@ -48,6 +49,8 @@ stdenvNoCC.mkDerivation {
      libXcursor
      libXi
      libXrandr
 +    libXfixes
++    vulkan-loader
    ];
  
    prepareParsec = ''
