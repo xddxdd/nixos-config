@@ -117,6 +117,7 @@ in {
           nvidia_x11_production = nvidiaPackages.production;
           nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
 
+          nvidia_x11_grid = nvidiaOverride (final.callPackage ./nvidia-x11-grid/generic.nix {});
           nvidia_x11_vgpu = nvidiaOverride (final.callPackage ./nvidia-x11-vgpu/generic.nix {});
 
           # this is not a replacement for nvidia_x11*
