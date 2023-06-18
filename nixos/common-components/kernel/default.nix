@@ -7,56 +7,100 @@
   inputs,
   ...
 } @ args: let
-  llvmOverride = p:
-    if pkgs.stdenv.isx86_64
-    then
-      p.overrideAttrs
-      (old: {
-        makeFlags = (old.makeFlags or []) ++ ["LLVM=1" "LLVM_IAS=1"];
-      })
-    else p;
-  makefileOverride = p:
-    p.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace Makefile \
-            --replace "gcc" "cc"
-        '';
-    });
-  nvidiaOverride = p: let
-    patched = llvmOverride (p.overrideAttrs (old: {
-      # Somehow fixup phase is ran twice
-      postFixup =
-        (old.postFixup or "")
-        + ''
-          SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
-            | grep '"${old.version}"' \
-            | head -n1 \
-            | cut -d"'" -f2)
-          SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
-            | grep '"${old.version}"' \
-            | head -n1 \
-            | cut -d"'" -f2)
+  myKernelPackage = kernelPackages: let
+    llvmOverride = kernelPackages_:
+      kernelPackages_.extend (final: prev:
+        lib.mapAttrs (
+          n: v:
+            if
+              kernelPackages_.kernel.stdenv.cc.bintools.isLLVM
+              && !(builtins.elem n ["kernel"])
+              && lib.isDerivation v
+              && ((v.overrideAttrs or null) != null)
+            then
+              v.overrideAttrs
+              (old: {
+                makeFlags = (old.makeFlags or []) ++ kernelPackages_.kernel.stdenv.buildPlatform.linux-kernel.makeFlags;
+                postPatch =
+                  (
+                    if (old.postPatch or null) == null
+                    then ""
+                    else old.postPatch
+                  )
+                  + ''
+                    if [ -f Makefile ]; then
+                      substituteInPlace Makefile --replace "gcc" "cc"
+                    fi
+                  '';
+              })
+            else v
+        )
+        prev);
 
-          echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
-          sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
-          LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+    nvidiaOverride = let
+      patch = p: let
+        patched = p.overrideAttrs (old: {
+          # Somehow fixup phase is ran twice
+          postFixup =
+            (old.postFixup or "")
+            + ''
+              SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
+                | grep '"${old.version}"' \
+                | head -n1 \
+                | cut -d"'" -f2)
+              SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
+                | grep '"${old.version}"' \
+                | head -n1 \
+                | cut -d"'" -f2)
 
-          echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
-          sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
-          LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
-        '';
-    }));
+              echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
+              sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
+              LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+
+              echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
+              sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
+              LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+            '';
+        });
+      in
+        patched.overrideAttrs (old: {
+          passthru =
+            old.passthru
+            // {
+              settings = old.passthru.settings.override {nvidia_x11 = patched;};
+              persistenced = old.passthru.persistenced.override {nvidia_x11 = patched;};
+            };
+        });
+    in
+      kernelPackages_:
+        kernelPackages_.extend (final: prev:
+          (lib.mapAttrs (n: v:
+            if lib.hasPrefix "nvidia_x11" n && lib.isDerivation v
+            then patch v
+            else v)
+          prev)
+          // {
+            nvidiaPackages = lib.mapAttrs (n: v: patch v) prev.nvidiaPackages;
+          });
   in
-    patched.overrideAttrs (old: {
-      passthru =
-        old.passthru
-        // {
-          settings = old.passthru.settings.override {nvidia_x11 = patched;};
-          persistenced = old.passthru.persistenced.override {nvidia_x11 = patched;};
-        };
-    });
+    lib.foldr
+    (a: b: a b)
+    (kernelPackages.extend
+      (final: prev: {
+        # Custom kernel packages
+        acpi-ec = final.callPackage ./acpi-ec.nix {};
+        i915-sriov = final.callPackage ./i915-sriov.nix {};
+        nft-fullcone = final.callPackage ./nft-fullcone.nix {};
+        nullfsvfs = final.callPackage ./nullfsvfs.nix {};
+        ovpn-dco = final.callPackage ./ovpn-dco.nix {};
+
+        nvidia_x11_grid = final.callPackage ./nvidia-x11-grid/generic.nix {};
+        nvidia_x11_vgpu = final.callPackage ./nvidia-x11-vgpu/generic.nix {};
+      }))
+    [
+      llvmOverride
+      nvidiaOverride
+    ];
 in {
   options = {
     lantian.kernel = lib.mkOption {
@@ -88,45 +132,7 @@ in {
         ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
           "net.ifnames=0"
         ]);
-      kernelPackages =
-        config.lantian.kernel.extend
-        (final: prev: rec {
-          # Fixes for kernel modules that don't use kernel.makeFlags
-          cryptodev = llvmOverride prev.cryptodev;
-          kvmfr = llvmOverride prev.kvmfr;
-          virtualbox = llvmOverride prev.virtualbox;
-          turbostat = makefileOverride (llvmOverride prev.turbostat);
-          x86_energy_perf_policy = makefileOverride (llvmOverride prev.x86_energy_perf_policy);
-
-          # Custom kernel packages
-          acpi-ec = final.callPackage ./acpi-ec.nix {};
-          i915-sriov = final.callPackage ./i915-sriov.nix {};
-          nft-fullcone = final.callPackage ./nft-fullcone.nix {};
-          nullfsvfs = final.callPackage ./nullfsvfs.nix {};
-          ovpn-dco = final.callPackage ./ovpn-dco.nix {};
-
-          # Patched NVIDIA drivers
-          # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix#L355
-          nvidiaPackages = lib.mapAttrs (k: nvidiaOverride) prev.nvidiaPackages;
-
-          nvidia_x11 = nvidiaPackages.stable;
-          nvidia_x11_beta = nvidiaPackages.beta;
-          nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
-          nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
-          nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
-          nvidia_x11_production = nvidiaPackages.production;
-          nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
-
-          nvidia_x11_grid = nvidiaOverride (final.callPackage ./nvidia-x11-grid/generic.nix {});
-          nvidia_x11_vgpu = nvidiaOverride (final.callPackage ./nvidia-x11-vgpu/generic.nix {});
-
-          # this is not a replacement for nvidia_x11*
-          # only the opensource kernel driver exposed for hydra to build
-          nvidia_x11_beta_open = nvidiaPackages.beta.open;
-          nvidia_x11_production_open = nvidiaPackages.production.open;
-          nvidia_x11_stable_open = nvidiaPackages.stable.open;
-          nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
-        });
+      kernelPackages = myKernelPackage config.lantian.kernel;
       kernelModules =
         [
           "cryptodev"
