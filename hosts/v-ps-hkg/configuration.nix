@@ -13,7 +13,7 @@
     ./dn42.nix
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/auto-mihoyo-bbs
+    ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
   ];
 
   systemd.network.networks.eth0 = {
