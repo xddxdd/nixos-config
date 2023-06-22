@@ -22,13 +22,13 @@
   };
 
   kopiaStorage = {
-    lt-epyc-vm = {
+    lt-home-vm = {
       "type" = "sftp";
       "config" =
         kopiaSftpStorageCommon
         // {
           "path" = "/backups-kopia";
-          "host" = "lt-epyc-vm.lantian.pub";
+          "host" = "lt-home-vm.lantian.pub";
         };
     };
     scaleway = {
