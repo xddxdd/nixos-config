@@ -118,6 +118,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "lemmy";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "lg";
       target = "hetzner-de";
       cloudflare = true;
