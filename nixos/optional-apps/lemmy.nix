@@ -92,7 +92,7 @@ in {
         DynamicUser = lib.mkForce false;
         User = "pict-rs";
         Group = "pict-rs";
-        StateDirectory = "/var/lib/pict-rs";
+        StateDirectory = "pict-rs";
       };
   };
 
