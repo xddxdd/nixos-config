@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 102;
-  tags = with tags; [nix-builder x86_64-v1];
+  tags = with tags; [x86_64-v1];
   cpuThreads = 4;
   city = geo.cities."US Chicago";
   hostname = "192.168.0.3";
