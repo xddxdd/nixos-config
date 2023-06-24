@@ -249,6 +249,8 @@ in {
     };
   };
 
+  srvos.boot.consoles = [];
+
   system.fsPackages = [pkgs.bindfs];
 
   systemd = {
