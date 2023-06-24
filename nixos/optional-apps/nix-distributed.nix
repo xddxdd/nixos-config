@@ -14,7 +14,7 @@
       if isLocal
       then null
       else {
-        inherit (v) system;
+        systems = [v.system] ++ config.nix.settings.extra-platforms;
         hostName = "${n}.lantian.pub";
         maxJobs = v.cpuThreads;
         protocol = "ssh-ng";
@@ -37,7 +37,7 @@ in {
   nix = {
     distributedBuilds = true;
     buildMachines =
-      [nixBuildNet]
+      []
       ++ (lib.filter (v: v != null)
         (lib.mapAttrsToList mkBuildMachine
           (lib.filterAttrs (n: v: builtins.elem LT.tags.nix-builder v.tags) LT.otherHosts)));
