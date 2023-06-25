@@ -51,6 +51,7 @@ in rec {
           url = "https://gist.githubusercontent.com/matejc/9be474fa581c1a29592877ede461f1f2/raw/83886917153fcba127b43d9a94a49b3d90e635b3/fix-db-migrations.patch";
           sha256 = "1llwkq014vh78kjr4ic1sjsl5a5k8dgfswzxm97w3yfn0npkz32r";
         })
+        ../patches/lemmy-disable-private-federation-check.patch
       ];
   });
   looking-glass-client = prev.looking-glass-client.overrideAttrs (old: {
