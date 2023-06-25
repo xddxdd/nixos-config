@@ -43,6 +43,9 @@ in rec {
       '';
   });
   lemmy-server = prev.lemmy-server.overrideAttrs (old: {
+    postPatch = ''
+      echo "pub const VERSION: &str = \"${old.version}\";" > "crates/utils/src/version.rs"
+    '';
     patches =
       (old.patches or [])
       ++ [
