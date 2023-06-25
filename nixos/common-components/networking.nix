@@ -7,6 +7,11 @@
   inputs,
   ...
 } @ args: {
+  boot.extraModprobeConfig = ''
+    options iwlmvm power_scheme=1
+    options iwlwifi power_save=Y power_level=5
+  '';
+
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
