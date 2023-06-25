@@ -79,7 +79,11 @@
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
-          extraConfig = LT.nginx.locationProxyConf;
+          extraConfig =
+            LT.nginx.locationProxyConf
+            + ''
+              client_max_body_size 0;
+            '';
         };
       };
       extraConfig =
@@ -92,7 +96,11 @@
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
-          extraConfig = LT.nginx.locationProxyConf;
+          extraConfig =
+            LT.nginx.locationProxyConf
+            + ''
+              client_max_body_size 0;
+            '';
         };
       };
       extraConfig =
