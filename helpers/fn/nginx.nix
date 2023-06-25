@@ -70,7 +70,6 @@
     # Compatibility with common recommendations
     proxy_set_header Early-Data $ssl_early_data;
 
-    proxy_read_timeout 1d;
     proxy_buffering off;
     proxy_request_buffering on;
     proxy_redirect off;
@@ -304,6 +303,10 @@ in rec {
     grpc_read_timeout 52w;
     grpc_set_header X-Real-IP $remote_addr;
     keepalive_timeout 52w;
+    proxy_connect_timeout 60;
+    proxy_read_timeout 52w;
+    proxy_send_timeout 52w;
+    send_timeout 52w;
   '';
 
   listenDefaultFlags = [
