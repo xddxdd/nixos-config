@@ -120,6 +120,7 @@
         nixpkgs = {
           overlays =
             [
+              inputs.attic.overlays.default
               inputs.colmena.overlay
               inputs.nil.overlays.nil
               inputs.nix-alien.overlay

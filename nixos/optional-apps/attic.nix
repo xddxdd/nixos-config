@@ -13,6 +13,7 @@
 
   services.atticd = {
     enable = true;
+    package = pkgs.attic-server;
     credentialsFile = config.age.secrets.attic-credentials.path;
     settings = {
       listen = "[::1]:${LT.portStr.Attic}";
