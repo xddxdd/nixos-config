@@ -19,6 +19,7 @@ in {
     (lutris.override {extraPkgs = p: with p; [xdelta];})
     appimage-run
     aria
+    attic-client
     audacious
     baidupcs-go
     bilibili
