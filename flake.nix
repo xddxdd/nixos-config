@@ -6,6 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-23-05.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -16,6 +17,13 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-23-05";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -124,6 +132,7 @@
         networking.hostName = lib.mkForce (lib.removePrefix "_" n);
         system.stateVersion = LT.constants.stateVersion;
       })
+      inputs.attic.nixosModules.atticd
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.dwarffs.nixosModules.dwarffs
