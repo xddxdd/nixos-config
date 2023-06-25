@@ -9,7 +9,6 @@
   ...
 }: {
   imports = [
-    ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/qemu.nix
   ];
 
@@ -32,9 +31,10 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/mapper/MyVolGroup-storage";
+    device = "/dev/vdb";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev" "nofail"];
+    options = ["compress-force=zstd" "nosuid" "nodev" "x-systemd.mount-timeout=infinity"];
+    neededForBoot = true;
   };
 
   fileSystems."/boot" = {
