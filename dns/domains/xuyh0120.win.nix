@@ -42,6 +42,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "attic";
+      target = "lt-home-vm";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "books";
       target = "servarica";
       ttl = "1h";

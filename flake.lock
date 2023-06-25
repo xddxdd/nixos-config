@@ -22,6 +22,36 @@
         "type": "github"
       }
     },
+    "attic": {
+      "inputs": {
+        "crane": "crane",
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [
+          "nixpkgs-23-05"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686620679,
+        "narHash": "sha256-Ck/r3f+W9mOn3cHn5ii/fogBiJtosFnDaOQveaJ0zVU=",
+        "owner": "zhaofengli",
+        "repo": "attic",
+        "rev": "4fedffe6a1020edfcfa7bef18d21321d4983b3a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zhaofengli",
+        "repo": "attic",
+        "type": "github"
+      }
+    },
     "cities-json": {
       "flake": false,
       "locked": {
@@ -78,6 +108,36 @@
       "original": {
         "owner": "svanderburg",
         "repo": "composer2nix",
+        "type": "github"
+      }
+    },
+    "crane": {
+      "inputs": {
+        "flake-compat": [
+          "attic",
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "attic",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "attic",
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1677892403,
+        "narHash": "sha256-/Wi0L1spSWLFj+UQxN3j0mPYMoc7ZoAujpUF/juFVII=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "105e27adb70a9890986b6d543a67761cbc1964a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
         "type": "github"
       }
     },
@@ -369,7 +429,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1687575899,
@@ -540,6 +600,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-23-05": {
+      "locked": {
+        "lastModified": 1687376262,
+        "narHash": "sha256-xtenf0Nc6So/5uaQqe8u3GVoAs/YdMUFsysPUuK8w1s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7859e9c101fabbd62551b8f4260124a6e2f01a46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1687049841,
@@ -668,6 +744,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "attic": "attic",
         "cities-json": "cities-json",
         "colmena": "colmena",
         "composer2nix": "composer2nix",
@@ -683,6 +760,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-22-05": "nixpkgs-22-05",
         "nixpkgs-22-11": "nixpkgs-22-11",
+        "nixpkgs-23-05": "nixpkgs-23-05",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
@@ -691,6 +769,33 @@
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "attic",
+          "crane",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "attic",
+          "crane",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1675391458,
+        "narHash": "sha256-ukDKZw922BnK5ohL9LhwtaDAdCsJL7L6ScNEyF1lO9w=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "383a4acfd11d778d5c2efcf28376cbd845eeaedf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "flake-utils": [
           "nil",
@@ -718,11 +823,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1687579978,
-        "narHash": "sha256-xqrjO3daZopBLaMaLFkqpPHWMcV2yWTApSwSStTa5y4=",
+        "lastModified": 1687652489,
+        "narHash": "sha256-aIO70q07r2yIMYYt5iUJWI+XTuqLnapIwIN2YViiWhU=",
         "ref": "refs/heads/master",
-        "rev": "a546d5512c37188cffadb8fa100a337db5b86ea4",
-        "revCount": 104,
+        "rev": "d2ad431ce840bac4462e7bf70c272c172b032778",
+        "revCount": 106,
         "type": "git",
         "url": "ssh://git@github.com/xddxdd/nixos-secrets"
       },
