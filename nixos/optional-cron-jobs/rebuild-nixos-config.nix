@@ -42,7 +42,7 @@
     wantedBy = ["timers.target"];
     partOf = ["rebuild-nixos-config.service"];
     timerConfig = {
-      OnCalendar = "daily";
+      OnCalendar = "weekly";
       RandomizedDelaySec = "1h";
       Unit = "rebuild-nixos-config.service";
     };

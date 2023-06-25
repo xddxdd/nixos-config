@@ -12,8 +12,7 @@
 
     ./hardware-configuration.nix
 
-    # Disabled for disk space concerns
-    # ../../nixos/optional-cron-jobs/rebuild-nixos-config.nix
+    ../../nixos/optional-cron-jobs/rebuild-nixos-config.nix
   ];
 
   # Rename to LAN to apply correct firewall rules
