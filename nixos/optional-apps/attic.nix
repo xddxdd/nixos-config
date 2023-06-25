@@ -9,7 +9,11 @@
 } @ args: {
   imports = [./postgresql.nix];
 
-  age.secrets.attic-credentials.file = inputs.secrets + "/attic-credentials.age";
+  age.secrets.attic-credentials = {
+    file = inputs.secrets + "/attic-credentials.age";
+    owner = "atticd";
+    group = "atticd";
+  };
 
   services.atticd = {
     enable = true;
