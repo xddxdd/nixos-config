@@ -22,6 +22,7 @@
     settings = {
       listen = "[::1]:${LT.portStr.Attic}";
       database.url = "postgres://atticd?host=/run/postgresql&user=atticd";
+      require-proof-of-possession = false;
       storage = {
         type = "local";
         path = lib.mkDefault "/var/lib/atticd";
@@ -81,9 +82,7 @@
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
           extraConfig =
             LT.nginx.locationProxyConf
-            + ''
-              client_max_body_size 0;
-            '';
+            + LT.nginx.locationNoTimeoutConf;
         };
       };
       extraConfig =
@@ -98,9 +97,7 @@
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
           extraConfig =
             LT.nginx.locationProxyConf
-            + ''
-              client_max_body_size 0;
-            '';
+            + LT.nginx.locationNoTimeoutConf;
         };
       };
       extraConfig =

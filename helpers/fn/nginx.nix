@@ -164,19 +164,15 @@ in rec {
         stub_status on;
       '';
 
-      "/ray".extraConfig = ''
-        if ($content_type !~ "application/grpc") {
-          return 404;
-        }
-        access_log off;
-        client_body_buffer_size 512k;
-        client_body_timeout 52w;
-        client_max_body_size 0;
-        grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
-        grpc_read_timeout 52w;
-        grpc_set_header X-Real-IP $remote_addr;
-        keepalive_timeout 52w;
-      '';
+      "/ray".extraConfig =
+        ''
+          if ($content_type !~ "application/grpc") {
+            return 404;
+          }
+          access_log off;
+          grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
+        ''
+        + locationNoTimeoutConf;
 
       "/oauth2/" = {
         proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
@@ -299,6 +295,15 @@ in rec {
     fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
     fastcgi_index index.sh;
     ${fastcgiParams}
+  '';
+
+  locationNoTimeoutConf = ''
+    client_body_buffer_size 512k;
+    client_body_timeout 52w;
+    client_max_body_size 0;
+    grpc_read_timeout 52w;
+    grpc_set_header X-Real-IP $remote_addr;
+    keepalive_timeout 52w;
   '';
 
   listenDefaultFlags = [
