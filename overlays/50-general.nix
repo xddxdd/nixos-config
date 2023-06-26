@@ -19,13 +19,6 @@ in rec {
         ../patches/drone-server-listen-unix.patch
       ];
   });
-  drone-vault = prev.drone-vault.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/drone-vault-listen-unix.patch
-      ];
-  });
   flexget = prev.flexget.overrideAttrs (old: {
     propagatedBuildInputs = with prev.python3Packages;
       old.propagatedBuildInputs

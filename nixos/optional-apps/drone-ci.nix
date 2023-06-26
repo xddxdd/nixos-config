@@ -6,16 +6,34 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  droneSecretsAttrs =
+    lib.genAttrs
+    [
+      "drone/git-netrc"
+      "drone/ssh-id-ed25519"
+      "drone/ssh-id-rsa"
+      "drone/telegram-target"
+      "drone/telegram-token"
+    ]
+    (k: {
+      file = inputs.secrets + "/${k}.age";
+      owner = "container";
+      group = "container";
+    });
+in {
   imports = [
     ./docker.nix
     ./postgresql.nix
-    ./vault.nix
   ];
 
-  age.secrets.drone-ci-env.file = inputs.secrets + "/drone-ci-env.age";
-  age.secrets.drone-ci-github-env.file = inputs.secrets + "/drone-ci-github-env.age";
-  age.secrets.drone-ci-vault-env.file = inputs.secrets + "/drone-ci-vault-env.age";
+  age.secrets =
+    droneSecretsAttrs
+    // {
+      drone-ci-env.file = inputs.secrets + "/drone-ci-env.age";
+      drone-ci-github-env.file = inputs.secrets + "/drone-ci-github-env.age";
+      drone-ci-file-secret-env.file = inputs.secrets + "/drone-ci-file-secret-env.age";
+    };
 
   systemd.services = {
     drone = {
@@ -90,7 +108,7 @@
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
       serviceConfig =
         LT.serviceHarden
@@ -112,7 +130,7 @@
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-docker";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
       serviceConfig =
         LT.serviceHarden
@@ -142,7 +160,7 @@
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-exec";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
       serviceConfig = {
         Type = "simple";
@@ -169,7 +187,7 @@
         DRONE_RPC_PROTO = "http";
         DRONE_RUNNER_CAPACITY = "4";
         DRONE_RUNNER_NAME = "drone-exec";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-vault.localhost";
+        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
       serviceConfig = {
         Type = "simple";
@@ -181,11 +199,11 @@
       };
     };
 
-    drone-vault = {
+    drone-file-secret = {
       wantedBy = ["multi-user.target"];
       environment = {
-        DRONE_UNIX_SOCKET = "/run/drone-vault/drone-vault.sock";
-        VAULT_ADDR = "http://127.0.0.1:${LT.portStr.Vault}";
+        DRONE_BASE_PATH = "/run/agenix/drone";
+        DRONE_UNIX_SOCKET = "/run/drone-file-secret/drone-file-secret.sock";
       };
       serviceConfig =
         LT.serviceHarden
@@ -193,9 +211,9 @@
           Type = "simple";
           Restart = "always";
           RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-vault-env.path;
-          ExecStart = "${pkgs.drone-vault}/bin/drone-vault";
-          RuntimeDirectory = "drone-vault";
+          EnvironmentFile = config.age.secrets.drone-ci-file-secret-env.path;
+          ExecStart = "${pkgs.drone-file-secret}/bin/drone-file-secret";
+          RuntimeDirectory = "drone-file-secret";
           User = "container";
           Group = "container";
           UMask = "000";
@@ -260,11 +278,11 @@
         + LT.nginx.serveLocalhost;
     };
 
-    "drone-vault.localhost" = {
+    "drone-file-secret.localhost" = {
       listen = LT.nginx.listenHTTP;
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
-          proxyPass = "http://unix:/run/drone-vault/drone-vault.sock";
+          proxyPass = "http://unix:/run/drone-file-secret/drone-file-secret.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };

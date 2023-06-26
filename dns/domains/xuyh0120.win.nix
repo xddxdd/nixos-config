@@ -86,11 +86,6 @@ with dns; let
       target = "hetzner-de";
       ttl = "1h";
     })
-    (CNAME {
-      name = "vault";
-      target = "hetzner-de";
-      ttl = "1h";
-    })
   ];
 in [
   rec {
