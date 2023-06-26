@@ -63,7 +63,6 @@
     IPFS.API = 5001;
     Radarr = 7878;
     IPFS.Gateway = 8080;
-    Vault = 8200;
     Waline = 8360;
     Matrix.Public = 8448;
     Sonarr = 8989;

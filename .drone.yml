@@ -1,24 +1,24 @@
 kind: secret
 name: id_ed25519
 get:
-  path: kv/data/ssh
-  name: id_ed25519
+  path: ssh-id-ed25519
+  name: ssh-id-ed25519
 
 ---
 
 kind: secret
 name: tg_token
 get:
-  path: kv/data/telegram
-  name: token
+  path: telegram-token
+  name: telegram-token
 
 ---
 
 kind: secret
 name: tg_target
 get:
-  path: kv/data/telegram
-  name: target
+  path: telegram-target
+  name: telegram-target
 
 ---
 
