@@ -36,14 +36,15 @@ in [
         target = "${domain}.";
       })
 
-      (A {
+      (NS {
         name = "virmach-host";
-        address = "31.222.203.3";
+        target = "ns1.vpshared.com.";
       })
-      (A {
-        name = "*.virmach-host";
-        address = "31.222.203.3";
+      (NS {
+        name = "virmach-host";
+        target = "ns2.vpshared.com.";
       })
+
       (IGNORE {name = "geo";})
       (IGNORE {name = "geo-test";})
 
