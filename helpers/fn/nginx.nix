@@ -194,7 +194,7 @@ in rec {
 
       "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
 
-      "~ ^/\\.(?!well-known).*".extraConfig = ''
+      "~ /\\.(?!well-known).*".extraConfig = ''
         access_log off;
         return 403;
       '';
