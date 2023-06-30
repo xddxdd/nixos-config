@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "3800ebfe0ca7a37b67696fbe26d7bd2e52322d3c";
+    version = "d66a038b0650ed9da103cbc1aff7e4ef7b4e52cf";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "3800ebfe0ca7a37b67696fbe26d7bd2e52322d3c";
+      rev = "d66a038b0650ed9da103cbc1aff7e4ef7b4e52cf";
       fetchSubmodules = false;
-      sha256 = "sha256-Nktfxgm+l1DC7KIM2RjLYHxlFvWz/JmHdZfBRVxxOEg=";
+      sha256 = "sha256-SmpcNLJGSUOxNmAYbZuFXeU1+T/tOVrIPepYyHq9rzg=";
     };
-    date = "2023-06-23";
+    date = "2023-06-25";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -126,39 +126,39 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "63a77cc0e58f1f544f16fb4496b8aeca84d8010e";
+    version = "242d4e3cf69499082980cb910dcaf267a8706f23";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "63a77cc0e58f1f544f16fb4496b8aeca84d8010e";
+      rev = "242d4e3cf69499082980cb910dcaf267a8706f23";
       fetchSubmodules = false;
-      sha256 = "sha256-AS/+0EPO8ClO/FfxSTFLQIxxctqOznFivwoEqTmEC8Y=";
+      sha256 = "sha256-d6uXhfUIcq57jXmY5UkG1jBVyQkoi8mD6q4JFwAviWU=";
     };
-    date = "2023-06-17";
+    date = "2023-06-28";
   };
   openvpn = {
     pname = "openvpn";
-    version = "9ccb14970387d7c13589b85b0ca7048cebf52c6d";
+    version = "66e33ee81d1d7fa3495ae3aad6e673766e296687";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "9ccb14970387d7c13589b85b0ca7048cebf52c6d";
+      rev = "66e33ee81d1d7fa3495ae3aad6e673766e296687";
       fetchSubmodules = false;
-      sha256 = "sha256-pEGNWiyxIjUa17G0VeHhLAU8V59dcB1Vf3XZPCQtRXI=";
+      sha256 = "sha256-JC2naau5cJQfwgthCz80vyzTjR/2vbnmDZ3DCYfgzCY=";
     };
-    date = "2023-06-21";
+    date = "2023-06-27";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "2f851902d6b1284ba7c326a685c96f5ba88dae1d";
+    version = "f36b921692b940bc74b155575e9a17930b42140d";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "2f851902d6b1284ba7c326a685c96f5ba88dae1d";
+      rev = "f36b921692b940bc74b155575e9a17930b42140d";
       fetchSubmodules = false;
-      sha256 = "sha256-U4ELdrk/GDga6GBOd+54V2hZrxpcXg2oLc1JV52M5A8=";
+      sha256 = "sha256-sxwbR82IZTE8mtM2GG+WV/q/woGPwZDtp7e1Y4OCJTc=";
     };
-    date = "2023-06-23";
+    date = "2023-06-27";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
