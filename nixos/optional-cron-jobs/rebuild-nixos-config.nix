@@ -32,6 +32,7 @@
       attic login --set-default lantian https://attic.xuyh0120.win "$(cat ${config.age.secrets.attic-upload-key.path})"
       git clone --depth 1 https://github.com/xddxdd/nixos-config.git nixos-config
       cd nixos-config
+      nix run .#update
       nix run .#colmena -- build --verbose
       ls -alh .gcroots
       attic push lantian $(readlink -f .gcroots/*)
