@@ -18,7 +18,7 @@
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/attic.nix
-    ../../nixos/optional-apps/fastapi-dls.nix
+    ../../nixos/optional-apps/fastapi-dls
     ../../nixos/optional-apps/grasscutter.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
