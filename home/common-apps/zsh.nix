@@ -47,7 +47,6 @@
         "gitignore"
         "kubectl"
         "nix-shell"
-        "nvm"
         "pip"
         "screen"
         "you-should-use"
