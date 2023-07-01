@@ -11,6 +11,7 @@
     lib.genAttrs
     [
       "drone/git-netrc"
+      "drone/github-token"
       "drone/ssh-id-ed25519"
       "drone/ssh-id-rsa"
       "drone/telegram-target"
