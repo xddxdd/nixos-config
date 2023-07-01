@@ -30,6 +30,10 @@
       colmena
       git
       nix
+      nix-prefetch
+      nix-prefetch-scripts
+      nvfetcher
+      openssh
     ];
 
     script = ''
