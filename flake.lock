@@ -825,15 +825,15 @@
       "locked": {
         "lastModified": 1687759618,
         "narHash": "sha256-or1dSEANX6pvpYhTgzKZJs4ydW/0dhA9bdaFt8VE4ho=",
-        "ref": "refs/heads/master",
+        "owner": "xddxdd",
+        "repo": "nixos-secrets",
         "rev": "d1227ac29073d921415efb499640a939faeefa83",
-        "revCount": 109,
-        "type": "git",
-        "url": "ssh://git@github.com/xddxdd/nixos-secrets"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/xddxdd/nixos-secrets"
+        "owner": "xddxdd",
+        "repo": "nixos-secrets",
+        "type": "github"
       }
     },
     "srvos": {
