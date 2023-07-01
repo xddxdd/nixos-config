@@ -13,6 +13,10 @@
     serviceConfig =
       LT.serviceHarden
       // {
+        # Fix "GC Warning: Could not open /proc/stat"
+        ProcSubset = "all";
+        ProtectProc = "default";
+
         Type = "oneshot";
         RuntimeDirectory = "rebuild-nixos-config";
         WorkingDirectory = "/run/rebuild-nixos-config";
