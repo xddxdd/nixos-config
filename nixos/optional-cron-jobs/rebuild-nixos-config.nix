@@ -41,7 +41,7 @@
       git clone --depth 1 https://github.com/xddxdd/nixos-config.git nixos-config
       cd nixos-config
       nix run .#update
-      nix run .#colmena -- build --verbose
+      nix run .#colmena -- build --on @x86_64-linux --verbose
       ls -alh .gcroots
       attic push lantian $(readlink -f .gcroots/*)
     '';
@@ -51,7 +51,7 @@
     wantedBy = ["timers.target"];
     partOf = ["rebuild-nixos-config.service"];
     timerConfig = {
-      OnCalendar = "weekly";
+      OnCalendar = "Mon,Fri *-*-* 04:00:00";
       RandomizedDelaySec = "1h";
       Unit = "rebuild-nixos-config.service";
     };
