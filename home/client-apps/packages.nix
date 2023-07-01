@@ -28,6 +28,7 @@ in {
     colmena
     dbeaver
     discord
+    discord-canary
     distrobox
     element-desktop
     exiftool
@@ -90,6 +91,10 @@ in {
     {
       name = "discord";
       command = "${pkgs.discord}/bin/discord --start-minimized";
+    }
+    {
+      name = "discord-canary";
+      command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
     }
     {
       name = "element";
