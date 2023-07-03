@@ -276,5 +276,20 @@
         peerIPv6LinkLocal = "fe80::128";
       };
     };
+    zdong = {
+      remoteASN = 4242422354;
+      latencyMs = 5;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22354;
+        remoteAddress = "dn42.zdong.me";
+        remotePort = 22547;
+        wireguardPubkey = "Uvd/M5SOpWxyowTIbEU0KUz+KOEJAcTSX0ddO0tCQRg=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.132.129";
+        peerIPv6LinkLocal = "fe80::2354";
+      };
+    };
   };
 }
