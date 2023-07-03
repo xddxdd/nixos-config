@@ -42,6 +42,21 @@
         peerIPv6LinkLocal = "fe80::977";
       };
     };
+    calvin = {
+      remoteASN = 4242423166;
+      latencyMs = 38;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23166;
+        remoteAddress = "129.226.220.11";
+        remotePort = 22547;
+        wireguardPubkey = "5Il537C8jOaagWSog7bZXYaQLSn3GVBMNLtdWkKlD28=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.138.32";
+        peerIPv6LinkLocal = "fe80::3166";
+      };
+    };
     chuangzhu = {
       remoteASN = 4242423632;
       latencyMs = 36;
