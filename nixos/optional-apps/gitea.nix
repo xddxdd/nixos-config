@@ -99,7 +99,7 @@
 
   services.nginx.virtualHosts."git.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+    locations = LT.nginx.addCommonLocationConf {blockDotfiles = false;} {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
         extraConfig = LT.nginx.locationProxyConf;

@@ -146,59 +146,63 @@ in rec {
       deny all;
     '';
 
-  addCommonLocationConf = {phpfpmSocket ? null}:
-    lib.recursiveUpdate {
-      "/generate_204".extraConfig = ''
-        access_log off;
-        return 204;
-      '';
-
-      "/autoindex.html".extraConfig = ''
-        internal;
-        root ${../../nixos/common-apps/nginx/files/autoindex};
-      '';
-
-      "/status".extraConfig = ''
-        access_log off;
-        stub_status on;
-      '';
-
-      "/ray".extraConfig =
-        ''
-          if ($content_type !~ "application/grpc") {
-            return 404;
-          }
+  addCommonLocationConf = {
+    phpfpmSocket ? null,
+    blockDotfiles ? true,
+  }:
+    lib.recursiveUpdate ({
+        "/generate_204".extraConfig = ''
           access_log off;
-          grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
-        ''
-        + locationNoTimeoutConf;
+          return 204;
+        '';
 
-      "/oauth2/" = {
-        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-        extraConfig =
-          ''
-            proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-          ''
-          + locationProxyConf;
-      };
+        "/autoindex.html".extraConfig = ''
+          internal;
+          root ${../../nixos/common-apps/nginx/files/autoindex};
+        '';
 
-      "/oauth2/auth" = {
-        proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
-        extraConfig =
-          ''
-            proxy_set_header Content-Length "";
-            proxy_pass_request_body off;
-          ''
-          + locationProxyConf;
-      };
+        "/status".extraConfig = ''
+          access_log off;
+          stub_status on;
+        '';
 
-      "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+        "/ray".extraConfig =
+          ''
+            if ($content_type !~ "application/grpc") {
+              return 404;
+            }
+            access_log off;
+            grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
+          ''
+          + locationNoTimeoutConf;
 
-      "~ /\\.(?!well-known).*".extraConfig = ''
-        access_log off;
-        return 403;
-      '';
-    };
+        "/oauth2/" = {
+          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          extraConfig =
+            ''
+              proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+            ''
+            + locationProxyConf;
+        };
+
+        "/oauth2/auth" = {
+          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          extraConfig =
+            ''
+              proxy_set_header Content-Length "";
+              proxy_pass_request_body off;
+            ''
+            + locationProxyConf;
+        };
+
+        "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
+      }
+      // lib.optionalAttrs blockDotfiles {
+        "~ /\\.(?!well-known).*".extraConfig = lib.optionalString blockDotfiles ''
+          access_log off;
+          return 403;
+        '';
+      });
 
   locationAutoindexConf = ''
     autoindex on;
