@@ -49,6 +49,7 @@
 in {
   babel = ''
     filter ltmesh_import_filter_v4 {
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
@@ -56,11 +57,13 @@ in {
     filter ltmesh_export_filter_v4 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
     filter ltmesh_import_filter_v6 {
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
@@ -68,6 +71,7 @@ in {
     filter ltmesh_export_filter_v6 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
@@ -95,6 +99,7 @@ in {
 
   common = ''
     filter ltnet_import_filter_v4 {
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -102,11 +107,13 @@ in {
     filter ltnet_export_filter_v4 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
     filter ltnet_import_filter_v6 {
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }
@@ -114,6 +121,7 @@ in {
     filter ltnet_export_filter_v6 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       reject;
     }

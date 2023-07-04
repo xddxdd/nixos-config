@@ -48,6 +48,7 @@ in {
     }
 
     filter sys_export_v4 {
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
@@ -62,6 +63,7 @@ in {
     }
 
     filter sys_export_v6 {
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
@@ -148,6 +150,16 @@ in {
     define LTNET_IPv6 = [
       fdbc:f9dc:67ad::/48+,
       fd10:127:10::/48+
+    ];
+
+    # IP ranges managed by other networking tools
+    define LTNET_UNMANAGED_IPv4 = [
+      198.18.0.0/24+
+    ];
+
+    # IP ranges managed by other networking tools
+    define LTNET_UNMANAGED_IPv6 = [
+      fdbc:f9dc:67ad::/64+
     ];
 
     define NEONETWORK_NET_IPv4 = [
