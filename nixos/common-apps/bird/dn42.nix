@@ -106,8 +106,9 @@ in {
         bgp_path.prepend(local_asn);
       }
 
+      # Allow announcing ROA unknown routes, bird ROA reload may not handle it correctly
       if (
-        (bgp_path.last != 0 && roa_check(roa_v4, net, bgp_path.last) != ROA_VALID)
+        (bgp_path.last != 0 && roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID)
         || (bgp_path.last = 0 && roa_check(roa_v4, net, ${DN42_AS}) != ROA_VALID)
       ) then {
         reject;
@@ -148,8 +149,9 @@ in {
         bgp_path.prepend(local_asn);
       }
 
+      # Allow announcing ROA unknown routes, bird ROA reload may not handle it correctly
       if (
-        (bgp_path.last != 0 && roa_check(roa_v6, net, bgp_path.last) != ROA_VALID)
+        (bgp_path.last != 0 && roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID)
         || (bgp_path.last = 0 && roa_check(roa_v6, net, ${DN42_AS}) != ROA_VALID)
       ) then {
         reject;
