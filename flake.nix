@@ -112,6 +112,7 @@
 
     overlays =
       [
+        inputs.agenix.overlays.default
         inputs.attic.overlays.default
         inputs.colmena.overlay
         inputs.nil.overlays.nil
@@ -193,6 +194,7 @@
             dnscontrol = ./scripts/dnscontrol.nix;
             gcore = ./scripts/gcore;
             nvfetcher = ./scripts/nvfetcher.nix;
+            secrets = ./scripts/secrets.nix;
             update = ./scripts/update.nix;
           };
 
