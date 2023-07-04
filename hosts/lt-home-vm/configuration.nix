@@ -19,6 +19,7 @@
 
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/fastapi-dls
+    ../../nixos/optional-apps/genshin-cockpy.nix
     ../../nixos/optional-apps/genshin-grasscutter.nix
     ../../nixos/optional-apps/genshin-soggy.nix
     ../../nixos/optional-apps/glauth.nix
