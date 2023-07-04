@@ -59,6 +59,10 @@ fetch.github = "openwrt/mt76"
 src.git = "https://github.com/OpenVPN/ovpn-dco.git"
 fetch.github = "OpenVPN/ovpn-dco"
 
+[soggy-resources]
+src.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
+fetch.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
+
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 fetch.github = "tchar/ulauncher-albert-calculate-anything"

@@ -172,6 +172,19 @@
     };
     date = "2023-03-28";
   };
+  soggy-resources = {
+    pname = "soggy-resources";
+    version = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";
+    src = fetchgit {
+      url = "https://codeberg.org/LDA_suku/soggy_resources.git";
+      rev = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=";
+    };
+    date = "2022-11-27";
+  };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
     version = "ee0903174c8b87cd1f7c3b6c1acef10702547507";

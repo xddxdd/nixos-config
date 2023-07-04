@@ -288,6 +288,25 @@
         },
         "version": "961c60d0d8b8d45a21028e0479397c9c5604b81e"
     },
+    "soggy-resources": {
+        "cargoLocks": null,
+        "date": "2022-11-27",
+        "extract": null,
+        "name": "soggy-resources",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d",
+            "sha256": "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=",
+            "type": "git",
+            "url": "https://codeberg.org/LDA_suku/soggy_resources.git"
+        },
+        "version": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d"
+    },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
         "date": "2021-08-12",
