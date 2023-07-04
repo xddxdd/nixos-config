@@ -110,6 +110,19 @@
 
     inherit (LT) ls;
 
+    overlays =
+      [
+        inputs.attic.overlays.default
+        inputs.colmena.overlay
+        inputs.nil.overlays.nil
+        inputs.nix-alien.overlay
+        inputs.nixos-cn.overlay
+        inputs.nixpkgs-wayland.overlay
+        inputs.nur.overlay
+        inputs.nur-xddxdd.overlay
+      ]
+      ++ (import ./overlays {inherit inputs;});
+
     modulesFor = n: [
       ({
         config,
@@ -117,19 +130,6 @@
         ...
       }: {
         home-manager.extraSpecialArgs = specialArgsFor n;
-        nixpkgs = {
-          overlays =
-            [
-              inputs.attic.overlays.default
-              inputs.colmena.overlay
-              inputs.nil.overlays.nil
-              inputs.nix-alien.overlay
-              inputs.nixos-cn.overlay
-              inputs.nixpkgs-wayland.overlay
-              inputs.nur.overlay
-            ]
-            ++ (import ./overlays {inherit inputs;});
-        };
         networking.hostName = lib.mkForce (lib.removePrefix "_" n);
         system.stateVersion = LT.constants.stateVersion;
       })
@@ -139,7 +139,6 @@
       inputs.dwarffs.nixosModules.dwarffs
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
-      inputs.nur-xddxdd.nixosModules.setupOverlay
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.srvos.nixosModules.common
@@ -167,6 +166,7 @@
         };
         input = inputs.nixpkgs;
         patches = ls ./patches/nixpkgs;
+        overlaysBuilder = channels: overlays;
       };
 
       hosts = lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (n: {
@@ -177,7 +177,7 @@
 
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
-      in {
+      in rec {
         apps =
           lib.mapAttrs
           (n: v:
@@ -197,6 +197,9 @@
           };
 
         formatter = pkgs.alejandra;
+
+        packagesList = lib.flatten (builtins.map (overlay: builtins.attrNames (overlay pkgs pkgs)) overlays);
+        packages = lib.genAttrs packagesList (n: pkgs."${n}");
       };
 
       # Export for nixos-secrets
