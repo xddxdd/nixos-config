@@ -58,8 +58,8 @@
   '';
 
   systemd.network.networks.lan0 = {
-    address = ["192.168.0.10/24"];
-    gateway = ["192.168.0.1"];
+    address = ["192.168.1.10/24" "fc00:192:168:1::10/64"];
+    gateway = ["192.168.1.1" "fc00:192:168:1::1"];
     matchConfig.Name = "lan0";
   };
 
