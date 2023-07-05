@@ -154,11 +154,13 @@ in {
 
     # IP ranges managed by other networking tools
     define LTNET_UNMANAGED_IPv4 = [
+      192.168.0.0/16+,
       198.18.0.0/24+
     ];
 
     # IP ranges managed by other networking tools
     define LTNET_UNMANAGED_IPv6 = [
+      fc00:192:168::/48+,
       fdbc:f9dc:67ad::/64+
     ];
 
