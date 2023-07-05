@@ -6,9 +6,7 @@
   utils,
   inputs,
   ...
-} @ args: let
-  fastapi-dls = pkgs.callPackage ./package.nix {};
-in {
+} @ args: {
   systemd.services.fastapi-dls = {
     description = "FastAPI-DLS";
     wantedBy = ["multi-user.target"];
@@ -38,7 +36,7 @@ in {
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
+        ExecStart = "${pkgs.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
         RuntimeDirectory = "fastapi-dls";
         StateDirectory = "fastapi-dls";
         User = "fastapi-dls";
