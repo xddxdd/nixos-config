@@ -115,6 +115,19 @@ in
       })
     ];
 
+    ProxmoxCluster = [
+      (A {
+        name = "lt-epyc";
+        address = "192.168.0.2";
+        ttl = "1h";
+      })
+      (A {
+        name = "lt-wyse";
+        address = "192.168.0.4";
+        ttl = "1h";
+      })
+    ];
+
     SIP = [
       (SRV {
         name = "_sip._udp";

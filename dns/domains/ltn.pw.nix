@@ -33,6 +33,7 @@
       (common.records.Autoconfig domain)
       common.records.MXRoute
       common.records.Libravatar
+      common.records.ProxmoxCluster
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
