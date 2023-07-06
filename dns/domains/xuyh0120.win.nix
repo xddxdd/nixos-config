@@ -114,6 +114,7 @@ in [
         contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz";
       })
       common.records.Libravatar
+      common.records.ProxmoxCluster
       common.records.SIP
       (common.hostRecs.GeoInfo {
         name = "geoinfo";
