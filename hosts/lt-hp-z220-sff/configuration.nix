@@ -12,7 +12,6 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/client-components/cups.nix
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
@@ -44,14 +43,6 @@
     address = ["192.168.0.3/24"];
     gateway = ["192.168.0.1"];
     matchConfig.Name = "lan0";
-  };
-
-  services.avahi.enable = lib.mkForce true;
-  services.printing = {
-    browsing = true;
-    defaultShared = true;
-    listenAddresses = ["127.0.0.1:631" "192.168.0.3:631"];
-    allowFrom = ["all"];
   };
 
   services.fwupd.enable = true;

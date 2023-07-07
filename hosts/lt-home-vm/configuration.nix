@@ -15,7 +15,6 @@
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
-    ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/fastapi-dls.nix
@@ -61,6 +60,14 @@
     address = ["192.168.1.10/24" "fc00:192:168:1::10/64"];
     gateway = ["192.168.1.1" "fc00:192:168:1::1"];
     matchConfig.Name = "lan0";
+  };
+
+  services.avahi.enable = lib.mkForce true;
+  services.printing = {
+    browsing = true;
+    defaultShared = true;
+    listenAddresses = ["127.0.0.1:631" "192.168.1.10:631"];
+    allowFrom = ["all"];
   };
 
   lantian.resilio.storage = "/mnt/storage/media";
