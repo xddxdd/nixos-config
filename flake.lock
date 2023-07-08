@@ -823,11 +823,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1688238909,
-        "narHash": "sha256-rI26tIwGKfwBmUrCRdShn2yd3uDAerwbXp2sk4NduPY=",
+        "lastModified": 1688792276,
+        "narHash": "sha256-xdzYlWjSJHgg0z/6jmuBDQXPaX+ZlBg0XHAhmD1ghTo=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "3dc5a54a14a4bb8ffb6489befdea8287eaef1280",
+        "rev": "02e61dbc10d9bafccd910e03dcfcbd6062d2d03a",
         "type": "github"
       },
       "original": {

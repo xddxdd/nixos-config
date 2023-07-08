@@ -18,7 +18,6 @@
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/smartrent-auto-lock
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
