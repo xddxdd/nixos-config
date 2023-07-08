@@ -279,6 +279,7 @@
     zdong = {
       remoteASN = 4242422354;
       latencyMs = 5;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 22354;
