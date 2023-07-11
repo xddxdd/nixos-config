@@ -21,12 +21,6 @@
     packageFirewall = pkgs.nftables-fullcone;
     ignoreIP = with LT.constants; (reserved.IPv4 ++ reserved.IPv6);
 
-    daemonConfig = ''
-      [DEFAULT]
-      loglevel = NOTICE
-      logtarget = SYSLOG
-    '';
-
     bantime-increment = {
       enable = true;
       overalljails = true;
