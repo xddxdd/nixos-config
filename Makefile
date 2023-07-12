@@ -24,6 +24,9 @@ update: FORCE
 update-nur: FORCE
 	@nix flake lock --update-input nur-xddxdd
 
+push-cache: FORCE
+	@attic push lantian $(shell readlink -f .gcroots/*)
+
 reboot: FORCE
 	@ansible-playbook rolling-reboot.yml
 
