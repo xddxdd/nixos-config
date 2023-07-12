@@ -29,7 +29,13 @@ in {
     "fcitx5/themes".source = "${pkgs.fcitx5-breeze}/share/fcitx5/themes";
     "fcitx5/rime/default.custom.yaml".text = builtins.toJSON {
       patch = {
-        schema_list = [{schema = "aurora_pinyin";}];
+        # 雾凇拼音
+        __include = "rime_ice_suggestion:/";
+
+        # 极光拼音
+        # "switcher/save_options" = ["full_shape" "ascii_punct" "simplification" "extended_charset"];
+
+        schema_list = [{schema = "rime_ice";}];
         "menu/page_size" = 9;
         "ascii_composer/good_old_caps_lock" = true;
         "ascii_composer/switch_key" = {
@@ -40,12 +46,12 @@ in {
           "Control_R" = "noop";
         };
         "switcher/hotkeys" = ["F4"];
-        "switcher/save_options" = ["full_shape" "ascii_punct" "simplification" "extended_charset"];
         "switcher/fold_options" = false;
         "switcher/abbreviate_options" = false;
       };
     };
 
+    # 极光拼音
     "fcitx5/rime/aurora_pinyin.custom.yaml".text = builtins.toJSON {
       patch = {
         "switches/@0/reset" = 1;
@@ -73,6 +79,30 @@ in {
         "zhwiki"
       ];
 
+    # 雾凇拼音
+    "fcitx5/rime/rime_ice.custom.yaml".text = builtins.toJSON {
+      patch = {
+        "switches/@0/reset" = 1;
+        "translator/dictionary" = "lantian_rime_ice";
+      };
+    };
+
+    "fcitx5/rime/lantian_rime_ice.dict.yaml".text =
+      makeDict
+      "lantian_rime_ice"
+      [
+        "cn_dicts/8105"
+        "cn_dicts/41448"
+        "cn_dicts/base"
+        "cn_dicts/ext"
+        "cn_dicts/tencent"
+        "cn_dicts/others"
+
+        "moegirl"
+        "zhwiki"
+      ];
+
+    # 朙月拼音
     "fcitx5/rime/luna_pinyin_simp.custom.yaml".text = builtins.toJSON {
       patch = {
         "switches/@0/reset" = 1;
