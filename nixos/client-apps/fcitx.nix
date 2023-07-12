@@ -6,19 +6,26 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  fcitx5-rime-with-addons = pkgs.fcitx5-rime.override {
+    librime = pkgs.lantianCustomized.librime-with-plugins;
+    rimeDataPkgs = with pkgs; [
+      rime-aurora-pinyin
+      rime-data
+      rime-dict
+      rime-ice
+      rime-moegirl
+      rime-zhwiki
+    ];
+  };
+in {
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-chinese-addons
       fcitx5-gtk
-      fcitx5-rime
+      fcitx5-rime-with-addons
       libsForQt5.fcitx5-qt
-      rime-aurora-pinyin
-      rime-data
-      rime-dict
-      rime-moegirl
-      rime-zhwiki
     ];
   };
 
