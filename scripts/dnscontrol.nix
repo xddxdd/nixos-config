@@ -11,6 +11,8 @@
 } @ args: let
   dnscontrol = pkgs.dnscontrol;
 in ''
+  set -euo pipefail
+
   CURR_DIR=$(pwd)
 
   TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
