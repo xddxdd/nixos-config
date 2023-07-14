@@ -183,13 +183,13 @@
 
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
-        pkg = v: args:
-          pkgs.callPackage v ({
-              inherit inputs;
-              LT = import ./helpers {inherit lib inputs pkgs;};
-              packages = self.packages."${pkgs.system}";
-            }
-            // args);
+
+        extraArgs = {
+          inherit inputs;
+          LT = import ./helpers {inherit lib inputs pkgs;};
+          packages = self.packages."${pkgs.system}";
+        };
+        pkg = v: args: pkgs.callPackage v (extraArgs // args);
 
         commands =
           lib.mapAttrs
@@ -226,6 +226,7 @@
             terraform-config = inputs.terranix.lib.terranixConfiguration {
               inherit (pkgs) system;
               modules = [./terraform];
+              inherit extraArgs;
             };
             terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [
               xddxdd-uptimerobot
