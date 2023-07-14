@@ -52,6 +52,38 @@
         "type": "github"
       }
     },
+    "bats-assert": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636059754,
+        "narHash": "sha256-ewME0l27ZqfmAwJO4h5biTALc9bDLv7Bl3ftBzBuZwk=",
+        "owner": "bats-core",
+        "repo": "bats-assert",
+        "rev": "34551b1d7f8c7b677c1a66fc0ac140d6223409e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bats-core",
+        "repo": "bats-assert",
+        "type": "github"
+      }
+    },
+    "bats-support": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1548869839,
+        "narHash": "sha256-Gr4ntadr42F2Ks8Pte2D4wNDbijhujuoJi4OPZnTAZU=",
+        "owner": "bats-core",
+        "repo": "bats-support",
+        "rev": "d140a65044b2d6810381935ae7f0c94c7023c8c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bats-core",
+        "repo": "bats-support",
+        "type": "github"
+      }
+    },
     "cities-json": {
       "flake": false,
       "locked": {
@@ -765,7 +797,8 @@
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
         "secrets": "secrets",
-        "srvos": "srvos"
+        "srvos": "srvos",
+        "terranix": "terranix"
       }
     },
     "rust-overlay": {
@@ -823,11 +856,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1688792276,
-        "narHash": "sha256-xdzYlWjSJHgg0z/6jmuBDQXPaX+ZlBg0XHAhmD1ghTo=",
+        "lastModified": 1689303436,
+        "narHash": "sha256-40pmSHFD++7DR2NJDsUmWYxvOtLVCaHvDfVQREW7oQk=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "02e61dbc10d9bafccd910e03dcfcbd6062d2d03a",
+        "rev": "1123f0ccad8f4bec62ae25494712d79f3c3b0c67",
         "type": "github"
       },
       "original": {
@@ -899,6 +932,47 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "terranix": {
+      "inputs": {
+        "bats-assert": "bats-assert",
+        "bats-support": "bats-support",
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "terranix-examples": "terranix-examples"
+      },
+      "locked": {
+        "lastModified": 1684906298,
+        "narHash": "sha256-pNuJxmVMGbBHw7pa+Bx0HY0orXIXoyyAXOKuQ1zpfus=",
+        "owner": "terranix",
+        "repo": "terranix",
+        "rev": "c0dd15076856c6cb425795b8c7d5d37d3a1e922a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "terranix",
+        "repo": "terranix",
+        "type": "github"
+      }
+    },
+    "terranix-examples": {
+      "locked": {
+        "lastModified": 1636300201,
+        "narHash": "sha256-0n1je1WpiR6XfCsvi8ZK7GrpEnMl+DpwhWaO1949Vbc=",
+        "owner": "terranix",
+        "repo": "terranix-examples",
+        "rev": "a934aa1cf88f6bd6c6ddb4c77b77ec6e1660bd5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "terranix",
+        "repo": "terranix-examples",
         "type": "github"
       }
     }
