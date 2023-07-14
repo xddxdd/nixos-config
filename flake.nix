@@ -86,6 +86,11 @@
       url = "github:numtide/srvos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = {
@@ -178,16 +183,17 @@
 
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
-      in rec {
-        apps =
+        pkg = v: args:
+          pkgs.callPackage v ({
+              inherit inputs;
+              LT = import ./helpers {inherit lib inputs pkgs;};
+              packages = self.packages."${pkgs.system}";
+            }
+            // args);
+
+        commands =
           lib.mapAttrs
-          (n: v:
-            flake-utils.lib.mkApp {
-              drv = pkgs.writeShellScriptBin "script" (pkgs.callPackage v {
-                inherit inputs;
-                LT = import ./helpers {inherit lib inputs pkgs;};
-              });
-            })
+          (n: v: pkgs.writeShellScriptBin n (pkg v {}))
           {
             colmena = ./scripts/colmena.nix;
             check = ./scripts/check.nix;
@@ -195,13 +201,36 @@
             gcore = ./scripts/gcore;
             nvfetcher = ./scripts/nvfetcher.nix;
             secrets = ./scripts/secrets.nix;
+            terraform = ./scripts/terraform.nix;
             update = ./scripts/update.nix;
           };
+      in rec {
+        apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = lib.mapAttrsToList (n: v: v) commands;
+        };
 
         formatter = pkgs.alejandra;
 
         packagesList = lib.flatten (builtins.map (overlay: builtins.attrNames (overlay pkgs pkgs)) overlays);
-        packages = lib.genAttrs packagesList (n: pkgs."${n}");
+        packages =
+          (lib.genAttrs packagesList (n: pkgs."${n}"))
+          // rec {
+            # DNSControl
+            dnscontrol-config = pkgs.writeText "dnsconfig.js" (pkg ./dns {});
+
+            # Terraform
+            xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix {};
+
+            terraform-config = inputs.terranix.lib.terranixConfiguration {
+              inherit (pkgs) system;
+              modules = [./terraform];
+            };
+            terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [
+              xddxdd-uptimerobot
+            ]);
+          };
       };
 
       # Export for nixos-secrets
