@@ -8,9 +8,9 @@ in
   builder {
     owner = "xddxdd";
     repo = "terraform-provider-uptimerobot";
-    rev = "4d919b64934f3e61ce5ecbc0c9b7e1752ff23b72";
-    version = "1.0.1";
-    hash = "sha256-6M8OyG2U83qoagFeuuHurx+I38mwO/DIj1J5gtPHe6U=";
+    rev = "b37b4e6fe8b8691b0ebcc59633903d0f9500508b";
+    version = "1.0.2";
+    hash = "sha256-7GfWdet+2NsYxknSIHVmReXoSB3BGBi9vfcbwwdX31M=";
     vendorHash = "sha256-JvdX00fZLzZSEZsLFv4eBkpp8fPmgNLr3Yxrtawnr0Q=";
     provider-source-address = "private.lantian.pub/xddxdd/uptimerobot";
   }
