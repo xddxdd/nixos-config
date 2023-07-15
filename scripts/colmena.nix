@@ -5,10 +5,10 @@
 }: ''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-    colmena $ACTION --keep-result --show-trace $*
+    ${pkgs.colmena}/bin/colmena $ACTION --keep-result --show-trace $*
     exit $?
   else
-    colmena $ACTION $*
+    ${pkgs.colmena}/bin/colmena $ACTION $*
     exit $?
   fi
 ''
