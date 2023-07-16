@@ -856,11 +856,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1689303436,
-        "narHash": "sha256-40pmSHFD++7DR2NJDsUmWYxvOtLVCaHvDfVQREW7oQk=",
+        "lastModified": 1689478478,
+        "narHash": "sha256-2K0CVTgZsvrRzBC91WEoplfSR3LpA0/iUczHJJmBSZ8=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "1123f0ccad8f4bec62ae25494712d79f3c3b0c67",
+        "rev": "ed1d9fcef71e0fb836d45816bba172c5ecc06107",
         "type": "github"
       },
       "original": {
