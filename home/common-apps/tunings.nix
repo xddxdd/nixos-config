@@ -29,7 +29,7 @@
   xdg.configFile = {
     "htop/htoprc".source = ../files/htoprc;
     "nix/nix.conf".text = ''
-      experimental-features = nix-command flakes ca-derivations
+      experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups
     '';
     "nixpkgs/config.nix".text = ''
       { allowUnfree = true; }
