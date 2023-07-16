@@ -73,8 +73,8 @@ in {
     wantedBy = ["timers.target"];
     partOf = ["rsync-nix-persistent-sync-servers.service"];
     timerConfig = {
-      OnCalendar = "hourly";
-      RandomizedDelaySec = "1h";
+      OnCalendar = "*:0/10";
+      RandomizedDelaySec = "5min";
       Unit = "rsync-nix-persistent-sync-servers.service";
     };
   };
