@@ -10,6 +10,16 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_14;
+    settings.listen_addresses = lib.mkForce (lib.concatStringsSep ", " [
+      "127.0.0.1"
+      "::1"
+      LT.this.ltnet.IPv4
+      LT.this.ltnet.IPv6
+    ]);
+    authentication = ''
+      host all all 198.18.0.0/16 md5
+      host all all fdbc:f9dc:67ad::/48 md5
+    '';
   };
 
   services.postgresqlBackup = {
