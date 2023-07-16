@@ -35,7 +35,8 @@
 in {
   options.lantian.nginx-proxy.enable = lib.mkOption {
     type = lib.types.bool;
-    default = !(builtins.elem LT.tags.low-ram LT.this.tags);
+    # Must enable on all servers to ensure consistent behavior
+    default = !(builtins.elem LT.tags.low-ram LT.this.tags) || (builtins.elem LT.tags.server LT.this.tags);
     description = "Enable nginx-proxy service.";
   };
 
