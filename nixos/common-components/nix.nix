@@ -28,14 +28,17 @@
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
+    nrBuildUsers = 0;
     optimise.automatic = true;
     settings = {
+      auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = lib.mkForce "nix-command flakes ca-derivations";
+      experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
+      use-cgroups = true;
       warn-dirty = false;
 
       inherit (LT.constants.nix) substituters trusted-public-keys;
