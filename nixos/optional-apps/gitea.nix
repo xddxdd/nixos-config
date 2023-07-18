@@ -75,6 +75,10 @@
     };
   };
 
+  systemd.services.gitea.serviceConfig = {
+    RuntimeDirectoryMode = lib.mkForce "0755";
+  };
+
   services.mysql = {
     ensureDatabases = ["gitea"];
     ensureUsers = [
