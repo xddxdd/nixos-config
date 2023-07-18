@@ -11,7 +11,6 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
     enableVteIntegration = true;
 
     # # Unused since I'm using oh-my-zsh
@@ -26,6 +25,7 @@
       extended = true;
       path = "$ZDOTDIR/.zsh_history";
     };
+    syntaxHighlighting.enable = true;
 
     oh-my-zsh = {
       enable = true;
