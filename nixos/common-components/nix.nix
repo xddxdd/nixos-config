@@ -35,6 +35,7 @@
       auto-optimise-store = true;
       builders-use-substitutes = true;
       experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
+      extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
