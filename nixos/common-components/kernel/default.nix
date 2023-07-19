@@ -223,8 +223,9 @@ in {
     };
 
     systemd.services.systemd-sysctl = {
-      after = ["bin.mount"];
-      requires = ["bin.mount"];
+      # Only use with envfs
+      # after = ["bin.mount"];
+      # requires = ["bin.mount"];
       serviceConfig = {
         Restart = "on-failure";
       };

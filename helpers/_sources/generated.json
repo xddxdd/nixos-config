@@ -28,15 +28,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hIVxO67tX87UfiVDswcgMryeVB0ZYrnug1a2Fe+gdKI=",
+            "sha256": "sha256-pNR6MT2eedCHdav94YoIwytQtNuPpSJhv927eFkQ0O8=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.4.0/CyberChef_v10.4.0.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.5.2/CyberChef_v10.5.2.zip"
         },
-        "version": "v10.4.0"
+        "version": "v10.5.2"
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2023-07-09",
+        "date": "2023-07-16",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "63cdc30417ecdce199cade0f1381aec445b93fda",
-            "sha256": "sha256-Whn4x4H0u6p7ZkATWE3dWVhX9nR5aUN+4bYCdn9bqJI=",
+            "rev": "cc67cbc543ce68c1a8fa0ec291f79cedfa7179a5",
+            "sha256": "sha256-2X4p1BKPTMOeF3OQKrj1fqCIX7rRusgYdLkc2CGq9+w=",
             "type": "github"
         },
-        "version": "63cdc30417ecdce199cade0f1381aec445b93fda"
+        "version": "cc67cbc543ce68c1a8fa0ec291f79cedfa7179a5"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -210,7 +210,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-07-07",
+        "date": "2023-07-18",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -222,15 +222,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "cc7861e70413614047305a133845f5c0c0467623",
-            "sha256": "sha256-/t6Q+kitmqYebWBmtTVdwGjhPwdRJ1hQCQfxpUo6iTA=",
+            "rev": "d62b100537f77d32ab8e666cbbb7ae6484aac08e",
+            "sha256": "sha256-YbDp1NvJ7R9hxD43GSxwqTegLHXIVcKW/Cj2VeRsTC4=",
             "type": "github"
         },
-        "version": "cc7861e70413614047305a133845f5c0c0467623"
+        "version": "d62b100537f77d32ab8e666cbbb7ae6484aac08e"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-07-10",
+        "date": "2023-07-18",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -242,15 +242,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "7a477c16a7c2a7016c7b15ea98fe3c40e8ef675b",
-            "sha256": "sha256-PsYbLq+gLWPdODt9wOHCIHBBh5bP9gfxL1XLJZjrLY8=",
+            "rev": "64352467845e7a972a8073d35d41450eea24b905",
+            "sha256": "sha256-qLyu53LjwQLnEwzPmiWHWFKIGOJhfPlxMtPwti8FuXo=",
             "type": "github"
         },
-        "version": "7a477c16a7c2a7016c7b15ea98fe3c40e8ef675b"
+        "version": "64352467845e7a972a8073d35d41450eea24b905"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2023-07-04",
+        "date": "2023-07-14",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -262,11 +262,11 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "f704e4f83c6fd21fb39046fa328efb51bee6383b",
-            "sha256": "sha256-HIWFO/bFzlHa3BnnwxUUbnbpt0WhxE/K5Wx7bDcquSI=",
+            "rev": "bb3937d5c3e0b13c0d08747ec0fc9726fb4fd870",
+            "sha256": "sha256-PkwOgq+6dYorMRLWo/UO7eXXS6MP2/zohgxgu73Af4U=",
             "type": "github"
         },
-        "version": "f704e4f83c6fd21fb39046fa328efb51bee6383b"
+        "version": "bb3937d5c3e0b13c0d08747ec0fc9726fb4fd870"
     },
     "ovpn-dco": {
         "cargoLocks": null,
