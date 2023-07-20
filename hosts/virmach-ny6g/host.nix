@@ -11,7 +11,7 @@
     ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMjmwZpgsCSqgs4kTRqLbkS1uRnNTLGweRqK+YrXs7Qf";
   };
   public = {
-    IPv4 = "216.52.57.20";
+    IPv4 = "47.87.186.20";
     IPv6 = "2001:470:1f07:c6f::1";
     IPv6Alt = "2001:470:8d00::1";
     IPv6Subnet = "2001:470:8d00:ffff::";
