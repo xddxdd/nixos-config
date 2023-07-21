@@ -94,9 +94,10 @@
         nullfsvfs = final.callPackage ./nullfsvfs.nix {};
         ovpn-dco = final.callPackage ./ovpn-dco.nix {};
 
-        nvidia_x11_grid_14_4 = final.callPackage ./nvidia-x11-grid_14_4/generic.nix {};
-        nvidia_x11_grid_15_2 = final.callPackage ./nvidia-x11-grid_15_2/generic.nix {};
-        nvidia_x11_vgpu_15_2 = final.callPackage ./nvidia-x11-vgpu_15_2/generic.nix {};
+        nvidia_x11_grid_14_4 = final.callPackage ./nvidia-x11/grid_14_4.nix {};
+        nvidia_x11_grid_15_2 = final.callPackage ./nvidia-x11/grid_15_2.nix {};
+        nvidia_x11_grid_16_0 = final.callPackage ./nvidia-x11/grid_16_0.nix {};
+        nvidia_x11_vgpu_15_2 = final.callPackage ./nvidia-x11/vgpu_15_2.nix {};
       }))
     [
       llvmOverride

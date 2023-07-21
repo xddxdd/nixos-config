@@ -1,51 +1,48 @@
 {
+  version,
+  sha256_64bit,
+  settingsSha256,
+  settingsVersion,
+  persistencedSha256,
+  persistencedVersion,
+  patches ? [],
+  ...
+}: {
   lib,
+  stdenv,
   callPackage,
   pkgs,
-  pkgsi686Linux,
   kernel,
   perl,
   nukeReferences,
   which,
-  # Options
-  useGLVND ? true,
-  useProfiles ? true,
   ...
 }:
 with lib; let
-  version = "510.108.03";
-  sha256_64bit = "0ka3laf7qp2cl1sc93s6plb2qssjqiidpdan0392vgdxk7i5pd3a";
-  settingsSha256 = "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So=";
-  settingsVersion = "510.108.03";
-  persistencedSha256 = "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=";
-  persistencedVersion = "510.108.03";
-
   nameSuffix = "-${kernel.version}";
-  i686bundled = true;
 
   libPathFor = pkgs:
     lib.makeLibraryPath (with pkgs; [
-      gcc-unwrapped
       libdrm
-      libGL
-      mesa
+      xorg.libXext
+      xorg.libX11
+      xorg.libXv
+      xorg.libXrandr
+      xorg.libxcb
+      zlib
       stdenv.cc.cc
       wayland
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXext
-      xorg.libXrandr
-      xorg.libXv
-      zlib
+      mesa
+      libGL
     ]);
 
-  self = kernel.stdenv.mkDerivation {
+  self = stdenv.mkDerivation {
     name = "nvidia-x11-${version}${nameSuffix}";
 
-    builder = ./builder.sh;
+    builder = ./vgpu-builder.sh;
 
     src = pkgs.requireFile rec {
-      name = "NVIDIA-Linux-x86_64-${version}-grid.run";
+      name = "NVIDIA-Linux-x86_64-${version}-vgpu-kvm.run";
       sha256 = sha256_64bit;
       url = "https://www.nvidia.com/object/vGPU-software-driver.html";
       message = ''
@@ -59,17 +56,11 @@ with lib; let
       '';
     };
 
-    patches = [
-      ./kernel-6_1.patch
-    ];
-
-    inherit version useGLVND useProfiles;
+    inherit version;
     inherit (stdenv.hostPlatform) system;
-    inherit i686bundled;
+    inherit patches;
 
-    outputs =
-      ["out" "bin"]
-      ++ optional i686bundled "lib32";
+    outputs = ["out" "bin"];
     outputDev = "bin";
 
     kernel = kernel.dev;
@@ -90,7 +81,6 @@ with lib; let
     dontPatchELF = true;
 
     libPath = libPathFor pkgs;
-    libPath32 = optionalString i686bundled (libPathFor pkgsi686Linux);
 
     buildInputs = [which];
     nativeBuildInputs =
@@ -99,16 +89,12 @@ with lib; let
 
     disallowedReferences = [kernel.dev];
 
-    passthru =
-      {
-        settings = callPackage (import ./settings.nix settingsSha256) {nvidia_x11 = self;};
-        persistenced = callPackage (import ./persistenced.nix persistencedSha256) {nvidia_x11 = self;};
-        inherit persistencedVersion settingsVersion;
-        compressFirmware = false;
-      }
-      // optionalAttrs (!i686bundled) {
-        inherit lib32;
-      };
+    passthru = {
+      settings = callPackage (import ./settings.nix settingsSha256) {nvidia_x11 = self;};
+      persistenced = callPackage (import ./persistenced.nix persistencedSha256) {nvidia_x11 = self;};
+      inherit persistencedVersion settingsVersion;
+      compressFirmware = false;
+    };
 
     meta = with lib; {
       homepage = "https://www.nvidia.com/object/unix.html";

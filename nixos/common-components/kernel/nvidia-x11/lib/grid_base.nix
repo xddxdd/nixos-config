@@ -1,6 +1,14 @@
 {
+  version,
+  sha256_64bit,
+  settingsSha256,
+  settingsVersion,
+  persistencedSha256,
+  persistencedVersion,
+  patches ? [],
+  ...
+}: {
   lib,
-  stdenv,
   callPackage,
   pkgs,
   pkgsi686Linux,
@@ -8,19 +16,13 @@
   perl,
   nukeReferences,
   which,
+  libarchive,
   # Options
   useGLVND ? true,
   useProfiles ? true,
   ...
 }:
 with lib; let
-  version = "525.85.05";
-  sha256_64bit = "0vi6qh5cgdmx6a61h0r3bvg1xsbcb51p125008rnrz3fa64kzbys";
-  settingsSha256 = "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=";
-  settingsVersion = "525.85.05";
-  persistencedSha256 = "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=";
-  persistencedVersion = "525.85.05";
-
   nameSuffix = "-${kernel.version}";
   i686bundled = true;
 
@@ -40,10 +42,10 @@ with lib; let
       zlib
     ]);
 
-  self = stdenv.mkDerivation {
+  self = kernel.stdenv.mkDerivation {
     name = "nvidia-x11-${version}${nameSuffix}";
 
-    builder = ./builder.sh;
+    builder = ./grid-builder.sh;
 
     src = pkgs.requireFile rec {
       name = "NVIDIA-Linux-x86_64-${version}-grid.run";
@@ -63,6 +65,7 @@ with lib; let
     inherit version useGLVND useProfiles;
     inherit (stdenv.hostPlatform) system;
     inherit i686bundled;
+    inherit patches;
 
     outputs =
       ["out" "bin"]
@@ -91,7 +94,7 @@ with lib; let
 
     buildInputs = [which];
     nativeBuildInputs =
-      [perl nukeReferences]
+      [perl nukeReferences libarchive]
       ++ kernel.moduleBuildDependencies;
 
     disallowedReferences = [kernel.dev];
