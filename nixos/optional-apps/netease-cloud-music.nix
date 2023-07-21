@@ -13,7 +13,7 @@
   xrayConfig = pkgs.writeText "config.json" (builtins.toJSON {
     inbounds = [
       {
-        listen = "${LT.this.ltnet.IPv4Prefix}.1";
+        listen = LT.this.ltnet.IPv4;
         port = LT.port.NeteaseUnlock;
         protocol = "dokodemo-door";
         settings = {
@@ -171,7 +171,7 @@ in {
           QT_AUTO_SCREEN_SCALE_FACTOR=$QT_AUTO_SCREEN_SCALE_FACTOR \
           QT_SCREEN_SCALE_FACTORS=$QT_SCREEN_SCALE_FACTORS \
           XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
-        ${pkgs.nixos-cn.netease-cloud-music}/bin/netease-cloud-music \
+        ${pkgs.nur.repos.Freed-Wu.netease-cloud-music}/bin/netease-cloud-music \
         --ignore-certificate-errors
     '';
   };
