@@ -5,13 +5,6 @@ in rec {
   brlaser = prev.brlaser.overrideAttrs (old: {
     inherit (sources.brlaser) version src;
   });
-  calibre = prev.calibre.overrideAttrs (old: {
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        sed -i "/MimeType=/d" $out/share/applications/*.desktop
-      '';
-  });
   drone = prev.drone.overrideAttrs (old: {
     patches =
       (old.patches or [])
@@ -26,15 +19,6 @@ in rec {
         cloudscraper
       ];
   });
-  jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [makeWrapper]);
-    postFixup =
-      (old.postFixup or "")
-      + ''
-        wrapProgram "$out/bin/jellyfinmediaplayer" \
-          --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
-      '';
-  });
   lemmy-server = prev.lemmy-server.overrideAttrs (old: {
     postPatch = ''
       echo "pub const VERSION: &str = \"${old.version}\";" > "crates/utils/src/version.rs"
@@ -44,23 +28,6 @@ in rec {
       ++ [
         ../patches/lemmy-disable-private-federation-check.patch
       ];
-  });
-  looking-glass-client = prev.looking-glass-client.overrideAttrs (old: {
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [makeWrapper]);
-    postFixup =
-      (old.postFixup or "")
-      + ''
-        wrapProgram $out/bin/looking-glass-client --unset WAYLAND_DISPLAY
-
-        # Do not start terminal for looking glass client
-        sed "/Terminal=true/d" $out/share/applications/looking-glass-client.desktop > looking-glass-client.desktop
-        rm -rf $out/share/applications
-        mkdir -p $out/share/applications
-        mv looking-glass-client.desktop $out/share/applications/looking-glass-client.desktop
-      '';
-  });
-  mailutils = prev.mailutils.overrideAttrs (old: {
-    doCheck = false;
   });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches =

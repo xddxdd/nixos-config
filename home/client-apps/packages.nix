@@ -7,6 +7,31 @@
   inputs,
   ...
 } @ args: let
+  calibre-override-desktop =
+    lib.hiPrio
+    (pkgs.runCommand
+      "calibre-override-desktop"
+      {}
+      ''
+        mkdir -p $out/share/applications
+        for F in ${pkgs.calibre}/share/applications/*; do
+          sed "/MimeType=/d" < "$F" > $out/share/applications/$(basename "$F")
+        done
+      '');
+
+  jellyfin-media-player-wrapped =
+    lib.hiPrio
+    (pkgs.runCommand
+      "jellyfin-media-player-wrapped"
+      {nativeBuildInputs = with pkgs; [makeWrapper];}
+      ''
+        mkdir -p $out/bin
+        makeWrapper \
+          ${pkgs.jellyfin-media-player}/bin/jellyfinmediaplayer \
+          $out/bin/jellyfinmediaplayer \
+          --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
+      '');
+
   step-cli-wrapped = pkgs.writeShellScriptBin "step" ''
     export STEPPATH="$HOME/.local/share/step"
     exec ${pkgs.step-cli}/bin/step "$@"
@@ -24,6 +49,7 @@ in {
     baidupcs-go
     bilibili
     calibre
+    calibre-override-desktop
     cloudpan189-go
     colmena
     dbeaver
@@ -42,6 +68,7 @@ in {
     gopherus
     imagemagick
     jellyfin-media-player
+    jellyfin-media-player-wrapped
     kdenlive
     libfaketime
     librewolf
