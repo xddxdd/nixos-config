@@ -90,22 +90,22 @@ in {
       listen = [
         {
           addr = "0.0.0.0";
-          port = 443;
+          port = LT.port.HTTPS;
           extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
         }
         {
           addr = "[::]";
-          port = 443;
+          port = LT.port.HTTPS;
           extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
         }
         {
           addr = "0.0.0.0";
-          port = 80;
+          port = LT.port.HTTP;
           extraParameters = LT.nginx.listenDefaultFlags;
         }
         {
           addr = "[::]";
-          port = 80;
+          port = LT.port.HTTP;
           extraParameters = LT.nginx.listenDefaultFlags;
         }
       ];

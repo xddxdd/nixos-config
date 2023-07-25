@@ -34,7 +34,7 @@
     fastcgi_param  REMOTE_ADDR        $remote_addr;
     fastcgi_param  REMOTE_PORT        $remote_port;
     fastcgi_param  SERVER_ADDR        $server_addr;
-    fastcgi_param  SERVER_PORT        443;
+    fastcgi_param  SERVER_PORT        ${portStr.HTTPS};
     fastcgi_param  SERVER_NAME        $server_name;
 
     fastcgi_param  SSL_CIPHER         $ssl_cipher;
@@ -56,7 +56,7 @@
       then "127.0.0.1"
       else "$remote_addr"
     };
-    proxy_set_header X-Forwarded-Host $host:443;
+    proxy_set_header X-Forwarded-Host $host:${portStr.HTTPS};
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Forwarded-Server $host;
     proxy_set_header X-Scheme $scheme;
