@@ -122,6 +122,11 @@ in
         ttl = "1h";
       })
       (A {
+        name = "lt-hp-z220-sff";
+        address = "192.168.0.3";
+        ttl = "1h";
+      })
+      (A {
         name = "lt-wyse";
         address = "192.168.0.4";
         ttl = "1h";
