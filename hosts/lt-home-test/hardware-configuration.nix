@@ -5,6 +5,10 @@
   modulesPath,
   ...
 }: {
+  imports = [
+    ../../nixos/hardware/qemu.nix
+  ];
+
   boot.initrd.availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
@@ -13,7 +17,6 @@
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
-    useOSProber = true;
   };
 
   fileSystems."/boot" = {
