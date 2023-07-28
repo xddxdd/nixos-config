@@ -17,7 +17,6 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
-    ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
@@ -39,8 +38,8 @@
   '';
 
   systemd.network.networks.lan0 = {
-    address = ["192.168.0.3/24"];
-    gateway = ["192.168.0.1"];
+    address = ["192.168.1.13/24"];
+    gateway = ["192.168.1.1"];
     matchConfig.Name = "lan0";
   };
 
