@@ -5,6 +5,11 @@
   modulesPath,
   ...
 }: {
+  boot.initrd.availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
@@ -22,8 +27,5 @@
     options = ["compress-force=zstd" "nosuid" "nodev"];
   };
 
-  swapDevices = [{device = "/dev/disk/by-uuid/3c75369b-7de9-4cff-82f7-5bf3f8ad2492";}];
-
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.enableRedistributableFirmware = true;
+  services.qemuGuest.enable = true;
 }
