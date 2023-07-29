@@ -58,6 +58,15 @@ in {
         wsrep_provider_options = "gmcast.listen_addr=tcp://${LT.this.ltnet.IPv4}:4567";
       };
     };
+
+    ensureUsers = [
+      {
+        name = "prometheus-mysqld-exporter";
+        ensurePermissions = {
+          "*.*" = "PROCESS, REPLICATION CLIENT, SELECT";
+        };
+      }
+    ];
   };
 
   # Manually add EVENT permission to automysqlbackup user!
@@ -153,4 +162,32 @@ in {
       TimeoutStartSec = 300;
     };
   };
+
+  systemd.services.prometheus-mysqld-exporter = {
+    description = "Prometheus MySQL Exporter";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = let
+      myCnf = pkgs.writeText "my.cnf" ''
+        [client]
+        port = 3306
+        socket = /run/mysqld/mysqld.sock
+        user = prometheus-mysqld-exporter
+      '';
+    in
+      LT.serviceHarden
+      // {
+        Restart = "always";
+        RestartSec = "3";
+        ExecStart = "${pkgs.prometheus-mysqld-exporter}/bin/mysqld_exporter --config.my-cnf=${myCnf} --web.listen-address=${LT.this.ltnet.IPv4}:${LT.portStr.Prometheus.MySQLExporter}";
+
+        User = "prometheus-mysqld-exporter";
+        Group = "prometheus-mysqld-exporter";
+      };
+  };
+
+  users.users.prometheus-mysqld-exporter = {
+    group = "prometheus-mysqld-exporter";
+    isSystemUser = true;
+  };
+  users.groups.prometheus-mysqld-exporter = {};
 }
