@@ -6,7 +6,18 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  mysqlenv-common = pkgs.buildEnv {
+    name = "mysql-path-env-common";
+    pathsToLink = ["/bin"];
+    paths = with pkgs; [bash gawk gnutar inetutils which];
+  };
+  mysqlenv-rsync = pkgs.buildEnv {
+    name = "mysql-path-env-rsync";
+    pathsToLink = ["/bin"];
+    paths = with pkgs; [lsof procps rsync stunnel];
+  };
+in {
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
@@ -23,6 +34,28 @@
         innodb_read_only_compressed = 0;
         innodb_use_native_aio = false;
         performance_schema = false;
+      };
+
+      galera = {
+        wsrep_on = true;
+        wsrep_retry_autocommit = 3;
+        wsrep_provider = "${pkgs.mariadb-galera}/lib/galera/libgalera_smm.so";
+        wsrep_cluster_name = "lantian";
+        wsrep_cluster_address =
+          "gcomm://"
+          + lib.concatMapStringsSep ","
+          (n: LT.hosts."${n}".ltnet.IPv4)
+          [
+            "hetzner-de"
+            "lt-home-vm"
+            "terrahost"
+            "virmach-ny6g"
+          ];
+        wsrep_sst_method = "rsync_wan";
+        wsrep_node_address = LT.this.ltnet.IPv4;
+        wsrep_node_incoming_address = LT.this.ltnet.IPv4;
+        wsrep_node_name = config.networking.hostName;
+        wsrep_provider_options = "gmcast.listen_addr=tcp://${LT.this.ltnet.IPv4}:4567";
       };
     };
   };
@@ -105,6 +138,19 @@
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
         + LT.nginx.serveLocalhost;
+    };
+  };
+
+  systemd.services.mysql = {
+    path = [
+      config.services.mysql.package
+      mysqlenv-common
+      mysqlenv-rsync
+    ];
+    restartIfChanged = false;
+    serviceConfig = {
+      Restart = lib.mkForce "on-failure";
+      TimeoutStartSec = 300;
     };
   };
 }
