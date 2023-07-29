@@ -109,6 +109,18 @@ in {
               #   };
               # })
 
+              # MySQL Down
+              {
+                alert = "node_mysql_down";
+                expr = ''mysql_up == 0'';
+                for = "10m";
+                labels.severity = "critical";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: MySQL down.";
+                  description = "{{$labels.alias}} MySQL instance is down.";
+                };
+              }
+
               # CPU usage
               # Exclude servarica for spurius warnings
               rec {
