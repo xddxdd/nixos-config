@@ -51,6 +51,7 @@ in {
       }
       (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
       (scrapeAllNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
+      (scrapeAllNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
     ];
 
