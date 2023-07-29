@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/resilio.nix
   ];
 

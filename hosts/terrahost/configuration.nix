@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/mysql.nix
   ];
 
   systemd.network.networks.eth0 = {
