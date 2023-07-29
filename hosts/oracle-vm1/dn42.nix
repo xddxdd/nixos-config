@@ -90,6 +90,21 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    lze = {
+      remoteASN = 4242422171;
+      latencyMs = 2;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22171;
+        remoteAddress = "frp-fly.top";
+        remotePort = 12709;
+        wireguardPubkey = "2J/ua7wrsui5ZHf7OFMCSAcxXDHpc3h5FFVNUopeRH4=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.154.161";
+        peerIPv6LinkLocal = "fe80::2171";
+      };
+    };
     merlyn = {
       remoteASN = 4242422380;
       latencyMs = 1;
