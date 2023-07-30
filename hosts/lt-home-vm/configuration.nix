@@ -29,6 +29,7 @@
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/smartrent-auto-lock
+    ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/vlmcsd.nix
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix

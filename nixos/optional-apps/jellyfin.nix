@@ -20,7 +20,7 @@ in {
   services.jellyfin.enable = true;
 
   services.nginx.virtualHosts = {
-    "jellyfin.${config.networking.hostName}.xuyh0120.win" = {
+    "jellyfin.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
@@ -33,7 +33,7 @@ in {
         };
       };
       extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
+        LT.nginx.makeSSL "xuyh0120.win_ecc"
         + LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true;
     };
