@@ -86,6 +86,11 @@ with dns; let
       target = "hetzner-de";
       ttl = "1h";
     })
+    (CNAME {
+      name = "tachidesk";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
   ];
 in [
   rec {
