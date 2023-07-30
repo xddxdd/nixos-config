@@ -30,7 +30,6 @@
     ../../nixos/optional-apps/prometheus.nix
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/step-ca.nix
-    ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/waline.nix

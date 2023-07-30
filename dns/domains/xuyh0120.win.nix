@@ -67,6 +67,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "jellyfin";
+      target = "lt-home-vm";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "lab";
       target = "lab.lantian.pub.";
       ttl = "1h";
@@ -88,7 +93,7 @@ with dns; let
     })
     (CNAME {
       name = "tachidesk";
-      target = "hetzner-de";
+      target = "lt-home-vm";
       ttl = "1h";
     })
   ];
