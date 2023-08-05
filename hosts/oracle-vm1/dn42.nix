@@ -214,5 +214,20 @@
         peerIPv6LinkLocal = "fe80::1423:1";
       };
     };
+    wq = {
+      remoteASN = 4242422830;
+      latencyMs = 8;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22830;
+        remoteAddress = "tyo1.madless.club";
+        remotePort = 22547;
+        wireguardPubkey = "IMSdAJ8NjjW89fiFRu4mkgTsmAukjPfy/sI3UmMBzV4=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.236.129";
+        peerIPv6LinkLocal = "fe80::17ff:fe00:a5e7";
+      };
+    };
   };
 }
