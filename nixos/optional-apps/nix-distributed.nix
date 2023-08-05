@@ -14,7 +14,7 @@
       if isLocal
       then null
       else {
-        inherit (v) system;
+        systems = [v.system] ++ config.nix.settings.extra-platforms;
         hostName = "${n}.lantian.pub";
         maxJobs = v.cpuThreads;
         protocol = "ssh-ng";
