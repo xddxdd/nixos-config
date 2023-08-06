@@ -37,9 +37,7 @@ in {
   nix = {
     distributedBuilds = true;
     buildMachines =
-      [
-        # nixBuildNet
-      ]
+      [nixBuildNet]
       ++ (lib.filter (v: v != null)
         (lib.mapAttrsToList mkBuildMachine
           (lib.filterAttrs (n: v: builtins.elem LT.tags.nix-builder v.tags) LT.otherHosts)));
