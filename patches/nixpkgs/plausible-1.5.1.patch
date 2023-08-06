@@ -1,5 +1,5 @@
 diff --git a/pkgs/servers/web-apps/plausible/default.nix b/pkgs/servers/web-apps/plausible/default.nix
-index d890e571d97..dc32f6150ae 100644
+index cc0cad874ced..2e1e72666ccc 100644
 --- a/pkgs/servers/web-apps/plausible/default.nix
 +++ b/pkgs/servers/web-apps/plausible/default.nix
 @@ -12,20 +12,20 @@
@@ -13,7 +13,7 @@ index d890e571d97..dc32f6150ae 100644
      owner = "plausible";
      repo = "analytics";
      rev = "v${version}";
--    sha256 = "1ckw5cd4z96jkjhmzjq7k3kzjj7bvj38i5xq9r43cz0sn7w3470k";
+-    hash = "sha256-Exwy+LEafDZITriXiIbc60j555gHy1+hnNKkTxorfLI=";
 +    sha256 = "0m7q3jqznqwhnqqq2ij42xm89i94phsavhrf2scn0a55qlr1khi9";
    };
  
@@ -22,12 +22,12 @@ index d890e571d97..dc32f6150ae 100644
      pname = "${pname}-deps";
      inherit src version;
 -    hash = "sha256-ZQfrTxsLzCWFf3vabOk0vyHWZLw69GJovm3vR+7UbMY=";
-+    sha256 = "0psh1477gp7vnj3lka5lgvq4y9c1izx4y18zkhvsa54dbgc07fdc";
++    hash = "sha256-rLkD2FuNFKU3nB8FT/qPgSVP8H60qEmHtPvcdw4JUF8=";
    };
  
    yarnDeps = mkYarnModules {
 diff --git a/pkgs/servers/web-apps/plausible/package.json b/pkgs/servers/web-apps/plausible/package.json
-index 2fb83b8e14a..0d33b0b5a8d 100644
+index 2fb83b8e14ae..0d33b0b5a8dd 100644
 --- a/pkgs/servers/web-apps/plausible/package.json
 +++ b/pkgs/servers/web-apps/plausible/package.json
 @@ -1,21 +1,24 @@
@@ -113,7 +113,7 @@ index 2fb83b8e14a..0d33b0b5a8d 100644
 +  "name": "plausible"
  }
 diff --git a/pkgs/servers/web-apps/plausible/yarn.lock b/pkgs/servers/web-apps/plausible/yarn.lock
-index 4e720b0eb53..6f6ef16011e 100644
+index 4e720b0eb535..6f6ef16011e0 100644
 --- a/pkgs/servers/web-apps/plausible/yarn.lock
 +++ b/pkgs/servers/web-apps/plausible/yarn.lock
 @@ -2,6 +2,14 @@
@@ -6104,7 +6104,7 @@ index 4e720b0eb53..6f6ef16011e 100644
 +    property-expr "^2.0.4"
 +    toposort "^2.0.2"
 diff --git a/pkgs/servers/web-apps/plausible/yarn.nix b/pkgs/servers/web-apps/plausible/yarn.nix
-index 8429259ef89..e2735e42d58 100644
+index 8429259ef895..e2735e42d585 100644
 --- a/pkgs/servers/web-apps/plausible/yarn.nix
 +++ b/pkgs/servers/web-apps/plausible/yarn.nix
 @@ -1,396 +1,404 @@
