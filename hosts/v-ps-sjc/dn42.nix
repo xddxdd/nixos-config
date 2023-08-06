@@ -151,6 +151,21 @@
         peerIPv6LinkLocal = "fe80::ade0";
       };
     };
+    kiyomi = {
+      remoteASN = 4242421350;
+      latencyMs = 20;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21350;
+        remoteAddress = "sea.jvav.life";
+        remotePort = 22547;
+        wireguardPubkey = "k6RlAqY+CXvC7Kogys1U9solqYhFmXt+Ykzdmiat0W8=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.39.81";
+        peerIPv6LinkLocal = "fe80::1350";
+      };
+    };
     kskb = {
       remoteASN = 4242421817;
       latencyMs = 10;
