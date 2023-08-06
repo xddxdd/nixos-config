@@ -1,12 +1,13 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchurl,
   chmlib-utils,
+  iconv,
   callPackage,
   ...
 } @ args:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "dnyjzsxj";
   version = "1.0.0";
 
@@ -15,10 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "11svflzscbanly6hgk8gxkdsl9n428apc5z565sdgx0vq9355ash";
   };
 
+  nativeBuildInputs = [chmlib-utils iconv];
+
   dontUnpack = true;
 
   installPhase = ''
-    ${chmlib-utils}/bin/extract_chmLib ${src} $out/
+    extract_chmLib $src $out/
     rm -rf $out/\#* $out/\$*
 
     OIFS="$IFS"

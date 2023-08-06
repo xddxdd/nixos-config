@@ -33,22 +33,6 @@
     done
   '';
 
-  # https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
-  nix-store-add = pkgs.writeShellScriptBin "nix-store-add" ''
-    if [ -z "$1" ]; then
-      echo "Usage: nix-store-add path/to/file"
-      exit 1
-    fi
-
-    sudo unshare -m bash -x <<EOF
-    hash=\$(nix-hash --type sha256 --flat --base32 $1)
-    storepath=\$(nix-store --print-fixed-path sha256 \$hash \$(basename $1))
-    mount -o remount,rw /nix/store
-    cp $1 \$storepath
-    printf "\$storepath\n\n0\n" | nix-store --register-validity --reregister
-    EOF
-  '';
-
   # https://unix.stackexchange.com/a/631226
   x86-arch-level = pkgs.writeScriptBin "x86-arch-level" ''
     #!${pkgs.gawk}/bin/awk -f
@@ -63,23 +47,6 @@
       exit 1
     }
   '';
-
-  pythonCustomized = pkgs.python3Full.withPackages (p:
-    with p;
-      (
-        if pkgs.stdenv.isx86_64
-        then [
-          autopep8
-          numpy
-          matplotlib
-        ]
-        else []
-      )
-      ++ [
-        dnspython
-        pip
-        requests
-      ]);
 in {
   age.secrets.default-pw = {
     file = inputs.secrets + "/default-pw.age";
@@ -129,15 +96,12 @@ in {
       lsof
       mbuffer
       nftables-fullcone
-      nix-prefetch
-      nix-store-add
       openssl
       p7zip
       pciutils
       pigz
       pv
       pwgen
-      pythonCustomized
       screen
       smartmontools
       tcpdump
@@ -165,13 +129,10 @@ in {
   hardware.ksm.enable = !config.boot.isContainer;
 
   programs = {
-    #atop.enable = true;
-    #atop.netatop.enable = true;
     bash.vteIntegration = true;
     iftop.enable = true;
     iotop.enable = true;
     less.enable = true;
-    mosh.enable = true;
     mtr.enable = true;
     traceroute.enable = true;
 
@@ -217,13 +178,6 @@ in {
     SystemMaxFileSize=10M
     SystemMaxUse=100M
   '';
-
-  services.udev.packages = with pkgs; [
-    crda
-    libftdi1
-  ];
-
-  services.udisks2.enable = !config.boot.isContainer;
 
   security.wrappers = {
     bwrap = {

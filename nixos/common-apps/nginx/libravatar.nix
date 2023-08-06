@@ -16,7 +16,7 @@
     installPhase = ''
       mkdir -p $out
       for SIZE in {1..512}; do
-        convert ${src} -resize ''${SIZE}x''${SIZE}! $out/avatar-''${SIZE}.jpg
+        convert $src -resize ''${SIZE}x''${SIZE}! $out/avatar-''${SIZE}.jpg
         jpegoptim --strip-all $out/avatar-''${SIZE}.jpg
       done
     '';

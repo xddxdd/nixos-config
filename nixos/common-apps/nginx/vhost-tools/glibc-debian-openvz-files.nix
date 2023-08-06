@@ -17,11 +17,11 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [dpkg];
+  nativeBuildInputs = [dpkg unzip];
 
   installPhase = ''
     mkdir -p $out/binary
-    ${unzip}/bin/unzip $src -d $out/binary
+    unzip $src -d $out/binary
     find $out/binary -type f -and -not -name \*.deb -exec rm {} \;
     cd $out
     dpkg-scanpackages $out | gzip -9c > $out/Packages.gz

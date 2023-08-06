@@ -1,11 +1,11 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   sources,
   unzip,
   ...
 } @ args:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.cyberchef) pname version src;
 
   nativeBuildInputs = [unzip];
