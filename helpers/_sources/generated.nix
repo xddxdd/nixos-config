@@ -3,15 +3,15 @@
 {
   brlaser = {
     pname = "brlaser";
-    version = "648f5c858d468a5c08136aab7dce44b2649df3f9";
+    version = "fed695c5e7de5432900624bda42578a4a88e081c";
     src = fetchFromGitHub {
       owner = "Owl-Maintain";
       repo = "brlaser";
-      rev = "648f5c858d468a5c08136aab7dce44b2649df3f9";
+      rev = "fed695c5e7de5432900624bda42578a4a88e081c";
       fetchSubmodules = false;
-      sha256 = "sha256-35H0N6x0VAddIpDBA6k74qhPPi3VvaTNiaY/+AXDcnw=";
+      sha256 = "sha256-HACJ884t3mUEQMfn8pn8nnSXGYPmd0J1STRtOigViJA=";
     };
-    date = "2023-03-14";
+    date = "2023-08-01";
   };
   cyberchef = {
     pname = "cyberchef";
@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "cc67cbc543ce68c1a8fa0ec291f79cedfa7179a5";
+    version = "1e77aeec6a3883a590df69ae61c11ce60731b9d2";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "cc67cbc543ce68c1a8fa0ec291f79cedfa7179a5";
+      rev = "1e77aeec6a3883a590df69ae61c11ce60731b9d2";
       fetchSubmodules = false;
-      sha256 = "sha256-2X4p1BKPTMOeF3OQKrj1fqCIX7rRusgYdLkc2CGq9+w=";
+      sha256 = "sha256-kdc32UtpgOQjmxo/NfYCMjfsOzi9u2eHIAK8JVplnSM=";
     };
-    date = "2023-07-16";
+    date = "2023-07-30";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -91,15 +91,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "e6e8dcf0770b9dd47e5faa6ecf84c0a338da7a43";
+    version = "35c519bb023b4605a522b5d4e8c60ec9fda61089";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "e6e8dcf0770b9dd47e5faa6ecf84c0a338da7a43";
+      rev = "35c519bb023b4605a522b5d4e8c60ec9fda61089";
       fetchSubmodules = false;
-      sha256 = "sha256-D+6qi+vb4J8bwrZ3Mzgl1t2r+Gj6IChhAUZp3Y4zLcs=";
+      sha256 = "sha256-8xl757Al7ErH8/ebqHUQzu6JOs2RybOYHY4LYovkGk8=";
     };
-    date = "2023-07-01";
+    date = "2023-07-24";
   };
   nft-fullcone = {
     pname = "nft-fullcone";
@@ -126,39 +126,39 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "d62b100537f77d32ab8e666cbbb7ae6484aac08e";
+    version = "2d31a42d8da0050a63d4f466ddd1244321e2ef52";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "d62b100537f77d32ab8e666cbbb7ae6484aac08e";
+      rev = "2d31a42d8da0050a63d4f466ddd1244321e2ef52";
       fetchSubmodules = false;
-      sha256 = "sha256-YbDp1NvJ7R9hxD43GSxwqTegLHXIVcKW/Cj2VeRsTC4=";
+      sha256 = "sha256-hrTxSPDIl162rJoI2ID5mrbXilwiz93RhZsRBReONTk=";
     };
-    date = "2023-07-18";
+    date = "2023-07-20";
   };
   openvpn = {
     pname = "openvpn";
-    version = "64352467845e7a972a8073d35d41450eea24b905";
+    version = "bd95104a2b375f87eb37441d33c8e35bd1c19b1f";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "64352467845e7a972a8073d35d41450eea24b905";
+      rev = "bd95104a2b375f87eb37441d33c8e35bd1c19b1f";
       fetchSubmodules = false;
-      sha256 = "sha256-qLyu53LjwQLnEwzPmiWHWFKIGOJhfPlxMtPwti8FuXo=";
+      sha256 = "sha256-RHmkcDTO+qcrZ0VkhXVLA0mmHfOQ+vEn9KkcIqQJS2Q=";
     };
-    date = "2023-07-18";
+    date = "2023-07-25";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "bb3937d5c3e0b13c0d08747ec0fc9726fb4fd870";
+    version = "24a54ee3a5ecbeee4ba085666840d240e8221ea7";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "bb3937d5c3e0b13c0d08747ec0fc9726fb4fd870";
+      rev = "24a54ee3a5ecbeee4ba085666840d240e8221ea7";
       fetchSubmodules = false;
-      sha256 = "sha256-PkwOgq+6dYorMRLWo/UO7eXXS6MP2/zohgxgu73Af4U=";
+      sha256 = "sha256-EKac4e6paVnSvVPUiwfpXvqQQOhTiMZ5tMXU7Bg8JhY=";
     };
-    date = "2023-07-14";
+    date = "2023-07-31";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
@@ -235,15 +235,15 @@
   };
   ulauncher-tldr = {
     pname = "ulauncher-tldr";
-    version = "9783c7798dac82007ab85fb2d9f4185e5be104bf";
+    version = "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c";
     src = fetchFromGitHub {
       owner = "dhelmr";
       repo = "ulauncher-tldr";
-      rev = "9783c7798dac82007ab85fb2d9f4185e5be104bf";
+      rev = "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c";
       fetchSubmodules = false;
-      sha256 = "sha256-3sHhU8Oknq84f584zdHA42NxZ7wCqOoqFwYtzRVvFGc=";
+      sha256 = "sha256-B/17gbGFUar2+PVfVQWZc7Eq8zADK4CeGW3XHQMqiAg=";
     };
-    date = "2022-12-17";
+    date = "2023-07-29";
   };
   ulauncher-virtualbox = {
     pname = "ulauncher-virtualbox";

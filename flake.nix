@@ -165,7 +165,7 @@
           permittedInsecurePackages = [
             "electron-19.0.7"
             "openssh-with-hpn-9.2p1"
-            "openssl-1.1.1u"
+            "openssl-1.1.1v"
             "python-2.7.18.6"
           ];
           # contentAddressedByDefault = true;
