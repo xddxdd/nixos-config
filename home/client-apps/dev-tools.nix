@@ -6,7 +6,40 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  # https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
+  nix-store-add = pkgs.writeShellScriptBin "nix-store-add" ''
+    if [ -z "$1" ]; then
+      echo "Usage: nix-store-add path/to/file"
+      exit 1
+    fi
+
+    sudo unshare -m bash -x <<EOF
+    hash=\$(nix-hash --type sha256 --flat --base32 $1)
+    storepath=\$(nix-store --print-fixed-path sha256 \$hash \$(basename $1))
+    mount -o remount,rw /nix/store
+    cp $1 \$storepath
+    printf "\$storepath\n\n0\n" | nix-store --register-validity --reregister
+    EOF
+  '';
+
+  pythonCustomized = pkgs.python3Full.withPackages (p:
+    with p;
+      (
+        if pkgs.stdenv.isx86_64
+        then [
+          autopep8
+          numpy
+          matplotlib
+        ]
+        else []
+      )
+      ++ [
+        dnspython
+        pip
+        requests
+      ]);
+in {
   home.packages = with pkgs; [
     # Bash
     shellcheck
@@ -84,6 +117,8 @@
     alejandra
     fup-repl
     nil
+    nix-prefetch
+    nix-store-add
     nixfmt
     nixpkgs-fmt
     nodePackages.node2nix
@@ -106,6 +141,7 @@
     protobuf
 
     # Python
+    (lib.lowPrio pythonCustomized)
     black
     conda
     micromamba
