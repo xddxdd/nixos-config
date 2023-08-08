@@ -9,6 +9,12 @@
 } @ args: let
   labRoot = "/var/www/lab.lantian.pub";
 in {
+  age.secrets.nginx-cgi-ssh-key = {
+    file = inputs.secrets + "/drone/ssh-id-ed25519.age";
+    owner = "nginx";
+    group = "nginx";
+  };
+
   services.nginx.virtualHosts."lab.lantian.pub" = {
     listen = LT.nginx.listenHTTPS;
     root = labRoot;
