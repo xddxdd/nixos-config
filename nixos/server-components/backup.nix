@@ -86,6 +86,7 @@
     var/lib/prometheus/
     var/lib/resilio-sync/*.db
     var/lib/resilio-sync/*.db-wal
+    var/lib/samba/private/
     var/lib/systemd/
     var/lib/udisks2/
     var/lib/vm/
