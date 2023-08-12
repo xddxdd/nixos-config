@@ -62,11 +62,24 @@
       createDatabase = true;
       environmentFile = config.age.secrets.matrix-sliding-sync-env.path;
       settings = {
-        SYNCV3_BINDADDR = "127.0.0.1:${LT.portStr.Matrix.SlidingSync}";
+        SYNCV3_BINDADDR = "127.0.0.1:0";
+        SYNCV3_UNIX_SOCKET = "/run/matrix-sliding-sync/listen.socket";
         SYNCV3_SERVER = "https://matrix.lantian.pub";
       };
     };
   };
+
+  systemd.services.matrix-sliding-sync.serviceConfig =
+    LT.serviceHarden
+    // {
+      DynamicUser = lib.mkForce false;
+      User = "matrix-sliding-sync";
+      Group = "matrix-sliding-sync";
+      RuntimeDirectory = "matrix-sliding-sync";
+      StateDirectory = lib.mkForce [];
+      WorkingDirectory = lib.mkForce "/run/matrix-sliding-sync";
+      UMask = "000";
+    };
 
   systemd.services.matrix-synapse = {
     environment = {
@@ -127,7 +140,7 @@
 
       # Sliding sync proxy
       "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.Matrix.SlidingSync}";
+        proxyPass = "http://unix:/run/matrix-sliding-sync/listen.socket";
         extraConfig = LT.nginx.locationProxyConf;
       };
 
@@ -176,4 +189,10 @@
       Unit = "synapse-compress-state.service";
     };
   };
+
+  users.users.matrix-sliding-sync = {
+    group = "matrix-sliding-sync";
+    isSystemUser = true;
+  };
+  users.groups.matrix-sliding-sync = {};
 }

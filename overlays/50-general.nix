@@ -29,6 +29,13 @@ in rec {
         ../patches/lemmy-disable-private-federation-check.patch
       ];
   });
+  matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        ../patches/matrix-sliding-sync-listen-unix.patch
+      ];
+  });
   matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
     patches =
       (old.patches or [])
