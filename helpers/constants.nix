@@ -33,6 +33,18 @@
     "Klantian.neo.+013+47346"
   ];
 
+  matrixWellKnown = {
+    server = builtins.toJSON {
+      "m.server" = "matrix.lantian.pub:${portStr.Matrix.Public}";
+    };
+    client = builtins.toJSON {
+      "m.server"."base_url" = "https://matrix.lantian.pub";
+      "m.homeserver"."base_url" = "https://matrix.lantian.pub";
+      "m.identity_server"."base_url" = "https://vector.im";
+      "org.matrix.msc3575.proxy"."url" = "https://matrix.lantian.pub";
+    };
+  };
+
   nix = {
     substituters = [
       "https://attic.xuyh0120.win/lantian"
@@ -88,6 +100,7 @@
     Plausible = 13800;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
+    Matrix.SlidingSync = 13888;
     Oauth2Proxy = 14180;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;

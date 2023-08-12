@@ -44,31 +44,18 @@
           + LT.nginx.locationProxyConf;
 
         # Matrix Federation
-        "= /.well-known/matrix/server".extraConfig = let
-          # use 443 instead of the default 8448 port to unite
-          # the client-server and server-server port for simplicity
-          server = {
-            "m.server" = "matrix.lantian.pub:${LT.portStr.Matrix.Public}";
-          };
-        in ''
-          default_type application/json;
-          return 200 '${builtins.toJSON server}';
-        '';
-        "= /.well-known/matrix/client".extraConfig = let
-          client = {
-            "m.homeserver" = {
-              "base_url" = "https://matrix.lantian.pub";
-            };
-            "m.identity_server" = {
-              "base_url" = "https://vector.im";
-            };
-          };
-          # ACAO required to allow element-web on any URL to request this json file
-        in ''
-          default_type application/json;
-          add_header Access-Control-Allow-Origin *;
-          return 200 '${builtins.toJSON client}';
-        '';
+        "= /.well-known/matrix/server".extraConfig =
+          LT.nginx.locationCORSConf
+          + ''
+            default_type application/json;
+            return 200 '${LT.constants.matrixWellKnown.server}';
+          '';
+        "= /.well-known/matrix/client".extraConfig =
+          LT.nginx.locationCORSConf
+          + ''
+            default_type application/json;
+            return 200 '${LT.constants.matrixWellKnown.client}';
+          '';
       };
 
       root = "/nix/persistent/sync-servers/www/lantian.pub";

@@ -9,6 +9,8 @@
 } @ args: {
   imports = [./postgresql.nix];
 
+  age.secrets.matrix-sliding-sync-env.file = inputs.secrets + "/matrix-sliding-sync-env.age";
+
   services.matrix-synapse = {
     enable = true;
     settings = {
@@ -54,6 +56,16 @@
         }
       ];
     };
+
+    sliding-sync = {
+      enable = true;
+      createDatabase = true;
+      environmentFile = config.age.secrets.matrix-sliding-sync-env.path;
+      settings = {
+        SYNCV3_BINDADDR = "127.0.0.1:${LT.portStr.Matrix.SlidingSync}";
+        SYNCV3_SERVER = "https://matrix.lantian.pub";
+      };
+    };
   };
 
   systemd.services.matrix-synapse = {
@@ -90,7 +102,12 @@
     locations = LT.nginx.addCommonLocationConf {} {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/federation.sock";
-        extraConfig = LT.nginx.locationProxyConf;
+        extraConfig =
+          LT.nginx.locationProxyConf
+          + LT.nginx.locationNoTimeoutConf
+          + ''
+            proxy_http_version 1.1;
+          '';
       };
     };
     extraConfig =
@@ -107,6 +124,26 @@
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
+
+      # Sliding sync proxy
+      "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.Matrix.SlidingSync}";
+        extraConfig = LT.nginx.locationProxyConf;
+      };
+
+      # Overwrite well-known info
+      "= /.well-known/matrix/server".extraConfig =
+        LT.nginx.locationCORSConf
+        + ''
+          default_type application/json;
+          return 200 '${LT.constants.matrixWellKnown.server}';
+        '';
+      "= /.well-known/matrix/client".extraConfig =
+        LT.nginx.locationCORSConf
+        + ''
+          default_type application/json;
+          return 200 '${LT.constants.matrixWellKnown.client}';
+        '';
     };
     extraConfig =
       LT.nginx.makeSSL "lantian.pub_ecc"
