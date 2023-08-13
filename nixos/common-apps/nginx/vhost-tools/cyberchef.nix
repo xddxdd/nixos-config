@@ -18,5 +18,6 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     mkdir -p $out
     cp -r * $out/
+    rm -f $out/env-vars
   '';
 }
