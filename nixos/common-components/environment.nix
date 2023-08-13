@@ -57,7 +57,7 @@ in {
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = ["all"];
+  i18n.supportedLocales = ["C.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8"];
 
   location = {
     provider =
