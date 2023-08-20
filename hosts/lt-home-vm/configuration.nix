@@ -18,7 +18,6 @@
 
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/fastapi-dls.nix
-    ../../nixos/optional-apps/folding-home.nix
     ../../nixos/optional-apps/genshin-cockpy.nix
     ../../nixos/optional-apps/genshin-grasscutter.nix
     ../../nixos/optional-apps/genshin-soggy.nix
@@ -81,7 +80,4 @@
       "172.22.76.97/29"
     ];
   };
-
-  # Only run on GPU
-  services.foldingathome.extraArgs = ["--cpus" "1"];
 }

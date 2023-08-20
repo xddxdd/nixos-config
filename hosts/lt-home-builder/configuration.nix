@@ -10,8 +10,6 @@
   imports = [
     ../../nixos/none.nix
 
-    ../../nixos/optional-apps/folding-home.nix
-
     ./hardware-configuration.nix
   ];
 
