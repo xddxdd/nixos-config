@@ -1,8 +1,8 @@
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index ea9dbcabd0e..5a44f1419d6 100644
+index 792fda42ca9c..c67c0d702428 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -109,11 +109,12 @@ let
+@@ -127,11 +127,12 @@ let
          nvidia_x11 = self;
          broken = brokenOpen;
        }) openSha256;
@@ -16,9 +16,9 @@ index ea9dbcabd0e..5a44f1419d6 100644
 +      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix hash) { nvidia_x11 = self; }) persistencedSha256;
        inherit persistencedVersion settingsVersion;
        compressFirmware = false;
-     } // optionalAttrs (!i686bundled) {
+       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-index 5276dfd2aff..8a3b223a828 100644
+index 03ad03a472d4..82820e0fb9af 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 @@ -1,8 +1,9 @@
@@ -33,17 +33,14 @@ index 5276dfd2aff..8a3b223a828 100644
  , libtirpc
  }:
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-index 884ccdd6c52..2ae728e3a72 100644
+index 0b801d4b2724..662815530a45 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-@@ -1,8 +1,9 @@
--nvidia_x11: sha256:
-+sha256:
- 
- { stdenv, lib, fetchFromGitHub, fetchpatch, pkg-config, m4, jansson, gtk2, dbus, gtk3
- , libXv, libXrandr, libXext, libXxf86vm, libvdpau
- , librsvg, wrapGAppsHook
+@@ -16,6 +16,7 @@ nvidia_x11: sha256:
+ , libXxf86vm
+ , libvdpau
+ , librsvg
 +, nvidia_x11
- , withGtk2 ? false, withGtk3 ? true
- }:
- 
+ , wrapGAppsHook
+ , addOpenGLRunpath
+ , withGtk2 ? false
