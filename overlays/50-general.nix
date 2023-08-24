@@ -36,7 +36,8 @@ in rec {
         ../patches/matrix-sliding-sync-listen-unix.patch
       ];
   });
-  matrix-synapse = prev.matrix-synapse.overrideAttrs (old: {
+  matrix-synapse = prev.matrix-synapse.override {inherit matrix-synapse-unwrapped;};
+  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
     patches =
       (old.patches or [])
       ++ [

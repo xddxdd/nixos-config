@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "1e77aeec6a3883a590df69ae61c11ce60731b9d2";
+    version = "12fcfa5321c92b82bdd81a495c4e7648236ab3e0";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "1e77aeec6a3883a590df69ae61c11ce60731b9d2";
+      rev = "12fcfa5321c92b82bdd81a495c4e7648236ab3e0";
       fetchSubmodules = false;
-      sha256 = "sha256-kdc32UtpgOQjmxo/NfYCMjfsOzi9u2eHIAK8JVplnSM=";
+      sha256 = "sha256-Ny7IiNwoGppXn+QLg4ktLqDYkF1BGsCeXVY3BQ7AG3k=";
     };
-    date = "2023-07-30";
+    date = "2023-08-13";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -91,15 +91,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "35c519bb023b4605a522b5d4e8c60ec9fda61089";
+    version = "89f733e90d6f6ecbbbc4e63814bc80a535f708d3";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "35c519bb023b4605a522b5d4e8c60ec9fda61089";
+      rev = "89f733e90d6f6ecbbbc4e63814bc80a535f708d3";
       fetchSubmodules = false;
-      sha256 = "sha256-8xl757Al7ErH8/ebqHUQzu6JOs2RybOYHY4LYovkGk8=";
+      sha256 = "sha256-V16XtoG8L3Wydf3VzhDt+W3ie1CNoxegMSUm8GXsfOs=";
     };
-    date = "2023-07-24";
+    date = "2023-08-22";
   };
   nft-fullcone = {
     pname = "nft-fullcone";
@@ -126,51 +126,51 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "2d31a42d8da0050a63d4f466ddd1244321e2ef52";
+    version = "1100fc888d41e89759a90fe92eb4148d4a9c506b";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "2d31a42d8da0050a63d4f466ddd1244321e2ef52";
+      rev = "1100fc888d41e89759a90fe92eb4148d4a9c506b";
       fetchSubmodules = false;
-      sha256 = "sha256-hrTxSPDIl162rJoI2ID5mrbXilwiz93RhZsRBReONTk=";
+      sha256 = "sha256-7M7I5ebT5CW0DK4UkBVSSRnXDmE/sdD1rpAhNnIYLlk=";
     };
-    date = "2023-07-20";
+    date = "2023-08-10";
   };
   openvpn = {
     pname = "openvpn";
-    version = "bd95104a2b375f87eb37441d33c8e35bd1c19b1f";
+    version = "5f910a42b86e90f1893a668ee280422b6587ada1";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "bd95104a2b375f87eb37441d33c8e35bd1c19b1f";
+      rev = "5f910a42b86e90f1893a668ee280422b6587ada1";
       fetchSubmodules = false;
-      sha256 = "sha256-RHmkcDTO+qcrZ0VkhXVLA0mmHfOQ+vEn9KkcIqQJS2Q=";
+      sha256 = "sha256-++O/54+VI4oabcpgFcp2Rk0SMMfsaUm4wHcyRqjbLfU=";
     };
-    date = "2023-07-25";
+    date = "2023-08-14";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "24a54ee3a5ecbeee4ba085666840d240e8221ea7";
+    version = "b14c2351ddb8601c322576d84029e463d456caef";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "24a54ee3a5ecbeee4ba085666840d240e8221ea7";
+      rev = "b14c2351ddb8601c322576d84029e463d456caef";
       fetchSubmodules = false;
-      sha256 = "sha256-EKac4e6paVnSvVPUiwfpXvqQQOhTiMZ5tMXU7Bg8JhY=";
+      sha256 = "sha256-Hm8wMuIk42MZNQqQsrDcCoXfJZpQy9zPmBRuHu372IY=";
     };
-    date = "2023-07-31";
+    date = "2023-08-14";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "961c60d0d8b8d45a21028e0479397c9c5604b81e";
+    version = "dba96d203f960356b477291d6a58d30fc096fbe4";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "961c60d0d8b8d45a21028e0479397c9c5604b81e";
+      rev = "dba96d203f960356b477291d6a58d30fc096fbe4";
       fetchSubmodules = false;
-      sha256 = "sha256-Rl8MhWb42cJZ/rDNFss3ubkx3BRpyh/K9P8d0/pEwsY=";
+      sha256 = "sha256-DpguXHrVLJpvl9leFRtpsHnxx8VyQ2ZIHcYSYRz2iGE=";
     };
-    date = "2023-03-28";
+    date = "2023-08-16";
   };
   soggy-resources = {
     pname = "soggy-resources";

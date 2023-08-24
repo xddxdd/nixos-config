@@ -101,6 +101,7 @@ in {
       pciutils
       pigz
       pv
+      python3Full
       pwgen
       screen
       smartmontools

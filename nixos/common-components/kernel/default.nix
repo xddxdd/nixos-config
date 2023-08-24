@@ -112,8 +112,8 @@ in {
         then
           (
             if builtins.elem LT.tags.x86_64-v1 LT.this.tags
-            then pkgs.lantianLinuxXanmodPackages.lts-x86_64-v1-lto
-            else pkgs.lantianLinuxXanmodPackages.lts-x86_64-v3-lto
+            then pkgs.lantianLinuxXanmodPackages.lts-x86_64-v1
+            else pkgs.lantianLinuxXanmodPackages.lts-x86_64-v3
           )
         else pkgs.linuxPackages_6_1;
     };
@@ -128,6 +128,7 @@ in {
           "ibt=off"
           "log_buf_len=1048576"
           "nvme_core.default_ps_max_latency_us=2147483647"
+          "rcuupdate.rcu_cpu_stall_suppress=1"
           "split_lock_detect=off"
           "swapaccount=1"
         ]

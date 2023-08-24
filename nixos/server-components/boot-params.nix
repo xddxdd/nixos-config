@@ -14,7 +14,7 @@
   ];
 
   boot.loader.grub = {
-    memtest86.enable = true;
+    memtest86.enable = pkgs.stdenv.isx86_64;
 
     extraFiles = {
       "netboot.xyz.efi" = lib.mkIf (pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport) "${pkgs.netboot-xyz}/netboot.xyz.efi";
