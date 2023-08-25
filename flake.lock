@@ -958,11 +958,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1692946467,
-        "narHash": "sha256-Qh3YFqBWRMne3Uoh1G+cWysraGorBONspxwtSI1m/K8=",
+        "lastModified": 1691818766,
+        "narHash": "sha256-52Lf3OvG5uTpriOInwjASM+bk2DGCAJfA2FAzhwqFMQ=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "646f1b7ee3829c2706fa5008e005a76637a33e2b",
+        "rev": "461600b117186f7d04fb7706d1786cd6c55329f5",
         "type": "github"
       },
       "original": {
