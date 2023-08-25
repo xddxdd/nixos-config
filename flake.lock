@@ -811,11 +811,11 @@
         "nvfetcher": "nvfetcher"
       },
       "locked": {
-        "lastModified": 1692849309,
-        "narHash": "sha256-Za9x5aDIrdLxHoKOcR7HqzVXCioDeiLFa5rG9wsHC2U=",
+        "lastModified": 1692931081,
+        "narHash": "sha256-yr5d/3oPDUjDkQXA47TdAe4bbgDvFEN67d5L5ganFQg=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "40f369a45880e76b27be8199e6131212622604a6",
+        "rev": "6d7df65c9839a7b0366d67c81124e922e04f11ff",
         "type": "github"
       },
       "original": {
