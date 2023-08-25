@@ -16,7 +16,6 @@
 
     ../../nixos/client-components/cups.nix
 
-    ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/genshin-cockpy.nix
     ../../nixos/optional-apps/genshin-grasscutter.nix
@@ -36,8 +35,6 @@
     "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
     "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
-
-  services.atticd.settings.storage.path = "/mnt/storage/attic";
 
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;

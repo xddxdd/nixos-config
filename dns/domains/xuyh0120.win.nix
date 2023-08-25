@@ -43,7 +43,7 @@ with dns; let
     })
     (CNAME {
       name = "attic";
-      target = "lt-home-vm";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
