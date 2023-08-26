@@ -87,6 +87,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "rsshub";
+      target = "hetzner-de.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "stats";
       target = "hetzner-de";
       ttl = "1h";

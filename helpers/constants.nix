@@ -89,6 +89,7 @@
     FlareSolverr = 13191;
     Bepasty = 13237;
     ASF = 13242;
+    RSSHub = 13248;
     NeteaseUnlock = 13301;
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
