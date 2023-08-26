@@ -55,6 +55,44 @@
           ];
         }
       ];
+
+      # Increase rate limit
+      rc_admin_redaction = {
+        per_second = 100;
+        burst_count = 100;
+      };
+      rc_joins = {
+        local = {
+          per_second = 1;
+          burst_count = 10;
+        };
+        remote = {
+          per_second = 1;
+          burst_count = 10;
+        };
+      };
+      rc_joins_per_room = {
+        per_second = 1;
+        burst_count = 10;
+      };
+      rc_login = {
+        address = {
+          per_second = 1;
+          burst_count = 5;
+        };
+        account = {
+          per_second = 1;
+          burst_count = 5;
+        };
+        failed_attempts = {
+          per_second = 0.003;
+          burst_count = 3;
+        };
+      };
+      rc_message = {
+        per_second = 5;
+        burst_count = 10;
+      };
     };
 
     sliding-sync = {
