@@ -48,6 +48,60 @@ in {
         "switcher/hotkeys" = ["F4"];
         "switcher/fold_options" = false;
         "switcher/abbreviate_options" = false;
+        key_binder = {
+          bindings = [
+            {
+              when = "composing";
+              accept = "Shift+Tab";
+              send = "Shift+Left";
+            }
+            {
+              when = "composing";
+              accept = "Tab";
+              send = "Shift+Right";
+            }
+            {
+              when = "composing";
+              accept = "Alt+Left";
+              send = "Shift+Left";
+            }
+            {
+              when = "composing";
+              accept = "Alt+Right";
+              send = "Shift+Right";
+            }
+            {
+              when = "has_menu";
+              accept = "minus";
+              send = "Page_Up";
+            }
+            {
+              when = "has_menu";
+              accept = "equal";
+              send = "Page_Down";
+            }
+            {
+              when = "paging";
+              accept = "comma";
+              send = "Page_Up";
+            }
+            {
+              when = "has_menu";
+              accept = "period";
+              send = "Page_Down";
+            }
+            {
+              when = "paging";
+              accept = "bracketleft";
+              send = "Page_Up";
+            }
+            {
+              when = "has_menu";
+              accept = "bracketright";
+              send = "Page_Down";
+            }
+          ];
+        };
       };
     };
 
