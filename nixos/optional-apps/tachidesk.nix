@@ -9,9 +9,14 @@
 } @ args: {
   virtualisation.oci-containers.containers.tachidesk = {
     extraOptions = ["--pull" "always"];
-    image = "ghcr.io/suwayomi/tachidesk:latest";
+    image = "ghcr.io/suwayomi/tachidesk:preview";
     environment = {
       TZ = config.time.timeZone;
+      WEB_UI_CHANNEL = "preview";
+      AUTO_DOWNLOAD_CHAPTERS = "true";
+      UPDATE_EXCLUDE_UNREAD = "false";
+      UPDATE_EXCLUDE_STARTED = "false";
+      UPDATE_EXCLUDE_COMPLETED = "false";
     };
     ports = [
       "127.0.0.1:${LT.portStr.Tachidesk}:4567"
