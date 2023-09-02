@@ -15,7 +15,7 @@
         protocol = "socks";
         settings.udp = true;
         sniffing = {
-          destOverride = ["http" "tls"];
+          destOverride = ["http" "tls" "quic"];
           enabled = true;
         };
       }
@@ -36,12 +36,17 @@
         tag = "blackhole";
       }
       {
-        protocol = "trojan";
-        settings.servers = [
+        protocol = "vless";
+        settings.vnext = [
           {
             address = LT.hosts."v-ps-sjc".public.IPv4;
             port = 443;
-            password = {_secret = config.age.secrets.v2ray-key.path;};
+            users = [
+              {
+                id = {_secret = config.age.secrets.v2ray-key.path;};
+                encryption = "none";
+              }
+            ];
           }
         ];
         streamSettings = {

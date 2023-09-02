@@ -12,17 +12,17 @@
       {
         listen = "/run/v2ray/v2ray.sock";
         port = 0;
-        protocol = "trojan";
+        protocol = "vless";
         settings = {
           clients = [
             {
-              password = {_secret = config.age.secrets.v2ray-key.path;};
+              id = {_secret = config.age.secrets.v2ray-key.path;};
             }
           ];
           decryption = "none";
         };
         sniffing = {
-          destOverride = ["http" "tls"];
+          destOverride = ["http" "tls" "quic"];
           enabled = true;
         };
         streamSettings = {
