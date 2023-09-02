@@ -9,6 +9,8 @@
 } @ args: let
   netns = config.lantian.netns.netease;
 
+  netease-cloud-music = pkgs.nur.repos.Freed-Wu.netease-cloud-music;
+
   # https://desperadoj.com/16.html
   xrayConfig = pkgs.writeText "config.json" (builtins.toJSON {
     inbounds = [
@@ -125,9 +127,7 @@
     };
   });
 in {
-  environment.systemPackages = with pkgs; [
-    nixos-cn.netease-cloud-music
-  ];
+  environment.systemPackages = [netease-cloud-music];
 
   environment.etc."netns/netease/resolv.conf".text = ''
     nameserver 114.114.114.114
@@ -171,7 +171,7 @@ in {
           QT_AUTO_SCREEN_SCALE_FACTOR=$QT_AUTO_SCREEN_SCALE_FACTOR \
           QT_SCREEN_SCALE_FACTORS=$QT_SCREEN_SCALE_FACTORS \
           XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
-        ${pkgs.nur.repos.Freed-Wu.netease-cloud-music}/bin/netease-cloud-music \
+        ${netease-cloud-music}/bin/netease-cloud-music \
         --ignore-certificate-errors
     '';
   };
