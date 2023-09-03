@@ -8,9 +8,6 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    ../../nixos/hardware/qemu.nix
-  ];
 
   boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront"];
   boot.initrd.kernelModules = ["dm-snapshot"];

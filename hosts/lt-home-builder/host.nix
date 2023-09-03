@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 103;
-  tags = with tags; [nix-builder];
+  tags = with tags; [nix-builder qemu];
   cpuThreads = 64;
   city = geo.cities."US Seattle";
   hostname = "192.168.1.12";

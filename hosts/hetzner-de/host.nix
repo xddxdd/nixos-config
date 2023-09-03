@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 14;
-  tags = with tags; [public-facing server];
+  tags = with tags; [public-facing qemu server];
   system = "aarch64-linux";
   cpuThreads = 8;
   city = geo.cities."DE Falkenstein";

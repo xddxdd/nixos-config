@@ -78,37 +78,44 @@ in {
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
   };
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; ([
     bridge-utils
     dig
     git
     gzip
     htop
     inetutils
+    iperf3
     iptables
-    iw
     jq
     kopia
     lsof
     mbuffer
     nftables-fullcone
     openssl
-    pciutils
     pigz
     pv
     python3Full
     screen
-    smartmontools
     tcpdump
     unzip
-    usbutils
     wget
     wireguard-tools
+    x86-arch-level
     zip
     zstd
+  ] ++ lib.optionals (!builtins.elem LT.tags.qemu LT.this.tags) [
+    ethtool
+    iw
+    lm_sensors
     ls-iommu
-    x86-arch-level
-  ];
+    nix-top
+    nix-tree
+    nmap
+    pciutils
+    smartmontools
+    usbutils
+  ]);
 
   hardware.ksm.enable = !config.boot.isContainer;
 
