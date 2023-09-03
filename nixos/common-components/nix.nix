@@ -23,6 +23,13 @@
       !include ${config.age.secrets.nix-access-token.path}
     '';
 
+    daemonCPUSchedPolicy =
+      if builtins.elem LT.tags.client LT.this.tags
+      then "idle"
+      else "batch";
+    daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 7;
+
     gc = {
       automatic = builtins.elem LT.tags.server LT.this.tags;
       options = "--delete-older-than 7d";
@@ -34,11 +41,15 @@
       auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
+      connect-timeout = 5;
       experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
+      log-lines = 25;
+      max-free = 1000 * 1000 * 1000;
+      min-free = 128 * 1000 * 1000;
       use-cgroups = true;
       warn-dirty = false;
 

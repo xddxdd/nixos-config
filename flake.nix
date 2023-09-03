@@ -152,7 +152,9 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
-      inputs.srvos.nixosModules.common
+      (inputs.srvos + "/nixos/common/networking.nix")
+      (inputs.srvos + "/nixos/common/upgrade-diff.nix")
+      (inputs.srvos + "/nixos/common/well-known-hosts.nix")
       inputs.srvos.nixosModules.mixins-terminfo
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
       (./hosts + "/${n}/configuration.nix")

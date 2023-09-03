@@ -195,8 +195,6 @@ in {
     };
   };
 
-  srvos.boot.consoles = [];
-
   system.disableInstallerTools = !builtins.elem LT.tags.client LT.this.tags;
   system.fsPackages = [pkgs.bindfs];
 
