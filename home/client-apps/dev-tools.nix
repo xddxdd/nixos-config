@@ -117,6 +117,8 @@ in {
     alejandra
     fup-repl
     nil
+    nix-index
+    nix-index-update
     nix-prefetch
     nix-store-add
     nixfmt
