@@ -6,24 +6,27 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  registeredInputs = {
+    nixpkgs = LT.patchedPkgs.nixpkgs;
+    nur = inputs.nur.outPath;
+    nur-xddxdd = inputs.nur-xddxdd.outPath;
+  };
+in {
   environment.etc = lib.mapAttrs' (n: v:
     lib.nameValuePair "nix/inputs/${n}" {
       source = lib.mkForce v;
     })
-  LT.patchedPkgs;
+  registeredInputs;
 
   nix = {
-    generateNixPathFromInputs = true;
-    generateRegistryFromInputs = true;
-    linkInputs = true;
-
+    nixPath = ["/etc/nix/inputs"];
     registry =
       lib.mapAttrs (n: v: {
         flake = lib.mkForce {
           outPath = v;
         };
       })
-      LT.patchedPkgs;
+      registeredInputs;
   };
 }

@@ -78,59 +78,43 @@ in {
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
   };
-  environment.systemPackages = with pkgs;
-    [
-      bridge-utils
-      brotli
-      bzip2
-      dig
-      git
-      gzip
-      htop
-      inetutils
-      iptables
-      iw
-      jq
-      kopia
-      lbzip2
-      lsof
-      mbuffer
-      nftables-fullcone
-      openssl
-      p7zip
-      pciutils
-      pigz
-      pv
-      python3Full
-      pwgen
-      screen
-      smartmontools
-      tcpdump
-      unar
-      unrar
-      unzip
-      usbutils
-      wget
-      wireguard-tools
-      zip
-      zstd
-    ]
-    ++ (
-      if pkgs.stdenv.isx86_64
-      then [
-        ls-iommu
-        nix-index
-        nix-index-update
-        rar # Doesn't suppport aarch64 for some reason
-        x86-arch-level
-      ]
-      else []
-    );
+  environment.systemPackages = with pkgs; [
+    bridge-utils
+    dig
+    git
+    gzip
+    htop
+    inetutils
+    iptables
+    iw
+    jq
+    kopia
+    lsof
+    mbuffer
+    nftables-fullcone
+    openssl
+    pciutils
+    pigz
+    pv
+    python3Full
+    screen
+    smartmontools
+    tcpdump
+    unzip
+    usbutils
+    wget
+    wireguard-tools
+    zip
+    zstd
+    ls-iommu
+    x86-arch-level
+  ];
 
   hardware.ksm.enable = !config.boot.isContainer;
 
   programs = {
-    bash.vteIntegration = true;
+    bash.vteIntegration = builtins.elem LT.tags.client LT.this.tags;
+    command-not-found.enable = builtins.elem LT.tags.client LT.this.tags;
     iftop.enable = true;
     iotop.enable = true;
     less.enable = true;
@@ -206,6 +190,7 @@ in {
 
   srvos.boot.consoles = [];
 
+  system.disableInstallerTools = !builtins.elem LT.tags.client LT.this.tags;
   system.fsPackages = [pkgs.bindfs];
 
   systemd = {
@@ -228,6 +213,8 @@ in {
       #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
+
+    oomd.enable = lib.mkForce false;
 
     sleep.extraConfig = ''
       AllowSuspend=no

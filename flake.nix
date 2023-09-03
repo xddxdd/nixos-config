@@ -148,7 +148,6 @@
       inputs.attic.nixosModules.atticd
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
-      inputs.dwarffs.nixosModules.dwarffs
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider

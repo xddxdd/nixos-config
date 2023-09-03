@@ -48,6 +48,8 @@ in {
     audacious
     baidupcs-go
     bilibili
+    brotli
+    bzip2
     calibre
     calibre-override-desktop
     cloudpan189-go
@@ -70,6 +72,7 @@ in {
     jellyfin-media-player
     jellyfin-media-player-wrapped
     kdenlive
+    lbzip2
     libfaketime
     librewolf
     libsForQt5.ark
@@ -83,12 +86,15 @@ in {
     newsflash
     nvfetcher
     openvpn
+    p7zip
     parsec-bin
     payload-dumper-go
     powertop
     prismlauncher
+    pwgen
     qq
     quasselClient
+    rar
     remmina
     steam-run
     step-cli-wrapped
@@ -98,6 +104,7 @@ in {
     transmission-qt
     transmission-remote-gtk
     ulauncher
+    unar
     vagrant
     virt-manager
     vopono
