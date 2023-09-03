@@ -8,9 +8,6 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    ../../nixos/hardware/qemu.nix
-  ];
 
   boot.initrd.kernelModules = ["nvme"];
 

@@ -8,9 +8,6 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    ../../nixos/hardware/qemu.nix
-  ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
