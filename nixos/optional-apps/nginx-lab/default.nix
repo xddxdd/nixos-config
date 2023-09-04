@@ -16,7 +16,7 @@ in {
   };
 
   services.nginx.virtualHosts."lab.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
+    listen = LT.nginx.listenHTTP ++ LT.nginx.listenHTTPS;
     root = labRoot;
     locations =
       LT.nginx.addCommonLocationConf
