@@ -52,6 +52,7 @@ in
     enumerateList = call ./fn/enumerate-list.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
+    math = call ./fn/math.nix;
     mkColmenaHive = call ./fn/mk-colmena-hive.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
