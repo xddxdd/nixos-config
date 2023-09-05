@@ -594,6 +594,32 @@
         "type": "github"
       }
     },
+    "nix-math": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "flake-utils-plus": [
+          "flake-utils-plus"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1693889721,
+        "narHash": "sha256-/ULf9xEOqFxrezZXnHgZ1XRR1TJ/GC8BjvhPtLUyoiE=",
+        "owner": "xddxdd",
+        "repo": "nix-math",
+        "rev": "1f48a95ec72c6d29b43f67c19882162c472bb2c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "nix-math",
+        "type": "github"
+      }
+    },
     "nixos-cn": {
       "inputs": {
         "flake-utils": [
@@ -889,6 +915,7 @@
         "impermanence": "impermanence",
         "nil": "nil",
         "nix-alien": "nix-alien",
+        "nix-math": "nix-math",
         "nixos-cn": "nixos-cn",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-22-05": "nixpkgs-22-05",

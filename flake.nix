@@ -70,6 +70,12 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-math = {
+      url = "github:xddxdd/nix-math";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-utils-plus.follows = "flake-utils-plus";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";

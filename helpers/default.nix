@@ -32,6 +32,7 @@
 in
   mkScope (call: rec {
     inherit config pkgs lib inputs nixosConfigurations;
+    inherit (inputs.nix-math.lib) math;
 
     constants = call ./constants.nix;
     inherit (constants) port portStr tags;
@@ -52,7 +53,6 @@ in
     enumerateList = call ./fn/enumerate-list.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
-    math = call ./fn/math.nix;
     mkColmenaHive = call ./fn/mk-colmena-hive.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
