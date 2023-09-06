@@ -31,7 +31,6 @@ in {
     ./nandsim.nix
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/homer.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
