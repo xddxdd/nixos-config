@@ -65,8 +65,7 @@ in {
     gcdemu
     gimp
     gnome.gedit
-    # Disabled for build failure
-    # google-earth-pro
+    google-earth-pro
     gopherus
     imagemagick
     jellyfin-media-player

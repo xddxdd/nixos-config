@@ -53,7 +53,8 @@
       use-cgroups = true;
       warn-dirty = false;
 
-      inherit (LT.constants.nix) substituters trusted-public-keys;
+      substituters = LT.constants.nix.substituters ++ config.nix.settings.trusted-substituters;
+      inherit (LT.constants.nix) trusted-public-keys;
     };
   };
 
