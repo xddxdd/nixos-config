@@ -279,22 +279,6 @@
         "type": "github"
       }
     },
-    "flake-compat_5": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -834,14 +818,16 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nvfetcher": "nvfetcher"
+        "nvfetcher": [
+          "nvfetcher"
+        ]
       },
       "locked": {
-        "lastModified": 1693468020,
-        "narHash": "sha256-6VdnHFrBkWKg/4DQw6pj85Fmj9Ixl92cqNBJG9G0NlM=",
+        "lastModified": 1693898560,
+        "narHash": "sha256-yrBfvKFR76bGMjJ30LVtiWgx2NSjcRU3LnUNTmR01mw=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "74967430c4fccb018e6ed4c711300d1f1364e7ca",
+        "rev": "211a6952cd91575293afcbe9c418d5850c1a7a73",
         "type": "github"
       },
       "original": {
@@ -853,32 +839,6 @@
     "nvfetcher": {
       "inputs": {
         "flake-compat": "flake-compat_4",
-        "flake-utils": [
-          "nur-xddxdd",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nur-xddxdd",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1692372415,
-        "narHash": "sha256-QVrvyRf2LKdvnElp50sORKWmyP8KBVDKL7mTXvSNDqU=",
-        "owner": "berberman",
-        "repo": "nvfetcher",
-        "rev": "447973723f6e284934d3cf5f81ca4cfbf4462aef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "berberman",
-        "repo": "nvfetcher",
-        "type": "github"
-      }
-    },
-    "nvfetcher_2": {
-      "inputs": {
-        "flake-compat": "flake-compat_5",
         "flake-utils": [
           "flake-utils"
         ],
@@ -924,7 +884,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
-        "nvfetcher": "nvfetcher_2",
+        "nvfetcher": "nvfetcher",
         "secrets": "secrets",
         "srvos": "srvos",
         "terranix": "terranix"
