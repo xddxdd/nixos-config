@@ -130,7 +130,6 @@
     overlays =
       [
         inputs.agenix.overlays.default
-        inputs.attic.overlays.default
         inputs.colmena.overlay
         inputs.nil.overlays.nil
         inputs.nix-alien.overlay
@@ -152,7 +151,7 @@
         networking.hostName = lib.mkForce (lib.removePrefix "_" n);
         system.stateVersion = LT.constants.stateVersion;
       })
-      inputs.attic.nixosModules.atticd
+      (inputs.attic + "/nixos/atticd.nix")
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.impermanence.nixosModules.impermanence

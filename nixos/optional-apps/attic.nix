@@ -17,62 +17,49 @@
 
   services.atticd = {
     enable = true;
-    package = pkgs.attic-server;
+    package = pkgs.lantianCustomized.attic-telnyx-compatible;
     credentialsFile = config.age.secrets.attic-credentials.path;
-    settings = {
+    settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
-      database.url = "postgres://atticd?host=/run/postgresql&user=atticd";
+      # Database configured with env var
+      database = {};
       require-proof-of-possession = false;
       storage = {
-        type = "local";
-        path = lib.mkDefault "/var/lib/atticd";
+        type = "s3";
+        region = "phoenix";
+        bucket = "lantian-nix-cache";
+        endpoint = "http://storage.telnyx.com";
       };
-      # Use btrfs deduplication
+      # Disable chunking to use S3 direct download
       chunking = {
         nar-size-threshold = 0;
         min-size = 16384;
         avg-size = 65536;
         max-size = 262144;
       };
-      # Use btrfs compression
-      compression.type = "none";
+      compression = {
+        type = "zstd";
+        level = 9;
+      };
       garbage-collection = {
         interval = "12 hours";
-        default-retention-period = "1 month";
+        default-retention-period = "3 month";
       };
     };
   };
 
-  systemd.services.atticd = {
-    after = ["postgresql.service"];
-    requires = ["postgresql.service"];
-    serviceConfig = {
+  systemd.services.atticd.serviceConfig =
+    LT.serviceHarden
+    // {
       DynamicUser = lib.mkForce false;
-      ReadWritePaths = [config.services.atticd.settings.storage.path];
+      StateDirectory = lib.mkForce "";
     };
-  };
-
-  systemd.tmpfiles.rules = [
-    "d ${config.services.atticd.settings.storage.path} 755 atticd atticd"
-  ];
 
   users.users.atticd = {
     group = "atticd";
     isSystemUser = true;
   };
   users.groups.atticd = {};
-
-  services.postgresql = {
-    ensureDatabases = ["atticd"];
-    ensureUsers = [
-      {
-        name = "atticd";
-        ensurePermissions = {
-          "DATABASE \"atticd\"" = "ALL PRIVILEGES";
-        };
-      }
-    ];
-  };
 
   services.nginx.virtualHosts = {
     "attic.xuyh0120.win" = {
