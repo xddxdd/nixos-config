@@ -37,8 +37,6 @@
     "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
-  services.atticd.settings.storage.path = "/mnt/storage/attic";
-
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 16;

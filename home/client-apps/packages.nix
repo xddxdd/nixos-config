@@ -44,7 +44,6 @@ in {
     (lutris.override {extraPkgs = p: with p; [xdelta];})
     appimage-run
     aria
-    attic-client
     audacious
     baidupcs-go
     bilibili
@@ -71,6 +70,7 @@ in {
     jellyfin-media-player
     jellyfin-media-player-wrapped
     kdenlive
+    lantianCustomized.attic-telnyx-compatible
     lbzip2
     libfaketime
     librewolf
