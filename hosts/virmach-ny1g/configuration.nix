@@ -15,8 +15,8 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = ["47.87.186.200/24"];
-    gateway = ["47.87.186.1"];
+    address = ["45.42.214.121/24"];
+    gateway = ["45.42.214.1"];
     matchConfig.Name = "eth0";
     networkConfig.Tunnel = "henet";
   };
