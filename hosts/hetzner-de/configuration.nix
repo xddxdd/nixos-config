@@ -12,6 +12,7 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/drone-ci.nix
