@@ -56,7 +56,7 @@
       LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true
-      + LT.nginx.servePrivate;
+      + LT.nginx.servePrivate null;
   };
 
   users.users.fastapi-dls = {

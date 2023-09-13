@@ -248,7 +248,7 @@ in {
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
 
     "ci-github.lantian.pub" = {
@@ -276,7 +276,7 @@ in {
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
 
     "drone-file-secret.localhost" = {
@@ -290,7 +290,7 @@ in {
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
   };
 
