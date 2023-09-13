@@ -22,34 +22,13 @@
         ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
       '';
 
-    ipv4 =
-      if v.addressing.IPv4SubnetMask == 32
-      then
-        (
-          if v.addressing.peerIPv4 == null
-          then ''
-            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/32 dev ${interfaceName}
-          ''
-          else ''
-            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4} peer ${v.addressing.peerIPv4} dev ${interfaceName}
-          ''
-        )
-      else ''
-        ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/${builtins.toString v.addressing.IPv4SubnetMask} dev ${interfaceName}
-      '';
+    ipv4 = ''
+      ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/${builtins.toString v.addressing.IPv4SubnetMask} dev ${interfaceName}
+    '';
 
-    ipv6 =
-      if v.addressing.IPv6SubnetMask == 128
-      then
-        (''
-            ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/128 dev ${interfaceName}
-          ''
-          + lib.optionalString (v.addressing.peerIPv6 != null) ''
-            ${pkgs.iproute2}/bin/ip route add ${v.addressing.peerIPv6}/128 src ${v.addressing.myIPv6} dev ${interfaceName}
-          '')
-      else ''
-        ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
-      '';
+    ipv6 = ''
+      ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
+    '';
 
     sysctl = ''
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.autoconf=0

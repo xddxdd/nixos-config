@@ -30,6 +30,7 @@
       protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
         neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv4} as ${localASN};
+        multihop 1;
         ipv4 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
@@ -44,6 +45,7 @@
       protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6} as ${localASN};
+        multihop 1;
         ipv4 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
@@ -58,6 +60,7 @@
       protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
         neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
         local ${v.addressing.myIPv6LinkLocal} as ${localASN};
+        direct;
         ipv4 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
@@ -67,6 +70,20 @@
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
         };
       };
+    '';
+
+  staticRoute4 = n: v: let
+    interfaceName = "${v.peering.network}-${n}";
+  in
+    lib.optionalString (v.addressing.peerIPv4 != null) ''
+      route ${v.addressing.peerIPv4}/32 via "${interfaceName}";
+    '';
+
+  staticRoute6 = n: v: let
+    interfaceName = "${v.peering.network}-${n}";
+  in
+    lib.optionalString (v.addressing.peerIPv6 != null) ''
+      route ${v.addressing.peerIPv6}/128 via "${interfaceName}";
     '';
 
   cfg = config.services.dn42 or {};
@@ -162,7 +179,6 @@ in {
     template bgp dnpeers {
       local as ${DN42_AS};
       path metric 1;
-      direct;
       enable extended messages on;
       enforce first as on;
 
@@ -174,13 +190,35 @@ in {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
+        gateway recursive;
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
+        gateway recursive;
       };
     };
+  '';
+
+  staticRoutes = ''
+    protocol static static_v4_dn42 {
+      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList staticRoute4 cfg)}
+      ipv4 {
+        preference 9999;
+        import all;
+        export none;
+      };
+    }
+
+    protocol static static_v6_dn42 {
+      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList staticRoute6 cfg)}
+      ipv6 {
+        preference 9999;
+        import all;
+        export none;
+      };
+    }
   '';
 
   communityFilters = ''
