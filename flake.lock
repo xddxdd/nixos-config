@@ -945,11 +945,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1694584108,
-        "narHash": "sha256-SsKlgVWBYKfbaY9prOWhuL954BYuLnK3G7jKVOCwAiY=",
+        "lastModified": 1694584643,
+        "narHash": "sha256-GBWRBNIh5/FsKU1Y3HhlhRJ3BJKzXMfViAh2/rUTEVw=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "b9af35f80cad72d65654d39633b1848792a06915",
+        "rev": "44c3458d7ece42bf10468dd8c32a2ad9dbb421ee",
         "type": "github"
       },
       "original": {
