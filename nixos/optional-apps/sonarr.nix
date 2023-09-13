@@ -110,7 +110,7 @@
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
     "radarr.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
@@ -136,7 +136,7 @@
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
     "prowlarr.${config.networking.hostName}.xuyh0120.win" = {
       listen = LT.nginx.listenHTTPS;
@@ -162,7 +162,7 @@
       extraConfig =
         LT.nginx.commonVhostConf true
         + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost;
+        + LT.nginx.serveLocalhost null;
     };
   };
 }

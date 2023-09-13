@@ -40,7 +40,7 @@ in {
     extraConfig =
       LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true
-      + LT.nginx.serveLocalhost;
+      + LT.nginx.serveLocalhost null;
   };
 
   systemd.tmpfiles.rules = [

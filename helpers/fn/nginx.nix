@@ -129,21 +129,33 @@ in rec {
       }
     '');
 
-  serveLocalhost = ''
+  serveLocalhost = forbidden_action: ''
     access_log off;
 
     allow 127.0.0.1;
     allow ::1;
     deny all;
+
+    error_page 403 ${
+      if forbidden_action != null
+      then forbidden_action
+      else "/444.internal"
+    };
   '';
 
-  servePrivate =
+  servePrivate = forbidden_action:
     (lib.concatMapStringsSep "\n" (ip: "allow ${ip};")
       (constants.reserved.IPv4 ++ constants.reserved.IPv6))
     + ''
       allow 127.0.0.1;
       allow ::1;
       deny all;
+
+      error_page 403 ${
+        if forbidden_action != null
+        then forbidden_action
+        else "/444.internal"
+      };
     '';
 
   addCommonLocationConf = {
@@ -194,6 +206,11 @@ in rec {
             ''
             + locationProxyConf;
         };
+
+        "= /444.internal".extraConfig = ''
+          internal;
+          return 444;
+        '';
 
         "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
       }
