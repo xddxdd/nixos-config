@@ -73,18 +73,8 @@
     };
 in {
   services.nginx.virtualHosts = {
-    "_default" = {
+    "_default_http" = {
       listen = [
-        {
-          addr = "0.0.0.0";
-          port = LT.port.HTTPS;
-          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
-        }
-        {
-          addr = "[::]";
-          port = LT.port.HTTPS;
-          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
-        }
         {
           addr = "0.0.0.0";
           port = LT.port.HTTP;
@@ -104,9 +94,33 @@ in {
 
       extraConfig = ''
         access_log off;
-        ssl_reject_handshake on;
-        ssl_stapling off;
       '';
+    };
+
+    "_default_https" = {
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = LT.port.HTTPS;
+          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
+        }
+        {
+          addr = "[::]";
+          port = LT.port.HTTPS;
+          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
+        }
+      ];
+
+      locations = {
+        "/".return = "444";
+        "/generate_204".return = "204";
+      };
+
+      extraConfig =
+        ''
+          access_log off;
+        ''
+        + LT.nginx.makeSSLSnakeoil;
     };
 
     "localhost" = {
