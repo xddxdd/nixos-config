@@ -14,10 +14,17 @@ in {
   services.lemmy = {
     enable = true;
     database.uri = "postgres:///lemmy?host=/run/postgresql&user=lemmy";
+    ui.port = LT.port.Lemmy.UI;
 
     settings = {
       hostname = "lemmy.lantian.pub";
+      port = LT.port.Lemmy.API;
     };
+  };
+
+  services.pict-rs = {
+    enable = true;
+    port = LT.port.Pict-RS;
   };
 
   services.postgresql = {
@@ -46,12 +53,16 @@ in {
       };
       "/".extraConfig = ''
         set $proxpass "${ui}";
-        if ($http_accept ~ "^application/.*$") {
+        if ($http_accept = "application/activity+json") {
+          set $proxpass "${backend}";
+        }
+        if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
           set $proxpass "${backend}";
         }
         if ($request_method = POST) {
           set $proxpass "${backend}";
         }
+
         proxy_pass $proxpass;
 
         rewrite ^(.+)/+$ $1 permanent;

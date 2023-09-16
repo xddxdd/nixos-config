@@ -24,16 +24,6 @@ in rec {
         cloudscraper
       ];
   });
-  lemmy-server = prev.lemmy-server.overrideAttrs (old: {
-    postPatch = ''
-      echo "pub const VERSION: &str = \"${old.version}\";" > "crates/utils/src/version.rs"
-    '';
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/lemmy-disable-private-federation-check.patch
-      ];
-  });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
     patches =
       (old.patches or [])

@@ -87,6 +87,9 @@
     Prometheus.EndlesshGo = 9322;
     Prowlarr = 9696;
     FlareSolverr = 13191;
+    Lemmy.API = 13200;
+    Lemmy.UI = 13201;
+    Pict-RS = 13202;
     Bepasty = 13237;
     ASF = 13242;
     RSSHub = 13248;
