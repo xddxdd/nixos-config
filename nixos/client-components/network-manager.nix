@@ -28,7 +28,6 @@ in {
       ++ builtins.map (n: "except:interface-name:${n}*") managedPrefix);
   in {
     enable = true;
-    enableFccUnlock = true;
     enableStrongSwan = true;
     dns = "none";
     firewallBackend = "none";
