@@ -5,5 +5,5 @@
 in rec {
   inherit (pkgs-22-05) linuxPackages_6_0 mysql57;
   inherit (pkgs-22-11) clickhouse;
-  inherit (pkgs-23-05) mongodb;
+  inherit (pkgs-23-05) linphone mongodb;
 }

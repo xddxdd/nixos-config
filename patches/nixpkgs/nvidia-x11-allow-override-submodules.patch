@@ -1,22 +1,41 @@
+diff --git a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
+index 58cf8c0e3557..3b1726edadbd 100644
+--- a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
++++ b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
+@@ -1,4 +1,4 @@
+-nvidia_x11: sha256:
++sha256:
+ 
+ { stdenv, lib, fetchurl, patchelf }:
+ 
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index 792fda42ca9c..c67c0d702428 100644
+index 8ec292f27251..cb27e7b6cf1a 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -127,11 +127,12 @@ let
-         nvidia_x11 = self;
+@@ -161,15 +161,20 @@ let
          broken = brokenOpen;
        }) openSha256;
--      settings = (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256) {
-+      settings = (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256) {
-+        nvidia_x11 = self;
-         withGtk2 = preferGtk2;
-         withGtk3 = !preferGtk2;
-       };
--      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256;
-+      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix hash) { nvidia_x11 = self; }) persistencedSha256;
+       settings = if useSettings then
+-        (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256) {
++        (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256) {
++          nvidia_x11 = self;
+           withGtk2 = preferGtk2;
+           withGtk3 = !preferGtk2;
+         } else {};
+       persistenced = if usePersistenced then
+-        mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256
++        mapNullable (hash: callPackage (import ./persistenced.nix hash) {
++          nvidia_x11 = self;
++        }) persistencedSha256
+       else {};
+       fabricmanager = if useFabricmanager then
+-        mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
++        mapNullable (hash: callPackage (import ./fabricmanager.nix hash) {
++          nvidia_x11 = self;
++        }) fabricmanagerSha256
+       else {};
        inherit persistencedVersion settingsVersion;
        compressFirmware = false;
-       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 index 03ad03a472d4..82820e0fb9af 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
