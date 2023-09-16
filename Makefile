@@ -14,8 +14,7 @@ local: FORCE
 	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
 
 clean: FORCE
-	@nix run .#colmena -- exec -- nix-env -p /nix/var/nix/profiles/system --delete-generations +1
-	@nix run .#colmena -- exec -- nix-collect-garbage -d
+	@nix run .#colmena -- exec -- nixos-cleanup
 
 update: FORCE
 	@nix flake update

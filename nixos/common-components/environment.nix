@@ -33,6 +33,11 @@
     done
   '';
 
+  nixos-cleanup = pkgs.writeScriptBin "nixos-cleanup" ''
+    ${config.nix.package}/bin/nix-env -p /nix/var/nix/profiles/system --delete-generations +1
+    ${config.nix.package}/bin/nix-collect-garbage -d
+  '';
+
   # https://unix.stackexchange.com/a/631226
   x86-arch-level = pkgs.writeScriptBin "x86-arch-level" ''
     #!${pkgs.gawk}/bin/awk -f
@@ -92,6 +97,7 @@ in {
     lsof
     mbuffer
     nftables-fullcone
+    nixos-cleanup
     openssl
     pigz
     pv
