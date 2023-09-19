@@ -147,14 +147,15 @@ in {
       fsType = "fuse.bindfs";
       options = bindfsMountOptions;
     };
-
     "/home/lantian/Software" = lib.mkForce {
-      device = "/mnt/root/files/Software";
-      options = bindMountOptions;
+      device = "/nix/persistent/media/Software";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
     };
     "/home/lantian/.local/share/yuzu" = lib.mkForce {
-      device = "/mnt/root/files/Yuzu";
-      options = bindMountOptions;
+      device = "/nix/persistent/media/Yuzu";
+      fsType = "fuse.bindfs";
+      options = bindfsMountOptions;
     };
   };
 
