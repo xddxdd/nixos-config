@@ -16,6 +16,7 @@
 
     ../../nixos/client-components/cups.nix
 
+    ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/genshin-cockpy.nix
     ../../nixos/optional-apps/genshin-grasscutter.nix
