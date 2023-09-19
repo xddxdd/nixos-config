@@ -71,6 +71,9 @@
     Rsync = 873;
     V2Ray.SocksClient = 1080;
     KMS = 1688;
+    NFS.StatD = 4000;
+    NFS.LockD = 4001;
+    NFS.MountD = 4002;
     Quassel = 4242;
     IPFS.API = 5001;
     Radarr = 7878;
