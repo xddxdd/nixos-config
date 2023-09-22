@@ -13,13 +13,10 @@
 in ''
   set -euxo pipefail
 
-  CURR_DIR=$(pwd)
+  CURR_DIR="$(pwd)"
 
-  TEMP_DIR=$(mktemp -d /tmp/dns.XXXXXXXX)
-
-  if [[ -e $TEMP_DIR/dnsconfig.js ]]; then rm -f $TEMP_DIR/dnsconfig.js; fi
-  nix build .#dnscontrol-config
-  cat result > $TEMP_DIR/dnsconfig.js
+  TEMP_DIR="$(mktemp -d /tmp/dns.XXXXXXXX)"
+  nix build .#dnscontrol-config -o "$TEMP_DIR/dnsconfig.js"
 
   ${age}/bin/age \
     -i "$HOME/.ssh/id_ed25519" \
@@ -28,8 +25,7 @@ in ''
   mkdir -p "$TEMP_DIR/zones"
 
   cd "$TEMP_DIR"
-  ${dnscontrol}/bin/dnscontrol --diff2 $*
-  RET=$?
+  ${dnscontrol}/bin/dnscontrol --diff2 $* && RET=0 || RET=$?
   rm -rf "$CURR_DIR/zones"
   mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
 
