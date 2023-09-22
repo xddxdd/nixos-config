@@ -121,6 +121,20 @@
         peerIPv6LinkLocal = "fe80::117";
       };
     };
+    khoa = {
+      remoteASN = 4242420868;
+      latencyMs = 27;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20868;
+        remoteAddress = "94.72.143.3";
+        remotePort = 8682;
+        wireguardPubkey = "gLqCSzX2Q5SBSDhwWbiaT2Xq1DVi/scz3/3RVuKDqCg=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.68.222";
+      };
+    };
     kioubit = {
       remoteASN = 4242423914;
       latencyMs = 15;
