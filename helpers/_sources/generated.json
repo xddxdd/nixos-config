@@ -36,7 +36,7 @@
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2023-09-11",
+        "date": "2023-09-17",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "e25ff4fb4457dd6d0a2574ede7fb5abec825a1c3",
-            "sha256": "sha256-4IN4QJLO2qdche+lpBWAkembmOypZ3uJ9a14yIbMfeU=",
+            "rev": "5ab6182076fb6175415da6b5061e86e69874fbce",
+            "sha256": "sha256-Lt0pQqjZpgiONaITbL3iXEdrhBbS2YwPuACFlKsGNPk=",
             "type": "github"
         },
-        "version": "e25ff4fb4457dd6d0a2574ede7fb5abec825a1c3"
+        "version": "5ab6182076fb6175415da6b5061e86e69874fbce"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -91,7 +91,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-08-25",
+        "date": "2023-09-19",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -103,11 +103,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "db4e8ccd9bd31fad79361e27afc032487426fe6a",
-            "sha256": "sha256-WCDwy39jpnc2wkM/883gFwChVD7wAP2nCR8Aw+CfDw8=",
+            "rev": "58a715fa48e61a7b61b513e0553cbef630ca4c8d",
+            "sha256": "sha256-xzMTrYn057F5upQk6Kukq156gbZEllIBppMjXB1oX8o=",
             "type": "github"
         },
-        "version": "db4e8ccd9bd31fad79361e27afc032487426fe6a"
+        "version": "58a715fa48e61a7b61b513e0553cbef630ca4c8d"
     },
     "keycloak-lantian": {
         "cargoLocks": null,
@@ -150,7 +150,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2023-09-10",
+        "date": "2023-09-21",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -162,11 +162,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "8b1c8d024c08af0879a620079a2fd38f28162c1a",
-            "sha256": "sha256-rXGF9pg3Jb9SpkOnJ1WNwaIteZKoXD8RNJotmO8Pc9M=",
+            "rev": "42dfa56882c4c0e9ff26ecac95ab0229f0e906da",
+            "sha256": "sha256-hu8gVkHyTy62CEwfNo+Dje7W7Ol7UVHxI/r6sVv7bZI=",
             "type": "github"
         },
-        "version": "8b1c8d024c08af0879a620079a2fd38f28162c1a"
+        "version": "42dfa56882c4c0e9ff26ecac95ab0229f0e906da"
     },
     "nft-fullcone": {
         "cargoLocks": null,
@@ -230,7 +230,7 @@
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-09-10",
+        "date": "2023-09-21",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -242,15 +242,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "0793eb105c5720c4eb31af71c9db81459439e510",
-            "sha256": "sha256-MF9b0T9BUcDj59AVLD/DMy8E/h6L8MGBkepi1x3Vpco=",
+            "rev": "95cc5faa16833acaf12a4d273c5c848984fc73ce",
+            "sha256": "sha256-jDjiOUqc8qPbTgbJfothkza+nEfoQ0zQjx28bMPi/Hc=",
             "type": "github"
         },
-        "version": "0793eb105c5720c4eb31af71c9db81459439e510"
+        "version": "95cc5faa16833acaf12a4d273c5c848984fc73ce"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2023-09-11",
+        "date": "2023-09-19",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -262,11 +262,11 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "8d5ea32d4895ff842980f4d280ed1591ae92680b",
-            "sha256": "sha256-FUR0wvC2x6nXECrXFAjb6lLFD0xUozYzgBqAklmJT7I=",
+            "rev": "fcc2f3d82bc9d4d0a8f00d14e892055847c840a7",
+            "sha256": "sha256-UdSuTy5eR5yDUY+jULS+PJNzhpa+Mp7/FoBQhxIDKdM=",
             "type": "github"
         },
-        "version": "8d5ea32d4895ff842980f4d280ed1591ae92680b"
+        "version": "fcc2f3d82bc9d4d0a8f00d14e892055847c840a7"
     },
     "ovpn-dco": {
         "cargoLocks": null,
