@@ -11,7 +11,7 @@
 } @ args: let
   dnscontrol = pkgs.dnscontrol;
 in ''
-  set -euo pipefail
+  set -euxo pipefail
 
   CURR_DIR=$(pwd)
 
