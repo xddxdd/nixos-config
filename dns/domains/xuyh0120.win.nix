@@ -68,7 +68,7 @@ with dns; let
     })
     (CNAME {
       name = "jellyfin";
-      target = "lt-home-vm";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
     (CNAME {
@@ -79,6 +79,11 @@ with dns; let
     (CNAME {
       name = "private";
       target = "hetzner-de.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    })
+    (CNAME {
+      name = "pterodactyl";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
     (CNAME {
@@ -98,7 +103,7 @@ with dns; let
     })
     (CNAME {
       name = "tachidesk";
-      target = "lt-home-vm";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
   ];
