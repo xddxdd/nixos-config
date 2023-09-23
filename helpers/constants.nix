@@ -101,6 +101,7 @@
     Keycloak.HTTPS = 13402;
     Tachidesk = 13567;
     Pterodactyl.Redis = 13679;
+    Pterodactyl.Wings = 13680;
     Vaultwarden.HTTP = 13772;
     Vaultwarden.Websocket = 13773;
     GoAutoconfig.Start = 13780;

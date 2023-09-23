@@ -1,0 +1,51 @@
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+} @ args: {
+  imports = [
+    ./docker.nix
+  ];
+
+  containers.docker.bindMounts = {
+    pterodactyl-lib = {
+      hostPath = "/var/lib/pterodactyl";
+      mountPoint = "/var/lib/pterodactyl";
+      isReadOnly = false;
+    };
+    pterodactyl-tmp = {
+      hostPath = "/tmp/pterodactyl";
+      mountPoint = "/tmp/pterodactyl";
+      isReadOnly = false;
+    };
+  };
+
+  environment.persistence."/nix/persistent" = {
+    directories = [
+      "/etc/pterodactyl"
+    ];
+  };
+
+  environment.systemPackages = [pkgs.pterodactyl-wings];
+
+  systemd.services.pterodactyl-wings = {
+    description = "Pterodactyl Wings Daemon";
+    after = ["network.target" "container@docker.service"];
+    requires = ["network.target" "container@docker.service"];
+    wantedBy = ["multi-user.target"];
+    environment = {
+      DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.pterodactyl-wings}/bin/wings";
+    };
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /tmp/pterodactyl 755 pterodactyl pterodactyl"
+  ];
+}
