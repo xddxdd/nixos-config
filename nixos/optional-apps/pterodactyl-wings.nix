@@ -42,10 +42,21 @@
     };
     serviceConfig = {
       ExecStart = "${pkgs.pterodactyl-wings}/bin/wings";
+
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallErrorNumber = "EPERM";
     };
   };
 
   systemd.tmpfiles.rules = [
-    "d /tmp/pterodactyl 755 pterodactyl pterodactyl"
+    "d /tmp/pterodactyl 755 root root"
   ];
 }
