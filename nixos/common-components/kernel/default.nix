@@ -44,14 +44,17 @@
           postFixup =
             (old.postFixup or "")
             + ''
+              # Skip patching if latest patch is not available
               SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
                 | grep '"${old.version}"' \
                 | head -n1 \
-                | cut -d"'" -f2)
+                | cut -d"'" -f2 \
+                || echo "")
               SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
                 | grep '"${old.version}"' \
                 | head -n1 \
-                | cut -d"'" -f2)
+                | cut -d"'" -f2 \
+                || echo "")
 
               echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
               sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
