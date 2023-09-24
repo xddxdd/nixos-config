@@ -269,6 +269,18 @@
     };
     date = "2022-05-19";
   };
+  web-compressor = {
+    pname = "web-compressor";
+    version = "931a0a185c1e4268a668c43920af512631c740b4";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "web-compressor";
+      rev = "931a0a185c1e4268a668c43920af512631c740b4";
+      fetchSubmodules = false;
+      sha256 = "sha256-qyR34BXVubkvRB/47alkQ/b0K7ldLlU67CY2lxkwYDU=";
+    };
+    date = "2023-09-23";
+  };
   yourls = {
     pname = "yourls";
     version = "1.9.2";
