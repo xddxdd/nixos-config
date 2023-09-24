@@ -30,7 +30,15 @@ in {
       };
     };
     extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
+      ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+        zstd off;
+        zstd_static on;
+      ''
+      + LT.nginx.makeSSL "lantian.pub_ecc"
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
