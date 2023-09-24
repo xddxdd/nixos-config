@@ -447,6 +447,26 @@
         },
         "version": "610dc19a6bab76fd9438e1059aba849201a4a4aa"
     },
+    "web-compressor": {
+        "cargoLocks": null,
+        "date": "2023-09-23",
+        "extract": null,
+        "name": "web-compressor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xddxdd",
+            "repo": "web-compressor",
+            "rev": "931a0a185c1e4268a668c43920af512631c740b4",
+            "sha256": "sha256-qyR34BXVubkvRB/47alkQ/b0K7ldLlU67CY2lxkwYDU=",
+            "type": "github"
+        },
+        "version": "931a0a185c1e4268a668c43920af512631c740b4"
+    },
     "yourls": {
         "cargoLocks": null,
         "date": null,

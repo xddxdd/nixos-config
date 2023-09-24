@@ -91,6 +91,10 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 
+[web-compressor]
+src.git = "https://github.com/xddxdd/web-compressor.git"
+fetch.github = "xddxdd/web-compressor"
+
 [yourls]
 src.github = "YOURLS/YOURLS"
 fetch.github = "YOURLS/YOURLS"
