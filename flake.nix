@@ -26,6 +26,7 @@
     };
     agenix = {
       url = "github:ryantm/agenix";
+      inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     cities-json = {
@@ -37,6 +38,7 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.stable.follows = "nixpkgs-23-05";
     };
     composer2nix = {
       url = "github:svanderburg/composer2nix";
@@ -56,17 +58,9 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     impermanence.url = "github:nix-community/impermanence";
-    nixos-cn = {
-      url = "github:nixos-cn/flakes";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -81,6 +75,7 @@
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-utils-plus.follows = "flake-utils-plus";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nvfetcher.follows = "nvfetcher";
     };
@@ -88,6 +83,7 @@
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
@@ -133,8 +129,6 @@
         inputs.colmena.overlay
         inputs.nil.overlays.nil
         inputs.nix-alien.overlay
-        inputs.nixos-cn.overlay
-        inputs.nixpkgs-wayland.overlay
         inputs.nur.overlay
         inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlays.default

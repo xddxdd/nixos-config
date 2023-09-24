@@ -48,12 +48,10 @@
   nix = {
     substituters = [
       "https://attic.xuyh0120.win/lantian"
-      "https://nixos-cn.cachix.org"
       "https://cuda-maintainers.cachix.org"
     ];
     trusted-public-keys = [
       "lantian:ElZGWJIXp0uxZYMavrwYpkuwKSL6CsosP1urqcoKlvM="
-      "nixos-cn.cachix.org-1:L0jEaL6w7kwQOPlLoCR3ADx+E3Q8SEFEcB9Jaibl0Xg="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
   };
