@@ -30,7 +30,6 @@ in {
     enable = true;
     enableStrongSwan = true;
     dns = "none";
-    firewallBackend = "none";
     unmanaged = [unmanagedConfig];
   };
 

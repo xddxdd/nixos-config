@@ -91,15 +91,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "42dfa56882c4c0e9ff26ecac95ab0229f0e906da";
+    version = "69edad05ff9d2136790ceff1a92c1be19810655d";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "42dfa56882c4c0e9ff26ecac95ab0229f0e906da";
+      rev = "69edad05ff9d2136790ceff1a92c1be19810655d";
       fetchSubmodules = false;
-      sha256 = "sha256-hu8gVkHyTy62CEwfNo+Dje7W7Ol7UVHxI/r6sVv7bZI=";
+      sha256 = "sha256-S2kcRa+Gj7nfyGRSce936gmGCQJ5Z2RPgaTrGJDEc+Q=";
     };
-    date = "2023-09-21";
+    date = "2023-09-23";
   };
   nft-fullcone = {
     pname = "nft-fullcone";
@@ -138,15 +138,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "95cc5faa16833acaf12a4d273c5c848984fc73ce";
+    version = "607ae9b821665dadb6bd0a3ceb6288bda10d5e67";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "95cc5faa16833acaf12a4d273c5c848984fc73ce";
+      rev = "607ae9b821665dadb6bd0a3ceb6288bda10d5e67";
       fetchSubmodules = false;
-      sha256 = "sha256-jDjiOUqc8qPbTgbJfothkza+nEfoQ0zQjx28bMPi/Hc=";
+      sha256 = "sha256-D2JPSd3F18plxhcheKiP5fqzmDuggEiW0Lz3CN6wso8=";
     };
-    date = "2023-09-21";
+    date = "2023-09-22";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
