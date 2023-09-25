@@ -94,7 +94,8 @@
     Bepasty = 13237;
     ASF = 13242;
     RSSHub = 13248;
-    NeteaseUnlock = 13301;
+    NeteaseUnlock.HTTP = 13301;
+    NeteaseUnlock.HTTPS = 13302;
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
     Tachidesk = 13567;

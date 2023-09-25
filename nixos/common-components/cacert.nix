@@ -29,5 +29,11 @@
       url = "http://www.cacert.org/certs/CAcert_Class3Root_x14E228.crt";
       sha256 = "1sqbs2zwxzljsy3161bkc4ai0a5vcqk1a9hblljsggdjy138sqg6";
     })
+
+    # Unblock Netease Music
+    (pkgs.fetchurl {
+      url = "https://github.com/UnblockNeteaseMusic/server/raw/enhanced/ca.crt";
+      sha256 = "1yvlyqrqgcyb3xnb06p1mkzh9k31v411i501a14vm1s22x1nv64d";
+    })
   ];
 }
