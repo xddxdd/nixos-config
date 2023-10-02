@@ -217,18 +217,21 @@ in {
         serviceConfig.RemainAfterExit = true;
         after = ["network.target"];
         wantedBy = ["multi-user.target"];
+        path = with pkgs; [glibc.getent iproute2];
 
         script =
           ''
-            ${pkgs.iproute2}/bin/ip tunnel add ${interfaceName} mode gre remote ${v.tunnel.remoteAddress} local ${LT.this.public.IPv4} ttl 255
-            ${pkgs.iproute2}/bin/ip link set ${interfaceName} up
+            set -euo pipefail
+            REMOTE_IPV4=$(getent ahostsv4 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
+            ip tunnel add ${interfaceName} mode gre remote $REMOTE_IPV4 local ${LT.this.public.IPv4} ttl 255
+            ip link set ${interfaceName} up
           ''
           + lib.optionalString (v.tunnel.mtu != null) ''
-            ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
+            ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
           ''
           + setupAddressing interfaceName v;
         preStop = ''
-          ${pkgs.iproute2}/bin/ip tunnel del ${interfaceName}
+          ip tunnel del ${interfaceName}
         '';
       };
 
@@ -241,10 +244,11 @@ in {
         after = ["network.target" "zerotierone.service"];
         requires = ["network.target" "zerotierone.service"];
         wantedBy = ["multi-user.target"];
+        path = with pkgs; [iproute2];
 
         script = setupAddressing interfaceName v;
         preStop = ''
-          ${pkgs.iproute2}/bin/ip addr flush ${interfaceName}
+          ip addr flush ${interfaceName}
         '';
       };
   in
