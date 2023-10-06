@@ -65,12 +65,11 @@ in {
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.lantianCustomized.nginx;
-    # package = pkgs.lantianCustomized.nginx.override {
-    #   openssl_3_0 = pkgs.openssl_3_0.override {
-    #     inherit (config.boot.kernelPackages) cryptodev;
-    #   };
-    # };
+    package = pkgs.lantianCustomized.nginx.override {
+      openssl_3_0 = pkgs.openssl_3_0.override {
+        inherit (config.boot.kernelPackages) cryptodev;
+      };
+    };
     proxyResolveWhileRunning = true;
     proxyTimeout = "1h";
     recommendedGzipSettings = false; # use my own
