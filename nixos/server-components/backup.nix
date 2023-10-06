@@ -136,9 +136,9 @@
     + (lib.optionalString isMaintenanceHost ''
       ${pkgs.kopia}/bin/kopia maintenance set --owner=root@${config.networking.hostName}
       ${pkgs.kopia}/bin/kopia maintenance run --log-level=debug
-      rm -rf "$KOPIA_CACHE_DIRECTORY"/*
     '')
     + ''
+      rm -rf "$KOPIA_CACHE_DIRECTORY"/*
       rm -f $KOPIA_CONFIG_PATH
     '');
 in {
