@@ -10,6 +10,9 @@ all-boot: FORCE
 build: FORCE
 	@nix run .#colmena -- build
 
+build-x86: FORCE
+	@nix run .#colmena -- build --on @x86_64-linux
+
 local: FORCE
 	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
 

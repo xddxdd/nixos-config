@@ -65,6 +65,8 @@
         SocketMode = lib.mkForce "0666";
       };
 
+      systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
+
       virtualisation.docker = {
         enable = true;
         enableOnBoot = true;
