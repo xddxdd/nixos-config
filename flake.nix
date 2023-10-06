@@ -171,7 +171,6 @@
           allowUnfree = true;
           permittedInsecurePackages = [
             "electron-19.1.9"
-            "openssh-with-hpn-9.2p1"
             "openssl-1.1.1w"
             "python-2.7.18.7"
           ];
