@@ -30,5 +30,5 @@ in {
   environment.etc."ansible/hosts".text =
     lib.concatStringsSep
     "\n"
-    (["[all]"] ++ (lib.mapAttrsToList (n: v: n + ".lantian.pub") LT.serverHosts));
+    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts)));
 }
