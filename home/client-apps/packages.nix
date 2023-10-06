@@ -36,6 +36,17 @@
     export STEPPATH="$HOME/.local/share/step"
     exec ${pkgs.step-cli}/bin/step "$@"
   '';
+
+  vscode-wrapped = lib.hiPrio (pkgs.runCommand
+    "vscode-wrapped"
+    {nativeBuildInputs = with pkgs; [makeWrapper];}
+    ''
+      mkdir -p $out/bin
+      makeWrapper \
+        ${pkgs.vscode}/bin/code \
+        $out/bin/code \
+        --add-flags "--disable-gpu"
+    '');
 in {
   home.packages = with pkgs; [
     (LT.wrapNetns "wg-lantian" amule-dlp)
@@ -108,6 +119,7 @@ in {
     virt-manager
     vopono
     vscode
+    vscode-wrapped
     wechat-uos
     winetricks
     wineWowPackages.stable
