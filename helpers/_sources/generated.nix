@@ -91,15 +91,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "69edad05ff9d2136790ceff1a92c1be19810655d";
+    version = "5597f590821836e55b0192ff356686679f5c51ab";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "69edad05ff9d2136790ceff1a92c1be19810655d";
+      rev = "5597f590821836e55b0192ff356686679f5c51ab";
       fetchSubmodules = false;
-      sha256 = "sha256-S2kcRa+Gj7nfyGRSce936gmGCQJ5Z2RPgaTrGJDEc+Q=";
+      sha256 = "sha256-7Ozj6PSP5zrltjClVTbo60D3asrLfR9e+4RO7ESEf/I=";
     };
-    date = "2023-09-23";
+    date = "2023-10-11";
   };
   nft-fullcone = {
     pname = "nft-fullcone";
@@ -126,15 +126,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "2bd1fcb5211ff8d01ccdbe50872e2f32c9498fdc";
+    version = "af2616a252c990a8435bf86cf4788ce435474e24";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "2bd1fcb5211ff8d01ccdbe50872e2f32c9498fdc";
+      rev = "af2616a252c990a8435bf86cf4788ce435474e24";
       fetchSubmodules = false;
-      sha256 = "sha256-U8UQjRnQthcEJ6Amz6Q/14g6n/uZnIAf3O4uG9ia5FY=";
+      sha256 = "sha256-yocxfo7YvBCpHVV/ZhNQssyd3L9jvMFP7tz0cQucLr4=";
     };
-    date = "2023-10-03";
+    date = "2023-10-08";
   };
   openvpn = {
     pname = "openvpn";

@@ -128,7 +128,7 @@
         inputs.agenix.overlays.default
         inputs.colmena.overlay
         inputs.nil.overlays.nil
-        inputs.nix-alien.overlay
+        inputs.nix-alien.overlays.default
         inputs.nur.overlay
         inputs.nur-xddxdd.overlay
         inputs.nvfetcher.overlays.default

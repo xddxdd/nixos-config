@@ -150,7 +150,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2023-09-23",
+        "date": "2023-10-11",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -162,11 +162,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "69edad05ff9d2136790ceff1a92c1be19810655d",
-            "sha256": "sha256-S2kcRa+Gj7nfyGRSce936gmGCQJ5Z2RPgaTrGJDEc+Q=",
+            "rev": "5597f590821836e55b0192ff356686679f5c51ab",
+            "sha256": "sha256-7Ozj6PSP5zrltjClVTbo60D3asrLfR9e+4RO7ESEf/I=",
             "type": "github"
         },
-        "version": "69edad05ff9d2136790ceff1a92c1be19810655d"
+        "version": "5597f590821836e55b0192ff356686679f5c51ab"
     },
     "nft-fullcone": {
         "cargoLocks": null,
@@ -210,7 +210,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-10-03",
+        "date": "2023-10-08",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -222,11 +222,11 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "2bd1fcb5211ff8d01ccdbe50872e2f32c9498fdc",
-            "sha256": "sha256-U8UQjRnQthcEJ6Amz6Q/14g6n/uZnIAf3O4uG9ia5FY=",
+            "rev": "af2616a252c990a8435bf86cf4788ce435474e24",
+            "sha256": "sha256-yocxfo7YvBCpHVV/ZhNQssyd3L9jvMFP7tz0cQucLr4=",
             "type": "github"
         },
-        "version": "2bd1fcb5211ff8d01ccdbe50872e2f32c9498fdc"
+        "version": "af2616a252c990a8435bf86cf4788ce435474e24"
     },
     "openvpn": {
         "cargoLocks": null,
