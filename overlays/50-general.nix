@@ -2,12 +2,21 @@
   sources = final.callPackage ../helpers/_sources/generated.nix {};
 in rec {
   acme-sh = prev.acme-sh.overrideAttrs (old: {
-    postBuild = (old.postBuild or "") + ''
-      sed -i "s/api.gcorelabs.com/api.gcore.com/g" dnsapi/dns_gcore.sh
-    '';
+    postBuild =
+      (old.postBuild or "")
+      + ''
+        sed -i "s/api.gcorelabs.com/api.gcore.com/g" dnsapi/dns_gcore.sh
+      '';
   });
   brlaser = prev.brlaser.overrideAttrs (old: {
     inherit (sources.brlaser) version src;
+  });
+  dnscontrol = prev.dnscontrol.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        ../patches/dnscontrol-gcore-fix.patch
+      ];
   });
   drone = prev.drone.overrideAttrs (old: {
     patches =
