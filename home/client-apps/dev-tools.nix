@@ -120,6 +120,7 @@ in {
     nix-index
     nix-index-update
     nix-prefetch
+    nix-prefetch-scripts
     nix-store-add
     nixfmt
     nixpkgs-fmt
