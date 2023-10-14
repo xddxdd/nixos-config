@@ -40,6 +40,12 @@
     nvidiaOverride = let
       patch = p: let
         patched = p.overrideAttrs (old: {
+          buildInputs =
+            (old.buildInputs or [])
+            ++ (with pkgs; [
+              llvmPackages.libunwind
+            ]);
+
           # Somehow fixup phase is ran twice
           postFixup =
             (old.postFixup or "")
@@ -70,8 +76,20 @@
           passthru =
             old.passthru
             // {
-              settings = old.passthru.settings.override {nvidia_x11 = patched;};
-              persistenced = old.passthru.persistenced.override {nvidia_x11 = patched;};
+              settings = (old.passthru.settings.override {nvidia_x11 = patched;}).overrideAttrs (old: {
+                buildInputs =
+                  (old.buildInputs or [])
+                  ++ (with pkgs; [
+                    llvmPackages.libunwind
+                  ]);
+              });
+              persistenced = (old.passthru.persistenced.override {nvidia_x11 = patched;}).overrideAttrs (old: {
+                buildInputs =
+                  (old.buildInputs or [])
+                  ++ (with pkgs; [
+                    llvmPackages.libunwind
+                  ]);
+              });
             };
         });
     in
@@ -97,10 +115,7 @@
         nullfsvfs = final.callPackage ./nullfsvfs.nix {};
         ovpn-dco = final.callPackage ./ovpn-dco.nix {};
 
-        nvidia_x11_grid_14_4 = final.callPackage ./nvidia-x11/grid_14_4.nix {};
-        nvidia_x11_grid_15_2 = final.callPackage ./nvidia-x11/grid_15_2.nix {};
-        nvidia_x11_grid_16_0 = final.callPackage ./nvidia-x11/grid_16_0.nix {};
-        nvidia_x11_vgpu_15_2 = final.callPackage ./nvidia-x11/vgpu_15_2.nix {};
+        nvidia_x11_grid_16_0 = pkgs.nvidia-grid.grid."16_0".override {inherit (final) kernel;};
       }))
     [
       llvmOverride
