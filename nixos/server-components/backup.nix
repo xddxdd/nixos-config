@@ -65,7 +65,6 @@
   kopiaIgnored = ''
     media/
     sftp-server/
-    sync-servers/
     tmp/
     var/cache/
     var/lib/asterisk/
