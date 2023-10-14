@@ -71,4 +71,9 @@
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
+
+  systemd.services.vaultwarden = {
+    after = ["mysql.service"];
+    requires = ["mysql.service"];
+  };
 }
