@@ -145,6 +145,7 @@ in {
           "delayacct"
           "ibt=off"
           "log_buf_len=1048576"
+          "mitigations=off"
           "nvme_core.default_ps_max_latency_us=2147483647"
           "rcuupdate.rcu_cpu_stall_suppress=1"
           "split_lock_detect=off"
