@@ -72,7 +72,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    chromium-oqs-bin
-    google-chrome-dev
+    google-chrome
   ];
 }
