@@ -51,29 +51,27 @@ in {
         proxyWebsockets = true;
         recommendedProxySettings = true;
       };
-      "/".extraConfig =
-        ''
-          set $proxpass "${ui}";
-          if ($http_accept = "application/activity+json") {
-            set $proxpass "${backend}";
-          }
-          if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
-            set $proxpass "${backend}";
-          }
-          if ($request_method = POST) {
-            set $proxpass "${backend}";
-          }
+      "/".extraConfig = ''
+        set $proxpass "${ui}";
+        if ($http_accept = "application/activity+json") {
+          set $proxpass "${backend}";
+        }
+        if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
+          set $proxpass "${backend}";
+        }
+        if ($request_method = POST) {
+          set $proxpass "${backend}";
+        }
 
-          proxy_pass $proxpass;
+        proxy_pass $proxpass;
 
-          rewrite ^(.+)/+$ $1 permanent;
+        rewrite ^(.+)/+$ $1 permanent;
 
-          # Send actual client IP upstream
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        ''
-        + LT.nginx.servePrivate null;
+        # Send actual client IP upstream
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      '';
     };
     extraConfig =
       LT.nginx.makeSSL "lantian.pub_ecc"
