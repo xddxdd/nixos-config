@@ -41,15 +41,6 @@
         "sessionToken" = "";
       };
     };
-    servarica = {
-      "type" = "sftp";
-      "config" =
-        kopiaSftpStorageCommon
-        // {
-          "path" = "/backups-kopia";
-          "host" = "servarica.lantian.pub";
-        };
-    };
     storj = {
       "type" = "s3";
       "config" = {
