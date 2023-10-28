@@ -39,9 +39,14 @@
         pip
         requests
       ]);
+
+  linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
+    exec ${pkgs.sg3_utils}/bin/sg_raw "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
+  '';
 in {
   home.packages = with pkgs; [
     # Bash
+    dos2unix
     shellcheck
 
     # C
@@ -165,6 +170,10 @@ in {
     # TOML
     taplo-cli
     taplo-lsp
+
+    # Others
+    dhcpcd
+    linkzoneAdb
   ];
 
   programs.direnv.enable = true;
