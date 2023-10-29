@@ -13,6 +13,7 @@ in
   dns.eval {
     registrars = [
       "doh"
+      "porkbun"
     ];
     providers = [
       "bind"

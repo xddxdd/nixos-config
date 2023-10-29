@@ -211,7 +211,7 @@ with dns; let
 in [
   rec {
     domain = "lantian.pub";
-    registrar = "doh";
+    registrar = "porkbun";
     providers = ["cloudflare"];
     records = [
       (dns.ALIAS {

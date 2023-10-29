@@ -110,7 +110,7 @@ with dns; let
 in [
   rec {
     domain = "xuyh0120.win";
-    registrar = "doh";
+    registrar = "porkbun";
     providers = ["cloudflare"];
     records = [
       (dns.ALIAS {

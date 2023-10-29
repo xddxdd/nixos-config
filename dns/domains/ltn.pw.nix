@@ -8,7 +8,7 @@
 }: [
   rec {
     domain = "ltn.pw";
-    registrar = "doh";
+    registrar = "porkbun";
     providers = ["cloudflare"];
     records = [
       (dns.ALIAS {
