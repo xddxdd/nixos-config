@@ -10,7 +10,7 @@ with dns; let
 in [
   rec {
     domain = "56631131.xyz";
-    registrar = "doh";
+    registrar = "porkbun";
     providers = ["gcore"];
     records = [
       common.hostRecs.CAA
