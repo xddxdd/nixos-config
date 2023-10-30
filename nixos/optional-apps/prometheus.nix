@@ -123,7 +123,7 @@ in {
               # MySQL Galera Down
               {
                 alert = "node_mysql_galera_down";
-                expr = ''mysql_global_status_wsrep_cluster_status == 0'';
+                expr = ''mysql_global_status_wsrep_local_state != bool 4'';
                 for = "10m";
                 labels.severity = "critical";
                 annotations = {
