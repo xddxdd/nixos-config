@@ -12,7 +12,6 @@
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud27;
-    enableBrokenCiphersForSSE = false;
     autoUpdateApps.enable = true;
     caching = {
       apcu = true;
