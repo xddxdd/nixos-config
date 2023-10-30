@@ -53,6 +53,7 @@ in {
       (scrapeAllNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
       (scrapeAllNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
+      (scrapeAllNodes "postgres" LT.port.Prometheus.PostgresExporter)
     ];
 
     # https://gist.github.com/globin/02496fd10a96a36f092a8e7ea0e6c7dd
@@ -129,6 +130,18 @@ in {
                 annotations = {
                   summary = "⚠️ {{$labels.alias}}: MySQL Galera down.";
                   description = "{{$labels.alias}} MySQL Galera sync is down.";
+                };
+              }
+
+              # PostgreSQL Down
+              {
+                alert = "node_postgresql_down";
+                expr = ''pg_up == 0'';
+                for = "10m";
+                labels.severity = "critical";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: PostgreSQL down.";
+                  description = "{{$labels.alias}} PostgreSQL instance is down.";
                 };
               }
 
