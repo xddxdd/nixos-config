@@ -103,20 +103,6 @@
         IPv6SubnetMask = 64;
       };
     };
-    indium = {
-      remoteASN = 4242422925;
-      latencyMs = 7;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22925;
-        remoteAddress = "45.77.122.135";
-        remotePort = 41150;
-        wireguardPubkey = "ktEkScrxgMLaCTnkG/ch/rq0PlXOBa4Tl9mI7iL0wig=";
-      };
-      addressing = {
-        peerIPv6LinkLocal = "fe80::abcd";
-      };
-    };
     jlu5 = {
       remoteASN = 4242421080;
       latencyMs = 1;
