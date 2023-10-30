@@ -93,4 +93,11 @@
         + LT.nginx.serveLocalhost null;
     };
   };
+
+  services.prometheus.exporters.postgres = {
+    enable = true;
+    port = LT.port.Prometheus.PostgresExporter;
+    listenAddress = LT.this.ltnet.IPv4;
+    runAsLocalSuperUser = true;
+  };
 }
