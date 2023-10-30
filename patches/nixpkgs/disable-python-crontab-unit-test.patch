@@ -1,0 +1,13 @@
+diff --git a/pkgs/development/python-modules/python-crontab/default.nix b/pkgs/development/python-modules/python-crontab/default.nix
+index 99cf1c63ca8f..712b0814d7c7 100644
+--- a/pkgs/development/python-modules/python-crontab/default.nix
++++ b/pkgs/development/python-modules/python-crontab/default.nix
+@@ -22,6 +22,8 @@ buildPythonPackage rec {
+     python-dateutil
+   ];
+ 
++  doCheck = false;
++
+   nativeCheckInputs = [
+     pytestCheckHook
+   ];

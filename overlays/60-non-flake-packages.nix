@@ -9,6 +9,6 @@ in {
     nativeBuildInputs = with final; [cmake];
     buildInputs = with final; [zlib-ng];
 
-    cargoSha256 = "sha256-9dU/fhTuGG5XX9rJdMS+7K56aA+tHoHowITttn7uLB8=";
+    cargoSha256 = "sha256-sYVLiA/qXA+pAj7ZnYmA1ctVqmcDtH46JoaK6uQ5lWo=";
   };
 }

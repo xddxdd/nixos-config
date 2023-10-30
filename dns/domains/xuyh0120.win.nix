@@ -48,7 +48,7 @@ with dns; let
     })
     (CNAME {
       name = "books";
-      target = "servarica";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
