@@ -17,6 +17,8 @@ in rec {
       ++ [
         ../patches/drone-server-listen-unix.patch
       ];
+
+    tags = old.tags ++ ["nolimit"];
   });
   flexget = prev.flexget.overrideAttrs (old: {
     propagatedBuildInputs = with prev.python3Packages;
