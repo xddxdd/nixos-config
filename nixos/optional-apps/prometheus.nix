@@ -24,6 +24,7 @@ in {
     enable = true;
     port = LT.port.Prometheus.Daemon;
     listenAddress = "127.0.0.1";
+    webExternalUrl = "https://prometheus.xuyh0120.win";
     stateDir = "prometheus";
     checkConfig = "syntax-only";
 
@@ -179,6 +180,7 @@ in {
     enable = true;
     port = LT.port.Prometheus.AlertManager;
     listenAddress = "127.0.0.1";
+    webExternalUrl = "https://alert.xuyh0120.win";
     configuration = {
       global = {
         smtp_from = config.programs.msmtp.accounts.default.from;
@@ -219,5 +221,38 @@ in {
         config.services.prometheus.alertmanager.configuration
         "/tmp/alert-manager-substituted.yaml"}
     '';
+  };
+
+  services.nginx.virtualHosts = {
+    "alert.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {} {
+        "/".extraConfig =
+          LT.nginx.locationOauthConf
+          + ''
+            proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.AlertManager};
+          ''
+          + LT.nginx.locationProxyConf;
+      };
+      extraConfig =
+        LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
+    "prometheus.xuyh0120.win" = {
+      listen = LT.nginx.listenHTTPS;
+      locations = LT.nginx.addCommonLocationConf {} {
+        "/".extraConfig =
+          LT.nginx.locationOauthConf
+          + ''
+            proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.Daemon};
+          ''
+          + LT.nginx.locationProxyConf;
+      };
+      extraConfig =
+        LT.nginx.makeSSL "xuyh0120.win_ecc"
+        + LT.nginx.commonVhostConf true
+        + LT.nginx.noIndex true;
+    };
   };
 }
