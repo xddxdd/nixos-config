@@ -9,7 +9,7 @@
 } @ args: {
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_14;
+    package = pkgs.postgresql_16_jit;
     settings.listen_addresses = lib.mkForce (lib.concatStringsSep ", " [
       "127.0.0.1"
       "::1"
