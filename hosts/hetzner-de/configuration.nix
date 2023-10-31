@@ -15,6 +15,7 @@
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/drone-ci.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix

@@ -37,6 +37,11 @@ with dns; let
 
   internalServices = [
     (CNAME {
+      name = "alert";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "asf";
       target = "terrahost";
       ttl = "1h";
@@ -79,6 +84,11 @@ with dns; let
     (CNAME {
       name = "private";
       target = "hetzner-de.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    })
+    (CNAME {
+      name = "prometheus";
+      target = "hetzner-de";
       ttl = "1h";
     })
     (CNAME {
