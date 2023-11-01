@@ -70,7 +70,6 @@
     var/lib/jellyfin/transcodes/
     var/lib/libvirt/
     var/lib/machines/
-    var/lib/matrix-synapse/media
     var/lib/os-prober/
     var/lib/private/
     var/lib/prometheus/
