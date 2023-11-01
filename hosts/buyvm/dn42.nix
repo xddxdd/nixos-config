@@ -293,6 +293,20 @@
         peerIPv6LinkLocal = "fe80::2458";
       };
     };
+    sergey = {
+      remoteASN = 4242420705;
+      latencyMs = 54;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20705;
+        remoteAddress = "151.250.94.244";
+        remotePort = 716;
+        wireguardPubkey = "9TNcbK3kEOPngUiUosc6iu4A0SE2z8MIUlnmpy8Pv1k=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.203.193";
+      };
+    };
     spf = {
       remoteASN = 4242421964;
       latencyMs = 8;
