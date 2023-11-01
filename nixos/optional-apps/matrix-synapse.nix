@@ -228,6 +228,10 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    "d /var/lib/matrix-synapse/media 755 matrix-synapse matrix-synapse"
+  ];
+
   users.users.matrix-sliding-sync = {
     group = "matrix-sliding-sync";
     isSystemUser = true;
