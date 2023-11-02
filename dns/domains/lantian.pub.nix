@@ -49,10 +49,18 @@ with dns; let
     })
     (A {
       name = "oracle-lb";
-      address = "140.238.39.120";
+      address = "131.186.33.1";
     })
     (AAAA {
       name = "oracle-lb";
+      address = "2603:c021:8000:aaaa:ec00:e71d:1fd4:3d48";
+    })
+    (A {
+      name = "oracle-nlb";
+      address = "140.238.39.120";
+    })
+    (AAAA {
+      name = "oracle-nlb";
       address = "2603:c021:8000:aaaa:c15d:d2e2:da2d:af58";
     })
     (CNAME {
