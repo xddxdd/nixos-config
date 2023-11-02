@@ -26,6 +26,7 @@
   };
 
   provider.uptimerobot.api_key = "\${var.uptimerobot_api_key}";
+  provider.uptimerobot.cache_ttl = 86400;
 
   resource.uptimerobot_alert_contact.email = {
     friendly_name = "\${var.email}";
