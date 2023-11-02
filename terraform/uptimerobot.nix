@@ -51,6 +51,28 @@
           {id = "\${uptimerobot_alert_contact.telegram.id}";}
         ];
       };
+
+      utils_oracle_lb = {
+        friendly_name = "Utils/Oracle LB";
+        type = "port";
+        sub_type = "https";
+        url = "oracle-lb.lantian.pub";
+        interval = 300;
+        alert_contact = [
+          {id = "\${uptimerobot_alert_contact.telegram.id}";}
+        ];
+      };
+
+      utils_oracle_nlb = {
+        friendly_name = "Utils/Oracle NLB";
+        type = "port";
+        sub_type = "https";
+        url = "oracle-nlb.lantian.pub";
+        interval = 300;
+        alert_contact = [
+          {id = "\${uptimerobot_alert_contact.telegram.id}";}
+        ];
+      };
     }
     // (lib.mapAttrs' (n: v:
       lib.nameValuePair "blog_${LT.sanitizeName n}" {
