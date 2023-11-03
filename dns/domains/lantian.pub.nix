@@ -154,7 +154,7 @@ with dns; let
     })
     (CNAME {
       name = "tools";
-      target = common.records.GeoDNSTarget;
+      target = "v-ps-sjc";
       ttl = "1h";
     })
     (CNAME {
