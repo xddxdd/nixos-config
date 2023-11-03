@@ -16,7 +16,7 @@
     mota-51 = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-51.nix {});
     mota-xinxin = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-xinxin.nix {});
   };
-in {
+in lib.mkIf (!(builtins.elem LT.tags.low-disk LT.this.tags)) {
   networking.hosts."127.0.0.1" = ["tools.lantian.pub"];
 
   services.nginx.virtualHosts."tools.lantian.pub" = {

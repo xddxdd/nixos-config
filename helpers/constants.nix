@@ -155,6 +155,7 @@
 
       # Hardware
       "i915-sriov"
+      "low-disk"
       "low-ram"
       "qemu"
       "x86_64-v1"

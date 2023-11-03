@@ -15,7 +15,7 @@
       description = "Enable route-chain service.";
     };
     routes = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [];
       description = "Routes to be handled by route-chain.";
     };
