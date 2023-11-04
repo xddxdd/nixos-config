@@ -1,20 +1,37 @@
 diff --git a/src/base/bittorrent/sessionimpl.cpp b/src/base/bittorrent/sessionimpl.cpp
-index 935e1136b..b1aa7a655 100644
+index 7569e0859..3101d1ae3 100644
 --- a/src/base/bittorrent/sessionimpl.cpp
 +++ b/src/base/bittorrent/sessionimpl.cpp
-@@ -2693,7 +2693,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
+@@ -2851,7 +2851,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
      // We should not add the torrent if it is already
      // processed or is pending to add to session
      if (m_loadingTorrents.contains(id) || (infoHash.isHybrid() && m_loadingTorrents.contains(altID)))
 -        return false;
 +        return true;
  
-     if (Torrent *torrent = findTorrent(infoHash); torrent)
+     if (Torrent *torrent = findTorrent(infoHash))
      {
-@@ -2703,7 +2703,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
-             torrent->setMetadata(std::get<TorrentInfo>(source));
+@@ -2865,14 +2865,14 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
+         if (!isMergeTrackersEnabled())
+         {
+             LogMsg(tr("Detected an attempt to add a duplicate torrent. Merging of trackers is disabled. Torrent: %1").arg(torrent->name()));
+-            return false;
++            return true;
          }
  
+         const bool isPrivate = torrent->isPrivate() || (hasMetadata && std::get<TorrentInfo>(source).isPrivate());
+         if (isPrivate)
+         {
+             LogMsg(tr("Detected an attempt to add a duplicate torrent. Trackers cannot be merged because it is a private torrent. Torrent: %1").arg(torrent->name()));
+-            return false;
++            return true;
+         }
+ 
+         if (hasMetadata)
+@@ -2893,7 +2893,7 @@ bool SessionImpl::addTorrent_impl(const std::variant<MagnetUri, TorrentInfo> &so
+         }
+ 
+         LogMsg(tr("Detected an attempt to add a duplicate torrent. Trackers are merged from new source. Torrent: %1").arg(torrent->name()));
 -        return false;
 +        return true;
      }
