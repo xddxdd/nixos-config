@@ -123,12 +123,12 @@ in [
     registrar = "porkbun";
     providers = ["cloudflare"];
     records = [
-      (dns.ALIAS {
+      (ALIAS {
         name = "${domain}.";
         target = common.records.GeoDNSTarget;
         ttl = "10m";
       })
-      (dns.CNAME {
+      (CNAME {
         name = "www.${domain}.";
         target = common.records.GeoDNSTarget;
         ttl = "10m";
@@ -146,11 +146,7 @@ in [
       common.records.Libravatar
       common.records.ProxmoxCluster
       common.records.SIP
-      (common.hostRecs.GeoInfo {
-        name = "geoinfo";
-        ttl = "1h";
-      })
-
+      common.records.GeoRecords
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
       (common.hostRecs.NeoNetwork "neo.${domain}")
