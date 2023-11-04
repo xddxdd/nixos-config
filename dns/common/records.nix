@@ -4,7 +4,7 @@
   dns,
   ...
 } @ args: let
-  inherit (pkgs.callPackage ./host-recs.nix args) fakeALIAS;
+  inherit (pkgs.callPackage ./host-recs.nix args) fakeALIAS Geo;
 in
   with dns; rec {
     Autoconfig = domain: [
@@ -61,6 +61,27 @@ in
     ];
 
     GeoDNSTarget = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
+    GeoStorDNSTarget = "geo-stor.56631131.xyz."; # Hosted on NS1.com for GeoDNS
+
+    GeoRecords = [
+      (Geo {
+        # GeoDNS for public facing servers
+        name = "geo";
+        ttl = "1h";
+        filter = n: v:
+          (builtins.elem "server" v.tags)
+          && (builtins.elem "public-facing" v.tags);
+      })
+      (Geo {
+        # GeoDNS for servers with sufficient storage
+        name = "geo-stor";
+        ttl = "1h";
+        filter = n: v:
+          (builtins.elem "server" v.tags)
+          && (builtins.elem "public-facing" v.tags)
+          && (!(builtins.elem "low-disk" v.tags));
+      })
+    ];
 
     Libravatar = [
       (fakeALIAS {

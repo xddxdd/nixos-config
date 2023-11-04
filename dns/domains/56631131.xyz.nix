@@ -17,11 +17,7 @@ in [
       (common.hostRecs.Normal domain)
       common.records.Libravatar
       common.records.SIP
-      (common.hostRecs.GeoInfo {
-        name = "geoinfo";
-        ttl = "1h";
-      })
-
+      common.records.GeoRecords
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
       (common.hostRecs.NeoNetwork "neo.${domain}")
@@ -44,9 +40,6 @@ in [
         name = "virmach-host";
         target = "ns2.vpshared.com.";
       })
-
-      (IGNORE {name = "geo";})
-      (IGNORE {name = "geo-test";})
 
       (NS {
         name = "xip";

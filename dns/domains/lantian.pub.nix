@@ -154,7 +154,7 @@ with dns; let
     })
     (CNAME {
       name = "tools";
-      target = "v-ps-sjc";
+      target = common.records.GeoStorDNSTarget;
       ttl = "1h";
     })
     (CNAME {
@@ -222,12 +222,12 @@ in [
     registrar = "porkbun";
     providers = ["cloudflare"];
     records = [
-      (dns.ALIAS {
+      (ALIAS {
         name = "${domain}.";
         target = common.records.GeoDNSTarget;
         ttl = "10m";
       })
-      (dns.CNAME {
+      (CNAME {
         name = "www.${domain}.";
         target = common.records.GeoDNSTarget;
         ttl = "10m";
@@ -245,10 +245,8 @@ in [
       common.records.Libravatar
       common.records.ProxmoxCluster
       common.records.SIP
-      (common.hostRecs.GeoInfo {
-        name = "geoinfo";
-        ttl = "1h";
-      })
+      common.records.GeoRecords
+
       (TXT {
         name = "@";
         contents = "MS=ms22955481";

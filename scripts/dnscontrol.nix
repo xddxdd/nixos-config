@@ -25,7 +25,7 @@ in ''
   mkdir -p "$TEMP_DIR/zones"
 
   cd "$TEMP_DIR"
-  ${dnscontrol}/bin/dnscontrol --diff2 $* && RET=0 || RET=$?
+  ${dnscontrol}/bin/dnscontrol $* && RET=0 || RET=$?
   rm -rf "$CURR_DIR/zones"
   mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
 
