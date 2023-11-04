@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "f930ee4852430fe2bb7f6d3cd048519a38149835";
+    version = "e95c7720766998fceddd9417a0c23df1a17c8d2e";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "f930ee4852430fe2bb7f6d3cd048519a38149835";
+      rev = "e95c7720766998fceddd9417a0c23df1a17c8d2e";
       fetchSubmodules = false;
-      sha256 = "sha256-8tX4zhVnmHUGauFUKM7oNXU4KBQGr1CSezriA2TeXcQ=";
+      sha256 = "sha256-v4Lu6JitWfJttYTgYawOvrMRN/EPYxd17jdJ9LQmohI=";
     };
-    date = "2023-10-01";
+    date = "2023-10-30";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -126,27 +126,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "b899e19087e678463cfbe3c12d1d0ea1d418712d";
+    version = "63c787070a636c310f5216ddf9538626c680ba44";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "b899e19087e678463cfbe3c12d1d0ea1d418712d";
+      rev = "63c787070a636c310f5216ddf9538626c680ba44";
       fetchSubmodules = false;
-      sha256 = "sha256-cgQIVFwItiKmjmizKhmk/E7r4dGCT6E9WGSKvPH04aw=";
+      sha256 = "sha256-VcEtxQPicAIXOygkGpOGDzkPj2TxTzoH262GYNplfo8=";
     };
-    date = "2023-10-27";
+    date = "2023-11-02";
   };
   openvpn = {
     pname = "openvpn";
-    version = "c827f9d83a7246971f435d0053b0252e49770f11";
+    version = "f53f06316dbb804128fc5cbee1d8edb274ce81df";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "c827f9d83a7246971f435d0053b0252e49770f11";
+      rev = "f53f06316dbb804128fc5cbee1d8edb274ce81df";
       fetchSubmodules = false;
-      sha256 = "sha256-kqbVEn3g1tAN24VL8PXVS2IqLMQ2cYepqHgkOmIKOrE=";
+      sha256 = "sha256-LH40nI/bAxHXPZWjsUwj46+OLS+T0HGNw7WAk9yMyqo=";
     };
-    date = "2023-10-22";
+    date = "2023-10-31";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -162,15 +162,15 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "dba96d203f960356b477291d6a58d30fc096fbe4";
+    version = "0613e71884c92acbb964f36813a810104e525c7f";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "dba96d203f960356b477291d6a58d30fc096fbe4";
+      rev = "0613e71884c92acbb964f36813a810104e525c7f";
       fetchSubmodules = false;
-      sha256 = "sha256-DpguXHrVLJpvl9leFRtpsHnxx8VyQ2ZIHcYSYRz2iGE=";
+      sha256 = "sha256-5WyD440mX4vvjni7p+H6suuKgrNFNKmyRkTrmCv2m1M=";
     };
-    date = "2023-08-16";
+    date = "2023-11-03";
   };
   soggy-resources = {
     pname = "soggy-resources";
