@@ -145,61 +145,6 @@ in {
         };
     };
 
-    drone-exec = {
-      path = with pkgs; [
-        bash
-        coreutils
-        git
-        nix
-        config.programs.ssh.package
-      ];
-      wantedBy = ["multi-user.target"];
-      environment = {
-        # Make socket bind fail, this won't affect runner functionality
-        DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "drone.localhost";
-        DRONE_RPC_PROTO = "http";
-        DRONE_RUNNER_CAPACITY = "4";
-        DRONE_RUNNER_NAME = "drone-exec";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
-      };
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
-        EnvironmentFile = config.age.secrets.drone-ci-env.path;
-        ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
-        Nice = "19";
-      };
-    };
-    drone-exec-github = {
-      path = with pkgs; [
-        bash
-        coreutils
-        git
-        nix
-        config.programs.ssh.package
-      ];
-      wantedBy = ["multi-user.target"];
-      environment = {
-        # Make socket bind fail, this won't affect runner functionality
-        DRONE_HTTP_BIND = "255.255.255.255:65535";
-        DRONE_RPC_HOST = "drone-github.localhost";
-        DRONE_RPC_PROTO = "http";
-        DRONE_RUNNER_CAPACITY = "4";
-        DRONE_RUNNER_NAME = "drone-exec";
-        DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
-      };
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
-        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
-        ExecStart = "${pkgs.drone-runner-exec}/bin/drone-runner-exec";
-        Nice = "19";
-      };
-    };
-
     drone-file-secret = {
       wantedBy = ["multi-user.target"];
       environment = {
