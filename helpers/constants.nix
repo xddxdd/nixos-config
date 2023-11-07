@@ -74,6 +74,7 @@
     NFS.MountD = 4002;
     Quassel = 4242;
     IPFS.API = 5001;
+    IPerf = 5201;
     Radarr = 7878;
     IPFS.Gateway = 8080;
     Waline = 8360;
