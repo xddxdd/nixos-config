@@ -184,6 +184,21 @@
         peerIPv6LinkLocal = "fe80::2458";
       };
     };
+    sernet = {
+      remoteASN = 4242423947;
+      latencyMs = 3;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23947;
+        remoteAddress = "us-nyc1.dn42.sherpherd.top";
+        remotePort = 22547;
+        wireguardPubkey = "PXkGrHooCFnB6N8bD6isgVjhl9GvzD2CLqlA+e2XikM=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::3947:7";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 15;
