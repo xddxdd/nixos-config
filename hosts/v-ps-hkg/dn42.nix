@@ -261,6 +261,22 @@
         peerIPv6LinkLocal = "fe80::3947:1";
       };
     };
+    skyone = {
+      remoteASN = 4242420811;
+      latencyMs = 3;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20811;
+        remoteAddress = "hk1.dn42.skyone.dev";
+        remotePort = 42547;
+        wireguardPubkey = "acuXU491Lw4iswEm6PWhLcyeeSK1k7nKP4II8w2LK3s=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.107.65";
+        peerIPv6LinkLocal = "fe80::26cf";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 2;
