@@ -13,11 +13,6 @@
 in {
   imports = [../postgresql.nix];
 
-  age.secrets.plausible-release-cookie = {
-    file = inputs.secrets + "/plausible-release-cookie.age";
-    owner = "plausible";
-    group = "plausible";
-  };
   age.secrets.plausible-secret = {
     file = inputs.secrets + "/plausible-secret.age";
     owner = "plausible";
@@ -39,7 +34,6 @@ in {
 
   services.plausible = {
     enable = true;
-    releaseCookiePath = config.age.secrets.plausible-release-cookie.path;
 
     mail = {
       email = config.programs.msmtp.accounts.default.from;
@@ -96,7 +90,7 @@ in {
     plausible = netns.bind {
       environment = {
         RELEASE_DISTRIBUTION = "none";
-        LISTEN_IP = "0.0.0.0";
+        LISTEN_IP = lib.mkForce "0.0.0.0";
         RELEASE_VM_ARGS = pkgs.writeText "vm.args" ''
           -kernel inet_dist_use_interface "{127,0,0,1}"
         '';
