@@ -122,17 +122,17 @@ in {
                   description = "{{$labels.alias}} MySQL instance is down.";
                 };
               }
-              # MySQL Galera Down
-              {
-                alert = "node_mysql_galera_down";
-                expr = ''mysql_global_status_wsrep_local_state != 4'';
-                for = "10m";
-                labels.severity = "critical";
-                annotations = {
-                  summary = "⚠️ {{$labels.alias}}: MySQL Galera down.";
-                  description = "{{$labels.alias}} MySQL Galera sync is down.";
-                };
-              }
+              # # MySQL Galera Down
+              # {
+              #   alert = "node_mysql_galera_down";
+              #   expr = ''mysql_global_status_wsrep_local_state != 4'';
+              #   for = "10m";
+              #   labels.severity = "critical";
+              #   annotations = {
+              #     summary = "⚠️ {{$labels.alias}}: MySQL Galera down.";
+              #     description = "{{$labels.alias}} MySQL Galera sync is down.";
+              #   };
+              # }
 
               # PostgreSQL Down
               {
