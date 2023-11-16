@@ -22,7 +22,6 @@
     ../../nixos/optional-apps/genshin-grasscutter.nix
     ../../nixos/optional-apps/genshin-soggy.nix
     ../../nixos/optional-apps/glauth.nix
-    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/nvidia/grid-extension.nix
