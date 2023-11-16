@@ -26,7 +26,6 @@ in {
       ${lib.concatMapStringsSep "\n" (k: "server ${k} ${serverOption}") ntpServers}
       ${lib.concatMapStringsSep "\n" (k: "pool ${k} ${serverOption}") ntpPools}
 
-      rtcsync
       cmdport 0
     '';
     serverOption =

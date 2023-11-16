@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "e95c7720766998fceddd9417a0c23df1a17c8d2e";
+    version = "1385e150f515795aa078bdbae2b8cdafb7567368";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "e95c7720766998fceddd9417a0c23df1a17c8d2e";
+      rev = "1385e150f515795aa078bdbae2b8cdafb7567368";
       fetchSubmodules = false;
-      sha256 = "sha256-v4Lu6JitWfJttYTgYawOvrMRN/EPYxd17jdJ9LQmohI=";
+      sha256 = "sha256-ScowJqUWuygRb1TTK0NJVJ4OknOspinPCUFgzWcDefc=";
     };
-    date = "2023-10-30";
+    date = "2023-11-05";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -91,15 +91,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "cc2b354d952b16821177d790b7410cc2891262ab";
+    version = "73ea1d13810b06f316ffc7e8595a2a35d6863dfc";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "cc2b354d952b16821177d790b7410cc2891262ab";
+      rev = "73ea1d13810b06f316ffc7e8595a2a35d6863dfc";
       fetchSubmodules = false;
-      sha256 = "sha256-iveO11Jjy7qNZb09+V8w9aQuRLiCi90311tUt/NeQW0=";
+      sha256 = "sha256-va5Wde/uXyf6WSFaGyZUcTqz06dSrRqsYbCplDrjfrI=";
     };
-    date = "2023-10-18";
+    date = "2023-11-04";
   };
   nft-fullcone = {
     pname = "nft-fullcone";
@@ -115,38 +115,38 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.16";
+    version = "v0.17";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      rev = "v0.16";
+      rev = "v0.17";
       fetchSubmodules = false;
-      sha256 = "sha256-hmmH5bPk3ZgMLobnsMXMtz8yy33jWDfOcxtfSoOgjaw=";
+      sha256 = "sha256-Hkplhem4Gb1xsYQtRSWub0m15Fiil3qJAO183ygP+WI=";
     };
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "63c787070a636c310f5216ddf9538626c680ba44";
+    version = "5f34ec7949334af7825aacd20e89d547347c7c9d";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "63c787070a636c310f5216ddf9538626c680ba44";
+      rev = "5f34ec7949334af7825aacd20e89d547347c7c9d";
       fetchSubmodules = false;
-      sha256 = "sha256-VcEtxQPicAIXOygkGpOGDzkPj2TxTzoH262GYNplfo8=";
+      sha256 = "sha256-J84cD7ZFMVyCX3oKOe6bot/TQ7flhzeay0lT2+6mIJQ=";
     };
-    date = "2023-11-02";
+    date = "2023-11-15";
   };
   openvpn = {
     pname = "openvpn";
-    version = "f53f06316dbb804128fc5cbee1d8edb274ce81df";
+    version = "efad93d049c318a3bd9ea5956c6ac8237b8d6d70";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "f53f06316dbb804128fc5cbee1d8edb274ce81df";
+      rev = "efad93d049c318a3bd9ea5956c6ac8237b8d6d70";
       fetchSubmodules = false;
-      sha256 = "sha256-LH40nI/bAxHXPZWjsUwj46+OLS+T0HGNw7WAk9yMyqo=";
+      sha256 = "sha256-PWjdCP/E50pt43nf44kh53/+8hLXa9rA5pGvptbR0uM=";
     };
-    date = "2023-10-31";
+    date = "2023-11-15";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -211,15 +211,15 @@
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
-    version = "4c6af50d1c9a24d5aad2c597634ff0c634972a5c";
+    version = "827cfe5e1d2f89f742f811f981759787b0654fa9";
     src = fetchFromGitHub {
       owner = "Ulauncher";
       repo = "ulauncher-emoji";
-      rev = "4c6af50d1c9a24d5aad2c597634ff0c634972a5c";
+      rev = "827cfe5e1d2f89f742f811f981759787b0654fa9";
       fetchSubmodules = false;
-      sha256 = "sha256-VIWmv+vFByYS3VRuXqWOOORRu+zson+xOYg7havYM14=";
+      sha256 = "sha256-iXu0V7Vyij0fg+3psRx7r1nI9MGH6RmxdDW8/V/5slU=";
     };
-    date = "2021-08-08";
+    date = "2023-11-04";
   };
   ulauncher-meme-my-text = {
     pname = "ulauncher-meme-my-text";

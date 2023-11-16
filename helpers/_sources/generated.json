@@ -36,7 +36,7 @@
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2023-10-30",
+        "date": "2023-11-05",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "e95c7720766998fceddd9417a0c23df1a17c8d2e",
-            "sha256": "sha256-v4Lu6JitWfJttYTgYawOvrMRN/EPYxd17jdJ9LQmohI=",
+            "rev": "1385e150f515795aa078bdbae2b8cdafb7567368",
+            "sha256": "sha256-ScowJqUWuygRb1TTK0NJVJ4OknOspinPCUFgzWcDefc=",
             "type": "github"
         },
-        "version": "e95c7720766998fceddd9417a0c23df1a17c8d2e"
+        "version": "1385e150f515795aa078bdbae2b8cdafb7567368"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -150,7 +150,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2023-10-18",
+        "date": "2023-11-04",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -162,11 +162,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "cc2b354d952b16821177d790b7410cc2891262ab",
-            "sha256": "sha256-iveO11Jjy7qNZb09+V8w9aQuRLiCi90311tUt/NeQW0=",
+            "rev": "73ea1d13810b06f316ffc7e8595a2a35d6863dfc",
+            "sha256": "sha256-va5Wde/uXyf6WSFaGyZUcTqz06dSrRqsYbCplDrjfrI=",
             "type": "github"
         },
-        "version": "cc2b354d952b16821177d790b7410cc2891262ab"
+        "version": "73ea1d13810b06f316ffc7e8595a2a35d6863dfc"
     },
     "nft-fullcone": {
         "cargoLocks": null,
@@ -202,15 +202,15 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.16",
-            "sha256": "sha256-hmmH5bPk3ZgMLobnsMXMtz8yy33jWDfOcxtfSoOgjaw=",
+            "rev": "v0.17",
+            "sha256": "sha256-Hkplhem4Gb1xsYQtRSWub0m15Fiil3qJAO183ygP+WI=",
             "type": "github"
         },
-        "version": "v0.16"
+        "version": "v0.17"
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-11-02",
+        "date": "2023-11-15",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -222,15 +222,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "63c787070a636c310f5216ddf9538626c680ba44",
-            "sha256": "sha256-VcEtxQPicAIXOygkGpOGDzkPj2TxTzoH262GYNplfo8=",
+            "rev": "5f34ec7949334af7825aacd20e89d547347c7c9d",
+            "sha256": "sha256-J84cD7ZFMVyCX3oKOe6bot/TQ7flhzeay0lT2+6mIJQ=",
             "type": "github"
         },
-        "version": "63c787070a636c310f5216ddf9538626c680ba44"
+        "version": "5f34ec7949334af7825aacd20e89d547347c7c9d"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-10-31",
+        "date": "2023-11-15",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -242,11 +242,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "f53f06316dbb804128fc5cbee1d8edb274ce81df",
-            "sha256": "sha256-LH40nI/bAxHXPZWjsUwj46+OLS+T0HGNw7WAk9yMyqo=",
+            "rev": "efad93d049c318a3bd9ea5956c6ac8237b8d6d70",
+            "sha256": "sha256-PWjdCP/E50pt43nf44kh53/+8hLXa9rA5pGvptbR0uM=",
             "type": "github"
         },
-        "version": "f53f06316dbb804128fc5cbee1d8edb274ce81df"
+        "version": "efad93d049c318a3bd9ea5956c6ac8237b8d6d70"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
@@ -349,7 +349,7 @@
     },
     "ulauncher-emoji": {
         "cargoLocks": null,
-        "date": "2021-08-08",
+        "date": "2023-11-04",
         "extract": null,
         "name": "ulauncher-emoji",
         "passthru": null,
@@ -361,11 +361,11 @@
             "name": null,
             "owner": "Ulauncher",
             "repo": "ulauncher-emoji",
-            "rev": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c",
-            "sha256": "sha256-VIWmv+vFByYS3VRuXqWOOORRu+zson+xOYg7havYM14=",
+            "rev": "827cfe5e1d2f89f742f811f981759787b0654fa9",
+            "sha256": "sha256-iXu0V7Vyij0fg+3psRx7r1nI9MGH6RmxdDW8/V/5slU=",
             "type": "github"
         },
-        "version": "4c6af50d1c9a24d5aad2c597634ff0c634972a5c"
+        "version": "827cfe5e1d2f89f742f811f981759787b0654fa9"
     },
     "ulauncher-meme-my-text": {
         "cargoLocks": null,
