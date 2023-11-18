@@ -386,7 +386,7 @@ in rec {
       postFixup =
         (old.postFixup or "")
         + ''
-          web-compressor $out
+          web-compressor --target $out
         '';
     });
 }
