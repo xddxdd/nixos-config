@@ -271,15 +271,15 @@
   };
   web-compressor = {
     pname = "web-compressor";
-    version = "065645e9aacc6eb4179d75848d21fc72c0401093";
+    version = "7c8e79dea7af1afad562b43268129ebbc72b0bb3";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "web-compressor";
-      rev = "065645e9aacc6eb4179d75848d21fc72c0401093";
+      rev = "7c8e79dea7af1afad562b43268129ebbc72b0bb3";
       fetchSubmodules = false;
-      sha256 = "sha256-b75a4pavq8wesdGQxZ6nq0C8rJp/30zlsfIu0Lbd42Q=";
+      sha256 = "sha256-KGZqQsV7oo3ggHP4ZBdK3/f3R6Eq7g5xr1o5GzVGXOM=";
     };
-    date = "2023-10-24";
+    date = "2023-11-18";
   };
   yourls = {
     pname = "yourls";
