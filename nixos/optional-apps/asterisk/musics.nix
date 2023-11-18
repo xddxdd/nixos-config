@@ -19,6 +19,8 @@
     "zen_me_hai_bu_ai.mp3"
     "chen_yi_xun_gu_yong_zhe.mp3"
     "zu_ya_na_xi_gu_yong_zhe.mp3"
+    "xi_ju_xing_fan_feng.mp3"
+    "qing_lian.mp3"
   ];
 
   musicSrc = pkgs.stdenvNoCC.mkDerivation {
@@ -26,7 +28,7 @@
     version = "1.0";
     src = pkgs.fetchurl {
       url = "https://private.xuyh0120.win/nixos-asterisk-music.tar.zst";
-      sha256 = "11dmwim2g7qrdp4q4l7mp4c9j3wax0iv152hrqz0aajbirqnfxs6";
+      sha256 = "09ij277jd4pqcpgbhc6wkyvnzhwcgdpkv86vknyvlyq2x9915rph";
     };
 
     nativeBuildInputs = with pkgs; [ffmpeg zstd];
