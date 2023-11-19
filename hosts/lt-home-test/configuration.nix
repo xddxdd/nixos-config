@@ -17,11 +17,56 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
-    ../../nixos/optional-apps/bgp-graph/instances/eve
+    ../../nixos/optional-apps/bgp-graph
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
   boot.kernelParams = ["pci=realloc,assign-busses"];
+
+  lantian.bgp-graph.test = {
+    baseAsn = 4200000000;
+    baseCidr = "fdbc:f9dc:67ad:8086::/64";
+    nodes = [
+      {
+        name = "alpha";
+        id = 1;
+      }
+      {
+        name = "beta";
+        id = 2;
+      }
+      {
+        name = "gamma";
+        id = 3;
+      }
+      {
+        name = "theta";
+        id = 5;
+      }
+    ];
+    edges = [
+      {
+        fromId = 1;
+        toId = 2;
+        distance = 1;
+      }
+      {
+        fromId = 1;
+        toId = 3;
+        distance = 1;
+      }
+      {
+        fromId = 1;
+        toId = 5;
+        distance = 1;
+      }
+      {
+        fromId = 2;
+        toId = 5;
+        distance = 2;
+      }
+    ];
+  };
 
   # ECC RAM
   hardware.rasdaemon.enable = true;
