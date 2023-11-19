@@ -34,10 +34,12 @@
         ipv4 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
+          gateway recursive;
         };
         ipv6 {
           import none;
           export none;
+          gateway recursive;
         };
       };
     ''
@@ -49,10 +51,12 @@
         ipv4 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
+          gateway recursive;
         };
         ipv6 {
           import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
           export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
+          gateway recursive;
         };
       };
     ''
@@ -190,13 +194,11 @@ in {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        gateway recursive;
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        gateway recursive;
       };
     };
   '';
