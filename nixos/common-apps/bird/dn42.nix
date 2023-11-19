@@ -182,7 +182,7 @@ in {
 
     template bgp dnpeers {
       local as ${DN42_AS};
-      path metric 1;
+      path metric yes;
       enable extended messages on;
       enforce first as on;
 

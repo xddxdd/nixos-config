@@ -17,6 +17,7 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
+    ../../nixos/optional-apps/bgp-graph/instances/eve
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 

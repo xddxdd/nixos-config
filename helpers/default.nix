@@ -54,6 +54,7 @@ in
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
     mkColmenaHive = call ./fn/mk-colmena-hive.nix;
+    net = (call ./fn/net.nix).lib.net;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
     serviceHarden = call ./fn/service-harden.nix;
