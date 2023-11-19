@@ -116,7 +116,7 @@
       RuntimeDirectory = "matrix-sliding-sync";
       StateDirectory = lib.mkForce [];
       WorkingDirectory = lib.mkForce "/run/matrix-sliding-sync";
-      UMask = "000";
+      UMask = "007";
     };
 
   systemd.services.matrix-synapse = {
@@ -236,5 +236,5 @@
     group = "matrix-sliding-sync";
     isSystemUser = true;
   };
-  users.groups.matrix-sliding-sync = {};
+  users.groups.matrix-sliding-sync.members = ["nginx"];
 }

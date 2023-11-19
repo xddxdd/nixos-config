@@ -197,7 +197,7 @@ in rec {
           + locationNoTimeoutConf;
 
         "/oauth2/" = {
-          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
           extraConfig =
             ''
               proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
@@ -206,7 +206,7 @@ in rec {
         };
 
         "/oauth2/auth" = {
-          proxyPass = "http://${this.ltnet.IPv4}:${portStr.Oauth2Proxy}";
+          proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
           extraConfig =
             ''
               proxy_set_header Content-Length "";
