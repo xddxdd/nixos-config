@@ -61,8 +61,8 @@
 
   systemd.services.miniflux.serviceConfig = {
     DynamicUser = lib.mkForce false;
-    RuntimeDirectoryMode = lib.mkForce "0755";
-    UMask = lib.mkForce "0022";
+    RuntimeDirectoryMode = lib.mkForce "0770";
+    UMask = lib.mkForce "0007";
     User = "miniflux";
     Group = "miniflux";
   };
@@ -71,5 +71,5 @@
     group = "miniflux";
     isSystemUser = true;
   };
-  users.groups.miniflux = {};
+  users.groups.miniflux.members = ["nginx"];
 }

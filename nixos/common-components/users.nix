@@ -48,6 +48,7 @@ in {
     };
     container = {
       gid = 65533;
+      members = ["nginx"];
     };
   };
 }

@@ -65,7 +65,7 @@ in {
           Group = "drone";
           AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
           CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-          UMask = "000";
+          UMask = "007";
         };
     };
     drone-github = {
@@ -95,7 +95,7 @@ in {
           Group = "drone-github";
           AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
           CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-          UMask = "000";
+          UMask = "007";
         };
     };
 
@@ -162,7 +162,7 @@ in {
           RuntimeDirectory = "drone-file-secret";
           User = "container";
           Group = "container";
-          UMask = "000";
+          UMask = "007";
         };
     };
   };
@@ -265,6 +265,6 @@ in {
     group = "drone-github";
     isSystemUser = true;
   };
-  users.groups.drone = {};
-  users.groups.drone-github = {};
+  users.groups.drone.members = ["nginx"];
+  users.groups.drone-github.members = ["nginx"];
 }

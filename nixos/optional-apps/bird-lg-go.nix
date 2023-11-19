@@ -51,9 +51,10 @@ in {
         Restart = "always";
         RestartSec = "3";
         ExecStart = "${pkgs.bird-lg-go}/bin/frontend";
-        DynamicUser = true;
         RuntimeDirectory = "bird-lg-go";
-        UMask = "000";
+        User = "bird-lg-go";
+        Group = "bird-lg-go";
+        UMask = "007";
       };
   };
 
@@ -90,4 +91,10 @@ in {
         + LT.nginx.noIndex true;
     };
   };
+
+  users.users.bird-lg-go = {
+    group = "bird-lg-go";
+    isSystemUser = true;
+  };
+  users.groups.bird-lg-go.members = ["nginx"];
 }

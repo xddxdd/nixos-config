@@ -16,7 +16,7 @@
       expire = "24h";
     };
     email.domains = ["*"];
-    httpAddress = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Oauth2Proxy}";
+    httpAddress = "unix:///run/oauth2_proxy/oauth2_proxy.sock";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;
@@ -27,7 +27,7 @@
     };
   };
   users.users.oauth2_proxy.group = "oauth2_proxy";
-  users.groups.oauth2_proxy = {};
+  users.groups.oauth2_proxy.members = ["nginx"];
 
   systemd.services.oauth2_proxy = {
     unitConfig = {
@@ -38,7 +38,8 @@
       // {
         Restart = "always";
         RestartSec = "3";
-        DynamicUser = true;
+        RuntimeDirectory = "oauth2_proxy";
+        UMask = "007";
       };
   };
 }
