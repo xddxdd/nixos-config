@@ -82,6 +82,11 @@ with dns; let
       ttl = "1h";
     })
     (CNAME {
+      name = "netbox";
+      target = "hetzner-de";
+      ttl = "1h";
+    })
+    (CNAME {
       name = "private";
       target = "hetzner-de.ltnet.xuyh0120.win.";
       ttl = "1h";

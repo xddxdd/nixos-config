@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/miniflux.nix
+    ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/nginx-lab
     ../../nixos/optional-apps/nginx-private.nix
