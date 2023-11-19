@@ -108,6 +108,7 @@
     GoAutoconfig.Start = 13780;
     GoAutoconfig.Stop = 13789;
     Plausible = 13800;
+    Netbox = 13801;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     Oauth2Proxy = 14180;
