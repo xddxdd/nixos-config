@@ -25,10 +25,16 @@
     secretKeyFile = config.age.secrets.netbox-secret.path;
     settings = {
       CSRF_TRUSTED_ORIGINS = ["https://netbox.xuyh0120.win"];
-      REMOTE_AUTH_ENABLED = true;
-      REMOTE_AUTH_BACKEND = "netbox.authentication.RemoteUserBackend";
-      REMOTE_AUTH_HEADER = "HTTP_X_USER";
+      REMOTE_AUTH_AUTO_CREATE_GROUPS = true;
       REMOTE_AUTH_AUTO_CREATE_USER = true;
+      REMOTE_AUTH_BACKEND = "netbox.authentication.RemoteUserBackend";
+      REMOTE_AUTH_ENABLED = true;
+      REMOTE_AUTH_GROUP_HEADER = "HTTP_X_GROUPS";
+      REMOTE_AUTH_GROUP_SEPARATOR = ",";
+      REMOTE_AUTH_GROUP_SYNC_ENABLED = true;
+      REMOTE_AUTH_HEADER = "HTTP_X_USER";
+      REMOTE_AUTH_SUPERUSERS = ["lantian"];
+      REMOTE_AUTH_USER_EMAIL = "HTTP_X_EMAIL";
     };
   };
 
