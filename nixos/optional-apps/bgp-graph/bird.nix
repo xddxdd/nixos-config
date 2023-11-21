@@ -118,51 +118,68 @@
       )
       config.lantian.bgp-graph)));
 
-  birdForNode = instance: instanceCfg: node: let
-    sanitizeName = n: builtins.replaceStrings ["_"] ["-"] (lib.toLower (LT.sanitizeName "${instance}-${n}"));
-  in {
-    name = "bgp-graph-bird-${sanitizeName node.name}";
-    value = let
+  birdServices = let
+    create-conf = pkgs.writeShellScriptBin "create-conf" ''
+      NETNS_NAME=$1
+      NETNS_SERVICE=$2
+      CONFIG_FILENAME=$3
+      OUTPUT=$4
+
+      cat > $OUTPUT <<EOF
+      [Unit]
+      After=network-pre.target $NETNS_SERVICE
+      BindsTo=$NETNS_SERVICE
+      Requires=$NETNS_SERVICE
+
+      [Service]
+      CPUQuota=10%
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
+      CapabilityBoundingSet=CAP_CHOWN
+      CapabilityBoundingSet=CAP_FOWNER
+      CapabilityBoundingSet=CAP_DAC_OVERRIDE
+      CapabilityBoundingSet=CAP_SETUID
+      CapabilityBoundingSet=CAP_SETGID
+      CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+      CapabilityBoundingSet=CAP_NET_BROADCAST
+      CapabilityBoundingSet=CAP_NET_ADMIN
+      CapabilityBoundingSet=CAP_NET_RAW
+      ExecStart=${pkgs.bird}/bin/bird -f -c $CONFIG_FILENAME -s /run/bird.$NETNS_NAME.ctl -u bird2 -g bird2
+      MemoryDenyWriteExecute=yes
+      NetworkNamespacePath=/run/netns/$NETNS_NAME
+      ProtectHome=yes
+      ProtectSystem=full
+      Restart=on-failure
+      SystemCallFilter=~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io
+      EOF
+    '';
+
+    forEachNode = instance: instanceCfg: node: let
+      sanitizeName = n: builtins.replaceStrings ["_"] ["-"] (lib.toLower (LT.sanitizeName "${instance}-${n}"));
+
       netnsName = "bgp-graph-${sanitizeName node.name}";
+      netnsServiceName = "bgp-graph-netns-${sanitizeName node.name}.service";
       filename = "${sanitizeName node.name}.conf";
       birdConfig = "${birdConfigs}/${filename}";
-    in {
-      wantedBy = ["multi-user.target" "network.target"];
-      after = ["network-pre.target" "bgp-graph-netns-${sanitizeName node.name}.service"];
-      requires = ["bgp-graph-netns-${sanitizeName node.name}.service"];
-      bindsTo = ["bgp-graph-netns-${sanitizeName node.name}.service"];
-      serviceConfig = {
-        # Type = "forking";
-        Restart = "on-failure";
-        ExecStart = "${pkgs.bird}/bin/bird -f -c ${birdConfig} -s /run/bird.${netnsName}.ctl -u bird2 -g bird2";
-        # ExecStop = "${pkgs.bird}/bin/birdc -s /run/bird.${netnsName}.ctl down";
-        CPUQuota = "10%";
-        NetworkNamespacePath = "/run/netns/${netnsName}";
-
-        # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
-        CapabilityBoundingSet = [
-          "CAP_CHOWN"
-          "CAP_FOWNER"
-          "CAP_DAC_OVERRIDE"
-          "CAP_SETUID"
-          "CAP_SETGID"
-          # see bird/sysdep/linux/syspriv.h
-          "CAP_NET_BIND_SERVICE"
-          "CAP_NET_BROADCAST"
-          "CAP_NET_ADMIN"
-          "CAP_NET_RAW"
-        ];
-        ProtectSystem = "full";
-        ProtectHome = "yes";
-        SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
-        MemoryDenyWriteExecute = "yes";
-      };
-    };
-  };
+      unitName = "bgp-graph-bird-${sanitizeName node.name}.service";
+    in ''
+      create-conf \
+        ${netnsName} \
+        ${netnsServiceName} \
+        ${birdConfig} \
+        $out/etc/systemd/system/${unitName}
+    '';
+  in
+    pkgs.runCommand "bgp-graph-bird" {
+      nativeBuildInputs = [create-conf];
+    } (lib.concatStringsSep "\n" (lib.flatten ([
+        ''
+          mkdir -p $out/etc/systemd/system
+        ''
+      ]
+      ++ lib.mapAttrsToList (
+        instance: cfg: (builtins.map (forEachNode instance cfg) cfg.nodes)
+      )
+      config.lantian.bgp-graph)));
 in {
-  systemd.services = builtins.listToAttrs (lib.flatten (lib.mapAttrsToList (
-      instance: cfg:
-        builtins.map (birdForNode instance cfg) cfg.nodes
-    )
-    config.lantian.bgp-graph));
+  systemd.packages = [birdServices];
 }

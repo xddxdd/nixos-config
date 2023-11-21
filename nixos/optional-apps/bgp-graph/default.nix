@@ -95,5 +95,6 @@ in {
     ./bird.nix
     ./edges.nix
     ./nodes.nix
+    ./starter.nix
   ];
 }
