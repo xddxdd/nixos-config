@@ -31,16 +31,6 @@
           "host" = "lt-home-vm.lantian.pub";
         };
     };
-    scaleway = {
-      "type" = "s3";
-      "config" = {
-        "bucket" = {_secret = config.age.secrets.kopia-scaleway-bucket.path;};
-        "endpoint" = "s3.fr-par.scw.cloud";
-        "accessKeyID" = {_secret = config.age.secrets.kopia-scaleway-ak.path;};
-        "secretAccessKey" = {_secret = config.age.secrets.kopia-scaleway-sk.path;};
-        "sessionToken" = "";
-      };
-    };
     storj = {
       "type" = "s3";
       "config" = {
