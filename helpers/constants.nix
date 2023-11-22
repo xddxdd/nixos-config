@@ -111,6 +111,7 @@
     Netbox = 13801;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
+    Syncthing = 13834;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
   };

@@ -30,7 +30,7 @@
     };
   };
 
-  lantian.resilio.storage = "/mnt/storage/media";
+  lantian.syncthing.storage = "/mnt/storage/media";
 
   fileSystems = {
     "/run/sftp" = lib.mkForce {
