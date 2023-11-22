@@ -29,6 +29,7 @@
     ../../nixos/optional-apps/pterodactyl-wings.nix
     ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/sftp-server.nix
+    ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/vlmcsd.nix
 
