@@ -18,8 +18,8 @@
       device = config.lantian.syncthing.storage;
       fsType = "fuse.bindfs";
       options = [
-        "force-user=rslsync"
-        "force-group=rslsync"
+        "force-user=syncthing"
+        "force-group=syncthing"
         "create-for-user=root"
         "create-for-group=root"
         "chown-ignore"
@@ -31,8 +31,8 @@
 
     services.syncthing = {
       enable = true;
-      user = "rslsync";
-      group = "rslsync";
+      user = "syncthing";
+      group = "syncthing";
       configDir = "/var/lib/syncthing";
       dataDir = "/run/syncthing-files";
       guiAddress = "127.0.0.1:${LT.portStr.Syncthing}";
@@ -54,17 +54,17 @@
     };
 
     # Keep using Resilio Sync user for compatibility
-    users.users.rslsync = {
-      description = "Resilio Sync Service user";
-      uid = config.ids.uids.rslsync;
-      group = "rslsync";
+    users.users.syncthing = {
+      uid = config.ids.uids.syncthing;
+      group = "syncthing";
     };
-    users.groups.rslsync = {};
+    users.groups.syncthing.members = ["nginx"];
 
     environment.systemPackages = [config.services.syncthing.package];
 
     systemd.services.syncthing = {
       serviceConfig = {
+        RuntimeDirectory = "syncthing";
         StateDirectory = "syncthing";
       };
     };

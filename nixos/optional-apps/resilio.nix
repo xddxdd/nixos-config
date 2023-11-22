@@ -69,7 +69,7 @@ in {
       group = "rslsync";
     };
 
-    users.groups.rslsync = {};
+    users.groups.rslsync.members = ["nginx"];
 
     systemd.services.resilio = {
       description = "Resilio Sync Service";
