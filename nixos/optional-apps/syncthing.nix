@@ -64,12 +64,7 @@
     environment.systemPackages = [config.services.syncthing.package];
 
     systemd.services.syncthing = {
-      environment = {
-        GOGC = "1";
-        LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
-      };
       serviceConfig = {
-        CPUQuota = "10%";
         StateDirectory = "syncthing";
       };
     };
