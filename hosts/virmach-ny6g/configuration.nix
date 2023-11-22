@@ -14,6 +14,7 @@
 
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/resilio.nix
+    ../../nixos/optional-apps/syncthing.nix
   ];
 
   systemd.network.networks.eth0 = {
