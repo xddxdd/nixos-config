@@ -39,7 +39,6 @@ in {
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
-    ../../nixos/optional-apps/resilio.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/vlmcsd.nix
