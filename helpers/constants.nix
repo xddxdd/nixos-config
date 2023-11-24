@@ -51,7 +51,7 @@
       "https://cuda-maintainers.cachix.org"
     ];
     trusted-public-keys = [
-      "lantian:ElZGWJIXp0uxZYMavrwYpkuwKSL6CsosP1urqcoKlvM="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
   };
