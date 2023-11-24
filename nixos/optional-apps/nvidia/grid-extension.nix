@@ -21,7 +21,7 @@ in {
     ];
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_0;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_2;
 
   systemd.services."nvidia-gridd" = netns.bind {
     description = "NVIDIA Grid Daemon";

@@ -115,7 +115,7 @@
         nullfsvfs = final.callPackage ./nullfsvfs.nix {};
         ovpn-dco = final.callPackage ./ovpn-dco.nix {};
 
-        nvidia_x11_grid_16_0 = pkgs.nvidia-grid.grid."16_0".override {inherit (final) kernel;};
+        nvidia_x11_grid_16_2 = pkgs.nvidia-grid.grid."16_2".override {inherit (final) kernel;};
       }))
     [
       llvmOverride
