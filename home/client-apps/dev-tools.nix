@@ -79,9 +79,6 @@ in {
     # Fly.io
     flyctl
 
-    # FPGA
-    vivado-2022_2
-
     # Golang
     delve
     go
