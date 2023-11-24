@@ -26,9 +26,9 @@
       require-proof-of-possession = false;
       storage = {
         type = "s3";
-        region = "phoenix";
+        region = "us-central-1";
         bucket = "lantian-nix-cache";
-        endpoint = "http://storage.telnyx.com";
+        endpoint = "http://us-central-1.telnyxstorage.com";
       };
       # Disable chunking to use S3 direct download
       chunking = {
