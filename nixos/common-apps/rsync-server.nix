@@ -7,7 +7,7 @@
   inputs,
   ...
 } @ args: let
-  primaryServer = "hetzner-de";
+  primaryServer = "v-ps-fal";
 in {
   ########################################
   # Server

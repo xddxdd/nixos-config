@@ -38,7 +38,7 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "alert";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
@@ -48,27 +48,27 @@ with dns; let
     })
     (CNAME {
       name = "attic";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "books";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "bitwarden";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "cloud";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "dashboard";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
@@ -83,17 +83,17 @@ with dns; let
     })
     (CNAME {
       name = "netbox";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "private";
-      target = "hetzner-de.ltnet.xuyh0120.win.";
+      target = "v-ps-fal.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
     (CNAME {
       name = "prometheus";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
@@ -103,17 +103,17 @@ with dns; let
     })
     (CNAME {
       name = "rss";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "rsshub";
-      target = "hetzner-de.ltnet.xuyh0120.win.";
+      target = "v-ps-fal.ltnet.xuyh0120.win.";
       ttl = "1h";
     })
     (CNAME {
       name = "stats";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {

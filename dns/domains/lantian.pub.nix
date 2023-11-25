@@ -92,27 +92,27 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "ca";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "ci";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       cloudflare = true;
     })
     (CNAME {
       name = "ci-github";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       cloudflare = true;
     })
     (CNAME {
       name = "comments";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "git";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
@@ -122,27 +122,27 @@ with dns; let
     })
     (CNAME {
       name = "lab";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "lemmy";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (CNAME {
       name = "lg";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       cloudflare = true;
     })
     (CNAME {
       name = "login";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (fakeALIAS {
       name = "matrix";
-      target = "hetzner-de";
+      target = "v-ps-fal";
       ttl = "1h";
     })
     (SRV {
