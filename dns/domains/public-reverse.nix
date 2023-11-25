@@ -25,11 +25,11 @@
 
   (common.reverse {
     prefix = "2001:470:cab6::/48";
-    target = "hetzner-de.lantian.pub.";
+    target = "v-ps-fal.lantian.pub.";
   })
   (common.reverse {
     prefix = "2001:470:1f13:3b1::/64";
-    target = "hetzner-de.lantian.pub.";
+    target = "v-ps-fal.lantian.pub.";
   })
 
   (common.reverse {

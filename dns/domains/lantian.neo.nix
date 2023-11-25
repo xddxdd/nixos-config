@@ -30,7 +30,7 @@
       })
       (common.hostRecs.mapAddresses {
         name = "ns5.${domain}.";
-        addresses = hosts."hetzner-de".neonetwork;
+        addresses = hosts."v-ps-fal".neonetwork;
       })
       (common.hostRecs.mapAddresses {
         name = "ns-anycast.${domain}.";

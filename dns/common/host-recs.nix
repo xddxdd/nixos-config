@@ -14,8 +14,8 @@ with dns; let
     gigsgigscloud = hosts."v-ps-hkg";
     linkin = hosts."v-ps-hkg";
     hostdare = hosts."v-ps-sjc";
-    oneprovider = hosts."hetzner-de";
-    soyoustart = hosts."hetzner-de";
+    oneprovider = hosts."v-ps-fal";
+    soyoustart = hosts."v-ps-fal";
     virmach-ny3ip = hosts."virmach-ny6g";
     virtono = hosts."buyvm";
   };

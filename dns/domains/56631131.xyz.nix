@@ -24,7 +24,7 @@ in [
 
       (fakeALIAS {
         name = "${domain}.";
-        target = "hetzner-de";
+        target = "v-ps-fal";
         ttl = "1h";
       })
       (CNAME {

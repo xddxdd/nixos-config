@@ -8,7 +8,7 @@
     "v-ps-hkg.lantian.pub."
     "v-ps-sjc.lantian.pub."
     "virmach-ny1g.lantian.pub."
-    "hetzner-de.lantian.pub."
+    "v-ps-fal.lantian.pub."
     "buyvm.lantian.pub."
   ];
 
@@ -16,7 +16,7 @@
     "v-ps-hkg.ltnet.lantian.pub."
     "v-ps-sjc.ltnet.lantian.pub."
     "virmach-ny1g.ltnet.lantian.pub."
-    "hetzner-de.ltnet.lantian.pub."
+    "v-ps-fal.ltnet.lantian.pub."
     "buyvm.ltnet.lantian.pub."
   ];
 

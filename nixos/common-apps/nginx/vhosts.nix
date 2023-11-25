@@ -31,14 +31,14 @@
 
         # Plausible Analytics
         "= /api/event" = {
-          proxyPass = "http://${LT.nixosConfigurations."hetzner-de".config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
+          proxyPass = "http://${LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
           extraConfig = LT.nginx.locationProxyConf;
         };
 
         # Waline
         "/comment".extraConfig =
           ''
-            proxy_pass http://${LT.hosts."hetzner-de".ltnet.IPv4}:${LT.portStr.Waline};
+            proxy_pass http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline};
             proxy_set_header REMOTE-HOST $remote_addr;
           ''
           + LT.nginx.locationProxyConf;

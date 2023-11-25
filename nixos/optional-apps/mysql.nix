@@ -47,7 +47,7 @@ in {
           + lib.concatMapStringsSep ","
           (n: LT.hosts."${n}".ltnet.IPv4)
           [
-            "hetzner-de"
+            "v-ps-fal"
             "lt-home-vm"
             "terrahost"
             "virmach-ny6g"
