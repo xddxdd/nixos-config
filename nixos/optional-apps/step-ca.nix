@@ -11,7 +11,8 @@
 
   systemd.services."step-ca" = {
     description = "Step-CA";
-    after = ["network.target"];
+    after = ["network.target" "postgresql.service"];
+    requires = ["postgresql.service"];
     wantedBy = ["multi-user.target"];
     environment = {
       HOME = "/var/lib/step-ca";
