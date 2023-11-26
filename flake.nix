@@ -204,7 +204,6 @@
             colmena = ./scripts/colmena.nix;
             check = ./scripts/check.nix;
             dnscontrol = ./scripts/dnscontrol.nix;
-            gcore = ./scripts/gcore;
             nvfetcher = ./scripts/nvfetcher.nix;
             secrets = ./scripts/secrets.nix;
             terraform = ./scripts/terraform.nix;
