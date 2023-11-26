@@ -22,6 +22,17 @@
   };
 
   kopiaStorage = {
+    hetzner-storagebox = {
+      "type" = "sftp";
+      "config" =
+        kopiaSftpStorageCommon
+        // {
+          "username" = "u378583-sub1";
+          "port" = 23;
+          "path" = "/home";
+          "host" = "u378583.your-storagebox.de";
+        };
+    };
     lt-home-vm = {
       "type" = "sftp";
       "config" =
