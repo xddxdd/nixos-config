@@ -26,14 +26,10 @@
 
   # Gitea
   systemd.services.gitea = {
-    after = ["mnt-storage.mount" "var-lib-gitea.mount"];
-    requires = ["mnt-storage.mount" "var-lib-gitea.mount"];
-    serviceConfig = {
-      ReadWritePaths = ["/var/lib/gitea"];
-      StateDirectory = lib.mkForce "";
-    };
+    after = ["mnt-storage.mount" "var-lib-gitea-repositories.mount"];
+    requires = ["mnt-storage.mount" "var-lib-gitea-repositories.mount"];
   };
-  fileSystems."/var/lib/gitea" = {
+  fileSystems."/var/lib/gitea/repositories" = {
     device = "/mnt/storage/gitea";
     depends = ["/mnt/storage"];
     fsType = "fuse.bindfs";
