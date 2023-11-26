@@ -35,7 +35,6 @@
       };
       log = {
         LEVEL = "Error";
-        ENABLE_XORM_LOG = false;
       };
       server = {
         DOMAIN = "git.lantian.pub";
@@ -68,8 +67,9 @@
       mailer = {
         ENABLED = true;
         FROM = "postmaster@lantian.pub";
-        HOST = "smtp.sendgrid.net:465";
-        IS_TLS_ENABLED = true;
+        SMTP_ADDR = "smtp.sendgrid.net";
+        SMTP_PORT = 465;
+        PROTOCOL = "smtps";
         USER = "apikey";
       };
     };
