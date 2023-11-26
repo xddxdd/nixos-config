@@ -12,7 +12,6 @@ in {
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
     directories = [
-      "/var/backup"
       "/var/cache"
       "/var/lib"
       "/var/log"
