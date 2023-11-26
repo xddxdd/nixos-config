@@ -30,6 +30,7 @@
   systemd.services.gitea = {
     after = ["mnt-storage.mount" "var-lib-gitea-repositories.mount"];
     requires = ["mnt-storage.mount" "var-lib-gitea-repositories.mount"];
+    serviceConfig.TimeoutStartSec = "900";
   };
   fileSystems."/var/lib/gitea/repositories" = {
     device = "/mnt/storage/gitea";
