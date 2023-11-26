@@ -11,6 +11,7 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+    ./hetzner-storagebox.nix
 
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/bepasty.nix
