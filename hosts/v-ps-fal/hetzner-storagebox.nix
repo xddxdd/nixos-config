@@ -7,21 +7,23 @@
   inputs,
   ...
 } @ args: {
-  age.secrets.hetzner-storagebox-ssh-key.file = inputs.secrets + "/hetzner-storagebox-ssh-key.age";
+  age.secrets.hetzner-storagebox-cifs-credentials.file = inputs.secrets + "/hetzner-storagebox-cifs-credentials.age";
 
-  environment.systemPackages = [pkgs.sshfs];
+  environment.systemPackages = [pkgs.cifs-utils];
 
   fileSystems."/mnt/storage" = {
-    device = "u378583@u378583.your-storagebox.de:/home";
-    fsType = "fuse.sshfs";
+    device = "//u378583.your-storagebox.de/backup";
+    fsType = "cifs";
     options = [
-      "allow_other"
-      "idmap=user"
-      "port=23"
-      "reconnect"
-      "IdentityFile=${config.age.secrets.hetzner-storagebox-ssh-key.path}"
+      "iocharset=utf8"
+      "credentials=${config.age.secrets.hetzner-storagebox-cifs-credentials.path}"
+      "uid=0"
+      "gid=0"
+      "file_mode=0644"
+      "dir_mode=0755"
+      "vers=3"
+      "seal"
     ];
-    neededForBoot = true;
   };
 
   # Gitea
