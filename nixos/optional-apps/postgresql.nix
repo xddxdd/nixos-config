@@ -22,11 +22,6 @@
     '';
   };
 
-  services.postgresqlBackup = {
-    enable = true;
-    compression = "zstd";
-  };
-
   systemd.services.postgresql.serviceConfig = LT.serviceHarden;
 
   services.phpfpm.pools.pga = {
