@@ -26,9 +26,9 @@
       HOME = "/run/rebuild-nixos-config";
     };
     path = with pkgs; [
-      attic-client
       colmena
       git
+      lantianCustomized.attic-telnyx-compatible
       nix
       nix-prefetch
       nix-prefetch-scripts
@@ -51,7 +51,7 @@
     wantedBy = ["timers.target"];
     partOf = ["rebuild-nixos-config.service"];
     timerConfig = {
-      OnCalendar = "Mon,Fri *-*-* 04:00:00";
+      OnCalendar = "*-*-* 04:00:00";
       RandomizedDelaySec = "1h";
       Unit = "rebuild-nixos-config.service";
     };
