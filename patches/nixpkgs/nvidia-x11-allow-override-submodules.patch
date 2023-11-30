@@ -9,33 +9,40 @@ index 58cf8c0e3557..3b1726edadbd 100644
  { stdenv, lib, fetchurl, patchelf }:
  
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index 8ec292f27251..cb27e7b6cf1a 100644
+index c8957d6193a5..fb403546aa44 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -161,15 +161,20 @@ let
-         broken = brokenOpen;
-       }) openSha256;
-       settings = if useSettings then
--        (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256) {
-+        (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256) {
-+          nvidia_x11 = self;
-           withGtk2 = preferGtk2;
-           withGtk3 = !preferGtk2;
-         } else {};
-       persistenced = if usePersistenced then
--        mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256
-+        mapNullable (hash: callPackage (import ./persistenced.nix hash) {
-+          nvidia_x11 = self;
-+        }) persistencedSha256
-       else {};
-       fabricmanager = if useFabricmanager then
--        mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
-+        mapNullable (hash: callPackage (import ./fabricmanager.nix hash) {
-+          nvidia_x11 = self;
-+        }) fabricmanagerSha256
-       else {};
-       inherit persistencedVersion settingsVersion;
-       compressFirmware = false;
+@@ -204,8 +204,9 @@ let
+           openSha256;
+         settings =
+           if useSettings then
+-            (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256)
++            (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256)
+               {
++                nvidia_x11 = self;
+                 withGtk2 = preferGtk2;
+                 withGtk3 = !preferGtk2;
+                 fetchFromGitHub = fetchFromGithubOrNvidia;
+@@ -213,14 +214,17 @@ let
+         persistenced =
+           if usePersistenced then
+             mapNullable
+-              (hash: callPackage (import ./persistenced.nix self hash) {
++              (hash: callPackage (import ./persistenced.nix hash) {
++                nvidia_x11 = self;
+                 fetchFromGitHub = fetchFromGithubOrNvidia;
+               })
+               persistencedSha256
+           else { };
+         fabricmanager =
+           if useFabricmanager then
+-            mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
++            mapNullable (hash: callPackage (import ./fabricmanager.nix hash) {
++              nvidia_x11 = self;
++            }) fabricmanagerSha256
+           else { };
+         inherit persistencedVersion settingsVersion;
+         compressFirmware = false;
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 index 03ad03a472d4..82820e0fb9af 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
@@ -52,7 +59,7 @@ index 03ad03a472d4..82820e0fb9af 100644
  , libtirpc
  }:
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-index 0b801d4b2724..662815530a45 100644
+index b11dc06c85eb..29ce2f1d119c 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
 @@ -16,6 +16,7 @@ nvidia_x11: sha256:
