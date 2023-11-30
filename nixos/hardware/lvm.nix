@@ -18,5 +18,7 @@
     "raid456"
   ];
 
+  boot.swraid.enable = lib.mkForce true;
+
   services.lvm.dmeventd.enable = true;
 }
