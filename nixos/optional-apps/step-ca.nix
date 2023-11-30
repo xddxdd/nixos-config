@@ -50,9 +50,7 @@
     ensureUsers = [
       {
         name = "step-ca";
-        ensurePermissions = {
-          "DATABASE \"step-ca\"" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
     ];
   };
