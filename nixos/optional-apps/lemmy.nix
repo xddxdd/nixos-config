@@ -9,7 +9,10 @@
 } @ args: let
   cfg = config.services.lemmy;
 in {
-  imports = [./postgresql.nix];
+  imports = [
+    ./pict-rs.nix
+    ./postgresql.nix
+  ];
 
   services.lemmy = {
     enable = true;
@@ -20,11 +23,6 @@ in {
       hostname = "lemmy.lantian.pub";
       port = LT.port.Lemmy.API;
     };
-  };
-
-  services.pict-rs = {
-    enable = true;
-    port = LT.port.Pict-RS;
   };
 
   services.postgresql = {
@@ -92,28 +90,9 @@ in {
       };
   };
 
-  systemd.services.pict-rs = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Restart = "always";
-        RestartSec = "3";
-        DynamicUser = lib.mkForce false;
-        User = "pict-rs";
-        Group = "pict-rs";
-        StateDirectory = "pict-rs";
-      };
-  };
-
   users.users.lemmy = {
     group = "lemmy";
     isSystemUser = true;
   };
   users.groups.lemmy = {};
-
-  users.users.pict-rs = {
-    group = "pict-rs";
-    isSystemUser = true;
-  };
-  users.groups.pict-rs = {};
 }
