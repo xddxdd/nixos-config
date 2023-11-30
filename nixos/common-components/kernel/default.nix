@@ -202,6 +202,8 @@ in {
       supportedFilesystems = [
         "ntfs"
       ];
+
+      swraid.enable = false;
     };
 
     environment.systemPackages = with config.boot.kernelPackages;
