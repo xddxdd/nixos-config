@@ -59,6 +59,16 @@
       lng = lib.mkOption {
         type = lib.types.str;
       };
+
+      # Extra fields from cities.json
+      admin1 = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      admin2 = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
     };
 
     # SSH pubkey
