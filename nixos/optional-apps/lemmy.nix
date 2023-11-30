@@ -32,9 +32,7 @@ in {
     ensureUsers = [
       {
         name = "lemmy";
-        ensurePermissions = {
-          "DATABASE \"lemmy\"" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
     ];
   };

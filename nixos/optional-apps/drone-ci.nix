@@ -244,15 +244,11 @@ in {
     ensureUsers = [
       {
         name = "drone";
-        ensurePermissions = {
-          "DATABASE \"drone\"" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
       {
         name = "drone-github";
-        ensurePermissions = {
-          "DATABASE \"drone-github\"" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
     ];
   };
