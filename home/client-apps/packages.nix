@@ -56,6 +56,7 @@ in {
     appimage-run
     aria
     audacious
+    baidunetdisk
     baidupcs-go
     bilibili
     brotli
@@ -65,6 +66,7 @@ in {
     cloudpan189-go
     colmena
     dbeaver
+    dingtalk
     discord
     discord-canary
     distrobox
