@@ -10,7 +10,7 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      pinentryFlavor = "qt";
+      pinentryFlavor = "gnome3";
       enableBrowserSocket = true;
       enableExtraSocket = true;
       enableSSHSupport = true;
