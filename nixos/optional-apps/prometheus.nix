@@ -148,13 +148,13 @@ in {
 
               # CPU usage
               rec {
-                alert = "node_cpu_util_90percent";
-                expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.9'';
-                for = "30m";
+                alert = "node_cpu_util_95percent";
+                expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.95'';
+                for = "1h";
                 labels.severity = "warning";
                 annotations = {
                   summary = "⚠️ {{$labels.alias}}: High CPU utilization.";
-                  description = "{{$labels.alias}} has total CPU utilization over 90% for ${for}.";
+                  description = "{{$labels.alias}} has total CPU utilization over 95% for ${for}.";
                 };
               }
 
