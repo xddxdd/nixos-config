@@ -30,7 +30,6 @@ with dns; [
       common.records.Libravatar
       common.records.ProxmoxCluster
       common.records.SIP
-      common.records.GeoRecords
       (common.hostRecs.LTNet "ltnet.${domain}")
       (common.hostRecs.DN42 "dn42.${domain}")
       (common.hostRecs.NeoNetwork "neo.${domain}")
