@@ -9,7 +9,7 @@
 } @ args: let
   netns = config.lantian.netns.netease;
 
-  netease-cloud-music = pkgs.nur.repos.Freed-Wu.netease-cloud-music;
+  netease-cloud-music = pkgs.netease-cloud-music;
 in {
   virtualisation.oci-containers.containers.unblock-netease-music = {
     extraOptions = ["--net" "host" "--pull" "always"];
