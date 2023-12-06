@@ -49,6 +49,8 @@
     '');
 in {
   home.packages = with pkgs; [
+    # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
+    (lib.hiPrio qq)
     (LT.wrapNetns "wg-lantian" amule-dlp)
     (LT.wrapNetns "wg-lantian" deluge)
     (LT.wrapNetns "wg-lantian" qbittorrent-enhanced-edition)
@@ -104,7 +106,7 @@ in {
     powertop
     prismlauncher
     pwgen
-    qq
+    qqmusic
     quasselClient
     rar
     remmina
