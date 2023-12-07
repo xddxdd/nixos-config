@@ -216,6 +216,8 @@ in {
         find "$d" -type d | xargs chmod 0755
       done
     '';
+
+    serviceConfig.Restart = "always";
   };
 
   systemd.tmpfiles.rules = [
