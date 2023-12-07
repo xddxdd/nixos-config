@@ -46,6 +46,10 @@
       "chgrp-ignore"
       "xattr-none"
       "x-gvfs-hide"
+
+      # Fix ordering cycle
+      "_netdev"
+      "x-systemd.after=mnt-storage.mount"
     ];
     neededForBoot = false;
   };
