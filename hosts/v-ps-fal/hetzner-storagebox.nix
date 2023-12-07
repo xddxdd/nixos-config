@@ -24,6 +24,7 @@
       "vers=3"
       "seal"
     ];
+    neededForBoot = false;
   };
 
   # Gitea
@@ -46,5 +47,6 @@
       "xattr-none"
       "x-gvfs-hide"
     ];
+    neededForBoot = false;
   };
 }
