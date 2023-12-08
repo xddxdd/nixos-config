@@ -96,7 +96,6 @@ in {
     matrix-synapse-tools.synadm
     mediainfo
     megatools
-    mpv
     newsflash
     nvfetcher
     openvpn
@@ -113,6 +112,7 @@ in {
     steam-run
     step-cli-wrapped
     svp
+    svp-mpv
     tdesktop
     tigervnc
     transmission-qt
