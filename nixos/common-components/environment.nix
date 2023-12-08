@@ -248,6 +248,7 @@ in {
 
   zramSwap = {
     enable = !config.boot.isContainer;
+    algorithm = "zstd";
     memoryPercent = 50;
   };
 }
