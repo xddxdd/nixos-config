@@ -25,9 +25,9 @@
   };
 
   home.pointerCursor = {
-    package = pkgs.libsForQt5.breeze-qt5;
-    name = "breeze_cursors";
-    size = 24;
+    package = pkgs.sam-toki-mouse-cursors;
+    name = "STMCS-601-GenshinFurina";
+    size = 32;
     gtk.enable = true;
     x11.enable = true;
   };
