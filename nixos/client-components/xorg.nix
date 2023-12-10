@@ -61,6 +61,9 @@
   };
 
   environment.variables = {
+    # Cursor fix
+    XCURSOR_SIZE = "32";
+
     # Firefox fixes
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
