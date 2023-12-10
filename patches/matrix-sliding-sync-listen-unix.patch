@@ -1,16 +1,8 @@
 diff --git a/v3.go b/v3.go
-index 8454d4c..c176155 100644
+index 6333b81..42914be 100644
 --- a/v3.go
 +++ b/v3.go
-@@ -4,6 +4,7 @@ import (
- 	"embed"
- 	"encoding/json"
- 	"fmt"
-+	"net"
- 	"net/http"
- 	"os"
- 	"strings"
-@@ -204,12 +205,26 @@ func RunSyncV3Server(h http.Handler, bindAddr, destV2Server, tlsCert, tlsKey str
+@@ -219,6 +219,20 @@ func RunSyncV3Server(h http.Handler, bindAddr, destV2Server, tlsCert, tlsKey str
  
  	// Block forever
  	var err error
@@ -28,14 +20,19 @@ index 8454d4c..c176155 100644
 +		logger.Fatal().Err(err).Msg("failed to listen")
 +	}
 +
- 	if tlsCert != "" && tlsKey != "" {
- 		logger.Info().Msgf("listening TLS on %s", bindAddr)
--		err = http.ListenAndServeTLS(bindAddr, tlsCert, tlsKey, srv)
-+		err = http.ServeTLS(l, srv, tlsCert, tlsKey)
+ 	if internal.IsUnixSocket(bindAddr) {
+ 		logger.Info().Msgf("listening on unix socket %s", bindAddr)
+ 		listener := unixSocketListener(bindAddr)
+@@ -226,10 +240,10 @@ func RunSyncV3Server(h http.Handler, bindAddr, destV2Server, tlsCert, tlsKey str
  	} else {
- 		logger.Info().Msgf("listening on %s", bindAddr)
--		err = http.ListenAndServe(bindAddr, srv)
-+		err = http.Serve(l, srv)
+ 		if tlsCert != "" && tlsKey != "" {
+ 			logger.Info().Msgf("listening TLS on %s", bindAddr)
+-			err = http.ListenAndServeTLS(bindAddr, tlsCert, tlsKey, srv)
++			err = http.ServeTLS(l, srv, tlsCert, tlsKey)
+ 		} else {
+ 			logger.Info().Msgf("listening on %s", bindAddr)
+-			err = http.ListenAndServe(bindAddr, srv)
++			err = http.Serve(l, srv)
+ 		}
  	}
  	if err != nil {
- 		sentry.CaptureException(err)
