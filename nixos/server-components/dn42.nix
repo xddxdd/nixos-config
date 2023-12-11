@@ -202,6 +202,7 @@ in {
           persist-tun
           cipher        aes-256-cbc
           secret        ${v.tunnel.openvpnStaticKeyPath}
+          allow-deprecated-insecure-static-crypto
         '';
         up = setupAddressing interfaceName v;
       };

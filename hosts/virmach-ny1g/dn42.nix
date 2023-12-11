@@ -10,6 +10,8 @@
   age.secrets.dn42-pingfinder-uuid.file = inputs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
+  age.secrets.dn42-virmach-ny1g-ceremon-openvpn.file = inputs.secrets + "/dn42/virmach-ny1g-ceremon-openvpn.age";
+
   services.dn42 = {
     exabyte = {
       remoteASN = 4242423340;
@@ -25,6 +27,21 @@
       addressing = {
         peerIPv4 = "172.20.41.100";
         peerIPv6LinkLocal = "fe80::119";
+      };
+    };
+    ceremon = {
+      remoteASN = 4242420855;
+      latencyMs = 66;
+      tunnel = {
+        type = "openvpn";
+        localPort = 20855;
+        remoteAddress = "107.172.108.90";
+        remotePort = 22547;
+        openvpnStaticKeyPath = config.age.secrets.dn42-virmach-ny1g-ceremon-openvpn.path;
+      };
+      addressing = {
+        peerIPv4 = "172.23.93.35";
+        peerIPv6LinkLocal = "fe80::216";
       };
     };
     federico = {
