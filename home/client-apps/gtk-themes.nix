@@ -25,7 +25,13 @@
   };
 
   home.pointerCursor = {
-    package = pkgs.sam-toki-mouse-cursors;
+    package = pkgs.sam-toki-mouse-cursors.overrideAttrs (old: {
+      postPatch =
+        (old.postPatch or "")
+        + ''
+          sed -i "s/STMC_Common_15_Finger.cur/STMC_GenshinFurina_15_Finger(alternative).cur/g" PROJECT/STMC/*GenshinFurina*.inf
+        '';
+    });
     name = "STMCS-601-GenshinFurina";
     size = 32;
     gtk.enable = true;
