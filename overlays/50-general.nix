@@ -63,7 +63,7 @@ in rec {
         ../patches/oh-my-zsh-disable-compdump.patch
       ];
   });
-  openvpn = prev.openvpn.overrideAttrs (old: {
+  openvpn-with-dco = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
     nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [autoreconfHook]);
     buildInputs =
