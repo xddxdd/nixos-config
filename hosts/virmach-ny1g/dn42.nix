@@ -41,7 +41,7 @@
       };
       addressing = {
         peerIPv4 = "172.23.93.35";
-        peerIPv6LinkLocal = "fe80::216";
+        peerIPv6LinkLocal = "fe80::855";
       };
     };
     federico = {

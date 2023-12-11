@@ -35,8 +35,12 @@
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.accept_ra=0
       ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.addr_gen_mode=1
     '';
+
+    up = ''
+      ${pkgs.iproute2}/bin/ip link set ${interfaceName} up
+    '';
   in
-    mtu + ipv4 + ipv6 + sysctl;
+    mtu + ipv4 + ipv6 + sysctl + up;
 in {
   config.age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
@@ -202,7 +206,6 @@ in {
           persist-tun
           cipher        aes-256-cbc
           secret        ${v.tunnel.openvpnStaticKeyPath}
-          allow-deprecated-insecure-static-crypto
         '';
         up = setupAddressing interfaceName v;
       };
