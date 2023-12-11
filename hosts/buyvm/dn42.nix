@@ -73,6 +73,21 @@
         peerIPv6LinkLocal = "fe80::2206";
       };
     };
+    huiliang = {
+      remoteASN = 4242422928;
+      latencyMs = 5;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22928;
+        remoteAddress = "45.147.51.241";
+        remotePort = 22547;
+        wireguardPubkey = "oWIllu5l6T+uacm0e/ZvIM15qgQAcir7zTfyL9IE/24=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.78.99";
+        peerIPv6LinkLocal = "fe80::2928";
+      };
+    };
     iedon = {
       remoteASN = 4242422189;
       latencyMs = 5;
