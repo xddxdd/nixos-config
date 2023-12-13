@@ -11,6 +11,11 @@
     ];
   };
 
+  gui = {
+    cursorSize = 32;
+    fontSize = 10;
+  };
+
   neonetwork = {
     IPv4 = [
       "10.127.0.0/16"

@@ -12,7 +12,7 @@
     font = {
       package = pkgs.ubuntu_font_family;
       name = "Ubuntu";
-      size = 10;
+      size = LT.constants.gui.fontSize;
     };
     iconTheme = {
       package = pkgs.breeze-icons;
@@ -33,7 +33,7 @@
         '';
     });
     name = "STMCS-601-GenshinFurina";
-    size = 32;
+    size = builtins.floor (LT.constants.gui.cursorSize * LT.thisConfigurations.config.lantian.hidpi);
     gtk.enable = true;
     x11.enable = true;
   };
