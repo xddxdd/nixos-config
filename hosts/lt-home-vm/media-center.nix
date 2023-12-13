@@ -17,6 +17,7 @@
   sonarrMediaPath = "/mnt/storage/media-sonarr";
 in {
   imports = [
+    ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
     ../../nixos/optional-apps/flexget.nix

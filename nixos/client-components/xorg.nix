@@ -62,7 +62,7 @@
 
   environment.variables = {
     # Cursor fix
-    XCURSOR_SIZE = "32";
+    XCURSOR_SIZE = builtins.toString (builtins.floor (LT.constants.gui.cursorSize * config.lantian.hidpi));
 
     # Firefox fixes
     MOZ_X11_EGL = "1";

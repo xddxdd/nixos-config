@@ -47,6 +47,8 @@ in
     hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
     serverHosts = hostsWithTag tags.server;
 
+    thisConfigurations = nixosConfigurations."${config.networking.hostName}";
+
     patchedPkgs = lib.mapAttrs (k: v: v.path) self.pkgs."${this.system}";
 
     container = call ./fn/container.nix;
