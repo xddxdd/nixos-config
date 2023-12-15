@@ -16,29 +16,7 @@
   '';
 in {
   programs.ssh = {
-    package = pkgs.openssh_hpn.overrideAttrs (old: {
-      doCheck = false;
-      configureFlags =
-        (old.configureFlags or [])
-        ++ [
-          "--with-ssl-engine"
-        ];
-      patches =
-        (old.patches or [])
-        ++ [
-          # OpenSSH requires all directories in path to chroot be writable only for
-          # root, to avoid a security issue described in:
-          #
-          # https://lists.mindrot.org/pipermail/openssh-unix-dev/2009-May/027651.html
-          #
-          # It requires a suid binary to exist on the same partition as the chroot
-          # target, which isn't the case on NixOS (all suid binaries are in
-          # /run/wrappers).
-          #
-          # Disable this behavior so I can configure SFTP properly.
-          ../../patches/openssh-disable-chroot-permission-check.patch
-        ];
-    });
+    package = pkgs.openssh_hpn;
 
     knownHosts =
       (builtins.listToAttrs (lib.flatten (lib.mapAttrsToList

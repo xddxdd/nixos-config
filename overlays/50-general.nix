@@ -63,6 +63,30 @@ in rec {
         ../patches/oh-my-zsh-disable-compdump.patch
       ];
   });
+  openssh = openssh_hpn;
+  openssh_hpn = prev.openssh_hpn.overrideAttrs (old: {
+    doCheck = false;
+    configureFlags =
+      (old.configureFlags or [])
+      ++ [
+        "--with-ssl-engine"
+      ];
+    patches =
+      (old.patches or [])
+      ++ [
+        # OpenSSH requires all directories in path to chroot be writable only for
+        # root, to avoid a security issue described in:
+        #
+        # https://lists.mindrot.org/pipermail/openssh-unix-dev/2009-May/027651.html
+        #
+        # It requires a suid binary to exist on the same partition as the chroot
+        # target, which isn't the case on NixOS (all suid binaries are in
+        # /run/wrappers).
+        #
+        # Disable this behavior so I can configure SFTP properly.
+        ../patches/openssh-disable-chroot-permission-check.patch
+      ];
+  });
   openvpn-with-dco = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
     nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [autoreconfHook]);
@@ -153,6 +177,9 @@ in rec {
         ../patches/qbittorrent-return-success-on-dup-torrent.patch
       ];
   });
+  # sshfs = prev.sshfs.override {
+  #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
+  # };
   tdesktop = prev.tdesktop.overrideAttrs (old: {
     enableParallelBuilding = true;
     postPatch =
