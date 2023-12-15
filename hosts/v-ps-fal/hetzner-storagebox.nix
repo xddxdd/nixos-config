@@ -47,6 +47,7 @@
       # Fix ordering cycle
       "_netdev"
       "x-systemd.after=mnt-storage.mount"
+      "x-systemd.requires=mnt-storage.mount"
     ];
     neededForBoot = false;
   };
