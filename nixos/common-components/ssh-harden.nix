@@ -84,6 +84,8 @@ in {
         "hmac-sha2-256"
         "hmac-sha2-256-etm@openssh.com"
       ];
+      TcpRcvBufPoll = true;
+      HPNBufferSize = 14336;
     };
   };
 
@@ -122,5 +124,8 @@ in {
       StrictHostKeyChecking no
       VerifyHostKeyDNS yes
       LogLevel ERROR
+
+      TcpRcvBufPoll yes
+      HPNBufferSize 14336
   '';
 }
