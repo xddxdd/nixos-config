@@ -7,22 +7,19 @@
   inputs,
   ...
 } @ args: {
-  age.secrets.hetzner-storagebox-cifs-credentials.file = inputs.secrets + "/hetzner-storagebox-cifs-credentials.age";
+  age.secrets.hetzner-storagebox-ssh-key.file = inputs.secrets + "/hetzner-storagebox-ssh-key.age";
 
-  environment.systemPackages = [pkgs.cifs-utils];
+  environment.systemPackages = [pkgs.sshfs];
 
   fileSystems."/mnt/storage" = {
-    device = "//u378583.your-storagebox.de/backup";
-    fsType = "cifs";
+    device = "u378583@u378583.your-storagebox.de:/home";
+    fsType = "fuse.sshfs";
     options = [
-      "iocharset=utf8"
-      "credentials=${config.age.secrets.hetzner-storagebox-cifs-credentials.path}"
-      "uid=0"
-      "gid=0"
-      "file_mode=0644"
-      "dir_mode=0755"
-      "vers=3"
-      "seal"
+      "allow_other"
+      "idmap=user"
+      "port=23"
+      "reconnect"
+      "IdentityFile=${config.age.secrets.hetzner-storagebox-ssh-key.path}"
     ];
     neededForBoot = false;
   };
