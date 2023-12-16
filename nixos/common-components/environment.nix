@@ -84,44 +84,50 @@ in {
     SYSTEMD_PAGER = "";
   };
   environment.systemPackages = with pkgs; ([
-    bridge-utils
-    dig
-    git
-    gzip
-    htop
-    inetutils
-    iperf3
-    iptables
-    jq
-    kopia
-    lsof
-    mbuffer
-    nftables-fullcone
-    nixos-cleanup
-    openssl
-    pigz
-    pv
-    python3Full
-    screen
-    tcpdump
-    unzip
-    wget
-    wireguard-tools
-    x86-arch-level
-    zip
-    zstd
-  ] ++ lib.optionals (!builtins.elem LT.tags.qemu LT.this.tags) [
-    ethtool
-    iw
-    lm_sensors
-    ls-iommu
-    nix-top
-    nix-tree
-    nmap
-    pciutils
-    smartmontools
-    usbutils
-  ]);
+      bridge-utils
+      dig
+      gzip
+      htop
+      inetutils
+      iperf3
+      iptables
+      jq
+      kopia
+      lsof
+      mbuffer
+      nftables-fullcone
+      nixos-cleanup
+      openssl
+      pigz
+      pv
+      screen
+      tcpdump
+      unzip
+      wget
+      wireguard-tools
+      x86-arch-level
+      zip
+      zstd
+    ]
+    ++ lib.optionals (!builtins.elem LT.tags.qemu LT.this.tags) [
+      ethtool
+      iw
+      lm_sensors
+      ls-iommu
+      nix-top
+      nix-tree
+      nmap
+      pciutils
+      smartmontools
+      usbutils
+    ])
+    ++ (if (builtins.elem LT.tags.server LT.this.tags) then [
+      gitMinimal
+      python3
+    ] else [
+      git
+      python3Full
+    ]);
 
   hardware.ksm.enable = !config.boot.isContainer;
 
