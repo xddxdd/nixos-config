@@ -14,6 +14,10 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
+    package =
+      if (builtins.elem LT.tags.server LT.this.tags)
+      then pkgs.gitMinimal
+      else pkgs.git;
     extraConfig = {
       core = {
         autoCrlf = "input";

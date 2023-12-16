@@ -20,6 +20,7 @@ in {
   registeredInputs;
 
   nix = {
+    channel.enable = false;
     nixPath = ["/etc/nix/inputs"];
     registry =
       lib.mapAttrs (n: v: {
