@@ -112,7 +112,7 @@ with dns; let
     })
     (CNAME {
       name = "git";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
@@ -122,7 +122,7 @@ with dns; let
     })
     (CNAME {
       name = "lab";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {

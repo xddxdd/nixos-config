@@ -14,17 +14,17 @@ with dns; [
     records = [
       (ALIAS {
         name = "${domain}.";
-        target = "v-ps-fal.ltn.pw.";
+        target = "terrahost.ltn.pw.";
         ttl = "10m";
       })
       (CNAME {
         name = "pb.${domain}.";
-        target = "v-ps-fal.ltn.pw.";
+        target = "terrahost.ltn.pw.";
         ttl = "10m";
       })
       (CNAME {
         name = "www.${domain}.";
-        target = "v-ps-fal.ltn.pw.";
+        target = "terrahost.ltn.pw.";
         ttl = "10m";
       })
 
