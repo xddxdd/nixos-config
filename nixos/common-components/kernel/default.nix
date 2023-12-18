@@ -174,6 +174,7 @@ in {
           i915-sriov
         ]);
 
+      bcache.enable = false;
       initrd = {
         kernelModules = ["nullfs"];
 
