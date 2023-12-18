@@ -38,7 +38,7 @@ with dns; let
   internalServices = [
     (CNAME {
       name = "alert";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
@@ -58,17 +58,17 @@ with dns; let
     })
     (CNAME {
       name = "bitwarden";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
       name = "cloud";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
       name = "dashboard";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {
@@ -93,7 +93,7 @@ with dns; let
     })
     (CNAME {
       name = "prometheus";
-      target = "v-ps-fal";
+      target = "terrahost";
       ttl = "1h";
     })
     (CNAME {

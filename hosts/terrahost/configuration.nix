@@ -13,6 +13,13 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/gitea.nix
+    ../../nixos/optional-apps/grafana.nix
+    ../../nixos/optional-apps/nextcloud.nix
+    ../../nixos/optional-apps/nginx-lab
+    ../../nixos/optional-apps/prometheus.nix
+    ../../nixos/optional-apps/vaultwarden.nix
+    ../../nixos/optional-apps/yourls.nix
   ];
 
   systemd.network.networks.eth0 = {
