@@ -126,39 +126,39 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "eae81071b197f698c53ab71c1b91c1e481673436";
+    version = "564c0661a942f7163cb2cfa6cb1b14b4bcff3a30";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "eae81071b197f698c53ab71c1b91c1e481673436";
+      rev = "564c0661a942f7163cb2cfa6cb1b14b4bcff3a30";
       fetchSubmodules = false;
-      sha256 = "sha256-IyM6QbUgfGOYnJn/4eE4sl831wLi+sf41HoUALcuJhE=";
+      sha256 = "sha256-85h94r3XZq1wME6+AxsTIIsM1TmMMr97RJjDygdnxtA=";
     };
-    date = "2023-12-08";
+    date = "2023-12-13";
   };
   openvpn = {
     pname = "openvpn";
-    version = "3094d8fb061c56ea73eda00c464fa81cdcd55c94";
+    version = "8656b85c7324fc9ae7f10a9f37227a58766aae33";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "3094d8fb061c56ea73eda00c464fa81cdcd55c94";
+      rev = "8656b85c7324fc9ae7f10a9f37227a58766aae33";
       fetchSubmodules = false;
-      sha256 = "sha256-LcRRVwkTBJF2NhLLB7me0ChwWXGozrhjRyiRwdBhyuM=";
+      sha256 = "sha256-Xqp2W6K+yHGu1FhzEzGn8wG/Pzegp1Jukl/7ml9aQY4=";
     };
-    date = "2023-12-09";
+    date = "2023-12-12";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "f559adf1849c8af91f5a5eb670f4ed2c24988898";
+    version = "f63f87cd5b45c3779293e6062c6b26bdf57e851d";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "f559adf1849c8af91f5a5eb670f4ed2c24988898";
+      rev = "f63f87cd5b45c3779293e6062c6b26bdf57e851d";
       fetchSubmodules = false;
-      sha256 = "sha256-xmGlmmQIk/pzu8N67VN/JO/MaJGvd3CBNI2FoC8mA0g=";
+      sha256 = "sha256-X6+/8lrfmy3R0hH7QUDdCSBOW5lL5agnheZ1jv2Am00=";
     };
-    date = "2023-12-08";
+    date = "2023-12-11";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
@@ -294,15 +294,15 @@
   };
   yourls-404-if-not-found = {
     pname = "yourls-404-if-not-found";
-    version = "eaff0956b29ea869f39613211f0070bc047e3345";
+    version = "a611040c6f33cd6d00b07ddb824b9842ed2de2de";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "404-if-not-found";
-      rev = "eaff0956b29ea869f39613211f0070bc047e3345";
+      rev = "a611040c6f33cd6d00b07ddb824b9842ed2de2de";
       fetchSubmodules = false;
-      sha256 = "sha256-6RzNZjt1YrN/gGJdWSWEc0dyBqrKTq/6Nwso1MOEwQM=";
+      sha256 = "sha256-3pgk7TkwuuTYz7eU9lxptkpqu0COOrWKZyt7Lp8VqLQ=";
     };
-    date = "2022-04-22";
+    date = "2023-12-16";
   };
   yourls-always-302 = {
     pname = "yourls-always-302";
