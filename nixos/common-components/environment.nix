@@ -35,6 +35,8 @@
 
   nixos-cleanup = pkgs.writeScriptBin "nixos-cleanup" ''
     ${config.nix.package}/bin/nix-env -p /nix/var/nix/profiles/system --delete-generations +1
+    ${config.nix.package}/bin/nix-env -p /root/.local/state/nix/profiles/home-manager --delete-generations +1
+    ${config.nix.package}/bin/nix-env -p /home/lantian/.local/state/nix/profiles/home-manager --delete-generations +1
     ${config.nix.package}/bin/nix-collect-garbage -d
   '';
 
@@ -83,51 +85,56 @@ in {
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
   };
-  environment.systemPackages = with pkgs; ([
-      bridge-utils
-      dig
-      gzip
-      htop
-      inetutils
-      iperf3
-      iptables
-      jq
-      kopia
-      lsof
-      mbuffer
-      nftables-fullcone
-      nixos-cleanup
-      openssl
-      pigz
-      pv
-      screen
-      tcpdump
-      unzip
-      wget
-      wireguard-tools
-      x86-arch-level
-      zip
-      zstd
-    ]
-    ++ lib.optionals (!builtins.elem LT.tags.qemu LT.this.tags) [
-      ethtool
-      iw
-      lm_sensors
-      ls-iommu
-      nix-top
-      nix-tree
-      nmap
-      pciutils
-      smartmontools
-      usbutils
-    ])
-    ++ (if (builtins.elem LT.tags.server LT.this.tags) then [
-      gitMinimal
-      python3
-    ] else [
-      git
-      python3Full
-    ]);
+  environment.systemPackages = with pkgs;
+    ([
+        bridge-utils
+        dig
+        gzip
+        htop
+        inetutils
+        iperf3
+        iptables
+        jq
+        kopia
+        lsof
+        mbuffer
+        nftables-fullcone
+        nixos-cleanup
+        openssl
+        pigz
+        pv
+        screen
+        tcpdump
+        unzip
+        wget
+        wireguard-tools
+        x86-arch-level
+        zip
+        zstd
+      ]
+      ++ lib.optionals (!builtins.elem LT.tags.qemu LT.this.tags) [
+        ethtool
+        iw
+        lm_sensors
+        ls-iommu
+        nix-top
+        nix-tree
+        nmap
+        pciutils
+        smartmontools
+        usbutils
+      ])
+    ++ (
+      if (builtins.elem LT.tags.server LT.this.tags)
+      then [
+        gitMinimal
+        python3
+      ]
+      else [
+        git
+        python3Full
+      ]
+    );
 
   hardware.ksm.enable = !config.boot.isContainer;
 
