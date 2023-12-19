@@ -29,19 +29,19 @@ in {
       after = ["network-online.target"];
       requires = ["network-online.target"];
 
+      environment.HOME = "/var/cache/unblock-netease-music";
       path = with pkgs; [bash nodejs];
-      script = ''
-        export HOME=$(pwd)
-        npx -p @unblockneteasemusic/server unblockneteasemusic \
-          -p ${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS} \
-          -a ${LT.this.ltnet.IPv4}
-      '';
 
       serviceConfig =
         LT.serviceHarden
         // {
           Restart = "always";
           RestartSec = "3";
+
+          ExecStart =
+            "${pkgs.nodejs}/bin/npx -p @unblockneteasemusic/server unblockneteasemusic"
+            + " -p ${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS}"
+            + " -a ${LT.this.ltnet.IPv4}";
 
           CacheDirectory = "unblock-netease-music";
           WorkingDirectory = "/var/cache/unblock-netease-music";
