@@ -11,17 +11,6 @@
 
   netease-cloud-music = pkgs.netease-cloud-music;
 in {
-  virtualisation.oci-containers.containers.unblock-netease-music = {
-    extraOptions = ["--net" "host" "--pull" "always"];
-    image = "pan93412/unblock-netease-music-enhanced:release";
-    cmd = [
-      "-p"
-      "${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS}"
-      "-a"
-      "${LT.this.ltnet.IPv4}"
-    ];
-  };
-
   environment.systemPackages = [netease-cloud-music];
 
   environment.etc."netns/netease/resolv.conf".text = ''
@@ -34,6 +23,35 @@ in {
   };
 
   systemd.services = {
+    unblock-netease-music = {
+      description = "Unblock NetEase Music";
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
+
+      path = with pkgs; [bash nodejs];
+      script = ''
+        export HOME=$(pwd)
+        npx -p @unblockneteasemusic/server unblockneteasemusic \
+          -p ${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS} \
+          -a ${LT.this.ltnet.IPv4}
+      '';
+
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          Restart = "always";
+          RestartSec = "3";
+
+          CacheDirectory = "unblock-netease-music";
+          WorkingDirectory = "/var/cache/unblock-netease-music";
+
+          User = "unblock-netease-music";
+          Group = "unblock-netease-music";
+          MemoryDenyWriteExecute = lib.mkForce false;
+        };
+    };
+
     netns-netease-proxy = {
       after = ["netns-instance-netease.service"];
       bindsTo = ["netns-instance-netease.service"];
@@ -73,4 +91,10 @@ in {
         --ignore-certificate-errors
     '';
   };
+
+  users.users.unblock-netease-music = {
+    group = "unblock-netease-music";
+    isSystemUser = true;
+  };
+  users.groups.unblock-netease-music = {};
 }
