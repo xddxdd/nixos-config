@@ -27,6 +27,14 @@ in rec {
         cloudscraper
       ];
   });
+  knot-dns = prev.knot-dns.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        ../patches/knot-disable-semantic-check.patch
+      ];
+    doCheck = false;
+  });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
     patches =
       (old.patches or [])
