@@ -336,8 +336,4 @@ in
         };
       };
     };
-
-    systemd.tmpfiles.rules = lib.mkIf (config.services.coredns.enable || config.services.knot.enable) [
-      "d /var/lib/zones 755 container container"
-    ];
   }

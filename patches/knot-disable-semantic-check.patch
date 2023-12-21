@@ -1,0 +1,22 @@
+diff --git a/src/knot/zone/semantic-check.c b/src/knot/zone/semantic-check.c
+index 99efb1a76..9742d6967 100644
+--- a/src/knot/zone/semantic-check.c
++++ b/src/knot/zone/semantic-check.c
+@@ -468,17 +468,6 @@ static int do_checks_in_tree(zone_node_t *node, void *data)
+ 
+ 	int ret = KNOT_EOK;
+ 
+-	for (int i = 0; ret == KNOT_EOK && i < CHECK_FUNCTIONS_LEN; ++i) {
+-		if (CHECK_FUNCTIONS[i].level & s_data->level) {
+-			ret = CHECK_FUNCTIONS[i].function(node, s_data);
+-			if (s_data->handler->fatal_error &&
+-			    (CHECK_FUNCTIONS[i].level & SOFT) &&
+-			    (s_data->level & SOFT)) {
+-				s_data->handler->fatal_error = false;
+-			}
+-		}
+-	}
+-
+ 	return ret;
+ }
+ 
