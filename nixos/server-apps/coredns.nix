@@ -81,15 +81,6 @@
       ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
       ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
 
-      # LTNET Active Directory
-      ad.lantian.pub {
-        any
-        bufsize 1232
-        loadbalance round_robin
-
-        forward . 198.18.0.202 fdbc:f9dc:67ad::202
-      }
-
       # NeoNetwork Authoritative
       ${publicZone "neo" "ltnet-scripts/zones/neo" null}
       ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
@@ -191,6 +182,16 @@ in
             acl: opennic_notify
             acl: allow_transfer
         '';
+        ltnetAdSlaveZone = name: ''
+          - domain: ${name}
+            storage: /var/cache/zones/
+            file: ${name}.zone
+            refresh-min-interval: 1m
+            refresh-max-interval: 1d
+            master: ltnet_ad
+            acl: ltnet_ad_notify
+            acl: allow_transfer
+        '';
       in
         ''
           server:
@@ -237,6 +238,12 @@ in
             address: 2a03:b0c0:0:1010::13f:6001@${LT.portStr.DNS}
             address: 2a01:4f8:192:43a5::2@${LT.portStr.DNS}
 
+          - id: ltnet_ad
+            via: ${config.lantian.netns.coredns-knot.ipv4}
+            via: ${config.lantian.netns.coredns-knot.ipv6}
+            address: 198.18.0.202@${LT.portStr.DNS}
+            address: fdbc:f9dc:67ad::202@${LT.portStr.DNS}
+
           acl:
           - id: dn42_notify
             action: notify
@@ -264,6 +271,11 @@ in
             address: 2a01:4f8:141:4281::999
             address: 2a03:b0c0:0:1010::13f:6001
             address: 2a01:4f8:192:43a5::2
+
+          - id: ltnet_ad_notify
+            action: notify
+            address: 198.18.0.202
+            address: fdbc:f9dc:67ad::202
 
           - id: allow_transfer
             action: transfer
@@ -302,6 +314,10 @@ in
           "oz"
           "parody"
           "pirate"
+        ])
+        + (lib.concatMapStringsSep "\n" ltnetAdSlaveZone [
+          "ad.lantian.pub"
+          "_msdcs.ad.lantian.pub"
         ]);
     };
 
