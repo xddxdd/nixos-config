@@ -168,12 +168,11 @@ in {
   };
 
   security.protectKernelImage = true;
-  security.sudo = {
+  security.sudo.enable = lib.mkForce false;
+  security.sudo-rs = {
+    enable = true;
     execWheelOnly = true;
     wheelNeedsPassword = false;
-    extraConfig = ''
-      Defaults lecture="never"
-    '';
   };
 
   services.fstrim.enable = !config.boot.isContainer;
