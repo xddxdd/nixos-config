@@ -49,4 +49,22 @@ in {
       + LT.nginx.commonVhostConf true
       + LT.nginx.noIndex true;
   };
+
+  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig =
+    LT.serviceHarden
+    // {
+      Group = "bepasty";
+      StateDirectory = "bepasty";
+      User = "bepasty";
+
+      ExecStart = lib.mkForce (pkgs.writeShellScript "bepasty-start" ''
+        ${pkgs.python3Packages.gunicorn}/bin/gunicorn \
+          bepasty.wsgi \
+          --name "pb.ltn.pw" \
+          --workers 3 \
+          --log-level=info \
+          --bind=127.0.0.1:${LT.portStr.Bepasty} \
+          -k gevent
+      '');
+    };
 }

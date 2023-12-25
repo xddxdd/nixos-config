@@ -41,10 +41,24 @@ in {
       ]);
   };
 
-  systemd.services.bird2.serviceConfig = {
-    CPUQuota = "10%";
-    Restart = lib.mkForce "always";
-  };
+  systemd.services.bird2.serviceConfig = lib.mkForce (LT.serviceHarden
+    // {
+      ExecStart = "${pkgs.bird}/bin/bird -f -c /etc/bird/bird2.conf";
+      ExecReload = "${pkgs.bird}/bin/birdc configure";
+
+      CPUQuota = "10%";
+      Restart = lib.mkForce "always";
+
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
+      AmbientCapabilities = ["CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW"];
+      CapabilityBoundingSet = ["CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW"];
+      RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+      SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
+
+      User = "bird2";
+      Group = "bird2";
+      RuntimeDirectory = "bird";
+    });
 
   systemd.tmpfiles.rules = [
     "f /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf 644 root root - # placebo"
