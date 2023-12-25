@@ -90,6 +90,17 @@ in {
       };
   };
 
+  systemd.services.lemmy-ui.serviceConfig =
+    LT.serviceHarden
+    // {
+      Restart = "always";
+      RestartSec = "3";
+      DynamicUser = lib.mkForce false;
+      MemoryDenyWriteExecute = false;
+      User = "lemmy";
+      Group = "lemmy";
+    };
+
   users.users.lemmy = {
     group = "lemmy";
     isSystemUser = true;
