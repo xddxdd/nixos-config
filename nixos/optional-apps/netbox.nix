@@ -55,5 +55,8 @@
       + LT.nginx.noIndex true;
   };
 
+  systemd.services.netbox.serviceConfig = LT.serviceHarden;
+  systemd.services.netbox-rq.serviceConfig = LT.serviceHarden;
+
   users.groups.netbox.members = ["nginx"];
 }
