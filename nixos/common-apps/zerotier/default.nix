@@ -31,6 +31,19 @@ in {
       mkdir -p /var/lib/zerotier-one
       cat ${pkgs.writeText "local.conf" configFile} > /var/lib/zerotier-one/local.conf
     '';
-    serviceConfig.MemoryMax = "64M";
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
+        CapabilityBoundingSet = ["CAP_NET_ADMIN"];
+        PrivateDevices = false;
+        ProtectClock = false;
+        ProtectControlGroups = false;
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+        SystemCallFilter = [];
+
+        StateDirectory = "zerotier-one";
+        MemoryMax = "64M";
+      };
   };
 }

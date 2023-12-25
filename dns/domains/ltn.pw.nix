@@ -19,7 +19,7 @@ with dns; [
       })
       (CNAME {
         name = "pb.${domain}.";
-        target = "terrahost.ltn.pw.";
+        target = "v-ps-fal.ltn.pw.";
         ttl = "10m";
       })
       (CNAME {

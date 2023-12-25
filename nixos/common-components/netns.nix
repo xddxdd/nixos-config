@@ -234,29 +234,23 @@ in {
             description = "BIRD (in netns ${name})";
             wantedBy = ["multi-user.target"];
             bindsTo = value.birdBindTo;
-            serviceConfig = {
-              Restart = "on-failure";
-              ExecStart = "${pkgs.bird}/bin/bird -f -c ${birdConfig} -s /run/bird.${name}.ctl -u bird2 -g bird2";
-              CPUQuota = "10%";
+            serviceConfig =
+              LT.serviceHarden
+              // {
+                Restart = "on-failure";
+                ExecStart = "${pkgs.bird}/bin/bird -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
+                CPUQuota = "10%";
 
-              # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
-              CapabilityBoundingSet = [
-                "CAP_CHOWN"
-                "CAP_FOWNER"
-                "CAP_DAC_OVERRIDE"
-                "CAP_SETUID"
-                "CAP_SETGID"
-                # see bird/sysdep/linux/syspriv.h
-                "CAP_NET_BIND_SERVICE"
-                "CAP_NET_BROADCAST"
-                "CAP_NET_ADMIN"
-                "CAP_NET_RAW"
-              ];
-              ProtectSystem = "full";
-              ProtectHome = "yes";
-              SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
-              MemoryDenyWriteExecute = "yes";
-            };
+                # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
+                AmbientCapabilities = ["CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW"];
+                CapabilityBoundingSet = ["CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW"];
+                RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+                SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
+
+                User = "bird2";
+                Group = "bird2";
+                RuntimeDirectory = "bird-${name}";
+              };
           }))
         ])
         config.lantian.netns));
