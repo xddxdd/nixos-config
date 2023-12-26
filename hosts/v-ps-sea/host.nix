@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 10;
-  tags = with tags; [qemu server x86_64-v1];
+  tags = with tags; [public-facing qemu server x86_64-v1];
   city = geo.cities."US Seattle";
   hostname = "23.145.48.11";
   ssh = {
