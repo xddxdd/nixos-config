@@ -4,7 +4,7 @@
   ...
 } @ args: {
   index = 6;
-  tags = with tags; [qemu server];
+  tags = with tags; [public-facing qemu server];
   city = geo.cities."DE Falkenstein";
   hostname = "185.254.74.105";
   ssh = {
