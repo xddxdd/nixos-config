@@ -90,6 +90,7 @@
     Prometheus.AlertManager = 9093;
     Prometheus.NodeExporter = 9100;
     Prometheus.MySQLExporter = 9104;
+    Prometheus.BlackboxExporter = 9115;
     Prometheus.PostgresExporter = 9187;
     Prometheus.BirdExporter = 9324;
     Prometheus.EndlesshGo = 9322;

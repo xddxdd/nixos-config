@@ -17,7 +17,7 @@
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nextcloud.nix
     ../../nixos/optional-apps/nginx-lab
-    ../../nixos/optional-apps/prometheus.nix
+    ../../nixos/optional-apps/prometheus
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yourls.nix
   ];

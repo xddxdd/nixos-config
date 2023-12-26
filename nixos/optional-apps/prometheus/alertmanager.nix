@@ -7,27 +7,9 @@
   inputs,
   ...
 } @ args: let
-  scrapeAllNodes = jobName: port: {
-    job_name = jobName;
-    static_configs =
-      lib.mapAttrsToList
-      (n: v: {
-        targets = ["${v.ltnet.IPv4}:${builtins.toString port}"];
-        labels.instance = n;
-      })
-      LT.serverHosts;
-  };
-
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 in {
   services.prometheus = {
-    enable = true;
-    port = LT.port.Prometheus.Daemon;
-    listenAddress = "127.0.0.1";
-    webExternalUrl = "https://prometheus.xuyh0120.win";
-    stateDir = "prometheus";
-    checkConfig = "syntax-only";
-
     alertmanagers = [
       {
         scheme = "http";
@@ -39,22 +21,6 @@ in {
           }
         ];
       }
-    ];
-
-    scrapeConfigs = [
-      {
-        job_name = "prometheus";
-        static_configs = [
-          {
-            targets = ["${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}"];
-          }
-        ];
-      }
-      (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
-      (scrapeAllNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
-      (scrapeAllNodes "mysql" LT.port.Prometheus.MySQLExporter)
-      (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
-      (scrapeAllNodes "postgres" LT.port.Prometheus.PostgresExporter)
     ];
 
     # https://gist.github.com/globin/02496fd10a96a36f092a8e7ea0e6c7dd
@@ -213,8 +179,6 @@ in {
     };
   };
 
-  systemd.services.prometheus.serviceConfig = LT.serviceHarden;
-
   systemd.services.alertmanager = {
     preStart = lib.mkForce ''
       ${utils.genJqSecretsReplacementSnippet
@@ -223,36 +187,19 @@ in {
     '';
   };
 
-  services.nginx.virtualHosts = {
-    "alert.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
-        "/".extraConfig =
-          LT.nginx.locationOauthConf
-          + ''
-            proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.AlertManager};
-          ''
-          + LT.nginx.locationProxyConf;
-      };
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+  services.nginx.virtualHosts."alert.xuyh0120.win" = {
+    listen = LT.nginx.listenHTTPS;
+    locations = LT.nginx.addCommonLocationConf {} {
+      "/".extraConfig =
+        LT.nginx.locationOauthConf
+        + ''
+          proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.AlertManager};
+        ''
+        + LT.nginx.locationProxyConf;
     };
-    "prometheus.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
-        "/".extraConfig =
-          LT.nginx.locationOauthConf
-          + ''
-            proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.Daemon};
-          ''
-          + LT.nginx.locationProxyConf;
-      };
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
-    };
+    extraConfig =
+      LT.nginx.makeSSL "xuyh0120.win_ecc"
+      + LT.nginx.commonVhostConf true
+      + LT.nginx.noIndex true;
   };
 }
