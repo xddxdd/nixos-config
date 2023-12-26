@@ -88,9 +88,15 @@ in {
     commonHttpConfig = ''
       include ${config.services.nginx.package}/conf/mime.types;
 
+      map $http_user_agent $is_not_healthcheck_user_agent {
+        default                   1;
+        "~*Blackbox\ Exporter"    0;
+        ~*UptimeRobot             0;
+      }
+
       log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" "$http_user_agent"';
-      access_log syslog:server=unix:/dev/log,nohostname main;
+      access_log syslog:server=unix:/dev/log,nohostname main if=$is_not_healthcheck_user_agent;
       more_set_headers "Server: lantian/${config.networking.hostName}";
 
       aio threads;
