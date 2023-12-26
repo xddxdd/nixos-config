@@ -65,5 +65,5 @@
     group = "rsshub";
     isSystemUser = true;
   };
-  users.groups.rsshub = {};
+  users.groups.rsshub.members = ["nginx"];
 }
