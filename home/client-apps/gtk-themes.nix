@@ -29,6 +29,7 @@
       postPatch =
         (old.postPatch or "")
         + ''
+          sed -i "s/STMC_Common_13_Hand.cur/STMC_GenshinFurina_13_Hand(alternative).cur/g" PROJECT/STMC/*GenshinFurina*.inf
           sed -i "s/STMC_Common_15_Finger.cur/STMC_GenshinFurina_15_Finger(alternative).cur/g" PROJECT/STMC/*GenshinFurina*.inf
         '';
     });
