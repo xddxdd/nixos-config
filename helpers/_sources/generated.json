@@ -230,7 +230,7 @@
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2023-12-21",
+        "date": "2023-12-26",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -242,11 +242,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "c590868a721881dd21bfb77ecf846e6c8720e4ef",
-            "sha256": "sha256-EYo7UJcgEF8R1CCNRFQ0Ki54XhhcWliAa+qmxgw+ebY=",
+            "rev": "139607286ce5d618ece8b17923ce12f418695f4c",
+            "sha256": "sha256-Y54nQaQUzSnjf4WoKiX/7rZKVgI8CTUSHOku3pLeALs=",
             "type": "github"
         },
-        "version": "c590868a721881dd21bfb77ecf846e6c8720e4ef"
+        "version": "139607286ce5d618ece8b17923ce12f418695f4c"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
