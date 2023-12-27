@@ -20,10 +20,23 @@
       softwareUpdate = "disable";
     };
   };
+
+  ltnet = "af78bf9436f191fd";
+
+  zerotier-default = pkgs.writeShellScriptBin "zerotier-default" ''
+    if [ -z "$1" ]; then
+      echo "Usage: $0 [0/1]"
+      exit 1
+    fi
+
+    sudo zerotier-cli set ${ltnet} allowDefault=$1
+  '';
 in {
+  environment.systemPackages = lib.optional (builtins.elem LT.tags.client LT.this.tags) zerotier-default;
+
   services.zerotierone = {
     enable = true;
-    joinNetworks = ["af78bf9436f191fd"];
+    joinNetworks = [ltnet];
   };
 
   systemd.services.zerotierone = {
