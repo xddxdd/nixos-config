@@ -110,6 +110,7 @@
       (final: prev: {
         # Custom kernel packages
         acpi-ec = final.callPackage ./acpi-ec.nix {};
+        cryptodev = final.callPackage ./cryptodev.nix {};
         i915-sriov = final.callPackage ./i915-sriov.nix {};
         nft-fullcone = final.callPackage ./nft-fullcone.nix {};
         nullfsvfs = final.callPackage ./nullfsvfs.nix {};
@@ -133,7 +134,7 @@ in {
             then pkgs.lantianLinuxXanmodPackages.lts-x86_64-v1-lto
             else pkgs.lantianLinuxXanmodPackages.lts-x86_64-v3-lto
           )
-        else pkgs.linuxPackages_6_1;
+        else pkgs.linuxPackages_6_6;
     };
   };
   config = {
@@ -168,7 +169,7 @@ in {
           cryptodev
           nft-fullcone
           nullfsvfs
-          ovpn-dco
+          # ovpn-dco
         ]
         ++ lib.optionals (builtins.elem LT.tags.i915-sriov LT.this.tags) [
           i915-sriov

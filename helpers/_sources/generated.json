@@ -19,6 +19,26 @@
         },
         "version": "fed695c5e7de5432900624bda42578a4a88e081c"
     },
+    "cryptodev-linux": {
+        "cargoLocks": null,
+        "date": "2023-12-12",
+        "extract": null,
+        "name": "cryptodev-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cryptodev-linux",
+            "repo": "cryptodev-linux",
+            "rev": "5e7121e45ff283d30097da381fd7e97c4bb61364",
+            "sha256": "sha256-lBe4i//fYkGjsocmLbFKvfYMithMvrAMwOGZblVgDnQ=",
+            "type": "github"
+        },
+        "version": "5e7121e45ff283d30097da381fd7e97c4bb61364"
+    },
     "cyberchef": {
         "cargoLocks": null,
         "date": null,

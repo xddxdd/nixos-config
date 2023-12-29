@@ -3,6 +3,10 @@ src.git = "https://github.com/Owl-Maintain/brlaser.git"
 src.branch = "definitions"
 fetch.github = "Owl-Maintain/brlaser"
 
+[cryptodev-linux]
+src.git = "https://github.com/cryptodev-linux/cryptodev-linux.git"
+fetch.github = "cryptodev-linux/cryptodev-linux"
+
 [cyberchef]
 src.github = "gchq/CyberChef"
 fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
