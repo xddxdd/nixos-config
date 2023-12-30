@@ -113,7 +113,6 @@ in {
     steam-run
     step-cli-wrapped
     svp
-    svp-mpv
     tdesktop
     tigervnc
     transmission-qt
