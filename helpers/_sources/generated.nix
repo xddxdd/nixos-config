@@ -113,6 +113,18 @@
     };
     date = "2023-12-19";
   };
+  mpv-sockets = {
+    pname = "mpv-sockets";
+    version = "be9b7ca84456466e54331bab59441ac207659c1c";
+    src = fetchFromGitHub {
+      owner = "wis";
+      repo = "mpvSockets";
+      rev = "be9b7ca84456466e54331bab59441ac207659c1c";
+      fetchSubmodules = false;
+      sha256 = "sha256-tcY+cHvkQpVNohZ9yHpVlq0bU7iiKMxeUsO/BRwGzAs=";
+    };
+    date = "2020-05-10";
+  };
   nft-fullcone = {
     pname = "nft-fullcone";
     version = "07d93b626ce5ea885cd16f9ab07fac3213c355d9";

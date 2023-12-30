@@ -188,6 +188,26 @@
         },
         "version": "c09c97e774596774e9d289ab218f3064697bff29"
     },
+    "mpv-sockets": {
+        "cargoLocks": null,
+        "date": "2020-05-10",
+        "extract": null,
+        "name": "mpv-sockets",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wis",
+            "repo": "mpvSockets",
+            "rev": "be9b7ca84456466e54331bab59441ac207659c1c",
+            "sha256": "sha256-tcY+cHvkQpVNohZ9yHpVlq0bU7iiKMxeUsO/BRwGzAs=",
+            "type": "github"
+        },
+        "version": "be9b7ca84456466e54331bab59441ac207659c1c"
+    },
     "nft-fullcone": {
         "cargoLocks": null,
         "date": "2023-05-17",

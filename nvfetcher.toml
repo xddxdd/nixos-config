@@ -39,6 +39,10 @@ fetch.github = "Zren/material-decoration"
 src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "Womsxd/MihoyoBBSTools"
 
+[mpv-sockets]
+src.git = "https://github.com/wis/mpvSockets.git"
+fetch.github = "wis/mpvSockets"
+
 [nft-fullcone]
 src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
