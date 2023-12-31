@@ -29,14 +29,15 @@
     curves = [
       # Determined with Chromium OQS curve list
       # https://test.openquantumsafe.org/
-      "p256_frodo640aes"
       "x25519_frodo640aes"
-      "p256_bikel1"
+      "p256_frodo640aes"
       "x25519_bikel1"
-      "prime256v1"
-      "secp384r1"
+      "p256_bikel1"
       "x25519"
+      "prime256v1"
       "x448"
+      "secp521r1"
+      "secp384r1"
     ];
   in
     ''

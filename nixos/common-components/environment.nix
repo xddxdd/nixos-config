@@ -155,14 +155,17 @@ in {
     openssl-oqs-provider = {
       enable = true;
       curves = [
-        "p256_frodo640aes"
-        "x25519_frodo640aes"
-        "p256_bikel1"
-        "x25519_bikel1"
-        "prime256v1"
-        "secp384r1"
+        # Client: use generic curves first before OQS ones
         "x25519"
+        "prime256v1"
         "x448"
+        "secp521r1"
+        "secp384r1"
+        # OQS curves
+        "x25519_frodo640aes"
+        "p256_frodo640aes"
+        "x25519_bikel1"
+        "p256_bikel1"
       ];
     };
   };
