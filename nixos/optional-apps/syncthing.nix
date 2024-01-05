@@ -50,6 +50,7 @@
         };
         gui.insecureSkipHostcheck = true;
         defaults.device.autoAcceptFolders = true;
+        defaults.folder.rescanIntervalS = 300;
       };
     };
 
