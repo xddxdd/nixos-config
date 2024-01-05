@@ -83,6 +83,7 @@ in {
     google-earth-pro
     gopherus
     imagemagick
+    jamesdsp
     jellyfin-media-player
     jellyfin-media-player-wrapped
     kdenlive
