@@ -120,6 +120,7 @@ in rec {
     ''
     + lib.optionalString ssl ''
       add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
+      add_header Alt-Svc 'h3=":443"; ma=86400';
     '';
 
   noIndex = enableRobotsTxtRule: let
@@ -346,17 +347,33 @@ in rec {
     "so_keepalive=600:10:6"
   ];
 
+  listenDefaultFlagsQuic = [
+    "default_server"
+    "reuseport"
+    "deferred"
+  ];
+
   listenHTTPS = listenHTTPSPort port.HTTPS;
   listenHTTPSPort = port: [
     {
       addr = "0.0.0.0";
       inherit port;
-      extraParameters = ["ssl" "http2"];
+      extraParameters = ["ssl"];
+    }
+    {
+      addr = "0.0.0.0";
+      inherit port;
+      extraParameters = ["quic"];
     }
     {
       addr = "[::]";
       inherit port;
-      extraParameters = ["ssl" "http2"];
+      extraParameters = ["ssl"];
+    }
+    {
+      addr = "[::]";
+      inherit port;
+      extraParameters = ["quic"];
     }
   ];
 

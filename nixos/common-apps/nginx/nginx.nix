@@ -58,7 +58,6 @@
     ''
     + lib.optionalString (!isStream) ''
       ssl_early_data on;
-      ssl_dyn_rec_enable on;
     '';
 in {
   boot.kernelModules = ["tls"];
@@ -71,6 +70,7 @@ in {
         inherit (config.boot.kernelPackages) cryptodev;
       };
     };
+    enableQuicBPF = true;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1h";
     recommendedGzipSettings = false; # use my own
@@ -103,6 +103,11 @@ in {
       aio threads;
       directio 1m;
       # sendfile on; # defined by recommendedOptimisation
+
+      http2 on;
+      http3 on;
+      http3_hq on;
+      quic_gso on;
 
       gzip on;
       gzip_disable "msie6";
