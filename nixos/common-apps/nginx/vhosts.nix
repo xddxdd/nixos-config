@@ -104,12 +104,22 @@ in {
         {
           addr = "0.0.0.0";
           port = LT.port.HTTPS;
-          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
+          extraParameters = ["ssl"] ++ LT.nginx.listenDefaultFlags;
+        }
+        {
+          addr = "0.0.0.0";
+          port = LT.port.HTTPS;
+          extraParameters = ["quic"] ++ LT.nginx.listenDefaultFlagsQuic;
         }
         {
           addr = "[::]";
           port = LT.port.HTTPS;
-          extraParameters = ["ssl" "http2"] ++ LT.nginx.listenDefaultFlags;
+          extraParameters = ["ssl"] ++ LT.nginx.listenDefaultFlags;
+        }
+        {
+          addr = "[::]";
+          port = LT.port.HTTPS;
+          extraParameters = ["quic"] ++ LT.nginx.listenDefaultFlagsQuic;
         }
       ];
 

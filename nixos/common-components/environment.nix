@@ -88,6 +88,7 @@ in {
   environment.systemPackages = with pkgs;
     ([
         bridge-utils
+        curlHTTP3
         dig
         gzip
         htop
