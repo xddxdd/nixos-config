@@ -78,8 +78,8 @@ in {
     ffmpeg-full
     filezilla
     gcdemu
+    gedit
     gimp
-    gnome.gedit
     google-earth-pro
     gopherus
     imagemagick
