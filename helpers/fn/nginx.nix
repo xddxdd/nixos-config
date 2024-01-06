@@ -350,7 +350,6 @@ in rec {
   listenDefaultFlagsQuic = [
     "default_server"
     "reuseport"
-    "deferred"
   ];
 
   listenHTTPS = listenHTTPSPort port.HTTPS;
