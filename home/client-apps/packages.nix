@@ -19,6 +19,12 @@
         done
       '');
 
+  jamesdsp-toggle = pkgs.writeShellScriptBin "jamesdsp-toggle" ''
+    NEW_STATE=$([ $(${pkgs.jamesdsp}/bin/jamesdsp --get master_enable) = "true" ] && echo "false" || echo "true")
+    ${pkgs.jamesdsp}/bin/jamesdsp --set master_enable=$NEW_STATE
+    exit 0
+  '';
+
   jellyfin-media-player-wrapped =
     lib.hiPrio
     (pkgs.runCommand
@@ -84,6 +90,7 @@ in {
     gopherus
     imagemagick
     jamesdsp
+    jamesdsp-toggle
     jellyfin-media-player
     jellyfin-media-player-wrapped
     kdenlive
