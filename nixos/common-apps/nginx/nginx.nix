@@ -108,6 +108,7 @@ in {
       http3 on;
       http3_hq on;
       quic_gso on;
+      quic_retry on;
 
       gzip on;
       gzip_disable "msie6";
