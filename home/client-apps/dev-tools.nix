@@ -84,7 +84,6 @@ in {
     go
     go-outline
     go-tools
-    go2nix
     gomodifytags
     gopls
     gotests
