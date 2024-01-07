@@ -51,8 +51,7 @@ in
           proxy_set_header X-User $remote_user;
         '')
         + (lib.optionalString (config.proxyPass != null) ''
-          set $nix_proxy_target "${config.proxyPass}";
-          proxy_pass $nix_proxy_target;
+          proxy_pass ${config.proxyPass};
 
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP ${
