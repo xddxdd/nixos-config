@@ -63,9 +63,7 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
-          extraConfig =
-            LT.nginx.locationBlockUserAgentConf
-            + LT.nginx.locationProxyConf;
+          blockBadUserAgents = true;
         };
       };
 
@@ -80,9 +78,7 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
-          extraConfig =
-            LT.nginx.locationBlockUserAgentConf
-            + LT.nginx.locationProxyConf;
+          blockBadUserAgents = true;
         };
       };
 

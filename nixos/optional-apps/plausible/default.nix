@@ -63,7 +63,6 @@ in {
     locations = {
       "/" = {
         proxyPass = "http://${config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
 

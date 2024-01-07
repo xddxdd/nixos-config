@@ -101,12 +101,10 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:${config.services.grafana.settings.server.socket}";
-        extraConfig = LT.nginx.locationProxyConf;
       };
       "/api/live/" = {
         proxyPass = "http://unix:${config.services.grafana.settings.server.socket}";
         proxyWebsockets = true;
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
 

@@ -152,12 +152,8 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/federation.sock";
-        extraConfig =
-          LT.nginx.locationProxyConf
-          + LT.nginx.locationNoTimeoutConf
-          + ''
-            proxy_http_version 1.1;
-          '';
+        proxyWebsockets = true;
+        proxyNoTimeout = true;
       };
     };
 
@@ -170,28 +166,28 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
-        extraConfig = LT.nginx.locationProxyConf;
       };
 
       # Sliding sync proxy
       "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
         proxyPass = "http://unix:/run/matrix-sliding-sync/listen.socket";
-        extraConfig = LT.nginx.locationProxyConf;
       };
 
       # Overwrite well-known info
-      "= /.well-known/matrix/server".extraConfig =
-        LT.nginx.locationCORSConf
-        + ''
+      "= /.well-known/matrix/server" = {
+        allowCORS = true;
+        return = "200 '${LT.constants.matrixWellKnown.server}'";
+        extraConfig = ''
           default_type application/json;
-          return 200 '${LT.constants.matrixWellKnown.server}';
         '';
-      "= /.well-known/matrix/client".extraConfig =
-        LT.nginx.locationCORSConf
-        + ''
+      };
+      "= /.well-known/matrix/client" = {
+        allowCORS = true;
+        return = "200 '${LT.constants.matrixWellKnown.client}'";
+        extraConfig = ''
           default_type application/json;
-          return 200 '${LT.constants.matrixWellKnown.client}';
         '';
+      };
     };
 
     sslCertificate = "lantian.pub_ecc";

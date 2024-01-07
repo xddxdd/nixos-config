@@ -32,30 +32,31 @@
         # Plausible Analytics
         "= /api/event" = {
           proxyPass = "http://${LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
 
         # Waline
-        "/comment".extraConfig =
-          ''
-            proxy_pass http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline};
+        "/comment" = {
+          proxyPass = "http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline}";
+          extraConfig = ''
             proxy_set_header REMOTE-HOST $remote_addr;
-          ''
-          + LT.nginx.locationProxyConf;
+          '';
+        };
 
         # Matrix Federation
-        "= /.well-known/matrix/server".extraConfig =
-          LT.nginx.locationCORSConf
-          + ''
+        "= /.well-known/matrix/server" = {
+          allowCORS = true;
+          return = "200 '${LT.constants.matrixWellKnown.server}'";
+          extraConfig = ''
             default_type application/json;
-            return 200 '${LT.constants.matrixWellKnown.server}';
           '';
-        "= /.well-known/matrix/client".extraConfig =
-          LT.nginx.locationCORSConf
-          + ''
+        };
+        "= /.well-known/matrix/client" = {
+          allowCORS = true;
+          return = "200 '${LT.constants.matrixWellKnown.client}'";
+          extraConfig = ''
             default_type application/json;
-            return 200 '${LT.constants.matrixWellKnown.client}';
           '';
+        };
       };
 
       root = "/nix/persistent/sync-servers/www/lantian.pub";

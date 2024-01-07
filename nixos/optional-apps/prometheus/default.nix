@@ -52,12 +52,10 @@ in {
 
   lantian.nginxVhosts."prometheus.xuyh0120.win" = {
     locations = {
-      "/".extraConfig =
-        LT.nginx.locationOauthConf
-        + ''
-          proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.Daemon};
-        ''
-        + LT.nginx.locationProxyConf;
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Prometheus.Daemon}";
+      };
     };
 
     sslCertificate = "xuyh0120.win_ecc";

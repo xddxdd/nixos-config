@@ -33,12 +33,10 @@
 
   lantian.nginxVhosts."tachidesk.xuyh0120.win" = {
     locations = {
-      "/".extraConfig =
-        LT.nginx.locationBasicAuthConf
-        + ''
-          proxy_pass http://127.0.0.1:${LT.portStr.Tachidesk};
-        ''
-        + LT.nginx.locationProxyConf;
+      "/" = {
+        enableBasicAuth = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Tachidesk}";
+      };
     };
 
     sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";

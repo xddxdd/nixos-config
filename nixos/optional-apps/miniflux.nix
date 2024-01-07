@@ -42,7 +42,6 @@
     locations = let
       proxyConfig = {
         proxyPass = "http://unix:/run/miniflux/miniflux.sock";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     in {
       "/" = proxyConfig;

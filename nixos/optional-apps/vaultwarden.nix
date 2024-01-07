@@ -53,16 +53,13 @@
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
-        extraConfig = LT.nginx.locationProxyConf;
       };
       "/notifications/hub" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.Websocket}";
         proxyWebsockets = true;
-        extraConfig = LT.nginx.locationProxyConf;
       };
       "/notifications/hub/negotiate" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
 

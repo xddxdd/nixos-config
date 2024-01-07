@@ -52,7 +52,7 @@ in {
         locations = {
           "/" = {
             index = "index.php";
-            extraConfig = LT.nginx.locationBasicAuthConf;
+            enableBasicAuth = true;
           };
           "/download/".extraConfig = ''
             rewrite ^/download/(\d*)/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub last;

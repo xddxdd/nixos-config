@@ -10,38 +10,6 @@
   constants,
   ...
 }: let
-  _locationProxyConf = hideIP: ''
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP ${
-      if hideIP
-      then "127.0.0.1"
-      else "$remote_addr"
-    };
-    proxy_set_header X-Forwarded-For ${
-      if hideIP
-      then "127.0.0.1"
-      else "$remote_addr"
-    };
-    proxy_set_header X-Forwarded-Host $host:${portStr.HTTPS};
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Server $host;
-    proxy_set_header X-Scheme $scheme;
-    proxy_set_header X-Original-URI $request_uri;
-
-    proxy_set_header LT-SSL-Cipher $ssl_cipher;
-    proxy_set_header LT-SSL-Ciphers $ssl_ciphers;
-    proxy_set_header LT-SSL-Curves $ssl_curves;
-    proxy_set_header LT-SSL-Protocol $ssl_protocol;
-    proxy_set_header LT-SSL-Early-Data $ssl_early_data;
-    # Compatibility with common recommendations
-    proxy_set_header Early-Data $ssl_early_data;
-
-    proxy_buffering off;
-    proxy_request_buffering on;
-    proxy_redirect off;
-    chunked_transfer_encoding off;
-  '';
-
   htpasswdFile = let
     glauthUsers = import (inputs.secrets + "/glauth-users.nix");
   in
@@ -130,8 +98,37 @@ in rec {
     }
   '';
 
-  locationProxyConf = _locationProxyConf false;
-  locationProxyConfHideIP = _locationProxyConf true;
+  locationProxyConf = hideIP: ''
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP ${
+      if hideIP
+      then "127.0.0.1"
+      else "$remote_addr"
+    };
+    proxy_set_header X-Forwarded-For ${
+      if hideIP
+      then "127.0.0.1"
+      else "$remote_addr"
+    };
+    proxy_set_header X-Forwarded-Host $host:${portStr.HTTPS};
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Scheme $scheme;
+    proxy_set_header X-Original-URI $request_uri;
+
+    proxy_set_header LT-SSL-Cipher $ssl_cipher;
+    proxy_set_header LT-SSL-Ciphers $ssl_ciphers;
+    proxy_set_header LT-SSL-Curves $ssl_curves;
+    proxy_set_header LT-SSL-Protocol $ssl_protocol;
+    proxy_set_header LT-SSL-Early-Data $ssl_early_data;
+    # Compatibility with common recommendations
+    proxy_set_header Early-Data $ssl_early_data;
+
+    proxy_buffering off;
+    proxy_request_buffering on;
+    proxy_redirect off;
+    chunked_transfer_encoding off;
+  '';
 
   # Basic auth must go before proxy_pass!
   locationBasicAuthConf = ''

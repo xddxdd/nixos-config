@@ -38,9 +38,7 @@ in {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Bepasty}";
-        extraConfig =
-          LT.nginx.locationBlockUserAgentConf
-          + LT.nginx.locationProxyConf;
+        blockBadUserAgents = true;
       };
     };
 

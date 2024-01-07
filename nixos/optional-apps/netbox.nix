@@ -40,12 +40,10 @@
 
   lantian.nginxVhosts."netbox.xuyh0120.win" = {
     locations = {
-      "/".extraConfig =
-        LT.nginx.locationOauthConf
-        + ''
-          proxy_pass http://${config.services.netbox.listenAddress}:${LT.portStr.Netbox};
-        ''
-        + LT.nginx.locationProxyConf;
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://${config.services.netbox.listenAddress}:${LT.portStr.Netbox}";
+      };
       "/static/".alias = config.services.netbox.settings.STATIC_ROOT + "/";
     };
 

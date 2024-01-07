@@ -44,7 +44,6 @@ in {
         # backend requests
         proxyPass = backend;
         proxyWebsockets = true;
-        extraConfig = LT.nginx.locationProxyConf;
       };
       "/".extraConfig = ''
         set $proxpass "${ui}";

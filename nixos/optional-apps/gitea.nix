@@ -113,7 +113,6 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
-        extraConfig = LT.nginx.locationProxyConf;
       };
       "/backup/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
