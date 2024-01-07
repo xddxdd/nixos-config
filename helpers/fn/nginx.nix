@@ -10,40 +10,6 @@
   constants,
   ...
 }: let
-  fastcgiParams = ''
-    set $path_info $fastcgi_path_info;
-
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    fastcgi_param  QUERY_STRING       $query_string;
-    fastcgi_param  REQUEST_METHOD     $request_method;
-    fastcgi_param  CONTENT_TYPE       $content_type;
-    fastcgi_param  CONTENT_LENGTH     $content_length;
-
-    fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
-    fastcgi_param  REQUEST_URI        $request_uri;
-    fastcgi_param  PATH_INFO          $path_info;
-    fastcgi_param  PATH_TRANSLATED    $document_root$path_info;
-    fastcgi_param  DOCUMENT_URI       $document_uri;
-    fastcgi_param  DOCUMENT_ROOT      $document_root;
-    fastcgi_param  SERVER_PROTOCOL    $server_protocol;
-    fastcgi_param  HTTPS              $https if_not_empty;
-
-    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
-    fastcgi_param  SERVER_SOFTWARE    lantian;
-
-    fastcgi_param  REMOTE_ADDR        $remote_addr;
-    fastcgi_param  REMOTE_PORT        $remote_port;
-    fastcgi_param  SERVER_ADDR        $server_addr;
-    fastcgi_param  SERVER_PORT        ${portStr.HTTPS};
-    fastcgi_param  SERVER_NAME        $server_name;
-
-    fastcgi_param  SSL_CIPHER         $ssl_cipher;
-    fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
-    fastcgi_param  SSL_CURVES         $ssl_curves;
-    fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
-    fastcgi_param  SSL_EARLY_DATA     $ssl_early_data;
-  '';
-
   _locationProxyConf = hideIP: ''
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP ${
@@ -86,141 +52,40 @@ in rec {
   getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
   getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
   getSSLKey = acmeName: "${getSSLPath acmeName}/${builtins.head (lib.splitString "_" acmeName)}.key";
-  makeSSL = acmeName: ''
-    ssl_certificate ${getSSLCert acmeName};
-    ssl_certificate_key ${getSSLKey acmeName};
-    ssl_stapling on;
-    ssl_stapling_verify on;
-    ssl_trusted_certificate ${getSSLCert acmeName};
+
+  fastcgiParams = ''
+    set $path_info $fastcgi_path_info;
+
+    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_param  QUERY_STRING       $query_string;
+    fastcgi_param  REQUEST_METHOD     $request_method;
+    fastcgi_param  CONTENT_TYPE       $content_type;
+    fastcgi_param  CONTENT_LENGTH     $content_length;
+
+    fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+    fastcgi_param  REQUEST_URI        $request_uri;
+    fastcgi_param  PATH_INFO          $path_info;
+    fastcgi_param  PATH_TRANSLATED    $document_root$path_info;
+    fastcgi_param  DOCUMENT_URI       $document_uri;
+    fastcgi_param  DOCUMENT_ROOT      $document_root;
+    fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+    fastcgi_param  HTTPS              $https if_not_empty;
+
+    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+    fastcgi_param  SERVER_SOFTWARE    lantian;
+
+    fastcgi_param  REMOTE_ADDR        $remote_addr;
+    fastcgi_param  REMOTE_PORT        $remote_port;
+    fastcgi_param  SERVER_ADDR        $server_addr;
+    fastcgi_param  SERVER_PORT        ${portStr.HTTPS};
+    fastcgi_param  SERVER_NAME        $server_name;
+
+    fastcgi_param  SSL_CIPHER         $ssl_cipher;
+    fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
+    fastcgi_param  SSL_CURVES         $ssl_curves;
+    fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
+    fastcgi_param  SSL_EARLY_DATA     $ssl_early_data;
   '';
-
-  makeSSLSnakeoil = ''
-    ssl_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
-    ssl_certificate_key ${inputs.secrets + "/ssl-cert-snakeoil.key"};
-    ssl_stapling on;
-    ssl_stapling_verify on;
-    ssl_trusted_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
-  '';
-
-  commonVhostConf = ssl:
-    ''
-      add_header X-Content-Type-Options 'nosniff';
-      add_header X-Frame-Options 'SAMEORIGIN';
-      add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-      #add_header Access-Control-Allow-Origin '*';
-      add_header LT-Latency $request_time;
-      add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
-      add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"';
-      add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))';
-      add_header Cache-Control 'private';
-      add_header Referrer-Policy strict-origin-when-cross-origin;
-      add_header Permissions-Policy 'interest-cohort=()';
-
-      more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
-    ''
-    + lib.optionalString ssl ''
-      add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
-      add_header Alt-Svc 'h3=":443"; ma=86400';
-    '';
-
-  noIndex = enableRobotsTxtRule: let
-    robotsTxt = pkgs.writeText "robots.txt" ''
-      User-agent: *
-      Disallow: /
-    '';
-  in
-    ''
-      add_header X-Robots-Tag 'noindex, nofollow';
-    ''
-    + (lib.optionalString enableRobotsTxtRule ''
-      location = /robots.txt {
-        alias ${robotsTxt};
-      }
-    '');
-
-  serveLocalhost = forbidden_action: ''
-    access_log off;
-
-    allow 127.0.0.1;
-    allow ::1;
-    deny all;
-
-    error_page 403 ${forbidden_action};
-  '';
-
-  servePrivate = forbidden_action:
-    (lib.concatMapStringsSep "\n" (ip: "allow ${ip};")
-      (constants.reserved.IPv4 ++ constants.reserved.IPv6))
-    + ''
-      allow 127.0.0.1;
-      allow ::1;
-      deny all;
-
-      error_page 403 ${forbidden_action};
-    '';
-
-  addCommonLocationConf = {
-    phpfpmSocket ? null,
-    blockDotfiles ? true,
-  }:
-    lib.recursiveUpdate ({
-        "/generate_204".extraConfig = ''
-          access_log off;
-          return 204;
-        '';
-
-        "/autoindex.html".extraConfig = ''
-          internal;
-          root ${../../nixos/common-apps/nginx/files/autoindex};
-        '';
-
-        "/status".extraConfig = ''
-          access_log off;
-          stub_status on;
-        '';
-
-        "/ray".extraConfig =
-          ''
-            if ($content_type !~ "application/grpc") {
-              return 404;
-            }
-            access_log off;
-            grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
-          ''
-          + locationNoTimeoutConf;
-
-        "/oauth2/" = {
-          proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
-          extraConfig =
-            ''
-              proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-            ''
-            + locationProxyConf;
-        };
-
-        "/oauth2/auth" = {
-          proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
-          extraConfig =
-            ''
-              proxy_set_header Content-Length "";
-              proxy_pass_request_body off;
-            ''
-            + locationProxyConf;
-        };
-
-        "= /444.internal".extraConfig = ''
-          internal;
-          return 444;
-        '';
-
-        "~ ^.+?\\.php(/.*)?$".extraConfig = locationPHPConf phpfpmSocket;
-      }
-      // lib.optionalAttrs blockDotfiles {
-        "~ /\\.(?!well-known).*".extraConfig = lib.optionalString blockDotfiles ''
-          access_log off;
-          return 403;
-        '';
-      });
 
   locationAutoindexConf = ''
     autoindex on;
@@ -296,18 +161,6 @@ in rec {
     proxy_set_header X-Access-Token $token;
   '';
 
-  locationPHPConf = phpfpmSocket:
-    lib.optionalString (phpfpmSocket != null) ''
-      try_files $fastcgi_script_name =404;
-      fastcgi_split_path_info ^(.+\.php)(/.*)$;
-      fastcgi_pass unix:${phpfpmSocket};
-      fastcgi_index index.php;
-      ${fastcgiParams}
-      # PHP only, required if PHP was built with --enable-force-cgi-redirect
-      fastcgi_param REDIRECT_STATUS 200;
-      fastcgi_read_timeout 300s;
-    '';
-
   locationFcgiwrapConf = ''
     gzip off;
     brotli off;
@@ -329,63 +182,6 @@ in rec {
     proxy_read_timeout 52w;
     proxy_send_timeout 52w;
     send_timeout 52w;
-  '';
-
-  listenDefaultFlags = protocol:
-    [
-      "default_server"
-    ]
-    ++ (lib.optionals (protocol == "tcp") [
-      "fastopen=100"
-      "reuseport"
-      "deferred"
-      "so_keepalive=600:10:6"
-    ])
-    ++ (lib.optionals (protocol == "udp") [
-      "reuseport"
-    ]);
-
-  listenHTTPS = listenHTTPSPort port.HTTPS;
-  listenHTTPSPort = port: [
-    {
-      addr = "0.0.0.0";
-      inherit port;
-      extraParameters = ["ssl"];
-    }
-    {
-      addr = "0.0.0.0";
-      inherit port;
-      extraParameters = ["quic"];
-    }
-    {
-      addr = "[::]";
-      inherit port;
-      extraParameters = ["ssl"];
-    }
-    {
-      addr = "[::]";
-      inherit port;
-      extraParameters = ["quic"];
-    }
-  ];
-
-  listenHTTP = [
-    {
-      addr = "0.0.0.0";
-      port = port.HTTP;
-    }
-    {
-      addr = "[::]";
-      port = port.HTTP;
-    }
-  ];
-
-  listenProxyProtocol = ''
-    set_real_ip_from 127.0.0.0/8;
-    set_real_ip_from 198.18.0.0/15;
-    set_real_ip_from fe80::/16;
-    set_real_ip_from fdbc:f9dc:67ad::/48;
-    real_ip_header proxy_protocol;
   '';
 
   compressStaticAssets = p:
