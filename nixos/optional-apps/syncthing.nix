@@ -77,12 +77,10 @@
     lantian.nginxVhosts = {
       "syncthing.${config.networking.hostName}.xuyh0120.win" = {
         locations = {
-          "/".extraConfig =
-            LT.nginx.locationOauthConf
-            + ''
-              proxy_pass http://127.0.0.1:${LT.portStr.Syncthing};
-            ''
-            + LT.nginx.locationProxyConf;
+          "/" = {
+            enableOAuth = true;
+            proxyPass = "http://127.0.0.1:${LT.portStr.Syncthing}";
+          };
         };
 
         sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
@@ -93,11 +91,9 @@
         listenHTTPS.enable = false;
 
         locations = {
-          "/".extraConfig =
-            ''
-              proxy_pass http://127.0.0.1:${LT.portStr.Syncthing};
-            ''
-            + LT.nginx.locationProxyConf;
+          "/" = {
+            proxyPass = "http://127.0.0.1:${LT.portStr.Syncthing}";
+          };
         };
 
         noIndex.enable = true;

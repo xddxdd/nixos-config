@@ -23,12 +23,12 @@ in {
         index = "index.php index.html index.htm";
         tryFiles = "$uri $uri/ =404";
       };
-      "= /".extraConfig = LT.nginx.locationAutoindexConf;
+      "= /".enableAutoIndex = true;
       "/cgi-bin/" = {
         index = "index.sh";
-        extraConfig = LT.nginx.locationFcgiwrapConf;
+        enableFcgiwrap = true;
       };
-      "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
+      "/hobby-net".enableAutoIndex = true;
       "/zjui-ece385-scoreboard".extraConfig = ''
         gzip off;
         brotli off;

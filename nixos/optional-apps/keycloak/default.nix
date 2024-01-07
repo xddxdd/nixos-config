@@ -65,7 +65,6 @@
       "= /".return = "302 /admin/";
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
 

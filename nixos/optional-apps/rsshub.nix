@@ -11,7 +11,6 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/rsshub/rsshub.sock";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
 

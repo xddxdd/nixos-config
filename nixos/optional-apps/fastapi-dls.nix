@@ -48,7 +48,6 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/fastapi-dls/fastapi-dls.sock";
-        extraConfig = LT.nginx.locationProxyConf;
       };
     };
     sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";

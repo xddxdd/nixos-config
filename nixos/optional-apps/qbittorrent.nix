@@ -39,10 +39,8 @@ in {
     "qbittorrent.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
         "/" = {
+          allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-          extraConfig =
-            LT.nginx.locationProxyConf
-            + LT.nginx.locationCORSConf;
         };
       };
 
@@ -55,10 +53,8 @@ in {
 
       locations = {
         "/" = {
+          allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-          extraConfig =
-            LT.nginx.locationProxyConf
-            + LT.nginx.locationCORSConf;
         };
       };
 

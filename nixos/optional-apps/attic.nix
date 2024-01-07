@@ -66,9 +66,7 @@
       locations = {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
-          extraConfig =
-            LT.nginx.locationProxyConf
-            + LT.nginx.locationNoTimeoutConf;
+          proxyNoTimeout = true;
         };
       };
 
@@ -79,9 +77,7 @@
       locations = {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
-          extraConfig =
-            LT.nginx.locationProxyConf
-            + LT.nginx.locationNoTimeoutConf;
+          proxyNoTimeout = true;
         };
       };
 

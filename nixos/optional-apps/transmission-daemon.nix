@@ -37,12 +37,10 @@
   lantian.nginxVhosts = {
     "transmission.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
-        "/".extraConfig =
-          LT.nginx.locationOauthConf
-          + ''
-            proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.Transmission};
-          ''
-          + LT.nginx.locationProxyConf;
+        "/" = {
+          enableOAuth = true;
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Transmission}";
+        };
         "/transmission/web".alias = "${pkgs.transmission}/share/transmission/web";
       };
 
@@ -54,12 +52,9 @@
       listenHTTPS.enable = false;
 
       locations = {
-        "/".extraConfig =
-          LT.nginx.locationOauthConf
-          + ''
-            proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.Transmission};
-          ''
-          + LT.nginx.locationProxyConf;
+        "/" = {
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Transmission}";
+        };
         "/transmission/web".alias = "${pkgs.transmission}/share/transmission/web";
       };
 

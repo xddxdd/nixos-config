@@ -57,33 +57,30 @@
           stub_status on;
         '';
 
-        "/ray".extraConfig =
-          ''
+        "/ray" = {
+          proxyNoTimeout = true;
+          extraConfig = ''
             if ($content_type !~ "application/grpc") {
               return 404;
             }
             access_log off;
             grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
-          ''
-          + LT.nginx.locationNoTimeoutConf;
+          '';
+        };
 
         "/oauth2/" = {
           proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
-          extraConfig =
-            ''
-              proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
-            ''
-            + LT.nginx.locationProxyConf;
+          extraConfig = ''
+            proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+          '';
         };
 
         "/oauth2/auth" = {
           proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
-          extraConfig =
-            ''
-              proxy_set_header Content-Length "";
-              proxy_pass_request_body off;
-            ''
-            + LT.nginx.locationProxyConf;
+          extraConfig = ''
+            proxy_set_header Content-Length "";
+            proxy_pass_request_body off;
+          '';
         };
 
         "= /444.internal".extraConfig = ''
@@ -227,13 +224,7 @@
         ])
       );
 
-      locations =
-        addCommonLocationConf {
-          enable = config.enableCommonLocationOptions;
-          phpfpmSocket = config.phpfpmSocket;
-          blockDotfiles = config.blockDotfiles;
-        }
-        config.locations;
+      locations = lib.mapAttrs (n: v: v._config) config._locationsWithCommon;
 
       extraConfig =
         config.extraConfig
@@ -394,6 +385,19 @@ in {
     locations = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule (import ./location-options.nix args));
       default = {};
+    };
+
+    _locationsWithCommon = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule (import ./location-options.nix args));
+      default =
+        addCommonLocationConf {
+          enable = config.enableCommonLocationOptions;
+          phpfpmSocket = config.phpfpmSocket;
+          blockDotfiles = config.blockDotfiles;
+        }
+        (lib.mapAttrs
+          (n: v: builtins.removeAttrs v ["_config"])
+          config.locations);
     };
 
     _config = lib.mkOption {

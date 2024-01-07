@@ -24,9 +24,9 @@ in
       root = pkgs.linkFarm "tools" tools;
       locations = {
         "/" = {
+          enableAutoIndex = true;
           index = "index.php index.html index.htm";
           tryFiles = "$uri $uri/ =404";
-          extraConfig = LT.nginx.locationAutoindexConf;
         };
       };
       sslCertificate = "lantian.pub_ecc";

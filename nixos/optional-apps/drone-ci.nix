@@ -172,7 +172,6 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone/drone.sock";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -187,7 +186,6 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone/drone.sock";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -199,7 +197,6 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-github/drone-github.sock";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -214,7 +211,6 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-github/drone-github.sock";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -229,7 +225,6 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-file-secret/drone-file-secret.sock";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 

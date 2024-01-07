@@ -12,12 +12,12 @@
   lantian.nginxVhosts = {
     "comments.lantian.pub" = {
       locations = {
-        "/".extraConfig =
-          ''
-            proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline};
+        "/" = {
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline}";
+          extraConfig = ''
             proxy_set_header REMOTE-HOST $remote_addr;
-          ''
-          + LT.nginx.locationProxyConf;
+          '';
+        };
         "= /".return = "302 /ui/";
       };
 

@@ -24,11 +24,9 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
-          extraConfig = LT.nginx.locationProxyConf;
         };
         "= /web/" = {
           proxyPass = "http://unix:/run/jellyfin/socket:/web/index.html";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -42,11 +40,9 @@ in {
       locations = {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
-          extraConfig = LT.nginx.locationProxyConf;
         };
         "= /web/" = {
           proxyPass = "http://unix:/run/jellyfin/socket:/web/index.html";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 

@@ -110,13 +110,13 @@ in {
     lantian.nginxVhosts = {
       "resilio.${config.networking.hostName}.xuyh0120.win" = {
         locations = {
-          "/".extraConfig =
-            LT.nginx.locationOauthConf
-            + ''
-              proxy_pass http://unix:/run/rslsync/rslsync.sock;
+          "/" = {
+            enableOAuth = true;
+            proxyPass = "http://unix:/run/rslsync/rslsync.sock";
+            extraConfig = ''
               proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-            ''
-            + LT.nginx.locationProxyConf;
+            '';
+          };
         };
 
         sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
@@ -127,12 +127,12 @@ in {
         listenHTTPS.enable = false;
 
         locations = {
-          "/".extraConfig =
-            ''
-              proxy_pass http://unix:/run/rslsync/rslsync.sock;
+          "/" = {
+            proxyPass = "http://unix:/run/rslsync/rslsync.sock";
+            extraConfig = ''
               proxy_set_header Authorization "Basic dXNlcjpwYXNz";
-            ''
-            + LT.nginx.locationProxyConf;
+            '';
+          };
         };
 
         noIndex.enable = true;

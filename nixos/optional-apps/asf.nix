@@ -29,21 +29,15 @@
 
   lantian.nginxVhosts."asf.xuyh0120.win" = {
     locations = {
-      "/".extraConfig =
-        LT.nginx.locationOauthConf
-        + ''
-          proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
-        ''
-        + LT.nginx.locationProxyConf;
-      "~* /Api/NLog".extraConfig =
-        LT.nginx.locationOauthConf
-        + ''
-          proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF};
-          proxy_http_version 1.1;
-          proxy_set_header Connection "upgrade";
-          proxy_set_header Upgrade $http_upgrade;
-        ''
-        + LT.nginx.locationProxyConf;
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF}";
+      };
+      "~* /Api/NLog" = {
+        enableOAuth = true;
+        proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF}";
+        proxyWebsockets = true;
+      };
     };
 
     sslCertificate = "xuyh0120.win_ecc";

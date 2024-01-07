@@ -90,7 +90,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -104,7 +103,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -115,7 +113,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -129,7 +126,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -140,7 +136,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Prowlarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 
@@ -154,7 +149,6 @@
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Prowlarr}";
-          extraConfig = LT.nginx.locationProxyConf;
         };
       };
 

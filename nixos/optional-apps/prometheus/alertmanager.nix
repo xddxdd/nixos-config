@@ -189,12 +189,10 @@ in {
 
   lantian.nginxVhosts."alert.xuyh0120.win" = {
     locations = {
-      "/".extraConfig =
-        LT.nginx.locationOauthConf
-        + ''
-          proxy_pass http://127.0.0.1:${LT.portStr.Prometheus.AlertManager};
-        ''
-        + LT.nginx.locationProxyConf;
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Prometheus.AlertManager}";
+      };
     };
 
     sslCertificate = "xuyh0120.win_ecc";
