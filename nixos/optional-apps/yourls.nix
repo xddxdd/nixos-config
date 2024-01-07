@@ -72,24 +72,19 @@ in {
     };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "ltn.pw" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "${yourlsPackage}";
-      locations =
-        LT.nginx.addCommonLocationConf
-        {phpfpmSocket = config.services.phpfpm.pools.yourls.socket;}
-        {
-          "= /".return = "302 https://lantian.pub";
-          "/" = {
-            index = "index.php";
-            tryFiles = "$uri $uri/ /yourls-loader.php$is_args$args";
-          };
+      root = yourlsPackage;
+      locations = {
+        "= /".return = "302 https://lantian.pub";
+        "/" = {
+          index = "index.php";
+          tryFiles = "$uri $uri/ /yourls-loader.php$is_args$args";
         };
-      extraConfig =
-        LT.nginx.makeSSL "ltn.pw_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+      };
+      phpfpmSocket = config.services.phpfpm.pools.yourls.socket;
+      sslCertificate = "ltn.pw_ecc";
+      noIndex.enable = true;
     };
   };
 

@@ -112,34 +112,29 @@ in {
     };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "pma.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "${pkgs.phpmyadmin}";
-      locations =
-        LT.nginx.addCommonLocationConf
-        {phpfpmSocket = config.services.phpfpm.pools.pma.socket;}
-        {
-          "/".index = "index.php";
-        };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+      root = pkgs.phpmyadmin;
+      locations = {
+        "/".index = "index.php";
+      };
+
+      phpfpmSocket = config.services.phpfpm.pools.pma.socket;
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "pma.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      root = "${pkgs.phpmyadmin}";
-      locations =
-        LT.nginx.addCommonLocationConf
-        {phpfpmSocket = config.services.phpfpm.pools.pma.socket;}
-        {
-          "/".index = "index.php";
-        };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      root = pkgs.phpmyadmin;
+      locations = {
+        "/".index = "index.php";
+      };
+
+      phpfpmSocket = config.services.phpfpm.pools.pma.socket;
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 

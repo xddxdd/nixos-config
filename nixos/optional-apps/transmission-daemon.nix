@@ -34,10 +34,9 @@
     };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "transmission.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/".extraConfig =
           LT.nginx.locationOauthConf
           + ''
@@ -46,14 +45,15 @@
           + LT.nginx.locationProxyConf;
         "/transmission/web".alias = "${pkgs.transmission}/share/transmission/web";
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "transmission.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/".extraConfig =
           LT.nginx.locationOauthConf
           + ''
@@ -62,10 +62,9 @@
           + LT.nginx.locationProxyConf;
         "/transmission/web".alias = "${pkgs.transmission}/share/transmission/web";
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 }

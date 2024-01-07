@@ -167,75 +167,74 @@ in {
     };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "ci.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone/drone.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "lantian.pub_ecc";
+      noIndex.enable = true;
     };
 
     "drone.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone/drone.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      accessibleBy = "localhost";
+      noIndex.enable = true;
     };
 
     "ci-github.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-github/drone-github.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "lantian.pub_ecc";
+      noIndex.enable = true;
     };
 
     "drone-github.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-github/drone-github.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      accessibleBy = "localhost";
+      noIndex.enable = true;
     };
 
     "drone-file-secret.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/drone-file-secret/drone-file-secret.sock";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      accessibleBy = "localhost";
+      noIndex.enable = true;
     };
   };
 

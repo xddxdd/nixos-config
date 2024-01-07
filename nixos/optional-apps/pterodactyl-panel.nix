@@ -80,23 +80,19 @@ in {
     user = "pterodactyl";
   };
 
-  services.nginx.virtualHosts ."pterodactyl.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
+  lantian.nginxVhosts ."pterodactyl.xuyh0120.win" = {
     root = "${root}/public";
-    locations =
-      LT.nginx.addCommonLocationConf
-      {phpfpmSocket = config.services.phpfpm.pools.pterodactyl.socket;}
-      {
-        "/" = {
-          tryFiles = "$uri $uri/ /index.php?$query_string";
-          index = "index.php";
-        };
+    locations = {
+      "/" = {
+        tryFiles = "$uri $uri/ /index.php?$query_string";
+        index = "index.php";
       };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true
-      + LT.nginx.servePrivate null;
+    };
+
+    phpfpmSocket = config.services.phpfpm.pools.pterodactyl.socket;
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
+    accessibleBy = "private";
   };
 
   systemd.tmpfiles.rules = [

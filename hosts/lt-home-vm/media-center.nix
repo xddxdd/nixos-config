@@ -83,7 +83,7 @@ in {
     };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "sonarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
     "sonarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
     "radarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";

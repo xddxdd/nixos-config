@@ -74,10 +74,9 @@
       "d ${config.lantian.syncthing.storage} 755 root root"
     ];
 
-    services.nginx.virtualHosts = {
+    lantian.nginxVhosts = {
       "syncthing.${config.networking.hostName}.xuyh0120.win" = {
-        listen = LT.nginx.listenHTTPS;
-        locations = LT.nginx.addCommonLocationConf {} {
+        locations = {
           "/".extraConfig =
             LT.nginx.locationOauthConf
             + ''
@@ -85,24 +84,24 @@
             ''
             + LT.nginx.locationProxyConf;
         };
-        extraConfig =
-          LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-          + LT.nginx.commonVhostConf true
-          + LT.nginx.noIndex true;
+
+        sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+        noIndex.enable = true;
       };
       "syncthing.localhost" = {
-        listen = LT.nginx.listenHTTP;
-        locations = LT.nginx.addCommonLocationConf {} {
+        listenHTTP.enable = true;
+        listenHTTPS.enable = false;
+
+        locations = {
           "/".extraConfig =
             ''
               proxy_pass http://127.0.0.1:${LT.portStr.Syncthing};
             ''
             + LT.nginx.locationProxyConf;
         };
-        extraConfig =
-          LT.nginx.commonVhostConf true
-          + LT.nginx.noIndex true
-          + LT.nginx.serveLocalhost null;
+
+        noIndex.enable = true;
+        accessibleBy = "localhost";
       };
     };
   };

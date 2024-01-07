@@ -59,17 +59,15 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."stats.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."stats.xuyh0120.win" = {
+    locations = {
       "/" = {
         proxyPass = "http://${config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true;
+
+    sslCertificate = "xuyh0120.win_ecc";
   };
 
   systemd.services = {

@@ -15,41 +15,38 @@ in {
     group = "nginx";
   };
 
-  services.nginx.virtualHosts."lab.lantian.pub" = {
-    listen = LT.nginx.listenHTTP ++ LT.nginx.listenHTTPS;
+  lantian.nginxVhosts."lab.lantian.pub" = {
+    listenHTTP.enable = true;
     root = labRoot;
-    locations =
-      LT.nginx.addCommonLocationConf
-      {phpfpmSocket = config.services.phpfpm.pools.lab.socket;}
-      {
-        "/" = {
-          index = "index.php index.html index.htm";
-          tryFiles = "$uri $uri/ =404";
-        };
-        "= /".extraConfig = LT.nginx.locationAutoindexConf;
-        "/cgi-bin/" = {
-          index = "index.sh";
-          extraConfig = LT.nginx.locationFcgiwrapConf;
-        };
-        "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
-        "/zjui-ece385-scoreboard".extraConfig = ''
-          gzip off;
-          brotli off;
-          zstd off;
-        '';
-
-        # 302 to tools.lantian.pub
-        "/dngzwxdq".return = "302 https://tools.lantian.pub$request_uri";
-        "/dnyjzsxj".return = "302 https://tools.lantian.pub$request_uri";
-        "/glibc-for-debian-10-on-openvz".return = "302 https://tools.lantian.pub$request_uri";
-        "/mota-24".return = "302 https://tools.lantian.pub$request_uri";
-        "/mota-51".return = "302 https://tools.lantian.pub$request_uri";
-        "/mota-xinxin".return = "302 https://tools.lantian.pub$request_uri";
+    locations = {
+      "/" = {
+        index = "index.php index.html index.htm";
+        tryFiles = "$uri $uri/ =404";
       };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+      "= /".extraConfig = LT.nginx.locationAutoindexConf;
+      "/cgi-bin/" = {
+        index = "index.sh";
+        extraConfig = LT.nginx.locationFcgiwrapConf;
+      };
+      "/hobby-net".extraConfig = LT.nginx.locationAutoindexConf;
+      "/zjui-ece385-scoreboard".extraConfig = ''
+        gzip off;
+        brotli off;
+        zstd off;
+      '';
+
+      # 302 to tools.lantian.pub
+      "/dngzwxdq".return = "302 https://tools.lantian.pub$request_uri";
+      "/dnyjzsxj".return = "302 https://tools.lantian.pub$request_uri";
+      "/glibc-for-debian-10-on-openvz".return = "302 https://tools.lantian.pub$request_uri";
+      "/mota-24".return = "302 https://tools.lantian.pub$request_uri";
+      "/mota-51".return = "302 https://tools.lantian.pub$request_uri";
+      "/mota-xinxin".return = "302 https://tools.lantian.pub$request_uri";
+    };
+
+    phpfpmSocket = config.services.phpfpm.pools.lab.socket;
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 
   services.phpfpm.pools.lab = {

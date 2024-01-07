@@ -13,7 +13,7 @@
     "ltn.pw"
   ];
 in {
-  services.nginx.virtualHosts = builtins.listToAttrs (
+  lantian.nginxVhosts = builtins.listToAttrs (
     builtins.map
     ({
       index,
@@ -22,14 +22,11 @@ in {
       portStr = builtins.toString (LT.port.GoAutoconfig.Start + index);
     in
       lib.nameValuePair "autoconfig.${value}" {
-        listen = LT.nginx.listenHTTPS;
-        locations = LT.nginx.addCommonLocationConf {} {
+        locations = {
           "/".proxyPass = "http://127.0.0.1:${portStr}";
         };
-        extraConfig =
-          LT.nginx.makeSSL "${value}_ecc"
-          + LT.nginx.commonVhostConf true
-          + LT.nginx.noIndex true;
+        sslCertificate = "${value}_ecc";
+        noIndex.enable = true;
       })
     (LT.enumerateList domains)
   );

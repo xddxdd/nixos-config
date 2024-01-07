@@ -85,84 +85,81 @@
       };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "sonarr.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "sonarr.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Sonarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
     "radarr.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "radarr.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
     "prowlarr.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Prowlarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "prowlarr.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.Prowlarr}";
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 }

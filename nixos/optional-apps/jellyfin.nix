@@ -19,10 +19,9 @@
 in {
   services.jellyfin.enable = true;
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "jellyfin.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
           extraConfig = LT.nginx.locationProxyConf;
@@ -32,13 +31,14 @@ in {
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "jellyfin.localhost" = {
-      listen = LT.nginx.listenHTTP;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
       locations = LT.nginx.addCommonLocationConf {} {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
@@ -49,10 +49,9 @@ in {
           extraConfig = LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 

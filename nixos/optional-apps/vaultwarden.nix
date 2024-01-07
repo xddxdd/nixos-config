@@ -49,9 +49,8 @@
     environmentFile = config.age.secrets.vaultwarden-env.path;
   };
 
-  services.nginx.virtualHosts."bitwarden.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."bitwarden.xuyh0120.win" = {
+    locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -66,10 +65,9 @@
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
   };
 
   systemd.services.vaultwarden = {
