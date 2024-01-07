@@ -9,7 +9,7 @@
 } @ args: let
   addConfLantianPub = args:
     lib.recursiveUpdate args {
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           index = "index.html index.htm";
         };
@@ -71,28 +71,22 @@
 
           error_page 404 /404.html;
         ''
-        + args.extraConfig;
+        + (args.extraConfig or "");
     };
 in {
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "_default_http" = {
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = LT.port.HTTP;
-          extraParameters = LT.nginx.listenDefaultFlags;
-        }
-        {
-          addr = "[::]";
-          port = LT.port.HTTP;
-          extraParameters = LT.nginx.listenDefaultFlags;
-        }
-      ];
+      listenHTTP.enable = true;
+      listenHTTP.default = true;
+      listenHTTPS.enable = false;
 
       locations = {
         "/".return = "301 https://$host$request_uri";
         "/generate_204".return = "204";
       };
+
+      enableCommonLocationOptions = false;
+      enableCommonVhostOptions = false;
 
       extraConfig = ''
         access_log off;
@@ -100,96 +94,74 @@ in {
     };
 
     "_default_https" = {
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = LT.port.HTTPS;
-          extraParameters = ["ssl"] ++ LT.nginx.listenDefaultFlags;
-        }
-        {
-          addr = "0.0.0.0";
-          port = LT.port.HTTPS;
-          extraParameters = ["quic"] ++ LT.nginx.listenDefaultFlagsQuic;
-        }
-        {
-          addr = "[::]";
-          port = LT.port.HTTPS;
-          extraParameters = ["ssl"] ++ LT.nginx.listenDefaultFlags;
-        }
-        {
-          addr = "[::]";
-          port = LT.port.HTTPS;
-          extraParameters = ["quic"] ++ LT.nginx.listenDefaultFlagsQuic;
-        }
-      ];
+      listenHTTPS.default = true;
 
       locations = {
         "/".return = "444";
         "/generate_204".return = "204";
       };
 
-      extraConfig =
-        ''
-          access_log off;
-        ''
-        + LT.nginx.makeSSLSnakeoil;
+      enableCommonLocationOptions = false;
+      enableCommonVhostOptions = false;
+
+      extraConfig = ''
+        access_log off;
+      '';
     };
 
     "localhost" = {
-      listen = LT.nginx.listenHTTP;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
       root = "/var/www/localhost";
-      extraConfig = LT.nginx.commonVhostConf false;
+      enableCommonLocationOptions = false;
+      accessibleBy = "localhost";
     };
 
     "lantian.pub" = addConfLantianPub {
-      listen = LT.nginx.listenHTTPS;
       serverAliases = ["${config.networking.hostName}.lantian.pub"];
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
+      sslCertificate = "lantian.pub_ecc";
     };
     "lantian.dn42" = addConfLantianPub {
-      listen = LT.nginx.listenHTTP;
-      extraConfig = LT.nginx.commonVhostConf false;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
     };
     "lantian.neo" = addConfLantianPub {
-      listen = LT.nginx.listenHTTP;
-      extraConfig = LT.nginx.commonVhostConf false;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
     };
 
     # Don't use globalRedirect, it adds http:// prefix
     "www.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
       locations."/".return = "302 https://lantian.pub$request_uri";
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true;
+      enableCommonLocationOptions = false;
+      sslCertificate = "lantian.pub_ecc";
     };
     "xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
       serverAliases = ["www.xuyh0120.win"];
       locations."/".return = "302 https://lantian.pub$request_uri";
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true;
+      enableCommonLocationOptions = false;
+      sslCertificate = "xuyh0120.win_ecc";
     };
     "lab.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
       locations."/".return = "302 https://lab.lantian.pub$request_uri";
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true;
+      enableCommonLocationOptions = false;
+      sslCertificate = "xuyh0120.win_ecc";
     };
     "www.ltn.pw" = {
-      listen = LT.nginx.listenHTTPS;
       locations."/".return = "302 https://ltn.pw$request_uri";
-      extraConfig =
-        LT.nginx.makeSSL "ltn.pw_ecc"
-        + LT.nginx.commonVhostConf true;
+      enableCommonLocationOptions = false;
+      sslCertificate = "ltn.pw_ecc";
     };
 
     "gopher.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
+      listenHTTP.enable = true;
+      listenPlainSocket = {
+        enable = true;
+        socket = "/run/nginx/gopher.sock";
+        proxyProtocol = true;
+        default = true;
+      };
+
       root = "/nix/persistent/sync-servers/www/lantian.pub";
       serverAliases = ["gopher.lantian.dn42" "gopher.lantian.neo"];
 
@@ -202,15 +174,14 @@ in {
         '';
       };
 
-      extraConfig =
-        ''
-          listen unix:/run/nginx/gopher.sock plain proxy_protocol default_server;
-          error_page 404 /404.gopher;
-        ''
-        + LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.listenProxyProtocol
-        + LT.nginx.noIndex true;
+      enableCommonLocationOptions = false;
+      noIndex.enable = true;
+
+      sslCertificate = "lantian.pub_ecc";
+
+      extraConfig = ''
+        error_page 404 /404.gopher;
+      '';
     };
   };
 }

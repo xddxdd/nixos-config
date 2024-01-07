@@ -34,15 +34,13 @@
       };
   };
 
-  services.nginx.virtualHosts."ca.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."ca.lantian.pub" = {
+    locations = {
       "/".return = "https://ca.lantian.pub:444$request_uri";
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 
   services.postgresql = {

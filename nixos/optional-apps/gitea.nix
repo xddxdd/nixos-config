@@ -109,9 +109,8 @@
 
   users.groups.gitea = {};
 
-  services.nginx.virtualHosts."git.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {blockDotfiles = false;} {
+  lantian.nginxVhosts."git.lantian.pub" = {
+    locations = {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
         extraConfig = LT.nginx.locationProxyConf;
@@ -134,8 +133,8 @@
       };
       "= /user/login".return = "302 /user/oauth2/Keycloak";
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true;
+
+    blockDotfiles = false;
+    sslCertificate = "lantian.pub_ecc";
   };
 }

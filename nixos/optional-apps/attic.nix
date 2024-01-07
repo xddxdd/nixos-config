@@ -61,10 +61,9 @@
   };
   users.groups.atticd = {};
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "attic.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
           extraConfig =
@@ -72,14 +71,12 @@
             + LT.nginx.locationNoTimeoutConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "attic.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
           extraConfig =
@@ -87,10 +84,9 @@
             + LT.nginx.locationNoTimeoutConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
   };
 }

@@ -35,10 +35,9 @@ in {
       };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "qbittorrent.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
           extraConfig =
@@ -46,14 +45,15 @@ in {
             + LT.nginx.locationCORSConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "qbittorrent.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      locations = LT.nginx.addCommonLocationConf {} {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
           extraConfig =
@@ -61,10 +61,9 @@ in {
             + LT.nginx.locationCORSConf;
         };
       };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 }

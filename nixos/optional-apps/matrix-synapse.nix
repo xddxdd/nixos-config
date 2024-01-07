@@ -142,13 +142,14 @@
     ];
   };
 
-  services.nginx.virtualHosts."matrix-federation.lantian.pub" = {
-    listen = LT.nginx.listenHTTPSPort LT.port.Matrix.Public;
+  lantian.nginxVhosts."matrix-federation.lantian.pub" = {
+    listenHTTPS.port = LT.port.Matrix.Public;
+
     serverAliases = [
       "matrix.lantian.pub"
       config.services.matrix-synapse.settings.server_name
     ];
-    locations = LT.nginx.addCommonLocationConf {} {
+    locations = {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/federation.sock";
         extraConfig =
@@ -159,16 +160,14 @@
           '';
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 
-  services.nginx.virtualHosts."matrix-client.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
+  lantian.nginxVhosts."matrix-client.lantian.pub" = {
     serverAliases = ["matrix.lantian.pub"];
-    locations = LT.nginx.addCommonLocationConf {} {
+    locations = {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
         extraConfig = LT.nginx.locationProxyConf;
@@ -194,10 +193,9 @@
           return 200 '${LT.constants.matrixWellKnown.client}';
         '';
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 
   systemd.services.synapse-compress-state = {

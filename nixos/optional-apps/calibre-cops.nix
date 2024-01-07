@@ -46,40 +46,36 @@ in {
       };
     };
 
-    services.nginx.virtualHosts = {
+    lantian.nginxVhosts = {
       "books.xuyh0120.win" = {
-        listen = LT.nginx.listenHTTPS;
-        root = "${pkgs.calibre-cops}";
-        locations =
-          LT.nginx.addCommonLocationConf
-          {phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket;}
-          {
-            "/" = {
-              index = "index.php";
-              extraConfig = LT.nginx.locationBasicAuthConf;
-            };
-            "/download/".extraConfig = ''
-              rewrite ^/download/(\d*)/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub last;
-              rewrite ^/download/(\d+)/(\d+)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3 last;
-              rewrite ^/download/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub last;
-              rewrite ^/download/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2 last;
-              break;
-            '';
-            "/view/".extraConfig = ''
-              rewrite ^/view/(\d*)/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub&view=1 last;
-              rewrite ^/view/(\d*)/(\d*)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3&view=1 last;
-              rewrite ^/view/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub&view=1 last;
-              rewrite ^/view/(\d*)/.*\.(.*)$ /fetch.php?data=$1&type=$2&view=1 last;
-              break;
-            '';
-            "/calibre/".extraConfig = ''
-              alias "${calibreLibrary}/";
-              internal;
-            '';
+        root = pkgs.calibre-cops;
+        locations = {
+          "/" = {
+            index = "index.php";
+            extraConfig = LT.nginx.locationBasicAuthConf;
           };
-        extraConfig =
-          LT.nginx.makeSSL "xuyh0120.win_ecc"
-          + LT.nginx.commonVhostConf true;
+          "/download/".extraConfig = ''
+            rewrite ^/download/(\d*)/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub last;
+            rewrite ^/download/(\d+)/(\d+)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3 last;
+            rewrite ^/download/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub last;
+            rewrite ^/download/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2 last;
+            break;
+          '';
+          "/view/".extraConfig = ''
+            rewrite ^/view/(\d*)/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub&view=1 last;
+            rewrite ^/view/(\d*)/(\d*)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3&view=1 last;
+            rewrite ^/view/(\d*)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub&view=1 last;
+            rewrite ^/view/(\d*)/.*\.(.*)$ /fetch.php?data=$1&type=$2&view=1 last;
+            break;
+          '';
+          "/calibre/".extraConfig = ''
+            alias "${calibreLibrary}/";
+            internal;
+          '';
+        };
+
+        phpfpmSocket = config.services.phpfpm.pools.calibre-cops.socket;
+        sslCertificate = "xuyh0120.win_ecc";
       };
     };
 

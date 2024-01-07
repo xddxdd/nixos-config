@@ -7,14 +7,23 @@
   inputs,
   ...
 } @ args: {
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "whois.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS ++ LT.nginx.listenHTTP;
-      serverAliases = ["whois.lantian.dn42" "whois.lantian.neo"];
+      listenHTTP.enable = true;
+      listenPlainSocket = {
+        enable = true;
+        socket = "/run/nginx/whois.sock";
+        proxyProtocol = true;
+        default = true;
+      };
 
+      enableCommonLocationOptions = false;
+      enableCommonVhostOptions = false;
+
+      serverAliases = ["whois.lantian.dn42" "whois.lantian.neo"];
       locations = {
         "/".extraConfig = ''
-          proxy_pass http://unix:/run/nginx/whois-stage1.sock;
+          proxy_pass http://unix:${config.lantian.nginxVhosts."stage1.whois.local".listenHTTP_Socket.socket};
           proxy_set_header Host "stage1.whois.local";
           add_before_body /lantian-prepend;
         '';
@@ -26,18 +35,20 @@
         '';
       };
 
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.listenProxyProtocol
-        + ''
-          listen unix:/run/nginx/whois.sock plain proxy_protocol default_server;
-        '';
+      sslCertificate = "lantian.pub_ecc";
     };
 
     "stage1.whois.local" = {
-      extraConfig = ''
-        listen unix:/run/nginx/whois-stage1.sock default_server;
-      '';
+      listenHTTPS.enable = false;
+      listenHTTP_Socket = {
+        enable = true;
+        socket = "/run/nginx/whois-stage1.sock";
+        default = true;
+      };
+
+      enableCommonLocationOptions = false;
+      enableCommonVhostOptions = false;
+
       root = "/nix/persistent/sync-servers/ltnet-registry/dn42/data";
       locations = {
         "/".extraConfig = ''
@@ -123,16 +134,23 @@
 
         "@fallback".extraConfig = ''
           internal;
-          proxy_pass http://unix:/run/nginx/whois-stage2.sock;
+          proxy_pass http://unix:${config.lantian.nginxVhosts."stage2.whois.local".listenHTTP_Socket.socket};
           proxy_set_header Host "stage2.whois.local";
         '';
       };
     };
 
     "stage2.whois.local" = {
-      extraConfig = ''
-        listen unix:/run/nginx/whois-stage2.sock default_server;
-      '';
+      listenHTTPS.enable = false;
+      listenHTTP_Socket = {
+        enable = true;
+        socket = "/run/nginx/whois-stage2.sock";
+        default = true;
+      };
+
+      enableCommonLocationOptions = false;
+      enableCommonVhostOptions = false;
+
       locations = {
         "/".extraConfig = ''
           rewrite "^/([0-9]+)$" /AS$1 last;

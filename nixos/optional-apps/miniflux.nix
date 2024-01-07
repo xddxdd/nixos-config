@@ -38,25 +38,21 @@
     adminCredentialsFile = pkgs.writeText "dummy" "DUMMY=1";
   };
 
-  services.nginx.virtualHosts."rss.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} (
-      let
-        proxyConfig = {
-          proxyPass = "http://unix:/run/miniflux/miniflux.sock";
-          extraConfig = LT.nginx.locationProxyConf;
-        };
-      in {
-        "/" = proxyConfig;
-        # Bypass oauth-proxy for URL conflicts
-        "/oauth2/" = proxyConfig;
-        "/oauth2/auth" = proxyConfig;
-      }
-    );
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+  lantian.nginxVhosts."rss.xuyh0120.win" = {
+    locations = let
+      proxyConfig = {
+        proxyPass = "http://unix:/run/miniflux/miniflux.sock";
+        extraConfig = LT.nginx.locationProxyConf;
+      };
+    in {
+      "/" = proxyConfig;
+      # Bypass oauth-proxy for URL conflicts
+      "/oauth2/" = proxyConfig;
+      "/oauth2/auth" = proxyConfig;
+    };
+
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
   };
 
   systemd.services.miniflux.serviceConfig = {

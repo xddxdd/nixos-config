@@ -9,10 +9,9 @@
 } @ args: {
   age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "comments.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/".extraConfig =
           ''
             proxy_pass http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline};
@@ -21,10 +20,9 @@
           + LT.nginx.locationProxyConf;
         "= /".return = "302 /ui/";
       };
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "lantian.pub_ecc";
+      noIndex.enable = true;
     };
   };
 

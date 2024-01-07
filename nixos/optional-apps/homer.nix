@@ -23,8 +23,10 @@ in {
     ShowHomeButton = lib.mkForce true;
   };
 
-  services.nginx.virtualHosts."localhost" = lib.mkForce {
-    listen = LT.nginx.listenHTTP;
+  lantian.nginxVhosts."localhost" = lib.mkForce {
+    listenHTTP.enable = true;
+    listenHTTPS.enable = false;
+
     root = pkgs.linkFarm "homer" {
       "_custom" = "/var/www/localhost";
       "_homer" = homer;
@@ -37,10 +39,9 @@ in {
         tryFiles = "$uri /_custom$uri /_homer$uri =404";
       };
     };
-    extraConfig =
-      LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true
-      + LT.nginx.serveLocalhost null;
+
+    noIndex.enable = true;
+    accessibleBy = "localhost";
   };
 
   systemd.tmpfiles.rules = [

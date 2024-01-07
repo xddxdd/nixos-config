@@ -22,17 +22,12 @@
     '';
   };
 in {
-  services.nginx.virtualHosts."avatar.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    root = "${avatars}";
-    locations = LT.nginx.addCommonLocationConf {} {
-      "/".extraConfig = ''
-        try_files /avatar-$arg_s.jpg /avatar-80.jpg =404;
-      '';
+  lantian.nginxVhosts."avatar.lantian.pub" = {
+    root = avatars;
+    locations = {
+      "/".tryFiles = "/avatar-$arg_s.jpg /avatar-80.jpg =404";
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 }

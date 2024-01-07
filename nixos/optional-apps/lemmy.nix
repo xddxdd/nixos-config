@@ -35,8 +35,7 @@ in {
     ];
   };
 
-  services.nginx.virtualHosts."lemmy.lantian.pub" = {
-    listen = lib.mkForce LT.nginx.listenHTTPS;
+  lantian.nginxVhosts."lemmy.lantian.pub" = {
     locations = let
       ui = "http://127.0.0.1:${toString cfg.ui.port}";
       backend = "http://127.0.0.1:${toString cfg.settings.port}";
@@ -45,7 +44,7 @@ in {
         # backend requests
         proxyPass = backend;
         proxyWebsockets = true;
-        recommendedProxySettings = true;
+        extraConfig = LT.nginx.locationProxyConf;
       };
       "/".extraConfig = ''
         set $proxpass "${ui}";
@@ -69,10 +68,9 @@ in {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       '';
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 
   systemd.services.lemmy = {

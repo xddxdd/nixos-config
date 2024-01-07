@@ -58,9 +58,10 @@
     ];
   };
 
-  services.nginx.virtualHosts."cloud.xuyh0120.win" = {
-    listen = lib.mkForce LT.nginx.listenHTTPS;
+  lantian.nginxVhosts."cloud.xuyh0120.win" = {
     # Nextcloud sends "X-Robots-Tag: none" itself, no need for LT.nginx.noIndex
-    extraConfig = LT.nginx.makeSSL "xuyh0120.win_ecc";
+    sslCertificate = "xuyh0120.win_ecc";
+    enableCommonLocationOptions = false;
+    enableCommonVhostOptions = false;
   };
 }

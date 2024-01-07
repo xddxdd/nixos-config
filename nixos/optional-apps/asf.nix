@@ -27,9 +27,8 @@
     };
   };
 
-  services.nginx.virtualHosts."asf.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."asf.xuyh0120.win" = {
+    locations = {
       "/".extraConfig =
         LT.nginx.locationOauthConf
         + ''
@@ -46,9 +45,8 @@
         ''
         + LT.nginx.locationProxyConf;
     };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
   };
 }

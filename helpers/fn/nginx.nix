@@ -145,11 +145,7 @@ in rec {
     allow ::1;
     deny all;
 
-    error_page 403 ${
-      if forbidden_action != null
-      then forbidden_action
-      else "/444.internal"
-    };
+    error_page 403 ${forbidden_action};
   '';
 
   servePrivate = forbidden_action:
@@ -160,11 +156,7 @@ in rec {
       allow ::1;
       deny all;
 
-      error_page 403 ${
-        if forbidden_action != null
-        then forbidden_action
-        else "/444.internal"
-      };
+      error_page 403 ${forbidden_action};
     '';
 
   addCommonLocationConf = {
@@ -339,18 +331,19 @@ in rec {
     send_timeout 52w;
   '';
 
-  listenDefaultFlags = [
-    "default_server"
-    "fastopen=100"
-    "reuseport"
-    "deferred"
-    "so_keepalive=600:10:6"
-  ];
-
-  listenDefaultFlagsQuic = [
-    "default_server"
-    "reuseport"
-  ];
+  listenDefaultFlags = protocol:
+    [
+      "default_server"
+    ]
+    ++ (lib.optionals (protocol == "tcp") [
+      "fastopen=100"
+      "reuseport"
+      "deferred"
+      "so_keepalive=600:10:6"
+    ])
+    ++ (lib.optionals (protocol == "udp") [
+      "reuseport"
+    ]);
 
   listenHTTPS = listenHTTPSPort port.HTTPS;
   listenHTTPSPort = port: [

@@ -107,10 +107,9 @@ in {
       "d ${config.lantian.resilio.storage} 755 root root"
     ];
 
-    services.nginx.virtualHosts = {
+    lantian.nginxVhosts = {
       "resilio.${config.networking.hostName}.xuyh0120.win" = {
-        listen = LT.nginx.listenHTTPS;
-        locations = LT.nginx.addCommonLocationConf {} {
+        locations = {
           "/".extraConfig =
             LT.nginx.locationOauthConf
             + ''
@@ -119,14 +118,15 @@ in {
             ''
             + LT.nginx.locationProxyConf;
         };
-        extraConfig =
-          LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-          + LT.nginx.commonVhostConf true
-          + LT.nginx.noIndex true;
+
+        sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+        noIndex.enable = true;
       };
       "resilio.localhost" = {
-        listen = LT.nginx.listenHTTP;
-        locations = LT.nginx.addCommonLocationConf {} {
+        listenHTTP.enable = true;
+        listenHTTPS.enable = false;
+
+        locations = {
           "/".extraConfig =
             ''
               proxy_pass http://unix:/run/rslsync/rslsync.sock;
@@ -134,10 +134,9 @@ in {
             ''
             + LT.nginx.locationProxyConf;
         };
-        extraConfig =
-          LT.nginx.commonVhostConf true
-          + LT.nginx.noIndex true
-          + LT.nginx.serveLocalhost null;
+
+        noIndex.enable = true;
+        accessibleBy = "localhost";
       };
     };
   };

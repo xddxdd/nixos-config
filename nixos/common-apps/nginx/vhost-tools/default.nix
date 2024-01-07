@@ -16,30 +16,28 @@
     mota-51 = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-51.nix {});
     mota-xinxin = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-xinxin.nix {});
   };
-in lib.mkIf (!(builtins.elem LT.tags.low-disk LT.this.tags)) {
-  networking.hosts."127.0.0.1" = ["tools.lantian.pub"];
+in
+  lib.mkIf (!(builtins.elem LT.tags.low-disk LT.this.tags)) {
+    networking.hosts."127.0.0.1" = ["tools.lantian.pub"];
 
-  services.nginx.virtualHosts."tools.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    root = pkgs.linkFarm "tools" tools;
-    locations = LT.nginx.addCommonLocationConf {} {
-      "/" = {
-        index = "index.php index.html index.htm";
-        tryFiles = "$uri $uri/ =404";
-        extraConfig = LT.nginx.locationAutoindexConf;
+    lantian.nginxVhosts."tools.lantian.pub" = {
+      root = pkgs.linkFarm "tools" tools;
+      locations = {
+        "/" = {
+          index = "index.php index.html index.htm";
+          tryFiles = "$uri $uri/ =404";
+          extraConfig = LT.nginx.locationAutoindexConf;
+        };
       };
-    };
-    extraConfig =
-      ''
+      sslCertificate = "lantian.pub_ecc";
+      noIndex.enable = true;
+      extraConfig = ''
         gzip off;
         gzip_static on;
         brotli off;
         brotli_static on;
         zstd off;
         zstd_static on;
-      ''
-      + LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
-  };
-}
+      '';
+    };
+  }

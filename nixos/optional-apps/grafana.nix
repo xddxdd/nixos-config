@@ -97,9 +97,8 @@
     ];
   };
 
-  services.nginx.virtualHosts."dashboard.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."dashboard.xuyh0120.win" = {
+    locations = {
       "/" = {
         proxyPass = "http://unix:${config.services.grafana.settings.server.socket}";
         extraConfig = LT.nginx.locationProxyConf;
@@ -110,9 +109,8 @@
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
   };
 }

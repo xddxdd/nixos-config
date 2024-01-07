@@ -44,19 +44,16 @@
       };
   };
 
-  services.nginx.virtualHosts."fastapi-dls.${config.networking.hostName}.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."fastapi-dls.${config.networking.hostName}.xuyh0120.win" = {
+    locations = {
       "/" = {
         proxyPass = "http://unix:/run/fastapi-dls/fastapi-dls.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true
-      + LT.nginx.servePrivate null;
+    sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+    accessibleBy = "private";
+    noIndex.enable = true;
   };
 
   users.users.fastapi-dls = {

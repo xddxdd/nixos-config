@@ -60,18 +60,16 @@
   };
   users.groups.keycloak = {};
 
-  services.nginx.virtualHosts."login.lantian.pub" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."login.lantian.pub" = {
+    locations = {
       "= /".return = "302 /admin/";
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "lantian.pub_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true;
+
+    sslCertificate = "lantian.pub_ecc";
+    noIndex.enable = true;
   };
 }

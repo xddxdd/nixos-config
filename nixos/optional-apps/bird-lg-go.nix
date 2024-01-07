@@ -58,10 +58,9 @@ in {
       };
   };
 
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "lg.lantian.pub" = {
-      listen = LT.nginx.listenHTTPS;
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           extraConfig =
@@ -69,15 +68,16 @@ in {
             + LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "lantian.pub_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "lantian.pub_ecc";
+      noIndex.enable = true;
     };
     "lg.lantian.dn42" = {
-      listen = LT.nginx.listenHTTP;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
       serverAliases = ["lg.lantian.neo"];
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           extraConfig =
@@ -85,10 +85,9 @@ in {
             + LT.nginx.locationProxyConf;
         };
       };
-      extraConfig =
-        LT.nginx.makeSSL "lantian.dn42_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+
+      sslCertificate = "lantian.dn42_ecc";
+      noIndex.enable = true;
     };
   };
 

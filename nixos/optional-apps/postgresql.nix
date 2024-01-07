@@ -58,34 +58,29 @@
   systemd.tmpfiles.rules = [
     "L+ /etc/phppgadmin/config.inc.php - - - - ${config.age.secrets.phppgadmin-conf.path}"
   ];
-  services.nginx.virtualHosts = {
+  lantian.nginxVhosts = {
     "pga.${config.networking.hostName}.xuyh0120.win" = {
-      listen = LT.nginx.listenHTTPS;
-      root = "${pkgs.phppgadmin}";
-      locations =
-        LT.nginx.addCommonLocationConf
-        {phpfpmSocket = config.services.phpfpm.pools.pga.socket;}
-        {
-          "/".index = "index.php";
-        };
-      extraConfig =
-        LT.nginx.makeSSL "${config.networking.hostName}.xuyh0120.win_ecc"
-        + LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true;
+      root = pkgs.phppgadmin;
+      locations = {
+        "/".index = "index.php";
+      };
+
+      phpfpmSocket = config.services.phpfpm.pools.pga.socket;
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
     };
     "pga.localhost" = {
-      listen = LT.nginx.listenHTTP;
-      root = "${pkgs.phppgadmin}";
-      locations =
-        LT.nginx.addCommonLocationConf
-        {phpfpmSocket = config.services.phpfpm.pools.pga.socket;}
-        {
-          "/".index = "index.php";
-        };
-      extraConfig =
-        LT.nginx.commonVhostConf true
-        + LT.nginx.noIndex true
-        + LT.nginx.serveLocalhost null;
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      root = pkgs.phppgadmin;
+      locations = {
+        "/".index = "index.php";
+      };
+
+      phpfpmSocket = config.services.phpfpm.pools.pga.socket;
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 

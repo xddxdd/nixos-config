@@ -7,19 +7,17 @@
   inputs,
   ...
 } @ args: {
-  services.nginx.virtualHosts."rsshub.xuyh0120.win" = {
-    listen = LT.nginx.listenHTTPS;
-    locations = LT.nginx.addCommonLocationConf {} {
+  lantian.nginxVhosts."rsshub.xuyh0120.win" = {
+    locations = {
       "/" = {
         proxyPass = "http://unix:/run/rsshub/rsshub.sock";
         extraConfig = LT.nginx.locationProxyConf;
       };
     };
-    extraConfig =
-      LT.nginx.makeSSL "xuyh0120.win_ecc"
-      + LT.nginx.commonVhostConf true
-      + LT.nginx.noIndex true
-      + LT.nginx.servePrivate null;
+
+    sslCertificate = "xuyh0120.win_ecc";
+    noIndex.enable = true;
+    accessibleBy = "private";
   };
 
   systemd.services.rsshub = {
