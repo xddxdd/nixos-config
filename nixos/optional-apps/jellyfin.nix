@@ -39,7 +39,7 @@ in {
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
-      locations = LT.nginx.addCommonLocationConf {} {
+      locations = {
         "/" = {
           proxyPass = "http://unix:/run/jellyfin/socket";
           extraConfig = LT.nginx.locationProxyConf;
