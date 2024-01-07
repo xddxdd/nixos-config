@@ -11,6 +11,8 @@
   config,
   ...
 }: let
+  inherit (import ./helpers.nix args) fastcgiParams;
+
   listenOptions = enableDefault: portDefault: defaultDefault: {
     enable = (lib.mkEnableOption "Listener") // {default = enableDefault;};
     proxyProtocol = lib.mkEnableOption "Proxy Protocol";
@@ -93,7 +95,7 @@
           fastcgi_split_path_info ^(.+\.php)(/.*)$;
           fastcgi_pass unix:${phpfpmSocket};
           fastcgi_index index.php;
-          ${LT.nginx.fastcgiParams}
+          ${fastcgiParams}
           # PHP only, required if PHP was built with --enable-force-cgi-redirect
           fastcgi_param REDIRECT_STATUS 200;
           fastcgi_read_timeout 300s;
