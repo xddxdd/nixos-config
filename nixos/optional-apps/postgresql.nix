@@ -17,7 +17,7 @@
       LT.this.ltnet.IPv6
     ]);
     authentication = ''
-      host all all 198.18.0.0/16 md5
+      host all all 198.18.0.0/15 md5
       host all all fdbc:f9dc:67ad::/48 md5
     '';
   };
