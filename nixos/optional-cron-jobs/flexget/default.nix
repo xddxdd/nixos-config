@@ -12,6 +12,11 @@
       requests
     ]);
 
+  nexusphpPlugin = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/Juszoe/flexget-nexusphp/master/nexusphp.py";
+    sha256 = "0shbdx2z7dn9bn08y4y2fpxdd2281nr7ifqr31bxarmk57srdlxm";
+  };
+
   flexgetTemplate = pkgs.writeText "flexget.yml" (builtins.toJSON {
     templates = {
       downloads.transmission = {
@@ -96,6 +101,10 @@ in {
     script = ''
       export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
       cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
+
+      mkdir -p plugins
+      ln -sf ${nexusphpPlugin} plugins/nexusphp.py
+
       exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
     '';
   };
