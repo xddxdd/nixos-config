@@ -53,6 +53,22 @@
         };
       };
 
+      hdtime-auto = {
+        rss = {
+          url = "$HDTIME_AUTO_RSS_URL";
+          other_fields = ["link"];
+        };
+        nexusphp = {
+          cookie = "$HDTIME_COOKIE";
+          discount = ["free" "2xfree"];
+          left-time = "1 hours";
+          hr = false;
+          remember = true;
+        };
+        cfscraper = true;
+        template = "downloads-auto";
+      };
+
       ourbits = {
         rss = "$OURBITS_RSS_URL";
         seen.fields = ["url"];
@@ -101,6 +117,7 @@ in {
       };
     script =
       ''
+        export HDTIME_COOKIE=$(${py}/bin/python3 ${./hdtime_login.py})
         export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
       ''
       + (lib.optionalString config.services.prowlarr.enable ''
