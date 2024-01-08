@@ -20,10 +20,11 @@ in {
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
-    ../../nixos/optional-apps/flexget.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/sonarr.nix
     ../../nixos/optional-apps/transmission-daemon.nix
+
+    ../../nixos/optional-cron-jobs/flexget
   ];
 
   services.xserver.enable = lib.mkForce false;
@@ -40,6 +41,8 @@ in {
   ########################################
   # Sonarr
   ########################################
+
+  systemd.services.flexget-runner = netns.bind {};
 
   systemd.services.flaresolverr = netns.bind {};
 
