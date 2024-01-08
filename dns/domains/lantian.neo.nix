@@ -1,86 +1,88 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  common,
-  hosts,
+  LT,
+  inputs,
   ...
-}: [
-  rec {
-    domain = "lantian.neo";
-    providers = ["bind"];
-    records = [
-      common.records.SIP
+} @ args: {
+  domains = [
+    rec {
+      domain = "lantian.neo";
+      providers = ["bind"];
+      records = lib.flatten [
+        config.common.records.SIP
 
-      (common.hostRecs.mapAddresses {
-        name = "ns1.${domain}.";
-        addresses = hosts."v-ps-hkg".neonetwork;
-      })
-      (common.hostRecs.mapAddresses {
-        name = "ns2.${domain}.";
-        addresses = hosts."v-ps-sjc".neonetwork;
-      })
-      (common.hostRecs.mapAddresses {
-        name = "ns3.${domain}.";
-        addresses = hosts."virmach-ny1g".neonetwork;
-      })
-      (common.hostRecs.mapAddresses {
-        name = "ns4.${domain}.";
-        addresses = hosts."buyvm".neonetwork;
-      })
-      (common.hostRecs.mapAddresses {
-        name = "ns5.${domain}.";
-        addresses = hosts."v-ps-fal".neonetwork;
-      })
-      (common.hostRecs.mapAddresses {
-        name = "ns-anycast.${domain}.";
-        addresses = {
-          IPv4 = "10.127.10.254";
-          IPv6 = "fd10:127:10:2547::54";
-        };
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns1.${domain}.";
+          addresses = LT.hosts."v-ps-hkg".neonetwork;
+        })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns2.${domain}.";
+          addresses = LT.hosts."v-ps-sjc".neonetwork;
+        })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns3.${domain}.";
+          addresses = LT.hosts."virmach-ny1g".neonetwork;
+        })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns4.${domain}.";
+          addresses = LT.hosts."buyvm".neonetwork;
+        })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns5.${domain}.";
+          addresses = LT.hosts."v-ps-fal".neonetwork;
+        })
+        (config.common.hostRecs.mapAddresses {
+          name = "ns-anycast.${domain}.";
+          addresses = {
+            IPv4 = "10.127.10.254";
+            IPv6 = "fd10:127:10:2547::54";
+          };
+        })
 
-      (common.hostRecs.mapAddresses {
-        name = "${domain}.";
-        addresses = common.fallbackServer.neonetwork;
-        ttl = "10m";
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "${domain}.";
+          addresses = config.common.fallbackServer.neonetwork;
+          ttl = "10m";
+        })
 
-      (common.hostRecs.mapAddresses {
-        name = "gopher.${domain}.";
-        addresses = {
-          IPv4 = "10.127.10.243";
-          IPv6 = "fd10:127:10:2547::43";
-        };
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "gopher.${domain}.";
+          addresses = {
+            IPv4 = "10.127.10.243";
+            IPv6 = "fd10:127:10:2547::43";
+          };
+        })
 
-      (common.hostRecs.mapAddresses {
-        name = "whois.${domain}.";
-        addresses = {
-          IPv4 = "10.127.10.243";
-          IPv6 = "fd10:127:10:2547::43";
-        };
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "whois.${domain}.";
+          addresses = {
+            IPv4 = "10.127.10.243";
+            IPv6 = "fd10:127:10:2547::43";
+          };
+        })
 
-      (common.hostRecs.mapAddresses {
-        name = "dns-authoritative.${domain}.";
-        addresses = {
-          IPv4 = "10.127.10.254";
-          IPv6 = "fd10:127:10:2547::54";
-        };
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "dns-authoritative.${domain}.";
+          addresses = {
+            IPv4 = "10.127.10.254";
+            IPv6 = "fd10:127:10:2547::54";
+          };
+        })
 
-      (common.hostRecs.mapAddresses {
-        name = "dns-recursive.${domain}.";
-        addresses = {
-          IPv4 = "10.127.10.253";
-          IPv6 = "fd10:127:10:2547::53";
-        };
-      })
+        (config.common.hostRecs.mapAddresses {
+          name = "dns-recursive.${domain}.";
+          addresses = {
+            IPv4 = "10.127.10.253";
+            IPv6 = "fd10:127:10:2547::53";
+          };
+        })
 
-      common.nameservers.NeoNetwork
-      (common.hostRecs.NeoNetwork domain)
-      (common.hostRecs.SSHFP domain)
-    ];
-  }
-]
+        config.common.nameservers.NeoNetwork
+        (config.common.hostRecs.NeoNetwork domain)
+        (config.common.hostRecs.SSHFP domain)
+      ];
+    }
+  ];
+}

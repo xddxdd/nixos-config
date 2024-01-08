@@ -224,7 +224,16 @@
           (lib.genAttrs packagesList (n: pkgs."${n}"))
           // rec {
             # DNSControl
-            dnscontrol-config = pkgs.writeText "dnsconfig.js" (pkg ./dns {});
+            dnscontrol-config =
+              pkgs.writeText "dnsconfig.js"
+              ((lib.evalModules {
+                  modules = [
+                    ./dns/default.nix
+                  ];
+                  specialArgs = {inherit pkgs lib LT inputs;};
+                })
+                .config
+                ._dnsconfig_js);
 
             # Terraform
             xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix {};

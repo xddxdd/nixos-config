@@ -1,9 +1,11 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
+  LT,
+  inputs,
   ...
-}: let
+} @ args: let
   PublicServers = [
     "v-ps-hkg.lantian.pub."
     "v-ps-sjc.lantian.pub."
@@ -38,24 +40,29 @@
     "ns-anycast.lantian.neo."
   ];
 
-  mapNameservers = builtins.map (n: dns.NAMESERVER {name = n;});
+  mapNameservers = builtins.map (n: {
+    recordType = "NAMESERVER";
+    name = n;
+  });
   mapNSRecords = servers: name:
-    builtins.map (n:
-      dns.NS {
-        inherit name;
-        target = n;
-      })
+    builtins.map (n: {
+      recordType = "NS";
+      inherit name;
+      target = n;
+    })
     servers;
 in {
-  Public = mapNameservers PublicServers;
-  PublicNSRecords = mapNSRecords PublicServers;
+  common.nameservers = {
+    Public = mapNameservers PublicServers;
+    PublicNSRecords = mapNSRecords PublicServers;
 
-  LTNet = mapNameservers LTNetServers;
-  LTNetNSRecords = mapNSRecords LTNetServers;
+    LTNet = mapNameservers LTNetServers;
+    LTNetNSRecords = mapNSRecords LTNetServers;
 
-  DN42 = mapNameservers DN42Servers;
-  DN42NSRecords = mapNSRecords DN42Servers;
+    DN42 = mapNameservers DN42Servers;
+    DN42NSRecords = mapNSRecords DN42Servers;
 
-  NeoNetwork = mapNameservers NeoNetworkServers;
-  NeoNetworkRecords = mapNSRecords NeoNetworkServers;
+    NeoNetwork = mapNameservers NeoNetworkServers;
+    NeoNetworkRecords = mapNSRecords NeoNetworkServers;
+  };
 }

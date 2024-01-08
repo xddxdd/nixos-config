@@ -1,29 +1,31 @@
 {
   pkgs,
+  config,
   lib,
   LT,
   inputs,
   ...
-} @ args: let
-  inherit (LT) hosts;
+} @ args: {
+  imports = let
+    ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
+  in
+    [
+      ./common
+      ./core
 
-  dns = import ./core {inherit pkgs lib;};
-  common = import ./common {inherit pkgs lib dns hosts;};
-in
-  dns.eval {
-    registrars = [
-      "doh"
-      "porkbun"
-    ];
-    providers = [
-      "bind"
-      "cloudflare"
-      "desec"
-      "gcore"
-      "henet"
-    ];
-    domains =
-      builtins.map
-      (f: import (./domains + "/${f}") {inherit pkgs lib dns common hosts;})
-      (lib.attrNames (builtins.readDir ./domains));
-  }
+      ./domains/56631131.xyz.nix
+    ]
+    ++ ls ./domains;
+
+  registrars = [
+    "doh"
+    "porkbun"
+  ];
+  providers = [
+    "bind"
+    "cloudflare"
+    "desec"
+    "gcore"
+    "henet"
+  ];
+}
