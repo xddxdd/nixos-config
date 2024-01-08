@@ -83,11 +83,12 @@ in {
   environment.systemPackages = [pkgs.flexget];
 
   systemd.services.flexget-runner = {
-    wants = ["flaresolverr.service"];
+    requires = ["flaresolverr.service"];
     after = ["network.target" "flaresolverr.service"];
 
     environment = {
-      FLARESOLVERR_IP_PORT = "127.0.0.1:${LT.portStr.FlareSolverr}";
+      FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
+      PROWLARR_URL = "http://127.0.0.1:${LT.portStr.Prowlarr}";
     };
     serviceConfig =
       LT.serviceHarden
@@ -98,15 +99,21 @@ in {
         StateDirectory = "flexget";
         WorkingDirectory = "/var/lib/flexget";
       };
-    script = ''
-      export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
-      cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
+    script =
+      ''
+        export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
+      ''
+      + (lib.optionalString config.services.prowlarr.enable ''
+        ${py}/bin/python3 ${./ourbits_update_prowlarr.py}
+      '')
+      + ''
+        cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
 
-      mkdir -p plugins
-      ln -sf ${nexusphpPlugin} plugins/nexusphp.py
+        mkdir -p plugins
+        ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
-      exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
-    '';
+        exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
+      '';
   };
 
   systemd.timers.flexget-runner = {

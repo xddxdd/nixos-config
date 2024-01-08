@@ -3,7 +3,7 @@ import os
 import requests
 import time
 
-flaresolverr_ip_port = os.environ["FLARESOLVERR_IP_PORT"]
+flaresolverr_url = os.environ["FLARESOLVERR_URL"]
 username = os.environ["OURBITS_USER"]
 password = os.environ["OURBITS_PASS"]
 
@@ -18,7 +18,7 @@ except Exception as e:
     pass
 
 # Login
-q = requests.post(f"http://{flaresolverr_ip_port}/v1", json={
+q = requests.post(f"{flaresolverr_url}/v1", json={
     "cmd": "request.post",
     "url": "https://ourbits.club/takelogin.php",
     "postData": f"username={username}&password={password}&trackerssl=yes",
