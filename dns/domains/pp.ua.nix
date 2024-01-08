@@ -1,61 +1,64 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  common,
+  LT,
+  inputs,
   ...
-}: [
-  rec {
-    domain = "lantian.pp.ua";
-    registrar = "doh";
-    providers = ["henet" "desec"];
-    records = [
-      (common.apexRecords domain)
-      common.hostRecs.CAA
-      (common.hostRecs.Normal domain)
-      (common.hostRecs.SSHFP domain)
-      common.records.Libravatar
-      common.records.SIP
+} @ args: {
+  domains = [
+    rec {
+      domain = "lantian.pp.ua";
+      registrar = "doh";
+      providers = ["henet" "desec"];
+      records = lib.flatten [
+        (config.common.apexRecords domain)
+        config.common.hostRecs.CAA
+        (config.common.hostRecs.Normal domain)
+        (config.common.hostRecs.SSHFP domain)
+        config.common.records.Libravatar
+        config.common.records.SIP
 
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
-    ];
-  }
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
+      ];
+    }
 
-  rec {
-    domain = "ltn.pp.ua";
-    registrar = "doh";
-    providers = ["henet" "desec"];
-    records = [
-      (common.apexRecords domain)
-      common.hostRecs.CAA
-      (common.hostRecs.Normal domain)
-      (common.hostRecs.SSHFP domain)
-      common.records.Libravatar
-      common.records.SIP
+    rec {
+      domain = "ltn.pp.ua";
+      registrar = "doh";
+      providers = ["henet" "desec"];
+      records = lib.flatten [
+        (config.common.apexRecords domain)
+        config.common.hostRecs.CAA
+        (config.common.hostRecs.Normal domain)
+        (config.common.hostRecs.SSHFP domain)
+        config.common.records.Libravatar
+        config.common.records.SIP
 
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
-    ];
-  }
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
+      ];
+    }
 
-  rec {
-    domain = "xuyh0120.pp.ua";
-    registrar = "doh";
-    providers = ["henet" "desec"];
-    records = [
-      (common.apexRecords domain)
-      common.hostRecs.CAA
-      (common.hostRecs.Normal domain)
-      (common.hostRecs.SSHFP domain)
-      common.records.Libravatar
-      common.records.SIP
+    rec {
+      domain = "xuyh0120.pp.ua";
+      registrar = "doh";
+      providers = ["henet" "desec"];
+      records = lib.flatten [
+        (config.common.apexRecords domain)
+        config.common.hostRecs.CAA
+        (config.common.hostRecs.Normal domain)
+        (config.common.hostRecs.SSHFP domain)
+        config.common.records.Libravatar
+        config.common.records.SIP
 
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
-    ];
-  }
-]
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
+      ];
+    }
+  ];
+}

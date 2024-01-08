@@ -1,78 +1,90 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
+  LT,
+  inputs,
   ...
-} @ args: let
-  inherit (pkgs.callPackage ./host-recs.nix args) fakeALIAS Geo;
-in
-  with dns; rec {
+} @ args: {
+  common.records = rec {
     Autoconfig = domain: [
-      (CNAME {
+      {
+        recordType = "CNAME";
         name = "autoconfig";
         target = GeoDNSTarget;
         ttl = "1h";
-      })
-      (SRV {
+      }
+      {
+        recordType = "SRV";
         name = "_autodiscover._tcp";
         priority = 0;
         weight = 0;
         port = 443;
         target = "autoconfig.${domain}.";
-      })
+      }
     ];
 
     ForwardEmail = [
-      (MX {
+      {
+        recordType = "MX";
         name = "@";
         priority = 10;
         target = "mx1.forwardemail.net.";
-      })
-      (MX {
+      }
+      {
+        recordType = "MX";
         name = "@";
         priority = 10;
         target = "mx2.forwardemail.net.";
-      })
-      (MX {
+      }
+      {
+        recordType = "MX";
         name = "@";
         priority = 20;
         target = "mx.mailtie.com.";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "v=DMARC1; p=none";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "v=spf1 a mx include:spf.forwardemail.net -all";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "forward-email=xuyh0120@gmail.com";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "mailtie=xuyh0120@gmail.com";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "_dmarc";
         contents = "v=DMARC1; p=none";
-      })
+      }
     ];
 
     GeoDNSTarget = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
     GeoStorDNSTarget = "geo-stor.56631131.xyz."; # Hosted on NS1.com for GeoDNS
 
     GeoRecords = [
-      (Geo {
+      {
+        recordType = "Geo";
         # GeoDNS for public facing servers
         name = "geo";
         ttl = "1h";
         filter = n: v:
           (builtins.elem "server" v.tags)
           && (builtins.elem "public-facing" v.tags);
-      })
-      (Geo {
+      }
+      {
+        recordType = "Geo";
         # GeoDNS for servers with sufficient storage
         name = "geo-stor";
         ttl = "1h";
@@ -80,101 +92,117 @@ in
           (builtins.elem "server" v.tags)
           && (builtins.elem "public-facing" v.tags)
           && (!(builtins.elem "low-disk" v.tags));
-      })
+      }
     ];
 
     Libravatar = [
-      (fakeALIAS {
+      {
+        recordType = "fakeALIAS";
         name = "avatar";
         target = "v-ps-sjc";
         ttl = "1h";
-      })
+      }
 
       # Use fixed domain, vhost not set up for all domains for now
-      (SRV {
+      {
+        recordType = "SRV";
         name = "_avatars._tcp";
         priority = 0;
         weight = 0;
         port = 80;
         target = "avatar.lantian.pub.";
-      })
-      (SRV {
+      }
+      {
+        recordType = "SRV";
         name = "_avatars-sec._tcp";
         priority = 0;
         weight = 0;
         port = 443;
         target = "avatar.lantian.pub.";
-      })
+      }
     ];
 
     MXRoute = [
-      (MX {
+      {
+        recordType = "MX";
         name = "@";
         priority = 10;
         target = "witcher.mxrouting.net.";
-      })
-      (MX {
+      }
+      {
+        recordType = "MX";
         name = "@";
         priority = 20;
         target = "witcher-relay.mxrouting.net.";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "v=DMARC1; p=none";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "_dmarc";
         contents = "v=DMARC1; p=none";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "@";
         contents = "v=spf1 include:mxlogin.com -all";
-      })
-      (TXT {
+      }
+      {
+        recordType = "TXT";
         name = "x._domainkey";
         contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnoMpO+zy8KOzcOnUJzKXAHPIZUqusUQjCgJj6ErpKR8oi5kXA5yLLeAZaNl6fh3Au2GfHJTFTkYCUSfL4dt4A7x8FV8rNlrpTmU/SQ1+VfvtS/Qn5uwROmAiKMmjhL8KvuyCEEvTHsBZLIpDDhu+K10N5s3khy4KlVetNhFeahV6wFn/GbnfKHjsfkF3IWLvOtafqNFb8/VH8LsgsCtUJjniecD9D37iqcwxGqUPolx30D8ZXnuMpcS9Ylh6HvCbUHwbdiGm4YmplhvwiWRiTFDL9hyyLOL1cddtoMHZLm3cUP87d2nGIINQJoRHQTWuOp8UsgHJ6eNZ6E62WsYeTQIDAQAB";
-      })
+      }
     ];
 
     ProxmoxCluster = [
-      (A {
+      {
+        recordType = "A";
         name = "lt-epyc";
         address = "192.168.0.2";
         ttl = "1h";
-      })
-      (A {
+      }
+      {
+        recordType = "A";
         name = "lt-hp-z220-sff";
         address = "192.168.0.3";
         ttl = "1h";
-      })
-      (A {
+      }
+      {
+        recordType = "A";
         name = "lt-wyse";
         address = "192.168.0.4";
         ttl = "1h";
-      })
+      }
     ];
 
     SIP = [
-      (SRV {
+      {
+        recordType = "SRV";
         name = "_sip._udp";
         priority = 0;
         weight = 0;
         port = 5060;
         target = "vultr-sea";
-      })
-      (SRV {
+      }
+      {
+        recordType = "SRV";
         name = "_sip._tcp";
         priority = 0;
         weight = 0;
         port = 5060;
         target = "vultr-sea";
-      })
-      (SRV {
+      }
+      {
+        recordType = "SRV";
         name = "_sips._tcp";
         priority = 0;
         weight = 0;
         port = 5061;
         target = "vultr-sea";
-      })
+      }
     ];
-  }
+  };
+}

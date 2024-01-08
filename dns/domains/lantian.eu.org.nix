@@ -1,25 +1,28 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  common,
+  LT,
+  inputs,
   ...
-}: [
-  rec {
-    domain = "lantian.eu.org";
-    registrar = "doh";
-    providers = ["bind" "desec"];
-    records = [
-      (common.apexRecords domain)
-      (common.hostRecs.Normal domain)
-      (common.hostRecs.SSHFP domain)
-      common.nameservers.Public
-      common.records.Libravatar
-      common.records.SIP
+} @ args: {
+  domains = [
+    rec {
+      domain = "lantian.eu.org";
+      registrar = "doh";
+      providers = ["bind" "desec"];
+      records = lib.flatten [
+        (config.common.apexRecords domain)
+        (config.common.hostRecs.Normal domain)
+        (config.common.hostRecs.SSHFP domain)
+        config.common.nameservers.Public
+        config.common.records.Libravatar
+        config.common.records.SIP
 
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
-    ];
-  }
-]
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
+      ];
+    }
+  ];
+}

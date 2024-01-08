@@ -1,23 +1,35 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  hosts,
+  LT,
+  inputs,
   ...
-} @ args: rec {
-  inherit hosts;
-  fallbackServer = hosts.v-ps-sjc;
-
-  hostRecs = import ./host-recs.nix args;
-  nameservers = import ./nameservers.nix args;
-  poem = import ./poem.nix args;
-  records = import ./records.nix args;
-  reverse = import ./reverse.nix args;
-
-  apexRecords = domain:
-    hostRecs.mapAddresses {
-      name = "${domain}.";
-      addresses = fallbackServer.public;
-      ttl = "10m";
+} @ args: {
+  options = {
+    common = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = {};
     };
+  };
+
+  imports = [
+    ./host-recs.nix
+    ./nameservers.nix
+    ./poem.nix
+    ./records.nix
+    ./reverse.nix
+  ];
+
+  config.common = rec {
+    inherit (LT) hosts;
+    fallbackServer = LT.hosts.v-ps-sjc;
+
+    apexRecords = domain:
+      config.common.hostRecs.mapAddresses {
+        name = "${domain}.";
+        addresses = fallbackServer.public;
+        ttl = "10m";
+      };
+  };
 }

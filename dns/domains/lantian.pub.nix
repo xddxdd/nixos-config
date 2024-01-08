@@ -1,264 +1,310 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  common,
-  hosts,
+  LT,
+  inputs,
   ...
-}:
-with dns; let
-  inherit (common.hostRecs) fakeALIAS;
-  inherit (common.nameservers) PublicNSRecords;
+} @ args: let
+  inherit (config.common.nameservers) PublicNSRecords;
 
   email = [
-    (CNAME {
+    {
+      recordType = "CNAME";
       name = "s1._domainkey";
       target = "s1.domainkey.u6126456.wl207.sendgrid.net.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "s2._domainkey";
       target = "s2.domainkey.u6126456.wl207.sendgrid.net.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "em1411";
       target = "u6126456.wl207.sendgrid.net.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "url3735";
       target = "sendgrid.net.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "6126456";
       target = "sendgrid.net.";
-    })
+    }
   ];
 
   externalServices = [
-    (IGNORE {name = "backblaze";}) # Handled by CF Worker
-    (CNAME {
+    {
+      recordType = "IGNORE";
+      name = "backblaze";
+    } # Handled by CF Worker
+    {
+      recordType = "CNAME";
       name = "gcore";
       target = "cl-47f440a2.gcdn.co.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "github-pages";
       target = "lantian1998.github.io.";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "netlify";
       target = "lantian.netlify.com.";
-    })
-    (A {
+    }
+    {
+      recordType = "A";
       name = "oracle-lb";
       address = "131.186.33.1";
-    })
-    (AAAA {
+    }
+    {
+      recordType = "AAAA";
       name = "oracle-lb";
       address = "2603:c021:8000:aaaa:ec00:e71d:1fd4:3d48";
-    })
-    (A {
+    }
+    {
+      recordType = "A";
       name = "oracle-nlb";
       address = "140.238.39.120";
-    })
-    (AAAA {
+    }
+    {
+      recordType = "AAAA";
       name = "oracle-nlb";
       address = "2603:c021:8000:aaaa:c15d:d2e2:da2d:af58";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "render";
       target = "lantian1998.onrender.com.";
-    })
+    }
 
     # Freshping & verification
-    (CNAME {
+    {
+      recordType = "CNAME";
       name = "status";
       target = "statuspage.freshping.io.";
       cloudflare = true;
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "737acf9b9d41aae168dbe658b5efada5cab2c445.status";
       target = "667076964ffd2f999aa14ff100c5467dbaee91a0.fpverify.freshping.io.";
-    })
+    }
 
-    (CNAME {
+    {
+      recordType = "CNAME";
       name = "vercel";
       target = "cname.vercel-dns.com.";
-    })
-    (TXT {
+    }
+    {
+      recordType = "TXT";
       name = "@";
       contents = "google-site-verification=eySrj7tImhjLmyEzhvz6-esuzD2jdnQ8anx4qfIwApw";
-    })
+    }
   ];
 
   internalServices = [
-    (CNAME {
+    {
+      recordType = "CNAME";
       name = "ca";
       target = "v-ps-fal";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "ci";
       target = "v-ps-fal";
       cloudflare = true;
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "ci-github";
       target = "v-ps-fal";
       cloudflare = true;
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "comments";
       target = "v-ps-fal";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "git";
       target = "terrahost";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "gopher";
       target = "v-ps-sjc";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "lab";
       target = "terrahost";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "lemmy";
       target = "v-ps-fal";
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "lg";
       target = "v-ps-fal";
       cloudflare = true;
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "login";
       target = "v-ps-fal";
       ttl = "1h";
-    })
-    (fakeALIAS {
+    }
+    {
+      recordType = "fakeALIAS";
       name = "matrix";
       target = "v-ps-fal";
       ttl = "1h";
-    })
-    (SRV {
+    }
+    {
+      recordType = "SRV";
       name = "_matrix._tcp";
       priority = 10;
       weight = 0;
       port = 8448;
       target = "matrix";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "tools";
-      target = common.records.GeoStorDNSTarget;
+      target = config.common.records.GeoStorDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "whois";
       target = "v-ps-sjc";
       ttl = "1h";
-    })
+    }
 
     (PublicNSRecords "asn")
-    (DS {
+    {
+      recordType = "DS";
       name = "asn";
       keytag = 48539;
       algorithm = 13;
       digesttype = 2;
       digest = "7D653B29D41EDF8A607B3119AF7FF3F0C1AE6EBFD19AA6FA1CCF1590E74DE1B6";
       ttl = "1h";
-    })
-    (DS {
+    }
+    {
+      recordType = "DS";
       name = "asn";
       keytag = 48539;
       algorithm = 13;
       digesttype = 4;
       digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A";
       ttl = "1h";
-    })
+    }
 
     # Active Directory
     (PublicNSRecords "ad")
 
     # SSL tests
-    (CNAME {
+    {
+      recordType = "CNAME";
       name = "buypass-ssl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "google-ssl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "google-test-ssl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "letsencrypt-ssl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "letsencrypt-test-ssl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
-    (CNAME {
+    }
+    {
+      recordType = "CNAME";
       name = "zerossl";
-      target = common.records.GeoDNSTarget;
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
-    })
+    }
   ];
-in [
-  rec {
-    domain = "lantian.pub";
-    registrar = "porkbun";
-    providers = ["cloudflare"];
-    records = [
-      (ALIAS {
-        name = "${domain}.";
-        target = common.records.GeoDNSTarget;
-        ttl = "10m";
-      })
-      (CNAME {
-        name = "www.${domain}.";
-        target = common.records.GeoDNSTarget;
-        ttl = "10m";
-      })
+in {
+  domains = [
+    rec {
+      domain = "lantian.pub";
+      registrar = "porkbun";
+      providers = ["cloudflare"];
+      records = lib.flatten [
+        {
+          recordType = "ALIAS";
+          name = "${domain}.";
+          target = config.common.records.GeoDNSTarget;
+          ttl = "10m";
+        }
+        {
+          recordType = "CNAME";
+          name = "www.${domain}.";
+          target = config.common.records.GeoDNSTarget;
+          ttl = "10m";
+        }
 
-      common.hostRecs.CAA
-      (common.hostRecs.Normal domain)
-      (common.hostRecs.SSHFP domain)
-      (common.records.Autoconfig domain)
-      common.records.MXRoute
-      (TXT {
-        name = "_token._dnswl";
-        contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm";
-      })
-      common.records.Libravatar
-      common.records.ProxmoxCluster
-      common.records.SIP
-      common.records.GeoRecords
+        config.common.hostRecs.CAA
+        (config.common.hostRecs.Normal domain)
+        (config.common.hostRecs.SSHFP domain)
+        (config.common.records.Autoconfig domain)
+        config.common.records.MXRoute
+        {
+          recordType = "TXT";
+          name = "_token._dnswl";
+          contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm";
+        }
+        config.common.records.Libravatar
+        config.common.records.ProxmoxCluster
+        config.common.records.SIP
+        config.common.records.GeoRecords
 
-      (TXT {
-        name = "@";
-        contents = "MS=ms22955481";
-      })
+        {
+          recordType = "TXT";
+          name = "@";
+          contents = "MS=ms22955481";
+        }
 
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
 
-      email
-      externalServices
-      internalServices
-    ];
-  }
-]
+        email
+        externalServices
+        internalServices
+      ];
+    }
+  ];
+}

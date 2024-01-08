@@ -1,63 +1,71 @@
 {
   pkgs,
+  config,
   lib,
-  dns,
-  common,
+  LT,
+  inputs,
   ...
-}:
-with dns; let
-  inherit (common.hostRecs) fakeALIAS;
-in [
-  rec {
-    domain = "56631131.xyz";
-    registrar = "porkbun";
-    providers = ["gcore"];
-    records = [
-      common.hostRecs.CAA
-      (common.hostRecs.Normal domain)
-      common.records.Libravatar
-      common.records.SIP
-      common.records.GeoRecords
-      (common.hostRecs.LTNet "ltnet.${domain}")
-      (common.hostRecs.DN42 "dn42.${domain}")
-      (common.hostRecs.NeoNetwork "neo.${domain}")
+} @ args: {
+  domains = [
+    rec {
+      domain = "56631131.xyz";
+      registrar = "porkbun";
+      providers = ["gcore"];
+      records = lib.flatten [
+        config.common.hostRecs.CAA
+        (config.common.hostRecs.Normal domain)
+        config.common.records.Libravatar
+        config.common.records.SIP
+        config.common.records.GeoRecords
+        (config.common.hostRecs.LTNet "ltnet.${domain}")
+        (config.common.hostRecs.DN42 "dn42.${domain}")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}")
 
-      (fakeALIAS {
-        name = "${domain}.";
-        target = "v-ps-fal";
-        ttl = "1h";
-      })
-      (CNAME {
-        name = "www.${domain}.";
-        target = "${domain}.";
-      })
+        {
+          recordType = "fakeALIAS";
+          name = "${domain}.";
+          target = "v-ps-fal";
+          ttl = "1h";
+        }
+        {
+          recordType = "CNAME";
+          name = "www.${domain}.";
+          target = "${domain}.";
+        }
 
-      (NS {
-        name = "virmach-host";
-        target = "ns1.vpshared.com.";
-      })
-      (NS {
-        name = "virmach-host";
-        target = "ns2.vpshared.com.";
-      })
+        {
+          recordType = "NS";
+          name = "virmach-host";
+          target = "ns1.vpshared.com.";
+        }
+        {
+          recordType = "NS";
+          name = "virmach-host";
+          target = "ns2.vpshared.com.";
+        }
 
-      (NS {
-        name = "xip";
-        target = "ns-aws.sslip.io.";
-      })
-      (NS {
-        name = "xip";
-        target = "ns-gce.sslip.io.";
-      })
-      (NS {
-        name = "xip";
-        target = "ns-azure.sslip.io.";
-      })
+        {
+          recordType = "NS";
+          name = "xip";
+          target = "ns-aws.sslip.io.";
+        }
+        {
+          recordType = "NS";
+          name = "xip";
+          target = "ns-gce.sslip.io.";
+        }
+        {
+          recordType = "NS";
+          name = "xip";
+          target = "ns-azure.sslip.io.";
+        }
 
-      (TXT {
-        name = "@";
-        contents = "google-site-verification=LQvBzSL4-2NbbqM2208pYGLsRSw_hw132GGUvnShQGU";
-      })
-    ];
-  }
-]
+        {
+          recordType = "TXT";
+          name = "@";
+          contents = "google-site-verification=LQvBzSL4-2NbbqM2208pYGLsRSw_hw132GGUvnShQGU";
+        }
+      ];
+    }
+  ];
+}
