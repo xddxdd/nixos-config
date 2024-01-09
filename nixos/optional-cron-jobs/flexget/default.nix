@@ -19,17 +19,29 @@
 
   flexgetTemplate = pkgs.writeText "flexget.yml" (builtins.toJSON {
     templates = {
-      downloads.transmission = {
-        path = "/mnt/storage/downloads";
-        host = LT.this.ltnet.IPv4;
-        port = LT.port.Transmission;
-        bandwidth_priority = 0;
+      downloads = {
+        transmission = {
+          path = "/mnt/storage/downloads";
+          host = LT.this.ltnet.IPv4;
+          port = LT.port.Transmission;
+          bandwidth_priority = 0;
+        };
+        free_space = {
+          path = "/mnt/storage/downloads";
+          space = 1024 * 1024; # 1TB
+        };
       };
-      downloads-auto.transmission = {
-        path = "/mnt/storage/.downloads-auto";
-        host = LT.this.ltnet.IPv4;
-        port = LT.port.Transmission;
-        bandwidth_priority = 0 - 1;
+      downloads-auto = {
+        transmission = {
+          path = "/mnt/storage/.downloads-auto";
+          host = LT.this.ltnet.IPv4;
+          port = LT.port.Transmission;
+          bandwidth_priority = 0 - 1;
+        };
+        free_space = {
+          path = "/mnt/storage/downloads";
+          space = 1024 * 1024; # 1TB
+        };
       };
     };
 
