@@ -169,6 +169,7 @@ in {
 
     # Others
     dhcpcd
+    ghidra
     linkzoneAdb
   ];
 
