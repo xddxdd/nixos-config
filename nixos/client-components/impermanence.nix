@@ -42,6 +42,7 @@
         ".android"
         ".conda"
         ".fly"
+        ".ghidra"
         ".kde4"
         ".kube"
         ".librewolf"
