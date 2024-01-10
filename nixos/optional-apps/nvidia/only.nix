@@ -15,6 +15,8 @@
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;
 
+  hardware.opengl.extraPackages = [pkgs.nvidia-vaapi-driver];
+
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";
     VDPAU_DRIVER = "nvidia";
