@@ -28,7 +28,7 @@
         };
         free_space = {
           path = "/mnt/storage/downloads";
-          space = 1024 * 1024; # 1TB
+          space = 2 * 1024 * 1024; # 2TB
         };
       };
       downloads-auto = {
@@ -40,7 +40,7 @@
         };
         free_space = {
           path = "/mnt/storage/downloads";
-          space = 1024 * 1024; # 1TB
+          space = 2 * 1024 * 1024; # 2TB
         };
       };
     };
