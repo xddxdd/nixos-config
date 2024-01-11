@@ -20,6 +20,13 @@
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";
     VDPAU_DRIVER = "nvidia";
+
+    # For hwdec to work on firefox
+    NVD_BACKEND = "direct";
+  };
+
+  programs.firefox.preferences = {
+    "widget.dmabuf.force-enabled" = true;
   };
 
   virtualisation.docker.enableNvidia = true;
