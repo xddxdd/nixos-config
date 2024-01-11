@@ -7,6 +7,12 @@
   inputs,
   ...
 } @ args: {
+  environment.variables = {
+    MOZ_X11_EGL = "1";
+    MOZ_USE_XINPUT2 = "1";
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+  };
+
   # https://github.com/mozilla/policy-templates/blob/master/README.md
   programs.firefox = {
     enable = true;
