@@ -23,6 +23,8 @@
       serverAliases = ["whois.lantian.dn42" "whois.lantian.neo"];
       locations = {
         "/".extraConfig = ''
+          rewrite "^/([^ ]+) .*$" /$1 break;
+
           proxy_pass http://unix:${config.lantian.nginxVhosts."stage1.whois.local".listenHTTP_Socket.socket};
           proxy_set_header Host "stage1.whois.local";
           add_before_body /lantian-prepend;
