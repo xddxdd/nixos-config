@@ -16,6 +16,7 @@
 
     ../../nixos/client-components/cups.nix
 
+    ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/genshin-cockpy.nix
@@ -51,6 +52,8 @@
     verbosity = "crit";
     extraOptions = ["--loadavg-target" "4"];
   };
+
+  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   # Rename to LAN to apply correct firewall rules
   services.udev.extraRules = ''

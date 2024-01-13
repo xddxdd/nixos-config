@@ -62,7 +62,7 @@
     {
       recordType = "CNAME";
       name = "books";
-      target = "v-ps-fal";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
