@@ -115,7 +115,7 @@ in {
           }
         )));
 
-    Geo = {
+    GEO = {
       name,
       filter,
       ...
@@ -135,7 +135,7 @@ in {
               })
               (lib.filterAttrs filter LT.hosts));
           }))
-      ++ (config.recordHandlers.IGNORE args);
+      ++ (config.recordHandlers.IGNORE (args // {type = "A,AAAA";}));
   };
 
   common.hostRecs = {

@@ -13,9 +13,9 @@
       providers = ["cloudflare"];
       records = lib.flatten [
         {
-          recordType = "ALIAS";
+          recordType = "fakeALIAS";
           name = "${domain}.";
-          target = "terrahost.ltn.pw.";
+          target = "terrahost";
           ttl = "10m";
         }
         {
@@ -33,7 +33,6 @@
 
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal domain)
-        (config.common.hostRecs.SSHFP domain)
         (config.common.records.Autoconfig domain)
         config.common.records.MXRoute
         config.common.records.Libravatar

@@ -29,7 +29,7 @@ in {
     CAA = args: record "CAA" args [args.tag args.value];
     CNAME = args: record "CNAME" args [args.target];
     DS = args: record "DS" args [args.keytag args.algorithm args.digesttype args.digest];
-    IGNORE = args: record "IGNORE" args [];
+    IGNORE = args: record "IGNORE" args [args.type];
     MX = args: record "MX" args [args.priority args.target];
     NAMESERVER = args: record "NAMESERVER" args [];
     NS = args: record "NS" args [args.target];
