@@ -10,7 +10,7 @@
     rec {
       domain = "ltn.pw";
       registrar = "porkbun";
-      providers = ["cloudflare"];
+      providers = ["gcore"];
       records = lib.flatten [
         {
           recordType = "fakeALIAS";
