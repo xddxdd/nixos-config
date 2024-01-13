@@ -81,20 +81,6 @@
       name = "render";
       target = "lantian1998.onrender.com.";
     }
-
-    # Freshping & verification
-    {
-      recordType = "CNAME";
-      name = "status";
-      target = "statuspage.freshping.io.";
-      cloudflare = true;
-    }
-    {
-      recordType = "CNAME";
-      name = "737acf9b9d41aae168dbe658b5efada5cab2c445.status";
-      target = "667076964ffd2f999aa14ff100c5467dbaee91a0.fpverify.freshping.io.";
-    }
-
     {
       recordType = "CNAME";
       name = "vercel";
@@ -118,13 +104,11 @@
       recordType = "CNAME";
       name = "ci";
       target = "v-ps-fal";
-      cloudflare = true;
     }
     {
       recordType = "CNAME";
       name = "ci-github";
       target = "v-ps-fal";
-      cloudflare = true;
     }
     {
       recordType = "CNAME";
@@ -160,7 +144,6 @@
       recordType = "CNAME";
       name = "lg";
       target = "v-ps-fal";
-      cloudflare = true;
     }
     {
       recordType = "CNAME";
