@@ -43,9 +43,7 @@ in {
           bufsize 1232
           loadbalance round_robin
 
-          forward . 114.114.114.114 114.114.115.115 {
-            tls_servername dns.google
-          }
+          forward . 114.114.114.114 114.114.115.115
           cache
         }
       '';
