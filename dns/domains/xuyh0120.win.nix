@@ -149,7 +149,7 @@ in {
     rec {
       domain = "xuyh0120.win";
       registrar = "porkbun";
-      providers = ["cloudflare"];
+      providers = ["gcore"];
       records = lib.flatten [
         {
           recordType = "GEO";
