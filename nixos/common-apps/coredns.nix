@@ -57,6 +57,14 @@ in {
           cache
         }
       '';
+      block = zone: ''
+        ${zone} {
+          any
+          hosts {
+            0.0.0.0 ${zone}
+          }
+        }
+      '';
       mdns = zone: ''
         ${zone} {
           mdns ${zone} 1
@@ -67,6 +75,7 @@ in {
         [
           (forwardToGoogleDNS ".")
           (forwardTo114DNS "kuxi.tech")
+          (block "upos-sz-mirroraliov.bilivideo.com")
         ]
         # Not working well
         # ++ lib.optional config.services.avahi.enable (mdns "local")
