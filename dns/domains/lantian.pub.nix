@@ -40,6 +40,7 @@
     {
       recordType = "IGNORE";
       name = "backblaze";
+      type = "*";
     } # Handled by CF Worker
     {
       recordType = "CNAME";

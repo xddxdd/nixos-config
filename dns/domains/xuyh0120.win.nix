@@ -152,10 +152,13 @@ in {
       providers = ["cloudflare"];
       records = lib.flatten [
         {
-          recordType = "ALIAS";
+          recordType = "GEO";
+          # GeoDNS for public facing servers
           name = "${domain}.";
-          target = config.common.records.GeoDNSTarget;
-          ttl = "10m";
+          ttl = "1h";
+          filter = n: v:
+            (builtins.elem "server" v.tags)
+            && (builtins.elem "public-facing" v.tags);
         }
         {
           recordType = "CNAME";
@@ -166,7 +169,6 @@ in {
 
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal domain)
-        (config.common.hostRecs.SSHFP domain)
         (config.common.records.Autoconfig domain)
         config.common.records.MXRoute
         {

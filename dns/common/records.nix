@@ -75,7 +75,7 @@
 
     GeoRecords = [
       {
-        recordType = "Geo";
+        recordType = "GEO";
         # GeoDNS for public facing servers
         name = "geo";
         ttl = "1h";
@@ -84,7 +84,7 @@
           && (builtins.elem "public-facing" v.tags);
       }
       {
-        recordType = "Geo";
+        recordType = "GEO";
         # GeoDNS for servers with sufficient storage
         name = "geo-stor";
         ttl = "1h";
