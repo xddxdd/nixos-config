@@ -135,7 +135,11 @@ in {
               })
               (lib.filterAttrs filter LT.hosts));
           }))
-      ++ (config.recordHandlers.IGNORE (args // {type = "A,AAAA";}));
+      ++ (config.recordHandlers.IGNORE (args
+        // {
+          type = "A,AAAA";
+          ttl = null;
+        }));
   };
 
   common.hostRecs = {
