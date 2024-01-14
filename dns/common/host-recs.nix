@@ -30,6 +30,11 @@
 
   hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";
 
+  concatDomain = prefix: domain:
+    if domain == "@"
+    then prefix
+    else "${prefix}.${domain}";
+
   mapAddresses = {
     name,
     addresses,
@@ -39,13 +44,13 @@
     lib.optionals (addresses.IPv4 != "") [
       {
         recordType = "A";
-        name = "${name}";
+        name = name;
         address = addresses.IPv4;
         inherit ttl;
       }
       {
         recordType = "A";
-        name = "v4.${name}";
+        name = concatDomain "v4" name;
         address = addresses.IPv4;
         inherit ttl;
       }
@@ -54,13 +59,13 @@
     ++ lib.optionals (addresses.IPv6 != "") [
       {
         recordType = "AAAA";
-        name = "${name}";
+        name = name;
         address = addresses.IPv6;
         inherit ttl;
       }
       {
         recordType = "AAAA";
-        name = "v6.${name}";
+        name = concatDomain "v6" name;
         address = addresses.IPv6;
         inherit ttl;
       }
@@ -68,13 +73,13 @@
     ++ lib.optionals (addresses.IPv6Alt or "" != "") [
       {
         recordType = "AAAA";
-        name = "${name}";
+        name = name;
         address = addresses.IPv6Alt;
         inherit ttl;
       }
       {
         recordType = "AAAA";
-        name = "v6.${name}";
+        name = concatDomain "v6" name;
         address = addresses.IPv6Alt;
         inherit ttl;
       }
@@ -82,7 +87,7 @@
     ++ [
       {
         recordType = "CNAME";
-        name = "*.${name}";
+        name = concatDomain "*" name;
         target = name;
         inherit ttl;
       }
@@ -124,7 +129,7 @@ in {
         (args
           // {
             recordType = "TXT";
-            name = "geoinfo.${name}";
+            name = concatDomain "geoinfo" name;
             contents = builtins.toJSON (builtins.mapAttrs
               (k: v: {
                 inherit (v.city) lat lng;
@@ -137,10 +142,17 @@ in {
           }))
       ++ (config.recordHandlers.IGNORE (args
         // {
-          type = "A,AAAA";
+          type = "A";
+          ttl = null;
+        }))
+      ++ (config.recordHandlers.IGNORE (args
+        // {
+          type = "AAAA";
           ttl = null;
         }));
   };
+
+  common.concatDomain = concatDomain;
 
   common.hostRecs = {
     inherit hasPublicIP mapAddresses;
@@ -204,7 +216,7 @@ in {
       forEachHost
       (n: v:
         mapAddresses {
-          name = "${n}.${domain}.";
+          name = concatDomain n domain;
           addresses =
             if hasPublicIP v
             then v.public
@@ -217,24 +229,24 @@ in {
         lib.optionals (v.ssh.rsa != "") [
           {
             recordType = "SSHFP_RSA_SHA1";
-            name = "${n}.${domain}.";
+            name = concatDomain n domain;
             pubkey = v.ssh.rsa;
           }
           {
             recordType = "SSHFP_RSA_SHA256";
-            name = "${n}.${domain}.";
+            name = concatDomain n domain;
             pubkey = v.ssh.rsa;
           }
         ]
         ++ lib.optionals (v.ssh.ed25519 != "") [
           {
             recordType = "SSHFP_ED25519_SHA1";
-            name = "${n}.${domain}.";
+            name = concatDomain n domain;
             pubkey = v.ssh.ed25519;
           }
           {
             recordType = "SSHFP_ED25519_SHA256";
-            name = "${n}.${domain}.";
+            name = concatDomain n domain;
             pubkey = v.ssh.ed25519;
           }
         ]);
@@ -243,7 +255,7 @@ in {
       forEachHost
       (n: v:
         mapAddresses {
-          name = "${n}.${domain}.";
+          name = concatDomain n domain;
           addresses = v.ltnet;
         });
 
@@ -253,7 +265,7 @@ in {
         {
           recordType = "PTR";
           name = "*.${builtins.toString v.index}";
-          target = "${ptrPrefix v}${n}.${domain}.";
+          target = concatDomain "${ptrPrefix v}${n}" domain;
         }
       ]);
 
@@ -263,7 +275,7 @@ in {
         {
           recordType = "PTR";
           name = builtins.toString v.index;
-          target = "${ptrPrefix v}${n}.${domain}.";
+          target = concatDomain "${ptrPrefix v}${n}" domain;
         }
       ]);
 
@@ -281,7 +293,7 @@ in {
         {
           recordType = "PTR";
           name = "*.${indexStr}";
-          target = "${ptrPrefix v}${n}.${domain}.";
+          target = concatDomain "${ptrPrefix v}${n}" domain;
         }
       ]);
 
@@ -290,14 +302,14 @@ in {
       (n: v: (
         lib.optionals (builtins.elem tags.server v.tags) (
           (mapAddresses {
-            name = "${n}.${domain}.";
+            name = concatDomain n domain;
             addresses = v.dn42;
           })
           # A record
           ++ lib.optionals (v.dn42.IPv4 != "") [
             {
               recordType = "A";
-              name = "dns-authoritative.${n}.${domain}.";
+              name = concatDomain "dns-authoritative.${n}" domain;
               address = v.dn42.IPv4;
             }
           ]
@@ -305,17 +317,17 @@ in {
           ++ lib.optionals (v.dn42.IPv6 != "") [
             {
               recordType = "AAAA";
-              name = "dns-recursive.${n}.${domain}.";
+              name = concatDomain "dns-recursive.${n}" domain;
               address = "${v.ltnet.IPv6Prefix}::53";
             }
             {
               recordType = "AAAA";
-              name = "dns-authoritative.${n}.${domain}.";
+              name = concatDomain "dns-authoritative.${n}" domain;
               address = "${v.ltnet.IPv6Prefix}::54";
             }
             {
               recordType = "AAAA";
-              name = "dns-authoritative-backend.${n}.${domain}.";
+              name = concatDomain "dns-authoritative-backend.${n}" domain;
               address = "${v.ltnet.IPv6Prefix}::55";
             }
           ]
@@ -336,7 +348,7 @@ in {
             {
               recordType = "PTR";
               name = lastPart v.dn42.IPv4;
-              target = "${ptrPrefix v}${n}.${domain}.";
+              target = concatDomain "${ptrPrefix v}${n}" domain;
             }
           ]);
 
@@ -344,7 +356,7 @@ in {
       forEachHost
       (n: v:
         mapAddresses {
-          name = "${n}.${domain}.";
+          name = concatDomain n domain;
           addresses = v.neonetwork;
         });
   };

@@ -10,17 +10,17 @@
     Autoconfig = domain: [
       {
         recordType = "CNAME";
-        name = "autoconfig";
+        name = config.common.concatDomain "autoconfig" domain;
         target = GeoDNSTarget;
         ttl = "1h";
       }
       {
         recordType = "SRV";
-        name = "_autodiscover._tcp";
+        name = config.common.concatDomain "_autodiscover._tcp" domain;
         priority = 0;
         weight = 0;
         port = 443;
-        target = "autoconfig.${domain}.";
+        target = config.common.concatDomain "autoconfig" domain;
       }
     ];
 
