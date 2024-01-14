@@ -260,42 +260,45 @@ in {
         });
 
     LTNetReverseIPv4_16 = domain:
-      forEachActiveHost
-      (n: v: [
-        {
-          recordType = "PTR";
-          name = "*.${builtins.toString v.index}";
-          target = concatDomain "${ptrPrefix v}${n}" domain;
-        }
-      ]);
+      assert lib.hasSuffix "." domain;
+        forEachActiveHost
+        (n: v: [
+          {
+            recordType = "PTR";
+            name = "*.${builtins.toString v.index}";
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]);
 
     LTNetReverseIPv4_24 = domain:
-      forEachActiveHost
-      (n: v: [
-        {
-          recordType = "PTR";
-          name = builtins.toString v.index;
-          target = concatDomain "${ptrPrefix v}${n}" domain;
-        }
-      ]);
+      assert lib.hasSuffix "." domain;
+        forEachActiveHost
+        (n: v: [
+          {
+            recordType = "PTR";
+            name = builtins.toString v.index;
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]);
 
     LTNetReverseIPv6_64 = domain:
-      forEachActiveHost
-      (n: v: let
-        prepend = s:
-          if (builtins.length s) < 4
-          then prepend (["0"] ++ s)
-          else s;
-        indexList = prepend (lib.stringToCharacters (builtins.toString v.index));
-        indexInterspersed = lib.intersperse "." indexList;
-        indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
-      in [
-        {
-          recordType = "PTR";
-          name = "*.${indexStr}";
-          target = concatDomain "${ptrPrefix v}${n}" domain;
-        }
-      ]);
+      assert lib.hasSuffix "." domain;
+        forEachActiveHost
+        (n: v: let
+          prepend = s:
+            if (builtins.length s) < 4
+            then prepend (["0"] ++ s)
+            else s;
+          indexList = prepend (lib.stringToCharacters (builtins.toString v.index));
+          indexInterspersed = lib.intersperse "." indexList;
+          indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
+        in [
+          {
+            recordType = "PTR";
+            name = "*.${indexStr}";
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]);
 
     DN42 = domain:
       forEachHost
@@ -339,18 +342,19 @@ in {
       lastPart = ip: builtins.elemAt (lib.splitString "." ip) 3;
     in
       domain: ipMin: ipMax:
-        forEachActiveHost
-        (n: v: let
-          i = lib.toInt (lastPart v.dn42.IPv4);
-          inRange = i >= ipMin && i <= ipMax;
-        in
-          lib.optionals (inRange && v.dn42.IPv4 != "") [
-            {
-              recordType = "PTR";
-              name = lastPart v.dn42.IPv4;
-              target = concatDomain "${ptrPrefix v}${n}" domain;
-            }
-          ]);
+        assert lib.hasSuffix "." domain;
+          forEachActiveHost
+          (n: v: let
+            i = lib.toInt (lastPart v.dn42.IPv4);
+            inRange = i >= ipMin && i <= ipMax;
+          in
+            lib.optionals (inRange && v.dn42.IPv4 != "") [
+              {
+                recordType = "PTR";
+                name = lastPart v.dn42.IPv4;
+                target = concatDomain "${ptrPrefix v}${n}" domain;
+              }
+            ]);
 
     NeoNetwork = domain:
       forEachHost
