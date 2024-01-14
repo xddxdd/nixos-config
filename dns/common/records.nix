@@ -78,7 +78,7 @@
         recordType = "GEO";
         # GeoDNS for public facing servers
         name = "geo";
-        ttl = "1h";
+        ttl = "5m";
         filter = n: v:
           (builtins.elem "server" v.tags)
           && (builtins.elem "public-facing" v.tags);
@@ -87,7 +87,7 @@
         recordType = "GEO";
         # GeoDNS for servers with sufficient storage
         name = "geo-stor";
-        ttl = "1h";
+        ttl = "5m";
         filter = n: v:
           (builtins.elem "server" v.tags)
           && (builtins.elem "public-facing" v.tags)
