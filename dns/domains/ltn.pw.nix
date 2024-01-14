@@ -14,7 +14,7 @@
       records = lib.flatten [
         {
           recordType = "fakeALIAS";
-          name = "${domain}.";
+          name = "@";
           target = "terrahost";
           ttl = "10m";
         }
@@ -26,7 +26,7 @@
         }
         {
           recordType = "CNAME";
-          name = "www.${domain}.";
+          name = "www";
           target = "terrahost.ltn.pw.";
           ttl = "10m";
         }
