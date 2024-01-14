@@ -276,7 +276,6 @@ in {
         config.common.records.Libravatar
         config.common.records.ProxmoxCluster
         config.common.records.SIP
-        config.common.records.GeoRecords
 
         {
           recordType = "TXT";

@@ -179,7 +179,6 @@ in {
         config.common.records.Libravatar
         config.common.records.ProxmoxCluster
         config.common.records.SIP
-        config.common.records.GeoRecords
         (config.common.hostRecs.LTNet "ltnet.${domain}")
         (config.common.hostRecs.DN42 "dn42.${domain}")
         (config.common.hostRecs.NeoNetwork "neo.${domain}")
