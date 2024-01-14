@@ -155,7 +155,7 @@ in {
           recordType = "GEO";
           # GeoDNS for public facing servers
           name = "${domain}.";
-          ttl = "1h";
+          ttl = "5m";
           filter = n: v:
             (builtins.elem "server" v.tags)
             && (builtins.elem "public-facing" v.tags);
@@ -163,8 +163,8 @@ in {
         {
           recordType = "CNAME";
           name = "www.${domain}.";
-          target = config.common.records.GeoDNSTarget;
-          ttl = "10m";
+          target = "${domain}.";
+          ttl = "5m";
         }
 
         config.common.hostRecs.CAA
