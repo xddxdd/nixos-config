@@ -180,24 +180,25 @@
     }
 
     (PublicNSRecords "asn")
-    {
-      recordType = "DS";
-      name = "asn";
-      keytag = 48539;
-      algorithm = 13;
-      digesttype = 2;
-      digest = "7D653B29D41EDF8A607B3119AF7FF3F0C1AE6EBFD19AA6FA1CCF1590E74DE1B6";
-      ttl = "1h";
-    }
-    {
-      recordType = "DS";
-      name = "asn";
-      keytag = 48539;
-      algorithm = 13;
-      digesttype = 4;
-      digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A";
-      ttl = "1h";
-    }
+    # # GCore doesn't support DS records
+    # {
+    #   recordType = "DS";
+    #   name = "asn";
+    #   keytag = 48539;
+    #   algorithm = 13;
+    #   digesttype = 2;
+    #   digest = "7D653B29D41EDF8A607B3119AF7FF3F0C1AE6EBFD19AA6FA1CCF1590E74DE1B6";
+    #   ttl = "1h";
+    # }
+    # {
+    #   recordType = "DS";
+    #   name = "asn";
+    #   keytag = 48539;
+    #   algorithm = 13;
+    #   digesttype = 4;
+    #   digest = "0F8035F6A9BF09C806FE665445524632ADFA53E23BFB225E2128963ADAAD5B18294831A345A0AE06FA42E9217DEA0E2A";
+    #   ttl = "1h";
+    # }
 
     # Active Directory
     (PublicNSRecords "ad")
