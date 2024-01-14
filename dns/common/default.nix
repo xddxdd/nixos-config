@@ -27,7 +27,7 @@
 
     apexRecords = domain:
       config.common.hostRecs.mapAddresses {
-        name = "${domain}.";
+        name = "@";
         addresses = fallbackServer.public;
         ttl = "10m";
       };

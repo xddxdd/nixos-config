@@ -80,8 +80,8 @@
         })
 
         config.common.nameservers.NeoNetwork
-        (config.common.hostRecs.NeoNetwork domain)
-        (config.common.hostRecs.SSHFP domain)
+        (config.common.hostRecs.NeoNetwork "${domain}.")
+        (config.common.hostRecs.SSHFP "${domain}.")
       ];
     }
   ];

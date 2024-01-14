@@ -168,8 +168,8 @@ in {
         }
 
         config.common.hostRecs.CAA
-        (config.common.hostRecs.Normal domain)
-        (config.common.records.Autoconfig domain)
+        (config.common.hostRecs.Normal "${domain}.")
+        (config.common.records.Autoconfig "${domain}.")
         config.common.records.MXRoute
         {
           recordType = "TXT";
@@ -179,9 +179,9 @@ in {
         config.common.records.Libravatar
         config.common.records.ProxmoxCluster
         config.common.records.SIP
-        (config.common.hostRecs.LTNet "ltnet.${domain}")
-        (config.common.hostRecs.DN42 "dn42.${domain}")
-        (config.common.hostRecs.NeoNetwork "neo.${domain}")
+        (config.common.hostRecs.LTNet "ltnet.${domain}.")
+        (config.common.hostRecs.DN42 "dn42.${domain}.")
+        (config.common.hostRecs.NeoNetwork "neo.${domain}.")
 
         externalServices
         internalServices
