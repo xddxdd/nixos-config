@@ -245,7 +245,7 @@ in {
     rec {
       domain = "lantian.pub";
       registrar = "porkbun";
-      providers = ["cloudflare"];
+      providers = ["gcore"];
       records = lib.flatten [
         {
           recordType = "ALIAS";
