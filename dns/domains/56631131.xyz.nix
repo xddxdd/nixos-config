@@ -23,13 +23,13 @@
 
         {
           recordType = "fakeALIAS";
-          name = "${domain}.";
+          name = "@";
           target = "v-ps-fal";
           ttl = "1h";
         }
         {
           recordType = "CNAME";
-          name = "www.${domain}.";
+          name = "www";
           target = "${domain}.";
         }
 

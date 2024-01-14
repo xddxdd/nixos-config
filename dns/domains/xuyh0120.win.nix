@@ -154,7 +154,7 @@ in {
         {
           recordType = "GEO";
           # GeoDNS for public facing servers
-          name = "${domain}.";
+          name = "@";
           ttl = "5m";
           filter = n: v:
             (builtins.elem "server" v.tags)
@@ -162,8 +162,8 @@ in {
         }
         {
           recordType = "CNAME";
-          name = "www.${domain}.";
-          target = "${domain}.";
+          name = "www";
+          target = "@";
           ttl = "5m";
         }
 

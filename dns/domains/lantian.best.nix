@@ -13,13 +13,13 @@
       records = lib.flatten [
         {
           recordType = "ALIAS";
-          name = "${domain}.";
+          name = "@";
           target = config.common.records.GeoDNSTarget;
           ttl = "10m";
         }
         {
           recordType = "CNAME";
-          name = "www.${domain}.";
+          name = "www";
           target = config.common.records.GeoDNSTarget;
           ttl = "10m";
         }
