@@ -133,23 +133,23 @@ in {
 
     # Don't use globalRedirect, it adds http:// prefix
     "www.lantian.pub" = {
-      locations."/".return = "302 https://lantian.pub$request_uri";
+      locations."/".return = "307 https://lantian.pub$request_uri";
       enableCommonLocationOptions = false;
       sslCertificate = "lantian.pub_ecc";
     };
     "xuyh0120.win" = {
       serverAliases = ["www.xuyh0120.win"];
-      locations."/".return = "302 https://lantian.pub$request_uri";
+      locations."/".return = "307 https://lantian.pub$request_uri";
       enableCommonLocationOptions = false;
       sslCertificate = "xuyh0120.win_ecc";
     };
     "lab.xuyh0120.win" = {
-      locations."/".return = "302 https://lab.lantian.pub$request_uri";
+      locations."/".return = "307 https://lab.lantian.pub$request_uri";
       enableCommonLocationOptions = false;
       sslCertificate = "xuyh0120.win_ecc";
     };
     "www.ltn.pw" = {
-      locations."/".return = "302 https://ltn.pw$request_uri";
+      locations."/".return = "307 https://ltn.pw$request_uri";
       enableCommonLocationOptions = false;
       sslCertificate = "ltn.pw_ecc";
     };

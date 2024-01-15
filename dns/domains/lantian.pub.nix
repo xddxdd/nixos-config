@@ -38,11 +38,6 @@
 
   externalServices = [
     {
-      recordType = "IGNORE";
-      name = "backblaze";
-      type = "*";
-    } # Handled by CF Worker
-    {
       recordType = "CNAME";
       name = "gcore";
       target = "cl-47f440a2.gcdn.co.";
@@ -95,6 +90,12 @@
   ];
 
   internalServices = [
+    {
+      recordType = "CNAME";
+      name = "backblaze";
+      target = config.common.records.GeoDNSTarget;
+      ttl = "1h";
+    }
     {
       recordType = "CNAME";
       name = "ca";
