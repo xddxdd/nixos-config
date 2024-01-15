@@ -9,6 +9,7 @@
 } @ args: {
   imports = [
     ./autoconfig.nix
+    ./backblaze-redir.nix
     ./libravatar.nix
     ./nginx.nix
     ./oauth2-proxy.nix

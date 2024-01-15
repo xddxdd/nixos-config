@@ -35,13 +35,13 @@ in {
         zstd off;
       '';
 
-      # 302 to tools.lantian.pub
-      "/dngzwxdq".return = "302 https://tools.lantian.pub$request_uri";
-      "/dnyjzsxj".return = "302 https://tools.lantian.pub$request_uri";
-      "/glibc-for-debian-10-on-openvz".return = "302 https://tools.lantian.pub$request_uri";
-      "/mota-24".return = "302 https://tools.lantian.pub$request_uri";
-      "/mota-51".return = "302 https://tools.lantian.pub$request_uri";
-      "/mota-xinxin".return = "302 https://tools.lantian.pub$request_uri";
+      # 307 to tools.lantian.pub
+      "/dngzwxdq".return = "307 https://tools.lantian.pub$request_uri";
+      "/dnyjzsxj".return = "307 https://tools.lantian.pub$request_uri";
+      "/glibc-for-debian-10-on-openvz".return = "307 https://tools.lantian.pub$request_uri";
+      "/mota-24".return = "307 https://tools.lantian.pub$request_uri";
+      "/mota-51".return = "307 https://tools.lantian.pub$request_uri";
+      "/mota-xinxin".return = "307 https://tools.lantian.pub$request_uri";
     };
 
     phpfpmSocket = config.services.phpfpm.pools.lab.socket;

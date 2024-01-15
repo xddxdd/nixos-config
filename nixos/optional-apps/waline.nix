@@ -18,7 +18,7 @@
             proxy_set_header REMOTE-HOST $remote_addr;
           '';
         };
-        "= /".return = "302 /ui/";
+        "= /".return = "307 /ui/";
       };
 
       sslCertificate = "lantian.pub_ecc";

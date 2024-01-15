@@ -130,7 +130,7 @@
           }
         '';
       };
-      "= /user/login".return = "302 /user/oauth2/Keycloak";
+      "= /user/login".return = "307 /user/oauth2/Keycloak";
     };
 
     blockDotfiles = false;

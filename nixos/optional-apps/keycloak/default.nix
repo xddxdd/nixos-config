@@ -62,7 +62,7 @@
 
   lantian.nginxVhosts."login.lantian.pub" = {
     locations = {
-      "= /".return = "302 /admin/";
+      "= /".return = "307 /admin/";
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Keycloak.HTTP}";
       };
