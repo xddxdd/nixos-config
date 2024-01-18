@@ -168,10 +168,14 @@
       target = "matrix";
     }
     {
-      recordType = "CNAME";
+      recordType = "GEO";
+      # GeoDNS for servers with sufficient storage
       name = "tools";
-      target = config.common.records.GeoStorDNSTarget;
-      ttl = "1h";
+      ttl = "5m";
+      filter = n: v:
+        (builtins.elem "server" v.tags)
+        && (builtins.elem "public-facing" v.tags)
+        && (!(builtins.elem "low-disk" v.tags));
     }
     {
       recordType = "CNAME";
