@@ -117,10 +117,28 @@
       };
     };
   });
+
+  flexget-override =
+    lib.hiPrio
+    (pkgs.runCommand
+      "flexget-override"
+      {
+        nativeBuildInputs = with pkgs; [makeWrapper];
+      }
+      ''
+        mkdir -p $out/bin
+        for F in ${pkgs.flexget}/bin/*; do
+          makeWrapper \
+            "$F" \
+            $out/bin/$(basename "$F") \
+            --add-flags "-c" \
+            --add-flags "/var/lib/flexget/flexget.yml"
+        done
+      '');
 in {
   age.secrets.flexget-env.file = inputs.secrets + "/flexget-env.age";
 
-  environment.systemPackages = [pkgs.flexget];
+  environment.systemPackages = [flexget-override];
 
   systemd.services.flexget-runner = {
     requires = ["flaresolverr.service"];
