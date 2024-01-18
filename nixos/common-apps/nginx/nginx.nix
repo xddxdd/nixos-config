@@ -93,6 +93,7 @@ in {
         default                   1;
         "~*Blackbox\ Exporter"    0;
         ~*UptimeRobot             0;
+        ~GcoreHealthcheckAgent    0;
       }
 
       log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
