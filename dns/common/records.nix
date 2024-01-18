@@ -70,30 +70,8 @@
       }
     ];
 
-    GeoDNSTarget = "geo.56631131.xyz."; # Hosted on NS1.com for GeoDNS
-    GeoStorDNSTarget = "geo-stor.56631131.xyz."; # Hosted on NS1.com for GeoDNS
-
-    GeoRecords = [
-      {
-        recordType = "GEO";
-        # GeoDNS for public facing servers
-        name = "geo";
-        ttl = "5m";
-        filter = n: v:
-          (builtins.elem "server" v.tags)
-          && (builtins.elem "public-facing" v.tags);
-      }
-      {
-        recordType = "GEO";
-        # GeoDNS for servers with sufficient storage
-        name = "geo-stor";
-        ttl = "5m";
-        filter = n: v:
-          (builtins.elem "server" v.tags)
-          && (builtins.elem "public-facing" v.tags)
-          && (!(builtins.elem "low-disk" v.tags));
-      }
-    ];
+    GeoDNSTarget = "lantian.pub.";
+    GeoStorDNSTarget = "tools.lantian.pub.";
 
     Libravatar = [
       {
