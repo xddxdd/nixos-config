@@ -152,13 +152,10 @@ in {
       providers = ["gcore"];
       records = lib.flatten [
         {
-          recordType = "GEO";
-          # GeoDNS for public facing servers
+          recordType = "ALIAS";
           name = "@";
+          target = "lantian.pub.";
           ttl = "5m";
-          filter = n: v:
-            (builtins.elem "server" v.tags)
-            && (builtins.elem "public-facing" v.tags);
         }
         {
           recordType = "CNAME";
