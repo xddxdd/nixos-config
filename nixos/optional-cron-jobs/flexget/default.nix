@@ -53,7 +53,10 @@
         };
         disable = ["seen" "seen_info_hash"];
         accept_all = true;
-        "if" = [{"transmission_date_added > now - timedelta(days=5)" = "reject";}];
+        "if" = [
+          {"'No space left on device' in transmission_errorString" = "accept";}
+          {"transmission_date_added > now - timedelta(days=5)" = "reject";}
+        ];
         regexp = {
           reject_excluding = ["/mnt/storage/.downloads-auto"];
           from = "transmission_downloadDir";
@@ -73,6 +76,15 @@
         nexusphp = {
           cookie = "$HDTIME_COOKIE";
           discount = ["free" "2xfree"];
+          seeders = {
+            min = 1;
+            max = 1000;
+          };
+          leechers = {
+            min = 10;
+            max = 1000;
+            max_complete = 0.8;
+          };
           left-time = "1 hours";
           hr = false;
           remember = true;
