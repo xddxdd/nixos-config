@@ -7,5 +7,6 @@
   inputs,
   ...
 } @ args: {
-  imports = [inputs.dwarffs.nixosModules.dwarffs];
+  # FIXME: reenable when dwarffs is fixed
+  # imports = [inputs.dwarffs.nixosModules.dwarffs];
 }

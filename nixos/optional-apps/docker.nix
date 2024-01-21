@@ -81,8 +81,7 @@
         daemon.settings = {
           experimental = true;
           userland-proxy = false;
-          # FIXME: re-enable when gvisor is fixed
-          # runtimes.runsc.path = lib.mkIf pkgs.stdenv.isx86_64 "${pkgs.gvisor}/bin/runsc";
+          runtimes.runsc.path = lib.mkIf pkgs.stdenv.isx86_64 "${pkgs.gvisor}/bin/runsc";
         };
       };
     };

@@ -56,7 +56,7 @@
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2024-01-02",
+        "date": "2024-01-07",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -68,11 +68,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "a506a4cf39af9d27999546b935cb3cfaeb012356",
-            "sha256": "sha256-zJJTddtlkgMXzNRmqOueGHCf/XF6JAvRYrYZFalXc0M=",
+            "rev": "3249c1d5a15bfd81b401a73d97443c3edcf31d59",
+            "sha256": "sha256-ATACFCJln2UJrUpibYrQXSbXuCIwuYdnbjKMvNN71no=",
             "type": "github"
         },
-        "version": "a506a4cf39af9d27999546b935cb3cfaeb012356"
+        "version": "3249c1d5a15bfd81b401a73d97443c3edcf31d59"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -170,7 +170,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2023-12-19",
+        "date": "2024-01-14",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -182,11 +182,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "c09c97e774596774e9d289ab218f3064697bff29",
-            "sha256": "sha256-gCNpTS/kfwpesnwk+QGpX+yA6MLI+hK2SZ+yWyOS98Y=",
+            "rev": "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b",
+            "sha256": "sha256-Sjet+wVkzksfYMtIs1Z4YPPhR4LvyonNn/V73aZmYiE=",
             "type": "github"
         },
-        "version": "c09c97e774596774e9d289ab218f3064697bff29"
+        "version": "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -250,7 +250,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2023-12-13",
+        "date": "2024-01-18",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -262,15 +262,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "564c0661a942f7163cb2cfa6cb1b14b4bcff3a30",
-            "sha256": "sha256-85h94r3XZq1wME6+AxsTIIsM1TmMMr97RJjDygdnxtA=",
+            "rev": "f0fd415c12bcd9714d3b8583ca60e4b499f34644",
+            "sha256": "sha256-XDs5fUPjuTHzq8JhKDRyogXZovQ6vAdM7yNqlPH2vuE=",
             "type": "github"
         },
-        "version": "564c0661a942f7163cb2cfa6cb1b14b4bcff3a30"
+        "version": "f0fd415c12bcd9714d3b8583ca60e4b499f34644"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-01-05",
+        "date": "2024-01-19",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -282,15 +282,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "7268e14dba61254b04a0b2db37c12c8ab58423ea",
-            "sha256": "sha256-4pmw46KjAe7ji/GbvRTbuZXwquBC3sb88obY57x6/yU=",
+            "rev": "bc29bd6a3376158b73d069758122739fbf93c022",
+            "sha256": "sha256-EHsSyxZT9/YfmX3V9ZwlIOMFbRkrMQrG1/WVW6wP2zs=",
             "type": "github"
         },
-        "version": "7268e14dba61254b04a0b2db37c12c8ab58423ea"
+        "version": "bc29bd6a3376158b73d069758122739fbf93c022"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2023-12-18",
+        "date": "2024-01-18",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -302,11 +302,11 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "bebd9cffc2aeb2cecb40aadbb8c6eab3bdf7971b",
-            "sha256": "sha256-ePd7J3sQPcevYcXNsyW6y4T1V1QNirtUsjw6AUKx+RQ=",
+            "rev": "f77188160441d5f77f08dd517632ae3f60c653b0",
+            "sha256": "sha256-kpBwfGYkWXV/SZq252SmWsInAn67+pbVlJEEhJONHxY=",
             "type": "github"
         },
-        "version": "bebd9cffc2aeb2cecb40aadbb8c6eab3bdf7971b"
+        "version": "f77188160441d5f77f08dd517632ae3f60c653b0"
     },
     "ovpn-dco": {
         "cargoLocks": null,
