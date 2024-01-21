@@ -62,7 +62,8 @@
 
   environment.variables = {
     # Cursor fix
-    XCURSOR_SIZE = builtins.toString (builtins.floor (LT.constants.gui.cursorSize * config.lantian.hidpi));
+    # XCURSOR_SIZE = builtins.toString (builtins.floor (LT.constants.gui.cursorSize * config.lantian.hidpi));
+    XCURSOR_SIZE = builtins.toString LT.constants.gui.cursorSize;
 
     # SDL Soundfont
     SDL_SOUNDFONTS = LT.constants.soundfontPath pkgs;

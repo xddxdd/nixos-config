@@ -53,6 +53,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kde2nix = {
+      url = "github:nix-community/kde2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -151,6 +156,7 @@
       inputs.colmena.nixosModules.deploymentOptions
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
+      inputs.kde2nix.nixosModules.plasma6
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       (inputs.srvos + "/nixos/common/networking.nix")

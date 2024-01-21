@@ -34,7 +34,8 @@
         '';
     });
     name = "STMCS-601-GenshinFurina";
-    size = builtins.floor (LT.constants.gui.cursorSize * LT.thisConfigurations.config.lantian.hidpi);
+    # size = builtins.floor (LT.constants.gui.cursorSize * LT.thisConfigurations.config.lantian.hidpi);
+    size = LT.constants.gui.cursorSize;
     gtk.enable = true;
     x11.enable = true;
   };

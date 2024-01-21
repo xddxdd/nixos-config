@@ -13,10 +13,11 @@
     }))
   ];
 
-  services.xserver.desktopManager.plasma5 = {
-    enable = true;
-    runUsingSystemd = true;
-  };
+  # services.xserver.desktopManager.plasma5 = {
+  #   enable = true;
+  #   runUsingSystemd = true;
+  # };
+  services.xserver.desktopManager.plasma6.enable = true;
   services.xserver.displayManager.defaultSession = "plasmawayland";
   services.xserver.displayManager.lightdm.enable = false;
 
