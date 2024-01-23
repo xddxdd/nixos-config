@@ -1,5 +1,5 @@
 diff --git a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
-index 58cf8c0e3557..3b1726edadbd 100644
+index 11122d58ac80..82df29ec477f 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 @@ -1,4 +1,4 @@
@@ -9,10 +9,10 @@ index 58cf8c0e3557..3b1726edadbd 100644
  { stdenv, lib, fetchurl, patchelf }:
  
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index c8957d6193a5..fb403546aa44 100644
+index c60098ab899d..5f1fa138330a 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -204,8 +204,9 @@ let
+@@ -205,8 +205,9 @@ let
            openSha256;
          settings =
            if useSettings then
@@ -23,7 +23,7 @@ index c8957d6193a5..fb403546aa44 100644
                  withGtk2 = preferGtk2;
                  withGtk3 = !preferGtk2;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-@@ -213,14 +214,17 @@ let
+@@ -214,14 +215,17 @@ let
          persistenced =
            if usePersistenced then
              mapNullable
@@ -44,7 +44,7 @@ index c8957d6193a5..fb403546aa44 100644
          inherit persistencedVersion settingsVersion;
          compressFirmware = false;
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-index 03ad03a472d4..82820e0fb9af 100644
+index dcdd22044e2a..c95d028ca332 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 @@ -1,8 +1,9 @@
@@ -59,9 +59,15 @@ index 03ad03a472d4..82820e0fb9af 100644
  , libtirpc
  }:
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-index b11dc06c85eb..29ce2f1d119c 100644
+index b11dc06c85eb..532e4f3d5b5c 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
+@@ -1,4 +1,4 @@
+-nvidia_x11: sha256:
++sha256:
+ 
+ { stdenv
+ , lib
 @@ -16,6 +16,7 @@ nvidia_x11: sha256:
  , libXxf86vm
  , libvdpau
