@@ -11,12 +11,12 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-    ./media-center.nix
-    ./shares.nix
+    # ./media-center.nix
+    # ./shares.nix
 
     ../../nixos/client-components/cups.nix
 
-    ../../nixos/optional-apps/calibre-cops.nix
+    # ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/genshin-cockpy.nix
@@ -29,9 +29,9 @@
     ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
-    ../../nixos/optional-apps/sftp-server.nix
-    ../../nixos/optional-apps/syncthing.nix
-    ../../nixos/optional-apps/tachidesk.nix
+    # ../../nixos/optional-apps/sftp-server.nix
+    # ../../nixos/optional-apps/syncthing.nix
+    # ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/vlmcsd.nix
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
@@ -47,14 +47,14 @@
     extraOptions = ["--loadavg-target" "4"];
   };
 
-  services.beesd.filesystems.storage = {
-    spec = config.fileSystems."/mnt/storage".device;
-    hashTableSizeMB = 128;
-    verbosity = "crit";
-    extraOptions = ["--loadavg-target" "4"];
-  };
+  # services.beesd.filesystems.storage = {
+  #   spec = config.fileSystems."/mnt/storage".device;
+  #   hashTableSizeMB = 128;
+  #   verbosity = "crit";
+  #   extraOptions = ["--loadavg-target" "4"];
+  # };
 
-  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
+  # services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   # Rename to LAN to apply correct firewall rules
   services.udev.extraRules = ''
@@ -75,7 +75,7 @@
     allowFrom = ["all"];
   };
 
-  lantian.syncthing.storage = "/mnt/storage/media";
+  # lantian.syncthing.storage = "/mnt/storage/media";
 
   services."route-chain" = {
     enable = true;

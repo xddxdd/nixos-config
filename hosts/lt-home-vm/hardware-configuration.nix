@@ -30,12 +30,12 @@
     options = ["compress-force=zstd" "nosuid" "nodev"];
   };
 
-  fileSystems."/mnt/storage" = {
-    device = "/dev/vdb";
-    fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev" "x-systemd.mount-timeout=infinity"];
-    neededForBoot = true;
-  };
+  # fileSystems."/mnt/storage" = {
+  #   device = "/dev/vdb";
+  #   fsType = "btrfs";
+  #   options = ["compress-force=zstd" "nosuid" "nodev" "x-systemd.mount-timeout=infinity"];
+  #   neededForBoot = true;
+  # };
 
   fileSystems."/boot" = {
     device = "/nix/boot";
