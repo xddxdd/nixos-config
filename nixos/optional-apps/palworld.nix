@@ -7,6 +7,8 @@
   inputs,
   ...
 } @ args: {
+  environment.systemPackages = with pkgs; [rcon];
+
   systemd.services.palworld = {
     description = "Palworld Server";
     wantedBy = ["multi-user.target"];
