@@ -79,7 +79,7 @@
     partOf = ["palworld-backup.service"];
     timerConfig = {
       OnCalendar = "*:0/10";
-      RandomizedDelaySec = "5min";
+      RandomizedDelaySec = "1min";
       Unit = "palworld-backup.service";
     };
   };
