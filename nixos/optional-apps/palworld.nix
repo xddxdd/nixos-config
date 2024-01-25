@@ -52,6 +52,38 @@
     };
   };
 
+  systemd.services.palworld-backup = {
+    description = "Palworld Backup";
+
+    script = ''
+      set -x
+      SUBDIR=$(date "+%Y_%m_%d_%H_%M_%S")
+      cp -r /var/lib/palworld/Pal/Saved "/var/lib/palworld-backup/$SUBDIR"
+    '';
+
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        User = "palworld";
+        Group = "palworld";
+
+        Type = "oneshot";
+        ReadWritePaths = ["/var/lib/palworld"];
+        StateDirectory = "palworld-backup";
+        WorkingDirectory = "/var/lib/palworld-backup";
+      };
+  };
+
+  systemd.timers.palworld-backup = {
+    wantedBy = ["timers.target"];
+    partOf = ["palworld-backup.service"];
+    timerConfig = {
+      OnCalendar = "*:0/10";
+      RandomizedDelaySec = "5min";
+      Unit = "palworld-backup.service";
+    };
+  };
+
   users.users.palworld = {
     group = "palworld";
     isSystemUser = true;
