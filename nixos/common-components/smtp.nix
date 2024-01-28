@@ -15,13 +15,13 @@
     UNIT=$1
     STATE=$3
 
-    [ "$STATE" = "success" ] && FLAG="✅" || FLAG="❎"
+    [ "$STATE" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
 
     exec sendmail -t <<EOF
     To: $MAILTO
-    Subject: $FLAG Status report for $UNIT on $HOSTNAME
+    Subject: $FLAG $UNIT on $HOSTNAME
 
-    Status report for $UNIT on $HOSTNAME:
+    $FLAG $UNIT on $HOSTNAME:
 
     $(systemctl status --lines=0 "$UNIT")
 
