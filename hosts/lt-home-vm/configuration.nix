@@ -75,6 +75,7 @@
     allowFrom = ["all"];
   };
 
+  lantian.palworld-backup.storage = "/mnt/storage/palworld-backup";
   lantian.syncthing.storage = "/mnt/storage/media";
 
   services."route-chain" = {
