@@ -10,6 +10,11 @@
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
   isMaintenanceHost = config.networking.hostName == "terrahost";
 
+  backupPaths = [
+    "/nix/.snapshot/persistent"
+    "/mnt/storage/palworld-backup"
+  ];
+
   kopiaSftpStorageCommon = {
     "port" = 2222;
     "username" = "sftp";
@@ -98,38 +103,41 @@
     "formatBlobCacheDuration" = 900000000000;
   };
 
-  kopiaScript = name: storage: (''
-      echo "Backing up to ${name}"
-
-      export GOGC=10
-
-      export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
-      export KOPIA_CONFIG_PATH=/run/kopia-repository.config
-
-      if [ -d /run/nullfs ]; then
-        export KOPIA_LOG_DIR=/run/nullfs
+  kopiaScript = path: name: storage: (''
+      echo "Backing up ${path} to ${name}"
+      if [ ! -d "${path}" ]; then
+        echo "${path} is not a directory, skipping"
       else
-        export KOPIA_LOG_DIR=/var/log/kopia
-      fi
+        export GOGC=10
 
-      export KOPIA_PASSWORD=$(cat ${config.age.secrets.kopia-pw.path})
+        export KOPIA_CACHE_DIRECTORY=/var/cache/kopia/${name}
+        export KOPIA_CONFIG_PATH=/run/kopia-repository.config
 
-      ${utils.genJqSecretsReplacementSnippet
+        if [ -d /run/nullfs ]; then
+          export KOPIA_LOG_DIR=/run/nullfs
+        else
+          export KOPIA_LOG_DIR=/var/log/kopia
+        fi
+
+        export KOPIA_PASSWORD=$(cat ${config.age.secrets.kopia-pw.path})
+
+        ${utils.genJqSecretsReplacementSnippet
         (kopiaConfig name storage)
         "/run/kopia-repository.config"}
 
-      ${pkgs.kopia}/bin/kopia snapshot create \
-        --parallel=5 \
-        /nix/.snapshot/persistent \
-        || HAS_ERROR=1
+        ${pkgs.kopia}/bin/kopia snapshot create \
+          --parallel=5 \
+          ${path} \
+          || HAS_ERROR=1
     ''
     + (lib.optionalString isMaintenanceHost ''
       ${pkgs.kopia}/bin/kopia maintenance set --owner=root@${config.networking.hostName}
       ${pkgs.kopia}/bin/kopia maintenance run --log-level=debug
     '')
     + ''
-      rm -rf "$KOPIA_CACHE_DIRECTORY"/*
-      rm -f $KOPIA_CONFIG_PATH
+        rm -rf "$KOPIA_CACHE_DIRECTORY"/*
+        rm -f $KOPIA_CONFIG_PATH
+      fi
     '');
 in {
   age.secrets.kopia-pw.file = inputs.secrets + "/kopia/pw.age";
@@ -147,15 +155,16 @@ in {
       CPUQuota = "40%";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
-    script =
-      ''
-        SNAPSHOT_DIR=/nix/.snapshot
-        HAS_ERROR=0
 
+    environment = {
+      SNAPSHOT_DIR = "/nix/.snapshot";
+    };
+
+    preStart =
+      ''
         cat >/nix/persistent/.kopiaignore <<EOF
         ${kopiaIgnored}
         EOF
-
       ''
       + (
         if isBtrfsRoot
@@ -163,33 +172,34 @@ in {
           # Btrfs snapshot
           [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
           ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
-
         ''
         else ''
           # Fake snapshot with link
           [ -e "$SNAPSHOT_DIR" ] && rm -f $SNAPSHOT_DIR
           ln -s /nix $SNAPSHOT_DIR
-
         ''
-      )
-      + (builtins.concatStringsSep "\n" (
-        lib.mapAttrsToList kopiaScript kopiaStorage
-      ))
-      + (
-        if isBtrfsRoot
-        then ''
-          # Remove snapshot
-          ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
+      );
 
-        ''
-        else ''
-          # Remove snapshot
-          rm -f $SNAPSHOT_DIR
-
-        ''
-      )
+    script =
+      ''
+        HAS_ERROR=0
+      ''
+      + (builtins.concatStringsSep "\n" (lib.flatten (builtins.map (path: (
+          lib.mapAttrsToList (kopiaScript path) kopiaStorage
+        ))
+        backupPaths)))
       + ''
         exit $HAS_ERROR
+      '';
+
+    # Remove snapshot
+    postStop =
+      if isBtrfsRoot
+      then ''
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
+      ''
+      else ''
+        rm -f $SNAPSHOT_DIR
       '';
   };
 
