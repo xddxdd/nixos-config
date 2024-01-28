@@ -39,6 +39,7 @@
       options = [
         "force-user=sftp"
         "force-group=sftp"
+        "perms=700"
         "create-for-user=lantian"
         "create-for-group=users"
         "chown-ignore"

@@ -20,6 +20,7 @@
       options = [
         "force-user=syncthing"
         "force-group=syncthing"
+        "perms=700"
         "create-for-user=root"
         "create-for-group=root"
         "chown-ignore"

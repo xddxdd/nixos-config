@@ -52,6 +52,7 @@ in {
       options = [
         "force-user=${config.systemd.services.resilio.serviceConfig.User}"
         "force-group=${config.systemd.services.resilio.serviceConfig.Group}"
+        "perms=700"
         "create-for-user=root"
         "create-for-group=root"
         "chown-ignore"
