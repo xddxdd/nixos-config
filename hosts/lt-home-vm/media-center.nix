@@ -112,7 +112,7 @@ in {
 
     # Speed limit of private trackets
     speed-limit-down = 25600;
-    speed-limit-down-enabled = false;
+    speed-limit-down-enabled = true;
     speed-limit-up = 25600;
     speed-limit-up-enabled = true;
   };
