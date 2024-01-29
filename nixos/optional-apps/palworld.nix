@@ -28,16 +28,31 @@ in {
       path = with pkgs; [steamcmd steam-run];
 
       preStart = ''
+        # Update to latest server version
         steamcmd \
           +force_install_dir /var/lib/palworld \
           +login anonymous \
           +app_update 2394010 validate \
           +quit
+
+        # Fix missing steamclient.so
+        mkdir -p .steam/sdk64/
+        cp linux64/steamclient.so .steam/sdk64/steamclient.so
+
+        # Create WorldOption.sav to workaround settings bug
+        if [ -f "/var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini" ]; then
+          for DIR in /var/lib/palworld/Pal/Saved/SaveGames/0/*; do
+            if [ ! -f "$DIR"/Level.sav ]; then continue; fi
+
+            rm -f "$DIR"/WorldOption.sav
+            ${pkgs.coreutils}/bin/yes | ${pkgs.palworld-worldoptions}/bin/palworld-worldoptions \
+              /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini \
+              --output "$DIR"/
+          done
+        fi
       '';
 
       script = ''
-        mkdir -p .steam/sdk64/
-        cp linux64/steamclient.so .steam/sdk64/steamclient.so
         steam-run \
           /var/lib/palworld/PalServer.sh \
             -useperfthreads \
