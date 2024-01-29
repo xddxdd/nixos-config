@@ -64,7 +64,7 @@ in {
       {
         name = "prometheus-mysqld-exporter";
         ensurePermissions = {
-          "*.*" = "PROCESS, REPLICATION CLIENT, SELECT";
+          "*.*" = "PROCESS, REPLICATION CLIENT, SELECT, SLAVE MONITOR";
         };
       }
     ];
