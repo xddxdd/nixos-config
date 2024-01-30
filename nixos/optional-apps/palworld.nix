@@ -60,10 +60,14 @@ in {
             -UseMultithreadForDS
       '';
 
+      restartIfChanged = false;
+
       serviceConfig = {
         User = "palworld";
         Group = "palworld";
         Restart = "on-failure";
+
+        Nice = 0 - 20;
 
         StateDirectory = "palworld";
         WorkingDirectory = "/var/lib/palworld";
