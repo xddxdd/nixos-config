@@ -37,16 +37,19 @@
 in {
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-chinese-addons
-      fcitx5-gtk
-      fcitx5-rime-with-addons
-      libsForQt5.fcitx5-qt
-    ];
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-chinese-addons
+        fcitx5-gtk
+        fcitx5-rime-with-addons
+        libsForQt5.fcitx5-qt
+      ];
+    };
   };
 
   # Extra variables not covered by NixOS fcitx module
-  environment.variables = {
+  environment.variables = lib.mkIf (!config.i18n.inputMethod.fcitx5.waylandFrontend) {
     INPUT_METHOD = "fcitx";
     SDL_IM_MODULE = "fcitx";
     GLFW_IM_MODULE = "ibus";
