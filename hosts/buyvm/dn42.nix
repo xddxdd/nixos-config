@@ -292,6 +292,18 @@
         peerIPv6LinkLocal = "fe80::3770";
       };
     };
+    piotr = {
+      remoteASN = 4242422033;
+      latencyMs = 26;
+      tunnel = {
+        type = "gre";
+        remoteAddress = "64.176.64.175";
+      };
+      addressing = {
+        peerIPv4 = "172.20.194.44";
+        peerIPv6 = "fde2:f42a:8ac9::4";
+      };
+    };
     ricky = {
       remoteASN = 4242422458;
       latencyMs = 13;
