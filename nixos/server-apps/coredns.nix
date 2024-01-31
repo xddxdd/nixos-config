@@ -54,6 +54,13 @@
     ''
       # Selfhosted Root Zone
       . {
+        # Only serve internal networks to avoid being part of DNS amplification attack
+        acl {
+          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv4}
+          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
+          drop
+        }
+
         any
         bufsize 1232
         loadbalance round_robin
