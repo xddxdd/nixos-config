@@ -104,6 +104,7 @@ in {
         openssl
         pigz
         pv
+        restic
         screen
         tcpdump
         unzip
