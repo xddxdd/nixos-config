@@ -15,6 +15,8 @@
     PubkeyAcceptedAlgorithms ssh-ed25519
   '';
 in {
+  age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
+
   programs.ssh = {
     package = pkgs.openssh_hpn;
 
@@ -94,6 +96,24 @@ in {
       User root
       Port 22
       PubkeyAcceptedKeyTypes ssh-ed25519
+
+    Host sub1.u378583.your-storagebox.de
+      HostName u378583.your-storagebox.de
+      User u378583-sub1
+      Port 23
+      IdentityFile ${config.age.secrets.sftp-privkey.path}
+
+    Host sub2.u378583.your-storagebox.de
+      HostName u378583.your-storagebox.de
+      User u378583-sub2
+      Port 23
+      IdentityFile ${config.age.secrets.sftp-privkey.path}
+
+    Host sftp.lt-home-vm.xuyh0120.win
+      HostName lt-home-vm.xuyh0120.win
+      User sftp
+      IdentityFile ${config.age.secrets.sftp-privkey.path}
+      ${ltnetSSHConfig}
 
     Host git.lantian.pub
       User git
