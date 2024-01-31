@@ -100,9 +100,6 @@
 
         chain NAT_PREROUTING {
           type nat hook prerouting priority -95; policy accept;
-
-          # Disabled UDP DNS for being used in reflection DDoS attacks
-          udp dport ${LT.portStr.DNS} iifname @INTERFACE_WAN drop
     ''
     + (lib.optionalString config.lantian.nginx-proxy.enable ''
       # nginx whois & gopher server
@@ -189,9 +186,6 @@
 
         # Helper chains
         chain PUBLIC_INPUT {
-          # Disabled UDP DNS for being used in reflection DDoS attacks
-          udp dport ${LT.portStr.DNS} drop
-
           # Block ports
           tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
           udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
