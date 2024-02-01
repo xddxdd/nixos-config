@@ -73,6 +73,8 @@
     export RESTIC_CACHE_DIR=/var/cache/restic
     export RESTIC_COMPRESSION=max
 
+    echo "Pruning ${repo}"
+
     restic forget \
       --keep-last=1 \
       --keep-hourly=0 \
@@ -80,7 +82,8 @@
       --keep-weekly=4 \
       --keep-monthly=1 \
       --keep-yearly=1 \
-      --prune
+      --prune \
+      || HAS_ERROR=1
   '';
 in {
   age.secrets.restic-pw.file = inputs.secrets + "/restic/pw.age";
@@ -148,6 +151,11 @@ in {
       CPUQuota = "40%";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
+
+    path = with pkgs; [
+      openssh
+      restic
+    ];
 
     script =
       ''
