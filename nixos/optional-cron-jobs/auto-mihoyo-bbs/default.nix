@@ -39,6 +39,7 @@ in {
     after = ["network.target"];
     script = ''
       export AutoMihoyoBBS_appkey=$(cat /var/lib/auto-mihoyo-bbs/appkey)
+      sed -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml
       exec ${py}/bin/python ${files}/main.py
     '';
   };
