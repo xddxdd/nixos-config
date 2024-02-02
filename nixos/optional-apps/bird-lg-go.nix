@@ -65,6 +65,16 @@ in {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           blockBadUserAgents = true;
         };
+        # Telegram doesn't recognize gzip/brotli compressed response
+        "/telegram/" = {
+          proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
+          blockBadUserAgents = true;
+          extraConfig = ''
+            gzip off;
+            brotli off;
+            zstd off;
+          '';
+        };
       };
 
       sslCertificate = "lantian.pub_ecc";
