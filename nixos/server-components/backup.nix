@@ -75,6 +75,7 @@
 
     echo "Pruning ${repo}"
 
+    restic unlock
     restic forget \
       --keep-last=1 \
       --keep-hourly=0 \
