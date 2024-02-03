@@ -89,6 +89,10 @@
           hr = false;
           remember = true;
         };
+        torrent_size = {
+          min = 0;
+          max = 100 * 1024; # 100GB
+        };
         cfscraper = true;
         template = "downloads-auto";
       };
@@ -111,6 +115,10 @@
           left-time = "1 hours";
           hr = false;
           remember = true;
+        };
+        torrent_size = {
+          min = 0;
+          max = 100 * 1024; # 100GB
         };
         cfscraper = true;
         template = "downloads-auto";
