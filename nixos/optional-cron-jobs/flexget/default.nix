@@ -52,10 +52,10 @@
           port = LT.port.Transmission;
         };
         disable = ["seen" "seen_info_hash"];
-        accept_all = true;
         "if" = [
           {"'No space left on device' in transmission_errorString" = "accept";}
-          {"transmission_date_added > now - timedelta(days=5)" = "reject";}
+          {"'torrent not registered with this tracker' in transmission_errorString" = "accept";}
+          {"transmission_date_added < now - timedelta(days=5)" = "accept";}
         ];
         regexp = {
           reject_excluding = ["/mnt/storage/.downloads-auto"];
