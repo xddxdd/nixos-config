@@ -5,7 +5,13 @@
 }: ''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-    ${pkgs.colmena}/bin/colmena $ACTION --keep-result --show-trace $*
+    ${pkgs.colmena}/bin/colmena $ACTION \
+      --eval-node-limit 5 \
+      --parallel 0 \
+      --evaluator streaming \
+      --keep-result \
+      --show-trace \
+      $*
     exit $?
   else
     ${pkgs.colmena}/bin/colmena $ACTION $*

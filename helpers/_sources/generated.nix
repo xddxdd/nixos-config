@@ -27,23 +27,23 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.5.2";
+    version = "v10.6.0";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.5.2/CyberChef_v10.5.2.zip";
-      sha256 = "sha256-pNR6MT2eedCHdav94YoIwytQtNuPpSJhv927eFkQ0O8=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.6.0/CyberChef_v10.6.0.zip";
+      sha256 = "sha256-0Gbb2oEQccrcghBQ9XL6FNdmbAuK9ZXbLjgzrNDdwC4=";
     };
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "3249c1d5a15bfd81b401a73d97443c3edcf31d59";
+    version = "d7e704614c0412db20067522c4cea73eec06d915";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "3249c1d5a15bfd81b401a73d97443c3edcf31d59";
+      rev = "d7e704614c0412db20067522c4cea73eec06d915";
       fetchSubmodules = false;
-      sha256 = "sha256-ATACFCJln2UJrUpibYrQXSbXuCIwuYdnbjKMvNN71no=";
+      sha256 = "sha256-dieYDFpNqcoUPiztZgGjBxJ6/iUdJyGK6jn6dAiS47U=";
     };
-    date = "2024-01-07";
+    date = "2024-02-04";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -66,15 +66,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "cdb1399821e942db6fcc2b8322da72b517a9bc0d";
+    version = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "cdb1399821e942db6fcc2b8322da72b517a9bc0d";
+      rev = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
       fetchSubmodules = false;
-      sha256 = "sha256-K5qKcCVZ/nUFaXtMkJSez2OIjWEUW8zC9M1ycTCJVPc=";
+      sha256 = "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=";
     };
-    date = "2023-11-25";
+    date = "2024-01-29";
   };
   keycloak-lantian = {
     pname = "keycloak-lantian";
@@ -103,15 +103,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b";
+    version = "45ea946e94c502d1f82af24d95898f24fdddecf0";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b";
+      rev = "45ea946e94c502d1f82af24d95898f24fdddecf0";
       fetchSubmodules = false;
-      sha256 = "sha256-Sjet+wVkzksfYMtIs1Z4YPPhR4LvyonNn/V73aZmYiE=";
+      sha256 = "sha256-ELGSjKBMTelnKYyR+Xi2SKKwbUnWXsumO9yxJE/maIA=";
     };
-    date = "2024-01-14";
+    date = "2024-01-31";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -150,51 +150,51 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "f0fd415c12bcd9714d3b8583ca60e4b499f34644";
+    version = "b63013c15f1da020bf8198da83ae99f4d8f07be8";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "f0fd415c12bcd9714d3b8583ca60e4b499f34644";
+      rev = "b63013c15f1da020bf8198da83ae99f4d8f07be8";
       fetchSubmodules = false;
-      sha256 = "sha256-XDs5fUPjuTHzq8JhKDRyogXZovQ6vAdM7yNqlPH2vuE=";
+      sha256 = "sha256-EDPoMTj3J1f/7Sv/q7P/lZ4r2aXOCdsbZ4FumbvuCWk=";
     };
-    date = "2024-01-18";
+    date = "2024-01-25";
   };
   openvpn = {
     pname = "openvpn";
-    version = "bc29bd6a3376158b73d069758122739fbf93c022";
+    version = "53b16d07e889b69128203d3b50ed47ceb77c5771";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "bc29bd6a3376158b73d069758122739fbf93c022";
+      rev = "53b16d07e889b69128203d3b50ed47ceb77c5771";
       fetchSubmodules = false;
-      sha256 = "sha256-EHsSyxZT9/YfmX3V9ZwlIOMFbRkrMQrG1/WVW6wP2zs=";
+      sha256 = "sha256-fS1dHMm2oxzMYNfAN+RzAi4iFZCLlL2hYXNryd0QoUM=";
     };
-    date = "2024-01-19";
+    date = "2024-02-01";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "f77188160441d5f77f08dd517632ae3f60c653b0";
+    version = "6124ea9135ed512671933f5520c46842906c78bc";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "f77188160441d5f77f08dd517632ae3f60c653b0";
+      rev = "6124ea9135ed512671933f5520c46842906c78bc";
       fetchSubmodules = false;
-      sha256 = "sha256-kpBwfGYkWXV/SZq252SmWsInAn67+pbVlJEEhJONHxY=";
+      sha256 = "sha256-KbqGahVcjEceABXslXgkWdXGvBYi+Ydu+/UwUl09SMw=";
     };
-    date = "2024-01-18";
+    date = "2024-02-03";
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "c24380cdb8f5eef5a04059bbe82ad4ba4d3616c3";
+    version = "2aa7f931803f81d2745b0cefafb63654a35cc3d5";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "c24380cdb8f5eef5a04059bbe82ad4ba4d3616c3";
+      rev = "2aa7f931803f81d2745b0cefafb63654a35cc3d5";
       fetchSubmodules = false;
-      sha256 = "sha256-Kpx6JY3zdTSKdbVIIxIOeiPsEOH2ADuMG1/4nCPK4yI=";
+      sha256 = "sha256-Iupo1wdZwel/Q8GvP2MPOhoLK3uBj5JAbT1/Fib/Bsk=";
     };
-    date = "2023-11-27";
+    date = "2024-02-02";
   };
   soggy-resources = {
     pname = "soggy-resources";
