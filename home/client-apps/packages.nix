@@ -38,6 +38,16 @@
           --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
       '');
 
+  prismlauncher-wrapped = lib.hiPrio (pkgs.runCommand
+    "prismlauncher-wrapped"
+    {nativeBuildInputs = with pkgs; [makeWrapper];}
+    ''
+      mkdir -p $out/share/applications
+      for F in ${pkgs.prismlauncher}/share/applications/*; do
+        sed "s#application/zip;##g" < "$F" > $out/share/applications/$(basename "$F")
+      done
+    '');
+
   step-cli-wrapped = pkgs.writeShellScriptBin "step" ''
     export STEPPATH="$HOME/.local/share/step"
     exec ${pkgs.step-cli}/bin/step "$@"
@@ -113,6 +123,7 @@ in {
     payload-dumper-go
     powertop
     prismlauncher
+    prismlauncher-wrapped
     pwgen
     qqmusic
     quasselClient
