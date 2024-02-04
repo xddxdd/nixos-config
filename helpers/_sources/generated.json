@@ -48,15 +48,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pNR6MT2eedCHdav94YoIwytQtNuPpSJhv927eFkQ0O8=",
+            "sha256": "sha256-0Gbb2oEQccrcghBQ9XL6FNdmbAuK9ZXbLjgzrNDdwC4=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.5.2/CyberChef_v10.5.2.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.6.0/CyberChef_v10.6.0.zip"
         },
-        "version": "v10.5.2"
+        "version": "v10.6.0"
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2024-01-07",
+        "date": "2024-02-04",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -68,11 +68,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "3249c1d5a15bfd81b401a73d97443c3edcf31d59",
-            "sha256": "sha256-ATACFCJln2UJrUpibYrQXSbXuCIwuYdnbjKMvNN71no=",
+            "rev": "d7e704614c0412db20067522c4cea73eec06d915",
+            "sha256": "sha256-dieYDFpNqcoUPiztZgGjBxJ6/iUdJyGK6jn6dAiS47U=",
             "type": "github"
         },
-        "version": "3249c1d5a15bfd81b401a73d97443c3edcf31d59"
+        "version": "d7e704614c0412db20067522c4cea73eec06d915"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -111,7 +111,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2023-11-25",
+        "date": "2024-01-29",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -123,11 +123,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "cdb1399821e942db6fcc2b8322da72b517a9bc0d",
-            "sha256": "sha256-K5qKcCVZ/nUFaXtMkJSez2OIjWEUW8zC9M1ycTCJVPc=",
+            "rev": "82755c2bc58491be31c7ac43fec3b2ff2aea3242",
+            "sha256": "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=",
             "type": "github"
         },
-        "version": "cdb1399821e942db6fcc2b8322da72b517a9bc0d"
+        "version": "82755c2bc58491be31c7ac43fec3b2ff2aea3242"
     },
     "keycloak-lantian": {
         "cargoLocks": null,
@@ -170,7 +170,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-01-14",
+        "date": "2024-01-31",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -182,11 +182,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b",
-            "sha256": "sha256-Sjet+wVkzksfYMtIs1Z4YPPhR4LvyonNn/V73aZmYiE=",
+            "rev": "45ea946e94c502d1f82af24d95898f24fdddecf0",
+            "sha256": "sha256-ELGSjKBMTelnKYyR+Xi2SKKwbUnWXsumO9yxJE/maIA=",
             "type": "github"
         },
-        "version": "d92576a468a5ef8ac5ae221e3f05e3b3b5e4f32b"
+        "version": "45ea946e94c502d1f82af24d95898f24fdddecf0"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -250,7 +250,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-01-18",
+        "date": "2024-01-25",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -262,15 +262,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "f0fd415c12bcd9714d3b8583ca60e4b499f34644",
-            "sha256": "sha256-XDs5fUPjuTHzq8JhKDRyogXZovQ6vAdM7yNqlPH2vuE=",
+            "rev": "b63013c15f1da020bf8198da83ae99f4d8f07be8",
+            "sha256": "sha256-EDPoMTj3J1f/7Sv/q7P/lZ4r2aXOCdsbZ4FumbvuCWk=",
             "type": "github"
         },
-        "version": "f0fd415c12bcd9714d3b8583ca60e4b499f34644"
+        "version": "b63013c15f1da020bf8198da83ae99f4d8f07be8"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-01-19",
+        "date": "2024-02-01",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -282,15 +282,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "bc29bd6a3376158b73d069758122739fbf93c022",
-            "sha256": "sha256-EHsSyxZT9/YfmX3V9ZwlIOMFbRkrMQrG1/WVW6wP2zs=",
+            "rev": "53b16d07e889b69128203d3b50ed47ceb77c5771",
+            "sha256": "sha256-fS1dHMm2oxzMYNfAN+RzAi4iFZCLlL2hYXNryd0QoUM=",
             "type": "github"
         },
-        "version": "bc29bd6a3376158b73d069758122739fbf93c022"
+        "version": "53b16d07e889b69128203d3b50ed47ceb77c5771"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-01-18",
+        "date": "2024-02-03",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -302,15 +302,15 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "f77188160441d5f77f08dd517632ae3f60c653b0",
-            "sha256": "sha256-kpBwfGYkWXV/SZq252SmWsInAn67+pbVlJEEhJONHxY=",
+            "rev": "6124ea9135ed512671933f5520c46842906c78bc",
+            "sha256": "sha256-KbqGahVcjEceABXslXgkWdXGvBYi+Ydu+/UwUl09SMw=",
             "type": "github"
         },
-        "version": "f77188160441d5f77f08dd517632ae3f60c653b0"
+        "version": "6124ea9135ed512671933f5520c46842906c78bc"
     },
     "ovpn-dco": {
         "cargoLocks": null,
-        "date": "2023-11-27",
+        "date": "2024-02-02",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -322,11 +322,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "c24380cdb8f5eef5a04059bbe82ad4ba4d3616c3",
-            "sha256": "sha256-Kpx6JY3zdTSKdbVIIxIOeiPsEOH2ADuMG1/4nCPK4yI=",
+            "rev": "2aa7f931803f81d2745b0cefafb63654a35cc3d5",
+            "sha256": "sha256-Iupo1wdZwel/Q8GvP2MPOhoLK3uBj5JAbT1/Fib/Bsk=",
             "type": "github"
         },
-        "version": "c24380cdb8f5eef5a04059bbe82ad4ba4d3616c3"
+        "version": "2aa7f931803f81d2745b0cefafb63654a35cc3d5"
     },
     "soggy-resources": {
         "cargoLocks": null,
