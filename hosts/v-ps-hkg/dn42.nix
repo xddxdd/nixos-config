@@ -105,6 +105,21 @@
         peerIPv6 = "fd42:4242:2189:ee::1";
       };
     };
+    jasonxu = {
+      remoteASN = 4242423658;
+      latencyMs = 4;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23658;
+        remoteAddress = "123.254.109.25";
+        remotePort = 22547;
+        wireguardPubkey = "DiFXOjt1vOsisPKx7ncUwLvvxfvWF4VLqNOGO6TQMAw=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.193.2";
+        peerIPv6 = "fd4e:d0:d38d::2";
+      };
+    };
     jerry = {
       remoteASN = 4242423618;
       latencyMs = 1;
