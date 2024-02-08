@@ -7,6 +7,7 @@
   inputs,
   ...
 } @ args: {
+  environment.systemPackages = with pkgs; [uksmd];
   systemd.packages = with pkgs; [uksmd];
   systemd.services.uksmd = {
     enable = true;
