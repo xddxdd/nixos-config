@@ -89,7 +89,7 @@
           hr = false;
           remember = true;
         };
-        torrent_size = {
+        content_size = {
           min = 0;
           max = 100 * 1024; # 100GB
         };
@@ -116,7 +116,7 @@
           hr = false;
           remember = true;
         };
-        torrent_size = {
+        content_size = {
           min = 0;
           max = 100 * 1024; # 100GB
         };
