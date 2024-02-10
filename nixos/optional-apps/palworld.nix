@@ -80,6 +80,33 @@ in {
       };
     };
 
+    systemd.services.palworld-exporter = {
+      description = "Palworld Prometheus Exporter";
+      wantedBy = ["multi-user.target"];
+      after = ["palworld.service"];
+      requires = ["palworld.service"];
+
+      environment = {
+        RCON_HOST = "127.0.0.1";
+        RCON_PORT = "25575";
+        LISTEN_ADDRESS = LT.this.ltnet.IPv4;
+        LISTEN_PORT = LT.portStr.Prometheus.Palworld;
+      };
+
+      script = ''
+        export RCON_PASSWORD=$(cat /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini | grep -E -o "AdminPassword=\"[^\"]+\"" | cut -d'"' -f2)
+        export SAVE_DIRECTORY=$(echo /var/lib/palworld/Pal/Saved/SaveGames/0/*)
+
+        ${pkgs.palworld-exporter}/bin/palworld_exporter
+      '';
+
+      serviceConfig = LT.serviceHarden // {
+        User = "palworld";
+        Group = "palworld";
+        Restart = "on-failure";
+      };
+    };
+
     systemd.services.palworld-backup = {
       description = "Palworld Backup";
 

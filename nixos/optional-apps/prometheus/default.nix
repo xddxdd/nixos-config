@@ -45,6 +45,14 @@ in {
       (scrapeAllNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNodes "postgres" LT.port.Prometheus.PostgresExporter)
+      {
+        job_name = "palworld";
+        static_configs = [
+          {
+            targets = ["${LT.hosts."lt-home-vm".ltnet.IPv4}:${LT.portStr.Prometheus.Palworld}"];
+          }
+        ];
+      }
     ];
   };
 
