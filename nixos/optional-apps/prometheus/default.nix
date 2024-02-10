@@ -7,15 +7,28 @@
   inputs,
   ...
 } @ args: let
-  scrapeAllNodes = jobName: port: {
+  scrapeAllNonClientNodes = jobName: port: {
     job_name = jobName;
     static_configs =
       lib.mapAttrsToList
       (n: v: {
         targets = ["${v.ltnet.IPv4}:${builtins.toString port}"];
+        labels.job = jobName;
         labels.instance = n;
       })
-      LT.serverHosts;
+      LT.nonClientHosts;
+  };
+  scrapeAllNonClientNodesNetns = jobName: index: port: {
+    job_name = jobName;
+    static_configs =
+      lib.mapAttrsToList
+      (n: v: {
+        targets = ["${v.ltnet.IPv4Prefix}.${builtins.toString index}:${builtins.toString port}"];
+        labels.job = jobName;
+        labels.instance = n;
+        labels.index = builtins.toString index;
+      })
+      LT.nonClientHosts;
   };
 in {
   imports = [
@@ -40,11 +53,13 @@ in {
           }
         ];
       }
-      (scrapeAllNodes "bird" LT.port.Prometheus.BirdExporter)
-      (scrapeAllNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
-      (scrapeAllNodes "mysql" LT.port.Prometheus.MySQLExporter)
-      (scrapeAllNodes "node" LT.port.Prometheus.NodeExporter)
-      (scrapeAllNodes "postgres" LT.port.Prometheus.PostgresExporter)
+      (scrapeAllNonClientNodes "bird" LT.port.Prometheus.BirdExporter)
+      (scrapeAllNonClientNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
+      (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
+      (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
+      (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)
+      (scrapeAllNonClientNodesNetns "coredns" 56 LT.port.Prometheus.CoreDNS)
+      (scrapeAllNonClientNodesNetns "coredns-authoritative" 54 LT.port.Prometheus.CoreDNS)
       {
         job_name = "palworld";
         static_configs = [

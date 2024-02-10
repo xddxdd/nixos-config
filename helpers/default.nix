@@ -47,6 +47,9 @@ in
     hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
     serverHosts = hostsWithTag tags.server;
 
+    hostsWithoutTag = tag: lib.filterAttrs (n: v: !(builtins.elem tag v.tags)) hosts;
+    nonClientHosts = hostsWithoutTag tags.client;
+
     thisConfigurations = nixosConfigurations."${config.networking.hostName}";
 
     patchedPkgs = lib.mapAttrs (k: v: v.path) self.pkgs."${this.system}";
