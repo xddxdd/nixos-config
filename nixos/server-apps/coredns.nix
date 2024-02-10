@@ -21,6 +21,7 @@
       else "";
     localZone = zone: filename: ''
       ${zone}:${LT.portStr.DNSLocal} {
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
         bind 127.0.0.1
         file "/nix/persistent/sync-servers/${filename}.zone" {
           reload 30s
@@ -32,6 +33,7 @@
         any
         bufsize 1232
         loadbalance round_robin
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
         forward . 127.0.0.1:${LT.portStr.DNSLocal}
         ${dnssec dnssecKey}
@@ -42,6 +44,7 @@
         any
         bufsize 1232
         loadbalance round_robin
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
         file "/nix/persistent/sync-servers/${filename}.zone" {
           reload 30s
@@ -64,6 +67,7 @@
         any
         bufsize 1232
         loadbalance round_robin
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
         forward . ${config.lantian.netns.coredns-knot.ipv4} ${config.lantian.netns.coredns-knot.ipv6}
         ${dnssec null}
@@ -71,6 +75,7 @@
 
       # Google DNS
       .:${LT.portStr.DNSUpstream} {
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
         forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
           tls_servername dns.google
           policy sequential
@@ -93,6 +98,7 @@
         any
         bufsize 1232
         loadbalance round_robin
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
         forward . 198.18.0.202 fdbc:f9dc:67ad::202
       }
@@ -121,6 +127,7 @@
 
       # Meshname
       meshname {
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
         meshname
       }
     '';

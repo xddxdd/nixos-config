@@ -30,6 +30,7 @@ in {
           any
           bufsize 1232
           loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
           forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
             tls_servername dns.google
@@ -42,6 +43,7 @@ in {
           any
           bufsize 1232
           loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
           forward . 114.114.114.114 114.114.115.115
           cache
@@ -52,6 +54,7 @@ in {
           any
           bufsize 1232
           loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
           forward . 198.19.0.253 fdbc:f9dc:67ad:2547::53
           cache
@@ -60,6 +63,7 @@ in {
       block = zone: ''
         ${zone} {
           any
+          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
           hosts {
             0.0.0.0 ${zone}
           }
@@ -67,6 +71,7 @@ in {
       '';
       mdns = zone: ''
         ${zone} {
+          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
           mdns ${zone} 1
         }
       '';
