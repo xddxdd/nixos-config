@@ -95,6 +95,7 @@
     Prometheus.BirdExporter = 9324;
     Prometheus.EndlesshGo = 9322;
     Prowlarr = 9696;
+    Prometheus.Palworld = 9877;
     FlareSolverr = 13191;
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
