@@ -129,6 +129,7 @@ in {
     quasselClient
     rar
     remmina
+    space-cadet-pinball-full-tilt
     steam-run
     step-cli-wrapped
     svp
