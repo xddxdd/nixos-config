@@ -15,6 +15,10 @@ fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_
 src.git = "https://github.com/walkxcode/dashboard-icons.git"
 fetch.github = "walkxcode/dashboard-icons"
 
+[dpdk-kmod]
+src.git = "https://dpdk.org/git/dpdk-kmods"
+fetch.git = "https://dpdk.org/git/dpdk-kmods"
+
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"

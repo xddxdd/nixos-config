@@ -74,6 +74,25 @@
         },
         "version": "d7e704614c0412db20067522c4cea73eec06d915"
     },
+    "dpdk-kmod": {
+        "cargoLocks": null,
+        "date": "2023-02-05",
+        "extract": null,
+        "name": "dpdk-kmod",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e721c733cd24206399bebb8f0751b0387c4c1595",
+            "sha256": "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=",
+            "type": "git",
+            "url": "https://dpdk.org/git/dpdk-kmods"
+        },
+        "version": "e721c733cd24206399bebb8f0751b0387c4c1595"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "date": null,
