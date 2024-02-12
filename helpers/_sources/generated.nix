@@ -45,6 +45,19 @@
     };
     date = "2024-02-04";
   };
+  dpdk-kmod = {
+    pname = "dpdk-kmod";
+    version = "e721c733cd24206399bebb8f0751b0387c4c1595";
+    src = fetchgit {
+      url = "https://dpdk.org/git/dpdk-kmods";
+      rev = "e721c733cd24206399bebb8f0751b0387c4c1595";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=";
+    };
+    date = "2023-02-05";
+  };
   himawaripy = {
     pname = "himawaripy";
     version = "v2.2.0";

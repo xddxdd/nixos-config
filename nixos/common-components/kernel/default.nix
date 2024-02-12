@@ -111,6 +111,7 @@
         # Custom kernel packages
         acpi-ec = final.callPackage ./acpi-ec.nix {};
         cryptodev = final.callPackage ./cryptodev.nix {};
+        dpdk-kmod = final.callPackage ./dpdk-kmod.nix {};
         i915-sriov = final.callPackage ./i915-sriov.nix {};
         nft-fullcone = final.callPackage ./nft-fullcone.nix {};
         nullfsvfs = final.callPackage ./nullfsvfs.nix {};
