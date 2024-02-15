@@ -182,7 +182,6 @@ in {
   services.irqbalance.enable = !config.boot.isContainer;
 
   services.journald.extraConfig = ''
-    Audit=no
     ForwardToConsole=no
     ForwardToKMsg=no
     ForwardToSyslog=no

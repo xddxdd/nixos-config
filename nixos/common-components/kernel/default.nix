@@ -142,7 +142,6 @@ in {
     boot = {
       kernelParams =
         [
-          "audit=0"
           "cgroup_enable=memory"
           "delayacct"
           "ibt=off"
