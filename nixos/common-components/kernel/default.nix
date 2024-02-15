@@ -7,7 +7,44 @@
   inputs,
   ...
 } @ args: let
-  myKernelPackage = kernelPackages: let
+  myKernelPackageFor = kernel: let
+    ccacheKernelStdenv = let
+      newStdenv = pkgs.overrideCC kernel.stdenv (pkgs.ccacheWrapper.override {
+        inherit (kernel.stdenv) cc;
+      });
+
+      mkCCachePlatform = platform:
+        platform
+        // {
+          linux-kernel =
+            platform.linux-kernel
+            // {
+              makeFlags =
+                (platform.linux-kernel.makeFlags or [])
+                ++ [
+                  "CC=${newStdenv.cc}/bin/cc"
+                  "HOSTCC=${newStdenv.cc}/bin/cc"
+                  "HOSTCXX=${newStdenv.cc}/bin/c++"
+                ];
+            };
+        };
+    in
+      newStdenv.override {
+        hostPlatform = mkCCachePlatform newStdenv.hostPlatform;
+        buildPlatform = mkCCachePlatform newStdenv.buildPlatform;
+      };
+
+    ccacheKernel = kernel.override {
+      stdenv = ccacheKernelStdenv;
+      buildPackages =
+        pkgs.buildPackages
+        // {
+          stdenv = ccacheKernelStdenv;
+        };
+    };
+
+    kernelPackages = pkgs.linuxKernel.packagesFor ccacheKernel;
+
     llvmOverride = kernelPackages_:
       kernelPackages_.extend (final: prev:
         lib.mapAttrs (
@@ -132,10 +169,10 @@ in {
         then
           (
             if builtins.elem LT.tags.x86_64-v1 LT.this.tags
-            then pkgs.lantianLinuxXanmodPackages.lts-x86_64-v1-lto
-            else pkgs.lantianLinuxXanmodPackages.lts-x86_64-v3-lto
+            then pkgs.lantianLinuxXanmod.lts-x86_64-v1-lto
+            else pkgs.lantianLinuxXanmod.lts-x86_64-v3-lto
           )
-        else pkgs.linuxPackages_6_6;
+        else pkgs.linux_6_6;
     };
   };
   config = {
@@ -155,7 +192,7 @@ in {
         ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [
           "net.ifnames=0"
         ]);
-      kernelPackages = myKernelPackage config.lantian.kernel;
+      kernelPackages = myKernelPackageFor config.lantian.kernel;
       kernelModules =
         [
           "cryptodev"
