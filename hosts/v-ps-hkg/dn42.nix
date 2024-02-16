@@ -198,6 +198,22 @@
         peerIPv6LinkLocal = "fe80::604";
       };
     };
+    libecho = {
+      remoteASN = 4242421604;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21604;
+        remoteAddress = "hk1.vm.libecho.top";
+        remotePort = 22547;
+        wireguardPubkey = "hQgRGnAP4xBHym+R/jf7ScjGbBDz5RXi5gF6CF7RiWg=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.111.97";
+        peerIPv6LinkLocal = "fe80::1604";
+      };
+    };
     marek = {
       remoteASN = 4242422923;
       latencyMs = 1;

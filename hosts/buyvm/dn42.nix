@@ -315,7 +315,7 @@
         remoteAddress = "64.176.64.175";
       };
       addressing = {
-        peerIPv4 = "172.20.194.44";
+        peerIPv4 = "172.20.194.4";
         peerIPv6 = "fde2:f42a:8ac9::4";
       };
     };
