@@ -230,17 +230,18 @@
     };
     li = {
       remoteASN = 4242420388;
-      latencyMs = 8;
+      latencyMs = 19;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 20388;
-        remoteAddress = "23.167.8.142";
+        remoteAddress = "23.167.8.110";
         remotePort = 22547;
         wireguardPubkey = "EHB+u2HnBY/8UGNehq+9oe7mW4+107SJywA7gbjxQE8=";
       };
       addressing = {
         peerIPv4 = "172.23.78.99";
-        peerIPv6 = "fdec:2606:62c0::388:99";
+        peerIPv6LinkLocal = "fe80::388";
       };
     };
     lutoma = {
