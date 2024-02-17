@@ -11,7 +11,7 @@
     ../../nixos/none.nix
 
     ./hardware-configuration.nix
-    ./vpp.nix
+    # ./vpp.nix
 
     ../../nixos/client-components/tlp.nix
 
