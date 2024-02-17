@@ -8,42 +8,39 @@
   ...
 } @ args: let
   myKernelPackageFor = kernel: let
-    ccacheKernelStdenv = let
-      newStdenv = pkgs.overrideCC kernel.stdenv (pkgs.ccacheWrapper.override {
-        inherit (kernel.stdenv) cc;
-      });
-
-      mkCCachePlatform = platform:
-        platform
-        // {
-          linux-kernel =
-            platform.linux-kernel
-            // {
-              makeFlags =
-                (platform.linux-kernel.makeFlags or [])
-                ++ [
-                  "CC=${newStdenv.cc}/bin/cc"
-                  "HOSTCC=${newStdenv.cc}/bin/cc"
-                  "HOSTCXX=${newStdenv.cc}/bin/c++"
-                ];
-            };
-        };
-    in
-      newStdenv.override {
-        hostPlatform = mkCCachePlatform newStdenv.hostPlatform;
-        buildPlatform = mkCCachePlatform newStdenv.buildPlatform;
-      };
-
-    ccacheKernel = kernel.override {
-      stdenv = ccacheKernelStdenv;
-      buildPackages =
-        pkgs.buildPackages
-        // {
-          stdenv = ccacheKernelStdenv;
-        };
-    };
-
-    kernelPackages = pkgs.linuxKernel.packagesFor ccacheKernel;
+    # ccacheKernelStdenv = let
+    #   newStdenv = pkgs.overrideCC kernel.stdenv (pkgs.ccacheWrapper.override {
+    #     inherit (kernel.stdenv) cc;
+    #   });
+    #   mkCCachePlatform = platform:
+    #     platform
+    #     // {
+    #       linux-kernel =
+    #         platform.linux-kernel
+    #         // {
+    #           makeFlags =
+    #             (platform.linux-kernel.makeFlags or [])
+    #             ++ [
+    #               "CC=${newStdenv.cc}/bin/cc"
+    #               "HOSTCC=${newStdenv.cc}/bin/cc"
+    #               "HOSTCXX=${newStdenv.cc}/bin/c++"
+    #             ];
+    #         };
+    #     };
+    # in
+    #   newStdenv.override {
+    #     hostPlatform = mkCCachePlatform newStdenv.hostPlatform;
+    #     buildPlatform = mkCCachePlatform newStdenv.buildPlatform;
+    #   };
+    # ccacheKernel = kernel.override {
+    #   stdenv = ccacheKernelStdenv;
+    #   buildPackages =
+    #     pkgs.buildPackages
+    #     // {
+    #       stdenv = ccacheKernelStdenv;
+    #     };
+    # };
+    kernelPackages = pkgs.linuxKernel.packagesFor kernel;
 
     llvmOverride = kernelPackages_:
       kernelPackages_.extend (final: prev:
