@@ -41,7 +41,7 @@
         };
         ipv6 {
           import filter ltnet_import_filter_v6;
-          export filter ltnet_import_filter_v6;
+          export filter ltnet_export_filter_v6;
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
