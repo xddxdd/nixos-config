@@ -180,7 +180,7 @@ in
 
     services.knot = {
       enable = true;
-      extraConfig = let
+      settingsFile = let
         dn42SlaveZone = name: ''
           - domain: ${name}
             storage: /var/cache/zones/
@@ -215,133 +215,136 @@ in
             acl: ltnet_ad_notify
             acl: allow_transfer
         '';
+
+        cfg =
+          ''
+            server:
+              listen: 0.0.0.0@${LT.portStr.DNS}
+              listen: ::@${LT.portStr.DNS}
+              identity: lantian
+              version: 2.3.3
+              nsid: lantian
+              edns-client-subnet: on
+              answer-rotation: on
+
+            log:
+            - target: stdout
+              any: info
+
+            remote:
+            - id: dn42
+              via: ${config.lantian.netns.coredns-knot.ipv4}
+              via: ${config.lantian.netns.coredns-knot.ipv6}
+
+              # {b,j}.master.delegation-servers.dn42
+              address: fd42:180:3de0:30::1@${LT.portStr.DNS}
+              address: fd42:180:3de0:10:5054:ff:fe87:ea39@${LT.portStr.DNS}
+
+              # {b,j,k}.delegation-servers.dn42
+              # address: 172.20.129.1@${LT.portStr.DNS}
+              # address: fd42:4242:2601:ac53::1@${LT.portStr.DNS}
+              # address: 172.20.1.254@${LT.portStr.DNS}
+              # address: fd42:5d71:219:0:216:3eff:fe1e:22d6@${LT.portStr.DNS}
+              # address: 172.20.14.34@${LT.portStr.DNS}
+              # address: fdcf:8538:9ad5:1111::2@${LT.portStr.DNS}
+
+            - id: opennic
+              via: ${config.lantian.netns.coredns-knot.ipv4}
+              via: ${config.lantian.netns.coredns-knot.ipv6}
+              address: 161.97.219.84@${LT.portStr.DNS}
+              address: 94.103.153.176@${LT.portStr.DNS}
+              address: 178.63.116.152@${LT.portStr.DNS}
+              address: 188.226.146.136@${LT.portStr.DNS}
+              address: 144.76.103.143@${LT.portStr.DNS}
+              address: 2001:470:4212:10:0:100:53:10@${LT.portStr.DNS}
+              address: 2a02:990:219:1:ba:1337:cafe:3@${LT.portStr.DNS}
+              address: 2a01:4f8:141:4281::999@${LT.portStr.DNS}
+              address: 2a03:b0c0:0:1010::13f:6001@${LT.portStr.DNS}
+              address: 2a01:4f8:192:43a5::2@${LT.portStr.DNS}
+
+            - id: ltnet_ad
+              via: ${config.lantian.netns.coredns-knot.ipv4}
+              via: ${config.lantian.netns.coredns-knot.ipv6}
+              address: 198.18.0.202@${LT.portStr.DNS}
+              address: fdbc:f9dc:67ad::202@${LT.portStr.DNS}
+
+            acl:
+            - id: dn42_notify
+              action: notify
+              # {b,j}.master.delegation-servers.dn42
+              address: fd42:180:3de0:30::1
+              address: fd42:180:3de0:10:5054:ff:fe87:ea39
+
+              # {b,j,k}.delegation-servers.dn42
+              #address: 172.20.129.1
+              #address: fd42:4242:2601:ac53::1
+              #address: 172.20.1.254
+              #address: fd42:5d71:219:0:216:3eff:fe1e:22d6
+              #address: 172.20.14.34
+              #address: fdcf:8538:9ad5:1111::2
+
+            - id: opennic_notify
+              action: notify
+              address: 161.97.219.84
+              address: 94.103.153.176
+              address: 178.63.116.152
+              address: 188.226.146.136
+              address: 144.76.103.143
+              address: 2001:470:4212:10:0:100:53:10
+              address: 2a02:990:219:1:ba:1337:cafe:3
+              address: 2a01:4f8:141:4281::999
+              address: 2a03:b0c0:0:1010::13f:6001
+              address: 2a01:4f8:192:43a5::2
+
+            - id: ltnet_ad_notify
+              action: notify
+              address: 198.18.0.202
+              address: fdbc:f9dc:67ad::202
+
+            - id: allow_transfer
+              action: transfer
+              address: 0.0.0.0/0
+              address: ::/0
+
+            zone:
+          ''
+          + (lib.concatMapStringsSep "\n" dn42SlaveZone [
+            "dn42"
+            "10.in-addr.arpa"
+            "20.172.in-addr.arpa"
+            "21.172.in-addr.arpa"
+            "22.172.in-addr.arpa"
+            "23.172.in-addr.arpa"
+            "31.172.in-addr.arpa"
+            "d.f.ip6.arpa"
+          ])
+          + (lib.concatMapStringsSep "\n" opennicSlaveZone [
+            "."
+            "opennic.glue"
+            "dns.opennic.glue"
+            "bbs"
+            "chan"
+            "cyb"
+            "dyn"
+            "epic"
+            "fur"
+            "geek"
+            "gopher"
+            "indy"
+            "libre"
+            "null"
+            "o"
+            "oss"
+            "oz"
+            "parody"
+            "pirate"
+          ])
+          + (lib.concatMapStringsSep "\n" ltnetAdSlaveZone [
+            "ad.lantian.pub"
+            "_msdcs.ad.lantian.pub"
+          ]);
       in
-        ''
-          server:
-            listen: 0.0.0.0@${LT.portStr.DNS}
-            listen: ::@${LT.portStr.DNS}
-            identity: lantian
-            version: 2.3.3
-            nsid: lantian
-            edns-client-subnet: on
-            answer-rotation: on
-
-          log:
-          - target: stdout
-            any: info
-
-          remote:
-          - id: dn42
-            via: ${config.lantian.netns.coredns-knot.ipv4}
-            via: ${config.lantian.netns.coredns-knot.ipv6}
-
-            # {b,j}.master.delegation-servers.dn42
-            address: fd42:180:3de0:30::1@${LT.portStr.DNS}
-            address: fd42:180:3de0:10:5054:ff:fe87:ea39@${LT.portStr.DNS}
-
-            # {b,j,k}.delegation-servers.dn42
-            # address: 172.20.129.1@${LT.portStr.DNS}
-            # address: fd42:4242:2601:ac53::1@${LT.portStr.DNS}
-            # address: 172.20.1.254@${LT.portStr.DNS}
-            # address: fd42:5d71:219:0:216:3eff:fe1e:22d6@${LT.portStr.DNS}
-            # address: 172.20.14.34@${LT.portStr.DNS}
-            # address: fdcf:8538:9ad5:1111::2@${LT.portStr.DNS}
-
-          - id: opennic
-            via: ${config.lantian.netns.coredns-knot.ipv4}
-            via: ${config.lantian.netns.coredns-knot.ipv6}
-            address: 161.97.219.84@${LT.portStr.DNS}
-            address: 94.103.153.176@${LT.portStr.DNS}
-            address: 178.63.116.152@${LT.portStr.DNS}
-            address: 188.226.146.136@${LT.portStr.DNS}
-            address: 144.76.103.143@${LT.portStr.DNS}
-            address: 2001:470:4212:10:0:100:53:10@${LT.portStr.DNS}
-            address: 2a02:990:219:1:ba:1337:cafe:3@${LT.portStr.DNS}
-            address: 2a01:4f8:141:4281::999@${LT.portStr.DNS}
-            address: 2a03:b0c0:0:1010::13f:6001@${LT.portStr.DNS}
-            address: 2a01:4f8:192:43a5::2@${LT.portStr.DNS}
-
-          - id: ltnet_ad
-            via: ${config.lantian.netns.coredns-knot.ipv4}
-            via: ${config.lantian.netns.coredns-knot.ipv6}
-            address: 198.18.0.202@${LT.portStr.DNS}
-            address: fdbc:f9dc:67ad::202@${LT.portStr.DNS}
-
-          acl:
-          - id: dn42_notify
-            action: notify
-            # {b,j}.master.delegation-servers.dn42
-            address: fd42:180:3de0:30::1
-            address: fd42:180:3de0:10:5054:ff:fe87:ea39
-
-            # {b,j,k}.delegation-servers.dn42
-            #address: 172.20.129.1
-            #address: fd42:4242:2601:ac53::1
-            #address: 172.20.1.254
-            #address: fd42:5d71:219:0:216:3eff:fe1e:22d6
-            #address: 172.20.14.34
-            #address: fdcf:8538:9ad5:1111::2
-
-          - id: opennic_notify
-            action: notify
-            address: 161.97.219.84
-            address: 94.103.153.176
-            address: 178.63.116.152
-            address: 188.226.146.136
-            address: 144.76.103.143
-            address: 2001:470:4212:10:0:100:53:10
-            address: 2a02:990:219:1:ba:1337:cafe:3
-            address: 2a01:4f8:141:4281::999
-            address: 2a03:b0c0:0:1010::13f:6001
-            address: 2a01:4f8:192:43a5::2
-
-          - id: ltnet_ad_notify
-            action: notify
-            address: 198.18.0.202
-            address: fdbc:f9dc:67ad::202
-
-          - id: allow_transfer
-            action: transfer
-            address: 0.0.0.0/0
-            address: ::/0
-
-          zone:
-        ''
-        + (lib.concatMapStringsSep "\n" dn42SlaveZone [
-          "dn42"
-          "10.in-addr.arpa"
-          "20.172.in-addr.arpa"
-          "21.172.in-addr.arpa"
-          "22.172.in-addr.arpa"
-          "23.172.in-addr.arpa"
-          "31.172.in-addr.arpa"
-          "d.f.ip6.arpa"
-        ])
-        + (lib.concatMapStringsSep "\n" opennicSlaveZone [
-          "."
-          "opennic.glue"
-          "dns.opennic.glue"
-          "bbs"
-          "chan"
-          "cyb"
-          "dyn"
-          "epic"
-          "fur"
-          "geek"
-          "gopher"
-          "indy"
-          "libre"
-          "null"
-          "o"
-          "oss"
-          "oz"
-          "parody"
-          "pirate"
-        ])
-        + (lib.concatMapStringsSep "\n" ltnetAdSlaveZone [
-          "ad.lantian.pub"
-          "_msdcs.ad.lantian.pub"
-        ]);
+        pkgs.writeText "knot.conf" cfg;
     };
 
     systemd.services = {

@@ -94,16 +94,16 @@
         burst_count = 10;
       };
     };
+  };
 
-    sliding-sync = {
-      enable = true;
-      createDatabase = true;
-      environmentFile = config.age.secrets.matrix-sliding-sync-env.path;
-      settings = {
-        SYNCV3_BINDADDR = "127.0.0.1:0";
-        SYNCV3_UNIX_SOCKET = "/run/matrix-sliding-sync/listen.socket";
-        SYNCV3_SERVER = "https://matrix.lantian.pub";
-      };
+  services.matrix-sliding-sync = {
+    enable = true;
+    createDatabase = true;
+    environmentFile = config.age.secrets.matrix-sliding-sync-env.path;
+    settings = {
+      SYNCV3_BINDADDR = "127.0.0.1:0";
+      SYNCV3_UNIX_SOCKET = "/run/matrix-sliding-sync/listen.socket";
+      SYNCV3_SERVER = "https://matrix.lantian.pub";
     };
   };
 
