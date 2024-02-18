@@ -27,10 +27,10 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.6.0";
+    version = "v10.7.0";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.6.0/CyberChef_v10.6.0.zip";
-      sha256 = "sha256-0Gbb2oEQccrcghBQ9XL6FNdmbAuK9ZXbLjgzrNDdwC4=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.7.0/CyberChef_v10.7.0.zip";
+      sha256 = "sha256-jdVnL+2AGaczHQRbhPHXxian9FD2Yk3KmfzLuVHuLkg=";
     };
   };
   dashboard-icons = {
@@ -175,15 +175,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "53b16d07e889b69128203d3b50ed47ceb77c5771";
+    version = "91b057a2b5b4d16b64d9d01824a8ec9327a61da1";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "53b16d07e889b69128203d3b50ed47ceb77c5771";
+      rev = "91b057a2b5b4d16b64d9d01824a8ec9327a61da1";
       fetchSubmodules = false;
-      sha256 = "sha256-fS1dHMm2oxzMYNfAN+RzAi4iFZCLlL2hYXNryd0QoUM=";
+      sha256 = "sha256-eCy9unTs8mIJt0K6ju9PajP+rs7E3c3WOvS1IYgRYrU=";
     };
-    date = "2024-02-01";
+    date = "2024-02-10";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
