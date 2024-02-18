@@ -21,15 +21,15 @@
       adminpassFile = config.age.secrets.default-pw.path;
       adminuser = "lantian";
       dbtype = "mysql";
-      defaultPhoneRegion = "CN";
-      overwriteProtocol = "https";
     };
     hostName = "cloud.xuyh0120.win";
     https = true;
     webfinger = true;
     occ = true;
 
-    extraOptions = {
+    settings = {
+      default_phone_region = "CN";
+      overwriteprotocol = "https";
       "integrity.check.disabled" = true;
     };
   };
