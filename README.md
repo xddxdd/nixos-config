@@ -4,16 +4,16 @@ This repository holds the configuration files for all my NixOS systems.
 
 ## Features
 
-- [Full system root-on-tmpfs](nixos/common-components/impermanence.nix), using [impermanence](https://github.com/nix-community/impermanence)
+- [Full system root-on-tmpfs](nixos/minimal-components/impermanence.nix), using [impermanence](https://github.com/nix-community/impermanence)
 - [Nftables instead of iptables](nixos/server-components/nftables.nix)
 - Secret management with [agenix](https://github.com/ryantm/agenix)
 - [QEMU user mode emulation for most architectures](https://github.com/xddxdd/nur-packages/blob/master/modules/qemu-user-static-binfmt.nix)
 - [Nix Flakes with Nixpkgs patching](flake.nix)
-- [Additional kernel modules](nixos/common-components/kernel/default.nix):
-  - [Nftables Fullcone NAT](nixos/common-components/kernel/nft-fullcone.nix) sourced from [here](https://github.com/fullcone-nat-nftables/nft-fullcone)
-  - [NVIDIA driver patching](nixos/common-components/kernel/nvlax/default.nix) based on [Nvlax](https://github.com/illnyang/nvlax)
-  - [OpenVPN DCO](nixos/common-components/kernel/ovpn-dco.nix) sourced from [here](https://github.com/OpenVPN/ovpn-dco)
-- [Post-Quantum Cryptography support for OpenSSL](nixos/common-components/environment.nix) based on [Open Quantum Safe](https://github.com/open-quantum-safe/oqs-provider)
+- [Additional kernel modules](nixos/minimal-components/kernel/default.nix):
+  - [Nftables Fullcone NAT](nixos/minimal-components/kernel/nft-fullcone.nix) sourced from [here](https://github.com/fullcone-nat-nftables/nft-fullcone)
+  - [NVIDIA driver patching](nixos/minimal-components/kernel/nvlax/default.nix) based on [Nvlax](https://github.com/illnyang/nvlax)
+  - [OpenVPN DCO](nixos/minimal-components/kernel/ovpn-dco.nix) sourced from [here](https://github.com/OpenVPN/ovpn-dco)
+- [Post-Quantum Cryptography support for OpenSSL](nixos/minimal-components/environment.nix) based on [Open Quantum Safe](https://github.com/open-quantum-safe/oqs-provider)
 
 ## Host Types
 
@@ -52,10 +52,10 @@ My hosts are categorized into three types:
 
 - `nixos`: Common NixOS system definitions.
 
-  - Used by all nodes (auto import in `client.nix`, `none.nix`, `server.nix`)
+  - Used by all nodes (auto import in `client.nix`, `minimal.nix`, `server.nix`)
 
     - `common-apps`: Apps used by all nodes.
-    - `common-components`: System options used by all nodes.
+    - `minimal-components`: System options used by all nodes.
       - Components differ from "Apps" that, a component is a fundamental part in the system (often by tuning kernel core parameters), while an app provides service on the userspace level.
 
   - Used by client nodes (auto import in `client.nix`)
