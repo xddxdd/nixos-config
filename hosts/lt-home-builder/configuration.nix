@@ -8,7 +8,7 @@
   ...
 } @ args: {
   imports = [
-    ../../nixos/none.nix
+    ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
 

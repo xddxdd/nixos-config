@@ -11,8 +11,9 @@
     ls = dir: builtins.map (f: (dir + "/${f}")) (builtins.attrNames (builtins.readDir dir));
   in
     []
+    ++ (ls ./minimal-apps)
     ++ (ls ./common-apps)
     ++ (ls ./server-apps)
-    ++ (ls ./common-components)
+    ++ (ls ./minimal-components)
     ++ (ls ./server-components);
 }
