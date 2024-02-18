@@ -8,7 +8,6 @@
     ${pkgs.colmena}/bin/colmena $ACTION \
       --eval-node-limit 5 \
       --parallel 0 \
-      --evaluator streaming \
       --keep-result \
       --show-trace \
       $*

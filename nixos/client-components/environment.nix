@@ -8,7 +8,6 @@
   ...
 } @ args: {
   services.udev.packages = with pkgs; [
-    crda
     libftdi1
   ];
 

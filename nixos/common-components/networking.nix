@@ -145,7 +145,7 @@
   # Multicast DNS
   services.avahi = {
     enable = builtins.elem LT.tags.client LT.this.tags;
-    nssmdns = true;
+    nssmdns4 = true;
     reflector = true;
     publish = {
       enable = true;
