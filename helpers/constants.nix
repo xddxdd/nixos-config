@@ -176,6 +176,7 @@
       "en"
       "eth"
       "henet"
+      "usb"
       "venet"
       "wan"
       "wl"
