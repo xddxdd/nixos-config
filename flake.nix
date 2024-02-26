@@ -199,6 +199,12 @@
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
 
+        LT = import ./helpers {
+          inherit lib inputs self;
+          inherit (self) nixosConfigurations;
+          inherit pkgs;
+        };
+
         extraArgs = {
           inherit inputs;
           LT = import ./helpers {inherit lib inputs pkgs;};
@@ -206,24 +212,19 @@
         };
         pkg = v: args: pkgs.callPackage v (extraArgs // args);
 
-        commands =
-          lib.mapAttrs
-          (n: v: pkgs.writeShellScriptBin n (pkg v {}))
-          {
-            colmena = ./scripts/colmena.nix;
-            check = ./scripts/check.nix;
-            dnscontrol = ./scripts/dnscontrol.nix;
-            nvfetcher = ./scripts/nvfetcher.nix;
-            secrets = ./scripts/secrets.nix;
-            terraform = ./scripts/terraform.nix;
-            update = ./scripts/update.nix;
-          };
-      in rec {
-        apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = lib.mapAttrsToList (n: v: v) commands;
+        commands = {
+          colmena = ./scripts/colmena.nix;
+          check = ./scripts/check.nix;
+          dnscontrol = ./scripts/dnscontrol.nix;
+          nvfetcher = ./scripts/nvfetcher.nix;
+          secrets = ./scripts/secrets.nix;
+          terraform = ./scripts/terraform.nix;
+          update = ./scripts/update.nix;
         };
+      in rec {
+        apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = pkgs.writeShellScriptBin n (pkg v {});}) commands;
+
+        devShells.default = LT.mkAppsShell apps;
 
         formatter = pkgs.alejandra;
 
