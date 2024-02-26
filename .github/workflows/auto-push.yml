@@ -14,19 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # https://github.com/cpina/github-action-push-to-another-repository/issues/75
-      - name: Fix repository not found error
-        run: |
-          git config --unset-all http.https://github.com/.extraheader
-
-      - uses: cpina/github-action-push-to-another-repository@main
-        env:
+      - env:
           API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
-        with:
-          source-directory: '.'
-          destination-github-username: 'xddxdd'
-          destination-repository-name: 'nixos-config-private-copy'
-          user-email: 'xuyh0120+github-bot@outlook.com'
-          user-name: 'xddxdd-bot'
-          target-branch: 'master'
-          create-target-branch-if-needed: true
+        run: |
+          # https://github.com/cpina/github-action-push-to-another-repository/issues/75
+          git config --unset-all http.https://github.com/.extraheader
+          git remote add private https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config-private-copy.git
+          git push -u private master --force
