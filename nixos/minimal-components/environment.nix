@@ -91,6 +91,7 @@ in {
       curlHTTP3
       dig
       ethtool
+      gitMinimal
       gzip
       htop
       inetutils
@@ -127,11 +128,9 @@ in {
     ++ (
       if (builtins.elem LT.tags.server LT.this.tags)
       then [
-        gitMinimal
         python3
       ]
       else [
-        git
         python3Full
       ]
     );

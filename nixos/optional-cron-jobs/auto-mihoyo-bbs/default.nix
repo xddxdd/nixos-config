@@ -21,7 +21,7 @@ in {
     environment = {
       AutoMihoyoBBS_config_path = "/var/lib/auto-mihoyo-bbs";
     };
-    path = with pkgs; [git];
+    path = with pkgs; [gitMinimal];
     serviceConfig =
       LT.serviceHarden
       // {
