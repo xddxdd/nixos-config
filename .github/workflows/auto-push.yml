@@ -28,4 +28,5 @@ jobs:
           destination-repository-name: 'nixos-config-private-copy'
           user-email: 'xuyh0120+github-bot@outlook.com'
           user-name: 'xddxdd-bot'
+          target-branch: 'master'
           create-target-branch-if-needed: true
