@@ -27,7 +27,7 @@
     };
     path = with pkgs; [
       colmena
-      git
+      gitMinimal
       lantianCustomized.attic-telnyx-compatible
       nix
       nix-prefetch
