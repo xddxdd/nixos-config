@@ -1,0 +1,22 @@
+name: auto-push
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  auto-push:
+    name: Auto push to private repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
+        with:
+          source-directory: '.'
+          destination-github-username: 'xddxdd'
+          destination-repository-name: 'nixos-config-private-copy'
