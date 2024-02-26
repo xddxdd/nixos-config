@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # https://github.com/cpina/github-action-push-to-another-repository/issues/75
+      - name: Fix repository not found error
+        run: |
+          git config --unset-all http.https://github.com/.extraheader
+
       - uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
