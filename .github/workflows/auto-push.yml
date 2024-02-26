@@ -20,3 +20,6 @@ jobs:
           source-directory: '.'
           destination-github-username: 'xddxdd'
           destination-repository-name: 'nixos-config-private-copy'
+          user-email: 'xuyh0120+github-bot@outlook.com'
+          user-name: 'xddxdd-bot'
+          create-target-branch-if-needed: true
