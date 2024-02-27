@@ -81,7 +81,6 @@
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.flake-utils-plus.follows = "flake-utils-plus";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nvfetcher.follows = "nvfetcher";
     };
