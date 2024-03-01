@@ -308,6 +308,21 @@
         peerIPv6LinkLocal = "fe80::128";
       };
     };
+    yuheng = {
+      remoteASN = 4242422324;
+      latencyMs = 54;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22324;
+        remoteAddress = "usa-ap-01.usa.d.pool.yuheng.hl.cn";
+        remotePort = 22547;
+        wireguardPubkey = "aTrHO4Pm1p1FITTx7noaiW3VXLGjRv8MVoZ6w8MxX1g=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.126.225";
+        peerIPv6LinkLocal = "fe80::2324";
+      };
+    };
     zdong = {
       remoteASN = 4242422354;
       latencyMs = 5;
