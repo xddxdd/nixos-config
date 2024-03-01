@@ -205,7 +205,8 @@
         };
 
         extraArgs = {
-          inherit inputs LT;
+          inherit inputs;
+          LT = import ./helpers {inherit lib inputs pkgs;};
           packages = self.packages."${pkgs.system}";
         };
         pkg = v: args: pkgs.callPackage v (extraArgs // args);
