@@ -690,6 +690,9 @@
         "flake-utils": [
           "flake-utils"
         ],
+        "flake-utils-plus": [
+          "flake-utils-plus"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -698,11 +701,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708935455,
-        "narHash": "sha256-9NlTP7LrxU2T1Mj3jpUHSYpZoLwUpUNlOH+hiholgUo=",
+        "lastModified": 1708333363,
+        "narHash": "sha256-ifS2gM5hBGWXmDVIyBltMNB/lHRiwgg0lGzo/S4jkOs=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "cf779d2c9fad51aaa3708984165159aaf9096999",
+        "rev": "8a6e8113acdb1c9713587204d2e33079e54a8588",
         "type": "github"
       },
       "original": {
