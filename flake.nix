@@ -3,7 +3,7 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -53,11 +53,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kde2nix = {
-      url = "github:nix-community/kde2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,15 +75,7 @@
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nvfetcher.follows = "nvfetcher";
-    };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
@@ -136,7 +123,7 @@
         inputs.nix-alien.overlays.default
         inputs.nur.overlay
         inputs.nur-xddxdd.overlay
-        inputs.nvfetcher.overlays.default
+        # inputs.nvfetcher.overlays.default
       ]
       ++ (import ./overlays {inherit inputs;});
 
@@ -155,7 +142,6 @@
       inputs.colmena.nixosModules.deploymentOptions
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
-      inputs.kde2nix.nixosModules.plasma6
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       (inputs.srvos + "/nixos/common/networking.nix")
@@ -227,34 +213,31 @@
 
         formatter = pkgs.alejandra;
 
-        packagesList = lib.flatten (builtins.map (overlay: builtins.attrNames (overlay pkgs pkgs)) overlays);
-        packages =
-          (lib.genAttrs packagesList (n: pkgs."${n}"))
-          // rec {
-            # DNSControl
-            dnscontrol-config =
-              pkgs.writeText "dnsconfig.js"
-              ((lib.evalModules {
-                  modules = [
-                    ./dns/default.nix
-                  ];
-                  specialArgs = {inherit pkgs lib LT inputs;};
-                })
-                .config
-                ._dnsconfig_js);
+        packages = rec {
+          # DNSControl
+          dnscontrol-config =
+            pkgs.writeText "dnsconfig.js"
+            ((lib.evalModules {
+                modules = [
+                  ./dns/default.nix
+                ];
+                specialArgs = {inherit pkgs lib LT inputs;};
+              })
+              .config
+              ._dnsconfig_js);
 
-            # Terraform
-            xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix {};
+          # Terraform
+          xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix {};
 
-            terraform-config = inputs.terranix.lib.terranixConfiguration {
-              inherit (pkgs) system;
-              modules = [./terraform];
-              inherit extraArgs;
-            };
-            terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [
-              xddxdd-uptimerobot
-            ]);
+          terraform-config = inputs.terranix.lib.terranixConfiguration {
+            inherit (pkgs) system;
+            modules = [./terraform];
+            inherit extraArgs;
           };
+          terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [
+            xddxdd-uptimerobot
+          ]);
+        };
       };
 
       # Export for nixos-secrets

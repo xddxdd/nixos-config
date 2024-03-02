@@ -1,0 +1,13 @@
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 6f4afdec98f3..03283bfe9f45 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -27055,7 +27055,7 @@ with pkgs;
+     enableMDNS = true;
+     enableDomainController = true;
+     enableRegedit = true;
+-    enableCephFS = !stdenv.hostPlatform.isAarch64;
++    enableCephFS = false;
+   });
+ 
+   sambaFull = samba4Full;

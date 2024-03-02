@@ -1,5 +1,5 @@
-{nvfetcher, ...}: let
-  nvfetcherCmd = import ./nvfetcher.nix {inherit nvfetcher;};
+{callPackage, ...}: let
+  nvfetcherCmd = callPackage ./nvfetcher.nix {};
 in ''
   nix flake update
   ${nvfetcherCmd}
