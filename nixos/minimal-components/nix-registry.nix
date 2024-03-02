@@ -29,4 +29,10 @@ in {
       })
       registeredInputs;
   };
+
+  # Disable conflicting settings from nixpkgs
+  nixpkgs.flake = {
+    setFlakeRegistry = false;
+    setNixPath = false;
+  };
 }

@@ -41,7 +41,7 @@
       // {
         EnvironmentFile = config.age.secrets.waline-env.path;
         ExecStartPre = "${pkgs.yarn}/bin/yarn add rsshub";
-        ExecStart = "${pkgs.nodejs}/bin/node node_modules/rsshub/lib/index.js";
+        ExecStart = "${pkgs.nodejs}/bin/node node_modules/rsshub/lib/index.ts";
 
         Restart = "always";
         RestartSec = "3";
