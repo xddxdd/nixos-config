@@ -127,7 +127,7 @@
     {
       recordType = "CNAME";
       name = "gopher";
-      target = "v-ps-sjc";
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
     }
     {
@@ -180,7 +180,7 @@
     {
       recordType = "CNAME";
       name = "whois";
-      target = "v-ps-sjc";
+      target = config.common.records.GeoDNSTarget;
       ttl = "1h";
     }
 
