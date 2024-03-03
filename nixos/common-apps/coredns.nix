@@ -14,7 +14,7 @@
     "2001:4860:4860::8888"
   ];
 in {
-  networking.nameservers = [config.lantian.netns.coredns-client.ipv4] ++ backupDNSServers;
+  networking.nameservers = lib.mkForce ([config.lantian.netns.coredns-client.ipv4] ++ backupDNSServers);
 
   lantian.netns.coredns-client = {
     ipSuffix = "56";
