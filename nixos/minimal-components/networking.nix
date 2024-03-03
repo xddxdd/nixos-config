@@ -6,7 +6,12 @@
   utils,
   inputs,
   ...
-} @ args: {
+} @ args: let
+  backupDNSServers = [
+    "8.8.8.8"
+    "2001:4860:4860::8888"
+  ];
+in {
   boot.extraModprobeConfig = ''
     options iwlmvm power_scheme=1
     options iwlwifi power_save=Y power_level=5
@@ -80,6 +85,8 @@
 
     # systemd-networkd breaks resolv.conf, but fixed with resolv-conf-setup.service
     useNetworkd = lib.mkForce true;
+
+    nameservers = backupDNSServers;
   };
 
   systemd.network.enable = true;
