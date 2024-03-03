@@ -60,6 +60,8 @@
     user = "lantian";
   };
 
+  services.xserver.displayManager.lightdm.enable = false;
+
   environment.variables = {
     # Cursor fix
     # XCURSOR_SIZE = builtins.toString (builtins.floor (LT.constants.gui.cursorSize * config.lantian.hidpi));
@@ -70,5 +72,18 @@
 
     # Webkit2gtk fixes
     WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+  };
+
+  programs.xwayland.enable = true;
+  users.users.lantian.extraGroups = ["video" "users" "input"];
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+    };
   };
 }
