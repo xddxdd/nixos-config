@@ -42,6 +42,7 @@
         "perms=700"
         "create-for-user=lantian"
         "create-for-group=users"
+        "chmod-ignore"
         "chown-ignore"
         "chgrp-ignore"
         "xattr-none"
