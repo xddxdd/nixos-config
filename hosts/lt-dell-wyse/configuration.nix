@@ -17,13 +17,6 @@
 
   lantian.hidpi = 1.5;
 
-  services.beesd.filesystems.root = {
-    spec = config.fileSystems."/nix".device;
-    hashTableSizeMB = 32;
-    verbosity = "crit";
-    extraOptions = ["--loadavg-target" "4"];
-  };
-
   services.fwupd.enable = true;
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {

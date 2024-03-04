@@ -22,7 +22,7 @@
     VDPAU_DRIVER = "nvidia";
 
     # For hwdec to work on firefox
-    # NVD_BACKEND = "direct";
+    NVD_BACKEND = "direct";
   };
 
   programs.firefox.preferences = {
