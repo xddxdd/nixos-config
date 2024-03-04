@@ -25,4 +25,22 @@
     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
     CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
   };
+
+  # Auto mount NFS share
+  fileSystems."/mnt/share" = {
+    device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
+    fsType = "nfs";
+    options = [
+      "_netdev"
+      "noatime"
+      "noauto"
+      "clientaddr=${LT.this.ltnet.IPv4}"
+      "hard"
+      "vers=4.2"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=5s"
+    ];
+  };
 }
