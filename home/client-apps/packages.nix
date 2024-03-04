@@ -3,6 +3,7 @@
   lib,
   LT,
   config,
+  osConfig,
   utils,
   inputs,
   ...
@@ -155,36 +156,38 @@ in {
     zoom-us
   ];
 
-  xdg.configFile = LT.gui.autostart [
-    {
-      name = "discord";
-      command = "${pkgs.discord}/bin/discord --start-minimized";
-    }
-    {
-      name = "discord-canary";
-      command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
-    }
-    {
-      name = "element";
-      command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
-    }
-    {
-      name = "gcdemu";
-      command = "${pkgs.gcdemu}/bin/gcdemu";
-    }
-    {
-      name = "telegram";
-      command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart";
-    }
-    {
-      name = "thunderbird";
-      command = "${pkgs.thunderbird}/bin/thunderbird";
-    }
-    {
-      name = "ulauncher";
-      command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
-    }
-  ];
+  xdg.configFile = LT.gui.autostart ((lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
+      {
+        name = "discord";
+        command = "${pkgs.discord}/bin/discord --start-minimized";
+      }
+      {
+        name = "discord-canary";
+        command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
+      }
+      {
+        name = "element";
+        command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
+      }
+      {
+        name = "telegram";
+        command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart";
+      }
+      {
+        name = "thunderbird";
+        command = "${pkgs.thunderbird}/bin/thunderbird";
+      }
+    ])
+    ++ [
+      {
+        name = "gcdemu";
+        command = "${pkgs.gcdemu}/bin/gcdemu";
+      }
+      {
+        name = "ulauncher";
+        command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
+      }
+    ]);
 
   xdg.dataFile = builtins.listToAttrs (lib.flatten (builtins.map
     (size: [
