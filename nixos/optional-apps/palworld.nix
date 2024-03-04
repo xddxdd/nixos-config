@@ -100,11 +100,13 @@ in {
         ${pkgs.palworld-exporter}/bin/palworld_exporter
       '';
 
-      serviceConfig = LT.serviceHarden // {
-        User = "palworld";
-        Group = "palworld";
-        Restart = "on-failure";
-      };
+      serviceConfig =
+        LT.serviceHarden
+        // {
+          User = "palworld";
+          Group = "palworld";
+          Restart = "on-failure";
+        };
     };
 
     systemd.services.palworld-backup = {
@@ -154,6 +156,7 @@ in {
           "perms=700"
           "create-for-user=root"
           "create-for-group=root"
+          "chmod-ignore"
           "chown-ignore"
           "chgrp-ignore"
           "xattr-none"

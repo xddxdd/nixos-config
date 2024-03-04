@@ -23,6 +23,7 @@
         "perms=700"
         "create-for-user=root"
         "create-for-group=root"
+        "chmod-ignore"
         "chown-ignore"
         "chgrp-ignore"
         "xattr-none"
