@@ -76,6 +76,13 @@
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nvfetcher.follows = "nvfetcher";
+    };
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
@@ -123,7 +130,7 @@
         inputs.nix-alien.overlays.default
         inputs.nur.overlay
         inputs.nur-xddxdd.overlay
-        # inputs.nvfetcher.overlays.default
+        inputs.nvfetcher.overlays.default
       ]
       ++ (import ./overlays {inherit inputs;});
 
