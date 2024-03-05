@@ -475,7 +475,7 @@
     yura = {
       remoteASN = 4242422464;
       latencyMs = 0;
-      badRouting = true;
+      mode = "flapping";
       tunnel = {
         type = "wireguard";
         localPort = 22464;

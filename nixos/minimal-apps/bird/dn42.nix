@@ -26,55 +26,58 @@
       then DN42_AS
       else NEO_AS;
   in
-    lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
-      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
-        neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
-        local ${v.addressing.myIPv4} as ${localASN};
-        multihop 1;
-        ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
-          gateway recursive;
+    if v.mode == "flapping"
+    then ""
+    else
+      lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
+        protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
+          neighbor ${v.addressing.peerIPv4} as ${builtins.toString v.remoteASN};
+          local ${v.addressing.myIPv4} as ${localASN};
+          multihop 1;
+          ipv4 {
+            import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+            export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
+            gateway recursive;
+          };
+          ipv6 {
+            import none;
+            export none;
+            gateway recursive;
+          };
         };
-        ipv6 {
-          import none;
-          export none;
-          gateway recursive;
+      ''
+      + lib.optionalString (v.addressing.peerIPv6 != null) ''
+        protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
+          neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
+          local ${v.addressing.myIPv6} as ${localASN};
+          multihop 1;
+          ipv4 {
+            import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+            export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
+            gateway recursive;
+          };
+          ipv6 {
+            import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+            export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
+            gateway recursive;
+          };
         };
-      };
-    ''
-    + lib.optionalString (v.addressing.peerIPv6 != null) ''
-      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
-        neighbor ${v.addressing.peerIPv6} as ${builtins.toString v.remoteASN};
-        local ${v.addressing.myIPv6} as ${localASN};
-        multihop 1;
-        ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
-          gateway recursive;
+      ''
+      + lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
+        protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
+          neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
+          local ${v.addressing.myIPv6LinkLocal} as ${localASN};
+          direct;
+          ipv4 {
+            import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
+            export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
+          };
+          ipv6 {
+            import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
+            export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
+          };
         };
-        ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
-          gateway recursive;
-        };
-      };
-    ''
-    + lib.optionalString (v.addressing.peerIPv6LinkLocal != null) ''
-      protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v6 from dnpeers {
-        neighbor ${v.addressing.peerIPv6LinkLocal}%'${interfaceName}' as ${builtins.toString v.remoteASN};
-        local ${v.addressing.myIPv6LinkLocal} as ${localASN};
-        direct;
-        ipv4 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv4(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv4(${localASN}); };
-        };
-        ipv6 {
-          import filter { dn42_update_flags(${latency},24,${crypto}); dn42_import_filter_ipv6(${localASN}); };
-          export filter { dn42_update_flags(${latency},24,${crypto}); dn42_export_filter_ipv6(${localASN}); };
-        };
-      };
-    '';
+      '';
 
   staticRoute4 = n: v: let
     interfaceName = "${v.peering.network}-${n}";

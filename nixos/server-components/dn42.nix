@@ -56,9 +56,9 @@ in {
           type = lib.types.int;
           default = 0;
         };
-        badRouting = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
+        mode = lib.mkOption {
+          type = lib.types.enum ["normal" "bad-routing" "flapping"];
+          default = "normal";
         };
 
         # Peering (BGP) configuration
