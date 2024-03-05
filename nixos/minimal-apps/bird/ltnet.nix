@@ -11,11 +11,6 @@
     (import ./common.nix args)
     DN42_AS
     DN42_TEST_AS
-    DN42_REGION
-    NEO_AS
-    community
-    latencyToDN42Community
-    typeToDN42Community
     ;
 
   peer = hostname: {
@@ -23,12 +18,7 @@
     index,
     city,
     ...
-  }: let
-    latencyCommunity = builtins.toString (latencyToDN42Community {
-      latencyMs = LT.geo.rttMs LT.this.city city;
-      badRouting = false;
-    });
-  in
+  }:
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};

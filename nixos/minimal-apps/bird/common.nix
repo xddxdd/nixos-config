@@ -22,10 +22,10 @@
 
   latencyToDN42Community = {
     latencyMs,
-    badRouting,
+    mode,
     ...
   }:
-    if badRouting
+    if mode == "bad-routing"
     then 9
     else if latencyMs <= 3
     then 1
