@@ -68,34 +68,34 @@
         };
       };
 
-      hdtime-auto = {
-        rss = {
-          url = "$HDTIME_AUTO_RSS_URL";
-          other_fields = ["link"];
-        };
-        nexusphp = {
-          cookie = "$HDTIME_COOKIE";
-          discount = ["free" "2xfree"];
-          seeders = {
-            min = 1;
-            max = 1000;
-          };
-          leechers = {
-            min = 10;
-            max = 1000;
-            max_complete = 0.8;
-          };
-          left-time = "1 hours";
-          hr = false;
-          remember = true;
-        };
-        content_size = {
-          min = 0;
-          max = 100 * 1024; # 100GB
-        };
-        cfscraper = true;
-        template = "downloads-auto";
-      };
+      # hdtime-auto = {
+      #   rss = {
+      #     url = "$HDTIME_AUTO_RSS_URL";
+      #     other_fields = ["link"];
+      #   };
+      #   nexusphp = {
+      #     cookie = "$HDTIME_COOKIE";
+      #     discount = ["free" "2xfree"];
+      #     seeders = {
+      #       min = 1;
+      #       max = 1000;
+      #     };
+      #     leechers = {
+      #       min = 10;
+      #       max = 1000;
+      #       max_complete = 0.8;
+      #     };
+      #     left-time = "1 hours";
+      #     hr = false;
+      #     remember = true;
+      #   };
+      #   content_size = {
+      #     min = 0;
+      #     max = 100 * 1024; # 100GB
+      #   };
+      #   cfscraper = true;
+      #   template = "downloads-auto";
+      # };
 
       ourbits = {
         rss = "$OURBITS_RSS_URL";
@@ -104,25 +104,25 @@
         template = "downloads";
       };
 
-      ourbits-auto = {
-        rss = {
-          url = "$OURBITS_AUTO_RSS_URL";
-          other_fields = ["link"];
-        };
-        nexusphp = {
-          cookie = "ourbits_jwt=$OURBITS_TOKEN";
-          discount = ["free" "2xfree"];
-          left-time = "1 hours";
-          hr = false;
-          remember = true;
-        };
-        content_size = {
-          min = 0;
-          max = 100 * 1024; # 100GB
-        };
-        cfscraper = true;
-        template = "downloads-auto";
-      };
+      # ourbits-auto = {
+      #   rss = {
+      #     url = "$OURBITS_AUTO_RSS_URL";
+      #     other_fields = ["link"];
+      #   };
+      #   nexusphp = {
+      #     cookie = "ourbits_jwt=$OURBITS_TOKEN";
+      #     discount = ["free" "2xfree"];
+      #     left-time = "1 hours";
+      #     hr = false;
+      #     remember = true;
+      #   };
+      #   content_size = {
+      #     min = 0;
+      #     max = 100 * 1024; # 100GB
+      #   };
+      #   cfscraper = true;
+      #   template = "downloads-auto";
+      # };
     };
   });
 
