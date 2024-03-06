@@ -39,7 +39,7 @@
       };
     };
 
-    sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+    sslCertificate = "xuyh0120.win_ecc";
     noIndex.enable = true;
   };
 }
