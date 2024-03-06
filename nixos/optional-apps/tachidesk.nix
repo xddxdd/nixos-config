@@ -7,20 +7,26 @@
   inputs,
   ...
 } @ args: {
+  imports = [
+    ./flaresolverr.nix
+  ];
+
   virtualisation.oci-containers.containers.tachidesk = {
-    extraOptions = ["--pull" "always"];
+    extraOptions = ["--pull" "always" "--net" "host"];
     image = "ghcr.io/suwayomi/tachidesk:preview";
     environment = {
       TZ = config.time.timeZone;
+      BIND_IP = "127.0.0.1";
+      BIND_PORT = LT.portStr.Tachidesk;
       WEB_UI_CHANNEL = "preview";
       AUTO_DOWNLOAD_CHAPTERS = "true";
       UPDATE_EXCLUDE_UNREAD = "false";
       UPDATE_EXCLUDE_STARTED = "false";
       UPDATE_EXCLUDE_COMPLETED = "false";
+      UPDATE_MANGA_INFO = "true";
+      EXTENSION_REPOS = builtins.toJSON ["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"];
+      FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
     };
-    ports = [
-      "127.0.0.1:${LT.portStr.Tachidesk}:4567"
-    ];
     volumes = [
       "/var/lib/tachidesk:/home/suwayomi/.local/share/Tachidesk"
     ];

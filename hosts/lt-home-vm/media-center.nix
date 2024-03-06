@@ -44,7 +44,34 @@ in {
 
   systemd.services.flexget-runner = netns.bind {};
 
-  systemd.services.flaresolverr = netns.bind {};
+  systemd.services.flaresolverr-netns = netns.bind {
+    description = "FlareSolverr (in NetNS)";
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"];
+    wants = ["network.target"];
+    path = with pkgs; [
+      xorg.xorgserver
+    ];
+    environment = {
+      HOME = "/run/flaresolverr-netns";
+      HOST = "127.0.0.1";
+      PORT = LT.portStr.FlareSolverr;
+      LOG_LEVEL = "warn";
+    };
+    serviceConfig =
+      LT.serviceHarden
+      // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
+        RuntimeDirectory = "flaresolverr-netns";
+        WorkingDirectory = "/run/flaresolverr-netns";
+
+        MemoryDenyWriteExecute = false;
+        SystemCallFilter = lib.mkForce [];
+      };
+  };
 
   systemd.services.prowlarr = netns.bind {};
 
