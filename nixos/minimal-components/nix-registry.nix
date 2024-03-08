@@ -8,7 +8,7 @@
   ...
 } @ args: let
   registeredInputs = {
-    nixpkgs = LT.patchedPkgs.nixpkgs;
+    nixpkgs = LT.patchedNixpkgs;
     nur = inputs.nur.outPath;
     nur-xddxdd = inputs.nur-xddxdd.outPath;
   };

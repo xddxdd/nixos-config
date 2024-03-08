@@ -116,7 +116,6 @@ in {
     # Nix
     inputs.agenix.packages."${system}".agenix
     alejandra
-    fup-repl
     nil
     nix-index
     nix-index-update
