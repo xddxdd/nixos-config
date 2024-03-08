@@ -52,7 +52,7 @@ in
 
     thisConfigurations = nixosConfigurations."${config.networking.hostName}";
 
-    patchedPkgs = lib.mapAttrs (k: v: v.path) self.pkgs."${this.system}";
+    patchedNixpkgs = self.packages."${this.system}".nixpkgs-patched;
 
     container = call ./fn/container.nix;
     enumerateList = call ./fn/enumerate-list.nix;
