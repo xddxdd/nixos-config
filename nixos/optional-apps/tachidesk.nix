@@ -25,6 +25,7 @@
       UPDATE_EXCLUDE_COMPLETED = "false";
       UPDATE_MANGA_INFO = "true";
       EXTENSION_REPOS = builtins.toJSON ["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"];
+      FLARESOLVERR_ENABLED = "true";
       FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
     };
     volumes = [
