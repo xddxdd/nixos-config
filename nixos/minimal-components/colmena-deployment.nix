@@ -14,6 +14,6 @@ in {
     targetHost = hostname;
     targetPort = sshPort;
     targetUser = "root";
-    tags = tags ++ [system] ++ (lib.optional (!manualDeploy) "default");
+    tags = LT.tagsForHost LT.this;
   };
 }
