@@ -152,7 +152,6 @@ in {
     xca
     yt-dlp
     yubikey-manager-qt
-    yuzu-mainline
     zoom-us
   ];
 
