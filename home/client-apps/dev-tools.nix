@@ -119,6 +119,7 @@ in {
     nil
     nix-index
     nix-index-update
+    nix-output-monitor
     nix-prefetch
     nix-prefetch-scripts
     nix-store-add
