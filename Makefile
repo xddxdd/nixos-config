@@ -8,13 +8,13 @@ all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
 build: FORCE
-	@nix run .#colmena -- build
+	@nom build $(shell nix eval --raw .#buildCommands.all)
 
 build-x86: FORCE
-	@nix run .#colmena -- build --on @x86_64-linux
+	@nom build $(shell nix eval --raw .#buildCommands.x86_64-linux)
 
 local: FORCE
-	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
+	@nom build .#nixosConfigurations.$(shell hostname).config.system.build.toplevel
 
 clean: FORCE
 	@nix run .#colmena -- exec -- nixos-cleanup
