@@ -107,6 +107,17 @@ in {
       User = "pterodactyl";
       Group = "pterodactyl";
       WorkingDirectory = root;
+
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallErrorNumber = "EPERM";
     };
   };
 
@@ -132,6 +143,17 @@ in {
 
       Restart = "always";
       RestartSec = "5";
+
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallErrorNumber = "EPERM";
     };
   };
 
