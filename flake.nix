@@ -14,10 +14,6 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
 
     attic = {
       url = "github:zhaofengli/attic";
@@ -68,8 +64,7 @@
     };
     nix-math = {
       url = "github:xddxdd/nix-math";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.flake-utils-plus.follows = "flake-utils-plus";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
@@ -77,6 +72,7 @@
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.nvfetcher.follows = "nvfetcher";
     };
     nvfetcher = {
