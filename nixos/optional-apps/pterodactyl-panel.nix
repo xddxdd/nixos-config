@@ -99,6 +99,42 @@ in {
     "d ${root} 755 pterodactyl pterodactyl"
   ];
 
+  systemd.services.pterodactyl-cron = {
+    description = "Pterodactyl Cron Job";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.php}/bin/php artisan schedule:run";
+      User = "pterodactyl";
+      Group = "pterodactyl";
+      WorkingDirectory = root;
+    };
+  };
+
+  systemd.timers.pterodactyl-cron = {
+    wantedBy = ["timers.target"];
+    partOf = ["pterodactyl-cron.service"];
+    timerConfig = {
+      OnCalendar = "*:*";
+      Unit = "pterodactyl-cron.service";
+    };
+  };
+
+  systemd.services.pterodactyl-queue-worker = {
+    description = "Pterodactyl Queue Worker";
+    wantedBy = ["multi-user.target"];
+    after = ["redis-pterodactyl.service" "mysql.service"];
+    requires = ["redis-pterodactyl.service" "mysql.service"];
+    serviceConfig = {
+      ExecStart = "${pkgs.php}/bin/php artisan queue:work --queue=high,standard,low --sleep=3 --tries=3";
+      User = "pterodactyl";
+      Group = "pterodactyl";
+      WorkingDirectory = root;
+
+      Restart = "always";
+      RestartSec = "5";
+    };
+  };
+
   users.users.pterodactyl = {
     group = "pterodactyl";
     isSystemUser = true;
