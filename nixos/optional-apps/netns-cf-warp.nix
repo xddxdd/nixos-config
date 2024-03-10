@@ -108,6 +108,7 @@ in {
         Group = "nginx";
         RuntimeDirectory = "v2ray-cf-warp";
         ExecStart = "${pkgs.xray}/bin/xray -config ${v2rayConf}";
+        BindPaths = ["/var/cache/cloudflare-warp:/etc"];
       };
   };
 
