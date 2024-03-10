@@ -14,7 +14,7 @@ build-x86: FORCE
 	@nom build $(shell nix eval --raw .#buildCommands.x86_64-linux)
 
 local: FORCE
-	@nom build .#nixosConfigurations.$(shell hostname).config.system.build.toplevel
+	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
 
 clean: FORCE
 	@nix run .#colmena -- exec -- nixos-cleanup
