@@ -20,6 +20,10 @@
 
   users.users.lantian.extraGroups = ["wireshark"];
 
-  # virtualisation.virtualbox.host.enable = true;
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host = {
+    enable = true;
+    addNetworkInterface = false;
+    enableHardening = false;
+    enableKvm = true;
+  };
 }
