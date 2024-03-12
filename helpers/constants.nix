@@ -94,6 +94,7 @@
     NFS.LockD = 4001;
     NFS.MountD = 4002;
     Quassel = 4242;
+    Pipewire = 4713;
     IPFS.API = 5001;
     IPerf = 5201;
     Radarr = 7878;
