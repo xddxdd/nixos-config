@@ -24,6 +24,12 @@
       // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
         hwdec = "vaapi";
         scale = "lanczos";
+        dither = false;
+        correct-downscaling = false;
+        linear-downscaling = false;
+        sigmoid-upscaling = false;
+        hdr-compute-peak = false;
+        allow-delayed-peak-detect = true;
       });
   };
 
