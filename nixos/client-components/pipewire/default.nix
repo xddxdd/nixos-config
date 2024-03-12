@@ -20,6 +20,8 @@ in {
     ./wireplumber-bluez.nix
   ];
 
+  environment.systemPackages = [pkgs.pulseaudio];
+
   security.rtkit.enable = true;
   systemd.services.rtkit-daemon.serviceConfig.ExecStart = [
     "" # Override command in rtkit package's service file
