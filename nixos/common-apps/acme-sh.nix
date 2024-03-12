@@ -37,10 +37,10 @@ in {
 
       for SUBDOMAIN in ${subdomains}; do
         if [ ! -f "${homeDir}/$SUBDOMAIN.xuyh0120.win/$SUBDOMAIN.xuyh0120.win.cer" ]; then
-          acme.sh --issue --dns dns_cf -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win -k 2048
+          acme.sh --issue --dns dns_gcore -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win -k 2048
         fi
         if [ ! -f "${homeDir}/$SUBDOMAIN.xuyh0120.win_ecc/$SUBDOMAIN.xuyh0120.win.cer" ]; then
-          acme.sh --issue --dns dns_cf -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win -k ec-256
+          acme.sh --issue --dns dns_gcore -d $SUBDOMAIN.xuyh0120.win -d \*.$SUBDOMAIN.xuyh0120.win -k ec-256
         fi
       done
 
