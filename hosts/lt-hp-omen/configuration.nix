@@ -6,23 +6,7 @@
   utils,
   inputs,
   ...
-} @ args: let
-  bindfsMountOptions = [
-    "force-user=lantian"
-    "force-group=lantian"
-    "create-for-user=root"
-    "create-for-group=root"
-    "chown-ignore"
-    "chgrp-ignore"
-    "xattr-none"
-    "x-gvfs-hide"
-  ];
-
-  bindMountOptions = [
-    "bind"
-    "x-gvfs-hide"
-  ];
-in {
+} @ args: {
   imports = [
     ../../nixos/client.nix
 
@@ -110,52 +94,52 @@ in {
     "/home/lantian/Backups" = lib.mkForce {
       device = "/nix/persistent/media/Backups";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Books" = lib.mkForce {
       device = "/nix/persistent/media/Books";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Calibre Library" = lib.mkForce {
       device = "/nix/persistent/media/Calibre Library";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Music/CloudMusic" = lib.mkForce {
       device = "/nix/persistent/media/CloudMusic";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Documents" = lib.mkForce {
       device = "/nix/persistent/media/Documents";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/LegacyOS" = lib.mkForce {
       device = "/nix/persistent/media/LegacyOS";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Pictures" = lib.mkForce {
       device = "/nix/persistent/media/Pictures";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Secrets" = lib.mkForce {
       device = "/nix/persistent/media/Secrets";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/Software" = lib.mkForce {
       device = "/nix/persistent/media/Software";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
     "/home/lantian/.local/share/yuzu" = lib.mkForce {
       device = "/nix/persistent/media/Yuzu";
       fsType = "fuse.bindfs";
-      options = bindfsMountOptions;
+      options = LT.constants.bindfsMountOptions;
     };
   };
 
