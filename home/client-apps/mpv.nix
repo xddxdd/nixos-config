@@ -22,7 +22,7 @@
         scale = "ewa_lanczossharp";
       }
       // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
-        hwdec = "cuda";
+        hwdec = "vaapi";
         scale = "lanczos";
       });
   };
