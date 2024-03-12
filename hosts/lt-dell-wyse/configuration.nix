@@ -11,6 +11,8 @@
     ../../nixos/client.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/syncthing.nix
   ];
 
   lantian.hidpi = 1.5;
