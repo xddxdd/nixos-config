@@ -1,4 +1,20 @@
 {lib, ...}: rec {
+  bindfsMountOptions = [
+    "force-user=lantian"
+    "force-group=lantian"
+    "create-for-user=root"
+    "create-for-group=root"
+    "chown-ignore"
+    "chgrp-ignore"
+    "xattr-none"
+    "x-gvfs-hide"
+  ];
+
+  bindMountOptions = [
+    "bind"
+    "x-gvfs-hide"
+  ];
+
   dn42 = {
     IPv4 = [
       "172.20.0.0/14"

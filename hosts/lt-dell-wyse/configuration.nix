@@ -26,6 +26,15 @@
     CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
   };
 
+  # Bind mounts
+  fileSystems = {
+    "/home/lantian/Music/CloudMusic" = lib.mkForce {
+      device = "/nix/persistent/media/CloudMusic";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
+  };
+
   # Auto mount NFS share
   fileSystems."/mnt/share" = {
     device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
