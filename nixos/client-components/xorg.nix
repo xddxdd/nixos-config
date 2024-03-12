@@ -72,6 +72,10 @@
 
     # Webkit2gtk fixes
     WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+
+    # Default to Intel hardware decoding
+    LIBVA_DRIVER_NAME = lib.mkDefault "iHD";
+    VDPAU_DRIVER = lib.mkDefault "va_gl";
   };
 
   programs.xwayland.enable = true;

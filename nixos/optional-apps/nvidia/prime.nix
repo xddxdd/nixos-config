@@ -51,11 +51,6 @@ in {
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;
 
-  environment.variables = {
-    LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl";
-  };
-
   virtualisation.docker.enableNvidia = true;
   virtualisation.podman.enableNvidia = true;
 }

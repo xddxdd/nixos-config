@@ -10,8 +10,6 @@
   imports = [
     ../../nixos/client.nix
 
-    ../../nixos/optional-apps/nvidia/only.nix
-
     ./hardware-configuration.nix
   ];
 

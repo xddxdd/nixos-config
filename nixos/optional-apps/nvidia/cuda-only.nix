@@ -139,11 +139,6 @@ in {
 
   services.acpid.enable = true;
 
-  environment.variables = {
-    LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl";
-  };
-
   virtualisation.docker.enableNvidia = true;
   virtualisation.podman.enableNvidia = true;
 }
