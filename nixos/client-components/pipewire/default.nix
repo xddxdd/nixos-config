@@ -11,10 +11,12 @@
   realtimeLimitUS = 5000000;
 in {
   imports = [
+    ./pipewire-airplay.nix
     ./pipewire-noise-cancelling.nix
     ./pipewire-resample-quality.nix
     ./pipewire-rtprio.nix
     ./pipewire-surround.nix
+    ./pipewire-zeroconf.nix
     ./wireplumber-bluez.nix
   ];
 

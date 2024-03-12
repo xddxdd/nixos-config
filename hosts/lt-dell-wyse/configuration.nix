@@ -12,6 +12,7 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/pipewire-network-audio-receive.nix
     ../../nixos/optional-apps/syncthing.nix
   ];
 
