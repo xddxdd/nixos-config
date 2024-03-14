@@ -39,8 +39,8 @@
   ];
 
   # CPU limit for high load services
-  systemd.services.matrix-synapse.serviceConfig.CPUQuota = "10%";
-  systemd.services.matrix-sliding-sync.serviceConfig.CPUQuota = "5%";
+  systemd.services.matrix-synapse.serviceConfig.CPUQuota = "25%";
+  systemd.services.matrix-sliding-sync.serviceConfig.CPUQuota = "10%";
 
   systemd.network.networks.eth0 = {
     address = ["185.254.74.105/24" "2a03:d9c0:2000::72/48"];
