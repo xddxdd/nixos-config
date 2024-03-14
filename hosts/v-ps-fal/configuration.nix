@@ -38,6 +38,10 @@
     "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
+  # CPU limit for high load services
+  systemd.services.matrix-synapse.serviceConfig.CPUQuota = "10%";
+  systemd.services.matrix-sliding-sync.serviceConfig.CPUQuota = "5%";
+
   systemd.network.networks.eth0 = {
     address = ["185.254.74.105/24" "2a03:d9c0:2000::72/48"];
     gateway = ["185.254.74.1" "2a03:d9c0:2000::1"];
