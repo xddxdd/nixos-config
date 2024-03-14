@@ -51,30 +51,6 @@ in {
           MemoryDenyWriteExecute = lib.mkForce false;
         };
     };
-
-    netns-netease-proxy = {
-      after = ["netns-instance-netease.service"];
-      bindsTo = ["netns-instance-netease.service"];
-      wantedBy = ["multi-user.target"];
-      path = with pkgs; [iptables];
-      script = ''
-        # Redirect all HTTP connection to proxy
-        iptables -t nat -A PREROUTING -i ns-netease -p tcp --dport 80 -j DNAT --to-destination ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTP}
-        iptables -t nat -A PREROUTING -i ns-netease -p tcp --dport 443 -j DNAT --to-destination ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTPS}
-        # Block IPv6 to prevent leaks
-        ip6tables -A INPUT -i ns-netease -j REJECT
-      '';
-      postStop = ''
-        iptables -t nat -D PREROUTING -i ns-netease -p tcp --dport 80 -j DNAT --to-destination ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTP}
-        iptables -t nat -D PREROUTING -i ns-netease -p tcp --dport 443 -j DNAT --to-destination ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTPS}
-        ip6tables -D INPUT -i ns-netease -j REJECT
-      '';
-      serviceConfig = {
-        Type = "forking";
-        Restart = "always";
-        RestartSec = "10s";
-      };
-    };
   };
 
   security.wrappers.netease-cloud-music = {
