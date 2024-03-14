@@ -71,6 +71,9 @@
         chain FILTER_INPUT {
           type filter hook input priority 5; policy accept;
 
+          # Block IPv6 from NetEase netns
+          iifname "ns-netease" ip6 version 6 drop
+
           # Drop timestamp ICMP pkts
           meta l4proto icmp icmp type timestamp-reply drop
           meta l4proto icmp icmp type timestamp-request drop
@@ -100,6 +103,13 @@
 
         chain NAT_PREROUTING {
           type nat hook prerouting priority -95; policy accept;
+
+          # Redirect IPv4 from NetEase netns
+          iifname "ns-netease" ip version 4 tcp dport 80 dnat ip to ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTP}
+          iifname "ns-netease" ip version 4 tcp dport 443 dnat ip to ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTPS}
+
+          # Block IPv6 from NetEase netns
+          iifname "ns-netease" ip6 version 6 drop
     ''
     + (lib.optionalString config.lantian.nginx-proxy.enable ''
       # nginx whois & gopher server
