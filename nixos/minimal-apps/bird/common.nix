@@ -24,7 +24,12 @@ rec {
 
   latencyToDN42Community =
     { latencyMs, mode, ... }:
-    if mode == "bad-routing" then
+    if
+      builtins.elem mode [
+        "bad-routing"
+        "flapping"
+      ]
+    then
       9
     else if latencyMs <= 3 then
       1
