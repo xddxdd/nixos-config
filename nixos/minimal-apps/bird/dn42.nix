@@ -25,7 +25,12 @@ let
       crypto = builtins.toString (typeToDN42Community v.tunnel.type);
       localASN = if v.peering.network == "dn42" then DN42_AS else NEO_AS;
     in
-    if v.mode == "flapping" then
+    if
+      builtins.elem v.mode [
+        "bad-routing"
+        "flapping"
+      ]
+    then
       ""
     else
       lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
