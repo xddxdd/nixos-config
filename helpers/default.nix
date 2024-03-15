@@ -52,10 +52,10 @@ mkScope (call: rec {
   this = hosts."${config.networking.hostName}";
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
-  hostsWithTag = tag: lib.filterAttrs (n: v: builtins.elem tag v.tags) hosts;
+  hostsWithTag = tag: lib.filterAttrs (n: v: v.hasTag tag) hosts;
   serverHosts = hostsWithTag tags.server;
 
-  hostsWithoutTag = tag: lib.filterAttrs (n: v: !(builtins.elem tag v.tags)) hosts;
+  hostsWithoutTag = tag: lib.filterAttrs (n: v: !(v.hasTag tag)) hosts;
   nonClientHosts = hostsWithoutTag tags.client;
 
   thisConfigurations = nixosConfigurations."${config.networking.hostName}";

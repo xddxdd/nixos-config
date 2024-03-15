@@ -175,9 +175,9 @@ let
       ttl = "5m";
       filter =
         n: v:
-        (builtins.elem "server" v.tags)
-        && (builtins.elem "public-facing" v.tags)
-        && (!(builtins.elem "low-disk" v.tags));
+        (v.hasTag "server")
+        && (v.hasTag "public-facing")
+        && (!(v.hasTag "low-disk"));
     }
     {
       recordType = "CNAME";
@@ -261,7 +261,7 @@ in
           # GeoDNS for public facing servers
           name = "@";
           ttl = "5m";
-          filter = n: v: (builtins.elem "server" v.tags) && (builtins.elem "public-facing" v.tags);
+          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing");
         }
         {
           recordType = "CNAME";

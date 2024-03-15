@@ -9,7 +9,7 @@
 }@args:
 let
   entrypoint =
-    if builtins.elem LT.tags.client LT.this.tags then ../../home/client.nix else ../../home/none.nix;
+    if LT.this.hasTag LT.tags.client then ../../home/client.nix else ../../home/none.nix;
 
   perUserConfig = {
     home.stateVersion = LT.constants.stateVersion;

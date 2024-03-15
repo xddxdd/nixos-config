@@ -24,6 +24,10 @@
       type = lib.types.listOf lib.types.str;
       default = [ ];
     };
+    hasTag = lib.mkOption {
+      readOnly = true;
+      default = tag: builtins.elem tag config.tags;
+    };
     sshPort = lib.mkOption {
       type = lib.types.int;
       default = 2222;

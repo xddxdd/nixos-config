@@ -37,7 +37,7 @@ let
   '';
 in
 {
-  environment.systemPackages = lib.optional (builtins.elem LT.tags.client LT.this.tags) zerotier-default;
+  environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
 
   services.zerotierone = {
     enable = true;

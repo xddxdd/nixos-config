@@ -284,7 +284,7 @@ in
       route ${LT.this.ltnet.IPv4}/32 reject;
       route ${LT.this.neonetwork.IPv4}/32 reject;
     '')
-    + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
+    + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
       # Blackhole routes for private ranges
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
     '')
@@ -308,7 +308,7 @@ in
       route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
       route ${LT.this.neonetwork.IPv6}/128 reject;
     '')
-    + (lib.optionalString (builtins.elem LT.tags.server LT.this.tags) ''
+    + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
       # Blackhole routes for private ranges
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
     '')

@@ -321,7 +321,7 @@ in
       domain:
       forEachHost (
         n: v:
-        (lib.optionals (builtins.elem tags.server v.tags) (
+        (lib.optionals (v.hasTag tags.server) (
           (mapAddresses {
             name = concatDomain n domain;
             addresses = v.dn42;

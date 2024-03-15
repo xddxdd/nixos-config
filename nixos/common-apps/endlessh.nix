@@ -40,7 +40,7 @@ let
 in
 {
   services.endlessh = {
-    enable = builtins.elem LT.tags.low-ram LT.this.tags;
+    enable = LT.this.hasTag LT.tags.low-ram;
     port = 22;
     extraOptions = [
       "-f"
@@ -49,7 +49,7 @@ in
   };
 
   services.endlessh-go = {
-    enable = !(builtins.elem LT.tags.low-ram LT.this.tags);
+    enable = !(LT.this.hasTag LT.tags.low-ram);
     port = 22;
     prometheus = {
       enable = true;

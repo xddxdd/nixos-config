@@ -11,7 +11,7 @@
   boot.extraModprobeConfig =
     let
       enableGucFlag = if config.virtualisation.kvmgt.enable then 0 else 3;
-      maxVfsFlag = if builtins.elem LT.tags.i915-sriov LT.this.tags then "max_vfs=7" else "";
+      maxVfsFlag = if LT.this.hasTag LT.tags.i915-sriov then "max_vfs=7" else "";
     in
     ''
       options i915 enable_fbc=1 enable_guc=${builtins.toString enableGucFlag} ${maxVfsFlag}

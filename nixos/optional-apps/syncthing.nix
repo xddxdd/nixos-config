@@ -46,7 +46,7 @@
       settings = {
         options = {
           startBrowser = false;
-          natEnabled = !(builtins.elem LT.tags.server LT.this.tags);
+          natEnabled = !(LT.this.hasTag LT.tags.server);
           urAccepted = -1;
           progressUpdateIntervalS = -1;
           relaysEnabled = true;

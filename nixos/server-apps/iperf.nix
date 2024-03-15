@@ -7,7 +7,7 @@
   inputs,
   ...
 }@args:
-lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
+lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   services.iperf3 = {
     enable = true;
     bind = LT.this.ltnet.IPv4;

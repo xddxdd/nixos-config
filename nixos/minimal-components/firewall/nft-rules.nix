@@ -161,7 +161,7 @@ let
         lib.mapAttrsToList (
           n: v:
           "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
-        ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)
+        ) (lib.filterAttrs (n: v: !(v.hasTag LT.tags.server)) LT.hosts)
       )
     ))
     + ''

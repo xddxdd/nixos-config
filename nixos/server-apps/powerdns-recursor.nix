@@ -10,7 +10,7 @@
 let
   netns = config.lantian.netns.powerdns-recursor;
 in
-lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
+lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   lantian.netns.powerdns-recursor = {
     ipSuffix = "53";
     inherit (config.services.pdns-recursor) enable;
