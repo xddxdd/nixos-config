@@ -95,12 +95,12 @@ in
     protocol direct sys_direct {
       interface ${lib.concatMapStringsSep ", " (v: ''"-${v}"'') excludedInterfacesFromDirect}, "*";
       ipv4 {
-        preference 1000;
+        preference 10000;
         import filter sys_import_v4;
         export none;
       };
       ipv6 {
-        preference 1000;
+        preference 10000;
         import filter sys_import_v6;
         export none;
       };
@@ -292,7 +292,7 @@ in
     '')
     + ''
         ipv4 {
-          preference 10000;
+          preference 1000;
           import all;
           export none;
         };
@@ -316,7 +316,7 @@ in
     '')
     + ''
         ipv6 {
-          preference 10000;
+          preference 1000;
           import all;
           export none;
         };
