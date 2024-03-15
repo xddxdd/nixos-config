@@ -11,14 +11,14 @@ let
   inherit (LT.this)
     hostname
     sshPort
-    tags
+    hasTag
     manualDeploy
     system
     ;
 in
 {
   deployment = {
-    allowLocalDeployment = builtins.elem LT.tags.client tags;
+    allowLocalDeployment = hasTag LT.tags.client;
     targetHost = hostname;
     targetPort = sshPort;
     targetUser = "root";

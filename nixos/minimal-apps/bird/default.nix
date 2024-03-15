@@ -28,7 +28,7 @@ in
         # Used by ltnet
         dn42.communityFilters
       ]
-      ++ lib.optionals (builtins.elem LT.tags.server LT.this.tags) [
+      ++ lib.optionals (LT.this.hasTag LT.tags.server) [
         sys.roa
         sys.roaMonitor
 
@@ -88,7 +88,7 @@ in
 
   services.prometheus.exporters = {
     bird = {
-      enable = builtins.elem LT.tags.server LT.this.tags;
+      enable = LT.this.hasTag LT.tags.server;
       port = LT.port.Prometheus.BirdExporter;
       listenAddress = LT.this.ltnet.IPv4;
       birdSocket = "/var/run/bird/bird.ctl";
@@ -96,7 +96,7 @@ in
   };
 
   systemd.services.bird-lgproxy-go = {
-    enable = builtins.elem LT.tags.server LT.this.tags;
+    enable = LT.this.hasTag LT.tags.server;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [

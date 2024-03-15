@@ -34,7 +34,7 @@
   };
 
   programs.zsh = {
-    enable = builtins.elem LT.tags.client LT.this.tags;
+    enable = LT.this.hasTag LT.tags.client;
     enableGlobalCompInit = false;
   };
   users.defaultUserShell = if config.programs.zsh.enable then pkgs.zsh else pkgs.bash;

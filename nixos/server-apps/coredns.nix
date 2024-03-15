@@ -145,7 +145,7 @@ let
       }
     '';
 in
-lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
+lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   age.secrets = builtins.listToAttrs (
     lib.flatten (
       builtins.map (n: [

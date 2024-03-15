@@ -24,12 +24,12 @@
       !include ${config.age.secrets.nix-access-token.path}
     '';
 
-    daemonCPUSchedPolicy = if builtins.elem LT.tags.client LT.this.tags then "idle" else "batch";
+    daemonCPUSchedPolicy = if LT.this.hasTag LT.tags.client then "idle" else "batch";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
     gc = {
-      automatic = builtins.elem LT.tags.server LT.this.tags;
+      automatic = LT.this.hasTag LT.tags.server;
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };

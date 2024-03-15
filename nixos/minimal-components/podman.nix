@@ -9,7 +9,7 @@
 }@args:
 let
   enabled =
-    config.virtualisation.oci-containers.containers != { } || builtins.elem LT.tags.client LT.this.tags;
+    config.virtualisation.oci-containers.containers != { } || LT.this.hasTag LT.tags.client;
 in
 lib.mkIf enabled {
   environment.systemPackages = config.virtualisation.podman.extraPackages;

@@ -17,7 +17,7 @@
   ];
 
   services.fail2ban = {
-    enable = !(builtins.elem LT.tags.low-disk LT.this.tags);
+    enable = !(LT.this.hasTag LT.tags.low-disk);
     maxretry = 5;
     banaction = "nftables-lantian[type=allports]";
     banaction-allports = "nftables-lantian[type=allports]";

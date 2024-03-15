@@ -73,7 +73,7 @@ in
   ];
 
   location = {
-    provider = if builtins.elem LT.tags.client LT.this.tags then "geoclue2" else "manual";
+    provider = if LT.this.hasTag LT.tags.client then "geoclue2" else "manual";
     latitude = LT.this.city.lat;
     longitude = LT.this.city.lng;
   };
@@ -129,13 +129,13 @@ in
       zip
       zstd
     ]
-    ++ (if (builtins.elem LT.tags.server LT.this.tags) then [ python3 ] else [ python3Full ]);
+    ++ (if (LT.this.hasTag LT.tags.server) then [ python3 ] else [ python3Full ]);
 
   hardware.ksm.enable = !config.boot.isContainer;
 
   programs = {
-    bash.vteIntegration = builtins.elem LT.tags.client LT.this.tags;
-    command-not-found.enable = builtins.elem LT.tags.client LT.this.tags;
+    bash.vteIntegration = LT.this.hasTag LT.tags.client;
+    command-not-found.enable = LT.this.hasTag LT.tags.client;
     iftop.enable = true;
     iotop.enable = true;
     less.enable = true;
@@ -210,14 +210,14 @@ in
     };
   };
 
-  system.disableInstallerTools = !builtins.elem LT.tags.client LT.this.tags;
+  system.disableInstallerTools = !LT.this.hasTag LT.tags.client;
   system.fsPackages = [ pkgs.bindfs ];
 
   systemd = {
     # Given that our systems are headless, emergency mode is useless.
     # We prefer the system to attempt to continue booting so
     # that we can hopefully still access it remotely.
-    enableEmergencyMode = builtins.elem LT.tags.client LT.this.tags;
+    enableEmergencyMode = LT.this.hasTag LT.tags.client;
 
     # For more detail, see:
     #   https://0pointer.de/blog/projects/watchdog.html

@@ -164,7 +164,7 @@ in
 
   # Multicast DNS
   services.avahi = {
-    enable = builtins.elem LT.tags.client LT.this.tags;
+    enable = LT.this.hasTag LT.tags.client;
     nssmdns4 = true;
     reflector = true;
     publish = {

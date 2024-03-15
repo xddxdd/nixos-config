@@ -156,7 +156,7 @@ in
       default =
         if pkgs.stdenv.isx86_64 then
           (
-            if builtins.elem LT.tags.x86_64-v1 LT.this.tags then
+            if LT.this.hasTag LT.tags.x86_64-v1 then
               pkgs.lantianLinuxXanmod.lts-x86_64-v1-lto
             else
               pkgs.lantianLinuxXanmod.lts-x86_64-v3-lto
@@ -194,7 +194,7 @@ in
             nullfsvfs
             # ovpn-dco
           ]
-          ++ lib.optionals (builtins.elem LT.tags.i915-sriov LT.this.tags) [ i915-sriov ]
+          ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
         );
 
       bcache.enable = false;
@@ -263,7 +263,7 @@ in
     '';
 
     systemd.services.i915-sriov = {
-      enable = builtins.elem LT.tags.i915-sriov LT.this.tags;
+      enable = LT.this.hasTag LT.tags.i915-sriov;
       description = "Enable i915 SRIOV";
       wantedBy = [ "multi-user.target" ];
       after = [ "systemd-modules-load.service" ];

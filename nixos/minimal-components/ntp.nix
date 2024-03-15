@@ -20,9 +20,9 @@ in
 {
   networking.timeServers = ntpServers;
 
-  services.timesyncd.enable = builtins.elem LT.tags.low-ram LT.this.tags;
+  services.timesyncd.enable = LT.this.hasTag LT.tags.low-ram;
   services.chrony = rec {
-    enable = !(builtins.elem LT.tags.low-ram LT.this.tags);
+    enable = !(LT.this.hasTag LT.tags.low-ram);
     servers = [ ];
     extraConfig = ''
       ${lib.concatMapStringsSep "\n" (k: "server ${k} ${serverOption}") ntpServers}
