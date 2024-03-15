@@ -88,8 +88,8 @@ in
         discord
         discord-canary
         distrobox
-        element-desktop
         exiftool
+        fractal
         ffmpeg-full
         filezilla
         gcdemu
@@ -165,8 +165,8 @@ in
         command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
       }
       {
-        name = "element";
-        command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
+        name = "fractal";
+        command = "${pkgs.fractal}/bin/fractal --hidden";
       }
       {
         name = "telegram";
