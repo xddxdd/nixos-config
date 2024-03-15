@@ -2,6 +2,7 @@
 {
   index = 1;
   tags = with tags; [
+    dn42
     public-facing
     qemu
     server
