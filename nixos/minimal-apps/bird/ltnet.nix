@@ -8,7 +8,7 @@
   ...
 }@args:
 let
-  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS;
+  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS community;
 
   peer =
     hostname:
@@ -28,7 +28,6 @@ let
         neighbor fdbc:f9dc:67ad::${builtins.toString index}%'zthnhe4bol' internal;
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
-          add paths ${if exchangeAllRoutes then "yes" else "no"};
           import filter ltnet_import_filter_v4;
           export filter ${
             if exchangeAllRoutes then "ltnet_export_filter_v4" else "ltnet_export_aggregated_filter_v4"
@@ -36,7 +35,6 @@ let
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
-          add paths ${if exchangeAllRoutes then "yes" else "no"};
           import filter ltnet_import_filter_v6;
           export filter ${
             if exchangeAllRoutes then "ltnet_export_filter_v6" else "ltnet_export_aggregated_filter_v6"
@@ -48,13 +46,13 @@ let
 in
 {
   babel = ''
-    filter ltmesh_import_filter_v4 {
+    filter ltbabel_import_filter_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v4 {
+    filter ltbabel_export_filter_v4 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
@@ -62,13 +60,13 @@ in
       reject;
     }
 
-    filter ltmesh_import_filter_v6 {
+    filter ltbabel_import_filter_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
-    filter ltmesh_export_filter_v6 {
+    filter ltbabel_export_filter_v6 {
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
@@ -76,14 +74,14 @@ in
       reject;
     }
 
-    protocol babel ltmesh {
+    protocol babel ltbabel {
       ipv4 {
-        import filter ltmesh_import_filter_v4;
-        export filter ltmesh_export_filter_v4;
+        import filter ltbabel_import_filter_v4;
+        export filter ltbabel_export_filter_v4;
       };
       ipv6 {
-        import filter ltmesh_import_filter_v6;
-        export filter ltmesh_export_filter_v6;
+        import filter ltbabel_import_filter_v6;
+        export filter ltbabel_export_filter_v6;
       };
       randomize router id yes;
       metric decay 30s;
@@ -105,6 +103,7 @@ in
     }
 
     filter ltnet_export_filter_v4 {
+      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
@@ -113,6 +112,7 @@ in
     }
 
     filter ltnet_export_aggregated_filter_v4 {
+      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
@@ -127,6 +127,7 @@ in
     }
 
     filter ltnet_export_filter_v6 {
+      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
@@ -135,6 +136,7 @@ in
     }
 
     filter ltnet_export_aggregated_filter_v6 {
+      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
