@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   anycastIP = "198.19.0.27";
 
   originalConfig = lib.importJSON (pkgs.grasscutter + "/opt/config.example.json");
@@ -24,7 +25,8 @@
       };
     };
   };
-in {
+in
+{
   systemd.tmpfiles.rules = [
     "d /var/lib/grasscutter 755 container container"
     "d /var/lib/mongodb-grasscutter 755 container container"
@@ -33,7 +35,7 @@ in {
   containers.grasscutter = LT.container {
     name = "grasscutter";
     ipSuffix = "27";
-    announcedIPv4 = [anycastIP];
+    announcedIPv4 = [ anycastIP ];
 
     outerConfig = {
       bindMounts = {
@@ -47,35 +49,33 @@ in {
         };
       };
     };
-    innerConfig = {...}: {
-      services.mongodb = {
-        enable = true;
-        quiet = true;
-        user = "container";
-        dbpath = "/var/lib/mongodb-grasscutter";
-      };
+    innerConfig =
+      { ... }:
+      {
+        services.mongodb = {
+          enable = true;
+          quiet = true;
+          user = "container";
+          dbpath = "/var/lib/mongodb-grasscutter";
+        };
 
-      systemd.services.mongodb.serviceConfig.Group = "container";
+        systemd.services.mongodb.serviceConfig.Group = "container";
 
-      systemd.services.grasscutter = {
-        wantedBy = ["multi-user.target"];
-        after = ["grasscutter-mongodb.service"];
-        requires = ["grasscutter-mongodb.service"];
-        script = ''
-          ${utils.genJqSecretsReplacementSnippet
-            cfg
-            "/var/lib/grasscutter/config.json"}
+        systemd.services.grasscutter = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "grasscutter-mongodb.service" ];
+          requires = [ "grasscutter-mongodb.service" ];
+          script = ''
+            ${utils.genJqSecretsReplacementSnippet cfg "/var/lib/grasscutter/config.json"}
 
-          exec ${pkgs.grasscutter}/bin/grasscutter
-        '';
-        serviceConfig =
-          LT.serviceHarden
-          // {
+            exec ${pkgs.grasscutter}/bin/grasscutter
+          '';
+          serviceConfig = LT.serviceHarden // {
             Type = "simple";
             Restart = "always";
             RestartSec = "3";
-            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-            CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
 
             MemoryDenyWriteExecute = false;
             WorkingDirectory = "/var/lib/grasscutter";
@@ -83,7 +83,7 @@ in {
             User = "container";
             Group = "container";
           };
+        };
       };
-    };
   };
 }

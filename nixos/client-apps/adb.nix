@@ -6,12 +6,13 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   programs.adb.enable = true;
 
   systemd.services.adbd = {
     description = "ADB Daemon";
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "forking";
       User = "root";
@@ -20,5 +21,5 @@
     };
   };
 
-  users.users.lantian.extraGroups = ["adbusers"];
+  users.users.lantian.extraGroups = [ "adbusers" ];
 }

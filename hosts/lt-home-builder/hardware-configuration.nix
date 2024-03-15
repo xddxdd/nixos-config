@@ -7,23 +7,29 @@
   lib,
   modulesPath,
   ...
-}: {
-  imports = [
-    ../../nixos/hardware/disable-watchdog.nix
-  ];
+}:
+{
+  imports = [ ../../nixos/hardware/disable-watchdog.nix ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
     device = "/dev/vda2";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/vda1";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   services.qemuGuest.enable = true;

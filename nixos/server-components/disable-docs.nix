@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   documentation = {
     dev.enable = lib.mkForce false;
     doc.enable = lib.mkForce false;

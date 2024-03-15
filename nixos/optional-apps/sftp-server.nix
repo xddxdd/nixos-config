@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
-in {
+in
+{
   users.users.sftp = {
     uid = 22;
     home = "/nix/persistent/sftp-server";

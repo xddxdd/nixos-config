@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   astyCrapper = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "asty-crapper";
     version = "1.0";
@@ -27,7 +28,8 @@
       cp jordan/* $out/jordan/
     '';
   };
-in {
+in
+{
   dialAstyCrapper = ''
     [app-asty-crapper]
     exten => b,1,Ringing()

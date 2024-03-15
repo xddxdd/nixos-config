@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   labRoot = "/var/www/lab.lantian.pub";
-in {
+in
+{
   age.secrets.nginx-cgi-ssh-key = {
     file = inputs.secrets + "/drone/ssh-id-ed25519.age";
     owner = "nginx";
@@ -70,13 +72,9 @@ in {
     inherit (config.services.nginx) user group;
   };
 
-  systemd.services.fcgiwrap.serviceConfig =
-    LT.serviceHarden
-    // {
-      ReadWritePaths = [
-        "/var/www/lab.lantian.pub"
-      ];
-    };
+  systemd.services.fcgiwrap.serviceConfig = LT.serviceHarden // {
+    ReadWritePaths = [ "/var/www/lab.lantian.pub" ];
+  };
 
   systemd.tmpfiles.rules = [
     "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"

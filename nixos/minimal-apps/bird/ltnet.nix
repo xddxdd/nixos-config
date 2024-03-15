@@ -6,19 +6,18 @@
   utils,
   inputs,
   ...
-} @ args: let
-  inherit
-    (import ./common.nix args)
-    DN42_AS
-    DN42_TEST_AS
-    ;
+}@args:
+let
+  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS;
 
-  peer = hostname: {
-    ltnet,
-    index,
-    city,
-    ...
-  }:
+  peer =
+    hostname:
+    {
+      ltnet,
+      index,
+      city,
+      ...
+    }:
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
@@ -36,7 +35,8 @@
         };
       };
     '';
-in {
+in
+{
   babel = ''
     filter ltmesh_import_filter_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;

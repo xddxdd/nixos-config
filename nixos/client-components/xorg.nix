@@ -6,19 +6,16 @@
   utils,
   inputs,
   ...
-} @ args: {
-  boot.extraModprobeConfig = let
-    enableGucFlag =
-      if config.virtualisation.kvmgt.enable
-      then 0
-      else 3;
-    maxVfsFlag =
-      if builtins.elem LT.tags.i915-sriov LT.this.tags
-      then "max_vfs=7"
-      else "";
-  in ''
-    options i915 enable_fbc=1 enable_guc=${builtins.toString enableGucFlag} ${maxVfsFlag}
-  '';
+}@args:
+{
+  boot.extraModprobeConfig =
+    let
+      enableGucFlag = if config.virtualisation.kvmgt.enable then 0 else 3;
+      maxVfsFlag = if builtins.elem LT.tags.i915-sriov LT.this.tags then "max_vfs=7" else "";
+    in
+    ''
+      options i915 enable_fbc=1 enable_guc=${builtins.toString enableGucFlag} ${maxVfsFlag}
+    '';
 
   boot.kernel.sysctl = {
     "dev.i915.perf_stream_paranoid" = 0;
@@ -50,7 +47,7 @@
     extraPackages = with pkgs; [
       intel-compute-runtime
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      (vaapiIntel.override {enableHybridCodec = true;}) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      (vaapiIntel.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
     ];
   };
@@ -79,7 +76,11 @@
   };
 
   programs.xwayland.enable = true;
-  users.users.lantian.extraGroups = ["video" "users" "input"];
+  users.users.lantian.extraGroups = [
+    "video"
+    "users"
+    "input"
+  ];
 
   xdg = {
     portal = {

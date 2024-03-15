@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   externalServices = [
     {
       recordType = "TXT";
@@ -144,12 +145,13 @@
       ttl = "1h";
     }
   ];
-in {
+in
+{
   domains = [
     rec {
       domain = "xuyh0120.win";
       registrar = "porkbun";
-      providers = ["gcore"];
+      providers = [ "gcore" ];
       records = lib.flatten [
         {
           recordType = "ALIAS";

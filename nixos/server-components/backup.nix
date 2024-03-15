@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
   isMaintenanceHost = config.networking.hostName == "terrahost";
 
@@ -86,7 +87,8 @@
       --prune \
       || HAS_ERROR=1
   '';
-in {
+in
+{
   age.secrets.restic-pw.file = inputs.secrets + "/restic/pw.age";
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
@@ -117,13 +119,11 @@ in {
       ''
         HAS_ERROR=0
       ''
-      + (builtins.concatStringsSep "\n"
-        (lib.flatten
-          (builtins.map
-            (path: (
-              builtins.map (repo: (backupScript path) repo) resticRepos
-            ))
-            backupPaths)))
+      + (builtins.concatStringsSep "\n" (
+        lib.flatten (
+          builtins.map (path: (builtins.map (repo: (backupScript path) repo) resticRepos)) backupPaths
+        )
+      ))
       + ''
         exit $HAS_ERROR
       '';
@@ -136,8 +136,8 @@ in {
 
   systemd.timers.backup = {
     enable = isBtrfsRoot;
-    wantedBy = ["timers.target"];
-    partOf = ["backup.service"];
+    wantedBy = [ "timers.target" ];
+    partOf = [ "backup.service" ];
     timerConfig = {
       OnCalendar = "*-*-* 4:00:00";
       RandomizedDelaySec = "1h";
@@ -170,8 +170,8 @@ in {
 
   systemd.timers.backup-prune = {
     enable = isMaintenanceHost;
-    wantedBy = ["timers.target"];
-    partOf = ["backup-prune.service"];
+    wantedBy = [ "timers.target" ];
+    partOf = [ "backup-prune.service" ];
     timerConfig = {
       OnCalendar = "*-*-* 16:00:00";
       RandomizedDelaySec = "1h";
@@ -179,7 +179,5 @@ in {
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/cache/restic 700 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /var/cache/restic 700 root root" ];
 }

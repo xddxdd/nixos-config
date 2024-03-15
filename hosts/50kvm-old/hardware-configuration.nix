@@ -7,15 +7,20 @@
   lib,
   modulesPath,
   ...
-}: {
-  boot.initrd.kernelModules = ["nvme"];
+}:
+{
+  boot.initrd.kernelModules = [ "nvme" ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
     device = "/dev/vda3";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -23,5 +28,5 @@
     fsType = "ext4";
   };
 
-  swapDevices = [{device = "/dev/vda2";}];
+  swapDevices = [ { device = "/dev/vda2"; } ];
 }

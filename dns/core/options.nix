@@ -5,24 +5,25 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   options = {
     registrars = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
     providers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
     domains = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule (import ./options-domain.nix args));
-      default = [];
+      default = [ ];
     };
 
     recordHandlers = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
-      default = {};
+      default = { };
     };
   };
 }

@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   # https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada
   ls-iommu = pkgs.writeShellScriptBin "ls-iommu" ''
     shopt -s nullglob
@@ -54,7 +55,8 @@
       exit 1
     }
   '';
-in {
+in
+{
   age.secrets.default-pw = {
     file = inputs.secrets + "/default-pw.age";
     mode = "0444";
@@ -64,13 +66,14 @@ in {
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = ["C.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8"];
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "zh_CN.UTF-8/UTF-8"
+  ];
 
   location = {
-    provider =
-      if builtins.elem LT.tags.client LT.this.tags
-      then "geoclue2"
-      else "manual";
+    provider = if builtins.elem LT.tags.client LT.this.tags then "geoclue2" else "manual";
     latitude = LT.this.city.lat;
     longitude = LT.this.city.lng;
   };
@@ -85,7 +88,8 @@ in {
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
   };
-  environment.systemPackages = with pkgs;
+  environment.systemPackages =
+    with pkgs;
     [
       bridge-utils
       curlHTTP3
@@ -125,15 +129,7 @@ in {
       zip
       zstd
     ]
-    ++ (
-      if (builtins.elem LT.tags.server LT.this.tags)
-      then [
-        python3
-      ]
-      else [
-        python3Full
-      ]
-    );
+    ++ (if (builtins.elem LT.tags.server LT.this.tags) then [ python3 ] else [ python3Full ]);
 
   hardware.ksm.enable = !config.boot.isContainer;
 
@@ -215,7 +211,7 @@ in {
   };
 
   system.disableInstallerTools = !builtins.elem LT.tags.client LT.this.tags;
-  system.fsPackages = [pkgs.bindfs];
+  system.fsPackages = [ pkgs.bindfs ];
 
   systemd = {
     # Given that our systems are headless, emergency mode is useless.

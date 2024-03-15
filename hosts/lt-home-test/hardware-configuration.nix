@@ -4,10 +4,9 @@
   pkgs,
   modulesPath,
   ...
-}: {
-  imports = [
-    ../../nixos/hardware/disable-watchdog.nix
-  ];
+}:
+{
+  imports = [ ../../nixos/hardware/disable-watchdog.nix ];
 
   boot.loader.grub = {
     efiSupport = true;
@@ -22,7 +21,11 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/ecba570c-c3e4-47e3-be09-5ee7baec5534";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   services.qemuGuest.enable = true;

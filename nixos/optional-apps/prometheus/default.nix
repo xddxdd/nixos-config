@@ -6,31 +6,27 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   scrapeAllNonClientNodes = jobName: port: {
     job_name = jobName;
-    static_configs =
-      lib.mapAttrsToList
-      (n: v: {
-        targets = ["${v.ltnet.IPv4}:${builtins.toString port}"];
-        labels.job = jobName;
-        labels.instance = n;
-      })
-      LT.nonClientHosts;
+    static_configs = lib.mapAttrsToList (n: v: {
+      targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
+      labels.job = jobName;
+      labels.instance = n;
+    }) LT.nonClientHosts;
   };
   scrapeAllNonClientNodesNetns = jobName: index: port: {
     job_name = jobName;
-    static_configs =
-      lib.mapAttrsToList
-      (n: v: {
-        targets = ["${v.ltnet.IPv4Prefix}.${builtins.toString index}:${builtins.toString port}"];
-        labels.job = jobName;
-        labels.instance = n;
-        labels.index = builtins.toString index;
-      })
-      LT.nonClientHosts;
+    static_configs = lib.mapAttrsToList (n: v: {
+      targets = [ "${v.ltnet.IPv4Prefix}.${builtins.toString index}:${builtins.toString port}" ];
+      labels.job = jobName;
+      labels.instance = n;
+      labels.index = builtins.toString index;
+    }) LT.nonClientHosts;
   };
-in {
+in
+{
   imports = [
     ./alertmanager.nix
     ./blackbox-exporter.nix
@@ -49,7 +45,9 @@ in {
         job_name = "prometheus";
         static_configs = [
           {
-            targets = ["${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}"];
+            targets = [
+              "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}"
+            ];
           }
         ];
       }
@@ -63,9 +61,7 @@ in {
       {
         job_name = "palworld";
         static_configs = [
-          {
-            targets = ["${LT.hosts."lt-home-vm".ltnet.IPv4}:${LT.portStr.Prometheus.Palworld}"];
-          }
+          { targets = [ "${LT.hosts."lt-home-vm".ltnet.IPv4}:${LT.portStr.Prometheus.Palworld}" ]; }
         ];
       }
     ];

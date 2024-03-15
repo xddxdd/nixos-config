@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.services.reloader = {
     serviceConfig.Type = "oneshot";
     script =
@@ -28,8 +29,8 @@
   };
 
   systemd.timers.reloader = {
-    wantedBy = ["timers.target"];
-    partOf = ["reloader.service"];
+    wantedBy = [ "timers.target" ];
+    partOf = [ "reloader.service" ];
     timerConfig = {
       OnCalendar = "hourly";
       Persistent = true;

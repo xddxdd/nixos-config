@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  sources,
-  ...
-}:
+{ stdenvNoCC, sources, ... }:
 stdenvNoCC.mkDerivation {
   inherit (sources.mihoyo-bbs-tools) pname version src;
 

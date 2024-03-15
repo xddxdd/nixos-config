@@ -7,20 +7,28 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
     device = "/dev/vda3";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/vda2";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
-  swapDevices = [{device = "/dev/vda4";}];
+  swapDevices = [ { device = "/dev/vda4"; } ];
 }

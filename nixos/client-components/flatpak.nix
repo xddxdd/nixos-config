@@ -6,6 +6,7 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.flatpak.enable = true;
 }

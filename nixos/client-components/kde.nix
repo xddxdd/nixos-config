@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   environment.systemPackages = with pkgs; [
     (material-kwin-decoration.overrideAttrs (old: {
       inherit (LT.sources.material-kwin-decoration) version src;

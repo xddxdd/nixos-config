@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
     users.lantian = {
@@ -61,13 +62,11 @@
         ".Xilinx"
         ".zoom"
       ];
-      files = [];
+      files = [ ];
     };
   };
 
   # Impermanence will copy permissions from source dir
   # Chown to lantian:lantian
-  systemd.tmpfiles.rules = [
-    "d /nix/persistent/home/lantian 700 lantian lantian"
-  ];
+  systemd.tmpfiles.rules = [ "d /nix/persistent/home/lantian 700 lantian lantian" ];
 }

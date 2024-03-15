@@ -7,7 +7,8 @@
   inputs,
   osConfig,
   ...
-} @ args: {
+}@args:
+{
   programs.mpv = {
     enable = true;
     package = pkgs.svp-mpv;

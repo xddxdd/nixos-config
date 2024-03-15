@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
     Port 22
@@ -36,11 +37,15 @@
     #   6 = Use IPv6 only
     BindFamily 0
   '';
-in {
+in
+{
   services.endlessh = {
     enable = builtins.elem LT.tags.low-ram LT.this.tags;
     port = 22;
-    extraOptions = ["-f" "${cfg}"];
+    extraOptions = [
+      "-f"
+      "${cfg}"
+    ];
   };
 
   services.endlessh-go = {
@@ -58,9 +63,7 @@ in {
   };
 
   systemd.services.endlessh-go = {
-    after = ["network.target"];
-    serviceConfig.BindReadOnlyPaths = [
-      "/var/lib/GeoIP"
-    ];
+    after = [ "network.target" ];
+    serviceConfig.BindReadOnlyPaths = [ "/var/lib/GeoIP" ];
   };
 }

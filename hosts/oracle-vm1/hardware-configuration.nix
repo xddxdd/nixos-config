@@ -7,9 +7,10 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
 
-  boot.initrd.kernelModules = ["nvme"];
+  boot.initrd.kernelModules = [ "nvme" ];
 
   boot.loader.grub = {
     efiSupport = true;
@@ -19,12 +20,19 @@
   fileSystems."/nix" = {
     device = "/dev/sda2";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/sda1";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 }

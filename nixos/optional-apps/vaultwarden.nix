@@ -6,13 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./mysql.nix];
+}@args:
+{
+  imports = [ ./mysql.nix ];
 
   age.secrets.vaultwarden-env.file = inputs.secrets + "/vaultwarden-env.age";
 
   services.mysql = {
-    ensureDatabases = ["vaultwarden"];
+    ensureDatabases = [ "vaultwarden" ];
     ensureUsers = [
       {
         name = "vaultwarden";
@@ -68,7 +69,7 @@
   };
 
   systemd.services.vaultwarden = {
-    after = ["mysql.service"];
-    requires = ["mysql.service"];
+    after = [ "mysql.service" ];
+    requires = [ "mysql.service" ];
   };
 }

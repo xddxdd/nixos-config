@@ -6,9 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: let
-  inherit
-    (import ./common.nix args)
+}@args:
+let
+  inherit (import ./common.nix args)
     DN42_AS
     DN42_REGION
     NEO_AS
@@ -17,17 +17,16 @@
     typeToDN42Community
     ;
 
-  peer = n: v: let
-    interfaceName = "${v.peering.network}-${n}";
-    latency = builtins.toString (latencyToDN42Community v);
-    crypto = builtins.toString (typeToDN42Community v.tunnel.type);
-    localASN =
-      if v.peering.network == "dn42"
-      then DN42_AS
-      else NEO_AS;
-  in
-    if v.mode == "flapping"
-    then ""
+  peer =
+    n: v:
+    let
+      interfaceName = "${v.peering.network}-${n}";
+      latency = builtins.toString (latencyToDN42Community v);
+      crypto = builtins.toString (typeToDN42Community v.tunnel.type);
+      localASN = if v.peering.network == "dn42" then DN42_AS else NEO_AS;
+    in
+    if v.mode == "flapping" then
+      ""
     else
       lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
         protocol bgp ${lib.toLower (LT.sanitizeName interfaceName)}_v4 from dnpeers {
@@ -79,22 +78,27 @@
         };
       '';
 
-  staticRoute4 = n: v: let
-    interfaceName = "${v.peering.network}-${n}";
-  in
+  staticRoute4 =
+    n: v:
+    let
+      interfaceName = "${v.peering.network}-${n}";
+    in
     lib.optionalString (v.addressing.peerIPv4 != null) ''
       route ${v.addressing.peerIPv4}/32 via "${interfaceName}";
     '';
 
-  staticRoute6 = n: v: let
-    interfaceName = "${v.peering.network}-${n}";
-  in
+  staticRoute6 =
+    n: v:
+    let
+      interfaceName = "${v.peering.network}-${n}";
+    in
     lib.optionalString (v.addressing.peerIPv6 != null) ''
       route ${v.addressing.peerIPv6}/128 via "${interfaceName}";
     '';
 
-  cfg = config.services.dn42 or {};
-in {
+  cfg = config.services.dn42 or { };
+in
+{
   common = ''
     function dn42_import_filter_ipv4(int local_asn) {
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
@@ -326,9 +330,7 @@ in {
     }
   '';
 
-  hasPeers = cfg != {};
+  hasPeers = cfg != { };
 
-  peers =
-    builtins.concatStringsSep "\n"
-    (lib.mapAttrsToList peer cfg);
+  peers = builtins.concatStringsSep "\n" (lib.mapAttrsToList peer cfg);
 }

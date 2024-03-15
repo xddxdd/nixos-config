@@ -7,7 +7,8 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
@@ -16,8 +17,17 @@
     useOSProber = true;
   };
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "vmd" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"];
-  boot.kernelModules = ["kvm-intel"];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "vmd"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sdhci_pci"
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   boot.initrd.luks.devices."root" = {
     allowDiscards = true;
@@ -28,13 +38,21 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/5573-574D";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   fileSystems."/nix/persistent/home" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = ["subvol=home" "compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "subvol=home"
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/mnt/c" = {
@@ -50,19 +68,33 @@
   fileSystems."/mnt/root" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = ["subvol=nix" "compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "subvol=nix"
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/nix/persistent" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
-    options = ["subvol=persistent" "compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "subvol=persistent"
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
     neededForBoot = true;
   };
 

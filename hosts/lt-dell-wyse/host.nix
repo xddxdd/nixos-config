@@ -1,10 +1,10 @@
+{ tags, geo, ... }@args:
 {
-  tags,
-  geo,
-  ...
-} @ args: {
   index = 104;
-  tags = with tags; [client x86_64-v1];
+  tags = with tags; [
+    client
+    x86_64-v1
+  ];
   cpuThreads = 4;
   city = geo.cities."US Seattle";
   hostname = "192.168.0.207";

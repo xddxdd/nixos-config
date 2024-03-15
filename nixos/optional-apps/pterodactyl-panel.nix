@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   root = "/var/www/pterodactyl.xuyh0120.win";
   pterodactyl-artisan = pkgs.writeShellScriptBin "pterodactyl-artisan" ''
     cd ${root}
@@ -16,10 +17,9 @@
     cd ${root}
     sudo -u pterodactyl ${pkgs.phpPackages.composer}/bin/composer "$@"
   '';
-in {
-  imports = [
-    ./mysql.nix
-  ];
+in
+{
+  imports = [ ./mysql.nix ];
 
   environment.systemPackages = [
     pterodactyl-artisan
@@ -27,7 +27,7 @@ in {
   ];
 
   services.mysql = {
-    ensureDatabases = ["pterodactyl"];
+    ensureDatabases = [ "pterodactyl" ];
     ensureUsers = [
       {
         name = "pterodactyl";
@@ -39,26 +39,25 @@ in {
   };
 
   services.phpfpm.pools.pterodactyl = {
-    phpPackage = pkgs.php.withExtensions ({
-      enabled,
-      all,
-    }:
+    phpPackage = pkgs.php.withExtensions (
+      { enabled, all }:
       with all;
-        enabled
-        ++ [
-          bcmath
-          curl
-          gd
-          mbstring
-          mysqli
-          mysqlnd
-          openssl
-          pdo
-          pdo_mysql
-          tokenizer
-          xml
-          zip
-        ]);
+      enabled
+      ++ [
+        bcmath
+        curl
+        gd
+        mbstring
+        mysqli
+        mysqlnd
+        openssl
+        pdo
+        pdo_mysql
+        tokenizer
+        xml
+        zip
+      ]
+    );
     user = "pterodactyl";
     settings = {
       "listen.owner" = config.services.nginx.user;
@@ -80,7 +79,7 @@ in {
     user = "pterodactyl";
   };
 
-  lantian.nginxVhosts ."pterodactyl.xuyh0120.win" = {
+  lantian.nginxVhosts."pterodactyl.xuyh0120.win" = {
     root = "${root}/public";
     locations = {
       "/" = {
@@ -95,9 +94,7 @@ in {
     accessibleBy = "private";
   };
 
-  systemd.tmpfiles.rules = [
-    "d ${root} 755 pterodactyl pterodactyl"
-  ];
+  systemd.tmpfiles.rules = [ "d ${root} 755 pterodactyl pterodactyl" ];
 
   systemd.services.pterodactyl-cron = {
     description = "Pterodactyl Cron Job";
@@ -112,7 +109,11 @@ in {
       MemoryDenyWriteExecute = true;
       NoNewPrivileges = true;
       RemoveIPC = true;
-      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+      ];
       RestrictNamespaces = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
@@ -122,8 +123,8 @@ in {
   };
 
   systemd.timers.pterodactyl-cron = {
-    wantedBy = ["timers.target"];
-    partOf = ["pterodactyl-cron.service"];
+    wantedBy = [ "timers.target" ];
+    partOf = [ "pterodactyl-cron.service" ];
     timerConfig = {
       OnCalendar = "*:*";
       Unit = "pterodactyl-cron.service";
@@ -132,9 +133,15 @@ in {
 
   systemd.services.pterodactyl-queue-worker = {
     description = "Pterodactyl Queue Worker";
-    wantedBy = ["multi-user.target"];
-    after = ["redis-pterodactyl.service" "mysql.service"];
-    requires = ["redis-pterodactyl.service" "mysql.service"];
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "redis-pterodactyl.service"
+      "mysql.service"
+    ];
+    requires = [
+      "redis-pterodactyl.service"
+      "mysql.service"
+    ];
     serviceConfig = {
       ExecStart = "${pkgs.php}/bin/php artisan queue:work --queue=high,standard,low --sleep=3 --tries=3";
       User = "pterodactyl";
@@ -148,7 +155,11 @@ in {
       MemoryDenyWriteExecute = true;
       NoNewPrivileges = true;
       RemoveIPC = true;
-      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+      ];
       RestrictNamespaces = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
@@ -161,5 +172,5 @@ in {
     group = "pterodactyl";
     isSystemUser = true;
   };
-  users.groups.pterodactyl = {};
+  users.groups.pterodactyl = { };
 }

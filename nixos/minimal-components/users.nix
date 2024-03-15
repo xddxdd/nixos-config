@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
   unixHashedPassword = glauthUsers.lantian.passBcrypt;
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
-in {
+in
+{
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
   users.users = {
@@ -48,7 +50,7 @@ in {
     };
     container = {
       gid = 65533;
-      members = ["nginx"];
+      members = [ "nginx" ];
     };
   };
 }

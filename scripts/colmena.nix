@@ -1,8 +1,5 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: ''
+{ pkgs, inputs, ... }:
+''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
     ${pkgs.colmena}/bin/colmena $ACTION \

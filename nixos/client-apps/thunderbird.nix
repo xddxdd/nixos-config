@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   mkValue = v: {
     Value = v;
     Status = "locked";
   };
-in {
+in
+{
   # https://github.com/thundernest/policy-templates/tree/master/templates/central
   environment.etc."thunderbird/policies/policies.json".text = builtins.toJSON {
     policies = {
@@ -38,7 +40,5 @@ in {
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    thunderbird
-  ];
+  environment.systemPackages = with pkgs; [ thunderbird ];
 }

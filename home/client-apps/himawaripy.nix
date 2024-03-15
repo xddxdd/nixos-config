@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   himawaripy = pkgs.python3Packages.buildPythonPackage rec {
     inherit (LT.sources.himawaripy) pname version src;
 
@@ -16,7 +17,8 @@
       dateutil
     ];
   };
-in {
+in
+{
   systemd.user.services.himawaripy = lib.mkIf false {
     Service = {
       Type = "oneshot";
@@ -27,7 +29,7 @@ in {
 
   systemd.user.timers.himawaripy = lib.mkIf false {
     Install = {
-      WantedBy = ["timers.target"];
+      WantedBy = [ "timers.target" ];
     };
     Timer = {
       OnCalendar = "*:0/10";

@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./mysql.nix];
+}@args:
+{
+  imports = [ ./mysql.nix ];
 
   services.nextcloud = {
     enable = true;
@@ -47,7 +48,7 @@
 
   services.mysql = {
     enable = true;
-    ensureDatabases = ["nextcloud"];
+    ensureDatabases = [ "nextcloud" ];
     ensureUsers = [
       {
         name = "nextcloud";

@@ -7,9 +7,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   calibreLibrary = config.services.calibre-cops.libraryPath;
-in {
+in
+{
   options.services.calibre-cops = {
     libraryPath = lib.mkOption {
       type = lib.types.path;
@@ -20,18 +22,17 @@ in {
 
   config = {
     services.phpfpm.pools.calibre-cops = {
-      phpPackage = pkgs.php.withExtensions ({
-        enabled,
-        all,
-      }:
+      phpPackage = pkgs.php.withExtensions (
+        { enabled, all }:
         with all;
-          enabled
-          ++ [
-            gd
-            intl
-            sqlite3
-            xml
-          ]);
+        enabled
+        ++ [
+          gd
+          intl
+          sqlite3
+          xml
+        ]
+      );
       inherit (config.services.nginx) user;
       settings = {
         "listen.owner" = config.services.nginx.user;

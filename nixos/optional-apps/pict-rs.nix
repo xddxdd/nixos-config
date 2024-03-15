@@ -6,10 +6,12 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   cfg = config.services.lemmy;
-in {
-  imports = [./postgresql.nix];
+in
+{
+  imports = [ ./postgresql.nix ];
 
   services.pict-rs = {
     enable = true;
@@ -18,21 +20,19 @@ in {
   };
 
   systemd.services.pict-rs = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Restart = "always";
-        RestartSec = "3";
-        DynamicUser = lib.mkForce false;
-        User = "pict-rs";
-        Group = "pict-rs";
-        StateDirectory = "pict-rs";
-      };
+    serviceConfig = LT.serviceHarden // {
+      Restart = "always";
+      RestartSec = "3";
+      DynamicUser = lib.mkForce false;
+      User = "pict-rs";
+      Group = "pict-rs";
+      StateDirectory = "pict-rs";
+    };
   };
 
   users.users.pict-rs = {
     group = "pict-rs";
     isSystemUser = true;
   };
-  users.groups.pict-rs = {};
+  users.groups.pict-rs = { };
 }

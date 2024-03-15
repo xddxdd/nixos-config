@@ -6,9 +6,13 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   home.file.".condarc".text = builtins.toJSON {
-    channels = ["conda-forge" "defaults"];
+    channels = [
+      "conda-forge"
+      "defaults"
+    ];
     channel_priority = "strict";
   };
 }

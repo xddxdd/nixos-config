@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (config.common.nameservers) PublicNSRecords;
 
   email = [
@@ -172,7 +173,8 @@
       # GeoDNS for servers with sufficient storage
       name = "tools";
       ttl = "5m";
-      filter = n: v:
+      filter =
+        n: v:
         (builtins.elem "server" v.tags)
         && (builtins.elem "public-facing" v.tags)
         && (!(builtins.elem "low-disk" v.tags));
@@ -246,21 +248,20 @@
       ttl = "1h";
     }
   ];
-in {
+in
+{
   domains = [
     rec {
       domain = "lantian.pub";
       registrar = "porkbun";
-      providers = ["gcore"];
+      providers = [ "gcore" ];
       records = lib.flatten [
         {
           recordType = "GEO";
           # GeoDNS for public facing servers
           name = "@";
           ttl = "5m";
-          filter = n: v:
-            (builtins.elem "server" v.tags)
-            && (builtins.elem "public-facing" v.tags);
+          filter = n: v: (builtins.elem "server" v.tags) && (builtins.elem "public-facing" v.tags);
         }
         {
           recordType = "CNAME";

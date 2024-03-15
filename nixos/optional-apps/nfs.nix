@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   boot.extraModprobeConfig = ''
     options nfs nfs4_disable_idmapping=1
     options nfsd nfs4_disable_idmapping=1
@@ -24,7 +25,5 @@
     '';
   };
 
-  systemd.tmpfiles.rules = [
-    "d /run/nfs 755 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /run/nfs 755 root root" ];
 }

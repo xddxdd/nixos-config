@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   nvidia_x11 = config.boot.kernelPackages.nvidia_x11_vgpu;
-in {
+in
+{
   services.xserver.drivers = [
     {
       name = "modesetting";
@@ -19,16 +21,16 @@ in {
     }
   ];
 
-  environment.systemPackages = [nvidia_x11.bin];
+  environment.systemPackages = [ nvidia_x11.bin ];
 
-  hardware.opengl.extraPackages = [nvidia_x11.out];
+  hardware.opengl.extraPackages = [ nvidia_x11.out ];
 
   # systemd.packages = [nvidia_x11.out];
 
-  boot.extraModulePackages = [nvidia_x11.bin];
+  boot.extraModulePackages = [ nvidia_x11.bin ];
 
   # nvidia-uvm is required by CUDA applications.
-  boot.kernelModules = ["nvidia-uvm"];
+  boot.kernelModules = [ "nvidia-uvm" ];
 
   services.udev.extraRules = ''
     # Create /dev/nvidia-uvm when the nvidia-uvm module is loaded.
@@ -56,7 +58,13 @@ in {
     options nvidia "NVreg_DynamicPowerManagement=0x02"
   '';
 
-  boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-drm" "nvidia-modeset"];
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidiafb"
+    "nvidia"
+    "nvidia-drm"
+    "nvidia-modeset"
+  ];
 
   services.acpid.enable = true;
 

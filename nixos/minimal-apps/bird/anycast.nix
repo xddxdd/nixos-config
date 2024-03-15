@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   babel = ''
     protocol babel ltdocker {
       ipv4 {

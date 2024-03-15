@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [../postgresql.nix];
+}@args:
+{
+  imports = [ ../postgresql.nix ];
 
   age.secrets.keycloak-dbpw = {
     file = inputs.secrets + "/keycloak-dbpw.age";
@@ -24,7 +25,7 @@
       username = "keycloak";
       passwordFile = config.age.secrets.keycloak-dbpw.path;
     };
-    themes.lantian = pkgs.callPackage ./theme-lantian.nix {inherit (LT) sources;};
+    themes.lantian = pkgs.callPackage ./theme-lantian.nix { inherit (LT) sources; };
 
     sslCertificate = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
     sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";
@@ -41,24 +42,22 @@
     };
   };
 
-  systemd.services.keycloak.serviceConfig =
-    LT.serviceHarden
-    // {
-      AmbientCapabilities = lib.mkForce ["CAP_NET_BIND_SERVICE"];
-      CapabilityBoundingSet = lib.mkForce ["CAP_NET_BIND_SERVICE"];
-      DynamicUser = lib.mkForce false;
-      MemoryDenyWriteExecute = false;
+  systemd.services.keycloak.serviceConfig = LT.serviceHarden // {
+    AmbientCapabilities = lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    CapabilityBoundingSet = lib.mkForce [ "CAP_NET_BIND_SERVICE" ];
+    DynamicUser = lib.mkForce false;
+    MemoryDenyWriteExecute = false;
 
-      Restart = "always";
-      RestartSec = "10s";
-    };
+    Restart = "always";
+    RestartSec = "10s";
+  };
 
   users.users.keycloak = {
     useDefaultShell = true;
     group = "keycloak";
     isSystemUser = true;
   };
-  users.groups.keycloak = {};
+  users.groups.keycloak = { };
 
   lantian.nginxVhosts."login.lantian.pub" = {
     locations = {

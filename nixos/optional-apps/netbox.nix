@@ -6,10 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [
-    ./postgresql.nix
-  ];
+}@args:
+{
+  imports = [ ./postgresql.nix ];
 
   age.secrets.netbox-secret = {
     file = inputs.secrets + "/netbox-secret.age";
@@ -24,7 +23,7 @@
     port = LT.port.Netbox;
     secretKeyFile = config.age.secrets.netbox-secret.path;
     settings = {
-      CSRF_TRUSTED_ORIGINS = ["https://netbox.xuyh0120.win"];
+      CSRF_TRUSTED_ORIGINS = [ "https://netbox.xuyh0120.win" ];
       REMOTE_AUTH_AUTO_CREATE_GROUPS = true;
       REMOTE_AUTH_AUTO_CREATE_USER = true;
       REMOTE_AUTH_BACKEND = "netbox.authentication.RemoteUserBackend";
@@ -33,7 +32,7 @@
       REMOTE_AUTH_GROUP_SEPARATOR = ",";
       REMOTE_AUTH_GROUP_SYNC_ENABLED = true;
       REMOTE_AUTH_HEADER = "HTTP_X_USER";
-      REMOTE_AUTH_SUPERUSER_GROUPS = ["admin"];
+      REMOTE_AUTH_SUPERUSER_GROUPS = [ "admin" ];
       REMOTE_AUTH_USER_EMAIL = "HTTP_X_EMAIL";
     };
   };
@@ -54,5 +53,5 @@
   systemd.services.netbox.serviceConfig = LT.serviceHarden;
   systemd.services.netbox-rq.serviceConfig = LT.serviceHarden;
 
-  users.groups.netbox.members = ["nginx"];
+  users.groups.netbox.members = [ "nginx" ];
 }

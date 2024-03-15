@@ -6,9 +6,17 @@
   utils,
   inputs,
   ...
-} @ args: let
-  inherit (LT.this) hostname sshPort tags manualDeploy system;
-in {
+}@args:
+let
+  inherit (LT.this)
+    hostname
+    sshPort
+    tags
+    manualDeploy
+    system
+    ;
+in
+{
   deployment = {
     allowLocalDeployment = builtins.elem LT.tags.client tags;
     targetHost = hostname;

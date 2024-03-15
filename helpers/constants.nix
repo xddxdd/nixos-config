@@ -1,4 +1,5 @@
-{lib, ...}: rec {
+{ lib, ... }:
+rec {
   bindfsMountOptions = [
     "force-user=lantian"
     "force-group=lantian"
@@ -22,9 +23,7 @@
       "10.0.0.0/8"
     ];
 
-    IPv6 = [
-      "fd00::/8"
-    ];
+    IPv6 = [ "fd00::/8" ];
   };
 
   gui = {
@@ -33,13 +32,9 @@
   };
 
   neonetwork = {
-    IPv4 = [
-      "10.127.0.0/16"
-    ];
+    IPv4 = [ "10.127.0.0/16" ];
 
-    IPv6 = [
-      "fd10:127::/32"
-    ];
+    IPv6 = [ "fd10:127::/32" ];
   };
 
   dnssecKeys = [
@@ -55,9 +50,7 @@
   ];
 
   matrixWellKnown = {
-    server = builtins.toJSON {
-      "m.server" = "matrix.lantian.pub:${portStr.Matrix.Public}";
-    };
+    server = builtins.toJSON { "m.server" = "matrix.lantian.pub:${portStr.Matrix.Public}"; };
     client = builtins.toJSON {
       "m.server"."base_url" = "https://matrix.lantian.pub";
       "m.homeserver"."base_url" = "https://matrix.lantian.pub";
@@ -171,23 +164,20 @@
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
 
-  tags =
-    lib.genAttrs
-    [
-      # Usage
-      "client"
-      "nix-builder"
-      "public-facing"
-      "server"
+  tags = lib.genAttrs [
+    # Usage
+    "client"
+    "nix-builder"
+    "public-facing"
+    "server"
 
-      # Hardware
-      "i915-sriov"
-      "low-disk"
-      "low-ram"
-      "qemu"
-      "x86_64-v1"
-    ]
-    (v: v);
+    # Hardware
+    "i915-sriov"
+    "low-disk"
+    "low-ram"
+    "qemu"
+    "x86_64-v1"
+  ] (v: v);
 
   interfacePrefixes = {
     WAN = [
@@ -213,12 +203,45 @@
   };
 
   zones = {
-    DN42 = ["dn42" "10.in-addr.arpa" "20.172.in-addr.arpa" "21.172.in-addr.arpa" "22.172.in-addr.arpa" "23.172.in-addr.arpa" "31.172.in-addr.arpa" "d.f.ip6.arpa"];
-    NeoNetwork = ["neo"];
+    DN42 = [
+      "dn42"
+      "10.in-addr.arpa"
+      "20.172.in-addr.arpa"
+      "21.172.in-addr.arpa"
+      "22.172.in-addr.arpa"
+      "23.172.in-addr.arpa"
+      "31.172.in-addr.arpa"
+      "d.f.ip6.arpa"
+    ];
+    NeoNetwork = [ "neo" ];
     # .neo zone not included for conflict with NeoNetwork
-    OpenNIC = ["bbs" "chan" "cyb" "dns.opennic.glue" "dyn" "epic" "fur" "geek" "gopher" "indy" "libre" "null" "o" "opennic.glue" "oss" "oz" "parody" "pirate"];
-    Emercoin = ["bazar" "coin" "emc" "lib"];
-    CRXN = ["crxn"];
+    OpenNIC = [
+      "bbs"
+      "chan"
+      "cyb"
+      "dns.opennic.glue"
+      "dyn"
+      "epic"
+      "fur"
+      "geek"
+      "gopher"
+      "indy"
+      "libre"
+      "null"
+      "o"
+      "opennic.glue"
+      "oss"
+      "oz"
+      "parody"
+      "pirate"
+    ];
+    Emercoin = [
+      "bazar"
+      "coin"
+      "emc"
+      "lib"
+    ];
+    CRXN = [ "crxn" ];
     Ltnet = [
       "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
       "10.127.10.in-addr.arpa"

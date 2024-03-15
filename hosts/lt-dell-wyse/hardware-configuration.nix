@@ -7,25 +7,40 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
   };
 
-  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"];
-  boot.kernelModules = ["kvm-intel"];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "xhci_pci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sdhci_pci"
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/F5AA-FBC7";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/07d35261-a376-4784-81b3-54362c45cc57";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";

@@ -7,14 +7,13 @@
   lib,
   modulesPath,
   ...
-}: {
-  imports = [
-    ../../nixos/hardware/disable-watchdog.nix
-  ];
+}:
+{
+  imports = [ ../../nixos/hardware/disable-watchdog.nix ];
 
   boot.loader.grub.mirroredBoots = [
     {
-      devices = ["/dev/vda"];
+      devices = [ "/dev/vda" ];
       path = "/nix/boot";
     }
   ];
@@ -22,24 +21,33 @@
   fileSystems."/nix" = {
     device = "/dev/vda1";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/mnt/storage" = {
     device = "/dev/vdb";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev" "x-systemd.mount-timeout=infinity"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+      "x-systemd.mount-timeout=infinity"
+    ];
     neededForBoot = true;
   };
 
   fileSystems."/boot" = {
     device = "/nix/boot";
-    options = ["bind"];
+    options = [ "bind" ];
   };
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = ["/mnt/storage"];
+    fileSystems = [ "/mnt/storage" ];
   };
 
   services.qemuGuest.enable = true;

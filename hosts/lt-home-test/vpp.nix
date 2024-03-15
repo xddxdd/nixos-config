@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   vppStartupScript = pkgs.writeText "vpp.startup" ''
     set interface state GigabitEthernet6/13/0 up
     set dhcp client intfc GigabitEthernet6/13/0
@@ -46,10 +47,11 @@
       dev 0000:06:13.0
     }
   '';
-in {
+in
+{
   boot = {
-    kernelModules = ["igb_uio"];
-    extraModulePackages = with config.boot.kernelPackages; [dpdk-kmod];
+    kernelModules = [ "igb_uio" ];
+    extraModulePackages = with config.boot.kernelPackages; [ dpdk-kmod ];
     kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
@@ -59,8 +61,11 @@ in {
 
   systemd.services.vpp = {
     description = "Vector Packet Processing Process";
-    wantedBy = ["multi-user.target"];
-    path = with pkgs; [which iproute2];
+    wantedBy = [ "multi-user.target" ];
+    path = with pkgs; [
+      which
+      iproute2
+    ];
     serviceConfig = {
       ExecStartPre = [
         "-${pkgs.coreutils}/bin/rm -f /dev/shm/db /dev/shm/global_vm /dev/shm/vpe-api"
@@ -75,11 +80,11 @@ in {
     };
   };
 
-  environment.systemPackages = with pkgs; [vpp];
+  environment.systemPackages = with pkgs; [ vpp ];
 
   users.users.vpp = {
     group = "vpp";
     isSystemUser = true;
   };
-  users.groups.vpp = {};
+  users.groups.vpp = { };
 }

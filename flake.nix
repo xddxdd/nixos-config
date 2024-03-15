@@ -97,18 +97,16 @@
     };
   };
 
-  outputs = {
-    self,
-    flake-parts,
-    ...
-  } @ inputs: let
-    inherit (inputs.nixpkgs) lib;
-    LT = import ./helpers {
-      inherit lib inputs self;
-      inherit (self) nixosConfigurations;
-    };
-  in
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    { self, flake-parts, ... }@inputs:
+    let
+      inherit (inputs.nixpkgs) lib;
+      LT = import ./helpers {
+        inherit lib inputs self;
+        inherit (self) nixosConfigurations;
+      };
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake-modules/commands.nix
         ./flake-modules/nixos-configurations.nix
@@ -116,70 +114,86 @@
       ];
 
       debug = true;
-      systems = ["x86_64-linux" "aarch64-linux"];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       flake = rec {
         # Export for nixos-secrets
         inherit lib LT;
         exportPkgs = self.pkgs;
 
-        buildCommands = let
-          buildCommandFor = lib.concatMapStringsSep " " (host: ".#nixosConfigurations.${host}.config.system.build.toplevel");
-          hostsWithTag = tag: builtins.attrNames (lib.filterAttrs (n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
-        in {
-          all = buildCommandFor (builtins.attrNames LT.hosts);
-          x86_64-linux = buildCommandFor (hostsWithTag "x86_64-linux");
-        };
-
-        ipv4List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts));
-        ipv6List = builtins.concatStringsSep "\n" (lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts));
-      };
-
-      perSystem = {
-        config,
-        system,
-        pkgs,
-        ...
-      }: let
-        LT = import ./helpers {
-          inherit lib inputs self;
-          inherit (self) nixosConfigurations;
-          inherit pkgs;
-        };
-
-        extraArgs = {
-          inherit inputs;
-          LT = import ./helpers {inherit lib inputs pkgs;};
-          packages = self.packages."${pkgs.system}";
-        };
-      in {
-        formatter = pkgs.alejandra;
-
-        packages = rec {
-          # DNSControl
-          dnscontrol-config =
-            pkgs.writeText "dnsconfig.js"
-            ((lib.evalModules {
-                modules = [
-                  ./dns/default.nix
-                ];
-                specialArgs = {inherit pkgs lib LT inputs;};
-              })
-              .config
-              ._dnsconfig_js);
-
-          # Terraform
-          xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix {};
-
-          terraform-config = inputs.terranix.lib.terranixConfiguration {
-            inherit (pkgs) system;
-            modules = [./terraform];
-            inherit extraArgs;
+        buildCommands =
+          let
+            buildCommandFor = lib.concatMapStringsSep " " (
+              host: ".#nixosConfigurations.${host}.config.system.build.toplevel"
+            );
+            hostsWithTag =
+              tag: builtins.attrNames (lib.filterAttrs (n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
+          in
+          {
+            all = buildCommandFor (builtins.attrNames LT.hosts);
+            x86_64-linux = buildCommandFor (hostsWithTag "x86_64-linux");
           };
-          terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [
-            xddxdd-uptimerobot
-          ]);
-        };
+
+        ipv4List = builtins.concatStringsSep "\n" (
+          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts)
+        );
+        ipv6List = builtins.concatStringsSep "\n" (
+          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
+        );
       };
+
+      perSystem =
+        {
+          config,
+          system,
+          pkgs,
+          ...
+        }:
+        let
+          LT = import ./helpers {
+            inherit lib inputs self;
+            inherit (self) nixosConfigurations;
+            inherit pkgs;
+          };
+
+          extraArgs = {
+            inherit inputs;
+            LT = import ./helpers { inherit lib inputs pkgs; };
+            packages = self.packages."${pkgs.system}";
+          };
+        in
+        {
+          formatter = pkgs.nixfmt-rfc-style;
+
+          packages = rec {
+            # DNSControl
+            dnscontrol-config = pkgs.writeText "dnsconfig.js" (
+              (lib.evalModules {
+                modules = [ ./dns/default.nix ];
+                specialArgs = {
+                  inherit
+                    pkgs
+                    lib
+                    LT
+                    inputs
+                    ;
+                };
+              }).config._dnsconfig_js
+            );
+
+            # Terraform
+            xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix { };
+
+            terraform-config = inputs.terranix.lib.terranixConfiguration {
+              inherit (pkgs) system;
+              modules = [ ./terraform ];
+              inherit extraArgs;
+            };
+            terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [ xddxdd-uptimerobot ]);
+          };
+        };
     };
 }

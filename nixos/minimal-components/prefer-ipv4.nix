@@ -7,8 +7,11 @@
   utils,
   inputs,
   ...
-} @ args: {
-  options.lantian.prefer-ipv4 = (lib.mkEnableOption "Prefer IPv4 over IPv6") // {default = true;};
+}@args:
+{
+  options.lantian.prefer-ipv4 = (lib.mkEnableOption "Prefer IPv4 over IPv6") // {
+    default = true;
+  };
 
   config = lib.mkIf config.lantian.prefer-ipv4 {
     environment.etc."gai.conf".text = ''

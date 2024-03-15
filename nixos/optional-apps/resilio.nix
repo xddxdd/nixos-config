@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   rslConfig = {
     device_name = config.networking.hostName;
     storage_path = "/var/lib/resilio-sync/";
@@ -38,7 +39,8 @@
       password = "pass";
     };
   };
-in {
+in
+{
   options.lantian.resilio.storage = lib.mkOption {
     type = lib.types.str;
     default = "/nix/persistent/media";
@@ -71,43 +73,47 @@ in {
       group = "rslsync";
     };
 
-    users.groups.rslsync.members = ["nginx"];
+    users.groups.rslsync.members = [ "nginx" ];
 
     systemd.services.resilio = {
       description = "Resilio Sync Service";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target" "run-rslfiles.mount"];
-      requires = ["network.target" "run-rslfiles.mount"];
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network.target"
+        "run-rslfiles.mount"
+      ];
+      requires = [
+        "network.target"
+        "run-rslfiles.mount"
+      ];
 
-      script = let
-        cfgFile = pkgs.writeText "config.json" (builtins.toJSON rslConfig);
-      in ''
-        exec ${pkgs.ip2unix}/bin/ip2unix -r in,tcp,port=9000,path=/run/rslsync/rslsync.sock \
-          ${pkgs.resilio-sync}/bin/rslsync --nodaemon --config ${cfgFile}
-      '';
+      script =
+        let
+          cfgFile = pkgs.writeText "config.json" (builtins.toJSON rslConfig);
+        in
+        ''
+          exec ${pkgs.ip2unix}/bin/ip2unix -r in,tcp,port=9000,path=/run/rslsync/rslsync.sock \
+            ${pkgs.resilio-sync}/bin/rslsync --nodaemon --config ${cfgFile}
+        '';
 
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Restart = "on-abort";
-          UMask = "0002";
-          RuntimeDirectory = "rslsync";
-          ExecStartPost = pkgs.writeShellScript "rslsync-post" ''
-            while [ ! -S /run/rslsync/rslsync.sock ]; do sleep 1; done
-            chmod 777 /run/rslsync/rslsync.sock
-          '';
+      serviceConfig = LT.serviceHarden // {
+        Restart = "on-abort";
+        UMask = "0002";
+        RuntimeDirectory = "rslsync";
+        ExecStartPost = pkgs.writeShellScript "rslsync-post" ''
+          while [ ! -S /run/rslsync/rslsync.sock ]; do sleep 1; done
+          chmod 777 /run/rslsync/rslsync.sock
+        '';
 
-          User = "rslsync";
-          Group = "rslsync";
-          ReadWritePaths = ["/run/rslfiles"];
-          StateDirectory = "resilio-sync";
-          TimeoutStopSec = "10";
-        };
+        User = "rslsync";
+        Group = "rslsync";
+        ReadWritePaths = [ "/run/rslfiles" ];
+        StateDirectory = "resilio-sync";
+        TimeoutStopSec = "10";
+      };
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${config.lantian.resilio.storage} 755 root root"
-    ];
+    systemd.tmpfiles.rules = [ "d ${config.lantian.resilio.storage} 755 root root" ];
 
     lantian.nginxVhosts = {
       "resilio.${config.networking.hostName}.xuyh0120.win" = {

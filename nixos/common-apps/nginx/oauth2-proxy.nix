@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   age.secrets.oauth2-proxy-conf.file = inputs.secrets + "/oauth2-proxy-conf.age";
 
   services.oauth2_proxy = {
@@ -15,7 +16,7 @@
     cookie = {
       expire = "24h";
     };
-    email.domains = ["*"];
+    email.domains = [ "*" ];
     httpAddress = "unix:///run/oauth2_proxy/oauth2_proxy.sock";
     keyFile = config.age.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
@@ -27,19 +28,17 @@
     };
   };
   users.users.oauth2_proxy.group = "oauth2_proxy";
-  users.groups.oauth2_proxy.members = ["nginx"];
+  users.groups.oauth2_proxy.members = [ "nginx" ];
 
   systemd.services.oauth2_proxy = {
     unitConfig = {
       After = lib.mkForce "network.target nginx.service";
     };
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Restart = "always";
-        RestartSec = "3";
-        RuntimeDirectory = "oauth2_proxy";
-        UMask = "007";
-      };
+    serviceConfig = LT.serviceHarden // {
+      Restart = "always";
+      RestartSec = "3";
+      RuntimeDirectory = "oauth2_proxy";
+      UMask = "007";
+    };
   };
 }

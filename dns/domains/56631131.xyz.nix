@@ -5,12 +5,13 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "56631131.xyz";
       registrar = "porkbun";
-      providers = ["gcore"];
+      providers = [ "gcore" ];
       records = lib.flatten [
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal "${domain}.")

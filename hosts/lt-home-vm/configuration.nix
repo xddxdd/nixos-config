@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ../../nixos/server.nix
 
@@ -45,14 +46,20 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 16;
     verbosity = "crit";
-    extraOptions = ["--loadavg-target" "4"];
+    extraOptions = [
+      "--loadavg-target"
+      "4"
+    ];
   };
 
   services.beesd.filesystems.storage = {
     spec = config.fileSystems."/mnt/storage".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
-    extraOptions = ["--loadavg-target" "4"];
+    extraOptions = [
+      "--loadavg-target"
+      "4"
+    ];
   };
 
   services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
@@ -63,8 +70,14 @@
   '';
 
   systemd.network.networks.lan0 = {
-    address = ["192.168.1.10/24" "fc00:192:168:1::10/64"];
-    gateway = ["192.168.1.1" "fc00:192:168:1::1"];
+    address = [
+      "192.168.1.10/24"
+      "fc00:192:168:1::10/64"
+    ];
+    gateway = [
+      "192.168.1.1"
+      "fc00:192:168:1::1"
+    ];
     matchConfig.Name = "lan0";
   };
 
@@ -72,8 +85,11 @@
   services.printing = {
     browsing = true;
     defaultShared = true;
-    listenAddresses = ["127.0.0.1:631" "192.168.1.10:631"];
-    allowFrom = ["all"];
+    listenAddresses = [
+      "127.0.0.1:631"
+      "192.168.1.10:631"
+    ];
+    allowFrom = [ "all" ];
   };
 
   lantian.palworld-backup.storage = "/mnt/storage/palworld-backup";
@@ -81,8 +97,6 @@
 
   services."route-chain" = {
     enable = true;
-    routes = [
-      "172.22.76.97/29"
-    ];
+    routes = [ "172.22.76.97/29" ];
   };
 }

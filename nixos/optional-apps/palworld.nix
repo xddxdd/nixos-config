@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   backupPath = config.lantian.palworld-backup.storage;
-in {
+in
+{
   options.lantian.palworld-backup.storage = lib.mkOption {
     type = lib.types.str;
     default = "/mnt/storage/palworld-backup";
@@ -16,16 +18,19 @@ in {
   };
 
   config = {
-    environment.systemPackages = with pkgs; [rcon];
+    environment.systemPackages = with pkgs; [ rcon ];
 
     systemd.services.palworld = {
       description = "Palworld Server";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target"];
-      requires = ["network.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      requires = [ "network.target" ];
       environment.HOME = "/var/lib/palworld";
 
-      path = with pkgs; [steamcmd steam-run];
+      path = with pkgs; [
+        steamcmd
+        steam-run
+      ];
 
       preStart = ''
         # Update to latest server version
@@ -76,15 +81,15 @@ in {
 
         ProcSubset = "all";
         RestrictNamespaces = false;
-        SystemCallFilter = [];
+        SystemCallFilter = [ ];
       };
     };
 
     systemd.services.palworld-exporter = {
       description = "Palworld Prometheus Exporter";
-      wantedBy = ["multi-user.target"];
-      after = ["palworld.service"];
-      requires = ["palworld.service"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "palworld.service" ];
+      requires = [ "palworld.service" ];
 
       environment = {
         RCON_HOST = "127.0.0.1";
@@ -100,13 +105,11 @@ in {
         ${pkgs.palworld-exporter}/bin/palworld_exporter
       '';
 
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          User = "palworld";
-          Group = "palworld";
-          Restart = "on-failure";
-        };
+      serviceConfig = LT.serviceHarden // {
+        User = "palworld";
+        Group = "palworld";
+        Restart = "on-failure";
+      };
     };
 
     systemd.services.palworld-backup = {
@@ -118,21 +121,19 @@ in {
         cp -r /var/lib/palworld/Pal/Saved "/run/palworld-backup/$SUBDIR"
       '';
 
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          User = "palworld";
-          Group = "palworld";
+      serviceConfig = LT.serviceHarden // {
+        User = "palworld";
+        Group = "palworld";
 
-          Type = "oneshot";
-          ReadOnlyPaths = ["/var/lib/palworld"];
-          ReadWritePaths = ["/run/palworld-backup"];
-        };
+        Type = "oneshot";
+        ReadOnlyPaths = [ "/var/lib/palworld" ];
+        ReadWritePaths = [ "/run/palworld-backup" ];
+      };
     };
 
     systemd.timers.palworld-backup = {
-      wantedBy = ["timers.target"];
-      partOf = ["palworld-backup.service"];
+      wantedBy = [ "timers.target" ];
+      partOf = [ "palworld-backup.service" ];
       timerConfig = {
         OnCalendar = "*:0/10";
         RandomizedDelaySec = "1min";
@@ -144,7 +145,7 @@ in {
       group = "palworld";
       isSystemUser = true;
     };
-    users.groups.palworld = {};
+    users.groups.palworld = { };
 
     fileSystems = {
       "/run/palworld-backup" = lib.mkForce {

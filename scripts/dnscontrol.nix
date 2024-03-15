@@ -8,9 +8,11 @@
   fetchFromGitHub,
   age,
   ...
-} @ args: let
+}@args:
+let
   dnscontrol = pkgs.dnscontrol;
-in ''
+in
+''
   set -euxo pipefail
 
   CURR_DIR="$(pwd)"

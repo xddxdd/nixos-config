@@ -5,11 +5,12 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "lantian.neo";
-      providers = ["bind"];
+      providers = [ "bind" ];
       records = lib.flatten [
         config.common.records.SIP
 

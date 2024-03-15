@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   lantian.nginxVhosts = {
     "whois.lantian.pub" = {
       listenHTTP.enable = true;
@@ -20,7 +21,10 @@
       enableCommonLocationOptions = false;
       enableCommonVhostOptions = false;
 
-      serverAliases = ["whois.lantian.dn42" "whois.lantian.neo"];
+      serverAliases = [
+        "whois.lantian.dn42"
+        "whois.lantian.neo"
+      ];
       locations = {
         "/".extraConfig = ''
           rewrite "^/([^ ]+) .*$" /$1 break;

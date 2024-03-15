@@ -1,4 +1,5 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   characterMap = {
     "À" = "A";
     "Á" = "A";
@@ -406,6 +407,4 @@
     "Ё" = "Е";
   };
 in
-  builtins.replaceStrings
-  (builtins.attrNames characterMap)
-  (builtins.attrValues characterMap)
+builtins.replaceStrings (builtins.attrNames characterMap) (builtins.attrValues characterMap)

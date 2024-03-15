@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   root = "/var/www/ltn.pw";
 
   yourlsAddons = {
@@ -18,7 +19,9 @@
     "user/plugins/yourls-login-timeout" = LT.sources.yourls-login-timeout.src;
   };
 
-  yourlsAddonsInstall = builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "cp -r ${v} ${k}") yourlsAddons);
+  yourlsAddonsInstall = builtins.concatStringsSep "\n" (
+    lib.mapAttrsToList (k: v: "cp -r ${v} ${k}") yourlsAddons
+  );
 
   yourlsPackage = pkgs.stdenvNoCC.mkDerivation {
     inherit (LT.sources.yourls) pname version src;
@@ -33,30 +36,30 @@
       cp -r * $out/
     '';
   };
-in {
-  imports = [./mysql.nix];
+in
+{
+  imports = [ ./mysql.nix ];
 
   services.phpfpm.pools.yourls = {
-    phpPackage = pkgs.php.withExtensions ({
-      enabled,
-      all,
-    }:
+    phpPackage = pkgs.php.withExtensions (
+      { enabled, all }:
       with all;
-        enabled
-        ++ [
-          bcmath
-          curl
-          dom
-          filter
-          gmp
-          iconv
-          mbstring
-          openssl
-          pdo
-          pdo_mysql
-          posix
-          zlib
-        ]);
+      enabled
+      ++ [
+        bcmath
+        curl
+        dom
+        filter
+        gmp
+        iconv
+        mbstring
+        openssl
+        pdo
+        pdo_mysql
+        posix
+        zlib
+      ]
+    );
     user = "yourls";
     group = "yourls";
     settings = {
@@ -90,7 +93,7 @@ in {
 
   services.mysql = {
     enable = true;
-    ensureDatabases = ["yourls"];
+    ensureDatabases = [ "yourls" ];
     ensureUsers = [
       {
         name = "yourls";
@@ -106,5 +109,5 @@ in {
     isSystemUser = true;
   };
 
-  users.groups.yourls = {};
+  users.groups.yourls = { };
 }

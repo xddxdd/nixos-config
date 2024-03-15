@@ -6,10 +6,12 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   # Change pipewire-rtprio.nix as well
   realtimeLimitUS = 5000000;
-in {
+in
+{
   imports = [
     ./pipewire-airplay.nix
     ./pipewire-noise-cancelling.nix
@@ -20,7 +22,7 @@ in {
     ./wireplumber-bluez.nix
   ];
 
-  environment.systemPackages = [pkgs.pulseaudio];
+  environment.systemPackages = [ pkgs.pulseaudio ];
 
   security.rtkit.enable = true;
   systemd.services.rtkit-daemon.serviceConfig.ExecStart = [
@@ -39,5 +41,5 @@ in {
     wireplumber.enable = true;
   };
 
-  users.users.lantian.extraGroups = ["audio"];
+  users.users.lantian.extraGroups = [ "audio" ];
 }

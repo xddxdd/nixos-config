@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   filenames = [
     "wine-extension-chm.desktop"
     "wine-extension-hlp.desktop"
@@ -21,12 +22,14 @@
     "wine-extension-wri.desktop"
     "wine-extension-xml.desktop"
   ];
-in {
-  home.activation.block-wine-desktop-entries = builtins.concatStringsSep "\n" (builtins.map (f: ''
+in
+{
+  home.activation.block-wine-desktop-entries = builtins.concatStringsSep "\n" (
+    builtins.map (f: ''
       mkdir -p "$HOME/.local/share/applications"
       rm -f "$HOME/.local/share/applications/${f}"
       touch "$HOME/.local/share/applications/${f}"
       chmod 000 "$HOME/.local/share/applications/${f}"
-    '')
-    filenames);
+    '') filenames
+  );
 }

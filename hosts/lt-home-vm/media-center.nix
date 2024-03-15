@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.wg-lantian;
 
   transmissionDownloadPath = "/mnt/storage/downloads";
@@ -15,7 +16,8 @@
   flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
-in {
+in
+{
   imports = [
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
@@ -42,16 +44,14 @@ in {
   # Sonarr
   ########################################
 
-  systemd.services.flexget-runner = netns.bind {};
+  systemd.services.flexget-runner = netns.bind { };
 
   systemd.services.flaresolverr-netns = netns.bind {
     description = "FlareSolverr (in NetNS)";
-    wantedBy = ["multi-user.target"];
-    after = ["network.target"];
-    wants = ["network.target"];
-    path = with pkgs; [
-      xorg.xorgserver
-    ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    wants = [ "network.target" ];
+    path = with pkgs; [ xorg.xorgserver ];
     environment = {
       HOME = "/run/flaresolverr-netns";
       HOST = "127.0.0.1";
@@ -61,58 +61,50 @@ in {
       LANG = config.i18n.defaultLocale;
       TEST_URL = "https://www.example.com";
     };
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
-        ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
-        RuntimeDirectory = "flaresolverr-netns";
-        WorkingDirectory = "/run/flaresolverr-netns";
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
+      RuntimeDirectory = "flaresolverr-netns";
+      WorkingDirectory = "/run/flaresolverr-netns";
 
-        MemoryDenyWriteExecute = false;
-        SystemCallFilter = lib.mkForce [];
-      };
+      MemoryDenyWriteExecute = false;
+      SystemCallFilter = lib.mkForce [ ];
+    };
   };
 
-  systemd.services.prowlarr = netns.bind {};
+  systemd.services.prowlarr = netns.bind { };
 
   systemd.services.radarr = netns.bind {
-    after = ["mnt-storage.mount"];
-    requires = ["mnt-storage.mount"];
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        BindPaths = [
-          radarrMediaPath
-          transmissionSonarrDownloadPath
-          qBitTorrentSonarrDownloadPath
-        ];
-      };
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [
+        radarrMediaPath
+        transmissionSonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
+    };
   };
 
   systemd.services.sonarr = netns.bind {
-    after = ["mnt-storage.mount"];
-    requires = ["mnt-storage.mount"];
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        BindPaths = [
-          sonarrMediaPath
-          transmissionSonarrDownloadPath
-          qBitTorrentSonarrDownloadPath
-        ];
-      };
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [
+        sonarrMediaPath
+        transmissionSonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
+    };
   };
 
   systemd.services.qbittorrent = netns.bind {
-    after = ["mnt-storage.mount"];
-    requires = ["mnt-storage.mount"];
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
     serviceConfig = {
-      BindPaths = [
-        qBitTorrentSonarrDownloadPath
-      ];
+      BindPaths = [ qBitTorrentSonarrDownloadPath ];
     };
   };
 
@@ -148,8 +140,8 @@ in {
   };
 
   systemd.services.transmission = {
-    after = ["mnt-storage.mount"];
-    requires = ["mnt-storage.mount"];
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
     serviceConfig.BindPaths = [
       transmissionDownloadPath
       transmissionSonarrDownloadPath

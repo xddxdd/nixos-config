@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "docker-vm" ''
       export DOCKER_HOST=unix:///run/docker-vm/docker.sock
@@ -72,11 +73,9 @@
         enableOnBoot = true;
         autoPrune = {
           enable = true;
-          flags = ["-af"];
+          flags = [ "-af" ];
         };
-        listenOptions = [
-          "/run/docker-vm/docker.sock"
-        ];
+        listenOptions = [ "/run/docker-vm/docker.sock" ];
 
         daemon.settings = {
           experimental = true;

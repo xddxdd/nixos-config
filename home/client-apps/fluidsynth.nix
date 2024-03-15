@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.fluidsynth = {
     enable = true;
     soundFont = LT.constants.soundfontPath pkgs;

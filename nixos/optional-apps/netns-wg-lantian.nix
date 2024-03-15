@@ -6,11 +6,13 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.wg-lantian;
 
   wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
-in {
+in
+{
   age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
 
   environment.etc."netns/wg-lantian/resolv.conf".text = ''
@@ -35,18 +37,19 @@ in {
       {
         endpoint = "${LT.hosts.buyvm.public.IPv4}:22547";
         publicKey = wg-pubkey.buyvm;
-        allowedIPs = ["0.0.0.0/0" "::/0"];
+        allowedIPs = [
+          "0.0.0.0/0"
+          "::/0"
+        ];
         persistentKeepalive = 25;
       }
     ];
   };
 
   systemd.services = {
-    "wireguard-wg-lantian" =
-      netns.bindExisting
-      // {
-        # Don't override network namespace
-        serviceConfig = {};
-      };
+    "wireguard-wg-lantian" = netns.bindExisting // {
+      # Don't override network namespace
+      serviceConfig = { };
+    };
   };
 }

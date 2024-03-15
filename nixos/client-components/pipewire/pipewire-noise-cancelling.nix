@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.pipewire.configPackages = [
     (pkgs.writeTextFile {
       name = "pipewire-noise-cancelling";
