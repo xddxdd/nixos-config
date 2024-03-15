@@ -28,7 +28,7 @@ in
         # Used by ltnet
         dn42.communityFilters
       ]
-      ++ lib.optionals (LT.this.hasTag LT.tags.server) [
+      ++ lib.optionals (LT.this.hasTag LT.tags.dn42) [
         sys.roa
         sys.roaMonitor
 

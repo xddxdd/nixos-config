@@ -13,24 +13,34 @@ let
   peer =
     hostname:
     {
+      hasTag,
       ltnet,
       index,
       city,
       ...
     }:
+    let
+      exchangeAllRoutes = LT.this.hasTag LT.tags.dn42 && hasTag LT.tags.dn42;
+    in
     lib.optionalString (!ltnet.alone) ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fdbc:f9dc:67ad::${builtins.toString index}%'zthnhe4bol' internal;
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
+          add paths ${if exchangeAllRoutes then "yes" else "no"};
           import filter ltnet_import_filter_v4;
-          export filter ltnet_export_filter_v4;
+          export filter ${
+            if exchangeAllRoutes then "ltnet_export_filter_v4" else "ltnet_export_aggregated_filter_v4"
+          };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
+          add paths ${if exchangeAllRoutes then "yes" else "no"};
           import filter ltnet_import_filter_v6;
-          export filter ltnet_export_filter_v6;
+          export filter ${
+            if exchangeAllRoutes then "ltnet_export_filter_v6" else "ltnet_export_aggregated_filter_v6"
+          };
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
@@ -102,6 +112,14 @@ in
       reject;
     }
 
+    filter ltnet_export_aggregated_filter_v4 {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv4 then reject;
+      if net ~ LTNET_IPv4 then accept;
+      reject;
+    }
+
     filter ltnet_import_filter_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
@@ -113,6 +131,14 @@ in
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
+      reject;
+    }
+
+    filter ltnet_export_aggregated_filter_v6 {
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
+      if ifindex = 0 then reject;
+      if net ~ LTNET_UNMANAGED_IPv6 then reject;
+      if net ~ LTNET_IPv6 then accept;
       reject;
     }
 

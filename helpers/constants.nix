@@ -167,6 +167,7 @@ rec {
   tags = lib.genAttrs [
     # Usage
     "client"
+    "dn42"
     "nix-builder"
     "public-facing"
     "server"
