@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.printing = {
     enable = true;
     startWhenNeeded = false;
@@ -50,7 +51,5 @@
     RestartSec = "3";
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/cups-pdf 755 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /var/lib/cups-pdf 755 root root" ];
 }

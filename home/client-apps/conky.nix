@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   verticalSize = 16;
   spaceSize = verticalSize / 2;
   alignX = 11;
@@ -22,33 +23,30 @@
 
   padString = s: "${offset (alignX - lib.stringLength s)}${s}";
 
-  fsUsage = path:
+  fsUsage =
+    path:
     ""
     + "\${if_mounted ${path}}"
     + (kv path "\${fs_used_perc ${path}}% \$alignr \${fs_used ${path}} ${gray "/"} \${fs_size ${path}}")
     + (kv "" "\${fs_bar 4 ${path}}")
     + "\${endif}";
-  netGateway =
-    ""
-    + "\${if_gw}"
-    + (kv "Gateway" "$gw_ip ${gray "%"} $gw_iface")
-    + "\${endif}";
-  netUsage = interface:
+  netGateway = "" + "\${if_gw}" + (kv "Gateway" "$gw_ip ${gray "%"} $gw_iface") + "\${endif}";
+  netUsage =
+    interface:
     ""
     + "\${if_up ${interface}}"
     + (kv interface "${gray "IP:"} \${addrs ${interface}}")
     + (kv "" "${gray "up:"} \${upspeed ${interface}}${goto centerX}${gray "down:"} \${downspeed ${interface}}")
     + "\${endif}";
-  processInfo = i: let
-    n = builtins.toString i;
-  in "${reset}${gray "\${top name ${n}}"}${goto 20}\${top pid ${n}}${goto 28}\${top cpu ${n}}${goto 35}\${top mem ${n}}\n";
+  processInfo =
+    i:
+    let
+      n = builtins.toString i;
+    in
+    "${reset}${gray "\${top name ${n}}"}${goto 20}\${top pid ${n}}${goto 28}\${top cpu ${n}}${goto 35}\${top mem ${n}}\n";
 
   kv = k: v: "${reset}${kvNoLF k v}\n";
-  kvNoLF = k: v: "${reset}${gray (padString (
-    if k != ""
-    then k + ":"
-    else ""
-  ))} ${v}";
+  kvNoLF = k: v: "${reset}${gray (padString (if k != "" then k + ":" else ""))} ${v}";
   sep = "${reset}${gray "$hr"}\n";
   reset = "${goto 0}";
 
@@ -67,22 +65,35 @@
     (kv "" "\${swapbar 4}")
     (kv "Battery" "$battery_percent% $alignr $battery_time")
     (kv "" "\${battery_bar 4}")
-    ("\${if_existing /sys/bus/pci/devices/0000:01:00.0/power_state}" + (kvNoLF "GPU Power" "\${head /sys/bus/pci/devices/0000:01:00.0/power_state 1}") + "\${endif}")
+    (
+      "\${if_existing /sys/bus/pci/devices/0000:01:00.0/power_state}"
+      + (kvNoLF "GPU Power" "\${head /sys/bus/pci/devices/0000:01:00.0/power_state 1}")
+      + "\${endif}"
+    )
     (kv "Processes" "$running_processes ${gray "running /"} $processes ${gray "total"}")
     (kv "Threads" "$running_threads ${gray "running /"} $threads ${gray "total"}")
     sep
 
-    (builtins.map fsUsage ["/" "/nix" "/mnt/c"])
+    (builtins.map fsUsage [
+      "/"
+      "/nix"
+      "/mnt/c"
+    ])
     sep
 
     netGateway
-    (builtins.map netUsage ["eth0" "wlan0" "wg-lantian"])
+    (builtins.map netUsage [
+      "eth0"
+      "wlan0"
+      "wg-lantian"
+    ])
     sep
 
     "${reset}${goto 24}${gray "PID"}${goto 30}${gray "CPU%"}${goto 37}${gray "MEM%"}\n"
     (builtins.map processInfo (lib.range 1 10))
   ];
-in {
+in
+{
   xdg.configFile =
     (LT.gui.autostart [
       {

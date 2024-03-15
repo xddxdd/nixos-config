@@ -4,7 +4,8 @@
   LT,
   packages,
   ...
-}: {
+}:
+{
   terraform.required_providers = {
     uptimerobot = {
       source = "private.lantian.pub/xddxdd/uptimerobot";
@@ -48,8 +49,8 @@
         url = "https://lantian.pub";
         interval = 300;
         alert_contact = [
-          {id = "\${uptimerobot_alert_contact.email.id}";}
-          {id = "\${uptimerobot_alert_contact.telegram.id}";}
+          { id = "\${uptimerobot_alert_contact.email.id}"; }
+          { id = "\${uptimerobot_alert_contact.telegram.id}"; }
         ];
       };
 
@@ -59,9 +60,7 @@
         sub_type = "https";
         url = "oracle-lb.lantian.pub";
         interval = 300;
-        alert_contact = [
-          {id = "\${uptimerobot_alert_contact.telegram.id}";}
-        ];
+        alert_contact = [ { id = "\${uptimerobot_alert_contact.telegram.id}"; } ];
       };
 
       utils_oracle_nlb = {
@@ -70,12 +69,11 @@
         sub_type = "https";
         url = "oracle-nlb.lantian.pub";
         interval = 300;
-        alert_contact = [
-          {id = "\${uptimerobot_alert_contact.telegram.id}";}
-        ];
+        alert_contact = [ { id = "\${uptimerobot_alert_contact.telegram.id}"; } ];
       };
     }
-    // (lib.mapAttrs' (n: v:
+    // (lib.mapAttrs' (
+      n: v:
       lib.nameValuePair "blog_${LT.sanitizeName n}" {
         friendly_name = "Blog/${n}";
         type = "http";
@@ -83,8 +81,8 @@
         interval = 300;
         alert_contact = [
           # {id = "\${uptimerobot_alert_contact.email.id}";}
-          {id = "\${uptimerobot_alert_contact.telegram.id}";}
+          { id = "\${uptimerobot_alert_contact.telegram.id}"; }
         ];
-      })
-    (LT.hostsWithTag "public-facing"));
+      }
+    ) (LT.hostsWithTag "public-facing"));
 }

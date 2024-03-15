@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   xdg.configFile."ansible/ansible.cfg".text = ''
     [defaults]
     gathering = explicit
@@ -19,10 +20,9 @@
     retries = 3
   '';
 
-  xdg.configFile."ansible/hosts".text =
-    lib.concatStringsSep
-    "\n"
-    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts)));
+  xdg.configFile."ansible/hosts".text = lib.concatStringsSep "\n" (
+    [ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts))
+  );
 
   home.sessionVariables.ANSIBLE_CONFIG = "${config.home.homeDirectory}/.config/ansible/ansible.cfg";
 }

@@ -6,11 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: {
-  age.secrets.dn42-pingfinder-uuid.file = inputs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
+}@args:
+{
+  age.secrets.dn42-pingfinder-uuid.file =
+    inputs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
-  age.secrets.dn42-virmach-ny1g-ceremon-openvpn.file = inputs.secrets + "/dn42/virmach-ny1g-ceremon-openvpn.age";
+  age.secrets.dn42-virmach-ny1g-ceremon-openvpn.file =
+    inputs.secrets + "/dn42/virmach-ny1g-ceremon-openvpn.age";
 
   services.dn42 = {
     exabyte = {

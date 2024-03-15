@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.pipewire.configPackages = [
     (pkgs.writeTextFile {
       name = "pipewire-zeroconf";
@@ -14,7 +15,7 @@
         "context.modules" = [
           {
             name = "libpipewire-module-zeroconf-discover";
-            args = {};
+            args = { };
           }
         ];
       };

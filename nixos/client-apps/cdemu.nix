@@ -6,11 +6,12 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   cdemuDBusService = pkgs.stdenv.mkDerivation {
     pname = "cdemu-dbus-service";
     version = "1.0.0";
-    phases = ["installPhase"];
+    phases = [ "installPhase" ];
     installPhase = ''
       mkdir -p $out/share/dbus-1/services
       cat >$out/share/dbus-1/services/net.sf.cdemu.CDEmuDaemon.service <<EOF
@@ -21,7 +22,8 @@
       EOF
     '';
   };
-in {
+in
+{
   programs.cdemu = {
     enable = true;
     group = "wheel";
@@ -29,7 +31,7 @@ in {
     image-analyzer = true;
   };
 
-  services.dbus.packages = [cdemuDBusService];
+  services.dbus.packages = [ cdemuDBusService ];
 
   systemd.user.services.cdemu-daemon = {
     serviceConfig = {

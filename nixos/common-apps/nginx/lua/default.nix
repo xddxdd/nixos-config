@@ -3,7 +3,8 @@
   lantianPersonal,
   writeText,
   ...
-} @ args: let
+}@args:
+let
   lantian_nginx = writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"
     local ltnginx   = ffi.load("${lantianPersonal.libltnginx}/lib/libltnginx.so")
@@ -143,7 +144,7 @@
     return lantian_whois
   '';
 in
-  linkFarm "nginx-lua" {
-    "lantian_nginx.lua" = lantian_nginx;
-    "lantian_whois.lua" = lantian_whois;
-  }
+linkFarm "nginx-lua" {
+  "lantian_nginx.lua" = lantian_nginx;
+  "lantian_whois.lua" = lantian_whois;
+}

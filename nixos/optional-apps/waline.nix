@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
 
   lantian.nginxVhosts = {
@@ -28,9 +29,9 @@
 
   systemd.services.waline = {
     description = "Waline Comment System";
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"];
-    requires = ["network-online.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    requires = [ "network-online.target" ];
 
     preStart = ''
       ${pkgs.yarn}/bin/yarn add @waline/vercel
@@ -44,27 +45,25 @@
       EOF
     '';
 
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        EnvironmentFile = config.age.secrets.waline-env.path;
-        ExecStart = "${pkgs.nodejs}/bin/node node_modules/@waline/vercel/vanilla.js";
+    serviceConfig = LT.serviceHarden // {
+      EnvironmentFile = config.age.secrets.waline-env.path;
+      ExecStart = "${pkgs.nodejs}/bin/node node_modules/@waline/vercel/vanilla.js";
 
-        Restart = "always";
-        RestartSec = "3";
+      Restart = "always";
+      RestartSec = "3";
 
-        CacheDirectory = "waline";
-        WorkingDirectory = "/var/cache/waline";
+      CacheDirectory = "waline";
+      WorkingDirectory = "/var/cache/waline";
 
-        User = "waline";
-        Group = "waline";
-        MemoryDenyWriteExecute = lib.mkForce false;
-      };
+      User = "waline";
+      Group = "waline";
+      MemoryDenyWriteExecute = lib.mkForce false;
+    };
   };
 
   users.users.waline = {
     group = "waline";
     isSystemUser = true;
   };
-  users.groups.waline = {};
+  users.groups.waline = { };
 }

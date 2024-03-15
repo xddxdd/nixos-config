@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
-in rec {
+in
+rec {
   transports = ''
     [template-transport-common](!)
     type=transport

@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   musics = [
@@ -31,7 +32,10 @@
       sha256 = "09ij277jd4pqcpgbhc6wkyvnzhwcgdpkv86vknyvlyq2x9915rph";
     };
 
-    nativeBuildInputs = with pkgs; [ffmpeg zstd];
+    nativeBuildInputs = with pkgs; [
+      ffmpeg
+      zstd
+    ];
 
     installPhase = ''
       mkdir -p $out
@@ -43,31 +47,29 @@
       done
     '';
   };
-in rec {
-  destLocalForwardMusic = digits: let
-    randomForwardRule = dialRule "0000" [
-      "Goto(dest-music,\${RAND(1,${builtins.toString (builtins.length musics)})},1)"
-    ];
+in
+rec {
+  destLocalForwardMusic =
+    digits:
+    let
+      randomForwardRule = dialRule "0000" [
+        "Goto(dest-music,\${RAND(1,${builtins.toString (builtins.length musics)})},1)"
+      ];
 
-    individualRules =
-      lib.genList
-      (i:
+      individualRules = lib.genList (
+        i:
         dialRule (prefixZeros digits (builtins.toString (i + 1))) [
           "Goto(dest-music,${builtins.toString (i + 1)},1)"
-        ])
-      (builtins.length musics);
-  in
-    builtins.concatStringsSep "\n" ([randomForwardRule] ++ individualRules);
+        ]
+      ) (builtins.length musics);
+    in
+    builtins.concatStringsSep "\n" ([ randomForwardRule ] ++ individualRules);
 
-  destMusic =
-    lib.concatMapStringsSep "\n"
-    ({
-      index,
-      value,
-    }:
-      dialRule (builtins.toString (index + 1)) [
-        "Answer()"
-        "Playback(${musicSrc}/${value})"
-      ])
-    (LT.enumerateList musics);
+  destMusic = lib.concatMapStringsSep "\n" (
+    { index, value }:
+    dialRule (builtins.toString (index + 1)) [
+      "Answer()"
+      "Playback(${musicSrc}/${value})"
+    ]
+  ) (LT.enumerateList musics);
 }

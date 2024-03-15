@@ -5,7 +5,7 @@
   fetchurl,
   unzip,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   pname = "glibc-debian-openvz-files";
   version = "2.28-9910.0";
@@ -17,7 +17,10 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [dpkg unzip];
+  nativeBuildInputs = [
+    dpkg
+    unzip
+  ];
 
   installPhase = ''
     mkdir -p $out/binary

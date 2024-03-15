@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./mysql.nix];
+}@args:
+{
+  imports = [ ./mysql.nix ];
 
   services.gitea = {
     enable = true;
@@ -88,7 +89,7 @@
   };
 
   services.mysql = {
-    ensureDatabases = ["gitea"];
+    ensureDatabases = [ "gitea" ];
     ensureUsers = [
       {
         name = "git";
@@ -107,7 +108,7 @@
     isSystemUser = true;
   };
 
-  users.groups.gitea = {};
+  users.groups.gitea = { };
 
   lantian.nginxVhosts."git.lantian.pub" = {
     locations = {

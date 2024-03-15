@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.netease;
 
   netease-cloud-music = pkgs.netease-cloud-music;
-in {
-  environment.systemPackages = [netease-cloud-music];
+in
+{
+  environment.systemPackages = [ netease-cloud-music ];
 
   environment.etc."netns/netease/resolv.conf".text = ''
     nameserver 114.114.114.114
@@ -25,31 +27,32 @@ in {
   systemd.services = {
     unblock-netease-music = {
       description = "Unblock NetEase Music";
-      wantedBy = ["multi-user.target"];
-      after = ["network-online.target"];
-      requires = ["network-online.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
 
       environment.HOME = "/var/cache/unblock-netease-music";
-      path = with pkgs; [bash nodejs];
+      path = with pkgs; [
+        bash
+        nodejs
+      ];
 
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Restart = "always";
-          RestartSec = "3";
+      serviceConfig = LT.serviceHarden // {
+        Restart = "always";
+        RestartSec = "3";
 
-          ExecStart =
-            "${pkgs.nodejs}/bin/npx -p @unblockneteasemusic/server unblockneteasemusic"
-            + " -p ${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS}"
-            + " -a ${LT.this.ltnet.IPv4}";
+        ExecStart =
+          "${pkgs.nodejs}/bin/npx -p @unblockneteasemusic/server unblockneteasemusic"
+          + " -p ${LT.portStr.NeteaseUnlock.HTTP}:${LT.portStr.NeteaseUnlock.HTTPS}"
+          + " -a ${LT.this.ltnet.IPv4}";
 
-          CacheDirectory = "unblock-netease-music";
-          WorkingDirectory = "/var/cache/unblock-netease-music";
+        CacheDirectory = "unblock-netease-music";
+        WorkingDirectory = "/var/cache/unblock-netease-music";
 
-          User = "unblock-netease-music";
-          Group = "unblock-netease-music";
-          MemoryDenyWriteExecute = lib.mkForce false;
-        };
+        User = "unblock-netease-music";
+        Group = "unblock-netease-music";
+        MemoryDenyWriteExecute = lib.mkForce false;
+      };
     };
   };
 
@@ -72,5 +75,5 @@ in {
     group = "unblock-netease-music";
     isSystemUser = true;
   };
-  users.groups.unblock-netease-music = {};
+  users.groups.unblock-netease-music = { };
 }

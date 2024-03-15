@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
-in {
+in
+{
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
     directories = [
@@ -26,19 +28,24 @@ in {
     ];
   };
 
-  age.identityPaths = ["/nix/persistent/etc/ssh/ssh_host_ed25519_key"];
+  age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
   fileSystems = {
     "/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = ["relatime" "mode=755" "nosuid" "nodev"];
+      options = [
+        "relatime"
+        "mode=755"
+        "nosuid"
+        "nodev"
+      ];
     };
   };
 
   services.btrfs.autoScrub = lib.mkIf isBtrfsRoot {
     enable = true;
     interval = "weekly";
-    fileSystems = ["/nix"];
+    fileSystems = [ "/nix" ];
   };
 }

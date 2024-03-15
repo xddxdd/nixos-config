@@ -5,16 +5,12 @@
   LT,
   inputs,
   ...
-} @ args: {
-  name,
-  config,
-  ...
-}: {
+}@args:
+{ name, config, ... }:
+{
   freeformType = lib.types.attrsOf lib.types.anything;
   options = {
-    name = lib.mkOption {
-      type = lib.types.str;
-    };
+    name = lib.mkOption { type = lib.types.str; };
     reverse = lib.mkOption {
       type = lib.types.bool;
       default = false;

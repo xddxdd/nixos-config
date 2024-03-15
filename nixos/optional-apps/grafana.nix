@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./mysql.nix];
+}@args:
+{
+  imports = [ ./mysql.nix ];
 
   age.secrets.grafana-oauth = {
     file = inputs.secrets + "/grafana-oauth.age";
@@ -80,13 +81,13 @@
   systemd.services.grafana.serviceConfig = {
     EnvironmentFile = config.age.secrets.grafana-oauth.path;
     Restart = "on-failure";
-    SystemCallFilter = ["@chown"];
+    SystemCallFilter = [ "@chown" ];
   };
 
-  users.users.nginx.extraGroups = ["grafana"];
+  users.users.nginx.extraGroups = [ "grafana" ];
 
   services.mysql = {
-    ensureDatabases = ["grafana"];
+    ensureDatabases = [ "grafana" ];
     ensureUsers = [
       {
         name = "grafana";

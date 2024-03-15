@@ -3,10 +3,11 @@
   pkgs,
   lib,
   ...
-}: netns: pkg:
+}:
+netns: pkg:
 pkgs.stdenv.mkDerivation {
   inherit (pkg) pname version;
-  phases = ["installPhase"];
+  phases = [ "installPhase" ];
   installPhase = ''
     # Link everything except bin folder
     mkdir -p $out/bin

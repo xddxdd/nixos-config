@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ./flaresolverr.nix
     ./qbittorrent.nix
@@ -14,15 +15,18 @@
 
   services.prowlarr.enable = true;
   systemd.services.prowlarr = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-        MemoryDenyWriteExecute = false;
-        DynamicUser = lib.mkForce false;
-        User = "lantian";
-        Group = "users";
-      };
+    serviceConfig = LT.serviceHarden // {
+      RestrictAddressFamilies = [
+        "AF_INET"
+        "AF_INET6"
+        "AF_UNIX"
+        "AF_NETLINK"
+      ];
+      MemoryDenyWriteExecute = false;
+      DynamicUser = lib.mkForce false;
+      User = "lantian";
+      Group = "users";
+    };
   };
 
   services.radarr = {
@@ -32,13 +36,16 @@
     dataDir = "/var/lib/radarr";
   };
   systemd.services.radarr = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-        StateDirectory = "radarr";
-        MemoryDenyWriteExecute = false;
-      };
+    serviceConfig = LT.serviceHarden // {
+      RestrictAddressFamilies = [
+        "AF_INET"
+        "AF_INET6"
+        "AF_UNIX"
+        "AF_NETLINK"
+      ];
+      StateDirectory = "radarr";
+      MemoryDenyWriteExecute = false;
+    };
   };
 
   services.sonarr = {
@@ -48,13 +55,16 @@
     dataDir = "/var/lib/sonarr";
   };
   systemd.services.sonarr = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-        StateDirectory = "sonarr";
-        MemoryDenyWriteExecute = false;
-      };
+    serviceConfig = LT.serviceHarden // {
+      RestrictAddressFamilies = [
+        "AF_INET"
+        "AF_INET6"
+        "AF_UNIX"
+        "AF_NETLINK"
+      ];
+      StateDirectory = "sonarr";
+      MemoryDenyWriteExecute = false;
+    };
   };
 
   lantian.nginxVhosts = {

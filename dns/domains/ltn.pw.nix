@@ -5,12 +5,13 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "ltn.pw";
       registrar = "porkbun";
-      providers = ["gcore"];
+      providers = [ "gcore" ];
       records = lib.flatten [
         {
           recordType = "fakeALIAS";

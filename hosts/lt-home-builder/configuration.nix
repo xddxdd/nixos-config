@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ../../nixos/minimal.nix
 
@@ -21,8 +22,14 @@
   '';
 
   systemd.network.networks.lan0 = {
-    address = ["192.168.1.12/24" "fc00:192:168:1::12/64"];
-    gateway = ["192.168.1.1" "fc00:192:168:1::1"];
+    address = [
+      "192.168.1.12/24"
+      "fc00:192:168:1::12/64"
+    ];
+    gateway = [
+      "192.168.1.1"
+      "fc00:192:168:1::1"
+    ];
     matchConfig.Name = "lan0";
   };
 }

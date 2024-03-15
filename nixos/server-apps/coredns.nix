@@ -6,55 +6,58 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   corednsAuthoritativeNetns = config.lantian.netns.coredns-authoritative;
   corednsKnotNetns = config.lantian.netns.coredns-knot;
 
-  corednsConfig = let
-    dnssec = key:
-      if key != null
-      then ''
-        dnssec {
-          key file "${config.age.secrets."${key}.private".path}"
+  corednsConfig =
+    let
+      dnssec =
+        key:
+        if key != null then
+          ''
+            dnssec {
+              key file "${config.age.secrets."${key}.private".path}"
+            }
+          ''
+        else
+          "";
+      localZone = zone: filename: ''
+        ${zone}:${LT.portStr.DNSLocal} {
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+          bind 127.0.0.1
+          file "/nix/persistent/sync-servers/${filename}.zone" {
+            reload 30s
+          }
         }
-      ''
-      else "";
-    localZone = zone: filename: ''
-      ${zone}:${LT.portStr.DNSLocal} {
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-        bind 127.0.0.1
-        file "/nix/persistent/sync-servers/${filename}.zone" {
-          reload 30s
-        }
-      }
-    '';
-    localForward = zone: dnssecKey: ''
-      ${zone} {
-        any
-        bufsize 1232
-        loadbalance round_robin
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+      '';
+      localForward = zone: dnssecKey: ''
+        ${zone} {
+          any
+          bufsize 1232
+          loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-        forward . 127.0.0.1:${LT.portStr.DNSLocal}
-        ${dnssec dnssecKey}
-      }
-    '';
-    publicZone = zone: filename: dnssecKey: ''
-      ${zone} {
-        any
-        bufsize 1232
-        loadbalance round_robin
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
-        file "/nix/persistent/sync-servers/${filename}.zone" {
-          reload 30s
+          forward . 127.0.0.1:${LT.portStr.DNSLocal}
+          ${dnssec dnssecKey}
         }
-        ${dnssec dnssecKey}
-      }
-    '';
-  in
-    pkgs.writeText "Corefile"
-    ''
+      '';
+      publicZone = zone: filename: dnssecKey: ''
+        ${zone} {
+          any
+          bufsize 1232
+          loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+
+          file "/nix/persistent/sync-servers/${filename}.zone" {
+            reload 30s
+          }
+          ${dnssec dnssecKey}
+        }
+      '';
+    in
+    pkgs.writeText "Corefile" ''
       # Selfhosted Root Zone
       . {
         # Only serve internal networks to avoid being part of DNS amplification attack
@@ -89,9 +92,15 @@
       ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
       ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
 
-      ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
-      ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
-      ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
+      ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
+        "K184_29.76.22.172.in-addr.arpa.+013+08709"
+      }
+      ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
+        "K96_27.76.22.172.in-addr.arpa.+013+41969"
+      }
+      ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
+        "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
+      }
 
       # LTNET Active Directory
       ad.lantian.pub {
@@ -112,8 +121,12 @@
       ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
       ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
 
-      ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
-      ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
+      ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
+        "K10.127.10.in-addr.arpa.+013+53292"
+      }
+      ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
+        "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
+      }
 
       # LTNET Public Facing Addressing
       ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
@@ -132,9 +145,10 @@
       }
     '';
 in
-  lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
-    age.secrets = builtins.listToAttrs (lib.flatten (builtins.map
-      (n: [
+lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
+  age.secrets = builtins.listToAttrs (
+    lib.flatten (
+      builtins.map (n: [
         {
           name = "${n}.key";
           value = {
@@ -153,34 +167,36 @@ in
             file = inputs.secrets + "/dnssec/${n}.private.age";
           };
         }
-      ])
-      LT.constants.dnssecKeys));
+      ]) LT.constants.dnssecKeys
+    )
+  );
 
-    lantian.netns = {
-      coredns-authoritative = {
-        ipSuffix = "54";
-        inherit (config.services.coredns) enable;
-        announcedIPv4 = [
-          "172.22.76.109"
-          "198.19.0.254"
-          "10.127.10.254"
-        ];
-        announcedIPv6 = [
-          "fdbc:f9dc:67ad:2547::54"
-          "fd10:127:10:2547::54"
-        ];
-        birdBindTo = ["coredns-authoritative.service"];
-      };
-      coredns-knot = {
-        ipSuffix = "55";
-        inherit (config.services.knot) enable;
-        birdBindTo = ["knot.service"];
-      };
+  lantian.netns = {
+    coredns-authoritative = {
+      ipSuffix = "54";
+      inherit (config.services.coredns) enable;
+      announcedIPv4 = [
+        "172.22.76.109"
+        "198.19.0.254"
+        "10.127.10.254"
+      ];
+      announcedIPv6 = [
+        "fdbc:f9dc:67ad:2547::54"
+        "fd10:127:10:2547::54"
+      ];
+      birdBindTo = [ "coredns-authoritative.service" ];
     };
+    coredns-knot = {
+      ipSuffix = "55";
+      inherit (config.services.knot) enable;
+      birdBindTo = [ "knot.service" ];
+    };
+  };
 
-    services.knot = {
-      enable = true;
-      settingsFile = let
+  services.knot = {
+    enable = true;
+    settingsFile =
+      let
         dn42SlaveZone = name: ''
           - domain: ${name}
             storage: /var/cache/zones/
@@ -194,11 +210,7 @@ in
         opennicSlaveZone = name: ''
           - domain: ${name}
             storage: /var/cache/zones/
-            file: ${
-            if name == "."
-            then "root"
-            else name
-          }.zone
+            file: ${if name == "." then "root" else name}.zone
             refresh-min-interval: 1h
             refresh-max-interval: 1d
             master: opennic
@@ -344,38 +356,41 @@ in
             "_msdcs.ad.lantian.pub"
           ]);
       in
-        pkgs.writeText "knot.conf" cfg;
-    };
+      pkgs.writeText "knot.conf" cfg;
+  };
 
-    systemd.services = {
-      coredns-authoritative = corednsAuthoritativeNetns.bind {
-        description = "Coredns for authoritative zones";
-        after = ["network.target"];
-        wantedBy = ["multi-user.target"];
-        serviceConfig =
-          LT.serviceHarden
-          // {
-            LimitNPROC = 512;
-            LimitNOFILE = 1048576;
-            ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
-            ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
-            Restart = "on-failure";
+  systemd.services = {
+    coredns-authoritative = corednsAuthoritativeNetns.bind {
+      description = "Coredns for authoritative zones";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = LT.serviceHarden // {
+        LimitNPROC = 512;
+        LimitNOFILE = 1048576;
+        ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
+        Restart = "on-failure";
 
-            User = "container";
-            Group = "container";
-            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-            CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-            RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-          };
-      };
-      knot = corednsKnotNetns.bind {
-        serviceConfig = {
-          User = lib.mkForce "container";
-          Group = lib.mkForce "container";
-
-          ReadWritePaths = ["/tmp"];
-          CacheDirectory = "zones";
-        };
+        User = "container";
+        Group = "container";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
       };
     };
-  }
+    knot = corednsKnotNetns.bind {
+      serviceConfig = {
+        User = lib.mkForce "container";
+        Group = lib.mkForce "container";
+
+        ReadWritePaths = [ "/tmp" ];
+        CacheDirectory = "zones";
+      };
+    };
+  };
+}

@@ -5,11 +5,12 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "xuyh0120.com";
-      providers = ["henet"];
+      providers = [ "henet" ];
       records = lib.flatten [
         {
           recordType = "ALIAS";

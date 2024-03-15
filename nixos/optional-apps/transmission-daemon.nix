@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.transmission = {
     enable = true;
     package = pkgs.lantianCustomized.transmission-with-webui;

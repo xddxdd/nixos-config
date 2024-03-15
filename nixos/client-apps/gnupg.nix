@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   programs.gnupg = {
     agent = {
       enable = true;

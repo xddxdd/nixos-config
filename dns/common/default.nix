@@ -5,11 +5,12 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   options = {
     common = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
-      default = {};
+      default = { };
     };
   };
 
@@ -25,7 +26,8 @@
     inherit (LT) hosts;
     fallbackServer = LT.hosts.v-ps-sjc;
 
-    apexRecords = domain:
+    apexRecords =
+      domain:
       config.common.hostRecs.mapAddresses {
         name = "@";
         addresses = fallbackServer.public;

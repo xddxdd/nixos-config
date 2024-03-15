@@ -6,17 +6,23 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   loggingConf = {
     Serilog = {
-      Using = ["Serilog.Sinks.Console"];
+      Using = [ "Serilog.Sinks.Console" ];
       MinimumLevel = "Warning";
-      WriteTo = [{Name = "Console";}];
-      Enrich = ["FromLogContext" "WithMachineName" "WithThreadId"];
+      WriteTo = [ { Name = "Console"; } ];
+      Enrich = [
+        "FromLogContext"
+        "WithMachineName"
+        "WithThreadId"
+      ];
       Properties.Application = "Jellyfin";
     };
   };
-in {
+in
+{
   services.jellyfin.enable = true;
 
   lantian.nginxVhosts = {
@@ -68,5 +74,8 @@ in {
     };
   };
 
-  users.users.jellyfin.extraGroups = ["video" "render"];
+  users.users.jellyfin.extraGroups = [
+    "video"
+    "render"
+  ];
 }

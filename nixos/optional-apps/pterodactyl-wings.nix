@@ -6,10 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [
-    ./docker.nix
-  ];
+}@args:
+{
+  imports = [ ./docker.nix ];
 
   containers.docker.bindMounts = {
     pterodactyl-lib = {
@@ -25,18 +24,22 @@
   };
 
   environment.persistence."/nix/persistent" = {
-    directories = [
-      "/etc/pterodactyl"
-    ];
+    directories = [ "/etc/pterodactyl" ];
   };
 
-  environment.systemPackages = [pkgs.pterodactyl-wings];
+  environment.systemPackages = [ pkgs.pterodactyl-wings ];
 
   systemd.services.pterodactyl-wings = {
     description = "Pterodactyl Wings Daemon";
-    after = ["network.target" "container@docker.service"];
-    requires = ["network.target" "container@docker.service"];
-    wantedBy = ["multi-user.target"];
+    after = [
+      "network.target"
+      "container@docker.service"
+    ];
+    requires = [
+      "network.target"
+      "container@docker.service"
+    ];
+    wantedBy = [ "multi-user.target" ];
     environment = {
       DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
     };
@@ -47,7 +50,11 @@
       MemoryDenyWriteExecute = true;
       NoNewPrivileges = true;
       RemoveIPC = true;
-      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+      ];
       RestrictNamespaces = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
@@ -56,7 +63,5 @@
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /tmp/pterodactyl 755 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /tmp/pterodactyl 755 root root" ];
 }

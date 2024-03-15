@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ../../nixos/client.nix
 
@@ -28,13 +29,11 @@
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
-  boot.kernelParams = [
-    "cfg80211.ieee80211_regdom=US"
-  ];
+  boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
   lantian.hidpi = 1.5;
 
-  fileSystems."/".options = ["size=64G"];
+  fileSystems."/".options = [ "size=64G" ];
 
   hardware.bluetooth = {
     enable = true;
@@ -50,7 +49,10 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 128;
     verbosity = "crit";
-    extraOptions = ["--loadavg-target" "8"];
+    extraOptions = [
+      "--loadavg-target"
+      "8"
+    ];
   };
 
   services.samba.shares = {

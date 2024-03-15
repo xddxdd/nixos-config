@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (pkgs.python3Packages) mitogen;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     ansible
     mitogen
@@ -27,8 +29,7 @@ in {
     retries = 3
   '';
 
-  environment.etc."ansible/hosts".text =
-    lib.concatStringsSep
-    "\n"
-    (["[all]"] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts)));
+  environment.etc."ansible/hosts".text = lib.concatStringsSep "\n" (
+    [ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts))
+  );
 }

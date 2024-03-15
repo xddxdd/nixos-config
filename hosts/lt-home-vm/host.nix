@@ -1,10 +1,10 @@
+{ tags, geo, ... }@args:
 {
-  tags,
-  geo,
-  ...
-} @ args: {
   index = 101;
-  tags = with tags; [qemu server];
+  tags = with tags; [
+    qemu
+    server
+  ];
   city = geo.cities."US Seattle";
   hostname = "192.168.1.10";
   ssh = {

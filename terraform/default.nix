@@ -1,8 +1,5 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
   imports = [
     ./remote-state.nix
     ./uptimerobot.nix

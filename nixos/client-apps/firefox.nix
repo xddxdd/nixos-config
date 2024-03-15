@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   environment.variables = {
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";

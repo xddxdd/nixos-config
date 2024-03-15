@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  environment.systemPackages = [config.boot.kernelPackages.x86_energy_perf_policy];
+}@args:
+{
+  environment.systemPackages = [ config.boot.kernelPackages.x86_energy_perf_policy ];
 
   services.power-profiles-daemon.enable = lib.mkForce false;
   services.tlp = {

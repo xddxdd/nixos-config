@@ -6,7 +6,7 @@
   utils,
   inputs,
   ...
-} @ args:
+}@args:
 lib.mkIf (!(builtins.elem LT.tags.low-ram LT.this.tags)) {
   services.iperf3 = {
     enable = true;

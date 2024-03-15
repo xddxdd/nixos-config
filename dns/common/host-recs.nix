@@ -5,8 +5,9 @@
   LT,
   inputs,
   ...
-} @ args: let
-  constants = pkgs.callPackage ../../helpers/constants.nix {};
+}@args:
+let
+  constants = pkgs.callPackage ../../helpers/constants.nix { };
   inherit (constants) tags;
 
   replacedHosts = {
@@ -23,24 +24,20 @@
   forEachActiveHost = mapFunc: (lib.mapAttrsToList mapFunc LT.hosts);
   forEachHost = mapFunc: (lib.mapAttrsToList mapFunc (LT.hosts // replacedHosts));
 
-  ptrPrefix = v:
-    if v.city != null
-    then "${lib.replaceStrings ["_"] ["-"] v.city.sanitized}."
-    else "";
+  ptrPrefix =
+    v: if v.city != null then "${lib.replaceStrings [ "_" ] [ "-" ] v.city.sanitized}." else "";
 
   hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";
 
-  concatDomain = prefix: domain:
-    if domain == "@"
-    then prefix
-    else "${prefix}.${domain}";
+  concatDomain = prefix: domain: if domain == "@" then prefix else "${prefix}.${domain}";
 
-  mapAddresses = {
-    name,
-    addresses,
-    ttl ? "1h",
-  }:
-  # A record
+  mapAddresses =
+    {
+      name,
+      addresses,
+      ttl ? "1h",
+    }:
+    # A record
     lib.optionals (addresses.IPv4 != "") [
       {
         recordType = "A";
@@ -92,64 +89,76 @@
         inherit ttl;
       }
     ];
-in {
+in
+{
   recordHandlers = {
-    fakeALIAS = {target, ...} @ args: let
-      addresses = LT.hosts."${target}".public;
-    in
+    fakeALIAS =
+      { target, ... }@args:
+      let
+        addresses = LT.hosts."${target}".public;
+      in
       # A record
-      (lib.optionals (addresses.IPv4 != "")
-        (config.recordHandlers.A (args
+      (lib.optionals (addresses.IPv4 != "") (
+        config.recordHandlers.A (
+          args
           // {
             recordType = "A";
             address = addresses.IPv4;
-          })))
+          }
+        )
+      ))
       # AAAA record
-      ++ (lib.optionals (addresses.IPv6 != "")
-        (config.recordHandlers.AAAA (args
+      ++ (lib.optionals (addresses.IPv6 != "") (
+        config.recordHandlers.AAAA (
+          args
           // {
             recordType = "AAAA";
             address = addresses.IPv6;
-          })))
-      ++ (lib.optionals (addresses.IPv6Alt or "" != "")
-        (config.recordHandlers.AAAA (
+          }
+        )
+      ))
+      ++ (lib.optionals (addresses.IPv6Alt or "" != "") (
+        config.recordHandlers.AAAA (
           args
           // {
             recordType = "AAAA";
             address = addresses.IPv6Alt;
           }
-        )));
+        )
+      ));
 
-    GEO = {
-      name,
-      filter,
-      ...
-    } @ args:
-      (config.recordHandlers.TXT
-        (args
-          // {
-            recordType = "TXT";
-            name = concatDomain "geoinfo" name;
-            contents = builtins.toJSON (builtins.mapAttrs
-              (k: v: {
-                inherit (v.city) lat lng;
-                a = lib.optional (v.public.IPv4 != "") v.public.IPv4;
-                aaaa =
-                  (lib.optional (v.public.IPv6 != "") v.public.IPv6)
-                  ++ (lib.optional (v.public.IPv6Alt != "") v.public.IPv6Alt);
-              })
-              (lib.filterAttrs filter LT.hosts));
-          }))
-      ++ (config.recordHandlers.IGNORE (args
+    GEO =
+      { name, filter, ... }@args:
+      (config.recordHandlers.TXT (
+        args
+        // {
+          recordType = "TXT";
+          name = concatDomain "geoinfo" name;
+          contents = builtins.toJSON (
+            builtins.mapAttrs (k: v: {
+              inherit (v.city) lat lng;
+              a = lib.optional (v.public.IPv4 != "") v.public.IPv4;
+              aaaa =
+                (lib.optional (v.public.IPv6 != "") v.public.IPv6)
+                ++ (lib.optional (v.public.IPv6Alt != "") v.public.IPv6Alt);
+            }) (lib.filterAttrs filter LT.hosts)
+          );
+        }
+      ))
+      ++ (config.recordHandlers.IGNORE (
+        args
         // {
           type = "A";
           ttl = null;
-        }))
-      ++ (config.recordHandlers.IGNORE (args
+        }
+      ))
+      ++ (config.recordHandlers.IGNORE (
+        args
         // {
           type = "AAAA";
           ttl = null;
-        }));
+        }
+      ));
   };
 
   common.concatDomain = concatDomain;
@@ -212,20 +221,20 @@ in {
       }
     ];
 
-    Normal = domain:
-      forEachHost
-      (n: v:
+    Normal =
+      domain:
+      forEachHost (
+        n: v:
         mapAddresses {
           name = concatDomain n domain;
-          addresses =
-            if hasPublicIP v
-            then v.public
-            else v.ltnet;
-        });
+          addresses = if hasPublicIP v then v.public else v.ltnet;
+        }
+      );
 
-    SSHFP = domain:
-      forEachActiveHost
-      (n: v:
+    SSHFP =
+      domain:
+      forEachActiveHost (
+        n: v:
         lib.optionals (v.ssh.rsa != "") [
           {
             recordType = "SSHFP_RSA_SHA1";
@@ -249,61 +258,70 @@ in {
             name = concatDomain n domain;
             pubkey = v.ssh.ed25519;
           }
-        ]);
+        ]
+      );
 
-    LTNet = domain:
-      forEachHost
-      (n: v:
+    LTNet =
+      domain:
+      forEachHost (
+        n: v:
         mapAddresses {
           name = concatDomain n domain;
           addresses = v.ltnet;
-        });
+        }
+      );
 
-    LTNetReverseIPv4_16 = domain:
+    LTNetReverseIPv4_16 =
+      domain:
       assert lib.hasSuffix "." domain;
-        forEachActiveHost
-        (n: v: [
+      forEachActiveHost (
+        n: v: [
           {
             recordType = "PTR";
             name = "*.${builtins.toString v.index}";
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
-        ]);
+        ]
+      );
 
-    LTNetReverseIPv4_24 = domain:
+    LTNetReverseIPv4_24 =
+      domain:
       assert lib.hasSuffix "." domain;
-        forEachActiveHost
-        (n: v: [
+      forEachActiveHost (
+        n: v: [
           {
             recordType = "PTR";
             name = builtins.toString v.index;
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
-        ]);
+        ]
+      );
 
-    LTNetReverseIPv6_64 = domain:
+    LTNetReverseIPv6_64 =
+      domain:
       assert lib.hasSuffix "." domain;
-        forEachActiveHost
-        (n: v: let
-          prepend = s:
-            if (builtins.length s) < 4
-            then prepend (["0"] ++ s)
-            else s;
+      forEachActiveHost (
+        n: v:
+        let
+          prepend = s: if (builtins.length s) < 4 then prepend ([ "0" ] ++ s) else s;
           indexList = prepend (lib.stringToCharacters (builtins.toString v.index));
           indexInterspersed = lib.intersperse "." indexList;
           indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
-        in [
+        in
+        [
           {
             recordType = "PTR";
             name = "*.${indexStr}";
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
-        ]);
+        ]
+      );
 
-    DN42 = domain:
-      forEachHost
-      (n: v: (
-        lib.optionals (builtins.elem tags.server v.tags) (
+    DN42 =
+      domain:
+      forEachHost (
+        n: v:
+        (lib.optionals (builtins.elem tags.server v.tags) (
           (mapAddresses {
             name = concatDomain n domain;
             addresses = v.dn42;
@@ -334,34 +352,39 @@ in {
               address = "${v.ltnet.IPv6Prefix}::55";
             }
           ]
-        )
-      ));
+        ))
+      );
 
     # Special handling: split for IP ranges & keep only last part of IP
-    DN42ReverseIPv4 = let
-      lastPart = ip: builtins.elemAt (lib.splitString "." ip) 3;
-    in
+    DN42ReverseIPv4 =
+      let
+        lastPart = ip: builtins.elemAt (lib.splitString "." ip) 3;
+      in
       domain: ipMin: ipMax:
-        assert lib.hasSuffix "." domain;
-          forEachActiveHost
-          (n: v: let
-            i = lib.toInt (lastPart v.dn42.IPv4);
-            inRange = i >= ipMin && i <= ipMax;
-          in
-            lib.optionals (inRange && v.dn42.IPv4 != "") [
-              {
-                recordType = "PTR";
-                name = lastPart v.dn42.IPv4;
-                target = concatDomain "${ptrPrefix v}${n}" domain;
-              }
-            ]);
+      assert lib.hasSuffix "." domain;
+      forEachActiveHost (
+        n: v:
+        let
+          i = lib.toInt (lastPart v.dn42.IPv4);
+          inRange = i >= ipMin && i <= ipMax;
+        in
+        lib.optionals (inRange && v.dn42.IPv4 != "") [
+          {
+            recordType = "PTR";
+            name = lastPart v.dn42.IPv4;
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]
+      );
 
-    NeoNetwork = domain:
-      forEachHost
-      (n: v:
+    NeoNetwork =
+      domain:
+      forEachHost (
+        n: v:
         mapAddresses {
           name = concatDomain n domain;
           addresses = v.neonetwork;
-        });
+        }
+      );
   };
 }

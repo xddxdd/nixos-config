@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.user.services.nix-index-update = {
     Service = {
       Type = "oneshot";
@@ -16,7 +17,7 @@
 
   systemd.user.timers.nix-index-update = {
     Install = {
-      WantedBy = ["timers.target"];
+      WantedBy = [ "timers.target" ];
     };
     Timer = {
       OnCalendar = "daily";

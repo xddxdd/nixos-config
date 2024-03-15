@@ -6,12 +6,13 @@
   utils,
   inputs,
   ...
-} @ args: {
-  environment.systemPackages = with pkgs; [uksmd];
-  systemd.packages = with pkgs; [uksmd];
+}@args:
+{
+  environment.systemPackages = with pkgs; [ uksmd ];
+  systemd.packages = with pkgs; [ uksmd ];
   systemd.services.uksmd = {
     enable = true;
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       CPUQuota = "10%";
     };

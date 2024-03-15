@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   boot.kernelParams = [
     "nofb"
     "nomodeset"
@@ -17,8 +18,12 @@
     memtest86.enable = pkgs.stdenv.isx86_64;
 
     extraFiles = {
-      "netboot.xyz.efi" = lib.mkIf (pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport) "${pkgs.netboot-xyz}/netboot.xyz.efi";
-      "netboot.xyz.lkrn" = lib.mkIf (pkgs.stdenv.isx86_64 && !config.boot.loader.grub.efiSupport) "${pkgs.netboot-xyz}/netboot.xyz.lkrn";
+      "netboot.xyz.efi" = lib.mkIf (
+        pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport
+      ) "${pkgs.netboot-xyz}/netboot.xyz.efi";
+      "netboot.xyz.lkrn" = lib.mkIf (
+        pkgs.stdenv.isx86_64 && !config.boot.loader.grub.efiSupport
+      ) "${pkgs.netboot-xyz}/netboot.xyz.lkrn";
     };
     extraEntries =
       lib.optionalString (pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport) ''

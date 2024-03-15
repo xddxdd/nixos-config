@@ -5,12 +5,16 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "lantian.pp.ua";
       registrar = "doh";
-      providers = ["henet" "desec"];
+      providers = [
+        "henet"
+        "desec"
+      ];
       records = lib.flatten [
         (config.common.apexRecords "${domain}.")
         config.common.hostRecs.CAA
@@ -28,7 +32,10 @@
     rec {
       domain = "ltn.pp.ua";
       registrar = "doh";
-      providers = ["henet" "desec"];
+      providers = [
+        "henet"
+        "desec"
+      ];
       records = lib.flatten [
         (config.common.apexRecords "${domain}.")
         config.common.hostRecs.CAA
@@ -46,7 +53,10 @@
     rec {
       domain = "xuyh0120.pp.ua";
       registrar = "doh";
-      providers = ["henet" "desec"];
+      providers = [
+        "henet"
+        "desec"
+      ];
       records = lib.flatten [
         (config.common.apexRecords "${domain}.")
         config.common.hostRecs.CAA

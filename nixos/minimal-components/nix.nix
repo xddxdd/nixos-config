@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   age.secrets.nix-access-token = {
     file = inputs.secrets + "/nix/access-token.age";
     group = "wheel";
@@ -23,10 +24,7 @@
       !include ${config.age.secrets.nix-access-token.path}
     '';
 
-    daemonCPUSchedPolicy =
-      if builtins.elem LT.tags.client LT.this.tags
-      then "idle"
-      else "batch";
+    daemonCPUSchedPolicy = if builtins.elem LT.tags.client LT.this.tags then "idle" else "batch";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 

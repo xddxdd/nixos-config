@@ -6,18 +6,31 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   mysqlenv-common = pkgs.buildEnv {
     name = "mysql-path-env-common";
-    pathsToLink = ["/bin"];
-    paths = with pkgs; [bash gawk gnutar inetutils which];
+    pathsToLink = [ "/bin" ];
+    paths = with pkgs; [
+      bash
+      gawk
+      gnutar
+      inetutils
+      which
+    ];
   };
   mysqlenv-rsync = pkgs.buildEnv {
     name = "mysql-path-env-rsync";
-    pathsToLink = ["/bin"];
-    paths = with pkgs; [lsof procps rsync stunnel];
+    pathsToLink = [ "/bin" ];
+    paths = with pkgs; [
+      lsof
+      procps
+      rsync
+      stunnel
+    ];
   };
-in {
+in
+{
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
@@ -44,9 +57,7 @@ in {
         wsrep_cluster_name = "lantian";
         wsrep_cluster_address =
           "gcomm://"
-          + lib.concatMapStringsSep ","
-          (n: LT.hosts."${n}".ltnet.IPv4)
-          [
+          + lib.concatMapStringsSep "," (n: LT.hosts."${n}".ltnet.IPv4) [
             "v-ps-fal"
             "lt-home-vm"
             "terrahost"
@@ -80,24 +91,23 @@ in {
   ];
 
   services.phpfpm.pools.pma = {
-    phpPackage = pkgs.php.withExtensions ({
-      enabled,
-      all,
-    }:
+    phpPackage = pkgs.php.withExtensions (
+      { enabled, all }:
       with all;
-        enabled
-        ++ [
-          curl
-          gd
-          mbstring
-          mysqli
-          mysqlnd
-          openssl
-          pdo
-          pdo_mysql
-          xml
-          zip
-        ]);
+      enabled
+      ++ [
+        curl
+        gd
+        mbstring
+        mysqli
+        mysqlnd
+        openssl
+        pdo
+        pdo_mysql
+        xml
+        zip
+      ]
+    );
     inherit (config.services.nginx) user;
     settings = {
       "listen.owner" = config.services.nginx.user;
@@ -153,15 +163,16 @@ in {
 
   systemd.services.prometheus-mysqld-exporter = {
     description = "Prometheus MySQL Exporter";
-    wantedBy = ["multi-user.target"];
-    serviceConfig = let
-      myCnf = pkgs.writeText "my.cnf" ''
-        [client]
-        port = 3306
-        socket = /run/mysqld/mysqld.sock
-        user = prometheus-mysqld-exporter
-      '';
-    in
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig =
+      let
+        myCnf = pkgs.writeText "my.cnf" ''
+          [client]
+          port = 3306
+          socket = /run/mysqld/mysqld.sock
+          user = prometheus-mysqld-exporter
+        '';
+      in
       LT.serviceHarden
       // {
         Restart = "always";
@@ -177,5 +188,5 @@ in {
     group = "prometheus-mysqld-exporter";
     isSystemUser = true;
   };
-  users.groups.prometheus-mysqld-exporter = {};
+  users.groups.prometheus-mysqld-exporter = { };
 }

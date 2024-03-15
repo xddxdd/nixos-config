@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   notifyScript = pkgs.writeShellScript "notify-email" ''
@@ -28,7 +29,8 @@
     $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
     EOF
   '';
-in {
+in
+{
   age.secrets.smtp-pass = {
     file = inputs.secrets + "/smtp-pass.age";
     mode = "0444";
@@ -51,22 +53,24 @@ in {
   };
 
   systemd.services."notify-email-success@" = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "oneshot";
-        ExecStart = ''${notifyScript} "%I" "%H" "success"'';
-      };
-    path = with pkgs; [inetutils msmtp];
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart = ''${notifyScript} "%I" "%H" "success"'';
+    };
+    path = with pkgs; [
+      inetutils
+      msmtp
+    ];
   };
 
   systemd.services."notify-email-fail@" = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "oneshot";
-        ExecStart = ''${notifyScript} "%I" "%H" "fail"'';
-      };
-    path = with pkgs; [inetutils msmtp];
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart = ''${notifyScript} "%I" "%H" "fail"'';
+    };
+    path = with pkgs; [
+      inetutils
+      msmtp
+    ];
   };
 }

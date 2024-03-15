@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   lantian.nginxVhosts."private.xuyh0120.win" = {
     root = "/var/www/private.xuyh0120.win";
     locations = {

@@ -6,10 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
+}@args:
+{
+  home.sessionPath = [ "$HOME/.local/bin" ];
 
   programs.home-manager.enable = true;
   programs.git = {

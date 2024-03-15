@@ -6,10 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   options.lantian.nginxVhosts = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule (import ./vhost-options.nix args));
-    default = {};
+    default = { };
   };
 
   config = {

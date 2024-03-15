@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./postgresql.nix];
+}@args:
+{
+  imports = [ ./postgresql.nix ];
 
   age.secrets.miniflux-oauth-secret = {
     file = inputs.secrets + "/miniflux-oauth-secret.age";
@@ -39,16 +40,18 @@
   };
 
   lantian.nginxVhosts."rss.xuyh0120.win" = {
-    locations = let
-      proxyConfig = {
-        proxyPass = "http://unix:/run/miniflux/miniflux.sock";
+    locations =
+      let
+        proxyConfig = {
+          proxyPass = "http://unix:/run/miniflux/miniflux.sock";
+        };
+      in
+      {
+        "/" = proxyConfig;
+        # Bypass oauth-proxy for URL conflicts
+        "/oauth2/" = proxyConfig;
+        "/oauth2/auth" = proxyConfig;
       };
-    in {
-      "/" = proxyConfig;
-      # Bypass oauth-proxy for URL conflicts
-      "/oauth2/" = proxyConfig;
-      "/oauth2/auth" = proxyConfig;
-    };
 
     sslCertificate = "xuyh0120.win_ecc";
     noIndex.enable = true;
@@ -66,5 +69,5 @@
     group = "miniflux";
     isSystemUser = true;
   };
-  users.groups.miniflux.members = ["nginx"];
+  users.groups.miniflux.members = [ "nginx" ];
 }

@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   v2rayConf = {
     inbounds = [
       {
@@ -15,7 +16,11 @@
         protocol = "socks";
         settings.udp = true;
         sniffing = {
-          destOverride = ["http" "tls" "quic"];
+          destOverride = [
+            "http"
+            "tls"
+            "quic"
+          ];
           enabled = true;
         };
       }
@@ -43,7 +48,9 @@
             port = 443;
             users = [
               {
-                id = {_secret = config.age.secrets.v2ray-key.path;};
+                id = {
+                  _secret = config.age.secrets.v2ray-key.path;
+                };
                 encryption = "none";
               }
             ];
@@ -72,28 +79,29 @@
       uplinkOnly = 0;
     };
     routing = {
-      balancers = [];
+      balancers = [ ];
       domainStrategy = "IPOnDemand";
       rules = [
         {
           outboundTag = "block";
-          protocol = ["bittorrent"];
+          protocol = [ "bittorrent" ];
           type = "field";
         }
         {
-          domain = ["geosite:cn"];
+          domain = [ "geosite:cn" ];
           outboundTag = "proxy";
           type = "field";
         }
         {
-          ip = ["geoip:cn"];
+          ip = [ "geoip:cn" ];
           outboundTag = "proxy";
           type = "field";
         }
       ];
     };
   };
-in {
+in
+{
   age.secrets.v2ray-key = {
     file = inputs.secrets + "/v2ray-key.age";
     owner = "nginx";
@@ -102,32 +110,33 @@ in {
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
-    environment = let
-      assets = pkgs.symlinkJoin {
-        name = "v2ray-assets";
-        paths = with pkgs; [v2ray-geoip v2ray-domain-list-community];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment =
+      let
+        assets = pkgs.symlinkJoin {
+          name = "v2ray-assets";
+          paths = with pkgs; [
+            v2ray-geoip
+            v2ray-domain-list-community
+          ];
+        };
+      in
+      {
+        V2RAY_LOCATION_ASSET = "${assets}/share/v2ray";
+        XRAY_LOCATION_ASSET = "${assets}/share/v2ray";
       };
-    in {
-      V2RAY_LOCATION_ASSET = "${assets}/share/v2ray";
-      XRAY_LOCATION_ASSET = "${assets}/share/v2ray";
-    };
     script = ''
       rm -f /run/v2ray/v2ray.sock
 
-      ${utils.genJqSecretsReplacementSnippet
-        v2rayConf
-        "/run/v2ray/config.json"}
+      ${utils.genJqSecretsReplacementSnippet v2rayConf "/run/v2ray/config.json"}
 
       exec ${pkgs.xray}/bin/xray -config /run/v2ray/config.json
     '';
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        User = "nginx";
-        Group = "nginx";
-        RuntimeDirectory = "v2ray";
-      };
+    serviceConfig = LT.serviceHarden // {
+      User = "nginx";
+      Group = "nginx";
+      RuntimeDirectory = "v2ray";
+    };
   };
 }

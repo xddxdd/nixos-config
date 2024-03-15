@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -29,13 +30,15 @@
 
     oh-my-zsh = {
       enable = true;
-      custom = builtins.toString (pkgs.linkFarm "oh-my-zsh-custom" {
-        "themes/powerlevel10k.zsh-theme" = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
-        "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
-        "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-        "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
-      });
+      custom = builtins.toString (
+        pkgs.linkFarm "oh-my-zsh-custom" {
+          "themes/powerlevel10k.zsh-theme" = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
+          "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
+          "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+          "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+        }
+      );
       extraConfig = ''
         # Disable zsh permission check
         export ZSH_DISABLE_COMPFIX=true

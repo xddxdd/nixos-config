@@ -6,21 +6,20 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   age.secrets.attic-upload-key.file = inputs.secrets + "/attic-upload-key.age";
 
   systemd.services.rebuild-nixos-config = {
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        # Fix "GC Warning: Could not open /proc/stat"
-        ProcSubset = "all";
-        ProtectProc = "default";
+    serviceConfig = LT.serviceHarden // {
+      # Fix "GC Warning: Could not open /proc/stat"
+      ProcSubset = "all";
+      ProtectProc = "default";
 
-        Type = "oneshot";
-        RuntimeDirectory = "rebuild-nixos-config";
-        WorkingDirectory = "/run/rebuild-nixos-config";
-      };
+      Type = "oneshot";
+      RuntimeDirectory = "rebuild-nixos-config";
+      WorkingDirectory = "/run/rebuild-nixos-config";
+    };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
     environment = {
       HOME = "/run/rebuild-nixos-config";
@@ -48,8 +47,8 @@
   };
 
   systemd.timers.rebuild-nixos-config = {
-    wantedBy = ["timers.target"];
-    partOf = ["rebuild-nixos-config.service"];
+    wantedBy = [ "timers.target" ];
+    partOf = [ "rebuild-nixos-config.service" ];
     timerConfig = {
       OnCalendar = "*-*-* 04:00:00";
       RandomizedDelaySec = "1h";

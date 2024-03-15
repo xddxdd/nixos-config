@@ -6,9 +6,10 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   # drivers/mtd/nand/raw/nand_ids.c
-  boot.kernelModules = ["ubi"];
+  boot.kernelModules = [ "ubi" ];
 
   environment.systemPackages = with pkgs; [
     mtdutils

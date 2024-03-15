@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   lenny = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "lenny";
     version = "8636f56849954fa7598eefc9f79aeb1dc14b10e7";
@@ -22,7 +23,8 @@
       cp -r audios/* $out/
     '';
   };
-in {
+in
+{
   dialLenny = ''
     [app-lenny]
     exten => b,1,Ringing()

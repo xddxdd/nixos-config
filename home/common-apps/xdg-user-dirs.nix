@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   xdg.enable = true;
   xdg.userDirs = {
     enable = true;

@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   lantian.netns.kms = {
     ipSuffix = "88";
     announcedIPv4 = [
@@ -17,20 +18,18 @@
       "fdbc:f9dc:67ad:2547::1688"
       "fd10:127:10:2547::1688"
     ];
-    birdBindTo = ["vlmcsd.service"];
+    birdBindTo = [ "vlmcsd.service" ];
   };
 
   systemd.services.vlmcsd = config.lantian.netns.kms.bind {
     description = "Vlmcsd";
-    wantedBy = ["multi-user.target"];
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "forking";
-        Restart = "always";
-        RestartSec = "3";
-        ExecStart = "${pkgs.nur.repos.linyinfeng.vlmcsd}/bin/vlmcsd";
-        DynamicUser = true;
-      };
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = LT.serviceHarden // {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.nur.repos.linyinfeng.vlmcsd}/bin/vlmcsd";
+      DynamicUser = true;
+    };
   };
 }

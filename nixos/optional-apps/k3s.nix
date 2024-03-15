@@ -6,16 +6,15 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.enableUnifiedCgroupHierarchy = true;
 
   systemd.services."container@k3s-server".environment = {
     SYSTEMD_NSPAWN_UNIFIED_HIERARCHY = "1";
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/k3s-server 755 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /var/lib/k3s-server 755 root root" ];
 
   containers.k3s-server = LT.container {
     name = "docker";

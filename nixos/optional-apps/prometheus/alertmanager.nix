@@ -6,20 +6,16 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-in {
+in
+{
   services.prometheus = {
     alertmanagers = [
       {
         scheme = "http";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${LT.portStr.Prometheus.AlertManager}"
-            ];
-          }
-        ];
+        static_configs = [ { targets = [ "localhost:${LT.portStr.Prometheus.AlertManager}" ]; } ];
       }
     ];
 
@@ -155,11 +151,16 @@ in {
           + ":"
           + builtins.toString config.programs.msmtp.accounts.default.port;
         smtp_auth_username = config.programs.msmtp.accounts.default.user;
-        smtp_auth_password = {_secret = config.age.secrets.smtp-pass.path;};
+        smtp_auth_password = {
+          _secret = config.age.secrets.smtp-pass.path;
+        };
         smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
       };
       route = {
-        group_by = ["alertname" "alias"];
+        group_by = [
+          "alertname"
+          "alias"
+        ];
         group_wait = "30s";
         group_interval = "2m";
         repeat_interval = "4h";
@@ -181,9 +182,7 @@ in {
 
   systemd.services.alertmanager = {
     preStart = lib.mkForce ''
-      ${utils.genJqSecretsReplacementSnippet
-        config.services.prometheus.alertmanager.configuration
-        "/tmp/alert-manager-substituted.yaml"}
+      ${utils.genJqSecretsReplacementSnippet config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml"}
     '';
   };
 

@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: let
-  ntpServers = [];
+}@args:
+let
+  ntpServers = [ ];
   ntpPools = [
     "nixos.pool.ntp.org"
     "time.apple.com"
@@ -15,23 +16,21 @@
     "time.google.com"
     "time.windows.com"
   ];
-in {
+in
+{
   networking.timeServers = ntpServers;
 
   services.timesyncd.enable = builtins.elem LT.tags.low-ram LT.this.tags;
   services.chrony = rec {
     enable = !(builtins.elem LT.tags.low-ram LT.this.tags);
-    servers = [];
+    servers = [ ];
     extraConfig = ''
       ${lib.concatMapStringsSep "\n" (k: "server ${k} ${serverOption}") ntpServers}
       ${lib.concatMapStringsSep "\n" (k: "pool ${k} ${serverOption}") ntpPools}
 
       cmdport 0
     '';
-    serverOption =
-      if config.networking.networkmanager.enable
-      then "offline"
-      else "iburst";
+    serverOption = if config.networking.networkmanager.enable then "offline" else "iburst";
   };
 
   systemd.services.chronyd.restartIfChanged = !config.networking.networkmanager.enable;

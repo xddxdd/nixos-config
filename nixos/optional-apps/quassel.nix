@@ -6,18 +6,20 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.quassel = {
     enable = true;
     dataDir = "/var/lib/quassel";
-    interfaces = ["0.0.0.0" "::"];
+    interfaces = [
+      "0.0.0.0"
+      "::"
+    ];
     portNumber = LT.port.Quassel;
   };
 
-  systemd.services.quassel.serviceConfig =
-    LT.serviceHarden
-    // {
-      StateDirectory = "quassel";
-      MemoryDenyWriteExecute = false;
-    };
+  systemd.services.quassel.serviceConfig = LT.serviceHarden // {
+    StateDirectory = "quassel";
+    MemoryDenyWriteExecute = false;
+  };
 }

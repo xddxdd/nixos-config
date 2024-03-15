@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ./eval.nix
     ./options.nix

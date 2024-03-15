@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   # https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
   nix-store-add = pkgs.writeShellScriptBin "nix-store-add" ''
     if [ -z "$1" ]; then
@@ -23,27 +24,31 @@
     EOF
   '';
 
-  pythonCustomized = pkgs.python3Full.withPackages (p:
+  pythonCustomized = pkgs.python3Full.withPackages (
+    p:
     with p;
-      (
-        if pkgs.stdenv.isx86_64
-        then [
+    (
+      if pkgs.stdenv.isx86_64 then
+        [
           autopep8
           numpy
           matplotlib
         ]
-        else []
-      )
-      ++ [
-        dnspython
-        pip
-        requests
-      ]);
+      else
+        [ ]
+    )
+    ++ [
+      dnspython
+      pip
+      requests
+    ]
+  );
 
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
     exec ${pkgs.sg3_utils}/bin/sg_raw "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
-in {
+in
+{
   home.packages = with pkgs; [
     # Bash
     dos2unix
@@ -123,7 +128,7 @@ in {
     nix-prefetch
     nix-prefetch-scripts
     nix-store-add
-    nixfmt
+    nixfmt-rfc-style
     nixpkgs-fmt
     nodePackages.node2nix
     nurl

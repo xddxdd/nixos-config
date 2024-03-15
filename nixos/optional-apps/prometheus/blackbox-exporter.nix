@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   blackboxExporterHost = "${config.services.prometheus.exporters.blackbox.listenAddress}:${builtins.toString config.services.prometheus.exporters.blackbox.port}";
 
   httpMonitorTargets = [
@@ -55,48 +56,43 @@
     "https://stats.xuyh0120.win"
     # "https://tachidesk.xuyh0120.win"
   ];
-in {
+in
+{
   services.prometheus.exporters.blackbox = {
     enable = true;
     port = LT.port.Prometheus.BlackboxExporter;
     listenAddress = "127.0.0.1";
-    configFile = pkgs.writeText "config.yaml" (builtins.toJSON {
-      modules = {
-        https_2xx = {
-          prober = "http";
-          timeout = "15s";
-          http.fail_if_not_ssl = true;
+    configFile = pkgs.writeText "config.yaml" (
+      builtins.toJSON {
+        modules = {
+          https_2xx = {
+            prober = "http";
+            timeout = "15s";
+            http.fail_if_not_ssl = true;
+          };
         };
-      };
-    });
+      }
+    );
   };
 
   services.prometheus.scrapeConfigs = [
     {
       job_name = "blackbox_exporter";
-      static_configs = [
-        {
-          targets = [blackboxExporterHost];
-        }
-      ];
+      static_configs = [ { targets = [ blackboxExporterHost ]; } ];
     }
     {
       job_name = "https_2xx";
       scrape_interval = "1m";
       metrics_path = "/probe";
-      params.module = ["https_2xx"];
-      static_configs = [
-        {
-          targets = httpMonitorTargets;
-        }
-      ];
+      params.module = [ "https_2xx" ];
+      static_configs = [ { targets = httpMonitorTargets; } ];
       relabel_configs = [
         {
-          source_labels = ["__address__"];
+          source_labels = [ "__address__" ];
           target_label = "__param_target";
         }
         {
-          source_labels = ["__param_target"];
+          source_labels = [ "__param_target" ];
           target_label = "instance";
         }
         {

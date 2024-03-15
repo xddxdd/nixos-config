@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   targets = [
     "lab.lantian.pub"
 
@@ -17,21 +18,21 @@
     "letsencrypt-test-ssl.lantian.pub"
     "zerossl.lantian.pub"
   ];
-in {
-  systemd.services = builtins.listToAttrs (builtins.map
-    (k:
+in
+{
+  systemd.services = builtins.listToAttrs (
+    builtins.map (
+      k:
       lib.nameValuePair "testssl-${k}" {
-        serviceConfig =
-          LT.serviceHarden
-          // {
-            Type = "oneshot";
-            ReadWritePaths = ["/nix/persistent/sync-servers/www/${k}"];
+        serviceConfig = LT.serviceHarden // {
+          Type = "oneshot";
+          ReadWritePaths = [ "/nix/persistent/sync-servers/www/${k}" ];
 
-            # Fix ps error
-            ProcSubset = "all";
-          };
+          # Fix ps error
+          ProcSubset = "all";
+        };
         unitConfig.OnFailure = "notify-email-fail@%n.service";
-        path = with pkgs; [gawk];
+        path = with pkgs; [ gawk ];
         script = ''
           ${pkgs.testssl}/bin/testssl.sh \
             -9 --wide --color 3 \
@@ -42,24 +43,26 @@ in {
           rm -f "/nix/persistent/sync-servers/www/${k}/testssl.htm"
           cat "/tmp/testssl.${k}.htm" > "/nix/persistent/sync-servers/www/${k}/testssl.htm"
         '';
-      })
-    targets);
+      }
+    ) targets
+  );
 
-  systemd.tmpfiles.rules =
-    builtins.map
-    (k: "d /nix/persistent/sync-servers/www/${k} 755 root root")
-    targets;
+  systemd.tmpfiles.rules = builtins.map (
+    k: "d /nix/persistent/sync-servers/www/${k} 755 root root"
+  ) targets;
 
-  systemd.timers = builtins.listToAttrs (builtins.map
-    (k:
+  systemd.timers = builtins.listToAttrs (
+    builtins.map (
+      k:
       lib.nameValuePair "testssl-${k}" {
-        wantedBy = ["timers.target"];
-        partOf = ["testssl-${k}.service"];
+        wantedBy = [ "timers.target" ];
+        partOf = [ "testssl-${k}.service" ];
         timerConfig = {
           OnCalendar = "daily";
           RandomizedDelaySec = "1h";
           Unit = "testssl-${k}.service";
         };
-      })
-    targets);
+      }
+    ) targets
+  );
 }

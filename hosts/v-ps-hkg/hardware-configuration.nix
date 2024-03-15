@@ -7,13 +7,14 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
 
-  boot.initrd.kernelModules = ["nvme"];
+  boot.initrd.kernelModules = [ "nvme" ];
 
   boot.loader.grub.mirroredBoots = [
     {
-      devices = ["/dev/vda"];
+      devices = [ "/dev/vda" ];
       path = "/nix/boot";
     }
   ];
@@ -21,11 +22,16 @@
   fileSystems."/nix" = {
     device = "/dev/vda1";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "subvol=@rootfs" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "subvol=@rootfs"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/nix/boot";
-    options = ["bind"];
+    options = [ "bind" ];
   };
 }

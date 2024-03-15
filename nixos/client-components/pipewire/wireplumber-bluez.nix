@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextFile {
       name = "wireplumber-bluez-config";

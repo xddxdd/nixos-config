@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   boot.initrd.kernelModules = [
     "dm-cache"
     "dm-integrity"

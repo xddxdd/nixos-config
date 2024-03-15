@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   options.lantian.syncthing.storage = lib.mkOption {
     type = lib.types.str;
     default = "/nix/persistent/media";
@@ -61,9 +62,9 @@
       uid = config.ids.uids.syncthing;
       group = "syncthing";
     };
-    users.groups.syncthing.members = ["nginx"];
+    users.groups.syncthing.members = [ "nginx" ];
 
-    environment.systemPackages = [config.services.syncthing.package];
+    environment.systemPackages = [ config.services.syncthing.package ];
 
     systemd.services.syncthing = {
       serviceConfig = {
@@ -72,9 +73,7 @@
       };
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${config.lantian.syncthing.storage} 755 root root"
-    ];
+    systemd.tmpfiles.rules = [ "d ${config.lantian.syncthing.storage} 755 root root" ];
 
     lantian.nginxVhosts = {
       "syncthing.${config.networking.hostName}.xuyh0120.win" = {

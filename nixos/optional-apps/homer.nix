@@ -6,17 +6,19 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   homer = pkgs.stdenvNoCC.mkDerivation {
     inherit (LT.sources.homer) pname version src;
-    nativeBuildInputs = with pkgs; [unzip];
+    nativeBuildInputs = with pkgs; [ unzip ];
     sourceRoot = ".";
     installPhase = ''
       mkdir -p $out
       cp -r * $out/
     '';
   };
-in {
+in
+{
   programs.chromium.extraOpts.HomepageLocation = lib.mkForce "http://localhost";
   programs.firefox.policies = {
     Homepage.URL = lib.mkForce "http://localhost";

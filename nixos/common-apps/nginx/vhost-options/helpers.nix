@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   fastcgiParams = ''
     set $path_info $fastcgi_path_info;
 

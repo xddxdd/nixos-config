@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   qqwryDB = pkgs.fetchurl {
     url = "https://github.com/out0fmemory/qqwry.dat/raw/master/qqwry_lastest.dat";
     hash = "sha256-ZfzgGSd+hOIFvqAgKE6GajZwN4GaDRx+awqYwMPh5kI=";
   };
-in {
+in
+{
   services.phpfpm = {
     phpOptions = ''
       engine = On

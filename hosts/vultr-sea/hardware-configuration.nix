@@ -7,14 +7,20 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
 
-  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi"];
-  boot.initrd.kernelModules = ["nvme"];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "xen_blkfront"
+    "vmw_pvscsi"
+  ];
+  boot.initrd.kernelModules = [ "nvme" ];
 
   boot.loader.grub.mirroredBoots = [
     {
-      devices = ["/dev/vda"];
+      devices = [ "/dev/vda" ];
       path = "/nix/boot";
     }
   ];
@@ -22,14 +28,18 @@
   fileSystems."/nix" = {
     device = "/dev/vda1";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/nix/boot";
-    options = ["bind"];
+    options = [ "bind" ];
   };
 
   # Needed, or kopia backup fails
-  swapDevices = [{device = "/dev/vda2";}];
+  swapDevices = [ { device = "/dev/vda2"; } ];
 }

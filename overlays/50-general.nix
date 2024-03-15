@@ -1,6 +1,9 @@
-{inputs, ...}: final: prev: let
-  sources = final.callPackage ../helpers/_sources/generated.nix {};
-in rec {
+{ inputs, ... }:
+final: prev:
+let
+  sources = final.callPackage ../helpers/_sources/generated.nix { };
+in
+rec {
   acme-sh = prev.acme-sh.overrideAttrs (old: {
     postBuild =
       (old.postBuild or "")
@@ -12,36 +15,20 @@ in rec {
     inherit (sources.brlaser) version src;
   });
   drone = prev.drone.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/drone-server-listen-unix.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
 
-    tags = old.tags ++ ["nolimit"];
+    tags = old.tags ++ [ "nolimit" ];
   });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/knot-disable-semantic-check.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
   });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/matrix-sliding-sync-listen-unix.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/matrix-sliding-sync-listen-unix.patch ];
   });
-  matrix-synapse = prev.matrix-synapse.override {inherit matrix-synapse-unwrapped;};
+  matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/matrix-synapse-listen-unix.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/matrix-synapse-listen-unix.patch ];
   });
   mtdutils = prev.mtdutils.overrideAttrs (old: {
     postFixup =
@@ -59,64 +46,59 @@ in rec {
   });
   openvpn-with-dco = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ (with final; [autoreconfHook]);
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);
     buildInputs =
-      (old.buildInputs or [])
+      (old.buildInputs or [ ])
       ++ (with final; [
         docutils
         libcap_ng
         libnl
         lz4
       ]);
-    configureFlags =
-      (old.configureFlags or [])
-      ++ [
-        "--enable-dco"
-      ];
+    configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-dco" ];
   });
-  phpWithExtensions = prev.php.withExtensions ({
-    enabled,
-    all,
-  }:
+  phpWithExtensions = prev.php.withExtensions (
+    { enabled, all }:
     with all;
-      enabled
-      ++ [
-        apcu
-        bz2
-        ctype
-        curl
-        dom
-        event
-        exif
-        ffi
-        ftp
-        gd
-        gettext
-        gmp
-        iconv
-        imagick
-        maxminddb
-        mbstring
-        memcached
-        mysqli
-        mysqlnd
-        openssl
-        pdo
-        pdo_mysql
-        pdo_pgsql
-        pdo_sqlite
-        pgsql
-        protobuf
-        readline
-        redis
-        sockets
-        sodium
-        sqlite3
-        xml
-        yaml
-        zip
-        zlib
-      ]);
+    enabled
+    ++ [
+      apcu
+      bz2
+      ctype
+      curl
+      dom
+      event
+      exif
+      ffi
+      ftp
+      gd
+      gettext
+      gmp
+      iconv
+      imagick
+      maxminddb
+      mbstring
+      memcached
+      mysqli
+      mysqlnd
+      openssl
+      pdo
+      pdo_mysql
+      pdo_pgsql
+      pdo_sqlite
+      pgsql
+      protobuf
+      readline
+      redis
+      sockets
+      sodium
+      sqlite3
+      xml
+      yaml
+      zip
+      zlib
+    ]
+  );
   prismlauncher = prev.prismlauncher.override {
     jdks =
       (with final; [
@@ -132,19 +114,11 @@ in rec {
   };
   qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/qbittorrent-return-success-on-dup-torrent.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
   qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
-    patches =
-      (old.patches or [])
-      ++ [
-        ../patches/qbittorrent-return-success-on-dup-torrent.patch
-      ];
+    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
@@ -162,21 +136,14 @@ in rec {
       '';
   });
   tinc_pre = prev.tinc_pre.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or []) ++ [final.miniupnpc];
-    configureFlags =
-      (old.configureFlags or [])
-      ++ [
-        "--enable-miniupnpc"
-      ];
+    buildInputs = (old.buildInputs or [ ]) ++ [ final.miniupnpc ];
+    configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-miniupnpc" ];
   });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
-    nativeBuildInputs =
-      old.nativeBuildInputs
-      ++ (with prev; [
-        gobject-introspection
-      ]);
+    nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
 
-    propagatedBuildInputs = with prev.python3Packages;
+    propagatedBuildInputs =
+      with prev.python3Packages;
       old.propagatedBuildInputs
       ++ [
         fuzzywuzzy

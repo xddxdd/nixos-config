@@ -6,8 +6,9 @@
   utils,
   inputs,
   ...
-} @ args: {
-  imports = [./postgresql.nix];
+}@args:
+{
+  imports = [ ./postgresql.nix ];
 
   age.secrets.attic-credentials = {
     file = inputs.secrets + "/attic-credentials.age";
@@ -22,7 +23,7 @@
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
       # Database configured with env var
-      database = {};
+      database = { };
       require-proof-of-possession = false;
       storage = {
         type = "s3";
@@ -48,18 +49,16 @@
     };
   };
 
-  systemd.services.atticd.serviceConfig =
-    LT.serviceHarden
-    // {
-      DynamicUser = lib.mkForce false;
-      StateDirectory = lib.mkForce "";
-    };
+  systemd.services.atticd.serviceConfig = LT.serviceHarden // {
+    DynamicUser = lib.mkForce false;
+    StateDirectory = lib.mkForce "";
+  };
 
   users.users.atticd = {
     group = "atticd";
     isSystemUser = true;
   };
-  users.groups.atticd = {};
+  users.groups.atticd = { };
 
   lantian.nginxVhosts = {
     "attic.xuyh0120.win" = {

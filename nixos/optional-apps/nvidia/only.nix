@@ -6,16 +6,17 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
   hardware.nvidia.powerManagement.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;
 
-  hardware.opengl.extraPackages = [pkgs.nvidia-vaapi-driver];
+  hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
 
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";

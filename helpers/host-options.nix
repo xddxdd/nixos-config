@@ -7,7 +7,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   options = {
     name = lib.mkOption {
       type = lib.types.str;
@@ -18,12 +19,10 @@
       type = lib.types.str;
       default = "${config.name}.lantian.pub";
     };
-    index = lib.mkOption {
-      type = lib.types.int;
-    };
+    index = lib.mkOption { type = lib.types.int; };
     tags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
     sshPort = lib.mkOption {
       type = lib.types.int;
@@ -44,21 +43,11 @@
 
     # Geolocation
     city = {
-      country = lib.mkOption {
-        type = lib.types.str;
-      };
-      name = lib.mkOption {
-        type = lib.types.str;
-      };
-      sanitized = lib.mkOption {
-        type = lib.types.str;
-      };
-      lat = lib.mkOption {
-        type = lib.types.str;
-      };
-      lng = lib.mkOption {
-        type = lib.types.str;
-      };
+      country = lib.mkOption { type = lib.types.str; };
+      name = lib.mkOption { type = lib.types.str; };
+      sanitized = lib.mkOption { type = lib.types.str; };
+      lat = lib.mkOption { type = lib.types.str; };
+      lng = lib.mkOption { type = lib.types.str; };
 
       # Extra fields from cities.json
       admin1 = lib.mkOption {
@@ -125,16 +114,12 @@
     };
 
     dn42 = {
-      IPv4 = lib.mkOption {
-        type = lib.types.str;
-      };
+      IPv4 = lib.mkOption { type = lib.types.str; };
       IPv6 = lib.mkOption {
         type = lib.types.str;
         default = "fdbc:f9dc:67ad:${builtins.toString config.index}::1";
       };
-      region = lib.mkOption {
-        type = lib.types.int;
-      };
+      region = lib.mkOption { type = lib.types.int; };
     };
 
     neonetwork = {

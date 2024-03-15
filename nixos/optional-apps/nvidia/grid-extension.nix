@@ -6,28 +6,34 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.nvidia-gridd;
   nvidia_x11 = config.hardware.nvidia.package;
-in {
+in
+{
   # nvidia-gridd will fail if there are too many interfaces on host
   lantian.netns.nvidia-gridd = {
     ipSuffix = "65";
   };
 
   environment.persistence."/nix/persistent" = {
-    directories = [
-      "/etc/nvidia/ClientConfigToken"
-    ];
+    directories = [ "/etc/nvidia/ClientConfigToken" ];
   };
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_2;
 
   systemd.services."nvidia-gridd" = netns.bind {
     description = "NVIDIA Grid Daemon";
-    wants = ["syslog.target" "network-online.target"];
-    after = ["network-online.target" "nss-lookup.target"];
-    wantedBy = ["multi-user.target"];
+    wants = [
+      "syslog.target"
+      "network-online.target"
+    ];
+    after = [
+      "network-online.target"
+      "nss-lookup.target"
+    ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "forking";
       Restart = "always";

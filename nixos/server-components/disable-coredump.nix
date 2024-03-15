@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.coredump.enable = false;
 
   boot.kernel.sysctl = {

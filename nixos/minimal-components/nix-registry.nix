@@ -6,28 +6,22 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   registeredInputs = {
     nixpkgs = LT.patchedNixpkgs;
     nur = inputs.nur.outPath;
     nur-xddxdd = inputs.nur-xddxdd.outPath;
   };
-in {
-  environment.etc = lib.mapAttrs' (n: v:
-    lib.nameValuePair "nix/inputs/${n}" {
-      source = lib.mkForce v;
-    })
-  registeredInputs;
+in
+{
+  environment.etc = lib.mapAttrs' (
+    n: v: lib.nameValuePair "nix/inputs/${n}" { source = lib.mkForce v; }
+  ) registeredInputs;
 
   nix = {
-    nixPath = ["/etc/nix/inputs"];
-    registry =
-      lib.mapAttrs (n: v: {
-        flake = lib.mkForce {
-          outPath = v;
-        };
-      })
-      registeredInputs;
+    nixPath = [ "/etc/nix/inputs" ];
+    registry = lib.mapAttrs (n: v: { flake = lib.mkForce { outPath = v; }; }) registeredInputs;
   };
 
   # Disable conflicting settings from nixpkgs

@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   # https://chromeenterprise.google/policies/
   programs.chromium = {
     enable = true;
@@ -71,7 +72,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    google-chrome
-  ];
+  environment.systemPackages = with pkgs; [ google-chrome ];
 }

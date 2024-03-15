@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   netns = config.lantian.netns.plausible;
-in {
-  imports = [../postgresql.nix];
+in
+{
+  imports = [ ../postgresql.nix ];
 
   age.secrets.plausible-secret = {
     file = inputs.secrets + "/plausible-secret.age";
@@ -71,18 +73,21 @@ in {
 
   systemd.services = {
     clickhouse = netns.bind {
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          # Disable clickhouse notify systemd on startup
-          # FIXME: Remove after update to latest clickhouse
-          Type = lib.mkForce "simple";
+      serviceConfig = LT.serviceHarden // {
+        # Disable clickhouse notify systemd on startup
+        # FIXME: Remove after update to latest clickhouse
+        Type = lib.mkForce "simple";
 
-          ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
-          MemoryDenyWriteExecute = lib.mkForce false;
-          RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-          SystemCallFilter = lib.mkForce [];
-        };
+        ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+        MemoryDenyWriteExecute = lib.mkForce false;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
+        SystemCallFilter = lib.mkForce [ ];
+      };
     };
     plausible = netns.bind {
       environment = {
@@ -101,18 +106,16 @@ in {
         RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
         HOME = lib.mkForce "/run/plausible";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Restart = "always";
-          RestartSec = "3";
-          DynamicUser = lib.mkForce false;
-          User = "plausible";
-          Group = "plausible";
-          StateDirectory = lib.mkForce "plausible";
-          RuntimeDirectory = "plausible";
-          WorkingDirectory = lib.mkForce "/run/plausible";
-        };
+      serviceConfig = LT.serviceHarden // {
+        Restart = "always";
+        RestartSec = "3";
+        DynamicUser = lib.mkForce false;
+        User = "plausible";
+        Group = "plausible";
+        StateDirectory = lib.mkForce "plausible";
+        RuntimeDirectory = "plausible";
+        WorkingDirectory = lib.mkForce "/run/plausible";
+      };
     };
   };
 
@@ -120,5 +123,5 @@ in {
     group = "plausible";
     isSystemUser = true;
   };
-  users.groups.plausible = {};
+  users.groups.plausible = { };
 }

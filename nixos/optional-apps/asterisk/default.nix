@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
@@ -25,7 +26,8 @@
   varlibdir = "/var/lib/asterisk";
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
-in {
+in
+{
   age.secrets.asterisk-pw = {
     file = inputs.secrets + "/asterisk-pw.age";
     owner = "asterisk";
@@ -103,47 +105,56 @@ in {
         ''
           [src-anonymous]
           ; Only allow anonymous inbound call to test numbers
-          ${dialRule "42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
-          ${dialRule "[02-9]XXX" ["Goto(dest-local,\${EXTEN},1)"]}
+          ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+          ${dialRule "[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
           [src-local]
-          ${dialRule "733XXXX" ["Dial(PJSIP/\${EXTEN:3}@sdf)"]}
-          ${dialRule "42402547XXXX" ["Goto(dest-local,\${EXTEN:8},1)"]}
-          ${dialRule "XXX" ["Dial(PJSIP/\${EXTEN}@telnyx)"]}
-          ${dialRule "XXXX" ["Goto(dest-local,\${EXTEN},1)"]}
-          ${dialRule "777XXXXXXX" ["Dial(PJSIP/1\${EXTEN}@callcentric)"]}
-          ${dialRule "NXXNXXXXXX" ["Dial(PJSIP/+1\${EXTEN}@telnyx)"]}
-          ${dialRule "X!" ["Goto(dest-url,\${EXTEN},1)"]}
+          ${dialRule "733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
+          ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+          ${dialRule "XXX" [ "Dial(PJSIP/\${EXTEN}@telnyx)" ]}
+          ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
+          ${dialRule "777XXXXXXX" [ "Dial(PJSIP/1\${EXTEN}@callcentric)" ]}
+          ${dialRule "NXXNXXXXXX" [ "Dial(PJSIP/+1\${EXTEN}@telnyx)" ]}
+          ${dialRule "X!" [ "Goto(dest-url,\${EXTEN},1)" ]}
 
           [src-callcentric]
           ; Remove international call prefix
-          ${dialRule "+X!" ["Goto(src-callcentric,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" [ "Goto(src-callcentric,\${EXTEN:1},1)" ]}
           ; All calls go to 0000
-          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
 
           [src-sdf]
           ; Remove international call prefix
-          ${dialRule "+X!" ["Goto(src-sdf,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" [ "Goto(src-sdf,\${EXTEN:1},1)" ]}
           ; All calls go to 0000
-          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
 
           [src-telnyx]
           ; Remove international call prefix
-          ${dialRule "+X!" ["Goto(src-telnyx,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" [ "Goto(src-telnyx,\${EXTEN:1},1)" ]}
           ; All calls go to ring group
-          ${dialRule "X!" ["Goto(dest-local,1999,1)"]}
+          ${dialRule "X!" [ "Goto(dest-local,1999,1)" ]}
 
           [src-zadarma]
           ; Remove international call prefix
-          ${dialRule "+X!" ["Goto(src-zadarma,\${EXTEN:1},1)"]}
+          ${dialRule "+X!" [ "Goto(src-zadarma,\${EXTEN:1},1)" ]}
           ; All calls go to 0000
-          ${dialRule "X!" ["Goto(dest-local,0000,1)"]}
+          ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
 
           [dest-local]
           ${destLocalForwardMusic 4}
-          ${dialRule "0100" ["Answer()" "Milliwatt(m)"]}
-          ${dialRule "0101" ["Answer()" "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"]}
-          ${dialRule "02XX" ["Answer()" "ConfBridge(\${EXTEN:2})"]}
+          ${dialRule "0100" [
+            "Answer()"
+            "Milliwatt(m)"
+          ]}
+          ${dialRule "0101" [
+            "Answer()"
+            "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"
+          ]}
+          ${dialRule "02XX" [
+            "Answer()"
+            "ConfBridge(\${EXTEN:2})"
+          ]}
           ${destLocal}
           ${dialRule "1999" [
             "Set(DIALGROUP(mygroup,add)=PJSIP/1000)"
@@ -151,17 +162,20 @@ in {
             "Set(DIALGROUP(mygroup,add)=PJSIP/1003)"
             "Dial(\${DIALGROUP(mygroup)})"
           ]}
-          ${dialRule "2000" ["Goto(dest-local,\${RAND(2001,2003)},1)"]}
-          ${dialRule "2001" ["Goto(app-lenny,b,1)"]}
-          ${dialRule "2002" ["Goto(app-asty-crapper,b,1)"]}
-          ${dialRule "2003" ["Goto(app-beverly,b,1)"]}
-          ${dialRule "X!" ["Answer()" "Playback(im-sorry&check-number-dial-again)"]}
+          ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2003)},1)" ]}
+          ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
+          ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
+          ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
+          ${dialRule "X!" [
+            "Answer()"
+            "Playback(im-sorry&check-number-dial-again)"
+          ]}
 
           [dest-music]
           ${destMusic}
 
           [dest-url]
-          ${dialRule "X!" ["Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"]}
+          ${dialRule "X!" [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
         ''
         + dialAstyCrapper
         + dialBeverly
@@ -204,7 +218,7 @@ in {
   };
 
   systemd.services.asterisk = {
-    path = with pkgs; [mpg123];
+    path = with pkgs; [ mpg123 ];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
 
     preStart = ''
@@ -220,7 +234,5 @@ in {
     serviceConfig.Restart = "always";
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/asterisk/fax 755 asterisk asterisk"
-  ];
+  systemd.tmpfiles.rules = [ "d /var/lib/asterisk/fax 755 asterisk asterisk" ];
 }

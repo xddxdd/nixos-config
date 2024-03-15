@@ -1,6 +1,8 @@
-{callPackage, ...}: let
-  nvfetcherCmd = callPackage ./nvfetcher.nix {};
-in ''
+{ callPackage, ... }:
+let
+  nvfetcherCmd = callPackage ./nvfetcher.nix { };
+in
+''
   nix flake update
   ${nvfetcherCmd}
 ''

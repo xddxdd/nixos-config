@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   age.secrets.geoipupdate-license.file = inputs.secrets + "/geoipupdate-license.age";
 
   services.geoipupdate = {

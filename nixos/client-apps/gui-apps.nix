@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   programs.java.enable = true;
 
   programs.wireshark = {
@@ -14,11 +15,9 @@
     package = pkgs.wireshark;
   };
 
-  services.udev.packages = with pkgs; [
-    libfido2
-  ];
+  services.udev.packages = with pkgs; [ libfido2 ];
 
-  users.users.lantian.extraGroups = ["wireshark"];
+  users.users.lantian.extraGroups = [ "wireshark" ];
 
   virtualisation.virtualbox.host = {
     enable = true;

@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   common.records = rec {
     Autoconfig = domain: [
       {

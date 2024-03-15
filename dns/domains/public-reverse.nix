@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     (config.common.reverse {
       prefix = "2001:470:8a6d::/48";

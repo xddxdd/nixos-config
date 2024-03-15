@@ -3,7 +3,8 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   LT = import ../helpers {
     inherit lib inputs self;
     inherit (self) nixosConfigurations;
@@ -19,15 +20,14 @@
   };
 
   modulesFor = n: [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
-      home-manager.extraSpecialArgs = specialArgsFor n;
-      networking.hostName = lib.mkForce (lib.removePrefix "_" n);
-      system.stateVersion = LT.constants.stateVersion;
-    })
+    (
+      { config, pkgs, ... }:
+      {
+        home-manager.extraSpecialArgs = specialArgsFor n;
+        networking.hostName = lib.mkForce (lib.removePrefix "_" n);
+        system.stateVersion = LT.constants.stateVersion;
+      }
+    )
     (inputs.attic + "/nixos/atticd.nix")
     inputs.agenix.nixosModules.age
     inputs.colmena.nixosModules.deploymentOptions
@@ -45,22 +45,25 @@
 
   patchedPkgsFor = system: self.allSystems."${system}"._module.args.pkgs;
   patchedNixpkgsFor = system: self.packages."${system}".nixpkgs-patched;
-in {
+in
+{
   flake = rec {
-    nixosConfigurations = lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts)) (n: let
-      system = LT.hosts."${n}".system;
-      pkgs = patchedPkgsFor system;
-      nixpkgs = patchedNixpkgsFor system;
-    in
+    nixosConfigurations = lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts)) (
+      n:
+      let
+        system = LT.hosts."${n}".system;
+        pkgs = patchedPkgsFor system;
+        nixpkgs = patchedNixpkgsFor system;
+      in
       (import (nixpkgs + "/nixos/lib/eval-config.nix")) {
         inherit system pkgs;
         modules = modulesFor n;
         specialArgs = specialArgsFor n;
-      });
+      }
+    );
 
-    colmenaHive =
-      LT.mkColmenaHive
-      {allowApplyAll = false;}
-      (lib.filterAttrs (n: v: !lib.hasPrefix "_" n) nixosConfigurations);
+    colmenaHive = LT.mkColmenaHive { allowApplyAll = false; } (
+      lib.filterAttrs (n: v: !lib.hasPrefix "_" n) nixosConfigurations
+    );
   };
 }

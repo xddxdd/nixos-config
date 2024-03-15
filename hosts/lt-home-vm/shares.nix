@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/samba.nix
@@ -51,7 +52,10 @@
     };
     "/run/nfs/storage" = {
       device = "/mnt/storage";
-      options = ["bind" "x-gvfs-hide"];
+      options = [
+        "bind"
+        "x-gvfs-hide"
+      ];
     };
   };
 

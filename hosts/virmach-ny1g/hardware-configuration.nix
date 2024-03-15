@@ -7,14 +7,19 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
     device = "/dev/vda2";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {

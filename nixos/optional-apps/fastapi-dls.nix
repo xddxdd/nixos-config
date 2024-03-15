@@ -6,10 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.services.fastapi-dls = {
     description = "FastAPI-DLS";
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     environment = {
       DLS_URL = "fastapi-dls.${config.networking.hostName}.xuyh0120.win";
       DLS_PORT = "443";
@@ -19,7 +20,7 @@
       INSTANCE_KEY_PUB = "/var/lib/fastapi-dls/instance.public.pem";
     };
 
-    path = with pkgs; [openssl];
+    path = with pkgs; [ openssl ];
 
     preStart = ''
       if [ ! -f "/var/lib/fastapi-dls/instance.private.pem" ]; then
@@ -30,18 +31,16 @@
       fi
     '';
 
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
-        ExecStart = "${pkgs.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
-        RuntimeDirectory = "fastapi-dls";
-        StateDirectory = "fastapi-dls";
-        User = "fastapi-dls";
-        Group = "fastapi-dls";
-      };
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
+      RuntimeDirectory = "fastapi-dls";
+      StateDirectory = "fastapi-dls";
+      User = "fastapi-dls";
+      Group = "fastapi-dls";
+    };
   };
 
   lantian.nginxVhosts."fastapi-dls.${config.networking.hostName}.xuyh0120.win" = {
@@ -59,5 +58,5 @@
     group = "fastapi-dls";
     isSystemUser = true;
   };
-  users.groups.fastapi-dls = {};
+  users.groups.fastapi-dls = { };
 }

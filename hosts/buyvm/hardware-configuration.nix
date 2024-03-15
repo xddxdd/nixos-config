@@ -7,16 +7,21 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
 
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = [ "kvm-amd" ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
     device = "/dev/vda2";
     fsType = "btrfs";
-    options = ["compress-force=zstd" "nosuid" "nodev"];
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -25,5 +30,5 @@
   };
 
   # Needed, or kopia backup fails
-  swapDevices = [{device = "/dev/vda3";}];
+  swapDevices = [ { device = "/dev/vda3"; } ];
 }

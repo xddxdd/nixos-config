@@ -6,9 +6,11 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   host = "pb.ltn.pw";
-in {
+in
+{
   age.secrets.bepasty = {
     file = inputs.secrets + "/bepasty.age";
     owner = "bepasty";
@@ -46,14 +48,13 @@ in {
     noIndex.enable = true;
   };
 
-  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig =
-    LT.serviceHarden
-    // {
-      Group = "bepasty";
-      StateDirectory = "bepasty";
-      User = "bepasty";
+  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig = LT.serviceHarden // {
+    Group = "bepasty";
+    StateDirectory = "bepasty";
+    User = "bepasty";
 
-      ExecStart = lib.mkForce (pkgs.writeShellScript "bepasty-start" ''
+    ExecStart = lib.mkForce (
+      pkgs.writeShellScript "bepasty-start" ''
         ${pkgs.python3Packages.gunicorn}/bin/gunicorn \
           bepasty.wsgi \
           --name "pb.ltn.pw" \
@@ -61,6 +62,7 @@ in {
           --log-level=info \
           --bind=127.0.0.1:${LT.portStr.Bepasty} \
           -k gevent
-      '');
-    };
+      ''
+    );
+  };
 }

@@ -6,39 +6,39 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   droneSecretsAttrs =
     lib.genAttrs
-    [
-      "drone/git-netrc"
-      "drone/github-token"
-      "drone/ssh-id-ed25519"
-      "drone/ssh-id-rsa"
-      "drone/telegram-target"
-      "drone/telegram-token"
-    ]
-    (k: {
-      file = inputs.secrets + "/${k}.age";
-      owner = "container";
-      group = "container";
-    });
-in {
+      [
+        "drone/git-netrc"
+        "drone/github-token"
+        "drone/ssh-id-ed25519"
+        "drone/ssh-id-rsa"
+        "drone/telegram-target"
+        "drone/telegram-token"
+      ]
+      (k: {
+        file = inputs.secrets + "/${k}.age";
+        owner = "container";
+        group = "container";
+      });
+in
+{
   imports = [
     ./docker.nix
     ./postgresql.nix
   ];
 
-  age.secrets =
-    droneSecretsAttrs
-    // {
-      drone-ci-env.file = inputs.secrets + "/drone-ci-env.age";
-      drone-ci-github-env.file = inputs.secrets + "/drone-ci-github-env.age";
-      drone-ci-file-secret-env.file = inputs.secrets + "/drone-ci-file-secret-env.age";
-    };
+  age.secrets = droneSecretsAttrs // {
+    drone-ci-env.file = inputs.secrets + "/drone-ci-env.age";
+    drone-ci-github-env.file = inputs.secrets + "/drone-ci-github-env.age";
+    drone-ci-file-secret-env.file = inputs.secrets + "/drone-ci-file-secret-env.age";
+  };
 
   systemd.services = {
     drone = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       environment = {
         DRONE_DATABASE_DRIVER = "postgres";
         DRONE_DATABASE_DATASOURCE = "host=/run/postgresql user=drone dbname=drone";
@@ -52,24 +52,22 @@ in {
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:lantian,admin:true";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-env.path;
-          ExecStart = "${pkgs.drone}/bin/drone-server";
-          RuntimeDirectory = "drone";
-          User = "drone";
-          Group = "drone";
-          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-          UMask = "007";
-        };
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-env.path;
+        ExecStart = "${pkgs.drone}/bin/drone-server";
+        RuntimeDirectory = "drone";
+        User = "drone";
+        Group = "drone";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        UMask = "007";
+      };
     };
     drone-github = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       environment = {
         DRONE_DATABASE_DRIVER = "postgres";
         DRONE_DATABASE_DATASOURCE = "host=/run/postgresql user=drone-github dbname=drone-github";
@@ -82,25 +80,23 @@ in {
         DRONE_STARLARK_ENABLED = "true";
         DRONE_USER_CREATE = "username:xddxdd,admin:true";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
-          ExecStart = "${pkgs.drone}/bin/drone-server";
-          RuntimeDirectory = "drone-github";
-          User = "drone-github";
-          Group = "drone-github";
-          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
-          UMask = "007";
-        };
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
+        ExecStart = "${pkgs.drone}/bin/drone-server";
+        RuntimeDirectory = "drone-github";
+        User = "drone-github";
+        Group = "drone-github";
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        UMask = "007";
+      };
     };
 
     drone-docker = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       environment = {
         DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
         # Make socket bind fail, this won't affect runner functionality
@@ -111,18 +107,16 @@ in {
         DRONE_RUNNER_NAME = "drone-docker";
         DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-env.path;
-          ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
-        };
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-env.path;
+        ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+      };
     };
     drone-docker-github = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       environment = {
         DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
         # Make socket bind fail, this won't affect runner functionality
@@ -133,37 +127,33 @@ in {
         DRONE_RUNNER_NAME = "drone-docker";
         DRONE_SECRET_PLUGIN_ENDPOINT = "http://drone-file-secret.localhost";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
-          ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
-          DynamicUser = true;
-        };
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-github-env.path;
+        ExecStart = "${pkgs.drone-runner-docker}/bin/drone-runner-docker";
+        DynamicUser = true;
+      };
     };
 
     drone-file-secret = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       environment = {
         DRONE_BASE_PATH = "/run/agenix/drone";
         DRONE_UNIX_SOCKET = "/run/drone-file-secret/drone-file-secret.sock";
       };
-      serviceConfig =
-        LT.serviceHarden
-        // {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = "3";
-          EnvironmentFile = config.age.secrets.drone-ci-file-secret-env.path;
-          ExecStart = "${pkgs.drone-file-secret}/bin/drone-file-secret";
-          RuntimeDirectory = "drone-file-secret";
-          User = "container";
-          Group = "container";
-          UMask = "007";
-        };
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "3";
+        EnvironmentFile = config.age.secrets.drone-ci-file-secret-env.path;
+        ExecStart = "${pkgs.drone-file-secret}/bin/drone-file-secret";
+        RuntimeDirectory = "drone-file-secret";
+        User = "container";
+        Group = "container";
+        UMask = "007";
+      };
     };
   };
 
@@ -234,7 +224,10 @@ in {
   };
 
   services.postgresql = {
-    ensureDatabases = ["drone" "drone-github"];
+    ensureDatabases = [
+      "drone"
+      "drone-github"
+    ];
     ensureUsers = [
       {
         name = "drone";
@@ -255,6 +248,6 @@ in {
     group = "drone-github";
     isSystemUser = true;
   };
-  users.groups.drone.members = ["nginx"];
-  users.groups.drone-github.members = ["nginx"];
+  users.groups.drone.members = [ "nginx" ];
+  users.groups.drone-github.members = [ "nginx" ];
 }

@@ -4,11 +4,11 @@
   sources,
   unzip,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.cyberchef) pname version src;
 
-  nativeBuildInputs = [unzip];
+  nativeBuildInputs = [ unzip ];
   sourceRoot = ".";
 
   buildPhase = ''

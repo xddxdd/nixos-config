@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   services.xserver.drivers = [
     {
       name = "modesetting";
@@ -17,10 +18,17 @@
     }
   ];
 
-  boot.kernelModules = ["vfio-pci"];
+  boot.kernelModules = [ "vfio-pci" ];
   boot.extraModprobeConfig = ''
     options vfio-pci ids=10de:249d
   '';
 
-  boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-uvm" "nvidia-drm" "nvidia-modeset"];
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidiafb"
+    "nvidia"
+    "nvidia-uvm"
+    "nvidia-drm"
+    "nvidia-modeset"
+  ];
 }

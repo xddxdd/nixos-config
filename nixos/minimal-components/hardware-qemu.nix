@@ -6,7 +6,7 @@
   utils,
   inputs,
   ...
-} @ args:
+}@args:
 lib.mkIf (builtins.elem LT.tags.qemu LT.this.tags) {
   boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
     # Set the system time from the hardware clock to work around a

@@ -6,12 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   backupDNSServers = [
     "8.8.8.8"
     "2001:4860:4860::8888"
   ];
-in {
+in
+{
   boot.extraModprobeConfig = ''
     options iwlmvm power_scheme=1
     options iwlwifi power_save=Y power_level=5
@@ -68,9 +70,11 @@ in {
   };
 
   networking = {
-    hostId = builtins.readFile (pkgs.runCommandLocal "hostid.txt" {} ''
-      echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%0X' | sh > $out
-    '');
+    hostId = builtins.readFile (
+      pkgs.runCommandLocal "hostid.txt" { } ''
+        echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%0X' | sh > $out
+      ''
+    );
     usePredictableInterfaceNames = false;
     useDHCP = false;
     domain = "lantian.pub";
@@ -80,7 +84,7 @@ in {
     nat.enable = false;
     resolvconf.dnsExtensionMechanism = true;
     resolvconf.dnsSingleRequest = true;
-    search = ["lantian.pub"];
+    search = [ "lantian.pub" ];
     tempAddresses = "disabled";
 
     # systemd-networkd breaks resolv.conf, but fixed with resolv-conf-setup.service
@@ -102,38 +106,47 @@ in {
   ];
   services.resolved.enable = false;
 
-  systemd.services.network-setup-resolv-conf = let
-    cfg = config.networking;
-  in {
-    description = "Setup resolv.conf";
-    after = ["network-pre.target" "systemd-udevd.service" "systemd-sysctl.service"];
-    before = ["network.target" "shutdown.target"];
-    wants = ["network.target"];
-    conflicts = ["shutdown.target"];
-    wantedBy = ["multi-user.target"];
+  systemd.services.network-setup-resolv-conf =
+    let
+      cfg = config.networking;
+    in
+    {
+      description = "Setup resolv.conf";
+      after = [
+        "network-pre.target"
+        "systemd-udevd.service"
+        "systemd-sysctl.service"
+      ];
+      before = [
+        "network.target"
+        "shutdown.target"
+      ];
+      wants = [ "network.target" ];
+      conflicts = [ "shutdown.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-    unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+
+      unitConfig.DefaultDependencies = false;
+
+      script = ''
+        # Set the static DNS configuration, if given.
+        ${pkgs.openresolv}/sbin/resolvconf -m 1 -a static <<EOF
+        ${lib.optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
+          domain ${cfg.domain}
+        ''}
+        ${lib.optionalString (cfg.search != [ ]) ("search " + lib.concatStringsSep " " cfg.search)}
+        ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
+          nameserver ${ns}
+        '')}
+        EOF
+      '';
     };
-
-    unitConfig.DefaultDependencies = false;
-
-    script = ''
-      # Set the static DNS configuration, if given.
-      ${pkgs.openresolv}/sbin/resolvconf -m 1 -a static <<EOF
-      ${lib.optionalString (cfg.nameservers != [] && cfg.domain != null) ''
-        domain ${cfg.domain}
-      ''}
-      ${lib.optionalString (cfg.search != []) ("search " + lib.concatStringsSep " " cfg.search)}
-      ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
-        nameserver ${ns}
-      '')}
-      EOF
-    '';
-  };
 
   # Disable systemd-nspawn container's default addresses.
   environment.etc."systemd/network/80-container-ve.network".text = ''
@@ -165,7 +178,5 @@ in {
   };
 
   # Support network namespaces
-  systemd.tmpfiles.rules = [
-    "d /run/netns 755 root root"
-  ];
+  systemd.tmpfiles.rules = [ "d /run/netns 755 root root" ];
 }

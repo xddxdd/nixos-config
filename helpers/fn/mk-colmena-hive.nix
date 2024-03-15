@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: metaConfig: nodes:
+}:
+metaConfig: nodes:
 # https://github.com/zhaofengli/colmena/blob/main/src/nix/hive/eval.nix
 with builtins; rec {
   __schema = "v0";
@@ -14,7 +15,8 @@ with builtins; rec {
   deploymentConfigSelected = names: lib.filterAttrs (name: _: elem name names) deploymentConfig;
   evalSelected = names: lib.filterAttrs (name: _: elem name names) toplevel;
   evalSelectedDrvPaths = names: lib.mapAttrs (_: v: v.drvPath) (evalSelected names);
-  introspect = f:
+  introspect =
+    f:
     f {
       inherit lib;
       pkgs = nixpkgs;

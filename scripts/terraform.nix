@@ -5,7 +5,8 @@
   packages,
   age,
   ...
-} @ args: ''
+}@args:
+''
   set -euo pipefail
 
   if [[ -e config.tf.json ]]; then rm -f config.tf.json; fi

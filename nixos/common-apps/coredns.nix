@@ -6,15 +6,19 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.coredns-client;
 
   backupDNSServers = [
     "8.8.8.8"
     "2001:4860:4860::8888"
   ];
-in {
-  networking.nameservers = lib.mkForce ([config.lantian.netns.coredns-client.ipv4] ++ backupDNSServers);
+in
+{
+  networking.nameservers = lib.mkForce (
+    [ config.lantian.netns.coredns-client.ipv4 ] ++ backupDNSServers
+  );
 
   lantian.netns.coredns-client = {
     ipSuffix = "56";
@@ -24,71 +28,73 @@ in {
     enable = true;
     package = pkgs.lantianCustomized.coredns;
 
-    config = let
-      forwardToGoogleDNS = zone: ''
-        ${zone} {
-          any
-          bufsize 1232
-          loadbalance round_robin
-          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+    config =
+      let
+        forwardToGoogleDNS = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-          forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
-            tls_servername dns.google
+            forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
+              tls_servername dns.google
+            }
+            cache
           }
-          cache
-        }
-      '';
-      forwardTo114DNS = zone: ''
-        ${zone} {
-          any
-          bufsize 1232
-          loadbalance round_robin
-          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+        '';
+        forwardTo114DNS = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-          forward . 114.114.114.114 114.114.115.115
-          cache
-        }
-      '';
-      forwardToLtnet = zone: ''
-        ${zone} {
-          any
-          bufsize 1232
-          loadbalance round_robin
-          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
-          forward . 198.19.0.253 fdbc:f9dc:67ad:2547::53
-          cache
-        }
-      '';
-      block = zone: ''
-        ${zone} {
-          any
-          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          hosts {
-            0.0.0.0 ${zone}
+            forward . 114.114.114.114 114.114.115.115
+            cache
           }
-        }
-      '';
-      mdns = zone: ''
-        ${zone} {
-          prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          mdns ${zone} 1
-        }
-      '';
+        '';
+        forwardToLtnet = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-      cfgEntries =
-        [
-          (forwardToGoogleDNS ".")
-          (forwardTo114DNS "kuxi.tech")
-          (block "upos-sz-mirroraliov.bilivideo.com")
-        ]
-        # Not working well
-        # ++ lib.optional config.services.avahi.enable (mdns "local")
-        ++ (builtins.map forwardToLtnet
-          (with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)));
-    in
-      builtins.concatStringsSep "\n" (cfgEntries ++ [""]);
+            forward . 198.19.0.253 fdbc:f9dc:67ad:2547::53
+            cache
+          }
+        '';
+        block = zone: ''
+          ${zone} {
+            any
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+            hosts {
+              0.0.0.0 ${zone}
+            }
+          }
+        '';
+        mdns = zone: ''
+          ${zone} {
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+            mdns ${zone} 1
+          }
+        '';
+
+        cfgEntries =
+          [
+            (forwardToGoogleDNS ".")
+            (forwardTo114DNS "kuxi.tech")
+            (block "upos-sz-mirroraliov.bilivideo.com")
+          ]
+          # Not working well
+          # ++ lib.optional config.services.avahi.enable (mdns "local")
+          ++ (builtins.map forwardToLtnet (
+            with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)
+          ));
+      in
+      builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
   };
 
-  systemd.services.coredns = netns.bind {};
+  systemd.services.coredns = netns.bind { };
 }

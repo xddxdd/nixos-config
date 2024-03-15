@@ -5,12 +5,16 @@
   LT,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   domains = [
     rec {
       domain = "lantian.eu.org";
       registrar = "doh";
-      providers = ["bind" "desec"];
+      providers = [
+        "bind"
+        "desec"
+      ];
       records = lib.flatten [
         (config.common.apexRecords "${domain}.")
         (config.common.hostRecs.Normal "${domain}.")

@@ -6,13 +6,17 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   avatars = pkgs.stdenv.mkDerivation rec {
     pname = "avatars";
     version = "1.0";
     src = ./files/avatar.jpg;
-    phases = ["installPhase"];
-    nativeBuildInputs = with pkgs; [imagemagick jpegoptim];
+    phases = [ "installPhase" ];
+    nativeBuildInputs = with pkgs; [
+      imagemagick
+      jpegoptim
+    ];
     installPhase = ''
       mkdir -p $out
       for SIZE in {1..512}; do
@@ -21,7 +25,8 @@
       done
     '';
   };
-in {
+in
+{
   lantian.nginxVhosts."avatar.lantian.pub" = {
     root = avatars;
     locations = {

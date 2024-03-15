@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   imports = [
     ../../nixos/minimal.nix
 
@@ -22,7 +23,7 @@
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
-  boot.kernelParams = ["pci=realloc,assign-busses"];
+  boot.kernelParams = [ "pci=realloc,assign-busses" ];
 
   lantian.bgp-graph.test = {
     baseAsn = 4200000000;
@@ -76,7 +77,10 @@
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 32;
     verbosity = "crit";
-    extraOptions = ["--loadavg-target" "4"];
+    extraOptions = [
+      "--loadavg-target"
+      "4"
+    ];
   };
 
   # Rename to LAN to apply correct firewall rules
@@ -85,8 +89,8 @@
   '';
 
   systemd.network.networks.lan0 = {
-    address = ["192.168.1.13/24"];
-    gateway = ["192.168.1.1"];
+    address = [ "192.168.1.13/24" ];
+    gateway = [ "192.168.1.1" ];
     matchConfig.Name = "lan0";
   };
 

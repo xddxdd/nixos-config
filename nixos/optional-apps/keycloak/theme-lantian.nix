@@ -5,7 +5,7 @@
   sources,
   nodejs,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation {
   inherit (sources.keycloak-lantian) pname version src;
   installPhase = ''

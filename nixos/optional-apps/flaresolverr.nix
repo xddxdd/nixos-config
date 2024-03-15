@@ -6,15 +6,14 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   systemd.services.flaresolverr = {
     description = "FlareSolverr";
-    wantedBy = ["multi-user.target"];
-    after = ["network.target"];
-    wants = ["network.target"];
-    path = with pkgs; [
-      xorg.xorgserver
-    ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    wants = [ "network.target" ];
+    path = with pkgs; [ xorg.xorgserver ];
     environment = {
       HOME = "/run/flaresolverr";
       HOST = "127.0.0.1";
@@ -24,18 +23,16 @@
       LANG = config.i18n.defaultLocale;
       TEST_URL = "https://www.example.com";
     };
-    serviceConfig =
-      LT.serviceHarden
-      // {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "3";
-        ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
-        RuntimeDirectory = "flaresolverr";
-        WorkingDirectory = "/run/flaresolverr";
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
+      RuntimeDirectory = "flaresolverr";
+      WorkingDirectory = "/run/flaresolverr";
 
-        MemoryDenyWriteExecute = false;
-        SystemCallFilter = lib.mkForce [];
-      };
+      MemoryDenyWriteExecute = false;
+      SystemCallFilter = lib.mkForce [ ];
+    };
   };
 }

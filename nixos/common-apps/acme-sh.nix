@@ -6,18 +6,20 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   homeDir = "/nix/persistent/sync-servers/acme.sh";
 
   subdomains = builtins.concatStringsSep " " (lib.mapAttrsToList (n: v: n) LT.hosts);
-in {
+in
+{
   environment.systemPackages = [
     (pkgs.stdenv.mkDerivation {
       name = "acme-sh";
       version = "0.0.1";
 
-      phases = ["installPhase"];
-      buildInputs = [pkgs.makeWrapper];
+      phases = [ "installPhase" ];
+      buildInputs = [ pkgs.makeWrapper ];
       installPhase = ''
         makeWrapper "${pkgs.acme-sh}/bin/acme.sh" "$out/bin/acme.sh" \
           --argv0 "acme.sh" \

@@ -6,14 +6,17 @@
   utils,
   inputs,
   ...
-} @ args: let
-  serverPortForwards = lib.optionalString (config.lantian.netns.coredns-authoritative.enable or false) ''
-    # network namespace coredns
-    fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.DNS}
-    fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.DNS}
-    fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
-    fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
-  '';
+}@args:
+let
+  serverPortForwards =
+    lib.optionalString (config.lantian.netns.coredns-authoritative.enable or false)
+      ''
+        # network namespace coredns
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip to ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip to ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.DNS}
+        fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
+        fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
+      '';
 
   ipv4Set = name: value: ''
     set ${name} {
@@ -31,35 +34,44 @@
     }
   '';
 
-  interfaceSets = builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''
+  interfaceSets = builtins.concatStringsSep "\n" (
+    lib.mapAttrsToList (k: v: ''
       set INTERFACE_${k} {
         type ifname
         flags constant, interval
         elements = { ${builtins.concatStringsSep ", " (builtins.map (v: v + "*") v)} }
       }
-    '')
-    LT.constants.interfacePrefixes);
+    '') LT.constants.interfacePrefixes
+  );
 
   wg-lantian =
-    (
-      lib.optionalString (LT.this.public.IPv4 != "")
-      (lib.concatStrings
-        (lib.mapAttrsToList
-          (n: {index, ...}: ''
-            ip daddr ${LT.this.public.IPv4} tcp dport { ${builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)}-${builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)} } dnat to 192.0.2.${builtins.toString index}
-            ip daddr ${LT.this.public.IPv4} udp dport { ${builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)}-${builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)} } dnat to 192.0.2.${builtins.toString index}
-          '')
-          LT.hosts))
-    )
-    + (
-      lib.optionalString (LT.this.public.IPv6Subnet != "")
-      (lib.concatStrings
-        (lib.mapAttrsToList
-          (n: v: ''
-            ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad::${builtins.toString v.index}
-          '')
-          LT.hosts))
-    );
+    (lib.optionalString (LT.this.public.IPv4 != "") (
+      lib.concatStrings (
+        lib.mapAttrsToList (
+          n:
+          { index, ... }:
+          ''
+            ip daddr ${LT.this.public.IPv4} tcp dport { ${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
+            }-${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
+            } } dnat to 192.0.2.${builtins.toString index}
+            ip daddr ${LT.this.public.IPv4} udp dport { ${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
+            }-${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
+            } } dnat to 192.0.2.${builtins.toString index}
+          ''
+        ) LT.hosts
+      )
+    ))
+    + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
+      lib.concatStrings (
+        lib.mapAttrsToList (n: v: ''
+          ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad::${builtins.toString v.index}
+        '') LT.hosts
+      )
+    ));
 
   text =
     ''
@@ -144,13 +156,14 @@
 
         # wg-lantian
     ''
-    + (
-      lib.optionalString (LT.this.public.IPv6Subnet != "")
-      (builtins.concatStringsSep "\n"
-        (lib.mapAttrsToList (
-          n: v: "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
-        ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)))
-    )
+    + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
+      builtins.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          n: v:
+          "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
+        ) (lib.filterAttrs (n: v: !(builtins.elem LT.tags.server v.tags)) LT.hosts)
+      )
+    ))
     + ''
         # give LAN access to DN42
         ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.neonetwork.IPv4}
@@ -176,8 +189,8 @@
       ${ipv6Set "DN42_IPV6" LT.constants.dn42.IPv6}
       ${ipv4Set "NEONETWORK_IPV4" LT.constants.neonetwork.IPv4}
       ${ipv6Set "NEONETWORK_IPV6" LT.constants.neonetwork.IPv6}
-      ${ipv4Set "LOCAL_IPV4" ["${LT.this.ltnet.IPv4Prefix}.0/24"]}
-      ${ipv6Set "LOCAL_IPV6" ["${LT.this.ltnet.IPv6Prefix}::/64"]}
+      ${ipv4Set "LOCAL_IPV4" [ "${LT.this.ltnet.IPv4Prefix}.0/24" ]}
+      ${ipv6Set "LOCAL_IPV6" [ "${LT.this.ltnet.IPv6Prefix}::/64" ]}
 
       set PUBLIC_FIREWALLED_PORTS {
         type inet_service
@@ -218,4 +231,4 @@
       }
     '';
 in
-  pkgs.writeText "nft.conf" text
+pkgs.writeText "nft.conf" text

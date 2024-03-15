@@ -6,6 +6,7 @@
   utils,
   inputs,
   ...
-} @ args: {
+}@args:
+{
   home.file.".hushlogin".text = "";
 }

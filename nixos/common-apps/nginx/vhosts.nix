@@ -6,8 +6,10 @@
   utils,
   inputs,
   ...
-} @ args: let
-  addConfLantianPub = args:
+}@args:
+let
+  addConfLantianPub =
+    args:
     lib.recursiveUpdate args {
       locations = {
         "/" = {
@@ -31,7 +33,9 @@
 
         # Plausible Analytics
         "= /api/event" = {
-          proxyPass = "http://${LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
+          proxyPass = "http://${
+            LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4
+          }:${LT.portStr.Plausible}";
         };
 
         # Waline
@@ -74,7 +78,8 @@
         ''
         + (args.extraConfig or "");
     };
-in {
+in
+{
   lantian.nginxVhosts = {
     "_default_http" = {
       listenHTTP.enable = true;
@@ -119,7 +124,7 @@ in {
     };
 
     "lantian.pub" = addConfLantianPub {
-      serverAliases = ["${config.networking.hostName}.lantian.pub"];
+      serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
       sslCertificate = "lantian.pub_ecc";
     };
     "lantian.dn42" = addConfLantianPub {
@@ -138,7 +143,7 @@ in {
       sslCertificate = "lantian.pub_ecc";
     };
     "xuyh0120.win" = {
-      serverAliases = ["www.xuyh0120.win"];
+      serverAliases = [ "www.xuyh0120.win" ];
       locations."/".return = "307 https://lantian.pub$request_uri";
       enableCommonLocationOptions = false;
       sslCertificate = "xuyh0120.win_ecc";
@@ -164,7 +169,10 @@ in {
       };
 
       root = "/nix/persistent/sync-servers/www/lantian.pub";
-      serverAliases = ["gopher.lantian.dn42" "gopher.lantian.neo"];
+      serverAliases = [
+        "gopher.lantian.dn42"
+        "gopher.lantian.neo"
+      ];
 
       locations."/" = {
         index = "gophermap";

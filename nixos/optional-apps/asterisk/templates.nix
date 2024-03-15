@@ -6,7 +6,8 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   # http://www.cs.columbia.edu/~hgs/audio/codecs.html
@@ -60,7 +61,8 @@
     "slin12"
     "slin"
   ];
-in rec {
+in
+rec {
   templates = ''
     [template-endpoint-common](!)
     type=endpoint

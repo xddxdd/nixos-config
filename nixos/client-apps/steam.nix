@@ -6,16 +6,18 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   mangohudForCurrentKernel = pkgs.mangohud.override {
     libXNVCtrl = config.boot.kernelPackages.nvidia_x11.settings.libXNVCtrl;
   };
-in {
+in
+{
   programs.steam.enable = true;
-  environment.systemPackages = [mangohudForCurrentKernel];
+  environment.systemPackages = [ mangohudForCurrentKernel ];
   # https://www.reddit.com/r/NixOS/comments/11d76bb/comment/jaqzwyt
   hardware.opengl = {
-    extraPackages = [mangohudForCurrentKernel];
-    extraPackages32 = [mangohudForCurrentKernel];
+    extraPackages = [ mangohudForCurrentKernel ];
+    extraPackages32 = [ mangohudForCurrentKernel ];
   };
 }

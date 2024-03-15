@@ -5,7 +5,8 @@
   LT,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   PublicServers = [
     "v-ps-hkg.lantian.pub."
     "v-ps-sjc.lantian.pub."
@@ -44,14 +45,15 @@
     recordType = "NAMESERVER";
     name = n;
   });
-  mapNSRecords = servers: name:
+  mapNSRecords =
+    servers: name:
     builtins.map (n: {
       recordType = "NS";
       inherit name;
       target = n;
-    })
-    servers;
-in {
+    }) servers;
+in
+{
   common.nameservers = {
     Public = mapNameservers PublicServers;
     PublicNSRecords = mapNSRecords PublicServers;

@@ -6,7 +6,7 @@
   iconv,
   callPackage,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   pname = "dngzwxdq";
   version = "4.5.0";
@@ -16,7 +16,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0h05zfph4shviwrib283k3w565nn9haf7pa9rr6in3zb5vb1xnf8";
   };
 
-  nativeBuildInputs = [chmlib-utils iconv];
+  nativeBuildInputs = [
+    chmlib-utils
+    iconv
+  ];
 
   dontUnpack = true;
 

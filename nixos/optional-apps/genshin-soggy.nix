@@ -6,23 +6,23 @@
   utils,
   inputs,
   ...
-} @ args: let
+}@args:
+let
   netns = config.lantian.netns.genshin-soggy;
-in {
+in
+{
   lantian.netns.genshin-soggy = {
     ipSuffix = "26";
-    announcedIPv4 = [
-      "198.19.0.26"
-    ];
-    birdBindTo = ["genshin-soggy.service"];
+    announcedIPv4 = [ "198.19.0.26" ];
+    birdBindTo = [ "genshin-soggy.service" ];
   };
 
   systemd.services.genshin-soggy = netns.bind {
     description = "Genshin Soggy Server";
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = LT.serviceHarden // {
-      AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
-      CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
       Restart = "always";
       RestartSec = "3";
       User = "genshin-soggy";
@@ -43,5 +43,5 @@ in {
     group = "genshin-soggy";
     isSystemUser = true;
   };
-  users.groups.genshin-soggy = {};
+  users.groups.genshin-soggy = { };
 }
