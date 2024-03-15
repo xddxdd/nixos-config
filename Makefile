@@ -8,10 +8,10 @@ all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
 build: FORCE
-	@nom build $(shell nix eval --raw .#buildCommands.all)
+	@nix run .#colmena -- build
 
 build-x86: FORCE
-	@nom build $(shell nix eval --raw .#buildCommands.x86_64-linux)
+	@nix run .#colmena -- build --on @x86_64-linux
 
 local: FORCE
 	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
