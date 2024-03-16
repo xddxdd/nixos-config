@@ -39,7 +39,7 @@ let
         };
 
         # Waline
-        "/comment" = {
+        "= /api/comment" = {
           proxyPass = "http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline}";
           extraConfig = ''
             proxy_set_header REMOTE-HOST $remote_addr;
