@@ -1,5 +1,5 @@
 diff --git a/regress/check-perm.c b/regress/check-perm.c
-index dac307d2..bc191f3b 100644
+index dac307d24..bc191f3bd 100644
 --- a/regress/check-perm.c
 +++ b/regress/check-perm.c
 @@ -34,43 +34,13 @@ fatal(const char *fmt, ...)
@@ -47,7 +47,7 @@ index dac307d2..bc191f3b 100644
  		fatal("Unable to chdir to chroot path \"%s\": "
  		    "%s", path, strerror(errno));
 diff --git a/session.c b/session.c
-index e67d24d2..7e651fbf 100644
+index c821dcd44..ed45f574d 100644
 --- a/session.c
 +++ b/session.c
 @@ -1306,43 +1306,13 @@ do_nologin(struct passwd *pw)
@@ -75,7 +75,7 @@ index e67d24d2..7e651fbf 100644
 -			memcpy(component, path, cp - path);
 -			component[cp - path] = '\0';
 -		}
--	
+-
 -		debug3_f("checking '%s'", component);
 -
 -		if (stat(component, &st) != 0)
@@ -94,7 +94,7 @@ index e67d24d2..7e651fbf 100644
  	if (chdir(path) == -1)
  		fatal("Unable to chdir to chroot path \"%s\": "
  		    "%s", path, strerror(errno));
-@@ -2711,4 +2681,3 @@ session_get_remote_name_or_ip(struct ssh *ssh, u_int utmp_size, int use_dns)
+@@ -2729,4 +2699,3 @@ session_get_remote_name_or_ip(struct ssh *ssh, u_int utmp_size, int use_dns)
  		remote = ssh_remote_ipaddr(ssh);
  	return remote;
  }

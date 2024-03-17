@@ -50,12 +50,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    impermanence.url = "github:nix-community/impermanence";
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.flake-compat.follows = "flake-compat";

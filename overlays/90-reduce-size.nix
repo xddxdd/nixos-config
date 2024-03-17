@@ -1,21 +1,5 @@
 { inputs, ... }:
-final: prev:
-let
-  patchNix =
-    p:
-    p.override {
-      enableDocumentation = false;
-      withAWS = false;
-    };
-in
-rec {
-  # Disable Nix S3 support
-  nix = patchNix prev.nix;
-  nixFlakes = patchNix prev.nixFlakes;
-  nixStable = patchNix prev.nixStable;
-  nixUnstable = patchNix prev.nixUnstable;
-  nixVersions = final.lib.mapAttrs (n: v: patchNix v) prev.nixVersions;
-
+final: prev: rec {
   # Disable Oh My Zsh's compdump call
   oh-my-zsh = prev.oh-my-zsh.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/oh-my-zsh-disable-compdump.patch ];

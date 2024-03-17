@@ -130,7 +130,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-03-08",
+        "date": "2024-03-13",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -142,11 +142,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "a26c1f16f4e199eb6392cffe9a019d14531ec36f",
-            "sha256": "sha256-pwcSABt7q9JgwbCxAiltEX9Yx7XDIHzxV/IBBWpqUlA=",
+            "rev": "376a93e8135e9f8783c4086c8b6bebb781ca03f2",
+            "sha256": "sha256-PMDAbrz5pwDoBYYPJ1f8TLaYc3b2vZHMndDFeiQ3Nn0=",
             "type": "github"
         },
-        "version": "a26c1f16f4e199eb6392cffe9a019d14531ec36f"
+        "version": "376a93e8135e9f8783c4086c8b6bebb781ca03f2"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -170,7 +170,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-03-04",
+        "date": "2024-03-14",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -182,15 +182,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "c4388cf3d034d05b10560eaf9be31882453ca244",
-            "sha256": "sha256-ua6LpbV3ymR22hAT2AZenoMXDqr3DUJ1wtBi/Psypow=",
+            "rev": "cb0136eab688ffa44c217218f31fe2149477ada3",
+            "sha256": "sha256-awwk9W06Pq7zoWt1FYZGEQXNYUP6Rr1iocCu1KTgsM4=",
             "type": "github"
         },
-        "version": "c4388cf3d034d05b10560eaf9be31882453ca244"
+        "version": "cb0136eab688ffa44c217218f31fe2149477ada3"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-03-08",
+        "date": "2024-03-15",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -202,15 +202,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "f65c656ac034a99cca09557eeb9337e7c00a7e73",
-            "sha256": "sha256-FKPx//IQgFIXFsiTWDCbCDklL3gbN+TP1c3ehgqDcqs=",
+            "rev": "91eb4606a4a3e8e2a4ed2ac4e2257e7ea44ccc44",
+            "sha256": "sha256-oPcobm+yD8sPEJF30DlxIFThVwD1q2f98PrlitNyfUk=",
             "type": "github"
         },
-        "version": "f65c656ac034a99cca09557eeb9337e7c00a7e73"
+        "version": "91eb4606a4a3e8e2a4ed2ac4e2257e7ea44ccc44"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-02-21",
+        "date": "2024-03-15",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -222,11 +222,11 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "ce7ccc5401685f144531259fbd46a7e520a6bce5",
-            "sha256": "sha256-+62xCW6U/tLKe+rhh+uM0ERad2DMAAJA0BBnQ/L3EKA=",
+            "rev": "b4a917417c856307fe19fb6a1a2819e3270df22e",
+            "sha256": "sha256-KBg0TomhUNRV1TdMCuZZX8jTMFs8rBFl6Wp0x1rsSOs=",
             "type": "github"
         },
-        "version": "ce7ccc5401685f144531259fbd46a7e520a6bce5"
+        "version": "b4a917417c856307fe19fb6a1a2819e3270df22e"
     },
     "soggy-resources": {
         "cargoLocks": null,
