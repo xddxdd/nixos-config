@@ -280,6 +280,21 @@
         peerIPv6LinkLocal = "fe80::2458";
       };
     };
+    rikka = {
+      remoteASN = 4242421241;
+      latencyMs = 2;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21241;
+        remoteAddress = "8.120.70.225";
+        remotePort = 22547;
+        wireguardPubkey = "D81bsynyBaCkOpb55Hlrc2d/RSCfFOB7y5Xg+7kHd00=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.114.129";
+        peerIPv6LinkLocal = "fe80::1241";
+      };
+    };
     rtxcat = {
       remoteASN = 4242423608;
       latencyMs = 1;
