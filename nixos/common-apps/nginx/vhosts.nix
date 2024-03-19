@@ -10,6 +10,13 @@
 let
   addConfLantianPub =
     args:
+    let
+      enableCompression = ''
+        gzip on;
+        brotli on;
+        zstd on;
+      '';
+    in
     lib.recursiveUpdate args {
       locations = {
         "/" = {
@@ -36,6 +43,7 @@ let
           proxyPass = "http://${
             LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4
           }:${LT.portStr.Plausible}";
+          extraConfig = enableCompression;
         };
 
         # Waline
@@ -43,6 +51,7 @@ let
           proxyPass = "http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline}";
           extraConfig = ''
             proxy_set_header REMOTE-HOST $remote_addr;
+            ${enableCompression}
           '';
         };
 
@@ -52,6 +61,7 @@ let
           return = "200 '${LT.constants.matrixWellKnown.server}'";
           extraConfig = ''
             default_type application/json;
+            ${enableCompression}
           '';
         };
         "= /.well-known/matrix/client" = {
@@ -59,6 +69,7 @@ let
           return = "200 '${LT.constants.matrixWellKnown.client}'";
           extraConfig = ''
             default_type application/json;
+            ${enableCompression}
           '';
         };
       };
