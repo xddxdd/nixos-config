@@ -12,7 +12,7 @@
     ../../nixos/client.nix
 
     ./hardware-configuration.nix
-    ./pipewire-disable-hdmi-audio.nix
+    ./wireplumber-disable-hdmi-audio.nix
 
     ../../nixos/optional-apps/pipewire-rtp-source.nix
     ../../nixos/optional-apps/syncthing.nix

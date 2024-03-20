@@ -10,7 +10,7 @@
 {
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextFile {
-      name = "wireplumber-bluez-config";
+      name = "wireplumber-disable-hdmi-audio";
       text = ''
         rule = {
           matches = {
