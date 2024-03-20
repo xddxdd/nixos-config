@@ -133,6 +133,7 @@ rec {
     Syncthing = 13834;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
+    PipewireRTP = 46414;
   };
 
   portStr = lib.mapAttrsRecursive (k: builtins.toString) port;

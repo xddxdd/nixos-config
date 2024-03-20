@@ -13,7 +13,7 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/pipewire-network-audio-receive.nix
+    ../../nixos/optional-apps/pipewire-rtp-source.nix
     ../../nixos/optional-apps/syncthing.nix
   ];
 
@@ -29,6 +29,8 @@
     SOUND_POWER_SAVE_ON_AC = 0;
     SOUND_POWER_SAVE_ON_BAT = 0;
   };
+
+  lantian.pipewire-rtp-source-ifname = "eth0";
 
   # Bind mounts
   fileSystems = {
