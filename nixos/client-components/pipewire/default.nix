@@ -22,7 +22,10 @@ in
     ./wireplumber-bluez.nix
   ];
 
-  environment.systemPackages = [ pkgs.pulseaudio ];
+  environment.systemPackages = [
+    pkgs.pulseaudio
+    pkgs.helvum
+  ];
 
   security.rtkit.enable = true;
   systemd.services.rtkit-daemon.serviceConfig.ExecStart = [
