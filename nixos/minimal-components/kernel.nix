@@ -140,6 +140,8 @@ let
           nft-fullcone = pkgs.nft-fullcone.override { inherit (final) kernel; };
           nullfsvfs = pkgs.nullfsvfs.override { inherit (final) kernel; };
           ovpn-dco = pkgs.ovpn-dco.override { inherit (final) kernel; };
+          r8125 = pkgs.r8125.override { inherit (final) kernel; };
+          r8168 = pkgs.r8168.override { inherit (final) kernel; };
 
           nvidia_x11_grid_16_2 = pkgs.nvidia-grid.grid."16_2".override { inherit (final) kernel; };
         }
@@ -193,6 +195,8 @@ in
             nft-fullcone
             nullfsvfs
             # ovpn-dco
+            r8125
+            r8168
           ]
           ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
         );

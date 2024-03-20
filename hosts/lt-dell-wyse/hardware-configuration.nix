@@ -24,6 +24,11 @@
   ];
   boot.kernelModules = [ "kvm-intel" ];
 
+  boot.extraModprobeConfig = ''
+    blacklist r8169
+    install r8169 ${pkgs.coreutils}/bin/true
+  '';
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/F5AA-FBC7";
     fsType = "vfat";
