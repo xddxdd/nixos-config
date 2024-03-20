@@ -40,6 +40,11 @@ in
     stateDir = "prometheus";
     checkConfig = "syntax-only";
 
+    extraFlags = [
+      "--storage.tsdb.retention.time=365d"
+      "--storage.tsdb.retention.size=10GB"
+    ];
+
     scrapeConfigs = [
       {
         job_name = "prometheus";
