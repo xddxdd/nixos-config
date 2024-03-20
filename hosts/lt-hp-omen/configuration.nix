@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
+    ../../nixos/optional-apps/pipewire-rtp-sink.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/vlmcsd.nix
@@ -40,6 +41,8 @@
     powerOnBoot = false;
   };
   hardware.xpadneo.enable = true;
+
+  lantian.pipewire-rtp-sink-ifname = "wlan0";
 
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
