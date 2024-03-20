@@ -164,7 +164,7 @@
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "vultr-sea";
+        target = "v-ps-sea";
       }
       {
         recordType = "SRV";
@@ -172,7 +172,7 @@
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "vultr-sea";
+        target = "v-ps-sea";
       }
       {
         recordType = "SRV";
@@ -180,7 +180,7 @@
         priority = 0;
         weight = 0;
         port = 5061;
-        target = "vultr-sea";
+        target = "v-ps-sea";
       }
     ];
   };
