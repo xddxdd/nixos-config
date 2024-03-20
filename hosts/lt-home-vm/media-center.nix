@@ -100,6 +100,18 @@ in
     };
   };
 
+  systemd.services.bazarr = netns.bind {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    path = with pkgs; [ mediainfo ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [
+        radarrMediaPath
+        sonarrMediaPath
+      ];
+    };
+  };
+
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
@@ -115,6 +127,8 @@ in
     "radarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";
     "prowlarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
     "prowlarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
+    "bazarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
+    "bazarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
     "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
   };

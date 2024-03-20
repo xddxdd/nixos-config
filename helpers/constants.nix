@@ -90,6 +90,7 @@ rec {
     Pipewire = 4713;
     IPFS.API = 5001;
     IPerf = 5201;
+    Bazarr = 6767;
     Radarr = 7878;
     IPFS.Gateway = 8080;
     Waline = 8360;
