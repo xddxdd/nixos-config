@@ -73,7 +73,7 @@ in
         }}
         ${externalTrunk {
           name = "zadarma";
-          number = "286901";
+          number = "538277";
           url = "sip.zadarma.com";
         }}
 
