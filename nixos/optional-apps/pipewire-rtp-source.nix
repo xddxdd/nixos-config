@@ -25,15 +25,8 @@
               "source.port" = LT.port.PipewireRTP;
               "local.ifname" = config.lantian.pipewire-rtp-source-ifname;
               "sess.media" = "audio";
-              "audio.format" = "S16BE";
-              "audio.rate" = 48000;
-              "audio.channels" = 2;
-              "audio.position" = [
-                "FL"
-                "FR"
-              ];
               "stream.props" = {
-                "media.class" = "Audio/Source";
+                "media.class" = "Stream/Output/Audio";
                 "node.name" = "rtp-source";
                 "node.description" = "RTP Source";
               };

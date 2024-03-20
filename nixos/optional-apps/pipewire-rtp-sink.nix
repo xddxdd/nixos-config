@@ -30,13 +30,6 @@
               "net.ttl" = 2;
               "sess.name" = "PipeWire RTP stream";
               "sess.media" = "audio";
-              "audio.format" = "S16BE";
-              "audio.rate" = 48000;
-              "audio.channels" = 2;
-              "audio.position" = [
-                "FL"
-                "FR"
-              ];
               "stream.props" = {
                 "media.class" = "Audio/Sink";
                 "node.name" = "rtp-sink";
