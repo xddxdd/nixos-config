@@ -23,7 +23,7 @@
             args = {
               "source.ip" = "0.0.0.0";
               "destination.ip" = "224.0.0.56";
-              "destination.port" = LT.port.PipewireRTP;
+              "destination.port" = LT.port.Pipewire.RTP;
               "local.ifname" = config.lantian.pipewire-rtp-sink-ifname;
               "net.mtu" = 1280;
               # Traverse VLANs through gateway if necessary

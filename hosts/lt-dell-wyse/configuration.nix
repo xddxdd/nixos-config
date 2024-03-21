@@ -14,6 +14,7 @@
     ./hardware-configuration.nix
     ./wireplumber-disable-hdmi-audio.nix
 
+    ../../nixos/optional-apps/pipewire-network-audio-receive.nix
     ../../nixos/optional-apps/pipewire-rtp-source.nix
     ../../nixos/optional-apps/syncthing.nix
   ];
