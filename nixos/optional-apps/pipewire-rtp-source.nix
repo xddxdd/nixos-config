@@ -22,7 +22,7 @@
             name = "libpipewire-module-rtp-source";
             args = {
               "source.ip" = "224.0.0.56";
-              "source.port" = LT.port.PipewireRTP;
+              "source.port" = LT.port.Pipewire.RTP;
               "local.ifname" = config.lantian.pipewire-rtp-source-ifname;
               "sess.media" = "audio";
               "stream.props" = {

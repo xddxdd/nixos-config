@@ -87,7 +87,7 @@ rec {
     NFS.LockD = 4001;
     NFS.MountD = 4002;
     Quassel = 4242;
-    Pipewire = 4713;
+    Pipewire.TCP = 4713;
     IPFS.API = 5001;
     IPerf = 5201;
     Bazarr = 6767;
@@ -133,7 +133,7 @@ rec {
     Syncthing = 13834;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
-    PipewireRTP = 46414;
+    Pipewire.RTP = 46414;
   };
 
   portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
