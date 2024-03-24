@@ -21,6 +21,9 @@
         hwdec-codecs = "all";
         no-resume-playback = "";
         scale = "ewa_lanczossharp";
+        # Prefer subtitles and audios: Chinese > English
+        alang = "chi,zho,cmn,zh,eng,en";
+        slang = "chi,zho,cmn,zh,eng,en";
       }
       // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
         hwdec = "vaapi";
