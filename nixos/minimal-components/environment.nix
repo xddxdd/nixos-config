@@ -186,6 +186,15 @@ in
     SystemMaxUse=100M
   '';
 
+  security.pam.loginLimits = [
+    {
+      domain = "@wheel";
+      item = "nproc";
+      type = "-";
+      value = "5000000";
+    }
+  ];
+
   security.wrappers = {
     bwrap = {
       source = pkgs.bubblewrap + "/bin/bwrap";
