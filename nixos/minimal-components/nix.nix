@@ -49,7 +49,10 @@
       log-lines = 25;
       max-free = 1000 * 1000 * 1000;
       min-free = 128 * 1000 * 1000;
-      trusted-users = [ "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       use-cgroups = true;
       warn-dirty = false;
 
