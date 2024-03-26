@@ -140,21 +140,6 @@
         peerIPv6LinkLocal = "fe80::1312";
       };
     };
-    noreinx = {
-      remoteASN = 4242421580;
-      latencyMs = 68;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 21580;
-        remoteAddress = "sfo.dn42.noreinx.me";
-        remotePort = 22547;
-        wireguardPubkey = "uUKad5JFD+Zfx/sApOcqJVrrsRS25en9ac6Tri/cZQk=";
-      };
-      addressing = {
-        peerIPv6LinkLocal = "fe80::1580:1";
-      };
-    };
     oneacl = {
       remoteASN = 4242422633;
       latencyMs = 10;
