@@ -120,6 +120,12 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
+  radarr = prev.radarr.overrideAttrs (old: {
+    src = sources.radarr-x64.src;
+  });
+  sonarr = prev.sonarr.overrideAttrs (old: {
+    src = sources.sonarr-x64.src;
+  });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
   # };

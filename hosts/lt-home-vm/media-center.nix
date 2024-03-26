@@ -112,6 +112,8 @@ in
     };
   };
 
+  systemd.services.decluttarr = netns.bind { };
+
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];

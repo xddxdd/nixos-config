@@ -228,6 +228,21 @@
         },
         "version": "b4a917417c856307fe19fb6a1a2819e3270df22e"
     },
+    "radarr-x64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "radarr-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-wAvZChGbowcOyxE1w55EoV8posE77WNvUwdEbQ4ZWAI=",
+            "type": "url",
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.4.4.8688/Radarr.develop.5.4.4.8688.linux-core-x64.tar.gz"
+        },
+        "version": "5.4.4.8688"
+    },
     "soggy-resources": {
         "cargoLocks": null,
         "date": "2022-11-27",
@@ -246,6 +261,21 @@
             "url": "https://codeberg.org/LDA_suku/soggy_resources.git"
         },
         "version": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d"
+    },
+    "sonarr-x64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sonarr-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JHzgRCdbX1RDab5Q8X36V2x1POtJYk6iDpnkODDNsNc=",
+            "type": "url",
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.2.1367/Sonarr.develop.4.0.2.1367.linux-x64.tar.gz"
+        },
+        "version": "4.0.2.1367"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

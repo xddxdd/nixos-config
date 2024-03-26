@@ -137,6 +137,14 @@
     };
     date = "2024-03-15";
   };
+  radarr-x64 = {
+    pname = "radarr-x64";
+    version = "5.4.4.8688";
+    src = fetchurl {
+      url = "https://github.com/Radarr/Radarr/releases/download/v5.4.4.8688/Radarr.develop.5.4.4.8688.linux-core-x64.tar.gz";
+      sha256 = "sha256-wAvZChGbowcOyxE1w55EoV8posE77WNvUwdEbQ4ZWAI=";
+    };
+  };
   soggy-resources = {
     pname = "soggy-resources";
     version = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";
@@ -149,6 +157,14 @@
       sha256 = "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=";
     };
     date = "2022-11-27";
+  };
+  sonarr-x64 = {
+    pname = "sonarr-x64";
+    version = "4.0.2.1367";
+    src = fetchurl {
+      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.2.1367/Sonarr.develop.4.0.2.1367.linux-x64.tar.gz";
+      sha256 = "sha256-JHzgRCdbX1RDab5Q8X36V2x1POtJYk6iDpnkODDNsNc=";
+    };
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

@@ -47,9 +47,21 @@ fetch.github = "OpenVPN/openvpn"
 src.git = "https://github.com/openwrt/mt76"
 fetch.github = "openwrt/mt76"
 
+[radarr-x64]
+src.github_tag = "Radarr/Radarr"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.develop.$ver.linux-core-x64.tar.gz"
+
 [soggy-resources]
 src.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
 fetch.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
+
+[sonarr-x64]
+src.github_tag = "Sonarr/Sonarr"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/Sonarr/Sonarr/releases/download/v$ver/Sonarr.develop.$ver.linux-x64.tar.gz"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
