@@ -18,8 +18,8 @@
             json = builtins.toJSON {
               captive = false;
               venue-info-url = "https://lantian.pub";
-              seconds-remaining = 365 * 24 * 60 * 60;
-              bytes-remaining = 1024 * 1024 * 1024 * 1024;
+              seconds-remaining = 10 * 365 * 24 * 60 * 60;  # 10 years
+              bytes-remaining = 1024 * 1024 * 1024 * 1024 * 1024; # 1 PB
               can-extend-session = false;
             };
           in
