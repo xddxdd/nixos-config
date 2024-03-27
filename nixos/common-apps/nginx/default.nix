@@ -9,6 +9,7 @@
 }@args:
 {
   imports = [
+    ./api.nix
     ./autoconfig.nix
     ./backblaze-redir.nix
     ./libravatar.nix

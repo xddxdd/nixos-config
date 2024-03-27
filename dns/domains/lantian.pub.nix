@@ -93,6 +93,12 @@ let
   internalServices = [
     {
       recordType = "CNAME";
+      name = "api";
+      target = config.common.records.GeoDNSTarget;
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "backblaze";
       target = config.common.records.GeoDNSTarget;
       ttl = "1h";
