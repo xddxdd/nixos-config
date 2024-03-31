@@ -39,9 +39,9 @@
     "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
-  # CPU limit for high load services
-  systemd.services.matrix-synapse.serviceConfig.CPUQuota = "25%";
-  systemd.services.matrix-sliding-sync.serviceConfig.CPUQuota = "10%";
+  # CPU limit for high load services, allow a single core maximum
+  systemd.services.matrix-synapse.serviceConfig.CPUQuota = "100%";
+  systemd.services.matrix-sliding-sync.serviceConfig.CPUQuota = "20%";
 
   systemd.network.networks.eth0 = {
     address = [
