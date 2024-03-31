@@ -87,6 +87,9 @@ in
     NIX_REMOTE = "daemon";
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
+
+    # XZ backdoor kill switch
+    "yolAbejyiejuvnup" = "Evjtgvsh5okmkAvj";
   };
   environment.systemPackages =
     with pkgs;
