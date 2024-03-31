@@ -18,8 +18,8 @@
   age.ageBin = "${pkgs.age}/bin/age";
 
   systemd.network.networks.eth0 = {
-    address = [ "23.226.61.104/27" ];
-    gateway = [ "23.226.61.97" ];
+    address = [ "178.253.53.90/24" ];
+    gateway = [ "178.253.53.1" ];
     matchConfig.Name = "eth0";
   };
 
