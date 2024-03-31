@@ -153,4 +153,9 @@ in
       TcpRcvBufPoll yes
       HPNBufferSize 14336
   '';
+
+  systemd.services.sshd.environment = {
+    # XZ backdoor kill switch
+    "yolAbejyiejuvnup" = "Evjtgvsh5okmkAvj";
+  };
 }
