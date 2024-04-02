@@ -1,0 +1,94 @@
+diff --git a/providers/gcore/gcoreExtend.go b/providers/gcore/gcoreExtend.go
+index a07cb657..1cd4a4e3 100644
+--- a/providers/gcore/gcoreExtend.go
++++ b/providers/gcore/gcoreExtend.go
+@@ -13,6 +13,14 @@ import (
+ 	dnssdk "github.com/G-Core/gcore-dns-sdk-go"
+ )
+ 
++type gcoreZone struct {
++	DNSSECEnabled bool `json:"dnssec_enabled"`
++}
++
++type gcoreDNSSECRequest struct {
++	Enabled bool `json:"enabled"`
++}
++
+ type gcoreRRSets struct {
+ 	RRSets []gcoreRRSetExtended `json:"rrsets"`
+ }
+@@ -103,3 +111,29 @@ func (c *gcoreProvider) dnssdkRRSets(domain string) (gcoreRRSets, error) {
+ 
+ 	return result, nil
+ }
++
++func (c *gcoreProvider) dnssdkGetDNSSEC(domain string) (bool, error) {
++	var result gcoreZone
++	url := fmt.Sprintf("/v2/zones/%s", domain)
++
++	err := dnssdkDo(c.ctx, c.provider, c.apiKey, http.MethodGet, url, nil, &result)
++	if err != nil {
++		return false, err
++	}
++
++	return result.DNSSECEnabled, nil
++}
++
++func (c *gcoreProvider) dnssdkSetDNSSEC(domain string, enabled bool) error {
++	var request gcoreDNSSECRequest
++	request.Enabled = enabled
++
++	url := fmt.Sprintf("/v2/zones/%s/dnssec", domain)
++
++	err := dnssdkDo(c.ctx, c.provider, c.apiKey, http.MethodPatch, url, request, nil)
++	if err != nil {
++		return err
++	}
++
++	return nil
++}
+diff --git a/providers/gcore/gcoreProvider.go b/providers/gcore/gcoreProvider.go
+index 357c7c4b..3de7a20c 100644
+--- a/providers/gcore/gcoreProvider.go
++++ b/providers/gcore/gcoreProvider.go
+@@ -41,7 +41,7 @@ func NewGCore(m map[string]string, metadata json.RawMessage) (providers.DNSServi
+ }
+ 
+ var features = providers.DocumentationNotes{
+-	providers.CanAutoDNSSEC:          providers.Cannot(),
++	providers.CanAutoDNSSEC:          providers.Can(),
+ 	providers.CanGetZones:            providers.Can(),
+ 	providers.CanUseAlias:            providers.Can(),
+ 	providers.CanUseCAA:              providers.Can(),
+@@ -186,6 +186,31 @@ func (c *gcoreProvider) GetZoneRecordsCorrections(dc *models.DomainConfig, exist
+ 		}
+ 	}
+ 
++	dnssecEnabled, err := c.dnssdkGetDNSSEC(dc.Name)
++	if err != nil {
++		return nil, err
++	}
++
++	if !dnssecEnabled && dc.AutoDNSSEC == "on" {
++		// Copy all params to avoid overwrites
++		zone := dc.Name
++		corrections = append(corrections, &models.Correction{
++			Msg: "Enable DNSSEC",
++			F: func() error {
++				return c.dnssdkSetDNSSEC(zone, true)
++			},
++		})
++	} else if dnssecEnabled && dc.AutoDNSSEC == "off" {
++		// Copy all params to avoid overwrites
++		zone := dc.Name
++		corrections = append(corrections, &models.Correction{
++			Msg: "Disable DNSSEC",
++			F: func() error {
++				return c.dnssdkSetDNSSEC(zone, false)
++			},
++		})
++	}
++
+ 	result := append(reports, deletions...)
+ 	result = append(result, corrections...)
+ 	return result, nil

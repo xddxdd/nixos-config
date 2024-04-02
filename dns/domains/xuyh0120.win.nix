@@ -152,6 +152,7 @@ in
       domain = "xuyh0120.win";
       registrar = "porkbun";
       providers = [ "gcore" ];
+      dnssec = true;
       records = lib.flatten [
         {
           recordType = "ALIAS";

@@ -22,6 +22,14 @@ in
       default = "none";
     };
     providers = lib.mkOption { type = lib.types.listOf lib.types.str; };
+    dnssec = lib.mkOption {
+      type = lib.types.enum [
+        null
+        true
+        false
+      ];
+      default = null;
+    };
     defaultTTL = lib.mkOption {
       type = lib.types.str;
       default = "1h";
@@ -67,6 +75,8 @@ in
       [
         "D(${formattedDomain}, REG_${config.registrar}, ${providerCommands}, DefaultTTL(${formatArg config.defaultTTL}), NAMESERVER_TTL(${formatArg config.nameserverTTL}));"
       ]
+      ++ (lib.optional (config.dnssec == true) "D_EXTEND(${formattedDomain}, AUTODNSSEC_ON);")
+      ++ (lib.optional (config.dnssec == false) "D_EXTEND(${formattedDomain}, AUTODNSSEC_OFF);")
       ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") filteredRecordStrings)
       ++ [ "" ]
     );
