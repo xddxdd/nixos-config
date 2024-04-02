@@ -12,6 +12,7 @@
       domain = "56631131.xyz";
       registrar = "porkbun";
       providers = [ "gcore" ];
+      dnssec = true;
       records = lib.flatten [
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal "${domain}.")

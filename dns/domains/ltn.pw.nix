@@ -12,6 +12,7 @@
       domain = "ltn.pw";
       registrar = "porkbun";
       providers = [ "gcore" ];
+      dnssec = true;
       records = lib.flatten [
         {
           recordType = "fakeALIAS";

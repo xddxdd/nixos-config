@@ -14,6 +14,13 @@ rec {
   brlaser = prev.brlaser.overrideAttrs (old: {
     inherit (sources.brlaser) version src;
   });
+  dnscontrol = prev.dnscontrol.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        ../patches/dnscontrol-gcore.patch
+      ];
+  });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
 

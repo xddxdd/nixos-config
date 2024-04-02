@@ -14,8 +14,6 @@
     [
       ./common
       ./core
-
-      ./domains/56631131.xyz.nix
     ]
     ++ ls ./domains;
 
