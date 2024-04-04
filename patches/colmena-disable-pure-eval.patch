@@ -1,0 +1,13 @@
+diff --git a/src/nix/hive/mod.rs b/src/nix/hive/mod.rs
+index f9d9227..52e3d92 100644
+--- a/src/nix/hive/mod.rs
++++ b/src/nix/hive/mod.rs
+@@ -174,7 +174,7 @@ impl Hive {
+     pub fn nix_flags(&self) -> NixFlags {
+         let mut flags = NixFlags::default();
+         flags.set_show_trace(self.show_trace);
+-        flags.set_pure_eval(self.path.is_flake());
++        flags.set_pure_eval(false);
+         flags.set_impure(self.impure);
+         flags.set_options(self.nix_options.clone());
+         flags
