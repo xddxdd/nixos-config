@@ -77,6 +77,7 @@
       url = "github:xddxdd/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.nix-index-database.follows = "nix-index-database";
       inputs.nvfetcher.follows = "nvfetcher";
     };
     nvfetcher = {
