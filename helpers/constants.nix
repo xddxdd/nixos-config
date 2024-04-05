@@ -93,6 +93,7 @@ rec {
     Bazarr = 6767;
     Radarr = 7878;
     IPFS.Gateway = 8080;
+    JProxy = 8117;
     Waline = 8360;
     Matrix.Public = 8448;
     Sonarr = 8989;

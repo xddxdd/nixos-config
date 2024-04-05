@@ -19,6 +19,10 @@ fetch.github = "boramalper/himawaripy"
 src.github = "bastienwirtz/homer"
 fetch.url = "https://github.com/bastienwirtz/homer/releases/download/$ver/homer.zip"
 
+[jproxy]
+src.manual = "v3.4.1"
+fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
+
 [keycloak-lantian]
 src.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
 fetch.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"

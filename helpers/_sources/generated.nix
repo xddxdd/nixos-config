@@ -52,6 +52,14 @@
       sha256 = "sha256-Kd+FMbPTa2o6MUHM1K1xt+mDP3KsLxdUCs9vg0H6k1Y=";
     };
   };
+  jproxy = {
+    pname = "jproxy";
+    version = "v3.4.1";
+    src = fetchurl {
+      url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip";
+      sha256 = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
+    };
+  };
   keycloak-lantian = {
     pname = "keycloak-lantian";
     version = "f499fb03624b6b396e6eef1263dd1650a95e63d2";

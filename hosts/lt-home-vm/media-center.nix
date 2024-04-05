@@ -114,6 +114,8 @@ in
 
   systemd.services.decluttarr = netns.bind { };
 
+  systemd.services.jproxy = netns.bind { };
+
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
@@ -131,6 +133,8 @@ in
     "prowlarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
     "bazarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
     "bazarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
+    "jproxy.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.JProxy}";
+    "jproxy.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.JProxy}";
     "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
   };
