@@ -62,6 +62,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-math = {
       url = "github:xddxdd/nix-math";
       inputs.flake-parts.follows = "flake-parts";

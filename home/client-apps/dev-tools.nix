@@ -122,8 +122,6 @@ in
     inputs.agenix.packages."${system}".agenix
     alejandra
     nil
-    nix-index
-    nix-index-update
     nix-output-monitor
     nix-prefetch
     nix-prefetch-scripts
