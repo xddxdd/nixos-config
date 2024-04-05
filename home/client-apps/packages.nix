@@ -60,6 +60,8 @@ let
   );
 in
 {
+  imports = [ inputs.nix-index-database.hmModules.nix-index ];
+
   home.packages =
     with pkgs;
     (
@@ -82,7 +84,6 @@ in
         calibre-override-desktop
         cloudpan189-go
         colmena
-        comma
         dbeaver
         dingtalk
         discord
@@ -153,6 +154,10 @@ in
       ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ svp ]
     );
 
+  programs.nix-index.enable = true;
+  programs.nix-index.symlinkToCacheHome = true;
+  programs.nix-index-database.comma.enable = true;
+
   xdg.configFile = LT.gui.autostart (
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       {
@@ -186,42 +191,5 @@ in
         command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
       }
     ]
-  );
-
-  xdg.dataFile = builtins.listToAttrs (
-    lib.flatten (
-      builtins.map
-        (size: [
-          # https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/
-          {
-            name = "icons/hicolor/${builtins.toString size}x${builtins.toString size}/apps/firefox.png";
-            value.source =
-              if size < 48 then
-                LT.gui.resizeIcon size ../files/mikozilla-fireyae.png
-              else
-                LT.gui.resizeIcon size ../files/mikozilla-fireyae-petals.png;
-          }
-        ])
-        [
-          8
-          10
-          14
-          16
-          22
-          24
-          32
-          36
-          40
-          48
-          64
-          72
-          96
-          128
-          192
-          256
-          480
-          512
-        ]
-    )
   );
 }

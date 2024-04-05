@@ -436,6 +436,26 @@
         "type": "github"
       }
     },
+    "nix-index-database_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1711854532,
+        "narHash": "sha256-JPStavwlT7TfxxiXHk6Q7sbNxtnXAIjXQJMLO0KB6M0=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "2844b5f3ad3b478468151bd101370b9d8ef8a3a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-math": {
       "inputs": {
         "flake-parts": [
@@ -687,6 +707,7 @@
         "impermanence": "impermanence",
         "nil": "nil",
         "nix-alien": "nix-alien",
+        "nix-index-database": "nix-index-database_2",
         "nix-math": "nix-math",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-22-05": "nixpkgs-22-05",
