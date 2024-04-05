@@ -52,14 +52,15 @@ let
           lib.mapAttrs (
             n: v:
             if
-              kernelPackages_.kernel.stdenv.cc.bintools.isLLVM
+              builtins.elem "LLVM=1" kernelPackages_.kernel.makeFlags
               && !(builtins.elem n [ "kernel" ])
               && lib.isDerivation v
               && ((v.overrideAttrs or null) != null)
             then
               v.overrideAttrs (old: {
                 makeFlags =
-                  (old.makeFlags or [ ]) ++ kernelPackages_.kernel.stdenv.buildPlatform.linux-kernel.makeFlags;
+                  (old.makeFlags or [ ])
+                  ++ (builtins.filter (flag: !lib.hasPrefix "O=" flag) kernelPackages_.kernel.makeFlags);
                 postPatch =
                   (if (old.postPatch or null) == null then "" else old.postPatch)
                   + ''

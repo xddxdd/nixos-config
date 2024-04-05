@@ -28,7 +28,7 @@
             "electron-19.1.9"
             "nix-2.15.3"
             "openssl-1.1.1w"
-            "python-2.7.18.7"
+            "python-2.7.18.8"
             "netbox-3.6.9"
           ];
         };

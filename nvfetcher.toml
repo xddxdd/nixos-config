@@ -61,7 +61,7 @@ fetch.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
 src.github_tag = "Sonarr/Sonarr"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
-fetch.url = "https://github.com/Sonarr/Sonarr/releases/download/v$ver/Sonarr.develop.$ver.linux-x64.tar.gz"
+fetch.url = "https://github.com/Sonarr/Sonarr/releases/download/v$ver/Sonarr.main.$ver.linux-x64.tar.gz"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"

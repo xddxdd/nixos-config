@@ -4,7 +4,6 @@
   tags = with tags; [
     qemu
     server
-    x86_64-v1
   ];
   hostname = "178.253.53.90";
   city = geo.cities."CN Hong Kong";
