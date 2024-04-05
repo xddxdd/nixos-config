@@ -1,0 +1,20 @@
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+}@args:
+{
+  imports = [
+    ../flaresolverr.nix
+    ../qbittorrent.nix
+    ./bazarr.nix
+    ./decluttarr.nix
+    ./prowlarr.nix
+    ./radarr.nix
+    ./sonarr.nix
+  ];
+}

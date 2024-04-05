@@ -23,7 +23,7 @@ in
     ../../nixos/client-components/xorg.nix
 
     ../../nixos/optional-apps/jellyfin.nix
-    ../../nixos/optional-apps/sonarr.nix
+    ../../nixos/optional-apps/sonarr
     ../../nixos/optional-apps/transmission-daemon.nix
 
     ../../nixos/optional-cron-jobs/flexget
