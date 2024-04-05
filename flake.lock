@@ -645,6 +645,9 @@
         "flake-parts": [
           "flake-parts"
         ],
+        "nix-index-database": [
+          "nix-index-database"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -653,11 +656,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712215054,
-        "narHash": "sha256-WuNXiJAVv7SGirJeANSarbC705vZM75NBq1zRyJf/+k=",
+        "lastModified": 1712293832,
+        "narHash": "sha256-o0v3xkT7b+wYhLRxjpu0cut29HDY/OAmE8Zb0b5RcEQ=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "dbdb2ad920a1f2d8101c72ffee54ae0636504756",
+        "rev": "1bf9346ad9e0b0614db91fe8d53ba0254aaf928b",
         "type": "github"
       },
       "original": {
