@@ -27,7 +27,6 @@
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/rsshub.nix
-    ../../nixos/optional-apps/step-ca.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/waline.nix
 

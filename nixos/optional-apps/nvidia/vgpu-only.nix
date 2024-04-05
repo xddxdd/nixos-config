@@ -69,5 +69,5 @@ in
   services.acpid.enable = true;
 
   virtualisation.docker.enableNvidia = true;
-  virtualisation.podman.enableNvidia = true;
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 }

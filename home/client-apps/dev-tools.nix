@@ -97,7 +97,7 @@ in
     # Haskell
     ghc
     haskell-language-server
-    haskellPackages.Cabal_3_6_3_0
+    haskellPackages.Cabal_3_10_2_1
     stack
 
     # Jsonnet

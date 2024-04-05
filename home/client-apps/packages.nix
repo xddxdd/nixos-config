@@ -130,7 +130,6 @@ in
         remmina
         space-cadet-pinball-full-tilt
         steam-run
-        step-cli-wrapped
         tdesktop
         tigervnc
         transmission-qt
