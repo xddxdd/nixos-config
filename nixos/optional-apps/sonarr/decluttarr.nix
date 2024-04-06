@@ -26,9 +26,9 @@
       REMOVE_TIMER = "10";
       REMOVE_FAILED = "True";
       REMOVE_STALLED = "True";
+      REMOVE_METADATA_MISSING = "True";
       # May delete media that can be manually imported
-      REMOVE_METADATA_MISSING = "False";
-      REMOVE_ORPHANS = "True";
+      REMOVE_ORPHANS = "False";
       # May break multi season download
       REMOVE_UNMONITORED = "False";
       REMOVE_MISSING_FILES = "True";
