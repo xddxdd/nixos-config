@@ -10,7 +10,6 @@
 {
   imports = [
     ../flaresolverr.nix
-    ../qbittorrent.nix
     ./bazarr.nix
     ./decluttarr.nix
     ./jproxy.nix
