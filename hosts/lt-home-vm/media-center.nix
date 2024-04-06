@@ -23,6 +23,8 @@ in
     ../../nixos/client-components/xorg.nix
 
     ../../nixos/optional-apps/jellyfin.nix
+    ../../nixos/optional-apps/peerbanhelper.nix
+    ../../nixos/optional-apps/qbittorrent.nix
     ../../nixos/optional-apps/sonarr
     ../../nixos/optional-apps/transmission-daemon.nix
 
@@ -123,6 +125,8 @@ in
       BindPaths = [ qBitTorrentSonarrDownloadPath ];
     };
   };
+
+  systemd.services.peerbanhelper = netns.bind { };
 
   lantian.nginxVhosts = {
     "sonarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
