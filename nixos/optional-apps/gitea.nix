@@ -50,6 +50,7 @@
         ENABLE_PUSH_CREATE_ORG = true;
         ENABLE_PUSH_CREATE_USER = true;
         USE_COMPAT_SSH_URI = true;
+        DISABLE_STARS = true;
       };
       service = {
         ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
@@ -64,7 +65,10 @@
         REQUIRE_SIGNIN_VIEW = false;
         SHOW_REGISTRATION_BUTTON = false;
       };
-      session.COOKIE_SECURE = true;
+      session = {
+        PROVIDER = "db";
+        COOKIE_SECURE = true;
+      };
       mailer = {
         ENABLED = true;
         FROM = "postmaster@lantian.pub";
