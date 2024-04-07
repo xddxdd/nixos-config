@@ -16,6 +16,7 @@ let
   flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
+  lidarrMediaPath = "/mnt/storage/media-lidarr";
 in
 {
   imports = [
@@ -40,6 +41,7 @@ in
     "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d ${lidarrMediaPath} 755 ${config.services.lidarr.user} ${config.services.lidarr.group}"
   ];
 
   ########################################
@@ -102,6 +104,18 @@ in
     };
   };
 
+  systemd.services.lidarr = netns.bind {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [
+        lidarrMediaPath
+        transmissionSonarrDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
+    };
+  };
+
   systemd.services.bazarr = netns.bind {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
@@ -133,6 +147,8 @@ in
     "sonarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
     "radarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";
     "radarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";
+    "lidarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Lidarr}";
+    "lidarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Lidarr}";
     "prowlarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
     "prowlarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
     "bazarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
