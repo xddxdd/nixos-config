@@ -96,6 +96,7 @@ rec {
     JProxy = 8117;
     Waline = 8360;
     Matrix.Public = 8448;
+    Lidarr = 8686;
     Sonarr = 8989;
     Prometheus.Daemon = 9090;
     Transmission = 9091;
