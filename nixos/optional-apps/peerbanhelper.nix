@@ -9,6 +9,7 @@
 }@args:
 {
   systemd.services.peerbanhelper = {
+    enable = false;
     description = "Peer Ban Helper";
     wantedBy = [ "multi-user.target" ];
     after = [
