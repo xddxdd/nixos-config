@@ -28,15 +28,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zJnN2zw9WVDIQb3jpVFQ0Lz6TEdxm0Q3I3V88AHBGaI=",
+            "sha256": "sha256-lh42Nsnk9ujxNfELa0bnUbsEvHX3qo4z36SgJvG2M/A=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.15.0/CyberChef_v10.15.0.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.16.0/CyberChef_v10.16.0.zip"
         },
-        "version": "v10.15.0"
+        "version": "v10.16.0"
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2024-04-03",
+        "date": "2024-04-07",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "94eacc85bd66492af9cd913a65235a8fef1f3714",
-            "sha256": "sha256-tMsYqakG8huBEjvYrG+0mq3YCHM/fsOJN1IwBdBaKec=",
+            "rev": "93ab09fc0a7a0134a9274af73a572843c480163a",
+            "sha256": "sha256-o5+iKTaD5SHDuH78wYBt26jdjvtUfo5/dR2OAeBRP1I=",
             "type": "github"
         },
-        "version": "94eacc85bd66492af9cd913a65235a8fef1f3714"
+        "version": "93ab09fc0a7a0134a9274af73a572843c480163a"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -123,6 +123,21 @@
         },
         "version": "f499fb03624b6b396e6eef1263dd1650a95e63d2"
     },
+    "lidarr-x64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "lidarr-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-gWt4gjofJhTl4VlD04XqpuxYhQLMzJIhjU6bCpbbBmM=",
+            "type": "url",
+            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.2.4.4130/Lidarr.develop.2.2.4.4130.linux-core-x64.tar.gz"
+        },
+        "version": "v2.2.4.4130/Lidarr.develop.2.2.4.4130"
+    },
     "material-kwin-decoration": {
         "cargoLocks": null,
         "date": "2023-01-15",
@@ -145,7 +160,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-03-23",
+        "date": "2024-04-12",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -157,11 +172,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "f877d7cee98888b65c89d4aa92a439975ac1ee18",
-            "sha256": "sha256-Ep0+zrMakfRoLhaD5HPwaec+oi+R5iYgkjY6PEjIzjM=",
+            "rev": "91764a59741a68e121065926721384edef1e4f56",
+            "sha256": "sha256-n96D83HlQXXEK4OnDjyAMgMz/qs7PpByBzA/pAHhH1g=",
             "type": "github"
         },
-        "version": "f877d7cee98888b65c89d4aa92a439975ac1ee18"
+        "version": "91764a59741a68e121065926721384edef1e4f56"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -185,7 +200,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-03-25",
+        "date": "2024-04-05",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -197,11 +212,11 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "e416c41eff69dd53b4d98072df68369cf6f34312",
-            "sha256": "sha256-1gbgqWvbf9wfPXyozGuLbma6GsLSclldh7Kn9pznxao=",
+            "rev": "b0583de5e0947d664b6c08adac5fd7bed1af33eb",
+            "sha256": "sha256-MkcNmJUtFvBj87fXAQ7yyJzMovTobC8lTVaL5dOYv5g=",
             "type": "github"
         },
-        "version": "e416c41eff69dd53b4d98072df68369cf6f34312"
+        "version": "b0583de5e0947d664b6c08adac5fd7bed1af33eb"
     },
     "openvpn": {
         "cargoLocks": null,
@@ -243,6 +258,21 @@
         },
         "version": "8f301a5c5fe3d998b50666bde1d35d412833be89"
     },
+    "prowlarr-x64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "prowlarr-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-VakBlSFoUJub/saj67L7l+nkRY3kE25LN53N0Q5muuU=",
+            "type": "url",
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.16.0.4401/Prowlarr.develop.1.16.0.4401.linux-core-x64.tar.gz"
+        },
+        "version": "v1.16.0.4401/Prowlarr.develop.1.16.0.4401"
+    },
     "radarr-x64": {
         "cargoLocks": null,
         "date": null,
@@ -252,11 +282,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wAvZChGbowcOyxE1w55EoV8posE77WNvUwdEbQ4ZWAI=",
+            "sha256": "sha256-otwK2ndZ4LNWADX9LqIRZ59f1UMMJhOVuyA7NrF/7vI=",
             "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.4.4.8688/Radarr.develop.5.4.4.8688.linux-core-x64.tar.gz"
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.4.5.8715/Radarr.develop.5.4.5.8715.linux-core-x64.tar.gz"
         },
-        "version": "5.4.4.8688"
+        "version": "v5.4.5.8715/Radarr.develop.5.4.5.8715"
     },
     "soggy-resources": {
         "cargoLocks": null,
@@ -286,15 +316,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xGaPNEPSpUr9sv4DTK8oDHzmLytp3Tp+cp45Q1TKYrc=",
+            "sha256": "sha256-pOlzAGbAtrzYW+05+xJ2c4zFp+dCIZLpzJ+tyOAXEV0=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.3.1413/Sonarr.main.4.0.3.1413.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.3.1486/Sonarr.develop.4.0.3.1486.linux-x64.tar.gz"
         },
-        "version": "4.0.3.1413"
+        "version": "v4.0.3.1486/Sonarr.develop.4.0.3.1486"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
-        "date": "2024-03-27",
+        "date": "2024-04-04",
         "extract": null,
         "name": "ulauncher-albert-calculate-anything",
         "passthru": null,
@@ -306,11 +336,11 @@
             "name": null,
             "owner": "tchar",
             "repo": "ulauncher-albert-calculate-anything",
-            "rev": "9a2fd3d2c22934af7cf000af571f70888ae79b37",
-            "sha256": "sha256-DoJHGqqJNHU5NFi6xvDacBbn+rbhAnJAdcKF3tMr8sE=",
+            "rev": "7e80281d0eeacf10c2cbd652589e5f18c15c48c3",
+            "sha256": "sha256-M9fwrXOG7Afa7VgvClmyXA1waY0y28jto9KMSoJYtdY=",
             "type": "github"
         },
-        "version": "9a2fd3d2c22934af7cf000af571f70888ae79b37"
+        "version": "7e80281d0eeacf10c2cbd652589e5f18c15c48c3"
     },
     "ulauncher-colorconverter": {
         "cargoLocks": null,
