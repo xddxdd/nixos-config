@@ -30,7 +30,7 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.AUTOMERGE_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
 
       - name: Build nix packages
