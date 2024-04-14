@@ -37,7 +37,7 @@ jobs:
         run: |
           cat > secrets.toml <<EOF
           [keys]
-          github = "${{ secrets.GITHUB_TOKEN }}"
+          github = "${{ secrets.AUTOMERGE_TOKEN }}"
           EOF
 
           nix run .#update
