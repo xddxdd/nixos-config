@@ -11,6 +11,7 @@
   imports = [
     ../../nixos/client.nix
 
+    ./backup.nix
     ./hardware-configuration.nix
     ./hp-keyboard-backlight
     ./nandsim.nix
