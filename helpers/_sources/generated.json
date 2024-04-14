@@ -258,6 +258,26 @@
         },
         "version": "8f301a5c5fe3d998b50666bde1d35d412833be89"
     },
+    "plasma-panel-transparency-toggle": {
+        "cargoLocks": null,
+        "date": "2023-11-25",
+        "extract": null,
+        "name": "plasma-panel-transparency-toggle",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sanjay-kr-commit",
+            "repo": "panelTransparencyToggleForPlasma6",
+            "rev": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c",
+            "sha256": "sha256-S1RAyVYlcuojtRmgfQQS1d2H0mVIsZQeztstbvw8keQ=",
+            "type": "github"
+        },
+        "version": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c"
+    },
     "prowlarr-x64": {
         "cargoLocks": null,
         "date": null,

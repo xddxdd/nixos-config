@@ -56,6 +56,10 @@ fetch.github = "OpenVPN/openvpn"
 src.git = "https://github.com/openwrt/mt76"
 fetch.github = "openwrt/mt76"
 
+[plasma-panel-transparency-toggle]
+src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
+fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
+
 [prowlarr-x64]
 src.webpage = "https://api.github.com/repos/Prowlarr/Prowlarr/releases?per_page=1"
 src.regex = "\"https://github.com/Prowlarr/Prowlarr/releases/download/([^\"]*).linux-core-x64.tar.gz\""
