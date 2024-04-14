@@ -47,9 +47,12 @@ jobs:
       - env:
           API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
         run: |
-          git add .
-          git commit -m "auto: update packages"
           # https://github.com/cpina/github-action-push-to-another-repository/issues/75
           git config --unset-all http.https://github.com/.extraheader
+          git config --global user.email "xddxdd@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+          git add .
+          git commit -m "auto: update packages"
           git remote add private https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config-private-copy.git
           git push -u private master --force
