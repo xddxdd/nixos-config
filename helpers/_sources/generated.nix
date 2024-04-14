@@ -153,6 +153,18 @@
     };
     date = "2024-04-04";
   };
+  plasma-panel-transparency-toggle = {
+    pname = "plasma-panel-transparency-toggle";
+    version = "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c";
+    src = fetchFromGitHub {
+      owner = "sanjay-kr-commit";
+      repo = "panelTransparencyToggleForPlasma6";
+      rev = "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c";
+      fetchSubmodules = false;
+      sha256 = "sha256-S1RAyVYlcuojtRmgfQQS1d2H0mVIsZQeztstbvw8keQ=";
+    };
+    date = "2023-11-25";
+  };
   prowlarr-x64 = {
     pname = "prowlarr-x64";
     version = "v1.16.0.4401/Prowlarr.develop.1.16.0.4401";
