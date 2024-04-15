@@ -12,8 +12,6 @@
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/optional-cron-jobs/rebuild-nixos-config.nix
   ];
 
   # Rename to LAN to apply correct firewall rules
