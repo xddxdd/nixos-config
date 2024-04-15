@@ -139,6 +139,7 @@ in
         unar
         vagrant
         virt-manager
+        vlc
         vopono
         vscode
         vscode-wrapped
