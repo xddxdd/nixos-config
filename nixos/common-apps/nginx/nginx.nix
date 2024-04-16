@@ -97,7 +97,8 @@ in
       access_log syslog:server=unix:/dev/log,nohostname main if=$is_not_healthcheck_user_agent;
       more_set_headers "Server: lantian/${config.networking.hostName}";
 
-      aio threads;
+      # set to aio on; for io_uring support
+      aio on;
       directio 1m;
       # sendfile on; # defined by recommendedOptimisation
 
@@ -207,6 +208,7 @@ in
       # Workaround Lua crash
       MemoryDenyWriteExecute = lib.mkForce false;
       SystemCallFilter = lib.mkForce [ ];
+      LimitMEMLOCK = "infinity";
     };
   };
 }
