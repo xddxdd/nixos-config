@@ -48,7 +48,7 @@ let
   patchedNixpkgsFor = system: self.packages."${system}".nixpkgs-patched;
 in
 {
-  flake = rec {
+  flake = {
     nixosConfigurations = lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts)) (
       n:
       let
@@ -61,10 +61,6 @@ in
         modules = modulesFor n;
         specialArgs = specialArgsFor n;
       }
-    );
-
-    colmenaHive = LT.mkColmenaHive { allowApplyAll = false; } (
-      lib.filterAttrs (n: v: !lib.hasPrefix "_" n) nixosConfigurations
     );
   };
 }

@@ -116,6 +116,7 @@
         ./flake-modules/commands.nix
         ./flake-modules/nixos-configurations.nix
         ./flake-modules/nixpkgs-options.nix
+        inputs.nur-xddxdd.flakeModules.auto-colmena-hive
       ];
 
       debug = true;
