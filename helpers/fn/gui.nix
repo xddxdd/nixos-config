@@ -25,12 +25,4 @@
         }
       ) l
     );
-
-  resizeIcon =
-    size: src:
-    pkgs.runCommand "icon-${builtins.toString size}.png" { } ''
-      ${pkgs.imagemagick}/bin/convert ${src} \
-        -resize ${builtins.toString size}x${builtins.toString size}! \
-        $out
-    '';
 }

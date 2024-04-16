@@ -8,6 +8,8 @@
   ...
 }@args:
 {
+  environment.systemPackages = [ (lib.hiPrio pkgs.lantianCustomized.firefox-icon-mikozilla-fireyae) ];
+
   environment.variables = {
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
