@@ -57,7 +57,7 @@ let
     {
       recordType = "CNAME";
       name = "attic";
-      target = "v-ps-fal";
+      target = "virmach-ny6g";
       ttl = "1h";
     }
     {
