@@ -8,11 +8,13 @@
   ...
 }@args:
 {
+  imports = [ inputs.nur-xddxdd.nixosModules.plasma-desktop-lyrics ];
+
   environment.systemPackages = with pkgs; [
     (material-kwin-decoration.overrideAttrs (old: {
       inherit (LT.sources.material-kwin-decoration) version src;
     }))
-    kdePackages.qtwebsockets
+    plasma-panel-transparency-toggle
   ];
 
   services.desktopManager.plasma6.enable = true;
@@ -43,12 +45,4 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
   programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-
-  systemd.user.services.plasma-desktop-lyrics = {
-    description = "Plasma Desktop Lyrics daemon";
-    after = [ "network.target" ];
-    before = [ "plasma-plasmashell.service" ];
-    wantedBy = [ "default.target" ];
-    serviceConfig.ExecStart = "${pkgs.plasma-desktop-lyrics}/bin/PlasmaDesktopLyrics";
-  };
 }
