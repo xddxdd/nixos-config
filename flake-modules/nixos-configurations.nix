@@ -35,6 +35,7 @@ let
     inputs.home-manager.nixosModules.home-manager
     inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
     inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+    inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
     (inputs.srvos + "/nixos/common/networking.nix")
     (inputs.srvos + "/nixos/common/upgrade-diff.nix")
     (inputs.srvos + "/nixos/common/well-known-hosts.nix")
