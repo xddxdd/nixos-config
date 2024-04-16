@@ -30,24 +30,11 @@
         packages = self.packages."${pkgs.system}";
       };
       pkg = v: args: pkgs.callPackage v (extraArgs // args);
-
-      makeAppsShell =
-        apps:
-        pkgs.mkShell {
-          buildInputs = lib.mapAttrsToList (
-            n: v:
-            pkgs.writeShellScriptBin n ''
-              exec nix run .#${n} -- "$@"
-            ''
-          ) apps;
-        };
     in
-    rec {
+    {
       apps = lib.mapAttrs (n: v: {
         type = "app";
         program = pkgs.writeShellScriptBin n (pkg v { });
       }) commands;
-
-      devShells.default = makeAppsShell apps;
     };
 }
