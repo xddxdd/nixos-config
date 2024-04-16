@@ -33,16 +33,15 @@
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
-    # Do not use auto-allocate-uids, permission issue with ccache
-    # nrBuildUsers = 0;
+    nrBuildUsers = 0;
     optimise.automatic = true;
     settings = {
-      # auto-allocate-uids = true;
+      auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
       connect-timeout = 5;
-      experimental-features = lib.mkForce "nix-command flakes ca-derivations cgroups";
-      extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations cgroups";
+      experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
+      extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
