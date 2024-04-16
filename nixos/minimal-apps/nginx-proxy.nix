@@ -72,6 +72,7 @@ in
         Group = config.services.nginx.group;
         MemoryDenyWriteExecute = lib.mkForce false;
         TemporaryFileSystem = [ "/var/log/nginx:mode=0777" ];
+        LimitMEMLOCK = "infinity";
       };
     };
   };
