@@ -18,7 +18,7 @@
   ];
 
   services.desktopManager.plasma6.enable = true;
-  services.xserver.displayManager.defaultSession = "plasmawayland";
+  services.displayManager.defaultSession = "plasmawayland";
 
   services.greetd = {
     enable = true;

@@ -1,9 +1,9 @@
 { tags, geo, ... }@args:
 {
   index = 100;
-  # Temporarily remove i915-sriov for build failure
   tags = with tags; [
     client
+    i915-sriov
     nix-builder
   ];
   cpuThreads = 16;
