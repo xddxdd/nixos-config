@@ -41,6 +41,11 @@
       RUNTIME_PM_ON_BAT = "auto";
       SCHED_POWERSAVE_ON_AC = 0;
       SCHED_POWERSAVE_ON_BAT = 1;
+
+      # Sound powersaving causes stutters and popping noise
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 0;
+
       TLP_DEFAULT_MODE = "AC";
     };
   };

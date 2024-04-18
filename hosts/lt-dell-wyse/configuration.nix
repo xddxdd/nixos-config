@@ -28,8 +28,6 @@
     TLP_PERSISTENT_DEFAULT = 1;
     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
     CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-    SOUND_POWER_SAVE_ON_AC = 0;
-    SOUND_POWER_SAVE_ON_BAT = 0;
   };
 
   # Bind mounts
