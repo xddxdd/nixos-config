@@ -21,15 +21,17 @@
               "capture.props" = {
                 "node.name" = "latency.sink";
                 "node.description" = "100ms Latency Sink";
-                "media.class" = "Audio/Sink";
+                "media.class" = "Stream/Input/Audio";
                 "audio.position" = [
                   "FL"
                   "FR"
                 ];
+                "node.autoconnect" = false;
               };
               "playback.props" = {
                 "node.name" = "latency.source";
                 "node.description" = "100ms Latency Source";
+                "node.passive" = true;
                 "media.class" = "Stream/Output/Audio";
                 "audio.position" = [
                   "FL"
@@ -55,7 +57,7 @@
                 {
                   matches = [
                     {
-                      "media.class" = "Audio/Sink";
+                      "media.class" = "Stream/Input/Audio";
                       "node.name" = "latency.sink";
                     }
                   ];
