@@ -47,7 +47,7 @@
               "combine.mode" = "sink";
               "node.name" = "combine_sink";
               "node.description" = "Combined Sink";
-              "combine.latency-compensate" = true;
+              "combine.latency-compensate" = false;
               "combine.props"."audio.position" = [
                 "FL"
                 "FR"
