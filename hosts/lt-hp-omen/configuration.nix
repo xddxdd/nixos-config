@@ -16,6 +16,7 @@
     ./hp-keyboard-backlight
     ./nandsim.nix
     # ./nbfc.nix
+    ./pipewire-combined-sink.nix
 
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/glauth.nix
