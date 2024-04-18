@@ -22,6 +22,10 @@ in
     ./wireplumber-bluez.nix
   ];
 
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=0 power_save_controller=N
+  '';
+
   environment.systemPackages = [
     pkgs.pavucontrol
     pkgs.pulseaudio
