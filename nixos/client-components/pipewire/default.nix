@@ -23,6 +23,7 @@ in
   ];
 
   environment.systemPackages = [
+    pkgs.pavucontrol
     pkgs.pulseaudio
     pkgs.helvum
   ];
