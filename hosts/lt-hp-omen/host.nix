@@ -3,7 +3,8 @@
   index = 100;
   tags = with tags; [
     client
-    i915-sriov
+    # Disabled since SR-IOV consumes 10GB RAM
+    # i915-sriov
     nix-builder
   ];
   cpuThreads = 16;
