@@ -40,6 +40,7 @@ in
 
   services.pipewire = {
     enable = true;
+    systemWide = true;
 
     alsa.enable = true;
     alsa.support32Bit = true;
@@ -49,5 +50,6 @@ in
     wireplumber.enable = true;
   };
 
-  users.users.lantian.extraGroups = [ "audio" ];
+  users.users.lantian.extraGroups =
+    [ "audio" ] ++ lib.optionals config.services.pipewire.systemWide [ "pipewire" ];
 }
