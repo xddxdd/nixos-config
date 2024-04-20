@@ -48,6 +48,7 @@
   lantian.pipewire.roc-sink-ip = [
     "127.0.0.1"
     "192.168.0.207"
+    "192.168.0.208"
   ];
 
   # This host has full disk encryption, no need to encrypt keyring
