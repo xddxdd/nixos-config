@@ -27,6 +27,7 @@
     ../../nixos/optional-apps/nvidia/prime.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
+    ../../nixos/optional-apps/pipewire-roc-source.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/vlmcsd.nix
@@ -44,7 +45,10 @@
   };
   hardware.xpadneo.enable = true;
 
-  lantian.pipewire.roc-sink-ip = [ "192.168.0.207" ];
+  lantian.pipewire.roc-sink-ip = [
+    "127.0.0.1"
+    "192.168.0.207"
+  ];
 
   # This host has full disk encryption, no need to encrypt keyring
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
