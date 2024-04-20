@@ -20,7 +20,8 @@
               "local.source.port" = 10001;
               "local.repair.port" = 10002;
               "local.control.port" = 10003;
-              "fec.code" = "ldpc";
+              "fec.code" = "rs8m";
+              "resampler.profile" = "high";
               "sess.latency.msec" = 100;
               "source.name" = "ROC Source";
               "source.props" = {
