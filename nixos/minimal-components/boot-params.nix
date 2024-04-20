@@ -34,7 +34,8 @@
                 in
                 ''
                   cp -f ${args.path}/EFI/grub/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi \
-                    || cp -f ${args.path}/EFI/${bootloaderId}/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi
+                    || cp -f ${args.path}/EFI/${bootloaderId}/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi \
+                    || true
                 ''
               ) config.boot.loader.grub.mirroredBoots
             );
