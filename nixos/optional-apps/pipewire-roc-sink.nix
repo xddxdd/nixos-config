@@ -26,7 +26,7 @@
               "remote.source.port" = 10001;
               "remote.repair.port" = 10002;
               "remote.control.port" = 10003;
-              "fec.code" = "ldpc";
+              "fec.code" = "rs8m";
               "sink.name" = "ROC Sink (${ip})";
               "sink.props" = {
                 "node.name" = "roc-sink-${ip}";
