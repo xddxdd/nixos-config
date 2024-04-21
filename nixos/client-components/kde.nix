@@ -17,7 +17,16 @@
     plasma-panel-transparency-toggle
   ];
 
-  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa
+    kate
+    khelpcenter
+  ];
+
+  services.desktopManager.plasma6 = {
+    enable = true;
+    enableQt5Integration = true;
+  };
   services.displayManager.defaultSession = "plasmawayland";
 
   services.greetd = {
