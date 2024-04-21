@@ -50,6 +50,22 @@ in
     wireplumber.enable = true;
   };
 
-  users.users.lantian.extraGroups =
-    [ "audio" ] ++ lib.optionals config.services.pipewire.systemWide [ "pipewire" ];
+  systemd.services.pipewire-auto-start = {
+    description = "Keep PipeWire running";
+    after = [ "pipewire.socket" ];
+    requires = [ "pipewire.socket" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = LT.serviceHarden // {
+      ExecStart = "${pkgs.netcat-openbsd}/bin/nc -U /run/pipewire/pipewire-0";
+      User = "pipewire";
+      Group = "pipewire";
+      Restart = "always";
+      RestartSec = "3";
+    };
+  };
+
+  users.users.lantian.extraGroups = [
+    "audio"
+  ] ++ lib.optionals config.services.pipewire.systemWide [ "pipewire" ];
 }
