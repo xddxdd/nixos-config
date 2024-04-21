@@ -9,9 +9,16 @@
 }@args:
 {
   imports = [
-    ../../nixos/client.nix
+    ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/client-components/fwupd.nix
+    ../../nixos/client-components/hidpi.nix
+    ../../nixos/client-components/network-manager.nix
+    ../../nixos/client-components/networking.nix
+    ../../nixos/client-components/pipewire
+    ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/pipewire-network-audio-receive.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix

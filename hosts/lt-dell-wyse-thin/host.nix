@@ -2,7 +2,6 @@
 {
   index = 105;
   tags = with tags; [
-    client
     x86_64-v1
   ];
   cpuThreads = 4;
