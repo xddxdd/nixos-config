@@ -1,0 +1,36 @@
+{
+  pkgs,
+  lib,
+  LT,
+  config,
+  utils,
+  inputs,
+  ...
+}@args:
+{
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "FiraCodeNF-Reg";
+      size = 10;
+    };
+    theme = "VSCode_Dark";
+
+    keybindings = {
+      "ctrl+shift+n" = "new_os_window_with_cwd";
+      "ctrl+shift+w" = "close_window";
+      "ctrl+shift+]" = "next_window";
+      "ctrl+shift+[" = "previous_window";
+      "ctrl+shift+equal" = "launch --location=vsplit";
+      "ctrl+shift+minus" = "launch --location=hsplit";
+    };
+
+    settings = {
+      remember_window_size = false;
+      initial_window_width = "80c";
+      initial_window_height = "25c";
+      resize_in_steps = true;
+      enabled_layouts = "splits";
+    };
+  };
+}

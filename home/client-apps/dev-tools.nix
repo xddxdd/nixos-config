@@ -121,6 +121,7 @@ in
     nix-prefetch
     nix-prefetch-scripts
     nix-store-add
+    nixd
     nixfmt-rfc-style
     nixpkgs-fmt
     nodePackages.node2nix

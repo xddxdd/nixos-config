@@ -21,6 +21,7 @@
     elisa
     kate
     khelpcenter
+    konsole
   ];
 
   services.desktopManager.plasma6 = {

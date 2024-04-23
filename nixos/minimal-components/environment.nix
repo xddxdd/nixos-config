@@ -101,7 +101,6 @@ in
       iperf3
       iptables
       iw
-      jq
       kopia
       lm_sensors
       ls-iommu
