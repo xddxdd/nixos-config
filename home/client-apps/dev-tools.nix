@@ -86,7 +86,6 @@ in
 
     # Golang
     delve
-    go
     go-outline
     go-tools
     gomodifytags
@@ -171,6 +170,14 @@ in
     linkzoneAdb
   ];
 
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.go = {
+    enable = true;
+    goBin = ".local/bin";
+    goPath = ".local/share/go";
+  };
 }
