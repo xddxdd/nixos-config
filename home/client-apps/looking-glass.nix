@@ -1,14 +1,13 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
+{ pkgs
+, lib
+, LT
+, config
+, utils
+, inputs
+, ...
 }@args:
 let
-  looking-glass-client-override = lib.hiPrio (
+  looking-glass-client-override =
     pkgs.runCommand "looking-glass-client-override" { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
       ''
         mkdir -p $out/bin $out/share/applications
@@ -21,23 +20,23 @@ let
         for F in ${pkgs.looking-glass-client}/share/applications/*; do
           sed "/Terminal=/d" < "$F" > $out/share/applications/$(basename "$F")
         done
-      ''
-  );
+
+        ln -sf ${pkgs.looking-glass-client}/share/pixmaps $out/share/pixmaps
+      '';
 in
 {
-  home.packages = with pkgs; [
-    looking-glass-client
-    looking-glass-client-override
-  ];
-
-  xdg.configFile."looking-glass/client.ini".text = lib.generators.toINI { } {
-    app.shmFile = "/dev/kvmfr0";
-    input.escapeKey = 119;
-    input.rawMouse = "yes";
-    spice.enable = "yes";
-    win.autoScreensaver = "yes";
-    win.fullScreen = "yes";
-    win.jitRender = "yes";
-    win.quickSplash = "yes";
+  programs.looking-glass-client = {
+    enable = true;
+    package = looking-glass-client-override;
+    settings = {
+      app.shmFile = "/dev/kvmfr0";
+      input.escapeKey = 119;
+      input.rawMouse = "yes";
+      spice.enable = "yes";
+      win.autoScreensaver = "yes";
+      win.fullScreen = "yes";
+      win.jitRender = "yes";
+      win.quickSplash = "yes";
+    };
   };
 }
