@@ -128,7 +128,6 @@ in
         qqmusic
         quasselClient
         rar
-        remmina
         space-cadet-pinball-full-tilt
         steam-run
         tdesktop
@@ -158,6 +157,12 @@ in
   programs.nix-index.enable = true;
   programs.nix-index.symlinkToCacheHome = true;
   programs.nix-index-database.comma.enable = true;
+
+  services.remmina = {
+    enable = true;
+    addRdpMimeTypeAssoc = true;
+    systemdService.enable = false;
+  };
 
   xdg.configFile = LT.gui.autostart (
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
