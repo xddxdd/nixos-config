@@ -21,6 +21,7 @@ in
       initialHashedPassword = lib.mkForce unixHashedPassword;
       hashedPassword = lib.mkForce unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
+      linger = true;
     };
     lantian = {
       initialHashedPassword = lib.mkForce unixHashedPassword;
@@ -36,6 +37,7 @@ in
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
       createHome = true;
+      linger = true;
     };
     container = {
       uid = 65533;
