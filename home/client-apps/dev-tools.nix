@@ -100,8 +100,10 @@ in
     # Kubernetes
     arkade
     faas-cli # OpenFaaS
+    ktop
     kubectl
     kubernetes-helm
+    lens
 
     # LaTeX
     texlive.combined.scheme-full
