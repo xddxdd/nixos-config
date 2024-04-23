@@ -31,6 +31,10 @@
       initial_window_height = "25c";
       resize_in_steps = true;
       enabled_layouts = "splits";
+
+      wheel_scroll_multiplier = 50;
+      wheel_scroll_min_lines = 1;
+      touch_scroll_multiplier = 10;
     };
   };
 }
