@@ -154,7 +154,6 @@ in
     rustup
 
     # Source Control
-    mercurialFull
     subversion
 
     # Terraform
@@ -181,4 +180,7 @@ in
     goBin = ".local/bin";
     goPath = ".local/share/go";
   };
+
+  programs.pyenv.enable = true;
+  programs.pylint.enable = true;
 }
