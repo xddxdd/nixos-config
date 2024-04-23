@@ -97,7 +97,6 @@ in
       ethtool
       gitMinimal
       gzip
-      htop
       inetutils
       iperf3
       iptables
