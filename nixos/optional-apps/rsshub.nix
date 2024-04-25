@@ -15,6 +15,7 @@
     ];
     image = "diygod/rsshub:chromium-bundled";
     environment = {
+      TZ = config.time.timeZone;
       CACHE_CONTENT_EXPIRE = "600";
     };
     ports = [ "127.0.0.1:${LT.portStr.RSSHub}:1200" ];
