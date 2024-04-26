@@ -262,6 +262,21 @@
         "type": "github"
       }
     },
+    "flake-root": {
+      "locked": {
+        "lastModified": 1713493429,
+        "narHash": "sha256-ztz8JQkI08tjKnsTpfLqzWoKFQF4JGu2LRz8bkdnYUk=",
+        "owner": "srid",
+        "repo": "flake-root",
+        "rev": "bc748b93b86ee76e2032eecda33440ceb2532fcd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "flake-root",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems_2"
@@ -476,6 +491,30 @@
       "original": {
         "owner": "xddxdd",
         "repo": "nix-math",
+        "type": "github"
+      }
+    },
+    "nixd": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "flake-root": "flake-root",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714002774,
+        "narHash": "sha256-gj/MyKHqQdxfZKnmbsGVz2fkRbAVFKaEyWZZmgZsiaQ=",
+        "owner": "nix-community",
+        "repo": "nixd",
+        "rev": "39ff96c1f1e7ea2584b55b96469b0a55e445c97c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixd",
         "type": "github"
       }
     },
@@ -712,6 +751,7 @@
         "nix-alien": "nix-alien",
         "nix-index-database": "nix-index-database_2",
         "nix-math": "nix-math",
+        "nixd": "nixd",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-22-05": "nixpkgs-22-05",
         "nixpkgs-22-11": "nixpkgs-22-11",
