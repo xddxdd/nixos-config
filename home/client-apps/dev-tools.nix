@@ -24,6 +24,21 @@ let
     EOF
   '';
 
+  # https://discourse.nixos.org/t/nix-flamegraph-or-profiling-tool/33333
+  nix-profiling =
+    let
+      stackCollapse = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/NixOS/nix/master/contrib/stack-collapse.py";
+        sha256 = "sha256:0mi9cf3nx7xjxcrvll1hlkhmxiikjn0w95akvwxs50q270pafbjw";
+      };
+    in
+    pkgs.writeShellScriptBin "nix-profiling" ''
+      nix eval -vvvvvvvvvvvvvvvvvvvv --raw --option trace-function-calls true $1 1>/dev/null 2> nix-function-calls.trace
+      python ${stackCollapse} nix-function-calls.trace > nix-function-calls.folded
+      ${pkgs.inferno}/bin/inferno-flamegraph nix-function-calls.folded > nix-function-calls.svg
+      echo "nix-function-calls.svg"
+    '';
+
   pythonCustomized = pkgs.python3Full.withPackages (
     p:
     with p;
@@ -120,6 +135,7 @@ in
     nix-output-monitor
     nix-prefetch
     nix-prefetch-scripts
+    nix-profiling
     nix-store-add
     nixd
     nixfmt-rfc-style
