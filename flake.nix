@@ -71,6 +71,11 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixd = {
+      url = "github:nix-community/nixd";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
@@ -114,6 +119,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake-modules/commands.nix
+        ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
         ./flake-modules/nixpkgs-options.nix
         inputs.nur-xddxdd.flakeModules.auto-apps-shell
