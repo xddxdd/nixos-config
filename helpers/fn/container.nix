@@ -46,8 +46,9 @@ lib.recursiveUpdate {
       users.groups.container = hostConfig.users.groups.container;
 
       nix.enable = false;
-      nixpkgs.pkgs = pkgs;
-      nixpkgs.overlays = hostConfig.nixpkgs.overlays;
+
+      # Force inherit nixpkgs
+      _module.args.pkgs = lib.mkForce pkgs;
 
       system.stateVersion = hostConfig.system.stateVersion;
       networking = {
