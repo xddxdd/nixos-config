@@ -84,5 +84,5 @@
           { id = "\${uptimerobot_alert_contact.telegram.id}"; }
         ];
       }
-    ) (LT.hostsWithTag "public-facing"));
+    ) (LT.hostsWithTag LT.tags.public-facing));
 }

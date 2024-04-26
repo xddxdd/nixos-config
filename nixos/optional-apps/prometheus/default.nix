@@ -14,7 +14,7 @@ let
       targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
       labels.job = jobName;
       labels.instance = n;
-    }) LT.nonClientHosts;
+    }) (LT.hostsWithoutTag LT.tags.client);
   };
   scrapeAllNonClientNodesNetns = jobName: index: port: {
     job_name = jobName;
@@ -23,7 +23,7 @@ let
       labels.job = jobName;
       labels.instance = n;
       labels.index = builtins.toString index;
-    }) LT.nonClientHosts;
+    }) (LT.hostsWithoutTag LT.tags.client);
   };
 in
 {
