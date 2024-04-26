@@ -32,4 +32,6 @@ in
   environment.etc."ansible/hosts".text = lib.concatStringsSep "\n" (
     [ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts))
   );
+
+  environment.variables.ANSIBLE_CONFIG = "/etc/ansible/ansible.cfg";
 }

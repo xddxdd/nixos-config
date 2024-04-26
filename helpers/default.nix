@@ -53,12 +53,7 @@ mkScope (call: rec {
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
   hostsWithTag = tag: lib.filterAttrs (n: v: v.hasTag tag) hosts;
-  serverHosts = hostsWithTag tags.server;
-
   hostsWithoutTag = tag: lib.filterAttrs (n: v: !(v.hasTag tag)) hosts;
-  nonClientHosts = hostsWithoutTag tags.client;
-
-  thisConfigurations = nixosConfigurations."${config.networking.hostName}";
 
   patchedNixpkgs = self.packages."${this.system}".nixpkgs-patched;
 
@@ -66,7 +61,6 @@ mkScope (call: rec {
   enumerateList = call ./fn/enumerate-list.nix;
   gui = call ./fn/gui.nix;
   ls = call ./fn/ls.nix;
-  mkAppsShell = call ./fn/mk-apps-shell.nix;
   net = (call ./fn/net.nix).lib.net;
   nginx = call ./fn/nginx.nix;
   sanitizeName = call ./fn/sanitize-name.nix;
