@@ -19,30 +19,38 @@ let
     };
   };
 
-  modulesFor = n: [
-    (
-      { config, pkgs, ... }:
-      {
-        home-manager.extraSpecialArgs = specialArgsFor n;
-        networking.hostName = lib.mkForce (lib.removePrefix "_" n);
-        system.stateVersion = LT.constants.stateVersion;
-      }
-    )
-    (inputs.attic + "/nixos/atticd.nix")
-    inputs.agenix.nixosModules.age
-    inputs.colmena.nixosModules.deploymentOptions
-    inputs.impermanence.nixosModules.impermanence
-    inputs.home-manager.nixosModules.home-manager
-    inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
-    inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
-    inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
-    (inputs.srvos + "/nixos/common/networking.nix")
-    (inputs.srvos + "/nixos/common/upgrade-diff.nix")
-    (inputs.srvos + "/nixos/common/well-known-hosts.nix")
-    inputs.srvos.nixosModules.mixins-terminfo
-    inputs.srvos.nixosModules.mixins-trusted-nix-caches
-    (../hosts + "/${n}/configuration.nix")
-  ];
+  modulesFor =
+    n:
+    let
+      system = LT.hosts."${n}".system;
+    in
+    [
+      (
+        { config, pkgs, ... }:
+        {
+          home-manager.extraSpecialArgs = specialArgsFor n;
+          networking.hostName = lib.mkForce (lib.removePrefix "_" n);
+          system.stateVersion = LT.constants.stateVersion;
+
+          # Force inherit nixpkgs
+          _module.args.pkgs = lib.mkForce (patchedPkgsFor system);
+        }
+      )
+      (inputs.attic + "/nixos/atticd.nix")
+      inputs.agenix.nixosModules.age
+      inputs.colmena.nixosModules.deploymentOptions
+      inputs.impermanence.nixosModules.impermanence
+      inputs.home-manager.nixosModules.home-manager
+      inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
+      inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+      inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
+      (inputs.srvos + "/nixos/common/networking.nix")
+      (inputs.srvos + "/nixos/common/upgrade-diff.nix")
+      (inputs.srvos + "/nixos/common/well-known-hosts.nix")
+      inputs.srvos.nixosModules.mixins-terminfo
+      inputs.srvos.nixosModules.mixins-trusted-nix-caches
+      (../hosts + "/${n}/configuration.nix")
+    ];
 
   patchedPkgsFor = system: self.allSystems."${system}"._module.args.pkgs;
   patchedNixpkgsFor = system: self.packages."${system}".nixpkgs-patched;
