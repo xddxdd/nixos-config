@@ -3,6 +3,7 @@ zones/
 .gcroots
 .vscode
 .direnv
+nix-function-calls.*
 
 config.tf.json
 .terraform.lock.hcl
