@@ -45,13 +45,7 @@ jobs:
       - name: Apply DNSControl changes
         run: nix run ".#dnscontrol" -- push
 
-      - name: Copy zone files
-        uses: burnett01/rsync-deployments@7.0.1
-        with:
-          switches: -avzr --delete-after
-          path: zones/
-          remote_path: /ltnet-zones/
-          remote_host: rsync-ci.xuyh0120.win
-          remote_port: 2222
-          remote_user: ci
-          remote_key: ${{ secrets.DEPLOY_KEY }}
+      - name: Rsync zone files over SSH
+        run: |
+          sudo apt-get install -y rsync
+          rsync -avzr --delete-after -e "ssh -p2222" zones/ ci@rsync-ci.xuyh0120.win:/ltnet-zones/
