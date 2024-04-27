@@ -8,31 +8,32 @@
   ...
 }@args:
 let
-  sshKeys = import (inputs.secrets + "/ssh/sftp-ci.nix");
+  sshKeys = import (inputs.secrets + "/ssh/rsync-ci.nix");
 in
 {
   users.users.ci = {
-    home = "/run/sftp-ci";
+    home = "/run/rsync-ci";
     group = "ci";
     createHome = true;
-    isSystemUser = true;
-    openssh.authorizedKeys.keys = sshKeys;
+    # Must be normal user to allow SSH login
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = builtins.map (
+      key: "command=\"${pkgs.rrsync}/bin/rrsync ${config.users.users.ci.home}\",restrict ${key}"
+    ) sshKeys;
   };
 
   users.groups.ci = { };
 
   services.openssh.extraConfig = ''
     Match User ci
-      ForceCommand internal-sftp
       PasswordAuthentication no
-      ChrootDirectory ${config.users.users.ci.home}
       PermitTunnel no
       AllowAgentForwarding no
       AllowTcpForwarding no
       X11Forwarding no
   '';
 
-  fileSystems."/run/sftp-ci" = {
+  fileSystems."/run/rsync-ci" = {
     device = "/nix/persistent/sync-servers";
     fsType = "fuse.bindfs";
     options = [

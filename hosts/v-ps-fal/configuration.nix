@@ -26,7 +26,7 @@
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/rsshub.nix
-    ../../nixos/optional-apps/sftp-server-ci.nix
+    ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/waline.nix
 
