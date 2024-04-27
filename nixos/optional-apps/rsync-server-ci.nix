@@ -42,6 +42,7 @@ in
       "perms=755"
       "create-for-user=root"
       "create-for-group=root"
+      "create-with-perms=755"
       "chmod-ignore"
       "chown-ignore"
       "chgrp-ignore"
