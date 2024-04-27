@@ -1,4 +1,4 @@
-name: auto-push
+name: dnscontrol
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   dnscontrol:
-    name: Auto push to private repo
+    name: Run DNSControl
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
