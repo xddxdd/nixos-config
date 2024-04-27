@@ -134,6 +134,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "sftp-ci";
+      target = "v-ps-fal";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "stats";
       target = "v-ps-fal";
       ttl = "1h";
