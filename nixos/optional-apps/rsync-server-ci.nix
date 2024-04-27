@@ -39,7 +39,7 @@ in
     options = [
       "force-user=ci"
       "force-group=ci"
-      "perms=755"
+      "perms=700"
       "create-for-user=root"
       "create-for-group=root"
       "create-with-perms=755"
