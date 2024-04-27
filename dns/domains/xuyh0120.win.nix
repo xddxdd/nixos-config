@@ -134,7 +134,7 @@ let
     }
     {
       recordType = "CNAME";
-      name = "sftp-ci";
+      name = "rsync-ci";
       target = "v-ps-fal";
       ttl = "1h";
     }
