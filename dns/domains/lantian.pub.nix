@@ -114,11 +114,11 @@ let
       name = "ci";
       target = "v-ps-fal";
     }
-    {
-      recordType = "CNAME";
-      name = "ci-github";
-      target = "v-ps-fal";
-    }
+    # {
+    #   recordType = "CNAME";
+    #   name = "ci-github";
+    #   target = "v-ps-fal";
+    # }
     {
       recordType = "CNAME";
       name = "comments";
