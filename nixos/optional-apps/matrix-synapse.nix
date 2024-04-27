@@ -126,6 +126,7 @@
       MemoryDenyWriteExecute = false;
       StateDirectory = "matrix-synapse";
       RuntimeDirectory = "matrix-synapse";
+      RuntimeDirectoryPreserve = lib.mkForce false;
     };
   };
 
