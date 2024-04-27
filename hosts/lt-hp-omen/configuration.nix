@@ -25,7 +25,7 @@
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nix-distributed.nix
-    ../../nixos/optional-apps/nvidia/prime.nix
+    ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix
