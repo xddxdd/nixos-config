@@ -144,7 +144,7 @@ let
           r8125 = pkgs.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.r8168.override { inherit (final) kernel; };
 
-          nvidia_x11_grid_16_2 = pkgs.nvidia-grid.grid."16_2".override { inherit (final) kernel; };
+          nvidia_x11_grid_16_3 = pkgs.nvidia-grid.grid."16_3".override { inherit (final) kernel; };
         }
       ))
       [

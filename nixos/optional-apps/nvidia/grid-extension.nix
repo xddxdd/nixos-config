@@ -21,7 +21,7 @@ in
     directories = [ "/etc/nvidia/ClientConfigToken" ];
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_2;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_3;
 
   systemd.services."nvidia-gridd" = netns.bind {
     description = "NVIDIA Grid Daemon";
