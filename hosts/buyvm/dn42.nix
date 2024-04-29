@@ -13,6 +13,22 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   services.dn42 = {
+    aldrich = {
+      remoteASN = 4242420293;
+      latencyMs = 8;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20293;
+        remoteAddress = "nue2.dn42.wlms.dev";
+        remotePort = 22547;
+        wireguardPubkey = "rJ6XCxT/1Xk9WwSFlSoeJsz0cdXjro9EQzOrbNYhuUQ=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.209.129";
+        peerIPv6LinkLocal = "fe80::293";
+      };
+    };
     androw = {
       remoteASN = 4242422575;
       latencyMs = 16;
