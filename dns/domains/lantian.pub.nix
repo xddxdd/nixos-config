@@ -127,6 +127,11 @@ let
     }
     {
       recordType = "CNAME";
+      name = "element";
+      target = "v-ps-fal";
+    }
+    {
+      recordType = "CNAME";
       name = "git";
       target = "terrahost";
       ttl = "1h";
