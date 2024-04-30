@@ -19,7 +19,7 @@
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/keycloak
     ../../nixos/optional-apps/lemmy.nix
-    ../../nixos/optional-apps/matrix-element.nix
+    ../../nixos/optional-apps/matrix-element
     ../../nixos/optional-apps/matrix-synapse.nix
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
