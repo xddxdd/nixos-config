@@ -35,6 +35,10 @@
       wheel_scroll_multiplier = 10;
       wheel_scroll_min_lines = 1;
       touch_scroll_multiplier = 10;
+
+      repaint_delay = 6; # Handle 165 Hz display
+      input_delay = 0;
+      sync_to_monitor = true;
     };
   };
 }
