@@ -25,6 +25,7 @@ let
   generatedLocationOptions = {
     inherit (config) priority;
     extraConfig =
+      assert config.enableFcgiwrap -> config.disableLiveCompression;
       (lib.optionalString config.enableOAuth ''
         auth_request /oauth2/auth;
         error_page 401 = /oauth2/start;
@@ -137,13 +138,18 @@ let
         }
       '')
       + (lib.optionalString config.enableFcgiwrap ''
-        gzip off;
-        brotli off;
-        zstd off;
         try_files $fastcgi_script_name =404;
         fastcgi_pass unix:${osConfig.services.fcgiwrap.socketAddress};
         fastcgi_index index.sh;
         ${fastcgiParams}
+      '')
+      + (lib.optionalString config.disableLiveCompression ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+        zstd off;
+        zstd_static on;
       '')
       + (lib.optionalString (config.tryFiles != null) ''
         try_files ${config.tryFiles};
@@ -191,6 +197,7 @@ in
     enableBasicAuth = lib.mkEnableOption "Require basic auth for access";
     enableFcgiwrap = lib.mkEnableOption "Fcgiwrap";
     enableOAuth = lib.mkEnableOption "Require OAuth for access";
+    disableLiveCompression = lib.mkEnableOption "Disable on-the-fly compression and only use precompressed assets";
 
     index = lib.mkOption {
       type = lib.types.nullOr lib.types.str;

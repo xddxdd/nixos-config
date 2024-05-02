@@ -29,13 +29,10 @@ in
       "/cgi-bin/" = {
         index = "index.sh";
         enableFcgiwrap = true;
+        disableLiveCompression = true;
       };
       "/hobby-net".enableAutoIndex = true;
-      "/zjui-ece385-scoreboard".extraConfig = ''
-        gzip off;
-        brotli off;
-        zstd off;
-      '';
+      "/zjui-ece385-scoreboard".disableLiveCompression = true;
 
       # 307 to tools.lantian.pub
       "/dngzwxdq".return = "307 https://tools.lantian.pub$request_uri";

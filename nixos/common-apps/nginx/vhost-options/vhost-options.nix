@@ -316,6 +316,14 @@ let
         deny all;
 
         error_page 403 ${config.accessBlockAction};
+      '')
+      + (lib.optionalString config.disableLiveCompression ''
+        gzip off;
+        gzip_static on;
+        brotli off;
+        brotli_static on;
+        zstd off;
+        zstd_static on;
       '');
 
     # Passthrough upstream options
@@ -345,6 +353,7 @@ in
     enableCommonVhostOptions = (lib.mkEnableOption "Add common vhost options") // {
       default = true;
     };
+    disableLiveCompression = lib.mkEnableOption "Disable on-the-fly compression and only use precompressed assets";
 
     sslCertificate = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
