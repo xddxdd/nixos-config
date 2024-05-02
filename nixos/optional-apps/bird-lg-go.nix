@@ -67,11 +67,7 @@ in
         "/telegram/" = {
           proxyPass = "http://unix:/run/bird-lg-go/bird-lg-go.sock";
           blockBadUserAgents = true;
-          extraConfig = ''
-            gzip off;
-            brotli off;
-            zstd off;
-          '';
+          disableLiveCompression = true;
         };
       };
 

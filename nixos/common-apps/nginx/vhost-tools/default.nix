@@ -34,13 +34,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
     };
     sslCertificate = "lantian.pub_ecc";
     noIndex.enable = true;
-    extraConfig = ''
-      gzip off;
-      gzip_static on;
-      brotli off;
-      brotli_static on;
-      zstd off;
-      zstd_static on;
-    '';
+    disableLiveCompression = true;
   };
 }

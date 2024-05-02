@@ -76,15 +76,10 @@ let
 
       root = "/nix/persistent/sync-servers/www/lantian.pub";
 
+      disableLiveCompression = true;
+
       extraConfig =
         ''
-          gzip off;
-          gzip_static on;
-          brotli off;
-          brotli_static on;
-          zstd off;
-          zstd_static on;
-
           error_page 404 /404.html;
         ''
         + (args.extraConfig or "");

@@ -35,23 +35,31 @@ let
     };
   };
 
-  elementConfigFile = pkgs.runCommandNoCC "element-config.json" { } ''
-    ${pkgs.jq}/bin/jq -s '.[0] * $conf' "${pkgs.element-web}/config.json" --argjson "conf" '${elementConfig}' > "$out"
-  '';
+  elementConfigPath = LT.nginx.compressStaticAssets (
+    pkgs.stdenvNoCC.mkDerivation {
+      name = "element-config";
+      dontUnpack = true;
+      postInstall = ''
+        mkdir -p $out
+        ${pkgs.jq}/bin/jq -s -c '.[0] * $conf' "${pkgs.element-web}/config.json" --argjson "conf" '${elementConfig}' > "$out/config.json"
+      '';
+    }
+  );
 in
 {
   lantian.nginxVhosts."element.lantian.pub" = {
     listenHTTP.enable = true;
-    root = builtins.toString pkgs.element-web;
+    root = builtins.toString (LT.nginx.compressStaticAssets pkgs.element-web);
     locations = {
       "/" = {
         index = "index.html index.htm";
         tryFiles = "$uri $uri/ =404";
       };
-      "= /config.json".alias = elementConfigFile;
+      "= /config.json".root = elementConfigPath;
     };
 
     sslCertificate = "lantian.pub_ecc";
     noIndex.enable = true;
+    disableLiveCompression = true;
   };
 }
