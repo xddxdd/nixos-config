@@ -128,7 +128,8 @@ let
     {
       recordType = "CNAME";
       name = "element";
-      target = "v-ps-fal";
+      # GeoDNS target for servers with sufficient storage
+      target = "tools";
     }
     {
       recordType = "CNAME";
