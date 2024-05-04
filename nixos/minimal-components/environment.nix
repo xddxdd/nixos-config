@@ -78,6 +78,7 @@ in
     longitude = LT.this.city.lng;
   };
 
+  environment.enableAllTerminfo = true;
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
   environment.variables = {

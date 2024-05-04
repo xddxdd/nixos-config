@@ -28,11 +28,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lh42Nsnk9ujxNfELa0bnUbsEvHX3qo4z36SgJvG2M/A=",
+            "sha256": "sha256-/vmHXGw4lTmo7XatdlSW2ABh6TULJXsrGu7AuWCQ5Ao=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.16.0/CyberChef_v10.16.0.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.3/CyberChef_v10.18.3.zip"
         },
-        "version": "v10.16.0"
+        "version": "v10.18.3"
     },
     "dashboard-icons": {
         "cargoLocks": null,
@@ -83,11 +83,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Kd+FMbPTa2o6MUHM1K1xt+mDP3KsLxdUCs9vg0H6k1Y=",
+            "sha256": "sha256-yCfvgmVjplWSxlgwGtiyw933kP+Tmcf1oPEtQRUsUYU=",
             "type": "url",
-            "url": "https://github.com/bastienwirtz/homer/releases/download/v24.02.1/homer.zip"
+            "url": "https://github.com/bastienwirtz/homer/releases/download/v24.04.1/homer.zip"
         },
-        "version": "v24.02.1"
+        "version": "v24.04.1"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -132,11 +132,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gWt4gjofJhTl4VlD04XqpuxYhQLMzJIhjU6bCpbbBmM=",
+            "sha256": "sha256-Mpdw0n2Lz+H8+Ra6Q53Bf5AQ93z2fNWiDA1yF8ctBe8=",
             "type": "url",
-            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.2.4.4130/Lidarr.develop.2.2.4.4130.linux-core-x64.tar.gz"
+            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.1.4171/Lidarr.develop.2.3.1.4171.linux-core-x64.tar.gz"
         },
-        "version": "v2.2.4.4130/Lidarr.develop.2.2.4.4130"
+        "version": "v2.3.1.4171/Lidarr.develop.2.3.1.4171"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -160,7 +160,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-04-12",
+        "date": "2024-05-03",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -172,11 +172,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "91764a59741a68e121065926721384edef1e4f56",
-            "sha256": "sha256-n96D83HlQXXEK4OnDjyAMgMz/qs7PpByBzA/pAHhH1g=",
+            "rev": "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c",
+            "sha256": "sha256-RMmtWEI3zSdMe1ECaY+kms/edZ0h5PggvliUqDM4DfY=",
             "type": "github"
         },
-        "version": "91764a59741a68e121065926721384edef1e4f56"
+        "version": "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -200,7 +200,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-04-05",
+        "date": "2024-04-30",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -212,15 +212,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "b0583de5e0947d664b6c08adac5fd7bed1af33eb",
-            "sha256": "sha256-MkcNmJUtFvBj87fXAQ7yyJzMovTobC8lTVaL5dOYv5g=",
+            "rev": "7217e4c50dbeceb2a07f63168733b232a53e824e",
+            "sha256": "sha256-36re3x7lbCR7o5jX8+ScykC+4KxE7ip8o2ogV2JFAxw=",
             "type": "github"
         },
-        "version": "b0583de5e0947d664b6c08adac5fd7bed1af33eb"
+        "version": "7217e4c50dbeceb2a07f63168733b232a53e824e"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-04-03",
+        "date": "2024-05-02",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -232,15 +232,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "32e6586687a548174b88b64fe54bfae6c74d4c19",
-            "sha256": "sha256-xngQk4EzJCMj/CC4EWKUCGM+SbJf9Iw60rM4iR7T/7M=",
+            "rev": "9d92221eb4e773cae913752af6d70082ae305fe8",
+            "sha256": "sha256-Id1gJsuPas1A/DWlzDK3E9WEe79ZAOdIKdvnMOBabb8=",
             "type": "github"
         },
-        "version": "32e6586687a548174b88b64fe54bfae6c74d4c19"
+        "version": "9d92221eb4e773cae913752af6d70082ae305fe8"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-04-04",
+        "date": "2024-04-19",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -252,15 +252,15 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "8f301a5c5fe3d998b50666bde1d35d412833be89",
-            "sha256": "sha256-alt+SF+IfBjrsORBlg9OM4SUpeEwQ0NkXSRoD08g1O8=",
+            "rev": "c40e648b89290185f649740c00587554812b310c",
+            "sha256": "sha256-mB77xu9WrV7xYsd3tCBghp8FeiDY2Aplu11O9CPax84=",
             "type": "github"
         },
-        "version": "8f301a5c5fe3d998b50666bde1d35d412833be89"
+        "version": "c40e648b89290185f649740c00587554812b310c"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
-        "date": "2023-11-25",
+        "date": "2024-04-17",
         "extract": null,
         "name": "plasma-panel-transparency-toggle",
         "passthru": null,
@@ -272,11 +272,11 @@
             "name": null,
             "owner": "sanjay-kr-commit",
             "repo": "panelTransparencyToggleForPlasma6",
-            "rev": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c",
-            "sha256": "sha256-S1RAyVYlcuojtRmgfQQS1d2H0mVIsZQeztstbvw8keQ=",
+            "rev": "739c70ffde6bb7670d57d3507804408ae13edf25",
+            "sha256": "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=",
             "type": "github"
         },
-        "version": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c"
+        "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
     },
     "prowlarr-x64": {
         "cargoLocks": null,
@@ -287,11 +287,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VakBlSFoUJub/saj67L7l+nkRY3kE25LN53N0Q5muuU=",
+            "sha256": "sha256-fF56td9oFgCQfgIDHfJslOIoR9KnWX+9NFRyVu1MmOs=",
             "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.16.0.4401/Prowlarr.develop.1.16.0.4401.linux-core-x64.tar.gz"
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.0.4448/Prowlarr.develop.1.17.0.4448.linux-core-x64.tar.gz"
         },
-        "version": "v1.16.0.4401/Prowlarr.develop.1.16.0.4401"
+        "version": "v1.17.0.4448/Prowlarr.develop.1.17.0.4448"
     },
     "radarr-x64": {
         "cargoLocks": null,
@@ -302,11 +302,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-otwK2ndZ4LNWADX9LqIRZ59f1UMMJhOVuyA7NrF/7vI=",
+            "sha256": "sha256-tpqH9mok1ZmHVJ2biae1pR8aHy9x1jXtB4J0RtKwAHs=",
             "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.4.5.8715/Radarr.develop.5.4.5.8715.linux-core-x64.tar.gz"
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.5.1.8747/Radarr.develop.5.5.1.8747.linux-core-x64.tar.gz"
         },
-        "version": "v5.4.5.8715/Radarr.develop.5.4.5.8715"
+        "version": "v5.5.1.8747/Radarr.develop.5.5.1.8747"
     },
     "soggy-resources": {
         "cargoLocks": null,
@@ -336,11 +336,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pOlzAGbAtrzYW+05+xJ2c4zFp+dCIZLpzJ+tyOAXEV0=",
+            "sha256": "sha256-9cXwaJTUIlq29LMFfGay5APrUxoL99Nc6KOWAe3vOBk=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.3.1486/Sonarr.develop.4.0.3.1486.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1572/Sonarr.develop.4.0.4.1572.linux-x64.tar.gz"
         },
-        "version": "v4.0.3.1486/Sonarr.develop.4.0.3.1486"
+        "version": "v4.0.4.1572/Sonarr.develop.4.0.4.1572"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

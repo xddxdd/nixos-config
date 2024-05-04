@@ -1,5 +1,5 @@
 diff --git a/nixos/modules/services/misc/bepasty.nix b/nixos/modules/services/misc/bepasty.nix
-index 70d07629493..3a844e560cd 100644
+index fad4827c6650..bda2de232088 100644
 --- a/nixos/modules/services/misc/bepasty.nix
 +++ b/nixos/modules/services/misc/bepasty.nix
 @@ -68,6 +68,14 @@ in
@@ -8,7 +8,7 @@ index 70d07629493..3a844e560cd 100644
  
 +          extraConfigFile = mkOption {
 +            type = types.nullOr types.str;
-+            description = lib.mdDoc ''
++            description = ''
 +              Path of file to be included as extra configuration.
 +              '';
 +            default = null;
@@ -16,7 +16,7 @@ index 70d07629493..3a844e560cd 100644
 +
            secretKey = mkOption {
              type = types.str;
-             description = lib.mdDoc ''
+             description = ''
 @@ -154,6 +162,7 @@ in
                SECRET_KEY="$(cat "${server.secretKeyFile}")"
                DEFAULT_PERMISSIONS="${server.defaultPermissions}"
