@@ -17,9 +17,6 @@ rec {
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/colmena-disable-pure-eval.patch ];
   });
-  dnscontrol = prev.dnscontrol.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/dnscontrol-gcore.patch ];
-  });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
 
