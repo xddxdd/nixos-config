@@ -1,5 +1,5 @@
 diff --git a/lib/cli.zsh b/lib/cli.zsh
-index fed00d21..94350a3d 100644
+index 4a8d4d12..9445ae20 100644
 --- a/lib/cli.zsh
 +++ b/lib/cli.zsh
 @@ -471,7 +471,7 @@ function _omz::plugin::load {
@@ -12,10 +12,10 @@ index fed00d21..94350a3d 100644
  }
  
 diff --git a/oh-my-zsh.sh b/oh-my-zsh.sh
-index e94c2f41..efee2667 100644
+index 2fb20298..132e1cfc 100644
 --- a/oh-my-zsh.sh
 +++ b/oh-my-zsh.sh
-@@ -107,46 +107,7 @@ if [[ -z "$ZSH_COMPDUMP" ]]; then
+@@ -114,46 +114,7 @@ if [[ -z "$ZSH_COMPDUMP" ]]; then
    ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
  fi
  
@@ -57,9 +57,9 @@ index e94c2f41..efee2667 100644
 -# zcompile the completion dump file if the .zwc is older or missing.
 -if command mkdir "${ZSH_COMPDUMP}.lock" 2>/dev/null; then
 -  zrecompile -q -p "$ZSH_COMPDUMP"
--  command rm -rf "$ZSH_COMPDUMP.zwc.old" "${ZSH_COMPDUMP}.lock" 
+-  command rm -rf "$ZSH_COMPDUMP.zwc.old" "${ZSH_COMPDUMP}.lock"
 -fi
 +compinit -D
  
- # Load all of the config files in ~/oh-my-zsh that end in .zsh
- # TIP: Add files you don't want in git to .gitignore
+ _omz_source() {
+   local context filepath="$1"

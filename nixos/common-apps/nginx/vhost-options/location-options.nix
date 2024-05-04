@@ -172,7 +172,7 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
       example = "http://www.example.org/";
-      description = lib.mdDoc ''
+      description = ''
         Adds proxy_pass directive and sets recommended proxy headers if
         recommendedProxySettings is enabled.
       '';
@@ -184,7 +184,7 @@ in
       type = lib.types.bool;
       default = false;
       example = true;
-      description = lib.mdDoc ''
+      description = ''
         Whether to support proxying websocket connections with HTTP/1.1.
       '';
     };
@@ -203,7 +203,7 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
       example = "index.php index.html";
-      description = lib.mdDoc ''
+      description = ''
         Adds index directive.
       '';
     };
@@ -212,7 +212,7 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
       example = "$uri =404";
-      description = lib.mdDoc ''
+      description = ''
         Adds try_files directive.
       '';
     };
@@ -221,7 +221,7 @@ in
       type = lib.types.nullOr lib.types.path;
       default = null;
       example = "/your/root/directory";
-      description = lib.mdDoc ''
+      description = ''
         Root directory for requests.
       '';
     };
@@ -230,7 +230,7 @@ in
       type = lib.types.nullOr lib.types.path;
       default = null;
       example = "/your/alias/directory";
-      description = lib.mdDoc ''
+      description = ''
         Alias directory for requests.
       '';
     };
@@ -244,7 +244,7 @@ in
         ]);
       default = null;
       example = "301 http://example.com$request_uri";
-      description = lib.mdDoc ''
+      description = ''
         Adds a return directive, for e.g. redirections.
       '';
     };
@@ -252,7 +252,7 @@ in
     extraConfig = lib.mkOption {
       type = lib.types.lines;
       default = "";
-      description = lib.mdDoc ''
+      description = ''
         These lines go to the end of the location verbatim.
       '';
     };
@@ -260,7 +260,7 @@ in
     priority = lib.mkOption {
       type = lib.types.int;
       default = 1000;
-      description = lib.mdDoc ''
+      description = ''
         Order of this location block in relation to the others in the vhost.
         The semantics are the same as with `lib.mkOrder`. Smaller values have
         a greater priority.

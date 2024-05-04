@@ -1,0 +1,12 @@
+diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
+index 111b5c129cb3..9ea8d6378253 100644
+--- a/nixos/modules/module-list.nix
++++ b/nixos/modules/module-list.nix
+@@ -1259,7 +1259,6 @@
+   ./services/security/munge.nix
+   ./services/security/nginx-sso.nix
+   ./services/security/oauth2-proxy.nix
+-  ./services/security/oauth2-proxy-nginx.nix
+   ./services/security/opensnitch.nix
+   ./services/security/pass-secret-service.nix
+   ./services/security/physlock.nix

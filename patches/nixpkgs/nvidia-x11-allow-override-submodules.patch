@@ -1,5 +1,5 @@
 diff --git a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
-index 11122d58ac80..82df29ec477f 100644
+index e70857ea356e..ab79fd62a34d 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 @@ -1,4 +1,4 @@
@@ -9,10 +9,10 @@ index 11122d58ac80..82df29ec477f 100644
  { stdenv, lib, fetchurl, patchelf }:
  
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index c60098ab899d..5f1fa138330a 100644
+index 2cbc1846362b..15d886e20c01 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -205,8 +205,9 @@ let
+@@ -207,8 +207,9 @@ let
            openSha256;
          settings =
            if useSettings then
@@ -23,7 +23,7 @@ index c60098ab899d..5f1fa138330a 100644
                  withGtk2 = preferGtk2;
                  withGtk3 = !preferGtk2;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-@@ -214,14 +215,17 @@ let
+@@ -216,14 +217,17 @@ let
          persistenced =
            if usePersistenced then
              mapNullable
@@ -59,7 +59,7 @@ index dcdd22044e2a..c95d028ca332 100644
  , libtirpc
  }:
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-index b11dc06c85eb..532e4f3d5b5c 100644
+index 2d9dfd81829e..23e835362997 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
 @@ -1,4 +1,4 @@
@@ -73,6 +73,6 @@ index b11dc06c85eb..532e4f3d5b5c 100644
  , libvdpau
  , librsvg
 +, nvidia_x11
- , wrapGAppsHook
+ , wrapGAppsHook3
  , addOpenGLRunpath
  , withGtk2 ? false

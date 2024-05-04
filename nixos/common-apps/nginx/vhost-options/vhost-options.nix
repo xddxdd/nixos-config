@@ -76,14 +76,14 @@ let
           };
 
           "/oauth2/" = {
-            proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
+            proxyPass = "http://unix:/run/oauth2-proxy/oauth2-proxy.sock";
             extraConfig = ''
               proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
             '';
           };
 
           "/oauth2/auth" = {
-            proxyPass = "http://unix:/run/oauth2_proxy/oauth2_proxy.sock";
+            proxyPass = "http://unix:/run/oauth2-proxy/oauth2-proxy.sock";
             extraConfig = ''
               proxy_set_header Content-Length "";
               proxy_pass_request_body off;
