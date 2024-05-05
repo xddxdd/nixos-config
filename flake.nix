@@ -4,10 +4,6 @@
   inputs = {
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
-    nixpkgs-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixpkgs-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -20,7 +16,7 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs-23-05";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -36,7 +32,7 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.stable.follows = "nixpkgs-23-05";
+      inputs.stable.follows = "nixpkgs";
     };
     composer2nix = {
       url = "github:svanderburg/composer2nix";
@@ -94,7 +90,8 @@
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
-      flake = false;
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     srvos = {
       url = "github:numtide/srvos";

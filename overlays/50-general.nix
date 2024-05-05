@@ -22,6 +22,9 @@ rec {
 
     tags = old.tags ++ [ "nolimit" ];
   });
+  flexget = prev.flexget.overrideAttrs (old: {
+    propagatedBuildInputs = with final.python3Packages; old.propagatedBuildInputs ++ [ cloudscraper ];
+  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
