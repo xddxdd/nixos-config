@@ -41,6 +41,7 @@
           inputs.nur.overlay
           inputs.nur-xddxdd.overlay
           inputs.nvfetcher.overlays.default
+          inputs.secrets.overlays.default
         ] ++ (import ../overlays { inherit inputs; });
       };
     };

@@ -74,11 +74,6 @@ in
   systemd.services = {
     clickhouse = netns.bind {
       serviceConfig = LT.serviceHarden // {
-        # Disable clickhouse notify systemd on startup
-        # FIXME: Remove after update to latest clickhouse
-        Type = lib.mkForce "simple";
-
-        ExecStart = lib.mkForce "${pkgs.clickhouse}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
         MemoryDenyWriteExecute = lib.mkForce false;
         RestrictAddressFamilies = [
           "AF_INET"
