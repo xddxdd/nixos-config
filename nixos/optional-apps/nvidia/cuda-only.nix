@@ -144,5 +144,5 @@ in
   services.acpid.enable = true;
 
   virtualisation.docker.enableNvidia = true;
-  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 }
