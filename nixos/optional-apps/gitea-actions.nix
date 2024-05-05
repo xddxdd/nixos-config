@@ -16,10 +16,16 @@
     enable = true;
     name = config.networking.hostName;
     url = "https://git.lantian.pub";
-    labels = [
-      "ubuntu-latest:docker://gitea/runner-images:ubuntu-latest"
-      "ubuntu-22.04:docker://gitea/runner-images:ubuntu-22.04"
-      "ubuntu-20.04:docker://gitea/runner-images:ubuntu-20.04"
+    labels = builtins.map (n: "${n}:docker://gitea/runner-images:${n}") [
+      "ubuntu-latest"
+      "ubuntu-22.04"
+      "ubuntu-20.04"
+      "ubuntu-latest-slim"
+      "ubuntu-22.04-slim"
+      "ubuntu-20.04-slim"
+      "ubuntu-latest-full"
+      "ubuntu-22.04-full"
+      "ubuntu-20.04-full"
     ];
     tokenFile = config.age.secrets.gitea-actions-token.path;
 
