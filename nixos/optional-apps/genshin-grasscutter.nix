@@ -10,6 +10,8 @@
 let
   anycastIP = "198.19.0.27";
 
+  netns = config.lantian.netns.genshin-grasscutter;
+
   originalConfig = lib.importJSON (pkgs.grasscutter + "/opt/config.example.json");
 
   cfg = lib.recursiveUpdate originalConfig {
@@ -27,63 +29,56 @@ let
   };
 in
 {
+  lantian.netns.genshin-grasscutter = {
+    ipSuffix = "27";
+    announcedIPv4 = [ "198.19.0.27" ];
+    birdBindTo = [ "grasscutter.service" ];
+  };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/grasscutter 755 container container"
-    "d /var/lib/mongodb-grasscutter 755 container container"
+    "d /var/lib/grasscutter-ferretdb 755 container container"
   ];
 
-  containers.grasscutter = LT.container {
-    name = "grasscutter";
-    ipSuffix = "27";
-    announcedIPv4 = [ anycastIP ];
-
-    outerConfig = {
-      bindMounts = {
-        "/var/lib/grasscutter" = {
-          hostPath = "/var/lib/grasscutter";
-          isReadOnly = false;
-        };
-        "/var/lib/mongodb-grasscutter" = {
-          hostPath = "/var/lib/mongodb-grasscutter";
-          isReadOnly = false;
-        };
-      };
+  systemd.services.grasscutter-ferretdb = netns.bind {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    environment = {
+      FERRETDB_HANDLER = "sqlite";
+      FERRETDB_SQLITE_URL = "file:/var/lib/grasscutter-ferretdb/";
     };
-    innerConfig =
-      { ... }:
-      {
-        services.mongodb = {
-          enable = true;
-          quiet = true;
-          user = "container";
-          dbpath = "/var/lib/mongodb-grasscutter";
-        };
+    serviceConfig = LT.serviceHarden // {
+      WorkingDirectory = "/var/lib/grasscutter-ferretdb";
+      StateDirectory = "grasscutter-ferretdb";
+      ExecStart = "${pkgs.ferretdb}/bin/ferretdb";
+      Restart = "on-failure";
+      RestartSec = "3";
+      User = "container";
+      Group = "container";
+    };
+  };
 
-        systemd.services.mongodb.serviceConfig.Group = "container";
+  systemd.services.grasscutter = netns.bind {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "grasscutter-ferretdb.service" ];
+    requires = [ "grasscutter-ferretdb.service" ];
+    script = ''
+      ${utils.genJqSecretsReplacementSnippet cfg "/var/lib/grasscutter/config.json"}
 
-        systemd.services.grasscutter = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "grasscutter-mongodb.service" ];
-          requires = [ "grasscutter-mongodb.service" ];
-          script = ''
-            ${utils.genJqSecretsReplacementSnippet cfg "/var/lib/grasscutter/config.json"}
+      exec ${pkgs.grasscutter}/bin/grasscutter
+    '';
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
 
-            exec ${pkgs.grasscutter}/bin/grasscutter
-          '';
-          serviceConfig = LT.serviceHarden // {
-            Type = "simple";
-            Restart = "always";
-            RestartSec = "3";
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-
-            MemoryDenyWriteExecute = false;
-            WorkingDirectory = "/var/lib/grasscutter";
-            StateDirectory = "grasscutter";
-            User = "container";
-            Group = "container";
-          };
-        };
-      };
+      MemoryDenyWriteExecute = false;
+      WorkingDirectory = "/var/lib/grasscutter";
+      StateDirectory = "grasscutter";
+      User = "container";
+      Group = "container";
+    };
   };
 }
