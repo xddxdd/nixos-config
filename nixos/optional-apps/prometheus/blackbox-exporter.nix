@@ -26,8 +26,6 @@ let
     "https://zerossl.lantian.pub"
 
     # Services exposed to external users
-    # "https://ci-github.lantian.pub"
-    "https://ci.lantian.pub"
     "https://comments.lantian.pub"
     "https://git.lantian.pub"
     "https://lab.lantian.pub"
