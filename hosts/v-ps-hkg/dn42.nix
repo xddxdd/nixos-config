@@ -235,6 +235,21 @@
         peerIPv6LinkLocal = "fe80::2925";
       };
     };
+    mitt = {
+      remoteASN = 4242420631;
+      latencyMs = 2;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20631;
+        remoteAddress = "hk0.dn42.mitt.fun";
+        remotePort = 22547;
+        wireguardPubkey = "tmvmR1Sy1VaWYHghXKPy9JU5jgJUSqpVd9YeTPtBewY=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.9.193";
+        peerIPv6LinkLocal = "fe80::631";
+      };
+    };
     purofle = {
       remoteASN = 4242422886;
       latencyMs = 3;
@@ -353,6 +368,36 @@
       addressing = {
         peerIPv4 = "172.22.107.65";
         peerIPv6LinkLocal = "fe80::26cf";
+      };
+    };
+    stevie-hk = {
+      remoteASN = 4242420337;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20337;
+        remoteAddress = "2400:8a20:112:1::38f";
+        remotePort = 22547;
+        wireguardPubkey = "jQAdLlfZ0mQBAAxIfSnltEBQQRIlf9/jMGWWPIOZY0Q=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.25.149";
+        peerIPv6LinkLocal = "fe80::4337";
+      };
+    };
+    stevie-sg = {
+      remoteASN = 4242420337;
+      latencyMs = 40;
+      tunnel = {
+        type = "wireguard";
+        localPort = 30337;
+        remoteAddress = "5.253.36.245";
+        remotePort = 22547;
+        wireguardPubkey = "YNtKEDfjy9U131x1oqAGbK14XZGjj7GL3g3eI9wcBEA=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.25.134";
+        peerIPv6LinkLocal = "fe80::4337";
       };
     };
     sunnet = {

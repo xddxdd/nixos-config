@@ -398,6 +398,51 @@
         peerIPv6LinkLocal = "fe80::ade0";
       };
     };
+    stevie-de = {
+      remoteASN = 4242420337;
+      latencyMs = 13;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20337;
+        remoteAddress = "2a02:180:6:1::553";
+        remotePort = 22547;
+        wireguardPubkey = "mBNrNCAOvBWf0nukCNnNPW2N1pfyoBKZV0HFh7h2pBI=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.25.131";
+        peerIPv6LinkLocal = "fe80::4337";
+      };
+    };
+    stevie-it = {
+      remoteASN = 4242420337;
+      latencyMs = 20;
+      tunnel = {
+        type = "wireguard";
+        localPort = 30337;
+        remoteAddress = "2a02:29e0:1:1f1::1";
+        remotePort = 22547;
+        wireguardPubkey = "dJ8tHgXY12Fxrm+cCbaMsTpPZ/jPK8cGOyGwTT1Jxig=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.25.133";
+        peerIPv6LinkLocal = "fe80::4337";
+      };
+    };
+    stevie-nl = {
+      remoteASN = 4242420337;
+      latencyMs = 9;
+      tunnel = {
+        type = "wireguard";
+        localPort = 40337;
+        remoteAddress = "62.3.53.6";
+        remotePort = 22547;
+        wireguardPubkey = "8GhvuPEZ/lYYOd0zlLWAhvZn+di2mCLVE8VyAtKLSWU=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.25.141";
+        peerIPv6LinkLocal = "fe80::4337";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 6;
