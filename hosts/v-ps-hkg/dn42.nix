@@ -378,7 +378,7 @@
         localPort = 20337;
         remoteAddress = "2400:8a20:112:1::38f";
         remotePort = 22547;
-        wireguardPubkey = "+NIWeNSZKQ0DEXImFDPClFpB3QdX4JWEjO8yD1dJqW4=";
+        wireguardPubkey = "jQAdLlfZ0mQBAAxIfSnltEBQQRIlf9/jMGWWPIOZY0Q=";
       };
       addressing = {
         peerIPv4 = "172.23.25.149";
