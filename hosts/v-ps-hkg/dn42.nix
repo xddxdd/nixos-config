@@ -378,7 +378,7 @@
         localPort = 20337;
         remoteAddress = "2400:8a20:112:1::38f";
         remotePort = 22547;
-        wireguardPubkey = "jQAdLlfZ0mQBAAxIfSnltEBQQRIlf9/jMGWWPIOZY0Q=";
+        wireguardPubkey = "+NIWeNSZKQ0DEXImFDPClFpB3QdX4JWEjO8yD1dJqW4=";
       };
       addressing = {
         peerIPv4 = "172.23.25.149";
@@ -393,7 +393,7 @@
         localPort = 30337;
         remoteAddress = "5.253.36.245";
         remotePort = 22547;
-        wireguardPubkey = "YNtKEDfjy9U131x1oqAGbK14XZGjj7GL3g3eI9wcBEA=";
+        wireguardPubkey = "TLb8PC/jYKK8wgFvahDxJux3Y3Hdo6yD74sRquPjX0o=";
       };
       addressing = {
         peerIPv4 = "172.23.25.134";
