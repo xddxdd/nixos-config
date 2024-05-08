@@ -33,7 +33,7 @@
       log.level = "info";
       cache.dir = "/var/cache/gitea-actions";
       container = {
-        network = "host";
+        network = "bridge";
         docker_host = "-";
         valid_volumes = [ "/nix/persistent/sync-servers" ];
       };
