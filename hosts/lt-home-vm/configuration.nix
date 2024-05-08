@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/genshin-grasscutter.nix
     ../../nixos/optional-apps/genshin-soggy.nix
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
