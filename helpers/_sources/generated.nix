@@ -81,6 +81,17 @@
       sha256 = "sha256-Mpdw0n2Lz+H8+Ra6Q53Bf5AQ93z2fNWiDA1yF8ctBe8=";
     };
   };
+  llama-cpp = {
+    pname = "llama-cpp";
+    version = "b2843";
+    src = fetchFromGitHub {
+      owner = "ggerganov";
+      repo = "llama.cpp";
+      rev = "b2843";
+      fetchSubmodules = false;
+      sha256 = "sha256-lsufE2cGPuv5JDmd19oJmSpboiQ/3MkJ9pAN2p9DI9w=";
+    };
+  };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
     version = "0e989e5b815b64ee5bca989f983da68fa5556644";

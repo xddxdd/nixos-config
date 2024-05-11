@@ -32,6 +32,10 @@ src.webpage = "https://api.github.com/repos/Lidarr/Lidarr/releases?per_page=1"
 src.regex = "\"https://github.com/Lidarr/Lidarr/releases/download/([^\"]*).linux-core-x64.tar.gz\""
 fetch.url = "https://github.com/Lidarr/Lidarr/releases/download/$ver.linux-core-x64.tar.gz"
 
+[llama-cpp]
+src.github = "ggerganov/llama.cpp"
+fetch.github = "ggerganov/llama.cpp"
+
 [material-kwin-decoration]
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"

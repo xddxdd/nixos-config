@@ -33,6 +33,10 @@ rec {
     version = builtins.head (final.lib.splitString "/" sources.lidarr-x64.version);
     src = sources.lidarr-x64.src;
   });
+  llama-cpp = prev.llama-cpp.overrideAttrs (old: {
+    version = final.lib.removePrefix "b" sources.llama-cpp.version;
+    src = sources.llama-cpp.src;
+  });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-sliding-sync-listen-unix.patch ];
   });
