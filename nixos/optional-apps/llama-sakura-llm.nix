@@ -8,11 +8,15 @@
   ...
 }@args:
 let
-  modelName = "sakura-13b-lnovel-v0.9b-Q8_0.gguf";
+  # https://github.com/SakuraLLM/Sakura-13B-Galgame
   model = pkgs.linkFarm "llama-model" {
-    "${modelName}" = pkgs.fetchurl {
-      url = "https://huggingface.co/SakuraLLM/Sakura-14B-LNovel-v0.9b-GGUF/resolve/main/sakura-13b-lnovel-v0.9b-Q8_0.gguf?download=true";
-      sha256 = "1vjp51ca78b9ri23kgaj42d0yibvdg3hy9c2cg0ki7yb31x0nza2";
+    "sakura-32b-qwen2beta-v0.9-iq4xs.gguf" = pkgs.fetchurl {
+      url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9-iq4xs.gguf?download=true";
+      sha256 = "0skil1kn4ys8hh5vr87k2mrlmdizsklkfz3jwzrdy8q6xh6gc4s6";
+    };
+    "sakura-32b-qwen2beta-v0.10pre1-iq4xs.gguf" = pkgs.fetchurl {
+      url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.10pre1-GGUF/resolve/main/sakura-32b-qwen2beta-v0.10pre1-iq4xs.gguf?download=true";
+      sha256 = "1rda8hi2i796qaf8pfyrddlzw6l355rm41cvjrwn901f4jgh2844";
     };
   };
 in
@@ -22,7 +26,7 @@ in
     package = pkgs.llama-cpp.override { cudaSupport = true; };
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
-    model = "${model}/${modelName}";
+    model = "${model}/sakura-32b-qwen2beta-v0.9-iq4xs.gguf";
     extraFlags = [
       "-c"
       "2048"
