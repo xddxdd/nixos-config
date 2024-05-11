@@ -20,6 +20,7 @@
 
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/homer.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
