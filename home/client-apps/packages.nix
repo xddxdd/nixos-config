@@ -115,6 +115,7 @@ in
         matrix-synapse-tools.synadm
         mediainfo
         megatools
+        moonlight-qt
         newsflash
         nvfetcher
         openvpn
