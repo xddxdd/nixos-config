@@ -38,8 +38,6 @@
 
   lantian.hidpi = 1.5;
 
-  fileSystems."/".options = [ "size=64G" ];
-
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
