@@ -144,6 +144,7 @@ in
         vscode
         vscode-wrapped
         wechat-uos
+        wine
         wine64
         winetricks
         wpsoffice
