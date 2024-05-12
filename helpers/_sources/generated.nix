@@ -75,21 +75,21 @@
   };
   lidarr-x64 = {
     pname = "lidarr-x64";
-    version = "v2.3.1.4171/Lidarr.develop.2.3.1.4171";
+    version = "v2.3.2.4183/Lidarr.develop.2.3.2.4183";
     src = fetchurl {
-      url = "https://github.com/Lidarr/Lidarr/releases/download/v2.3.1.4171/Lidarr.develop.2.3.1.4171.linux-core-x64.tar.gz";
-      sha256 = "sha256-Mpdw0n2Lz+H8+Ra6Q53Bf5AQ93z2fNWiDA1yF8ctBe8=";
+      url = "https://github.com/Lidarr/Lidarr/releases/download/v2.3.2.4183/Lidarr.develop.2.3.2.4183.linux-core-x64.tar.gz";
+      sha256 = "sha256-0/28uB8EF96+93uIuLrgOgpjvuIHvdgPBuJwcIaNJcI=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b2843";
+    version = "b2860";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b2843";
+      rev = "b2860";
       fetchSubmodules = false;
-      sha256 = "sha256-lsufE2cGPuv5JDmd19oJmSpboiQ/3MkJ9pAN2p9DI9w=";
+      sha256 = "sha256-KK2XiI2zZXG8G3TtNx+PMmsPOetHxjR5DS1sa8Jlluw=";
     };
   };
   material-kwin-decoration = {
@@ -130,27 +130,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "7217e4c50dbeceb2a07f63168733b232a53e824e";
+    version = "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "7217e4c50dbeceb2a07f63168733b232a53e824e";
+      rev = "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2";
       fetchSubmodules = false;
-      sha256 = "sha256-36re3x7lbCR7o5jX8+ScykC+4KxE7ip8o2ogV2JFAxw=";
+      sha256 = "sha256-tzml1i9EtXLWCINQwWb0GHyPNE+7vCg+tLbcWO0nipU=";
     };
-    date = "2024-04-30";
+    date = "2024-05-10";
   };
   openvpn = {
     pname = "openvpn";
-    version = "9d92221eb4e773cae913752af6d70082ae305fe8";
+    version = "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "9d92221eb4e773cae913752af6d70082ae305fe8";
+      rev = "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44";
       fetchSubmodules = false;
-      sha256 = "sha256-Id1gJsuPas1A/DWlzDK3E9WEe79ZAOdIKdvnMOBabb8=";
+      sha256 = "sha256-tQdGoozRMvABg0bbxPsS+2T/6clNIpmecZj+8DNMHVk=";
     };
-    date = "2024-05-02";
+    date = "2024-05-09";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -178,18 +178,18 @@
   };
   prowlarr-x64 = {
     pname = "prowlarr-x64";
-    version = "v1.17.0.4448/Prowlarr.develop.1.17.0.4448";
+    version = "v1.17.1.4483/Prowlarr.develop.1.17.1.4483";
     src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.0.4448/Prowlarr.develop.1.17.0.4448.linux-core-x64.tar.gz";
-      sha256 = "sha256-fF56td9oFgCQfgIDHfJslOIoR9KnWX+9NFRyVu1MmOs=";
+      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.1.4483/Prowlarr.develop.1.17.1.4483.linux-core-x64.tar.gz";
+      sha256 = "sha256-DosOUfb5c2156fu6wMeMA/zWDYOac0d1WqV/C3CwY1k=";
     };
   };
   radarr-x64 = {
     pname = "radarr-x64";
-    version = "v5.5.1.8747/Radarr.develop.5.5.1.8747";
+    version = "v5.5.2.8781/Radarr.develop.5.5.2.8781";
     src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.5.1.8747/Radarr.develop.5.5.1.8747.linux-core-x64.tar.gz";
-      sha256 = "sha256-tpqH9mok1ZmHVJ2biae1pR8aHy9x1jXtB4J0RtKwAHs=";
+      url = "https://github.com/Radarr/Radarr/releases/download/v5.5.2.8781/Radarr.develop.5.5.2.8781.linux-core-x64.tar.gz";
+      sha256 = "sha256-zLrdIZKs9iyCW4HpxbcBDMfZ3VFuaXZ57hmkT4h3SNE=";
     };
   };
   soggy-resources = {
@@ -207,10 +207,10 @@
   };
   sonarr-x64 = {
     pname = "sonarr-x64";
-    version = "v4.0.4.1572/Sonarr.develop.4.0.4.1572";
+    version = "v4.0.4.1668/Sonarr.develop.4.0.4.1668";
     src = fetchurl {
-      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1572/Sonarr.develop.4.0.4.1572.linux-x64.tar.gz";
-      sha256 = "sha256-9cXwaJTUIlq29LMFfGay5APrUxoL99Nc6KOWAe3vOBk=";
+      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1668/Sonarr.develop.4.0.4.1668.linux-x64.tar.gz";
+      sha256 = "sha256-thODsC5hb7G3gTpbtjxXsyTENRDcq/cw3vajLSoNdj0=";
     };
   };
   ulauncher-albert-calculate-anything = {

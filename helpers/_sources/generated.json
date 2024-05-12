@@ -132,11 +132,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Mpdw0n2Lz+H8+Ra6Q53Bf5AQ93z2fNWiDA1yF8ctBe8=",
+            "sha256": "sha256-0/28uB8EF96+93uIuLrgOgpjvuIHvdgPBuJwcIaNJcI=",
             "type": "url",
-            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.1.4171/Lidarr.develop.2.3.1.4171.linux-core-x64.tar.gz"
+            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.2.4183/Lidarr.develop.2.3.2.4183.linux-core-x64.tar.gz"
         },
-        "version": "v2.3.1.4171/Lidarr.develop.2.3.1.4171"
+        "version": "v2.3.2.4183/Lidarr.develop.2.3.2.4183"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -152,11 +152,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b2843",
-            "sha256": "sha256-lsufE2cGPuv5JDmd19oJmSpboiQ/3MkJ9pAN2p9DI9w=",
+            "rev": "b2860",
+            "sha256": "sha256-KK2XiI2zZXG8G3TtNx+PMmsPOetHxjR5DS1sa8Jlluw=",
             "type": "github"
         },
-        "version": "b2843"
+        "version": "b2860"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -220,7 +220,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-04-30",
+        "date": "2024-05-10",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -232,15 +232,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "7217e4c50dbeceb2a07f63168733b232a53e824e",
-            "sha256": "sha256-36re3x7lbCR7o5jX8+ScykC+4KxE7ip8o2ogV2JFAxw=",
+            "rev": "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2",
+            "sha256": "sha256-tzml1i9EtXLWCINQwWb0GHyPNE+7vCg+tLbcWO0nipU=",
             "type": "github"
         },
-        "version": "7217e4c50dbeceb2a07f63168733b232a53e824e"
+        "version": "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-05-02",
+        "date": "2024-05-09",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -252,11 +252,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "9d92221eb4e773cae913752af6d70082ae305fe8",
-            "sha256": "sha256-Id1gJsuPas1A/DWlzDK3E9WEe79ZAOdIKdvnMOBabb8=",
+            "rev": "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44",
+            "sha256": "sha256-tQdGoozRMvABg0bbxPsS+2T/6clNIpmecZj+8DNMHVk=",
             "type": "github"
         },
-        "version": "9d92221eb4e773cae913752af6d70082ae305fe8"
+        "version": "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
@@ -307,11 +307,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fF56td9oFgCQfgIDHfJslOIoR9KnWX+9NFRyVu1MmOs=",
+            "sha256": "sha256-DosOUfb5c2156fu6wMeMA/zWDYOac0d1WqV/C3CwY1k=",
             "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.0.4448/Prowlarr.develop.1.17.0.4448.linux-core-x64.tar.gz"
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.1.4483/Prowlarr.develop.1.17.1.4483.linux-core-x64.tar.gz"
         },
-        "version": "v1.17.0.4448/Prowlarr.develop.1.17.0.4448"
+        "version": "v1.17.1.4483/Prowlarr.develop.1.17.1.4483"
     },
     "radarr-x64": {
         "cargoLocks": null,
@@ -322,11 +322,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tpqH9mok1ZmHVJ2biae1pR8aHy9x1jXtB4J0RtKwAHs=",
+            "sha256": "sha256-zLrdIZKs9iyCW4HpxbcBDMfZ3VFuaXZ57hmkT4h3SNE=",
             "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.5.1.8747/Radarr.develop.5.5.1.8747.linux-core-x64.tar.gz"
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.5.2.8781/Radarr.develop.5.5.2.8781.linux-core-x64.tar.gz"
         },
-        "version": "v5.5.1.8747/Radarr.develop.5.5.1.8747"
+        "version": "v5.5.2.8781/Radarr.develop.5.5.2.8781"
     },
     "soggy-resources": {
         "cargoLocks": null,
@@ -356,11 +356,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9cXwaJTUIlq29LMFfGay5APrUxoL99Nc6KOWAe3vOBk=",
+            "sha256": "sha256-thODsC5hb7G3gTpbtjxXsyTENRDcq/cw3vajLSoNdj0=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1572/Sonarr.develop.4.0.4.1572.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1668/Sonarr.develop.4.0.4.1668.linux-x64.tar.gz"
         },
-        "version": "v4.0.4.1572/Sonarr.develop.4.0.4.1572"
+        "version": "v4.0.4.1668/Sonarr.develop.4.0.4.1668"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
