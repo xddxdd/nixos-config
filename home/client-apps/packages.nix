@@ -144,8 +144,8 @@ in
         vscode
         vscode-wrapped
         wechat-uos
+        wine64
         winetricks
-        wineWowPackages.stable
         wpsoffice
         xca
         yt-dlp
