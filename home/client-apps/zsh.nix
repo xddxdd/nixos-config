@@ -67,6 +67,9 @@
         export EDITOR="code --wait"
       fi
 
+      # For Podman
+      export REGISTRY_AUTH_FILE="$HOME/.config/podman-registry-auth.json";
+
       ########################################
       # https://wiki.archlinux.org/title/Color_output_in_console
       ########################################

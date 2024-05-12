@@ -13,7 +13,7 @@
     default = config.virtualisation.oci-containers.containers != { } || LT.this.hasTag LT.tags.client;
   };
 
-  config = {
+  config = lib.mkIf config.lantian.enablePodman {
     environment.systemPackages = config.virtualisation.podman.extraPackages;
 
     virtualisation.podman = {
