@@ -68,8 +68,12 @@ in
       [
         "D(${formattedDomain}, REG_${config.registrar}, ${providerCommands}, DefaultTTL(${formatArg config.defaultTTL}), NAMESERVER_TTL(${formatArg config.nameserverTTL}));"
       ]
-      ++ (lib.optional config.dnssec "D_EXTEND(${formattedDomain}, AUTODNSSEC_ON);")
-      ++ (lib.optional (!config.dnssec) "D_EXTEND(${formattedDomain}, AUTODNSSEC_OFF);")
+      ++ (lib.optional (
+        config.dnssec != null && config.dnssec
+      ) "D_EXTEND(${formattedDomain}, AUTODNSSEC_ON);")
+      ++ (lib.optional (
+        config.dnssec != null && !config.dnssec
+      ) "D_EXTEND(${formattedDomain}, AUTODNSSEC_OFF);")
       ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") filteredRecordStrings)
       ++ [ "" ]
     );
