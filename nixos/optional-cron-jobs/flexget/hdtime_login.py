@@ -1,7 +1,8 @@
 import json
 import os
-import requests
 import time
+
+import requests
 
 flaresolverr_url = os.environ["FLARESOLVERR_URL"]
 username = os.environ["HDTIME_USER"]
@@ -18,11 +19,14 @@ except Exception as e:
     pass
 
 # Login
-q = requests.post(f"{flaresolverr_url}/v1", json={
-    "cmd": "request.post",
-    "url": "https://hdtime.org/takelogin.php",
-    "postData": f"username={username}&password={password}&trackerssl=yes",
-})
+q = requests.post(
+    f"{flaresolverr_url}/v1",
+    json={
+        "cmd": "request.post",
+        "url": "https://hdtime.org/takelogin.php",
+        "postData": f"username={username}&password={password}&trackerssl=yes",
+    },
+)
 j = q.json()
 
 cookies = j.get("solution", {}).get("cookies", [])
@@ -31,11 +35,8 @@ if not cookies:
 expiry = min([c["expiry"] for c in cookies])
 if expiry <= int(time.time()):
     raise ValueError("Got expired cookie from fresh request")
-cookie_str = "; ".join([c["name"]+"="+c["value"] for c in cookies])
+cookie_str = "; ".join([c["name"] + "=" + c["value"] for c in cookies])
 print(cookie_str)
 
 with open("hdtime.json", "w") as f:
-    json.dump({
-        "expiry": expiry,
-        "value": cookie_str
-    }, f)
+    json.dump({"expiry": expiry, "value": cookie_str}, f)

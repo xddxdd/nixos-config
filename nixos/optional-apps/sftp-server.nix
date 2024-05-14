@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ config, inputs, ... }:
 let
   sshKeys = import (inputs.secrets + "/ssh/sftp.nix");
 in

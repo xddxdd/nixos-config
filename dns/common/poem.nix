@@ -1,12 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
-{
+_: {
   common.poem =
     prefix: first:
     let

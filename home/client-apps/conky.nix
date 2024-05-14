@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   verticalSize = 16;
   spaceSize = verticalSize / 2;
@@ -14,12 +11,10 @@ let
   widthChars = 40;
 
   centerX = builtins.floor ((alignX + widthChars) / 2);
-  alignRightCenter = widthChars - centerX;
 
   gray = content: "\${color grey}${content}$color";
   offset = n: "\${offset ${builtins.toString (n * spaceSize)}}";
   goto = n: "\${goto ${builtins.toString (n * spaceSize)}}";
-  alignr = n: "\${alignr ${builtins.toString (n * spaceSize - 4)}}";
 
   padString = s: "${offset (alignX - lib.stringLength s)}${s}";
 

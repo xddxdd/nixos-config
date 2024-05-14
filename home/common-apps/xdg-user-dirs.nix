@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   xdg.enable = true;
   xdg.userDirs = {
     enable = true;

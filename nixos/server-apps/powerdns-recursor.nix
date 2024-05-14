@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   netns = config.lantian.netns.powerdns-recursor;
 in
@@ -40,14 +38,14 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             # NeoNetwork is covered by fwd-dn42-interconnect
             (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Ltnet))
             (
-              k:
+              _k:
               builtins.concatStringsSep ";" [
                 "198.19.0.254"
                 "fdbc:f9dc:67ad:2547::54"
               ]
             );
         emercoin = lib.genAttrs LT.constants.zones.Emercoin (
-          k:
+          _k:
           builtins.concatStringsSep ";" [
             "185.122.58.37"
             "2a06:8ec0:3::1:2c4e"

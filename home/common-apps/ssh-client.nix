@@ -1,12 +1,1 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
-  home.file.".ssh/config".text = "";
-}
+_: { home.file.".ssh/config".text = ""; }

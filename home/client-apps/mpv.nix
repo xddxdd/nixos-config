@@ -3,11 +3,9 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   osConfig,
   ...
-}@args:
+}:
 {
   programs.mpv = {
     enable = true;

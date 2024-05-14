@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, lib, ... }:
 {
   environment.systemPackages = [ (lib.hiPrio pkgs.lantianCustomized.firefox-icon-mikozilla-fireyae) ];
 

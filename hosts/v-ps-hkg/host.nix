@@ -1,4 +1,4 @@
-{ tags, geo, ... }@args:
+{ tags, geo, ... }:
 {
   index = 1;
   tags = with tags; [

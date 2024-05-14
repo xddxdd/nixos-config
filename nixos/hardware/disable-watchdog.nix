@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   boot.extraModprobeConfig = ''
     blacklist iTCO_wdt
     blacklist iTCO_vendor_support

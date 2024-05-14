@@ -1,19 +1,6 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }@args:
 let
-  inherit (import ./common.nix args)
-    DN42_AS
-    DN42_REGION
-    NEO_AS
-    community
-    ;
+  inherit (import ./common.nix args) community;
 
   excludedInterfacesFromDirect = [
     "dn42-*"

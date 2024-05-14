@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 let
   avatars = pkgs.stdenv.mkDerivation rec {
     pname = "avatars";

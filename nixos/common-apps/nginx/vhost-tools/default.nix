@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   tools = {
     cyberchef = LT.nginx.compressStaticAssets (

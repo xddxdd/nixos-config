@@ -1,12 +1,10 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   pythonPackages = python-packages: with python-packages; [ telethon ];
   python = pkgs.python3.withPackages pythonPackages;

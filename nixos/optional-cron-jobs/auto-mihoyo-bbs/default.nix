@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, LT, ... }:
 let
   py = pkgs.python3.withPackages (
     p: with p; [

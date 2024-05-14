@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   mysqlenv-common = pkgs.buildEnv {
     name = "mysql-path-env-common";

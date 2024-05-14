@@ -1,12 +1,10 @@
 {
-  lib,
   stdenvNoCC,
   fetchurl,
   chmlib-utils,
   iconv,
-  callPackage,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "dnyjzsxj";
   version = "1.0.0";

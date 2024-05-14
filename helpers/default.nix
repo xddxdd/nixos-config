@@ -22,7 +22,7 @@ let
               fargs = lib.functionArgs f;
               allArgs = builtins.intersectAttrs fargs (pkgs // scope);
               missingArgs = lib.attrNames (
-                lib.filterAttrs (name: value: !value) (removeAttrs fargs (lib.attrNames allArgs))
+                lib.filterAttrs (_name: value: !value) (removeAttrs fargs (lib.attrNames allArgs))
               );
             in
             if missingArgs == [ ] then f allArgs else null;
@@ -52,8 +52,8 @@ mkScope (call: rec {
   this = hosts."${config.networking.hostName}";
   otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
-  hostsWithTag = tag: lib.filterAttrs (n: v: v.hasTag tag) hosts;
-  hostsWithoutTag = tag: lib.filterAttrs (n: v: !(v.hasTag tag)) hosts;
+  hostsWithTag = tag: lib.filterAttrs (_n: v: v.hasTag tag) hosts;
+  hostsWithoutTag = tag: lib.filterAttrs (_n: v: !(v.hasTag tag)) hosts;
 
   patchedNixpkgs = self.packages."${this.system}".nixpkgs-patched;
 
@@ -61,7 +61,7 @@ mkScope (call: rec {
   enumerateList = call ./fn/enumerate-list.nix;
   gui = call ./fn/gui.nix;
   ls = call ./fn/ls.nix;
-  net = (call ./fn/net.nix).lib.net;
+  inherit ((call ./fn/net.nix).lib) net;
   nginx = call ./fn/nginx.nix;
   sanitizeName = call ./fn/sanitize-name.nix;
   serviceHarden = call ./fn/service-harden.nix;

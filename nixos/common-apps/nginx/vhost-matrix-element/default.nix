@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   elementConfig = builtins.toJSON {
     default_server_config = builtins.fromJSON LT.constants.matrixWellKnown.client;

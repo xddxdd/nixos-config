@@ -2,15 +2,12 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   homeDir = "/nix/persistent/sync-servers/acme.sh";
 
-  subdomains = builtins.concatStringsSep " " (lib.mapAttrsToList (n: v: n) LT.hosts);
+  subdomains = builtins.concatStringsSep " " (lib.mapAttrsToList (n: _v: n) LT.hosts);
 in
 {
   environment.systemPackages = [

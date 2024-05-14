@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, config, ... }:
 let
   nvidia_x11 = config.hardware.nvidia.package;
 

@@ -139,7 +139,7 @@ rec {
     Pipewire.RTP = 46414;
   };
 
-  portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
+  portStr = lib.mapAttrsRecursive (_k: builtins.toString) port;
 
   reserved = {
     IPv4 = [

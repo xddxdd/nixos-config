@@ -1,12 +1,9 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   options.lantian.syncthing.storage = lib.mkOption {
     type = lib.types.str;

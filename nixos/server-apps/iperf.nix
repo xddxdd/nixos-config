@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }:
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   services.iperf3 = {
     enable = true;

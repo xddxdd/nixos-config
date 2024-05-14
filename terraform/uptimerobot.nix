@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   LT,
   packages,
@@ -9,7 +8,7 @@
   terraform.required_providers = {
     uptimerobot = {
       source = "private.lantian.pub/xddxdd/uptimerobot";
-      version = packages.xddxdd-uptimerobot.version;
+      inherit (packages.xddxdd-uptimerobot) version;
     };
   };
 
@@ -73,7 +72,7 @@
       };
     }
     // (lib.mapAttrs' (
-      n: v:
+      n: _v:
       lib.nameValuePair "blog_${LT.sanitizeName n}" {
         friendly_name = "Blog/${n}";
         type = "http";

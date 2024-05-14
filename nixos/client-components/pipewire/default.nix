@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   # Change pipewire-rtprio.nix as well
   realtimeLimitUS = 5000000;

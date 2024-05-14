@@ -1,7 +1,8 @@
 import json
 import os
-import requests
 import time
+
+import requests
 
 flaresolverr_url = os.environ["FLARESOLVERR_URL"]
 username = os.environ["OURBITS_USER"]
@@ -18,11 +19,14 @@ except Exception as e:
     pass
 
 # Login
-q = requests.post(f"{flaresolverr_url}/v1", json={
-    "cmd": "request.post",
-    "url": "https://ourbits.club/takelogin.php",
-    "postData": f"username={username}&password={password}&trackerssl=yes",
-})
+q = requests.post(
+    f"{flaresolverr_url}/v1",
+    json={
+        "cmd": "request.post",
+        "url": "https://ourbits.club/takelogin.php",
+        "postData": f"username={username}&password={password}&trackerssl=yes",
+    },
+)
 j = q.json()
 for cookie in j.get("solution", {}).get("cookies", []):
     expiry = cookie.get("expiry")

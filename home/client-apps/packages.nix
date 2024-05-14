@@ -2,12 +2,10 @@
   pkgs,
   lib,
   LT,
-  config,
   osConfig,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   calibre-override-desktop = lib.hiPrio (
     pkgs.runCommand "calibre-override-desktop" { } ''
@@ -43,11 +41,6 @@ let
       done
     ''
   );
-
-  step-cli-wrapped = pkgs.writeShellScriptBin "step" ''
-    export STEPPATH="$HOME/.local/share/step"
-    exec ${pkgs.step-cli}/bin/step "$@"
-  '';
 
   vscode-wrapped = lib.hiPrio (
     pkgs.runCommand "vscode-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''

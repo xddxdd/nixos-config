@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, ... }:
 {
   boot.initrd.kernelModules = [
     "dm-cache"

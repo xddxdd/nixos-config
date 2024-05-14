@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }@args:
 let
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker

@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, lib, ... }:
 let
   mkValue = v: {
     Value = v;
@@ -26,7 +18,7 @@ in
       NetworkPrediction = false;
       OfferToSaveLogins = true;
       PasswordManagerEnabled = true;
-      Preferences = lib.mapAttrs (k: mkValue) {
+      Preferences = lib.mapAttrs (_k: mkValue) {
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
         "gfx.x11-egl.force-enabled" = true;

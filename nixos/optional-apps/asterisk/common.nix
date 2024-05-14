@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-rec {
+_: rec {
   dialRule =
     number: rules:
     builtins.foldl'

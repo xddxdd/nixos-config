@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   lantian.nginxVhosts."private.xuyh0120.win" = {
     root = "/var/www/private.xuyh0120.win";
     locations = {

@@ -2,9 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
 }@args:
 let

@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 {
   age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
 

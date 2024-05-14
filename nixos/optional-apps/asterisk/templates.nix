@@ -1,14 +1,5 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+_:
 let
-  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
 
   # http://www.cs.columbia.edu/~hgs/audio/codecs.html
   # https://www.speex.org/comparison/

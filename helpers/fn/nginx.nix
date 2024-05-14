@@ -1,15 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  hosts,
-  this,
-  port,
-  portStr,
-  inputs,
-  constants,
-  ...
-}:
+{ pkgs, lib, ... }:
 rec {
   getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
   getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";

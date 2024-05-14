@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, LT, ... }:
 {
   systemd.services.ssl-certs = {
     serviceConfig = LT.serviceHarden // {

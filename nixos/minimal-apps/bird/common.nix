@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ LT, ... }:
 rec {
   DN42_AS = "4242422547";
   DN42_TEST_AS = "4242422557";

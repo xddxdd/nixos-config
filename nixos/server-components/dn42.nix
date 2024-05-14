@@ -4,15 +4,13 @@
   LT,
   config,
   options,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
-  myASN = 4242422547;
   myASNAbbr = 2547;
 
-  filterType = type: lib.filterAttrs (n: v: v.tunnel.type == type);
+  filterType = type: lib.filterAttrs (_n: v: v.tunnel.type == type);
 
   setupAddressing =
     interfaceName: v:

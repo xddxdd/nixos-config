@@ -4,9 +4,8 @@
   LT,
   config,
   utils,
-  inputs,
   ...
-}@args:
+}:
 let
   anycastIP = "198.19.0.27";
 

@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+_: {
   autostart =
     l:
     builtins.listToAttrs (

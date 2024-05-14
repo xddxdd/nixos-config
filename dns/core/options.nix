@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
+{ lib, ... }@args:
 {
   options = {
     registrars = lib.mkOption {

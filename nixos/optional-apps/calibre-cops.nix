@@ -1,13 +1,10 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   options,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   calibreLibrary = config.services.calibre-cops.libraryPath;
 in

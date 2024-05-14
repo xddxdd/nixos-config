@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 let
   lenny = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "lenny";

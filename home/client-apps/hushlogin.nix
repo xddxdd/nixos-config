@@ -1,12 +1,1 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
-  home.file.".hushlogin".text = "";
-}
+_: { home.file.".hushlogin".text = ""; }

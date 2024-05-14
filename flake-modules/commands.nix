@@ -6,13 +6,7 @@
 }:
 {
   perSystem =
-    {
-      config,
-      system,
-      pkgs,
-      inputs',
-      ...
-    }:
+    { system, pkgs, ... }:
     let
       commands = {
         colmena = ../scripts/colmena.nix;

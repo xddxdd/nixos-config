@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 {
   # Fix ulauncher startup error
   environment.systemPackages = with pkgs; [ ulauncher ];

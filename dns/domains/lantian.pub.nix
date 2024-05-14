@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
+{ config, lib, ... }:
 let
   inherit (config.common.nameservers) PublicNSRecords;
 
@@ -175,7 +168,7 @@ let
       # GeoDNS for servers with sufficient storage
       name = "tools";
       ttl = "5m";
-      filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
+      filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
     }
     {
       recordType = "CNAME";
@@ -260,7 +253,7 @@ in
           # GeoDNS for public facing servers
           name = "@";
           ttl = "5m";
-          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing");
+          filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing");
         }
         {
           recordType = "CNAME";

@@ -1,12 +1,10 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   labRoot = "/var/www/lab.lantian.pub";
 in

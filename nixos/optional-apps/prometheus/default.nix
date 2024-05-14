@@ -1,12 +1,9 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   scrapeAllNonClientNodes = jobName: port: {
     job_name = jobName;

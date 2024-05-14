@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, LT, ... }:
 {
   xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" {
     "com.github.dhelmr.ulauncher-tldr" = LT.sources.ulauncher-tldr.src;

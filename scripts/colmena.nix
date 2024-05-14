@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 ''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then

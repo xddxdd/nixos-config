@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }@args:
 let
   inherit (import ./common.nix args) DN42_AS DN42_TEST_AS community;
 

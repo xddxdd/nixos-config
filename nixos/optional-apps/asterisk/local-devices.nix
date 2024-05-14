@@ -1,14 +1,6 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, lib, ... }@args:
 let
-  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule;
 
   localNumbers = [
     "1000" # Laptop (Linphone)

@@ -1,20 +1,6 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ LT, ... }:
 let
-  inherit (LT.this)
-    hostname
-    sshPort
-    hasTag
-    manualDeploy
-    system
-    ;
+  inherit (LT.this) hostname sshPort hasTag;
 in
 {
   deployment = {

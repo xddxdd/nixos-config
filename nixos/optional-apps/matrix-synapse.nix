@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
 }@args:

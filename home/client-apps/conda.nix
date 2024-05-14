@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   home.file.".condarc".text = builtins.toJSON {
     channels = [
       "conda-forge"

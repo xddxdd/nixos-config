@@ -1,12 +1,10 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 {
   imports = [
     ./docker.nix
@@ -100,9 +98,7 @@
   };
 
   services.postgresql = {
-    ensureDatabases = [
-      "drone-github"
-    ];
+    ensureDatabases = [ "drone-github" ];
     ensureUsers = [
       {
         name = "drone-github";

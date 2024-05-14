@@ -1,5 +1,4 @@
-{ inputs, ... }:
-final: prev: {
+_: final: prev: {
   writers = prev.writers // {
     writeNginxConfig =
       name: text:

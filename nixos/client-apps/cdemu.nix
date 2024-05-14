@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 let
   cdemuDBusService = pkgs.stdenv.mkDerivation {
     pname = "cdemu-dbus-service";

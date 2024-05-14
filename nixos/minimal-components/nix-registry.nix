@@ -1,12 +1,9 @@
 {
-  pkgs,
   lib,
   LT,
-  config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   registeredInputs = {
     nixpkgs = LT.patchedNixpkgs;
@@ -22,7 +19,7 @@ in
 
   nix = {
     nixPath = [ "/etc/nix/inputs" ];
-    registry = lib.mapAttrs (n: v: { flake = lib.mkForce { outPath = v; }; }) registeredInputs;
+    registry = lib.mapAttrs (_n: v: { flake = lib.mkForce { outPath = v; }; }) registeredInputs;
   };
 
   # Disable conflicting settings from nixpkgs

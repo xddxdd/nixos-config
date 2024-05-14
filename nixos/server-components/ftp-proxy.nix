@@ -4,10 +4,8 @@
   LT,
   config,
   options,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   options.services."ftp-proxy" = {
     enable = lib.mkOption {

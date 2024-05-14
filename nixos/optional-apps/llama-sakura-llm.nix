@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   # https://github.com/SakuraLLM/Sakura-13B-Galgame
   model = pkgs.linkFarm "llama-model" {

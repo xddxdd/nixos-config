@@ -1,12 +1,11 @@
 {
   pkgs,
-  lib,
   LT,
   config,
   utils,
   inputs,
   ...
-}@args:
+}:
 let
   v2rayConf = {
     inbounds = [

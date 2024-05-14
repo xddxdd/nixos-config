@@ -535,10 +535,10 @@ let
       ap = liftA2 (a: a);
 
       # then_ :: parser a -> parser b -> parser b
-      then_ = liftA2 (a: b: b);
+      then_ = liftA2 (_a: b: b);
 
       # empty :: parser a
-      empty = string: null;
+      empty = _string: null;
 
       # alt :: parser a -> parser a -> parser a
       alt =
@@ -687,8 +687,6 @@ let
           colon = char ":";
 
           hextet = limit 4 hexadecimal;
-
-          hextet' = then_ colon hextet;
 
           fromHextets =
             hextets:
@@ -930,8 +928,7 @@ let
               lower = bit.mask 4 n;
             in
             "${builtins.substring upper 1 digits}${builtins.substring lower 1 digits}";
-        in
-        let
+
           a = bit.mask 8 (bit.right 40 address.mac);
           b = bit.mask 8 (bit.right 32 address.mac);
           c = bit.mask 8 (bit.right 24 address.mac);
@@ -1194,35 +1191,31 @@ let
           (bit.left 32 value.ipv6.c)
           value.ipv6.d
         ]
-      else if value ? ipv4 then
-        value.ipv4
-      else if value ? mac then
-        value.mac
       else
-        value;
+        value.ipv4 or (value.mac or value);
   };
 
   implementations = {
     ip = {
       # add :: (ip | mac | integer) -> ip -> ip
-      add = arithmetic.add;
+      inherit (arithmetic) add;
 
       # diff :: ip -> ip -> (ipv6 | integer)
-      diff = arithmetic.diff;
+      inherit (arithmetic) diff;
 
       # subtract :: (ip | mac | integer) -> ip -> ip
-      subtract = arithmetic.subtract;
+      inherit (arithmetic) subtract;
     };
 
     mac = {
       # add :: (ip | mac | integer) -> mac -> mac
-      add = arithmetic.add;
+      inherit (arithmetic) add;
 
       # diff :: mac -> mac -> (ipv6 | integer)
-      diff = arithmetic.diff;
+      inherit (arithmetic) diff;
 
       # subtract :: (ip | mac | integer) -> mac -> mac
-      subtract = arithmetic.subtract;
+      inherit (arithmetic) subtract;
     };
 
     cidr = rec {

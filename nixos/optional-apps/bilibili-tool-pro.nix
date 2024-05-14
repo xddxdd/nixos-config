@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   virtualisation.oci-containers.containers.bilibili-tool-pro = {
     extraOptions = [
       "--pull"

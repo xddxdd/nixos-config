@@ -22,11 +22,11 @@ let
   modulesFor =
     n:
     let
-      system = LT.hosts."${n}".system;
+      inherit (LT.hosts."${n}") system;
     in
     [
       (
-        { config, pkgs, ... }:
+        { pkgs, ... }:
         {
           home-manager.extraSpecialArgs = specialArgsFor n;
           networking.hostName = lib.mkForce (lib.removePrefix "_" n);
@@ -60,7 +60,7 @@ in
     nixosConfigurations = lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts)) (
       n:
       let
-        system = LT.hosts."${n}".system;
+        inherit (LT.hosts."${n}") system;
         pkgs = patchedPkgsFor system;
         nixpkgs = patchedNixpkgsFor system;
       in

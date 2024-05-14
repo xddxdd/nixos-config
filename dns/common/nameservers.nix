@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
+_:
 let
   PublicServers = [
     "v-ps-hkg.lantian.pub."

@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, config, ... }:
 let
   vppStartupScript = pkgs.writeText "vpp.startup" ''
     set interface state GigabitEthernet6/13/0 up

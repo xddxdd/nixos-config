@@ -1,12 +1,5 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
-{ name, config, ... }:
+{ lib, ... }:
+{ name, ... }:
 {
   freeformType = lib.types.attrsOf lib.types.anything;
   options = {

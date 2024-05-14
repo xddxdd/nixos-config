@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   nginxConfig = pkgs.writeText "nginx-proxy.conf" ''
     daemon off;
@@ -38,7 +36,7 @@ in
   # Actual enable is in nixos/common-apps/nginx/proxy.nix
   options.lantian.nginx-proxy.enable = lib.mkEnableOption "nginx-proxy service";
 
-  config = lib.mkIf (config.lantian.nginx-proxy.enable) {
+  config = lib.mkIf config.lantian.nginx-proxy.enable {
     lantian.netns.nginx-proxy = {
       ipSuffix = "43";
       announcedIPv4 = [

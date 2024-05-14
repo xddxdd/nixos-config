@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, config, ... }:
 {
   imports = [
     ../../nixos/minimal.nix
@@ -96,7 +88,7 @@
 
   services.fwupd.enable = true;
 
-  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
+  services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
     TLP_DEFAULT_MODE = "BAT";
     TLP_PERSISTENT_DEFAULT = 1;
   };

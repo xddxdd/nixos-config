@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   # Disable suspend on lid close
   services.upower.ignoreLid = true;
   services.logind.lidSwitch = "ignore";

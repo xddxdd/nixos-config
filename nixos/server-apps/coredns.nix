@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   corednsAuthoritativeNetns = config.lantian.netns.coredns-authoritative;
   corednsKnotNetns = config.lantian.netns.coredns-knot;

@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   himawaripy = pkgs.python3Packages.buildPythonPackage rec {
     inherit (LT.sources.himawaripy) pname version src;

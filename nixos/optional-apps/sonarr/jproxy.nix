@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   systemd.services.jproxy = {
     wantedBy = [ "multi-user.target" ];

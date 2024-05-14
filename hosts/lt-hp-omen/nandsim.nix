@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 {
   # drivers/mtd/nand/raw/nand_ids.c
   boot.kernelModules = [ "ubi" ];

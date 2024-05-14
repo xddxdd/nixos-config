@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
+{ config, ... }:
 {
   common.records = rec {
     Autoconfig = domain: [

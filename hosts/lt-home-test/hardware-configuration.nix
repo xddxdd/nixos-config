@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}:
+{ ... }:
 {
   imports = [ ../../nixos/hardware/disable-watchdog.nix ];
 

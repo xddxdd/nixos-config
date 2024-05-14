@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   systemd.services.flaresolverr = {
     description = "FlareSolverr";

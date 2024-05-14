@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ config, inputs, ... }:
 {
   age.secrets.dn42-pingfinder-uuid.file =
     inputs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";

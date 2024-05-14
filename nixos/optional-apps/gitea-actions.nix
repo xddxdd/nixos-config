@@ -1,12 +1,10 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 {
   age.secrets.gitea-actions-token.file = inputs.secrets + "/gitea-actions-token.age";
 
