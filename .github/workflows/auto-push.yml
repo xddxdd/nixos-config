@@ -53,5 +53,5 @@ jobs:
 
           git add .
           git commit -m "auto: update packages"
-          git remote add private https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config-private-copy.git
+          git remote add private "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config-private-copy.git"
           git push -u private master --force

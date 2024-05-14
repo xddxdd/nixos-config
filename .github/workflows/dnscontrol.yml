@@ -37,10 +37,10 @@ jobs:
 
       - name: Setup SSH key
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > $HOME/.ssh/id_ed25519
-          echo "StrictHostKeyChecking no" > $HOME/.ssh/config
-          chmod -R 500 $HOME/.ssh
+          mkdir -p "$HOME/.ssh"
+          echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/id_ed25519"
+          echo "StrictHostKeyChecking no" > "$HOME/.ssh/config"
+          chmod -R 500 "$HOME/.ssh"
 
       - name: Apply DNSControl changes
         run: nix run ".#dnscontrol" -- push

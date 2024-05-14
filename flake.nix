@@ -87,6 +87,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    pre-commit-hooks-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
@@ -123,8 +127,8 @@
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
         ./flake-modules/nixpkgs-options.nix
+        ./flake-modules/pre-commit-hooks.nix
         ./flake-modules/treefmt.nix
-        inputs.nur-xddxdd.flakeModules.auto-apps-shell
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive
       ];
 

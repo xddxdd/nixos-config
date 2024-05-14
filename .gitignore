@@ -4,6 +4,7 @@ zones/
 .vscode
 .direnv
 nix-function-calls.*
+.pre-commit-config.yaml
 
 config.tf.json
 .terraform.lock.hcl
