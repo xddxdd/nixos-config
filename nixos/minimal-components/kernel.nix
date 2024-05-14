@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   myKernelPackageFor =
     kernel:
@@ -48,7 +46,7 @@ let
       llvmOverride =
         kernelPackages_:
         kernelPackages_.extend (
-          final: prev:
+          _final: prev:
           lib.mapAttrs (
             n: v:
             if
@@ -121,18 +119,18 @@ let
         in
         kernelPackages_:
         kernelPackages_.extend (
-          final: prev:
+          _final: prev:
           (lib.mapAttrs (
             n: v: if lib.hasPrefix "nvidia_x11" n && lib.isDerivation v then patch v else v
           ) prev)
           // {
-            nvidiaPackages = lib.mapAttrs (n: v: patch v) prev.nvidiaPackages;
+            nvidiaPackages = lib.mapAttrs (_n: patch) prev.nvidiaPackages;
           }
         );
     in
-    lib.foldr (a: b: a b)
+    lib.foldr (a: a)
       (kernelPackages.extend (
-        final: prev: {
+        final: _prev: {
           # Custom kernel packages
           acpi-ec = pkgs.acpi-ec.override { inherit (final) kernel; };
           cryptodev = pkgs.cryptodev-unstable.override { inherit (final) kernel; };

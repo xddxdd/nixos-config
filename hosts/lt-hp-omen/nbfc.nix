@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, config, ... }:
 {
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi-ec ];
   boot.kernelModules = [ "acpi_ec" ];

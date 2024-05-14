@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   # https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada
   ls-iommu = pkgs.writeShellScriptBin "ls-iommu" ''

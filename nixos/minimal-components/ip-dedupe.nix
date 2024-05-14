@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, config, ... }:
 {
   options.lantian.ip-dedupe = lib.mkOption {
     type = lib.types.attrsOf lib.types.str;
@@ -16,7 +8,7 @@
 
   config.lantian.ip-dedupe =
     let
-      containersWithPrivateNetworking = lib.filterAttrs (n: v: v.privateNetwork) config.containers;
+      containersWithPrivateNetworking = lib.filterAttrs (_n: v: v.privateNetwork) config.containers;
       containerIPv4 = lib.mapAttrs' (
         n: v: lib.nameValuePair v.localAddress "containers.${n}"
       ) containersWithPrivateNetworking;

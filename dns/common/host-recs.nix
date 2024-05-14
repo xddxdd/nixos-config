@@ -3,9 +3,8 @@
   config,
   lib,
   LT,
-  inputs,
   ...
-}@args:
+}:
 let
   constants = pkgs.callPackage ../../helpers/constants.nix { };
   inherit (constants) tags;
@@ -41,7 +40,7 @@ let
     lib.optionals (addresses.IPv4 != "") [
       {
         recordType = "A";
-        name = name;
+        inherit name;
         address = addresses.IPv4;
         inherit ttl;
       }
@@ -56,7 +55,7 @@ let
     ++ lib.optionals (addresses.IPv6 != "") [
       {
         recordType = "AAAA";
-        name = name;
+        inherit name;
         address = addresses.IPv6;
         inherit ttl;
       }
@@ -70,7 +69,7 @@ let
     ++ lib.optionals (addresses.IPv6Alt or "" != "") [
       {
         recordType = "AAAA";
-        name = name;
+        inherit name;
         address = addresses.IPv6Alt;
         inherit ttl;
       }
@@ -135,7 +134,7 @@ in
           recordType = "TXT";
           name = concatDomain "geoinfo" name;
           contents = builtins.toJSON (
-            builtins.mapAttrs (k: v: {
+            builtins.mapAttrs (_k: v: {
               inherit (v.city) lat lng;
               a = lib.optional (v.public.IPv4 != "") v.public.IPv4;
               aaaa =

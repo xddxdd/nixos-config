@@ -1,4 +1,4 @@
-{ lib, callPackage, ... }:
+{ callPackage, ... }:
 let
   builder = callPackage ./_builder.nix { };
 in

@@ -1,11 +1,7 @@
 {
-  pkgs,
   lib,
-  LT,
   config,
   options,
-  utils,
-  inputs,
   ...
 }@args:
 {

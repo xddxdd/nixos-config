@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   root = "/var/www/pterodactyl.xuyh0120.win";
   pterodactyl-artisan = pkgs.writeShellScriptBin "pterodactyl-artisan" ''

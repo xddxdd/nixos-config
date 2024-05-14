@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ config, ... }:
 {
   boot.extraModulePackages = with config.boot.kernelPackages; [ kvmfr ];
   boot.extraModprobeConfig = ''

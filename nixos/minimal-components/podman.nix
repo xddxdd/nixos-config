@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   options.lantian.enablePodman = lib.mkOption {
     type = lib.types.bool;

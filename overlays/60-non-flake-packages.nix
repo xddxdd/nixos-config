@@ -1,10 +1,10 @@
 { inputs, ... }:
-final: prev:
+final: _prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 {
-  composer2nix = final.callPackage (inputs.composer2nix) { };
+  composer2nix = final.callPackage inputs.composer2nix { };
 
   web-compressor = final.rustPlatform.buildRustPackage {
     inherit (sources.web-compressor) pname version src;

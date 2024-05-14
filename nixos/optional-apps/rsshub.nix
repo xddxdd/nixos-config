@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ LT, config, ... }:
 {
   virtualisation.oci-containers.containers.rsshub = {
     extraOptions = [

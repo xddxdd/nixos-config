@@ -2,8 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
   inputs,
   ...
 }@args:
@@ -136,14 +134,14 @@ let
       (lib.optionals config.listenHTTP.enable [
         {
           addr = "0.0.0.0";
-          port = config.listenHTTP.port;
+          inherit (config.listenHTTP) port;
           extraParameters =
             (lib.optionals config.listenHTTP.proxyProtocol [ "proxy_protocol" ])
             ++ (lib.optionals config.listenHTTP.default (listenDefaultFlags "tcp"));
         }
         {
           addr = "[::]";
-          port = config.listenHTTP.port;
+          inherit (config.listenHTTP) port;
           extraParameters =
             (lib.optionals config.listenHTTP.proxyProtocol [ "proxy_protocol" ])
             ++ (lib.optionals config.listenHTTP.default (listenDefaultFlags "tcp"));
@@ -160,7 +158,7 @@ let
       ++ (lib.optionals config.listenHTTPS.enable [
         {
           addr = "0.0.0.0";
-          port = config.listenHTTPS.port;
+          inherit (config.listenHTTPS) port;
           extraParameters =
             [ "ssl" ]
             ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
@@ -168,7 +166,7 @@ let
         }
         {
           addr = "0.0.0.0";
-          port = config.listenHTTPS.port;
+          inherit (config.listenHTTPS) port;
           extraParameters =
             [ "quic" ]
             ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
@@ -176,7 +174,7 @@ let
         }
         {
           addr = "[::]";
-          port = config.listenHTTPS.port;
+          inherit (config.listenHTTPS) port;
           extraParameters =
             [ "ssl" ]
             ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
@@ -184,7 +182,7 @@ let
         }
         {
           addr = "[::]";
-          port = config.listenHTTPS.port;
+          inherit (config.listenHTTPS) port;
           extraParameters =
             [ "quic" ]
             ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
@@ -203,7 +201,7 @@ let
       ++ (lib.optionals config.listenPlain.enable [
         {
           addr = "0.0.0.0";
-          port = config.listenPlain.port;
+          inherit (config.listenPlain) port;
           extraParameters =
             [ "plain" ]
             ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
@@ -211,7 +209,7 @@ let
         }
         {
           addr = "[::]";
-          port = config.listenPlain.port;
+          inherit (config.listenPlain) port;
           extraParameters =
             [ "plain" ]
             ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
@@ -229,7 +227,7 @@ let
       ])
     );
 
-    locations = lib.mapAttrs (n: v: v._config) config._locationsWithCommon;
+    locations = lib.mapAttrs (_n: v: v._config) config._locationsWithCommon;
 
     extraConfig =
       config.extraConfig
@@ -421,9 +419,9 @@ in
       type = lib.types.attrsOf (lib.types.submodule (import ./location-options.nix args));
       default = addCommonLocationConf {
         enable = config.enableCommonLocationOptions;
-        phpfpmSocket = config.phpfpmSocket;
-        blockDotfiles = config.blockDotfiles;
-      } (lib.mapAttrs (n: v: builtins.removeAttrs v [ "_config" ]) config.locations);
+        inherit (config) phpfpmSocket;
+        inherit (config) blockDotfiles;
+      } (lib.mapAttrs (_n: v: builtins.removeAttrs v [ "_config" ]) config.locations);
     };
 
     _config = lib.mkOption {

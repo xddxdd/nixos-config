@@ -1,4 +1,5 @@
 import os
+
 import requests
 
 prowlarr_url = os.environ["PROWLARR_URL"]
@@ -6,9 +7,12 @@ prowlarr_apikey = os.environ["PROWLARR_APIKEY"]
 ourbits_token = os.environ["OURBITS_TOKEN"]
 
 print("Listing indexers")
-indexers = requests.get(f"{prowlarr_url}/api/v1/indexer", headers={
-    "X-Api-Key": prowlarr_apikey,
-}).json()
+indexers = requests.get(
+    f"{prowlarr_url}/api/v1/indexer",
+    headers={
+        "X-Api-Key": prowlarr_apikey,
+    },
+).json()
 
 for indexer in indexers:
     if indexer.get("definitionName") != "ourbits":
@@ -32,8 +36,12 @@ for indexer in indexers:
         indexer["fields"][i]["value"] = new_cookie
 
         print("Updating cookie")
-        response = requests.put(f"{prowlarr_url}/api/v1/indexer/{indexer_id}", headers={
-            "X-Api-Key": prowlarr_apikey,
-        }, json=indexer)
+        response = requests.put(
+            f"{prowlarr_url}/api/v1/indexer/{indexer_id}",
+            headers={
+                "X-Api-Key": prowlarr_apikey,
+            },
+            json=indexer,
+        )
         print(f"Prowlarr API returned {response.status_code}")
         exit(0)

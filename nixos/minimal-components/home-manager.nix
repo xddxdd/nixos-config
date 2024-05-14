@@ -1,15 +1,6 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ LT, ... }:
 let
-  entrypoint =
-    if LT.this.hasTag LT.tags.client then ../../home/client.nix else ../../home/none.nix;
+  entrypoint = if LT.this.hasTag LT.tags.client then ../../home/client.nix else ../../home/none.nix;
 
   perUserConfig = {
     home.stateVersion = LT.constants.stateVersion;

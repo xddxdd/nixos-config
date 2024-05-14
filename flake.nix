@@ -145,7 +145,7 @@
               host: ".#nixosConfigurations.${host}.config.system.build.toplevel"
             );
             hostsWithTag =
-              tag: builtins.attrNames (lib.filterAttrs (n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
+              tag: builtins.attrNames (lib.filterAttrs (_n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
           in
           {
             all = buildCommandFor (builtins.attrNames LT.hosts);
@@ -153,10 +153,10 @@
           };
 
         ipv4List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts)
+          lib.filter (v: v != "") (lib.mapAttrsToList (_k: v: v.public.IPv4) LT.hosts)
         );
         ipv6List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
+          lib.filter (v: v != "") (lib.mapAttrsToList (_k: v: v.public.IPv6) LT.hosts)
         );
       };
 
@@ -183,19 +183,19 @@
         {
           packages = rec {
             # DNSControl
-            dnscontrol-config = pkgs.writeText "dnsconfig.js" (
-              (lib.evalModules {
-                modules = [ ./dns/default.nix ];
-                specialArgs = {
-                  inherit
-                    pkgs
-                    lib
-                    LT
-                    inputs
-                    ;
-                };
-              }).config._dnsconfig_js
-            );
+            dnscontrol-config =
+              pkgs.writeText "dnsconfig.js"
+                (lib.evalModules {
+                  modules = [ ./dns/default.nix ];
+                  specialArgs = {
+                    inherit
+                      pkgs
+                      lib
+                      LT
+                      inputs
+                      ;
+                  };
+                }).config._dnsconfig_js;
 
             # Terraform
             xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix { };
@@ -205,7 +205,7 @@
               modules = [ ./terraform ];
               inherit extraArgs;
             };
-            terraform-with-plugins = pkgs.terraform.withPlugins (plugins: [ xddxdd-uptimerobot ]);
+            terraform-with-plugins = pkgs.terraform.withPlugins (_plugins: [ xddxdd-uptimerobot ]);
           };
         };
     };

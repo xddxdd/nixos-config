@@ -1,12 +1,10 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 {
   age.secrets.oauth2-proxy-conf.file = inputs.secrets + "/oauth2-proxy-conf.age";
 

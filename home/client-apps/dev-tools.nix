@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   # https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
   nix-store-add = pkgs.writeShellScriptBin "nix-store-add" ''

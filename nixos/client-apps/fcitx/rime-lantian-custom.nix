@@ -3,7 +3,7 @@
   linkFarm,
   writeText,
   ...
-}@args:
+}:
 let
   makeDict =
     name: dicts:

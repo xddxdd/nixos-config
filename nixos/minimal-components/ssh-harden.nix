@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   ltnetSSHConfig = ''
     Port 2222
@@ -26,7 +25,7 @@ in
       (builtins.listToAttrs (
         lib.flatten (
           lib.mapAttrsToList (
-            n: v:
+            n: _v:
             let
               hostNames = [
                 "${n}.lantian.pub"

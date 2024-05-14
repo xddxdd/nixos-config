@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }:
 {
   imports = [
     ../../nixos/client.nix
@@ -23,7 +15,7 @@
 
   services.fwupd.enable = true;
 
-  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
+  services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";

@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [ sgx-software-enable ];
   services.aesmd.enable = true;

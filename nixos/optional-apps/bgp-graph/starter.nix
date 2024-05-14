@@ -3,13 +3,11 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   forEachNode =
-    instance: instanceCfg: node:
+    instance: _instanceCfg: node:
     let
       sanitizeName =
         n: builtins.replaceStrings [ "_" ] [ "-" ] (lib.toLower (LT.sanitizeName "${instance}-${n}"));
@@ -19,7 +17,7 @@ let
       "bgp-graph-bird-${sanitizeName node.name}.service"
     ];
 
-  forEachEdge = instance: instanceCfg: edge: [
+  forEachEdge = instance: _instanceCfg: edge: [
     "bgp-graph-edge-${instance}-${builtins.toString edge.fromId}-${builtins.toString edge.toId}.service"
   ];
 

@@ -1,12 +1,9 @@
 {
   pkgs,
   lib,
-  LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   rime-lantian-custom = pkgs.callPackage ./rime-lantian-custom.nix { };
 

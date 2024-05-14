@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   programs.gnupg = {
     agent = {
       enable = true;

@@ -1,16 +1,11 @@
 {
   pkgs,
-  lib,
   inputs,
-  writeText,
-  callPackage,
-  buildGoModule,
-  fetchFromGitHub,
   age,
   ...
-}@args:
+}:
 let
-  dnscontrol = pkgs.dnscontrol;
+  inherit (pkgs) dnscontrol;
 in
 ''
   set -euxo pipefail

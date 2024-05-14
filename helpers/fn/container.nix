@@ -2,9 +2,7 @@
   config,
   pkgs,
   lib,
-  hosts,
   this,
-  constants,
   inputs,
   ...
 }:
@@ -12,7 +10,6 @@ let
   hostConfig = config;
 in
 {
-  name,
   ipSuffix,
   outerConfig ? { },
   innerConfig ? { },
@@ -52,7 +49,7 @@ lib.recursiveUpdate {
 
       system.stateVersion = hostConfig.system.stateVersion;
       networking = {
-        hostName = hostConfig.networking.hostName;
+        inherit (hostConfig.networking) hostName;
         firewall.enable = false;
         firewall.checkReversePath = false;
         nat.enable = false;

@@ -1,15 +1,7 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, ... }:
 let
   bgpNodeOptions =
-    { name, config, ... }:
+    { name, ... }:
     {
       options = {
         name = lib.mkOption {
@@ -24,27 +16,25 @@ let
       };
     };
 
-  bgpEdgeOptions =
-    { name, config, ... }:
-    {
-      options = {
-        fromId = lib.mkOption {
-          type = lib.types.int;
-          description = "Edge starts from node with this ID";
-        };
+  bgpEdgeOptions = _: {
+    options = {
+      fromId = lib.mkOption {
+        type = lib.types.int;
+        description = "Edge starts from node with this ID";
+      };
 
-        toId = lib.mkOption {
-          type = lib.types.int;
-          description = "Edge ends on node with this ID";
-        };
+      toId = lib.mkOption {
+        type = lib.types.int;
+        description = "Edge ends on node with this ID";
+      };
 
-        distance = lib.mkOption {
-          type = lib.types.int;
-          default = 1;
-          description = "Distance, used to calculate cost";
-        };
+      distance = lib.mkOption {
+        type = lib.types.int;
+        default = 1;
+        description = "Distance, used to calculate cost";
       };
     };
+  };
 
   bgpGraphOptions =
     { name, config, ... }:

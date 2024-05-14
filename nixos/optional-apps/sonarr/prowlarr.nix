@@ -1,12 +1,9 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   services.prowlarr.enable = true;
   systemd.services.prowlarr = {

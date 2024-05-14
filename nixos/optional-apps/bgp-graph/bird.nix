@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   birdConfigs =
     let
@@ -175,7 +173,7 @@ let
       '';
 
       forEachNode =
-        instance: instanceCfg: node:
+        instance: _instanceCfg: node:
         let
           sanitizeName =
             n: builtins.replaceStrings [ "_" ] [ "-" ] (lib.toLower (LT.sanitizeName "${instance}-${n}"));

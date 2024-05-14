@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }:
 {
   systemd.network.netdevs.dummy0 = {
     netdevConfig = {

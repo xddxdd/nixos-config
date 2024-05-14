@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, config, ... }:
 {
   environment.etc."ssdt1.dat".source = ./ssdt1.dat;
 

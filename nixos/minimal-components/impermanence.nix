@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, config, ... }:
 let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
 in

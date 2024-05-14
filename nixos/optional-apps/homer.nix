@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   homer = pkgs.stdenvNoCC.mkDerivation {
     inherit (LT.sources.homer) pname version src;

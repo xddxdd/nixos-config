@@ -3,10 +3,9 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   host = "pb.ltn.pw";
 in

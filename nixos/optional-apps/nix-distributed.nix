@@ -1,12 +1,9 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   mkBuildMachine =
     n: v:
@@ -51,7 +48,7 @@ in
       [ nixBuildNet ]
       ++ (lib.filter (v: v != null) (
         lib.mapAttrsToList mkBuildMachine (
-          lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+          lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
         )
       ));
   };

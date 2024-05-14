@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }@args:
 {
   services.pipewire.configPackages = [
     (pkgs.writeTextFile {

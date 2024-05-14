@@ -1,11 +1,9 @@
 {
-  pkgs,
-  lib,
   inputs,
   packages,
   age,
   ...
-}@args:
+}:
 ''
   set -euo pipefail
 

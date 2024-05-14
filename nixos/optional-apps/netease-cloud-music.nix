@@ -3,14 +3,12 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   netns = config.lantian.netns.netease;
 
-  netease-cloud-music = pkgs.netease-cloud-music;
+  inherit (pkgs) netease-cloud-music;
 in
 {
   environment.systemPackages = [ netease-cloud-music ];

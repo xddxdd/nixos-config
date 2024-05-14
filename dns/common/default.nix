@@ -1,11 +1,9 @@
 {
-  pkgs,
   config,
   lib,
   LT,
-  inputs,
   ...
-}@args:
+}:
 {
   options = {
     common = lib.mkOption {
@@ -27,7 +25,7 @@
     fallbackServer = LT.hosts.v-ps-sjc;
 
     apexRecords =
-      domain:
+      _domain:
       config.common.hostRecs.mapAddresses {
         name = "@";
         addresses = fallbackServer.public;

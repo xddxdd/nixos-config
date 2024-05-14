@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   boot.loader.efi.canTouchEfiVariables = false;
 

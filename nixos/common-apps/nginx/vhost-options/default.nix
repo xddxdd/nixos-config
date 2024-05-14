@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, config, ... }@args:
 {
   options.lantian.nginxVhosts = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule (import ./vhost-options.nix args));

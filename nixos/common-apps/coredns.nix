@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   netns = config.lantian.netns.coredns-client;
 
@@ -72,12 +70,6 @@ in
             hosts {
               0.0.0.0 ${zone}
             }
-          }
-        '';
-        mdns = zone: ''
-          ${zone} {
-            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-            mdns ${zone} 1
           }
         '';
 

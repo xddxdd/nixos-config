@@ -1,12 +1,10 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
 in

@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   systemd.services.fastapi-dls = {
     description = "FastAPI-DLS";

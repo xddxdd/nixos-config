@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  LT,
-  ...
-}:
+{ LT, ... }:
 {
   terraform.backend."pg" = {
     conn_str = "postgres://${LT.hosts."v-ps-fal".ltnet.IPv4}/terraform";

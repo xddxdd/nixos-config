@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ config, ... }:
 {
   lantian.nginxVhosts = {
     "whois.lantian.pub" = {

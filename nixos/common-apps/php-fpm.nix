@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 let
   qqwryDB = pkgs.fetchurl {
     url = "https://github.com/out0fmemory/qqwry.dat/raw/master/qqwry_lastest.dat";

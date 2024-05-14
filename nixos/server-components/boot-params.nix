@@ -1,12 +1,9 @@
 {
   pkgs,
   lib,
-  LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   boot.kernelParams = [
     "nofb"

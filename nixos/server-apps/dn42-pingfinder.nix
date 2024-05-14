@@ -1,12 +1,9 @@
 {
   pkgs,
   lib,
-  LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   options.services."dn42-pingfinder" = {
     uuidFile = lib.mkOption {

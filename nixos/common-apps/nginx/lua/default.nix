@@ -3,7 +3,7 @@
   lantianPersonal,
   writeText,
   ...
-}@args:
+}:
 let
   lantian_nginx = writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"

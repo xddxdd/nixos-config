@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, LT, ... }:
 let
   data = lib.importJSON ./universe-pretty.json;
 
@@ -39,9 +31,9 @@ in
       toId = jump.to - ID_OFFSET;
       distance =
         let
-          x = idToCoordinate."${builtins.toString fromId}".x;
-          y = idToCoordinate."${builtins.toString fromId}".y;
-          z = idToCoordinate."${builtins.toString fromId}".z;
+          inherit (idToCoordinate."${builtins.toString fromId}") x;
+          inherit (idToCoordinate."${builtins.toString fromId}") y;
+          inherit (idToCoordinate."${builtins.toString fromId}") z;
           x' = idToCoordinate."${builtins.toString toId}".x;
           y' = idToCoordinate."${builtins.toString toId}".y;
           z' = idToCoordinate."${builtins.toString toId}".z;

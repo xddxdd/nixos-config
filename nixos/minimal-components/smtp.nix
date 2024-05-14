@@ -1,12 +1,10 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 

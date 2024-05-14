@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  utils,
   inputs,
   ...
 }@args:
@@ -20,7 +19,7 @@ let
       lantian:${glauthUsers.lantian.passBcrypt}
     '';
 in
-{ name, config, ... }:
+{ config, ... }:
 let
   generatedLocationOptions = {
     inherit (config) priority;

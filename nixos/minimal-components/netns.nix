@@ -4,10 +4,8 @@
   LT,
   config,
   options,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   netnsOptions =
     { name, config, ... }:

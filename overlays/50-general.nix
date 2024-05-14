@@ -1,5 +1,4 @@
-{ inputs, ... }:
-final: prev:
+_: final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
@@ -11,7 +10,7 @@ rec {
         sed -i "s/api.gcorelabs.com/api.gcore.com/g" dnsapi/dns_gcore.sh
       '';
   });
-  brlaser = prev.brlaser.overrideAttrs (old: {
+  brlaser = prev.brlaser.overrideAttrs (_old: {
     inherit (sources.brlaser) version src;
   });
   colmena = prev.colmena.overrideAttrs (old: {
@@ -29,13 +28,13 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
   });
-  lidarr = prev.lidarr.overrideAttrs (old: {
+  lidarr = prev.lidarr.overrideAttrs (_old: {
     version = builtins.head (final.lib.splitString "/" sources.lidarr-x64.version);
-    src = sources.lidarr-x64.src;
+    inherit (sources.lidarr-x64) src;
   });
-  llama-cpp = prev.llama-cpp.overrideAttrs (old: {
+  llama-cpp = prev.llama-cpp.overrideAttrs (_old: {
     version = final.lib.removePrefix "b" sources.llama-cpp.version;
-    src = sources.llama-cpp.src;
+    inherit (sources.llama-cpp) src;
   });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-sliding-sync-listen-unix.patch ];
@@ -126,9 +125,9 @@ rec {
         jdk-bin-8
       ]);
   };
-  prowlarr = prev.prowlarr.overrideAttrs (old: {
+  prowlarr = prev.prowlarr.overrideAttrs (_old: {
     version = builtins.head (final.lib.splitString "/" sources.prowlarr-x64.version);
-    src = sources.prowlarr-x64.src;
+    inherit (sources.prowlarr-x64) src;
   });
   qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
@@ -138,13 +137,13 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
-  radarr = prev.radarr.overrideAttrs (old: {
+  radarr = prev.radarr.overrideAttrs (_old: {
     version = builtins.head (final.lib.splitString "/" sources.radarr-x64.version);
-    src = sources.radarr-x64.src;
+    inherit (sources.radarr-x64) src;
   });
-  sonarr = prev.sonarr.overrideAttrs (old: {
+  sonarr = prev.sonarr.overrideAttrs (_old: {
     version = builtins.head (final.lib.splitString "/" sources.sonarr-x64.version);
-    src = sources.sonarr-x64.src;
+    inherit (sources.sonarr-x64) src;
   });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
@@ -166,7 +165,7 @@ rec {
         simpleeval
       ];
   });
-  zsh-autopair = prev.zsh-autopair.overrideAttrs (old: {
+  zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {
     inherit (sources.zsh-autopair) version src;
     installPhase = ''
       mkdir -p $out/share/zsh/zsh-autopair

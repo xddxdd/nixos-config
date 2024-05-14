@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 let
   astyCrapper = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "asty-crapper";

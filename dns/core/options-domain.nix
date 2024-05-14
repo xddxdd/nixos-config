@@ -1,15 +1,8 @@
-{
-  pkgs,
-  config,
-  lib,
-  LT,
-  inputs,
-  ...
-}@args:
+{ config, lib, ... }@args:
 let
   parentConfig = config;
 in
-{ name, config, ... }:
+{ config, ... }:
 {
   options = {
     domain = lib.mkOption { type = lib.types.str; };
@@ -75,8 +68,8 @@ in
       [
         "D(${formattedDomain}, REG_${config.registrar}, ${providerCommands}, DefaultTTL(${formatArg config.defaultTTL}), NAMESERVER_TTL(${formatArg config.nameserverTTL}));"
       ]
-      ++ (lib.optional (config.dnssec == true) "D_EXTEND(${formattedDomain}, AUTODNSSEC_ON);")
-      ++ (lib.optional (config.dnssec == false) "D_EXTEND(${formattedDomain}, AUTODNSSEC_OFF);")
+      ++ (lib.optional config.dnssec "D_EXTEND(${formattedDomain}, AUTODNSSEC_ON);")
+      ++ (lib.optional (!config.dnssec) "D_EXTEND(${formattedDomain}, AUTODNSSEC_OFF);")
       ++ (builtins.map (record: "D_EXTEND(${formattedDomain}, ${record});") filteredRecordStrings)
       ++ [ "" ]
     );

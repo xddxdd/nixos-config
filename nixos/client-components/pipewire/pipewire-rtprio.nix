@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }@args:
 let
   # Change default.nix as well
   realtimeLimitUS = 5000000;

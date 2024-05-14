@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ lib, inputs, ... }:
 let
   # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");

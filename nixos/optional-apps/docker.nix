@@ -2,11 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "docker-vm" ''

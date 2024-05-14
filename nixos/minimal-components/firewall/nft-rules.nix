@@ -3,10 +3,8 @@
   lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   serverPortForwards =
     lib.optionalString (config.lantian.netns.coredns-authoritative.enable or false)
@@ -48,7 +46,7 @@ let
     (lib.optionalString (LT.this.public.IPv4 != "") (
       lib.concatStrings (
         lib.mapAttrsToList (
-          n:
+          _n:
           { index, ... }:
           ''
             ip daddr ${LT.this.public.IPv4} tcp dport { ${
@@ -67,7 +65,7 @@ let
     ))
     + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
       lib.concatStrings (
-        lib.mapAttrsToList (n: v: ''
+        lib.mapAttrsToList (_n: v: ''
           ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad::${builtins.toString v.index}
         '') LT.hosts
       )
@@ -159,9 +157,9 @@ let
     + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
       builtins.concatStringsSep "\n" (
         lib.mapAttrsToList (
-          n: v:
+          _n: v:
           "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
-        ) (lib.filterAttrs (n: v: !(v.hasTag LT.tags.server)) LT.hosts)
+        ) (lib.filterAttrs (_n: v: !(v.hasTag LT.tags.server)) LT.hosts)
       )
     ))
     + ''

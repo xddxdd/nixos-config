@@ -1,10 +1,9 @@
 {
-  lib,
   stdenvNoCC,
   sources,
   unzip,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.cyberchef) pname version src;
 

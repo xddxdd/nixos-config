@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   blackboxExporterHost = "${config.services.prometheus.exporters.blackbox.listenAddress}:${builtins.toString config.services.prometheus.exporters.blackbox.port}";
 

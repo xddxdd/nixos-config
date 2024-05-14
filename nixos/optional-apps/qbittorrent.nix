@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 let
   qbittorrent = pkgs.qbittorrent-enhanced-edition-nox;
 in

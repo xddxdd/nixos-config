@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, config, ... }:
 {
   services.udev.packages = with pkgs; [ libftdi1 ];
 

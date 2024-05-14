@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   editorconfig = {
     enable = true;
     settings = {

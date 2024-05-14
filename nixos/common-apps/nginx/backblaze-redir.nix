@@ -1,13 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
-{
+_: {
   lantian.nginxVhosts."backblaze.lantian.pub" = {
     locations."/".return = "307 https://backblaze-b2.lantian.workers.dev$request_uri";
     enableCommonLocationOptions = false;

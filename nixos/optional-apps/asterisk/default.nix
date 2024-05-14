@@ -1,9 +1,7 @@
 {
   pkgs,
   lib,
-  LT,
   config,
-  utils,
   inputs,
   ...
 }@args:
@@ -11,7 +9,7 @@ let
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
-  inherit (pkgs.callPackage ./common.nix args) dialRule prefixZeros;
+  inherit (pkgs.callPackage ./common.nix args) dialRule;
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
@@ -219,7 +217,9 @@ in
 
   systemd.services.asterisk = {
     path = with pkgs; [ mpg123 ];
-    reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
+    reloadTriggers = lib.mapAttrsToList (
+      k: _v: "/etc/asterisk/${k}"
+    ) config.services.asterisk.confFiles;
 
     preStart = ''
       # Copy skeleton directory tree to /var

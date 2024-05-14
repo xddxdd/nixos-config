@@ -1,12 +1,10 @@
 {
   pkgs,
   lib,
-  LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
   isMaintenanceHost = config.networking.hostName == "terrahost";

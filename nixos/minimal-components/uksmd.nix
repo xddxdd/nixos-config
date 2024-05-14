@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [ uksmd ];
   systemd.packages = with pkgs; [ uksmd ];

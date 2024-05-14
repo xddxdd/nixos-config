@@ -10,8 +10,8 @@ let
         [ (formatName args.name args.reverse) ]
         ++ (builtins.map formatArg params)
         ++ (lib.optional (args.ttl != null) "TTL(${formatArg (builtins.toString args.ttl)})")
-        ++ (lib.optional (args.cloudflare == true) "CF_PROXY_ON")
-        ++ (lib.optional (args.cloudflare == false) "CF_PROXY_OFF")
+        ++ (lib.optional args.cloudflare "CF_PROXY_ON")
+        ++ (lib.optional (!args.cloudflare) "CF_PROXY_OFF")
       );
     in
     [ "${recordType}(${configString})" ];

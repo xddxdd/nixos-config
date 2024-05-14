@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
   LT,
   config,
-  utils,
-  inputs,
   ...
-}@args:
+}:
 {
   lantian.netns.kms = {
     ipSuffix = "88";

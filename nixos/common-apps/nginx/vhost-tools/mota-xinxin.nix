@@ -1,11 +1,9 @@
 {
-  lib,
   stdenvNoCC,
   fetchurl,
   unar,
-  callPackage,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "mota-xinxin";
   version = "20210930";

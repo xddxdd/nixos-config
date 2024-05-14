@@ -1,12 +1,9 @@
 {
   pkgs,
-  lib,
-  LT,
   config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 let
   sshKeys = import (inputs.secrets + "/ssh/rsync-ci.nix");
 in

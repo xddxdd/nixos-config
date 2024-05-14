@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 key:
 builtins.readFile (
   pkgs.runCommandLocal "uuid-${key}" { } ''

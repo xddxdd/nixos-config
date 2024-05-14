@@ -2,14 +2,8 @@
   pkgs,
   lib,
   LT,
-  config,
-  utils,
-  inputs,
   ...
-}@args:
-let
-  cfg = config.services.lemmy;
-in
+}:
 {
   imports = [ ./postgresql.nix ];
 

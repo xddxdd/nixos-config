@@ -1,11 +1,9 @@
 {
-  pkgs,
   config,
   lib,
   LT,
-  inputs,
   ...
-}@args:
+}:
 {
   domains = [
     rec {

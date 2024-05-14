@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ LT, ... }:
 let
   managedPrefix = LT.constants.interfacePrefixes.WAN ++ [ "nm-" ];
 in

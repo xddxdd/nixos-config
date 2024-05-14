@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
-  ...
-}@args:
+{ pkgs, LT, ... }:
 let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.

@@ -1,17 +1,14 @@
 {
   pkgs,
-  lib,
   LT,
-  config,
-  utils,
   inputs,
   ...
-}@args:
+}:
 {
   imports = [ inputs.nur-xddxdd.nixosModules.plasma-desktop-lyrics ];
 
   environment.systemPackages = with pkgs; [
-    (material-kwin-decoration.overrideAttrs (old: {
+    (material-kwin-decoration.overrideAttrs (_old: {
       inherit (LT.sources.material-kwin-decoration) version src;
     }))
     plasma-panel-transparency-toggle
