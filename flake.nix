@@ -102,6 +102,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -119,6 +123,7 @@
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
         ./flake-modules/nixpkgs-options.nix
+        ./flake-modules/treefmt.nix
         inputs.nur-xddxdd.flakeModules.auto-apps-shell
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive
       ];
@@ -176,8 +181,6 @@
           };
         in
         {
-          formatter = pkgs.nixfmt-rfc-style;
-
           packages = rec {
             # DNSControl
             dnscontrol-config = pkgs.writeText "dnsconfig.js" (
