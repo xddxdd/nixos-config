@@ -2,9 +2,13 @@
   pkgs,
   lib,
   LT,
+  config,
   inputs,
   ...
 }@args:
+let
+  osConfig = config;
+in
 { name, config, ... }:
 let
   inherit (import ./helpers.nix args) fastcgiParams;
@@ -411,12 +415,36 @@ in
     };
 
     locations = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule (import ./location-options.nix args));
+      type = lib.types.attrsOf (
+        lib.types.submodule (
+          import ./location-options.nix {
+            inherit
+              pkgs
+              lib
+              LT
+              inputs
+              ;
+            config = osConfig;
+          }
+        )
+      );
       default = { };
     };
 
     _locationsWithCommon = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule (import ./location-options.nix args));
+      type = lib.types.attrsOf (
+        lib.types.submodule (
+          import ./location-options.nix {
+            inherit
+              pkgs
+              lib
+              LT
+              inputs
+              ;
+            config = osConfig;
+          }
+        )
+      );
       default = addCommonLocationConf {
         enable = config.enableCommonLocationOptions;
         inherit (config) phpfpmSocket;

@@ -1,8 +1,13 @@
-{ pkgs, ... }@args:
+{
+  pkgs,
+  LT,
+  config,
+  ...
+}:
 let
   # Cannot use NixOS's services.nftables, it requires disable iptables
   # and will conflict with docker
-  nftRules = pkgs.callPackage ./nft-rules.nix args;
+  nftRules = pkgs.callPackage ./nft-rules.nix { inherit LT config; };
 in
 {
   systemd.services.nftables = {

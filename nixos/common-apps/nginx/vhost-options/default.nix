@@ -1,7 +1,26 @@
-{ lib, config, ... }@args:
+{
+  pkgs,
+  lib,
+  config,
+  LT,
+  inputs,
+  ...
+}:
 {
   options.lantian.nginxVhosts = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule (import ./vhost-options.nix args));
+    type = lib.types.attrsOf (
+      lib.types.submodule (
+        import ./vhost-options.nix {
+          inherit
+            pkgs
+            lib
+            LT
+            config
+            inputs
+            ;
+        }
+      )
+    );
     default = { };
   };
 
