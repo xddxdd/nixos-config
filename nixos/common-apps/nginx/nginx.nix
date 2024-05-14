@@ -3,9 +3,9 @@
   lib,
   config,
   ...
-}@args:
+}:
 let
-  luaPackage = pkgs.callPackage ./lua args;
+  luaPackage = pkgs.callPackage ./lua { };
 
   nginxSslConf =
     isStream:

@@ -24,7 +24,6 @@
   ];
 
   containers.docker = LT.container {
-    name = "docker";
     ipSuffix = "79";
 
     outerConfig = {
