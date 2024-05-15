@@ -1,21 +1,44 @@
-_: {
-  virtualisation.oci-containers.containers.bilibili-tool-pro = {
-    extraOptions = [
-      "--pull"
-      "always"
-    ];
-    image = "ghcr.io/raywangqvq/bilibili_tool_pro";
-    environment = {
-      Ray_DailyTaskConfig__Cron = "0 15 * * *";
-      # Ray_LiveLotteryTaskConfig__Cron = "0 22 * * *";
-      # Ray_UnfollowBatchedTaskConfig__Cron = "0 6 1 * *";
-      # Ray_VipBigPointConfig__Cron = "7 1 * * *";
-      # Ray_LiveFansMedalTaskConfig__Cron = "5 0 * * *";
+{ pkgs, lib, ... }:
+{
+  lantian.enablePodman = lib.mkForce true;
+
+  systemd.services.bilibili-tool-pro = {
+    path = with pkgs; [ podman ];
+    script = ''
+      exec podman run \
+        --rm \
+        -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
+        -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
+        --pull always \
+        --entrypoint "/bin/bash" \
+        ghcr.io/raywangqvq/bilibili_tool_pro \
+        -c "cd /app && dotnet Ray.BiliBiliTool.Console.dll --runTasks=Daily"
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutSec = 3600;
+      Restart = "on-failure";
+      RestartSec = "1800";
     };
-    volumes = [
-      "/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json"
-      "/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json"
-    ];
+    unitConfig = {
+      OnSuccess = "notify-email-success@%n.service";
+      OnFailure = "notify-email-fail@%n.service";
+    };
+    after = [ "network.target" ];
+  };
+
+  systemd.timers.bilibili-tool-pro = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "bilibili-tool-pro.service" ];
+    timerConfig = {
+      OnCalendar = [
+        "*-*-* 02:30:00"
+        "*-*-* 14:30:00"
+      ];
+      Persistent = true;
+      RandomizedDelaySec = "4h";
+      Unit = "bilibili-tool-pro.service";
+    };
   };
 
   systemd.tmpfiles.rules = [
