@@ -10,11 +10,4 @@
   services.udev.packages = with pkgs; [ libfido2 ];
 
   users.users.lantian.extraGroups = [ "wireshark" ];
-
-  virtualisation.virtualbox.host = {
-    enable = true;
-    addNetworkInterface = false;
-    enableHardening = false;
-    enableKvm = true;
-  };
 }
