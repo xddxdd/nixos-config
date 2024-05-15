@@ -9,11 +9,11 @@ let
   model = pkgs.linkFarm "llama-model" {
     "sakura-32b-qwen2beta-v0.9-iq4xs.gguf" = pkgs.fetchurl {
       url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9-iq4xs.gguf?download=true";
-      sha256 = "0skil1kn4ys8hh5vr87k2mrlmdizsklkfz3jwzrdy8q6xh6gc4s6";
+      sha256 = "0zr7b9fqlflgw40lzxfrd3sal08y3x86ghy4d9zby0m2zbcbd01s";
     };
     "sakura-32b-qwen2beta-v0.10pre1-iq4xs.gguf" = pkgs.fetchurl {
       url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.10pre1-GGUF/resolve/main/sakura-32b-qwen2beta-v0.10pre1-iq4xs.gguf?download=true";
-      sha256 = "1rda8hi2i796qaf8pfyrddlzw6l355rm41cvjrwn901f4jgh2844";
+      sha256 = "0r7v5bdlf8qm0zv0yqi8w641zh8yvpbhyqm765hm28f55ycsw14i";
     };
   };
 in
