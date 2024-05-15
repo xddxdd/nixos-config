@@ -32,9 +32,17 @@ rec {
     version = builtins.head (final.lib.splitString "/" sources.lidarr-x64.version);
     inherit (sources.lidarr-x64) src;
   });
-  llama-cpp = prev.llama-cpp.overrideAttrs (_old: {
+  llama-cpp-x86_64-v3 = prev.llama-cpp.overrideAttrs (old: {
     version = final.lib.removePrefix "b" sources.llama-cpp.version;
     inherit (sources.llama-cpp) src;
+
+    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+      (final.lib.cmakeBool "LLAMA_LTO" true)
+      (final.lib.cmakeBool "LLAMA_AVX" true)
+      (final.lib.cmakeBool "LLAMA_AVX2" true)
+      (final.lib.cmakeBool "LLAMA_FMA" true)
+      (final.lib.cmakeBool "LLAMA_F16C" true)
+    ];
   });
   matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-sliding-sync-listen-unix.patch ];
