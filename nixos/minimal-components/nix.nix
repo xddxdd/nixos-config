@@ -18,7 +18,8 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    # Lix overrides the nix 2.18 package
+    package = inputs.lix-module.packages."${pkgs.system}".default;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
