@@ -30,7 +30,6 @@
         overlays = [
           inputs.agenix.overlays.default
           inputs.colmena.overlay
-          inputs.lix-module.overlays.default
           inputs.nil.overlays.nil
           inputs.nix-alien.overlays.default
           inputs.nixd.overlays.default
