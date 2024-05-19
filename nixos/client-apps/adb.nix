@@ -14,4 +14,12 @@
   };
 
   users.users.lantian.extraGroups = [ "adbusers" ];
+
+  environment.persistence."/nix/persistent" = {
+    hideMounts = true;
+    users.root = {
+      home = "/root";
+      directories = [ ".android" ];
+    };
+  };
 }
