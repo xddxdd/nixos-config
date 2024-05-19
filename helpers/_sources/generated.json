@@ -28,11 +28,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/vmHXGw4lTmo7XatdlSW2ABh6TULJXsrGu7AuWCQ5Ao=",
+            "sha256": "sha256-XGUwCRKtPFd6cDQXODaLHDKBiENHYQSshWDLNZ9vEy4=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.3/CyberChef_v10.18.3.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.6/CyberChef_v10.18.6.zip"
         },
-        "version": "v10.18.3"
+        "version": "v10.18.6"
     },
     "dashboard-icons": {
         "cargoLocks": null,
@@ -132,11 +132,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0/28uB8EF96+93uIuLrgOgpjvuIHvdgPBuJwcIaNJcI=",
+            "sha256": "sha256-ulWg9BhDr/RFE4sfXGf+i9W0KpOYKjtk49qBeIwI9dU=",
             "type": "url",
-            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.2.4183/Lidarr.develop.2.3.2.4183.linux-core-x64.tar.gz"
+            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.3.4204/Lidarr.master.2.3.3.4204.linux-core-x64.tar.gz"
         },
-        "version": "v2.3.2.4183/Lidarr.develop.2.3.2.4183"
+        "version": "v2.3.3.4204/Lidarr.master.2.3.3.4204"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -152,11 +152,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b2860",
-            "sha256": "sha256-KK2XiI2zZXG8G3TtNx+PMmsPOetHxjR5DS1sa8Jlluw=",
+            "rev": "b2929",
+            "sha256": "sha256-hVjmEpMbGA6D03ZpJDq2nq77VQEH/6gUQQQQklvOJwo=",
             "type": "github"
         },
-        "version": "b2860"
+        "version": "b2929"
     },
     "material-kwin-decoration": {
         "cargoLocks": null,
@@ -180,7 +180,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-05-03",
+        "date": "2024-05-13",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -192,11 +192,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c",
-            "sha256": "sha256-RMmtWEI3zSdMe1ECaY+kms/edZ0h5PggvliUqDM4DfY=",
+            "rev": "17e8150c0d7d1c206c8254e3091596b48059bea0",
+            "sha256": "sha256-izaekiNxTSfaIzTfgmmqFr/csTG8A+RiL+uwKa0HzWQ=",
             "type": "github"
         },
-        "version": "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c"
+        "version": "17e8150c0d7d1c206c8254e3091596b48059bea0"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -240,7 +240,7 @@
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-05-09",
+        "date": "2024-05-16",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -252,15 +252,15 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44",
-            "sha256": "sha256-tQdGoozRMvABg0bbxPsS+2T/6clNIpmecZj+8DNMHVk=",
+            "rev": "55bb3260c12bae33b6a8eac73cbb6972f8517411",
+            "sha256": "sha256-MXi0ZKkmoOFGyXBpekeAzIUxE5XueSh7oaANwTrPWHE=",
             "type": "github"
         },
-        "version": "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44"
+        "version": "55bb3260c12bae33b6a8eac73cbb6972f8517411"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-04-19",
+        "date": "2024-05-17",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -272,11 +272,11 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "c40e648b89290185f649740c00587554812b310c",
-            "sha256": "sha256-mB77xu9WrV7xYsd3tCBghp8FeiDY2Aplu11O9CPax84=",
+            "rev": "513c131c6309712a51502870b041f45b4bd6a6d4",
+            "sha256": "sha256-9hDO6COStU8lDU0KsC6+X1HdTNsQ2Ez4VRluFl/mIxI=",
             "type": "github"
         },
-        "version": "c40e648b89290185f649740c00587554812b310c"
+        "version": "513c131c6309712a51502870b041f45b4bd6a6d4"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
@@ -307,11 +307,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DosOUfb5c2156fu6wMeMA/zWDYOac0d1WqV/C3CwY1k=",
+            "sha256": "sha256-bYIavvea6Nwbn22CFiWXpzPGAI13oJYAIZr2FdLkyb8=",
             "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.1.4483/Prowlarr.develop.1.17.1.4483.linux-core-x64.tar.gz"
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.2.4511/Prowlarr.master.1.17.2.4511.linux-core-x64.tar.gz"
         },
-        "version": "v1.17.1.4483/Prowlarr.develop.1.17.1.4483"
+        "version": "v1.17.2.4511/Prowlarr.master.1.17.2.4511"
     },
     "radarr-x64": {
         "cargoLocks": null,
@@ -322,11 +322,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zLrdIZKs9iyCW4HpxbcBDMfZ3VFuaXZ57hmkT4h3SNE=",
+            "sha256": "sha256-rKe1xQR3lkPXQBUWmKdHUu/AQ99U1kCINeXV2z/ZG5o=",
             "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.5.2.8781/Radarr.develop.5.5.2.8781.linux-core-x64.tar.gz"
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.6.0.8846/Radarr.master.5.6.0.8846.linux-core-x64.tar.gz"
         },
-        "version": "v5.5.2.8781/Radarr.develop.5.5.2.8781"
+        "version": "v5.6.0.8846/Radarr.master.5.6.0.8846"
     },
     "soggy-resources": {
         "cargoLocks": null,
@@ -364,7 +364,7 @@
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
-        "date": "2024-04-04",
+        "date": "2024-05-16",
         "extract": null,
         "name": "ulauncher-albert-calculate-anything",
         "passthru": null,
@@ -376,11 +376,11 @@
             "name": null,
             "owner": "tchar",
             "repo": "ulauncher-albert-calculate-anything",
-            "rev": "7e80281d0eeacf10c2cbd652589e5f18c15c48c3",
-            "sha256": "sha256-M9fwrXOG7Afa7VgvClmyXA1waY0y28jto9KMSoJYtdY=",
+            "rev": "600aa62e82c5cdb23be58007acfc1a008e0c3c13",
+            "sha256": "sha256-ELzVPX1HhMEx0RaWSO7v8KJs4fUuWrjfZ/mskGPDguE=",
             "type": "github"
         },
-        "version": "7e80281d0eeacf10c2cbd652589e5f18c15c48c3"
+        "version": "600aa62e82c5cdb23be58007acfc1a008e0c3c13"
     },
     "ulauncher-colorconverter": {
         "cargoLocks": null,

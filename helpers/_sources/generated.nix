@@ -15,10 +15,10 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.18.3";
+    version = "v10.18.6";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.18.3/CyberChef_v10.18.3.zip";
-      sha256 = "sha256-/vmHXGw4lTmo7XatdlSW2ABh6TULJXsrGu7AuWCQ5Ao=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.18.6/CyberChef_v10.18.6.zip";
+      sha256 = "sha256-XGUwCRKtPFd6cDQXODaLHDKBiENHYQSshWDLNZ9vEy4=";
     };
   };
   dashboard-icons = {
@@ -75,21 +75,21 @@
   };
   lidarr-x64 = {
     pname = "lidarr-x64";
-    version = "v2.3.2.4183/Lidarr.develop.2.3.2.4183";
+    version = "v2.3.3.4204/Lidarr.master.2.3.3.4204";
     src = fetchurl {
-      url = "https://github.com/Lidarr/Lidarr/releases/download/v2.3.2.4183/Lidarr.develop.2.3.2.4183.linux-core-x64.tar.gz";
-      sha256 = "sha256-0/28uB8EF96+93uIuLrgOgpjvuIHvdgPBuJwcIaNJcI=";
+      url = "https://github.com/Lidarr/Lidarr/releases/download/v2.3.3.4204/Lidarr.master.2.3.3.4204.linux-core-x64.tar.gz";
+      sha256 = "sha256-ulWg9BhDr/RFE4sfXGf+i9W0KpOYKjtk49qBeIwI9dU=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b2860";
+    version = "b2929";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b2860";
+      rev = "b2929";
       fetchSubmodules = false;
-      sha256 = "sha256-KK2XiI2zZXG8G3TtNx+PMmsPOetHxjR5DS1sa8Jlluw=";
+      sha256 = "sha256-hVjmEpMbGA6D03ZpJDq2nq77VQEH/6gUQQQQklvOJwo=";
     };
   };
   material-kwin-decoration = {
@@ -106,15 +106,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c";
+    version = "17e8150c0d7d1c206c8254e3091596b48059bea0";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "6f3f3b68bf64168f2867d90fcd465adfa66a9c6c";
+      rev = "17e8150c0d7d1c206c8254e3091596b48059bea0";
       fetchSubmodules = false;
-      sha256 = "sha256-RMmtWEI3zSdMe1ECaY+kms/edZ0h5PggvliUqDM4DfY=";
+      sha256 = "sha256-izaekiNxTSfaIzTfgmmqFr/csTG8A+RiL+uwKa0HzWQ=";
     };
-    date = "2024-05-03";
+    date = "2024-05-13";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -142,27 +142,27 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44";
+    version = "55bb3260c12bae33b6a8eac73cbb6972f8517411";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "d5ba4acc297a6041bb45f7aa1c9a99b37b7d5e44";
+      rev = "55bb3260c12bae33b6a8eac73cbb6972f8517411";
       fetchSubmodules = false;
-      sha256 = "sha256-tQdGoozRMvABg0bbxPsS+2T/6clNIpmecZj+8DNMHVk=";
+      sha256 = "sha256-MXi0ZKkmoOFGyXBpekeAzIUxE5XueSh7oaANwTrPWHE=";
     };
-    date = "2024-05-09";
+    date = "2024-05-16";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "c40e648b89290185f649740c00587554812b310c";
+    version = "513c131c6309712a51502870b041f45b4bd6a6d4";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "c40e648b89290185f649740c00587554812b310c";
+      rev = "513c131c6309712a51502870b041f45b4bd6a6d4";
       fetchSubmodules = false;
-      sha256 = "sha256-mB77xu9WrV7xYsd3tCBghp8FeiDY2Aplu11O9CPax84=";
+      sha256 = "sha256-9hDO6COStU8lDU0KsC6+X1HdTNsQ2Ez4VRluFl/mIxI=";
     };
-    date = "2024-04-19";
+    date = "2024-05-17";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";
@@ -178,18 +178,18 @@
   };
   prowlarr-x64 = {
     pname = "prowlarr-x64";
-    version = "v1.17.1.4483/Prowlarr.develop.1.17.1.4483";
+    version = "v1.17.2.4511/Prowlarr.master.1.17.2.4511";
     src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.1.4483/Prowlarr.develop.1.17.1.4483.linux-core-x64.tar.gz";
-      sha256 = "sha256-DosOUfb5c2156fu6wMeMA/zWDYOac0d1WqV/C3CwY1k=";
+      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.2.4511/Prowlarr.master.1.17.2.4511.linux-core-x64.tar.gz";
+      sha256 = "sha256-bYIavvea6Nwbn22CFiWXpzPGAI13oJYAIZr2FdLkyb8=";
     };
   };
   radarr-x64 = {
     pname = "radarr-x64";
-    version = "v5.5.2.8781/Radarr.develop.5.5.2.8781";
+    version = "v5.6.0.8846/Radarr.master.5.6.0.8846";
     src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.5.2.8781/Radarr.develop.5.5.2.8781.linux-core-x64.tar.gz";
-      sha256 = "sha256-zLrdIZKs9iyCW4HpxbcBDMfZ3VFuaXZ57hmkT4h3SNE=";
+      url = "https://github.com/Radarr/Radarr/releases/download/v5.6.0.8846/Radarr.master.5.6.0.8846.linux-core-x64.tar.gz";
+      sha256 = "sha256-rKe1xQR3lkPXQBUWmKdHUu/AQ99U1kCINeXV2z/ZG5o=";
     };
   };
   soggy-resources = {
@@ -215,15 +215,15 @@
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
-    version = "7e80281d0eeacf10c2cbd652589e5f18c15c48c3";
+    version = "600aa62e82c5cdb23be58007acfc1a008e0c3c13";
     src = fetchFromGitHub {
       owner = "tchar";
       repo = "ulauncher-albert-calculate-anything";
-      rev = "7e80281d0eeacf10c2cbd652589e5f18c15c48c3";
+      rev = "600aa62e82c5cdb23be58007acfc1a008e0c3c13";
       fetchSubmodules = false;
-      sha256 = "sha256-M9fwrXOG7Afa7VgvClmyXA1waY0y28jto9KMSoJYtdY=";
+      sha256 = "sha256-ELzVPX1HhMEx0RaWSO7v8KJs4fUuWrjfZ/mskGPDguE=";
     };
-    date = "2024-04-04";
+    date = "2024-05-16";
   };
   ulauncher-colorconverter = {
     pname = "ulauncher-colorconverter";
