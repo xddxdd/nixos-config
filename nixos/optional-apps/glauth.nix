@@ -1,6 +1,7 @@
 {
   pkgs,
   LT,
+  config,
   inputs,
   ...
 }:
@@ -18,11 +19,11 @@ let
   cfg = pkgs.writeText "glauth.cfg" ''
     [ldap]
       enabled = true
-      listen = "${LT.this.ltnet.IPv4}:${LT.portStr.LDAP}"
+      listen = "[::]:${LT.portStr.LDAP}"
 
     [ldaps]
       enabled = true
-      listen = "${LT.this.ltnet.IPv4}:${LT.portStr.LDAPS}"
+      listen = "[::]:${LT.portStr.LDAPS}"
       cert = "${LT.nginx.getSSLCert "lantian.pub_ecc"}"
       key = "${LT.nginx.getSSLKey "lantian.pub_ecc"}"
 
@@ -64,9 +65,24 @@ let
     [api]
       enabled = false
   '';
+
+  netns = config.lantian.netns.glauth;
 in
 {
-  systemd.services.glauth = {
+  lantian.netns.glauth = {
+    ipSuffix = "38";
+    announcedIPv4 = [
+      "198.19.0.38"
+      "10.127.10.38"
+    ];
+    announcedIPv6 = [
+      "fdbc:f9dc:67ad:2547::389"
+      "fd10:127:10:2547::389"
+    ];
+    birdBindTo = [ "glauth.service" ];
+  };
+
+  systemd.services.glauth = netns.bind {
     wantedBy = [ "multi-user.target" ];
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
