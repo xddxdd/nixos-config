@@ -16,8 +16,10 @@ in
     ./pipewire-resample-quality.nix
     ./pipewire-rtprio.nix
     ./pipewire-surround.nix
-    ./pipewire-zeroconf.nix
     ./wireplumber-bluez.nix
+
+    # Pipewire Zeroconf is not very stable
+    # ./pipewire-zeroconf.nix
   ];
 
   boot.extraModprobeConfig = ''
