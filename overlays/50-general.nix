@@ -28,10 +28,6 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
   });
-  lidarr = prev.lidarr.overrideAttrs (_old: {
-    version = builtins.head (final.lib.splitString "/" sources.lidarr-x64.version);
-    inherit (sources.lidarr-x64) src;
-  });
   llama-cpp-x86_64-v3 = prev.llama-cpp.overrideAttrs (old: {
     version = final.lib.removePrefix "b" sources.llama-cpp.version;
     inherit (sources.llama-cpp) src;
