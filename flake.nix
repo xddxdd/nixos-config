@@ -80,6 +80,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nvfetcher.follows = "nvfetcher";
+      inputs.pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
     };
     nvfetcher = {
       url = "github:berberman/nvfetcher";
