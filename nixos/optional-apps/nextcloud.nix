@@ -20,10 +20,16 @@
     webfinger = true;
     occ = true;
 
+    phpOptions = {
+      "opcache.memory_consumption" = 512;
+      "opcache.interned_strings_buffer" = 64;
+    };
+
     settings = {
       default_phone_region = "CN";
       overwriteprotocol = "https";
       "integrity.check.disabled" = true;
+      maintenance_window_start = 1;
     };
   };
 
