@@ -21,7 +21,6 @@
       RestartSec = "1800";
     };
     unitConfig = {
-      OnSuccess = "notify-email-success@%n.service";
       OnFailure = "notify-email-fail@%n.service";
     };
     after = [ "network.target" ];
