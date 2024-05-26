@@ -130,6 +130,28 @@ in
                   description = "{{$labels.alias}} is using at least 90% of its RAM for ${for}.";
                 };
               }
+
+              # Periodic services
+              {
+                alert = "periodic_auto_mihoyo_bbs";
+                expr = ''max_over_time(node_systemd_unit_state{name="auto-mihoyo-bbs.service",state!~"(inactive|failed)"}[24h]) == 0'';
+                for = "5m";
+                labels.severity = "warning";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: Periodic job not running.";
+                  description = "{{$labels.alias}} hasn't run for 24 hours.";
+                };
+              }
+              {
+                alert = "periodic_bilibili_tool_pro";
+                expr = ''max_over_time(node_systemd_unit_state{name="bilibili-tool-pro.service",state!~"(inactive|failed)"}[24h]) == 0'';
+                for = "5m";
+                labels.severity = "warning";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: Periodic job not running.";
+                  description = "{{$labels.alias}} hasn't run for 24 hours.";
+                };
+              }
             ];
           }
         ];
