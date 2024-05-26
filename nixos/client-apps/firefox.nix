@@ -72,7 +72,6 @@
         Downloads = true;
         FormData = true;
         History = true;
-        Locked = true;
       };
       SearchBar = "unified";
       SearchSuggestEnabled = true;
