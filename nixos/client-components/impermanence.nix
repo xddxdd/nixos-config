@@ -41,6 +41,7 @@ _: {
         ".openfaas"
         ".parsec"
         ".pcem"
+        ".runpod"
         ".rustup"
         ".stack"
         ".steam"
