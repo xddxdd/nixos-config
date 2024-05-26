@@ -123,41 +123,6 @@
         },
         "version": "f499fb03624b6b396e6eef1263dd1650a95e63d2"
     },
-    "lidarr-x64": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "lidarr-x64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-ulWg9BhDr/RFE4sfXGf+i9W0KpOYKjtk49qBeIwI9dU=",
-            "type": "url",
-            "url": "https://github.com/Lidarr/Lidarr/releases/download/v2.3.3.4204/Lidarr.master.2.3.3.4204.linux-core-x64.tar.gz"
-        },
-        "version": "v2.3.3.4204/Lidarr.master.2.3.3.4204"
-    },
-    "llama-cpp": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "llama-cpp",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ggerganov",
-            "repo": "llama.cpp",
-            "rev": "b2929",
-            "sha256": "sha256-hVjmEpMbGA6D03ZpJDq2nq77VQEH/6gUQQQQklvOJwo=",
-            "type": "github"
-        },
-        "version": "b2929"
-    },
     "material-kwin-decoration": {
         "cargoLocks": null,
         "date": "2023-01-15",

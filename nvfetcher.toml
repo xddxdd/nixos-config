@@ -27,10 +27,6 @@ fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/wind
 src.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
 fetch.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
 
-[llama-cpp]
-src.github = "ggerganov/llama.cpp"
-fetch.github = "ggerganov/llama.cpp"
-
 [material-kwin-decoration]
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"

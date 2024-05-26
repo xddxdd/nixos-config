@@ -20,7 +20,7 @@ in
 {
   services.llama-cpp = {
     enable = true;
-    package = pkgs.llama-cpp-x86_64-v3.override { cudaSupport = true; };
+    package = pkgs.lantianCustomized.llama-cpp;
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
     model = "${model}/sakura-32b-qwen2beta-v0.9-iq4xs.gguf";

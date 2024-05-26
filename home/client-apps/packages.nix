@@ -123,6 +123,7 @@ in
         qqmusic
         quasselClient
         rar
+        runpodctl
         space-cadet-pinball-full-tilt
         steam-run
         tdesktop

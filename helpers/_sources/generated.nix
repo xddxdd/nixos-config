@@ -73,25 +73,6 @@
     };
     date = "2023-05-27";
   };
-  lidarr-x64 = {
-    pname = "lidarr-x64";
-    version = "v2.3.3.4204/Lidarr.master.2.3.3.4204";
-    src = fetchurl {
-      url = "https://github.com/Lidarr/Lidarr/releases/download/v2.3.3.4204/Lidarr.master.2.3.3.4204.linux-core-x64.tar.gz";
-      sha256 = "sha256-ulWg9BhDr/RFE4sfXGf+i9W0KpOYKjtk49qBeIwI9dU=";
-    };
-  };
-  llama-cpp = {
-    pname = "llama-cpp";
-    version = "b2929";
-    src = fetchFromGitHub {
-      owner = "ggerganov";
-      repo = "llama.cpp";
-      rev = "b2929";
-      fetchSubmodules = false;
-      sha256 = "sha256-hVjmEpMbGA6D03ZpJDq2nq77VQEH/6gUQQQQklvOJwo=";
-    };
-  };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
     version = "0e989e5b815b64ee5bca989f983da68fa5556644";

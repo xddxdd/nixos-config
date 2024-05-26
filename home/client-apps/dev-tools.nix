@@ -131,6 +131,7 @@ in
     inputs.agenix.packages."${system}".agenix
     alejandra
     nil
+    nix-init
     nix-output-monitor
     nix-prefetch
     nix-prefetch-scripts
