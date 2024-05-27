@@ -7,13 +7,12 @@
   ...
 }@args:
 {
-  imports = [ ./postgresql.nix ];
+  imports = [ ../postgresql.nix ];
 
   age.secrets.glauth-bindpw = {
     file = inputs.secrets + "/glauth-bindpw.age";
     mode = "0444";
   };
-  age.secrets.matrix-sliding-sync-env.file = inputs.secrets + "/matrix-sliding-sync-env.age";
 
   services.matrix-synapse = {
     enable = true;
@@ -133,27 +132,6 @@
     };
   };
 
-  services.matrix-sliding-sync = {
-    enable = true;
-    createDatabase = true;
-    environmentFile = config.age.secrets.matrix-sliding-sync-env.path;
-    settings = {
-      SYNCV3_BINDADDR = "127.0.0.1:0";
-      SYNCV3_UNIX_SOCKET = "/run/matrix-sliding-sync/listen.socket";
-      SYNCV3_SERVER = "https://matrix.lantian.pub";
-    };
-  };
-
-  systemd.services.matrix-sliding-sync.serviceConfig = LT.serviceHarden // {
-    DynamicUser = lib.mkForce false;
-    User = "matrix-sliding-sync";
-    Group = "matrix-sliding-sync";
-    RuntimeDirectory = "matrix-sliding-sync";
-    StateDirectory = lib.mkForce [ ];
-    WorkingDirectory = lib.mkForce "/run/matrix-sliding-sync";
-    UMask = "007";
-  };
-
   systemd.services.matrix-synapse = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
@@ -229,37 +207,5 @@
     noIndex.enable = true;
   };
 
-  systemd.services.synapse-compress-state = {
-    after = [ "matrix-synapse.service" ];
-    requires = [ "matrix-synapse.service" ];
-    script = ''
-      exec ${pkgs.matrix-synapse-tools.rust-synapse-compress-state}/bin/synapse_auto_compressor \
-        -p "host=/run/postgresql user=matrix-synapse dbname=matrix-synapse" \
-        -c 500 \
-        -n 100
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "matrix-synapse";
-    };
-  };
-
-  systemd.timers.synapse-compress-state = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "synapse-compress-state.service" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-      RandomizedDelaySec = "4h";
-      Unit = "synapse-compress-state.service";
-    };
-  };
-
   systemd.tmpfiles.rules = [ "d /var/lib/matrix-synapse/media 755 matrix-synapse matrix-synapse" ];
-
-  users.users.matrix-sliding-sync = {
-    group = "matrix-sliding-sync";
-    isSystemUser = true;
-  };
-  users.groups.matrix-sliding-sync.members = [ "nginx" ];
 }

@@ -11,7 +11,7 @@
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/keycloak
     ../../nixos/optional-apps/lemmy.nix
-    ../../nixos/optional-apps/matrix-synapse.nix
+    ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/nginx-private.nix
