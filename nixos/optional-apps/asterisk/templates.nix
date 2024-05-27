@@ -51,6 +51,16 @@ let
     "slin16"
     "slin12"
     "slin"
+
+    # Video
+    "h265"
+    "h264"
+    "vp9"
+    "vp8"
+    "h263p"
+    "h263"
+    "h261"
+    "mpeg4"
   ];
 in
 rec {
