@@ -129,6 +129,17 @@
         per_second = 5;
         burst_count = 10;
       };
+
+      # https://www.metered.ca/tools/openrelay/
+      turn_uris = [
+        "turn:staticauth.openrelay.metered.ca:80?transport=udp"
+        "turn:staticauth.openrelay.metered.ca:80?transport=tcp"
+        "turns:staticauth.openrelay.metered.ca:443?transport=udp"
+        "turns:staticauth.openrelay.metered.ca:443?transport=tcp"
+      ];
+      turn_shared_secret = "openrelayprojectsecret";
+      turn_user_lifetime = 86400000;
+      turn_allow_guests = true;
     };
   };
 
