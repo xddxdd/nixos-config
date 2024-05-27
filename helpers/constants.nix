@@ -60,12 +60,8 @@ rec {
   };
 
   nix = {
-    substituters = [
-      "https://attic.xuyh0120.win/lantian"
-      "https://cuda-maintainers.cachix.org"
-    ];
+    substituters = [ "https://cuda-maintainers.cachix.org" ];
     trusted-public-keys = [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
   };

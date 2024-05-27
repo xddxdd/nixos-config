@@ -41,6 +41,9 @@ let
       inputs.colmena.nixosModules.deploymentOptions
       inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
+      inputs.nur-xddxdd.nixosModules.nix-cache-attic
+      inputs.nur-xddxdd.nixosModules.nix-cache-cachix
+      inputs.nur-xddxdd.nixosModules.nix-cache-garnix
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
