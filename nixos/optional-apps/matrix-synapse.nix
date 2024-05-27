@@ -9,10 +9,20 @@
 {
   imports = [ ./postgresql.nix ];
 
+  age.secrets.glauth-bindpw = {
+    file = inputs.secrets + "/glauth-bindpw.age";
+    mode = "0444";
+  };
   age.secrets.matrix-sliding-sync-env.file = inputs.secrets + "/matrix-sliding-sync-env.age";
 
   services.matrix-synapse = {
     enable = true;
+
+    plugins = with config.services.matrix-synapse.package.plugins; [
+      matrix-http-rendezvous-synapse
+      matrix-synapse-ldap3
+    ];
+
     settings = {
       max_upload_size = "500M";
       public_baseurl = "https://matrix.lantian.pub";
@@ -55,6 +65,33 @@
           ];
         }
       ];
+
+      modules = [
+        {
+          module = "matrix_http_rendezvous_synapse.SynapseRendezvousModule";
+          config.prefix = "/_synapse/client/org.matrix.msc3886/rendezvous";
+        }
+        {
+          module = "ldap_auth_provider.LdapAuthProviderModule";
+          config = {
+            enabled = true;
+            uri = "ldap://[fdbc:f9dc:67ad:2547::389]:${LT.portStr.LDAP}";
+            base = "dc=lantian,dc=pub";
+            attributes = {
+              uid = "cn";
+              mail = "mail";
+              name = "givenName";
+            };
+          };
+          bind_dn = "cn=serviceuser,dc=lantian,dc=pub";
+          bind_password_file = config.age.secrets.glauth-bindpw.path;
+          filter = "(&(objectClass=posixAccount)(!(ou=svcaccts)))";
+        }
+      ];
+
+      experimental_features = {
+        msc3886_endpoint = "/_synapse/client/org.matrix.msc3886/rendezvous";
+      };
 
       # Increase rate limit
       rc_admin_redaction = {
@@ -120,6 +157,7 @@
   systemd.services.matrix-synapse = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+      SYNAPSE_ASYNC_IO_REACTOR = "1";
     };
     serviceConfig = LT.serviceHarden // {
       MemoryDenyWriteExecute = false;
