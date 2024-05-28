@@ -48,6 +48,7 @@ in
         "-np"
         "${builtins.toString concurrency}"
         "-cb"
+        "-fa"
       ];
   };
 
