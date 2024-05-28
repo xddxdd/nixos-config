@@ -36,12 +36,19 @@ in
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
     model = model."sakura-32b-qwen2beta-v0.9-iq4xs";
-    extraFlags = [
-      "-c"
-      "2048"
-      "-ngl"
-      "100"
-    ];
+    extraFlags =
+      let
+        concurrency = 4;
+      in
+      [
+        "-c"
+        "${builtins.toString (concurrency * 2048)}"
+        "-ngl"
+        "100"
+        "-np"
+        "${builtins.toString concurrency}"
+        "-cb"
+      ];
   };
 
   lantian.nginxVhosts = {
