@@ -35,7 +35,7 @@ in
     package = pkgs.lantianCustomized.llama-cpp;
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
-    model = model."sakura-32b-qwen2beta-v0.9-q4km";
+    model = model."sakura-32b-qwen2beta-v0.9-iq4xs";
     extraFlags = [
       "-c"
       "2048"
