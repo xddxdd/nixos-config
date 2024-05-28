@@ -7,6 +7,11 @@
 let
   # https://github.com/SakuraLLM/Sakura-13B-Galgame
   model = {
+    "sakura-32b-qwen2beta-v0.9-iq4xs" = pkgs.fetchurl {
+      name = "sakura-32b-qwen2beta-v0.9-iq4xs.gguf";
+      url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9-iq4xs.gguf?download=true";
+      sha256 = "0zr7b9fqlflgw40lzxfrd3sal08y3x86ghy4d9zby0m2zbcbd01s";
+    };
     "sakura-32b-qwen2beta-v0.9.1-iq4xs" = pkgs.fetchurl {
       name = "sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf";
       url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9.1-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf?download=true";
@@ -25,7 +30,7 @@ in
     package = pkgs.lantianCustomized.llama-cpp;
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
-    model = model."sakura-32b-qwen2beta-v0.9.1-iq4xs";
+    model = model."sakura-32b-qwen2beta-v0.9-iq4xs";
     extraFlags = [
       "-c"
       "2048"
