@@ -60,7 +60,7 @@ in
     package = pkgs.lantianCustomized.llama-cpp;
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
-    model = "${model}/sakura-14b-qwen2beta-v0.9.1-iq4xs.gguf";
+    model = "${model}/sakura-32b-qwen2beta-v0.9-iq4xs.gguf";
     extraFlags =
       let
         concurrency = 4;
