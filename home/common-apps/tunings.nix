@@ -18,6 +18,9 @@
     userEmail = "xuyh0120@outlook.com";
   };
 
+  # Mute GNU Parallel citation notice
+  home.file.".parallel/will-cite".text = "";
+
   xdg.configFile = {
     "nix/nix.conf".text = ''
       experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups
