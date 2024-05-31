@@ -6,12 +6,15 @@
     ./hardware-configuration.nix
     # ./vpp.nix
 
+    ../../nixos/common-apps/nginx
+
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/bgp-graph
+    ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
