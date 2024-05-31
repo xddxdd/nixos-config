@@ -84,6 +84,7 @@ in
     "nvidia-persistenced" = {
       description = "NVIDIA Persistence Daemon";
       wantedBy = [ "multi-user.target" ];
+      unitConfig.ConditionPathExists = "/dev/nvidia0";
       serviceConfig = {
         Type = "forking";
         Restart = "always";

@@ -15,6 +15,8 @@
 
     ../../nixos/optional-apps/bgp-graph
     ../../nixos/optional-apps/llama-sakura-llm.nix
+    ../../nixos/optional-apps/nvidia/cuda-only.nix
+    ../../nixos/optional-apps/nvidia/grid-extension.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 

@@ -24,4 +24,6 @@
 
   virtualisation.docker.enableNvidia = true;
   hardware.nvidia-container-toolkit.enable = true;
+
+  systemd.services.nvidia-persistenced.unitConfig.ConditionPathExists = "/dev/nvidia0";
 }
