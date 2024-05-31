@@ -77,6 +77,8 @@ in
       ];
   };
 
+  systemd.services.llama-cpp.unitConfig.ConditionPathExists = "/dev/nvidia0";
+
   lantian.nginxVhosts = {
     "llama-cpp.${config.networking.hostName}.xuyh0120.win" = {
       locations."/" = {
