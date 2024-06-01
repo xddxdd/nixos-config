@@ -29,6 +29,9 @@ in
     nvidia-offload
   ] ++ lib.optionals config.programs.steam.enable [ steam-offload ];
 
+  # Enable CUDA
+  hardware.opengl.enable = true;
+
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
   hardware.nvidia.prime = {

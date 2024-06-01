@@ -8,6 +8,8 @@
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;
 
+  # Enable CUDA
+  hardware.opengl.enable = true;
   hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
 
   environment.variables = {
