@@ -75,6 +75,8 @@ in
     nvidiaSwitchCUDAScript
   ];
 
+  # Enable CUDA
+  hardware.opengl.enable = true;
   hardware.opengl.extraPackages = [ nvidia_x11.out ];
   hardware.opengl.extraPackages32 = [ nvidia_x11.lib32 ];
 
