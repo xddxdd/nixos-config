@@ -23,6 +23,7 @@
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/obs-studio.nix
+    ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix
     ../../nixos/optional-apps/samba.nix
