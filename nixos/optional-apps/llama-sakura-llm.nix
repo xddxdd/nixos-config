@@ -2,6 +2,7 @@
   pkgs,
   LT,
   config,
+  utils,
   ...
 }:
 let
@@ -53,14 +54,18 @@ let
       sha256 = "0r7v5bdlf8qm0zv0yqi8w641zh8yvpbhyqm765hm28f55ycsw14i";
     };
   };
+
+  cfg = config.services.llama-cpp;
+  modelName = "sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf";
 in
 {
   services.llama-cpp = {
-    enable = true;
+    # Do not enable, I define systemd service myselv
+    enable = false;
+
     package = pkgs.lantianCustomized.llama-cpp;
     host = "127.0.0.1";
     port = LT.port.LlamaCpp;
-    model = "${model}/sakura-32b-qwen2beta-v0.9-iq4xs.gguf";
     extraFlags =
       let
         concurrency = 4;
@@ -77,7 +82,34 @@ in
       ];
   };
 
-  systemd.services.llama-cpp.unitConfig.ConditionPathExists = "/dev/nvidia0";
+  systemd.services.llama-cpp = {
+    description = "LLaMA C++ server";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = LT.serviceHarden // {
+      Type = "idle";
+      KillSignal = "SIGINT";
+      ExecStart = "${cfg.package}/bin/llama-server --log-disable --host ${cfg.host} --port ${builtins.toString cfg.port} -m ${modelName} ${utils.escapeSystemdExecArgs cfg.extraFlags}";
+      Restart = "on-failure";
+      RestartSec = 300;
+      WorkingDirectory = "${model}";
+
+      User = "llama-cpp";
+      Group = "llama-cpp";
+
+      # for GPU acceleration
+      PrivateDevices = false;
+    };
+
+    unitConfig.ConditionPathExists = "/dev/nvidia0";
+  };
+
+  users.users.llama-cpp = {
+    group = "llama-cpp";
+    isSystemUser = true;
+  };
+  users.groups.llama-cpp = { };
 
   lantian.nginxVhosts = {
     "llama-cpp.${config.networking.hostName}.xuyh0120.win" = {
