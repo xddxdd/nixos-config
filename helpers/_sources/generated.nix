@@ -23,15 +23,15 @@
   };
   dashboard-icons = {
     pname = "dashboard-icons";
-    version = "93ab09fc0a7a0134a9274af73a572843c480163a";
+    version = "dd34fba44b97d3d5753dda032487890cb6fa5879";
     src = fetchFromGitHub {
       owner = "walkxcode";
       repo = "dashboard-icons";
-      rev = "93ab09fc0a7a0134a9274af73a572843c480163a";
+      rev = "dd34fba44b97d3d5753dda032487890cb6fa5879";
       fetchSubmodules = false;
-      sha256 = "sha256-o5+iKTaD5SHDuH78wYBt26jdjvtUfo5/dR2OAeBRP1I=";
+      sha256 = "sha256-gi8L548tvGByLsyUZQeSfIxM6I959ehxhYA3mST+Qa0=";
     };
-    date = "2024-04-07";
+    date = "2024-06-02";
   };
   himawaripy = {
     pname = "himawaripy";
@@ -46,10 +46,10 @@
   };
   homer = {
     pname = "homer";
-    version = "v24.04.1";
+    version = "v24.05.1";
     src = fetchurl {
-      url = "https://github.com/bastienwirtz/homer/releases/download/v24.04.1/homer.zip";
-      sha256 = "sha256-yCfvgmVjplWSxlgwGtiyw933kP+Tmcf1oPEtQRUsUYU=";
+      url = "https://github.com/bastienwirtz/homer/releases/download/v24.05.1/homer.zip";
+      sha256 = "sha256-Ji/7BSKCnnhj4NIdGngTHcGRRbx9UWrx48bBsKkEj34=";
     };
   };
   jproxy = {
@@ -87,15 +87,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "17e8150c0d7d1c206c8254e3091596b48059bea0";
+    version = "ae35eddfe12cd690d97cae557e0f5644dabec12e";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "17e8150c0d7d1c206c8254e3091596b48059bea0";
+      rev = "ae35eddfe12cd690d97cae557e0f5644dabec12e";
       fetchSubmodules = false;
-      sha256 = "sha256-izaekiNxTSfaIzTfgmmqFr/csTG8A+RiL+uwKa0HzWQ=";
+      sha256 = "sha256-Bea1ODBV6dRnvV6LnK7TKI6ZB5E3dHpPgU9ezY0s/Hw=";
     };
-    date = "2024-05-13";
+    date = "2024-05-31";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -111,27 +111,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2";
+    version = "fe90cd0af2f9c73be1c76c8333acc9d3301f00ce";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2";
+      rev = "fe90cd0af2f9c73be1c76c8333acc9d3301f00ce";
       fetchSubmodules = false;
-      sha256 = "sha256-tzml1i9EtXLWCINQwWb0GHyPNE+7vCg+tLbcWO0nipU=";
+      sha256 = "sha256-khwSsU/naWc2V589DJ0BIcLldFzo0Pn+JD9nESu2TJM=";
     };
-    date = "2024-05-10";
+    date = "2024-05-28";
   };
   openvpn = {
     pname = "openvpn";
-    version = "55bb3260c12bae33b6a8eac73cbb6972f8517411";
+    version = "82036c17c45d45c3fe8725f64b33720cb9c94dad";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "55bb3260c12bae33b6a8eac73cbb6972f8517411";
+      rev = "82036c17c45d45c3fe8725f64b33720cb9c94dad";
       fetchSubmodules = false;
-      sha256 = "sha256-MXi0ZKkmoOFGyXBpekeAzIUxE5XueSh7oaANwTrPWHE=";
+      sha256 = "sha256-bb1dFpo7BruzTutmxN8DCyndmCELxmhQY1HdkoNZ3T4=";
     };
-    date = "2024-05-16";
+    date = "2024-06-02";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -159,10 +159,10 @@
   };
   prowlarr-x64 = {
     pname = "prowlarr-x64";
-    version = "v1.17.2.4511/Prowlarr.master.1.17.2.4511";
+    version = "v1.18.0.4543/Prowlarr.master.1.18.0.4543";
     src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.2.4511/Prowlarr.master.1.17.2.4511.linux-core-x64.tar.gz";
-      sha256 = "sha256-bYIavvea6Nwbn22CFiWXpzPGAI13oJYAIZr2FdLkyb8=";
+      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.18.0.4543/Prowlarr.master.1.18.0.4543.linux-core-x64.tar.gz";
+      sha256 = "sha256-c89EiThP2LgkaeDxx01rQTtFZGcXvpMgo6yp+VViJO0=";
     };
   };
   radarr-x64 = {
@@ -188,23 +188,23 @@
   };
   sonarr-x64 = {
     pname = "sonarr-x64";
-    version = "v4.0.4.1668/Sonarr.develop.4.0.4.1668";
+    version = "v4.0.5.1719/Sonarr.develop.4.0.5.1719";
     src = fetchurl {
-      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1668/Sonarr.develop.4.0.4.1668.linux-x64.tar.gz";
-      sha256 = "sha256-thODsC5hb7G3gTpbtjxXsyTENRDcq/cw3vajLSoNdj0=";
+      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1719/Sonarr.develop.4.0.5.1719.linux-x64.tar.gz";
+      sha256 = "sha256-YJzPhhu83TtLzjIFpSHHsASJwZhd+p8vO9Job4Fljvs=";
     };
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
-    version = "600aa62e82c5cdb23be58007acfc1a008e0c3c13";
+    version = "037965a44e6f6f496e7ad71ec1651b9edfcde32d";
     src = fetchFromGitHub {
       owner = "tchar";
       repo = "ulauncher-albert-calculate-anything";
-      rev = "600aa62e82c5cdb23be58007acfc1a008e0c3c13";
+      rev = "037965a44e6f6f496e7ad71ec1651b9edfcde32d";
       fetchSubmodules = false;
-      sha256 = "sha256-ELzVPX1HhMEx0RaWSO7v8KJs4fUuWrjfZ/mskGPDguE=";
+      sha256 = "sha256-RUxkStLxM8wg4a5yicoQCTjLxSEsb3HQwDSwrQicc2U=";
     };
-    date = "2024-05-16";
+    date = "2024-05-29";
   };
   ulauncher-colorconverter = {
     pname = "ulauncher-colorconverter";
@@ -375,14 +375,14 @@
   };
   zsh-autopair = {
     pname = "zsh-autopair";
-    version = "2ec3fd3c9b950c01dbffbb2a4d191e1d34b8c58a";
+    version = "376b586c9739b0a044192747b337f31339d548fd";
     src = fetchFromGitHub {
       owner = "hlissner";
       repo = "zsh-autopair";
-      rev = "2ec3fd3c9b950c01dbffbb2a4d191e1d34b8c58a";
+      rev = "376b586c9739b0a044192747b337f31339d548fd";
       fetchSubmodules = false;
-      sha256 = "sha256-Y7fkpvCOC/lC2CHYui+6vOdNO8dNHGrVYTGGNf9qgdg=";
+      sha256 = "sha256-mtDrt4Q5kbddydq/pT554ph0hAd5DGk9jci9auHx0z0=";
     };
-    date = "2024-03-08";
+    date = "2024-06-04";
   };
 }

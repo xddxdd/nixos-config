@@ -78,7 +78,7 @@ in
         calibre-override-desktop
         cloudpan189-go
         colmena
-        dbeaver
+        dbeaver-bin
         dingtalk
         discord
         discord-canary

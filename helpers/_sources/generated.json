@@ -36,7 +36,7 @@
     },
     "dashboard-icons": {
         "cargoLocks": null,
-        "date": "2024-04-07",
+        "date": "2024-06-02",
         "extract": null,
         "name": "dashboard-icons",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "walkxcode",
             "repo": "dashboard-icons",
-            "rev": "93ab09fc0a7a0134a9274af73a572843c480163a",
-            "sha256": "sha256-o5+iKTaD5SHDuH78wYBt26jdjvtUfo5/dR2OAeBRP1I=",
+            "rev": "dd34fba44b97d3d5753dda032487890cb6fa5879",
+            "sha256": "sha256-gi8L548tvGByLsyUZQeSfIxM6I959ehxhYA3mST+Qa0=",
             "type": "github"
         },
-        "version": "93ab09fc0a7a0134a9274af73a572843c480163a"
+        "version": "dd34fba44b97d3d5753dda032487890cb6fa5879"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -83,11 +83,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yCfvgmVjplWSxlgwGtiyw933kP+Tmcf1oPEtQRUsUYU=",
+            "sha256": "sha256-Ji/7BSKCnnhj4NIdGngTHcGRRbx9UWrx48bBsKkEj34=",
             "type": "url",
-            "url": "https://github.com/bastienwirtz/homer/releases/download/v24.04.1/homer.zip"
+            "url": "https://github.com/bastienwirtz/homer/releases/download/v24.05.1/homer.zip"
         },
-        "version": "v24.04.1"
+        "version": "v24.05.1"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -145,7 +145,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-05-13",
+        "date": "2024-05-31",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -157,11 +157,11 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "17e8150c0d7d1c206c8254e3091596b48059bea0",
-            "sha256": "sha256-izaekiNxTSfaIzTfgmmqFr/csTG8A+RiL+uwKa0HzWQ=",
+            "rev": "ae35eddfe12cd690d97cae557e0f5644dabec12e",
+            "sha256": "sha256-Bea1ODBV6dRnvV6LnK7TKI6ZB5E3dHpPgU9ezY0s/Hw=",
             "type": "github"
         },
-        "version": "17e8150c0d7d1c206c8254e3091596b48059bea0"
+        "version": "ae35eddfe12cd690d97cae557e0f5644dabec12e"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -185,7 +185,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-05-10",
+        "date": "2024-05-28",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -197,15 +197,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2",
-            "sha256": "sha256-tzml1i9EtXLWCINQwWb0GHyPNE+7vCg+tLbcWO0nipU=",
+            "rev": "fe90cd0af2f9c73be1c76c8333acc9d3301f00ce",
+            "sha256": "sha256-khwSsU/naWc2V589DJ0BIcLldFzo0Pn+JD9nESu2TJM=",
             "type": "github"
         },
-        "version": "a0d153ec4d445d42f2b2b7d3629337735dbcc3b2"
+        "version": "fe90cd0af2f9c73be1c76c8333acc9d3301f00ce"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-05-16",
+        "date": "2024-06-02",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -217,11 +217,11 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "55bb3260c12bae33b6a8eac73cbb6972f8517411",
-            "sha256": "sha256-MXi0ZKkmoOFGyXBpekeAzIUxE5XueSh7oaANwTrPWHE=",
+            "rev": "82036c17c45d45c3fe8725f64b33720cb9c94dad",
+            "sha256": "sha256-bb1dFpo7BruzTutmxN8DCyndmCELxmhQY1HdkoNZ3T4=",
             "type": "github"
         },
-        "version": "55bb3260c12bae33b6a8eac73cbb6972f8517411"
+        "version": "82036c17c45d45c3fe8725f64b33720cb9c94dad"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
@@ -272,11 +272,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bYIavvea6Nwbn22CFiWXpzPGAI13oJYAIZr2FdLkyb8=",
+            "sha256": "sha256-c89EiThP2LgkaeDxx01rQTtFZGcXvpMgo6yp+VViJO0=",
             "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.17.2.4511/Prowlarr.master.1.17.2.4511.linux-core-x64.tar.gz"
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.18.0.4543/Prowlarr.master.1.18.0.4543.linux-core-x64.tar.gz"
         },
-        "version": "v1.17.2.4511/Prowlarr.master.1.17.2.4511"
+        "version": "v1.18.0.4543/Prowlarr.master.1.18.0.4543"
     },
     "radarr-x64": {
         "cargoLocks": null,
@@ -321,15 +321,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-thODsC5hb7G3gTpbtjxXsyTENRDcq/cw3vajLSoNdj0=",
+            "sha256": "sha256-YJzPhhu83TtLzjIFpSHHsASJwZhd+p8vO9Job4Fljvs=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.4.1668/Sonarr.develop.4.0.4.1668.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1719/Sonarr.develop.4.0.5.1719.linux-x64.tar.gz"
         },
-        "version": "v4.0.4.1668/Sonarr.develop.4.0.4.1668"
+        "version": "v4.0.5.1719/Sonarr.develop.4.0.5.1719"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
-        "date": "2024-05-16",
+        "date": "2024-05-29",
         "extract": null,
         "name": "ulauncher-albert-calculate-anything",
         "passthru": null,
@@ -341,11 +341,11 @@
             "name": null,
             "owner": "tchar",
             "repo": "ulauncher-albert-calculate-anything",
-            "rev": "600aa62e82c5cdb23be58007acfc1a008e0c3c13",
-            "sha256": "sha256-ELzVPX1HhMEx0RaWSO7v8KJs4fUuWrjfZ/mskGPDguE=",
+            "rev": "037965a44e6f6f496e7ad71ec1651b9edfcde32d",
+            "sha256": "sha256-RUxkStLxM8wg4a5yicoQCTjLxSEsb3HQwDSwrQicc2U=",
             "type": "github"
         },
-        "version": "600aa62e82c5cdb23be58007acfc1a008e0c3c13"
+        "version": "037965a44e6f6f496e7ad71ec1651b9edfcde32d"
     },
     "ulauncher-colorconverter": {
         "cargoLocks": null,
@@ -629,7 +629,7 @@
     },
     "zsh-autopair": {
         "cargoLocks": null,
-        "date": "2024-03-08",
+        "date": "2024-06-04",
         "extract": null,
         "name": "zsh-autopair",
         "passthru": null,
@@ -641,10 +641,10 @@
             "name": null,
             "owner": "hlissner",
             "repo": "zsh-autopair",
-            "rev": "2ec3fd3c9b950c01dbffbb2a4d191e1d34b8c58a",
-            "sha256": "sha256-Y7fkpvCOC/lC2CHYui+6vOdNO8dNHGrVYTGGNf9qgdg=",
+            "rev": "376b586c9739b0a044192747b337f31339d548fd",
+            "sha256": "sha256-mtDrt4Q5kbddydq/pT554ph0hAd5DGk9jci9auHx0z0=",
             "type": "github"
         },
-        "version": "2ec3fd3c9b950c01dbffbb2a4d191e1d34b8c58a"
+        "version": "376b586c9739b0a044192747b337f31339d548fd"
     }
 }
