@@ -56,7 +56,7 @@ let
   };
 
   cfg = config.services.llama-cpp;
-  modelName = "sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf";
+  modelName = "sakura-32b-qwen2beta-v0.9-iq4xs.gguf";
 in
 {
   services.llama-cpp = {
