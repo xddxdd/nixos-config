@@ -133,6 +133,7 @@ linkFarm "rime-lantian-custom" (
 
     "share/rime-data/lantian_aurora_pinyin.dict.yaml" = makeDict "lantian_aurora_pinyin" [
       "aurora_pinyin"
+      "CustomPinyinDictionary"
       "moegirl"
       "zhwiki"
     ];
@@ -162,6 +163,7 @@ linkFarm "rime-lantian-custom" (
       "cn_dicts/tencent"
       "cn_dicts/others"
 
+      "CustomPinyinDictionary"
       "moegirl"
       "zhwiki"
     ];
