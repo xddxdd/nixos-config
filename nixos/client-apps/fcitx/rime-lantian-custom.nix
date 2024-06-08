@@ -32,6 +32,7 @@ linkFarm "rime-lantian-custom" (
       patch = {
         # 雾凇拼音
         __include = "rime_ice_suggestion:/";
+        "switcher/save_options" = [ ];
 
         # 极光拼音
         # "switcher/save_options" = ["full_shape" "ascii_punct" "simplification" "extended_charset"];
@@ -109,7 +110,12 @@ linkFarm "rime-lantian-custom" (
     # 极光拼音
     "share/rime-data/aurora_pinyin.custom.yaml" = builtins.toJSON {
       patch = {
-        "switches/@0/reset" = 1;
+        "switches" = [
+          {
+            name = "ascii_mode";
+            reset = 1;
+          }
+        ];
         "translator/dictionary" = "lantian_aurora_pinyin";
         "__include" = "emoji_suggestion:/patch";
         punctuator = {
@@ -134,7 +140,16 @@ linkFarm "rime-lantian-custom" (
     # 雾凇拼音
     "share/rime-data/rime_ice.custom.yaml" = builtins.toJSON {
       patch = {
-        "switches/@0/reset" = 1;
+        "switches" = [
+          {
+            name = "ascii_mode";
+            reset = 1;
+          }
+          {
+            name = "traditionalization";
+            reset = 0;
+          }
+        ];
         "translator/dictionary" = "lantian_rime_ice";
       };
     };
@@ -154,7 +169,16 @@ linkFarm "rime-lantian-custom" (
     # 朙月拼音
     "share/rime-data/luna_pinyin_simp.custom.yaml" = builtins.toJSON {
       patch = {
-        "switches/@0/reset" = 1;
+        "switches" = [
+          {
+            name = "ascii_mode";
+            reset = 1;
+          }
+          {
+            name = "zh_simp";
+            reset = 1;
+          }
+        ];
         "translator/dictionary" = "lantian_luna_pinyin_simp";
         "__include" = "emoji_suggestion:/patch";
         punctuator = {
