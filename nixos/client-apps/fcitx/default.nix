@@ -12,6 +12,7 @@ let
       librime = pkgs.lantianCustomized.librime-with-plugins;
       rimeDataPkgs = with pkgs; [
         rime-aurora-pinyin
+        rime-custom-pinyin-dictionary
         rime-data
         rime-dict
         rime-ice
