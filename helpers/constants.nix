@@ -160,7 +160,7 @@ rec {
     ];
   };
 
-  stateVersion = "23.11";
+  stateVersion = "24.05";
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";
 

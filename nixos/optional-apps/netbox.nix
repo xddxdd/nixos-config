@@ -16,7 +16,7 @@
 
   services.netbox = {
     enable = true;
-    package = pkgs.netbox_3_6;
+    package = pkgs.netbox;
     listenAddress = "[::1]";
     port = LT.port.Netbox;
     secretKeyFile = config.age.secrets.netbox-secret.path;

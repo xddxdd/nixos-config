@@ -1,6 +1,14 @@
 { pkgs, ... }:
 {
-  programs.java.enable = true;
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
+  programs.java = {
+    enable = true;
+    binfmt = true;
+  };
 
   programs.wireshark = {
     enable = true;

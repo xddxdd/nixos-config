@@ -31,6 +31,7 @@ _: {
         # Other configs
         ".aMule"
         ".android"
+        ".aws"
         ".conda"
         ".fly"
         ".ghidra"

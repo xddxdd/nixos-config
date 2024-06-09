@@ -71,6 +71,7 @@ in
     enable = true;
     ports = [ 2222 ];
     sftpServerExecutable = "internal-sftp";
+    authorizedKeysInHomedir = false;
     settings = {
       LogLevel = "ERROR";
       PermitRootLogin = lib.mkForce "prohibit-password";

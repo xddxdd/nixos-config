@@ -3,6 +3,7 @@
   # https://chromeenterprise.google/policies/
   programs.chromium = {
     enable = true;
+    enablePlasmaBrowserIntegration = true;
     extraOpts = {
       # Miscellaneous
       AssistantWebEnabled = false;
