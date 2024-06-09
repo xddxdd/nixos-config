@@ -138,6 +138,8 @@
     };
   };
 
+  users.groups.matrix-synapse.members = [ "nginx" ];
+
   systemd.services.matrix-synapse = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";

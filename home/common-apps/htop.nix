@@ -1,7 +1,13 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  LT,
+  config,
+  ...
+}:
 {
   programs.htop = {
     enable = true;
+    package = pkgs.htop.override { sensorsSupport = !LT.this.hasTag LT.tags.qemu; };
     settings =
       {
         hide_kernel_threads = 0;

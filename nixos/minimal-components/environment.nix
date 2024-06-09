@@ -61,6 +61,8 @@ in
     mode = "0444";
   };
 
+  boot.enableContainers = config.containers != { };
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -88,13 +90,13 @@ in
     NIXPKGS_ALLOW_INSECURE = "1";
     SYSTEMD_PAGER = "";
   };
+  environment.defaultPackages = [ ];
   environment.systemPackages =
     with pkgs;
     [
       bridge-utils
       curlHTTP3
       dig
-      ethtool
       gitMinimal
       gzip
       inetutils
@@ -102,8 +104,6 @@ in
       iptables
       iw
       kopia
-      lm_sensors
-      ls-iommu
       lsof
       mbuffer
       nftables-fullcone
@@ -116,8 +116,9 @@ in
       pigz
       pv
       restic
+      rsync
       screen
-      smartmontools
+      strace
       tcpdump
       unzip
       usbutils
@@ -127,16 +128,30 @@ in
       zip
       zstd
     ]
-    ++ (if (LT.this.hasTag LT.tags.server) then [ python3 ] else [ python3Full ]);
+    ++ (if (LT.this.hasTag LT.tags.server) then [ python3 ] else [ python3Full ])
+    ++ (
+      if (!LT.this.hasTag LT.tags.qemu) then
+        [
+          ethtool
+          lm_sensors
+          ls-iommu
+          smartmontools
+        ]
+      else
+        [ ]
+    );
 
   hardware.ksm.enable = !config.boot.isContainer;
 
   programs = {
     bash.vteIntegration = LT.this.hasTag LT.tags.client;
-    command-not-found.enable = LT.this.hasTag LT.tags.client;
+    command-not-found.enable = false;
     iftop.enable = true;
     iotop.enable = true;
-    less.enable = true;
+    less = {
+      enable = true;
+      lessopen = null;
+    };
     mtr.enable = true;
     traceroute.enable = true;
 
