@@ -16,6 +16,7 @@
 
   services.matrix-synapse = {
     enable = true;
+    enableRegistrationScript = false;
 
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-http-rendezvous-synapse
@@ -38,11 +39,8 @@
       };
       listeners = [
         {
-          port = 0;
-          bind_addresses = [ "/run/matrix-synapse/federation.sock" ];
+          path = "/run/matrix-synapse/federation.sock";
           type = "http";
-          tls = false;
-          x_forwarded = true;
           resources = [
             {
               names = [ "federation" ];
@@ -51,11 +49,8 @@
           ];
         }
         {
-          port = 0;
-          bind_addresses = [ "/run/matrix-synapse/client.sock" ];
+          path = "/run/matrix-synapse/client.sock";
           type = "http";
-          tls = false;
-          x_forwarded = true;
           resources = [
             {
               names = [ "client" ];

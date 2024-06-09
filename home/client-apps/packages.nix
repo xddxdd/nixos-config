@@ -66,7 +66,6 @@ in
         (LT.wrapNetns "wg-lantian" deluge)
         (LT.wrapNetns "wg-lantian" qbittorrent-enhanced-edition)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
-        appimage-run
         aria
         audacious
         baidunetdisk
