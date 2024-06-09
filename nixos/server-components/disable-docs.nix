@@ -10,4 +10,10 @@
     man.mandoc.enable = lib.mkForce false;
     nixos.enable = lib.mkForce false;
   };
+
+  # # Currently cannot remove all man packages
+  # system.forbiddenDependenciesRegexes = [
+  #   "^man"
+  #   "-man$"
+  # ];
 }
