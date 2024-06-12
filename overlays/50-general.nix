@@ -104,6 +104,9 @@ rec {
       zlib
     ]
   );
+  plasma-desktop-lyrics-plasmoid = prev.plasma-desktop-lyrics-plasmoid.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/plasma-desktop-lyrics-ws-reconnect.patch ];
+  });
   prismlauncher = prev.prismlauncher.override {
     jdks =
       (with final; [
