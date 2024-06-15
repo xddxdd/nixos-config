@@ -20,6 +20,7 @@ in
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
+    ../../nixos/optional-apps/bitmagnet.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/peerbanhelper.nix
     ../../nixos/optional-apps/qbittorrent.nix
@@ -73,6 +74,8 @@ in
       SystemCallFilter = lib.mkForce [ ];
     };
   };
+
+  systemd.services.bitmagnet = netns.bind { };
 
   systemd.services.prowlarr = netns.bind { };
 
@@ -139,6 +142,8 @@ in
     "jproxy.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.JProxy}";
     "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    "bitmagnet.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
   };
 
   ########################################
