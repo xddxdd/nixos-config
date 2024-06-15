@@ -5,20 +5,18 @@
   config,
   ...
 }:
-{
-  imports = [ ./postgresql.nix ];
-
-  age.secrets.tmdb-api-key = {
-    file = inputs.secrets + "/tmdb-api-key.age";
-    owner = "bitmagnet";
-    group = "bitmagnet";
-  };
-
-  systemd.services.bitmagnet = {
-    description = "BitMagnet";
+let
+  mkBitmagnetService = worker: {
+    description = "BitMagnet ${worker}";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    wants = [ "network.target" ];
+    after = [
+      "network.target"
+      "postgresql.service"
+    ];
+    wants = [
+      "network.target"
+      "postgresql.service"
+    ];
     environment = {
       POSTGRES_HOST = "/run/postgresql";
       POSTGRES_NAME = "bitmagnet";
@@ -27,7 +25,7 @@
     };
     script = ''
       export TMDB_API_KEY=$(cat ${config.age.secrets.tmdb-api-key.path})
-      exec ${pkgs.bitmagnet}/bin/bitmagnet worker run --all
+      exec ${pkgs.bitmagnet}/bin/bitmagnet worker run --keys=${worker}
     '';
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
@@ -41,6 +39,19 @@
       Group = "bitmagnet";
     };
   };
+in
+{
+  imports = [ ./postgresql.nix ];
+
+  age.secrets.tmdb-api-key = {
+    file = inputs.secrets + "/tmdb-api-key.age";
+    owner = "bitmagnet";
+    group = "bitmagnet";
+  };
+
+  systemd.services.bitmagnet-http = mkBitmagnetService "http_server";
+  systemd.services.bitmagnet-queue = mkBitmagnetService "queue_server";
+  systemd.services.bitmagnet-dht = mkBitmagnetService "dht_crawler";
 
   services.postgresql = {
     ensureDatabases = [ "bitmagnet" ];

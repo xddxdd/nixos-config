@@ -75,7 +75,9 @@ in
     };
   };
 
-  systemd.services.bitmagnet = netns.bind { };
+  systemd.services.bitmagnet-http = netns.bind { };
+  systemd.services.bitmagnet-queue = netns.bind { };
+  systemd.services.bitmagnet-dht = netns.bind { };
 
   systemd.services.prowlarr = netns.bind { };
 
