@@ -89,6 +89,7 @@ rec {
     IPerf = 5201;
     Bazarr = 6767;
     Radarr = 7878;
+    ArchiveTeam = 8001;
     IPFS.Gateway = 8080;
     JProxy = 8117;
     Waline = 8360;
