@@ -1,0 +1,41 @@
+{ LT, config, ... }:
+{
+  virtualisation.oci-containers.containers.archiveteam = {
+    extraOptions = [
+      "--pull"
+      "always"
+    ];
+    environment = {
+      DOWNLOADER = "lantian";
+      SELECTED_PROJECT = "auto";
+    };
+    image = "atdr.meo.ws/archiveteam/warrior-dockerfile";
+    ports = [ "127.0.0.1:${LT.portStr.ArchiveTeam}:8001" ];
+  };
+
+  lantian.nginxVhosts = {
+    "archiveteam.${config.networking.hostName}.xuyh0120.win" = {
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
+        };
+      };
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
+    };
+    "archiveteam.localhost" = {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
+        };
+      };
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
+    };
+  };
+}
