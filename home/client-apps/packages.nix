@@ -83,9 +83,9 @@ in
         discord-canary
         distrobox
         exiftool
-        fractal
         ffmpeg-full
         filezilla
+        fractal
         gcdemu
         gedit
         gimp
@@ -110,6 +110,7 @@ in
         megatools
         moonlight-qt
         newsflash
+        nur.repos.yes.mkxp-z
         nvfetcher
         openvpn
         p7zip
