@@ -71,6 +71,7 @@ in
           "${builtins.toString concurrency}"
           "-cb"
           "-fa"
+          "--metrics"
         ];
     };
 
