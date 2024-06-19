@@ -1,3 +1,51 @@
+diff --git a/lyric_providers/netease.go b/lyric_providers/netease.go
+index a804ab5..e9529d3 100644
+--- a/lyric_providers/netease.go
++++ b/lyric_providers/netease.go
+@@ -3,12 +3,13 @@ package lyric_providers
+ import (
+ 	"PlasmaDesktopLyrics/config"
+ 	"encoding/json"
++	"strconv"
++	"strings"
++
+ 	"github.com/go-musicfox/netease-music/service"
+ 	"github.com/go-musicfox/netease-music/util"
+ 	"github.com/godbus/dbus/v5"
+ 	"github.com/telanflow/cookiejar"
+-	"strconv"
+-	"strings"
+ )
+ 
+ type NetEaseLyricProvider struct{}
+@@ -40,9 +41,25 @@ func (n NetEaseLyricProvider) GetLyricByMeta(musicMeta map[string]dbus.Variant)
+ 	}
+ 	_, body := searchApi.Search()
+ 	var searchResult map[string]interface{}
+-	_ = json.Unmarshal(body, &searchResult)
++	err := json.Unmarshal(body, &searchResult)
++	if err != nil {
++		return "", false
++	}
+ 
+-	song := searchResult["result"].(map[string]interface{})["songs"].([]interface{})[0].(map[string]interface{})
++	result, ok := searchResult["result"].(map[string]interface{})
++	if !ok || result == nil {
++		return "", false
++	}
++
++	songs, ok := result["songs"].([]interface{})
++	if !ok || len(songs) == 0 {
++		return "", false
++	}
++
++	song, ok := songs[0].(map[string]interface{})
++	if !ok || song == nil {
++		return "", false
++	}
+ 
+ 	if strings.ToLower(song["name"].(string)) != strings.ToLower(musicMeta["xesam:title"].Value().(string)) {
+ 		return "", false
 diff --git a/main.go b/main.go
 index 7964684..db400bd 100644
 --- a/main.go
