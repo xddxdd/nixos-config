@@ -104,6 +104,11 @@
     isSystemUser = true;
   };
 
+  services.openssh.extraConfig = ''
+    Match User git
+      AuthorizedKeysFile %h/.ssh/authorized_keys /etc/ssh/authorized_keys.d/%u
+  '';
+
   users.groups.gitea = { };
 
   lantian.nginxVhosts."git.lantian.pub" = {
