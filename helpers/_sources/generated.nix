@@ -69,6 +69,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-xiq4Ap75ma9GzwyRfAlgzoSBZNPWZoCFildo58U60/M=";
     };
     date = "2023-05-27";
@@ -123,15 +124,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "13ee7f902f18e27b981f8e440facd2e6515c6c83";
+    version = "414f428fa29694090ec4c46b10a8aba419c85659";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "13ee7f902f18e27b981f8e440facd2e6515c6c83";
+      rev = "414f428fa29694090ec4c46b10a8aba419c85659";
       fetchSubmodules = false;
-      sha256 = "sha256-Jjs2qLG1nSjbETqsHNg79gW0uS3EY2Elg/US3rTE53c=";
+      sha256 = "sha256-MbyxyqIAS9AiJNZrFc0GGvwLb32wDVSQRomqIWewGdY=";
     };
-    date = "2024-06-06";
+    date = "2024-06-19";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -182,16 +183,17 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=";
     };
     date = "2022-11-27";
   };
   sonarr-x64 = {
     pname = "sonarr-x64";
-    version = "v4.0.5.1740/Sonarr.develop.4.0.5.1740";
+    version = "v4.0.5.1760/Sonarr.develop.4.0.5.1760";
     src = fetchurl {
-      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1740/Sonarr.develop.4.0.5.1740.linux-x64.tar.gz";
-      sha256 = "sha256-TlzyMZdxLUFkcBacwK3ytxW6y90zzywkf3uSFl0XP4w=";
+      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1760/Sonarr.develop.4.0.5.1760.linux-x64.tar.gz";
+      sha256 = "sha256-XHNEUSGx00yvAFEmIH2LfJtS6hNVjKh560I2OMmTDDI=";
     };
   };
   ulauncher-albert-calculate-anything = {

@@ -85,7 +85,6 @@ in
         exiftool
         ffmpeg-full
         filezilla
-        fractal
         gcdemu
         gedit
         gimp
@@ -169,10 +168,6 @@ in
       {
         name = "discord-canary";
         command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
-      }
-      {
-        name = "fractal";
-        command = "${pkgs.fractal}/bin/fractal --hidden";
       }
       {
         name = "telegram";
