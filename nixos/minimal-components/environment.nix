@@ -234,10 +234,6 @@ in
 
   system.disableInstallerTools = !LT.this.hasTag LT.tags.client;
   system.fsPackages = [ pkgs.bindfs ];
-  system.switch = {
-    enable = false;
-    enableNg = true;
-  };
 
   systemd = {
     # Given that our systems are headless, emergency mode is useless.
