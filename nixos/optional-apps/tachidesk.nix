@@ -16,9 +16,14 @@
       BIND_PORT = LT.portStr.Tachidesk;
       WEB_UI_CHANNEL = "preview";
       AUTO_DOWNLOAD_CHAPTERS = "true";
+      AUTO_DOWNLOAD_EXCLUDE_UNREAD = "false";
+      AUTO_DOWNLOAD_NEW_CHAPTERS_LIMIT = "0";
+      AUTO_DOWNLOAD_IGNORE_REUPLOADS = "false";
+      MAX_SOURCES_IN_PARALLEL = "20";
       UPDATE_EXCLUDE_UNREAD = "false";
       UPDATE_EXCLUDE_STARTED = "false";
       UPDATE_EXCLUDE_COMPLETED = "false";
+      UPDATE_INTERVAL = "6";
       UPDATE_MANGA_INFO = "true";
       EXTENSION_REPOS = builtins.toJSON [
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
