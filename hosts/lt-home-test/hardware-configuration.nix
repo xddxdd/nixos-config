@@ -1,6 +1,9 @@
 { ... }:
 {
-  imports = [ ../../nixos/hardware/disable-watchdog.nix ];
+  imports = [
+    ../../nixos/hardware/disable-watchdog.nix
+    ../../nixos/hardware/qemu-hotplug.nix
+  ];
 
   boot.loader.grub = {
     efiSupport = true;
