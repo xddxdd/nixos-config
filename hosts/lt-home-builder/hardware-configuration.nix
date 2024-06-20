@@ -3,7 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { ... }:
 {
-  imports = [ ../../nixos/hardware/disable-watchdog.nix ];
+  imports = [
+    ../../nixos/hardware/disable-watchdog.nix
+    ../../nixos/hardware/qemu-hotplug.nix
+  ];
 
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
