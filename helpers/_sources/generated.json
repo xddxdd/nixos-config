@@ -15,6 +15,7 @@
             "repo": "brlaser",
             "rev": "fed695c5e7de5432900624bda42578a4a88e081c",
             "sha256": "sha256-HACJ884t3mUEQMfn8pn8nnSXGYPmd0J1STRtOigViJA=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "fed695c5e7de5432900624bda42578a4a88e081c"
@@ -50,6 +51,7 @@
             "repo": "dashboard-icons",
             "rev": "dd34fba44b97d3d5753dda032487890cb6fa5879",
             "sha256": "sha256-gi8L548tvGByLsyUZQeSfIxM6I959ehxhYA3mST+Qa0=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "dd34fba44b97d3d5753dda032487890cb6fa5879"
@@ -70,6 +72,7 @@
             "repo": "himawaripy",
             "rev": "v2.2.0",
             "sha256": "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v2.2.0"
@@ -118,6 +121,7 @@
             "name": null,
             "rev": "f499fb03624b6b396e6eef1263dd1650a95e63d2",
             "sha256": "sha256-xiq4Ap75ma9GzwyRfAlgzoSBZNPWZoCFildo58U60/M=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
         },
@@ -139,6 +143,7 @@
             "repo": "material-decoration",
             "rev": "0e989e5b815b64ee5bca989f983da68fa5556644",
             "sha256": "sha256-Ncn5jxkuN4ZBWihfycdQwpJ0j4sRpBGMCl6RNiH4mXg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "0e989e5b815b64ee5bca989f983da68fa5556644"
@@ -159,6 +164,7 @@
             "repo": "MihoyoBBSTools",
             "rev": "567e90fe54bfe5e3709ff5b9ff987553010f4ad8",
             "sha256": "sha256-ZgPUiJh/R0+HaULGwxHOdP6JUa45sE0BGm1Fqrhyy2E=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "567e90fe54bfe5e3709ff5b9ff987553010f4ad8"
@@ -179,6 +185,7 @@
             "repo": "mpvSockets",
             "rev": "3b3f430074a67c63572a582847ed1fa69330c668",
             "sha256": "sha256-KFv3imLuiV+APx4A8TSi2LXL5gdHNKc497fRwBubvMk=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "3b3f430074a67c63572a582847ed1fa69330c668"
@@ -199,13 +206,14 @@
             "repo": "nvidia-patch",
             "rev": "dc9d290e9df7c80aaa3d2883f54833bb87643747",
             "sha256": "sha256-OLRQOAkBd0n6dV5iFEH30fdopk2l0dCE1hF9nj4XhDQ=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "dc9d290e9df7c80aaa3d2883f54833bb87643747"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-06-06",
+        "date": "2024-06-19",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -217,11 +225,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "13ee7f902f18e27b981f8e440facd2e6515c6c83",
-            "sha256": "sha256-Jjs2qLG1nSjbETqsHNg79gW0uS3EY2Elg/US3rTE53c=",
+            "rev": "414f428fa29694090ec4c46b10a8aba419c85659",
+            "sha256": "sha256-MbyxyqIAS9AiJNZrFc0GGvwLb32wDVSQRomqIWewGdY=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "13ee7f902f18e27b981f8e440facd2e6515c6c83"
+        "version": "414f428fa29694090ec4c46b10a8aba419c85659"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
@@ -239,6 +248,7 @@
             "repo": "mt76",
             "rev": "513c131c6309712a51502870b041f45b4bd6a6d4",
             "sha256": "sha256-9hDO6COStU8lDU0KsC6+X1HdTNsQ2Ez4VRluFl/mIxI=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "513c131c6309712a51502870b041f45b4bd6a6d4"
@@ -259,6 +269,7 @@
             "repo": "panelTransparencyToggleForPlasma6",
             "rev": "739c70ffde6bb7670d57d3507804408ae13edf25",
             "sha256": "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
@@ -307,6 +318,7 @@
             "name": null,
             "rev": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d",
             "sha256": "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/LDA_suku/soggy_resources.git"
         },
@@ -321,11 +333,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TlzyMZdxLUFkcBacwK3ytxW6y90zzywkf3uSFl0XP4w=",
+            "sha256": "sha256-XHNEUSGx00yvAFEmIH2LfJtS6hNVjKh560I2OMmTDDI=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1740/Sonarr.develop.4.0.5.1740.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1760/Sonarr.develop.4.0.5.1760.linux-x64.tar.gz"
         },
-        "version": "v4.0.5.1740/Sonarr.develop.4.0.5.1740"
+        "version": "v4.0.5.1760/Sonarr.develop.4.0.5.1760"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
@@ -343,6 +355,7 @@
             "repo": "ulauncher-albert-calculate-anything",
             "rev": "037965a44e6f6f496e7ad71ec1651b9edfcde32d",
             "sha256": "sha256-RUxkStLxM8wg4a5yicoQCTjLxSEsb3HQwDSwrQicc2U=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "037965a44e6f6f496e7ad71ec1651b9edfcde32d"
@@ -363,6 +376,7 @@
             "repo": "ulauncher-colorconverter",
             "rev": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a",
             "sha256": "sha256-UfRU7BpQUj26THzE8kYLIRUfe7voGvAcGDBTsl+yCwU=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a"
@@ -383,6 +397,7 @@
             "repo": "ulauncher-emoji",
             "rev": "827cfe5e1d2f89f742f811f981759787b0654fa9",
             "sha256": "sha256-iXu0V7Vyij0fg+3psRx7r1nI9MGH6RmxdDW8/V/5slU=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "827cfe5e1d2f89f742f811f981759787b0654fa9"
@@ -403,6 +418,7 @@
             "repo": "ulauncher-meme-my-text",
             "rev": "5d62830a7a92983a731e15645831f53d48dad913",
             "sha256": "sha256-vIWIl2qOWYVrCLhGoDXH4xTfhc+GhE9cVFuV1qjYaH0=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "5d62830a7a92983a731e15645831f53d48dad913"
@@ -423,6 +439,7 @@
             "repo": "ulauncher-tldr",
             "rev": "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c",
             "sha256": "sha256-B/17gbGFUar2+PVfVQWZc7Eq8zADK4CeGW3XHQMqiAg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c"
@@ -443,6 +460,7 @@
             "repo": "ulauncher-virtualbox",
             "rev": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
             "sha256": "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "d8f495df3c7f41ee8493b207d17f06fc0372c84e"
@@ -463,6 +481,7 @@
             "repo": "ulauncher-vscode-recent",
             "rev": "60a5106821478f965e4e24dbe1833f6af0d437f1",
             "sha256": "sha256-sJJzHXp8S/Powqz0FgSCqfWL81q/mXqBi1KucRFB2LE=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
@@ -483,6 +502,7 @@
             "repo": "web-compressor",
             "rev": "7c8e79dea7af1afad562b43268129ebbc72b0bb3",
             "sha256": "sha256-KGZqQsV7oo3ggHP4ZBdK3/f3R6Eq7g5xr1o5GzVGXOM=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "7c8e79dea7af1afad562b43268129ebbc72b0bb3"
@@ -503,6 +523,7 @@
             "repo": "YOURLS",
             "rev": "1.9.2",
             "sha256": "sha256-eV8TMWa4woIjRJhuptS7MDVdgItOo5towjKYNlruIKo=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "1.9.2"
@@ -523,6 +544,7 @@
             "repo": "404-if-not-found",
             "rev": "a611040c6f33cd6d00b07ddb824b9842ed2de2de",
             "sha256": "sha256-3pgk7TkwuuTYz7eU9lxptkpqu0COOrWKZyt7Lp8VqLQ=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "a611040c6f33cd6d00b07ddb824b9842ed2de2de"
@@ -543,6 +565,7 @@
             "repo": "Always-302",
             "rev": "c704f3d285fae60e0c49445c499a5bf4b235d411",
             "sha256": "sha256-llZagwjVWSXCupIzDQ90Rid6icKQ3PL5xoqIC0NzImg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "c704f3d285fae60e0c49445c499a5bf4b235d411"
@@ -563,6 +586,7 @@
             "repo": "dont-log-crawlers",
             "rev": "425d47d97fe913166dae4bf7054a8be6227f475b",
             "sha256": "sha256-VtlE1KPSFYjVR0ZMfb86cYKc27FZwJq8VU+Sb4cR62w=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "425d47d97fe913166dae4bf7054a8be6227f475b"
@@ -583,6 +607,7 @@
             "repo": "yourls-dont-track-admins",
             "rev": "be87e385a52fb452d6b8c70e9fc28ca060a63f62",
             "sha256": "sha256-GWCUpxPfD/bqwGS1Rhu12HVDK7hgQVCv2mlcI5OOvUg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "be87e385a52fb452d6b8c70e9fc28ca060a63f62"
@@ -603,6 +628,7 @@
             "repo": "yourls-login-timeout",
             "rev": "1a8eee5a5104c15660952abc49b79486d81917c6",
             "sha256": "sha256-YGz09e2Fd9R1LcXVIGSjvlF7Hzn6KLB2ZiTL/jPlkSA=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "1a8eee5a5104c15660952abc49b79486d81917c6"
@@ -623,6 +649,7 @@
             "repo": "Sleeky",
             "rev": "f7978d9d426e4373a02785c5c008920f4bec7a96",
             "sha256": "sha256-Y8w9awNm1s3FpNRrwhCvyvDj4hg51GAKzcWKOoOnipA=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "f7978d9d426e4373a02785c5c008920f4bec7a96"
@@ -643,6 +670,7 @@
             "repo": "zsh-autopair",
             "rev": "376b586c9739b0a044192747b337f31339d548fd",
             "sha256": "sha256-mtDrt4Q5kbddydq/pT554ph0hAd5DGk9jci9auHx0z0=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "376b586c9739b0a044192747b337f31339d548fd"
