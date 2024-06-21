@@ -1,4 +1,32 @@
 { pkgs, lib, ... }:
+let
+  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    bitwarden
+    bypass-paywalls-clean
+    clearurls
+    darkreader
+    dearrow
+    enhancer-for-youtube
+    fastforwardteam
+    flagfox
+    i-dont-care-about-cookies
+    localcdn
+    multi-account-containers
+    noscript
+    pakkujs
+    pay-by-privacy
+    plasma-integration
+    return-youtube-dislikes
+    rsshub-radar
+    sponsorblock
+    steam-database
+    tampermonkey
+    ublacklist
+    ublock-origin
+    wappalyzer
+    wayback-machine
+  ];
+in
 {
   environment.systemPackages = [ (lib.hiPrio pkgs.lantianCustomized.firefox-icon-mikozilla-fireyae) ];
 
@@ -90,6 +118,17 @@
         MoreFromMozilla = false;
       };
       UseSystemPrintDialog = true;
+
+      ExtensionSettings = builtins.listToAttrs (
+        builtins.map (
+          e:
+          lib.nameValuePair e.addonId {
+            installation_mode = "force_installed";
+            install_url = "file://${e.src}";
+            updates_disabled = true;
+          }
+        ) extensions
+      );
     };
     preferences = {
       "browser.aboutConfig.showWarning" = false;
