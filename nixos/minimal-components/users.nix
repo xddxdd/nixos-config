@@ -10,13 +10,11 @@ in
   users.mutableUsers = false;
   users.users = {
     root = {
-      initialHashedPassword = lib.mkForce unixHashedPassword;
       hashedPassword = lib.mkForce unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
       linger = true;
     };
     lantian = {
-      initialHashedPassword = lib.mkForce unixHashedPassword;
       hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
       description = "Lan Tian";
