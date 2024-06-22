@@ -470,6 +470,29 @@
         "type": "github"
       }
     },
+    "nix-gaming": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719019246,
+        "narHash": "sha256-bXxWaLJM0RVfJG6Dh99O2BLKwogHuSZdkM5p+ZhBXjI=",
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "rev": "7625eb6e2493e9f32826f0c3509da0a27bf97e7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -775,6 +798,7 @@
         "impermanence": "impermanence",
         "nil": "nil",
         "nix-alien": "nix-alien",
+        "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database_2",
         "nix-math": "nix-math",
         "nixd": "nixd",
