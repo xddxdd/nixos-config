@@ -176,6 +176,8 @@ in
         "p256_bikel1"
       ];
     };
+
+    steam.platformOptimizations.enable = true;
   };
 
   security.protectKernelImage = true;

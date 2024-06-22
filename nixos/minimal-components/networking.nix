@@ -26,7 +26,8 @@ in
     "net.ipv4.tcp_max_tw_buckets" = 2000000;
     "net.ipv4.tcp_max_syn_backlog" = 8192;
     "net.ipv4.tcp_tw_reuse" = 1;
-    "net.ipv4.tcp_fin_timeout" = 10;
+    # Set by nix-gaming module
+    # "net.ipv4.tcp_fin_timeout" = 10;
     "net.ipv4.tcp_slow_start_after_idle" = 0;
     "net.ipv4.tcp_keepalive_time" = 60;
     "net.ipv4.tcp_keepalive_intvl" = 10;

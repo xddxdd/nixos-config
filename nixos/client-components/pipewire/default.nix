@@ -13,7 +13,6 @@ in
   imports = [
     ./pipewire-airplay.nix
     ./pipewire-noise-cancelling.nix
-    ./pipewire-resample-quality.nix
     ./pipewire-rtprio.nix
     ./pipewire-surround.nix
     ./wireplumber-bluez.nix
@@ -45,6 +44,7 @@ in
       patches = (old.patches or [ ]) ++ [ ../../../patches/pipewire-fix-roc-sink.patch ];
     });
     systemWide = true;
+    lowLatency.enable = true;
 
     alsa.enable = true;
     alsa.support32Bit = true;
