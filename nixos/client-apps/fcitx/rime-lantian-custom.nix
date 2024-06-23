@@ -147,6 +147,10 @@ linkFarm "rime-lantian-custom" (
             reset = 1;
           }
           {
+            name = "emoji";
+            reset = 1;
+          }
+          {
             name = "traditionalization";
             reset = 0;
           }
