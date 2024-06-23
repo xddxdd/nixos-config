@@ -19,8 +19,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
     agenix = {
-      # url = "github:ryantm/agenix";
-      url = "github:oluceps/agenix/with-sysuser";
+      url = "github:ryantm/agenix";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
