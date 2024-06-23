@@ -18,7 +18,7 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
