@@ -9,12 +9,12 @@
       "--net"
       "host"
     ];
-    image = "ghcr.io/suwayomi/tachidesk:preview";
+    image = "ghcr.io/suwayomi/tachidesk:latest";
     environment = {
       TZ = config.time.timeZone;
       BIND_IP = "127.0.0.1";
       BIND_PORT = LT.portStr.Tachidesk;
-      WEB_UI_CHANNEL = "preview";
+      WEB_UI_CHANNEL = "bundled";
       AUTO_DOWNLOAD_CHAPTERS = "true";
       AUTO_DOWNLOAD_EXCLUDE_UNREAD = "false";
       AUTO_DOWNLOAD_NEW_CHAPTERS_LIMIT = "0";
