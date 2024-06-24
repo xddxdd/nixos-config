@@ -44,6 +44,7 @@
       "/" = {
         enableBasicAuth = true;
         proxyPass = "http://127.0.0.1:${LT.portStr.Tachidesk}";
+        proxyWebsockets = true;
       };
     };
 
