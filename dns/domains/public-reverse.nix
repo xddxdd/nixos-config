@@ -29,6 +29,15 @@
     })
 
     (config.common.reverse {
+      prefix = "2001:470:488d::/48";
+      target = "hostdare.lantian.pub.";
+    })
+    (config.common.reverse {
+      prefix = "2001:470:67:ee::/64";
+      target = "hostdare.lantian.pub.";
+    })
+
+    (config.common.reverse {
       prefix = "2001:470:e997::/48";
       target = "lt-home-vm.lantian.pub.";
     })
