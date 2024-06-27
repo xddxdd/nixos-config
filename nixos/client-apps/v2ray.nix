@@ -40,29 +40,24 @@ let
         tag = "blackhole";
       }
       {
-        protocol = "vless";
-        settings.vnext = [
+        protocol = "trojan";
+        settings.servers = [
           {
             address = LT.hosts."v-ps-sjc".public.IPv4;
             port = 443;
-            users = [
-              {
-                id = {
-                  _secret = config.age.secrets.v2ray-key.path;
-                };
-                encryption = "none";
-              }
-            ];
+            password = {
+              _secret = config.age.secrets.v2ray-key.path;
+            };
           }
         ];
         streamSettings = {
-          network = "ws";
+          network = "httpupgrade";
           security = "tls";
           tlsSettings = {
             serverName = "lantian.pub";
             fingerprint = "firefox";
           };
-          wsSettings = {
+          httpupgradeSettings = {
             path = "/ray?ed=2560";
           };
         };

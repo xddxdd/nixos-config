@@ -12,16 +12,15 @@ let
       {
         listen = "/run/v2ray/v2ray.sock";
         port = 0;
-        protocol = "vless";
+        protocol = "trojan";
         settings = {
           clients = [
             {
-              id = {
+              password = {
                 _secret = config.age.secrets.v2ray-key.path;
               };
             }
           ];
-          decryption = "none";
         };
         sniffing = {
           destOverride = [
@@ -32,9 +31,9 @@ let
           enabled = true;
         };
         streamSettings = {
-          network = "ws";
+          network = "httpupgrade";
           security = "none";
-          wsSettings = {
+          httpupgradeSettings = {
             path = "/ray";
           };
         };
