@@ -28,6 +28,7 @@
     ../../nixos/optional-apps/netns-wg-lantian.nix
     ../../nixos/optional-apps/nvidia/cuda-only.nix
     ../../nixos/optional-apps/nvidia/grid-extension.nix
+    ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
     ../../nixos/optional-apps/sftp-server.nix
@@ -91,6 +92,7 @@
     allowFrom = [ "all" ];
   };
 
+  lantian.palworld-backup.storage = "/mnt/storage/palworld-backup";
   lantian.syncthing.storage = "/mnt/storage/media";
 
   services."route-chain" = {
