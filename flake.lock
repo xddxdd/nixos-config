@@ -718,14 +718,16 @@
         "pre-commit-hooks-nix": [
           "pre-commit-hooks-nix"
         ],
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
       },
       "locked": {
-        "lastModified": 1719179275,
-        "narHash": "sha256-hikdIGJ9IarsPHuitXcevsivZCErMPYuGxct0b21lEw=",
+        "lastModified": 1719464271,
+        "narHash": "sha256-dryYNeB337sCA5wPEWaLWJKnJtdhWmO1uLOvbx9RWzw=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "2227904c7a085ee9a9b6a82dee177c244d784a99",
+        "rev": "1fd806764618312c64eeccbfb49de4c3e6775a65",
         "type": "github"
       },
       "original": {
@@ -810,7 +812,7 @@
         "secrets": "secrets",
         "srvos": "srvos",
         "terranix": "terranix",
-        "treefmt-nix": "treefmt-nix_2"
+        "treefmt-nix": "treefmt-nix"
       }
     },
     "rust-overlay": {
@@ -954,27 +956,6 @@
       }
     },
     "treefmt-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "nur-xddxdd",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1718522839,
-        "narHash": "sha256-ULzoKzEaBOiLRtjeY3YoGFJMwWSKRYOic6VNw2UyTls=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "68eb1dc333ce82d0ab0c0357363ea17c31ea1f81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
