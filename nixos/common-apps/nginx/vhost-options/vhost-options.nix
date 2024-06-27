@@ -67,13 +67,11 @@ let
           '';
 
           "/ray" = {
+            proxyPass = "http://unix:/run/v2ray/v2ray.sock";
+            proxyWebsockets = true;
             proxyNoTimeout = true;
             extraConfig = ''
-              if ($content_type !~ "application/grpc") {
-                return 404;
-              }
               access_log off;
-              grpc_pass grpc://unix:/run/v2ray/v2ray.sock;
             '';
           };
 

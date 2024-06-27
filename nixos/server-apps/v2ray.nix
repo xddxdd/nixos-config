@@ -32,11 +32,10 @@ let
           enabled = true;
         };
         streamSettings = {
-          network = "grpc";
+          network = "ws";
           security = "none";
-          grpcSettings = {
-            serviceName = "ray";
-            multiMode = false;
+          wsSettings = {
+            path = "/ray";
           };
         };
       }

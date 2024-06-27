@@ -56,17 +56,14 @@ let
           }
         ];
         streamSettings = {
-          network = "grpc";
+          network = "ws";
           security = "tls";
           tlsSettings = {
             serverName = "lantian.pub";
             fingerprint = "firefox";
           };
-          grpcSettings = {
-            serviceName = "ray";
-            multiMode = false;
-            idle_timeout = 25;
-            health_check_timeout = 10;
+          wsSettings = {
+            path = "/ray?ed=2560";
           };
         };
         tag = "proxy";
