@@ -42,17 +42,17 @@ in
         mkdir -p .steam/sdk64/
         cp linux64/steamclient.so .steam/sdk64/steamclient.so
 
-        # # Create WorldOption.sav to workaround settings bug
-        # if [ -f "/var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini" ]; then
-        #   for DIR in /var/lib/palworld/Pal/Saved/SaveGames/0/*; do
-        #     if [ ! -f "$DIR"/Level.sav ]; then continue; fi
+        # Create WorldOption.sav to workaround settings bug
+        if [ -f "/var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini" ]; then
+          for DIR in /var/lib/palworld/Pal/Saved/SaveGames/0/*; do
+            if [ ! -f "$DIR"/Level.sav ]; then continue; fi
 
-        #     rm -f "$DIR"/WorldOption.sav
-        #     ${pkgs.coreutils}/bin/yes | ${pkgs.palworld-worldoptions}/bin/palworld-worldoptions \
-        #       /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini \
-        #       --output "$DIR"/
-        #   done
-        # fi
+            rm -f "$DIR"/WorldOption.sav
+            ${pkgs.coreutils}/bin/yes | ${pkgs.palworld-worldoptions}/bin/palworld-worldoptions \
+              /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini \
+              --output "$DIR"/
+          done
+        fi
       '';
 
       script = ''
