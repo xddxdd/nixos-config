@@ -27,7 +27,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 22575;
-        remoteAddress = "par3.fr.androw.eu";
+        remoteAddress = "par2-fr.androw.eu";
         remotePort = 22547;
         wireguardPubkey = "P7L62FCA7wdH2mr6T3mif90Ms4cImhZjFiuHgqE6yig=";
       };
