@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   imports = [ ./mysql.nix ];
 
@@ -131,6 +136,10 @@
             end
           }
         '';
+      };
+      "= /robots.txt".alias = pkgs.fetchurl {
+        url = "https://gitea.com/robots.txt";
+        sha256 = "1kby4pdvx9dvmvv81y6pi90rza9kvdqml7lkmk8ppl6l8l5ib4a5";
       };
       "= /user/login".return = "307 /user/oauth2/Keycloak";
     };
