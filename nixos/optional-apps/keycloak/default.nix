@@ -36,7 +36,7 @@
       http-port = LT.port.Keycloak.HTTP;
       http-relative-path = "/";
       https-port = LT.port.Keycloak.HTTPS;
-      hostname-strict-backchannel = true;
+      hostname-backchannel-dynamic = false;
       proxy = "edge";
     };
   };

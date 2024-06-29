@@ -42,13 +42,6 @@ rec {
         sed -i "s#/bin/mount#${final.util-linux}/bin/mount#g" $out/bin/mount.ubifs
       '';
   });
-  nix-top = prev.nix-top.overrideAttrs (old: {
-    postPatch =
-      (old.postInstall or "")
-      + ''
-        substituteInPlace nix-top --replace "/tmp" "/var/cache/nix"
-      '';
-  });
   openvpn-with-dco = prev.openvpn.overrideAttrs (old: {
     inherit (sources.openvpn) version src;
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);

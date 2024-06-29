@@ -29,11 +29,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-C17RpZkmeZKR9Pudo9CgNRaYlU+xbagx7o5BhFvFE4M=",
+            "sha256": "sha256-4oUjOzbcfDb96vurJx2yPKmrgtc9g5izWlc2/ABymi4=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.8/CyberChef_v10.18.8.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.9/CyberChef_v10.18.9.zip"
         },
-        "version": "v10.18.8"
+        "version": "v10.18.9"
     },
     "dashboard-icons": {
         "cargoLocks": null,
@@ -150,7 +150,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-06-09",
+        "date": "2024-06-27",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -162,12 +162,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "567e90fe54bfe5e3709ff5b9ff987553010f4ad8",
-            "sha256": "sha256-ZgPUiJh/R0+HaULGwxHOdP6JUa45sE0BGm1Fqrhyy2E=",
+            "rev": "7059706a3991d86b1c9d9df1f3dabc2488966065",
+            "sha256": "sha256-IsoSzp79jbSPpXbisiVQzV7Nmze2jCRqt72WYpTeAus=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "567e90fe54bfe5e3709ff5b9ff987553010f4ad8"
+        "version": "7059706a3991d86b1c9d9df1f3dabc2488966065"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -192,7 +192,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-06-14",
+        "date": "2024-06-28",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -204,16 +204,16 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "dc9d290e9df7c80aaa3d2883f54833bb87643747",
-            "sha256": "sha256-OLRQOAkBd0n6dV5iFEH30fdopk2l0dCE1hF9nj4XhDQ=",
+            "rev": "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0",
+            "sha256": "sha256-n1WUJi6cdU1QyXxJRKtTBThHoEfROSXvLGAmGTHDJy0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "dc9d290e9df7c80aaa3d2883f54833bb87643747"
+        "version": "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-06-19",
+        "date": "2024-06-26",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -225,12 +225,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "414f428fa29694090ec4c46b10a8aba419c85659",
-            "sha256": "sha256-MbyxyqIAS9AiJNZrFc0GGvwLb32wDVSQRomqIWewGdY=",
+            "rev": "0ea51261d096b54281287bbd2a6899041c4dbd43",
+            "sha256": "sha256-VJnW83IRBIdyhCtF0BNZ9+GLB3Oj3iYCxe1G3DzXnQk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "414f428fa29694090ec4c46b10a8aba419c85659"
+        "version": "0ea51261d096b54281287bbd2a6899041c4dbd43"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
@@ -283,11 +283,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-c89EiThP2LgkaeDxx01rQTtFZGcXvpMgo6yp+VViJO0=",
+            "sha256": "sha256-7ZDdXAVdMAArOy7iYaqmS6s70TQaZIknRoLRyTKpULg=",
             "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.18.0.4543/Prowlarr.master.1.18.0.4543.linux-core-x64.tar.gz"
+            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.19.0.4568/Prowlarr.master.1.19.0.4568.linux-core-x64.tar.gz"
         },
-        "version": "v1.18.0.4543/Prowlarr.master.1.18.0.4543"
+        "version": "v1.19.0.4568/Prowlarr.master.1.19.0.4568"
     },
     "radarr-x64": {
         "cargoLocks": null,
@@ -298,11 +298,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rKe1xQR3lkPXQBUWmKdHUu/AQ99U1kCINeXV2z/ZG5o=",
+            "sha256": "sha256-MlnT16a2l209uqu9DuXLwqf4yiWBn9MggqVubzg0pM4=",
             "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.6.0.8846/Radarr.master.5.6.0.8846.linux-core-x64.tar.gz"
+            "url": "https://github.com/Radarr/Radarr/releases/download/v5.7.0.8882/Radarr.master.5.7.0.8882.linux-core-x64.tar.gz"
         },
-        "version": "v5.6.0.8846/Radarr.master.5.6.0.8846"
+        "version": "v5.7.0.8882/Radarr.master.5.7.0.8882"
     },
     "soggy-resources": {
         "cargoLocks": null,
@@ -333,11 +333,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XHNEUSGx00yvAFEmIH2LfJtS6hNVjKh560I2OMmTDDI=",
+            "sha256": "sha256-J0fGR/jpV6SQ2xYmUBRBl0PSUOGKqVYAixJ02RfbTyU=",
             "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1760/Sonarr.develop.4.0.5.1760.linux-x64.tar.gz"
+            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1791/Sonarr.develop.4.0.5.1791.linux-x64.tar.gz"
         },
-        "version": "v4.0.5.1760/Sonarr.develop.4.0.5.1760"
+        "version": "v4.0.5.1791/Sonarr.develop.4.0.5.1791"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

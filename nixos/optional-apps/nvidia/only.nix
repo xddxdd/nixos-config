@@ -9,8 +9,8 @@
   hardware.nvidia.nvidiaSettings = false;
 
   # Enable CUDA
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
 
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";

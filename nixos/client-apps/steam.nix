@@ -8,7 +8,7 @@ in
   programs.steam.enable = true;
   environment.systemPackages = [ mangohudForCurrentKernel ];
   # https://www.reddit.com/r/NixOS/comments/11d76bb/comment/jaqzwyt
-  hardware.opengl = {
+  hardware.graphics = {
     extraPackages = [ mangohudForCurrentKernel ];
     extraPackages32 = [ mangohudForCurrentKernel ];
   };
