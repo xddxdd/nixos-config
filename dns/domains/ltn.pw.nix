@@ -21,6 +21,12 @@
         }
         {
           recordType = "CNAME";
+          name = "pl.${domain}.";
+          target = "xddxdd.duckdns.org.";
+          ttl = "10m";
+        }
+        {
+          recordType = "CNAME";
           name = "www";
           target = "terrahost.ltn.pw.";
           ttl = "10m";
