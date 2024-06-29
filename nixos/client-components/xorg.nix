@@ -42,9 +42,9 @@
     exportConfiguration = true;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       intel-compute-runtime
       intel-media-driver # LIBVA_DRIVER_NAME=iHD

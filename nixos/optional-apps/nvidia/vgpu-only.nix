@@ -16,8 +16,8 @@ in
   environment.systemPackages = [ nvidia_x11.bin ];
 
   # Enable CUDA
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = [ nvidia_x11.out ];
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = [ nvidia_x11.out ];
 
   # systemd.packages = [nvidia_x11.out];
 

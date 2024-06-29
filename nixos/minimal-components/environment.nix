@@ -107,7 +107,6 @@ in
       lsof
       mbuffer
       nftables-fullcone
-      nix-top
       nix-tree
       nixos-cleanup
       nmap

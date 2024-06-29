@@ -15,10 +15,10 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.18.8";
+    version = "v10.18.9";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.18.8/CyberChef_v10.18.8.zip";
-      sha256 = "sha256-C17RpZkmeZKR9Pudo9CgNRaYlU+xbagx7o5BhFvFE4M=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.18.9/CyberChef_v10.18.9.zip";
+      sha256 = "sha256-4oUjOzbcfDb96vurJx2yPKmrgtc9g5izWlc2/ABymi4=";
     };
   };
   dashboard-icons = {
@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "567e90fe54bfe5e3709ff5b9ff987553010f4ad8";
+    version = "7059706a3991d86b1c9d9df1f3dabc2488966065";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "567e90fe54bfe5e3709ff5b9ff987553010f4ad8";
+      rev = "7059706a3991d86b1c9d9df1f3dabc2488966065";
       fetchSubmodules = false;
-      sha256 = "sha256-ZgPUiJh/R0+HaULGwxHOdP6JUa45sE0BGm1Fqrhyy2E=";
+      sha256 = "sha256-IsoSzp79jbSPpXbisiVQzV7Nmze2jCRqt72WYpTeAus=";
     };
-    date = "2024-06-09";
+    date = "2024-06-27";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,27 +112,27 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "dc9d290e9df7c80aaa3d2883f54833bb87643747";
+    version = "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "dc9d290e9df7c80aaa3d2883f54833bb87643747";
+      rev = "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0";
       fetchSubmodules = false;
-      sha256 = "sha256-OLRQOAkBd0n6dV5iFEH30fdopk2l0dCE1hF9nj4XhDQ=";
+      sha256 = "sha256-n1WUJi6cdU1QyXxJRKtTBThHoEfROSXvLGAmGTHDJy0=";
     };
-    date = "2024-06-14";
+    date = "2024-06-28";
   };
   openvpn = {
     pname = "openvpn";
-    version = "414f428fa29694090ec4c46b10a8aba419c85659";
+    version = "0ea51261d096b54281287bbd2a6899041c4dbd43";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "414f428fa29694090ec4c46b10a8aba419c85659";
+      rev = "0ea51261d096b54281287bbd2a6899041c4dbd43";
       fetchSubmodules = false;
-      sha256 = "sha256-MbyxyqIAS9AiJNZrFc0GGvwLb32wDVSQRomqIWewGdY=";
+      sha256 = "sha256-VJnW83IRBIdyhCtF0BNZ9+GLB3Oj3iYCxe1G3DzXnQk=";
     };
-    date = "2024-06-19";
+    date = "2024-06-26";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -160,18 +160,18 @@
   };
   prowlarr-x64 = {
     pname = "prowlarr-x64";
-    version = "v1.18.0.4543/Prowlarr.master.1.18.0.4543";
+    version = "v1.19.0.4568/Prowlarr.master.1.19.0.4568";
     src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.18.0.4543/Prowlarr.master.1.18.0.4543.linux-core-x64.tar.gz";
-      sha256 = "sha256-c89EiThP2LgkaeDxx01rQTtFZGcXvpMgo6yp+VViJO0=";
+      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.19.0.4568/Prowlarr.master.1.19.0.4568.linux-core-x64.tar.gz";
+      sha256 = "sha256-7ZDdXAVdMAArOy7iYaqmS6s70TQaZIknRoLRyTKpULg=";
     };
   };
   radarr-x64 = {
     pname = "radarr-x64";
-    version = "v5.6.0.8846/Radarr.master.5.6.0.8846";
+    version = "v5.7.0.8882/Radarr.master.5.7.0.8882";
     src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.6.0.8846/Radarr.master.5.6.0.8846.linux-core-x64.tar.gz";
-      sha256 = "sha256-rKe1xQR3lkPXQBUWmKdHUu/AQ99U1kCINeXV2z/ZG5o=";
+      url = "https://github.com/Radarr/Radarr/releases/download/v5.7.0.8882/Radarr.master.5.7.0.8882.linux-core-x64.tar.gz";
+      sha256 = "sha256-MlnT16a2l209uqu9DuXLwqf4yiWBn9MggqVubzg0pM4=";
     };
   };
   soggy-resources = {
@@ -190,10 +190,10 @@
   };
   sonarr-x64 = {
     pname = "sonarr-x64";
-    version = "v4.0.5.1760/Sonarr.develop.4.0.5.1760";
+    version = "v4.0.5.1791/Sonarr.develop.4.0.5.1791";
     src = fetchurl {
-      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1760/Sonarr.develop.4.0.5.1760.linux-x64.tar.gz";
-      sha256 = "sha256-XHNEUSGx00yvAFEmIH2LfJtS6hNVjKh560I2OMmTDDI=";
+      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.5.1791/Sonarr.develop.4.0.5.1791.linux-x64.tar.gz";
+      sha256 = "sha256-J0fGR/jpV6SQ2xYmUBRBl0PSUOGKqVYAixJ02RfbTyU=";
     };
   };
   ulauncher-albert-calculate-anything = {
