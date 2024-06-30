@@ -5,7 +5,6 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/syncthing.nix
   ];

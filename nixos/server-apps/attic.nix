@@ -6,9 +6,7 @@
   inputs,
   ...
 }:
-{
-  imports = [ ./postgresql.nix ];
-
+lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
   age.secrets.attic-credentials = {
     file = inputs.secrets + "/attic-credentials.age";
     owner = "atticd";
@@ -19,6 +17,7 @@
     enable = true;
     package = pkgs.lantianCustomized.attic-telnyx-compatible;
     credentialsFile = config.age.secrets.attic-credentials.path;
+    mode = if config.networking.hostName == "terrahost" then "monolithic" else "api-server";
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
       # Database configured with env var
