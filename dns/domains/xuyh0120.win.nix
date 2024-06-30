@@ -50,7 +50,7 @@ let
     {
       recordType = "CNAME";
       name = "attic";
-      target = "virmach-ny6g";
+      target = config.common.records.GeoStorDNSTarget;
       ttl = "1h";
     }
     {
