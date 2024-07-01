@@ -127,7 +127,7 @@ in
         steam-run
         tdesktop
         tigervnc
-        transmission-qt
+        transmission_4-qt
         transmission-remote-gtk
         ulauncher
         unar
