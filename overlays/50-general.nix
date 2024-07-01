@@ -97,9 +97,6 @@ rec {
       zlib
     ]
   );
-  plasma-desktop-lyrics = prev.plasma-desktop-lyrics.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/plasma-desktop-lyrics-handle-empty-lyrics.patch ];
-  });
   prismlauncher = prev.prismlauncher.override {
     jdks =
       (with final; [

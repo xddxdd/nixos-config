@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ inputs.nur-xddxdd.nixosModules.plasma-desktop-lyrics ];
+  imports = [ inputs.nur-xddxdd.nixosModules.lyrica ];
 
   environment.systemPackages = with pkgs; [
     (material-kwin-decoration.overrideAttrs (_old: {
