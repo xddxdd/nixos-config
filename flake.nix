@@ -134,9 +134,9 @@
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
         ./flake-modules/nixpkgs-options.nix
-        ./flake-modules/pre-commit-hooks.nix
-        ./flake-modules/treefmt.nix
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive
+        inputs.nur-xddxdd.flakeModules.lantian-pre-commit-hooks
+        inputs.nur-xddxdd.flakeModules.lantian-treefmt
       ];
 
       debug = true;
