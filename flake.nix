@@ -85,18 +85,12 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nvfetcher.follows = "nvfetcher";
-      inputs.pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
-      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nvfetcher = {
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
-    };
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
@@ -112,10 +106,6 @@
       url = "github:terranix/terranix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

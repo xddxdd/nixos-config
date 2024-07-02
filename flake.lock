@@ -314,6 +314,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
+          "nur-xddxdd",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -715,19 +716,15 @@
         "nvfetcher": [
           "nvfetcher"
         ],
-        "pre-commit-hooks-nix": [
-          "pre-commit-hooks-nix"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
+        "pre-commit-hooks-nix": "pre-commit-hooks-nix",
+        "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1719903505,
-        "narHash": "sha256-6b0NCK++LiTYi7gKu/G9TP51WntYkDKklsQpE9EUO8c=",
+        "lastModified": 1719904259,
+        "narHash": "sha256-bxRlPvnV+Xwq8K51PvQYEn0sNsrm+ZxiG/dGJ8Tq40U=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "376dc91e5dd30be37b5c744b1ef1424f7537538b",
+        "rev": "41ff81230e9a90a619da95168eefcc36a8751c70",
         "type": "github"
       },
       "original": {
@@ -767,6 +764,7 @@
         "flake-compat": "flake-compat_3",
         "gitignore": "gitignore",
         "nixpkgs": [
+          "nur-xddxdd",
           "nixpkgs"
         ],
         "nixpkgs-stable": "nixpkgs-stable"
@@ -808,11 +806,9 @@
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher",
-        "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "secrets": "secrets",
         "srvos": "srvos",
-        "terranix": "terranix",
-        "treefmt-nix": "treefmt-nix"
+        "terranix": "terranix"
       }
     },
     "rust-overlay": {
@@ -958,15 +954,16 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "nur-xddxdd",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1719887753,
-        "narHash": "sha256-p0B2r98UtZzRDM5miGRafL4h7TwGRC4DII+XXHDHqek=",
+        "lastModified": 1719243788,
+        "narHash": "sha256-9T9mSY35EZSM1KAwb7K9zwQ78qTlLjosZgtUGnw4rn4=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "bdb6355009562d8f9313d9460c0d3860f525bc6c",
+        "rev": "065a23edceff48f948816b795ea8cc6c0dee7cdf",
         "type": "github"
       },
       "original": {
