@@ -133,10 +133,11 @@
         ./flake-modules/commands.nix
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
-        ./flake-modules/nixpkgs-options.nix
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive
+        inputs.nur-xddxdd.flakeModules.commands
         inputs.nur-xddxdd.flakeModules.lantian-pre-commit-hooks
         inputs.nur-xddxdd.flakeModules.lantian-treefmt
+        inputs.nur-xddxdd.flakeModules.nixpkgs-options
       ];
 
       debug = true;
@@ -169,6 +170,28 @@
         ipv6List = builtins.concatStringsSep "\n" (
           lib.filter (v: v != "") (lib.mapAttrsToList (_k: v: v.public.IPv6) LT.hosts)
         );
+      };
+
+      nixpkgs-options = {
+        patches = LT.ls ./patches/nixpkgs;
+        permittedInsecurePackages = [
+          "electron-11.5.0"
+          "electron-19.1.9"
+          "nix-2.15.3"
+          "openssl-1.1.1w"
+          "python-2.7.18.8"
+        ];
+        overlays = [
+          inputs.agenix.overlays.default
+          inputs.colmena.overlay
+          inputs.nil.overlays.nil
+          inputs.nix-alien.overlays.default
+          inputs.nixd.overlays.default
+          inputs.nur.overlay
+          inputs.nur-xddxdd.overlay
+          inputs.nvfetcher.overlays.default
+          inputs.secrets.overlays.default
+        ] ++ (import ./overlays { inherit inputs; });
       };
 
       perSystem =
