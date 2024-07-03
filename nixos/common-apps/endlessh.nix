@@ -50,12 +50,12 @@ in
     };
     extraOptions = [
       "-geoip_supplier=max-mind-db"
-      "-max_mind_db=/var/lib/GeoIP/GeoLite2-City.mmdb"
+      "-max_mind_db=/nix/persistent/sync-servers/geoip/GeoLite2-City.mmdb"
     ];
   };
 
   systemd.services.endlessh-go = {
     after = [ "network.target" ];
-    serviceConfig.BindReadOnlyPaths = [ "/var/lib/GeoIP" ];
+    serviceConfig.BindReadOnlyPaths = [ "/nix/persistent/sync-servers/geoip" ];
   };
 }
