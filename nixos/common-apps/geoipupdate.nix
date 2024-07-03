@@ -1,5 +1,10 @@
-{ config, inputs, ... }:
 {
+  config,
+  inputs,
+  lib,
+  ...
+}:
+lib.mkIf config.services.rsyncd.enable {
   age.secrets.geoipupdate-license.file = inputs.secrets + "/geoipupdate-license.age";
 
   services.geoipupdate = {
@@ -12,6 +17,7 @@
         "GeoLite2-City"
         "GeoLite2-Country"
       ];
+      DatabaseDirectory = "/nix/persistent/sync-servers/geoip";
     };
   };
 }

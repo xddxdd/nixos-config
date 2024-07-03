@@ -1,0 +1,21 @@
+diff --git a/nixos/modules/services/misc/geoipupdate.nix b/nixos/modules/services/misc/geoipupdate.nix
+index f46bf7b394fe..63894717813b 100644
+--- a/nixos/modules/services/misc/geoipupdate.nix
++++ b/nixos/modules/services/misc/geoipupdate.nix
+@@ -171,16 +171,12 @@ in
+               set -o errexit -o pipefail -o nounset -o errtrace
+               shopt -s inherit_errexit
+ 
+-              chown geoip "${cfg.settings.DatabaseDirectory}"
+-
+               cp ${geoipupdateConf} /run/geoipupdate/GeoIP.conf
+               ${secretReplacements}
+             '';
+           in
+             "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
+         ExecStart = "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
+-        User = "geoip";
+-        DynamicUser = true;
+         ReadWritePaths = cfg.settings.DatabaseDirectory;
+         RuntimeDirectory = "geoipupdate";
+         RuntimeDirectoryMode = "0700";
