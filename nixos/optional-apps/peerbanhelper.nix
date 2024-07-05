@@ -1,7 +1,11 @@
-{ pkgs, LT, ... }:
+{
+  pkgs,
+  config,
+  LT,
+  ...
+}:
 {
   systemd.services.peerbanhelper = {
-    enable = false;
     description = "Peer Ban Helper";
     wantedBy = [ "multi-user.target" ];
     after = [
@@ -21,6 +25,32 @@
 
       StateDirectory = "peerbanhelper";
       WorkingDirectory = "/var/lib/peerbanhelper";
+    };
+  };
+
+  lantian.nginxVhosts = {
+    "peerbanhelper.${config.networking.hostName}.xuyh0120.win" = {
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.PeerBanHelper}";
+        };
+      };
+
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      noIndex.enable = true;
+    };
+    "peerbanhelper.localhost" = {
+      listenHTTP.enable = true;
+      listenHTTPS.enable = false;
+
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.PeerBanHelper}";
+        };
+      };
+
+      noIndex.enable = true;
+      accessibleBy = "localhost";
     };
   };
 
