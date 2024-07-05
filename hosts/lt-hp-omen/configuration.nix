@@ -11,12 +11,12 @@
 
     ./backup.nix
     ./hardware-configuration.nix
-    # ./hp-keyboard-backlight
-    # ./nandsim.nix
+    ./hp-keyboard-backlight
+    ./nandsim.nix
     # ./nbfc.nix
     ./pipewire-combined-sink.nix
 
-    # ../../nixos/optional-apps/clamav.nix
+    ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix

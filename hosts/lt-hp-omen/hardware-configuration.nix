@@ -5,8 +5,7 @@
 {
   imports = [
     ../../nixos/hardware/hdr.nix
-    # ../../nixos/hardware/nvidia/only.nix
-    ../../nixos/hardware/nvidia/prime.nix
+    ../../nixos/hardware/nvidia/only.nix
   ];
 
   boot.loader.grub = {
@@ -55,6 +54,16 @@
     ];
   };
 
+  fileSystems."/mnt/c" = {
+    device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
+    fsType = "ntfs";
+    options = [
+      "rw"
+      "uid=${builtins.toString config.users.users.lantian.uid}"
+      "gid=${builtins.toString config.users.groups.lantian.gid}"
+    ];
+  };
+
   fileSystems."/mnt/root" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
@@ -87,6 +96,17 @@
     ];
     neededForBoot = true;
   };
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partuuid/6a423fb7-a6b9-934c-b587-246c03066e9f";
+      discardPolicy = "both";
+      randomEncryption = {
+        enable = true;
+        allowDiscards = true;
+      };
+    }
+  ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
