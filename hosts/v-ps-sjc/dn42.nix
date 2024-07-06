@@ -381,6 +381,21 @@
         peerIPv6LinkLocal = "fe80::3947:4";
       };
     };
+    stevensun = {
+      remoteASN = 4242420602;
+      latencyMs = 7;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20602;
+        remoteAddress = "67.218.149.166";
+        remotePort = 22547;
+        wireguardPubkey = "vwiDVqB6WhKOqhqkXOso9lNqnhdL9accKg8BY+9ptHA=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.173.33";
+        peerIPv6LinkLocal = "fe80::1212";
+      };
+    };
     stevie-lax = {
       remoteASN = 4242420337;
       latencyMs = 8;
