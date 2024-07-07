@@ -96,6 +96,7 @@ in
         jellyfin-media-player
         jellyfin-media-player-wrapped
         kdenlive
+        kikoplay
         lantianCustomized.attic-telnyx-compatible
         lbzip2
         libfaketime
