@@ -8,7 +8,15 @@
 }:
 let
   calibre-override-desktop = lib.hiPrio (
-    pkgs.runCommand "calibre-override-desktop" { } ''
+    pkgs.runCommand "calibre-override-desktop" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+      mkdir -p $out/bin
+      for F in ${pkgs.calibre}/bin/*; do
+        [ -f "$F" ] || continue
+        makeWrapper "$F" $out/bin/$(basename "$F") \
+          --set QT_QPA_PLATFORM xcb \
+          --set XDG_SESSION_TYPE x11
+      done
+
       mkdir -p $out/share/applications
       for F in ${pkgs.calibre}/share/applications/*; do
         sed "/MimeType=/d" < "$F" > $out/share/applications/$(basename "$F")
