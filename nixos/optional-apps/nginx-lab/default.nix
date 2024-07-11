@@ -67,8 +67,18 @@ in
     inherit (config.services.nginx) user group;
   };
 
-  systemd.services.fcgiwrap.serviceConfig = LT.serviceHarden // {
-    ReadWritePaths = [ "/var/www/lab.lantian.pub" ];
+  systemd.services.fcgiwrap = {
+    path = with pkgs; [
+      bash
+      config.programs.ssh.package
+      curl
+      gitMinimal
+      jq
+    ];
+
+    serviceConfig = LT.serviceHarden // {
+      ReadWritePaths = [ "/var/www/lab.lantian.pub" ];
+    };
   };
 
   systemd.tmpfiles.rules = [
