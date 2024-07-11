@@ -10,7 +10,7 @@
   age.secrets.nix-access-token = {
     file = inputs.secrets + "/nix/access-token.age";
     group = "wheel";
-    mode = "0440";
+    mode = "0444";
   };
   age.secrets.nix-privkey = {
     name = "nix-privkey.pem";

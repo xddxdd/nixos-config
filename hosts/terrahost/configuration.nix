@@ -13,6 +13,8 @@
     ../../nixos/optional-apps/prometheus
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yourls.nix
+
+    ../../nixos/optional-cron-jobs/nixpkgs.nix
   ];
 
   systemd.network.networks.eth0 = {
