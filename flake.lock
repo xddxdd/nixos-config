@@ -311,21 +311,6 @@
         "type": "github"
       }
     },
-    "flakey-profile": {
-      "locked": {
-        "lastModified": 1712898590,
-        "narHash": "sha256-FhGIEU93VHAChKEXx905TSiPZKga69bWl1VB37FK//I=",
-        "owner": "lf-",
-        "repo": "flakey-profile",
-        "rev": "243c903fd8eadc0f63d205665a92d4df91d42d9d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lf-",
-        "repo": "flakey-profile",
-        "type": "github"
-      }
-    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -397,45 +382,6 @@
         "owner": "libgit2",
         "repo": "libgit2",
         "type": "github"
-      }
-    },
-    "lix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1720626042,
-        "narHash": "sha256-f8k+BezKdJfmE+k7zgBJiohtS3VkkriycdXYsKOm3sc=",
-        "rev": "2a4376be20d70feaa2b0e640c5041fb66ddc67ed",
-        "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/2a4376be20d70feaa2b0e640c5041fb66ddc67ed.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/lix/archive/2.90.0.tar.gz"
-      }
-    },
-    "lix-module": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "flakey-profile": "flakey-profile",
-        "lix": [
-          "lix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1720641669,
-        "narHash": "sha256-yEO2cGNgzm9x/XxiDQI+WckSWnZX63R8aJLBRSXtYNE=",
-        "rev": "5c48c833c15bb80d127a398a8c2484d42fdd8257",
-        "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/5c48c833c15bb80d127a398a8c2484d42fdd8257.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz"
       }
     },
     "nil": {
@@ -850,8 +796,6 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "lix": "lix",
-        "lix-module": "lix-module",
         "nil": "nil",
         "nix-alien": "nix-alien",
         "nix-gaming": "nix-gaming",
