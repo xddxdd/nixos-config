@@ -31,6 +31,7 @@
                     if args.efiBootloaderId == null then "NixOS${efiSysMountPoint'}" else args.efiBootloaderId;
                 in
                 ''
+                  mkdir -p ${args.path}/EFI/Boot
                   cp -f ${args.path}/EFI/grub/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi \
                     || cp -f ${args.path}/EFI/${bootloaderId}/grubx64.efi ${args.path}/EFI/Boot/bootx64.efi \
                     || true
