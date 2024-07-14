@@ -1,11 +1,12 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   inputs,
   ...
 }:
-{
+lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   age.secrets.filebeat-elasticsearch-pw.file = inputs.secrets + "/filebeat-elasticsearch-pw.age";
 
   services.filebeat = {
