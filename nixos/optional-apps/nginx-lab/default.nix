@@ -62,12 +62,17 @@ in
     };
   };
 
-  services.fcgiwrap = {
-    enable = true;
-    inherit (config.services.nginx) user group;
+  services.fcgiwrap.nginx = {
+    socket = {
+      inherit (config.services.nginx) user group;
+      mode = "0660";
+    };
+    process = {
+      inherit (config.services.nginx) user group;
+    };
   };
 
-  systemd.services.fcgiwrap = {
+  systemd.services.fcgiwrap-nginx = {
     path = with pkgs; [
       bash
       config.programs.ssh.package

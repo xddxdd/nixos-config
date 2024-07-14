@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "1e268ea29cb998c53be5501bd415e99c84ed8fe7";
+    version = "d714e6e9cea268ab7525763b4040b2d4afcb1d5e";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "1e268ea29cb998c53be5501bd415e99c84ed8fe7";
+      rev = "d714e6e9cea268ab7525763b4040b2d4afcb1d5e";
       fetchSubmodules = false;
-      sha256 = "sha256-6CjnV0PBENGkwKEGGw8xTaoNzZH9d/mvmbm9Xc9ITXE=";
+      sha256 = "sha256-NTqUT/xgdoWabGiPUGkVTiclvEMzd5glmvam5k8ftOg=";
     };
-    date = "2024-07-05";
+    date = "2024-07-10";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,39 +112,39 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0";
+    version = "87fe7b874b3db1489d7313c667130ef22c445bd7";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0";
+      rev = "87fe7b874b3db1489d7313c667130ef22c445bd7";
       fetchSubmodules = false;
-      sha256 = "sha256-n1WUJi6cdU1QyXxJRKtTBThHoEfROSXvLGAmGTHDJy0=";
+      sha256 = "sha256-cPrl/kXXgnIMDm5Phesj+eDXGIsjlhoA1dPOivqSnoM=";
     };
-    date = "2024-06-28";
+    date = "2024-07-05";
   };
   openvpn = {
     pname = "openvpn";
-    version = "0ea51261d096b54281287bbd2a6899041c4dbd43";
+    version = "f8f477139804b06183b515a529c982f524547d18";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "0ea51261d096b54281287bbd2a6899041c4dbd43";
+      rev = "f8f477139804b06183b515a529c982f524547d18";
       fetchSubmodules = false;
-      sha256 = "sha256-VJnW83IRBIdyhCtF0BNZ9+GLB3Oj3iYCxe1G3DzXnQk=";
+      sha256 = "sha256-js9p3ST7NUdVwazj5LPCN6VeT61VOpVoN6JWBdO7czU=";
     };
-    date = "2024-06-26";
+    date = "2024-07-04";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "513c131c6309712a51502870b041f45b4bd6a6d4";
+    version = "3b47d9df427c4833605a172f2a8f0e0012b04c80";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "513c131c6309712a51502870b041f45b4bd6a6d4";
+      rev = "3b47d9df427c4833605a172f2a8f0e0012b04c80";
       fetchSubmodules = false;
-      sha256 = "sha256-9hDO6COStU8lDU0KsC6+X1HdTNsQ2Ez4VRluFl/mIxI=";
+      sha256 = "sha256-wxKWSkHaaPGo6cEtuf/9UKoGEmYj4o0OIF03KTZUo88=";
     };
-    date = "2024-05-17";
+    date = "2024-07-13";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";
@@ -157,22 +157,6 @@
       sha256 = "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=";
     };
     date = "2024-04-17";
-  };
-  prowlarr-x64 = {
-    pname = "prowlarr-x64";
-    version = "v1.20.0.4590/Prowlarr.develop.1.20.0.4590";
-    src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.20.0.4590/Prowlarr.develop.1.20.0.4590.linux-core-x64.tar.gz";
-      sha256 = "sha256-fWuzKk5F6eXHiMdwh8lCwC6dsfm16imLre1Vf/V+R0E=";
-    };
-  };
-  radarr-x64 = {
-    pname = "radarr-x64";
-    version = "v5.8.0.8897/Radarr.develop.5.8.0.8897";
-    src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.8.0.8897/Radarr.develop.5.8.0.8897.linux-core-x64.tar.gz";
-      sha256 = "sha256-itawCxNeUCGUeEdhRSAkyG/PYkFEcIgIpj1Ru+BDtCM=";
-    };
   };
   soggy-resources = {
     pname = "soggy-resources";
@@ -187,14 +171,6 @@
       sha256 = "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=";
     };
     date = "2022-11-27";
-  };
-  sonarr-x64 = {
-    pname = "sonarr-x64";
-    version = "v4.0.6.1805/Sonarr.main.4.0.6.1805";
-    src = fetchurl {
-      url = "https://github.com/Sonarr/Sonarr/releases/download/v4.0.6.1805/Sonarr.main.4.0.6.1805.linux-x64.tar.gz";
-      sha256 = "sha256-sgxvGZy9a8HjzlByuRkFipO6kG7x5LzdNeu0Pksq/Rg=";
-    };
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
@@ -377,14 +353,14 @@
   };
   zsh-autopair = {
     pname = "zsh-autopair";
-    version = "376b586c9739b0a044192747b337f31339d548fd";
+    version = "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d";
     src = fetchFromGitHub {
       owner = "hlissner";
       repo = "zsh-autopair";
-      rev = "376b586c9739b0a044192747b337f31339d548fd";
+      rev = "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d";
       fetchSubmodules = false;
-      sha256 = "sha256-mtDrt4Q5kbddydq/pT554ph0hAd5DGk9jci9auHx0z0=";
+      sha256 = "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=";
     };
-    date = "2024-06-04";
+    date = "2024-07-14";
   };
 }
