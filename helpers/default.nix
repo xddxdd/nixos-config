@@ -61,7 +61,6 @@ mkScope (call: rec {
   enumerateList = call ./fn/enumerate-list.nix;
   gui = call ./fn/gui.nix;
   ls = call ./fn/ls.nix;
-  inherit ((call ./fn/net.nix).lib) net;
   nginx = call ./fn/nginx.nix;
   sanitizeName = call ./fn/sanitize-name.nix;
   serviceHarden = call ./fn/service-harden.nix;
