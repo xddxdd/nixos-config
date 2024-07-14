@@ -193,7 +193,6 @@ in
   services.journald.extraConfig = ''
     ForwardToConsole=no
     ForwardToKMsg=no
-    ForwardToSyslog=no
     ForwardToWall=no
     Storage=persistent
     SystemMaxFileSize=10M
