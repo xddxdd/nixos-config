@@ -24,7 +24,7 @@ update: FORCE
 	@nix run .#nvfetcher
 
 update-nur: FORCE
-	@nix flake lock --update-input nur-xddxdd
+	@nix flake update nur-xddxdd
 
 push-cache: FORCE
 	@attic push lantian $(shell readlink -f .gcroots/*)

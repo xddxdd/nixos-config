@@ -55,24 +55,9 @@ fetch.github = "openwrt/mt76"
 src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
 fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
 
-[prowlarr-x64]
-src.webpage = "https://api.github.com/repos/Prowlarr/Prowlarr/releases?per_page=1"
-src.regex = "\"https://github.com/Prowlarr/Prowlarr/releases/download/([^\"]*).linux-core-x64.tar.gz\""
-fetch.url = "https://github.com/Prowlarr/Prowlarr/releases/download/$ver.linux-core-x64.tar.gz"
-
-[radarr-x64]
-src.webpage = "https://api.github.com/repos/Radarr/Radarr/releases?per_page=1"
-src.regex = "\"https://github.com/Radarr/Radarr/releases/download/([^\"]*).linux-core-x64.tar.gz\""
-fetch.url = "https://github.com/Radarr/Radarr/releases/download/$ver.linux-core-x64.tar.gz"
-
 [soggy-resources]
 src.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
 fetch.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
-
-[sonarr-x64]
-src.webpage = "https://api.github.com/repos/Sonarr/Sonarr/releases?per_page=1"
-src.regex = "\"https://github.com/Sonarr/Sonarr/releases/download/([^\"]*).linux-x64.tar.gz\""
-fetch.url = "https://github.com/Sonarr/Sonarr/releases/download/$ver.linux-x64.tar.gz"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"

@@ -150,7 +150,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-07-05",
+        "date": "2024-07-10",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -162,12 +162,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "1e268ea29cb998c53be5501bd415e99c84ed8fe7",
-            "sha256": "sha256-6CjnV0PBENGkwKEGGw8xTaoNzZH9d/mvmbm9Xc9ITXE=",
+            "rev": "d714e6e9cea268ab7525763b4040b2d4afcb1d5e",
+            "sha256": "sha256-NTqUT/xgdoWabGiPUGkVTiclvEMzd5glmvam5k8ftOg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1e268ea29cb998c53be5501bd415e99c84ed8fe7"
+        "version": "d714e6e9cea268ab7525763b4040b2d4afcb1d5e"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -192,7 +192,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-06-28",
+        "date": "2024-07-05",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -204,16 +204,16 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0",
-            "sha256": "sha256-n1WUJi6cdU1QyXxJRKtTBThHoEfROSXvLGAmGTHDJy0=",
+            "rev": "87fe7b874b3db1489d7313c667130ef22c445bd7",
+            "sha256": "sha256-cPrl/kXXgnIMDm5Phesj+eDXGIsjlhoA1dPOivqSnoM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "83b06a1cdf4e09c6c1e7f0332d339fe7569aa4c0"
+        "version": "87fe7b874b3db1489d7313c667130ef22c445bd7"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-06-26",
+        "date": "2024-07-04",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -225,16 +225,16 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "0ea51261d096b54281287bbd2a6899041c4dbd43",
-            "sha256": "sha256-VJnW83IRBIdyhCtF0BNZ9+GLB3Oj3iYCxe1G3DzXnQk=",
+            "rev": "f8f477139804b06183b515a529c982f524547d18",
+            "sha256": "sha256-js9p3ST7NUdVwazj5LPCN6VeT61VOpVoN6JWBdO7czU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0ea51261d096b54281287bbd2a6899041c4dbd43"
+        "version": "f8f477139804b06183b515a529c982f524547d18"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-05-17",
+        "date": "2024-07-13",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -246,12 +246,12 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "513c131c6309712a51502870b041f45b4bd6a6d4",
-            "sha256": "sha256-9hDO6COStU8lDU0KsC6+X1HdTNsQ2Ez4VRluFl/mIxI=",
+            "rev": "3b47d9df427c4833605a172f2a8f0e0012b04c80",
+            "sha256": "sha256-wxKWSkHaaPGo6cEtuf/9UKoGEmYj4o0OIF03KTZUo88=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "513c131c6309712a51502870b041f45b4bd6a6d4"
+        "version": "3b47d9df427c4833605a172f2a8f0e0012b04c80"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
@@ -274,36 +274,6 @@
         },
         "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
     },
-    "prowlarr-x64": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "prowlarr-x64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-fWuzKk5F6eXHiMdwh8lCwC6dsfm16imLre1Vf/V+R0E=",
-            "type": "url",
-            "url": "https://github.com/Prowlarr/Prowlarr/releases/download/v1.20.0.4590/Prowlarr.develop.1.20.0.4590.linux-core-x64.tar.gz"
-        },
-        "version": "v1.20.0.4590/Prowlarr.develop.1.20.0.4590"
-    },
-    "radarr-x64": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "radarr-x64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-itawCxNeUCGUeEdhRSAkyG/PYkFEcIgIpj1Ru+BDtCM=",
-            "type": "url",
-            "url": "https://github.com/Radarr/Radarr/releases/download/v5.8.0.8897/Radarr.develop.5.8.0.8897.linux-core-x64.tar.gz"
-        },
-        "version": "v5.8.0.8897/Radarr.develop.5.8.0.8897"
-    },
     "soggy-resources": {
         "cargoLocks": null,
         "date": "2022-11-27",
@@ -323,21 +293,6 @@
             "url": "https://codeberg.org/LDA_suku/soggy_resources.git"
         },
         "version": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d"
-    },
-    "sonarr-x64": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "sonarr-x64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-sgxvGZy9a8HjzlByuRkFipO6kG7x5LzdNeu0Pksq/Rg=",
-            "type": "url",
-            "url": "https://github.com/Sonarr/Sonarr/releases/download/v4.0.6.1805/Sonarr.main.4.0.6.1805.linux-x64.tar.gz"
-        },
-        "version": "v4.0.6.1805/Sonarr.main.4.0.6.1805"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
@@ -656,7 +611,7 @@
     },
     "zsh-autopair": {
         "cargoLocks": null,
-        "date": "2024-06-04",
+        "date": "2024-07-14",
         "extract": null,
         "name": "zsh-autopair",
         "passthru": null,
@@ -668,11 +623,11 @@
             "name": null,
             "owner": "hlissner",
             "repo": "zsh-autopair",
-            "rev": "376b586c9739b0a044192747b337f31339d548fd",
-            "sha256": "sha256-mtDrt4Q5kbddydq/pT554ph0hAd5DGk9jci9auHx0z0=",
+            "rev": "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d",
+            "sha256": "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "376b586c9739b0a044192747b337f31339d548fd"
+        "version": "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d"
     }
 }

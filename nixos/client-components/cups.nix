@@ -16,8 +16,9 @@
       foomatic-filters
       gutenprint
       gutenprintBin
-      hplip
-      hplipWithPlugin
+      # # FIXME: sip-4.19.25 not supported for interpreter python3.12
+      # hplip
+      # hplipWithPlugin
       samsung-unified-linux-driver
       splix
     ];

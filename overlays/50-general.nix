@@ -110,10 +110,6 @@ rec {
         jdk-bin-8
       ]);
   };
-  prowlarr = prev.prowlarr.overrideAttrs (_old: {
-    version = builtins.head (final.lib.splitString "/" sources.prowlarr-x64.version);
-    inherit (sources.prowlarr-x64) src;
-  });
   qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
@@ -121,14 +117,6 @@ rec {
   qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
-  radarr = prev.radarr.overrideAttrs (_old: {
-    version = builtins.head (final.lib.splitString "/" sources.radarr-x64.version);
-    inherit (sources.radarr-x64) src;
-  });
-  sonarr = prev.sonarr.overrideAttrs (_old: {
-    version = builtins.head (final.lib.splitString "/" sources.sonarr-x64.version);
-    inherit (sources.sonarr-x64) src;
   });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
