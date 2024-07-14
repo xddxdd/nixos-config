@@ -51,7 +51,7 @@ jobs:
           git config --global user.email "xddxdd@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-          git add .
-          git commit -m "auto: update packages"
+          git add . || true
+          git commit -m "auto: update packages" || true
           git remote add private "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config-private-copy.git"
           git push -u private master --force
