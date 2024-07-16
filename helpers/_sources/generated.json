@@ -56,6 +56,36 @@
         },
         "version": "dd34fba44b97d3d5753dda032487890cb6fa5879"
     },
+    "grafana-falconlogscale-datasource": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "grafana-falconlogscale-datasource",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-mC6HlixTm6Zdm1uwmX1ecdZ+Drb1sYe0IvL2UW9qGxg=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.0/linux/grafana-falconlogscale-datasource-1.7.0.linux_amd64.zip"
+        },
+        "version": "1.7.0"
+    },
+    "grafana-yesoreyeram-infinity-datasource": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "grafana-yesoreyeram-infinity-datasource",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-kO/wlAJsHkJmJTLsqoM6txQI4GYnRQfAFG1lc/c5GEA=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.1/linux/yesoreyeram-infinity-datasource-2.9.1.linux_amd64.zip"
+        },
+        "version": "2.9.1"
+    },
     "himawaripy": {
         "cargoLocks": null,
         "date": null,

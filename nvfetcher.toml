@@ -11,6 +11,16 @@ fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_
 src.git = "https://github.com/walkxcode/dashboard-icons.git"
 fetch.github = "walkxcode/dashboard-icons"
 
+[grafana-falconlogscale-datasource]
+src.webpage = "https://grafana.com/api/plugins/grafana-falconlogscale-datasource?version=latest"
+src.regex = "\"version\":\\s*\"([^\"]+)\""
+fetch.url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/$ver/linux/grafana-falconlogscale-datasource-$ver.linux_amd64.zip"
+
+[grafana-yesoreyeram-infinity-datasource]
+src.webpage = "https://grafana.com/api/plugins/yesoreyeram-infinity-datasource?version=latest"
+src.regex = "\"version\":\\s*\"([^\"]+)\""
+fetch.url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/$ver/linux/yesoreyeram-infinity-datasource-$ver.linux_amd64.zip"
+
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"

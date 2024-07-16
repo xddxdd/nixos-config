@@ -2,8 +2,12 @@
   pkgs,
   config,
   inputs,
+  LT,
   ...
 }:
+let
+  sourcesJson = builtins.fromJSON (builtins.readFile ../../helpers/_sources/generated.json);
+in
 {
   imports = [ ./mysql.nix ];
 
@@ -23,9 +27,18 @@
       grafana-worldmap-panel
 
       (grafanaPlugin {
+        pname = "grafana-falconlogscale-datasource";
+        inherit (LT.sources.grafana-falconlogscale-datasource) version;
+        zipHash = {
+          x86_64-linux = sourcesJson.grafana-falconlogscale-datasource.src.sha256;
+        };
+      })
+      (grafanaPlugin {
         pname = "yesoreyeram-infinity-datasource";
-        version = "0.8.8";
-        zipHash = "sha256-SiG3fimQjJ+qLq59So6zaGanpf8gg8sjsFSMfABf62o=";
+        inherit (LT.sources.grafana-yesoreyeram-infinity-datasource) version;
+        zipHash = {
+          x86_64-linux = sourcesJson.grafana-yesoreyeram-infinity-datasource.src.sha256;
+        };
       })
     ];
 

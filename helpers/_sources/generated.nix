@@ -33,6 +33,22 @@
     };
     date = "2024-06-02";
   };
+  grafana-falconlogscale-datasource = {
+    pname = "grafana-falconlogscale-datasource";
+    version = "1.7.0";
+    src = fetchurl {
+      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.0/linux/grafana-falconlogscale-datasource-1.7.0.linux_amd64.zip";
+      sha256 = "sha256-mC6HlixTm6Zdm1uwmX1ecdZ+Drb1sYe0IvL2UW9qGxg=";
+    };
+  };
+  grafana-yesoreyeram-infinity-datasource = {
+    pname = "grafana-yesoreyeram-infinity-datasource";
+    version = "2.9.1";
+    src = fetchurl {
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.1/linux/yesoreyeram-infinity-datasource-2.9.1.linux_amd64.zip";
+      sha256 = "sha256-kO/wlAJsHkJmJTLsqoM6txQI4GYnRQfAFG1lc/c5GEA=";
+    };
+  };
   himawaripy = {
     pname = "himawaripy";
     version = "v2.2.0";
