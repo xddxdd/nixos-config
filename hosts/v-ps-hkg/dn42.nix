@@ -209,6 +209,21 @@
         peerIPv6LinkLocal = "fe80::1604";
       };
     };
+    liubei = {
+      remoteASN = 4242421686;
+      latencyMs = 3;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21686;
+        remoteAddress = "hk-1.dn42.guet.eu.org";
+        remotePort = 22547;
+        wireguardPubkey = "ocG/0wXtmuXA9OF5pMVolBIsFfE1K3JILX3MC3J5pGI=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1686";
+      };
+    };
     marek = {
       remoteASN = 4242422923;
       latencyMs = 1;
@@ -390,6 +405,21 @@
       addressing = {
         peerIPv4 = "172.23.25.134";
         peerIPv6LinkLocal = "fe80::4337";
+      };
+    };
+    stormyang = {
+      remoteASN = 4242421786;
+      latencyMs = 3;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21786;
+        remoteAddress = "hk.stormyang.com";
+        remotePort = 22547;
+        wireguardPubkey = "r95P2+zx2WEHIpw8JGpzVnEvR4WPQCyZV1KQWYpMPi8=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.83.129";
+        peerIPv6LinkLocal = "fe80::8888";
       };
     };
     sunnet = {
