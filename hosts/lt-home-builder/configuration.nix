@@ -21,5 +21,6 @@
       "fc00:192:168:1::1"
     ];
     matchConfig.Name = "lan0";
+    linkConfig.MTUBytes = "9000";
   };
 }
