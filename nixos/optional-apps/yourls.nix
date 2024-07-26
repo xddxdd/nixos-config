@@ -11,7 +11,6 @@ let
   yourlsAddons = {
     "user/plugins/404-if-not-found" = LT.sources.yourls-404-if-not-found.src;
     "user/plugins/Always-302" = LT.sources.yourls-always-302.src;
-    "user/plugins/dont-log-crawlers" = LT.sources.yourls-dont-log-crawlers.src;
     "user/plugins/sleeky-backend" = LT.sources.yourls-sleeky.src + "/sleeky-backend";
     "user/plugins/yourls-dont-track-admins" = LT.sources.yourls-dont-track-admins.src;
     "user/plugins/yourls-login-timeout" = LT.sources.yourls-login-timeout.src;

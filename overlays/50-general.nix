@@ -1,8 +1,12 @@
-_: final: prev:
+{ inputs, ... }:
+final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
+  pkgs_latest = inputs.nixpkgs-latest.legacyPackages."${final.system}";
 in
 rec {
+  inherit (pkgs_latest) flaresolverr;
+
   acme-sh = prev.acme-sh.overrideAttrs (old: {
     postBuild =
       (old.postBuild or "")
