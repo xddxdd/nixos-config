@@ -43,10 +43,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.9.2";
+    version = "2.9.4";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.2/linux/yesoreyeram-infinity-datasource-2.9.2.linux_amd64.zip";
-      sha256 = "sha256-QdOUmowc4h+DXcufXgcFqKUUZElaybVfOBHtt1/qLTU=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.4/linux/yesoreyeram-infinity-datasource-2.9.4.linux_amd64.zip";
+      sha256 = "sha256-aDJjQB+7fS2M1/shtZz6eFMuIORyfpnZg/Y9NwUBCjM=";
     };
   };
   himawaripy = {
@@ -140,15 +140,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "856065b2eb37286c389550593472bf180bc5be9d";
+    version = "8991f0d5c6c06d1e42919d1d6a0813ca1c46f8a1";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "856065b2eb37286c389550593472bf180bc5be9d";
+      rev = "8991f0d5c6c06d1e42919d1d6a0813ca1c46f8a1";
       fetchSubmodules = false;
-      sha256 = "sha256-64gL4DPjfjw+caTPb015vlai5vLmEJYqWvs8Ccqk5Ys=";
+      sha256 = "sha256-Ql9idCl1OsUyIiRslZY78iPA9+PnBWgmF9h6/6s+e5c=";
     };
-    date = "2024-07-22";
+    date = "2024-07-25";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
@@ -318,18 +318,6 @@
       sha256 = "sha256-llZagwjVWSXCupIzDQ90Rid6icKQ3PL5xoqIC0NzImg=";
     };
     date = "2020-08-22";
-  };
-  yourls-dont-log-crawlers = {
-    pname = "yourls-dont-log-crawlers";
-    version = "425d47d97fe913166dae4bf7054a8be6227f475b";
-    src = fetchFromGitHub {
-      owner = "luixxiul";
-      repo = "dont-log-crawlers";
-      rev = "425d47d97fe913166dae4bf7054a8be6227f475b";
-      fetchSubmodules = false;
-      sha256 = "sha256-VtlE1KPSFYjVR0ZMfb86cYKc27FZwJq8VU+Sb4cR62w=";
-    };
-    date = "2023-02-07";
   };
   yourls-dont-track-admins = {
     pname = "yourls-dont-track-admins";
