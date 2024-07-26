@@ -43,6 +43,7 @@
     address = [ "192.168.1.13/24" ];
     gateway = [ "192.168.1.1" ];
     matchConfig.Name = "lan0";
+    linkConfig.MTUBytes = "9000";
   };
 
   services.fwupd.enable = true;
