@@ -1,12 +1,9 @@
-{ inputs, ... }:
+_:
 final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
-  pkgs_latest = inputs.nixpkgs-latest.legacyPackages."${final.system}";
 in
 rec {
-  inherit (pkgs_latest) flaresolverr;
-
   acme-sh = prev.acme-sh.overrideAttrs (old: {
     postBuild =
       (old.postBuild or "")
@@ -24,9 +21,6 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
 
     tags = old.tags ++ [ "nolimit" ];
-  });
-  flexget = prev.flexget.overrideAttrs (old: {
-    propagatedBuildInputs = with final.python3Packages; old.propagatedBuildInputs ++ [ cloudscraper ];
   });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
@@ -114,14 +108,22 @@ rec {
         jdk-bin-8
       ]);
   };
-  qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
-    # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
-  qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
-    # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
+  qbittorrent-enhanced-edition =
+    (prev.qbittorrent-enhanced-edition.override {
+      libtorrent-rasterbar = final.libtorrent-rasterbar-1_2_x;
+    }).overrideAttrs
+      (old: {
+        # Sonarr retries with different release when adding existing torrent
+        patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
+      });
+  qbittorrent-enhanced-edition-nox =
+    (prev.qbittorrent-enhanced-edition-nox.override {
+      libtorrent-rasterbar = final.libtorrent-rasterbar-1_2_x;
+    }).overrideAttrs
+      (old: {
+        # Sonarr retries with different release when adding existing torrent
+        patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
+      });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
   # };

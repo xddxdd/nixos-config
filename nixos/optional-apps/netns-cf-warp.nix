@@ -55,7 +55,7 @@ in
 
     path = with pkgs; [
       lsof
-      nftables-fullcone
+      nftables
     ];
 
     preStart = ''

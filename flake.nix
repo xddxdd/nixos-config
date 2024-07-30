@@ -3,10 +3,7 @@
 
   inputs = {
     # Common libraries
-    # Temporarily pin to last version before Python 3.12
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs.url = "github:NixOS/nixpkgs/cd11caeb123796cbd017af8514e7c0657a767527";
-    nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     flake-compat = {
       url = "github:edolstra/flake-compat";

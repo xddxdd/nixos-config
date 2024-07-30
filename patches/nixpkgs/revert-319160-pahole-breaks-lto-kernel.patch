@@ -1,0 +1,75 @@
+diff --git a/pkgs/by-name/pa/pahole/package.nix b/pkgs/by-name/pa/pahole/package.nix
+index 14a31958c0e2..275044ee40c0 100644
+--- a/pkgs/by-name/pa/pahole/package.nix
++++ b/pkgs/by-name/pa/pahole/package.nix
+@@ -9,15 +9,14 @@
+ , argp-standalone
+ , musl-obstack
+ , nixosTests
+-, fetchpatch
+ }:
+ 
+ stdenv.mkDerivation rec {
+   pname = "pahole";
+-  version = "1.27";
++  version = "1.26";
+   src = fetchzip {
+     url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git/snapshot/pahole-${version}.tar.gz";
+-    hash = "sha256-BwA17lc2yegmOzLfoIu8OmG/PVdc+4sOGzB8Jc4ZjGM=";
++    hash = "sha256-Lf9Z4vHRFplMrUf4VhJ7EDPn+S4RaS1Emm0wyEcG2HU=";
+   };
+ 
+   nativeBuildInputs = [ cmake pkg-config ];
+@@ -27,16 +26,7 @@ stdenv.mkDerivation rec {
+     musl-obstack
+   ];
+ 
+-  patches = [
+-    # https://github.com/acmel/dwarves/pull/51 / https://lkml.kernel.org/r/20240626032253.3406460-1-asmadeus@codewreck.org
+-    ./threading-reproducibility.patch
+-    # https://github.com/acmel/dwarves/issues/53
+-    (fetchpatch {
+-      name = "fix-clang-btf-generation-bug.patch";
+-      url = "https://github.com/acmel/dwarves/commit/6a2b27c0f512619b0e7a769a18a0fb05bb3789a5.patch";
+-      hash = "sha256-Le1BAew/a/QKkYNLgSQxEvZ9mEEglUw8URwz1kiheeE=";
+-    })
+-  ];
++  patches = [ ./threading-reproducibility.patch ];
+ 
+   # Put libraries in "lib" subdirectory, not top level of $out
+   cmakeFlags = [ "-D__LIB=lib" "-DLIBBPF_EMBEDDED=OFF" ];
+diff --git a/pkgs/by-name/pa/pahole/threading-reproducibility.patch b/pkgs/by-name/pa/pahole/threading-reproducibility.patch
+index 3c76d9c8521e..15893ce2d035 100644
+--- a/pkgs/by-name/pa/pahole/threading-reproducibility.patch
++++ b/pkgs/by-name/pa/pahole/threading-reproducibility.patch
+@@ -1,15 +1,18 @@
+ diff --git a/pahole.c b/pahole.c
+-index 954498d2ad4f..2b010658330c 100644
++index 6fc4ed6..a4e306f 100644
+ --- a/pahole.c
+ +++ b/pahole.c
+-@@ -3705,6 +3705,10 @@ int main(int argc, char *argv[])
+- 		goto out;
+- 	}
+- 
+-+	/* This being set means whoever called us tries to do a reproducible build */
+-+	if (getenv("SOURCE_DATE_EPOCH"))
+-+		conf_load.reproducible_build = true;
+-+
+- 	if (languages.str && parse_languages())
+- 		return rc;
+- 
++@@ -1687,8 +1687,11 @@ static error_t pahole__options_parser(int key, char *arg,
++ 		  class_name = arg;			break;
++ 	case 'j':
++ #if _ELFUTILS_PREREQ(0, 178)
++-		  conf_load.nr_jobs = arg ? atoi(arg) :
++-					    sysconf(_SC_NPROCESSORS_ONLN) * 1.1;
+++		  // Force single thread if reproducibility is desirable.
+++		  if (!getenv("SOURCE_DATE_EPOCH")) {
+++			  conf_load.nr_jobs = arg ? atoi(arg) :
+++						    sysconf(_SC_NPROCESSORS_ONLN) * 1.1;
+++		  }
++ #else
++ 		  fputs("pahole: Multithreading requires elfutils >= 0.178. Continuing with a single thread...\n", stderr);
++ #endif

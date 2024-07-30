@@ -73,7 +73,7 @@ let
 
   text =
     ''
-      #${pkgs.nftables-fullcone}/bin/nft -f
+      #${pkgs.nftables}/bin/nft -f
       table inet lantian
       delete table inet lantian
 

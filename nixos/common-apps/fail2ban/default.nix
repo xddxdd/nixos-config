@@ -19,7 +19,7 @@
     maxretry = 5;
     banaction = "nftables-lantian[type=allports]";
     banaction-allports = "nftables-lantian[type=allports]";
-    packageFirewall = pkgs.nftables-fullcone;
+    packageFirewall = pkgs.nftables;
     ignoreIP = with LT.constants; (reserved.IPv4 ++ reserved.IPv6);
 
     bantime-increment = {
