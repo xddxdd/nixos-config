@@ -106,7 +106,7 @@ in
       kopia
       lsof
       mbuffer
-      nftables-fullcone
+      nftables
       nix-tree
       nixos-cleanup
       nmap

@@ -140,15 +140,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "8991f0d5c6c06d1e42919d1d6a0813ca1c46f8a1";
+    version = "418463ad27c13f56adb5b02cfd62018b7d634ee8";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "8991f0d5c6c06d1e42919d1d6a0813ca1c46f8a1";
+      rev = "418463ad27c13f56adb5b02cfd62018b7d634ee8";
       fetchSubmodules = false;
-      sha256 = "sha256-Ql9idCl1OsUyIiRslZY78iPA9+PnBWgmF9h6/6s+e5c=";
+      sha256 = "sha256-USlmSYcobno8+zFPoFwh+DcaPUz6beGrqPbzdUO8cGg=";
     };
-    date = "2024-07-25";
+    date = "2024-07-26";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
