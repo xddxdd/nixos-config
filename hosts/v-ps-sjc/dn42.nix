@@ -374,7 +374,7 @@
         localPort = 21816;
         remoteAddress = "us1.dn42.potat0.cc";
         remotePort = 22547;
-        wireguardPubkey = "H6HdsuQsav9puKyo8SJaML0vPU/a2lLQjTRc7dmiqjs=";
+        wireguardPubkey = "LUwqKS6QrCPv510Pwt1eAIiHACYDsbMjrkrbGTJfviU=";
       };
       addressing = {
         peerIPv6LinkLocal = "fe80::1816";
