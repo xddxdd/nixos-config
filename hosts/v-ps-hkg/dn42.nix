@@ -257,6 +257,21 @@
         peerIPv6LinkLocal = "fe80::631";
       };
     };
+    potat0 = {
+      remoteASN = 4242421816;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21816;
+        remoteAddress = "hk1.dn42.potat0.cc";
+        remotePort = 22547;
+        wireguardPubkey = "Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1816";
+      };
+    };
     purofle = {
       remoteASN = 4242422886;
       latencyMs = 3;

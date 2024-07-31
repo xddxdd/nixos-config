@@ -114,23 +114,6 @@
         peerIPv6LinkLocal = "fe80::5400:4ff:fe1e:b4e9";
       };
     };
-    potat0 = {
-      remoteASN = 4242421816;
-      latencyMs = 4;
-      peering.mpbgp = true;
-      mode = "flapping";
-      tunnel = {
-        type = "wireguard";
-        localPort = 21816;
-        remoteAddress = "jp1.dn42.potat0.cc";
-        remotePort = 22547;
-        wireguardPubkey = "Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.246.4";
-        peerIPv6LinkLocal = "fe80::1816";
-      };
-    };
     qyn1230 = {
       remoteASN = 4242422463;
       latencyMs = 10;

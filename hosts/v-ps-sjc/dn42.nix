@@ -143,6 +143,21 @@
         peerIPv6LinkLocal = "fe80::122";
       };
     };
+    kemono = {
+      remoteASN = 4242420358;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20358;
+        remoteAddress = "45.32.129.207";
+        remotePort = 22547;
+        wireguardPubkey = "ANZ9gLxxzJwIVM9NvFOJjiB4ilskScM071u8l9ULdz8=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.82.129";
+        peerIPv6LinkLocal = "fe80::358";
+      };
+    };
     keuin = {
       remoteASN = 4242421966;
       latencyMs = 1;
@@ -348,6 +363,21 @@
       addressing = {
         peerIPv4 = "172.23.250.42";
         peerIPv6LinkLocal = "fe80::2633";
+      };
+    };
+    potat0 = {
+      remoteASN = 4242421816;
+      latencyMs = 10;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21816;
+        remoteAddress = "us1.dn42.potat0.cc";
+        remotePort = 22547;
+        wireguardPubkey = "H6HdsuQsav9puKyo8SJaML0vPU/a2lLQjTRc7dmiqjs=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1816";
       };
     };
     ricky = {
