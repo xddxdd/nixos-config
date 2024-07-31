@@ -161,6 +161,20 @@ in
     IPv6SendRA=no
   '';
 
+  # Disable automatic DHCP server for netns interfaces
+  environment.etc."systemd/network/80-namespace-ns.network".text = ''
+    [Match]
+    Name=ve-*
+    Driver=veth
+
+    [Network]
+    LinkLocalAddressing=ipv6
+    DHCPServer=no
+    IPMasquerade=no
+    LLDP=no
+    IPv6SendRA=no
+  '';
+
   # Multicast DNS
   services.avahi = {
     enable = LT.this.hasTag LT.tags.client;
