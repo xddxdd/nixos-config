@@ -66,7 +66,7 @@ in
             rewrite ^/view/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2&view=1 last;
             break;
           '';
-          "/calibre/".extraConfig = ''
+          "\"${calibreLibrary}/\"".extraConfig = ''
             alias "${calibreLibrary}/";
             internal;
           '';
@@ -96,7 +96,6 @@ in
       $config['cops_use_fancyapps'] = '0';
       $config['cops_provide_kepub'] = '1';
       $config['cops_ignored_categories'] = array('publisher', 'rating');
-      $config['cops_server_side_render'] = '.';
       $config['cops_use_route_urls'] = '1';
       $config['cops_epub_reader'] = 'epubjs';
     '';
