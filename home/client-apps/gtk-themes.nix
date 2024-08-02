@@ -26,7 +26,7 @@
           sed -i "s/STMC_Common_15_Finger.cur/STMC_GenshinFurina_15_Finger(alternative).cur/g" PROJECT/STMC/*Genshin\ Furina*.inf
         '';
     });
-    name = "STMCS-601-GenshinFurina";
+    name = "STMCS_601_Genshin_Furina";
     # size = builtins.floor (LT.constants.gui.cursorSize * osConfig.config.lantian.hidpi);
     size = LT.constants.gui.cursorSize;
     gtk.enable = true;
