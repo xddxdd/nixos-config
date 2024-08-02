@@ -242,6 +242,21 @@
         peerIPv6LinkLocal = "fe80::2925";
       };
     };
+    misty = {
+      remoteASN = 4242423895;
+      latencyMs = 2;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23895;
+        remoteAddress = "47.242.46.161";
+        remotePort = 22547;
+        wireguardPubkey = "NloT5zEAYDDzbAJkT16IyYoBwh5CMh3GWnccWsv6uHs=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.237.129";
+        peerIPv6LinkLocal = "fe80::216:3eff:fe08:878d";
+      };
+    };
     mitt = {
       remoteASN = 4242420631;
       latencyMs = 2;

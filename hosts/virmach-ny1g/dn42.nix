@@ -179,6 +179,21 @@
         peerIPv6LinkLocal = "fe80::42:2547:1";
       };
     };
+    potat0 = {
+      remoteASN = 4242421816;
+      latencyMs = 72;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21816;
+        remoteAddress = "us1.dn42.potat0.cc";
+        remotePort = 22547;
+        wireguardPubkey = "LUwqKS6QrCPv510Pwt1eAIiHACYDsbMjrkrbGTJfviU=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1816";
+      };
+    };
     ricky = {
       remoteASN = 4242422458;
       latencyMs = 40;
