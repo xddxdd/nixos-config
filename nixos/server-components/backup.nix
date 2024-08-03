@@ -14,10 +14,7 @@ let
     "sftp://sub2.u378583.your-storagebox.de//home"
   ];
 
-  backupPaths = [
-    "/nix/.snapshot/persistent"
-    "/mnt/storage/palworld-backup"
-  ];
+  backupPaths = [ "/nix/.snapshot/persistent" ];
 
   resticIgnored = pkgs.writeText "ignored.txt" ''
     media/
