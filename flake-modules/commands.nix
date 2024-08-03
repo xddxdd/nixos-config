@@ -21,7 +21,6 @@
         dnscontrol = ../scripts/dnscontrol.nix;
         nvfetcher = ../scripts/nvfetcher.nix;
         secrets = ../scripts/secrets.nix;
-        terraform = ../scripts/terraform.nix;
         update = ../scripts/update.nix;
       };
     };

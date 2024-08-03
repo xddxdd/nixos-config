@@ -1,5 +1,4 @@
-_:
-final: prev:
+_: final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
