@@ -6,6 +6,8 @@ in
 {
   composer2nix = final.callPackage inputs.composer2nix { };
 
+  dwarffs = inputs.dwarffs.defaultPackage."${final.system}";
+
   web-compressor = final.rustPlatform.buildRustPackage {
     inherit (sources.web-compressor) pname version src;
 

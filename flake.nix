@@ -39,11 +39,7 @@
       url = "github:svanderburg/composer2nix";
       flake = false;
     };
-    dwarffs = {
-      url = "github:edolstra/dwarffs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix.follows = "lix";
-    };
+    dwarffs.url = "github:edolstra/dwarffs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -193,12 +189,7 @@
       };
 
       perSystem =
-        {
-          config,
-          system,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         let
           LT = import ./helpers {
             inherit lib inputs self;
