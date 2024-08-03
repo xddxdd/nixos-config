@@ -174,7 +174,6 @@ in
 
     # Terraform
     terraform
-    terranix
 
     # TOML
     taplo-cli

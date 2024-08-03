@@ -42,6 +42,7 @@
     dwarffs = {
       url = "github:edolstra/dwarffs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix.follows = "lix";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -112,11 +113,6 @@
     srvos = {
       url = "github:numtide/srvos";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    terranix = {
-      url = "github:terranix/terranix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -209,12 +205,6 @@
             inherit (self) nixosConfigurations;
             inherit pkgs;
           };
-
-          extraArgs = {
-            inherit inputs;
-            LT = import ./helpers { inherit lib inputs pkgs; };
-            packages = self.packages."${pkgs.system}";
-          };
         in
         {
           packages = rec {
@@ -232,16 +222,6 @@
                       ;
                   };
                 }).config._dnsconfig_js;
-
-            # Terraform
-            xddxdd-uptimerobot = pkgs.callPackage terraform/providers/xddxdd-uptimerobot.nix { };
-
-            terraform-config = inputs.terranix.lib.terranixConfiguration {
-              inherit (pkgs) system;
-              modules = [ ./terraform ];
-              inherit extraArgs;
-            };
-            terraform-with-plugins = pkgs.terraform.withPlugins (_plugins: [ xddxdd-uptimerobot ]);
           };
         };
     };

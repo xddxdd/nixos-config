@@ -31,11 +31,10 @@ in
 {
   nix = {
     distributedBuilds = true;
-    buildMachines =
-      lib.filter (v: v != null) (
-        lib.mapAttrsToList mkBuildMachine (
-          lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
-        )
-      );
+    buildMachines = lib.filter (v: v != null) (
+      lib.mapAttrsToList mkBuildMachine (
+        lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+      )
+    );
   };
 }
