@@ -28,7 +28,7 @@
       SIGNUPS_ALLOWED = false;
       DOMAIN = "https://bitwarden.xuyh0120.win";
       ROCKET_ADDRESS = "127.0.0.1";
-      ROCKET_PORT = LT.port.Vaultwarden.HTTP;
+      ROCKET_PORT = LT.port.Vaultwarden;
 
       DATABASE_URL = "mysql:///vaultwarden";
 
@@ -46,7 +46,7 @@
 
   lantian.nginxVhosts."bitwarden.xuyh0120.win" = {
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
+      proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden}";
       proxyWebsockets = true;
     };
 
