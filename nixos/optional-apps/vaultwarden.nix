@@ -29,9 +29,6 @@
       DOMAIN = "https://bitwarden.xuyh0120.win";
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = LT.port.Vaultwarden.HTTP;
-      WEBSOCKET_ENABLED = true;
-      WEBSOCKET_ADDRESS = "127.0.0.1";
-      WEBSOCKET_PORT = LT.port.Vaultwarden.Websocket;
 
       DATABASE_URL = "mysql:///vaultwarden";
 
@@ -48,17 +45,9 @@
   };
 
   lantian.nginxVhosts."bitwarden.xuyh0120.win" = {
-    locations = {
-      "/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
-      };
-      "/notifications/hub" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.Websocket}";
-        proxyWebsockets = true;
-      };
-      "/notifications/hub/negotiate" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
-      };
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.Vaultwarden.HTTP}";
+      proxyWebsockets = true;
     };
 
     sslCertificate = "xuyh0120.win_ecc";
