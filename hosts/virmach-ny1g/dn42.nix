@@ -131,6 +131,21 @@
         peerIPv6LinkLocal = "fe80::aa:1111:33";
       };
     };
+    lukas = {
+      remoteASN = 4242423372;
+      latencyMs = 46;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23372;
+        remoteAddress = "yxe.beckerit.cc";
+        remotePort = 22547;
+        wireguardPubkey = "okxcWYCduqtZfKfZVTLc4cCMxOXBYvUEkl8OLzxe3hQ=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.180.193";
+        peerIPv6LinkLocal = "fe80::3372";
+      };
+    };
     lutoma = {
       remoteASN = 64719;
       latencyMs = 1;
