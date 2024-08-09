@@ -16,7 +16,6 @@
     ./pipewire-combined-sink.nix
 
     ../../nixos/optional-apps/clamav.nix
-    ../../nixos/optional-apps/homer.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netease-cloud-music.nix

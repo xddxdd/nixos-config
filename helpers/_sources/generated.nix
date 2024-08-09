@@ -60,14 +60,6 @@
       sha256 = "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=";
     };
   };
-  homer = {
-    pname = "homer";
-    version = "v24.05.1";
-    src = fetchurl {
-      url = "https://github.com/bastienwirtz/homer/releases/download/v24.05.1/homer.zip";
-      sha256 = "sha256-Ji/7BSKCnnhj4NIdGngTHcGRRbx9UWrx48bBsKkEj34=";
-    };
-  };
   jproxy = {
     pname = "jproxy";
     version = "v3.4.1";

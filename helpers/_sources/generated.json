@@ -107,21 +107,6 @@
         },
         "version": "v2.2.0"
     },
-    "homer": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "homer",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-Ji/7BSKCnnhj4NIdGngTHcGRRbx9UWrx48bBsKkEj34=",
-            "type": "url",
-            "url": "https://github.com/bastienwirtz/homer/releases/download/v24.05.1/homer.zip"
-        },
-        "version": "v24.05.1"
-    },
     "jproxy": {
         "cargoLocks": null,
         "date": null,

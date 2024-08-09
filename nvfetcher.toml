@@ -25,10 +25,6 @@ fetch.url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-in
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
 
-[homer]
-src.github = "bastienwirtz/homer"
-fetch.url = "https://github.com/bastienwirtz/homer/releases/download/$ver/homer.zip"
-
 [jproxy]
 src.manual = "v3.4.1"
 fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
