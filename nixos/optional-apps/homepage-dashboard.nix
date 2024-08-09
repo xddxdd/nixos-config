@@ -42,7 +42,14 @@ in
       language = "zh-CN";
       target = "_blank";
       disableCollapse = true;
+      hideVersion = true;
+      # Ignore errors for network instability
+      hideErrors = true;
     };
+
+    customCSS = ''
+      #footer { display: none !important; }
+    '';
 
     services = [
       {
