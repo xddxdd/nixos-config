@@ -134,6 +134,7 @@
     lukas = {
       remoteASN = 4242423372;
       latencyMs = 46;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 23372;
