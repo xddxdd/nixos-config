@@ -17,11 +17,11 @@ let
       service_group = "影音";
       service_name = "Radarr";
     }
-    {
-      type = "ical";
-      url = "{{HOMEPAGE_VAR_ICAL_LINK}}";
-      name = "日程";
-    }
+    # {
+    #   type = "ical";
+    #   url = "{{HOMEPAGE_VAR_ICAL_LINK}}";
+    #   name = "日程";
+    # }
   ];
 in
 {
