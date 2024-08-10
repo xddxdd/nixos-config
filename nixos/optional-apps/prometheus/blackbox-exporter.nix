@@ -40,7 +40,7 @@ let
     "https://attic.xuyh0120.win"
     # "https://books.xuyh0120.win"
     "https://bitwarden.xuyh0120.win"
-    "https://cloud.xuyh0120.win"
+    # "https://cal.xuyh0120.win"
     "https://dashboard.xuyh0120.win"
     "https://jellyfin.xuyh0120.win"
     "https://netbox.xuyh0120.win"
