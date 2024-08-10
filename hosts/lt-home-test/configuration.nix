@@ -44,6 +44,11 @@
     gateway = [ "192.168.1.1" ];
     matchConfig.Name = "lan0";
     linkConfig.MTUBytes = "9000";
+    networkConfig.IPv6AcceptRA = "yes";
+    ipv6AcceptRAConfig = {
+      Token = "::13";
+      DHCPv6Client = "no";
+    };
   };
 
   services.fwupd.enable = true;
