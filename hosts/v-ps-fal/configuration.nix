@@ -17,6 +17,7 @@
     ../../nixos/optional-apps/nginx-private.nix
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/quassel.nix
+    ../../nixos/optional-apps/radicale.nix
     ../../nixos/optional-apps/rsshub.nix
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot

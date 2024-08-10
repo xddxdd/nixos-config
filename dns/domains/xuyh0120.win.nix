@@ -67,6 +67,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "cal";
+      target = "v-ps-fal";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "cloud";
       target = "terrahost";
       ttl = "1h";
