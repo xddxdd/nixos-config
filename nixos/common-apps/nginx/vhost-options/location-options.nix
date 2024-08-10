@@ -39,6 +39,7 @@ let
         proxy_set_header X-Uuid  $uuid;
         proxy_set_header X-Email $email;
         proxy_set_header X-Groups $groups;
+        proxy_set_header X-Remote-User  $user;
 
         # if you enabled --pass-access-token, this will pass the token to the backend
         auth_request_set $token  $upstream_http_x_auth_request_access_token;
@@ -48,6 +49,7 @@ let
         auth_basic "Restricted";
         auth_basic_user_file ${htpasswdFile};
         proxy_set_header X-User $remote_user;
+        proxy_set_header X-Remote-User $remote_user;
       '')
       + (lib.optionalString (config.proxyPass != null) ''
         proxy_pass ${config.proxyPass};
