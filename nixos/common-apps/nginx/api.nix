@@ -25,6 +25,7 @@ _: {
           let
             # Fields will be dynamically replaced by nginx
             json = builtins.toJSON {
+              ip = "$remote_addr";
               continent_code = "$geoip2_continent_code";
               continent_name_en = "$geoip2_continent_name_en";
               continent_name_zh = "$geoip2_continent_name_zh";
@@ -41,6 +42,13 @@ _: {
           "200 '${json}'";
         extraConfig = ''
           default_type application/json;
+        '';
+      };
+
+      "/ip" = {
+        return = "200 $remote_addr";
+        extraConfig = ''
+          default_type text/plain;
         '';
       };
     };
