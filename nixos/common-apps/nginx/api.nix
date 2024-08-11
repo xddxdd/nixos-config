@@ -19,6 +19,30 @@ _: {
           default_type application/captive+json;
         '';
       };
+
+      "/geoip" = {
+        return =
+          let
+            # Fields will be dynamically replaced by nginx
+            json = builtins.toJSON {
+              continent_code = "$geoip2_continent_code";
+              continent_name_en = "$geoip2_continent_name_en";
+              continent_name_zh = "$geoip2_continent_name_zh";
+              country_code = "$geoip2_country_code";
+              country_name_en = "$geoip2_country_name_en";
+              country_name_zh = "$geoip2_country_name_zh";
+              city_name_en = "$geoip2_city_name_en";
+              city_name_zh = "$geoip2_city_name_zh";
+              postal_code = "$geoip2_postal_code";
+              asn_code = "$geoip2_asn_code";
+              asn_name = "$geoip2_asn_name";
+            };
+          in
+          "200 '${json}'";
+        extraConfig = ''
+          default_type application/json;
+        '';
+      };
     };
 
     sslCertificate = "lantian.pub_ecc";

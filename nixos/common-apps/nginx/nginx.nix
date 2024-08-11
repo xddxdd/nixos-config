@@ -175,6 +175,25 @@ in
         ~*sqlmap          1;
       }
 
+      geoip2 /nix/persistent/sync-servers/geoip/GeoLite2-City.mmdb {
+        auto_reload 5m;
+        $geoip2_continent_code continent code;
+        $geoip2_continent_name_en continent names en;
+        $geoip2_continent_name_zh continent names zh-CN;
+        $geoip2_country_code country iso_code;
+        $geoip2_country_name_en country names en;
+        $geoip2_country_name_zh country names zh-CN;
+        $geoip2_city_name_en city names en;
+        $geoip2_city_name_zh city names zh-CN;
+        $geoip2_postal_code postal code;
+      }
+
+      geoip2 /nix/persistent/sync-servers/geoip/GeoLite2-ASN.mmdb {
+        auto_reload 5m;
+        $geoip2_asn_code autonomous_system_number;
+        $geoip2_asn_name autonomous_system_organization;
+      }
+
       port_in_redirect off;
       absolute_redirect off;
       server_name_in_redirect off;
