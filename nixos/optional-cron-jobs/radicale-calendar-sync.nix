@@ -12,7 +12,9 @@
     path = with pkgs; [ curl ];
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash ${config.age.secrets.radicale-calendar-sync.path}";
+      ExecStart = "${pkgs.bash}/bin/bash -euo pipefail ${config.age.secrets.radicale-calendar-sync.path}";
+      RuntimeDirectory = "radicale-calendar-sync";
+      WorkingDirectory = "/run/radicale-calendar-sync";
     };
   };
 
