@@ -1,30 +1,14 @@
 {
   LT,
+  pkgs,
   config,
   lib,
   inputs,
   ...
 }:
-let
-  calendarIntegrations = [
-    {
-      type = "sonarr";
-      service_group = "影音";
-      service_name = "Sonarr";
-    }
-    {
-      type = "radarr";
-      service_group = "影音";
-      service_name = "Radarr";
-    }
-    # {
-    #   type = "ical";
-    #   url = "{{HOMEPAGE_VAR_ICAL_LINK}}";
-    #   name = "日程";
-    # }
-  ];
-in
 {
+  imports = [ "${inputs.secrets}/homepage-dashboard-config.nix" ];
+
   age.secrets.homepage-dashboard-env = {
     file = inputs.secrets + "/homepage-dashboard-env.age";
     owner = "homepage-dashboard";
@@ -33,6 +17,7 @@ in
 
   services.homepage-dashboard = {
     enable = true;
+    package = pkgs.homepage-dashboard.override { enableLocalIcons = true; };
     listenPort = LT.port.HomepageDashboard;
     environmentFile = config.age.secrets.homepage-dashboard-env.path;
 
@@ -50,110 +35,6 @@ in
     customCSS = ''
       #footer { display: none !important; }
     '';
-
-    services = [
-      {
-        "今日" = [
-          {
-            "日历" = {
-              widget = {
-                type = "calendar";
-                firstDayInWeek = "sunday";
-                view = "monthly";
-                maxEvents = 10;
-                showTime = true;
-                integrations = calendarIntegrations;
-              };
-            };
-          }
-          {
-            "日程" = {
-              widget = {
-                type = "calendar";
-                firstDayInWeek = "sunday";
-                view = "agenda";
-                maxEvents = 10;
-                showTime = true;
-                previousDays = 1;
-                integrations = calendarIntegrations;
-              };
-            };
-          }
-        ];
-      }
-      {
-        "影音" = [
-          {
-            "Jellyfin" = {
-              icon = "jellyfin.svg";
-              href = "https://jellyfin.xuyh0120.win";
-              widget = {
-                type = "jellyfin";
-                url = "https://jellyfin.xuyh0120.win";
-                key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
-              };
-            };
-          }
-          {
-            "Sonarr" = {
-              icon = "sonarr.svg";
-              href = "https://sonarr.lt-home-vm.xuyh0120.win";
-              widget = {
-                type = "sonarr";
-                url = "https://sonarr.lt-home-vm.xuyh0120.win";
-                key = "{{HOMEPAGE_VAR_SONARR_KEY}}";
-              };
-            };
-          }
-          {
-            "Radarr" = {
-              icon = "radarr.svg";
-              href = "https://radarr.lt-home-vm.xuyh0120.win";
-              widget = {
-                type = "radarr";
-                url = "https://radarr.lt-home-vm.xuyh0120.win";
-                key = "{{HOMEPAGE_VAR_RADARR_KEY}}";
-              };
-            };
-          }
-          {
-            "Prowlarr" = {
-              icon = "prowlarr.svg";
-              href = "https://prowlarr.lt-home-vm.xuyh0120.win";
-              widget = {
-                type = "prowlarr";
-                url = "https://prowlarr.lt-home-vm.xuyh0120.win";
-                key = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
-              };
-            };
-          }
-          {
-            "qBitTorrent" = {
-              icon = "qbittorrent.svg";
-              href = "https://qbittorrent.lt-home-vm.xuyh0120.win";
-              widget = {
-                type = "qbittorrent";
-                url = "https://qbittorrent.lt-home-vm.xuyh0120.win";
-                username = "nobody";
-                password = "";
-              };
-            };
-          }
-          {
-            "Transmission" = {
-              icon = "transmission.svg";
-              href = "https://transmission.lt-home-vm.xuyh0120.win";
-              widget = {
-                type = "transmission";
-                url = "http://lt-home-vm.xuyh0120.win:9091";
-                username = "nobody";
-                password = "";
-              };
-            };
-          }
-        ];
-      }
-    ];
 
     widgets = [
       {
@@ -205,6 +86,7 @@ in
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.HomepageDashboard}";
         };
+        "/icons-custom/".alias = inputs.secrets + "/homepage-dashboard-icons/";
       };
 
       sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
@@ -219,6 +101,7 @@ in
         "/" = {
           proxyPass = "http://127.0.0.1:${LT.portStr.HomepageDashboard}";
         };
+        "/icons-custom/".alias = inputs.secrets + "/homepage-dashboard-icons/";
       };
 
       noIndex.enable = true;
