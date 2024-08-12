@@ -6,7 +6,8 @@
   ...
 }:
 {
-  age.secrets.radicale-calendar-sync.file = inputs.secrets + "/radicale-calendar-sync.age";
+  age.secrets.radicale-calendar-sync.file =
+    inputs.secrets + "/radicale-calendar-sync/${config.networking.hostName}.age";
 
   systemd.services.radicale-calendar-sync = {
     path = with pkgs; [ curl ];

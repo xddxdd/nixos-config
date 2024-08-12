@@ -38,6 +38,7 @@
     ../../nixos/optional-apps/vlmcsd.nix
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
+    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
     "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
     "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
@@ -94,6 +95,12 @@
   };
 
   lantian.syncthing.storage = "/mnt/storage/media";
+
+  # Allow Radicale calendar sync task to access *arr config
+  systemd.services.radicale-calendar-sync.serviceConfig = {
+    AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
+    CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
+  };
 
   services."route-chain" = {
     enable = true;
