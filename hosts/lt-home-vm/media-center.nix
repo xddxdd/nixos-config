@@ -125,7 +125,10 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
-      BindPaths = [ qBitTorrentSonarrDownloadPath ];
+      BindPaths = [
+        transmissionDownloadPath
+        qBitTorrentSonarrDownloadPath
+      ];
     };
   };
 
