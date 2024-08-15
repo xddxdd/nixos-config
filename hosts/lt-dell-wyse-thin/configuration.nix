@@ -12,7 +12,7 @@
     ../../nixos/client-components/pipewire
     ../../nixos/client-components/tlp.nix
 
-    ../../nixos/optional-apps/pipewire-network-audio-receive.nix
+    # ../../nixos/optional-apps/pipewire-network-audio-receive.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix
   ];
 
