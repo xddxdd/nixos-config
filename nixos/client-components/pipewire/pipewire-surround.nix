@@ -118,6 +118,7 @@ let
               }
               capture.props = {
                 media.class    = Audio/Sink
+                node.passive   = true
                 audio.channels = 8
                 audio.position = [ FL FR FC LFE RL RR SL SR ]
               }

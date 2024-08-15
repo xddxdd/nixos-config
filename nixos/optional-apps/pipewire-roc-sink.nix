@@ -28,6 +28,7 @@
               "sink.props" = {
                 "node.name" = "roc-sink-${ip}";
                 "node.description" = "ROC Sink (${ip})";
+                "node.passive" = true;
               };
             };
           }
