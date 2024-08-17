@@ -45,34 +45,6 @@ in
   # Sonarr
   ########################################
 
-  systemd.services.flaresolverr-netns = {
-    description = "FlareSolverr (in NetNS)";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    wants = [ "network.target" ];
-    path = with pkgs; [ xorg.xorgserver ];
-    environment = {
-      HOME = "/run/flaresolverr-netns";
-      HOST = "127.0.0.1";
-      PORT = LT.portStr.FlareSolverr;
-      LOG_LEVEL = "warn";
-      TZ = config.time.timeZone;
-      LANG = config.i18n.defaultLocale;
-      TEST_URL = "https://www.example.com";
-    };
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
-      RuntimeDirectory = "flaresolverr-netns";
-      WorkingDirectory = "/run/flaresolverr-netns";
-
-      MemoryDenyWriteExecute = false;
-      SystemCallFilter = lib.mkForce [ ];
-    };
-  };
-
   systemd.services.bitmagnet-http = netns.bind { };
   systemd.services.bitmagnet-queue = netns.bind { };
   systemd.services.bitmagnet-dht = netns.bind { };
