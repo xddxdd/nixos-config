@@ -45,9 +45,7 @@ in
   # Sonarr
   ########################################
 
-  systemd.services.flexget-runner = netns.bind { };
-
-  systemd.services.flaresolverr-netns = netns.bind {
+  systemd.services.flaresolverr-netns = {
     description = "FlareSolverr (in NetNS)";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
@@ -79,9 +77,7 @@ in
   systemd.services.bitmagnet-queue = netns.bind { };
   systemd.services.bitmagnet-dht = netns.bind { };
 
-  systemd.services.prowlarr = netns.bind { };
-
-  systemd.services.radarr = netns.bind {
+  systemd.services.radarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
@@ -93,7 +89,7 @@ in
     };
   };
 
-  systemd.services.sonarr = netns.bind {
+  systemd.services.sonarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
@@ -105,7 +101,7 @@ in
     };
   };
 
-  systemd.services.bazarr = netns.bind {
+  systemd.services.bazarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     path = with pkgs; [ mediainfo ];
@@ -116,10 +112,6 @@ in
       ];
     };
   };
-
-  systemd.services.decluttarr = netns.bind { };
-
-  systemd.services.jproxy = netns.bind { };
 
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
@@ -132,25 +124,11 @@ in
     };
   };
 
-  systemd.services.peerbanhelper = netns.bind { };
-
   lantian.nginxVhosts = {
-    "sonarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
-    "sonarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Sonarr}";
-    "radarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";
-    "radarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Radarr}";
-    "prowlarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
-    "prowlarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Prowlarr}";
-    "bazarr.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
-    "bazarr.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bazarr}";
-    "jproxy.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.JProxy}";
-    "jproxy.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.JProxy}";
     "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
     "bitmagnet.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
-    "peerbanhelper.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
   };
 
   ########################################
