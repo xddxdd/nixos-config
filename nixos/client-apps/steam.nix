@@ -10,7 +10,6 @@ in
     extest.enable = true;
     gamescopeSession.enable = true;
     protontricks.enable = true;
-    fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
   };
   environment.systemPackages = [ mangohudForCurrentKernel ];
   # https://www.reddit.com/r/NixOS/comments/11d76bb/comment/jaqzwyt
