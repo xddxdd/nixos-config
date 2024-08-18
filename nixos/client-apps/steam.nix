@@ -7,6 +7,13 @@ in
 {
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraEnv = {
+        MANGOHUD = true;
+        OBS_VKCAPTURE = true;
+      };
+      extraArgs = "-console";
+    };
     extest.enable = true;
     gamescopeSession.enable = true;
     protontricks.enable = true;
