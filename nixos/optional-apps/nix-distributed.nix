@@ -27,14 +27,29 @@ let
           "big-parallel"
         ];
       };
+
+  nixBuildNet = {
+    hostName = "eu.nixbuild.net";
+    systems = [ "aarch64-linux" ];
+    sshKey = "/home/lantian/.ssh/id_ed25519";
+    sshUser = "root";
+    maxJobs = 100;
+    speedFactor = 100;
+    supportedFeatures = [
+      "benchmark"
+      "big-parallel"
+    ];
+  };
 in
 {
   nix = {
     distributedBuilds = true;
-    buildMachines = lib.filter (v: v != null) (
-      lib.mapAttrsToList mkBuildMachine (
-        lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
-      )
-    );
+    buildMachines =
+      [ nixBuildNet ]
+      ++ (lib.filter (v: v != null) (
+        lib.mapAttrsToList mkBuildMachine (
+          lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+        )
+      ));
   };
 }
