@@ -85,6 +85,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
@@ -175,17 +176,29 @@
           "openssl-1.1.1w"
           "python-2.7.18.8"
         ];
-        overlays = [
-          inputs.agenix.overlays.default
-          inputs.colmena.overlay
-          inputs.nil.overlays.nil
-          inputs.nix-alien.overlays.default
-          inputs.nixd.overlays.default
-          inputs.nur.overlay
-          inputs.nur-xddxdd.overlay
-          inputs.nvfetcher.overlays.default
-          inputs.secrets.overlays.default
-        ] ++ (import ./overlays { inherit inputs; });
+        overlays =
+          let
+            rpi_dt_ao_overlay = _final: prev: {
+              deviceTree = prev.deviceTree // {
+                applyOverlays = _final.callPackage (
+                  inputs.nixos-hardware + "/raspberry-pi/4/apply-overlays-dtmerge.nix"
+                ) { };
+              };
+            };
+          in
+          [
+            inputs.agenix.overlays.default
+            inputs.colmena.overlay
+            inputs.nil.overlays.nil
+            inputs.nix-alien.overlays.default
+            inputs.nixd.overlays.default
+            inputs.nur.overlay
+            inputs.nur-xddxdd.overlay
+            inputs.nvfetcher.overlays.default
+            inputs.secrets.overlays.default
+            rpi_dt_ao_overlay
+          ]
+          ++ (import ./overlays { inherit inputs; });
       };
 
       perSystem =
