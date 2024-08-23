@@ -15,7 +15,7 @@ let
       null
     else
       {
-        systems = lib.platforms.linux;
+        inherit (v) system;
         hostName = "${n}.lantian.pub";
         maxJobs = v.cpuThreads;
         protocol = "ssh-ng";
