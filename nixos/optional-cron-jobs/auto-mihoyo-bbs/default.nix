@@ -30,8 +30,10 @@ in
     };
     after = [ "network.target" ];
     script = ''
+      set -euo pipefail
       export AutoMihoyoBBS_appkey=$(cat /var/lib/auto-mihoyo-bbs/appkey)
-      sed -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml
+      grep -E "^enable: true" config.yaml
+      sed -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml || true
       exec ${py}/bin/python ${files}/main.py
     '';
   };
