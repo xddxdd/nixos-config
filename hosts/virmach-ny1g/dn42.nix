@@ -39,6 +39,22 @@
         peerIPv6LinkLocal = "fe80::855";
       };
     };
+    craig = {
+      remoteASN = 4242420566;
+      latencyMs = 18;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20566;
+        remoteAddress = "dn03.il.surgebytes.com";
+        remotePort = 32547;
+        wireguardPubkey = "doLcW+Vb67+6HCOInEuHjFr6nahrMRyQsBy6aPh+eGY=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.99.3";
+        peerIPv6LinkLocal = "fe80::566:3";
+      };
+    };
     federico = {
       remoteASN = 4242420262;
       latencyMs = 18;
