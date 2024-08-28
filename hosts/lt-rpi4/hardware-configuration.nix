@@ -1,10 +1,21 @@
-{ inputs, lib, ... }:
+{ pkgs, inputs, lib, ... }:
 {
   imports = [ inputs.nixos-hardware.nixosModules.raspberry-pi-4 ];
 
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.raspberry-pi."4" = {
+    bluetooth.enable = true;
+    fkms-3d.enable = true;
+    i2c1.enable = true;
+    pwm0.enable = true;
+  };
 
   boot.loader.grub.enable = lib.mkForce false;
+
+  environment.systemPackages = with pkgs; [
+    i2c-tools
+    libraspberrypi
+    raspberrypi-eeprom
+  ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/23df8a17-50e6-4262-b95d-ac4ab9bb90e4";
