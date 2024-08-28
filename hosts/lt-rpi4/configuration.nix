@@ -10,11 +10,6 @@
   boot.initrd.systemd.enableTpm2 = false;
   boot.kernelParams = [ "console=ttyAMA1,115200" ];
 
-  environment.systemPackages = with pkgs; [
-    libraspberrypi
-    raspberrypi-eeprom
-  ];
-
   systemd.network.networks.eth0 = {
     address = [ "192.168.0.6/24" ];
     gateway = [ "192.168.0.1" ];
