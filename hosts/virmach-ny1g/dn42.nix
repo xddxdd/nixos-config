@@ -257,6 +257,21 @@
         peerIPv6LinkLocal = "fe80::3947:7";
       };
     };
+    slirya = {
+      remoteASN = 4242422608;
+      latencyMs = 130;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22608;
+        remoteAddress = "64.181.170.30";
+        remotePort = 22547;
+        wireguardPubkey = "Stu420ttmPnHE3agY2aOExrvN8uj2bPgd26ypsKdlk0=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.105.1";
+        peerIPv6LinkLocal = "fe80::2608";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 15;
