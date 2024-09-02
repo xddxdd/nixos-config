@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -19,9 +18,6 @@
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/fastapi-dls.nix
-    ../../nixos/optional-apps/genshin-cockpy.nix
-    ../../nixos/optional-apps/genshin-grasscutter.nix
-    ../../nixos/optional-apps/genshin-soggy.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/llama-sakura-llm.nix
@@ -39,9 +35,6 @@
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
-
-    "${inputs.secrets}/nixos-hidden-module/7319533cbc15d7ce"
-    "${inputs.secrets}/nixos-hidden-module/8eca84a1c0f3007b"
   ];
 
   services.beesd.filesystems.root = {
