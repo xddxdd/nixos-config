@@ -24,6 +24,7 @@
     androw = {
       remoteASN = 4242422575;
       latencyMs = 16;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 22575;
