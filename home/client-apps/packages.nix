@@ -118,7 +118,7 @@ in
         megatools
         moonlight-qt
         newsflash
-        nur.repos.yes.mkxp-z
+        # nur.repos.yes.mkxp-z
         nvfetcher
         openvpn
         p7zip

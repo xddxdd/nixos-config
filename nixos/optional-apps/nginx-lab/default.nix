@@ -62,7 +62,7 @@ in
     };
   };
 
-  services.fcgiwrap.nginx = {
+  services.fcgiwrap.instances.nginx = {
     socket = {
       inherit (config.services.nginx) user group;
       mode = "0660";

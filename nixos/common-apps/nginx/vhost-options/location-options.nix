@@ -140,7 +140,7 @@ let
       '')
       + (lib.optionalString config.enableFcgiwrap ''
         try_files $fastcgi_script_name =404;
-        fastcgi_pass unix:${osConfig.services.fcgiwrap.nginx.socket.address};
+        fastcgi_pass unix:${osConfig.services.fcgiwrap.instances.nginx.socket.address};
         fastcgi_index index.sh;
         ${fastcgiParams}
       '')

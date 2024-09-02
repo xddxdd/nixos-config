@@ -18,6 +18,7 @@ in
   # Enable CUDA
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = [ nvidia_x11.out ];
+  hardware.nvidia.open = false;
 
   # systemd.packages = [nvidia_x11.out];
 

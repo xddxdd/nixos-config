@@ -79,6 +79,7 @@ in
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = [ nvidia_x11.out ];
   hardware.graphics.extraPackages32 = [ nvidia_x11.lib32 ];
+  hardware.nvidia.open = false;
 
   # systemd.packages = [ nvidia_x11.out ];
 
