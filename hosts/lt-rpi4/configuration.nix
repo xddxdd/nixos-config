@@ -4,11 +4,16 @@
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
+    ./lora
   ];
 
   lantian.kernel = pkgs.linux_rpi4;
   boot.initrd.systemd.enableTpm2 = false;
   boot.kernelParams = [ "console=ttyAMA1,115200" ];
+
+  environment.systemPackages = with pkgs; [
+    helium-gateway-rs
+  ];
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.0.6/24" ];
