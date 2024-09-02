@@ -913,11 +913,11 @@
         "nixpkgs-22-05": "nixpkgs-22-05"
       },
       "locked": {
-        "lastModified": 1724405552,
-        "narHash": "sha256-pzqp6lgkJ56CQonW66Q9SaSbe+RsEEOrI/xDB3wMx2g=",
+        "lastModified": 1725313342,
+        "narHash": "sha256-b40kxlRcJtQ2DImO07Ua1Py0DstsvWMaWjl7iQzSwKk=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "48c5c2afe166042fd96f192d0c5013fb7f623d3c",
+        "rev": "fc7b61d3b2f87bc5a7edcdf2b029cb46b560570e",
         "type": "github"
       },
       "original": {
