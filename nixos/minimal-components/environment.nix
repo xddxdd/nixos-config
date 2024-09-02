@@ -247,8 +247,6 @@ in
     # that we can hopefully still access it remotely.
     enableEmergencyMode = LT.this.hasTag LT.tags.client;
 
-    enableUnifiedCgroupHierarchy = lib.mkForce true;
-
     # For more detail, see:
     #   https://0pointer.de/blog/projects/watchdog.html
     watchdog = {

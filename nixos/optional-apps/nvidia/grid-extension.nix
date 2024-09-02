@@ -14,6 +14,7 @@ in
   };
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_3;
+  hardware.nvidia.open = false;
 
   systemd.services."nvidia-gridd" = netns.bind {
     description = "NVIDIA Grid Daemon";

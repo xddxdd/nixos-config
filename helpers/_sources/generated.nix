@@ -15,10 +15,10 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.18.9";
+    version = "v10.19.2";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.18.9/CyberChef_v10.18.9.zip";
-      sha256 = "sha256-4oUjOzbcfDb96vurJx2yPKmrgtc9g5izWlc2/ABymi4=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.19.2/CyberChef_v10.19.2.zip";
+      sha256 = "sha256-eDj3E/aTNfvf1AJ2Ta9sBfeEjPZR9LnhogjHmT2h7J4=";
     };
   };
   dashboard-icons = {
@@ -35,18 +35,18 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.7.0";
+    version = "1.7.2";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.0/linux/grafana-falconlogscale-datasource-1.7.0.linux_amd64.zip";
-      sha256 = "sha256-mC6HlixTm6Zdm1uwmX1ecdZ+Drb1sYe0IvL2UW9qGxg=";
+      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.2/linux/grafana-falconlogscale-datasource-1.7.2.linux_amd64.zip";
+      sha256 = "sha256-rJb6D5oe/e3SSzfu+dvzioT0y0D7z6fTNHqWPdFIGlg=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.9.4";
+    version = "2.9.5";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.4/linux/yesoreyeram-infinity-datasource-2.9.4.linux_amd64.zip";
-      sha256 = "sha256-aDJjQB+7fS2M1/shtZz6eFMuIORyfpnZg/Y9NwUBCjM=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.5/linux/yesoreyeram-infinity-datasource-2.9.5.linux_amd64.zip";
+      sha256 = "sha256-gaoEOTUaecFhzbPl/8MVZhJiJpOWmJyvhxwb5ToISAE=";
     };
   };
   himawaripy = {
@@ -96,15 +96,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "c780c30611ac402a10f4d244a1fbefc78867a3a6";
+    version = "681ec6eb17dabd57612f51d84c0d9705b7d46707";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "c780c30611ac402a10f4d244a1fbefc78867a3a6";
+      rev = "681ec6eb17dabd57612f51d84c0d9705b7d46707";
       fetchSubmodules = false;
-      sha256 = "sha256-+shVvRVNhmaeI9jYOVtfTLJ88ntnPwPGWoGl0q9nXpk=";
+      sha256 = "sha256-W8c8B+SUF3wXm19qTfy35qad165HLnb+AVVu0WTWl/Q=";
     };
-    date = "2024-07-19";
+    date = "2024-08-28";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -120,39 +120,39 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "c7221dd770279275a06f34e68b39b8d237ea9b7b";
+    version = "d3a5414eff8acb3246ccf1014a81ba4bf4237a98";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "c7221dd770279275a06f34e68b39b8d237ea9b7b";
+      rev = "d3a5414eff8acb3246ccf1014a81ba4bf4237a98";
       fetchSubmodules = false;
-      sha256 = "sha256-fyN8hWVP6ITeOrfv3cpMyIYNyyqw7fFoHqj12FBq6vc=";
+      sha256 = "sha256-uo/xqFvyUzYJndVQMlUiYJXx57+oqGbdFWt4J105x5Y=";
     };
-    date = "2024-07-18";
+    date = "2024-08-30";
   };
   openvpn = {
     pname = "openvpn";
-    version = "418463ad27c13f56adb5b02cfd62018b7d634ee8";
+    version = "233e10aeec7de02d34fa5c517b44612d38ccc00f";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "418463ad27c13f56adb5b02cfd62018b7d634ee8";
+      rev = "233e10aeec7de02d34fa5c517b44612d38ccc00f";
       fetchSubmodules = false;
-      sha256 = "sha256-USlmSYcobno8+zFPoFwh+DcaPUz6beGrqPbzdUO8cGg=";
+      sha256 = "sha256-as+EBg00AHI6D0nYtLryskS6wziOOsW/Py7NjP/aNxw=";
     };
-    date = "2024-07-26";
+    date = "2024-08-14";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "e25fb9a010f9c8a2975b71f68d5dc6c5dc011109";
+    version = "a897606f7c26f380c26fdfecf855a96b14c601fb";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "e25fb9a010f9c8a2975b71f68d5dc6c5dc011109";
+      rev = "a897606f7c26f380c26fdfecf855a96b14c601fb";
       fetchSubmodules = false;
-      sha256 = "sha256-tn2ko0EEJHm2edBtGA0+hRVap2bbOq2f7iPe64nv4b4=";
+      sha256 = "sha256-V0WbTBueYmg1TDBRcv31Cw8JhksPbyURJAEhWqs2zRM=";
     };
-    date = "2024-07-16";
+    date = "2024-08-28";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";

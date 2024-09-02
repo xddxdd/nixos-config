@@ -36,7 +36,6 @@
         export ZSH_DISABLE_COMPFIX=true
       '';
       plugins = [
-        "adb"
         "autopair"
         "bd"
         "gitignore"

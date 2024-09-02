@@ -29,11 +29,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4oUjOzbcfDb96vurJx2yPKmrgtc9g5izWlc2/ABymi4=",
+            "sha256": "sha256-eDj3E/aTNfvf1AJ2Ta9sBfeEjPZR9LnhogjHmT2h7J4=",
             "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.18.9/CyberChef_v10.18.9.zip"
+            "url": "https://github.com/gchq/CyberChef/releases/download/v10.19.2/CyberChef_v10.19.2.zip"
         },
-        "version": "v10.18.9"
+        "version": "v10.19.2"
     },
     "dashboard-icons": {
         "cargoLocks": null,
@@ -65,11 +65,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mC6HlixTm6Zdm1uwmX1ecdZ+Drb1sYe0IvL2UW9qGxg=",
+            "sha256": "sha256-rJb6D5oe/e3SSzfu+dvzioT0y0D7z6fTNHqWPdFIGlg=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.0/linux/grafana-falconlogscale-datasource-1.7.0.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.2/linux/grafana-falconlogscale-datasource-1.7.2.linux_amd64.zip"
         },
-        "version": "1.7.0"
+        "version": "1.7.2"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLocks": null,
@@ -80,11 +80,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aDJjQB+7fS2M1/shtZz6eFMuIORyfpnZg/Y9NwUBCjM=",
+            "sha256": "sha256-gaoEOTUaecFhzbPl/8MVZhJiJpOWmJyvhxwb5ToISAE=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.4/linux/yesoreyeram-infinity-datasource-2.9.4.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.5/linux/yesoreyeram-infinity-datasource-2.9.5.linux_amd64.zip"
         },
-        "version": "2.9.4"
+        "version": "2.9.5"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -165,7 +165,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-07-19",
+        "date": "2024-08-28",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -177,12 +177,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "c780c30611ac402a10f4d244a1fbefc78867a3a6",
-            "sha256": "sha256-+shVvRVNhmaeI9jYOVtfTLJ88ntnPwPGWoGl0q9nXpk=",
+            "rev": "681ec6eb17dabd57612f51d84c0d9705b7d46707",
+            "sha256": "sha256-W8c8B+SUF3wXm19qTfy35qad165HLnb+AVVu0WTWl/Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c780c30611ac402a10f4d244a1fbefc78867a3a6"
+        "version": "681ec6eb17dabd57612f51d84c0d9705b7d46707"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -207,7 +207,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-07-18",
+        "date": "2024-08-30",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -219,16 +219,16 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "c7221dd770279275a06f34e68b39b8d237ea9b7b",
-            "sha256": "sha256-fyN8hWVP6ITeOrfv3cpMyIYNyyqw7fFoHqj12FBq6vc=",
+            "rev": "d3a5414eff8acb3246ccf1014a81ba4bf4237a98",
+            "sha256": "sha256-uo/xqFvyUzYJndVQMlUiYJXx57+oqGbdFWt4J105x5Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c7221dd770279275a06f34e68b39b8d237ea9b7b"
+        "version": "d3a5414eff8acb3246ccf1014a81ba4bf4237a98"
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-07-26",
+        "date": "2024-08-14",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -240,16 +240,16 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "418463ad27c13f56adb5b02cfd62018b7d634ee8",
-            "sha256": "sha256-USlmSYcobno8+zFPoFwh+DcaPUz6beGrqPbzdUO8cGg=",
+            "rev": "233e10aeec7de02d34fa5c517b44612d38ccc00f",
+            "sha256": "sha256-as+EBg00AHI6D0nYtLryskS6wziOOsW/Py7NjP/aNxw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "418463ad27c13f56adb5b02cfd62018b7d634ee8"
+        "version": "233e10aeec7de02d34fa5c517b44612d38ccc00f"
     },
     "openwrt-mt76": {
         "cargoLocks": null,
-        "date": "2024-07-16",
+        "date": "2024-08-28",
         "extract": null,
         "name": "openwrt-mt76",
         "passthru": null,
@@ -261,12 +261,12 @@
             "name": null,
             "owner": "openwrt",
             "repo": "mt76",
-            "rev": "e25fb9a010f9c8a2975b71f68d5dc6c5dc011109",
-            "sha256": "sha256-tn2ko0EEJHm2edBtGA0+hRVap2bbOq2f7iPe64nv4b4=",
+            "rev": "a897606f7c26f380c26fdfecf855a96b14c601fb",
+            "sha256": "sha256-V0WbTBueYmg1TDBRcv31Cw8JhksPbyURJAEhWqs2zRM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e25fb9a010f9c8a2975b71f68d5dc6c5dc011109"
+        "version": "a897606f7c26f380c26fdfecf855a96b14c601fb"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
