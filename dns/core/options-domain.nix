@@ -47,7 +47,11 @@ in
 
   config._dnsconfig_js =
     let
-      formatArg = s: if (builtins.isString s) then (lib.escapeShellArg s) else (builtins.toString s);
+      formatArg =
+        let
+          escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
+        in
+        s: if (builtins.isString s) then (escapeArg s) else (builtins.toString s);
 
       providerCommands = lib.concatMapStringsSep ", " (n: "DnsProvider(DNS_${n})") config.providers;
       formattedDomain = "${if config.reverse then "REV(" else ""}${formatArg config.domain}${

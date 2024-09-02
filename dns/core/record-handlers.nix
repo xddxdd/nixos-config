@@ -1,6 +1,10 @@
 { pkgs, lib, ... }:
 let
-  formatArg = s: if (builtins.isString s) then (lib.escapeShellArg s) else (builtins.toString s);
+  formatArg =
+    let
+      escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
+    in
+    s: if (builtins.isString s) then (escapeArg s) else (builtins.toString s);
   formatName = name: reverse: if reverse then "REV(${formatArg name})" else (formatArg name);
 
   record =
