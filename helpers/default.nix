@@ -5,6 +5,7 @@
   inputs,
   nixosConfigurations ? null,
   self ? null,
+  hostsBase ? ../hosts,
   ...
 }:
 let
@@ -39,6 +40,7 @@ mkScope (call: rec {
     lib
     inputs
     nixosConfigurations
+    hostsBase
     ;
   inherit (inputs.nix-math.lib) math;
 

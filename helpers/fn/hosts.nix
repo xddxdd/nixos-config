@@ -2,14 +2,15 @@
   lib,
   geo,
   tags,
+  hostsBase,
   ...
 }:
-lib.genAttrs (builtins.attrNames (builtins.readDir ../../hosts)) (
+lib.genAttrs (builtins.attrNames (builtins.readDir hostsBase)) (
   n:
   (lib.evalModules {
     modules = [
       ../host-options.nix
-      (../../hosts + "/${n}/host.nix")
+      (hostsBase + "/${n}/host.nix")
     ];
     specialArgs = {
       inherit geo tags;
