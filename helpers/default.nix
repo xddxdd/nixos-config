@@ -55,7 +55,7 @@ mkScope (call: rec {
   hostsWithTag = tag: lib.filterAttrs (_n: v: v.hasTag tag) hosts;
   hostsWithoutTag = tag: lib.filterAttrs (_n: v: !(v.hasTag tag)) hosts;
 
-  patchedNixpkgs = self.packages."${this.system}".nixpkgs-patched;
+  patchedNixpkgs = self.packages."${this.system}".pkgs-patched;
 
   container = call ./fn/container.nix;
   enumerateList = call ./fn/enumerate-list.nix;
