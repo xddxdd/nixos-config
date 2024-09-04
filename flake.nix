@@ -171,39 +171,40 @@
       };
 
       nixpkgs-options = {
-        patches = LT.ls ./patches/nixpkgs;
-        exportPatchedNixpkgs = true;
-        permittedInsecurePackages = [
-          "electron-11.5.0"
-          "electron-19.1.9"
-          "nix-2.15.3"
-          "openssl-1.1.1w"
-          "python-2.7.18.8"
-        ];
-        overlays =
-          let
-            rpi_dt_ao_overlay = _final: prev: {
-              deviceTree = prev.deviceTree // {
-                applyOverlays = _final.callPackage (
-                  inputs.nixos-hardware + "/raspberry-pi/4/apply-overlays-dtmerge.nix"
-                ) { };
+        pkgs = {
+          patches = LT.ls ./patches/nixpkgs;
+          permittedInsecurePackages = [
+            "electron-11.5.0"
+            "electron-19.1.9"
+            "nix-2.15.3"
+            "openssl-1.1.1w"
+            "python-2.7.18.8"
+          ];
+          overlays =
+            let
+              rpi_dt_ao_overlay = _final: prev: {
+                deviceTree = prev.deviceTree // {
+                  applyOverlays = _final.callPackage (
+                    inputs.nixos-hardware + "/raspberry-pi/4/apply-overlays-dtmerge.nix"
+                  ) { };
+                };
               };
-            };
-          in
-          [
-            inputs.agenix.overlays.default
-            inputs.colmena.overlay
-            inputs.nil.overlays.nil
-            inputs.nix-alien.overlays.default
-            inputs.nixd.overlays.default
-            inputs.nur.overlay
-            inputs.nur-xddxdd.overlay
-            inputs.nvfetcher.overlays.default
-            inputs.proxmox-nixos.overlays.x86_64-linux
-            inputs.secrets.overlays.default
-            rpi_dt_ao_overlay
-          ]
-          ++ (import ./overlays { inherit inputs; });
+            in
+            [
+              inputs.agenix.overlays.default
+              inputs.colmena.overlay
+              inputs.nil.overlays.nil
+              inputs.nix-alien.overlays.default
+              inputs.nixd.overlays.default
+              inputs.nur.overlay
+              inputs.nur-xddxdd.overlay
+              inputs.nvfetcher.overlays.default
+              inputs.proxmox-nixos.overlays.x86_64-linux
+              inputs.secrets.overlays.default
+              rpi_dt_ao_overlay
+            ]
+            ++ (import ./overlays { inherit inputs; });
+        };
       };
 
       perSystem =

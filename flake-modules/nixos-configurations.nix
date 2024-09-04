@@ -57,7 +57,7 @@ let
     ];
 
   patchedPkgsFor = system: self.allSystems."${system}"._module.args.pkgs;
-  patchedNixpkgsFor = system: self.packages."${system}".nixpkgs-patched;
+  patchedNixpkgsFor = system: self.packages."${system}".pkgs-patched;
 in
 {
   flake = {
