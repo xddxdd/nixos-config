@@ -361,20 +361,20 @@ in
       in
       domain: ipMin: ipMax:
       assert lib.hasSuffix "." domain;
-      forEachActiveHost (
+      lib.mapAttrsToList (
         n: v:
         let
           i = lib.toInt (lastPart v.dn42.IPv4);
           inRange = i >= ipMin && i <= ipMax;
         in
-        lib.optionals (inRange && v.dn42.IPv4 != "") [
+        lib.optionals inRange [
           {
             recordType = "PTR";
             name = lastPart v.dn42.IPv4;
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
         ]
-      );
+      ) (lib.filterAttrs (_n: v: v.dn42.IPv4 != "") LT.hosts);
 
     NeoNetwork =
       domain:
