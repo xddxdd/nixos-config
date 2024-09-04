@@ -3,7 +3,6 @@
   pkgs ? { },
   lib ? pkgs.lib,
   inputs,
-  nixosConfigurations ? null,
   self ? null,
   hostsBase ? ../hosts,
   ...
@@ -39,7 +38,6 @@ mkScope (call: rec {
     pkgs
     lib
     inputs
-    nixosConfigurations
     hostsBase
     ;
   inherit (inputs.nix-math.lib) math;

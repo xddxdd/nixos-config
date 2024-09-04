@@ -119,7 +119,6 @@
       inherit (inputs.nixpkgs) lib;
       LT = import ./helpers {
         inherit lib inputs self;
-        inherit (self) nixosConfigurations;
       };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -206,7 +205,6 @@
         let
           LT = import ./helpers {
             inherit lib inputs self;
-            inherit (self) nixosConfigurations;
             inherit pkgs;
           };
         in

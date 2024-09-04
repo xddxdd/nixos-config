@@ -37,9 +37,9 @@ let
 
         # Plausible Analytics
         "= /api/event" = {
-          proxyPass = "http://${
-            LT.nixosConfigurations."v-ps-fal".config.lantian.netns.plausible.ipv4
-          }:${LT.portStr.Plausible}";
+          proxyPass = "http://198.18.${
+            builtins.toString LT.hosts."v-ps-fal".index
+          }.138:${LT.portStr.Plausible}";
           extraConfig = enableCompression;
         };
 
