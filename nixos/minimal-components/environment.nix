@@ -117,6 +117,7 @@ in
       restic
       rsync
       screen
+      speedtest-cli
       strace
       tcpdump
       unzip
