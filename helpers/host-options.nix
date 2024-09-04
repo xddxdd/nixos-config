@@ -114,7 +114,10 @@
     };
 
     dn42 = {
-      IPv4 = lib.mkOption { type = lib.types.str; };
+      IPv4 = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
       IPv6 = lib.mkOption {
         type = lib.types.str;
         default = "fdbc:f9dc:67ad:${builtins.toString config.index}::1";

@@ -101,6 +101,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    proxmox-nixos = {
+      url = "github:xddxdd/proxmox-nixos";
+      inputs.utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
+    };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
@@ -194,6 +199,7 @@
             inputs.nur.overlay
             inputs.nur-xddxdd.overlay
             inputs.nvfetcher.overlays.default
+            inputs.proxmox-nixos.overlays.x86_64-linux
             inputs.secrets.overlays.default
             rpi_dt_ao_overlay
           ]

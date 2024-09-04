@@ -121,7 +121,7 @@ let
           # Block IPv6 from NetEase netns
           iifname "ns-netease" ip6 version 6 drop
     ''
-    + (lib.optionalString config.lantian.nginx-proxy.enable ''
+    + (lib.optionalString (config.lantian ? nginx-proxy && config.lantian.nginx-proxy.enable) ''
       # nginx whois & gopher server
       fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Whois}
       fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Gopher}
@@ -162,13 +162,17 @@ let
         ) (lib.filterAttrs (_n: v: !(v.hasTag LT.tags.server)) LT.hosts)
       )
     ))
+    + (lib.optionalString (LT.this.neonetwork.IPv4 != "") ''
+      # give LAN access to NeoNetwork
+      ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.neonetwork.IPv4}
+      ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.neonetwork.IPv6}
+    '')
+    + (lib.optionalString (LT.this.dn42.IPv4 != "") ''
+      # give LAN access to DN42
+      ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.dn42.IPv4}
+      ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.dn42.IPv6}
+    '')
     + ''
-        # give LAN access to DN42
-        ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.neonetwork.IPv4}
-        ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.dn42.IPv4}
-        ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.neonetwork.IPv6}
-        ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.dn42.IPv6}
-
         # 198.18.0.200-255, fdbc:f9dc:67ad::200-255 is for devices without BGP sessions
         ip daddr 198.18.0.200-198.18.0.255 snat to ${LT.this.ltnet.IPv4}
         ip6 daddr fdbc:f9dc:67ad::200-fdbc:f9dc:67ad::255 snat to ${LT.this.ltnet.IPv6}
