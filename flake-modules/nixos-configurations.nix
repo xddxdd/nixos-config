@@ -7,14 +7,12 @@
 let
   LT = import ../helpers {
     inherit lib inputs self;
-    inherit (self) nixosConfigurations;
   };
 
   specialArgsFor = n: {
     inherit inputs;
     LT = import ../helpers {
       inherit lib inputs self;
-      inherit (self) nixosConfigurations;
       inherit (self.nixosConfigurations."${n}") config pkgs;
     };
   };
