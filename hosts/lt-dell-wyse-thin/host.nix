@@ -1,7 +1,10 @@
 { tags, geo, ... }:
 {
   index = 105;
-  tags = with tags; [ x86_64-v1 ];
+  tags = with tags; [
+    exclude-bgp-mesh
+    x86_64-v1
+  ];
   cpuThreads = 4;
   city = geo.cities."US Seattle";
   hostname = "192.168.0.208";

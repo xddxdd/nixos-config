@@ -186,5 +186,9 @@ in
     };
   '';
 
-  peers = builtins.concatStringsSep "\n" (lib.mapAttrsToList peer LT.otherHosts);
+  peers = builtins.concatStringsSep "\n" (
+    lib.mapAttrsToList peer (
+      lib.filterAttrs (_n: v: !builtins.elem LT.constants.tags.exclude-bgp-mesh v.tags) LT.otherHosts
+    )
+  );
 }
