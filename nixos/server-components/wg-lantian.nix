@@ -22,6 +22,6 @@ in
         "192.0.2.${builtins.toString v.index}/32"
         "fc00::${builtins.toString v.index}/128"
       ];
-    }) LT.hosts;
+    }) (lib.filterAttrs (n: v: wg-pubkey ? n) LT.hosts);
   };
 }

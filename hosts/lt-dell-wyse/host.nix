@@ -3,6 +3,7 @@
   index = 104;
   tags = with tags; [
     client
+    exclude-bgp-mesh
     x86_64-v1
   ];
   cpuThreads = 4;
