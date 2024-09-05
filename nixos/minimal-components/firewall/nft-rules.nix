@@ -121,6 +121,9 @@ let
           # Block IPv6 from NetEase netns
           iifname "ns-netease" ip6 version 6 drop
     ''
+    + (lib.optionalString (config.services ? proxmox-ve && config.services.proxmox-ve.enable) ''
+      fib daddr type local tcp dport 443 redirect to :8006
+    '')
     + (lib.optionalString (config.lantian ? nginx-proxy && config.lantian.nginx-proxy.enable) ''
       # nginx whois & gopher server
       fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Whois}

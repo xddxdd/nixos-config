@@ -4,6 +4,7 @@ let
 
   perUserConfig = {
     home.stateVersion = LT.constants.stateVersion;
+    home.enableNixpkgsReleaseCheck = false;
     imports = [ entrypoint ];
   };
 in
