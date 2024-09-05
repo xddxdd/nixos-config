@@ -4,6 +4,7 @@
   inputs = {
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -170,9 +171,8 @@
         );
       };
 
-      nixpkgs-options = {
-        pkgs = {
-          patches = LT.ls ./patches/nixpkgs;
+      nixpkgs-options =
+        let
           permittedInsecurePackages = [
             "electron-11.5.0"
             "electron-19.1.9"
@@ -204,8 +204,19 @@
               rpi_dt_ao_overlay
             ]
             ++ (import ./overlays { inherit inputs; });
+        in
+        {
+          pkgs = {
+            sourceInput = inputs.nixpkgs;
+            patches = LT.ls ./patches/nixpkgs;
+            inherit permittedInsecurePackages overlays;
+          };
+          pkgs-stable = {
+            sourceInput = inputs.nixpkgs-stable;
+            patches = LT.ls ./patches/nixpkgs-stable;
+            inherit permittedInsecurePackages overlays;
+          };
         };
-      };
 
       perSystem =
         { config, pkgs, ... }:

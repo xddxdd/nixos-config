@@ -9,6 +9,13 @@ let
     inherit lib inputs self;
   };
 
+  pkgsNameFor =
+    n:
+    if builtins.elem LT.constants.tags.nixpkgs-stable LT.hosts."${n}".tags then
+      "pkgs-stable"
+    else
+      "pkgs";
+
   specialArgsFor = n: {
     inherit inputs;
     LT = import ../helpers {
@@ -31,7 +38,7 @@ let
           system.stateVersion = LT.constants.stateVersion;
 
           # Force inherit nixpkgs
-          _module.args.pkgs = lib.mkForce (patchedPkgsFor system);
+          _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
         }
       )
       (inputs.attic + "/nixos/atticd.nix")
@@ -56,8 +63,8 @@ let
       (../hosts + "/${n}/configuration.nix")
     ];
 
-  patchedPkgsFor = system: self.allSystems."${system}"._module.args.pkgs;
-  patchedNixpkgsFor = system: self.packages."${system}".pkgs-patched;
+  patchedPkgsFor = system: pkgsName: self.allSystems."${system}"._module.args."${pkgsName}";
+  patchedNixpkgsFor = system: pkgsName: self.packages."${system}"."${pkgsName}-patched";
 in
 {
   flake = {
@@ -65,8 +72,8 @@ in
       n:
       let
         inherit (LT.hosts."${n}") system;
-        pkgs = patchedPkgsFor system;
-        nixpkgs = patchedNixpkgsFor system;
+        pkgs = patchedPkgsFor system (pkgsNameFor n);
+        nixpkgs = patchedNixpkgsFor system (pkgsNameFor n);
       in
       (import (nixpkgs + "/nixos/lib/eval-config.nix")) {
         inherit system pkgs;
