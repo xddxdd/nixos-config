@@ -3,6 +3,7 @@
   index = 107;
   tags = with tags; [
     exclude-bgp-mesh
+    nixpkgs-stable
     server
     x86_64-v1
   ];

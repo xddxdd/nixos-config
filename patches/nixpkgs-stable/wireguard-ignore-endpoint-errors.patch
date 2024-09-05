@@ -1,0 +1,36 @@
+diff --git a/nixos/modules/services/networking/wireguard.nix b/nixos/modules/services/networking/wireguard.nix
+index 1d6556f626b..6faa5df5f45 100644
+--- a/nixos/modules/services/networking/wireguard.nix
++++ b/nixos/modules/services/networking/wireguard.nix
+@@ -378,10 +378,13 @@ let
+           wg_setup = concatStringsSep " " (
+             [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
+             ++ optional (psk != null) ''preshared-key "${psk}"''
+-            ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
+             ++ optional (peer.persistentKeepalive != null) ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+             ++ optional (peer.allowedIPs != []) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+           );
++          wg_setup_endpoint = concatStringsSep " " (
++            [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
++            ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
++          );
+           route_setup =
+             optionalString interfaceCfg.allowedIPsAsRoutes
+               (concatMapStringsSep "\n"
+@@ -390,6 +393,7 @@ let
+                 ) peer.allowedIPs);
+         in ''
+           ${wg_setup}
++          ${wg_setup_endpoint} || true
+           ${route_setup}
+ 
+           ${optionalString (peer.dynamicEndpointRefreshSeconds != 0) ''
+@@ -397,7 +401,7 @@ let
+             # Note this will not time out on transient DNS failures such as DNS names
+             # because we have set 'WG_ENDPOINT_RESOLUTION_RETRIES=infinity'.
+             # Also note that 'wg' limits its maximum retry delay to 20 seconds as of writing.
+-            while ${wg_setup}; do
++            while ${wg_setup_endpoint}; do
+               sleep "${toString peer.dynamicEndpointRefreshSeconds}";
+             done
+           ''}
