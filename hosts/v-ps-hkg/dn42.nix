@@ -55,7 +55,6 @@
       remoteASN = 4242423632;
       latencyMs = 36;
       peering.mpbgp = true;
-      mode = "flapping";
       tunnel = {
         type = "wireguard";
         localPort = 23632;

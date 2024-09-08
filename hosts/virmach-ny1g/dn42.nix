@@ -367,7 +367,6 @@
     yuheng = {
       remoteASN = 4242422324;
       latencyMs = 54;
-      mode = "flapping";
       tunnel = {
         type = "wireguard";
         localPort = 22324;

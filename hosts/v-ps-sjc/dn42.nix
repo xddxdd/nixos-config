@@ -461,7 +461,6 @@
     yura = {
       remoteASN = 4242422464;
       latencyMs = 8;
-      mode = "flapping";
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
