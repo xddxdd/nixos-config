@@ -2,7 +2,6 @@
 {
   index = 4;
   tags = with tags; [
-    public-facing
     qemu
     server
   ];
