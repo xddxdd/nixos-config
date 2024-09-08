@@ -514,5 +514,20 @@
         peerIPv6 = "fd62:c9e2:af95:206::1";
       };
     };
+    wnzztx = {
+      remoteASN = 4242421896;
+      latencyMs = 32;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21896;
+        remoteAddress = "sg.dn42.pixlabx.com";
+        remotePort = 22547;
+        wireguardPubkey = "SIVAvYGipMzYjwwmHoRPIErSAQoVnmf+TR8IHZ0E9kI=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.44.161";
+        peerIPv6LinkLocal = "fe80::1894";
+      };
+    };
   };
 }
