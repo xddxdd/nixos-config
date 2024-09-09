@@ -514,11 +514,12 @@
       };
     };
     wnzztx = {
-      remoteASN = 4242421896;
+      remoteASN = 4242421894;
       latencyMs = 32;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
-        localPort = 21896;
+        localPort = 21894;
         remoteAddress = "sg.dn42.pixlabx.com";
         remotePort = 22547;
         wireguardPubkey = "SIVAvYGipMzYjwwmHoRPIErSAQoVnmf+TR8IHZ0E9kI=";
