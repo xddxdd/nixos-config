@@ -43,6 +43,15 @@ in
     );
   };
 
+  users = {
+    users.bird2 = {
+      description = "BIRD Internet Routing Daemon user";
+      group = "bird2";
+      isSystemUser = true;
+    };
+    groups.bird2 = { };
+  };
+
   systemd.services.bird2.serviceConfig = lib.mkForce (
     LT.serviceHarden
     // {
