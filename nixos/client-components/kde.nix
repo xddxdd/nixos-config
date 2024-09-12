@@ -12,6 +12,9 @@
       inherit (LT.sources.material-kwin-decoration) version src;
     }))
     plasma-panel-transparency-toggle
+
+    # Dependencies for plasma-smart-video-wallpaper-reborn plugin
+    kdePackages.qtmultimedia
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
