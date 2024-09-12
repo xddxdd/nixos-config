@@ -99,6 +99,7 @@ in
         gopherus
         imagemagick
         inputs.nix-gaming.packages."${pkgs.system}".wine-ge
+        inter-knot
         jamesdsp
         jamesdsp-toggle
         jellyfin-media-player

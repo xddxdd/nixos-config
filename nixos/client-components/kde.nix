@@ -13,8 +13,8 @@
     }))
     plasma-panel-transparency-toggle
 
-    # Dependencies for plasma-smart-video-wallpaper-reborn plugin
-    kdePackages.qtmultimedia
+    plasma-smart-video-wallpaper-reborn
+    kdePackages.qtmultimedia # Dependencies for plasma-smart-video-wallpaper-reborn plugin
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
