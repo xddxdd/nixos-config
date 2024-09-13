@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   interfaces = {
     "dpdk-04000" = "0000:04:00.0";
@@ -22,22 +27,21 @@ in
   virtualisation.vswitch = {
     enable = true;
     package = pkgs.openvswitch-dpdk;
+    resetOnStart = true;
   };
   environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
 
-  systemd.services.ovs-vswitchd = {
-    path = with pkgs; [
-      dpdk
-      which
-      pciutils
-      iproute2
-    ];
+  systemd.services.ovsdb-setup = {
+    description = "Setup OpenVSwitch database";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "ovs-vswitchd.service" ];
+    requires = [ "ovs-vswitchd.service" ];
 
-    preStart = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (_n: v: "dpdk-devbind.py -b vfio-pci ${v}") interfaces
-    );
+    serviceConfig.Type = "oneshot";
 
-    postStart =
+    path = [ config.virtualisation.vswitch.package ];
+
+    script =
       ''
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-init=true"
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-lcore-mask=0x80"
@@ -76,5 +80,18 @@ in
       + ''
         ovs-vsctl set port dpdk-08000 tag=201 || true
       '';
+  };
+
+  systemd.services.ovs-vswitchd = {
+    path = with pkgs; [
+      dpdk
+      which
+      pciutils
+      iproute2
+    ];
+
+    preStart = builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList (_n: v: "dpdk-devbind.py -b vfio-pci ${v}") interfaces
+    );
   };
 }
