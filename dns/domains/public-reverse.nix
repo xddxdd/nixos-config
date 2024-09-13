@@ -20,15 +20,6 @@
     })
 
     (config.common.reverse {
-      prefix = "2001:470:cab6::/48";
-      target = "v-ps-fal.lantian.pub.";
-    })
-    (config.common.reverse {
-      prefix = "2001:470:1f13:3b1::/64";
-      target = "v-ps-fal.lantian.pub.";
-    })
-
-    (config.common.reverse {
       prefix = "2001:470:488d::/48";
       target = "hostdare.lantian.pub.";
     })
