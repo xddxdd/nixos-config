@@ -8,6 +8,8 @@
     ./vfio.nix
   ];
 
+  boot.kernelParams = [ "console=ttyS0,115200" ];
+
   networking.hosts = {
     "192.168.0.5" = [ config.networking.hostName ];
   };
