@@ -27,8 +27,8 @@ in
   virtualisation.vswitch = {
     enable = true;
     package = pkgs.openvswitch-dpdk;
-    resetOnStart = true;
   };
+  environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
 
   systemd.services.ovsdb-setup = {
     description = "Setup OpenVSwitch database";
