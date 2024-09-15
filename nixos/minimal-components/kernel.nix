@@ -96,13 +96,17 @@ let
                       | cut -d"'" -f2 \
                       || echo "")
 
-                    echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
-                    sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
-                    LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+                    if [ -f "$out/lib/libnvidia-encode.so.${old.version}" ]; then
+                      echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
+                      sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
+                      LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+                    fi
 
-                    echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
-                    sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
-                    LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+                    if [ -f "$out/lib/libnvidia-fbc.so.${old.version}" ]; then
+                      echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
+                      sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
+                      LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+                    fi
                   '';
               });
             in
@@ -142,7 +146,8 @@ let
           r8125 = pkgs.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.r8168.override { inherit (final) kernel; };
 
-          nvidia_x11_grid_16_3 = pkgs.nvidia-grid.grid."16_3".override { inherit (final) kernel; };
+          nvidia_x11_grid_16_5 = pkgs.nvidia-grid.grid."16_5".override { inherit (final) kernel; };
+          nvidia_x11_vgpu_16_5 = pkgs.nvidia-grid.vgpu."16_5".override { inherit (final) kernel; };
         }
       ))
       [
