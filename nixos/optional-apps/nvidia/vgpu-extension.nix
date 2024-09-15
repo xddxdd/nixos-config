@@ -24,6 +24,7 @@ in
     after = [ "systemd-modules-load.service" ];
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
+    # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
     serviceConfig = {
       Type = "forking";
       Restart = "always";
@@ -38,6 +39,7 @@ in
     after = [ "systemd-modules-load.service" ];
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
+    # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
     serviceConfig = {
       Type = "forking";
       Restart = "always";
