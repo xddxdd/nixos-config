@@ -1,9 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
-  extraPath = with pkgs; [
-    util-linux
-    swtpm
-  ];
+  extraPath =
+    with pkgs;
+    (
+      [
+        util-linux
+        swtpm
+      ]
+      ++ (lib.optionals (config.boot.supportedFilesystems.zfs or false) [
+        zfs
+      ])
+    );
 in
 {
   services.proxmox-ve.enable = true;
