@@ -5,6 +5,7 @@
 {
   imports = [
     ../../nixos/hardware/lvm.nix
+    ../../nixos/hardware/zfs.nix
   ];
 
   boot.loader.grub = {
@@ -12,7 +13,7 @@
     device = "nodev";
   };
 
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.extraPools = [ "nvme-zfs" ];
 
   networking.usePredictableInterfaceNames = lib.mkForce true;
 

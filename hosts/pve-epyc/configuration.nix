@@ -7,8 +7,8 @@
     ../../nixos/optional-apps/nvidia/vgpu-extension.nix
 
     ./hardware-configuration.nix
-    # ./openvswitch-dpdk.nix
-    # ./vfio.nix
+    ./openvswitch.nix
+    ./vfio.nix
   ];
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
@@ -17,10 +17,10 @@
     "192.168.0.2" = [ config.networking.hostName ];
   };
 
-  systemd.network.networks.enp97s0d1 = {
+  systemd.network.networks.br0 = {
     address = [ "192.168.0.2/24" ];
     gateway = [ "192.168.0.1" ];
-    matchConfig.Name = "enp97s0d1";
+    matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
   };
 
