@@ -8,8 +8,15 @@ let
   nvidia_x11 = config.hardware.nvidia.package;
 in
 {
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_vgpu_16_5;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_vgpu_16_7;
   hardware.nvidia.open = false;
+
+  boot.kernelModules = [
+    "vfio"
+    "vfio_iommu_type1"
+    "vfio_pci"
+    "vfio_virqfd"
+  ];
 
   systemd.services."nvidia-persistenced".enable = lib.mkForce false;
 
