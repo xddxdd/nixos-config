@@ -25,6 +25,11 @@ in
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
     # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
+
+    environment = {
+      LD_PRELOAD = "${pkgs.vgpu-unlock-rs}/lib/libvgpu_unlock_rs.so";
+    };
+
     serviceConfig = {
       Type = "forking";
       Restart = "always";
@@ -40,6 +45,11 @@ in
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
     # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
+
+    environment = {
+      LD_PRELOAD = "${pkgs.vgpu-unlock-rs}/lib/libvgpu_unlock_rs.so";
+    };
+
     serviceConfig = {
       Type = "forking";
       Restart = "always";
