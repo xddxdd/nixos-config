@@ -10,6 +10,8 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
+  services.proxmox-ve.bridges = [ "br0" ];
+
   networking.hosts = {
     "192.168.0.5" = [ config.networking.hostName ];
   };
