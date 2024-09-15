@@ -12,10 +12,8 @@ in
   hardware.nvidia.open = false;
 
   boot.kernelModules = [
-    "vfio"
-    "vfio_iommu_type1"
-    "vfio_pci"
-    "vfio_virqfd"
+    "nvidia"
+    "nvidia_vgpu_vfio"
   ];
 
   systemd.services."nvidia-persistenced".enable = lib.mkForce false;
@@ -28,7 +26,7 @@ in
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "forking";
-      # Restart = "always";
+      Restart = "always";
       ExecStart = "${nvidia_x11.bin}/bin/nvidia-vgpud --verbose";
       ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpud";
     };
@@ -42,7 +40,7 @@ in
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "forking";
-      # Restart = "always";
+      Restart = "always";
       KillMode = "process";
       ExecStart = "${nvidia_x11.bin}/bin/nvidia-vgpu-mgr --verbose";
       ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpu-mgr";
