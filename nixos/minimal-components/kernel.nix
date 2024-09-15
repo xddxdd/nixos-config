@@ -146,8 +146,18 @@ let
           r8125 = pkgs.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.r8168.override { inherit (final) kernel; };
 
-          nvidia_x11_grid_16_5 = pkgs.nvidia-grid.grid."16_5".override { inherit (final) kernel; };
-          nvidia_x11_vgpu_16_5 = pkgs.nvidia-grid.vgpu."16_5".override { inherit (final) kernel; };
+          nvidia_x11_grid_16_7 = pkgs.nvidia-grid.grid."16_7".override { inherit (final) kernel; };
+          nvidia_x11_vgpu_16_7 =
+            (pkgs.nvidia-grid.vgpu."16_7".override { inherit (final) kernel; }).overrideAttrs
+              (old: {
+                patches = (old.patches or [ ]) ++ [
+                  (pkgs.fetchpatch {
+                    name = "535.183.04.patch";
+                    url = "https://gitlab.com/polloloco/vgpu-proxmox/-/raw/master/535.183.04.patch?ref_type=heads";
+                    sha256 = "sha256-fC8PdEh4hCF3B3Vjp/Gjk7fhRmua9/2lDUShcYbjaGc=";
+                  })
+                ];
+              });
         }
       ))
       [

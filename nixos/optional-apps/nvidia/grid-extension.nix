@@ -13,7 +13,7 @@ in
     directories = [ "/etc/nvidia/ClientConfigToken" ];
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_5;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_7;
   hardware.nvidia.open = false;
 
   systemd.services."nvidia-gridd" = netns.bind {
