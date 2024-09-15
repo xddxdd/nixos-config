@@ -923,11 +923,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726373055,
-        "narHash": "sha256-Q6A+mRma/MPUEjzjpKHPhZoyB1kLkdYNfJ5ac7f+nfw=",
+        "lastModified": 1726380235,
+        "narHash": "sha256-HIqCoGnm1w0yvnE7u6/UvosAL2/rO1EA1CVWym/wRFA=",
         "owner": "xddxdd",
         "repo": "proxmox-nixos",
-        "rev": "00ce49046b651e368efeb43abdd68a3fb90a197f",
+        "rev": "dde880de6fb8279f9078b1a12c1ea6d9a4aedc73",
         "type": "github"
       },
       "original": {

@@ -13,14 +13,7 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
-  environment.etc."network/interfaces" = {
-    mode = "0644";
-    text = ''
-      auto br0
-      iface br0 inet static
-        bridge_ports none
-    '';
-  };
+  services.proxmox-ve.bridges = [ "br0" ];
 
   networking.hosts = {
     "192.168.0.2" = [ config.networking.hostName ];
