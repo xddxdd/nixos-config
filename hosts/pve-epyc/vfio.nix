@@ -1,13 +1,11 @@
 { pkgs, lib, ... }:
 {
-  boot.kernelModules = [
-    "vfio-pci"
-  ];
+  boot.kernelModules = [ "vfio-pci" ];
   boot.kernelParams = [
     "intel_iommu=on"
     "iommu=pt"
     "amd_iommu=on"
-    "isolcpus=4-7"
+    "isolcpus=24-31,56-63"
   ];
   boot.extraModprobeConfig =
     let

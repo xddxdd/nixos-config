@@ -36,6 +36,7 @@ in
     serviceConfig = {
       Type = "forking";
       # Restart = "always";
+      KillMode = "process";
       ExecStart = "${nvidia_x11.bin}/bin/nvidia-vgpu-mgr --verbose";
       ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpu-mgr";
     };
