@@ -71,7 +71,7 @@ in
   networking = {
     hostId = builtins.readFile (
       pkgs.runCommandLocal "hostid.txt" { } ''
-        echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%0X' | sh > $out
+        echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%08X' | sh > $out
       ''
     );
     usePredictableInterfaceNames = false;
