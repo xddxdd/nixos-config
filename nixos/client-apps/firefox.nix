@@ -6,21 +6,27 @@ let
     clearurls
     darkreader
     dearrow
+    downthemall
     enhancer-for-youtube
     fastforwardteam
     flagfox
     i-dont-care-about-cookies
-    localcdn
+    ipfs-companion
+    lovely-forks
     multi-account-containers
     noscript
     pakkujs
     pay-by-privacy
     plasma-integration
+    privacy-pass
+    protondb-for-steam
     return-youtube-dislikes
     rsshub-radar
     sponsorblock
     steam-database
+    tab-reloader
     tampermonkey
+    to-google-translate
     ublacklist
     ublock-origin
     wappalyzer
