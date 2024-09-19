@@ -34,10 +34,13 @@
       extraConfig = ''
         # Disable zsh permission check
         export ZSH_DISABLE_COMPFIX=true
+
+        export FZF_BASE=${pkgs.fzf}
       '';
       plugins = [
         "autopair"
         "bd"
+        "fzf"
         "gitignore"
         "kubectl"
         "nix-shell"
