@@ -182,7 +182,10 @@ in
     # Others
     dhcpcd
     ghidra
+    just
     linkzoneAdb
+    scc
+    tldr
   ];
 
   programs.direnv = {

@@ -94,9 +94,13 @@ in
   environment.systemPackages =
     with pkgs;
     [
+      bat
       bridge-utils
       curlHTTP3
       dig
+      duf
+      eza
+      fzf
       gitMinimal
       gzip
       inetutils
@@ -115,6 +119,7 @@ in
       pigz
       pv
       restic
+      ripgrep
       rsync
       screen
       speedtest-cli
