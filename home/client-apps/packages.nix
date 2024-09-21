@@ -118,6 +118,7 @@ in
         mediainfo
         megatools
         moonlight-qt
+        ncmdump-rs
         newsflash
         nur.repos.yes.mkxp-z
         nvfetcher
