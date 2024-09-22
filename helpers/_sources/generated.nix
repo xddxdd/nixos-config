@@ -43,10 +43,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.9.6";
+    version = "2.10.0";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.9.6/linux/yesoreyeram-infinity-datasource-2.9.6.linux_amd64.zip";
-      sha256 = "sha256-EXSf5KgE7zx/tG4TlWPR45z+mKOH1bcKHckS+Dde1CU=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.10.0/linux/yesoreyeram-infinity-datasource-2.10.0.linux_amd64.zip";
+      sha256 = "sha256-lpOVMQMudcQUNfM0e8UfrGuDzRna5/TtHtFfGGcx4Eg=";
     };
   };
   himawaripy = {
@@ -96,15 +96,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "3d5fc1bdb807edb6cf9a77087612d1b6b49a4f59";
+    version = "5e531197cb7839a818fdea4aee54af72259b35d3";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "3d5fc1bdb807edb6cf9a77087612d1b6b49a4f59";
+      rev = "5e531197cb7839a818fdea4aee54af72259b35d3";
       fetchSubmodules = false;
-      sha256 = "sha256-lo+hV8h/mpzE0BpOSDqjYo0oXo62gEe4+4A95ckXap0=";
+      sha256 = "sha256-ajDyVBNMcTFGOwkBI6UfSNEfy2WKs6ZO+X4CbzGgPQk=";
     };
-    date = "2024-09-12";
+    date = "2024-09-21";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -132,27 +132,27 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "65985905c5abc69c1ee34c4cab6fdf8b73da7f50";
+    version = "b322690394b75a9d4987d4b27107ccb01bbcd90e";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "65985905c5abc69c1ee34c4cab6fdf8b73da7f50";
+      rev = "b322690394b75a9d4987d4b27107ccb01bbcd90e";
       fetchSubmodules = false;
-      sha256 = "sha256-OmzNjnQQvbTTQeY3rAti5X//mvvrjCpdwejGmz9k1wY=";
+      sha256 = "sha256-l090ItOYC7+VwcdS+i8ATP8/ncqsSOcWEKRAb6Nheyc=";
     };
-    date = "2024-09-12";
+    date = "2024-09-19";
   };
   openwrt-mt76 = {
     pname = "openwrt-mt76";
-    version = "bec8cb851d99aadfd27eb161a66ee396205479a1";
+    version = "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd";
     src = fetchFromGitHub {
       owner = "openwrt";
       repo = "mt76";
-      rev = "bec8cb851d99aadfd27eb161a66ee396205479a1";
+      rev = "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd";
       fetchSubmodules = false;
-      sha256 = "sha256-7Meiw5Y/zAqP7IUEtDAFNA+dAh3KVwpyq2w5DJWkwjQ=";
+      sha256 = "sha256-TJm1G/G9ccis3YRFvxiNXddHB3lPJfUX4u382rp9jjU=";
     };
-    date = "2024-09-06";
+    date = "2024-09-17";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";
