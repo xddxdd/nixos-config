@@ -8,8 +8,8 @@ let
   interfaces = [
     "eno1"
     "eno2"
-    "enp97s0"
-    "enp97s0d1"
+    "enp65s0"
+    "enp65s0d1"
   ];
 in
 {
