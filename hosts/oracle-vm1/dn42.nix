@@ -226,6 +226,7 @@
     xlyf = {
       remoteASN = 4242422034;
       latencyMs = 1;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 22034;
