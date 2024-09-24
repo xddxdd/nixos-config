@@ -21,18 +21,6 @@
       sha256 = "sha256-eDj3E/aTNfvf1AJ2Ta9sBfeEjPZR9LnhogjHmT2h7J4=";
     };
   };
-  dashboard-icons = {
-    pname = "dashboard-icons";
-    version = "be82e22c418f5980ee2a13064d50f1483df39c8c";
-    src = fetchFromGitHub {
-      owner = "walkxcode";
-      repo = "dashboard-icons";
-      rev = "be82e22c418f5980ee2a13064d50f1483df39c8c";
-      fetchSubmodules = false;
-      sha256 = "sha256-z69DKzKhCVNnNHjRM3dX/DD+WJOL9wm1Im1nImhBc9Y=";
-    };
-    date = "2024-07-21";
-  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.7.2";
@@ -58,14 +46,6 @@
       rev = "v2.2.0";
       fetchSubmodules = false;
       sha256 = "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=";
-    };
-  };
-  jproxy = {
-    pname = "jproxy";
-    version = "v3.4.1";
-    src = fetchurl {
-      url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip";
-      sha256 = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
     };
   };
   keycloak-lantian = {
@@ -141,32 +121,6 @@
       sha256 = "sha256-l090ItOYC7+VwcdS+i8ATP8/ncqsSOcWEKRAb6Nheyc=";
     };
     date = "2024-09-19";
-  };
-  openwrt-mt76 = {
-    pname = "openwrt-mt76";
-    version = "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd";
-    src = fetchFromGitHub {
-      owner = "openwrt";
-      repo = "mt76";
-      rev = "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd";
-      fetchSubmodules = false;
-      sha256 = "sha256-TJm1G/G9ccis3YRFvxiNXddHB3lPJfUX4u382rp9jjU=";
-    };
-    date = "2024-09-17";
-  };
-  soggy-resources = {
-    pname = "soggy-resources";
-    version = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";
-    src = fetchgit {
-      url = "https://codeberg.org/LDA_suku/soggy_resources.git";
-      rev = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=";
-    };
-    date = "2022-11-27";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

@@ -7,10 +7,6 @@ fetch.github = "Owl-Maintain/brlaser"
 src.github = "gchq/CyberChef"
 fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
 
-[dashboard-icons]
-src.git = "https://github.com/walkxcode/dashboard-icons.git"
-fetch.github = "walkxcode/dashboard-icons"
-
 [grafana-falconlogscale-datasource]
 src.webpage = "https://grafana.com/api/plugins/grafana-falconlogscale-datasource?version=latest"
 src.regex = "\"version\":\\s*\"([^\"]+)\""
@@ -24,10 +20,6 @@ fetch.url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-in
 [himawaripy]
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
-
-[jproxy]
-src.manual = "v3.4.1"
-fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
 
 [keycloak-lantian]
 src.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
@@ -52,14 +44,6 @@ fetch.github = "keylase/nvidia-patch"
 [openvpn]
 src.git = "https://github.com/OpenVPN/openvpn.git"
 fetch.github = "OpenVPN/openvpn"
-
-[openwrt-mt76]
-src.git = "https://github.com/openwrt/mt76"
-fetch.github = "openwrt/mt76"
-
-[soggy-resources]
-src.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
-fetch.git = "https://codeberg.org/LDA_suku/soggy_resources.git"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
