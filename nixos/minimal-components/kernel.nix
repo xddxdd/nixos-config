@@ -136,19 +136,19 @@ let
       (kernelPackages.extend (
         final: _prev: {
           # Custom kernel packages
-          acpi-ec = pkgs.acpi-ec.override { inherit (final) kernel; };
-          cryptodev = pkgs.cryptodev-unstable.override { inherit (final) kernel; };
-          dpdk-kmod = pkgs.dpdk-kmod.override { inherit (final) kernel; };
-          i915-sriov = pkgs.i915-sriov.override { inherit (final) kernel; };
-          nft-fullcone = pkgs.nft-fullcone.override { inherit (final) kernel; };
-          nullfsvfs = pkgs.nullfsvfs.override { inherit (final) kernel; };
-          ovpn-dco = pkgs.ovpn-dco.override { inherit (final) kernel; };
-          r8125 = pkgs.r8125.override { inherit (final) kernel; };
-          r8168 = pkgs.r8168.override { inherit (final) kernel; };
+          acpi-ec = pkgs.nur-xddxdd.acpi-ec.override { inherit (final) kernel; };
+          cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };
+          dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
+          i915-sriov = pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; };
+          nft-fullcone = pkgs.nur-xddxdd.nft-fullcone.override { inherit (final) kernel; };
+          nullfsvfs = pkgs.nur-xddxdd.nullfsvfs.override { inherit (final) kernel; };
+          ovpn-dco = pkgs.nur-xddxdd.ovpn-dco.override { inherit (final) kernel; };
+          r8125 = pkgs.nur-xddxdd.r8125.override { inherit (final) kernel; };
+          r8168 = pkgs.nur-xddxdd.r8168.override { inherit (final) kernel; };
 
-          nvidia_x11_grid_16_7 = pkgs.nvidia-grid.grid."16_7".override { inherit (final) kernel; };
+          nvidia_x11_grid_16_7 = pkgs.nur-xddxdd.nvidia-grid.grid."16_7".override { inherit (final) kernel; };
           nvidia_x11_vgpu_16_7 =
-            (pkgs.nvidia-grid.vgpu."16_7".override { inherit (final) kernel; }).overrideAttrs
+            (pkgs.nur-xddxdd.nvidia-grid.vgpu."16_7".override { inherit (final) kernel; }).overrideAttrs
               (old: {
                 patches = (old.patches or [ ]) ++ [
                   (pkgs.fetchpatch {
@@ -173,9 +173,9 @@ in
         if pkgs.stdenv.isx86_64 then
           (
             if LT.this.hasTag LT.tags.x86_64-v1 then
-              pkgs.lantianLinuxXanmod.lts-x86_64-v1-lto
+              pkgs.nur-xddxdd.lantianLinuxXanmod.lts-x86_64-v1-lto
             else
-              pkgs.lantianLinuxXanmod.lts-x86_64-v3-lto
+              pkgs.nur-xddxdd.lantianLinuxXanmod.lts-x86_64-v3-lto
           )
         else
           pkgs.linux_6_6;

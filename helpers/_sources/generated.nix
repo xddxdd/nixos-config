@@ -154,18 +154,6 @@
     };
     date = "2024-09-17";
   };
-  plasma-panel-transparency-toggle = {
-    pname = "plasma-panel-transparency-toggle";
-    version = "739c70ffde6bb7670d57d3507804408ae13edf25";
-    src = fetchFromGitHub {
-      owner = "sanjay-kr-commit";
-      repo = "panelTransparencyToggleForPlasma6";
-      rev = "739c70ffde6bb7670d57d3507804408ae13edf25";
-      fetchSubmodules = false;
-      sha256 = "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=";
-    };
-    date = "2024-04-17";
-  };
   soggy-resources = {
     pname = "soggy-resources";
     version = "162538ae54d9d5d3864cfbee4ed5bab6cc38580d";

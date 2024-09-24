@@ -17,10 +17,10 @@
     extraFiles = {
       "netboot.xyz.efi" = lib.mkIf (
         pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport
-      ) "${pkgs.netboot-xyz}/netboot.xyz.efi";
+      ) "${pkgs.nur-xddxdd.netboot-xyz}/netboot.xyz.efi";
       "netboot.xyz.lkrn" = lib.mkIf (
         pkgs.stdenv.isx86_64 && !config.boot.loader.grub.efiSupport
-      ) "${pkgs.netboot-xyz}/netboot.xyz.lkrn";
+      ) "${pkgs.nur-xddxdd.netboot-xyz}/netboot.xyz.lkrn";
     };
     extraEntries =
       lib.optionalString (pkgs.stdenv.isx86_64 && config.boot.loader.grub.efiSupport) ''

@@ -20,16 +20,16 @@
       fira-code
       fira-code-symbols
       font-awesome
-      kaixinsong-fonts
       hanazono
-      hoyo-glyphs
       liberation_ttf
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji-blob-bin
       noto-fonts-extra
-      plangothic-fonts.allideo
+      nur-xddxdd.hoyo-glyphs
+      nur-xddxdd.kaixinsong-fonts
+      nur-xddxdd.plangothic-fonts.allideo
       source-code-pro
       source-han-code-jp
       source-han-mono

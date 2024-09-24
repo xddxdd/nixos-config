@@ -121,7 +121,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.bird-lgproxy-go}/bin/proxy";
+      ExecStart = "${pkgs.nur-xddxdd.bird-lgproxy-go}/bin/proxy";
 
       # Needed by mtr and traceroute
       AmbientCapabilities = [

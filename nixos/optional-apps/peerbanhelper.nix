@@ -20,7 +20,7 @@
       Group = "peerbanhelper";
       Restart = "on-failure";
 
-      ExecStart = "${pkgs.peerbanhelper}/bin/peerbanhelper";
+      ExecStart = "${pkgs.nur-xddxdd.peerbanhelper}/bin/peerbanhelper";
       MemoryDenyWriteExecute = false;
 
       StateDirectory = "peerbanhelper";

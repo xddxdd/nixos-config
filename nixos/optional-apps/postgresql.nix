@@ -61,7 +61,7 @@
   ];
   lantian.nginxVhosts = {
     "pga.${config.networking.hostName}.xuyh0120.win" = {
-      root = pkgs.phppgadmin;
+      root = pkgs.nur-xddxdd.phppgadmin;
       locations = {
         "/".index = "index.php";
       };
@@ -74,7 +74,7 @@
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
-      root = pkgs.phppgadmin;
+      root = pkgs.nur-xddxdd.phppgadmin;
       locations = {
         "/".index = "index.php";
       };

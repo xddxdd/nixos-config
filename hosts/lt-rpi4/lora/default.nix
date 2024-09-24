@@ -55,7 +55,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.sx1302-hal}/bin/lora_pkt_fwd -c ${pkgs.sx1302-hal}/conf/global_conf.json.sx1250.US915";
+      ExecStart = "${pkgs.nur-xddxdd.sx1302-hal}/bin/lora_pkt_fwd -c ${pkgs.nur-xddxdd.sx1302-hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
     };

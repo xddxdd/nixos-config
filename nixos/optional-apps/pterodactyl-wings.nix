@@ -19,7 +19,7 @@
     directories = [ "/etc/pterodactyl" ];
   };
 
-  environment.systemPackages = [ pkgs.pterodactyl-wings ];
+  environment.systemPackages = [ pkgs.nur-xddxdd.pterodactyl-wings ];
 
   systemd.services.pterodactyl-wings = {
     description = "Pterodactyl Wings Daemon";
@@ -36,7 +36,7 @@
       DOCKER_HOST = "unix:///run/docker-vm/docker.sock";
     };
     serviceConfig = {
-      ExecStart = "${pkgs.pterodactyl-wings}/bin/wings";
+      ExecStart = "${pkgs.nur-xddxdd.pterodactyl-wings}/bin/wings";
 
       LockPersonality = true;
       MemoryDenyWriteExecute = true;

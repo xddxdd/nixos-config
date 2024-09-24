@@ -62,9 +62,7 @@ in
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.lantianCustomized.nginx.override {
-      openssl_3_0 = pkgs.openssl_3_0.override { inherit (config.boot.kernelPackages) cryptodev; };
-    };
+    package = pkgs.nur-xddxdd.lantianCustomized.nginx;
     enableQuicBPF = true;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1h";

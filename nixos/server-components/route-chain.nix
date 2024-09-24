@@ -31,7 +31,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.route-chain}/bin/route-chain ${
+      ExecStart = "${pkgs.nur-xddxdd.route-chain}/bin/route-chain ${
         builtins.concatStringsSep " " config.services."route-chain".routes
       }";
 

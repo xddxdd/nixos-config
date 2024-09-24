@@ -46,7 +46,7 @@ in
 
     lantian.nginxVhosts = {
       "books.xuyh0120.win" = {
-        root = pkgs.calibre-cops;
+        root = pkgs.nur-xddxdd.calibre-cops;
         locations = {
           "/" = {
             index = "index.php";

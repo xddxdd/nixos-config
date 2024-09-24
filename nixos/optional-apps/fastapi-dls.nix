@@ -32,7 +32,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
+      ExecStart = "${pkgs.nur-xddxdd.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
       RuntimeDirectory = "fastapi-dls";
       StateDirectory = "fastapi-dls";
       User = "fastapi-dls";

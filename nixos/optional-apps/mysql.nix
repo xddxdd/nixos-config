@@ -123,7 +123,7 @@ in
 
   lantian.nginxVhosts = {
     "pma.${config.networking.hostName}.xuyh0120.win" = {
-      root = pkgs.phpmyadmin;
+      root = pkgs.nur-xddxdd.phpmyadmin;
       locations = {
         "/".index = "index.php";
       };
@@ -136,7 +136,7 @@ in
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
-      root = pkgs.phpmyadmin;
+      root = pkgs.nur-xddxdd.phpmyadmin;
       locations = {
         "/".index = "index.php";
       };

@@ -24,7 +24,7 @@ in
 
   services.coredns = {
     enable = true;
-    package = pkgs.lantianCustomized.coredns;
+    package = pkgs.nur-xddxdd.lantianCustomized.coredns;
 
     config =
       let

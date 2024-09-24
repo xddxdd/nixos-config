@@ -1,13 +1,13 @@
 {
   linkFarm,
-  lantianPersonal,
+  nur-xddxdd,
   writeText,
   ...
 }:
 let
   lantian_nginx = writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"
-    local ltnginx   = ffi.load("${lantianPersonal.libltnginx}/lib/libltnginx.so")
+    local ltnginx   = ffi.load("${nur-xddxdd.lantianPersonal.libltnginx}/lib/libltnginx.so")
 
     ffi.cdef[[
       char* whois_ip_lookup(char* cidr);

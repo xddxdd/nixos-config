@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   fetchurl,
-  chmlib-utils,
+  nur-xddxdd,
   iconv,
   ...
 }:
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    chmlib-utils
+    nur-xddxdd.chmlib-utils
     iconv
   ];
 

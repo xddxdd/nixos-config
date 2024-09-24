@@ -5,7 +5,7 @@
   ...
 }:
 let
-  qbittorrent = pkgs.qbittorrent-enhanced-edition-nox;
+  qbittorrent = pkgs.nur-xddxdd.qbittorrent-enhanced-edition-nox;
 in
 {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix

@@ -19,16 +19,16 @@
     script = ''
       mkdir -p config database
       if [ ! -f config/application.yml ]; then
-        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.jproxy}/opt/config/application.yml config/application.yml
+        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.nur-xddxdd.jproxy}/opt/config/application.yml config/application.yml
       fi
       if [ ! -f config/application-prod.yml ]; then
-        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.jproxy}/opt/config/application-prod.yml config/application-prod.yml
+        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.nur-xddxdd.jproxy}/opt/config/application-prod.yml config/application-prod.yml
       fi
       if [ ! -f database/jproxy.db ]; then
-        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.jproxy}/opt/database/jproxy.db database/jproxy.db
+        ${pkgs.coreutils}/bin/install -Dm755 ${pkgs.nur-xddxdd.jproxy}/opt/database/jproxy.db database/jproxy.db
       fi
 
-      exec ${pkgs.jproxy}/bin/jproxy -Dspring.config.location=/var/lib/jproxy/
+      exec ${pkgs.nur-xddxdd.jproxy}/bin/jproxy -Dspring.config.location=/var/lib/jproxy/
     '';
 
     serviceConfig = LT.serviceHarden // {

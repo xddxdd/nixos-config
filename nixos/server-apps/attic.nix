@@ -15,7 +15,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
 
   services.atticd = {
     enable = true;
-    package = pkgs.lantianCustomized.attic-telnyx-compatible;
+    package = pkgs.nur-xddxdd.lantianCustomized.attic-telnyx-compatible;
     credentialsFile = config.age.secrets.attic-credentials.path;
     mode = if config.networking.hostName == "terrahost" then "monolithic" else "api-server";
     settings = lib.mkForce {

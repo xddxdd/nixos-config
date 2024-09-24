@@ -11,9 +11,9 @@
     (material-kwin-decoration.overrideAttrs (_old: {
       inherit (LT.sources.material-kwin-decoration) version src;
     }))
-    plasma-panel-transparency-toggle
+    nur-xddxdd.plasma-panel-transparency-toggle
 
-    plasma-smart-video-wallpaper-reborn
+    nur-xddxdd.plasma-smart-video-wallpaper-reborn
     kdePackages.qtmultimedia # Dependencies for plasma-smart-video-wallpaper-reborn plugin
   ];
 
@@ -55,4 +55,6 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
   programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+
+  programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid;
 }
