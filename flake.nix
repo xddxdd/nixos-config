@@ -173,13 +173,7 @@
 
       nixpkgs-options =
         let
-          permittedInsecurePackages = [
-            "electron-11.5.0"
-            "electron-19.1.9"
-            "nix-2.15.3"
-            "openssl-1.1.1w"
-            "python-2.7.18.8"
-          ];
+          permittedInsecurePackages = [ ];
           overlays =
             let
               rpi_dt_ao_overlay = _final: prev: {
