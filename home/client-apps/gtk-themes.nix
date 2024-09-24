@@ -18,7 +18,7 @@
   };
 
   home.pointerCursor = {
-    package = pkgs.sam-toki-mouse-cursors.overrideAttrs (old: {
+    package = pkgs.nur-xddxdd.sam-toki-mouse-cursors.overrideAttrs (old: {
       postPatch =
         (old.postPatch or "")
         + ''

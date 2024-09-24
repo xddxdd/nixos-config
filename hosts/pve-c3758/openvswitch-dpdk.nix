@@ -26,7 +26,7 @@ in
 
   virtualisation.vswitch = {
     enable = true;
-    package = pkgs.openvswitch-dpdk;
+    package = pkgs.nur-xddxdd.openvswitch-dpdk;
   };
   environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
 

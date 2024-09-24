@@ -34,7 +34,7 @@ in
 
   services.asterisk = {
     enable = true;
-    package = pkgs.lantianCustomized.asterisk;
+    package = pkgs.nur-xddxdd.lantianCustomized.asterisk;
 
     confFiles = {
       "pjsip.conf" = ''

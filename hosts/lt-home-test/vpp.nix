@@ -19,7 +19,7 @@ let
       gid vpp
     }
 
-    plugin_path ${pkgs.vpp}/lib/vpp_plugins
+    plugin_path ${pkgs.nur-xddxdd.vpp}/lib/vpp_plugins
 
     plugins {
       ## Disable all plugins, selectively enable specific plugins
@@ -64,8 +64,8 @@ in
         "${pkgs.kmod}/bin/modprobe -v igb_uio"
         "${pkgs.dpdk}/bin/dpdk-devbind.py -b igb_uio 0000:06:13.0"
       ];
-      ExecStart = "${pkgs.vpp}/bin/vpp -c ${vppConf}";
-      ExecStopPost = "${pkgs.dpdk}/bin/dpdk-devbind.py -u 0000:06:13.0";
+      ExecStart = "${pkgs.nur-xddxdd.vpp}/bin/vpp -c ${vppConf}";
+      ExecStopPost = "${pkgs.nur-xddxdd.dpdk}/bin/dpdk-devbind.py -u 0000:06:13.0";
 
       Restart = "on-failure";
       RestartSec = "5";

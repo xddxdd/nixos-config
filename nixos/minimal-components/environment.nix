@@ -168,6 +168,7 @@ in
 
     openssl-oqs-provider = {
       enable = true;
+      package = pkgs.nur-xddxdd.openssl-oqs-provider;
       curves = [
         # Client: use generic curves first before OQS ones
         "x25519"
@@ -185,6 +186,8 @@ in
 
     steam.platformOptimizations.enable = true;
   };
+
+  lantian.qemu-user-static-binfmt.package = pkgs.nur-xddxdd.qemu-user-static;
 
   security.protectKernelImage = true;
   security.sudo.enable = lib.mkForce false;
@@ -229,14 +232,14 @@ in
       setgid = true;
     };
     netns-exec = {
-      source = pkgs.netns-exec + "/bin/netns-exec";
+      source = pkgs.nur-xddxdd.netns-exec + "/bin/netns-exec";
       owner = "root";
       group = "root";
       setuid = true;
       setgid = true;
     };
     netns-exec-dbus = {
-      source = pkgs.netns-exec + "/bin/netns-exec-dbus";
+      source = pkgs.nur-xddxdd.netns-exec + "/bin/netns-exec-dbus";
       owner = "root";
       group = "root";
       setuid = true;

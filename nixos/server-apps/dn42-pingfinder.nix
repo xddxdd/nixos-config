@@ -22,7 +22,7 @@
       ];
       script = ''
         export UUID=$(cat ${config.services."dn42-pingfinder".uuidFile})
-        exec ${pkgs.dn42-pingfinder}/bin/dn42-pingfinder
+        exec ${pkgs.nur-xddxdd.dn42-pingfinder}/bin/dn42-pingfinder
       '';
       serviceConfig = {
         Type = "oneshot";

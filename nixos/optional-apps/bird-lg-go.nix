@@ -40,7 +40,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.bird-lg-go}/bin/frontend";
+      ExecStart = "${pkgs.nur-xddxdd.bird-lg-go}/bin/frontend";
       RuntimeDirectory = "bird-lg-go";
       User = "bird-lg-go";
       Group = "bird-lg-go";

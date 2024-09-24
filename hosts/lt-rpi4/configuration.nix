@@ -12,7 +12,7 @@
   boot.kernelParams = [ "console=ttyAMA1,115200" ];
 
   environment.systemPackages = with pkgs; [
-    helium-gateway-rs
+    nur-xddxdd.helium-gateway-rs
   ];
 
   systemd.network.networks.eth0 = {

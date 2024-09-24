@@ -91,7 +91,6 @@
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nvfetcher.follows = "nvfetcher";
@@ -191,7 +190,7 @@
               inputs.nix-alien.overlays.default
               inputs.nixd.overlays.default
               inputs.nur.overlay
-              inputs.nur-xddxdd.overlay
+              inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs
               inputs.nvfetcher.overlays.default
               inputs.proxmox-nixos.overlays.x86_64-linux
               inputs.secrets.overlays.default

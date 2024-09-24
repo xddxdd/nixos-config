@@ -366,7 +366,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       serviceConfig = LT.serviceHarden // {
         LimitNPROC = 512;
         LimitNOFILE = 1048576;
-        ExecStart = "${pkgs.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
+        ExecStart = "${pkgs.nur-xddxdd.lantianCustomized.coredns}/bin/coredns -conf=${corednsConfig}";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
         Restart = "on-failure";
 

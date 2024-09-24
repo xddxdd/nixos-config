@@ -35,7 +35,7 @@
         Restart = "always";
         RestartSec = "3";
         EnvironmentFile = config.age.secrets.drone-ci-file-secret-env.path;
-        ExecStart = "${pkgs.drone-file-secret}/bin/drone-file-secret";
+        ExecStart = "${pkgs.nur-xddxdd.drone-file-secret}/bin/drone-file-secret";
         RuntimeDirectory = "drone-file-secret";
         User = "container";
         Group = "container";

@@ -3,5 +3,5 @@
   environment.systemPackages = [ pkgs.clpeak ];
 
   hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = [ pkgs.pocl ];
+  hardware.graphics.extraPackages = [ pkgs.nur-xddxdd.pocl ];
 }

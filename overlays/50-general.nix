@@ -101,28 +101,20 @@ rec {
         openjdk11
         openjdk17
       ])
-      ++ (with final.openj9-ibm-semeru; [
+      ++ (with final.nur-xddxdd.openj9-ibm-semeru; [
         jdk-bin-11
         jdk-bin-17
         jdk-bin-8
       ]);
   };
-  qbittorrent-enhanced-edition =
-    (prev.qbittorrent-enhanced-edition.override {
-      libtorrent-rasterbar = final.libtorrent-rasterbar-1_2_x;
-    }).overrideAttrs
-      (old: {
-        # Sonarr retries with different release when adding existing torrent
-        patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-      });
-  qbittorrent-enhanced-edition-nox =
-    (prev.qbittorrent-enhanced-edition-nox.override {
-      libtorrent-rasterbar = final.libtorrent-rasterbar-1_2_x;
-    }).overrideAttrs
-      (old: {
-        # Sonarr retries with different release when adding existing torrent
-        patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-      });
+  qbittorrent-enhanced-edition = prev.qbittorrent-enhanced-edition.overrideAttrs (old: {
+    # Sonarr retries with different release when adding existing torrent
+    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
+  });
+  qbittorrent-enhanced-edition-nox = prev.qbittorrent-enhanced-edition-nox.overrideAttrs (old: {
+    # Sonarr retries with different release when adding existing torrent
+    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
+  });
   # sshfs = prev.sshfs.override {
   #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
   # };

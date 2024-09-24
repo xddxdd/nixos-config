@@ -40,7 +40,7 @@ in
 {
   programs.mpv = {
     enable = true;
-    package = pkgs.svp-mpv;
+    package = pkgs.nur-xddxdd.svp-mpv;
     config =
       {
         cscale = "ewa_lanczossharp";

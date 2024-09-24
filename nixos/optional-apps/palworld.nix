@@ -1,8 +1,6 @@
 {
   pkgs,
-  lib,
   LT,
-  config,
   ...
 }:
 {
@@ -38,7 +36,7 @@
           if [ ! -f "$DIR"/Level.sav ]; then continue; fi
 
           rm -f "$DIR"/WorldOption.sav
-          ${pkgs.coreutils}/bin/yes | ${pkgs.palworld-worldoptions}/bin/palworld-worldoptions \
+          ${pkgs.coreutils}/bin/yes | ${pkgs.nur-xddxdd.palworld-worldoptions}/bin/palworld-worldoptions \
             /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini \
             --output "$DIR"/
         done
@@ -90,7 +88,7 @@
       export RCON_PASSWORD=$(cat /var/lib/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini | grep -E -o "AdminPassword=\"[^\"]+\"" | cut -d'"' -f2)
       export SAVE_DIRECTORY=$(echo /var/lib/palworld/Pal/Saved/SaveGames/0/*)
 
-      ${pkgs.palworld-exporter}/bin/palworld_exporter
+      ${pkgs.nur-xddxdd.palworld-exporter}/bin/palworld_exporter
     '';
 
     serviceConfig = LT.serviceHarden // {

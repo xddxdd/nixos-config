@@ -68,24 +68,19 @@ in
     (
       [
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
-        (lib.hiPrio qq)
-        (LT.wrapNetns "wg-lantian" amule-dlp)
+        (lib.hiPrio nur-xddxdd.qq)
         (LT.wrapNetns "wg-lantian" deluge)
-        (LT.wrapNetns "wg-lantian" qbittorrent-enhanced-edition)
+        (LT.wrapNetns "wg-lantian" nur-xddxdd.amule-dlp)
+        (LT.wrapNetns "wg-lantian" nur-xddxdd.qbittorrent-enhanced-edition)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
         audacious
-        baidunetdisk
-        baidupcs-go
-        bilibili
         brotli
         bzip2
         calibre
         calibre-override-desktop
-        cloudpan189-go
         colmena
         dbeaver-bin
-        dingtalk
         discord
         discord-canary
         distrobox
@@ -95,18 +90,13 @@ in
         gcdemu
         gedit
         gimp
-        google-earth-pro
-        gopherus
         imagemagick
         inputs.nix-gaming.packages."${pkgs.system}".wine-ge
-        inter-knot
         jamesdsp
         jamesdsp-toggle
         jellyfin-media-player
         jellyfin-media-player-wrapped
         kdenlive
-        kikoplay
-        lantianCustomized.attic-telnyx-compatible
         lbzip2
         libfaketime
         librewolf
@@ -118,8 +108,22 @@ in
         mediainfo
         megatools
         moonlight-qt
-        ncmdump-rs
         newsflash
+        nur-xddxdd.baidunetdisk
+        nur-xddxdd.baidupcs-go
+        nur-xddxdd.bilibili
+        nur-xddxdd.cloudpan189-go
+        nur-xddxdd.dingtalk
+        nur-xddxdd.google-earth-pro
+        nur-xddxdd.gopherus
+        nur-xddxdd.inter-knot
+        nur-xddxdd.kikoplay
+        nur-xddxdd.lantianCustomized.attic-telnyx-compatible
+        nur-xddxdd.ncmdump-rs
+        nur-xddxdd.qqmusic
+        nur-xddxdd.runpodctl
+        nur-xddxdd.space-cadet-pinball-full-tilt
+        nur-xddxdd.wechat-uos
         nur.repos.yes.mkxp-z
         nvfetcher
         openvpn
@@ -130,11 +134,8 @@ in
         prismlauncher
         prismlauncher-wrapped
         pwgen
-        qqmusic
         quasselClient
         rar
-        runpodctl
-        space-cadet-pinball-full-tilt
         steam-run
         tdesktop
         tigervnc
@@ -149,7 +150,6 @@ in
         vopono
         vscode
         vscode-wrapped
-        wechat-uos
         winetricks
         wpsoffice
         xca
@@ -157,7 +157,7 @@ in
         yubikey-manager-qt
         zoom-us
       ]
-      ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ svp ]
+      ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ nur-xddxdd.svp ]
     );
 
   programs.nix-index.enable = true;

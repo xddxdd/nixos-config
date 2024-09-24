@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ uksmd ];
-  systemd.packages = with pkgs; [ uksmd ];
+  environment.systemPackages = with pkgs; [ nur-xddxdd.uksmd ];
+  systemd.packages = with pkgs; [ nur-xddxdd.uksmd ];
   systemd.services.uksmd = {
     enable = true;
     wantedBy = [ "multi-user.target" ];

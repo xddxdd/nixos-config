@@ -9,16 +9,16 @@ let
 
   fcitx5-rime-with-addons =
     (pkgs.fcitx5-rime.override {
-      librime = pkgs.lantianCustomized.librime-with-plugins;
+      librime = pkgs.nur-xddxdd.lantianCustomized.librime-with-plugins;
       rimeDataPkgs = with pkgs; [
-        rime-aurora-pinyin
-        rime-custom-pinyin-dictionary
+        nur-xddxdd.rime-aurora-pinyin
+        nur-xddxdd.rime-custom-pinyin-dictionary
+        nur-xddxdd.rime-dict
+        nur-xddxdd.rime-ice
+        nur-xddxdd.rime-moegirl
+        nur-xddxdd.rime-zhwiki
         rime-data
-        rime-dict
-        rime-ice
         rime-lantian-custom
-        rime-moegirl
-        rime-zhwiki
       ];
     }).overrideAttrs
       (old: {
