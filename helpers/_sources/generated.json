@@ -35,27 +35,6 @@
         },
         "version": "v10.19.2"
     },
-    "dashboard-icons": {
-        "cargoLocks": null,
-        "date": "2024-07-21",
-        "extract": null,
-        "name": "dashboard-icons",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "walkxcode",
-            "repo": "dashboard-icons",
-            "rev": "be82e22c418f5980ee2a13064d50f1483df39c8c",
-            "sha256": "sha256-z69DKzKhCVNnNHjRM3dX/DD+WJOL9wm1Im1nImhBc9Y=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "be82e22c418f5980ee2a13064d50f1483df39c8c"
-    },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
         "date": null,
@@ -106,21 +85,6 @@
             "type": "github"
         },
         "version": "v2.2.0"
-    },
-    "jproxy": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "jproxy",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=",
-            "type": "url",
-            "url": "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip"
-        },
-        "version": "v3.4.1"
     },
     "keycloak-lantian": {
         "cargoLocks": null,
@@ -246,47 +210,6 @@
             "type": "github"
         },
         "version": "b322690394b75a9d4987d4b27107ccb01bbcd90e"
-    },
-    "openwrt-mt76": {
-        "cargoLocks": null,
-        "date": "2024-09-17",
-        "extract": null,
-        "name": "openwrt-mt76",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "openwrt",
-            "repo": "mt76",
-            "rev": "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd",
-            "sha256": "sha256-TJm1G/G9ccis3YRFvxiNXddHB3lPJfUX4u382rp9jjU=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "a2a9d9826277c9d76f5c19fd98a27c6145fa6fbd"
-    },
-    "soggy-resources": {
-        "cargoLocks": null,
-        "date": "2022-11-27",
-        "extract": null,
-        "name": "soggy-resources",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d",
-            "sha256": "sha256-d/vQBijlw6Pe/ze0fqayWTkbzJrarFlCCM1DxpNSxvQ=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://codeberg.org/LDA_suku/soggy_resources.git"
-        },
-        "version": "162538ae54d9d5d3864cfbee4ed5bab6cc38580d"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
