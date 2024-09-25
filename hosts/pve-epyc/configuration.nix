@@ -1,10 +1,15 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 {
   imports = [
     ../../nixos/pve.nix
 
     ./hardware-configuration.nix
     ./openvswitch.nix
+    ./smfc
     ./vfio.nix
   ];
 
