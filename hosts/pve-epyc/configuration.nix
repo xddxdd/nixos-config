@@ -3,9 +3,6 @@
   imports = [
     ../../nixos/pve.nix
 
-    ../../nixos/optional-apps/nvidia/cuda-only.nix
-    ../../nixos/optional-apps/nvidia/vgpu-extension.nix
-
     ./hardware-configuration.nix
     ./openvswitch.nix
     ./vfio.nix

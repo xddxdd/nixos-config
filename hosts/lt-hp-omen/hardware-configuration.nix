@@ -3,6 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, ... }:
 {
+  imports = [
+    ../../nixos/hardware/nvidia/only.nix
+  ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
