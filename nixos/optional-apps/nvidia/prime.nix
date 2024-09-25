@@ -5,14 +5,6 @@
   ...
 }:
 let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-
   steam-offload = lib.hiPrio (
     pkgs.runCommand "steam-override" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
       mkdir -p $out/bin
@@ -25,9 +17,7 @@ let
   );
 in
 {
-  environment.systemPackages = [
-    nvidia-offload
-  ] ++ lib.optionals config.programs.steam.enable [ steam-offload ];
+  environment.systemPackages = lib.optionals config.programs.steam.enable [ steam-offload ];
 
   # Enable CUDA
   hardware.graphics.enable = true;
@@ -35,7 +25,10 @@ in
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
   hardware.nvidia.prime = {
-    offload.enable = true;
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
   };
