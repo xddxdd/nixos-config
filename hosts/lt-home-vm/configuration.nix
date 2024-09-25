@@ -23,8 +23,6 @@
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
-    ../../nixos/optional-apps/nvidia/cuda-only.nix
-    ../../nixos/optional-apps/nvidia/grid-extension.nix
     ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
