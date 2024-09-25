@@ -39,11 +39,11 @@ linkFarm "rime-lantian-custom" (
 
         schema_list = [ { schema = "rime_ice"; } ];
         "menu/page_size" = 9;
-        "ascii_composer/good_old_caps_lock" = false;
+        "ascii_composer/good_old_caps_lock" = true;
         "ascii_composer/switch_key" = {
-          "Caps_Lock" = "commit_code";
-          "Shift_L" = "noop";
-          "Shift_R" = "noop";
+          "Caps_Lock" = "noop";
+          "Shift_L" = "commit_code";
+          "Shift_R" = "commit_code";
           "Control_L" = "noop";
           "Control_R" = "noop";
         };
