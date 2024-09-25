@@ -8,7 +8,6 @@
     ../../nixos/hardware/nvidia/cuda-only.nix
     ../../nixos/hardware/nvidia/vgpu-extension.nix
     ../../nixos/hardware/zfs.nix
-
   ];
 
   boot.loader.grub = {
