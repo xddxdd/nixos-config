@@ -14,4 +14,8 @@
   boot.swraid.enable = lib.mkForce true;
 
   services.lvm.dmeventd.enable = true;
+
+  environment.etc."lvm/lvm.conf".text = ''
+    devices/filter = [ "r|/dev/zd*|" ]
+  '';
 }
