@@ -42,6 +42,7 @@
         locations = {
           "/" = {
             proxyPass = "http://127.0.0.1:${LT.portStr.Immich}";
+            proxyWebsockets = true;
           };
         };
 
@@ -55,6 +56,7 @@
         locations = {
           "/" = {
             proxyPass = "http://127.0.0.1:${LT.portStr.Immich}";
+            proxyWebsockets = true;
           };
         };
 
