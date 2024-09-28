@@ -41,6 +41,10 @@ fetch.github = "wis/mpvSockets"
 src.git = "https://github.com/keylase/nvidia-patch.git"
 fetch.github = "keylase/nvidia-patch"
 
+[openspeedtest]
+src.git = "https://github.com/openspeedtest/Speed-Test.git"
+fetch.github = "openspeedtest/Speed-Test"
+
 [openvpn]
 src.git = "https://github.com/OpenVPN/openvpn.git"
 fetch.github = "OpenVPN/openvpn"

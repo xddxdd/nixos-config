@@ -54,7 +54,9 @@ let
       + (lib.optionalString (config.proxyPass != null) ''
         proxy_pass ${config.proxyPass};
 
-        proxy_set_header Host $host;
+        proxy_set_header Host ${
+          if config.proxyOverrideHost != null then config.proxyOverrideHost else "$host"
+        };
         proxy_set_header X-Real-IP ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
         proxy_set_header X-Forwarded-For ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
         proxy_set_header X-Forwarded-Host $host:${LT.portStr.HTTPS};
@@ -176,6 +178,14 @@ in
       description = ''
         Adds proxy_pass directive and sets recommended proxy headers if
         recommendedProxySettings is enabled.
+      '';
+    };
+    proxyOverrideHost = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "www.example.org";
+      description = ''
+        Override host passed to backend server.
       '';
     };
 
