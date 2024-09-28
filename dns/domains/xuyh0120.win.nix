@@ -79,6 +79,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "immich";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "jellyfin";
       target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";

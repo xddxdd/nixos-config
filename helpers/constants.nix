@@ -125,6 +125,7 @@ rec {
     NeteaseUnlock.HTTPS = 13302;
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
+    Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
     Pterodactyl.Redis = 13679;

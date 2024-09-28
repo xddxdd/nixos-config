@@ -20,6 +20,7 @@
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/homepage-dashboard.nix
+    ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
@@ -86,6 +87,7 @@
     allowFrom = [ "all" ];
   };
 
+  lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
 
   # Allow Radicale calendar sync task to access *arr config
