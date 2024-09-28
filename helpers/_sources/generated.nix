@@ -23,10 +23,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.7.2";
+    version = "1.7.3";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.2/linux/grafana-falconlogscale-datasource-1.7.2.linux_amd64.zip";
-      sha256 = "sha256-rJb6D5oe/e3SSzfu+dvzioT0y0D7z6fTNHqWPdFIGlg=";
+      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.3/linux/grafana-falconlogscale-datasource-1.7.3.linux_amd64.zip";
+      sha256 = "sha256-/MDLXe+ZK1etM3vJagdRaLaFv9m/cKwX0J/7KFe+TeE=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "5e531197cb7839a818fdea4aee54af72259b35d3";
+    version = "40721a2500da35bb4b9d24ac2e122019c2a2a1b7";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "5e531197cb7839a818fdea4aee54af72259b35d3";
+      rev = "40721a2500da35bb4b9d24ac2e122019c2a2a1b7";
       fetchSubmodules = false;
-      sha256 = "sha256-ajDyVBNMcTFGOwkBI6UfSNEfy2WKs6ZO+X4CbzGgPQk=";
+      sha256 = "sha256-/Rzz/xxiF9GbWCZfRGJbbeD11Y6MpndW+e1VblTxApw=";
     };
-    date = "2024-09-21";
+    date = "2024-09-24";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "b46777dcd07bf01aafb186b2c247f56c5a513e07";
+    version = "768c4c2582b87212c0eab2dd2a2e582cded9e26b";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "b46777dcd07bf01aafb186b2c247f56c5a513e07";
+      rev = "768c4c2582b87212c0eab2dd2a2e582cded9e26b";
       fetchSubmodules = false;
-      sha256 = "sha256-D5reJr/CQ9TkdtwRWWwR/Gt4zolSsGbXo7uhN177oKs=";
+      sha256 = "sha256-CKgdwQrrQ5+p7Y/7/BryvqZEWf+J78gkyWAB85MKheA=";
     };
-    date = "2024-09-11";
+    date = "2024-09-27";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -124,15 +124,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "b322690394b75a9d4987d4b27107ccb01bbcd90e";
+    version = "95e5a0b4f0f0f45d29a5a995f151677b760ddf76";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "b322690394b75a9d4987d4b27107ccb01bbcd90e";
+      rev = "95e5a0b4f0f0f45d29a5a995f151677b760ddf76";
       fetchSubmodules = false;
-      sha256 = "sha256-l090ItOYC7+VwcdS+i8ATP8/ncqsSOcWEKRAb6Nheyc=";
+      sha256 = "sha256-RENdfwE2dqUh8yHrlWXKck299l3vLqWTo3V9xezpA3k=";
     };
-    date = "2024-09-19";
+    date = "2024-09-27";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
