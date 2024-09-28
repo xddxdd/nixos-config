@@ -190,6 +190,27 @@
         },
         "version": "b46777dcd07bf01aafb186b2c247f56c5a513e07"
     },
+    "openspeedtest": {
+        "cargoLocks": null,
+        "date": "2024-06-04",
+        "extract": null,
+        "name": "openspeedtest",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "openspeedtest",
+            "repo": "Speed-Test",
+            "rev": "3ec39a31ec64858642629991caf0dd14ce7c34ca",
+            "sha256": "sha256-MBVVImy0f+MQnlAYUf77mScpdqkCKi1hdOJEM7Z7KJ0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3ec39a31ec64858642629991caf0dd14ce7c34ca"
+    },
     "openvpn": {
         "cargoLocks": null,
         "date": "2024-09-19",

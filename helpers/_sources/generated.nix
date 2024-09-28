@@ -110,6 +110,18 @@
     };
     date = "2024-09-11";
   };
+  openspeedtest = {
+    pname = "openspeedtest";
+    version = "3ec39a31ec64858642629991caf0dd14ce7c34ca";
+    src = fetchFromGitHub {
+      owner = "openspeedtest";
+      repo = "Speed-Test";
+      rev = "3ec39a31ec64858642629991caf0dd14ce7c34ca";
+      fetchSubmodules = false;
+      sha256 = "sha256-MBVVImy0f+MQnlAYUf77mScpdqkCKi1hdOJEM7Z7KJ0=";
+    };
+    date = "2024-06-04";
+  };
   openvpn = {
     pname = "openvpn";
     version = "b322690394b75a9d4987d4b27107ccb01bbcd90e";

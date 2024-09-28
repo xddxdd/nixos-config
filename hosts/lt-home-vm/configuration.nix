@@ -23,6 +23,7 @@
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
+    ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
