@@ -17,11 +17,12 @@ in
     listenPort = 22547;
     privateKeyFile = config.age.secrets.wg-priv.path;
     peers = lib.mapAttrsToList (n: v: {
+      name = n;
       publicKey = wg-pubkey."${n}";
       allowedIPs = [
         "192.0.2.${builtins.toString v.index}/32"
         "fc00::${builtins.toString v.index}/128"
       ];
-    }) (lib.filterAttrs (n: v: wg-pubkey ? n) LT.hosts);
+    }) (lib.filterAttrs (n: _v: builtins.hasAttr n wg-pubkey) LT.hosts);
   };
 }
