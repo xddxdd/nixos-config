@@ -21,6 +21,7 @@
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
+    ../../nixos/optional-apps/iperf3.nix
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-wg-lantian.nix
