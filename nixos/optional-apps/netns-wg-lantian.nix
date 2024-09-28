@@ -1,6 +1,7 @@
 {
   LT,
   config,
+  lib,
   inputs,
   ...
 }:
@@ -22,7 +23,7 @@ in
     enableDefaultRoute = false;
   };
 
-  networking.wireguard.interfaces.wg-lantian = {
+  networking.wireguard.interfaces.wg-lantian = lib.mkForce {
     ips = [
       "192.0.2.${builtins.toString LT.this.index}/24"
       "fc00::${builtins.toString LT.this.index}/64"
