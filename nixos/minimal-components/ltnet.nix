@@ -39,11 +39,11 @@
 
   systemd.services.ltnet-routing-tables = lib.mkIf config.services.zerotierone.enable {
     after = [
-      "network.target"
+      "network-pre.target"
       "zerotierone.service"
     ];
     requires = [
-      "network.target"
+      "network-pre.target"
       "zerotierone.service"
     ];
     wantedBy = [ "multi-user.target" ];
