@@ -17,7 +17,10 @@ let
 
   configFile = builtins.toJSON {
     settings = {
-      interfacePrefixBlacklist = whitelistToBlacklist (with LT.constants.interfacePrefixes; (WAN ++ LAN));
+      interfacePrefixBlacklist = whitelistToBlacklist (
+        # Do not try to use network namespaces
+        with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns") (WAN ++ LAN))
+      );
       softwareUpdate = "disable";
     };
   };
