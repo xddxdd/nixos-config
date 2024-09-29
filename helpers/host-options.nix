@@ -91,10 +91,6 @@
     };
 
     ltnet = {
-      alone = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
       IPv4 = lib.mkOption {
         type = lib.types.str;
         default = "198.18.0.${builtins.toString config.index}";
