@@ -172,10 +172,7 @@ in
           [
             (lib.nameValuePair "netns-instance-${name}" {
               inherit (config.lantian.netns."${name}") enable;
-              wantedBy = [
-                "multi-user.target"
-                "network.target"
-              ];
+              wantedBy = [ "multi-user.target" ];
               after = [
                 "network-pre.target"
                 "ltnet-routing-tables.service"
