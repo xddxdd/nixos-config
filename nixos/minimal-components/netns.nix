@@ -100,17 +100,6 @@ in
   };
 
   config = {
-    lantian.ip-dedupe =
-      let
-        netnsIPv4 = lib.mapAttrs' (
-          n: v: lib.nameValuePair v.ipv4 "lantian.netns.${n}"
-        ) config.lantian.netns;
-        netnsIPv6 = lib.mapAttrs' (
-          n: v: lib.nameValuePair v.ipv6 "lantian.netns.${n}"
-        ) config.lantian.netns;
-      in
-      netnsIPv4 // netnsIPv6;
-
     systemd.services = builtins.listToAttrs (
       lib.flatten (
         lib.mapAttrsToList (
