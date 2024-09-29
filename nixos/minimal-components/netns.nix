@@ -189,9 +189,7 @@ in
                   ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
                   ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
                   # Setup veth pair
-                  ${ipbin} link add ns-${interface} type veth peer ni-${interface}
-                  ${ipbin} link set ni-${interface} netns ${name}
-                  ${ipns} link set ni-${interface} name eth0
+                  ${ipbin} link add ns-${interface} type veth peer eth0 netns ${name}
                   # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
                   ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
                   ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
