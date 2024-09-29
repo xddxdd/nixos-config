@@ -80,7 +80,6 @@ let
     (builtins.map netUsage [
       "eth0"
       "wlan0"
-      "wg-lantian"
     ])
     sep
 

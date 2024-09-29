@@ -6,7 +6,7 @@
   ...
 }:
 let
-  netns = config.lantian.netns.wg-lantian;
+  netns = config.lantian.netns.tnl-buyvm;
 
   transmissionDownloadPath = "/mnt/storage/downloads";
   transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";

@@ -19,9 +19,9 @@ let
           type = lib.types.bool;
           default = (builtins.length (config.announcedIPv4 ++ config.announcedIPv6)) > 0;
         };
-        enableDefaultRoute = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
+        overrideRoutingTable = lib.mkOption {
+          type = lib.types.nullOr lib.types.int;
+          default = null;
         };
 
         # Networking
@@ -106,9 +106,21 @@ in
           name: value:
           let
             interface = builtins.substring 0 12 name;
-            ipbin = "${pkgs.iproute2}/bin/ip";
-            ipns = "${ipbin} netns exec ${name} ${ipbin}";
-            sysctl = "${ipbin} netns exec ${name} ${pkgs.procps}/bin/sysctl";
+            ipns = "ip netns exec ${name} ip";
+            sysctl = "ip netns exec ${name} sysctl";
+
+            overrideRoutingTableCommands =
+              op:
+              lib.optionalString (value.overrideRoutingTable != null) ''
+                ip rule ${op} iif ns-tnl-buyvm lookup ${builtins.toString value.overrideRoutingTable}
+                ip -6 rule ${op} iif ns-tnl-buyvm lookup ${builtins.toString value.overrideRoutingTable}
+                ${lib.concatMapStringsSep "\n" (
+                  route: "ip rule ${op} iif ns-tnl-buyvm to ${route} lookup main"
+                ) LT.constants.reserved.IPv4}
+                ${lib.concatMapStringsSep "\n" (
+                  route: "ip -6 rule ${op} iif ns-tnl-buyvm to ${route} lookup main"
+                ) LT.constants.reserved.IPv6}
+              '';
 
             birdConfig = pkgs.writeText "bird-netns-${name}.conf" (
               ''
@@ -164,11 +176,20 @@ in
                 "multi-user.target"
                 "network.target"
               ];
-              after = [ "network-pre.target" ];
+              after = [
+                "network-pre.target"
+                "ltnet-routing-tables.service"
+              ];
+              requires = [ "ltnet-routing-tables.service" ];
+              path = [
+                pkgs.iproute2
+                pkgs.procps
+              ];
               script =
                 ''
+                  set -x
                   # Setup namespace
-                  ${ipbin} netns add ${name}
+                  ip netns add ${name}
                   ${ipns} link set lo up
                   # Disable auto generated IPv6 link local address
                   ${sysctl} -w net.ipv6.conf.default.autoconf=0
@@ -178,40 +199,27 @@ in
                   ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
                   ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
                   # Setup veth pair
-                  ${ipbin} link add ns-${interface} type veth peer eth0 netns ${name}
+                  ip link add ns-${interface} type veth peer eth0 netns ${name}
                   # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
-                  ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
-                  ${pkgs.procps}/bin/sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
+                  sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
+                  sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
                   ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
                   ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
+                  ${overrideRoutingTableCommands "add"}
                   # Host side network config
-                  ${ipbin} link set ns-${interface} up
-                  ${ipbin} addr add ${ltnet.IPv4} peer ${value.ipv4} dev ns-${interface}
-                  ${ipbin} -6 addr add ${ltnet.IPv6} dev ns-${interface}
-                  ${ipbin} -6 addr add fe80::1/64 dev ns-${interface}
-                  ${ipbin} -6 route add ${value.ipv6} via fe80::${value.ipSuffix} dev ns-${interface}
+                  ip link set ns-${interface} up
+                  ip addr add ${ltnet.IPv4} peer ${value.ipv4} dev ns-${interface}
+                  ip -6 addr add ${ltnet.IPv6} dev ns-${interface}
+                  ip -6 addr add fe80::1/64 dev ns-${interface}
+                  ip -6 route add ${value.ipv6} via fe80::${value.ipSuffix} dev ns-${interface}
                   # Namespace side network config
                   ${ipns} link set eth0 up
                   ${ipns} addr add ${value.ipv4} peer ${ltnet.IPv4} dev eth0
                   ${ipns} -6 addr add ${value.ipv6} dev eth0
                   ${ipns} -6 addr add fe80::${value.ipSuffix}/64 dev eth0
+                  ${ipns} route add default via ${ltnet.IPv4} dev eth0
+                  ${ipns} -6 route add default via fe80::1 dev eth0
                 ''
-                + (
-                  if value.enableDefaultRoute then
-                    ''
-                      ${ipns} route add default via ${ltnet.IPv4} dev eth0
-                      ${ipns} -6 route add default via fe80::1 dev eth0
-                    ''
-                  else
-                    ''
-                      ${lib.concatMapStringsSep "\n" (
-                        route: "${ipns} route add ${route} via ${ltnet.IPv4} dev eth0"
-                      ) LT.constants.reserved.IPv4}
-                      ${lib.concatMapStringsSep "\n" (
-                        route: "${ipns} -6 route add ${route} via fe80::1 dev eth0"
-                      ) LT.constants.reserved.IPv6}
-                    ''
-                )
                 + (lib.optionalString value.enableBird ''
                   # Announced addresses
                   ${ipns} link add dummy0 type dummy
@@ -219,16 +227,31 @@ in
                   ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv4}
                   ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv6}
                 '');
+
+              preStart = ''
+                # Ignore failures
+                set +e
+
+                ip netns delete ${name}
+
+                exit 0
+              '';
+
+              postStop = ''
+                # Ignore failures
+                set +e
+
+                ip link del ns-${interface}
+                ${ipns} link del dummy0
+                ip netns delete ${name}
+                ${overrideRoutingTableCommands "del"}
+
+                exit 0
+              '';
+
               serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
-
-                ExecStartPre = [ "-${ipbin} netns delete ${name}" ];
-                ExecStopPost = [
-                  "${ipbin} link del ns-${interface}"
-                  "${ipns} link del dummy0"
-                  "${ipbin} netns delete ${name}"
-                ];
               };
             })
             (lib.nameValuePair "netns-bird-${name}" (
