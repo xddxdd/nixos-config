@@ -42,7 +42,7 @@ let
     '') LT.constants.interfacePrefixes
   );
 
-  wg-lantian =
+  tnl-buyvm =
     (lib.optionalString (LT.this.public.IPv4 != "") (
       lib.concatStrings (
         lib.mapAttrsToList (
@@ -53,12 +53,32 @@ let
               builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
             }-${
               builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to 192.0.2.${builtins.toString index}
+            } } dnat to 198.18.${builtins.toString index}.192
             ip daddr ${LT.this.public.IPv4} udp dport { ${
               builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
             }-${
               builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to 192.0.2.${builtins.toString index}
+            } } dnat to 198.18.${builtins.toString index}.192
+          ''
+        ) LT.hosts
+      )
+    ))
+    + (lib.optionalString (LT.this.public.IPv6 != "") (
+      lib.concatStrings (
+        lib.mapAttrsToList (
+          _n:
+          { index, ... }:
+          ''
+            ip6 daddr ${LT.this.public.IPv6} tcp dport { ${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
+            }-${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
+            } } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
+            ip6 daddr ${LT.this.public.IPv6} udp dport { ${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
+            }-${
+              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
+            } } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
           ''
         ) LT.hosts
       )
@@ -66,7 +86,7 @@ let
     + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
       lib.concatStrings (
         lib.mapAttrsToList (_n: v: ''
-          ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad::${builtins.toString v.index}
+          ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
         '') LT.hosts
       )
     ));
@@ -133,7 +153,7 @@ let
     '')
     + ''
         ${serverPortForwards}
-        ${wg-lantian}
+        ${tnl-buyvm}
 
         # Redirect all KMS requests to internal server
         tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip to 198.19.0.252:${LT.portStr.KMS}
@@ -155,16 +175,8 @@ let
       chain NAT_POSTROUTING {
         type nat hook postrouting priority 105; policy accept;
 
-        # wg-lantian
+        # tnl-buyvm
     ''
-    + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
-      builtins.concatStringsSep "\n" (
-        lib.mapAttrsToList (
-          _n: v:
-          "ip6 saddr fdbc:f9dc:67ad::${builtins.toString v.index} snat to ${LT.this.public.IPv6Subnet}${builtins.toString v.index}"
-        ) (lib.filterAttrs (_n: v: !(v.hasTag LT.tags.server)) LT.hosts)
-      )
-    ))
     + (lib.optionalString (LT.this.neonetwork.IPv4 != "") ''
       # give LAN access to NeoNetwork
       ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.neonetwork.IPv4}
