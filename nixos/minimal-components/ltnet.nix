@@ -49,17 +49,24 @@
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.iproute2 ];
 
-    script = lib.concatMapStringsSep "\n" (
-      n:
-      let
-        inherit (LT.hosts."${n}") index;
-        tableIndex = 10000 + index;
-      in
+    script =
       ''
-        ip route add default via 198.18.0.${builtins.toString index} table ${builtins.toString tableIndex}
-        ip -6 route add default via fdbc:f9dc:67ad::${builtins.toString index} table ${builtins.toString tableIndex}
+        while ! ip link | grep -E "zt([a-z0-9]{8})"; do
+          echo "Waiting for ZeroTier to start"
+          sleep 1
+        done
       ''
-    ) (builtins.attrNames LT.otherHosts);
+      + (lib.concatMapStringsSep "\n" (
+        n:
+        let
+          inherit (LT.hosts."${n}") index;
+          tableIndex = 10000 + index;
+        in
+        ''
+          ip route add default via 198.18.0.${builtins.toString index} table ${builtins.toString tableIndex}
+          ip -6 route add default via fdbc:f9dc:67ad::${builtins.toString index} table ${builtins.toString tableIndex}
+        ''
+      ) (builtins.attrNames LT.otherHosts));
 
     postStop = lib.concatMapStringsSep "\n" (
       n:
