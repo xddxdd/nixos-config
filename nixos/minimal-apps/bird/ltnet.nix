@@ -6,7 +6,6 @@ let
     hostname:
     {
       hasTag,
-      ltnet,
       index,
       city,
       ...
@@ -14,7 +13,7 @@ let
     let
       exchangeAllRoutes = LT.this.hasTag LT.tags.dn42 && hasTag LT.tags.dn42;
     in
-    lib.optionalString (!ltnet.alone) ''
+    ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
         neighbor fdbc:f9dc:67ad::${builtins.toString index}%'zthnhe4bol' internal;
