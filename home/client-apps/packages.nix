@@ -91,6 +91,7 @@ in
         gedit
         gimp
         imagemagick
+        immich-cli
         inputs.nix-gaming.packages."${pkgs.system}".wine-ge
         jamesdsp
         jamesdsp-toggle
