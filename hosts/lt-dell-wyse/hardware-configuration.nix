@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    ../../nixos/hardware/hdr.nix
     ../../nixos/hardware/nvidia/only.nix
   ];
 
