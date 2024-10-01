@@ -45,7 +45,7 @@ in
       {
         # HDR on supported displays
         vo = "gpu-next";
-        target-colorspace-hint = "";
+        target-colorspace-hint = true;
         gpu-api = "vulkan";
         gpu-context = "waylandvk";
 
@@ -54,7 +54,7 @@ in
         hr-seek-framedrop = false;
         hwdec = "auto-copy";
         hwdec-codecs = "all";
-        no-resume-playback = "";
+        resume-playback = false;
         scale = "ewa_lanczossharp";
 
         # Prefer subtitles and audios: Chinese > English
