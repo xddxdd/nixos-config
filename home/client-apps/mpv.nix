@@ -43,19 +43,26 @@ in
     package = pkgs.nur-xddxdd.svp-mpv;
     config =
       {
+        # HDR on supported displays
+        vo = "gpu-next";
+        target-colorspace-hint = "";
+        gpu-api = "vulkan";
+        gpu-context = "waylandvk";
+
+        # High quality scaling
         cscale = "ewa_lanczossharp";
-        gpu-context = "wayland";
         hr-seek-framedrop = false;
         hwdec = "auto-copy";
         hwdec-codecs = "all";
         no-resume-playback = "";
         scale = "ewa_lanczossharp";
+
         # Prefer subtitles and audios: Chinese > English
         alang = "chi,zho,cmn,zh,eng,en";
         slang = "chi,zho,cmn,zh,eng,en";
       }
       // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
-        hwdec = "vaapi";
+        hwdec = "cuda";
         scale = "lanczos";
         dither = false;
         correct-downscaling = false;
