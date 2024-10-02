@@ -8,7 +8,7 @@
   ];
 
   lantian.kernel = pkgs.linux_rpi4;
-  boot.initrd.systemd.enableTpm2 = false;
+  boot.initrd.systemd.tpm2.enable = false;
   boot.kernelParams = [ "console=ttyAMA1,115200" ];
 
   environment.systemPackages = with pkgs; [

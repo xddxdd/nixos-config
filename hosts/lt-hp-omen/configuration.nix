@@ -66,7 +66,7 @@
     ];
   };
 
-  services.samba.shares = {
+  services.samba.settings = {
     "lantian" = {
       "path" = "/home/lantian";
       "browseable" = "yes";

@@ -9,7 +9,7 @@
     /run/nfs/storage 198.18.0.0/24(rw,insecure,no_subtree_check,mountpoint,all_squash,anonuid=${builtins.toString config.users.users.lantian.uid},anongid=${builtins.toString config.users.groups.lantian.gid})
   '';
 
-  services.samba.shares = {
+  services.samba.settings = {
     "storage" = {
       "path" = "/mnt/storage";
       "browseable" = "yes";

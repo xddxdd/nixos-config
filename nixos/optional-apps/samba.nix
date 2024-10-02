@@ -8,8 +8,8 @@
 {
   services.samba = {
     enable = true;
-    enableNmbd = true;
-    enableWinbindd = true;
+    nmbd.enable = true;
+    winbindd.enable = true;
 
     package = pkgs.samba4Full;
     nsswins = true;
@@ -47,15 +47,13 @@
           "lanman auth" = "yes";
           "ntlm auth" = "yes";
         };
-      };
 
-    shares = {
-      "printers" = {
-        "path" = "/var/tmp";
-        "printable" = "yes";
-        "valid users" = "lantian";
+        "printers" = {
+          "path" = "/var/tmp";
+          "printable" = "yes";
+          "valid users" = "lantian";
+        };
       };
-    };
   };
 
   services.samba-wsdd = {

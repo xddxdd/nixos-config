@@ -5,7 +5,7 @@ _: {
       name = "FiraCodeNF-Reg";
       size = 10;
     };
-    theme = "VSCode_Dark";
+    themeFile = "VSCode_Dark";
 
     keybindings = {
       "ctrl+shift+n" = "new_os_window_with_cwd";
