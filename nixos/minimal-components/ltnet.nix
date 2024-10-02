@@ -51,7 +51,7 @@
 
     script =
       ''
-        while ! ip link | grep -E "zt([a-z0-9]{8})"; do
+        while ! ip addr show zthnhe4bol | grep 198.18.0; do
           echo "Waiting for ZeroTier to start"
           sleep 1
         done
