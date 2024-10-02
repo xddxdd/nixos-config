@@ -98,11 +98,11 @@ in
         jellyfin-media-player
         jellyfin-media-player-wrapped
         kdenlive
+        kdePackages.ark
+        kdePackages.kpat
         lbzip2
         libfaketime
         librewolf
-        libsForQt5.ark
-        libsForQt5.kpat
         linphone
         macchanger
         matrix-synapse-tools.synadm
