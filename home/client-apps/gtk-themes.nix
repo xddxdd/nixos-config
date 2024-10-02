@@ -15,6 +15,15 @@
       package = pkgs.breeze-gtk;
       name = "Breeze-Dark";
     };
+    gtk2.extraConfig = ''
+      gtk-im-module="fcitx"
+    '';
+    gtk3.extraConfig = {
+      gtk-im-module = "fcitx";
+    };
+    gtk4.extraConfig = {
+      gtk-im-module = "fcitx";
+    };
   };
 
   home.pointerCursor = {

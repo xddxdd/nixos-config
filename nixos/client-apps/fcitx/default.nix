@@ -54,5 +54,6 @@ in
     INPUT_METHOD = "fcitx";
     SDL_IM_MODULE = "fcitx";
     GLFW_IM_MODULE = "ibus";
+    QT_IM_MODULES = "wayland;fcitx;ibus";
   };
 }

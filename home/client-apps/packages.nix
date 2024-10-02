@@ -7,6 +7,16 @@
   ...
 }:
 let
+  audacious-wrapped = lib.hiPrio (
+    pkgs.runCommand "audacious-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
+      mkdir -p $out/bin
+      makeWrapper \
+        ${pkgs.audacious}/bin/audacious \
+        $out/bin/audacious \
+        --set QT_IM_MODULE fcitx
+    ''
+  );
+
   calibre-override-desktop = lib.hiPrio (
     pkgs.runCommand "calibre-override-desktop" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
       mkdir -p $out/bin
@@ -75,6 +85,7 @@ in
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
         audacious
+        audacious-wrapped
         brotli
         bzip2
         calibre
