@@ -54,7 +54,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
-  programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
 
   programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid;
 }

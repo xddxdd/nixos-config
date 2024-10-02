@@ -44,7 +44,7 @@ in
         fcitx5-chinese-addons
         fcitx5-gtk
         fcitx5-rime-with-addons
-        libsForQt5.fcitx5-qt
+        kdePackages.fcitx5-qt
       ];
     };
   };
