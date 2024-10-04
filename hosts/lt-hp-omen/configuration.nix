@@ -2,6 +2,7 @@
   lib,
   LT,
   config,
+  pkgs,
   ...
 }:
 {
@@ -34,6 +35,14 @@
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
   lantian.hidpi = 1.5;
+
+  environment.systemPackages = [
+    pkgs.nur-xddxdd.unigine-heaven
+    pkgs.nur-xddxdd.unigine-sanctuary
+    pkgs.nur-xddxdd.unigine-superposition
+    pkgs.nur-xddxdd.unigine-tropics
+    pkgs.nur-xddxdd.unigine-valley
+  ];
 
   hardware.bluetooth = {
     enable = true;

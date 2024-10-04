@@ -34,7 +34,9 @@ let
   ];
 in
 {
-  environment.systemPackages = [ (lib.hiPrio pkgs.nur-xddxdd.lantianCustomized.firefox-icon-mikozilla-fireyae) ];
+  environment.systemPackages = [
+    (lib.hiPrio pkgs.nur-xddxdd.lantianCustomized.firefox-icon-mikozilla-fireyae)
+  ];
 
   environment.variables = {
     MOZ_X11_EGL = "1";
