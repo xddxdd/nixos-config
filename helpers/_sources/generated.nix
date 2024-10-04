@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "40721a2500da35bb4b9d24ac2e122019c2a2a1b7";
+    version = "d772880309bb7703373fabe52dc4a567d53bc81b";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "40721a2500da35bb4b9d24ac2e122019c2a2a1b7";
+      rev = "d772880309bb7703373fabe52dc4a567d53bc81b";
       fetchSubmodules = false;
-      sha256 = "sha256-/Rzz/xxiF9GbWCZfRGJbbeD11Y6MpndW+e1VblTxApw=";
+      sha256 = "sha256-6pRv1XQnCAR08yi/8qm+IesSjKZ7HCs/Caohp61AcDw=";
     };
-    date = "2024-09-24";
+    date = "2024-09-29";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "768c4c2582b87212c0eab2dd2a2e582cded9e26b";
+    version = "9565d0f4488145d5f00989f35bafa5c655f2e92e";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "768c4c2582b87212c0eab2dd2a2e582cded9e26b";
+      rev = "9565d0f4488145d5f00989f35bafa5c655f2e92e";
       fetchSubmodules = false;
-      sha256 = "sha256-CKgdwQrrQ5+p7Y/7/BryvqZEWf+J78gkyWAB85MKheA=";
+      sha256 = "sha256-+xdNcQsZiOGblrQmfeCanjLr3YPLaVnHGOxYu2X0+p8=";
     };
-    date = "2024-09-27";
+    date = "2024-10-02";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -124,15 +124,15 @@
   };
   openvpn = {
     pname = "openvpn";
-    version = "95e5a0b4f0f0f45d29a5a995f151677b760ddf76";
+    version = "5ccaa49e0323ce468b156b3fa0930f7840050387";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "openvpn";
-      rev = "95e5a0b4f0f0f45d29a5a995f151677b760ddf76";
+      rev = "5ccaa49e0323ce468b156b3fa0930f7840050387";
       fetchSubmodules = false;
-      sha256 = "sha256-RENdfwE2dqUh8yHrlWXKck299l3vLqWTo3V9xezpA3k=";
+      sha256 = "sha256-JqxT5JZecKBXdGOkUHm+mudgd/euulPLdqDhrGrv8nk=";
     };
-    date = "2024-09-27";
+    date = "2024-09-28";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

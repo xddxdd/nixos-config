@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # https://www.reddit.com/r/linux_gaming/comments/16e1l4h/slow_steam_downloads_try_this/
   xdg.dataFile."Steam/steam_dev.cfg".text = ''
     @nClientDownloadEnableHTTP2PlatformLinux 0

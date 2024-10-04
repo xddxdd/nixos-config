@@ -129,7 +129,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-09-24",
+        "date": "2024-09-29",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -141,12 +141,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "40721a2500da35bb4b9d24ac2e122019c2a2a1b7",
-            "sha256": "sha256-/Rzz/xxiF9GbWCZfRGJbbeD11Y6MpndW+e1VblTxApw=",
+            "rev": "d772880309bb7703373fabe52dc4a567d53bc81b",
+            "sha256": "sha256-6pRv1XQnCAR08yi/8qm+IesSjKZ7HCs/Caohp61AcDw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "40721a2500da35bb4b9d24ac2e122019c2a2a1b7"
+        "version": "d772880309bb7703373fabe52dc4a567d53bc81b"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -171,7 +171,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-09-27",
+        "date": "2024-10-02",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -183,12 +183,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "768c4c2582b87212c0eab2dd2a2e582cded9e26b",
-            "sha256": "sha256-CKgdwQrrQ5+p7Y/7/BryvqZEWf+J78gkyWAB85MKheA=",
+            "rev": "9565d0f4488145d5f00989f35bafa5c655f2e92e",
+            "sha256": "sha256-+xdNcQsZiOGblrQmfeCanjLr3YPLaVnHGOxYu2X0+p8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "768c4c2582b87212c0eab2dd2a2e582cded9e26b"
+        "version": "9565d0f4488145d5f00989f35bafa5c655f2e92e"
     },
     "openspeedtest": {
         "cargoLocks": null,
@@ -213,7 +213,7 @@
     },
     "openvpn": {
         "cargoLocks": null,
-        "date": "2024-09-27",
+        "date": "2024-09-28",
         "extract": null,
         "name": "openvpn",
         "passthru": null,
@@ -225,12 +225,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "openvpn",
-            "rev": "95e5a0b4f0f0f45d29a5a995f151677b760ddf76",
-            "sha256": "sha256-RENdfwE2dqUh8yHrlWXKck299l3vLqWTo3V9xezpA3k=",
+            "rev": "5ccaa49e0323ce468b156b3fa0930f7840050387",
+            "sha256": "sha256-JqxT5JZecKBXdGOkUHm+mudgd/euulPLdqDhrGrv8nk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "95e5a0b4f0f0f45d29a5a995f151677b760ddf76"
+        "version": "5ccaa49e0323ce468b156b3fa0930f7840050387"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
