@@ -67,6 +67,22 @@
         peerIPv6LinkLocal = "fe80::3632";
       };
     };
+    goforcex = {
+      remoteASN = 4242421719;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21719;
+        remoteAddress = "hk1.goforcex.top";
+        remotePort = 22547;
+        wireguardPubkey = "1GiY/gR40q1kUlMgLjWrFzDHTrRXIhNIYYVnecUTsUc=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.165.65";
+        peerIPv6LinkLocal = "fe80::1719:65";
+      };
+    };
     huiliang = {
       remoteASN = 4242422928;
       latencyMs = 1;

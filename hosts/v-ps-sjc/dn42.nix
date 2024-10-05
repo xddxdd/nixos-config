@@ -112,6 +112,22 @@
         IPv6SubnetMask = 64;
       };
     };
+    goforcex = {
+      remoteASN = 4242421719;
+      latencyMs = 11;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21719;
+        remoteAddress = "us1.goforcex.top";
+        remotePort = 22547;
+        wireguardPubkey = "6DstUdlQmer+/xXEhuhnV4KYGqd/n6m2XxPGgk+RsBg=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.165.67";
+        peerIPv6LinkLocal = "fe80::1719:67";
+      };
+    };
     jasonxu = {
       remoteASN = 4242423658;
       latencyMs = 8;
@@ -267,6 +283,21 @@
       addressing = {
         peerIPv4 = "172.22.119.11";
         peerIPv6LinkLocal = "fe80::1312";
+      };
+    };
+    melvyn = {
+      remoteASN = 4242423117;
+      latencyMs = 10;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23117;
+        remoteAddress = "dnsense.pub";
+        remotePort = 22547;
+        wireguardPubkey = "UVm6W75mp6R8yw+C9yICPW8F5j7tUzerh2Ecmqgt0B4=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::3117:2547";
       };
     };
     moe233 = {
