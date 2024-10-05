@@ -8,7 +8,12 @@
     ./vfio.nix
   ];
 
-  boot.kernelParams = [ "console=ttyS0,115200" ];
+  boot.kernelParams = [
+    "console=ttyS0,115200"
+    "default_hugepagesz=1G"
+    "hugepagesz=1G"
+    "hugepages=30"
+  ];
 
   services.proxmox-ve.bridges = [ "br0" ];
 
