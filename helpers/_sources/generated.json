@@ -405,6 +405,21 @@
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
     },
+    "um-react": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "um-react",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hHYQv+ihBg4tizhYiHY3iER4tDBNc/ubHz3fAR/7bvc=",
+            "type": "url",
+            "url": "https://git.um-react.app/um/um-react/releases/download/v0.6.0/um-react-0.6.0.zip"
+        },
+        "version": "0.6.0"
+    },
     "yourls": {
         "cargoLocks": null,
         "date": null,

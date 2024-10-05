@@ -82,6 +82,11 @@ src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 
+[um-react]
+fetch.url = "https://git.um-react.app/um/um-react/releases/download/v$ver/um-react-$ver.zip"
+src.webpage = "https://git.um-react.app/um/um-react/releases"
+src.regex = "href=\"/um/um-react/src/tag/v([0-9\\.]+)\""
+
 [yourls]
 fetch.github = "YOURLS/YOURLS"
 src.github = "YOURLS/YOURLS"

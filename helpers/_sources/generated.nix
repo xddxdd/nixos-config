@@ -236,6 +236,14 @@
     };
     date = "2023-12-01";
   };
+  um-react = {
+    pname = "um-react";
+    version = "0.6.0";
+    src = fetchurl {
+      url = "https://git.um-react.app/um/um-react/releases/download/v0.6.0/um-react-0.6.0.zip";
+      sha256 = "sha256-hHYQv+ihBg4tizhYiHY3iER4tDBNc/ubHz3fAR/7bvc=";
+    };
+  };
   yourls = {
     pname = "yourls";
     version = "1.10.2";

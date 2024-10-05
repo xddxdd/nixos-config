@@ -14,6 +14,7 @@
     ./vhost-matrix-element
     ./vhost-options
     ./vhost-tools
+    ./vhost-um
     ./vhosts.nix
     ./whois-server.nix
     # keep-sorted end
