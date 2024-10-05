@@ -379,6 +379,21 @@
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
     },
+    "um-react": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "um-react",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vzSxrrne34QDyNpvPu0Xgr8/auaAT2SMUPQYh/o25jg=",
+            "type": "url",
+            "url": "https://git.unlock-music.dev/api/packages/um/generic/um-react/239/um-react.zip"
+        },
+        "version": "239"
+    },
     "web-compressor": {
         "cargoLocks": null,
         "date": "2023-11-18",

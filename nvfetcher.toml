@@ -77,6 +77,11 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 
+[um-react]
+src.webpage = "https://git.unlock-music.dev/um/um-react/packages"
+src.regex = "href=\"/um/-/packages/generic/um-react/([0-9]+)\""
+fetch.url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/$ver/um-react.zip"
+
 [web-compressor]
 src.git = "https://github.com/xddxdd/web-compressor.git"
 fetch.github = "xddxdd/web-compressor"

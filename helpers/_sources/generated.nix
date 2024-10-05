@@ -218,6 +218,14 @@
     };
     date = "2023-12-01";
   };
+  um-react = {
+    pname = "um-react";
+    version = "239";
+    src = fetchurl {
+      url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/239/um-react.zip";
+      sha256 = "sha256-vzSxrrne34QDyNpvPu0Xgr8/auaAT2SMUPQYh/o25jg=";
+    };
+  };
   web-compressor = {
     pname = "web-compressor";
     version = "7c8e79dea7af1afad562b43268129ebbc72b0bb3";
