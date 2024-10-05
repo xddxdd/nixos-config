@@ -18,12 +18,6 @@ let
   };
 in
 {
-  boot.kernelParams = [
-    "default_hugepagesz=1G"
-    "hugepagesz=1G"
-    "hugepages=30"
-  ];
-
   virtualisation.vswitch = {
     enable = true;
     package = pkgs.nur-xddxdd.openvswitch-dpdk;
