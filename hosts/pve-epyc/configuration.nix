@@ -17,8 +17,12 @@
     "console=ttyS0,115200"
     "default_hugepagesz=1G"
     "hugepagesz=1G"
-    "hugepages=240"
+    "hugepages=224"
   ];
+
+  boot.extraModprobeConfig = ''
+    options zfs zfs_arc_max=1073741824
+  '';
 
   services.proxmox-ve.bridges = [ "br0" ];
 
