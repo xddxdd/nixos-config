@@ -109,7 +109,9 @@
       };
       addressing = {
         peerIPv4 = "172.22.122.1";
+        myIPv6 = "fd42:470:f0ef:303::2";
         peerIPv6 = "fd42:470:f0ef:303::1";
+        IPv6SubnetMask = 64;
       };
     };
     goforcex = {
