@@ -187,8 +187,6 @@ in
     steam.platformOptimizations.enable = true;
   };
 
-  lantian.qemu-user-static-binfmt.package = pkgs.nur-xddxdd.qemu-user-static;
-
   security.protectKernelImage = true;
   security.sudo.enable = lib.mkForce false;
   security.sudo-rs = {
