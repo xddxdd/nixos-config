@@ -113,6 +113,7 @@ in
         kdePackages.kpat
         lbzip2
         libfaketime
+        libreoffice-qt6-fresh
         librewolf
         linphone
         macchanger
