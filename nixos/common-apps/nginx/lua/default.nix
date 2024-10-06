@@ -147,4 +147,6 @@ in
 linkFarm "nginx-lua" {
   "lantian_nginx.lua" = lantian_nginx;
   "lantian_whois.lua" = lantian_whois;
+  # https://github.com/Cluain/Lua-Simple-XML-Parser
+  "xmlSimple.lua" = ./xmlSimple.lua;
 }
