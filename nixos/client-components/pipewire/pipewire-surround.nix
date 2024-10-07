@@ -1,32 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
-  sanitize =
-    let
-      allowed = lib.lowerChars ++ lib.upperChars ++ lib.stringToCharacters ("0123456789" + "+-");
-    in
-    lib.stringAsChars (k: if builtins.elem k allowed then k else "");
-
-  hesuviHrirInfo = builtins.listToAttrs (
-    builtins.map
-      (
-        line:
-        let
-          splitted = lib.splitString ";" line;
-          name = sanitize (builtins.elemAt splitted 0);
-        in
-        lib.nameValuePair name (builtins.elemAt splitted 1)
-      )
-      (
-        builtins.filter (lib.hasInfix ";") (
-          lib.splitString "\r\n" (builtins.readFile "${pkgs.nur-xddxdd.hesuvi-hrir}/info.csv")
-        )
-      )
-  );
-
   mkVirtualSurroundSink =
     hrir:
     let
-      name = hesuviHrirInfo."${hrir}";
+      name = hrir;
       gain = 1;
     in
     pkgs.writeTextFile {
