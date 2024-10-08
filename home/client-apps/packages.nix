@@ -84,6 +84,7 @@ in
         (LT.wrapNetns "tnl-buyvm" nur-xddxdd.qbittorrent-enhanced-edition)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
+        attic-client
         audacious
         audacious-wrapped
         brotli
@@ -131,7 +132,6 @@ in
         nur-xddxdd.gopherus
         nur-xddxdd.inter-knot
         nur-xddxdd.kikoplay
-        nur-xddxdd.lantianCustomized.attic-telnyx-compatible
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
         nur-xddxdd.runpodctl
