@@ -118,6 +118,7 @@ in
         librewolf
         linphone
         macchanger
+        materialgram
         matrix-synapse-tools.synadm
         mediainfo
         megatools
@@ -150,7 +151,6 @@ in
         quasselClient
         rar
         steam-run
-        tdesktop
         tigervnc
         transmission_4-qt
         transmission-remote-gtk
@@ -194,8 +194,8 @@ in
         command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
       }
       {
-        name = "telegram";
-        command = "${pkgs.tdesktop}/bin/telegram-desktop -autostart";
+        name = "materialgram";
+        command = "${pkgs.materialgram}/bin/materialgram -autostart";
       }
       {
         name = "thunderbird";
