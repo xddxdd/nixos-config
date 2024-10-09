@@ -70,18 +70,18 @@
     };
     craig = {
       remoteASN = 4242420566;
-      latencyMs = 13;
+      latencyMs = 5;
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 20566;
-        remoteAddress = "dn15.de.surgebytes.com";
+        remoteAddress = "dn14.de.surgebytes.com";
         remotePort = 32547;
-        wireguardPubkey = "nTqfrHOPzYk9lH5/0i7RVDcdLjup0XPZ35uRy5sBzWg=";
+        wireguardPubkey = "5bPq2lxiqdLuNPFK3YPthCFp7QxV+R0HAOosfSR4PTE=";
       };
       addressing = {
         peerIPv4 = "172.21.99.15";
-        peerIPv6LinkLocal = "fe80::566:15";
+        peerIPv6LinkLocal = "fe80::566:14";
       };
     };
     est-it = {
@@ -268,6 +268,21 @@
       addressing = {
         peerIPv4 = "172.22.149.226";
         peerIPv6LinkLocal = "fe80::2924";
+      };
+    };
+    mario = {
+      remoteASN = 4242422114;
+      latencyMs = 10;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22114;
+        remoteAddress = "dn42bao.duckdns.org";
+        remotePort = 50109;
+        wireguardPubkey = "1pT6AuQJkQdoASgXi84gWSlu6cCZI/tMH+kUYSd3v0I=";
+      };
+      addressing = {
+        peerIPv4 = "172.21.115.65";
+        peerIPv6LinkLocal = "fe80::2114";
       };
     };
     matwolf = {
