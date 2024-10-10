@@ -77,6 +77,7 @@ in
     with pkgs;
     (
       [
+        (hashcat.override { cudaSupport = true; })
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
         (lib.hiPrio nur-xddxdd.qq)
         (LT.wrapNetns "tnl-buyvm" deluge)

@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -26,6 +27,7 @@
     ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
+    ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
@@ -36,6 +38,14 @@
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
+  ];
+
+  environment.systemPackages = [
+    (pkgs.hashcat.override {
+      cudaSupport = true;
+      # GRID vGPU driver is older than latest consumer driver
+      cudaPackages = pkgs.cudaPackages_12_2;
+    })
   ];
 
   services.beesd.filesystems.root = {
