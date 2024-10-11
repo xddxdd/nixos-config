@@ -92,6 +92,7 @@ in
     serviceConfig = {
       Type = "oneshot";
       CPUQuota = "40%";
+      OOMScoreAdjust = "1000";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
