@@ -31,10 +31,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.10.0";
+    version = "2.11.0";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.10.0/linux/yesoreyeram-infinity-datasource-2.10.0.linux_amd64.zip";
-      sha256 = "sha256-lpOVMQMudcQUNfM0e8UfrGuDzRna5/TtHtFfGGcx4Eg=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.0/linux/yesoreyeram-infinity-datasource-2.11.0.linux_amd64.zip";
+      sha256 = "sha256-p5qLRImAuV8pqbwn+egbGMiPW6xdy8yQoRWdoiE4+B8=";
     };
   };
   himawaripy = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "d772880309bb7703373fabe52dc4a567d53bc81b";
+    version = "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "d772880309bb7703373fabe52dc4a567d53bc81b";
+      rev = "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db";
       fetchSubmodules = false;
-      sha256 = "sha256-6pRv1XQnCAR08yi/8qm+IesSjKZ7HCs/Caohp61AcDw=";
+      sha256 = "sha256-vZnviY6YdTEj48v7t0mCwkDukW6UTsHBNq0w009uUvk=";
     };
-    date = "2024-09-29";
+    date = "2024-10-10";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "9565d0f4488145d5f00989f35bafa5c655f2e92e";
+    version = "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "9565d0f4488145d5f00989f35bafa5c655f2e92e";
+      rev = "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7";
       fetchSubmodules = false;
-      sha256 = "sha256-+xdNcQsZiOGblrQmfeCanjLr3YPLaVnHGOxYu2X0+p8=";
+      sha256 = "sha256-ZRvoFoNc1eiAKSIjkRlaG9JhUxTCK6BhVBZ/UPwu0cg=";
     };
-    date = "2024-10-02";
+    date = "2024-10-08";
   };
   openspeedtest = {
     pname = "openspeedtest";

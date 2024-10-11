@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lpOVMQMudcQUNfM0e8UfrGuDzRna5/TtHtFfGGcx4Eg=",
+            "sha256": "sha256-p5qLRImAuV8pqbwn+egbGMiPW6xdy8yQoRWdoiE4+B8=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.10.0/linux/yesoreyeram-infinity-datasource-2.10.0.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.0/linux/yesoreyeram-infinity-datasource-2.11.0.linux_amd64.zip"
         },
-        "version": "2.10.0"
+        "version": "2.11.0"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -129,7 +129,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-09-29",
+        "date": "2024-10-10",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -141,12 +141,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "d772880309bb7703373fabe52dc4a567d53bc81b",
-            "sha256": "sha256-6pRv1XQnCAR08yi/8qm+IesSjKZ7HCs/Caohp61AcDw=",
+            "rev": "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db",
+            "sha256": "sha256-vZnviY6YdTEj48v7t0mCwkDukW6UTsHBNq0w009uUvk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d772880309bb7703373fabe52dc4a567d53bc81b"
+        "version": "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -171,7 +171,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-10-02",
+        "date": "2024-10-08",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -183,12 +183,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "9565d0f4488145d5f00989f35bafa5c655f2e92e",
-            "sha256": "sha256-+xdNcQsZiOGblrQmfeCanjLr3YPLaVnHGOxYu2X0+p8=",
+            "rev": "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7",
+            "sha256": "sha256-ZRvoFoNc1eiAKSIjkRlaG9JhUxTCK6BhVBZ/UPwu0cg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9565d0f4488145d5f00989f35bafa5c655f2e92e"
+        "version": "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7"
     },
     "openspeedtest": {
         "cargoLocks": null,

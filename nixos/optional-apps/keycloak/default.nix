@@ -37,7 +37,7 @@
       http-relative-path = "/";
       https-port = LT.port.Keycloak.HTTPS;
       hostname-backchannel-dynamic = false;
-      proxy = "edge";
+      proxy-headers = "xforwarded";
     };
   };
 

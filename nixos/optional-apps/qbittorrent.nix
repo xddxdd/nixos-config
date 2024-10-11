@@ -5,7 +5,13 @@
   ...
 }:
 let
-  qbittorrent = pkgs.nur-xddxdd.qbittorrent-enhanced-edition-nox;
+  qbittorrent = pkgs.qbittorrent-enhanced.overrideAttrs (old: {
+    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+      "-DGUI=OFF"
+      "-DSYSTEMD=ON"
+      "-DSYSTEMD_SERVICES_INSTALL_DIR=${placeholder "out"}/lib/systemd/system"
+    ];
+  });
 in
 {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix

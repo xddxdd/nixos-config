@@ -11,7 +11,7 @@
     nmbd.enable = true;
     winbindd.enable = true;
 
-    package = pkgs.samba4Full;
+    package = pkgs.samba4Full.override { enableCephFS = false; };
     nsswins = true;
 
     settings =

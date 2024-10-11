@@ -82,7 +82,7 @@ in
         (lib.hiPrio nur-xddxdd.qq)
         (LT.wrapNetns "tnl-buyvm" deluge)
         (LT.wrapNetns "tnl-buyvm" nur-xddxdd.amule-dlp)
-        (LT.wrapNetns "tnl-buyvm" nur-xddxdd.qbittorrent-enhanced-edition)
+        (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
         attic-client
