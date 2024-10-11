@@ -273,6 +273,7 @@
     mario = {
       remoteASN = 4242422114;
       latencyMs = 10;
+      peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
         localPort = 22114;
