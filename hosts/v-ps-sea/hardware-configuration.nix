@@ -22,4 +22,7 @@ _: {
       "dmask=0077"
     ];
   };
+
+  # Needed, or kopia backup fails
+  swapDevices = [ { device = "/dev/vda4"; } ];
 }
