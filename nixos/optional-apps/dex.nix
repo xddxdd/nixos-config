@@ -47,7 +47,7 @@ let
             username = "uid";
             idAttr = "uid";
             emailAttr = "mail";
-            nameAttr = "givenName";
+            nameAttr = "displayName";
             preferredUsernameAttr = "uid";
           };
           groupSearch = {
