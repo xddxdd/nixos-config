@@ -24,7 +24,6 @@
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iperf3.nix
     ../../nixos/optional-apps/llama-sakura-llm.nix
-    ../../nixos/optional-apps/netns-cf-warp.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
