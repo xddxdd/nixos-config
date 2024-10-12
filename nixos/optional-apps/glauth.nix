@@ -43,6 +43,8 @@ let
       uidnumber = 1000
       primarygroup = 100
       passbcrypt = "${hexdump glauthUsers.lantian.passBcrypt}"
+      [[users.customattributes]]
+        displayName = ["Lan Tian"]
 
     [[users]]
       name = "serviceuser"
@@ -53,6 +55,8 @@ let
       [[users.capabilities]]
         action = "search"
         object = "*"
+      [[users.customattributes]]
+        displayName = ["Service User"]
 
     [[groups]]
       name = "admin"
