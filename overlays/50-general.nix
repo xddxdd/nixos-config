@@ -16,6 +16,10 @@ rec {
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/colmena-disable-pure-eval.patch ];
   });
+  dex-oidc = prev.dex-oidc.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/dex-glob-match-redirect-uri.patch ];
+    vendorHash = "sha256-fAM4ralMod9s3w6Gi4hj60n+F6ExjOqlqQazmroegMY=";
+  });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
 

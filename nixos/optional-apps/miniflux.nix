@@ -28,7 +28,7 @@
       OAUTH2_CLIENT_ID = "miniflux";
       OAUTH2_CLIENT_SECRET_FILE = config.age.secrets.miniflux-oauth-secret.path;
       OAUTH2_REDIRECT_URL = "https://rss.xuyh0120.win/oauth2/oidc/callback";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://login.lantian.pub/realms/master";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://login.lantian.pub";
       OAUTH2_USER_CREATION = "1";
 
       CREATE_ADMIN = lib.mkForce "0";

@@ -29,7 +29,6 @@ let
     "https://lab.xuyh0120.win"
     "https://lemmy.lantian.pub"
     "https://lg.lantian.pub"
-    "https://login.lantian.pub"
     "https://matrix.lantian.pub"
     "https://tools.lantian.pub"
     "https://whois.lantian.pub"
