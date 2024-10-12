@@ -119,7 +119,6 @@ in
         librewolf
         linphone
         macchanger
-        materialgram
         matrix-synapse-tools.synadm
         mediainfo
         megatools
@@ -134,6 +133,7 @@ in
         nur-xddxdd.gopherus
         nur-xddxdd.inter-knot
         nur-xddxdd.kikoplay
+        nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
         nur-xddxdd.runpodctl
@@ -196,7 +196,7 @@ in
       }
       {
         name = "materialgram";
-        command = "${pkgs.materialgram}/bin/materialgram -autostart";
+        command = "${pkgs.nur-xddxdd.lantianCustomized.materialgram}/bin/materialgram -autostart";
       }
       {
         name = "thunderbird";
