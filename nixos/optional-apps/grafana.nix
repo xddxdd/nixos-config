@@ -52,12 +52,12 @@ in
       };
       "auth.generic_oauth" = {
         enabled = "true";
-        name = "Keycloak";
+        name = "Dex";
         allow_sign_up = "true";
-        scopes = "openid profile email microprofile-jwt";
-        auth_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/auth";
-        token_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/token";
-        api_url = "https://login.lantian.pub/realms/master/protocol/openid-connect/userinfo";
+        scopes = "openid profile email groups offline_access";
+        auth_url = "https://login.lantian.pub/auth";
+        token_url = "https://login.lantian.pub/token";
+        api_url = "https://login.lantian.pub/userinfo";
         role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
       };
       database = {

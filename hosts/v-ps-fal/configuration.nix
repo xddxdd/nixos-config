@@ -7,9 +7,9 @@
 
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/dex.nix
     ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/glauth.nix
-    ../../nixos/optional-apps/keycloak
     ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
