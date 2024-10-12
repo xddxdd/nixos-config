@@ -17,8 +17,12 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/colmena-disable-pure-eval.patch ];
   });
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/dex-glob-match-redirect-uri.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../patches/dex-glob-match-redirect-uri.patch
+      ../patches/dex-ignore-force-approval-prompt.patch
+    ];
     vendorHash = "sha256-fAM4ralMod9s3w6Gi4hj60n+F6ExjOqlqQazmroegMY=";
+    doCheck = false;
   });
   drone = prev.drone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
