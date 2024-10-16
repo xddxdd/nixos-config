@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   LT,
   config,
@@ -73,25 +74,16 @@ in
     };
   };
 
-  # systemd.services.bazarr = {
-  #   after = [ "mnt-storage.mount" ];
-  #   requires = [ "mnt-storage.mount" ];
-  #   path = with pkgs; [ mediainfo ];
-  #   serviceConfig = LT.serviceHarden // {
-  #     BindPaths = [
-  #       radarrMediaPath
-  #       sonarrMediaPath
-  #     ];
-  #   };
-  # };
-
-  virtualisation.oci-containers.containers.chinesesubfinder.volumes = [
-    "${radarrMediaPath}:/media/media-radarr"
-    "${sonarrMediaPath}:/media/media-sonarr"
-  ];
-  systemd.services.podman-chinesesubfinder = {
+  systemd.services.bazarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
+    path = with pkgs; [ mediainfo ];
+    serviceConfig = LT.serviceHarden // {
+      BindPaths = [
+        radarrMediaPath
+        sonarrMediaPath
+      ];
+    };
   };
 
   systemd.services.qbittorrent = netns.bind {
