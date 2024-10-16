@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db";
+    version = "02f9a1813d6f332c82193539a6cabe599b9fd3de";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db";
+      rev = "02f9a1813d6f332c82193539a6cabe599b9fd3de";
       fetchSubmodules = false;
-      sha256 = "sha256-vZnviY6YdTEj48v7t0mCwkDukW6UTsHBNq0w009uUvk=";
+      sha256 = "sha256-t7xBfs1EuNi08HvfXDo+ns95b4GH4oJ07zejl8mtsvE=";
     };
-    date = "2024-10-10";
+    date = "2024-10-14";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -220,10 +220,10 @@
   };
   um-react = {
     pname = "um-react";
-    version = "239";
+    version = "243";
     src = fetchurl {
-      url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/239/um-react.zip";
-      sha256 = "sha256-vzSxrrne34QDyNpvPu0Xgr8/auaAT2SMUPQYh/o25jg=";
+      url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/243/um-react.zip";
+      sha256 = "sha256-0Nz6SHpZ/2p72p4Dx0xNJEEbNknujlis0xt6hzG2RGk=";
     };
   };
   web-compressor = {

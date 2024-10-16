@@ -129,7 +129,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-10-10",
+        "date": "2024-10-14",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -141,12 +141,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db",
-            "sha256": "sha256-vZnviY6YdTEj48v7t0mCwkDukW6UTsHBNq0w009uUvk=",
+            "rev": "02f9a1813d6f332c82193539a6cabe599b9fd3de",
+            "sha256": "sha256-t7xBfs1EuNi08HvfXDo+ns95b4GH4oJ07zejl8mtsvE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3010241e0e2913a8cea3d7b4e27ea01b8aa3e1db"
+        "version": "02f9a1813d6f332c82193539a6cabe599b9fd3de"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -388,11 +388,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vzSxrrne34QDyNpvPu0Xgr8/auaAT2SMUPQYh/o25jg=",
+            "sha256": "sha256-0Nz6SHpZ/2p72p4Dx0xNJEEbNknujlis0xt6hzG2RGk=",
             "type": "url",
-            "url": "https://git.unlock-music.dev/api/packages/um/generic/um-react/239/um-react.zip"
+            "url": "https://git.unlock-music.dev/api/packages/um/generic/um-react/243/um-react.zip"
         },
-        "version": "239"
+        "version": "243"
     },
     "web-compressor": {
         "cargoLocks": null,
