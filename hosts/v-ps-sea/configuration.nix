@@ -6,6 +6,8 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/asterisk
+
+    ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
   ];
 
   systemd.network.networks.eth0 = {
