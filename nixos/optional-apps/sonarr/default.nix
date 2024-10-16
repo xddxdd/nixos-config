@@ -2,8 +2,7 @@
 {
   imports = [
     ../flaresolverr.nix
-    # ./bazarr.nix
-    ./chinesesubfinder.nix
+    ./bazarr.nix
     ./decluttarr.nix
     ./jproxy.nix
     ./prowlarr.nix
