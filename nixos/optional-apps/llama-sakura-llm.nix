@@ -19,20 +19,15 @@ let
       url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2beta-v0.9.2-GGUF/resolve/main/sakura-14b-qwen2beta-v0.9.2-iq4xs.gguf?download=true";
       sha256 = "0rzd7jd0ifl9c4qx9cns2nb7h2ha5fxmaphlf6ixm9g2wnbpwji5";
     };
-    "sakura-14b-qwen2beta-v0.9.2-q4km.gguf" = pkgs.fetchurl {
-      name = "sakura-14b-qwen2beta-v0.9.2-q4km.gguf";
-      url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2beta-v0.9.2-GGUF/resolve/main/sakura-14b-qwen2beta-v0.9.2-q4km.gguf?download=true";
-      sha256 = "198180v585ay0bi7v0v0sm3ih1qsp2ay8flg79ygl9vkbgiimblb";
+    "sakura-14b-qwen2.5-v1.0-iq4xs.gguf" = pkgs.fetchurl {
+      name = "sakura-14b-qwen2.5-v1.0-iq4xs.gguf";
+      url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2.5-v1.0-GGUF/resolve/main/sakura-14b-qwen2.5-v1.0-iq4xs.gguf?download=true";
+      sha256 = "0jp90qg1pnvwx2slnz4y1h2156kwfvgfwg2xcv81hd0ikkwqibrl";
     };
-    "sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf" = pkgs.fetchurl {
-      name = "sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf";
-      url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9.1-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9.1-iq4xs.gguf?download=true";
-      sha256 = "1i1qkc8yy9ijp4hfhnvzwbkkii52f190l82wadxry1l11whppb35";
-    };
-    "sakura-32b-qwen2beta-v0.9.1-q4km.gguf" = pkgs.fetchurl {
-      name = "sakura-32b-qwen2beta-v0.9.1-q4km.gguf";
-      url = "https://huggingface.co/SakuraLLM/Sakura-32B-Qwen2beta-v0.9.1-GGUF/resolve/main/sakura-32b-qwen2beta-v0.9.1-q4km.gguf?download=true";
-      sha256 = "06c7i90sp7c5srzizcqadi3pzfi6v81q57h1g24d7f5pn33lvw7b";
+    "sakura-14b-qwen2.5-v1.0-q6k.gguf" = pkgs.fetchurl {
+      name = "sakura-14b-qwen2.5-v1.0-q6k.gguf";
+      url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2.5-v1.0-GGUF/resolve/main/sakura-14b-qwen2.5-v1.0-q6k.gguf?download=true";
+      sha256 = "0xsb33ydjn01vxlm67v78f8jz74pbc8j4f24y4nc8p618cmc47rc";
     };
   };
 
@@ -46,7 +41,7 @@ in
     };
     modelName = lib.mkOption {
       type = lib.types.str;
-      default = "sakura-14b-qwen2beta-v0.9.2-q4km.gguf";
+      default = "sakura-14b-qwen2.5-v1.0-q6k.gguf";
     };
   };
 
