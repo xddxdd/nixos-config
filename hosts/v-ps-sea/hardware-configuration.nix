@@ -24,5 +24,10 @@ _: {
   };
 
   # Needed, or kopia backup fails
-  swapDevices = [ { device = "/dev/vda4"; } ];
+  swapDevices = [
+    {
+      device = "/dev/vda4";
+      randomEncryption.enable = true;
+    }
+  ];
 }

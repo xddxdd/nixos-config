@@ -21,5 +21,10 @@ _: {
     fsType = "ext4";
   };
 
-  swapDevices = [ { device = "/dev/vda2"; } ];
+  swapDevices = [
+    {
+      device = "/dev/vda2";
+      randomEncryption.enable = true;
+    }
+  ];
 }
