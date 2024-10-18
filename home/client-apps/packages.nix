@@ -133,7 +133,7 @@ in
         nur-xddxdd.gopherus
         nur-xddxdd.inter-knot
         nur-xddxdd.kikoplay
-        nur-xddxdd.lantianCustomized.materialgram
+        nur-xddxdd.lantianCustomized.telegram-desktop
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
         nur-xddxdd.runpodctl
@@ -195,8 +195,8 @@ in
         command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
       }
       {
-        name = "materialgram";
-        command = "${pkgs.nur-xddxdd.lantianCustomized.materialgram}/bin/materialgram -autostart";
+        name = "telegram-desktop";
+        command = "${pkgs.nur-xddxdd.lantianCustomized.telegram-desktop}/bin/telegram-desktop -autostart";
       }
       {
         name = "thunderbird";
