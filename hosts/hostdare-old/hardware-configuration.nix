@@ -27,5 +27,10 @@ _: {
     options = [ "bind" ];
   };
 
-  swapDevices = [ { device = "/dev/vda2"; } ];
+  swapDevices = [
+    {
+      device = "/dev/vda2";
+      randomEncryption.enable = true;
+    }
+  ];
 }

@@ -29,5 +29,10 @@ _: {
     ];
   };
 
-  swapDevices = [ { device = "/dev/sda3"; } ];
+  swapDevices = [
+    {
+      device = "/dev/sda3";
+      randomEncryption.enable = true;
+    }
+  ];
 }
