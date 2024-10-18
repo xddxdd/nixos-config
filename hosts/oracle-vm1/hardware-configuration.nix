@@ -28,4 +28,6 @@ _: {
       "dmask=0077"
     ];
   };
+
+  swapDevices = [ { device = "/dev/sda3"; } ];
 }
