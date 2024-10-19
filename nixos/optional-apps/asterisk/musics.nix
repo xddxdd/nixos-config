@@ -30,18 +30,12 @@ let
     };
 
     nativeBuildInputs = with pkgs; [
-      ffmpeg
       zstd
     ];
 
     installPhase = ''
       mkdir -p $out
-      ls -alh
-      for F in *; do
-        ffmpeg -i $F \
-          -ar 48000 -ac 1 -acodec pcm_s16le -f s16le \
-          $out/$F.sln48
-      done
+      cp * $out/
     '';
   };
 in
@@ -66,7 +60,7 @@ rec {
     { index, value }:
     dialRule (builtins.toString (index + 1)) [
       "Answer()"
-      "Playback(${musicSrc}/${value})"
+      "MP3Player(${musicSrc}/${value})"
     ]
   ) (LT.enumerateList musics);
 }
