@@ -6,6 +6,8 @@
   ...
 }:
 let
+  bitmagnet = pkgs.bitmagnet.override { buildGoModule = pkgs.buildGo122Module; };
+
   mkBitmagnetService = worker: {
     description = "BitMagnet ${worker}";
     wantedBy = [ "multi-user.target" ];
@@ -25,7 +27,8 @@ let
     };
     script = ''
       export TMDB_API_KEY=$(cat ${config.age.secrets.tmdb-api-key.path})
-      exec ${pkgs.bitmagnet}/bin/bitmagnet worker run --keys=${worker}
+      export PROCESSOR_CONCURRENCY=$(nproc)
+      exec ${bitmagnet}/bin/bitmagnet worker run --keys=${worker}
     '';
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
