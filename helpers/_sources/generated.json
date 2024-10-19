@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-p5qLRImAuV8pqbwn+egbGMiPW6xdy8yQoRWdoiE4+B8=",
+            "sha256": "sha256-H5E6RjCNqz2NROMzvypTjJmm2EKqP/7TwBmD827KLSo=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.0/linux/yesoreyeram-infinity-datasource-2.11.0.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.1/linux/yesoreyeram-infinity-datasource-2.11.1.linux_amd64.zip"
         },
-        "version": "2.11.0"
+        "version": "2.11.1"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -210,27 +210,6 @@
             "type": "github"
         },
         "version": "3ec39a31ec64858642629991caf0dd14ce7c34ca"
-    },
-    "openvpn": {
-        "cargoLocks": null,
-        "date": "2024-09-28",
-        "extract": null,
-        "name": "openvpn",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "OpenVPN",
-            "repo": "openvpn",
-            "rev": "5ccaa49e0323ce468b156b3fa0930f7840050387",
-            "sha256": "sha256-JqxT5JZecKBXdGOkUHm+mudgd/euulPLdqDhrGrv8nk=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "5ccaa49e0323ce468b156b3fa0930f7840050387"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,

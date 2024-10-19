@@ -41,7 +41,6 @@ let
           _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
         }
       )
-      (inputs.attic + "/nixos/atticd.nix")
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.impermanence.nixosModules.impermanence
