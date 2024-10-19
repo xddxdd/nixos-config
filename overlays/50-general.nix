@@ -47,19 +47,6 @@ rec {
         sed -i "s#/bin/mount#${final.util-linux}/bin/mount#g" $out/bin/mount.ubifs
       '';
   });
-  openvpn-with-dco = prev.openvpn.overrideAttrs (old: {
-    inherit (sources.openvpn) version src;
-    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ (with final; [ autoreconfHook ]);
-    buildInputs =
-      (old.buildInputs or [ ])
-      ++ (with final; [
-        docutils
-        libcap_ng
-        libnl
-        lz4
-      ]);
-    configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-dco" ];
-  });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
     with all;

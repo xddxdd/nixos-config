@@ -148,6 +148,8 @@ in
 
   hardware.ksm.enable = !config.boot.isContainer;
 
+  lantian.qemu-user-static-binfmt.package = pkgs.nur-xddxdd.qemu-user-static;
+
   programs = {
     bash.vteIntegration = LT.this.hasTag LT.tags.client;
     command-not-found.enable = false;

@@ -31,10 +31,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.11.0";
+    version = "2.11.1";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.0/linux/yesoreyeram-infinity-datasource-2.11.0.linux_amd64.zip";
-      sha256 = "sha256-p5qLRImAuV8pqbwn+egbGMiPW6xdy8yQoRWdoiE4+B8=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.1/linux/yesoreyeram-infinity-datasource-2.11.1.linux_amd64.zip";
+      sha256 = "sha256-H5E6RjCNqz2NROMzvypTjJmm2EKqP/7TwBmD827KLSo=";
     };
   };
   himawaripy = {
@@ -121,18 +121,6 @@
       sha256 = "sha256-MBVVImy0f+MQnlAYUf77mScpdqkCKi1hdOJEM7Z7KJ0=";
     };
     date = "2024-06-04";
-  };
-  openvpn = {
-    pname = "openvpn";
-    version = "5ccaa49e0323ce468b156b3fa0930f7840050387";
-    src = fetchFromGitHub {
-      owner = "OpenVPN";
-      repo = "openvpn";
-      rev = "5ccaa49e0323ce468b156b3fa0930f7840050387";
-      fetchSubmodules = false;
-      sha256 = "sha256-JqxT5JZecKBXdGOkUHm+mudgd/euulPLdqDhrGrv8nk=";
-    };
-    date = "2024-09-28";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

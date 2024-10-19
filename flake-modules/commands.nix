@@ -10,7 +10,7 @@
     let
       extraArgs = {
         inherit inputs;
-        LT = import ./helpers { inherit lib inputs pkgs; };
+        LT = import ../helpers { inherit lib inputs pkgs; };
         packages = self.packages."${pkgs.system}";
       };
     in
