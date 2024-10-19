@@ -34,15 +34,7 @@ in
 
   services.asterisk = {
     enable = true;
-    package = pkgs.nur-xddxdd.lantianCustomized.asterisk.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        # FIXME: remove on next nur-xddxdd bump
-        + ''
-          # Use normal music volume instead of reducing it to 1/4
-          substituteInPlace apps/app_mp3.c --replace-fail '"-f", "8192",' ""
-        '';
-    });
+    package = pkgs.nur-xddxdd.lantianCustomized.asterisk;
 
     confFiles = {
       "pjsip.conf" = ''
