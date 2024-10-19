@@ -89,7 +89,9 @@ let
         };
         redirectURIs = [
           "https://*.lantian.pub/oauth2/callback"
+          "https://*.*.lantian.pub/oauth2/callback"
           "https://*.xuyh0120.win/oauth2/callback"
+          "https://*.*.xuyh0120.win/oauth2/callback"
         ];
       }
     ];
