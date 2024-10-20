@@ -169,6 +169,7 @@ let
       name = "tools";
       ttl = "5m";
       filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
+      healthcheck = "tools.lantian.pub";
     }
     {
       recordType = "CNAME";
@@ -254,6 +255,7 @@ in
           name = "@";
           ttl = "5m";
           filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing");
+          healthcheck = "lantian.pub";
         }
         {
           recordType = "CNAME";

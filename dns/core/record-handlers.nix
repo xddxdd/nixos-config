@@ -4,7 +4,13 @@ let
     let
       escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
     in
-    s: if (builtins.isString s) then (escapeArg s) else (builtins.toString s);
+    s:
+    if builtins.isString s then
+      escapeArg s
+    else if builtins.isAttrs s then
+      builtins.toJSON s
+    else
+      builtins.toString s;
   formatName = name: reverse: if reverse then "REV(${formatArg name})" else (formatArg name);
 
   record =
@@ -13,6 +19,7 @@ let
       configString = builtins.concatStringsSep ", " (
         [ (formatName args.name args.reverse) ]
         ++ (builtins.map formatArg params)
+        ++ (lib.optionals (builtins.hasAttr "meta" args) (builtins.map formatArg [ args.meta ]))
         ++ (lib.optional (args.ttl != null) "TTL(${formatArg (builtins.toString args.ttl)})")
         ++ (lib.optional (args.cloudflare != null && args.cloudflare) "CF_PROXY_ON")
         ++ (lib.optional (args.cloudflare != null && !args.cloudflare) "CF_PROXY_OFF")

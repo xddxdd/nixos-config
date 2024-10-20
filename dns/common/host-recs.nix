@@ -127,37 +127,52 @@ in
       ));
 
     GEO =
-      { name, filter, ... }@args:
-      (config.recordHandlers.TXT (
-        args
-        // {
-          recordType = "TXT";
-          name = concatDomain "geoinfo" name;
-          contents = builtins.toJSON (
-            builtins.mapAttrs (_k: v: {
-              inherit (v.city) lat lng;
-              a = lib.optional (v.public.IPv4 != "") v.public.IPv4;
-              aaaa =
-                (lib.optional (v.public.IPv6 != "") v.public.IPv6)
-                ++ (lib.optional (v.public.IPv6Alt != "") v.public.IPv6Alt);
-            }) (lib.filterAttrs filter LT.hosts)
-          );
-        }
-      ))
-      ++ (config.recordHandlers.IGNORE (
-        args
-        // {
-          type = "A";
-          ttl = null;
-        }
-      ))
-      ++ (config.recordHandlers.IGNORE (
-        args
-        // {
-          type = "AAAA";
-          ttl = null;
-        }
-      ));
+      { filter, ... }@args:
+      let
+        meta =
+          host:
+          {
+            gcore_filters = "geodistance,false;first_n,false,1";
+            gcore_latitude = "${builtins.toString host.city.lat}";
+            gcore_longitude = "${builtins.toString host.city.lng}";
+          }
+          // (lib.optionalAttrs (builtins.hasAttr "healthcheck" args) {
+            gcore_filters = "healthcheck,false;geodistance,false;first_n,false,1";
+            gcore_failover_protocol = "HTTP";
+            gcore_failover_port = "443";
+            gcore_failover_frequency = "30";
+            gcore_failover_timeout = "10";
+            gcore_failover_method = "GET";
+            gcore_failover_url = "/";
+            gcore_failover_tls = "true";
+            gcore_failover_host = args.healthcheck;
+          });
+      in
+      lib.flatten (
+        lib.mapAttrsToList (
+          _k: v:
+          (lib.optional (v.public.IPv4 != "") (
+            config.recordHandlers.A (
+              args
+              // {
+                recordType = "A";
+                address = v.public.IPv4;
+                meta = meta v;
+              }
+            )
+          ))
+          ++ (lib.optional (v.public.IPv6 != "") (
+            config.recordHandlers.AAAA (
+              args
+              // {
+                recordType = "AAAA";
+                address = v.public.IPv6;
+                meta = meta v;
+              }
+            )
+          ))
+        ) (lib.filterAttrs filter LT.hosts)
+      );
   };
 
   common.concatDomain = concatDomain;
