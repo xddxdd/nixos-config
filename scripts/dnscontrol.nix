@@ -8,13 +8,13 @@ let
   # inherit (pkgs) dnscontrol;
   dnscontrol = pkgs.buildGoModule rec {
     pname = "dnscontrol";
-    version = "2b7756e51f0f3eac95af286fa19094f58554ec32";
+    version = "d87668dcb591f3d1b5397c1bcfbea0bfc6ad0a53";
 
     src = pkgs.fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
       rev = version;
-      sha256 = "sha256-50J89sELkSEgyzk1SUDMN6xsXwm7K2ZDidBg0/TaZMg=";
+      sha256 = "sha256-ojrfd5gWOXRdhT/awWgCBEB+HIwkwFCrG3Wmmpq63Ps=";
     };
 
     vendorHash = "sha256-6ePEgHVFPtkW+C57+cPLj5yc9YaCRKrnBFo2Y1pcglM=";
