@@ -6,7 +6,7 @@
   ...
 }:
 let
-  primaryServer = "v-ps-fal";
+  primaryServer = "hetzner-de";
 in
 {
   ########################################

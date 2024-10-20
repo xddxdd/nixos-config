@@ -1,44 +1,35 @@
-{
-  ...
-}:
+{ inputs, ... }:
 {
   imports = [
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
 
-    # ../../nixos/optional-apps/attic.nix
-    # ../../nixos/optional-apps/bepasty.nix
-    # ../../nixos/optional-apps/bird-lg-go.nix
-    # ../../nixos/optional-apps/calibre-cops.nix
-    # ../../nixos/optional-apps/drone-ci.nix
-    # ../../nixos/optional-apps/gitea.nix
-    # ../../nixos/optional-apps/glauth.nix
-    # ../../nixos/optional-apps/grafana.nix
-    # ../../nixos/optional-apps/keycloak
-    # ../../nixos/optional-apps/lemmy.nix
-    # ../../nixos/optional-apps/matrix-synapse.nix
-    # ../../nixos/optional-apps/miniflux.nix
-    # ../../nixos/optional-apps/netbox.nix
-    # ../../nixos/optional-apps/nextcloud.nix
-    # ../../nixos/optional-apps/nginx-lab
-    # ../../nixos/optional-apps/nginx-private.nix
-    # ../../nixos/optional-apps/plausible
-    # ../../nixos/optional-apps/prometheus.nix
-    # ../../nixos/optional-apps/quassel.nix
-    # ../../nixos/optional-apps/rsshub.nix
-    # ../../nixos/optional-apps/step-ca.nix
-    # ../../nixos/optional-apps/tg-bot-cleaner-bot
-    # ../../nixos/optional-apps/vaultwarden.nix
-    # ../../nixos/optional-apps/waline.nix
-    # ../../nixos/optional-apps/yourls.nix
+    ../../nixos/optional-apps/bepasty.nix
+    ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/dex.nix
+    ../../nixos/optional-apps/gitea-actions.nix
+    ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/lemmy.nix
+    ../../nixos/optional-apps/matrix-synapse
+    ../../nixos/optional-apps/miniflux.nix
+    ../../nixos/optional-apps/netbox.nix
+    ../../nixos/optional-apps/nginx-private.nix
+    ../../nixos/optional-apps/plausible
+    ../../nixos/optional-apps/quassel.nix
+    ../../nixos/optional-apps/radicale.nix
+    ../../nixos/optional-apps/rsshub.nix
+    ../../nixos/optional-apps/rsync-server-ci.nix
+    ../../nixos/optional-apps/tg-bot-cleaner-bot
+    ../../nixos/optional-apps/waline.nix
 
-    # ../../nixos/optional-cron-jobs/ssl-certs.nix
-    # ../../nixos/optional-cron-jobs/testssl.nix
+    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
+    ../../nixos/optional-cron-jobs/ssl-certs.nix
+    ../../nixos/optional-cron-jobs/testssl.nix
 
-    # "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
-    # "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
-    # "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
+    "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
+    "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
+    "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
   systemd.network.networks.eth0 = {
@@ -52,16 +43,12 @@
     };
     routes = [
       {
-        routeConfig = {
-          Gateway = "172.31.1.1";
-          GatewayOnLink = true;
-        };
+        Gateway = "172.31.1.1";
+        GatewayOnLink = true;
       }
       {
-        routeConfig = {
-          Gateway = "fe80::1";
-          GatewayOnLink = true;
-        };
+        Gateway = "fe80::1";
+        GatewayOnLink = true;
       }
     ];
   };

@@ -14,8 +14,8 @@ let
     gigsgigscloud = LT.hosts."v-ps-hkg";
     linkin = LT.hosts."v-ps-hkg";
     hostdare = LT.hosts."v-ps-sjc";
-    oneprovider = LT.hosts."v-ps-fal";
-    soyoustart = LT.hosts."v-ps-fal";
+    oneprovider = LT.hosts."hetzner-de";
+    soyoustart = LT.hosts."hetzner-de";
     virmach-ny3ip = LT.hosts."virmach-ny6g";
     virtono = LT.hosts."buyvm";
   };

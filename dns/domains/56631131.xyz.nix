@@ -18,7 +18,7 @@
         {
           recordType = "fakeALIAS";
           name = "@";
-          target = "v-ps-fal";
+          target = "hetzner-de";
           ttl = "1h";
         }
         {

@@ -68,7 +68,7 @@ let
     {
       recordType = "CNAME";
       name = "cal";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
@@ -98,13 +98,13 @@ let
     {
       recordType = "CNAME";
       name = "netbox";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "private";
-      target = "v-ps-fal.ltnet.xuyh0120.win.";
+      target = "hetzner-de.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -122,25 +122,25 @@ let
     {
       recordType = "CNAME";
       name = "rss";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "rsshub";
-      target = "v-ps-fal.ltnet.xuyh0120.win.";
+      target = "hetzner-de.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "rsync-ci";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "stats";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {

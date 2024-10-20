@@ -99,13 +99,13 @@ let
     {
       recordType = "CNAME";
       name = "ca";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "comments";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
@@ -135,24 +135,24 @@ let
     {
       recordType = "CNAME";
       name = "lemmy";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "lg";
-      target = "v-ps-fal";
+      target = "hetzner-de";
     }
     {
       recordType = "CNAME";
       name = "login";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
       recordType = "fakeALIAS";
       name = "matrix";
-      target = "v-ps-fal";
+      target = "hetzner-de";
       ttl = "1h";
     }
     {
