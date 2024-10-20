@@ -2,7 +2,7 @@
   tags,
   geo,
   ...
-}@args:
+}:
 {
   index = 14;
   tags = with tags; [
