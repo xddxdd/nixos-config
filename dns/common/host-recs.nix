@@ -130,11 +130,12 @@ in
       { filter, ... }@args:
       let
         meta =
-          host:
+          k: v:
           {
             gcore_filters = "geodistance,false;first_n,false,1";
-            gcore_latitude = "${builtins.toString host.city.lat}";
-            gcore_longitude = "${builtins.toString host.city.lng}";
+            gcore_latitude = "${builtins.toString v.city.lat}";
+            gcore_longitude = "${builtins.toString v.city.lng}";
+            gcore_notes = k;
           }
           // (lib.optionalAttrs (builtins.hasAttr "healthcheck" args) {
             gcore_filters = "healthcheck,false;geodistance,false;first_n,false,1";
@@ -150,14 +151,14 @@ in
       in
       lib.flatten (
         lib.mapAttrsToList (
-          _k: v:
+          k: v:
           (lib.optional (v.public.IPv4 != "") (
             config.recordHandlers.A (
               args
               // {
                 recordType = "A";
                 address = v.public.IPv4;
-                meta = meta v;
+                meta = meta k v;
               }
             )
           ))
@@ -167,7 +168,7 @@ in
               // {
                 recordType = "AAAA";
                 address = v.public.IPv6;
-                meta = meta v;
+                meta = meta k v;
               }
             )
           ))
