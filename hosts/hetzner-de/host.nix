@@ -10,7 +10,6 @@
     qemu
     server
   ];
-  hostname = "159.69.30.238";
   system = "aarch64-linux";
   cpuThreads = 8;
   city = geo.cities."DE Nurnberg";
