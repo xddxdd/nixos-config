@@ -50,6 +50,7 @@
 
       Restart = "always";
       RestartSec = "3";
+      TimeoutStartSec = "900";
 
       CacheDirectory = "waline";
       WorkingDirectory = "/var/cache/waline";
