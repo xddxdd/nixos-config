@@ -71,7 +71,7 @@
       {
         recordType = "fakeALIAS";
         name = "avatar";
-        target = "v-ps-fal";
+        target = "hetzner-de";
         ttl = "1h";
       }
 

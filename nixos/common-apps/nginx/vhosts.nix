@@ -38,14 +38,14 @@ let
         # Plausible Analytics
         "= /api/event" = {
           proxyPass = "http://198.18.${
-            builtins.toString LT.hosts."v-ps-fal".index
+            builtins.toString LT.hosts."hetzner-de".index
           }.138:${LT.portStr.Plausible}";
           extraConfig = enableCompression;
         };
 
         # Waline
         "= /api/comment" = {
-          proxyPass = "http://${LT.hosts."v-ps-fal".ltnet.IPv4}:${LT.portStr.Waline}";
+          proxyPass = "http://${LT.hosts."hetzner-de".ltnet.IPv4}:${LT.portStr.Waline}";
           extraConfig = ''
             proxy_set_header REMOTE-HOST $remote_addr;
             ${enableCompression}
