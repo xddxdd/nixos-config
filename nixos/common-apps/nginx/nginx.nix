@@ -213,6 +213,14 @@ in
     '';
   };
 
+  services.fail2ban.jails = {
+    nginx-botsearch = ''
+      enabled  = true
+      filter   = nginx-botsearch
+      backend  = systemd
+    '';
+  };
+
   systemd.services.nginx = {
     environment = {
       LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
