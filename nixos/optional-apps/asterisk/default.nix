@@ -216,7 +216,22 @@ in
   };
 
   systemd.services.asterisk = {
-    path = with pkgs; [ mpg123 ];
+    path =
+      let
+        fakeMpg123 = pkgs.writeShellScriptBin "mpg123" ''
+          # Asterisk passes filename as last argument
+          MUSIC="''${@: -1:1}"
+          SAMPLING_RATE="''${@: -2:1}"
+          if [ "$SAMPLING_RATE" = "-@" ]; then
+            SAMPLING_RATE="''${@: -3:1}"
+          fi
+
+          exec ${pkgs.ffmpeg}/bin/ffmpeg -i "''${MUSIC}" \
+            -f s16le -acodec pcm_s16le \
+            -ac 1 -ar "''${SAMPLING_RATE}" -
+        '';
+      in
+      [ fakeMpg123 ];
     reloadTriggers = lib.mapAttrsToList (
       k: _v: "/etc/asterisk/${k}"
     ) config.services.asterisk.confFiles;
