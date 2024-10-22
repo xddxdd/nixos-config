@@ -1,5 +1,7 @@
 { lib, ... }:
 rec {
+  # Run asterisk-music-deploy after changing this list
+  # Run asterisk-music-dialplan to get extension numbers
   asteriskMusics = [
     "蔡健雅 - Nightglow.flac"
     "周深 - Rubia.flac"
