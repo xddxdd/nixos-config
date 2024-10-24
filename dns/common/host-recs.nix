@@ -182,6 +182,13 @@ in
     inherit hasPublicIP mapAddresses;
 
     CAA = [
+      # Email notification
+      {
+        recordType = "CAA";
+        name = "@";
+        tag = "iodef";
+        value = "mailto:b980120@hotmail.com";
+      }
       # Let's Encrypt
       {
         recordType = "CAA";
