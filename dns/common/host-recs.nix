@@ -187,13 +187,13 @@ in
         recordType = "CAA";
         name = "@";
         tag = "issue";
-        value = "letsencrypt.org; validationmethods=dns-01";
+        value = "letsencrypt.org";
       }
       {
         recordType = "CAA";
         name = "@";
         tag = "issuewild";
-        value = "letsencrypt.org; validationmethods=dns-01";
+        value = "letsencrypt.org";
       }
       # BuyPass
       {
