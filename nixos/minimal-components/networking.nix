@@ -69,11 +69,7 @@ in
   };
 
   networking = {
-    hostId = builtins.readFile (
-      pkgs.runCommandLocal "hostid.txt" { } ''
-        echo -n ${config.networking.hostName} | cksum | cut -d" " -f1 | xargs echo printf '%08X' | sh > $out
-      ''
-    );
+    hostId = lib.substring 0 8 (builtins.hashString "sha256" config.networking.hostName);
     usePredictableInterfaceNames = false;
     useDHCP = false;
     domain = "lantian.pub";
