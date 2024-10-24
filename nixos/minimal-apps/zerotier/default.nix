@@ -5,15 +5,7 @@
   ...
 }:
 let
-  whitelistToBlacklist =
-    wl:
-    lib.splitString "\n" (
-      builtins.readFile (
-        pkgs.runCommandLocal "wl2bl.out" { } ''
-          ${pkgs.python3Minimal}/bin/python3 ${./whitelist_to_blacklist.py} ${lib.escapeShellArgs wl} > $out
-        ''
-      )
-    );
+  whitelistToBlacklist = pkgs.callPackage ./whitelist_to_blacklist.nix { };
 
   configFile = builtins.toJSON {
     settings = {

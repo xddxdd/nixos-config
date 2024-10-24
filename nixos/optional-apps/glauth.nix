@@ -3,18 +3,15 @@
   LT,
   config,
   inputs,
+  lib,
   ...
 }:
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
-  hexdump =
-    s:
-    builtins.readFile (
-      pkgs.runCommandLocal "hexdump.txt" { } ''
-        echo -n '${s}' | ${pkgs.unixtools.xxd}/bin/xxd -pu | tr -d '\n' > $out
-      ''
-    );
+  hexdump = lib.stringAsChars (
+    c: lib.fixedWidthString 2 "0" (lib.toHexString (lib.strings.charToInt c))
+  );
 
   cfg = pkgs.writeText "glauth.cfg" ''
     [ldap]
