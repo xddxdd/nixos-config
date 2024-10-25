@@ -106,7 +106,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     srvos = {
-      url = "github:numtide/srvos";
+      url = "github:nix-community/srvos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

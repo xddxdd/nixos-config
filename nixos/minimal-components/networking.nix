@@ -89,17 +89,18 @@ in
   };
 
   systemd.network.enable = true;
+  systemd.network.wait-online.enable = false;
   environment.etc."systemd/networkd.conf".text = ''
     [Network]
     ManageForeignRoutes=false
     ManageForeignRoutingPolicyRules=false
   '';
   systemd.services.systemd-networkd.restartIfChanged = false;
-  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
-    "" # clear old command
-    "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
-  ];
   services.resolved.enable = false;
+
+  # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
+  systemd.services.systemd-networkd.stopIfChanged = false;
+  systemd.services.systemd-resolved.stopIfChanged = false;
 
   systemd.services.network-setup-resolv-conf =
     let
