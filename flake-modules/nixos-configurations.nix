@@ -54,7 +54,6 @@ let
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
       inputs.proxmox-nixos.nixosModules.proxmox-ve
-      (inputs.srvos + "/nixos/common/networking.nix")
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.srvos.nixosModules.mixins-terminfo
