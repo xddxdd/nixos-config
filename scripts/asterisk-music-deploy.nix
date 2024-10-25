@@ -7,7 +7,9 @@
 let
   constants = callPackage ../helpers/constants.nix { };
   inherit (constants) asteriskMusics;
-  files = lib.escapeShellArgs (builtins.map (n: "/home/lantian/Music/CloudMusic/" + n) asteriskMusics);
+  files = lib.escapeShellArgs (
+    builtins.map (n: "/home/lantian/Music/CloudMusic/" + n) asteriskMusics
+  );
 in
 ''
   TARGET_HOST=$1
