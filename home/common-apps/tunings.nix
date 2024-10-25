@@ -14,6 +14,11 @@
       pull = {
         rebase = false;
       };
+
+      # https://forums.whonix.org/t/git-users-enable-fsck-by-default-for-better-security/2066
+      transfer.fsckobjects = true;
+      fetch.fsckobjects = true;
+      receive.fsckobjects = true;
     };
     userName = "Lan Tian";
     userEmail = "xuyh0120@outlook.com";
