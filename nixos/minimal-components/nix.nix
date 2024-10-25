@@ -36,6 +36,7 @@
     nrBuildUsers = 0;
     optimise.automatic = true;
     settings = {
+      allowed-users = lib.mkForce [ "@wheel" ];
       auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;

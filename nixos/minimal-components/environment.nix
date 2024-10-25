@@ -189,14 +189,6 @@ in
     steam.platformOptimizations.enable = true;
   };
 
-  security.protectKernelImage = true;
-  security.sudo.enable = lib.mkForce false;
-  security.sudo-rs = {
-    enable = true;
-    execWheelOnly = true;
-    wheelNeedsPassword = false;
-  };
-
   services.ananicy = {
     enable = LT.this.hasTag LT.tags.client;
     rulesProvider = pkgs.ananicy-rules-cachyos;
@@ -213,15 +205,6 @@ in
     SystemMaxFileSize=10M
     SystemMaxUse=100M
   '';
-
-  security.pam.loginLimits = [
-    {
-      domain = "@wheel";
-      item = "nproc";
-      type = "-";
-      value = "5000000";
-    }
-  ];
 
   security.wrappers = {
     bwrap = {
@@ -290,11 +273,5 @@ in
       # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
       "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
     ];
-  };
-
-  zramSwap = {
-    enable = !config.boot.isContainer;
-    algorithm = "zstd";
-    memoryPercent = 50;
   };
 }
