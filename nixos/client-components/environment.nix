@@ -1,6 +1,15 @@
-{ pkgs, config, ... }:
 {
-  services.udev.packages = with pkgs; [ libftdi1 ];
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+lib.mkIf (!config.boot.isContainer) {
+  services.udev.packages = with pkgs; [
+    libftdi1
+    yubikey-personalization
+  ];
 
-  services.udisks2.enable = !config.boot.isContainer;
+  services.udisks2.enable = true;
+  services.pcscd.enable = true;
 }

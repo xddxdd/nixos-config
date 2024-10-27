@@ -151,7 +151,7 @@ in
         wpsoffice
         xca
         yt-dlp
-        yubikey-manager-qt
+        yubioath-flutter
         zoom-us
       ]
       ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ nur-xddxdd.svp ]
