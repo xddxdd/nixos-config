@@ -274,4 +274,6 @@ in
       "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
     ];
   };
+
+  systemd.services."systemd-machine-id-commit".enable = false;
 }

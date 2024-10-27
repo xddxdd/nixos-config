@@ -6,7 +6,7 @@
   ...
 }:
 let
-  bitmagnet = pkgs.bitmagnet.override { buildGoModule = pkgs.buildGo122Module; };
+  inherit (pkgs) bitmagnet;
 
   mkBitmagnetService = worker: {
     description = "BitMagnet ${worker}";

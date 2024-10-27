@@ -28,7 +28,7 @@
     ../../nixos/optional-apps/pipewire-roc-source.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
-    ../../nixos/optional-apps/virtualbox.nix
+    # ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 

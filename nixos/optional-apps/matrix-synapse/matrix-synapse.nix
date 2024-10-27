@@ -194,11 +194,6 @@
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
       };
 
-      # Sliding sync proxy
-      "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
-        proxyPass = "http://unix:/run/matrix-sliding-sync/listen.socket";
-      };
-
       # Overwrite well-known info
       "= /.well-known/matrix/server" = {
         allowCORS = true;
