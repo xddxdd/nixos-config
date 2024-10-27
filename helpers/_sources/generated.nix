@@ -15,10 +15,10 @@
   };
   cyberchef = {
     pname = "cyberchef";
-    version = "v10.19.2";
+    version = "v10.19.4";
     src = fetchurl {
-      url = "https://github.com/gchq/CyberChef/releases/download/v10.19.2/CyberChef_v10.19.2.zip";
-      sha256 = "sha256-eDj3E/aTNfvf1AJ2Ta9sBfeEjPZR9LnhogjHmT2h7J4=";
+      url = "https://github.com/gchq/CyberChef/releases/download/v10.19.4/CyberChef_v10.19.4.zip";
+      sha256 = "sha256-N4iyn/tU9XhJaPz5mChvD3VnC+ipLkDraDdD66q5dRA=";
     };
   };
   grafana-falconlogscale-datasource = {
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7";
+    version = "ac0afeb01057ce02afec07d761d7374ce6260a79";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "405ccf7a7fe50f4538a1f809d5e47feb1f8e4bf7";
+      rev = "ac0afeb01057ce02afec07d761d7374ce6260a79";
       fetchSubmodules = false;
-      sha256 = "sha256-ZRvoFoNc1eiAKSIjkRlaG9JhUxTCK6BhVBZ/UPwu0cg=";
+      sha256 = "sha256-tIn3aDvzqxWQiE6E+2ZXmrjIniPA2PSHHuWp6TKGzI8=";
     };
-    date = "2024-10-08";
+    date = "2024-10-26";
   };
   openspeedtest = {
     pname = "openspeedtest";

@@ -17,6 +17,23 @@ let
     ''
   );
 
+  calibre-override-desktop = lib.hiPrio (
+    pkgs.runCommand "calibre-override-desktop" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+      mkdir -p $out/bin
+      for F in ${pkgs.calibre}/bin/*; do
+        [ -f "$F" ] || continue
+        makeWrapper "$F" $out/bin/$(basename "$F") \
+          --set QT_QPA_PLATFORM xcb \
+          --set XDG_SESSION_TYPE x11
+      done
+
+      mkdir -p $out/share/applications
+      for F in ${pkgs.calibre}/share/applications/*; do
+        sed "/MimeType=/d" < "$F" > $out/share/applications/$(basename "$F")
+      done
+    ''
+  );
+
   jamesdsp-toggle = pkgs.writeShellScriptBin "jamesdsp-toggle" ''
     NEW_STATE=$([ $(${pkgs.jamesdsp}/bin/jamesdsp --get master_enable) = "true" ] && echo "false" || echo "true")
     ${pkgs.jamesdsp}/bin/jamesdsp --set master_enable=$NEW_STATE
@@ -73,8 +90,8 @@ in
         audacious-wrapped
         brotli
         bzip2
-        # calibre
-        # calibre-override-desktop
+        calibre
+        calibre-override-desktop
         colmena
         dbeaver-bin
         discord
