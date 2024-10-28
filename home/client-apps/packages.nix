@@ -141,6 +141,7 @@ in
         nur-xddxdd.wechat-uos
         nur.repos.yes.mkxp-z
         nvfetcher
+        ollama
         openvpn
         p7zip
         parsec-bin

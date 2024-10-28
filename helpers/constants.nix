@@ -160,6 +160,7 @@ rec {
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
     Dex = 13403;
+    Ollama = 13434;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
