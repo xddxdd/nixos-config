@@ -82,6 +82,14 @@ let
         redirectURIs = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
       }
       {
+        id = "open-webui";
+        name = "Open WebUI";
+        secret = {
+          _secret = config.age.secrets.dex-open-webui-secret.path;
+        };
+        redirectURIs = [ "https://open-webui.lt-home-vm.xuyh0120.win/oauth/oidc/callback" ];
+      }
+      {
         id = "oauth-proxy";
         name = "OAuth2 Proxy";
         secret = {
@@ -112,6 +120,11 @@ in
   };
   age.secrets.dex-oauth2-proxy-secret = {
     file = inputs.secrets + "/dex/oauth2-proxy-secret.age";
+    owner = "dex";
+    group = "dex";
+  };
+  age.secrets.dex-open-webui-secret = {
+    file = inputs.secrets + "/dex/open-webui-secret.age";
     owner = "dex";
     group = "dex";
   };
