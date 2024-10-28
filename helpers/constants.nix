@@ -161,6 +161,7 @@ rec {
     Keycloak.HTTPS = 13402;
     Dex = 13403;
     Ollama = 13434;
+    OpenWebUI = 13435;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
