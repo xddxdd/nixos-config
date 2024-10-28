@@ -16,7 +16,7 @@
     environment = {
       ENV = "prod";
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
-      WEBUI_URL = "https://open-webui.${config.networking.hostName}.xuyh0120.win";
+      WEBUI_URL = "https://open-webui.$xuyh0120.win";
       ENABLE_LOGIN_FORM = "False";
       ENABLE_SIGNUP = "False";
       ENABLE_OAUTH_SIGNUP = "True";
@@ -30,24 +30,13 @@
   };
 
   lantian.nginxVhosts = {
-    "open-webui.${config.networking.hostName}.xuyh0120.win" = {
+    "open-webui.xuyh0120.win" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI}";
       };
 
       sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
       noIndex.enable = true;
-    };
-    "open-webui.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI}";
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 }
