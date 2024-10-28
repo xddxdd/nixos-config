@@ -6,15 +6,26 @@
   ...
 }:
 {
+  age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
+
   services.open-webui = {
     enable = true;
     package = inputs.nixpkgs-stable.legacyPackages."${pkgs.system}".open-webui;
     port = LT.port.OpenWebUI;
+    environmentFile = config.age.secrets.open-webui-env.path;
     environment = {
       ENV = "prod";
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
-      WEBUI_AUTH = "False";
       WEBUI_URL = "https://open-webui.${config.networking.hostName}.xuyh0120.win";
+      ENABLE_LOGIN_FORM = "False";
+      ENABLE_SIGNUP = "False";
+      ENABLE_OAUTH_SIGNUP = "True";
+      OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
+      OAUTH_CLIENT_ID = "open-webui";
+      OAUTH_SCOPES = "openid profile email groups";
+      ENABLE_OAUTH_ROLE_MANAGEMENT = "True";
+      OAUTH_ROLES_CLAIM = "groups";
+      OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
     };
   };
 
