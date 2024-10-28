@@ -103,6 +103,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "open-webui";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "private";
       target = "hetzner-de.ltnet.xuyh0120.win.";
       ttl = "1h";
