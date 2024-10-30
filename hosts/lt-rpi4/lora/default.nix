@@ -6,6 +6,14 @@
   ...
 }:
 let
+  sx1302Hal = pkgs.nur-xddxdd.sx1302-hal.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        find . -type f -exec sed -i 's#system("./reset_lgw.sh#system("reset_lgw.sh#g' {} \;
+      '';
+  });
+
   sx1302HalConfig = {
     "gateway_conf" = {
       "gateway_ID" = {
@@ -37,6 +45,11 @@ let
       "forward_crc_disabled" = false;
     };
   };
+
+  # reset_lgw.sh modified according to https://github.com/Lora-net/sx1302_hal/issues/67
+  resetLgw = pkgs.linkFarm "reset-lgw" {
+    "bin/reset_lgw.sh" = ./reset_lgw.sh;
+  };
 in
 {
   age.secrets.lora-euid.file = inputs.secrets + "/lora-euid.age";
@@ -45,9 +58,9 @@ in
     description = "LoRa SX1302 HAL";
     wantedBy = [ "multi-user.target" ];
 
-    # reset_lgw.sh modified according to https://github.com/Lora-net/sx1302_hal/issues/67
+    path = [ resetLgw ];
+
     preStart = ''
-      install -Dm755 ${./reset_lgw.sh} reset_lgw.sh
       ${utils.genJqSecretsReplacementSnippet sx1302HalConfig "local_conf.json"}
     '';
 
@@ -55,7 +68,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.sx1302-hal}/bin/lora_pkt_fwd -c ${pkgs.nur-xddxdd.sx1302-hal}/conf/global_conf.json.sx1250.US915";
+      ExecStart = "${sx1302Hal}/bin/lora_pkt_fwd -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
     };
