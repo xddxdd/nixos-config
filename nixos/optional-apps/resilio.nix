@@ -61,6 +61,7 @@ in
         "chgrp-ignore"
         "xattr-none"
         "x-gvfs-hide"
+        "multithreaded"
       ];
     };
 
