@@ -22,11 +22,16 @@ in
   services.chrony = rec {
     enable = !(LT.this.hasTag LT.tags.low-ram);
     servers = [ ];
+    # Use my custom makestep setting
+    initstepslew.enabled = false;
+    # https://github.com/mlichvar/chrony/blob/master/examples/chrony.conf.example3
     extraConfig = ''
       ${lib.concatMapStringsSep "\n" (k: "server ${k} ${serverOption}") ntpServers}
       ${lib.concatMapStringsSep "\n" (k: "pool ${k} ${serverOption}") ntpPools}
 
       cmdport 0
+      makestep 1.0 3
+      hwtimestamp *
     '';
     serverOption = if config.networking.networkmanager.enable then "offline" else "iburst";
   };
