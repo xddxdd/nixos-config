@@ -35,6 +35,7 @@
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
   lantian.hidpi = 1.5;
+  lantian.kernel = pkgs.nur-xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto;
 
   environment.systemPackages = [
     pkgs.nur-xddxdd.unigine-heaven
