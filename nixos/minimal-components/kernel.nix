@@ -209,10 +209,12 @@ in
             nft-fullcone
             nullfsvfs
             # ovpn-dco
+          ]
+          ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
+          ++ lib.optionals (lib.versionOlder config.lantian.kernel.version "6.11") [
             r8125
             r8168
           ]
-          ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
         );
 
       bcache.enable = false;
