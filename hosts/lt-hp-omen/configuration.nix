@@ -37,6 +37,12 @@
   lantian.hidpi = 1.5;
   lantian.kernel = pkgs.nur-xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto;
 
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+    extraArgs = [ ];
+  };
+
   environment.systemPackages = [
     pkgs.nur-xddxdd.unigine-heaven
     pkgs.nur-xddxdd.unigine-sanctuary
