@@ -27,7 +27,10 @@ in
   '';
 
   environment.etc."ansible/hosts".text = lib.concatStringsSep "\n" (
-    [ "[all]" ] ++ (builtins.map (n: n + ".lantian.pub") (lib.attrNames LT.otherHosts))
+    [ "[all]" ]
+    ++ (builtins.map (n: n + ".lantian.pub") (
+      lib.attrNames (lib.filterAttrs (_k: v: !v.manualDeploy) LT.otherHosts)
+    ))
   );
 
   environment.variables.ANSIBLE_CONFIG = "/etc/ansible/ansible.cfg";
