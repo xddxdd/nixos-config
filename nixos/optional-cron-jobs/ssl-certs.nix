@@ -57,8 +57,8 @@ in
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
     script = ''
-      ${pkgs.acme-sh-wrapped}/bin/acme.sh --cron
-      ${pkgs.acme-sh-auto}/bin/acme.sh-auto
+      ${acme-sh-wrapped}/bin/acme.sh --cron
+      ${acme-sh-auto}/bin/acme.sh-auto
     '';
   };
 
