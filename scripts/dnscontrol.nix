@@ -38,6 +38,10 @@ in
   TEMP_DIR="$(mktemp -d /tmp/dns.XXXXXXXX)"
   nix build .#dnscontrol-config -o "$TEMP_DIR/dnsconfig.js"
 
+  if [ -d "$CURR_DIR/zones" ]; then
+    cp -r "$CURR_DIR/zones" "$TEMP_DIR/zones"
+  fi
+
   ${age}/bin/age \
     -i "$HOME/.ssh/id_ed25519" \
     --decrypt -o "$TEMP_DIR/creds.json" \
