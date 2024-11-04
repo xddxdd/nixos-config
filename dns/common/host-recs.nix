@@ -12,10 +12,11 @@ let
   replacedHosts = {
     "50kvm" = LT.hosts."v-ps-hkg";
     gigsgigscloud = LT.hosts."v-ps-hkg";
+    hostdare = LT.hosts."bwg-lax";
     linkin = LT.hosts."v-ps-hkg";
-    hostdare = LT.hosts."v-ps-sjc";
     oneprovider = LT.hosts."hetzner-de";
     soyoustart = LT.hosts."hetzner-de";
+    v-ps-sjc = LT.hosts."bwg-lax";
     virmach-ny3ip = LT.hosts."virmach-ny6g";
     virtono = LT.hosts."buyvm";
   };

@@ -4,7 +4,7 @@ let
     "buyvm"
     "oracle-vm1"
     "v-ps-hkg"
-    "v-ps-sjc"
+    "bwg-lax"
     "virmach-ny1g"
   ];
   lgproxyDomain = "bird-lg-go";

@@ -2,7 +2,7 @@ _:
 let
   PublicServers = [
     "v-ps-hkg.lantian.pub."
-    "v-ps-sjc.lantian.pub."
+    "bwg-lax.lantian.pub."
     "virmach-ny1g.lantian.pub."
     "hetzner-de.lantian.pub."
     "buyvm.lantian.pub."
@@ -10,7 +10,7 @@ let
 
   LTNetServers = [
     "v-ps-hkg.ltnet.lantian.pub."
-    "v-ps-sjc.ltnet.lantian.pub."
+    "bwg-lax.ltnet.lantian.pub."
     "virmach-ny1g.ltnet.lantian.pub."
     "hetzner-de.ltnet.lantian.pub."
     "buyvm.ltnet.lantian.pub."
