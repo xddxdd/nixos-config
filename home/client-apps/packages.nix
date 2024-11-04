@@ -136,6 +136,7 @@ in
         nur-xddxdd.lantianCustomized.telegram-desktop
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
+        nur-xddxdd.qqsp
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos
