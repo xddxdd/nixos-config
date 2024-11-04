@@ -13,7 +13,7 @@ _: {
   ];
 
   fileSystems."/nix" = {
-    device = "/dev/vda1";
+    device = "/dev/sda1";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
@@ -28,10 +28,10 @@ _: {
     options = [ "bind" ];
   };
 
-  swapDevices = [
-    {
-      device = "/dev/vda2";
-      randomEncryption.enable = true;
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/dev/sda2";
+  #     randomEncryption.enable = true;
+  #   }
+  # ];
 }

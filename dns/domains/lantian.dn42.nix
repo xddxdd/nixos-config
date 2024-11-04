@@ -18,7 +18,7 @@
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns2.${domain}.";
-          addresses = LT.hosts."v-ps-sjc".dn42;
+          addresses = LT.hosts."bwg-lax".dn42;
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns3.${domain}.";
