@@ -19,7 +19,6 @@
     # ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-sakura-llm.nix
-    ../../nixos/optional-apps/netease-cloud-music.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix
