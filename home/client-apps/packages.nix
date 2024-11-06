@@ -169,6 +169,7 @@ in
         winetricks
         wpsoffice
         xca
+        yesplaymusic
         yt-dlp
         yubioath-flutter
         zoom-us
