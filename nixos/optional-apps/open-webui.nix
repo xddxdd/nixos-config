@@ -26,6 +26,10 @@
       ENABLE_OAUTH_ROLE_MANAGEMENT = "True";
       OAUTH_ROLES_CLAIM = "groups";
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
+
+      ENABLE_RAG_WEB_SEARCH = "true";
+      ENABLE_SEARCH_QUERY = "true";
+      RAG_WEB_SEARCH_ENGINE = "brave";
     };
   };
 
