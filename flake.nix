@@ -23,7 +23,7 @@
       flake = false;
     };
     colmena = {
-      url = "github:zhaofengli/colmena";
+      url = "github:zhaofengli/colmena/direct-flake-eval";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,16 +39,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/2.91.0.tar.gz";
-      flake = false;
-    };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
-      inputs.lix.follows = "lix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -124,7 +114,7 @@
         ./flake-modules/commands.nix
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
-        inputs.nur-xddxdd.flakeModules.auto-colmena-hive
+        inputs.nur-xddxdd.flakeModules.auto-colmena-hive-v0_20241006
         inputs.nur-xddxdd.flakeModules.commands
         inputs.nur-xddxdd.flakeModules.lantian-pre-commit-hooks
         inputs.nur-xddxdd.flakeModules.lantian-treefmt
