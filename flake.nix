@@ -23,7 +23,7 @@
       flake = false;
     };
     colmena = {
-      url = "github:zhaofengli/colmena/direct-flake-eval";
+      url = "github:zhaofengli/colmena";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
