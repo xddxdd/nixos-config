@@ -11,21 +11,21 @@ let
     providers = [
       {
         provider = "novita";
-        base_url = "https://api.novita.ai/v3/openai";
+        base_url = "https://api.novita.ai/v3/openai/chat/completions";
         api = {
           _secret = config.age.secrets.novita-api-key.path;
         };
       }
       {
         provider = "openrouter";
-        base_url = "https://openrouter.ai/api/v1";
+        base_url = "https://openrouter.ai/api/v1/chat/completions";
         api = {
           _secret = config.age.secrets.openrouter-api-key.path;
         };
       }
       {
         provider = "siliconflow";
-        base_url = "https://api.siliconflow.cn/v1";
+        base_url = "https://api.siliconflow.cn/v1/chat/completions";
         api = {
           _secret = config.age.secrets.siliconflow-api-key.path;
         };
