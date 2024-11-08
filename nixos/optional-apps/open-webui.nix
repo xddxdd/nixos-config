@@ -6,6 +6,8 @@
   ...
 }:
 {
+  imports = [ ./uni-api.nix ];
+
   age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
 
   services.open-webui = {
@@ -16,7 +18,9 @@
     environment = {
       ENV = "prod";
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
-      WEBUI_URL = "https://open-webui.$xuyh0120.win";
+      WEBUI_URL = "https://open-webui.xuyh0120.win";
+      OPENAI_API_BASE_URL = "http://uni-api.localhost/v1";
+
       ENABLE_LOGIN_FORM = "False";
       ENABLE_SIGNUP = "False";
       ENABLE_OAUTH_SIGNUP = "True";
