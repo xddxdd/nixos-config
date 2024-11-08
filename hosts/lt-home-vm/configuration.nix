@@ -27,7 +27,6 @@
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
-    ../../nixos/optional-apps/one-api.nix
     ../../nixos/optional-apps/open-webui.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/palworld.nix
@@ -36,6 +35,7 @@
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/tachidesk.nix
+    ../../nixos/optional-apps/uni-api.nix
     ../../nixos/optional-apps/vlmcsd.nix
 
     ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix

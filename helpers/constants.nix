@@ -162,6 +162,7 @@ rec {
     Ollama = 13434;
     OpenWebUI = 13435;
     OneAPI = 13436;
+    UniAPI = 13437;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
