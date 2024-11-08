@@ -49,6 +49,7 @@
         "flake-utils": [
           "flake-utils"
         ],
+        "nix-github-actions": "nix-github-actions",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -57,16 +58,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1728264521,
-        "narHash": "sha256-Wdrt/Po6+W2CXA/FaqFkiyATwX3N0uJd/MBULBdE21A=",
+        "lastModified": 1731037643,
+        "narHash": "sha256-N8gaV5bngMQPGyuo/RVdEsHTXvOeqjUhhxXpGea12DE=",
         "owner": "zhaofengli",
         "repo": "colmena",
-        "rev": "c7cfdd554997dd847e8fedde24a0bdf59e9c8520",
+        "rev": "03f1a18a6fba9ad9c4edb1cc7cf394390c304198",
         "type": "github"
       },
       "original": {
         "owner": "zhaofengli",
-        "ref": "direct-flake-eval",
         "repo": "colmena",
         "type": "github"
       }
@@ -492,6 +492,27 @@
       "original": {
         "owner": "fufexan",
         "repo": "nix-gaming",
+        "type": "github"
+      }
+    },
+    "nix-github-actions": {
+      "inputs": {
+        "nixpkgs": [
+          "colmena",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1729742964,
+        "narHash": "sha256-B4mzTcQ0FZHdpeWcpDYPERtyjJd/NIuaQ9+BV1h+MpA=",
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "rev": "e04df33f62cdcf93d73e9a04142464753a16db67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
         "type": "github"
       }
     },
