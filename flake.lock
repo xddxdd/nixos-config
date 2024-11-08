@@ -984,11 +984,11 @@
         "nixpkgs-22-05": "nixpkgs-22-05"
       },
       "locked": {
-        "lastModified": 1731046495,
-        "narHash": "sha256-CZVYjgCxTptdOJSF7J4o4qlqytiGV8cr+cOZ2fx9Ing=",
+        "lastModified": 1731050788,
+        "narHash": "sha256-xuJ1D0t2wU+TLpDoEPGZdbEduchUzQFcIq9dewACehw=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "aa0caab1639d4a62eecf9291fcb77c7c7b14c29d",
+        "rev": "cf8ffce72c694c480af274bca978824564c7899c",
         "type": "github"
       },
       "original": {
