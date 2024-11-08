@@ -9,6 +9,14 @@
 let
   cfg = {
     providers = [
+      # Free providers
+      {
+        provider = "groq";
+        base_url = "https://api.groq.com/openai/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.groq-api-key.path;
+        };
+      }
       {
         provider = "mistral";
         base_url = "https://api.mistral.ai/v1/chat/completions";
@@ -16,6 +24,7 @@ let
           _secret = config.age.secrets.mistral-api-key.path;
         };
       }
+      # Paid providers
       {
         provider = "novita";
         base_url = "https://api.novita.ai/v3/openai/chat/completions";
@@ -66,6 +75,11 @@ in
   };
   age.secrets.mistral-api-key = {
     file = inputs.secrets + "/uni-api/mistral-api-key.age";
+    owner = "uni-api";
+    group = "uni-api";
+  };
+  age.secrets.groq-api-key = {
+    file = inputs.secrets + "/uni-api/groq-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
