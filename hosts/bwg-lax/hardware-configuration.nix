@@ -28,10 +28,10 @@ _: {
     options = [ "bind" ];
   };
 
-  # swapDevices = [
-  #   {
-  #     device = "/dev/sda2";
-  #     randomEncryption.enable = true;
-  #   }
-  # ];
+  swapDevices = [
+    {
+      device = "/dev/sda2";
+      randomEncryption.enable = true;
+    }
+  ];
 }
