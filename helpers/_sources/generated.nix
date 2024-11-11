@@ -23,18 +23,18 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.7.3";
+    version = "1.7.5";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.3/linux/grafana-falconlogscale-datasource-1.7.3.linux_amd64.zip";
-      sha256 = "sha256-/MDLXe+ZK1etM3vJagdRaLaFv9m/cKwX0J/7KFe+TeE=";
+      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.5/linux/grafana-falconlogscale-datasource-1.7.5.linux_amd64.zip";
+      sha256 = "sha256-AhU3sk2YDyfUbhOjViJd8ViH2f0hRyyjpheK93VJcTA=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.11.1";
+    version = "2.11.2";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.1/linux/yesoreyeram-infinity-datasource-2.11.1.linux_amd64.zip";
-      sha256 = "sha256-H5E6RjCNqz2NROMzvypTjJmm2EKqP/7TwBmD827KLSo=";
+      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.2/linux/yesoreyeram-infinity-datasource-2.11.2.linux_amd64.zip";
+      sha256 = "sha256-xZ+66NW5+9v3WYADFjIg5jMVdo5yIoz3H7+gokX0JmA=";
     };
   };
   himawaripy = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "02f9a1813d6f332c82193539a6cabe599b9fd3de";
+    version = "755fe857da317870ff5dfb6c58b557acbf7bef40";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "02f9a1813d6f332c82193539a6cabe599b9fd3de";
+      rev = "755fe857da317870ff5dfb6c58b557acbf7bef40";
       fetchSubmodules = false;
-      sha256 = "sha256-t7xBfs1EuNi08HvfXDo+ns95b4GH4oJ07zejl8mtsvE=";
+      sha256 = "sha256-C4vS8V4u56UkBH7PkNNZQUXeoCrPkUWldyqARHWoa54=";
     };
-    date = "2024-10-14";
+    date = "2024-11-09";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "ac0afeb01057ce02afec07d761d7374ce6260a79";
+    version = "c40472b630d0b6371ebccf3c48d5b420268a8348";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "ac0afeb01057ce02afec07d761d7374ce6260a79";
+      rev = "c40472b630d0b6371ebccf3c48d5b420268a8348";
       fetchSubmodules = false;
-      sha256 = "sha256-tIn3aDvzqxWQiE6E+2ZXmrjIniPA2PSHHuWp6TKGzI8=";
+      sha256 = "sha256-IskUv6TaCrE+1b77p4xOFOyIvz5iLQ28VXkEgin5Qbo=";
     };
-    date = "2024-10-26";
+    date = "2024-10-31";
   };
   openspeedtest = {
     pname = "openspeedtest";

@@ -159,7 +159,6 @@ in
         transmission-remote-gtk
         ulauncher
         unar
-        # vagrant
         ventoy-full
         virt-manager
         vlc

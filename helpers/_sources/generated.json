@@ -44,11 +44,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/MDLXe+ZK1etM3vJagdRaLaFv9m/cKwX0J/7KFe+TeE=",
+            "sha256": "sha256-AhU3sk2YDyfUbhOjViJd8ViH2f0hRyyjpheK93VJcTA=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.3/linux/grafana-falconlogscale-datasource-1.7.3.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.5/linux/grafana-falconlogscale-datasource-1.7.5.linux_amd64.zip"
         },
-        "version": "1.7.3"
+        "version": "1.7.5"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLocks": null,
@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-H5E6RjCNqz2NROMzvypTjJmm2EKqP/7TwBmD827KLSo=",
+            "sha256": "sha256-xZ+66NW5+9v3WYADFjIg5jMVdo5yIoz3H7+gokX0JmA=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.1/linux/yesoreyeram-infinity-datasource-2.11.1.linux_amd64.zip"
+            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.2/linux/yesoreyeram-infinity-datasource-2.11.2.linux_amd64.zip"
         },
-        "version": "2.11.1"
+        "version": "2.11.2"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -129,7 +129,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-10-14",
+        "date": "2024-11-09",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -141,12 +141,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "02f9a1813d6f332c82193539a6cabe599b9fd3de",
-            "sha256": "sha256-t7xBfs1EuNi08HvfXDo+ns95b4GH4oJ07zejl8mtsvE=",
+            "rev": "755fe857da317870ff5dfb6c58b557acbf7bef40",
+            "sha256": "sha256-C4vS8V4u56UkBH7PkNNZQUXeoCrPkUWldyqARHWoa54=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "02f9a1813d6f332c82193539a6cabe599b9fd3de"
+        "version": "755fe857da317870ff5dfb6c58b557acbf7bef40"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -171,7 +171,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-10-26",
+        "date": "2024-10-31",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -183,12 +183,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "ac0afeb01057ce02afec07d761d7374ce6260a79",
-            "sha256": "sha256-tIn3aDvzqxWQiE6E+2ZXmrjIniPA2PSHHuWp6TKGzI8=",
+            "rev": "c40472b630d0b6371ebccf3c48d5b420268a8348",
+            "sha256": "sha256-IskUv6TaCrE+1b77p4xOFOyIvz5iLQ28VXkEgin5Qbo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac0afeb01057ce02afec07d761d7374ce6260a79"
+        "version": "c40472b630d0b6371ebccf3c48d5b420268a8348"
     },
     "openspeedtest": {
         "cargoLocks": null,
