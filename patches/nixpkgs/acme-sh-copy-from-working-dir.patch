@@ -1,7 +1,7 @@
-diff --git a/pkgs/tools/admin/acme-sh/default.nix b/pkgs/tools/admin/acme-sh/default.nix
-index d6c661583e6..dfb401c3080 100644
---- a/pkgs/tools/admin/acme-sh/default.nix
-+++ b/pkgs/tools/admin/acme-sh/default.nix
+diff --git a/pkgs/by-name/ac/acme-sh/package.nix b/pkgs/by-name/ac/acme-sh/package.nix
+index c79bcebda086..762d48e5c07f 100644
+--- a/pkgs/by-name/ac/acme-sh/package.nix
++++ b/pkgs/by-name/ac/acme-sh/package.nix
 @@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
      runHook preInstall
  
