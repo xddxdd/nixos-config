@@ -88,7 +88,7 @@ in
     KOPIA_CHECK_FOR_UPDATES = "false";
     NIX_REMOTE = "daemon";
     NIXPKGS_ALLOW_INSECURE = "1";
-    OLLAMA_HOST = "https://ollama.lt-home-vm.xuyh0120.win";
+    OLLAMA_HOST = "http://ollama.localhost";
     SYSTEMD_PAGER = "";
   };
   environment.defaultPackages = [ ];
