@@ -22,6 +22,7 @@
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix
+    ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix
