@@ -33,6 +33,7 @@ _: {
         ".android"
         ".aws"
         ".conda"
+        ".continue"
         ".fly"
         ".ghidra"
         ".kde4"
