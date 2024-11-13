@@ -25,15 +25,10 @@
 
     settings = {
       max_upload_size = "500M";
-      web_client_location = "https://element.lantian.pub";
       public_baseurl = "https://matrix.lantian.pub";
       server_name = config.networking.domain;
       url_preview_enabled = true;
       media_store_path = "${config.services.matrix-synapse.dataDir}/media";
-      presence = {
-        enabled = false;
-        include_offline_users_on_sync = false;
-      };
       account_threepid_delegates = {
         msisdn = "https://vector.im";
       };
