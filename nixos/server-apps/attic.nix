@@ -27,7 +27,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
         type = "s3";
         region = "us-central-1";
         bucket = "lantian-nix-cache";
-        endpoint = "http://us-central-1.telnyxstorage.com";
+        endpoint = "https://us-central-1.telnyxstorage.com";
       };
       # Disable chunking to use S3 direct download
       chunking = {
