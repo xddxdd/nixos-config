@@ -1,0 +1,58 @@
+diff --git a/nixos/modules/services/misc/gitea.nix b/nixos/modules/services/misc/gitea.nix
+index d43250c88268..c17da88d0903 100644
+--- a/nixos/modules/services/misc/gitea.nix
++++ b/nixos/modules/services/misc/gitea.nix
+@@ -255,6 +255,20 @@ in
+         description = "Path to a file containing the metrics authentication token.";
+       };
+ 
++      storageMinioAccessKeyFile = mkOption {
++        type = types.nullOr types.str;
++        default = null;
++        example = "/var/lib/secrets/gitea/storage_minio_access_key";
++        description = "Path to a file containing the Minio access key.";
++      };
++
++      storageMinioSecretKeyFile = mkOption {
++        type = types.nullOr types.str;
++        default = null;
++        example = "/var/lib/secrets/gitea/storage_minio_secret_key";
++        description = "Path to a file containing the Minio secret key.";
++      };
++
+       settings = mkOption {
+         default = {};
+         description = ''
+@@ -462,10 +476,15 @@ in
+         JWT_SECRET = "#oauth2jwtsecret#";
+       };
+ 
+-      lfs = mkIf cfg.lfs.enable {
++      lfs = mkIf (cfg.lfs.enable && !(cfg.storageMinioAccessKeyFile != null && cfg.storageMinioSecretKeyFile != null)) {
+         PATH = cfg.lfs.contentDir;
+       };
+ 
++      storage = mkIf (cfg.storageMinioAccessKeyFile != null && cfg.storageMinioSecretKeyFile != null) {
++        MINIO_ACCESS_KEY_ID = "#storageminioaccesskey#";
++        MINIO_SECRET_ACCESS_KEY = "#storageminiosecretkey#";
++      };
++
+       packages.CHUNKED_UPLOAD_PATH = "${cfg.stateDir}/tmp/package-upload";
+     };
+ 
+@@ -592,6 +611,15 @@ in
+             ${lib.optionalString (cfg.metricsTokenFile != null) ''
+               ${replaceSecretBin} '#metricstoken#' '${cfg.metricsTokenFile}' '${runConfig}'
+             ''}
++
++            ${lib.optionalString (cfg.storageMinioAccessKeyFile != null) ''
++              ${replaceSecretBin} '#storageminioaccesskey#' '${cfg.storageMinioAccessKeyFile}' '${runConfig}'
++            ''}
++
++            ${lib.optionalString (cfg.storageMinioSecretKeyFile != null) ''
++              ${replaceSecretBin} '#storageminiosecretkey#' '${cfg.storageMinioSecretKeyFile}' '${runConfig}'
++            ''}
++
+             chmod u-w '${runConfig}'
+           }
+           (umask 027; gitea_setup)

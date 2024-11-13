@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -6,6 +7,17 @@
 }:
 {
   imports = [ ./mysql.nix ];
+
+  age.secrets.gitea-storage-access-key = {
+    file = inputs.secrets + "/gitea-storage-access-key.age";
+    owner = "git";
+    group = "gitea";
+  };
+  age.secrets.gitea-storage-secret-key = {
+    file = inputs.secrets + "/gitea-storage-secret-key.age";
+    owner = "git";
+    group = "gitea";
+  };
 
   services.gitea = {
     enable = true;
@@ -20,6 +32,9 @@
     lfs.enable = true;
     mailerPasswordFile = config.age.secrets.smtp-pass.path;
     user = "git";
+
+    storageMinioAccessKeyFile = config.age.secrets.gitea-storage-access-key.path;
+    storageMinioSecretKeyFile = config.age.secrets.gitea-storage-secret-key.path;
 
     settings = {
       ui = {
@@ -81,6 +96,14 @@
         CLONE = 3600;
         PULL = 3600;
         GC = 3600;
+      };
+      storage = {
+        STORAGE_TYPE = "minio";
+        MINIO_ENDPOINT = "us-west-1.telnyxstorage.com";
+        MINIO_BUCKET = "lantian-gitea";
+        MINIO_LOCATION = "us-west-1";
+        MINIO_USE_SSL = true;
+        SERVE_DIRECT = true;
       };
     };
   };
