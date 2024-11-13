@@ -104,8 +104,6 @@ in
       ];
       TcpRcvBufPoll = true;
       HPNBufferSize = 14336;
-      UseDns = false;
-      UsePAM = false;
     };
   };
 
