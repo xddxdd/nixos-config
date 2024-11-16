@@ -21,6 +21,9 @@ in
     # ./pipewire-zeroconf.nix
   ];
 
+  # Enable OSS emulation
+  boot.kernelModules = [ "snd_pcm_oss" ];
+
   boot.extraModprobeConfig = ''
     options snd_hda_intel power_save=0 power_save_controller=N
   '';
