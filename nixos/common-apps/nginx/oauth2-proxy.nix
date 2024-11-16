@@ -23,6 +23,7 @@
       oidc-issuer-url = "https://login.lantian.pub";
       insecure-oidc-skip-issuer-verification = "true";
       insecure-oidc-allow-unverified-email = "true";
+      scope = "openid profile email groups";
     };
   };
   users.users.oauth2-proxy = {
