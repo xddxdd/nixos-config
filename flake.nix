@@ -14,7 +14,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "github:oluceps/agenix/with-sysuser";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
