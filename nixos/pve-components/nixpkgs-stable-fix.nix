@@ -5,6 +5,11 @@
       type = lib.types.attrsOf lib.types.anything;
       default = { };
     };
+
+    services.userborn = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = { };
+    };
   };
 
   config = {
