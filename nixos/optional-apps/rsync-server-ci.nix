@@ -14,6 +14,7 @@ in
     createHome = true;
     # Must be normal user to allow SSH login
     isNormalUser = true;
+    uid = 1001;
     openssh.authorizedKeys.keys = builtins.map (
       key: "command=\"${pkgs.rrsync}/bin/rrsync ${config.users.users.ci.home}\",restrict ${key}"
     ) sshKeys;
