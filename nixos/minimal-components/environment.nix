@@ -73,12 +73,6 @@ in
     "zh_CN.UTF-8/UTF-8"
   ];
 
-  location = {
-    provider = if LT.this.hasTag LT.tags.client then "geoclue2" else "manual";
-    latitude = LT.this.city.lat;
-    longitude = LT.this.city.lng;
-  };
-
   environment.enableAllTerminfo = true;
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
