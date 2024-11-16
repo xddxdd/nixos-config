@@ -2,9 +2,11 @@
 {
   imports = [ ./mysql.nix ];
 
+  environment.systemPackages = [ config.services.nextcloud.occ ];
+
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud29;
+    package = pkgs.nextcloud30;
     autoUpdateApps.enable = true;
     caching = {
       apcu = true;
@@ -18,7 +20,6 @@
     hostName = "cloud.xuyh0120.win";
     https = true;
     webfinger = true;
-    occ = true;
 
     phpOptions = {
       "opcache.memory_consumption" = 512;
