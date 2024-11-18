@@ -5,19 +5,17 @@
   ...
 }:
 {
-  imports = [
-    (inputs.nixos-hardware + "/raspberry-pi/4/i2c.nix")
-    (inputs.nixos-hardware + "/raspberry-pi/4/pwm0.nix")
-  ];
+  imports = [ inputs.nixos-hardware.nixosModules.raspberry-pi-4 ];
 
   hardware.raspberry-pi."4" = {
+    bluetooth.enable = true;
+    fkms-3d.enable = true;
     i2c1.enable = true;
     # Conflicts with RAK2287/SX1302
     # pwm0.enable = true;
   };
 
   boot.loader.grub.enable = lib.mkForce false;
-  boot.loader.generic-extlinux-compatible.enable = true;
 
   environment.systemPackages = with pkgs; [
     i2c-tools
@@ -114,7 +112,7 @@
   users.groups.gpio = { };
 
   services.udev.extraRules = ''
-    SUBSYSTEM=="spidev", KERNEL=="spidev0.0", GROUP="spi", MODE="0660"
+      SUBSYSTEM=="spidev", KERNEL=="spidev0.0", GROUP="spi", MODE="0660"
 
     SUBSYSTEM=="bcm2835-gpiomem", KERNEL=="gpiomem", GROUP="gpio",MODE="0660"
     SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio",MODE="0660", ACTION=="add", RUN+="${pkgs.bash}/bin/bash -c 'chown root:gpio  /sys/class/gpio/export /sys/class/gpio/unexport ; chmod 220 /sys/class/gpio/export /sys/class/gpio/unexport'"
