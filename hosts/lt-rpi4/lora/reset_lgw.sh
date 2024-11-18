@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This script is intended to be used on SX1302 CoreCell platform, it performs
 # the following actions:
@@ -12,10 +12,11 @@
 # GPIO mapping has to be adapted with HW
 #
 
-SX1302_RESET_PIN=25    # SX1302 reset
-SX1302_POWER_EN_PIN=18 # SX1302 power enable
-SX1261_RESET_PIN=22    # SX1261 reset (LBT / Spectral Scan)
-AD5338R_RESET_PIN=13   # AD5338R reset (full-duplex CN490 reference design)
+# GPIO on 6.6 kernel is offset by 512
+SX1302_RESET_PIN=$((512 + 25))  # SX1302 reset
+SX1302_POWER_EN_PIN=$((512 + 18)) # SX1302 power enable
+SX1261_RESET_PIN=$((512 + 22))    # SX1261 reset (LBT / Spectral Scan)
+AD5338R_RESET_PIN=$((512 + 13))   # AD5338R reset (full-duplex CN490 reference design)
 
 WAIT_GPIO() {
     sleep 0.1
