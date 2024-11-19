@@ -73,6 +73,8 @@ in
 
     nvidiaSwitchVFIOScript
     nvidiaSwitchCUDAScript
+
+    pkgs.nvtopPackages.full
   ];
 
   # Enable CUDA
