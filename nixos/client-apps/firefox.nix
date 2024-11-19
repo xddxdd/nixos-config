@@ -93,8 +93,8 @@ in
         TopSites = false;
       };
       Homepage = {
-        # URL = "about:home";
-        URL = "https://homepage.lt-home-vm.xuyh0120.win";
+        URL = "about:home";
+        # URL = "https://homepage.lt-home-vm.xuyh0120.win";
         Locked = true;
         StartPage = "homepage";
       };
