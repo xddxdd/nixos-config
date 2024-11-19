@@ -30,7 +30,6 @@
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
-    ../../nixos/optional-apps/vmware.nix
   ];
 
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
