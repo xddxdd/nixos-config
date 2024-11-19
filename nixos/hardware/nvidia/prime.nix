@@ -17,7 +17,9 @@ let
   );
 in
 {
-  environment.systemPackages = lib.optionals config.programs.steam.enable [ steam-offload ];
+  environment.systemPackages = (lib.optionals config.programs.steam.enable [ steam-offload ]) ++ [
+    pkgs.nvtopPackages.full
+  ];
 
   # Enable CUDA
   hardware.graphics.enable = true;

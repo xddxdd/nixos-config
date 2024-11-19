@@ -21,6 +21,10 @@
     NVD_BACKEND = "direct";
   };
 
+  environment.systemPackages = [
+    pkgs.nvtopPackages.full
+  ];
+
   programs.firefox.preferences = {
     "widget.dmabuf.force-enabled" = true;
   };
