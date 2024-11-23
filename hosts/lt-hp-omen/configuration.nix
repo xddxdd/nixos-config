@@ -35,7 +35,7 @@
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
   lantian.hidpi = 1.5;
-  lantian.kernel = pkgs.nur-xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto;
+  lantian.kernel = pkgs.nur-xddxdd.lantianLinuxXanmod.latest-generic-lto;
 
   services.scx = {
     enable = true;
@@ -55,7 +55,8 @@
     enable = true;
     powerOnBoot = false;
   };
-  hardware.xpadneo.enable = true;
+  # FIXME: enable after fixed for kernel 6.12
+  # hardware.xpadneo.enable = true;
 
   lantian.llama-sakura-llm = {
     enable = false;

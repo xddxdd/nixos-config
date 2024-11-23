@@ -3,7 +3,8 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     flake-compat = {
