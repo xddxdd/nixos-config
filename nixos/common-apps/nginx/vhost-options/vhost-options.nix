@@ -95,7 +95,9 @@ let
             return 444;
           '';
 
-          "~ ^.+?\\.php(/.*)?$".extraConfig = lib.optionalString (phpfpmSocket != null) ''
+        }
+        // lib.optionalAttrs (phpfpmSocket != null) {
+          "~ ^.+?\\.php(/.*)?$".extraConfig = ''
             try_files $fastcgi_script_name =404;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             fastcgi_pass unix:${phpfpmSocket};
