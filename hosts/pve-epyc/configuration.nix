@@ -19,6 +19,8 @@
     "default_hugepagesz=1G"
     "hugepagesz=1G"
     "hugepages=224"
+    "amd_pstate=active"
+    "amd_pstate.shared_mem=1"
   ];
 
   boot.extraModprobeConfig = ''
@@ -28,8 +30,10 @@
   services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
-    CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+    CPU_SCALING_GOVERNOR_ON_BAT = "pcowersave";
+    CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
   };
 
   services.proxmox-ve.bridges = [ "br0" ];
