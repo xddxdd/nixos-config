@@ -72,17 +72,6 @@ in
     ports = [ 2222 ];
     sftpServerExecutable = "internal-sftp";
     authorizedKeysInHomedir = false;
-    hostKeys = [
-      {
-        bits = 4096;
-        path = "/nix/persistent/etc/ssh/ssh_host_rsa_key";
-        type = "rsa";
-      }
-      {
-        path = "/nix/persistent/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-    ];
     settings = {
       LogLevel = "ERROR";
       PermitRootLogin = lib.mkForce "prohibit-password";
