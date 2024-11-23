@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
   hardware.nvidia.powerManagement.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
   hardware.nvidia.open = false;
 
   # nvidia-settings doesn't work with clang lto

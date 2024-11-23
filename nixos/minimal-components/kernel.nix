@@ -196,9 +196,9 @@ in
       kernelPackages = myKernelPackageFor config.lantian.kernel;
       kernelModules = [
         "cryptodev"
-        "nft_fullcone"
         "nullfs"
         # Temporarily disabled for build failure
+        # "nft_fullcone"
         # "ovpn-dco"
       ] ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
       extraModulePackages =
@@ -206,8 +206,9 @@ in
         (
           [
             cryptodev
-            nft-fullcone
             nullfsvfs
+            # Temporarily disabled for build failure
+            # nft-fullcone
             # ovpn-dco
           ]
           ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
