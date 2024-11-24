@@ -19,6 +19,7 @@
         curl
         inetutils
         which
+        util-linux
       ];
       script = ''
         export UUID=$(cat ${config.services."dn42-pingfinder".uuidFile})
