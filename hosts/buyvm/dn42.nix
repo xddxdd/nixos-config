@@ -384,7 +384,7 @@
       tunnel = {
         type = "wireguard";
         localPort = 21816;
-        remoteAddress = "no1.dn42.potat0.cc";
+        remoteAddress = "fra.node.potat0.cc";
         remotePort = 22547;
         wireguardPubkey = "H6HdsuQsav9puKyo8SJaML0vPU/a2lLQjTRc7dmiqjs=";
       };
