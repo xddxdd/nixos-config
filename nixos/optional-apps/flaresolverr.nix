@@ -1,11 +1,13 @@
 {
   LT,
   config,
+  pkgs,
   ...
 }:
 {
   services.flaresolverr = {
     enable = true;
+    package = pkgs.nur-xddxdd.flaresolverr-21hsmw;
     port = LT.port.FlareSolverr;
   };
 
