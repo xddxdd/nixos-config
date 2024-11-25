@@ -233,11 +233,6 @@ in
   system.disableInstallerTools = !LT.this.hasTag LT.tags.client;
   system.fsPackages = [ pkgs.bindfs ];
 
-  system.etc.overlay = {
-    enable = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.6";
-    mutable = true;
-  };
-
   systemd = {
     # Given that our systems are headless, emergency mode is useless.
     # We prefer the system to attempt to continue booting so
