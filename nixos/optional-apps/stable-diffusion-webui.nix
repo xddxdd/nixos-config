@@ -1,5 +1,6 @@
 {
   LT,
+  pkgs,
   ...
 }:
 let
@@ -16,6 +17,10 @@ let
     "venv"
     "repositories"
   ];
+
+  webui-user-sh = pkgs.writeShellScript "webui-user.sh" ''
+    export COMMANDLINE_ARGS="--api --disable-console-progressbars --xformers --no-half-vae"
+  '';
 in
 {
   virtualisation.oci-containers.containers.stable-diffusion = {
@@ -27,9 +32,9 @@ in
     ];
     image = "universonic/stable-diffusion-webui";
     ports = [ "127.0.0.1:${LT.portStr.StableDiffusionWebUI}:8080" ];
-    volumes = builtins.map (
-      f: "/var/lib/stable-diffusion/${f}:/app/stable-diffusion-webui/${f}"
-    ) subfolders;
+    volumes = [
+      "${webui-user-sh}:/app/stable-diffusion-webui/webui-user.sh:ro"
+    ] ++ builtins.map (f: "/var/lib/stable-diffusion/${f}:/app/stable-diffusion-webui/${f}") subfolders;
   };
 
   # Container uses UID/GID 1000
