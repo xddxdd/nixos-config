@@ -31,6 +31,12 @@
       OAUTH_ROLES_CLAIM = "groups";
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
 
+      ENABLE_IMAGE_GENERATION = "true";
+      IMAGE_GENERATION_ENGINE = "automatic1111";
+      AUTOMATIC1111_BASE_URL = "https://stable-diffusion.xuyh0120.win";
+      IMAGE_SIZE = "512x512";
+      IMAGE_STEPS = "20";
+
       ENABLE_RAG_WEB_SEARCH = "true";
       ENABLE_SEARCH_QUERY = "true";
       RAG_WEB_SEARCH_ENGINE = "brave";
