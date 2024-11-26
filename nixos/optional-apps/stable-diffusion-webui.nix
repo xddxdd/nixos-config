@@ -1,6 +1,5 @@
 {
   LT,
-  pkgs,
   ...
 }:
 let
@@ -18,29 +17,40 @@ let
     "repositories"
   ];
 
-  webui-user-sh = pkgs.writeShellScript "webui-user.sh" ''
-    export COMMANDLINE_ARGS="--api --disable-console-progressbars --xformers --no-half-vae"
-  '';
+  files = [
+    "config.json"
+    "ui-config.json"
+  ];
 in
 {
   virtualisation.oci-containers.containers.stable-diffusion = {
     extraOptions = [
       "--pull"
       "always"
+      "--net"
+      "host"
       "--gpus"
       "all"
     ];
+    entrypoint = "/app/entrypoint.sh";
+    cmd = [
+      "--api"
+      "--disable-console-progressbars"
+      "--no-half-vae"
+      "--port=${LT.portStr.StableDiffusionWebUI}"
+      "--update-check"
+      "--xformers"
+    ];
     image = "universonic/stable-diffusion-webui";
-    ports = [ "127.0.0.1:${LT.portStr.StableDiffusionWebUI}:8080" ];
-    volumes = [
-      "${webui-user-sh}:/app/stable-diffusion-webui/webui-user.sh:ro"
-    ] ++ builtins.map (f: "/var/lib/stable-diffusion/${f}:/app/stable-diffusion-webui/${f}") subfolders;
+    volumes = builtins.map (f: "/var/lib/stable-diffusion/${f}:/app/stable-diffusion-webui/${f}") (
+      subfolders ++ files
+    );
   };
 
   # Container uses UID/GID 1000
-  systemd.tmpfiles.rules = builtins.map (
-    f: "d /var/lib/stable-diffusion/${f} 755 1000 1000"
-  ) subfolders;
+  systemd.tmpfiles.rules =
+    (builtins.map (f: "d /var/lib/stable-diffusion/${f} 755 1000 1000") subfolders)
+    ++ (builtins.map (f: "f /var/lib/stable-diffusion/${f} 755 1000 1000 - {}") files);
 
   lantian.nginxVhosts = {
     "stable-diffusion.xuyh0120.win" = {
