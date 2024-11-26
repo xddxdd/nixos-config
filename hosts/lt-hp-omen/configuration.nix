@@ -40,7 +40,7 @@
   services.scx = {
     enable = true;
     scheduler = "scx_bpfland";
-    extraArgs = [ ];
+    extraArgs = [ "--lowlatency" ];
   };
 
   environment.systemPackages = [
