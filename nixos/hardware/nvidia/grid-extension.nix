@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   netns = config.lantian.netns.nvidia-gridd;
   nvidia_x11 = config.hardware.nvidia.package;
@@ -13,7 +18,7 @@ in
     directories = [ "/etc/nvidia/ClientConfigToken" ];
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_grid_16_7;
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_7;
   hardware.nvidia.open = false;
 
   systemd.services."nvidia-gridd" = netns.bind {
