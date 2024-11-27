@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   ...
 }:
 {
@@ -50,4 +51,32 @@
   };
 
   zramSwap.enable = lib.mkForce false;
+
+  age.secrets.nut-pass.file = inputs.secrets + "/nut-pass.age";
+  power.ups = {
+    enable = true;
+    mode = "netserver";
+    ups.cyberpower = {
+      driver = "usbhid-ups";
+      port = "auto";
+      shutdownOrder = -1;
+    };
+    users.root = {
+      upsmon = "primary";
+      passwordFile = config.age.secrets.nut-pass.path;
+      instcmds = [ "ALL" ];
+      actions = [
+        "SET"
+        "FSD"
+      ];
+    };
+
+    upsmon.monitor.cyberpower = {
+      user = "root";
+      type = "primary";
+      system = "cyberpower@localhost";
+      passwordFile = config.age.secrets.nut-pass.path;
+      powerValue = 1;
+    };
+  };
 }
