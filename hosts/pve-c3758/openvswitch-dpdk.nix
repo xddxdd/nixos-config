@@ -43,18 +43,19 @@ in
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-socket-limit=2048"
         ovs-vsctl set Open_vSwitch . "other_config:vhost-iommu-support=true"
         ovs-vsctl set Open_vSwitch . "other_config:pmd-auto-lb=true"
+        ovs-vsctl set Open_vSwitch . "other_config:tx-flush-interval=50"
 
         # Allow list for DPDK interfaces
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-extra=${
           builtins.concatStringsSep " " (lib.mapAttrsToList (_n: v: "-a ${v}") interfaces)
         }"
 
-        ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev || true
+        ovs-vsctl --may-exist add-br br0 -- set bridge br0 datapath_type=netdev || true
         ovs-vsctl set Bridge br0 rstp_enable=true || true
       ''
       + (builtins.concatStringsSep "\n" (
         lib.mapAttrsToList (n: v: ''
-          ovs-vsctl add-port br0 ${n} || true
+          ovs-vsctl --may-exist add-port br0 ${n} || true
           ovs-vsctl set Interface ${n} type=dpdk \
             options:dpdk-devargs=${v} \
             mtu_request=9000 \
@@ -63,7 +64,7 @@ in
         '') interfaces
       ))
       + (lib.concatMapStringsSep "\n" (i: ''
-        ovs-vsctl add-port br0 vhost${i} || true
+        ovs-vsctl --may-exist add-port br0 vhost${i} || true
         ovs-vsctl set Interface vhost${i} \
           type=dpdkvhostuserclient \
           options:vhost-server-path=/run/ovs-vhost${i}.sock \
