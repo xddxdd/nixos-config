@@ -60,6 +60,7 @@ in
             options:dpdk-devargs=${v} \
             mtu_request=9000 \
             options:n_rxq=4 \
+            options:rx-steering=rss+lacp \
             || true
         '') interfaces
       ))
