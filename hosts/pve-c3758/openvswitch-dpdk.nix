@@ -24,8 +24,8 @@ in
   };
   environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
 
-  systemd.services.ovsdb-setup = {
-    description = "Setup OpenVSwitch database";
+  systemd.services.ovs-dpdk-setup = {
+    description = "Setup OpenVSwitch DPDK config";
     wantedBy = [ "multi-user.target" ];
     after = [ "ovs-vswitchd.service" ];
     requires = [ "ovs-vswitchd.service" ];
@@ -37,8 +37,8 @@ in
     script =
       ''
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-init=true"
-        ovs-vsctl set Open_vSwitch . "other_config:dpdk-lcore-mask=0x80"
-        ovs-vsctl set Open_vSwitch . "other_config:pmd-cpu-mask=0x80"
+        ovs-vsctl set Open_vSwitch . "other_config:dpdk-lcore-mask=0xc0"
+        ovs-vsctl set Open_vSwitch . "other_config:pmd-cpu-mask=0xc0"
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-socket-mem=2048"
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-socket-limit=2048"
         ovs-vsctl set Open_vSwitch . "other_config:vhost-iommu-support=true"
@@ -84,7 +84,13 @@ in
     ];
 
     preStart = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (_n: v: "dpdk-devbind.py -b vfio-pci ${v}") interfaces
+      lib.mapAttrsToList (_n: v: ''
+        if lspci -s ${v} | grep Mellanox; then
+          echo "Do not bind vfio-pci driver for Mellanox NICs"
+        else
+          dpdk-devbind.py -b vfio-pci ${v}
+        fi
+      '') interfaces
     );
   };
 }
