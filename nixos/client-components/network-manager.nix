@@ -1,4 +1,9 @@
-{ LT, ... }:
+{
+  LT,
+  lib,
+  config,
+  ...
+}:
 let
   managedPrefix = LT.constants.interfacePrefixes.WAN ++ [ "nm-" ];
 in
@@ -12,7 +17,10 @@ in
   networking.networkmanager = {
     enable = true;
     enableStrongSwan = true;
-    dns = "none";
+    dns = "default";
+    insertNameservers = lib.optionals config.services.coredns.enable [
+      config.lantian.netns.coredns-client.ipv4
+    ];
     unmanaged =
       let
         unmanagedConfig = builtins.concatStringsSep "," (
@@ -24,6 +32,7 @@ in
       backend = "iwd";
       powersave = true;
     };
+    settings.main.rc-manager = "resolvconf";
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
