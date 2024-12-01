@@ -10,6 +10,7 @@
     acceleration = "cuda";
     environmentVariables = {
       OLLAMA_ORIGINS = "*";
+      OLLAMA_KEEP_ALIVE = "900";
     };
   };
 
