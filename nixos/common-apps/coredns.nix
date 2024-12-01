@@ -7,16 +7,9 @@
 }:
 let
   netns = config.lantian.netns.coredns-client;
-
-  backupDNSServers = [
-    "8.8.8.8"
-    "2001:4860:4860::8888"
-  ];
 in
 {
-  networking.nameservers = lib.mkForce (
-    [ config.lantian.netns.coredns-client.ipv4 ] ++ backupDNSServers
-  );
+  networking.nameservers = [ (lib.mkBefore config.lantian.netns.coredns-client.ipv4) ];
 
   lantian.netns.coredns-client = {
     ipSuffix = "56";

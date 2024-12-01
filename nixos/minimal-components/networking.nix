@@ -107,6 +107,7 @@ in
       cfg = config.networking;
     in
     {
+      enable = !cfg.networkmanager.enable;
       description = "Setup resolv.conf";
       after = [
         "network-pre.target"
