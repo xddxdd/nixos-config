@@ -4,8 +4,8 @@
   ...
 }:
 let
-  constants = callPackage ../helpers/constants.nix { };
-  enumerateList = callPackage ../helpers/fn/enumerate-list.nix { };
+  constants = callPackage ../../helpers/constants.nix { };
+  enumerateList = callPackage ../../helpers/fn/enumerate-list.nix { };
   inherit (constants) asteriskMusics;
 
   prefixZeros =
