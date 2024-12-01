@@ -112,7 +112,7 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./flake-modules/commands.nix
+        ./flake-modules/commands
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive-v0_20241006
