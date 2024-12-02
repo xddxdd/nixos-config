@@ -39,7 +39,8 @@
 
       ENABLE_RAG_WEB_SEARCH = "true";
       ENABLE_SEARCH_QUERY = "true";
-      RAG_WEB_SEARCH_ENGINE = "brave";
+      RAG_WEB_SEARCH_ENGINE = "searxng";
+      SEARXNG_QUERY_URL = "https://searx.lt-home-vm.xuyh0120.win/search?q=<query>";
       RAG_WEB_SEARCH_RESULT_COUNT = "5";
       RAG_WEB_SEARCH_CONCURRENT_REQUESTS = "1";
     };
