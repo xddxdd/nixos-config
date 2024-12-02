@@ -76,10 +76,13 @@ in
 
       path = with pkgs; [ curl ];
       postStart = ''
-        while ! curl -f http://${cfg.host}:${builtins.toString cfg.port}/health; do
-          echo "Still waiting for llama-cpp to start"
-          sleep 1
-        done
+        curl \
+          --fail \
+          --retry 30 \
+          --retry-delay 5 \
+          --retry-max-time 120 \
+          --retry-all-errors \
+          http://${cfg.host}:${builtins.toString cfg.port}/health
       '';
 
       serviceConfig = LT.serviceHarden // {
