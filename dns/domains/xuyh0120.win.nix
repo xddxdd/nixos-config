@@ -145,6 +145,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "searx";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "stable-diffusion";
       target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
