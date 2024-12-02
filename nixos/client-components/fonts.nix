@@ -5,16 +5,12 @@
   fonts.packages =
     with pkgs;
     lib.mkForce [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "FiraMono"
-          "Noto"
-          "Terminus"
-          "Ubuntu"
-          "UbuntuMono"
-        ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.fira-mono
+      nerd-fonts.noto
+      nerd-fonts.terminess-ttf
+      nerd-fonts.ubuntu
+      nerd-fonts.ubuntu-mono
 
       corefonts
       fira-code
