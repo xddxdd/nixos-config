@@ -1023,11 +1023,11 @@
         "nixpkgs-22-05": "nixpkgs-22-05"
       },
       "locked": {
-        "lastModified": 1732691064,
-        "narHash": "sha256-BRbBbYQY4h3u1EXFOePvty3PIUG3PLZFgZp64T3VDg4=",
+        "lastModified": 1733099204,
+        "narHash": "sha256-7GhXOdXxJ+eB4fGtzQ32x0Q73P0OxcCpBE5HF1lFWYI=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "607de60d15954f3bc635dcc522df1c677f14e5db",
+        "rev": "97eb84a96bc4c31e508015101a2166f105932a63",
         "type": "github"
       },
       "original": {
