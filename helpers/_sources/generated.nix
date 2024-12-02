@@ -23,10 +23,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.7.5";
+    version = "1.7.6";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.5/linux/grafana-falconlogscale-datasource-1.7.5.linux_amd64.zip";
-      sha256 = "sha256-AhU3sk2YDyfUbhOjViJd8ViH2f0hRyyjpheK93VJcTA=";
+      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.6/linux/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip";
+      sha256 = "sha256-c3KtNdEawQoVYfkao2RHEpCUYlZ/FCwv5IiCuHqZD3Q=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "4d76759c912626ace1fbe2a61e9b3bab22e6ac42";
+    version = "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "4d76759c912626ace1fbe2a61e9b3bab22e6ac42";
+      rev = "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c";
       fetchSubmodules = false;
-      sha256 = "sha256-ndEO4I3SP4npc0dYMwviGC/eGcNvuM59tylK2dyHjqI=";
+      sha256 = "sha256-PbN/1yUlh6ihceBiAMMrTV4leYuUDyYZYcZ3F9dMNxo=";
     };
-    date = "2024-11-12";
+    date = "2024-11-29";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "081807cc31f5b92e9ca6dcb62080bb43b5fb3d66";
+    version = "fafd28f299857a8b6794b58b46ae0374c7a4bb2f";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "081807cc31f5b92e9ca6dcb62080bb43b5fb3d66";
+      rev = "fafd28f299857a8b6794b58b46ae0374c7a4bb2f";
       fetchSubmodules = false;
-      sha256 = "sha256-zX0gjbYxwOlnAgag2WsGtIpt8mo4LMqP5h0Q2oucIzI=";
+      sha256 = "sha256-aQyQ9T6pDwwDKN7zXTcVmUwf708wR8okVVZFdn8wyDM=";
     };
-    date = "2024-11-13";
+    date = "2024-12-01";
   };
   openspeedtest = {
     pname = "openspeedtest";
