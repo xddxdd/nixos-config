@@ -162,6 +162,17 @@ in
       exec ${pkgs.nur-xddxdd.uni-api}/bin/uni-api
     '';
 
+    postStart = ''
+      ${pkgs.curl}/bin/curl \
+        --fail \
+        --retry 10 \
+        --retry-delay 5 \
+        --retry-max-time 60 \
+        --retry-all-errors \
+        -H "Authorization: Bearer $(cat ${config.age.secrets.uni-api-admin-api-key.path})" \
+        http://uni-api.localhost/v1/models
+    '';
+
     serviceConfig = LT.serviceHarden // {
       Restart = "always";
       RestartSec = "3";
