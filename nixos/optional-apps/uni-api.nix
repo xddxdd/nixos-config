@@ -14,43 +14,90 @@ let
         provider = "groq";
         base_url = "https://api.groq.com/openai/v1/chat/completions";
         api = {
-          _secret = config.age.secrets.groq-api-key.path;
+          _secret = config.age.secrets.uni-api-groq-api-key.path;
         };
       }
       {
         provider = "mistral";
         base_url = "https://api.mistral.ai/v1/chat/completions";
         api = {
-          _secret = config.age.secrets.mistral-api-key.path;
+          _secret = config.age.secrets.uni-api-mistral-api-key.path;
         };
+      }
+      {
+        provider = "cloudflare";
+        api = {
+          _secret = config.age.secrets.uni-api-cloudflare-api-key.path;
+        };
+        cf_account_id = {
+          _secret = config.age.secrets.uni-api-cloudflare-account-id.path;
+        };
+        model = builtins.map (v: { "${v}" = v; }) [
+          "@hf/thebloke/deepseek-coder-6.7b-base-awq"
+          "@hf/thebloke/deepseek-coder-6.7b-instruct-awq"
+          "@cf/deepseek-ai/deepseek-math-7b-instruct"
+          "@cf/thebloke/discolm-german-7b-v1-awq"
+          "@cf/tiiuae/falcon-7b-instruct"
+          "@hf/google/gemma-7b-it"
+          "@hf/nousresearch/hermes-2-pro-mistral-7b"
+          "@hf/thebloke/llama-2-13b-chat-awq"
+          "@cf/meta/llama-2-7b-chat-fp16"
+          "@cf/meta/llama-2-7b-chat-int8"
+          "@cf/meta/llama-3-8b-instruct"
+          "@cf/meta/llama-3-8b-instruct-awq"
+          "@cf/meta/llama-3.1-8b-instruct"
+          "@cf/meta/llama-3.1-8b-instruct-awq"
+          "@cf/meta/llama-3.1-8b-instruct-fp8"
+          "@cf/meta/llama-3.2-11b-vision-instruct"
+          "@cf/meta/llama-3.2-1b-instruct"
+          "@cf/meta/llama-3.2-3b-instruct"
+          "@hf/thebloke/llamaguard-7b-awq"
+          "@hf/meta-llama/meta-llama-3-8b-instruct"
+          "@cf/mistral/mistral-7b-instruct-v0.1"
+          "@hf/thebloke/mistral-7b-instruct-v0.1-awq"
+          "@hf/mistral/mistral-7b-instruct-v0.2"
+          "@hf/thebloke/neural-chat-7b-v3-1-awq"
+          "@cf/openchat/openchat-3.5-0106"
+          "@hf/thebloke/openhermes-2.5-mistral-7b-awq"
+          "@cf/microsoft/phi-2"
+          "@cf/qwen/qwen1.5-0.5b-chat"
+          "@cf/qwen/qwen1.5-1.8b-chat"
+          "@cf/qwen/qwen1.5-14b-chat-awq"
+          "@cf/qwen/qwen1.5-7b-chat-awq"
+          "@cf/defog/sqlcoder-7b-2"
+          "@hf/nexusflow/starling-lm-7b-beta"
+          "@cf/tinyllama/tinyllama-1.1b-chat-v1.0"
+          "@cf/fblgit/una-cybertron-7b-v2-bf16"
+          "@hf/thebloke/zephyr-7b-beta-awq"
+        ];
       }
       # Paid providers
       # {
       #   provider = "novita";
       #   base_url = "https://api.novita.ai/v3/openai/chat/completions";
       #   api = {
-      #     _secret = config.age.secrets.novita-api-key.path;
+      #     _secret = config.age.secrets.uni-api-novita-api-key.path;
       #   };
       # }
       {
         provider = "openrouter";
         base_url = "https://openrouter.ai/api/v1/chat/completions";
         api = {
-          _secret = config.age.secrets.openrouter-api-key.path;
+          _secret = config.age.secrets.uni-api-openrouter-api-key.path;
         };
       }
       {
         provider = "siliconflow";
         base_url = "https://api.siliconflow.cn/v1/chat/completions";
         api = {
-          _secret = config.age.secrets.siliconflow-api-key.path;
+          _secret = config.age.secrets.uni-api-siliconflow-api-key.path;
         };
       }
     ];
     api_keys = [
       {
         api = {
-          _secret = config.age.secrets.admin-api-key.path;
+          _secret = config.age.secrets.uni-api-admin-api-key.path;
         };
         role = "admin";
       }
@@ -58,32 +105,42 @@ let
   };
 in
 {
-  age.secrets.novita-api-key = {
+  age.secrets.uni-api-novita-api-key = {
     file = inputs.secrets + "/uni-api/novita-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
-  age.secrets.openrouter-api-key = {
+  age.secrets.uni-api-openrouter-api-key = {
     file = inputs.secrets + "/uni-api/openrouter-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
-  age.secrets.siliconflow-api-key = {
+  age.secrets.uni-api-siliconflow-api-key = {
     file = inputs.secrets + "/uni-api/siliconflow-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
-  age.secrets.mistral-api-key = {
+  age.secrets.uni-api-mistral-api-key = {
     file = inputs.secrets + "/uni-api/mistral-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
-  age.secrets.groq-api-key = {
+  age.secrets.uni-api-groq-api-key = {
     file = inputs.secrets + "/uni-api/groq-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
-  age.secrets.admin-api-key = {
+  age.secrets.uni-api-cloudflare-account-id = {
+    file = inputs.secrets + "/uni-api/cloudflare-account-id.age";
+    owner = "uni-api";
+    group = "uni-api";
+  };
+  age.secrets.uni-api-cloudflare-api-key = {
+    file = inputs.secrets + "/uni-api/cloudflare-api-key.age";
+    owner = "uni-api";
+    group = "uni-api";
+  };
+  age.secrets.uni-api-admin-api-key = {
     file = inputs.secrets + "/uni-api/admin-api-key.age";
     owner = "uni-api";
     group = "uni-api";
@@ -122,6 +179,9 @@ in
     isSystemUser = true;
   };
   users.groups.uni-api.members = [ "nginx" ];
+
+  # Workaround for Open WebUI DNS issue
+  networking.hosts."127.0.0.1" = [ "uni-api.localhost" ];
 
   lantian.nginxVhosts = {
     "uni-api.${config.networking.hostName}.xuyh0120.win" = {
