@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ ./uni-api.nix ];
+  imports = [ ./uni-api ];
 
   age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
 
