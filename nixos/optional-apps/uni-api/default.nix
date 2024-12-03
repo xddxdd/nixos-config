@@ -41,14 +41,6 @@ let
       }
       # Paid providers
       {
-        provider = "novita";
-        base_url = "https://api.novita.ai/v3/openai/chat/completions";
-        api = {
-          _secret = config.age.secrets.uni-api-novita-api-key.path;
-        };
-        model = loadModels ./apis/novita.json;
-      }
-      {
         provider = "openrouter";
         base_url = "https://openrouter.ai/api/v1/chat/completions";
         api = {
@@ -63,6 +55,14 @@ let
           _secret = config.age.secrets.uni-api-siliconflow-api-key.path;
         };
         model = loadModels ./apis/siliconflow.json;
+      }
+      {
+        provider = "novita";
+        base_url = "https://api.novita.ai/v3/openai/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-novita-api-key.path;
+        };
+        model = loadModels ./apis/novita.json;
       }
     ];
     api_keys = [
