@@ -2,6 +2,7 @@ import json
 import multiprocessing
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import urllib.request
@@ -12,11 +13,12 @@ SECRET_BASE = os.environ["SECRET_BASE"]
 HOME = pathlib.Path.home()
 
 APIS = {
+    "cloudflare": "https://playground.ai.cloudflare.com/api",
     "groq": "https://api.groq.com/openai/v1",
     "mistral": "https://api.mistral.ai/v1",
+    "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
-    "novita": "https://api.novita.ai/v3/openai",
 }
 
 GUESS_PROVIDER_PREFIX_MAP = {
@@ -61,7 +63,13 @@ def get_models(api_name: str, base_url: str) -> List[str]:
     content = urllib.request.urlopen(r).read()
 
     models = json.loads(content)
-    model_ids: List[str] = [m["id"] for m in models["data"]]
+    # models key is specific to CloudFlare Workers AI
+    if "data" in models:
+        model_ids: List[str] = [m["id"] for m in models["data"]]
+    elif "models" in models:
+        model_ids: List[str] = [m["name"] for m in models["models"]]
+    else:
+        raise ValueError(f"No model info found in {models}")
     return model_ids
 
 
@@ -77,16 +85,25 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     # Enforce lowercase for model name
     result = model_id.lower()
 
+    # Remove provider's own differentiator in model prefix
+    result = re.sub(r"^@[^/]+/", "", result)
+
     # Guess provider for model
     if "/" not in result:
         provider = guess_provider(result)
         if not provider:
             provider = f"@{api_name}"
         result = f"{provider}/{result}"
+    assert "/" in result
 
-    # Remove Pro/ prefix for SiliconFlow
-    if result.startswith("pro/"):
-        result = f"{result[4:]}:pro"
+    # Move extra prefix to the end as model variants
+    if result.count("/") > 1:
+        splitted = result.split("/")
+        suffix = "/".join(splitted[:-2])
+        result = f"{splitted[-2]}/{splitted[-1]}:{suffix}"
+
+    # Add separator between model name and version
+    result = re.sub(r"^([^/]+)/([a-zA-Z]{2,})([0-9]+)", r"\1/\2-\3", result)
 
     return result
 
