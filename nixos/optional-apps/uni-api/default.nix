@@ -39,6 +39,14 @@ let
         };
         model = loadModels ./apis/cloudflare.json;
       }
+      {
+        provider = "siliconflow-pool";
+        base_url = "http://api.888188.me/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-siliconflow-pool-api-key.path;
+        };
+        model = loadModels ./apis/siliconflow.json;
+      }
       # Paid providers
       {
         provider = "openrouter";
@@ -88,6 +96,11 @@ in
   };
   age.secrets.uni-api-siliconflow-api-key = {
     file = inputs.secrets + "/uni-api/siliconflow-api-key.age";
+    owner = "uni-api";
+    group = "uni-api";
+  };
+  age.secrets.uni-api-siliconflow-pool-api-key = {
+    file = inputs.secrets + "/uni-api/siliconflow-pool-api-key.age";
     owner = "uni-api";
     group = "uni-api";
   };
