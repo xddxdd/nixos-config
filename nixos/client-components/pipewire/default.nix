@@ -47,7 +47,6 @@ in
       patches = (old.patches or [ ]) ++ [ ../../../patches/pipewire-fix-roc-sink.patch ];
     });
     systemWide = true;
-    lowLatency.enable = true;
 
     alsa.enable = true;
     alsa.support32Bit = true;
