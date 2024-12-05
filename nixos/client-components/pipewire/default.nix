@@ -54,6 +54,21 @@ in
     pulse.enable = true;
 
     wireplumber.enable = true;
+
+    extraConfig.pipewire = {
+      "10-sample-rate" = {
+        "context.properties" = {
+          "default.clock.rate" = 44100;
+          "default.clock.allowed-rates" = [
+            44100
+            48000
+            88200
+            96000
+            192000
+          ];
+        };
+      };
+    };
   };
 
   systemd.services.pipewire.serviceConfig = {
