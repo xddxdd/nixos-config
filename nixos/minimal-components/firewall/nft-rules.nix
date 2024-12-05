@@ -179,13 +179,13 @@ let
     ''
     + (lib.optionalString (LT.this.neonetwork.IPv4 != "") ''
       # give LAN access to NeoNetwork
-      ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.neonetwork.IPv4}
-      ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.neonetwork.IPv6}
+      ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 oifname != @INTERFACE_WAN snat to ${LT.this.neonetwork.IPv4}
+      ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 oifname != @INTERFACE_WAN snat to ${LT.this.neonetwork.IPv6}
     '')
     + (lib.optionalString (LT.this.dn42.IPv4 != "") ''
       # give LAN access to DN42
-      ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 snat to ${LT.this.dn42.IPv4}
-      ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 snat to ${LT.this.dn42.IPv6}
+      ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 oifname != @INTERFACE_WAN snat to ${LT.this.dn42.IPv4}
+      ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 oifname != @INTERFACE_WAN snat to ${LT.this.dn42.IPv6}
     '')
     + ''
         # 198.18.0.200-255, fdbc:f9dc:67ad::200-255 is for devices without BGP sessions
