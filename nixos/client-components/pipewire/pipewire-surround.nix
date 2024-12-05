@@ -108,7 +108,7 @@ let
           }
         ]
       '';
-      destination = "/share/pipewire/pipewire.conf.d/surround-${hrir}.conf";
+      destination = "/share/pipewire/pipewire.conf.d/50-surround-${hrir}.conf";
     };
 in
 {
