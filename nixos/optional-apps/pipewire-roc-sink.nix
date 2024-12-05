@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -10,11 +9,10 @@
     default = [ ];
   };
 
-  config.services.pipewire.configPackages = builtins.map (
-    ip:
-    (pkgs.writeTextFile {
-      name = "pipewire-roc-sink-${ip}";
-      text = builtins.toJSON {
+  config.services.pipewire.extraConfig.pipewire = builtins.listToAttrs (
+    builtins.map (
+      ip:
+      lib.nameValuePair "50-roc-sink-${ip}" {
         "context.modules" = [
           {
             name = "libpipewire-module-roc-sink";
@@ -33,8 +31,7 @@
             };
           }
         ];
-      };
-      destination = "/share/pipewire/pipewire.conf.d/roc-sink-${ip}.conf";
-    })
-  ) config.lantian.pipewire.roc-sink-ip;
+      }
+    ) config.lantian.pipewire.roc-sink-ip
+  );
 }
