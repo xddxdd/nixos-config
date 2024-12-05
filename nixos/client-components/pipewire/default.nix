@@ -57,6 +57,12 @@ in
     wireplumber.enable = true;
   };
 
+  systemd.services.pipewire.serviceConfig = {
+    AmbientCapabilities = lib.mkForce "";
+    CPUSchedulingPolicy = "fifo";
+    CPUSchedulingPriority = "20";
+  };
+
   systemd.services.pipewire-auto-start = {
     description = "Keep PipeWire running";
     after = [ "pipewire.socket" ];
