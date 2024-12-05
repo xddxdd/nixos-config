@@ -16,6 +16,12 @@
     gateway = [ "172.18.126.1" ];
     networkConfig.DHCP = "ipv6";
     matchConfig.Name = "eth0";
+    routes = [
+      {
+        Destination = "10.0.0.0/8";
+        Gateway = "172.18.126.1";
+      }
+    ];
   };
 
   services."route-chain" = {
