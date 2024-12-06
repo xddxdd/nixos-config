@@ -5,30 +5,7 @@
   ...
 }:
 let
-  # inherit (pkgs) dnscontrol;
-  dnscontrol = pkgs.buildGoModule rec {
-    pname = "dnscontrol";
-    version = "5abb8e355240ab5fa3d7dd1229ce92995565b499";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "dnscontrol";
-      rev = version;
-      sha256 = "sha256-BmiZf5dfv1XOBYhxlDQsbtQWYDFl+30LRvb34HReCBA=";
-    };
-
-    vendorHash = "sha256-6ePEgHVFPtkW+C57+cPLj5yc9YaCRKrnBFo2Y1pcglM=";
-
-    ldflags = [
-      "-s"
-      "-w"
-    ];
-
-    preCheck = ''
-      # requires network
-      rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
-    '';
-  };
+  inherit (pkgs) dnscontrol;
 in
 ''
   set -euxo pipefail
