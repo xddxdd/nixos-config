@@ -130,16 +130,18 @@ in
     GEO =
       { filter, ... }@args:
       let
+        geodnsFilter = "country,false;default,false;geodistance,false;first_n,false,1";
+
         meta =
           k: v:
           {
-            gcore_filters = "geodistance,false;first_n,false,1";
+            gcore_filters = geodnsFilter;
             gcore_latitude = "${builtins.toString v.city.lat}";
             gcore_longitude = "${builtins.toString v.city.lng}";
             gcore_notes = k;
           }
           // (lib.optionalAttrs (builtins.hasAttr "healthcheck" args) {
-            gcore_filters = "healthcheck,false;geodistance,false;first_n,false,1";
+            gcore_filters = "healthcheck,false;${geodnsFilter}";
             gcore_failover_protocol = "HTTP";
             gcore_failover_port = "443";
             gcore_failover_frequency = "30";
@@ -148,6 +150,9 @@ in
             gcore_failover_url = "/";
             gcore_failover_tls = "true";
             gcore_failover_host = args.healthcheck;
+          })
+          // (lib.optionalAttrs (k == "bwg-lax") {
+            gcore_countries = "CN";
           });
       in
       lib.flatten (
