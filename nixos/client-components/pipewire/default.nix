@@ -66,6 +66,11 @@ in
             96000
             192000
           ];
+
+          # Fix stuttering
+          "default.clock.quantum" = 512;
+          "default.clock.min-quantum" = 256;
+          "default.clock.max-quantum" = 2048;
         };
       };
     };
