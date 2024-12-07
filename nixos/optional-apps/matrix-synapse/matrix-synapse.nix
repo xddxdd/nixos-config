@@ -197,6 +197,8 @@
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/matrix-synapse/client.sock";
+        proxyWebsockets = true;
+        proxyNoTimeout = true;
       };
 
       # Overwrite well-known info
