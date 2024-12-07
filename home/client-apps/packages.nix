@@ -140,7 +140,7 @@ in
         nur-xddxdd.qqsp
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
-        nur-xddxdd.wechat-uos
+        nur-xddxdd.wechat-uos-sandboxed
         nur.repos.yes.mkxp-z
         nvfetcher
         openvpn
