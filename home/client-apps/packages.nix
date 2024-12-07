@@ -100,6 +100,7 @@ in
         exiftool
         ffmpeg-full
         filezilla
+        fluffychat
         gcdemu
         gedit
         gimp
