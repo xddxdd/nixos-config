@@ -21,6 +21,7 @@
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-http-rendezvous-synapse
       matrix-synapse-ldap3
+      matrix-synapse-mjolnir-antispam
     ];
 
     settings = {
@@ -80,6 +81,15 @@
           bind_dn = "cn=serviceuser,dc=lantian,dc=pub";
           bind_password_file = config.age.secrets.glauth-bindpw.path;
           filter = "(&(objectClass=posixAccount)(!(ou=svcaccts)))";
+        }
+        {
+          module = "mjolnir.Module";
+          config = {
+            block_invites = true;
+            block_messages = false;
+            block_usernames = false;
+            ban_lists = [ ];
+          };
         }
       ];
 
