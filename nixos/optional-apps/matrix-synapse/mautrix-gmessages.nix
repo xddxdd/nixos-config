@@ -9,19 +9,19 @@
       homeserver.address = "https://matrix.lantian.pub";
       appservice = {
         hostname = "127.0.0.1";
-        database = {
-          type = "postgres";
-          uri = "postgresql:///mautrix-gmessages?host=/run/postgresql";
-        };
         id = "gmessages";
+      };
+      database = {
+        type = "postgres";
+        uri = "postgresql:///mautrix-gmessages?host=/run/postgresql";
       };
       bridge.permissions = {
         "@lantian:lantian.pub" = "admin";
       };
       network.aggressive_reconnect = true;
       backfill.enabled = true;
-      encryption.allow = true;
     };
+    doublePuppet = true;
     registerToSynapse = true;
   };
 

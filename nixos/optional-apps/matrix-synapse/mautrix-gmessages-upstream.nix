@@ -8,6 +8,7 @@ let
   cfg = config.services.mautrix-gmessages;
   dataDir = "/var/lib/mautrix-gmessages";
   registrationFile = "${dataDir}/gmessages-registration.yaml";
+  doublePuppetFile = "${dataDir}/double-puppet-registration.yaml";
   settingsFile = "${dataDir}/config.json";
   settingsFileUnsubstituted = settingsFormat.generate "mautrix-gmessages-config-unsubstituted.json" cfg.settings;
   settingsFormat = pkgs.formats.json { };
@@ -19,8 +20,6 @@ let
     appservice = {
       hostname = "[::]";
       port = appservicePort;
-      database.type = "sqlite3";
-      database.uri = "${dataDir}/mautrix-gmessages.db";
       id = "gmessages";
       bot.username = "gmessagesbot";
       bot.displayname = "Google Messages Bridge Bot";
@@ -32,6 +31,10 @@ let
       command_prefix = "!gmsg";
       permissions."*" = "relay";
       relay.enabled = true;
+    };
+    database = {
+      type = "sqlite3";
+      uri = "${dataDir}/mautrix-gmessages.db";
     };
     network = {
       displayname_template = "{{or .FullName .PhoneNumber}}";
@@ -101,9 +104,7 @@ in
       type = lib.types.nullOr lib.types.path;
       default = null;
       description = ''
-        File containing environment variables to be passed to the mautrix-gmessages service,
-        in which secret tokens can be specified securely by optionally defining a value for
-        `MAUTRIX_GMESSAGES_BRIDGE_LOGIN_SHARED_SECRET`.
+        File containing environment variables to be passed to the mautrix-gmessages service.
       '';
     };
 
@@ -115,6 +116,14 @@ in
       '';
       description = ''
         List of Systemd services to require and wait for when starting the application service.
+      '';
+    };
+
+    doublePuppet = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to enable double puppeting for the current homeserver.
       '';
     };
 
@@ -141,7 +150,9 @@ in
     users.groups.mautrix-gmessages = { };
 
     services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      settings.app_service_config_files = [ registrationFile ];
+      settings.app_service_config_files = [
+        registrationFile
+      ] ++ lib.optionals cfg.doublePuppet [ doublePuppetFile ];
     };
     systemd.services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
       serviceConfig.SupplementaryGroups = [ "mautrix-gmessages" ];
@@ -182,16 +193,32 @@ in
         fi
         chmod 640 ${registrationFile}
 
+        # generate double puppeting config if enabled
+        ${lib.optionalString cfg.doublePuppet ''
+          if [ ! -f '${doublePuppetFile}' ]; then
+            cat <<EOF > '${doublePuppetFile}'
+          id: gmessages-doublepuppet
+          url:
+          as_token: $(${pkgs.pwgen}/bin/pwgen -s 64)
+          hs_token: $(${pkgs.pwgen}/bin/pwgen -s 64)
+          sender_localpart: $(${pkgs.pwgen}/bin/pwgen -s 32)
+          rate_limited: false
+          namespaces:
+            users:
+            - regex: '^@.*:${lib.replaceStrings [ "." ] [ "\\." ] cfg.settings.homeserver.domain}$'
+              exclusive: false
+          EOF
+            chmod 640 '${doublePuppetFile}'
+          fi
+        ''}
+
         umask 0177
-        # 1. Overwrite registration tokens in config
-        # 2. If environment variable MAUTRIX_GMESSAGES_BRIDGE_LOGIN_SHARED_SECRET
-        #    is set, set it as the login shared secret value for the configured
-        #    homeserver domain.
+        # Overwrite registration tokens in config
         ${pkgs.yq}/bin/yq -s '.[0].appservice.as_token = .[1].as_token
           | .[0].appservice.hs_token = .[1].hs_token
-          | .[0]
-          | if env.MAUTRIX_GMESSAGES_BRIDGE_LOGIN_SHARED_SECRET then .bridge.login_shared_secret_map.[.homeserver.domain] = env.MAUTRIX_GMESSAGES_BRIDGE_LOGIN_SHARED_SECRET else . end' \
-          '${settingsFile}' '${registrationFile}' > '${settingsFile}.tmp'
+          ${lib.optionalString cfg.doublePuppet "| .[0].double_puppet.secrets.\"${cfg.settings.homeserver.domain}\" = \"as_token:\" + .[2].as_token"}
+          | .[0]' \
+          '${settingsFile}' '${registrationFile}' '${doublePuppetFile}' > '${settingsFile}.tmp'
         mv '${settingsFile}.tmp' '${settingsFile}'
         umask $old_umask
       '';
