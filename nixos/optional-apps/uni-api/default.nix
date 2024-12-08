@@ -40,6 +40,23 @@ let
         model = loadModels ./apis/cloudflare.json;
       }
       {
+        provider = "lingyiwanwu";
+        base_url = "https://api.lingyiwanwu.com/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-lingyiwanwu-api-key.path;
+        };
+        model = loadModels ./apis/lingyiwanwu.json;
+      }
+      # Third party free providers
+      {
+        provider = "ai-985-games";
+        base_url = "https://ai.985.games/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-ai-985-games-api-key.path;
+        };
+        model = loadModels ./apis/ai-985-games.json;
+      }
+      {
         provider = "siliconflow-pool";
         base_url = "http://api.888188.me/v1/chat/completions";
         api = {
@@ -84,51 +101,30 @@ let
   };
 in
 {
-  age.secrets.uni-api-novita-api-key = {
-    file = inputs.secrets + "/uni-api/novita-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-openrouter-api-key = {
-    file = inputs.secrets + "/uni-api/openrouter-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-siliconflow-api-key = {
-    file = inputs.secrets + "/uni-api/siliconflow-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-siliconflow-pool-api-key = {
-    file = inputs.secrets + "/uni-api/siliconflow-pool-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-mistral-api-key = {
-    file = inputs.secrets + "/uni-api/mistral-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-groq-api-key = {
-    file = inputs.secrets + "/uni-api/groq-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-cloudflare-account-id = {
-    file = inputs.secrets + "/uni-api/cloudflare-account-id.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-cloudflare-api-key = {
-    file = inputs.secrets + "/uni-api/cloudflare-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
-  age.secrets.uni-api-admin-api-key = {
-    file = inputs.secrets + "/uni-api/admin-api-key.age";
-    owner = "uni-api";
-    group = "uni-api";
-  };
+  age.secrets = builtins.listToAttrs (
+    builtins.map
+      (
+        f:
+        lib.nameValuePair "uni-api-${f}" {
+          file = inputs.secrets + "/uni-api/${f}.age";
+          owner = "uni-api";
+          group = "uni-api";
+        }
+      )
+      [
+        "admin-api-key"
+        "ai-985-games-api-key"
+        "cloudflare-account-id"
+        "cloudflare-api-key"
+        "groq-api-key"
+        "lingyiwanwu-api-key"
+        "mistral-api-key"
+        "novita-api-key"
+        "openrouter-api-key"
+        "siliconflow-api-key"
+        "siliconflow-pool-api-key"
+      ]
+  );
 
   systemd.services.uni-api = {
     description = "Uni-API Server";
