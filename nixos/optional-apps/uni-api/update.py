@@ -13,8 +13,10 @@ SECRET_BASE = os.environ["SECRET_BASE"]
 HOME = pathlib.Path.home()
 
 APIS = {
+    "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "https://playground.ai.cloudflare.com/api",
     "groq": "https://api.groq.com/openai/v1",
+    "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
     "mistral": "https://api.mistral.ai/v1",
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
@@ -33,7 +35,18 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "pixtral-",
     ],
     "meta-llama": ["llama-"],
-    "google": ["gemma"],
+    "google": ["gemma-"],
+    "01-ai": ["yi-"],
+    "thudm": [
+        "glm-",
+        "chatglm-",
+    ],
+    "tencent": ["hunyuan"],
+    "internlm": ["internlm-"],
+    "qwen": [
+        "qwen-",
+        "qwq-",
+    ],
 }
 
 
@@ -88,14 +101,6 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     # Remove provider's own differentiator in model prefix
     result = re.sub(r"^@[^/]+/", "", result)
 
-    # Guess provider for model
-    if "/" not in result:
-        provider = guess_provider(result)
-        if not provider:
-            provider = f"@{api_name}"
-        result = f"{provider}/{result}"
-    assert "/" in result
-
     # Move extra prefix to the end as model variants
     if result.count("/") > 1:
         splitted = result.split("/")
@@ -103,7 +108,15 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
         result = f"{splitted[-2]}/{splitted[-1]}:{suffix}"
 
     # Add separator between model name and version
-    result = re.sub(r"^([^/]+)/([a-zA-Z]{2,})([0-9]+)", r"\1/\2-\3", result)
+    result = re.sub(r"(^|/)([a-zA-Z]{2,})([0-9]+)([^/]*)$", r"\1\2-\3\4", result)
+
+    # Guess provider for model
+    if "/" not in result:
+        provider = guess_provider(result)
+        if not provider:
+            provider = f"@{api_name}"
+        result = f"{provider}/{result}"
+    assert "/" in result
 
     return result
 
@@ -119,9 +132,13 @@ def process_api(input_obj: Tuple[str, str]):
     with open(f"{SCRIPT_PATH}/apis/{api_name}.json", "w") as f:
         json.dump(mappings, f, indent=2, sort_keys=True)
         f.write("\n")
+    return True
 
 
 if __name__ == "__main__":
     os.makedirs(f"{SCRIPT_PATH}/apis", exist_ok=True)
     pool = multiprocessing.Pool()
-    pool.map(process_api, APIS.items())
+    try:
+        pool.map(process_api, APIS.items())
+    except Exception as e:
+        print(e)

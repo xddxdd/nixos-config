@@ -12,6 +12,7 @@
   "@cf/meta/llama-3.2-11b-vision-instruct": "meta/llama-3.2-11b-vision-instruct",
   "@cf/meta/llama-3.2-1b-instruct": "meta/llama-3.2-1b-instruct",
   "@cf/meta/llama-3.2-3b-instruct": "meta/llama-3.2-3b-instruct",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast": "meta/llama-3.3-70b-instruct-fp8-fast",
   "@cf/microsoft/phi-2": "microsoft/phi-2",
   "@cf/mistral/mistral-7b-instruct-v0.1": "mistral/mistral-7b-instruct-v0.1",
   "@cf/openchat/openchat-3.5-0106": "openchat/openchat-3.5-0106",

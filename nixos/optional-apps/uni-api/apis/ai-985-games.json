@@ -1,0 +1,10 @@
+{
+  "360gpt2-pro": "@ai-985-games/360gpt2-pro",
+  "GLM-4-Flash": "thudm/glm-4-flash",
+  "hunyuan-lite": "tencent/hunyuan-lite",
+  "internlm2.5-latest": "internlm/internlm-2.5-latest",
+  "qwen2.5-72b-instruct": "qwen/qwen-2.5-72b-instruct",
+  "qwq-32b-preview": "qwen/qwq-32b-preview",
+  "yi-lightning": "01-ai/yi-lightning",
+  "yi-medium-200k": "01-ai/yi-medium-200k"
+}

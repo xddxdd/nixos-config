@@ -15,6 +15,7 @@
   "meta-llama/llama-3.2-11b-vision-instruct": "meta-llama/llama-3.2-11b-vision-instruct",
   "meta-llama/llama-3.2-1b-instruct": "meta-llama/llama-3.2-1b-instruct",
   "meta-llama/llama-3.2-3b-instruct": "meta-llama/llama-3.2-3b-instruct",
+  "meta-llama/llama-3.3-70b-instruct": "meta-llama/llama-3.3-70b-instruct",
   "microsoft/wizardlm-2-7b": "microsoft/wizardlm-2-7b",
   "microsoft/wizardlm-2-8x22b": "microsoft/wizardlm-2-8x22b",
   "mistralai/mistral-7b-instruct": "mistralai/mistral-7b-instruct",
