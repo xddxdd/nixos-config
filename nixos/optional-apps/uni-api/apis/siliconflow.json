@@ -51,6 +51,7 @@
   "deepseek-ai/DeepSeek-V2-Chat": "deepseek-ai/deepseek-v2-chat",
   "deepseek-ai/DeepSeek-V2.5": "deepseek-ai/deepseek-v2.5",
   "fishaudio/fish-speech-1.4": "fishaudio/fish-speech-1.4",
+  "fishaudio/fish-speech-1.5": "fishaudio/fish-speech-1.5",
   "google/gemma-2-27b-it": "google/gemma-2-27b-it",
   "google/gemma-2-9b-it": "google/gemma-2-9b-it",
   "internlm/internlm2_5-20b-chat": "internlm/internlm-2_5-20b-chat",
@@ -65,5 +66,6 @@
   "stabilityai/stable-diffusion-3-5-large": "stabilityai/stable-diffusion-3-5-large",
   "stabilityai/stable-diffusion-3-5-large-turbo": "stabilityai/stable-diffusion-3-5-large-turbo",
   "stabilityai/stable-diffusion-3-medium": "stabilityai/stable-diffusion-3-medium",
-  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0"
+  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0",
+  "tencent/HunyuanVideo": "tencent/hunyuanvideo"
 }
