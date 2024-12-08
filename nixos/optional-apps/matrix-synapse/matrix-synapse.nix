@@ -25,11 +25,8 @@
     ];
 
     settings = {
-      max_upload_size = "500M";
       public_baseurl = "https://matrix.lantian.pub";
       server_name = config.networking.domain;
-      url_preview_enabled = true;
-      media_store_path = "${config.services.matrix-synapse.dataDir}/media";
       account_threepid_delegates = {
         msisdn = "https://vector.im";
       };
@@ -60,6 +57,27 @@
           ];
         }
       ];
+
+      enable_media_repo = true;
+      media_store_path = "${config.services.matrix-synapse.dataDir}/media";
+      media_storage_providers = [
+        {
+          module = "file_system";
+          store_local = false;
+          store_remote = true;
+          store_synchronous = true;
+          config.directory = "${config.services.matrix-synapse.dataDir}/remote-media";
+        }
+      ];
+      max_upload_size = "500M";
+      dynamic_thumbnails = true;
+      url_preview_enabled = true;
+      url_preview_ip_range_blacklist = LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6;
+      url_preview_ip_range_whitelist =
+        LT.constants.dn42.IPv4
+        ++ LT.constants.dn42.IPv6
+        ++ LT.constants.neonetwork.IPv4
+        ++ LT.constants.neonetwork.IPv6;
 
       modules = [
         {
@@ -222,5 +240,8 @@
     noIndex.enable = true;
   };
 
-  systemd.tmpfiles.rules = [ "d /var/lib/matrix-synapse/media 755 matrix-synapse matrix-synapse" ];
+  systemd.tmpfiles.rules = [
+    "d /var/lib/matrix-synapse/media 755 matrix-synapse matrix-synapse"
+    "d /var/lib/matrix-synapse/remote-media 755 matrix-synapse matrix-synapse"
+  ];
 }
