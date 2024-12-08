@@ -6,6 +6,9 @@
   inputs,
   ...
 }@args:
+let
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
+in
 {
   imports = [ ../postgresql.nix ];
 
@@ -58,6 +61,16 @@
         }
       ];
 
+      ip_range_blacklist = LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6;
+      ip_range_whitelist =
+        LT.constants.dn42.IPv4
+        ++ LT.constants.dn42.IPv6
+        ++ LT.constants.neonetwork.IPv4
+        ++ LT.constants.neonetwork.IPv6;
+      admin_contact = glauthUsers.lantian.mail;
+
+      forgotten_room_retention_period = "7d";
+
       enable_media_repo = true;
       media_store_path = "${config.services.matrix-synapse.dataDir}/media";
       media_storage_providers = [
@@ -78,6 +91,8 @@
         ++ LT.constants.dn42.IPv6
         ++ LT.constants.neonetwork.IPv4
         ++ LT.constants.neonetwork.IPv6;
+      remote_media_download_burst_count = "1G";
+      remote_media_download_per_second = "1G";
 
       modules = [
         {
