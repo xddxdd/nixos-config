@@ -11,6 +11,7 @@
     environmentVariables = {
       OLLAMA_ORIGINS = "*";
       OLLAMA_KEEP_ALIVE = "900";
+      OLLAMA_FLASH_ATTENTION = "1";
     };
   };
 
