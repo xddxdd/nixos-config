@@ -33,7 +33,7 @@
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
 
       RAG_EMBEDDING_ENGINE = "ollama";
-      PDF_EXTRACT_IMAGES = "true";
+      PDF_EXTRACT_IMAGES = "false";
       RAG_EMBEDDING_MODEL = "mxbai-embed-large:latest";
 
       ENABLE_IMAGE_GENERATION = "true";
@@ -67,14 +67,11 @@
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI}";
         proxyWebsockets = true;
+        proxyNoTimeout = true;
       };
 
       sslCertificate = "xuyh0120.win_ecc";
       noIndex.enable = true;
-
-      extraConfig = ''
-        client_max_body_size 0;
-      '';
     };
   };
 }
