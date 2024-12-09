@@ -26,10 +26,7 @@
 
   virtualisation.oci-containers.containers = {
     waline = {
-      extraOptions = [
-        "--pull"
-        "always"
-      ];
+      extraOptions = [ "--pull=always" ];
       image = "lizheming/waline";
       ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.Waline}:8360" ];
       environmentFiles = [ config.age.secrets.waline-env.path ];

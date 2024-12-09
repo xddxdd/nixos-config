@@ -1,10 +1,7 @@
 { LT, config, ... }:
 {
   virtualisation.oci-containers.containers.archiveteam = {
-    extraOptions = [
-      "--pull"
-      "always"
-    ];
+    extraOptions = [ "--pull=always" ];
     environment = {
       DOWNLOADER = "lantian";
       SELECTED_PROJECT = "auto";
