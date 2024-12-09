@@ -8,6 +8,7 @@
 }:
 {
   imports = [
+    ./fish-speech.nix
     ./openai-edge-tts.nix
     ./openedai-speech.nix
     ./tika.nix
