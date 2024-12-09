@@ -1,10 +1,7 @@
 { LT, config, ... }:
 {
   virtualisation.oci-containers.containers.rsshub = {
-    extraOptions = [
-      "--pull"
-      "always"
-    ];
+    extraOptions = [ "--pull=always" ];
     image = "diygod/rsshub:chromium-bundled";
     environment = {
       TZ = config.time.timeZone;
