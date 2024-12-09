@@ -8,8 +8,10 @@
 }:
 {
   imports = [
-    ./uni-api
+    ./openai-edge-tts.nix
+    ./openedai-speech.nix
     ./tika.nix
+    ./uni-api
   ];
 
   age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
@@ -72,6 +74,14 @@
       SEARXNG_QUERY_URL = "https://searx.xuyh0120.win/search?q=<query>";
       RAG_WEB_SEARCH_RESULT_COUNT = "5";
       RAG_WEB_SEARCH_CONCURRENT_REQUESTS = "1";
+
+      AUDIO_TTS_ENGINE = "openai";
+      AUDIO_TTS_API_KEY = "unused";
+      AUDIO_TTS_OPENAI_API_BASE_URL = "http://127.0.0.1:${LT.portStr.OpenAIEdgeTTS}";
+      AUDIO_TTS_OPENAI_API_KEY = "unused";
+      AUDIO_TTS_MODEL = "tts-1";
+      AUDIO_TTS_VOICE = "zh-CN-XiaoxiaoNeural";
+      AUDIO_TTS_SPLIT_ON = "punctuation";
     };
   };
 
