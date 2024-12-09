@@ -4,10 +4,8 @@
 
   virtualisation.oci-containers.containers.tachidesk = {
     extraOptions = [
-      "--pull"
-      "always"
-      "--net"
-      "host"
+      "--pull=always"
+      "--net=host"
     ];
     image = "ghcr.io/suwayomi/tachidesk:latest";
     environment = {

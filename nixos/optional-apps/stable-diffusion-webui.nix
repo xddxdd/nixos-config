@@ -25,12 +25,9 @@ in
 {
   virtualisation.oci-containers.containers.stable-diffusion = {
     extraOptions = [
-      "--pull"
-      "always"
-      "--net"
-      "host"
-      "--gpus"
-      "all"
+      "--pull=always"
+      "--net=host"
+      "--gpus=all"
     ];
     entrypoint = "/app/entrypoint.sh";
     cmd = [
