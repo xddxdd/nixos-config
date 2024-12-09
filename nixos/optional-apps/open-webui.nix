@@ -21,6 +21,8 @@
     environmentFile = config.age.secrets.open-webui-env.path;
     environment = {
       ENV = "prod";
+      GLOBAL_LOG_LEVEL = "WARNING";
+
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
       WEBUI_URL = "https://open-webui.xuyh0120.win";
       OPENAI_API_BASE_URL = "http://uni-api.localhost/v1";
