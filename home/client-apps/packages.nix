@@ -125,6 +125,7 @@ in
         megatools
         moonlight-qt
         newsflash
+        nur-xddxdd.adspower
         nur-xddxdd.baidunetdisk
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bilibili
