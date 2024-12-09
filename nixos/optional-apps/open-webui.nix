@@ -1,5 +1,6 @@
 {
   LT,
+  lib,
   config,
   inputs,
   pkgs,
@@ -31,6 +32,10 @@
       OAUTH_ROLES_CLAIM = "groups";
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
 
+      RAG_EMBEDDING_ENGINE = "ollama";
+      PDF_EXTRACT_IMAGES = "true";
+      RAG_EMBEDDING_MODEL = "mxbai-embed-large:latest";
+
       ENABLE_IMAGE_GENERATION = "true";
       IMAGE_GENERATION_ENGINE = "automatic1111";
       AUTOMATIC1111_BASE_URL = "https://stable-diffusion.xuyh0120.win";
@@ -46,6 +51,17 @@
     };
   };
 
+  systemd.services.open-webui.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "open-webui";
+    Group = "open-webui";
+  };
+  users.users.open-webui = {
+    group = "open-webui";
+    isSystemUser = true;
+  };
+  users.groups.open-webui = { };
+
   lantian.nginxVhosts = {
     "open-webui.xuyh0120.win" = {
       locations."/" = {
@@ -55,6 +71,10 @@
 
       sslCertificate = "xuyh0120.win_ecc";
       noIndex.enable = true;
+
+      extraConfig = ''
+        client_max_body_size 0;
+      '';
     };
   };
 }
