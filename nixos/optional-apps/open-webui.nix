@@ -7,7 +7,10 @@
   ...
 }:
 {
-  imports = [ ./uni-api ];
+  imports = [
+    ./uni-api
+    ./tika.nix
+  ];
 
   age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
 
@@ -34,7 +37,9 @@
 
       RAG_EMBEDDING_ENGINE = "ollama";
       PDF_EXTRACT_IMAGES = "false";
-      RAG_EMBEDDING_MODEL = "mxbai-embed-large:latest";
+      RAG_EMBEDDING_MODEL = "bge-m3:latest";
+      CONTENT_EXTRACTION_ENGINE = "tika";
+      TIKA_SERVER_URL = "http://127.0.0.1:${LT.portStr.Tika}";
 
       ENABLE_IMAGE_GENERATION = "true";
       IMAGE_GENERATION_ENGINE = "automatic1111";

@@ -170,6 +170,7 @@ rec {
     Pterodactyl.Wings = 13680;
     Vaultwarden = 13772;
     StableDiffusionWebUI = 13786;
+    Tika = 13787;
     Plausible = 13800;
     Netbox = 13801;
     Attic = 13803;
