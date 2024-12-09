@@ -52,7 +52,11 @@
 
       RAG_EMBEDDING_ENGINE = "ollama";
       PDF_EXTRACT_IMAGES = "false";
-      RAG_EMBEDDING_MODEL = "bge-m3:latest";
+      RAG_EMBEDDING_MODEL = "jeffh/intfloat-multilingual-e5-large:f16";
+      RAG_EMBEDDING_OPENAI_BATCH_SIZE = "512";
+      RAG_TOP_K = "10";
+      CHUNK_SIZE = "512"; # multilingual-e5-large supports 512 max
+      CHUNK_OVERLAP = "180";
       CONTENT_EXTRACTION_ENGINE = "tika";
       TIKA_SERVER_URL = "http://127.0.0.1:${LT.portStr.Tika}";
 
