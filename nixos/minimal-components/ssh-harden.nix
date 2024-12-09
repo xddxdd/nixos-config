@@ -147,7 +147,8 @@ in
       PubkeyAcceptedAlgorithms +ssh-rsa
 
       StrictHostKeyChecking no
-      VerifyHostKeyDNS yes
+      # DNS lookup is slow, use predefined knownHosts for my servers
+      VerifyHostKeyDNS no
       LogLevel ERROR
 
       TcpRcvBufPoll yes
