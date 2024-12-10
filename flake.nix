@@ -19,6 +19,10 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    betterfox-nix = {
+      url = "github:HeitorAugustoLN/betterfox-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     cities-json = {
       url = "github:lutangar/cities.json";
       flake = false;
