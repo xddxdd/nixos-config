@@ -1,22 +1,37 @@
-{ LT, config, ... }:
 {
-  virtualisation.oci-containers.containers.openedai-speech = {
-    extraOptions = [
-      "--pull=always"
-      "--gpus=all"
-    ];
-    image = "ghcr.io/matatonic/openedai-speech:dev";
-    ports = [ "127.0.0.1:${LT.portStr.OpenedAISpeech}:8000" ];
-    volumes = [
-      "/var/lib/openedai-speech/voices:/app/voices"
-      "/var/lib/openedai-speech/config:/app/config"
-    ];
+  pkgs,
+  lib,
+  LT,
+  config,
+  ...
+}:
+{
+  systemd.services.openedai-speech = {
+    description = "OpenedAI Speech";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = LT.serviceHarden // {
+      ExecStartPre = "-${pkgs.nur-xddxdd.openedai-speech}/bin/download_voices_tts-1.sh";
+      ExecStart = "${pkgs.nur-xddxdd.openedai-speech}/bin/openedai-speech --host 127.0.0.1 --port ${LT.portStr.OpenedAISpeech}";
+      Restart = "always";
+      RestartSec = "3";
+
+      MemoryDenyWriteExecute = lib.mkForce false;
+
+      StateDirectory = "openedai-speech";
+      WorkingDirectory = "/var/lib/openedai-speech";
+
+      User = "openedai-speech";
+      Group = "openedai-speech";
+    };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/openedai-speech/voices 755 root root"
-    "d /var/lib/openedai-speech/config 755 root root"
-  ];
+  users.users.openedai-speech = {
+    group = "openedai-speech";
+    isSystemUser = true;
+  };
+  users.groups.openedai-speech = { };
 
   lantian.nginxVhosts."openedai-speech.${config.networking.hostName}.xuyh0120.win" = {
     locations = {
