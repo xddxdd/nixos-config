@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     bitwarden
@@ -31,6 +36,40 @@ let
     ublock-origin
     wappalyzer
     wayback-machine
+  ];
+
+  loadBetterfox =
+    path:
+    let
+      autogen = lib.importJSON (inputs.betterfox-nix + "/autogen/firefox/main.json");
+      settings = lib.attrByPath (lib.splitString "." "${path}.settings") null autogen;
+    in
+    builtins.listToAttrs (builtins.filter (v: v.enabled) settings);
+
+  betterfoxConfig = builtins.foldl' (a: b: a // loadBetterfox b) { } [
+    "fastfox.general"
+    "fastfox.gfx"
+    "fastfox.disk-cache"
+    "fastfox.media-cache"
+    "fastfox.image-cache"
+    "fastfox.network"
+    "fastfox.speculative-loading"
+    "fastfox.experimental"
+    "securefox.ocsp-and-certs-with-hpkp"
+    "securefox.ssl-with-tls"
+    "securefox.disk-avoidance"
+    "securefox.https-first-policy"
+    "securefox.mixed-content-plus-cross-site"
+    "securefox.headers-with-referers"
+    "securefox.safe-browsing"
+    "securefox.telemetry"
+    "securefox.experiments"
+    "securefox.crash-reports"
+    "peskyfox.mozilla-ui"
+    "peskyfox.url-bar"
+    "peskyfox.new-tab-page"
+    "peskyfox.pocket"
+    "peskyfox.downloads"
   ];
 in
 {
@@ -140,7 +179,7 @@ in
         ) extensions
       );
     };
-    preferences = {
+    preferences = betterfoxConfig // {
       "browser.aboutConfig.showWarning" = false;
       "gfx.webrender.all" = true;
       "gfx.webrender.compositor.force-enabled" = true;

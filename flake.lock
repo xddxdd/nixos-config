@@ -26,6 +26,26 @@
         "type": "github"
       }
     },
+    "betterfox-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731153579,
+        "narHash": "sha256-9mNttz8Az2gOUHD2mOKiY1Fv2FHNxcQpu+FwfA1l1aM=",
+        "owner": "HeitorAugustoLN",
+        "repo": "betterfox-nix",
+        "rev": "4746610b0ab006aefa732e727048e330d19e4f81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HeitorAugustoLN",
+        "repo": "betterfox-nix",
+        "type": "github"
+      }
+    },
     "cities-json": {
       "flake": false,
       "locked": {
@@ -964,6 +984,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "betterfox-nix": "betterfox-nix",
         "cities-json": "cities-json",
         "colmena": "colmena",
         "composer2nix": "composer2nix",
