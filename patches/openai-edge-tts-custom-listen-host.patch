@@ -1,0 +1,19 @@
+diff --git a/app/server.py b/app/server.py
+index e7fa98d..e663312 100644
+--- a/app/server.py
++++ b/app/server.py
+@@ -12,6 +12,7 @@ app = Flask(__name__)
+ load_dotenv()
+ 
+ API_KEY = os.getenv('API_KEY', 'your_api_key_here')
++HOST = os.getenv('HOST', '0.0.0.0')
+ PORT = int(os.getenv('PORT', 5050))
+ 
+ DEFAULT_VOICE = os.getenv('DEFAULT_VOICE', 'en-US-AndrewNeural')
+@@ -71,5 +72,5 @@ print(f" * TTS Endpoint: http://localhost:{PORT}/v1/audio/speech")
+ print(f" ")
+ 
+ if __name__ == '__main__':
+-    http_server = WSGIServer(('0.0.0.0', PORT), app)
++    http_server = WSGIServer((HOST, PORT), app)
+     http_server.serve_forever()
