@@ -18,6 +18,8 @@
       RestartSec = "3";
 
       MemoryDenyWriteExecute = lib.mkForce false;
+      PrivateDevices = lib.mkForce false;
+      ProcSubset = "all";
 
       StateDirectory = "openedai-speech";
       WorkingDirectory = "/var/lib/openedai-speech";
