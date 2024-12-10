@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   LT,
   config,
   ...
@@ -32,8 +31,6 @@ in
       ExecStart = "${openai-edge-tts}/bin/openai-edge-tts";
       Restart = "always";
       RestartSec = "3";
-
-      MemoryDenyWriteExecute = lib.mkForce false;
 
       User = "openai-edge-tts";
       Group = "openai-edge-tts";
