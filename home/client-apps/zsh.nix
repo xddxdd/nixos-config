@@ -61,6 +61,9 @@
         export EDITOR="code --wait"
       fi
 
+      alias nb="nix build -L"
+      function nlw { nix-locate -w "$@" | grep -v "^(" }
+
       # For Podman
       export REGISTRY_AUTH_FILE="$HOME/.config/podman-registry-auth.json";
 
