@@ -178,7 +178,7 @@
               inputs.nix-alien.overlays.default
               inputs.nixd.overlays.default
               inputs.nur.overlay
-              inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs
+              inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
               inputs.nvfetcher.overlays.default
               inputs.proxmox-nixos.overlays.x86_64-linux
               inputs.secrets.overlays.default
