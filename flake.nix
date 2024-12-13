@@ -191,11 +191,13 @@
             sourceInput = inputs.nixpkgs;
             patches = LT.ls ./patches/nixpkgs;
             inherit permittedInsecurePackages overlays;
+            settings.enableCuda = true;
           };
           pkgs-stable = {
             sourceInput = inputs.nixpkgs-stable;
             patches = LT.ls ./patches/nixpkgs-stable;
             inherit permittedInsecurePackages overlays;
+            settings.enableCuda = true;
           };
         };
 
