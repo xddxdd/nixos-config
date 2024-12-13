@@ -93,6 +93,8 @@
       "force user" = "lantian";
       "force group" = "lantian";
       "valid users" = "lantian";
+      "veto files" = "/._*/.DS_Store/Thumbs.db/";
+      "delete veto files" = "yes";
     };
   };
 
