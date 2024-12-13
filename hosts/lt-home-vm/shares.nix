@@ -20,6 +20,8 @@
       "force user" = "root";
       "force group" = "users";
       "valid users" = "lantian";
+      "veto files" = "/._*/.DS_Store/Thumbs.db/";
+      "delete veto files" = "yes";
     };
   };
 
