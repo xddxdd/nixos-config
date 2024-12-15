@@ -1,4 +1,4 @@
-{ ... }:
+{ LT, ... }:
 {
   imports = [
     ../../nixos/server.nix
@@ -9,21 +9,7 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
-  systemd.network.networks.eth0 = {
-    address = [
-      "172.18.126.2/24"
-      "2603:c021:8000:aaaa:2::1/56"
-    ];
-    gateway = [ "172.18.126.1" ];
-    networkConfig.DHCP = "ipv6";
-    matchConfig.Name = "eth0";
-    routes = [
-      {
-        Destination = "10.0.0.0/8";
-        Gateway = "172.18.126.1";
-      }
-    ];
-  };
+  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
 
   services."route-chain" = {
     enable = true;
