@@ -1,4 +1,4 @@
-{ LT, lib, ... }:
+{ LT, ... }:
 {
   imports = [
     ../../nixos/server.nix
@@ -7,8 +7,6 @@
   ];
 
   systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
-
-  services.userborn.enable = lib.mkForce false;
 
   services."route-chain" = {
     enable = true;
