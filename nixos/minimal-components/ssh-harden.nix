@@ -159,4 +159,9 @@ in
     # XZ backdoor kill switch
     "yolAbejyiejuvnup" = "Evjtgvsh5okmkAvj";
   };
+
+  security.pam.services.sshd = {
+    startSession = lib.mkForce false;
+    setLoginUid = true;
+  };
 }
