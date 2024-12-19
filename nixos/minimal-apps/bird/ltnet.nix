@@ -16,7 +16,7 @@ let
     ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fdbc:f9dc:67ad::${builtins.toString index}%'zthnhe4bol' internal;
+        neighbor fdbc:f9dc:67ad::${builtins.toString index}%'ztje7axwd2' internal;
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
           import filter ltnet_import_filter_v4;
@@ -76,7 +76,7 @@ in
       };
       randomize router id yes;
       metric decay 30s;
-      interface "zthnhe4bol" {
+      interface "ztje7axwd2" {
         type tunnel;
         rtt cost 1000;
         rtt min 0ms;

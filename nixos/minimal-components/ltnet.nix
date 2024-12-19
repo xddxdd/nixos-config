@@ -51,7 +51,7 @@
 
     script =
       ''
-        while ! ip addr show zthnhe4bol | grep 198.18.0; do
+        while ! ip addr show ztje7axwd2 | grep 198.18.0; do
           echo "Waiting for ZeroTier to start"
           sleep 1
         done

@@ -17,7 +17,7 @@ let
     };
   };
 
-  ltnet = "af78bf9436f191fd";
+  ltnet = "91450bd87b000001";
 
   zerotier-default = pkgs.writeShellScriptBin "zerotier-default" ''
     if [ -z "$1" ]; then
