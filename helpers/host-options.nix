@@ -70,6 +70,12 @@
       default = "";
     };
 
+    # LTNET Networking
+    zerotier = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
+
     # Networking
     public = {
       IPv4 = lib.mkOption {
