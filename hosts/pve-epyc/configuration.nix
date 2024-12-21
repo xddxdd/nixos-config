@@ -37,6 +37,7 @@
   };
 
   services.proxmox-ve.bridges = [ "br0" ];
+  services.proxmox-ve.ipAddress = "192.168.0.2";
 
   networking.hosts = {
     "192.168.0.2" = [ config.networking.hostName ];
