@@ -161,6 +161,22 @@
         peerIPv6LinkLocal = "fe80::122";
       };
     };
+    kabe = {
+      remoteASN = 4242420574;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20574;
+        remoteAddress = "gw.kabe.dev";
+        remotePort = 22547;
+        wireguardPubkey = "1o7Uz5I0i3N4ydnJWg8/uNY4d3GASGrlXNqLBpK5iyk=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.8.193";
+        peerIPv6LinkLocal = "fe80::574";
+      };
+    };
     kemono = {
       remoteASN = 4242420358;
       latencyMs = 1;
