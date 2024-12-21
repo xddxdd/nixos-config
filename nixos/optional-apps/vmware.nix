@@ -1,8 +1,9 @@
-_: {
+{ LT, ... }:
+{
   virtualisation.vmware.host.enable = true;
 
-  environment.persistence."/nix/persistent" = {
-    directories = [ "/etc/vmware" ];
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [ "/etc/vmware" ];
   };
 
   fileSystems."/etc/vmware".neededForBoot = true;

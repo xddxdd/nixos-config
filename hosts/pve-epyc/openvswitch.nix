@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 let
@@ -14,7 +15,9 @@ let
 in
 {
   virtualisation.vswitch.enable = true;
-  environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
+  preservation.preserveAt."/nix/persistent".directories = builtins.map LT.preservation.mkFolder [
+    "/var/db/openvswitch"
+  ];
 
   systemd.services.ovsdb-setup = {
     description = "Setup OpenVSwitch database";

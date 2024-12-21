@@ -8,8 +8,8 @@ let
   managedPrefix = LT.constants.interfacePrefixes.WAN ++ [ "nm-" ];
 in
 {
-  environment.persistence."/nix/persistent" = {
-    directories = [ "/etc/NetworkManager/system-connections" ];
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [ "/etc/NetworkManager/system-connections" ];
   };
 
   hardware.wirelessRegulatoryDatabase = true;

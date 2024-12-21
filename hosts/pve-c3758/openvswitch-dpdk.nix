@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 let
@@ -22,7 +23,9 @@ in
     enable = true;
     package = pkgs.nur-xddxdd.openvswitch-dpdk;
   };
-  environment.persistence."/nix/persistent".directories = [ "/var/db/openvswitch" ];
+  preservation.preserveAt."/nix/persistent".directories = builtins.map LT.preservation.mkFolder [
+    "/var/db/openvswitch"
+  ];
 
   systemd.services.ovs-dpdk-setup = {
     description = "Setup OpenVSwitch DPDK config";

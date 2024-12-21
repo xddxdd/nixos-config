@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 let
@@ -14,8 +15,8 @@ in
     ipSuffix = "65";
   };
 
-  environment.persistence."/nix/persistent" = {
-    directories = [ "/etc/nvidia/ClientConfigToken" ];
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [ "/etc/nvidia/ClientConfigToken" ];
   };
 
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_7;
