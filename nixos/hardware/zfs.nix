@@ -1,7 +1,13 @@
-_: {
+{ LT, ... }:
+{
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportAll = true;
-  environment.persistence."/nix/persistent" = {
-    directories = [ "/etc/zfs" ];
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [
+      {
+        directory = "/etc/zfs";
+        inInitrd = true;
+      }
+    ];
   };
 }

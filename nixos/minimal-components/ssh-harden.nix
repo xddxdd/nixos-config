@@ -18,6 +18,27 @@ in
 {
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
+  preservation.preserveAt."/nix/persistent" = {
+    files = builtins.map LT.preservation.mkFile [
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key.pub";
+        mode = "0644";
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key";
+        mode = "0600";
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key.pub";
+        mode = "0644";
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key";
+        mode = "0600";
+      }
+    ];
+  };
+
   programs.ssh = {
     package = pkgs.openssh_hpn;
 

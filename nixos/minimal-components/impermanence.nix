@@ -1,22 +1,26 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  LT,
+  ...
+}:
 let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
 in
 {
-  environment.persistence."/nix/persistent" = {
-    hideMounts = true;
-    directories = [
+  preservation.enable = true;
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [
       "/var/cache"
       "/var/lib"
       "/var/log"
       "/var/www"
     ];
-    files = [
-      "/etc/machine-id"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-      "/etc/ssh/ssh_host_rsa_key"
+    files = builtins.map LT.preservation.mkFile [
+      {
+        file = "/etc/machine-id";
+        inInitrd = true;
+      }
     ];
   };
 

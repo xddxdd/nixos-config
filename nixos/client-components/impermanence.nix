@@ -1,61 +1,63 @@
-_: {
-  environment.persistence."/nix/persistent" = {
-    hideMounts = true;
+{ LT, config, ... }:
+{
+  preservation.preserveAt."/nix/persistent" = {
     users.lantian = {
-      directories = [
-        # Personal folders
-        "Desktop"
-        "Documents"
-        "Downloads"
-        "Music"
-        "Pictures"
-        "Projects"
-        "Videos"
-        "VirtualBox VMs"
+      directories = builtins.map LT.preservation.mkFolder (
+        builtins.filter (v: !builtins.hasAttr "/home/lantian/${v}" config.fileSystems) [
+          # Personal folders
+          "Desktop"
+          "Documents"
+          "Downloads"
+          "Music"
+          "Pictures"
+          "Projects"
+          "Videos"
+          "VirtualBox VMs"
 
-        # Preserved cache
-        ".cache/com.github.tchar.calculate-anything" # Ulauncher calculator plugin
-        ".cache/mesa_shader_cache" # Intel GPU Shader Cache
-        ".cache/netease-cloud-music/Cef" # NetEase Cloud Music Login State
-        ".cache/nvidia" # NVIDIA GPU Shader Cache
-        ".cache/tldr-python" # Ulauncher TLDR plugin
+          # Preserved cache
+          ".cache/com.github.tchar.calculate-anything" # Ulauncher calculator plugin
+          ".cache/mesa_shader_cache" # Intel GPU Shader Cache
+          ".cache/netease-cloud-music/Cef" # NetEase Cloud Music Login State
+          ".cache/nvidia" # NVIDIA GPU Shader Cache
+          ".cache/tldr-python" # Ulauncher TLDR plugin
 
-        # XDG config folders
-        ".config"
-        ".local"
+          # XDG config folders
+          ".config"
+          ".local"
 
-        # Important config
-        ".gnupg"
-        ".ssh"
+          # Important config
+          ".gnupg"
+          ".ssh"
 
-        # Other configs
-        ".aMule"
-        ".android"
-        ".aws"
-        ".conda"
-        ".continue"
-        ".fly"
-        ".ghidra"
-        ".kde4"
-        ".kube"
-        ".librewolf"
-        ".mozilla"
-        ".openfaas"
-        ".parsec"
-        ".pcem"
-        ".runpod"
-        ".rustup"
-        ".stack"
-        ".steam"
-        ".terraform.d"
-        ".thunderbird"
-        ".vagrant.d"
-        ".vscode"
-        ".wine"
-        ".Xilinx"
-        ".zoom"
-      ];
-      files = [ ];
+          # Other configs
+          ".aMule"
+          ".android"
+          ".aws"
+          ".conda"
+          ".continue"
+          ".fly"
+          ".ghidra"
+          ".kde4"
+          ".kube"
+          ".librewolf"
+          ".mozilla"
+          ".openfaas"
+          ".parsec"
+          ".pcem"
+          ".runpod"
+          ".rustup"
+          ".stack"
+          ".steam"
+          ".terraform.d"
+          ".thunderbird"
+          ".vagrant.d"
+          ".vscode"
+          ".wine"
+          ".Xilinx"
+          ".zoom"
+        ]
+      );
+      files = builtins.map LT.preservation.mkFile [ ];
     };
   };
 

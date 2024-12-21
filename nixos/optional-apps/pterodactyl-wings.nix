@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 {
   imports = [ ./docker.nix ];
 
@@ -15,8 +15,8 @@
     };
   };
 
-  environment.persistence."/nix/persistent" = {
-    directories = [ "/etc/pterodactyl" ];
+  preservation.preserveAt."/nix/persistent" = {
+    directories = builtins.map LT.preservation.mkFolder [ "/etc/pterodactyl" ];
   };
 
   environment.systemPackages = [ pkgs.nur-xddxdd.pterodactyl-wings ];

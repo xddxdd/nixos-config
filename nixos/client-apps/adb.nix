@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 {
   programs.adb.enable = true;
 
@@ -15,11 +15,10 @@
 
   users.users.lantian.extraGroups = [ "adbusers" ];
 
-  environment.persistence."/nix/persistent" = {
-    hideMounts = true;
+  preservation.preserveAt."/nix/persistent" = {
     users.root = {
       home = "/root";
-      directories = [ ".android" ];
+      directories = builtins.map LT.preservation.mkFolder [ ".android" ];
     };
   };
 }

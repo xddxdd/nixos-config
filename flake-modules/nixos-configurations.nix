@@ -43,7 +43,6 @@ let
       )
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
-      inputs.impermanence.nixosModules.impermanence
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic
@@ -52,6 +51,7 @@ let
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
+      inputs.preservation.nixosModules.preservation
       inputs.proxmox-nixos.nixosModules.proxmox-ve
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
