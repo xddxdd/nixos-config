@@ -203,7 +203,7 @@ in
 
   services.userborn = {
     enable = true;
-    passwordFilesLocation = "/var/lib/nixos";
+    passwordFilesLocation = "/nix/persistent/var/lib/nixos";
   };
 
   security.wrappers = {
