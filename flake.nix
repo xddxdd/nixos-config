@@ -43,7 +43,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    impermanence.url = "github:nix-community/impermanence";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -89,6 +88,7 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    preservation.url = "github:WilliButz/preservation";
     proxmox-nixos = {
       url = "github:xddxdd/proxmox-nixos";
       inputs.utils.follows = "flake-utils";
