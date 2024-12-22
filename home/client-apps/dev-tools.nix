@@ -180,6 +180,7 @@ in
     taplo-lsp
 
     # Others
+    azure-cli
     dhcpcd
     ghidra
     just
@@ -187,6 +188,10 @@ in
     scc
     tldr
   ];
+
+  home.sessionVariables = {
+    AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+  };
 
   programs.direnv = {
     enable = true;
