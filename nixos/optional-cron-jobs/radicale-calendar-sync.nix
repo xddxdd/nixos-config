@@ -21,12 +21,12 @@
 
   systemd.timers.radicale-calendar-sync = {
     wantedBy = [ "timers.target" ];
-    partOf = [ "oci-arm-host-capacity.service" ];
+    partOf = [ "radicale-calendar-sync.service" ];
     timerConfig = {
       OnCalendar = "hourly";
       Persistent = true;
       RandomizedDelaySec = "300";
-      Unit = "oci-arm-host-capacity.service";
+      Unit = "radicale-calendar-sync.service";
     };
   };
 }
