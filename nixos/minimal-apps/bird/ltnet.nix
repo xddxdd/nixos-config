@@ -90,11 +90,13 @@ in
     filter ltnet_import_filter_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
+      if net ~ REROUTED_WAN_IPv4 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v4 {
       if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
+      if net ~ REROUTED_WAN_IPv4 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
@@ -104,6 +106,7 @@ in
 
     filter ltnet_export_aggregated_filter_v4 {
       if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
+      if net ~ REROUTED_WAN_IPv4 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
@@ -114,11 +117,13 @@ in
     filter ltnet_import_filter_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
+      if net ~ REROUTED_WAN_IPv6 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v6 {
       if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
+      if net ~ REROUTED_WAN_IPv6 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
@@ -128,6 +133,7 @@ in
 
     filter ltnet_export_aggregated_filter_v6 {
       if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
+      if net ~ REROUTED_WAN_IPv6 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
