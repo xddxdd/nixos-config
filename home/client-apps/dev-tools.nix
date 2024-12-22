@@ -185,12 +185,15 @@ in
     ghidra
     just
     linkzoneAdb
+    oci-cli
     scc
     tldr
   ];
 
   home.sessionVariables = {
     AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+    OCI_CLI_CONFIG_FILE = "${config.xdg.configHome}/oci/config";
+    OCI_CLI_RC_FILE = "${config.xdg.configHome}/oci/oci_cli_rc";
   };
 
   programs.direnv = {
