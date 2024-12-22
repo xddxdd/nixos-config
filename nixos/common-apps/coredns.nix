@@ -56,6 +56,17 @@ in
             cache
           }
         '';
+        forwardToAzurePrivateDNS = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+
+            forward . 168.63.129.16
+            cache
+          }
+        '';
         block = zone: ''
           ${zone} {
             any
@@ -70,6 +81,7 @@ in
           [
             (forwardToGoogleDNS ".")
             (forwardTo114DNS "kuxi.tech")
+            (forwardToAzurePrivateDNS "database.azure.com")
             (block "upos-sz-mirroraliov.bilivideo.com")
           ]
           # Not working well
