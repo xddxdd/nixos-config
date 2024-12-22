@@ -9,7 +9,7 @@ let
   netns = config.lantian.netns.coredns-client;
 in
 {
-  networking.nameservers = [ (lib.mkBefore config.lantian.netns.coredns-client.ipv4) ];
+  networking.nameservers = lib.mkBefore [ netns.ipv4 ];
 
   lantian.netns.coredns-client = {
     ipSuffix = "56";
