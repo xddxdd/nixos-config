@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   LT,
   config,
@@ -102,38 +101,12 @@ in
   systemd.services.systemd-networkd.stopIfChanged = false;
   systemd.services.systemd-resolved.stopIfChanged = false;
 
-  systemd.services.network-setup-resolv-conf =
+  environment.etc."resolv.conf" =
     let
       cfg = config.networking;
     in
-    {
-      enable = !cfg.networkmanager.enable;
-      description = "Setup resolv.conf";
-      after = [
-        "network-pre.target"
-        "systemd-udevd.service"
-        "systemd-sysctl.service"
-      ];
-      before = [
-        "network.target"
-        "shutdown.target"
-      ];
-      wants = [ "network.target" ];
-      conflicts = [ "shutdown.target" ];
-      wantedBy = [ "multi-user.target" ];
-
-      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
-
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-
-      unitConfig.DefaultDependencies = false;
-
-      script = ''
-        # Set the static DNS configuration, if given.
-        ${pkgs.openresolv}/sbin/resolvconf -m 1 -a static <<EOF
+    lib.mkIf (!cfg.networkmanager.enable) {
+      text = ''
         ${lib.optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
           domain ${cfg.domain}
         ''}
@@ -141,7 +114,6 @@ in
         ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
           nameserver ${ns}
         '')}
-        EOF
       '';
     };
 
