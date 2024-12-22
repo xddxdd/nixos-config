@@ -1,4 +1,9 @@
-{ lib, LT, ... }@args:
+{
+  config,
+  lib,
+  LT,
+  ...
+}@args:
 let
   inherit (import ./common.nix args) community;
 
@@ -38,7 +43,10 @@ in
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
+        krt_metric = 65535;
+        if net ~ REROUTED_WAN_IPv4 then reject;
+      }
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
       ${
@@ -62,7 +70,10 @@ in
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then krt_metric = 65535;
+      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
+        krt_metric = 65535;
+        if net ~ REROUTED_WAN_IPv6 then reject;
+      }
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
       ${
@@ -174,6 +185,14 @@ in
       fd10:127::/32+
     ];
 
+    define REROUTED_WAN_IPv4 = [
+      168.63.129.16/32  # Azure private DNS server
+    ];
+
+    define REROUTED_WAN_IPv6 = [
+      # nothing
+    ];
+
     # Reserved range, where system is allowed to operate
     define RESERVED_IPv4 = [
     ${lib.concatMapStringsSep ",\n" (t: t + "+") LT.constants.reserved.IPv4}
@@ -266,10 +285,11 @@ in
         route 172.22.76.120/29 reject;
 
         ${lib.optionalString (LT.this.dn42.IPv4 != "") "route ${LT.this.dn42.IPv4}/32 reject;"}
-        route 198.18.${builtins.toString LT.this.index}.0/24 reject;
-        route 198.19.${builtins.toString LT.this.index}.0/24 reject;
         route ${LT.this.ltnet.IPv4}/32 reject;
         route ${LT.this.neonetwork.IPv4}/32 reject;
+
+        # Rerouted WAN addresses
+        ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
     ''
     + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
       # Blackhole routes for private ranges
