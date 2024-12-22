@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 import os
+import signal
+import sys
 import time
 
 COLORS = [
-    "03A9F4",
-    "FFEB3B",
-    "E53935",
-]
-
-COLORS = [
-    (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)) for color in COLORS
+    (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
+    for color in [
+        "03A9F4",
+        "FFEB3B",
+        "E53935",
+    ]
 ]
 
 
@@ -45,35 +46,40 @@ def is_lid_open() -> bool:
         return "open" in f.read()
 
 
+def reset_color(*args, **kwargs):
+    set_color(COLORS[0])
+    sys.exit(0)
+
+
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, reset_color)
+    signal.signal(signal.SIGTERM, reset_color)
+
     last_state = None
-    try:
-        while True:
-            state = {
-                "load": get_load(),
-                "lid_open": is_lid_open(),
-            }
+    while True:
+        state = {
+            "load": get_load(),
+            "lid_open": is_lid_open(),
+        }
 
-            if state != last_state:
-                last_state = state
+        if state != last_state:
+            last_state = state
 
-                if state["lid_open"]:
-                    blend_idx = int(state["load"])
-                    if blend_idx >= len(COLORS) - 1:
-                        result_color = COLORS[-1]
-                    else:
-                        result_color = blend_color(
-                            COLORS[blend_idx],
-                            COLORS[blend_idx + 1],
-                            state["load"] - blend_idx,
-                        )
+            if state["lid_open"]:
+                blend_idx = int(state["load"])
+                if blend_idx >= len(COLORS) - 1:
+                    result_color = COLORS[-1]
                 else:
-                    # Disable backlight if lid is closed
-                    result_color = (0, 0, 0)
+                    result_color = blend_color(
+                        COLORS[blend_idx],
+                        COLORS[blend_idx + 1],
+                        state["load"] - blend_idx,
+                    )
+            else:
+                # Disable backlight if lid is closed
+                result_color = (0, 0, 0)
 
-                # print(result_color)
-                set_color(result_color)
+            # print(result_color)
+            set_color(result_color)
 
-            time.sleep(1)
-    except KeyboardInterrupt:
-        set_color(COLORS[0])
+        time.sleep(1)
