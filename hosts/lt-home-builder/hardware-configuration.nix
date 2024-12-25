@@ -30,4 +30,11 @@
   };
 
   services.qemuGuest.enable = true;
+
+  swapDevices = [
+    {
+      device = "/dev/vda3";
+      randomEncryption.enable = true;
+    }
+  ];
 }
