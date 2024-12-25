@@ -6,6 +6,26 @@ let
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
 in
 {
+  environment.etc.subuid = {
+    mode = "0644";
+    text = ''
+      root:100000:65536
+      lantian:200000:65536
+    '';
+  };
+  environment.etc.subgid = {
+    mode = "0644";
+    text = ''
+      root:100000:65536
+      lantian:200000:65536
+    '';
+  };
+
+  services.userborn = {
+    enable = true;
+    passwordFilesLocation = "/nix/persistent/var/lib/nixos";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
   users.users = {
