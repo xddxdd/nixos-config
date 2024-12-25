@@ -201,11 +201,6 @@ in
     SystemMaxUse=100M
   '';
 
-  services.userborn = {
-    enable = true;
-    passwordFilesLocation = "/nix/persistent/var/lib/nixos";
-  };
-
   security.wrappers = {
     bwrap = {
       source = pkgs.bubblewrap + "/bin/bwrap";
