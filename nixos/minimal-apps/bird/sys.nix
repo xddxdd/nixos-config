@@ -90,19 +90,20 @@ in
       accept;
     }
 
-    protocol direct sys_direct {
-      interface ${lib.concatMapStringsSep ", " (v: ''"-${v}"'') excludedInterfacesFromDirect}, "*";
-      ipv4 {
-        preference 10000;
-        import filter sys_import_v4;
-        export none;
-      };
-      ipv6 {
-        preference 10000;
-        import filter sys_import_v6;
-        export none;
-      };
-    };
+    # # Disabled since internal routes are now managed with ZeroTier
+    # protocol direct sys_direct {
+    #   interface ${lib.concatMapStringsSep ", " (v: ''"-${v}"'') excludedInterfacesFromDirect}, "*";
+    #   ipv4 {
+    #     preference 10000;
+    #     import filter sys_import_v4;
+    #     export none;
+    #   };
+    #   ipv6 {
+    #     preference 10000;
+    #     import filter sys_import_v6;
+    #     export none;
+    #   };
+    # };
 
     protocol kernel sys_kernel_v4 {
       scan time 20;
@@ -284,10 +285,6 @@ in
         route 172.22.76.112/29 reject;
         route 172.22.76.120/29 reject;
 
-        ${lib.optionalString (LT.this.dn42.IPv4 != "") "route ${LT.this.dn42.IPv4}/32 reject;"}
-        route ${LT.this.ltnet.IPv4}/32 reject;
-        route ${LT.this.neonetwork.IPv4}/32 reject;
-
         # Rerouted WAN addresses
         ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
     ''
@@ -306,12 +303,6 @@ in
       protocol static static_v6 {
         route fdbc:f9dc:67ad::/48 reject;
         route fd10:127:10::/48 reject;
-
-        route ${LT.this.dn42.IPv6}/128 reject;
-        route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
-        route ${LT.this.ltnet.IPv6}/128 reject;
-        route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
-        route ${LT.this.neonetwork.IPv6}/128 reject;
     ''
     + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
       # Blackhole routes for private ranges

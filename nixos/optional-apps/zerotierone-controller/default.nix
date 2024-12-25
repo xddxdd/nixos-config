@@ -40,21 +40,21 @@ let
         _n: v:
         let
           i = builtins.toString v.index;
+          routes =
+            [
+              "198.18.${i}.0/24"
+              "198.19.${i}.0/24"
+              "fdbc:f9dc:67ad:${i}::/64"
+            ]
+            ++ (lib.optionals (v.dn42.IPv4 != "") [ "${v.dn42.IPv4}/32" ])
+            ++ (lib.optionals (v.neonetwork.IPv4 != "") [ "${v.neonetwork.IPv4}/32" ])
+            ++ (lib.optionals (v.neonetwork.IPv6 != "") [ "${v.neonetwork.IPv6}/64" ])
+            ++ v.additionalRoutes;
         in
-        [
-          {
-            target = "198.18.${i}.0/24";
-            via = "198.18.0.${i}";
-          }
-          {
-            target = "198.19.${i}.0/24";
-            via = "198.18.0.${i}";
-          }
-          {
-            target = "fdbc:f9dc:67ad:${i}::/64";
-            via = "fdbc:f9dc:67ad::${i}";
-          }
-        ]
+        builtins.map (r: {
+          target = r;
+          via = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+        }) routes
       ) ztHosts
     ));
 
