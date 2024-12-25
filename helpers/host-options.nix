@@ -137,5 +137,10 @@
         default = "fd10:127:10:${builtins.toString config.index}::1";
       };
     };
+
+    additionalRoutes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
   };
 }
