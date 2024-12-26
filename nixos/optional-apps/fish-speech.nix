@@ -14,12 +14,18 @@
 
     path = [ pkgs.ffmpeg ];
 
+    preStart =
+      let
+        model = "fish-speech-${lib.versions.pad 2 pkgs.nur-xddxdd.fish-speech.version}";
+      in
+      ''
+        ${pkgs.python3Packages.huggingface-hub}/bin/huggingface-cli download --resume-download fishaudio/${model} --local-dir checkpoints/${model}
+        rm -f references
+        mkdir -p /var/lib/fish-speech/references
+        ln -sf /var/lib/fish-speech/references ./references
+      '';
+
     serviceConfig = LT.serviceHarden // {
-      ExecStartPre =
-        let
-          model = "fish-speech-${lib.versions.pad 2 pkgs.nur-xddxdd.fish-speech.version}";
-        in
-        "${pkgs.python3Packages.huggingface-hub}/bin/huggingface-cli download --resume-download fishaudio/${model} --local-dir checkpoints/${model}";
       ExecStart =
         let
           inherit (inputs.nur-xddxdd.legacyPackagesWithCuda.${pkgs.system}) fish-speech;
@@ -32,6 +38,7 @@
       Group = "fish-speech";
 
       CacheDirectory = "fish-speech";
+      StateDirectory = "fish-speech";
       WorkingDirectory = "/var/cache/fish-speech";
       TimeoutStopSec = "5";
 
