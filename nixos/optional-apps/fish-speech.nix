@@ -24,7 +24,7 @@
         let
           inherit (inputs.nur-xddxdd.legacyPackagesWithCuda.${pkgs.system}) fish-speech;
         in
-        "${fish-speech}/bin/fish-speech-api --listen 127.0.0.1:${LT.portStr.FishSpeech} --compile";
+        "${fish-speech}/bin/fish-speech-api --listen 127.0.0.1:${LT.portStr.FishSpeech}";
       Restart = "always";
       RestartSec = "3";
 
