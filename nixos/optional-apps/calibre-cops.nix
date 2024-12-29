@@ -33,13 +33,12 @@ in
       inherit (config.services.nginx) user;
       settings = {
         "listen.owner" = config.services.nginx.user;
-        "pm" = "ondemand";
-        "pm.max_children" = "8";
-        "pm.process_idle_timeout" = "10s";
-        "pm.max_requests" = "1000";
-        "pm.status_path" = "/php-fpm-status.php";
         "ping.path" = "/ping.php";
         "ping.response" = "pong";
+        "pm.max_children" = "8";
+        "pm.max_requests" = "1000";
+        "pm.process_idle_timeout" = "10s";
+        "pm" = "ondemand";
         "request_terminate_timeout" = "300";
       };
     };
@@ -49,21 +48,18 @@ in
         root = pkgs.nur-xddxdd.calibre-cops;
         locations = {
           "/" = {
+            tryFiles = "$uri $uri/ /index.php$uri";
             index = "index.php";
             enableBasicAuth = true;
           };
           "/download/".extraConfig = ''
-            rewrite ^/download/(\d+)/(\d+)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub last;
-            rewrite ^/download/(\d+)/(\d+)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3 last;
-            rewrite ^/download/(\d+)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub last;
-            rewrite ^/download/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2 last;
+            rewrite ^/download/(\d+)/(\d+)/.*\.(.*)$ /index.php/fetch/$2/$1/ignore.$3 last;
+            rewrite ^/download/(\d+)/.*\.(.*)$ /index.php/fetch/0/$1/ignore.$2 last;
             break;
           '';
           "/view/".extraConfig = ''
-            rewrite ^/view/(\d+)/(\d+)/.*\.kepub\.epub$ /fetch.php?data=$1&db=$2&type=epub&view=1 last;
-            rewrite ^/view/(\d+)/(\d+)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3&view=1 last;
-            rewrite ^/view/(\d+)/.*\.kepub\.epub$ /fetch.php?data=$1&type=epub&view=1 last;
-            rewrite ^/view/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2&view=1 last;
+            rewrite ^/view/(\d+)/(\d+)/.*\.(.*)$ /index.php/inline/$2/$1/ignore.$3 last;
+            rewrite ^/view/(\d+)/.*\.(.*)$ /index.php/inline/0/$1/ignore.$2 last;
             break;
           '';
           "\"${calibreLibrary}/\"".extraConfig = ''
@@ -83,21 +79,25 @@ in
         $config = array();
       }
       $config['calibre_directory'] = '${calibreLibrary}/';
-      $config['calibre_internal_directory'] = '/calibre/';
-      $config['cops_full_url'] = 'https://books.xuyh0120.win/';
-      $config['cops_title_default'] = 'Lan Tian @ Books';
-      $config['default_timezone'] = '${config.time.timeZone}';
-      $config['cops_x_accel_redirect'] = "X-Accel-Redirect";
-      $config['cops_prefered_format'] = array('EPUB', 'PDF', 'TXT');
-      $config['cops_use_url_rewriting'] = "1";
-      $config['cops_generate_invalid_opds_stream'] = '1';
+      $config['calibre_internal_directory'] = '/books/';
       $config['cops_author_split_first_letter'] = '0';
+      $config['cops_epub_reader'] = 'epubjs';
+      # $config['cops_front_controller'] = 'index.php';
+      $config['cops_full_url'] = 'https://books.xuyh0120.win/';
+      $config['cops_generate_invalid_opds_stream'] = '1';
+      $config['cops_ignored_categories'] = array('publisher', 'rating');
+      $config['cops_kepubify_path'] = '${pkgs.kepubify}/bin/kepubify';
+      $config['cops_max_item_per_page'] = '-1';
+      $config['cops_prefered_format'] = array('EPUB', 'PDF', 'TXT');
+      $config['cops_provide_kepub'] = '1';
+      # $config['cops_server_side_render'] = '.';
+      $config['cops_template'] = 'bootstrap5';
+      $config['cops_title_default'] = 'Lan Tian @ Books';
       $config['cops_titles_split_first_letter'] = '0';
       $config['cops_use_fancyapps'] = '0';
-      $config['cops_provide_kepub'] = '1';
-      $config['cops_ignored_categories'] = array('publisher', 'rating');
-      $config['cops_use_route_urls'] = '1';
-      $config['cops_epub_reader'] = 'epubjs';
+      # $config['cops_use_url_rewriting'] = '1';
+      $config['cops_x_accel_redirect'] = "X-Accel-Redirect";
+      $config['default_timezone'] = '${config.time.timeZone}';
     '';
   };
 }
