@@ -257,6 +257,21 @@
         peerIPv6LinkLocal = "fe80::2608";
       };
     };
+    slk = {
+      remoteASN = 4242423888;
+      latencyMs = 8;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23888;
+        remoteAddress = "ovh-ca-east-bhs.slk.moe";
+        remotePort = 22547;
+        wireguardPubkey = "FS1NWbyUnkHom9Py6grYpzvB5Gaq8RZwVLbMrDX0sx4=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.190.1";
+        peerIPv6LinkLocal = "fe80::3888";
+      };
+    };
     sunnet = {
       remoteASN = 4242423088;
       latencyMs = 15;

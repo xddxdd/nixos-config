@@ -82,6 +82,21 @@
         peerIPv6 = "fd6c:c6ed:38d5::dd:7cf:4e9";
       };
     };
+    duststar = {
+      remoteASN = 4242421771;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21771;
+        remoteAddress = "148.135.56.215";
+        remotePort = 32593;
+        wireguardPubkey = "EICoXACqRyO8ngWBPc4aOnh5eiDsa6AIZ0vMdlF4Xx4=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::afaf:bfbf:cdcf:2a";
+      };
+    };
     emerald = {
       remoteASN = 4242421151;
       latencyMs = 1;

@@ -37,6 +37,22 @@
         peerIPv6LinkLocal = "fe80::2575";
       };
     };
+    aris = {
+      remoteASN = 4242421173;
+      latencyMs = 40;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21173;
+        remoteAddress = "ath0.dn42.tzermias.com";
+        remotePort = 22547;
+        wireguardPubkey = "cEh8nRiX7J36Gzyi/juzm7sjd26J8prtCrDfC8wXQnY=";
+      };
+      addressing = {
+        peerIPv4 = "192.168.217.64";
+        peerIPv6LinkLocal = "fe80::1173";
+      };
+    };
     autkin = {
       remoteASN = 4242423480;
       latencyMs = 19;
