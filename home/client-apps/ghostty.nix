@@ -13,6 +13,7 @@
     keybind = ctrl+shift+plus=new_split:right
     mouse-scroll-multiplier = 10
     theme = Dark+
+    unfocused-split-opacity = 1
     window-height = 25
     window-inherit-working-directory = true
     window-step-resize = true
