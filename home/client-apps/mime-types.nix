@@ -2,6 +2,10 @@
 let
   preferenceOrder = [
     {
+      name = "org.kde.dolphin.desktop";
+      mimeTypes = "inode/directory";
+    }
+    {
       name = "org.kde.gwenview.desktop";
       mimeTypes = "inode/directory;image/avif;image/gif;image/heif;image/jpeg;image/jxl;image/png;image/bmp;image/x-eps;image/x-icns;image/x-ico;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-xbitmap;image/x-xpixmap;image/tiff;image/x-psd;image/x-webp;image/webp;image/x-tga;image/x-xcf;application/x-krita";
     }
