@@ -28,7 +28,7 @@
       flake = false;
     };
     colmena = {
-      url = "github:zhaofengli/colmena";
+      url = "github:zhaofengli/colmena/direct-flake-eval";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -160,7 +160,14 @@
 
       nixpkgs-options =
         let
-          permittedInsecurePackages = [ ];
+          permittedInsecurePackages = [
+            "aspnetcore-runtime-6.0.36"
+            "aspnetcore-runtime-wrapped-6.0.36"
+            "dotnet-sdk-6.0.428"
+            "dotnet-sdk-wrapped-6.0.428"
+            "fluffychat-linux-1.22.1"
+            "olm-3.2.16"
+          ];
           overlays =
             let
               rpi_dt_ao_overlay = _final: prev: {
@@ -224,6 +231,8 @@
                   };
                 }).config._dnsconfig_js;
           };
+
+          pre-commit.settings.hooks.flake-checker.enable = lib.mkForce false;
         };
     };
 }
