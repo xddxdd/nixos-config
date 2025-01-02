@@ -232,7 +232,10 @@
                 }).config._dnsconfig_js;
           };
 
-          pre-commit.settings.hooks.flake-checker.enable = lib.mkForce false;
+          pre-commit.settings.hooks.flake-checker.args = [
+            "--check-outdated"
+            "false"
+          ];
         };
     };
 }
