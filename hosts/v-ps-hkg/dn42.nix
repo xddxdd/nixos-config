@@ -299,6 +299,7 @@
       };
       addressing = {
         peerIPv4 = "172.22.144.64";
+        peerIPv6 = "fd36:62be:ef51::1";
       };
     };
     potat0 = {
