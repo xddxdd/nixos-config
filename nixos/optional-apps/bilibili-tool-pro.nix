@@ -1,20 +1,25 @@
 { pkgs, lib, ... }:
+let
+  bilibili-tool-pro = pkgs.writeShellScriptBin "bilibili-tool-pro" ''
+    exec podman run \
+      --rm \
+      -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
+      -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
+      --pull always \
+      --entrypoint "/bin/bash" \
+      ghcr.io/raywangqvq/bilibili_tool_pro \
+      -c "cd /app && dotnet Ray.BiliBiliTool.Console.dll $@"
+  '';
+in
 {
   lantian.enablePodman = lib.mkForce true;
 
+  environment.systemPackages = [ bilibili-tool-pro ];
+
   systemd.services.bilibili-tool-pro = {
     path = with pkgs; [ podman ];
-    script = ''
-      exec podman run \
-        --rm \
-        -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
-        -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
-        --pull always \
-        --entrypoint "/bin/bash" \
-        ghcr.io/raywangqvq/bilibili_tool_pro \
-        -c "cd /app && dotnet Ray.BiliBiliTool.Console.dll --runTasks=Daily"
-    '';
     serviceConfig = {
+      ExecStart = "${bilibili-tool-pro}/bin/bilibili-tool-pro --runTasks=Daily";
       Type = "oneshot";
       TimeoutSec = 3600;
       Restart = "on-failure";
