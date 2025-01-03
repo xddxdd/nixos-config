@@ -1,14 +1,15 @@
 { pkgs, lib, ... }:
 let
   bilibili-tool-pro = pkgs.writeShellScriptBin "bilibili-tool-pro" ''
-    exec podman run \
+    exec ${pkgs.podman}/bin/podman run \
       --rm \
       -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
       -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
       --pull always \
-      --entrypoint "/bin/bash" \
+      --entrypoint "dotnet" \
       ghcr.io/raywangqvq/bilibili_tool_pro \
-      -c "cd /app && dotnet Ray.BiliBiliTool.Console.dll $@"
+      /app/Ray.BiliBiliTool.Console.dll \
+      "$@"
   '';
 in
 {
@@ -17,13 +18,18 @@ in
   environment.systemPackages = [ bilibili-tool-pro ];
 
   systemd.services.bilibili-tool-pro = {
-    path = with pkgs; [ podman ];
+    script = ''
+      ${bilibili-tool-pro}/bin/bilibili-tool-pro --runTasks=Daily | tee run.log 2>&1
+      grep "请检查Cookie" run.log && exit 1 || exit 0
+    '';
+
     serviceConfig = {
-      ExecStart = "${bilibili-tool-pro}/bin/bilibili-tool-pro --runTasks=Daily";
       Type = "oneshot";
       TimeoutSec = 3600;
       Restart = "on-failure";
       RestartSec = "1800";
+      RuntimeDirectory = "bilibili-tool-pro";
+      WorkingDirectory = "/run/bilibili-tool-pro";
     };
     unitConfig = {
       OnFailure = "notify-email-fail@%n.service";
