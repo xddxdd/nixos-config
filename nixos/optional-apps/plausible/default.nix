@@ -7,7 +7,6 @@
   ...
 }:
 let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 
   netns = config.lantian.netns.plausible;
 in
@@ -50,13 +49,6 @@ in
       baseUrl = "https://stats.xuyh0120.win";
       disableRegistration = true;
       secretKeybaseFile = config.age.secrets.plausible-secret.path;
-    };
-
-    adminUser = {
-      activate = true;
-      name = "lantian";
-      email = glauthUsers.lantian.mail;
-      passwordFile = config.age.secrets.default-pw.path;
     };
   };
 

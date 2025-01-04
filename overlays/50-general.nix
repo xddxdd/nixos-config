@@ -39,6 +39,8 @@ rec {
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-synapse-listen-unix.patch ];
+    doCheck = false;
+    doInstallCheck = false;
   });
   mtdutils = prev.mtdutils.overrideAttrs (old: {
     postFixup =

@@ -1,18 +1,18 @@
 diff --git a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
-index 818d847f2196..555c42759fbf 100644
+index f032ade0d837..3ec4a10c692a 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 @@ -1,4 +1,4 @@
 -nvidia_x11: sha256:
 +sha256:
  
- { stdenv, lib, fetchurl, patchelf }:
- 
+ {
+   stdenv,
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index 87fde8db2340..a667793559ab 100644
+index b74af83021d9..90b5eeeba1cb 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -206,8 +206,9 @@ let
+@@ -248,8 +248,9 @@ let
            openSha256;
          settings =
            if useSettings then
@@ -23,7 +23,7 @@ index 87fde8db2340..a667793559ab 100644
                  withGtk2 = preferGtk2;
                  withGtk3 = !preferGtk2;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-@@ -215,14 +216,17 @@ let
+@@ -257,14 +258,17 @@ let
          persistenced =
            if usePersistenced then
              lib.mapNullable
@@ -44,20 +44,23 @@ index 87fde8db2340..a667793559ab 100644
          inherit persistencedVersion settingsVersion;
          compressFirmware = false;
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-index dcdd22044e2a..c95d028ca332 100644
+index 805eaffab03a..8409252db8f7 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-@@ -1,8 +1,9 @@
+@@ -1,4 +1,4 @@
 -nvidia_x11: sha256:
 +sha256:
  
- { stdenv
- , lib
- , fetchFromGitHub
-+, nvidia_x11
- , m4
- , libtirpc
+ {
+   stdenv,
+@@ -6,6 +6,7 @@ nvidia_x11: sha256:
+   fetchFromGitHub,
+   m4,
+   libtirpc,
++  nvidia_x11,
  }:
+ 
+ stdenv.mkDerivation rec {
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
 index df05a859b4c9..601109dc52ac 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix

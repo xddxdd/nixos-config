@@ -1,78 +1,82 @@
 diff --git a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
-index 818d847f2196..555c42759fbf 100644
+index cc11ad9d745e..6a4b9c3c8718 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/fabricmanager.nix
 @@ -1,4 +1,4 @@
 -nvidia_x11: sha256:
 +sha256:
  
- { stdenv, lib, fetchurl, patchelf }:
- 
+ {
+   stdenv,
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index 87fde8db2340..a667793559ab 100644
+index db6d89f80bb3..9e6a97f1c669 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -206,8 +206,9 @@ let
-           openSha256;
+@@ -293,8 +293,9 @@ let
          settings =
            if useSettings then
--            (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256)
-+            (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix settingsSha256)
+             (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
+-              (import ./settings.nix self settingsSha256)
++              (import ./settings.nix settingsSha256)
                {
 +                nvidia_x11 = self;
                  withGtk2 = preferGtk2;
                  withGtk3 = !preferGtk2;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-@@ -215,14 +216,17 @@ let
-         persistenced =
+@@ -305,7 +306,8 @@ let
            if usePersistenced then
-             lib.mapNullable
--              (hash: callPackage (import ./persistenced.nix self hash) {
-+              (hash: callPackage (import ./persistenced.nix hash) {
+             lib.mapNullable (
+               hash:
+-              callPackage (import ./persistenced.nix self hash) {
++              callPackage (import ./persistenced.nix hash) {
 +                nvidia_x11 = self;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-               })
-               persistencedSha256
-           else { };
+               }
+             ) persistencedSha256
+@@ -313,7 +315,9 @@ let
+             { };
          fabricmanager =
            if useFabricmanager then
 -            lib.mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
 +            lib.mapNullable (hash: callPackage (import ./fabricmanager.nix hash) {
 +              nvidia_x11 = self;
 +            }) fabricmanagerSha256
-           else { };
+           else
+             { };
          inherit persistencedVersion settingsVersion;
-         compressFirmware = false;
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-index dcdd22044e2a..c95d028ca332 100644
+index 805eaffab03a..8409252db8f7 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-@@ -1,8 +1,9 @@
+@@ -1,4 +1,4 @@
 -nvidia_x11: sha256:
 +sha256:
  
- { stdenv
- , lib
- , fetchFromGitHub
-+, nvidia_x11
- , m4
- , libtirpc
+ {
+   stdenv,
+@@ -6,6 +6,7 @@ nvidia_x11: sha256:
+   fetchFromGitHub,
+   m4,
+   libtirpc,
++  nvidia_x11,
  }:
+ 
+ stdenv.mkDerivation rec {
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
-index df05a859b4c9..601109dc52ac 100644
+index f67b33368c8b..a20813f62edb 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/settings.nix
 @@ -1,4 +1,4 @@
 -nvidia_x11: sha256:
 +sha256:
  
- { stdenv
- , lib
-@@ -17,6 +17,7 @@ nvidia_x11: sha256:
- , libXxf86vm
- , libvdpau
- , librsvg
-+, nvidia_x11
- , wrapGAppsHook3
- , addDriverRunpath
- , withGtk2 ? false
+ {
+   stdenv,
+@@ -19,6 +19,7 @@ nvidia_x11: sha256:
+   libvdpau,
+   librsvg,
+   libglvnd,
++  nvidia_x11,
+   wrapGAppsHook3,
+   addDriverRunpath,
+   withGtk2 ? false,
