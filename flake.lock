@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "aagl": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1734540176,
+        "narHash": "sha256-msxbnOw/nh8GJ87YtBEDT1jhVldOBtxHRF2KgvYPeDA=",
+        "owner": "ezKEa",
+        "repo": "aagl-gtk-on-nix",
+        "rev": "00df3ad02364a6fb8f1105dc72ae770b748c62eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ezKEa",
+        "repo": "aagl-gtk-on-nix",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -1026,6 +1049,7 @@
     },
     "root": {
       "inputs": {
+        "aagl": "aagl",
         "agenix": "agenix",
         "betterfox-nix": "betterfox-nix",
         "cities-json": "cities-json",
