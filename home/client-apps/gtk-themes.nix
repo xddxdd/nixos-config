@@ -27,14 +27,7 @@
   };
 
   home.pointerCursor = {
-    package = pkgs.nur-xddxdd.sam-toki-mouse-cursors.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          sed -i "s/STMC_Common_13_Hand.cur/STMC_GenshinFurina_13_Hand(alternative).cur/g" PROJECT/STMC/*Genshin\ Furina*.inf
-          sed -i "s/STMC_Common_15_Finger.cur/STMC_GenshinFurina_15_Finger(alternative).cur/g" PROJECT/STMC/*Genshin\ Furina*.inf
-        '';
-    });
+    package = pkgs.nur-xddxdd.sam-toki-mouse-cursors;
     name = "STMCS_601_Genshin_Furina";
     # size = builtins.floor (LT.constants.gui.cursorSize * osConfig.config.lantian.hidpi);
     size = LT.constants.gui.cursorSize;

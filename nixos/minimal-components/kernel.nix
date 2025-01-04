@@ -146,9 +146,9 @@ let
           r8125 = pkgs.nur-xddxdd.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.nur-xddxdd.r8168.override { inherit (final) kernel; };
 
-          nvidia_x11_grid_16_7 = pkgs.nur-xddxdd.nvidia-grid.grid."16_7".override { inherit (final) kernel; };
-          nvidia_x11_vgpu_16_7 =
-            (pkgs.nur-xddxdd.nvidia-grid.vgpu."16_7".override { inherit (final) kernel; }).overrideAttrs
+          nvidia_x11_grid_16_8 = pkgs.nur-xddxdd.nvidia-grid.grid."16_8".override { inherit (final) kernel; };
+          nvidia_x11_vgpu_16_8 =
+            (pkgs.nur-xddxdd.nvidia-grid.vgpu."16_8".override { inherit (final) kernel; }).overrideAttrs
               (old: {
                 patches = (old.patches or [ ]) ++ [
                   (pkgs.fetchpatch {
@@ -169,16 +169,7 @@ in
   options = {
     lantian.kernel = lib.mkOption {
       type = lib.types.attrs;
-      default =
-        if pkgs.stdenv.isx86_64 then
-          (
-            if LT.this.hasTag LT.tags.x86_64-v1 then
-              pkgs.nur-xddxdd.lantianLinuxXanmod.lts-x86_64-v1-lto
-            else
-              pkgs.nur-xddxdd.lantianLinuxXanmod.lts-x86_64-v3-lto
-          )
-        else
-          pkgs.linux_6_6;
+      default = if pkgs.stdenv.isx86_64 then pkgs.nur-xddxdd.lantianLinuxCachyOS.lts else pkgs.linux_6_6;
     };
   };
   config = {
@@ -210,12 +201,10 @@ in
             # Temporarily disabled for build failure
             # nft-fullcone
             # ovpn-dco
-          ]
-          ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
-          ++ lib.optionals (lib.versionOlder config.lantian.kernel.version "6.11") [
             r8125
             r8168
           ]
+          ++ lib.optionals (LT.this.hasTag LT.tags.i915-sriov) [ i915-sriov ]
         );
 
       bcache.enable = false;

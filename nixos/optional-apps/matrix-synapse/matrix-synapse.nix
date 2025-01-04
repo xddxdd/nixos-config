@@ -185,7 +185,7 @@ in
 
   systemd.services.matrix-synapse = {
     environment = {
-      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+      LD_PRELOAD = lib.mkForce "${pkgs.mimalloc}/lib/libmimalloc.so";
       SYNAPSE_ASYNC_IO_REACTOR = "1";
     };
     serviceConfig = LT.serviceHarden // {

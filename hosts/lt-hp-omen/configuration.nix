@@ -35,7 +35,6 @@
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
   lantian.hidpi = 1.5;
-  lantian.kernel = pkgs.nur-xddxdd.lantianLinuxCachyOS.latest;
 
   services.scx = {
     enable = true;

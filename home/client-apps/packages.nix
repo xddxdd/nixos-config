@@ -106,7 +106,7 @@ in
         gimp
         imagemagick
         immich-cli
-        inputs.nix-gaming.packages."${pkgs.system}".wine-ge
+        inputs.nix-gaming.packages."${pkgs.system}".wine-tkg
         jamesdsp
         jamesdsp-toggle
         jellyfin-media-player
@@ -169,7 +169,7 @@ in
         winetricks
         wpsoffice
         xca
-        yesplaymusic
+        # yesplaymusic
         yt-dlp
         yubioath-flutter
         zoom-us

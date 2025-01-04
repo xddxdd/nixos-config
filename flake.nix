@@ -3,7 +3,7 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
@@ -165,7 +165,7 @@
             "aspnetcore-runtime-wrapped-6.0.36"
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
-            "fluffychat-linux-1.22.1"
+            "fluffychat-linux-1.23.0"
             "olm-3.2.16"
           ];
           overlays =
@@ -184,7 +184,7 @@
               inputs.nil.overlays.nil
               inputs.nix-alien.overlays.default
               inputs.nixd.overlays.default
-              inputs.nur.overlay
+              inputs.nur.overlays.default
               inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
               inputs.nvfetcher.overlays.default
               inputs.proxmox-nixos.overlays.x86_64-linux
@@ -231,11 +231,6 @@
                   };
                 }).config._dnsconfig_js;
           };
-
-          pre-commit.settings.hooks.flake-checker.args = [
-            "--check-outdated"
-            "false"
-          ];
         };
     };
 }
