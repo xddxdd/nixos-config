@@ -18,15 +18,19 @@
                   label = "noise_suppressor_stereo";
                   control = {
                     "VAD Threshold (%)" = 50.0;
+                    "VAD Grace Period (ms)" = 200;
+                    "Retroactive VAD Grace (ms)" = 0;
                   };
                 }
               ];
             };
             "capture.props" = {
               "node.passive" = true;
+              "audio.rate" = 48000;
             };
             "playback.props" = {
               "media.class" = "Audio/Source";
+              "audio.rate" = 48000;
             };
           };
         }
