@@ -7,8 +7,8 @@
       brgenml1cupswrapper
       brgenml1lpr
       brlaser
-      cnijfilter2
-      epson-escpr
+      # cnijfilter2
+      # epson-escpr
       foomatic-db
       foomatic-db-engine
       foomatic-db-nonfree

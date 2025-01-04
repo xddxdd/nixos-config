@@ -1,8 +1,8 @@
 diff --git a/nixos/modules/services/misc/geoipupdate.nix b/nixos/modules/services/misc/geoipupdate.nix
-index f46bf7b394fe..63894717813b 100644
+index c53450f0afc4..a5a62ad99494 100644
 --- a/nixos/modules/services/misc/geoipupdate.nix
 +++ b/nixos/modules/services/misc/geoipupdate.nix
-@@ -171,16 +171,12 @@ in
+@@ -204,16 +204,12 @@ in
                set -o errexit -o pipefail -o nounset -o errtrace
                shopt -s inherit_errexit
  
@@ -12,7 +12,7 @@ index f46bf7b394fe..63894717813b 100644
                ${secretReplacements}
              '';
            in
-             "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
+           "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
          ExecStart = "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
 -        User = "geoip";
 -        DynamicUser = true;

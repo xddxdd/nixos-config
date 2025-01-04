@@ -8,7 +8,7 @@ let
   nvidia_x11 = config.hardware.nvidia.package;
 in
 {
-  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_vgpu_16_7;
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_vgpu_16_8;
   hardware.nvidia.open = false;
 
   boot.kernelModules = [

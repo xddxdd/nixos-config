@@ -181,6 +181,7 @@ in
   };
 
   config.networking.wireguard.enable = true;
+  config.networking.wireguard.useNetworkd = false;
   config.networking.wireguard.interfaces =
     let
       cfgToWg =
