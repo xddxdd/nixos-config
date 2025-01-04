@@ -41,6 +41,7 @@ let
           _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
         }
       )
+      inputs.aagl.nixosModules.default
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager
