@@ -30,6 +30,58 @@ let
     };
     outbounds = [
       {
+        protocol = "vless";
+        settings.vnext = [
+          {
+            address = LT.hosts."bwg-lax".public.IPv4;
+            port = 443;
+            users = [
+              {
+                id = {
+                  _secret = config.age.secrets.v2ray-key.path;
+                };
+                encryption = "none";
+              }
+            ];
+          }
+        ];
+        streamSettings =
+          let
+            network = "xhttp";
+            security = "tls";
+            tlsSettings = {
+              serverName = "lantian.pub";
+              fingerprint = "firefox";
+            };
+            xhttpSettings = {
+              host = "lantian.pub";
+              path = "/ray";
+              xmux = {
+                maxConcurrency = 128;
+                hMaxRequestTimes = 86400;
+                hMaxReusableSecs = 86400;
+              };
+            };
+          in
+          {
+            inherit network security tlsSettings;
+            xhttpSettings = xhttpSettings // {
+              mode = "stream-up";
+              downloadSettings = {
+                address = LT.hosts."bwg-lax".public.IPv4;
+                port = 443;
+                inherit
+                  network
+                  security
+                  tlsSettings
+                  xhttpSettings
+                  ;
+              };
+            };
+          };
+        tag = "proxy";
+      }
+      {
         protocol = "freedom";
         settings.domainStrategy = "UseIPv4";
         tag = "direct";
@@ -38,30 +90,6 @@ let
         protocol = "blackhole";
         settings.response.type = "none";
         tag = "blackhole";
-      }
-      {
-        protocol = "trojan";
-        settings.servers = [
-          {
-            address = LT.hosts."bwg-lax".public.IPv4;
-            port = 443;
-            password = {
-              _secret = config.age.secrets.v2ray-key.path;
-            };
-          }
-        ];
-        streamSettings = {
-          network = "httpupgrade";
-          security = "tls";
-          tlsSettings = {
-            serverName = "lantian.pub";
-            fingerprint = "firefox";
-          };
-          httpupgradeSettings = {
-            path = "/ray?ed=2560";
-          };
-        };
-        tag = "proxy";
       }
     ];
     policy.levels."0" = {
@@ -80,12 +108,12 @@ let
         }
         {
           domain = [ "geosite:cn" ];
-          outboundTag = "proxy";
+          outboundTag = "direct";
           type = "field";
         }
         {
           ip = [ "geoip:cn" ];
-          outboundTag = "proxy";
+          outboundTag = "direct";
           type = "field";
         }
       ];
