@@ -63,7 +63,7 @@ in
     enable = true;
     enableReload = true;
     package = pkgs.nur-xddxdd.lantianCustomized.nginx;
-    enableQuicBPF = true;
+    enableQuicBPF = false;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1h";
     recommendedGzipSettings = false; # use my own
