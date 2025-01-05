@@ -152,7 +152,7 @@ in
             gcore_failover_host = args.healthcheck;
           })
           // (lib.optionalAttrs (k == "bwg-lax") {
-            gcore_countries = "CN";
+            gcore_countries = "cn";
           });
       in
       lib.flatten (
