@@ -34,6 +34,20 @@ in
             cache
           }
         '';
+        forwardToResolvConf = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+
+            forward . /run/NetworkManager/no-stub-resolv.conf 8.8.8.8 {
+              prefer_udp
+              policy sequential
+            }
+            cache
+          }
+        '';
         forwardTo114DNS = zone: ''
           ${zone} {
             any
@@ -79,7 +93,7 @@ in
 
         cfgEntries =
           [
-            (forwardToGoogleDNS ".")
+            ((if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS) ".")
             (forwardTo114DNS "kuxi.tech")
             (forwardToAzurePrivateDNS "database.azure.com")
             (block "upos-sz-mirroraliov.bilivideo.com")
@@ -90,7 +104,7 @@ in
             with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)
           ));
       in
-      builtins.concatStringsSep "\n" (cfgEntries ++ [ "" ]);
+      lib.concatStrings cfgEntries;
   };
 
   systemd.services.coredns = netns.bind { };
