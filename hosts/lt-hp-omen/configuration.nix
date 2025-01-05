@@ -18,6 +18,7 @@
 
     ../../nixos/optional-apps/aagl.nix
     ../../nixos/optional-apps/clamav.nix
+    ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
