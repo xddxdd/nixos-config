@@ -271,7 +271,7 @@ let
         (config.enableCommonVhostOptions && (config.listenHTTPS.enable || config.listenHTTPS_Socket.enable))
         ''
           add_header Strict-Transport-Security 'max-age=31536000;includeSubDomains;preload';
-          # add_header Alt-Svc 'h3=":${builtins.toString config.listenHTTPS.port}"; ma=86400';
+          add_header Alt-Svc 'h3=":${builtins.toString config.listenHTTPS.port}"; ma=86400';
         ''
       )
       + (lib.optionalString
