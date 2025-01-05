@@ -107,5 +107,10 @@ in
       lib.concatStrings cfgEntries;
   };
 
-  systemd.services.coredns = netns.bind { };
+  systemd.services.coredns = netns.bind {
+    serviceConfig = {
+      Restart = lib.mkForce "always";
+      RestartSec = lib.mkForce "5";
+    };
+  };
 }
