@@ -1,4 +1,5 @@
 {
+  pkgs,
   LT,
   lib,
   config,
@@ -33,6 +34,16 @@ in
       powersave = true;
     };
     settings.main.rc-manager = "resolvconf";
+
+    dispatcherScripts = [
+      {
+        type = "basic";
+        source = pkgs.writeShellScript "coredns" ''
+          echo "Reloading CoreDNS"
+          ${pkgs.systemd}/bin/systemctl reload coredns.service
+        '';
+      }
+    ];
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
