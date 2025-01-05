@@ -258,6 +258,13 @@ in
           healthcheck = "lantian.pub";
         }
         {
+          recordType = "HTTPS";
+          name = "@";
+          priority = 1;
+          target = ".";
+          modifiers = "alpn=h3,h2";
+        }
+        {
           recordType = "CNAME";
           name = "www";
           target = "@";

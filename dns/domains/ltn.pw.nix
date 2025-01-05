@@ -14,6 +14,13 @@
           ttl = "10m";
         }
         {
+          recordType = "HTTPS";
+          name = "@";
+          priority = 1;
+          target = ".";
+          modifiers = "alpn=h3,h2";
+        }
+        {
           recordType = "CNAME";
           name = "pb.${domain}.";
           target = "hetzner-de.ltn.pw.";

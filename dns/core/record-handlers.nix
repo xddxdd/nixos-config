@@ -47,6 +47,13 @@ in
         args.digesttype
         args.digest
       ];
+    HTTPS =
+      args:
+      record "HTTPS" args [
+        args.priority
+        args.target
+        args.modifiers
+      ];
     IGNORE = args: record "IGNORE" args [ args.type ];
     MX =
       args:
@@ -71,6 +78,13 @@ in
         args.algorithm
         args.type
         args.value
+      ];
+    SVCB =
+      args:
+      record "SVCB" args [
+        args.priority
+        args.target
+        args.modifiers
       ];
     TLSA =
       args:
