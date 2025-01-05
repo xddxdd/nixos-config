@@ -177,11 +177,12 @@ in
       providers = [ "gcore" ];
       dnssec = true;
       records = lib.flatten [
+        # ALIAS record cannot coexist with HTTPS on Gcore
         {
-          recordType = "ALIAS";
+          recordType = "fakeALIAS";
           name = "@";
-          target = "lantian.pub.";
-          ttl = "5m";
+          target = "bwg-lax";
+          ttl = "10m";
         }
         {
           recordType = "HTTPS";
