@@ -67,8 +67,7 @@ let
           '';
 
           "/ray" = {
-            proxyPass = "http://unix:/run/v2ray/v2ray.sock";
-            proxyWebsockets = true;
+            grpcPass = "unix:/run/v2ray/v2ray.sock";
             proxyNoTimeout = true;
             extraConfig = ''
               access_log off;
