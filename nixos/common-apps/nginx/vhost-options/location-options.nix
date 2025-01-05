@@ -78,6 +78,28 @@ let
         proxy_redirect off;
         chunked_transfer_encoding off;
       '')
+      + (lib.optionalString (config.grpcPass != null) ''
+        grpc_pass ${config.grpcPass};
+
+        grpc_set_header Host ${
+          if config.proxyOverrideHost != null then config.proxyOverrideHost else "$host"
+        };
+        grpc_set_header X-Real-IP ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
+        grpc_set_header X-Forwarded-For ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
+        grpc_set_header X-Forwarded-Host $host:${LT.portStr.HTTPS};
+        grpc_set_header X-Forwarded-Proto $scheme;
+        grpc_set_header X-Forwarded-Server $host;
+        grpc_set_header X-Scheme $scheme;
+        grpc_set_header X-Original-URI $request_uri;
+
+        grpc_set_header LT-SSL-Cipher $ssl_cipher;
+        grpc_set_header LT-SSL-Ciphers $ssl_ciphers;
+        grpc_set_header LT-SSL-Curves $ssl_curves;
+        grpc_set_header LT-SSL-Protocol $ssl_protocol;
+        grpc_set_header LT-SSL-Early-Data $ssl_early_data;
+        # Compatibility with common recommendations
+        grpc_set_header Early-Data $ssl_early_data;
+      '')
       + (lib.optionalString config.proxyWebsockets ''
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -88,7 +110,7 @@ let
         client_body_timeout 52w;
         client_max_body_size 0;
         grpc_read_timeout 52w;
-        grpc_set_header X-Real-IP $remote_addr;
+        grpc_send_timeout 52w;
         keepalive_timeout 52w;
         proxy_connect_timeout 60;
         proxy_read_timeout 52w;
@@ -178,6 +200,14 @@ in
       description = ''
         Adds proxy_pass directive and sets recommended proxy headers if
         recommendedProxySettings is enabled.
+      '';
+    };
+    grpcPass = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "http://www.example.org/";
+      description = ''
+        Adds grpc_pass directive and sets recommended proxy headers.
       '';
     };
     proxyOverrideHost = lib.mkOption {
