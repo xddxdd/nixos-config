@@ -12,6 +12,13 @@
           ttl = "10m";
         }
         {
+          recordType = "HTTPS";
+          name = "@";
+          priority = 1;
+          target = ".";
+          modifiers = "alpn=h3,h2";
+        }
+        {
           recordType = "CNAME";
           name = "www";
           target = config.common.records.GeoDNSTarget;

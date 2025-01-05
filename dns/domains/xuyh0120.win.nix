@@ -184,6 +184,13 @@ in
           ttl = "5m";
         }
         {
+          recordType = "HTTPS";
+          name = "@";
+          priority = 1;
+          target = ".";
+          modifiers = "alpn=h3,h2";
+        }
+        {
           recordType = "CNAME";
           name = "www";
           target = "@";
