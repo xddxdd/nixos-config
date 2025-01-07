@@ -6,6 +6,15 @@
   ...
 }:
 let
+  gwmp-mux = pkgs.nur-xddxdd.gwmp-mux.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace src/gwmp_mux.rs \
+          --replace-fail "[0, 0, 0, 0]" "[127, 0, 0, 1]"
+      '';
+  });
+
   sx1302Hal = pkgs.nur-xddxdd.sx1302-hal.overrideAttrs (old: {
     postPatch =
       (old.postPatch or "")
@@ -14,24 +23,24 @@ let
       '';
   });
 
+  sx1302ServerConfig = {
+    "gateway_ID" = {
+      _secret = config.age.secrets.lora-euid.path;
+    };
+    "server_address" = "127.0.0.1";
+    "serv_port_up" = 1681;
+    "serv_port_down" = 1681;
+  };
+
   sx1302HalConfig = {
-    "gateway_conf" = {
-      "gateway_ID" = {
-        _secret = config.age.secrets.lora-euid.path;
-      };
-      "server_address" = "nam1.cloud.thethings.network";
-      "serv_port_up" = 1700;
-      "serv_port_down" = 1700;
+    "gateway_conf" = sx1302ServerConfig // {
       "servers" = [
-        {
-          "gateway_ID" = {
-            _secret = config.age.secrets.lora-euid.path;
-          };
-          "server_address" = "nam1.cloud.thethings.network";
-          "serv_port_up" = 1700;
-          "serv_port_down" = 1700;
-          "serv_enabled" = true;
-        }
+        (
+          sx1302ServerConfig
+          // {
+            "serv_enabled" = true;
+          }
+        )
       ];
 
       "gps_i2c_path" = "/dev/i2c-1";
@@ -53,6 +62,25 @@ let
 in
 {
   age.secrets.lora-euid.file = inputs.secrets + "/lora-euid.age";
+
+  systemd.services.lora-gwmp-mux = {
+    description = "LoRa GWMP Mux";
+    wantedBy = [ "multi-user.target" ];
+
+    script = ''
+      TTN_IP=$(${pkgs.dnsutils}/bin/dig +short nam1.cloud.thethings.network | head -n1)
+
+      sleep infinity | ${gwmp-mux}/bin/gwmp-mux \
+        --host 1681 \
+        --client $TTN_IP:1700
+    '';
+
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+    };
+  };
 
   systemd.services.lora-sx1302-hal = {
     description = "LoRa SX1302 HAL";
