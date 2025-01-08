@@ -152,11 +152,17 @@ let
               (old: {
                 patches = (old.patches or [ ]) ++ [
                   (pkgs.fetchpatch {
-                    name = "535.183.04.patch";
-                    url = "https://gitlab.com/polloloco/vgpu-proxmox/-/raw/master/535.183.04.patch?ref_type=heads";
-                    sha256 = "sha256-fC8PdEh4hCF3B3Vjp/Gjk7fhRmua9/2lDUShcYbjaGc=";
+                    url = "https://gitlab.com/polloloco/vgpu-proxmox/-/raw/master/535.216.01.patch";
+                    sha256 = "07k0m5wqazr0hs464cfkrm87wc031xw7wkgv7nrv50m82sggr8dh";
                   })
                 ];
+
+                postPatch =
+                  (old.postPatch or "")
+                  + ''
+                    substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
+                      --replace-fail "no_llseek," "NULL,"
+                  '';
               });
         }
       ))
