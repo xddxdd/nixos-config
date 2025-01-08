@@ -2,12 +2,11 @@
   "yi-large": "01-ai/yi-large",
   "yi-large-fc": "01-ai/yi-large-fc",
   "yi-large-preview": "01-ai/yi-large-preview",
-  "yi-large-rag": "01-ai/yi-large-rag",
-  "yi-large-turbo": "01-ai/yi-large-turbo",
   "yi-lightning": "01-ai/yi-lightning",
   "yi-medium": "01-ai/yi-medium",
   "yi-medium-200k": "01-ai/yi-medium-200k",
   "yi-spark": "01-ai/yi-spark",
   "yi-vision": "01-ai/yi-vision",
-  "yi-vision-solution": "01-ai/yi-vision-solution"
+  "yi-vision-solution": "01-ai/yi-vision-solution",
+  "yi-vision-v2": "01-ai/yi-vision-v2"
 }
