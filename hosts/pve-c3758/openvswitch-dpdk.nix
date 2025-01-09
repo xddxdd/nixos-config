@@ -57,15 +57,23 @@ in
         ovs-vsctl set Bridge br0 rstp_enable=true || true
       ''
       + (builtins.concatStringsSep "\n" (
-        lib.mapAttrsToList (n: v: ''
-          ovs-vsctl --may-exist add-port br0 ${n} || true
-          ovs-vsctl set Interface ${n} type=dpdk \
-            options:dpdk-devargs=${v} \
-            mtu_request=9000 \
-            options:n_rxq=4 \
-            options:rx-steering=rss+lacp \
-            || true
-        '') interfaces
+        lib.mapAttrsToList (
+          n: v:
+          ''
+            ovs-vsctl --may-exist add-port br0 ${n} || true
+          ''
+          + (lib.optionalString (n == "dpdk-08000") ''
+            ovs-vsctl set port dpdk-08000 tag=201 || true
+          '')
+          + ''
+            ovs-vsctl set Interface ${n} type=dpdk \
+              options:dpdk-devargs=${v} \
+              mtu_request=9000 \
+              options:n_rxq=4 \
+              options:rx-steering=rss+lacp \
+              || true
+          ''
+        ) interfaces
       ))
       + (lib.concatMapStringsSep "\n" (i: ''
         ovs-vsctl --may-exist add-port br0 vhost${i} || true
@@ -74,10 +82,7 @@ in
           options:vhost-server-path=/run/ovs-vhost${i}.sock \
           mtu_request=9000 \
           || true
-      '') (builtins.map builtins.toString (lib.range 0 9)))
-      + ''
-        ovs-vsctl set port dpdk-08000 tag=201 || true
-      '';
+      '') (builtins.map builtins.toString (lib.range 0 9)));
   };
 
   systemd.services.ovs-vswitchd = {
