@@ -16,6 +16,7 @@ APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "https://playground.ai.cloudflare.com/api",
     "groq": "https://api.groq.com/openai/v1",
+    "google": "__GOOGLE__",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
     "mistral": "https://api.mistral.ai/v1",
     "novita": "https://api.novita.ai/v3/openai",
@@ -35,7 +36,10 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "pixtral-",
     ],
     "meta-llama": ["llama-"],
-    "google": ["gemma-"],
+    "google": [
+        "gemini-",
+        "gemma-",
+    ],
     "01-ai": ["yi-"],
     "thudm": [
         "glm-",
@@ -50,7 +54,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
 }
 
 
-def get_models(api_name: str, base_url: str) -> List[str]:
+def get_api_secret(api_name: str) -> str:
     secret = subprocess.check_output(
         [
             "nix",
@@ -64,6 +68,32 @@ def get_models(api_name: str, base_url: str) -> List[str]:
         ],
         text=True,
     ).strip()
+    return secret
+
+
+def get_models_google(api_name: str) -> List[str]:
+    secret = get_api_secret(api_name)
+
+    r = urllib.request.Request(
+        f"https://generativelanguage.googleapis.com/v1beta/models?key={secret}",
+        method="GET",
+        headers={
+            "User-Agent": "lantian",
+        },
+    )
+    content = urllib.request.urlopen(r).read()
+
+    models = json.loads(content)
+    # Remove "models/" prefix
+    # uni-api only supports Gemini models
+    return [m["name"][7:] for m in models["models"] if "models/gemini" in m["name"]]
+
+
+def get_models(api_name: str, base_url: str) -> List[str]:
+    if base_url == "__GOOGLE__":
+        return get_models_google(api_name)
+
+    secret = get_api_secret(api_name)
 
     r = urllib.request.Request(
         f"{base_url}/models",
