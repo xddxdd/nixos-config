@@ -14,7 +14,7 @@
     "console=ttyS0,115200"
     "default_hugepagesz=1G"
     "hugepagesz=1G"
-    "hugepages=30"
+    "hugepages=24"
   ];
 
   services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
