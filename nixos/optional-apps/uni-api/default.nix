@@ -30,6 +30,14 @@ let
         model = loadModels ./apis/mistral.json;
       }
       {
+        provider = "gemini";
+        base_url = "https://generativelanguage.googleapis.com/v1beta";
+        api = {
+          _secret = config.age.secrets.uni-api-google-api-key.path;
+        };
+        model = loadModels ./apis/google.json;
+      }
+      {
         provider = "cloudflare";
         api = {
           _secret = config.age.secrets.uni-api-cloudflare-api-key.path;
@@ -116,6 +124,7 @@ in
         "ai-985-games-api-key"
         "cloudflare-account-id"
         "cloudflare-api-key"
+        "google-api-key"
         "groq-api-key"
         "lingyiwanwu-api-key"
         "mistral-api-key"
