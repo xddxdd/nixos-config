@@ -59,12 +59,17 @@ in
       + (builtins.concatStringsSep "\n" (
         lib.mapAttrsToList (
           n: v:
-          ''
-            ovs-vsctl --may-exist add-port br0 ${n} || true
-          ''
-          + (lib.optionalString (n == "dpdk-08000") ''
-            ovs-vsctl set port dpdk-08000 tag=201 || true
-          '')
+          (
+            if n == "dpdk-08000" then
+              ''
+                ovs-vsctl --may-exist add-port br0 ${n} tag=201 || true
+                ovs-vsctl set port dpdk-08000 tag=201 || true
+              ''
+            else
+              ''
+                ovs-vsctl --may-exist add-port br0 ${n} || true
+              ''
+          )
           + ''
             ovs-vsctl set Interface ${n} type=dpdk \
               options:dpdk-devargs=${v} \
