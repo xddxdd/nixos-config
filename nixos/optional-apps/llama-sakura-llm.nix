@@ -67,6 +67,8 @@ in
           "-cb"
           "-fa"
           "--metrics"
+          "-sm"
+          "none"
         ];
     };
 
