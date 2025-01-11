@@ -81,22 +81,21 @@ in
             cache
           }
         '';
-        block = zone: ''
-          ${zone} {
-            any
-            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-            hosts {
-              0.0.0.0 ${zone}
-            }
-          }
-        '';
+        # block = zone: ''
+        #   ${zone} {
+        #     any
+        #     prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+        #     hosts {
+        #       0.0.0.0 ${zone}
+        #     }
+        #   }
+        # '';
 
         cfgEntries =
           [
             ((if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS) ".")
             (forwardTo114DNS "kuxi.tech")
             (forwardToAzurePrivateDNS "database.azure.com")
-            (block "upos-sz-mirroraliov.bilivideo.com")
           ]
           # Not working well
           # ++ lib.optional config.services.avahi.enable (mdns "local")
