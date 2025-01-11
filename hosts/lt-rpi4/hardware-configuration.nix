@@ -1,21 +1,22 @@
 {
   pkgs,
-  inputs,
   lib,
   ...
 }:
 {
-  imports = [ inputs.nixos-hardware.nixosModules.raspberry-pi-4 ];
-
-  hardware.raspberry-pi."4" = {
-    bluetooth.enable = true;
-    fkms-3d.enable = true;
-    i2c1.enable = true;
-    # Conflicts with RAK2287/SX1302
-    # pwm0.enable = true;
-  };
-
   boot.loader.grub.enable = lib.mkForce false;
+  boot.loader.generic-extlinux-compatible.enable = true;
+
+  boot.initrd.availableKernelModules = [
+    "usbhid"
+    "usb_storage"
+    "vc4"
+    "pcie_brcmstb" # required for the pcie bus to work
+    "reset-raspberrypi" # required for vl805 firmware to load
+  ];
+
+  hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
+  hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = with pkgs; [
     i2c-tools
@@ -118,5 +119,4 @@
     SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio",MODE="0660", ACTION=="add", RUN+="${pkgs.bash}/bin/bash -c 'chown root:gpio  /sys/class/gpio/export /sys/class/gpio/unexport ; chmod 220 /sys/class/gpio/export /sys/class/gpio/unexport'"
     SUBSYSTEM=="gpio", KERNEL=="gpio*", ACTION=="add",RUN+="${pkgs.bash}/bin/bash -c 'chown root:gpio /sys%p/active_low /sys%p/direction /sys%p/edge /sys%p/value ; chmod 660 /sys%p/active_low /sys%p/direction /sys%p/edge /sys%p/value'"
   '';
-
 }
