@@ -68,6 +68,7 @@ in
     wantedBy = [ "multi-user.target" ];
 
     script = ''
+      set -euo pipefail
       TTN_IP=$(${pkgs.dnsutils}/bin/dig +short nam1.cloud.thethings.network | head -n1)
 
       sleep infinity | ${gwmp-mux}/bin/gwmp-mux \
