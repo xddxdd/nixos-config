@@ -33,6 +33,7 @@ let
       (
         { pkgs, ... }:
         {
+          aagl.enableNixpkgsReleaseBranchCheck = false;
           home-manager.extraSpecialArgs = specialArgsFor n;
           networking.hostName = lib.mkForce (lib.removePrefix "_" n);
           system.stateVersion = LT.constants.stateVersion;
