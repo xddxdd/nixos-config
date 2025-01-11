@@ -78,7 +78,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
@@ -173,31 +172,19 @@
             "fluffychat-linux-1.23.0"
             "olm-3.2.16"
           ];
-          overlays =
-            let
-              rpi_dt_ao_overlay = _final: prev: {
-                deviceTree = prev.deviceTree // {
-                  applyOverlays = _final.callPackage (
-                    inputs.nixos-hardware + "/raspberry-pi/4/apply-overlays-dtmerge.nix"
-                  ) { };
-                };
-              };
-            in
-            [
-              inputs.aagl.overlays.default
-              inputs.agenix.overlays.default
-              inputs.colmena.overlay
-              inputs.nil.overlays.nil
-              inputs.nix-alien.overlays.default
-              inputs.nixd.overlays.default
-              inputs.nur.overlays.default
-              inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
-              inputs.nvfetcher.overlays.default
-              inputs.proxmox-nixos.overlays.x86_64-linux
-              inputs.secrets.overlays.default
-              rpi_dt_ao_overlay
-            ]
-            ++ (import ./overlays { inherit inputs; });
+          overlays = [
+            inputs.aagl.overlays.default
+            inputs.agenix.overlays.default
+            inputs.colmena.overlay
+            inputs.nil.overlays.nil
+            inputs.nix-alien.overlays.default
+            inputs.nixd.overlays.default
+            inputs.nur.overlays.default
+            inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
+            inputs.nvfetcher.overlays.default
+            inputs.proxmox-nixos.overlays.x86_64-linux
+            inputs.secrets.overlays.default
+          ] ++ (import ./overlays { inherit inputs; });
         in
         {
           pkgs = {

@@ -1,15 +1,14 @@
 { pkgs, ... }:
 {
   imports = [
+    ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
     ./lora
   ];
 
-  lantian.kernel = pkgs.linux_rpi4;
   boot.initrd.systemd.tpm2.enable = false;
-  boot.kernelParams = [ "console=ttyAMA1,115200" ];
 
   environment.systemPackages = with pkgs; [
     nur-xddxdd.helium-gateway-rs
