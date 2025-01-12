@@ -123,6 +123,7 @@ in
         matrix-synapse-tools.synadm
         mediainfo
         megatools
+        microcom
         moonlight-qt
         newsflash
         nur-xddxdd.adspower
