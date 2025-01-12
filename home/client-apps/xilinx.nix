@@ -10,6 +10,6 @@
 
   xdg.configFile."xilinx/nix.sh".text = ''
     INSTALL_DIR=$HOME/.local/share/Xilinx
-    VERSION=2024.2
+    VERSION=$(ls -1 $INSTALL_DIR/Vivado | grep -E '^[0-9.]+$' | sort -r | head -n1)
   '';
 }
