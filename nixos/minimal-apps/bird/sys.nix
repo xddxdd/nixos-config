@@ -49,16 +49,12 @@ in
       }
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
-      ${
-        lib.optionalString (
-          LT.this.dn42.IPv4 != ""
-        ) "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"
-      }
-      ${
-        lib.optionalString (
-          LT.this.neonetwork.IPv4 != ""
-        ) "if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = ${LT.this.neonetwork.IPv4};"
-      }
+      ${lib.optionalString (
+        LT.this.dn42.IPv4 != ""
+      ) "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"}
+      ${lib.optionalString (
+        LT.this.neonetwork.IPv4 != ""
+      ) "if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = ${LT.this.neonetwork.IPv4};"}
 
       accept;
     }
@@ -76,16 +72,12 @@ in
       }
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
-      ${
-        lib.optionalString (
-          LT.this.dn42.IPv4 != ""
-        ) "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"
-      }
-      ${
-        lib.optionalString (
-          LT.this.neonetwork.IPv4 != ""
-        ) "if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = ${LT.this.neonetwork.IPv6};"
-      }
+      ${lib.optionalString (
+        LT.this.dn42.IPv6 != ""
+      ) "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"}
+      ${lib.optionalString (
+        LT.this.neonetwork.IPv6 != ""
+      ) "if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = ${LT.this.neonetwork.IPv6};"}
 
       accept;
     }
