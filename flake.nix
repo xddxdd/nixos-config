@@ -86,6 +86,10 @@
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nvfetcher.follows = "nvfetcher";
     };
+    nix-xilinx = {
+      url = "gitlab:doronbehar/nix-xilinx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvfetcher = {
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -178,9 +182,10 @@
             inputs.colmena.overlay
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
+            inputs.nix-xilinx.overlay
             inputs.nixd.overlays.default
-            inputs.nur.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
+            inputs.nur.overlays.default
             inputs.nvfetcher.overlays.default
             inputs.proxmox-nixos.overlays.x86_64-linux
             inputs.secrets.overlays.default
