@@ -91,47 +91,54 @@ in
           # Tunnel configuration
           tunnel = lib.mkOption {
             default = { };
-            type = lib.types.submodule {
-              options = {
-                type = lib.mkOption {
-                  type = lib.types.enum [
-                    "openvpn"
-                    "zerotier"
-                    "wireguard"
-                    "gre"
-                  ];
-                  default = "gre";
+            type = lib.types.submodule (
+              { config, ... }:
+              {
+                options = {
+                  type = lib.mkOption {
+                    type = lib.types.enum [
+                      "openvpn"
+                      "zerotier"
+                      "wireguard"
+                      "gre"
+                    ];
+                    default = "gre";
+                  };
+                  localPort = lib.mkOption {
+                    type = lib.types.int;
+                    default = 0;
+                  };
+                  remotePort = lib.mkOption {
+                    type = lib.types.int;
+                    default = 20000 + myASNAbbr;
+                  };
+                  remoteAddress = lib.mkOption {
+                    type = lib.types.nullOr lib.types.str;
+                    default = null;
+                  };
+                  wireguardPubkey = lib.mkOption {
+                    type = lib.types.nullOr lib.types.str;
+                    default = null;
+                  };
+                  wireguardPresharedKeyFile = lib.mkOption {
+                    type = lib.types.nullOr lib.types.path;
+                    default = null;
+                  };
+                  openvpnStaticKeyPath = lib.mkOption {
+                    type = lib.types.nullOr lib.types.str;
+                    default = null;
+                  };
+                  greUseIPv6 = lib.mkOption {
+                    type = lib.types.bool;
+                    default = lib.hasInfix ":" config.remoteAddress;
+                  };
+                  mtu = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = null;
+                  };
                 };
-                localPort = lib.mkOption {
-                  type = lib.types.int;
-                  default = 0;
-                };
-                remotePort = lib.mkOption {
-                  type = lib.types.int;
-                  default = 20000 + myASNAbbr;
-                };
-                remoteAddress = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  default = null;
-                };
-                wireguardPubkey = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  default = null;
-                };
-                wireguardPresharedKeyFile = lib.mkOption {
-                  type = lib.types.nullOr lib.types.path;
-                  default = null;
-                };
-                openvpnStaticKeyPath = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  default = null;
-                };
-                mtu = lib.mkOption {
-                  type = lib.types.nullOr lib.types.int;
-                  default = null;
-                };
-              };
-            };
+              }
+            );
           };
 
           # IP address inside tunnel
@@ -258,12 +265,22 @@ in
           ];
 
           script =
-            ''
-              set -euo pipefail
-              REMOTE_IPV4=$(getent ahostsv4 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
-              ip tunnel add ${interfaceName} mode gre remote $REMOTE_IPV4 local ${LT.this.public.IPv4} ttl 255
-              ip link set ${interfaceName} up
-            ''
+            (
+              if v.tunnel.greUseIPv6 then
+                ''
+                  set -euo pipefail
+                  REMOTE_IPV6=$(getent ahostsv6 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
+                  ip tunnel add ${interfaceName} mode ip6gre remote $REMOTE_IPV6 local ${LT.this.public.IPv6} ttl 255
+                  ip link set ${interfaceName} up
+                ''
+              else
+                ''
+                  set -euo pipefail
+                  REMOTE_IPV4=$(getent ahostsv4 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
+                  ip tunnel add ${interfaceName} mode gre remote $REMOTE_IPV4 local ${LT.this.public.IPv4} ttl 255
+                  ip link set ${interfaceName} up
+                ''
+            )
             + lib.optionalString (v.tunnel.mtu != null) ''
               ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
             ''

@@ -294,8 +294,8 @@
         type = "wireguard";
         localPort = 23999;
         remoteAddress = "203.217.110.41";
-        remotePort = 51826;
-        wireguardPubkey = "j7FMDHiGTZ01YeTXyOpbY4Qi/AO0aWJLr3hUFT7vayk=";
+        remotePort = 32547;
+        wireguardPubkey = "mGGBczSVKW+7UKRquI2GkbKrfxiATv9r4uF5WTP+vWI=";
       };
       addressing = {
         peerIPv4 = "172.22.144.64";

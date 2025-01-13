@@ -333,6 +333,19 @@
         peerIPv6LinkLocal = "fe80::3117:2547";
       };
     };
+    miny = {
+      remoteASN = 4242420808;
+      latencyMs = 167;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "gre";
+        remoteAddress = "2001:470:1f04:15f::2";
+        greUseIPv6 = true;
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::808";
+      };
+    };
     moe233 = {
       remoteASN = 4242420253;
       latencyMs = 12;
