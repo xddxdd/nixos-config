@@ -1,5 +1,8 @@
 {
   "codestral-2405": "mistralai/codestral-2405",
+  "codestral-2411-rc5": "mistralai/codestral-2411-rc5",
+  "codestral-2412": "mistralai/codestral-2412",
+  "codestral-2501": "mistralai/codestral-2501",
   "codestral-latest": "mistralai/codestral-latest",
   "codestral-mamba-2407": "mistralai/codestral-mamba-2407",
   "codestral-mamba-latest": "mistralai/codestral-mamba-latest",
