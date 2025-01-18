@@ -15,7 +15,8 @@ let
     mota-24 = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-24.nix { });
     mota-51 = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-51.nix { });
     mota-xinxin = LT.nginx.compressStaticAssets (pkgs.callPackage ./mota-xinxin.nix { });
-    um = LT.nginx.compressStaticAssets (pkgs.callPackage ./um.nix { inherit (LT) sources; });
+    # # Upstream unavailable
+    # um = LT.nginx.compressStaticAssets (pkgs.callPackage ./um.nix { inherit (LT) sources; });
   };
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {

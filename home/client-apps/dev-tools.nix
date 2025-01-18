@@ -182,7 +182,8 @@ in
     # Others
     azure-cli
     dhcpcd
-    ghidra
+    # # FIXME
+    # ghidra
     just
     linkzoneAdb
     oci-cli

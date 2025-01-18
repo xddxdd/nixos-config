@@ -1,7 +1,7 @@
 {
     "brlaser": {
         "cargoLocks": null,
-        "date": "2023-08-01",
+        "date": "2025-01-10",
         "extract": null,
         "name": "brlaser",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "Owl-Maintain",
             "repo": "brlaser",
-            "rev": "fed695c5e7de5432900624bda42578a4a88e081c",
-            "sha256": "sha256-HACJ884t3mUEQMfn8pn8nnSXGYPmd0J1STRtOigViJA=",
+            "rev": "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe",
+            "sha256": "sha256-7d4LFhRx0YTg4Y2+zggW5qALjvVF55h6CQMpPKM7+ag=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fed695c5e7de5432900624bda42578a4a88e081c"
+        "version": "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe"
     },
     "cyberchef": {
         "cargoLocks": null,
@@ -46,7 +46,7 @@
             "name": null,
             "sha256": "sha256-c3KtNdEawQoVYfkao2RHEpCUYlZ/FCwv5IiCuHqZD3Q=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.6/linux/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.7.6/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip"
         },
         "version": "1.7.6"
     },
@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4xCyPMfhNdIgQdcUJ8oD7uwa/SvYaMx4NCRWv49DzW0=",
+            "sha256": "sha256-v8L5pZMEi5VVJvbYmojverh6iTEIEBVeNBsj/vQiGkM=",
             "type": "url",
-            "url": "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.4/linux/yesoreyeram-infinity-datasource-2.11.4.linux_amd64.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v2.12.1/yesoreyeram-infinity-datasource-2.12.1.linux_amd64.zip"
         },
-        "version": "2.11.4"
+        "version": "2.12.1"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -129,7 +129,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2024-11-29",
+        "date": "2025-01-10",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -141,12 +141,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c",
-            "sha256": "sha256-PbN/1yUlh6ihceBiAMMrTV4leYuUDyYZYcZ3F9dMNxo=",
+            "rev": "91112d4c90a3bd79960bc07172e862bb3cfbd2f1",
+            "sha256": "sha256-k1R2UrCv5VFTsnpQaZH9WIyV0n0c+x1qUaZaEENnVec=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c"
+        "version": "91112d4c90a3bd79960bc07172e862bb3cfbd2f1"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -171,7 +171,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2024-12-01",
+        "date": "2025-01-15",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -183,12 +183,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "fafd28f299857a8b6794b58b46ae0374c7a4bb2f",
-            "sha256": "sha256-aQyQ9T6pDwwDKN7zXTcVmUwf708wR8okVVZFdn8wyDM=",
+            "rev": "0837f46dfe25b6e750abc7e601032bdd12c70be0",
+            "sha256": "sha256-s1qtdm0UGd4uImNts42W5hT6W1nOVz8eTyBF37QlUfc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fafd28f299857a8b6794b58b46ae0374c7a4bb2f"
+        "version": "0837f46dfe25b6e750abc7e601032bdd12c70be0"
     },
     "openspeedtest": {
         "cargoLocks": null,
@@ -357,21 +357,6 @@
             "type": "github"
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
-    },
-    "um-react": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "um-react",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-0Nz6SHpZ/2p72p4Dx0xNJEEbNknujlis0xt6hzG2RGk=",
-            "type": "url",
-            "url": "https://git.unlock-music.dev/api/packages/um/generic/um-react/243/um-react.zip"
-        },
-        "version": "243"
     },
     "web-compressor": {
         "cargoLocks": null,
