@@ -75,7 +75,6 @@
 
         daemon.settings = {
           experimental = true;
-          userland-proxy = false;
           runtimes.runsc.path = lib.mkIf pkgs.stdenv.isx86_64 "${pkgs.gvisor}/bin/runsc";
         };
       };
