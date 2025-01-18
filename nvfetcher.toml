@@ -8,14 +8,14 @@ src.github = "gchq/CyberChef"
 fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
 
 [grafana-falconlogscale-datasource]
-src.webpage = "https://grafana.com/api/plugins/grafana-falconlogscale-datasource?version=latest"
-src.regex = "\"version\":\\s*\"([^\"]+)\""
-fetch.url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/$ver/linux/grafana-falconlogscale-datasource-$ver.linux_amd64.zip"
+src.github = "grafana/falconlogscale-datasource"
+src.prefix = "v"
+fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.linux_amd64.zip"
 
 [grafana-yesoreyeram-infinity-datasource]
-src.webpage = "https://grafana.com/api/plugins/yesoreyeram-infinity-datasource?version=latest"
-src.regex = "\"version\":\\s*\"([^\"]+)\""
-fetch.url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/$ver/linux/yesoreyeram-infinity-datasource-$ver.linux_amd64.zip"
+src.github = "grafana/grafana-infinity-datasource"
+src.prefix = "v"
+fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.linux_amd64.zip"
 
 [himawaripy]
 src.github = "boramalper/himawaripy"
@@ -72,11 +72,6 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 [ulauncher-vscode-recent]
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
-
-[um-react]
-src.webpage = "https://git.unlock-music.dev/um/um-react/packages"
-src.regex = "href=\"/um/-/packages/generic/um-react/([0-9]+)\""
-fetch.url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/$ver/um-react.zip"
 
 [web-compressor]
 src.git = "https://github.com/xddxdd/web-compressor.git"

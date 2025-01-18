@@ -3,15 +3,15 @@
 {
   brlaser = {
     pname = "brlaser";
-    version = "fed695c5e7de5432900624bda42578a4a88e081c";
+    version = "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe";
     src = fetchFromGitHub {
       owner = "Owl-Maintain";
       repo = "brlaser";
-      rev = "fed695c5e7de5432900624bda42578a4a88e081c";
+      rev = "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe";
       fetchSubmodules = false;
-      sha256 = "sha256-HACJ884t3mUEQMfn8pn8nnSXGYPmd0J1STRtOigViJA=";
+      sha256 = "sha256-7d4LFhRx0YTg4Y2+zggW5qALjvVF55h6CQMpPKM7+ag=";
     };
-    date = "2023-08-01";
+    date = "2025-01-10";
   };
   cyberchef = {
     pname = "cyberchef";
@@ -25,16 +25,16 @@
     pname = "grafana-falconlogscale-datasource";
     version = "1.7.6";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/grafana-falconlogscale-datasource/release/1.7.6/linux/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.7.6/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip";
       sha256 = "sha256-c3KtNdEawQoVYfkao2RHEpCUYlZ/FCwv5IiCuHqZD3Q=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.11.4";
+    version = "2.12.1";
     src = fetchurl {
-      url = "https://storage.googleapis.com/integration-artifacts/yesoreyeram-infinity-datasource/release/2.11.4/linux/yesoreyeram-infinity-datasource-2.11.4.linux_amd64.zip";
-      sha256 = "sha256-4xCyPMfhNdIgQdcUJ8oD7uwa/SvYaMx4NCRWv49DzW0=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v2.12.1/yesoreyeram-infinity-datasource-2.12.1.linux_amd64.zip";
+      sha256 = "sha256-v8L5pZMEi5VVJvbYmojverh6iTEIEBVeNBsj/vQiGkM=";
     };
   };
   himawaripy = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c";
+    version = "91112d4c90a3bd79960bc07172e862bb3cfbd2f1";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "aeff8cdfeafedadc4c9b34caa54a398b9655ce1c";
+      rev = "91112d4c90a3bd79960bc07172e862bb3cfbd2f1";
       fetchSubmodules = false;
-      sha256 = "sha256-PbN/1yUlh6ihceBiAMMrTV4leYuUDyYZYcZ3F9dMNxo=";
+      sha256 = "sha256-k1R2UrCv5VFTsnpQaZH9WIyV0n0c+x1qUaZaEENnVec=";
     };
-    date = "2024-11-29";
+    date = "2025-01-10";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "fafd28f299857a8b6794b58b46ae0374c7a4bb2f";
+    version = "0837f46dfe25b6e750abc7e601032bdd12c70be0";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "fafd28f299857a8b6794b58b46ae0374c7a4bb2f";
+      rev = "0837f46dfe25b6e750abc7e601032bdd12c70be0";
       fetchSubmodules = false;
-      sha256 = "sha256-aQyQ9T6pDwwDKN7zXTcVmUwf708wR8okVVZFdn8wyDM=";
+      sha256 = "sha256-s1qtdm0UGd4uImNts42W5hT6W1nOVz8eTyBF37QlUfc=";
     };
-    date = "2024-12-01";
+    date = "2025-01-15";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -205,14 +205,6 @@
       sha256 = "sha256-sJJzHXp8S/Powqz0FgSCqfWL81q/mXqBi1KucRFB2LE=";
     };
     date = "2023-12-01";
-  };
-  um-react = {
-    pname = "um-react";
-    version = "243";
-    src = fetchurl {
-      url = "https://git.unlock-music.dev/api/packages/um/generic/um-react/243/um-react.zip";
-      sha256 = "sha256-0Nz6SHpZ/2p72p4Dx0xNJEEbNknujlis0xt6hzG2RGk=";
-    };
   };
   web-compressor = {
     pname = "web-compressor";
