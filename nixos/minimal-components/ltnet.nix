@@ -52,7 +52,11 @@
     script =
       ''
         while ! ip addr show ztje7axwd2 | grep 198.18.0; do
-          echo "Waiting for ZeroTier to start"
+          echo "Waiting for ZeroTier to setup IPv4"
+          sleep 1
+        done
+        while ! ip addr show ztje7axwd2 | grep fdbc:f9dc:67ad:; do
+          echo "Waiting for ZeroTier to setup IPv6"
           sleep 1
         done
       ''
