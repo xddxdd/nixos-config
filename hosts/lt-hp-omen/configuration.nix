@@ -14,7 +14,6 @@
     ./hp-keyboard-backlight
     ./nandsim.nix
     # ./nbfc.nix
-    ./pipewire-combined-sink.nix
 
     ../../nixos/optional-apps/aagl.nix
     ../../nixos/optional-apps/clamav.nix
@@ -27,7 +26,6 @@
     ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
-    ../../nixos/optional-apps/pipewire-roc-source.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/virtualbox.nix
@@ -64,9 +62,7 @@
   };
 
   lantian.pipewire.roc-sink-ip = [
-    "127.0.0.1"
     "192.168.0.207"
-    "192.168.0.208"
   ];
 
   # This host has full disk encryption, no need to encrypt keyring

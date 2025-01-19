@@ -15,6 +15,13 @@
 
   lantian.hidpi = 1.5;
 
+  # Edifier speaker has 0.1s latency, so adjust other devices to compensate for that
+  lantian.pipewire.latencyAdjust = {
+    "alsa_output.pci-0000_00_0e.0.analog-stereo" = 0.1;
+    "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0" = 0.1;
+    "alsa_output.usb-EDIFIER_USB_Composite_Device_EDI00000X07-00.pro-output-0" = 0;
+  };
+
   services.fwupd.enable = true;
 
   services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
