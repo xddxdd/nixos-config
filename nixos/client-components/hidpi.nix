@@ -31,7 +31,7 @@ let
 in
 {
   options.lantian.hidpi = lib.mkOption {
-    type = lib.types.float;
+    type = lib.types.number;
     default = 1.0;
     description = "HiDPI scaling for Wayland";
   };
