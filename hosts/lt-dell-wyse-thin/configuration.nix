@@ -11,10 +11,6 @@
     ../../nixos/client-components/networking.nix
     ../../nixos/client-components/pipewire
     ../../nixos/client-components/tlp.nix
-
-    ../../nixos/optional-apps/pipewire-combined-sink-alsa.nix
-    # ../../nixos/optional-apps/pipewire-network-audio-receive.nix
-    ../../nixos/optional-apps/pipewire-roc-source.nix
   ];
 
   lantian.hidpi = 1.5;
