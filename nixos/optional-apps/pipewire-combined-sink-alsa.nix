@@ -17,12 +17,21 @@
             "stream.rules" = [
               # Network receiver
               {
-                matches = [
-                  {
-                    "media.class" = "Audio/Sink";
-                    "node.name" = "~alsa_output.*";
-                  }
-                ];
+                matches =
+                  if (config.lantian.pipewire.latencyAdjust != { }) then
+                    [
+                      {
+                        "media.class" = "Audio/Sink";
+                        "node.name" = "~latency_adjust.*";
+                      }
+                    ]
+                  else
+                    [
+                      {
+                        "media.class" = "Audio/Sink";
+                        "node.name" = "~alsa_output.*";
+                      }
+                    ];
                 actions = {
                   create-stream = {
                     "combine.audio.position" = [
