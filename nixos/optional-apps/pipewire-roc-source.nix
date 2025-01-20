@@ -11,7 +11,7 @@ args: {
             "local.control.port" = 10003;
             "fec.code" = "rs8m";
             "resampler.profile" = "high";
-            "sess.latency.msec" = 100;
+            "sess.latency.msec" = 10;
             "source.name" = "ROC Source";
             "source.props" = {
               "node.name" = "roc-source";
