@@ -45,6 +45,8 @@ let
       inputs.aagl.nixosModules.default
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
+      inputs.crowdsec.nixosModules.crowdsec
+      inputs.crowdsec.nixosModules.crowdsec-firewall-bouncer
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic

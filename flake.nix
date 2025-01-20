@@ -43,6 +43,10 @@
       url = "github:svanderburg/composer2nix";
       flake = false;
     };
+    crowdsec = {
+      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dwarffs.url = "github:edolstra/dwarffs";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -180,6 +184,7 @@
             inputs.aagl.overlays.default
             inputs.agenix.overlays.default
             inputs.colmena.overlay
+            inputs.crowdsec.overlays.default
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
             inputs.nix-xilinx.overlay
