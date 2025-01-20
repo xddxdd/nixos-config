@@ -5,7 +5,7 @@ args: {
         {
           name = "libpipewire-module-vban-recv";
           args = {
-            "sess.latency.msec" = 10;
+            "sess.latency.msec" = 100;
             "audio.format" = "S24LE";
             "audio.rate" = 44100;
             "source.name" = "VBAN Receiver";
