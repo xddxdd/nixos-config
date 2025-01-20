@@ -176,6 +176,7 @@ rec {
     FishSpeech = 13790;
     Plausible = 13800;
     Netbox = 13801;
+    CrowdSec = 13802;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     LlamaCpp = 13810;
