@@ -7,13 +7,33 @@
   ...
 }:
 let
-  simulation_path = "/var/lib/crowdsec/config/simulation.yaml";
+  configPath = "/var/lib/crowdsec/config";
 
   mkAcquisition = unit: {
     source = "journalctl";
     journalctl_filter = [ "_SYSTEMD_UNIT=${unit}" ];
     labels.type = "syslog";
   };
+
+  whitelistFile = pkgs.writeText "whitelist.yaml" (
+    builtins.toJSON {
+      name = "lantian_whitelist";
+      description = "Lan Tian's Whitelist";
+      whitelist = {
+        reason = "Lan Tian's Whitelist";
+        ip = builtins.filter (v: v != null && v != "") (
+          lib.flatten (
+            lib.mapAttrsToList (_n: v: [
+              v.public.IPv4
+              v.public.IPv6
+              v.public.IPv6Alt
+            ]) LT.hosts
+          )
+        );
+        cidr = LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6;
+      };
+    }
+  );
 in
 {
   age.secrets.crowdsec-enroll-key = {
@@ -34,7 +54,7 @@ in
     ];
     settings = {
       config_paths = {
-        inherit simulation_path;
+        simulation_path = "${configPath}/simulation.yaml";
       };
       api.server = {
         listen_uri = "127.0.0.1:${LT.portStr.CrowdSec}";
@@ -100,9 +120,12 @@ in
             crowdsecurity/seo-bots-whitelist
 
           # Disable rules I do not want
-          echo "simulation: false" > ${simulation_path}
+          echo "simulation: false" > ${configPath}/simulation.yaml
           cscli simulation enable crowdsecurity/http-crawl-non_statics
           cscli simulation enable crowdsecurity/http-bad-user-agent
+
+          # Install whitelist
+          install -Dm644 ${whitelistFile} ${configPath}/parsers/s02-enrich/lantian_whitelist.yaml
         '')
       ];
 
