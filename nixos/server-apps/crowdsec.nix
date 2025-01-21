@@ -9,11 +9,16 @@
 let
   configPath = "/var/lib/crowdsec/config";
 
-  mkAcquisition = unit: {
-    source = "journalctl";
-    journalctl_filter = [ "_SYSTEMD_UNIT=${unit}" ];
-    labels.type = "syslog";
-  };
+  mkAcquisition =
+    enable: unit:
+    if enable then
+      {
+        source = "journalctl";
+        journalctl_filter = [ "_SYSTEMD_UNIT=${unit}" ];
+        labels.type = "syslog";
+      }
+    else
+      null;
 
   whitelistFile = pkgs.writeText "whitelist.yaml" (
     builtins.toJSON {
@@ -51,11 +56,11 @@ in
     enable = true;
     enrollKeyFile = config.age.secrets.crowdsec-enroll-key.path;
     allowLocalJournalAccess = true;
-    acquisitions = builtins.map mkAcquisition [
-      "asterisk.service"
-      "endlessh.service"
-      "nginx.service"
-      "sshd.service"
+    acquisitions = builtins.filter (v: v != null) [
+      (mkAcquisition config.services.asterisk.enable "asterisk.service")
+      (mkAcquisition config.services.endlessh.enable "endlessh.service")
+      (mkAcquisition config.services.nginx.enable "nginx.service")
+      (mkAcquisition config.services.openssh.enable "sshd.service")
     ];
     settings = {
       config_paths = {
