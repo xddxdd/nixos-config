@@ -54,7 +54,6 @@ in
         ];
       }
       (scrapeAllNonClientNodes "bird" LT.port.Prometheus.BirdExporter)
-      (scrapeAllNonClientNodes "endlessh-go" LT.port.Prometheus.EndlesshGo)
       (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)

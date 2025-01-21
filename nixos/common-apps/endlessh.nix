@@ -1,4 +1,4 @@
-{ pkgs, LT, ... }:
+{ pkgs, ... }:
 let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
@@ -21,7 +21,7 @@ let
     #   0 = Quiet
     #   1 = Standard, useful log messages
     #   2 = Very noisy debugging information
-    LogLevel 0
+    LogLevel 1
 
     # Set the family of the listening socket
     #   0 = Use IPv4 Mapped IPv6 (Both v4 and v6, default)
@@ -32,30 +32,11 @@ let
 in
 {
   services.endlessh = {
-    enable = LT.this.hasTag LT.tags.low-ram;
+    enable = true;
     port = 22;
     extraOptions = [
       "-f"
       "${cfg}"
     ];
-  };
-
-  services.endlessh-go = {
-    enable = !(LT.this.hasTag LT.tags.low-ram);
-    port = 22;
-    prometheus = {
-      enable = true;
-      port = LT.port.Prometheus.EndlesshGo;
-      listenAddress = LT.this.ltnet.IPv4;
-    };
-    extraOptions = [
-      "-geoip_supplier=max-mind-db"
-      "-max_mind_db=/nix/persistent/sync-servers/geoip/GeoLite2-City.mmdb"
-    ];
-  };
-
-  systemd.services.endlessh-go = {
-    after = [ "network.target" ];
-    serviceConfig.BindReadOnlyPaths = [ "/nix/persistent/sync-servers/geoip" ];
   };
 }

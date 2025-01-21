@@ -8,6 +8,12 @@
 }:
 let
   simulation_path = "/var/lib/crowdsec/config/simulation.yaml";
+
+  mkAcquisition = unit: {
+    source = "journalctl";
+    journalctl_filter = [ "_SYSTEMD_UNIT=${unit}" ];
+    labels.type = "syslog";
+  };
 in
 {
   age.secrets.crowdsec-enroll-key = {
@@ -20,22 +26,11 @@ in
     enable = true;
     enrollKeyFile = config.age.secrets.crowdsec-enroll-key.path;
     allowLocalJournalAccess = true;
-    acquisitions = [
-      {
-        source = "journalctl";
-        journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
-        labels.type = "syslog";
-      }
-      {
-        source = "journalctl";
-        journalctl_filter = [ "_SYSTEMD_UNIT=nginx.service" ];
-        labels.type = "syslog";
-      }
-      {
-        source = "journalctl";
-        journalctl_filter = [ "_SYSTEMD_UNIT=asterisk.service" ];
-        labels.type = "syslog";
-      }
+    acquisitions = builtins.map mkAcquisition [
+      "asterisk.service"
+      "endlessh.service"
+      "nginx.service"
+      "sshd.service"
     ];
     settings = {
       config_paths = {
@@ -90,6 +85,7 @@ in
 
           cscli collections install \
             crowdsecurity/asterisk \
+            crowdsecurity/endlessh \
             crowdsecurity/linux \
             crowdsecurity/nginx \
             crowdsecurity/nginx-proxy-manager \
