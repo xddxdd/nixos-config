@@ -30,7 +30,12 @@ let
             ]) LT.hosts
           )
         );
-        cidr = LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6;
+        cidr =
+          LT.constants.reserved.IPv4
+          ++ LT.constants.reserved.IPv6
+          ++ [
+            "104.156.105.0/24"
+          ];
       };
     }
   );
