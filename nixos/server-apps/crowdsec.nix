@@ -91,6 +91,14 @@ in
             crowdsecurity/nginx-proxy-manager \
             crowdsecurity/sshd
 
+          cscli postoverflows install \
+            crowdsecurity/cdn-qc-whitelsit \
+            crowdsecurity/cdn-whitelist \
+            crowdsecurity/discord-crawler-whitelist \
+            crowdsecurity/ipv6_to_range \
+            crowdsecurity/rdns \
+            crowdsecurity/seo-bots-whitelist
+
           # Disable rules I do not want
           echo "simulation: false" > ${simulation_path}
           cscli simulation enable crowdsecurity/http-crawl-non_statics
