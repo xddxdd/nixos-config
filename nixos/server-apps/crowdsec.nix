@@ -126,8 +126,9 @@ in
 
           # Disable rules I do not want
           echo "simulation: false" > ${configPath}/simulation.yaml
-          cscli simulation enable crowdsecurity/http-crawl-non_statics
           cscli simulation enable crowdsecurity/http-bad-user-agent
+          cscli simulation enable crowdsecurity/http-crawl-non_statics
+          cscli simulation enable crowdsecurity/http-probing
 
           # Install whitelist
           install -Dm644 ${whitelistFile} ${configPath}/parsers/s02-enrich/lantian_whitelist.yaml
