@@ -71,6 +71,10 @@ in
   };
 
   systemd.services.crowdsec = {
+    # Fix journald parsing error
+    environment = {
+      LANG = "C.UTF-8";
+    };
     postStart = ''
       while ! cscli lapi status; do
         echo "Waiting for CrowdSec daemon to be ready"
@@ -86,7 +90,9 @@ in
 
           cscli collections install \
             crowdsecurity/asterisk \
+            crowdsecurity/linux \
             crowdsecurity/nginx \
+            crowdsecurity/nginx-proxy-manager \
             crowdsecurity/sshd
 
           # Disable rules I do not want

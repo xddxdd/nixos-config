@@ -87,9 +87,8 @@ in
         ~GcoreHealthcheckAgent    0;
       }
 
-      log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" "$http_user_agent"';
-      access_log syslog:server=unix:/dev/log,nohostname main if=$is_not_healthcheck_user_agent;
+      # Use default format to make CrowdSec work
+      access_log syslog:server=unix:/dev/log,nohostname combined if=$is_not_healthcheck_user_agent;
       more_set_headers "Server: lantian/${config.networking.hostName}";
 
       # set to aio on; for io_uring support

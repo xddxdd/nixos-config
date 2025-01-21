@@ -106,7 +106,6 @@ in
       }
     ];
     settings = {
-      LogLevel = "ERROR";
       PermitRootLogin = lib.mkForce "prohibit-password";
       Ciphers = [
         "aes256-gcm@openssh.com"
