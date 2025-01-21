@@ -68,7 +68,7 @@ in
   };
 
   services.crowdsec-firewall-bouncer = {
-    enable = true;
+    enable = false;
     settings = {
       api_url = "http://127.0.0.1:${LT.portStr.CrowdSec}";
       api_key = "cs-firewall-bouncer";
@@ -141,12 +141,14 @@ in
     };
   };
 
-  systemd.services.crowdsec-firewall-bouncer = {
-    after = [ "crowdsec.service" ];
-    requires = [ "crowdsec.service" ];
-    serviceConfig = {
-      Restart = lib.mkForce "always";
-      RestartSec = lib.mkForce "5";
-    };
-  };
+  systemd.services.crowdsec-firewall-bouncer =
+    lib.mkIf config.services.crowdsec-firewall-bouncer.enable
+      {
+        after = [ "crowdsec.service" ];
+        requires = [ "crowdsec.service" ];
+        serviceConfig = {
+          Restart = lib.mkForce "always";
+          RestartSec = lib.mkForce "5";
+        };
+      };
 }
