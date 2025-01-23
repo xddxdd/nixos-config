@@ -560,5 +560,20 @@
         peerIPv6LinkLocal = "fe80::1894";
       };
     };
+    zerowolf = {
+      remoteASN = 4242420233;
+      latencyMs = 4;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20233;
+        remoteAddress = "hk2.l0.ink";
+        remotePort = 22547;
+        wireguardPubkey = "bWUSnkOds7fUAw/hh30QaORMjPi4+/PRWY8+AgqC6UU=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.6.64";
+        peerIPv6LinkLocal = "fe80::233";
+      };
+    };
   };
 }
