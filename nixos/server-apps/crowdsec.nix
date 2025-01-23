@@ -143,6 +143,7 @@ in
       StateDirectory = "crowdsec";
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "5";
+      TimeoutStartSec = 600;
     };
   };
 
