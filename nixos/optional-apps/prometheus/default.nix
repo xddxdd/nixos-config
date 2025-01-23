@@ -54,6 +54,7 @@ in
         ];
       }
       (scrapeAllNonClientNodes "bird" LT.port.Prometheus.BirdExporter)
+      (scrapeAllNonClientNodes "crowdsec" LT.port.Prometheus.CrowdSec)
       (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)
