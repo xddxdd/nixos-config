@@ -69,6 +69,12 @@ in
       api.server = {
         listen_uri = "127.0.0.1:${LT.portStr.CrowdSec}";
       };
+      prometheus = {
+        enabled = true;
+        level = "full";
+        listen_addr = LT.this.ltnet.IPv4;
+        listen_port = LT.port.Prometheus.CrowdSec;
+      };
     };
   };
 
