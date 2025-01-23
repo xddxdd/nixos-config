@@ -73,7 +73,7 @@ in
   };
 
   services.crowdsec-firewall-bouncer = {
-    enable = false;
+    enable = true;
     settings = {
       api_url = "http://127.0.0.1:${LT.portStr.CrowdSec}";
       api_key = "cs-firewall-bouncer";
