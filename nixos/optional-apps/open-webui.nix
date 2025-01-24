@@ -40,7 +40,7 @@
       WEBHOOK_LOG_LEVELL = "WARNING";
 
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
-      WEBUI_URL = "https://open-webui.xuyh0120.win";
+      WEBUI_URL = "https://ai.xuyh0120.win";
       OPENAI_API_BASE_URL = "http://uni-api.localhost/v1";
 
       ENABLE_LOGIN_FORM = "False";
@@ -98,7 +98,7 @@
   users.groups.open-webui = { };
 
   lantian.nginxVhosts = {
-    "open-webui.xuyh0120.win" = {
+    "ai.xuyh0120.win" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI}";
         proxyWebsockets = true;
