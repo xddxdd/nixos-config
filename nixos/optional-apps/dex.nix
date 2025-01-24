@@ -87,7 +87,7 @@ let
         secret = {
           _secret = config.age.secrets.dex-open-webui-secret.path;
         };
-        redirectURIs = [ "https://open-webui.xuyh0120.win/oauth/oidc/callback" ];
+        redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
       }
       {
         id = "oauth-proxy";

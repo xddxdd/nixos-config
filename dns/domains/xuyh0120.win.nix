@@ -37,6 +37,12 @@ let
   internalServices = [
     {
       recordType = "CNAME";
+      name = "ai";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "alert";
       target = "terrahost";
       ttl = "1h";
@@ -99,12 +105,6 @@ let
       recordType = "CNAME";
       name = "netbox";
       target = "hetzner-de";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "open-webui";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
