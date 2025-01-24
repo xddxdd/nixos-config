@@ -105,6 +105,11 @@
   lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
 
+  services.ollama.models = "/mnt/storage/ollama";
+  systemd.tmpfiles.rules = [
+    "d ${config.services.ollama.models} 755 ${config.services.ollama.user} ${config.services.ollama.group}"
+  ];
+
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {
     AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];

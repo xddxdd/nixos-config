@@ -8,6 +8,8 @@
     enable = true;
     port = LT.port.Ollama;
     acceleration = "cuda";
+    user = "ollama";
+    group = "ollama";
     environmentVariables = {
       OLLAMA_ORIGINS = "*";
       OLLAMA_KEEP_ALIVE = "900";
