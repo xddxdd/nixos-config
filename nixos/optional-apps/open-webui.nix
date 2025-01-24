@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-    ./fish-speech.nix
+    # ./fish-speech.nix
     ./openai-edge-tts.nix
     ./openedai-speech.nix
     ./tika.nix
@@ -26,18 +26,18 @@
       ENV = "prod";
 
       GLOBAL_LOG_LEVEL = "WARNING";
-      AUDIO_LOG_LEVELL = "WARNING";
-      COMFYUI_LOG_LEVELL = "WARNING";
-      CONFIG_LOG_LEVELL = "WARNING";
-      DB_LOG_LEVELL = "WARNING";
-      IMAGES_LOG_LEVELL = "WARNING";
-      LITELLM_LOG_LEVELL = "WARNING";
-      MAIN_LOG_LEVELL = "WARNING";
-      MODELS_LOG_LEVELL = "WARNING";
-      OLLAMA_LOG_LEVELL = "WARNING";
-      OPENAI_LOG_LEVELL = "WARNING";
-      RAG_LOG_LEVELL = "WARNING";
-      WEBHOOK_LOG_LEVELL = "WARNING";
+      AUDIO_LOG_LEVEL = "WARNING";
+      COMFYUI_LOG_LEVEL = "WARNING";
+      CONFIG_LOG_LEVEL = "WARNING";
+      DB_LOG_LEVEL = "WARNING";
+      IMAGES_LOG_LEVEL = "WARNING";
+      LITELLM_LOG_LEVEL = "WARNING";
+      MAIN_LOG_LEVEL = "WARNING";
+      MODELS_LOG_LEVEL = "WARNING";
+      OLLAMA_LOG_LEVEL = "WARNING";
+      OPENAI_LOG_LEVEL = "WARNING";
+      RAG_LOG_LEVEL = "WARNING";
+      WEBHOOK_LOG_LEVEL = "WARNING";
 
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
       WEBUI_URL = "https://ai.xuyh0120.win";
