@@ -11,10 +11,11 @@ from typing import Dict, List, Optional, Tuple
 SCRIPT_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
 SECRET_BASE = os.environ["SECRET_BASE"]
 HOME = pathlib.Path.home()
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
 
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
-    "cloudflare": "https://playground.ai.cloudflare.com/api",
+    # "cloudflare": "https://playground.ai.cloudflare.com/api",
     "groq": "https://api.groq.com/openai/v1",
     "google": "__GOOGLE__",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
@@ -78,7 +79,7 @@ def get_models_google(api_name: str) -> List[str]:
         f"https://generativelanguage.googleapis.com/v1beta/models?key={secret}",
         method="GET",
         headers={
-            "User-Agent": "lantian",
+            "User-Agent": USER_AGENT,
         },
     )
     content = urllib.request.urlopen(r).read()
@@ -99,7 +100,7 @@ def get_models(api_name: str, base_url: str) -> List[str]:
         f"{base_url}/models",
         method="GET",
         headers={
-            "User-Agent": "lantian",
+            "User-Agent": USER_AGENT,
             "Authorization": f"Bearer {secret}",
         },
     )
@@ -126,29 +127,35 @@ def guess_provider(model_id: str) -> Optional[str]:
 
 def normalize_model_id(api_name: str, model_id: str) -> str:
     # Enforce lowercase for model name
-    result = model_id.lower()
+    base = model_id.lower()
+    suffix = ""
 
     # Remove provider's own differentiator in model prefix
-    result = re.sub(r"^@[^/]+/", "", result)
+    base = re.sub(r"^@[^/]+/", "", base)
 
     # Move extra prefix to the end as model variants
-    if result.count("/") > 1:
-        splitted = result.split("/")
+    if base.count("/") > 1:
+        splitted = base.split("/")
         suffix = "/".join(splitted[:-2])
-        result = f"{splitted[-2]}/{splitted[-1]}:{suffix}"
+        base = f"{splitted[-2]}/{splitted[-1]}"
 
     # Add separator between model name and version
-    result = re.sub(r"(^|/)([a-zA-Z]{2,})([0-9]+)([^/]*)$", r"\1\2-\3\4", result)
+    base = re.sub(r"(^|/)([a-zA-Z]{2,})([0-9]+)([^/]*)$", r"\1\2-\3\4", base)
 
     # Guess provider for model
-    if "/" not in result:
-        provider = guess_provider(result)
+    if "/" not in base:
+        provider = guess_provider(base)
         if not provider:
             provider = f"@{api_name}"
-        result = f"{provider}/{result}"
-    assert "/" in result
+        base = f"{provider}/{base}"
+    assert "/" in base
 
-    return result
+    if suffix:
+        base = f"{base}:{api_name}-{suffix}"
+    else:
+        base = f"{base}:{api_name}"
+
+    return base
 
 
 def create_mappings(api_name: str, model_ids: List[str]) -> Dict[str, str]:
@@ -156,13 +163,16 @@ def create_mappings(api_name: str, model_ids: List[str]) -> Dict[str, str]:
 
 
 def process_api(input_obj: Tuple[str, str]):
-    api_name, base_url = input_obj
-    models = get_models(api_name, base_url)
-    mappings = create_mappings(api_name, models)
-    with open(f"{SCRIPT_PATH}/apis/{api_name}.json", "w") as f:
-        json.dump(mappings, f, indent=2, sort_keys=True)
-        f.write("\n")
-    return True
+    try:
+        api_name, base_url = input_obj
+        models = get_models(api_name, base_url)
+        mappings = create_mappings(api_name, models)
+        with open(f"{SCRIPT_PATH}/apis/{api_name}.json", "w") as f:
+            json.dump(mappings, f, indent=2, sort_keys=True)
+            f.write("\n")
+        return True
+    except Exception as e:
+        print(f"Error with {api_name}: {e}")
 
 
 if __name__ == "__main__":

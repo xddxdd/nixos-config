@@ -37,16 +37,16 @@ let
         };
         model = loadModels ./apis/google.json;
       }
-      {
-        provider = "cloudflare";
-        api = {
-          _secret = config.age.secrets.uni-api-cloudflare-api-key.path;
-        };
-        cf_account_id = {
-          _secret = config.age.secrets.uni-api-cloudflare-account-id.path;
-        };
-        model = loadModels ./apis/cloudflare.json;
-      }
+      # {
+      #   provider = "cloudflare";
+      #   api = {
+      #     _secret = config.age.secrets.uni-api-cloudflare-api-key.path;
+      #   };
+      #   cf_account_id = {
+      #     _secret = config.age.secrets.uni-api-cloudflare-account-id.path;
+      #   };
+      #   model = loadModels ./apis/cloudflare.json;
+      # }
       {
         provider = "lingyiwanwu";
         base_url = "https://api.lingyiwanwu.com/v1/chat/completions";
