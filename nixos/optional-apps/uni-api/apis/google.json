@@ -22,6 +22,7 @@
   "gemini-1.5-pro-latest": "google/gemini-1.5-pro-latest",
   "gemini-2.0-flash-exp": "google/gemini-2.0-flash-exp",
   "gemini-2.0-flash-thinking-exp": "google/gemini-2.0-flash-thinking-exp",
+  "gemini-2.0-flash-thinking-exp-01-21": "google/gemini-2.0-flash-thinking-exp-01-21",
   "gemini-2.0-flash-thinking-exp-1219": "google/gemini-2.0-flash-thinking-exp-1219",
   "gemini-exp-1114": "google/gemini-exp-1114",
   "gemini-exp-1121": "google/gemini-exp-1121",
