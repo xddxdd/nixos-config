@@ -15,7 +15,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
-    # "cloudflare": "https://playground.ai.cloudflare.com/api",
+    "cloudflare": "__CLOUDFLARE__",
     "groq": "https://api.groq.com/openai/v1",
     "google": "__GOOGLE__",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
@@ -90,7 +90,17 @@ def get_models_google(api_name: str) -> List[str]:
     return [m["name"][7:] for m in models["models"] if "models/gemini" in m["name"]]
 
 
+def get_models_cloudflare(api_name: str) -> List[str]:
+    with open(
+        os.path.join(os.path.dirname(__file__), "models_json/cloudflare.json")
+    ) as f:
+        models = json.load(f)
+    return [m["name"] for m in models["models"]]
+
+
 def get_models(api_name: str, base_url: str) -> List[str]:
+    if base_url == "__CLOUDFLARE__":
+        return get_models_cloudflare(api_name)
     if base_url == "__GOOGLE__":
         return get_models_google(api_name)
 
@@ -107,11 +117,8 @@ def get_models(api_name: str, base_url: str) -> List[str]:
     content = urllib.request.urlopen(r).read()
 
     models = json.loads(content)
-    # models key is specific to CloudFlare Workers AI
     if "data" in models:
         model_ids: List[str] = [m["id"] for m in models["data"]]
-    elif "models" in models:
-        model_ids: List[str] = [m["name"] for m in models["models"]]
     else:
         raise ValueError(f"No model info found in {models}")
     return model_ids
