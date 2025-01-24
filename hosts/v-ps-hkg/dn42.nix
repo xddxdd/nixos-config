@@ -406,6 +406,21 @@
         peerIPv6LinkLocal = "fe80::3451";
       };
     };
+    saltwood = {
+      remoteASN = 4242420222;
+      latencyMs = 10;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20222;
+        remoteAddress = "hk-1.dn42.saltwood.top";
+        remotePort = 22547;
+        wireguardPubkey = "0E4goqfQFKQu852QAqVSRfp9Si9MoTj8IllFiDG7gUc=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.142.2";
+        peerIPv6LinkLocal = "fe80::222:2";
+      };
+    };
     sernet = {
       remoteASN = 4242423947;
       latencyMs = 3;
