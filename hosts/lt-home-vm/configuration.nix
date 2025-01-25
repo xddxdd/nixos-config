@@ -41,6 +41,7 @@
     ../../nixos/optional-apps/uni-api
     ../../nixos/optional-apps/vlmcsd.nix
 
+    ../../nixos/optional-cron-jobs/aggregator.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
   ];
 
