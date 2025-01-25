@@ -1,12 +1,23 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   LT,
   ...
 }:
 let
-  sourcesJson = builtins.fromJSON (builtins.readFile ../../helpers/_sources/generated.json);
+
+  mkPlugin =
+    pluginSrc:
+    (pkgs.grafanaPlugins.grafanaPlugin {
+      pname = lib.removePrefix "grafana-" pluginSrc.pname;
+      inherit (pluginSrc) version;
+      zipHash = "placeholder";
+    }).overrideAttrs
+      (_old: {
+        inherit (pluginSrc) src;
+      });
 in
 {
   imports = [ ./mysql.nix ];
@@ -26,20 +37,8 @@ in
       grafana-polystat-panel
       grafana-worldmap-panel
 
-      (grafanaPlugin {
-        pname = "grafana-falconlogscale-datasource";
-        inherit (LT.sources.grafana-falconlogscale-datasource) version;
-        zipHash = {
-          x86_64-linux = sourcesJson.grafana-falconlogscale-datasource.src.sha256;
-        };
-      })
-      (grafanaPlugin {
-        pname = "yesoreyeram-infinity-datasource";
-        inherit (LT.sources.grafana-yesoreyeram-infinity-datasource) version;
-        zipHash = {
-          x86_64-linux = sourcesJson.grafana-yesoreyeram-infinity-datasource.src.sha256;
-        };
-      })
+      (mkPlugin LT.sources.grafana-falconlogscale-datasource)
+      (mkPlugin LT.sources.grafana-yesoreyeram-infinity-datasource)
     ];
 
     settings = {

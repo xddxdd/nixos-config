@@ -37,16 +37,16 @@
     pname = "grafana-falconlogscale-datasource";
     version = "1.7.6";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.7.6/grafana-falconlogscale-datasource-1.7.6.linux_amd64.zip";
-      sha256 = "sha256-c3KtNdEawQoVYfkao2RHEpCUYlZ/FCwv5IiCuHqZD3Q=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.7.6/grafana-falconlogscale-datasource-1.7.6.zip";
+      sha256 = "sha256-cxhFyrjIKsOTBMQlBo/wF3WhDQrsRJX9IA+l33anPxY=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.12.1";
+    version = "2.12.2";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v2.12.1/yesoreyeram-infinity-datasource-2.12.1.linux_amd64.zip";
-      sha256 = "sha256-v8L5pZMEi5VVJvbYmojverh6iTEIEBVeNBsj/vQiGkM=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v2.12.2/yesoreyeram-infinity-datasource-2.12.2.zip";
+      sha256 = "sha256-m7LTI1sUXs6fFHR02J9rH6Egj6WWNTr2dDt68CW+D8A=";
     };
   };
   himawaripy = {

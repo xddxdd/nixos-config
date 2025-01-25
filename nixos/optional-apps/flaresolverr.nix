@@ -1,13 +1,13 @@
 {
   LT,
   config,
-  pkgs,
   ...
 }:
 {
   services.flaresolverr = {
     enable = true;
-    package = pkgs.nur-xddxdd.flaresolverr-21hsmw;
+    # FIXME: upstream undetected-chromedriver package issue
+    # package = pkgs.nur-xddxdd.flaresolverr-21hsmw;
     port = LT.port.FlareSolverr;
   };
 
