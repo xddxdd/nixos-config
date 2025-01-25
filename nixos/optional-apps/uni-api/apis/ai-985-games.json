@@ -20,7 +20,6 @@
   "GLM-4-Long": "thudm/glm-4-long:ai-985-games",
   "Qwen/QVQ-72B-Preview": "qwen/qvq-72b-preview:ai-985-games",
   "Qwen/Qwen2.5-72B-Instruct-128K": "qwen/qwen-2.5-72b-instruct-128k:ai-985-games",
-  "SparkDesk-v4.0": "@ai-985-games/sparkdesk-v4.0:ai-985-games",
   "abab6.5s-chat": "@ai-985-games/abab-6.5s-chat:ai-985-games",
   "abab7-chat-preview": "@ai-985-games/abab-7-chat-preview:ai-985-games",
   "deepseek-chat": "@ai-985-games/deepseek-chat:ai-985-games",
@@ -35,6 +34,5 @@
   "moonshot-v1-128k": "@ai-985-games/moonshot-v1-128k:ai-985-games",
   "moonshot-v1-32k": "@ai-985-games/moonshot-v1-32k:ai-985-games",
   "moonshot-v1-8k": "@ai-985-games/moonshot-v1-8k:ai-985-games",
-  "sparkDesk-4.0Ultra": "@ai-985-games/sparkdesk-4.0ultra:ai-985-games",
   "yi-lightning": "01-ai/yi-lightning:ai-985-games"
 }

@@ -14,12 +14,12 @@ fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_
 [grafana-falconlogscale-datasource]
 src.github = "grafana/falconlogscale-datasource"
 src.prefix = "v"
-fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.linux_amd64.zip"
+fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 
 [grafana-yesoreyeram-infinity-datasource]
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
-fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.linux_amd64.zip"
+fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.zip"
 
 [himawaripy]
 src.github = "boramalper/himawaripy"
