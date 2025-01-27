@@ -107,12 +107,19 @@ let
           type = "field";
         }
         {
-          domain = [ "geosite:cn" ];
+          domain = [
+            "geosite:private"
+            "geosite:cn"
+            "category-games@cn"
+          ];
           outboundTag = "direct";
           type = "field";
         }
         {
-          ip = [ "geoip:cn" ];
+          ip = [
+            "geoip:private"
+            "geoip:cn"
+          ];
           outboundTag = "direct";
           type = "field";
         }
