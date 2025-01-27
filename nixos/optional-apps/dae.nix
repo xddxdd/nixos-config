@@ -54,10 +54,18 @@ _: {
         pname(NetworkManager) -> must_direct
         pname(v2ray) -> must_direct
         pname(xray) -> must_direct
+        pname(zerotier-one) -> must_direct
         dip(224.0.0.0/3, 'ff00::/8') -> direct
-        dip(geoip:private) -> direct
 
-        # V2Ray handles direct connections
+        domain(geosite:category-ads) -> block
+        domain(geosite:category-ads-all) -> block
+        domain(geosite:private) -> direct
+        domain(geosite:cn) -> direct
+        domain(geosite:category-games@cn) -> direct
+        dip(geoip:private) -> direct
+        dip(geoip:cn) -> direct
+
+        # V2Ray also handles direct connections
 
         fallback: proxy
       }
