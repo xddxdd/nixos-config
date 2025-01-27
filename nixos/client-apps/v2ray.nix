@@ -81,6 +81,16 @@ let
           };
         tag = "proxy";
       }
+      {
+        protocol = "freedom";
+        settings.domainStrategy = "UseIPv4";
+        tag = "direct";
+      }
+      {
+        protocol = "blackhole";
+        settings.response.type = "none";
+        tag = "blackhole";
+      }
     ];
     policy.levels."0" = {
       connIdle = 86400;
