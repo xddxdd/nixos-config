@@ -51,6 +51,7 @@
   "black-forest-labs/FLUX.1-pro": "black-forest-labs/flux.1-pro:siliconflow",
   "black-forest-labs/FLUX.1-schnell": "black-forest-labs/flux.1-schnell:siliconflow",
   "deepseek-ai/DeepSeek-V2.5": "deepseek-ai/deepseek-v2.5:siliconflow",
+  "deepseek-ai/Janus-Pro-7B": "deepseek-ai/janus-pro-7b:siliconflow",
   "deepseek-ai/deepseek-vl2": "deepseek-ai/deepseek-vl2:siliconflow",
   "fishaudio/fish-speech-1.4": "fishaudio/fish-speech-1.4:siliconflow",
   "fishaudio/fish-speech-1.5": "fishaudio/fish-speech-1.5:siliconflow",
