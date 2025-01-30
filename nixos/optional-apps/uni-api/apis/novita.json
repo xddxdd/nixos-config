@@ -1,6 +1,8 @@
 {
   "Sao10K/L3-8B-Stheno-v3.2": "sao10k/l3-8b-stheno-v3.2:novita",
   "cognitivecomputations/dolphin-mixtral-8x22b": "cognitivecomputations/dolphin-mixtral-8x22b:novita",
+  "deepseek/deepseek-r1": "deepseek/deepseek-r1:novita",
+  "deepseek/deepseek-r1-distill-llama-70b": "deepseek/deepseek-r1-distill-llama-70b:novita",
   "deepseek/deepseek_v3": "deepseek/deepseek_v3:novita",
   "google/gemma-2-9b-it": "google/gemma-2-9b-it:novita",
   "gryphe/mythomax-l2-13b": "gryphe/mythomax-l2-13b:novita",
