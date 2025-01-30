@@ -28,7 +28,8 @@
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
-    ../../nixos/optional-apps/virtualbox.nix
+    # FIXME: VirtualBox KVM patch broken
+    # ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
