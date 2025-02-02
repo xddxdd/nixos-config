@@ -55,6 +55,13 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl restart nix-daemon
 
+      - name: Setup SSH key
+        run: |
+          mkdir -p "$HOME/.ssh"
+          echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/id_ed25519"
+          echo "StrictHostKeyChecking no" > "$HOME/.ssh/config"
+          chmod -R 500 "$HOME/.ssh"
+
       - name: Build nix packages
         run: |
           cat > secrets.toml <<EOF
