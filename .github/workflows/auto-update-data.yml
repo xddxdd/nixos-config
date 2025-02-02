@@ -34,6 +34,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v30
         with:
+          github_access_token: ${{ secrets.AUTOMERGE_TOKEN }}
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
             extra-experimental-features = nix-command flakes ca-derivations
