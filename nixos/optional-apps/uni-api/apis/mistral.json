@@ -24,6 +24,7 @@
   "mistral-small-2312": "mistralai/mistral-small-2312:mistral",
   "mistral-small-2402": "mistralai/mistral-small-2402:mistral",
   "mistral-small-2409": "mistralai/mistral-small-2409:mistral",
+  "mistral-small-2501": "mistralai/mistral-small-2501:mistral",
   "mistral-small-latest": "mistralai/mistral-small-latest:mistral",
   "mistral-tiny": "mistralai/mistral-tiny:mistral",
   "mistral-tiny-2312": "mistralai/mistral-tiny-2312:mistral",
