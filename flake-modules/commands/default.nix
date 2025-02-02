@@ -24,6 +24,7 @@
         nvfetcher = ./nvfetcher.nix;
         secrets = ./secrets.nix;
         update = ./update.nix;
+        update-data = ./update-data.nix;
       };
     };
 }
