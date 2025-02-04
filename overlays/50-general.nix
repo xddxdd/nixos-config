@@ -19,9 +19,15 @@ rec {
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/dex-glob-match-redirect-uri.patch
-      ../patches/dex-ignore-force-approval-prompt.patch
+      ../patches/dex-2fa.patch
     ];
-    vendorHash = "sha256-fAM4ralMod9s3w6Gi4hj60n+F6ExjOqlqQazmroegMY=";
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace server/handlers.go \
+          --replace-fail '&& !authReq.ForceApprovalPrompt' ""
+      '';
+    vendorHash = "sha256-5bzbA0f6Ck3lkfbaIQ/ekgiK+YbsZHmZCR4ZVvcNirg=";
     doCheck = false;
   });
   drone = prev.drone.overrideAttrs (old: {

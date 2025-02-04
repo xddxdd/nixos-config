@@ -64,6 +64,10 @@ let
         };
       }
     ];
+    twoFactorAuthn = {
+      issuer = "dex";
+      connectors = [ "ldap" ];
+    };
     staticClients = [
       {
         id = "gitea";
