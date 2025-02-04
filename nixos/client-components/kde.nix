@@ -17,6 +17,8 @@
     kdePackages.qtmultimedia # Dependencies for plasma-smart-video-wallpaper-reborn plugin
 
     # nur-xddxdd.plasma-yesplaymusic-lyric
+
+    nur-xddxdd.red-star-os-wallpapers
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
