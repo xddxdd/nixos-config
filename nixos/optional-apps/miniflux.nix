@@ -1,18 +1,10 @@
 {
   pkgs,
   lib,
-  config,
-  inputs,
   ...
 }:
 {
   imports = [ ./postgresql.nix ];
-
-  age.secrets.miniflux-oauth-secret = {
-    file = inputs.secrets + "/miniflux-oauth-secret.age";
-    owner = "miniflux";
-    group = "miniflux";
-  };
 
   services.miniflux = {
     enable = true;
@@ -24,12 +16,14 @@
       CLEANUP_ARCHIVE_READ_DAYS = "-1";
       HTTPS = "1";
 
-      OAUTH2_PROVIDER = "oidc";
-      OAUTH2_CLIENT_ID = "miniflux";
-      OAUTH2_CLIENT_SECRET_FILE = config.age.secrets.miniflux-oauth-secret.path;
-      OAUTH2_REDIRECT_URL = "https://rss.xuyh0120.win/oauth2/oidc/callback";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://login.lantian.pub";
-      OAUTH2_USER_CREATION = "1";
+      DISABLE_LOCAL_AUTH = "1";
+      AUTH_PROXY_HEADER = "X-User";
+      AUTH_PROXY_USER_CREATION = "1";
+
+      FETCH_BILIBILI_WATCH_TIME = "1";
+      FETCH_NEBULA_WATCH_TIME = "1";
+      FETCH_ODYSEE_WATCH_TIME = "1";
+      FETCH_YOUTUBE_WATCH_TIME = "1";
 
       CREATE_ADMIN = lib.mkForce "0";
       PROXY_IMAGES = "all";
@@ -38,18 +32,12 @@
   };
 
   lantian.nginxVhosts."rss.xuyh0120.win" = {
-    locations =
-      let
-        proxyConfig = {
-          proxyPass = "http://unix:/run/miniflux/miniflux.sock";
-        };
-      in
-      {
-        "/" = proxyConfig;
-        # Bypass oauth-proxy for URL conflicts
-        "/oauth2/" = proxyConfig;
-        "/oauth2/auth" = proxyConfig;
+    locations = {
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://unix:/run/miniflux/miniflux.sock";
       };
+    };
 
     sslCertificate = "xuyh0120.win_ecc";
     noIndex.enable = true;
