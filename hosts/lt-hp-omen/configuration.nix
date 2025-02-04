@@ -33,7 +33,11 @@
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
-  boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
+  boot.kernelParams = [
+    "cfg80211.ieee80211_regdom=US"
+    "i915.force_probe=!9a60"
+    "xe.force_probe=9a60"
+  ];
 
   lantian.hidpi = 1.5;
 
