@@ -50,7 +50,6 @@ let
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic
-      inputs.nur-xddxdd.nixosModules.nix-cache-cachix
       inputs.nur-xddxdd.nixosModules.nix-cache-garnix
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
