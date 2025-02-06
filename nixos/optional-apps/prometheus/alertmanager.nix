@@ -184,7 +184,7 @@ in
         ];
         group_wait = "30s";
         group_interval = "2m";
-        repeat_interval = "4h";
+        repeat_interval = "24h";
         receiver = "admin";
       };
       receivers = [
