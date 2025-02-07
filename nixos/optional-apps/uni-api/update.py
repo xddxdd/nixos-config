@@ -16,6 +16,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "__CLOUDFLARE__",
+    "getmerlin2api": "__LOCAL__",
     "groq": "https://api.groq.com/openai/v1",
     "google": "__GOOGLE__",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
@@ -52,6 +53,17 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "qwen-",
         "qwq-",
     ],
+    "openai": [
+        "gpt-",
+        "o1",
+        "o3",
+    ],
+    "deepseek": ["deepseek"],
+    "anthropic": ["claude"],
+}
+
+NORMALIZE_PROVIDER_PREFIX_MAP = {
+    "deepseek": ["deepseek-ai"],
 }
 
 
@@ -115,11 +127,21 @@ def get_models_cloudflare(api_name: str) -> List[str]:
     return [m["name"] for m in models["models"]]
 
 
+def get_models_local(api_name: str) -> List[str]:
+    path = os.path.join(os.path.dirname(__file__), f"models_json/{api_name}.txt")
+    if os.path.exists(path):
+        with open(path) as f:
+            return [s.strip() for s in f.readlines() if s.strip() != ""]
+    raise ValueError(f"No local model info found for {api_name}")
+
+
 def get_models(api_name: str, base_url: str) -> List[str]:
     if base_url == "__CLOUDFLARE__":
         return get_models_cloudflare(api_name)
     if base_url == "__GOOGLE__":
         return get_models_google(api_name)
+    if base_url == "__LOCAL__":
+        return get_models_local(api_name)
 
     secret = get_api_secret(api_name)
 
@@ -138,6 +160,7 @@ def get_models(api_name: str, base_url: str) -> List[str]:
         model_ids: List[str] = [m["id"] for m in models["data"]]
     else:
         raise ValueError(f"No model info found in {models}")
+
     return model_ids
 
 
@@ -167,7 +190,14 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     base = re.sub(r"(^|/)([a-zA-Z]{2,})([0-9]+)([^/]*)$", r"\1\2-\3\4", base)
 
     # Guess provider for model
-    if "/" not in base:
+    if "/" in base:
+        provider = base.split("/")[0]
+        base = base.split("/")[1]
+        for normalized, providers in NORMALIZE_PROVIDER_PREFIX_MAP.items():
+            if provider in providers:
+                provider = normalized
+        base = f"{provider}/{base}"
+    else:
         provider = guess_provider(base)
         if not provider:
             provider = f"@{api_name}"

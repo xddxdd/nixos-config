@@ -1,5 +1,5 @@
 {
-  "deepseek-r1-distill-llama-70b": "@groq/deepseek-r1-distill-llama-70b:groq",
+  "deepseek-r1-distill-llama-70b": "deepseek/deepseek-r1-distill-llama-70b:groq",
   "distil-whisper-large-v3-en": "@groq/distil-whisper-large-v3-en:groq",
   "gemma2-9b-it": "google/gemma-2-9b-it:groq",
   "llama-3.1-8b-instant": "meta-llama/llama-3.1-8b-instant:groq",
