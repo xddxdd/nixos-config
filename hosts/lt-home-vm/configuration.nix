@@ -90,6 +90,12 @@
       Token = "::10";
       DHCPv6Client = "no";
     };
+    routes = [
+      {
+        Destination = "64:ff9b::/96";
+        Gateway = "_ipv6ra";
+      }
+    ];
   };
 
   services.avahi.enable = lib.mkForce true;
