@@ -91,6 +91,23 @@ def get_models_google(api_name: str) -> List[str]:
 
 
 def get_models_cloudflare(api_name: str) -> List[str]:
+    try:
+        r = urllib.request.Request(
+            f"https://playground.ai.cloudflare.com/api/models",
+            method="GET",
+            headers={
+                "User-Agent": USER_AGENT,
+            },
+        )
+        content = urllib.request.urlopen(r).read()
+        models = json.loads(content)
+        with open(
+            os.path.join(os.path.dirname(__file__), "models_json/cloudflare.json"), "w"
+        ) as f:
+            json.dump(models, f)
+    except Exception as e:
+        print(f"Error with get Cloudflare models, using cached models: {e}")
+
     with open(
         os.path.join(os.path.dirname(__file__), "models_json/cloudflare.json")
     ) as f:
