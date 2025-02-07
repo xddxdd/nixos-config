@@ -8,7 +8,8 @@
   ...
 }:
 let
-  loadModels = f: lib.mapAttrsToList (k: v: { "${k}" = v; }) (lib.importJSON f);
+  loadModels = f: loadModels' (lib.importJSON f);
+  loadModels' = lib.mapAttrsToList (k: v: { "${k}" = v; });
 
   cfg = {
     providers = [
@@ -71,6 +72,12 @@ let
           _secret = config.age.secrets.uni-api-siliconflow-pool-api-key.path;
         };
         model = loadModels ./apis/siliconflow.json;
+      }
+      {
+        provider = "getmerlin2api";
+        base_url = "https://getmerlin2api.vercel.app/v1/chat/completions";
+        api = "unused";
+        model = loadModels ./apis/getmerlin2api.json;
       }
       # Paid providers
       {
