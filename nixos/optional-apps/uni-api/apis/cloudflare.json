@@ -1,5 +1,6 @@
 {
   "@cf/deepseek-ai/deepseek-math-7b-instruct": "deepseek-ai/deepseek-math-7b-instruct:cloudflare",
+  "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b": "deepseek-ai/deepseek-r1-distill-qwen-32b:cloudflare",
   "@cf/defog/sqlcoder-7b-2": "defog/sqlcoder-7b-2:cloudflare",
   "@cf/fblgit/una-cybertron-7b-v2-bf16": "fblgit/una-cybertron-7b-v2-bf16:cloudflare",
   "@cf/meta/llama-2-7b-chat-fp16": "meta/llama-2-7b-chat-fp16:cloudflare",
