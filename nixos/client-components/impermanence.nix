@@ -52,7 +52,6 @@
           ".thunderbird"
           ".vagrant.d"
           ".vscode"
-          ".wine"
           ".Xilinx"
           ".zoom"
         ]
