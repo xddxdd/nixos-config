@@ -112,6 +112,21 @@
         peerIPv6 = "fd44:429d:3900::";
       };
     };
+    evans = {
+      remoteASN = 4242421789;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21789;
+        remoteAddress = "142.171.185.229";
+        remotePort = 22547;
+        wireguardPubkey = "DQUQoJk+ZAKwLZ6afo5whMwXgGaq1/rjQQc9tTc1D2w=";
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::1789";
+      };
+    };
     gatuno = {
       remoteASN = 4242420180;
       latencyMs = 65;
