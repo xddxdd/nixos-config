@@ -73,12 +73,6 @@ let
         };
         model = loadModels ./apis/siliconflow.json;
       }
-      {
-        provider = "getmerlin2api";
-        base_url = "https://getmerlin2api.vercel.app/v1/chat/completions";
-        api = "unused";
-        model = loadModels ./apis/getmerlin2api.json;
-      }
       # Paid providers
       {
         provider = "openrouter";
