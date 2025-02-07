@@ -16,7 +16,6 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "__CLOUDFLARE__",
-    "getmerlin2api": "__LOCAL__",
     "groq": "https://api.groq.com/openai/v1",
     "google": "__GOOGLE__",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
