@@ -22,6 +22,7 @@
         fields = with config.lib.htop.fields; [
           PID
           USER
+          54 # SCHEDULERPOLICY
           PRIORITY
           NICE
           M_SIZE
