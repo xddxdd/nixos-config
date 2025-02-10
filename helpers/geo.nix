@@ -29,7 +29,13 @@ rec {
             args.country;
         name = translit args.name;
       in
-      lib.nameValuePair "${country} ${name}" (args // { sanitized = sanitizeName "${country} ${name}"; })
+      lib.nameValuePair "${country} ${name}" (
+        args
+        // {
+          inherit country;
+          sanitized = sanitizeName "${country} ${name}";
+        }
+      )
     ) citiesJson
   );
 
