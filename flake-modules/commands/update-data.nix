@@ -4,7 +4,12 @@
   ...
 }:
 let
-  py = python3.withPackages (p: with p; [ requests ]);
+  py = python3.withPackages (
+    p: with p; [
+      requests
+      beautifulsoup4
+    ]
+  );
 in
 ''
   export SECRET_BASE=${inputs.secrets}

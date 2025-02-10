@@ -1,5 +1,7 @@
 {
-  "armenia": ["tls://37.186.113.100:1515"],
+  "armenia": [
+    "tls://37.186.113.100:1515"
+  ],
   "australia": [
     "tls://[2001:44b8:26e:1300::1]:7676",
     "tls://yg-mel.magicum.net:23800",
@@ -9,8 +11,9 @@
     "tls://109.176.250.101:65534",
     "tls://[2a02:1b8:10:147::1:1ea]:65534"
   ],
-  "brazil": [],
-  "czechia": ["tls://[2a03:3b40:fe:ab::1]:993"],
+  "czechia": [
+    "tls://[2a03:3b40:fe:ab::1]:993"
+  ],
   "finland": [
     "tls://95.216.5.243:18836",
     "tls://95.217.35.92:1337",
@@ -37,15 +40,18 @@
     "tls://yggdrasil.neilalexander.dev:64648?key=ecbbcb3298e7d3b4196103333c3e839cfe47a6ca47602b94a6d596683f6bb358",
     "tls://yggdrasil.su:62586"
   ],
-  "hong-kong": [],
-  "hungary": ["tls://ygg1.grin.hu:42444"],
+  "hungary": [
+    "tls://ygg1.grin.hu:42444"
+  ],
   "japan": [
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232",
     "tls://ftp.aiwnios.com:989",
     "tls://yg-osa.magicum.net:23900"
   ],
-  "luxembourg": ["tls://[2a03:90c0:85::28a]:443"],
+  "luxembourg": [
+    "tls://[2a03:90c0:85::28a]:443"
+  ],
   "moldova": [
     "tls://s-kiv-0.sergeysedoy97.ru:65534",
     "tls://x-kiv-0.sergeysedoy97.ru:65534"
@@ -57,8 +63,9 @@
     "tls://x-ams-0.sergeysedoy97.ru:65534",
     "tls://ygg-nl.incognet.io:8884"
   ],
-  "philippines": [],
-  "romania": ["tls://185.165.169.234:8443"],
+  "romania": [
+    "tls://185.165.169.234:8443"
+  ],
   "russia": [
     "tls://185.177.216.199:7891",
     "tls://188.225.9.167:18227",
@@ -86,18 +93,28 @@
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
-  "saudi-arabia": ["tls://pp1.ygg.sy.sa:8442"],
-  "singapore": ["tls://asia.deinfra.org:15015"],
-  "slovakia": [],
-  "south-africa": ["tls://yggdrasil.deavmi.assigned.network:2001"],
-  "spain": ["tls://spain.magicum.net:36901"],
+  "saudi-arabia": [
+    "tls://pp1.ygg.sy.sa:8442"
+  ],
+  "singapore": [
+    "tls://asia.deinfra.org:15015"
+  ],
+  "south-africa": [
+    "tls://yggdrasil.deavmi.assigned.network:2001"
+  ],
+  "spain": [
+    "tls://spain.magicum.net:36901"
+  ],
   "sweden": [
     "tls://s-sto-0.sergeysedoy97.ru:65534",
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
     "tls://x-sto-0.sergeysedoy97.ru:65534",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
-  "switzerland": ["tls://45.91.92.28:9441", "tls://[2a0e:dc0:6:257d::42]:9441"],
+  "switzerland": [
+    "tls://45.91.92.28:9441",
+    "tls://[2a0e:dc0:6:257d::42]:9441"
+  ],
   "ukraine": [
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:179",
