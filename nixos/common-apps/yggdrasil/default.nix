@@ -43,7 +43,7 @@ in
         "warn"
       ];
       settings = {
-        Listen = [ "tls://[::]:${LT.portStr.Yggdrasil.Public}" ];
+        Listen = [ ];
 
         MulticastInterfaces = [
           {
