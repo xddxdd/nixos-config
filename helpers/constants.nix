@@ -247,6 +247,8 @@ rec {
       "wan"
       "wl"
       # "wlan" # covered by wl
+    ];
+    OVERLAY = [
       "ygg"
     ];
     DN42 = [

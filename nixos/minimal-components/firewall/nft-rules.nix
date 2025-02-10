@@ -114,6 +114,7 @@ let
 
           # Block certain ports from public internet
           iifname @INTERFACE_WAN jump PUBLIC_INPUT
+          iifname @INTERFACE_OVERLAY jump PUBLIC_INPUT
         }
 
         chain FILTER_FORWARD {
