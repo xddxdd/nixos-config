@@ -147,6 +147,8 @@ rec {
     Prowlarr = 9696;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;
+    Yggdrasil.Public = 13058;
+    Yggdrasil.Multicast = 13059;
     FlareSolverr = 13191;
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
@@ -245,6 +247,7 @@ rec {
       "wan"
       "wl"
       # "wlan" # covered by wl
+      "ygg"
     ];
     DN42 = [
       "dn42"
@@ -296,6 +299,18 @@ rec {
       "coin"
       "emc"
       "lib"
+    ];
+    YggdrasilAlfis = [
+      "anon"
+      "btn"
+      "conf"
+      "index"
+      "merch"
+      "mirror"
+      "mob"
+      "screen"
+      "srv"
+      "ygg"
     ];
     CRXN = [ "crxn" ];
     Ltnet = [

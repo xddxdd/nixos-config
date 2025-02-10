@@ -1,0 +1,127 @@
+{
+  "armenia": ["tls://37.186.113.100:1515"],
+  "australia": [
+    "tls://[2001:44b8:26e:1300::1]:7676",
+    "tls://yg-mel.magicum.net:23800",
+    "tls://yg-syd.magicum.net:23700"
+  ],
+  "austria": [
+    "tls://109.176.250.101:65534",
+    "tls://[2a02:1b8:10:147::1:1ea]:65534"
+  ],
+  "brazil": [],
+  "czechia": ["tls://[2a03:3b40:fe:ab::1]:993"],
+  "finland": [
+    "tls://95.216.5.243:18836",
+    "tls://95.217.35.92:1337",
+    "tls://[2a01:4f9:2a:60c::2]:18836",
+    "tls://[2a01:4f9:2b:2d8f::2]:1337",
+    "tls://aurora.devices.waren.io:18836"
+  ],
+  "france": [
+    "tls://51.15.204.214:54321",
+    "tls://51.255.223.60:54232",
+    "tls://62.210.85.80:39575",
+    "tls://[2001:41d0:303:13b3:51:255:223:60]:54232",
+    "tls://[2001:470:1f13:e56::64]:39575",
+    "tls://cloudberry.fr1.servers.devices.cwinfo.net:54232",
+    "tls://s2.i2pd.xyz:39575",
+    "tls://yggpeer.tilde.green:59454"
+  ],
+  "germany": [
+    "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
+    "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
+    "tls://ygg.mkg20001.io:443",
+    "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
+    "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
+    "tls://yggdrasil.neilalexander.dev:64648?key=ecbbcb3298e7d3b4196103333c3e839cfe47a6ca47602b94a6d596683f6bb358",
+    "tls://yggdrasil.su:62586"
+  ],
+  "hong-kong": [],
+  "hungary": ["tls://ygg1.grin.hu:42444"],
+  "japan": [
+    "tls://133.18.201.69:54232",
+    "tls://153.120.42.137:54232",
+    "tls://ftp.aiwnios.com:989",
+    "tls://yg-osa.magicum.net:23900"
+  ],
+  "luxembourg": ["tls://[2a03:90c0:85::28a]:443"],
+  "moldova": [
+    "tls://s-kiv-0.sergeysedoy97.ru:65534",
+    "tls://x-kiv-0.sergeysedoy97.ru:65534"
+  ],
+  "netherlands": [
+    "tls://23.137.249.65:444",
+    "tls://s-ams-0.sergeysedoy97.ru:65534",
+    "tls://vpn.itrus.su:7992",
+    "tls://x-ams-0.sergeysedoy97.ru:65534",
+    "tls://ygg-nl.incognet.io:8884"
+  ],
+  "philippines": [],
+  "romania": ["tls://185.165.169.234:8443"],
+  "russia": [
+    "tls://185.177.216.199:7891",
+    "tls://188.225.9.167:18227",
+    "tls://195.2.74.155:7992",
+    "tls://195.58.51.167:7992",
+    "tls://45.147.200.202:443",
+    "tls://45.95.202.21:443",
+    "tls://[2a00:b700::a:279]:443",
+    "tls://[2a09:5302:ffff::992]:443",
+    "tls://box.paulll.cc:13338",
+    "tls://ekb.itrus.su:7992",
+    "tls://ip4.01.ekb.ru.dioni.su:9003",
+    "tls://ip4.01.msk.ru.dioni.su:9003",
+    "tls://ip4.01.tom.ru.dioni.su:9003",
+    "tls://ip6.01.ekb.ru.dioni.su:9003",
+    "tls://ip6.01.msk.ru.dioni.su:9003",
+    "tls://kursk.cleverfox.org:15015",
+    "tls://kzn1.neonxp.ru:7992",
+    "tls://msk1.neonxp.ru:7992",
+    "tls://s-mow-0.sergeysedoy97.ru:65534",
+    "tls://s-mow-1.sergeysedoy97.ru:65534",
+    "tls://srv.itrus.su:7992",
+    "tls://x-mow-0.sergeysedoy97.ru:65534",
+    "tls://x-mow-1.sergeysedoy97.ru:65534",
+    "tls://ygg-msk-1.averyan.ru:8362",
+    "tls://yggno.de:18227"
+  ],
+  "saudi-arabia": ["tls://pp1.ygg.sy.sa:8442"],
+  "singapore": ["tls://asia.deinfra.org:15015"],
+  "slovakia": [],
+  "south-africa": ["tls://yggdrasil.deavmi.assigned.network:2001"],
+  "spain": ["tls://spain.magicum.net:36901"],
+  "sweden": [
+    "tls://s-sto-0.sergeysedoy97.ru:65534",
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
+    "tls://x-sto-0.sergeysedoy97.ru:65534",
+    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+  ],
+  "switzerland": ["tls://45.91.92.28:9441", "tls://[2a0e:dc0:6:257d::42]:9441"],
+  "ukraine": [
+    "tls://193.93.119.42:443",
+    "tls://78.27.153.163:179",
+    "tls://78.27.153.163:33166",
+    "tls://78.27.153.163:3784",
+    "tls://78.27.153.163:3785",
+    "tls://yggdrasil.sunsung.fun:4443"
+  ],
+  "united-kingdom": [
+    "tls://london.sabretruth.org:18472",
+    "tls://uk.yggdrasil.neilalexander.dev:64648?key=c936c2171cf36fb4326acc644f83e367d0224b9e5b65bd97073c91e6d9d96559"
+  ],
+  "united-states": [
+    "tls://23.184.48.86:993",
+    "tls://44.234.134.124:443",
+    "tls://[2602:fc24:18:7a42::1]:993",
+    "tls://longseason.1200bps.xyz:13122",
+    "tls://redcatho.de:9494",
+    "tls://ygg-kcmo.incognet.io:8884",
+    "tls://ygg-pa.incognet.io:8884",
+    "tls://ygg-wa.incognet.io:8884",
+    "tls://ygg.jjolly.dev:3443",
+    "tls://ygg.mnpnk.com:443",
+    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1",
+    "tls://ygg4.mk16.de:1338?key=0000147df8daa1cce2ad4b1d4b14c60a4c69a991b2dfde4e00ba7e95c36c530b"
+  ]
+}
