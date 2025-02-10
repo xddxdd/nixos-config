@@ -147,7 +147,6 @@ rec {
     Prowlarr = 9696;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;
-    Yggdrasil.Public = 13058;
     Yggdrasil.Multicast = 13059;
     FlareSolverr = 13191;
     Lemmy.API = 13200;
