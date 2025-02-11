@@ -77,6 +77,13 @@ in
     sslProtocols = "TLSv1.2 TLSv1.3";
     sslCiphers = null;
 
+    appendConfig = ''
+      worker_processes auto;
+    '';
+    eventsConfig = ''
+      worker_connections 4096;
+    '';
+
     commonHttpConfig = ''
       include ${config.services.nginx.package}/conf/mime.types;
 
