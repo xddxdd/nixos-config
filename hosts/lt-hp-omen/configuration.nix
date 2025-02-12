@@ -28,8 +28,7 @@
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
-    # FIXME: VirtualBox KVM patch broken
-    # ../../nixos/optional-apps/virtualbox.nix
+    ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
@@ -54,8 +53,7 @@
     enable = true;
     powerOnBoot = false;
   };
-  # FIXME: enable after fixed for kernel 6.12
-  # hardware.xpadneo.enable = true;
+  hardware.xpadneo.enable = true;
 
   lantian.llama-sakura-llm = {
     enable = false;

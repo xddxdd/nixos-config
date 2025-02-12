@@ -1,0 +1,24 @@
+From f1b30a0daefb2376c7cfc0634b854b53d7947181 Mon Sep 17 00:00:00 2001
+From: Julian Stecklina <julian.stecklina@cyberus-technology.de>
+Date: Fri, 7 Feb 2025 13:10:21 +0100
+Subject: [PATCH] virtualboxKvm: 20241220 -> 20250207
+
+---
+ pkgs/applications/virtualization/virtualbox/default.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/applications/virtualization/virtualbox/default.nix b/pkgs/applications/virtualization/virtualbox/default.nix
+index f4054613cdc60..eeab97c4652d2 100644
+--- a/pkgs/applications/virtualization/virtualbox/default.nix
++++ b/pkgs/applications/virtualization/virtualbox/default.nix
+@@ -78,8 +78,8 @@ let
+   virtualboxSubVersion = "a";
+   virtualboxSha256 = "5a7b13066ec71990af0cc00a5eea9c7ec3c71ca5ed99bb549c85494ce2ea395d";
+ 
+-  kvmPatchVersion = "20241220";
+-  kvmPatchHash = "sha256-SYyD79iN6Sp/Mxat+ml3fee9X1vFUFyrwHPnQNboc1c=";
++  kvmPatchVersion = "20250207";
++  kvmPatchHash = "sha256-GzRLIXhzWL1NLvaGKcWVBCdvay1IxgJUE4koLX1ze7Y=";
+ 
+   # The KVM build is not compatible to VirtualBox's kernel modules. So don't export
+   # modsrc at all.
