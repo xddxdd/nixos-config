@@ -3,15 +3,15 @@
 {
   aggregator = {
     pname = "aggregator";
-    version = "7793abe9bfab4b7a140c77057ba9f68379907f40";
+    version = "100bea477feb8d788f239bf4d9ae3fbef12d0cd0";
     src = fetchFromGitHub {
       owner = "wzdnzd";
       repo = "aggregator";
-      rev = "7793abe9bfab4b7a140c77057ba9f68379907f40";
+      rev = "100bea477feb8d788f239bf4d9ae3fbef12d0cd0";
       fetchSubmodules = false;
-      sha256 = "sha256-8YPQ/cJ5zU22WwPUbgZ3dOBUSLHK9e0uLjX11dNuQC0=";
+      sha256 = "sha256-CpaQ7X8Vz8wvpKbIQALqdNjpGWXWFgdesh9rwjTOIeY=";
     };
-    date = "2025-01-18";
+    date = "2025-02-05";
   };
   brlaser = {
     pname = "brlaser";
@@ -35,10 +35,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.7.6";
+    version = "1.8.1";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.7.6/grafana-falconlogscale-datasource-1.7.6.zip";
-      sha256 = "sha256-cxhFyrjIKsOTBMQlBo/wF3WhDQrsRJX9IA+l33anPxY=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.1/grafana-falconlogscale-datasource-1.8.1.zip";
+      sha256 = "sha256-wNlE38pw2GfFJZV+6oRSI+61AmzbL/iQqzS7elczPOc=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "91112d4c90a3bd79960bc07172e862bb3cfbd2f1";
+    version = "a65867df3102c0460936d3ac839e319d10fbd3cc";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "91112d4c90a3bd79960bc07172e862bb3cfbd2f1";
+      rev = "a65867df3102c0460936d3ac839e319d10fbd3cc";
       fetchSubmodules = false;
-      sha256 = "sha256-k1R2UrCv5VFTsnpQaZH9WIyV0n0c+x1qUaZaEENnVec=";
+      sha256 = "sha256-0plmL0CpuBO+LA4XaV+doE4ERGAxq84/1nEIcCKT9bk=";
     };
-    date = "2025-01-10";
+    date = "2025-02-12";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,15 +112,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "0837f46dfe25b6e750abc7e601032bdd12c70be0";
+    version = "ab88d5ec996e841255e3c5215a360b7de306f375";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "0837f46dfe25b6e750abc7e601032bdd12c70be0";
+      rev = "ab88d5ec996e841255e3c5215a360b7de306f375";
       fetchSubmodules = false;
-      sha256 = "sha256-s1qtdm0UGd4uImNts42W5hT6W1nOVz8eTyBF37QlUfc=";
+      sha256 = "sha256-k/GUsX9NHxxaN6298GVwuj6bwAImNrzneIemwI8j5+A=";
     };
-    date = "2025-01-15";
+    date = "2025-02-11";
   };
   openspeedtest = {
     pname = "openspeedtest";
