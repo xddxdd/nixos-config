@@ -1,4 +1,5 @@
 {
+  "allam-2-7b": "@groq/allam-2-7b:groq",
   "deepseek-r1-distill-llama-70b": "deepseek/deepseek-r1-distill-llama-70b:groq",
   "deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b:groq",
   "distil-whisper-large-v3-en": "@groq/distil-whisper-large-v3-en:groq",
