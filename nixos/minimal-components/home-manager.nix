@@ -1,4 +1,4 @@
-{ LT, ... }:
+{ LT, inputs, ... }:
 let
   entrypoint = if LT.this.hasTag LT.tags.client then ../../home/client.nix else ../../home/none.nix;
 
@@ -13,6 +13,8 @@ in
     backupFileExtension = "bak";
     useGlobalPkgs = true;
     useUserPackages = true;
+
+    sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
     users.root = perUserConfig;
     users.lantian = perUserConfig;
