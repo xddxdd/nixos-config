@@ -986,6 +986,29 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736549395,
+        "narHash": "sha256-XzwkB62Tt5UYoL1jXiHzgk/qz2fUpGHExcSIbyGTtI0=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "a53af7f1514ef4cce8620a9d6a50f238cdedec8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -1077,6 +1100,7 @@
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
         "nvfetcher": "nvfetcher",
+        "plasma-manager": "plasma-manager",
         "preservation": "preservation",
         "proxmox-nixos": "proxmox-nixos",
         "secrets": "secrets",
