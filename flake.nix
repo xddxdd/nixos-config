@@ -101,6 +101,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     preservation.url = "github:WilliButz/preservation";
     proxmox-nixos = {
       url = "github:xddxdd/proxmox-nixos";
