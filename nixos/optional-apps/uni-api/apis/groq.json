@@ -1,5 +1,4 @@
 {
-  "allam-2-7b": "@groq/allam-2-7b:groq",
   "deepseek-r1-distill-llama-70b": "deepseek/deepseek-r1-distill-llama-70b:groq",
   "deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b:groq",
   "distil-whisper-large-v3-en": "@groq/distil-whisper-large-v3-en:groq",
@@ -16,6 +15,7 @@
   "llama3-8b-8192": "meta-llama/llama-3-8b-8192:groq",
   "mixtral-8x7b-32768": "mistralai/mixtral-8x7b-32768:groq",
   "qwen-2.5-32b": "qwen/qwen-2.5-32b:groq",
+  "qwen-2.5-coder-32b": "qwen/qwen-2.5-coder-32b:groq",
   "whisper-large-v3": "@groq/whisper-large-v3:groq",
   "whisper-large-v3-turbo": "@groq/whisper-large-v3-turbo:groq"
 }
