@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
   services.dae = {
     enable = true;
     config = ''
@@ -72,5 +73,5 @@ _: {
     '';
   };
 
-  # systemd.services.dae.wantedBy = lib.mkForce [ ];
+  systemd.services.dae.wantedBy = lib.mkForce [ ];
 }
