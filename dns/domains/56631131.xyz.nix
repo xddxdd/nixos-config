@@ -62,6 +62,12 @@
         }
 
         {
+          recordType = "NS";
+          name = "dt";
+          target = "bwg-lax.lantian.pub.";
+        }
+
+        {
           recordType = "TXT";
           name = "@";
           contents = "google-site-verification=LQvBzSL4-2NbbqM2208pYGLsRSw_hw132GGUvnShQGU";

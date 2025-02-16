@@ -56,93 +56,107 @@ let
         }
       '';
     in
-    pkgs.writeText "Corefile" ''
-      # Selfhosted Root Zone
-      . {
-        # Only serve internal networks to avoid being part of DNS amplification attack
-        acl {
-          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv4}
-          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
-          drop
+    pkgs.writeText "Corefile" (
+      ''
+        # Selfhosted Root Zone
+        . {
+          # Only serve internal networks to avoid being part of DNS amplification attack
+          acl {
+            allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv4}
+            allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
+            drop
+          }
+
+          any
+          bufsize 1232
+          loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+
+          forward . ${config.lantian.netns.coredns-knot.ipv4} ${config.lantian.netns.coredns-knot.ipv6}
+          ${dnssec null}
         }
 
-        any
-        bufsize 1232
-        loadbalance round_robin
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
-        forward . ${config.lantian.netns.coredns-knot.ipv4} ${config.lantian.netns.coredns-knot.ipv6}
-        ${dnssec null}
-      }
-
-      # Google DNS
-      .:${LT.portStr.DNSUpstream} {
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-        forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
-          tls_servername dns.google
-          policy sequential
-          health_check 1m
+        # Google DNS
+        .:${LT.portStr.DNSUpstream} {
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+          forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
+            tls_servername dns.google
+            policy sequential
+            health_check 1m
+          }
+          cache
         }
-        cache
-      }
 
-      # DN42 Lan Tian Authoritatives
-      ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
-      ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
-      ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
+        # DN42 Lan Tian Authoritatives
+        ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
+        ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
+        ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
 
-      ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
-        "K184_29.76.22.172.in-addr.arpa.+013+08709"
-      }
-      ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
-        "K96_27.76.22.172.in-addr.arpa.+013+41969"
-      }
-      ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
-        "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
-      }
+        ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
+          "K184_29.76.22.172.in-addr.arpa.+013+08709"
+        }
+        ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
+          "K96_27.76.22.172.in-addr.arpa.+013+41969"
+        }
+        ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
+          "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
+        }
 
-      # LTNET Active Directory
-      ad.lantian.pub {
-        any
-        bufsize 1232
-        loadbalance round_robin
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+        # LTNET Active Directory
+        ad.lantian.pub {
+          any
+          bufsize 1232
+          loadbalance round_robin
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-        forward . 198.18.0.202 fdbc:f9dc:67ad::202
-      }
+          forward . 198.18.0.202 fdbc:f9dc:67ad::202
+        }
 
-      # NeoNetwork Authoritative
-      ${publicZone "neo" "ltnet-scripts/zones/neo" null}
-      ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
+        # NeoNetwork Authoritative
+        ${publicZone "neo" "ltnet-scripts/zones/neo" null}
+        ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
 
-      # NeoNetwork Lan Tian Authoritative
-      ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
-      ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
-      ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
+        # NeoNetwork Lan Tian Authoritative
+        ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
+        ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
+        ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
 
-      ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
-        "K10.127.10.in-addr.arpa.+013+53292"
-      }
-      ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
-        "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
-      }
+        ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
+          "K10.127.10.in-addr.arpa.+013+53292"
+        }
+        ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
+          "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
+        }
 
-      # LTNET Public Facing Addressing
-      ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
+        # LTNET Public Facing Addressing
+        ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
 
-      # LTNET Authoritative
-      ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
-      ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
+        # LTNET Authoritative
+        ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
+        ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
 
-      # Public Internet Authoritative
-      ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
+        # Public Internet Authoritative
+        ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
 
-      # Meshname
-      meshname {
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-        meshname
-      }
-    '';
+        # Meshname
+        meshname {
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+          meshname
+        }
+      ''
+      + (lib.optionalString config.services.iodine.server.enable ''
+        # Iodine
+        ${config.services.iodine.server.domain}.:53 {
+          any
+          bufsize 1232
+          loadbalance round_robin
+          forward . ${LT.this.ltnet.IPv4}:${LT.portStr.Iodine} {
+            prefer_udp
+            max_fails 0
+          }
+        }
+      '')
+    );
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   age.secrets = builtins.listToAttrs (

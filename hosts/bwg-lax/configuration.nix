@@ -3,6 +3,8 @@
   imports = [
     ../../nixos/server.nix
 
+    ../../nixos/optional-apps/iodine.nix
+
     ./dn42.nix
     ./hardware-configuration.nix
   ];
