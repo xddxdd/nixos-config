@@ -101,9 +101,6 @@ let
         chain FILTER_INPUT {
           type filter hook input priority 5; policy accept;
 
-          # Block IPv6 from NetEase netns
-          iifname "ns-netease" ip6 version 6 drop
-
           # Drop timestamp ICMP pkts
           meta l4proto icmp icmp type timestamp-reply drop
           meta l4proto icmp icmp type timestamp-request drop
@@ -122,6 +119,9 @@ let
 
           # DN42 firewall rules
           iifname @INTERFACE_DN42 jump DN42_FORWARD
+
+          # Restrict Iodine to only allow WAN access
+          iifname "dns*" oifname != @INTERFACE_WAN drop
         }
 
         chain FILTER_OUTPUT {
@@ -134,13 +134,6 @@ let
 
         chain NAT_PREROUTING {
           type nat hook prerouting priority -95; policy accept;
-
-          # Redirect IPv4 from NetEase netns
-          iifname "ns-netease" ip version 4 tcp dport 80 dnat ip to ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTP}
-          iifname "ns-netease" ip version 4 tcp dport 443 dnat ip to ${LT.this.ltnet.IPv4}:${LT.portStr.NeteaseUnlock.HTTPS}
-
-          # Block IPv6 from NetEase netns
-          iifname "ns-netease" ip6 version 6 drop
     ''
     + (lib.optionalString (config.services ? proxmox-ve && config.services.proxmox-ve.enable) ''
       fib daddr type local tcp dport 443 redirect to :8006
