@@ -36,11 +36,17 @@
           "printing" = "CUPS";
 
           # Performance tuning
+          # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
           "min receivefile size" = 16384;
           "getwd cache" = "yes";
-          "socket options" = "TCP_NODELAY IPTOS_LOWDELAY";
+          "socket options" = "TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072";
           "read raw" = "yes";
           "write raw" = "yes";
+          "server signing" = "no";
+          "strict locking" = "no";
+          "use sendfile" = "yes";
+          "aio read size" = 16384;
+          "aio write size" = 16384;
 
           # Windows XP access
           "server min protocol" = "NT1";
