@@ -8,10 +8,10 @@ all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
 build: FORCE
-	@nix run .#colmena -- build --on @default
-
-build-all: FORCE
 	@nix run .#colmena -- build
+
+build-default: FORCE
+	@nix run .#colmena -- build --on @default
 
 build-x86: FORCE
 	@nix run .#colmena -- build --on @x86_64-linux
