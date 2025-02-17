@@ -246,7 +246,6 @@
         size = LT.constants.gui.cursorSize;
       };
       iconTheme = "breeze-dark";
-      lookAndFeel = "org.kde.breezedark.desktop";
       soundTheme = "Ocean";
       splashScreen = {
         engine = "none";
