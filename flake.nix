@@ -106,7 +106,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    preservation.url = "github:WilliButz/preservation";
+    preservation = {
+      # Downgrade for https://github.com/nix-community/preservation/issues/13
+      # url = "github:WilliButz/preservation";
+      url = "github:WilliButz/preservation/555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0";
+    };
     proxmox-nixos = {
       url = "github:xddxdd/proxmox-nixos";
       inputs.utils.follows = "flake-utils";

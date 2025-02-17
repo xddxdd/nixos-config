@@ -1034,16 +1034,17 @@
     },
     "preservation": {
       "locked": {
-        "lastModified": 1738541138,
-        "narHash": "sha256-isT+jR8P8UFh5PJDzGHYXqVEHEZa0D5WvT5kfMf14AM=",
+        "lastModified": 1738532945,
+        "narHash": "sha256-GkQzm0dYuKkkjnCvIAe/73siiyQLQ+yuZ9PkZchrheI=",
         "owner": "WilliButz",
         "repo": "preservation",
-        "rev": "2f16754f9f6b766c1429375ab7417dc81cc90a63",
+        "rev": "555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0",
         "type": "github"
       },
       "original": {
         "owner": "WilliButz",
         "repo": "preservation",
+        "rev": "555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0",
         "type": "github"
       }
     },
