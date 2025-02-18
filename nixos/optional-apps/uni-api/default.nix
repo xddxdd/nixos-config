@@ -98,6 +98,14 @@ let
         };
         model = loadModels ./apis/novita.json;
       }
+      {
+        provider = "xai";
+        base_url = "https://api.x.ai/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-xai-api-key.path;
+        };
+        model = loadModels ./apis/xai.json;
+      }
     ];
     api_keys = [
       {
@@ -133,6 +141,7 @@ in
         "openrouter-api-key"
         "siliconflow-api-key"
         "siliconflow-pool-api-key"
+        "xai-api-key"
       ]
   );
 
