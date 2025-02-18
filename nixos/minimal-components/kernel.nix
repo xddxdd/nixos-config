@@ -122,17 +122,14 @@ let
             (pkgs.nur-xddxdd.nvidia-grid.vgpu."16_8".override { inherit (final) kernel; }).overrideAttrs
               (old: {
                 patches = (old.patches or [ ]) ++ [
-                  (pkgs.fetchpatch {
-                    url = "https://gitlab.com/polloloco/vgpu-proxmox/-/raw/master/535.216.01.patch";
-                    sha256 = "07k0m5wqazr0hs464cfkrm87wc031xw7wkgv7nrv50m82sggr8dh";
-                  })
+                  "${LT.sources.vgpu-proxmox.src}/${old.version}.patch"
                 ];
 
                 postPatch =
                   (old.postPatch or "")
                   + ''
                     substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
-                      --replace-fail "no_llseek," "NULL,"
+                      --replace "no_llseek," "NULL,"
                   '';
               });
         }
