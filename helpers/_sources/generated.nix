@@ -218,6 +218,20 @@
     };
     date = "2023-12-01";
   };
+  vgpu-proxmox = {
+    pname = "vgpu-proxmox";
+    version = "c38f027577f3159b3ce37b684c151058c4515bc4";
+    src = fetchgit {
+      url = "https://gitlab.com/polloloco/vgpu-proxmox.git";
+      rev = "c38f027577f3159b3ce37b684c151058c4515bc4";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-vMuiIGWYy0oQc6LxpX7gDCcGR6CA5sJrN8H/IQSDOrk=";
+    };
+    date = "2024-11-17";
+  };
   web-compressor = {
     pname = "web-compressor";
     version = "7c8e79dea7af1afad562b43268129ebbc72b0bb3";
