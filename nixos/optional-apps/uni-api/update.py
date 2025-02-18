@@ -29,39 +29,40 @@ APIS = {
 
 GUESS_PROVIDER_PREFIX_MAP = {
     "mistralai": [
-        "codestral-",
-        "ministral-",
-        "mistral-",
-        "mixtral-",
-        "open-codestral-",
-        "open-mistral-",
-        "open-mixtral-",
-        "pixtral-",
+        "codestral",
+        "ministral",
+        "mistral",
+        "mixtral",
+        "open-codestral",
+        "open-mistral",
+        "open-mixtral",
+        "pixtral",
     ],
-    "meta-llama": ["llama-"],
+    "meta-llama": ["llama"],
     "google": [
-        "gemini-",
-        "gemma-",
+        "gemini",
+        "gemma",
     ],
-    "01-ai": ["yi-"],
+    "01-ai": ["yi"],
     "thudm": [
-        "glm-",
-        "chatglm-",
+        "glm",
+        "chatglm",
     ],
     "tencent": ["hunyuan"],
-    "internlm": ["internlm-"],
+    "internlm": ["internlm"],
     "qwen": [
-        "qwen-",
-        "qwq-",
+        "qwen",
+        "qwq",
     ],
     "openai": [
-        "gpt-",
+        "gpt",
         "o1",
         "o3",
     ],
     "deepseek": ["deepseek"],
     "anthropic": ["claude"],
     "x-ai": ["grok"],
+    "cohere": ["command-r"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {
@@ -201,10 +202,8 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
         base = f"{provider}/{base}"
     else:
         provider = guess_provider(base)
-        if not provider:
-            provider = f"@{api_name}"
-        base = f"{provider}/{base}"
-    assert "/" in base
+        if provider:
+            base = f"{provider}/{base}"
 
     if suffix:
         base = f"{base}:{api_name}-{suffix}"
