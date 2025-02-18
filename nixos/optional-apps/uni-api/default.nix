@@ -11,6 +11,12 @@ let
   loadModels = f: loadModels' (lib.importJSON f);
   loadModels' = lib.mapAttrsToList (k: v: { "${k}" = v; });
 
+  uni-api = pkgs.nur-xddxdd.uni-api.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../../patches/uni-api-speedup.patch
+    ];
+  });
+
   cfg = {
     providers = [
       # Free providers
@@ -154,11 +160,12 @@ in
       DISABLE_DATABASE = "true";
       UVICORN_HOST = "127.0.0.1";
       UVICORN_PORT = LT.portStr.UniAPI;
+      DEBUG = "true";
     };
 
     script = ''
       ${utils.genJqSecretsReplacementSnippet cfg "api.yaml"}
-      exec ${pkgs.nur-xddxdd.uni-api}/bin/uni-api
+      exec ${uni-api}/bin/uni-api
     '';
 
     postStart = ''
