@@ -23,6 +23,7 @@ APIS = {
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
+    "xai": "https://api.x.ai/v1",
 }
 
 GUESS_PROVIDER_PREFIX_MAP = {
@@ -59,6 +60,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
     ],
     "deepseek": ["deepseek"],
     "anthropic": ["claude"],
+    "x-ai": ["grok"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {
