@@ -133,6 +133,7 @@
   "mistralai/mistral-medium": "mistralai/mistral-medium:openrouter",
   "mistralai/mistral-nemo": "mistralai/mistral-nemo:openrouter",
   "mistralai/mistral-nemo:free": "mistralai/mistral-nemo:free:openrouter",
+  "mistralai/mistral-saba": "mistralai/mistral-saba:openrouter",
   "mistralai/mistral-small": "mistralai/mistral-small:openrouter",
   "mistralai/mistral-small-24b-instruct-2501": "mistralai/mistral-small-24b-instruct-2501:openrouter",
   "mistralai/mistral-small-24b-instruct-2501:free": "mistralai/mistral-small-24b-instruct-2501:free:openrouter",

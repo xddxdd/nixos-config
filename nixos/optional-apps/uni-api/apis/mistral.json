@@ -22,6 +22,8 @@
   "mistral-medium-latest": "mistralai/mistral-medium-latest:mistral",
   "mistral-moderation-2411": "mistralai/mistral-moderation-2411:mistral",
   "mistral-moderation-latest": "mistralai/mistral-moderation-latest:mistral",
+  "mistral-saba-2502": "mistralai/mistral-saba-2502:mistral",
+  "mistral-saba-latest": "mistralai/mistral-saba-latest:mistral",
   "mistral-small": "mistralai/mistral-small:mistral",
   "mistral-small-2312": "mistralai/mistral-small-2312:mistral",
   "mistral-small-2402": "mistralai/mistral-small-2402:mistral",
