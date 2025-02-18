@@ -169,7 +169,6 @@ in
       DISABLE_DATABASE = "true";
       UVICORN_HOST = "127.0.0.1";
       UVICORN_PORT = LT.portStr.UniAPI;
-      DEBUG = "true";
     };
 
     script = ''
