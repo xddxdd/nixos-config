@@ -79,6 +79,14 @@ let
         };
         model = loadModels ./apis/siliconflow.json;
       }
+      {
+        provider = "smnet-free-chat";
+        base_url = "https://api-1-hemf.onrender.com/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-smnet-free-chat-api-key.path;
+        };
+        model = loadModels ./apis/smnet-free-chat.json;
+      }
       # Paid providers
       {
         provider = "openrouter";
@@ -147,6 +155,7 @@ in
         "openrouter-api-key"
         "siliconflow-api-key"
         "siliconflow-pool-api-key"
+        "smnet-free-chat-api-key"
         "xai-api-key"
       ]
   );
