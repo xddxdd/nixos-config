@@ -23,6 +23,7 @@ APIS = {
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
+    "smnet-free-chat": "https://api-1-hemf.onrender.com/v1",
     "xai": "https://api.x.ai/v1",
 }
 
