@@ -62,6 +62,7 @@ in
         slang = "chi,zho,cmn,zh,eng,en";
       }
       // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
+        hwdec = "vaapi";
         scale = "lanczos";
         dither = false;
         correct-downscaling = false;
