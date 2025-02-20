@@ -196,6 +196,7 @@
   "perplexity/llama-3.1-sonar-large-128k-online": "perplexity/llama-3.1-sonar-large-128k-online:openrouter",
   "perplexity/llama-3.1-sonar-small-128k-chat": "perplexity/llama-3.1-sonar-small-128k-chat:openrouter",
   "perplexity/llama-3.1-sonar-small-128k-online": "perplexity/llama-3.1-sonar-small-128k-online:openrouter",
+  "perplexity/r1-1776": "perplexity/r1-1776:openrouter",
   "perplexity/sonar": "perplexity/sonar:openrouter",
   "perplexity/sonar-reasoning": "perplexity/sonar-reasoning:openrouter",
   "pygmalionai/mythalion-13b": "pygmalionai/mythalion-13b:openrouter",
