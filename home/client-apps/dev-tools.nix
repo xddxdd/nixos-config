@@ -53,7 +53,8 @@ let
     )
     ++ [
       dnspython
-      pip
+      # FIXME
+      # pip
       requests
     ]
   );

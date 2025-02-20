@@ -6,8 +6,8 @@
       ''
         echo "Reloading..."
       ''
-      + (lib.optionalString config.services.bird2.enable ''
-        systemctl reload bird2.service || true
+      + (lib.optionalString config.services.bird.enable ''
+        systemctl reload bird.service || true
       '')
       + (lib.optionalString config.services.knot.enable ''
         systemctl reload knot.service || true

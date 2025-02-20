@@ -12,7 +12,7 @@ let
   sys = import ./sys.nix args;
 in
 {
-  services.bird2 = {
+  services.bird = {
     enable = !builtins.elem LT.constants.tags.exclude-bgp-mesh LT.this.tags;
     checkConfig = false;
     config = builtins.concatStringsSep "\n" (
@@ -44,18 +44,18 @@ in
   };
 
   users = {
-    users.bird2 = {
+    users.bird = {
       description = "BIRD Internet Routing Daemon user";
-      group = "bird2";
+      group = "bird";
       isSystemUser = true;
     };
-    groups.bird2 = { };
+    groups.bird = { };
   };
 
-  systemd.services.bird2.serviceConfig = lib.mkForce (
+  systemd.services.bird.serviceConfig = lib.mkForce (
     LT.serviceHarden
     // {
-      ExecStart = "${pkgs.bird}/bin/bird -f -c /etc/bird/bird2.conf";
+      ExecStart = "${pkgs.bird}/bin/bird -f -c /etc/bird/bird.conf";
       ExecReload = "${pkgs.bird}/bin/birdc configure";
 
       CPUQuota = "10%";
@@ -80,8 +80,8 @@ in
       ];
       SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
 
-      User = "bird2";
-      Group = "bird2";
+      User = "bird";
+      Group = "bird";
       RuntimeDirectory = "bird";
     }
   );
@@ -115,7 +115,7 @@ in
       BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
     };
     unitConfig = {
-      After = "bird2.service";
+      After = "bird.service";
     };
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
@@ -134,8 +134,8 @@ in
       ];
       SystemCallFilter = [ ];
 
-      Group = "bird2";
-      User = "bird2";
+      Group = "bird";
+      User = "bird";
 
       CPUQuota = "10%";
     };
