@@ -281,8 +281,8 @@ in
                   ];
                   SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
 
-                  User = "bird2";
-                  Group = "bird2";
+                  User = "bird";
+                  Group = "bird";
                   RuntimeDirectory = "bird-${name}";
                 };
               }

@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "a65867df3102c0460936d3ac839e319d10fbd3cc";
+    version = "3c4a59e01e85f5b59b79240b4305994237b7a105";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "a65867df3102c0460936d3ac839e319d10fbd3cc";
+      rev = "3c4a59e01e85f5b59b79240b4305994237b7a105";
       fetchSubmodules = false;
-      sha256 = "sha256-0plmL0CpuBO+LA4XaV+doE4ERGAxq84/1nEIcCKT9bk=";
+      sha256 = "sha256-qVg/j7sIVsNIdeQBXTjfK0hJHCPMz0S54+gVeKksIo4=";
     };
-    date = "2025-02-12";
+    date = "2025-02-15";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -305,15 +305,15 @@
   };
   yourls-sleeky = {
     pname = "yourls-sleeky";
-    version = "f7978d9d426e4373a02785c5c008920f4bec7a96";
+    version = "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2";
     src = fetchFromGitHub {
       owner = "Flynntes";
       repo = "Sleeky";
-      rev = "f7978d9d426e4373a02785c5c008920f4bec7a96";
+      rev = "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2";
       fetchSubmodules = false;
-      sha256 = "sha256-Y8w9awNm1s3FpNRrwhCvyvDj4hg51GAKzcWKOoOnipA=";
+      sha256 = "sha256-l6znBrtNYwCWX3ef5qaT5ErC0IKKG3+GAzF+h7Klme0=";
     };
-    date = "2021-06-27";
+    date = "2025-02-17";
   };
   zsh-autopair = {
     pname = "zsh-autopair";

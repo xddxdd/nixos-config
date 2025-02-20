@@ -64,7 +64,7 @@ lib.recursiveUpdate {
         (innerConfig { containerConfig = config; })
       ];
 
-      services.bird2 = {
+      services.bird = {
         enable = (builtins.length (announcedIPv4 ++ announcedIPv6)) > 0;
         checkConfig = false;
         config =

@@ -4,7 +4,8 @@
     obs-studio
     obs-studio-plugins.looking-glass-obs
     obs-studio-plugins.obs-gstreamer
-    obs-studio-plugins.obs-nvfbc
+    # FIXME
+    # obs-studio-plugins.obs-nvfbc
     obs-studio-plugins.wlrobs
   ];
 
