@@ -131,7 +131,8 @@ rec {
         fuzzywuzzy
         pint
         pytz
-        simpleeval
+        # FIXME
+        # simpleeval
       ];
   });
   zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {

@@ -1,14 +1,14 @@
 diff --git a/nixos/modules/services/databases/mysql.nix b/nixos/modules/services/databases/mysql.nix
-index ec4524e9061..45a5cbc55d5 100644
+index 68ef50651f43..953491d886a5 100644
 --- a/nixos/modules/services/databases/mysql.nix
 +++ b/nixos/modules/services/databases/mysql.nix
-@@ -392,6 +392,9 @@ in
-           done
-         ''}
+@@ -433,6 +433,9 @@ in
+             done
+           ''}
  
-+        # Wait for galera to be ready
-+        sleep 10
++          # Wait for galera to be ready
++          sleep 10
 +
-         if [ -f ${cfg.dataDir}/mysql_init ]
-         then
-             # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
+           if [ -f ${cfg.dataDir}/mysql_init ]
+           then
+               # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
