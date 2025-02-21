@@ -1,4 +1,9 @@
-{ lib, LT, ... }:
+{
+  lib,
+  LT,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../../nixos/client.nix
@@ -22,6 +27,9 @@
     "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0" = 0.1;
     "alsa_output.usb-EDIFIER_USB_Composite_Device_EDI00000X07-00.pro-output-0" = 0;
   };
+
+  # For updating Intel GPU firmware
+  environment.systemPackages = [ pkgs.nur-xddxdd.igsc ];
 
   services.fwupd.enable = true;
 
