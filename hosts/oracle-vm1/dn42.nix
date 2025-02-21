@@ -68,6 +68,22 @@
         peerIPv6LinkLocal = "fe80::1060";
       };
     };
+    jlu5 = {
+      remoteASN = 4242421080;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21080;
+        remoteAddress = "tyo.peer.highdef.network";
+        remotePort = 22547;
+        wireguardPubkey = "iJXjwJGGrUTQy/P3OXmZ5lM4cjrDAd9K+vonZVUZjxY=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.229.124";
+        peerIPv6LinkLocal = "fe80::124";
+      };
+    };
     k1t3ab = {
       remoteASN = 4242421591;
       latencyMs = 79;

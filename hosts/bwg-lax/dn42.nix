@@ -118,6 +118,7 @@
       peering.mpbgp = true;
       tunnel = {
         type = "wireguard";
+        mtu = 1392;
         localPort = 21789;
         remoteAddress = "142.171.185.229";
         remotePort = 22547;

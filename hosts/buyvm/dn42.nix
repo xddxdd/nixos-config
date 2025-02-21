@@ -53,21 +53,6 @@
         peerIPv6LinkLocal = "fe80::1173";
       };
     };
-    autkin = {
-      remoteASN = 4242423480;
-      latencyMs = 19;
-      tunnel = {
-        type = "wireguard";
-        localPort = 23480;
-        remoteAddress = "dn42-host.autkin.net";
-        remotePort = 22547;
-        wireguardPubkey = "9C0og41qa2+o6DqzBZnyMWwgLdSbBMebVSbma88ZOBM=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.242.129";
-        peerIPv6LinkLocal = "fe80::3480";
-      };
-    };
     bastelfr = {
       remoteASN = 4242423668;
       latencyMs = 13;
