@@ -84,6 +84,15 @@ let
         };
         model = loadModels "lingyiwanwu" ./apis/lingyiwanwu.json;
       }
+      {
+        # https://docs.api.ecylt.top/wbot/wbot-4-347b
+        provider = "wbot";
+        base_url = "https://api.223387.xyz/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-wbot-api-key.path;
+        };
+        model = loadModels null ./apis/wbot.json;
+      }
       # Third party free providers
       {
         provider = "ai-985-games";
@@ -173,6 +182,7 @@ in
         "siliconflow-api-key"
         "siliconflow-pool-api-key"
         "smnet-free-chat-api-key"
+        "wbot-api-key"
         "xai-api-key"
       ]
   );
