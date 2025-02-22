@@ -31,7 +31,7 @@ in
     };
     modelName = lib.mkOption {
       type = lib.types.str;
-      default = "sakura-14b-qwen2.5-v1.0-q6k.gguf";
+      default = "sakura-14b-qwen2.5-v1.0-iq4xs.gguf";
     };
   };
 
