@@ -35,7 +35,8 @@
     script = ''
       while true; do
         for i in $(seq 0 1); do
-          echo $(nvidia-smi -q -i "$i" | grep "GPU Current Temp" | grep -E -o "[0-9]+" | sort -rn | head -n1)000 > /run/nvidia-tempmon/gpu$i
+          echo $(nvidia-smi -q -i "$i" | grep "GPU Current Temp" | grep -E -o "[0-9]+" | sort -rn | head -n1)000 > /run/nvidia-tempmon/tmp$i
+          mv /run/nvidia-tempmon/tmp$i /run/nvidia-tempmon/gpu$i
         done
         sleep 2
       done
