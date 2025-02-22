@@ -24,6 +24,7 @@ APIS = {
     "openrouter": "https://openrouter.ai/api/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
     "smnet-free-chat": "https://api-1-hemf.onrender.com/v1",
+    "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
 }
 
