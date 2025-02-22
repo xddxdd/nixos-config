@@ -13,7 +13,6 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
-    ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 

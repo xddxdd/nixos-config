@@ -24,7 +24,6 @@
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iperf3.nix
-    ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
@@ -33,6 +32,7 @@
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/pterodactyl-panel.nix
     ../../nixos/optional-apps/pterodactyl-wings.nix
+    ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
     # ../../nixos/optional-apps/stable-diffusion-webui.nix
