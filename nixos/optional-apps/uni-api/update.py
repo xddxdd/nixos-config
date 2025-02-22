@@ -205,11 +205,6 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
         if provider:
             base = f"{provider}/{base}"
 
-    if suffix:
-        base = f"{base}:{api_name}-{suffix}"
-    else:
-        base = f"{base}:{api_name}"
-
     return base
 
 

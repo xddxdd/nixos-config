@@ -1,12 +1,12 @@
 {
-  "yi-large": "01-ai/yi-large:lingyiwanwu",
-  "yi-large-fc": "01-ai/yi-large-fc:lingyiwanwu",
-  "yi-large-preview": "01-ai/yi-large-preview:lingyiwanwu",
-  "yi-lightning": "01-ai/yi-lightning:lingyiwanwu",
-  "yi-medium": "01-ai/yi-medium:lingyiwanwu",
-  "yi-medium-200k": "01-ai/yi-medium-200k:lingyiwanwu",
-  "yi-spark": "01-ai/yi-spark:lingyiwanwu",
-  "yi-vision": "01-ai/yi-vision:lingyiwanwu",
-  "yi-vision-solution": "01-ai/yi-vision-solution:lingyiwanwu",
-  "yi-vision-v2": "01-ai/yi-vision-v2:lingyiwanwu"
+  "yi-large": "01-ai/yi-large",
+  "yi-large-fc": "01-ai/yi-large-fc",
+  "yi-large-preview": "01-ai/yi-large-preview",
+  "yi-lightning": "01-ai/yi-lightning",
+  "yi-medium": "01-ai/yi-medium",
+  "yi-medium-200k": "01-ai/yi-medium-200k",
+  "yi-spark": "01-ai/yi-spark",
+  "yi-vision": "01-ai/yi-vision",
+  "yi-vision-solution": "01-ai/yi-vision-solution",
+  "yi-vision-v2": "01-ai/yi-vision-v2"
 }
