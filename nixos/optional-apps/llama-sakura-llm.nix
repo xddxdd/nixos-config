@@ -75,6 +75,7 @@ in
     systemd.services.llama-cpp = {
       description = "LLaMA C++ server";
       after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       path = with pkgs; [ curl ];
       postStart = ''
@@ -88,9 +89,11 @@ in
       '';
 
       serviceConfig = LT.serviceHarden // {
-        Type = "simple";
+        Type = "idle";
         KillSignal = "SIGINT";
         ExecStart = "${cfg.package}/bin/llama-server --log-disable --host ${cfg.host} --port ${builtins.toString cfg.port} -m ${modelName} ${utils.escapeSystemdExecArgs cfg.extraFlags}";
+        Restart = "on-failure";
+        RestartSec = 300;
         WorkingDirectory = "${model}";
 
         User = "llama-cpp";
@@ -100,47 +103,19 @@ in
         PrivateDevices = false;
       };
 
-      unitConfig = {
-        ConditionPathExists = "/dev/nvidia0";
-        StopWhenUnneeded = true;
-      };
-    };
-
-    systemd.services.llama-cpp-proxy = {
-      requires = [
-        "llama-cpp.service"
-        "llama-cpp-proxy.socket"
-      ];
-      after = [
-        "llama-cpp.service"
-        "llama-cpp-proxy.socket"
-      ];
-      script = ''
-        exec ${pkgs.systemd}/lib/systemd/systemd-socket-proxyd \
-          --exit-idle-time=120s \
-          ${cfg.host}:${builtins.toString cfg.port}
-      '';
-    };
-
-    systemd.sockets.llama-cpp-proxy = {
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ "/run/llama-cpp.sock" ];
-      socketConfig = {
-        SocketUser = "llama-cpp";
-        SocketGroup = "llama-cpp";
-      };
+      unitConfig.ConditionPathExists = "/dev/nvidia0";
     };
 
     users.users.llama-cpp = {
       group = "llama-cpp";
       isSystemUser = true;
     };
-    users.groups.llama-cpp.members = [ "nginx" ];
+    users.groups.llama-cpp = { };
 
     lantian.nginxVhosts = {
       "llama-cpp.${config.networking.hostName}.xuyh0120.win" = {
         locations."/" = {
-          proxyPass = "http://unix:/run/llama-cpp.sock";
+          proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
           proxyNoTimeout = true;
         };
 
@@ -152,7 +127,7 @@ in
         listenHTTPS.enable = false;
 
         locations."/" = {
-          proxyPass = "http://unix:/run/llama-cpp.sock";
+          proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
           proxyNoTimeout = true;
         };
 
