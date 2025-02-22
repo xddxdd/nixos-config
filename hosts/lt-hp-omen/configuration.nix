@@ -19,7 +19,6 @@
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/llama-sakura-llm.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix
@@ -54,11 +53,6 @@
     powerOnBoot = false;
   };
   hardware.xpadneo.enable = true;
-
-  lantian.llama-sakura-llm = {
-    enable = false;
-    modelName = "sakura-1b8-qwen2beta-v0.9.1-fp16.gguf";
-  };
 
   lantian.pipewire.roc-sink-ip = [
     "192.168.0.207"
