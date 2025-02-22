@@ -8,8 +8,20 @@
   ...
 }:
 let
-  loadModels = f: loadModels' (lib.importJSON f);
-  loadModels' = lib.mapAttrsToList (k: v: { "${k}" = v; });
+  loadModels = providerName: f: loadModels' providerName (lib.importJSON f);
+  loadModels' =
+    providerName:
+    lib.mapAttrsToList (
+      k: v: {
+        "${k}" =
+          if providerName == null then
+            v
+          else if lib.hasInfix ":" v then
+            lib.replaceStrings [ ":" ] [ ":${providerName}-" ]
+          else
+            "${v}:${providerName}";
+      }
+    );
 
   uni-api = pkgs.nur-xddxdd.uni-api.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
@@ -26,7 +38,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-groq-api-key.path;
         };
-        model = loadModels ./apis/groq.json;
+        model = loadModels null ./apis/groq.json;
       }
       {
         provider = "mistral";
@@ -34,7 +46,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-mistral-api-key.path;
         };
-        model = loadModels ./apis/mistral.json;
+        model = loadModels null ./apis/mistral.json;
       }
       {
         provider = "gemini";
@@ -42,7 +54,16 @@ let
         api = {
           _secret = config.age.secrets.uni-api-google-api-key.path;
         };
-        model = loadModels ./apis/google.json;
+        model = loadModels null ./apis/google.json;
+      }
+      {
+        # $150 free credit per month
+        provider = "xai";
+        base_url = "https://api.x.ai/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-xai-api-key.path;
+        };
+        model = loadModels null ./apis/xai.json;
       }
       {
         provider = "cloudflare";
@@ -52,7 +73,8 @@ let
         cf_account_id = {
           _secret = config.age.secrets.uni-api-cloudflare-account-id.path;
         };
-        model = loadModels ./apis/cloudflare.json;
+        # Latency is high
+        model = loadModels "cloudflare" ./apis/cloudflare.json;
       }
       {
         provider = "lingyiwanwu";
@@ -60,7 +82,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-lingyiwanwu-api-key.path;
         };
-        model = loadModels ./apis/lingyiwanwu.json;
+        model = loadModels "lingyiwanwu" ./apis/lingyiwanwu.json;
       }
       # Third party free providers
       {
@@ -69,7 +91,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-ai-985-games-api-key.path;
         };
-        model = loadModels ./apis/ai-985-games.json;
+        model = loadModels null ./apis/ai-985-games.json;
       }
       {
         provider = "siliconflow-pool";
@@ -77,7 +99,8 @@ let
         api = {
           _secret = config.age.secrets.uni-api-siliconflow-pool-api-key.path;
         };
-        model = loadModels ./apis/siliconflow.json;
+        # Siliconflow may truncate long responses
+        model = loadModels "siliconflow" ./apis/siliconflow.json;
       }
       {
         provider = "smnet-free-chat";
@@ -85,7 +108,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-smnet-free-chat-api-key.path;
         };
-        model = loadModels ./apis/smnet-free-chat.json;
+        model = loadModels null ./apis/smnet-free-chat.json;
       }
       # Paid providers
       {
@@ -94,7 +117,7 @@ let
         api = {
           _secret = config.age.secrets.uni-api-openrouter-api-key.path;
         };
-        model = loadModels ./apis/openrouter.json;
+        model = loadModels null ./apis/openrouter.json;
       }
       {
         provider = "siliconflow";
@@ -102,7 +125,8 @@ let
         api = {
           _secret = config.age.secrets.uni-api-siliconflow-api-key.path;
         };
-        model = loadModels ./apis/siliconflow.json;
+        # Siliconflow may truncate long responses
+        model = loadModels "siliconflow" ./apis/siliconflow.json;
       }
       {
         provider = "novita";
@@ -110,15 +134,8 @@ let
         api = {
           _secret = config.age.secrets.uni-api-novita-api-key.path;
         };
-        model = loadModels ./apis/novita.json;
-      }
-      {
-        provider = "xai";
-        base_url = "https://api.x.ai/v1/chat/completions";
-        api = {
-          _secret = config.age.secrets.uni-api-xai-api-key.path;
-        };
-        model = loadModels ./apis/xai.json;
+        # Novita is expensive
+        model = loadModels "novita" ./apis/novita.json;
       }
     ];
     api_keys = [
