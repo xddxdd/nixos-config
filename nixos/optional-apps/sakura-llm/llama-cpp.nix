@@ -9,16 +9,6 @@
 let
   # https://github.com/SakuraLLM/Sakura-13B-Galgame
   model = pkgs.linkFarm "llama-model" {
-    "sakura-1b8-qwen2beta-v0.9.1-fp16.gguf" = pkgs.fetchurl {
-      name = "sakura-1b8-qwen2beta-v0.9.1-fp16.gguf";
-      url = "https://huggingface.co/SakuraLLM/Sakura-1B8-Qwen2beta-v0.9.1-GGUF/resolve/main/sakura-1b8-qwen2beta-v0.9.1-fp16.gguf?download=true";
-      sha256 = "15pjh8qm0hq7ah6gx600km71hzr2wg85b6yg1mrbsddjdamvh25x";
-    };
-    "sakura-14b-qwen2beta-v0.9.2-iq4xs.gguf" = pkgs.fetchurl {
-      name = "sakura-14b-qwen2beta-v0.9.2-iq4xs.gguf";
-      url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2beta-v0.9.2-GGUF/resolve/main/sakura-14b-qwen2beta-v0.9.2-iq4xs.gguf?download=true";
-      sha256 = "0rzd7jd0ifl9c4qx9cns2nb7h2ha5fxmaphlf6ixm9g2wnbpwji5";
-    };
     "sakura-14b-qwen2.5-v1.0-iq4xs.gguf" = pkgs.fetchurl {
       name = "sakura-14b-qwen2.5-v1.0-iq4xs.gguf";
       url = "https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2.5-v1.0-GGUF/resolve/main/sakura-14b-qwen2.5-v1.0-iq4xs.gguf?download=true";
@@ -32,10 +22,10 @@ let
   };
 
   cfg = config.services.llama-cpp;
-  inherit (config.lantian.llama-sakura-llm) modelName;
+  inherit (config.lantian.sakura-llm) modelName;
 in
 {
-  options.lantian.llama-sakura-llm = {
+  options.lantian.sakura-llm = {
     enable = (lib.mkEnableOption "Llama API with Sakura LLM") // {
       default = true;
     };
@@ -45,7 +35,7 @@ in
     };
   };
 
-  config = lib.mkIf config.lantian.llama-sakura-llm.enable {
+  config = lib.mkIf config.lantian.sakura-llm.enable {
     services.llama-cpp = {
       # Do not enable, I define systemd service myself
       enable = false;
