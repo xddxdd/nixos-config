@@ -64,8 +64,10 @@
   "netherlands": [
     "tls://23.137.249.65:444",
     "tls://s-ams-0.sergeysedoy97.ru:65534",
+    "tls://s-ams-1.sergeysedoy97.ru:65534",
     "tls://vpn.itrus.su:7992",
     "tls://x-ams-0.sergeysedoy97.ru:65534",
+    "tls://x-ams-1.sergeysedoy97.ru:65534",
     "tls://ygg-nl.incognet.io:8884"
   ],
   "romania": [
@@ -111,11 +113,12 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
+    "tls://s-sto-0.sergeysedoy97.ru:65534",
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
+    "tls://x-sto-0.sergeysedoy97.ru:65534",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "switzerland": [
-    "tls://45.91.92.28:9441",
     "tls://[2a0e:dc0:6:257d::42]:9441"
   ],
   "ukraine": [
