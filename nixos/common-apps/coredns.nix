@@ -100,7 +100,8 @@ in
           # Not working well
           # ++ lib.optional config.services.avahi.enable (mdns "local")
           ++ (builtins.map forwardToLtnet (
-            with LT.constants.zones; (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)
+            with LT.constants.zones;
+            (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ YggdrasilAlfis ++ Ltnet)
           ));
       in
       lib.concatStrings cfgEntries;

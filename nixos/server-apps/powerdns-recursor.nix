@@ -53,16 +53,18 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             "2602:ffc5:30::1:5c47"
           ]
         );
+        yggdrasilAlfis = lib.genAttrs LT.constants.zones.YggdrasilAlfis (_k: "fdbc:f9dc:67ad:2547::52");
       in
       authoritative
       // emercoin
+      // yggdrasilAlfis
       // {
         # DN42
         "hack" = "172.31.0.5";
       };
     luaConfig =
       (lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")") (
-        with LT.constants.zones; (OpenNIC ++ Emercoin ++ CRXN ++ Ltnet)
+        with LT.constants.zones; (OpenNIC ++ Emercoin ++ CRXN ++ YggdrasilAlfis ++ Ltnet)
       ))
       + ''
         dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")

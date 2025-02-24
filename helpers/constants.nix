@@ -123,6 +123,7 @@ rec {
     NFS.LockD = 4001;
     NFS.MountD = 4002;
     Quassel = 4242;
+    Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
     IPFS.API = 5001;
     IPerf = 5201;
