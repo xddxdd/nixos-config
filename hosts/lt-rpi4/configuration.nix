@@ -8,6 +8,9 @@
     ./lora
   ];
 
+  # GPIO doesn't work with mainline kernel
+  lantian.kernel = pkgs.linux_rpi4;
+
   boot.initrd.systemd.tpm2.enable = false;
 
   environment.systemPackages = with pkgs; [

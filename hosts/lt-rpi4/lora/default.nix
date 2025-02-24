@@ -87,7 +87,10 @@ in
     description = "LoRa SX1302 HAL";
     wantedBy = [ "multi-user.target" ];
 
-    path = [ resetLgw ];
+    path = [
+      resetLgw
+      pkgs.bash
+    ];
 
     preStart = ''
       ${utils.genJqSecretsReplacementSnippet sx1302HalConfig "local_conf.json"}
