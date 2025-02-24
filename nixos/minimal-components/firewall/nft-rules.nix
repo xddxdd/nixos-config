@@ -145,6 +145,11 @@ let
       fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip6 to [${config.lantian.netns.nginx-proxy.ipv6}]:${LT.portStr.Whois}
       fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip6 to [${config.lantian.netns.nginx-proxy.ipv6}]:${LT.portStr.Gopher}
     '')
+    + (lib.optionalString (config.lantian.netns ? yggdrasil-alfis) ''
+      # nginx whois & gopher server
+      fib daddr type local tcp dport ${LT.portStr.Yggdrasil.Alfis} dnat ip to ${config.lantian.netns.yggdrasil-alfis.ipv4}:${LT.portStr.Yggdrasil.Alfis}
+      fib daddr type local tcp dport ${LT.portStr.Yggdrasil.Alfis} dnat ip6 to [${config.lantian.netns.yggdrasil-alfis.ipv6}]:${LT.portStr.Yggdrasil.Alfis}
+    '')
     + ''
         ${serverPortForwards}
         ${tnl-buyvm}
