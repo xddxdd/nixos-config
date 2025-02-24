@@ -17,6 +17,9 @@ in
   age.secrets.sakura-share-env.file = inputs.secrets + "/sakura-share-env.age";
 
   systemd.services.sakura-share = {
+    # FIXME: wait for upstream task allocation improvement
+    enable = false;
+
     description = "Share client for sakura-share.one";
     after = [
       "network.target"
