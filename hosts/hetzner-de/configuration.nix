@@ -22,6 +22,7 @@
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/waline.nix
+    ../../nixos/optional-apps/yggdrasil-alfis.nix
     ../../nixos/optional-apps/zerotierone-controller
 
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
