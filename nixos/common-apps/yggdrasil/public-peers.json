@@ -23,6 +23,7 @@
     "tls://aurora.devices.waren.io:18836"
   ],
   "france": [
+    "tls://51.15.204.214:54321",
     "tls://51.255.223.60:54232",
     "tls://62.210.85.80:39575",
     "tls://[2001:41d0:303:13b3:51:255:223:60]:54232",
@@ -99,6 +100,9 @@
     "tls://x-mow-1.sergeysedoy97.ru:65534",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
+  ],
+  "saudi-arabia": [
+    "tls://pp1.ygg.sy.sa:8442"
   ],
   "singapore": [
     "tls://asia.deinfra.org:15015"
