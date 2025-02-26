@@ -75,6 +75,7 @@
   "moonshot-v1-32k": "moonshot-v1-32k",
   "moonshot-v1-8k": "moonshot-v1-8k",
   "nemotron-4-340b": "nemotron-4-340b",
+  "o3-mini": "openai/o3-mini",
   "phi-3-mini-4k-instruct-june-2024": "phi-3-mini-4k-instruct-june-2024",
   "pixtral-12b-2409": "mistralai/pixtral-12b-2409",
   "pixtral-large-2411": "mistralai/pixtral-large-2411",

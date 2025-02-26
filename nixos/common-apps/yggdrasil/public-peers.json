@@ -37,7 +37,6 @@
     "tls://s-fra-0.sergeysedoy97.ru:65534",
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
     "tls://x-fra-0.sergeysedoy97.ru:65534",
-    "tls://ygg-uplink.thingylabs.io:443",
     "tls://ygg-uplink.thingylabs.io:993",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
@@ -51,7 +50,6 @@
   "japan": [
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232",
-    "tls://astrra.space:55535",
     "tls://ftp.aiwnios.com:989",
     "tls://yg-osa.magicum.net:23900"
   ],

@@ -1,7 +1,4 @@
 {
-  "gemini-1.0-pro": "google/gemini-1.0-pro",
-  "gemini-1.0-pro-001": "google/gemini-1.0-pro-001",
-  "gemini-1.0-pro-latest": "google/gemini-1.0-pro-latest",
   "gemini-1.0-pro-vision-latest": "google/gemini-1.0-pro-vision-latest",
   "gemini-1.5-flash": "google/gemini-1.5-flash",
   "gemini-1.5-flash-001": "google/gemini-1.5-flash-001",
@@ -20,14 +17,13 @@
   "gemini-2.0-flash": "google/gemini-2.0-flash",
   "gemini-2.0-flash-001": "google/gemini-2.0-flash-001",
   "gemini-2.0-flash-exp": "google/gemini-2.0-flash-exp",
-  "gemini-2.0-flash-lite-preview": "google/gemini-2.0-flash-lite-preview",
-  "gemini-2.0-flash-lite-preview-02-05": "google/gemini-2.0-flash-lite-preview-02-05",
+  "gemini-2.0-flash-lite": "google/gemini-2.0-flash-lite",
+  "gemini-2.0-flash-lite-001": "google/gemini-2.0-flash-lite-001",
   "gemini-2.0-flash-thinking-exp": "google/gemini-2.0-flash-thinking-exp",
   "gemini-2.0-flash-thinking-exp-01-21": "google/gemini-2.0-flash-thinking-exp-01-21",
   "gemini-2.0-flash-thinking-exp-1219": "google/gemini-2.0-flash-thinking-exp-1219",
   "gemini-2.0-pro-exp": "google/gemini-2.0-pro-exp",
   "gemini-2.0-pro-exp-02-05": "google/gemini-2.0-pro-exp-02-05",
   "gemini-exp-1206": "google/gemini-exp-1206",
-  "gemini-pro": "google/gemini-pro",
   "gemini-pro-vision": "google/gemini-pro-vision"
 }
