@@ -23,11 +23,13 @@ in
     description = "Share client for sakura-share.one";
     after = [
       "network.target"
-      "llama-cpp.service"
+      # "llama-cpp.service"
+      "podman-sglang-sakura-llm.service"
     ];
     requires = [
       "network.target"
-      "llama-cpp.service"
+      # "llama-cpp.service"
+      "podman-sglang-sakura-llm.service"
     ];
     wantedBy = [ "multi-user.target" ];
 

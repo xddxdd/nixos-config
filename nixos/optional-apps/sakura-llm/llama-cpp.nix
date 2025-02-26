@@ -101,29 +101,5 @@ in
       isSystemUser = true;
     };
     users.groups.llama-cpp = { };
-
-    lantian.nginxVhosts = {
-      "llama-cpp.${config.networking.hostName}.xuyh0120.win" = {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
-          proxyNoTimeout = true;
-        };
-
-        sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
-        noIndex.enable = true;
-      };
-      "llama-cpp.localhost" = {
-        listenHTTP.enable = true;
-        listenHTTPS.enable = false;
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
-          proxyNoTimeout = true;
-        };
-
-        noIndex.enable = true;
-        accessibleBy = "localhost";
-      };
-    };
   };
 }
