@@ -13,6 +13,7 @@
   "llama-guard-3-8b": "meta-llama/llama-guard-3-8b",
   "llama3-70b-8192": "meta-llama/llama-3-70b-8192",
   "llama3-8b-8192": "meta-llama/llama-3-8b-8192",
+  "mistral-saba-24b": "mistralai/mistral-saba-24b",
   "mixtral-8x7b-32768": "mistralai/mixtral-8x7b-32768",
   "qwen-2.5-32b": "qwen/qwen-2.5-32b",
   "qwen-2.5-coder-32b": "qwen/qwen-2.5-coder-32b",
