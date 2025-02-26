@@ -28,12 +28,19 @@
       "sglang.launch_server"
       "--model-path"
       "reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2"
-      "--mem-fraction-static"
-      "0.8"
       "--host"
       "127.0.0.1"
       "--port"
-      LT.portStr.LlamaCpp
+      LT.portStr.SakuraLLM
+      "--disable-overlap"
+      "--context-length"
+      "2048"
+      "--enable-metrics"
+      "--enable-torch-compile"
+      "--torch-compile-max-bs"
+      "1"
+      "--mem-fraction-static"
+      "0.8"
     ];
   };
 
@@ -50,7 +57,7 @@
         --retry-delay 5 \
         --retry-max-time 300 \
         --retry-all-errors \
-        http://127.0.0.1:${LT.portStr.LlamaCpp}/health
+        http://127.0.0.1:${LT.portStr.SakuraLLM}/health
     '';
   };
 }
