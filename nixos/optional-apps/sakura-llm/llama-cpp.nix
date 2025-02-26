@@ -42,7 +42,7 @@ in
 
       package = pkgs.llama-cpp.override { cudaSupport = true; };
       host = "127.0.0.1";
-      port = LT.port.LlamaCpp;
+      port = LT.port.SakuraLLM;
       extraFlags =
         let
           concurrency = 4;
