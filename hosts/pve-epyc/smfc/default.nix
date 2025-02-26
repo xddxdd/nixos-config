@@ -3,8 +3,8 @@
   systemd.services.smfc = {
     description = "Super Micro Fan Control";
     wantedBy = [ "multi-user.target" ];
-    after = [ "nvidia-tempmon.service" ];
-    requires = [ "nvidia-tempmon.service" ];
+    # after = [ "nvidia-tempmon.service" ];
+    # requires = [ "nvidia-tempmon.service" ];
     path = with pkgs; [
       python3
       ipmitool
@@ -27,6 +27,8 @@
   };
 
   systemd.services.nvidia-tempmon = {
+    # P40 removed, no longer needed
+    enable = false;
     description = "Monitor NVIDIA GPU temperature";
     wantedBy = [ "multi-user.target" ];
     path = [

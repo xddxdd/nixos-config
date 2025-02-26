@@ -5,8 +5,6 @@
 {
   imports = [
     ../../nixos/hardware/lvm.nix
-    ../../nixos/hardware/nvidia/cuda-only.nix
-    ../../nixos/hardware/nvidia/vgpu-extension.nix
     ../../nixos/hardware/ups.nix
     ../../nixos/hardware/zfs.nix
   ];
@@ -55,6 +53,8 @@
   hardware.enableRedistributableFirmware = true;
 
   systemd.services.nvidia-power-limit = {
+    # P40 removed, no longer needed
+    enable = false;
     description = "Set Power Limit for NVIDIA GPUs";
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
