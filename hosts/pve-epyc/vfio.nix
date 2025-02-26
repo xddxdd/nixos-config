@@ -10,10 +10,15 @@
   boot.extraModprobeConfig =
     let
       vfioIds = [
-        # "8086:19e3" # Intel QAT C3xxxx VF
+        "10de:2204" # NVIDIA RTX 3090
       ];
       blacklistedModules = [
-        # "qat_c3xxxvf" # Intel QAT C3xxxx VF
+        "nouveau"
+        "nvidiafb"
+        "nvidia"
+        "nvidia-uvm"
+        "nvidia-drm"
+        "nvidia-modeset"
       ];
     in
     ''
