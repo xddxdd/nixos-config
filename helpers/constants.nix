@@ -182,7 +182,7 @@ rec {
     CrowdSec = 13802;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
-    LlamaCpp = 13810;
+    SakuraLLM = 13810;
     HomepageDashboard = 13812;
     Syncthing = 13834;
     WGLanTian.ForwardStart = 30010;

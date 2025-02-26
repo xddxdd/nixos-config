@@ -7,7 +7,7 @@
   lantian.nginxVhosts = {
     "sakura-llm.${config.networking.hostName}.xuyh0120.win" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
+        proxyPass = "http://127.0.0.1:${LT.portStr.SakuraLLM}";
         proxyNoTimeout = true;
       };
 
@@ -19,7 +19,7 @@
       listenHTTPS.enable = false;
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.LlamaCpp}";
+        proxyPass = "http://127.0.0.1:${LT.portStr.SakuraLLM}";
         proxyNoTimeout = true;
       };
 

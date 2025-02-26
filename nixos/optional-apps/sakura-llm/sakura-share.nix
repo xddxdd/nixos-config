@@ -17,9 +17,6 @@ in
   age.secrets.sakura-share-env.file = inputs.secrets + "/sakura-share-env.age";
 
   systemd.services.sakura-share = {
-    # FIXME: wait for upstream task allocation improvement
-    enable = false;
-
     description = "Share client for sakura-share.one";
     after = [
       "network.target"
@@ -33,10 +30,21 @@ in
     ];
     wantedBy = [ "multi-user.target" ];
 
-    path = [ py ];
+    path = [
+      py
+      pkgs.curl
+    ];
     script = ''
+      curl \
+        --fail \
+        --retry 100 \
+        --retry-delay 5 \
+        --retry-max-time 300 \
+        --retry-all-errors \
+        http://127.0.0.1:${LT.portStr.SakuraLLM}/health
+
       python3 -u ${LT.sources.sakura-share.src}/src/sakura_share_cli.py \
-        --port ${LT.portStr.LlamaCpp} \
+        --port ${LT.portStr.SakuraLLM} \
         --tg-token "$TG_TOKEN" \
         --action start \
         --mode ws
