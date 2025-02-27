@@ -24,7 +24,6 @@ in
     after = [ "systemd-modules-load.service" ];
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
-    # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
 
     environment = {
       LD_PRELOAD = "${pkgs.nur-xddxdd.vgpu-unlock-rs}/lib/libvgpu_unlock_rs.so";
@@ -43,7 +42,6 @@ in
     after = [ "systemd-modules-load.service" ];
     requires = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
-    # Do not set ConditionPathExists, for vGPU driver /dev/nvidia0 is created very late
 
     environment = {
       LD_PRELOAD = "${pkgs.nur-xddxdd.vgpu-unlock-rs}/lib/libvgpu_unlock_rs.so";

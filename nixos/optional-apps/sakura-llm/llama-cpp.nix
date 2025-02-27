@@ -92,8 +92,6 @@ in
         # for GPU acceleration
         PrivateDevices = false;
       };
-
-      unitConfig.ConditionPathExists = "/dev/nvidia0";
     };
 
     users.users.llama-cpp = {
