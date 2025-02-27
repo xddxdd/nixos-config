@@ -2,8 +2,8 @@
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
-    ../../nixos/hardware/nvidia/cuda-only.nix
-    ../../nixos/hardware/nvidia/grid-extension.nix
+    # ../../nixos/hardware/nvidia/cuda-only.nix
+    # ../../nixos/hardware/nvidia/grid-extension.nix
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
