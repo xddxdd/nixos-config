@@ -20,7 +20,8 @@
     "tls://95.217.35.92:1337",
     "tls://[2a01:4f9:2a:60c::2]:18836",
     "tls://[2a01:4f9:2b:2d8f::2]:1337",
-    "tls://aurora.devices.waren.io:18836"
+    "tls://aurora.devices.waren.io:18836",
+    "tls://ygg-hel-1.wgos.org:45171"
   ],
   "france": [
     "tls://51.15.204.214:54321",
@@ -50,6 +51,7 @@
   "japan": [
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232",
+    "tls://astrra.space:55535",
     "tls://ftp.aiwnios.com:989",
     "tls://yg-osa.magicum.net:23900"
   ],
@@ -129,8 +131,7 @@
     "tls://yggdrasil.sunsung.fun:4443"
   ],
   "united-kingdom": [
-    "tls://london.sabretruth.org:18472",
-    "tls://uk.yggdrasil.neilalexander.dev:64648?key=c936c2171cf36fb4326acc644f83e367d0224b9e5b65bd97073c91e6d9d96559"
+    "tls://london.sabretruth.org:18472"
   ],
   "united-states": [
     "tls://23.184.48.86:993",
