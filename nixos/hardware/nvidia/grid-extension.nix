@@ -33,7 +33,6 @@ in
       "nss-lookup.target"
     ];
     wantedBy = [ "multi-user.target" ];
-    unitConfig.ConditionPathExists = "/dev/nvidia0";
     serviceConfig = {
       Type = "forking";
       Restart = "always";
