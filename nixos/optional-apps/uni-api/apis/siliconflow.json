@@ -6,6 +6,7 @@
   "BAAI/bge-reranker-v2-m3": "baai/bge-reranker-v2-m3",
   "FunAudioLLM/CosyVoice2-0.5B": "funaudiollm/cosyvoice-2-0.5b",
   "FunAudioLLM/SenseVoiceSmall": "funaudiollm/sensevoicesmall",
+  "Kwai-Kolors/Kolors": "kwai-kolors/kolors",
   "Lightricks/LTX-Video": "lightricks/ltx-video",
   "LoRA/Qwen/Qwen2.5-14B-Instruct": "qwen/qwen-2.5-14b-instruct",
   "LoRA/Qwen/Qwen2.5-32B-Instruct": "qwen/qwen-2.5-32b-instruct",

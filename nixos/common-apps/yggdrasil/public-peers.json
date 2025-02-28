@@ -144,7 +144,6 @@
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.jjolly.dev:3443",
     "tls://ygg.mnpnk.com:443",
-    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1",
-    "tls://ygg4.mk16.de:1338?key=0000147df8daa1cce2ad4b1d4b14c60a4c69a991b2dfde4e00ba7e95c36c530b"
+    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ]
 }
