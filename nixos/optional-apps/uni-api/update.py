@@ -16,12 +16,13 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "__CLOUDFLARE__",
-    "groq": "https://api.groq.com/openai/v1",
     "google": "__GOOGLE__",
+    "groq": "https://api.groq.com/openai/v1",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
     "mistral": "https://api.mistral.ai/v1",
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
+    "sakura-share": "https://sakura-share.one/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
     "smnet-free-chat": "https://api-1-hemf.onrender.com/v1",
     "wbot": "https://api.223387.xyz/v1",
@@ -71,21 +72,24 @@ NORMALIZE_PROVIDER_PREFIX_MAP = {
 }
 
 
-def get_api_secret(api_name: str) -> str:
-    secret = subprocess.check_output(
-        [
-            "nix",
-            "run",
-            "nixpkgs#age",
-            "--",
-            "-i",
-            f"{HOME}/.ssh/id_ed25519",
-            "-d",
-            f"{SECRET_BASE}/uni-api/{api_name}-api-key.age",
-        ],
-        text=True,
-    ).strip()
-    return secret
+def get_api_secret(api_name: str) -> Optional[str]:
+    try:
+        secret = subprocess.check_output(
+            [
+                "nix",
+                "run",
+                "nixpkgs#age",
+                "--",
+                "-i",
+                f"{HOME}/.ssh/id_ed25519",
+                "-d",
+                f"{SECRET_BASE}/uni-api/{api_name}-api-key.age",
+            ],
+            text=True,
+        ).strip()
+        return secret
+    except subprocess.CalledProcessError:
+        return None
 
 
 def get_models_google(api_name: str) -> List[str]:
@@ -154,7 +158,7 @@ def get_models(api_name: str, base_url: str) -> List[str]:
         method="GET",
         headers={
             "User-Agent": USER_AGENT,
-            "Authorization": f"Bearer {secret}",
+            **({"Authorization": f"Bearer {secret}"} if secret else {}),
         },
     )
     content = urllib.request.urlopen(r).read()
@@ -183,6 +187,9 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
 
     # Remove provider's own differentiator in model prefix
     base = re.sub(r"^@[^/]+/", "", base)
+
+    # Remove model filename extension, if any
+    base = re.sub(r"(\.gguf|-(i)?q[0-9a-z]+)+$", "", base, 0, re.IGNORECASE)
 
     # Move extra prefix to the end as model variants
     if base.count("/") > 1:
