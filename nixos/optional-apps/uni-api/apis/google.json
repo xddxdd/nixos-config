@@ -19,6 +19,8 @@
   "gemini-2.0-flash-exp": "google/gemini-2.0-flash-exp",
   "gemini-2.0-flash-lite": "google/gemini-2.0-flash-lite",
   "gemini-2.0-flash-lite-001": "google/gemini-2.0-flash-lite-001",
+  "gemini-2.0-flash-lite-preview": "google/gemini-2.0-flash-lite-preview",
+  "gemini-2.0-flash-lite-preview-02-05": "google/gemini-2.0-flash-lite-preview-02-05",
   "gemini-2.0-flash-thinking-exp": "google/gemini-2.0-flash-thinking-exp",
   "gemini-2.0-flash-thinking-exp-01-21": "google/gemini-2.0-flash-thinking-exp-01-21",
   "gemini-2.0-flash-thinking-exp-1219": "google/gemini-2.0-flash-thinking-exp-1219",
