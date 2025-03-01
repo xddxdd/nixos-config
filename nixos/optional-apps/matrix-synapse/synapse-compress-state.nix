@@ -6,7 +6,7 @@
     after = [ "matrix-synapse.service" ];
     requires = [ "matrix-synapse.service" ];
     script = ''
-      exec ${pkgs.matrix-synapse-tools.rust-synapse-compress-state}/bin/synapse_auto_compressor \
+      exec ${pkgs.rust-synapse-state-compress}/bin/synapse_auto_compressor \
         -p "host=/run/postgresql user=matrix-synapse dbname=matrix-synapse" \
         -c 500 \
         -n 100

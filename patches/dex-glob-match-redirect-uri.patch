@@ -1,21 +1,21 @@
 diff --git a/go.mod b/go.mod
-index e2100a39..d312d879 100644
+index 109bc9ad..705b18bd 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -16,6 +16,7 @@ require (
- 	github.com/go-jose/go-jose/v4 v4.0.4
- 	github.com/go-ldap/ldap/v3 v3.4.8
- 	github.com/go-sql-driver/mysql v1.8.1
+ 	github.com/go-jose/go-jose/v4 v4.0.5
+ 	github.com/go-ldap/ldap/v3 v3.4.10
+ 	github.com/go-sql-driver/mysql v1.9.0
 +	github.com/gobwas/glob v0.2.3
  	github.com/google/uuid v1.6.0
  	github.com/gorilla/handlers v1.5.2
  	github.com/gorilla/mux v1.8.1
 diff --git a/go.sum b/go.sum
-index cbebe635..dfb6e0aa 100644
+index d583d0ea..24e80bc6 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -86,6 +86,8 @@ github.com/go-sql-driver/mysql v1.8.1 h1:LedoTUt/eveggdHS9qUFC1EFSa8bU2+1pZjSRpv
- github.com/go-sql-driver/mysql v1.8.1/go.mod h1:wEBSXgmK//2ZFJyE+qWnIsVGmvmEKlqwuVSjsCm7DZg=
+@@ -81,6 +81,8 @@ github.com/go-sql-driver/mysql v1.9.0 h1:Y0zIbQXhQKmQgTp44Y1dp3wTXcn804QoTptLZT1
+ github.com/go-sql-driver/mysql v1.9.0/go.mod h1:pDetrLJeA3oMujJuvXc8RJoasr589B6A9fwzD3QMrqw=
  github.com/go-test/deep v1.0.3 h1:ZrJSEWsXzPOxaZnFteGEfooLba+ju3FYIbOrS+rQd68=
  github.com/go-test/deep v1.0.3/go.mod h1:wGDj63lr65AM2AQyKZd/NYHGb0R+1RLqB8NKt3aSFNA=
 +github.com/gobwas/glob v0.2.3 h1:A4xDbljILXROh+kObIiy5kIaPYD8e96x1tgBhUI5J+Y=
@@ -24,7 +24,7 @@ index cbebe635..dfb6e0aa 100644
  github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
  github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=
 diff --git a/server/oauth2.go b/server/oauth2.go
-index cc81a8a5..d321c4c4 100644
+index 18cc3dd4..bdb7a95c 100644
 --- a/server/oauth2.go
 +++ b/server/oauth2.go
 @@ -22,6 +22,7 @@ import (
@@ -35,7 +35,7 @@ index cc81a8a5..d321c4c4 100644
  
  	"github.com/dexidp/dex/connector"
  	"github.com/dexidp/dex/server/internal"
-@@ -654,7 +655,11 @@ func validateRedirectURI(client storage.Client, redirectURI string) bool {
+@@ -655,7 +656,11 @@ func validateRedirectURI(client storage.Client, redirectURI string) bool {
  	// Allow named RedirectURIs for both public and non-public clients.
  	// This is required make PKCE-enabled web apps work, when configured as public clients.
  	for _, uri := range client.RedirectURIs {
@@ -49,7 +49,7 @@ index cc81a8a5..d321c4c4 100644
  		}
  	}
 diff --git a/server/oauth2_test.go b/server/oauth2_test.go
-index 2b733df8..ef28553a 100644
+index 70e4095c..b9f6b80d 100644
 --- a/server/oauth2_test.go
 +++ b/server/oauth2_test.go
 @@ -587,6 +587,20 @@ func TestValidRedirectURI(t *testing.T) {

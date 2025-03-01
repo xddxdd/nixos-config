@@ -24,7 +24,7 @@ APIS = {
     "openrouter": "https://openrouter.ai/api/v1",
     "sakura-share": "https://sakura-share.one/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
-    "smnet-free-chat": "https://api-1-hemf.onrender.com/v1",
+    "smnet-free-chat": "https://net-meta-smnet-65516-a84156b7.koyeb.app/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
 }
