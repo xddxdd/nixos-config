@@ -113,8 +113,8 @@ in
         jamesdsp-toggle
         jellyfin-media-player
         jellyfin-media-player-wrapped
-        kdenlive
         kdePackages.ark
+        kdePackages.kdenlive
         kdePackages.kpat
         lbzip2
         libfaketime
@@ -123,7 +123,6 @@ in
         linphone
         lx-music-desktop
         macchanger
-        matrix-synapse-tools.synadm
         mediainfo
         megatools
         microcom
@@ -159,6 +158,7 @@ in
         quasselClient
         rar
         steam-run
+        synadm
         tigervnc
         transmission_4-qt
         transmission-remote-gtk

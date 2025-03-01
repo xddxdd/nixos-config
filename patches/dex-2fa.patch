@@ -1,56 +1,5 @@
-From 0297888a20bdd76422729091ebc32bc939c1a4af Mon Sep 17 00:00:00 2001
-From: "m.nabokikh" <maksim.nabokikh@flant.com>
-Date: Mon, 26 Aug 2024 23:48:09 +0200
-Subject: [PATCH] Two-Factor authentication
-
-Enhancing Dex with 2FA adds an additional layer of security, making unauthorized access significantly more difficult. This is particularly valuable for connectors like LDAP and local connectors that do not inherently support 2FA. By implementing 2FA, we align Dex with industry best practices for identity management, meet higher security compliance requirements, and ensure better protection for user data, thereby building greater trust with our users.
-
-The 2FA data is securely stored within the `OfflineSessions` object and extends support to all configured connectors.
-
-Signed-off-by: m.nabokikh <maksim.nabokikh@flant.com>
----
- cmd/dex/config.go                             |  10 +
- cmd/dex/config_test.go                        |   9 +
- cmd/dex/serve.go                              |   2 +
- examples/config-dev.yaml                      |   6 +
- go.mod                                        |   2 +
- go.sum                                        |   4 +
- server/handlers.go                            |  81 +++--
- server/server.go                              |   7 +
- server/templates.go                           |  19 ++
- server/totphandler.go                         | 187 +++++++++++
- server/totphandler_test.go                    | 308 ++++++++++++++++++
- storage/ent/client/authrequest.go             |   2 +
- storage/ent/client/offlinesession.go          |   4 +
- storage/ent/client/types.go                   |   5 +-
- storage/ent/db/authrequest.go                 |  17 +-
- storage/ent/db/authrequest/authrequest.go     |  10 +
- storage/ent/db/authrequest/where.go           |  15 +
- storage/ent/db/authrequest_create.go          |  25 ++
- storage/ent/db/authrequest_update.go          |  34 ++
- storage/ent/db/migrate/schema.go              |   3 +
- storage/ent/db/mutation.go                    | 204 +++++++++++-
- storage/ent/db/offlinesession.go              |  26 +-
- .../ent/db/offlinesession/offlinesession.go   |  18 +
- storage/ent/db/offlinesession/where.go        | 105 ++++++
- storage/ent/db/offlinesession_create.go       |  46 +++
- storage/ent/db/offlinesession_update.go       | 104 ++++++
- storage/ent/db/runtime.go                     |   8 +
- storage/ent/schema/authrequest.go             |   1 +
- storage/ent/schema/offlinesession.go          |   2 +
- storage/etcd/types.go                         |  12 +-
- storage/kubernetes/types.go                   |  12 +-
- storage/sql/crud.go                           |  35 +-
- storage/sql/migrate.go                        |  13 +
- storage/storage.go                            |   8 +
- web/templates/totp_verify.html                |  28 ++
- 35 files changed, 1312 insertions(+), 60 deletions(-)
- create mode 100644 server/totphandler.go
- create mode 100644 server/totphandler_test.go
- create mode 100644 web/templates/totp_verify.html
-
 diff --git a/cmd/dex/config.go b/cmd/dex/config.go
-index dd6d2e2ab9..6b046e6361 100644
+index aa49a181..c375dd57 100644
 --- a/cmd/dex/config.go
 +++ b/cmd/dex/config.go
 @@ -51,6 +51,9 @@ type Config struct {
@@ -63,7 +12,7 @@ index dd6d2e2ab9..6b046e6361 100644
  }
  
  // Validate the configuration
-@@ -422,3 +425,10 @@ type RefreshToken struct {
+@@ -474,3 +477,10 @@ type RefreshToken struct {
  	AbsoluteLifetime  string `json:"absoluteLifetime"`
  	ValidIfNotUsedFor string `json:"validIfNotUsedFor"`
  }
@@ -75,10 +24,10 @@ index dd6d2e2ab9..6b046e6361 100644
 +	Connectors []string `json:"connectors"`
 +}
 diff --git a/cmd/dex/config_test.go b/cmd/dex/config_test.go
-index c6d37cb03e..515e2c3ab1 100644
+index 68abe1f7..004330ce 100644
 --- a/cmd/dex/config_test.go
 +++ b/cmd/dex/config_test.go
-@@ -343,6 +343,11 @@ expiry:
+@@ -345,6 +345,11 @@ expiry:
    idTokens: "25h"
    authRequests: "25h"
  
@@ -90,7 +39,7 @@ index c6d37cb03e..515e2c3ab1 100644
  logger:
    level: "debug"
    format: "json"
-@@ -432,6 +437,10 @@ logger:
+@@ -437,6 +442,10 @@ logger:
  			IDTokens:     "25h",
  			AuthRequests: "25h",
  		},
@@ -102,7 +51,7 @@ index c6d37cb03e..515e2c3ab1 100644
  			Level:  slog.LevelDebug,
  			Format: "json",
 diff --git a/cmd/dex/serve.go b/cmd/dex/serve.go
-index 6fcca04da3..0562b0210c 100644
+index 8a69c7ee..25d2cb08 100644
 --- a/cmd/dex/serve.go
 +++ b/cmd/dex/serve.go
 @@ -302,6 +302,8 @@ func runServe(options serveOptions) error {
@@ -115,7 +64,7 @@ index 6fcca04da3..0562b0210c 100644
  	if c.Expiry.SigningKeys != "" {
  		signingKeys, err := time.ParseDuration(c.Expiry.SigningKeys)
 diff --git a/examples/config-dev.yaml b/examples/config-dev.yaml
-index 147597a265..2cc7e3b634 100644
+index 147597a2..2cc7e3b6 100644
 --- a/examples/config-dev.yaml
 +++ b/examples/config-dev.yaml
 @@ -75,6 +75,12 @@ telemetry:
@@ -132,49 +81,49 @@ index 147597a265..2cc7e3b634 100644
  # from the HTTP endpoints.
  # grpc:
 diff --git a/go.mod b/go.mod
-index 890cc8dfe5..bf3260a252 100644
+index 8404620f..b8e20dd2 100644
 --- a/go.mod
 +++ b/go.mod
-@@ -27,6 +27,7 @@ require (
- 	github.com/mattn/go-sqlite3 v1.14.22
+@@ -26,6 +26,7 @@ require (
+ 	github.com/mattn/go-sqlite3 v1.14.24
  	github.com/oklog/run v1.1.0
  	github.com/pkg/errors v0.9.1
 +	github.com/pquerna/otp v1.4.0
- 	github.com/prometheus/client_golang v1.19.1
+ 	github.com/prometheus/client_golang v1.20.5
  	github.com/russellhaering/goxmldsig v1.4.0
- 	github.com/spf13/cobra v1.8.1
-@@ -53,6 +54,7 @@ require (
- 	github.com/agext/levenshtein v1.2.1 // indirect
- 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
+ 	github.com/spf13/cobra v1.9.1
+@@ -55,6 +56,7 @@ require (
+ 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
  	github.com/beorn7/perks v1.0.1 // indirect
+ 	github.com/bmatcuk/doublestar v1.3.4 // indirect
 +	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
  	github.com/cespare/xxhash/v2 v2.3.0 // indirect
  	github.com/coreos/go-semver v0.3.0 // indirect
  	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 diff --git a/go.sum b/go.sum
-index da52911df8..16ec785b4e 100644
+index 5ba3d05b..d455a00f 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -37,6 +37,8 @@ github.com/beevik/etree v1.4.0 h1:oz1UedHRepuY3p4N5OjE0nK1WLCqtzHf25bxplKOHLs=
- github.com/beevik/etree v1.4.0/go.mod h1:cyWiXwGoasx60gHvtnEh5x8+uIjUVnjWqBvEnhnqKDA=
- github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
+@@ -41,6 +41,8 @@ github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
  github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
+ github.com/bmatcuk/doublestar v1.3.4 h1:gPypJ5xD31uhX6Tf54sDPUOBXTqKH4c9aPY66CyQrS0=
+ github.com/bmatcuk/doublestar v1.3.4/go.mod h1:wiQtGV+rzVYxB7WIlirSN++5HPtPlXEo9MEoZQC/PmE=
 +github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc h1:biVzkmvwrH8WK8raXaxBx6fRVTlJILwEwQGL1I/ByEI=
 +github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc/go.mod h1:paBWMcWSl3LHKBqUq+rly7CNSldXjb2rDl3JlRe0mD8=
- github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
  github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
  github.com/cespare/xxhash/v2 v2.3.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
-@@ -187,6 +189,8 @@ github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+ github.com/coreos/go-oidc/v3 v3.12.0 h1:sJk+8G2qq94rDI6ehZ71Bol3oUHy63qNYmkiSjrc/Jo=
+@@ -168,6 +170,8 @@ github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
  github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
  github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
  github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 +github.com/pquerna/otp v1.4.0 h1:wZvl1TIVxKRThZIBiwOOHOGP/1+nZyWBil9Y2XNEDzg=
 +github.com/pquerna/otp v1.4.0/go.mod h1:dkJfzwRKNiegxyNb54X/3fLwhCynbMspSyWKnvi1AEg=
- github.com/prometheus/client_golang v1.19.1 h1:wZWJDwK+NameRJuPGDhlnFgx8e8HN3XHQeLaYJFJBOE=
- github.com/prometheus/client_golang v1.19.1/go.mod h1:mP78NwGzrVks5S2H6ab8+ZZGJLZUq1hoULYBAYBw1Ho=
- github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
+ github.com/prometheus/client_golang v1.20.5 h1:cxppBPuYhUnsO6yo/aoRol4L7q7UFfdm+bR9r+8l63Y=
+ github.com/prometheus/client_golang v1.20.5/go.mod h1:PIEt8X02hGcP8JWbeHyeZ53Y/jReSnHgO035n//V5WE=
+ github.com/prometheus/client_model v0.6.1 h1:ZKSh/rekM+n3CeS952MLRAdFwIKqeY8b62p8ais2e9E=
 diff --git a/server/handlers.go b/server/handlers.go
-index 63cb612295..5c05cb0376 100644
+index a00b290b..d71bb672 100644
 --- a/server/handlers.go
 +++ b/server/handlers.go
 @@ -11,7 +11,6 @@ import (
@@ -185,7 +134,7 @@ index 63cb612295..5c05cb0376 100644
  	"sort"
  	"strconv"
  	"strings"
-@@ -514,6 +513,11 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+@@ -521,6 +520,11 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
  		a.LoggedIn = true
  		a.Claims = claims
  		a.ConnectorData = identity.ConnectorData
@@ -196,28 +145,11 @@ index 63cb612295..5c05cb0376 100644
 +
  		return a, nil
  	}
- 	if err := s.storage.UpdateAuthRequest(authReq.ID, updater); err != nil {
-@@ -529,36 +533,11 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+ 	if err := s.storage.UpdateAuthRequest(ctx, authReq.ID, updater); err != nil {
+@@ -536,18 +540,12 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
  		"connector_id", authReq.ConnectorID, "username", claims.Username,
  		"preferred_username", claims.PreferredUsername, "email", email, "groups", claims.Groups)
  
--	// we can skip the redirect to /approval and go ahead and send code if it's not required
--	if s.skipApproval && !authReq.ForceApprovalPrompt {
--		return "", true, nil
--	}
--
--	// an HMAC is used here to ensure that the request ID is unpredictable, ensuring that an attacker who intercepted the original
--	// flow would be unable to poll for the result at the /approval endpoint
--	h := hmac.New(sha256.New, authReq.HMACKey)
--	h.Write([]byte(authReq.ID))
--	mac := h.Sum(nil)
--
--	returnURL := path.Join(s.issuerURL.Path, "/approval") + "?req=" + authReq.ID + "&hmac=" + base64.RawURLEncoding.EncodeToString(mac)
--	_, ok := conn.(connector.RefreshConnector)
--	if !ok {
--		return returnURL, false, nil
--	}
--
 -	offlineAccessRequested := false
 -	for _, scope := range authReq.Scopes {
 -		if scope == scopeOfflineAccess {
@@ -225,64 +157,61 @@ index 63cb612295..5c05cb0376 100644
 -			break
 -		}
 -	}
--	if !offlineAccessRequested {
--		return returnURL, false, nil
--	}
+-	_, canRefresh := conn.(connector.RefreshConnector)
 -
- 	// Try to retrieve an existing OfflineSession object for the corresponding user.
--	session, err := s.storage.GetOfflineSessions(identity.UserID, authReq.ConnectorID)
-+	// TODO(nabokihms): We create an offline session even if the offline access is not requested.
-+	//   In the future it will be possible to migrate to sessions.
-+	//   Sessions may contain attributes like approval status, etc.
-+	_, err := s.storage.GetOfflineSessions(identity.UserID, authReq.ConnectorID)
- 	if err != nil {
- 		if err != storage.ErrNotFound {
- 			s.logger.ErrorContext(ctx, "failed to get offline session", "err", err)
-@@ -571,18 +550,25 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
- 			ConnectorData: identity.ConnectorData,
- 		}
+-	if offlineAccessRequested && canRefresh {
++	if true {
+ 		// Try to retrieve an existing OfflineSession object for the corresponding user.
+-		session, err := s.storage.GetOfflineSessions(ctx, identity.UserID, authReq.ConnectorID)
++		// TODO(nabokihms): We create an offline session even if the offline access is not requested.
++		//   In the future it will be possible to migrate to sessions.
++		//   Sessions may contain attributes like approval status, etc.
++		_, err := s.storage.GetOfflineSessions(ctx, identity.UserID, authReq.ConnectorID)
+ 		switch {
+ 		case err != nil && err == storage.ErrNotFound:
+ 			offlineSessions := storage.OfflineSessions{
+@@ -557,6 +555,15 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+ 				ConnectorData: identity.ConnectorData,
+ 			}
  
-+		if s.totp.enabledForConnector(authReq.ConnectorID) {
-+			generated, err := s.totp.generate(authReq.ConnectorID, identity.Email)
-+			if err != nil {
-+				s.logger.ErrorContext(ctx, "failed to generate totp for offline session", "err", err)
-+				return "", false, err
++			if s.totp.enabledForConnector(authReq.ConnectorID) {
++				generated, err := s.totp.generate(authReq.ConnectorID, identity.Email)
++				if err != nil {
++					s.logger.ErrorContext(ctx, "failed to generate totp for offline session", "err", err)
++					return "", false, err
++				}
++				offlineSessions.TOTP = generated.String()
 +			}
-+			offlineSessions.TOTP = generated.String()
-+		}
 +
- 		// Create a new OfflineSession object for the user and add a reference object for
- 		// the newly received refreshtoken.
- 		if err := s.storage.CreateOfflineSessions(ctx, offlineSessions); err != nil {
- 			s.logger.ErrorContext(ctx, "failed to create offline session", "err", err)
- 			return "", false, err
+ 			// Create a new OfflineSession object for the user and add a reference object for
+ 			// the newly received refreshtoken.
+ 			if err := s.storage.CreateOfflineSessions(ctx, offlineSessions); err != nil {
+@@ -565,7 +572,7 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+ 			}
+ 		case err == nil:
+ 			// Update existing OfflineSession obj with new RefreshTokenRef.
+-			if err := s.storage.UpdateOfflineSessions(ctx, session.UserID, session.ConnID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
++			if err := s.storage.UpdateOfflineSessions(ctx, identity.UserID, authReq.ConnectorID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
+ 				if len(identity.ConnectorData) > 0 {
+ 					old.ConnectorData = identity.ConnectorData
+ 				}
+@@ -580,8 +587,8 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
  		}
--
--		return returnURL, false, nil
  	}
  
- 	// Update existing OfflineSession obj with new RefreshTokenRef.
--	if err := s.storage.UpdateOfflineSessions(session.UserID, session.ConnID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
-+	if err := s.storage.UpdateOfflineSessions(identity.UserID, authReq.ConnectorID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
- 		if len(identity.ConnectorData) > 0 {
- 			old.ConnectorData = identity.ConnectorData
- 		}
-@@ -592,7 +578,32 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
- 		return "", false, err
- 	}
- 
--	return returnURL, false, nil
+-	// we can skip the redirect to /approval and go ahead and send code if it's not required
+-	if s.skipApproval && !authReq.ForceApprovalPrompt {
 +	// we can skip the redirect to /approval and /totp and go ahead and send code if it's not required
 +	if s.skipApproval && !authReq.ForceApprovalPrompt && !s.totp.enabledForConnector(authReq.ConnectorID) {
-+		return "", true, nil
-+	}
-+
-+	// an HMAC is used here to ensure that the request ID is unpredictable, ensuring that an attacker who intercepted the original
-+	// flow would be unable to poll for the result at the /approval endpoint
-+	h := hmac.New(sha256.New, authReq.HMACKey)
-+	h.Write([]byte(authReq.ID))
-+	mac := h.Sum(nil)
-+
+ 		return "", true, nil
+ 	}
+ 
+@@ -591,8 +598,21 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+ 	h.Write([]byte(authReq.ID))
+ 	mac := h.Sum(nil)
+ 
+-	returnURL := path.Join(s.issuerURL.Path, "/approval") + "?req=" + authReq.ID + "&hmac=" + base64.RawURLEncoding.EncodeToString(mac)
+-	return returnURL, false, nil
 +	// Deep copy issuer URL to avoid modifying the global one.
 +	returnURL, _ := url.Parse(s.issuerURL.String())
 +	values := returnURL.Query()
@@ -301,7 +230,7 @@ index 63cb612295..5c05cb0376 100644
  }
  
  func (s *Server) handleApproval(w http.ResponseWriter, r *http.Request) {
-@@ -613,7 +624,7 @@ func (s *Server) handleApproval(w http.ResponseWriter, r *http.Request) {
+@@ -614,7 +634,7 @@ func (s *Server) handleApproval(w http.ResponseWriter, r *http.Request) {
  		s.renderError(r, w, http.StatusInternalServerError, "Database error.")
  		return
  	}
@@ -311,10 +240,10 @@ index 63cb612295..5c05cb0376 100644
  		s.renderError(r, w, http.StatusInternalServerError, "Login process not yet finalized.")
  		return
 diff --git a/server/server.go b/server/server.go
-index 1cf71c5038..03f7798a0c 100644
+index 8c046296..3b46ed18 100644
 --- a/server/server.go
 +++ b/server/server.go
-@@ -120,6 +120,9 @@ type Config struct {
+@@ -119,6 +119,9 @@ type Config struct {
  	PrometheusRegistry *prometheus.Registry
  
  	HealthChecker gosundheit.Health
@@ -324,7 +253,7 @@ index 1cf71c5038..03f7798a0c 100644
  }
  
  // WebConfig holds the server's frontend templates and asset configuration.
-@@ -197,6 +200,8 @@ type Server struct {
+@@ -196,6 +199,8 @@ type Server struct {
  	refreshTokenPolicy *RefreshTokenPolicy
  
  	logger *slog.Logger
@@ -333,7 +262,7 @@ index 1cf71c5038..03f7798a0c 100644
  }
  
  // NewServer constructs a server from the provided config.
-@@ -312,6 +317,7 @@ func newServer(ctx context.Context, c Config, rotationStrategy rotationStrategy)
+@@ -311,6 +316,7 @@ func newServer(ctx context.Context, c Config, rotationStrategy rotationStrategy)
  		now:                    now,
  		templates:              tmpls,
  		passwordConnector:      c.PasswordConnector,
@@ -341,7 +270,7 @@ index 1cf71c5038..03f7798a0c 100644
  		logger:                 c.Logger,
  	}
  
-@@ -463,6 +469,7 @@ func newServer(ctx context.Context, c Config, rotationStrategy rotationStrategy)
+@@ -486,6 +492,7 @@ func newServer(ctx context.Context, c Config, rotationStrategy rotationStrategy)
  	// "authproxy" connector.
  	handleFunc("/callback/{connector}", s.handleConnectorCallback)
  	handleFunc("/approval", s.handleApproval)
@@ -350,7 +279,7 @@ index 1cf71c5038..03f7798a0c 100644
  		if !c.HealthChecker.IsHealthy() {
  			s.renderError(r, w, http.StatusInternalServerError, "Health check failed.")
 diff --git a/server/templates.go b/server/templates.go
-index b77663e1f5..46bca92ec6 100644
+index b77663e1..46bca92e 100644
 --- a/server/templates.go
 +++ b/server/templates.go
 @@ -22,6 +22,7 @@ const (
@@ -409,10 +338,10 @@ index b77663e1f5..46bca92ec6 100644
  	data := struct {
 diff --git a/server/totphandler.go b/server/totphandler.go
 new file mode 100644
-index 0000000000..2d907afd60
+index 00000000..699bed1b
 --- /dev/null
 +++ b/server/totphandler.go
-@@ -0,0 +1,187 @@
+@@ -0,0 +1,188 @@
 +package server
 +
 +import (
@@ -432,6 +361,7 @@ index 0000000000..2d907afd60
 +)
 +
 +func (s *Server) handleTOTPVerify(w http.ResponseWriter, r *http.Request) {
++	ctx := r.Context()
 +	macEncoded := r.FormValue("hmac")
 +	if macEncoded == "" {
 +		s.renderError(r, w, http.StatusUnauthorized, "Unauthorized request.")
@@ -443,7 +373,7 @@ index 0000000000..2d907afd60
 +		return
 +	}
 +
-+	authReq, err := s.storage.GetAuthRequest(r.FormValue("req"))
++	authReq, err := s.storage.GetAuthRequest(ctx, r.FormValue("req"))
 +	if err != nil {
 +		s.logger.ErrorContext(r.Context(), "failed to get auth request", "err", err)
 +		s.renderError(r, w, http.StatusInternalServerError, "Database error.")
@@ -465,7 +395,7 @@ index 0000000000..2d907afd60
 +		return
 +	}
 +
-+	offlineSession, err := s.storage.GetOfflineSessions(authReq.Claims.UserID, authReq.ConnectorID)
++	offlineSession, err := s.storage.GetOfflineSessions(ctx, authReq.Claims.UserID, authReq.ConnectorID)
 +	if err != nil {
 +		s.logger.ErrorContext(r.Context(), "failed to get offline session", "err", err, "connector_id", authReq.ConnectorID, "user_id", authReq.Claims.UserID)
 +		s.renderError(r, w, http.StatusInternalServerError, "Database error.")
@@ -501,7 +431,7 @@ index 0000000000..2d907afd60
 +		}
 +
 +		// If the TOTP is valid, update the offline session and auth request to reflect that.
-+		if err := s.storage.UpdateOfflineSessions(offlineSession.UserID, offlineSession.ConnID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
++		if err := s.storage.UpdateOfflineSessions(ctx, offlineSession.UserID, offlineSession.ConnID, func(old storage.OfflineSessions) (storage.OfflineSessions, error) {
 +			old.TOTPConfirmed = true
 +			return old, nil
 +		}); err != nil {
@@ -509,7 +439,7 @@ index 0000000000..2d907afd60
 +			s.renderError(r, w, http.StatusInternalServerError, "Internal server error.")
 +			return
 +		}
-+		if err := s.storage.UpdateAuthRequest(authReq.ID, func(old storage.AuthRequest) (storage.AuthRequest, error) {
++		if err := s.storage.UpdateAuthRequest(ctx, authReq.ID, func(old storage.AuthRequest) (storage.AuthRequest, error) {
 +			old.TOTPValidated = true
 +			return old, nil
 +		}); err != nil {
@@ -520,7 +450,7 @@ index 0000000000..2d907afd60
 +
 +		// we can skip the redirect to /approval and go ahead and send code if it's not required
 +		if s.skipApproval && !authReq.ForceApprovalPrompt {
-+			authReq, err = s.storage.GetAuthRequest(authReq.ID)
++			authReq, err = s.storage.GetAuthRequest(ctx, authReq.ID)
 +			if err != nil {
 +				s.logger.ErrorContext(r.Context(), "failed to get finalized auth request", "err", err)
 +				s.renderError(r, w, http.StatusInternalServerError, "Login error.")
@@ -602,7 +532,7 @@ index 0000000000..2d907afd60
 +}
 diff --git a/server/totphandler_test.go b/server/totphandler_test.go
 new file mode 100644
-index 0000000000..712400c317
+index 00000000..712400c3
 --- /dev/null
 +++ b/server/totphandler_test.go
 @@ -0,0 +1,308 @@
@@ -915,7 +845,7 @@ index 0000000000..712400c317
 +	}
 +}
 diff --git a/storage/ent/client/authrequest.go b/storage/ent/client/authrequest.go
-index 42db702d68..5be6413787 100644
+index 25d3e415..1e17c8e4 100644
 --- a/storage/ent/client/authrequest.go
 +++ b/storage/ent/client/authrequest.go
 @@ -32,6 +32,7 @@ func (d *Database) CreateAuthRequest(ctx context.Context, authRequest storage.Au
@@ -926,7 +856,7 @@ index 42db702d68..5be6413787 100644
  		Save(ctx)
  	if err != nil {
  		return convertDBError("create auth request: %w", err)
-@@ -96,6 +97,7 @@ func (d *Database) UpdateAuthRequest(id string, updater func(old storage.AuthReq
+@@ -96,6 +97,7 @@ func (d *Database) UpdateAuthRequest(ctx context.Context, id string, updater fun
  		SetConnectorID(newAuthRequest.ConnectorID).
  		SetConnectorData(newAuthRequest.ConnectorData).
  		SetHmacKey(newAuthRequest.HMACKey).
@@ -935,7 +865,7 @@ index 42db702d68..5be6413787 100644
  	if err != nil {
  		return rollback(tx, "update auth request uploading: %w", err)
 diff --git a/storage/ent/client/offlinesession.go b/storage/ent/client/offlinesession.go
-index 22469eced9..44cdd4f61a 100644
+index 9d608cb6..c4fb9ef6 100644
 --- a/storage/ent/client/offlinesession.go
 +++ b/storage/ent/client/offlinesession.go
 @@ -22,6 +22,8 @@ func (d *Database) CreateOfflineSessions(ctx context.Context, session storage.Of
@@ -947,17 +877,17 @@ index 22469eced9..44cdd4f61a 100644
  		Save(ctx)
  	if err != nil {
  		return convertDBError("create offline session: %w", err)
-@@ -80,6 +82,8 @@ func (d *Database) UpdateOfflineSessions(userID string, connID string, updater f
+@@ -80,6 +82,8 @@ func (d *Database) UpdateOfflineSessions(ctx context.Context, userID string, con
  		SetConnID(newOfflineSession.ConnID).
  		SetConnectorData(newOfflineSession.ConnectorData).
  		SetRefresh(encodedRefresh).
 +		SetTotp(newOfflineSession.TOTP).
 +		SetTotpConfirmed(newOfflineSession.TOTPConfirmed).
- 		Save(context.TODO())
+ 		Save(ctx)
  	if err != nil {
  		return rollback(tx, "update offline session uploading: %w", err)
 diff --git a/storage/ent/client/types.go b/storage/ent/client/types.go
-index 397d4d30a2..81bca0ae33 100644
+index 397d4d30..81bca0ae 100644
 --- a/storage/ent/client/types.go
 +++ b/storage/ent/client/types.go
 @@ -45,7 +45,8 @@ func toStorageAuthRequest(a *db.AuthRequest) storage.AuthRequest {
@@ -980,7 +910,7 @@ index 397d4d30a2..81bca0ae33 100644
  
  	if o.Refresh != nil {
 diff --git a/storage/ent/db/authrequest.go b/storage/ent/db/authrequest.go
-index b95592e58c..a0f2545379 100644
+index b95592e5..a0f25453 100644
 --- a/storage/ent/db/authrequest.go
 +++ b/storage/ent/db/authrequest.go
 @@ -57,8 +57,10 @@ type AuthRequest struct {
@@ -1029,7 +959,7 @@ index b95592e58c..a0f2545379 100644
  	return builder.String()
  }
 diff --git a/storage/ent/db/authrequest/authrequest.go b/storage/ent/db/authrequest/authrequest.go
-index 0998c79932..5ed7e4e93c 100644
+index 0998c799..5ed7e4e9 100644
 --- a/storage/ent/db/authrequest/authrequest.go
 +++ b/storage/ent/db/authrequest/authrequest.go
 @@ -51,6 +51,8 @@ const (
@@ -1068,7 +998,7 @@ index 0998c79932..5ed7e4e93c 100644
 +	return sql.OrderByField(FieldTotpValidated, opts...).ToFunc()
 +}
 diff --git a/storage/ent/db/authrequest/where.go b/storage/ent/db/authrequest/where.go
-index 4d3a39bec5..1da8d249ee 100644
+index 4d3a39be..1da8d249 100644
 --- a/storage/ent/db/authrequest/where.go
 +++ b/storage/ent/db/authrequest/where.go
 @@ -149,6 +149,11 @@ func HmacKey(v []byte) predicate.AuthRequest {
@@ -1101,7 +1031,7 @@ index 4d3a39bec5..1da8d249ee 100644
  func And(predicates ...predicate.AuthRequest) predicate.AuthRequest {
  	return predicate.AuthRequest(sql.AndPredicates(predicates...))
 diff --git a/storage/ent/db/authrequest_create.go b/storage/ent/db/authrequest_create.go
-index 3fe0c2b1f7..62085c0ba9 100644
+index 3fe0c2b1..62085c0b 100644
 --- a/storage/ent/db/authrequest_create.go
 +++ b/storage/ent/db/authrequest_create.go
 @@ -164,6 +164,20 @@ func (arc *AuthRequestCreate) SetHmacKey(b []byte) *AuthRequestCreate {
@@ -1158,7 +1088,7 @@ index 3fe0c2b1f7..62085c0ba9 100644
  }
  
 diff --git a/storage/ent/db/authrequest_update.go b/storage/ent/db/authrequest_update.go
-index 0f314a4f51..ab40d5c499 100644
+index 0f314a4f..ab40d5c4 100644
 --- a/storage/ent/db/authrequest_update.go
 +++ b/storage/ent/db/authrequest_update.go
 @@ -311,6 +311,20 @@ func (aru *AuthRequestUpdate) SetHmacKey(b []byte) *AuthRequestUpdate {
@@ -1224,7 +1154,7 @@ index 0f314a4f51..ab40d5c499 100644
  	_spec.Assign = _node.assignValues
  	_spec.ScanValues = _node.scanValues
 diff --git a/storage/ent/db/migrate/schema.go b/storage/ent/db/migrate/schema.go
-index d3295a0c79..ac9a80f437 100644
+index d3295a0c..ac9a80f4 100644
 --- a/storage/ent/db/migrate/schema.go
 +++ b/storage/ent/db/migrate/schema.go
 @@ -56,6 +56,7 @@ var (
@@ -1245,7 +1175,7 @@ index d3295a0c79..ac9a80f437 100644
  	// OfflineSessionsTable holds the schema information for the "offline_sessions" table.
  	OfflineSessionsTable = &schema.Table{
 diff --git a/storage/ent/db/mutation.go b/storage/ent/db/mutation.go
-index 71203574e6..549c94d3ba 100644
+index 71203574..549c94d3 100644
 --- a/storage/ent/db/mutation.go
 +++ b/storage/ent/db/mutation.go
 @@ -1258,6 +1258,7 @@ type AuthRequestMutation struct {
@@ -1579,7 +1509,7 @@ index 71203574e6..549c94d3ba 100644
  	return fmt.Errorf("unknown OfflineSession field %s", name)
  }
 diff --git a/storage/ent/db/offlinesession.go b/storage/ent/db/offlinesession.go
-index 7adc3afca3..611636cf83 100644
+index 7adc3afc..611636cf 100644
 --- a/storage/ent/db/offlinesession.go
 +++ b/storage/ent/db/offlinesession.go
 @@ -24,6 +24,10 @@ type OfflineSession struct {
@@ -1637,7 +1567,7 @@ index 7adc3afca3..611636cf83 100644
  	return builder.String()
  }
 diff --git a/storage/ent/db/offlinesession/offlinesession.go b/storage/ent/db/offlinesession/offlinesession.go
-index e7dbc446b7..fecf7ccad6 100644
+index e7dbc446..fecf7cca 100644
 --- a/storage/ent/db/offlinesession/offlinesession.go
 +++ b/storage/ent/db/offlinesession/offlinesession.go
 @@ -19,6 +19,10 @@ const (
@@ -1684,7 +1614,7 @@ index e7dbc446b7..fecf7ccad6 100644
 +	return sql.OrderByField(FieldTotpConfirmed, opts...).ToFunc()
 +}
 diff --git a/storage/ent/db/offlinesession/where.go b/storage/ent/db/offlinesession/where.go
-index e0f19ab2ce..d30f0bbbf1 100644
+index e0f19ab2..d30f0bbb 100644
 --- a/storage/ent/db/offlinesession/where.go
 +++ b/storage/ent/db/offlinesession/where.go
 @@ -82,6 +82,16 @@ func ConnectorData(v []byte) predicate.OfflineSession {
@@ -1807,7 +1737,7 @@ index e0f19ab2ce..d30f0bbbf1 100644
  func And(predicates ...predicate.OfflineSession) predicate.OfflineSession {
  	return predicate.OfflineSession(sql.AndPredicates(predicates...))
 diff --git a/storage/ent/db/offlinesession_create.go b/storage/ent/db/offlinesession_create.go
-index b8250aac8d..2fa25d317d 100644
+index b8250aac..2fa25d31 100644
 --- a/storage/ent/db/offlinesession_create.go
 +++ b/storage/ent/db/offlinesession_create.go
 @@ -43,6 +43,34 @@ func (osc *OfflineSessionCreate) SetConnectorData(b []byte) *OfflineSessionCreat
@@ -1892,7 +1822,7 @@ index b8250aac8d..2fa25d317d 100644
  				mutation, ok := m.(*OfflineSessionMutation)
  				if !ok {
 diff --git a/storage/ent/db/offlinesession_update.go b/storage/ent/db/offlinesession_update.go
-index d912acf1a9..76f77c603d 100644
+index d912acf1..76f77c60 100644
 --- a/storage/ent/db/offlinesession_update.go
 +++ b/storage/ent/db/offlinesession_update.go
 @@ -73,6 +73,46 @@ func (osu *OfflineSessionUpdate) ClearConnectorData() *OfflineSessionUpdate {
@@ -2028,7 +1958,7 @@ index d912acf1a9..76f77c603d 100644
  	_spec.Assign = _node.assignValues
  	_spec.ScanValues = _node.scanValues
 diff --git a/storage/ent/db/runtime.go b/storage/ent/db/runtime.go
-index 797c97613b..d27201527b 100644
+index 797c9761..d2720152 100644
 --- a/storage/ent/db/runtime.go
 +++ b/storage/ent/db/runtime.go
 @@ -82,6 +82,10 @@ func init() {
@@ -2054,7 +1984,7 @@ index 797c97613b..d27201527b 100644
  	offlinesessionDescID := offlinesessionFields[0].Descriptor()
  	// offlinesession.IDValidator is a validator for the "id" field. It is called by the builders before save.
 diff --git a/storage/ent/schema/authrequest.go b/storage/ent/schema/authrequest.go
-index 2b75927b6f..7cdf36773f 100644
+index 2b75927b..7cdf3677 100644
 --- a/storage/ent/schema/authrequest.go
 +++ b/storage/ent/schema/authrequest.go
 @@ -88,6 +88,7 @@ func (AuthRequest) Fields() []ent.Field {
@@ -2066,7 +1996,7 @@ index 2b75927b6f..7cdf36773f 100644
  }
  
 diff --git a/storage/ent/schema/offlinesession.go b/storage/ent/schema/offlinesession.go
-index e9a166c344..433a7f0169 100644
+index e9a166c3..433a7f01 100644
 --- a/storage/ent/schema/offlinesession.go
 +++ b/storage/ent/schema/offlinesession.go
 @@ -37,6 +37,8 @@ func (OfflineSession) Fields() []ent.Field {
@@ -2079,7 +2009,7 @@ index e9a166c344..433a7f0169 100644
  }
  
 diff --git a/storage/etcd/types.go b/storage/etcd/types.go
-index b3756604dd..acf1d6a7fd 100644
+index b3756604..acf1d6a7 100644
 --- a/storage/etcd/types.go
 +++ b/storage/etcd/types.go
 @@ -86,6 +86,8 @@ type AuthRequest struct {
@@ -2137,7 +2067,7 @@ index b3756604dd..acf1d6a7fd 100644
  	if s.Refresh == nil {
  		// Server code assumes this will be non-nil.
 diff --git a/storage/kubernetes/types.go b/storage/kubernetes/types.go
-index c126ddc087..796591266a 100644
+index c126ddc0..79659126 100644
 --- a/storage/kubernetes/types.go
 +++ b/storage/kubernetes/types.go
 @@ -358,6 +358,8 @@ type AuthRequest struct {
@@ -2195,7 +2125,7 @@ index c126ddc087..796591266a 100644
  	if s.Refresh == nil {
  		// Server code assumes this will be non-nil.
 diff --git a/storage/sql/crud.go b/storage/sql/crud.go
-index 1249243ced..7d8b62ca30 100644
+index a9ca3816..72161ca3 100644
 --- a/storage/sql/crud.go
 +++ b/storage/sql/crud.go
 @@ -134,10 +134,10 @@ func (c *conn) CreateAuthRequest(ctx context.Context, a storage.AuthRequest) err
@@ -2220,7 +2150,7 @@ index 1249243ced..7d8b62ca30 100644
  	)
  	if err != nil {
  		if c.alreadyExistsCheck(err) {
-@@ -180,8 +180,9 @@ func (c *conn) UpdateAuthRequest(id string, updater func(a storage.AuthRequest)
+@@ -180,8 +180,9 @@ func (c *conn) UpdateAuthRequest(ctx context.Context, id string, updater func(a
  				connector_id = $15, connector_data = $16,
  				expiry = $17,
  				code_challenge = $18, code_challenge_method = $19,
@@ -2232,7 +2162,7 @@ index 1249243ced..7d8b62ca30 100644
  		`,
  			a.ClientID, encoder(a.ResponseTypes), encoder(a.Scopes), a.RedirectURI, a.Nonce, a.State,
  			a.ForceApprovalPrompt, a.LoggedIn,
-@@ -190,7 +191,7 @@ func (c *conn) UpdateAuthRequest(id string, updater func(a storage.AuthRequest)
+@@ -190,7 +191,7 @@ func (c *conn) UpdateAuthRequest(ctx context.Context, id string, updater func(a
  			encoder(a.Claims.Groups),
  			a.ConnectorID, a.ConnectorData,
  			a.Expiry,
@@ -2241,7 +2171,7 @@ index 1249243ced..7d8b62ca30 100644
  			r.ID,
  		)
  		if err != nil {
-@@ -212,7 +213,7 @@ func getAuthRequest(q querier, id string) (a storage.AuthRequest, err error) {
+@@ -212,7 +213,7 @@ func getAuthRequest(ctx context.Context, q querier, id string) (a storage.AuthRe
  			claims_user_id, claims_username, claims_preferred_username,
  			claims_email, claims_email_verified, claims_groups,
  			connector_id, connector_data, expiry,
@@ -2250,7 +2180,7 @@ index 1249243ced..7d8b62ca30 100644
  		from auth_request where id = $1;
  	`, id).Scan(
  		&a.ID, &a.ClientID, decoder(&a.ResponseTypes), decoder(&a.Scopes), &a.RedirectURI, &a.Nonce, &a.State,
-@@ -221,7 +222,7 @@ func getAuthRequest(q querier, id string) (a storage.AuthRequest, err error) {
+@@ -221,7 +222,7 @@ func getAuthRequest(ctx context.Context, q querier, id string) (a storage.AuthRe
  		&a.Claims.Email, &a.Claims.EmailVerified,
  		decoder(&a.Claims.Groups),
  		&a.ConnectorID, &a.ConnectorData, &a.Expiry,
@@ -2276,7 +2206,7 @@ index 1249243ced..7d8b62ca30 100644
  	)
  	if err != nil {
  		if c.alreadyExistsCheck(err) {
-@@ -726,10 +727,12 @@ func (c *conn) UpdateOfflineSessions(userID string, connID string, updater func(
+@@ -726,10 +727,12 @@ func (c *conn) UpdateOfflineSessions(ctx context.Context, userID string, connID
  			update offline_session
  			set
  				refresh = $1,
@@ -2292,8 +2222,8 @@ index 1249243ced..7d8b62ca30 100644
  		)
  		if err != nil {
  			return fmt.Errorf("update offline session: %v", err)
-@@ -745,7 +748,7 @@ func (c *conn) GetOfflineSessions(userID string, connID string) (storage.Offline
- func getOfflineSessions(q querier, userID string, connID string) (storage.OfflineSessions, error) {
+@@ -745,7 +748,7 @@ func (c *conn) GetOfflineSessions(ctx context.Context, userID string, connID str
+ func getOfflineSessions(ctx context.Context, q querier, userID string, connID string) (storage.OfflineSessions, error) {
  	return scanOfflineSessions(q.QueryRow(`
  		select
 -			user_id, conn_id, refresh, connector_data
@@ -2301,7 +2231,7 @@ index 1249243ced..7d8b62ca30 100644
  		from offline_session
  		where user_id = $1 AND conn_id = $2;
  		`, userID, connID))
-@@ -753,7 +756,7 @@ func getOfflineSessions(q querier, userID string, connID string) (storage.Offlin
+@@ -753,7 +756,7 @@ func getOfflineSessions(ctx context.Context, q querier, userID string, connID st
  
  func scanOfflineSessions(s scanner) (o storage.OfflineSessions, err error) {
  	err = s.Scan(
@@ -2311,7 +2241,7 @@ index 1249243ced..7d8b62ca30 100644
  	if err != nil {
  		if err == sql.ErrNoRows {
 diff --git a/storage/sql/migrate.go b/storage/sql/migrate.go
-index 83e9c20d94..621fcbb76f 100644
+index 83e9c20d..621fcbb7 100644
 --- a/storage/sql/migrate.go
 +++ b/storage/sql/migrate.go
 @@ -298,4 +298,17 @@ var migrations = []migration{
@@ -2333,7 +2263,7 @@ index 83e9c20d94..621fcbb76f 100644
 +	},
  }
 diff --git a/storage/storage.go b/storage/storage.go
-index 03883ef5aa..f1fa20cf4a 100644
+index 574b0a5a..4ebc2eb4 100644
 --- a/storage/storage.go
 +++ b/storage/storage.go
 @@ -233,6 +233,9 @@ type AuthRequest struct {
@@ -2360,7 +2290,7 @@ index 03883ef5aa..f1fa20cf4a 100644
  // Password is an email to password mapping managed by the storage.
 diff --git a/web/templates/totp_verify.html b/web/templates/totp_verify.html
 new file mode 100644
-index 0000000000..2a77b8d35e
+index 00000000..2a77b8d3
 --- /dev/null
 +++ b/web/templates/totp_verify.html
 @@ -0,0 +1,28 @@

@@ -13,11 +13,11 @@
       size = LT.constants.gui.fontSize;
     };
     iconTheme = {
-      package = pkgs.breeze-icons;
+      package = pkgs.kdePackages.breeze-icons;
       name = "breeze-dark";
     };
     theme = {
-      package = pkgs.breeze-gtk;
+      package = pkgs.kdePackages.breeze-gtk;
       name = "Breeze-Dark";
     };
     gtk2.extraConfig = ''

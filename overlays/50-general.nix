@@ -27,7 +27,7 @@ rec {
         substituteInPlace server/handlers.go \
           --replace-fail '&& !authReq.ForceApprovalPrompt' ""
       '';
-    vendorHash = "sha256-5bzbA0f6Ck3lkfbaIQ/ekgiK+YbsZHmZCR4ZVvcNirg=";
+    vendorHash = "sha256-PUeMs6VZSB5YMc0MRen7Jmdi2eFbEQsHix/VzeydYoc=";
     doCheck = false;
   });
   drone = prev.drone.overrideAttrs (old: {
