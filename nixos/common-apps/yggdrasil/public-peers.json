@@ -119,9 +119,6 @@
     "tls://x-sto-0.sergeysedoy97.ru:65534",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
-  "switzerland": [
-    "tls://[2a0e:dc0:6:257d::42]:9441"
-  ],
   "ukraine": [
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:179",
