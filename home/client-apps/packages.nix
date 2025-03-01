@@ -121,6 +121,7 @@ in
         libreoffice-qt6-fresh
         librewolf
         linphone
+        lx-music-desktop
         macchanger
         matrix-synapse-tools.synadm
         mediainfo
