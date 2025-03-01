@@ -3,15 +3,15 @@
 {
   aggregator = {
     pname = "aggregator";
-    version = "100bea477feb8d788f239bf4d9ae3fbef12d0cd0";
+    version = "e661ca6a21d4e50d60b381fd1cf5357d6424a980";
     src = fetchFromGitHub {
       owner = "wzdnzd";
       repo = "aggregator";
-      rev = "100bea477feb8d788f239bf4d9ae3fbef12d0cd0";
+      rev = "e661ca6a21d4e50d60b381fd1cf5357d6424a980";
       fetchSubmodules = false;
-      sha256 = "sha256-CpaQ7X8Vz8wvpKbIQALqdNjpGWXWFgdesh9rwjTOIeY=";
+      sha256 = "sha256-nj97VwwgC3z+9DYqA1SxZ2n3PX3a4v+mvLijvpATAOM=";
     };
-    date = "2025-02-05";
+    date = "2025-02-25";
   };
   brlaser = {
     pname = "brlaser";
@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "3c4a59e01e85f5b59b79240b4305994237b7a105";
+    version = "aeb3e6c99de421a620dfdc92fde1d9651246ee30";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "3c4a59e01e85f5b59b79240b4305994237b7a105";
+      rev = "aeb3e6c99de421a620dfdc92fde1d9651246ee30";
       fetchSubmodules = false;
-      sha256 = "sha256-qVg/j7sIVsNIdeQBXTjfK0hJHCPMz0S54+gVeKksIo4=";
+      sha256 = "sha256-F4jq8MEJoNnxLz3pHYzuR2XB/FeFwmpWkdELUeixlVM=";
     };
-    date = "2025-02-15";
+    date = "2025-02-21";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,15 +112,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "ab88d5ec996e841255e3c5215a360b7de306f375";
+    version = "ecbc5c6d5619314c9dc835f470844536c5201fd0";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "ab88d5ec996e841255e3c5215a360b7de306f375";
+      rev = "ecbc5c6d5619314c9dc835f470844536c5201fd0";
       fetchSubmodules = false;
-      sha256 = "sha256-k/GUsX9NHxxaN6298GVwuj6bwAImNrzneIemwI8j5+A=";
+      sha256 = "sha256-OIWNEhDwBaMs9kRVnc+3l3+u+oQpPvE4miPAgrBKauM=";
     };
-    date = "2025-02-11";
+    date = "2025-02-26";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -136,15 +136,15 @@
   };
   sakura-share = {
     pname = "sakura-share";
-    version = "12c4ac9cc8773c5ec09cceb7fbd097412ef1b655";
+    version = "0119eba745eba7bdbf42f271201323bd823d4e17";
     src = fetchFromGitHub {
       owner = "PiDanShouRouZhouXD";
       repo = "Sakura_Launcher_GUI";
-      rev = "12c4ac9cc8773c5ec09cceb7fbd097412ef1b655";
+      rev = "0119eba745eba7bdbf42f271201323bd823d4e17";
       fetchSubmodules = false;
-      sha256 = "sha256-2/pwonNT8DACk/xQ+qiMZD3tN3ZK4GkuWowJXf5+8xA=";
+      sha256 = "sha256-c2m+SSBYvVUlOyhXM42DMsK26PR6S/8Xc1EaiHtFNHQ=";
     };
-    date = "2025-02-23";
+    date = "2025-02-27";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
@@ -232,17 +232,17 @@
   };
   vgpu-proxmox = {
     pname = "vgpu-proxmox";
-    version = "c38f027577f3159b3ce37b684c151058c4515bc4";
+    version = "cac450b4c77a113ed0e3a0227ec1c003efeb7a0c";
     src = fetchgit {
       url = "https://gitlab.com/polloloco/vgpu-proxmox.git";
-      rev = "c38f027577f3159b3ce37b684c151058c4515bc4";
+      rev = "cac450b4c77a113ed0e3a0227ec1c003efeb7a0c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-vMuiIGWYy0oQc6LxpX7gDCcGR6CA5sJrN8H/IQSDOrk=";
+      sha256 = "sha256-ByufMbOkNYQVyJ7j9Krd/2FUpmF/gQUmL1jSOqERwpo=";
     };
-    date = "2024-11-17";
+    date = "2025-02-26";
   };
   web-compressor = {
     pname = "web-compressor";

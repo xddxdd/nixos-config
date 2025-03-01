@@ -23,12 +23,6 @@ let
       }
     );
 
-  uni-api = pkgs.nur-xddxdd.uni-api.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ../../../patches/uni-api-speedup.patch
-    ];
-  });
-
   cfg = {
     providers = [
       # Free providers
@@ -113,7 +107,7 @@ let
       }
       {
         provider = "smnet-free-chat";
-        base_url = "https://api-1-hemf.onrender.com/v1/chat/completions";
+        base_url = "https://net-meta-smnet-65516-a84156b7.koyeb.app/v1/chat/completions";
         api = {
           _secret = config.age.secrets.uni-api-smnet-free-chat-api-key.path;
         };
@@ -206,7 +200,7 @@ in
 
     script = ''
       ${utils.genJqSecretsReplacementSnippet cfg "api.yaml"}
-      exec ${uni-api}/bin/uni-api
+      exec ${pkgs.nur-xddxdd.uni-api}/bin/uni-api
     '';
 
     postStart = ''
