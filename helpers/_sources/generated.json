@@ -246,12 +246,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "Sakura_Launcher_GUI",
-            "rev": "f3fe8c360f96c4f363c5a9105085331c9f662de9",
-            "sha256": "sha256-drnZrCl7Ri/SSQPovPIXJ5sUc8dioYqDtvJlfmkKM9A=",
+            "rev": "4b417f17c2564a2fc2c3cdd706fa0ace53d209bc",
+            "sha256": "sha256-86xgxkC1FMnm1hnj26ka+RmYLPgY7+RGqGSceku0txs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f3fe8c360f96c4f363c5a9105085331c9f662de9"
+        "version": "4b417f17c2564a2fc2c3cdd706fa0ace53d209bc"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
