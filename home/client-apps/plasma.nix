@@ -128,11 +128,11 @@
 
     spectacle.shortcuts = {
       captureActiveWindow = "Meta+Print";
-      captureCurrentMonitor = "Print";
+      captureCurrentMonitor = "Ctrl+Print";
       captureEntireDesktop = "Shift+Print";
       captureRectangularRegion = "Meta+Shift+Print";
       captureWindowUnderCursor = "Meta+Ctrl+Print";
-      launch = "Meta+Shift+S";
+      launch = "Print";
       launchWithoutCapturing = [ ];
       recordRegion = [
         "Meta+Shift+R"
