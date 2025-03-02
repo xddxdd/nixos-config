@@ -50,9 +50,8 @@ src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "openspeedtest/Speed-Test"
 
 [sakura-share]
-src.manual = "021f10a02869e526cbb1e876f19769d32f88ad3d"
-# src.git = "https://github.com/PiDanShouRouZhouXD/Sakura_Launcher_GUI.git"
-fetch.github = "PiDanShouRouZhouXD/Sakura_Launcher_GUI"
+src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
+fetch.github = "xddxdd/Sakura_Launcher_GUI"
 
 [ulauncher-albert-calculate-anything]
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
