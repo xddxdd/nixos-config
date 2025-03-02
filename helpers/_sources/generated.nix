@@ -136,13 +136,13 @@
   };
   sakura-share = {
     pname = "sakura-share";
-    version = "f3fe8c360f96c4f363c5a9105085331c9f662de9";
+    version = "4b417f17c2564a2fc2c3cdd706fa0ace53d209bc";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "Sakura_Launcher_GUI";
-      rev = "f3fe8c360f96c4f363c5a9105085331c9f662de9";
+      rev = "4b417f17c2564a2fc2c3cdd706fa0ace53d209bc";
       fetchSubmodules = false;
-      sha256 = "sha256-drnZrCl7Ri/SSQPovPIXJ5sUc8dioYqDtvJlfmkKM9A=";
+      sha256 = "sha256-86xgxkC1FMnm1hnj26ka+RmYLPgY7+RGqGSceku0txs=";
     };
     date = "2025-03-01";
   };
