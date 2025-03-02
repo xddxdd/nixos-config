@@ -66,6 +66,13 @@ in
           { targets = [ "${LT.hosts."lt-home-vm".ltnet.IPv4}:${LT.portStr.Prometheus.Palworld}" ]; }
         ];
       }
+      {
+        job_name = "sakura-share";
+        scheme = "https";
+        static_configs = [
+          { targets = [ "sakura-share.one" ]; }
+        ];
+      }
     ];
   };
 
