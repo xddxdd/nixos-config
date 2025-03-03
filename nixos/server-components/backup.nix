@@ -25,6 +25,7 @@ let
     var/lib/btrfs/
     var/lib/cni/
     var/lib/containers/
+    var/lib/crowdsec/
     var/lib/docker/
     var/lib/docker-dind/
     var/lib/filebeat/
