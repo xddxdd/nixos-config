@@ -124,7 +124,7 @@ in
         "hmac-sha2-256-etm@openssh.com"
       ];
       TcpRcvBufPoll = true;
-      HPNBufferSize = 14336;
+      HPNBufferSize = 65536;
     };
   };
 
