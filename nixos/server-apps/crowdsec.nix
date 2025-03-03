@@ -107,9 +107,9 @@ in
       LANG = "C.UTF-8";
     };
     postStart = ''
-      while ! cscli lapi status; do
+      while ! nice -n19 cscli lapi status; do
         echo "Waiting for CrowdSec daemon to be ready"
-        sleep 5
+        sleep 15
       done
 
       cscli bouncers add cs-firewall-bouncer --key cs-firewall-bouncer || true
@@ -146,6 +146,7 @@ in
         '')
       ];
 
+      CPUQuota = "50%";
       StateDirectory = "crowdsec";
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "5";
