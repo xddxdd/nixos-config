@@ -86,6 +86,9 @@ in
   # https://github.com/mozilla/policy-templates/blob/master/README.md
   programs.firefox = {
     enable = true;
+
+    # package = inputs.firefox-nightly.packages."${pkgs.system}".firefox-nightly-bin;
+
     languagePacks = [ "zh-CN" ];
     policies = {
       DisableAppUpdate = true;

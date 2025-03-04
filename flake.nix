@@ -48,6 +48,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dwarffs.url = "github:edolstra/dwarffs";
+    firefox-nightly = {
+      url = "github:nix-community/flake-firefox-nightly";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
