@@ -30,8 +30,7 @@
     "tls://[2001:41d0:303:13b3:51:255:223:60]:54232",
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://cloudberry.fr1.servers.devices.cwinfo.net:54232",
-    "tls://s2.i2pd.xyz:39575",
-    "tls://yggpeer.tilde.green:59454"
+    "tls://s2.i2pd.xyz:39575"
   ],
   "germany": [
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
@@ -100,9 +99,6 @@
     "tls://x-mow-1.sergeysedoy97.ru:65534",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
-  ],
-  "saudi-arabia": [
-    "tls://pp1.ygg.sy.sa:8442"
   ],
   "singapore": [
     "tls://asia.deinfra.org:15015"
