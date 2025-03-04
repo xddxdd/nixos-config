@@ -61,13 +61,14 @@ let
     ''
   );
 
+  # Fix Continue.dev extension
   vscode-wrapped = lib.hiPrio (
     pkgs.runCommand "vscode-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
       mkdir -p $out/bin
       makeWrapper \
         ${pkgs.vscode}/bin/code \
         $out/bin/code \
-        --add-flags "--disable-gpu"
+        --prefix LD_LIBRARY_PATH : "${pkgs.stdenv.cc.cc.lib}/lib"
     ''
   );
 in
