@@ -19,7 +19,7 @@ indexers = requests.get(
 ).json()
 
 for indexer in indexers:
-    if indexer.get("definitionName") != "ourbits":
+    if indexer.get("definitionName") != "hdtime":
         continue
     if not indexer.get("fields"):
         continue
@@ -27,7 +27,7 @@ for indexer in indexers:
     if indexer_id is None:
         continue
 
-    print(f"Updating OurBits indexer with ID {indexer_id}")
+    print(f"Updating HDTime indexer with ID {indexer_id}")
 
     for i in range(len(indexer["fields"])):
         if indexer["fields"][i]["name"] != "cookie":
