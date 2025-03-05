@@ -61,6 +61,17 @@ let
     ''
   );
 
+  # Fix auto close on shutdown
+  thunderbird-wrapped = lib.hiPrio (
+    pkgs.runCommand "thunderbird-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
+      mkdir -p $out/bin
+      makeWrapper \
+        ${pkgs.thunderbird}/bin/thunderbird \
+        $out/bin/thunderbird \
+        --set WAYLAND_DISPLAY ""
+    ''
+  );
+
   # Fix Continue.dev extension
   vscode-wrapped = lib.hiPrio (
     pkgs.runCommand "vscode-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
@@ -160,6 +171,7 @@ in
         rar
         steam-run
         synadm
+        thunderbird-wrapped
         tigervnc
         transmission_4-qt
         transmission-remote-gtk
@@ -213,7 +225,7 @@ in
       }
       {
         name = "thunderbird";
-        command = "${pkgs.thunderbird}/bin/thunderbird";
+        command = "${thunderbird-wrapped}/bin/thunderbird";
       }
     ])
     ++ [
