@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from uuid import uuid4
 
 import requests
 
@@ -18,21 +19,48 @@ try:
 except Exception as e:
     pass
 
+session_id = uuid4()
+requests.post(
+    f"{flaresolverr_url}/v1",
+    json={
+        "cmd": "sessions.create",
+        "session": str(session_id),
+    },
+)
+
+# Load login page
+requests.post(
+    f"{flaresolverr_url}/v1",
+    json={
+        "cmd": "request.get",
+        "session": str(session_id),
+        "url": "https://hdtime.org/login.php",
+    },
+)
+
 # Login
 q = requests.post(
     f"{flaresolverr_url}/v1",
     json={
         "cmd": "request.post",
+        "session": str(session_id),
         "url": "https://hdtime.org/takelogin.php",
         "postData": f"username={username}&password={password}&trackerssl=yes",
     },
 )
-j = q.json()
+
+requests.post(
+    f"{flaresolverr_url}/v1",
+    json={
+        "cmd": "sessions.destroy",
+        "session": str(session_id),
+    },
+)
 
 cookies = j.get("solution", {}).get("cookies", [])
 if not cookies:
     raise ValueError("Did not receive any cookies")
-expiry = min([c.get("expiry", time.time()) for c in cookies])
+expiry = min([c.get("expires") for c in cookies])
 if expiry <= int(time.time()):
     raise ValueError("Got expired cookie from fresh request")
 cookie_str = "; ".join([c["name"] + "=" + c["value"] for c in cookies])
