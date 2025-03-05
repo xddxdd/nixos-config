@@ -4,10 +4,10 @@ import requests
 
 prowlarr_url = os.environ["PROWLARR_URL"]
 prowlarr_apikey = os.environ["PROWLARR_APIKEY"]
-ourbits_token = os.environ["OURBITS_TOKEN"]
+hdtime_cookie = os.environ["HDTIME_COOKIE"]
 
-if not ourbits_token:
-    print("No OurBits token found")
+if not hdtime_cookie:
+    print("No HDTime cookie found")
     exit(1)
 
 print("Listing indexers")
@@ -33,11 +33,10 @@ for indexer in indexers:
         if indexer["fields"][i]["name"] != "cookie":
             continue
 
-        new_cookie = f"ourbits_jwt={ourbits_token}"
-        if indexer["fields"][i]["value"] == new_cookie:
+        if indexer["fields"][i]["value"] == hdtime_cookie:
             print("Cookie is up to date")
             exit(0)
-        indexer["fields"][i]["value"] = new_cookie
+        indexer["fields"][i]["value"] = hdtime_cookie
 
         print("Updating cookie")
         response = requests.put(

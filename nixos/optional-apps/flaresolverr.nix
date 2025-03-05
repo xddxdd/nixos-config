@@ -17,5 +17,6 @@
     TZ = config.time.timeZone;
     LANG = config.i18n.defaultLocale;
     TEST_URL = "https://www.example.com";
+    DRIVER = "nodriver";
   };
 }
