@@ -57,6 +57,7 @@ requests.post(
     },
 )
 
+j = q.json()
 cookies = j.get("solution", {}).get("cookies", [])
 if not cookies:
     raise ValueError("Did not receive any cookies")
