@@ -21,6 +21,9 @@ except Exception as e:
 # Login
 q = requests.post(
     f"{flaresolverr_url}/v1",
+    headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
+    },
     json={
         "cmd": "request.post",
         "url": "https://ourbits.club/takelogin.php",
@@ -29,12 +32,15 @@ q = requests.post(
 )
 j = q.json()
 for cookie in j.get("solution", {}).get("cookies", []):
+    if cookie.get("name") != "ourbits_jwt":
+        continue
+
     expiry = cookie.get("expiry")
     if expiry <= int(time.time()):
         raise ValueError("Got expired cookie from fresh request")
 
     value = cookie.get("value")
-    if value and cookie.get("name") == "ourbits_jwt":
+    if value:
         print(value)
         with open("ourbits.json", "w") as f:
             json.dump(cookie, f)

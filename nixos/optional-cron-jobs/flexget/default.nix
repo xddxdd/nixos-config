@@ -170,7 +170,8 @@ in
         export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
       ''
       + (lib.optionalString config.services.prowlarr.enable ''
-        ${py}/bin/python3 ${./ourbits_update_prowlarr.py}
+        ${py}/bin/python3 ${./hdtime_update_prowlarr.py} || true
+        ${py}/bin/python3 ${./ourbits_update_prowlarr.py} || true
       '')
       + ''
         cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml

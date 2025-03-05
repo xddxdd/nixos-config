@@ -21,6 +21,9 @@ except Exception as e:
 # Login
 q = requests.post(
     f"{flaresolverr_url}/v1",
+    headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
+    },
     json={
         "cmd": "request.post",
         "url": "https://hdtime.org/takelogin.php",
@@ -32,7 +35,7 @@ j = q.json()
 cookies = j.get("solution", {}).get("cookies", [])
 if not cookies:
     raise ValueError("Did not receive any cookies")
-expiry = min([c["expiry"] for c in cookies])
+expiry = min([c.get("expiry", time.time()) for c in cookies])
 if expiry <= int(time.time()):
     raise ValueError("Got expired cookie from fresh request")
 cookie_str = "; ".join([c["name"] + "=" + c["value"] for c in cookies])
