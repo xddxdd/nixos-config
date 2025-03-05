@@ -58,7 +58,6 @@ requests.post(
 )
 
 j = q.json()
-print(j)
 for cookie in j.get("solution", {}).get("cookies", []):
     if cookie.get("name") != "ourbits_jwt":
         continue
