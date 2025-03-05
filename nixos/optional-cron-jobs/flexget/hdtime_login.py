@@ -21,9 +21,6 @@ except Exception as e:
 # Login
 q = requests.post(
     f"{flaresolverr_url}/v1",
-    headers={
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
-    },
     json={
         "cmd": "request.post",
         "url": "https://hdtime.org/takelogin.php",
