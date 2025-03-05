@@ -7,7 +7,7 @@
 {
   services.flaresolverr = {
     enable = true;
-    package = pkgs.nur-xddxdd.flaresolverr-21hsmw;
+    package = pkgs.nur-xddxdd.flaresolverr-alexfozor;
     port = LT.port.FlareSolverr;
   };
 
@@ -17,6 +17,5 @@
     TZ = config.time.timeZone;
     LANG = config.i18n.defaultLocale;
     TEST_URL = "https://www.example.com";
-    DRIVER = "nodriver";
   };
 }
