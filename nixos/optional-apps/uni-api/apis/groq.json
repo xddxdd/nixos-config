@@ -17,6 +17,7 @@
   "mixtral-8x7b-32768": "mistralai/mixtral-8x7b-32768",
   "qwen-2.5-32b": "qwen/qwen-2.5-32b",
   "qwen-2.5-coder-32b": "qwen/qwen-2.5-coder-32b",
+  "qwen-qwq-32b": "qwen/qwen-qwq-32b",
   "whisper-large-v3": "whisper-large-v3",
   "whisper-large-v3-turbo": "whisper-large-v3-turbo"
 }

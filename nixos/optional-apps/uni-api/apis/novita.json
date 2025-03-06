@@ -6,6 +6,8 @@
   "deepseek/deepseek-r1-distill-llama-8b": "deepseek/deepseek-r1-distill-llama-8b",
   "deepseek/deepseek-r1-distill-qwen-14b": "deepseek/deepseek-r1-distill-qwen-14b",
   "deepseek/deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b",
+  "deepseek/deepseek-r1-turbo": "deepseek/deepseek-r1-turbo",
+  "deepseek/deepseek-v3-turbo": "deepseek/deepseek-v3-turbo",
   "deepseek/deepseek_v3": "deepseek/deepseek_v3",
   "google/gemma-2-9b-it": "google/gemma-2-9b-it",
   "gryphe/mythomax-l2-13b": "gryphe/mythomax-l2-13b",
