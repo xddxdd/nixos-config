@@ -59,10 +59,12 @@
 
   systemd.services.nvidia-power-limit = {
     description = "Set Power Limit for NVIDIA GPUs";
+    after = [ "nvidia-persistenced.service" ];
+    requires = [ "nvidia-persistenced.service" ];
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
     script = ''
-      nvidia-smi -pl 300
+      nvidia-smi -pl 125
     '';
   };
 }
