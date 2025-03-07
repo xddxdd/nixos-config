@@ -123,8 +123,6 @@ in
         "hmac-sha2-256"
         "hmac-sha2-256-etm@openssh.com"
       ];
-      TcpRcvBufPoll = true;
-      HPNBufferSize = 65536;
     };
   };
 
@@ -182,9 +180,6 @@ in
       # DNS lookup is slow, use predefined knownHosts for my servers
       VerifyHostKeyDNS no
       LogLevel ERROR
-
-      TcpRcvBufPoll yes
-      HPNBufferSize 14336
   '';
 
   systemd.services.sshd.environment = {
