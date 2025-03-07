@@ -2,22 +2,18 @@
   pkgs,
   lib,
   config,
-  LT,
   ...
 }:
 let
   interfaces = [
-    "eno1"
-    "eno2"
-    "enp65s0"
-    "enp65s0d1"
+    "enp65s0f0"
+    "enp65s0f1"
+    "enp193s0"
+    "enp193s0d1"
   ];
 in
 {
   virtualisation.vswitch.enable = true;
-  preservation.preserveAt."/nix/persistent".directories = builtins.map LT.preservation.mkFolder [
-    "/var/db/openvswitch"
-  ];
 
   systemd.services.ovsdb-setup = {
     description = "Setup OpenVSwitch database";
