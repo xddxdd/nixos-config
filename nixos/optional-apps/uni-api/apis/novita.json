@@ -30,6 +30,7 @@
   "qwen/qwen-2-7b-instruct": "qwen/qwen-2-7b-instruct",
   "qwen/qwen-2-vl-72b-instruct": "qwen/qwen-2-vl-72b-instruct",
   "qwen/qwen-2.5-72b-instruct": "qwen/qwen-2.5-72b-instruct",
+  "qwen/qwq-32b": "qwen/qwq-32b",
   "sao10k/l3-70b-euryale-v2.1": "sao10k/l3-70b-euryale-v2.1",
   "sao10k/l3-8b-lunaris": "sao10k/l3-8b-lunaris",
   "sao10k/l31-70b-euryale-v2.2": "sao10k/l31-70b-euryale-v2.2",
