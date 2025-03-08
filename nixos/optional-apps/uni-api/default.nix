@@ -17,7 +17,7 @@ let
           if providerName == null then
             v
           else if lib.hasInfix ":" v then
-            lib.replaceStrings [ ":" ] [ ":${providerName}-" ]
+            lib.replaceStrings [ ":" ] [ ":${providerName}-" ] v
           else
             "${v}:${providerName}";
       }

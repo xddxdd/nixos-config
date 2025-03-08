@@ -1253,11 +1253,11 @@
         "nixpkgs-22-05": "nixpkgs-22-05"
       },
       "locked": {
-        "lastModified": 1741431504,
-        "narHash": "sha256-jUIafQe5GD7M1KVj6v+QzCAKnLUCLG6+DoLqxgIYz9s=",
+        "lastModified": 1741439169,
+        "narHash": "sha256-vspmyCXP0lZllpC9jD3aRATYbiaTa6ppnVVJrYy1fmk=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "8d394f4edd0a3884b8d46c001ef1d832dc72e915",
+        "rev": "4c21d46d2aa22ba91394234825a7686bee85aba5",
         "type": "github"
       },
       "original": {
