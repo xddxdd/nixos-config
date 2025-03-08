@@ -26,7 +26,7 @@
   "@cf/tiiuae/falcon-7b-instruct": "tiiuae/falcon-7b-instruct",
   "@cf/tinyllama/tinyllama-1.1b-chat-v1.0": "tinyllama/tinyllama-1.1b-chat-v1.0",
   "@hf/google/gemma-7b-it": "google/gemma-7b-it",
-  "@hf/meta-llama/meta-llama-3-8b-instruct": "meta-llama/meta-llama-3-8b-instruct",
+  "@hf/meta-llama/meta-llama-3-8b-instruct": "meta-llama/llama-3-8b-instruct",
   "@hf/mistral/mistral-7b-instruct-v0.2": "mistral/mistral-7b-instruct-v0.2",
   "@hf/nexusflow/starling-lm-7b-beta": "nexusflow/starling-lm-7b-beta",
   "@hf/nousresearch/hermes-2-pro-mistral-7b": "nousresearch/hermes-2-pro-mistral-7b",

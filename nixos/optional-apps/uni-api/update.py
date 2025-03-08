@@ -41,7 +41,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "open-mixtral",
         "pixtral",
     ],
-    "meta": ["llama"],
+    "meta-llama": ["llama"],
     "google": [
         "gemini",
         "gemma",
@@ -56,12 +56,14 @@ GUESS_PROVIDER_PREFIX_MAP = {
     "qwen": [
         "qwen",
         "qwq",
+        "codeqwen",
     ],
     "openai": [
         "gpt",
         "o1",
         "o3",
         "text-embedding-3",
+        "whisper",
     ],
     "deepseek": ["deepseek"],
     "anthropic": ["claude"],
@@ -79,6 +81,7 @@ NORMALIZE_MODEL_PREFIX_MAP = {
     "ai21-": "ai21/",
     "cohere-": "cohere/",
     "meta-llama-": "meta-llama/llama-",
+    "meta-llama/meta-llama-": "meta-llama/llama-",
 }
 
 
@@ -211,12 +214,6 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     base = model_id.lower()
     suffix = ""
 
-    # Normalize model prefix
-    for k, v in NORMALIZE_MODEL_PREFIX_MAP.items():
-        if base.startswith(k):
-            base = base.replace(k, v, 1)
-            break
-
     # Remove provider's own differentiator in model prefix
     base = re.sub(r"^@[^/]+/", "", base)
 
@@ -228,6 +225,12 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
         splitted = base.split("/")
         suffix = "/".join(splitted[:-2])
         base = f"{splitted[-2]}/{splitted[-1]}"
+
+    # Normalize model prefix
+    for k, v in NORMALIZE_MODEL_PREFIX_MAP.items():
+        if base.startswith(k):
+            base = base.replace(k, v, 1)
+            break
 
     # Add separator between model name and version
     base = re.sub(r"(^|/)([a-zA-Z]{2,})([0-9]+)([^/]*)$", r"\1\2-\3\4", base)
@@ -244,6 +247,9 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
         provider = guess_provider(base)
         if provider:
             base = f"{provider}/{base}"
+
+    if suffix:
+        base = f"{base}:{suffix}"
 
     return base
 
