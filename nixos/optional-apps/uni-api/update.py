@@ -16,6 +16,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "cloudflare": "__CLOUDFLARE__",
+    "github-models": "__GITHUB_MODELS__",
     "google": "__GOOGLE__",
     "groq": "https://api.groq.com/openai/v1",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
@@ -24,7 +25,7 @@ APIS = {
     "openrouter": "https://openrouter.ai/api/v1",
     "sakura-share": "https://sakura-share.one/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
-    "smnet-free-chat": "https://net-meta-smnet-65516-a84156b7.koyeb.app/v1",
+    "smnet-free-chat": "https://xerothermic-elita-smnet-14651-5d876f2c.koyeb.app/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
 }
@@ -40,7 +41,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "open-mixtral",
         "pixtral",
     ],
-    "meta-llama": ["llama"],
+    "meta": ["llama"],
     "google": [
         "gemini",
         "gemma",
@@ -60,15 +61,24 @@ GUESS_PROVIDER_PREFIX_MAP = {
         "gpt",
         "o1",
         "o3",
+        "text-embedding-3",
     ],
     "deepseek": ["deepseek"],
     "anthropic": ["claude"],
     "x-ai": ["grok"],
     "cohere": ["command-r"],
+    "microsoft": ["phi"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {
     "deepseek": ["deepseek-ai"],
+    "meta-llama": ["meta"],
+}
+
+NORMALIZE_MODEL_PREFIX_MAP = {
+    "ai21-": "ai21/",
+    "cohere-": "cohere/",
+    "meta-llama-": "meta-llama/llama-",
 }
 
 
@@ -90,6 +100,20 @@ def get_api_secret(api_name: str) -> Optional[str]:
         return secret
     except subprocess.CalledProcessError:
         return None
+
+
+def get_models_github_models(api_name: str) -> List[str]:
+    r = urllib.request.Request(
+        f"https://models.inference.ai.azure.com/models",
+        method="GET",
+        headers={
+            "User-Agent": USER_AGENT,
+        },
+    )
+    content = urllib.request.urlopen(r).read()
+
+    models = json.loads(content)
+    return [m["name"] for m in models]
 
 
 def get_models_google(api_name: str) -> List[str]:
@@ -146,6 +170,8 @@ def get_models_local(api_name: str) -> List[str]:
 def get_models(api_name: str, base_url: str) -> List[str]:
     if base_url == "__CLOUDFLARE__":
         return get_models_cloudflare(api_name)
+    if base_url == "__GITHUB_MODELS__":
+        return get_models_github_models(api_name)
     if base_url == "__GOOGLE__":
         return get_models_google(api_name)
     if base_url == "__LOCAL__":
@@ -184,6 +210,12 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     # Enforce lowercase for model name
     base = model_id.lower()
     suffix = ""
+
+    # Normalize model prefix
+    for k, v in NORMALIZE_MODEL_PREFIX_MAP.items():
+        if base.startswith(k):
+            base = base.replace(k, v, 1)
+            break
 
     # Remove provider's own differentiator in model prefix
     base = re.sub(r"^@[^/]+/", "", base)
