@@ -10,19 +10,14 @@
   boot.extraModprobeConfig =
     let
       vfioIds = [
-        "10de:1b38" # NVIDIA Tesla P40
         "10de:2204" # NVIDIA RTX 3090
       ];
       blacklistedModules = [
         "nouveau"
-        "nvidiafb"
-        "nvidia"
-        "nvidia-uvm"
-        "nvidia-drm"
-        "nvidia-modeset"
       ];
     in
     ''
+      softdep nvidia pre: vfio-pci
       options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep ":" vfioIds}
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
