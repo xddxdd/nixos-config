@@ -3,15 +3,15 @@
 {
   aggregator = {
     pname = "aggregator";
-    version = "e661ca6a21d4e50d60b381fd1cf5357d6424a980";
+    version = "308fc765596ae4fbeb791085407528f4c0a4b86b";
     src = fetchFromGitHub {
       owner = "wzdnzd";
       repo = "aggregator";
-      rev = "e661ca6a21d4e50d60b381fd1cf5357d6424a980";
+      rev = "308fc765596ae4fbeb791085407528f4c0a4b86b";
       fetchSubmodules = false;
-      sha256 = "sha256-nj97VwwgC3z+9DYqA1SxZ2n3PX3a4v+mvLijvpATAOM=";
+      sha256 = "sha256-OItXioRuAr7UIKeP7JNBpGEr6S7Mj59g9wtzlCXa/e8=";
     };
-    date = "2025-02-25";
+    date = "2025-03-05";
   };
   brlaser = {
     pname = "brlaser";
@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "aeb3e6c99de421a620dfdc92fde1d9651246ee30";
+    version = "f04c42b783a6a98d62b26f6933548bb9a5b13e10";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "aeb3e6c99de421a620dfdc92fde1d9651246ee30";
+      rev = "f04c42b783a6a98d62b26f6933548bb9a5b13e10";
       fetchSubmodules = false;
-      sha256 = "sha256-F4jq8MEJoNnxLz3pHYzuR2XB/FeFwmpWkdELUeixlVM=";
+      sha256 = "sha256-XcUv575dSUrHOUlR6AZ9O/cPKa+JLLt765ZaMwI9Ttg=";
     };
-    date = "2025-02-21";
+    date = "2025-03-07";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,15 +112,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "ecbc5c6d5619314c9dc835f470844536c5201fd0";
+    version = "a4dd61b439fd267147cc4650edbcae3ffabc5933";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "ecbc5c6d5619314c9dc835f470844536c5201fd0";
+      rev = "a4dd61b439fd267147cc4650edbcae3ffabc5933";
       fetchSubmodules = false;
-      sha256 = "sha256-OIWNEhDwBaMs9kRVnc+3l3+u+oQpPvE4miPAgrBKauM=";
+      sha256 = "sha256-/4u2oVC6qfQQCoBeOZBbfVhczb2f5/LXLUSGKVD/wFM=";
     };
-    date = "2025-02-26";
+    date = "2025-03-07";
   };
   openspeedtest = {
     pname = "openspeedtest";
