@@ -71,6 +71,14 @@ let
         model = loadModels "cloudflare" ./apis/cloudflare.json;
       }
       {
+        provider = "github-models";
+        base_url = "https://models.inference.ai.azure.com/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-github-models-api-key.path;
+        };
+        model = loadModels null ./apis/github-models.json;
+      }
+      {
         provider = "lingyiwanwu";
         base_url = "https://api.lingyiwanwu.com/v1/chat/completions";
         api = {
@@ -107,7 +115,7 @@ let
       }
       {
         provider = "smnet-free-chat";
-        base_url = "https://net-meta-smnet-65516-a84156b7.koyeb.app/v1/chat/completions";
+        base_url = "https://xerothermic-elita-smnet-14651-5d876f2c.koyeb.app/v1/chat/completions";
         api = {
           _secret = config.age.secrets.uni-api-smnet-free-chat-api-key.path;
         };
@@ -173,6 +181,7 @@ in
         "ai-985-games-api-key"
         "cloudflare-account-id"
         "cloudflare-api-key"
+        "github-models-api-key"
         "google-api-key"
         "groq-api-key"
         "lingyiwanwu-api-key"
