@@ -1,5 +1,5 @@
 {
-  "codeqwen1.5-7b-chat": "codeqwen-1.5-7b-chat",
+  "codeqwen1.5-7b-chat": "qwen/codeqwen-1.5-7b-chat",
   "deepseek-chat": "deepseek/deepseek-chat",
   "deepseek-r1": "deepseek/deepseek-r1",
   "deepseek-r1-turbo": "deepseek/deepseek-r1-turbo",
