@@ -5,6 +5,8 @@
 {
   imports = [
     ../../nixos/hardware/lvm.nix
+    ../../nixos/hardware/nvidia/cuda-only.nix
+    ../../nixos/hardware/nvidia/vgpu-extension.nix
     ../../nixos/hardware/ups.nix
     ../../nixos/hardware/zfs.nix
   ];
@@ -51,4 +53,13 @@
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
+
+  systemd.services.nvidia-power-limit = {
+    description = "Set Power Limit for NVIDIA GPUs";
+    wantedBy = [ "multi-user.target" ];
+    path = [ config.hardware.nvidia.package ];
+    script = ''
+      nvidia-smi -pl 125
+    '';
+  };
 }
