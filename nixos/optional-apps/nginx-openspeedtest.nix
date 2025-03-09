@@ -4,7 +4,7 @@
     "openspeedtest.${config.networking.hostName}.xuyh0120.win" = {
       # Add layer of reverse proxy to fix abnormal upload speed
       locations."/" = {
-        proxyPass = "http://openspeedtest.localhost";
+        proxyPass = "http://127.0.0.1";
         proxyOverrideHost = "openspeedtest.localhost";
         disableLiveCompression = true;
         extraConfig = ''
