@@ -178,6 +178,7 @@ rec {
     OpenedAISpeech = 13788;
     OpenAIEdgeTTS = 13789;
     FishSpeech = 13790;
+    MTranServer = 13791;
     Plausible = 13800;
     Netbox = 13801;
     CrowdSec = 13802;
