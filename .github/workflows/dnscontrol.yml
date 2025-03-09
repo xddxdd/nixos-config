@@ -34,6 +34,11 @@ jobs:
 
       - name: Setup GitHub Actions cache for Nix
         uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 1073741824
+          purge: false
 
       - name: Setup SSH key
         run: |
