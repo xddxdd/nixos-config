@@ -33,7 +33,7 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
 
       - name: Setup GitHub Actions cache for Nix
-        uses: DeterminateSystems/magic-nix-cache-action@main
+        uses: nix-community/cache-nix-action@v6
 
       - name: Setup SSH key
         run: |
