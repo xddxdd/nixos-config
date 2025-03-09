@@ -16,11 +16,15 @@
       "--gpus=all"
     ];
     image = "lmsysorg/sglang";
+    environment = {
+      TORCHINDUCTOR_CACHE_DIR = "/var/cache/torchinductor";
+    };
     environmentFiles = [
       config.age.secrets.huggingface-token-env.path
     ];
     volumes = [
       "/var/cache/huggingface:/root/.cache/huggingface"
+      "/var/cache/torchinductor:/var/cache/torchinductor"
     ];
     cmd = [
       "python3"
@@ -46,6 +50,7 @@
 
   systemd.tmpfiles.rules = [
     "d /var/cache/huggingface 755 root root"
+    "d /var/cache/torchinductor 755 root root"
   ];
 
   systemd.services.podman-sglang-sakura-llm = {
