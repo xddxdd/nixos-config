@@ -6,6 +6,7 @@
 }:
 let
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    bilisponsorblock
     bitwarden
     bypass-paywalls-clean
     clearurls
@@ -17,6 +18,7 @@ let
     flagfox
     i-dont-care-about-cookies
     ipfs-companion
+    immersive-translate
     lovely-forks
     multi-account-containers
     noscript
