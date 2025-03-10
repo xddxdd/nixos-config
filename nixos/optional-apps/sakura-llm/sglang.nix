@@ -10,7 +10,8 @@
 
   virtualisation.oci-containers.containers.sglang-sakura-llm = {
     extraOptions = [
-      "--pull=always"
+      # Pulling on startup causes network issues if freshly booted
+      # "--pull=always"
       "--net=host"
       "--ipc=host"
       "--gpus=all"
