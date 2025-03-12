@@ -83,6 +83,7 @@
   "google/gemma-2-27b-it": "google/gemma-2-27b-it",
   "google/gemma-2-9b-it": "google/gemma-2-9b-it",
   "google/gemma-2-9b-it:free": "google/gemma-2-9b-it:free",
+  "google/gemma-3-27b-it:free": "google/gemma-3-27b-it:free",
   "google/gemma-7b-it": "google/gemma-7b-it",
   "google/learnlm-1.5-pro-experimental:free": "google/learnlm-1.5-pro-experimental:free",
   "google/palm-2-chat-bison": "google/palm-2-chat-bison",
