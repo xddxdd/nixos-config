@@ -3,7 +3,6 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
-    "tls://[2001:44b8:26e:1300::1]:7676",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
   ],
@@ -42,6 +41,7 @@
     "tls://s-fra-0.sergeysedoy97.ru:65534",
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
     "tls://x-fra-0.sergeysedoy97.ru:65534",
+    "tls://ygg-uplink.thingylabs.io:443",
     "tls://ygg-uplink.thingylabs.io:993",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
