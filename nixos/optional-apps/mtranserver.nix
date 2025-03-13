@@ -14,8 +14,11 @@ let
 
   enabledModels = pkgs.runCommand "mtranserver-models" { } ''
     mkdir -p $out
-    for MODEL in enzh; do
-      cp -r ${models}/models/dev/$MODEL $out/$MODEL || cp -r ${models}/models/prod/$MODEL $out/$MODEL
+    for MODEL in ${models}/models/dev/*; do
+      cp -r $MODEL $out/$(basename $MODEL)
+    done
+    for MODEL in ${models}/models/prod/*; do
+      cp -r $MODEL $out/$(basename $MODEL)
     done
     chmod -R +w $out
     ${pkgs.gzip}/bin/gunzip -r $out
