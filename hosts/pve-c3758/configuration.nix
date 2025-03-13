@@ -6,7 +6,7 @@
 
     ./inseego-mifi-restart
     ./hardware-configuration.nix
-    ./openvswitch-dpdk.nix
+    ./openvswitch.nix
     ./vfio.nix
   ];
 
