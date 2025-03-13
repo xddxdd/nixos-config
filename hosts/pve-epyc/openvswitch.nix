@@ -5,12 +5,12 @@
   ...
 }:
 let
-  interfaces = {
-    "enp65s0f0" = "";
-    "enp65s0f1" = "";
-    "enp194s0" = "";
-    "enp194s0d1" = "";
-  };
+  interfaces = [
+    "enp65s0f0"
+    "enp65s0f1"
+    "enp194s0"
+    "enp194s0d1"
+  ];
 in
 {
   virtualisation.vswitch.enable = true;
@@ -35,7 +35,7 @@ in
       ''
       + (lib.concatMapStringsSep "\n" (n: ''
         ip link set ${n} up
-        ovs-vsctl add-port br0 ${n} ${interfaces.${n}} || true
+        ovs-vsctl add-port br0 ${n} || true
         ovs-vsctl set Interface ${n} mtu_request=9000 || true
       '') interfaces);
   };
