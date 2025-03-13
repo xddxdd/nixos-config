@@ -6,10 +6,15 @@
 }:
 let
   interfaces = {
-    "enp65s0f0" = "";
-    "enp65s0f1" = "";
-    "enp194s0" = "";
-    "enp194s0d1" = "";
+    "enp4s0" = "";
+    "enp5s0" = "";
+    "enp6s0" = "";
+    "enp7s0" = "";
+    "enp8s0" = "tag=201";
+    "eno1" = "";
+    "eno2" = "";
+    "eno3" = "";
+    "eno4" = "";
   };
 in
 {
@@ -37,6 +42,6 @@ in
         ip link set ${n} up
         ovs-vsctl add-port br0 ${n} ${interfaces.${n}} || true
         ovs-vsctl set Interface ${n} mtu_request=9000 || true
-      '') interfaces);
+      '') (builtins.attrNames interfaces));
   };
 }
