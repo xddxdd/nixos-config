@@ -32,7 +32,8 @@
     "tls://[2001:41d0:303:13b3:51:255:223:60]:54232",
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://cloudberry.fr1.servers.devices.cwinfo.net:54232",
-    "tls://s2.i2pd.xyz:39575"
+    "tls://s2.i2pd.xyz:39575",
+    "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
@@ -139,7 +140,6 @@
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
     "tls://longseason.1200bps.xyz:13122",
-    "tls://redcatho.de:9494",
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
