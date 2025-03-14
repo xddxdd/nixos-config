@@ -3,6 +3,7 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
+    "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
   ],
@@ -58,7 +59,8 @@
     "tls://153.120.42.137:54232",
     "tls://astrra.space:55535",
     "tls://ftp.aiwnios.com:989",
-    "tls://yg-osa.magicum.net:23900"
+    "tls://yg-osa.magicum.net:23900",
+    "tls://yg-tyo.magicum.net:32333"
   ],
   "luxembourg": [
     "tls://[2a03:90c0:85::28a]:443"
@@ -140,6 +142,7 @@
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
     "tls://longseason.1200bps.xyz:13122",
+    "tls://redcatho.de:9494",
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
