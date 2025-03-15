@@ -101,7 +101,7 @@ in
     };
   };
 
-  systemd.services.crowdsec = {
+  systemd.services.crowdsec = lib.mkIf config.services.crowdsec.enable {
     # Fix journald parsing error
     environment = {
       LANG = "C.UTF-8";
