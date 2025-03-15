@@ -164,6 +164,7 @@ in
         p7zip
         parsec-bin
         payload-dumper-go
+        pilipalax
         powertop
         prismlauncher
         prismlauncher-wrapped
