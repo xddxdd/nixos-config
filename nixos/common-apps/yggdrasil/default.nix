@@ -30,7 +30,7 @@ let
 in
 {
   options.services.yggdrasil.regions = lib.mkOption {
-    type = lib.types.listOf lib.types.string;
+    type = lib.types.listOf lib.types.str;
     default = regionMappings."${LT.this.city.country}";
     description = "Connect to servers in these regions by default.";
   };

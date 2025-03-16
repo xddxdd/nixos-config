@@ -10,10 +10,11 @@ in
 
   web-compressor = final.rustPlatform.buildRustPackage {
     inherit (sources.web-compressor) pname version src;
+    useFetchCargoVendor = true;
 
     nativeBuildInputs = with final; [ cmake ];
     buildInputs = with final; [ zlib-ng ];
 
-    cargoHash = "sha256-gg6BuPDleZLfleB/k2fANgrrJt8cbbXw7sOcw0LoNmk=";
+    cargoHash = "sha256-BmbYzdeBxLk+ToHlKF/1gCyROR1HSWZIRvXwswCnjEs=";
   };
 }
