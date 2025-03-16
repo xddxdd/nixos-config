@@ -186,4 +186,7 @@ in
     # XZ backdoor kill switch
     "yolAbejyiejuvnup" = "Evjtgvsh5okmkAvj";
   };
+
+  # Prevent regular OpenSSH from sneaking in
+  system.forbiddenDependenciesRegexes = [ "^openssh-[0-9p\\.]+$" ];
 }
