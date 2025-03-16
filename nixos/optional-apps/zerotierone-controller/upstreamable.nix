@@ -13,10 +13,10 @@ let
   ipAssignmentPoolOptions = _: {
     options = {
       ipRangeStart = lib.mkOption {
-        type = lib.types.string;
+        type = lib.types.str;
       };
       ipRangeEnd = lib.mkOption {
-        type = lib.types.string;
+        type = lib.types.str;
       };
     };
   };
@@ -24,10 +24,10 @@ let
   routeOptions = _: {
     options = {
       target = lib.mkOption {
-        type = lib.types.string;
+        type = lib.types.str;
       };
       via = lib.mkOption {
-        type = lib.types.nullOr lib.types.string;
+        type = lib.types.nullOr lib.types.str;
         default = null;
       };
     };
@@ -42,11 +42,11 @@ let
         };
         activeBridge = lib.mkEnableOption "member to bridge to another network";
         ipAssignments = lib.mkOption {
-          type = lib.types.listOf lib.types.string;
+          type = lib.types.listOf lib.types.str;
           default = [ ];
         };
         name = lib.mkOption {
-          type = lib.types.string;
+          type = lib.types.str;
           default = name;
         };
         noAutoAssignIps = lib.mkEnableOption "skip auto assign IP for this member";
@@ -87,7 +87,7 @@ let
           default = true;
         };
         name = lib.mkOption {
-          type = lib.types.string;
+          type = lib.types.str;
           default = name;
         };
         enableBroadcast = (lib.mkEnableOption "Broadcast within network") // {
@@ -115,7 +115,8 @@ let
           ];
         };
         v4AssignMode.zt = lib.mkEnableOption "auto assign IPv4 address by ZeroTier";
-        v6AssignMode."6plane" = lib.mkEnableOption "auto assign IPv6 address with 6plane method by ZeroTier";
+        v6AssignMode."6plane" =
+          lib.mkEnableOption "auto assign IPv6 address with 6plane method by ZeroTier";
         v6AssignMode.rfc4193 = lib.mkEnableOption "auto assign IPv6 address with RFC4193 method by ZeroTier";
         v6AssignMode.zt = lib.mkEnableOption "auto assign IPv6 address with ZeroTier's own method";
         multicastLimit = lib.mkOption {
