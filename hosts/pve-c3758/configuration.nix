@@ -4,7 +4,6 @@
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
-    ./inseego-mifi-restart
     ./hardware-configuration.nix
     ./openvswitch-dpdk.nix
     ./vfio.nix
