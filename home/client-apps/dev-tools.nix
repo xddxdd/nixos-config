@@ -38,27 +38,6 @@ let
       echo "nix-function-calls.svg"
     '';
 
-  pythonCustomized = pkgs.python3Full.withPackages (
-    p:
-    with p;
-    (
-      if pkgs.stdenv.isx86_64 then
-        [
-          autopep8
-          numpy
-          matplotlib
-        ]
-      else
-        [ ]
-    )
-    ++ [
-      dnspython
-      # FIXME
-      # pip
-      requests
-    ]
-  );
-
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
     exec ${pkgs.sg3_utils}/bin/sg_raw "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
@@ -160,7 +139,7 @@ in
     protobuf
 
     # Python
-    (lib.lowPrio pythonCustomized)
+    (lib.lowPrio python3Full)
     black
     conda
     micromamba
@@ -183,8 +162,6 @@ in
     # Others
     azure-cli
     dhcpcd
-    # # FIXME
-    # ghidra
     just
     linkzoneAdb
     oci-cli
