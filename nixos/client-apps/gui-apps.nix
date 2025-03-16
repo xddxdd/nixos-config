@@ -5,6 +5,8 @@
     binfmt = true;
   };
 
+  programs.ghidra.enable = true;
+
   programs.java = {
     enable = true;
     binfmt = true;

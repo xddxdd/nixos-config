@@ -188,8 +188,6 @@ in
         winetricks
         wpsoffice
         xca
-        # FIXME: Package removed upstream
-        # yesplaymusic
         yt-dlp
         yubioath-flutter
         zoom-us
