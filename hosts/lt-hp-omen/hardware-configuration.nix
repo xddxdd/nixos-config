@@ -5,7 +5,7 @@
 {
   imports = [
     ../../nixos/hardware/hdr.nix
-    ../../nixos/hardware/nvidia/only.nix
+    ../../nixos/hardware/nvidia/prime.nix
   ];
 
   boot.loader.grub = {
