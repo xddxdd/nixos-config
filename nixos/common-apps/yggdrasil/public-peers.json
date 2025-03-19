@@ -65,10 +65,6 @@
   "luxembourg": [
     "tls://[2a03:90c0:85::28a]:443"
   ],
-  "moldova": [
-    "tls://s-kiv-0.sergeysedoy97.ru:65534",
-    "tls://x-kiv-0.sergeysedoy97.ru:65534"
-  ],
   "netherlands": [
     "tls://23.137.249.65:444",
     "tls://s-ams-0.sergeysedoy97.ru:65534",
@@ -115,6 +111,7 @@
     "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
+    "tls://[2a04:5b81:2011:1:dea6:32ff:fe0b:b610]:2001",
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
   "spain": [

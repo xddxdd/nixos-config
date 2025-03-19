@@ -46,6 +46,7 @@
   "Qwen/Qwen2.5-7B-Instruct": "qwen/qwen-2.5-7b-instruct",
   "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen/qwen-2.5-coder-32b-instruct",
   "Qwen/Qwen2.5-Coder-7B-Instruct": "qwen/qwen-2.5-coder-7b-instruct",
+  "Qwen/Qwen2.5-VL-72B-Instruct": "qwen/qwen-2.5-vl-72b-instruct",
   "RVC-Boss/GPT-SoVITS": "rvc-boss/gpt-sovits",
   "SeedLLM/Seed-Rice-7B": "seedllm/seed-rice-7b",
   "THUDM/chatglm3-6b": "thudm/chatglm-3-6b",
