@@ -1,5 +1,6 @@
 {
   "grok-2-1212": "x-ai/grok-2-1212",
+  "grok-2-image-1212": "x-ai/grok-2-image-1212",
   "grok-2-vision-1212": "x-ai/grok-2-vision-1212",
   "grok-beta": "x-ai/grok-beta",
   "grok-vision-beta": "x-ai/grok-vision-beta"
