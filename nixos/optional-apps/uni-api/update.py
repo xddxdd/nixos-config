@@ -1,3 +1,5 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p python3
 import json
 import multiprocessing
 import os

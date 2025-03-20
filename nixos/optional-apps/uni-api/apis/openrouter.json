@@ -161,6 +161,7 @@
   "mistralai/mistral-small-24b-instruct-2501": "mistralai/mistral-small-24b-instruct-2501",
   "mistralai/mistral-small-24b-instruct-2501:free": "mistralai/mistral-small-24b-instruct-2501:free",
   "mistralai/mistral-small-3.1-24b-instruct": "mistralai/mistral-small-3.1-24b-instruct",
+  "mistralai/mistral-small-3.1-24b-instruct:free": "mistralai/mistral-small-3.1-24b-instruct:free",
   "mistralai/mistral-tiny": "mistralai/mistral-tiny",
   "mistralai/mixtral-8x22b-instruct": "mistralai/mixtral-8x22b-instruct",
   "mistralai/mixtral-8x7b": "mistralai/mixtral-8x7b",
