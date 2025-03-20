@@ -1,25 +1,13 @@
 {
   inputs,
-  python3,
   ...
 }:
-let
-  py = python3.withPackages (
-    p: with p; [
-      requests
-      beautifulsoup4
-    ]
-  );
-in
 ''
   export SECRET_BASE=${inputs.secrets}
 
-  for S in $(find . -name update.sh); do
+  for S in $(find nixos/ -name update.\*) $(find home/ -name update.\*); do
     echo "Executing $S"
-    bash "$S"
-  done
-  for S in $(find . -name update.py); do
-    echo "Executing $S"
-    ${py}/bin/python3 "$S"
+    chmod +x "$S"
+    "$S"
   done
 ''
