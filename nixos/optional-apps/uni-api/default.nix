@@ -115,7 +115,7 @@ let
       }
       {
         provider = "smnet-free-chat";
-        base_url = "https://xerothermic-elita-smnet-14651-5d876f2c.koyeb.app/v1/chat/completions";
+        base_url = "https://unemployed-loreen-smnet-145256-d256ebc0.koyeb.app/v1/chat/completions";
         api = {
           _secret = config.age.secrets.uni-api-smnet-free-chat-api-key.path;
         };
