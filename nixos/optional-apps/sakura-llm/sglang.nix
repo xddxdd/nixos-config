@@ -40,7 +40,9 @@
       "--disable-overlap"
       "--context-length"
       "2048"
-      "--enable-metrics"
+      # Causes "Counters can only be incremented by non-negative amounts" error
+      # Wait until https://github.com/sgl-project/sglang/pull/4660 is published in next release
+      # "--enable-metrics"
       "--enable-torch-compile"
       "--torch-compile-max-bs"
       "1"
@@ -80,6 +82,7 @@
     script = ''
       if ! curl \
         --fail \
+        --max-time 60 \
         --retry 3 \
         --retry-delay 1 \
         --retry-max-time 60 \
