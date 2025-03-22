@@ -28,6 +28,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v26
         with:
+          nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.AUTOMERGE_TOKEN }}
           extra_nix_config: |
             extra-platforms = i686-linux aarch64-linux arm-linux
