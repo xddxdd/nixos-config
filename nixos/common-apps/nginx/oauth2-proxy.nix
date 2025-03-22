@@ -20,10 +20,19 @@
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {
+      code-challenge-method = "S256";
+      cookie-csrf-expire = "15m";
+      cookie-csrf-per-request = true;
       oidc-issuer-url = "https://login.lantian.pub";
       insecure-oidc-skip-issuer-verification = "true";
       insecure-oidc-allow-unverified-email = "true";
       scope = "openid profile email groups";
+      whitelist-domain = [
+        "lantian.pub"
+        "*.lantian.pub"
+        "xuyh0120.win"
+        "*.xuyh0120.win"
+      ];
     };
   };
   users.users.oauth2-proxy = {
