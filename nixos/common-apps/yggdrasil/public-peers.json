@@ -59,7 +59,6 @@
     "tls://153.120.42.137:54232",
     "tls://astrra.space:55535",
     "tls://ftp.aiwnios.com:989",
-    "tls://yg-osa.magicum.net:23900",
     "tls://yg-tyo.magicum.net:32333"
   ],
   "luxembourg": [
@@ -78,10 +77,10 @@
     "tls://185.165.169.234:8443"
   ],
   "russia": [
-    "tls://185.177.216.199:7891",
     "tls://188.225.9.167:18227",
     "tls://195.2.74.155:7992",
     "tls://195.58.51.167:7992",
+    "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
     "tls://[2a00:b700::a:279]:443",
@@ -111,7 +110,6 @@
     "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
-    "tls://[2a04:5b81:2011:1:dea6:32ff:fe0b:b610]:2001",
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
   "spain": [
