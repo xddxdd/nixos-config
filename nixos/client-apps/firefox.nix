@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }:
 let
@@ -197,6 +198,8 @@ in
       "security.insecure_connection_text.enabled" = true;
       "security.insecure_connection_text.pbmode.enabled" = true;
       "security.osclientcerts.autoload" = true;
+      "geo.provider.network.url" = "https://api.beacondb.net/v1/geolocate";
+      "geo.provider.use_geoclue" = config.services.geoclue2.enable;
     };
     preferencesStatus = "locked";
   };
