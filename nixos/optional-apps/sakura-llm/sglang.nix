@@ -38,8 +38,6 @@
       "--port"
       LT.portStr.SakuraLLM
       "--disable-overlap"
-      "--context-length"
-      "2048"
       # Causes "Counters can only be incremented by non-negative amounts" error
       # Wait until https://github.com/sgl-project/sglang/pull/4660 is published in next release
       # "--enable-metrics"
