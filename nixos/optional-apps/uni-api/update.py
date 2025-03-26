@@ -19,6 +19,7 @@ APIS = {
     "ai-985-games": "https://ai.985.games/v1",
     "chutes-ai": "https://llm.chutes.ai/v1",
     "cloudflare": "__CLOUDFLARE__",
+    "crofai": "https://ai.nahcrof.com/v2",
     "github-models": "__GITHUB_MODELS__",
     "google": "__GOOGLE__",
     "groq": "https://api.groq.com/openai/v1",

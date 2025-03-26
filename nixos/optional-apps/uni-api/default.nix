@@ -95,6 +95,14 @@ let
         model = loadModels "chutes-ai" ./apis/chutes-ai.json;
       }
       {
+        provider = "crofai";
+        base_url = "https://llm.chutes.ai/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-chutes-ai-api-key.path;
+        };
+        model = loadModels "crofai" ./apis/crofai.json;
+      }
+      {
         # https://docs.api.ecylt.top/wbot/wbot-4-347b
         provider = "wbot";
         base_url = "https://api.223387.xyz/v1/chat/completions";
