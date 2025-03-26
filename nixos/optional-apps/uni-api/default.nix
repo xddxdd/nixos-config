@@ -87,6 +87,14 @@ let
         model = loadModels "lingyiwanwu" ./apis/lingyiwanwu.json;
       }
       {
+        provider = "chutes-ai";
+        base_url = "https://llm.chutes.ai/v1/chat/completions";
+        api = {
+          _secret = config.age.secrets.uni-api-chutes-ai-api-key.path;
+        };
+        model = loadModels "chutes-ai" ./apis/chutes-ai.json;
+      }
+      {
         # https://docs.api.ecylt.top/wbot/wbot-4-347b
         provider = "wbot";
         base_url = "https://api.223387.xyz/v1/chat/completions";
@@ -179,6 +187,7 @@ in
       [
         "admin-api-key"
         "ai-985-games-api-key"
+        "chutes-ai-api-key"
         "cloudflare-account-id"
         "cloudflare-api-key"
         "github-models-api-key"
