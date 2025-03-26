@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3
+#!nix-shell -i python3 -p python3 -p age
 import json
 import multiprocessing
 import os
@@ -17,6 +17,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
+    "chutes-ai": "https://llm.chutes.ai/v1",
     "cloudflare": "__CLOUDFLARE__",
     "github-models": "__GITHUB_MODELS__",
     "google": "__GOOGLE__",
@@ -91,10 +92,7 @@ def get_api_secret(api_name: str) -> Optional[str]:
     try:
         secret = subprocess.check_output(
             [
-                "nix",
-                "run",
-                "nixpkgs#age",
-                "--",
+                "age",
                 "-i",
                 f"{HOME}/.ssh/id_ed25519",
                 "-d",
