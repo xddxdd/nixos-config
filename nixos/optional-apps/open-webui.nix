@@ -3,7 +3,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -19,7 +18,6 @@
 
   services.open-webui = {
     enable = true;
-    package = inputs.nixpkgs-stable.legacyPackages."${pkgs.system}".open-webui;
     port = LT.port.OpenWebUI;
     environmentFile = config.age.secrets.open-webui-env.path;
     environment = {
