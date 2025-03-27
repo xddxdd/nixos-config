@@ -18,7 +18,7 @@
 
   services.open-webui = {
     enable = true;
-    port = LT.port.OpenWebUI;
+    port = LT.port.OpenWebUI.UI;
     environmentFile = config.age.secrets.open-webui-env.path;
     environment = {
       ENV = "prod";
@@ -37,6 +37,11 @@
       RAG_LOG_LEVEL = "WARNING";
       WEBHOOK_LOG_LEVEL = "WARNING";
 
+      ENABLE_WEBSOCKET_SUPPORT = "True";
+      WEBSOCKET_MANAGER = "redis";
+      WEBSOCKET_REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
+      REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
+
       OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
       WEBUI_URL = "https://ai.xuyh0120.win";
       OPENAI_API_BASE_URL = "http://uni-api.localhost/v1";
@@ -52,7 +57,7 @@
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
 
       RAG_EMBEDDING_ENGINE = "ollama";
-      PDF_EXTRACT_IMAGES = "false";
+      PDF_EXTRACT_IMAGES = "False";
       RAG_EMBEDDING_MODEL = "jeffh/intfloat-multilingual-e5-large:f16";
       RAG_EMBEDDING_OPENAI_BATCH_SIZE = "512";
       RAG_TOP_K = "10";
@@ -61,14 +66,14 @@
       CONTENT_EXTRACTION_ENGINE = "tika";
       TIKA_SERVER_URL = "http://127.0.0.1:${LT.portStr.Tika}";
 
-      ENABLE_IMAGE_GENERATION = "true";
+      ENABLE_IMAGE_GENERATION = "True";
       IMAGE_GENERATION_ENGINE = "automatic1111";
       AUTOMATIC1111_BASE_URL = "https://stable-diffusion.xuyh0120.win";
       IMAGE_SIZE = "512x512";
       IMAGE_STEPS = "20";
 
-      ENABLE_RAG_WEB_SEARCH = "true";
-      ENABLE_SEARCH_QUERY = "true";
+      ENABLE_RAG_WEB_SEARCH = "True";
+      ENABLE_SEARCH_QUERY = "True";
       RAG_WEB_SEARCH_ENGINE = "searxng";
       SEARXNG_QUERY_URL = "https://searx.xuyh0120.win/search?q=<query>";
       RAG_WEB_SEARCH_RESULT_COUNT = "10";
@@ -84,10 +89,21 @@
     };
   };
 
-  systemd.services.open-webui.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    User = "open-webui";
-    Group = "open-webui";
+  services.redis.servers.open-webui = {
+    enable = true;
+    port = LT.port.OpenWebUI.Redis;
+    databases = 1;
+    user = "open-webui";
+  };
+
+  systemd.services.open-webui = {
+    after = [ "redis-open-webui.service" ];
+    requires = [ "redis-open-webui.service" ];
+    serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = "open-webui";
+      Group = "open-webui";
+    };
   };
   users.users.open-webui = {
     group = "open-webui";
@@ -98,7 +114,7 @@
   lantian.nginxVhosts = {
     "ai.xuyh0120.win" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI}";
+        proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI.UI}";
         proxyWebsockets = true;
         proxyNoTimeout = true;
       };
