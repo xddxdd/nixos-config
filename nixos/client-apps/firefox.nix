@@ -200,6 +200,7 @@ in
       "security.osclientcerts.autoload" = true;
       "geo.provider.network.url" = "https://api.beacondb.net/v1/geolocate";
       "geo.provider.use_geoclue" = config.services.geoclue2.enable;
+      "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
     };
     preferencesStatus = "locked";
   };
