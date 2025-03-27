@@ -162,8 +162,9 @@ rec {
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
     Dex = 13403;
+    OpenWebUI.UI = 13433;
     Ollama = 13434;
-    OpenWebUI = 13435;
+    OpenWebUI.Redis = 13435;
     OneAPI = 13436;
     UniAPI = 13437;
     Iodine = 13453;
