@@ -137,12 +137,6 @@ let
         };
         model = loadModels null ./apis/smnet-free-chat.json;
       }
-      {
-        provider = "sakura-share";
-        base_url = "https://sakura-share.one/v1/chat/completions";
-        api = "sk-unused";
-        model = loadModels null ./apis/sakura-share.json;
-      }
       # Paid providers
       {
         provider = "openrouter";
