@@ -191,7 +191,8 @@
             "aspnetcore-runtime-wrapped-6.0.36"
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
-            "fluffychat-linux-1.23.0"
+            "electron-32.3.3"
+            "fluffychat-linux-1.25.1"
             "olm-3.2.16"
           ];
           overlays = [

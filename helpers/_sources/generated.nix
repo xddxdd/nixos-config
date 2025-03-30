@@ -43,10 +43,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "2.12.2";
+    version = "3.0.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v2.12.2/yesoreyeram-infinity-datasource-2.12.2.zip";
-      sha256 = "sha256-m7LTI1sUXs6fFHR02J9rH6Egj6WWNTr2dDt68CW+D8A=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.0.0/yesoreyeram-infinity-datasource-3.0.0.zip";
+      sha256 = "sha256-LhOBu1n84eY5RuzfFetNc7GUHq28bwW2zEo5KiCcn94=";
     };
   };
   himawaripy = {
@@ -88,15 +88,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "f04c42b783a6a98d62b26f6933548bb9a5b13e10";
+    version = "e35f265e5f61379a7f35d2b6959f14668f978386";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "f04c42b783a6a98d62b26f6933548bb9a5b13e10";
+      rev = "e35f265e5f61379a7f35d2b6959f14668f978386";
       fetchSubmodules = false;
-      sha256 = "sha256-XcUv575dSUrHOUlR6AZ9O/cPKa+JLLt765ZaMwI9Ttg=";
+      sha256 = "sha256-B2oUK7ppbCVlMnNd2Vz7GrQK+kZGwTDM03xFV0D6PxI=";
     };
-    date = "2025-03-07";
+    date = "2025-03-25";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -112,15 +112,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "a4dd61b439fd267147cc4650edbcae3ffabc5933";
+    version = "07080317245ac30c38001d2149810b2dee3cce1f";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "a4dd61b439fd267147cc4650edbcae3ffabc5933";
+      rev = "07080317245ac30c38001d2149810b2dee3cce1f";
       fetchSubmodules = false;
-      sha256 = "sha256-/4u2oVC6qfQQCoBeOZBbfVhczb2f5/LXLUSGKVD/wFM=";
+      sha256 = "sha256-5O0TXVrLsFrULXli2vB2iJ7TECUckMHKvJZYmdkcnGE=";
     };
-    date = "2025-03-07";
+    date = "2025-03-19";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -232,17 +232,17 @@
   };
   vgpu-proxmox = {
     pname = "vgpu-proxmox";
-    version = "cac450b4c77a113ed0e3a0227ec1c003efeb7a0c";
+    version = "ab5fc9e7dbda8676c48c9b1e2f152c7d90f3c819";
     src = fetchgit {
       url = "https://gitlab.com/polloloco/vgpu-proxmox.git";
-      rev = "cac450b4c77a113ed0e3a0227ec1c003efeb7a0c";
+      rev = "ab5fc9e7dbda8676c48c9b1e2f152c7d90f3c819";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ByufMbOkNYQVyJ7j9Krd/2FUpmF/gQUmL1jSOqERwpo=";
+      sha256 = "sha256-zjYz9brehLPnmrBQIEC4p2UkQdqNw7fvYaY2NQEc8TI=";
     };
-    date = "2025-02-26";
+    date = "2025-03-15";
   };
   web-compressor = {
     pname = "web-compressor";

@@ -7,7 +7,6 @@ in
   services.pipewire.extraConfig =
     lib.genAttrs
       [
-        "client-rt"
         "client"
         "jack"
         "pipewire-pulse"
