@@ -259,7 +259,7 @@ in
                 bindsTo = value.birdBindTo;
                 serviceConfig = LT.serviceHarden // {
                   Restart = "on-failure";
-                  ExecStart = "${pkgs.bird}/bin/bird -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
+                  ExecStart = "${pkgs.bird2}/bin/bird -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
                   CPUQuota = "10%";
 
                   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
