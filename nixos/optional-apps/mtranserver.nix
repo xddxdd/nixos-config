@@ -28,6 +28,7 @@ in
   virtualisation.oci-containers.containers.mtranserver = {
     extraOptions = [
       "--pull=always"
+      "--arch=amd64/v3"
     ];
     ports = [
       "127.0.0.1:${LT.portStr.MTranServer}:8989"
