@@ -1,5 +1,5 @@
 - hosts: all
-  serial: 1
+  # serial: 1
   ignore_unreachable: true
   tasks:
   - name: reboot
