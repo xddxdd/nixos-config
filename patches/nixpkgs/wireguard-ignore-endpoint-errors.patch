@@ -1,31 +1,33 @@
 diff --git a/nixos/modules/services/networking/wireguard.nix b/nixos/modules/services/networking/wireguard.nix
-index a3308a1cd396..81db6df2e8ea 100644
+index be28b1ee887d..08430b1206c9 100644
 --- a/nixos/modules/services/networking/wireguard.nix
 +++ b/nixos/modules/services/networking/wireguard.nix
-@@ -439,10 +439,13 @@ let
+@@ -513,12 +513,15 @@ let
            wg_setup = concatStringsSep " " (
              [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
              ++ optional (psk != null) ''preshared-key "${psk}"''
 -            ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
-             ++ optional (peer.persistentKeepalive != null) ''persistent-keepalive "${toString peer.persistentKeepalive}"''
-             ++ optional (peer.allowedIPs != []) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+             ++ optional (
+               peer.persistentKeepalive != null
+             ) ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+             ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
            );
 +          wg_setup_endpoint = concatStringsSep " " (
 +            [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
 +            ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
 +          );
-           route_setup =
-             optionalString interfaceCfg.allowedIPsAsRoutes
-               (concatMapStringsSep "\n"
-@@ -451,6 +454,7 @@ let
-                 ) peer.allowedIPs);
-         in ''
+           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
+             concatMapStringsSep "\n" (
+               allowedIP:
+@@ -530,6 +533,7 @@ let
+         in
+         ''
            ${wg_setup}
 +          ${wg_setup_endpoint} || true
            ${route_setup}
  
            ${optionalString (dynamicEndpointRefreshSeconds != 0) ''
-@@ -458,7 +462,7 @@ let
+@@ -537,7 +541,7 @@ let
              # Note this will not time out on transient DNS failures such as DNS names
              # because we have set 'WG_ENDPOINT_RESOLUTION_RETRIES=infinity'.
              # Also note that 'wg' limits its maximum retry delay to 20 seconds as of writing.
