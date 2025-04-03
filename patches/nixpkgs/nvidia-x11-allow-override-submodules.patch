@@ -9,10 +9,10 @@ index cc11ad9d745e..6a4b9c3c8718 100644
  {
    stdenv,
 diff --git a/pkgs/os-specific/linux/nvidia-x11/generic.nix b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-index db6d89f80bb3..9e6a97f1c669 100644
+index ed2cb8df588a..9254df2ff2e9 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/generic.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/generic.nix
-@@ -293,8 +293,9 @@ let
+@@ -284,8 +284,9 @@ let
          settings =
            if useSettings then
              (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
@@ -23,7 +23,7 @@ index db6d89f80bb3..9e6a97f1c669 100644
                  withGtk2 = preferGtk2;
                  withGtk3 = !preferGtk2;
                  fetchFromGitHub = fetchFromGithubOrNvidia;
-@@ -305,7 +306,8 @@ let
+@@ -296,7 +297,8 @@ let
            if usePersistenced then
              lib.mapNullable (
                hash:
@@ -33,7 +33,7 @@ index db6d89f80bb3..9e6a97f1c669 100644
                  fetchFromGitHub = fetchFromGithubOrNvidia;
                }
              ) persistencedSha256
-@@ -313,7 +315,9 @@ let
+@@ -304,7 +306,9 @@ let
              { };
          fabricmanager =
            if useFabricmanager then
@@ -45,7 +45,7 @@ index db6d89f80bb3..9e6a97f1c669 100644
              { };
          inherit persistencedVersion settingsVersion;
 diff --git a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
-index 805eaffab03a..8409252db8f7 100644
+index 30a335238ee7..bfbe443389e0 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 +++ b/pkgs/os-specific/linux/nvidia-x11/persistenced.nix
 @@ -1,4 +1,4 @@
@@ -61,7 +61,7 @@ index 805eaffab03a..8409252db8f7 100644
 +  nvidia_x11,
  }:
  
- stdenv.mkDerivation rec {
+ stdenv.mkDerivation {
 diff --git a/pkgs/os-specific/linux/nvidia-x11/settings.nix b/pkgs/os-specific/linux/nvidia-x11/settings.nix
 index f67b33368c8b..a20813f62edb 100644
 --- a/pkgs/os-specific/linux/nvidia-x11/settings.nix
