@@ -188,7 +188,8 @@ in
     preferences = betterfoxConfig // {
       "browser.aboutConfig.showWarning" = false;
       "gfx.webrender.all" = true;
-      "gfx.webrender.compositor.force-enabled" = true;
+      # FIXME: enabling causes graphic glitches
+      "gfx.webrender.compositor.force-enabled" = false;
       "gfx.x11-egl.force-enabled" = true;
       "media.av1.enabled" = true;
       "media.ffmpeg.vaapi.enabled" = true;
@@ -201,6 +202,12 @@ in
       "geo.provider.network.url" = "https://api.beacondb.net/v1/geolocate";
       "geo.provider.use_geoclue" = config.services.geoclue2.enable;
       "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
+
+      # Vertical tabs
+      "sidebar.verticalTabs" = true;
+      "browser.tabs.groups.enabled" = true;
+      "browser.tabs.groups.smart.enabled" = true;
+      "browser.tabs.unloadTabInContextMenu" = true;
     };
     preferencesStatus = "locked";
   };
