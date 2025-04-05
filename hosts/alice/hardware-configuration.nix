@@ -2,6 +2,10 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 _: {
+  imports = [
+    ../../nixos/hardware/disable-balloon.nix
+  ];
+
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
