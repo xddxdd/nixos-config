@@ -135,9 +135,7 @@
     "tls://london.sabretruth.org:18472"
   ],
   "united-states": [
-    "tls://23.184.48.86:993",
     "tls://44.234.134.124:443",
-    "tls://[2602:fc24:18:7a42::1]:993",
     "tls://longseason.1200bps.xyz:13122",
     "tls://redcatho.de:9494",
     "tls://ygg-kcmo.incognet.io:8884",
