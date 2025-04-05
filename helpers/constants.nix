@@ -188,7 +188,7 @@ rec {
     SakuraLLM = 13810;
     HomepageDashboard = 13812;
     Syncthing = 13834;
-    CloudflareWarp = 13840;
+    Usque = 13840;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
     Pipewire.RTP = 46414;
