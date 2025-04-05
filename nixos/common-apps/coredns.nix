@@ -81,21 +81,24 @@ in
             cache
           }
         '';
-        # block = zone: ''
-        #   ${zone} {
-        #     any
-        #     prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-        #     hosts {
-        #       0.0.0.0 ${zone}
-        #     }
-        #   }
-        # '';
+        block = zone: ''
+          ${zone} {
+            any
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+            hosts {
+              0.0.0.0 ${zone}
+            }
+          }
+        '';
 
         cfgEntries =
           [
             ((if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS) ".")
             (forwardTo114DNS "kuxi.tech")
             (forwardToAzurePrivateDNS "database.azure.com")
+            # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
+            (block "mcdn.bilivideo.cn")
+            (block "szbdyd.com")
           ]
           # Not working well
           # ++ lib.optional config.services.avahi.enable (mdns "local")
