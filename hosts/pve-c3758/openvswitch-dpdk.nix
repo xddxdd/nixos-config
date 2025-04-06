@@ -83,7 +83,16 @@ in
           options:vhost-server-path=/run/ovs-vhost${i}.sock \
           mtu_request=9000 \
           || true
-      '') (builtins.map builtins.toString (lib.range 0 9)));
+      '') (builtins.map builtins.toString (lib.range 0 9)))
+      + ''
+        ovs-vsctl --may-exist add-port br0 vhost4-2 tag=4 || true
+        ovs-vsctl set port vhost4-2 tag=4 || true
+        ovs-vsctl set Interface vhost4-2 \
+          type=dpdkvhostuserclient \
+          options:vhost-server-path=/run/ovs-vhost4-2.sock \
+          mtu_request=9000 \
+          || true
+      '';
   };
 
   systemd.services.ovs-vswitchd = {
