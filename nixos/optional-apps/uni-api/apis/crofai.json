@@ -5,6 +5,7 @@
   "deepseek-v3": "deepseek/deepseek-v3",
   "deepseek-v3-0324": "deepseek/deepseek-v3-0324",
   "gemma-3-27b-it": "google/gemma-3-27b-it",
+  "llama-4-scout-131k": "meta-llama/llama-4-scout-131k",
   "llama3-70b": "meta-llama/llama-3-70b",
   "llama3-8b": "meta-llama/llama-3-8b",
   "llama3.1-405b": "meta-llama/llama-3.1-405b",
