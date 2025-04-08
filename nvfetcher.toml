@@ -1,7 +1,3 @@
-[aggregator]
-src.git = "https://github.com/wzdnzd/aggregator.git"
-fetch.github = "wzdnzd/aggregator"
-
 [brlaser]
 src.git = "https://github.com/Owl-Maintain/brlaser.git"
 src.branch = "definitions"
