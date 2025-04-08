@@ -1,25 +1,4 @@
 {
-    "aggregator": {
-        "cargoLocks": null,
-        "date": "2025-03-05",
-        "extract": null,
-        "name": "aggregator",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wzdnzd",
-            "repo": "aggregator",
-            "rev": "308fc765596ae4fbeb791085407528f4c0a4b86b",
-            "sha256": "sha256-OItXioRuAr7UIKeP7JNBpGEr6S7Mj59g9wtzlCXa/e8=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "308fc765596ae4fbeb791085407528f4c0a4b86b"
-    },
     "brlaser": {
         "cargoLocks": null,
         "date": "2025-01-10",
