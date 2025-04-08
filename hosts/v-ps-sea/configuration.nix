@@ -8,6 +8,7 @@
     ../../nixos/optional-apps/asterisk
 
     ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
+    ../../nixos/optional-cron-jobs/bilibili-tool-pro.nix
   ];
 
   systemd.network.networks.eth0 = {
