@@ -24,6 +24,7 @@
   "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
   "deepseek-ai/DeepSeek-V3-Base": "deepseek/deepseek-v3-base",
   "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4": "hugging-quants/meta-llama-3.1-70b-instruct-awq-int4",
+  "moonshotai/Kimi-VL-A3B-Thinking": "moonshotai/kimi-vl-a3b-thinking",
   "moonshotai/Moonlight-16B-A3B-Instruct": "moonshotai/moonlight-16b-a3b-instruct",
   "mrfakename/mistral-small-3.1-24b-instruct-2503-hf": "mrfakename/mistral-small-3.1-24b-instruct-2503-hf",
   "nvidia/Llama-3.1-Nemotron-Nano-8B-v1": "nvidia/llama-3.1-nemotron-nano-8b-v1",
