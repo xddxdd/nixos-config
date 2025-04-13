@@ -86,6 +86,19 @@ let
         redirectURIs = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
       }
       {
+        id = "immich";
+        name = "Immich";
+        secret = {
+          _secret = config.age.secrets.dex-immich-secret.path;
+        };
+        redirectURIs = [
+          "https://immich.xuyh0120.win/auth/login"
+          "https://immich.xuyh0120.win/user-settings"
+          "https://immich.xuyh0120.win/api/oauth/mobile-redirect"
+          "app.immich:///oauth-callback"
+        ];
+      }
+      {
         id = "open-webui";
         name = "Open WebUI";
         secret = {
@@ -112,30 +125,31 @@ in
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.dex-gitea-secret = {
-    file = inputs.secrets + "/dex/gitea-secret.age";
-    owner = "dex";
-    group = "dex";
-  };
-  age.secrets.dex-grafana-secret = {
-    file = inputs.secrets + "/dex/grafana-secret.age";
-    owner = "dex";
-    group = "dex";
-  };
-  age.secrets.dex-oauth2-proxy-secret = {
-    file = inputs.secrets + "/dex/oauth2-proxy-secret.age";
-    owner = "dex";
-    group = "dex";
-  };
-  age.secrets.dex-open-webui-secret = {
-    file = inputs.secrets + "/dex/open-webui-secret.age";
-    owner = "dex";
-    group = "dex";
-  };
-  age.secrets.glauth-bindpw = {
-    file = inputs.secrets + "/glauth-bindpw.age";
-    mode = "0444";
-  };
+  age.secrets =
+    {
+      glauth-bindpw = {
+        file = inputs.secrets + "/glauth-bindpw.age";
+        mode = "0444";
+      };
+    }
+    // builtins.listToAttrs (
+      builtins.map
+        (
+          f:
+          lib.nameValuePair "dex-${f}-secret" {
+            file = inputs.secrets + "/dex/${f}-secret.age";
+            owner = "dex";
+            group = "dex";
+          }
+        )
+        [
+          "gitea"
+          "grafana"
+          "immich"
+          "oauth2-proxy"
+          "open-webui"
+        ]
+    );
 
   services.postgresql = {
     ensureDatabases = [ "dex" ];
@@ -162,6 +176,8 @@ in
       User = "dex";
       Group = "dex";
       RuntimeDirectory = "dex";
+      Restart = "always";
+      RestartSec = "5";
     };
   };
 
