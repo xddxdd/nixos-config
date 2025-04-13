@@ -7,7 +7,7 @@ let
     "bwg-lax"
     "virmach-ny1g"
   ];
-  lgproxyDomain = "bird-lg-go";
+  lgproxyDomain = "ltnet.lantian.pub";
 in
 {
   networking.hosts = builtins.listToAttrs (
