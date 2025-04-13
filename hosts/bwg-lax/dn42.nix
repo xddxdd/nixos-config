@@ -128,23 +128,6 @@
         peerIPv6LinkLocal = "fe80::1789";
       };
     };
-    gatuno = {
-      remoteASN = 4242420180;
-      latencyMs = 65;
-      tunnel = {
-        type = "wireguard";
-        localPort = 20180;
-        remoteAddress = "ipv4.gatuno.mx";
-        remotePort = 22547;
-        wireguardPubkey = "qP/FHlk6XUur4EUo4zK5QBpdOGEtL/bHn0Ck8/hVfF4=";
-      };
-      addressing = {
-        peerIPv4 = "172.22.122.1";
-        myIPv6 = "fd42:470:f0ef:303::2";
-        peerIPv6 = "fd42:470:f0ef:303::1";
-        IPv6SubnetMask = 64;
-      };
-    };
     goforcex = {
       remoteASN = 4242421719;
       latencyMs = 11;
