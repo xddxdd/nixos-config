@@ -33,4 +33,10 @@ rec {
       ]
     ) LT.constants.asteriskMusics
   );
+
+  destMusicDialPlan = lib.mergeAttrsList (
+    lib.imap1 (index: value: {
+      "${prefixZeros 4 (builtins.toString index)}" = "Music playback: \"${value}\"";
+    }) LT.constants.asteriskMusics
+  );
 }

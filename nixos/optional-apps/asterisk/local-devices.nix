@@ -23,4 +23,6 @@ rec {
   destLocal = lib.concatMapStringsSep "\n" (
     number: dialRule number [ "Dial(PJSIP/${number})" ]
   ) localNumbers;
+
+  destLocalDialPlan = lib.genAttrs localNumbers (_n: "SIP user");
 }

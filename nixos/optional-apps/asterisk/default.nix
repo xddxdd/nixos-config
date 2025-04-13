@@ -26,6 +26,8 @@ let
   logdir = "/var/log/asterisk";
 in
 {
+  imports = [ ./dialplan.nix ];
+
   age.secrets.asterisk-pw = {
     file = inputs.secrets + "/asterisk-pw.age";
     owner = "asterisk";
@@ -86,19 +88,7 @@ in
         #include ${config.age.secrets.asterisk-pw.path}
       '';
 
-      # Number plan:
-      # - 0000-0099: music
-      # - 0100: milliwatt (1004hz)
-      # - 0101: fax receiver
-      # - 0200-0299: conference room
-      # - 1000-1998: real users
-      # - 1999: ring group (1000 & 1001)
-      # - 2000: random between all call bots
-      # - 2001: lenny
-      # - 2002: jordan (asty-crapper)
-      #         https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/
-      # - 2003: beverly
-      #         https://worldofprankcalls.com/beverly/
+      # Keep number plan in sync with dialplan.nix
       "extensions.conf" =
         ''
           [src-anonymous]

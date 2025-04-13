@@ -17,7 +17,6 @@
     {
       commands = lib.mapAttrs (_k: v: pkgs.callPackage v extraArgs) {
         asterisk-music-deploy = ./asterisk-music-deploy.nix;
-        asterisk-music-dialplan = ./asterisk-music-dialplan.nix;
         colmena = ./colmena.nix;
         check = ./check.nix;
         dnscontrol = ./dnscontrol.nix;
