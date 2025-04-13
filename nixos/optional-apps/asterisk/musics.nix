@@ -24,11 +24,13 @@ rec {
     in
     builtins.concatStringsSep "\n" ([ randomForwardRule ] ++ individualRules);
 
-  destMusic = lib.concatMapStringsSep "\n" (
-    { index, value }:
-    dialRule (builtins.toString (index + 1)) [
-      "Answer()"
-      "MP3Player(/var/lib/asterisk-music/${value})"
-    ]
-  ) (LT.enumerateList LT.constants.asteriskMusics);
+  destMusic = lib.concatStringsSep "\n" (
+    lib.imap1 (
+      index: value:
+      dialRule (builtins.toString index) [
+        "Answer()"
+        "MP3Player(/var/lib/asterisk-music/${value})"
+      ]
+    ) LT.constants.asteriskMusics
+  );
 }
