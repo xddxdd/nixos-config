@@ -39,6 +39,7 @@
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/uni-api
     ../../nixos/optional-apps/vlmcsd.nix
+    ../../nixos/optional-apps/webdav.nix
 
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
   ];
