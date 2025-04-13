@@ -164,6 +164,12 @@ let
       target = "matrix";
     }
     {
+      recordType = "CNAME";
+      name = "sip";
+      target = "v-ps-sea";
+      ttl = "1h";
+    }
+    {
       recordType = "GEO";
       # GeoDNS for servers with sufficient storage
       name = "tools";
