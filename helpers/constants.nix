@@ -162,6 +162,7 @@ rec {
     Keycloak.HTTP = 13401;
     Keycloak.HTTPS = 13402;
     Dex = 13403;
+    WebDAV = 13428;
     OpenWebUI.UI = 13433;
     Ollama = 13434;
     OpenWebUI.Redis = 13435;
