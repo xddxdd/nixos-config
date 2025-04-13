@@ -41,7 +41,6 @@ let
 
     cloudLanNetworking = call ./fn/cloud-lan-networking.nix;
     container = call ./fn/container.nix;
-    enumerateList = call ./fn/enumerate-list.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;
