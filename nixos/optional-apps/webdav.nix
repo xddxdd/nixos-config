@@ -1,5 +1,4 @@
 {
-  LT,
   config,
   ...
 }:
@@ -9,8 +8,7 @@
     user = "lantian";
     group = "lantian";
     settings = {
-      address = "127.0.0.1";
-      port = LT.port.WebDAV;
+      address = "unix:/run/webdav/webdav.sock";
       directory = "/mnt/storage";
       behindProxy = true;
       permissions = "CRUD";
@@ -23,10 +21,20 @@
     };
   };
 
+  systemd.services.webdav = {
+    postStart = ''
+      while [ ! -S /run/webdav/webdav.sock ]; do sleep 1; done
+      chmod 777 /run/webdav/webdav.sock
+    '';
+    serviceConfig = {
+      RuntimeDirectory = "webdav";
+    };
+  };
+
   lantian.nginxVhosts."dav.${config.networking.hostName}.xuyh0120.win" = {
     locations = {
       "/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.WebDAV}";
+        proxyPass = "http://unix:/run/webdav/webdav.sock";
         proxyNoTimeout = true;
         enableBasicAuth = true;
       };
