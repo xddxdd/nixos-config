@@ -143,7 +143,6 @@ rec {
     Prometheus.PostgresExporter = 9187;
     Prometheus.CoreDNS = 9253;
     Prometheus.BirdExporter = 9324;
-    Prometheus.CrowdSec = 9606;
     Prowlarr = 9696;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;
@@ -182,7 +181,6 @@ rec {
     MTranServer = 13791;
     Plausible = 13800;
     Netbox = 13801;
-    CrowdSec = 13802;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     SakuraLLM = 13810;

@@ -1,14 +1,10 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
   ];
-
-  # CrowdSec is too IO heavy for this machine
-  services.crowdsec.enable = lib.mkForce false;
-  services.crowdsec-firewall-bouncer.enable = lib.mkForce false;
 
   systemd.network.networks.eth0 = {
     address = [ "2a14:67c0:104::56/128" ];
