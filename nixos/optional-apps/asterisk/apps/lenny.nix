@@ -30,4 +30,6 @@ in
     exten => talk,3,BackgroundDetect(${lenny}/backgroundnoise,1500)
     exten => talk,4,Goto(app-lenny-loop,talk,3)
   '';
+
+  dialLennyDescription = "Lenny (<a href=\"https://en.wikipedia.org/wiki/Lenny_(bot)\" target=\"_blank\">https://en.wikipedia.org/wiki/Lenny_(bot)</a>)";
 }

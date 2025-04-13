@@ -43,4 +43,6 @@ in
     same => n,Goto(app-asty-crapper-hello,b,1)
     exten => talk,1,Goto(app-asty-crapper-loop,b,1)
   '';
+
+  dialAstyCrapperDescription = "Jordan (Asty-crapper, <a href=\"https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/\" target=\"_blank\">https://web.archive.org/web/20110517174427/http://www.linuxsystems.com.au/astycrapper/</a>)";
 }

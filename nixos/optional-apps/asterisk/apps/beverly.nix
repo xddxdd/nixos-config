@@ -29,4 +29,6 @@ in
     exten => talk,3,BackgroundDetect(${beverly}/backgroundnoise,1500)
     exten => talk,4,Goto(app-beverly-loop,talk,3)
   '';
+
+  dialBeverlyDescription = "Beverly (<a href=\"https://worldofprankcalls.com/beverly/\" target=\"_blank\">https://worldofprankcalls.com/beverly/</a>)";
 }
