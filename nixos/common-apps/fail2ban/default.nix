@@ -15,9 +15,7 @@
   ];
 
   services.fail2ban = {
-    # Replaced with CrowdSec
-    enable = false;
-    # enable = !(LT.this.hasTag LT.tags.low-disk);
+    enable = !(LT.this.hasTag LT.tags.low-disk);
     maxretry = 5;
     banaction = "nftables-lantian[type=allports]";
     banaction-allports = "nftables-lantian[type=allports]";
