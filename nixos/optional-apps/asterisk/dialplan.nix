@@ -9,6 +9,7 @@ let
 
   dialPlan = lib.mergeAttrsList [
     {
+      "0000" = "Random between all music playback";
       "0100" = "Milliwatt (1004 Hz)";
       "0101" = "Fax receiver";
       "02XX" = "Conference room XX";
@@ -27,7 +28,11 @@ let
       n: v:
       let
         number = prefixZeros 4 n;
-        numberLink = "<a href=\"sip:${number}@lantian.pub\">sip:${number}@lantian.pub</a>";
+        numberLink =
+          if builtins.match "[[:digit:]]+" number != null then
+            "<a href=\"sip:${number}@lantian.pub\">sip:${number}@lantian.pub</a>"
+          else
+            "sip:${number}@lantian.pub";
       in
       "<tr><td>${numberLink}</td><td>${v}</td></tr>"
     ) dialPlan
