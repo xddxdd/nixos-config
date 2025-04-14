@@ -1,6 +1,7 @@
 {
   "01-ai/yi-large": "01-ai/yi-large",
   "aetherwiing/mn-starcannon-12b": "aetherwiing/mn-starcannon-12b",
+  "agentica-org/deepcoder-14b-preview:free": "agentica-org/deepcoder-14b-preview:free",
   "ai21/jamba-1-5-large": "ai21/jamba-1-5-large",
   "ai21/jamba-1-5-mini": "ai21/jamba-1-5-mini",
   "ai21/jamba-1.6-large": "ai21/jamba-1.6-large",
@@ -41,6 +42,7 @@
   "anthropic/claude-3.7-sonnet": "anthropic/claude-3.7-sonnet",
   "anthropic/claude-3.7-sonnet:beta": "anthropic/claude-3.7-sonnet:beta",
   "anthropic/claude-3.7-sonnet:thinking": "anthropic/claude-3.7-sonnet:thinking",
+  "arliai/qwq-32b-arliai-rpr-v1:free": "arliai/qwq-32b-arliai-rpr-v1:free",
   "bytedance-research/ui-tars-72b:free": "bytedance-research/ui-tars-72b:free",
   "cognitivecomputations/dolphin-mixtral-8x22b": "cognitivecomputations/dolphin-mixtral-8x22b",
   "cognitivecomputations/dolphin-mixtral-8x7b": "cognitivecomputations/dolphin-mixtral-8x7b",
