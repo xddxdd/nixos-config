@@ -206,7 +206,14 @@ in
   };
 
   systemd.services.asterisk = {
-    path = [ pkgs.ffmpeg ];
+    path =
+      let
+        skip-silence = pkgs.callPackage ../../../pkgs/skip-silence { };
+        ffmpeg-wrapped = pkgs.writeShellScriptBin "ffmpeg" ''
+          ${pkgs.ffmpeg}/bin/ffmpeg "$@" | ${skip-silence}/bin/skip-silence
+        '';
+      in
+      [ ffmpeg-wrapped ];
     reloadTriggers = lib.mapAttrsToList (
       k: _v: "/etc/asterisk/${k}"
     ) config.services.asterisk.confFiles;
