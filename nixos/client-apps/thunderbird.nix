@@ -28,6 +28,7 @@ in
         "security.insecure_connection_text.enabled" = true;
         "security.insecure_connection_text.pbmode.enabled" = true;
         "security.osclientcerts.autoload" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
     };
   };
