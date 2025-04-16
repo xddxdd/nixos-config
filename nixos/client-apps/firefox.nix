@@ -204,6 +204,7 @@ in
       "geo.provider.network.url" = "https://api.beacondb.net/v1/geolocate";
       "geo.provider.use_geoclue" = config.services.geoclue2.enable;
       "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
+      "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
       # Vertical tabs
       "sidebar.verticalTabs" = true;
