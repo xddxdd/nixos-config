@@ -6,12 +6,12 @@
   inputs,
   ...
 }:
-lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
+{
   age.secrets.filebeat-elasticsearch-pw.file = inputs.secrets + "/filebeat-elasticsearch-pw.age";
 
   services.filebeat = {
-    enable = true;
-    package = pkgs.filebeat7;
+    enable = !(LT.this.hasTag LT.tags.low-ram);
+    package = pkgs.filebeat8;
     inputs = {
       journald = {
         type = "journald";
@@ -34,6 +34,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       };
     };
     settings = {
+      logging.level = "warning";
       output.elasticsearch = {
         hosts = [ "https://cloud.community.humio.com:9200" ];
         username = "any-organization";
@@ -50,14 +51,16 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     };
   };
 
-  systemd.services.filebeat.serviceConfig = LT.serviceHarden // {
-    ProcSubset = "all";
-    ReadOnlyPaths = [ "/run" ];
-    RestrictAddressFamilies = [
-      "AF_UNIX"
-      "AF_INET"
-      "AF_INET6"
-      "AF_NETLINK"
-    ];
+  systemd.services.filebeat = lib.mkIf config.services.filebeat.enable {
+    serviceConfig = LT.serviceHarden // {
+      ProcSubset = "all";
+      ReadOnlyPaths = [ "/run" ];
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_NETLINK"
+      ];
+    };
   };
 }
