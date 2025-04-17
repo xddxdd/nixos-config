@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ../../nixos/server.nix
@@ -19,6 +19,9 @@
     ];
     matchConfig.Name = "eth0";
   };
+
+  # Cannot connect to log server since this server is IPv6 only
+  services.filebeat.enable = lib.mkForce false;
 
   services."route-chain" = {
     enable = true;
