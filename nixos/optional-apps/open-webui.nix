@@ -11,6 +11,7 @@
     ./mcpo.nix
     ./openai-edge-tts.nix
     ./openedai-speech.nix
+    ./postgresql.nix
     ./tika.nix
     ./uni-api
   ];
@@ -23,6 +24,7 @@
     environmentFile = config.age.secrets.open-webui-env.path;
     environment = {
       ENV = "prod";
+      DATABASE_URL = "postgresql:///open-webui?host=/run/postgresql";
 
       GLOBAL_LOG_LEVEL = "WARNING";
       AUDIO_LOG_LEVEL = "WARNING";
@@ -90,6 +92,16 @@
     };
   };
 
+  services.postgresql = {
+    ensureDatabases = [ "open-webui" ];
+    ensureUsers = [
+      {
+        name = "open-webui";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   services.redis.servers.open-webui = {
     enable = true;
     port = LT.port.OpenWebUI.Redis;
@@ -98,8 +110,14 @@
   };
 
   systemd.services.open-webui = {
-    after = [ "redis-open-webui.service" ];
-    requires = [ "redis-open-webui.service" ];
+    after = [
+      "redis-open-webui.service"
+      "postgresql.service"
+    ];
+    requires = [
+      "redis-open-webui.service"
+      "postgresql.service"
+    ];
     serviceConfig = {
       DynamicUser = lib.mkForce false;
       User = "open-webui";
