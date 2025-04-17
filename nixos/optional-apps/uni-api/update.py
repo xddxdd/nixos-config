@@ -82,6 +82,7 @@ NORMALIZE_PROVIDER_PREFIX_MAP = {
 NORMALIZE_MODEL_PREFIX_MAP = {
     "ai21-": "ai21/",
     "cohere-": "cohere/",
+    "deepseek/deepseek-chat-": "deepseek/deepseek-",
     "meta-llama-": "meta-llama/llama-",
     "meta-llama/meta-llama-": "meta-llama/llama-",
 }
