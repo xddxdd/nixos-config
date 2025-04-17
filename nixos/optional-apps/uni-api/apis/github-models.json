@@ -10,7 +10,6 @@
   "Meta-Llama-3.1-70B-Instruct": "meta-llama/llama-3.1-70b-instruct",
   "Meta-Llama-3.1-8B-Instruct": "meta-llama/llama-3.1-8b-instruct",
   "Mistral-Nemo": "mistralai/mistral-nemo",
-  "Mistral-large": "mistralai/mistral-large",
   "Mistral-large-2407": "mistralai/mistral-large-2407",
   "Mistral-small": "mistralai/mistral-small",
   "Phi-3-medium-128k-instruct": "microsoft/phi-3-medium-128k-instruct",
