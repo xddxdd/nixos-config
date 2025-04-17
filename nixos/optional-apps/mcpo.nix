@@ -20,6 +20,16 @@ let
           "--local-timezone=${config.time.timeZone}"
         ];
       };
+      searxng = {
+        command = "npx";
+        args = [
+          "-y"
+          "mcp-searxng"
+        ];
+        env = {
+          SEARXNG_URL = "https://searx.xuyh0120.win";
+        };
+      };
     };
   };
 in
