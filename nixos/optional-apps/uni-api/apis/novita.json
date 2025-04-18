@@ -30,6 +30,7 @@
   "mistralai/mistral-nemo": "mistralai/mistral-nemo",
   "nousresearch/hermes-2-pro-llama-3-8b": "nousresearch/hermes-2-pro-llama-3-8b",
   "qwen/qwen-2.5-72b-instruct": "qwen/qwen-2.5-72b-instruct",
+  "qwen/qwen2.5-7b-instruct": "qwen/qwen-2.5-7b-instruct",
   "qwen/qwen2.5-vl-72b-instruct": "qwen/qwen-2.5-vl-72b-instruct",
   "qwen/qwq-32b": "qwen/qwq-32b",
   "sao10k/l3-70b-euryale-v2.1": "sao10k/l3-70b-euryale-v2.1",
