@@ -5,13 +5,10 @@
   "deepseek-v3": "deepseek/deepseek-v3",
   "deepseek-v3-0324": "deepseek/deepseek-v3-0324",
   "gemma-3-27b-it": "google/gemma-3-27b-it",
-  "llama-4-scout-131k": "meta-llama/llama-4-scout-131k",
-  "llama3-70b": "meta-llama/llama-3-70b",
-  "llama3-8b": "meta-llama/llama-3-8b",
+  "llama-4-scout": "meta-llama/llama-4-scout",
   "llama3.1-405b": "meta-llama/llama-3.1-405b",
   "llama3.1-8b": "meta-llama/llama-3.1-8b",
   "llama3.1-tulu3-405b": "meta-llama/llama-3.1-tulu3-405b",
-  "llama3.2-1b": "meta-llama/llama-3.2-1b",
   "llama3.3-70b": "meta-llama/llama-3.3-70b",
   "qwen-qwq-32b": "qwen/qwen-qwq-32b"
 }
