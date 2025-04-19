@@ -2,7 +2,11 @@
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
+    ../../nixos/common-apps/nginx
     ../../nixos/minimal.nix
+
+    ../../nixos/optional-apps/dump1090.nix
+    ../../nixos/optional-apps/dump978.nix
 
     ./hardware-configuration.nix
     ./lora

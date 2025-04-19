@@ -18,6 +18,12 @@
   hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
   hardware.enableRedistributableFirmware = true;
 
+  # Make RTL-SDR work with dump1090
+  boot.extraModprobeConfig = ''
+    blacklist dvb_usb_rtl28xxu
+    install dvb_usb_rtl28xxu ${pkgs.coreutils}/bin/true
+  '';
+
   environment.systemPackages = with pkgs; [
     i2c-tools
     libraspberrypi
