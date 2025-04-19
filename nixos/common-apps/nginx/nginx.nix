@@ -230,7 +230,8 @@ in
 
   systemd.services.nginx = {
     environment = {
-      LD_PRELOAD = "${pkgs.mimalloc}/lib/libmimalloc.so";
+      # Mimalloc causes crashes on ARM64
+      LD_PRELOAD = lib.optionalString pkgs.stdenv.isx86_64 "${pkgs.mimalloc}/lib/libmimalloc.so";
       inherit (config.environment.variables) OPENSSL_CONF;
     };
     serviceConfig = {
