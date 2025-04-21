@@ -25,35 +25,19 @@ let
   '';
 in
 {
-  systemd.services.mtranserver = {
-    description = "MTranServer";
-    wantedBy = [ "multi-user.target" ];
-
-    environment = {
-      IP = "127.0.0.1";
-      PORT = LT.portStr.MTranServer;
-      MODELS_DIR = builtins.toString enabledModels;
-    };
-
-    script = ''
-      export NUM_WORKERS=$(${pkgs.coreutils}/bin/nproc)
-      exec ${pkgs.nur-xddxdd.mtranservercore-rs}/bin/mtranservercore-rs
-    '';
-
-    serviceConfig = {
-      User = "mtranserver";
-      Group = "mtranserver";
-
-      Restart = "always";
-      RestartSec = "5";
-    };
+  virtualisation.oci-containers.containers.mtranserver = {
+    extraOptions = [
+      "--pull=always"
+      "--arch=amd64/v3"
+    ];
+    ports = [
+      "127.0.0.1:${LT.portStr.MTranServer}:8989"
+    ];
+    volumes = [
+      "${enabledModels}:/app/models:ro"
+    ];
+    image = "ghcr.io/xxnuo/mtranserver:latest";
   };
-
-  users.users.mtranserver = {
-    group = "mtranserver";
-    isSystemUser = true;
-  };
-  users.groups.mtranserver = { };
 
   lantian.nginxVhosts."mtranserver.${config.networking.hostName}.xuyh0120.win" = {
     locations = {
