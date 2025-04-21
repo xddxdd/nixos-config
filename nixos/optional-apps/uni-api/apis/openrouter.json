@@ -126,6 +126,7 @@
   "meta-llama/llama-3-8b-instruct": "meta-llama/llama-3-8b-instruct",
   "meta-llama/llama-3.1-405b": "meta-llama/llama-3.1-405b",
   "meta-llama/llama-3.1-405b-instruct": "meta-llama/llama-3.1-405b-instruct",
+  "meta-llama/llama-3.1-405b:free": "meta-llama/llama-3.1-405b:free",
   "meta-llama/llama-3.1-70b-instruct": "meta-llama/llama-3.1-70b-instruct",
   "meta-llama/llama-3.1-8b-instruct": "meta-llama/llama-3.1-8b-instruct",
   "meta-llama/llama-3.1-8b-instruct:free": "meta-llama/llama-3.1-8b-instruct:free",
@@ -301,6 +302,5 @@
   "x-ai/grok-3-beta": "x-ai/grok-3-beta",
   "x-ai/grok-3-mini-beta": "x-ai/grok-3-mini-beta",
   "x-ai/grok-beta": "x-ai/grok-beta",
-  "x-ai/grok-vision-beta": "x-ai/grok-vision-beta",
-  "xwin-lm/xwin-lm-70b": "xwin-lm/xwin-lm-70b"
+  "x-ai/grok-vision-beta": "x-ai/grok-vision-beta"
 }
