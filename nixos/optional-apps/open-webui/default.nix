@@ -7,13 +7,15 @@
 }:
 {
   imports = [
-    # ./fish-speech.nix
-    ./mcpo.nix
-    ./openai-edge-tts.nix
-    ./openedai-speech.nix
-    ./postgresql.nix
-    ./tika.nix
-    ./uni-api
+    ./model-config.nix
+
+    # ../fish-speech.nix
+    ../mcpo.nix
+    ../openai-edge-tts.nix
+    ../openedai-speech.nix
+    ../postgresql.nix
+    ../tika.nix
+    ../uni-api
   ];
 
   age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
@@ -132,10 +134,13 @@
 
   lantian.nginxVhosts = {
     "ai.xuyh0120.win" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI.UI}";
-        proxyWebsockets = true;
-        proxyNoTimeout = true;
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.OpenWebUI.UI}";
+          proxyWebsockets = true;
+          proxyNoTimeout = true;
+        };
+        "/model-icons".alias = "${./icons}";
       };
 
       sslCertificate = "xuyh0120.win_ecc";
