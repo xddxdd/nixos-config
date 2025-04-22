@@ -4,6 +4,7 @@
   lib,
   config,
   utils,
+  inputs,
   ...
 }:
 let
@@ -30,10 +31,58 @@ let
           SEARXNG_URL = "https://searx.xuyh0120.win";
         };
       };
+      context7 = {
+        command = "npx";
+        args = [
+          "-y"
+          "@upstash/context7-mcp@latest"
+        ];
+      };
+      brave-search = {
+        command = "npx";
+        args = [
+          "-y"
+          "@modelcontextprotocol/server-brave-search"
+        ];
+        env = {
+          BRAVE_API_KEY = {
+            _secret = config.age.secrets.mcp-brave-search-api-key.path;
+          };
+        };
+      };
+      google-maps = {
+        command = "npx";
+        args = [
+          "-y"
+          "@modelcontextprotocol/server-google-maps"
+        ];
+        env = {
+          GOOGLE_MAPS_API_KEY = {
+            _secret = config.age.secrets.mcp-google-maps-api-key.path;
+          };
+        };
+      };
+      national-park-service = {
+        command = "npx";
+        args = [
+          "-y"
+          "mcp-server-nationalparks"
+        ];
+        env = {
+          NPS_API_KEY = {
+            _secret = config.age.secrets.mcp-national-park-service-api-key.path;
+          };
+        };
+      };
     };
   };
 in
 {
+  age.secrets.mcp-brave-search-api-key.file = inputs.secrets + "/mcp-brave-search-api-key.age";
+  age.secrets.mcp-google-maps-api-key.file = inputs.secrets + "/mcp-google-maps-api-key.age";
+  age.secrets.mcp-national-park-service-api-key.file =
+    inputs.secrets + "/mcp-national-park-service-api-key.age";
+
   virtualisation.oci-containers.containers.mcpo = {
     extraOptions = [
       "--pull=always"
