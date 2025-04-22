@@ -5,23 +5,57 @@
   ...
 }:
 let
+  # https://lobehub.com/zh/icons
   modelIconMapping = {
-    "anthropic/claude" = "/model-icons/claude.webp";
-    "deepseek/" = "/model-icons/deepseek.png";
-    "google/gemini" = "/model-icons/gemini.png";
-    "google/gemma" = "/model-icons/gemma.jpg";
-    "openai/" = "/model-icons/gpt-35.webp";
+    "01-ai/yi" = "/model-icons/yi-color.png";
+    "360ai/" = "/model-icons/ai360-color.png";
+    "ai21/" = "/model-icons/ai21.png";
+    "aion-labs/" = "/model-icons/aionlabs-color.png";
+    "amazon/" = "/model-icons/aws-color.png";
+    "anthropic/claude" = "/model-icons/claude-color.png";
+    "baai/" = "/model-icons/baai.png";
+    "baichuan/" = "/model-icons/baichuan-color.png";
+    "baidu/" = "/model-icons/baidu-color.png";
+    "black-forest-labs/" = "/model-icons/flux.png";
+    "bytedance" = "/model-icons/bytedance-color.png";
+    "cohere/" = "/model-icons/cohere-color.png";
+    "deepseek/" = "/model-icons/deepseek-color.png";
+    "fishaudio/" = "/model-icons/fishaudio.png";
+    "google/" = "/model-icons/gemini-color.png";
+    "google/gemini" = "/model-icons/gemini-color.png";
+    "google/gemma" = "/model-icons/gemma-color.png";
+    "infermatic/" = "/model-icons/infermatic-color.png";
+    "inflection/" = "/model-icons/inflection.png";
+    "internlm/" = "/model-icons/internlm-color.png";
+    "meta-llama/" = "/model-icons/meta-color.png";
+    "microsoft/" = "/model-icons/microsoft-color.png";
+    "minimax/" = "/model-icons/minimax-color.png";
+    "mistralai/" = "/model-icons/mistral-color.png";
+    "moonshotai/" = "/model-icons/moonshot.png";
+    "nvidia/" = "/model-icons/nvidia-color.png";
+    "openai/" = "/model-icons/openai.png";
+    "openchat/" = "/model-icons/openchat-color.png";
+    "openrouter/" = "/model-icons/openrouter.png";
+    "perplexity/" = "/model-icons/perplexity-color.png";
+    "qwen/" = "/model-icons/qwen-color.png";
+    "stabilityai/" = "/model-icons/stability-color.png";
+    "tencent/" = "/model-icons/tencent-color.png";
+    "thudm/" = "/model-icons/chatglm-color.png";
+    "tiiuae/" = "/model-icons/tii-color.png";
     "x-ai/grok" = "/model-icons/grok.png";
-    "meta-llama/" = "/model-icons/llama.png";
-    "qwen/" = "/model-icons/qwen2.png";
   };
   defaultModelIcon = "/static/favicon.png";
 
   lookupModelIconUrl =
     name:
-    builtins.foldl' (
-      current: mapping: if lib.hasPrefix mapping.name name then mapping.value else current
-    ) defaultModelIcon (lib.attrsToList modelIconMapping);
+    builtins.foldl'
+      (current: mapping: if lib.hasPrefix mapping.name name then mapping.value else current)
+      defaultModelIcon
+      (
+        lib.sort (a: b: builtins.stringLength a.name < builtins.stringLength b.name) (
+          lib.attrsToList modelIconMapping
+        )
+      );
 
   nativeFunctionCallingPrefixes = [
     "anthropic/claude-3.5"
@@ -89,7 +123,7 @@ in
         psql -qtAX -v ON_ERROR_STOP=1 -d open-webui "$@"
       }
 
-      export ADMIN_ID=$(owsql -c 'SELECT id FROM public.user WHERE role = 'admin' ORDER BY created_at ASC LIMIT 1')
+      export ADMIN_ID=$(owsql -c "SELECT id FROM public.user WHERE role = 'admin' ORDER BY created_at ASC LIMIT 1")
       echo "Admin ID: $ADMIN_ID"
 
       export TIMESTAMP=$(date "+%s")
@@ -97,7 +131,7 @@ in
 
       cat ${sqlFile} | envsubst > setup.sql
 
-      owsql -c 'DELETE FROM public.model WHERE base_model_id = NULL'
+      owsql -c 'DELETE FROM public.model WHERE base_model_id IS NULL'
       owsql -f setup.sql
     '';
 
