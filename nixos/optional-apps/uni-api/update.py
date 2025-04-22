@@ -72,11 +72,17 @@ GUESS_PROVIDER_PREFIX_MAP = {
     "x-ai": ["grok"],
     "cohere": ["command-r"],
     "microsoft": ["phi"],
+    "baichuan": ["baichuan"],
+    "bytedance": ["doubao"],
+    "baidu": ["ernie"],
+    "moonshotai": ["moonshot"],
+    "360ai": ["360gpt"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {
     "deepseek": ["deepseek-ai"],
     "meta-llama": ["meta"],
+    "mistralai": ["mistral"],
 }
 
 NORMALIZE_MODEL_PREFIX_MAP = {
