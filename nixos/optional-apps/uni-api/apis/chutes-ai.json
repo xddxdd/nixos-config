@@ -37,7 +37,6 @@
   "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1": "nvidia/llama-3_1-nemotron-ultra-253b-v1",
   "nvidia/Llama-3_3-Nemotron-Super-49B-v1": "nvidia/llama-3_3-nemotron-super-49b-v1",
   "open-r1/OlympicCoder-32B": "open-r1/olympiccoder-32b",
-  "open-r1/OlympicCoder-7B": "open-r1/olympiccoder-7b",
   "shisa-ai/shisa-v2-llama3.3-70b": "shisa-ai/shisa-v2-llama3.3-70b",
   "unsloth/Llama-3.2-1B-Instruct": "unsloth/llama-3.2-1b-instruct",
   "unsloth/Llama-3.2-3B-Instruct": "unsloth/llama-3.2-3b-instruct",
