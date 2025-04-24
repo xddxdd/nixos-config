@@ -133,7 +133,6 @@ in
         nur-xddxdd.baidunetdisk
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bilibili
-        nur-xddxdd.cloudpan189-go
         nur-xddxdd.dingtalk
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
