@@ -25,7 +25,7 @@
       noto-fonts-extra
       nur-xddxdd.hoyo-glyphs
       nur-xddxdd.kaixinsong-fonts
-      nur-xddxdd.plangothic-fonts.allideo
+      nur-xddxdd.plangothic-fonts
       source-code-pro
       source-han-code-jp
       source-han-mono
@@ -63,18 +63,27 @@
     {
       defaultFonts = rec {
         emoji = [ "Blobmoji" ];
-        serif = [
-          "Noto Serif"
-          "Source Han Serif SC"
-        ] ++ emoji ++ serifFallback;
-        sansSerif = [
-          "Ubuntu"
-          "Source Han Sans SC"
-        ] ++ emoji ++ sansFallback;
-        monospace = [
-          "Ubuntu Mono"
-          "Noto Sans Mono CJK SC"
-        ] ++ emoji ++ sansFallback;
+        serif =
+          [
+            "Noto Serif"
+            "Source Han Serif SC"
+          ]
+          ++ emoji
+          ++ serifFallback;
+        sansSerif =
+          [
+            "Ubuntu"
+            "Source Han Sans SC"
+          ]
+          ++ emoji
+          ++ sansFallback;
+        monospace =
+          [
+            "Ubuntu Mono"
+            "Noto Sans Mono CJK SC"
+          ]
+          ++ emoji
+          ++ sansFallback;
       };
     };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -24,7 +24,8 @@
       enable = true;
       custom = builtins.toString (
         pkgs.linkFarm "oh-my-zsh-custom" {
-          "themes/powerlevel10k.zsh-theme" = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          "themes/powerlevel10k.zsh-theme" =
+            "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
           "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
           "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
           "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
@@ -117,7 +118,7 @@
       ZSHZ_TRAILING_SLASH=1
     '';
 
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
       [[ -n "$ZSH_ZPROF" ]] && zmodload zsh/zprof
     '';
   };

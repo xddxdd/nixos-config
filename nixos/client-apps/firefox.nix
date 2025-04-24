@@ -9,7 +9,7 @@ let
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     bilisponsorblock
     bitwarden
-    bypass-paywalls-clean
+    # bypass-paywalls-clean
     clearurls
     darkreader
     dearrow
@@ -62,7 +62,6 @@ let
       "securefox.ocsp-and-certs-with-hpkp"
       "securefox.ssl-with-tls"
       "securefox.disk-avoidance"
-      "securefox.https-first-policy"
       "securefox.mixed-content-plus-cross-site"
       "securefox.headers-with-referers"
       "securefox.safe-browsing"

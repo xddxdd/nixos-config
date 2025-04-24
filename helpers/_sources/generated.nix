@@ -23,10 +23,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.8.1";
+    version = "1.8.2";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.1/grafana-falconlogscale-datasource-1.8.1.zip";
-      sha256 = "sha256-wNlE38pw2GfFJZV+6oRSI+61AmzbL/iQqzS7elczPOc=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.2/grafana-falconlogscale-datasource-1.8.2.zip";
+      sha256 = "sha256-05cgYVq3E76maKcM+TsDV1sWlsoOITQ3vQZpyC/NA9w=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -76,15 +76,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "75e36f3327443beca5ad4d16962d8d87c1e09a4d";
+    version = "21faa750b0eb6c1019c033585a6f829b7e738a9a";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "75e36f3327443beca5ad4d16962d8d87c1e09a4d";
+      rev = "21faa750b0eb6c1019c033585a6f829b7e738a9a";
       fetchSubmodules = false;
-      sha256 = "sha256-7ioD8fjAG5HRQS3ppwdk0eYxMyQFA0MGPStGs+ryXVw=";
+      sha256 = "sha256-psvlyMvPtGe/1NqIIMtuaJ2LnmkNAvmQI+bi2Bzxk0c=";
     };
-    date = "2025-03-30";
+    date = "2025-04-21";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "07080317245ac30c38001d2149810b2dee3cce1f";
+    version = "93e97e3c458f7270a937993deb778c15f9f16406";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "07080317245ac30c38001d2149810b2dee3cce1f";
+      rev = "93e97e3c458f7270a937993deb778c15f9f16406";
       fetchSubmodules = false;
-      sha256 = "sha256-5O0TXVrLsFrULXli2vB2iJ7TECUckMHKvJZYmdkcnGE=";
+      sha256 = "sha256-g2QBV3qOmsj5hiNb1S7YpytFlrbjeosXkySMu8Zfqx4=";
     };
-    date = "2025-03-19";
+    date = "2025-04-21";
   };
   openspeedtest = {
     pname = "openspeedtest";
@@ -246,13 +246,13 @@
   };
   yourls = {
     pname = "yourls";
-    version = "1.9.2";
+    version = "1.10.0";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "YOURLS";
-      rev = "1.9.2";
+      rev = "1.10.0";
       fetchSubmodules = false;
-      sha256 = "sha256-eV8TMWa4woIjRJhuptS7MDVdgItOo5towjKYNlruIKo=";
+      sha256 = "sha256-MmQso5QDh+amY84aYn7ugdpeaGnleiAvz4m5W4yAZZY=";
     };
   };
   yourls-404-if-not-found = {

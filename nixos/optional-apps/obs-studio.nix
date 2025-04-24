@@ -2,7 +2,8 @@
 {
   environment.systemPackages = with pkgs; [
     obs-studio
-    obs-studio-plugins.looking-glass-obs
+    # FIXME
+    # obs-studio-plugins.looking-glass-obs
     obs-studio-plugins.obs-gstreamer
     # FIXME
     # obs-studio-plugins.obs-nvfbc
