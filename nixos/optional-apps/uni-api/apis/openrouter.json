@@ -199,7 +199,6 @@
   "nvidia/llama-3.1-nemotron-ultra-253b-v1:free": "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
   "nvidia/llama-3.3-nemotron-super-49b-v1:free": "nvidia/llama-3.3-nemotron-super-49b-v1:free",
   "open-r1/olympiccoder-32b:free": "open-r1/olympiccoder-32b:free",
-  "open-r1/olympiccoder-7b:free": "open-r1/olympiccoder-7b:free",
   "openai/chatgpt-4o-latest": "openai/chatgpt-4o-latest",
   "openai/gpt-3.5-turbo": "openai/gpt-3.5-turbo",
   "openai/gpt-3.5-turbo-0125": "openai/gpt-3.5-turbo-0125",
