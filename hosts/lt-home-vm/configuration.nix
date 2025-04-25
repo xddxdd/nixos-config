@@ -13,6 +13,7 @@
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
+    ../../nixos/client-components/pipewire
 
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/bxcq3.nix
@@ -31,6 +32,7 @@
     ../../nixos/optional-apps/open-webui
     ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/palworld.nix
+    ../../nixos/optional-apps/pipewire-roc-sink.nix
     # ../../nixos/optional-apps/pterodactyl-panel.nix
     # ../../nixos/optional-apps/pterodactyl-wings.nix
     ../../nixos/optional-apps/searxng.nix
@@ -52,6 +54,19 @@
       cudaPackages = pkgs.cudaPackages_12_2;
     })
   ];
+
+  lantian.pipewire.roc-sink-ip = [
+    "192.168.0.207"
+  ];
+  services.navidrome.settings = {
+    Jukebox.Devices = [
+      [
+        "remote"
+        "pipewire/roc-sink-192.168.0.207"
+      ]
+    ];
+    Jukebox.Default = "remote";
+  };
 
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;
