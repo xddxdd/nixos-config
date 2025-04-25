@@ -112,6 +112,7 @@ in
         discord-canary
         distrobox
         exiftool
+        feishin
         ffmpeg-full
         filezilla
         fluffychat
