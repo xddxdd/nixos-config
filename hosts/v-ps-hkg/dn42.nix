@@ -4,6 +4,8 @@
     inputs.secrets + "/dn42-pingfinder/${config.networking.hostName}.age";
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
+  age.secrets.dn42-v-ps-hkg-h503mc-wg-psk.file = inputs.secrets + "/dn42/v-ps-hkg-h503mc-wg-psk.age";
+
   services.dn42 = {
     "24kcsplus" = {
       remoteASN = 4242421347;
@@ -81,6 +83,21 @@
       addressing = {
         peerIPv4 = "172.20.165.65";
         peerIPv6LinkLocal = "fe80::1719:65";
+      };
+    };
+    h503mc = {
+      remoteASN = 4242420298;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20298;
+        remoteAddress = "node2.ox5.cc";
+        remotePort = 22547;
+        wireguardPubkey = "KJDKnQIIL4er69E2uOkH1hM5QEwIIxiqEg62UJEdCGo=";
+        wireguardPresharedKeyFile = config.age.secrets.dn42-v-ps-hkg-h503mc-wg-psk.path;
+      };
+      addressing = {
+        peerIPv6LinkLocal = "fe80::298";
       };
     };
     huiliang = {
