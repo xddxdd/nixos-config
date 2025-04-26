@@ -36,5 +36,10 @@
   "sao10k/l3-70b-euryale-v2.1": "sao10k/l3-70b-euryale-v2.1",
   "sao10k/l3-8b-lunaris": "sao10k/l3-8b-lunaris",
   "sao10k/l31-70b-euryale-v2.2": "sao10k/l31-70b-euryale-v2.2",
-  "sophosympatheia/midnight-rose-70b": "sophosympatheia/midnight-rose-70b"
+  "sophosympatheia/midnight-rose-70b": "sophosympatheia/midnight-rose-70b",
+  "thudm/glm-4-32b-0414": "thudm/glm-4-32b-0414",
+  "thudm/glm-4-9b-0414": "thudm/glm-4-9b-0414",
+  "thudm/glm-z1-32b-0414": "thudm/glm-z1-32b-0414",
+  "thudm/glm-z1-9b-0414": "thudm/glm-z1-9b-0414",
+  "thudm/glm-z1-rumination-32b-0414": "thudm/glm-z1-rumination-32b-0414"
 }
