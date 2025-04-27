@@ -56,8 +56,9 @@ in
       ReadWritePaths = [ "/nix/persistent/sync-servers/acme.sh" ];
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
+    path = [ acme-sh-wrapped ];
     script = ''
-      ${acme-sh-wrapped}/bin/acme.sh --cron
+      acme.sh --cron
       ${acme-sh-auto}/bin/acme.sh-auto
     '';
   };

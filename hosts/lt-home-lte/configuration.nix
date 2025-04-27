@@ -4,6 +4,10 @@
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/common-apps/nginx
+
+    ../../nixos/optional-apps/open5gs
   ];
 
   services.beesd.filesystems.root = {
@@ -17,8 +21,8 @@
   };
 
   systemd.network.networks.eth0 = {
-    address = [ "192.168.1.14/24" ];
-    gateway = [ "192.168.1.1" ];
+    address = [ "192.168.0.9/24" ];
+    gateway = [ "192.168.0.1" ];
     matchConfig.Name = "eth0";
     linkConfig.MTUBytes = "9000";
     networkConfig.IPv6AcceptRA = "yes";
