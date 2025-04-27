@@ -5,7 +5,7 @@
     exclude-bgp-mesh
     qemu
   ];
-  hostname = "192.168.1.14";
+  hostname = "192.168.0.9";
   cpuThreads = 4;
   city = geo.cities."US Seattle";
   ssh = {
