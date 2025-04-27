@@ -1,22 +1,14 @@
 { pkgs, lib, ... }:
 let
   services = [
-    "amf"
-    "ausf"
-    "bsf"
     "hss"
     "mme"
     "nrf"
-    "nssf"
-    "pcf"
     "pcrf"
     "scp"
-    "sepp"
     "sgwc"
     "sgwu"
     "smf"
-    "udm"
-    "udr"
     "upf"
   ];
 in
