@@ -110,6 +110,17 @@
     };
     date = "2025-04-21";
   };
+  open5gs = {
+    pname = "open5gs";
+    version = "v2.7.5";
+    src = fetchFromGitHub {
+      owner = "open5gs";
+      repo = "open5gs";
+      rev = "v2.7.5";
+      fetchSubmodules = false;
+      sha256 = "sha256-KwfIlgnObOGDczt8Op+/mUzv2cMic562uRYW5o5ChKI=";
+    };
+  };
   openspeedtest = {
     pname = "openspeedtest";
     version = "3ec39a31ec64858642629991caf0dd14ce7c34ca";

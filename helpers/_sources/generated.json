@@ -190,6 +190,27 @@
         },
         "version": "93e97e3c458f7270a937993deb778c15f9f16406"
     },
+    "open5gs": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "open5gs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open5gs",
+            "repo": "open5gs",
+            "rev": "v2.7.5",
+            "sha256": "sha256-KwfIlgnObOGDczt8Op+/mUzv2cMic562uRYW5o5ChKI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.7.5"
+    },
     "openspeedtest": {
         "cargoLocks": null,
         "date": "2024-06-04",
