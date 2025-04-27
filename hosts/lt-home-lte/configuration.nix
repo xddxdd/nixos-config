@@ -24,7 +24,7 @@
     address = [ "192.168.0.9/24" ];
     gateway = [ "192.168.0.1" ];
     matchConfig.Name = "eth0";
-    linkConfig.MTUBytes = "9000";
+    # Do not enable Jumbo Frame or this breaks SCTP
     networkConfig.IPv6AcceptRA = "yes";
     ipv6AcceptRAConfig = {
       Token = "::9";
