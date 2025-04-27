@@ -12,7 +12,7 @@ mme:
   freeDiameter: /etc/freeDiameter/mme.conf
   s1ap:
     server:
-      - address: 192.168.0.9
+      - dev: eth0
   gtpc:
     server:
       - address: 127.0.0.2
@@ -274,8 +274,8 @@ mme:
 #        mcc: 002
 #        mnc: 02
 #    - plmn_id:
-#        mcc: 999
-#        mnc: 70
+#        mcc: 315
+#        mnc: 010
 #
 #  o Relative Capacity
 #  relative_capacity: 100

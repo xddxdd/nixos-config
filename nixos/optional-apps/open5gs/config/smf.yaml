@@ -86,8 +86,8 @@ smf:
 #            - internet
 #      tai:
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac: 1
 #
 #  o If any of conditions below are met:
@@ -101,8 +101,8 @@ smf:
 #            - internet
 #      tai:
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac:
 #            - 1-9
 #    - s_nssai:
@@ -117,8 +117,8 @@ smf:
 #            - internet
 #      tai:
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac:
 #            - 10-20
 #            - 30-40
@@ -147,28 +147,28 @@ smf:
 #            - internet
 #      tai:
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac: [1, 2, 3]
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac: 4
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac:
 #            - 5
 #            - 6
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac:
 #            - 100-200
 #            - 300-400
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac:
 #            - 500-600
 #            - 700-800
@@ -179,8 +179,8 @@ smf:
 #            - internet
 #      tai:
 #        - plmn_id:
-#            mcc: 999
-#            mnc: 70
+#            mcc: 315
+#            mnc: 010
 #          tac: 99
 #
 ################################################################################
@@ -232,11 +232,11 @@ smf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs/tls/smf.key
-#        cert: /etc/open5gs/tls/smf.crt
+#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/smf.key
+#        cert: /etc/open5gs-pkg/etc/open5gs/tls/smf.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs/tls/ca.crt
+#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
 #      - address: smf.localdomain
@@ -249,15 +249,15 @@ smf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs/tls/smf.key
-#        cert: /etc/open5gs/tls/smf.crt
+#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/smf.key
+#        cert: /etc/open5gs-pkg/etc/open5gs/tls/smf.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs/tls/ca.crt
-#        client_private_key: /etc/open5gs/tls/smf.key
-#        client_cert: /etc/open5gs/tls/smf.crt
+#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/smf.key
+#        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/smf.crt
 #  sbi:
 #    server:
 #      - address: smf.localdomain

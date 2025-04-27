@@ -27,7 +27,7 @@
     linkConfig.MTUBytes = "9000";
     networkConfig.IPv6AcceptRA = "yes";
     ipv6AcceptRAConfig = {
-      Token = "::14";
+      Token = "::9";
       DHCPv6Client = "no";
     };
     routes = [

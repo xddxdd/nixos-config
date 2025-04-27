@@ -1,21 +1,31 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   services = [
+    "amf"
+    "ausf"
+    "bsf"
     "hss"
     "mme"
+    "nrf"
+    "nssf"
+    "pcf"
     "pcrf"
+    "scp"
+    "sepp"
     "sgwc"
     "sgwu"
     "smf"
+    "udm"
+    "udr"
     "upf"
   ];
 in
 {
   systemd.services = builtins.listToAttrs (
     builtins.map (svc: {
-      name = "open5gs-${svc}";
+      name = "open5gs-${svc}d";
       value = {
-        description = "Open5GS ${svc} Daemon";
+        description = "Open5GS ${lib.toUpper svc} Daemon";
         wantedBy = [ "multi-user.target" ];
         after = [
           "network.target"
