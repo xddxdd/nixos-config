@@ -55,6 +55,9 @@ rec {
         sed -i "s#/bin/mount#${final.util-linux}/bin/mount#g" $out/bin/mount.ubifs
       '';
   });
+  open5gs = prev.open5gs.overrideAttrs (_old: {
+    inherit (sources.open5gs) version src;
+  });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
     with all;
