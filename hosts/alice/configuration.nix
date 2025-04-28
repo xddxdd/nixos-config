@@ -7,12 +7,12 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = [ "2a14:67c0:104::56/128" ];
+    address = [ "2a14:67c0:306:211::a/128" ];
     routes = [
       {
         # Special config since gateway isn't in subnet
         routeConfig = {
-          Gateway = "2a14:67c0:104::1";
+          Gateway = "2a14:67c0:306::1";
           GatewayOnLink = true;
         };
       }
