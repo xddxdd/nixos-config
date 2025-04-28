@@ -75,10 +75,10 @@ ausf:
 #        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
-#      - address: ausf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: ausf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #
 #  o Add client TLS verification
 #  default:
@@ -96,7 +96,7 @@ ausf:
 #        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/ausf.crt
 #  sbi:
 #    server:
-#      - address: ausf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: ausf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain

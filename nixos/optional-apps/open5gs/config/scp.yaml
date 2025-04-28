@@ -38,7 +38,7 @@ scp:
 #  info:
 #    domain:
 #      - name: SCP_Domain_1
-#        fqdn: scp.epc.mnc010.mcc315.3gppnetwork.org
+#        fqdn: scp.localdomain
 #        port:
 #          http: 7777
 #          https: 8888
@@ -100,10 +100,10 @@ scp:
 #        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
-#      - address: scp.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: scp.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #
 #  o Add client TLS verification
 #  default:
@@ -121,7 +121,7 @@ scp:
 #        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/scp.crt
 #  sbi:
 #    server:
-#      - address: scp.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: scp.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain

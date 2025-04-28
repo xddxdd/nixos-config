@@ -239,10 +239,10 @@ smf:
 #        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
-#      - address: smf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: smf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #
 #  o Add client TLS verification
 #  default:
@@ -260,10 +260,10 @@ smf:
 #        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/smf.crt
 #  sbi:
 #    server:
-#      - address: smf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: smf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #
 ################################################################################
 # PFCP Server

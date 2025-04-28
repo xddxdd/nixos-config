@@ -101,12 +101,12 @@ nssf:
 #        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
-#      - address: nssf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: nssf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #      nsi:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #          s_nssai:
 #            sst: 1
 #
@@ -126,11 +126,11 @@ nssf:
 #        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/nssf.crt
 #  sbi:
 #    server:
-#      - address: nssf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: nssf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #      nsi:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #          s_nssai:
 #            sst: 1
