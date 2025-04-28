@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./kamailio.nix
     ./services.nix
     ./webui.nix
     ../mongodb.nix
