@@ -201,10 +201,10 @@ pcf:
 #        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
-#      - address: pcf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: pcf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
 #
 #  o Add client TLS verification
 #  default:
@@ -222,7 +222,7 @@ pcf:
 #        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/pcf.crt
 #  sbi:
 #    server:
-#      - address: pcf.epc.mnc010.mcc315.3gppnetwork.org
+#      - address: pcf.localdomain
 #    client:
 #      nrf:
-#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
+#        - uri: https://nrf.localdomain
