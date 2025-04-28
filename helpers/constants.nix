@@ -336,6 +336,10 @@ rec {
       "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
       "lantian.dn42"
       "lantian.neo"
+      # Lan Tian Mobile VoLTE
+      "mnc001.mcc001.3gppnetwork.org"
+      "mnc010.mcc315.3gppnetwork.org"
+      "mnc999.mcc999.3gppnetwork.org"
     ];
   };
 }
