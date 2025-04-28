@@ -11,6 +11,10 @@
   environment.etc."freeDiameter".source = ./freeDiameter;
   environment.etc."open5gs-pkg".source = pkgs.open5gs;
 
+  networking.hosts = {
+    "127.0.0.9" = [ "pcrf.epc.mnc010.mcc315.3gppnetwork.org" ];
+  };
+
   systemd.network.netdevs.open5gs = {
     netdevConfig = {
       Kind = "tun";
