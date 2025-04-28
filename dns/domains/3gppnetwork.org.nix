@@ -60,8 +60,13 @@ in
         volteRecords
         {
           recordType = "A";
-          name = "hss";
+          name = "hss.ims";
           address = "192.168.0.9";
+        }
+        {
+          recordType = "A";
+          name = "pcrf.epc";
+          address = "127.0.0.9";
         }
         {
           recordType = "SRV";

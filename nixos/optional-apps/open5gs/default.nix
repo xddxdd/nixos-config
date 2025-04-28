@@ -2,6 +2,7 @@
 {
   imports = [
     ./kamailio.nix
+    ./pyhss.nix
     ./services.nix
     ./webui.nix
     ../mongodb.nix
