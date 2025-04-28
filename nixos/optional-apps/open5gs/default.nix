@@ -7,7 +7,6 @@
   ];
 
   environment.etc."freeDiameter".source = ./freeDiameter;
-  environment.etc."open5gs".source = ./config;
   environment.etc."open5gs-pkg".source = pkgs.open5gs;
 
   systemd.network.netdevs.open5gs = {
