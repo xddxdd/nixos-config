@@ -138,6 +138,11 @@ let
         # Public Internet Authoritative
         ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
 
+        # Lan Tian Mobile VoLTE
+        ${publicZone "mnc001.mcc001.3gppnetwork.org" "ltnet-zones/mnc001.mcc001.3gppnetwork.org" null}
+        ${publicZone "mnc010.mcc315.3gppnetwork.org" "ltnet-zones/mnc010.mcc315.3gppnetwork.org" null}
+        ${publicZone "mnc999.mcc999.3gppnetwork.org" "ltnet-zones/mnc999.mcc999.3gppnetwork.org" null}
+
         # Meshname
         meshname {
           prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}

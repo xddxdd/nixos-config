@@ -7,6 +7,7 @@
 
     ../../nixos/common-apps/nginx
 
+    ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/open5gs
   ];
 
