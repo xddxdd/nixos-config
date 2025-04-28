@@ -28,7 +28,7 @@ in
           "mongodb.service"
         ];
         serviceConfig = {
-          ExecStart = "${pkgs.open5gs}/bin/open5gs-${svc}d -c /etc/open5gs/${svc}.yaml";
+          ExecStart = "${pkgs.open5gs}/bin/open5gs-${svc}d -c ${./config}/${svc}.yaml";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           LogsDirectory = "open5gs";
           User = "open5gs";
