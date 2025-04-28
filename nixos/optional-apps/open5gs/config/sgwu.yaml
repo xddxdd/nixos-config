@@ -35,7 +35,7 @@ sgwu:
 #  gtpu:
 #    server:
 #      - dev: ens3
-#        advertise: sgw1.epc.mnc001.mcc001.3gppnetwork.org
+#        advertise: sgw1.epc.mnc010.mcc315.3gppnetwork.org
 #
 #  o User Plane IP Resource information
 #  gtpu:
