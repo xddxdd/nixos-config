@@ -1,5 +1,4 @@
 {
-  "AIDC-AI/Marco-o1": "aidc-ai/marco-o1",
   "BAAI/bge-large-en-v1.5": "baai/bge-large-en-v1.5",
   "BAAI/bge-large-zh-v1.5": "baai/bge-large-zh-v1.5",
   "BAAI/bge-m3": "baai/bge-m3",
@@ -7,7 +6,6 @@
   "FunAudioLLM/CosyVoice2-0.5B": "funaudiollm/cosyvoice-2-0.5b",
   "FunAudioLLM/SenseVoiceSmall": "funaudiollm/sensevoicesmall",
   "Kwai-Kolors/Kolors": "kwai-kolors/kolors",
-  "Lightricks/LTX-Video": "lightricks/ltx-video",
   "LoRA/Qwen/Qwen2.5-14B-Instruct": "qwen/qwen-2.5-14b-instruct:lora",
   "LoRA/Qwen/Qwen2.5-32B-Instruct": "qwen/qwen-2.5-32b-instruct:lora",
   "LoRA/Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct:lora",
@@ -74,11 +72,9 @@
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "deepseek/deepseek-r1-distill-qwen-7b",
   "deepseek-ai/DeepSeek-V2.5": "deepseek/deepseek-v2.5",
   "deepseek-ai/DeepSeek-V3": "deepseek/deepseek-v3",
-  "deepseek-ai/Janus-Pro-7B": "deepseek/janus-pro-7b",
   "deepseek-ai/deepseek-vl2": "deepseek/deepseek-vl2",
   "fishaudio/fish-speech-1.4": "fishaudio/fish-speech-1.4",
   "fishaudio/fish-speech-1.5": "fishaudio/fish-speech-1.5",
-  "genmo/mochi-1-preview": "genmo/mochi-1-preview",
   "internlm/internlm2_5-20b-chat": "internlm/internlm-2_5-20b-chat",
   "internlm/internlm2_5-7b-chat": "internlm/internlm-2_5-7b-chat",
   "meta-llama/Llama-3.3-70B-Instruct": "meta-llama/llama-3.3-70b-instruct",
@@ -86,9 +82,6 @@
   "meta-llama/Meta-Llama-3.1-8B-Instruct": "meta-llama/llama-3.1-8b-instruct",
   "netease-youdao/bce-embedding-base_v1": "netease-youdao/bce-embedding-base_v1",
   "netease-youdao/bce-reranker-base_v1": "netease-youdao/bce-reranker-base_v1",
-  "stabilityai/stable-diffusion-2-1": "stabilityai/stable-diffusion-2-1",
   "stabilityai/stable-diffusion-3-5-large": "stabilityai/stable-diffusion-3-5-large",
-  "stabilityai/stable-diffusion-3-5-large-turbo": "stabilityai/stable-diffusion-3-5-large-turbo",
-  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0",
-  "tencent/HunyuanVideo": "tencent/hunyuanvideo"
+  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0"
 }
