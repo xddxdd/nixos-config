@@ -1,6 +1,7 @@
 {
   "Sao10K/L3-8B-Stheno-v3.2": "sao10k/l3-8b-stheno-v3.2",
   "cognitivecomputations/dolphin-mixtral-8x22b": "cognitivecomputations/dolphin-mixtral-8x22b",
+  "deepseek/deepseek-prover-v2-671b": "deepseek/deepseek-prover-v2-671b",
   "deepseek/deepseek-r1": "deepseek/deepseek-r1",
   "deepseek/deepseek-r1-distill-llama-70b": "deepseek/deepseek-r1-distill-llama-70b",
   "deepseek/deepseek-r1-distill-llama-8b": "deepseek/deepseek-r1-distill-llama-8b",
