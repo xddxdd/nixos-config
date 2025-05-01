@@ -26,6 +26,7 @@
   "chutesai/Mistral-Small-3.1-24B-Instruct-2503": "chutesai/mistral-small-3.1-24b-instruct-2503",
   "cognitivecomputations/Dolphin3.0-Mistral-24B": "cognitivecomputations/dolphin-3.0-mistral-24b",
   "cognitivecomputations/Dolphin3.0-R1-Mistral-24B": "cognitivecomputations/dolphin-3.0-r1-mistral-24b",
+  "deepseek-ai/DeepSeek-Prover-V2-671B": "deepseek/deepseek-prover-v2-671b",
   "deepseek-ai/DeepSeek-R1": "deepseek/deepseek-r1",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": "deepseek/deepseek-r1-distill-llama-70b",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": "deepseek/deepseek-r1-distill-qwen-14b",
