@@ -11,5 +11,6 @@
   "llama3.1-8b": "meta-llama/llama-3.1-8b",
   "llama3.1-tulu3-405b": "meta-llama/llama-3.1-tulu3-405b",
   "llama3.3-70b": "meta-llama/llama-3.3-70b",
-  "qwen-qwq-32b": "qwen/qwen-qwq-32b"
+  "qwen-qwq-32b": "qwen/qwen-qwq-32b",
+  "qwen3-235b-a22b": "qwen/qwen-3-235b-a22b"
 }
