@@ -1,0 +1,21 @@
+{
+  "deepseek": "deepseek/deepseek",
+  "deepseek-reasoning": "deepseek/deepseek-reasoning",
+  "evil": "evil",
+  "hormoz": "hormoz",
+  "hypnosis-tracy": "hypnosis-tracy",
+  "llama": "meta-llama/llama",
+  "llama-vision": "meta-llama/llama-vision",
+  "llamascout": "meta-llama/llamascout",
+  "midijourney": "midijourney",
+  "mistral": "mistralai/mistral",
+  "openai": "openai",
+  "openai-audio": "openai-audio",
+  "openai-large": "openai-large",
+  "phi": "microsoft/phi",
+  "qwen-coder": "qwen/qwen-coder",
+  "rtist": "rtist",
+  "searchgpt": "searchgpt",
+  "sur": "sur",
+  "unity": "unity"
+}
