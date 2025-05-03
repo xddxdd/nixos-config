@@ -91,14 +91,6 @@ in
       model = loadModels "chutes-ai" ./apis/chutes-ai.json;
     }
     {
-      provider = "crofai";
-      base_url = "https://ai.nahcrof.com/v2/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-chutes-ai-api-key.path;
-      };
-      model = loadModels "crofai" ./apis/crofai.json;
-    }
-    {
       provider = "pollinations";
       base_url = "https://text.pollinations.ai/openai/chat/completions";
       api = {

@@ -20,7 +20,6 @@ APIS = {
     "akash-networks": "https://chatapi.akash.network/api/v1",
     "chutes-ai": "https://llm.chutes.ai/v1",
     "cloudflare": "__CLOUDFLARE__",
-    "crofai": "https://ai.nahcrof.com/v2",
     "github-models": "__GITHUB_MODELS__",
     "google": "__GOOGLE__",
     "groq": "https://api.groq.com/openai/v1",
