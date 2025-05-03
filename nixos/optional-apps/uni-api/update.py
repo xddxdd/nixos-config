@@ -27,6 +27,7 @@ APIS = {
     "mistral": "https://api.mistral.ai/v1",
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
+    "pollinations": "https://text.pollinations.ai/openai",
     "siliconflow": "https://api.siliconflow.cn/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
