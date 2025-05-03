@@ -24,6 +24,7 @@ in
       [
         "admin-api-key"
         "ai-985-games-api-key"
+        "akash-networks-api-key"
         "chutes-ai-api-key"
         "cloudflare-account-id"
         "cloudflare-api-key"
@@ -32,6 +33,7 @@ in
         "groq-api-key"
         "lingyiwanwu-api-key"
         "mistral-api-key"
+        "modelscope-api-key"
         "novita-api-key"
         "openrouter-api-key"
         "siliconflow-api-key"
