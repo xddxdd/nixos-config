@@ -107,6 +107,22 @@ in
       model = loadModels "pollinations" ./apis/pollinations.json;
     }
     {
+      provider = "akash-networks";
+      base_url = "https://chatapi.akash.network/api/v1/chat/completions";
+      api = {
+        _secret = config.age.secrets.uni-api-akash-networks-api-key.path;
+      };
+      model = loadModels "akash-networks" ./apis/akash-networks.json;
+    }
+    {
+      provider = "modelscope";
+      base_url = "https://api-inference.modelscope.cn/v1/chat/completions";
+      api = {
+        _secret = config.age.secrets.uni-api-modelscope-api-key.path;
+      };
+      model = loadModels "modelscope" ./apis/modelscope.json;
+    }
+    {
       # https://docs.api.ecylt.top/wbot/wbot-4-347b
       provider = "wbot";
       base_url = "https://api.223387.xyz/v1/chat/completions";
