@@ -16,7 +16,8 @@
       "--ipc=host"
       "--gpus=all"
     ];
-    image = "lmsysorg/sglang";
+    # Later versions do not work with W8A8 models
+    image = "lmsysorg/sglang:v0.4.4.post1-cu125";
     environment = {
       TORCHINDUCTOR_CACHE_DIR = "/var/cache/torchinductor";
     };
