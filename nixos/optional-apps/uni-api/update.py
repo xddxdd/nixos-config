@@ -17,6 +17,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 APIS = {
     "ai-985-games": "https://ai.985.games/v1",
+    "akash-networks": "https://chatapi.akash.network/api/v1",
     "chutes-ai": "https://llm.chutes.ai/v1",
     "cloudflare": "__CLOUDFLARE__",
     "crofai": "https://ai.nahcrof.com/v2",
@@ -25,6 +26,7 @@ APIS = {
     "groq": "https://api.groq.com/openai/v1",
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
     "mistral": "https://api.mistral.ai/v1",
+    "modelscope": "https://api-inference.modelscope.cn/v1",
     "novita": "https://api.novita.ai/v3/openai",
     "openrouter": "https://openrouter.ai/api/v1",
     "pollinations": "https://text.pollinations.ai/openai",

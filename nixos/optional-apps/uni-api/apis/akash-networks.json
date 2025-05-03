@@ -1,0 +1,11 @@
+{
+  "BAAI-bge-large-en-v1-5": "baai-bge-large-en-v1-5",
+  "DeepSeek-R1": "deepseek/deepseek-r1",
+  "DeepSeek-R1-Distill-Llama-70B": "deepseek/deepseek-r1-distill-llama-70b",
+  "DeepSeek-R1-Distill-Qwen-14B": "deepseek/deepseek-r1-distill-qwen-14b",
+  "DeepSeek-R1-Distill-Qwen-32B": "deepseek/deepseek-r1-distill-qwen-32b",
+  "Meta-Llama-3-1-8B-Instruct-FP8": "meta-llama/llama-3-1-8b-instruct-fp8",
+  "Meta-Llama-3-2-3B-Instruct": "meta-llama/llama-3-2-3b-instruct",
+  "Meta-Llama-3-3-70B-Instruct": "meta-llama/llama-3-3-70b-instruct",
+  "Meta-Llama-4-Maverick-17B-128E-Instruct-FP8": "meta-llama/llama-4-maverick-17b-128e-instruct-fp8"
+}
