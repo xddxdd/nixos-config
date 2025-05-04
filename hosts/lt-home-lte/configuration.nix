@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../nixos/minimal.nix
@@ -10,6 +10,8 @@
     ../../nixos/optional-apps/mysql.nix
     ../../nixos/optional-apps/open5gs
   ];
+
+  networking.nameservers = lib.mkForce [ "192.168.0.1" ];
 
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;

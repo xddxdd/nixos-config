@@ -61,9 +61,8 @@ in
   lantian.nginxVhosts = {
     "pyhss.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.47:8080";
-        };
+        "/".proxyPass = "http://127.0.0.47:8080";
+        "= /".return = "302 /docs/";
       };
 
       sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
@@ -74,9 +73,8 @@ in
       listenHTTPS.enable = false;
 
       locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.47:8080";
-        };
+        "/".proxyPass = "http://127.0.0.47:8080";
+        "= /".return = "302 /docs/";
       };
 
       noIndex.enable = true;
