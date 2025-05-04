@@ -37,7 +37,7 @@ in
 
     script = ''
       export NUM_WORKERS=$(${pkgs.coreutils}/bin/nproc)
-      exec ${pkgs.nur-xddxdd.mtranservercore-rs}/bin/mtranservercore-rs
+      exec ${pkgs.nur-xddxdd.linguaspark-server}/bin/linguaspark-server
     '';
 
     serviceConfig = {
