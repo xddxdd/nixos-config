@@ -6,55 +6,6 @@
   inputs,
   ...
 }:
-let
-  # https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada
-  ls-iommu = pkgs.writeShellScriptBin "ls-iommu" ''
-    shopt -s nullglob
-    lastgroup=""
-    for g in `find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V`; do
-        for d in $g/devices/*; do
-            if [ "''${g##*/}" != "$lastgroup" ]; then
-                echo -en "Group ''${g##*/}:\t"
-            else
-                echo -en "\t\t"
-            fi
-            lastgroup=''${g##*/}
-            lspci -nms ''${d##*/} | awk -F'"' '{printf "[%s:%s]", $4, $6}'
-            if [[ -e "$d"/reset ]]; then echo -en " [R] "; else echo -en "     "; fi
-
-            lspci -mms ''${d##*/} | awk -F'"' '{printf "%s %-40s %s\n", $1, $2, $6}'
-            for u in ''${d}/usb*/; do
-                bus=$(cat "''${u}/busnum")
-                lsusb -s $bus: | \
-                    awk '{gsub(/:/,"",$4); printf "%s|%s %s %s %s|", $6, $1, $2, $3, $4; for(i=7;i<=NF;i++){printf "%s ", $i}; printf "\n"}' | \
-                    awk -F'|' '{printf "USB:\t\t[%s]\t\t %-40s %s\n", $1, $2, $3}'
-            done
-        done
-    done
-  '';
-
-  nixos-cleanup = pkgs.writeScriptBin "nixos-cleanup" ''
-    ${config.nix.package}/bin/nix-env -p /nix/var/nix/profiles/system --delete-generations +1
-    ${config.nix.package}/bin/nix-env -p /root/.local/state/nix/profiles/home-manager --delete-generations +1
-    ${config.nix.package}/bin/nix-env -p /home/lantian/.local/state/nix/profiles/home-manager --delete-generations +1
-    ${config.nix.package}/bin/nix-collect-garbage -d
-  '';
-
-  # https://unix.stackexchange.com/a/631226
-  x86-arch-level = pkgs.writeScriptBin "x86-arch-level" ''
-    #!${pkgs.gawk}/bin/awk -f
-
-    BEGIN {
-      while (!/flags/) if (getline < "/proc/cpuinfo" != 1) exit 1
-      if (/lm/&&/cmov/&&/cx8/&&/fpu/&&/fxsr/&&/mmx/&&/syscall/&&/sse2/) level = 1
-      if (level == 1 && /cx16/&&/lahf/&&/popcnt/&&/sse4_1/&&/sse4_2/&&/ssse3/) level = 2
-      if (level == 2 && /avx/&&/avx2/&&/bmi1/&&/bmi2/&&/f16c/&&/fma/&&/abm/&&/movbe/&&/xsave/) level = 3
-      if (level == 3 && /avx512f/&&/avx512bw/&&/avx512cd/&&/avx512dq/&&/avx512vl/) level = 4
-      if (level > 0) { print "CPU supports x86-64-v" level; exit level + 1 }
-      exit 1
-    }
-  '';
-in
 {
   age.secrets.default-pw = {
     file = inputs.secrets + "/default-pw.age";
@@ -107,8 +58,9 @@ in
       mbuffer
       nftables
       nix-tree
-      nixos-cleanup
       nmap
+      nur-xddxdd.lantianCustomized.nixos-cleanup
+      nur-xddxdd.lantianCustomized.x86-arch-level
       openssl
       pciutils
       pigz
@@ -124,7 +76,6 @@ in
       usbutils
       wget
       wireguard-tools
-      x86-arch-level
       zip
       zstd
     ]
@@ -134,7 +85,7 @@ in
         [
           ethtool
           lm_sensors
-          ls-iommu
+          nur-xddxdd.lantianCustomized.ls-iommu
           smartmontools
         ]
       else
