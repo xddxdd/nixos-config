@@ -12,6 +12,7 @@
   "mistral": "mistralai/mistral",
   "openai": "openai",
   "openai-audio": "openai-audio",
+  "openai-fast": "openai-fast",
   "openai-large": "openai-large",
   "phi": "microsoft/phi",
   "qwen-coder": "qwen/qwen-coder",
