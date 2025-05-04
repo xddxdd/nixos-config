@@ -15,11 +15,12 @@ let
     ]
   ];
 
-  volteServices = [
-    "pcscf"
-    "icscf"
-    "scscf"
-  ];
+  volteServices = {
+    "pcscf" = 5060;
+    "icscf" = 4060;
+    "scscf" = 6060;
+    "smsc" = 7090;
+  };
 in
 {
   domains = builtins.map (
@@ -28,7 +29,7 @@ in
       mcc = builtins.elemAt mcc_mnc 0;
       mnc = builtins.elemAt mcc_mnc 1;
 
-      volteRecords = builtins.map (svc: [
+      volteRecords = lib.mapAttrsToList (svc: port: [
         {
           recordType = "A";
           name = "${svc}.ims";
@@ -39,7 +40,7 @@ in
           name = "_sip._udp.${svc}.ims";
           priority = 0;
           weight = 0;
-          port = 5060;
+          inherit port;
           target = "${svc}.ims.mnc${mnc}.mcc${mcc}.3gppnetwork.org.";
         }
         {
@@ -47,7 +48,7 @@ in
           name = "_sip._tcp.${svc}.ims";
           priority = 0;
           weight = 0;
-          port = 5060;
+          inherit port;
           target = "${svc}.ims.mnc${mnc}.mcc${mcc}.3gppnetwork.org.";
         }
       ]) volteServices;
