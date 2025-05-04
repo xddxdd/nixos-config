@@ -109,6 +109,10 @@ let
           iifname "zt*" udp sport 5353 reject
           iifname "zt*" udp dport 5353 reject
 
+          # Block Open5GS Mobile Device DoT traffic
+          iifname "ogstun" tcp dport 853 reject
+          iifname "ogstun" udp dport 853 reject
+
           # Block certain ports from public internet
           iifname @INTERFACE_WAN jump PUBLIC_INPUT
           iifname @INTERFACE_OVERLAY jump PUBLIC_INPUT
@@ -153,6 +157,12 @@ let
     + ''
         ${serverPortForwards}
         ${tnl-buyvm}
+
+        # Hijack Open5GS Mobile Device DNS traffic
+        iifname "ogstun" tcp dport 53 dnat ip to 192.168.0.1:53
+        iifname "ogstun" tcp dport 53 dnat ip6 to [fc00:192:168::1]:53
+        iifname "ogstun" udp dport 53 dnat ip to 192.168.0.1:53
+        iifname "ogstun" udp dport 53 dnat ip6 to [fc00:192:168::1]:53
 
         # Redirect all KMS requests to internal server
         tcp dport ${LT.portStr.KMS} iifname @INTERFACE_LAN dnat ip to 198.19.0.252:${LT.portStr.KMS}
