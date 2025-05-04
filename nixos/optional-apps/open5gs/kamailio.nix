@@ -4,6 +4,7 @@ let
     "icscf"
     "pcscf"
     "scscf"
+    "smsc"
   ];
 
   kamailioPkg = pkgs.kamailio.overrideAttrs (old: {
@@ -12,6 +13,9 @@ let
       "cdp"
       "db_mysql"
       "dialplan"
+      "enum"
+      "http_async_client"
+      "http_client"
       "ims_auth"
       "ims_charging"
       "ims_dialog"
@@ -25,6 +29,9 @@ let
       "ims_registrar_scscf"
       "ims_usrloc_pcscf"
       "ims_usrloc_scscf"
+      "jansson"
+      "json"
+      "nghttp2"
       "outbound"
       "presence_conference"
       "presence_dialoginfo"
@@ -43,6 +50,7 @@ let
       "sctp"
       "tls"
       "utils"
+      "uuid"
       "xcap_client"
       "xcap_server"
       "xmlops"
@@ -50,7 +58,9 @@ let
     ];
 
     buildInputs = (old.buildInputs or [ ]) ++ [
+      pkgs.jansson
       pkgs.libmnl
+      pkgs.libuuid
       pkgs.lksctp-tools
     ];
   });
@@ -62,6 +72,7 @@ in
   environment.etc.kamailio_icscf.source = ./kamailio_icscf;
   environment.etc.kamailio_pcscf.source = ./kamailio_pcscf;
   environment.etc.kamailio_scscf.source = ./kamailio_scscf;
+  environment.etc.kamailio_smsc.source = ./kamailio_smsc;
   environment.etc.kamailio-pkg.source = kamailioPkg;
 
   services.mysql = {
