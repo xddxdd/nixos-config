@@ -27,7 +27,7 @@
   systemd.network.networks.open5gs = {
     address = [
       "192.168.4.1/24"
-      "2001:470:e997:4::1/64"
+      "2001:470:e997:4000::1/52"
     ];
     linkConfig = {
       MTUBytes = 1400;
