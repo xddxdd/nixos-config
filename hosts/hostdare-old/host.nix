@@ -4,7 +4,6 @@
   tags = with tags; [
     qemu
     server
-    x86_64-v1
   ];
   city = geo.cities."US Los Angeles";
   ssh = {

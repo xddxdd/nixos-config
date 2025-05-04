@@ -4,7 +4,6 @@
   tags = with tags; [
     exclude-bgp-mesh
     qemu
-    x86_64-v1
   ];
   cpuThreads = 4;
   city = geo.cities."US Seattle";
