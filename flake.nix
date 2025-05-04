@@ -244,6 +244,18 @@
                   };
                 }).config._dnsconfig_js;
           };
+
+          devshells.default = {
+            packages = [
+              (pkgs.python3.withPackages (
+                ps: with ps; [
+                  telethon
+                  requests
+                  beautifulsoup4
+                ]
+              ))
+            ];
+          };
         };
     };
 }
