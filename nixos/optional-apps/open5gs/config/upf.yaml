@@ -19,10 +19,10 @@ upf:
     server:
       - address: 127.0.0.7
   session:
-    - subnet: 10.45.0.0/16
-      gateway: 10.45.0.1
-    - subnet: 2001:db8:cafe::/48
-      gateway: 2001:db8:cafe::1
+    - subnet: 192.168.4.0/24
+      gateway: 192.168.4.1
+    - subnet: 2001:470:e997:4::/64
+      gateway: 2001:470:e997:4::1
   metrics:
     server:
       - address: 127.0.0.7
