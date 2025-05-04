@@ -3,6 +3,7 @@
   imports = [
     ./kamailio.nix
     ./pyhss.nix
+    ./rtpengine.nix
     ./services.nix
     ./webui.nix
     ../mongodb.nix
@@ -12,7 +13,7 @@
   environment.etc."open5gs-pkg".source = pkgs.open5gs;
 
   networking.hosts = {
-    "127.0.0.8" = [ "hss.ims.mnc010.mcc315.3gppnetwork.org" ];
+    "127.0.0.47" = [ "hss.ims.mnc010.mcc315.3gppnetwork.org" ];
     "127.0.0.9" = [ "pcrf.epc.mnc010.mcc315.3gppnetwork.org" ];
   };
 
