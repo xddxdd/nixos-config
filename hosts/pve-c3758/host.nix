@@ -5,7 +5,6 @@
     exclude-bgp-mesh
     nixpkgs-stable
     server
-    x86_64-v1
   ];
   city = geo.cities."US Seattle";
   hostname = "192.168.0.5";
