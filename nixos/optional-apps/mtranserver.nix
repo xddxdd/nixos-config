@@ -33,14 +33,11 @@ in
       IP = "127.0.0.1";
       PORT = LT.portStr.MTranServer;
       MODELS_DIR = builtins.toString enabledModels;
+      NUM_WORKERS = "4";
     };
 
-    script = ''
-      export NUM_WORKERS=$(${pkgs.coreutils}/bin/nproc)
-      exec ${pkgs.nur-xddxdd.linguaspark-server-x86-64-v3}/bin/linguaspark-server
-    '';
-
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
+      ExecStart = "${pkgs.nur-xddxdd.linguaspark-server-x86-64-v3}/bin/linguaspark-server";
       User = "mtranserver";
       Group = "mtranserver";
 
