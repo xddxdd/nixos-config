@@ -134,20 +134,31 @@ def get_models_github_models(api_name: str) -> List[str]:
 
 def get_models_google(api_name: str) -> List[str]:
     secret = get_api_secret(api_name)
+    results: list[str] = []
+    page_token = None
+    while True:
+        r = urllib.request.Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models?key={secret}"
+            + (f"&pageToken={page_token}" if page_token else ""),
+            method="GET",
+            headers={
+                "User-Agent": USER_AGENT,
+            },
+        )
+        content = urllib.request.urlopen(r).read()
 
-    r = urllib.request.Request(
-        f"https://generativelanguage.googleapis.com/v1beta/models?key={secret}",
-        method="GET",
-        headers={
-            "User-Agent": USER_AGENT,
-        },
-    )
-    content = urllib.request.urlopen(r).read()
+        page = json.loads(content)
+        # Remove "models/" prefix
+        # uni-api only supports Gemini models
+        results.extend(
+            [m["name"][7:] for m in page["models"] if "models/gemini" in m["name"]]
+        )
 
-    models = json.loads(content)
-    # Remove "models/" prefix
-    # uni-api only supports Gemini models
-    return [m["name"][7:] for m in models["models"] if "models/gemini" in m["name"]]
+        page_token = page.get("nextPageToken")
+        if not page_token:
+            break
+
+    return results
 
 
 def get_models_cloudflare(api_name: str) -> List[str]:
