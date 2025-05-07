@@ -4,168 +4,152 @@
   ...
 }:
 let
-  loadModels = providerName: f: loadModels' providerName (lib.importJSON f);
-  loadModels' =
-    providerName:
-    lib.mapAttrsToList (
-      k: v: {
-        "${k}" =
-          if providerName == null then
-            v
-          else if lib.hasInfix ":" v then
-            lib.replaceStrings [ ":" ] [ ":${providerName}-" ] v
-          else
-            "${v}:${providerName}";
-      }
-    );
+  modelOptions =
+    { config, ... }:
+    {
+      options = {
+        name = lib.mkOption {
+          type = lib.types.str;
+        };
+        baseURL = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+        };
+        apiKeyPath = lib.mkOption {
+          type = lib.types.str;
+        };
+        cloudflareAccountIdPath = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+        };
+        modelJsonFile = lib.mkOption {
+          type = lib.types.path;
+          default = ./apis + "/${config.name}.json";
+        };
+        modelSuffix = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = config.name;
+        };
+
+        models = lib.mkOption {
+          readOnly = true;
+          default = lib.mapAttrs (
+            _k: v:
+            if config.modelSuffix == null then
+              v
+            else if lib.hasInfix ":" v then
+              lib.replaceStrings [ ":" ] [ ":${config.modelSuffix}-" ] v
+            else
+              "${v}:${config.modelSuffix}"
+          ) (lib.importJSON config.modelJsonFile);
+        };
+      };
+    };
 in
 {
-  providers = [
+  options.lantian.llm-providers = lib.mkOption {
+    type = lib.types.listOf (lib.types.submodule modelOptions);
+    default = [ ];
+  };
+
+  config.lantian.llm-providers = [
     # Free providers
     {
-      provider = "groq";
-      base_url = "https://api.groq.com/openai/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-groq-api-key.path;
-      };
-      model = loadModels null ./apis/groq.json;
+      name = "groq";
+      baseURL = "https://api.groq.com/openai/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-groq-api-key.path;
+      modelSuffix = null;
     }
     {
-      provider = "mistral";
-      base_url = "https://api.mistral.ai/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-mistral-api-key.path;
-      };
-      model = loadModels null ./apis/mistral.json;
+      name = "mistral";
+      baseURL = "https://api.mistral.ai/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-mistral-api-key.path;
+      modelSuffix = null;
     }
     {
-      provider = "gemini";
-      base_url = "https://generativelanguage.googleapis.com/v1beta";
-      api = {
-        _secret = config.age.secrets.uni-api-google-api-key.path;
-      };
-      model = loadModels null ./apis/google.json;
+      name = "gemini";
+      baseURL = "https://generativelanguage.googleapis.com/v1beta";
+      apiKeyPath = config.age.secrets.uni-api-google-api-key.path;
+      modelJsonFile = ./apis/google.json;
+      modelSuffix = null;
     }
     {
       # $150 free credit per month
-      provider = "xai";
-      base_url = "https://api.x.ai/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-xai-api-key.path;
-      };
-      model = loadModels null ./apis/xai.json;
+      name = "xai";
+      baseURL = "https://api.x.ai/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-xai-api-key.path;
+      modelSuffix = null;
     }
     {
-      provider = "cloudflare";
-      api = {
-        _secret = config.age.secrets.uni-api-cloudflare-api-key.path;
-      };
-      cf_account_id = {
-        _secret = config.age.secrets.uni-api-cloudflare-account-id.path;
-      };
+      name = "cloudflare";
+      baseURL = null;
+      apiKeyPath = config.age.secrets.uni-api-cloudflare-api-key.path;
+      cloudflareAccountIdPath = config.age.secrets.uni-api-cloudflare-account-id.path;
       # Latency is high
-      model = loadModels "cloudflare" ./apis/cloudflare.json;
+      modelSuffix = "cloudflare";
     }
     {
-      provider = "github-models";
-      base_url = "https://models.inference.ai.azure.com/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-github-models-api-key.path;
-      };
-      model = loadModels null ./apis/github-models.json;
+      name = "github-models";
+      baseURL = "https://models.inference.ai.azure.com/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-github-models-api-key.path;
+      modelSuffix = null;
     }
     {
-      provider = "lingyiwanwu";
-      base_url = "https://api.lingyiwanwu.com/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-lingyiwanwu-api-key.path;
-      };
-      model = loadModels "lingyiwanwu" ./apis/lingyiwanwu.json;
+      name = "lingyiwanwu";
+      baseURL = "https://api.lingyiwanwu.com/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-lingyiwanwu-api-key.path;
     }
     {
-      provider = "chutes-ai";
-      base_url = "https://llm.chutes.ai/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-chutes-ai-api-key.path;
-      };
-      model = loadModels "chutes-ai" ./apis/chutes-ai.json;
+      name = "chutes-ai";
+      baseURL = "https://llm.chutes.ai/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-chutes-ai-api-key.path;
     }
     {
-      provider = "pollinations";
-      base_url = "https://text.pollinations.ai/openai/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-chutes-ai-api-key.path;
-      };
-      model = loadModels "pollinations" ./apis/pollinations.json;
+      name = "pollinations";
+      baseURL = "https://text.pollinations.ai/openai/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-chutes-ai-api-key.path;
     }
     {
-      provider = "akash-networks";
-      base_url = "https://chatapi.akash.network/api/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-akash-networks-api-key.path;
-      };
-      model = loadModels "akash-networks" ./apis/akash-networks.json;
+      name = "akash-networks";
+      baseURL = "https://chatapi.akash.network/api/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-akash-networks-api-key.path;
     }
     {
-      provider = "modelscope";
-      base_url = "https://api-inference.modelscope.cn/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-modelscope-api-key.path;
-      };
-      model = loadModels "modelscope" ./apis/modelscope.json;
+      name = "modelscope";
+      baseURL = "https://api-inference.modelscope.cn/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-modelscope-api-key.path;
     }
     {
-      provider = "nvidia";
-      base_url = "https://integrate.api.nvidia.com/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-nvidia-api-key.path;
-      };
-      model = loadModels "nvidia" ./apis/nvidia.json;
+      name = "nvidia";
+      baseURL = "https://integrate.api.nvidia.com/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-nvidia-api-key.path;
     }
     {
       # https://docs.api.ecylt.top/wbot/wbot-4-347b
-      provider = "wbot";
-      base_url = "https://api.223387.xyz/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-wbot-api-key.path;
-      };
-      model = loadModels null ./apis/wbot.json;
+      name = "wbot";
+      baseURL = "https://api.223387.xyz/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-wbot-api-key.path;
+      modelSuffix = null;
     }
     # Third party free providers
     {
-      provider = "ai-985-games";
-      base_url = "https://ai.985.games/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-ai-985-games-api-key.path;
-      };
-      model = loadModels null ./apis/ai-985-games.json;
+      name = "ai-985-games";
+      baseURL = "https://ai.985.games/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-ai-985-games-api-key.path;
+      modelSuffix = null;
     }
 
     # Paid providers
     {
-      provider = "openrouter";
-      base_url = "https://openrouter.ai/api/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-openrouter-api-key.path;
-      };
-      model = loadModels null ./apis/openrouter.json;
+      name = "openrouter";
+      baseURL = "https://openrouter.ai/api/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-openrouter-api-key.path;
+      modelSuffix = null;
     }
     {
-      provider = "siliconflow";
-      base_url = "https://api.siliconflow.cn/v1/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-siliconflow-api-key.path;
-      };
+      name = "siliconflow";
+      baseURL = "https://api.siliconflow.cn/v1/chat/completions";
+      apiKeyPath = config.age.secrets.uni-api-siliconflow-api-key.path;
       # Siliconflow may truncate long responses
-      model = loadModels "siliconflow" ./apis/siliconflow.json;
-    }
-  ];
-  api_keys = [
-    {
-      api = {
-        _secret = config.age.secrets.uni-api-admin-api-key.path;
-      };
-      role = "admin";
     }
   ];
 }
