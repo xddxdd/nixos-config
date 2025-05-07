@@ -161,15 +161,6 @@ in
       # Siliconflow may truncate long responses
       model = loadModels "siliconflow" ./apis/siliconflow.json;
     }
-    {
-      provider = "novita";
-      base_url = "https://api.novita.ai/v3/openai/chat/completions";
-      api = {
-        _secret = config.age.secrets.uni-api-novita-api-key.path;
-      };
-      # Novita is expensive
-      model = loadModels "novita" ./apis/novita.json;
-    }
   ];
   api_keys = [
     {
