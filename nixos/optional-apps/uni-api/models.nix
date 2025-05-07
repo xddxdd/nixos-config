@@ -115,6 +115,14 @@ in
       model = loadModels "modelscope" ./apis/modelscope.json;
     }
     {
+      provider = "nvidia";
+      base_url = "https://integrate.api.nvidia.com/v1/chat/completions";
+      api = {
+        _secret = config.age.secrets.uni-api-nvidia-api-key.path;
+      };
+      model = loadModels "nvidia" ./apis/nvidia.json;
+    }
+    {
       # https://docs.api.ecylt.top/wbot/wbot-4-347b
       provider = "wbot";
       base_url = "https://api.223387.xyz/v1/chat/completions";
@@ -132,16 +140,6 @@ in
       };
       model = loadModels null ./apis/ai-985-games.json;
     }
-    # # Provider blocked connection from outside China
-    # {
-    #   provider = "siliconflow-pool";
-    #   base_url = "http://api.888188.me/v1/chat/completions";
-    #   api = {
-    #     _secret = config.age.secrets.uni-api-siliconflow-pool-api-key.path;
-    #   };
-    #   # Siliconflow may truncate long responses
-    #   model = loadModels "siliconflow" ./apis/siliconflow.json;
-    # }
 
     # Paid providers
     {

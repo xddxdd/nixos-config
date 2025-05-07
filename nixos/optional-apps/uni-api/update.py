@@ -26,6 +26,7 @@ APIS = {
     "lingyiwanwu": "https://api.lingyiwanwu.com/v1",
     "mistral": "https://api.mistral.ai/v1",
     "modelscope": "https://api-inference.modelscope.cn/v1",
+    "nvidia": "https://integrate.api.nvidia.com/v1",
     "openrouter": "https://openrouter.ai/api/v1",
     "pollinations": "https://text.pollinations.ai/openai",
     "siliconflow": "https://api.siliconflow.cn/v1",
