@@ -8,9 +8,39 @@
   ...
 }:
 let
-  cfg = import ./models.nix { inherit lib config; };
+  uniApiConfig = {
+    providers = builtins.map (
+      v:
+      {
+        provider = v.name;
+        model = lib.mapAttrsToList (k: v: {
+          "${k}" = v;
+        }) v.models;
+      }
+      // (lib.optionalAttrs (v.baseURL != null) {
+        base_url = v.baseURL;
+      })
+      // (lib.optionalAttrs (v.apiKeyPath != null) {
+        api._secret = v.apiKeyPath;
+      })
+      // (lib.optionalAttrs (v.cloudflareAccountIdPath != null) {
+        cf_account_id._secret = v.cloudflareAccountIdPath;
+      })
+    ) config.lantian.llm-providers;
+
+    api_keys = [
+      {
+        api = {
+          _secret = config.age.secrets.uni-api-admin-api-key.path;
+        };
+        role = "admin";
+      }
+    ];
+  };
 in
 {
+  imports = [ ./models.nix ];
+
   age.secrets = builtins.listToAttrs (
     builtins.map
       (
@@ -55,7 +85,7 @@ in
     };
 
     script = ''
-      ${utils.genJqSecretsReplacementSnippet cfg "api.yaml"}
+      ${utils.genJqSecretsReplacementSnippet uniApiConfig "api.yaml"}
       exec ${pkgs.nur-xddxdd.uni-api}/bin/uni-api
     '';
 
