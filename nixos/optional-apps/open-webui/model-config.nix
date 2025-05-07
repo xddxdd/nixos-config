@@ -95,18 +95,17 @@ let
     else
       "";
 
-  modelsCfg = import ../uni-api/models.nix { inherit lib config; };
   models = lib.unique (
     lib.flatten (
-      builtins.map (
-        provider: builtins.map (model: builtins.head (builtins.attrValues model)) provider.model
-      ) modelsCfg.providers
+      builtins.map (provider: builtins.attrValues provider.models) config.lantian.llm-providers
     )
   );
 
   sqlFile = pkgs.writeText "open-webui-setup.sql" (lib.concatMapStrings mkSQLForModel models);
 in
 {
+  imports = [ ../uni-api/models.nix ];
+
   systemd.services.open-webui-auto-setup = {
     description = "Auto set Open WebUI model configs";
     wantedBy = [ "multi-user.target" ];
