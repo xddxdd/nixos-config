@@ -96,15 +96,20 @@ NORMALIZE_MODEL_PREFIX_MAP = {
 }
 
 
-def get_api_secret(api_name: str) -> Optional[str]:
+def get_api_secret(api_name_or_filename: str) -> Optional[str]:
     try:
+        filename = (
+            api_name_or_filename
+            if api_name_or_filename.endswith(".age")
+            else f"{api_name_or_filename}-api-key.age"
+        )
         secret = subprocess.check_output(
             [
                 "age",
                 "-i",
                 f"{HOME}/.ssh/id_ed25519",
                 "-d",
-                f"{SECRET_BASE}/uni-api/{api_name}-api-key.age",
+                f"{SECRET_BASE}/uni-api/{filename}",
             ],
             text=True,
         ).strip()
@@ -146,28 +151,18 @@ def get_models_google(api_name: str) -> List[str]:
 
 
 def get_models_cloudflare(api_name: str) -> List[str]:
-    try:
-        r = urllib.request.Request(
-            f"https://playground.ai.cloudflare.com/api/models",
-            method="GET",
-            headers={
-                "User-Agent": USER_AGENT,
-            },
-        )
-        content = urllib.request.urlopen(r).read()
-        models = json.loads(content)
-        with open(
-            os.path.join(os.path.dirname(__file__), "models_json/cloudflare.json"), "w"
-        ) as f:
-            json.dump(models, f)
-    except Exception as e:
-        print(f"Error with get Cloudflare models, using cached models: {e}")
+    account_id = get_api_secret("cloudflare-account-id.age")
+    api_key = get_api_secret("cloudflare-api-key.age")
 
-    with open(
-        os.path.join(os.path.dirname(__file__), "models_json/cloudflare.json")
-    ) as f:
-        models = json.load(f)
-    return [m["name"] for m in models["models"]]
+    r = urllib.request.Request(
+        f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/models/search",
+        method="GET",
+        headers={"Authorization": f"Bearer {api_key}"},
+    )
+    content = urllib.request.urlopen(r).read()
+
+    models = json.loads(content)
+    return [m["name"] for m in models["result"]]
 
 
 def get_models_local(api_name: str) -> List[str]:
