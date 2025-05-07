@@ -13,20 +13,18 @@ let
       v:
       {
         provider = v.name;
+        api = if v.apiKeyPath != null then { _secret = v.apiKeyPath; } else "sk-123456";
         model = lib.mapAttrsToList (k: v: {
           "${k}" = v;
-        }) v.models;
+        }) v._models;
       }
       // (lib.optionalAttrs (v.baseURL != null) {
         base_url = v.baseURL;
       })
-      // (lib.optionalAttrs (v.apiKeyPath != null) {
-        api._secret = v.apiKeyPath;
-      })
       // (lib.optionalAttrs (v.cloudflareAccountIdPath != null) {
         cf_account_id._secret = v.cloudflareAccountIdPath;
       })
-    ) config.lantian.llm-providers;
+    ) (builtins.sort (a: b: a._score < b._score) config.lantian.llm-providers);
 
     api_keys = [
       {
