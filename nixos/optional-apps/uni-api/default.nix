@@ -34,7 +34,6 @@ in
         "lingyiwanwu-api-key"
         "mistral-api-key"
         "modelscope-api-key"
-        "novita-api-key"
         "openrouter-api-key"
         "siliconflow-api-key"
         "siliconflow-pool-api-key"
