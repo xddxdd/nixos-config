@@ -1,6 +1,7 @@
 {
   "ArliAI/QwQ-32B-ArliAI-RpR-v1": "arliai/qwq-32b-arliai-rpr-v1",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
+  "NousResearch/DeepHermes-3-Mistral-24B-Preview": "nousresearch/deephermes-3-mistral-24b-preview",
   "Qwen/QwQ-32B": "qwen/qwq-32b",
   "Qwen/QwQ-32B-Preview": "qwen/qwq-32b-preview",
   "Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct",
@@ -10,7 +11,6 @@
   "Qwen/Qwen2.5-VL-72B-Instruct": "qwen/qwen-2.5-vl-72b-instruct",
   "Qwen/Qwen2.5-VL-7B-Instruct": "qwen/qwen-2.5-vl-7b-instruct",
   "Qwen/Qwen3-14B": "qwen/qwen-3-14b",
-  "Qwen/Qwen3-235B-A22B": "qwen/qwen-3-235b-a22b",
   "Qwen/Qwen3-30B-A3B": "qwen/qwen-3-30b-a3b",
   "Qwen/Qwen3-32B": "qwen/qwen-3-32b",
   "Qwen/Qwen3-8B": "qwen/qwen-3-8b",

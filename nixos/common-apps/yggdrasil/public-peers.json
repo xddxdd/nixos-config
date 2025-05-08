@@ -39,6 +39,7 @@
   ],
   "germany": [
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
+    "tls://de-fsn-1.peer.v4.yggdrasil.chaz6.com:4444",
     "tls://helium.avevad.com:1337",
     "tls://s-fra-0.sergeysedoy97.ru:65534",
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
@@ -77,7 +78,6 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://193.124.9.204:29331",
-    "tls://195.2.74.155:7992",
     "tls://195.58.51.167:7992",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
@@ -92,7 +92,6 @@
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
     "tls://kzn1.neonxp.ru:7992",
-    "tls://msk1.neonxp.ru:7992",
     "tls://s-mow-0.sergeysedoy97.ru:65534",
     "tls://s-mow-1.sergeysedoy97.ru:65534",
     "tls://srv.itrus.su:7992",
@@ -100,9 +99,6 @@
     "tls://x-mow-1.sergeysedoy97.ru:65534",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
-  ],
-  "singapore": [
-    "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
     "tls://[2a04:5b81:2011:1:dea6:32ff:fe0b:b610]:2001",
