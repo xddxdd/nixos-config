@@ -71,17 +71,6 @@ let
         --set WAYLAND_DISPLAY ""
     ''
   );
-
-  # Fix Continue.dev extension
-  vscode-wrapped = lib.hiPrio (
-    pkgs.runCommand "vscode-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
-      mkdir -p $out/bin
-      makeWrapper \
-        ${pkgs.vscode}/bin/code \
-        $out/bin/code \
-        --prefix LD_LIBRARY_PATH : "${pkgs.stdenv.cc.cc.lib}/lib"
-    ''
-  );
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
@@ -106,6 +95,7 @@ in
         bzip2
         calibre
         calibre-override-desktop
+        code-cursor
         colmena
         dbeaver-bin
         discord
@@ -184,7 +174,6 @@ in
         vlc
         vopono
         vscode
-        vscode-wrapped
         winetricks
         wpsoffice
         xca
