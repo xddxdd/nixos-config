@@ -16,6 +16,12 @@ in
     "nvidia_vgpu_vfio"
   ];
 
+  environment.etc."vgpu_unlock/profile_override.toml".text = ''
+    [profile.nvidia-51]
+    cuda_enabled = 1
+    frl_enabled = 0
+  '';
+
   systemd.services."nvidia-persistenced".enable = lib.mkForce false;
 
   systemd.services."nvidia-vgpud" = {
