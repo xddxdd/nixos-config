@@ -45,6 +45,7 @@ in
         innodb_lock_wait_timeout = 100;
         innodb_read_only_compressed = 0;
         innodb_use_native_aio = false;
+        max_connections = 10000;
         performance_schema = false;
       };
 
