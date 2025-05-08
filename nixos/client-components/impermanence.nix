@@ -35,6 +35,7 @@
           ".aws"
           ".conda"
           ".continue"
+          ".cursor"
           ".fly"
           ".ghidra"
           ".kde4"
