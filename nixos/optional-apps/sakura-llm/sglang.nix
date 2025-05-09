@@ -27,6 +27,8 @@
     volumes = [
       "/var/cache/huggingface:/root/.cache/huggingface"
       "/var/cache/torchinductor:/var/cache/torchinductor"
+      # Fix nvidia-smi cannot find ld-linux issue
+      "${config.hardware.nvidia.package.stdenv.cc.libc.out}:${config.hardware.nvidia.package.stdenv.cc.libc.out}:ro"
     ];
     cmd = [
       "python3"
@@ -69,6 +71,7 @@
   };
 
   systemd.services.sglang-sakura-llm-watchdog = {
+    enable = false;
     wantedBy = [ "multi-user.target" ];
     after = [ "podman-sglang-sakura-llm.service" ];
     requires = [ "podman-sglang-sakura-llm.service" ];
@@ -96,6 +99,7 @@
   };
 
   systemd.timers.sglang-sakura-llm-watchdog = {
+    enable = false;
     wantedBy = [ "timers.target" ];
     after = [ "podman-sglang-sakura-llm.service" ];
     requires = [ "podman-sglang-sakura-llm.service" ];
