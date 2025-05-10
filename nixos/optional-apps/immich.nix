@@ -69,8 +69,14 @@
     };
 
     systemd.services.immich-server = {
-      after = [ "run-immich.mount" ];
-      requires = [ "run-immich.mount" ];
+      after = [
+        "run-immich.mount"
+        "redis-immich.service"
+      ];
+      requires = [
+        "run-immich.mount"
+        "redis-immich.service"
+      ];
     };
 
     systemd.tmpfiles.rules = [

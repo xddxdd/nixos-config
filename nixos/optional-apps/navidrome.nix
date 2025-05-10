@@ -21,10 +21,16 @@
     };
   };
 
-  systemd.services.navidrome.path = [
-    pkgs.ffmpeg
-    pkgs.mpv
-  ];
+  systemd.services.navidrome = {
+    path = [
+      pkgs.ffmpeg
+      pkgs.mpv
+    ];
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 5;
+    };
+  };
 
   lantian.nginxVhosts = {
     "navidrome.${config.networking.hostName}.xuyh0120.win" = {
