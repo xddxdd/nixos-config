@@ -12,6 +12,7 @@ let
     set -euo pipefail
     npm install --save waline-plugin-llm-reviewer waline-notification-telegram-bot
     cp ${configScript} node_modules/@waline/vercel/config.js
+    sed -i "s/logSql: true/logSql: false/g" node_modules/@waline/vercel/src/config/adapter.js
     exec node node_modules/@waline/vercel/vanilla.js
   '';
 in
