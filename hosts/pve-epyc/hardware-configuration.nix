@@ -61,5 +61,6 @@
     script = ''
       nvidia-smi -pl 125
     '';
+    serviceConfig.Type = "oneshot";
   };
 }
