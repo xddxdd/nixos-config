@@ -12,6 +12,7 @@
   "llama3-8b-8192": "meta-llama/llama-3-8b-8192",
   "meta-llama/llama-4-maverick-17b-128e-instruct": "meta-llama/llama-4-maverick-17b-128e-instruct",
   "meta-llama/llama-4-scout-17b-16e-instruct": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "meta-llama/llama-guard-4-12b": "meta-llama/llama-guard-4-12b",
   "mistral-saba-24b": "mistralai/mistral-saba-24b",
   "playai-tts": "playai-tts",
   "playai-tts-arabic": "playai-tts-arabic",
