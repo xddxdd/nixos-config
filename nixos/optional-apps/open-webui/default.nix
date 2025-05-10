@@ -126,6 +126,8 @@
       DynamicUser = lib.mkForce false;
       User = "open-webui";
       Group = "open-webui";
+      Restart = "always";
+      RestartSec = "3";
     };
   };
   users.users.open-webui = {

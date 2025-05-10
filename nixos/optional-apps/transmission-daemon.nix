@@ -33,6 +33,11 @@
     };
   };
 
+  systemd.services.transmission.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
+
   lantian.nginxVhosts = {
     "transmission.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
