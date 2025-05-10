@@ -17,10 +17,8 @@
     routes = [
       {
         # Special config since gateway isn't in subnet
-        routeConfig = {
-          Gateway = "2605:6400:30::1";
-          GatewayOnLink = true;
-        };
+        Gateway = "2605:6400:30::1";
+        GatewayOnLink = true;
       }
     ];
     matchConfig.Name = "eth0";
