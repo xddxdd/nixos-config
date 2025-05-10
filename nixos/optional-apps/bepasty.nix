@@ -63,5 +63,8 @@ in
           -k gevent
       ''
     );
+
+    Restart = "always";
+    RestartSec = 5;
   };
 }

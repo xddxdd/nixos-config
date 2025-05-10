@@ -10,6 +10,8 @@
       User = "root";
       ExecStart = "${pkgs.android-tools}/bin/adb start-server";
       ExecStop = "${pkgs.android-tools}/bin/adb kill-server";
+      Restart = "always";
+      RestartSec = 5;
     };
   };
 

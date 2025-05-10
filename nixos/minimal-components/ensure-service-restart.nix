@@ -2,8 +2,12 @@
 let
   ignored = [
     "acpid"
+    "bluetooth"
     "enable-ksm"
+    "openvpn-restart"
+    "polkit"
     "reload-systemd-vconsole-setup"
+    "rtkit-daemon"
   ];
 
   hasRestart =
@@ -14,6 +18,8 @@ let
     || builtins.elem n ignored
     # Ignore services with at sign
     || lib.hasInfix "@" n
+    # Ignore services part of sockets
+    || builtins.elem n (builtins.attrNames config.systemd.sockets)
     # Ignore services part of timers
     || builtins.elem n (builtins.attrNames config.systemd.timers)
     # Ignore disabled services
