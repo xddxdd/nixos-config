@@ -16,6 +16,8 @@ let
   '';
 in
 {
+  imports = [ ../postgresql.nix ];
+
   age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
 
   lantian.nginxVhosts = {
@@ -35,17 +37,55 @@ in
     };
   };
 
+  services.postgresql = {
+    ensureDatabases = [ "waline" ];
+    ensureUsers = [
+      {
+        name = "waline";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   virtualisation.oci-containers.containers = {
     waline = {
-      extraOptions = [ "--pull=always" ];
+      extraOptions = [
+        "--pull=always"
+        "--uidmap=0:65532:1"
+        "--gidmap=0:65532:1"
+      ];
       image = "lizheming/waline";
       ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.Waline}:8360" ];
+      environment = {
+        PG_DB = "waline";
+        PG_USER = "waline";
+        PG_PASSWORD = "";
+        PG_PORT = "5432";
+        PG_HOST = "/run/postgresql";
+
+        SITE_NAME = "Lan Tian @ Blog";
+        SITE_URL = "https://lantian.pub";
+        AKISMET_KEY = "false";
+      };
       environmentFiles = [ config.age.secrets.waline-env.path ];
       volumes = [
         "${configScript}:${configScript}:ro"
         "${startupScript}:${startupScript}:ro"
+        "/run/postgresql:/run/postgresql"
       ];
       entrypoint = "${startupScript}";
     };
   };
+
+  systemd.services.podman-waline = {
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
+  };
+
+  users.users.waline = {
+    group = "waline";
+    isSystemUser = true;
+    uid = 65532;
+  };
+  users.groups.waline.gid = 65532;
 }
