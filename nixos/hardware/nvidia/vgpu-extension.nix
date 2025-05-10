@@ -37,6 +37,7 @@ in
 
     serviceConfig = {
       Type = "forking";
+      Restart = "no";
       ExecStart = "-${nvidia_x11.bin}/bin/nvidia-vgpud --verbose";
       ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpud";
     };
