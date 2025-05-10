@@ -36,7 +36,13 @@ in
     serverOption = if config.networking.networkmanager.enable then "offline" else "iburst";
   };
 
-  systemd.services.chronyd.restartIfChanged = !config.networking.networkmanager.enable;
+  systemd.services.chronyd = {
+    restartIfChanged = !config.networking.networkmanager.enable;
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 5;
+    };
+  };
 
   networking.networkmanager.dispatcherScripts = [
     {

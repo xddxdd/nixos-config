@@ -163,6 +163,8 @@ in
       User = "nginx";
       Group = "nginx";
       RuntimeDirectory = "v2ray";
+      Restart = "always";
+      RestartSec = 5;
     };
   };
 }

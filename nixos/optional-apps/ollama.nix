@@ -19,6 +19,11 @@
     };
   };
 
+  systemd.services.ollama.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
+
   lantian.nginxVhosts = {
     "ollama.${config.networking.hostName}.xuyh0120.win" = {
       locations."/" = {
