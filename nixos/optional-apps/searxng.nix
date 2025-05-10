@@ -29,6 +29,15 @@
     };
   };
 
+  systemd.services.uwsgi = {
+    after = [ "redis-searx.service" ];
+    requires = [ "redis-searx.service" ];
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 5;
+    };
+  };
+
   users.groups.searx.members = [ "nginx" ];
 
   lantian.nginxVhosts."searx.xuyh0120.win" = {

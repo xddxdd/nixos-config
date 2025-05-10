@@ -1,0 +1,49 @@
+{ config, lib, ... }:
+let
+  ignored = [
+    "acpid"
+    "enable-ksm"
+    "reload-systemd-vconsole-setup"
+  ];
+
+  hasRestart =
+    n: v:
+    # Check restart setting
+    (v.serviceConfig.Restart or "") != ""
+    # Ignore services explicitly set as ignored
+    || builtins.elem n ignored
+    # Ignore services with at sign
+    || lib.hasInfix "@" n
+    # Ignore services part of timers
+    || builtins.elem n (builtins.attrNames config.systemd.timers)
+    # Ignore disabled services
+    || !(v.enable or true)
+    # Ignore services without ExecStart (might be managed externally)
+    || ((v.serviceConfig.ExecStart or "") == "")
+    # Ignore oneshot or dbus activated services
+    || (builtins.elem (v.serviceConfig.Type or "") [
+      "oneshot"
+      "dbus"
+    ]);
+
+  servicesWithRestart = lib.filterAttrs hasRestart config.systemd.services;
+  requiredByServicesWithRestart = lib.flatten (
+    lib.mapAttrsToList (_n: v: (v.requires or [ ]) ++ (v.wants or [ ])) servicesWithRestart
+  );
+  requiresServicesWithRestart = builtins.attrNames (
+    lib.filterAttrs (
+      _n: v:
+      ((lib.intersectLists (v.requiredBy or [ ]) (builtins.attrNames servicesWithRestart)) != [ ])
+      || ((lib.intersectLists (v.wantedBy or [ ]) (builtins.attrNames servicesWithRestart)) != [ ])
+    ) config.systemd.services
+  );
+in
+{
+  assertions = lib.mapAttrsToList (n: v: {
+    assertion =
+      hasRestart n v
+      || builtins.elem "${n}.service" requiredByServicesWithRestart
+      || builtins.elem n requiresServicesWithRestart;
+    message = "${n} does not have Restart attribute set";
+  }) config.systemd.services;
+}
