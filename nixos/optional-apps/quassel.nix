@@ -13,5 +13,7 @@
   systemd.services.quassel.serviceConfig = LT.serviceHarden // {
     StateDirectory = "quassel";
     MemoryDenyWriteExecute = false;
+    Restart = "always";
+    RestartSec = 5;
   };
 }

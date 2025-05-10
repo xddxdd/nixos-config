@@ -17,4 +17,12 @@ in
 
   systemd.services.pvedaemon.path = extraPath;
   systemd.services.pve-guests.path = extraPath;
+  systemd.services.pvescheduler.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
+  systemd.services.qmeventd.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
 }

@@ -73,5 +73,8 @@
     '';
   };
 
-  systemd.services.dae.wantedBy = lib.mkForce [ ];
+  systemd.services.dae = {
+    wantedBy = lib.mkForce [ ];
+    serviceConfig.Restart = "no";
+  };
 }

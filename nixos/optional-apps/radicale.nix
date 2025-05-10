@@ -9,6 +9,11 @@
     };
   };
 
+  systemd.services.radicale.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
+
   lantian.nginxVhosts."cal.xuyh0120.win" = {
     locations = {
       "/" = {

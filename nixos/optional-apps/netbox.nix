@@ -48,8 +48,16 @@
     noIndex.enable = true;
   };
 
-  systemd.services.netbox.serviceConfig = LT.serviceHarden;
-  systemd.services.netbox-rq.serviceConfig = LT.serviceHarden;
+  systemd.services.netbox = {
+    after = [ "redis-netbox.service" ];
+    requires = [ "redis-netbox.service" ];
+    serviceConfig = LT.serviceHarden;
+  };
+  systemd.services.netbox-rq = {
+    after = [ "redis-netbox.service" ];
+    requires = [ "redis-netbox.service" ];
+    serviceConfig = LT.serviceHarden;
+  };
 
   users.groups.netbox.members = [ "nginx" ];
 }
