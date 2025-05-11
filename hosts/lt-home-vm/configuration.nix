@@ -15,6 +15,7 @@
     ../../nixos/client-components/cups.nix
 
     ../../nixos/optional-apps/archiveteam.nix
+    ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/bxcq3.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
