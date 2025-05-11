@@ -117,13 +117,6 @@ let
           r8125 = pkgs.nur-xddxdd.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.nur-xddxdd.r8168.override { inherit (final) kernel; };
           xt_rtpengine = pkgs.nur-xddxdd.xt_rtpengine.override { inherit (final) kernel; };
-
-          nvidia_x11_grid_16_10 = pkgs.nur-xddxdd.nvidia-grid.grid."16_10".override {
-            inherit (final) kernel;
-          };
-          nvidia_x11_vgpu_16_10 = pkgs.nur-xddxdd.nvidia-grid.vgpu."16_10".override {
-            inherit (final) kernel;
-          };
         }
       ))
       [
