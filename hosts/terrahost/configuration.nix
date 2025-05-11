@@ -5,7 +5,6 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nginx-lab
