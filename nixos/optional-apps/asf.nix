@@ -1,20 +1,13 @@
 { LT, ... }:
 {
-  virtualisation.oci-containers.containers = {
-    asf = {
-      extraOptions = [ "--pull=always" ];
-      image = "justarchi/archisteamfarm:released";
-      ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242" ];
-      volumes = [
-        "/var/lib/asf/config:/app/config"
-        "/var/lib/asf/plugins:/app/plugins"
-      ];
-    };
-    gameshub = {
-      extraOptions = [ "--pull=always" ];
-      image = "lupohan44/games_hub";
-      volumes = [ "/var/lib/gameshub:/home/wd" ];
-    };
+  virtualisation.oci-containers.containers.asf = {
+    extraOptions = [ "--pull=always" ];
+    image = "justarchi/archisteamfarm:released";
+    ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242" ];
+    volumes = [
+      "/var/lib/asf/config:/app/config"
+      "/var/lib/asf/plugins:/app/plugins"
+    ];
   };
 
   systemd.tmpfiles.rules = [
