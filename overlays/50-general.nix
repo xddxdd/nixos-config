@@ -3,9 +3,6 @@ let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 rec {
-  brlaser = prev.brlaser.overrideAttrs (_old: {
-    inherit (sources.brlaser) version src;
-  });
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/colmena-disable-pure-eval.patch ];
   });
@@ -32,21 +29,11 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
   });
-  matrix-sliding-sync = prev.matrix-sliding-sync.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/matrix-sliding-sync-listen-unix.patch ];
-  });
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-synapse-listen-unix.patch ];
     doCheck = false;
     doInstallCheck = false;
-  });
-  mtdutils = prev.mtdutils.overrideAttrs (old: {
-    postFixup =
-      (old.postFixup or "")
-      + ''
-        sed -i "s#/bin/mount#${final.util-linux}/bin/mount#g" $out/bin/mount.ubifs
-      '';
   });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
@@ -110,9 +97,6 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
-  # sshfs = prev.sshfs.override {
-  #   callPackage = path: args: final.callPackage path (args // {openssh = openssh_hpn;});
-  # };
   tinc_pre = prev.tinc_pre.overrideAttrs (old: {
     buildInputs = (old.buildInputs or [ ]) ++ [ final.miniupnpc ];
     configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-miniupnpc" ];
@@ -129,12 +113,5 @@ rec {
         pytz
         simpleeval
       ];
-  });
-  zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {
-    inherit (sources.zsh-autopair) version src;
-    installPhase = ''
-      mkdir -p $out/share/zsh/zsh-autopair
-      cp -r *.zsh $out/share/zsh/zsh-autopair/
-    '';
   });
 }

@@ -1,25 +1,4 @@
 {
-    "brlaser": {
-        "cargoLocks": null,
-        "date": "2025-01-10",
-        "extract": null,
-        "name": "brlaser",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Owl-Maintain",
-            "repo": "brlaser",
-            "rev": "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe",
-            "sha256": "sha256-7d4LFhRx0YTg4Y2+zggW5qALjvVF55h6CQMpPKM7+ag=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "ac924a6e7e2d8961581c42672f1dc6d8e167b3fe"
-    },
     "cyberchef": {
         "cargoLocks": null,
         "date": null,
@@ -400,27 +379,6 @@
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
     },
-    "web-compressor": {
-        "cargoLocks": null,
-        "date": "2025-04-19",
-        "extract": null,
-        "name": "web-compressor",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "xddxdd",
-            "repo": "web-compressor",
-            "rev": "d91210ac98baaafd0ed703732a7669ef1e2110f2",
-            "sha256": "sha256-doUQdrnZ5StURLJQnt5yDt7XVR5KK+1SwNaqucIEd7M=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "d91210ac98baaafd0ed703732a7669ef1e2110f2"
-    },
     "yourls": {
         "cargoLocks": null,
         "date": null,
@@ -546,26 +504,5 @@
             "type": "github"
         },
         "version": "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2"
-    },
-    "zsh-autopair": {
-        "cargoLocks": null,
-        "date": "2024-07-14",
-        "extract": null,
-        "name": "zsh-autopair",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "hlissner",
-            "repo": "zsh-autopair",
-            "rev": "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d",
-            "sha256": "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d"
     }
 }
