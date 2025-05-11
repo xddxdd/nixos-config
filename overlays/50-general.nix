@@ -114,4 +114,10 @@ rec {
         simpleeval
       ];
   });
+  zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {
+    installPhase = ''
+      mkdir -p $out/share/zsh/zsh-autopair
+      cp -r *.zsh $out/share/zsh/zsh-autopair/
+    '';
+  });
 }
