@@ -18,7 +18,6 @@
     ../../nixos/optional-apps/bxcq3.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
-    ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
@@ -46,11 +45,7 @@
   ];
 
   environment.systemPackages = [
-    (pkgs.hashcat.override {
-      cudaSupport = true;
-      # GRID vGPU driver is older than latest consumer driver
-      cudaPackages = pkgs.cudaPackages_12_2;
-    })
+    pkgs.hashcat
   ];
 
   services.beesd.filesystems.root = {
