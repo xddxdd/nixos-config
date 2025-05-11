@@ -4,15 +4,5 @@ rec {
   getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
   getSSLKey = acmeName: "${getSSLPath acmeName}/${builtins.head (lib.splitString "_" acmeName)}.key";
 
-  compressStaticAssets =
-    p:
-    p.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.web-compressor ];
-
-      postFixup =
-        (old.postFixup or "")
-        + ''
-          web-compressor --target $out
-        '';
-    });
+  compressStaticAssets = p: pkgs.compressDrvWeb p { };
 }

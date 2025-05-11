@@ -1,8 +1,3 @@
-[brlaser]
-src.git = "https://github.com/Owl-Maintain/brlaser.git"
-src.branch = "definitions"
-fetch.github = "Owl-Maintain/brlaser"
-
 [cyberchef]
 src.github = "gchq/CyberChef"
 fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
@@ -81,10 +76,6 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 
-[web-compressor]
-src.git = "https://github.com/xddxdd/web-compressor.git"
-fetch.github = "xddxdd/web-compressor"
-
 [yourls]
 src.github = "YOURLS/YOURLS"
 fetch.github = "YOURLS/YOURLS"
@@ -108,7 +99,3 @@ fetch.github = "reanimus/yourls-login-timeout"
 [yourls-sleeky]
 src.git = "https://github.com/Flynntes/Sleeky"
 fetch.github = "Flynntes/Sleeky"
-
-[zsh-autopair]
-src.git = "https://github.com/hlissner/zsh-autopair.git"
-fetch.github = "hlissner/zsh-autopair"
