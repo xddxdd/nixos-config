@@ -50,7 +50,7 @@ let
     {
       recordType = "CNAME";
       name = "asf";
-      target = "terrahost";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
