@@ -400,26 +400,6 @@
         },
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
     },
-    "vgpu-proxmox": {
-        "cargoLocks": null,
-        "date": "2025-03-15",
-        "extract": null,
-        "name": "vgpu-proxmox",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "ab5fc9e7dbda8676c48c9b1e2f152c7d90f3c819",
-            "sha256": "sha256-zjYz9brehLPnmrBQIEC4p2UkQdqNw7fvYaY2NQEc8TI=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://gitlab.com/polloloco/vgpu-proxmox.git"
-        },
-        "version": "ab5fc9e7dbda8676c48c9b1e2f152c7d90f3c819"
-    },
     "web-compressor": {
         "cargoLocks": null,
         "date": "2025-04-19",

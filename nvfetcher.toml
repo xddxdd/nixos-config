@@ -81,10 +81,6 @@ fetch.github = "luispabon/ulauncher-virtualbox"
 src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
 
-[vgpu-proxmox]
-src.git = "https://gitlab.com/polloloco/vgpu-proxmox.git"
-fetch.git = "https://gitlab.com/polloloco/vgpu-proxmox.git"
-
 [web-compressor]
 src.git = "https://github.com/xddxdd/web-compressor.git"
 fetch.github = "xddxdd/web-compressor"
