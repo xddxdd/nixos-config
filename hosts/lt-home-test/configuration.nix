@@ -20,9 +20,6 @@
 
   boot.kernelParams = [ "pci=realloc,assign-busses" ];
 
-  # ECC RAM
-  hardware.rasdaemon.enable = true;
-
   services.beesd.filesystems.root = {
     spec = config.fileSystems."/nix".device;
     hashTableSizeMB = 32;
