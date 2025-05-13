@@ -60,6 +60,10 @@ fetch.github = "sergius02/ulauncher-colorconverter"
 src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
 fetch.github = "Ulauncher/ulauncher-emoji"
 
+[ulauncher-kill]
+src.git = "https://github.com/Ulauncher/ulauncher-kill.git"
+fetch.github = "Ulauncher/ulauncher-kill"
+
 [ulauncher-meme-my-text]
 src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
 fetch.github = "RNairn01/ulauncher-meme-my-text"

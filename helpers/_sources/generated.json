@@ -295,6 +295,27 @@
         },
         "version": "827cfe5e1d2f89f742f811f981759787b0654fa9"
     },
+    "ulauncher-kill": {
+        "cargoLocks": null,
+        "date": "2022-11-26",
+        "extract": null,
+        "name": "ulauncher-kill",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Ulauncher",
+            "repo": "ulauncher-kill",
+            "rev": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f",
+            "sha256": "sha256-37XvKa+aD7W9yHxXQng0gtW87YDIDybRQEX5Tw426QQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f"
+    },
     "ulauncher-meme-my-text": {
         "cargoLocks": null,
         "date": "2021-05-07",
