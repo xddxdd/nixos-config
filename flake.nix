@@ -53,6 +53,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -195,6 +200,7 @@
             inputs.aagl.overlays.default
             inputs.agenix.overlays.default
             inputs.colmena.overlay
+            inputs.lix-module.overlays.default
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
             inputs.nix-xilinx.overlay
