@@ -19,5 +19,6 @@
     "com.github.tchar.ulauncher-albert-calculate-anything" =
       LT.sources.ulauncher-albert-calculate-anything.src;
     "com.github.ulauncher.ulauncher-emoji" = LT.sources.ulauncher-emoji.src;
+    "com.github.ulauncher.ulauncher-kill" = LT.sources.ulauncher-kill.src;
   };
 }
