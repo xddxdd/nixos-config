@@ -169,6 +169,18 @@
     };
     date = "2023-11-04";
   };
+  ulauncher-kill = {
+    pname = "ulauncher-kill";
+    version = "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f";
+    src = fetchFromGitHub {
+      owner = "Ulauncher";
+      repo = "ulauncher-kill";
+      rev = "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f";
+      fetchSubmodules = false;
+      sha256 = "sha256-37XvKa+aD7W9yHxXQng0gtW87YDIDybRQEX5Tw426QQ=";
+    };
+    date = "2022-11-26";
+  };
   ulauncher-meme-my-text = {
     pname = "ulauncher-meme-my-text";
     version = "5d62830a7a92983a731e15645831f53d48dad913";
