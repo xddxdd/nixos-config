@@ -35,7 +35,7 @@ in
     package = pkgs.mariadb;
     settings = {
       mysqld = {
-        bind-address = LT.this.ltnet.IPv4;
+        bind-address = "127.0.0.1";
         binlog_format = "ROW";
         default-storage-engine = "innodb";
         enforce_storage_engine = "innodb";
