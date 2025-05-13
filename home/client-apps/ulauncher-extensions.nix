@@ -5,7 +5,10 @@
     "com.github.luispabon.ulauncher-virtualbox" = LT.sources.ulauncher-virtualbox.src;
     "com.github.plibither8.ulauncher-vscode-recent" = pkgs.stdenv.mkDerivation {
       inherit (LT.sources.ulauncher-vscode-recent) pname version src;
-      patches = [ ../../patches/ulauncher-vscode-recent-path.patch ];
+      patches = [
+        ../../patches/ulauncher-vscode-recent-path.patch
+        ../../patches/ulauncher-vscode-exclude-nonexistent-path.patch
+      ];
       installPhase = ''
         mkdir -p $out/
         cp -r * $out/

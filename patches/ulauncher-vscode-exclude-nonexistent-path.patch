@@ -1,0 +1,18 @@
+diff --git a/main.py b/main.py
+index 4e99c59..2d4439f 100644
+--- a/main.py
++++ b/main.py
+@@ -123,6 +123,13 @@ class Code:
+ 				logger.warning('entry not recognized: %s', path)
+ 				continue
+ 
++			if uri.startswith("file://"):
++				uri_path = uri[7:]
++				if uri_path.startswith("/nix/store"):
++					continue
++				if not os.path.exists(uri_path):
++					continue
++
+ 			label = path["label"] if "label" in path else uri.split("/")[-1]
+ 			recents.append({
+ 				"uri":    uri,
