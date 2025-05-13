@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -79,73 +78,6 @@ in
         };
       }
     ];
-  };
-
-  age.secrets.phpmyadmin-conf = {
-    file = inputs.secrets + "/phpmyadmin-conf.age";
-    owner = "nginx";
-    group = "nginx";
-  };
-  systemd.tmpfiles.rules = [
-    "L+ /etc/phpmyadmin/config.inc.php - - - - ${config.age.secrets.phpmyadmin-conf.path}"
-  ];
-
-  services.phpfpm.pools.pma = {
-    phpPackage = pkgs.php.withExtensions (
-      { enabled, all }:
-      with all;
-      enabled
-      ++ [
-        curl
-        gd
-        mbstring
-        mysqli
-        mysqlnd
-        openssl
-        pdo
-        pdo_mysql
-        xml
-        zip
-      ]
-    );
-    inherit (config.services.nginx) user;
-    settings = {
-      "listen.owner" = config.services.nginx.user;
-      "pm" = "ondemand";
-      "pm.max_children" = "8";
-      "pm.process_idle_timeout" = "10s";
-      "pm.max_requests" = "1000";
-      "pm.status_path" = "/php-fpm-status.php";
-      "ping.path" = "/ping.php";
-      "ping.response" = "pong";
-      "request_terminate_timeout" = "300";
-    };
-  };
-
-  lantian.nginxVhosts = {
-    "pma.${config.networking.hostName}.xuyh0120.win" = {
-      root = pkgs.nur-xddxdd.phpmyadmin;
-      locations = {
-        "/".index = "index.php";
-      };
-
-      phpfpmSocket = config.services.phpfpm.pools.pma.socket;
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
-      noIndex.enable = true;
-    };
-    "pma.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      root = pkgs.nur-xddxdd.phpmyadmin;
-      locations = {
-        "/".index = "index.php";
-      };
-
-      phpfpmSocket = config.services.phpfpm.pools.pma.socket;
-      noIndex.enable = true;
-      accessibleBy = "localhost";
-    };
   };
 
   systemd.services.mysql = {
