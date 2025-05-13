@@ -13,6 +13,9 @@
     ./vfio.nix
   ];
 
+  # ECC RAM
+  hardware.rasdaemon.enable = true;
+
   boot.kernelParams = [
     "console=ttyS0,115200"
     "default_hugepagesz=1G"
