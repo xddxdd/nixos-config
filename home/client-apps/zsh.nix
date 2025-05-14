@@ -60,8 +60,6 @@
         export EDITOR="nano"
       else
         export EDITOR="code --wait"
-        # Fix Cline VSCode Integration
-        . "$(code --locate-shell-integration-path zsh)"
       fi
 
       alias nb="nix build -L"
@@ -122,6 +120,11 @@
 
     initContent = lib.mkBefore ''
       [[ -n "$ZSH_ZPROF" ]] && zmodload zsh/zprof
+    '';
+
+    initExtra = ''
+      # Fix Cline VSCode Integration
+      [[ "$TERM_PROGRAM" == "vscode" ]] && . "${pkgs.vscode}/lib/vscode/resources/app/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
     '';
   };
 }
