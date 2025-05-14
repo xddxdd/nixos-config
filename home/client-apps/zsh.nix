@@ -60,6 +60,8 @@
         export EDITOR="nano"
       else
         export EDITOR="code --wait"
+        # Fix Cline VSCode Integration
+        . "$(code --locate-shell-integration-path zsh)"
       fi
 
       alias nb="nix build -L"
