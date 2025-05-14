@@ -5,7 +5,5 @@
   "grok-3-beta": "x-ai/grok-3-beta",
   "grok-3-fast-beta": "x-ai/grok-3-fast-beta",
   "grok-3-mini-beta": "x-ai/grok-3-mini-beta",
-  "grok-3-mini-fast-beta": "x-ai/grok-3-mini-fast-beta",
-  "grok-beta": "x-ai/grok-beta",
-  "grok-vision-beta": "x-ai/grok-vision-beta"
+  "grok-3-mini-fast-beta": "x-ai/grok-3-mini-fast-beta"
 }
