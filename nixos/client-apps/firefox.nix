@@ -26,7 +26,6 @@ let
     pakkujs
     pay-by-privacy
     plasma-integration
-    privacy-pass
     protondb-for-steam
     return-youtube-dislikes
     rsshub-radar
