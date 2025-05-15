@@ -40,15 +40,10 @@ let
     in
     ''
       ssl_ciphers ${builtins.concatStringsSep ":" ciphersForTLS1_2};
-      ssl_session_timeout 1d;
-      ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
-      ssl_session_tickets on;
-      ssl_prefer_server_ciphers off;
       ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
       ssl_conf_command Ciphersuites ${builtins.concatStringsSep ":" ciphersForTLS1_3};
       ssl_conf_command Options KTLS;
       ssl_conf_command Options PrioritizeChaCha;
-      ssl_dhparam ${files/dhparam.pem};
     ''
     + lib.optionalString (!isStream) ''
       ssl_early_data on;
@@ -67,13 +62,15 @@ in
     recommendedGzipSettings = false; # use my own
     recommendedOptimisation = true;
     recommendedProxySettings = false; # use my own
-    recommendedTlsSettings = false; # use my own
+    recommendedTlsSettings = true;
     resolver = {
       addresses = [ "8.8.8.8" ];
       ipv6 = false;
     };
     sslProtocols = "TLSv1.2 TLSv1.3";
     sslCiphers = null;
+    sslDhparam = ./files/dhparam.pem;
+    defaultMimeTypes = "${config.services.nginx.package}/conf/mime.types";
 
     appendConfig = ''
       worker_processes auto;
@@ -83,8 +80,6 @@ in
     '';
 
     commonHttpConfig = ''
-      include ${config.services.nginx.package}/conf/mime.types;
-
       map $http_user_agent $is_not_healthcheck_user_agent {
         default                   1;
         "~*Blackbox\ Exporter"    0;

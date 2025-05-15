@@ -239,16 +239,12 @@ let
           ''
             ssl_certificate ${LT.nginx.getSSLCert config.sslCertificate};
             ssl_certificate_key ${LT.nginx.getSSLKey config.sslCertificate};
-            ssl_stapling on;
-            ssl_stapling_verify on;
             ssl_trusted_certificate ${LT.nginx.getSSLCert config.sslCertificate};
           ''
         else
           ''
             ssl_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
             ssl_certificate_key ${inputs.secrets + "/ssl-cert-snakeoil.key"};
-            ssl_stapling on;
-            ssl_stapling_verify on;
             ssl_trusted_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
           ''
       ))
