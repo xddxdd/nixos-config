@@ -24,7 +24,7 @@
         };
       };
 
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win_ecc";
+      sslCertificate = "${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
     };
     "archiveteam.localhost" = {

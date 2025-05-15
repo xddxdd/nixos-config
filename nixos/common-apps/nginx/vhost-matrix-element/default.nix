@@ -57,7 +57,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
       "= /config.json".root = elementConfigPath;
     };
 
-    sslCertificate = "lantian.pub_ecc";
+    sslCertificate = "lantian.pub";
     noIndex.enable = true;
     disableLiveCompression = true;
   };

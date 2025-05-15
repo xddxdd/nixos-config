@@ -33,7 +33,7 @@ in
         "= /".return = "307 /ui/";
       };
 
-      sslCertificate = "lantian.pub_ecc";
+      sslCertificate = "lantian.pub";
       noIndex.enable = true;
     };
   };
