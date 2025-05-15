@@ -43,7 +43,7 @@ in
       };
     };
 
-    sslCertificate = "ltn.pw_ecc";
+    sslCertificate = "ltn.pw";
     noIndex.enable = true;
   };
 

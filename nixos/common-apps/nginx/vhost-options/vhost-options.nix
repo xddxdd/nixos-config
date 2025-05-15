@@ -239,13 +239,14 @@ let
           ''
             ssl_certificate ${LT.nginx.getSSLCert config.sslCertificate};
             ssl_certificate_key ${LT.nginx.getSSLKey config.sslCertificate};
-            ssl_trusted_certificate ${LT.nginx.getSSLCert config.sslCertificate};
+
+            ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}_ecc"};
+            ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}_ecc"};
           ''
         else
           ''
             ssl_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
             ssl_certificate_key ${inputs.secrets + "/ssl-cert-snakeoil.key"};
-            ssl_trusted_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
           ''
       ))
       + (lib.optionalString config.enableCommonVhostOptions ''
