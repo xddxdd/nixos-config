@@ -33,10 +33,8 @@ let
         "p256_frodo640aes"
         "x25519_bikel1"
         "p256_bikel1"
-        "x25519"
+        "X25519"
         "prime256v1"
-        "x448"
-        "secp521r1"
         "secp384r1"
       ];
     in
@@ -45,7 +43,7 @@ let
       ssl_session_timeout 1d;
       ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
       ssl_session_tickets on;
-      ssl_prefer_server_ciphers on;
+      ssl_prefer_server_ciphers off;
       ssl_ecdh_curve ${builtins.concatStringsSep ":" curves};
       ssl_conf_command Ciphersuites ${builtins.concatStringsSep ":" ciphersForTLS1_3};
       ssl_conf_command Options KTLS;
