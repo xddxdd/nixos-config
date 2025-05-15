@@ -270,7 +270,7 @@ in
             }
           '';
         };
-        sslCertificate = "${domain}_ecc";
+        sslCertificate = "${domain}";
         noIndex.enable = true;
       }
     ) domains

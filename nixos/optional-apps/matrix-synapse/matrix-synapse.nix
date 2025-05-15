@@ -221,7 +221,7 @@ in
       };
     };
 
-    sslCertificate = "lantian.pub_ecc";
+    sslCertificate = "lantian.pub";
     noIndex.enable = true;
   };
 
@@ -251,7 +251,7 @@ in
       };
     };
 
-    sslCertificate = "lantian.pub_ecc";
+    sslCertificate = "lantian.pub";
     noIndex.enable = true;
   };
 

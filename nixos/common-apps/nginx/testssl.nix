@@ -5,7 +5,7 @@ let
     lib.nameValuePair "${name}.lantian.pub" {
       root = "/nix/persistent/sync-servers/www/${name}.lantian.pub";
       locations."/".index = "testssl.htm";
-      sslCertificate = "${name}.lantian.pub_ecc";
+      sslCertificate = "${name}.lantian.pub";
       enableCommonLocationOptions = false;
     };
 in

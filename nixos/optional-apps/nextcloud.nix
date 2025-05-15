@@ -60,7 +60,7 @@
 
   lantian.nginxVhosts."cloud.xuyh0120.win" = {
     # Nextcloud sends "X-Robots-Tag: none" itself, no need for noIndex
-    sslCertificate = "xuyh0120.win_ecc";
+    sslCertificate = "xuyh0120.win";
     enableCommonLocationOptions = false;
     enableCommonVhostOptions = false;
   };

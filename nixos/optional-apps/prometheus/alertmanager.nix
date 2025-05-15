@@ -215,7 +215,7 @@ in
       };
     };
 
-    sslCertificate = "xuyh0120.win_ecc";
+    sslCertificate = "xuyh0120.win";
     noIndex.enable = true;
   };
 }

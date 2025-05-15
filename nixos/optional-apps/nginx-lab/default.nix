@@ -42,7 +42,7 @@ in
     };
 
     phpfpmSocket = config.services.phpfpm.pools.lab.socket;
-    sslCertificate = "lantian.pub_ecc";
+    sslCertificate = "lantian.pub";
     noIndex.enable = true;
   };
 
