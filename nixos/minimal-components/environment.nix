@@ -114,24 +114,6 @@
       userAllowOther = true;
     };
 
-    openssl-oqs-provider = {
-      enable = true;
-      package = pkgs.nur-xddxdd.openssl-oqs-provider;
-      curves = [
-        # Client: use generic curves first before OQS ones
-        "x25519"
-        "prime256v1"
-        "x448"
-        "secp521r1"
-        "secp384r1"
-        # OQS curves
-        "x25519_frodo640aes"
-        "p256_frodo640aes"
-        "x25519_bikel1"
-        "p256_bikel1"
-      ];
-    };
-
     steam.platformOptimizations.enable = true;
   };
 
@@ -151,6 +133,30 @@
     SystemMaxFileSize=10M
     SystemMaxUse=100M
   '';
+
+  security.openssl = {
+    oqs-provider = {
+      enable = true;
+      package = pkgs.nur-xddxdd.openssl-oqs-provider;
+      curves = [
+        # Client: use generic curves first before OQS ones
+        "x25519"
+        "prime256v1"
+        "x448"
+        "secp521r1"
+        "secp384r1"
+        # OQS curves
+        "x25519_frodo640aes"
+        "p256_frodo640aes"
+        "x25519_bikel1"
+        "p256_bikel1"
+      ];
+    };
+    gost-engine = {
+      enable = true;
+      package = pkgs.nur-xddxdd.gost-engine;
+    };
+  };
 
   security.wrappers = {
     bwrap = {
