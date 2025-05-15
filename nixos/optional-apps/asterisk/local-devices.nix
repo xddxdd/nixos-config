@@ -4,10 +4,10 @@ let
 
   localNumbers = [
     "1000" # Laptop (Linphone)
-    "1001" # Phone (Linphone)
+    "1001" # Android Phone (Linphone)
     "1002" # Bria
     "1003" # Grandstream HT801
-    "1004" # Reserved
+    "1004" # iPhone (Linphone)
   ];
 in
 rec {
