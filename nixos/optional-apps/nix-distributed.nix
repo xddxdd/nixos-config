@@ -15,10 +15,7 @@ let
       null
     else
       {
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
+        inherit (v) system;
         hostName = "${n}.lantian.pub";
         maxJobs = v.cpuThreads;
         protocol = "ssh-ng";
@@ -48,11 +45,11 @@ in
   nix = {
     distributedBuilds = true;
     buildMachines =
-      (lib.filter (v: v != null) (
+      [ nixBuildNet ]
+      ++ (lib.filter (v: v != null) (
         lib.mapAttrsToList mkBuildMachine (
           lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
         )
-      ))
-      ++ [ nixBuildNet ];
+      ));
   };
 }
