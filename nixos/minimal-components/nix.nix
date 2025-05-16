@@ -18,7 +18,7 @@
   };
 
   nix = {
-    package = inputs.lix-module.packages."${pkgs.system}".default;
+    package = pkgs.lixPackageSets.latest.lix or pkgs.lixVersions.latest;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
