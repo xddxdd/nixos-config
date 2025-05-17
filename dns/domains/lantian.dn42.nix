@@ -70,14 +70,6 @@
           };
         })
 
-        (config.common.hostRecs.mapAddresses {
-          name = "dns-recursive.${domain}.";
-          addresses = {
-            IPv4 = "172.22.76.110";
-            IPv6 = "fdbc:f9dc:67ad:2547::53";
-          };
-        })
-
         config.common.nameservers.DN42
         (config.common.hostRecs.DN42 "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
