@@ -21,11 +21,11 @@
 
     (config.common.reverse {
       prefix = "2001:470:488d::/48";
-      target = "hostdare.lantian.pub.";
+      target = "hostdare-old.lantian.pub.";
     })
     (config.common.reverse {
       prefix = "2001:470:67:ee::/64";
-      target = "hostdare.lantian.pub.";
+      target = "hostdare-old.lantian.pub.";
     })
 
     (config.common.reverse {
