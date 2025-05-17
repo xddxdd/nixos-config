@@ -20,11 +20,6 @@ rec {
     vendorHash = "sha256-PUeMs6VZSB5YMc0MRen7Jmdi2eFbEQsHix/VzeydYoc=";
     doCheck = false;
   });
-  drone = prev.drone.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/drone-server-listen-unix.patch ];
-
-    tags = old.tags ++ [ "nolimit" ];
-  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
