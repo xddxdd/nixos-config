@@ -179,8 +179,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           name = "${n}.key";
           value = {
             name = "${n}.key";
-            owner = "container";
-            group = "container";
+            owner = "coredns";
+            group = "coredns";
             file = inputs.secrets + "/dnssec/${n}.key.age";
           };
         }
@@ -188,8 +188,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           name = "${n}.private";
           value = {
             name = "${n}.private";
-            owner = "container";
-            group = "container";
+            owner = "coredns";
+            group = "coredns";
             file = inputs.secrets + "/dnssec/${n}.private.age";
           };
         }
@@ -224,8 +224,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
         Restart = "on-failure";
 
-        User = "container";
-        Group = "container";
+        User = "coredns";
+        Group = "coredns";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         RestrictAddressFamilies = [
@@ -237,4 +237,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       };
     };
   };
+
+  users.users.coredns = {
+    group = "coredns";
+    isSystemUser = true;
+  };
+  users.groups.coredns = { };
 }

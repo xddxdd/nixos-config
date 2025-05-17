@@ -49,20 +49,11 @@ in
       createHome = true;
       linger = true;
     };
-    container = {
-      uid = 65533;
-      group = "container";
-      isSystemUser = true;
-    };
   };
 
   users.groups = {
     lantian = {
       gid = 1000;
-    };
-    container = {
-      gid = 65533;
-      members = [ "nginx" ];
     };
   };
 }
