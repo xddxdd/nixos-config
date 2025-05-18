@@ -78,6 +78,7 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://193.124.9.204:29331",
+    "tls://195.2.74.155:7992",
     "tls://195.58.51.167:7992",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
@@ -92,6 +93,7 @@
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
     "tls://kzn1.neonxp.ru:7992",
+    "tls://msk1.neonxp.ru:7992",
     "tls://s-mow-0.sergeysedoy97.ru:65534",
     "tls://s-mow-1.sergeysedoy97.ru:65534",
     "tls://srv.itrus.su:7992",
