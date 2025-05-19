@@ -109,7 +109,6 @@
     "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
-    "tls://[2a04:5b81:2011:1:dea6:32ff:fe0b:b610]:2001",
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
   "spain": [
@@ -118,7 +117,8 @@
   "sweden": [
     "tls://s-sto-0.sergeysedoy97.ru:65534",
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://x-sto-0.sergeysedoy97.ru:65534"
+    "tls://x-sto-0.sergeysedoy97.ru:65534",
+    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
