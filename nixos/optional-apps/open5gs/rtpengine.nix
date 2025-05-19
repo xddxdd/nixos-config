@@ -1,12 +1,11 @@
 {
-  config,
   pkgs,
   LT,
   ...
 }:
 {
-  boot.kernelModules = [ "xt_RTPENGINE" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.xt_rtpengine ];
+  # boot.kernelModules = [ "xt_RTPENGINE" ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.xt_rtpengine ];
 
   systemd.services.rtpengine = {
     description = "NGCP RTP/media Proxy Daemon";
