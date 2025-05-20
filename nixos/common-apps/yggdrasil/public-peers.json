@@ -50,6 +50,9 @@
     "tls://yggdrasil.neilalexander.dev:64648?key=ecbbcb3298e7d3b4196103333c3e839cfe47a6ca47602b94a6d596683f6bb358",
     "tls://yggdrasil.su:62586"
   ],
+  "hong-kong": [
+    "tls://yg-hkg.magicum.net:32333"
+  ],
   "hungary": [
     "tls://ygg1.grin.hu:42444"
   ],
@@ -99,6 +102,7 @@
     "tls://srv.itrus.su:7992",
     "tls://x-mow-0.sergeysedoy97.ru:65534",
     "tls://x-mow-1.sergeysedoy97.ru:65534",
+    "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
@@ -122,7 +126,6 @@
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
-    "tls://78.27.153.163:179",
     "tls://78.27.153.163:33166",
     "tls://78.27.153.163:3784",
     "tls://78.27.153.163:3785",
