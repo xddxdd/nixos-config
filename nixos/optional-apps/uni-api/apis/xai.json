@@ -2,8 +2,8 @@
   "grok-2-1212": "x-ai/grok-2-1212",
   "grok-2-image-1212": "x-ai/grok-2-image-1212",
   "grok-2-vision-1212": "x-ai/grok-2-vision-1212",
-  "grok-3-beta": "x-ai/grok-3-beta",
-  "grok-3-fast-beta": "x-ai/grok-3-fast-beta",
-  "grok-3-mini-beta": "x-ai/grok-3-mini-beta",
-  "grok-3-mini-fast-beta": "x-ai/grok-3-mini-fast-beta"
+  "grok-3": "x-ai/grok-3",
+  "grok-3-fast": "x-ai/grok-3-fast",
+  "grok-3-mini": "x-ai/grok-3-mini",
+  "grok-3-mini-fast": "x-ai/grok-3-mini-fast"
 }

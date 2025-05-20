@@ -20,7 +20,6 @@
   "THUDM/GLM-4-32B-0414": "thudm/glm-4-32b-0414",
   "THUDM/GLM-Z1-32B-0414": "thudm/glm-z1-32b-0414",
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
-  "bytedance-research/UI-TARS-72B-DPO": "bytedance-research/ui-tars-72b-dpo",
   "chutesai/Llama-3.1-405B-FP8": "chutesai/llama-3.1-405b-fp8",
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
   "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
