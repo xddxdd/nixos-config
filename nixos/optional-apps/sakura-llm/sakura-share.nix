@@ -18,13 +18,9 @@ in
 
   systemd.services.sakura-share = {
     description = "Share client for sakura-share.one";
-    after = [
-      "network.target"
-      # "llama-cpp.service"
-      "podman-sglang-sakura-llm.service"
-    ];
-    requires = [
-      "network.target"
+    after = [ "network.target" ];
+    requires = [ "network.target" ];
+    wants = [
       # "llama-cpp.service"
       "podman-sglang-sakura-llm.service"
     ];
