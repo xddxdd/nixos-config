@@ -18,17 +18,19 @@ in
     port = LT.port.Rsync;
     socketActivated = true;
     settings = {
-      global = {
+      globalSection = {
         address = LT.this.ltnet.IPv4;
         gid = "root";
         uid = "root";
         "use chroot" = true;
       };
 
-      sync-servers = {
-        "read only" = true;
-        "hosts allow" = "198.18.0.0/15";
-        path = "/nix/persistent/sync-servers";
+      sections = {
+        sync-servers = {
+          "read only" = true;
+          "hosts allow" = "198.18.0.0/15";
+          path = "/nix/persistent/sync-servers";
+        };
       };
     };
   };

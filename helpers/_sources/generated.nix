@@ -19,10 +19,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.0.0";
+    version = "3.2.1";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.0.0/yesoreyeram-infinity-datasource-3.0.0.zip";
-      sha256 = "sha256-LhOBu1n84eY5RuzfFetNc7GUHq28bwW2zEo5KiCcn94=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.1/yesoreyeram-infinity-datasource-3.2.1.zip";
+      sha256 = "sha256-3h4PASbES9JY+YmvMQS3bYveMhp26+WJH2IUt71bv5o=";
     };
   };
   himawaripy = {
@@ -64,15 +64,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "21faa750b0eb6c1019c033585a6f829b7e738a9a";
+    version = "c5fc64eb301e1c217656a45c8ded33972f9651cd";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "21faa750b0eb6c1019c033585a6f829b7e738a9a";
+      rev = "c5fc64eb301e1c217656a45c8ded33972f9651cd";
       fetchSubmodules = false;
-      sha256 = "sha256-psvlyMvPtGe/1NqIIMtuaJ2LnmkNAvmQI+bi2Bzxk0c=";
+      sha256 = "sha256-5uxXPEqWNatg5jj8ITiMy4oTFYK8anYbMd3UrmSB2nc=";
     };
-    date = "2025-04-21";
+    date = "2025-05-17";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -88,15 +88,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "93e97e3c458f7270a937993deb778c15f9f16406";
+    version = "978f420f917ef5db20e01fde48c8133089eb4666";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "93e97e3c458f7270a937993deb778c15f9f16406";
+      rev = "978f420f917ef5db20e01fde48c8133089eb4666";
       fetchSubmodules = false;
-      sha256 = "sha256-g2QBV3qOmsj5hiNb1S7YpytFlrbjeosXkySMu8Zfqx4=";
+      sha256 = "sha256-U2y6A3/u9mYXWUGUwmmYBiQzAuF8NKzcmYJ7IIQhWkU=";
     };
-    date = "2025-04-21";
+    date = "2025-05-16";
   };
   open5gs = {
     pname = "open5gs";
@@ -231,13 +231,13 @@
   };
   yourls = {
     pname = "yourls";
-    version = "1.10.0";
+    version = "1.10.1";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "YOURLS";
-      rev = "1.10.0";
+      rev = "1.10.1";
       fetchSubmodules = false;
-      sha256 = "sha256-MmQso5QDh+amY84aYn7ugdpeaGnleiAvz4m5W4yAZZY=";
+      sha256 = "sha256-frOuwLMwe01no7aWmho6mn5jmiadydse3+ipR9VRoKc=";
     };
   };
   yourls-404-if-not-found = {
