@@ -16,8 +16,8 @@
       ];
       MemoryDenyWriteExecute = false;
       DynamicUser = lib.mkForce false;
-      User = "lantian";
-      Group = "users";
+      User = lib.mkForce "lantian";
+      Group = lib.mkForce "users";
     };
   };
   lantian.nginxVhosts = {

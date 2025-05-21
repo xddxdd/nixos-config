@@ -38,11 +38,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LhOBu1n84eY5RuzfFetNc7GUHq28bwW2zEo5KiCcn94=",
+            "sha256": "sha256-3h4PASbES9JY+YmvMQS3bYveMhp26+WJH2IUt71bv5o=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.0.0/yesoreyeram-infinity-datasource-3.0.0.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.1/yesoreyeram-infinity-datasource-3.2.1.zip"
         },
-        "version": "3.0.0"
+        "version": "3.2.1"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -108,7 +108,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-04-21",
+        "date": "2025-05-17",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -120,12 +120,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "21faa750b0eb6c1019c033585a6f829b7e738a9a",
-            "sha256": "sha256-psvlyMvPtGe/1NqIIMtuaJ2LnmkNAvmQI+bi2Bzxk0c=",
+            "rev": "c5fc64eb301e1c217656a45c8ded33972f9651cd",
+            "sha256": "sha256-5uxXPEqWNatg5jj8ITiMy4oTFYK8anYbMd3UrmSB2nc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "21faa750b0eb6c1019c033585a6f829b7e738a9a"
+        "version": "c5fc64eb301e1c217656a45c8ded33972f9651cd"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -150,7 +150,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-04-21",
+        "date": "2025-05-16",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -162,12 +162,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "93e97e3c458f7270a937993deb778c15f9f16406",
-            "sha256": "sha256-g2QBV3qOmsj5hiNb1S7YpytFlrbjeosXkySMu8Zfqx4=",
+            "rev": "978f420f917ef5db20e01fde48c8133089eb4666",
+            "sha256": "sha256-U2y6A3/u9mYXWUGUwmmYBiQzAuF8NKzcmYJ7IIQhWkU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "93e97e3c458f7270a937993deb778c15f9f16406"
+        "version": "978f420f917ef5db20e01fde48c8133089eb4666"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -414,12 +414,12 @@
             "name": null,
             "owner": "YOURLS",
             "repo": "YOURLS",
-            "rev": "1.10.0",
-            "sha256": "sha256-MmQso5QDh+amY84aYn7ugdpeaGnleiAvz4m5W4yAZZY=",
+            "rev": "1.10.1",
+            "sha256": "sha256-frOuwLMwe01no7aWmho6mn5jmiadydse3+ipR9VRoKc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.10.0"
+        "version": "1.10.1"
     },
     "yourls-404-if-not-found": {
         "cargoLocks": null,
