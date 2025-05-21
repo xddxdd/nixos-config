@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -45,7 +46,7 @@
     preferStatusNotifierItems = true;
   };
 
-  home.file."${config.gtk.gtk2.configLocation}".force = true;
-  xdg.configFile."gtk-3.0/settings.ini".force = true;
-  xdg.configFile."gtk-4.0/settings.ini".force = true;
+  home.file."${config.gtk.gtk2.configLocation}".force = lib.mkForce true;
+  xdg.configFile."gtk-3.0/settings.ini".force = lib.mkForce true;
+  xdg.configFile."gtk-4.0/settings.ini".force = lib.mkForce true;
 }
