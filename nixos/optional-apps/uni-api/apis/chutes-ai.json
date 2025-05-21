@@ -30,6 +30,7 @@
   "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": "deepseek/deepseek-r1-distill-llama-70b",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": "deepseek/deepseek-r1-distill-qwen-14b",
   "deepseek-ai/DeepSeek-R1-Zero": "deepseek/deepseek-r1-zero",
+  "deepseek-ai/DeepSeek-V3": "deepseek/deepseek-v3",
   "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
   "deepseek-ai/DeepSeek-V3-Base": "deepseek/deepseek-v3-base",
   "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4": "hugging-quants/meta-llama-3.1-70b-instruct-awq-int4",

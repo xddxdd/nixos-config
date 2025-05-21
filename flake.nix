@@ -141,7 +141,7 @@
         ./flake-modules/commands
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
-        inputs.nur-xddxdd.flakeModules.auto-colmena-hive-v0_20241006
+        inputs.nur-xddxdd.flakeModules.auto-colmena-hive-v0_5
         inputs.nur-xddxdd.flakeModules.commands
         inputs.nur-xddxdd.flakeModules.lantian-pre-commit-hooks
         inputs.nur-xddxdd.flakeModules.lantian-treefmt
@@ -188,8 +188,9 @@
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
             "electron-32.3.3"
-            "fluffychat-linux-1.25.1"
+            "fluffychat-linux-1.26.1"
             "olm-3.2.16"
+            "ventoy-1.1.05"
           ];
           overlays = [
             inputs.aagl.overlays.default
