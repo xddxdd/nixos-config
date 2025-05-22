@@ -6,6 +6,8 @@
   "codestral-latest": "mistralai/codestral-latest",
   "codestral-mamba-2407": "mistralai/codestral-mamba-2407",
   "codestral-mamba-latest": "mistralai/codestral-mamba-latest",
+  "devstral-small-2505": "devstral-small-2505",
+  "devstral-small-latest": "devstral-small-latest",
   "ministral-3b-2410": "mistralai/ministral-3b-2410",
   "ministral-3b-latest": "mistralai/ministral-3b-latest",
   "ministral-8b-2410": "mistralai/ministral-8b-2410",
