@@ -8,7 +8,7 @@
     font-family-bold = FiraCode Nerd Font Bold
     font-family-bold-italic = FiraCode Nerd Font Bold
     font-family-italic = FiraCode Nerd Font Reg
-    font-size = 12
+    font-size = 10
     keybind = ctrl+shift+minus=new_split:down
     keybind = ctrl+shift+plus=new_split:right
     mouse-scroll-multiplier = 10
