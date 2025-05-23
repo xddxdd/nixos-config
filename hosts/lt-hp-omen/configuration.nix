@@ -69,6 +69,7 @@
     extraOptions = [
       "--loadavg-target"
       "8"
+      "--workaround-btrfs-send"
     ];
   };
 
