@@ -42,6 +42,7 @@
   "igenius/italia_10b_instruct_16k": "igenius/italia_10b_instruct_16k",
   "institute-of-science-tokyo/llama-3.1-swallow-70b-instruct-v0.1": "institute-of-science-tokyo/llama-3.1-swallow-70b-instruct-v0.1",
   "institute-of-science-tokyo/llama-3.1-swallow-8b-instruct-v0.1": "institute-of-science-tokyo/llama-3.1-swallow-8b-instruct-v0.1",
+  "marin/marin-8b-instruct": "marin/marin-8b-instruct",
   "mediatek/breeze-7b-instruct": "mediatek/breeze-7b-instruct",
   "meta/codellama-70b": "meta-llama/codellama-70b",
   "meta/llama-3.1-405b-instruct": "meta-llama/llama-3.1-405b-instruct",
