@@ -1,18 +1,46 @@
-{ pkgs, ... }:
-let
-  backupScript = pkgs.writeShellScriptBin "backup" ''
-    set -x
-    DATE=$(date "+%Y%m%d")
-    if [ ! -d "/mnt/root/home-$DATE" ]; then
-      sudo btrfs subvol snapshot -r /mnt/root/home /mnt/root/home-$DATE
-    fi
-    if [ ! -d "/mnt/root/persistent-$DATE" ]; then
-      sudo btrfs subvol snapshot -r /mnt/root/persistent /mnt/root/persistent-$DATE
-    fi
-    sudo btrfs send /mnt/root/home-$DATE | pv | ssh lt-home-vm.lantian.pub "btrfs receive /mnt/storage/backups"
-    sudo btrfs send /mnt/root/persistent-$DATE | pv | ssh lt-home-vm.lantian.pub "btrfs receive /mnt/storage/backups"
-  '';
-in
 {
-  environment.systemPackages = [ backupScript ];
+  inputs,
+  config,
+  ...
+}:
+{
+  age.secrets.btrbk-privkey = {
+    file = inputs.secrets + "/btrbk-privkey.age";
+    owner = "btrbk";
+    group = "btrbk";
+  };
+
+  systemd.tmpfiles.rules = [ "d /mnt/root/.btrbk 700 btrbk btrbk" ];
+  services.btrbk = {
+    ioSchedulingClass = "idle";
+    instances.btrbk = {
+      onCalendar = "daily";
+      settings = {
+        group = config.networking.hostName;
+        snapshot_preserve = "30d";
+        snapshot_preserve_min = "7d";
+        snapshot_dir = "/mnt/root/.btrbk";
+        ssh_identity = config.age.secrets.btrbk-privkey.path;
+        ssh_user = "btrbk";
+        stream_compress = "zstd";
+        stream_compress_level = "3";
+        stream_compress_threads = "0";
+        target = "ssh://lt-home-vm.lantian.pub/mnt/storage/backups/btrbk";
+        volume = {
+          "/mnt/root" = {
+            subvolume = {
+              home = {
+                snapshot_create = "always";
+              };
+              persistent = {
+                snapshot_create = "always";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+
+  users.users.btrbk.extraGroups = [ "wheel" ];
 }

@@ -16,6 +16,7 @@
 
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/btrbk-server.nix
     ../../nixos/optional-apps/bxcq3.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
@@ -109,6 +110,7 @@
 
   lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
+  lantian.btrbk.storage = "/mnt/storage/backups/btrbk";
 
   services.ollama.models = "/mnt/storage/ollama";
   systemd.tmpfiles.rules = [
