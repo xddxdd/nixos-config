@@ -55,7 +55,7 @@
       iw
       kopia
       lsof
-      mbuffer
+      mbuffer # required for btrbk
       nftables
       nix-tree
       nmap
