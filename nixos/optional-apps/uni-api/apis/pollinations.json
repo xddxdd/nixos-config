@@ -3,6 +3,7 @@
   "deepseek": "deepseek/deepseek",
   "deepseek-reasoning": "deepseek/deepseek-reasoning",
   "evil": "evil",
+  "grok": "x-ai/grok",
   "hormoz": "hormoz",
   "hypnosis-tracy": "hypnosis-tracy",
   "llama": "meta-llama/llama",
