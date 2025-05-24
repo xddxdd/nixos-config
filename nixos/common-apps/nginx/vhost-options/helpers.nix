@@ -27,8 +27,10 @@
     fastcgi_param  SERVER_PORT        ${LT.portStr.HTTPS};
     fastcgi_param  SERVER_NAME        $server_name;
 
+    fastcgi_param  SSL_ALPN           $ssl_alpn_protocol;
     fastcgi_param  SSL_CIPHER         $ssl_cipher;
     fastcgi_param  SSL_CIPHERS        $ssl_ciphers;
+    fastcgi_param  SSL_CURVE          $ssl_curve;
     fastcgi_param  SSL_CURVES         $ssl_curves;
     fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
     fastcgi_param  SSL_EARLY_DATA     $ssl_early_data;
