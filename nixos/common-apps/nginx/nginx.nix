@@ -27,12 +27,11 @@ let
         "TLS_AES_128_GCM_SHA256"
       ];
       curves = [
-        # Determined with Chromium OQS curve list
+        # Standardized post quantum curves
         # https://test.openquantumsafe.org/
-        "x25519_frodo640aes"
-        "p256_frodo640aes"
-        "x25519_bikel1"
-        "p256_bikel1"
+        "SecP256r1MLKEM768"
+        "X25519MLKEM768"
+
         "X25519"
         "prime256v1"
         "secp384r1"
