@@ -83,8 +83,7 @@ in
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
         (lib.hiPrio nur-xddxdd.qq)
         (LT.wrapNetns "tnl-buyvm" deluge)
-        # FIXME: package broken
-        # (LT.wrapNetns "tnl-buyvm" nur-xddxdd.amule-dlp)
+        (LT.wrapNetns "tnl-buyvm" nur-xddxdd.amule-dlp)
         (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
@@ -138,7 +137,6 @@ in
         nur-xddxdd.dingtalk
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
-        nur-xddxdd.inter-knot
         nur-xddxdd.kikoplay
         nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
@@ -147,10 +145,7 @@ in
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
-        # FIXME: broken
-        # nur.repos.yes.mkxp-z
         nvfetcher
-        openvpn
         p7zip
         parsec-bin
         payload-dumper-go
