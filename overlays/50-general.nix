@@ -4,7 +4,10 @@ let
 in
 rec {
   colmena = prev.colmena.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/colmena-disable-pure-eval.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../patches/colmena-combine-logs-same-node.patch
+      ../patches/colmena-disable-pure-eval.patch
+    ];
   });
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [

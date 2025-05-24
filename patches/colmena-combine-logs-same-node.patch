@@ -1,0 +1,85 @@
+diff --git a/src/progress/spinner.rs b/src/progress/spinner.rs
+index 530851a..e04957a 100644
+--- a/src/progress/spinner.rs
++++ b/src/progress/spinner.rs
+@@ -15,7 +15,7 @@ use crate::job::JobId;
+ /// Progress spinner output.
+ pub struct SpinnerOutput {
+     /// Job timekeeping.
+-    job_state: HashMap<JobId, JobState>,
++    job_state: HashMap<String, JobState>,
+ 
+     /// One-off progress bars.
+     one_off_bars: Vec<(ProgressBar, LineStyle)>,
+@@ -71,22 +71,33 @@ impl SpinnerOutput {
+     }
+ 
+     /// Returns the state of a job.
+-    fn get_job_state(&mut self, job_id: JobId) -> JobState {
+-        if let Some(state) = self.job_state.get(&job_id) {
+-            state.clone()
++    fn get_job_state(&mut self, key: &String) -> JobState {
++        if let Some(state) = self.job_state.get(key) {
++            if state.bar.is_finished() {
++                let bar = self.create_bar(LineStyle::Normal, Some(&state.bar));
++                self.multi.remove(&state.bar);
++                let state = JobState::new(bar);
++                self.job_state.insert(key.clone(), state.clone());
++                state
++            } else {
++                state.clone()
++            }
+         } else {
+-            let bar = self.create_bar(LineStyle::Normal);
++            let bar = self.create_bar(LineStyle::Normal, None);
+             let state = JobState::new(bar);
+-            self.job_state.insert(job_id, state.clone());
++            self.job_state.insert(key.clone(), state.clone());
+             state
+         }
+     }
+ 
+     /// Creates a new bar.
+-    fn create_bar(&self, style: LineStyle) -> ProgressBar {
++    fn create_bar(&self, style: LineStyle, after: Option<&ProgressBar>) -> ProgressBar {
+         let bar = ProgressBar::new(100).with_style(self.get_spinner_style(style));
+ 
+-        let bar = self.multi.add(bar);
++        let bar = match after {
++            Some(b) => self.multi.insert_after(b, bar),
++            None => self.multi.add(bar),
++        };
+         bar.enable_steady_tick(Duration::from_millis(100));
+         bar
+     }
+@@ -105,10 +116,10 @@ impl SpinnerOutput {
+ 
+             self.meta_bar.clone()
+         } else {
+-            let mut state = self.get_job_state(line.job_id);
++            let mut state = self.get_job_state(&line.label);
+ 
+             if line.one_off {
+-                let bar = self.create_bar(line.style);
++                let bar = self.create_bar(line.style, None);
+                 state.configure_one_off(&bar);
+                 self.one_off_bars.push((bar.clone(), line.style));
+                 bar
+@@ -118,7 +129,7 @@ impl SpinnerOutput {
+                 if state.style != line.style {
+                     state.style = line.style;
+                     bar.set_style(self.get_spinner_style(line.style));
+-                    self.job_state.insert(line.job_id, state);
++                    self.job_state.insert(line.label.clone(), state);
+                 }
+ 
+                 bar
+@@ -132,7 +143,7 @@ impl SpinnerOutput {
+                 bar.finish_with_message(line.text);
+             }
+             LineStyle::SuccessNoop => {
+-                bar.finish_and_clear();
++                bar.finish_with_message(line.text);
+             }
+             _ => {
+                 bar.set_message(line.text);
