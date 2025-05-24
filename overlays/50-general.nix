@@ -6,7 +6,6 @@ rec {
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
-      ../patches/colmena-disable-pure-eval.patch
       ../patches/colmena-verbose-single-node.patch
     ];
   });
