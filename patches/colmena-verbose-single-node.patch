@@ -1,0 +1,13 @@
+diff --git a/src/command/apply.rs b/src/command/apply.rs
+index 721c864..dabb4a0 100644
+--- a/src/command/apply.rs
++++ b/src/command/apply.rs
+@@ -172,7 +172,7 @@ pub async fn run(hive: Hive, opts: Opts) -> Result<(), ColmenaError> {
+         .await?;
+     let n_targets = targets.len();
+ 
+-    let verbose = verbose || goal == Goal::DryActivate;
++    let verbose = verbose || goal == Goal::DryActivate || n_targets == 1;
+     let mut output = SimpleProgressOutput::new(verbose);
+     let progress = output.get_sender();
+ 

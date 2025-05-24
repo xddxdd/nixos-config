@@ -7,6 +7,7 @@ rec {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
       ../patches/colmena-disable-pure-eval.patch
+      ../patches/colmena-verbose-single-node.patch
     ];
   });
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
