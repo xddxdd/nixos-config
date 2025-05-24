@@ -62,10 +62,16 @@ in
       persistentKeys = true;
     };
 
+    services.yggdrasil-jumper.enable = true;
+
     systemd.services.yggdrasil.serviceConfig = {
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "yggdrasil";
       Group = lib.mkForce "yggdrasil";
+    };
+    systemd.services.yggdrasil-jumper.serviceConfig = {
+      Restart = "always";
+      RestartSec = 5;
     };
 
     users.users.yggdrasil = {
