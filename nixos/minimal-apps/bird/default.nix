@@ -14,6 +14,7 @@ in
 {
   services.bird = {
     enable = !builtins.elem LT.constants.tags.exclude-bgp-mesh LT.this.tags;
+    package = pkgs.bird2;
     checkConfig = false;
     config = builtins.concatStringsSep "\n" (
       [
