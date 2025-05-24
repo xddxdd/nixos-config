@@ -10,7 +10,7 @@ let
   ltnetSSHConfig = ''
     Port 2222
     HostKeyAlgorithms ssh-ed25519
-    KexAlgorithms sntrup761x25519-sha512@openssh.com
+    KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com
     Ciphers aes256-gcm@openssh.com
     PubkeyAcceptedAlgorithms ssh-ed25519
   '';
@@ -113,6 +113,8 @@ in
         "aes128-gcm@openssh.com"
       ];
       KexAlgorithms = [
+        "mlkem768x25519-sha256"
+        "sntrup761x25519-sha512"
         "sntrup761x25519-sha512@openssh.com"
         "curve25519-sha256"
         "curve25519-sha256@libssh.org"
@@ -173,7 +175,7 @@ in
       ControlPersist no
 
       HostKeyAlgorithms +ssh-rsa
-      KexAlgorithms ^sntrup761x25519-sha512@openssh.com
+      KexAlgorithms ^mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com
       PubkeyAcceptedAlgorithms +ssh-rsa
 
       StrictHostKeyChecking no
