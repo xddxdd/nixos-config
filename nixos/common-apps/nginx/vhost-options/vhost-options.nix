@@ -253,8 +253,13 @@ let
         add_header X-Content-Type-Options 'nosniff';
         add_header X-Frame-Options 'SAMEORIGIN';
         add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
-        #add_header Access-Control-Allow-Origin '*';
-        add_header LT-Latency $request_time;
+
+        add_header X-LT-Latency $request_time;
+        add_header X-LT-SSL-ALPN $ssl_alpn_protocol;
+        add_header X-LT-SSL-Cipher $ssl_cipher;
+        add_header X-LT-SSL-Curve $ssl_curve;
+        add_header X-LT-SSL-Protocol $ssl_protocol;
+
         add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
         add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"';
         add_header PICS-Label '(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l r (n 0 s 0 v 0 l 0))(PICS-1.1 "http://www.icra.org/ratingsv02.html" l r (cz 1 lz 1 nz 1 vz 1 oz 1))(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))(PICS-1.1 "http://www.weburbia.com/safe/ratings.htm" l r (s 0))';
