@@ -114,6 +114,7 @@
   "nvidia/nvclip": "nvidia/nvclip",
   "nvidia/usdcode-llama-3.1-70b-instruct": "nvidia/usdcode-llama-3.1-70b-instruct",
   "nvidia/vila": "nvidia/vila",
+  "nvquery/meta/llama-3.3-70b-instruct": "meta-llama/llama-3.3-70b-instruct:nvquery",
   "qwen/qwen2-7b-instruct": "qwen/qwen-2-7b-instruct",
   "qwen/qwen2.5-7b-instruct": "qwen/qwen-2.5-7b-instruct",
   "qwen/qwen2.5-coder-32b-instruct": "qwen/qwen-2.5-coder-32b-instruct",
