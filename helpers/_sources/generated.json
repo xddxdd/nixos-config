@@ -38,11 +38,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3h4PASbES9JY+YmvMQS3bYveMhp26+WJH2IUt71bv5o=",
+            "sha256": "sha256-+lk+U41/Xd2xkYfZWMzFygUMXX9t8Kg307i3FgH9RMU=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.1/yesoreyeram-infinity-datasource-3.2.1.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.2/yesoreyeram-infinity-datasource-3.2.2.zip"
         },
-        "version": "3.2.1"
+        "version": "3.2.2"
     },
     "himawaripy": {
         "cargoLocks": null,
@@ -150,7 +150,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-05-16",
+        "date": "2025-05-27",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -162,12 +162,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "978f420f917ef5db20e01fde48c8133089eb4666",
-            "sha256": "sha256-U2y6A3/u9mYXWUGUwmmYBiQzAuF8NKzcmYJ7IIQhWkU=",
+            "rev": "6ba16ac373f12cd3973249d8513fb04f2404b464",
+            "sha256": "sha256-CHr3AhHVBQw26FzgUoC28vHhnGzI/7+sJ9gP73c7u0g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "978f420f917ef5db20e01fde48c8133089eb4666"
+        "version": "6ba16ac373f12cd3973249d8513fb04f2404b464"
     },
     "open5gs": {
         "cargoLocks": null,

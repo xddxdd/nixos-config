@@ -19,10 +19,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.2.1";
+    version = "3.2.2";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.1/yesoreyeram-infinity-datasource-3.2.1.zip";
-      sha256 = "sha256-3h4PASbES9JY+YmvMQS3bYveMhp26+WJH2IUt71bv5o=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.2/yesoreyeram-infinity-datasource-3.2.2.zip";
+      sha256 = "sha256-+lk+U41/Xd2xkYfZWMzFygUMXX9t8Kg307i3FgH9RMU=";
     };
   };
   himawaripy = {
@@ -88,15 +88,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "978f420f917ef5db20e01fde48c8133089eb4666";
+    version = "6ba16ac373f12cd3973249d8513fb04f2404b464";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "978f420f917ef5db20e01fde48c8133089eb4666";
+      rev = "6ba16ac373f12cd3973249d8513fb04f2404b464";
       fetchSubmodules = false;
-      sha256 = "sha256-U2y6A3/u9mYXWUGUwmmYBiQzAuF8NKzcmYJ7IIQhWkU=";
+      sha256 = "sha256-CHr3AhHVBQw26FzgUoC28vHhnGzI/7+sJ9gP73c7u0g=";
     };
-    date = "2025-05-16";
+    date = "2025-05-27";
   };
   open5gs = {
     pname = "open5gs";
