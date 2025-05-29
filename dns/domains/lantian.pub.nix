@@ -2,34 +2,6 @@
 let
   inherit (config.common.nameservers) PublicNSRecords;
 
-  email = [
-    {
-      recordType = "CNAME";
-      name = "s1._domainkey";
-      target = "s1.domainkey.u6126456.wl207.sendgrid.net.";
-    }
-    {
-      recordType = "CNAME";
-      name = "s2._domainkey";
-      target = "s2.domainkey.u6126456.wl207.sendgrid.net.";
-    }
-    {
-      recordType = "CNAME";
-      name = "em1411";
-      target = "u6126456.wl207.sendgrid.net.";
-    }
-    {
-      recordType = "CNAME";
-      name = "url3735";
-      target = "sendgrid.net.";
-    }
-    {
-      recordType = "CNAME";
-      name = "6126456";
-      target = "sendgrid.net.";
-    }
-  ];
-
   externalServices = [
     {
       recordType = "CNAME";
@@ -305,7 +277,6 @@ in
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
 
-        email
         externalServices
         internalServices
       ];
