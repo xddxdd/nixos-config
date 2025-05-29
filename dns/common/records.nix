@@ -94,7 +94,7 @@
       }
     ];
 
-    MXRoute = [
+    Email = [
       {
         recordType = "MX";
         name = "@";
@@ -120,12 +120,31 @@
       {
         recordType = "TXT";
         name = "@";
-        contents = "v=spf1 include:mxlogin.com -all";
+        contents = "v=spf1 include:mxlogin.com include:spf.ahasend.com -all";
       }
+      # MXRoute
       {
         recordType = "TXT";
         name = "x._domainkey";
         contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnoMpO+zy8KOzcOnUJzKXAHPIZUqusUQjCgJj6ErpKR8oi5kXA5yLLeAZaNl6fh3Au2GfHJTFTkYCUSfL4dt4A7x8FV8rNlrpTmU/SQ1+VfvtS/Qn5uwROmAiKMmjhL8KvuyCEEvTHsBZLIpDDhu+K10N5s3khy4KlVetNhFeahV6wFn/GbnfKHjsfkF3IWLvOtafqNFb8/VH8LsgsCtUJjniecD9D37iqcwxGqUPolx30D8ZXnuMpcS9Ylh6HvCbUHwbdiGm4YmplhvwiWRiTFDL9hyyLOL1cddtoMHZLm3cUP87d2nGIINQJoRHQTWuOp8UsgHJ6eNZ6E62WsYeTQIDAQAB";
+      }
+      # AhaSend
+      {
+        recordType = "TXT";
+        name = "ahasend._domainkey";
+        contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqRA74/KFh5TJqHCUaOJBTSQ1UbBUIeOY0LSjmSeFMWYnYfnXOaJgbHRGkSDi/SdCwW05M276B5g7kZKEpfvO0cFnHu6Olk806YaBj2zx8WG3tdH70YdGllY00EZbJPER9s/kY5CuCY1IiNkPsECasI6GIA5BtvCzdV8YtcyCKDb78ACEwY8TZrvEbgmxUMppp50JK1VR8xtvCs0yqg/ewyXsOVcpeGBNkpqtwmaXa3mNC491aHtVQqyT0+Zgjm4XmqJPKSY4qT/m6QoKCZgR6z64nw0Lzn6e+pPbRiYmMY39R5VZZgBR3mjHiCsfycI7ZVGRtHKjwObjF5ZcalAe7wIDAQAB";
+      }
+      {
+        recordType = "CNAME";
+        name = "psrp";
+        target = "rp.ahasend.com.";
+        ttl = "1h";
+      }
+      {
+        recordType = "CNAME";
+        name = "t";
+        target = "track.ahasend.com.";
+        ttl = "1h";
       }
     ];
 
