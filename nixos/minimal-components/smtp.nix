@@ -38,11 +38,10 @@ in
     enable = true;
     accounts.default = {
       auth = true;
-      host = "smtp.sendgrid.net";
+      host = "send-us.ahasend.com";
       port = 587;
       from = "postmaster@lantian.pub";
-      user = "apikey";
-      # A copy of password is in vaultwarden-env.age
+      user = "LyRZoFKp7S";
       passwordeval = "cat ${config.age.secrets.smtp-pass.path}";
       tls = true;
       tls_starttls = true;

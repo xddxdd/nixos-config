@@ -2,6 +2,7 @@
   LT,
   config,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -32,14 +33,10 @@
 
       DATABASE_URL = "mysql:///vaultwarden";
 
-      SMTP_HOST = config.programs.msmtp.accounts.default.host;
+      USE_SENDMAIL = "true";
+      SENDMAIL_COMMAND = "${pkgs.msmtp}/bin/msmtp";
       SMTP_FROM = config.programs.msmtp.accounts.default.from;
       SMTP_FROM_NAME = "Vaultwarden";
-      SMTP_PORT = config.programs.msmtp.accounts.default.port;
-      SMTP_SSL = config.programs.msmtp.accounts.default.tls;
-      SMTP_EXPLICIT_TLS = !config.programs.msmtp.accounts.default.tls_starttls;
-      SMTP_USERNAME = config.programs.msmtp.accounts.default.user;
-      SMTP_TIMEOUT = 10;
     };
     environmentFile = config.age.secrets.vaultwarden-env.path;
   };
@@ -57,5 +54,14 @@
   systemd.services.vaultwarden = {
     after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
+    serviceConfig = {
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_LOCAL"
+        "AF_NETLINK"
+      ];
+    };
   };
 }
