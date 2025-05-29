@@ -10,7 +10,7 @@ let
 in
 {
   age.secrets.nginx-cgi-ssh-key = {
-    file = inputs.secrets + "/drone/ssh-id-ed25519.age";
+    file = inputs.secrets + "/ssh-id-ed25519.age";
     owner = "nginx";
     group = "nginx";
   };
