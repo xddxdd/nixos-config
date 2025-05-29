@@ -204,6 +204,11 @@ in
         config.common.records.Email
         {
           recordType = "TXT";
+          name = "ahasend._domainkey";
+          contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvSKR1rbMOHc9M9kBQiSjf16UbHhEmKGRWKfMEvySVGGJhOeJ8svudF5VWPZ6pR6YnQeyCuuWnhyQ5ibrgg94zJD5TIojNOt8alJ1ZXk1asj2CPzI/6gzJjnrJXEfQdHkaTZCtLZjmgVqOkFPl0mZpKrhJMyaTh1z/MHnJ0qFCmZIsuu+j+V11hcGfgThtEehtqM0lp7s72OVqEgNOEkZW4KZQN6VxKDGSoRJirAREkiHJ4A9OYlLI24HHKZtA7N3YpC1ac/Z5nqLsj9EunfJMmS/JyReXtR6L8SJ5hZqoag6nlOAao1PSg5uVQ4ZjNgsj/zYjSnlu0FbM6Jk3ksjZwIDAQAB";
+        }
+        {
+          recordType = "TXT";
           name = "_token._dnswl";
           contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz";
         }
