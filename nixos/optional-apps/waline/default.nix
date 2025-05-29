@@ -67,6 +67,13 @@ in
         SITE_NAME = "Lan Tian @ Blog";
         SITE_URL = "https://lantian.pub";
         AKISMET_KEY = "false";
+
+        SMTP_HOST = config.programs.msmtp.accounts.default.host;
+        SMTP_PORT = builtins.toString config.programs.msmtp.accounts.default.port;
+        SMTP_USER = config.programs.msmtp.accounts.default.user;
+        SMTP_SECURE = if (!config.programs.msmtp.accounts.default.tls_starttls) then "true" else "false";
+        SENDER_EMAIL = config.programs.msmtp.accounts.default.from;
+        SENDER_NAME = "Lan Tian @ Blog";
       };
       environmentFiles = [ config.age.secrets.waline-env.path ];
       volumes = [
