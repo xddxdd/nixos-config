@@ -1,8 +1,8 @@
 diff --git a/nixos/modules/services/web-servers/nginx/default.nix b/nixos/modules/services/web-servers/nginx/default.nix
-index 4819d137aeb0..1872d06b849e 100644
+index 2ff0c3494e19..e2ea7671d0a0 100644
 --- a/nixos/modules/services/web-servers/nginx/default.nix
 +++ b/nixos/modules/services/web-servers/nginx/default.nix
-@@ -1315,27 +1315,6 @@ in
+@@ -1373,27 +1373,6 @@ in
            '';
          }
  
