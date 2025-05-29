@@ -1186,11 +1186,11 @@
         "nixpkgs-22-05": "nixpkgs-22-05"
       },
       "locked": {
-        "lastModified": 1747988573,
-        "narHash": "sha256-NKakm4kdRNQfoEY5CjonHEBQHAZzC265sseb9czEsfQ=",
+        "lastModified": 1748499757,
+        "narHash": "sha256-C560/h5KtqM4/D8zd9uM+G2U/2L1KQ4hEpgzx+YDHdQ=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "6885c0eb5fa7b1e3b114fa1bb8bb152a7963e40a",
+        "rev": "588ed69a56fc2e1646f904b820cd23765ce15a14",
         "type": "github"
       },
       "original": {
