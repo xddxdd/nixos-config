@@ -84,10 +84,9 @@
       mailer = {
         ENABLED = true;
         FROM = "postmaster@lantian.pub";
-        SMTP_ADDR = "smtp.sendgrid.net";
-        SMTP_PORT = 465;
-        PROTOCOL = "smtps";
-        USER = "apikey";
+        PROTOCOL = "sendmail";
+        SENDMAIL_PATH = "${pkgs.msmtp}/bin/msmtp";
+        SENDMAIL_ARGS = "--";
       };
       "git.timeout" = {
         DEFAULT = 3600;
