@@ -29,7 +29,7 @@
         (config.common.hostRecs.Normal "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
         (config.common.records.Autoconfig "${domain}.")
-        config.common.records.MXRoute
+        config.common.records.Email
         config.common.records.Libravatar
         config.common.records.ProxmoxCluster
         config.common.records.SIP

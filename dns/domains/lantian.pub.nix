@@ -280,7 +280,7 @@ in
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal "${domain}.")
         (config.common.records.Autoconfig "${domain}.")
-        config.common.records.MXRoute
+        config.common.records.Email
         {
           recordType = "TXT";
           name = "_token._dnswl";
