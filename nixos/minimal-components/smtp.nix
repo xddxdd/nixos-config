@@ -38,7 +38,17 @@ in
     enable = true;
     accounts.default = {
       auth = true;
-      host = "send-us.ahasend.com";
+      host =
+        if
+          builtins.elem LT.this.city.country [
+            "US"
+            "CA"
+            "MX"
+          ]
+        then
+          "send-us.ahasend.com"
+        else
+          "send.ahasend.com";
       port = 587;
       from = "postmaster@lantian.pub";
       user = "LyRZoFKp7S";
