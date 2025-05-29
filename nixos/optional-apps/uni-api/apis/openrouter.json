@@ -38,6 +38,7 @@
   "anthropic/claude-3.5-sonnet:beta": "anthropic/claude-3.5-sonnet:beta",
   "anthropic/claude-3.7-sonnet": "anthropic/claude-3.7-sonnet",
   "anthropic/claude-3.7-sonnet:beta": "anthropic/claude-3.7-sonnet:beta",
+  "anthropic/claude-3.7-sonnet:thinking": "anthropic/claude-3.7-sonnet:thinking",
   "anthropic/claude-opus-4": "anthropic/claude-opus-4",
   "anthropic/claude-sonnet-4": "anthropic/claude-sonnet-4",
   "arcee-ai/arcee-blitz": "arcee-ai/arcee-blitz",
