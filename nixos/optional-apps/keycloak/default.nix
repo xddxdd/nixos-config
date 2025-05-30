@@ -26,7 +26,7 @@
     };
     themes.lantian = pkgs.callPackage ./theme-lantian.nix { inherit (LT) sources; };
 
-    sslCertificate = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
+    sslCertificate = "lets-encrypt-/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/fullchain.cer";
     sslCertificateKey = "/nix/persistent/sync-servers/acme.sh/lantian.pub_ecc/lantian.pub.key";
 
     settings = {
@@ -66,7 +66,7 @@
       };
     };
 
-    sslCertificate = "lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 }

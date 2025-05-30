@@ -44,7 +44,7 @@
       "/static/".alias = config.services.netbox.settings.STATIC_ROOT + "/";
     };
 
-    sslCertificate = "xuyh0120.win";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
   };
 

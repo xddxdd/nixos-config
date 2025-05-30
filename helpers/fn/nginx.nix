@@ -1,8 +1,8 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 rec {
-  getSSLPath = acmeName: "/nix/persistent/sync-servers/acme.sh/${acmeName}";
-  getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.cer";
-  getSSLKey = acmeName: "${getSSLPath acmeName}/${builtins.head (lib.splitString "_" acmeName)}.key";
+  getSSLPath = acmeName: "/nix/persistent/sync-servers/acme/${acmeName}";
+  getSSLCert = acmeName: "${getSSLPath acmeName}/fullchain.pem";
+  getSSLKey = acmeName: "${getSSLPath acmeName}/key.pem";
 
   compressStaticAssets = p: pkgs.compressDrvWeb p { };
 }

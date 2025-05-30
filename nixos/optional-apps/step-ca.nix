@@ -33,7 +33,7 @@
       "/".return = "https://ca.lantian.pub:444$request_uri";
     };
 
-    sslCertificate = "lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 

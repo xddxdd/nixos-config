@@ -89,7 +89,7 @@
         "/icons-custom/".alias = inputs.secrets + "/homepage-dashboard-icons/";
       };
 
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win";
+      sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
       accessibleBy = "private";
     };

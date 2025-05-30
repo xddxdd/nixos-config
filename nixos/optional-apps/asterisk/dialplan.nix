@@ -59,7 +59,7 @@ in
 {
   lantian.nginxVhosts."sip.lantian.pub" = {
     root = dialPlanDir;
-    sslCertificate = "lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 }

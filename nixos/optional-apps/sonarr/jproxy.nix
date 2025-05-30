@@ -53,7 +53,7 @@
         };
       };
 
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win";
+      sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
     };
     "jproxy.localhost" = {
