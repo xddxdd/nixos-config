@@ -43,7 +43,7 @@ in
       };
     };
 
-    sslCertificate = "ltn.pw";
+    sslCertificate = "lets-encrypt-ltn.pw";
     noIndex.enable = true;
   };
 

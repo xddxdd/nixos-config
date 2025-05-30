@@ -46,7 +46,7 @@
         proxyPass = "http://unix:/run/fastapi-dls/fastapi-dls.sock";
       };
     };
-    sslCertificate = "${config.networking.hostName}.xuyh0120.win";
+    sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
     accessibleBy = "private";
     noIndex.enable = true;
   };

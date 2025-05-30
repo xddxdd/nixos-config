@@ -33,7 +33,7 @@
         '';
       };
 
-      sslCertificate = "lantian.pub";
+      sslCertificate = "lets-encrypt-lantian.pub";
     };
 
     "stage1.whois.local" = {
