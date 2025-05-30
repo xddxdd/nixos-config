@@ -41,6 +41,12 @@
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
+
+        {
+          recordType = "TXT";
+          name = "@";
+          contents = "google-site-verification=jMncE0WbfBTdf0byJLd1FlhDM9IUGRnYJYlFCRxejmQ";
+        }
       ];
     }
   ];
