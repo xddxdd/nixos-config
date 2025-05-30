@@ -22,7 +22,7 @@
       };
     };
 
-    sslCertificate = "xuyh0120.win";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
     blockDotfiles = false;
     noIndex.enable = true;
   };

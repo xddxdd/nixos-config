@@ -67,7 +67,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
         };
       };
 
-      sslCertificate = "xuyh0120.win";
+      sslCertificate = "lets-encrypt-xuyh0120.win";
       noIndex.enable = true;
     };
     "attic.${config.networking.hostName}.xuyh0120.win" = {
@@ -78,7 +78,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
         };
       };
 
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win";
+      sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
     };
   };
