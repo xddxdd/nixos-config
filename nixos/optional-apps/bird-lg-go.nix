@@ -63,7 +63,7 @@ in
         };
       };
 
-      sslCertificate = "lantian.pub";
+      sslCertificate = "lets-encrypt-lantian.pub";
       noIndex.enable = true;
     };
     "lg.lantian.dn42" = {
@@ -78,7 +78,7 @@ in
         };
       };
 
-      sslCertificate = "lantian.dn42";
+      sslCertificate = "lets-encrypt-lantian.dn42";
       noIndex.enable = true;
     };
   };

@@ -48,7 +48,7 @@
         "/transmission/web".alias = "${pkgs.transmission}/share/transmission/web";
       };
 
-      sslCertificate = "${config.networking.hostName}.xuyh0120.win";
+      sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
     };
     "transmission.localhost" = {

@@ -25,8 +25,8 @@ rec {
     protocol=tls
     bind=0.0.0.0:5061
     ca_list_file=/etc/ssl/certs/ca-certificates.crt
-    cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
-    priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
+    cert_file=${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"}
     method=tlsv1_2
     verify_client=no
     verify_server=yes
@@ -49,8 +49,8 @@ rec {
     protocol=tls
     bind=[::]:5061
     ca_list_file=/etc/ssl/certs/ca-certificates.crt
-    cert_file=${LT.nginx.getSSLCert "lantian.pub_ecc"}
-    priv_key_file=${LT.nginx.getSSLKey "lantian.pub_ecc"}
+    cert_file=${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"}
     method=tlsv1_2
     verify_client=no
     verify_server=yes
