@@ -28,7 +28,6 @@
     ../../nixos/optional-apps/zerotierone-controller
 
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
-    ../../nixos/optional-cron-jobs/ssl-certs.nix
     ../../nixos/optional-cron-jobs/testssl.nix
 
     "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
