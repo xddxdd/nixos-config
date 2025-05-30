@@ -5,7 +5,7 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/acme.nix
+    ../../nixos/optional-apps/acme
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/dex.nix

@@ -1,0 +1,13 @@
+diff --git a/nixos/modules/security/acme/default.nix b/nixos/modules/security/acme/default.nix
+index 58ab3623223d..d115acb6cade 100644
+--- a/nixos/modules/security/acme/default.nix
++++ b/nixos/modules/security/acme/default.nix
+@@ -745,7 +745,7 @@ let
+         };
+ 
+         environmentFile = lib.mkOption {
+-          type = lib.types.nullOr lib.types.path;
++          type = lib.types.either (lib.types.nullOr lib.types.path) (lib.types.listOf lib.types.path);
+           inherit (defaultAndText "environmentFile" null) default defaultText;
+           description = ''
+             Path to an EnvironmentFile for the cert's service containing any required and

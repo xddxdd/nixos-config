@@ -18,7 +18,6 @@ let
 
     # SSL tests
     "https://buypass-ssl.lantian.pub"
-    "https://google-ssl.lantian.pub"
     "https://letsencrypt-ssl.lantian.pub"
     "https://zerossl.lantian.pub"
 

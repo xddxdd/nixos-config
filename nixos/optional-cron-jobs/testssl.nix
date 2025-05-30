@@ -9,6 +9,7 @@ let
     "lab.lantian.pub"
 
     "buypass-ssl.lantian.pub"
+    "buypass-test-ssl.lantian.pub"
     "google-ssl.lantian.pub"
     "google-test-ssl.lantian.pub"
     "letsencrypt-ssl.lantian.pub"
