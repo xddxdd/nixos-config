@@ -16,10 +16,6 @@ fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/dow
 src.github = "boramalper/himawaripy"
 fetch.github = "boramalper/himawaripy"
 
-[keycloak-lantian]
-src.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
-fetch.git = "https://git.lantian.pub/lantian/keycloak-lantian.git"
-
 [material-kwin-decoration]
 src.git = "https://github.com/Zren/material-decoration.git"
 fetch.github = "Zren/material-decoration"
