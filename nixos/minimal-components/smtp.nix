@@ -16,7 +16,7 @@ let
 
     [ "$STATE" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
 
-    exec sendmail -t <<EOF
+    cat <<EOF | cut -c 1-80 | sendmail -t
     To: $MAILTO
     Subject: $FLAG $UNIT on $HOSTNAME
 
