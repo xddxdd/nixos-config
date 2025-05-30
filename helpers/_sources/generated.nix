@@ -36,20 +36,6 @@
       sha256 = "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=";
     };
   };
-  keycloak-lantian = {
-    pname = "keycloak-lantian";
-    version = "f499fb03624b6b396e6eef1263dd1650a95e63d2";
-    src = fetchgit {
-      url = "https://git.lantian.pub/lantian/keycloak-lantian.git";
-      rev = "f499fb03624b6b396e6eef1263dd1650a95e63d2";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-xiq4Ap75ma9GzwyRfAlgzoSBZNPWZoCFildo58U60/M=";
-    };
-    date = "2023-05-27";
-  };
   material-kwin-decoration = {
     pname = "material-kwin-decoration";
     version = "0e989e5b815b64ee5bca989f983da68fa5556644";

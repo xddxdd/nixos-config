@@ -156,8 +156,6 @@ rec {
     RSSHub = 13248;
     NeteaseUnlock.HTTP = 13301;
     NeteaseUnlock.HTTPS = 13302;
-    Keycloak.HTTP = 13401;
-    Keycloak.HTTPS = 13402;
     Dex = 13403;
     OpenWebUI.UI = 13433;
     Ollama = 13434;
