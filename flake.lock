@@ -133,7 +133,7 @@
     },
     "crane": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1717383740,
@@ -926,22 +926,6 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1748410535,
-        "narHash": "sha256-xATwKIbwrE4P61a1iVvPomVmX5npnLm6Ibc+K1tjzi4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "aeb017b5830518483e0081d2ac6e12dd4d787f5d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_5": {
-      "locked": {
         "lastModified": 1714656196,
         "narHash": "sha256-kjQkA98lMcsom6Gbhw8SYzmwrSo+2nruiTcTZp5jK7o=",
         "owner": "NixOS",
@@ -985,7 +969,9 @@
         "nix-index-database": [
           "nix-index-database"
         ],
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "nixpkgs-24_05": "nixpkgs-24_05",
         "nvfetcher": [
           "nvfetcher"
