@@ -11,8 +11,9 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/asf/config 755 root"
-    "d /var/lib/asf/plugins 755 root"
+    "d /var/lib/asf 755 1000 1000"
+    "d /var/lib/asf/config 755 1000 1000"
+    "d /var/lib/asf/plugins 755 1000 1000"
   ];
 
   lantian.nginxVhosts."asf.xuyh0120.win" = {
