@@ -1,6 +1,7 @@
 {
   "BAAI-bge-large-en-v1-5": "baai-bge-large-en-v1-5",
   "DeepSeek-R1": "deepseek/deepseek-r1",
+  "DeepSeek-R1-0528": "deepseek/deepseek-r1-0528",
   "DeepSeek-R1-Distill-Llama-70B": "deepseek/deepseek-r1-distill-llama-70b",
   "DeepSeek-R1-Distill-Qwen-14B": "deepseek/deepseek-r1-distill-qwen-14b",
   "DeepSeek-R1-Distill-Qwen-32B": "deepseek/deepseek-r1-distill-qwen-32b",
