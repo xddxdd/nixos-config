@@ -96,11 +96,6 @@ in
       providerTags = [ "free" ];
     }
     {
-      name = "xai";
-      baseURL = "https://api.x.ai/v1/chat/completions";
-      providerTags = [ "free" ];
-    }
-    {
       name = "github-models";
       baseURL = "https://models.inference.ai.azure.com/chat/completions";
       providerTags = [ "free" ];
@@ -170,6 +165,11 @@ in
     {
       name = "openrouter";
       baseURL = "https://openrouter.ai/api/v1/chat/completions";
+      providerTags = [ "paid" ];
+    }
+    {
+      name = "xai";
+      baseURL = "https://api.x.ai/v1/chat/completions";
       providerTags = [ "paid" ];
     }
     {
