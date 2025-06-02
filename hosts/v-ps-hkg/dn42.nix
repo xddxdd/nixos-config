@@ -290,6 +290,22 @@
         peerIPv6LinkLocal = "fe80::2925";
       };
     };
+    milu = {
+      remoteASN = 4242421166;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21166;
+        remoteAddress = "hk.dn42.milu.moe";
+        remotePort = 22547;
+        wireguardPubkey = "f9ZDh2U0UXxtEroHUYNWzaE6TZM3hhY3eLXQQpgkvBY=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.110.34";
+        peerIPv6LinkLocal = "fe80::1166";
+      };
+    };
     misty = {
       remoteASN = 4242423895;
       latencyMs = 2;
