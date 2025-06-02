@@ -1,7 +1,6 @@
 _: rec {
   args = {
     configureParent = true;
-    mountOptions = [ "x-gvfs-hide" ];
   };
 
   mkFolder = mkFolder' { };
