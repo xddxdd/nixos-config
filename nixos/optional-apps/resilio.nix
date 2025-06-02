@@ -49,7 +49,7 @@ in
     fileSystems."/run/rslfiles" = {
       device = config.lantian.resilio.storage;
       fsType = "fuse.bindfs";
-      options = [
+      options = LT.constants.bindfsMountOptions' [
         "force-user=${config.systemd.services.resilio.serviceConfig.User}"
         "force-group=${config.systemd.services.resilio.serviceConfig.Group}"
         "perms=700"
@@ -57,11 +57,6 @@ in
         "create-for-group=root"
         "create-with-perms=755"
         "chmod-ignore"
-        "chown-ignore"
-        "chgrp-ignore"
-        "xattr-none"
-        "x-gvfs-hide"
-        "multithreaded"
       ];
     };
 

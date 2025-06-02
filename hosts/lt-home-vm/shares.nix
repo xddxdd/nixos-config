@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  LT,
+  ...
+}:
 {
   imports = [
     ../../nixos/optional-apps/nfs.nix
@@ -31,7 +36,7 @@
     "/run/sftp" = lib.mkForce {
       device = "/mnt/storage";
       fsType = "fuse.bindfs";
-      options = [
+      options = LT.constants.bindfsMountOptions' [
         "force-user=sftp"
         "force-group=sftp"
         "perms=700"
@@ -39,19 +44,11 @@
         "create-for-group=users"
         "create-with-perms=755"
         "chmod-ignore"
-        "chown-ignore"
-        "chgrp-ignore"
-        "xattr-none"
-        "x-gvfs-hide"
-        "multithreaded"
       ];
     };
     "/run/nfs/storage" = {
       device = "/mnt/storage";
-      options = [
-        "bind"
-        "x-gvfs-hide"
-      ];
+      options = LT.constants.bindMountOptions;
     };
   };
 
