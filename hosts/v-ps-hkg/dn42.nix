@@ -608,6 +608,21 @@
         peerIPv6LinkLocal = "fe80::1894";
       };
     };
+    yakumo = {
+      remoteASN = 4242420387;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 20387;
+        remoteAddress = "hk2.l0.ink";
+        remotePort = 22547;
+        wireguardPubkey = "krJb3l8hypXbDs8h6zNw5QQy5zdwVsRKRm1g30KnYBU=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.44.129";
+        peerIPv6LinkLocal = "fe80::387";
+      };
+    };
     zerowolf = {
       remoteASN = 4242420233;
       latencyMs = 4;
