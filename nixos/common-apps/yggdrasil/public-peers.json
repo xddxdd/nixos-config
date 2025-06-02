@@ -30,8 +30,11 @@
   "france": [
     "tls://51.15.204.214:54321",
     "tls://51.255.223.60:54232",
+    "tls://62.210.85.80:39575",
     "tls://[2001:41d0:303:13b3:51:255:223:60]:54232",
+    "tls://[2001:470:1f13:e56::64]:39575",
     "tls://cloudberry.fr1.servers.devices.cwinfo.net:54232",
+    "tls://s2.i2pd.xyz:39575",
     "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
@@ -109,9 +112,6 @@
   "singapore": [
     "tls://asia.deinfra.org:15015"
   ],
-  "south-africa": [
-    "tls://yggdrasil.deavmi.assigned.network:2001"
-  ],
   "spain": [
     "tls://spain.magicum.net:36901"
   ],
@@ -140,6 +140,7 @@
     "tls://longseason.1200bps.xyz:13122",
     "tls://neo.node.3dt.net:9003",
     "tls://redcatho.de:9494",
+    "tls://srv.newsdeef.eu:59999",
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
