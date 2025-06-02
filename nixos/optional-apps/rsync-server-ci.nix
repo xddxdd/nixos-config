@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  LT,
   ...
 }:
 let
@@ -34,7 +35,7 @@ in
   fileSystems."/run/rsync-ci" = {
     device = "/nix/persistent/sync-servers";
     fsType = "fuse.bindfs";
-    options = [
+    options = LT.constants.bindfsMountOptions' [
       "force-user=ci"
       "force-group=ci"
       "perms=700"
@@ -42,11 +43,6 @@ in
       "create-for-group=root"
       "create-with-perms=755"
       "chmod-ignore"
-      "chown-ignore"
-      "chgrp-ignore"
-      "xattr-none"
-      "x-gvfs-hide"
-      "multithreaded"
     ];
   };
 }

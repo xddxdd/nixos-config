@@ -15,7 +15,7 @@
     fileSystems."/run/syncthing-files" = {
       device = config.lantian.syncthing.storage;
       fsType = "fuse.bindfs";
-      options = [
+      options = LT.constants.bindfsMountOptions' [
         "force-user=syncthing"
         "force-group=syncthing"
         "perms=700"
@@ -23,11 +23,6 @@
         "create-for-group=root"
         "create-with-perms=755"
         "chmod-ignore"
-        "chown-ignore"
-        "chgrp-ignore"
-        "xattr-none"
-        "x-gvfs-hide"
-        "multithreaded"
       ];
     };
 

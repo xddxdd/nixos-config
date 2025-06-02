@@ -15,7 +15,7 @@
     fileSystems."/run/immich" = {
       device = config.lantian.immich.storage;
       fsType = "fuse.bindfs";
-      options = [
+      options = LT.constants.bindfsMountOptions' [
         "force-user=${config.services.immich.user}"
         "force-group=${config.services.immich.group}"
         "perms=700"
@@ -23,11 +23,6 @@
         "create-for-group=users"
         "create-with-perms=755"
         "chmod-ignore"
-        "chown-ignore"
-        "chgrp-ignore"
-        "xattr-none"
-        "x-gvfs-hide"
-        "multithreaded"
       ];
     };
 

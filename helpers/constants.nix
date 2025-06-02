@@ -33,21 +33,29 @@ rec {
     "齐栾 - Seek The Peace feat. soratan小空（For the peace 翻自 Yisabel）（Cover 齐栾）.mp3"
   ];
 
-  bindfsMountOptions = [
+  bindfsMountOptions = bindfsMountOptions' [
     "force-user=lantian"
     "force-group=lantian"
     "create-for-user=root"
     "create-for-group=root"
-    "chown-ignore"
-    "chgrp-ignore"
-    "xattr-none"
-    "x-gvfs-hide"
-    "multithreaded"
   ];
+
+  bindfsMountOptions' =
+    args:
+    args
+    ++ [
+      "chown-ignore"
+      "chgrp-ignore"
+      "xattr-none"
+      "x-gvfs-hide"
+      "x-gdu.hide"
+      "multithreaded"
+    ];
 
   bindMountOptions = [
     "bind"
     "x-gvfs-hide"
+    "x-gdu.hide"
   ];
 
   dn42 = {
