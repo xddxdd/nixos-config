@@ -21,6 +21,22 @@
         peerIPv6LinkLocal = "fe80::585";
       };
     };
+    baka = {
+      remoteASN = 4242423374;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23374;
+        remoteAddress = "jp01.dn42.baka.pub";
+        remotePort = 22547;
+        wireguardPubkey = "N7iQzqWLPb6lpRlf7grQG6rEzQOvDZWkmsRDkRnniH0=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.154.226";
+        peerIPv6LinkLocal = "fe80::2999:226";
+      };
+    };
     bb-pgqm = {
       remoteASN = 4242420549;
       latencyMs = 3;
