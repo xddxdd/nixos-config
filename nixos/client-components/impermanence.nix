@@ -1,6 +1,10 @@
 { LT, config, ... }:
 {
   preservation.preserveAt."/nix/persistent" = {
+    commonMountOptions = [
+      "x-gvfs-hide"
+      "x-gdu.hide"
+    ];
     users.lantian = {
       directories = builtins.map LT.preservation.mkFolder (
         builtins.filter (v: !builtins.hasAttr "/home/lantian/${v}" config.fileSystems) [
