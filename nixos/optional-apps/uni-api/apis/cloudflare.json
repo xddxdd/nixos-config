@@ -10,6 +10,7 @@
   "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b",
   "@cf/defog/sqlcoder-7b-2": "defog/sqlcoder-7b-2",
   "@cf/facebook/bart-large-cnn": "facebook/bart-large-cnn",
+  "@cf/facebook/omni-detr-resnet-50": "facebook/omni-detr-resnet-50",
   "@cf/facebook/triton-detr-resnet-50": "facebook/triton-detr-resnet-50",
   "@cf/fblgit/una-cybertron-7b-v2-bf16": "fblgit/una-cybertron-7b-v2-bf16",
   "@cf/google/gemma-2b-it-lora": "google/gemma-2b-it-lora",
