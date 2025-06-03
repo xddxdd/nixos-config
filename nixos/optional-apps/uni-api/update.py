@@ -30,6 +30,7 @@ APIS = {
     "openrouter": "https://openrouter.ai/api/v1",
     "pollinations": "https://text.pollinations.ai/openai",
     "siliconflow": "https://api.siliconflow.cn/v1",
+    "unlimit-chat": "https://platform.unlimit.chat/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
 }
