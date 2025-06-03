@@ -66,6 +66,7 @@ in
         "openrouter-api-key"
         "siliconflow-api-key"
         "siliconflow-pool-api-key"
+        "unlimit-chat-api-key"
         "wbot-api-key"
         "xai-api-key"
       ]
