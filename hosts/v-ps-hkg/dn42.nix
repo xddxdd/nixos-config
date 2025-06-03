@@ -5,6 +5,8 @@
   services."dn42-pingfinder".uuidFile = config.age.secrets.dn42-pingfinder-uuid.path;
 
   age.secrets.dn42-v-ps-hkg-h503mc-wg-psk.file = inputs.secrets + "/dn42/v-ps-hkg-h503mc-wg-psk.age";
+  age.secrets.dn42-v-ps-hkg-immtele-wg-psk.file =
+    inputs.secrets + "/dn42/v-ps-hkg-immtele-wg-psk.age";
 
   services.dn42 = {
     "24kcsplus" = {
@@ -130,6 +132,23 @@
         peerIPv4 = "172.22.66.52";
         myIPv6 = "fdbc:f9dc:67ad::8b:c606:ba01";
         peerIPv6 = "fd42:4242:2189:ee::1";
+      };
+    };
+    immtele = {
+      remoteASN = 4242422488;
+      latencyMs = 2;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22488;
+        remoteAddress = "78d8826d-e062-4893-b5f4-8af06da3f0ea.immtel.com";
+        remotePort = 22547;
+        wireguardPubkey = "+ES6XZEqmtYW559OS/hNuh2x0vWyzD2j1uqN/aRh/lg=";
+        wireguardPresharedKeyFile = config.age.secrets.dn42-v-ps-hkg-immtele-wg-psk.path;
+      };
+      addressing = {
+        myIPv6 = "fd46:1d76:e65e::fcde:3b13";
+        peerIPv6 = "fd46:1d76:e65e::";
       };
     };
     jasonxu = {
