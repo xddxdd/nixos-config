@@ -160,6 +160,12 @@ in
       providerTags = [ "free_unreliable" ];
       modelSuffix = null;
     }
+    {
+      name = "unlimit-chat";
+      baseURL = "https://platform.unlimit.chat/v1/chat/completions";
+      providerTags = [ "free_unreliable" ];
+      modelSuffix = null;
+    }
 
     # Paid providers
     {
