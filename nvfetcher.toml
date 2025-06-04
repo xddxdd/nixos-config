@@ -2,6 +2,10 @@
 src.github = "gchq/CyberChef"
 fetch.url = "https://github.com/gchq/CyberChef/releases/download/$ver/CyberChef_$ver.zip"
 
+[flaresolverr]
+src.github = "FlareSolverr/FlareSolverr"
+fetch.github = "FlareSolverr/FlareSolverr"
+
 [grafana-falconlogscale-datasource]
 src.github = "grafana/falconlogscale-datasource"
 src.prefix = "v"

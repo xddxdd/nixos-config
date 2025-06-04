@@ -7,7 +7,7 @@
 {
   services.flaresolverr = {
     enable = true;
-    package = pkgs.nur-xddxdd.flaresolverr-alexfozor;
+    package = pkgs.flaresolverr;
     port = LT.port.FlareSolverr;
   };
 

@@ -14,6 +14,27 @@
         },
         "version": "v10.19.4"
     },
+    "flaresolverr": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "flaresolverr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "FlareSolverr",
+            "repo": "FlareSolverr",
+            "rev": "v3.3.22",
+            "sha256": "sha256-kNxm0LV+96c64H/9KiMTkMsJk2nYTb6NIwBkU7bHaxY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.3.22"
+    },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
         "date": null,
