@@ -9,6 +9,17 @@
       sha256 = "sha256-N4iyn/tU9XhJaPz5mChvD3VnC+ipLkDraDdD66q5dRA=";
     };
   };
+  flaresolverr = {
+    pname = "flaresolverr";
+    version = "v3.3.22";
+    src = fetchFromGitHub {
+      owner = "FlareSolverr";
+      repo = "FlareSolverr";
+      rev = "v3.3.22";
+      fetchSubmodules = false;
+      sha256 = "sha256-kNxm0LV+96c64H/9KiMTkMsJk2nYTb6NIwBkU7bHaxY=";
+    };
+  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.8.2";
