@@ -244,6 +244,22 @@
         peerIPv6LinkLocal = "fe80::42:1817:1";
       };
     };
+    leziblog = {
+      remoteASN = 4242423377;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 23377;
+        remoteAddress = "hk1.peer.dn42.leziblog.com";
+        remotePort = 22547;
+        wireguardPubkey = "XaX6/G7EQbcjsrtlxNmDc/s/VSdTxtkBxZKB2JpWIHo=";
+      };
+      addressing = {
+        peerIPv4 = "172.22.137.99";
+        peerIPv6LinkLocal = "fe80::3377";
+      };
+    };
     liangjw = {
       remoteASN = 4242420604;
       latencyMs = 37;
@@ -610,6 +626,21 @@
         peerIPv4 = "172.20.16.145";
         myIPv6LinkLocal = "fe80::100";
         peerIPv6LinkLocal = "fe80::1588";
+      };
+    };
+    twilight = {
+      remoteASN = 4242421309;
+      latencyMs = 1;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21309;
+        remoteAddress = "84.54.3.96";
+        remotePort = 22547;
+        wireguardPubkey = "5j8iv49pxNRzk8f6oRC6aymXQhtIGgcd8c6bCIOUeFQ=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.120.1";
+        peerIPv6LinkLocal = "fe80::24f3:70ff:fe00:150";
       };
     };
     william = {

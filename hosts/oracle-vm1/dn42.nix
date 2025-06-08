@@ -132,6 +132,22 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    luoyu = {
+      remoteASN = 4242421999;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21999;
+        remoteAddress = "tyo1.dn42.luotianyi.sbs";
+        remotePort = 22547;
+        wireguardPubkey = "vzCKl611U0MVeaIcNyb8gJgWk1p6HY6oHr1oE846Py8=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.11.42";
+        peerIPv6LinkLocal = "fe80::1999";
+      };
+    };
     lze = {
       remoteASN = 4242422171;
       latencyMs = 2;
@@ -268,6 +284,22 @@
       addressing = {
         peerIPv4 = "172.20.236.129";
         peerIPv6LinkLocal = "fe80::17ff:fe00:a5e7";
+      };
+    };
+    xeiu = {
+      remoteASN = 4242421336;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21336;
+        remoteAddress = "jp1.dn42.xeiu.top";
+        remotePort = 22547;
+        wireguardPubkey = "eacDn4IjHBMavV9IeilwPmrVDoVyKBkNhgK6qUBskiM=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.159.1";
+        peerIPv6LinkLocal = "fe80::1336";
       };
     };
     xlyf = {

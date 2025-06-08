@@ -254,6 +254,22 @@
         peerIPv6LinkLocal = "fe80::aa:1111:42";
       };
     };
+    luoyu = {
+      remoteASN = 4242421999;
+      latencyMs = 7;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21999;
+        remoteAddress = "fra1.dn42.luotianyi.sbs";
+        remotePort = 22547;
+        wireguardPubkey = "3zIlkokGMnHgL0VrLxySZ45ziIOzEMldXQH/LMe1PAk=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.11.56";
+        peerIPv6LinkLocal = "fe80::1999:3";
+      };
+    };
     lutoma = {
       remoteASN = 64719;
       latencyMs = 5;
