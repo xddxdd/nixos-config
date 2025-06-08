@@ -35,7 +35,7 @@
     verbosity = "crit";
     extraOptions = [
       "--loadavg-target"
-      "4"
+      "32"
       "--workaround-btrfs-send"
     ];
   };
