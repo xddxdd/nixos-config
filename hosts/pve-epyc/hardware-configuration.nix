@@ -6,7 +6,6 @@
   imports = [
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/ups.nix
-    ../../nixos/hardware/zfs.nix
   ];
 
   boot.loader.grub = {
@@ -41,6 +40,16 @@
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/fad6832b-1bde-4bda-90ba-51520e0feef4";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd"
+      "nosuid"
+      "nodev"
+    ];
+  };
+
+  fileSystems."/mnt/nvme" = {
+    device = "/dev/disk/by-uuid/e2c5bd1d-8aa8-44ae-9c2a-b8976a446b4f";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
