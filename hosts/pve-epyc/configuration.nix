@@ -29,17 +29,6 @@
     options zfs zfs_arc_max=1073741824
   '';
 
-  services.beesd.filesystems.nvme = {
-    spec = config.fileSystems."/mnt/nvme".device;
-    hashTableSizeMB = 1024;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target"
-      "32"
-      "--workaround-btrfs-send"
-    ];
-  };
-
   services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
