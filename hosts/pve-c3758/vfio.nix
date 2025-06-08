@@ -10,6 +10,8 @@
     "iommu=pt"
     "amd_iommu=on"
     "isolcpus=4-7"
+    "nohz_full=4-7"
+    "rcu_nocbs=4-7"
   ];
   boot.extraModprobeConfig =
     let
