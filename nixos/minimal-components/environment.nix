@@ -46,6 +46,7 @@
       dig
       duf
       eza
+      fuc
       fzf
       gitMinimal
       gzip
