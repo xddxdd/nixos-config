@@ -69,10 +69,8 @@
   "netherlands": [
     "tls://23.137.249.65:444",
     "tls://s-ams-0.sergeysedoy97.ru:65534",
-    "tls://s-ams-1.sergeysedoy97.ru:65534",
     "tls://vpn.itrus.su:7992",
     "tls://x-ams-0.sergeysedoy97.ru:65534",
-    "tls://x-ams-1.sergeysedoy97.ru:65534",
     "tls://ygg-nl.incognet.io:8884"
   ],
   "romania": [
