@@ -4,7 +4,7 @@ hss:
   # Note: SCTP works but is still experimental. TCP has been load-tested and performs in a production environment.
   transport: 'TCP'
   #IP Addresses to bind on (List) - For TCP only the first IP is used, for SCTP all used for Transport (Multihomed).
-  bind_ip: ['127.0.0.47']
+  bind_ip: ['127.0.0.8']
 
   #Port to listen on (Same for TCP & SCTP)
   bind_port: 3868
