@@ -12,6 +12,7 @@
   "databricks/dbrx-instruct": "databricks/dbrx-instruct",
   "deepseek-ai/deepseek-coder-6.7b-instruct": "deepseek/deepseek-coder-6.7b-instruct",
   "deepseek-ai/deepseek-r1": "deepseek/deepseek-r1",
+  "deepseek-ai/deepseek-r1-0528": "deepseek/deepseek-r1-0528",
   "deepseek-ai/deepseek-r1-distill-llama-8b": "deepseek/deepseek-r1-distill-llama-8b",
   "deepseek-ai/deepseek-r1-distill-qwen-14b": "deepseek/deepseek-r1-distill-qwen-14b",
   "deepseek-ai/deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b",
