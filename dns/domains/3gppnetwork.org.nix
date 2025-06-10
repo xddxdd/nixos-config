@@ -66,6 +66,21 @@ in
         }
         {
           recordType = "A";
+          name = "mme.epc";
+          address = "127.0.0.2";
+        }
+        {
+          recordType = "A";
+          name = "smf.epc";
+          address = "127.0.0.4";
+        }
+        {
+          recordType = "A";
+          name = "hss.epc";
+          address = "127.0.0.8";
+        }
+        {
+          recordType = "A";
           name = "pcrf.epc";
           address = "127.0.0.9";
         }
