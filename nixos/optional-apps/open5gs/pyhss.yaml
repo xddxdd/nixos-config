@@ -4,13 +4,13 @@ hss:
   # Note: SCTP works but is still experimental. TCP has been load-tested and performs in a production environment.
   transport: 'TCP'
   #IP Addresses to bind on (List) - For TCP only the first IP is used, for SCTP all used for Transport (Multihomed).
-  bind_ip: ['127.0.0.47']
+  bind_ip: ['127.0.0.8']
 
   #Port to listen on (Same for TCP & SCTP)
   bind_port: 3868
 
   #Value to populate as the OriginHost in Diameter responses
-  OriginHost: 'pyhss'
+  OriginHost: 'hss.epc.mnc010.mcc315.3gppnetwork.org'
 
   #Value to populate as the OriginRealm in Diameter responses
   OriginRealm: 'epc.mnc010.mcc315.3gppnetwork.org'
@@ -27,7 +27,7 @@ hss:
   MNC: '010'
 
   #Enable GMLC / SLh Interface
-  SLh_enabled: False
+  SLh_enabled: True
 
   #IMSI of Test Subscriber for Unit Checks (Optional)
   test_sub_imsi: '001021234567890'
@@ -57,7 +57,7 @@ hss:
   CancelLocationRequest_Enabled: False
 
   #Workaround for some MMEs to force an Insert Subscriber Data request to be sent immediately after ULA
-  Insert_Subscriber_Data_Force: False
+  Insert_Subscriber_Data_Force: True
 
   #Default Initial Filter Criteria for IMS Subscribers
   #Jinja Formatted Template, see the example for variables passed to it.

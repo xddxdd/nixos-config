@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   services = [
-    "hss"
     "mme"
     "nrf"
     "pcrf"
