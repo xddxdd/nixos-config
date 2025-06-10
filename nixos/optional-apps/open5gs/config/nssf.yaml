@@ -94,19 +94,19 @@ nssf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/nssf.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/nssf.crt
+#        private_key: /var/lib/open5gs-certs/nssf.key
+#        cert: /var/lib/open5gs-certs/nssf.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
 #  sbi:
 #    server:
-#      - address: nssf.localdomain
+#      - address: nssf.epc.mnc010.mcc315.3gppnetwork.org
 #    client:
 #      nrf:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #      nsi:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #          s_nssai:
 #            sst: 1
 #
@@ -115,22 +115,22 @@ nssf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/nssf.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/nssf.crt
+#        private_key: /var/lib/open5gs-certs/nssf.key
+#        cert: /var/lib/open5gs-certs/nssf.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#        client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/nssf.key
-#        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/nssf.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
+#        client_private_key: /var/lib/open5gs-certs/nssf.key
+#        client_cert: /var/lib/open5gs-certs/nssf.crt
 #  sbi:
 #    server:
-#      - address: nssf.localdomain
+#      - address: nssf.epc.mnc010.mcc315.3gppnetwork.org
 #    client:
 #      nrf:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #      nsi:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #          s_nssai:
 #            sst: 1
