@@ -71,6 +71,7 @@
       rsync
       screen
       speedtest-cli
+      sqlite
       strace
       tcpdump
       unzip
