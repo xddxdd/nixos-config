@@ -5,7 +5,10 @@
     bind_ip = "127.0.0.1";
     package = pkgs.mongodb-ce;
   };
-  environment.systemPackages = [ pkgs.mongosh ];
+  environment.systemPackages = [
+    pkgs.mongosh
+    pkgs.mongodb-tools
+  ];
   preservation.preserveAt."/nix/persistent" = {
     directories = [
       {
