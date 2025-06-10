@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   services = [
-    "hss"
     "mme"
     "nrf"
     "pcrf"
@@ -21,12 +20,10 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [
           "network.target"
-          "mongodb.service"
           "open5gs-certs.service"
         ];
         requires = [
           "network.target"
-          "mongodb.service"
           "open5gs-certs.service"
         ];
         serviceConfig = {
