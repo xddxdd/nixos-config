@@ -62,7 +62,7 @@ in
         {
           recordType = "A";
           name = "hss.ims";
-          address = "127.0.0.8";
+          address = "127.0.0.47";
         }
         {
           recordType = "A";
