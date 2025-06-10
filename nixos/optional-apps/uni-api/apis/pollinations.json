@@ -1,6 +1,5 @@
 {
   "bidara": "bidara",
-  "deepseek": "deepseek/deepseek",
   "deepseek-reasoning": "deepseek/deepseek-reasoning",
   "elixposearch": "elixposearch",
   "evil": "evil",
@@ -15,7 +14,6 @@
   "openai-audio": "openai-audio",
   "openai-fast": "openai-fast",
   "openai-large": "openai-large",
-  "openai-roblox": "openai-roblox",
   "phi": "microsoft/phi",
   "qwen-coder": "qwen/qwen-coder",
   "rtist": "rtist",
