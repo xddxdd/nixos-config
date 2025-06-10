@@ -19,10 +19,7 @@
   networking.hosts = {
     "127.0.0.2" = [ "mme.epc.mnc010.mcc315.3gppnetwork.org" ];
     "127.0.0.4" = [ "smf.epc.mnc010.mcc315.3gppnetwork.org" ];
-    "127.0.0.8" = [
-      "hss.ims.mnc010.mcc315.3gppnetwork.org"
-      "hss.epc.mnc010.mcc315.3gppnetwork.org"
-    ];
+    "127.0.0.8" = [ "hss.epc.mnc010.mcc315.3gppnetwork.org" ];
     "127.0.0.9" = [ "pcrf.epc.mnc010.mcc315.3gppnetwork.org" ];
   };
 

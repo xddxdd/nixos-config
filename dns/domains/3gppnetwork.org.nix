@@ -61,11 +61,6 @@ in
         volteRecords
         {
           recordType = "A";
-          name = "hss.ims";
-          address = "127.0.0.8";
-        }
-        {
-          recordType = "A";
           name = "mme.epc";
           address = "127.0.0.2";
         }
