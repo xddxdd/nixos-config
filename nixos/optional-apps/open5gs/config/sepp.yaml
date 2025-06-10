@@ -12,10 +12,10 @@ sepp:
   default:
     tls:
       server:
-        private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-        cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+        private_key: /var/lib/open5gs-certs/sepp1.key
+        cert: /var/lib/open5gs-certs/sepp1.crt
       client:
-        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+        cacert: /var/lib/open5gs-certs/ca.crt
   sbi:
     server:
       - address: 127.0.1.250
@@ -27,7 +27,7 @@ sepp:
         - uri: http://127.0.0.200:7777
   n32:
     server:
-      - sender: sepp1.localdomain
+      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
         scheme: https
         address: 127.0.1.251
         port: 7777
@@ -37,11 +37,11 @@ sepp:
           port: 7777
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
-#          uri: https://sepp2.localdomain:7777
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
+#          uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org:7777
 #          resolve: 127.0.2.251
 #          n32f:
-#            uri: https://sepp2.localdomain:7777
+#            uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org:7777
 #            resolve: 127.0.2.252
 
 ################################################################################
@@ -69,10 +69,10 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          uri: http://127.0.2.250:7777
 #
 #  o SEPP uses a separate interface
@@ -86,12 +86,12 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        address: 127.0.1.251
 #        port: 7777
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          uri: http://127.0.2.251:7777
 #
 #  o Not only SEPP but also the N32 forwarding uses a separate interface
@@ -105,7 +105,7 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        address: 127.0.1.251
 #        port: 7777
 #        n32f:
@@ -113,7 +113,7 @@ sepp:
 #          port: 7777
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          uri: http://127.0.2.251:7777
 #          n32f:
 #            uri: http://127.0.2.252:7777
@@ -126,10 +126,10 @@ sepp:
 #  default:
 #    tls:
 #      server:
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        private_key: /var/lib/open5gs-certs/sepp1.key
+#        cert: /var/lib/open5gs-certs/sepp1.crt
 #      client:
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
 #  sbi:
 #    server:
 #      - address: 127.0.1.250
@@ -139,27 +139,27 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        scheme: https
 #        address: 127.0.1.251
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
-#          uri: https://sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
+#          uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          resolve: 127.0.2.251
 #
 #  o Add client TLS verification to N32 interface
 #  default:
 #    tls:
 #      server:
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        private_key: /var/lib/open5gs-certs/sepp1.key
+#        cert: /var/lib/open5gs-certs/sepp1.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #      client:
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#        client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
+#        client_private_key: /var/lib/open5gs-certs/sepp1.key
+#        client_cert: /var/lib/open5gs-certs/sepp1.crt
 #  sbi:
 #    server:
 #      - address: 127.0.1.250
@@ -169,13 +169,13 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        scheme: https
 #        address: 127.0.1.251
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
-#          uri: https://sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
+#          uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          resolve: 127.0.2.251
 #
 #  o Both SEPP and N32 forwarding also uses HTTPS with TLS,
@@ -183,14 +183,14 @@ sepp:
 #  default:
 #    tls:
 #      server:
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        private_key: /var/lib/open5gs-certs/sepp1.key
+#        cert: /var/lib/open5gs-certs/sepp1.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #      client:
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#        client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
+#        client_private_key: /var/lib/open5gs-certs/sepp1.key
+#        client_cert: /var/lib/open5gs-certs/sepp1.crt
 #  sbi:
 #    server:
 #      - address: 127.0.1.250
@@ -200,7 +200,7 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        scheme: https
 #        address: 127.0.1.251
 #        n32f:
@@ -208,11 +208,11 @@ sepp:
 #          address: 127.0.1.252
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
-#          uri: https://sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
+#          uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          resolve: 127.0.2.251
 #          n32f:
-#            uri: https://sepp2.localdomain
+#            uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #            resolve: 127.0.2.252
 #
 #  o N32 control and N32 forwarding interface use different key/certificate.
@@ -225,31 +225,31 @@ sepp:
 #        - uri: http://127.0.0.200:7777
 #  n32:
 #    server:
-#      - sender: sepp1.localdomain
+#      - sender: sepp1.epc.mnc010.mcc315.3gppnetwork.org
 #        scheme: https
 #        address: 127.0.1.251
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#        private_key: /var/lib/open5gs-certs/sepp1.key
+#        cert: /var/lib/open5gs-certs/sepp1.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #        n32f:
 #          scheme: https
 #          address: 127.0.1.252
-#          private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1-n32f.key
-#          cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1-n32f.crt
+#          private_key: /var/lib/open5gs-certs/sepp1-n32f.key
+#          cert: /var/lib/open5gs-certs/sepp1-n32f.crt
 #          verify_client: true
-#          verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#          verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #    client:
 #      sepp:
-#        - receiver: sepp2.localdomain
-#          uri: https://sepp2.localdomain
+#        - receiver: sepp2.epc.mnc010.mcc315.3gppnetwork.org
+#          uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #          resolve: 127.0.2.251
-#          cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#          client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.key
-#          client_cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1.crt
+#          cacert: /var/lib/open5gs-certs/ca.crt
+#          client_private_key: /var/lib/open5gs-certs/sepp1.key
+#          client_cert: /var/lib/open5gs-certs/sepp1.crt
 #          n32f:
-#            uri: https://sepp2.localdomain
+#            uri: https://sepp2.epc.mnc010.mcc315.3gppnetwork.org
 #            resolve: 127.0.2.252
-#            cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#            client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/sepp1-n32f.key
-#            client_cert: /etc/open5gs-pkg/etc/open5gs/tls/sepp1-n32f.crt
+#            cacert: /var/lib/open5gs-certs/ca.crt
+#            client_private_key: /var/lib/open5gs-certs/sepp1-n32f.key
+#            client_cert: /var/lib/open5gs-certs/sepp1-n32f.crt

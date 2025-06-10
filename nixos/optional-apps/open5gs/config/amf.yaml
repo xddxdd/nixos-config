@@ -105,38 +105,38 @@ amf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/amf.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/amf.crt
+#        private_key: /var/lib/open5gs-certs/amf.key
+#        cert: /var/lib/open5gs-certs/amf.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
 #  sbi:
 #    server:
-#      - address: amf.localdomain
+#      - address: amf.epc.mnc010.mcc315.3gppnetwork.org
 #    client:
 #      nrf:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #
 #  o Add client TLS verification
 #  default:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /etc/open5gs-pkg/etc/open5gs/tls/amf.key
-#        cert: /etc/open5gs-pkg/etc/open5gs/tls/amf.crt
+#        private_key: /var/lib/open5gs-certs/amf.key
+#        cert: /var/lib/open5gs-certs/amf.crt
 #        verify_client: true
-#        verify_client_cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /var/lib/open5gs-certs/ca.crt
 #      client:
 #        scheme: https
-#        cacert: /etc/open5gs-pkg/etc/open5gs/tls/ca.crt
-#        client_private_key: /etc/open5gs-pkg/etc/open5gs/tls/amf.key
-#        client_cert: /etc/open5gs-pkg/etc/open5gs/tls/amf.crt
+#        cacert: /var/lib/open5gs-certs/ca.crt
+#        client_private_key: /var/lib/open5gs-certs/amf.key
+#        client_cert: /var/lib/open5gs-certs/amf.crt
 #  sbi:
 #    server:
-#      - address: amf.localdomain
+#      - address: amf.epc.mnc010.mcc315.3gppnetwork.org
 #    client:
 #      nrf:
-#        - uri: https://nrf.localdomain
+#        - uri: https://nrf.epc.mnc010.mcc315.3gppnetwork.org
 #
 ################################################################################
 # NGAP Server

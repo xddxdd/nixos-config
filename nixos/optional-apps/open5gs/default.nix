@@ -1,19 +1,26 @@
 { pkgs, ... }:
 {
   imports = [
+    ../mongodb.nix
     ./kamailio.nix
+    ./open5gs-certs.nix
     ./pyhss.nix
     ./rtpengine.nix
     ./services.nix
     ./webui.nix
-    ../mongodb.nix
   ];
 
-  environment.etc."freeDiameter".source = ./freeDiameter;
-  environment.etc."open5gs-pkg".source = pkgs.open5gs;
+  environment.etc."freeDiameter/hss.conf".source = ./freeDiameter/hss.conf;
+  environment.etc."freeDiameter/mme.conf".source = ./freeDiameter/mme.conf;
+  environment.etc."freeDiameter/pcrf.conf".source = ./freeDiameter/pcrf.conf;
+  environment.etc."freeDiameter/smf.conf".source = ./freeDiameter/smf.conf;
+  environment.etc."freeDiameter/lib".source = "${pkgs.open5gs}/lib/freeDiameter";
 
   networking.hosts = {
     "127.0.0.47" = [ "hss.ims.mnc010.mcc315.3gppnetwork.org" ];
+    "127.0.0.2" = [ "mme.epc.mnc010.mcc315.3gppnetwork.org" ];
+    "127.0.0.4" = [ "smf.epc.mnc010.mcc315.3gppnetwork.org" ];
+    "127.0.0.8" = [ "hss.epc.mnc010.mcc315.3gppnetwork.org" ];
     "127.0.0.9" = [ "pcrf.epc.mnc010.mcc315.3gppnetwork.org" ];
   };
 
