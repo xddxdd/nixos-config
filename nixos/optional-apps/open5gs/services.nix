@@ -22,10 +22,12 @@ in
         after = [
           "network.target"
           "mongodb.service"
+          "open5gs-certs.service"
         ];
         requires = [
           "network.target"
           "mongodb.service"
+          "open5gs-certs.service"
         ];
         serviceConfig = {
           ExecStart = "${pkgs.open5gs}/bin/open5gs-${svc}d -c ${./config}/${svc}.yaml";
