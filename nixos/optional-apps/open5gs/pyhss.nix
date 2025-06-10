@@ -27,7 +27,7 @@ in
       entrypoint = "bash";
       cmd = [
         "-c"
-        "sed -i 's/0.0.0.0/127.0.0.8/g' apiService.py && python apiService.py"
+        "sed -i 's/0.0.0.0/127.0.0.47/g' apiService.py && python apiService.py"
       ];
     };
   };
@@ -61,7 +61,7 @@ in
   lantian.nginxVhosts = {
     "pyhss.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
-        "/".proxyPass = "http://127.0.0.8:8080";
+        "/".proxyPass = "http://127.0.0.47:8080";
         "= /".return = "302 /docs/";
       };
 
@@ -73,7 +73,7 @@ in
       listenHTTPS.enable = false;
 
       locations = {
-        "/".proxyPass = "http://127.0.0.8:8080";
+        "/".proxyPass = "http://127.0.0.47:8080";
         "= /".return = "302 /docs/";
       };
 
