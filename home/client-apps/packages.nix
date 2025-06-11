@@ -104,7 +104,6 @@ in
         feishin
         ffmpeg-full
         filezilla
-        fluffychat
         gcdemu
         gedit
         gimp
@@ -118,6 +117,7 @@ in
         kdePackages.ark
         kdePackages.kdenlive
         kdePackages.kpat
+        kdePackages.neochat
         lbzip2
         libfaketime
         libreoffice-qt6-fresh
@@ -129,7 +129,6 @@ in
         megatools
         microcom
         moonlight-qt
-        newsflash
         nur-xddxdd.adspower
         nur-xddxdd.baidunetdisk
         nur-xddxdd.baidupcs-go
@@ -206,6 +205,10 @@ in
       {
         name = "materialgram";
         command = "${pkgs.nur-xddxdd.lantianCustomized.materialgram}/bin/materialgram -autostart";
+      }
+      {
+        name = "neochat";
+        command = "${pkgs.kdePackages.neochat}/bin/neochat";
       }
       {
         name = "thunderbird";
