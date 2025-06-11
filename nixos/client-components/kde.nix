@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   inputs,
   ...
 }:
@@ -8,9 +7,6 @@
   imports = [ inputs.nur-xddxdd.nixosModules.lyrica ];
 
   environment.systemPackages = with pkgs; [
-    (material-kwin-decoration.overrideAttrs (_old: {
-      inherit (LT.sources.material-kwin-decoration) version src;
-    }))
     nur-xddxdd.plasma-panel-transparency-toggle
 
     nur-xddxdd.plasma-smart-video-wallpaper-reborn
