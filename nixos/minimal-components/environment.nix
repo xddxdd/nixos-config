@@ -117,6 +117,11 @@
     };
 
     steam.platformOptimizations.enable = true;
+
+    vivid = {
+      enable = true;
+      theme = "one-dark";
+    };
   };
 
   services.ananicy = {
