@@ -98,6 +98,7 @@
     "tls://s-mow-0.sergeysedoy97.ru:65534",
     "tls://s-mow-1.sergeysedoy97.ru:65534",
     "tls://srv.itrus.su:7992",
+    "tls://vix.duckdns.org:36014",
     "tls://x-mow-0.sergeysedoy97.ru:65534",
     "tls://x-mow-1.sergeysedoy97.ru:65534",
     "tls://yg-vvo.magicum.net:29331",
@@ -134,10 +135,11 @@
     "tls://london.sabretruth.org:18472"
   ],
   "united-states": [
+    "tls://23.184.48.86:993",
     "tls://44.234.134.124:443",
+    "tls://[2602:fc24:18:7a42::1]:993",
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
-    "tls://neo.node.3dt.net:9003",
     "tls://redcatho.de:9494",
     "tls://srv.newsdeef.eu:59999",
     "tls://ygg-kcmo.incognet.io:8884",
