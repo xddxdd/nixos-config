@@ -20,6 +20,7 @@
 
           # Preserved cache
           ".cache/com.github.tchar.calculate-anything" # Ulauncher calculator plugin
+          ".cache/KDE/neochat" # NeoChat
           ".cache/mesa_shader_cache" # Intel GPU Shader Cache
           ".cache/netease-cloud-music/Cef" # NetEase Cloud Music Login State
           ".cache/nvidia" # NVIDIA GPU Shader Cache
