@@ -1,4 +1,4 @@
-{ pkgs, LT, ... }:
+{ pkgs, ... }:
 {
   stylix = {
     enable = true;
@@ -7,7 +7,7 @@
     cursor = {
       package = pkgs.nur-xddxdd.sam-toki-mouse-cursors;
       name = "STMCS_601_Genshin_Furina";
-      size = LT.constants.gui.cursorSize;
+      size = 32;
     };
 
     fonts = {
