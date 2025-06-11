@@ -60,6 +60,7 @@ let
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.srvos.nixosModules.mixins-terminfo
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
+      inputs.stylix.nixosModules.stylix
       (../hosts + "/${n}/configuration.nix")
     ];
 

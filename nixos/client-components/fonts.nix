@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 {
   fonts.fontDir.enable = true;
-
   fonts.packages =
     with pkgs;
     lib.mkForce [
@@ -45,45 +44,35 @@
     ];
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
-  fonts.fontconfig =
-    let
-      sansFallback = [
+  fonts.fontconfig = {
+    defaultFonts = {
+      sansSerif = builtins.map lib.mkAfter [
+        # Fix font aliasing with fallback fonts
+        "Source Han Sans SC"
+        # Cover large amounts of characters
         "Plangothic P1"
         "Plangothic P2"
         "HanaMinA"
         "HanaMinB"
       ];
-      serifFallback = [
+      serif = builtins.map lib.mkAfter [
+        # Fix font aliasing with fallback fonts
+        "Source Han Serif SC"
+        # Cover large amounts of characters
         "HanaMinA"
         "HanaMinB"
         "Plangothic P1"
         "Plangothic P2"
       ];
-    in
-    {
-      defaultFonts = rec {
-        emoji = [ "Blobmoji" ];
-        serif =
-          [
-            "Noto Serif"
-            "Source Han Serif SC"
-          ]
-          ++ emoji
-          ++ serifFallback;
-        sansSerif =
-          [
-            "Ubuntu"
-            "Source Han Sans SC"
-          ]
-          ++ emoji
-          ++ sansFallback;
-        monospace =
-          [
-            "Ubuntu Mono"
-            "Noto Sans Mono CJK SC"
-          ]
-          ++ emoji
-          ++ sansFallback;
-      };
+      monospace = builtins.map lib.mkAfter [
+        # Fix font aliasing with fallback fonts
+        "Noto Sans Mono CJK SC"
+        # Cover large amounts of characters
+        "Plangothic P1"
+        "Plangothic P2"
+        "HanaMinA"
+        "HanaMinB"
+      ];
     };
+  };
 }
