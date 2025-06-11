@@ -1,19 +1,4 @@
 {
-    "cyberchef": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "cyberchef",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-N4iyn/tU9XhJaPz5mChvD3VnC+ipLkDraDdD66q5dRA=",
-            "type": "url",
-            "url": "https://github.com/gchq/CyberChef/releases/download/v10.19.4/CyberChef_v10.19.4.zip"
-        },
-        "version": "v10.19.4"
-    },
     "flaresolverr": {
         "cargoLocks": null,
         "date": null,
@@ -64,48 +49,6 @@
             "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.2/yesoreyeram-infinity-datasource-3.2.2.zip"
         },
         "version": "3.2.2"
-    },
-    "himawaripy": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "himawaripy",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "boramalper",
-            "repo": "himawaripy",
-            "rev": "v2.2.0",
-            "sha256": "sha256-GcHFB851ClQjFjqTMZbRuGdg4kWjAnou9w9l+UDYM5c=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v2.2.0"
-    },
-    "material-kwin-decoration": {
-        "cargoLocks": null,
-        "date": "2023-01-15",
-        "extract": null,
-        "name": "material-kwin-decoration",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Zren",
-            "repo": "material-decoration",
-            "rev": "0e989e5b815b64ee5bca989f983da68fa5556644",
-            "sha256": "sha256-Ncn5jxkuN4ZBWihfycdQwpJ0j4sRpBGMCl6RNiH4mXg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0e989e5b815b64ee5bca989f983da68fa5556644"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
