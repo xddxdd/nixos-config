@@ -13,8 +13,9 @@
       {
         enable = true;
         default = if LT.this.hasTag LT.tags.client then "saved" else 0;
-        font = lib.mkDefault "${pkgs.terminus_font_ttf}/share/fonts/truetype/TerminusTTF.ttf";
-        fontSize = lib.mkDefault 16;
+        font = lib.mkForce "${pkgs.nerd-fonts.ubuntu-mono}/share/fonts/truetype/NerdFonts/UbuntuMono/UbuntuMonoNerdFontMono-Regular.ttf";
+        fontSize = lib.mkForce 16;
+        theme = lib.mkForce null;
       }
       // (
         if pkgs.stdenv.isx86_64 then

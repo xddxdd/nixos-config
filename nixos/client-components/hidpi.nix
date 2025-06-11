@@ -37,7 +37,7 @@ in
   };
 
   config = {
-    boot.loader.grub.fontSize = consoleFontSize;
+    boot.loader.grub.fontSize = lib.mkOverride 1 consoleFontSize;
     console.packages = with pkgs; [ terminus_font ];
     console.font = "ter-v${builtins.toString consoleFontSize}n";
   };
