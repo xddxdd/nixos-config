@@ -185,7 +185,6 @@
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
             "electron-32.3.3"
-            "fluffychat-linux-1.26.1"
             "olm-3.2.16"
             "ventoy-1.1.05"
           ];
