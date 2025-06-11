@@ -15,7 +15,6 @@
     ./nandsim.nix
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/aagl.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/flaresolverr.nix

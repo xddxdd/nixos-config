@@ -33,7 +33,6 @@ let
       (
         { pkgs, ... }:
         {
-          aagl.enableNixpkgsReleaseBranchCheck = false;
           home-manager.extraSpecialArgs = specialArgsFor n;
           networking.hostName = lib.mkForce (lib.removePrefix "_" n);
           system.stateVersion = LT.constants.stateVersion;
@@ -42,7 +41,6 @@ let
           _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
         }
       )
-      inputs.aagl.nixosModules.default
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager

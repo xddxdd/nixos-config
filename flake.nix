@@ -14,11 +14,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
 
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:oluceps/agenix/with-sysuser";
       inputs.home-manager.follows = "home-manager";
@@ -44,11 +39,6 @@
       flake = false;
     };
     dwarffs.url = "github:edolstra/dwarffs";
-    firefox-nightly = {
-      url = "github:nix-community/flake-firefox-nightly";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -197,7 +187,6 @@
             "ventoy-1.1.05"
           ];
           overlays = [
-            inputs.aagl.overlays.default
             inputs.agenix.overlays.default
             inputs.colmena.overlay
             inputs.nil.overlays.nil
