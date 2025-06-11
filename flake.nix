@@ -123,6 +123,14 @@
       url = "github:nix-community/srvos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix/release-25.05";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nur.follows = "nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

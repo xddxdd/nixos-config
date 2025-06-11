@@ -1,11 +1,6 @@
 _: {
   programs.kitty = {
     enable = true;
-    font = {
-      name = "FiraCodeNF-Reg";
-      size = 10;
-    };
-    themeFile = "VSCode_Dark";
 
     keybindings = {
       "ctrl+shift+n" = "new_os_window_with_cwd";
