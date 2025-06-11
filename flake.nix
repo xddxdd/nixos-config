@@ -39,6 +39,13 @@
       flake = false;
     };
     dwarffs.url = "github:edolstra/dwarffs";
+    flat-flake = {
+      url = "github:linyinfeng/flat-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,8 +79,14 @@
       url = "github:nix-community/nixd";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+    };
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
@@ -84,6 +97,7 @@
     };
     nix-xilinx = {
       url = "gitlab:doronbehar/nix-xilinx";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvfetcher = {
@@ -117,6 +131,7 @@
       url = "github:nix-community/stylix/release-25.05";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks.follows = "nur-xddxdd/pre-commit-hooks-nix";
       inputs.home-manager.follows = "home-manager";
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -136,6 +151,7 @@
         ./flake-modules/commands
         ./flake-modules/nixd.nix
         ./flake-modules/nixos-configurations.nix
+        inputs.flat-flake.flakeModules.flatFlake
         inputs.nur-xddxdd.flakeModules.auto-colmena-hive-v0_5
         inputs.nur-xddxdd.flakeModules.commands
         inputs.nur-xddxdd.flakeModules.lantian-pre-commit-hooks
@@ -148,6 +164,8 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
+
+      flatFlake.config.allowed = [ ];
 
       flake = rec {
         # Export for nixos-secrets
