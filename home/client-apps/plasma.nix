@@ -1,5 +1,4 @@
-{ LT, ... }:
-{
+_: {
   programs.okular = {
     enable = true;
     package = null;
@@ -240,21 +239,9 @@
     workspace = {
       enableMiddleClickPaste = false;
       clickItemTo = "select";
-      colorScheme = "BreezeDark";
-      cursor = {
-        theme = "STMCS_601_Genshin_Furina";
-        size = LT.constants.gui.cursorSize;
-      };
-      iconTheme = "breeze-dark";
-      soundTheme = "Ocean";
       splashScreen = {
         engine = "none";
         theme = "None";
-      };
-      theme = "breeze-dark";
-      windowDecorations = {
-        library = "org.kde.breeze";
-        theme = "Breeze";
       };
     };
   };

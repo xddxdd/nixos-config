@@ -13,7 +13,6 @@
       {
         enable = true;
         default = if LT.this.hasTag LT.tags.client then "saved" else 0;
-        splashImage = null;
         font = lib.mkDefault "${pkgs.terminus_font_ttf}/share/fonts/truetype/TerminusTTF.ttf";
         fontSize = lib.mkDefault 16;
       }
