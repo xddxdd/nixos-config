@@ -1,0 +1,16 @@
+diff --git a/pkgs/proxmox-widget-toolkit/default.nix b/pkgs/proxmox-widget-toolkit/default.nix
+index 5a6c04e..4939bc9 100644
+--- a/pkgs/proxmox-widget-toolkit/default.nix
++++ b/pkgs/proxmox-widget-toolkit/default.nix
+@@ -38,6 +38,11 @@ stdenv.mkDerivation rec {
+     cp api-viewer/APIViewer.js $out/share/javascript/proxmox-widget-toolkit
+   '';
+ 
++  # https://github.com/tteck/Proxmox/blob/d07353534663f87186eceaf8c4a76ce9e886e0df/misc/post-pve-install.sh#L144
++  postFixup = ''
++    sed -i '/.*data.status.*{/{s/!//;s/active/NoMoreNagging/}' $out/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
++  '';
++
+   passthru.updateScript = [
+     ../update.py
+     pname
