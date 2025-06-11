@@ -1,10 +1,11 @@
-{ ... }:
+{ lib, LT, ... }:
 {
   imports = [
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/flaresolverr.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nginx-lab
@@ -25,6 +26,8 @@
     ];
     matchConfig.Name = "eth0";
   };
+
+  systemd.services.flaresolverr.environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
 
   services."route-chain" = {
     enable = true;
