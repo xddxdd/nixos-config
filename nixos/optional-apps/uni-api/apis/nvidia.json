@@ -80,6 +80,7 @@
   "mistralai/mistral-large": "mistralai/mistral-large",
   "mistralai/mistral-large-2-instruct": "mistralai/mistral-large-2-instruct",
   "mistralai/mistral-medium-3-instruct": "mistralai/mistral-medium-3-instruct",
+  "mistralai/mistral-nemotron": "mistralai/mistral-nemotron",
   "mistralai/mistral-small-24b-instruct": "mistralai/mistral-small-24b-instruct",
   "mistralai/mistral-small-3.1-24b-instruct-2503": "mistralai/mistral-small-3.1-24b-instruct-2503",
   "mistralai/mixtral-8x22b-instruct-v0.1": "mistralai/mixtral-8x22b-instruct-v0.1",

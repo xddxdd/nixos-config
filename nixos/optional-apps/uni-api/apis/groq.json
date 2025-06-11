@@ -19,6 +19,7 @@
   "playai-tts": "playai-tts",
   "playai-tts-arabic": "playai-tts-arabic",
   "qwen-qwq-32b": "qwen/qwen-qwq-32b",
+  "qwen/qwen3-32b": "qwen/qwen-3-32b",
   "whisper-large-v3": "openai/whisper-large-v3",
   "whisper-large-v3-turbo": "openai/whisper-large-v3-turbo"
 }
