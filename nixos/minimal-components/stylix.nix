@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 {
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/oceanicnext.yaml";
+
+    autoEnable = LT.this.hasTag LT.tags.client;
+    targets = {
+      console.enable = true;
+      grub.enable = true;
+    };
 
     cursor = {
       package = pkgs.nur-xddxdd.sam-toki-mouse-cursors;
