@@ -179,7 +179,7 @@
               host: ".#nixosConfigurations.${host}.config.system.build.toplevel"
             );
             hostsWithTag =
-              tag: builtins.attrNames (lib.filterAttrs (_n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
+              tag: builtins.attrNames (lib.filterAttrs (n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
           in
           {
             all = buildCommandFor (builtins.attrNames LT.hosts);
@@ -187,10 +187,10 @@
           };
 
         ipv4List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (_k: v: v.public.IPv4) LT.hosts)
+          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts)
         );
         ipv6List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (_k: v: v.public.IPv6) LT.hosts)
+          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
         );
       };
 

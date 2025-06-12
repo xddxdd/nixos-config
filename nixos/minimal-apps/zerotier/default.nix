@@ -26,14 +26,14 @@ in
     joinNetworks = [ ltnet ];
     localConf = {
       virtual = lib.mapAttrs' (
-        _k: v:
+        k: v:
         lib.nameValuePair v.zerotier {
           try =
             (lib.optionals (v.public.IPv4 != "") [ "${v.public.IPv4}/9993" ])
             ++ (lib.optionals (v.public.IPv6 != "") [ "${v.public.IPv6}/9993" ])
             ++ (lib.optionals (v.public.IPv6Alt != "") [ "${v.public.IPv6Alt}/9993" ]);
         }
-      ) (lib.filterAttrs (_k: v: v.zerotier != null) LT.otherHosts);
+      ) (lib.filterAttrs (k: v: v.zerotier != null) LT.otherHosts);
       settings = {
         interfacePrefixBlacklist = whitelistToBlacklist (
           # Do not try to use network namespaces

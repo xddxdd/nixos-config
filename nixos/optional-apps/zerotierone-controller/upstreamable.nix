@@ -176,7 +176,7 @@ in
       after = [ "zerotierone-controller.service" ];
       requires = [ "zerotierone-controller.service" ];
 
-      script = lib.concatStrings (lib.mapAttrsToList (_n: v: v._script) cfg.networks);
+      script = lib.concatStrings (lib.mapAttrsToList (n: v: v._script) cfg.networks);
 
       serviceConfig = LT.serviceHarden // {
         Type = "oneshot";

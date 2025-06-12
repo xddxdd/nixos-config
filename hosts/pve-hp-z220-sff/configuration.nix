@@ -14,7 +14,7 @@
   # Don't need PVE on this system for now
   services.proxmox-ve.enable = lib.mkForce false;
 
-  services.tlp.settings = lib.mapAttrs (_n: lib.mkForce) {
+  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
     CPU_SCALING_GOVERNOR_ON_AC = "powersave";

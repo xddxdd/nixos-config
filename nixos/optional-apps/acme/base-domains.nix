@@ -10,7 +10,7 @@ let
     mkLetsEncryptWildcardCert
     ;
 
-  hostSubdomains = lib.mapAttrsToList (n: _v: "${n}.xuyh0120.win") LT.hosts;
+  hostSubdomains = lib.mapAttrsToList (n: v: "${n}.xuyh0120.win") LT.hosts;
 in
 {
   security.acme.certs = lib.mergeAttrsList (

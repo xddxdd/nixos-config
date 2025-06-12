@@ -14,7 +14,7 @@ let
   settingsFormat = pkgs.formats.json { };
   appservicePort = 29336;
 
-  mkDefaults = lib.mapAttrsRecursive (_n: v: lib.mkDefault v);
+  mkDefaults = lib.mapAttrsRecursive (n: v: lib.mkDefault v);
   defaultConfig = {
     homeserver.address = "http://localhost:8448";
     appservice = {

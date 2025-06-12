@@ -29,7 +29,7 @@ in
   environment.etc."ansible/hosts".text = lib.concatStringsSep "\n" (
     [ "[all]" ]
     ++ (builtins.map (n: n + ".lantian.pub") (
-      lib.attrNames (lib.filterAttrs (_k: v: !v.manualDeploy) LT.otherHosts)
+      lib.attrNames (lib.filterAttrs (k: v: !v.manualDeploy) LT.otherHosts)
     ))
   );
 

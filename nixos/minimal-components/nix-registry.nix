@@ -19,7 +19,7 @@ in
 
   nix = {
     nixPath = [ "/etc/nix/inputs" ];
-    registry = lib.mapAttrs (_n: v: { flake = lib.mkForce { outPath = v; }; }) registeredInputs;
+    registry = lib.mapAttrs (n: v: { flake = lib.mkForce { outPath = v; }; }) registeredInputs;
   };
 
   # Disable conflicting settings from nixpkgs

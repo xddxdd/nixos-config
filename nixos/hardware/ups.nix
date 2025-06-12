@@ -79,7 +79,7 @@ in
         v
       ]) upsmonNotifyTypes;
 
-      NOTIFYFLAG = lib.mapAttrsToList (k: _v: [
+      NOTIFYFLAG = lib.mapAttrsToList (k: v: [
         k
         "EXEC"
       ]) upsmonNotifyTypes;

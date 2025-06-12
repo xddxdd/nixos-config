@@ -34,8 +34,8 @@ let
     this = hosts."${config.networking.hostName}";
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
 
-    hostsWithTag = tag: lib.filterAttrs (_n: v: v.hasTag tag) hosts;
-    hostsWithoutTag = tag: lib.filterAttrs (_n: v: !(v.hasTag tag)) hosts;
+    hostsWithTag = tag: lib.filterAttrs (n: v: v.hasTag tag) hosts;
+    hostsWithoutTag = tag: lib.filterAttrs (n: v: !(v.hasTag tag)) hosts;
 
     patchedNixpkgs = self.packages."${this.system}".pkgs-patched;
 

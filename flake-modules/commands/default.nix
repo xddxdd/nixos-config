@@ -15,7 +15,7 @@
       };
     in
     {
-      commands = lib.mapAttrs (_k: v: pkgs.callPackage v extraArgs) {
+      commands = lib.mapAttrs (k: v: pkgs.callPackage v extraArgs) {
         asterisk-music-deploy = ./asterisk-music-deploy.nix;
         colmena = ./colmena.nix;
         check = ./check.nix;
