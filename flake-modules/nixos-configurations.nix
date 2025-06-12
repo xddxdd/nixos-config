@@ -28,7 +28,6 @@ let
     n:
     let
       inherit (LT.hosts."${n}") system;
-      proxmox-modules = import "${self.packages."${system}".proxmox-nixos-patched}/modules";
     in
     [
       (
@@ -54,12 +53,12 @@ let
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
       inputs.preservation.nixosModules.preservation
+      inputs.proxmox-nixos.nixosModules.proxmox-ve
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.srvos.nixosModules.mixins-terminfo
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
       inputs.stylix.nixosModules.stylix
-      proxmox-modules.proxmox-ve
       (../hosts + "/${n}/configuration.nix")
     ];
 
