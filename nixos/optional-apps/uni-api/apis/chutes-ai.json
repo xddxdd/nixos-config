@@ -50,6 +50,7 @@
   "nvidia/Llama-3.1-Nemotron-Nano-8B-v1": "nvidia/llama-3.1-nemotron-nano-8b-v1",
   "nvidia/Llama-3_3-Nemotron-Super-49B-v1": "nvidia/llama-3_3-nemotron-super-49b-v1",
   "open-r1/OlympicCoder-32B": "open-r1/olympiccoder-32b",
+  "openbmb/MiniCPM4-8B": "openbmb/minicpm-4-8b",
   "sarvamai/sarvam-m": "sarvamai/sarvam-m",
   "shisa-ai/shisa-v2-llama3.3-70b": "shisa-ai/shisa-v2-llama3.3-70b",
   "tngtech/DeepSeek-R1T-Chimera": "tngtech/deepseek-r1t-chimera",
