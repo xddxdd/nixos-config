@@ -66,7 +66,7 @@
     enable = true;
   };
 
-  systemd.services = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (_n: {
+  systemd.services = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (n: {
     serviceConfig = {
       Restart = "always";
       RestartSec = 5;
