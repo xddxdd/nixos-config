@@ -34,11 +34,11 @@ let
 
   servicesWithRestart = lib.filterAttrs hasRestart config.systemd.services;
   requiredByServicesWithRestart = lib.flatten (
-    lib.mapAttrsToList (_n: v: (v.requires or [ ]) ++ (v.wants or [ ])) servicesWithRestart
+    lib.mapAttrsToList (n: v: (v.requires or [ ]) ++ (v.wants or [ ])) servicesWithRestart
   );
   requiresServicesWithRestart = builtins.attrNames (
     lib.filterAttrs (
-      _n: v:
+      n: v:
       ((lib.intersectLists (v.requiredBy or [ ]) (builtins.attrNames servicesWithRestart)) != [ ])
       || ((lib.intersectLists (v.wantedBy or [ ]) (builtins.attrNames servicesWithRestart)) != [ ])
     ) config.systemd.services

@@ -24,5 +24,5 @@ rec {
     number: dialRule number [ "Dial(PJSIP/${number})" ]
   ) localNumbers;
 
-  destLocalDialPlan = lib.genAttrs localNumbers (_n: "SIP user");
+  destLocalDialPlan = lib.genAttrs localNumbers (n: "SIP user");
 }

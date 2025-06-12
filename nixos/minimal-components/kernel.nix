@@ -94,18 +94,18 @@ let
         in
         kernelPackages_:
         kernelPackages_.extend (
-          _final: prev:
+          final: prev:
           (lib.mapAttrs (
             n: v: if lib.hasPrefix "nvidia_x11" n && lib.isDerivation v then patch v else v
           ) prev)
           // {
-            nvidiaPackages = lib.mapAttrs (_n: patch) prev.nvidiaPackages;
+            nvidiaPackages = lib.mapAttrs (n: patch) prev.nvidiaPackages;
           }
         );
     in
     lib.foldr (a: a)
       (kernelPackages.extend (
-        final: _prev: {
+        final: prev: {
           # Custom kernel packages
           acpi-ec = pkgs.nur-xddxdd.acpi-ec.override { inherit (final) kernel; };
           cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };

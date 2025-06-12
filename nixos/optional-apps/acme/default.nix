@@ -38,7 +38,7 @@ in
 
   # Send email notification if cert renew failed
   systemd.services = lib.mapAttrs' (
-    k: _v:
+    k: v:
     lib.nameValuePair "acme-${k}" {
       unitConfig.OnFailure = "notify-email-fail@%n.service";
     }

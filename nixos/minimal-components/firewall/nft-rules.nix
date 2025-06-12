@@ -46,7 +46,7 @@ let
     (lib.optionalString (LT.this.public.IPv4 != "") (
       lib.concatStrings (
         lib.mapAttrsToList (
-          _n:
+          n:
           { index, ... }:
           ''
             ip daddr ${LT.this.public.IPv4} tcp dport { ${
@@ -66,7 +66,7 @@ let
     + (lib.optionalString (LT.this.public.IPv6 != "") (
       lib.concatStrings (
         lib.mapAttrsToList (
-          _n:
+          n:
           { index, ... }:
           ''
             ip6 daddr ${LT.this.public.IPv6} tcp dport { ${
@@ -85,7 +85,7 @@ let
     ))
     + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
       lib.concatStrings (
-        lib.mapAttrsToList (_n: v: ''
+        lib.mapAttrsToList (n: v: ''
           ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
         '') LT.hosts
       )

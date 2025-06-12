@@ -146,7 +146,7 @@ let
       # GeoDNS for servers with sufficient storage
       name = "tools";
       ttl = "5m";
-      filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
+      filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
       healthcheck = "tools.lantian.pub";
     }
     {
@@ -238,7 +238,7 @@ in
           # GeoDNS for public facing servers
           name = "@";
           ttl = "5m";
-          filter = _n: v: (v.hasTag "server") && (v.hasTag "public-facing");
+          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing");
           healthcheck = "lantian.pub";
         }
         {

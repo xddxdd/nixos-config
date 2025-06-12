@@ -214,9 +214,7 @@ in
         '';
       in
       [ ffmpeg-wrapped ];
-    reloadTriggers = lib.mapAttrsToList (
-      k: _v: "/etc/asterisk/${k}"
-    ) config.services.asterisk.confFiles;
+    reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
 
     preStart = ''
       # Copy skeleton directory tree to /var

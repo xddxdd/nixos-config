@@ -230,7 +230,7 @@ let
       ])
     );
 
-    locations = lib.mapAttrs (_n: v: v._config) config._locationsWithCommon;
+    locations = lib.mapAttrs (n: v: v._config) config._locationsWithCommon;
 
     extraConfig =
       config.extraConfig
@@ -449,7 +449,7 @@ in
         enable = config.enableCommonLocationOptions;
         inherit (config) phpfpmSocket;
         inherit (config) blockDotfiles;
-      } (lib.mapAttrs (_n: v: builtins.removeAttrs v [ "_config" ]) config.locations);
+      } (lib.mapAttrs (n: v: builtins.removeAttrs v [ "_config" ]) config.locations);
     };
 
     _config = lib.mkOption {

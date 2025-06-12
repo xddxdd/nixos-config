@@ -46,7 +46,7 @@ in
 
         # Allow list for DPDK interfaces
         ovs-vsctl set Open_vSwitch . "other_config:dpdk-extra=${
-          builtins.concatStringsSep " " (lib.mapAttrsToList (_n: v: "-a ${v}") interfaces)
+          builtins.concatStringsSep " " (lib.mapAttrsToList (n: v: "-a ${v}") interfaces)
         }"
 
         ovs-vsctl --may-exist add-br br0 -- set bridge br0 datapath_type=netdev || true
@@ -104,7 +104,7 @@ in
     ];
 
     preStart = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (_n: v: ''
+      lib.mapAttrsToList (n: v: ''
         if lspci -s ${v} | grep Mellanox; then
           echo "Do not bind vfio-pci driver for Mellanox NICs"
         else

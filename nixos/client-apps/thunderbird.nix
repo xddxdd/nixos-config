@@ -18,7 +18,7 @@ in
       NetworkPrediction = false;
       OfferToSaveLogins = true;
       PasswordManagerEnabled = true;
-      Preferences = lib.mapAttrs (_k: mkValue) {
+      Preferences = lib.mapAttrs (k: mkValue) {
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
         "gfx.x11-egl.force-enabled" = true;

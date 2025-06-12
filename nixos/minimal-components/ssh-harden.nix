@@ -47,7 +47,7 @@ in
       (builtins.listToAttrs (
         lib.flatten (
           lib.mapAttrsToList (
-            n: _v:
+            n: v:
             let
               hostNames = [
                 "${n}.lantian.pub"

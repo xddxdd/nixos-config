@@ -5,7 +5,7 @@
   ...
 }:
 let
-  ztHosts = lib.filterAttrs (_n: v: v.zerotier != null) LT.hosts;
+  ztHosts = lib.filterAttrs (n: v: v.zerotier != null) LT.hosts;
   ztMembers = lib.mapAttrs' (
     n: v:
     let
@@ -37,7 +37,7 @@ let
     ]
     ++ (lib.flatten (
       lib.mapAttrsToList (
-        _n: v:
+        n: v:
         let
           i = builtins.toString v.index;
           routes =

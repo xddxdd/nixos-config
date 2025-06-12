@@ -56,7 +56,7 @@ let
         _models = lib.mkOption {
           readOnly = true;
           default = lib.mapAttrs (
-            _k: v:
+            k: v:
             if config.modelSuffix == null then
               v
             else if lib.hasInfix ":" v then
