@@ -53,7 +53,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       recursor = {
         any_to_tcp = true;
         qname_minimization = false;
-        server_id = "lantian.${config.networking.hostName}";
+        server_id = "${config.networking.hostName}.lantian.pub";
         forward_zones_file = "/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
         forward_zones =
           let
