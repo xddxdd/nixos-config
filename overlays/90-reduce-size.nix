@@ -1,4 +1,4 @@
-_: _final: prev: rec {
+_: final: prev: rec {
   # Disable Oh My Zsh's compdump call
   oh-my-zsh = prev.oh-my-zsh.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/oh-my-zsh-disable-compdump.patch ];

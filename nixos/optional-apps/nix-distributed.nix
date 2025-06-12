@@ -48,7 +48,7 @@ in
       [ nixBuildNet ]
       ++ (lib.filter (v: v != null) (
         lib.mapAttrsToList mkBuildMachine (
-          lib.filterAttrs (_n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+          lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
         )
       ));
   };

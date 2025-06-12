@@ -403,7 +403,7 @@ in
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
         ]
-      ) (lib.filterAttrs (_n: v: v.dn42.IPv4 != "") LT.hosts);
+      ) (lib.filterAttrs (n: v: v.dn42.IPv4 != "") LT.hosts);
 
     NeoNetwork =
       domain:
