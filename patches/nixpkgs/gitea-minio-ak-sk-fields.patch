@@ -1,8 +1,8 @@
 diff --git a/nixos/modules/services/misc/gitea.nix b/nixos/modules/services/misc/gitea.nix
-index d4225232ed60..279fcc29b3dd 100644
+index a393abf8aa08..ebf79ae3c41b 100644
 --- a/nixos/modules/services/misc/gitea.nix
 +++ b/nixos/modules/services/misc/gitea.nix
-@@ -374,6 +374,20 @@ in
+@@ -373,6 +373,20 @@ in
          description = "Path to a file containing the metrics authentication token.";
        };
  
@@ -23,7 +23,7 @@ index d4225232ed60..279fcc29b3dd 100644
        settings = mkOption {
          default = { };
          description = ''
-@@ -653,10 +667,15 @@ in
+@@ -650,10 +664,15 @@ in
            JWT_SECRET = "#oauth2jwtsecret#";
          };
  
@@ -40,18 +40,18 @@ index d4225232ed60..279fcc29b3dd 100644
          packages.CHUNKED_UPLOAD_PATH = "${cfg.stateDir}/tmp/package-upload";
        };
  
-@@ -801,6 +820,14 @@ in
-                 ${replaceSecretBin} '#metricstoken#' '${cfg.metricsTokenFile}' '${runConfig}'
-               ''}
+@@ -797,6 +816,14 @@ in
+               ${replaceSecretBin} '#metricstoken#' '${cfg.metricsTokenFile}' '${runConfig}'
+             ''}
  
-+              ${lib.optionalString (cfg.storageMinioAccessKeyFile != null) ''
-+                ${replaceSecretBin} '#storageminioaccesskey#' '${cfg.storageMinioAccessKeyFile}' '${runConfig}'
-+              ''}
++            ${lib.optionalString (cfg.storageMinioAccessKeyFile != null) ''
++              ${replaceSecretBin} '#storageminioaccesskey#' '${cfg.storageMinioAccessKeyFile}' '${runConfig}'
++            ''}
 +
-+              ${lib.optionalString (cfg.storageMinioSecretKeyFile != null) ''
-+                ${replaceSecretBin} '#storageminiosecretkey#' '${cfg.storageMinioSecretKeyFile}' '${runConfig}'
-+              ''}
++            ${lib.optionalString (cfg.storageMinioSecretKeyFile != null) ''
++              ${replaceSecretBin} '#storageminiosecretkey#' '${cfg.storageMinioSecretKeyFile}' '${runConfig}'
++            ''}
 +
-               ${lib.optionalString (cfg.captcha.secretFile != null) ''
-                 ${replaceSecretBin} '#captchasecret#' '${cfg.captcha.secretFile}' '${runConfig}'
-               ''}
+             ${lib.optionalString (cfg.captcha.secretFile != null) ''
+               ${replaceSecretBin} '#captchasecret#' '${cfg.captcha.secretFile}' '${runConfig}'
+             ''}
