@@ -3,13 +3,13 @@
 {
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.22";
+    version = "v3.3.24";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.22";
+      rev = "v3.3.24";
       fetchSubmodules = false;
-      sha256 = "sha256-kNxm0LV+96c64H/9KiMTkMsJk2nYTb6NIwBkU7bHaxY=";
+      sha256 = "sha256-BIV5+yLTgVQJtxi/F9FwtZ4pYcE2vGHmEgwigMtqwD8=";
     };
   };
   grafana-falconlogscale-datasource = {
@@ -22,23 +22,23 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.2.2";
+    version = "3.3.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.2/yesoreyeram-infinity-datasource-3.2.2.zip";
-      sha256 = "sha256-+lk+U41/Xd2xkYfZWMzFygUMXX9t8Kg307i3FgH9RMU=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.3.0/yesoreyeram-infinity-datasource-3.3.0.zip";
+      sha256 = "sha256-y140nf/TM4IsKl4LJsPrjtyDQJuTjsp1rfUEyS81TgY=";
     };
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "c5fc64eb301e1c217656a45c8ded33972f9651cd";
+    version = "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "c5fc64eb301e1c217656a45c8ded33972f9651cd";
+      rev = "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b";
       fetchSubmodules = false;
-      sha256 = "sha256-5uxXPEqWNatg5jj8ITiMy4oTFYK8anYbMd3UrmSB2nc=";
+      sha256 = "sha256-HD9+myz+H06dXdNIcOM2VFAff5bR6/laBp/z5zEI9oY=";
     };
-    date = "2025-05-17";
+    date = "2025-06-08";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -54,15 +54,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "6ba16ac373f12cd3973249d8513fb04f2404b464";
+    version = "54f37fd88fe791cb8df9a9cb7e19a16adde3f580";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "6ba16ac373f12cd3973249d8513fb04f2404b464";
+      rev = "54f37fd88fe791cb8df9a9cb7e19a16adde3f580";
       fetchSubmodules = false;
-      sha256 = "sha256-CHr3AhHVBQw26FzgUoC28vHhnGzI/7+sJ9gP73c7u0g=";
+      sha256 = "sha256-ZdBxCzNMJUJip/Ggyu8eJfeXRqe/CPbNh4wBTBfNexM=";
     };
-    date = "2025-05-27";
+    date = "2025-06-07";
   };
   open5gs = {
     pname = "open5gs";
@@ -125,15 +125,15 @@
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
-    version = "827cfe5e1d2f89f742f811f981759787b0654fa9";
+    version = "af5806625e361ca4519b99755ccf0a557c1e894a";
     src = fetchFromGitHub {
       owner = "Ulauncher";
       repo = "ulauncher-emoji";
-      rev = "827cfe5e1d2f89f742f811f981759787b0654fa9";
+      rev = "af5806625e361ca4519b99755ccf0a557c1e894a";
       fetchSubmodules = false;
-      sha256 = "sha256-iXu0V7Vyij0fg+3psRx7r1nI9MGH6RmxdDW8/V/5slU=";
+      sha256 = "sha256-wc4UP3Tf9osYr2bLvXTvfpAxb40qGH12o9qIB3En4Sg=";
     };
-    date = "2023-11-04";
+    date = "2025-06-03";
   };
   ulauncher-kill = {
     pname = "ulauncher-kill";
