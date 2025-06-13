@@ -13,12 +13,12 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.22",
-            "sha256": "sha256-kNxm0LV+96c64H/9KiMTkMsJk2nYTb6NIwBkU7bHaxY=",
+            "rev": "v3.3.24",
+            "sha256": "sha256-BIV5+yLTgVQJtxi/F9FwtZ4pYcE2vGHmEgwigMtqwD8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.22"
+        "version": "v3.3.24"
     },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
@@ -44,15 +44,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+lk+U41/Xd2xkYfZWMzFygUMXX9t8Kg307i3FgH9RMU=",
+            "sha256": "sha256-y140nf/TM4IsKl4LJsPrjtyDQJuTjsp1rfUEyS81TgY=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.2.2/yesoreyeram-infinity-datasource-3.2.2.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.3.0/yesoreyeram-infinity-datasource-3.3.0.zip"
         },
-        "version": "3.2.2"
+        "version": "3.3.0"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-05-17",
+        "date": "2025-06-08",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -64,12 +64,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "c5fc64eb301e1c217656a45c8ded33972f9651cd",
-            "sha256": "sha256-5uxXPEqWNatg5jj8ITiMy4oTFYK8anYbMd3UrmSB2nc=",
+            "rev": "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b",
+            "sha256": "sha256-HD9+myz+H06dXdNIcOM2VFAff5bR6/laBp/z5zEI9oY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c5fc64eb301e1c217656a45c8ded33972f9651cd"
+        "version": "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -94,7 +94,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-05-27",
+        "date": "2025-06-07",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "6ba16ac373f12cd3973249d8513fb04f2404b464",
-            "sha256": "sha256-CHr3AhHVBQw26FzgUoC28vHhnGzI/7+sJ9gP73c7u0g=",
+            "rev": "54f37fd88fe791cb8df9a9cb7e19a16adde3f580",
+            "sha256": "sha256-ZdBxCzNMJUJip/Ggyu8eJfeXRqe/CPbNh4wBTBfNexM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6ba16ac373f12cd3973249d8513fb04f2404b464"
+        "version": "54f37fd88fe791cb8df9a9cb7e19a16adde3f580"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -220,7 +220,7 @@
     },
     "ulauncher-emoji": {
         "cargoLocks": null,
-        "date": "2023-11-04",
+        "date": "2025-06-03",
         "extract": null,
         "name": "ulauncher-emoji",
         "passthru": null,
@@ -232,12 +232,12 @@
             "name": null,
             "owner": "Ulauncher",
             "repo": "ulauncher-emoji",
-            "rev": "827cfe5e1d2f89f742f811f981759787b0654fa9",
-            "sha256": "sha256-iXu0V7Vyij0fg+3psRx7r1nI9MGH6RmxdDW8/V/5slU=",
+            "rev": "af5806625e361ca4519b99755ccf0a557c1e894a",
+            "sha256": "sha256-wc4UP3Tf9osYr2bLvXTvfpAxb40qGH12o9qIB3En4Sg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "827cfe5e1d2f89f742f811f981759787b0654fa9"
+        "version": "af5806625e361ca4519b99755ccf0a557c1e894a"
     },
     "ulauncher-kill": {
         "cargoLocks": null,
