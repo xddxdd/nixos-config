@@ -200,6 +200,7 @@ in
       "geo.provider.use_geoclue" = config.services.geoclue2.enable;
       "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      "svg.context-properties.content.enabled" = true;
 
       # Vertical tabs
       "sidebar.verticalTabs" = true;
