@@ -46,7 +46,7 @@
           ".kde4"
           ".kube"
           ".librewolf"
-          ".mozilla"
+          ".mozilla/firefox"
           ".openfaas"
           ".parsec"
           ".pcem"

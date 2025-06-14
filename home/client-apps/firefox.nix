@@ -1,32 +1,63 @@
 {
   pkgs,
-  config,
   ...
 }:
 let
-  userChrome = pkgs.writeText "userChrome.css" ''
-    .titlebar-spacer {
-      display: none !important;
-    }
+  args = {
+    enable = true;
+    package = null; # Already installed system wide
+    profiles.lantian = {
+      extensions = {
+        packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          bilisponsorblock
+          bitwarden
+          # bypass-paywalls-clean
+          clearurls
+          darkreader
+          dearrow
+          downthemall
+          enhancer-for-youtube
+          fastforwardteam
+          flagfox
+          i-dont-care-about-cookies
+          ipfs-companion
+          immersive-translate
+          lovely-forks
+          multi-account-containers
+          noscript
+          pakkujs
+          pay-by-privacy
+          plasma-integration
+          protondb-for-steam
+          return-youtube-dislikes
+          rsshub-radar
+          sponsorblock
+          steam-database
+          tab-reloader
+          tampermonkey
+          to-google-translate
+          ublacklist
+          ublock-origin
+          wappalyzer
+          wayback-machine
+        ];
+        force = true;
+      };
 
-    ${config.programs.firefox.profiles._stylix.userChrome}
-  '';
+      search = {
+        default = "google";
+        force = true;
+      };
 
-  userContent = pkgs.writeText "userContent.css" ''
-    ${config.programs.firefox.profiles._stylix.userContent}
-  '';
+      userChrome = ''
+        .titlebar-spacer {
+          display: none !important;
+        }
+      '';
+    };
+  };
 in
 {
-  home.activation.setup-firefox-user-config = ''
-    for BASE_DIR in "$HOME/.mozilla/firefox" "$HOME/.librewolf"; do
-      if [ -f "$BASE_DIR/profiles.ini" ]; then
-        for F in $(cat "$BASE_DIR/profiles.ini" | grep Path | cut -d= -f2); do
-          if [ -d "$BASE_DIR/$F" ]; then
-            ${pkgs.coreutils}/bin/install -Dm755 ${userChrome} "$BASE_DIR/$F/chrome/userChrome.css"
-            ${pkgs.coreutils}/bin/install -Dm755 ${userContent} "$BASE_DIR/$F/chrome/userContent.css"
-          fi
-        done
-      fi
-    done
-  '';
+  programs.firefox = args;
+  programs.librewolf = args;
 }
