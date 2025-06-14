@@ -197,8 +197,8 @@ in
         command = "/etc/profiles/per-user/lantian/bin/discord --start-minimized";
       }
       {
-        name = "vencord";
-        command = "/etc/profiles/per-user/lantian/bin/vencord --start-minimized";
+        name = "vesktop";
+        command = "/etc/profiles/per-user/lantian/bin/vesktop --start-minimized";
       }
       {
         name = "materialgram";
