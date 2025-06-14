@@ -97,8 +97,6 @@ in
         code-cursor
         colmena
         dbeaver-bin
-        discord
-        discord-canary
         distrobox
         exiftool
         feishin
@@ -196,11 +194,11 @@ in
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       {
         name = "discord";
-        command = "${pkgs.discord}/bin/discord --start-minimized";
+        command = "/etc/profiles/per-user/lantian/bin/discord --start-minimized";
       }
       {
-        name = "discord-canary";
-        command = "${pkgs.discord-canary}/bin/discordcanary --start-minimized";
+        name = "vencord";
+        command = "/etc/profiles/per-user/lantian/bin/vencord --start-minimized";
       }
       {
         name = "materialgram";

@@ -1,10 +1,16 @@
-{ LT, inputs, ... }:
+{
+  LT,
+  lib,
+  inputs,
+  ...
+}:
 let
   entrypoint = if LT.this.hasTag LT.tags.client then ../../home/client.nix else ../../home/none.nix;
 
-  perUserConfig = {
+  perUserConfig = user: {
     home.stateVersion = LT.constants.stateVersion;
     home.enableNixpkgsReleaseCheck = false;
+    home.username = user;
     imports = [ entrypoint ];
   };
 in
@@ -16,7 +22,6 @@ in
 
     sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
-    users.root = perUserConfig;
-    users.lantian = perUserConfig;
+    users = lib.genAttrs [ "root" "lantian" ] perUserConfig;
   };
 }
