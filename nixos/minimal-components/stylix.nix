@@ -56,6 +56,7 @@
       in
       {
         base01 = prev.base00;
+        base02 = prev.base01;
       };
   };
 }
