@@ -1,5 +1,7 @@
 {
   pkgs,
+  lib,
+  inputs,
   ...
 }:
 let
@@ -56,8 +58,25 @@ let
       '';
     };
   };
+
+  betterfoxArgs = {
+    enable = true;
+    fastfox.enable = true;
+    securefox.enable = true;
+    peskyfox.enable = true;
+  };
 in
 {
-  programs.firefox = args;
-  programs.librewolf = args;
+  imports = [ inputs.betterfox-nix.homeManagerModules.betterfox ];
+
+  programs.firefox = lib.recursiveUpdate args {
+    betterfox.enable = true;
+    profiles.lantian.betterfox = betterfoxArgs;
+  };
+  programs.librewolf = lib.recursiveUpdate args {
+    betterfox = {
+      enable = true;
+      settings = betterfoxArgs;
+    };
+  };
 }

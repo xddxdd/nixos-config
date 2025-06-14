@@ -1,46 +1,9 @@
 {
   pkgs,
   lib,
-  inputs,
   config,
   ...
 }:
-let
-  loadBetterfox =
-    path:
-    let
-      autogen = lib.importJSON (inputs.betterfox-nix + "/autogen/firefox/main.json");
-      settings = lib.attrByPath (lib.splitString "." "${path}.settings") null autogen;
-    in
-    builtins.listToAttrs (builtins.filter (v: v.enabled) settings);
-
-  betterfoxConfig = lib.mergeAttrsList (
-    builtins.map loadBetterfox [
-      "fastfox.general"
-      "fastfox.gfx"
-      "fastfox.disk-cache"
-      "fastfox.media-cache"
-      "fastfox.image-cache"
-      "fastfox.network"
-      "fastfox.speculative-loading"
-      "fastfox.experimental"
-      "securefox.ocsp-and-certs-with-hpkp"
-      "securefox.ssl-with-tls"
-      "securefox.disk-avoidance"
-      "securefox.mixed-content-plus-cross-site"
-      "securefox.headers-with-referers"
-      "securefox.safe-browsing"
-      "securefox.telemetry"
-      "securefox.experiments"
-      "securefox.crash-reports"
-      "peskyfox.mozilla-ui"
-      "peskyfox.url-bar"
-      "peskyfox.new-tab-page"
-      "peskyfox.pocket"
-      "peskyfox.downloads"
-    ]
-  );
-in
 {
   environment.systemPackages = [
     (lib.hiPrio pkgs.nur-xddxdd.lantianCustomized.firefox-icon-mikozilla-fireyae)
@@ -137,7 +100,7 @@ in
       };
       UseSystemPrintDialog = true;
     };
-    preferences = betterfoxConfig // {
+    preferences = {
       "browser.aboutConfig.showWarning" = false;
       "gfx.webrender.all" = true;
       # FIXME: enabling causes graphic glitches
