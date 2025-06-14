@@ -4,12 +4,12 @@ _: {
     qt.enable = false;
 
     firefox = {
-      firefoxGnomeTheme.enable = true;
-      profileNames = [ "_stylix" ];
+      colorTheme.enable = true;
+      profileNames = [ "lantian" ];
     };
     librewolf = {
-      firefoxGnomeTheme.enable = true;
-      profileNames = [ "_stylix" ];
+      colorTheme.enable = true;
+      profileNames = [ "lantian" ];
     };
   };
 }

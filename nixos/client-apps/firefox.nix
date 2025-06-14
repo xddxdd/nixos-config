@@ -6,40 +6,6 @@
   ...
 }:
 let
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    bilisponsorblock
-    bitwarden
-    # bypass-paywalls-clean
-    clearurls
-    darkreader
-    dearrow
-    downthemall
-    enhancer-for-youtube
-    fastforwardteam
-    flagfox
-    i-dont-care-about-cookies
-    ipfs-companion
-    immersive-translate
-    lovely-forks
-    multi-account-containers
-    noscript
-    pakkujs
-    pay-by-privacy
-    plasma-integration
-    protondb-for-steam
-    return-youtube-dislikes
-    rsshub-radar
-    sponsorblock
-    steam-database
-    tab-reloader
-    tampermonkey
-    to-google-translate
-    ublacklist
-    ublock-origin
-    wappalyzer
-    wayback-machine
-  ];
-
   loadBetterfox =
     path:
     let
@@ -170,17 +136,6 @@ in
         MoreFromMozilla = false;
       };
       UseSystemPrintDialog = true;
-
-      ExtensionSettings = builtins.listToAttrs (
-        builtins.map (
-          e:
-          lib.nameValuePair e.addonId {
-            installation_mode = "force_installed";
-            install_url = "file://${e.src}";
-            updates_disabled = true;
-          }
-        ) extensions
-      );
     };
     preferences = betterfoxConfig // {
       "browser.aboutConfig.showWarning" = false;
@@ -201,6 +156,9 @@ in
       "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       "svg.context-properties.content.enabled" = true;
+
+      # Make home-manager extension config work
+      "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
 
       # Vertical tabs
       "sidebar.verticalTabs" = true;
