@@ -1,4 +1,9 @@
-{ pkgs, LT, ... }:
+{
+  pkgs,
+  LT,
+  config,
+  ...
+}:
 {
   stylix = {
     enable = true;
@@ -44,5 +49,13 @@
         terminal = 12;
       };
     };
+
+    override =
+      let
+        prev = config.stylix.base16.mkSchemeAttrs config.stylix.base16Scheme;
+      in
+      {
+        base01 = prev.base00;
+      };
   };
 }
