@@ -11,11 +11,14 @@
     enable = true;
 
     # Clients
-    discord.enable = true;
+    discord = {
+      enable = true;
+      vencord.enable = true;
+      openASAR.enable = true;
+    };
     vesktop.enable = true;
 
     # Plugins
-    openASAR.enable = true;
     config = {
       autoUpdate = true;
       plugins = {
