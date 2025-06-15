@@ -14,10 +14,8 @@ let
         packages = with pkgs.nur.repos.rycee.firefox-addons; [
           bilisponsorblock
           bitwarden
-          # bypass-paywalls-clean
           clearurls
           darkreader
-          dearrow
           downthemall
           enhancer-for-youtube
           fastforwardteam
