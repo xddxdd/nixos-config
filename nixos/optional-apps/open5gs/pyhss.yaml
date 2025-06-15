@@ -160,7 +160,8 @@ redis:
   # tcp - Connection via a standard TCP socket to a given host and port.
   # unix - Connect to redis via a unix socket, provided by unixSocketPath.
   # sentinel - Connect to one or more redis sentinel hosts.
-  connectionType: 'tcp'
+  connectionType: 'unix'
+  useUnixSocket: true
   unixSocketPath: '/run/redis-pyhss/redis.sock'
   host: localhost
   port: 16379

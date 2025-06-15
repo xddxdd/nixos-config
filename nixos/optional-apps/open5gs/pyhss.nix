@@ -1,67 +1,78 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  containerOptions = {
-    extraOptions = [
-      "--pull=always"
-      "--net=host"
-    ];
-    image = "ghcr.io/nickvsnetworking/pyhss/pyhss";
-    volumes = [
-      "${./pyhss.yaml}:/pyhss/config.yaml:ro"
-      "/var/lib/pyhss:/var/lib/pyhss"
-      # "/run/redis-pyhss:/run/redis-pyhss"
-    ];
-  };
+  pyhss = pkgs.nur-xddxdd.pyhss.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace services/apiService.py \
+          --replace-fail "0.0.0.0" "127.0.0.8"
+      '';
+  });
 in
 {
-  virtualisation.oci-containers.containers = {
-    pyhss-hss = containerOptions // {
-      entrypoint = "python";
-      cmd = [ "hssService.py" ];
-    };
-    pyhss-diameter = containerOptions // {
-      entrypoint = "python";
-      cmd = [ "diameterService.py" ];
-    };
-    pyhss-api = containerOptions // {
-      entrypoint = "bash";
-      cmd = [
-        "-c"
-        "sed -i 's/0.0.0.0/127.0.0.8/g' apiService.py && python apiService.py"
-      ];
-    };
-  };
-
   services.redis.servers.pyhss = {
     enable = true;
-    port = 16379;
     databases = 1;
-    unixSocketPerm = 666;
+    user = "pyhss";
+    group = "pyhss";
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/pyhss 755 root root"
-  ];
+  systemd.services = builtins.listToAttrs (
+    builtins.map
+      (
+        svc:
+        lib.nameValuePair "pyhss-${svc}" {
+          description = "PyHSS ${svc} server";
+          requires = [ "redis-pyhss.service" ];
+          after = [ "redis-pyhss.service" ];
+          wantedBy = [ "multi-user.target" ];
 
-  systemd.services = {
-    podman-pyhss-hss = {
-      requires = [ "redis-pyhss.service" ];
-      after = [ "redis-pyhss.service" ];
-    };
-    podman-pyhss-diameter = {
-      requires = [ "redis-pyhss.service" ];
-      after = [ "redis-pyhss.service" ];
-    };
-    podman-pyhss-api = {
-      requires = [ "redis-pyhss.service" ];
-      after = [ "redis-pyhss.service" ];
-    };
+          script = ''
+            ln -sf ${./pyhss.yaml} config.yaml
+            ln -sf ${pyhss}/opt/default_ifc.xml default_ifc.xml
+            ln -sf ${pyhss}/opt/default_sh_user_data.xml default_sh_user_data.xml
+
+            exec ${pyhss}/bin/${svc}Service
+          '';
+
+          serviceConfig = {
+            User = "pyhss";
+            Group = "pyhss";
+
+            StateDirectory = "pyhss";
+            LogsDirectory = "pyhss";
+            RuntimeDirectory = "pyhss-${svc}";
+            WorkingDirectory = "/run/pyhss-${svc}";
+
+            Restart = "always";
+            RestartSec = "5";
+          };
+        }
+      )
+      [
+        "api"
+        "diameter"
+        "hss"
+      ]
+  );
+
+  users.users.pyhss = {
+    group = "pyhss";
+    isSystemUser = true;
   };
+  users.groups.pyhss = { };
 
   lantian.nginxVhosts = {
     "pyhss.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
         "/".proxyPass = "http://127.0.0.8:8080";
+        "/swaggerui/".alias =
+          "${pkgs.python3Packages.flask-swagger-ui}/lib/python${pkgs.python3.pythonVersion}/site-packages/flask_swagger_ui/dist/";
         "= /".return = "302 /docs/";
       };
 
@@ -74,6 +85,8 @@ in
 
       locations = {
         "/".proxyPass = "http://127.0.0.8:8080";
+        "/swaggerui/".alias =
+          "${pkgs.python3Packages.flask-swagger-ui}/lib/python${pkgs.python3.pythonVersion}/site-packages/flask_swagger_ui/dist/";
         "= /".return = "302 /docs/";
       };
 
