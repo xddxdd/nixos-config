@@ -58,6 +58,8 @@ let
         # FIXME: enabling causes graphic glitches
         "gfx.webrender.compositor.force-enabled" = false;
         "gfx.x11-egl.force-enabled" = true;
+        "image.avif.enabled" = true;
+        "image.jxl.enabled" = true;
         "media.av1.enabled" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "media.hardware-video-decoding.force-enabled" = true;
