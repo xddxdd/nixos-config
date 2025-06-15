@@ -117,23 +117,6 @@
         peerIPv6LinkLocal = "fe80::2928";
       };
     };
-    iedon = {
-      remoteASN = 4242422189;
-      latencyMs = 60;
-      peering.mpbgp = true;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22189;
-        remoteAddress = "172.93.221.127";
-        remotePort = 22191;
-        wireguardPubkey = "TNmCdvH0DuPX0xxS6DPHw/2v3ojLa5kXIT/Z4Tpx+GY=";
-      };
-      addressing = {
-        peerIPv4 = "172.22.66.52";
-        myIPv6 = "fdbc:f9dc:67ad::8b:c606:ba01";
-        peerIPv6 = "fd42:4242:2189:ee::1";
-      };
-    };
     immtele = {
       remoteASN = 4242422488;
       latencyMs = 2;
@@ -242,6 +225,22 @@
       addressing = {
         peerIPv4 = "172.22.77.47";
         peerIPv6LinkLocal = "fe80::42:1817:1";
+      };
+    };
+    iedon = {
+      remoteASN = 4242422189;
+      latencyMs = 4;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22189;
+        remoteAddress = "hk-hkg.dn42.kuu.moe";
+        remotePort = 55727;
+        wireguardPubkey = "OlUDuWkUI9pKNsNo7Vjf/GKKVSBslh9kmqjbeYA4+34=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.91.120";
+        peerIPv6LinkLocal = "fe80::2189:120";
       };
     };
     leziblog = {

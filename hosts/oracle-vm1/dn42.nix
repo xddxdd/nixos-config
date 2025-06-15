@@ -132,6 +132,22 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    iedon = {
+      remoteASN = 4242422189;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22189;
+        remoteAddress = "jp-tyo.dn42.kuu.moe";
+        remotePort = 49282;
+        wireguardPubkey = "u2ImAJn9ewce9YHN6HaqrR3Sr4Xsy5UaaJOLJ7gkSzs=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.91.116";
+        peerIPv6LinkLocal = "fe80::2189:ee";
+      };
+    };
     luoyu = {
       remoteASN = 4242421999;
       latencyMs = 1;

@@ -131,22 +131,6 @@
         peerIPv6LinkLocal = "fe80::2928";
       };
     };
-    iedon = {
-      remoteASN = 4242422189;
-      latencyMs = 5;
-      tunnel = {
-        type = "wireguard";
-        localPort = 22189;
-        remoteAddress = "45.138.97.164";
-        remotePort = 22192;
-        wireguardPubkey = "FHp0OR4UpAS8/Ra0FUNffTk18soUYCa6NcvZdOgxY0k=";
-      };
-      addressing = {
-        peerIPv4 = "172.23.91.125";
-        myIPv6 = "fdbc:f9dc:67ad::20:5549:a809";
-        peerIPv6 = "fd42:4242:2189:e9::1";
-      };
-    };
     jasonxu = {
       remoteASN = 4242423658;
       latencyMs = 8;

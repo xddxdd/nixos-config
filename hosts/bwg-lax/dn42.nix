@@ -269,6 +269,22 @@
         peerIPv6LinkLocal = "fe80::1817";
       };
     };
+    iedon = {
+      remoteASN = 4242422189;
+      latencyMs = 1;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 22189;
+        remoteAddress = "us-lax.dn42.kuu.moe";
+        remotePort = 51419;
+        wireguardPubkey = "DIw4TKAQelurK10Sh1qE6IiDKTqL1yciI5ItwBgcHFA=";
+      };
+      addressing = {
+        peerIPv4 = "172.23.91.114";
+        peerIPv6LinkLocal = "fe80::2189:ef";
+      };
+    };
     lazurite = {
       remoteASN = 4242422032;
       latencyMs = 8;
@@ -486,6 +502,22 @@
       };
       addressing = {
         peerIPv6LinkLocal = "fe80::1816";
+      };
+    };
+    prefixla = {
+      remoteASN = 4242421240;
+      latencyMs = 10;
+      peering.mpbgp = true;
+      tunnel = {
+        type = "wireguard";
+        localPort = 21240;
+        remoteAddress = "us-03.prefixlabs.net";
+        remotePort = 22547;
+        wireguardPubkey = "oNabDMpFKum4CRbvPcwVE0Y4QsAfH0Sh439dfQYhnkQ=";
+      };
+      addressing = {
+        peerIPv4 = "172.20.209.13";
+        peerIPv6LinkLocal = "fe80::1240:4";
       };
     };
     ricky = {
