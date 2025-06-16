@@ -25,7 +25,6 @@
   "chutesai/Llama-3.1-405B-FP8": "chutesai/llama-3.1-405b-fp8",
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
   "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
-  "chutesai/Magistral-Small-2506": "chutesai/magistral-small-2506",
   "chutesai/Mistral-Small-3.1-24B-Instruct-2503": "chutesai/mistral-small-3.1-24b-instruct-2503",
   "cognitivecomputations/Dolphin3.0-Mistral-24B": "cognitivecomputations/dolphin-3.0-mistral-24b",
   "cognitivecomputations/Dolphin3.0-R1-Mistral-24B": "cognitivecomputations/dolphin-3.0-r1-mistral-24b",
