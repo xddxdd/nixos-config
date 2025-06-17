@@ -11,6 +11,7 @@
   "LoRA/Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct:lora",
   "LoRA/Qwen/Qwen2.5-7B-Instruct": "qwen/qwen-2.5-7b-instruct:lora",
   "LoRA/black-forest-labs/FLUX.1-dev": "black-forest-labs/flux.1-dev:lora",
+  "MiniMaxAI/MiniMax-M1-80k": "minimaxai/minimax-m1-80k",
   "Pro/BAAI/bge-m3": "baai/bge-m3:pro",
   "Pro/BAAI/bge-reranker-v2-m3": "baai/bge-reranker-v2-m3:pro",
   "Pro/Qwen/Qwen2-7B-Instruct": "qwen/qwen-2-7b-instruct:pro",

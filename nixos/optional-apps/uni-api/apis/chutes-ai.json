@@ -42,6 +42,7 @@
   "microsoft/MAI-DS-R1-FP8": "microsoft/mai-ds-r1-fp8",
   "microsoft/Phi-4-reasoning": "microsoft/phi-4-reasoning",
   "microsoft/Phi-4-reasoning-plus": "microsoft/phi-4-reasoning-plus",
+  "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
   "moonshotai/Kimi-VL-A3B-Thinking": "moonshotai/kimi-vl-a3b-thinking",
   "mrfakename/mistral-small-3.1-24b-instruct-2503-hf": "mrfakename/mistral-small-3.1-24b-instruct-2503-hf",
   "nvidia/Llama-3.1-Nemotron-Nano-8B-v1": "nvidia/llama-3.1-nemotron-nano-8b-v1",
