@@ -204,7 +204,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             file = inputs.secrets + "/dnssec/${n}.private.age";
           };
         }
-      ]) LT.constants.dnssecKeys
+      ]) (import (inputs.secrets + "/dnssec.nix"))
     )
   );
 
