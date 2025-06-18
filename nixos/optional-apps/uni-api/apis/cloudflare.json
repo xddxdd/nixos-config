@@ -15,7 +15,6 @@
   "@cf/google/gemma-3-12b-it": "google/gemma-3-12b-it",
   "@cf/google/gemma-7b-it-lora": "google/gemma-7b-it-lora",
   "@cf/huggingface/distilbert-sst-2-int8": "huggingface/distilbert-sst-2-int8",
-  "@cf/huggingface/omni-distilbert-sst-2-int8": "huggingface/omni-distilbert-sst-2-int8",
   "@cf/llava-hf/llava-1.5-7b-hf": "llava-hf/llava-1.5-7b-hf",
   "@cf/lykon/dreamshaper-8-lcm": "lykon/dreamshaper-8-lcm",
   "@cf/meta-llama/llama-2-7b-chat-hf-lora": "meta-llama/llama-2-7b-chat-hf-lora",
