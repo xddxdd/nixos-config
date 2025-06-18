@@ -126,11 +126,11 @@ logging:
 
 ## Database Parameters
 database:
-  db_type: sqlite #Supported types are MySQL, Postgres and sqlite
-  server: 127.0.0.1
-  username: dbeaver
-  password: password
-  database: /var/lib/pyhss/data.sqlite # for sqlite, this should be a path to the database file
+  db_type: postgresql #Supported types are MySQL, Postgres and sqlite
+  server: ""
+  username: pyhss
+  password: pyhss
+  database: "pyhss?host=/run/postgresql" # for sqlite, this should be a path to the database file
   readCacheEnabled: True
   readCacheInterval: 60
 

@@ -15,6 +15,18 @@ let
   });
 in
 {
+  imports = [ ../postgresql.nix ];
+
+  services.postgresql = {
+    ensureDatabases = [ "pyhss" ];
+    ensureUsers = [
+      {
+        name = "pyhss";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   services.redis.servers.pyhss = {
     enable = true;
     databases = 1;
@@ -28,8 +40,14 @@ in
         svc:
         lib.nameValuePair "pyhss-${svc}" {
           description = "PyHSS ${svc} server";
-          requires = [ "redis-pyhss.service" ];
-          after = [ "redis-pyhss.service" ];
+          requires = [
+            "redis-pyhss.service"
+            "postgresql.service"
+          ];
+          after = [
+            "redis-pyhss.service"
+            "postgresql.service"
+          ];
           wantedBy = [ "multi-user.target" ];
 
           script = ''
@@ -44,7 +62,6 @@ in
             User = "pyhss";
             Group = "pyhss";
 
-            StateDirectory = "pyhss";
             LogsDirectory = "pyhss";
             RuntimeDirectory = "pyhss-${svc}";
             WorkingDirectory = "/run/pyhss-${svc}";
