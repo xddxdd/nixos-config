@@ -105,4 +105,41 @@ in
       WorkingDirectory = "/run/sx1302-hal";
     };
   };
+
+  systemd.services.lora-watchdog = {
+    description = "LoRa Watchdog";
+    wantedBy = [ "multi-user.target" ];
+
+    path = [
+      pkgs.nettools
+      pkgs.systemd
+    ];
+
+    script = ''
+      for i in $(seq 1 5); do
+        if netstat -anp | grep gwmp-mux | grep ESTABLISHED >/dev/null; then
+          exit 0
+        else
+          sleep 60
+        fi
+      done
+
+      systemctl restart lora-sx1302-hal.service lora-gwmp-mux.service
+    '';
+
+    serviceConfig = {
+      Type = "simple";
+      Restart = "no";
+    };
+  };
+
+  systemd.timers.lora-watchdog = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "lora-watchdog.service" ];
+    timerConfig = {
+      OnCalendar = "minutely";
+      Persistent = true;
+      Unit = "lora-watchdog.service";
+    };
+  };
 }
