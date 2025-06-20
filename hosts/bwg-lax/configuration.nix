@@ -1,11 +1,12 @@
-{ LT, ... }:
+{ LT, inputs, ... }:
 {
   imports = [
     ../../nixos/server.nix
 
     ../../nixos/optional-apps/iodine.nix
 
-    ./dn42.nix
+    (inputs.secrets + "/dn42/bwg-lax.nix")
+
     ./hardware-configuration.nix
   ];
 

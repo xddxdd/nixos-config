@@ -1,9 +1,10 @@
-{ LT, ... }:
+{ LT, inputs, ... }:
 {
   imports = [
     ../../nixos/server.nix
 
-    ./dn42.nix
+    (inputs.secrets + "/dn42/virmach-ny1g.nix")
+
     ./hardware-configuration.nix
   ];
 
