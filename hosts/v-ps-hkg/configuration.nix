@@ -1,9 +1,10 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
     ../../nixos/server.nix
 
-    ./dn42.nix
+    (inputs.secrets + "/dn42/v-ps-hkg.nix")
+
     ./hardware-configuration.nix
   ];
 
