@@ -7,7 +7,6 @@
   "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen/qwen-2.5-coder-32b-instruct",
   "Qwen/Qwen2.5-VL-32B-Instruct": "qwen/qwen-2.5-vl-32b-instruct",
   "Qwen/Qwen2.5-VL-72B-Instruct": "qwen/qwen-2.5-vl-72b-instruct",
-  "Qwen/Qwen2.5-VL-7B-Instruct": "qwen/qwen-2.5-vl-7b-instruct",
   "Qwen/Qwen3-14B": "qwen/qwen-3-14b",
   "Qwen/Qwen3-235B-A22B": "qwen/qwen-3-235b-a22b",
   "Qwen/Qwen3-30B-A3B": "qwen/qwen-3-30b-a3b",
@@ -23,6 +22,7 @@
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
   "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
   "chutesai/Mistral-Small-3.1-24B-Instruct-2503": "chutesai/mistral-small-3.1-24b-instruct-2503",
+  "chutesai/Mistral-Small-3.2-24B-Instruct-2506": "chutesai/mistral-small-3.2-24b-instruct-2506",
   "cognitivecomputations/Dolphin3.0-Mistral-24B": "cognitivecomputations/dolphin-3.0-mistral-24b",
   "cognitivecomputations/Dolphin3.0-R1-Mistral-24B": "cognitivecomputations/dolphin-3.0-r1-mistral-24b",
   "deepseek-ai/DeepSeek-R1-0528": "deepseek/deepseek-r1-0528",
@@ -31,7 +31,6 @@
   "deepseek-ai/DeepSeek-V3": "deepseek/deepseek-v3",
   "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
   "deepseek-ai/DeepSeek-V3-Base": "deepseek/deepseek-v3-base",
-  "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4": "hugging-quants/meta-llama-3.1-70b-instruct-awq-int4",
   "microsoft/MAI-DS-R1-FP8": "microsoft/mai-ds-r1-fp8",
   "microsoft/Phi-4-reasoning": "microsoft/phi-4-reasoning",
   "microsoft/Phi-4-reasoning-plus": "microsoft/phi-4-reasoning-plus",
@@ -50,7 +49,6 @@
   "unsloth/Mistral-Small-24B-Instruct-2501": "unsloth/mistral-small-24b-instruct-2501",
   "unsloth/gemma-2-9b-it": "unsloth/gemma-2-9b-it",
   "unsloth/gemma-3-12b-it": "unsloth/gemma-3-12b-it",
-  "unsloth/gemma-3-1b-it": "unsloth/gemma-3-1b-it",
   "unsloth/gemma-3-27b-it": "unsloth/gemma-3-27b-it",
   "unsloth/gemma-3-4b-it": "unsloth/gemma-3-4b-it"
 }
