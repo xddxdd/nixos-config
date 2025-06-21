@@ -60,12 +60,6 @@ in
       (scrapeAllNonClientNodesNetns "coredns" 56 LT.port.Prometheus.CoreDNS)
       (scrapeAllNonClientNodesNetns "coredns-authoritative" 54 LT.port.Prometheus.CoreDNS)
       {
-        job_name = "palworld";
-        static_configs = [
-          { targets = [ "${LT.hosts."lt-home-vm".ltnet.IPv4}:${LT.portStr.Prometheus.Palworld}" ]; }
-        ];
-      }
-      {
         job_name = "sakura-share";
         scheme = "https";
         static_configs = [
