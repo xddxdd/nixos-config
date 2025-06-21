@@ -88,6 +88,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "flapalerted";
+      target = "hetzner-de";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "git";
       target = "terrahost";
       ttl = "1h";

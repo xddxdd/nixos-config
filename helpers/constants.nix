@@ -139,6 +139,8 @@ rec {
     PeerBanHelper = 9898;
     FakeOllama = 11434;
     Yggdrasil.Multicast = 13059;
+    FlapAlerted.BGP = 13179;
+    FlapAlerted.WebUI = 13180;
     FlareSolverr = 13191;
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
