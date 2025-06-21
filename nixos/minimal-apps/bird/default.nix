@@ -30,6 +30,7 @@ in
       ++ lib.optionals (LT.this.hasTag LT.tags.dn42) [
         sys.roa
         sys.roaMonitor
+        sys.flapAlerted
 
         dn42.common
         dn42.peers
