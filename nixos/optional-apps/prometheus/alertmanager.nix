@@ -131,6 +131,18 @@ in
                 };
               }
 
+              # Bird received updates
+              {
+                alert = "bird_received_updates";
+                expr = ''sum by (instance, name) (rate(bird_protocol_changes_update_import_receive_count{name=~"dn42(.*)",proto="BGP"}[5m])) > 10'';
+                for = "30m";
+                labels.severity = "warning";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} receiving too may updates.";
+                  description = "{{$labels.name}} on {{$labels.instance}} receiving too may updates.";
+                };
+              }
+
               # Periodic services
               {
                 alert = "periodic_auto_mihoyo_bbs";
