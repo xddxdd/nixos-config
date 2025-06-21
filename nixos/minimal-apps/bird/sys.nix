@@ -5,7 +5,7 @@
   ...
 }@args:
 let
-  inherit (import ./common.nix args) community;
+  inherit (import ./common.nix args) community DN42_AS;
 
   excludedInterfacesFromDirect = [
     "dn42-*"
@@ -332,4 +332,23 @@ in
         };
       }
     '');
+
+  flapAlerted = ''
+    protocol bgp sys_flapalerted {
+      local ${LT.this.dn42.IPv6} as ${DN42_AS};
+      neighbor ${LT.hosts."hetzner-de".ltnet.IPv6} as ${DN42_AS} port ${LT.portStr.FlapAlerted.BGP};
+
+      ipv4 {
+        add paths on;
+        export all;
+        import none;
+      };
+
+      ipv6 {
+        add paths on;
+        export all;
+        import none;
+      };
+    }
+  '';
 }

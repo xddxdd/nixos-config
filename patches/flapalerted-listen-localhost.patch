@@ -1,0 +1,80 @@
+diff --git a/bgp/main.go b/bgp/main.go
+index 6e0613e..4443f4f 100644
+--- a/bgp/main.go
++++ b/bgp/main.go
+@@ -6,7 +6,6 @@ import (
+ 	"log/slog"
+ 	"net"
+ 	"os"
+-	"strconv"
+ 	"sync"
+ )
+ 
+@@ -17,8 +16,8 @@ import (
+ // "BGP Support for Four-Octet Autonomous System (AS) Number Space" https://datatracker.ietf.org/doc/html/rfc6793
+ // "Capabilities Advertisement with BGP-4" https://datatracker.ietf.org/doc/html/rfc3392
+ 
+-func StartBGP(updateChannel chan update.Msg, bgpPort int) {
+-	listener, err := net.Listen("tcp", ":"+strconv.Itoa(bgpPort))
++func StartBGP(updateChannel chan update.Msg, bgpPort string) {
++	listener, err := net.Listen("tcp", bgpPort)
+ 	if err != nil {
+ 		slog.Error("Failed to start BGP listener", "error", err)
+ 		os.Exit(1)
+diff --git a/config/config.go b/config/config.go
+index 3e43459..742991f 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -15,5 +15,5 @@ type UserConfig struct {
+ 	RelevantAsnPosition      int
+ 	Debug                    bool
+ 	RouterID                 netip.Addr
+-	BgpPort                  int
++	BgpPort                  string
+ }
+diff --git a/main.go b/main.go
+index d8498ee..0c193f1 100644
+--- a/main.go
++++ b/main.go
+@@ -33,7 +33,7 @@ func main() {
+ 		" in each path. Use of this parameter is required for special cases such as when connected to a route collector.")
+ 	minimumAge := flag.Int("minimumAge", 540, "Minimum age in seconds a prefix must be active to be detected."+
+ 		" Has no effect if the routeChangeCounter is set to zero")
+-	bgpPort := flag.Int("bgpPort", 1790, "Port to listen on for incoming BGP connections")
++	bgpPort := flag.String("bgpPort", ":1790", "Port to listen on for incoming BGP connections")
+ 	enableDebug := flag.Bool("debug", false, "Enable debug mode (produces a lot of output)")
+ 
+ 	flag.Parse()
+@@ -81,10 +81,6 @@ func main() {
+ 	}
+ 
+ 	conf.BgpPort = *bgpPort
+-	if conf.BgpPort < 1 || conf.BgpPort > 65535 {
+-		fmt.Println("Invalid BGP Port:", conf.BgpPort)
+-		os.Exit(1)
+-	}
+ 
+ 	if conf.RouteChangeCounter == 0 {
+ 		conf.MinimumAge = 0
+diff --git a/modules/httpAPI/mod_httpAPI.go b/modules/httpAPI/mod_httpAPI.go
+index 6899876..a66209e 100644
+--- a/modules/httpAPI/mod_httpAPI.go
++++ b/modules/httpAPI/mod_httpAPI.go
+@@ -29,7 +29,7 @@ var httpAPIPort int
+ func init() {
+ 	limitedHttpAPI = *flag.Bool("limitedHttpApi", false, "Disable http API endpoints not needed for"+
+ 		" the user interface")
+-	httpAPIPort = *flag.Int("httpApiPort", 8699, "Port for the http api")
++	httpAPIPort = *flag.Int("httpApiPort", 13180, "Port for the http api")
+ 
+ 	monitor.RegisterModule(&monitor.Module{
+ 		Name:            moduleName,
+@@ -97,7 +97,7 @@ func startComplete() {
+ 	}
+ 
+ 	s := &http.Server{
+-		Addr:              ":" + strconv.Itoa(httpAPIPort),
++		Addr:              "[::1]:" + strconv.Itoa(httpAPIPort),
+ 		ReadHeaderTimeout: 10 * time.Second,
+ 		Handler:           mux,
+ 	}
