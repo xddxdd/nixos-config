@@ -32,7 +32,12 @@ let
       }
       {
         target = "::/0";
-        via = "fdbc:f9dc:67ad::203	";
+        via = "fdbc:f9dc:67ad::203";
+      }
+      # SideStore
+      {
+        target = "10.7.0.1/32";
+        via = LT.hosts.hetzner-de.ltnet.IPv4;
       }
     ]
     ++ (lib.flatten (

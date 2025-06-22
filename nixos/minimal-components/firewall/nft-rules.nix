@@ -42,6 +42,11 @@ let
     '') LT.constants.interfacePrefixes
   );
 
+  # Redirect requests to SideStore server 10.7.0.1 back to original host
+  sideStoreRules = lib.concatMapStrings (i: ''
+    iifname "zt*" ip saddr 198.18.0.${builtins.toString i} ip daddr 10.7.0.1 ip saddr set 10.7.0.1 ip daddr set 198.18.0.${builtins.toString i} notrack;
+  '') (lib.range 1 255);
+
   tnl-buyvm =
     (lib.optionalString (LT.this.public.IPv4 != "") (
       lib.concatStrings (
@@ -203,6 +208,12 @@ let
 
         ip saddr @RESERVED_IPV4 ip daddr != @RESERVED_IPV4 masquerade
         ip6 saddr @RESERVED_IPV6 ip6 daddr != @RESERVED_IPV6 masquerade
+      }
+
+      chain RAW_PREROUTING {
+        type filter hook prerouting priority raw; policy accept;
+
+        ${sideStoreRules}
       }
 
       # Interface sets
