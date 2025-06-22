@@ -22,14 +22,11 @@ let
         "/assets/".extraConfig = ''
           expires 31536000;
         '';
-        "/usr/" = {
-          tryFiles = "$uri$avif_suffix$webp_suffix $uri$avif_suffix $uri$webp_suffix $uri =404";
-          extraConfig = ''
-            expires 31536000;
-            add_header Vary "Accept";
-            add_header Cache-Control "public, no-transform";
-          '';
-        };
+        "/usr/".extraConfig = ''
+          expires 31536000;
+          add_header Vary "Accept";
+          add_header Cache-Control "public, no-transform";
+        '';
         "= /favicon.ico".extraConfig = ''
           expires 31536000;
         '';

@@ -138,15 +138,6 @@ in
       stream_server_traffic_status on;
       stream_server_traffic_status_zone;
 
-      map $http_accept $webp_suffix {
-        default "";
-        "~image/webp" ".webp";
-      }
-      map $http_accept $avif_suffix {
-        default "";
-        "~image/avif" ".avif";
-      }
-
       map $server_addr $gopher_addr {
         default               gopher.lantian.pub;
         "~*^172\.22\."        gopher.lantian.dn42;
