@@ -36,11 +36,39 @@ let
       anime4K_LowEnd
     else
       anime4K_HighEnd;
+
+  mpvSockets =
+    pkgs.runCommand "mpv-sockets"
+      {
+        passthru.scriptName = "mpvSockets.lua";
+      }
+      ''
+        install -Dm644 ${LT.sources.mpv-sockets.src}/mpvSockets.lua $out/share/mpv/scripts/mpvSockets.lua
+      '';
 in
 {
   programs.mpv = {
     enable = true;
-    package = pkgs.nur-xddxdd.svp-mpv;
+    package = pkgs.nur-xddxdd.svp-mpv.override {
+      # Workaround wrapper override of svp-mpv
+      mpv-unwrapped = pkgs.mpv-unwrapped // {
+        wrapper =
+          args:
+          pkgs.mpv-unwrapped.wrapper (
+            args
+            // {
+              scripts = [
+                mpvSockets
+                pkgs.mpvScripts.dynamic-crop
+                pkgs.mpvScripts.evafast
+                pkgs.mpvScripts.modernz
+                pkgs.mpvScripts.mpris
+                pkgs.mpvScripts.thumbfast
+              ];
+            }
+          );
+      };
+    };
     config =
       {
         # HDR on supported displays
@@ -73,6 +101,4 @@ in
       });
     extraInput = anime4KInputs;
   };
-
-  xdg.configFile."mpv/scripts".source = LT.sources.mpv-sockets.src;
 }
