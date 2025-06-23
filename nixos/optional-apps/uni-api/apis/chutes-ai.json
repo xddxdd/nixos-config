@@ -1,6 +1,7 @@
 {
   "ArliAI/QwQ-32B-ArliAI-RpR-v1": "arliai/qwq-32b-arliai-rpr-v1",
   "ByteDance-Seed/Seed-Coder-8B-Reasoning-bf16": "bytedance-seed/seed-coder-8b-reasoning-bf16",
+  "MiniMaxAI/MiniMax-M1-80k": "minimaxai/minimax-m1-80k",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
   "Qwen/QwQ-32B": "qwen/qwq-32b",
   "Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct",
@@ -19,6 +20,7 @@
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
   "casperhansen/deepseek-r1-distill-qwen-32b-awq": "casperhansen/deepseek-r1-distill-qwen-32b-awq",
   "chutesai/Devstral-Small-2505": "chutesai/devstral-small-2505",
+  "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
   "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
   "chutesai/Mistral-Small-3.1-24B-Instruct-2503": "chutesai/mistral-small-3.1-24b-instruct-2503",
   "chutesai/Mistral-Small-3.2-24B-Instruct-2506": "chutesai/mistral-small-3.2-24b-instruct-2506",
