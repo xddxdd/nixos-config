@@ -60,7 +60,6 @@ in
               scripts = [
                 mpvSockets
                 pkgs.mpvScripts.dynamic-crop
-                pkgs.mpvScripts.evafast
                 pkgs.mpvScripts.modernz
                 pkgs.mpvScripts.mpris
                 pkgs.mpvScripts.thumbfast
