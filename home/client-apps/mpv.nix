@@ -75,6 +75,7 @@ in
         target-colorspace-hint = true;
         gpu-api = "vulkan";
         gpu-context = "waylandvk";
+        window-maximized = true;
 
         # High quality scaling
         cscale = "ewa_lanczossharp";
