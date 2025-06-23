@@ -217,18 +217,36 @@ _: {
         };
       }
       {
-        description = "mpv Maximize by default";
+        description = "Discord minimize by default";
         match.window-class = {
           match-whole = false;
           type = "exact";
-          value = "mpv";
+          value = "discord";
         };
         apply = {
-          maximizehoriz = {
+          ignoregeometry = {
+            apply = "force";
+            value = true;
+          };
+          minimize = {
             apply = "initially";
             value = true;
           };
-          maximizevert = {
+        };
+      }
+      {
+        description = "Vesktop minimize by default";
+        match.window-class = {
+          match-whole = false;
+          type = "exact";
+          value = "vesktop";
+        };
+        apply = {
+          ignoregeometry = {
+            apply = "force";
+            value = true;
+          };
+          minimize = {
             apply = "initially";
             value = true;
           };
