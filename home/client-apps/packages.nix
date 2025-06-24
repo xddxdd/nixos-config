@@ -132,7 +132,8 @@ in
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bilibili
         nur-xddxdd.dingtalk
-        nur-xddxdd.google-earth-pro
+        # FIXME: broken
+        # nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.kikoplay
         nur-xddxdd.lantianCustomized.materialgram
