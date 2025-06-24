@@ -41,6 +41,7 @@ rec {
   });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
+    diameter = sources.open5gs-freediameter.src;
   });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:

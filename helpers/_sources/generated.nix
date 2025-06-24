@@ -3,13 +3,13 @@
 {
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.24";
+    version = "v3.3.25";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.24";
+      rev = "v3.3.25";
       fetchSubmodules = false;
-      sha256 = "sha256-BIV5+yLTgVQJtxi/F9FwtZ4pYcE2vGHmEgwigMtqwD8=";
+      sha256 = "sha256-AGRqJOIIePaJH0j0eyMFJ6Kddul3yXF6uw6dPMnskmY=";
     };
   };
   grafana-falconlogscale-datasource = {
@@ -30,15 +30,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b";
+    version = "1c237d4446bd96088d9da29fe36b3c6d98f3a0bd";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b";
+      rev = "1c237d4446bd96088d9da29fe36b3c6d98f3a0bd";
       fetchSubmodules = false;
-      sha256 = "sha256-HD9+myz+H06dXdNIcOM2VFAff5bR6/laBp/z5zEI9oY=";
+      sha256 = "sha256-TWq9+CD/OJQvYWPV/b+v4n5KIU8jGFbNTlzaEb1rVSQ=";
     };
-    date = "2025-06-08";
+    date = "2025-06-14";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -54,15 +54,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "54f37fd88fe791cb8df9a9cb7e19a16adde3f580";
+    version = "c3621cc0855244380d85ad2b7601d5946d048015";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "54f37fd88fe791cb8df9a9cb7e19a16adde3f580";
+      rev = "c3621cc0855244380d85ad2b7601d5946d048015";
       fetchSubmodules = false;
-      sha256 = "sha256-ZdBxCzNMJUJip/Ggyu8eJfeXRqe/CPbNh4wBTBfNexM=";
+      sha256 = "sha256-oTOzB1nW6stte3t9DXMr3k17lh8kO9zD6rDUNMrwOlw=";
     };
-    date = "2025-06-07";
+    date = "2025-06-18";
   };
   open5gs = {
     pname = "open5gs";
@@ -74,6 +74,18 @@
       fetchSubmodules = false;
       sha256 = "sha256-KwfIlgnObOGDczt8Op+/mUzv2cMic562uRYW5o5ChKI=";
     };
+  };
+  open5gs-freediameter = {
+    pname = "open5gs-freediameter";
+    version = "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290";
+    src = fetchFromGitHub {
+      owner = "open5gs";
+      repo = "freeDiameter";
+      rev = "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290";
+      fetchSubmodules = false;
+      sha256 = "sha256-S8jL+9rW9RDwQc7NU8MOzMe9/iRbshWa2QLqXoiV85Q=";
+    };
+    date = "2025-05-31";
   };
   openspeedtest = {
     pname = "openspeedtest";
