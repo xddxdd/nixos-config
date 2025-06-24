@@ -41,5 +41,6 @@
   "gemini-embedding-exp": "google/gemini-embedding-exp",
   "gemini-embedding-exp-03-07": "google/gemini-embedding-exp-03-07",
   "gemini-exp-1206": "google/gemini-exp-1206",
+  "gemini-live-2.5-flash-preview": "google/gemini-live-2.5-flash-preview",
   "gemini-pro-vision": "google/gemini-pro-vision"
 }
