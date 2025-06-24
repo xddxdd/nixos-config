@@ -35,19 +35,7 @@
     NIXPKGS_ALLOW_INSECURE = "1";
     OLLAMA_HOST = "http://ollama.localhost";
     SYSTEMD_PAGER = "";
-
-    # VSCode Remote
-    VSCODE_SERVER_CUSTOM_GLIBC_PATH = lib.makeLibraryPath [
-      pkgs.glibc
-      pkgs.libgcc.lib
-    ];
-    VSCODE_SERVER_PATCHELF_PATH = "${pkgs.patchelf}/bin/patchelf";
   };
-
-  # VSCode Remote
-  environment.extraInit = ''
-    export VSCODE_SERVER_CUSTOM_GLIBC_LINKER=$(echo /nix/store/cg9s562sa33k78m63njfn1rw47dp9z0i-glibc-2.40-66/lib/ld-linux-*)
-  '';
 
   environment.defaultPackages = [ ];
   environment.systemPackages =
