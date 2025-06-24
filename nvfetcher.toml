@@ -28,6 +28,11 @@ fetch.github = "keylase/nvidia-patch"
 src.github = "open5gs/open5gs"
 fetch.github = "open5gs/open5gs"
 
+[open5gs-freediameter]
+src.git = "https://github.com/open5gs/freeDiameter.git"
+src.branch = "r1.5.0"
+fetch.github = "open5gs/freeDiameter"
+
 [openspeedtest]
 src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "openspeedtest/Speed-Test"

@@ -13,12 +13,12 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.24",
-            "sha256": "sha256-BIV5+yLTgVQJtxi/F9FwtZ4pYcE2vGHmEgwigMtqwD8=",
+            "rev": "v3.3.25",
+            "sha256": "sha256-AGRqJOIIePaJH0j0eyMFJ6Kddul3yXF6uw6dPMnskmY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.24"
+        "version": "v3.3.25"
     },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
@@ -52,7 +52,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-06-08",
+        "date": "2025-06-14",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -64,12 +64,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b",
-            "sha256": "sha256-HD9+myz+H06dXdNIcOM2VFAff5bR6/laBp/z5zEI9oY=",
+            "rev": "1c237d4446bd96088d9da29fe36b3c6d98f3a0bd",
+            "sha256": "sha256-TWq9+CD/OJQvYWPV/b+v4n5KIU8jGFbNTlzaEb1rVSQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3d7ae9aae73ff88caded7ef1b8c6c6d68eaf657b"
+        "version": "1c237d4446bd96088d9da29fe36b3c6d98f3a0bd"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -94,7 +94,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-06-07",
+        "date": "2025-06-18",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "54f37fd88fe791cb8df9a9cb7e19a16adde3f580",
-            "sha256": "sha256-ZdBxCzNMJUJip/Ggyu8eJfeXRqe/CPbNh4wBTBfNexM=",
+            "rev": "c3621cc0855244380d85ad2b7601d5946d048015",
+            "sha256": "sha256-oTOzB1nW6stte3t9DXMr3k17lh8kO9zD6rDUNMrwOlw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "54f37fd88fe791cb8df9a9cb7e19a16adde3f580"
+        "version": "c3621cc0855244380d85ad2b7601d5946d048015"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -133,6 +133,27 @@
             "type": "github"
         },
         "version": "v2.7.5"
+    },
+    "open5gs-freediameter": {
+        "cargoLocks": null,
+        "date": "2025-05-31",
+        "extract": null,
+        "name": "open5gs-freediameter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open5gs",
+            "repo": "freeDiameter",
+            "rev": "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290",
+            "sha256": "sha256-S8jL+9rW9RDwQc7NU8MOzMe9/iRbshWa2QLqXoiV85Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290"
     },
     "openspeedtest": {
         "cargoLocks": null,

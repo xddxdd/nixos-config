@@ -33,8 +33,8 @@
     mailerPasswordFile = config.age.secrets.smtp-pass.path;
     user = "git";
 
-    storageMinioAccessKeyFile = config.age.secrets.gitea-storage-access-key.path;
-    storageMinioSecretKeyFile = config.age.secrets.gitea-storage-secret-key.path;
+    minioAccessKeyId = config.age.secrets.gitea-storage-access-key.path;
+    minioSecretAccessKey = config.age.secrets.gitea-storage-secret-key.path;
 
     settings = {
       ui = {
