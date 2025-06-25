@@ -15,6 +15,7 @@
       "--net=host"
       "--ipc=host"
       "--gpus=all"
+      "--cdi-spec-dir=/run/cdi"
     ];
     # Later versions do not work with W8A8 models
     image = "lmsysorg/sglang:v0.4.4.post1-cu125";
