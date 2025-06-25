@@ -234,6 +234,13 @@
                 ]
               ))
             ];
+
+            env = [
+              {
+                name = "PYTHONPATH";
+                unset = true;
+              }
+            ];
           };
         };
     };
