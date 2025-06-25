@@ -28,6 +28,7 @@ in
       "--pull=always"
       "--net=host"
       "--gpus=all"
+      "--cdi-spec-dir=/run/cdi"
     ];
     entrypoint = "/app/entrypoint.sh";
     cmd = [
