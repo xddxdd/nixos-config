@@ -32,13 +32,27 @@
 
   systemd.services.nvidia-power-limit = {
     description = "Set Power Limit for NVIDIA GPUs";
-    after = [ "nvidia-persistenced.service" ];
-    requires = [ "nvidia-persistenced.service" ];
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
     script = ''
-      nvidia-smi -pl 300
+      DATETIME=$(date '+%H%M')
+      if [ "$DATETIME" -lt "0900" ]; then
+        nvidia-smi -pl 150
+      elif [ "$DATETIME" -lt "2200" ]; then
+        nvidia-smi -pl 250
+      else
+        nvidia-smi -pl 150
+      fi
     '';
     serviceConfig.Type = "oneshot";
+  };
+
+  systemd.timers.nvidia-power-limit = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "nvidia-power-limit.service" ];
+    timerConfig = {
+      OnCalendar = "minutely";
+      Unit = "nvidia-power-limit.service";
+    };
   };
 }
