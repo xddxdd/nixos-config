@@ -71,7 +71,6 @@
   };
 
   systemd.services.sglang-sakura-llm-watchdog = {
-    enable = false;
     wantedBy = [ "multi-user.target" ];
     after = [ "podman-sglang-sakura-llm.service" ];
     requires = [ "podman-sglang-sakura-llm.service" ];
