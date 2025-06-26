@@ -2,6 +2,7 @@
 {
   index = 101;
   tags = with tags; [
+    nixpkgs-old-cuda
     qemu
     server
   ];
