@@ -37,12 +37,12 @@
         {
           recordType = "NS";
           name = "virmach-host";
-          target = "ns1.vpshared.com.";
+          target = "ns1.vp.net.co.";
         }
         {
           recordType = "NS";
           name = "virmach-host";
-          target = "ns2.vpshared.com.";
+          target = "ns2.vp.net.co.";
         }
 
         {
