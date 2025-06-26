@@ -6,7 +6,7 @@
       QlBaseUrl = "/";
       QlPort = LT.portStr.Qinglong;
     };
-    image = "ghcr.io/whyour/qinglong";
+    image = "ghcr.io/whyour/qinglong:debian";
     ports = [ "127.0.0.1:${LT.portStr.Qinglong}:${LT.portStr.Qinglong}" ];
     volumes = [ "/var/lib/qinglong:/ql/data" ];
   };
