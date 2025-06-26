@@ -229,6 +229,7 @@ rec {
     "dn42"
     "exclude-bgp-mesh"
     "nix-builder"
+    "nixpkgs-old-cuda"
     "nixpkgs-stable"
     "public-facing"
     "server"

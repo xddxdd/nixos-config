@@ -45,6 +45,14 @@ in
             patches = LT.ls ../patches/nixpkgs;
             inherit permittedInsecurePackages overlays;
           };
+          pkgs-old-cuda = {
+            sourceInput = inputs.nixpkgs;
+            patches = LT.ls ../patches/nixpkgs;
+            inherit permittedInsecurePackages;
+            overlays = overlays ++ [
+              (final: prev: { cudaPackages = final.cudaPackages_12_6; })
+            ];
+          };
           pkgs-stable = {
             sourceInput = inputs.nixpkgs-stable;
             patches = LT.ls ../patches/nixpkgs-stable;
