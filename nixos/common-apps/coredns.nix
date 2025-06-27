@@ -91,9 +91,17 @@ in
           }
         '';
 
+        defaultForwarder =
+          if config.services.pdns-recursor.enable then
+            forwardToLtnet
+          else if config.networking.networkmanager.enable then
+            forwardToResolvConf
+          else
+            forwardToGoogleDNS;
+
         cfgEntries =
           [
-            ((if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS) ".")
+            (defaultForwarder ".")
             (forwardTo114DNS "kuxi.tech")
             (forwardToAzurePrivateDNS "database.azure.com")
             # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
