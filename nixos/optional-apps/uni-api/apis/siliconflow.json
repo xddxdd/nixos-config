@@ -80,6 +80,7 @@
   "fishaudio/fish-speech-1.4": "fishaudio/fish-speech-1.4",
   "fishaudio/fish-speech-1.5": "fishaudio/fish-speech-1.5",
   "internlm/internlm2_5-7b-chat": "internlm/internlm-2_5-7b-chat",
+  "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
   "netease-youdao/bce-embedding-base_v1": "netease-youdao/bce-embedding-base_v1",
   "netease-youdao/bce-reranker-base_v1": "netease-youdao/bce-reranker-base_v1",
   "stabilityai/stable-diffusion-3-5-large": "stabilityai/stable-diffusion-3-5-large",
