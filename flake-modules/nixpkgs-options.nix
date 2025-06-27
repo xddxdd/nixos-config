@@ -50,7 +50,7 @@ in
             patches = LT.ls ../patches/nixpkgs;
             inherit permittedInsecurePackages;
             overlays = overlays ++ [
-              (final: prev: { cudaPackages = final.cudaPackages_12_6; })
+              (final: prev: { cudaPackages = final.cudaPackages_12_3; })
             ];
           };
           pkgs-stable = {
