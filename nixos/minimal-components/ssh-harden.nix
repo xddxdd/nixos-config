@@ -160,6 +160,10 @@ in
       User root
       ${ltnetSSHConfig}
 
+    Host *.xuyh0120.win
+      User root
+      ${ltnetSSHConfig}
+
     Host localhost
       ${ltnetSSHConfig}
 
