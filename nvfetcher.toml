@@ -1,3 +1,7 @@
+[delegacy-rpz]
+src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
+fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
+
 [flaresolverr]
 src.github = "FlareSolverr/FlareSolverr"
 fetch.github = "FlareSolverr/FlareSolverr"

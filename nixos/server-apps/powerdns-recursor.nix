@@ -41,6 +41,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         );
       in
       ''
+        rpzFile("${LT.sources.delegacy-rpz.src}/rpz.delegacy.monostack.org.zone")
+
         ${ntaRecords}
         dofile("/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
       '';
