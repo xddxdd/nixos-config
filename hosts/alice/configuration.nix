@@ -1,4 +1,9 @@
-{ lib, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 {
   imports = [
     ../../nixos/server.nix
@@ -16,6 +21,17 @@
       }
     ];
     matchConfig.Name = "eth0";
+  };
+
+  systemd.services.zerotierone = {
+    path = [ pkgs.iproute2 ];
+    postStart = ''
+      while ! ip addr show ztje7axwd2 | grep 198.18.0; do
+        echo "Waiting for ZeroTier to setup IPv4"
+        sleep 1
+      done
+      ip route add default via ${LT.hosts.v-ps-hkg.ltnet.IPv4} dev ztje7axwd2
+    '';
   };
 
   # Cannot connect to log server since this server is IPv6 only
