@@ -25,7 +25,6 @@ jobs:
           - lt-home-test
           - lt-home-vm
           - lt-hp-omen
-          - lt-rpi4
           - oracle-vm1
           - oracle-vm2
           - pve-c3758
@@ -101,5 +100,4 @@ jobs:
 
       - name: Build nix packages
         run: |
-          echo "::group::Preparing"
           env TMPDIR=/nix/tmpdir nix build .#nixosConfigurations.${{ matrix.nixos-configuration }}.config.system.build.toplevel
