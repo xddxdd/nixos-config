@@ -62,7 +62,7 @@ jobs:
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
 
-          env TMPDIR=/nix/tmpdir nix run .#update-data
+          env TMPDIR=/nix/tmpdir nix run .#update
 
           rm -f secrets.toml
 
@@ -75,7 +75,7 @@ jobs:
           git config --global user.name "xddxdd-bot"
 
           git add .
-          if git commit -m "auto: update data files" ; then
+          if git commit -m "auto: update" ; then
             git remote remove origin
             git remote add origin "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config.git"
             git push -u origin master
