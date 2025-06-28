@@ -163,6 +163,7 @@ in
     # Others
     azure-cli
     dhcpcd
+    elfx86exts
     just
     linkzoneAdb
     oci-cli
