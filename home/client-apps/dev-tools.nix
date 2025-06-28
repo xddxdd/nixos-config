@@ -166,6 +166,7 @@ in
     elfx86exts
     just
     linkzoneAdb
+    nur-xddxdd.bin-cpuflags-x86
     oci-cli
     scc
     tldr
