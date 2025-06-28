@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   version = "4.5.0";
 
   src = fetchurl {
-    url = "https://tools.lantian.pub/downloads/dngzwxdq.chm";
+    url = "https://us-central-1.telnyxstorage.com/lantian-public/dngzwxdq.chm";
     sha256 = "0h05zfph4shviwrib283k3w565nn9haf7pa9rr6in3zb5vb1xnf8";
   };
 
