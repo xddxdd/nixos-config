@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://backblaze.lantian.pub/dnyjzsxj.chm";
+    url = "https://tools.lantian.pub/downloads/dnyjzsxj.chm";
     sha256 = "11svflzscbanly6hgk8gxkdsl9n428apc5z565sdgx0vq9355ash";
   };
 

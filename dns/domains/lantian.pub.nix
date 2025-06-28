@@ -64,12 +64,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "backblaze";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "ca";
       target = "hetzner-de";
       ttl = "1h";
