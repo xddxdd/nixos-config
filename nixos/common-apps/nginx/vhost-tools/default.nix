@@ -12,6 +12,7 @@ let
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix { };
     # # Upstream unavailable
     # um = LT.nginx.compressStaticAssets (pkgs.callPackage ./um.nix { inherit (LT) sources; });
+    downloads = "/nix/persistent/sync-servers/downloads";
   };
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
