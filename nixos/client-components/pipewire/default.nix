@@ -46,10 +46,6 @@ in
     # Fix for ROC sink bug: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4070
     package = pkgs.pipewire.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ../../../patches/pipewire-fix-roc-sink.patch ];
-      postPatch = ''
-        substituteInPlace meson.build \
-          --replace-fail "meson.get_compiler('c', native: true)" "meson.get_compiler('c')"
-      '';
     });
     systemWide = true;
 
