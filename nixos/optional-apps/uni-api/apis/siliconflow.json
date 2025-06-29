@@ -84,5 +84,6 @@
   "netease-youdao/bce-embedding-base_v1": "netease-youdao/bce-embedding-base_v1",
   "netease-youdao/bce-reranker-base_v1": "netease-youdao/bce-reranker-base_v1",
   "stabilityai/stable-diffusion-3-5-large": "stabilityai/stable-diffusion-3-5-large",
-  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0"
+  "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0",
+  "tencent/Hunyuan-A13B-Instruct": "tencent/hunyuan-a13b-instruct"
 }
