@@ -13,28 +13,13 @@ jobs:
         base-image:
           - ubuntu-24.04
         nixos-configuration:
-          - alice
-          - azure-vm1
-          - azure-vm2
-          - buyvm
           - bwg-lax
-          - lt-dell-wyse
-          - lt-dell-wyse-thin
-          - lt-home-builder
           - lt-home-lte
-          - lt-home-test
           - lt-home-vm
           - lt-hp-omen
-          - oracle-vm1
-          - oracle-vm2
           - pve-c3758
           - pve-epyc
-          - pve-hp-z220-sff
           - terrahost
-          - v-ps-hkg
-          - v-ps-sea
-          - virmach-ny1g
-          - virmach-ny6g
         include:
           - base-image: ubuntu-24.04-arm
             nixos-configuration: hetzner-de
