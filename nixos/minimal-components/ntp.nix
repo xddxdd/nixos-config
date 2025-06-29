@@ -33,7 +33,7 @@ in
       makestep 1.0 3
       hwtimestamp *
     '';
-    serverOption = if config.networking.networkmanager.enable then "offline" else "iburst";
+    serverOption = "${lib.optionalString config.networking.networkmanager.enable "offline"} iburst";
   };
 
   systemd.services.chronyd = {
