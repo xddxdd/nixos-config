@@ -13,13 +13,8 @@ rec {
     patches = (old.patches or [ ]) ++ [
       ../patches/dex-glob-match-redirect-uri.patch
       ../patches/dex-2fa.patch
+      ../patches/dex-skip-approval-screen.patch
     ];
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace server/handlers.go \
-          --replace-fail '&& !authReq.ForceApprovalPrompt' ""
-      '';
     vendorHash = "sha256-PUeMs6VZSB5YMc0MRen7Jmdi2eFbEQsHix/VzeydYoc=";
     doCheck = false;
   });
