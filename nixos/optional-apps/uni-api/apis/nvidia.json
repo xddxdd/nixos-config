@@ -58,6 +58,7 @@
   "meta/llama-3.3-70b-instruct": "meta-llama/llama-3.3-70b-instruct",
   "meta/llama-4-maverick-17b-128e-instruct": "meta-llama/llama-4-maverick-17b-128e-instruct",
   "meta/llama-4-scout-17b-16e-instruct": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "meta/llama-guard-4-12b": "meta-llama/llama-guard-4-12b",
   "meta/llama2-70b": "meta-llama/llama-2-70b",
   "meta/llama3-70b-instruct": "meta-llama/llama-3-70b-instruct",
   "meta/llama3-8b-instruct": "meta-llama/llama-3-8b-instruct",

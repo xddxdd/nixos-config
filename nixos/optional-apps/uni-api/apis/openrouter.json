@@ -49,6 +49,7 @@
   "arcee-ai/virtuoso-large": "arcee-ai/virtuoso-large",
   "arcee-ai/virtuoso-medium-v2": "arcee-ai/virtuoso-medium-v2",
   "arliai/qwq-32b-arliai-rpr-v1:free": "arliai/qwq-32b-arliai-rpr-v1:free",
+  "baidu/ernie-4.5-300b-a47b": "baidu/ernie-4.5-300b-a47b",
   "cognitivecomputations/dolphin-mixtral-8x22b": "cognitivecomputations/dolphin-mixtral-8x22b",
   "cognitivecomputations/dolphin3.0-mistral-24b:free": "cognitivecomputations/dolphin-3.0-mistral-24b:free",
   "cognitivecomputations/dolphin3.0-r1-mistral-24b:free": "cognitivecomputations/dolphin-3.0-r1-mistral-24b:free",
