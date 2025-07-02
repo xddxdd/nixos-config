@@ -15,6 +15,7 @@
   "openai-fast": "openai-fast",
   "openai-large": "openai-large",
   "openai-reasoning": "openai-reasoning",
+  "openai-roblox": "openai-roblox",
   "phi": "microsoft/phi",
   "qwen-coder": "qwen/qwen-coder",
   "rtist": "rtist",
