@@ -6,6 +6,7 @@
   "LLM-Research/Meta-Llama-3.1-70B-Instruct": "llm-research/meta-llama-3.1-70b-instruct",
   "LLM-Research/Meta-Llama-3.1-8B-Instruct": "llm-research/meta-llama-3.1-8b-instruct",
   "LLM-Research/c4ai-command-r-plus-08-2024": "llm-research/c4ai-command-r-plus-08-2024",
+  "Menlo/Jan-nano": "menlo/jan-nano",
   "Qwen/QVQ-72B-Preview": "qwen/qvq-72b-preview",
   "Qwen/QwQ-32B": "qwen/qwq-32b",
   "Qwen/QwQ-32B-Preview": "qwen/qwq-32b-preview",
