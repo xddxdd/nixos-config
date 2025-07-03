@@ -77,8 +77,9 @@
       IMAGE_SIZE = "512x512";
       IMAGE_STEPS = "20";
 
-      ENABLE_RAG_WEB_SEARCH = "True";
-      ENABLE_SEARCH_QUERY = "True";
+      # Search query is provided via MCP tools
+      ENABLE_RAG_WEB_SEARCH = "False";
+      ENABLE_SEARCH_QUERY = "False";
       RAG_WEB_SEARCH_ENGINE = "searxng";
       SEARXNG_QUERY_URL = "https://searx.xuyh0120.win/search?q=<query>";
       RAG_WEB_SEARCH_RESULT_COUNT = "10";
