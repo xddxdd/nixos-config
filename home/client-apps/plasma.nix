@@ -24,7 +24,12 @@ _: {
     resetFiles = [
       "khotkeysrc"
       "kglobalshortcutsrc"
+      "kscreenlockerrc"
+      "ksmserverrc"
+      "ksplashrc"
       "kwinrulesrc"
+      "okularpartrc"
+      "powerdevilrc"
     ];
 
     configFile.kwinrc."Wayland".InputMethod = {
