@@ -84,9 +84,9 @@ in
         '';
         ERL_EPMD_ADDRESS = "127.0.0.1";
 
-        GEOLITE2_COUNTRY_DB = "/nix/persistent/sync-servers/geoip/GeoLite2-Country.mmdb";
+        GEOLITE2_COUNTRY_DB = "/etc/geoip/GeoLite2-Country.mmdb";
         GEONAMES_SOURCE_FILE = "/var/lib/plausible/geonames.csv";
-        IP_GEOLOCATION_DB = "/nix/persistent/sync-servers/geoip/GeoLite2-City.mmdb";
+        IP_GEOLOCATION_DB = "/etc/geoip/GeoLite2-City.mmdb";
 
         STORAGE_DIR = lib.mkForce "/run/plausible/elixir_tzdata";
         RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
