@@ -89,6 +89,16 @@ let
         inherit ttl;
       }
     ];
+
+  prependIPv6ToLength =
+    length: hostIndex:
+    let
+      prepend = s: if (builtins.length s) < length then prepend ([ "0" ] ++ s) else s;
+      indexList = prepend (lib.stringToCharacters (builtins.toString hostIndex));
+      indexInterspersed = lib.intersperse "." indexList;
+      indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
+    in
+    indexStr;
 in
 {
   recordHandlers = {
@@ -312,6 +322,19 @@ in
         ]
       );
 
+    LTNetReverseIPv4_24in16 =
+      domain:
+      assert lib.hasSuffix "." domain;
+      forEachActiveHost (
+        n: v: [
+          {
+            recordType = "PTR";
+            name = "${builtins.toString v.index}.0";
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]
+      );
+
     LTNetReverseIPv4_24 =
       domain:
       assert lib.hasSuffix "." domain;
@@ -325,21 +348,27 @@ in
         ]
       );
 
-    LTNetReverseIPv6_64 =
+    LTNetReverseIPv6_48 =
       domain:
       assert lib.hasSuffix "." domain;
       forEachActiveHost (
-        n: v:
-        let
-          prepend = s: if (builtins.length s) < 4 then prepend ([ "0" ] ++ s) else s;
-          indexList = prepend (lib.stringToCharacters (builtins.toString v.index));
-          indexInterspersed = lib.intersperse "." indexList;
-          indexStr = lib.concatStrings (lib.reverseList indexInterspersed);
-        in
-        [
+        n: v: [
           {
             recordType = "PTR";
-            name = "*.${indexStr}";
+            name = "*.${prependIPv6ToLength 4 v.index}";
+            target = concatDomain "${ptrPrefix v}${n}" domain;
+          }
+        ]
+      );
+
+    LTNetReverseIPv6_64in48 =
+      domain:
+      assert lib.hasSuffix "." domain;
+      forEachActiveHost (
+        n: v: [
+          {
+            recordType = "PTR";
+            name = prependIPv6ToLength 20 v.index;
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
         ]
