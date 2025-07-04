@@ -1,4 +1,9 @@
-{ pkgs, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 let
   lgproxyHosts = [
     "buyvm"
@@ -11,10 +16,19 @@ let
 in
 {
   networking.hosts = builtins.listToAttrs (
-    (builtins.map (n: {
-      name = LT.hosts.${n}.ltnet.IPv4;
-      value = [ "${n}.${lgproxyDomain}" ];
-    }) lgproxyHosts)
+    (builtins.map (
+      n:
+      let
+        ptrPrefix = lib.replaceStrings [ "_" ] [ "-" ] LT.hosts.${n}.city.sanitized;
+      in
+      {
+        name = LT.hosts.${n}.ltnet.IPv4;
+        value = [
+          (lib.mkBefore "${ptrPrefix}.${n}.${lgproxyDomain}")
+          "${n}.${lgproxyDomain}"
+        ];
+      }
+    ) lgproxyHosts)
     ++ [
       {
         name = LT.this.ltnet.IPv4;
