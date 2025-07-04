@@ -163,7 +163,7 @@ in
         ~*sqlmap          1;
       }
 
-      geoip2 /nix/persistent/sync-servers/geoip/GeoLite2-City.mmdb {
+      geoip2 /etc/geoip/GeoLite2-City.mmdb {
         auto_reload 5m;
         $geoip2_continent_code continent code;
         $geoip2_continent_name_en continent names en;
@@ -176,7 +176,7 @@ in
         $geoip2_postal_code postal code;
       }
 
-      geoip2 /nix/persistent/sync-servers/geoip/GeoLite2-ASN.mmdb {
+      geoip2 /etc/geoip/GeoLite2-ASN.mmdb {
         auto_reload 5m;
         $geoip2_asn_code autonomous_system_number;
         $geoip2_asn_name autonomous_system_organization;
