@@ -313,6 +313,5 @@
   "x-ai/grok-3-beta": "x-ai/grok-3-beta",
   "x-ai/grok-3-mini": "x-ai/grok-3-mini",
   "x-ai/grok-3-mini-beta": "x-ai/grok-3-mini-beta",
-  "x-ai/grok-beta": "x-ai/grok-beta",
   "x-ai/grok-vision-beta": "x-ai/grok-vision-beta"
 }
