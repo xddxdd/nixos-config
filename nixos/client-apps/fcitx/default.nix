@@ -48,12 +48,4 @@ in
       ];
     };
   };
-
-  # Extra variables not covered by NixOS fcitx module
-  environment.variables = lib.mkIf (!config.i18n.inputMethod.fcitx5.waylandFrontend) {
-    INPUT_METHOD = "fcitx";
-    SDL_IM_MODULE = "fcitx";
-    GLFW_IM_MODULE = "ibus";
-    QT_IM_MODULES = "wayland;fcitx;ibus";
-  };
 }
