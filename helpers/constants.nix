@@ -102,6 +102,7 @@ rec {
     DNSUpstream = 55; # CoreDNS DoT proxy port
     Gopher = 70;
     HTTP = 80;
+    Quassel.Ident = 113;
     LDAP = 389;
     HTTPS = 443;
     LDAPS = 636;
@@ -112,7 +113,7 @@ rec {
     NFS.StatD = 4000;
     NFS.LockD = 4001;
     NFS.MountD = 4002;
-    Quassel = 4242;
+    Quassel.Main = 4242;
     Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
     IPFS.API = 5001;
