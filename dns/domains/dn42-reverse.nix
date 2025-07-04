@@ -8,6 +8,7 @@
       records = lib.flatten [
         config.common.nameservers.LTNet
         (config.common.hostRecs.LTNetReverseIPv4_16 "ltnet.lantian.pub.")
+        (config.common.hostRecs.LTNetReverseIPv4_24in16 "ltnet.lantian.pub.")
       ];
     }
 
@@ -27,7 +28,8 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.DN42
-        (config.common.hostRecs.LTNetReverseIPv6_64 "lantian.dn42.")
+        (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.dn42.")
+        (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.dn42.")
       ];
     }
 
@@ -82,7 +84,8 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.NeoNetwork
-        (config.common.hostRecs.LTNetReverseIPv6_64 "lantian.neo.")
+        (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.neo.")
+        (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.neo.")
       ];
     }
   ];
