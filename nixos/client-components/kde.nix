@@ -12,7 +12,7 @@
     nur-xddxdd.plasma-smart-video-wallpaper-reborn
     kdePackages.qtmultimedia # Dependencies for plasma-smart-video-wallpaper-reborn plugin
 
-    # nur-xddxdd.plasma-yesplaymusic-lyric
+    kdePackages.wallpaper-engine-plugin
 
     nur-xddxdd.red-star-os-wallpapers
   ];
