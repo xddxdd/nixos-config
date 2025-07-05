@@ -150,7 +150,7 @@ in
         # Temporarily disabled for build failure
         # "nft_fullcone"
         # "ovpn-dco"
-      ] ++ lib.optionals pkgs.stdenv.isx86_64 [ "winesync" ];
+      ] ++ lib.optionals pkgs.stdenv.isx86_64 [ "ntsync" ];
       extraModulePackages =
         with config.boot.kernelPackages;
         (
@@ -228,7 +228,7 @@ in
     };
 
     services.udev.extraRules = ''
-      KERNEL=="winesync", MODE="0644"
+      KERNEL=="ntsync", MODE="0644"
     '';
 
     systemd.services.i915-sriov = {
