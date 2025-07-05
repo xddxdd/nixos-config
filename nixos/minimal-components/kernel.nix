@@ -227,9 +227,13 @@ in
       ];
     };
 
-    services.udev.extraRules = ''
-      KERNEL=="ntsync", MODE="0644"
-    '';
+    services.udev.packages = [
+      (pkgs.writeTextFile {
+        name = "ntsync-udev-rules";
+        text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
+        destination = "/etc/udev/rules.d/70-ntsync.rules";
+      })
+    ];
 
     systemd.services.i915-sriov = {
       enable = LT.this.hasTag LT.tags.i915-sriov;
