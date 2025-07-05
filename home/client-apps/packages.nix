@@ -61,6 +61,20 @@ let
         --set WAYLAND_DISPLAY ""
     ''
   );
+
+  wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg.overrideAttrs (old: {
+    prePatch =
+      (old.prePatch or "")
+      + ''
+        substituteInPlace "loader/wine.inf.in" --replace-warn \
+          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
+          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
+      '';
+
+    postFixup = ''
+      ln -sf $out/bin/wine $out/bin/wine64
+    '';
+  });
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
@@ -96,7 +110,6 @@ in
         gimp
         imagemagick
         immich-cli
-        inputs.nix-gaming.packages."${pkgs.system}".wine-tkg
         jamesdsp
         jamesdsp-toggle
         jellyfin-media-player
@@ -155,6 +168,7 @@ in
         vlc
         vopono
         vscode
+        wine'
         winetricks
         wpsoffice
         xca
