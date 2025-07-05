@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   mkVirtualSurroundSink =
     hrir:
@@ -111,7 +111,7 @@ let
       destination = "/share/pipewire/pipewire.conf.d/50-surround-${hrir}.conf";
     };
 in
-{
+lib.mkIf false {
   # environment.etc."hrir".text = builtins.toJSON hesuviHrirInfo;
   services.pipewire.configPackages = builtins.map mkVirtualSurroundSink [
     "atmos"
