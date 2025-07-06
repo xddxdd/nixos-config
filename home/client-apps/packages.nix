@@ -212,6 +212,10 @@ in
         command = "${pkgs.kdePackages.neochat}/bin/neochat";
       }
       {
+        name = "steam";
+        command = "${pkgs.steam}/bin/steam -silent";
+      }
+      {
         name = "thunderbird";
         command = "${thunderbird-wrapped}/bin/thunderbird";
       }
