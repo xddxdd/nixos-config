@@ -51,8 +51,8 @@ in
       )
       [
         "admin-api-key"
-        "ai-985-games-api-key"
         "akash-networks-api-key"
+        "cerebras-api-key"
         "chutes-ai-api-key"
         "cloudflare-account-id"
         "cloudflare-api-key"
@@ -65,7 +65,6 @@ in
         "nvidia-api-key"
         "openrouter-api-key"
         "siliconflow-api-key"
-        "siliconflow-pool-api-key"
         "wbot-api-key"
         "xai-api-key"
       ]
