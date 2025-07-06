@@ -17,7 +17,7 @@ in
     [defaults]
     gathering = explicit
     host_key_checking = False
-    strategy_plugins = ${mitogen}/lib/python${pkgs.python3Minimal.pythonVersion}/site-packages/ansible_mitogen/plugins/strategy
+    strategy_plugins = ${mitogen}/${pkgs.python3.sitePackages}/ansible_mitogen/plugins/strategy
     strategy = mitogen_linear
     interpreter_python = auto_silent
     [ssh_connection]
