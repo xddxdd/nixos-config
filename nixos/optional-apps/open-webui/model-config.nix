@@ -63,43 +63,26 @@ let
         )
       );
 
-  nativeFunctionCallingPrefixes = [
-    "anthropic/claude-3.5"
-    "anthropic/claude-3.7"
-    "deepseek/deepseek-v3-0324"
-    "google/gemini-2.5"
-    "openai/gpt-4o"
-    "openai/o"
-  ];
-
-  hasNativeFunctionCalling =
-    name: builtins.any (v: lib.hasPrefix v name) nativeFunctionCallingPrefixes;
-
   mkSQLForModel =
     name:
     let
       iconUrl = lookupModelIconUrl name;
-      params = if hasNativeFunctionCalling name then ''{"function_calling": "native"}'' else "{}";
-      shouldInclude = (lookupModelIconUrl name != defaultModelIcon) || (hasNativeFunctionCalling name);
     in
-    if shouldInclude then
-      ''
-        INSERT INTO model (id, user_id, base_model_id, "name", meta, params, created_at, updated_at, access_control, is_active)
-        VALUES (
-          '${name}',
-          '$ADMIN_ID',
-          NULL,
-          '${name}',
-          '{"profile_image_url": "${iconUrl}", "description": null, "capabilities": {"vision": true, "citations": true}, "suggestion_prompts": null, "tags": []}',
-          '${params}',
-          $TIMESTAMP,
-          $TIMESTAMP,
-          '{"read": {"group_ids": [], "user_ids": []}, "write": {"group_ids": [], "user_ids": []}}',
-          TRUE
-        );
-      ''
-    else
-      "";
+    ''
+      INSERT INTO model (id, user_id, base_model_id, "name", meta, params, created_at, updated_at, access_control, is_active)
+      VALUES (
+        '${name}',
+        '$ADMIN_ID',
+        NULL,
+        '${name}',
+        '{"profile_image_url": "${iconUrl}", "description": null, "capabilities": {"vision": true, "citations": true}, "suggestion_prompts": null, "tags": []}',
+        '{"function_calling": "native"}',
+        $TIMESTAMP,
+        $TIMESTAMP,
+        '{"read": {"group_ids": [], "user_ids": []}, "write": {"group_ids": [], "user_ids": []}}',
+        TRUE
+      );
+    '';
 
   models = lib.unique (
     lib.flatten (
