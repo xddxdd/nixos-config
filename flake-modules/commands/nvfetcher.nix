@@ -5,7 +5,7 @@
   ...
 }:
 ''
-  export PYTHONPATH=${python3Packages.packaging}/lib/python${python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
+  export PYTHONPATH=${python3Packages.packaging}/${python3.sitePackages}:''${PYTHONPATH:-}
   [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
   ${nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o helpers/_sources "$@"
 ''
