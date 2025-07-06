@@ -34,6 +34,7 @@ let
     "minimax/" = "minimax-color.png";
     "mistralai/" = "mistral-color.png";
     "moonshotai/" = "moonshot.png";
+    "nousresearch/" = "nousresearch.png";
     "nvidia/" = "nvidia-color.png";
     "openai/" = "openai.png";
     "openchat/" = "openchat-color.png";

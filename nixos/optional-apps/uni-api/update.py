@@ -82,13 +82,17 @@ GUESS_PROVIDER_PREFIX_MAP = {
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {
+    "ai21": ["ai21labs"],
+    "baidu": ["paddlepaddle"],
     "deepseek": ["deepseek-ai"],
     "meta-llama": ["meta"],
+    "minimax": ["minimaxai"],
     "mistralai": ["mistral"],
 }
 
 NORMALIZE_MODEL_PREFIX_MAP = {
     "ai21-": "ai21/",
+    "baai-": "baai/",
     "cohere-": "cohere/",
     "deepseek/deepseek-chat-": "deepseek/deepseek-",
     "meta-llama-": "meta-llama/llama-",
@@ -232,7 +236,7 @@ def normalize_model_id(api_name: str, model_id: str) -> str:
     base = re.sub(r"^@[^/]+/", "", base)
 
     # Remove model filename extension, if any
-    base = re.sub(r"(\.gguf|-(i)?q[0-9a-z]+)+$", "", base, 0, re.IGNORECASE)
+    base = re.sub(r"(\.gguf|-(i)?q[0-9a-z]+)+$", "", base, count=0, flags=re.IGNORECASE)
 
     # Move extra prefix to the end as model variants
     if base.count("/") > 1:

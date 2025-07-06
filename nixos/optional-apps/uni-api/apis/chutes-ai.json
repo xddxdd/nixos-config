@@ -1,7 +1,7 @@
 {
   "ArliAI/QwQ-32B-ArliAI-RpR-v1": "arliai/qwq-32b-arliai-rpr-v1",
   "ByteDance-Seed/Seed-Coder-8B-Reasoning-bf16": "bytedance-seed/seed-coder-8b-reasoning-bf16",
-  "MiniMaxAI/MiniMax-M1-80k": "minimaxai/minimax-m1-80k",
+  "MiniMaxAI/MiniMax-M1-80k": "minimax/minimax-m1-80k",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
   "NousResearch/DeepHermes-3-Mistral-24B-Preview": "nousresearch/deephermes-3-mistral-24b-preview",
   "Qwen/QwQ-32B": "qwen/qwq-32b",
