@@ -61,6 +61,10 @@
       OAUTH_ROLES_CLAIM = "groups";
       OPENID_PROVIDER_URL = "https://login.lantian.pub/.well-known/openid-configuration";
 
+      VECTOR_DB = "pgvector";
+      PGVECTOR_DB_URL = "postgresql:///open-webui?host=/run/postgresql";
+      PGVECTOR_INITIALIZE_MAX_VECTOR_LENGTH = "2000";
+
       RAG_EMBEDDING_ENGINE = "ollama";
       PDF_EXTRACT_IMAGES = "False";
       RAG_EMBEDDING_MODEL = "jeffh/intfloat-multilingual-e5-large:f16";
