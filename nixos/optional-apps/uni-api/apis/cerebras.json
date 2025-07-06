@@ -1,0 +1,6 @@
+{
+  "llama-3.3-70b": "meta-llama/llama-3.3-70b",
+  "llama-4-scout-17b-16e-instruct": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "llama3.1-8b": "meta-llama/llama-3.1-8b",
+  "qwen-3-32b": "qwen/qwen-3-32b"
+}

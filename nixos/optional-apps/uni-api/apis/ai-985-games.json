@@ -1,8 +1,0 @@
-{
-  "glm-4v": "thudm/glm-4v",
-  "glm-4v-plus": "thudm/glm-4v-plus",
-  "hunyuan-turbo-latest": "tencent/hunyuan-turbo-latest",
-  "moonshot-v1-128k": "moonshotai/moonshot-v1-128k",
-  "moonshot-v1-32k": "moonshotai/moonshot-v1-32k",
-  "moonshot-v1-8k": "moonshotai/moonshot-v1-8k"
-}

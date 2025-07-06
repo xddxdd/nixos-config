@@ -114,6 +114,11 @@ in
 
     # Third party free providers
     {
+      name = "cerebras";
+      baseURL = "https://api.cerebras.ai/v1/chat/completions";
+      providerTags = [ "free_third_party" ];
+    }
+    {
       name = "chutes-ai";
       baseURL = "https://llm.chutes.ai/v1/chat/completions";
       providerTags = [ "free_third_party" ];
@@ -154,12 +159,6 @@ in
     }
 
     # Less reliable free providers
-    {
-      name = "ai-985-games";
-      baseURL = "https://ai.985.games/v1/chat/completions";
-      providerTags = [ "free_unreliable" ];
-      modelSuffix = null;
-    }
 
     # Paid providers
     {

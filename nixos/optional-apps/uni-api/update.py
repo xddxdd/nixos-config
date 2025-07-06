@@ -16,8 +16,8 @@ HOME = pathlib.Path.home()
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
 
 APIS = {
-    "ai-985-games": "https://ai.985.games/v1",
     "akash-networks": "https://chatapi.akash.network/api/v1",
+    "cerebras": "https://api.cerebras.ai/v1",
     "chutes-ai": "https://llm.chutes.ai/v1",
     "cloudflare": "__CLOUDFLARE__",
     "github-models": "__GITHUB_MODELS__",
