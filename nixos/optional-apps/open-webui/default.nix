@@ -145,7 +145,7 @@
           proxyWebsockets = true;
           proxyNoTimeout = true;
         };
-        "/model-icons".alias = "${./icons}";
+        "/model-icons".alias = "${LT.sources.lobe-icons.src}/packages/static-png/dark";
       };
 
       sslCertificate = "lets-encrypt-xuyh0120.win";

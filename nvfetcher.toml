@@ -16,6 +16,10 @@ src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
 fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.zip"
 
+[lobe-icons]
+src.git = "https://github.com/lobehub/lobe-icons.git"
+fetch.git = "https://github.com/lobehub/lobe-icons.git"
+
 [mihoyo-bbs-tools]
 src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "Womsxd/MihoyoBBSTools"
