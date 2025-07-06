@@ -70,6 +70,26 @@
         },
         "version": "3.3.0"
     },
+    "lobe-icons": {
+        "cargoLocks": null,
+        "date": "2025-07-04",
+        "extract": null,
+        "name": "lobe-icons",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "fa5520ac2847acc80a60a91f12c3dd2684f4b3ab",
+            "sha256": "sha256-Z9IqiIEHy6X/IhxeuK8X4i+QNcU04YxNILWtD6KOTFk=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/lobehub/lobe-icons.git"
+        },
+        "version": "fa5520ac2847acc80a60a91f12c3dd2684f4b3ab"
+    },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
         "date": "2025-06-14",
