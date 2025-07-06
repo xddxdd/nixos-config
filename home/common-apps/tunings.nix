@@ -27,6 +27,8 @@
   # Mute GNU Parallel citation notice
   home.file.".parallel/will-cite".text = "";
 
+  home.packages = [ pkgs.git-filter-repo ];
+
   xdg.configFile = {
     "nix/nix.conf".text = ''
       experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups
