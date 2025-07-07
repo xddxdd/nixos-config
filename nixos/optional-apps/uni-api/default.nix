@@ -24,6 +24,9 @@ let
       // (lib.optionalAttrs (v.cloudflareAccountIdPath != null) {
         cf_account_id._secret = v.cloudflareAccountIdPath;
       })
+      // (lib.optionalAttrs (v.engine != null) {
+        inherit (v) engine;
+      })
     ) (builtins.sort (a: b: a._score < b._score) config.lantian.llm-providers);
 
     api_keys = [
