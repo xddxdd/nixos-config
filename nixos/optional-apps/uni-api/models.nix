@@ -29,6 +29,10 @@ let
         baseURL = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
         };
+        engine = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+        };
         apiKeyPath = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
           default = osConfig.age.secrets."uni-api-${config.name}-api-key".path;
@@ -93,6 +97,7 @@ in
     {
       name = "google";
       baseURL = "https://generativelanguage.googleapis.com/v1beta";
+      engine = "gemini";
       providerTags = [ "free" ];
     }
     {
@@ -164,6 +169,7 @@ in
     {
       name = "openrouter";
       baseURL = "https://openrouter.ai/api/v1/chat/completions";
+      engine = "openrouter";
       providerTags = [ "paid" ];
     }
     {
