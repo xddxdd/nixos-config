@@ -42,7 +42,7 @@
       RAG_LOG_LEVEL = "WARNING";
       WEBHOOK_LOG_LEVEL = "WARNING";
 
-      ENABLE_WEBSOCKET_SUPPORT = "True";
+      ENABLE_WEBSOCKET_SUPPORT = "False";
       WEBSOCKET_MANAGER = "redis";
       WEBSOCKET_REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
       REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
