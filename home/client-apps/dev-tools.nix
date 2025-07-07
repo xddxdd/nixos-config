@@ -162,6 +162,7 @@ in
 
     # Others
     azure-cli
+    cdrkit
     dhcpcd
     elfx86exts
     just
