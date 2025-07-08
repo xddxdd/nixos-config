@@ -1,12 +1,11 @@
 diff --git a/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix b/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix
-index af94fbe6a45b..03505ca68dde 100644
+index d9596f754c6b..e927ffdf5097 100644
 --- a/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix
 +++ b/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix
-@@ -104,16 +104,6 @@
-     };
+@@ -126,13 +126,6 @@
  
    config = lib.mkIf config.hardware.nvidia-container-toolkit.enable {
--    assertions = [
+     assertions = [
 -      {
 -        assertion =
 -          config.hardware.nvidia.datacenter.enable
@@ -14,8 +13,6 @@ index af94fbe6a45b..03505ca68dde 100644
 -          || config.hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion;
 -        message = ''`nvidia-container-toolkit` requires nvidia drivers: set `hardware.nvidia.datacenter.enable`, add "nvidia" to `services.xserver.videoDrivers`, or set `hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion` if the driver is provided by another NixOS module (e.g. from NixOS-WSL)'';
 -      }
--    ];
--
-     virtualisation.docker = {
-       daemon.settings = lib.mkIf (lib.versionAtLeast config.virtualisation.docker.package.version "25") {
-         features.cdi = true;
+       {
+         assertion =
+           ((builtins.length config.hardware.nvidia-container-toolkit.csv-files) > 0)
