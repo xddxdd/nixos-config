@@ -1,0 +1,14 @@
+diff --git a/pkgs/development/python-modules/sentence-transformers/default.nix b/pkgs/development/python-modules/sentence-transformers/default.nix
+index bb205fa53f4b..9931e1e561e8 100644
+--- a/pkgs/development/python-modules/sentence-transformers/default.nix
++++ b/pkgs/development/python-modules/sentence-transformers/default.nix
+@@ -119,9 +119,6 @@ buildPythonPackage rec {
+       "tests/test_pretrained_stsb.py"
+       "tests/test_sentence_transformer.py"
+       "tests/test_train_stsb.py"
+-    ]
+-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+-      # Segfault
+       "tests/test_sparse_tensor.py"
+     ];
+ 

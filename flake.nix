@@ -89,7 +89,6 @@
       url = "github:nix-community/NUR";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
@@ -133,10 +132,7 @@
     };
     stylix = {
       url = "github:nix-community/stylix";
-      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.git-hooks.follows = "nur-xddxdd/pre-commit-hooks-nix";
-      inputs.home-manager.follows = "home-manager";
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };

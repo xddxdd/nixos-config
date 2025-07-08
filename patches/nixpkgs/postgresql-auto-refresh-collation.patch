@@ -1,19 +1,19 @@
 diff --git a/nixos/modules/services/databases/postgresql.nix b/nixos/modules/services/databases/postgresql.nix
-index 99f36d85a943..58744ce73049 100644
+index aa844ada5e3e..ffad62c4025e 100644
 --- a/nixos/modules/services/databases/postgresql.nix
 +++ b/nixos/modules/services/databases/postgresql.nix
-@@ -763,10 +763,14 @@ in
+@@ -913,10 +913,14 @@ in
              ''}
              rm -f "${cfg.dataDir}/.first_startup"
            fi
 +
-+          $PSQL -tAc 'ALTER DATABASE "postgres" REFRESH COLLATION VERSION'
-+          $PSQL -tAc 'ALTER DATABASE "template1" REFRESH COLLATION VERSION'
++          psql -tAc 'ALTER DATABASE "postgres" REFRESH COLLATION VERSION'
++          psql -tAc 'ALTER DATABASE "template1" REFRESH COLLATION VERSION'
          ''
          + optionalString (cfg.ensureDatabases != [ ]) ''
            ${concatMapStrings (database: ''
-             $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
-+            $PSQL -tAc 'ALTER DATABASE "${database}" REFRESH COLLATION VERSION'
+             psql -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || psql -tAc 'CREATE DATABASE "${database}"'
++            psql -tAc 'ALTER DATABASE "${database}" REFRESH COLLATION VERSION'
            '') cfg.ensureDatabases}
          ''
          + ''

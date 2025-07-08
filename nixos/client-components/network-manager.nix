@@ -17,7 +17,16 @@ in
 
   networking.networkmanager = {
     enable = true;
-    enableStrongSwan = true;
+    plugins = [
+      pkgs.networkmanager-fortisslvpn
+      pkgs.networkmanager-openconnect
+      pkgs.networkmanager_strongswan
+      pkgs.networkmanager-openvpn
+      pkgs.networkmanager-iodine
+      pkgs.networkmanager-l2tp
+      pkgs.networkmanager-sstp
+      pkgs.networkmanager-vpnc
+    ];
     dns = "default";
     insertNameservers = lib.optionals config.services.coredns.enable [
       config.lantian.netns.coredns-client.ipv4
