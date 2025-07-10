@@ -17,8 +17,8 @@ process.stdout.write('Loading custom config...');
 module.exports = {
   plugins: [
     GPTReviewer({
-      openaiBaseUrl: process.env.OPENAI_BASE_URL,
-      openaiModel: process.env.OPENAI_MODEL,
+      openaiBaseUrl: 'https://openrouter.ai/api',
+      openaiModel: 'deepseek/deepseek-r1-0528',
       openaiApiKey: process.env.OPENAI_API_KEY,
       openaiPrompt: LLM_PROMPT,
     }),
