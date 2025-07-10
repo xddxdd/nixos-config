@@ -5,5 +5,6 @@
   "grok-3": "x-ai/grok-3",
   "grok-3-fast": "x-ai/grok-3-fast",
   "grok-3-mini": "x-ai/grok-3-mini",
-  "grok-3-mini-fast": "x-ai/grok-3-mini-fast"
+  "grok-3-mini-fast": "x-ai/grok-3-mini-fast",
+  "grok-4-0709": "x-ai/grok-4-0709"
 }
