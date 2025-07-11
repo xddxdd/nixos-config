@@ -76,6 +76,7 @@
   "microsoft/phi-4-mini-instruct": "microsoft/phi-4-mini-instruct",
   "microsoft/phi-4-multimodal-instruct": "microsoft/phi-4-multimodal-instruct",
   "mistralai/codestral-22b-instruct-v0.1": "mistralai/codestral-22b-instruct-v0.1",
+  "mistralai/magistral-small-2506": "mistralai/magistral-small-2506",
   "mistralai/mamba-codestral-7b-v0.1": "mistralai/mamba-codestral-7b-v0.1",
   "mistralai/mathstral-7b-v0.1": "mistralai/mathstral-7b-v0.1",
   "mistralai/mistral-7b-instruct-v0.2": "mistralai/mistral-7b-instruct-v0.2",
