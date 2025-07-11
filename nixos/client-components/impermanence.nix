@@ -42,6 +42,7 @@
           ".continue"
           ".cursor"
           ".fly"
+          ".gemini"
           ".ghidra"
           ".kde4"
           ".kube"

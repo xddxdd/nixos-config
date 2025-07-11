@@ -165,6 +165,7 @@ in
     cdrkit
     dhcpcd
     elfx86exts
+    gemini-cli
     just
     linkzoneAdb
     nur-xddxdd.bin-cpuflags-x86
