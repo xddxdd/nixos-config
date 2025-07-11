@@ -119,6 +119,7 @@
   "nvidia/nv-embedqa-e5-v5": "nvidia/nv-embedqa-e5-v5",
   "nvidia/nv-embedqa-mistral-7b-v2": "nvidia/nv-embedqa-mistral-7b-v2",
   "nvidia/nvclip": "nvidia/nvclip",
+  "nvidia/riva-translate-4b-instruct": "nvidia/riva-translate-4b-instruct",
   "nvidia/usdcode-llama-3.1-70b-instruct": "nvidia/usdcode-llama-3.1-70b-instruct",
   "nvidia/vila": "nvidia/vila",
   "qwen/qwen2-7b-instruct": "qwen/qwen-2-7b-instruct",
