@@ -64,7 +64,6 @@
     "tls://[2a03:90c0:85::28a]:443"
   ],
   "netherlands": [
-    "tls://23.137.249.65:444",
     "tls://s-ams-0.sergeysedoy97.ru:65534",
     "tls://vpn.itrus.su:7992",
     "tls://x-ams-0.sergeysedoy97.ru:65534"

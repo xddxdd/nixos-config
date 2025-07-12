@@ -37,6 +37,7 @@
   "deepseek-ai/DeepSeek-V3-Base": "deepseek/deepseek-v3-base",
   "microsoft/MAI-DS-R1-FP8": "microsoft/mai-ds-r1-fp8",
   "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
+  "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "moonshotai/Kimi-VL-A3B-Thinking": "moonshotai/kimi-vl-a3b-thinking",
   "nvidia/Llama-3_3-Nemotron-Super-49B-v1": "nvidia/llama-3_3-nemotron-super-49b-v1",
   "openbmb/MiniCPM4-8B": "openbmb/minicpm-4-8b",
