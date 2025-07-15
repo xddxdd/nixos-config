@@ -179,6 +179,7 @@ rec {
     HomepageDashboard = 13812;
     Syncthing = 13834;
     Usque = 13840;
+    SillyTavern = 13845;
     Qinglong = 13857;
     Dump1090.RawInput = 13901;
     Dump1090.RawOutput = 13902;
