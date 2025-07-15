@@ -15,9 +15,9 @@
   "meta-llama/llama-prompt-guard-2-22m": "meta-llama/llama-prompt-guard-2-22m",
   "meta-llama/llama-prompt-guard-2-86m": "meta-llama/llama-prompt-guard-2-86m",
   "mistral-saba-24b": "mistralai/mistral-saba-24b",
+  "moonshotai/kimi-k2-instruct": "moonshotai/kimi-k2-instruct",
   "playai-tts": "playai-tts",
   "playai-tts-arabic": "playai-tts-arabic",
-  "qwen-qwq-32b": "qwen/qwen-qwq-32b",
   "qwen/qwen3-32b": "qwen/qwen-3-32b",
   "whisper-large-v3": "openai/whisper-large-v3",
   "whisper-large-v3-turbo": "openai/whisper-large-v3-turbo"
