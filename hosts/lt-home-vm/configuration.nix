@@ -35,6 +35,7 @@
     # ../../nixos/optional-apps/pterodactyl-wings.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
+    ../../nixos/optional-apps/sillytavern.nix
     # ../../nixos/optional-apps/stable-diffusion-webui.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/tachidesk.nix
