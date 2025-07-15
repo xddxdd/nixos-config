@@ -37,6 +37,7 @@
       };
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-${config.networking.hostName}.xuyh0120.win";
     noIndex.enable = true;
   };
