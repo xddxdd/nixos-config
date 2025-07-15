@@ -96,6 +96,9 @@
     disableWhileTyping = false;
   };
 
+  services.usbmuxd.enable = true;
+  systemd.services.usbmuxd.serviceConfig.Restart = "always";
+
   virtualisation.waydroid.enable = true;
 
   # Calc key & Remap pause to delete
