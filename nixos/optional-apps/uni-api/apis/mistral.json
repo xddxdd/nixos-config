@@ -54,5 +54,7 @@
   "pixtral-12b-2409": "mistralai/pixtral-12b-2409",
   "pixtral-12b-latest": "mistralai/pixtral-12b-latest",
   "pixtral-large-2411": "mistralai/pixtral-large-2411",
-  "pixtral-large-latest": "mistralai/pixtral-large-latest"
+  "pixtral-large-latest": "mistralai/pixtral-large-latest",
+  "voxtral-mini-2507": "voxtral-mini-2507",
+  "voxtral-small-2507": "voxtral-small-2507"
 }

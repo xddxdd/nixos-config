@@ -1,10 +1,6 @@
 {
-  "LLM-Research/Llama-3.3-70B-Instruct": "llm-research/llama-3.3-70b-instruct",
   "LLM-Research/Llama-4-Maverick-17B-128E-Instruct": "llm-research/llama-4-maverick-17b-128e-instruct",
   "LLM-Research/Llama-4-Scout-17B-16E-Instruct": "llm-research/llama-4-scout-17b-16e-instruct",
-  "LLM-Research/Meta-Llama-3.1-405B-Instruct": "llm-research/meta-llama-3.1-405b-instruct",
-  "LLM-Research/Meta-Llama-3.1-70B-Instruct": "llm-research/meta-llama-3.1-70b-instruct",
-  "LLM-Research/Meta-Llama-3.1-8B-Instruct": "llm-research/meta-llama-3.1-8b-instruct",
   "LLM-Research/c4ai-command-r-plus-08-2024": "llm-research/c4ai-command-r-plus-08-2024",
   "Menlo/Jan-nano": "menlo/jan-nano",
   "MiniMax/MiniMax-M1-80k": "minimax/minimax-m1-80k",
