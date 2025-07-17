@@ -56,18 +56,6 @@ in
             prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
             forward . 198.19.0.253 fdbc:f9dc:67ad:2547::53
-            cache
-          }
-        '';
-        forwardToAzurePrivateDNS = zone: ''
-          ${zone} {
-            any
-            bufsize 1232
-            loadbalance round_robin
-            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
-            forward . 168.63.129.16
-            cache
           }
         '';
         block = zone: ''
@@ -91,7 +79,6 @@ in
         cfgEntries =
           [
             (defaultForwarder ".")
-            (forwardToAzurePrivateDNS "database.azure.com")
             # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
             (block "mcdn.bilivideo.cn")
             (block "szbdyd.com")
@@ -100,7 +87,7 @@ in
           # ++ lib.optional config.services.avahi.enable (mdns "local")
           ++ (builtins.map forwardToLtnet (
             with LT.constants.zones;
-            (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet)
+            (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
           ));
       in
       lib.concatStrings cfgEntries;

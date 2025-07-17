@@ -337,5 +337,8 @@ rec {
       "mnc010.mcc315.3gppnetwork.org"
       "mnc999.mcc999.3gppnetwork.org"
     ];
+    Others = [
+      "database.azure.com"
+    ];
   };
 }

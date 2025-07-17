@@ -7,6 +7,57 @@
 }:
 let
   netns = config.lantian.netns.powerdns-recursor;
+
+  forwardZones =
+    let
+      authoritative =
+        builtins.map
+          (k: {
+            zone = k;
+            forwarders = [
+              "198.19.0.254"
+              "fdbc:f9dc:67ad:2547::54"
+            ];
+          })
+          # NeoNetwork is covered by fwd-dn42-interconnect
+          (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Meshname ++ Ltnet));
+
+      emercoin = builtins.map (k: {
+        zone = k;
+        forwarders = [
+          "185.122.58.37"
+          "2a06:8ec0:3::1:2c4e"
+          "172.106.88.242"
+          "2602:ffc5:30::1:5c47"
+        ];
+      }) LT.constants.zones.Emercoin;
+
+      yggdrasilAlfis = builtins.map (k: {
+        zone = k;
+        forwarders = [
+          "fdbc:f9dc:67ad:2547::52"
+        ];
+      }) LT.constants.zones.YggdrasilAlfis;
+
+      hack = [
+        {
+          zone = "hack";
+          forwarders = [ "172.31.0.5" ];
+        }
+      ];
+    in
+    authoritative ++ emercoin ++ yggdrasilAlfis ++ hack;
+
+  forwardZonesRecurse =
+    let
+      azurePrivateDNS = [
+        {
+          zone = "database.azure.com";
+          forwarders = [ "168.63.129.16" ];
+        }
+      ];
+    in
+    azurePrivateDNS;
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   lantian.netns.powerdns-recursor = {
@@ -38,7 +89,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       let
         ntaRecords = lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")") (
           with LT.constants.zones;
-          (DN42 ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet)
+          (DN42 ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
         );
       in
       ''
@@ -58,45 +109,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         qname_minimization = false;
         server_id = "${config.networking.hostName}.lantian.pub";
         forward_zones_file = "/nix/persistent/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
-        forward_zones =
-          let
-            authoritative =
-              builtins.map
-                (k: {
-                  zone = k;
-                  forwarders = [
-                    "198.19.0.254"
-                    "fdbc:f9dc:67ad:2547::54"
-                  ];
-                })
-                # NeoNetwork is covered by fwd-dn42-interconnect
-                (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Meshname ++ Ltnet));
-
-            emercoin = builtins.map (k: {
-              zone = k;
-              forwarders = [
-                "185.122.58.37"
-                "2a06:8ec0:3::1:2c4e"
-                "172.106.88.242"
-                "2602:ffc5:30::1:5c47"
-              ];
-            }) LT.constants.zones.Emercoin;
-
-            yggdrasilAlfis = builtins.map (k: {
-              zone = k;
-              forwarders = [
-                "fdbc:f9dc:67ad:2547::52"
-              ];
-            }) LT.constants.zones.YggdrasilAlfis;
-
-            hack = [
-              {
-                zone = "hack";
-                forwarders = [ "172.31.0.5" ];
-              }
-            ];
-          in
-          authoritative ++ emercoin ++ yggdrasilAlfis ++ hack;
+        forward_zones = forwardZones;
+        forward_zones_recurse = forwardZonesRecurse;
       };
       outgoing = {
         dont_query = [ ];
