@@ -58,6 +58,7 @@
       kopia
       lsof
       mbuffer # required for btrbk
+      nettools
       nftables
       nix-tree
       nmap
