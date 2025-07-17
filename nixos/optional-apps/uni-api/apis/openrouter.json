@@ -208,6 +208,7 @@
   "nvidia/llama-3.3-nemotron-super-49b-v1": "nvidia/llama-3.3-nemotron-super-49b-v1",
   "openai/chatgpt-4o-latest": "openai/chatgpt-4o-latest",
   "openai/codex-mini": "openai/codex-mini",
+  "openai/gpt-3.5-turbo": "openai/gpt-3.5-turbo",
   "openai/gpt-3.5-turbo-0613": "openai/gpt-3.5-turbo-0613",
   "openai/gpt-3.5-turbo-16k": "openai/gpt-3.5-turbo-16k",
   "openai/gpt-3.5-turbo-instruct": "openai/gpt-3.5-turbo-instruct",
