@@ -126,6 +126,8 @@
     rulesProvider = pkgs.ananicy-rules-cachyos;
   };
 
+  services.dbus.implementation = "broker";
+
   services.fstrim.enable = !config.boot.isContainer;
   services.irqbalance.enable = !config.boot.isContainer;
 
