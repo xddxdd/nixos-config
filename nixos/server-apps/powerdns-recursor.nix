@@ -97,15 +97,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             ];
           in
           authoritative ++ emercoin ++ yggdrasilAlfis ++ hack;
-        forward_zones_recurse = [
-          {
-            zone = ".";
-            forwarders = [
-              "8.8.8.8"
-              "2001:4860:4860::8888"
-            ];
-          }
-        ];
       };
       outgoing = {
         dont_query = [ ];
