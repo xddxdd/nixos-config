@@ -62,7 +62,7 @@ in
           ${zone} {
             any
             prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-            acl { block net * }
+            acl { filter net * }
           }
         '';
 
