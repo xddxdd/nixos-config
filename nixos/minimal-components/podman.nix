@@ -29,7 +29,7 @@
       dockerCompat = true;
       dockerSocket.enable = true;
 
-      extraPackages = lib.optionals pkgs.stdenv.isx86_64 (with pkgs; [ gvisor ]);
+      extraPackages = [ pkgs.nftables ] ++ lib.optionals pkgs.stdenv.isx86_64 [ pkgs.gvisor ];
     };
 
     systemd.services.podman-auto-update.enable = true;
