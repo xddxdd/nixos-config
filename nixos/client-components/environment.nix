@@ -1,10 +1,5 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-lib.mkIf (!config.boot.isContainer) {
   services.udev.packages = with pkgs; [
     libftdi1
     yubikey-personalization
