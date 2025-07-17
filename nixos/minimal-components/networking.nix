@@ -134,7 +134,7 @@ in
   # Disable automatic DHCP server for netns interfaces
   environment.etc."systemd/network/80-namespace-ns.network".text = ''
     [Match]
-    Name=ve-*
+    Name=ns-*
     Driver=veth
 
     [Network]
