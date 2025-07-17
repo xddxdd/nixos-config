@@ -14,6 +14,10 @@
   config = lib.mkIf config.lantian.enablePodman {
     environment.systemPackages = config.virtualisation.podman.extraPackages;
 
+    virtualisation.containers.containersConf.settings = {
+      network.firewall_driver = "nftables";
+    };
+
     virtualisation.podman = {
       enable = true;
       autoPrune = {
