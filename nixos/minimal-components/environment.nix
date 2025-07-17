@@ -53,13 +53,11 @@
       gzip
       inetutils
       iperf3
-      iptables
       iw
       kopia
       lsof
       mbuffer # required for btrbk
       nettools
-      nftables
       nix-tree
       nmap
       nur-xddxdd.lantianCustomized.nixos-cleanup
