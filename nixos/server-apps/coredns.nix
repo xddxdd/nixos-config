@@ -73,17 +73,6 @@ let
           ${publicZone' "ltnet-scripts/zones/opennic.root" null}
         }
 
-        # Google DNS
-        .:${LT.portStr.DNSUpstream} {
-          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          forward . tls://8.8.8.8 tls://8.8.4.4 tls://2001:4860:4860::8888 tls://2001:4860:4860::8844 {
-            tls_servername dns.google
-            policy sequential
-            health_check 1m
-          }
-          cache
-        }
-
         # DN42 Lan Tian Authoritatives
         ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
         ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}

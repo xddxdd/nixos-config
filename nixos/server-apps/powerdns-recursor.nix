@@ -101,8 +101,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           {
             zone = ".";
             forwarders = [
-              "172.22.76.109:${LT.portStr.DNSUpstream}"
-              "[fdbc:f9dc:67ad:2547::54]:${LT.portStr.DNSUpstream}"
+              "8.8.8.8"
+              "2001:4860:4860::8888"
             ];
           }
         ];
