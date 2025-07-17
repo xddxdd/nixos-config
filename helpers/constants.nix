@@ -321,6 +321,10 @@ rec {
       "ygg"
     ];
     CRXN = [ "crxn" ];
+    Meshname = [
+      "meshname"
+      "meship"
+    ];
     Ltnet = [
       "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
       "10.127.10.in-addr.arpa"

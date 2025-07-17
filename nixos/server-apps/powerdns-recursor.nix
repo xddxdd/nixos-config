@@ -37,7 +37,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     luaConfig =
       let
         ntaRecords = lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")") (
-          with LT.constants.zones; (DN42 ++ OpenNIC ++ Emercoin ++ CRXN ++ YggdrasilAlfis ++ Ltnet)
+          with LT.constants.zones;
+          (DN42 ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet)
         );
       in
       ''
@@ -69,7 +70,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
                   ];
                 })
                 # NeoNetwork is covered by fwd-dn42-interconnect
-                (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Ltnet));
+                (with LT.constants.zones; (DN42 ++ OpenNIC ++ CRXN ++ Meshname ++ Ltnet));
 
             emercoin = builtins.map (k: {
               zone = k;

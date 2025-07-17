@@ -167,6 +167,11 @@ let
           prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
           meshname
         }
+
+        meship {
+          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+          meship
+        }
       ''
       + (lib.optionalString config.services.iodine.server.enable ''
         # Iodine
