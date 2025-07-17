@@ -62,9 +62,7 @@ in
           ${zone} {
             any
             prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-            hosts {
-              0.0.0.0 ${zone}
-            }
+            acl { block net * }
           }
         '';
 
