@@ -96,7 +96,7 @@
         [ ]
     );
 
-  hardware.ksm.enable = !config.boot.isContainer;
+  hardware.ksm.enable = true;
 
   lantian.qemu-user-static-binfmt.package = pkgs.nur-xddxdd.qemu-user-static;
 
@@ -128,8 +128,8 @@
 
   services.dbus.implementation = "broker";
 
-  services.fstrim.enable = !config.boot.isContainer;
-  services.irqbalance.enable = !config.boot.isContainer;
+  services.fstrim.enable = true;
+  services.irqbalance.enable = true;
 
   services.journald.extraConfig = ''
     ForwardToConsole=no

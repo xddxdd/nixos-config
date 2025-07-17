@@ -69,7 +69,7 @@
   # to completely replace swap to disk. Generally *improves* storage lifespan
   # and performance, there usually isn't a need to disable this.
   zramSwap = {
-    enable = !config.boot.isContainer;
+    enable = true;
     algorithm = "zstd";
     memoryPercent = 50;
   };
