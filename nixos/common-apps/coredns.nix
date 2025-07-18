@@ -8,7 +8,7 @@
 let
   netns = config.lantian.netns.coredns-client;
 in
-{
+lib.mkIf (!config.services.pdns-recursor.enable) {
   networking.nameservers = lib.mkBefore [ netns.ipv4 ];
 
   lantian.netns.coredns-client = {
@@ -67,12 +67,7 @@ in
         '';
 
         defaultForwarder =
-          if config.services.pdns-recursor.enable then
-            forwardToLtnet
-          else if config.networking.networkmanager.enable then
-            forwardToResolvConf
-          else
-            forwardToGoogleDNS;
+          if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS;
 
         cfgEntries =
           [
