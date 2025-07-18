@@ -57,7 +57,9 @@ let
       }
       {
         protocol = "freedom";
-        settings.redirect = "${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.DNS}";
+        settings.redirect = "${
+          config.lantian.netns.coredns-client.ipv4 or config.lantian.netns.powerdns-recursor.ipv4
+        }:${LT.portStr.DNS}";
         tag = "dns";
       }
     ];

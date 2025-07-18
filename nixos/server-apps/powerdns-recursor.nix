@@ -60,6 +60,8 @@ let
     azurePrivateDNS;
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
+  networking.nameservers = lib.mkBefore [ "198.19.0.253" ];
+
   lantian.netns.powerdns-recursor = {
     ipSuffix = "53";
     inherit (config.services.pdns-recursor) enable;
