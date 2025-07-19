@@ -20,7 +20,7 @@ let
     krb5
   ];
 
-  nodejsFHS = pkgs.buildFHSUserEnv {
+  nodejsFHS = pkgs.buildFHSEnv {
     name = "node";
     targetPkgs = _: runtimeDependencies;
     extraBuildCommands = ''

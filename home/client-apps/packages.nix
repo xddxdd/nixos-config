@@ -121,7 +121,6 @@ in
         lbzip2
         libfaketime
         libreoffice-qt6-fresh
-        librewolf
         linphone
         lx-music-desktop
         macchanger

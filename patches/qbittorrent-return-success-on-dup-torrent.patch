@@ -1,38 +1,38 @@
 diff --git a/src/base/bittorrent/sessionimpl.cpp b/src/base/bittorrent/sessionimpl.cpp
-index 08c2dc81d..379849c51 100644
+index 1866b7157..a4513c479 100644
 --- a/src/base/bittorrent/sessionimpl.cpp
 +++ b/src/base/bittorrent/sessionimpl.cpp
-@@ -2830,7 +2830,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
-     // We should not add the torrent if it is already
-     // processed or is pending to add to session
+@@ -2804,7 +2804,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
      if (m_loadingTorrents.contains(id) || (infoHash.isHybrid() && m_loadingTorrents.contains(altID)))
+     {
+         emit addTorrentFailed(infoHash, {AddTorrentError::DuplicateTorrent, tr("Duplicate torrent")});
 -        return false;
 +        return true;
+     }
  
      if (Torrent *torrent = findTorrent(infoHash))
-     {
-@@ -2846,7 +2846,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
-         {
+@@ -2823,7 +2823,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
              LogMsg(tr("Detected an attempt to add a duplicate torrent. Existing torrent: %1. Result: %2")
-                     .arg(torrent->name(), tr("Merging of trackers is disabled")));
+                     .arg(torrent->name(), message));
+             emit addTorrentFailed(infoHash, {AddTorrentError::DuplicateTorrent, message});
 -            return false;
 +            return true;
          }
  
          const bool isPrivate = torrent->isPrivate() || (hasMetadata && source.info()->isPrivate());
-@@ -2854,7 +2854,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
-         {
+@@ -2833,7 +2833,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
              LogMsg(tr("Detected an attempt to add a duplicate torrent. Existing torrent: %1. Result: %2")
-                     .arg(torrent->name(), tr("Trackers cannot be merged because it is a private torrent")));
+                     .arg(torrent->name(), message));
+             emit addTorrentFailed(infoHash, {AddTorrentError::DuplicateTorrent, message});
 -            return false;
 +            return true;
          }
  
          // merge trackers and web seeds
-@@ -2863,7 +2863,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
- 
+@@ -2844,7 +2844,7 @@ bool SessionImpl::addTorrent_impl(const TorrentDescriptor &source, const AddTorr
          LogMsg(tr("Detected an attempt to add a duplicate torrent. Existing torrent: %1. Result: %2")
-                 .arg(torrent->name(), tr("Trackers are merged from new source")));
+                 .arg(torrent->name(), message));
+         emit addTorrentFailed(infoHash, {AddTorrentError::DuplicateTorrent, message});
 -        return false;
 +        return true;
      }

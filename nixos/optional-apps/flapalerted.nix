@@ -1,15 +1,10 @@
 {
   pkgs,
   LT,
-  config,
   ...
 }:
 let
-  flapalerted = pkgs.nur-xddxdd.flapalerted.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ../../patches/flapalerted-listen-localhost.patch
-    ];
-  });
+  inherit (pkgs.nur-xddxdd) flapalerted;
 in
 {
   systemd.services.flapalerted = {
@@ -21,8 +16,8 @@ in
     script = ''
       exec ${flapalerted}/bin/FlapAlerted \
         --asn 4242422547 \
-        --bgpPort [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
-        --httpApiPort ${LT.portStr.FlapAlerted.WebUI} \
+        --bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
+        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI} \
         --limitedHttpApi \
         --minimumAge 60
     '';

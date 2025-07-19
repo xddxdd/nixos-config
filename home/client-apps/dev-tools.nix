@@ -125,7 +125,7 @@ in
     nurl
 
     # NodeJS
-    nodejs
+    (lib.hiPrio nodejs)
     nodePackages.npm
 
     # Packaging
