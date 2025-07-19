@@ -123,12 +123,8 @@ in
     Name=ve-*
     Driver=veth
 
-    [Network]
-    LinkLocalAddressing=ipv6
-    DHCPServer=no
-    IPMasquerade=no
-    LLDP=no
-    IPv6SendRA=no
+    [Link]
+    Unmanaged=yes
   '';
 
   # Disable automatic DHCP server for netns interfaces
@@ -137,12 +133,8 @@ in
     Name=ns-*
     Driver=veth
 
-    [Network]
-    LinkLocalAddressing=ipv6
-    DHCPServer=no
-    IPMasquerade=no
-    LLDP=no
-    IPv6SendRA=no
+    [Link]
+    Unmanaged=yes
   '';
 
   # Multicast DNS
