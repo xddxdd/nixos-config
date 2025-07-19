@@ -65,9 +65,7 @@
     "tls://[2a03:90c0:85::28a]:443"
   ],
   "netherlands": [
-    "tls://s-ams-0.sergeysedoy97.ru:65534",
-    "tls://vpn.itrus.su:7992",
-    "tls://x-ams-0.sergeysedoy97.ru:65534"
+    "tls://vpn.itrus.su:7992"
   ],
   "romania": [
     "tls://185.165.169.234:8443"
@@ -95,6 +93,9 @@
   ],
   "saudi-arabia": [
     "tls://pp1.ygg.sy.sa:8442"
+  ],
+  "singapore": [
+    "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
