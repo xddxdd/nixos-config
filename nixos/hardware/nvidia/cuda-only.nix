@@ -143,4 +143,5 @@ in
 
   virtualisation.docker.enableNvidia = true;
   hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
 }

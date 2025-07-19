@@ -22,7 +22,8 @@ in
       pkgs.networkmanager-openconnect
       pkgs.networkmanager_strongswan
       pkgs.networkmanager-openvpn
-      pkgs.networkmanager-iodine
+      # FIXME: build error
+      # pkgs.networkmanager-iodine
       pkgs.networkmanager-l2tp
       pkgs.networkmanager-sstp
       pkgs.networkmanager-vpnc

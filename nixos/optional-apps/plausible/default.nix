@@ -34,6 +34,8 @@ in
 
   services.plausible = {
     enable = true;
+    # Latest version on nixos-unstable times out
+    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.plausible;
 
     mail = {
       email = config.programs.msmtp.accounts.default.from;

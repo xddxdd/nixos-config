@@ -108,6 +108,7 @@ in
     profiles.lantian.betterfox = betterfoxArgs;
   };
   programs.librewolf = lib.recursiveUpdate args {
+    package = pkgs.librewolf;
     betterfox = {
       enable = true;
       settings = betterfoxArgs;

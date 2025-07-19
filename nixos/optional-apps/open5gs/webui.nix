@@ -20,7 +20,6 @@
       bash
       nodejs
       rsync
-      nodejs
     ];
     environment = {
       HOSTNAME = "127.0.0.1";

@@ -83,10 +83,10 @@ let
             in
             patched.overrideAttrs (old: {
               passthru = old.passthru // {
-                settings = (old.passthru.settings.override { nvidia_x11 = patched; }).overrideAttrs (old: {
+                settings = old.passthru.settings.overrideAttrs (old: {
                   buildInputs = (old.buildInputs or [ ]) ++ (with pkgs; [ llvmPackages.libunwind ]);
                 });
-                persistenced = (old.passthru.persistenced.override { nvidia_x11 = patched; }).overrideAttrs (old: {
+                persistenced = old.passthru.persistenced.overrideAttrs (old: {
                   buildInputs = (old.buildInputs or [ ]) ++ (with pkgs; [ llvmPackages.libunwind ]);
                 });
               };

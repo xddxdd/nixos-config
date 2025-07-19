@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLocks": null,
-        "date": "2025-06-04",
+        "date": "2025-07-18",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3992b5906f84ae5047c311abe5da79a097fe7f16",
-            "sha256": "sha256-TI7SVZTxPXl/1hXfJ7aKKEg2lEyydzegrwXkQ7JRDYk=",
+            "rev": "b832e218db76e6e12e35d29e7cf44d6d756a46bb",
+            "sha256": "sha256-4g64gCs4Vgeu+f5eBNHf8lejIvF0Uon1hXj2zuSPtg0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "3992b5906f84ae5047c311abe5da79a097fe7f16"
+        "version": "b832e218db76e6e12e35d29e7cf44d6d756a46bb"
     },
     "flaresolverr": {
         "cargoLocks": null,
@@ -72,7 +72,7 @@
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-07-07",
+        "date": "2025-07-17",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,17 +82,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c77b33b3f4dae0255207abad21bda3023e6892d0",
-            "sha256": "sha256-w9ykfx/QUyoA3cx+ErWzhM1ppblSZU/0lZiVaJa0mVU=",
+            "rev": "29657b5738cba8f6a5beee4a6e29b2947c29c910",
+            "sha256": "sha256-NahodrEgVuM5EtZiOiZ5QS3EAmjdzxfAVmNAprmSBzU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "c77b33b3f4dae0255207abad21bda3023e6892d0"
+        "version": "29657b5738cba8f6a5beee4a6e29b2947c29c910"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-07-03",
+        "date": "2025-07-15",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -104,12 +104,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "58b6a22ef013aed0f3688ca4a5a220c1cb806a3c",
-            "sha256": "sha256-p21AJrl7XzzmgEzOnnaVBVk6ZZ7u1/XfhHIGXU1Jfuw=",
+            "rev": "262f2740eb94743e926c3dbfba6b99d6762d70fe",
+            "sha256": "sha256-oMGDVRSmO1Mqwy+d0euO6U1F1ux5rQ+r4lvk70PF/v4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "58b6a22ef013aed0f3688ca4a5a220c1cb806a3c"
+        "version": "262f2740eb94743e926c3dbfba6b99d6762d70fe"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -134,7 +134,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-07-05",
+        "date": "2025-07-15",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -146,12 +146,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "cb35863ed79b2df074d400bc0d96c5311dcf933e",
-            "sha256": "sha256-u/MV/e5tzUDlrqxb81gThUz6MZrk51Ae93MhPRrRyIA=",
+            "rev": "04bd29807090f31989daea5187669d01868068ba",
+            "sha256": "sha256-fbJQ9NLGwKxyuvmzf4CdnWleFmqK2xyHI8azw7D6q8I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cb35863ed79b2df074d400bc0d96c5311dcf933e"
+        "version": "04bd29807090f31989daea5187669d01868068ba"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -167,12 +167,12 @@
             "name": null,
             "owner": "open5gs",
             "repo": "open5gs",
-            "rev": "v2.7.5",
-            "sha256": "sha256-KwfIlgnObOGDczt8Op+/mUzv2cMic562uRYW5o5ChKI=",
+            "rev": "v2.7.6",
+            "sha256": "sha256-2k+S+OXfdskJPtDUFSxb/+2UZcUiOZzRSSGgsEJWolc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.5"
+        "version": "v2.7.6"
     },
     "open5gs-freediameter": {
         "cargoLocks": null,

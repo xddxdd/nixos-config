@@ -20,7 +20,6 @@
 
     # Plugins
     config = {
-      autoUpdate = true;
       plugins = {
         alwaysAnimate.enable = true;
         alwaysTrust.enable = true;
