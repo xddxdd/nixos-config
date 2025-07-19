@@ -56,8 +56,17 @@ let
           forwarders = [ "168.63.129.16" ];
         }
       ];
+      all = [
+        {
+          zone = ".";
+          forwarders = [
+            "8.8.8.8"
+            "2001:4860:4860::8888"
+          ];
+        }
+      ];
     in
-    azurePrivateDNS;
+    azurePrivateDNS ++ all;
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   networking.nameservers = lib.mkBefore [ "198.19.0.253" ];
