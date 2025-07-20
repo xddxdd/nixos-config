@@ -21,31 +21,37 @@ let
     "https://letsencrypt-ssl.lantian.pub"
     "https://zerossl.lantian.pub"
 
-    # Services exposed to external users
+    # Services under lantian.pub
     "https://comments.lantian.pub"
+    "https://element.lantian.pub"
+    "https://flapalerted.lantian.pub"
     "https://git.lantian.pub"
     "https://lab.lantian.pub"
-    "https://lab.xuyh0120.win"
     "https://lemmy.lantian.pub"
     "https://lg.lantian.pub"
+    "https://login.lantian.pub"
     "https://matrix.lantian.pub"
+    "https://sip.lantian.pub"
     "https://tools.lantian.pub"
     "https://whois.lantian.pub"
 
-    # Services for myself
+    # Services under xuyh0120.win
+    "https://ai.xuyh0120.win"
     "https://alert.xuyh0120.win"
     "https://asf.xuyh0120.win"
     "https://attic.xuyh0120.win"
     # "https://books.xuyh0120.win"
     "https://bitwarden.xuyh0120.win"
-    # "https://cal.xuyh0120.win"
+    "https://cal.xuyh0120.win"
     "https://dashboard.xuyh0120.win"
     "https://jellyfin.xuyh0120.win"
+    "https://lab.xuyh0120.win"
     "https://netbox.xuyh0120.win"
     "https://prometheus.xuyh0120.win"
     # "https://pterodactyl.xuyh0120.win"
     "https://rss.xuyh0120.win"
     "https://rsshub.xuyh0120.win"
+    "https://searx.xuyh0120.win"
     "https://stats.xuyh0120.win"
     # "https://tachidesk.xuyh0120.win"
   ];
