@@ -3,7 +3,7 @@
   services.mongodb = {
     enable = true;
     bind_ip = "127.0.0.1";
-    package = pkgs.mongodb-ce;
+    package = pkgs.mongodb;
   };
   environment.systemPackages = [
     pkgs.mongosh
