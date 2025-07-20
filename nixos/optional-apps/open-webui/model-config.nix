@@ -86,7 +86,7 @@ let
 
   models = lib.unique (
     lib.flatten (
-      builtins.map (provider: builtins.attrValues provider._models) config.lantian.llm-providers
+      builtins.map (provider: builtins.map (v: v.value) provider._models) config.lantian.llm-providers
     )
   );
 

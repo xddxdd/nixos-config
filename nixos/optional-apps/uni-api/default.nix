@@ -14,8 +14,8 @@ let
       {
         provider = v.name;
         api = if v.apiKeyPath != null then { _secret = v.apiKeyPath; } else "sk-123456";
-        model = lib.mapAttrsToList (k: v: {
-          "${k}" = v;
+        model = builtins.map (m: {
+          "${m.name}" = m.value;
         }) v._models;
       }
       // (lib.optionalAttrs (v.baseURL != null) {
@@ -76,7 +76,11 @@ in
 
   systemd.services.uni-api = {
     description = "Uni-API Server";
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "agenix-install-secrets.service"
+    ];
+    requires = [ "agenix-install-secrets.service" ];
     wantedBy = [ "multi-user.target" ];
 
     environment = {
