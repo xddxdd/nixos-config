@@ -18,6 +18,7 @@
   "Salesforce/xgen-small-9B-instruct-r": "salesforce/xgen-small-9b-instruct-r",
   "THUDM/GLM-4-32B-0414": "thudm/glm-4-32b-0414",
   "THUDM/GLM-Z1-32B-0414": "thudm/glm-z1-32b-0414",
+  "TheDrummer/Tunguska-39B-v1": "thedrummer/tunguska-39b-v1",
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
   "agentica-org/DeepSWE-Preview": "agentica-org/deepswe-preview",
   "casperhansen/deepseek-r1-distill-qwen-32b-awq": "casperhansen/deepseek-r1-distill-qwen-32b-awq",
