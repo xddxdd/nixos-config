@@ -48,26 +48,31 @@ let
           type = lib.types.path;
           default = ./apis + "/${config.name}.json";
         };
-        modelSuffix = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default =
-            if config.providerTags == [ "free" ] || config.providerTags == [ "paid" ] then
-              null
-            else
-              config.name;
+        modelAsDefault = lib.mkOption {
+          type = lib.types.bool;
+          default = config.providerTags == [ "free" ] || config.providerTags == [ "paid" ];
         };
 
         _models = lib.mkOption {
           readOnly = true;
-          default = lib.mapAttrs (
-            k: v:
-            if config.modelSuffix == null then
-              v
-            else if lib.hasInfix ":" v then
-              lib.replaceStrings [ ":" ] [ ":${config.modelSuffix}-" ] v
-            else
-              "${v}:${config.modelSuffix}"
-          ) (lib.importJSON config.modelJsonFile);
+          default = lib.flatten (
+            lib.mapAttrsToList (
+              k: v:
+              let
+                modelNameWithSuffix =
+                  if lib.hasInfix ":" v then
+                    lib.replaceStrings [ ":" ] [ ":${config.name}-" ] v
+                  else
+                    "${v}:${config.name}";
+              in
+              [
+                (lib.nameValuePair k modelNameWithSuffix)
+              ]
+              ++ lib.optionals config.modelAsDefault [
+                (lib.nameValuePair k v)
+              ]
+            ) (lib.importJSON config.modelJsonFile)
+          );
         };
         _score = lib.mkOption {
           readOnly = true;
