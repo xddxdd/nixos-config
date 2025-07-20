@@ -30,6 +30,7 @@ APIS = {
     "openrouter": "https://openrouter.ai/api/v1",
     "pollinations": "https://text.pollinations.ai/openai",
     "siliconflow": "https://api.siliconflow.cn/v1",
+    "veloera": "https://zone.veloera.org/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
 }
@@ -79,6 +80,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
     "baidu": ["ernie"],
     "moonshotai": ["moonshot"],
     "360ai": ["360gpt"],
+    "vercel": ["v0"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {

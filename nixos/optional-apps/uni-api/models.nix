@@ -164,6 +164,11 @@ in
     }
 
     # Less reliable free providers
+    {
+      name = "veloera";
+      baseURL = "https://zone.veloera.org/v1/chat/completions";
+      providerTags = [ "free_unreliable" ];
+    }
 
     # Paid providers
     {

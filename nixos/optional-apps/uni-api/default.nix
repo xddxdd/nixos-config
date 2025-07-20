@@ -68,6 +68,7 @@ in
         "nvidia-api-key"
         "openrouter-api-key"
         "siliconflow-api-key"
+        "veloera-api-key"
         "wbot-api-key"
         "xai-api-key"
       ]

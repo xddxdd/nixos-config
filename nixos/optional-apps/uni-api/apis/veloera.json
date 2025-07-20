@@ -1,0 +1,18 @@
+{
+  "claude-3-5-haiku-20241022": "anthropic/claude-3-5-haiku-20241022",
+  "claude-opus-4-20250514": "anthropic/claude-opus-4-20250514",
+  "claude-sonnet-4-20250514": "anthropic/claude-sonnet-4-20250514",
+  "deepseek-ai/DeepSeek-R1": "deepseek/deepseek-r1",
+  "deepseek-ai/DeepSeek-R1-0528": "deepseek/deepseek-r1-0528",
+  "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
+  "deepseek-r1": "deepseek/deepseek-r1",
+  "gpt-4.1": "openai/gpt-4.1",
+  "gpt-4.1-mini": "openai/gpt-4.1-mini",
+  "gpt-4.1-nano": "openai/gpt-4.1-nano",
+  "gpt-4o-mini": "openai/gpt-4o-mini",
+  "grok-3-mini": "x-ai/grok-3-mini",
+  "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
+  "v0-1.0-md": "vercel/v0-1.0-md",
+  "v0-1.5-lg": "vercel/v0-1.5-lg",
+  "v0-1.5-md": "vercel/v0-1.5-md"
+}
