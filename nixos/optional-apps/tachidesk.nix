@@ -7,7 +7,7 @@
       "--pull=always"
       "--net=host"
     ];
-    image = "ghcr.io/suwayomi/tachidesk:latest";
+    image = "ghcr.io/suwayomi/tachidesk:preview";
     environment = {
       TZ = config.time.timeZone;
       BIND_IP = "127.0.0.1";
