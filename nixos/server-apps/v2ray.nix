@@ -39,6 +39,20 @@ let
           };
         };
       }
+      {
+        listen = LT.this.ltnet.IPv4;
+        port = LT.port.V2Ray.SocksClient;
+        protocol = "socks";
+        settings.udp = true;
+        sniffing = {
+          destOverride = [
+            "http"
+            "tls"
+            "quic"
+          ];
+          enabled = true;
+        };
+      }
     ];
     log = {
       access = "none";
