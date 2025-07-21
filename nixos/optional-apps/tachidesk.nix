@@ -12,6 +12,7 @@
       TZ = config.time.timeZone;
       BIND_IP = "127.0.0.1";
       BIND_PORT = LT.portStr.Tachidesk;
+      DEBUG = "false";
       WEB_UI_CHANNEL = "bundled";
       AUTO_DOWNLOAD_CHAPTERS = "true";
       AUTO_DOWNLOAD_EXCLUDE_UNREAD = "false";
@@ -28,6 +29,7 @@
       ];
       FLARESOLVERR_ENABLED = "true";
       FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
+      SOCKS_PROXY_ENABLED = "false";
     };
     volumes = [ "/var/lib/tachidesk:/home/suwayomi/.local/share/Tachidesk" ];
   };
