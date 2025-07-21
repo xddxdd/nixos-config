@@ -26,11 +26,8 @@
       EXTENSION_REPOS = builtins.toJSON [
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
       ];
-      SOCKS_PROXY_ENABLED = "true";
-      SOCKS_PROXY_HOST = LT.hosts."v-ps-hkg".ltnet.IPv4;
-      SOCKS_PROXY_PORT = LT.portStr.V2Ray.SocksClient;
-      # FLARESOLVERR_ENABLED = "true";
-      # FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
+      FLARESOLVERR_ENABLED = "true";
+      FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
     };
     volumes = [ "/var/lib/tachidesk:/home/suwayomi/.local/share/Tachidesk" ];
   };
