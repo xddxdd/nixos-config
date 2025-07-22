@@ -15,7 +15,9 @@ let
         [ -f "$F" ] || continue
         makeWrapper "$F" $out/bin/$(basename "$F") \
           --set QT_QPA_PLATFORM xcb \
-          --set XDG_SESSION_TYPE x11
+          --set XDG_SESSION_TYPE x11 \
+          --set GTK_IM_MODULE fcitx \
+          --set QT_IM_MODULE fcitx
       done
 
       mkdir -p $out/share/applications
@@ -77,7 +79,7 @@ let
   });
 in
 {
-  imports = [ inputs.nix-index-database.hmModules.nix-index ];
+  imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
   home.packages =
     with pkgs;
