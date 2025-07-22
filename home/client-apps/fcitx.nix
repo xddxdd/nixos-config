@@ -13,8 +13,8 @@
           pkgs.runCommand "${p.name}-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
             mkdir -p $out/bin
             makeWrapper \
-              ${p}/bin/${p.meta.mainProgram} \
-              $out/bin/${p.meta.mainProgram} \
+              ${p}/bin/${p.meta.mainProgram or p.pname} \
+              $out/bin/${p.meta.mainProgram or p.pname} \
               --set GTK_IM_MODULE wayland \
               --set QT_IM_MODULE fcitx
           ''
