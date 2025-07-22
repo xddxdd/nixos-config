@@ -36,15 +36,13 @@
 
           # Other configs
           ".aMule"
-          ".android"
           ".aws"
           ".conda"
-          ".continue"
           ".cursor"
           ".fly"
           ".gemini"
           ".ghidra"
-          ".kde4"
+          ".kiro"
           ".kube"
           ".librewolf"
           ".mozilla/firefox"

@@ -1,0 +1,115 @@
+diff --git a/maintainers/maintainer-list.nix b/maintainers/maintainer-list.nix
+index 250a87e857760b..2c128e17461a3f 100644
+--- a/maintainers/maintainer-list.nix
++++ b/maintainers/maintainer-list.nix
+@@ -26828,6 +26828,12 @@
+     githubId = 4779365;
+     name = "Johannes Mayrhofer";
+   };
++  vuks = {
++    email = "vuks@allthingslinux.org";
++    github = "Vuks69";
++    githubId = 51289041;
++    name = "Vuks";
++  };
+   vyorkin = {
+     email = "vasiliy.yorkin@gmail.com";
+     github = "vyorkin";
+diff --git a/pkgs/by-name/ki/kiro/package.nix b/pkgs/by-name/ki/kiro/package.nix
+new file mode 100644
+index 00000000000000..628c446342a95f
+--- /dev/null
++++ b/pkgs/by-name/ki/kiro/package.nix
+@@ -0,0 +1,75 @@
++{
++  lib,
++  stdenv,
++  callPackage,
++  vscode-generic,
++  fetchurl,
++  extraCommandLineArgs ? "",
++  useVSCodeRipgrep ? stdenv.hostPlatform.isDarwin,
++}:
++
++let
++  inherit (stdenv) hostPlatform;
++  version = "0.1.15";
++  sources = {
++    x86_64-linux = fetchurl {
++      url = "https://prod.download.desktop.kiro.dev/releases/202507180237--distro-linux-x64-tar-gz/202507180237-distro-linux-x64.tar.gz";
++      hash = "sha256-cXDG0WBKEZR3e7hrTqVKRy3diTvwicy5RPi+qTkPbwc=";
++    };
++    aarch64-linux = sources.x86_64-linux; # "universal" package
++    x86_64-darwin = fetchurl {
++      url = "https://prod.download.desktop.kiro.dev/releases/202507180243-Kiro-dmg-darwin-x64.dmg";
++      hash = "sha256-dXOy8J8rF0nFHjY+swy5JXDo5m1dkZgXsENN9f/Nx9o=";
++    };
++    aarch64-darwin = fetchurl {
++      url = "https://prod.download.desktop.kiro.dev/releases/202507180224-Kiro-dmg-darwin-arm64.dmg";
++      hash = "sha256-k4E3VPhdZJziA47TGMfoDcOO4kl3ORlRMW9kiHxmUJ8=";
++    };
++  };
++  src = sources.${hostPlatform.system} or (throw "Unsupported platform for Kiro");
++in
++(callPackage vscode-generic {
++  inherit useVSCodeRipgrep;
++  commandLineArgs = extraCommandLineArgs;
++
++  inherit version;
++  pname = "kiro";
++
++  # You can find the current VSCode version in the About dialog:
++  # workbench.action.showAboutDialog (Help: About)
++  vscodeVersion = "1.94.0";
++
++  executableName = "kiro";
++  longName = "Kiro";
++  shortName = "kiro";
++  libraryName = "kiro";
++  iconName = "kiro";
++
++  inherit src;
++  sourceRoot = "Kiro";
++  patchVSCodePath = true;
++
++  tests = { };
++  updateScript = null;
++
++  meta = {
++    description = "IDE for Agentic AI workflows based on VS Code";
++    homepage = "https://kiro.dev";
++    license = lib.licenses.amazonsl;
++    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
++    maintainers = with lib.maintainers; [ vuks ];
++    platforms = [
++      "x86_64-linux"
++      "aarch64-linux"
++      "x86_64-darwin"
++      "aarch64-darwin"
++    ];
++    mainProgram = "kiro";
++  };
++
++}).overrideAttrs
++  (oldAttrs: {
++    passthru = (oldAttrs.passthru or { }) // {
++      inherit sources;
++    };
++  })
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index a31a981e57e2d7..2724ad01a391b4 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -14175,6 +14175,12 @@ with pkgs;
+     nodejs = nodejs_20;
+   };
+ 
++  kiro = callPackage ../by-name/ki/kiro/package.nix {
++    vscode-generic = ../applications/editors/vscode/generic.nix;
++  };
++  kiro-fhs = kiro.fhs;
++  kiro-fhsWithPackages = kiro.fhsWithPackages;
++
+   whispers = with python3Packages; toPythonApplication whispers;
+ 
+   # Should always be the version with the most features
