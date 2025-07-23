@@ -85,12 +85,13 @@ in
     with pkgs;
     (
       [
-        (hashcat.override { cudaSupport = true; })
-        # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
-        (lib.hiPrio nur-xddxdd.qq)
+        # keep-sorted start
         (LT.wrapNetns "tnl-buyvm" deluge)
         (LT.wrapNetns "tnl-buyvm" nur-xddxdd.amule-dlp)
         (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
+        (hashcat.override { cudaSupport = true; })
+        # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
+        (lib.hiPrio nur-xddxdd.qq)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         aria
         attic-client
@@ -161,8 +162,8 @@ in
         synadm
         thunderbird-wrapped
         tigervnc
-        transmission_4-qt
         transmission-remote-gtk
+        transmission_4-qt
         ulauncher
         unar
         ventoy-full
@@ -177,6 +178,7 @@ in
         yt-dlp
         yubioath-flutter
         zoom-us
+        # keep-sorted end
       ]
       ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ nur-xddxdd.svp ]
     );
@@ -197,13 +199,10 @@ in
 
   xdg.configFile = LT.gui.autostart (
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
+      # keep-sorted start block=yes
       {
         name = "discord";
         command = "/etc/profiles/per-user/lantian/bin/discord --start-minimized";
-      }
-      {
-        name = "vesktop";
-        command = "/etc/profiles/per-user/lantian/bin/vesktop --start-minimized";
       }
       {
         name = "materialgram";
@@ -221,8 +220,14 @@ in
         name = "thunderbird";
         command = "${thunderbird-wrapped}/bin/thunderbird";
       }
+      {
+        name = "vesktop";
+        command = "/etc/profiles/per-user/lantian/bin/vesktop --start-minimized";
+      }
+      # keep-sorted end
     ])
     ++ [
+      # keep-sorted start block=yes
       {
         name = "gcdemu";
         command = "${pkgs.gcdemu}/bin/gcdemu";
@@ -231,6 +236,7 @@ in
         name = "ulauncher";
         command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
       }
+      # keep-sorted end
     ]
   );
 }
