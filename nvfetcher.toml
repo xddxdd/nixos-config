@@ -1,106 +1,106 @@
 [delegacy-rpz]
-src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
+src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 
 [flaresolverr]
-src.github = "FlareSolverr/FlareSolverr"
 fetch.github = "FlareSolverr/FlareSolverr"
+src.github = "FlareSolverr/FlareSolverr"
 
 [grafana-falconlogscale-datasource]
+fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"
 src.prefix = "v"
-fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 
 [grafana-yesoreyeram-infinity-datasource]
+fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.zip"
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
-fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v$ver/yesoreyeram-infinity-datasource-$ver.zip"
 
 [lobe-icons]
-src.git = "https://github.com/lobehub/lobe-icons.git"
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
+src.git = "https://github.com/lobehub/lobe-icons.git"
 
 [mihoyo-bbs-tools]
-src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "Womsxd/MihoyoBBSTools"
+src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 
 [mpv-sockets]
-src.git = "https://github.com/wis/mpvSockets.git"
 fetch.github = "wis/mpvSockets"
+src.git = "https://github.com/wis/mpvSockets.git"
 
 [nvidia-patch]
-src.git = "https://github.com/keylase/nvidia-patch.git"
 fetch.github = "keylase/nvidia-patch"
+src.git = "https://github.com/keylase/nvidia-patch.git"
 
 [open5gs]
-src.github = "open5gs/open5gs"
 fetch.github = "open5gs/open5gs"
+src.github = "open5gs/open5gs"
 
 [open5gs-freediameter]
+fetch.github = "open5gs/freeDiameter"
 src.git = "https://github.com/open5gs/freeDiameter.git"
 src.branch = "r1.5.0"
-fetch.github = "open5gs/freeDiameter"
 
 [openspeedtest]
-src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "openspeedtest/Speed-Test"
+src.git = "https://github.com/openspeedtest/Speed-Test.git"
 
 [sakura-share]
-src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 fetch.github = "xddxdd/Sakura_Launcher_GUI"
+src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 
 [ulauncher-albert-calculate-anything]
-src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 fetch.github = "tchar/ulauncher-albert-calculate-anything"
+src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 
 [ulauncher-colorconverter]
-src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
 fetch.github = "sergius02/ulauncher-colorconverter"
+src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
 
 [ulauncher-emoji]
-src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
 fetch.github = "Ulauncher/ulauncher-emoji"
+src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
 
 [ulauncher-kill]
-src.git = "https://github.com/Ulauncher/ulauncher-kill.git"
 fetch.github = "Ulauncher/ulauncher-kill"
+src.git = "https://github.com/Ulauncher/ulauncher-kill.git"
 
 [ulauncher-meme-my-text]
-src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
 fetch.github = "RNairn01/ulauncher-meme-my-text"
+src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
 
 [ulauncher-tldr]
-src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
 fetch.github = "dhelmr/ulauncher-tldr"
+src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
 
 [ulauncher-virtualbox]
-src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
 fetch.github = "luispabon/ulauncher-virtualbox"
+src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
 
 [ulauncher-vscode-recent]
-src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 fetch.github = "plibither8/ulauncher-vscode-recent"
+src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
 
 [yourls]
-src.github = "YOURLS/YOURLS"
 fetch.github = "YOURLS/YOURLS"
+src.github = "YOURLS/YOURLS"
 
 [yourls-404-if-not-found]
-src.git = "https://github.com/YOURLS/404-if-not-found.git"
 fetch.github = "YOURLS/404-if-not-found"
+src.git = "https://github.com/YOURLS/404-if-not-found.git"
 
 [yourls-always-302]
-src.git = "https://github.com/tinjaw/Always-302.git"
 fetch.github = "tinjaw/Always-302"
+src.git = "https://github.com/tinjaw/Always-302.git"
 
 [yourls-dont-track-admins]
-src.git = "https://github.com/dgw/yourls-dont-track-admins.git"
 fetch.github = "dgw/yourls-dont-track-admins"
+src.git = "https://github.com/dgw/yourls-dont-track-admins.git"
 
 [yourls-login-timeout]
-src.git = "https://github.com/reanimus/yourls-login-timeout.git"
 fetch.github = "reanimus/yourls-login-timeout"
+src.git = "https://github.com/reanimus/yourls-login-timeout.git"
 
 [yourls-sleeky]
-src.git = "https://github.com/Flynntes/Sleeky"
 fetch.github = "Flynntes/Sleeky"
+src.git = "https://github.com/Flynntes/Sleeky"
