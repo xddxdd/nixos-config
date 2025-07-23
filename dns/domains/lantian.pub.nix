@@ -53,6 +53,16 @@ let
       name = "@";
       contents = "google-site-verification=eySrj7tImhjLmyEzhvz6-esuzD2jdnQ8anx4qfIwApw";
     }
+    {
+      recordType = "CNAME";
+      name = "edgeone";
+      target = "edgeone.lantian.pub.eo.dnse4.com.";
+    }
+    {
+      recordType = "TXT";
+      name = "edgeonereclaim";
+      contents = "reclaim-eo4oqvr506l0vfbfml5ndq7hk38weoxq";
+    }
   ];
 
   internalServices = [
