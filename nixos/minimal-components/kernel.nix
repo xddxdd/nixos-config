@@ -110,7 +110,12 @@ let
           acpi-ec = pkgs.nur-xddxdd.acpi-ec.override { inherit (final) kernel; };
           cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };
           dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
-          i915-sriov = pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; };
+          i915-sriov = (pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; }).overrideAttrs (old: {
+            # FIXME: remove when broken flag is removed
+            meta = old.meta // {
+              broken = false;
+            };
+          });
           nft-fullcone = pkgs.nur-xddxdd.nft-fullcone.override { inherit (final) kernel; };
           nullfsvfs = pkgs.nur-xddxdd.nullfsvfs.override { inherit (final) kernel; };
           ovpn-dco = pkgs.nur-xddxdd.ovpn-dco.override { inherit (final) kernel; };
