@@ -117,6 +117,7 @@ in
     nix-prefetch
     nix-prefetch-scripts
     nix-profiling
+    nix-search-cli
     nix-store-add
     nixd
     nixfmt-rfc-style
