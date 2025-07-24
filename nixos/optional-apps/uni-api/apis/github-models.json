@@ -1,7 +1,5 @@
 {
   "AI21-Jamba-Instruct": "ai21/jamba-instruct",
-  "Cohere-command-r": "cohere/command-r",
-  "Cohere-command-r-plus": "cohere/command-r-plus",
   "Cohere-embed-v3-english": "cohere/embed-v3-english",
   "Cohere-embed-v3-multilingual": "cohere/embed-v3-multilingual",
   "Meta-Llama-3-70B-Instruct": "meta-llama/llama-3-70b-instruct",
