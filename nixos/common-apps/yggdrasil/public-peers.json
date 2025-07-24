@@ -66,9 +66,11 @@
     "tls://yg-tyo.magicum.net:32333"
   ],
   "luxembourg": [
-    "tls://[2a03:90c0:85::28a]:443"
+    "tls://[2a03:90c0:85::28a]:443",
+    "tls://srl.newsdeef.eu:59999"
   ],
   "netherlands": [
+    "tls://23.137.249.65:444",
     "tls://vpn.itrus.su:7992"
   ],
   "romania": [
@@ -83,7 +85,9 @@
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://ekb.itrus.su:7992",
+    "tls://ip4.01.ekb.ru.dioni.su:9003",
     "tls://ip4.01.msk.ru.dioni.su:9003",
+    "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
     "tls://kzn1.neonxp.ru:7992",
@@ -96,9 +100,6 @@
   ],
   "saudi-arabia": [
     "tls://pp1.ygg.sy.sa:8442"
-  ],
-  "singapore": [
-    "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
@@ -130,7 +131,6 @@
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
     "tls://mn.us.ygg.triplebit.org:993",
-    "tls://mo.us.ygg.triplebit.org:993",
     "tls://neo.node.3dt.net:9003",
     "tls://srv.newsdeef.eu:59999",
     "tls://ygg-kcmo.incognet.io:8884",
