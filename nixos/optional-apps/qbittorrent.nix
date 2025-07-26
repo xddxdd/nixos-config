@@ -35,7 +35,7 @@ in
       ];
       # To prevent "Quit & shutdown daemon" from working; we want systemd to
       # manage it!
-      Restart = "on-success";
+      Restart = "always";
       User = "lantian";
       Group = "users";
       UMask = "0002";
