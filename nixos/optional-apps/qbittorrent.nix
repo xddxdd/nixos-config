@@ -5,33 +5,24 @@
   ...
 }:
 {
-  # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix
-  systemd.services.qbittorrent = {
-    after = [ "network.target" ];
-    description = "qBittorrent Daemon";
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.qbittorrent-enhanced-nox ];
-    script = ''
-      exec ${pkgs.qbittorrent-enhanced-nox}/bin/qbittorrent-nox \
-        --profile=/var/lib/qbittorrent \
-        --webui-port=${LT.portStr.qBitTorrent.WebUI}
-    '';
-    serviceConfig = LT.serviceHarden // {
-      StateDirectory = "qbittorrent";
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-        "AF_NETLINK"
-      ];
-      # To prevent "Quit & shutdown daemon" from working; we want systemd to
-      # manage it!
-      Restart = "always";
-      User = "lantian";
-      Group = "users";
-      UMask = "0002";
-      LimitNOFILE = 1048576;
-    };
+  services.qbittorrent = {
+    enable = true;
+    package = pkgs.qbittorrent-enhanced-nox;
+    user = "lantian";
+    group = "users";
+    profileDir = "/var/lib/qbittorrent";
+    webuiPort = LT.port.qBitTorrent.WebUI;
+    torrentingPort = LT.this.wg-lantian.forwardStart;
+    extraArgs = [
+      "--confirm-legal-notice"
+    ];
+  };
+
+  systemd.services.qbittorrent.serviceConfig = {
+    Restart = "always";
+    RestartSec = "5";
+    UMask = "0002";
+    LimitNOFILE = 1048576;
   };
 
   lantian.nginxVhosts = {
