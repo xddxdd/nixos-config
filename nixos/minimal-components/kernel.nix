@@ -109,6 +109,7 @@ let
           # Custom kernel packages
           acpi-ec = pkgs.nur-xddxdd.acpi-ec.override { inherit (final) kernel; };
           cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };
+          crystalhd = pkgs.nur-xddxdd.crystalhd.override { inherit (final) kernel; };
           dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
           i915-sriov = (pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; }).overrideAttrs (old: {
             # FIXME: remove when broken flag is removed
