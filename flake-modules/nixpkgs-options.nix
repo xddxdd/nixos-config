@@ -22,6 +22,7 @@ in
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
             "electron-32.3.3"
+            "libsoup-2.74.3"
             "olm-3.2.16"
             "ventoy-1.1.05"
           ];
