@@ -98,12 +98,18 @@ in
   };
 
   lantian.nginxVhosts = {
-    "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "bitmagnet.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
-    "peerbanhelper.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
+    "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/api".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    "qbittorrent.localhost".locations."/api".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    "bitmagnet.localhost".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
+    "peerbanhelper.localhost".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
   };
 
   ########################################
