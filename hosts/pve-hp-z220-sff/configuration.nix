@@ -15,12 +15,6 @@
   # Don't need PVE on this system for now
   services.proxmox-ve.enable = lib.mkForce false;
 
-  boot = {
-    kernelModules = [ "crystalhd" ];
-    extraModulePackages = [ config.boot.kernelPackages.crystalhd ];
-  };
-  hardware.firmware = [ pkgs.nur-xddxdd.libcrystalhd.firmware ];
-
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
