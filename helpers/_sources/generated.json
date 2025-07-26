@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLocks": null,
-        "date": "2025-07-18",
+        "date": "2025-07-22",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b832e218db76e6e12e35d29e7cf44d6d756a46bb",
-            "sha256": "sha256-4g64gCs4Vgeu+f5eBNHf8lejIvF0Uon1hXj2zuSPtg0=",
+            "rev": "26937ff330e7ceeefb09597d5904c5fdf9fcc5f2",
+            "sha256": "sha256-P1bB4dfO7nMt9csVUqGHW+BWiUFv+ssgInOBxlVC4CE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "b832e218db76e6e12e35d29e7cf44d6d756a46bb"
+        "version": "26937ff330e7ceeefb09597d5904c5fdf9fcc5f2"
     },
     "flaresolverr": {
         "cargoLocks": null,
@@ -72,7 +72,7 @@
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-07-17",
+        "date": "2025-07-26",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,13 +82,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "29657b5738cba8f6a5beee4a6e29b2947c29c910",
-            "sha256": "sha256-NahodrEgVuM5EtZiOiZ5QS3EAmjdzxfAVmNAprmSBzU=",
+            "rev": "16d4d41365a2cb1ea79db98f966924505cf37b29",
+            "sha256": "sha256-bThDBQys1zMojODoKlcmAFe5Qg18O5dYAPniqy6UmY8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "29657b5738cba8f6a5beee4a6e29b2947c29c910"
+        "version": "16d4d41365a2cb1ea79db98f966924505cf37b29"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
@@ -134,7 +134,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-07-15",
+        "date": "2025-07-21",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -146,12 +146,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "04bd29807090f31989daea5187669d01868068ba",
-            "sha256": "sha256-fbJQ9NLGwKxyuvmzf4CdnWleFmqK2xyHI8azw7D6q8I=",
+            "rev": "119accbcc6d3c56b0fe748dc4990c53bb2359b5e",
+            "sha256": "sha256-Ncu8ZUXGTa8WK2uInLLn0o1AqQqfkqW7nAEZEtZJ2Q8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "04bd29807090f31989daea5187669d01868068ba"
+        "version": "119accbcc6d3c56b0fe748dc4990c53bb2359b5e"
     },
     "open5gs": {
         "cargoLocks": null,
