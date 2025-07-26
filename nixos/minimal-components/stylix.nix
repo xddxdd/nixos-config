@@ -7,6 +7,7 @@
 {
   stylix = {
     enable = true;
+    enableReleaseChecks = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/oceanicnext.yaml";
 
     autoEnable = LT.this.hasTag LT.tags.client;
