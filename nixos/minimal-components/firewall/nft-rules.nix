@@ -47,18 +47,10 @@ let
       lib.concatStrings (
         lib.mapAttrsToList (
           n:
-          { index, ... }:
+          { wg-lantian, index, ... }:
           ''
-            ip daddr ${LT.this.public.IPv4} tcp dport { ${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
-            }-${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to 198.18.${builtins.toString index}.192
-            ip daddr ${LT.this.public.IPv4} udp dport { ${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
-            }-${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to 198.18.${builtins.toString index}.192
+            ip daddr ${LT.this.public.IPv4} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
+            ip daddr ${LT.this.public.IPv4} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
           ''
         ) LT.hosts
       )
@@ -67,18 +59,10 @@ let
       lib.concatStrings (
         lib.mapAttrsToList (
           n:
-          { index, ... }:
+          { wg-lantian, index, ... }:
           ''
-            ip6 daddr ${LT.this.public.IPv6} tcp dport { ${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
-            }-${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
-            ip6 daddr ${LT.this.public.IPv6} udp dport { ${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + (index - 1) * 10)
-            }-${
-              builtins.toString (LT.port.WGLanTian.ForwardStart + index * 10 - 1)
-            } } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
+            ip6 daddr ${LT.this.public.IPv6} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
+            ip6 daddr ${LT.this.public.IPv6} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
           ''
         ) LT.hosts
       )

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  constants,
   options,
   ...
 }@args:
@@ -135,6 +136,19 @@
       IPv6 = lib.mkOption {
         type = lib.types.str;
         default = "fd10:127:10:${builtins.toString config.index}::1";
+      };
+    };
+
+    wg-lantian = {
+      forwardStart = lib.mkOption {
+        readOnly = true;
+        type = lib.types.int;
+        default = constants.port.WGLanTian.ForwardStart + (config.index - 1) * 10;
+      };
+      forwardStop = lib.mkOption {
+        readOnly = true;
+        type = lib.types.int;
+        default = constants.port.WGLanTian.ForwardStart + config.index * 10 - 1;
       };
     };
 
