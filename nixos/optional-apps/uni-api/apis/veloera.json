@@ -1,10 +1,5 @@
 {
   "aqa": "aqa",
-  "claude-3-5-haiku-20241022": "anthropic/claude-3-5-haiku-20241022",
-  "claude-3-5-sonnet-20241022": "anthropic/claude-3-5-sonnet-20241022",
-  "claude-3-7-sonnet-20250219": "anthropic/claude-3-7-sonnet-20250219",
-  "claude-opus-4-20250514": "anthropic/claude-opus-4-20250514",
-  "claude-sonnet-4-20250514": "anthropic/claude-sonnet-4-20250514",
   "deepseek-ai/DeepSeek-R1": "deepseek/deepseek-r1",
   "deepseek-ai/DeepSeek-R1-0528": "deepseek/deepseek-r1-0528",
   "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
