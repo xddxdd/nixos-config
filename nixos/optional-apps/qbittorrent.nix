@@ -4,24 +4,15 @@
   config,
   ...
 }:
-let
-  qbittorrent = pkgs.qbittorrent-enhanced.overrideAttrs (old: {
-    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-      "-DGUI=OFF"
-      "-DSYSTEMD=ON"
-      "-DSYSTEMD_SERVICES_INSTALL_DIR=${placeholder "out"}/lib/systemd/system"
-    ];
-  });
-in
 {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix
   systemd.services.qbittorrent = {
     after = [ "network.target" ];
     description = "qBittorrent Daemon";
     wantedBy = [ "multi-user.target" ];
-    path = [ qbittorrent ];
+    path = [ pkgs.qbittorrent-enhanced-nox ];
     script = ''
-      exec ${qbittorrent}/bin/qbittorrent-nox \
+      exec ${pkgs.qbittorrent-enhanced-nox}/bin/qbittorrent-nox \
         --profile=/var/lib/qbittorrent \
         --webui-port=${LT.portStr.qBitTorrent.WebUI}
     '';
@@ -35,7 +26,7 @@ in
       ];
       # To prevent "Quit & shutdown daemon" from working; we want systemd to
       # manage it!
-      Restart = "on-success";
+      Restart = "always";
       User = "lantian";
       Group = "users";
       UMask = "0002";
