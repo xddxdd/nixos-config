@@ -5,7 +5,6 @@
       "--pull=always"
       "--gpus=all"
       "--net=host"
-      "--cdi-spec-dir=/run/cdi"
     ];
     image = "fishaudio/fish-speech:latest";
     cmd = [
