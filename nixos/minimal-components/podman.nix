@@ -16,6 +16,10 @@
 
     virtualisation.containers.containersConf.settings = {
       network.firewall_driver = "nftables";
+      engine.cdi_spec_dirs = [
+        "/etc/cdi"
+        "/var/run/cdi"
+      ];
     };
 
     virtualisation.podman = {
