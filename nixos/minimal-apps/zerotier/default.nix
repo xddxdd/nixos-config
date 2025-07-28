@@ -40,6 +40,9 @@ in
           with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns") (WAN ++ LAN))
         );
         softwareUpdate = "disable";
+
+        multicoreEnabled = true;
+        cpuPinningEnabled = true;
       };
     };
   };
