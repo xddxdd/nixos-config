@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   programs.zsh = {
     enable = true;
@@ -12,11 +17,11 @@
 
     autocd = true;
     autosuggestion.enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       expireDuplicatesFirst = true;
       extended = true;
-      path = "$ZDOTDIR/.zsh_history";
+      path = "${config.programs.zsh.dotDir}/.zsh_history";
     };
     syntaxHighlighting.enable = true;
 
