@@ -41,6 +41,7 @@
   "deepseek-ai/DeepSeek-V3": "deepseek/deepseek-v3",
   "deepseek-ai/DeepSeek-V3-0324": "deepseek/deepseek-v3-0324",
   "deepseek-ai/DeepSeek-V3-Base": "deepseek/deepseek-v3-base",
+  "internlm/Intern-S1": "internlm/intern-s1",
   "microsoft/MAI-DS-R1-FP8": "microsoft/mai-ds-r1-fp8",
   "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
   "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
