@@ -63,6 +63,8 @@
   "imagen-4.0-ultra-generate-preview-06-06": "imagen-4.0-ultra-generate-preview-06-06",
   "learnlm-2.0-flash-experimental": "learnlm-2.0-flash-experimental",
   "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
+  "stealth/orivon": "stealth/orivon",
+  "stealth/zerion": "stealth/zerion",
   "text-embedding-004": "text-embedding-004",
   "v0-1.0-md": "vercel/v0-1.0-md",
   "v0-1.5-lg": "vercel/v0-1.5-lg",
