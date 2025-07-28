@@ -1,0 +1,21 @@
+diff --git a/service/OneService.cpp b/service/OneService.cpp
+index d9f63334c..c670e64c2 100644
+--- a/service/OneService.cpp
++++ b/service/OneService.cpp
+@@ -2601,15 +2601,9 @@ public:
+ 		_portMappingEnabled = OSUtils::jsonBool(settings["portMappingEnabled"],true);
+ #if defined(__LINUX__) || defined(__FreeBSD__)
+ 		_multicoreEnabled = OSUtils::jsonBool(settings["multicoreEnabled"],false);
+-		_concurrency = OSUtils::jsonInt(settings["concurrency"],1);
+ 		_cpuPinningEnabled = OSUtils::jsonBool(settings["cpuPinningEnabled"],false);
+ 		if (_multicoreEnabled) {
+-			unsigned int maxConcurrency = std::thread::hardware_concurrency();
+-			if (_concurrency <= 1 || _concurrency >= maxConcurrency) {
+-				unsigned int conservativeDefault = (std::thread::hardware_concurrency() >= 4 ? 2 : 1);
+-				fprintf(stderr, "Concurrency level provided (%d) is invalid, assigning conservative default value of (%d)\n", _concurrency, conservativeDefault);
+-				_concurrency =  conservativeDefault;
+-			}
++			_concurrency = std::thread::hardware_concurrency();
+ 			setUpMultithreading();
+ 		}
+ 		else {
