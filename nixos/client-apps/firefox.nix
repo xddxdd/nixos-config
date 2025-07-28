@@ -20,6 +20,8 @@
     enable = true;
     languagePacks = [ "zh-CN" ];
     policies = {
+      # Extension versions are specified in home manager config
+      AppAutoUpdate = false;
       DisableAppUpdate = true;
       DisabledCiphers = {
         "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" = false;
