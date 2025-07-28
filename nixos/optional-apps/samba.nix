@@ -47,6 +47,7 @@
           "use sendfile" = "yes";
           "aio read size" = 16384;
           "aio write size" = 16384;
+          "server multi channel support" = "yes";
 
           # Windows XP access
           "server min protocol" = "NT1";
