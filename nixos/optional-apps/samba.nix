@@ -34,6 +34,7 @@
           "guest account" = "nobody";
           "map to guest" = "bad user";
           "printing" = "CUPS";
+          "mangled names" = "no";
 
           # Performance tuning
           # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
