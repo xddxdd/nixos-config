@@ -44,6 +44,7 @@
     ../../nixos/optional-apps/webdav.nix
 
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
+    ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
   ];
 
   environment.systemPackages = [
