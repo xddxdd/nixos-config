@@ -1,5 +1,4 @@
 {
-  "gemini-1.0-pro-vision-latest": "google/gemini-1.0-pro-vision-latest",
   "gemini-1.5-flash": "google/gemini-1.5-flash",
   "gemini-1.5-flash-002": "google/gemini-1.5-flash-002",
   "gemini-1.5-flash-8b": "google/gemini-1.5-flash-8b",
@@ -41,6 +40,5 @@
   "gemini-embedding-exp": "google/gemini-embedding-exp",
   "gemini-embedding-exp-03-07": "google/gemini-embedding-exp-03-07",
   "gemini-exp-1206": "google/gemini-exp-1206",
-  "gemini-live-2.5-flash-preview": "google/gemini-live-2.5-flash-preview",
-  "gemini-pro-vision": "google/gemini-pro-vision"
+  "gemini-live-2.5-flash-preview": "google/gemini-live-2.5-flash-preview"
 }

@@ -27,6 +27,7 @@
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
   "agentica-org/DeepSWE-Preview": "agentica-org/deepswe-preview",
   "all-hands/openhands-lm-32b-v0.1-ep3": "all-hands/openhands-lm-32b-v0.1-ep3",
+  "baseten/Kimi-K2-Instruct-FP4": "baseten/kimi-k2-instruct-fp4",
   "chutesai/Devstral-Small-2505": "chutesai/devstral-small-2505",
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
   "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
@@ -44,8 +45,6 @@
   "internlm/Intern-S1": "internlm/intern-s1",
   "microsoft/MAI-DS-R1-FP8": "microsoft/mai-ds-r1-fp8",
   "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
-  "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
-  "moonshotai/Kimi-K2-Instruct-tools": "moonshotai/kimi-k2-instruct-tools",
   "moonshotai/Kimi-VL-A3B-Thinking": "moonshotai/kimi-vl-a3b-thinking",
   "openbmb/MiniCPM4-8B": "openbmb/minicpm-4-8b",
   "sarvamai/sarvam-m": "sarvamai/sarvam-m",
@@ -61,5 +60,7 @@
   "unsloth/Mistral-Small-24B-Instruct-2501": "unsloth/mistral-small-24b-instruct-2501",
   "unsloth/gemma-2-9b-it": "unsloth/gemma-2-9b-it",
   "unsloth/gemma-3-12b-it": "unsloth/gemma-3-12b-it",
-  "unsloth/gemma-3-27b-it": "unsloth/gemma-3-27b-it"
+  "unsloth/gemma-3-27b-it": "unsloth/gemma-3-27b-it",
+  "zai-org/GLM-4.5-Air": "zai-org/glm-4.5-air",
+  "zai-org/GLM-4.5-FP8": "zai-org/glm-4.5-fp8"
 }

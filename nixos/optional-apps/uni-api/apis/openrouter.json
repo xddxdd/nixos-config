@@ -1,5 +1,4 @@
 {
-  "01-ai/yi-large": "01-ai/yi-large",
   "agentica-org/deepcoder-14b-preview": "agentica-org/deepcoder-14b-preview",
   "agentica-org/deepcoder-14b-preview:free": "agentica-org/deepcoder-14b-preview:free",
   "ai21/jamba-1.6-large": "ai21/jamba-1.6-large",
@@ -21,7 +20,6 @@
   "anthropic/claude-3-sonnet": "anthropic/claude-3-sonnet",
   "anthropic/claude-3.5-haiku": "anthropic/claude-3.5-haiku",
   "anthropic/claude-3.5-haiku-20241022": "anthropic/claude-3.5-haiku-20241022",
-  "anthropic/claude-3.5-haiku-20241022:beta": "anthropic/claude-3.5-haiku-20241022:beta",
   "anthropic/claude-3.5-haiku:beta": "anthropic/claude-3.5-haiku:beta",
   "anthropic/claude-3.5-sonnet": "anthropic/claude-3.5-sonnet",
   "anthropic/claude-3.5-sonnet-20240620": "anthropic/claude-3.5-sonnet-20240620",
@@ -317,5 +315,7 @@
   "x-ai/grok-3-mini-beta": "x-ai/grok-3-mini-beta",
   "x-ai/grok-4": "x-ai/grok-4",
   "x-ai/grok-vision-beta": "x-ai/grok-vision-beta",
-  "z-ai/glm-4-32b": "z-ai/glm-4-32b"
+  "z-ai/glm-4-32b": "z-ai/glm-4-32b",
+  "z-ai/glm-4.5": "z-ai/glm-4.5",
+  "z-ai/glm-4.5-air": "z-ai/glm-4.5-air"
 }
