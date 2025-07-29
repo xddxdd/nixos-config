@@ -6,13 +6,8 @@
 }:
 {
   imports = [
-    ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/samba.nix
   ];
-
-  services.nfs.server.exports = ''
-    /run/nfs/storage 198.18.0.0/24(rw,insecure,no_subtree_check,mountpoint,all_squash,anonuid=${builtins.toString config.users.users.lantian.uid},anongid=${builtins.toString config.users.groups.lantian.gid})
-  '';
 
   services.samba.settings = {
     "storage" = {
@@ -45,10 +40,6 @@
         "create-with-perms=755"
         "chmod-ignore"
       ];
-    };
-    "/run/nfs/storage" = {
-      device = "/mnt/storage";
-      options = LT.constants.bindMountOptions;
     };
   };
 
