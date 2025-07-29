@@ -25,9 +25,6 @@ in
     enable = true;
     joinNetworks = [ ltnet ];
     localConf = {
-      physical = lib.genAttrs (LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6) (net: {
-        trustedPathId = 2547;
-      });
       virtual = lib.mapAttrs' (
         k: v:
         lib.nameValuePair v.zerotier {
