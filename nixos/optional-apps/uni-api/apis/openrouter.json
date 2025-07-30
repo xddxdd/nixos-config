@@ -72,7 +72,6 @@
   "deepseek/deepseek-r1:free": "deepseek/deepseek-r1:free",
   "deepseek/deepseek-v3-base": "deepseek/deepseek-v3-base",
   "eleutherai/llemma_7b": "eleutherai/llemma_7b",
-  "eva-unit-01/eva-qwen-2.5-72b": "eva-unit-01/eva-qwen-2.5-72b",
   "featherless/qwerky-72b:free": "featherless/qwerky-72b:free",
   "google/gemini-2.0-flash-001": "google/gemini-2.0-flash-001",
   "google/gemini-2.0-flash-exp:free": "google/gemini-2.0-flash-exp:free",
@@ -317,5 +316,6 @@
   "x-ai/grok-vision-beta": "x-ai/grok-vision-beta",
   "z-ai/glm-4-32b": "z-ai/glm-4-32b",
   "z-ai/glm-4.5": "z-ai/glm-4.5",
-  "z-ai/glm-4.5-air": "z-ai/glm-4.5-air"
+  "z-ai/glm-4.5-air": "z-ai/glm-4.5-air",
+  "z-ai/glm-4.5-air:free": "z-ai/glm-4.5-air:free"
 }
