@@ -52,33 +52,31 @@ let
                 buildInputs = (old.buildInputs or [ ]) ++ (with pkgs; [ llvmPackages.libunwind ]);
 
                 # Somehow fixup phase is ran twice
-                postFixup =
-                  (old.postFixup or "")
-                  + ''
-                    # Skip patching if latest patch is not available
-                    SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
-                      | grep '"${old.version}"' \
-                      | head -n1 \
-                      | cut -d"'" -f2 \
-                      || echo "")
-                    SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
-                      | grep '"${old.version}"' \
-                      | head -n1 \
-                      | cut -d"'" -f2 \
-                      || echo "")
+                postFixup = (old.postFixup or "") + ''
+                  # Skip patching if latest patch is not available
+                  SED_ENCODE=$(cat "${LT.sources.nvidia-patch.src}/patch.sh" \
+                    | grep '"${old.version}"' \
+                    | head -n1 \
+                    | cut -d"'" -f2 \
+                    || echo "")
+                  SED_FBC=$(cat "${LT.sources.nvidia-patch.src}/patch-fbc.sh" \
+                    | grep '"${old.version}"' \
+                    | head -n1 \
+                    | cut -d"'" -f2 \
+                    || echo "")
 
-                    if [ -f "$out/lib/libnvidia-encode.so.${old.version}" ]; then
-                      echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
-                      sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
-                      LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
-                    fi
+                  if [ -f "$out/lib/libnvidia-encode.so.${old.version}" ]; then
+                    echo "Patch $out/lib/libnvidia-encode.so.${old.version}"
+                    sed -i "$SED_ENCODE" "$out/lib/libnvidia-encode.so.${old.version}"
+                    LANG=C grep -obUaP "$(echo "$SED_ENCODE" | cut -d'/' -f3)" "$out/lib/libnvidia-encode.so.${old.version}"
+                  fi
 
-                    if [ -f "$out/lib/libnvidia-fbc.so.${old.version}" ]; then
-                      echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
-                      sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
-                      LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
-                    fi
-                  '';
+                  if [ -f "$out/lib/libnvidia-fbc.so.${old.version}" ]; then
+                    echo "Patch $out/lib/libnvidia-fbc.so.${old.version}"
+                    sed -i "$SED_FBC" "$out/lib/libnvidia-fbc.so.${old.version}"
+                    LANG=C grep -obUaP "$(echo "$SED_FBC" | cut -d'/' -f3)" "$out/lib/libnvidia-fbc.so.${old.version}"
+                  fi
+                '';
               });
             in
             patched.overrideAttrs (old: {
@@ -111,15 +109,9 @@ let
           cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };
           crystalhd = pkgs.nur-xddxdd.crystalhd.override { inherit (final) kernel; };
           dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
-          i915-sriov = (pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; }).overrideAttrs (old: {
-            # FIXME: remove when broken flag is removed
-            meta = old.meta // {
-              broken = false;
-            };
-          });
+          i915-sriov = pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; };
           nft-fullcone = pkgs.nur-xddxdd.nft-fullcone.override { inherit (final) kernel; };
           nullfsvfs = pkgs.nur-xddxdd.nullfsvfs.override { inherit (final) kernel; };
-          ovpn-dco = pkgs.nur-xddxdd.ovpn-dco.override { inherit (final) kernel; };
           r8125 = pkgs.nur-xddxdd.r8125.override { inherit (final) kernel; };
           r8168 = pkgs.nur-xddxdd.r8168.override { inherit (final) kernel; };
           # xt_rtpengine = pkgs.nur-xddxdd.xt_rtpengine.override { inherit (final) kernel; };
@@ -148,7 +140,8 @@ in
         "rcuupdate.rcu_cpu_stall_suppress=1"
         "split_lock_detect=off"
         "swapaccount=1"
-      ] ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ]);
+      ]
+      ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ]);
       kernelPackages = myKernelPackageFor config.lantian.kernel;
       kernelModules = [
         "cryptodev"
@@ -156,16 +149,15 @@ in
         # Temporarily disabled for build failure
         # "nft_fullcone"
         # "ovpn-dco"
-      ] ++ lib.optionals pkgs.stdenv.isx86_64 [ "ntsync" ];
+      ]
+      ++ lib.optionals pkgs.stdenv.isx86_64 [ "ntsync" ];
       extraModulePackages =
         with config.boot.kernelPackages;
         (
           [
             cryptodev
             nullfsvfs
-            # Temporarily disabled for build failure
-            # nft-fullcone
-            # ovpn-dco
+            nft-fullcone
             r8125
             r8168
           ]
