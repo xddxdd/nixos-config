@@ -22,7 +22,7 @@ in
   security.acme = {
     acceptTerms = true;
     preliminarySelfsigned = false;
-    maxConcurrentRenewals = 2;
+    maxConcurrentRenewals = 1;
 
     defaults = {
       dnsProvider = "gcore";
