@@ -7,7 +7,6 @@
   ...
 }:
 let
-  py = pkgs.python3.withPackages (p: with p; [ requests ]);
 
   nexusphpPlugin = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/Juszoe/flexget-nexusphp/master/nexusphp.py";
@@ -164,26 +163,14 @@ in
       StateDirectory = "flexget";
       WorkingDirectory = "/var/lib/flexget";
     };
-    script =
-      ''
-        export HDHOME_COOKIE=$(${py}/bin/python3 ${./hdhome_login.py})
-        export HDTIME_COOKIE=$(${py}/bin/python3 ${./hdtime_login.py})
-        export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
-      ''
-      # Disabled for not providing useful resources
-      # + (lib.optionalString config.services.prowlarr.enable ''
-      #   ${py}/bin/python3 ${./hdhome_update_prowlarr.py} || true
-      #   ${py}/bin/python3 ${./hdtime_update_prowlarr.py} || true
-      #   ${py}/bin/python3 ${./ourbits_update_prowlarr.py} || true
-      # '')
-      + ''
-        cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
+    script = ''
+      cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
 
-        mkdir -p plugins
-        ln -sf ${nexusphpPlugin} plugins/nexusphp.py
+      mkdir -p plugins
+      ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
-        exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
-      '';
+      exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
+    '';
   };
 
   systemd.timers.flexget-runner = {
