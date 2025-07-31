@@ -166,11 +166,13 @@ in
     };
     script =
       ''
+        export HDHOME_COOKIE=$(${py}/bin/python3 ${./hdhome_login.py})
         export HDTIME_COOKIE=$(${py}/bin/python3 ${./hdtime_login.py})
         export OURBITS_TOKEN=$(${py}/bin/python3 ${./ourbits_login.py})
       ''
       # Disabled for not providing useful resources
       # + (lib.optionalString config.services.prowlarr.enable ''
+      #   ${py}/bin/python3 ${./hdhome_update_prowlarr.py} || true
       #   ${py}/bin/python3 ${./hdtime_update_prowlarr.py} || true
       #   ${py}/bin/python3 ${./ourbits_update_prowlarr.py} || true
       # '')
