@@ -221,8 +221,6 @@
   "openai/o1": "openai/o1",
   "openai/o1-mini": "openai/o1-mini",
   "openai/o1-mini-2024-09-12": "openai/o1-mini-2024-09-12",
-  "openai/o1-preview": "openai/o1-preview",
-  "openai/o1-preview-2024-09-12": "openai/o1-preview-2024-09-12",
   "openai/o1-pro": "openai/o1-pro",
   "openai/o3": "openai/o3",
   "openai/o3-mini": "openai/o3-mini",
