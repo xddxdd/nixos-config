@@ -1,0 +1,13 @@
+diff --git a/pkgs/development/cuda-modules/_cuda/lib/cuda.nix b/pkgs/development/cuda-modules/_cuda/lib/cuda.nix
+index 16f99e57709a..fab16a96da3a 100644
+--- a/pkgs/development/cuda-modules/_cuda/lib/cuda.nix
++++ b/pkgs/development/cuda-modules/_cuda/lib/cuda.nix
+@@ -33,7 +33,7 @@
+         cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion == null
+         || lib.versionAtLeast cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion cudaMajorMinorVersion;
+     in
+-    recentCapability
++    true
+     && !cudaCapabilityInfo.isJetson
+     && !cudaCapabilityInfo.isArchitectureSpecific
+     && !cudaCapabilityInfo.isFamilySpecific;

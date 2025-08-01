@@ -13,8 +13,6 @@ let
     n:
     if builtins.elem LT.constants.tags.nixpkgs-stable LT.hosts."${n}".tags then
       "pkgs-stable"
-    else if builtins.elem LT.constants.tags.nixpkgs-old-cuda LT.hosts."${n}".tags then
-      "pkgs-old-cuda"
     else
       "pkgs";
 
