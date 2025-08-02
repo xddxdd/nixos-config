@@ -1,8 +1,8 @@
 diff --git a/maintainers/maintainer-list.nix b/maintainers/maintainer-list.nix
-index 250a87e857760b..2c128e17461a3f 100644
+index 0b4b28fd3196ab..102b3452634c4d 100644
 --- a/maintainers/maintainer-list.nix
 +++ b/maintainers/maintainer-list.nix
-@@ -26828,6 +26828,12 @@
+@@ -26892,6 +26892,12 @@
      githubId = 4779365;
      name = "Johannes Mayrhofer";
    };
@@ -17,10 +17,10 @@ index 250a87e857760b..2c128e17461a3f 100644
      github = "vyorkin";
 diff --git a/pkgs/by-name/ki/kiro/package.nix b/pkgs/by-name/ki/kiro/package.nix
 new file mode 100644
-index 00000000000000..628c446342a95f
+index 00000000000000..7bee2609b714d6
 --- /dev/null
 +++ b/pkgs/by-name/ki/kiro/package.nix
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,73 @@
 +{
 +  lib,
 +  stdenv,
@@ -33,20 +33,19 @@ index 00000000000000..628c446342a95f
 +
 +let
 +  inherit (stdenv) hostPlatform;
-+  version = "0.1.15";
++  version = "0.1.25";
 +  sources = {
 +    x86_64-linux = fetchurl {
-+      url = "https://prod.download.desktop.kiro.dev/releases/202507180237--distro-linux-x64-tar-gz/202507180237-distro-linux-x64.tar.gz";
-+      hash = "sha256-cXDG0WBKEZR3e7hrTqVKRy3diTvwicy5RPi+qTkPbwc=";
++      url = "https://prod.download.desktop.kiro.dev/releases/202507232027--distro-linux-x64-tar-gz/202507232027-distro-linux-x64.tar.gz";
++      hash = "sha256-XxtJS7hLUKHJG0HhiA2Fyt7wNh5YebOOYadvNvXCKzc=";
 +    };
-+    aarch64-linux = sources.x86_64-linux; # "universal" package
 +    x86_64-darwin = fetchurl {
-+      url = "https://prod.download.desktop.kiro.dev/releases/202507180243-Kiro-dmg-darwin-x64.dmg";
-+      hash = "sha256-dXOy8J8rF0nFHjY+swy5JXDo5m1dkZgXsENN9f/Nx9o=";
++      url = "https://prod.download.desktop.kiro.dev/releases/202507232041-Kiro-dmg-darwin-x64.dmg";
++      hash = "sha256-dH+aQ8IKqGC0TLMlOQFk7UYhL5/dWSOwLXD417bBpWk=";
 +    };
 +    aarch64-darwin = fetchurl {
-+      url = "https://prod.download.desktop.kiro.dev/releases/202507180224-Kiro-dmg-darwin-arm64.dmg";
-+      hash = "sha256-k4E3VPhdZJziA47TGMfoDcOO4kl3ORlRMW9kiHxmUJ8=";
++      url = "https://prod.download.desktop.kiro.dev/releases/202507232015-Kiro-dmg-darwin-arm64.dmg";
++      hash = "sha256-GQ40ZirD+MEHcS6B7i7xl0wYCPspvokRrMuD3eqZQM4=";
 +    };
 +  };
 +  src = sources.${hostPlatform.system} or (throw "Unsupported platform for Kiro");
@@ -83,7 +82,6 @@ index 00000000000000..628c446342a95f
 +    maintainers = with lib.maintainers; [ vuks ];
 +    platforms = [
 +      "x86_64-linux"
-+      "aarch64-linux"
 +      "x86_64-darwin"
 +      "aarch64-darwin"
 +    ];
@@ -97,10 +95,10 @@ index 00000000000000..628c446342a95f
 +    };
 +  })
 diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
-index a31a981e57e2d7..2724ad01a391b4 100644
+index 5062eb74a5fb9c..c88fc3f6acbdea 100644
 --- a/pkgs/top-level/all-packages.nix
 +++ b/pkgs/top-level/all-packages.nix
-@@ -14175,6 +14175,12 @@ with pkgs;
+@@ -14135,6 +14135,12 @@ with pkgs;
      nodejs = nodejs_20;
    };
  
