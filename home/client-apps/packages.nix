@@ -111,6 +111,7 @@ in
         gcdemu
         gedit
         gimp
+        gopher
         imagemagick
         immich-cli
         jamesdsp
