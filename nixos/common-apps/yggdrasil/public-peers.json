@@ -45,6 +45,7 @@
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
     "tls://x-fra-0.sergeysedoy97.ru:65534",
     "tls://ygg.mkg20001.io:443",
+    "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
     "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
     "tls://yggdrasil.neilalexander.dev:64648?key=ecbbcb3298e7d3b4196103333c3e839cfe47a6ca47602b94a6d596683f6bb358",
     "tls://yggdrasil.su:62586"
@@ -95,9 +96,6 @@
   ],
   "saudi-arabia": [
     "tls://pp1.ygg.sy.sa:8442"
-  ],
-  "singapore": [
-    "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
