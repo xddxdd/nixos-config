@@ -81,11 +81,10 @@ let
 
       disableLiveCompression = true;
 
-      extraConfig =
-        ''
-          error_page 404 /404.html;
-        ''
-        + (args.extraConfig or "");
+      extraConfig = ''
+        error_page 404 /404.html;
+      ''
+      + (args.extraConfig or "");
     };
 in
 {
@@ -186,7 +185,7 @@ in
       locations."/" = {
         index = "gophermap";
         extraConfig = ''
-          sub_filter "{{server_addr}}\t{{server_port}}" "$gopher_addr\t$server_port";
+          sub_filter "{{server_addr}}\t{{server_port}}" "$gopher_addr\t70";
           sub_filter_once off;
           sub_filter_types '*';
         '';
