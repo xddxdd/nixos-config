@@ -94,6 +94,7 @@
       POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time command_execution_time status dir_writable nix_shell vcs context anaconda dir_joined)
       POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
       POWERLEVEL9K_CONTEXT_TEMPLATE="%n @ %m"
+      POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
       if [ "$USER" = "root" ]; then
         POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{red}%F{white} # %k%f "
         POWERLEVEL9K_TIME_FOREGROUND='white'
