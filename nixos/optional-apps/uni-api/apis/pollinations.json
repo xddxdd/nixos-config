@@ -19,7 +19,7 @@
   "openai-fast": "openai-fast",
   "openai-large": "openai-large",
   "openai-roblox": "openai-roblox",
-  "qwen-coder": "qwen/qwen-coder",
+  "qwen": "qwen/qwen",
   "rtist": "rtist",
   "sur": "sur",
   "unity": "unity"
