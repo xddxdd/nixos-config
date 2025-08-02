@@ -62,8 +62,24 @@
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
     script = ''
-      nvidia-smi -pl 125
+      DATETIME=$(date '+%H%M')
+      if [ "$DATETIME" -lt "0900" ]; then
+        nvidia-smi -pl 150
+      elif [ "$DATETIME" -lt "2200" ]; then
+        nvidia-smi -pl 250
+      else
+        nvidia-smi -pl 150
+      fi
     '';
     serviceConfig.Type = "oneshot";
+  };
+
+  systemd.timers.nvidia-power-limit = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "nvidia-power-limit.service" ];
+    timerConfig = {
+      OnCalendar = "minutely";
+      Unit = "nvidia-power-limit.service";
+    };
   };
 }
