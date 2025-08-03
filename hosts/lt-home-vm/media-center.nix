@@ -128,9 +128,10 @@ in
     queue-stalled-enabled = lib.mkForce true;
     queue-stalled-minutes = 10;
 
-    # Speed limit of private trackets
+    # Speed limit to avoid disk lockup
     speed-limit-down = 25600;
-    speed-limit-down-enabled = false;
+    speed-limit-down-enabled = true;
+    # Speed limit of private trackets
     speed-limit-up = 25600;
     speed-limit-up-enabled = true;
   };
