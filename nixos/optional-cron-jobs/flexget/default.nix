@@ -55,7 +55,7 @@ let
           "if" = [
             { "'No space left on device' in transmission_errorString" = "accept"; }
             { "'torrent not registered with this tracker' in transmission_errorString" = "accept"; }
-            { "transmission_date_added < now - timedelta(days=5)" = "accept"; }
+            { "transmission_date_added < now - timedelta(days=10)" = "accept"; }
           ];
           regexp = {
             reject_excluding = [ "/mnt/storage/.downloads-auto" ];
@@ -123,6 +123,13 @@ let
         #   cfscraper = true;
         #   template = "downloads-auto";
         # };
+
+        hdhome-auto = {
+          rss = "$HDHOME_AUTO_RSS_URL";
+          seen.fields = [ "url" ];
+          accept_all = true;
+          template = "downloads-auto";
+        };
       };
     }
   );
