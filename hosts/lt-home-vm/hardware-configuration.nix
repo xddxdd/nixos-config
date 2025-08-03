@@ -38,6 +38,17 @@
     neededForBoot = true;
   };
 
+  fileSystems."/mnt/ssd-temp" = {
+    device = "/dev/vdc1";
+    fsType = "ext4";
+    options = [
+      "discard"
+      "nosuid"
+      "nodev"
+      "x-systemd.mount-timeout=infinity"
+    ];
+  };
+
   fileSystems."/boot" = {
     device = "/nix/boot";
     options = [ "bind" ];

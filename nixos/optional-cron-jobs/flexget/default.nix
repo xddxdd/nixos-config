@@ -30,14 +30,14 @@ let
         };
         downloads-auto = {
           transmission = {
-            path = "/mnt/storage/.downloads-auto";
+            path = "/mnt/ssd-temp/.downloads-auto";
             host = LT.this.ltnet.IPv4;
             port = LT.port.Transmission;
             bandwidth_priority = 0 - 1;
           };
           free_space = {
-            path = "/mnt/storage/downloads";
-            space = 2 * 1024 * 1024; # 2TB
+            path = "/mnt/ssd-temp/.downloads-auto";
+            space = 100 * 1024; # 100GB
           };
         };
       };
@@ -55,10 +55,10 @@ let
           "if" = [
             { "'No space left on device' in transmission_errorString" = "accept"; }
             { "'torrent not registered with this tracker' in transmission_errorString" = "accept"; }
-            { "transmission_date_added < now - timedelta(days=10)" = "accept"; }
+            { "transmission_date_added < now - timedelta(days=5)" = "accept"; }
           ];
           regexp = {
-            reject_excluding = [ "/mnt/storage/.downloads-auto" ];
+            reject_excluding = [ "/mnt/ssd-temp/.downloads-auto" ];
             from = "transmission_downloadDir";
           };
           transmission = {
@@ -124,12 +124,12 @@ let
         #   template = "downloads-auto";
         # };
 
-        # hdhome-auto = {
-        #   rss = "$HDHOME_AUTO_RSS_URL";
-        #   seen.fields = [ "url" ];
-        #   accept_all = true;
-        #   template = "downloads-auto";
-        # };
+        hdhome-auto = {
+          rss = "$HDHOME_AUTO_RSS_URL";
+          seen.fields = [ "url" ];
+          accept_all = true;
+          template = "downloads-auto";
+        };
       };
     }
   );

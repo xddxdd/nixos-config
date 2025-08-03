@@ -11,7 +11,7 @@ let
   transmissionDownloadPath = "/mnt/storage/downloads";
   transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";
   qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
-  flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
+  flexgetAutoDownloadPath = "/mnt/ssd-temp/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
 in
