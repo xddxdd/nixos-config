@@ -1,0 +1,76 @@
+diff --git a/pkgs/applications/virtualization/virtualbox/default.nix b/pkgs/applications/virtualization/virtualbox/default.nix
+index 24cd144288f507..94cbc1aa4e3424 100644
+--- a/pkgs/applications/virtualization/virtualbox/default.nix
++++ b/pkgs/applications/virtualization/virtualbox/default.nix
+@@ -49,7 +49,6 @@
+   open-watcom-bin,
+   makeself,
+   perl,
+-  vulkan-loader,
+   javaBindings ? true,
+   jdk, # Almost doesn't affect closure size
+   pythonBindings ? false,
+@@ -163,11 +162,11 @@ stdenv.mkDerivation (finalAttrs: {
+     libtpms
+     python3
+     xz
++    libGL
+   ]
+   ++ optional javaBindings jdk
+   ++ optional pythonBindings python3 # Python is needed even when not building bindings
+   ++ optional pulseSupport libpulseaudio
+-  ++ optionals headless [ libGL ]
+   ++ optionals (!headless) [
+     qtbase
+     qttools
+@@ -213,6 +212,13 @@ stdenv.mkDerivation (finalAttrs: {
+     grep 'libasound\.so\.2'     src include -rI --files-with-match | xargs sed -i -e '
+       s@"libasound\.so\.2"@"${alsa-lib.out}/lib/libasound.so.2"@g'
+ 
++    substituteInPlace src/VBox/Devices/Graphics/DevVGA-SVGA3d-glLdr.cpp \
++      --replace-fail \"libGL.so.1\" \"${libGL.out}/lib/libGL.so.1\"
++
++    # this works in conjunction with fix-graphics-driver-loading.patch
++    substituteInPlace src/VBox/Devices/Graphics/DevVGA-SVGA3d-dx-dx11.cpp \
++      --replace-fail \"VBoxDxVk\" \"$out/libexec/virtualbox/VBoxDxVk.so\"
++
+     export USER=nix
+     set +x
+   '';
+@@ -260,6 +266,7 @@ stdenv.mkDerivation (finalAttrs: {
+       ./qt-dependency-paths.patch
+       # https://github.com/NixOS/nixpkgs/issues/123851
+       ./fix-audio-driver-loading.patch
++      ./fix-graphics-driver-loading.patch
+     ];
+ 
+   postPatch = ''
+@@ -394,8 +401,7 @@ stdenv.mkDerivation (finalAttrs: {
+     # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
+     # the source code (see postPatch).
+     + optionalString (!headless && !enableHardening) ''
+-      wrapQtApp $out/libexec/virtualbox/VirtualBoxVM \
+-         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ vulkan-loader ]}"
++      wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
+     '';
+ 
+   passthru = {
+diff --git a/pkgs/applications/virtualization/virtualbox/fix-graphics-driver-loading.patch b/pkgs/applications/virtualization/virtualbox/fix-graphics-driver-loading.patch
+new file mode 100644
+index 00000000000000..c11dfbf293cd9b
+--- /dev/null
++++ b/pkgs/applications/virtualization/virtualbox/fix-graphics-driver-loading.patch
+@@ -0,0 +1,13 @@
++diff --git a/src/VBox/Devices/Graphics/DevVGA-SVGA3d-dx-dx11.cpp b/src/VBox/Devices/Graphics/DevVGA-SVGA3d-dx-dx11.cpp
++index 1a43382..c376d6e 100644
++--- a/src/VBox/Devices/Graphics/DevVGA-SVGA3d-dx-dx11.cpp
+++++ b/src/VBox/Devices/Graphics/DevVGA-SVGA3d-dx-dx11.cpp
++@@ -3376,7 +3376,7 @@ static DECLCALLBACK(int) vmsvga3dBackInit(PPDMDEVINS pDevIns, PVGASTATE pThis, P
++     AssertReturn(pBackend, VERR_NO_MEMORY);
++     pThisCC->svga.p3dState->pBackend = pBackend;
++ 
++-    rc = RTLdrLoadSystem(VBOX_D3D11_LIBRARY_NAME, /* fNoUnload = */ true, &pBackend->hD3D11);
+++    rc = RTLdrLoad(VBOX_D3D11_LIBRARY_NAME, &pBackend->hD3D11);
++     AssertRC(rc);
++     if (RT_SUCCESS(rc))
++     {
