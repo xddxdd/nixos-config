@@ -1,6 +1,5 @@
 {
   "ArliAI/QwQ-32B-ArliAI-RpR-v1": "arliai/qwq-32b-arliai-rpr-v1",
-  "ByteDance-Seed/Seed-Coder-8B-Reasoning-bf16": "bytedance-seed/seed-coder-8b-reasoning-bf16",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
   "NousResearch/DeepHermes-3-Mistral-24B-Preview": "nousresearch/deephermes-3-mistral-24b-preview",
   "Qwen/QwQ-32B": "qwen/qwq-32b",
@@ -25,7 +24,6 @@
   "TheDrummer/Skyfall-36B-v2": "thedrummer/skyfall-36b-v2",
   "TheDrummer/Tunguska-39B-v1": "thedrummer/tunguska-39b-v1",
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
-  "agentica-org/DeepSWE-Preview": "agentica-org/deepswe-preview",
   "all-hands/openhands-lm-32b-v0.1-ep3": "all-hands/openhands-lm-32b-v0.1-ep3",
   "chutesai/Devstral-Small-2505": "chutesai/devstral-small-2505",
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
