@@ -124,12 +124,12 @@ let
         #   template = "downloads-auto";
         # };
 
-        hdhome-auto = {
-          rss = "$HDHOME_AUTO_RSS_URL";
-          seen.fields = [ "url" ];
-          accept_all = true;
-          template = "downloads-auto";
-        };
+        # hdhome-auto = {
+        #   rss = "$HDHOME_AUTO_RSS_URL";
+        #   seen.fields = [ "url" ];
+        #   accept_all = true;
+        #   template = "downloads-auto";
+        # };
       };
     }
   );
