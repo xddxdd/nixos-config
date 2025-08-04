@@ -13,7 +13,7 @@
     group = "users";
     downloadDirPermissions = "775";
     settings = {
-      cache-size-mb = 64;
+      cache-size-mb = 0;
       download-dir = lib.mkDefault "/nix/persistent/media/Transmission";
       download-queue-enabled = false;
       encryption = 2;
