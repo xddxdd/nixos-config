@@ -3,7 +3,6 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
-    "tls://[2001:44b8:26e:1300::1]:7676",
     "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
@@ -63,8 +62,7 @@
     "tls://yg-tyo.magicum.net:32333"
   ],
   "luxembourg": [
-    "tls://[2a03:90c0:85::28a]:443",
-    "tls://srl.newsdeef.eu:59999"
+    "tls://[2a03:90c0:85::28a]:443"
   ],
   "netherlands": [
     "tls://23.137.249.65:444",
