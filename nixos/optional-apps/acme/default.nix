@@ -36,11 +36,11 @@ in
     };
   };
 
-  # Send email notification if cert renew failed
-  systemd.services = lib.mapAttrs' (
-    k: v:
-    lib.nameValuePair "acme-${k}" {
-      unitConfig.OnFailure = "notify-email-fail@%n.service";
-    }
-  ) config.security.acme.certs;
+  # # Send email notification if cert renew failed
+  # systemd.services = lib.mapAttrs' (
+  #   k: v:
+  #   lib.nameValuePair "acme-${k}" {
+  #     unitConfig.OnFailure = "notify-email-fail@%n.service";
+  #   }
+  # ) config.security.acme.certs;
 }
