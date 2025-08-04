@@ -23,6 +23,7 @@
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iperf3.nix
+    ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/mtranserver.nix
     ../../nixos/optional-apps/navidrome.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix

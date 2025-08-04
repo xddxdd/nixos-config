@@ -181,6 +181,7 @@ rec {
     Usque = 13840;
     SillyTavern = 13845;
     Qinglong = 13857;
+    IyuuPlus = 13878;
     Dump1090.RawInput = 13901;
     Dump1090.RawOutput = 13902;
     Dump1090.BaseStation = 13903;
