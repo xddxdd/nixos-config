@@ -127,6 +127,8 @@
   "nvidia/riva-translate-4b-instruct": "nvidia/riva-translate-4b-instruct",
   "nvidia/usdcode-llama-3.1-70b-instruct": "nvidia/usdcode-llama-3.1-70b-instruct",
   "nvidia/vila": "nvidia/vila",
+  "openai/gpt-oss-120b": "openai/gpt-oss-120b",
+  "openai/gpt-oss-20b": "openai/gpt-oss-20b",
   "opengpt-x/teuken-7b-instruct-commercial-v0.4": "opengpt-x/teuken-7b-instruct-commercial-v0.4",
   "qwen/qwen2-7b-instruct": "qwen/qwen-2-7b-instruct",
   "qwen/qwen2.5-7b-instruct": "qwen/qwen-2.5-7b-instruct",

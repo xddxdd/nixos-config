@@ -5,7 +5,6 @@
   "evil": "evil",
   "glm": "thudm/glm",
   "grok": "x-ai/grok",
-  "horizon": "horizon",
   "hypnosis-tracy": "hypnosis-tracy",
   "llama-fast-roblox": "meta-llama/llama-fast-roblox",
   "llama-roblox": "meta-llama/llama-roblox",
@@ -20,7 +19,8 @@
   "openai-fast": "openai-fast",
   "openai-large": "openai-large",
   "openai-roblox": "openai-roblox",
-  "qwen": "qwen/qwen",
+  "qwen-coder": "qwen/qwen-coder",
+  "qwen3-235b-a22b-instruct-2507": "qwen/qwen-3-235b-a22b-instruct-2507",
   "rtist": "rtist",
   "sur": "sur",
   "unity": "unity"
