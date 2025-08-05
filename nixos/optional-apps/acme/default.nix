@@ -22,11 +22,12 @@ in
   security.acme = {
     acceptTerms = true;
     preliminarySelfsigned = false;
-    maxConcurrentRenewals = 1;
+    maxConcurrentRenewals = 0;
 
     defaults = {
       dnsProvider = "gcore";
       dnsResolver = "8.8.8.8:53";
+      dnsPropagationCheck = false;
       email = glauthUsers.lantian.mail;
       environmentFile = [ config.age.secrets.lego-env.path ];
       postRun = ''
@@ -36,11 +37,43 @@ in
     };
   };
 
-  # # Send email notification if cert renew failed
-  # systemd.services = lib.mapAttrs' (
-  #   k: v:
-  #   lib.nameValuePair "acme-${k}" {
-  #     unitConfig.OnFailure = "notify-email-fail@%n.service";
-  #   }
-  # ) config.security.acme.certs;
+  systemd.services = {
+    acme-check-expiration = {
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ERRORS=0
+        for F in /var/lib/acme/*/cert.pem; do
+          echo "$F"
+          # Check for 10 days of validity
+          if openssl x509 -checkend 864000 -noout -in "$F"; then
+            ERRORS=$((ERRORS + 0))
+          else
+            ERRORS=$((ERRORS + 1))
+          fi
+        done
+        echo "Total $ERRORS errors"
+        exit $ERRORS
+      '';
+      unitConfig.OnFailure = "notify-email-fail@%n.service";
+    };
+  }
+  // lib.mapAttrs' (
+    k: v:
+    lib.nameValuePair "acme-${k}" {
+      serviceConfig = {
+        Restart = "on-failure";
+        TimeoutStartSec = "900";
+      };
+    }
+  ) config.security.acme.certs;
+
+  systemd.timers.acme-check-expiration = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "acme-check-expiration.service" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "acme-check-expiration.service";
+    };
+  };
 }

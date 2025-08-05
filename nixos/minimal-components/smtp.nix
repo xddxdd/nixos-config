@@ -24,7 +24,7 @@ let
 
     $(systemctl status --lines=0 "$UNIT")
 
-    $(journalctl -n 1000 _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
+    $(journalctl -n 1000 --no-pager _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
     EOF
   '';
 in
