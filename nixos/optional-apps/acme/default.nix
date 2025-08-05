@@ -60,6 +60,10 @@ in
   // lib.mapAttrs' (
     k: v:
     lib.nameValuePair "acme-${k}" {
+      environment = {
+        LEGO_DEBUG_CLIENT_VERBOSE_ERROR = "true";
+        LEGO_DEBUG_ACME_HTTP_CLIENT = "true";
+      };
       serviceConfig = {
         Restart = "on-failure";
         TimeoutStartSec = "900";
