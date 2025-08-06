@@ -107,6 +107,7 @@ in
     ];
     settings = {
       PermitRootLogin = lib.mkForce "prohibit-password";
+      # https://www.sshaudit.com/
       Ciphers = [
         "aes256-gcm@openssh.com"
         "chacha20-poly1305@openssh.com"
@@ -120,9 +121,7 @@ in
         "curve25519-sha256@libssh.org"
       ];
       Macs = [
-        "hmac-sha2-512"
         "hmac-sha2-512-etm@openssh.com"
-        "hmac-sha2-256"
         "hmac-sha2-256-etm@openssh.com"
       ];
     };
