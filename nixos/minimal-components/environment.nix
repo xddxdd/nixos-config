@@ -30,7 +30,6 @@
   environment.variables = {
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
-    KOPIA_CHECK_FOR_UPDATES = "false";
     NIX_REMOTE = "daemon";
     NIXPKGS_ALLOW_INSECURE = "1";
     OLLAMA_HOST = "http://ollama.localhost";
@@ -54,7 +53,6 @@
       inetutils
       iperf3
       iw
-      kopia
       lsof
       mbuffer # required for btrbk
       nettools
