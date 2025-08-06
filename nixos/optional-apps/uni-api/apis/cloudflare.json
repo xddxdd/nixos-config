@@ -37,6 +37,8 @@
   "@cf/mistral/mistral-7b-instruct-v0.2-lora": "mistralai/mistral-7b-instruct-v0.2-lora",
   "@cf/mistralai/mistral-small-3.1-24b-instruct": "mistralai/mistral-small-3.1-24b-instruct",
   "@cf/myshell-ai/melotts": "myshell-ai/melotts",
+  "@cf/openai/gpt-oss-120b": "openai/gpt-oss-120b",
+  "@cf/openai/gpt-oss-20b": "openai/gpt-oss-20b",
   "@cf/openai/whisper": "openai/whisper",
   "@cf/openai/whisper-large-v3-turbo": "openai/whisper-large-v3-turbo",
   "@cf/openai/whisper-tiny-en": "openai/whisper-tiny-en",

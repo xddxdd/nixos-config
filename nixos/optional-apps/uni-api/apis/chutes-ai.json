@@ -40,6 +40,7 @@
   "moonshotai/Kimi-Dev-72B": "moonshotai/kimi-dev-72b",
   "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "moonshotai/Kimi-VL-A3B-Thinking": "moonshotai/kimi-vl-a3b-thinking",
+  "openai/gpt-oss-120b": "openai/gpt-oss-120b",
   "shisa-ai/shisa-v2-llama3.3-70b": "shisa-ai/shisa-v2-llama3.3-70b",
   "stepfun-ai/step3": "stepfun-ai/step-3",
   "tencent/Hunyuan-A13B-Instruct": "tencent/hunyuan-a13b-instruct",
@@ -55,5 +56,6 @@
   "unsloth/gemma-3-27b-it": "unsloth/gemma-3-27b-it",
   "unsloth/gemma-3-4b-it": "unsloth/gemma-3-4b-it",
   "zai-org/GLM-4.5-Air": "zai-org/glm-4.5-air",
-  "zai-org/GLM-4.5-FP8": "zai-org/glm-4.5-fp8"
+  "zai-org/GLM-4.5-FP8": "zai-org/glm-4.5-fp8",
+  "zai-org/GLM-Z1-32B-0414": "zai-org/glm-z1-32b-0414"
 }
