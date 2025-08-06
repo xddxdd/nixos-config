@@ -1,11 +1,11 @@
 _:
 let
-  cfg = ''
-    LogColor=yes
-    StatusUnitFormat=combined
-  '';
+  settings = {
+    LogColor = true;
+    StatusUnitFormat = "combined";
+  };
 in
 {
-  systemd.extraConfig = cfg;
-  boot.initrd.systemd.extraConfig = cfg;
+  systemd.settings.Manager = settings;
+  boot.initrd.systemd.settings.Manager = settings;
 }

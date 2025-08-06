@@ -15,7 +15,7 @@
 
     # keep-sorted start block=yes
     agenix = {
-      url = "github:oluceps/agenix/with-sysuser";
+      url = "github:ryantm/agenix";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };

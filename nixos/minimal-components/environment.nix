@@ -218,10 +218,10 @@
     '';
 
     # https://github.com/systemd/systemd/issues/25376
-    extraConfig = ''
-      DefaultOOMPolicy=continue
-      DefaultTimeoutStopSec=30s
-    '';
+    settings.Manager = {
+      DefaultOOMPolicy = "continue";
+      DefaultTimeoutStopSec = "30s";
+    };
 
     tmpfiles.rules = [
       # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
