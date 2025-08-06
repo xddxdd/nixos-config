@@ -22,6 +22,11 @@ let
       "germany"
       "france"
     ];
+    "CH" = [
+      "austria"
+      "germany"
+      "france"
+    ];
     "US" = [ "united-states" ];
     "DE" = [ "germany" ];
     "JP" = [ "japan" ];
