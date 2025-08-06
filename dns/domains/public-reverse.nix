@@ -50,5 +50,10 @@
       prefix = "2605:6400:cac6::/48";
       target = "buyvm.lantian.pub.";
     })
+
+    (config.common.reverse {
+      prefix = "2a03:94e0:27ca::/48";
+      target = "terrahost.lantian.pub.";
+    })
   ];
 }
