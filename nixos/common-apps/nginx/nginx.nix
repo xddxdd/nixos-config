@@ -43,6 +43,10 @@ let
       ssl_conf_command Ciphersuites ${builtins.concatStringsSep ":" ciphersForTLS1_3};
       ssl_conf_command Options KTLS;
       ssl_conf_command Options PrioritizeChaCha;
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
+      ssl_session_tickets on;
+      ssl_prefer_server_ciphers off;
     ''
     + lib.optionalString (!isStream) ''
       ssl_early_data on;
@@ -61,7 +65,7 @@ in
     recommendedGzipSettings = false; # use my own
     recommendedOptimisation = true;
     recommendedProxySettings = false; # use my own
-    recommendedTlsSettings = true;
+    recommendedTlsSettings = false;
     resolver = {
       addresses = [ "8.8.8.8" ];
       ipv6 = false;
