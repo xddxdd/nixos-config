@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -40,6 +41,7 @@ in
   systemd.services = {
     acme-check-expiration = {
       serviceConfig.Type = "oneshot";
+      path = [ pkgs.openssl ];
       script = ''
         ERRORS=0
         for F in /var/lib/acme/*/cert.pem; do
