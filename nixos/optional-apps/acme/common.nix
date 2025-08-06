@@ -168,4 +168,25 @@ in
       renewInterval = eccRenewInterval;
     };
   };
+
+  mkZeroSSLWildcardCert = domain: {
+    "zerossl-${domain}-rsa" = {
+      inherit domain;
+      extraDomainNames = [ "*.${domain}" ];
+      extraLegoFlags = [ "--eab" ];
+      keyType = "rsa4096";
+      server = "https://acme.zerossl.com/v2/DV90";
+      validMinDays = 30;
+      renewInterval = rsaRenewInterval;
+    };
+    "zerossl-${domain}-ecc" = {
+      inherit domain;
+      extraDomainNames = [ "*.${domain}" ];
+      extraLegoFlags = [ "--eab" ];
+      keyType = "ec384";
+      server = "https://acme.zerossl.com/v2/DV90";
+      validMinDays = 30;
+      renewInterval = eccRenewInterval;
+    };
+  };
 }
