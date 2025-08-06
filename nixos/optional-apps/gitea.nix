@@ -167,6 +167,6 @@
     };
 
     blockDotfiles = false;
-    sslCertificate = "lets-encrypt-lantian.pub";
+    sslCertificate = "zerossl-lantian.pub";
   };
 }

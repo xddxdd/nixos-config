@@ -69,8 +69,8 @@
         --configdir=/run/quassel \
         --config-from-environment \
         --require-ssl \
-        --ssl-cert=${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"} \
-        --ssl-key=${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"} \
+        --ssl-cert=${LT.nginx.getSSLCert "zerossl-lantian.pub-ecc"} \
+        --ssl-key=${LT.nginx.getSSLKey "zerossl-lantian.pub-ecc"} \
         --ident-daemon \
         --ident-listen=0.0.0.0,:: \
         --ident-port=${LT.portStr.Quassel.Ident}

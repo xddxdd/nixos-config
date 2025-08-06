@@ -5,7 +5,7 @@ _: {
       "/".index = "index.html";
     };
 
-    sslCertificate = "lets-encrypt-xuyh0120.win";
+    sslCertificate = "zerossl-xuyh0120.win";
     noIndex.enable = true;
     accessibleBy = "private";
   };

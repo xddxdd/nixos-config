@@ -83,7 +83,7 @@ in
         };
       };
       phpfpmSocket = config.services.phpfpm.pools.yourls.socket;
-      sslCertificate = "lets-encrypt-ltn.pw";
+      sslCertificate = "zerossl-ltn.pw";
       noIndex.enable = true;
     };
   };
