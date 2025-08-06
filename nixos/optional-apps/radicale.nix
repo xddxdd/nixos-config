@@ -37,7 +37,7 @@
       "/".proxyPass = "http://127.0.0.1:${LT.portStr.Radicale}";
     };
 
-    sslCertificate = "lets-encrypt-xuyh0120.win";
+    sslCertificate = "zerossl-xuyh0120.win";
     blockDotfiles = false;
     noIndex.enable = true;
   };

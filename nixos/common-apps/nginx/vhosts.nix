@@ -133,7 +133,7 @@ in
 
     "lantian.pub" = addConfLantianPub {
       serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
-      sslCertificate = "lets-encrypt-lantian.pub";
+      sslCertificate = "zerossl-lantian.pub";
     };
     "lantian.dn42" = addConfLantianPub {
       listenHTTP.enable = true;
@@ -148,23 +148,23 @@ in
     "www.lantian.pub" = {
       locations."/".return = "307 https://lantian.pub$request_uri";
       enableCommonLocationOptions = false;
-      sslCertificate = "lets-encrypt-lantian.pub";
+      sslCertificate = "zerossl-lantian.pub";
     };
     "xuyh0120.win" = {
       serverAliases = [ "www.xuyh0120.win" ];
       locations."/".return = "307 https://lantian.pub$request_uri";
       enableCommonLocationOptions = false;
-      sslCertificate = "lets-encrypt-xuyh0120.win";
+      sslCertificate = "zerossl-xuyh0120.win";
     };
     "lab.xuyh0120.win" = {
       locations."/".return = "307 https://lab.lantian.pub$request_uri";
       enableCommonLocationOptions = false;
-      sslCertificate = "lets-encrypt-xuyh0120.win";
+      sslCertificate = "zerossl-xuyh0120.win";
     };
     "www.ltn.pw" = {
       locations."/".return = "307 https://ltn.pw$request_uri";
       enableCommonLocationOptions = false;
-      sslCertificate = "lets-encrypt-ltn.pw";
+      sslCertificate = "zerossl-ltn.pw";
     };
 
     "gopher.lantian.pub" = {
@@ -194,7 +194,7 @@ in
       enableCommonLocationOptions = false;
       noIndex.enable = true;
 
-      sslCertificate = "lets-encrypt-lantian.pub";
+      sslCertificate = "zerossl-lantian.pub";
 
       extraConfig = ''
         error_page 404 /404.gopher;

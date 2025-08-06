@@ -24,7 +24,7 @@ in
     locations = {
       "/".tryFiles = "/avatar-$arg_s.jpg /avatar-80.jpg =404";
     };
-    sslCertificate = "lets-encrypt-lantian.pub";
+    sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
   };
 }

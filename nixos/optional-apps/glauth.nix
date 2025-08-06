@@ -21,8 +21,8 @@ let
     [ldaps]
       enabled = true
       listen = "[::]:${LT.portStr.LDAPS}"
-      cert = "${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"}"
-      key = "${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"}"
+      cert = "${LT.nginx.getSSLCert "zerossl-lantian.pub-ecc"}"
+      key = "${LT.nginx.getSSLKey "zerossl-lantian.pub-ecc"}"
 
     [[backends]]
       datastore = "config"

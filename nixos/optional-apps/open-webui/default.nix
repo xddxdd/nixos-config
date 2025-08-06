@@ -152,7 +152,7 @@
         "/model-icons".alias = "${LT.sources.lobe-icons.src}/packages/static-png/dark";
       };
 
-      sslCertificate = "lets-encrypt-xuyh0120.win";
+      sslCertificate = "zerossl-xuyh0120.win";
       noIndex.enable = true;
     };
   };

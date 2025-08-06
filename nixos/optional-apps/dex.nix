@@ -192,7 +192,7 @@ in
       proxyPass = "http://127.0.0.1:${LT.portStr.Dex}";
     };
 
-    sslCertificate = "lets-encrypt-lantian.pub";
+    sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
   };
 }
