@@ -1,7 +1,10 @@
 {
   "bidara": "bidara",
   "claudyclaude": "claudyclaude",
+  "deepseek-reasoning": "deepseek/deepseek-reasoning",
   "evil": "evil",
+  "gemini": "google/gemini",
+  "geminisearch": "google/geminisearch",
   "glm": "thudm/glm",
   "hypnosis-tracy": "hypnosis-tracy",
   "llama-fast-roblox": "meta-llama/llama-fast-roblox",
@@ -17,7 +20,6 @@
   "openai-fast": "openai-fast",
   "openai-large": "openai-large",
   "openai-roblox": "openai-roblox",
-  "qwen": "qwen/qwen",
   "qwen-coder": "qwen/qwen-coder",
   "rtist": "rtist",
   "sur": "sur",

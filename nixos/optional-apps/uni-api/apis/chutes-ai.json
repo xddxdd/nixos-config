@@ -55,6 +55,7 @@
   "unsloth/gemma-3-12b-it": "unsloth/gemma-3-12b-it",
   "unsloth/gemma-3-27b-it": "unsloth/gemma-3-27b-it",
   "unsloth/gemma-3-4b-it": "unsloth/gemma-3-4b-it",
+  "zai-org/GLM-4-32B-0414": "zai-org/glm-4-32b-0414",
   "zai-org/GLM-4.5-Air": "zai-org/glm-4.5-air",
   "zai-org/GLM-4.5-FP8": "zai-org/glm-4.5-fp8",
   "zai-org/GLM-Z1-32B-0414": "zai-org/glm-z1-32b-0414"

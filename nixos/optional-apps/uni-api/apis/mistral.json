@@ -60,6 +60,7 @@
   "pixtral-large-latest": "mistralai/pixtral-large-latest",
   "voxtral-mini-2507": "voxtral-mini-2507",
   "voxtral-mini-latest": "voxtral-mini-latest",
+  "voxtral-mini-transcribe-2507": "voxtral-mini-transcribe-2507",
   "voxtral-small-2507": "voxtral-small-2507",
   "voxtral-small-latest": "voxtral-small-latest"
 }

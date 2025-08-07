@@ -38,7 +38,6 @@
   "Qwen/Qwen3-8B": "qwen/qwen-3-8b",
   "Qwen/Qwen3-Coder-30B-A3B-Instruct": "qwen/qwen-3-coder-30b-a3b-instruct",
   "Qwen/Qwen3-Coder-480B-A35B-Instruct": "qwen/qwen-3-coder-480b-a35b-instruct",
-  "Wan-AI/Wan2.1-T2V-1.3B": "wan-ai/wan-2.1-t2v-1.3b",
   "XGenerationLab/XiYanSQL-QwenCoder-32B-2412": "xgenerationlab/xiyansql-qwencoder-32b-2412",
   "XGenerationLab/XiYanSQL-QwenCoder-32B-2504": "xgenerationlab/xiyansql-qwencoder-32b-2504",
   "ZhipuAI/GLM-4.5": "zhipuai/glm-4.5",
@@ -53,6 +52,7 @@
   "mistralai/Ministral-8B-Instruct-2410": "mistralai/ministral-8b-instruct-2410",
   "mistralai/Mistral-Large-Instruct-2407": "mistralai/mistral-large-instruct-2407",
   "mistralai/Mistral-Small-Instruct-2409": "mistralai/mistral-small-instruct-2409",
+  "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "opencompass/CompassJudger-1-32B-Instruct": "opencompass/compassjudger-1-32b-instruct",
   "stepfun-ai/step3": "stepfun-ai/step-3"
 }
