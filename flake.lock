@@ -25,6 +25,22 @@
         "type": "github"
       }
     },
+    "ai-robots-txt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754010773,
+        "narHash": "sha256-W3RbXtBA3U+jFn5m22uuGRD3WN2wsTMSgCYeedPeZvc=",
+        "owner": "ai-robots-txt",
+        "repo": "ai.robots.txt",
+        "rev": "ff9fc264041ba06d1f4d4f46834ee73e35efc792",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ai-robots-txt",
+        "repo": "ai.robots.txt",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1204,6 +1220,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "ai-robots-txt": "ai-robots-txt",
         "betterfox-nix": "betterfox-nix",
         "catppuccin-userstyles": "catppuccin-userstyles",
         "cities-json": "cities-json",
