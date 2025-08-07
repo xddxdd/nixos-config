@@ -162,70 +162,78 @@ let
         {
           addr = "0.0.0.0";
           inherit (config.listenHTTPS) port;
-          extraParameters =
-            [ "ssl" ]
-            ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
+          extraParameters = [
+            "ssl"
+          ]
+          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
         }
         {
           addr = "0.0.0.0";
           inherit (config.listenHTTPS) port;
-          extraParameters =
-            [ "quic" ]
-            ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
+          extraParameters = [
+            "quic"
+          ]
+          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
         }
         {
           addr = "[::]";
           inherit (config.listenHTTPS) port;
-          extraParameters =
-            [ "ssl" ]
-            ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
+          extraParameters = [
+            "ssl"
+          ]
+          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
         }
         {
           addr = "[::]";
           inherit (config.listenHTTPS) port;
-          extraParameters =
-            [ "quic" ]
-            ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
+          extraParameters = [
+            "quic"
+          ]
+          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
         }
       ])
       ++ (lib.optionals config.listenHTTPS_Socket.enable [
         {
           addr = "unix:${config.listenHTTPS_Socket.socket}";
-          extraParameters =
-            [ "ssl" ]
-            ++ (lib.optionals config.listenHTTPS_Socket.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenHTTPS_Socket.default (listenDefaultFlags "unix"));
+          extraParameters = [
+            "ssl"
+          ]
+          ++ (lib.optionals config.listenHTTPS_Socket.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS_Socket.default (listenDefaultFlags "unix"));
         }
       ])
       ++ (lib.optionals config.listenPlain.enable [
         {
           addr = "0.0.0.0";
           inherit (config.listenPlain) port;
-          extraParameters =
-            [ "plain" ]
-            ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenPlain.default (listenDefaultFlags "tcp"));
+          extraParameters = [
+            "plain"
+          ]
+          ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenPlain.default (listenDefaultFlags "tcp"));
         }
         {
           addr = "[::]";
           inherit (config.listenPlain) port;
-          extraParameters =
-            [ "plain" ]
-            ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenPlain.default (listenDefaultFlags "tcp"));
+          extraParameters = [
+            "plain"
+          ]
+          ++ (lib.optionals config.listenPlain.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenPlain.default (listenDefaultFlags "tcp"));
         }
       ])
       ++ (lib.optionals config.listenPlainSocket.enable [
         {
           addr = "unix:${config.listenPlainSocket.socket}";
-          extraParameters =
-            [ "plain" ]
-            ++ (lib.optionals config.listenPlainSocket.proxyProtocol [ "proxy_protocol" ])
-            ++ (lib.optionals config.listenPlainSocket.default (listenDefaultFlags "unix"));
+          extraParameters = [
+            "plain"
+          ]
+          ++ (lib.optionals config.listenPlainSocket.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenPlainSocket.default (listenDefaultFlags "unix"));
         }
       ])
     );
@@ -292,6 +300,9 @@ let
           real_ip_header proxy_protocol;
         ''
       )
+      + (lib.optionalString config.blockAIBots ''
+        include "${inputs.ai-robots-txt}/nginx-block-ai-bots.conf";
+      '')
       + (lib.optionalString config.noIndex.enable ''
         add_header X-Robots-Tag 'noindex, nofollow';
       '')
@@ -336,7 +347,8 @@ let
     quic = false;
     http3 = false;
     http3_hq = false;
-  } // lib.optionalAttrs (config.root != null) { root = lib.mkForce config.root; };
+  }
+  // lib.optionalAttrs (config.root != null) { root = lib.mkForce config.root; };
 in
 {
   options = {
@@ -407,6 +419,11 @@ in
     serverAliases = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
+    };
+
+    blockAIBots = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
     };
 
     extraConfig = lib.mkOption {

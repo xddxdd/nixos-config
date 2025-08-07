@@ -19,6 +19,10 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ai-robots-txt = {
+      url = "github:ai-robots-txt/ai.robots.txt";
+      flake = false;
+    };
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
