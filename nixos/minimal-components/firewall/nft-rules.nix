@@ -100,6 +100,9 @@ in
   chain FILTER_FORWARD {
     type filter hook forward priority 5; policy accept;
 
+    # Clamp TCP MSS
+    tcp flags syn tcp option maxseg size set rt mtu
+
     # DN42 firewall rules
     iifname @INTERFACE_DN42 jump DN42_FORWARD
 
