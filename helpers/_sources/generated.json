@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLocks": null,
-        "date": "2025-08-04",
+        "date": "2025-08-05",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "185d96e2b5ad000df7899abca0eb0b51bee9c9b4",
-            "sha256": "sha256-g222QGMKEbQLaLoLlVvcVKOwRvPds2MqewgqYeiH2QE=",
+            "rev": "f30fea717e3b99a2411a2edf13afc93806df90ba",
+            "sha256": "sha256-rP2yTbGdiZYUy70UuL1PuorjLsbDlPS5KHITW1h53fg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "185d96e2b5ad000df7899abca0eb0b51bee9c9b4"
+        "version": "f30fea717e3b99a2411a2edf13afc93806df90ba"
     },
     "flaresolverr": {
         "cargoLocks": null,
@@ -72,7 +72,7 @@
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-08-04",
+        "date": "2025-08-07",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,13 +82,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "699e868b996e7eec038bf446df3884d06c8410fd",
-            "sha256": "sha256-Ei/kVlYyhqqwirGOVqdlf+BQWqs5C05bIT+iRSdmZ98=",
+            "rev": "6dc3f57bb7e11d79a1b01de3adad721fc030aba4",
+            "sha256": "sha256-7uMKJrjCYsk3LEG4IZvpOkiLr79gZGeBIGrTa/nB1ek=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "699e868b996e7eec038bf446df3884d06c8410fd"
+        "version": "6dc3f57bb7e11d79a1b01de3adad721fc030aba4"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,

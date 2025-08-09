@@ -3,17 +3,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "185d96e2b5ad000df7899abca0eb0b51bee9c9b4";
+    version = "f30fea717e3b99a2411a2edf13afc93806df90ba";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "185d96e2b5ad000df7899abca0eb0b51bee9c9b4";
+      rev = "f30fea717e3b99a2411a2edf13afc93806df90ba";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-g222QGMKEbQLaLoLlVvcVKOwRvPds2MqewgqYeiH2QE=";
+      sha256 = "sha256-rP2yTbGdiZYUy70UuL1PuorjLsbDlPS5KHITW1h53fg=";
     };
-    date = "2025-08-04";
+    date = "2025-08-05";
   };
   flaresolverr = {
     pname = "flaresolverr";
@@ -44,17 +44,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "699e868b996e7eec038bf446df3884d06c8410fd";
+    version = "6dc3f57bb7e11d79a1b01de3adad721fc030aba4";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "699e868b996e7eec038bf446df3884d06c8410fd";
+      rev = "6dc3f57bb7e11d79a1b01de3adad721fc030aba4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Ei/kVlYyhqqwirGOVqdlf+BQWqs5C05bIT+iRSdmZ98=";
+      sha256 = "sha256-7uMKJrjCYsk3LEG4IZvpOkiLr79gZGeBIGrTa/nB1ek=";
     };
-    date = "2025-08-04";
+    date = "2025-08-07";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
