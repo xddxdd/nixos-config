@@ -3,8 +3,6 @@
   "claudyclaude": "claudyclaude",
   "deepseek-reasoning": "deepseek/deepseek-reasoning",
   "evil": "evil",
-  "gemini": "google/gemini",
-  "geminisearch": "google/geminisearch",
   "glm": "thudm/glm",
   "gpt-5-nano": "openai/gpt-5-nano",
   "gpt5": "openai/gpt-5",

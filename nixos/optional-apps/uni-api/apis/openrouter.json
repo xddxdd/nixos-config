@@ -1,6 +1,8 @@
 {
   "agentica-org/deepcoder-14b-preview": "agentica-org/deepcoder-14b-preview",
   "agentica-org/deepcoder-14b-preview:free": "agentica-org/deepcoder-14b-preview:free",
+  "ai21/jamba-large-1.7": "ai21/jamba-large-1.7",
+  "ai21/jamba-mini-1.7": "ai21/jamba-mini-1.7",
   "aion-labs/aion-1.0": "aion-labs/aion-1.0",
   "aion-labs/aion-1.0-mini": "aion-labs/aion-1.0-mini",
   "aion-labs/aion-rp-llama-3.1-8b": "aion-labs/aion-rp-llama-3.1-8b",
