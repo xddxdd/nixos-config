@@ -125,8 +125,7 @@ in
   options = {
     lantian.kernel = lib.mkOption {
       type = lib.types.attrs;
-      default =
-        if pkgs.stdenv.isx86_64 then pkgs.nur-xddxdd.lantianLinuxXanmod.lts-generic else pkgs.linux;
+      default = if pkgs.stdenv.isx86_64 then pkgs.nur-xddxdd.lantianLinuxCachyOS.lts else pkgs.linux;
     };
   };
   config = {
