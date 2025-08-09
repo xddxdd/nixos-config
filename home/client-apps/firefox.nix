@@ -22,7 +22,7 @@ let
           flagfox
           i-dont-care-about-cookies
           ipfs-companion
-          immersive-translate
+          kiss-translator
           lovely-forks
           multi-account-containers
           noscript
