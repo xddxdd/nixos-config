@@ -37,7 +37,6 @@
   "germany": [
     "tls://b.ygg.yt:443",
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
-    "tls://de-fsn-1.peer.v4.yggdrasil.chaz6.com:4444",
     "tls://g.ygg.yt:443",
     "tls://helium.avevad.com:1337",
     "tls://n.ygg.yt:443",
@@ -84,7 +83,6 @@
     "tls://box.paulll.cc:13338",
     "tls://ekb.itrus.su:7992",
     "tls://ip4.01.msk.ru.dioni.su:9003",
-    "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kzn1.neonxp.ru:7992",
     "tls://s-mow-0.sergeysedoy97.ru:65534",
@@ -99,9 +97,6 @@
   ],
   "singapore": [
     "tls://asia.deinfra.org:15015"
-  ],
-  "south-africa": [
-    "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
   "spain": [
     "tls://spain.magicum.net:36901"
