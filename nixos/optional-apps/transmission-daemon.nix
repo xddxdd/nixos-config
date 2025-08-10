@@ -36,6 +36,8 @@
   systemd.services.transmission.serviceConfig = {
     Restart = "always";
     RestartSec = 5;
+    IOSchedulingClass = "idle";
+    IOSchedulingPriority = "7";
   };
 
   lantian.nginxVhosts = {

@@ -24,6 +24,8 @@
     RestartSec = "5";
     UMask = "0002";
     LimitNOFILE = 1048576;
+    IOSchedulingClass = "idle";
+    IOSchedulingPriority = "7";
   };
 
   systemd.services.vuetorrent-backend = {
