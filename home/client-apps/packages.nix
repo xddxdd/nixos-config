@@ -181,10 +181,6 @@ in
       ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ nur-xddxdd.svp ]
     );
 
-  home.sessionVariables = {
-    WINEPREFIX = "${config.xdg.dataHome}/wine";
-  };
-
   programs.nix-index.enable = true;
   programs.nix-index.symlinkToCacheHome = true;
   programs.nix-index-database.comma.enable = true;
