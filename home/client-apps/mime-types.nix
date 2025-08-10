@@ -40,6 +40,10 @@ let
       name = "linphone.desktop";
       mimeTypes = "x-scheme-handler/sip-linphone;x-scheme-handler/sip;x-scheme-handler/sips-linphone;x-scheme-handler/sips;x-scheme-handler/tel;x-scheme-handler/callto;x-scheme-handler/linphone-config";
     }
+    {
+      name = "wine.desktop";
+      mimeTypes = "application/x-ms-dos-executable;application/x-msi;application/x-ms-shortcut;application/x-bat;application/x-mswinurl";
+    }
   ];
 in
 {
