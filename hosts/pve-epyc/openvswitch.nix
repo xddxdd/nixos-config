@@ -21,22 +21,25 @@ in
     after = [ "ovs-vswitchd.service" ];
     requires = [ "ovs-vswitchd.service" ];
 
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = "5";
+    };
 
     path = [
       config.virtualisation.vswitch.package
       pkgs.iproute2
     ];
 
-    script =
-      ''
-        ovs-vsctl add-br br0 || true
-        ovs-vsctl set Bridge br0 rstp_enable=true || true
-      ''
-      + (lib.concatMapStringsSep "\n" (n: ''
-        ip link set ${n} up
-        ovs-vsctl add-port br0 ${n} || true
-        ovs-vsctl set Interface ${n} mtu_request=9000 || true
-      '') interfaces);
+    script = ''
+      ovs-vsctl add-br br0 || true
+      ovs-vsctl set Bridge br0 rstp_enable=true || true
+    ''
+    + (lib.concatMapStringsSep "\n" (n: ''
+      ip link set ${n} up
+      ovs-vsctl add-port br0 ${n} || true
+      ovs-vsctl set Interface ${n} mtu_request=9000 || true
+    '') interfaces);
   };
 }
