@@ -64,14 +64,12 @@ let
     ''
   );
 
-  wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg.overrideAttrs (old: {
-    prePatch =
-      (old.prePatch or "")
-      + ''
-        substituteInPlace "loader/wine.inf.in" --replace-warn \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
-      '';
+  wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg-ntsync.overrideAttrs (old: {
+    prePatch = (old.prePatch or "") + ''
+      substituteInPlace "loader/wine.inf.in" --replace-warn \
+        'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
+        'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
+    '';
 
     postFixup = ''
       ln -sf $out/bin/wine $out/bin/wine64
