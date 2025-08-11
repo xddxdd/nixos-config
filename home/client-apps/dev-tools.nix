@@ -171,6 +171,7 @@ in
     linkzoneAdb
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
+    qwen-code
     scc
     tldr
   ];

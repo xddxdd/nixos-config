@@ -49,6 +49,7 @@
           ".openfaas"
           ".parsec"
           ".pcem"
+          ".qwen"
           ".runpod"
           ".rustup"
           ".stack"
