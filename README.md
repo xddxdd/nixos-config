@@ -5,15 +5,13 @@ This repository holds the configuration files for all my NixOS systems.
 ## Features
 
 - [Full system root-on-tmpfs](nixos/minimal-components/impermanence.nix), using [impermanence](https://github.com/nix-community/impermanence)
-- [Nftables instead of iptables](nixos/server-components/nftables.nix)
+- [Nftables instead of iptables](nixos/minimal-components/firewall/nft-rules.nix)
 - Secret management with [agenix](https://github.com/ryantm/agenix)
 - [QEMU user mode emulation for most architectures](https://github.com/xddxdd/nur-packages/blob/master/modules/qemu-user-static-binfmt.nix)
 - [Nix Flakes with Nixpkgs patching](flake.nix)
-- [Additional kernel modules](nixos/minimal-components/kernel/default.nix):
-  - [Nftables Fullcone NAT](nixos/minimal-components/kernel/nft-fullcone.nix) sourced from [here](https://github.com/fullcone-nat-nftables/nft-fullcone)
-  - [NVIDIA driver patching](nixos/minimal-components/kernel/nvlax/default.nix) based on [Nvlax](https://github.com/illnyang/nvlax)
-  - [OpenVPN DCO](nixos/minimal-components/kernel/ovpn-dco.nix) sourced from [here](https://github.com/OpenVPN/ovpn-dco)
-- [Post-Quantum Cryptography support for OpenSSL](nixos/minimal-components/environment.nix) based on [Open Quantum Safe](https://github.com/open-quantum-safe/oqs-provider)
+- Additional kernel modules from [my NUR repo](https://github.com/xddxdd/nur-packages)
+  - [NVIDIA driver patching](nixos/minimal-components/kernel.nix)
+- [Post-Quantum Cryptography](https://github.com/xddxdd/nur-packages/blob/master/modules/openssl-oqs-provider.nix) and [GOST](https://github.com/xddxdd/nur-packages/blob/master/modules/openssl-gost-engine.nix) support for OpenSSL
 
 ## Host Types
 
