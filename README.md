@@ -20,6 +20,7 @@ This repository holds the configuration files for all my NixOS systems.
 My hosts are categorized into three types:
 
 - `client`: A host running NixOS. Usually a desktop/laptop running a desktop environment.
+- `minimal`: A minimal NixOS host, used for special purposes.
 - `server`: A host running NixOS without GUI. Usually a VM running on a cloud provider.
 
 ## Folder Structure
@@ -27,46 +28,42 @@ My hosts are categorized into three types:
 - `dns`: My custom Nix-to-DNSControl code that generates a DNSControl `config.js` file, controlling DNS records for my domains.
 
   - Subdirectories
-
     - `common`: Common records shared across domains.
     - `core`: Core component that converts a Nix attribute set into DNSControl `config.js` format.
     - `domains`: Nix definitions controlling individual (groups of) zones.
-
-  - Files
-    - `toplevel.nix`: Entrypoint called in `flake.nix`.
 
 - `helpers`: Definitions for short cuts used by code in this repo.
 
 - `home`: My Home Manager configurations.
 
   - Subdirectories
-
     - `common-apps`: Apps used by all nodes.
     - `client-apps`: Apps used by `client` nodes.
-
-  - Files
-    - `client.nix`: Config applied on `client` nodes.
-    - `server.nix`: Config applied on `server` nodes.
 
 - `hosts`: Host-specific NixOS system definitions. Each subdirectory refers to a host. The list of hosts is automatically obtained in `flake.nix`. Configs here usually control networking parameters, and host-specific tunings.
 
 - `nixos`: Common NixOS system definitions.
 
-  - Used by all nodes (auto import in `client.nix`, `minimal.nix`, `server.nix`)
+  - Used by all nodes
 
     - `common-apps`: Apps used by all nodes.
+    - `minimal-apps`: Apps used by all nodes.
     - `minimal-components`: System options used by all nodes.
-      - Components differ from "Apps" that, a component is a fundamental part in the system (often by tuning kernel core parameters), while an app provides service on the userspace level.
+      - Components differ from "Apps" in that a component is a fundamental part in the system (often by tuning kernel core parameters), while an app provides service on the userspace level.
 
-  - Used by client nodes (auto import in `client.nix`)
+  - Used by client nodes
 
-    - `client-apps`
-    - `client-components`
+    - `client-apps`: Apps specific to client nodes.
+    - `client-components`: Components specific to client nodes.
 
-  - Used by server nodes (auto import in `server.nix`)
+  - Used by server nodes
 
-    - `server-apps`
-    - `server-components`
+    - `server-apps`: Apps used by server nodes.
+    - `server-components`: Components used by server nodes.
+
+  - Used by Proxmox VE nodes
+
+    - `pve-components`: Components specific to Proxmox VE nodes.
 
   - Supplemental files
     - `hardware`: Common hardware configuration snippets, including LVM and QEMU VMs.
