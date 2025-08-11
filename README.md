@@ -12,6 +12,8 @@ This repository holds the configuration files for all my NixOS systems.
 - Additional kernel modules from [my NUR repo](https://github.com/xddxdd/nur-packages)
   - [NVIDIA driver patching](nixos/minimal-components/kernel.nix)
 - [Post-Quantum Cryptography](https://github.com/xddxdd/nur-packages/blob/master/modules/openssl-oqs-provider.nix) and [GOST](https://github.com/xddxdd/nur-packages/blob/master/modules/openssl-gost-engine.nix) support for OpenSSL
+- [Custom Helper Library](helpers/default.nix) (`LT`) that provides a wide range of functions and constants for managing the configuration.
+- [DNS Management](dns/) using a custom Nix-to-DNSControl converter.
 
 ## Host Types
 
