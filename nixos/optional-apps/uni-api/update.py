@@ -28,7 +28,6 @@ APIS = {
     "modelscope": "https://api-inference.modelscope.cn/v1",
     "nvidia": "https://integrate.api.nvidia.com/v1",
     "openrouter": "https://openrouter.ai/api/v1",
-    "pollinations": "https://text.pollinations.ai/openai",
     "siliconflow": "https://api.siliconflow.cn/v1",
     "veloera": "https://zone.veloera.org/v1",
     "wbot": "https://api.223387.xyz/v1",

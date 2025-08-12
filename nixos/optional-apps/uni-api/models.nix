@@ -134,12 +134,6 @@ in
       providerTags = [ "free_third_party" ];
     }
     {
-      name = "pollinations";
-      baseURL = "https://text.pollinations.ai/openai/chat/completions";
-      apiKeyPath = null;
-      providerTags = [ "free_third_party" ];
-    }
-    {
       name = "akash-networks";
       baseURL = "https://chatapi.akash.network/api/v1/chat/completions";
       providerTags = [ "free_third_party" ];
