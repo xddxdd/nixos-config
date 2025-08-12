@@ -24,7 +24,6 @@
   "all-hands/openhands-lm-32b-v0.1-ep3": "all-hands/openhands-lm-32b-v0.1-ep3",
   "chutesai/Devstral-Small-2505": "chutesai/devstral-small-2505",
   "chutesai/Llama-4-Maverick-17B-128E-Instruct-FP8": "chutesai/llama-4-maverick-17b-128e-instruct-fp8",
-  "chutesai/Llama-4-Scout-17B-16E-Instruct": "chutesai/llama-4-scout-17b-16e-instruct",
   "chutesai/Mistral-Small-3.1-24B-Instruct-2503": "chutesai/mistral-small-3.1-24b-instruct-2503",
   "chutesai/Mistral-Small-3.2-24B-Instruct-2506": "chutesai/mistral-small-3.2-24b-instruct-2506",
   "cognitivecomputations/Dolphin3.0-Mistral-24B": "cognitivecomputations/dolphin-3.0-mistral-24b",
@@ -60,5 +59,6 @@
   "zai-org/GLM-4-32B-0414": "zai-org/glm-4-32b-0414",
   "zai-org/GLM-4.5-Air": "zai-org/glm-4.5-air",
   "zai-org/GLM-4.5-FP8": "zai-org/glm-4.5-fp8",
+  "zai-org/GLM-4.5V-FP8": "zai-org/glm-4.5v-fp8",
   "zai-org/GLM-Z1-32B-0414": "zai-org/glm-z1-32b-0414"
 }

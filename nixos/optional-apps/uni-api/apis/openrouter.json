@@ -14,16 +14,11 @@
   "anthracite-org/magnum-v2-72b": "anthracite-org/magnum-v2-72b",
   "anthracite-org/magnum-v4-72b": "anthracite-org/magnum-v4-72b",
   "anthropic/claude-3-haiku": "anthropic/claude-3-haiku",
-  "anthropic/claude-3-haiku:beta": "anthropic/claude-3-haiku:beta",
   "anthropic/claude-3-opus": "anthropic/claude-3-opus",
-  "anthropic/claude-3-opus:beta": "anthropic/claude-3-opus:beta",
   "anthropic/claude-3.5-haiku": "anthropic/claude-3.5-haiku",
   "anthropic/claude-3.5-haiku-20241022": "anthropic/claude-3.5-haiku-20241022",
-  "anthropic/claude-3.5-haiku:beta": "anthropic/claude-3.5-haiku:beta",
   "anthropic/claude-3.5-sonnet": "anthropic/claude-3.5-sonnet",
   "anthropic/claude-3.5-sonnet-20240620": "anthropic/claude-3.5-sonnet-20240620",
-  "anthropic/claude-3.5-sonnet-20240620:beta": "anthropic/claude-3.5-sonnet-20240620:beta",
-  "anthropic/claude-3.5-sonnet:beta": "anthropic/claude-3.5-sonnet:beta",
   "anthropic/claude-3.7-sonnet": "anthropic/claude-3.7-sonnet",
   "anthropic/claude-3.7-sonnet:beta": "anthropic/claude-3.7-sonnet:beta",
   "anthropic/claude-3.7-sonnet:thinking": "anthropic/claude-3.7-sonnet:thinking",
@@ -300,6 +295,7 @@
   "thedrummer/valkyrie-49b-v1": "thedrummer/valkyrie-49b-v1",
   "thudm/glm-4-32b": "thudm/glm-4-32b",
   "thudm/glm-4.1v-9b-thinking": "thudm/glm-4.1v-9b-thinking",
+  "thudm/glm-z1-32b": "thudm/glm-z1-32b",
   "thudm/glm-z1-32b:free": "thudm/glm-z1-32b:free",
   "tngtech/deepseek-r1t-chimera": "tngtech/deepseek-r1t-chimera",
   "tngtech/deepseek-r1t-chimera:free": "tngtech/deepseek-r1t-chimera:free",
@@ -316,5 +312,6 @@
   "z-ai/glm-4-32b": "z-ai/glm-4-32b",
   "z-ai/glm-4.5": "z-ai/glm-4.5",
   "z-ai/glm-4.5-air": "z-ai/glm-4.5-air",
-  "z-ai/glm-4.5-air:free": "z-ai/glm-4.5-air:free"
+  "z-ai/glm-4.5-air:free": "z-ai/glm-4.5-air:free",
+  "z-ai/glm-4.5v": "z-ai/glm-4.5v"
 }
