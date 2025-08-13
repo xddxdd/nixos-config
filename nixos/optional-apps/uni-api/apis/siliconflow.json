@@ -90,7 +90,6 @@
   "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "netease-youdao/bce-embedding-base_v1": "netease-youdao/bce-embedding-base_v1",
   "netease-youdao/bce-reranker-base_v1": "netease-youdao/bce-reranker-base_v1",
-  "siliconflow/kaiwei-flux-kontext-dev/d20v0cs50mis73faguu0": "kaiwei-flux-kontext-dev/d20v0cs50mis73faguu0:siliconflow",
   "stabilityai/stable-diffusion-3-5-large": "stabilityai/stable-diffusion-3-5-large",
   "stabilityai/stable-diffusion-xl-base-1.0": "stabilityai/stable-diffusion-xl-base-1.0",
   "stepfun-ai/step3": "stepfun-ai/step-3",
