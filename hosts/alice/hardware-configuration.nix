@@ -30,4 +30,11 @@ _: {
       "dmask=0077"
     ];
   };
+
+  swapDevices = [
+    {
+      device = "/dev/vda4";
+      randomEncryption.enable = true;
+    }
+  ];
 }
