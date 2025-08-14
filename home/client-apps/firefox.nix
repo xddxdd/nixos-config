@@ -17,7 +17,6 @@ let
           clearurls
           darkreader
           downthemall
-          enhancer-for-youtube
           fastforwardteam
           flagfox
           i-dont-care-about-cookies
@@ -37,6 +36,7 @@ let
           tab-reloader
           tampermonkey
           to-google-translate
+          tweaks-for-youtube
           ublacklist
           ublock-origin
           wappalyzer
