@@ -46,7 +46,7 @@ let
     var/log/
   '';
 
-  resticCommands = lib.mapAttrs (
+  resticCommands = lib.mapAttrsToList (
     k: v:
     pkgs.writeShellScriptBin "restic-${k}" ''
       export RESTIC_REPOSITORY=${v}
@@ -91,7 +91,7 @@ in
   age.secrets.restic-pw.file = inputs.secrets + "/restic/pw.age";
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
-  environment.systemPackages = builtins.attrValues resticCommands;
+  environment.systemPackages = resticCommands;
 
   systemd.services.backup = {
     enable = isBtrfsRoot;
@@ -103,12 +103,10 @@ in
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
-    path =
-      with pkgs;
-      [
-        openssh
-      ]
-      ++ builtins.attrValues resticCommands;
+    path = [
+      pkgs.openssh
+    ]
+    ++ resticCommands;
 
     environment = {
       SNAPSHOT_DIR = "/nix/.snapshot";
