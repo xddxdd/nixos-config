@@ -99,6 +99,7 @@ in
       Type = "oneshot";
       CPUQuota = "40%";
       OOMScoreAdjust = "1000";
+      TimeoutStartSec = "6h";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
@@ -153,6 +154,7 @@ in
     serviceConfig = {
       Type = "oneshot";
       CPUQuota = "40%";
+      TimeoutStartSec = "6h";
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
