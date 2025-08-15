@@ -6,7 +6,7 @@ on:
       - main
       - master
 jobs:
-  build-packages:
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -34,6 +34,7 @@ jobs:
         uses: easimon/maximize-build-space@master
         with:
           root-reserve-mb: 8192
+          temp-reserve-mb: 1024
           swap-size-mb: 4096
           build-mount-path: '/nix'
           remove-dotnet: 'true'
