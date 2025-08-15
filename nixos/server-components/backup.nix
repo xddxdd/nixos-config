@@ -9,10 +9,10 @@ let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
   isMaintenanceHost = config.networking.hostName == "terrahost";
 
-  resticRepos = [
-    "sftp://sftp.lt-home-vm.xuyh0120.win//backups/restic"
-    "sftp://sub2.u378583.your-storagebox.de//home"
-  ];
+  resticRepos = {
+    home = "sftp://sftp.lt-home-vm.xuyh0120.win//backups/restic";
+    storagebox = "sftp://sub2.u378583.your-storagebox.de//home";
+  };
 
   backupPaths = [ "/nix/.snapshot/persistent" ];
 
@@ -46,17 +46,25 @@ let
     var/log/
   '';
 
+  resticCommands = lib.mapAttrs (
+    k: v:
+    pkgs.writeShellScriptBin "restic-${k}" ''
+      export RESTIC_REPOSITORY=${v}
+      export RESTIC_PASSWORD_FILE=${config.age.secrets.restic-pw.path}
+      export RESTIC_CACHE_DIR=/var/cache/restic
+      export RESTIC_COMPRESSION=max
+
+      exec ${pkgs.restic}/bin/restic "$@"
+    ''
+  ) resticRepos;
+
   backupScript = path: repo: ''
     echo "Backing up ${path} to ${repo}"
     if [ ! -d "${path}" ]; then
       echo "${path} is not a directory, skipping"
     else
-      export RESTIC_REPOSITORY=${repo}
-      export RESTIC_PASSWORD_FILE=${config.age.secrets.restic-pw.path}
-      export RESTIC_CACHE_DIR=/var/cache/restic
-      export RESTIC_COMPRESSION=max
-
-      restic backup ${path} \
+      restic-${repo} backup \
+        ${path} \
         --iexclude-file ${resticIgnored} \
         --host ${config.networking.hostName} \
         --no-scan \
@@ -65,15 +73,10 @@ let
   '';
 
   pruneScript = repo: ''
-    export RESTIC_REPOSITORY=${repo}
-    export RESTIC_PASSWORD_FILE=${config.age.secrets.restic-pw.path}
-    export RESTIC_CACHE_DIR=/var/cache/restic
-    export RESTIC_COMPRESSION=max
-
     echo "Pruning ${repo}"
 
-    restic unlock
-    restic forget \
+    restic-${repo} unlock
+    restic-${repo} forget \
       --keep-last=1 \
       --keep-hourly=0 \
       --keep-daily=7 \
@@ -88,6 +91,8 @@ in
   age.secrets.restic-pw.file = inputs.secrets + "/restic/pw.age";
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
+  environment.systemPackages = builtins.attrValues resticCommands;
+
   systemd.services.backup = {
     enable = isBtrfsRoot;
     serviceConfig = {
@@ -97,10 +102,12 @@ in
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
-    path = with pkgs; [
-      openssh
-      restic
-    ];
+    path =
+      with pkgs;
+      [
+        openssh
+      ]
+      ++ builtins.attrValues resticCommands;
 
     environment = {
       SNAPSHOT_DIR = "/nix/.snapshot";
@@ -112,18 +119,17 @@ in
       ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
     '';
 
-    script =
-      ''
-        HAS_ERROR=0
-      ''
-      + (builtins.concatStringsSep "\n" (
-        lib.flatten (
-          builtins.map (path: (builtins.map (repo: (backupScript path) repo) resticRepos)) backupPaths
-        )
-      ))
-      + ''
-        exit $HAS_ERROR
-      '';
+    script = ''
+      HAS_ERROR=0
+    ''
+    + (builtins.concatStringsSep "\n" (
+      lib.flatten (
+        builtins.map (path: (lib.mapAttrsToList (repo: _: backupScript path repo) resticRepos)) backupPaths
+      )
+    ))
+    + ''
+      exit $HAS_ERROR
+    '';
 
     # Remove snapshot
     postStop = ''
@@ -155,14 +161,13 @@ in
       restic
     ];
 
-    script =
-      ''
-        HAS_ERROR=0
-      ''
-      + (builtins.concatStringsSep "\n" (builtins.map pruneScript resticRepos))
-      + ''
-        exit $HAS_ERROR
-      '';
+    script = ''
+      HAS_ERROR=0
+    ''
+    + (builtins.concatStringsSep "\n" (lib.mapAttrsToList (repo: _: pruneScript repo) resticRepos))
+    + ''
+      exit $HAS_ERROR
+    '';
   };
 
   systemd.timers.backup-prune = {
