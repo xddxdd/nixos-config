@@ -29,6 +29,7 @@ APIS = {
     "nvidia": "https://integrate.api.nvidia.com/v1",
     "openrouter": "https://openrouter.ai/api/v1",
     "siliconflow": "https://api.siliconflow.cn/v1",
+    "v0": "https://api.v0.dev/v1",
     "veloera": "https://zone.veloera.org/v1",
     "wbot": "https://api.223387.xyz/v1",
     "xai": "https://api.x.ai/v1",
@@ -80,6 +81,7 @@ GUESS_PROVIDER_PREFIX_MAP = {
     "moonshotai": ["moonshot"],
     "360ai": ["360gpt"],
     "vercel": ["v0"],
+    "ai21": ["jamba"],
 }
 
 NORMALIZE_PROVIDER_PREFIX_MAP = {

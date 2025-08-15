@@ -116,6 +116,11 @@ in
       providerTags = [ "free" ];
     }
     {
+      name = "v0";
+      baseURL = "https://api.v0.dev/v1/chat/completions";
+      providerTags = [ "free" ];
+    }
+    {
       # https://docs.api.ecylt.top/wbot/wbot-4-347b
       name = "wbot";
       baseURL = "https://api.223387.xyz/v1/chat/completions";
