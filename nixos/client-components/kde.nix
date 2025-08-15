@@ -35,7 +35,7 @@
     restart = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd startplasma-wayland";
+        command = "${pkgs.greetd}/bin/agreety --cmd startplasma-wayland";
         user = "greeter";
       };
       initial_session = {

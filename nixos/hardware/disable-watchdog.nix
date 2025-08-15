@@ -10,9 +10,9 @@
     "nmi_watchdog=0"
   ];
 
-  systemd.watchdog = {
-    kexecTime = lib.mkForce null;
-    rebootTime = lib.mkForce null;
-    runtimeTime = lib.mkForce null;
+  systemd.settings.Manager = {
+    RebootWatchdogSec = lib.mkForce null;
+    RuntimeWatchdogSec = lib.mkForce null;
+    KExecWatchdogSec = lib.mkForce null;
   };
 }
