@@ -27,11 +27,11 @@ let
     # Default routing to home router
     {
       target = "0.0.0.0/0";
-      via = "198.18.0.203";
+      via = "198.18.0.204";
     }
     {
       target = "::/0";
-      via = "fdbc:f9dc:67ad::203";
+      via = "fdbc:f9dc:67ad::204";
     }
     # SideStore
     {
