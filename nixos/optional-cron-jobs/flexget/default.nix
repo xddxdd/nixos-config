@@ -124,6 +124,7 @@ in
       mkdir -p plugins
       ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
+      ${pkgs.flexget}/bin/flexget -c flexget.yml backlog clear
       exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
     '';
   };
