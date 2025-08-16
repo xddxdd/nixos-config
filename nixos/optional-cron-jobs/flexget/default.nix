@@ -125,6 +125,7 @@ in
       ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
       ${pkgs.flexget}/bin/flexget -c flexget.yml backlog clear
+      ${pkgs.flexget}/bin/flexget -c flexget.yml failed clear
       exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
     '';
   };
