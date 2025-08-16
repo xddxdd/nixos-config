@@ -22,7 +22,6 @@ in
 
   security.acme = {
     acceptTerms = true;
-    preliminarySelfsigned = false;
     maxConcurrentRenewals = 0;
 
     defaults = {
