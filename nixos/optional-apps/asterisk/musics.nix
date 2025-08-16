@@ -29,7 +29,7 @@ rec {
       index: value:
       dialRule (builtins.toString index) [
         "Answer()"
-        "MP3Player(/var/lib/asterisk-music/${value})"
+        "MP3Player(/var/lib/asterisk-music/${lib.escape [ ";" ] value})"
       ]
     ) LT.constants.asteriskMusics
   );
