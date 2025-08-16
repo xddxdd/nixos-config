@@ -42,7 +42,6 @@
           ".fly"
           ".gemini"
           ".ghidra"
-          ".kiro"
           ".kube"
           ".librewolf"
           ".mozilla/firefox"
