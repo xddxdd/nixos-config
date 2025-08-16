@@ -99,7 +99,10 @@ let
         # };
 
         ourbits = {
-          rss = "$OURBITS_RSS_URL";
+          limit = {
+            amount = 1;
+            from.rss = "$OURBITS_RSS_URL";
+          };
           seen.fields = [ "url" ];
           accept_all = true;
           template = "downloads";
@@ -126,7 +129,10 @@ let
         # };
 
         hdhome-auto = {
-          rss = "$HDHOME_AUTO_RSS_URL";
+          limit = {
+            amount = 1;
+            from.rss = "$HDHOME_AUTO_RSS_URL";
+          };
           seen.fields = [ "url" ];
           accept_all = true;
           template = "downloads-auto";
