@@ -120,7 +120,6 @@ in
         kdePackages.kdenlive
         kdePackages.kpat
         kdePackages.neochat
-        kiro
         lbzip2
         libfaketime
         libreoffice-qt6-fresh
