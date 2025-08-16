@@ -1,5 +1,6 @@
 {
   callPackage,
+  pkgs,
   lib,
   rsync,
   ...
@@ -7,9 +8,7 @@
 let
   constants = callPackage ../../helpers/constants.nix { };
   inherit (constants) asteriskMusics;
-  files = lib.escapeShellArgs (
-    builtins.map (n: "/home/lantian/Music/CloudMusic/" + n) asteriskMusics
-  );
+  files = pkgs.writeText "files.txt" (builtins.concatStringsSep "\n" asteriskMusics);
 in
 ''
   TARGET_HOST=$1
@@ -20,6 +19,9 @@ in
 
   ${rsync}/bin/rsync -avzrP \
     --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r \
-    ${files} \
+    --include-from=${files} \
+    --exclude=* \
+    --delete-excluded \
+    /home/lantian/Music/CloudMusic/常听/ \
     ''${TARGET_HOST}.lantian.pub:/var/lib/asterisk-music/
 ''
