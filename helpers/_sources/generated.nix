@@ -3,17 +3,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "13825298c3b7d8bb1c08b39a1c6949efb099a623";
+    version = "e87af17c381b34f22ef0496925e1cda7d01a2175";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "13825298c3b7d8bb1c08b39a1c6949efb099a623";
+      rev = "e87af17c381b34f22ef0496925e1cda7d01a2175";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-qjJgIx8rDuAdN/BOgfyZ3vutNrLH7Kd/LNC3SRrmb/Y=";
+      sha256 = "sha256-Ji0Cb4x/g13r2TY9kPMw4AoWr1tKO0QB7mIBFEUvNiY=";
     };
-    date = "2025-08-13";
+    date = "2025-08-15";
   };
   flaresolverr = {
     pname = "flaresolverr";
@@ -44,29 +44,29 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "13d0571399aa23b8290d896b4ac8255d7c80fee3";
+    version = "b1725a169f699d86f803640c7b300cf81a4194d0";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "13d0571399aa23b8290d896b4ac8255d7c80fee3";
+      rev = "b1725a169f699d86f803640c7b300cf81a4194d0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-TD5aCV402WsJ4hOzmiGBrDQIsC1VpR1N1M56NHbUgo8=";
+      sha256 = "sha256-bhwIACqmhuNgDLfIJM5beVNoPFDgasGwXhrCvL0kFto=";
     };
-    date = "2025-08-14";
+    date = "2025-08-15";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "687258e19609b10e5188a76da17e4b1068cc5a83";
+    version = "89e7e8414b15e47150974d48e38bfd72ee85664e";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "687258e19609b10e5188a76da17e4b1068cc5a83";
+      rev = "89e7e8414b15e47150974d48e38bfd72ee85664e";
       fetchSubmodules = false;
-      sha256 = "sha256-P5E/nNoMQPq6D97LXbH7pe0t4v7AEGxATXYX/S3qrzk=";
+      sha256 = "sha256-j7stKku/Xq68kKw1FMHdm2mQpL6E8WCa1sXLssYnGiY=";
     };
-    date = "2025-08-02";
+    date = "2025-08-14";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
