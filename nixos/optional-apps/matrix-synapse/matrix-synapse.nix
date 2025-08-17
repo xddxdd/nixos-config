@@ -20,6 +20,7 @@ in
   services.matrix-synapse = {
     enable = true;
     enableRegistrationScript = false;
+    configureRedisLocally = true;
 
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-http-rendezvous-synapse
@@ -51,16 +52,26 @@ in
           ];
         }
         {
-          path = "/run/matrix-synapse/federation.sock";
+          path = "/run/matrix-synapse/replication.sock";
           type = "http";
           resources = [
             {
-              names = [ "federation" ];
+              names = [ "replication" ];
               compress = false;
             }
           ];
         }
       ];
+
+      # Workers config
+      instance_map = {
+        main.path = "/run/matrix-synapse/replication.sock";
+        events_persister.path = "/run/matrix-synapse/events_persister.sock";
+      };
+      federation_sender_instances = [ "federation_sender" ];
+      run_background_tasks_on = "background_worker";
+      update_user_directory_from_worker = "user_directory_updater";
+      stream_writers.events = [ "events_persister" ];
 
       ip_range_blacklist = LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6;
       ip_range_whitelist =
@@ -180,6 +191,40 @@ in
       turn_user_lifetime = 86400000;
       turn_allow_guests = true;
     };
+
+    workers = {
+      "federation_sender" = { };
+      "federation_receiver" = {
+        worker_listeners = [
+          {
+            path = "/run/matrix-synapse/federation.sock";
+            type = "http";
+            resources = [
+              {
+                names = [ "federation" ];
+                compress = false;
+              }
+            ];
+          }
+        ];
+      };
+      "events_persister" = {
+        worker_listeners = [
+          {
+            path = "/run/matrix-synapse/events_persister.sock";
+            type = "http";
+            resources = [
+              {
+                names = [ "replication" ];
+                compress = false;
+              }
+            ];
+          }
+        ];
+      };
+      "background_worker" = { };
+      "user_directory_updater" = { };
+    };
   };
 
   users.groups.matrix-synapse.members = [ "nginx" ];
@@ -195,6 +240,11 @@ in
       RuntimeDirectory = "matrix-synapse";
       RuntimeDirectoryPreserve = lib.mkForce false;
     };
+  };
+
+  systemd.services.redis-matrix-synapse.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
   };
 
   services.postgresql = {
