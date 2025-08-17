@@ -30,7 +30,6 @@ rec {
       dialRule (builtins.toString index) [
         "Answer()"
         "MP3Player(/var/lib/asterisk-music/${lib.escape [ ";" ] value})"
-        "Goto(dest-music,${builtins.toString index},1)"
       ]
     ) LT.constants.asteriskMusics
   );
