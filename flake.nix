@@ -31,10 +31,6 @@
       url = "github:catppuccin/userstyles";
       flake = false;
     };
-    cities-json = {
-      url = "github:lutangar/cities.json";
-      flake = false;
-    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.flake-compat.follows = "flake-compat";
