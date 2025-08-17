@@ -23,20 +23,16 @@ let
     EOF
   '';
 
-  # https://discourse.nixos.org/t/nix-flamegraph-or-profiling-tool/33333
-  nix-profiling =
-    let
-      stackCollapse = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/NixOS/nix/master/contrib/stack-collapse.py";
-        sha256 = "sha256:0mi9cf3nx7xjxcrvll1hlkhmxiikjn0w95akvwxs50q270pafbjw";
-      };
-    in
-    pkgs.writeShellScriptBin "nix-profiling" ''
-      nix eval -vvvvvvvvvvvvvvvvvvvv --raw --option trace-function-calls true $1 1>/dev/null 2> nix-function-calls.trace
-      python ${stackCollapse} nix-function-calls.trace > nix-function-calls.folded
-      ${pkgs.inferno}/bin/inferno-flamegraph nix-function-calls.folded > nix-function-calls.svg
-      echo "nix-function-calls.svg"
-    '';
+  nix-profiling = pkgs.writeShellScriptBin "nix-profiling" ''
+    EVAL_PROFILE_FILE=$(mktemp)
+    nix eval --no-eval-cache \
+      --option eval-profiler flamegraph \
+      --option eval-profile-file "$EVAL_PROFILE_FILE" \
+      "$@"
+    sed -i -E "s#/nix/store/([a-z0-9]{32})-##g" "$EVAL_PROFILE_FILE"
+    ${pkgs.flamegraph}/bin/flamegraph.pl "$EVAL_PROFILE_FILE" > flamegraph.svg
+    rm -f "$EVAL_PROFILE_FILE"
+  '';
 
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
     exec ${pkgs.sg3_utils}/bin/sg_raw "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
@@ -166,6 +162,7 @@ in
     cdrkit
     dhcpcd
     elfx86exts
+    flamegraph
     gemini-cli
     just
     linkzoneAdb
