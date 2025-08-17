@@ -30,7 +30,7 @@ let
     "https://lemmy.lantian.pub"
     "https://lg.lantian.pub"
     "https://login.lantian.pub"
-    "https://matrix.lantian.pub"
+    "https://matrix.lantian.pub/_matrix/client/versions"
     "https://sip.lantian.pub"
     "https://tools.lantian.pub"
     "https://whois.lantian.pub"
