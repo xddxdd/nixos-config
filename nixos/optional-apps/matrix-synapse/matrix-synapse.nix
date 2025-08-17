@@ -40,6 +40,17 @@ in
         name = "psycopg2";
       };
       listeners = [
+        # Client API must be on main process for admin API
+        {
+          path = "/run/matrix-synapse/client.sock";
+          type = "http";
+          resources = [
+            {
+              names = [ "client" ];
+              compress = false;
+            }
+          ];
+        }
         {
           path = "/run/matrix-synapse/replication.sock";
           type = "http";
@@ -182,20 +193,6 @@ in
     };
 
     workers = {
-      "client_handler" = {
-        worker_listeners = [
-          {
-            path = "/run/matrix-synapse/client.sock";
-            type = "http";
-            resources = [
-              {
-                names = [ "client" ];
-                compress = false;
-              }
-            ];
-          }
-        ];
-      };
       "federation_sender" = { };
       "federation_receiver" = {
         worker_listeners = [
