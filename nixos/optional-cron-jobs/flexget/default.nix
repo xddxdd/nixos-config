@@ -56,7 +56,9 @@ let
             { "'No space left on device' in transmission_errorString" = "accept"; }
             { "'torrent not registered with this tracker' in transmission_errorString" = "accept"; }
             { "transmission_date_added < now - timedelta(days=5)" = "accept"; }
-            { "transmission_progress < 100 and transmission_date_added < now - timedelta(days=1)" = "accept"; }
+            {
+              "transmission_progress < 100 and transmission_date_added < now - timedelta(hours=36)" = "accept";
+            }
           ];
           regexp = {
             reject_excluding = [ "/mnt/ssd-temp/.downloads-auto" ];
