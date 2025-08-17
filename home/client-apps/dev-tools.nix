@@ -24,14 +24,13 @@ let
   '';
 
   nix-profiling = pkgs.writeShellScriptBin "nix-profiling" ''
-    EVAL_PROFILE_FILE=$(mktemp)
+    rm -f nix.profile flamegraph.svg
     nix eval --no-eval-cache \
       --option eval-profiler flamegraph \
-      --option eval-profile-file "$EVAL_PROFILE_FILE" \
+      --option eval-profile-file nix.profile \
       "$@"
-    sed -i -E "s#/nix/store/([a-z0-9]{32})-##g" "$EVAL_PROFILE_FILE"
-    ${pkgs.flamegraph}/bin/flamegraph.pl "$EVAL_PROFILE_FILE" > flamegraph.svg
-    rm -f "$EVAL_PROFILE_FILE"
+    sed -i -E "s#/nix/store/([a-z0-9]{32})-##g" nix.profile
+    ${pkgs.flamegraph}/bin/flamegraph.pl nix.profile > flamegraph.svg
   '';
 
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
