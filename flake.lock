@@ -160,22 +160,6 @@
         "type": "github"
       }
     },
-    "cities-json": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746058434,
-        "narHash": "sha256-5ZGcRPcpZLhXzWBUhz74kfgkhvJlOWPIetGwD+aAu3A=",
-        "owner": "lutangar",
-        "repo": "cities.json",
-        "rev": "0025d6fc08a699555a27f9f614fd6c24f394242b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lutangar",
-        "repo": "cities.json",
-        "type": "github"
-      }
-    },
     "colmena": {
       "inputs": {
         "flake-compat": [
@@ -1223,7 +1207,6 @@
         "ai-robots-txt": "ai-robots-txt",
         "betterfox-nix": "betterfox-nix",
         "catppuccin-userstyles": "catppuccin-userstyles",
-        "cities-json": "cities-json",
         "colmena": "colmena",
         "composer2nix": "composer2nix",
         "dwarffs": "dwarffs",

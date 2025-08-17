@@ -1,0 +1,66 @@
+[
+  {
+    "admin1": "",
+    "admin2": "",
+    "country": "HK",
+    "lat": "22.27832",
+    "lng": "114.17469",
+    "name": "Hong Kong"
+  },
+  {
+    "admin1": "BE",
+    "admin2": "246",
+    "country": "CH",
+    "lat": "46.94809",
+    "lng": "7.44744",
+    "name": "Bern"
+  },
+  {
+    "admin1": "CA",
+    "admin2": "037",
+    "country": "US",
+    "lat": "34.05223",
+    "lng": "-118.24368",
+    "name": "Los Angeles"
+  },
+  {
+    "admin1": "02",
+    "admin2": "095",
+    "country": "DE",
+    "lat": "49.45421",
+    "lng": "11.07752",
+    "name": "Nürnberg"
+  },
+  {
+    "admin1": "WA",
+    "admin2": "033",
+    "country": "US",
+    "lat": "47.60621",
+    "lng": "-122.33207",
+    "name": "Seattle"
+  },
+  {
+    "admin1": "40",
+    "admin2": "",
+    "country": "JP",
+    "lat": "35.6895",
+    "lng": "139.69171",
+    "name": "Tokyo"
+  },
+  {
+    "admin1": "20",
+    "admin2": "3907",
+    "country": "NO",
+    "lat": "59.13118",
+    "lng": "10.21665",
+    "name": "Sandefjord"
+  },
+  {
+    "admin1": "NY",
+    "admin2": "",
+    "country": "US",
+    "lat": "40.71427",
+    "lng": "-74.00597",
+    "name": "New York City"
+  }
+]

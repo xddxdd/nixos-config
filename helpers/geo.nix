@@ -3,11 +3,11 @@
   math,
   sanitizeName,
   translit,
-  inputs,
   ...
 }:
 let
-  citiesJson = builtins.fromJSON (builtins.readFile (inputs.cities-json + "/cities.json"));
+  # Subset of https://raw.githubusercontent.com/lutangar/cities.json/refs/heads/master/cities.json
+  citiesJson = lib.importJSON ./cities.json;
 in
 rec {
   cities = builtins.listToAttrs (
