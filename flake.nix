@@ -13,7 +13,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
 
-    # keep-sorted start block=yes
     agenix = {
       url = "github:ryantm/agenix";
       inputs.home-manager.follows = "home-manager";
@@ -26,10 +25,6 @@
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    catppuccin-userstyles = {
-      url = "github:catppuccin/userstyles";
-      flake = false;
     };
     colmena = {
       url = "github:zhaofengli/colmena";
@@ -78,16 +73,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-userstyles = {
-      url = "github:knoopx/nix-userstyles";
-      inputs.catppuccin-userstyles.follows = "catppuccin-userstyles";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-xilinx = {
-      url = "gitlab:doronbehar/nix-xilinx";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.flake-compat.follows = "flake-compat";
@@ -112,6 +97,11 @@
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nvfetcher.follows = "nvfetcher";
+    };
+    nix-xilinx = {
+      url = "gitlab:doronbehar/nix-xilinx";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nvfetcher = {
       url = "github:berberman/nvfetcher";
@@ -146,7 +136,6 @@
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # keep-sorted end
   };
 
   outputs =
