@@ -31,6 +31,10 @@ rec {
     "陈姿彤 - 战争世界.flac"
     "黄霄雲 - 以我之躯.flac"
     "齐栾 - Seek The Peace feat. soratan小空（For the peace 翻自 Yisabel）（Cover 齐栾）.mp3"
+    "谭晶;HOYO-MiX - 何者.flac"
+    "尚雯婕 - 鹿 be free.flac"
+    "HOYO-MiX - 拂晓 Proi Proi.flac"
+    "Hans Zimmer - F1.flac"
   ];
 
   bindfsMountOptions = bindfsMountOptions' [
