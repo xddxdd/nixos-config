@@ -25,7 +25,7 @@
     fonts = {
       serif = {
         package = pkgs.nerd-fonts.noto;
-        name = "Noto Serif";
+        name = "Source Han Serif";
       };
 
       sansSerif = {
