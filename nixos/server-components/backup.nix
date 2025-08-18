@@ -156,10 +156,10 @@ in
     };
     unitConfig.OnFailure = "notify-email-fail@%n.service";
 
-    path = with pkgs; [
-      openssh
-      restic
-    ];
+    path = [
+      pkgs.openssh
+    ]
+    ++ resticCommands;
 
     script = ''
       HAS_ERROR=0
