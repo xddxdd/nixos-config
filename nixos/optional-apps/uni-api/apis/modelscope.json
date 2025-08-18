@@ -52,6 +52,7 @@
   "mistralai/Ministral-8B-Instruct-2410": "mistralai/ministral-8b-instruct-2410",
   "mistralai/Mistral-Large-Instruct-2407": "mistralai/mistral-large-instruct-2407",
   "mistralai/Mistral-Small-Instruct-2409": "mistralai/mistral-small-instruct-2409",
+  "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "opencompass/CompassJudger-1-32B-Instruct": "opencompass/compassjudger-1-32b-instruct",
   "stepfun-ai/step3": "stepfun-ai/step-3"
 }
