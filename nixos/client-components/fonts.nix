@@ -45,6 +45,9 @@
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
   fonts.fontconfig = {
+    cache32Bit = true;
+    subpixel.rgba = "rgb";
+
     defaultFonts = {
       sansSerif = builtins.map lib.mkAfter [
         # Fix font aliasing with fallback fonts

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   ...
 }:
 {
@@ -9,6 +8,6 @@
   xdg.dataFile."fonts".source =
     config.lib.file.mkOutOfStoreSymlink "/run/current-system/sw/share/X11/fonts";
 
-  # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
-  fonts.fontconfig.defaultFonts = lib.mkForce osConfig.fonts.fontconfig.defaultFonts;
+  fonts.fontconfig.enable = lib.mkForce false;
+  xdg.configFile."fontconfig".source = config.lib.file.mkOutOfStoreSymlink "/var/empty";
 }
