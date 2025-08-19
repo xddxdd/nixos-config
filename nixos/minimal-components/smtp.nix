@@ -16,6 +16,8 @@ let
 
     [ "$STATE" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
 
+    export SYSTEMD_PAGER=""
+
     cat <<EOF | cut -c 1-80 | sendmail -t
     To: $MAILTO
     Subject: $FLAG $UNIT on $HOSTNAME
@@ -24,7 +26,7 @@ let
 
     $(systemctl status --lines=0 "$UNIT")
 
-    $(journalctl -n 1000 --no-pager -o short-unix --no-hostname --all _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value "$UNIT"))
+    $(journalctl -n 1000 --no-pager -o short-unix --no-hostname --all _SYSTEMD_INVOCATION_ID=$INVOCATION_ID)
     EOF
   '';
 in
