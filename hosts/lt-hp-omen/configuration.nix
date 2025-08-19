@@ -36,11 +36,6 @@
 
   lantian.hidpi = 1.5;
 
-  services.scx = {
-    enable = true;
-    scheduler = "scx_lavd";
-  };
-
   environment.systemPackages = [
     pkgs.nur-xddxdd.unigine-heaven
     pkgs.nur-xddxdd.unigine-sanctuary
