@@ -69,7 +69,6 @@
       CacheDirectory = "nix";
       Nice = 19;
       OOMScoreAdjust = 250;
-      CPUAffinity = lib.optionalString (LT.this.hasTag LT.tags.client) "2-255";
     };
   };
 
