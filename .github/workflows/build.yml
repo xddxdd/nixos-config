@@ -90,5 +90,5 @@ jobs:
             nix build .#nixosConfigurations.${{ matrix.nixos-configuration }}.config.system.build.toplevel \
             2>&1 | sed -E 's/[0-9a-z]{32}/********************************/g'
 
-          attic push lantian results* \
+          attic push lantian result* \
             2>&1 | sed -E 's/[0-9a-z]{32}/********************************/g'
