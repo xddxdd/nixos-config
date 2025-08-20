@@ -45,20 +45,7 @@ in
   };
 
   systemd.services.zerotierone = {
-    serviceConfig = LT.serviceHarden // {
-      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
-      PrivateDevices = false;
-      ProtectClock = false;
-      ProtectControlGroups = false;
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-        "AF_NETLINK"
-      ];
-      SystemCallFilter = [ ];
-
+    serviceConfig = LT.networkToolHarden // {
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
     };

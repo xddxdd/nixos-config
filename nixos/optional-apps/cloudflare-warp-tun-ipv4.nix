@@ -1,5 +1,6 @@
 {
   pkgs,
+  LT,
   ...
 }:
 {
@@ -24,14 +25,23 @@
       ip route add default dev usque4
     '';
 
-    serviceConfig = {
+    serviceConfig = LT.networkToolHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur-xddxdd.usque}/bin/usque nativetun --interface-name usque4 --ipv6";
 
+      User = "usque";
+      Group = "usque";
+
       StateDirectory = "usque-tun-ipv4";
       WorkingDirectory = "/var/lib/usque-tun-ipv4";
     };
   };
+
+  users.users.usque = {
+    group = "usque";
+    isSystemUser = true;
+  };
+  users.groups.usque = { };
 }

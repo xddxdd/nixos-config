@@ -55,32 +55,13 @@ in
   };
 
   systemd.services.bird.serviceConfig = lib.mkForce (
-    LT.serviceHarden
+    LT.networkToolHarden
     // {
       ExecStart = "${pkgs.bird2}/bin/bird -f -c /etc/bird/bird.conf";
       ExecReload = "${pkgs.bird2}/bin/birdc configure";
 
       CPUQuota = "10%";
       Restart = lib.mkForce "always";
-
-      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
-      AmbientCapabilities = [
-        "CAP_NET_ADMIN"
-        "CAP_NET_BIND_SERVICE"
-        "CAP_NET_RAW"
-      ];
-      CapabilityBoundingSet = [
-        "CAP_NET_ADMIN"
-        "CAP_NET_BIND_SERVICE"
-        "CAP_NET_RAW"
-      ];
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-        "AF_NETLINK"
-      ];
-      SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
 
       User = "bird";
       Group = "bird";
