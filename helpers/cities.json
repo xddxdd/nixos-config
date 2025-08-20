@@ -62,5 +62,29 @@
     "lat": "40.71427",
     "lng": "-74.00597",
     "name": "New York City"
+  },
+  {
+    "admin1": "11",
+    "admin2": "75",
+    "country": "FR",
+    "lat": "48.85341",
+    "lng": "2.3488",
+    "name": "Paris"
+  },
+  {
+    "admin1": "07",
+    "admin2": "0363",
+    "country": "NL",
+    "lat": "52.37403",
+    "lng": "4.88969",
+    "name": "Amsterdam"
+  },
+  {
+    "admin1": "78",
+    "admin2": "1465",
+    "country": "PL",
+    "lat": "52.22977",
+    "lng": "21.01178",
+    "name": "Warsaw"
   }
 ]
