@@ -95,12 +95,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "pterodactyl";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "rss";
       target = "hetzner-de";
       ttl = "1h";
