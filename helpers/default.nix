@@ -40,7 +40,6 @@ let
     patchedNixpkgs = self.packages."${this.system}".pkgs-patched;
 
     cloudLanNetworking = call ./fn/cloud-lan-networking.nix;
-    container = call ./fn/container.nix;
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;

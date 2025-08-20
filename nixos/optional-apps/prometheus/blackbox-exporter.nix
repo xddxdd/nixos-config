@@ -48,7 +48,6 @@ let
     "https://lab.xuyh0120.win"
     "https://netbox.xuyh0120.win"
     "https://prometheus.xuyh0120.win"
-    # "https://pterodactyl.xuyh0120.win"
     "https://rss.xuyh0120.win"
     "https://rsshub.xuyh0120.win"
     "https://searx.xuyh0120.win"

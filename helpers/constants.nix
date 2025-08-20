@@ -165,8 +165,6 @@ rec {
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
-    Pterodactyl.Redis = 13679;
-    Pterodactyl.Wings = 13680;
     Vaultwarden = 13772;
     StableDiffusionWebUI = 13786;
     Tika = 13787;
