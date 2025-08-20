@@ -27,6 +27,8 @@
     matchConfig.Name = "eth0";
   };
 
+  lantian.ipv4TrafficRouteHost = LT.hosts.hetzner-de;
+
   services."route-chain" = {
     enable = true;
     routes = [
