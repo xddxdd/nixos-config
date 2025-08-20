@@ -182,48 +182,47 @@ in
                 pkgs.iproute2
                 pkgs.procps
               ];
-              script =
-                ''
-                  set -x
-                  # Setup namespace
-                  ip netns add ${name}
-                  ${ipns} link set lo up
-                  # Disable auto generated IPv6 link local address
-                  ${sysctl} -w net.ipv6.conf.default.autoconf=0
-                  ${sysctl} -w net.ipv6.conf.all.autoconf=0
-                  ${sysctl} -w net.ipv6.conf.default.accept_ra=0
-                  ${sysctl} -w net.ipv6.conf.all.accept_ra=0
-                  ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
-                  ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
-                  # Setup veth pair
-                  ip link add ns-${interface} type veth peer eth0 netns ${name}
-                  # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
-                  sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
-                  sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
-                  ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
-                  ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
-                  ${overrideRoutingTableCommands "add"}
-                  # Host side network config
-                  ip link set ns-${interface} up
-                  ip addr add ${ltnet.IPv4} peer ${value.ipv4} dev ns-${interface}
-                  ip -6 addr add ${ltnet.IPv6} dev ns-${interface}
-                  ip -6 addr add fe80::1/64 dev ns-${interface}
-                  ip -6 route add ${value.ipv6} via fe80::${value.ipSuffix} dev ns-${interface}
-                  # Namespace side network config
-                  ${ipns} link set eth0 up
-                  ${ipns} addr add ${value.ipv4} peer ${ltnet.IPv4} dev eth0
-                  ${ipns} -6 addr add ${value.ipv6} dev eth0
-                  ${ipns} -6 addr add fe80::${value.ipSuffix}/64 dev eth0
-                  ${ipns} route add default via ${ltnet.IPv4} dev eth0
-                  ${ipns} -6 route add default via fe80::1 dev eth0
-                ''
-                + (lib.optionalString value.enableBird ''
-                  # Announced addresses
-                  ${ipns} link add dummy0 type dummy
-                  ${ipns} link set dummy0 up
-                  ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv4}
-                  ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv6}
-                '');
+              script = ''
+                set -x
+                # Setup namespace
+                ip netns add ${name}
+                ${ipns} link set lo up
+                # Disable auto generated IPv6 link local address
+                ${sysctl} -w net.ipv6.conf.default.autoconf=0
+                ${sysctl} -w net.ipv6.conf.all.autoconf=0
+                ${sysctl} -w net.ipv6.conf.default.accept_ra=0
+                ${sysctl} -w net.ipv6.conf.all.accept_ra=0
+                ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
+                ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
+                # Setup veth pair
+                ip link add ns-${interface} type veth peer eth0 netns ${name}
+                # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
+                sysctl -w net.ipv4.conf.ns-${interface}.arp_ignore=0
+                sysctl -w net.ipv4.conf.ns-${interface}.arp_announce=0
+                ${sysctl} -w net.ipv4.conf.eth0.arp_ignore=0
+                ${sysctl} -w net.ipv4.conf.eth0.arp_announce=0
+                ${overrideRoutingTableCommands "add"}
+                # Host side network config
+                ip link set ns-${interface} up
+                ip addr add ${ltnet.IPv4} peer ${value.ipv4} dev ns-${interface}
+                ip -6 addr add ${ltnet.IPv6} dev ns-${interface}
+                ip -6 addr add fe80::1/64 dev ns-${interface}
+                ip -6 route add ${value.ipv6} via fe80::${value.ipSuffix} dev ns-${interface}
+                # Namespace side network config
+                ${ipns} link set eth0 up
+                ${ipns} addr add ${value.ipv4} peer ${ltnet.IPv4} dev eth0
+                ${ipns} -6 addr add ${value.ipv6} dev eth0
+                ${ipns} -6 addr add fe80::${value.ipSuffix}/64 dev eth0
+                ${ipns} route add default via ${ltnet.IPv4} dev eth0
+                ${ipns} -6 route add default via fe80::1 dev eth0
+              ''
+              + (lib.optionalString value.enableBird ''
+                # Announced addresses
+                ${ipns} link add dummy0 type dummy
+                ${ipns} link set dummy0 up
+                ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv4}
+                ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv6}
+              '');
 
               preStart = ''
                 # Ignore failures
@@ -257,29 +256,10 @@ in
                 description = "BIRD (in netns ${name})";
                 wantedBy = [ "multi-user.target" ];
                 bindsTo = value.birdBindTo;
-                serviceConfig = LT.serviceHarden // {
+                serviceConfig = LT.networkToolHarden // {
                   Restart = "on-failure";
                   ExecStart = "${pkgs.bird2}/bin/bird -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
                   CPUQuota = "10%";
-
-                  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/networking/bird.nix
-                  AmbientCapabilities = [
-                    "CAP_NET_ADMIN"
-                    "CAP_NET_BIND_SERVICE"
-                    "CAP_NET_RAW"
-                  ];
-                  CapabilityBoundingSet = [
-                    "CAP_NET_ADMIN"
-                    "CAP_NET_BIND_SERVICE"
-                    "CAP_NET_RAW"
-                  ];
-                  RestrictAddressFamilies = [
-                    "AF_INET"
-                    "AF_INET6"
-                    "AF_UNIX"
-                    "AF_NETLINK"
-                  ];
-                  SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
 
                   User = "bird";
                   Group = "bird";

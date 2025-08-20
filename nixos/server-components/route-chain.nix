@@ -27,26 +27,14 @@
     unitConfig = {
       After = "network.target";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = LT.networkToolHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
       ExecStart = "${pkgs.nur-xddxdd.route-chain}/bin/route-chain ${
         builtins.concatStringsSep " " config.services."route-chain".routes
       }";
-
-      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
       DynamicUser = true;
-
-      PrivateDevices = false;
-      ProtectClock = false;
-      ProtectControlGroups = false;
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_NETLINK"
-      ];
     };
   };
 }
