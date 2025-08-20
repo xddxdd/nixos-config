@@ -9,6 +9,8 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/cloudflare-warp-tun-ipv4.nix
   ];
 
   systemd.network.networks.eth0 = {
@@ -22,8 +24,6 @@
     ];
     matchConfig.Name = "eth0";
   };
-
-  lantian.ipv4TrafficRouteHost = LT.hosts.v-ps-hkg;
 
   # Cannot connect to log server since this server is IPv6 only
   services.filebeat.enable = lib.mkForce false;

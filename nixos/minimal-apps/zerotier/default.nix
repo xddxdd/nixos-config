@@ -19,8 +19,6 @@ let
   '';
 in
 {
-  imports = [ ./ipv4-route.nix ];
-
   environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
 
   services.zerotierone = {
