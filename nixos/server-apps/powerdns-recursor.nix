@@ -145,10 +145,18 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           ""
           "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
         ];
-        User = lib.mkForce "container";
+        User = lib.mkForce "pdns-recursor";
+        Group = lib.mkForce "pdns-recursor";
         Restart = "always";
         RestartSec = 5;
       };
     };
   };
+
+  users.users.pdns-recursor = {
+    group = "pdns-recursor";
+    isSystemUser = true;
+  };
+  users.groups.pdns-recursor = { };
+
 }
