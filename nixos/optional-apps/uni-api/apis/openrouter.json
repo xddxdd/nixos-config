@@ -68,6 +68,7 @@
   "deepseek/deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b",
   "deepseek/deepseek-r1:free": "deepseek/deepseek-r1:free",
   "deepseek/deepseek-v3-base": "deepseek/deepseek-v3-base",
+  "deepseek/deepseek-v3.1-base": "deepseek/deepseek-v3.1-base",
   "eleutherai/llemma_7b": "eleutherai/llemma_7b",
   "featherless/qwerky-72b:free": "featherless/qwerky-72b:free",
   "google/gemini-2.0-flash-001": "google/gemini-2.0-flash-001",
