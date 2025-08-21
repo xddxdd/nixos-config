@@ -56,11 +56,6 @@ let
             return 204;
           '';
 
-          "/autoindex.html".extraConfig = ''
-            internal;
-            root ${../files/autoindex};
-          '';
-
           "/status".extraConfig = ''
             access_log off;
             stub_status on;

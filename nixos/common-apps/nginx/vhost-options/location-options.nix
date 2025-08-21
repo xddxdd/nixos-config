@@ -154,7 +154,6 @@ let
       )
       + (lib.optionalString config.enableAutoIndex ''
         autoindex on;
-        add_after_body /autoindex.html;
       '')
       + (lib.optionalString (config.index != null) ''
         index ${config.index};
