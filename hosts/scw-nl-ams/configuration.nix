@@ -29,6 +29,15 @@
     matchConfig.Name = "eth0";
   };
 
+  services.ndppd = {
+    enable = true;
+    proxies.eth0.rules."2001:bc8:1640:4f1f::/64".method = "static";
+  };
+  systemd.services.ndppd.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
+
   services."route-chain" = {
     enable = true;
     routes = [
