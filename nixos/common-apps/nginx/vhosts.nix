@@ -11,7 +11,7 @@ let
       enableCompression = ''
         gzip on;
         brotli on;
-        zstd off;
+        zstd on;
       '';
     in
     lib.recursiveUpdate args {
