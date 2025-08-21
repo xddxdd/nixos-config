@@ -50,7 +50,8 @@ let
         };
         modelAsDefault = lib.mkOption {
           type = lib.types.bool;
-          default = config.providerTags == [ "free" ] || config.providerTags == [ "paid" ];
+          default = false;
+          # default = config.providerTags == [ "free" ] || config.providerTags == [ "paid" ];
         };
 
         _models = lib.mkOption {
@@ -90,11 +91,6 @@ in
   config.lantian.llm-providers = [
     # Free providers
     {
-      name = "groq";
-      baseURL = "https://api.groq.com/openai/v1/chat/completions";
-      providerTags = [ "free" ];
-    }
-    {
       name = "mistral";
       baseURL = "https://api.mistral.ai/v1/chat/completions";
       providerTags = [ "free" ];
@@ -103,11 +99,6 @@ in
       name = "google";
       baseURL = "https://generativelanguage.googleapis.com/v1beta";
       engine = "gemini";
-      providerTags = [ "free" ];
-    }
-    {
-      name = "github-models";
-      baseURL = "https://models.inference.ai.azure.com/chat/completions";
       providerTags = [ "free" ];
     }
     {
@@ -128,6 +119,16 @@ in
     }
 
     # Third party free providers
+    {
+      name = "groq";
+      baseURL = "https://api.groq.com/openai/v1/chat/completions";
+      providerTags = [ "free_third_party" ];
+    }
+    {
+      name = "github-models";
+      baseURL = "https://models.inference.ai.azure.com/chat/completions";
+      providerTags = [ "free_third_party" ];
+    }
     {
       name = "cerebras";
       baseURL = "https://api.cerebras.ai/v1/chat/completions";
