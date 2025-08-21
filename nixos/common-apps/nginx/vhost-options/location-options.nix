@@ -177,7 +177,7 @@ let
         brotli off;
         brotli_static on;
         zstd off;
-        zstd_static on;
+        zstd_static off;
       '')
       + (lib.optionalString (config.tryFiles != null) ''
         try_files ${config.tryFiles};
