@@ -336,7 +336,7 @@ let
         brotli off;
         brotli_static on;
         zstd off;
-        zstd_static on;
+        zstd_static off;
       '');
 
     # Passthrough upstream options
