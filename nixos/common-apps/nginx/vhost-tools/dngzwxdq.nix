@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   fetchurl,
-  nur-xddxdd,
+  chmlib,
   iconv,
   ...
 }:
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    nur-xddxdd.chmlib-utils
+    chmlib
     iconv
   ];
 
@@ -33,6 +33,7 @@ stdenvNoCC.mkDerivation rec {
       # Convert charset
       iconv -c -f gbk -t utf-8 "$FILE" > tmp
       mv tmp "$FILE"
+      sed -i "s#http://www.163164.com/js/pc3.js##g" "$FILE"
     done
 
     IFS="$OIFS"
