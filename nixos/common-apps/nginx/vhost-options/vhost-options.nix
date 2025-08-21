@@ -255,7 +255,7 @@ let
       + (lib.optionalString config.enableCommonVhostOptions ''
         add_header X-Content-Type-Options 'nosniff';
         add_header X-Frame-Options 'SAMEORIGIN';
-        add_header X-XSS-Protection '1; mode=block; report="https://lantian.report-uri.com/r/d/xss/enforce"';
+        add_header X-XSS-Protection '1; mode=block';
 
         add_header X-LT-Latency $request_time;
         add_header X-LT-SSL-ALPN $ssl_alpn_protocol;
@@ -263,8 +263,6 @@ let
         add_header X-LT-SSL-Curve $ssl_curve;
         add_header X-LT-SSL-Protocol $ssl_protocol;
 
-        add_header Expect-CT 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/ct/reportOnly"';
-        add_header Expect-Staple 'max-age=31536000; report-uri="https://lantian.report-uri.com/r/d/staple/reportOnly"';
         add_header Cache-Control 'private';
         add_header Referrer-Policy strict-origin-when-cross-origin;
         add_header Permissions-Policy 'interest-cohort=()';
