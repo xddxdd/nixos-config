@@ -65,12 +65,22 @@ let
                     lib.replaceStrings [ ":" ] [ ":${config.name}-" ] v
                   else
                     "${v}:${config.name}";
+                isGeminiConversationModel =
+                  config.engine == "gemini" && lib.hasPrefix "gemini" k && !lib.hasInfix "embed" k;
+                modelNameWithSearch = if lib.hasInfix ":" v then "${v}-search" else "${v}:search";
+                modelNameWithSearchSuffix = "${modelNameWithSuffix}-search";
               in
               [
                 (lib.nameValuePair k modelNameWithSuffix)
               ]
+              ++ lib.optionals isGeminiConversationModel [
+                (lib.nameValuePair k modelNameWithSearchSuffix)
+              ]
               ++ lib.optionals config.modelAsDefault [
                 (lib.nameValuePair k v)
+              ]
+              ++ lib.optionals (config.modelAsDefault && isGeminiConversationModel) [
+                (lib.nameValuePair k modelNameWithSearch)
               ]
             ) (lib.importJSON config.modelJsonFile)
           );
