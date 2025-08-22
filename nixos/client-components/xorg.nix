@@ -23,7 +23,6 @@
     clinfo
     libva-utils
     vdpauinfo
-    intel-gpu-tools
   ];
 
   # Hardware
@@ -52,6 +51,8 @@
       libvdpau-va-gl
     ];
   };
+
+  hardware.intel-gpu-tools.enable = true;
 
   services.displayManager.autoLogin = {
     enable = true;
