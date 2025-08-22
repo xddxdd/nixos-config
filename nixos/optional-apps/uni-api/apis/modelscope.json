@@ -54,5 +54,6 @@
   "mistralai/Mistral-Small-Instruct-2409": "mistralai/mistral-small-instruct-2409",
   "moonshotai/Kimi-K2-Instruct": "moonshotai/kimi-k2-instruct",
   "opencompass/CompassJudger-1-32B-Instruct": "opencompass/compassjudger-1-32b-instruct",
-  "stepfun-ai/step3": "stepfun-ai/step-3"
+  "stepfun-ai/step3": "stepfun-ai/step-3",
+  "wuhoutest5015/resume_ner": "wuhoutest5015/resume_ner"
 }
