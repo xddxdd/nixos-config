@@ -37,6 +37,7 @@
           # Other configs
           ".aMule"
           ".aws"
+          ".cherrystudio"
           ".conda"
           ".cursor"
           ".fly"

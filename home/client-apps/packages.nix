@@ -98,6 +98,7 @@ in
         bzip2
         calibre
         calibre-override-desktop
+        cherry-studio
         code-cursor
         colmena
         dbeaver-bin
