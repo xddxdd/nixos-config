@@ -1,7 +1,6 @@
 _: rec {
   args = {
     configureParent = true;
-    how = "symlink";
   };
 
   mkFolder = mkFolder' { };
