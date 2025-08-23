@@ -1,10 +1,24 @@
 { pkgs, LT, ... }:
 {
   systemd.services.rsgain-cloudmusic = {
+    path = [
+      pkgs.parallel
+      pkgs.rsgain
+    ];
+    script = ''
+      IFS=$'\n'
+
+      for FILE in $(find /mnt/storage/media/CloudMusic -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
+        echo "rsgain custom --skip-existing --tagmode=i \"$FILE\"" >> parallel.lst
+      done
+      parallel -j$(nproc) < parallel.lst
+    '';
+
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${pkgs.rsgain}/bin/rsgain easy -m MAX -S /mnt/storage/media/CloudMusic";
       ReadWritePaths = [ "/mnt/storage/media/CloudMusic" ];
+      RuntimeDirectory = "rsgain-cloudmusic";
+      WorkingDirectory = "/run/rsgain-cloudmusic";
     };
   };
 
