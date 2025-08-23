@@ -1,7 +1,9 @@
 {
   "ArliAI/QwQ-32B-ArliAI-RpR-v1": "arliai/qwq-32b-arliai-rpr-v1",
+  "Meridian": "meridian",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
   "NousResearch/DeepHermes-3-Mistral-24B-Preview": "nousresearch/deephermes-3-mistral-24b-preview",
+  "Proxima": "proxima",
   "Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct",
   "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen/qwen-2.5-coder-32b-instruct",
   "Qwen/Qwen2.5-VL-32B-Instruct": "qwen/qwen-2.5-vl-32b-instruct",
@@ -22,6 +24,7 @@
   "TheDrummer/Gemmasutra-Pro-27B-v1.1": "thedrummer/gemmasutra-pro-27b-v1.1",
   "TheDrummer/Skyfall-36B-v2": "thedrummer/skyfall-36b-v2",
   "TheDrummer/Tunguska-39B-v1": "thedrummer/tunguska-39b-v1",
+  "Zenith": "zenith",
   "agentica-org/DeepCoder-14B-Preview": "agentica-org/deepcoder-14b-preview",
   "all-hands/openhands-lm-32b-v0.1-ep3": "all-hands/openhands-lm-32b-v0.1-ep3",
   "chutesai/Devstral-Small-2505": "chutesai/devstral-small-2505",

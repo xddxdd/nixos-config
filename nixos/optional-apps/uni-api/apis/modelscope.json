@@ -49,6 +49,7 @@
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": "deepseek/deepseek-r1-distill-qwen-32b",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "deepseek/deepseek-r1-distill-qwen-7b",
   "deepseek-ai/DeepSeek-V3": "deepseek/deepseek-v3",
+  "deepseek-ai/DeepSeek-V3.1": "deepseek/deepseek-v3.1",
   "mistralai/Ministral-8B-Instruct-2410": "mistralai/ministral-8b-instruct-2410",
   "mistralai/Mistral-Large-Instruct-2407": "mistralai/mistral-large-instruct-2407",
   "mistralai/Mistral-Small-Instruct-2409": "mistralai/mistral-small-instruct-2409",
