@@ -4,6 +4,7 @@
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       ExecStart = "${pkgs.rsgain}/bin/rsgain easy -m MAX -S /mnt/storage/media/CloudMusic";
+      ReadWritePaths = [ "/mnt/storage/media/CloudMusic" ];
     };
   };
 
