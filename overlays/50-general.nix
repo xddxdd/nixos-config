@@ -18,9 +18,6 @@ rec {
     vendorHash = "sha256-PUeMs6VZSB5YMc0MRen7Jmdi2eFbEQsHix/VzeydYoc=";
     doCheck = false;
   });
-  flaresolverr = prev.flaresolverr.overrideAttrs (_old: {
-    inherit (sources.flaresolverr) version src;
-  });
   gcdemu = prev.gcdemu.overrideAttrs (old: {
     buildInputs = (old.buildInputs or [ ]) ++ [ final.libappindicator-gtk3 ];
   });

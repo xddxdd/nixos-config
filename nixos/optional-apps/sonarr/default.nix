@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../flaresolverr.nix
+    ../byparr.nix
     ./bazarr.nix
     ./decluttarr.nix
     ./jproxy.nix

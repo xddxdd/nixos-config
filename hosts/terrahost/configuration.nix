@@ -1,11 +1,16 @@
-{ lib, LT, ... }:
+{
+  lib,
+  LT,
+  config,
+  ...
+}:
 {
   imports = [
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/flaresolverr.nix
+    ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nginx-lab
@@ -27,7 +32,12 @@
     matchConfig.Name = "eth0";
   };
 
-  systemd.services.flaresolverr.environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
+  virtualisation.oci-containers.containers.byparr.ports = [
+    "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
+  ];
+  systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
+    environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
+  };
 
   services."route-chain" = {
     enable = true;
