@@ -45,6 +45,10 @@ in
   };
 
   systemd.services.zerotierone = {
+    preStart = ''
+      rm -rf /var/lib/zerotier-one/peers.d
+    '';
+
     serviceConfig = LT.networkToolHarden // {
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
