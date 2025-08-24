@@ -103,10 +103,14 @@ in
   environment.systemPackages = [ flexget-override ];
 
   systemd.services.flexget-runner = {
-    requires = [ "flaresolverr.service" ];
+    wants = [
+      "flaresolverr.service"
+      "podman-byparr.service"
+    ];
     after = [
       "network.target"
       "flaresolverr.service"
+      "podman-byparr.service"
     ];
 
     environment = {
