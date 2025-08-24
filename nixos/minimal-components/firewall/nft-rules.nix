@@ -108,6 +108,9 @@ in
 
     # Restrict Iodine to only allow WAN access
     iifname "dns*" oifname != @INTERFACE_WAN drop
+
+    # Restrict tnl-* interfaces to not use WAN
+    iifname "ns-tnl-*" oifname @INTERFACE_WAN drop
   }
 
   chain FILTER_OUTPUT {
