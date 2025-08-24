@@ -1,6 +1,6 @@
 { LT, config, ... }:
 {
-  imports = [ ./flaresolverr.nix ];
+  imports = [ ./byparr.nix ];
 
   virtualisation.oci-containers.containers.tachidesk = {
     extraOptions = [

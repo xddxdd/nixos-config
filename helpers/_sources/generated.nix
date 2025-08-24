@@ -15,17 +15,6 @@
     };
     date = "2025-08-15";
   };
-  flaresolverr = {
-    pname = "flaresolverr";
-    version = "v3.3.25";
-    src = fetchFromGitHub {
-      owner = "FlareSolverr";
-      repo = "FlareSolverr";
-      rev = "v3.3.25";
-      fetchSubmodules = false;
-      sha256 = "sha256-AGRqJOIIePaJH0j0eyMFJ6Kddul3yXF6uw6dPMnskmY=";
-    };
-  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.8.2";

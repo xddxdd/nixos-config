@@ -2,10 +2,6 @@
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 
-[flaresolverr]
-fetch.github = "FlareSolverr/FlareSolverr"
-src.github = "FlareSolverr/FlareSolverr"
-
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"
