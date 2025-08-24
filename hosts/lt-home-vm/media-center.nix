@@ -97,9 +97,6 @@ in
     };
   };
 
-  systemd.services.vuetorrent-backend.environment.QBIT_BASE =
-    lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-
   lantian.nginxVhosts = {
     "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/api".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";

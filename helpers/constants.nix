@@ -176,7 +176,6 @@ rec {
     Netbox = 13801;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
-    qBitTorrent.VueTorrent = 13809;
     SakuraLLM = 13810;
     HomepageDashboard = 13812;
     Syncthing = 13834;
