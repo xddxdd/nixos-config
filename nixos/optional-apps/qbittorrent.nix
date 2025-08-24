@@ -29,9 +29,8 @@
 
   lantian.nginxVhosts = {
     "qbittorrent.${config.networking.hostName}.xuyh0120.win" = {
-      root = "${pkgs.vuetorrent}/share/vuetorrent/public";
       locations = {
-        "/api" = {
+        "/" = {
           allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
         };
@@ -45,9 +44,8 @@
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
-      root = "${pkgs.vuetorrent}/share/vuetorrent/public";
       locations = {
-        "/api" = {
+        "/" = {
           allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
         };
