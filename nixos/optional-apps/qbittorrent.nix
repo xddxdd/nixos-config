@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   LT,
   config,
   ...
@@ -28,35 +27,6 @@
     IOSchedulingPriority = "7";
   };
 
-  systemd.services.vuetorrent-backend = {
-    description = "VueTorrent backend";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    environment = {
-      PORT = LT.portStr.qBitTorrent.VueTorrent;
-      QBIT_BASE = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-      CONFIG_PATH = "/var/lib/vuetorrent-backend";
-      VUETORRENT_PATH = "/var/cache/vuetorrent-backend";
-    };
-    serviceConfig = LT.serviceHarden // {
-      ExecStart = "${pkgs.nur-xddxdd.vuetorrent-backend}/bin/vuetorrent-backend";
-
-      User = "vuetorrent-backend";
-      Group = "vuetorrent-backend";
-      CacheDirectory = "vuetorrent-backend";
-      StateDirectory = "vuetorrent-backend";
-
-      Restart = "always";
-      MemoryDenyWriteExecute = lib.mkForce false;
-    };
-  };
-
-  users.users.vuetorrent-backend = {
-    group = "vuetorrent-backend";
-    isSystemUser = true;
-  };
-  users.groups.vuetorrent-backend = { };
-
   lantian.nginxVhosts = {
     "qbittorrent.${config.networking.hostName}.xuyh0120.win" = {
       root = "${pkgs.vuetorrent}/share/vuetorrent/public";
@@ -64,10 +34,6 @@
         "/api" = {
           allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-        };
-        "/backend" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.VueTorrent}";
         };
       };
 
@@ -84,10 +50,6 @@
         "/api" = {
           allowCORS = true;
           proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-        };
-        "/backend" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.VueTorrent}";
         };
       };
 
