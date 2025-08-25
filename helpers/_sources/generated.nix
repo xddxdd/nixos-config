@@ -3,17 +3,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "e87af17c381b34f22ef0496925e1cda7d01a2175";
+    version = "35302fc351db3d5a9055a62bcf95388103678194";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "e87af17c381b34f22ef0496925e1cda7d01a2175";
+      rev = "35302fc351db3d5a9055a62bcf95388103678194";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Ji0Cb4x/g13r2TY9kPMw4AoWr1tKO0QB7mIBFEUvNiY=";
+      sha256 = "sha256-jkS5gZgLe6Gir6InBdMNDkEt68p5SOp2SDDh3tPdu2g=";
     };
-    date = "2025-08-15";
+    date = "2025-08-21";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -33,17 +33,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "b1725a169f699d86f803640c7b300cf81a4194d0";
+    version = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "b1725a169f699d86f803640c7b300cf81a4194d0";
+      rev = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-bhwIACqmhuNgDLfIJM5beVNoPFDgasGwXhrCvL0kFto=";
+      sha256 = "sha256-yEFijQyOZRnPK7b8v5uv3B+BexeHcqGiTBw4K53/OU0=";
     };
-    date = "2025-08-15";
+    date = "2025-08-21";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
@@ -71,15 +71,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "286fda54f800d3de16d1890cb88957e86be63687";
+    version = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "286fda54f800d3de16d1890cb88957e86be63687";
+      rev = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
       fetchSubmodules = false;
-      sha256 = "sha256-3HVrkRiHRIMVA5JcdMjyCuTTMTCdExABUB4JPhW+/m0=";
+      sha256 = "sha256-GpxaJkbjiD0otqxj2ugAZd4DYfhKzwNoF7Xq02lZNLY=";
     };
-    date = "2025-08-14";
+    date = "2025-08-21";
   };
   open5gs = {
     pname = "open5gs";
