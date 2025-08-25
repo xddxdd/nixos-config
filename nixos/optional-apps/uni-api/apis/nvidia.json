@@ -17,6 +17,7 @@
   "deepseek-ai/deepseek-r1-distill-qwen-14b": "deepseek/deepseek-r1-distill-qwen-14b",
   "deepseek-ai/deepseek-r1-distill-qwen-32b": "deepseek/deepseek-r1-distill-qwen-32b",
   "deepseek-ai/deepseek-r1-distill-qwen-7b": "deepseek/deepseek-r1-distill-qwen-7b",
+  "deepseek-ai/deepseek-v3.1": "deepseek/deepseek-v3.1",
   "google/codegemma-1.1-7b": "google/codegemma-1.1-7b",
   "google/codegemma-7b": "google/codegemma-7b",
   "google/deplot": "google/deplot",
