@@ -18,7 +18,7 @@
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/btrbk-server.nix
     ../../nixos/optional-apps/calibre-cops.nix
-    ../../nixos/optional-apps/clamav.nix
+    # ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
