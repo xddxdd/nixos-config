@@ -6,13 +6,6 @@
     ./hardware-configuration.nix
   ];
 
-  # Limit CPU usage to avoid consuming burst credit
-  boot.kernelParams = [
-    "isolcpus=1"
-    "nohz_full=1"
-    "rcu_nocbs=1"
-  ];
-
   systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
 
   # services."route-chain" = {
