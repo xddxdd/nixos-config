@@ -9,7 +9,7 @@
   services.searx = {
     enable = true;
     redisCreateLocally = true;
-    runInUwsgi = true;
+    configureUwsgi = true;
     uwsgiConfig = {
       disable-logging = true;
       socket = "/run/searx/searx.sock";
