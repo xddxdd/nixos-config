@@ -8,7 +8,11 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16_jit;
-    extensions = ps: with ps; [ pgvector ];
+    extensions =
+      ps: with ps; [
+        pgvector
+        vectorchord
+      ];
     settings.listen_addresses = lib.mkForce (
       lib.concatStringsSep ", " [
         "127.0.0.1"
