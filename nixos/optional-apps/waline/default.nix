@@ -51,11 +51,13 @@ in
   virtualisation.oci-containers.containers = {
     waline = {
       extraOptions = [
-        "--pull=always"
         "--uidmap=0:65532:1"
         "--gidmap=0:65532:1"
       ];
-      image = "lizheming/waline";
+      image = "docker.io/lizheming/waline";
+      labels = {
+        "io.containers.autoupdate" = "registry";
+      };
       ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.Waline}:8360" ];
       environment = {
         PG_DB = "waline";

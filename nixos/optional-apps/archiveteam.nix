@@ -1,10 +1,12 @@
 { LT, config, ... }:
 {
   virtualisation.oci-containers.containers.archiveteam = {
-    extraOptions = [ "--pull=always" ];
     environment = {
       DOWNLOADER = "lantian";
       SELECTED_PROJECT = "auto";
+    };
+    labels = {
+      "io.containers.autoupdate" = "registry";
     };
     image = "atdr.meo.ws/archiveteam/warrior-dockerfile";
     ports = [ "127.0.0.1:${LT.portStr.ArchiveTeam}:8001" ];

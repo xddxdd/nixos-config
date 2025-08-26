@@ -1,12 +1,14 @@
 { LT, config, ... }:
 {
   virtualisation.oci-containers.containers.qinglong = {
-    extraOptions = [ "--pull=always" ];
     environment = {
       QlBaseUrl = "/";
       QlPort = LT.portStr.Qinglong;
     };
     image = "ghcr.io/whyour/qinglong:debian";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     ports = [ "127.0.0.1:${LT.portStr.Qinglong}:${LT.portStr.Qinglong}" ];
     volumes = [ "/var/lib/qinglong:/ql/data" ];
   };

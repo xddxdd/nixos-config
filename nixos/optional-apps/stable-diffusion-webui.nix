@@ -25,7 +25,6 @@ in
 {
   virtualisation.oci-containers.containers.stable-diffusion = {
     extraOptions = [
-      "--pull=always"
       "--net=host"
       "--gpus=all"
     ];
@@ -38,7 +37,10 @@ in
       "--update-check"
       "--xformers"
     ];
-    image = "universonic/stable-diffusion-webui";
+    image = "docker.io/universonic/stable-diffusion-webui";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     volumes = builtins.map (f: "/var/lib/stable-diffusion/${f}:/app/stable-diffusion-webui/${f}") (
       subfolders ++ files
     );

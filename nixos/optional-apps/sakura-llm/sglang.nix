@@ -10,14 +10,15 @@
 
   virtualisation.oci-containers.containers.sglang-sakura-llm = {
     extraOptions = [
-      # Pulling on startup causes network issues if freshly booted
-      # "--pull=always"
       "--net=host"
       "--ipc=host"
       "--gpus=all"
     ];
     # Later versions do not work with W8A8 models
-    image = "lmsysorg/sglang:v0.4.4.post1-cu125";
+    image = "docker.io/lmsysorg/sglang:v0.4.4.post1-cu125";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     environment = {
       TORCHINDUCTOR_CACHE_DIR = "/var/cache/torchinductor";
     };

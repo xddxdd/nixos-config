@@ -1,8 +1,10 @@
 { LT, ... }:
 {
   virtualisation.oci-containers.containers.asf = {
-    extraOptions = [ "--pull=always" ];
-    image = "justarchi/archisteamfarm:released";
+    image = "docker.io/justarchi/archisteamfarm:released";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242" ];
     volumes = [
       "/var/lib/asf/config:/app/config"
