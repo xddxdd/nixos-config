@@ -2,11 +2,13 @@
 {
   virtualisation.oci-containers.containers.fish-speech = {
     extraOptions = [
-      "--pull=always"
       "--gpus=all"
       "--net=host"
     ];
-    image = "fishaudio/fish-speech:latest";
+    image = "docker.io/fishaudio/fish-speech:latest";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     cmd = [
       "python"
       "tools/api_server.py"

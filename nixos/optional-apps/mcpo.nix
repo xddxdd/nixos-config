@@ -84,9 +84,6 @@ in
     inputs.secrets + "/mcp-national-park-service-api-key.age";
 
   virtualisation.oci-containers.containers.mcpo = {
-    extraOptions = [
-      "--pull=always"
-    ];
     ports = [
       "127.0.0.1:${LT.portStr.Mcpo}:${LT.portStr.Mcpo}"
     ];
@@ -95,6 +92,9 @@ in
       "--config=/config.json"
     ];
     image = "ghcr.io/open-webui/mcpo:latest";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     volumes = [ "/run/mcpo/config.json:/config.json" ];
   };
 

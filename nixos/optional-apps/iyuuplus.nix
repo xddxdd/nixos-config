@@ -1,7 +1,10 @@
 { LT, config, ... }:
 {
   virtualisation.oci-containers.containers.iyuuplus = {
-    image = "iyuucn/iyuuplus-dev:latest";
+    image = "docker.io/iyuucn/iyuuplus-dev:latest";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     ports = [ "127.0.0.1:${LT.portStr.IyuuPlus}:8780" ];
     volumes = [
       "/var/lib/iyuu/iyuu:/iyuu"

@@ -5,7 +5,6 @@ let
       --rm \
       -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
       -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
-      --pull always \
       --entrypoint "dotnet" \
       ghcr.io/raywangqvq/bilibili_tool_pro \
       /app/Ray.BiliBiliTool.Console.dll \

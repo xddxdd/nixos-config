@@ -5,8 +5,10 @@
 }:
 {
   virtualisation.oci-containers.containers.byparr = {
-    extraOptions = [ "--pull=always" ];
     image = "ghcr.io/thephaseless/byparr:camoufox";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     environment = {
       USE_HEADLESS = "false";
       USE_XVFB = "true";
