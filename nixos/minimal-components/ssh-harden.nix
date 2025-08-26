@@ -107,6 +107,8 @@ in
     ];
     settings = {
       PermitRootLogin = lib.mkForce "prohibit-password";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
       # https://www.sshaudit.com/
       Ciphers = [
         "aes256-gcm@openssh.com"

@@ -26,5 +26,7 @@
       enable = true;
       overalljails = true;
     };
+
+    jails.sshd.settings.enable = lib.mkForce false;
   };
 }
