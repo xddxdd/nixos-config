@@ -3,7 +3,6 @@
   index = 8;
   tags = with tags; [
     dn42
-    qemu
     server
   ];
   city = geo.cities."US New York City";

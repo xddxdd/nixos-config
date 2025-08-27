@@ -2,7 +2,6 @@
 {
   index = 9;
   tags = with tags; [
-    qemu
     server
   ];
   city = geo.cities."CN Hong Kong";

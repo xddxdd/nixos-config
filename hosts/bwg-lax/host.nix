@@ -4,7 +4,6 @@
   tags = with tags; [
     dn42
     public-facing
-    qemu
     server
   ];
   city = geo.cities."US Los Angeles";

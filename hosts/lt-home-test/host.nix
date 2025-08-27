@@ -3,7 +3,6 @@
   index = 102;
   tags = with tags; [
     exclude-bgp-mesh
-    qemu
   ];
   cpuThreads = 8;
   city = geo.cities."US Seattle";

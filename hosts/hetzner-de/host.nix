@@ -7,7 +7,6 @@
   index = 14;
   tags = with tags; [
     public-facing
-    qemu
     server
   ];
   system = "aarch64-linux";

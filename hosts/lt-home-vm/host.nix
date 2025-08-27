@@ -2,7 +2,6 @@
 {
   index = 101;
   tags = with tags; [
-    qemu
     server
   ];
   cpuThreads = 64;

@@ -3,7 +3,6 @@
   index = 11;
   tags = with tags; [
     public-facing
-    qemu
     server
   ];
   city = geo.cities."NO Sandefjord";

@@ -2,7 +2,6 @@
 {
   index = 4;
   tags = with tags; [
-    qemu
     server
   ];
   city = geo.cities."US New York City";

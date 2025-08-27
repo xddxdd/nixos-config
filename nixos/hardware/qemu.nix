@@ -1,10 +1,10 @@
 {
   lib,
-  LT,
   config,
+  pkgs,
   ...
 }:
-lib.mkIf (LT.this.hasTag LT.tags.qemu) {
+{
   boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
     # Set the system time from the hardware clock to work around a
     # bug in qemu-kvm > 1.5.2 (where the VM clock is initialised
@@ -24,4 +24,6 @@ lib.mkIf (LT.this.hasTag LT.tags.qemu) {
     "virtio_console"
     "virtio_rng"
   ];
+
+  programs.htop.package = pkgs.htop.override { sensorsSupport = false; };
 }

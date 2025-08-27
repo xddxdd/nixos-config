@@ -241,7 +241,6 @@ rec {
     "i915-sriov"
     "low-disk"
     "low-ram"
-    "qemu"
   ] (v: v);
 
   interfacePrefixes = {

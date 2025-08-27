@@ -3,6 +3,7 @@
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/hardware/nvidia/cuda-only.nix
+    ../../nixos/hardware/qemu.nix
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
