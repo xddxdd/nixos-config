@@ -3,7 +3,6 @@
   index = 110;
   tags = with tags; [
     exclude-bgp-mesh
-    qemu
   ];
   hostname = "192.168.0.9";
   cpuThreads = 4;

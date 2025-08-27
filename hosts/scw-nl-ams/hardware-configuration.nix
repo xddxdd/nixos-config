@@ -4,6 +4,10 @@
 _:
 
 {
+  imports = [
+    ../../nixos/hardware/qemu.nix
+  ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

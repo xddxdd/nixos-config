@@ -2,6 +2,10 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 _: {
+  imports = [
+    ../../nixos/hardware/qemu.nix
+  ];
+
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {

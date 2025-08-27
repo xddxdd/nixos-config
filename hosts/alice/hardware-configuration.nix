@@ -4,6 +4,7 @@
 _: {
   imports = [
     ../../nixos/hardware/disable-balloon.nix
+    ../../nixos/hardware/qemu.nix
   ];
 
   boot.loader.grub = {

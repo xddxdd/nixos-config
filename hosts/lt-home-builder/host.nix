@@ -4,7 +4,6 @@
   tags = with tags; [
     exclude-bgp-mesh
     nix-builder
-    qemu
   ];
   cpuThreads = 64;
   city = geo.cities."US Seattle";

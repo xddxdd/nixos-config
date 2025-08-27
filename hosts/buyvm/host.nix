@@ -5,7 +5,6 @@
     dn42
     low-disk
     low-ram
-    qemu
     server
   ];
   hostname = "107.189.12.254";

@@ -3,7 +3,6 @@
   index = 15;
   tags = with tags; [
     low-disk
-    qemu
     server
   ];
   city = geo.cities."NL Amsterdam";
