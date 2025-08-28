@@ -4,7 +4,6 @@
   "@cf/baai/bge-m3": "baai/bge-m3",
   "@cf/baai/bge-reranker-base": "baai/bge-reranker-base",
   "@cf/baai/bge-small-en-v1.5": "baai/bge-small-en-v1.5",
-  "@cf/baai/omni-bge-base-en-v1.5": "baai/omni-bge-base-en-v1.5",
   "@cf/black-forest-labs/flux-1-schnell": "black-forest-labs/flux-1-schnell",
   "@cf/bytedance/stable-diffusion-xl-lightning": "bytedance/stable-diffusion-xl-lightning",
   "@cf/deepgram/aura-1": "deepgram/aura-1",
