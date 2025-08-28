@@ -113,7 +113,10 @@ rec {
   });
   zerotierone = prev.zerotierone.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or [ ]) ++ [ ../patches/zerotier-auto-multithread.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../patches/zerotier-auto-multithread.patch
+      ../patches/zerotier-increase-max-routes.patch
+    ];
   });
   zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {
     installPhase = ''
