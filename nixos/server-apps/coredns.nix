@@ -204,7 +204,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
 
   lantian.netns.coredns-authoritative = {
     ipSuffix = "54";
-    inherit (config.services.coredns) enable;
     announcedIPv4 = [
       "172.22.76.109"
       "198.19.0.254"
