@@ -218,19 +218,6 @@ in
         tag = "issuewild";
         value = "letsencrypt.org";
       }
-      # BuyPass
-      {
-        recordType = "CAA";
-        name = "@";
-        tag = "issue";
-        value = "buypass.com";
-      }
-      {
-        recordType = "CAA";
-        name = "@";
-        tag = "issuewild";
-        value = "buypass.com";
-      }
       # Google
       {
         recordType = "CAA";

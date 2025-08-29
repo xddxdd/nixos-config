@@ -17,14 +17,6 @@ in
   lantian.nginxVhosts = builtins.listToAttrs (
     builtins.map mkTestSSL [
       [
-        "buypass-ssl"
-        "buypass"
-      ]
-      [
-        "buypass-test-ssl"
-        "buypass-test"
-      ]
-      [
         "google-ssl"
         "google"
       ]
