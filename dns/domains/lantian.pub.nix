@@ -193,18 +193,6 @@ let
     # SSL tests
     {
       recordType = "CNAME";
-      name = "buypass-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "buypass-test-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "google-ssl";
       target = config.common.records.GeoDNSTarget;
       ttl = "1h";

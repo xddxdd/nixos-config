@@ -6,8 +6,6 @@
 }:
 let
   inherit (pkgs.callPackage ./common.nix { inherit config; })
-    mkBuyPassCert
-    mkBuyPassTestCert
     mkGoogleCert
     mkGoogleTestCert
     mkLetsEncryptCert
@@ -17,8 +15,6 @@ let
 in
 {
   security.acme.certs = lib.mergeAttrsList [
-    (mkBuyPassCert "buypass-ssl.lantian.pub")
-    (mkBuyPassTestCert "buypass-test-ssl.lantian.pub")
     (mkGoogleCert "google-ssl.lantian.pub")
     (mkGoogleTestCert "google-test-ssl.lantian.pub")
     (mkLetsEncryptCert "letsencrypt-ssl.lantian.pub")

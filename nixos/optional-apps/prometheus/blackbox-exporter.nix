@@ -17,7 +17,6 @@ let
     "https://vercel.lantian.pub"
 
     # SSL tests
-    "https://buypass-ssl.lantian.pub"
     "https://letsencrypt-ssl.lantian.pub"
     "https://zerossl.lantian.pub"
 

@@ -78,40 +78,6 @@ in
     };
   };
 
-  mkBuyPassCert = domain: {
-    "buypass-${domain}-rsa" = {
-      inherit domain;
-      keyType = "rsa4096";
-      server = "https://api.buypass.com/acme/directory";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "buypass-${domain}-ecc" = {
-      inherit domain;
-      keyType = "ec256";
-      server = "https://api.buypass.com/acme/directory";
-      validMinDays = 30;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
-  mkBuyPassTestCert = domain: {
-    "buypass-test-${domain}-rsa" = {
-      inherit domain;
-      keyType = "rsa4096";
-      server = "https://api.test4.buypass.no/acme/directory";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "buypass-test-${domain}-ecc" = {
-      inherit domain;
-      keyType = "ec256";
-      server = "https://api.test4.buypass.no/acme/directory";
-      validMinDays = 30;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
   mkGoogleCert = domain: {
     "google-${domain}-rsa" = {
       inherit domain;
