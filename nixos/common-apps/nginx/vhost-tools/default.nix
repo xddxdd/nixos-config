@@ -28,6 +28,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
     };
     sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
+    blockAIBots = true;
     disableLiveCompression = true;
   };
 }
