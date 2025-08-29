@@ -1,0 +1,185 @@
+use lazy_static::lazy_static;
+use libc::{self, c_char};
+use std::ffi::CString;
+use std::str;
+// Import ffi_chars_to_rust_string from lib.rs
+use crate::ffi_chars_to_rust_string;
+use crate::whois::abbr::{WHOIS_FALLBACK, lookup_abbr};
+
+const TLD_SERVER_LIST_CONTENT: &str = include_str!("../../resources/tld_serv_list");
+const NEW_GTLD_LIST_CONTENT: &str = include_str!("../../resources/new_gtlds_list");
+
+lazy_static! {
+    static ref TLD_SERVER_MAPPING: Vec<(String, String)> = {
+        let mut mapping: Vec<(String, String)> = TLD_SERVER_LIST_CONTENT
+            .lines()
+            .filter(|line| !line.trim_start().starts_with('#') && !line.trim().is_empty())
+            .filter_map(|line| {
+                let line_without_comment = line.split('#').next().unwrap_or("").trim();
+                if line_without_comment.is_empty() {
+                    return None;
+                }
+                let parts: Vec<&str> = line_without_comment.split_whitespace().collect();
+                if parts.len() >= 2 {
+                    let suffix = parts[0].to_ascii_lowercase();
+                    let server_candidate = parts[1];
+                    if ["RECURSIVE", "VERISIGN"].contains(&parts[1]) {
+                        return Some((suffix, parts.last().unwrap().to_string()));
+                    }
+                    if !["NONE", "WEB", "ARPA", "IP6"].contains(&server_candidate) {
+                        return Some((suffix, server_candidate.to_string()));
+                    }
+                }
+                None
+            })
+            .collect();
+
+        let mut new_gtld_mapping: Vec<(String, String)> = NEW_GTLD_LIST_CONTENT
+            .lines()
+            .filter(|line| !line.trim_start().starts_with('#') && !line.trim().is_empty())
+            .map(|line| (line.to_string(), format!("whois.nic.{}", line)))
+            .collect();
+        mapping.append(&mut new_gtld_mapping);
+
+        // Sort by longest suffix first
+        mapping.sort_by(|a, b| b.0.len().cmp(&a.0.len()));
+        mapping
+    };
+}
+
+/// Looks up the WHOIS server for a given domain name.
+///
+/// The returned pointer must be freed by calling `whois_domain_lookup_free`.
+#[unsafe(no_mangle)]
+pub extern "C" fn whois_domain_lookup(name: *const c_char) -> *const c_char {
+    let domain_name = match ffi_chars_to_rust_string(name) {
+        Some(s) => s.to_ascii_lowercase(),
+        None => return std::ptr::null(), // Invalid input or null pointer
+    };
+
+    for (suffix, server) in TLD_SERVER_MAPPING.iter() {
+        if domain_name.ends_with(suffix) || format!(".{}", domain_name).eq(suffix) {
+            // Found a match, convert Rust string to C string and return
+            let mapped_server = lookup_abbr(server.as_str()).unwrap_or(server.as_str());
+            let c_server = CString::new(mapped_server).unwrap();
+            // Create a "leak" for the C string, caller must free it.
+            return c_server.into_raw();
+        }
+    }
+
+    // No WHOIS server found
+    CString::new(WHOIS_FALLBACK).unwrap().into_raw()
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::whois::abbr::WHOIS_FALLBACK;
+
+    use super::{TLD_SERVER_MAPPING, whois_domain_lookup};
+    use libc::c_char;
+    use std::ffi::{CStr, CString};
+
+    fn lookup_and_compare(domain: &str, expected_server: Option<&str>) {
+        let c_domain = CString::new(domain).unwrap();
+        let result_ptr = whois_domain_lookup(c_domain.as_ptr());
+
+        if let Some(expected) = expected_server {
+            assert!(
+                !result_ptr.is_null(),
+                "Expected a WHOIS server for {}, but got null.",
+                domain
+            );
+            let c_result = unsafe { CStr::from_ptr(result_ptr) };
+            assert_eq!(
+                c_result.to_str().unwrap(),
+                expected,
+                "Mismatch for domain {}",
+                domain
+            );
+        } else {
+            assert!(
+                result_ptr.is_null(),
+                "Expected no WHOIS server for {}, but got {:?}",
+                domain,
+                unsafe {
+                    CStr::from_ptr(result_ptr)
+                        .to_str()
+                        .unwrap_or("[invalid utf8]")
+                }
+            );
+        }
+
+        use crate::free_string; // Import the shared free_string function from lib.rs
+        if !result_ptr.is_null() {
+            unsafe {
+                free_string(result_ptr as *mut c_char);
+            }
+        }
+    }
+
+    #[test]
+    fn test_tld_server_mapping_sorting() {
+        // Check if the mapping is sorted by longest suffix first
+        let mut sorted = true;
+        for i in 0..TLD_SERVER_MAPPING.len() - 1 {
+            if TLD_SERVER_MAPPING[i].0.len() < TLD_SERVER_MAPPING[i + 1].0.len() {
+                sorted = false;
+                break;
+            }
+        }
+        assert!(
+            sorted,
+            "TLD_SERVER_MAPPING is not sorted by longest suffix first."
+        );
+    }
+
+    #[test]
+    fn test_whois_domain_lookup_basic() {
+        lookup_and_compare("example.com", Some("whois.verisign-grs.com"));
+        lookup_and_compare("example.net", Some("whois.verisign-grs.com"));
+        lookup_and_compare("example.org", Some("whois.pir.org"));
+        lookup_and_compare("example.jp", Some("whois.jprs.jp"));
+        lookup_and_compare("example.co.uk", Some("whois.nic.uk"));
+        lookup_and_compare("example.ru.com", Some("whois.centralnic.net")); // specific centralnic.net
+        lookup_and_compare("example.br.com", Some("whois.centralnic.net")); // specific centralnic.net
+        lookup_and_compare("example.pub", Some("whois.nic.pub"));
+    }
+
+    #[test]
+    fn test_whois_domain_lookup_longest_match() {
+        lookup_and_compare("example.edu.cn", Some("whois.edu.cn"));
+        // This should match .cn.com, not .com
+        lookup_and_compare("test.cn.com", Some("whois.centralnic.net"));
+        // This should match .com, not .cn.com
+        lookup_and_compare("test.example.com", Some("whois.verisign-grs.com"));
+        lookup_and_compare("test.uk.com", Some("whois.centralnic.net"));
+        lookup_and_compare("test.uk.net", Some("whois.centralnic.net"));
+    }
+
+    #[test]
+    fn test_whois_domain_lookup_no_match() {
+        lookup_and_compare("nonexistent.tld", Some(WHOIS_FALLBACK));
+        lookup_and_compare("example.invalid", Some(WHOIS_FALLBACK));
+        // Test with domains whose TLDs are explicitly marked as "NONE" in the list
+        lookup_and_compare("example.mil", Some(WHOIS_FALLBACK));
+        lookup_and_compare("example.jobs", Some(WHOIS_FALLBACK));
+        lookup_and_compare("example.al", Some(WHOIS_FALLBACK));
+        lookup_and_compare("example.cu", Some(WHOIS_FALLBACK));
+    }
+
+    #[test]
+    fn test_whois_domain_lookup_uppercase() {
+        lookup_and_compare("EXAMPLE.COM", Some("whois.verisign-grs.com"));
+        lookup_and_compare("DOMAIN.JP", Some("whois.jprs.jp"));
+    }
+
+    #[test]
+    fn test_whois_domain_lookup_edge_cases() {
+        // Empty string input
+        lookup_and_compare("", Some(WHOIS_FALLBACK));
+
+        // Domain name exactly matching a suffix
+        lookup_and_compare("com", Some("whois.verisign-grs.com"));
+        lookup_and_compare("jp", Some("whois.jprs.jp"));
+    }
+}

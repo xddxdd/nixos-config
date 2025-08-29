@@ -1,0 +1,434 @@
+# https://www.iana.org/domains/root/db/
+#
+# Domain names MUST be lowercase and MUST begin with "." or "-".
+# First match wins.
+# Elements in this list are matched against the end of the query.
+# "NIC?" means that I have not been able to find the registry.
+
+.br.com	whois.centralnic.net
+.cn.com	whois.centralnic.net
+.de.com	whois.centralnic.net
+.eu.com	whois.centralnic.net
+.gb.com	whois.centralnic.net
+.gb.net	whois.centralnic.net
+.gr.com	whois.centralnic.net
+.hu.com	whois.centralnic.net
+.in.net	whois.centralnic.net
+.no.com	whois.centralnic.net
+.qc.com	whois.centralnic.net
+.ru.com	whois.centralnic.net
+.sa.com	whois.centralnic.net
+.se.com	whois.centralnic.net
+.se.net	whois.centralnic.net
+.uk.com	whois.centralnic.net
+.uk.net	whois.centralnic.net
+.us.com	whois.centralnic.net
+.uy.com	whois.centralnic.net
+.za.com	whois.centralnic.net
+.jpn.com whois.centralnic.net
+.web.com whois.centralnic.net
+
+.com	VERISIGN whois.verisign-grs.com
+
+.za.net	whois.za.net
+.net	VERISIGN whois.verisign-grs.com
+
+.eu.org	whois.eu.org
+.za.org	whois.za.org
+.org	whois.pir.org
+
+# Technically these are SLDs of new gTLDs (hence listed in new_gtlds_list),
+# but the registrar (JISC) asked to add the servers for these
+# government-related domains.
+.llyw.cymru	whois.nic.llyw.cymru
+.gov.scot	whois.nic.gov.scot
+.gov.wales	whois.nic.gov.wales
+
+.edu	whois.educause.edu
+.gov	whois.nic.gov
+.int	whois.iana.org
+.mil	NONE
+
+.e164.arpa	whois.ripe.net
+.in-addr.arpa	ARPA
+.ip6.arpa	IP6
+.arpa	whois.iana.org
+
+.aero	whois.aero
+.asia	whois.nic.asia
+.biz	whois.nic.biz
+.cat	whois.nic.cat
+.coop	whois.nic.coop
+.info	RECURSIVE whois.nic.info	# whois.identitydigital.services
+.jobs	NONE
+.mobi	RECURSIVE whois.nic.mobi	# whois.identitydigital.services
+.museum	whois.nic.museum
+.name	whois.nic.name
+.post	whois.nic.post
+.pro	whois.nic.pro
+.tel	whois.nic.tel
+.travel	whois.nic.travel
+.xxx	whois.nic.xxx
+
+.ac	whois.nic.ac
+.ad	whois.nic.ad
+.ae	whois.aeda.net.ae
+.af	whois.nic.af
+.ag	whois.nic.ag
+.ai	whois.nic.ai
+.al	NONE		# www.akep.al
+.am	whois.amnic.net
+.ao	WEB https://www.dns.ao/ao/whois/	# www.dns.ao
+.aq	NONE		# 2day.com
+.ar	whois.nic.ar
+.as	whois.nic.as
+.priv.at whois.nic.priv.at	# "unofficial" SLD
+.at	whois.nic.at
+.au	whois.auda.org.au
+.aw	whois.nic.aw
+.ax	whois.ax	# www.ax
+.gov.az	WEB https://www.gov.az/
+.az	WEB https://whois.az/
+.ba	WEB https://nic.ba/
+.bb	WEB https://whois.telecoms.gov.bb/
+.bd	WEB https://bdia.btcl.com.bd/
+.be	whois.dns.be
+.bf	whois.registre.bf	# http://www.arcep.bf/noms-de-domaine/
+.bg	whois.register.bg
+.bh	whois.nic.bh
+.bi	whois1.nic.bi
+.bj	whois.nic.bj
+#.bl
+.bm	whois.nic.bm
+.bn	whois.bnnic.bn
+.bo	whois.nic.bo
+#.bq
+.br	whois.registro.br
+.bs	NONE		# http://www.register.bs/
+.bt	WEB http://www.nic.bt/
+.bv	NONE		# http://www.norid.no/domenenavnbaser/bv-sj.html
+.by	whois.cctld.by
+.bw	whois.nic.net.bw
+.bz	RECURSIVE whois.identitydigital.services
+.co.ca	whois.co.ca
+.ca	whois.cira.ca
+.cc	VERISIGN ccwhois.verisign-grs.com
+.cd	whois.nic.cd
+.cf	NONE
+.cg	NONE		# www.nic.cg
+.ch	whois.nic.ch
+.ci	whois.nic.ci
+.ck	NONE
+.cl	whois.nic.cl
+.cm	whois.nic.cm
+.edu.cn	whois.edu.cn
+.cn	whois.cnnic.cn
+.uk.co	whois.uk.co
+.co	whois.nic.co
+.cr	whois.nic.cr
+.cu	WEB https://www.nic.cu/
+.cv	whois.nic.cv
+.cw	NONE		# https://www.uoc.cw/cw-registry
+.cx	whois.nic.cx
+.cy	WEB https://www.nic.cy/cy-ui/home
+.cz	whois.nic.cz
+.de	whois.denic.de
+.dj	NONE		# http://www.dj/
+.dk	whois.punktum.dk
+.dm	whois.dmdomains.dm
+.do	whois.nic.do
+.dz	whois.nic.dz
+.ec	whois.nic.ec
+.ee	whois.tld.ee
+.eg	NONE		# https://domain.eg/
+#.eh
+.er	NONE		# http://www.afridns.org/er/tld_er.txt
+.es	WEB https://www.dominios.es/en
+.et	NONE	# http://www.ethionet.et/
+.eu	whois.eu
+.fi	whois.fi
+.fj	www.whois.fj
+.fk	NONE		# http://www.fidc.co.fk/
+.fm	whois.nic.fm
+.fo	whois.nic.fo
+.fr	whois.nic.fr
+.ga	whois.nic.ga
+.gb	NONE
+.gd	whois.nic.gd
+.ge	whois.nic.ge
+.gf	whois.mediaserv.net
+.gg	whois.gg
+.gh	whois.nic.gh
+.gi	whois.identitydigital.services
+.gl	whois.nic.gl
+.gm	WEB http://www.nic.gm/htmlpages/whois.htm
+.gn	whois.ande.gov.gn
+.gp	whois.nic.gp
+.gq	WEB http://www.dominio.gq/en/whois.html
+.gr	WEB https://grweb.ics.forth.gr/public/whois?lang=en
+.gs	whois.nic.gs
+.gt	WEB https://www.gt/sitio/?lang=en
+.gu	NONE
+.gw	WEB https://registar.nic.gw/en/whois/
+.gy	whois.registry.gy
+.hk	whois.hkirc.hk
+.hm	whois.registry.hm
+.hn	whois.nic.hn
+.hr	whois.dns.hr
+.ht	whois.nic.ht
+.hu	whois.nic.hu
+.id	whois.id
+.ie	whois.weare.ie
+.il	whois.isoc.org.il
+.im	whois.nic.im
+.in	whois.nixiregistry.in
+.io	whois.nic.io
+.iq	whois.cmc.iq		# http://www.cmc.iq/en/iq.html
+.ir	whois.nic.ir
+.is	whois.isnic.is
+.it	whois.nic.it
+.je	whois.je
+.jm	NONE		# http://myspot.mona.uwi.edu/mits/
+.jo	WEB https://www.domain.jo/FirstPageen.aspx
+.jp	whois.jprs.jp
+.ke	whois.kenic.or.ke
+.kg	whois.kg
+.kh	NONE		# https://www.trc.gov.kh/en/offline-services/dns-registration/
+.ki	whois.nic.ki
+.km	NONE		# www.domaine.km
+.kn	whois.nic.kn
+.kp	NONE		# NIC? http://www.star.co.kp/
+.kr	whois.kr
+.kw	whois.nic.kw
+.ky	whois.kyregistry.ky
+.kz	whois.nic.kz
+.la	whois.nic.la
+.lb	whois.lbdr.org.lb
+.lc	RECURSIVE whois.identitydigital.services
+.li	whois.nic.li
+.lk	whois.nic.lk
+.lr	NONE		# http://www.psg.com/dns/lr/
+.ls	whois.nic.ls
+.lt	whois.domreg.lt
+.lu	whois.dns.lu
+.lv	whois.nic.lv
+.ly	whois.nic.ly
+.ma	whois.registre.ma
+.mc	NONE	# www.nic.mc
+.md	whois.nic.md
+.me	RECURSIVE whois.nic.me	# whois.identitydigital.services
+#.mf
+.mg	whois.nic.mg
+.mh	NONE		# www.nic.net.mh
+.mk	whois.marnet.mk
+.ml	whois.nic.ml
+.mm	whois.registry.gov.mm
+.mn	whois.nic.mn
+.mo	WEB https://www.monic.mo/monic/faces/whois	# whois.monic.mo is restricted
+.mp	NONE		# get.mp
+.mq	whois.mediaserv.net
+.mr	whois.nic.mr
+.ms	whois.nic.ms
+.mt	whois.nic.org.mt
+.mu	whois.tld.mu
+.mv	NONE		# NIC? www.dhiraagu.com.mv
+.mw	whois.nic.mw
+.mx	whois.mx
+.my	whois.mynic.my
+.mz	whois.nic.mz
+.na	whois.na-nic.com.na
+.nc	whois.nc
+.ne	NONE		# NIC? http://www.intnet.ne
+.nf	whois.nic.nf
+.ng	whois.nic.net.ng
+.ni	WEB https://www.nic.ni/
+.nl	whois.domain-registry.nl
+.no	whois.norid.no
+.np	WEB https://register.com.np/whois-lookup
+.nr	WEB https://www.cenpac.net.nr/dns/whois.html
+.nu	whois.iis.nu
+.nz	whois.irs.net.nz
+.om	whois.registry.om
+.pa	WEB http://www.nic.pa/en
+.pe	kero.yachay.pe
+.pf	whois.registry.pf
+.pg	whois.nic.pg	# https://www.unitech.ac.pg/icts-dns/
+.edu.ph	WEB https://services.ph.net/dnshosting/dnshostingquery.pl
+.gov.ph	NONE	# http://dns.gov.ph/
+.ph	WEB https://whois.dot.ph/
+.pk	whois.pknic.net.pk
+.co.pl	whois.co.pl	# "unofficial" SLD
+.pl	whois.dns.pl
+.pm	whois.nic.pm
+.pn	WEB https://www.nic.pn/
+.pr	RECURSIVE whois.nic.pr		# whois.identitydigital.services
+.ps	whois.pnina.ps
+.pt	whois.dns.pt
+.pw	whois.nic.pw
+.py	WEB https://www.nic.py/consultdompy.php
+.qa	whois.registry.qa
+.re	whois.nic.re
+.ro	whois.rotld.ro
+.rs	whois.rnids.rs
+.ac.ru	whois.free.net
+.edu.ru	whois.informika.ru
+.com.ru	whois.flexireg.net
+.msk.ru	whois.flexireg.net
+.net.ru	whois.nic.net.ru
+.nov.ru	whois.flexireg.net
+.org.ru	whois.nic.net.ru
+.pp.ru	whois.nic.net.ru
+.spb.ru	whois.flexireg.net
+.ru	whois.tcinet.ru
+.rw	whois.ricta.org.rw	# http://www.ricta.org.rw/
+.sa	whois.nic.net.sa
+.sb	whois.nic.net.sb
+.sc	whois.nic.sc
+.sd	whois.nic.sd
+.se	whois.iis.se
+.sg	whois.sgnic.sg
+.sh	whois.nic.sh
+.si	whois.register.si
+.sj	NONE		# http://www.norid.no/domenenavnbaser/bv-sj.html
+.sk	whois.sk-nic.sk
+.sl	whois.nic.sl
+.sm	whois.nic.sm
+.sn	whois.nic.sn
+.so	whois.nic.so
+.sr	whois.sr	# https://isp.datasur.sr/
+.ss	whois.nic.ss
+.st	whois.nic.st
+.msk.su	whois.flexireg.net
+.nov.su	whois.flexireg.net
+.spb.su	whois.flexireg.net
+.su	whois.tcinet.ru
+.sv	WEB https://svnet.sv/
+.sx	whois.sx
+.sy	whois.tld.sy
+.sz	NONE		# http://www.sispa.org.sz/
+.tc	whois.nic.tc
+.td	whois.nic.td
+.tf	whois.nic.tf
+.tg	whois.nic.tg
+.th	whois.thnic.co.th
+.tj	WEB http://www.nic.tj/whois.html
+.tk	whois.dot.tk
+.tl	whois.nic.tl
+.tm	whois.nic.tm
+.tn	whois.ati.tn
+.to	whois.tonicregistry.to
+.tr	whois.trabis.gov.tr
+.tt	WEB https://www.nic.tt/cgi-bin/search.pl
+.tv	RECURSIVE whois.nic.tv
+.tw	whois.twnic.net.tw
+.tz	whois.tznic.or.tz
+.biz.ua	whois.biz.ua
+.co.ua	whois.co.ua
+.pp.ua	whois.pp.ua
+.ua	whois.ua
+.ug	whois.co.ug
+.ac.uk	whois.nic.ac.uk
+.bl.uk	NONE
+.british-library.uk NONE
+.gov.uk	whois.gov.uk
+.icnet.uk NONE
+.jet.uk	NONE
+.mod.uk	NONE
+.nhs.uk	NONE
+.nls.uk	NONE
+.parliament.uk NONE
+.police.uk NONE
+.uk	whois.nic.uk
+#.um
+.fed.us	whois.nic.gov
+.us	whois.nic.us
+.gub.uy	WEB https://www.dominios.gub.uy/
+.mil.uy	WEB https://www.dominios.gub.uy/
+.uy	WEB https://www.nic.uy/
+.uz	whois.cctld.uz
+.va	NONE
+.vc	RECURSIVE whois.identitydigital.services
+.ve	whois.nic.ve
+.vg	whois.nic.vg
+.vi	whois.nic.vi
+.vn	WEB http://www.vnnic.vn/en
+.vu	whois.dnrs.vu
+.wf	whois.nic.wf
+.ws	whois.website.ws
+.ye	whois.y.net.ye
+.yt	whois.nic.yt
+.ac.za	whois.ac.za
+.alt.za	WEB https://whois.alt.za/
+.co.za	whois.registry.net.za
+.edu.za	WEB https://whois.edu.za/
+.gov.za	whois.gov.za
+.net.za	net-whois.registry.net.za
+.org.za	org-whois.registry.net.za
+.web.za	web-whois.registry.net.za
+.za	whois.nic.za
+.zm	whois.zicta.zm
+.zw	NONE		# http://www.zispa.co.zw/
+
+# AW means that I had to guess the whois server name, but I was not able
+# to find any registered subdomains to verify it.
+.xn--2scrj9c		whois.nixiregistry.in	# India
+.xn--3e0b707e		whois.kr		# Korea, Republic of
+.xn--3hcrj9c		whois.nixiregistry.in	# India
+.xn--45br5cyl		whois.nixiregistry.in	# India
+.xn--45brj9c		whois.nixiregistry.in	# India, Bengali
+.xn--4dbrk0ce		whois.isoc.org.il	# Israel
+.xn--54b7fta0cc		WEB https://bdia.btcl.com.bd/ # Bangladesh
+.xn--80ao21a		whois.nic.kz		# Kazakhstan
+.xn--90a3ac		whois.rnids.rs		# Serbia
+.xn--90ae		whois.imena.bg		# Bulgaria
+.xn--90ais		whois.cctld.by		# Belarus
+.xn--clchc0ea0b2g2a9gcd	whois.ta.sgnic.sg	# Singapore, Tamil
+.xn--d1alf		whois.marnet.mk		# Macedonia
+.xn--e1a4c		whois.eu		# European Union, Cyrillic
+.xn--fiqs8s		whois.cnnic.cn		# China, Simplified Chinese
+.xn--fiqz9s		whois.cnnic.cn		# China, Traditional Chinese
+.xn--fpcrj9c3d		whois.nixiregistry.in	# India, Telugu
+.xn--fzc2c9e2c		whois.nic.lk		# Sri Lanka, Sinhala
+.xn--gecrj9c		whois.nixiregistry.in	# India, Gujarati
+.xn--h2breg3eve		whois.nixiregistry.in	# India
+.xn--h2brj9c8c		whois.nixiregistry.in	# India
+.xn--h2brj9c		whois.nixiregistry.in	# India, Hindi
+.xn--j1amh		whois.dotukr.com	# Ukraine
+.xn--j6w193g		whois.hkirc.hk		# Hong Kong
+.xn--kprw13d		whois.twnic.net.tw	# Taiwan, Simplified Chinese
+.xn--kpry57d		whois.twnic.net.tw	# Taiwan, Traditional Chinese
+.xn--l1acc		whois.mn		# Mongolia
+.xn--lgbbat1ad8j	whois.nic.dz		# Algeria
+.xn--mgb9awbf		whois.registry.om	# Oman
+.xn--mgba3a4f16a	whois.nic.ir		# Iran
+.xn--mgbaam7a8h		whois.aeda.net.ae	# United Arab Emirates
+.xn--mgbah1a3hjkrd	whois.nic.mr		# Mauritania
+.xn--mgbai9azgqp6j	NONE			# Pakistan
+.xn--mgbayh7gpa		WEB https://www.domain.jo/FirstPageen.aspx # Jordan
+.xn--mgbbh1a71e		whois.nixiregistry.in	# India, Urdu
+.xn--mgbbh1a		whois.nixiregistry.in	# India
+.xn--mgbc0a9azcg	NONE			# Morocco
+.xn--mgbcpq6gpa1a	NONE			# Bahrain
+.xn--mgberp4a5d4ar	whois.nic.net.sa	# Saudi Arabia
+.xn--mgbgu82a		whois.nixiregistry.in	# India
+.xn--mgbpl2fh		NONE			# Sudan
+.xn--mgbtx2b		whois.cmc.iq		# Iraq
+.xn--mgbx4cd0ab		whois.mynic.my		# Malaysia AW
+.xn--mix891f		WEB https://www.monic.mo/monic/faces/whois # Macao
+.xn--node		WEB http://რეგისტრაცია.გე/	# Georgia
+.xn--o3cw4h		whois.thnic.co.th	# Thailand
+.xn--ogbpf8fl		whois.tld.sy		# Syria
+.xn--p1ai		whois.tcinet.ru		# Russian Federation
+.xn--pgbs0dh		whois.ati.tn		# Tunisia
+.xn--q7ce6a		whois.nic.la		# Lao
+.xn--qxa6a		whois.eu		# European Union, Greek
+.xn--qxam		WEB https://grweb.ics.forth.gr/public/whois?lang=en # Greece
+.xn--rvc1e0am3e		whois.nixiregistry.in	# India
+.xn--s9brj9c		whois.nixiregistry.in	# India, Punjabi
+.xn--wgbh1c		whois.dotmasr.eg	# Egypt
+.xn--wgbl6a		whois.registry.qa	# Qatar
+.xn--xkc2al3hye2a	whois.nic.lk		# Sri Lanka, Tamil
+.xn--xkc2dl3a5ee0h	whois.nixiregistry.in	# India, Tamil
+.xn--y9a3aq		whois.amnic.net		# Armenia
+.xn--yfro4i67o		whois.zh.sgnic.sg	# Singapore, Chinese
+.xn--ygbi2ammx		whois.pnina.ps		# Palestinian Territory
