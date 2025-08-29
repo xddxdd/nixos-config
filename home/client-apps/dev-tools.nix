@@ -136,7 +136,7 @@ in
     protobuf
 
     # Python
-    (lib.lowPrio python3Full)
+    (lib.lowPrio python3)
     black
     conda
     micromamba
