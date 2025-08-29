@@ -294,7 +294,7 @@ in
 
     blockAIBots = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
     };
 
     extraConfig = lib.mkOption {
