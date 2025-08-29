@@ -238,6 +238,10 @@
               }
             ];
           };
+
+          pre-commit.settings.excludes = [
+            "pkgs/libltnginx/resources"
+          ];
         };
     };
 }

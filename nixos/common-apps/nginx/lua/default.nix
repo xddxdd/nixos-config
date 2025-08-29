@@ -1,16 +1,18 @@
 {
   linkFarm,
-  nur-xddxdd,
   writeText,
+  callPackage,
   ...
 }:
 let
+  libltnginx = callPackage ../../../../pkgs/libltnginx { };
+
   lantian_nginx = writeText "lantian_nginx.lua" ''
     local ffi       = require "ffi"
-    local ltnginx   = ffi.load("${nur-xddxdd.lantianPersonal.libltnginx}/lib/libltnginx.so")
+    local ltnginx   = ffi.load("${libltnginx}/lib/libltnginx.so")
 
     ffi.cdef[[
-      char* whois_ip_lookup(char* cidr);
+      const char* whois_ip_lookup(char* cidr);
       const char* whois_nic_handle_lookup(char* name);
       const char* whois_domain_lookup(char* name);
       const char* whois_asn_lookup(uint32_t asn);
@@ -46,15 +48,12 @@ let
   lantian_whois = writeText "lantian_whois.lua" ''
     local bit       = require("bit")
     local ffi       = require "ffi"
-    local ffi_cdef  = ffi.cdef
-    local ffi_copy  = ffi.copy
-    local ffi_new   = ffi.new
     local C         = ffi.C
 
     local AF_INET   = 2
     local AF_INET6  = 10
 
-    ffi_cdef[[
+    ffi.cdef[[
       int inet_pton(int af, const char * restrict src, void * restrict dst);
       const char *inet_ntop(int af, const void *restrict src, char *restrict dst, uint32_t size);
       uint32_t ntohl(uint32_t netlong);
@@ -86,7 +85,7 @@ let
     end
 
     function lantian_whois.ipv4_parse(ip)
-      local ip_bin = ffi_new("unsigned int [1]")
+      local ip_bin = ffi.new("unsigned int [1]")
       if C.inet_pton(AF_INET, ip, ip_bin) ~= 1 then return nil end
       return C.ntohl(ip_bin[0])
     end
@@ -113,13 +112,13 @@ let
     end
 
     function lantian_whois.ipv6_parse(ip)
-      local ip_bin = ffi_new("unsigned char [16]")
+      local ip_bin = ffi.new("unsigned char [16]")
       if C.inet_pton(AF_INET6, ip, ip_bin) ~= 1 then return nil end
       return ip_bin
     end
 
     function lantian_whois.ipv6_recompose(ipbits)
-      local ip = ffi_new("unsigned char [46]")
+      local ip = ffi.new("unsigned char [46]")
       if C.inet_ntop(AF_INET6, ipbits, ip, 46) == 0 then return nil end
       return ffi.string(ip)
     end
