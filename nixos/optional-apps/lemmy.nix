@@ -71,7 +71,6 @@ in
 
     sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
-    blockAIBots = true;
   };
 
   systemd.services.lemmy = {

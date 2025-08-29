@@ -80,7 +80,6 @@ let
       root = "/nix/persistent/sync-servers/www/lantian.pub";
 
       disableLiveCompression = true;
-      blockAIBots = true;
 
       extraConfig = ''
         error_page 404 /404.html;
