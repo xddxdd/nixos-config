@@ -139,6 +139,7 @@
   users.groups.gitea = { };
 
   lantian.nginxVhosts."git.lantian.pub" = {
+    blockAIBots = true;
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
