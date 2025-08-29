@@ -44,7 +44,6 @@ in
     phpfpmSocket = config.services.phpfpm.pools.lab.socket;
     sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
-    blockAIBots = true;
   };
 
   services.phpfpm.pools.lab = {
