@@ -37,55 +37,53 @@
   };
 
   environment.defaultPackages = [ ];
-  environment.systemPackages =
-    with pkgs;
-    [
-      # keep-sorted start
-      bat
-      bridge-utils
-      curlHTTP3
-      dig
-      duf
-      ethtool
-      eza
-      fuc
-      fzf
-      gitMinimal
-      gzip
-      inetutils
-      iperf3
-      iw
-      lm_sensors
-      lsof
-      mbuffer # required for btrbk
-      nettools
-      nix-tree
-      nmap
-      nur-xddxdd.lantianCustomized.ls-iommu
-      nur-xddxdd.lantianCustomized.nixos-cleanup
-      nur-xddxdd.lantianCustomized.x86-arch-level
-      openssl
-      pciutils
-      pigz
-      pv
-      restic
-      ripgrep
-      rsync
-      screen
-      smartmontools
-      speedtest-cli
-      sqlite
-      strace
-      tcpdump
-      unzip
-      usbutils
-      wget
-      wireguard-tools
-      zip
-      zstd
-      # keep-sorted end
-    ]
-    ++ (if (LT.this.hasTag LT.tags.server) then [ python3 ] else [ python3Full ]);
+  environment.systemPackages = with pkgs; [
+    # keep-sorted start
+    bat
+    bridge-utils
+    curlHTTP3
+    dig
+    duf
+    ethtool
+    eza
+    fuc
+    fzf
+    gitMinimal
+    gzip
+    inetutils
+    iperf3
+    iw
+    lm_sensors
+    lsof
+    mbuffer # required for btrbk
+    nettools
+    nix-tree
+    nmap
+    nur-xddxdd.lantianCustomized.ls-iommu
+    nur-xddxdd.lantianCustomized.nixos-cleanup
+    nur-xddxdd.lantianCustomized.x86-arch-level
+    openssl
+    pciutils
+    pigz
+    pv
+    python3
+    restic
+    ripgrep
+    rsync
+    screen
+    smartmontools
+    speedtest-cli
+    sqlite
+    strace
+    tcpdump
+    unzip
+    usbutils
+    wget
+    wireguard-tools
+    zip
+    zstd
+    # keep-sorted end
+  ];
 
   hardware.ksm.enable = true;
 
