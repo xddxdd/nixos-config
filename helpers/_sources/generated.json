@@ -51,7 +51,7 @@
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-08-21",
+        "date": "2025-08-26",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -61,17 +61,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5456e9fd1bcf3051455b0ca3b936b4be1378be48",
-            "sha256": "sha256-yEFijQyOZRnPK7b8v5uv3B+BexeHcqGiTBw4K53/OU0=",
+            "rev": "91b8aaf893455640a54d9d886ea146b1af743ba0",
+            "sha256": "sha256-w6OSaVFTGE68T6lTDjhkkw+WLSrCkREHZrbJhEDgN6s=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "5456e9fd1bcf3051455b0ca3b936b4be1378be48"
+        "version": "91b8aaf893455640a54d9d886ea146b1af743ba0"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-08-14",
+        "date": "2025-08-29",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -83,12 +83,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "89e7e8414b15e47150974d48e38bfd72ee85664e",
-            "sha256": "sha256-j7stKku/Xq68kKw1FMHdm2mQpL6E8WCa1sXLssYnGiY=",
+            "rev": "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2",
+            "sha256": "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "89e7e8414b15e47150974d48e38bfd72ee85664e"
+        "version": "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -113,7 +113,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-08-21",
+        "date": "2025-08-24",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -125,12 +125,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a",
-            "sha256": "sha256-GpxaJkbjiD0otqxj2ugAZd4DYfhKzwNoF7Xq02lZNLY=",
+            "rev": "0d73206875f7e5096356c4b510cd30f1e84b3fd1",
+            "sha256": "sha256-2uEk1j5OwvX6hw+wOwU6rsxXbQf/Gl3y51iRrLz61D0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a"
+        "version": "0d73206875f7e5096356c4b510cd30f1e84b3fd1"
     },
     "open5gs": {
         "cargoLocks": null,

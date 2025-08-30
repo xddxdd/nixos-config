@@ -33,29 +33,29 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
+    version = "91b8aaf893455640a54d9d886ea146b1af743ba0";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
+      rev = "91b8aaf893455640a54d9d886ea146b1af743ba0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yEFijQyOZRnPK7b8v5uv3B+BexeHcqGiTBw4K53/OU0=";
+      sha256 = "sha256-w6OSaVFTGE68T6lTDjhkkw+WLSrCkREHZrbJhEDgN6s=";
     };
-    date = "2025-08-21";
+    date = "2025-08-26";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "89e7e8414b15e47150974d48e38bfd72ee85664e";
+    version = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "89e7e8414b15e47150974d48e38bfd72ee85664e";
+      rev = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
       fetchSubmodules = false;
-      sha256 = "sha256-j7stKku/Xq68kKw1FMHdm2mQpL6E8WCa1sXLssYnGiY=";
+      sha256 = "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=";
     };
-    date = "2025-08-14";
+    date = "2025-08-29";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -71,15 +71,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
+    version = "0d73206875f7e5096356c4b510cd30f1e84b3fd1";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
+      rev = "0d73206875f7e5096356c4b510cd30f1e84b3fd1";
       fetchSubmodules = false;
-      sha256 = "sha256-GpxaJkbjiD0otqxj2ugAZd4DYfhKzwNoF7Xq02lZNLY=";
+      sha256 = "sha256-2uEk1j5OwvX6hw+wOwU6rsxXbQf/Gl3y51iRrLz61D0=";
     };
-    date = "2025-08-21";
+    date = "2025-08-24";
   };
   open5gs = {
     pname = "open5gs";
