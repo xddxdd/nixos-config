@@ -1,27 +1,19 @@
-use once_cell::sync::Lazy;
-use std::collections::HashMap;
-
 /// A case-insensitive lookup for WHOIS server abbreviations.
 ///
 /// This function provides a mapping from common WHOIS abbreviations (e.g., "afrinic")
 /// to their corresponding WHOIS server hostnames (e.g., "whois.afrinic.net").
 /// The lookup is case-insensitive.
 pub fn lookup_abbr(abbr: &str) -> Option<&'static str> {
-    static ABBREVIATIONS: Lazy<HashMap<&'static str, &'static str>> = Lazy::new(|| {
-        let mut m = HashMap::new();
-        m.insert("afrinic", "whois.afrinic.net");
-        m.insert("apnic", "whois.apnic.net");
-        m.insert("arin", "whois.arin.net");
-        m.insert("lacnic", "whois.lacnic.net");
-        m.insert("ripe", "whois.ripe.net");
-        m.insert("teredo", "whois.teredo.net");
-        m.insert("twnic", "whois.twnic.net");
-        m
-    });
-
-    ABBREVIATIONS
-        .get(&abbr.to_ascii_lowercase().as_str())
-        .copied()
+    match abbr.to_ascii_lowercase().as_str() {
+        "afrinic" => Some("whois.afrinic.net"),
+        "apnic" => Some("whois.apnic.net"),
+        "arin" => Some("whois.arin.net"),
+        "lacnic" => Some("whois.lacnic.net"),
+        "ripe" => Some("whois.ripe.net"),
+        "teredo" => Some("whois.teredo.net"),
+        "twnic" => Some("whois.twnic.net"),
+        _ => None,
+    }
 }
 
 pub const WHOIS_FALLBACK: &str = "whois.arin.net";
