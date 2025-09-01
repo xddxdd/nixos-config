@@ -38,18 +38,22 @@ in
             inputs.nvfetcher.overlays.default
             inputs.proxmox-nixos.overlays."${system}"
             inputs.secrets.overlays.default
-          ] ++ (import ../overlays { inherit inputs; });
+          ]
+          ++ (import ../overlays { inherit inputs; });
+          settings = {
+            android_sdk.accept_license = true;
+          };
         in
         {
           pkgs = {
             sourceInput = inputs.nixpkgs;
             patches = LT.ls ../patches/nixpkgs;
-            inherit permittedInsecurePackages overlays;
+            inherit permittedInsecurePackages overlays settings;
           };
           pkgs-stable = {
             sourceInput = inputs.nixpkgs-stable;
             patches = LT.ls ../patches/nixpkgs-stable;
-            inherit permittedInsecurePackages overlays;
+            inherit permittedInsecurePackages overlays settings;
           };
         };
     };

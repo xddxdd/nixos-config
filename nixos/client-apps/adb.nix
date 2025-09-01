@@ -1,6 +1,11 @@
 { pkgs, LT, ... }:
+let
+  adbPackage = pkgs.androidenv.androidPkgs.androidsdk;
+in
 {
-  programs.adb.enable = true;
+  services.udev.packages = [ pkgs.android-udev-rules ];
+  environment.systemPackages = [ adbPackage ];
+  users.groups.adbusers.members = [ "lantian" ];
 
   systemd.services.adbd = {
     description = "ADB Daemon";
@@ -8,14 +13,12 @@
     serviceConfig = {
       Type = "forking";
       User = "root";
-      ExecStart = "${pkgs.android-tools}/bin/adb start-server";
-      ExecStop = "${pkgs.android-tools}/bin/adb kill-server";
+      ExecStart = "${adbPackage}/bin/adb start-server";
+      ExecStop = "${adbPackage}/bin/adb kill-server";
       Restart = "always";
       RestartSec = 5;
     };
   };
-
-  users.users.lantian.extraGroups = [ "adbusers" ];
 
   preservation.preserveAt."/nix/persistent" = {
     users.root = {
