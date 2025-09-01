@@ -19,18 +19,12 @@
     "tls://[2a03:3b40:fe:ab::1]:993"
   ],
   "finland": [
-    "tls://95.216.5.243:18836",
     "tls://95.217.35.92:1337",
-    "tls://[2a01:4f9:2a:60c::2]:18836",
     "tls://[2a01:4f9:2b:2d8f::2]:1337",
-    "tls://aurora.devices.waren.io:18836",
     "tls://ygg-hel-1.wgos.org:45171"
   ],
   "france": [
     "tls://51.15.204.214:54321",
-    "tls://62.210.85.80:39575",
-    "tls://[2001:470:1f13:e56::64]:39575",
-    "tls://s2.i2pd.xyz:39575",
     "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
@@ -80,6 +74,7 @@
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://ip4.01.msk.ru.dioni.su:9003",
+    "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
     "tls://s-mow-0.sergeysedoy97.ru:65534",
