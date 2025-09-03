@@ -137,6 +137,7 @@
   "qwen/qwen2.5-coder-32b-instruct": "qwen/qwen-2.5-coder-32b-instruct",
   "qwen/qwen2.5-coder-7b-instruct": "qwen/qwen-2.5-coder-7b-instruct",
   "qwen/qwen3-235b-a22b": "qwen/qwen-3-235b-a22b",
+  "qwen/qwen3-coder-480b-a35b-instruct": "qwen/qwen-3-coder-480b-a35b-instruct",
   "qwen/qwq-32b": "qwen/qwq-32b",
   "rakuten/rakutenai-7b-chat": "rakuten/rakutenai-7b-chat",
   "rakuten/rakutenai-7b-instruct": "rakuten/rakutenai-7b-instruct",
