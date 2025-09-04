@@ -8,7 +8,9 @@
 {
   services.transmission = {
     enable = true;
-    package = pkgs.nur-xddxdd.lantianCustomized.transmission-with-webui;
+    package = pkgs.nur-xddxdd.lantianCustomized.transmission-with-webui.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ../../patches/transmission-truncate-long-filename.patch ];
+    });
     user = "lantian";
     group = "users";
     downloadDirPermissions = "775";
