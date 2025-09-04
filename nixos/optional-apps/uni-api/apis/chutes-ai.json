@@ -3,6 +3,7 @@
   "ByteDance-Seed/Seed-OSS-36B-Instruct": "bytedance-seed/seed-oss-36b-instruct",
   "NousResearch/DeepHermes-3-Llama-3-8B-Preview": "nousresearch/deephermes-3-llama-3-8b-preview",
   "NousResearch/DeepHermes-3-Mistral-24B-Preview": "nousresearch/deephermes-3-mistral-24b-preview",
+  "NousResearch/Hermes-4-14B": "nousresearch/hermes-4-14b",
   "NousResearch/Hermes-4-405B-FP8": "nousresearch/hermes-4-405b-fp8",
   "NousResearch/Hermes-4-70B": "nousresearch/hermes-4-70b",
   "Qwen/Qwen2.5-72B-Instruct": "qwen/qwen-2.5-72b-instruct",

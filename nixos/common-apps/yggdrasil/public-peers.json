@@ -3,6 +3,7 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
+    "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
@@ -28,6 +29,7 @@
     "tls://62.210.85.80:39575",
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://s2.i2pd.xyz:39575",
+    "tls://ygg.jholden.org:1555",
     "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
@@ -36,9 +38,7 @@
     "tls://g.ygg.yt:443",
     "tls://helium.avevad.com:1337",
     "tls://n.ygg.yt:443",
-    "tls://s-fra-0.sergeysedoy97.ru:65534",
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
-    "tls://x-fra-0.sergeysedoy97.ru:65534",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
     "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
@@ -80,9 +80,7 @@
     "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
-    "tls://s-mow-0.sergeysedoy97.ru:65534",
     "tls://srv.itrus.su:7992",
-    "tls://x-mow-0.sergeysedoy97.ru:65534",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
@@ -119,7 +117,6 @@
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
     "tls://leo.node.3dt.net:9003",
-    "tls://longseason.1200bps.xyz:13122",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://neo.node.3dt.net:9003",
