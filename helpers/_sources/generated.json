@@ -43,15 +43,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qXgauKqiZHzS2az8uYiGjEFev0gS4i0yH8cowC/EZ14=",
+            "sha256": "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.4.1/yesoreyeram-infinity-datasource-3.4.1.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip"
         },
-        "version": "3.4.1"
+        "version": "3.5.0"
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-08-21",
+        "date": "2025-09-02",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -61,17 +61,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5456e9fd1bcf3051455b0ca3b936b4be1378be48",
-            "sha256": "sha256-yEFijQyOZRnPK7b8v5uv3B+BexeHcqGiTBw4K53/OU0=",
+            "rev": "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9",
+            "sha256": "sha256-mGkHgnunCBjsahvrt+87aJ/grWQr1/aTVGFZrWoDdz0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "5456e9fd1bcf3051455b0ca3b936b4be1378be48"
+        "version": "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-08-14",
+        "date": "2025-08-29",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -83,12 +83,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "89e7e8414b15e47150974d48e38bfd72ee85664e",
-            "sha256": "sha256-j7stKku/Xq68kKw1FMHdm2mQpL6E8WCa1sXLssYnGiY=",
+            "rev": "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2",
+            "sha256": "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "89e7e8414b15e47150974d48e38bfd72ee85664e"
+        "version": "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -113,7 +113,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-08-21",
+        "date": "2025-09-01",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -125,12 +125,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a",
-            "sha256": "sha256-GpxaJkbjiD0otqxj2ugAZd4DYfhKzwNoF7Xq02lZNLY=",
+            "rev": "96997daa55de266fd96f5ad4d5e9bd1a541351cd",
+            "sha256": "sha256-rWXOAuoifMG5BK4cwQxItJ80Iou50zA3qevnuzEjw+Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a"
+        "version": "96997daa55de266fd96f5ad4d5e9bd1a541351cd"
     },
     "open5gs": {
         "cargoLocks": null,
