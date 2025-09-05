@@ -25,7 +25,7 @@
     ../../nixos/optional-apps/iperf3.nix
     ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/mtranserver.nix
-    ../../nixos/optional-apps/navidrome.nix
+    # ../../nixos/optional-apps/navidrome.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
@@ -34,7 +34,7 @@
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
-    ../../nixos/optional-apps/sillytavern.nix
+    # ../../nixos/optional-apps/sillytavern.nix
     # ../../nixos/optional-apps/stable-diffusion-webui.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/tachidesk.nix
