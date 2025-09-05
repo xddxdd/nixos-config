@@ -12,6 +12,7 @@
   "meta-llama/llama-prompt-guard-2-22m": "meta-llama/llama-prompt-guard-2-22m",
   "meta-llama/llama-prompt-guard-2-86m": "meta-llama/llama-prompt-guard-2-86m",
   "moonshotai/kimi-k2-instruct": "moonshotai/kimi-k2-instruct",
+  "moonshotai/kimi-k2-instruct-0905": "moonshotai/kimi-k2-instruct-0905",
   "openai/gpt-oss-120b": "openai/gpt-oss-120b",
   "openai/gpt-oss-20b": "openai/gpt-oss-20b",
   "playai-tts": "playai-tts",
