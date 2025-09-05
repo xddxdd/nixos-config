@@ -3,7 +3,6 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
-    "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
@@ -79,7 +78,6 @@
     "tls://ip4.01.msk.ru.dioni.su:9003",
     "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
-    "tls://kursk.cleverfox.org:15015",
     "tls://srv.itrus.su:7992",
     "tls://yggno.de:18227"
   ],
@@ -96,9 +94,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://s-sto-0.sergeysedoy97.ru:65534",
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://x-sto-0.sergeysedoy97.ru:65534",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "ukraine": [
@@ -117,6 +113,7 @@
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
     "tls://leo.node.3dt.net:9003",
+    "tls://longseason.1200bps.xyz:13122",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://neo.node.3dt.net:9003",
