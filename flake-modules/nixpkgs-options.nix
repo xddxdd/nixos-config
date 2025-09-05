@@ -17,6 +17,7 @@ in
       nixpkgs-options =
         let
           permittedInsecurePackages = [
+            # keep-sorted start
             "aspnetcore-runtime-6.0.36"
             "aspnetcore-runtime-wrapped-6.0.36"
             "dotnet-sdk-6.0.428"
@@ -25,6 +26,7 @@ in
             "libsoup-2.74.3"
             "olm-3.2.16"
             "ventoy-1.1.05"
+            # keep-sorted end
           ];
           overlays = [
             inputs.agenix.overlays.default
