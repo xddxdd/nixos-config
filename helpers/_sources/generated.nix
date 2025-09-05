@@ -25,37 +25,37 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.4.1";
+    version = "3.5.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.4.1/yesoreyeram-infinity-datasource-3.4.1.zip";
-      sha256 = "sha256-qXgauKqiZHzS2az8uYiGjEFev0gS4i0yH8cowC/EZ14=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip";
+      sha256 = "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
+    version = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "5456e9fd1bcf3051455b0ca3b936b4be1378be48";
+      rev = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yEFijQyOZRnPK7b8v5uv3B+BexeHcqGiTBw4K53/OU0=";
+      sha256 = "sha256-mGkHgnunCBjsahvrt+87aJ/grWQr1/aTVGFZrWoDdz0=";
     };
-    date = "2025-08-21";
+    date = "2025-09-02";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "89e7e8414b15e47150974d48e38bfd72ee85664e";
+    version = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "89e7e8414b15e47150974d48e38bfd72ee85664e";
+      rev = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
       fetchSubmodules = false;
-      sha256 = "sha256-j7stKku/Xq68kKw1FMHdm2mQpL6E8WCa1sXLssYnGiY=";
+      sha256 = "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=";
     };
-    date = "2025-08-14";
+    date = "2025-08-29";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -71,15 +71,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
+    version = "96997daa55de266fd96f5ad4d5e9bd1a541351cd";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "cab3ed667dfd8aa2f5c4bbc9dfa8a3475299a47a";
+      rev = "96997daa55de266fd96f5ad4d5e9bd1a541351cd";
       fetchSubmodules = false;
-      sha256 = "sha256-GpxaJkbjiD0otqxj2ugAZd4DYfhKzwNoF7Xq02lZNLY=";
+      sha256 = "sha256-rWXOAuoifMG5BK4cwQxItJ80Iou50zA3qevnuzEjw+Q=";
     };
-    date = "2025-08-21";
+    date = "2025-09-01";
   };
   open5gs = {
     pname = "open5gs";
