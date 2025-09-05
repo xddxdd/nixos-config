@@ -90,20 +90,19 @@ let
       '';
     };
   };
-
-  betterfoxArgs = {
-    enable = true;
-    fastfox.enable = true;
-    securefox.enable = true;
-    peskyfox.enable = true;
-  };
 in
 {
-  imports = [ inputs.betterfox-nix.homeManagerModules.betterfox ];
+  imports = [ inputs.betterfox-nix.homeModules.betterfox ];
 
   programs.firefox = lib.recursiveUpdate args {
-    betterfox.enable = true;
-    profiles.lantian.betterfox = betterfoxArgs;
+    betterfox = {
+      enable = true;
+      profiles.lantian.settings = {
+        fastfox.enable = true;
+        securefox.enable = true;
+        peskyfox.enable = true;
+      };
+    };
   };
   programs.librewolf = lib.recursiveUpdate args {
     package = pkgs.librewolf;

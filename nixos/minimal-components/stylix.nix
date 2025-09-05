@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -14,6 +15,8 @@
     targets = {
       console.enable = true;
       grub.enable = true;
+      # FIXME: workaround stylix bug
+      qt.platform = lib.mkForce "kde";
     };
 
     cursor = {

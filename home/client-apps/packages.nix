@@ -33,17 +33,6 @@ let
     exit 0
   '';
 
-  jellyfin-media-player-wrapped = lib.hiPrio (
-    pkgs.runCommand "jellyfin-media-player-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
-      ''
-        mkdir -p $out/bin
-        makeWrapper \
-          ${pkgs.jellyfin-media-player}/bin/jellyfinmediaplayer \
-          $out/bin/jellyfinmediaplayer \
-          --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib/"
-      ''
-  );
-
   prismlauncher-wrapped = lib.hiPrio (
     pkgs.runCommand "prismlauncher-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
       mkdir -p $out/share/applications
@@ -115,8 +104,6 @@ in
         immich-cli
         jamesdsp
         jamesdsp-toggle
-        jellyfin-media-player
-        jellyfin-media-player-wrapped
         kdePackages.ark
         kdePackages.kdenlive
         kdePackages.kpat
