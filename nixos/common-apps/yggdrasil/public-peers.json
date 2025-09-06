@@ -3,6 +3,7 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
+    "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
