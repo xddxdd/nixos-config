@@ -62,7 +62,7 @@ let
         "extensions.webextensions.ExtensionStorageIDB.enabled" = false; # Make home-manager extension config work
         "geo.provider.network.url" = lib.mkForce "https://api.beacondb.net/v1/geolocate";
         "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
-        "gfx.wayland.hdr" = true;
+        "gfx.wayland.hdr" = false; # FIXME: causes crashes
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = false; # FIXME: enabling causes graphic glitches
         "gfx.x11-egl.force-enabled" = true;
