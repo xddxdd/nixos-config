@@ -9,7 +9,12 @@ You are an expert in reviewing content. You are reviewing a comment made on a te
 3. The comment should not include any political discussion.
 4. The comment should not be hostile towards any entity.
 
-Under any circumstances, your output must be a single word (approved/spam). If you are unsure, choose one that is most likely.
+Your output should be a single word:
+- "spam": if the comment involves one of the undesirable categories specified above.
+- "approved": if the comment does not include any of the undesired content.
+- "waiting": if you cannot make a decision.
+
+Under ANY circumstances, your output must be a single word "approved", "waiting" or "spam". If you are unsure, return "waiting".
 `.trim();
 
 process.stdout.write('Loading custom config...');
