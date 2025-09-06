@@ -128,7 +128,6 @@ in
     dpkg
 
     # PHP
-    composer2nix
     phpPackages.composer
     phpWithExtensions
 
