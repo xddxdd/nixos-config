@@ -5,7 +5,7 @@
 }:
 {
   virtualisation.oci-containers.containers.byparr = {
-    image = "ghcr.io/thephaseless/byparr:camoufox";
+    image = "ghcr.io/thephaseless/byparr:main";
     labels = {
       "io.containers.autoupdate" = "registry";
     };
