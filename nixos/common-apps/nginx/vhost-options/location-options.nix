@@ -118,7 +118,7 @@ let
         send_timeout 52w;
       '')
       + (lib.optionalString config.blockAIBots ''
-        include "${inputs.ai-robots-txt}/nginx-block-ai-bots.conf";
+        include "${LT.sources.ai-robots-txt.src}/nginx-block-ai-bots.conf";
       '')
       + (lib.optionalString config.allowCORS
         # https://enable-cors.org/server_nginx.html

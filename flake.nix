@@ -18,10 +18,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ai-robots-txt = {
-      url = "github:ai-robots-txt/ai.robots.txt";
-      flake = false;
-    };
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,10 +28,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
-    };
-    composer2nix = {
-      url = "github:svanderburg/composer2nix";
-      flake = false;
     };
     dwarffs.url = "github:edolstra/dwarffs";
     flat-flake = {

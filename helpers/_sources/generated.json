@@ -1,4 +1,24 @@
 {
+    "ai-robots-txt": {
+        "cargoLocks": null,
+        "date": "2025-08-28",
+        "extract": null,
+        "name": "ai-robots-txt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "0ed29412c93c46bb3cf64821833326bf43da964e",
+            "sha256": "sha256-tGjNXIUgvoWJLrQacSW/3AOe9uAX7ADR+bcKydVhQfE=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/ai-robots-txt/ai.robots.txt.git"
+        },
+        "version": "0ed29412c93c46bb3cf64821833326bf43da964e"
+    },
     "delegacy-rpz": {
         "cargoLocks": null,
         "date": "2025-08-21",

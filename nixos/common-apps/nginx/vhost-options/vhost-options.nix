@@ -294,7 +294,7 @@ let
         ''
       )
       + (lib.optionalString config.blockAIBots ''
-        include "${inputs.ai-robots-txt}/nginx-block-ai-bots.conf";
+        include "${LT.sources.ai-robots-txt.src}/nginx-block-ai-bots.conf";
       '')
       + (lib.optionalString config.noIndex.enable ''
         add_header X-Robots-Tag 'noindex, nofollow';

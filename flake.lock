@@ -25,22 +25,6 @@
         "type": "github"
       }
     },
-    "ai-robots-txt": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1756342547,
-        "narHash": "sha256-tGjNXIUgvoWJLrQacSW/3AOe9uAX7ADR+bcKydVhQfE=",
-        "owner": "ai-robots-txt",
-        "repo": "ai.robots.txt",
-        "rev": "0ed29412c93c46bb3cf64821833326bf43da964e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ai-robots-txt",
-        "repo": "ai.robots.txt",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -158,22 +142,6 @@
       "original": {
         "owner": "zhaofengli",
         "repo": "colmena",
-        "type": "github"
-      }
-    },
-    "composer2nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1646178110,
-        "narHash": "sha256-P3acfGwHYjjZQcviPiOT7T7qzzP/drc2mibzrsrNP18=",
-        "owner": "svanderburg",
-        "repo": "composer2nix",
-        "rev": "299caca4aac42d7639a42eb4dde951c010f6e91c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "svanderburg",
-        "repo": "composer2nix",
         "type": "github"
       }
     },
@@ -1152,10 +1120,8 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "ai-robots-txt": "ai-robots-txt",
         "betterfox-nix": "betterfox-nix",
         "colmena": "colmena",
-        "composer2nix": "composer2nix",
         "dwarffs": "dwarffs",
         "flake-compat": "flake-compat_2",
         "flake-parts": "flake-parts_3",
