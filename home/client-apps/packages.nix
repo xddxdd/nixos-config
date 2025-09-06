@@ -182,6 +182,10 @@ in
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       # keep-sorted start block=yes
       {
+        name = "cherry-studio";
+        command = "/etc/profiles/per-user/lantian/bin/cherry-studio --start-minimized";
+      }
+      {
         name = "discord";
         command = "/etc/profiles/per-user/lantian/bin/discord --start-minimized";
       }
