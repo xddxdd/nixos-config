@@ -12,15 +12,12 @@ from urllib.parse import urljoin
 
 import curl_cffi
 
-
-class LogLevel(Enum):
-    """日志级别枚举"""
-
-    DEBUG = "DEBUG"
-    INFO = "INFO"
-    WARNING = "WARNING"
-    ERROR = "ERROR"
-    CRITICAL = "CRITICAL"
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 class CheckinStatus(Enum):
@@ -62,44 +59,11 @@ class VeloeraConfig:
         return urljoin(self.base_url, self.checkin_endpoint)
 
 
-class Logger:
-    """企业级日志管理器"""
-
-    def __init__(self, name: str = "VeloeraCheckin", level: LogLevel = LogLevel.INFO):
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(getattr(logging, level.value))
-
-        if not self.logger.handlers:
-            # 控制台处理器
-            console_handler = logging.StreamHandler()
-            formatter = logging.Formatter(
-                "[%(asctime)s] %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
-            )
-            console_handler.setFormatter(formatter)
-            self.logger.addHandler(console_handler)
-
-    def debug(self, message: str) -> None:
-        self.logger.debug(message)
-
-    def info(self, message: str) -> None:
-        self.logger.info(message)
-
-    def warning(self, message: str) -> None:
-        self.logger.warning(message)
-
-    def error(self, message: str) -> None:
-        self.logger.error(message)
-
-    def critical(self, message: str) -> None:
-        self.logger.critical(message)
-
-
 class BaseCheckinService(ABC):
     """签到服务抽象基类"""
 
-    def __init__(self, config: VeloeraConfig, logger: Logger):
+    def __init__(self, config: VeloeraConfig):
         self.config = config
-        self.logger = logger
         self.default_headers = self._get_default_headers()
 
     @abstractmethod
@@ -114,11 +78,11 @@ class BaseCheckinService(ABC):
 
     def checkin(self) -> CheckinResult:
         """执行签到操作"""
-        self.logger.info("🚀 开始执行签到操作...")
+        logging.info("🚀 开始执行签到操作...")
 
         for attempt in range(1, self.config.retry_count + 1):
             try:
-                self.logger.debug(f"第 {attempt} 次尝试签到")
+                logging.debug(f"第 {attempt} 次尝试签到")
 
                 response = curl_cffi.post(
                     self.config.checkin_url,
@@ -130,16 +94,16 @@ class BaseCheckinService(ABC):
                 result = self._parse_response(response)
 
                 if result.status == CheckinStatus.SUCCESS:
-                    self.logger.info(f"✅ {result.message}")
+                    logging.info(f"✅ {result.message}")
                     return result
                 elif result.status == CheckinStatus.ALREADY_CHECKED:
-                    self.logger.info(f"ℹ️ {result.message}")
+                    logging.info(f"ℹ️ {result.message}")
                     return result
                 elif result.status == CheckinStatus.UNAUTHORIZED:
-                    self.logger.error(f"🔒 认证失败: {result.message}")
+                    logging.error(f"🔒 认证失败: {result.message}")
                     return result  # 认证失败不需要重试
                 else:
-                    self.logger.warning(f"⚠️ 第 {attempt} 次尝试失败: {result.message}")
+                    logging.warning(f"⚠️ 第 {attempt} 次尝试失败: {result.message}")
 
                     if attempt < self.config.retry_count:
                         import time
@@ -147,7 +111,7 @@ class BaseCheckinService(ABC):
                         time.sleep(self.config.retry_delay)
 
             except Exception as e:
-                self.logger.error(f"❌ 第 {attempt} 次尝试未知错误: {e}")
+                logging.error(f"❌ 第 {attempt} 次尝试未知错误: {e}")
 
         return CheckinResult(
             status=CheckinStatus.FAILED,
@@ -263,13 +227,12 @@ class ConfigManager:
 class VeloeraCheckinManager:
     """Veloera 签到管理器"""
 
-    def __init__(self, logger: Optional[Logger] = None):
-        self.logger = logger or Logger()
+    def __init__(self):
         self.configs: List[VeloeraConfig] = []  # 存储配置以便后续使用
 
     def run_single_checkin(self, config: VeloeraConfig) -> CheckinResult:
         """执行单个账号签到"""
-        service = VeloeraCheckinService(config, self.logger)
+        service = VeloeraCheckinService(config)
         return service.checkin()
 
     def run_batch_checkin(self, configs: List[VeloeraConfig]) -> List[CheckinResult]:
@@ -277,10 +240,10 @@ class VeloeraCheckinManager:
         self.configs = configs  # 保存配置以便后续使用
         results = []
 
-        self.logger.info(f"开始批量签到，共 {len(configs)} 个账号")
+        logging.info(f"开始批量签到，共 {len(configs)} 个账号")
 
         for i, config in enumerate(configs, 1):
-            self.logger.info(f"正在处理第 {i} 个账号 (用户ID: {config.user_id})")
+            logging.info(f"正在处理第 {i} 个账号 (用户ID: {config.user_id})")
             result = self.run_single_checkin(config)
             results.append(result)
 
@@ -294,8 +257,7 @@ class VeloeraCheckinManager:
 
 
 def main():
-    logger = Logger()
-    manager = VeloeraCheckinManager(logger)
+    manager = VeloeraCheckinManager()
 
     try:
         # 从命令行参数获取配置文件路径
@@ -311,13 +273,13 @@ def main():
         )
 
         if failed_count > 0:
-            exit(1)
+            sys.exit(1)
 
     except Exception as e:
-        logger.critical(f"程序执行异常: {e}")
-        exit(1)
+        logging.critical(f"程序执行异常: {e}")
+        sys.exit(1)
 
-    logger.info("=" * 60)
+    logging.info("=" * 60)
 
 
 if __name__ == "__main__":
