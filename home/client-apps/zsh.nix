@@ -33,7 +33,11 @@
     # '';
 
     autocd = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+      # Atuin will auto enable its strategy
+      strategy = [ "completion" ];
+    };
     dotDir = "${config.xdg.configHome}/zsh";
     history = {
       expireDuplicatesFirst = true;
