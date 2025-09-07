@@ -17,11 +17,10 @@ let
     builtins.toJSON {
       templates = {
         downloads = {
-          transmission = {
+          qbittorrent = {
             path = "/mnt/storage/downloads";
-            host = LT.this.ltnet.IPv4;
-            port = LT.port.Transmission;
-            bandwidth_priority = 0;
+            host = "localhost";
+            port = LT.port.qBitTorrentPT.WebUI;
           };
           free_space = {
             path = "/mnt/storage/downloads";
@@ -29,11 +28,10 @@ let
           };
         };
         downloads-auto = {
-          transmission = {
+          qbittorrent = {
             path = "/mnt/ssd-temp/.downloads-auto";
-            host = LT.this.ltnet.IPv4;
-            port = LT.port.Transmission;
-            bandwidth_priority = 0 - 1;
+            host = "localhost";
+            port = LT.port.qBitTorrentPT.WebUI;
           };
           free_space = {
             path = "/mnt/ssd-temp/.downloads-auto";

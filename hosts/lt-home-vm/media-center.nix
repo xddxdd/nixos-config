@@ -8,8 +8,9 @@
 let
   netns = config.lantian.netns.tnl-buyvm;
 
-  transmissionDownloadPath = "/mnt/storage/downloads";
+  defaultDownloadPath = "/mnt/storage/downloads";
   transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";
+  qBitTorrentPTSonarrDownloadPath = "/mnt/storage/.downloads-qb-pt";
   qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
   flexgetAutoDownloadPath = "/mnt/ssd-temp/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
@@ -24,6 +25,7 @@ in
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/peerbanhelper.nix
     ../../nixos/optional-apps/qbittorrent.nix
+    ../../nixos/optional-apps/qbittorrent-pt.nix
     ../../nixos/optional-apps/sonarr
     ../../nixos/optional-apps/transmission-daemon.nix
 
@@ -36,6 +38,7 @@ in
     "d /mnt/storage 755 root root"
     "d ${flexgetAutoDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
     "d ${transmissionSonarrDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
+    "d ${qBitTorrentPTSonarrDownloadPath} 755 lantian users"
     "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
     "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
@@ -57,6 +60,7 @@ in
       BindPaths = [
         radarrMediaPath
         transmissionSonarrDownloadPath
+        qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
@@ -69,6 +73,7 @@ in
       BindPaths = [
         sonarrMediaPath
         transmissionSonarrDownloadPath
+        qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
@@ -91,19 +96,37 @@ in
     requires = [ "mnt-storage.mount" ];
     serviceConfig = {
       BindPaths = [
-        transmissionDownloadPath
+        defaultDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
   };
 
+  systemd.services.qbittorrent-pt = {
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    serviceConfig = {
+      BindPaths = [
+        defaultDownloadPath
+        flexgetAutoDownloadPath
+        qBitTorrentPTSonarrDownloadPath
+      ];
+    };
+  };
+
   lantian.nginxVhosts = {
-    "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "qbittorrent.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "bitmagnet.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
-    "peerbanhelper.localhost".locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
+    "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    "qbittorrent.localhost".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    "bitmagnet.localhost".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
+    "peerbanhelper.localhost".locations."/".proxyPass =
+      lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
   };
 
   ########################################
@@ -111,7 +134,7 @@ in
   ########################################
 
   services.transmission.settings = {
-    download-dir = transmissionDownloadPath;
+    download-dir = defaultDownloadPath;
 
     # Limit parallel downloads to avoid system lockup
     download-queue-enabled = lib.mkForce true;
@@ -130,7 +153,7 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig.BindPaths = [
-      transmissionDownloadPath
+      defaultDownloadPath
       transmissionSonarrDownloadPath
       flexgetAutoDownloadPath
     ];
