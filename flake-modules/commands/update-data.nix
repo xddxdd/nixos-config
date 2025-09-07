@@ -1,9 +1,5 @@
-{
-  inputs,
-  ...
-}:
-''
-  export SECRET_BASE=${inputs.secrets}
+_: ''
+  nix flake update secrets
 
   for S in $(find nixos/ -name update.\*) $(find home/ -name update.\*) $(find pkgs/ -name update.\*); do
     echo "Executing $S"
