@@ -46,6 +46,7 @@
     ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
+    ../../nixos/optional-cron-jobs/veloera-checkin
   ];
 
   environment.systemPackages = [
