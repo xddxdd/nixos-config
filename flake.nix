@@ -216,9 +216,12 @@
             packages = [
               (pkgs.python3.withPackages (
                 ps: with ps; [
-                  telethon
-                  requests
+                  # keep-sorted start
                   beautifulsoup4
+                  curl-cffi
+                  requests
+                  telethon
+                  # keep-sorted end
                 ]
               ))
             ];
