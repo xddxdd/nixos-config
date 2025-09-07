@@ -146,8 +146,6 @@ class BaseCheckinService(ABC):
 
                         time.sleep(self.config.retry_delay)
 
-            except curl_cffi.RequestsError as e:  # curl_cffi 的所有异常都在这里
-                self.logger.error(f"❌ 第 {attempt} 次尝试网络异常: {e}")
             except Exception as e:
                 self.logger.error(f"❌ 第 {attempt} 次尝试未知错误: {e}")
 
