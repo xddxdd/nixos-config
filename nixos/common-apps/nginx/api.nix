@@ -45,6 +45,33 @@ _: {
         '';
       };
 
+      "/ja4" = {
+        return =
+          let
+            # Fields will be dynamically replaced by nginx
+            json = builtins.toJSON {
+              ja4 = "$http_ssl_ja4";
+              ja4_string = "$http_ssl_ja4_string";
+              ja4one = "$http_ssl_ja4one";
+              ja4s = "$http_ssl_ja4s";
+              ja4s_string = "$http_ssl_ja4s_string";
+              ja4h = "$http_ssl_ja4h";
+              ja4h_string = "$http_ssl_ja4h_string";
+              ja4t = "$http_ssl_ja4t";
+              ja4t_string = "$http_ssl_ja4t_string";
+              ja4ts = "$http_ssl_ja4ts";
+              ja4ts_string = "$http_ssl_ja4ts_string";
+              ja4l = "$http_ssl_ja4l";
+              ja4x = "$https_ssl_ja4x";
+              ja4x_string = "$https_ssl_ja4x_string";
+            };
+          in
+          "200 '${json}'";
+        extraConfig = ''
+          default_type application/json;
+        '';
+      };
+
       "/ip" = {
         return = "200 $remote_addr";
         extraConfig = ''
