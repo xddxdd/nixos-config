@@ -27,10 +27,9 @@
     enableCompletion = true;
     enableVteIntegration = true;
 
-    # # Unused since I'm using oh-my-zsh
-    # completionInit = lib.mkForce ''
-    #   autoload -U compinit && compinit -D
-    # '';
+    completionInit = lib.mkForce ''
+      autoload -U compinit && compinit -D
+    '';
 
     autocd = true;
     autosuggestion = {
@@ -49,42 +48,7 @@
     };
     syntaxHighlighting.enable = true;
 
-    oh-my-zsh = {
-      enable = true;
-      custom = builtins.toString (
-        pkgs.linkFarm "oh-my-zsh-custom" {
-          "themes/powerlevel10k.zsh-theme" =
-            "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
-          "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
-          "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-          "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
-        }
-      );
-      extraConfig = ''
-        # Disable zsh permission check
-        export ZSH_DISABLE_COMPFIX=true
-
-        export FZF_BASE=${pkgs.fzf}
-      '';
-      plugins = [
-        "autopair"
-        "bd"
-        "fzf"
-        "gitignore"
-        "kubectl"
-        "nix-shell"
-        "pip"
-        "screen"
-        "you-should-use"
-        "z"
-      ];
-      theme = "powerlevel10k";
-    };
-
     envExtra = ''
-      [[ -f "/etc/profile" ]] && emulate sh -c 'source /etc/profile'
-
       if [ "$TERM_PROGRAM" != "vscode" ]; then
         export EDITOR="nano"
       else
@@ -137,21 +101,23 @@
       # zsh-syntax-highlighting config
       ########################################
       ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-
-      ########################################
-      # zsh-z config
-      ########################################
-      ZSHZ_DATA="$ZDOTDIR/.z"
-      ZSHZ_EXCLUDE_DIRS=(/nix/store)
-      ZSHZ_TILDE=1
-      ZSHZ_TRAILING_SLASH=1
     '';
 
     initContent = lib.mkBefore ''
       [[ -n "$ZSH_ZPROF" ]] && zmodload zsh/zprof
 
+      [[ -f "/etc/profile" ]] && emulate sh -c 'source /etc/profile'
+
       # Fix Cline VSCode Integration
       [[ "$TERM_PROGRAM" == "vscode" ]] && . "${pkgs.vscode}/lib/vscode/resources/app/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
+
+      source ${pkgs.vte}/etc/profile.d/vte.sh
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      source ${pkgs.zsh-autopair}/share/zsh/zsh-autopair/autopair.plugin.zsh
+      source ${pkgs.zsh-bd}/share/zsh-bd/bd.zsh
+      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+      source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
+      source ${pkgs.zsh-z}/share/zsh-z/zsh-z.plugin.zsh
     '';
   };
 }
