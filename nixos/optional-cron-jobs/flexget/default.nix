@@ -21,6 +21,7 @@ let
             path = "/mnt/storage/downloads";
             host = "localhost";
             port = LT.port.qBitTorrentPT.WebUI;
+            label = "flexget";
           };
           free_space = {
             path = "/mnt/storage/downloads";
@@ -32,6 +33,7 @@ let
             path = "/mnt/ssd-temp/.downloads-auto";
             host = "localhost";
             port = LT.port.qBitTorrentPT.WebUI;
+            label = "flexget-auto";
           };
           free_space = {
             path = "/mnt/ssd-temp/.downloads-auto";
