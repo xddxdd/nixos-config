@@ -5,23 +5,6 @@
   ...
 }:
 {
-  programs.atuin = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    settings = {
-      auto_sync = false;
-      update_check = false;
-      search_mode = "fuzzy";
-      inline_height = 10;
-      history_filter = [
-        ''/nix/store/.*'' # command contains /nix/store
-        ''--cookie[=\s]+.+'' # command contains cookie
-        ''Authorization:'' # command contains HTTP auth info
-      ];
-    };
-  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -42,9 +25,6 @@
       expireDuplicatesFirst = true;
       extended = true;
       path = "${config.programs.zsh.dotDir}/.zsh_history";
-      # Disable zsh's own history for atuin
-      save = 0;
-      size = 0;
     };
     syntaxHighlighting.enable = true;
 
@@ -95,6 +75,7 @@
       # zsh-autosuggestions config
       ########################################
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
       ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=80
 
       ########################################
