@@ -25,6 +25,11 @@
       expireDuplicatesFirst = true;
       extended = true;
       path = "${config.programs.zsh.dotDir}/.zsh_history";
+      ignorePatterns = [
+        ''/nix/store/'' # command contains /nix/store
+        ''--cookie[=\s]+'' # command contains cookie
+        ''Authorization:'' # command contains HTTP auth info
+      ];
     };
     syntaxHighlighting.enable = true;
 
@@ -37,6 +42,10 @@
 
       alias nb="nix build -L"
       function nlw { nix-locate -w "$@" | grep -v "^(" }
+
+      # Delete word by word
+      bindkey '^H' backward-delete-word
+      WORDCHARS=""
 
       # For Podman
       export REGISTRY_AUTH_FILE="$HOME/.config/podman-registry-auth.json";
