@@ -17,6 +17,9 @@ in
       ExecStart = "${py}/bin/python3 ${./checkin.py} ${config.age.secrets.veloera-checkin-config.path}";
       Restart = "no";
     };
+    unitConfig = {
+      OnFailure = "notify-email-fail@%n.service";
+    };
     after = [ "network.target" ];
   };
 

@@ -20,6 +20,9 @@
       RuntimeDirectory = "rsgain-cloudmusic";
       WorkingDirectory = "/run/rsgain-cloudmusic";
     };
+    unitConfig = {
+      OnFailure = "notify-email-fail@%n.service";
+    };
   };
 
   systemd.timers.rsgain-cloudmusic = {

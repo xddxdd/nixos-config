@@ -17,6 +17,9 @@
       RuntimeDirectory = "radicale-calendar-sync";
       WorkingDirectory = "/run/radicale-calendar-sync";
     };
+    unitConfig = {
+      OnFailure = "notify-email-fail@%n.service";
+    };
   };
 
   systemd.timers.radicale-calendar-sync = {

@@ -17,6 +17,9 @@ in
       ExecStart = "${py}/bin/python3 ${./cleanup.py}";
       Restart = "no";
     };
+    unitConfig = {
+      OnFailure = "notify-email-fail@%n.service";
+    };
     after = [ "network.target" ];
   };
 
