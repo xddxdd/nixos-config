@@ -262,6 +262,9 @@ let
         add_header X-LT-SSL-Cipher $ssl_cipher;
         add_header X-LT-SSL-Curve $ssl_curve;
         add_header X-LT-SSL-Protocol $ssl_protocol;
+        add_header X-LT-JA4 $http_ssl_ja4;
+        add_header X-LT-JA4H $http_ssl_ja4h;
+        add_header X-LT-JA4ONE $http_ssl_ja4one;
 
         add_header Cache-Control 'private';
         add_header Referrer-Policy strict-origin-when-cross-origin;

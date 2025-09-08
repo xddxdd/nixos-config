@@ -34,5 +34,11 @@
     fastcgi_param  SSL_CURVES         $ssl_curves;
     fastcgi_param  SSL_PROTOCOL       $ssl_protocol;
     fastcgi_param  SSL_EARLY_DATA     $ssl_early_data;
+
+    fastcgi_param  JA4                $http_ssl_ja4;
+    fastcgi_param  JA4_STRING         $http_ssl_ja4_string;
+    fastcgi_param  JA4H               $http_ssl_ja4h;
+    fastcgi_param  JA4H_STRING        $http_ssl_ja4h_string;
+    fastcgi_param  JA4ONE             $http_ssl_ja4one;
   '';
 }
