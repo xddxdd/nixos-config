@@ -21,6 +21,7 @@
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     colmena = {
       url = "github:zhaofengli/colmena";
