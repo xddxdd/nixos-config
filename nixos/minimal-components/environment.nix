@@ -118,7 +118,7 @@
   services.dbus.implementation = "broker";
 
   services.fstrim.enable = true;
-  services.irqbalance.enable = true;
+  services.irqbalance.enable = LT.this.cpuThreads > 1;
 
   services.journald.extraConfig = ''
     ForwardToConsole=no

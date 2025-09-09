@@ -7,6 +7,7 @@
     server
   ];
   city = geo.cities."US Seattle";
+  cpuThreads = 128;
   hostname = "192.168.0.2";
   manualDeploy = true;
   ssh = {
