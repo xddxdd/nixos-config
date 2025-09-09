@@ -40,7 +40,6 @@
       auto-optimise-store = true;
       builders-use-substitutes = true;
       connect-timeout = 5;
-      eval-cores = 0;
       experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
@@ -55,6 +54,11 @@
       ];
       use-cgroups = true;
       warn-dirty = false;
+
+      # Determinate Nix specific
+      eval-cores = 0;
+      max-jobs = "auto";
+      lazy-trees = true;
 
       substituters = config.nix.settings.trusted-substituters;
       trusted-substituters = LT.constants.nix.substituters;
