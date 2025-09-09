@@ -91,7 +91,8 @@ in
       }
 
       log_format main '$remote_addr $host $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" "$http_user_agent"';
+                      '$status $body_bytes_sent "$http_referer" "$http_user_agent" '
+                      'JA4=$http_ssl_ja4 JA4H=$http_ssl_ja4h JA4ONE=$http_ssl_ja4one';
       access_log syslog:server=unix:/dev/log,nohostname main if=$is_not_healthcheck_user_agent;
       more_set_headers "Server: lantian/${config.networking.hostName}";
 
