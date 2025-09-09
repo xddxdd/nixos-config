@@ -43,34 +43,6 @@ let
       };
 
       tasks = {
-        remove-old-torrents = {
-          from_transmission = {
-            host = LT.this.ltnet.IPv4;
-            port = LT.port.Transmission;
-          };
-          disable = [
-            "seen"
-            "seen_info_hash"
-          ];
-          "if" = [
-            { "'No space left on device' in transmission_errorString" = "accept"; }
-            { "'torrent not registered with this tracker' in transmission_errorString" = "accept"; }
-            { "transmission_date_added < now - timedelta(days=5)" = "accept"; }
-            {
-              "transmission_progress < 100 and transmission_date_added < now - timedelta(hours=36)" = "accept";
-            }
-          ];
-          regexp = {
-            reject_excluding = [ "/mnt/ssd-temp/.downloads-auto" ];
-            from = "transmission_downloadDir";
-          };
-          transmission = {
-            host = LT.this.ltnet.IPv4;
-            port = LT.port.Transmission;
-            action = "purge";
-          };
-        };
-
         hdhome-auto = {
           limit = {
             amount = 1;

@@ -9,7 +9,6 @@ let
   netns = config.lantian.netns.tnl-buyvm;
 
   defaultDownloadPath = "/mnt/storage/downloads";
-  transmissionSonarrDownloadPath = "/mnt/storage/.downloads-tr";
   qBitTorrentPTSonarrDownloadPath = "/mnt/storage/.downloads-qb-pt";
   qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
   flexgetAutoDownloadPath = "/mnt/ssd-temp/.downloads-auto";
@@ -27,7 +26,6 @@ in
     ../../nixos/optional-apps/qbittorrent.nix
     ../../nixos/optional-apps/qbittorrent-pt.nix
     ../../nixos/optional-apps/sonarr
-    ../../nixos/optional-apps/transmission-daemon.nix
 
     ../../nixos/optional-cron-jobs/flexget
   ];
@@ -36,8 +34,7 @@ in
 
   systemd.tmpfiles.rules = [
     "d /mnt/storage 755 root root"
-    "d ${flexgetAutoDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
-    "d ${transmissionSonarrDownloadPath} ${config.services.transmission.downloadDirPermissions} ${config.services.transmission.user} ${config.services.transmission.group}"
+    "d ${flexgetAutoDownloadPath} 755 lantian users"
     "d ${qBitTorrentPTSonarrDownloadPath} 755 lantian users"
     "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
     "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
@@ -59,7 +56,6 @@ in
     serviceConfig = LT.serviceHarden // {
       BindPaths = [
         radarrMediaPath
-        transmissionSonarrDownloadPath
         qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
@@ -72,7 +68,6 @@ in
     serviceConfig = LT.serviceHarden // {
       BindPaths = [
         sonarrMediaPath
-        transmissionSonarrDownloadPath
         qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
@@ -127,35 +122,5 @@ in
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
     "peerbanhelper.localhost".locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
-  };
-
-  ########################################
-  # Transmission
-  ########################################
-
-  services.transmission.settings = {
-    download-dir = defaultDownloadPath;
-
-    # Limit parallel downloads to avoid system lockup
-    download-queue-enabled = lib.mkForce true;
-    download-queue-size = 20;
-    queue-stalled-enabled = lib.mkForce true;
-    queue-stalled-minutes = 10;
-
-    # Speed limit of private trackets
-    speed-limit-down = 25600;
-    speed-limit-down-enabled = false;
-    speed-limit-up = 25600;
-    speed-limit-up-enabled = true;
-  };
-
-  systemd.services.transmission = {
-    after = [ "mnt-storage.mount" ];
-    requires = [ "mnt-storage.mount" ];
-    serviceConfig.BindPaths = [
-      defaultDownloadPath
-      transmissionSonarrDownloadPath
-      flexgetAutoDownloadPath
-    ];
   };
 }

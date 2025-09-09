@@ -11,7 +11,7 @@
     after = [
       "network.target"
       "qbittorrent.service"
-      "transmission.service"
+      "qbittorrent-pt.service"
     ];
     requires = [ "network.target" ];
 

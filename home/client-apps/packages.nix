@@ -147,8 +147,6 @@ in
         synadm
         thunderbird-wrapped
         tigervnc
-        transmission-remote-gtk
-        transmission_4-qt
         ulauncher
         unar
         ventoy-full
