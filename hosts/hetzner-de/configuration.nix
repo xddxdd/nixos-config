@@ -18,7 +18,6 @@
     ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/nginx-private.nix
     ../../nixos/optional-apps/plausible
-    ../../nixos/optional-apps/qinglong.nix
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     ../../nixos/optional-apps/rsshub.nix
