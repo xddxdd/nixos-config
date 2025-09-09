@@ -29,6 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
     };
+    determinate-nix.url = "github:DeterminateSystems/determinate";
     dwarffs.url = "github:edolstra/dwarffs";
     flat-flake = {
       url = "github:linyinfeng/flat-flake";

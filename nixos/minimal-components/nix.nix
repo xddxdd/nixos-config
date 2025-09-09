@@ -3,7 +3,6 @@
   LT,
   config,
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -18,7 +17,6 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.latest;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
