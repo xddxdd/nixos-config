@@ -43,7 +43,6 @@ let
       )
       inputs.agenix.nixosModules.age
       inputs.colmena.nixosModules.deploymentOptions
-      inputs.determinate-nix.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic
