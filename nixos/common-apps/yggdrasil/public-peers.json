@@ -16,7 +16,6 @@
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
-    "tls://37.205.14.171:993",
     "tls://[2a03:3b40:fe:ab::1]:993"
   ],
   "finland": [
@@ -113,9 +112,11 @@
     "tls://london.sabretruth.org:18472"
   ],
   "united-states": [
+    "tls://129.80.167.244:23164",
     "tls://23.184.48.86:993",
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
+    "tls://[2603:c020:4015:b937:a1c7:aff8:b558:d1fe]:23164",
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
     "tls://mn.us.ygg.triplebit.org:993",
