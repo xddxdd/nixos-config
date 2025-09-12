@@ -9,9 +9,14 @@ let
   py = pkgs.python3.withPackages (p: with p; [ curl-cffi ]);
 in
 {
+  imports = [ ../../optional-apps/byparr.nix ];
+
   age.secrets.veloera-checkin-config.file = inputs.secrets + "/veloera-checkin-config.age";
 
   systemd.services.veloera-checkin = {
+    environment = {
+      FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
+    };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       ExecStart = "${py}/bin/python3 ${./checkin.py} ${config.age.secrets.veloera-checkin-config.path}";

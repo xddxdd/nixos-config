@@ -2,12 +2,10 @@
 #!nix-shell -i python3 -p python3 -p python3Packages.curl-cffi
 import json
 import logging
+import os
 import sys
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
-from datetime import datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional
+from dataclasses import dataclass
+from typing import Dict, List
 from urllib.parse import urljoin
 
 import curl_cffi
@@ -20,25 +18,12 @@ logging.basicConfig(
 )
 
 
-class CheckinStatus(Enum):
-    """签到状态枚举"""
-
-    SUCCESS = "success"
-    FAILED = "failed"
-    ALREADY_CHECKED = "already_checked"
-    UNAUTHORIZED = "unauthorized"
-    NETWORK_ERROR = "network_error"
-
-
 @dataclass
-class CheckinResult:
-    """签到结果数据类"""
+class FlareSolverrResponse:
+    """FlareSolverr 响应数据类"""
 
-    status: CheckinStatus
-    message: str
-    data: Optional[Dict[str, Any]] = None
-    error_code: Optional[str] = None
-    timestamp: datetime = field(default_factory=datetime.now)
+    cookies: Dict[str, str]
+    userAgent: str
 
 
 @dataclass
@@ -59,69 +44,65 @@ class VeloeraConfig:
         return urljoin(self.base_url, self.checkin_endpoint)
 
 
-class BaseCheckinService(ABC):
-    """签到服务抽象基类"""
+class FlareSolverrClient:
+    """FlareSolverr 客户端"""
 
-    def __init__(self, config: VeloeraConfig):
-        self.config = config
-        self.default_headers = self._get_default_headers()
+    def __init__(self, flaresolverr_url: str, timeout: int = 120):
+        self.flaresolverr_url = flaresolverr_url.rstrip("/")
+        self.timeout = timeout
 
-    @abstractmethod
-    def _get_default_headers(self) -> Dict[str, str]:
-        """获取默认请求头"""
-        pass
+    def get_cookies(self, url: str) -> FlareSolverrResponse:
+        """通过 FlareSolverr 获取网站 cookies"""
+        payload = {
+            "cmd": "request.get",
+            "url": url,
+            "maxTimeout": self.timeout * 1000,  # 转换为毫秒
+        }
 
-    @abstractmethod
-    def _parse_response(self, response: curl_cffi.Response) -> CheckinResult:
-        """解析响应数据"""
-        pass
+        response = curl_cffi.post(
+            f"{self.flaresolverr_url}/v1",
+            json=payload,
+            timeout=self.timeout + 10,  # 给额外的超时时间
+            headers={"Content-Type": "application/json"},
+        )
 
-    def checkin(self) -> CheckinResult:
-        """执行签到操作"""
-        logging.info("🚀 开始执行签到操作...")
+        if response.status_code != 200:
+            raise RuntimeError(f"FlareSolverr HTTP 错误: {response.status_code}")
 
-        for attempt in range(1, self.config.retry_count + 1):
-            try:
-                logging.debug(f"第 {attempt} 次尝试签到")
+        data = response.json()
 
-                response = curl_cffi.post(
-                    self.config.checkin_url,
-                    timeout=self.config.timeout,
-                    headers=self.default_headers,
-                    impersonate="firefox",
-                )
+        if data.get("status") != "ok":
+            error_msg = data.get("message", "未知错误")
+            raise RuntimeError(f"FlareSolverr 请求失败: {error_msg}")
 
-                result = self._parse_response(response)
+        solution = data.get("solution", {})
+        cookies_list = solution.get("cookies", [])
 
-                if result.status == CheckinStatus.SUCCESS:
-                    logging.info(f"✅ {result.message}")
-                    return result
-                elif result.status == CheckinStatus.ALREADY_CHECKED:
-                    logging.info(f"ℹ️ {result.message}")
-                    return result
-                elif result.status == CheckinStatus.UNAUTHORIZED:
-                    logging.error(f"🔒 认证失败: {result.message}")
-                    return result  # 认证失败不需要重试
-                else:
-                    logging.warning(f"⚠️ 第 {attempt} 次尝试失败: {result.message}")
+        # 将 cookies 列表转换为字典
+        cookies_dict = {}
+        for cookie in cookies_list:
+            cookies_dict[cookie["name"]] = cookie["value"]
 
-                    if attempt < self.config.retry_count:
-                        import time
+        userAgent = solution.get("userAgent", "")
 
-                        time.sleep(self.config.retry_delay)
+        logging.info(f"成功获取 {len(cookies_dict)} 个 cookies")
 
-            except Exception as e:
-                logging.error(f"❌ 第 {attempt} 次尝试未知错误: {e}")
-
-        return CheckinResult(
-            status=CheckinStatus.FAILED,
-            message="所有重试尝试均失败",
-            error_code="MAX_RETRY_EXCEEDED",
+        return FlareSolverrResponse(
+            cookies=cookies_dict,
+            userAgent=userAgent,
         )
 
 
-class VeloeraCheckinService(BaseCheckinService):
-    """Veloera 签到服务实现"""
+class VeloeraCheckinService:
+    """Veloera 签到服务"""
+
+    def __init__(
+        self, config: VeloeraConfig, flaresolverr_client: "FlareSolverrClient"
+    ):
+        self.config = config
+        self.flaresolverr_client = flaresolverr_client
+        self.default_headers = self._get_default_headers()
+        self.cookies = {}
 
     def _is_already_checked_message(self, message: str) -> bool:
         """检查消息是否表示已经签到过"""
@@ -145,67 +126,80 @@ class VeloeraCheckinService(BaseCheckinService):
             "Referer": f"{self.config.base_url}/personal",
         }
 
-    def _parse_response(self, response: curl_cffi.Response) -> CheckinResult:
-        """解析 Veloera 平台响应"""
-        try:
-            if response.status_code == 200:
-                data = response.json()
+    def _get_cookies_via_flaresolverr(self):
+        """通过 FlareSolverr 获取 cookies"""
+        logging.info(f"正在通过 FlareSolverr 获取 {self.config.base_url} 的 cookies...")
 
-                if data.get("success"):
-                    quota = data.get("data", {}).get("quota", 0)
-                    message = data.get("message", "签到成功")
+        flare_response = self.flaresolverr_client.get_cookies(self.config.base_url)
 
-                    # 格式化配额显示
-                    formatted_message = f"{message} - 当前配额: {quota:.2f}"
+        self.cookies = flare_response.cookies
+        logging.info(f"成功获取 {len(self.cookies)} 个 cookies")
 
-                    return CheckinResult(
-                        status=CheckinStatus.SUCCESS,
-                        message=formatted_message,
-                        data={"quota": quota},
+        # 如果获取到了 User-Agent，更新请求头
+        if flare_response.userAgent:
+            self.default_headers["User-Agent"] = flare_response.userAgent
+            logging.debug(f"更新 User-Agent: {flare_response.userAgent}")
+
+    def _parse_response(self, response: curl_cffi.Response):
+        """解析 Veloera 平台响应，成功时不返回结果，失败时抛出异常"""
+        if response.status_code == 200:
+            data = response.json()
+
+            if data.get("success"):
+                quota = data.get("data", {}).get("quota", 0)
+                message = data.get("message", "签到成功")
+                formatted_message = f"{message} - 当前配额: {quota:.2f}"
+                logging.info(f"✅ {formatted_message}")
+                return  # 成功时直接返回
+            else:
+                error_msg = data.get("message", "签到失败")
+
+                # 检查是否为已签到的情况
+                if self._is_already_checked_message(error_msg):
+                    logging.info(f"ℹ️ {error_msg}")
+                    return  # 已签到也视为成功
+
+                raise RuntimeError(f"签到失败: {error_msg}")
+
+        elif response.status_code == 401:
+            raise RuntimeError("认证失败，请检查访问令牌和用户ID")
+
+        else:
+            raise RuntimeError(f"HTTP错误 {response.status_code}: {response.text}")
+
+    def checkin(self):
+        """执行签到操作"""
+        logging.info("🚀 开始执行签到操作...")
+
+        # 先通过 FlareSolverr 获取 cookies
+        self._get_cookies_via_flaresolverr()
+
+        for attempt in range(1, self.config.retry_count + 1):
+            try:
+                logging.debug(f"第 {attempt} 次尝试签到")
+
+                response = curl_cffi.post(
+                    self.config.checkin_url,
+                    timeout=self.config.timeout,
+                    headers=self.default_headers,
+                    cookies=self.cookies,
+                    impersonate="firefox",
+                )
+
+                self._parse_response(response)
+                return  # 成功时直接返回
+
+            except Exception as e:
+                if attempt == self.config.retry_count:
+                    # 最后一次尝试失败，抛出异常
+                    raise RuntimeError(
+                        f"签到失败，已重试 {self.config.retry_count} 次: {e}"
                     )
                 else:
-                    error_msg = data.get("message", "签到失败")
+                    logging.warning(f"⚠️ 第 {attempt} 次尝试失败: {e}")
+                    import time
 
-                    # 检查是否为已签到的情况
-                    if self._is_already_checked_message(error_msg):
-                        return CheckinResult(
-                            status=CheckinStatus.ALREADY_CHECKED,
-                            message=error_msg,
-                            error_code="ALREADY_CHECKED",
-                        )
-
-                    return CheckinResult(
-                        status=CheckinStatus.FAILED,
-                        message=error_msg,
-                        error_code=data.get("code"),
-                    )
-
-            elif response.status_code == 401:
-                return CheckinResult(
-                    status=CheckinStatus.UNAUTHORIZED,
-                    message="认证失败，请检查访问令牌和用户ID",
-                    error_code="UNAUTHORIZED",
-                )
-
-            else:
-                return CheckinResult(
-                    status=CheckinStatus.FAILED,
-                    message=f"HTTP错误 {response.status_code}: {response.text}",
-                    error_code=f"HTTP_{response.status_code}",
-                )
-
-        except json.JSONDecodeError as e:
-            return CheckinResult(
-                status=CheckinStatus.FAILED,
-                message=f"响应JSON解析失败: {e}",
-                error_code="JSON_DECODE_ERROR",
-            )
-        except Exception as e:
-            return CheckinResult(
-                status=CheckinStatus.FAILED,
-                message=f"响应解析异常: {e}",
-                error_code="PARSE_ERROR",
-            )
+                    time.sleep(self.config.retry_delay)
 
 
 class ConfigManager:
@@ -228,24 +222,42 @@ class VeloeraCheckinManager:
     """Veloera 签到管理器"""
 
     def __init__(self):
-        self.configs: List[VeloeraConfig] = []  # 存储配置以便后续使用
+        self.flaresolverr_client = self._init_flaresolverr()
 
-    def run_single_checkin(self, config: VeloeraConfig) -> CheckinResult:
+    def _init_flaresolverr(self) -> FlareSolverrClient:
+        """初始化 FlareSolverr 客户端"""
+        flaresolverr_url = os.getenv("FLARESOLVERR_URL")
+
+        if not flaresolverr_url:
+            logging.error("未配置 FLARESOLVERR_URL 环境变量")
+            sys.exit(1)
+
+        logging.info(f"检测到 FlareSolverr 配置: {flaresolverr_url}")
+        try:
+            client = FlareSolverrClient(flaresolverr_url)
+            logging.info("FlareSolverr 客户端初始化成功")
+            return client
+        except Exception as e:
+            logging.error(f"FlareSolverr 客户端初始化失败: {e}")
+            sys.exit(1)
+
+    def run_single_checkin(self, config: VeloeraConfig):
         """执行单个账号签到"""
-        service = VeloeraCheckinService(config)
-        return service.checkin()
+        service = VeloeraCheckinService(config, self.flaresolverr_client)
+        service.checkin()
 
-    def run_batch_checkin(self, configs: List[VeloeraConfig]) -> List[CheckinResult]:
+    def run_batch_checkin(self, configs: List[VeloeraConfig]):
         """执行批量账号签到"""
-        self.configs = configs  # 保存配置以便后续使用
-        results = []
-
         logging.info(f"开始批量签到，共 {len(configs)} 个账号")
+        failed_accounts = []
 
         for i, config in enumerate(configs, 1):
             logging.info(f"正在处理第 {i} 个账号 (用户ID: {config.user_id})")
-            result = self.run_single_checkin(config)
-            results.append(result)
+            try:
+                self.run_single_checkin(config)
+            except Exception as e:
+                logging.error(f"账号 {config.user_id} 签到失败: {e}")
+                failed_accounts.append(config.user_id)
 
             # 账号间延迟
             if i < len(configs):
@@ -253,7 +265,8 @@ class VeloeraCheckinManager:
 
                 time.sleep(2)
 
-        return results
+        if failed_accounts:
+            raise RuntimeError(f"以下账号签到失败: {', '.join(failed_accounts)}")
 
 
 def main():
@@ -263,23 +276,12 @@ def main():
         # 从命令行参数获取配置文件路径
         config_file = sys.argv[1]
         configs = ConfigManager.load_from_file(config_file)
-        results = manager.run_batch_checkin(configs)
-
-        # 检查是否有真正失败的签到（排除已签到的情况）
-        failed_count = sum(
-            1
-            for r in results
-            if r.status not in [CheckinStatus.SUCCESS, CheckinStatus.ALREADY_CHECKED]
-        )
-
-        if failed_count > 0:
-            sys.exit(1)
+        manager.run_batch_checkin(configs)
+        logging.info("=" * 60)
 
     except Exception as e:
         logging.critical(f"程序执行异常: {e}")
         sys.exit(1)
-
-    logging.info("=" * 60)
 
 
 if __name__ == "__main__":
