@@ -59,7 +59,7 @@ in
         rtt cost 1000;
         rtt min 0ms;
         rtt max 1000ms;
-        rtt decay 42;
+        rtt decay 10;
       };
     }
   '';
