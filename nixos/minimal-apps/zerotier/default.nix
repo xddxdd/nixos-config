@@ -47,11 +47,30 @@ in
   systemd.services.zerotierone = {
     preStart = ''
       rm -rf /var/lib/zerotier-one/peers.d
+    ''
+    + lib.optionalString (LT.this.hasTag LT.tags.server) ''
+      cat > /var/lib/zerotier-one/networks.d/${ltnet}.local.conf <<EOF
+      allowManaged=0
+      allowGlobal=0
+      allowDefault=0
+      allowDNS=0
+      EOF
     '';
 
     serviceConfig = LT.networkToolHarden // {
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
+    };
+  };
+
+  systemd.network.networks."99-zerotier" = {
+    matchConfig.Name = "ztje7axwd2";
+    address = [
+      "198.18.0.${builtins.toString LT.this.index}/24"
+      "fdbc:f9dc:67ad::${builtins.toString LT.this.index}/64"
+    ];
+    networkConfig = {
+      LinkLocalAddressing = "no";
     };
   };
 }
