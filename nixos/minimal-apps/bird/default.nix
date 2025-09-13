@@ -39,7 +39,8 @@ in
       ]
       ++ [
         ltnet.common
-        ltnet.dynamic
+        ltnet.babel
+        # ltnet.dynamic
         ltnet.peers
       ]
     );

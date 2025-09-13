@@ -75,8 +75,7 @@ in
         export filter ltbabel_export_filter_v6;
       };
       randomize router id yes;
-      metric decay 30s;
-      interface "ztje7axwd2" {
+      interface "wgmesh*" {
         type tunnel;
         rtt cost 1000;
         rtt min 0ms;

@@ -39,19 +39,19 @@ in
         ListenPort = LT.port.WGMesh.Start + v.index;
       };
       wireguardPeers = [
-        {
-          AllowedIPs = [
-            "0.0.0.0/0"
-            "::/0"
-          ];
-          Endpoint =
-            if wgEndpoint != null then
-              "${wgEndpoint}:${builtins.toString (LT.port.WGMesh.Start + LT.this.index)}"
-            else
-              "";
-          PublicKey = wg-pubkey."${n}";
-          PersistentKeepalive = 15;
-        }
+        (
+          {
+            AllowedIPs = [
+              "0.0.0.0/0"
+              "::/0"
+            ];
+            PublicKey = wg-pubkey."${n}";
+            PersistentKeepalive = 15;
+          }
+          // lib.optionalAttrs (wgEndpoint != null) {
+            Endpoint = "${wgEndpoint}:${builtins.toString (LT.port.WGMesh.Start + LT.this.index)}";
+          }
+        )
       ];
     }
   ) targetHosts;
