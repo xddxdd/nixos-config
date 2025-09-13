@@ -30,12 +30,14 @@ in
 {
   babel = ''
     filter ltbabel_filter_v4 {
+      if net ~ COMMON_STATIC_IPv4 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
     filter ltbabel_filter_v6 {
+      if net ~ COMMON_STATIC_IPv6 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;

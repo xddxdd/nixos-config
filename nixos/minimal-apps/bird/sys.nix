@@ -6,6 +6,23 @@
 }@args:
 let
   inherit (import ./common.nix args) community DN42_AS;
+
+  commonStaticRoutesIPv4 = [
+    "172.22.76.184/29"
+    "172.22.76.96/27"
+    "10.127.10.0/24"
+
+    # Workaround ghosting
+    "172.22.76.96/29"
+    "172.22.76.104/29"
+    "172.22.76.112/29"
+    "172.22.76.120/29"
+  ];
+
+  commonStaticRoutesIPv6 = [
+    "fdbc:f9dc:67ad::/48"
+    "fd10:127:10::/48"
+  ];
 in
 {
   common = ''
@@ -161,6 +178,15 @@ in
       # nothing
     ];
 
+    # Common static ranges
+    define COMMON_STATIC_IPv4 = [
+    ${lib.concatStringsSep ",\n" commonStaticRoutesIPv4}
+    ];
+
+    define COMMON_STATIC_IPv6 = [
+    ${lib.concatStringsSep ",\n" commonStaticRoutesIPv6}
+    ];
+
     # Reserved range, where system is allowed to operate
     define RESERVED_IPv4 = [
     ${lib.concatMapStringsSep ",\n" (t: t + "+") LT.constants.reserved.IPv4}
@@ -241,19 +267,13 @@ in
     }
 
     protocol static static_v4 {
-      route 172.22.76.184/29 reject;
-      route 172.22.76.96/27 reject;
-      route 10.127.10.0/24 reject;
-
-      # Workaround ghosting
-      route 172.22.76.96/29 reject;
-      route 172.22.76.104/29 reject;
-      route 172.22.76.112/29 reject;
-      route 172.22.76.120/29 reject;
-
+      # Host specific routes
       ${lib.optionalString (LT.this.dn42.IPv4 != "") "route ${LT.this.dn42.IPv4}/32 reject;"}
       route ${LT.this.ltnet.IPv4}/32 reject;
       route ${LT.this.neonetwork.IPv4}/32 reject;
+
+      # Common static routes
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv4}
 
       # Rerouted WAN addresses
       ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
@@ -271,14 +291,18 @@ in
     };
 
     protocol static static_v6 {
-      route fdbc:f9dc:67ad::/48 reject;
-      route fd10:127:10::/48 reject;
-
+      # Host specific routes
       route ${LT.this.dn42.IPv6}/128 reject;
       route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
       route ${LT.this.ltnet.IPv6}/128 reject;
       route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
       route ${LT.this.neonetwork.IPv6}/128 reject;
+
+      # Common static routes
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv6}
+
+      # Blackhole routes for private ranges
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
   ''
   + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
     # Blackhole routes for private ranges
