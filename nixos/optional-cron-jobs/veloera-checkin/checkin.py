@@ -37,6 +37,7 @@ class VeloeraConfig:
     timeout: int = 30
     retry_count: int = 3
     retry_delay: float = 1.0
+    ignore_errors: bool = False
 
     @property
     def checkin_url(self) -> str:
@@ -250,20 +251,30 @@ class VeloeraCheckinManager:
         """执行批量账号签到"""
         logging.info(f"开始批量签到，共 {len(configs)} 个账号")
         failed_accounts = []
+        ignored_failed_accounts = []
 
         for i, config in enumerate(configs, 1):
             logging.info(f"正在处理第 {i} 个账号 (用户ID: {config.user_id})")
             try:
                 self.run_single_checkin(config)
             except Exception as e:
-                logging.error(f"账号 {config.user_id} 签到失败: {e}")
-                failed_accounts.append(config.user_id)
+                if config.ignore_errors:
+                    logging.warning(f"账号 {config.user_id} 签到失败但已忽略错误: {e}")
+                    ignored_failed_accounts.append(config.user_id)
+                else:
+                    logging.error(f"账号 {config.user_id} 签到失败: {e}")
+                    failed_accounts.append(config.user_id)
 
             # 账号间延迟
             if i < len(configs):
                 import time
 
                 time.sleep(2)
+
+        if ignored_failed_accounts:
+            logging.info(
+                f"以下账号签到失败但已忽略: {', '.join(ignored_failed_accounts)}"
+            )
 
         if failed_accounts:
             raise RuntimeError(f"以下账号签到失败: {', '.join(failed_accounts)}")
