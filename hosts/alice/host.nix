@@ -3,6 +3,7 @@
   index = 9;
   tags = with tags; [
     server
+    ipv6-only
   ];
   city = geo.cities."CN Hong Kong";
   ssh = {

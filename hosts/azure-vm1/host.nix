@@ -3,7 +3,6 @@
   index = 6;
   tags = with tags; [
     server
-    ipv6-only
   ];
   city = geo.cities."CN Hong Kong";
   cpuThreads = 2;
