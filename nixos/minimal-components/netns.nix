@@ -173,11 +173,7 @@ in
             (lib.nameValuePair "netns-instance-${name}" {
               inherit (config.lantian.netns."${name}") enable;
               wantedBy = [ "multi-user.target" ];
-              after = [
-                "network-pre.target"
-                "ltnet-routing-tables.service"
-              ];
-              requires = [ "ltnet-routing-tables.service" ];
+              after = [ "network-pre.target" ];
               path = [
                 pkgs.iproute2
                 pkgs.procps

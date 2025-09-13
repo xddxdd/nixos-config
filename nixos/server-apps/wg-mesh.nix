@@ -63,10 +63,26 @@ in
         Name = "wgmesh${builtins.toString v.index}";
         Kind = "wireguard";
       };
-      address = [ "fe80::${builtins.toString LT.this.index}/64" ];
+
+      address = [
+        "fe80::${builtins.toString LT.this.index}/64"
+      ]
+      ++ lib.optionals (LT.this.ltnet.IPv4 != "") [ (LT.this.ltnet.IPv4 + "/32") ]
+      ++ lib.optionals (LT.this.ltnet.IPv6 != "") [ (LT.this.ltnet.IPv6 + "/128") ];
+
       networkConfig = {
         LinkLocalAddressing = "no";
       };
+      routes = [
+        {
+          Destination = "0.0.0.0/0";
+          Table = 10000 + v.index;
+        }
+        {
+          Destination = "::/0";
+          Table = 10000 + v.index;
+        }
+      ];
     }
   ) targetHosts;
 }

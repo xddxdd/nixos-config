@@ -29,29 +29,13 @@ let
 in
 {
   babel = ''
-    filter ltbabel_import_filter_v4 {
+    filter ltbabel_filter_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
-    filter ltbabel_export_filter_v4 {
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
-      if net ~ LTNET_UNMANAGED_IPv4 then reject;
-      if net ~ LTNET_IPv4 then accept;
-      reject;
-    }
-
-    filter ltbabel_import_filter_v6 {
-      if net ~ LTNET_UNMANAGED_IPv6 then reject;
-      if net ~ LTNET_IPv6 then accept;
-      reject;
-    }
-
-    filter ltbabel_export_filter_v6 {
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
+    filter ltbabel_filter_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ LTNET_IPv6 then accept;
       reject;
@@ -59,12 +43,12 @@ in
 
     protocol babel ltbabel {
       ipv4 {
-        import filter ltbabel_import_filter_v4;
-        export filter ltbabel_export_filter_v4;
+        import filter ltbabel_filter_v4;
+        export filter ltbabel_filter_v4;
       };
       ipv6 {
-        import filter ltbabel_import_filter_v6;
-        export filter ltbabel_export_filter_v6;
+        import filter ltbabel_filter_v6;
+        export filter ltbabel_filter_v6;
       };
       randomize router id yes;
       interface "wgmesh*" {

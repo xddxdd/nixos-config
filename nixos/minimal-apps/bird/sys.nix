@@ -6,12 +6,6 @@
 }@args:
 let
   inherit (import ./common.nix args) community DN42_AS;
-
-  excludedInterfacesFromDirect = [
-    "dn42-*"
-    "neo-*"
-    "zt*"
-  ];
 in
 {
   common = ''
@@ -80,21 +74,6 @@ in
       accept;
     }
 
-    # # Disabled since internal routes are now managed with ZeroTier
-    # protocol direct sys_direct {
-    #   interface ${lib.concatMapStringsSep ", " (v: ''"-${v}"'') excludedInterfacesFromDirect}, "*";
-    #   ipv4 {
-    #     preference 10000;
-    #     import filter sys_import_v4;
-    #     export none;
-    #   };
-    #   ipv6 {
-    #     preference 10000;
-    #     import filter sys_import_v6;
-    #     export none;
-    #   };
-    # };
-
     protocol kernel sys_kernel_v4 {
       scan time 20;
       learn;
@@ -158,14 +137,12 @@ in
 
     # IP ranges managed by other networking tools
     define LTNET_UNMANAGED_IPv4 = [
-      192.168.0.0/16+,
-      198.18.0.0/24+
+      192.168.0.0/16+
     ];
 
     # IP ranges managed by other networking tools
     define LTNET_UNMANAGED_IPv6 = [
-      fc00:192:168::/48+,
-      fdbc:f9dc:67ad::/64+
+      fc00:192:168::/48+
     ];
 
     define NEONETWORK_NET_IPv4 = [
@@ -274,6 +251,10 @@ in
       route 172.22.76.112/29 reject;
       route 172.22.76.120/29 reject;
 
+      ${lib.optionalString (LT.this.dn42.IPv4 != "") "route ${LT.this.dn42.IPv4}/32 reject;"}
+      route ${LT.this.ltnet.IPv4}/32 reject;
+      route ${LT.this.neonetwork.IPv4}/32 reject;
+
       # Rerouted WAN addresses
       ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
   ''
@@ -292,6 +273,12 @@ in
     protocol static static_v6 {
       route fdbc:f9dc:67ad::/48 reject;
       route fd10:127:10::/48 reject;
+
+      route ${LT.this.dn42.IPv6}/128 reject;
+      route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
+      route ${LT.this.ltnet.IPv6}/128 reject;
+      route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
+      route ${LT.this.neonetwork.IPv6}/128 reject;
   ''
   + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
     # Blackhole routes for private ranges
