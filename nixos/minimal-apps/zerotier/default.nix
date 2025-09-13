@@ -63,7 +63,7 @@ in
     };
   };
 
-  systemd.network.networks."99-zerotier" = {
+  systemd.network.networks."99-zerotier" = lib.mkIf (LT.this.hasTag LT.tags.server) {
     matchConfig.Name = "ztje7axwd2";
     address = [
       "198.18.0.${builtins.toString LT.this.index}/24"
@@ -73,25 +73,25 @@ in
       LinkLocalAddressing = "no";
     };
     routes = lib.flatten (
-        lib.mapAttrsToList (
-          n: v:
-          let
-            i = builtins.toString v.index;
-            routes = [
-              "198.18.${i}.0/24"
-              "198.19.${i}.0/24"
-              "fdbc:f9dc:67ad:${i}::/64"
-            ]
-            ++ (lib.optionals (v.dn42.IPv4 != "") [ "${v.dn42.IPv4}/32" ])
-            ++ (lib.optionals (v.neonetwork.IPv4 != "") [ "${v.neonetwork.IPv4}/32" ])
-            ++ (lib.optionals (v.neonetwork.IPv6 != "") [ "${v.neonetwork.IPv6}/64" ])
-            ++ v.additionalRoutes;
-          in
-          builtins.map (r: {
-            Destination = r;
-            Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
-          }) routes
-        ) (LT.otherHostsWithoutTag LT.tags.server)
-      );
+      lib.mapAttrsToList (
+        n: v:
+        let
+          i = builtins.toString v.index;
+          routes = [
+            "198.18.${i}.0/24"
+            "198.19.${i}.0/24"
+            "fdbc:f9dc:67ad:${i}::/64"
+          ]
+          ++ (lib.optionals (v.dn42.IPv4 != "") [ "${v.dn42.IPv4}/32" ])
+          ++ (lib.optionals (v.neonetwork.IPv4 != "") [ "${v.neonetwork.IPv4}/32" ])
+          ++ (lib.optionals (v.neonetwork.IPv6 != "") [ "${v.neonetwork.IPv6}/64" ])
+          ++ v.additionalRoutes;
+        in
+        builtins.map (r: {
+          Destination = r;
+          Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+        }) routes
+      ) (LT.otherHostsWithoutTag LT.tags.server)
+    );
   };
 }
