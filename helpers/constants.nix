@@ -142,6 +142,8 @@ rec {
     Prowlarr = 9696;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;
+    WGMesh.Start = 10000;
+    WGMesh.End = 10255;
     FakeOllama = 11434;
     Yggdrasil.Multicast = 13059;
     FlapAlerted.BGP = 13179;

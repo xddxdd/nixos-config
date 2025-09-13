@@ -4,7 +4,6 @@
   tags = with tags; [
     exclude-bgp-mesh
     nixpkgs-stable
-    server
   ];
   city = geo.cities."US Seattle";
   cpuThreads = 8;
