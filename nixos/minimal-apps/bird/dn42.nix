@@ -123,7 +123,6 @@ in
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
       if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
 
       if net ~ [ 172.22.76.184/29+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 172.22.76.96/27+ ] then bgp_path.prepend(${DN42_AS});
@@ -168,7 +167,6 @@ in
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
       if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
 
       if net ~ [ fdbc:f9dc:67ad::/48+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ fd10:127:10::/48+ ] then bgp_path.prepend(${NEO_AS});

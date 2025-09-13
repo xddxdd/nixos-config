@@ -39,7 +39,6 @@ in
     filter sys_export_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      ${lib.optionalString (LT.this.hasTag LT.tags.dn42) "if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;"}
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
@@ -62,7 +61,6 @@ in
     filter sys_export_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      ${lib.optionalString (LT.this.hasTag LT.tags.dn42) "if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;"}
       if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
@@ -260,78 +258,53 @@ in
     };
   '';
 
-  static =
-    ''
-      protocol device sys_device {
-        scan time 10;
-      }
+  static = ''
+    protocol device sys_device {
+      scan time 10;
+    }
 
-      protocol static static_v4 {
-        route 172.22.76.184/29 reject;
-        route 172.22.76.96/27 reject;
-        route 10.127.10.0/24 reject;
+    protocol static static_v4 {
+      route 172.22.76.184/29 reject;
+      route 172.22.76.96/27 reject;
+      route 10.127.10.0/24 reject;
 
-        # Workaround ghosting
-        route 172.22.76.96/29 reject;
-        route 172.22.76.104/29 reject;
-        route 172.22.76.112/29 reject;
-        route 172.22.76.120/29 reject;
+      # Workaround ghosting
+      route 172.22.76.96/29 reject;
+      route 172.22.76.104/29 reject;
+      route 172.22.76.112/29 reject;
+      route 172.22.76.120/29 reject;
 
-        # Rerouted WAN addresses
-        ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
-    ''
-    + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
-      # Blackhole routes for private ranges
-      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
-    '')
-    + ''
-        ipv4 {
-          preference 1000;
-          import all;
-          export none;
-        };
+      # Rerouted WAN addresses
+      ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
+  ''
+  + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
+    # Blackhole routes for private ranges
+    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
+  '')
+  + ''
+      ipv4 {
+        preference 1000;
+        import all;
+        export none;
       };
+    };
 
-      protocol static static_v6 {
-        route fdbc:f9dc:67ad::/48 reject;
-        route fd10:127:10::/48 reject;
-    ''
-    + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
-      # Blackhole routes for private ranges
-      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
-    '')
-    + ''
-        ipv6 {
-          preference 1000;
-          import all;
-          export none;
-        };
-      }
-    ''
-    + (lib.optionalString (LT.this.hasTag LT.tags.dn42) ''
-      protocol static static_aggregated_v4 {
-        route 172.20.0.0/14 reject;
-        route 172.31.0.0/16 reject;
-        route 10.127.0.0/16 reject;
-
-        ipv4 {
-          preference 9999;
-          import filter { bgp_large_community.add(${community.LT_POLICY_INTERNAL_AGGREGATED}); accept; };
-          export none;
-        };
-      }
-
-      protocol static static_aggregated_v6 {
-        route fd00::/8 reject;
-        route fd10:127::/32 reject;
-
-        ipv6 {
-          preference 9999;
-          import filter { bgp_large_community.add(${community.LT_POLICY_INTERNAL_AGGREGATED}); accept; };
-          export none;
-        };
-      }
-    '');
+    protocol static static_v6 {
+      route fdbc:f9dc:67ad::/48 reject;
+      route fd10:127:10::/48 reject;
+  ''
+  + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
+    # Blackhole routes for private ranges
+    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
+  '')
+  + ''
+      ipv6 {
+        preference 1000;
+        import all;
+        export none;
+      };
+    }
+  '';
 
   flapAlerted = ''
     protocol bgp sys_flapalerted {

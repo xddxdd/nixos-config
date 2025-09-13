@@ -1,18 +1,14 @@
 { lib, LT, ... }@args:
 let
-  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS community;
+  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS;
 
   peer =
     hostname:
     {
-      hasTag,
       index,
       city,
       ...
     }:
-    let
-      exchangeAllRoutes = LT.this.hasTag LT.tags.dn42 && hasTag LT.tags.dn42;
-    in
     ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
@@ -20,16 +16,12 @@ let
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
           import filter ltnet_import_filter_v4;
-          export filter ${
-            if exchangeAllRoutes then "ltnet_export_filter_v4" else "ltnet_export_aggregated_filter_v4"
-          };
+          export filter ltnet_export_filter_v4;
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
           import filter ltnet_import_filter_v6;
-          export filter ${
-            if exchangeAllRoutes then "ltnet_export_filter_v6" else "ltnet_export_aggregated_filter_v6"
-          };
+          export filter ltnet_export_filter_v6;
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
@@ -88,55 +80,37 @@ in
   common = ''
     filter ltnet_import_filter_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
+      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       if net ~ REROUTED_WAN_IPv4 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v4 {
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
       if net ~ REROUTED_WAN_IPv4 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
+      if net ~ LTNET_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
-      reject;
-    }
-
-    filter ltnet_export_aggregated_filter_v4 {
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
-      if net ~ REROUTED_WAN_IPv4 then accept;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
-      if net ~ LTNET_UNMANAGED_IPv4 then reject;
-      if net ~ LTNET_IPv4 then accept;
       reject;
     }
 
     filter ltnet_import_filter_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
+      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       if net ~ REROUTED_WAN_IPv6 then accept;
       reject;
     }
 
     filter ltnet_export_filter_v6 {
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then reject;
       if net ~ REROUTED_WAN_IPv6 then accept;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
       if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
+      if net ~ LTNET_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
-      reject;
-    }
-
-    filter ltnet_export_aggregated_filter_v6 {
-      if ${community.LT_POLICY_INTERNAL_AGGREGATED} ~ bgp_large_community then accept;
-      if net ~ REROUTED_WAN_IPv6 then accept;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
-      if net ~ LTNET_UNMANAGED_IPv6 then reject;
-      if net ~ LTNET_IPv6 then accept;
       reject;
     }
 
@@ -192,7 +166,7 @@ in
 
   peers = builtins.concatStringsSep "\n" (
     lib.mapAttrsToList peer (
-      lib.filterAttrs (n: v: !builtins.elem LT.constants.tags.exclude-bgp-mesh v.tags) LT.otherHosts
+      lib.filterAttrs (n: v: LT.this.hasTag LT.tags.server && v.hasTag LT.tags.server) LT.otherHosts
     )
   );
 }
