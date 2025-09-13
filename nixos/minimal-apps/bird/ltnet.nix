@@ -29,40 +29,45 @@ let
     '';
 in
 {
-  babel = ''
-    filter ltbabel_filter_v4 {
-      if net ~ COMMON_STATIC_IPv4 then reject;
-      if net ~ LTNET_UNMANAGED_IPv4 then reject;
-      if net ~ LTNET_IPv4 then accept;
-      reject;
-    }
+  babel =
+    let
+      babelInterfaces = builtins.concatStringsSep "\n" (
+        lib.mapAttrsToList (n: v: ''
+          interface "wgmesh${builtins.toString v.index}" {
+            type wired;
+            rxcost ${builtins.toString (1 + LT.geo.rttMs LT.this.city v.city)};
+          };
+        '') LT.hosts
+      );
+    in
+    ''
+      filter ltbabel_filter_v4 {
+        if net ~ COMMON_STATIC_IPv4 then reject;
+        if net ~ LTNET_UNMANAGED_IPv4 then reject;
+        if net ~ LTNET_IPv4 then accept;
+        reject;
+      }
 
-    filter ltbabel_filter_v6 {
-      if net ~ COMMON_STATIC_IPv6 then reject;
-      if net ~ LTNET_UNMANAGED_IPv6 then reject;
-      if net ~ LTNET_IPv6 then accept;
-      reject;
-    }
+      filter ltbabel_filter_v6 {
+        if net ~ COMMON_STATIC_IPv6 then reject;
+        if net ~ LTNET_UNMANAGED_IPv6 then reject;
+        if net ~ LTNET_IPv6 then accept;
+        reject;
+      }
 
-    protocol babel ltbabel {
-      ipv4 {
-        import filter ltbabel_filter_v4;
-        export filter ltbabel_filter_v4;
-      };
-      ipv6 {
-        import filter ltbabel_filter_v6;
-        export filter ltbabel_filter_v6;
-      };
-      randomize router id yes;
-      interface "wgmesh*" {
-        type tunnel;
-        rtt cost 1000;
-        rtt min 0ms;
-        rtt max 1000ms;
-        rtt decay 10;
-      };
-    }
-  '';
+      protocol babel ltbabel {
+        ipv4 {
+          import filter ltbabel_filter_v4;
+          export filter ltbabel_filter_v4;
+        };
+        ipv6 {
+          import filter ltbabel_filter_v6;
+          export filter ltbabel_filter_v6;
+        };
+        randomize router id yes;
+        ${babelInterfaces}
+      }
+    '';
 
   common = ''
     filter ltnet_import_filter_v4 {
