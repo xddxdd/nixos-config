@@ -271,6 +271,7 @@ rec {
       "ns"
       "vboxnet"
       "virbr"
+      "wgmesh"
     ];
   };
 

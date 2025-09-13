@@ -85,7 +85,7 @@ in
       "000001" = {
         name = "ltnet";
         mtu = 1400;
-        multicastLimit = 0;
+        multicastLimit = 256;
         routes = ztRoutes;
         members = ztMembers // additionalMembers;
       };
