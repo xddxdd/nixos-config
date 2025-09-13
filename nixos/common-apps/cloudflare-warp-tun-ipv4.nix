@@ -1,9 +1,10 @@
 {
   pkgs,
+  lib,
   LT,
   ...
 }:
-{
+lib.mkIf (LT.this.hasTag "ipv6-only") {
   systemd.services.usque-tun-ipv4 = {
     description = "Usque TUN for IPv4 access";
     after = [ "network.target" ];

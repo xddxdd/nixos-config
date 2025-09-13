@@ -4,6 +4,7 @@
   tags = with tags; [
     low-disk
     server
+    ipv6-only
   ];
   city = geo.cities."NL Amsterdam";
   ssh = {

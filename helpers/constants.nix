@@ -238,6 +238,7 @@ rec {
     "nixpkgs-stable"
     "public-facing"
     "server"
+    "ipv6-only"
 
     # Hardware
     "i915-sriov"

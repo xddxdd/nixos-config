@@ -9,8 +9,6 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/optional-apps/cloudflare-warp-tun-ipv4.nix
   ];
 
   systemd.network.networks.eth0 = {
