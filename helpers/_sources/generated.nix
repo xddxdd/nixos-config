@@ -3,31 +3,31 @@
 {
   ai-robots-txt = {
     pname = "ai-robots-txt";
-    version = "0ed29412c93c46bb3cf64821833326bf43da964e";
+    version = "8906f6b44790a9296c7393d9455274e7555fe2da";
     src = fetchgit {
       url = "https://github.com/ai-robots-txt/ai.robots.txt.git";
-      rev = "0ed29412c93c46bb3cf64821833326bf43da964e";
+      rev = "8906f6b44790a9296c7393d9455274e7555fe2da";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-tGjNXIUgvoWJLrQacSW/3AOe9uAX7ADR+bcKydVhQfE=";
+      sha256 = "sha256-pY8FvpW/MPx6w1e6Nxr6BzUin9AXez+QfvNRge3ZtPc=";
     };
-    date = "2025-08-28";
+    date = "2025-09-12";
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "35302fc351db3d5a9055a62bcf95388103678194";
+    version = "3f8b37b88188f86abd341c28d681d928924024d2";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "35302fc351db3d5a9055a62bcf95388103678194";
+      rev = "3f8b37b88188f86abd341c28d681d928924024d2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-jkS5gZgLe6Gir6InBdMNDkEt68p5SOp2SDDh3tPdu2g=";
+      sha256 = "sha256-7nScQAHNvPJUPqDL0ksh/wnkrWazJugYSl82h+xqkV4=";
     };
-    date = "2025-08-21";
+    date = "2025-09-05";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -47,29 +47,29 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
+    version = "de995f77ca6a1408c2d5e5930196f82e316c790d";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
+      rev = "de995f77ca6a1408c2d5e5930196f82e316c790d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-mGkHgnunCBjsahvrt+87aJ/grWQr1/aTVGFZrWoDdz0=";
+      sha256 = "sha256-kb2JJYhyccfnb+ORycTDFbasIlbAaW6WqvmWfvPPN1A=";
     };
-    date = "2025-09-02";
+    date = "2025-09-11";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
+    version = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
+      rev = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
       fetchSubmodules = false;
-      sha256 = "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=";
+      sha256 = "sha256-Jf+RJhz9R1Fk3CceJTSGWpEhb+vE6hp+VaA5Hy7cv3c=";
     };
-    date = "2025-08-29";
+    date = "2025-09-09";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -168,15 +168,15 @@
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
-    version = "af5806625e361ca4519b99755ccf0a557c1e894a";
+    version = "a294e2d623c09f6443981e33385e97784f55b988";
     src = fetchFromGitHub {
       owner = "Ulauncher";
       repo = "ulauncher-emoji";
-      rev = "af5806625e361ca4519b99755ccf0a557c1e894a";
+      rev = "a294e2d623c09f6443981e33385e97784f55b988";
       fetchSubmodules = false;
-      sha256 = "sha256-wc4UP3Tf9osYr2bLvXTvfpAxb40qGH12o9qIB3En4Sg=";
+      sha256 = "sha256-xM0R4H949xlgEJMn1PVtazKWC5hvE61mzzGIIqrmuRE=";
     };
-    date = "2025-06-03";
+    date = "2025-09-08";
   };
   ulauncher-kill = {
     pname = "ulauncher-kill";
