@@ -289,32 +289,6 @@ in
             ip tunnel del ${interfaceName}
           '';
         };
-
-      cfgToZeroTier =
-        n: v:
-        let
-          interfaceName = "${v.peering.network}-${n}";
-        in
-        lib.nameValuePair "zerotier-${interfaceName}" {
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          after = [
-            "network.target"
-            "zerotierone.service"
-          ];
-          requires = [
-            "network.target"
-            "zerotierone.service"
-          ];
-          wantedBy = [ "multi-user.target" ];
-          path = with pkgs; [ iproute2 ];
-
-          script = setupAddressing interfaceName v;
-          preStop = ''
-            ip addr flush ${interfaceName}
-          '';
-        };
     in
-    (lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42))
-    // (lib.mapAttrs' cfgToZeroTier (filterType "zerotier" config.services.dn42));
+    lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
 }

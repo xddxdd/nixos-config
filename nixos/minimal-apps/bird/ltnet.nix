@@ -12,7 +12,8 @@ let
     ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
         local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fdbc:f9dc:67ad::${builtins.toString index}%'ztje7axwd2' internal;
+        neighbor fdbc:f9dc:67ad::${builtins.toString index} internal;
+        multihop;
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
           import filter ltnet_import_filter_v4;

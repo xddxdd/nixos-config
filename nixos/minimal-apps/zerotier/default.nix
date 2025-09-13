@@ -22,7 +22,7 @@ in
   environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
 
   services.zerotierone = {
-    enable = true;
+    enable = !(LT.this.hasTag LT.tags.server);
     joinNetworks = [ ltnet ];
     localConf = {
       virtual = lib.mapAttrs' (
