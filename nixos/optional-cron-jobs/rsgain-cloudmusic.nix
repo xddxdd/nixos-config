@@ -9,7 +9,7 @@
       IFS=$'\n'
 
       for FILE in $(find /mnt/storage/media/CloudMusic -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
-        echo "rsgain custom --skip-existing --tagmode=i \"$FILE\"" >> parallel.lst
+        echo "rsgain custom --skip-existing --tagmode=i --loudness=-14 \"$FILE\"" >> parallel.lst
       done
       parallel -j$(nproc) < parallel.lst
     '';
