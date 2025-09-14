@@ -97,8 +97,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
@@ -119,6 +118,7 @@
     "tls://[2603:c020:4015:b937:a1c7:aff8:b558:d1fe]:23164",
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
+    "tls://micr0.dev:7992",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://neo.node.3dt.net:9003",
