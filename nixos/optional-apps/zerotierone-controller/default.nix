@@ -21,7 +21,7 @@ let
     }
   ) ztHosts;
 
-  defaultGatewayHost = LT.hosts.v-ps-sea;
+  defaultGatewayHost = LT.hosts.lt-home-vm;
   managedIPv4Ranges = LT.constants.dn42.IPv4 ++ LT.constants.neonetwork.IPv4 ++ [ "198.18.0.0/15" ];
   managedIPv6Ranges =
     LT.constants.dn42.IPv6 ++ LT.constants.neonetwork.IPv6 ++ [ "fdbc:f9dc:67ad::/48" ];
