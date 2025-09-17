@@ -18,7 +18,7 @@
   };
 
   nix = {
-    package = inputs.determinate-nix.packages."${pkgs.system}".default;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
@@ -55,10 +55,10 @@
       use-cgroups = true;
       warn-dirty = false;
 
-      # Determinate Nix specific
-      eval-cores = 0;
-      max-jobs = "auto";
-      lazy-trees = true;
+      # # Determinate Nix specific
+      # eval-cores = 0;
+      # max-jobs = "auto";
+      # lazy-trees = true;
 
       substituters = config.nix.settings.trusted-substituters;
       trusted-substituters = LT.constants.nix.substituters;
