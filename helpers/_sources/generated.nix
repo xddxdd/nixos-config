@@ -3,31 +3,31 @@
 {
   ai-robots-txt = {
     pname = "ai-robots-txt";
-    version = "0ed29412c93c46bb3cf64821833326bf43da964e";
+    version = "8df813b66ae87832d29dd99dd6cb8a4e20d760c8";
     src = fetchgit {
       url = "https://github.com/ai-robots-txt/ai.robots.txt.git";
-      rev = "0ed29412c93c46bb3cf64821833326bf43da964e";
+      rev = "8df813b66ae87832d29dd99dd6cb8a4e20d760c8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-tGjNXIUgvoWJLrQacSW/3AOe9uAX7ADR+bcKydVhQfE=";
+      sha256 = "sha256-Bt5cOt0JB5MpszIbr9xRnS3VpvT0dog6uhRf9eOxb+U=";
     };
-    date = "2025-08-28";
+    date = "2025-09-14";
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "35302fc351db3d5a9055a62bcf95388103678194";
+    version = "f481927aeac8292019d3782a0f9f38b44823a6f8";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "35302fc351db3d5a9055a62bcf95388103678194";
+      rev = "f481927aeac8292019d3782a0f9f38b44823a6f8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-jkS5gZgLe6Gir6InBdMNDkEt68p5SOp2SDDh3tPdu2g=";
+      sha256 = "sha256-KPo45wONDLDvcapMAuUcoTh4l27pSt5tzB1PTPvu0AE=";
     };
-    date = "2025-08-21";
+    date = "2025-09-17";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -47,29 +47,29 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
+    version = "b57f471412c7b63fd88da53168d115b0e7505e94";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "a480b0c36f0afa4b8d2f3ccb1287bbadc36fe5c9";
+      rev = "b57f471412c7b63fd88da53168d115b0e7505e94";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-mGkHgnunCBjsahvrt+87aJ/grWQr1/aTVGFZrWoDdz0=";
+      sha256 = "sha256-Fci1y4/zFDhp4W2C2O8i8Kge5i4yJVdaCPcvziSTSa0=";
     };
-    date = "2025-09-02";
+    date = "2025-09-15";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
+    version = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "72ed46a4fab84be2d1fc2c2c3c5027bdb0b8bcd2";
+      rev = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
       fetchSubmodules = false;
-      sha256 = "sha256-Fa7CvuZ0JFZkOx4gKZUorboNqIR6u2mBXlk890D2BF8=";
+      sha256 = "sha256-Jf+RJhz9R1Fk3CceJTSGWpEhb+vE6hp+VaA5Hy7cv3c=";
     };
-    date = "2025-08-29";
+    date = "2025-09-09";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -85,15 +85,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "96997daa55de266fd96f5ad4d5e9bd1a541351cd";
+    version = "ff4401dc602b8b0157b3f61a93b715dad5091c7f";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "96997daa55de266fd96f5ad4d5e9bd1a541351cd";
+      rev = "ff4401dc602b8b0157b3f61a93b715dad5091c7f";
       fetchSubmodules = false;
-      sha256 = "sha256-rWXOAuoifMG5BK4cwQxItJ80Iou50zA3qevnuzEjw+Q=";
+      sha256 = "sha256-CJWQnbecOM9UtUB6rp/KEnEWQvGYrhtSVoK+S4kpXM0=";
     };
-    date = "2025-09-01";
+    date = "2025-09-17";
   };
   open5gs = {
     pname = "open5gs";
@@ -168,15 +168,15 @@
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
-    version = "af5806625e361ca4519b99755ccf0a557c1e894a";
+    version = "a294e2d623c09f6443981e33385e97784f55b988";
     src = fetchFromGitHub {
       owner = "Ulauncher";
       repo = "ulauncher-emoji";
-      rev = "af5806625e361ca4519b99755ccf0a557c1e894a";
+      rev = "a294e2d623c09f6443981e33385e97784f55b988";
       fetchSubmodules = false;
-      sha256 = "sha256-wc4UP3Tf9osYr2bLvXTvfpAxb40qGH12o9qIB3En4Sg=";
+      sha256 = "sha256-xM0R4H949xlgEJMn1PVtazKWC5hvE61mzzGIIqrmuRE=";
     };
-    date = "2025-06-03";
+    date = "2025-09-08";
   };
   ulauncher-kill = {
     pname = "ulauncher-kill";
