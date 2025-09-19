@@ -111,7 +111,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    preservation.url = "github:WilliButz/preservation";
+    preservation.url = "github:WilliButz/preservation/286737ba485f30c1687c833e66f5901a6c8dc019";
     proxmox-nixos = {
       url = "github:xddxdd/proxmox-nixos";
       inputs.utils.follows = "flake-utils";
