@@ -25,7 +25,7 @@ in
             "electron-32.3.3"
             "libsoup-2.74.3"
             "olm-3.2.16"
-            "ventoy-1.1.05"
+            "ventoy-1.1.07"
             # keep-sorted end
           ];
           overlays = [
