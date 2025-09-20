@@ -16,6 +16,7 @@
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
+    "tls://37.205.14.171:993",
     "tls://[2a03:3b40:fe:ab::1]:993"
   ],
   "finland": [
@@ -57,8 +58,7 @@
     "tls://yg-tyo.magicum.net:32333"
   ],
   "luxembourg": [
-    "tls://[2a03:90c0:85::28a]:443",
-    "tls://srl.newsdeef.eu:59999"
+    "tls://[2a03:90c0:85::28a]:443"
   ],
   "netherlands": [
     "tls://23.137.249.65:444",
@@ -122,7 +122,6 @@
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://neo.node.3dt.net:9003",
     "tls://redcatho.de:9494",
-    "tls://srv.newsdeef.eu:59999",
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
