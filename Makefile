@@ -8,7 +8,7 @@ all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
 all-reboot: FORCE
-	@nix run .#colmena -- apply --reboot --on @non-local
+	@nix run .#colmena -- apply --reboot --on @default-non-local
 
 build: FORCE
 	@nix run .#colmena -- build
