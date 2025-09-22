@@ -57,9 +57,6 @@
     "tls://astrra.space:55535",
     "tls://yg-tyo.magicum.net:32333"
   ],
-  "luxembourg": [
-    "tls://[2a03:90c0:85::28a]:443"
-  ],
   "netherlands": [
     "tls://23.137.249.65:444",
     "tls://vpn.itrus.su:7992"
