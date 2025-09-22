@@ -31,6 +31,10 @@ rec {
     doCheck = false;
     doInstallCheck = false;
   });
+  netavark = prev.netavark.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
+    doCheck = false;
+  });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;

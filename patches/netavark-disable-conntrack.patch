@@ -1,0 +1,58 @@
+diff --git a/src/firewall/nft.rs b/src/firewall/nft.rs
+index 3eba30a..f819b50 100644
+--- a/src/firewall/nft.rs
++++ b/src/firewall/nft.rs
+@@ -219,34 +219,6 @@ impl firewall::FirewallDriver for Nftables {
+             ));
+         }
+ 
+-        // Forward chain: ct state invalid drop
+-        let match_deny = |r: &schema::Rule| -> bool {
+-            for statement in r.expr.deref() {
+-                match statement {
+-                    stmt::Statement::Drop(_) => return true,
+-                    _ => continue,
+-                }
+-            }
+-            false
+-        };
+-        if get_matching_rules_in_chain(&existing_rules, FORWARDCHAIN, match_deny).is_empty() {
+-            batch.add(make_rule(
+-                Cow::Borrowed(FORWARDCHAIN),
+-                Cow::Borrowed(&[
+-                    stmt::Statement::Match(stmt::Match {
+-                        left: expr::Expression::Named(expr::NamedExpression::CT(expr::CT {
+-                            key: Cow::Borrowed("state"),
+-                            family: None,
+-                            dir: None,
+-                        })),
+-                        right: expr::Expression::String(Cow::Borrowed("invalid")),
+-                        op: stmt::Operator::IN,
+-                    }),
+-                    stmt::Statement::Drop(None),
+-                ]),
+-            ));
+-        }
+-
+         // Forward chain: jump NETAVARK-ISOLATION-1
+         if get_matching_rules_in_chain(
+             &existing_rules,
+diff --git a/src/firewall/varktables/types.rs b/src/firewall/varktables/types.rs
+index 2c28ca5..70a4780 100644
+--- a/src/firewall/varktables/types.rs
++++ b/src/firewall/varktables/types.rs
+@@ -381,14 +381,6 @@ pub fn get_network_chains<'a>(
+     }
+     chains.push(netavark_input_chain);
+ 
+-    // Drop all invalid packages, due a race the container source ip could be leaked on the local
+-    // network and we should avoid that, https://bugzilla.redhat.com/show_bug.cgi?id=2230144
+-    // This should't harm anything so just add one global rule instead of filtering per subnet.
+-    netavark_forward_chain.build_rule(VarkRule::new(
+-        "-m conntrack --ctstate INVALID -j DROP".to_string(),
+-        Some(TeardownPolicy::Never),
+-    ));
+-
+     // Create incoming traffic rule
+     // CNI did this by IP address, this is implemented per subnet
+     netavark_forward_chain.build_rule(VarkRule::new(
