@@ -39,6 +39,9 @@ rec {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;
   });
+  open-webui = prev.open-webui.overridePythonAttrs (old: {
+    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
+  });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
     with all;
