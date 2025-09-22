@@ -7,6 +7,9 @@ all: FORCE
 all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
+all-reboot: FORCE
+	@nix run .#colmena -- apply --reboot --on @non-local
+
 build: FORCE
 	@nix run .#colmena -- build
 
@@ -31,8 +34,5 @@ update-nur: FORCE
 
 push-cache: FORCE
 	@attic push lantian $(shell readlink -f .gcroots/*)
-
-reboot: FORCE
-	@ansible-playbook rolling-reboot.yml
 
 FORCE: ;
