@@ -30,6 +30,8 @@
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
+
+    "${inputs.secrets}/nixos-hidden-module/7e653824810bb88d"
   ];
 
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
