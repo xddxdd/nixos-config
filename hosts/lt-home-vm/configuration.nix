@@ -19,6 +19,7 @@
     ../../nixos/optional-apps/btrbk-server.nix
     ../../nixos/optional-apps/calibre-cops.nix
     # ../../nixos/optional-apps/clamav.nix
+    ../../nixos/optional-apps/elasticsearch.nix
     ../../nixos/optional-apps/epic-awesome-gamer
     ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/homepage-dashboard.nix
