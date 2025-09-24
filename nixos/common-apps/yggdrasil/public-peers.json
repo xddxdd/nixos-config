@@ -70,9 +70,12 @@
   ],
   "russia": [
     "tls://188.225.9.167:18227",
+    "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
+    "tls://[2a00:b700::a:279]:443",
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
+    "tls://ekb.itrus.su:7992",
     "tls://ip4.01.msk.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://srv.itrus.su:7992",
@@ -86,6 +89,9 @@
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
+  ],
+  "spain": [
+    "tls://spain.magicum.net:36901"
   ],
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
@@ -118,7 +124,6 @@
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
-    "tls://ygg.jjolly.dev:3443",
     "tls://ygg.mnpnk.com:443",
     "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ]
