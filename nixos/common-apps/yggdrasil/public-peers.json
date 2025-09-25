@@ -58,8 +58,7 @@
     "tls://yg-tyo.magicum.net:32333"
   ],
   "netherlands": [
-    "tls://23.137.249.65:444",
-    "tls://vpn.itrus.su:7992"
+    "tls://23.137.249.65:444"
   ],
   "norway": [
     "tls://185.181.60.111:1513?key=00defa4b4b243547f2d5641ac5235ff1e35d393c576e4bb9cd45baefc81e48d9",
@@ -70,7 +69,6 @@
   ],
   "russia": [
     "tls://188.225.9.167:18227",
-    "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
     "tls://[2a00:b700::a:279]:443",
     "tls://[2a09:5302:ffff::992]:443",
@@ -94,7 +92,6 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "ukraine": [
@@ -124,6 +121,7 @@
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
+    "tls://ygg.jjolly.dev:3443",
     "tls://ygg.mnpnk.com:443",
     "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ]
