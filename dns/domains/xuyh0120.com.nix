@@ -34,7 +34,6 @@
           recordType = "CNAME";
           name = "h5aYgaUDSYQPmRU7lRAaSRdOmVEbefA0._domainkey";
           target = "h5aYgaUDSYQPmRU7lRAaSRdOmVEbefA0.xuyh0120.com.dkim.nrt1.oracleemaildelivery.com.";
-          ttl = "5m";
         }
         {
           recordType = "TXT";

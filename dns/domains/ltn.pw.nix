@@ -47,7 +47,6 @@
           recordType = "CNAME";
           name = "E3zg58ql3SpvhP9wkHhNZTCC5HYk4l8X._domainkey";
           target = "E3zg58ql3SpvhP9wkHhNZTCC5HYk4l8X.ltn.pw.dkim.nrt1.oracleemaildelivery.com.";
-          ttl = "5m";
         }
         {
           recordType = "TXT";
