@@ -133,13 +133,17 @@
         recordType = "CNAME";
         name = "psrp";
         target = "rp.ahasend.com.";
-        ttl = "1h";
       }
       {
         recordType = "CNAME";
         name = "t";
         target = "track.ahasend.com.";
-        ttl = "1h";
+      }
+      # Oracle Cloud
+      {
+        recordType = "CNAME";
+        name = "ocirp-nrt1";
+        target = "nrt1.rp.oracleemaildelivery.com.";
       }
     ];
 
