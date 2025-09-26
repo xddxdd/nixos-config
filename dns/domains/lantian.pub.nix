@@ -260,7 +260,7 @@ in
         {
           recordType = "CNAME";
           name = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg._domainkey";
-          target = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg.lantian.pub.dkim.nrt1.oracleemaildelivery.com";
+          target = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg.lantian.pub.dkim.nrt1.oracleemaildelivery.com.";
           ttl = "5m";
         }
         {

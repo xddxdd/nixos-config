@@ -173,7 +173,7 @@ in
         {
           recordType = "CNAME";
           name = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg._domainkey";
-          target = "9z8suy0Sua6PUg8hDvxoxUvlkvbNx6MW.xuyh0120.win.dkim.nrt1.oracleemaildelivery.com";
+          target = "9z8suy0Sua6PUg8hDvxoxUvlkvbNx6MW.xuyh0120.win.dkim.nrt1.oracleemaildelivery.com.";
           ttl = "5m";
         }
         {
