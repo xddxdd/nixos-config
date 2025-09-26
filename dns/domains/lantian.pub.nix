@@ -258,6 +258,12 @@ in
         (config.common.records.Autoconfig "${domain}.")
         config.common.records.Email
         {
+          recordType = "CNAME";
+          name = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg._domainkey";
+          target = "ovh8aTSUCDYt9UEJadhoo5CCoM3zPgdg.lantian.pub.dkim.nrt1.oracleemaildelivery.com";
+          ttl = "5m";
+        }
+        {
           recordType = "TXT";
           name = "ahasend._domainkey";
           contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqRA74/KFh5TJqHCUaOJBTSQ1UbBUIeOY0LSjmSeFMWYnYfnXOaJgbHRGkSDi/SdCwW05M276B5g7kZKEpfvO0cFnHu6Olk806YaBj2zx8WG3tdH70YdGllY00EZbJPER9s/kY5CuCY1IiNkPsECasI6GIA5BtvCzdV8YtcyCKDb78ACEwY8TZrvEbgmxUMppp50JK1VR8xtvCs0yqg/ewyXsOVcpeGBNkpqtwmaXa3mNC491aHtVQqyT0+Zgjm4XmqJPKSY4qT/m6QoKCZgR6z64nw0Lzn6e+pPbRiYmMY39R5VZZgBR3mjHiCsfycI7ZVGRtHKjwObjF5ZcalAe7wIDAQAB";

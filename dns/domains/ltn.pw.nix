@@ -44,6 +44,12 @@
         (config.common.records.Autoconfig "${domain}.")
         config.common.records.Email
         {
+          recordType = "CNAME";
+          name = "E3zg58ql3SpvhP9wkHhNZTCC5HYk4l8X._domainkey";
+          target = "E3zg58ql3SpvhP9wkHhNZTCC5HYk4l8X.ltn.pw.dkim.nrt1.oracleemaildelivery.com";
+          ttl = "5m";
+        }
+        {
           recordType = "TXT";
           name = "ahasend._domainkey";
           contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwjSObSm+ch+tsdVpd/XlENiMpjSjZKuvq/rLfjRXrO0vEJju12kP8yiSKMYVH1pXDu+pgQlN1QZ+Iddz8hYGWqne3QXxvu9h9v78TOBhbUvMWZ27KFFJMRaa3LtlEJ43WtO9RxDheKwT2XYVAcbVPMj3deGkS/3/POTX7C1XXcI+P/82egPJhXD5lulfa9eMOMuBOAlrEH5NFteWMd6x0dlNlbA8DzklRnrlA6HTkUi6CAOe5wCx7Wl8VbgiF95McXla/1X4pBwqyrlN1Ou95MS/fBVyRTAhGjtxDOVRlXTNIN2yo3P+owG4E4mtV62DHlfs8PEATAPdHsaSl6mE2QIDAQAB";

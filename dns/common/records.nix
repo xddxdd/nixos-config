@@ -120,7 +120,7 @@
       {
         recordType = "TXT";
         name = "@";
-        contents = "v=spf1 include:mxlogin.com include:spf.ahasend.com -all";
+        contents = "v=spf1 include:mxlogin.com include:spf.ahasend.com include:ap.rp.oracleemaildelivery.com -all";
       }
       # MXRoute
       {
