@@ -3,17 +3,17 @@
 {
   ai-robots-txt = {
     pname = "ai-robots-txt";
-    version = "8df813b66ae87832d29dd99dd6cb8a4e20d760c8";
+    version = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
     src = fetchgit {
       url = "https://github.com/ai-robots-txt/ai.robots.txt.git";
-      rev = "8df813b66ae87832d29dd99dd6cb8a4e20d760c8";
+      rev = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Bt5cOt0JB5MpszIbr9xRnS3VpvT0dog6uhRf9eOxb+U=";
+      sha256 = "sha256-x8SpcN9MokYUP54xb9K7cDkF8aOp7jnpBvZaAnaf5Ho=";
     };
-    date = "2025-09-14";
+    date = "2025-09-26";
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
@@ -61,15 +61,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
+    version = "09074766c6594a1acc0f7095923b0bb6cfc14680";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "d82a4635d26e743eb14ba09e6337fe651ddfa93c";
+      rev = "09074766c6594a1acc0f7095923b0bb6cfc14680";
       fetchSubmodules = false;
-      sha256 = "sha256-Jf+RJhz9R1Fk3CceJTSGWpEhb+vE6hp+VaA5Hy7cv3c=";
+      sha256 = "sha256-kiDrXGdNPBqI64y0RRWFdFGgxf0OzQuIwKdbheVgsag=";
     };
-    date = "2025-09-09";
+    date = "2025-09-26";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
@@ -85,15 +85,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "ff4401dc602b8b0157b3f61a93b715dad5091c7f";
+    version = "23d2c6bffc8a7c11344553462483ee9127e2bd6b";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "ff4401dc602b8b0157b3f61a93b715dad5091c7f";
+      rev = "23d2c6bffc8a7c11344553462483ee9127e2bd6b";
       fetchSubmodules = false;
-      sha256 = "sha256-CJWQnbecOM9UtUB6rp/KEnEWQvGYrhtSVoK+S4kpXM0=";
+      sha256 = "sha256-fTIyV45vzdTt9eqOKec5NPAXFIx859UuK9GRhX3+P1Y=";
     };
-    date = "2025-09-17";
+    date = "2025-09-19";
   };
   open5gs = {
     pname = "open5gs";
@@ -299,14 +299,14 @@
   };
   yourls-sleeky = {
     pname = "yourls-sleeky";
-    version = "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2";
+    version = "608583819aed46e0a3f5b72e54e323d430d5f9e0";
     src = fetchFromGitHub {
       owner = "Flynntes";
       repo = "Sleeky";
-      rev = "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2";
+      rev = "608583819aed46e0a3f5b72e54e323d430d5f9e0";
       fetchSubmodules = false;
-      sha256 = "sha256-l6znBrtNYwCWX3ef5qaT5ErC0IKKG3+GAzF+h7Klme0=";
+      sha256 = "sha256-b0MEtbGhLG15+/CfWT8iq2Dl/e3lQZ6f6k9PeyFDCOM=";
     };
-    date = "2025-02-17";
+    date = "2025-09-25";
   };
 }
