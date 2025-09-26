@@ -273,7 +273,6 @@ in
           contents = "xdyg6y366ui8ihelglmjjtxhtpd7rivm";
         }
         config.common.records.Libravatar
-        config.common.records.ProxmoxCluster
         config.common.records.SIP
 
         {

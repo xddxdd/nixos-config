@@ -186,7 +186,6 @@ in
           contents = "qcq5l789ndevk0jawrgcah0f5s4ld8sz";
         }
         config.common.records.Libravatar
-        config.common.records.ProxmoxCluster
         config.common.records.SIP
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")

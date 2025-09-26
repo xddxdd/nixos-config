@@ -54,7 +54,6 @@
           contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwjSObSm+ch+tsdVpd/XlENiMpjSjZKuvq/rLfjRXrO0vEJju12kP8yiSKMYVH1pXDu+pgQlN1QZ+Iddz8hYGWqne3QXxvu9h9v78TOBhbUvMWZ27KFFJMRaa3LtlEJ43WtO9RxDheKwT2XYVAcbVPMj3deGkS/3/POTX7C1XXcI+P/82egPJhXD5lulfa9eMOMuBOAlrEH5NFteWMd6x0dlNlbA8DzklRnrlA6HTkUi6CAOe5wCx7Wl8VbgiF95McXla/1X4pBwqyrlN1Ou95MS/fBVyRTAhGjtxDOVRlXTNIN2yo3P+owG4E4mtV62DHlfs8PEATAPdHsaSl6mE2QIDAQAB";
         }
         config.common.records.Libravatar
-        config.common.records.ProxmoxCluster
         config.common.records.SIP
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")

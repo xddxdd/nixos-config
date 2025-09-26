@@ -147,27 +147,6 @@
       }
     ];
 
-    ProxmoxCluster = [
-      {
-        recordType = "A";
-        name = "lt-epyc";
-        address = "192.168.0.2";
-        ttl = "1h";
-      }
-      {
-        recordType = "A";
-        name = "lt-hp-z220-sff";
-        address = "192.168.0.3";
-        ttl = "1h";
-      }
-      {
-        recordType = "A";
-        name = "lt-wyse";
-        address = "192.168.0.4";
-        ttl = "1h";
-      }
-    ];
-
     SIP = [
       {
         recordType = "SRV";
