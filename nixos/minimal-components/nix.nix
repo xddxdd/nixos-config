@@ -17,6 +17,11 @@
     file = inputs.secrets + "/nix/privkey.age";
   };
 
+  services.angrr = {
+    enable = true;
+    enableNixGcIntegration = true;
+  };
+
   nix = {
     package = pkgs.nixVersions.latest;
     extraOptions = ''
@@ -28,7 +33,7 @@
     daemonIOSchedPriority = 7;
 
     gc = {
-      automatic = LT.this.hasTag LT.tags.server;
+      automatic = true;
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };

@@ -41,7 +41,12 @@ let
           _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
         }
       )
+
+      # keep-sorted start
+      (inputs.srvos + "/shared/common/update-diff.nix")
+      (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.agenix.nixosModules.age
+      inputs.angrr.nixosModules.angrr
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-gaming.nixosModules.platformOptimizations
@@ -54,11 +59,11 @@ let
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
       inputs.preservation.nixosModules.preservation
       inputs.proxmox-nixos.nixosModules.proxmox-ve
-      (inputs.srvos + "/shared/common/update-diff.nix")
-      (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.srvos.nixosModules.mixins-terminfo
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
       inputs.stylix.nixosModules.stylix
+      # keep-sorted end
+
       (../hosts + "/${n}/configuration.nix")
     ];
 

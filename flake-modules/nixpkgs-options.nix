@@ -29,7 +29,9 @@ in
             # keep-sorted end
           ];
           overlays = [
+            # keep-sorted start
             inputs.agenix.overlays.default
+            inputs.angrr.overlays.default
             inputs.colmena.overlay
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
@@ -40,6 +42,7 @@ in
             inputs.nvfetcher.overlays.default
             inputs.proxmox-nixos.overlays."${system}"
             inputs.secrets.overlays.default
+            # keep-sorted end
           ]
           ++ (import ../overlays { inherit inputs; });
           settings = {

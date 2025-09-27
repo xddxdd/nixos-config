@@ -25,6 +25,36 @@
         "type": "github"
       }
     },
+    "angrr": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "nur-xddxdd",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758903512,
+        "narHash": "sha256-tuM+wN3d+1/FfCiFA39nOsvoh03HaeZxXE5poAD3iOk=",
+        "owner": "linyinfeng",
+        "repo": "angrr",
+        "rev": "91b0f7b42c7d6637a03b2893cf5593a1173e42e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "linyinfeng",
+        "repo": "angrr",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1211,6 +1241,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "angrr": "angrr",
         "betterfox-nix": "betterfox-nix",
         "colmena": "colmena",
         "determinate-nix": "determinate-nix",
