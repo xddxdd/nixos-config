@@ -16,6 +16,7 @@ in
     enable = true;
     useNetworkingTimeServers = false;
     settings = {
+      observability.log-level = "error";
       source =
         (builtins.map (n: {
           mode = "server";
