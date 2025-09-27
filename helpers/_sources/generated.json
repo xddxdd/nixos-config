@@ -1,7 +1,7 @@
 {
     "ai-robots-txt": {
         "cargoLocks": null,
-        "date": "2025-09-14",
+        "date": "2025-09-26",
         "extract": null,
         "name": "ai-robots-txt",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8df813b66ae87832d29dd99dd6cb8a4e20d760c8",
-            "sha256": "sha256-Bt5cOt0JB5MpszIbr9xRnS3VpvT0dog6uhRf9eOxb+U=",
+            "rev": "56d03d46fb1c20f048b194a01d14a4451fe67b6d",
+            "sha256": "sha256-x8SpcN9MokYUP54xb9K7cDkF8aOp7jnpBvZaAnaf5Ho=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/ai-robots-txt/ai.robots.txt.git"
         },
-        "version": "8df813b66ae87832d29dd99dd6cb8a4e20d760c8"
+        "version": "56d03d46fb1c20f048b194a01d14a4451fe67b6d"
     },
     "delegacy-rpz": {
         "cargoLocks": null,
@@ -91,7 +91,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-09-09",
+        "date": "2025-09-26",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -103,12 +103,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "d82a4635d26e743eb14ba09e6337fe651ddfa93c",
-            "sha256": "sha256-Jf+RJhz9R1Fk3CceJTSGWpEhb+vE6hp+VaA5Hy7cv3c=",
+            "rev": "09074766c6594a1acc0f7095923b0bb6cfc14680",
+            "sha256": "sha256-kiDrXGdNPBqI64y0RRWFdFGgxf0OzQuIwKdbheVgsag=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d82a4635d26e743eb14ba09e6337fe651ddfa93c"
+        "version": "09074766c6594a1acc0f7095923b0bb6cfc14680"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -133,7 +133,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-09-17",
+        "date": "2025-09-19",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -145,12 +145,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "ff4401dc602b8b0157b3f61a93b715dad5091c7f",
-            "sha256": "sha256-CJWQnbecOM9UtUB6rp/KEnEWQvGYrhtSVoK+S4kpXM0=",
+            "rev": "23d2c6bffc8a7c11344553462483ee9127e2bd6b",
+            "sha256": "sha256-fTIyV45vzdTt9eqOKec5NPAXFIx859UuK9GRhX3+P1Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ff4401dc602b8b0157b3f61a93b715dad5091c7f"
+        "version": "23d2c6bffc8a7c11344553462483ee9127e2bd6b"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -511,7 +511,7 @@
     },
     "yourls-sleeky": {
         "cargoLocks": null,
-        "date": "2025-02-17",
+        "date": "2025-09-25",
         "extract": null,
         "name": "yourls-sleeky",
         "passthru": null,
@@ -523,11 +523,11 @@
             "name": null,
             "owner": "Flynntes",
             "repo": "Sleeky",
-            "rev": "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2",
-            "sha256": "sha256-l6znBrtNYwCWX3ef5qaT5ErC0IKKG3+GAzF+h7Klme0=",
+            "rev": "608583819aed46e0a3f5b72e54e323d430d5f9e0",
+            "sha256": "sha256-b0MEtbGhLG15+/CfWT8iq2Dl/e3lQZ6f6k9PeyFDCOM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c1dcd8f320c5415eb6c49863f6c836e527b1ca2"
+        "version": "608583819aed46e0a3f5b72e54e323d430d5f9e0"
     }
 }
