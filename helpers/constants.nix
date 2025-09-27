@@ -236,7 +236,6 @@ rec {
     "dn42"
     "exclude-bgp-mesh"
     "nix-builder"
-    "nixpkgs-stable"
     "public-facing"
     "server"
     "ipv6-only"

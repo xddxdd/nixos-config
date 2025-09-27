@@ -9,12 +9,7 @@ let
     inherit lib inputs self;
   };
 
-  pkgsNameFor =
-    n:
-    if builtins.elem LT.constants.tags.nixpkgs-stable LT.hosts."${n}".tags then
-      "pkgs-stable"
-    else
-      "pkgs";
+  pkgsNameFor = n: "pkgs";
 
   specialArgsFor = n: {
     inherit inputs;
