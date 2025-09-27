@@ -18,9 +18,6 @@ rec {
     vendorHash = "sha256-PUeMs6VZSB5YMc0MRen7Jmdi2eFbEQsHix/VzeydYoc=";
     doCheck = false;
   });
-  gcdemu = prev.gcdemu.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or [ ]) ++ [ final.libappindicator-gtk3 ];
-  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
@@ -101,9 +98,9 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
-  tinc_pre = prev.tinc_pre.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or [ ]) ++ [ final.miniupnpc ];
-    configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-miniupnpc" ];
+  qbittorrent-nox = prev.qbittorrent-nox.overrideAttrs (old: {
+    # Sonarr retries with different release when adding existing torrent
+    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
@@ -119,10 +116,8 @@ rec {
       ];
   });
   zerotierone = prev.zerotierone.overrideAttrs (old: {
-    # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [
       ../patches/zerotier-auto-multithread.patch
-      ../patches/zerotier-increase-max-routes.patch
     ];
   });
   zsh-autopair = prev.zsh-autopair.overrideAttrs (_old: {
