@@ -20,8 +20,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
     mode = if config.networking.hostName == "terrahost" then "monolithic" else "api-server";
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
-      # Database configured with env var
-      database = { };
+      database = {
+        # Database configured with env var
+        heartbeat = true;
+      };
       require-proof-of-possession = false;
       storage = {
         type = "s3";
