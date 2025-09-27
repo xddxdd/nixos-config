@@ -146,7 +146,8 @@ in
         synadm
         thunderbird-wrapped
         tigervnc
-        ulauncher
+        # FIXME: build failure
+        # ulauncher
         unar
         ventoy-full
         virt-manager
@@ -216,7 +217,9 @@ in
       }
       {
         name = "ulauncher";
-        command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
+        # FIXME: temporarily disable
+        command = "true";
+        # command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
       }
       # keep-sorted end
     ]
