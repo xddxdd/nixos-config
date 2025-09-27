@@ -6,7 +6,9 @@
   inputs,
   ...
 }:
-lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
+{
+  imports = [ ./postgresql.nix ];
+
   age.secrets.attic-credentials = {
     file = inputs.secrets + "/attic-credentials.age";
     owner = "atticd";
@@ -17,11 +19,11 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
     enable = true;
     package = pkgs.nur-xddxdd.lantianCustomized.attic-telnyx-compatible;
     environmentFile = config.age.secrets.attic-credentials.path;
-    mode = if config.networking.hostName == "terrahost" then "monolithic" else "api-server";
+    mode = "monolithic";
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
       database = {
-        # Database configured with env var
+        url = "postgres://atticd?host=/run/postgresql&user=atticd";
         heartbeat = true;
       };
       require-proof-of-possession = false;
@@ -59,6 +61,16 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
     isSystemUser = true;
   };
   users.groups.atticd = { };
+
+  services.postgresql = {
+    ensureDatabases = [ "atticd" ];
+    ensureUsers = [
+      {
+        name = "atticd";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
 
   lantian.nginxVhosts = {
     "attic.xuyh0120.win" = {

@@ -30,7 +30,7 @@ let
     {
       recordType = "CNAME";
       name = "attic";
-      target = config.common.records.GeoStorDNSTarget;
+      target = "hetzner-de";
       ttl = "1h";
     }
     {

@@ -25,7 +25,7 @@
       FETCH_ODYSEE_WATCH_TIME = "1";
       FETCH_YOUTUBE_WATCH_TIME = "1";
 
-      CREATE_ADMIN = lib.mkForce "0";
+      CREATE_ADMIN = lib.mkForce 0;
       PROXY_IMAGES = "all";
     };
     adminCredentialsFile = pkgs.writeText "dummy" "DUMMY=1";
