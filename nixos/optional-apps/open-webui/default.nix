@@ -12,8 +12,7 @@
     # ../fish-speech.nix
     ../mcpo.nix
     ../openai-edge-tts.nix
-    # FIXME: broken
-    # ../openedai-speech.nix
+    ../openedai-speech.nix
     ../postgresql.nix
     ../tika.nix
     ../uni-api
