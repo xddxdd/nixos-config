@@ -192,6 +192,15 @@
         ++ lib.optionals (config.neonetwork.IPv6 != "") [ (config.neonetwork.IPv6 + "/128") ]
       );
     };
+    _addresses4 = lib.mkOption {
+      readOnly = true;
+      default = builtins.filter (addr: !lib.hasInfix ":" addr) config._addresses;
+    };
+    _addresses6 = lib.mkOption {
+      readOnly = true;
+      default = builtins.filter (addr: !lib.hasInfix ":" addr) config._addresses;
+    };
+
     _routes = lib.mkOption {
       readOnly = true;
       default = lib.unique (
@@ -205,6 +214,14 @@
         ++ lib.optionals (config.neonetwork.IPv6Prefix != "") [ (config.neonetwork.IPv6Prefix + "::/64") ]
         ++ config.additionalRoutes
       );
+    };
+    _routes4 = lib.mkOption {
+      readOnly = true;
+      default = builtins.filter (route: !lib.hasInfix ":" route) config._routes;
+    };
+    _routes6 = lib.mkOption {
+      readOnly = true;
+      default = builtins.filter (route: lib.hasInfix ":" route) config._routes;
     };
   };
 }

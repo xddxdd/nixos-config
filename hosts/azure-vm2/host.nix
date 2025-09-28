@@ -16,4 +16,7 @@
     IPv4 = "172.22.76.119";
     region = 52;
   };
+  additionalRoutes = [
+    "168.63.129.16/32" # Azure private DNS server
+  ];
 }

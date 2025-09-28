@@ -55,7 +55,7 @@ in
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
         krt_metric = 65535;
-        if net ~ REROUTED_WAN_IPv4 then reject;
+        if net ~ REROUTED_IPv4 then reject;
       }
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
@@ -77,7 +77,7 @@ in
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
         krt_metric = 65535;
-        if net ~ REROUTED_WAN_IPv6 then reject;
+        if net ~ REROUTED_IPv6 then reject;
       }
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
@@ -170,12 +170,20 @@ in
       fd10:127::/32+
     ];
 
-    define REROUTED_WAN_IPv4 = [
-      168.63.129.16/32  # Azure private DNS server
+    define REROUTED_IPv4 = [
+    ${lib.concatStringsSep ",\n" (
+      builtins.filter (v: !lib.hasInfix ":" v) (
+        lib.unique (lib.flatten (lib.mapAttrsToList (n: v: v.additionalRoutes) LT.hosts))
+      )
+    )}
     ];
 
-    define REROUTED_WAN_IPv6 = [
-      # nothing
+    define REROUTED_IPv6 = [
+    ${lib.concatStringsSep ",\n" (
+      builtins.filter (v: lib.hasInfix ":" v) (
+        lib.unique (lib.flatten (lib.mapAttrsToList (n: v: v.additionalRoutes) LT.hosts))
+      )
+    )}
     ];
 
     # Common static ranges
@@ -268,15 +276,10 @@ in
 
     protocol static static_v4 {
       # Host specific routes
-      ${lib.optionalString (LT.this.dn42.IPv4 != "") "route ${LT.this.dn42.IPv4}/32 reject;"}
-      route ${LT.this.ltnet.IPv4}/32 reject;
-      route ${LT.this.neonetwork.IPv4}/32 reject;
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.this._routes4}
 
       # Common static routes
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv4}
-
-      # Rerouted WAN addresses
-      ${lib.optionalString (lib.hasInfix "azure" config.networking.hostName) "route 168.63.129.16/32 reject;  # Azure private DNS server"}
   ''
   + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
     # Blackhole routes for private ranges
@@ -292,17 +295,10 @@ in
 
     protocol static static_v6 {
       # Host specific routes
-      route ${LT.this.dn42.IPv6}/128 reject;
-      route fdbc:f9dc:67ad:${builtins.toString LT.this.index}::/64 reject;
-      route ${LT.this.ltnet.IPv6}/128 reject;
-      route fd10:127:10:${builtins.toString LT.this.index}::/64 reject;
-      route ${LT.this.neonetwork.IPv6}/128 reject;
+      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.this._routes6}
 
       # Common static routes
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv6}
-
-      # Blackhole routes for private ranges
-      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
   ''
   + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
     # Blackhole routes for private ranges
