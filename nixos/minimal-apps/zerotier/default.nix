@@ -80,7 +80,7 @@ in
           i = builtins.toString v.index;
           routes = builtins.filter (
             route: !lib.hasPrefix "198.18.0." route && !lib.hasPrefix "fdbc:f9dc:67ad::" route
-          ) LT.this._routes;
+          ) v._routes;
         in
         builtins.map (r: {
           Destination = r;
