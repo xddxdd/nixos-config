@@ -6,6 +6,7 @@
 }:
 let
   whitelistToBlacklist = pkgs.callPackage ./whitelist_to_blacklist.nix { };
+  calculateMac = pkgs.callPackage ./mac-calculator.nix { };
 
   ltnet = "91450bd87b000001";
 
@@ -77,21 +78,27 @@ in
         n: v:
         let
           i = builtins.toString v.index;
-          routes = [
-            "198.18.${i}.0/24"
-            "198.19.${i}.0/24"
-            "fdbc:f9dc:67ad:${i}::/64"
-          ]
-          ++ (lib.optionals (v.dn42.IPv4 != "") [ "${v.dn42.IPv4}/32" ])
-          ++ (lib.optionals (v.neonetwork.IPv4 != "") [ "${v.neonetwork.IPv4}/32" ])
-          ++ (lib.optionals (v.neonetwork.IPv6 != "") [ "${v.neonetwork.IPv6}/64" ])
-          ++ v.additionalRoutes;
+          routes = builtins.filter (
+            route: !lib.hasPrefix "198.18.0." route && !lib.hasPrefix "fdbc:f9dc:67ad::" route
+          ) LT.this._routes;
         in
         builtins.map (r: {
           Destination = r;
           Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
         }) routes
       ) (LT.otherHostsWithoutTag LT.tags.server)
+    );
+
+    extraConfig = builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        n: v:
+        lib.concatMapStringsSep "\n" (ip: ''
+          [Neighbor]
+          # ${v.name}
+          Address=${ip}
+          LinkLayerAddress=${calculateMac ltnet n}
+        '') v.ipAssignments
+      ) LT.zerotier.hosts
     );
   };
 }

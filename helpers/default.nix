@@ -52,6 +52,7 @@ let
     tagsForHost = call ./fn/tags-for-host.nix;
     translit = call ./fn/translit.nix;
     wrapNetns = call ./fn/wrap-netns.nix;
+    zerotier = call ./fn/zerotier.nix;
   };
 in
 helpers

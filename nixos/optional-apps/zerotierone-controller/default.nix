@@ -1,26 +1,5 @@
-{
-  LT,
-  lib,
-  inputs,
-  ...
-}:
+{ LT, ... }:
 let
-  ztHosts = lib.filterAttrs (n: v: v.zerotier != null) LT.hosts;
-  ztMembers = lib.mapAttrs' (
-    n: v:
-    let
-      i = builtins.toString v.index;
-    in
-    lib.nameValuePair v.zerotier {
-      name = n;
-      ipAssignments = [
-        "198.18.0.${i}"
-        "fdbc:f9dc:67ad::${i}"
-      ];
-      noAutoAssignIps = true;
-    }
-  ) ztHosts;
-
   defaultGatewayHost = LT.hosts.lt-home-vm;
   managedIPv4Ranges = LT.constants.dn42.IPv4 ++ LT.constants.neonetwork.IPv4 ++ [ "198.18.0.0/15" ];
   managedIPv6Ranges =
@@ -55,25 +34,6 @@ let
     target = r;
     via = defaultGatewayHost.ltnet.IPv6;
   }) managedIPv6Ranges);
-
-  additionalHosts = import (inputs.secrets + "/zerotier-additional-hosts.nix");
-  additionalMembers = builtins.listToAttrs (
-    builtins.map (
-      {
-        name,
-        index,
-        zerotier,
-      }:
-      lib.nameValuePair zerotier {
-        inherit name;
-        ipAssignments = [
-          "198.18.0.${builtins.toString index}"
-          "fdbc:f9dc:67ad::${builtins.toString index}"
-        ];
-        noAutoAssignIps = true;
-      }
-    ) additionalHosts
-  );
 in
 {
   imports = [ ./upstreamable.nix ];
@@ -87,7 +47,7 @@ in
         mtu = 1400;
         multicastLimit = 256;
         routes = ztRoutes;
-        members = ztMembers // additionalMembers;
+        members = LT.zerotier.hosts;
       };
     };
   };
