@@ -139,6 +139,7 @@ in
     black
     conda
     micromamba
+    uv
     virtualenv
     yapf
 
