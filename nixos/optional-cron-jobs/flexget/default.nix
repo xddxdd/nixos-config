@@ -37,7 +37,7 @@ let
           };
           free_space = {
             path = "/mnt/ssd-temp/.downloads-auto";
-            space = 10 * 1024; # 10GB
+            space = 200 * 1024; # 200GB
           };
         };
       };
