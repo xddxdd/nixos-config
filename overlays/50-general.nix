@@ -28,6 +28,9 @@ rec {
     doCheck = false;
     doInstallCheck = false;
   });
+  mpv-unwrapped = prev.mpv-unwrapped.override {
+    inherit (final.nur-xddxdd.lantianCustomized) ffmpeg;
+  };
   netavark = prev.netavark.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
