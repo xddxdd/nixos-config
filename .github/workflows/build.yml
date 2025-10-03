@@ -11,19 +11,9 @@ jobs:
       matrix:
         base-image:
           - ubuntu-24.04
-        nixos-configuration:
-          - bwg-lax
-          - lt-home-lte
-          - lt-home-vm
-          - lt-hp-omen
-          - pve-c3758
-          - pve-epyc
-          - terrahost
-        include:
-          - base-image: ubuntu-24.04-arm
-            nixos-configuration: hetzner-de
-          - base-image: ubuntu-24.04-arm
-            nixos-configuration: lt-rpi4
+          - ubuntu-24.04-arm
+        ci-command:
+          - ci
 
     runs-on: ${{ matrix.base-image }}
     env:
@@ -107,7 +97,7 @@ jobs:
       - name: Build nix packages
         run: |
           env TMPDIR=/nix/tmpdir \
-            nix build .#nixosConfigurations.${{ matrix.nixos-configuration }}.config.system.build.toplevel \
+            nix run .#${{ matrix.ci-command }} -- "$(nix-instantiate --eval -E 'builtins.currentSystem')" \
             2>&1 | sed -E 's/[0-9a-z]{32}/********************************/g'
 
           attic push lantian result* \

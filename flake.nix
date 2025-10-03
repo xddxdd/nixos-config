@@ -195,6 +195,14 @@
         ipv6List = builtins.concatStringsSep "\n" (
           lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
         );
+
+        # NixOS configurations
+        nixosPackages = lib.mapAttrs (
+          system: _:
+          lib.mapAttrs (n: v: v.config.system.build.toplevel) (
+            lib.filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations
+          )
+        ) self.allSystems;
       };
 
       perSystem =
