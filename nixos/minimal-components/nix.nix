@@ -6,6 +6,13 @@
   pkgs,
   ...
 }:
+let
+  allowedUsers = [
+    "@wheel"
+    "nix-builder"
+    "root"
+  ];
+in
 {
   age.secrets.nix-access-token = {
     file = inputs.secrets + "/nix/access-token.age";
@@ -40,7 +47,7 @@
     nrBuildUsers = 0;
     optimise.automatic = true;
     settings = {
-      allowed-users = lib.mkForce [ "@wheel" ];
+      allowed-users = lib.mkForce allowedUsers;
       auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
@@ -54,10 +61,7 @@
       log-lines = 25;
       max-free = 1000 * 1000 * 1000;
       min-free = 128 * 1000 * 1000;
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
+      trusted-users = allowedUsers;
       use-cgroups = true;
       warn-dirty = false;
 

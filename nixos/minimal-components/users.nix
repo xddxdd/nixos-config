@@ -1,9 +1,15 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  inputs,
+  LT,
+  ...
+}:
 let
   # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
   unixHashedPassword = glauthUsers.lantian.passBcrypt;
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
+  sshKeysForNixBuilder = import (inputs.secrets + "/ssh/nix-builder.nix");
 in
 {
   environment.etc.subuid = {
@@ -49,11 +55,18 @@ in
       createHome = true;
       linger = true;
     };
+    nix-builder = lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
+      isNormalUser = true;
+      group = "nix-builder";
+      openssh.authorizedKeys.keys = sshKeysForNixBuilder;
+      linger = false;
+    };
   };
 
   users.groups = {
     lantian = {
       gid = 1000;
     };
+    nix-builder = { };
   };
 }
