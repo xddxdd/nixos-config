@@ -36,14 +36,9 @@
 
         # VirMach free host
         {
-          recordType = "NS";
+          recordType = "A";
           name = "virmach-host";
-          target = "ns1.vp.net.co.";
-        }
-        {
-          recordType = "NS";
-          name = "virmach-host";
-          target = "ns2.vp.net.co.";
+          address = "5.253.38.3";
         }
 
         # SSLIP.io
