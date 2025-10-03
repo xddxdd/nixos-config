@@ -70,28 +70,6 @@
           target = "bwg-lax.lantian.pub.";
         }
 
-        # MyOwnFreeHost
-        {
-          recordType = "NS";
-          name = "mofh";
-          target = "ns1.byet.org.";
-        }
-        {
-          recordType = "NS";
-          name = "mofh";
-          target = "ns2.byet.org.";
-        }
-        {
-          recordType = "NS";
-          name = "mofh";
-          target = "ns3.byet.org.";
-        }
-        {
-          recordType = "NS";
-          name = "mofh";
-          target = "ns4.byet.org.";
-        }
-
         {
           recordType = "TXT";
           name = "@";
