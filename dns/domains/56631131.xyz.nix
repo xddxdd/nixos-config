@@ -50,17 +50,17 @@
         {
           recordType = "NS";
           name = "xip";
-          target = "ns-aws.sslip.io.";
+          target = "ns-do-sg.sslip.io.";
         }
         {
           recordType = "NS";
           name = "xip";
-          target = "ns-gce.sslip.io.";
+          target = "ns-hetzner.sslip.io.";
         }
         {
           recordType = "NS";
           name = "xip";
-          target = "ns-azure.sslip.io.";
+          target = "ns-ovh.sslip.io.";
         }
 
         # Iodine
