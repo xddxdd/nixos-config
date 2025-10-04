@@ -3,6 +3,7 @@
   lib,
   inputs,
   osConfig,
+  LT,
   ...
 }:
 let
@@ -59,6 +60,7 @@ let
         "browser.tabs.groups.smart.enabled" = true;
         "browser.tabs.unloadTabInContextMenu" = true;
         "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
+        "extensions.update.enabled" = false;
         "extensions.webextensions.ExtensionStorageIDB.enabled" = false; # Make home-manager extension config work
         "geo.provider.network.url" = lib.mkForce "https://api.beacondb.net/v1/geolocate";
         "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
@@ -81,13 +83,12 @@ let
         "svg.context-properties.content.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         # keep-sorted end
-      };
-
-      userChrome = ''
-        .titlebar-spacer {
-          display: none !important;
-        }
-      '';
+      }
+      // builtins.listToAttrs (
+        builtins.map (suffix: lib.nameValuePair "browser.fixup.domainsuffixwhitelist.${suffix}" true) (
+          lib.filter (s: !lib.hasInfix "." s) (lib.flatten (builtins.attrValues LT.constants.zones))
+        )
+      );
     };
   };
 in
