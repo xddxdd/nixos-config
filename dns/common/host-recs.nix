@@ -27,7 +27,7 @@ let
   ptrPrefix =
     v: if v.city != null then "${lib.replaceStrings [ "_" ] [ "-" ] v.city.sanitized}." else "";
 
-  hasPublicIP = v: v.public.IPv4 != "" || v.public.IPv6 != "";
+  hasPublicIP = v: v.public.IPv4 != null || v.public.IPv6 != null;
 
   concatDomain = prefix: domain: if domain == "@" then prefix else "${prefix}.${domain}";
 
@@ -38,7 +38,7 @@ let
       ttl ? "1h",
     }:
     # A record
-    lib.optionals (addresses.IPv4 != "") [
+    lib.optionals (addresses.IPv4 != null) [
       {
         recordType = "A";
         inherit name;
@@ -53,7 +53,7 @@ let
       }
     ]
     # AAAA record
-    ++ lib.optionals (addresses.IPv6 != "") [
+    ++ lib.optionals (addresses.IPv6 != null) [
       {
         recordType = "AAAA";
         inherit name;
@@ -67,7 +67,7 @@ let
         inherit ttl;
       }
     ]
-    ++ lib.optionals (addresses.IPv6Alt or "" != "") [
+    ++ lib.optionals (addresses.IPv6Alt or null != null) [
       {
         recordType = "AAAA";
         inherit name;
@@ -108,7 +108,7 @@ in
         addresses = LT.hosts."${target}".public;
       in
       # A record
-      (lib.optionals (addresses.IPv4 != "") (
+      (lib.optionals (addresses.IPv4 != null) (
         config.recordHandlers.A (
           args
           // {
@@ -118,7 +118,7 @@ in
         )
       ))
       # AAAA record
-      ++ (lib.optionals (addresses.IPv6 != "") (
+      ++ (lib.optionals (addresses.IPv6 != null) (
         config.recordHandlers.AAAA (
           args
           // {
@@ -127,7 +127,7 @@ in
           }
         )
       ))
-      ++ (lib.optionals (addresses.IPv6Alt or "" != "") (
+      ++ (lib.optionals (addresses.IPv6Alt or null != null) (
         config.recordHandlers.AAAA (
           args
           // {
@@ -168,7 +168,7 @@ in
       lib.flatten (
         lib.mapAttrsToList (
           k: v:
-          (lib.optional (v.public.IPv4 != "") (
+          (lib.optional (v.public.IPv4 != null) (
             config.recordHandlers.A (
               args
               // {
@@ -178,7 +178,7 @@ in
               }
             )
           ))
-          ++ (lib.optional (v.public.IPv6 != "") (
+          ++ (lib.optional (v.public.IPv6 != null) (
             config.recordHandlers.AAAA (
               args
               // {
@@ -260,7 +260,7 @@ in
       domain:
       forEachActiveHost (
         n: v:
-        lib.optionals (v.ssh.rsa != "") [
+        lib.optionals (v.ssh.rsa != null) [
           {
             recordType = "SSHFP_RSA_SHA1";
             name = concatDomain n domain;
@@ -272,7 +272,7 @@ in
             pubkey = v.ssh.rsa;
           }
         ]
-        ++ lib.optionals (v.ssh.ed25519 != "") [
+        ++ lib.optionals (v.ssh.ed25519 != null) [
           {
             recordType = "SSHFP_ED25519_SHA1";
             name = concatDomain n domain;
@@ -371,7 +371,7 @@ in
             addresses = v.dn42;
           })
           # A record
-          ++ lib.optionals (v.dn42.IPv4 != "") [
+          ++ lib.optionals (v.dn42.IPv4 != null) [
             {
               recordType = "A";
               name = concatDomain "dns-authoritative.${n}" domain;
@@ -379,7 +379,7 @@ in
             }
           ]
           # AAAA record
-          ++ lib.optionals (v.dn42.IPv6 != "") [
+          ++ lib.optionals (v.dn42.IPv6 != null) [
             {
               recordType = "AAAA";
               name = concatDomain "dns-recursive.${n}" domain;
@@ -419,7 +419,7 @@ in
             target = concatDomain "${ptrPrefix v}${n}" domain;
           }
         ]
-      ) (lib.filterAttrs (n: v: v.dn42.IPv4 != "") LT.hosts);
+      ) (lib.filterAttrs (n: v: v.dn42.IPv4 != null) LT.hosts);
 
     NeoNetwork =
       domain:

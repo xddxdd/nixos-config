@@ -9,9 +9,9 @@ let
   wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
   wgEndpointFor =
     host:
-    if !(LT.this.hasTag "ipv6-only") && host.public.IPv4 != "" then
+    if !(LT.this.hasTag "ipv6-only") && host.public.IPv4 != null then
       host.public.IPv4
-    else if LT.this.public.IPv6 != "" && host.public.IPv6 != "" then
+    else if LT.this.public.IPv6 != null && host.public.IPv6 != null then
       host.public.IPv6
     else
       null;
@@ -67,8 +67,8 @@ in
       address = [
         "fe80::${builtins.toString LT.this.index}/64"
       ]
-      ++ lib.optionals (LT.this.ltnet.IPv4 != "") [ (LT.this.ltnet.IPv4 + "/32") ]
-      ++ lib.optionals (LT.this.ltnet.IPv6 != "") [ (LT.this.ltnet.IPv6 + "/128") ];
+      ++ lib.optionals (LT.this.ltnet.IPv4 != null) [ (LT.this.ltnet.IPv4 + "/32") ]
+      ++ lib.optionals (LT.this.ltnet.IPv6 != null) [ (LT.this.ltnet.IPv6 + "/128") ];
 
       networkConfig = {
         LinkLocalAddressing = "no";

@@ -43,7 +43,7 @@ let
   );
 
   tnl-buyvm =
-    (lib.optionalString (LT.this.public.IPv4 != "") (
+    (lib.optionalString (LT.this.public.IPv4 != null) (
       lib.concatStrings (
         lib.mapAttrsToList (
           n:
@@ -55,7 +55,7 @@ let
         ) LT.hosts
       )
     ))
-    + (lib.optionalString (LT.this.public.IPv6 != "") (
+    + (lib.optionalString (LT.this.public.IPv6 != null) (
       lib.concatStrings (
         lib.mapAttrsToList (
           n:
@@ -67,7 +67,7 @@ let
         ) LT.hosts
       )
     ))
-    + (lib.optionalString (LT.this.public.IPv6Subnet != "") (
+    + (lib.optionalString (LT.this.public.IPv6Subnet != null) (
       lib.concatStrings (
         lib.mapAttrsToList (n: v: ''
           ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
@@ -171,12 +171,12 @@ in
 
     # tnl-buyvm
 ''
-+ (lib.optionalString (LT.this.neonetwork.IPv4 != "") ''
++ (lib.optionalString (LT.this.neonetwork.IPv4 != null) ''
   # give LAN access to NeoNetwork
   ip saddr != @DN42_IPV4 ip daddr @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 oifname != @INTERFACE_WAN oifname != @INTERFACE_OVERLAY snat to ${LT.this.neonetwork.IPv4}
   ip6 saddr != @DN42_IPV6 ip6 daddr @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 oifname != @INTERFACE_WAN oifname != @INTERFACE_OVERLAY snat to ${LT.this.neonetwork.IPv6}
 '')
-+ (lib.optionalString (LT.this.dn42.IPv4 != "") ''
++ (lib.optionalString (LT.this.dn42.IPv4 != null) ''
   # give LAN access to DN42
   ip saddr != @DN42_IPV4 ip daddr @DN42_IPV4 ip daddr != @NEONETWORK_IPV4 ip daddr != @LOCAL_IPV4 oifname != @INTERFACE_WAN oifname != @INTERFACE_OVERLAY snat to ${LT.this.dn42.IPv4}
   ip6 saddr != @DN42_IPV6 ip6 daddr @DN42_IPV6 ip6 daddr != @NEONETWORK_IPV6 ip6 daddr != @LOCAL_IPV6 oifname != @INTERFACE_WAN oifname != @INTERFACE_OVERLAY snat to ${LT.this.dn42.IPv6}

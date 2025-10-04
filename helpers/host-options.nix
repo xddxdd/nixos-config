@@ -52,23 +52,23 @@
 
       # Extra fields from cities.json
       admin1 = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       admin2 = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
     };
 
     # SSH pubkey
     ssh.rsa = lib.mkOption {
-      type = lib.types.str;
-      default = "";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
     };
     ssh.ed25519 = lib.mkOption {
-      type = lib.types.str;
-      default = "";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
     };
 
     # LTNET Networking
@@ -80,20 +80,20 @@
     # Networking
     public = {
       IPv4 = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       IPv6 = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       IPv6Alt = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       IPv6Subnet = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
     };
 
@@ -127,8 +127,8 @@
 
     dn42 = {
       IPv4 = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       IPv6 = lib.mkOption {
         type = lib.types.str;
@@ -182,14 +182,14 @@
     _addresses = lib.mkOption {
       readOnly = true;
       default = lib.unique (
-        lib.optionals (config.ltnet.IPv4 != "") [ (config.ltnet.IPv4 + "/32") ]
-        ++ lib.optionals (config.ltnet.IPv4Prefix != "") [ (config.ltnet.IPv4Prefix + ".1/32") ]
-        ++ lib.optionals (config.ltnet.IPv4PrefixAlt != "") [ (config.ltnet.IPv4PrefixAlt + ".1/32") ]
-        ++ lib.optionals (config.ltnet.IPv6 != "") [ (config.ltnet.IPv6 + "/128") ]
-        ++ lib.optionals (config.dn42.IPv4 != "") [ (config.dn42.IPv4 + "/32") ]
-        ++ lib.optionals (config.dn42.IPv6 != "") [ (config.dn42.IPv6 + "/128") ]
-        ++ lib.optionals (config.neonetwork.IPv4 != "") [ (config.neonetwork.IPv4 + "/32") ]
-        ++ lib.optionals (config.neonetwork.IPv6 != "") [ (config.neonetwork.IPv6 + "/128") ]
+        lib.optionals (config.ltnet.IPv4 != null) [ (config.ltnet.IPv4 + "/32") ]
+        ++ lib.optionals (config.ltnet.IPv4Prefix != null) [ (config.ltnet.IPv4Prefix + ".1/32") ]
+        ++ lib.optionals (config.ltnet.IPv4PrefixAlt != null) [ (config.ltnet.IPv4PrefixAlt + ".1/32") ]
+        ++ lib.optionals (config.ltnet.IPv6 != null) [ (config.ltnet.IPv6 + "/128") ]
+        ++ lib.optionals (config.dn42.IPv4 != null) [ (config.dn42.IPv4 + "/32") ]
+        ++ lib.optionals (config.dn42.IPv6 != null) [ (config.dn42.IPv6 + "/128") ]
+        ++ lib.optionals (config.neonetwork.IPv4 != null) [ (config.neonetwork.IPv4 + "/32") ]
+        ++ lib.optionals (config.neonetwork.IPv6 != null) [ (config.neonetwork.IPv6 + "/128") ]
       );
     };
     _addresses4 = lib.mkOption {
@@ -204,14 +204,14 @@
     _routes = lib.mkOption {
       readOnly = true;
       default = lib.unique (
-        lib.optionals (config.ltnet.IPv4 != "") [ (config.ltnet.IPv4 + "/32") ]
-        ++ lib.optionals (config.ltnet.IPv4Prefix != "") [ (config.ltnet.IPv4Prefix + ".0/24") ]
-        ++ lib.optionals (config.ltnet.IPv4PrefixAlt != "") [ (config.ltnet.IPv4PrefixAlt + ".0/24") ]
-        ++ lib.optionals (config.ltnet.IPv6Prefix != "") [ (config.ltnet.IPv6Prefix + "::/64") ]
-        ++ lib.optionals (config.dn42.IPv4 != "") [ (config.dn42.IPv4 + "/32") ]
-        ++ lib.optionals (config.dn42.IPv6Prefix != "") [ (config.dn42.IPv6Prefix + "::/64") ]
-        ++ lib.optionals (config.neonetwork.IPv4 != "") [ (config.neonetwork.IPv4 + "/32") ]
-        ++ lib.optionals (config.neonetwork.IPv6Prefix != "") [ (config.neonetwork.IPv6Prefix + "::/64") ]
+        lib.optionals (config.ltnet.IPv4 != null) [ (config.ltnet.IPv4 + "/32") ]
+        ++ lib.optionals (config.ltnet.IPv4Prefix != null) [ (config.ltnet.IPv4Prefix + ".0/24") ]
+        ++ lib.optionals (config.ltnet.IPv4PrefixAlt != null) [ (config.ltnet.IPv4PrefixAlt + ".0/24") ]
+        ++ lib.optionals (config.ltnet.IPv6Prefix != null) [ (config.ltnet.IPv6Prefix + "::/64") ]
+        ++ lib.optionals (config.dn42.IPv4 != null) [ (config.dn42.IPv4 + "/32") ]
+        ++ lib.optionals (config.dn42.IPv6Prefix != null) [ (config.dn42.IPv6Prefix + "::/64") ]
+        ++ lib.optionals (config.neonetwork.IPv4 != null) [ (config.neonetwork.IPv4 + "/32") ]
+        ++ lib.optionals (config.neonetwork.IPv6Prefix != null) [ (config.neonetwork.IPv6Prefix + "::/64") ]
         ++ config.additionalRoutes
       );
     };

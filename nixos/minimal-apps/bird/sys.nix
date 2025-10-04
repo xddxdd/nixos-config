@@ -21,7 +21,7 @@ in
 {
   common = ''
     log stderr { warning, error, fatal };
-    router id ${if LT.this.dn42.IPv4 != "" then LT.this.dn42.IPv4 else LT.this.ltnet.IPv4};
+    router id ${if LT.this.dn42.IPv4 != null then LT.this.dn42.IPv4 else LT.this.ltnet.IPv4};
     timeformat protocol iso long;
     #debug protocols all;
   '';
@@ -53,10 +53,10 @@ in
 
       krt_prefsrc = ${LT.this.ltnet.IPv4};
       ${lib.optionalString (
-        LT.this.dn42.IPv4 != ""
+        LT.this.dn42.IPv4 != null
       ) "if net ~ DN42_NET_IPv4 then krt_prefsrc = ${LT.this.dn42.IPv4};"}
       ${lib.optionalString (
-        LT.this.neonetwork.IPv4 != ""
+        LT.this.neonetwork.IPv4 != null
       ) "if net ~ NEONETWORK_NET_IPv4 then krt_prefsrc = ${LT.this.neonetwork.IPv4};"}
 
       accept;
@@ -74,10 +74,10 @@ in
 
       krt_prefsrc = ${LT.this.ltnet.IPv6};
       ${lib.optionalString (
-        LT.this.dn42.IPv6 != ""
+        LT.this.dn42.IPv6 != null
       ) "if net ~ DN42_NET_IPv6 then krt_prefsrc = ${LT.this.dn42.IPv6};"}
       ${lib.optionalString (
-        LT.this.neonetwork.IPv6 != ""
+        LT.this.neonetwork.IPv6 != null
       ) "if net ~ NEONETWORK_NET_IPv6 then krt_prefsrc = ${LT.this.neonetwork.IPv6};"}
 
       accept;
