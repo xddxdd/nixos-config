@@ -234,7 +234,6 @@ rec {
     # Usage
     "client"
     "dn42"
-    "exclude-bgp-mesh"
     "nix-builder"
     "public-facing"
     "server"

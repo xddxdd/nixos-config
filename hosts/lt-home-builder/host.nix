@@ -2,7 +2,6 @@
 {
   index = 103;
   tags = with tags; [
-    exclude-bgp-mesh
     nix-builder
   ];
   cpuThreads = 64;

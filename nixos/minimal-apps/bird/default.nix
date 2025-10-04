@@ -13,7 +13,7 @@ let
 in
 {
   services.bird = {
-    enable = !builtins.elem LT.constants.tags.exclude-bgp-mesh LT.this.tags;
+    enable = LT.this.hasTag LT.tags.server;
     package = pkgs.bird2;
     checkConfig = false;
     config = builtins.concatStringsSep "\n" (

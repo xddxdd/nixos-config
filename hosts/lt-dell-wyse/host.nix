@@ -3,7 +3,6 @@
   index = 104;
   tags = with tags; [
     client
-    exclude-bgp-mesh
   ];
   cpuThreads = 4;
   city = geo.cities."US Seattle";

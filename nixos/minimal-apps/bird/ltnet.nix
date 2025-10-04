@@ -1,6 +1,6 @@
 { lib, LT, ... }@args:
 let
-  inherit (import ./common.nix args) DN42_AS DN42_TEST_AS;
+  inherit (import ./common.nix args) community DN42_AS DN42_TEST_AS;
 
   peer =
     hostname:
@@ -11,18 +11,18 @@ let
     }:
     ''
       protocol bgp ltnet_${lib.toLower (LT.sanitizeName hostname)} from lantian_internal {
-        local fdbc:f9dc:67ad::${builtins.toString LT.this.index} as ${DN42_AS};
-        neighbor fdbc:f9dc:67ad::${builtins.toString index} internal;
-        multihop;
+        local fe80::${builtins.toString LT.this.index} as ${DN42_AS};
+        neighbor fe80::${builtins.toString index}%'wgmesh${builtins.toString index}' internal;
+        direct;
         # NEVER cause local_pref inversion on iBGP routes!
         ipv4 {
-          import filter ltnet_import_filter_v4;
-          export filter ltnet_export_filter_v4;
+          import filter ltnet_filter_v4;
+          export filter ltnet_filter_v4;
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
         ipv6 {
-          import filter ltnet_import_filter_v6;
-          export filter ltnet_export_filter_v6;
+          import filter ltnet_filter_v6;
+          export filter ltnet_filter_v6;
           cost ${builtins.toString (1 + LT.geo.rttMs LT.this.city city)};
         };
       };
@@ -30,35 +30,19 @@ let
 in
 {
   common = ''
-    filter ltnet_import_filter_v4 {
-      if net ~ LTNET_UNMANAGED_IPv4 then reject;
-      if net ~ RESERVED_IPv4 then accept;
+    filter ltnet_filter_v4 {
+      if ${community.NO_ADVERTISE} ~ bgp_community then reject;
       if net ~ REROUTED_IPv4 then accept;
-      reject;
-    }
-
-    filter ltnet_export_filter_v4 {
-      if net ~ REROUTED_IPv4 then accept;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
 
-    filter ltnet_import_filter_v6 {
+    filter ltnet_filter_v6 {
+      if ${community.NO_ADVERTISE} ~ bgp_community then reject;
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if net ~ RESERVED_IPv6 then accept;
       if net ~ REROUTED_IPv6 then accept;
-      reject;
-    }
-
-    filter ltnet_export_filter_v6 {
-      if net ~ REROUTED_IPv6 then accept;
-      if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then reject;
-      if ifindex = 0 then reject;
-      if net ~ LTNET_UNMANAGED_IPv6 then reject;
-      if net ~ RESERVED_IPv6 then accept;
       reject;
     }
 
@@ -76,15 +60,15 @@ in
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        import filter ltnet_import_filter_v4;
-        export filter ltnet_export_filter_v4;
+        import filter ltnet_filter_v4;
+        export filter ltnet_filter_v4;
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
-        import filter ltnet_import_filter_v6;
-        export filter ltnet_export_filter_v6;
+        import filter ltnet_filter_v6;
+        export filter ltnet_filter_v6;
       };
     };
   '';

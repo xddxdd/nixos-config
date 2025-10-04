@@ -86,7 +86,9 @@ let
       interfaceName = "${v.peering.network}-${n}";
     in
     lib.optionalString (v.addressing.peerIPv4 != null) ''
-      route ${v.addressing.peerIPv4}/32 via "${interfaceName}";
+      route ${v.addressing.peerIPv4}/32 via "${interfaceName}" {
+        bgp_community.add(${community.NO_ADVERTISE});
+      };
     '';
 
   staticRoute6 =
@@ -95,7 +97,9 @@ let
       interfaceName = "${v.peering.network}-${n}";
     in
     lib.optionalString (v.addressing.peerIPv6 != null) ''
-      route ${v.addressing.peerIPv6}/128 via "${interfaceName}";
+      route ${v.addressing.peerIPv6}/128 via "${interfaceName}" {
+        bgp_community.add(${community.NO_ADVERTISE});
+      };
     '';
 
   cfg = config.services.dn42 or { };
@@ -105,13 +109,13 @@ in
     function dn42_import_filter_ipv4(int local_asn) {
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
-        bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
         bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
+        bgp_community.add(${community.NO_EXPORT});
         bgp_local_pref = 0;
       } else if (roa_check(roa_v4, net, bgp_path.last) = ROA_UNKNOWN) then {
         bgp_large_community.add(${community.LT_ROA_UNKNOWN});
-        # bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
         # bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
+        # bgp_community.add(${community.NO_EXPORT});
         # bgp_local_pref = 0;
       }
       if net ~ RESERVED_IPv4 then accept;
@@ -122,40 +126,27 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
-      if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
+
+      if ${community.NO_EXPORT} ~ bgp_community then reject;
+      if ${community.NO_ADVERTISE} ~ bgp_community then reject;
 
       if net ~ [ 172.22.76.184/29+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 172.22.76.96/27+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 10.127.10.0/24+ ] then bgp_path.prepend(${NEO_AS});
 
-      if net ~ DN42_HIGH_BW_IPv4 then {
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-      }
-
-      # Allow announcing ROA unknown routes, bird ROA reload may not handle it correctly
-      if (
-        (bgp_path.last != 0 && roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID)
-        || (bgp_path.last = 0 && roa_check(roa_v4, net, ${DN42_AS}) != ROA_VALID)
-      ) then {
-        reject;
-      }
       accept;
     }
 
     function dn42_import_filter_ipv6(int local_asn) {
       if (roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
-        bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
         bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
+        bgp_community.add(${community.NO_EXPORT});
         bgp_local_pref = 0;
       } else if (roa_check(roa_v6, net, bgp_path.last) = ROA_UNKNOWN) then {
         bgp_large_community.add(${community.LT_ROA_UNKNOWN});
-        # bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
         # bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
+        # bgp_community.add(${community.NO_EXPORT});
         # bgp_local_pref = 0;
       }
       if net ~ RESERVED_IPv6 then accept;
@@ -166,26 +157,13 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
-      if ${community.LT_POLICY_NO_EXPORT} ~ bgp_large_community then reject;
+
+      if ${community.NO_EXPORT} ~ bgp_community then reject;
+      if ${community.NO_ADVERTISE} ~ bgp_community then reject;
 
       if net ~ [ fdbc:f9dc:67ad::/48+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ fd10:127:10::/48+ ] then bgp_path.prepend(${NEO_AS});
 
-      if net ~ DN42_HIGH_BW_IPv6 then {
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-        bgp_path.prepend(local_asn);
-      }
-
-      # Allow announcing ROA unknown routes, bird ROA reload may not handle it correctly
-      if (
-        (bgp_path.last != 0 && roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID)
-        || (bgp_path.last = 0 && roa_check(roa_v6, net, ${DN42_AS}) != ROA_VALID)
-      ) then {
-        reject;
-      }
       accept;
     };
 

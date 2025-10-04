@@ -11,12 +11,6 @@ let
     "172.22.76.184/29"
     "172.22.76.96/27"
     "10.127.10.0/24"
-
-    # Workaround ghosting
-    "172.22.76.96/29"
-    "172.22.76.104/29"
-    "172.22.76.112/29"
-    "172.22.76.120/29"
   ];
 
   commonStaticRoutesIPv6 = [
@@ -36,21 +30,20 @@ in
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
       if net !~ LTNET_IPv4 && net.len = 32 then reject;
-      bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+      bgp_community.add(${community.NO_EXPORT});
       accept;
     }
 
     filter sys_import_v6 {
       if net !~ RESERVED_IPv6 then reject;
       if net !~ LTNET_IPv6 && net.len = 128 then reject;
-      bgp_large_community.add(${community.LT_POLICY_NO_EXPORT});
+      bgp_community.add(${community.NO_EXPORT});
       accept;
     }
 
     filter sys_export_v4 {
       if net ~ LTNET_UNMANAGED_IPv4 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
@@ -72,7 +65,6 @@ in
     filter sys_export_v6 {
       if net ~ LTNET_UNMANAGED_IPv6 then reject;
       if ${community.LT_POLICY_NO_KERNEL} ~ bgp_large_community then reject;
-      if ${community.LT_POLICY_DROP} ~ bgp_large_community then dest = RTD_UNREACHABLE;
 
       krt_metric = 4242;
       if dest ~ [RTD_BLACKHOLE, RTD_UNREACHABLE, RTD_PROHIBIT] then {
@@ -132,14 +124,6 @@ in
       fd00::/8+
     ];
 
-    define DN42_HIGH_BW_IPv4 = [
-      # nothing
-    ];
-
-    define DN42_HIGH_BW_IPv6 = [
-      fdcf:8538:9ad5::/48+    # Kioubit's IPv6 canvas
-    ];
-
     define LTNET_IPv4 = [
       10.127.10.0/24+,
       198.18.0.0/15+,
@@ -184,15 +168,6 @@ in
         lib.unique (lib.flatten (lib.mapAttrsToList (n: v: v.additionalRoutes) LT.hosts))
       )
     )}
-    ];
-
-    # Common static ranges
-    define COMMON_STATIC_IPv4 = [
-    ${lib.concatStringsSep ",\n" commonStaticRoutesIPv4}
-    ];
-
-    define COMMON_STATIC_IPv6 = [
-    ${lib.concatStringsSep ",\n" commonStaticRoutesIPv6}
     ];
 
     # Reserved range, where system is allowed to operate
@@ -275,17 +250,23 @@ in
     }
 
     protocol static static_v4 {
-      # Host specific routes
-      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.this._routes4}
-
       # Common static routes
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv4}
-  ''
-  + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
-    # Blackhole routes for private ranges
-    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv4}
-  '')
-  + ''
+
+      # Host specific routes
+      ${lib.concatMapStringsSep "\n" (t: ''
+        route ${t} reject {
+          bgp_community.add(${community.NO_EXPORT});
+        };
+      '') LT.this._routes4}
+
+      # Blackhole routes for private ranges
+      ${lib.concatMapStringsSep "\n" (t: ''
+        route ${t} reject {
+          bgp_community.add(${community.NO_ADVERTISE});
+        };
+      '') LT.constants.reserved.IPv4}
+
       ipv4 {
         preference 1000;
         import all;
@@ -294,17 +275,23 @@ in
     };
 
     protocol static static_v6 {
-      # Host specific routes
-      ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.this._routes6}
-
       # Common static routes
       ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") commonStaticRoutesIPv6}
-  ''
-  + (lib.optionalString (LT.this.hasTag LT.tags.server) ''
-    # Blackhole routes for private ranges
-    ${lib.concatMapStringsSep "\n" (t: "route ${t} reject;") LT.constants.reserved.IPv6}
-  '')
-  + ''
+
+      # Host specific routes
+      ${lib.concatMapStringsSep "\n" (t: ''
+        route ${t} reject {
+          bgp_community.add(${community.NO_EXPORT});
+        };
+      '') LT.this._routes6}
+
+      # Blackhole routes for private ranges
+      ${lib.concatMapStringsSep "\n" (t: ''
+        route ${t} reject {
+          bgp_community.add(${community.NO_ADVERTISE});
+        };
+      '') LT.constants.reserved.IPv6}
+
       ipv6 {
         preference 1000;
         import all;

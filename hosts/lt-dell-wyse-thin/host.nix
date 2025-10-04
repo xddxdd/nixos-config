@@ -1,9 +1,7 @@
 { tags, geo, ... }:
 {
   index = 105;
-  tags = with tags; [
-    exclude-bgp-mesh
-  ];
+  tags = with tags; [ ];
   cpuThreads = 4;
   city = geo.cities."US Seattle";
   manualDeploy = true;
