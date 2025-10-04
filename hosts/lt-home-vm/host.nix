@@ -11,6 +11,9 @@
     ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID2yEmewk6E2jKDjJOdrC4k4It2SN+/ihSOwsVmd9fnW";
   };
   zerotier = "606bdb9703";
+  public = {
+    IPv6 = "2001:470:e997:1::10";
+  };
   dn42 = {
     IPv4 = "172.22.76.113";
     region = 42;
