@@ -163,6 +163,7 @@ in
     elfx86exts
     flamegraph
     gemini-cli
+    gh
     just
     linkzoneAdb
     nur-xddxdd.bin-cpuflags-x86
