@@ -174,27 +174,6 @@
       flake = rec {
         # Export for nixos-secrets
         inherit lib LT;
-        exportPkgs = self.pkgs;
-
-        buildCommands =
-          let
-            buildCommandFor = lib.concatMapStringsSep " " (
-              host: ".#nixosConfigurations.${host}.config.system.build.toplevel"
-            );
-            hostsWithTag =
-              tag: builtins.attrNames (lib.filterAttrs (n: v: builtins.elem tag (LT.tagsForHost v)) LT.hosts);
-          in
-          {
-            all = buildCommandFor (builtins.attrNames LT.hosts);
-            x86_64-linux = buildCommandFor (hostsWithTag "x86_64-linux");
-          };
-
-        ipv4List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts)
-        );
-        ipv6List = builtins.concatStringsSep "\n" (
-          lib.filter (v: v != "") (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
-        );
 
         # NixOS configurations
         nixosPackages = lib.mapAttrs (
