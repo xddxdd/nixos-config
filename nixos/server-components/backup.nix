@@ -10,7 +10,7 @@ let
   isMaintenanceHost = config.networking.hostName == "terrahost";
 
   resticRepos = {
-    home = "sftp://sftp.lt-home-vm.xuyh0120.win//backups/restic";
+    home = "sftp://sftp.lt-home-vm.ltnet.xuyh0120.win//backups/restic";
     storagebox = "sftp://sub2.u378583.your-storagebox.de//home";
   };
 

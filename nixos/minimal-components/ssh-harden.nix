@@ -147,8 +147,8 @@ in
       Port 23
       IdentityFile ${config.age.secrets.sftp-privkey.path}
 
-    Host sftp.lt-home-vm.xuyh0120.win
-      HostName lt-home-vm.xuyh0120.win
+    Host sftp.lt-home-vm.ltnet.xuyh0120.win
+      HostName lt-home-vm.ltnet.xuyh0120.win
       User sftp
       IdentityFile ${config.age.secrets.sftp-privkey.path}
       ${ltnetSSHConfig}
