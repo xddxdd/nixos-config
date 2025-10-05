@@ -13,10 +13,15 @@
     volumes = [ "/var/lib/archiveteam:/home/warrior/projects" ];
   };
 
-  systemd.tmpfiles.rules = [
-    # ArchiveTeam container uses pid/gid 1000/1000
-    "d /var/lib/archiveteam 755 1000 1000"
-  ];
+  systemd.tmpfiles.settings = {
+    archiveteam = {
+      "/var/lib/archiveteam"."d" = {
+        mode = "755";
+        user = "1000";
+        group = "1000";
+      };
+    };
+  };
 
   lantian.nginxVhosts = {
     "archiveteam.${config.networking.hostName}.xuyh0120.win" = {

@@ -5,7 +5,7 @@
   config,
   inputs,
   ...
-}@args:
+}:
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 in
@@ -306,8 +306,18 @@ in
     noIndex.enable = true;
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/matrix-synapse/media 755 matrix-synapse matrix-synapse"
-    "d /var/lib/matrix-synapse/remote-media 755 matrix-synapse matrix-synapse"
-  ];
+  systemd.tmpfiles.settings = {
+    matrix-synapse = {
+      "/var/lib/matrix-synapse/media".d = {
+        mode = "755";
+        user = "matrix-synapse";
+        group = "matrix-synapse";
+      };
+      "/var/lib/matrix-synapse/remote-media".d = {
+        mode = "755";
+        user = "matrix-synapse";
+        group = "matrix-synapse";
+      };
+    };
+  };
 }

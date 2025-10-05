@@ -18,7 +18,15 @@ in
   config = {
     environment.systemPackages = [ pkgs.zstd ];
 
-    systemd.tmpfiles.rules = [ "d ${config.lantian.btrbk.storage} 700 btrbk btrbk" ];
+    systemd.tmpfiles.settings = {
+      btrbk = {
+        "${config.lantian.btrbk.storage}".d = {
+          mode = "700";
+          user = "btrbk";
+          group = "btrbk";
+        };
+      };
+    };
     services.btrbk.sshAccess = builtins.map (k: {
       key = k;
       roles = [

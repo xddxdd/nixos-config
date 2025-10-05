@@ -28,7 +28,15 @@
   };
   users.groups.fish-speech = { };
 
-  systemd.tmpfiles.rules = [ "d /var/lib/fish-speech/references 755 fish-speech fish-speech" ];
+  systemd.tmpfiles.settings = {
+    fish-speech = {
+      "/var/lib/fish-speech/references"."d" = {
+        mode = "755";
+        user = "fish-speech";
+        group = "fish-speech";
+      };
+    };
+  };
 
   lantian.nginxVhosts."fish-speech.${config.networking.hostName}.xuyh0120.win" = {
     locations = {

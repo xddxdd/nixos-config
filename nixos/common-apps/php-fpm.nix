@@ -55,8 +55,16 @@ in
     '';
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/qqwry 755 root root"
-    "L+ /var/lib/qqwry/qqwry.dat - - - - ${qqwryDB}"
-  ];
+  systemd.tmpfiles.settings = {
+    qqwry = {
+      "/var/lib/qqwry".d = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+      "/var/lib/qqwry/qqwry.dat"."L+" = {
+        argument = "${qqwryDB}";
+      };
+    };
+  };
 }

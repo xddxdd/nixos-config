@@ -231,5 +231,13 @@ in
     serviceConfig.Restart = "always";
   };
 
-  systemd.tmpfiles.rules = [ "d /var/lib/asterisk/fax 755 asterisk asterisk" ];
+  systemd.tmpfiles.settings = {
+    asterisk = {
+      "/var/lib/asterisk/fax".d = {
+        mode = "755";
+        user = "asterisk";
+        group = "asterisk";
+      };
+    };
+  };
 }

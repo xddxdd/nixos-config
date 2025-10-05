@@ -32,14 +32,40 @@ in
 
   services.xserver.enable = lib.mkForce false;
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/storage 755 root root"
-    "d ${flexgetAutoDownloadPath} 755 lantian users"
-    "d ${qBitTorrentPTSonarrDownloadPath} 755 lantian users"
-    "d ${qBitTorrentSonarrDownloadPath} 755 lantian users"
-    "d ${radarrMediaPath} 755 ${config.services.radarr.user} ${config.services.radarr.group}"
-    "d ${sonarrMediaPath} 755 ${config.services.sonarr.user} ${config.services.sonarr.group}"
-  ];
+  systemd.tmpfiles.settings = {
+    storage = {
+      "/mnt/storage".d = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+      "${flexgetAutoDownloadPath}".d = {
+        mode = "755";
+        user = "lantian";
+        group = "users";
+      };
+      "${qBitTorrentPTSonarrDownloadPath}".d = {
+        mode = "755";
+        user = "lantian";
+        group = "users";
+      };
+      "${qBitTorrentSonarrDownloadPath}".d = {
+        mode = "755";
+        user = "lantian";
+        group = "users";
+      };
+      "${radarrMediaPath}".d = {
+        mode = "755";
+        inherit (config.services.radarr) user;
+        inherit (config.services.radarr) group;
+      };
+      "${sonarrMediaPath}".d = {
+        mode = "755";
+        inherit (config.services.sonarr) user;
+        inherit (config.services.sonarr) group;
+      };
+    };
+  };
 
   ########################################
   # Sonarr

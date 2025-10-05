@@ -69,7 +69,15 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [ "d /var/lib/iyuu/runtime/crontab/observer 755 iyuu iyuu" ];
+  systemd.tmpfiles.settings = {
+    iyuu = {
+      "/var/lib/iyuu/runtime/crontab/observer".d = {
+        mode = "755";
+        user = "iyuu";
+        group = "iyuu";
+      };
+    };
+  };
 
   services.mysql = {
     ensureDatabases = [ "iyuu" ];

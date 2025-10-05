@@ -153,5 +153,13 @@ in
   };
 
   # Support network namespaces
-  systemd.tmpfiles.rules = [ "d /run/netns 755 root root" ];
+  systemd.tmpfiles.settings = {
+    netns = {
+      "/run/netns"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 }

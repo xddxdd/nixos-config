@@ -86,8 +86,14 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "L+ ${labRoot}/hobby-net - - - - /nix/persistent/sync-servers/ltnet-scripts"
-    "L+ ${labRoot}/testssl.html - - - - /nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm"
-  ];
+  systemd.tmpfiles.settings = {
+    nginx-lab = {
+      "${labRoot}/hobby-net"."L+" = {
+        argument = "/nix/persistent/sync-servers/ltnet-scripts";
+      };
+      "${labRoot}/testssl.html"."L+" = {
+        argument = "/nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm";
+      };
+    };
+  };
 }

@@ -47,9 +47,30 @@ in
   };
 
   # Container uses UID/GID 1000
-  systemd.tmpfiles.rules =
-    (builtins.map (f: "d /var/lib/stable-diffusion/${f} 755 1000 1000") subfolders)
-    ++ (builtins.map (f: "f /var/lib/stable-diffusion/${f} 755 1000 1000 - {}") files);
+  systemd.tmpfiles.settings = {
+    stable-diffusion = builtins.listToAttrs (
+      (builtins.map (f: {
+        name = "/var/lib/stable-diffusion/${f}";
+        value = {
+          "d" = {
+            mode = "755";
+            user = "1000";
+            group = "1000";
+          };
+        };
+      }) subfolders)
+      ++ (builtins.map (f: {
+        name = "/var/lib/stable-diffusion/${f}";
+        value = {
+          "f" = {
+            mode = "755";
+            user = "1000";
+            group = "1000";
+          };
+        };
+      }) files)
+    );
+  };
 
   lantian.nginxVhosts = {
     "stable-diffusion.xuyh0120.win" = {

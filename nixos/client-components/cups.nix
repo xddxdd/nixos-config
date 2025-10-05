@@ -43,5 +43,13 @@
     RestartSec = "3";
   };
 
-  systemd.tmpfiles.rules = [ "d /var/lib/cups-pdf 755 root root" ];
+  systemd.tmpfiles.settings = {
+    cups-pdf = {
+      "/var/lib/cups-pdf"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 }

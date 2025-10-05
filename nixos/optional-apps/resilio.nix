@@ -108,7 +108,15 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [ "d ${config.lantian.resilio.storage} 755 root root" ];
+    systemd.tmpfiles.settings = {
+      resilio = {
+        "${config.lantian.resilio.storage}"."d" = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+      };
+    };
 
     lantian.nginxVhosts = {
       "resilio.${config.networking.hostName}.xuyh0120.win" = {

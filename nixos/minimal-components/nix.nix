@@ -87,7 +87,11 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "L+ /run/nix-privkey.pem - - - - ${config.age.secrets.nix-privkey.path}"
-  ];
+  systemd.tmpfiles.settings = {
+    nix-privkey = {
+      "/run/nix-privkey.pem"."L+" = {
+        argument = "${config.age.secrets.nix-privkey.path}";
+      };
+    };
+  };
 }

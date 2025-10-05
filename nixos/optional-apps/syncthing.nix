@@ -67,7 +67,15 @@
       };
     };
 
-    systemd.tmpfiles.rules = [ "d ${config.lantian.syncthing.storage} 755 root root" ];
+    systemd.tmpfiles.settings = {
+      syncthing = {
+        "${config.lantian.syncthing.storage}"."d" = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+      };
+    };
 
     lantian.nginxVhosts = {
       "syncthing.${config.networking.hostName}.xuyh0120.win" = {

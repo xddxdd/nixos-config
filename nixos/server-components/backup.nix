@@ -179,5 +179,13 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [ "d /var/cache/restic 700 root root" ];
+  systemd.tmpfiles.settings = {
+    restic = {
+      "/var/cache/restic".d = {
+        mode = "700";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 }

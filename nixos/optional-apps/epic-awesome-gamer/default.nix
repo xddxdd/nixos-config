@@ -26,7 +26,13 @@ in
     ];
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/epic-awesome-gamer 755 root root"
-  ];
+  systemd.tmpfiles.settings = {
+    epic-awesome-gamer = {
+      "/var/lib/epic-awesome-gamer".d = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 }

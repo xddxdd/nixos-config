@@ -69,12 +69,30 @@ in
     }
   );
 
-  systemd.tmpfiles.rules = [
-    "f /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf 644 root root - # placebo"
-    "f /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf 644 root root - # placebo"
-    "f /nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf 644 root root - # placebo"
-    "f /nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf 644 root root - # placebo"
-  ];
+  systemd.tmpfiles.settings = {
+    bird-config = {
+      "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf"."f" = {
+        mode = "644";
+        user = "root";
+        group = "root";
+      };
+      "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf"."f" = {
+        mode = "644";
+        user = "root";
+        group = "root";
+      };
+      "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf"."f" = {
+        mode = "644";
+        user = "root";
+        group = "root";
+      };
+      "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf"."f" = {
+        mode = "644";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 
   services.prometheus.exporters = {
     bird = {

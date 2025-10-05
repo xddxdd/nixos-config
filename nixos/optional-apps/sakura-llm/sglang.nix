@@ -53,10 +53,20 @@
     ];
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/cache/huggingface 755 root root"
-    "d /var/cache/torchinductor 755 root root"
-  ];
+  systemd.tmpfiles.settings = {
+    sglang = {
+      "/var/cache/huggingface"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+      "/var/cache/torchinductor"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 
   systemd.services.podman-sglang-sakura-llm = {
     path = with pkgs; [ curl ];

@@ -74,8 +74,14 @@
       ];
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${config.lantian.immich.storage} 755 lantian users"
-    ];
+    systemd.tmpfiles.settings = {
+      immich = {
+        "${config.lantian.immich.storage}".d = {
+          mode = "755";
+          user = "lantian";
+          group = "users";
+        };
+      };
+    };
   };
 }

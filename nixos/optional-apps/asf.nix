@@ -12,11 +12,25 @@
     ];
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/asf 755 1000 1000"
-    "d /var/lib/asf/config 755 1000 1000"
-    "d /var/lib/asf/plugins 755 1000 1000"
-  ];
+  systemd.tmpfiles.settings = {
+    asf = {
+      "/var/lib/asf"."d" = {
+        mode = "755";
+        user = "1000";
+        group = "1000";
+      };
+      "/var/lib/asf/config"."d" = {
+        mode = "755";
+        user = "1000";
+        group = "1000";
+      };
+      "/var/lib/asf/plugins"."d" = {
+        mode = "755";
+        user = "1000";
+        group = "1000";
+      };
+    };
+  };
 
   lantian.nginxVhosts."asf.xuyh0120.win" = {
     locations = {

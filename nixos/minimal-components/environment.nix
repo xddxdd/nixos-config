@@ -213,12 +213,27 @@
       RebootWatchdogSec = "30s";
     };
 
-    tmpfiles.rules = [
-      # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
-      "w /sys/module/kernel/parameters/crash_kexec_post_notifiers - - - - Y"
-      # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
-      "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
-    ];
+    tmpfiles.settings = {
+      "pstore-log" = {
+        # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
+        "/var/lib/systemd/pstore"."d" = {
+          mode = "0755";
+          user = "root";
+          group = "root";
+        };
+      };
+      "crash-kexec-post-notifiers" = {
+        "/sys/module/kernel/parameters/crash_kexec_post_notifiers"."w" = {
+          argument = "Y";
+        };
+      };
+      "always-kmsg-dump" = {
+        # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
+        "/sys/module/printk/parameters/always_kmsg_dump"."w" = {
+          argument = "N";
+        };
+      };
+    };
   };
 
   systemd.services."systemd-machine-id-commit".enable = false;

@@ -120,9 +120,15 @@ in
       };
     }) kamailioInstances
   );
-  systemd.tmpfiles.rules = [
-    "d /var/run/kamailio 755 kamailio kamailio"
-  ];
+  systemd.tmpfiles.settings = {
+    kamailio = {
+      "/var/run/kamailio"."d" = {
+        mode = "755";
+        user = "kamailio";
+        group = "kamailio";
+      };
+    };
+  };
 
   users.users.kamailio = {
     group = "kamailio";

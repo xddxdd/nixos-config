@@ -17,5 +17,13 @@
     '';
   };
 
-  systemd.tmpfiles.rules = [ "d /run/nfs 755 root root" ];
+  systemd.tmpfiles.settings = {
+    nfs = {
+      "/run/nfs"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 }

@@ -13,9 +13,15 @@
     volumes = [ "/var/lib/qinglong:/ql/data" ];
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/qinglong 755 root root"
-  ];
+  systemd.tmpfiles.settings = {
+    qinglong = {
+      "/var/lib/qinglong"."d" = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
 
   lantian.nginxVhosts = {
     "qinglong.${config.networking.hostName}.xuyh0120.win" = {

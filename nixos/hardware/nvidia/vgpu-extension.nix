@@ -93,7 +93,11 @@ in
     serviceConfig.Type = "oneshot";
   };
 
-  systemd.tmpfiles.rules = [
-    "L /usr/share/nvidia/vgpu/vgpuConfig.xml - - - - ${nvidia_x11.bin}/share/nvidia/vgpu/vgpuConfig.xml"
-  ];
+  systemd.tmpfiles.settings = {
+    vgpu-config = {
+      "/usr/share/nvidia/vgpu/vgpuConfig.xml"."L" = {
+        argument = "${nvidia_x11.bin}/share/nvidia/vgpu/vgpuConfig.xml";
+      };
+    };
+  };
 }

@@ -43,9 +43,18 @@ in
     ) targets
   );
 
-  systemd.tmpfiles.rules = builtins.map (
-    k: "d /nix/persistent/sync-servers/www/${k} 755 root root"
-  ) targets;
+  systemd.tmpfiles.settings = builtins.listToAttrs (
+    builtins.map (
+      k:
+      lib.nameValuePair "testssl-${k}" {
+        "/nix/persistent/sync-servers/www/${k}".d = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+      }
+    ) targets
+  );
 
   systemd.timers = builtins.listToAttrs (
     builtins.map (

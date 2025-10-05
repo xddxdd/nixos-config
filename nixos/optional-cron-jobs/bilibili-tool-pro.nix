@@ -50,9 +50,25 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/bilibili-tool-pro 755 root root"
-    "f /var/lib/bilibili-tool-pro/appsettings.json 755 root root - {}"
-    "f /var/lib/bilibili-tool-pro/cookies.json 755 root root - {}"
-  ];
+  systemd.tmpfiles.settings = {
+    bilibili-tool-pro = {
+      "/var/lib/bilibili-tool-pro".d = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+      "/var/lib/bilibili-tool-pro/appsettings.json".f = {
+        mode = "755";
+        user = "root";
+        group = "root";
+        argument = "{}";
+      };
+      "/var/lib/bilibili-tool-pro/cookies.json".f = {
+        mode = "755";
+        user = "root";
+        group = "root";
+        argument = "{}";
+      };
+    };
+  };
 }

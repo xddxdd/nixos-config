@@ -119,9 +119,15 @@
   lantian.btrbk.storage = "/mnt/storage/backups/btrbk";
 
   services.ollama.models = "/mnt/storage/ollama";
-  systemd.tmpfiles.rules = [
-    "d ${config.services.ollama.models} 755 ${config.services.ollama.user} ${config.services.ollama.group}"
-  ];
+  systemd.tmpfiles.settings = {
+    ollama = {
+      "/mnt/storage/ollama".d = {
+        mode = "755";
+        inherit (config.services.ollama) user;
+        inherit (config.services.ollama) group;
+      };
+    };
+  };
 
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {

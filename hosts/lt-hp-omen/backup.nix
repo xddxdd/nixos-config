@@ -10,7 +10,15 @@
     group = "btrbk";
   };
 
-  systemd.tmpfiles.rules = [ "d /mnt/root/.btrbk 700 btrbk btrbk" ];
+  systemd.tmpfiles.settings = {
+    btrbk = {
+      "/mnt/root/.btrbk".d = {
+        mode = "700";
+        user = "btrbk";
+        group = "btrbk";
+      };
+    };
+  };
   services.btrbk = {
     ioSchedulingClass = "idle";
     instances.btrbk = {
