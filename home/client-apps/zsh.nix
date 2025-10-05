@@ -36,7 +36,6 @@
         pkgs.linkFarm "oh-my-zsh-custom" {
           "themes/powerlevel10k.zsh-theme" =
             "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          "plugins/autopair" = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
           "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
           "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
           "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
@@ -49,7 +48,6 @@
         export FZF_BASE=${pkgs.fzf}
       '';
       plugins = [
-        "autopair"
         "bd"
         "fzf"
         "gitignore"
