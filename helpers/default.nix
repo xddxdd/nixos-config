@@ -25,7 +25,7 @@ let
     inherit (inputs.nix-math.lib) math;
 
     constants = call ./constants.nix;
-    inherit (constants) port portStr tags;
+    inherit (constants) port portStr tags interfacePrefixes zones reserved stateVersion soundfontPath asteriskMusics bindfsMountOptions bindfsMountOptions' dn42 neonetwork matrixWellKnown nix;
     geo = call ./geo.nix;
 
     sources = call _sources/generated.nix;
