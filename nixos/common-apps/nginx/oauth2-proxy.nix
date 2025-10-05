@@ -9,7 +9,11 @@
   age.secrets.oauth2-proxy-conf.file = inputs.secrets + "/oauth2-proxy-conf.age";
 
   services.oauth2-proxy = {
-    enable = true;
+    enable = builtins.any (v: v) (
+      lib.mapAttrsToList (
+        n: v: builtins.any (v: v) (lib.mapAttrsToList (n: v: v.enableOAuth) v.locations)
+      ) config.lantian.nginxVhosts
+    );
     clientID = "oauth-proxy";
     cookie = {
       expire = "24h";
@@ -41,10 +45,11 @@
   };
   users.groups.oauth2-proxy.members = [ "nginx" ];
 
-  systemd.services.oauth2-proxy = {
-    unitConfig = {
-      After = lib.mkForce "network.target nginx.service";
-    };
+  systemd.services.oauth2-proxy = lib.mkIf config.services.oauth2-proxy.enable {
+    after = [
+      "network.target"
+      "nginx.service"
+    ];
     serviceConfig = LT.serviceHarden // {
       Restart = "always";
       RestartSec = "3";
