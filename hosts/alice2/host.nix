@@ -4,6 +4,8 @@
   tags = with tags; [
     server
     ipv6-only
+    low-disk
+    low-ram
   ];
   hostname = "2a14:67c0:105:10a::a";
   city = geo.cities."CN Hong Kong";
