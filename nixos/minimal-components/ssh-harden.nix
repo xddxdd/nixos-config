@@ -195,5 +195,5 @@ in
   };
 
   # Prevent regular OpenSSH from sneaking in
-  system.forbiddenDependenciesRegexes = [ "^openssh-[0-9p\\.]+$" ];
+  system.forbiddenDependenciesRegexes = [ "openssh-[0-9p\\.]+$" ];
 }

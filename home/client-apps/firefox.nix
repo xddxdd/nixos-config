@@ -96,6 +96,7 @@ in
   imports = [ inputs.betterfox-nix.homeModules.betterfox ];
 
   programs.firefox = lib.recursiveUpdate args {
+    package = pkgs.firefox-bin;
     betterfox = {
       enable = true;
       profiles.lantian.settings = {
@@ -106,6 +107,6 @@ in
     };
   };
   programs.librewolf = lib.recursiveUpdate args {
-    package = pkgs.librewolf;
+    package = pkgs.librewolf-bin;
   };
 }

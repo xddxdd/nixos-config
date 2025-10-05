@@ -34,5 +34,5 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ thunderbird ];
+  environment.systemPackages = with pkgs; [ thunderbird-bin ];
 }
