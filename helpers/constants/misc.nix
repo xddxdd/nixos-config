@@ -14,6 +14,7 @@ rec {
     "ipv6-only"
 
     # Hardware
+    "cuda"
     "i915-sriov"
     "low-disk"
     "low-ram"

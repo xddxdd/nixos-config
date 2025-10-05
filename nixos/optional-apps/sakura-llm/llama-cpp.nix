@@ -40,7 +40,7 @@ in
       # Do not enable, I define systemd service myself
       enable = false;
 
-      package = pkgs.llama-cpp.override { cudaSupport = true; };
+      package = pkgs.llama-cpp;
       host = "127.0.0.1";
       port = LT.port.SakuraLLM;
       extraFlags =
