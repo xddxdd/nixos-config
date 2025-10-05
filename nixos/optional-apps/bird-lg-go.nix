@@ -5,13 +5,7 @@
   ...
 }:
 let
-  lgproxyHosts = [
-    "buyvm"
-    "oracle-vm1"
-    "v-ps-hkg"
-    "bwg-lax"
-    "virmach-ny1g"
-  ];
+  lgproxyHosts = builtins.attrNames (LT.hostsWithTag LT.tags.dn42);
   lgproxyDomain = "ltnet.lantian.pub";
 in
 {

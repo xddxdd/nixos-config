@@ -96,7 +96,7 @@ in
 
   services.prometheus.exporters = {
     bird = {
-      enable = LT.this.hasTag LT.tags.server;
+      enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
       port = LT.port.Prometheus.BirdExporter;
       listenAddress = LT.this.ltnet.IPv4;
       birdSocket = "/var/run/bird/bird.ctl";
@@ -104,7 +104,7 @@ in
   };
 
   systemd.services.bird-lgproxy-go = {
-    enable = LT.this.hasTag LT.tags.server;
+    enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [

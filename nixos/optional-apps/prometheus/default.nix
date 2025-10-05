@@ -5,14 +5,24 @@
   ...
 }:
 let
-  scrapeAllNonClientNodes = jobName: port: {
+  scrapeAllTaggedNodes = tag: jobName: port: {
     job_name = jobName;
     static_configs = lib.mapAttrsToList (n: v: {
       targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
       labels.job = jobName;
       labels.instance = n;
-    }) (LT.hostsWithoutTag LT.tags.client);
+    }) (LT.hostsWithTag tag);
   };
+  scrapeAllNonTaggedNodes = tag: jobName: port: {
+    job_name = jobName;
+    static_configs = lib.mapAttrsToList (n: v: {
+      targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
+      labels.job = jobName;
+      labels.instance = n;
+    }) (LT.hostsWithoutTag tag);
+  };
+  scrapeAllNonClientNodes = scrapeAllNonTaggedNodes LT.tags.client;
+
   scrapeAllNonClientNodesNetns = jobName: index: port: {
     job_name = jobName;
     static_configs = lib.mapAttrsToList (n: v: {
@@ -53,7 +63,7 @@ in
           }
         ];
       }
-      (scrapeAllNonClientNodes "bird" LT.port.Prometheus.BirdExporter)
+      (scrapeAllTaggedNodes LT.tags.dn42 "bird" LT.port.Prometheus.BirdExporter)
       (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)
