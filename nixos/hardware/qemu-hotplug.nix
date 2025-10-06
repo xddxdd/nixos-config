@@ -8,5 +8,6 @@
   '';
 
   # ZRAM doesn't interact well with memory hotplug
-  zramSwap.enable = lib.mkForce false;
+  # Disabled because I'm using hugepages everywhere and mem hotplug is disabled
+  # zramSwap.enable = lib.mkForce false;
 }
