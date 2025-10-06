@@ -32,6 +32,7 @@ in
     A = args: record "A" args [ args.address ];
     AAAA = args: record "AAAA" args [ args.address ];
     ALIAS = args: record "ALIAS" args [ args.target ];
+    AUTO = args: if lib.hasInfix ":" args.address then AAAA args else A args;
     CAA =
       args:
       record "CAA" args [

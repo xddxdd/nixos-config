@@ -27,7 +27,7 @@ let
   ptrPrefix =
     v: if v.city != null then "${lib.replaceStrings [ "_" ] [ "-" ] v.city.sanitized}." else "";
 
-  hasPublicIP = v: v.public.IPv4 != null || v.public.IPv6 != null;
+  hasPublicIP = v: !v.firewalled && (v.public.IPv4 != null || v.public.IPv6 != null);
 
   concatDomain = prefix: domain: if domain == "@" then prefix else "${prefix}.${domain}";
 

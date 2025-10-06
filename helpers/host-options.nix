@@ -97,6 +97,12 @@
       };
     };
 
+    firewalled = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether node is firewalled from Internet despite having public IP.";
+    };
+
     ltnet = {
       IPv4 = lib.mkOption {
         type = lib.types.str;

@@ -12,4 +12,5 @@
     IPv6 = "2001:470:e997:1::13";
   };
   zerotier = "fb4c304816";
+  firewalled = true;
 }
