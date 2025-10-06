@@ -1,9 +1,7 @@
 { tags, geo, ... }:
 {
   index = 102;
-  tags = with tags; [
-    cuda
-  ];
+  tags = with tags; [ ];
   cpuThreads = 8;
   city = geo.cities."US Seattle";
   ssh = {

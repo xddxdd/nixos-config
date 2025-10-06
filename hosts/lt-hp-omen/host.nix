@@ -3,7 +3,6 @@
   index = 100;
   tags = with tags; [
     client
-    cuda
     i915-sriov
     nix-builder
   ];

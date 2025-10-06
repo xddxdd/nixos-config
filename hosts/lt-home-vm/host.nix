@@ -2,7 +2,6 @@
 {
   index = 101;
   tags = with tags; [
-    cuda
     server
   ];
   cpuThreads = 64;
