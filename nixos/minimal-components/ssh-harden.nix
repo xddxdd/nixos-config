@@ -195,5 +195,6 @@ in
   };
 
   # Prevent regular OpenSSH from sneaking in
-  system.forbiddenDependenciesRegexes = [ "openssh-[0-9p\\.]+$" ];
+  # FIXME: PVE depends on regular OpenSSH
+  # system.forbiddenDependenciesRegexes = [ "openssh-[0-9p\\.]+$" ];
 }
