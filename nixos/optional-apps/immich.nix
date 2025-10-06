@@ -2,7 +2,6 @@
   config,
   lib,
   LT,
-  pkgsWithCuda,
   ...
 }:
 {
@@ -29,7 +28,6 @@
 
     services.immich = {
       enable = true;
-      package = pkgsWithCuda.immich;
       host = "127.0.0.1";
       port = LT.port.Immich;
       mediaLocation = "/run/immich";
@@ -74,10 +72,6 @@
         "run-immich.mount"
         "redis-immich.service"
       ];
-    };
-
-    systemd.services.immich-machine-learning.serviceConfig = {
-      PrivateDevices = lib.mkForce false;
     };
 
     systemd.tmpfiles.settings = {

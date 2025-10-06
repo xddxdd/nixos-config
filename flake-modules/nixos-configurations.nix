@@ -9,6 +9,8 @@ let
     inherit lib inputs self;
   };
 
+  pkgsNameFor = n: "pkgs";
+
   specialArgsFor = n: {
     inherit inputs;
     LT = import ../helpers {
@@ -23,15 +25,17 @@ let
       inherit (LT.hosts."${n}") system;
     in
     [
-      {
-        home-manager.extraSpecialArgs = specialArgsFor n;
-        networking.hostName = lib.mkForce (lib.removePrefix "_" n);
-        system.stateVersion = LT.constants.stateVersion;
+      (
+        { pkgs, ... }:
+        {
+          home-manager.extraSpecialArgs = specialArgsFor n;
+          networking.hostName = lib.mkForce (lib.removePrefix "_" n);
+          system.stateVersion = LT.constants.stateVersion;
 
-        # Force inherit nixpkgs
-        _module.args.pkgs = lib.mkForce (patchedPkgsFor system "pkgs");
-        _module.args.pkgsWithCuda = lib.mkForce (patchedPkgsFor system "pkgsWithCuda");
-      }
+          # Force inherit nixpkgs
+          _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
+        }
+      )
 
       # keep-sorted start
       (inputs.srvos + "/shared/common/update-diff.nix")
@@ -67,8 +71,8 @@ in
       n:
       let
         inherit (LT.hosts."${n}") system;
-        pkgs = patchedPkgsFor system "pkgs";
-        nixpkgs = patchedNixpkgsFor system "pkgs";
+        pkgs = patchedPkgsFor system (pkgsNameFor n);
+        nixpkgs = patchedNixpkgsFor system (pkgsNameFor n);
       in
       (import (nixpkgs + "/nixos/lib/eval-config.nix")) {
         inherit system pkgs;
