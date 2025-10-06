@@ -47,7 +47,7 @@ let
     pkgs.runCommand "thunderbird-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
       mkdir -p $out/bin
       makeWrapper \
-        ${pkgs.thunderbird-bin}/bin/thunderbird \
+        ${pkgs.thunderbird}/bin/thunderbird \
         $out/bin/thunderbird \
         --set WAYLAND_DISPLAY ""
     ''
