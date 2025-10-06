@@ -12,21 +12,32 @@ let
     in
     assert v.cpuThreads > 0;
     if isLocal then
-      null
+      [ ]
     else
-      {
-        inherit (v) system;
-        hostName = "${n}.lantian.pub";
-        maxJobs = v.cpuThreads;
-        protocol = "ssh-ng";
-        speedFactor = v.cpuThreads;
-        sshKey = "/home/lantian/.ssh/id_ed25519";
-        sshUser = "root";
-        supportedFeatures = [
-          "benchmark"
-          "big-parallel"
-        ];
-      };
+      [
+        {
+          inherit (v) system;
+          hostName = "${n}.lantian.pub";
+          maxJobs = v.cpuThreads;
+          protocol = "ssh-ng";
+          speedFactor = v.cpuThreads;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
+          supportedFeatures = [ ];
+          mandatoryFeatures = [ ];
+        }
+        {
+          inherit (v) system;
+          hostName = "${n}.lantian.pub";
+          maxJobs = 1;
+          protocol = "ssh-ng";
+          speedFactor = v.cpuThreads;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
+          supportedFeatures = [ "big-parallel" ];
+          mandatoryFeatures = [ "big-parallel" ];
+        }
+      ];
 
   nixBuildNet = {
     hostName = "eu.nixbuild.net";
@@ -44,12 +55,15 @@ in
 {
   nix = {
     distributedBuilds = true;
-    buildMachines =
-      [ nixBuildNet ]
+    buildMachines = lib.flatten (
+      [
+        nixBuildNet
+      ]
       ++ (lib.filter (v: v != null) (
         lib.mapAttrsToList mkBuildMachine (
           lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
         )
-      ));
+      ))
+    );
   };
 }
