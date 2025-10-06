@@ -56,8 +56,8 @@ let
         "browser.aboutConfig.showWarning" = false;
         # AI Sidebar
         "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
-        "browser.tabs.groups.enabled" = true;
-        "browser.tabs.groups.smart.enabled" = true;
+        "browser.tabs.groups.enabled" = false;
+        "browser.tabs.groups.smart.enabled" = false;
         "browser.tabs.unloadTabInContextMenu" = true;
         "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
         "extensions.update.enabled" = false;
