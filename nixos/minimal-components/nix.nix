@@ -52,7 +52,6 @@ in
       auto-optimise-store = true;
       builders-use-substitutes = true;
       connect-timeout = 5;
-      cores = 2 * LT.math.round (LT.math.sqrt LT.this.cpuThreads);
       download-buffer-size = 1024 * 1024 * 1024;
       experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
@@ -61,7 +60,6 @@ in
       keep-outputs = true;
       log-lines = 25;
       max-free = 1000 * 1000 * 1000;
-      max-jobs = LT.math.round (LT.math.sqrt LT.this.cpuThreads);
       min-free = 128 * 1000 * 1000;
       trusted-users = allowedUsers;
       use-cgroups = true;
