@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgsWithCuda,
   lib,
   LT,
   config,
@@ -40,7 +41,7 @@ in
       # Do not enable, I define systemd service myself
       enable = false;
 
-      package = pkgs.llama-cpp.override { cudaSupport = true; };
+      package = pkgsWithCuda.llama-cpp;
       host = "127.0.0.1";
       port = LT.port.SakuraLLM;
       extraFlags =
