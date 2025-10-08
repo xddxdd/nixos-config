@@ -15,6 +15,7 @@ _: {
       window-inherit-working-directory = true;
       window-step-resize = true;
       window-width = 80;
+      shell-integration-features = "ssh-env";
     };
   };
 }
