@@ -62,10 +62,6 @@
     };
 
     # SSH pubkey
-    ssh.rsa = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-    };
     ssh.ed25519 = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;

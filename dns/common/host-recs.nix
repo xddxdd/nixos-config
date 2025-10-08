@@ -260,19 +260,7 @@ in
       domain:
       forEachActiveHost (
         n: v:
-        lib.optionals (v.ssh.rsa != null) [
-          {
-            recordType = "SSHFP_RSA_SHA1";
-            name = concatDomain n domain;
-            pubkey = v.ssh.rsa;
-          }
-          {
-            recordType = "SSHFP_RSA_SHA256";
-            name = concatDomain n domain;
-            pubkey = v.ssh.rsa;
-          }
-        ]
-        ++ lib.optionals (v.ssh.ed25519 != null) [
+        lib.optionals (v.ssh.ed25519 != null) [
           {
             recordType = "SSHFP_ED25519_SHA1";
             name = concatDomain n domain;

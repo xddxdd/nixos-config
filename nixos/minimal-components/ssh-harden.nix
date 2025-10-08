@@ -56,20 +56,13 @@ in
                 "[${n}.xuyh0120.win]:2222"
               ];
             in
-            (lib.optional (LT.hosts."${n}".ssh.rsa != null) {
-              name = "${n}-rsa";
-              value = {
-                inherit hostNames;
-                publicKey = LT.hosts."${n}".ssh.rsa;
-              };
-            })
-            ++ (lib.optional (LT.hosts."${n}".ssh.ed25519 != null) {
+            lib.optional (LT.hosts."${n}".ssh.ed25519 != null) {
               name = "${n}-ed25519";
               value = {
                 inherit hostNames;
                 publicKey = LT.hosts."${n}".ssh.ed25519;
               };
-            })
+            }
           ) LT.hosts
         )
       ))
