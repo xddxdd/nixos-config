@@ -1,6 +1,7 @@
 { pkgs, LT, ... }:
 {
   systemd.services.bgp-flowspec = {
+    enable = false;
     description = "BGP Flowspec Service";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];

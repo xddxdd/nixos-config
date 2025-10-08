@@ -24,7 +24,7 @@ in
         sys.network
         sys.static
         sys.kernel
-        sys.flowspec
+        # sys.flowspec
         anycast.babel
 
         # Used by ltnet
