@@ -6,12 +6,14 @@
   ...
 }@args:
 let
-  anycast = import ./anycast.nix args;
-  dn42 = import ./dn42.nix args;
-  ltnet = import ./ltnet.nix args;
-  sys = import ./sys.nix args;
+  anycast = import ./config/anycast.nix args;
+  dn42 = import ./config/dn42.nix args;
+  ltnet = import ./config/ltnet.nix args;
+  sys = import ./config/sys.nix args;
 in
 {
+  imports = [ ./bgp-flowspec.nix ];
+
   services.bird = {
     enable = LT.this.hasTag LT.tags.server;
     package = pkgs.bird2;
@@ -22,6 +24,7 @@ in
         sys.network
         sys.static
         sys.kernel
+        sys.flowspec
         anycast.babel
 
         # Used by ltnet

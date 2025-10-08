@@ -7,6 +7,8 @@ rec {
     Gopher = 70;
     HTTP = 80;
     Quassel.Ident = 113;
+    BGP = 179;
+    Hack3ricFlow = 180;
     LDAP = 389;
     HTTPS = 443;
     LDAPS = 636;

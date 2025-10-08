@@ -24,6 +24,9 @@ in
     router id ${if LT.this.dn42.IPv4 != null then LT.this.dn42.IPv4 else LT.this.ltnet.IPv4};
     timeformat protocol iso long;
     #debug protocols all;
+
+    flow4 table master_flow4;
+    flow6 table master_flow6;
   '';
 
   kernel = ''
@@ -313,6 +316,25 @@ in
 
       ipv6 {
         add paths on;
+        export all;
+        import none;
+      };
+    }
+  '';
+
+  flowspec = ''
+    protocol bgp sys_flowspec {
+      local ::1 as ${DN42_AS};
+      neighbor ::1 port ${LT.portStr.Hack3ricFlow} as 65000;
+      multihop 1;
+
+      flow4 {
+        table master_flow4;
+        export all;
+        import none;
+      };
+      flow6 {
+        table master_flow6;
         export all;
         import none;
       };

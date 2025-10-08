@@ -70,6 +70,22 @@ in
         import filter ltnet_filter_v6;
         export filter ltnet_filter_v6;
       };
+      flow4 {
+        next hop self yes;
+        import keep filtered;
+        extended next hop yes;
+        table master_flow4;
+        import all;
+        export all;
+      };
+      flow6 {
+        next hop self yes;
+        import keep filtered;
+        extended next hop yes;
+        table master_flow6;
+        import all;
+        export all;
+      };
     };
   '';
 
