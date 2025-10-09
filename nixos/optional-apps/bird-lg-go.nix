@@ -55,6 +55,7 @@ in
       UMask = "007";
     };
   };
+  systemd.services.bird-lgproxy-go.enable = lib.mkForce true;
 
   lantian.nginxVhosts = {
     "lg.lantian.pub" = {
