@@ -27,8 +27,6 @@
     ];
   };
 
-  fileSystems."/".options = [ "size=90%" ];
-
   services.qemuGuest.enable = true;
 
   systemd.services.nvidia-power-limit = {
