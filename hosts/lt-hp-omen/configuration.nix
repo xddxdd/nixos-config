@@ -27,6 +27,7 @@
     ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
+    ../../nixos/optional-apps/qdrant.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing.nix
     ../../nixos/optional-apps/virtualbox.nix
