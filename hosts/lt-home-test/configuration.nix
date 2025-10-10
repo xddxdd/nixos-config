@@ -14,7 +14,6 @@
     ../../nixos/server-components/logging.nix
 
     ../../nixos/optional-apps/ollama.nix
-    # ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/vlmcsd.nix
   ];
 
