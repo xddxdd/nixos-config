@@ -69,20 +69,19 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
         defaultForwarder =
           if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS;
 
-        cfgEntries = [
-          (defaultForwarder ".")
-          # Block Bilibili PCDN https://linux.do/t/topic/534704/7
-          (block "mcdn.bilivideo.cn")
-          (block "szbdyd.com")
-          # Block Bilibili Akamai CDN (unstable)
-          (block "upos-hz-mirrorakam.akamaized.net")
-        ]
-        # Not working well
-        # ++ lib.optional config.services.avahi.enable (mdns "local")
-        ++ (builtins.map forwardToLtnet (
-          with LT.constants.zones;
-          (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
-        ));
+        cfgEntries =
+          [
+            (defaultForwarder ".")
+            # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
+            (block "mcdn.bilivideo.cn")
+            (block "szbdyd.com")
+          ]
+          # Not working well
+          # ++ lib.optional config.services.avahi.enable (mdns "local")
+          ++ (builtins.map forwardToLtnet (
+            with LT.constants.zones;
+            (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
+          ));
       in
       lib.concatStrings cfgEntries;
   };
