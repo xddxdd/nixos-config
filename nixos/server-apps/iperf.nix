@@ -1,7 +1,7 @@
-{ lib, LT, ... }:
-lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
+{ LT, ... }:
+{
   services.iperf3 = {
-    enable = true;
+    enable = !(LT.this.hasTag LT.tags.low-ram);
     bind = LT.this.ltnet.IPv4;
     port = LT.port.IPerf;
   };
