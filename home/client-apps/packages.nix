@@ -157,7 +157,6 @@ in
         winetricks
         wpsoffice
         xca
-        yt-dlp
         yubioath-flutter
         zoom-us
         # keep-sorted end
