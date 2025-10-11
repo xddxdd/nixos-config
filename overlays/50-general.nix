@@ -118,6 +118,12 @@ rec {
         simpleeval
       ];
   });
+  yt-dlp = prev.yt-dlp.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      # Modified from https://github.com/yt-dlp/yt-dlp/issues/14498#issuecomment-3391106164
+      ../patches/yt-dlp-replace-bilibili-hostname.patch
+    ];
+  });
   zerotierone = prev.zerotierone.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/zerotier-auto-multithread.patch

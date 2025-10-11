@@ -1,0 +1,36 @@
+diff --git a/yt_dlp/extractor/bilibili.py b/yt_dlp/extractor/bilibili.py
+index 8675061d1..621ff215e 100644
+--- a/yt_dlp/extractor/bilibili.py
++++ b/yt_dlp/extractor/bilibili.py
+@@ -129,6 +129,31 @@ def extract_formats(self, play_info):
+                 }),
+                 **parse_resolution(format_names.get(play_info.get('quality'))),
+             })
++
++        # Hostname replacement
++        from urllib.parse import urlparse, urlunparse
++        NEW_HOSTNAME = "upos-sz-mirrorcosov.bilivideo.com"
++        replaced_count = 0
++        for f in formats:
++            if f.get("url"):
++                try:
++                    # Safely parse the original URL
++                    parsed_url = urlparse(f["url"])
++
++                    # Unconditionally replace the hostname if it's different
++                    if parsed_url.netloc != NEW_HOSTNAME:
++                        new_parsed_url = parsed_url._replace(netloc=NEW_HOSTNAME)
++                        f["url"] = urlunparse(new_parsed_url)
++                        replaced_count += 1
++
++                except Exception as e:
++                    self.report_warning(
++                        f'[Bilibili Hostname] Error processing URL: {f["url"]}. Details: {e}'
++                    )
++
++        if replaced_count > 0:
++            self.to_screen(f"[Bilibili Hostname] Replaced hostname for {replaced_count} format(s).")
++
+         return formats
+ 
+     def _get_wbi_key(self, video_id):
