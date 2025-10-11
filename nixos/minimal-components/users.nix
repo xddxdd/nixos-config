@@ -38,7 +38,7 @@ in
     root = {
       hashedPassword = lib.mkForce unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
-      linger = true;
+      linger = LT.this.hasTag LT.tags.client;
     };
     lantian = {
       hashedPassword = lib.mkForce unixHashedPassword;
@@ -53,7 +53,7 @@ in
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
       createHome = true;
-      linger = true;
+      linger = LT.this.hasTag LT.tags.client;
     };
     nix-builder = lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
       isNormalUser = true;
