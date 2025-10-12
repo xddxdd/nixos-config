@@ -74,9 +74,7 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://195.58.51.167:7992",
-    "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
-    "tls://[2a00:b700::a:279]:443",
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://ekb.itrus.su:7992",
@@ -84,7 +82,6 @@
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kzn1.neonxp.ru:7992",
     "tls://srv.itrus.su:7992",
-    "tls://vix.duckdns.org:36014",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
