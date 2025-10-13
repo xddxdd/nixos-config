@@ -13,6 +13,7 @@
     ../../nixos/server-components/backup.nix
     ../../nixos/server-components/logging.nix
 
+    ../../nixos/optional-apps/llama-cpp-qwen3-reranker.nix
     ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/vlmcsd.nix
   ];
