@@ -96,6 +96,8 @@ in
 
   lantian.nginxVhosts = {
     "uni-api.${config.networking.hostName}.xuyh0120.win" = {
+      blockAIBots = false;
+
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";
         proxyNoTimeout = true;
@@ -108,6 +110,7 @@ in
     "uni-api.localhost" = {
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
+      blockAIBots = false;
 
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";

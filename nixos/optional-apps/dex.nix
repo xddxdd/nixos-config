@@ -99,6 +99,14 @@ let
         ];
       }
       {
+        id = "librechat";
+        name = "Librechat";
+        secret = {
+          _secret = config.age.secrets.dex-librechat-secret.path;
+        };
+        redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
+      }
+      {
         id = "open-webui";
         name = "Open WebUI";
         secret = {
@@ -125,31 +133,31 @@ in
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets =
-    {
-      glauth-bindpw = {
-        file = inputs.secrets + "/glauth-bindpw.age";
-        mode = "0444";
-      };
-    }
-    // builtins.listToAttrs (
-      builtins.map
-        (
-          f:
-          lib.nameValuePair "dex-${f}-secret" {
-            file = inputs.secrets + "/dex/${f}-secret.age";
-            owner = "dex";
-            group = "dex";
-          }
-        )
-        [
-          "gitea"
-          "grafana"
-          "immich"
-          "oauth2-proxy"
-          "open-webui"
-        ]
-    );
+  age.secrets = {
+    glauth-bindpw = {
+      file = inputs.secrets + "/glauth-bindpw.age";
+      mode = "0444";
+    };
+  }
+  // builtins.listToAttrs (
+    builtins.map
+      (
+        f:
+        lib.nameValuePair "dex-${f}-secret" {
+          file = inputs.secrets + "/dex/${f}-secret.age";
+          owner = "dex";
+          group = "dex";
+        }
+      )
+      [
+        "gitea"
+        "grafana"
+        "immich"
+        "librechat"
+        "oauth2-proxy"
+        "open-webui"
+      ]
+  );
 
   services.postgresql = {
     ensureDatabases = [ "dex" ];

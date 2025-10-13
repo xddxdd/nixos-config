@@ -47,6 +47,7 @@ rec {
     WGMesh.End = 10255;
     FakeOllama = 11434;
     Yggdrasil.Multicast = 13059;
+    Librechat = 13080;
     FlapAlerted.BGP = 13179;
     FlapAlerted.WebUI = 13180;
     FlareSolverr = 13191;

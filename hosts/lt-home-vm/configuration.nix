@@ -19,18 +19,19 @@
     ../../nixos/optional-apps/btrbk-server.nix
     ../../nixos/optional-apps/calibre-cops.nix
     # ../../nixos/optional-apps/clamav.nix
-    ../../nixos/optional-apps/elasticsearch.nix
+    # ../../nixos/optional-apps/elasticsearch.nix
     ../../nixos/optional-apps/epic-awesome-gamer
     ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
-    ../../nixos/optional-apps/mtranserver.nix
+    ../../nixos/optional-apps/librechat.nix
+    # ../../nixos/optional-apps/mtranserver.nix
     # ../../nixos/optional-apps/navidrome.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
-    ../../nixos/optional-apps/open-webui
+    # ../../nixos/optional-apps/open-webui
     ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/palworld.nix
     # ../../nixos/optional-apps/sakura-llm
