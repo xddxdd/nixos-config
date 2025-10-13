@@ -17,6 +17,37 @@
         inherit (config.lantian.mcp) mcpServers;
       };
     };
+    toAttrsWithEnvs = lib.mkOption {
+      readOnly = true;
+      default = lib.mapAttrs (
+        n: v:
+        lib.mapAttrs (
+          an: av:
+          if !builtins.isAttrs av then
+            av
+          else
+            lib.mapAttrs (
+              en: ev: if builtins.isAttrs ev && lib.hasAttr "_secret" ev then "\${${en}}" else ev
+            ) av
+        ) v
+      ) config.lantian.mcp.mcpServers;
+    };
+    toCredentials = lib.mkOption {
+      readOnly = true;
+      default = builtins.listToAttrs (
+        builtins.filter (v: v != null) (
+          lib.flatten (
+            lib.mapAttrsToList (
+              n: v:
+              lib.mapAttrsToList (
+                en: ev:
+                if builtins.isAttrs ev && lib.hasAttr "_secret" ev then lib.nameValuePair en ev._secret else null
+              ) (v.env or { })
+            ) config.lantian.mcp.mcpServers
+          )
+        )
+      );
+    };
   };
 
   config = {

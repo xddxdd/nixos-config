@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -14,6 +15,7 @@ let
 in
 {
   imports = [
+    ./mcp-servers.nix
     ./mongodb.nix
     ./uni-api
   ];
@@ -58,7 +60,8 @@ in
       OPENID_CLIENT_SECRET = config.age.secrets.librechat-openid-client-secret.path;
       OPENID_SESSION_SECRET = config.age.secrets.librechat-openid-session-secret.path;
       UNI_API_KEY = config.age.secrets.librechat-uni-api-secret.path;
-    };
+    }
+    // config.lantian.mcp.toCredentials;
     settings = {
       version = "1.2.5";
       cache = true;
@@ -75,7 +78,19 @@ in
           }
         ];
       };
+      mcpServers = config.lantian.mcp.toAttrsWithEnvs;
     };
+  };
+
+  systemd.services.librechat = {
+    path = [
+      pkgs.bash
+      pkgs.nodejs
+      pkgs.python3
+      pkgs.uv
+    ];
+    environment.HOME = "/var/cache/librechat";
+    serviceConfig.CacheDirectory = "librechat";
   };
 
   lantian.nginxVhosts = {
