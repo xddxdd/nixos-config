@@ -9,7 +9,6 @@
     onBoot = "ignore";
     onShutdown = "shutdown";
     qemu = {
-      ovmf.enable = true;
       swtpm.enable = true;
       verbatimConfig = ''
         cgroup_device_acl = [

@@ -138,7 +138,8 @@ in
     (lib.lowPrio python3)
     black
     conda
-    micromamba
+    # FIXME: broken
+    # micromamba
     uv
     virtualenv
     yapf

@@ -41,7 +41,7 @@
     # keep-sorted start
     bat
     bridge-utils
-    curlHTTP3
+    curl
     dig
     duf
     ethtool
