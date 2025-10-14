@@ -1,13 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    # ../mongodb.nix
     ./kamailio.nix
     ./open5gs-certs.nix
     ./pyhss.nix
     ./rtpengine.nix
     ./services.nix
-    # ./webui.nix
   ];
 
   # environment.etc."freeDiameter/hss.conf".source = ./freeDiameter/hss.conf;

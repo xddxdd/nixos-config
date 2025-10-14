@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ../mongodb.nix ];
+
   systemd.services.open5gs-webui = {
     description = "Open5GS WebUI";
     wantedBy = [ "multi-user.target" ];

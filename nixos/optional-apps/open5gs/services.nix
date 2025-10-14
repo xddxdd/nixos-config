@@ -21,11 +21,11 @@ in
         after = [
           "network.target"
           "open5gs-certs.service"
-        ] ++ lib.optionals (svc == "hss") [ "mongodb.service" ];
+        ];
         requires = [
           "network.target"
           "open5gs-certs.service"
-        ] ++ lib.optionals (svc == "hss") [ "mongodb.service" ];
+        ];
         serviceConfig = {
           ExecStart = "${pkgs.open5gs}/bin/open5gs-${svc}d -c ${./config}/${svc}.yaml";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
