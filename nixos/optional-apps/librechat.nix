@@ -51,6 +51,9 @@ in
 
       DOMAIN_CLIENT = "https://ai.xuyh0120.win";
       DOMAIN_SERVER = "https://ai.xuyh0120.win";
+
+      # Avoid duplicate compression
+      DISABLE_COMPRESSION = "true";
     };
     credentials = {
       CREDS_KEY = config.age.secrets.librechat-creds-key.path;
@@ -65,6 +68,10 @@ in
     settings = {
       version = "1.2.5";
       cache = true;
+      interface = {
+        runCode = false;
+        webSearch = false;
+      };
       endpoints = {
         custom = [
           {
