@@ -33,6 +33,7 @@ in
             inputs.agenix.overlays.default
             inputs.angrr.overlays.default
             inputs.colmena.overlay
+            inputs.firefox-addons.overlays.default
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
             inputs.nix-xilinx.overlay

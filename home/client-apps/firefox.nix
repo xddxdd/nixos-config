@@ -12,9 +12,9 @@ let
     package = null; # Already installed system wide
     profiles.lantian = {
       extensions = {
-        packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        packages = with pkgs.firefox-addons; [
           bilisponsorblock
-          bitwarden
+          bitwarden-password-manager
           clearurls
           darkreader
           downthemall
@@ -41,7 +41,6 @@ let
           ublacklist
           ublock-origin
           wappalyzer
-          wayback-machine
         ];
         force = true;
       };

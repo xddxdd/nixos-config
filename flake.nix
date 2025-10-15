@@ -41,6 +41,10 @@
       url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
       inputs.flake-parts.follows = "flake-parts";
     };
+    firefox-addons = {
+      url = "github:petrkozorezov/firefox-addons-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flat-flake = {
       url = "github:linyinfeng/flat-flake";
       inputs.nixpkgs.follows = "nixpkgs";

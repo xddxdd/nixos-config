@@ -25,7 +25,7 @@
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur.repos.linyinfeng.vlmcsd}/bin/vlmcsd";
+      ExecStart = "${pkgs.nur-xddxdd.vlmcsd}/bin/vlmcsd";
       DynamicUser = true;
     };
   };
