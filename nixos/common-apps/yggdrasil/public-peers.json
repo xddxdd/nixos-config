@@ -81,6 +81,7 @@
     "tls://ip4.01.msk.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kzn1.neonxp.ru:7992",
+    "tls://vix.duckdns.org:36014",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
@@ -96,6 +97,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "ukraine": [
