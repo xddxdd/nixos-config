@@ -187,8 +187,10 @@ in
 
   programs.go = {
     enable = true;
-    goBin = ".local/bin";
-    goPath = ".local/share/go";
+    env = {
+      GOBIN = "${config.home.homeDirectory}/.local/bin";
+      GOPATH = "${config.xdg.dataHome}/go";
+    };
   };
 
   programs.pyenv.enable = true;
