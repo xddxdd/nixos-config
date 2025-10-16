@@ -7,11 +7,15 @@
 }:
 let
   isBtrfsRoot = (config.fileSystems."/nix".fsType or "") == "btrfs";
-  isMaintenanceHost = config.networking.hostName == "terrahost";
 
   resticRepos = {
     home = "sftp://sftp.lt-home-vm.ltnet.xuyh0120.win//backups/restic";
     storagebox = "sftp://sub2.u378583.your-storagebox.de//home";
+  };
+
+  maintenanceHosts = {
+    "terrahost" = [ "storagebox" ];
+    "lt-home-vm" = [ "home" ];
   };
 
   backupPaths = [ "/nix/.snapshot/persistent" ];
@@ -146,8 +150,7 @@ in
     };
   };
 
-  systemd.services.backup-prune = {
-    enable = isMaintenanceHost;
+  systemd.services.backup-prune = lib.mkIf (lib.hasAttr config.networking.hostName maintenanceHosts) {
     serviceConfig = {
       Type = "oneshot";
       CPUQuota = "40%";
@@ -162,14 +165,13 @@ in
     script = ''
       HAS_ERROR=0
     ''
-    + (builtins.concatStringsSep "\n" (lib.mapAttrsToList (repo: _: pruneScript repo) resticRepos))
+    + (lib.concatMapStringsSep "\n" pruneScript maintenanceHosts."${config.networking.hostName}")
     + ''
       exit $HAS_ERROR
     '';
   };
 
-  systemd.timers.backup-prune = {
-    enable = isMaintenanceHost;
+  systemd.timers.backup-prune = lib.mkIf (lib.hasAttr config.networking.hostName maintenanceHosts) {
     wantedBy = [ "timers.target" ];
     partOf = [ "backup-prune.service" ];
     timerConfig = {
