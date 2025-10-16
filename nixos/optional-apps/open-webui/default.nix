@@ -10,7 +10,7 @@
     ./model-config.nix
 
     # ../fish-speech.nix
-    ../mcpo.nix
+    # ../mcpo.nix
     ../openai-edge-tts.nix
     # ../openedai-speech.nix
     ../postgresql.nix
