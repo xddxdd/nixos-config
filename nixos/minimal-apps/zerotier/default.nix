@@ -63,6 +63,7 @@ in
     serviceConfig = LT.networkToolHarden // {
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
+      Nice = "-20";
     };
   };
 
