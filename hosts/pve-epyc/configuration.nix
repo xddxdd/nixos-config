@@ -8,6 +8,7 @@
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
+    ./enable-smart.nix
     ./hardware-configuration.nix
     ./openvswitch.nix
     ./vfio.nix
