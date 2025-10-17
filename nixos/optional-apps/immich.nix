@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ./postgresql.nix ];
+
   options.lantian.immich.storage = lib.mkOption {
     type = lib.types.str;
     default = "/nix/persistent/immich";
