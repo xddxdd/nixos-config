@@ -7,8 +7,6 @@
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
-
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
