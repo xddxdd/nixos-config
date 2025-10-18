@@ -19,16 +19,9 @@
 
   boot.kernelParams = [
     "console=ttyS0,115200"
-    "default_hugepagesz=1G"
-    "hugepagesz=1G"
-    "hugepages=224"
     "amd_pstate=active"
     "amd_pstate.shared_mem=1"
   ];
-
-  boot.extraModprobeConfig = ''
-    options zfs zfs_arc_max=1073741824
-  '';
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
