@@ -20,7 +20,7 @@ in
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
-    # ../../nixos/optional-apps/bitmagnet.nix
+    ../../nixos/optional-apps/bitmagnet.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/peerbanhelper.nix
     ../../nixos/optional-apps/qbittorrent.nix
