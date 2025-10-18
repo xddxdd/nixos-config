@@ -62,17 +62,6 @@
   security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
   security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
 
-  services.beesd.filesystems.root = {
-    spec = config.fileSystems."/nix".device;
-    hashTableSizeMB = 128;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target"
-      "8"
-      "--workaround-btrfs-send"
-    ];
-  };
-
   services.samba.settings = {
     "lantian" = {
       "path" = "/home/lantian";

@@ -15,6 +15,7 @@ _: {
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];

@@ -49,6 +49,7 @@
     options = [
       "subvol=home"
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];
@@ -69,6 +70,7 @@
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];
@@ -80,6 +82,7 @@
     options = [
       "subvol=nix"
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];
@@ -91,6 +94,7 @@
     options = [
       "subvol=persistent"
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];

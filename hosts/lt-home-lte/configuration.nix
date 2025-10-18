@@ -13,17 +13,6 @@
 
   networking.nameservers = lib.mkForce [ "192.168.0.1" ];
 
-  services.beesd.filesystems.root = {
-    spec = config.fileSystems."/nix".device;
-    hashTableSizeMB = 32;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target"
-      "4"
-      "--workaround-btrfs-send"
-    ];
-  };
-
   systemd.network.networks.eth0 = {
     address = [ "192.168.0.9/24" ];
     gateway = [ "192.168.0.1" ];

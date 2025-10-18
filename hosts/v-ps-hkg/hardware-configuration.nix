@@ -20,6 +20,7 @@ _: {
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
+      "autodefrag"
       "subvol=@rootfs"
       "nosuid"
       "nodev"

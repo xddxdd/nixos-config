@@ -22,6 +22,7 @@
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
     ];
@@ -32,6 +33,7 @@
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
+      "autodefrag"
       "nosuid"
       "nodev"
       "x-systemd.mount-timeout=infinity"

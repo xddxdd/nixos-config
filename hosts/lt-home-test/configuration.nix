@@ -20,17 +20,6 @@
 
   boot.kernelParams = [ "pci=realloc,assign-busses" ];
 
-  services.beesd.filesystems.root = {
-    spec = config.fileSystems."/nix".device;
-    hashTableSizeMB = 32;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target"
-      "4"
-      "--workaround-btrfs-send"
-    ];
-  };
-
   # Rename to LAN to apply correct firewall rules
   services.udev.extraRules = ''
     SUBSYSTEM=="net", ACTION=="add", ATTR{device/vendor}=="0x8086", ATTR{device/device}=="0x100e",NAME="lan0"

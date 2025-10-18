@@ -56,17 +56,6 @@
     pkgs.hashcat
   ];
 
-  services.beesd.filesystems.root = {
-    spec = config.fileSystems."/nix".device;
-    hashTableSizeMB = 16;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target"
-      "4"
-      "--workaround-btrfs-send"
-    ];
-  };
-
   # # Disabled for heavy IO use
   # services.beesd.filesystems.storage = {
   #   spec = config.fileSystems."/mnt/storage".device;
