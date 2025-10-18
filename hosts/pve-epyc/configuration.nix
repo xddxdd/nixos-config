@@ -45,6 +45,4 @@
     matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
   };
-
-  zramSwap.enable = lib.mkForce false;
 }
