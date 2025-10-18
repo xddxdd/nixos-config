@@ -44,6 +44,7 @@
     curl
     dig
     duf
+    e2fsprogs # chattr, lsattr
     ethtool
     eza
     fuc
