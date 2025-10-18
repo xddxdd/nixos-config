@@ -46,9 +46,12 @@ in
       description = "Lan Tian";
       group = "lantian";
       extraGroups = [
+        # keep-sorted start
+        "dialout"
         "systemd-journal"
         "users"
         "wheel"
+        # keep-sorted end
       ];
       uid = 1000;
       openssh.authorizedKeys.keys = sshKeys;
