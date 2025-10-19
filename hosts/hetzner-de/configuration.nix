@@ -1,4 +1,10 @@
-{ inputs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  LT,
+  ...
+}:
 {
   imports = [
     ../../nixos/server.nix
@@ -9,6 +15,7 @@
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/dex.nix
     ../../nixos/optional-apps/flapalerted.nix
     ../../nixos/optional-apps/gitea-actions.nix
@@ -56,6 +63,13 @@
         GatewayOnLink = true;
       }
     ];
+  };
+
+  virtualisation.oci-containers.containers.byparr.ports = [
+    "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
+  ];
+  systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
+    environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
   };
 
   services."route-chain" = {
