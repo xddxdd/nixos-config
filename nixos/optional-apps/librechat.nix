@@ -34,6 +34,8 @@ in
     enable = true;
     port = LT.port.Librechat;
     env = {
+      HOST = "127.0.0.1";
+
       MONGO_URI = "mongodb://127.0.0.1:27017/LibreChat";
       OPENID_ISSUER = "https://login.lantian.pub";
       OPENID_CLIENT_ID = "librechat";
@@ -104,7 +106,7 @@ in
     "ai.xuyh0120.win" = {
       locations = {
         "/" = {
-          proxyPass = "http://[::1]:${LT.portStr.Librechat}";
+          proxyPass = "http://127.0.0.1:${LT.portStr.Librechat}";
         };
       };
 
