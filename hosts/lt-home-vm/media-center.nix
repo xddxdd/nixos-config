@@ -136,9 +136,9 @@ in
   };
 
   lantian.nginxVhosts = {
-    "qbittorrent.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
+    "bt.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "qbittorrent.localhost".locations."/".proxyPass =
+    "bt.localhost".locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
