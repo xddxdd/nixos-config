@@ -81,6 +81,7 @@ in
         ENABLE_PUSH_CREATE_USER = true;
         USE_COMPAT_SSH_URI = true;
         DISABLE_STARS = true;
+        DEFAULT_BRANCH = "master";
       };
       service = {
         ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
@@ -120,7 +121,8 @@ in
         MINIO_BUCKET = "lantian-gitea";
         MINIO_LOCATION = "us-west-1";
         MINIO_USE_SSL = true;
-        SERVE_DIRECT = true;
+        # Telnyx storage does not work well with serve direct
+        SERVE_DIRECT = false;
       };
     };
   };
