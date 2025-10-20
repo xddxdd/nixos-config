@@ -14,6 +14,9 @@
       pull = {
         rebase = false;
       };
+      push = {
+        autoSetupRemote = true;
+      };
 
       # https://forums.whonix.org/t/git-users-enable-fsck-by-default-for-better-security/2066
       transfer.fsckobjects = true;
