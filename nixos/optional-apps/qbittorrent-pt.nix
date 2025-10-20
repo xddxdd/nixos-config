@@ -67,7 +67,7 @@ in
   };
 
   lantian.nginxVhosts = {
-    "qbittorrent-pt.${config.networking.hostName}.xuyh0120.win" = {
+    "pt.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
         "/" = {
           allowCORS = true;
@@ -79,7 +79,7 @@ in
       sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
     };
-    "qbittorrent-pt.localhost" = {
+    "pt.localhost" = {
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
