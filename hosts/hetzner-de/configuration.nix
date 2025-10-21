@@ -24,7 +24,6 @@
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
-    ../../nixos/optional-apps/nginx-private.nix
     ../../nixos/optional-apps/plausible
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
