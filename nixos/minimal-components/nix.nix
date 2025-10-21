@@ -23,6 +23,11 @@ in
     name = "nix-privkey.pem";
     file = inputs.secrets + "/nix/privkey.age";
   };
+  age.secrets.nix-netrc = {
+    file = inputs.secrets + "/nix/netrc.age";
+    group = "wheel";
+    mode = "0444";
+  };
 
   services.angrr = {
     enable = true;
@@ -64,6 +69,7 @@ in
       trusted-users = allowedUsers;
       use-cgroups = true;
       warn-dirty = false;
+      netrc-file = config.age.secrets.nix-netrc.path;
 
       # # Determinate Nix specific
       # eval-cores = 0;
