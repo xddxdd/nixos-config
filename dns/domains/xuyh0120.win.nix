@@ -83,12 +83,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "private";
-      target = "hetzner-de.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "prometheus";
       target = "terrahost";
       ttl = "1h";
