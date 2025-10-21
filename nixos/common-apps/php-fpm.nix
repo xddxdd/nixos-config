@@ -57,12 +57,12 @@ in
 
   systemd.tmpfiles.settings = {
     qqwry = {
-      "/var/lib/qqwry".d = {
+      "/etc/qqwry".d = {
         mode = "755";
         user = "root";
         group = "root";
       };
-      "/var/lib/qqwry/qqwry.dat"."L+" = {
+      "/etc/qqwry/qqwry.dat"."L+" = {
         argument = "${qqwryDB}";
       };
     };
