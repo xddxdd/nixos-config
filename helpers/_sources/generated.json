@@ -1,7 +1,7 @@
 {
     "ai-robots-txt": {
         "cargoLock": null,
-        "date": "2025-09-26",
+        "date": "2025-10-24",
         "extract": null,
         "name": "ai-robots-txt",
         "passthru": null,
@@ -11,17 +11,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "56d03d46fb1c20f048b194a01d14a4451fe67b6d",
-            "sha256": "sha256-x8SpcN9MokYUP54xb9K7cDkF8aOp7jnpBvZaAnaf5Ho=",
+            "rev": "5cad0ee38995e858b55e7d20fcd3804852c03803",
+            "sha256": "sha256-RA+BhAihmYfK022RXDVHKUNg7f+gxPTPdOAggKu0XYg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/ai-robots-txt/ai.robots.txt.git"
         },
-        "version": "56d03d46fb1c20f048b194a01d14a4451fe67b6d"
+        "version": "5cad0ee38995e858b55e7d20fcd3804852c03803"
     },
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2025-10-13",
+        "date": "2025-10-24",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3d03f306b6a5caf9441ac4aa017de464a8bbccb1",
-            "sha256": "sha256-GQCPpTA+2hESXfgF1mHMBWYjEQyTv1+s3PqGebe2T8A=",
+            "rev": "32efd56d12ddc1511ba4f19102b07c8fbd967750",
+            "sha256": "sha256-luF2khyh9agmveQxzJ9lzVt96iyoCN2+7o+7zI5Mf10=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "3d03f306b6a5caf9441ac4aa017de464a8bbccb1"
+        "version": "32efd56d12ddc1511ba4f19102b07c8fbd967750"
     },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
@@ -63,11 +63,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=",
+            "sha256": "sha256-9skliIZ/Ezb6GOMNRhO4DUEvS+b89qlYCZDyAL/FXUE=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.6.0/yesoreyeram-infinity-datasource-3.6.0.zip"
         },
-        "version": "3.5.0"
+        "version": "3.6.0"
     },
     "lobe-icons": {
         "cargoLock": null,
@@ -133,7 +133,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2025-10-13",
+        "date": "2025-10-23",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -145,12 +145,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "0cc16e7c142517e764b0410e23ab3dc02880c8d4",
-            "sha256": "sha256-LGoOiF7dWlPtvN53lcpJkhyYtKSpbBskj5sz02B1C+o=",
+            "rev": "c28a647b527fbc2761f808fb1695b30cd7d97077",
+            "sha256": "sha256-1DkJvRTNAyUCF7pDKtySO+NxM/YfkY1Gm00fK+nI5DM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0cc16e7c142517e764b0410e23ab3dc02880c8d4"
+        "version": "c28a647b527fbc2761f808fb1695b30cd7d97077"
     },
     "open5gs": {
         "cargoLock": null,

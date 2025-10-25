@@ -8,31 +8,31 @@
 {
   ai-robots-txt = {
     pname = "ai-robots-txt";
-    version = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
+    version = "5cad0ee38995e858b55e7d20fcd3804852c03803";
     src = fetchgit {
       url = "https://github.com/ai-robots-txt/ai.robots.txt.git";
-      rev = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
+      rev = "5cad0ee38995e858b55e7d20fcd3804852c03803";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-x8SpcN9MokYUP54xb9K7cDkF8aOp7jnpBvZaAnaf5Ho=";
+      sha256 = "sha256-RA+BhAihmYfK022RXDVHKUNg7f+gxPTPdOAggKu0XYg=";
     };
-    date = "2025-09-26";
+    date = "2025-10-24";
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "3d03f306b6a5caf9441ac4aa017de464a8bbccb1";
+    version = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "3d03f306b6a5caf9441ac4aa017de464a8bbccb1";
+      rev = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-GQCPpTA+2hESXfgF1mHMBWYjEQyTv1+s3PqGebe2T8A=";
+      sha256 = "sha256-luF2khyh9agmveQxzJ9lzVt96iyoCN2+7o+7zI5Mf10=";
     };
-    date = "2025-10-13";
+    date = "2025-10-24";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -44,10 +44,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.5.0";
+    version = "3.6.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip";
-      sha256 = "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.6.0/yesoreyeram-infinity-datasource-3.6.0.zip";
+      sha256 = "sha256-9skliIZ/Ezb6GOMNRhO4DUEvS+b89qlYCZDyAL/FXUE=";
     };
   };
   lobe-icons = {
@@ -90,15 +90,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "0cc16e7c142517e764b0410e23ab3dc02880c8d4";
+    version = "c28a647b527fbc2761f808fb1695b30cd7d97077";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "0cc16e7c142517e764b0410e23ab3dc02880c8d4";
+      rev = "c28a647b527fbc2761f808fb1695b30cd7d97077";
       fetchSubmodules = false;
-      sha256 = "sha256-LGoOiF7dWlPtvN53lcpJkhyYtKSpbBskj5sz02B1C+o=";
+      sha256 = "sha256-1DkJvRTNAyUCF7pDKtySO+NxM/YfkY1Gm00fK+nI5DM=";
     };
-    date = "2025-10-13";
+    date = "2025-10-23";
   };
   open5gs = {
     pname = "open5gs";
