@@ -27,7 +27,7 @@ in
           # Fix ps error
           ProcSubset = "all";
         };
-        unitConfig.OnFailure = "notify-email-fail@%n.service";
+        unitConfig.OnFailure = "notify-email@%n.service";
         path = with pkgs; [ gawk ];
         script = ''
           ${pkgs.testssl}/bin/testssl.sh \

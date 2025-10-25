@@ -55,7 +55,7 @@ in
         echo "Total $ERRORS errors"
         exit $ERRORS
       '';
-      unitConfig.OnFailure = "notify-email-fail@%n.service";
+      unitConfig.OnFailure = "notify-email@%n.service";
     };
   }
   // lib.mapAttrs' (

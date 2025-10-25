@@ -104,7 +104,7 @@ in
       CPUQuota = "40%";
       OOMScoreAdjust = "1000";
     };
-    unitConfig.OnFailure = "notify-email-fail@%n.service";
+    unitConfig.OnFailure = "notify-email@%n.service";
 
     path = [
       pkgs.openssh
@@ -155,7 +155,7 @@ in
       Type = "oneshot";
       CPUQuota = "40%";
     };
-    unitConfig.OnFailure = "notify-email-fail@%n.service";
+    unitConfig.OnFailure = "notify-email@%n.service";
 
     path = [
       pkgs.openssh

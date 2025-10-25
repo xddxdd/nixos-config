@@ -9,7 +9,7 @@
       Restart = "no";
     };
     unitConfig = {
-      OnFailure = "notify-email-fail@%n.service";
+      OnFailure = "notify-email@%n.service";
     };
   };
 

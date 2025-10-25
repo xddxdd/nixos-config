@@ -31,7 +31,7 @@ in
       WorkingDirectory = "/run/bilibili-tool-pro";
     };
     unitConfig = {
-      OnFailure = "notify-email-fail@%n.service";
+      OnFailure = "notify-email@%n.service";
     };
     after = [ "network.target" ];
   };

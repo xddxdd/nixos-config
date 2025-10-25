@@ -26,7 +26,7 @@ in
       RestartSec = "1800";
     };
     unitConfig = {
-      OnFailure = "notify-email-fail@%n.service";
+      OnFailure = "notify-email@%n.service";
     };
     after = [ "network.target" ];
     script = ''

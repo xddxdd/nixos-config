@@ -7,28 +7,6 @@
 }:
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-
-  notifyScript = pkgs.writeShellScript "notify-email" ''
-    MAILTO="${glauthUsers.lantian.mail}"
-    HOSTNAME=$2
-    UNIT=$1
-    STATE=$3
-
-    [ "$STATE" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
-
-    export SYSTEMD_PAGER=""
-
-    cat <<EOF | cut -c 1-80 | sendmail -t
-    To: $MAILTO
-    Subject: $FLAG $UNIT on $HOSTNAME
-
-    $FLAG $UNIT on $HOSTNAME:
-
-    $(systemctl status --lines=0 "$UNIT")
-
-    $(journalctl -n 1000 --no-pager -o short-unix --no-hostname --all -u "$UNIT")
-    EOF
-  '';
 in
 {
   age.secrets.smtp-pass = {
@@ -61,25 +39,40 @@ in
     };
   };
 
-  systemd.services."notify-email-success@" = {
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      ExecStart = ''${notifyScript} "%I" "%H" "success"'';
+  systemd.services."notify-email@" = {
+    environment = {
+      HOSTNAME = config.networking.hostName;
+      SYSTEMD_PAGER = "";
     };
-    path = with pkgs; [
-      inetutils
-      msmtp
-    ];
-  };
 
-  systemd.services."notify-email-fail@" = {
+    path = [
+      pkgs.inetutils
+      pkgs.msmtp
+    ];
+
+    script = ''
+      MAILTO="${glauthUsers.lantian.mail}"
+
+      [ "$MONITOR_SERVICE_RESULT" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
+
+      cat <<EOF | cut -c 1-80 | sendmail -t
+      To: $MAILTO
+      Subject: $FLAG $MONITOR_UNIT on $HOSTNAME
+
+      $FLAG $MONITOR_UNIT on $HOSTNAME:
+
+      Hostname:       $HOSTNAME
+      Unit:           $MONITOR_UNIT
+      Service result: $MONITOR_SERVICE_RESULT
+      Exit code:      $MONITOR_EXIT_CODE
+      Exit status:    $MONITOR_EXIT_STATUS
+
+      $(journalctl -n 1000 --no-pager -o short-unix --no-hostname --all _SYSTEMD_INVOCATION_ID=$MONITOR_INVOCATION_ID)
+      EOF
+    '';
+
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = ''${notifyScript} "%I" "%H" "fail"'';
     };
-    path = with pkgs; [
-      inetutils
-      msmtp
-    ];
   };
 }
