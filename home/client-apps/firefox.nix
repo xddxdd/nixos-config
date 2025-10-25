@@ -13,34 +13,41 @@ let
     profiles.lantian = {
       extensions = {
         packages = with pkgs.firefox-addons; [
+          # keep-sorted start
+          awardwallet
           bilisponsorblock
           bitwarden-password-manager
+          cardpointers-x
           clearurls
           darkreader
+          dont-track-me-google1
           downthemall
           fastforwardteam
           flagfox
           i-dont-care-about-cookies
           ipfs-companion
           kiss-translator
+          linux_do-scripts
           lovely-forks
           multi-account-containers
           noscript
           pakkujs
           pay-by-privacy
+          phantom-app
           plasma-integration
           protondb-for-steam
+          pt-depiler
           return-youtube-dislikes
           rsshub-radar
           sponsorblock
           steam-database
           tab-reloader
           tampermonkey
-          to-google-translate
           tweaks-for-youtube
           ublacklist
           ublock-origin
           wappalyzer
+          # keep-sorted end
         ];
         force = true;
       };
