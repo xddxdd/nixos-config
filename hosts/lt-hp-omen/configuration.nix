@@ -33,6 +33,8 @@
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
 
+    ../../nixos/optional-cron-jobs/smart-check
+
     "${inputs.secrets}/nixos-hidden-module/7e653824810bb88d"
   ];
 

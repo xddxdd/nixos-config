@@ -9,6 +9,8 @@
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
+    ../../nixos/optional-cron-jobs/smart-check
+
     ./hardware-configuration.nix
   ];
 

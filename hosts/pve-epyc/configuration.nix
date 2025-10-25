@@ -8,6 +8,8 @@
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
+    ../../nixos/optional-cron-jobs/smart-check
+
     ./enable-smart.nix
     ./hardware-configuration.nix
     ./openvswitch.nix
