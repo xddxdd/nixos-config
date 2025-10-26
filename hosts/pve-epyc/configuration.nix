@@ -13,7 +13,6 @@
     ./enable-smart.nix
     ./hardware-configuration.nix
     ./openvswitch.nix
-    ./vfio.nix
   ];
 
   # ECC RAM

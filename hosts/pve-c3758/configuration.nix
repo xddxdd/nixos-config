@@ -9,7 +9,6 @@
 
     ./hardware-configuration.nix
     ./openvswitch-dpdk.nix
-    ./vfio.nix
   ];
 
   boot.kernelParams = [

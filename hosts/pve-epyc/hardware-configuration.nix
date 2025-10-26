@@ -6,6 +6,7 @@
   imports = [
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/ups.nix
+    ../../nixos/hardware/vfio.nix
   ];
 
   boot.loader.grub = {
@@ -62,4 +63,18 @@
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
+
+  lantian.vfio = {
+    ids = [
+      "10de:1b38" # NVIDIA Tesla P40
+      "10de:2204" # NVIDIA RTX 3090
+    ];
+    blacklistedModules = [
+      "nouveau"
+    ];
+    isolcpus = "112-127";
+  };
+  boot.extraModprobeConfig = ''
+    softdep nvidia pre: vfio-pci
+  '';
 }

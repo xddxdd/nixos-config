@@ -3,6 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, ... }:
 {
+  imports = [ ../../nixos/hardware/vfio.nix ];
+
+  boot.kernelModules = [ "qat_c3xxx" ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
@@ -32,4 +36,39 @@
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
+
+  lantian.vfio = {
+    ids = [
+      "8086:125c" # Intel I226-V
+      "8086:15c4" # Intel X553
+      "8086:19e3" # Intel QAT C3000 VF
+    ];
+    blacklistedModules = [
+      "igc" # Intel I226-V
+      "ixgbe" # Intel X553
+      "qat_c3xxxvf" # Intel QAT C3000 VF
+    ];
+    isolcpus = "4-7";
+  };
+
+  systemd.services.qat-sriov = {
+    description = "Enable Intel QAT SRIOV";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
+    requires = [ "systemd-modules-load.service" ];
+    before = [
+      "pve-guests.service"
+      "pvedaemon.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = "3";
+    };
+    script = ''
+      DEVICE_PATH=/sys/devices/pci0000:00/0000:00:06.0/0000:01:00.0
+      NUMVFS=$(cat "$DEVICE_PATH/sriov_totalvfs")
+      echo "$NUMVFS" > "$DEVICE_PATH/sriov_numvfs"
+    '';
+  };
 }

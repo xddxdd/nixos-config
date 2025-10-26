@@ -28,7 +28,10 @@ in
     wantedBy = [ "multi-user.target" ];
     after = [ "ovs-vswitchd.service" ];
     requires = [ "ovs-vswitchd.service" ];
-    before = [ "pvedaemon.service" ];
+    before = [
+      "pve-guests.service"
+      "pvedaemon.service"
+    ];
 
     serviceConfig.Type = "oneshot";
 
