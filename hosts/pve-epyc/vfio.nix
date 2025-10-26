@@ -21,7 +21,7 @@
     in
     ''
       softdep nvidia pre: vfio-pci
-      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep ":" vfioIds}
+      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep "," vfioIds}
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
       blacklist ${n}

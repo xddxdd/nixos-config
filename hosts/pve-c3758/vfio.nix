@@ -16,14 +16,16 @@
   boot.extraModprobeConfig =
     let
       vfioIds = [
-        # "8086:19e3" # Intel QAT C3xxxx VF
+        "8086:125c" # Intel I226-V
+        "8086:15c4" # Intel X553
       ];
       blacklistedModules = [
-        # "qat_c3xxxvf" # Intel QAT C3xxxx VF
+        "igc" # Intel I226-V
+        "ixgbe" # Intel X553
       ];
     in
     ''
-      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep ":" vfioIds}
+      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep "," vfioIds}
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
       blacklist ${n}
