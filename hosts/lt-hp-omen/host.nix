@@ -3,7 +3,6 @@
   index = 100;
   tags = with tags; [
     client
-    i915-sriov
     nix-builder
   ];
   cpuThreads = 16;
