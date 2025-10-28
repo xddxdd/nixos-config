@@ -7,12 +7,9 @@ import sys
 
 def run_command(command):
     try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        # Ignore return code as they might be for old failures
+        result = subprocess.run(command, capture_output=True, text=True)
         return result.stdout
-    except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {' '.join(command)}")
-        print(f"Stderr: {e.stderr}")
-        return None
     except FileNotFoundError:
         print(
             f"Command not found: {command[0]}. Please ensure smartctl is installed and in your PATH."
