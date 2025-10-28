@@ -94,6 +94,9 @@
   "saudi-arabia": [
     "tls://pp1.ygg.sy.sa:8442"
   ],
+  "singapore": [
+    "tls://asia.deinfra.org:15015"
+  ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
@@ -117,6 +120,7 @@
   ],
   "united-states": [
     "tls://129.80.167.244:23164",
+    "tls://209.205.228.160:5621",
     "tls://23.184.48.86:993",
     "tls://44.234.134.124:443",
     "tls://[2602:fc24:18:7a42::1]:993",
