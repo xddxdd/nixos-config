@@ -142,6 +142,8 @@
         "secp521r1"
         "secp384r1"
         # OQS curves
+        "X25519MLKEM768"
+        "SecP256r1MLKEM768"
         "x25519_frodo640aes"
         "p256_frodo640aes"
         "x25519_bikel1"
