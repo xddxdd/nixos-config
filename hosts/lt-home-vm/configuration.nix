@@ -34,7 +34,7 @@
     # ../../nixos/optional-apps/open-webui
     ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/palworld.nix
-    # ../../nixos/optional-apps/sakura-llm
+    ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
     # ../../nixos/optional-apps/sillytavern.nix
