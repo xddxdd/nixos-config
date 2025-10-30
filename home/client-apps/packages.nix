@@ -190,47 +190,20 @@ in
 
   xdg.configFile = LT.gui.autostart (
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
-      # keep-sorted start block=yes
-      {
-        name = "cherry-studio";
-        command = "/etc/profiles/per-user/lantian/bin/cherry-studio --start-minimized";
-      }
-      {
-        name = "discord";
-        command = "/etc/profiles/per-user/lantian/bin/discord --start-minimized";
-      }
-      {
-        name = "materialgram";
-        command = "${pkgs.nur-xddxdd.lantianCustomized.materialgram}/bin/materialgram -autostart";
-      }
-      {
-        name = "neochat";
-        command = "${pkgs.kdePackages.neochat}/bin/neochat";
-      }
-      {
-        name = "steam";
-        command = "${pkgs.steam}/bin/steam -silent";
-      }
-      {
-        name = "thunderbird";
-        command = "${thunderbird-wrapped}/bin/thunderbird";
-      }
-      {
-        name = "vesktop";
-        command = "/etc/profiles/per-user/lantian/bin/vesktop --start-minimized";
-      }
+      # keep-sorted start
+      "cherry-studio --start-minimized"
+      "discord --start-minimized"
+      "materialgram -autostart"
+      "neochat"
+      "steam -silent"
+      "thunderbird"
+      "vesktop --start-minimized"
       # keep-sorted end
     ])
     ++ [
-      # keep-sorted start block=yes
-      {
-        name = "gcdemu";
-        command = "${pkgs.gcdemu}/bin/gcdemu";
-      }
-      {
-        name = "ulauncher";
-        command = "${pkgs.ulauncher}/bin/ulauncher --hide-window";
-      }
+      # keep-sorted start
+      "gcdemu"
+      "ulauncher --hide-window"
       # keep-sorted end
     ]
   );

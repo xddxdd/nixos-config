@@ -1,9 +1,13 @@
-_: {
+{ lib, ... }:
+{
   autostart =
     l:
     builtins.listToAttrs (
       builtins.map (
-        { name, command }:
+        command:
+        let
+          name = builtins.head (lib.splitString " " command);
+        in
         {
           name = "autostart/${name}.desktop";
           value = {
