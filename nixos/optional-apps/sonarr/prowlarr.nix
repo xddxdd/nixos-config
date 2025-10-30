@@ -30,6 +30,7 @@
 
       sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
+      accessibleBy = "private";
     };
     "prowlarr.localhost" = {
       listenHTTP.enable = true;

@@ -55,6 +55,7 @@
 
       sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
+      accessibleBy = "private";
     };
     "jproxy.localhost" = {
       listenHTTP.enable = true;

@@ -23,6 +23,7 @@ let
   misc = call ./constants/misc.nix;
   interfacePrefixesAttrs = call ./constants/interface-prefixes.nix;
   zonesAttrs = call ./constants/zones.nix;
+  publicSites = call ./constants/public-sites.nix;
 
   result = {
     inherit asteriskMusics;
@@ -34,6 +35,7 @@ let
     inherit (misc) stateVersion soundfontPath tags;
     inherit (interfacePrefixesAttrs) interfacePrefixes;
     inherit (zonesAttrs) zones;
+    inherit publicSites;
   };
 in
 result

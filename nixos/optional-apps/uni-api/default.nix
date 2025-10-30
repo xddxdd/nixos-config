@@ -104,6 +104,7 @@ in
 
       sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;
+      accessibleBy = "private";
     };
     "uni-api.localhost" = {
       listenHTTP.enable = true;
