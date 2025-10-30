@@ -117,9 +117,6 @@ let
         proxy_send_timeout 52w;
         send_timeout 52w;
       '')
-      + (lib.optionalString config.blockAIBots ''
-        include "${LT.sources.ai-robots-txt.src}/nginx-block-ai-bots.conf";
-      '')
       + (lib.optionalString config.allowCORS
         # https://enable-cors.org/server_nginx.html
         ''
@@ -290,11 +287,6 @@ in
       description = ''
         Adds a return directive, for e.g. redirections.
       '';
-    };
-
-    blockAIBots = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
     };
 
     extraConfig = lib.mkOption {

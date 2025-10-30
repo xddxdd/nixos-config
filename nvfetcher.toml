@@ -1,7 +1,3 @@
-[ai-robots-txt]
-fetch.git = "https://github.com/ai-robots-txt/ai.robots.txt.git"
-src.git = "https://github.com/ai-robots-txt/ai.robots.txt.git"
-
 [delegacy-rpz]
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"

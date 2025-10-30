@@ -6,20 +6,6 @@
   dockerTools,
 }:
 {
-  ai-robots-txt = {
-    pname = "ai-robots-txt";
-    version = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
-    src = fetchgit {
-      url = "https://github.com/ai-robots-txt/ai.robots.txt.git";
-      rev = "56d03d46fb1c20f048b194a01d14a4451fe67b6d";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-x8SpcN9MokYUP54xb9K7cDkF8aOp7jnpBvZaAnaf5Ho=";
-    };
-    date = "2025-09-26";
-  };
   delegacy-rpz = {
     pname = "delegacy-rpz";
     version = "3d03f306b6a5caf9441ac4aa017de464a8bbccb1";

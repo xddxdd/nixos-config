@@ -296,9 +296,6 @@ let
           real_ip_header proxy_protocol;
         ''
       )
-      + (lib.optionalString config.blockAIBots ''
-        include "${LT.sources.ai-robots-txt.src}/nginx-block-ai-bots.conf";
-      '')
       + (lib.optionalString config.noIndex.enable ''
         add_header X-Robots-Tag 'noindex, nofollow';
       '')
@@ -415,11 +412,6 @@ in
     serverAliases = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-    };
-
-    blockAIBots = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
     };
 
     extraConfig = lib.mkOption {
