@@ -81,6 +81,7 @@ in
 
       sslCertificate = "zerossl-xuyh0120.win";
       noIndex.enable = true;
+      accessibleBy = "private";
     };
   };
 }

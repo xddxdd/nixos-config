@@ -1,5 +1,7 @@
 { config, lib, ... }:
 let
+  homeDdnsTarget = "lantian.dns.army.";
+
   externalServices = [
     {
       recordType = "TXT";
@@ -12,7 +14,7 @@ let
     {
       recordType = "CNAME";
       name = "ai";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {
@@ -24,7 +26,7 @@ let
     {
       recordType = "CNAME";
       name = "asf";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {
@@ -36,7 +38,7 @@ let
     {
       recordType = "CNAME";
       name = "books";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {
@@ -60,13 +62,13 @@ let
     {
       recordType = "CNAME";
       name = "immich";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "jellyfin";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {
@@ -126,7 +128,7 @@ let
     {
       recordType = "CNAME";
       name = "tachidesk";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
   ];
