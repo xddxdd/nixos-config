@@ -126,6 +126,7 @@
       url = "github:xddxdd/proxmox-nixos";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
