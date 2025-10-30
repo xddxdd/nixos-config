@@ -36,6 +36,7 @@
 
           # Other configs
           ".aMule"
+          ".ApacheDirectoryStudio"
           ".aws"
           ".cherrystudio"
           ".conda"

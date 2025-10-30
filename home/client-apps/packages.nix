@@ -53,6 +53,18 @@ let
     ''
   );
 
+  apache-directory-studio-wrapped = lib.hiPrio (
+    pkgs.runCommand "apache-directory-studio-wrapped"
+      { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper \
+          ${pkgs.apache-directory-studio}/bin/ApacheDirectoryStudio \
+          $out/bin/ApacheDirectoryStudio \
+          --set WAYLAND_DISPLAY ""
+      ''
+  );
+
   wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg.overrideAttrs (old: {
     prePatch = (old.prePatch or "") + ''
       substituteInPlace "loader/wine.inf.in" --replace-warn \
@@ -80,6 +92,8 @@ in
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
         (lib.hiPrio nur-xddxdd.qq)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
+        apache-directory-studio
+        apache-directory-studio-wrapped
         aria
         attic-client
         audacious
