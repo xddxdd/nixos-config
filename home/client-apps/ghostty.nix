@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
   programs.ghostty = {
     enable = true;
     enableZshIntegration = true;
@@ -16,6 +17,24 @@ _: {
       window-step-resize = true;
       window-width = 80;
       shell-integration-features = "ssh-env";
+
+      font-family = lib.mkForce [
+        "FiraCode Nerd Font"
+        "Blobmoji"
+      ];
+      font-family-bold = lib.mkForce [
+        "FiraCode Nerd Font"
+        "Blobmoji"
+      ];
+      font-family-italic = lib.mkForce [
+        "FiraCode Nerd Font"
+        "Blobmoji"
+      ];
+      font-family-bold-italic = lib.mkForce [
+        "FiraCode Nerd Font"
+        "Blobmoji"
+      ];
+      font-size = 10;
     };
   };
 }
