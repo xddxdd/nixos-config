@@ -7,6 +7,7 @@
     ./nginx.nix
     ./oauth2-proxy.nix
     ./proxy.nix
+    ./security.nix
     ./testssl.nix
     ./vhost-matrix-element
     ./vhost-options
