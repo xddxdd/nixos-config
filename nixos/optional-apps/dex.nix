@@ -55,11 +55,11 @@ let
             filter = "(objectClass=posixGroup)";
             userMatchers = [
               {
-                userAttr = "uid";
-                groupAttr = "memberUid";
+                userAttr = "gidNumber";
+                groupAttr = "gidNumber";
               }
             ];
-            nameAttr = "uid";
+            nameAttr = "cn";
           };
         };
       }
