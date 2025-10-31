@@ -29,7 +29,7 @@
         {
           recordType = "CNAME";
           name = "pl.${domain}.";
-          target = "xddxdd.duckdns.org.";
+          target = "lantian.dns.army.";
           ttl = "10m";
         }
         {

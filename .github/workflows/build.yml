@@ -68,7 +68,7 @@ jobs:
           cat > "$HOME"/.ssh/config <<EOF
           StrictHostKeyChecking no
           Host nix-builder
-            HostName xddxdd.duckdns.org
+            HostName lantian.dns.army
             User nix-builder
             Port 2223
           EOF
