@@ -68,6 +68,7 @@
     ids = [
       "10de:1b38" # NVIDIA Tesla P40
       "10de:2204" # NVIDIA RTX 3090
+      "10de:1aef" # NVIDIA RTX 3090 HD Audio
     ];
     blacklistedModules = [
       "nouveau"
