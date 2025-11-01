@@ -63,36 +63,6 @@ in
     };
   };
 
-  systemd.services.nvidia-vgpu-watchdog = {
-    wantedBy = [ "multi-user.target" ];
-    after = [ "nvidia-vgpu-mgr.service" ];
-    before = [
-      "pvedaemon.service"
-      "pve-guests.service"
-    ];
-    requiredBy = [
-      "pvedaemon.service"
-      "pve-guests.service"
-    ];
-
-    path = with pkgs; [
-      util-linux
-      systemd
-    ];
-
-    script = ''
-      while true; do
-        (dmesg | grep nvidia | grep "MDEV: Registered") && break
-        echo "Restarting VGPU manager"
-        systemctl restart nvidia-vgpu-mgr
-        sleep 5
-      done
-      exit 0
-    '';
-
-    serviceConfig.Type = "oneshot";
-  };
-
   systemd.tmpfiles.settings = {
     vgpu-config = {
       "/usr/share/nvidia/vgpu/vgpuConfig.xml"."L" = {
