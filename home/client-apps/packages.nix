@@ -156,6 +156,7 @@ in
         pwgen
         quasselClient
         rar
+        rustdesk
         steam-run
         synadm
         thunderbird-wrapped
