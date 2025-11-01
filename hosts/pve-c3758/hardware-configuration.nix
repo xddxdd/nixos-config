@@ -9,13 +9,31 @@
 
   boot.loader.grub = {
     efiSupport = true;
-    device = "nodev";
+    mirroredBoots = [
+      {
+        devices = [ "nodev" ];
+        path = "/boot";
+      }
+      {
+        devices = [ "nodev" ];
+        path = "/boot2";
+      }
+    ];
   };
 
   networking.usePredictableInterfaceNames = lib.mkForce true;
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/317D-D6BD";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
+
+  fileSystems."/boot2" = {
+    device = "/dev/disk/by-uuid/4FD3-9083";
     fsType = "vfat";
     options = [
       "fmask=0077"
