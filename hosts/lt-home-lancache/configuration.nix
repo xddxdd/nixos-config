@@ -3,16 +3,18 @@
   imports = [
     ../../nixos/minimal.nix
 
-    # ../../nixos/optional-apps/lancache.nix
+    ../../nixos/optional-apps/lancache.nix
 
     ./hardware-configuration.nix
   ];
 
   networking.nameservers = lib.mkForce [ "192.168.0.1" ];
 
-  # services.lancache.environment = {
-
-  # };
+  services.lancache.environment = {
+    LANCACHE_IP = "192.168.0.4";
+    DNS_BIND_IP = "192.168.0.4";
+    CACHE_ROOT = "/mnt/unreliable-cache/lancache";
+  };
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.0.4/24" ];

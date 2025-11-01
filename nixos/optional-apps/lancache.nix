@@ -1,0 +1,104 @@
+{
+  lib,
+  config,
+  ...
+}:
+let
+  env = config.services.lancache.environment;
+in
+{
+  options = {
+    services.lancache.environment = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
+  };
+
+  config = {
+    services.lancache.environment = lib.mapAttrs (_: lib.mkDefault) {
+      ## See the "Settings" section in README.md for more details
+
+      ## Set this to true if you're using a load balancer, or set it to false if you're using separate IPs for each service.
+      ## If you're using monolithic (the default), leave this set to true
+      USE_GENERIC_CACHE = "true";
+
+      ## IP addresses that the lancache monolithic instance is reachable on
+      ## Specify one or more IPs, space separated - these will be used when resolving DNS hostnames through lancachenet-dns. Multiple IPs can improve cache priming performance for some services (e.g. Steam)
+      ## Note: This setting only affects DNS, monolithic and sniproxy will still bind to all IPs by default
+      LANCACHE_IP = "10.0.39.1";
+
+      ## IP address on the host that the DNS server should bind to
+      DNS_BIND_IP = "10.0.39.1";
+
+      ## DNS Resolution for forwarded DNS lookups
+      UPSTREAM_DNS = "8.8.8.8";
+
+      ## Storage path for the cached data
+      ## Note that by default, this will be a folder relative to the docker-compose.yml file
+      CACHE_ROOT = "/var/lib/lancache";
+
+      ## Change this to customise the maximum size of the disk cache (default 2000g).
+      ## If you have more storage, you'll likely want to increase this.
+      ## The cache server will prune content on a least-recently-used basis if it
+      ## starts approaching this limit.
+      CACHE_DISK_SIZE = "2000g";
+
+      ## Sets the minimum free disk space that must be kept at all times.
+      ## When the available free space drops below the set amount for any reason,
+      ## the cache server will begin pruning content to free up space.
+      ## Prevents accidentally running out of disk space if CACHE_DISK_SIZE is set too high.
+      MIN_FREE_DISK = "10g";
+
+      ## Change this to allow sufficient index memory for the nginx cache manager (default 500m)
+      ## We recommend 250m of index memory per 1TB of CACHE_DISK_SIZE
+      CACHE_INDEX_SIZE = "500m";
+
+      ## Change this to limit the maximum age of cached content (default 3650d)
+      CACHE_MAX_AGE = "3650d";
+
+      ## Set the timezone for the docker containers, useful for correct timestamps on logs (default Europe/London)
+      ## Formatted as tz database names. Example: Europe/Oslo or America/Los_Angeles
+      TZ = config.time.timeZone;
+    };
+
+    systemd.tmpfiles.settings = {
+      lancache = {
+        "${env.CACHE_ROOT}/cache"."d" = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+        "${env.CACHE_ROOT}/logs"."d" = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+      };
+    };
+
+    virtualisation.oci-containers.containers.lancache-dns = {
+      environment = env;
+      labels = {
+        "io.containers.autoupdate" = "registry";
+      };
+      image = "docker.io/lancachenet/lancache-dns:latest";
+      ports = [
+        "53:53/udp"
+        "53:53/tcp"
+      ];
+    };
+
+    virtualisation.oci-containers.containers.lancache-monolithic = {
+      environment = env;
+      labels = {
+        "io.containers.autoupdate" = "registry";
+      };
+      image = "docker.io/lancachenet/monolithic:latest";
+      ports = [
+        "80:80/tcp"
+        "443:443/tcp"
+      ];
+      volumes = [
+        "${env.CACHE_ROOT}/cache:/data/cache"
+        "${env.CACHE_ROOT}/logs:/data/logs"
+      ];
+    };
+  };
+}
