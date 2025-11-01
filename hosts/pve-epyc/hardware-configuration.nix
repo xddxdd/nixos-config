@@ -4,6 +4,8 @@
 { config, lib, ... }:
 {
   imports = [
+    ../../nixos/hardware/nvidia/cuda-only.nix
+    ../../nixos/hardware/nvidia/vgpu-extension.nix
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/ups.nix
     ../../nixos/hardware/vfio.nix
@@ -67,9 +69,18 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
 
+  systemd.services.nvidia-power-limit = {
+    description = "Set Power Limit for NVIDIA GPUs";
+    wantedBy = [ "multi-user.target" ];
+    path = [ config.hardware.nvidia.package ];
+    script = ''
+      nvidia-smi -pl 125
+    '';
+    serviceConfig.Type = "oneshot";
+  };
+
   lantian.vfio = {
     ids = [
-      "10de:1b38" # NVIDIA Tesla P40
       "10de:2204" # NVIDIA RTX 3090
       "10de:1aef" # NVIDIA RTX 3090 HD Audio
     ];

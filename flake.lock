@@ -943,18 +943,15 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nvfetcher": [
-          "nvfetcher"
-        ],
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1761810881,
-        "narHash": "sha256-rrmR1yTZ/S45neYJmjW2/Z5OZdJcq7ncuh5VSww/Bb4=",
+        "lastModified": 1761983799,
+        "narHash": "sha256-2OqXNnccpuY0EJDWWQ2MenpmzivWnd4mYyZa/ckXCAs=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "596be08d837ade1b8f413879072ece0edfe41a08",
+        "rev": "9dff823c57dcf170403e7d38b8f8958f21212706",
         "type": "github"
       },
       "original": {
