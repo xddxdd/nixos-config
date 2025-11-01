@@ -40,7 +40,6 @@ in
             inputs.nixd.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
             inputs.nur.overlays.default
-            inputs.nvfetcher.overlays.default
             inputs.proxmox-nixos.overlays."${system}"
             inputs.secrets.overlays.default
             # keep-sorted end

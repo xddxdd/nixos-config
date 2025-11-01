@@ -103,18 +103,11 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nvfetcher.follows = "nvfetcher";
     };
     nix-xilinx = {
       url = "gitlab:doronbehar/nix-xilinx";
       inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
