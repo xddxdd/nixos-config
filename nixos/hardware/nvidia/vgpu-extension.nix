@@ -54,6 +54,11 @@ in
       LD_PRELOAD = "${pkgs.nur-xddxdd.vgpu-unlock-rs}/lib/libvgpu_unlock_rs.so";
     };
 
+    postStart = ''
+      set -euo pipefail
+      ls -1 /sys/class/mdev_bus/*/mdev_supported_types | grep "^nvidia"
+    '';
+
     serviceConfig = {
       Type = "forking";
       Restart = "always";
