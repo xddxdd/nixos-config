@@ -30,6 +30,9 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  # Try to workaround issues with passthrough P40
+  boot.kernelParams = [ "video=efifb:off" ];
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/815E-3292";
     fsType = "vfat";
@@ -75,7 +78,4 @@
     ];
     isolcpus = "112-127";
   };
-  boot.extraModprobeConfig = ''
-    softdep nvidia pre: vfio-pci
-  '';
 }

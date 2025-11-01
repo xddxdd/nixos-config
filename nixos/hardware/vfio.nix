@@ -38,6 +38,8 @@ in
       "rcu_nocbs=${cfg.isolcpus}"
     ];
     boot.extraModprobeConfig = ''
+      softdep drm pre: vfio-pci
+      softdep nvidia pre: vfio-pci
       options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep "," cfg.ids}
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
