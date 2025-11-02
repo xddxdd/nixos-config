@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import glob
 import json
+import os
 import subprocess
 import sys
 
@@ -93,10 +94,14 @@ def check_nvme_drive(device_path):
 def find_and_check_drives():
     all_passed = True
 
+    skipped_devices = os.environ.get("SKIPPED_DEVICES", "").split(",")
+
     # Find SATA drives using glob
     sata_devices = glob.glob("/dev/sd[a-z]")
 
     for device in sata_devices:
+        if device in skipped_devices:
+            continue
         # Further check if smartctl supports the device
         if run_command(["smartctl", "-i", device]):
             if not check_sata_drive(device):
@@ -106,6 +111,8 @@ def find_and_check_drives():
     nvme_devices = glob.glob("/dev/nvme[0-9]n[0-9]")
 
     for device in nvme_devices:
+        if device in skipped_devices:
+            continue
         # Further check if smartctl supports the device
         if run_command(["smartctl", "-i", device]):
             if not check_nvme_drive(device):

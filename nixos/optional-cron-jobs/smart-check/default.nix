@@ -1,8 +1,16 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   systemd.services.smart-check = {
     description = "Check SMART status of storage devices";
     path = [ pkgs.smartmontools ];
+    environment = lib.optionalAttrs (config.networking.hostName == "pve-c3758") {
+      SKIPPED_DEVICES = "/dev/sda";
+    };
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.python3}/bin/python3 ${./check.py}";
