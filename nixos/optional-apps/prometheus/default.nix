@@ -63,12 +63,19 @@ in
           }
         ];
       }
-      (scrapeAllTaggedNodes LT.tags.dn42 "bird" LT.port.Prometheus.BirdExporter)
+      (scrapeAllTaggedNodes LT.tags.server "bird" LT.port.Prometheus.BirdExporter)
       (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
       (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
       (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)
       (scrapeAllNonClientNodesNetns "coredns" 56 LT.port.Prometheus.CoreDNS)
       (scrapeAllNonClientNodesNetns "coredns-authoritative" 54 LT.port.Prometheus.CoreDNS)
+      {
+        job_name = "sglang-sakura-llm";
+        scheme = "https";
+        static_configs = [
+          { targets = [ "sakura-llm.lt-home-vm.xuyh0120.win" ]; }
+        ];
+      }
       {
         job_name = "sakura-share";
         scheme = "https";
