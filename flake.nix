@@ -126,6 +126,7 @@
       url = "github:xddxdd/nixos-secrets";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nur-xddxdd.follows = "nur-xddxdd";
     };
     srvos = {
       url = "github:nix-community/srvos";
