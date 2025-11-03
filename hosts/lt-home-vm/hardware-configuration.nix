@@ -76,7 +76,7 @@
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
     script = ''
-      nvidia-smi -pl 150
+      nvidia-smi -pl 250
     '';
     serviceConfig.Type = "oneshot";
   };
