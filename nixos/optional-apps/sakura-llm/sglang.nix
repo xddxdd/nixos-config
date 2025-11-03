@@ -15,7 +15,7 @@
       "--gpus=all"
     ];
     # Later versions do not work with W8A8 models
-    image = "docker.io/lmsysorg/sglang:v0.4.4.post1-cu125";
+    image = "docker.io/lmsysorg/sglang:v0.5.4.post2-cu129-amd64";
     labels = {
       "io.containers.autoupdate" = "registry";
     };
@@ -35,21 +35,15 @@
       "python3"
       "-m"
       "sglang.launch_server"
-      "--model-path"
-      "reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2"
-      "--host"
-      "127.0.0.1"
-      "--port"
-      LT.portStr.SakuraLLM
+      "--model-path=reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2"
+      "--host=127.0.0.1"
+      "--port=${LT.portStr.SakuraLLM}"
       "--disable-overlap"
-      # Causes "Counters can only be incremented by non-negative amounts" error
-      # Wait until https://github.com/sgl-project/sglang/pull/4660 is published in next release
-      # "--enable-metrics"
+      "--enable-metrics"
       "--enable-torch-compile"
-      "--torch-compile-max-bs"
-      "1"
-      "--mem-fraction-static"
-      "0.8"
+      "--torch-compile-max-bs=1"
+      "--mem-fraction-static=0.8"
+      "--quantization=w8a8_int8"
     ];
   };
 
