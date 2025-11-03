@@ -2,7 +2,7 @@
   lib,
   config,
   ...
-}@args:
+}:
 {
   options.lantian.pipewire.roc-sink-ip = lib.mkOption {
     type = lib.types.listOf lib.types.str;

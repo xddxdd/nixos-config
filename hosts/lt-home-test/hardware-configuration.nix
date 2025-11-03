@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix

@@ -1,4 +1,4 @@
-{ config, ... }@args:
+{ config, ... }:
 {
   config.services.pipewire.extraConfig.pipewire = {
     "51-combined-sink-alsa.conf" = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+_:
 {
   substituters = [
     "https://cuda-maintainers.cachix.org"

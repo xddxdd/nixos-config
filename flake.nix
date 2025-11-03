@@ -184,7 +184,7 @@
       };
 
       perSystem =
-        { config, pkgs, ... }:
+        { pkgs, ... }:
         let
           LT = import ./helpers {
             inherit lib inputs self;

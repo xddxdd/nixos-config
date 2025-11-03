@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 let
   userChrome = pkgs.writeText "userChrome.css" ''
     .titlebar-buttonbox-container {

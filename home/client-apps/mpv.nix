@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   osConfig,
   ...
 }:

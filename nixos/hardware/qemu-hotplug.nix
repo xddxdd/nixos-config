@@ -1,4 +1,4 @@
-{ lib, ... }:
+_:
 {
   boot.kernelParams = [ "memhp_default_state=online" ];
 

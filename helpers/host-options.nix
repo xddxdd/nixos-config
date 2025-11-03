@@ -2,7 +2,6 @@
   lib,
   config,
   constants,
-  options,
   ...
 }@args:
 {

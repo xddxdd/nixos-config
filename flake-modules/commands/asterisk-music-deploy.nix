@@ -1,7 +1,6 @@
 {
   callPackage,
   pkgs,
-  lib,
   rsync,
   ...
 }:

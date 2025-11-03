@@ -1,10 +1,4 @@
 {
-  pkgs,
-  lib,
-  LT,
-  config,
-  utils,
-  inputs,
   ...
 }:
 

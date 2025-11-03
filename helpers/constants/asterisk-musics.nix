@@ -1,4 +1,4 @@
-{ lib, ... }:
+_:
 [
   "蔡健雅 - Nightglow.flac"
   "周深 - Rubia.flac"

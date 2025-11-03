@@ -2,7 +2,6 @@
   lib,
   LT,
   config,
-  options,
   ...
 }:
 

@@ -26,7 +26,7 @@ let
     in
     [
       (
-        { pkgs, ... }:
+        _:
         {
           home-manager.extraSpecialArgs = specialArgsFor n;
           networking.hostName = lib.mkForce (lib.removePrefix "_" n);

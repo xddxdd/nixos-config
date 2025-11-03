@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 # Hardening adapted from https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix

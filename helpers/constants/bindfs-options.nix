@@ -1,4 +1,4 @@
-{ lib, ... }:
+_:
 rec {
   bindfsMountOptions = bindfsMountOptions' [
     "force-user=lantian"

@@ -1,6 +1,5 @@
 {
   self,
-  lib,
   inputs,
   ...
 }:

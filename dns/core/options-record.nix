@@ -1,5 +1,5 @@
 { lib, ... }:
-{ name, ... }:
+_:
 {
   freeformType = lib.types.attrsOf lib.types.anything;
   options = {

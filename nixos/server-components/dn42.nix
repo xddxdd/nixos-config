@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  options,
   inputs,
   ...
 }:

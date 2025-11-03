@@ -1,9 +1,4 @@
-{
-  lib,
-  LT,
-  config,
-  ...
-}@args:
+args:
 let
   inherit (import ./common.nix args) community;
 in
