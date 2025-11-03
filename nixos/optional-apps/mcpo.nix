@@ -29,8 +29,7 @@
       ${config.lantian.mcp.toJSON "/run/mcpo/config.json"}
     '';
     postStart = ''
-      curl \
-        --fail \
+      curl -fsSL \
         --retry 100 \
         --retry-delay 5 \
         --retry-max-time 300 \

@@ -63,8 +63,7 @@ in
     '';
 
     postStart = ''
-      ${pkgs.curl}/bin/curl \
-        --fail \
+      ${pkgs.curl}/bin/curl -fsSL \
         --retry 10 \
         --retry-delay 5 \
         --retry-max-time 60 \

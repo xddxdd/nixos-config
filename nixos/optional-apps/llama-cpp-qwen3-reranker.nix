@@ -21,8 +21,7 @@ in
 
     path = with pkgs; [ curl ];
     postStart = ''
-      curl \
-        --fail \
+      curl -fsSL \
         --retry 120 \
         --retry-delay 5 \
         --retry-max-time 300 \

@@ -31,8 +31,7 @@ in
       pkgs.curl
     ];
     script = ''
-      curl \
-        --fail \
+      curl -fsSL \
         --retry 100 \
         --retry-delay 5 \
         --retry-max-time 300 \

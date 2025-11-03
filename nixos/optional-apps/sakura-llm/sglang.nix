@@ -66,8 +66,7 @@
   systemd.services.podman-sglang-sakura-llm = {
     path = with pkgs; [ curl ];
     postStart = ''
-      curl \
-        --fail \
+      curl -fsSL \
         --retry 100 \
         --retry-delay 5 \
         --retry-max-time 300 \
@@ -87,8 +86,7 @@
     ];
 
     script = ''
-      if ! curl \
-        --fail \
+      if ! curl -fsSL \
         --max-time 60 \
         --retry 3 \
         --retry-delay 1 \
