@@ -94,7 +94,7 @@
         --retry-all-errors \
         -XPOST \
         -H "Content-Type: application/json" \
-        --data '{"model":"","messages":[{"role":"system","content":"你是一个轻小说翻译模型，可以流畅通顺地以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，不擅自添加原文中没有的代词。"},{"role":"user","content":"将下面的日文文本翻译成中文：国境の長いトンネルを抜けると雪国であった。夜の底が白くなった。信号所に汽車が止まった。"}],"temperature":0.1,"top_p":0.3,"max_tokens":74,"frequency_penalty":0.2}' \
+        --data '{"model":"","messages":[{"role":"user","content":"你好"}],"temperature":0.1,"top_p":0.3,"max_tokens":1,"frequency_penalty":0.2}' \
         http://127.0.0.1:${LT.portStr.SakuraLLM}/v1/chat/completions
       then
         systemctl restart podman-sglang-sakura-llm.service
