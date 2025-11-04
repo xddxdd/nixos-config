@@ -21,6 +21,8 @@
       User = "pict-rs";
       Group = "pict-rs";
       StateDirectory = "pict-rs";
+
+      MemoryDenyWriteExecute = lib.mkForce false;
     };
   };
 

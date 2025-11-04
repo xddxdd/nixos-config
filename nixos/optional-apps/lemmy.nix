@@ -21,6 +21,7 @@ in
     settings = {
       hostname = "lemmy.lantian.pub";
       port = LT.port.Lemmy.API;
+      pictrs.image_mode = "ProxyAllImages";
     };
   };
 
