@@ -212,12 +212,8 @@ in
       111, 2049, 4000, 4001, 4002, 20048,
       # CUPS
       631,
-''
-+ (lib.optionalString (!config.services.avahi.enable) ''
-  # mDNS
-  5353,
-'')
-+ ''
+      # mDNS
+      5353,
       # Rsync
       873
     }
