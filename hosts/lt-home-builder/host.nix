@@ -2,6 +2,7 @@
 {
   index = 103;
   tags = with tags; [
+    lan-access
     nix-builder
   ];
   cpuThreads = 64;

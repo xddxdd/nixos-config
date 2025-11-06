@@ -1,7 +1,7 @@
 { tags, geo, ... }:
 {
   index = 110;
-  tags = with tags; [ ];
+  tags = with tags; [ lan-access ];
   hostname = "192.168.0.4";
   cpuThreads = 4;
   city = geo.cities."US Seattle";

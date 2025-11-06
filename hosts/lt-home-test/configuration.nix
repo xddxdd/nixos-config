@@ -4,7 +4,6 @@
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
-    # ./vpp.nix
 
     ../../nixos/common-apps/nginx
 

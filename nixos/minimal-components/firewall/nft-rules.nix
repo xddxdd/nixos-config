@@ -225,6 +225,11 @@ in
 
   # Helper chains
   chain PUBLIC_INPUT {
+    ${lib.optionalString (LT.this.hasTag LT.tags.lan-access) ''
+      ip saddr @RESERVED_IPV4 return
+      ip6 saddr @RESERVED_IPV6 return
+    ''}
+
     # Block ports
     tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
     udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable

@@ -12,6 +12,7 @@ rec {
     "public-facing"
     "server"
     "ipv6-only"
+    "lan-access"
 
     # Hardware
     "low-disk"
