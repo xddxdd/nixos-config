@@ -102,6 +102,13 @@ in
     # Clamp TCP MSS
     tcp flags syn tcp option maxseg size set rt mtu
 
+    # Allow existing connections
+    ct state { established, related } accept
+
+    # Block forwarding from public internet
+    iifname @INTERFACE_WAN jump PUBLIC_FORWARD
+    iifname @INTERFACE_OVERLAY jump PUBLIC_FORWARD
+
     # DN42 firewall rules
     iifname @INTERFACE_DN42 jump DN42_FORWARD
 
@@ -230,6 +237,16 @@ in
     tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
     udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
     return
+  }
+
+  chain PUBLIC_FORWARD {
+    ${lib.optionalString (LT.this.hasTag LT.tags.lan-access) ''
+      ip saddr @RESERVED_IPV4 return
+      ip6 saddr @RESERVED_IPV6 return
+    ''}
+
+    # Block forwarding from WAN
+    reject with icmpx type admin-prohibited
   }
 
   chain DN42_FORWARD {
