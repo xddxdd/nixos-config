@@ -47,7 +47,7 @@ in
         oauth_allow_insecure_email_lookup = "true";
       };
       "auth.anonymous" = {
-        enabled = "true";
+        enabled = "false";
       };
       "auth.generic_oauth" = {
         enabled = "true";
