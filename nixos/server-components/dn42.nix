@@ -56,7 +56,7 @@ in
           };
           latencyMs = lib.mkOption {
             type = lib.types.int;
-            default = 0;
+            default = 1;
           };
           mode = lib.mkOption {
             type = lib.types.enum [
