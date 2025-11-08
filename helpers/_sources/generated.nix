@@ -118,15 +118,15 @@
   };
   sakura-share = {
     pname = "sakura-share";
-    version = "2ab76c536f0ddde8da81a510030685607ff3409c";
+    version = "1ecd291e6d4087c65baf1aca1a72c82d751ec310";
     src = fetchFromGitHub {
-      owner = "xddxdd";
+      owner = "PiDanShouRouZhouXD";
       repo = "Sakura_Launcher_GUI";
-      rev = "2ab76c536f0ddde8da81a510030685607ff3409c";
+      rev = "1ecd291e6d4087c65baf1aca1a72c82d751ec310";
       fetchSubmodules = false;
       sha256 = "sha256-Pqf91j/wR4oOiazbRru/A7q7LSktsC5+hJfwBrpUdXM=";
     };
-    date = "2025-11-02";
+    date = "2025-11-03";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

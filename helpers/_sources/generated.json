@@ -197,7 +197,7 @@
     },
     "sakura-share": {
         "cargoLocks": null,
-        "date": "2025-11-02",
+        "date": "2025-11-03",
         "extract": null,
         "name": "sakura-share",
         "passthru": null,
@@ -207,14 +207,14 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "xddxdd",
+            "owner": "PiDanShouRouZhouXD",
             "repo": "Sakura_Launcher_GUI",
-            "rev": "2ab76c536f0ddde8da81a510030685607ff3409c",
+            "rev": "1ecd291e6d4087c65baf1aca1a72c82d751ec310",
             "sha256": "sha256-Pqf91j/wR4oOiazbRru/A7q7LSktsC5+hJfwBrpUdXM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2ab76c536f0ddde8da81a510030685607ff3409c"
+        "version": "1ecd291e6d4087c65baf1aca1a72c82d751ec310"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLocks": null,
