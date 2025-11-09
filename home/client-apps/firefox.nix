@@ -71,8 +71,9 @@ let
         "geo.provider.network.url" = lib.mkForce "https://api.beacondb.net/v1/geolocate";
         "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
         "gfx.wayland.hdr" = false; # FIXME: causes crashes
+        "gfx.wayland.hdr.force-enabled" = false; # FIXME: causes crashes
         "gfx.webrender.all" = true;
-        "gfx.webrender.compositor.force-enabled" = false; # FIXME: enabling causes graphic glitches
+        "gfx.webrender.compositor.force-enabled" = false; # FIXME: causes crashes
         "gfx.x11-egl.force-enabled" = true;
         "image.avif.enabled" = true;
         "image.jxl.enabled" = true;
