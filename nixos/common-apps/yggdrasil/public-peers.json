@@ -93,7 +93,9 @@
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
-    "tls://pp1.ygg.sy.sa:8442"
+    "tls://jed-peer.ygg.sy.sa:8442",
+    "tls://pp1.ygg.sy.sa:8442",
+    "tls://ryd-peer.ygg.sy.sa:8442"
   ],
   "singapore": [
     "tls://asia.deinfra.org:15015"
