@@ -74,7 +74,6 @@
   ],
   "russia": [
     "tls://188.225.9.167:18227",
-    "tls://195.58.51.167:7992",
     "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
@@ -87,14 +86,12 @@
     "tls://ip4.01.tom.ru.dioni.su:9003",
     "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
-    "tls://kzn1.neonxp.ru:7992",
     "tls://srv.itrus.su:7992",
     "tls://yg-vvo.magicum.net:29331",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
     "tls://jed-peer.ygg.sy.sa:8442",
-    "tls://pp1.ygg.sy.sa:8442",
     "tls://ryd-peer.ygg.sy.sa:8442"
   ],
   "singapore": [
