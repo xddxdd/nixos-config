@@ -3,17 +3,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "3d03f306b6a5caf9441ac4aa017de464a8bbccb1";
+    version = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "3d03f306b6a5caf9441ac4aa017de464a8bbccb1";
+      rev = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-GQCPpTA+2hESXfgF1mHMBWYjEQyTv1+s3PqGebe2T8A=";
+      sha256 = "sha256-luF2khyh9agmveQxzJ9lzVt96iyoCN2+7o+7zI5Mf10=";
     };
-    date = "2025-10-13";
+    date = "2025-10-24";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -25,10 +25,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.5.0";
+    version = "3.6.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip";
-      sha256 = "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.6.0/yesoreyeram-infinity-datasource-3.6.0.zip";
+      sha256 = "sha256-9skliIZ/Ezb6GOMNRhO4DUEvS+b89qlYCZDyAL/FXUE=";
     };
   };
   lobe-icons = {
@@ -71,15 +71,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "0cc16e7c142517e764b0410e23ab3dc02880c8d4";
+    version = "a7690e64b5080452596ffd55062c625abe05fa3a";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "0cc16e7c142517e764b0410e23ab3dc02880c8d4";
+      rev = "a7690e64b5080452596ffd55062c625abe05fa3a";
       fetchSubmodules = false;
-      sha256 = "sha256-LGoOiF7dWlPtvN53lcpJkhyYtKSpbBskj5sz02B1C+o=";
+      sha256 = "sha256-tVAg8LP4k6wvL1RLF2PtwAoeCc5GCZ+DZoSfCHiuVDc=";
     };
-    date = "2025-10-13";
+    date = "2025-11-07";
   };
   open5gs = {
     pname = "open5gs";

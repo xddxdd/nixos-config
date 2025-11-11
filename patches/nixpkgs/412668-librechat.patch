@@ -1,8 +1,8 @@
 diff --git a/maintainers/maintainer-list.nix b/maintainers/maintainer-list.nix
-index 23700f6ede6e..b5b2f8244d6f 100644
+index 77b2ee7f6571..fd5c390e80b3 100644
 --- a/maintainers/maintainer-list.nix
 +++ b/maintainers/maintainer-list.nix
-@@ -22370,6 +22370,12 @@
+@@ -22586,6 +22586,12 @@
      keys = [ { fingerprint = "7DCA 5615 8AB2 621F 2F32  9FF4 1C7C E491 479F A273"; } ];
      name = "Rahul Butani";
    };
@@ -16,17 +16,17 @@ index 23700f6ede6e..b5b2f8244d6f 100644
      email = "nixos.org@seichter.de";
      github = "rseichter";
 diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
-index 043132db23c2..76691157f123 100644
+index ab964994d908..fa578b4dde15 100644
 --- a/nixos/modules/module-list.nix
 +++ b/nixos/modules/module-list.nix
-@@ -1631,6 +1631,7 @@
+@@ -1640,6 +1640,7 @@
    ./services/web-apps/lasuite-docs.nix
    ./services/web-apps/lasuite-meet.nix
    ./services/web-apps/lemmy.nix
 +  ./services/web-apps/librechat.nix
+   ./services/web-apps/librespeed.nix
    ./services/web-apps/libretranslate.nix
    ./services/web-apps/limesurvey.nix
-   ./services/web-apps/mainsail.nix
 diff --git a/nixos/modules/services/web-apps/librechat.nix b/nixos/modules/services/web-apps/librechat.nix
 new file mode 100644
 index 000000000000..67870b9318ca

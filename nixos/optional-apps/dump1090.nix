@@ -11,7 +11,7 @@
     wantedBy = [ "multi-user.target" ];
 
     script = ''
-      exec ${pkgs.dump1090}/bin/dump1090 \
+      exec ${pkgs.dump1090-fa}/bin/dump1090 \
         --quiet \
         --device stx:1090:0 \
         --net \
@@ -42,7 +42,7 @@
   };
 
   lantian.nginxVhosts."dump1090.${config.networking.hostName}.xuyh0120.win" = {
-    root = "${pkgs.dump1090}/share/dump1090";
+    root = "${pkgs.dump1090-fa}/share/dump1090";
     locations = {
       "/data/".alias = "/run/dump1090/";
     };

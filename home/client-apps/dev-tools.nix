@@ -154,8 +154,7 @@ in
     terraform
 
     # TOML
-    taplo-cli
-    taplo-lsp
+    taplo
 
     # Others
     azure-cli

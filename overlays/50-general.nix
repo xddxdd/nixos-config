@@ -124,9 +124,7 @@ rec {
       ../patches/yt-dlp-replace-bilibili-hostname.patch
     ];
   });
-  zerotierone = prev.zerotierone.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ../patches/zerotier-auto-multithread.patch
-    ];
-  });
+  zerotierone = prev.zerotierone.override {
+    enableUnfree = true;
+  };
 }

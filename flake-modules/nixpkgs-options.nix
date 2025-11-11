@@ -22,8 +22,10 @@ in
             "aspnetcore-runtime-wrapped-6.0.36"
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
-            "electron-32.3.3"
+            "electron-36.9.5"
+            "jitsi-meet-1.0.8792"
             "libsoup-2.74.3"
+            "mbedtls-2.28.10"
             "olm-3.2.16"
             "ventoy-1.1.07"
             # keep-sorted end

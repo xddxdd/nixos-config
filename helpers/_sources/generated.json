@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLocks": null,
-        "date": "2025-10-13",
+        "date": "2025-10-24",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3d03f306b6a5caf9441ac4aa017de464a8bbccb1",
-            "sha256": "sha256-GQCPpTA+2hESXfgF1mHMBWYjEQyTv1+s3PqGebe2T8A=",
+            "rev": "32efd56d12ddc1511ba4f19102b07c8fbd967750",
+            "sha256": "sha256-luF2khyh9agmveQxzJ9lzVt96iyoCN2+7o+7zI5Mf10=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "3d03f306b6a5caf9441ac4aa017de464a8bbccb1"
+        "version": "32efd56d12ddc1511ba4f19102b07c8fbd967750"
     },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
@@ -43,11 +43,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OjazYnGqnGZY/fpymomrX9BbJvzrXOCBKmzJuLyyUFU=",
+            "sha256": "sha256-9skliIZ/Ezb6GOMNRhO4DUEvS+b89qlYCZDyAL/FXUE=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.5.0/yesoreyeram-infinity-datasource-3.5.0.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.6.0/yesoreyeram-infinity-datasource-3.6.0.zip"
         },
-        "version": "3.5.0"
+        "version": "3.6.0"
     },
     "lobe-icons": {
         "cargoLocks": null,
@@ -113,7 +113,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-10-13",
+        "date": "2025-11-07",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -125,12 +125,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "0cc16e7c142517e764b0410e23ab3dc02880c8d4",
-            "sha256": "sha256-LGoOiF7dWlPtvN53lcpJkhyYtKSpbBskj5sz02B1C+o=",
+            "rev": "a7690e64b5080452596ffd55062c625abe05fa3a",
+            "sha256": "sha256-tVAg8LP4k6wvL1RLF2PtwAoeCc5GCZ+DZoSfCHiuVDc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0cc16e7c142517e764b0410e23ab3dc02880c8d4"
+        "version": "a7690e64b5080452596ffd55062c625abe05fa3a"
     },
     "open5gs": {
         "cargoLocks": null,

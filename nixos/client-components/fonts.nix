@@ -21,7 +21,6 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji-blob-bin
-      noto-fonts-extra
       nur-xddxdd.hoyo-glyphs
       nur-xddxdd.kaixinsong-fonts
       nur-xddxdd.plangothic-fonts
@@ -35,10 +34,10 @@
       source-serif
       source-serif-pro
       terminus_font_ttf
-      ubuntu_font_family
-      vistafonts
-      vistafonts-chs
-      vistafonts-cht
+      ubuntu-classic
+      vista-fonts
+      vista-fonts-chs
+      vista-fonts-cht
       wqy_microhei
       wqy_zenhei
     ];

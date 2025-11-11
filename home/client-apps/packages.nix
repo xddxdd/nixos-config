@@ -93,7 +93,7 @@ in
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         apache-directory-studio
         apache-directory-studio-wrapped
-        aria
+        aria2
         attic-client
         audacious
         brotli
