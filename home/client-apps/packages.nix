@@ -188,24 +188,4 @@ in
     addRdpMimeTypeAssoc = true;
     systemdService.enable = false;
   };
-
-  xdg.configFile = LT.gui.autostart (
-    (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
-      # keep-sorted start
-      "cherry-studio --start-minimized"
-      "discord --start-minimized"
-      "materialgram -autostart"
-      "neochat"
-      "steam -silent"
-      "thunderbird"
-      "vesktop --start-minimized"
-      # keep-sorted end
-    ])
-    ++ [
-      # keep-sorted start
-      "gcdemu"
-      "ulauncher --hide-window"
-      # keep-sorted end
-    ]
-  );
 }
