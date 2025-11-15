@@ -23,12 +23,10 @@ rec {
     Quassel.Main = 4242;
     Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
-    IPFS.API = 5001;
     IPerf = 5201;
     Bazarr = 6767;
     Radarr = 7878;
     ArchiveTeam = 8001;
-    IPFS.Gateway = 8080;
     JProxy = 8117;
     Waline = 8360;
     Matrix.Public = 8448;
@@ -46,7 +44,6 @@ rec {
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
-    FakeOllama = 11434;
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
     FlapAlerted.BGP = 13179;
@@ -58,8 +55,6 @@ rec {
     Bepasty = 13237;
     ASF = 13242;
     RSSHub = 13248;
-    NeteaseUnlock.HTTP = 13301;
-    NeteaseUnlock.HTTPS = 13302;
     Dex = 13403;
     OpenWebUI.UI = 13433;
     Ollama = 13434;
@@ -103,7 +98,6 @@ rec {
     Open5GS = 13999;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
-    Pipewire.RTP = 46414;
   };
 
   portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
