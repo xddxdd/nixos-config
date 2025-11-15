@@ -22,7 +22,7 @@
           let
             splitted = lib.splitString "/" v;
           in
-          "[${builtins.elemAt splitted 0}]/${builtins.elemAt splitted 1}"
+          "[${lib.head splitted}]/${lib.elemAt splitted 1}"
         ) LT.constants.reserved.IPv6;
       in
       {

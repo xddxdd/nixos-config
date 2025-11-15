@@ -157,7 +157,7 @@ in
     ];
 
     define REROUTED_IPv4 = [
-    ${lib.concatStringsSep ",\n" (
+    ${builtins.concatStringsSep ",\n" (
       builtins.filter (v: !lib.hasInfix ":" v) (
         lib.unique (lib.flatten (lib.mapAttrsToList (n: v: v.additionalRoutes) LT.hosts))
       )
@@ -165,7 +165,7 @@ in
     ];
 
     define REROUTED_IPv6 = [
-    ${lib.concatStringsSep ",\n" (
+    ${builtins.concatStringsSep ",\n" (
       builtins.filter (v: lib.hasInfix ":" v) (
         lib.unique (lib.flatten (lib.mapAttrsToList (n: v: v.additionalRoutes) LT.hosts))
       )

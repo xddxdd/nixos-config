@@ -3,8 +3,8 @@ let
   mkTestSSL =
     pair:
     let
-      name = builtins.elemAt pair 0;
-      prefix = builtins.elemAt pair 1;
+      name = lib.head pair;
+      prefix = lib.elemAt pair 1;
     in
     lib.nameValuePair "${name}.lantian.pub" {
       root = "/nix/persistent/sync-servers/www/${name}.lantian.pub";

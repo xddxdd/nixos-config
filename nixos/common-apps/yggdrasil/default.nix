@@ -8,7 +8,7 @@
 let
   publicPeers = lib.importJSON ./public-peers.json;
   regionsToServers =
-    regions: lib.flatten (builtins.map (region: publicPeers."${region}" or [ ]) regions);
+    regions: lib.concatMap (region: publicPeers."${region}" or [ ]) regions;
 
   regionMappings = {
     "CN" = [

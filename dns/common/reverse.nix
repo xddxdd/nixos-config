@@ -4,7 +4,7 @@
     { prefix, target }:
     let
       prefixSplitted = lib.splitString "/" prefix;
-      prefixIP = builtins.elemAt prefixSplitted 0;
+      prefixIP = lib.head prefixSplitted;
     in
     rec {
       domain = prefix;

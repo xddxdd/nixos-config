@@ -150,7 +150,7 @@ in
             gcore_longitude = "${builtins.toString v.city.lng}";
             gcore_notes = k;
           }
-          // (lib.optionalAttrs (builtins.hasAttr "healthcheck" args) {
+          // (lib.optionalAttrs (args ? healthcheck) {
             gcore_filters = "healthcheck,false;${geodnsFilter}";
             gcore_failover_protocol = "HTTP";
             gcore_failover_port = "443";
@@ -390,7 +390,7 @@ in
     # Special handling: split for IP ranges & keep only last part of IP
     DN42ReverseIPv4 =
       let
-        lastPart = ip: builtins.elemAt (lib.splitString "." ip) 3;
+        lastPart = ip: lib.last (lib.splitString "." ip);
       in
       domain: ipMin: ipMax:
       assert lib.hasSuffix "." domain;

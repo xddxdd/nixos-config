@@ -84,9 +84,7 @@ let
     '';
 
   models = lib.unique (
-    lib.flatten (
-      builtins.map (provider: builtins.map (v: v.value) provider._models) config.lantian.llm-providers
-    )
+    lib.concatMap (provider: builtins.map (v: v.value) provider._models) config.lantian.llm-providers
   );
 
   sqlFile = pkgs.writeText "open-webui-setup.sql" (lib.concatMapStrings mkSQLForModel models);

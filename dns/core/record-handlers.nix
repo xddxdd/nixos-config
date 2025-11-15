@@ -19,7 +19,7 @@ let
       configString = builtins.concatStringsSep ", " (
         [ (formatName args.name args.reverse) ]
         ++ (builtins.map formatArg params)
-        ++ (lib.optionals (builtins.hasAttr "meta" args) (builtins.map formatArg [ args.meta ]))
+        ++ (lib.optionals (args ? meta) (builtins.map formatArg [ args.meta ]))
         ++ (lib.optional (args.ttl != null) "TTL(${formatArg (builtins.toString args.ttl)})")
         ++ (lib.optional (args.cloudflare != null && args.cloudflare) "CF_PROXY_ON")
         ++ (lib.optional (args.cloudflare != null && !args.cloudflare) "CF_PROXY_OFF")

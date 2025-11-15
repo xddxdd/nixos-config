@@ -25,17 +25,14 @@ let
       inherit (LT.hosts."${n}") system;
     in
     [
-      (
-        _:
-        {
-          home-manager.extraSpecialArgs = specialArgsFor n;
-          networking.hostName = lib.mkForce (lib.removePrefix "_" n);
-          system.stateVersion = LT.constants.stateVersion;
+      (_: {
+        home-manager.extraSpecialArgs = specialArgsFor n;
+        networking.hostName = lib.mkForce (lib.removePrefix "_" n);
+        system.stateVersion = LT.constants.stateVersion;
 
-          # Force inherit nixpkgs
-          _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
-        }
-      )
+        # Force inherit nixpkgs
+        _module.args.pkgs = lib.mkForce (patchedPkgsFor system (pkgsNameFor n));
+      })
 
       # keep-sorted start
       (inputs.srvos + "/shared/common/update-diff.nix")
@@ -67,8 +64,8 @@ let
 in
 {
   flake = {
-    nixosConfigurations = lib.genAttrs (builtins.attrNames (builtins.readDir ../hosts)) (
-      n:
+    nixosConfigurations = lib.mapAttrs (
+      n: _:
       let
         inherit (LT.hosts."${n}") system;
         pkgs = patchedPkgsFor system (pkgsNameFor n);
@@ -79,6 +76,6 @@ in
         modules = modulesFor n;
         specialArgs = specialArgsFor n;
       }
-    );
+    ) (builtins.readDir ../hosts);
   };
 }

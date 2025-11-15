@@ -26,8 +26,8 @@ in
   domains = builtins.map (
     mcc_mnc:
     let
-      mcc = builtins.elemAt mcc_mnc 0;
-      mnc = builtins.elemAt mcc_mnc 1;
+      mcc = lib.head mcc_mnc;
+      mnc = lib.elemAt mcc_mnc 1;
 
       volteRecords = lib.mapAttrsToList (svc: port: [
         {

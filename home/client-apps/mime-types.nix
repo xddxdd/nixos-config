@@ -66,8 +66,8 @@ in
           lib.mapAttrs (
             mime: _:
             let
-              existingList = if builtins.hasAttr mime a then a.${mime} else [ ];
-              newList = if builtins.hasAttr mime bAttrs then bAttrs.${mime} else [ ];
+              existingList = a.${mime} or [ ];
+              newList = bAttrs.${mime} or [ ];
             in
             existingList ++ newList
           ) allAttrs;

@@ -7,7 +7,7 @@
     ];
     users.lantian = {
       directories = builtins.map LT.preservation.mkFolder (
-        builtins.filter (v: !builtins.hasAttr "/home/lantian/${v}" config.fileSystems) [
+        builtins.filter (v: !(config.fileSystems ? "/home/lantian/${v}")) [
           # Personal folders
           "Desktop"
           "Documents"

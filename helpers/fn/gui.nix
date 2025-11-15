@@ -6,7 +6,7 @@
       builtins.map (
         command:
         let
-          name = builtins.head (lib.splitString " " command);
+          name = lib.head (lib.splitString " " command);
         in
         {
           name = "autostart/${name}.desktop";

@@ -6,8 +6,8 @@
   hostsBase,
   ...
 }:
-lib.genAttrs (builtins.attrNames (builtins.readDir hostsBase)) (
-  n:
+lib.mapAttrs (
+  n: _:
   (lib.evalModules {
     modules = [
       ../host-options.nix
@@ -18,4 +18,4 @@ lib.genAttrs (builtins.attrNames (builtins.readDir hostsBase)) (
       name = n;
     };
   }).config
-)
+) (builtins.readDir hostsBase)
