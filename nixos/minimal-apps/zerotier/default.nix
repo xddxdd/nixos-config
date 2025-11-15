@@ -92,16 +92,14 @@ in
       ) (LT.otherHostsWithoutTag LT.tags.server)
     );
 
-    extraConfig = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (
-        n: v:
-        lib.concatMapStringsSep "\n" (ip: ''
-          [Neighbor]
-          # ${v.name}
-          Address=${ip}
-          LinkLayerAddress=${calculateMac ltnet n}
-        '') v.ipAssignments
-      ) LT.zerotier.hosts
-    );
+    extraConfig = lib.concatMapAttrsStringSep "\n" (
+      n: v:
+      lib.concatMapStringsSep "\n" (ip: ''
+        [Neighbor]
+        # ${v.name}
+        Address=${ip}
+        LinkLayerAddress=${calculateMac ltnet n}
+      '') v.ipAssignments
+    ) LT.zerotier.hosts;
   };
 }

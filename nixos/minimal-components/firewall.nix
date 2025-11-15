@@ -31,47 +31,39 @@ let
     }
   '';
 
-  interfaceSets = builtins.concatStringsSep "\n" (
-    lib.mapAttrsToList (k: v: ''
-      set INTERFACE_${k} {
-        type ifname
-        flags constant, interval
-        elements = { ${builtins.concatStringsSep ", " (builtins.map (v: v + "*") v)} }
-      }
-    '') LT.constants.interfacePrefixes
-  );
+  interfaceSets = lib.concatMapAttrsStringSep "\n" (k: v: ''
+    set INTERFACE_${k} {
+      type ifname
+      flags constant, interval
+      elements = { ${lib.concatMapStringsSep ", " (v: v + "*") v} }
+    }
+  '') LT.constants.interfacePrefixes;
 
   tnl-buyvm =
     (lib.optionalString (LT.this.public.IPv4 != null) (
-      lib.concatStrings (
-        lib.mapAttrsToList (
-          n:
-          { wg-lantian, index, ... }:
-          ''
-            ip daddr ${LT.this.public.IPv4} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
-            ip daddr ${LT.this.public.IPv4} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
-          ''
-        ) LT.hosts
-      )
+      lib.concatMapAttrsStringSep "" (
+        n:
+        { wg-lantian, index, ... }:
+        ''
+          ip daddr ${LT.this.public.IPv4} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
+          ip daddr ${LT.this.public.IPv4} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to 198.18.${builtins.toString index}.192
+        ''
+      ) LT.hosts
     ))
     + (lib.optionalString (LT.this.public.IPv6 != null) (
-      lib.concatStrings (
-        lib.mapAttrsToList (
-          n:
-          { wg-lantian, index, ... }:
-          ''
-            ip6 daddr ${LT.this.public.IPv6} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
-            ip6 daddr ${LT.this.public.IPv6} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
-          ''
-        ) LT.hosts
-      )
+      lib.concatMapAttrsStringSep "" (
+        n:
+        { wg-lantian, index, ... }:
+        ''
+          ip6 daddr ${LT.this.public.IPv6} tcp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
+          ip6 daddr ${LT.this.public.IPv6} udp dport { ${builtins.toString wg-lantian.forwardStart}-${builtins.toString wg-lantian.forwardStop} } dnat to fdbc:f9dc:67ad:${builtins.toString index}::192
+        ''
+      ) LT.hosts
     ))
     + (lib.optionalString (LT.this.public.IPv6Subnet != null) (
-      lib.concatStrings (
-        lib.mapAttrsToList (n: v: ''
-          ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
-        '') LT.hosts
-      )
+      lib.concatMapAttrsStringSep "" (n: v: ''
+        ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
+      '') LT.hosts
     ));
 
   nftRules = ''

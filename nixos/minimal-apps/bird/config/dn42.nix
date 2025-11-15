@@ -192,7 +192,7 @@ in
 
   staticRoutes = ''
     protocol static static_v4_dn42 {
-      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList staticRoute4 cfg)}
+      ${lib.concatMapAttrsStringSep "\n" staticRoute4 cfg}
       ipv4 {
         preference 9999;
         import all;
@@ -201,7 +201,7 @@ in
     }
 
     protocol static static_v6_dn42 {
-      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList staticRoute6 cfg)}
+      ${lib.concatMapAttrsStringSep "\n" staticRoute6 cfg}
       ipv6 {
         preference 9999;
         import all;
@@ -312,5 +312,5 @@ in
 
   hasPeers = cfg != { };
 
-  peers = builtins.concatStringsSep "\n" (lib.mapAttrsToList peer cfg);
+  peers = lib.concatMapAttrsStringSep "\n" peer cfg;
 }

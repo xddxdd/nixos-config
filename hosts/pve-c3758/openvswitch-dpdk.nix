@@ -55,25 +55,23 @@ in
       ovs-vsctl --may-exist add-br br0 -- set bridge br0 datapath_type=netdev || true
       ovs-vsctl set Bridge br0 rstp_enable=true || true
     ''
-    + (builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (n: v: ''
-        ovs-vsctl --may-exist add-port br0 ${n} || true
-        ovs-vsctl set Interface ${n} type=dpdk \
-          options:dpdk-devargs=${v} \
-          mtu_request=9000 \
-          options:n_rxq=4 \
-          options:rx-steering=rss+lacp \
-          || true
-      '') interfaces
-    ))
+    + (lib.concatMapAttrsStringSep "\n" (n: v: ''
+      ovs-vsctl --may-exist add-port br0 ${n} || true
+      ovs-vsctl set Interface ${n} type=dpdk \
+        options:dpdk-devargs=${v} \
+        mtu_request=9000 \
+        options:n_rxq=4 \
+        options:rx-steering=rss+lacp \
+        || true
+    '') interfaces)
     + (lib.concatMapStringsSep "\n" (i: ''
-      ovs-vsctl --may-exist add-port br0 vhost${i} || true
-      ovs-vsctl set Interface vhost${i} \
+      ovs-vsctl --may-exist add-port br0 vhost${builtins.toString i} || true
+      ovs-vsctl set Interface vhost${builtins.toString i} \
         type=dpdkvhostuserclient \
-        options:vhost-server-path=/run/ovs-vhost${i}.sock \
+        options:vhost-server-path=/run/ovs-vhost${builtins.toString i}.sock \
         mtu_request=9000 \
         || true
-    '') (builtins.map builtins.toString (lib.range 0 9)))
+    '') (lib.range 0 9))
     + ''
       # Workaround OVS hijacking all net devices
       ovs-appctl netdev-dpdk/detach 0000:08:00.0 || true

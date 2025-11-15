@@ -16,9 +16,7 @@ let
     "user/plugins/yourls-login-timeout" = LT.sources.yourls-login-timeout.src;
   };
 
-  yourlsAddonsInstall = builtins.concatStringsSep "\n" (
-    lib.mapAttrsToList (k: v: "cp -r ${v} ${k}") yourlsAddons
-  );
+  yourlsAddonsInstall = lib.concatMapAttrsStringSep "\n" (k: v: "cp -r ${v} ${k}") yourlsAddons;
 
   yourlsPackage = pkgs.stdenvNoCC.mkDerivation {
     inherit (LT.sources.yourls) pname version src;
