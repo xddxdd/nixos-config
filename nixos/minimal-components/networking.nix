@@ -87,13 +87,37 @@ in
     nameservers = backupDNSServers;
   };
 
-  systemd.network.enable = true;
-  systemd.network.wait-online.enable = false;
-  environment.etc."systemd/networkd.conf".text = ''
-    [Network]
-    ManageForeignRoutes=false
-    ManageForeignRoutingPolicyRules=false
-  '';
+  systemd.network = {
+    enable = true;
+    wait-online.enable = false;
+    config.networkConfig = {
+      ManageForeignRoutes = false;
+      ManageForeignRoutingPolicyRules = false;
+    };
+
+    # Disable systemd-nspawn container's default addresses.
+    networks."80-container-ve" = {
+      matchConfig = {
+        Name = "ve-*";
+        Driver = "veth";
+      };
+      linkConfig = {
+        Unmanaged = true;
+      };
+    };
+
+    # Disable automatic DHCP server for netns interfaces
+    networks."80-namespace-ns" = {
+      matchConfig = {
+        Name = "ns-*";
+        Driver = "veth";
+      };
+      linkConfig = {
+        Unmanaged = true;
+      };
+    };
+  };
+
   systemd.services.systemd-networkd.restartIfChanged = false;
   services.resolved.enable = false;
 
@@ -116,26 +140,6 @@ in
         '')}
       '';
     };
-
-  # Disable systemd-nspawn container's default addresses.
-  environment.etc."systemd/network/80-container-ve.network".text = ''
-    [Match]
-    Name=ve-*
-    Driver=veth
-
-    [Link]
-    Unmanaged=yes
-  '';
-
-  # Disable automatic DHCP server for netns interfaces
-  environment.etc."systemd/network/80-namespace-ns.network".text = ''
-    [Match]
-    Name=ns-*
-    Driver=veth
-
-    [Link]
-    Unmanaged=yes
-  '';
 
   # Multicast DNS
   services.avahi = {

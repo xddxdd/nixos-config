@@ -111,13 +111,13 @@ in
             overrideRoutingTableCommands =
               op:
               lib.optionalString (value.overrideRoutingTable != null) ''
-                ip rule ${op} iif ns-tnl-buyvm lookup ${builtins.toString value.overrideRoutingTable}
-                ip -6 rule ${op} iif ns-tnl-buyvm lookup ${builtins.toString value.overrideRoutingTable}
+                ip rule ${op} iif ns-${interface} lookup ${builtins.toString value.overrideRoutingTable}
+                ip -6 rule ${op} iif ns-${interface} lookup ${builtins.toString value.overrideRoutingTable}
                 ${lib.concatMapStringsSep "\n" (
-                  route: "ip rule ${op} iif ns-tnl-buyvm to ${route} lookup main"
+                  route: "ip rule ${op} iif ns-${interface} to ${route} lookup main"
                 ) LT.constants.reserved.IPv4}
                 ${lib.concatMapStringsSep "\n" (
-                  route: "ip -6 rule ${op} iif ns-tnl-buyvm to ${route} lookup main"
+                  route: "ip -6 rule ${op} iif ns-${interface} to ${route} lookup main"
                 ) LT.constants.reserved.IPv6}
               '';
 
