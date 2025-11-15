@@ -3,8 +3,6 @@
   imports = [
     ../../nixos/server.nix
 
-    ../../nixos/optional-apps/iodine.nix
-
     (inputs.secrets + "/dn42/bwg-lax.nix")
 
     ./hardware-configuration.nix

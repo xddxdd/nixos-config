@@ -56,9 +56,7 @@ rec {
     RSSHub = 13248;
     Dex = 13403;
     Ollama = 13434;
-    OneAPI = 13436;
     UniAPI = 13437;
-    Iodine = 13453;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;

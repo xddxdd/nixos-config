@@ -59,8 +59,7 @@ let
         ${dnssec dnssecKey}
       '';
     in
-    pkgs.writeText "Corefile" (
-      ''
+    pkgs.writeText "Corefile" ''
         # Selfhosted Root Zone
         . {
           # Only serve internal networks to avoid being part of DNS amplification attack
@@ -161,20 +160,7 @@ let
           prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
           meship
         }
-      ''
-      + (lib.optionalString config.services.iodine.server.enable ''
-        # Iodine
-        ${config.services.iodine.server.domain}.:53 {
-          any
-          bufsize 1232
-          loadbalance round_robin
-          forward . ${LT.this.ltnet.IPv4}:${LT.portStr.Iodine} {
-            prefer_udp
-            max_fails 0
-          }
-        }
-      '')
-    );
+      '';
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   age.secrets = builtins.listToAttrs (

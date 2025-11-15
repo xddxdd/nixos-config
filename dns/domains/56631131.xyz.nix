@@ -58,13 +58,6 @@
           target = "ns-ovh.sslip.io.";
         }
 
-        # Iodine
-        {
-          recordType = "NS";
-          name = "dt";
-          target = "bwg-lax.lantian.pub.";
-        }
-
         # MyOwnFreeHost
         {
           recordType = "NS";
