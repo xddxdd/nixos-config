@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   utils,
@@ -22,6 +23,22 @@ let
           ];
           enabled = true;
         };
+        tag = "inbound";
+      }
+      {
+        listen = "127.0.0.1";
+        port = LT.port.V2Ray.UnblockCNClient;
+        protocol = "socks";
+        settings.udp = true;
+        sniffing = {
+          destOverride = [
+            "http"
+            "tls"
+            "quic"
+          ];
+          enabled = true;
+        };
+        tag = "inbound-unblock-cn";
       }
     ];
     log = {
@@ -91,6 +108,23 @@ let
         settings.response.type = "none";
         tag = "blackhole";
       }
+      {
+        protocol = "shadowsocks";
+        settings.servers = [
+          {
+            address = {
+              _secret = config.age.secrets.v2ray-unblock-cn-host.path;
+            };
+            port = 10076;
+            method = "chacha20-ietf-poly1305";
+            ota = true;
+            password = {
+              _secret = config.age.secrets.v2ray-unblock-cn-pass.path;
+            };
+          }
+        ];
+        tag = "unblock-cn";
+      }
     ];
     policy.levels."0" = {
       connIdle = 86400;
@@ -101,6 +135,11 @@ let
       balancers = [ ];
       domainStrategy = "IPOnDemand";
       rules = [
+        {
+          inboundTag = [ "inbound-unblock-cn" ];
+          outboundTag = "unblock-cn";
+          type = "field";
+        }
         {
           outboundTag = "block";
           protocol = [ "bittorrent" ];
@@ -128,11 +167,11 @@ let
   };
 in
 {
-  age.secrets.v2ray-key = {
-    file = inputs.secrets + "/v2ray-key.age";
+  age.secrets = lib.genAttrs [ "v2ray-key" "v2ray-unblock-cn-host" "v2ray-unblock-cn-pass" ] (n: {
+    file = inputs.secrets + "/${n}.age";
     owner = "nginx";
     group = "nginx";
-  };
+  });
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";

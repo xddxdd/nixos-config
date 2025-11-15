@@ -14,6 +14,7 @@ rec {
     LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
+    V2Ray.UnblockCNClient = 1081;
     KMS = 1688;
     Bitmagnet = 3333;
     NFS.StatD = 4000;

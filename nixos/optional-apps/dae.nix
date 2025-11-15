@@ -1,4 +1,8 @@
-{ lib, ... }:
+{ LT, ... }:
+let
+  cn-action = "unblock_cn";
+  intl-action = "direct";
+in
 {
   services.dae = {
     enable = true;
@@ -24,7 +28,8 @@
       }
 
       node {
-        v2ray: "socks5://localhost:1080"
+        v2ray: "socks5://localhost:${LT.portStr.V2Ray.SocksClient}"
+        v2ray_unblock_cn: "socks5://localhost:${LT.portStr.V2Ray.UnblockCNClient}"
       }
 
       dns {
@@ -47,6 +52,11 @@
 
       group {
         proxy {
+          filter: name(v2ray)
+          policy: fixed(0)
+        }
+        unblock_cn {
+          filter: name(v2ray_unblock_cn)
           policy: fixed(0)
         }
       }
@@ -58,6 +68,9 @@
         pname(zerotier-one) -> must_direct
         dip(224.0.0.0/3, 'ff00::/8') -> direct
 
+        # Unblock CN
+        pname(qqmusic) -> ${cn-action}
+
         domain(geosite:category-ads) -> block
         domain(geosite:category-ads-all) -> block
         domain(geosite:private) -> direct
@@ -68,13 +81,13 @@
 
         # V2Ray also handles direct connections
 
-        fallback: proxy
+        fallback: ${intl-action}
       }
     '';
   };
 
-  systemd.services.dae = {
-    wantedBy = lib.mkForce [ ];
-    serviceConfig.Restart = "no";
+  systemd.services.dae.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "5";
   };
 }
