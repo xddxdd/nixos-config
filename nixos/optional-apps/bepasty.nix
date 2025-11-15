@@ -24,7 +24,6 @@ in
   services.bepasty = {
     enable = true;
     servers."${host}" = {
-      bind = "127.0.0.1:${LT.portStr.Bepasty}";
       dataDir = "/var/lib/bepasty/data";
       workDir = "/var/lib/bepasty";
       secretKeyFile = config.age.secrets.bepasty.path;
@@ -38,7 +37,7 @@ in
   lantian.nginxVhosts."${host}" = {
     locations = {
       "/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.Bepasty}";
+        proxyPass = "http://unix:/run/bepasty/bepasty.sock";
         blockBadUserAgents = true;
       };
     };
@@ -47,7 +46,7 @@ in
     noIndex.enable = true;
   };
 
-  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig = LT.serviceHarden // {
+  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig = LT.networkToolHarden // {
     Group = "bepasty";
     StateDirectory = "bepasty";
     User = "bepasty";
@@ -59,12 +58,15 @@ in
           --name "pb.ltn.pw" \
           --workers 3 \
           --log-level=info \
-          --bind=127.0.0.1:${LT.portStr.Bepasty} \
+          --bind=unix:/run/bepasty/bepasty.sock \
           -k gevent
       ''
     );
+    RuntimeDirectory = "bepasty";
 
     Restart = "always";
     RestartSec = 5;
   };
+
+  users.groups.bepasty.members = [ "nginx" ];
 }

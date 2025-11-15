@@ -17,8 +17,7 @@
   services.netbox = {
     enable = true;
     package = pkgs.netbox;
-    listenAddress = "[::1]";
-    port = LT.port.Netbox;
+    unixSocket = "/run/netbox/netbox.sock";
     secretKeyFile = config.age.secrets.netbox-secret.path;
     settings = {
       CSRF_TRUSTED_ORIGINS = [ "https://netbox.xuyh0120.win" ];
@@ -39,7 +38,7 @@
     locations = {
       "/" = {
         enableOAuth = true;
-        proxyPass = "http://${config.services.netbox.listenAddress}:${LT.portStr.Netbox}";
+        proxyPass = "http://unix:/run/netbox/netbox.sock";
       };
       "/static/".alias = config.services.netbox.settings.STATIC_ROOT + "/";
     };
@@ -51,7 +50,9 @@
   systemd.services.netbox = {
     after = [ "redis-netbox.service" ];
     requires = [ "redis-netbox.service" ];
-    serviceConfig = LT.serviceHarden;
+    serviceConfig = LT.networkToolHarden // {
+      RuntimeDirectory = "netbox";
+    };
   };
   systemd.services.netbox-rq = {
     after = [ "redis-netbox.service" ];

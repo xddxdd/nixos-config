@@ -52,7 +52,6 @@ rec {
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
     Pict-RS = 13202;
-    Bepasty = 13237;
     ASF = 13242;
     RSSHub = 13248;
     Dex = 13403;
@@ -74,7 +73,6 @@ rec {
     FishSpeech = 13790;
     MTranServer = 13791;
     Plausible = 13800;
-    Netbox = 13801;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     qBitTorrentPT.WebUI = 13809;
