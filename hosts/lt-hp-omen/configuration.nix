@@ -60,10 +60,6 @@
     "192.168.0.207"
   ];
 
-  # This host has full disk encryption, no need to encrypt keyring
-  security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
-  security.pam.services.sddm.enableGnomeKeyring = lib.mkForce false;
-
   services.samba.settings = {
     "lantian" = {
       "path" = "/home/lantian";
