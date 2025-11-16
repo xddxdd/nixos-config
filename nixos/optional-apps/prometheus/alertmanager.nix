@@ -83,17 +83,6 @@ in
                   description = "{{$labels.alias}} MySQL instance is down.";
                 };
               }
-              # # MySQL Galera Down
-              # {
-              #   alert = "node_mysql_galera_down";
-              #   expr = ''mysql_global_status_wsrep_local_state != 4'';
-              #   for = "10m";
-              #   labels.severity = "critical";
-              #   annotations = {
-              #     summary = "⚠️ {{$labels.alias}}: MySQL Galera down.";
-              #     description = "{{$labels.alias}} MySQL Galera sync is down.";
-              #   };
-              # }
 
               # PostgreSQL Down
               {
@@ -140,6 +129,18 @@ in
                 annotations = {
                   summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} receiving too may updates.";
                   description = "{{$labels.name}} on {{$labels.instance}} receiving too may updates.";
+                };
+              }
+
+              # FlapAlerted
+              {
+                alert = "flapalerted_flapping_routes";
+                expr = ''active_flap_count > 0'';
+                for = "30m";
+                labels.severity = "warning";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: FlapAlerted is detecting flapping routes";
+                  description = "FlapAlerted is detecting at least 1 flapping routes.";
                 };
               }
 
