@@ -49,6 +49,7 @@ in
   imports = [
     ./alertmanager.nix
     ./blackbox-exporter.nix
+    ./periodic-tasks.nix
   ];
 
   services.prometheus = {
