@@ -36,9 +36,27 @@
       extraPackages = [ pkgs.nftables ] ++ lib.optionals pkgs.stdenv.isx86_64 [ pkgs.gvisor ];
     };
 
-    systemd.services.podman-auto-update.enable = true;
+    systemd.services = {
+      podman-auto-update.enable = true;
+    }
+    // (lib.mapAttrs' (
+      k: v:
+      lib.nameValuePair "podman-${k}" {
+        environment.TMPDIR = "/var/cache/podman-download";
+      }
+    ) config.virtualisation.oci-containers.containers);
+
     systemd.timers.podman-auto-update.enable = true;
 
+    systemd.tmpfiles.settings = {
+      podman-download = {
+        "/var/cache/podman-download"."d" = {
+          mode = "755";
+          user = "root";
+          group = "root";
+        };
+      };
+    };
     users.users.lantian.extraGroups = [ "podman" ];
 
     virtualisation.oci-containers.backend = "podman";
