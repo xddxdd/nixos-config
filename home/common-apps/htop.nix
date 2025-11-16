@@ -28,6 +28,8 @@
         PERCENT_CPU
         PERCENT_MEM
         TIME
+        IO_READ_RATE
+        IO_WRITE_RATE
         COMM
       ];
     }

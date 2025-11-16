@@ -95,7 +95,6 @@
     command-not-found.enable = false;
     htop.enable = true;
     iftop.enable = true;
-    iotop.enable = true;
     less = {
       enable = true;
       lessopen = null;
