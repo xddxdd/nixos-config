@@ -5,33 +5,45 @@
   ...
 }:
 let
-  scrapeAllTaggedNodes = tag: jobName: port: {
-    job_name = jobName;
-    static_configs = lib.mapAttrsToList (n: v: {
-      targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
-      labels.job = jobName;
-      labels.instance = n;
-    }) (LT.hostsWithTag tag);
-  };
-  scrapeAllNonTaggedNodes = tag: jobName: port: {
-    job_name = jobName;
-    static_configs = lib.mapAttrsToList (n: v: {
-      targets = [ "${v.ltnet.IPv4}:${builtins.toString port}" ];
-      labels.job = jobName;
-      labels.instance = n;
-    }) (LT.hostsWithoutTag tag);
-  };
-  scrapeAllNonClientNodes = scrapeAllNonTaggedNodes LT.tags.client;
+  _hostsWithAttrEnabled =
+    attrPath:
+    builtins.attrNames (
+      lib.filterAttrs (
+        n: v:
+        # Disable crawling client nodes
+        !LT.hosts."${n}".hasTag LT.tags.client
+        # Check if attr is enabled
+        && lib.attrByPath attrPath false v.config
+      ) LT.self.nixosConfigurations
+    );
 
-  scrapeAllNonClientNodesNetns = jobName: index: port: {
-    job_name = jobName;
-    static_configs = lib.mapAttrsToList (n: v: {
-      targets = [ "${v.ltnet.IPv4Prefix}.${builtins.toString index}:${builtins.toString port}" ];
-      labels.job = jobName;
-      labels.instance = n;
-      labels.index = builtins.toString index;
-    }) (LT.hostsWithoutTag LT.tags.client);
-  };
+  scrapeByAttr =
+    {
+      jobName,
+      index ? null,
+      port,
+      attrPath,
+    }:
+    {
+      job_name = jobName;
+      static_configs = builtins.map (
+        n:
+        let
+          targetIP =
+            if index == null then
+              "${LT.hosts."${n}".ltnet.IPv4}"
+            else
+              "${LT.hosts."${n}".ltnet.IPv4Prefix}.${builtins.toString index}";
+        in
+        {
+          targets = [
+            "${targetIP}:${builtins.toString port}"
+          ];
+          labels.job = jobName;
+          labels.instance = n;
+        }
+      ) (_hostsWithAttrEnabled attrPath);
+    };
 in
 {
   imports = [
@@ -63,12 +75,71 @@ in
           }
         ];
       }
-      (scrapeAllTaggedNodes LT.tags.server "bird" LT.port.Prometheus.BirdExporter)
-      (scrapeAllNonClientNodes "mysql" LT.port.Prometheus.MySQLExporter)
-      (scrapeAllNonClientNodes "node" LT.port.Prometheus.NodeExporter)
-      (scrapeAllNonClientNodes "postgres" LT.port.Prometheus.PostgresExporter)
-      (scrapeAllNonClientNodesNetns "coredns" 56 LT.port.Prometheus.CoreDNS)
-      (scrapeAllNonClientNodesNetns "coredns-authoritative" 54 LT.port.Prometheus.CoreDNS)
+      (scrapeByAttr {
+        jobName = "bird";
+        port = LT.port.Prometheus.BirdExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "bird"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "mysql";
+        port = LT.port.Prometheus.MySQLExporter;
+        attrPath = [
+          "systemd"
+          "services"
+          "prometheus-mysqld-exporter"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "node";
+        port = LT.port.Prometheus.NodeExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "node"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "postgres";
+        port = LT.port.Prometheus.PostgresExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "postgres"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "coredns";
+        index = 56;
+        port = LT.port.Prometheus.CoreDNS;
+        attrPath = [
+          "systemd"
+          "services"
+          "coredns"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "coredns-authoritative";
+        index = 54;
+        port = LT.port.Prometheus.CoreDNS;
+        attrPath = [
+          "systemd"
+          "services"
+          "coredns-authoritative"
+          "enable"
+        ];
+      })
       {
         job_name = "sglang-sakura-llm";
         scheme = "https";
