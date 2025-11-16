@@ -6,20 +6,14 @@
 }:
 let
   models = pkgs.fetchgit {
-    url = "https://github.com/mozilla/firefox-translations-models.git";
-    rev = "250530e63f82e032e2aad483ce23f8b1a7635c08";
+    inherit (LT.sources.firefox-translations-models.src) url rev;
     fetchLFS = true;
-    sha256 = "sha256-U51zK5VVTNjx6att+78kUrDvWL5S3ZY3eEXX6p+uPX8=";
+    sha256 = "sha256-pck2oniMw+Pt6miMT0k1A1ZUMFKBAUpqA4dy3b8JSHk=";
   };
 
   enabledModels = pkgs.runCommand "mtranserver-models" { } ''
     mkdir -p $out
-    for MODEL in ${models}/models/dev/*; do
-      cp -r $MODEL $out/$(basename $MODEL)
-    done
-    for MODEL in ${models}/models/prod/*; do
-      cp -r $MODEL $out/$(basename $MODEL)
-    done
+    cp -r ${models}/models/base-memory/* $out/
     chmod -R +w $out
     ${pkgs.gzip}/bin/gunzip -r $out
   '';

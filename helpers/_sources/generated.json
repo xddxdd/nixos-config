@@ -19,6 +19,27 @@
         },
         "version": "32efd56d12ddc1511ba4f19102b07c8fbd967750"
     },
+    "firefox-translations-models": {
+        "cargoLocks": null,
+        "date": "2025-10-17",
+        "extract": null,
+        "name": "firefox-translations-models",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mozilla",
+            "repo": "firefox-translations-models",
+            "rev": "318943910ed065517c1e26b8e0783efdc64976ab",
+            "sha256": "sha256-KaxM6x3srEKw+bsKFTuYsYpG2VWh2cgt8BwlMW1etjE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "318943910ed065517c1e26b8e0783efdc64976ab"
+    },
     "grafana-falconlogscale-datasource": {
         "cargoLocks": null,
         "date": null,

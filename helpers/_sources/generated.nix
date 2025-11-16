@@ -15,6 +15,18 @@
     };
     date = "2025-10-24";
   };
+  firefox-translations-models = {
+    pname = "firefox-translations-models";
+    version = "318943910ed065517c1e26b8e0783efdc64976ab";
+    src = fetchFromGitHub {
+      owner = "mozilla";
+      repo = "firefox-translations-models";
+      rev = "318943910ed065517c1e26b8e0783efdc64976ab";
+      fetchSubmodules = true;
+      sha256 = "sha256-KaxM6x3srEKw+bsKFTuYsYpG2VWh2cgt8BwlMW1etjE=";
+    };
+    date = "2025-10-17";
+  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.8.2";
