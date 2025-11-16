@@ -83,6 +83,14 @@ in
           { targets = [ "sakura-share.one" ]; }
         ];
       }
+      {
+        job_name = "flapalerted";
+        scheme = "https";
+        metrics_path = "/flaps/metrics/prometheus";
+        static_configs = [
+          { targets = [ "flapalerted.lantian.pub" ]; }
+        ];
+      }
     ];
   };
 
