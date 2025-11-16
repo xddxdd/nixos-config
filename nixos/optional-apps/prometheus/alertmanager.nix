@@ -125,8 +125,8 @@ in
                 # Bird received updates
                 {
                   alert = "bird_received_updates";
-                  expr = ''sum by (instance, name) (rate(bird_protocol_changes_update_import_receive_count{name=~"dn42(.*)",proto="BGP"}[5m])) > 10'';
-                  for = "30m";
+                  expr = ''sum by (instance, name) (rate(bird_protocol_changes_update_import_receive_count{name=~"dn42(.*)",proto="BGP"}[5m])) > 20'';
+                  for = "1h";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} receiving too may updates.";
