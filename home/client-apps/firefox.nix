@@ -103,7 +103,7 @@ in
   imports = [ inputs.betterfox-nix.homeModules.betterfox ];
 
   programs.firefox = lib.recursiveUpdate args {
-    package = pkgs.firefox-bin;
+    package = null;
     betterfox = {
       enable = true;
       profiles.lantian.settings = {
