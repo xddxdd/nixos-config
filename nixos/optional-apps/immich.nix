@@ -76,10 +76,6 @@
       ];
     };
 
-    systemd.services.immich-machine-learning.serviceConfig = {
-      PrivateDevices = lib.mkForce false;
-    };
-
     systemd.tmpfiles.settings = {
       immich = {
         "${config.lantian.immich.storage}".d = {

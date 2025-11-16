@@ -9,7 +9,7 @@ let
     inherit lib inputs self;
   };
 
-  pkgsNameFor = n: if LT.hosts."${n}".hasTag LT.tags.cuda then "pkgsWithCuda" else "pkgs";
+  pkgsNameFor = n: "pkgs";
 
   specialArgsFor = n: {
     inherit inputs;

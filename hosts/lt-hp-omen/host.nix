@@ -3,7 +3,6 @@
   index = 100;
   tags = with tags; [
     client
-    cuda
     nix-builder
   ];
   cpuThreads = 16;
