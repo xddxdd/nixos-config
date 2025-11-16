@@ -15,7 +15,7 @@
       "--gpus=all"
     ];
     # Later versions do not work with W8A8 models
-    image = "docker.io/lmsysorg/sglang:v0.5.4.post2-cu129-amd64";
+    image = "docker.io/lmsysorg/sglang:v0.4.4.post1-cu125";
     labels = {
       "io.containers.autoupdate" = "registry";
     };
@@ -39,11 +39,11 @@
       "--host=127.0.0.1"
       "--port=${LT.portStr.SakuraLLM}"
       "--disable-overlap"
-      "--enable-metrics"
+      # "--enable-metrics" # Buggy in 0.4.4
       "--enable-torch-compile"
       "--torch-compile-max-bs=1"
       "--mem-fraction-static=0.8"
-      "--quantization=w8a8_int8"
+      # "--quantization=w8a8_int8" # For newer version
       "--context-length=4096"
     ];
   };
