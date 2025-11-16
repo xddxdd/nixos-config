@@ -50,7 +50,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
             extra-experimental-features = nix-command flakes ca-derivations
-            extra-platforms = i686-linux aarch64-linux arm-linux
+            extra-platforms = i686-linux x86_64-linux aarch64-linux arm-linux
             keep-going = true
             log-lines = 25
             substituters = https://nix-community.cachix.org https://cache.garnix.io https://cache.nixos.org/
