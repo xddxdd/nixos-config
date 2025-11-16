@@ -149,7 +149,7 @@ in
                 # Periodic services
                 {
                   alert = "periodic_auto_mihoyo_bbs";
-                  expr = ''max_over_time(node_systemd_unit_state{name="auto-mihoyo-bbs.service",state!~"(inactive|failed)"}[24h]) == 0'';
+                  expr = ''sum(max_over_time(node_systemd_unit_state{name="auto-mihoyo-bbs.service",state!~"(inactive|failed)"}[24h])) == 0'';
                   for = "5m";
                   labels.severity = "warning";
                   annotations = {
@@ -159,7 +159,7 @@ in
                 }
                 {
                   alert = "periodic_bilibili_tool_pro";
-                  expr = ''max_over_time(node_systemd_unit_state{name="bilibili-tool-pro.service",state!~"(inactive|failed)"}[24h]) == 0'';
+                  expr = ''sum(max_over_time(node_systemd_unit_state{name="bilibili-tool-pro.service",state!~"(inactive|failed)"}[24h])) == 0'';
                   for = "5m";
                   labels.severity = "warning";
                   annotations = {
