@@ -35,6 +35,7 @@ in
         "mode=755"
         "nosuid"
         "nodev"
+        "size=80%"
       ];
     };
   };
