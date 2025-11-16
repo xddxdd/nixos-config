@@ -76,7 +76,9 @@ in
       # max-jobs = "auto";
       # lazy-trees = true;
 
-      substituters = lib.mkForce config.nix.settings.trusted-substituters;
+      substituters = lib.mkForce (
+        [ "https://cache.nixos.org" ] ++ config.nix.settings.trusted-substituters
+      );
       trusted-substituters = LT.constants.nix.substituters;
       inherit (LT.constants.nix) trusted-public-keys;
     };
