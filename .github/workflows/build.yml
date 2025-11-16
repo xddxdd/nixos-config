@@ -12,8 +12,6 @@ jobs:
         base-image:
           - ubuntu-24.04
           - ubuntu-24.04-arm
-        ci-command:
-          - ci
 
     runs-on: ${{ matrix.base-image }}
     env:
@@ -97,7 +95,7 @@ jobs:
       - name: Build nix packages
         run: |
           env TMPDIR=/nix/tmpdir \
-            nix run .#${{ matrix.ci-command }} -- "$(nix-instantiate --eval -E 'builtins.currentSystem')" \
+            nix run .#ci -- "$(nix-instantiate --eval -E 'builtins.currentSystem')" \
             2>&1 | sed -E 's/[0-9a-z]{32}/********************************/g'
 
           attic push lantian result* \

@@ -178,7 +178,7 @@
         nixosPackages = lib.mapAttrs (
           system: _:
           lib.mapAttrs (n: v: v.config.system.build.toplevel) (
-            lib.filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations
+            lib.filterAttrs (n: v: v.pkgs.stdenv.hostPlatform.system == system) self.nixosConfigurations
           )
         ) self.allSystems;
       };
