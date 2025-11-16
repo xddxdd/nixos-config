@@ -100,25 +100,27 @@ in
     }
   ];
 
-  services.prometheus.rules = [
-    (builtins.toJSON {
-      groups = [
-        {
-          name = "https_2xx";
-          rules = [
-            {
-              alert = "https_2xx_web_service_failed";
-              expr = ''probe_success{job="https_2xx"} == 0'';
-              for = "15m";
-              labels.severity = "warning";
-              annotations = {
-                summary = "⚠️ {{$labels.alias}}: Web service {{$labels.name}} failed.";
-                description = "{{$labels.alias}} is not returning status code 200 for {{$labels.name}}.";
-              };
-            }
-          ];
-        }
-      ];
-    })
+  services.prometheus.ruleFiles = [
+    (pkgs.writeText "blackbox-exporter.rules" (
+      builtins.toJSON {
+        groups = [
+          {
+            name = "https_2xx";
+            rules = [
+              {
+                alert = "https_2xx_web_service_failed";
+                expr = ''probe_success{job="https_2xx"} == 0'';
+                for = "15m";
+                labels.severity = "warning";
+                annotations = {
+                  summary = "⚠️ {{$labels.alias}}: Web service {{$labels.name}} failed.";
+                  description = "{{$labels.alias}} is not returning status code 200 for {{$labels.name}}.";
+                };
+              }
+            ];
+          }
+        ];
+      }
+    ))
   ];
 }
