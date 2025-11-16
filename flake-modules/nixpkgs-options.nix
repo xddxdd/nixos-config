@@ -57,6 +57,14 @@ in
             patches = LT.ls ../patches/nixpkgs;
             inherit permittedInsecurePackages overlays settings;
           };
+          pkgsWithCuda = {
+            sourceInput = inputs.nixpkgs;
+            patches = LT.ls ../patches/nixpkgs;
+            inherit permittedInsecurePackages overlays;
+            settings = settings // {
+              cudaSupport = true;
+            };
+          };
         };
     };
 }

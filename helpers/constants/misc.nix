@@ -15,6 +15,7 @@ rec {
     "lan-access"
 
     # Hardware
+    "cuda"
     "low-disk"
     "low-ram"
   ] (v: v);
