@@ -95,6 +95,7 @@ in
         aria2
         attic-client
         audacious
+        bambu-studio
         brotli
         bzip2
         calibre
