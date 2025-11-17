@@ -76,6 +76,7 @@
     wantedBy = [ "multi-user.target" ];
     path = [ config.hardware.nvidia.package ];
     script = ''
+      nvidia-smi --gpu-target-temp 65
       nvidia-smi -pl 250
     '';
     serviceConfig.Type = "oneshot";
