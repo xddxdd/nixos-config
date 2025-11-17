@@ -4,13 +4,11 @@
   ...
 }:
 let
+  # Must be running >1min so that node_exporter can see them running
   periodicTasks = [
     # keep-sorted start
     "auto-mihoyo-bbs"
     "bilibili-tool-pro"
-    "cleanup-github-notifications"
-    "radicale-calendar-sync"
-    "rsgain-cloudmusic"
     # keep-sorted end
   ];
 in
