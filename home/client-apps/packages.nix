@@ -121,6 +121,7 @@ in
         kdePackages.kdenlive
         kdePackages.kpat
         kdePackages.neochat
+        kicad
         lbzip2
         libfaketime
         libreoffice-qt6-fresh
@@ -147,6 +148,8 @@ in
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nvfetcher
+        openscad
+        openscad-lsp
         p7zip
         parsec-bin
         payload-dumper-go
