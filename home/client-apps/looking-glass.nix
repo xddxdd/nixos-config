@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 let
   looking-glass-client-override =
     pkgs.runCommand "looking-glass-client-override" { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
@@ -8,7 +8,7 @@ let
         makeWrapper \
           ${pkgs.looking-glass-client}/bin/looking-glass-client \
           $out/bin/looking-glass-client \
-          --unset WAYLAND_DISPLAY
+          ${LT.constants.forceX11WrapperArgs}
 
         for F in ${pkgs.looking-glass-client}/share/applications/*; do
           sed "/Terminal=/d" < "$F" > $out/share/applications/$(basename "$F")

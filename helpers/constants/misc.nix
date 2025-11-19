@@ -1,5 +1,13 @@
 { lib, ... }:
-rec {
+{
+  forceX11WrapperArgs = builtins.concatStringsSep " " [
+    "--set QT_QPA_PLATFORM xcb"
+    "--set XDG_SESSION_TYPE x11"
+    "--set GTK_IM_MODULE fcitx"
+    "--set QT_IM_MODULE fcitx"
+    "--unset WAYLAND_DISPLAY"
+  ];
+
   stateVersion = "24.05";
 
   soundfontPath = pkgs: "${pkgs.soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2";

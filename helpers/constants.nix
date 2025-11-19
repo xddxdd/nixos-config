@@ -32,7 +32,12 @@ let
     inherit matrixWellKnown;
     inherit nix;
     inherit (ports) port portStr;
-    inherit (misc) stateVersion soundfontPath tags;
+    inherit (misc)
+      forceX11WrapperArgs
+      stateVersion
+      soundfontPath
+      tags
+      ;
     inherit (interfacePrefixesAttrs) interfacePrefixes;
     inherit (zonesAttrs) zones;
     inherit publicSites;

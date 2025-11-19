@@ -12,11 +12,7 @@ let
       mkdir -p $out/bin
       for F in ${pkgs.calibre}/bin/*; do
         [ -f "$F" ] || continue
-        makeWrapper "$F" $out/bin/$(basename "$F") \
-          --set QT_QPA_PLATFORM xcb \
-          --set XDG_SESSION_TYPE x11 \
-          --set GTK_IM_MODULE fcitx \
-          --set QT_IM_MODULE fcitx
+        makeWrapper "$F" $out/bin/$(basename "$F") ${LT.constants.forceX11WrapperArgs}
       done
 
       mkdir -p $out/share/applications
@@ -31,38 +27,6 @@ let
     ${pkgs.jamesdsp}/bin/jamesdsp --set master_enable=$NEW_STATE
     exit 0
   '';
-
-  prismlauncher-wrapped = lib.hiPrio (
-    pkgs.runCommand "prismlauncher-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
-      mkdir -p $out/share/applications
-      for F in ${pkgs.prismlauncher}/share/applications/*; do
-        sed "s#application/zip;##g" < "$F" > $out/share/applications/$(basename "$F")
-      done
-    ''
-  );
-
-  # Fix auto close on shutdown
-  thunderbird-wrapped = lib.hiPrio (
-    pkgs.runCommand "thunderbird-wrapped" { nativeBuildInputs = with pkgs; [ makeWrapper ]; } ''
-      mkdir -p $out/bin
-      makeWrapper \
-        ${pkgs.thunderbird-bin}/bin/thunderbird \
-        $out/bin/thunderbird \
-        --set WAYLAND_DISPLAY ""
-    ''
-  );
-
-  apache-directory-studio-wrapped = lib.hiPrio (
-    pkgs.runCommand "apache-directory-studio-wrapped"
-      { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
-      ''
-        mkdir -p $out/bin
-        makeWrapper \
-          ${pkgs.apache-directory-studio}/bin/ApacheDirectoryStudio \
-          $out/bin/ApacheDirectoryStudio \
-          --set WAYLAND_DISPLAY ""
-      ''
-  );
 
   wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg.overrideAttrs (old: {
     prePatch = (old.prePatch or "") + ''
@@ -91,7 +55,6 @@ in
         (lib.hiPrio nur-xddxdd.qq)
         (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         apache-directory-studio
-        apache-directory-studio-wrapped
         aria2
         attic-client
         audacious
@@ -108,6 +71,7 @@ in
         feishin
         ffmpeg-full
         filezilla
+        freecad
         gcdemu
         gedit
         gimp
@@ -156,14 +120,12 @@ in
         piliplus
         powertop
         prismlauncher
-        prismlauncher-wrapped
         pwgen
         quasselClient
         rar
         rustdesk
         steam-run
         synadm
-        thunderbird-wrapped
         tigervnc
         ulauncher
         unar
