@@ -12,7 +12,7 @@
 
     ./backup.nix
     ./hardware-configuration.nix
-    ./hp-keyboard-backlight
+    ./hp-keyboard-backlight.nix
     ./nandsim.nix
     # ./nbfc.nix
 

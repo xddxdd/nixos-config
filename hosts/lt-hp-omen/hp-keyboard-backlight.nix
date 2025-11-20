@@ -1,4 +1,7 @@
 { pkgs, LT, ... }:
+let
+  hp-keyboard-backlight = pkgs.callPackage ../../pkgs/hp-keyboard-backlight { };
+in
 {
   systemd.services.hp-keyboard-backlight = {
     description = "HP Omen Keyboard Backlight";
@@ -7,7 +10,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.python3}/bin/python3 ${./script.py}";
+      ExecStart = "${hp-keyboard-backlight}/bin/hp-keyboard-backlight";
 
       ProcSubset = "all";
       ProtectKernelTunables = false;
