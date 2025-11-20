@@ -40,6 +40,8 @@
         enableOAuth = true;
         proxyPass = "http://unix:/run/netbox/netbox.sock";
       };
+      # Disable OAuth for API endpoints
+      "/api/".proxyPass = "http://unix:/run/netbox/netbox.sock";
       "/static/".alias = config.services.netbox.settings.STATIC_ROOT + "/";
     };
 
