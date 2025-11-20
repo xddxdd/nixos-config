@@ -67,6 +67,7 @@ in
         code-cursor
         colmena
         distrobox
+        ecapture
         exiftool
         feishin
         ffmpeg-full
