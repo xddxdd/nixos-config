@@ -69,6 +69,7 @@ let
       connectors = [ "ldap" ];
     };
     staticClients = [
+      # keep-sorted start block=yes
       {
         id = "gitea";
         name = "Gitea";
@@ -107,12 +108,12 @@ let
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
       }
       {
-        id = "open-webui";
-        name = "Open WebUI";
+        id = "netbox";
+        name = "Netbox";
         secret = {
-          _secret = config.age.secrets.dex-open-webui-secret.path;
+          _secret = config.age.secrets.dex-netbox-secret.path;
         };
-        redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
+        redirectURIs = [ "https://netbox.xuyh0120.win:443/oauth/complete/oidc/" ];
       }
       {
         id = "oauth-proxy";
@@ -127,6 +128,15 @@ let
           "https://*.*.xuyh0120.win/oauth2/callback"
         ];
       }
+      {
+        id = "open-webui";
+        name = "Open WebUI";
+        secret = {
+          _secret = config.age.secrets.dex-open-webui-secret.path;
+        };
+        redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
+      }
+      # keep-sorted end
     ];
   };
 in
@@ -150,12 +160,15 @@ in
         }
       )
       [
+        # keep-sorted start
         "gitea"
         "grafana"
         "immich"
         "librechat"
+        "netbox"
         "oauth2-proxy"
         "open-webui"
+        # keep-sorted end
       ]
   );
 

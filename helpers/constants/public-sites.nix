@@ -47,6 +47,7 @@ _: [
   "login.lantian.pub"
   "matrix-client.lantian.pub"
   "matrix-federation.lantian.pub"
+  "netbox.xuyh0120.win"
   "pb.ltn.pw"
   "stats.xuyh0120.win"
   # keep-sorted end
