@@ -108,14 +108,6 @@ let
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
       }
       {
-        id = "netbox";
-        name = "Netbox";
-        secret = {
-          _secret = config.age.secrets.dex-netbox-secret.path;
-        };
-        redirectURIs = [ "https://netbox.xuyh0120.win:443/oauth/complete/oidc/" ];
-      }
-      {
         id = "oauth-proxy";
         name = "OAuth2 Proxy";
         secret = {
