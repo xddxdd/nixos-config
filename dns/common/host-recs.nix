@@ -10,8 +10,10 @@ let
   inherit (constants) tags;
 
   replacedHosts = {
+    # keep-sorted start
     "50kvm" = LT.hosts."v-ps-hkg";
     gigsgigscloud = LT.hosts."v-ps-hkg";
+    hetzner-de = LT.hosts."colocrossing";
     hostdare = LT.hosts."bwg-lax";
     linkin = LT.hosts."v-ps-hkg";
     oneprovider = LT.hosts."colocrossing";
@@ -19,6 +21,7 @@ let
     v-ps-sjc = LT.hosts."bwg-lax";
     virmach-ny3ip = LT.hosts."virmach-ny6g";
     virtono = LT.hosts."buyvm";
+    # keep-sorted end
   };
 
   forEachActiveHost = mapFunc: (lib.mapAttrsToList mapFunc LT.hosts);
