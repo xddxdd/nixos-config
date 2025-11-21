@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
   ];
@@ -26,11 +26,4 @@
 
   # Cannot connect to log server since this server is IPv6 only
   services.filebeat.enable = lib.mkForce false;
-
-  services."route-chain" = {
-    enable = true;
-    routes = [
-      "172.22.76.97/29"
-    ];
-  };
 }

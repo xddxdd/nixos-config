@@ -2,7 +2,6 @@
 {
   index = 17;
   tags = with tags; [
-    server
     ipv6-only
     low-disk
     low-ram
