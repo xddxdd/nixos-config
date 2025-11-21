@@ -20,12 +20,12 @@
     })
 
     (config.common.reverse {
-      prefix = "2001:470:488d::/48";
-      target = "reserved.lantian.pub.";
+      prefix = "2001:470:8c19::/48";
+      target = "colocrossing.lantian.pub.";
     })
     (config.common.reverse {
-      prefix = "2001:470:67:ee::/64";
-      target = "reserved.lantian.pub.";
+      prefix = "2001:470:1f07:6fe::/64";
+      target = "colocrossing.lantian.pub.";
     })
 
     (config.common.reverse {
