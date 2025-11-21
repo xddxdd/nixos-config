@@ -32,7 +32,7 @@ let
     {
       recordType = "CNAME";
       name = "attic";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -50,7 +50,7 @@ let
     {
       recordType = "CNAME";
       name = "cal";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -80,7 +80,7 @@ let
     {
       recordType = "CNAME";
       name = "netbox";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -92,19 +92,19 @@ let
     {
       recordType = "CNAME";
       name = "rss";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "rsshub";
-      target = "hetzner-de.ltnet.xuyh0120.win.";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "rsync-ci";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -122,7 +122,7 @@ let
     {
       recordType = "CNAME";
       name = "stats";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {

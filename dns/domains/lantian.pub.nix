@@ -75,13 +75,13 @@ let
     {
       recordType = "CNAME";
       name = "ca";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "comments";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -93,7 +93,7 @@ let
     {
       recordType = "CNAME";
       name = "flapalerted";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -117,24 +117,24 @@ let
     {
       recordType = "CNAME";
       name = "lemmy";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "lg";
-      target = "hetzner-de";
+      target = "colocrossing";
     }
     {
       recordType = "CNAME";
       name = "login";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
       recordType = "fakeALIAS";
       name = "matrix";
-      target = "hetzner-de";
+      target = "colocrossing";
       ttl = "1h";
     }
     {

@@ -4,7 +4,7 @@ let
     "v-ps-hkg.lantian.pub."
     "bwg-lax.lantian.pub."
     "virmach-ny1g.lantian.pub."
-    "hetzner-de.lantian.pub."
+    "colocrossing.lantian.pub."
     "buyvm.lantian.pub."
   ];
 
@@ -12,7 +12,7 @@ let
     "v-ps-hkg.ltnet.lantian.pub."
     "bwg-lax.ltnet.lantian.pub."
     "virmach-ny1g.ltnet.lantian.pub."
-    "hetzner-de.ltnet.lantian.pub."
+    "colocrossing.ltnet.lantian.pub."
     "buyvm.ltnet.lantian.pub."
   ];
 

@@ -305,7 +305,7 @@ in
   flapAlerted = ''
     protocol bgp sys_flapalerted {
       local ${LT.this.dn42.IPv6} as ${DN42_AS};
-      neighbor ${LT.hosts."hetzner-de".ltnet.IPv6} as ${DN42_AS} port ${LT.portStr.FlapAlerted.BGP};
+      neighbor ${LT.hosts."colocrossing".ltnet.IPv6} as ${DN42_AS} port ${LT.portStr.FlapAlerted.BGP};
 
       ipv4 {
         add paths on;

@@ -34,7 +34,7 @@ _: [
   # Has own authentication system
   # keep-sorted start
   "ai.xuyh0120.win"
-  "attic.hetzner-de.xuyh0120.win"
+  "attic.colocrossing.xuyh0120.win"
   "attic.xuyh0120.win"
   "bitwarden.xuyh0120.win"
   "cal.xuyh0120.win"

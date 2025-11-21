@@ -57,7 +57,7 @@ in
         wsrep_cluster_address =
           "gcomm://"
           + lib.concatMapStringsSep "," (n: LT.hosts."${n}".ltnet.IPv4) [
-            "hetzner-de"
+            "colocrossing"
             "lt-home-vm"
             "terrahost"
             "virmach-ny6g"

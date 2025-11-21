@@ -30,7 +30,7 @@
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns5.${domain}.";
-          addresses = LT.hosts."hetzner-de".dn42;
+          addresses = LT.hosts."colocrossing".dn42;
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns-anycast.${domain}.";

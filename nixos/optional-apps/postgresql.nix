@@ -36,10 +36,4 @@
     listenAddress = LT.this.ltnet.IPv4;
     runAsLocalSuperUser = true;
   };
-
-  systemd.tmpfiles.settings = {
-    postgresql = {
-      "/var/lib/postgresql".h.argument = "+C";
-    };
-  };
 }

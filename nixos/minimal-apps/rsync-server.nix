@@ -6,7 +6,7 @@
   ...
 }:
 let
-  primaryServer = "hetzner-de";
+  primaryServer = "colocrossing";
 in
 {
   ########################################

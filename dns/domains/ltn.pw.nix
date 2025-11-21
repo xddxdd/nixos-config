@@ -23,7 +23,7 @@
         {
           recordType = "CNAME";
           name = "pb.${domain}.";
-          target = "hetzner-de.ltn.pw.";
+          target = "colocrossing.ltn.pw.";
           ttl = "10m";
         }
         {
