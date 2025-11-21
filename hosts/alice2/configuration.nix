@@ -21,6 +21,9 @@
     matchConfig.Name = "eth0";
   };
 
+  # Server doesn't have enough RAM to complete backup
+  systemd.services.backup.enable = lib.mkForce false;
+
   # Cannot connect to log server since this server is IPv6 only
   services.filebeat.enable = lib.mkForce false;
 
