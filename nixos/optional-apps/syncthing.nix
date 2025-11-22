@@ -14,16 +14,7 @@
   config = {
     fileSystems."/run/syncthing-files" = {
       device = config.lantian.syncthing.storage;
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions' [
-        "force-user=syncthing"
-        "force-group=syncthing"
-        "perms=700"
-        "create-for-user=root"
-        "create-for-group=root"
-        "create-with-perms=755"
-        "chmod-ignore"
-      ];
+      options = [ "bind" ];
     };
 
     services.syncthing = {
@@ -62,6 +53,15 @@
 
     systemd.services.syncthing = {
       serviceConfig = {
+        AmbientCapabilities = [
+          "CAP_DAC_OVERRIDE"
+          "CAP_FOWNER"
+        ];
+        CapabilityBoundingSet = [
+          "CAP_DAC_OVERRIDE"
+          "CAP_FOWNER"
+        ];
+        ReadWritePaths = [ "/run/syncthing-files" ];
         RuntimeDirectory = "syncthing";
         StateDirectory = "syncthing";
       };
