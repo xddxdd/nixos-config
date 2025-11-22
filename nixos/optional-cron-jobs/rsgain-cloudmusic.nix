@@ -19,6 +19,10 @@
       ReadWritePaths = [ "/mnt/storage/media/CloudMusic" ];
       RuntimeDirectory = "rsgain-cloudmusic";
       WorkingDirectory = "/run/rsgain-cloudmusic";
+
+      # Allow rsgain to read/write files created by syncthing
+      AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
+      CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
     };
     unitConfig = {
       OnFailure = "notify-email@%n.service";
