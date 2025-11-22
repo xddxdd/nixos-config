@@ -1,21 +1,21 @@
 diff --git a/go.mod b/go.mod
-index 9f6006b3..462e9ed4 100644
+index 109bc9ad..705b18bd 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -16,6 +16,7 @@ require (
- 	github.com/go-jose/go-jose/v4 v4.1.3
- 	github.com/go-ldap/ldap/v3 v3.4.11
- 	github.com/go-sql-driver/mysql v1.9.3
+ 	github.com/go-jose/go-jose/v4 v4.0.5
+ 	github.com/go-ldap/ldap/v3 v3.4.10
+ 	github.com/go-sql-driver/mysql v1.9.0
 +	github.com/gobwas/glob v0.2.3
  	github.com/google/uuid v1.6.0
  	github.com/gorilla/handlers v1.5.2
  	github.com/gorilla/mux v1.8.1
 diff --git a/go.sum b/go.sum
-index cb547156..03b33259 100644
+index d583d0ea..24e80bc6 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -77,6 +77,8 @@ github.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1
- github.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=
+@@ -81,6 +81,8 @@ github.com/go-sql-driver/mysql v1.9.0 h1:Y0zIbQXhQKmQgTp44Y1dp3wTXcn804QoTptLZT1
+ github.com/go-sql-driver/mysql v1.9.0/go.mod h1:pDetrLJeA3oMujJuvXc8RJoasr589B6A9fwzD3QMrqw=
  github.com/go-test/deep v1.0.3 h1:ZrJSEWsXzPOxaZnFteGEfooLba+ju3FYIbOrS+rQd68=
  github.com/go-test/deep v1.0.3/go.mod h1:wGDj63lr65AM2AQyKZd/NYHGb0R+1RLqB8NKt3aSFNA=
 +github.com/gobwas/glob v0.2.3 h1:A4xDbljILXROh+kObIiy5kIaPYD8e96x1tgBhUI5J+Y=
@@ -49,10 +49,10 @@ index 18cc3dd4..bdb7a95c 100644
  		}
  	}
 diff --git a/server/oauth2_test.go b/server/oauth2_test.go
-index 3dff30d6..e7946824 100644
+index 70e4095c..b9f6b80d 100644
 --- a/server/oauth2_test.go
 +++ b/server/oauth2_test.go
-@@ -583,6 +583,20 @@ func TestValidRedirectURI(t *testing.T) {
+@@ -587,6 +587,20 @@ func TestValidRedirectURI(t *testing.T) {
  			redirectURI: "http://localhost.localhost:8080/",
  			wantValid:   false,
  		},

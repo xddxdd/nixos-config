@@ -33,6 +33,10 @@
         noDevtoolsWarning.enable = true;
         readAllNotificationsButton.enable = true;
         serverInfo.enable = true;
+        showMeYourName = {
+          enable = true;
+          mode = "nick-user";
+        };
         silentMessageToggle.enable = true;
         silentTyping.enable = true;
         startupTimings.enable = true;
