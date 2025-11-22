@@ -13,7 +13,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.hath-rust}/bin/hath-rust --port ${LT.portStr.Hath} --disable-logging --enable-metrics --enable-h3";
+      ExecStart = "${pkgs.hath-rust}/bin/hath-rust -q --port ${LT.portStr.Hath} --disable-logging --enable-metrics --enable-h3";
 
       User = "hath";
       Group = "hath";
