@@ -19,17 +19,12 @@
         PID
         USER
         54 # SCHEDULERPOLICY
-        PRIORITY
         NICE
-        M_SIZE
         M_RESIDENT
-        M_SHARE
         STATE
         PERCENT_CPU
         PERCENT_MEM
-        TIME
-        IO_READ_RATE
-        IO_WRITE_RATE
+        IO_RATE
         COMM
       ];
     }
