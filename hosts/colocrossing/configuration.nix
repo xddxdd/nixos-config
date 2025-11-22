@@ -20,6 +20,7 @@
     ../../nixos/optional-apps/flapalerted.nix
     ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/hath-rust.nix
     ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix

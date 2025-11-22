@@ -44,6 +44,7 @@ rec {
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
+    Hath = 11112;
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
     FlapAlerted.BGP = 13179;
