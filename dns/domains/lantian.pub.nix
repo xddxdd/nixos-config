@@ -99,7 +99,7 @@ let
     {
       recordType = "CNAME";
       name = "git";
-      target = "terrahost";
+      target = "colocrossing";
       ttl = "1h";
     }
     {

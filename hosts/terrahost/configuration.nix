@@ -4,10 +4,7 @@ _: {
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/gitea.nix
-    ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nginx-lab
-    ../../nixos/optional-apps/prometheus
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yourls.nix
   ];
