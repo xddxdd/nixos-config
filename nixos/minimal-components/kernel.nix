@@ -221,7 +221,7 @@ in
         # https://github.com/NixOS/nixpkgs/pull/268121/files
         "vm.watermark_boost_factor" = 0;
         "vm.watermark_scale_factor" = 125;
-        "vm.swappiness" = if config.swapDevices != [ ] then 60 else 180;
+        "vm.swappiness" = 10;
         "vm.page-cluster" =
           if config.swapDevices != [ ] then
             3 # Kernel default
