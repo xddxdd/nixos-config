@@ -43,6 +43,17 @@
     ];
   };
 
+  fileSystems."/var/cache" = lib.mkForce {
+    device = "/dev/disk/by-uuid/7ef4355a-b9ba-4875-8dc7-31fbb1766e2b";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd"
+      "autodefrag"
+      "nosuid"
+      "nodev"
+    ];
+  };
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;

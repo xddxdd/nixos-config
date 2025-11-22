@@ -10,12 +10,16 @@ in
 {
   preservation.enable = true;
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder [
-      "/var/cache"
-      "/var/lib"
-      "/var/log"
-      "/var/www"
-    ];
+    directories = builtins.map LT.preservation.mkFolder (
+      [
+        "/var/lib"
+        "/var/log"
+        "/var/www"
+      ]
+      ++ lib.optionals (!(config.fileSystems ? "/var/cache")) [
+        "/var/cache"
+      ]
+    );
     files = builtins.map LT.preservation.mkFile [
       {
         file = "/etc/machine-id";
