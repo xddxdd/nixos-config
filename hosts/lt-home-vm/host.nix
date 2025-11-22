@@ -2,7 +2,7 @@
 {
   index = 101;
   tags = with tags; [
-    cuda
+    # cuda
     lan-access
     server
   ];
