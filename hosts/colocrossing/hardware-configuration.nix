@@ -7,6 +7,10 @@
   ...
 }:
 {
+  imports = [
+    ../../nixos/hardware/ecc-ram.nix
+  ];
+
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   boot.initrd.availableKernelModules = [
@@ -39,7 +43,7 @@
     ];
   };
 
-  # powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
 }

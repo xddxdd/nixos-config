@@ -15,9 +15,6 @@
     ./openvswitch.nix
   ];
 
-  # ECC RAM
-  hardware.rasdaemon.enable = true;
-
   boot.kernelParams = [
     "console=ttyS0,115200"
     "amd_pstate=active"
