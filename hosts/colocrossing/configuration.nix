@@ -21,13 +21,11 @@
     ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
-    ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/plausible
-    ../../nixos/optional-apps/prometheus
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     ../../nixos/optional-apps/rsshub.nix

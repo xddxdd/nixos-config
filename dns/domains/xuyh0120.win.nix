@@ -20,7 +20,7 @@ let
     {
       recordType = "CNAME";
       name = "alert";
-      target = "colocrossing";
+      target = "terrahost";
       ttl = "1h";
     }
     {
@@ -56,7 +56,7 @@ let
     {
       recordType = "CNAME";
       name = "dashboard";
-      target = "colocrossing";
+      target = "terrahost";
       ttl = "1h";
     }
     {
@@ -86,7 +86,7 @@ let
     {
       recordType = "CNAME";
       name = "prometheus";
-      target = "colocrossing";
+      target = "terrahost";
       ttl = "1h";
     }
     {
