@@ -89,9 +89,6 @@ in
   };
   users.groups.uni-api.members = [ "nginx" ];
 
-  # Workaround for Open WebUI DNS issue
-  networking.hosts."127.0.0.1" = [ "uni-api.localhost" ];
-
   lantian.nginxVhosts = {
     "uni-api.${config.networking.hostName}.xuyh0120.win" = {
       locations."/" = {

@@ -44,8 +44,6 @@ let
   );
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
-  networking.hosts."127.0.0.1" = [ "element.lantian.pub" ];
-
   lantian.nginxVhosts."element.lantian.pub" = {
     listenHTTP.enable = true;
     root = builtins.toString (LT.nginx.compressStaticAssets pkgs.element-web);

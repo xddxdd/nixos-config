@@ -15,8 +15,6 @@ let
   };
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
-  networking.hosts."127.0.0.1" = [ "tools.lantian.pub" ];
-
   lantian.nginxVhosts."tools.lantian.pub" = {
     root = pkgs.linkFarm "tools" tools;
     locations = {

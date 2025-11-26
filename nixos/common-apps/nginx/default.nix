@@ -1,8 +1,10 @@
 { ... }:
 {
   imports = [
+    # keep-sorted start
     ./api.nix
     ./autoconfig.nix
+    ./hosts.nix
     ./libravatar.nix
     ./nginx.nix
     ./oauth2-proxy.nix
@@ -14,5 +16,6 @@
     ./vhost-tools
     ./vhosts.nix
     ./whois-server.nix
+    # keep-sorted end
   ];
 }
