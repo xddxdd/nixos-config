@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -47,10 +46,6 @@
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
     # ../../nixos/optional-cron-jobs/veloera-checkin
-  ];
-
-  environment.systemPackages = [
-    pkgs.hashcat
   ];
 
   # # Disabled for heavy IO use
