@@ -35,7 +35,6 @@ let
     inherit (misc)
       forceX11WrapperArgs
       stateVersion
-      soundfontPath
       tags
       ;
     inherit (interfacePrefixesAttrs) interfacePrefixes;

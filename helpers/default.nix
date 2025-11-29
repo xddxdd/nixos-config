@@ -34,7 +34,6 @@ let
       zones
       reserved
       stateVersion
-      soundfontPath
       asteriskMusics
       bindfsMountOptions
       bindfsMountOptions'
