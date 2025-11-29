@@ -287,9 +287,7 @@ in
 
   grc = ''
     # GRC config must be below dn42 & neonetwork since it uses filters from them
-    protocol bgp dn42_grc {
-      local ${LT.this.dn42.IPv6} as ${DN42_AS};
-      neighbor fd42:d42:d42:179::1 as 4242422602;
+    template bgp dnpeers_grc {
       multihop;
 
       graceful restart yes;
@@ -307,6 +305,14 @@ in
         import none;
         export filter { dn42_export_filter_ipv6(${DN42_AS}); };
       };
+    }
+    protocol bgp dn42_grc_v4 from dnpeers_grc {
+      local ${LT.this.dn42.IPv4} as ${DN42_AS};
+      neighbor 172.20.0.179 as 4242422602;
+    }
+    protocol bgp dn42_grc_v6 from dnpeers_grc{
+      local ${LT.this.dn42.IPv6} as ${DN42_AS};
+      neighbor fd42:d42:d42:179::1 as 4242422602;
     }
   '';
 
