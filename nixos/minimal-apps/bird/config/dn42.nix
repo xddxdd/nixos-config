@@ -287,9 +287,9 @@ in
 
   grc = ''
     # GRC config must be below dn42 & neonetwork since it uses filters from them
-    protocol bgp dn42_burble_grc {
+    protocol bgp dn42_grc {
       local ${LT.this.dn42.IPv6} as ${DN42_AS};
-      neighbor fd42:4242:2601:ac12::1 as 4242422602;
+      neighbor fd42:d42:d42:179::1 as 4242422602;
       multihop;
 
       graceful restart yes;
