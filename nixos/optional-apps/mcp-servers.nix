@@ -94,9 +94,6 @@
           };
         };
       };
-      deepwiki = {
-        serverUrl = "https://mcp.deepwiki.com/sse";
-      };
       fetch = {
         command = "uvx";
         args = [ "mcp-server-fetch" ];
