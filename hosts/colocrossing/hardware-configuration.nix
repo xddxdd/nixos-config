@@ -8,9 +8,14 @@
 }:
 {
   imports = [
-    ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/hardware/ecc-ram.nix
   ];
+
+  # For debugging possible HW issue
+  boot.crashDump = {
+    enable = true;
+    reservedMemory = "512M";
+  };
 
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
