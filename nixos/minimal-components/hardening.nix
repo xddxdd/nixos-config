@@ -16,7 +16,6 @@
     # See securetty(5) and login(1).
   '';
 
-  security.protectKernelImage = true;
   security.sudo.enable = lib.mkForce false;
   security.sudo-rs = {
     enable = true;

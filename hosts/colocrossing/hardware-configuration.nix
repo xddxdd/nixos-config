@@ -8,14 +8,9 @@
 }:
 {
   imports = [
+    ../../nixos/hardware/crashdump.nix
     ../../nixos/hardware/ecc-ram.nix
   ];
-
-  # For debugging possible HW issue
-  boot.crashDump = {
-    enable = true;
-    reservedMemory = "512M";
-  };
 
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
@@ -60,7 +55,7 @@
     ];
   };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
 }
