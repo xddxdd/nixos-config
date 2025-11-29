@@ -10,6 +10,7 @@
   imports = [
     ../../nixos/hardware/crashdump.nix
     ../../nixos/hardware/ecc-ram.nix
+    ../../nixos/hardware/vfio.nix
   ];
 
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
@@ -54,6 +55,16 @@
       "nodev"
     ];
   };
+
+  # Try avoid "ACPI Warning: SystemIO rangeconflicts with OpRegion"
+  lantian.vfio.blacklistedModules = [
+    "acpi_ipmi"
+    "ipmi_devintf"
+    "ipmi_msghandler"
+    "ipmi_si"
+    "ipmi_ssif"
+    "lpc_ich"
+  ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
