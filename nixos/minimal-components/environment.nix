@@ -231,7 +231,7 @@
       "always-kmsg-dump" = {
         # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
         "/sys/module/printk/parameters/always_kmsg_dump"."w" = {
-          argument = "N";
+          argument = "Y";
         };
       };
     };
