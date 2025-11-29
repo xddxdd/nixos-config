@@ -24,7 +24,6 @@
     "zh_CN.UTF-8/UTF-8"
   ];
 
-  environment.enableAllTerminfo = true;
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
   environment.variables = {

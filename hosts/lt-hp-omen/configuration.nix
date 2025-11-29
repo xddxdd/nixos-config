@@ -103,6 +103,12 @@
 
   # Bind mounts
   fileSystems = {
+    # keep-sorted start block=yes
+    "/home/lantian/.local/share/yuzu" = lib.mkForce {
+      device = "/nix/persistent/media/Yuzu";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
     "/home/lantian/Backups" = lib.mkForce {
       device = "/nix/persistent/media/Backups";
       fsType = "fuse.bindfs";
@@ -118,11 +124,6 @@
       fsType = "fuse.bindfs";
       options = LT.constants.bindfsMountOptions;
     };
-    "/home/lantian/Music/CloudMusic" = lib.mkForce {
-      device = "/nix/persistent/media/CloudMusic";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
     "/home/lantian/Documents" = lib.mkForce {
       device = "/nix/persistent/media/Documents";
       fsType = "fuse.bindfs";
@@ -130,6 +131,16 @@
     };
     "/home/lantian/LegacyOS" = lib.mkForce {
       device = "/nix/persistent/media/LegacyOS";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
+    "/home/lantian/Music/CloudMusic" = lib.mkForce {
+      device = "/nix/persistent/media/CloudMusic";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
+    "/home/lantian/Music/CloudMusicArchive" = lib.mkForce {
+      device = "/nix/persistent/media/CloudMusicArchive";
       fsType = "fuse.bindfs";
       options = LT.constants.bindfsMountOptions;
     };
@@ -148,11 +159,7 @@
       fsType = "fuse.bindfs";
       options = LT.constants.bindfsMountOptions;
     };
-    "/home/lantian/.local/share/yuzu" = lib.mkForce {
-      device = "/nix/persistent/media/Yuzu";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
+    # keep-sorted end
   };
 
   # Auto mount samba share

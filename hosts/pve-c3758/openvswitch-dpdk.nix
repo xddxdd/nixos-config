@@ -20,7 +20,7 @@ in
 {
   virtualisation.vswitch = {
     enable = true;
-    package = pkgs.nur-xddxdd.openvswitch-dpdk;
+    package = pkgs.openvswitch-dpdk;
   };
 
   systemd.services.ovs-dpdk-setup = {
