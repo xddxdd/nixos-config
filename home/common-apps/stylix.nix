@@ -1,0 +1,3 @@
+_: {
+  stylix.enableReleaseChecks = false;
+}

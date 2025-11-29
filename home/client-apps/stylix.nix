@@ -1,6 +1,5 @@
 _: {
   stylix = {
-    enableReleaseChecks = false;
     targets = {
       # Having KDE is enough, QT module only supports qtct not kde6
       qt.enable = false;
