@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   LT,
   config,
@@ -231,7 +230,6 @@ in
 
   systemd.services.matrix-synapse = {
     environment = {
-      LD_PRELOAD = lib.mkForce "${pkgs.mimalloc}/lib/libmimalloc.so";
       SYNAPSE_ASYNC_IO_REACTOR = "1";
     };
     serviceConfig = LT.serviceHarden // {
