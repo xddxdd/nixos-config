@@ -55,6 +55,10 @@
       file = inputs.secrets + "/mcp-brave-search-api-key.age";
       mode = "0444";
     };
+    age.secrets.mcp-context7-api-key = {
+      file = inputs.secrets + "/mcp-context7-api-key.age";
+      mode = "0444";
+    };
     age.secrets.mcp-google-maps-api-key = {
       file = inputs.secrets + "/mcp-google-maps-api-key.age";
       mode = "0444";
@@ -65,34 +69,7 @@
     };
 
     lantian.mcp.mcpServers = {
-      fetch = {
-        command = "uvx";
-        args = [ "mcp-server-fetch" ];
-      };
-      time = {
-        command = "uvx";
-        args = [
-          "mcp-server-time"
-          "--local-timezone=${config.time.timeZone}"
-        ];
-      };
-      searxng = {
-        command = "npx";
-        args = [
-          "-y"
-          "mcp-searxng"
-        ];
-        env = {
-          SEARXNG_URL = "https://searx.xuyh0120.win";
-        };
-      };
-      context7 = {
-        command = "npx";
-        args = [
-          "-y"
-          "@upstash/context7-mcp@latest"
-        ];
-      };
+      # keep-sorted start block=yes
       brave-search = {
         command = "npx";
         args = [
@@ -104,6 +81,25 @@
             _secret = config.age.secrets.mcp-brave-search-api-key.path;
           };
         };
+      };
+      context7 = {
+        command = "npx";
+        args = [
+          "-y"
+          "@upstash/context7-mcp@latest"
+        ];
+        env = {
+          CONTEXT7_API_KEY = {
+            _secret = config.age.secrets.mcp-context7-api-key.path;
+          };
+        };
+      };
+      deepwiki = {
+        serverUrl = "https://mcp.deepwiki.com/sse";
+      };
+      fetch = {
+        command = "uvx";
+        args = [ "mcp-server-fetch" ];
       };
       google-maps = {
         command = "npx";
@@ -133,6 +129,24 @@
         command = "uvx";
         args = [ "mcp-nixos" ];
       };
+      searxng = {
+        command = "npx";
+        args = [
+          "-y"
+          "mcp-searxng"
+        ];
+        env = {
+          SEARXNG_URL = "https://searx.xuyh0120.win";
+        };
+      };
+      time = {
+        command = "uvx";
+        args = [
+          "mcp-server-time"
+          "--local-timezone=${config.time.timeZone}"
+        ];
+      };
+      # keep-sorted end
     };
   };
 }
