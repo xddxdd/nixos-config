@@ -17,8 +17,7 @@ in
       exec ${flapalerted}/bin/FlapAlerted \
         --asn 4242422547 \
         --bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
-        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI} \
-        --minimumAge 60
+        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI}
     '';
 
     serviceConfig = LT.serviceHarden // {
