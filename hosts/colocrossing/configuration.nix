@@ -42,6 +42,7 @@
 
     "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
     "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
+    "${inputs.secrets}/nixos-hidden-module/c9f6c0c333e73062"
     "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
