@@ -44,6 +44,7 @@
           ".fly"
           ".gemini"
           ".ghidra"
+          ".java/.userPrefs" # DBeaver
           ".kube"
           ".librewolf"
           ".mozilla/firefox"
@@ -51,6 +52,7 @@
           ".parsec"
           ".pcem"
           ".qwen"
+          ".roo"
           ".runpod"
           ".rustup"
           ".stack"
