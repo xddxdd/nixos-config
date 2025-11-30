@@ -56,12 +56,25 @@ in
       Type = "oneshot";
       BindPaths = [ "/nix/persistent/sync-servers" ];
     };
+    path = [
+      pkgs.rsync
+      pkgs.systemd
+    ];
     script = ''
-      exec ${pkgs.rsync}/bin/rsync \
+      exec rsync \
         -aczrq --delete-after --timeout=300 \
         rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/ \
         /nix/persistent/sync-servers/
     '';
+    postStart = ''
+      set -x
+    ''
+    + (lib.optionalString config.services.bird.enable ''
+      systemctl reload bird.service || true
+    '')
+    + (lib.optionalString config.services.pdns-recursor.enable ''
+      systemctl reload pdns-recursor.service || true
+    '');
   };
 
   systemd.timers.rsync-nix-persistent-sync-servers = {
@@ -70,7 +83,7 @@ in
     partOf = [ "rsync-nix-persistent-sync-servers.service" ];
     timerConfig = {
       OnCalendar = "*:0/10";
-      RandomizedDelaySec = "5min";
+      RandomizedDelaySec = "10min";
       Unit = "rsync-nix-persistent-sync-servers.service";
     };
   };
