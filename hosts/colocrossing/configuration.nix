@@ -37,6 +37,7 @@
     ../../nixos/optional-apps/zerotierone-controller
 
     ../../nixos/optional-cron-jobs/cleanup-github-notifications
+    ../../nixos/optional-cron-jobs/dn42-certificate.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/testssl.nix
 

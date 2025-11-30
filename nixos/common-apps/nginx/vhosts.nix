@@ -136,8 +136,8 @@ in
       sslCertificate = "zerossl-lantian.pub";
     };
     "lantian.dn42" = addConfLantianPub {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
+      serverAliases = [ "${config.networking.hostName}.lantian.dn42" ];
+      sslCertificate = "dn42-lantian.dn42";
     };
     "lantian.neo" = addConfLantianPub {
       listenHTTP.enable = true;
