@@ -78,6 +78,9 @@ in
     + (lib.optionalString config.services.bird.enable ''
       systemctl reload bird.service || true
     '')
+    + (lib.optionalString config.services.nginx.enable ''
+      systemctl reload nginx.service || true
+    '')
     + (lib.optionalString config.services.pdns-recursor.enable ''
       systemctl reload pdns-recursor.service || true
     '');
