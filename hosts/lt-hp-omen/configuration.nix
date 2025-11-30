@@ -104,6 +104,11 @@
   # Bind mounts
   fileSystems = {
     # keep-sorted start block=yes
+    "/home/lantian/.local/share/ManosabaMod" = lib.mkForce {
+      device = "/nix/persistent/media/ManosabaMod";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
     "/home/lantian/.local/share/yuzu" = lib.mkForce {
       device = "/nix/persistent/media/Yuzu";
       fsType = "fuse.bindfs";
