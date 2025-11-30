@@ -51,7 +51,6 @@ in
   ########################################
 
   systemd.services.rsync-nix-persistent-sync-servers = {
-    enable = config.networking.hostName != primaryServer;
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       BindPaths = [ "/nix/persistent/sync-servers" ];
@@ -60,12 +59,19 @@ in
       pkgs.rsync
       pkgs.systemd
     ];
-    script = ''
-      exec rsync \
-        -aczrq --delete-after --timeout=300 \
-        rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/ \
-        /nix/persistent/sync-servers/
-    '';
+    script =
+      if config.networking.hostName != primaryServer then
+        ''
+          exec rsync \
+            -aczrq --delete-after --timeout=300 \
+            rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/ \
+            /nix/persistent/sync-servers/
+        ''
+      else
+        # For primary server, do not run sync, but still run reload
+        ''
+          exit 0
+        '';
     postStart = ''
       set -x
     ''
