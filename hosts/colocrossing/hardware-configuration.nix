@@ -10,7 +10,6 @@
   imports = [
     ../../nixos/hardware/crashdump.nix
     ../../nixos/hardware/ecc-ram.nix
-    ../../nixos/hardware/vfio.nix
   ];
 
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
@@ -24,6 +23,9 @@
     "sdhci_pci"
   ];
   boot.kernelModules = [ "kvm-intel" ];
+
+  # Try to fix MCE https://forum.proxmox.com/threads/server-freezes-or-restarting-automatically-mce-hardware-error.73444/
+  boot.kernelParams = [ "intel_idle.max_cstate=1" ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/12CE-A600";
@@ -55,16 +57,6 @@
       "nodev"
     ];
   };
-
-  # Try avoid "ACPI Warning: SystemIO rangeconflicts with OpRegion"
-  lantian.vfio.blacklistedModules = [
-    "acpi_ipmi"
-    "ipmi_devintf"
-    "ipmi_msghandler"
-    "ipmi_si"
-    "ipmi_ssif"
-    "lpc_ich"
-  ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
