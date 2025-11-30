@@ -127,6 +127,9 @@ in
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
 
+      # Reduce flapping across DN42 network
+      if net ~ FLAPPING_IPv4 then reject;
+
       if ${community.NO_EXPORT} ~ bgp_community then reject;
       if ${community.NO_ADVERTISE} ~ bgp_community then reject;
 
@@ -157,6 +160,9 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
+
+      # Reduce flapping across DN42 network
+      if net ~ FLAPPING_IPv6 then reject;
 
       if ${community.NO_EXPORT} ~ bgp_community then reject;
       if ${community.NO_ADVERTISE} ~ bgp_community then reject;

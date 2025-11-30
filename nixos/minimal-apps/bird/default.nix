@@ -11,7 +11,10 @@ let
   sys = import ./config/sys.nix args;
 in
 {
-  imports = [ ./bgp-flowspec.nix ];
+  imports = [
+    ./bgp-flowspec.nix
+    ./flap-block
+  ];
 
   services.bird = {
     enable = LT.this.hasTag LT.tags.server;
@@ -30,6 +33,7 @@ in
         dn42.communityFilters
       ]
       ++ lib.optionals (LT.this.hasTag LT.tags.dn42) [
+        sys.flap-block
         sys.roa
         sys.roaMonitor
         sys.flapAlerted

@@ -28,6 +28,10 @@ in
     flow6 table master_flow6;
   '';
 
+  flap-block = ''
+    include "/var/cache/bird/flap-block.conf";
+  '';
+
   kernel = ''
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
