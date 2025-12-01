@@ -5,6 +5,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 
+DEFAULT_UA = requests.utils.default_user_agent()
+CUSTOM_UA = f"{DEFAULT_UA} (lantian@lantian.pub; Flapping Prefix Blocker)"
+
 FLAPALERTED_INSTANCES = [
     "https://flapalerted.esd.cc",
     "https://dn42.leziblog.com/flapAlerted",
@@ -15,7 +18,7 @@ FLAPALERTED_INSTANCES = [
 def fetch_flapping_prefixes(server: str) -> list[str]:
     try:
         url = f"{server.rstrip('/')}/flaps/active/compact"
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=10, headers={"User-Agent": CUSTOM_UA})
         response.raise_for_status()
         data = response.json()
         prefixes = [entry["Prefix"] for entry in data if "Prefix" in entry]

@@ -25,10 +25,10 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     wantedBy = [ "timers.target" ];
     partOf = [ "flap-block.service" ];
     timerConfig = {
-      OnCalendar = "hourly";
+      OnCalendar = "*:0/5";
       Persistent = true;
       Unit = "flap-block.service";
-      RandomizedDelaySec = "1h";
+      RandomizedDelaySec = "5min";
     };
   };
 
