@@ -17,7 +17,10 @@ in
       exec ${flapalerted}/bin/FlapAlerted \
         --asn 4242422547 \
         --bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
-        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI}
+        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI} \
+        -routeChangeCounter 120 \
+        -overThresholdTarget 5 \
+        -underThresholdTarget 30
     '';
 
     serviceConfig = LT.serviceHarden // {
