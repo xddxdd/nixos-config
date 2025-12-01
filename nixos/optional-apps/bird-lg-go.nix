@@ -2,6 +2,7 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }:
 let
@@ -9,8 +10,7 @@ let
   lgproxyDomain = "ltnet.lantian.pub";
 in
 {
-  networking.hosts = builtins.listToAttrs (
-    (builtins.map (
+  networking.hosts = builtins.listToAttrs (builtins.map (
       n:
       let
         ptrPrefix = lib.replaceStrings [ "_" ] [ "-" ] LT.hosts.${n}.city.sanitized;
@@ -20,16 +20,12 @@ in
         value = [
           (lib.mkBefore "${ptrPrefix}.${n}.${lgproxyDomain}")
           "${n}.${lgproxyDomain}"
+        ]
+        ++ lib.optionals (config.networking.hostName == n) [
+          "local.${lgproxyDomain}"
         ];
       }
-    ) lgproxyHosts)
-    ++ [
-      {
-        name = LT.this.ltnet.IPv4;
-        value = [ "local.${lgproxyDomain}" ];
-      }
-    ]
-  );
+    ) lgproxyHosts);
 
   systemd.services.bird-lg-go = {
     description = "Bird-lg-go";

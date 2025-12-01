@@ -2,6 +2,7 @@
 {
   index = 18;
   tags = with tags; [
+    dn42
     public-facing
     server
   ];
