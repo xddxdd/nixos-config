@@ -4,7 +4,11 @@
   ...
 }:
 let
-  inherit (pkgs.nur-xddxdd) flapalerted;
+  flapalerted = pkgs.nur-xddxdd.flapalerted.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../patches/flapalerted-listen-unix.patch
+    ];
+  });
 in
 {
   systemd.services.flapalerted = {
@@ -17,7 +21,7 @@ in
       exec ${flapalerted}/bin/FlapAlerted \
         --asn 4242422547 \
         --bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
-        --httpAPIListenAddress [::1]:${LT.portStr.FlapAlerted.WebUI} \
+        --httpAPIListenAddress /run/flapalerted/flapalerted.sock \
         -routeChangeCounter 120 \
         -overThresholdTarget 5 \
         -underThresholdTarget 30
@@ -28,15 +32,20 @@ in
       Restart = "always";
       RestartSec = "3";
 
+      RuntimeDirectory = "flapalerted";
+      UMask = "007";
+
       Group = "bird";
       User = "bird";
     };
   };
 
+  users.groups.bird.members = [ "nginx" ];
+
   lantian.nginxVhosts."flapalerted.lantian.pub" = {
     locations = {
       "/" = {
-        proxyPass = "http://[::1]:${LT.portStr.FlapAlerted.WebUI}";
+        proxyPass = "http://unix:/run/flapalerted/flapalerted.sock";
       };
     };
 

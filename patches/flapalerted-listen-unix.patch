@@ -1,0 +1,46 @@
+diff --git a/modules/httpAPI/mod_httpAPI.go b/modules/httpAPI/mod_httpAPI.go
+index 5dc11f3..e25e117 100644
+--- a/modules/httpAPI/mod_httpAPI.go
++++ b/modules/httpAPI/mod_httpAPI.go
+@@ -11,10 +11,12 @@ import (
+ 	"fmt"
+ 	"io/fs"
+ 	"log/slog"
++	"net"
+ 	"net/http"
+ 	"net/netip"
+ 	"os"
+ 	"strconv"
++	"strings"
+ 	"time"
+ )
+ 
+@@ -67,11 +69,26 @@ func startComplete() {
+ 	}
+ 
+ 	s := &http.Server{
+-		Addr:              *httpAPIListenAddress,
+ 		ReadHeaderTimeout: 10 * time.Second,
+ 		Handler:           mux,
+ 	}
+-	err := s.ListenAndServe()
++	var listener net.Listener
++	var err error
++	if strings.HasPrefix(*httpAPIListenAddress, "/") {
++		os.Remove(*httpAPIListenAddress)
++		listener, err = net.Listen("unix", *httpAPIListenAddress)
++		if err != nil {
++			logger.Error("["+moduleName+"] Error creating Unix listener", "error", err)
++			return
++		}
++	} else {
++		listener, err = net.Listen("tcp", *httpAPIListenAddress)
++		if err != nil {
++			logger.Error("["+moduleName+"] Error creating TCP listener", "error", err)
++			return
++		}
++	}
++	err = s.Serve(listener)
+ 	if err != nil {
+ 		logger.Error("["+moduleName+"] Error starting HTTP api server", "error", err)
+ 	}

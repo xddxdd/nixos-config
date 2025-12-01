@@ -47,7 +47,6 @@ rec {
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
     FlapAlerted.BGP = 13179;
-    FlapAlerted.WebUI = 13180;
     FlareSolverr = 13191;
     Lemmy.API = 13200;
     Lemmy.UI = 13201;

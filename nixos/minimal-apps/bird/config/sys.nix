@@ -311,6 +311,9 @@ in
       local ${LT.this.dn42.IPv6} as ${DN42_AS};
       neighbor ${LT.hosts."colocrossing".ltnet.IPv6} as ${DN42_AS} port ${LT.portStr.FlapAlerted.BGP};
 
+      # Send all routes for analysis
+      interpret communities off;
+
       ipv4 {
         add paths on;
         export all;
