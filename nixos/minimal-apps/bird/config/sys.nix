@@ -190,20 +190,12 @@ in
     roa4 table roa_v4;
     roa6 table roa_v6;
 
-    protocol static static_roa4 {
-      roa4 {
-        table roa_v4;
-      };
-      include "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf";
-      include "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf";
-    };
-
-    protocol static static_roa6 {
-      roa6 {
-        table roa_v6;
-      };
-      include "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf";
-      include "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf";
+    protocol rpki rpki_dn42 {
+      roa4 { table roa_v4; };
+      roa6 { table roa_v6; };
+      remote 127.0.0.1 port ${LT.portStr.StayRTR.RPKI};
+      max version 1;
+      retry keep 30;
     };
   '';
 

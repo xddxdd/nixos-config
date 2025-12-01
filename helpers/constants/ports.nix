@@ -51,6 +51,7 @@ rec {
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
     Pict-RS = 13202;
+    StayRTR.RPKI = 13230;
     ASF = 13242;
     RSSHub = 13248;
     Dex = 13403;

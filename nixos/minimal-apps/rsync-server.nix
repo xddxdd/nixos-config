@@ -75,9 +75,6 @@ in
     postStart = ''
       set -x
     ''
-    + (lib.optionalString config.services.bird.enable ''
-      systemctl reload bird.service || true
-    '')
     + (lib.optionalString config.services.nginx.enable ''
       systemctl reload nginx.service || true
     '')

@@ -14,6 +14,7 @@ in
   imports = [
     ./bgp-flowspec.nix
     ./flap-block
+    ./stayrtr-rpki.nix
   ];
 
   services.bird = {
