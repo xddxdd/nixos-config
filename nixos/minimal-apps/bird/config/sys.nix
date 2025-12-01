@@ -211,8 +211,10 @@ in
   roaMonitor = ''
     ipv4 table roa_fail_v4;
     ipv4 table roa_unknown_v4;
+    ipv4 table roa_flap_blocked_v4;
     ipv6 table roa_fail_v6;
     ipv6 table roa_unknown_v6;
+    ipv6 table roa_flap_blocked_v6;
 
     protocol pipe sys_roa_fail_v4 {
       table master4;
@@ -232,6 +234,15 @@ in
       };
     };
 
+    protocol pipe sys_roa_flap_blocked_v4 {
+      table master4;
+      peer table roa_flap_blocked_v4;
+      export filter {
+        if ${community.LT_FLAP_BLOCK} ~ bgp_large_community then accept;
+        reject;
+      };
+    };
+
     protocol pipe sys_roa_fail_v6 {
       table master6;
       peer table roa_fail_v6;
@@ -246,6 +257,15 @@ in
       peer table roa_unknown_v6;
       export filter {
         if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then accept;
+        reject;
+      };
+    };
+
+    protocol pipe sys_roa_flap_blocked_v6 {
+      table master6;
+      peer table roa_flap_blocked_v6;
+      export filter {
+        if ${community.LT_FLAP_BLOCK} ~ bgp_large_community then accept;
         reject;
       };
     };
