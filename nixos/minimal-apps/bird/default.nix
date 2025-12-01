@@ -13,7 +13,6 @@ in
 {
   imports = [
     ./bgp-flowspec.nix
-    ./flap-block
     ./stayrtr-rpki.nix
   ];
 
@@ -34,8 +33,8 @@ in
         dn42.communityFilters
       ]
       ++ lib.optionals (LT.this.hasTag LT.tags.dn42) [
-        sys.flap-block
         sys.roa
+        sys.roaFlapAlerted
         sys.roaMonitor
         sys.flapAlerted
 

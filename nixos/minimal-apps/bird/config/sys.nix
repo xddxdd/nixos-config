@@ -28,10 +28,6 @@ in
     flow6 table master_flow6;
   '';
 
-  flap-block = ''
-    include "/var/cache/bird/flap-block.conf";
-  '';
-
   kernel = ''
     filter sys_import_v4 {
       if net !~ RESERVED_IPv4 then reject;
@@ -195,7 +191,20 @@ in
       roa6 { table roa_v6; };
       remote 127.0.0.1 port ${LT.portStr.StayRTR.RPKI};
       max version 1;
-      retry keep 30;
+      retry keep 10;
+    };
+  '';
+
+  roaFlapAlerted = ''
+    roa4 table roa_flap_v4;
+    roa6 table roa_flap_v6;
+
+    protocol rpki rpki_flapalerted {
+      roa4 { table roa_flap_v4; };
+      roa6 { table roa_flap_v6; };
+      remote 127.0.0.1 port ${LT.portStr.StayRTR.FlapAlerted};
+      max version 1;
+      retry keep 10;
     };
   '';
 

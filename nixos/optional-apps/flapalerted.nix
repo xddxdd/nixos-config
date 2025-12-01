@@ -7,6 +7,7 @@ let
   flapalerted = pkgs.nur-xddxdd.flapalerted.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../../patches/flapalerted-listen-unix.patch
+      ../../patches/flapalerted-rpki-hijack.patch
     ];
   });
 in

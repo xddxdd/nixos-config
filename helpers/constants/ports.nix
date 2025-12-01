@@ -52,6 +52,9 @@ rec {
     Lemmy.UI = 13201;
     Pict-RS = 13202;
     StayRTR.RPKI = 13230;
+    StayRTR.FlapAlerted = 13231;
+    StayRTR.Metrics.RPKI = 13240;
+    StayRTR.Metrics.FlapAlerted = 13241;
     ASF = 13242;
     RSSHub = 13248;
     Dex = 13403;
