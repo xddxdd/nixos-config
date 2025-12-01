@@ -118,6 +118,13 @@ in
         # bgp_community.add(${community.NO_EXPORT});
         # bgp_local_pref = 0;
       }
+
+      # Reduce flapping across DN42 network
+      if net ~ FLAPPING_IPv4 then {
+        bgp_large_community.add(${community.LT_FLAP_BLOCK});
+        bgp_community.add(${community.NO_EXPORT});
+      }
+
       if net ~ RESERVED_IPv4 then accept;
       reject;
     }
@@ -126,9 +133,6 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
-
-      # Reduce flapping across DN42 network
-      if net ~ FLAPPING_IPv4 then reject;
 
       if ${community.NO_EXPORT} ~ bgp_community then reject;
       if ${community.NO_ADVERTISE} ~ bgp_community then reject;
@@ -152,6 +156,13 @@ in
         # bgp_community.add(${community.NO_EXPORT});
         # bgp_local_pref = 0;
       }
+
+      # Reduce flapping across DN42 network
+      if net ~ FLAPPING_IPv6 then {
+        bgp_large_community.add(${community.LT_FLAP_BLOCK});
+        bgp_community.add(${community.NO_EXPORT});
+      }
+
       if net ~ RESERVED_IPv6 then accept;
       reject;
     };
@@ -160,9 +171,6 @@ in
       bgp_path.delete(${DN42_AS});
       bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
-
-      # Reduce flapping across DN42 network
-      if net ~ FLAPPING_IPv6 then reject;
 
       if ${community.NO_EXPORT} ~ bgp_community then reject;
       if ${community.NO_ADVERTISE} ~ bgp_community then reject;
