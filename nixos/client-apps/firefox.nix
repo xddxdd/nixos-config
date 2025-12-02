@@ -8,6 +8,8 @@
     (lib.hiPrio pkgs.nur-xddxdd.lantianCustomized.firefox-icon-mikozilla-fireyae)
   ];
 
+  environment.etc."firefox/pkcs11".source = "${pkgs.p11-kit}/lib/pkcs11";
+
   environment.variables = {
     MOZ_X11_EGL = "1";
     MOZ_USE_XINPUT2 = "1";
@@ -21,8 +23,18 @@
     languagePacks = [ "zh-CN" ];
     policies = {
       # Extension versions are specified in home manager config
+      # keep-sorted start block=yes
       AppAutoUpdate = false;
+      DNSOverHTTPS = {
+        Enabled = false;
+        Locked = true;
+      };
       DisableAppUpdate = true;
+      DisablePocket = true;
+      DisableProfileImport = true;
+      DisableProfileRefresh = true;
+      DisableSetDesktopBackground = true;
+      DisableTelemetry = true;
       DisabledCiphers = {
         "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" = false;
         "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256" = false;
@@ -44,16 +56,7 @@
         "TLS_RSA_WITH_AES_256_CBC_SHA" = false;
         "TLS_RSA_WITH_3DES_EDE_CBC_SHA" = false;
       };
-      DisablePocket = true;
-      DisableProfileImport = true;
-      DisableProfileRefresh = true;
-      DisableSetDesktopBackground = true;
-      DisableTelemetry = true;
       DisplayMenuBar = "never";
-      DNSOverHTTPS = {
-        Enabled = false;
-        Locked = true;
-      };
       DontCheckDefaultBrowser = true;
       FirefoxHome = {
         Highlights = false;
@@ -86,12 +89,18 @@
       };
       SearchBar = "unified";
       SearchSuggestEnabled = true;
+      SecurityDevices = {
+        Add = {
+          p11-kit = "/etc/firefox/pkcs11/p11-kit-trust.so";
+        };
+      };
       ShowHomeButton = false;
       SupportMenu = {
         Title = "Lan Tian @ Blog";
         URL = "https://lantian.pub";
         AccessKey = "S";
       };
+      UseSystemPrintDialog = true;
       UserMessaging = {
         WhatsNew = false;
         ExtensionRecommendations = false;
@@ -100,7 +109,7 @@
         SkipOnboarding = true;
         MoreFromMozilla = false;
       };
-      UseSystemPrintDialog = true;
+      # keep-sorted end
     };
   };
 }
