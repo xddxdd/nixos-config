@@ -87,7 +87,10 @@
 
   hardware.ksm.enable = true;
 
-  lantian.qemu-user-static-binfmt.package = pkgs.nur-xddxdd.qemu-user-static;
+  lantian.qemu-user-static-binfmt = {
+    enable = LT.this.hasTag LT.tags.nix-builder || LT.this.hasTag LT.tags.client;
+    package = pkgs.nur-xddxdd.qemu-user-static;
+  };
 
   programs = {
     bash.vteIntegration = LT.this.hasTag LT.tags.client;
