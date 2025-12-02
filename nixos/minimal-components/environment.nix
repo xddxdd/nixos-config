@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   inputs,
   ...
 }:
@@ -11,8 +10,6 @@
     file = inputs.secrets + "/default-pw.age";
     mode = "0444";
   };
-
-  boot.enableContainers = config.containers != { };
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
