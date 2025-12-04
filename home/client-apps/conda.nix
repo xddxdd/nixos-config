@@ -1,5 +1,5 @@
 _: {
-  home.file.".condarc".text = builtins.toJSON {
+  xdg.configFile."conda/.condarc".text = builtins.toJSON {
     channels = [
       "conda-forge"
       "defaults"

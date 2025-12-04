@@ -70,6 +70,7 @@ in
       use-cgroups = true;
       warn-dirty = false;
       netrc-file = config.age.secrets.nix-netrc.path;
+      use-xdg-base-directories = true;
 
       # # Determinate Nix specific
       # eval-cores = 0;

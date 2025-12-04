@@ -14,4 +14,9 @@ _: {
       };
     };
   };
+
+  home.pointerCursor = {
+    # Tidy home folder
+    dotIcons.enable = false;
+  };
 }

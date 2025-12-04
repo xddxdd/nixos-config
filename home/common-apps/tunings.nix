@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.sessionPath = [ "$HOME/.local/bin" ];
 
@@ -30,7 +30,8 @@
   };
 
   # Mute GNU Parallel citation notice
-  home.file.".parallel/will-cite".text = "";
+  home.sessionVariables.PARALLEL_HOME = "${config.xdg.configHome}/parallel";
+  xdg.configFile."parallel/will-cite".text = "";
 
   home.packages = [ pkgs.git-filter-repo ];
 

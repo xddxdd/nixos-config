@@ -174,9 +174,18 @@ in
   ];
 
   home.sessionVariables = {
+    # keep-sorted start
     AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+    FLY_CONFIG_DIR = "${config.xdg.dataHome}/fly";
+    NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
+    NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
+    NPM_CONFIG_TMP = "\${XDG_RUNTIME_DIR}/npm";
     OCI_CLI_CONFIG_FILE = "${config.xdg.configHome}/oci/config";
     OCI_CLI_RC_FILE = "${config.xdg.configHome}/oci/oci_cli_rc";
+    RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+    STACK_ROOT = "${config.xdg.dataHome}/stack";
+    VAGRANT_HOME = "${config.xdg.dataHome}/vagrant";
+    # keep-sorted end
   };
 
   programs.direnv = {
@@ -193,5 +202,8 @@ in
   };
 
   programs.pyenv.enable = true;
+
+  # Do not create default config file for pylint
   programs.pylint.enable = true;
+  home.file.".pylintrc".enable = false;
 }

@@ -3,6 +3,7 @@
   lib,
   LT,
   osConfig,
+  config,
   inputs,
   ...
 }:
@@ -155,5 +156,14 @@ in
     enable = true;
     addRdpMimeTypeAssoc = true;
     systemdService.enable = false;
+  };
+
+  # Tidy home directory
+  nix.enable = lib.mkForce false; # nix will be provided by system config
+  home.sessionVariables = {
+    # keep-sorted start
+    CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    WINEPREFIX = "${config.xdg.dataHome}/wine";
+    # keep-sorted end
   };
 }

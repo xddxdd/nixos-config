@@ -41,7 +41,6 @@
           ".cherrystudio"
           ".conda"
           ".cursor"
-          ".fly"
           ".gemini"
           ".ghidra"
           ".java/.userPrefs" # DBeaver
@@ -54,14 +53,10 @@
           ".qwen"
           ".roo"
           ".runpod"
-          ".rustup"
-          ".stack"
           ".steam"
           ".terraform.d"
           ".thunderbird"
-          ".vagrant.d"
           ".vscode"
-          ".wine"
           ".Xilinx"
           ".zoom"
         ]
