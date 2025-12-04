@@ -139,6 +139,7 @@ in
         winetricks
         wpsoffice
         xca
+        xdg-ninja
         yubioath-flutter
         zoom-us
         # keep-sorted end
