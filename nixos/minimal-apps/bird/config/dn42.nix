@@ -85,7 +85,7 @@ let
     let
       interfaceName = "${v.peering.network}-${n}";
     in
-    lib.optionalString (v.addressing.peerIPv4 != null) ''
+    lib.optionalString (v.addressing.peerIPv4 != null && !v.peering.mpbgp) ''
       route ${v.addressing.peerIPv4}/32 via "${interfaceName}" {
         bgp_community.add(${community.NO_ADVERTISE});
       };
