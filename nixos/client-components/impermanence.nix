@@ -57,6 +57,7 @@
           ".terraform.d"
           ".thunderbird"
           ".vscode"
+          ".windsurf"
           ".Xilinx"
           ".zoom"
         ]

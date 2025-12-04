@@ -136,6 +136,7 @@ in
         vlc
         vopono
         vscode
+        windsurf
         wine'
         winetricks
         wpsoffice
