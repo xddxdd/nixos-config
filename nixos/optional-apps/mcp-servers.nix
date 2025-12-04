@@ -122,10 +122,6 @@
           };
         };
       };
-      nixos = {
-        command = "uvx";
-        args = [ "mcp-nixos" ];
-      };
       searxng = {
         command = "npx";
         args = [
