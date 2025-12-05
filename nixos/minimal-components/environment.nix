@@ -24,12 +24,15 @@
   environment.homeBinInPath = true;
   environment.localBinInPath = true;
   environment.variables = {
+    # keep-sorted start
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
-    NIX_REMOTE = "daemon";
+    LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
     NIXPKGS_ALLOW_INSECURE = "1";
+    NIX_REMOTE = "daemon";
     OLLAMA_HOST = "http://ollama.localhost";
     SYSTEMD_PAGER = "";
+    # keep-sorted end
   };
 
   environment.defaultPackages = [ ];
