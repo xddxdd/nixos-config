@@ -3,7 +3,6 @@
     "tls://37.186.113.100:1515"
   ],
   "australia": [
-    "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
     "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
@@ -93,6 +92,9 @@
   "saudi-arabia": [
     "tls://jed-peer.ygg.sy.sa:8442",
     "tls://ryd-peer.ygg.sy.sa:8442"
+  ],
+  "singapore": [
+    "tls://asia.deinfra.org:15015"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
