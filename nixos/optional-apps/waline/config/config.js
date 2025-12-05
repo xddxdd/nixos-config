@@ -31,7 +31,7 @@ module.exports = {
   plugins: [
     GPTReviewer({
       openaiBaseUrl: 'https://openrouter.ai/api',
-      openaiModel: 'deepseek/deepseek-v3.2:nitro',
+      openaiModel: 'z-ai/glm-4.6:nitro',
       openaiApiKey: process.env.OPENAI_API_KEY,
       openaiPrompt: LLM_PROMPT,
     }),
