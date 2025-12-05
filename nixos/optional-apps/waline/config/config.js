@@ -1,13 +1,21 @@
-const GPTReviewer = require('waline-plugin-llm-reviewer');
-const Telegram = require('waline-notification-telegram-bot');
+const GPTReviewer = require('./waline-plugin-llm-reviewer');
+const Telegram = require('./waline-notification-telegram-bot');
 
 const LLM_PROMPT = `
-You are an expert in reviewing content. You are reviewing a comment made on a technical blog. Your task is to review the comments based on these criterias:
+You are an expert in reviewing content. You are reviewing a comment made on a technical blog.
+
+The comment consists of three fields:
+- "nickname": Nick name of the commenter.
+- "email": Email address of the commenter.
+- "content": Actual comment content.
+
+Your task is to review the comments based on these criterias:
 
 1. The comment should not look like spam.
 2. The comment should not involve content that is not suitable for public display.
-3. The comment should not include any political discussion.
+3. The comment, including the nickname, should not include any political discussion.
 4. The comment should not be hostile towards any entity.
+5. The email should not look obviously fake.
 
 Your output should be a single word:
 - "spam": if the comment involves one of the undesirable categories specified above.
@@ -23,7 +31,7 @@ module.exports = {
   plugins: [
     GPTReviewer({
       openaiBaseUrl: 'https://openrouter.ai/api',
-      openaiModel: 'deepseek/deepseek-r1-0528',
+      openaiModel: 'deepseek/deepseek-v3.2:nitro',
       openaiApiKey: process.env.OPENAI_API_KEY,
       openaiPrompt: LLM_PROMPT,
     }),

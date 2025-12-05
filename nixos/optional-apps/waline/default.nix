@@ -6,12 +6,11 @@
   ...
 }:
 let
-  configScript = ./config.js;
+  configPath = ./config;
   startupScript = pkgs.writeScript "waline-startup" ''
     #!/usr/bin/env bash
     set -euo pipefail
-    npm install --save waline-plugin-llm-reviewer waline-notification-telegram-bot
-    cp ${configScript} node_modules/@waline/vercel/config.js
+    cp ${configPath}/* node_modules/@waline/vercel/
     sed -i "s/logSql: true/logSql: false/g" node_modules/@waline/vercel/src/config/adapter.js
     exec node node_modules/@waline/vercel/vanilla.js
   '';
@@ -79,7 +78,7 @@ in
       };
       environmentFiles = [ config.age.secrets.waline-env.path ];
       volumes = [
-        "${configScript}:${configScript}:ro"
+        "${configPath}:${configPath}:ro"
         "${startupScript}:${startupScript}:ro"
         "/run/postgresql:/run/postgresql"
       ];
