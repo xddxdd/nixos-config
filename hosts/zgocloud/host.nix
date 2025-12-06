@@ -2,6 +2,7 @@
 {
   index = 9;
   tags = with tags; [
+    public-facing
     server
   ];
   hostname = "38.175.199.35";
