@@ -11,10 +11,6 @@
     })
 
     (config.common.reverse {
-      prefix = "2600:70ff:aa36::/48";
-      target = "zgocloud.lantian.pub.";
-    })
-    (config.common.reverse {
       prefix = "2001:470:19:c66::/64";
       target = "zgocloud.lantian.pub.";
     })
