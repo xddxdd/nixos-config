@@ -9,21 +9,30 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = [
-      "38.175.199.35/24"
-      # "2403:2c80:b::12cc/48"
-    ];
-    gateway = [
-      "38.175.199.254"
-      # "2403:2c80:b::1"
-    ];
+    address = [ "38.175.199.35/24" ];
+    gateway = [ "38.175.199.254" ];
     matchConfig.Name = "eth0";
+  };
+
+  networking.henet = {
+    enable = true;
+    remote = "216.218.221.6";
+    addresses = [
+      "2001:470:18:c69::2/64"
+      "2001:470:19:c66::1/64"
+      "2600:70ff:aa36::1/48"
+    ];
+    gateway = "2001:470:18:c69::1";
   };
 
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::8b:c606:ba01/128" ];
 
   services."route-chain" = {
     enable = true;
-    routes = [ "172.22.76.97/29" ];
+    routes = [
+      "172.22.76.97/29"
+      "2001:470:19:c66::1/120"
+      "2600:70ff:aa36::1/120"
+    ];
   };
 }

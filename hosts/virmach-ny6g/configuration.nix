@@ -15,23 +15,10 @@
     matchConfig.Name = "eth0";
   };
 
-  networking.henet = {
-    enable = true;
-    remote = "209.51.161.14";
-    addresses = [
-      "2001:470:1f06:c6f::2/64"
-      "2001:470:1f07:c6f::1/64"
-      "2001:470:8d00::1/48"
-    ];
-    gateway = "2001:470:1f06:c6f::1";
-  };
-
   services."route-chain" = {
     enable = true;
     routes = [
       "172.22.76.97/29"
-      "2001:470:1f07:c6f::1/120"
-      "2001:470:8d00::1/120"
     ];
   };
 }
