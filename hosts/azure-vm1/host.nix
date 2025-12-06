@@ -2,6 +2,7 @@
 {
   index = 6;
   tags = with tags; [
+    ipv4-only
     server
   ];
   hostname = "52.229.162.161";

@@ -2,6 +2,7 @@
 {
   index = 4;
   tags = with tags; [
+    ipv4-only
     server
   ];
   city = geo.cities."US New York City";
