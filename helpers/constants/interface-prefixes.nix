@@ -6,6 +6,7 @@ _:
       "eth"
       "henet"
       "usb"
+      "usque"
       "venet"
       "wan"
       "wl"
