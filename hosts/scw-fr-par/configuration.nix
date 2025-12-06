@@ -6,6 +6,8 @@
   imports = [
     ../../nixos/server.nix
 
+    ../../nixos/optional-apps/ndppd.nix
+
     ./hardware-configuration.nix
   ];
 
@@ -21,14 +23,7 @@
     matchConfig.Name = "eth0";
   };
 
-  services.ndppd = {
-    enable = true;
-    proxies.eth0.rules."2001:bc8:710:ebe0::/64".method = "static";
-  };
-  systemd.services.ndppd.serviceConfig = {
-    Restart = "always";
-    RestartSec = 5;
-  };
+  services.ndppd.proxies.eth0.rules."2001:bc8:710:ebe0::/64".method = "static";
 
   services."route-chain" = {
     enable = true;

@@ -6,6 +6,8 @@
   imports = [
     ../../nixos/minimal.nix
 
+    ../../nixos/optional-apps/ndppd.nix
+
     ./hardware-configuration.nix
   ];
 
@@ -21,14 +23,7 @@
     matchConfig.Name = "eth0";
   };
 
-  services.ndppd = {
-    enable = true;
-    proxies.eth0.rules."2a14:67c0:105:10a::/64".method = "static";
-  };
-  systemd.services.ndppd.serviceConfig = {
-    Restart = "always";
-    RestartSec = 5;
-  };
+  services.ndppd.proxies.eth0.rules."2a14:67c0:105:10a::/64".method = "static";
 
   # Server doesn't have enough RAM to complete backup
   systemd.services.backup.enable = lib.mkForce false;
