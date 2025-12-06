@@ -165,7 +165,7 @@ in
             gcore_failover_tls = "true";
             gcore_failover_host = args.healthcheck;
           })
-          // (lib.optionalAttrs (k == "bwg-lax") {
+          // (lib.optionalAttrs (k == "zgocloud") {
             gcore_countries = "cn";
           });
       in
