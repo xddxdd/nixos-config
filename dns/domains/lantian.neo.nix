@@ -14,7 +14,7 @@
 
         (config.common.hostRecs.mapAddresses {
           name = "ns1.${domain}.";
-          addresses = LT.hosts."zgocloud".neonetwork;
+          addresses = LT.hosts."alice".neonetwork;
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns2.${domain}.";

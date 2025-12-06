@@ -14,6 +14,7 @@
     matchConfig.Name = "eth0";
   };
 
+  # DN42 legacy address
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::dd:c85a:8a93/128" ];
 
   networking.henet = {

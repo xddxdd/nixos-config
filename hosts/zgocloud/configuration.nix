@@ -1,9 +1,7 @@
-{ inputs, ... }:
+{ ... }:
 {
   imports = [
     ../../nixos/server.nix
-
-    (inputs.secrets + "/dn42/zgocloud.nix")
 
     ./hardware-configuration.nix
   ];
@@ -23,8 +21,6 @@
     ];
     gateway = "2001:470:18:c69::1";
   };
-
-  systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::8b:c606:ba01/128" ];
 
   services."route-chain" = {
     enable = true;

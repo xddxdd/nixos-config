@@ -1,5 +1,6 @@
 {
   lib,
+  inputs,
   ...
 }:
 {
@@ -7,6 +8,8 @@
     ../../nixos/server.nix
 
     ../../nixos/optional-apps/ndppd.nix
+
+    (inputs.secrets + "/dn42/alice.nix")
 
     ./hardware-configuration.nix
   ];
@@ -28,6 +31,9 @@
   };
 
   services.ndppd.proxies.eth0.rules."2a14:67c0:306:211::/64".method = "static";
+
+  # DN42 legacy address
+  systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::8b:c606:ba01/128" ];
 
   # Cannot connect to log server since this server is IPv6 only
   services.filebeat.enable = lib.mkForce false;

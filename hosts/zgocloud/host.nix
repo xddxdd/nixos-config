@@ -1,9 +1,7 @@
 { tags, geo, ... }:
 {
-  index = 1;
+  index = 9;
   tags = with tags; [
-    dn42
-    public-facing
     server
   ];
   hostname = "38.175.199.35";
@@ -15,7 +13,7 @@
     IPv6 = "2001:470:19:c66::1";
   };
   dn42 = {
-    IPv4 = "172.22.76.186";
+    IPv4 = "172.22.76.188";
     region = 52;
   };
 }

@@ -21,6 +21,7 @@
     matchConfig.Name = "eth0";
   };
 
+  # DN42 legacy address
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::20:5549:a809/128" ];
 
   services."route-chain" = {
