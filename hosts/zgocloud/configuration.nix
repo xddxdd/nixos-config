@@ -3,19 +3,19 @@
   imports = [
     ../../nixos/server.nix
 
-    (inputs.secrets + "/dn42/v-ps-hkg.nix")
+    (inputs.secrets + "/dn42/zgocloud.nix")
 
     ./hardware-configuration.nix
   ];
 
   systemd.network.networks.eth0 = {
     address = [
-      "95.214.164.82/24"
-      "2403:2c80:b::12cc/48"
+      "38.175.199.35/24"
+      # "2403:2c80:b::12cc/48"
     ];
     gateway = [
-      "95.214.164.1"
-      "2403:2c80:b::1"
+      "38.175.199.254"
+      # "2403:2c80:b::1"
     ];
     matchConfig.Name = "eth0";
   };

@@ -10,13 +10,13 @@ _: {
 
   boot.loader.grub.mirroredBoots = [
     {
-      devices = [ "/dev/vda" ];
+      devices = [ "/dev/sda" ];
       path = "/nix/boot";
     }
   ];
 
   fileSystems."/nix" = {
-    device = "/dev/vda1";
+    device = "/dev/sda1";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
@@ -34,7 +34,7 @@ _: {
 
   swapDevices = [
     {
-      device = "/dev/vda2";
+      device = "/dev/sda2";
       randomEncryption.enable = true;
     }
   ];

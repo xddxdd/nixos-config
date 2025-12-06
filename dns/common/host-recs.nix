@@ -11,13 +11,14 @@ let
 
   replacedHosts = {
     # keep-sorted start
-    "50kvm" = LT.hosts."v-ps-hkg";
-    gigsgigscloud = LT.hosts."v-ps-hkg";
+    "50kvm" = LT.hosts."zgocloud";
+    gigsgigscloud = LT.hosts."zgocloud";
     hetzner-de = LT.hosts."colocrossing";
     hostdare = LT.hosts."bwg-lax";
-    linkin = LT.hosts."v-ps-hkg";
+    linkin = LT.hosts."zgocloud";
     oneprovider = LT.hosts."colocrossing";
     soyoustart = LT.hosts."colocrossing";
+    v-ps-hkg = LT.hosts."zgocloud";
     v-ps-sjc = LT.hosts."bwg-lax";
     virmach-ny3ip = LT.hosts."virmach-ny6g";
     virtono = LT.hosts."buyvm";

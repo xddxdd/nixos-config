@@ -1,7 +1,7 @@
 _:
 let
   PublicServers = [
-    "v-ps-hkg.lantian.pub."
+    "zgocloud.lantian.pub."
     "bwg-lax.lantian.pub."
     "virmach-ny1g.lantian.pub."
     "colocrossing.lantian.pub."
@@ -9,7 +9,7 @@ let
   ];
 
   LTNetServers = [
-    "v-ps-hkg.ltnet.lantian.pub."
+    "zgocloud.ltnet.lantian.pub."
     "bwg-lax.ltnet.lantian.pub."
     "virmach-ny1g.ltnet.lantian.pub."
     "colocrossing.ltnet.lantian.pub."
