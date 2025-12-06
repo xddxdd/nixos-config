@@ -219,6 +219,7 @@ in
     protocol pipe sys_roa_fail_v4 {
       table master4;
       peer table roa_fail_v4;
+      import none;
       export filter {
         if ${community.LT_ROA_FAIL} ~ bgp_large_community then accept;
         reject;
@@ -228,6 +229,7 @@ in
     protocol pipe sys_roa_unknown_v4 {
       table master4;
       peer table roa_unknown_v4;
+      import none;
       export filter {
         if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then accept;
         reject;
@@ -237,6 +239,7 @@ in
     protocol pipe sys_roa_flap_blocked_v4 {
       table master4;
       peer table roa_flap_blocked_v4;
+      import none;
       export filter {
         if ${community.LT_FLAP_BLOCK} ~ bgp_large_community then accept;
         reject;
@@ -246,6 +249,7 @@ in
     protocol pipe sys_roa_fail_v6 {
       table master6;
       peer table roa_fail_v6;
+      import none;
       export filter {
         if ${community.LT_ROA_FAIL} ~ bgp_large_community then accept;
         reject;
@@ -255,6 +259,7 @@ in
     protocol pipe sys_roa_unknown_v6 {
       table master6;
       peer table roa_unknown_v6;
+      import none;
       export filter {
         if ${community.LT_ROA_UNKNOWN} ~ bgp_large_community then accept;
         reject;
@@ -264,6 +269,7 @@ in
     protocol pipe sys_roa_flap_blocked_v6 {
       table master6;
       peer table roa_flap_blocked_v6;
+      import none;
       export filter {
         if ${community.LT_FLAP_BLOCK} ~ bgp_large_community then accept;
         reject;
