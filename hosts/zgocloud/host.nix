@@ -11,8 +11,6 @@
   zerotier = "c61df0c319";
   public = {
     IPv4 = "38.175.199.35";
-    # HENET IPv6 is unusable for now
-    # IPv6 = "2001:470:19:c66::1";
   };
   dn42 = {
     IPv4 = "172.22.76.188";
