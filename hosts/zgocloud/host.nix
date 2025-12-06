@@ -2,6 +2,7 @@
 {
   index = 9;
   tags = with tags; [
+    ipv4-only
     public-facing
     server
   ];
