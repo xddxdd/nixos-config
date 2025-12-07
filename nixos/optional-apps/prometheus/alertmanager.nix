@@ -122,31 +122,17 @@ in
                   };
                 }
 
-                # # Disabled because I cannot do anything
-                # # Bird received updates
-                # {
-                #   alert = "bird_received_updates";
-                #   expr = ''sum by (instance, name) (rate(bird_protocol_changes_update_import_receive_count{name=~"dn42(.*)",proto="BGP"}[5m])) > 20'';
-                #   for = "1h";
-                #   labels.severity = "warning";
-                #   annotations = {
-                #     summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} receiving too may updates.";
-                #     description = "{{$labels.name}} on {{$labels.instance}} receiving too may updates.";
-                #   };
-                # }
-
-                # # Disabled because I cannot do anything
-                # # FlapAlerted
-                # {
-                #   alert = "flapalerted_flapping_routes";
-                #   expr = ''active_flap_count > 0'';
-                #   for = "30m";
-                #   labels.severity = "warning";
-                #   annotations = {
-                #     summary = "⚠️ {{$labels.alias}}: FlapAlerted is detecting flapping routes";
-                #     description = "FlapAlerted is detecting at least 1 flapping routes.";
-                #   };
-                # }
+                # Bird shortlived peers (frequent reconnects)
+                {
+                  alert = "bird_shortlived_peers";
+                  expr = ''bird_protocol_uptime{name=~"^dn42_(.*)$", name!~"^dn42_grc_(.*)$", proto="BGP"} < 300'';
+                  for = "15m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
+                    description = "{{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
+                  };
+                }
               ];
             }
           ];
