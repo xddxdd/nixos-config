@@ -166,6 +166,7 @@ in
     gh
     just
     linkzoneAdb
+    minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
     qwen-code
