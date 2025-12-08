@@ -38,7 +38,6 @@ in
             inputs.firefox-addons.overlays.default
             inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
-            inputs.nix-xilinx.overlay
             inputs.nixd.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgsWithCuda
             inputs.nur.overlays.default

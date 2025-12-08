@@ -1,0 +1,29 @@
+1. First observe the CLI options of the installer with:
+
+....
+bash petalinux-v${version}.run --help
+....
+
+  - Use the `--dir` option to install all petalinux tools to a reasonable
+    location, to which you also have write permissions.
+  - Use the `--platform` option to choose the platforms you need.
+  - An option that is not documented in the `--help` text, is the
+    `--skip_license` option, which speeds up the installation a bit.
+
+2. Create or edit the file `~/.config/xilinx/nix.sh` and write to it the
+   installation directory you chose with `--dir` (e.g):
+
+....
+PETALINUX=$HOME/downloads/software/xilinx/petalinux
+....
+
+3. Lastly, it has been observed that one of the shared objects installed cause
+   issues with `petalinux-config`. To fix this, you may need to do something
+   like this (assuming `$PETALINUX`):
+
+....
+mv "$PETALINUX"/tools/xsct/lib/lnx64.o/libedit.so.0{,.bak}
+....
+
+The issue above is currently investigated in:
+https://github.com/NixOS/nixpkgs/pull/279844

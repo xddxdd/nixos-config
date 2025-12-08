@@ -694,29 +694,6 @@
         "type": "github"
       }
     },
-    "nix-xilinx": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1754476389,
-        "narHash": "sha256-lNaE2VobMUPCqn+jkI77z9aDz2qNsNKrG8eZ/1iPObk=",
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "rev": "2c1c95c8592af3e007956ca166cf63eb02b0515a",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "type": "gitlab"
-      }
-    },
     "nixcord": {
       "inputs": {
         "flake-compat": [
@@ -1070,7 +1047,6 @@
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",
-        "nix-xilinx": "nix-xilinx",
         "nixcord": "nixcord",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_2",

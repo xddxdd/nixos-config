@@ -1,0 +1,14 @@
+1. Make the `Xilinx_Unified_XXXX.X_XXXX_XXXX_Lin64.bin` file an executable
+   with: `chmod +x Xilinx_Unified_XXXX.X_XXXX_XXXX_Lin64.bin`.
+2. Run the `Xilinx_Unified_XXXX.X_XXXX_XXXX_Lin64.bin` executable downloaded
+   from xilinx's website.
+3. Follow along with the installation wizard:
+  - When prompted for an install location, select a user-writable directory.
+4. Create or edit the file `~/.config/xilinx/nix.sh` and write to it simply, (e.g):
+
+....
+INSTALL_DIR=$HOME/downloads/software/xilinx
+# The directory in which there's a /bin/ directory for each product, for example:
+# $HOME/downloads/software/xilinx/Vivado/2022.1/bin
+VERSION=2022.1
+....
