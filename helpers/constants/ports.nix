@@ -66,6 +66,7 @@ rec {
     Vaultwarden = 13772;
     MTranServer = 13791;
     Plausible = 13800;
+    ArchiveBox = 13801;
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     qBitTorrentPT.WebUI = 13809;

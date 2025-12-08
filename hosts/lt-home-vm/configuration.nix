@@ -13,6 +13,7 @@
 
     ../../nixos/client-components/cups.nix
 
+    ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/btrbk-server.nix
@@ -94,6 +95,7 @@
   lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
   lantian.btrbk.storage = "/mnt/storage/backups/btrbk";
+  lantian.archivebox.storage = "/mnt/storage/archivebox";
 
   services.ollama.models = "/mnt/storage/ollama";
   systemd.tmpfiles.settings = {
