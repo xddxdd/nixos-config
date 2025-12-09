@@ -130,8 +130,6 @@ in
     }
 
     function dn42_export_filter_ipv4(int local_asn) {
-      bgp_path.delete(${DN42_AS});
-      bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv4 then reject;
 
       if ${community.NO_EXPORT} ~ bgp_community then reject;
@@ -140,6 +138,9 @@ in
       if net ~ [ 172.22.76.184/29+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 172.22.76.96/27+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ 10.127.10.0/24+ ] then bgp_path.prepend(${NEO_AS});
+
+      bgp_path.delete(local_asn);
+      bgp_path.delete([4225470000..4225479999]);
 
       accept;
     }
@@ -168,8 +169,6 @@ in
     };
 
     function dn42_export_filter_ipv6(int local_asn) {
-      bgp_path.delete(${DN42_AS});
-      bgp_path.delete([4225470000..4225479999]);
       if net !~ RESERVED_IPv6 then reject;
 
       if ${community.NO_EXPORT} ~ bgp_community then reject;
@@ -177,6 +176,9 @@ in
 
       if net ~ [ fdbc:f9dc:67ad::/48+ ] then bgp_path.prepend(${DN42_AS});
       if net ~ [ fd10:127:10::/48+ ] then bgp_path.prepend(${NEO_AS});
+
+      bgp_path.delete(local_asn);
+      bgp_path.delete([4225470000..4225479999]);
 
       accept;
     };
