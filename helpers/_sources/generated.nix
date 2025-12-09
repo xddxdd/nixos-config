@@ -3,17 +3,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
+    version = "3c729ab7cbb3f1c0684b40e57fba37e96db20e84";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "32efd56d12ddc1511ba4f19102b07c8fbd967750";
+      rev = "3c729ab7cbb3f1c0684b40e57fba37e96db20e84";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-luF2khyh9agmveQxzJ9lzVt96iyoCN2+7o+7zI5Mf10=";
+      sha256 = "sha256-WTR1Ga1sLdznfAFvqQdetwGnugrESq07cOX0GXYRyuA=";
     };
-    date = "2025-10-24";
+    date = "2025-11-24";
   };
   firefox-translations-models = {
     pname = "firefox-translations-models";
@@ -29,10 +29,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.8.2";
+    version = "1.8.6";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.2/grafana-falconlogscale-datasource-1.8.2.zip";
-      sha256 = "sha256-05cgYVq3E76maKcM+TsDV1sWlsoOITQ3vQZpyC/NA9w=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.6/grafana-falconlogscale-datasource-1.8.6.zip";
+      sha256 = "sha256-c207II6j6SuwxmN57RSBYvPBI8n4YhtIfe5W2qOayLk=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -45,17 +45,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "2da9d6aa53a64f0b4c7a94c93f3d014ddbf2eb88";
+    version = "37741b08fbc9fd60bdc4d66731ae4453982ab54b";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "2da9d6aa53a64f0b4c7a94c93f3d014ddbf2eb88";
+      rev = "37741b08fbc9fd60bdc4d66731ae4453982ab54b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-uOqBGkJxSaYF97vm3dCa+5XXHY7/zwZ313l2PvvAHXk=";
+      sha256 = "sha256-M8DEgFAxTzXKFIDB5DSndw9Yoc1P+l1VJshDlLxwIHg=";
     };
-    date = "2025-10-13";
+    date = "2025-12-09";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
@@ -83,15 +83,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "a7690e64b5080452596ffd55062c625abe05fa3a";
+    version = "28dc52f3dfb177587b34269db84ee28c396da05a";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "a7690e64b5080452596ffd55062c625abe05fa3a";
+      rev = "28dc52f3dfb177587b34269db84ee28c396da05a";
       fetchSubmodules = false;
-      sha256 = "sha256-tVAg8LP4k6wvL1RLF2PtwAoeCc5GCZ+DZoSfCHiuVDc=";
+      sha256 = "sha256-IndcK+To6c3D6npGzlqDVqsQ8RzGvzz2NfsjkdcOuhQ=";
     };
-    date = "2025-11-07";
+    date = "2025-11-23";
   };
   open5gs = {
     pname = "open5gs";
@@ -130,15 +130,15 @@
   };
   sakura-share = {
     pname = "sakura-share";
-    version = "1ecd291e6d4087c65baf1aca1a72c82d751ec310";
+    version = "fe264fa1a7463ed7caf1e10b599b681e8234b789";
     src = fetchFromGitHub {
       owner = "PiDanShouRouZhouXD";
       repo = "Sakura_Launcher_GUI";
-      rev = "1ecd291e6d4087c65baf1aca1a72c82d751ec310";
+      rev = "fe264fa1a7463ed7caf1e10b599b681e8234b789";
       fetchSubmodules = false;
-      sha256 = "sha256-Pqf91j/wR4oOiazbRru/A7q7LSktsC5+hJfwBrpUdXM=";
+      sha256 = "sha256-hg2QJ7Wmcr+2b27y2HnHvBl+0NYb1Mr+6Ly2CA5KD28=";
     };
-    date = "2025-11-03";
+    date = "2025-12-02";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
