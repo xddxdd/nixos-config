@@ -132,8 +132,8 @@ in
                     default = lib.hasInfix ":" config.remoteAddress;
                   };
                   mtu = lib.mkOption {
-                    type = lib.types.nullOr lib.types.int;
-                    default = null;
+                    type = lib.types.int;
+                    default = 1400;
                   };
                 };
               }
