@@ -22,7 +22,6 @@
         check = ./check.nix;
         dnscontrol = ./dnscontrol.nix;
         nvfetcher = ./nvfetcher.nix;
-        secrets = ./secrets.nix;
         update-data = ./update-data.nix;
         update-flake = ./update-flake.nix;
       };
