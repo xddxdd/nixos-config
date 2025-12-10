@@ -172,6 +172,38 @@
         "type": "github"
       }
     },
+    "cachyos-kernel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765272942,
+        "narHash": "sha256-dAGAdWms3poNhxPniYU3YmxFeJ9ngfBhakMQwCnCV/w=",
+        "owner": "CachyOS",
+        "repo": "linux-cachyos",
+        "rev": "5c8cf82f0ea40b72aec3fcbc58b449ca3b7cd372",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CachyOS",
+        "repo": "linux-cachyos",
+        "type": "github"
+      }
+    },
+    "cachyos-kernel-patches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765190459,
+        "narHash": "sha256-TJJKd86jDyighG3Jx8MNyiuQTpEIMAsA2GkWpqttwFg=",
+        "owner": "CachyOS",
+        "repo": "kernel-patches",
+        "rev": "6dfdbc7f8f3ee4d9f5dc8adfb0672ef5d8e1e3d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CachyOS",
+        "repo": "kernel-patches",
+        "type": "github"
+      }
+    },
     "colmena": {
       "inputs": {
         "flake-compat": [
@@ -676,6 +708,36 @@
         "type": "github"
       }
     },
+    "nix-cachyos-kernel": {
+      "inputs": {
+        "cachyos-kernel": "cachyos-kernel",
+        "cachyos-kernel-patches": "cachyos-kernel-patches",
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-parts": [
+          "nur-xddxdd",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nur-xddxdd",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765343294,
+        "narHash": "sha256-l7ZrgYj8czvPETwuJ9fBOJioB+bnfsz4iAHsNv6xDzo=",
+        "owner": "xddxdd",
+        "repo": "nix-cachyos-kernel",
+        "rev": "88572ff3a082981c583ffadb5d0cba90c4ab58a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "nix-cachyos-kernel",
+        "type": "github"
+      }
+    },
     "nix-gaming": {
       "inputs": {
         "flake-parts": [
@@ -985,6 +1047,7 @@
         "flake-parts": [
           "flake-parts"
         ],
+        "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-index-database": [
           "nix-index-database"
         ],
@@ -995,11 +1058,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1765269579,
-        "narHash": "sha256-7FiRJBzwRDp/RvxZS7ReyIF3dqYVcHfp8xz+snve4d0=",
+        "lastModified": 1765346100,
+        "narHash": "sha256-HOIMXVNgqeLEuSa3F4sc2vzcDkFnC6lWLkKBXnUcypc=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "1cf7d06cfeb9f69ee86aee263d5454e7f7700a57",
+        "rev": "cac279696b0a19e84b7fc2c3cd6a7bba48f11896",
         "type": "github"
       },
       "original": {
