@@ -53,10 +53,12 @@ rec {
     Pict-RS = 13202;
     StayRTR.RPKI = 13230;
     StayRTR.FlapAlerted = 13231;
-    StayRTR.Metrics.RPKI = 13240;
-    StayRTR.Metrics.FlapAlerted = 13241;
+    StayRTR.Flap42 = 13232;
     ASF = 13242;
     RSSHub = 13248;
+    StayRTR.Metrics.RPKI = 13250;
+    StayRTR.Metrics.FlapAlerted = 13251;
+    StayRTR.Metrics.Flap42 = 13252;
     Dex = 13403;
     Ollama = 13434;
     UniAPI = 13437;

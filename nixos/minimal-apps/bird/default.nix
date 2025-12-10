@@ -13,7 +13,7 @@ in
 {
   imports = [
     ./bgp-flowspec.nix
-    ./stayrtr-rpki.nix
+    ./stayrtr.nix
   ];
 
   services.bird = {

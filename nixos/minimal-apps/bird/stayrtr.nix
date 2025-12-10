@@ -59,6 +59,33 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     };
   };
 
+  systemd.services.stayrtr-flap42-strexp = {
+    description = "StayRTR for https://flap42-data.strexp.net";
+    before = [ "bird.service" ];
+    after = [ "network.target" ];
+    requires = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    script = ''
+      exec ${pkgs.stayrtr}/bin/stayrtr \
+        --bind 127.0.0.1:${LT.portStr.StayRTR.Flap42} \
+        --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.Flap42} \
+        --cache https://flap42-data.strexp.net/min_3.json \
+        --rtr.expire 3600 \
+        --rtr.refresh 300 \
+        --rtr.retry 300
+    '';
+
+    serviceConfig = LT.serviceHarden // {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "3";
+
+      User = "stayrtr";
+      Group = "stayrtr";
+    };
+  };
+
   users.users.stayrtr = {
     group = "stayrtr";
     isSystemUser = true;

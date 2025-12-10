@@ -206,6 +206,14 @@ in
       max version 1;
       retry keep 10;
     };
+
+    protocol rpki rpki_flap42 {
+      roa4 { table roa_flap_v4; };
+      roa6 { table roa_flap_v6; };
+      remote 127.0.0.1 port ${LT.portStr.StayRTR.Flap42};
+      max version 1;
+      retry keep 10;
+    };
   '';
 
   roaMonitor = ''
