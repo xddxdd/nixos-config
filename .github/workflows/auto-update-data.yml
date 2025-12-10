@@ -2,7 +2,10 @@ name: 'Auto update data files'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '55 9 * * *'
+    - cron: '32 23 * * *'
+permissions:
+  actions: write
+  contents: write
 jobs:
   auto-update:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
         uses: cachix/install-nix-action@v30
         with:
           nix_path: nixpkgs=channel:nixos-unstable
-          github_access_token: ${{ secrets.AUTOMERGE_TOKEN }}
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
             extra-experimental-features = nix-command flakes ca-derivations
@@ -67,17 +70,9 @@ jobs:
 
           rm -f secrets.toml
 
-      - env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
-        run: |
-          # https://github.com/cpina/github-action-push-to-another-repository/issues/75
-          git config --unset-all http.https://github.com/.extraheader
-          git config --global user.email "xddxdd-bot@users.noreply.github.com"
-          git config --global user.name "xddxdd-bot"
-
-          git add .
-          if git commit -m "auto: update data files" ; then
-            git remote remove origin
-            git remote add origin "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nixos-config.git"
-            git push -u origin master
-          fi
+      - name: Commit back to repository
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'auto: update packages'
+          commit_user_name: 'xddxdd-bot'
+          commit_user_email: 'xddxdd-bot@users.noreply.github.com'
