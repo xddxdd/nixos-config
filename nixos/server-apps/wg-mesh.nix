@@ -70,6 +70,7 @@ in
       ++ lib.optionals (LT.this.ltnet.IPv4 != null) [ (LT.this.ltnet.IPv4 + "/32") ]
       ++ lib.optionals (LT.this.ltnet.IPv6 != null) [ (LT.this.ltnet.IPv6 + "/128") ];
 
+      linkConfig.MTUBytes = 1400;
       networkConfig = {
         LinkLocalAddressing = "no";
       };
