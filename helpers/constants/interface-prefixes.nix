@@ -1,7 +1,7 @@
-_:
-{
+_: {
   interfacePrefixes = {
     WAN = [
+      "br"
       "en"
       "eth"
       "henet"
