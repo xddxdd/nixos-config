@@ -410,6 +410,22 @@
     "flake-compat_3": {
       "flake": false,
       "locked": {
+        "lastModified": 1765121682,
+        "narHash": "sha256-4VBOP18BFeiPkyhy9o4ssBNQEvfvv1kXkasAYd0+rrA=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "65f23138d8d09a92e30f1e5c87611b23ef451bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_4": {
+      "flake": false,
+      "locked": {
         "lastModified": 1761588595,
         "narHash": "sha256-XKUZz9zewJNUj46b4AJdiRZJAvSZ0Dqj2BNfXvFlJC4=",
         "owner": "edolstra",
@@ -712,9 +728,7 @@
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
         "cachyos-kernel-patches": "cachyos-kernel-patches",
-        "flake-compat": [
-          "flake-compat"
-        ],
+        "flake-compat": "flake-compat_3",
         "flake-parts": [
           "nur-xddxdd",
           "flake-parts"
@@ -1096,7 +1110,7 @@
     },
     "pre-commit-hooks-nix": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_4",
         "gitignore": "gitignore",
         "nixpkgs": [
           "nur-xddxdd",
@@ -1229,11 +1243,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765245358,
-        "narHash": "sha256-pYusyYNEy7uYptMLd5oJMlYiubazpwID0QmWqFMvdMw=",
+        "lastModified": 1765388404,
+        "narHash": "sha256-fNGOMTv3nCRDoZyNi+JSzBJV2G9IBmvp+Mb/ElVF89g=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "8af5dbb463547bae470262708510feba1a7b8fb0",
+        "rev": "003eaf789326746a21daa2405e89bba5b58be9ab",
         "type": "github"
       },
       "original": {
