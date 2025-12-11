@@ -3,7 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, ... }:
 {
-  imports = [ ../../nixos/hardware/vfio.nix ];
+  imports = [
+    ../../nixos/hardware/vfio.nix
+    ../../nixos/hardware/smart.nix
+  ];
 
   boot.kernelModules = [ "qat_c3xxx" ];
 

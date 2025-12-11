@@ -5,8 +5,6 @@
     ../../nixos/pve.nix
     ../../nixos/server-components/sidestore-vpn.nix
 
-    ../../nixos/optional-cron-jobs/smart-check
-
     ./hardware-configuration.nix
     ./openvswitch-dpdk.nix
   ];

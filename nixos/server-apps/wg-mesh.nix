@@ -86,4 +86,11 @@ in
       ];
     }
   ) targetHosts;
+
+  services.prometheus.exporters.wireguard = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.WireGuardExporter;
+    latestHandshakeDelay = true;
+  };
 }

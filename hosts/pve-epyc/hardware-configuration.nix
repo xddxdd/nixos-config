@@ -13,6 +13,7 @@
     ../../nixos/hardware/nvidia/cuda-only.nix
     ../../nixos/hardware/nvidia/vgpu-extension.nix
     ../../nixos/hardware/lvm.nix
+    ../../nixos/hardware/smart.nix
     ../../nixos/hardware/ups.nix
     ../../nixos/hardware/vfio.nix
   ];

@@ -3,7 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, ... }:
 {
-  imports = [ ../../nixos/hardware/crystalhd.nix ];
+  imports = [
+    ../../nixos/hardware/crystalhd.nix
+    ../../nixos/hardware/smart.nix
+  ];
 
   boot.loader.grub = {
     efiSupport = true;

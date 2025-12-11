@@ -39,6 +39,9 @@ rec {
     Prometheus.PostgresExporter = 9187;
     Prometheus.CoreDNS = 9253;
     Prometheus.BirdExporter = 9324;
+    Prometheus.WireGuardExporter = 9586;
+    Prometheus.RasdaemonExporter = 9629;
+    Prometheus.SmartctlExporter = 9633;
     Prowlarr = 9696;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;

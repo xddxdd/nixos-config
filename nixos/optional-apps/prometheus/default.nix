@@ -141,6 +141,39 @@ in
           "enable"
         ];
       })
+      (scrapeByAttr {
+        jobName = "rasdaemon";
+        port = LT.port.Prometheus.RasdaemonExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "rasdaemon"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "smartctl";
+        port = LT.port.Prometheus.SmartctlExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "smartctl"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "wireguard";
+        port = LT.port.Prometheus.WireGuardExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "wireguard"
+          "enable"
+        ];
+      })
       {
         job_name = "sakura-share";
         scheme = "https";

@@ -8,6 +8,7 @@
     ../../nixos/hardware/hdr.nix
     ../../nixos/hardware/i915-sriov.nix
     ../../nixos/hardware/nvidia/only.nix
+    ../../nixos/hardware/smart.nix
   ];
 
   boot.loader.grub = {
