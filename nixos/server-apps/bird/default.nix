@@ -17,7 +17,7 @@ in
   ];
 
   services.bird = {
-    enable = LT.this.hasTag LT.tags.server;
+    enable = true;
     package = pkgs.bird2;
     checkConfig = false;
     config = builtins.concatStringsSep "\n" (
