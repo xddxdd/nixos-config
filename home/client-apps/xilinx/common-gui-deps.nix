@@ -56,4 +56,7 @@ pkgs:
   (lib.hiPrio gcc)
   unzip
   nettools
+  libuuid
+  pixman
+  libpng
 ])
