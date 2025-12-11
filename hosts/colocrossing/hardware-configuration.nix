@@ -25,7 +25,10 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   # Try to fix MCE https://forum.proxmox.com/threads/server-freezes-or-restarting-automatically-mce-hardware-error.73444/
-  boot.kernelParams = [ "intel_idle.max_cstate=1" ];
+  boot.kernelParams = [
+    "intel_idle.max_cstate=1"
+    "intel_pstate=disable"
+  ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/12CE-A600";
