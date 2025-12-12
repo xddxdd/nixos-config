@@ -1,9 +1,16 @@
 diff --git a/app/services/epic_games_service.py b/app/services/epic_games_service.py
-index cecd4ee..7385035 100644
+index cecd4ee..e793af3 100644
 --- a/app/services/epic_games_service.py
 +++ b/app/services/epic_games_service.py
-@@ -73,11 +73,15 @@ def get_promotions() -> List[PromotionGame]:
+@@ -71,13 +71,22 @@ def get_promotions() -> List[PromotionGame]:
+         if not is_discount_game(e):
+             continue
  
++        if e["offerType"] == "BUNDLE":
++            base_url = URL_PRODUCT_BUNDLES.rstrip('/')
++        else:
++            base_url = URL_PRODUCT_PAGE.rstrip('/')
++
          # package free games
          try:
 -            e["url"] = f"{URL_PRODUCT_PAGE.rstrip('/')}/{e['urlSlug']}"
@@ -11,10 +18,10 @@ index cecd4ee..7385035 100644
 -            e["url"] = f"{URL_PRODUCT_BUNDLES.rstrip('/')}/{e['productSlug']}"
 -        except IndexError:
 -            e["url"] = f"{URL_PRODUCT_PAGE.rstrip('/')}/{e['productSlug']}"
-+            e["url"] = f"{URL_PRODUCT_PAGE.rstrip('/')}/{e['offerMappings'][0]['pageSlug']}"
++            e["url"] = f"{base_url}/{e['offerMappings'][0]['pageSlug']}"
 +        except (KeyError, IndexError):
 +            if e.get("productSlug"):
-+                e["url"] = f"{URL_PRODUCT_BUNDLES.rstrip('/')}/{e['productSlug']}"
++                e["url"] = f"{base_url}/{e['productSlug']}"
 +            else:
 +                logger.info(f"Failed to get URL: {e}")
 +                continue
@@ -22,4 +29,24 @@ index cecd4ee..7385035 100644
 +        logger.info(e["url"])
  
          promotions.append(PromotionGame(**e))
+ 
+@@ -290,7 +299,18 @@ class EpicGames:
+ 
+             except Exception as err:
+                 logger.warning(f"Failed to add promotion to cart - {err}")
+-                continue
++                logger.debug("Trying alternative button")
++
++                add_to_cart_btn = page.locator("//aside//button[@data-testid='add-to-cart-cta-button-pdp-sidebar']")
++                try:
++                    text = await add_to_cart_btn.text_content()
++                    await add_to_cart_btn.click()
++                    logger.debug(f"🙌 Add to the shopping cart - {url=}")
++                    has_pending_free_promotion = True
++
++                except Exception as err:
++                    logger.warning(f"Failed to add promotion to cart - {err}")
++                    continue
+ 
+         return has_pending_free_promotion
  
