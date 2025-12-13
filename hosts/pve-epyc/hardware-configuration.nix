@@ -87,8 +87,9 @@
       nvidia-smi -pl 125
 
       # Set P40 GPU fan to 80%
+      # Set noisy fan to 32%
       # https://forums.servethehome.com/index.php?threads/asrock-rack-bmc-fan-control.26941/post-249035
-      ipmitool raw 0x3a 0x01 0x00 0x00 0x00 0x00 0x00 0x50 0x00 0x00
+      ipmitool raw 0x3a 0x01 0x00 0x00 0x00 0x00 0x20 0x50 0x00 0x00
     '';
     serviceConfig.Type = "oneshot";
   };
