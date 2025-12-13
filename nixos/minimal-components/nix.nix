@@ -96,6 +96,8 @@ in
     };
   };
 
+  systemd.timers.nix-gc.timerConfig.Persistent = lib.mkForce "false";
+
   systemd.tmpfiles.settings = {
     nix-privkey = {
       "/run/nix-privkey.pem"."L+" = {
