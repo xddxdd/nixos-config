@@ -36,6 +36,7 @@
 
           # Other configs
           ".aMule"
+          ".antigravity"
           ".ApacheDirectoryStudio"
           ".aws"
           ".cherrystudio"
