@@ -8,8 +8,8 @@
 
   services.hydra = {
     enable = true;
-    hydraURL = "https://hydra.${config.networking.hostName}.xuyh0120.win";
-    listenHost = "localhost";
+    hydraURL = "https://hydra.lantian.pub";
+    listenHost = LT.this.ltnet.IPv4;
     notificationSender = "postmaster@lantian.pub";
     port = LT.port.Hydra;
   };
@@ -18,11 +18,10 @@
     "hydra.${config.networking.hostName}.xuyh0120.win" = {
       locations = {
         "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.Hydra}";
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}";
         };
       };
 
-      accessibleBy = "private";
       blockDotfiles = false;
       sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
       noIndex.enable = true;

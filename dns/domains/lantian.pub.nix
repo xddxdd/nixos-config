@@ -110,6 +110,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "hydra";
+      target = "bwg-lax";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "lab";
       target = "terrahost";
       ttl = "1h";
