@@ -9,6 +9,7 @@
       };
 
       blockDotfiles = false;
+      enableCommonLocationOptions = false;
       sslCertificate = "zerossl-lantian.pub";
       noIndex.enable = true;
     };

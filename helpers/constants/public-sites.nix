@@ -42,7 +42,6 @@ _: [
   "dashboard.xuyh0120.win"
   "git.lantian.pub"
   "hydra.lantian.pub"
-  "hydra.lt-home-builder.xuyh0120.win"
   "immich.xuyh0120.win"
   "jellyfin.xuyh0120.win"
   "lemmy.lantian.pub"
