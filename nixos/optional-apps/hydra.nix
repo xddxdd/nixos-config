@@ -13,5 +13,6 @@
     notificationSender = "postmaster@lantian.pub";
     port = LT.port.Hydra;
     buildMachinesFiles = [ "/etc/hydra/machines" ];
+    useSubstitutes = true;
   };
 }
