@@ -3,6 +3,7 @@
   imports = [
     ../../nixos/minimal.nix
 
+    ../../nixos/optional-apps/attic-watch-store.nix
     ../../nixos/optional-apps/hydra.nix
 
     ./hardware-configuration.nix
