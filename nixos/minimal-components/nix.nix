@@ -9,7 +9,7 @@
 let
   allowedUsers = [
     "@wheel"
-    "hydra"
+    "@hydra"
     "nix-builder"
     "root"
   ];
