@@ -62,6 +62,7 @@ rec {
     StayRTR.Metrics.RPKI = 13250;
     StayRTR.Metrics.FlapAlerted = 13251;
     StayRTR.Metrics.Flap42 = 13252;
+    Hydra = 13300;
     Dex = 13403;
     Ollama = 13434;
     UniAPI = 13437;

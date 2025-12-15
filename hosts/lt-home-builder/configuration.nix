@@ -3,8 +3,11 @@
   imports = [
     ../../nixos/minimal.nix
 
-    ../../nixos/optional-cron-jobs/nix-cachyos-kernel-build.nix
+    # ../../nixos/optional-cron-jobs/nix-cachyos-kernel-build.nix
     # ../../nixos/optional-cron-jobs/nur-packages-build.nix
+
+    ../../nixos/common-apps/nginx
+    ../../nixos/optional-apps/hydra.nix
 
     ./hardware-configuration.nix
   ];

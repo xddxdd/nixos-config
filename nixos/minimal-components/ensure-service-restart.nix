@@ -1,13 +1,16 @@
 { config, lib, ... }:
 let
   ignored = [
+    # keep-sorted start
     "acpid"
     "bluetooth"
     "enable-ksm"
+    "hydra-send-stats"
     "openvpn-restart"
     "polkit"
     "reload-systemd-vconsole-setup"
     "rtkit-daemon"
+    # keep-sorted end
   ];
 
   hasRestart =
