@@ -68,18 +68,18 @@ let
           v6AssignMode
           multicastLimit
           routes
+          relays
           ;
       };
-      generatedSetupScript =
-        ''
-          ZTADDR=$(${ztcurl} "${zturl}/status" | ${pkgs.jq}/bin/jq -r ".address")
-          ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}" -d ${lib.escapeShellArg jsonPayload}
-        ''
-        + (lib.concatStrings (
-          lib.mapAttrsToList (n: v: ''
-            ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}/member/${n}" -d ${lib.escapeShellArg (builtins.toJSON v)}
-          '') config.members
-        ));
+      generatedSetupScript = ''
+        ZTADDR=$(${ztcurl} "${zturl}/status" | ${pkgs.jq}/bin/jq -r ".address")
+        ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}" -d ${lib.escapeShellArg jsonPayload}
+      ''
+      + (lib.concatStrings (
+        lib.mapAttrsToList (n: v: ''
+          ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}/member/${n}" -d ${lib.escapeShellArg (builtins.toJSON v)}
+        '') config.members
+      ));
     in
     {
       options = {
@@ -125,6 +125,10 @@ let
         };
         routes = lib.mkOption {
           type = lib.types.listOf (lib.types.submodule routeOptions);
+          default = [ ];
+        };
+        relays = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
           default = [ ];
         };
 
