@@ -74,7 +74,7 @@ in
         # ${n}
       ''
       + lib.concatMapStringsSep "\n" (ip: ''
-        ip neigh add ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n}
+        ip neigh add ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} || true
       '') v.ipAssignments
     ) LT.zerotier.hosts;
 
