@@ -3,8 +3,7 @@
   imports = [ ./postgresql.nix ];
 
   environment.etc."hydra/machines".text = ''
-    localhost ${pkgs.stdenv.hostPlatform.system} - 8 1 kvm,nixos-test - -
-    localhost ${pkgs.stdenv.hostPlatform.system} - 2 1 kvm,nixos-test,big-parallel,benchmark big-parallel -
+    localhost ${pkgs.stdenv.hostPlatform.system} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
   '';
 
   services.hydra = {
