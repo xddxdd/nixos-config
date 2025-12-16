@@ -48,6 +48,8 @@ in
   };
 
   systemd.services.zerotierone = {
+    path = [ pkgs.iproute2 ];
+
     preStart = ''
       rm -rf /var/lib/zerotier-one/peers.d
     ''
@@ -59,6 +61,22 @@ in
       allowDNS=0
       EOF
     '';
+
+    postStart = ''
+      while ! ip link show ztje7axwd2; do
+        echo "Waiting for ZeroTier to setup device"
+        sleep 1
+      done
+    ''
+    + lib.concatMapAttrsStringSep "\n" (
+      n: v:
+      ''
+        # ${n}
+      ''
+      + lib.concatMapStringsSep "\n" (ip: ''
+        ip neigh add ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n}
+      '') v.ipAssignments
+    ) LT.zerotier.hosts;
 
     serviceConfig = LT.networkToolHarden // {
       StateDirectory = "zerotier-one";
@@ -91,15 +109,5 @@ in
         }) routes
       ) (LT.otherHostsWithoutTag LT.tags.server)
     );
-
-    extraConfig = lib.concatMapAttrsStringSep "\n" (
-      n: v:
-      lib.concatMapStringsSep "\n" (ip: ''
-        [Neighbor]
-        # ${v.name}
-        Address=${ip}
-        LinkLayerAddress=${calculateMac ltnet n}
-      '') v.ipAssignments
-    ) LT.zerotier.hosts;
   };
 }
