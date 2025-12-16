@@ -48,8 +48,6 @@ in
   };
 
   systemd.services.zerotierone = {
-    path = [ pkgs.iproute2 ];
-
     preStart = ''
       rm -rf /var/lib/zerotier-one/peers.d
     ''
@@ -62,7 +60,21 @@ in
       EOF
     '';
 
-    postStart = ''
+    serviceConfig = LT.networkToolHarden // {
+      StateDirectory = "zerotier-one";
+      MemoryMax = "64M";
+      Nice = "-20";
+    };
+  };
+
+  systemd.services.zerotierone-setup-neighbors = {
+    description = "Setup neighbors entry for ZeroTier";
+    wantedBy = [ "multi-user.target" ];
+    bindsTo = [ "zerotierone.service" ];
+    after = [ "zerotierone.service" ];
+    serviceConfig.Type = "oneshot";
+    path = [ pkgs.iproute2 ];
+    script = ''
       while ! ip link show ztje7axwd2; do
         echo "Waiting for ZeroTier to setup device"
         sleep 1
@@ -78,12 +90,6 @@ in
           || ip neigh replace ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} router
       '') v.ipAssignments
     ) LT.zerotier.hosts;
-
-    serviceConfig = LT.networkToolHarden // {
-      StateDirectory = "zerotier-one";
-      MemoryMax = "64M";
-      Nice = "-20";
-    };
   };
 
   systemd.network.networks."99-zerotier" = lib.mkIf (LT.this.hasTag LT.tags.server) {
