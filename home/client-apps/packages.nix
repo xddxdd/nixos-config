@@ -92,7 +92,7 @@ in
         lbzip2
         libfaketime
         libreoffice-qt6-fresh
-        linphone
+        # linphone
         lx-music-desktop
         macchanger
         mediainfo

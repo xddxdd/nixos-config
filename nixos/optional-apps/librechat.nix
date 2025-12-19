@@ -30,9 +30,9 @@ in
 
   services.librechat = {
     enable = true;
-    port = LT.port.Librechat;
     env = {
       HOST = "127.0.0.1";
+      PORT = LT.portStr.Librechat;
 
       MONGO_URI = "mongodb://127.0.0.1:27017/LibreChat";
       OPENID_ISSUER = "https://login.lantian.pub";

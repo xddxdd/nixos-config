@@ -22,6 +22,9 @@ build-x86: FORCE
 local: FORCE
 	@nix run .#colmena -- apply --on $(shell cat /etc/hostname)
 
+local-reboot: FORCE
+	@nix run .#colmena -- apply --reboot --on $(shell cat /etc/hostname)
+
 clean: FORCE
 	@nix run .#colmena -- exec -- nixos-cleanup
 

@@ -7,7 +7,6 @@
   services.ollama = {
     enable = true;
     port = LT.port.Ollama;
-    acceleration = "cuda";
     user = "ollama";
     group = "ollama";
     environmentVariables = {
