@@ -7,11 +7,6 @@
   ...
 }:
 let
-  atticUploadScript = pkgs.writeShellScript "attic-upload" ''
-    ${pkgs.attic-client}/bin/attic push lantian \
-      $(cat "$HYDRA_JSON" | ${pkgs.jq}/bin/jq -r ".outputs[].path")
-  '';
-
   platforms = builtins.concatStringsSep "," (
     lib.uniqueStrings (config.nix.settings.extra-platforms ++ [ pkgs.stdenv.hostPlatform.system ])
   );
@@ -24,6 +19,10 @@ in
     mode = "0444";
   };
 
+  environment.etc."hydra/attic-upload".source = pkgs.writeShellScript "attic-upload" ''
+    ${pkgs.attic-client}/bin/attic push lantian \
+      $(cat "$HYDRA_JSON" | ${pkgs.jq}/bin/jq -r ".outputs[].path")
+  '';
   environment.etc."hydra/machines".text = ''
     localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
   '';
@@ -40,7 +39,7 @@ in
     extraConfig = ''
       <runcommand>
         job = *:*:*
-        command = ${atticUploadScript}
+        command = /etc/hydra/attic-upload
       </runcommand>
     '';
   };
