@@ -1,6 +1,23 @@
-{ LT, pkgs, ... }:
+{
+  LT,
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+let
+  atticUploadScript = pkgs.writeShellScript "attic-upload" ''
+    ${pkgs.attic-client}/bin/attic push lantian \
+      $(cat "$HYDRA_JSON" | ${pkgs.jq}/bin/jq -r ".outputs[].path")
+  '';
+in
 {
   imports = [ ./postgresql.nix ];
+
+  age.secrets.attic-upload-key = {
+    file = inputs.secrets + "/attic-upload-key.age";
+    mode = "0444";
+  };
 
   environment.etc."hydra/machines".text = ''
     localhost ${pkgs.stdenv.hostPlatform.system} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
@@ -14,5 +31,22 @@
     port = LT.port.Hydra;
     buildMachinesFiles = [ "/etc/hydra/machines" ];
     useSubstitutes = true;
+
+    extraConfig = ''
+      <runcommand>
+        job = *:*:*
+        command = ${atticUploadScript}
+      </runcommand>
+    '';
+  };
+
+  systemd.services.hydra-notify = {
+    preStart = ''
+      if [ ! -f "$HOME/.config/attic/config.toml" ]; then
+        ${pkgs.attic-client}/bin/attic login --set-default lantian \
+          https://attic.colocrossing.xuyh0120.win \
+          $(cat ${config.age.secrets.attic-upload-key.path})
+      fi
+    '';
   };
 }
