@@ -1,5 +1,6 @@
 {
   LT,
+  lib,
   pkgs,
   inputs,
   config,
@@ -10,6 +11,10 @@ let
     ${pkgs.attic-client}/bin/attic push lantian \
       $(cat "$HYDRA_JSON" | ${pkgs.jq}/bin/jq -r ".outputs[].path")
   '';
+
+  platforms = builtins.concatStringsSep "," (
+    lib.uniqueStrings (config.nix.settings.extra-platforms ++ [ pkgs.stdenv.hostPlatform.system ])
+  );
 in
 {
   imports = [ ./postgresql.nix ];
@@ -20,7 +25,7 @@ in
   };
 
   environment.etc."hydra/machines".text = ''
-    localhost ${pkgs.stdenv.hostPlatform.system} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
+    localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
   '';
 
   services.hydra = {
