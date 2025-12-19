@@ -211,6 +211,7 @@
                   # keep-sorted start
                   beautifulsoup4
                   curl-cffi
+                  pydantic
                   requests
                   telethon
                   # keep-sorted end
