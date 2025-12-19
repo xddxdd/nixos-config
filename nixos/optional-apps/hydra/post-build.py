@@ -142,7 +142,9 @@ def git_set_branch_to_commit(git_url: str, branch_name: str, commit_id: str):
         except subprocess.CalledProcessError:
             subprocess.run(["git", "checkout", "-b", branch_name], check=True, cwd=d)
         subprocess.run(["git", "reset", "--hard", commit_id], check=True, cwd=d)
-        subprocess.run(["git", "push", "-u", "origin", branch_name], check=True, cwd=d)
+        subprocess.run(
+            ["git", "push", "-u", "origin", branch_name, "--force"], check=True, cwd=d
+        )
 
 
 if __name__ == "__main__":
