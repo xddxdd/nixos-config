@@ -98,8 +98,8 @@ class Build(BaseModel):
     project: str
     nixname: str
     job: str
-    buildstatus: int
-    starttime: datetime
+    buildstatus: int | None = None
+    starttime: datetime | None = None
     system: str
     priority: int
     stoptime: int | None = None
