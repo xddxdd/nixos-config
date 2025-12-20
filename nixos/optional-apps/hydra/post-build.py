@@ -151,7 +151,7 @@ if __name__ == "__main__":
     with open(sys.argv[1]) as f:
         event = BuildEvent.model_validate_json(f.read())
 
-    # If nix-cachyos-kernel build is >=50% successful, update GitHub branch
+    # If nix-cachyos-kernel build is >=75% successful, update GitHub branch
     try:
         if event.project == "lantian" and event.jobset == "nix-cachyos-kernel":
             logging.info("Checking if all builds are complete")
@@ -166,7 +166,7 @@ if __name__ == "__main__":
             pass_rate = pass_count / len(builds)
             logging.info(f"{all_complete=} {pass_rate=}")
 
-            if all_complete and pass_rate >= 0.5:
+            if all_complete and pass_rate >= 0.75:
                 git_set_branch_to_commit(
                     "https://github.com/xddxdd/nix-cachyos-kernel.git",
                     "release",
