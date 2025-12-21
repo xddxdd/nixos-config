@@ -123,6 +123,7 @@ in
       if (roa_check(roa_flap_v4, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_FLAP_BLOCK});
         bgp_community.add(${community.NO_EXPORT});
+        bgp_local_pref = 0;
       }
 
       if net ~ RESERVED_IPv4 then accept;
@@ -162,6 +163,7 @@ in
       if (roa_check(roa_flap_v6, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_FLAP_BLOCK});
         bgp_community.add(${community.NO_EXPORT});
+        bgp_local_pref = 0;
       }
 
       if net ~ RESERVED_IPv6 then accept;
