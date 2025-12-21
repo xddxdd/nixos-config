@@ -18,8 +18,8 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
         --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.RPKI} \
         --cache /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf \
         --rtr.expire 86400 \
-        --rtr.refresh 600 \
-        --rtr.retry 600
+        --rtr.refresh 60 \
+        --rtr.retry 60
     '';
 
     serviceConfig = LT.serviceHarden // {
@@ -45,8 +45,8 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
         --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.FlapAlerted} \
         --cache https://flapalerted.lantian.pub/flaps/active/roa \
         --rtr.expire 3600 \
-        --rtr.refresh 300 \
-        --rtr.retry 300
+        --rtr.refresh 60 \
+        --rtr.retry 60
     '';
 
     serviceConfig = LT.serviceHarden // {
