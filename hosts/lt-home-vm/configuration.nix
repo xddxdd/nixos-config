@@ -113,9 +113,4 @@
     AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
     CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
   };
-
-  services."route-chain" = {
-    enable = true;
-    routes = [ "172.22.76.97/29" ];
-  };
 }

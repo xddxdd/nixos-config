@@ -24,12 +24,8 @@
   # DN42 legacy address
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::20:5549:a809/128" ];
 
-  services."route-chain" = {
-    enable = true;
-    routes = [
-      "172.22.76.97/29"
-      "2605:6400:30:f22f::1/120"
-      "2605:6400:cac6::1/120"
-    ];
-  };
+  services.route-chain.routes = [
+    "2605:6400:30:f22f::1/120"
+    "2605:6400:cac6::1/120"
+  ];
 }

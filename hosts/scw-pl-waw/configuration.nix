@@ -25,13 +25,9 @@
 
   services.ndppd.proxies.eth0.rules."2001:bc8:1d90:18d1::/64".method = "static";
 
-  services."route-chain" = {
-    enable = true;
-    routes = [
-      "172.22.76.97/29"
-      "2001:bc8:1d90:18d1::1/120"
-    ];
-  };
+  services.route-chain.routes = [
+    "2001:bc8:1d90:18d1::1/120"
+  ];
 
   services.yggdrasil.regions = [
     "germany"

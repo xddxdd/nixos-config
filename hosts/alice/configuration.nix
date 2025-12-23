@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   ...
 }:
@@ -34,14 +33,4 @@
 
   # DN42 legacy address
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::8b:c606:ba01/128" ];
-
-  # Cannot connect to log server since this server is IPv6 only
-  services.filebeat.enable = lib.mkForce false;
-
-  services."route-chain" = {
-    enable = true;
-    routes = [
-      "172.22.76.97/29"
-    ];
-  };
 }

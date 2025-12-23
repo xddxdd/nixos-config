@@ -70,13 +70,4 @@
   systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
     environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
   };
-
-  services."route-chain" = {
-    enable = true;
-    routes = [
-      "172.22.76.97/29"
-      "2001:470:1f06:6fe::1/120"
-      "2001:470:8c19::1/120"
-    ];
-  };
 }
