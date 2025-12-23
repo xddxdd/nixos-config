@@ -29,15 +29,6 @@
     })
 
     (config.common.reverse {
-      prefix = "2001:470:1f05:159::/64";
-      target = "bwg-lax.lantian.pub.";
-    })
-    (config.common.reverse {
-      prefix = "2001:470:805e::/48";
-      target = "bwg-lax.lantian.pub.";
-    })
-
-    (config.common.reverse {
       prefix = "2605:6400:cac6::/48";
       target = "buyvm.lantian.pub.";
     })
