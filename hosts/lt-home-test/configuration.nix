@@ -1,23 +1,10 @@
-{ lib, ... }:
+{ config, inputs, ... }:
 {
   imports = [
-    ../../nixos/minimal.nix
+    ../../nixos/client.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/common-apps/nginx
-
-    ../../nixos/client-components/tlp.nix
-
-    ../../nixos/server-components/backup.nix
-    ../../nixos/server-components/logging.nix
-
-    # ../../nixos/optional-apps/llama-cpp-qwen3-reranker.nix
-    ../../nixos/optional-apps/ollama.nix
-    ../../nixos/optional-apps/vlmcsd.nix
   ];
-
-  boot.kernelParams = [ "pci=realloc,assign-busses" ];
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.13/24" ];
@@ -37,10 +24,22 @@
     ];
   };
 
-  services.fwupd.enable = true;
-
-  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
-    TLP_DEFAULT_MODE = "BAT";
-    TLP_PERSISTENT_DEFAULT = 1;
+  # Auto mount samba share
+  age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";
+  fileSystems."/mnt/share" = {
+    device = "//192.168.1.10/storage";
+    fsType = "cifs";
+    options = [
+      "_netdev"
+      "credentials=${config.age.secrets.samba-credentials.path}"
+      "gid=${builtins.toString config.users.groups.lantian.gid}"
+      "noauto"
+      "uid=${builtins.toString config.users.users.lantian.uid}"
+      "users"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=5s"
+    ];
   };
 }
