@@ -102,6 +102,5 @@
     blacklistedModules = [
       "nouveau"
     ];
-    isolcpus = "112-127";
   };
 }
