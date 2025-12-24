@@ -1,10 +1,19 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../../nixos/client.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/sunshine.nix
   ];
+
+  networking.networkmanager.enable = lib.mkForce false;
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.13/24" ];
