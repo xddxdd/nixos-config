@@ -41,7 +41,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
             loadbalance round_robin
             prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-            forward . /run/NetworkManager/no-stub-resolv.conf 8.8.8.8 {
+            forward . ${lib.optionalString config.networking.networkmanager.enable "/run/NetworkManager/no-stub-resolv.conf"} 8.8.8.8 {
               prefer_udp
               policy sequential
             }
@@ -69,19 +69,18 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
         defaultForwarder =
           if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS;
 
-        cfgEntries =
-          [
-            (defaultForwarder ".")
-            # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
-            (block "mcdn.bilivideo.cn")
-            (block "szbdyd.com")
-          ]
-          # Not working well
-          # ++ lib.optional config.services.avahi.enable (mdns "local")
-          ++ (builtins.map forwardToLtnet (
-            with LT.constants.zones;
-            (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
-          ));
+        cfgEntries = [
+          (defaultForwarder ".")
+          # Block Bilibili PCDN https://linux.do/t/topic/534704/7?u=xuyh0120
+          (block "mcdn.bilivideo.cn")
+          (block "szbdyd.com")
+        ]
+        # Not working well
+        # ++ lib.optional config.services.avahi.enable (mdns "local")
+        ++ (builtins.map forwardToLtnet (
+          with LT.constants.zones;
+          (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
+        ));
       in
       lib.concatStrings cfgEntries;
   };
