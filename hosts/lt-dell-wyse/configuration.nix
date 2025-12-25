@@ -2,8 +2,6 @@
   lib,
   LT,
   pkgs,
-  inputs,
-  config,
   ...
 }:
 {
@@ -52,18 +50,16 @@
     };
   };
 
-  # Auto mount samba share
-  age.secrets.samba-credentials.file = inputs.secrets + "/samba-credentials.age";
   fileSystems."/mnt/share" = {
-    device = "//192.168.1.10/storage";
-    fsType = "cifs";
+    device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
+    fsType = "nfs";
     options = [
       "_netdev"
-      "credentials=${config.age.secrets.samba-credentials.path}"
-      "gid=${builtins.toString config.users.groups.lantian.gid}"
+      "noatime"
       "noauto"
-      "uid=${builtins.toString config.users.users.lantian.uid}"
-      "users"
+      "clientaddr=${LT.this.ltnet.IPv4}"
+      "hard"
+      "vers=4.2"
       "x-systemd.automount"
       "x-systemd.device-timeout=5s"
       "x-systemd.idle-timeout=60"
