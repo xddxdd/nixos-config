@@ -6,13 +6,13 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
   hardware.nvidia.open = false;
+  hardware.nvidia.videoAcceleration = true;
 
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;
 
   # Enable CUDA
   hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
 
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";
