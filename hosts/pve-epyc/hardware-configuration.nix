@@ -39,9 +39,10 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  # Try to workaround issues with passthrough P40
+  # Try to workaround issues with passthrough GPUs
   boot.kernelParams = [
     "video=astdrmfb"
+    "video=simplefb:off"
     "video=vesafb:off"
     "video=efifb:off"
   ];
