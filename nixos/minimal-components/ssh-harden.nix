@@ -161,6 +161,11 @@ in
     Host localhost
       ${ltnetSSHConfig}
 
+    Host vscode-remote
+      HostName lt-home-test.ltnet.xuyh0120.win
+      User lantian
+      ${ltnetSSHConfig}
+
     Host *
       ForwardAgent no
       Compression no
