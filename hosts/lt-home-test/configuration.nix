@@ -10,6 +10,8 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/ollama.nix
+    ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/sunshine.nix
   ];
 

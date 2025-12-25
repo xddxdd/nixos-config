@@ -1,9 +1,8 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/hardware/nvidia/only.nix
-    ../../nixos/hardware/nvidia/grid-extension.nix
     ../../nixos/hardware/qemu.nix
     ../../nixos/hardware/qemu-hotplug.nix
   ];
@@ -30,4 +29,15 @@
   };
 
   services.qemuGuest.enable = true;
+
+  systemd.services.nvidia-power-limit = {
+    description = "Set Power Limit for NVIDIA GPUs";
+    wantedBy = [ "multi-user.target" ];
+    path = [ config.hardware.nvidia.package ];
+    script = ''
+      nvidia-smi --gpu-target-temp 65
+      nvidia-smi -pl 250
+    '';
+    serviceConfig.Type = "oneshot";
+  };
 }

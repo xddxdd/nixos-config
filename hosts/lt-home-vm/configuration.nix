@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 {
@@ -30,10 +29,8 @@
     # ../../nixos/optional-apps/mtranserver.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
-    ../../nixos/optional-apps/ollama.nix
-    ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/palworld.nix
-    ../../nixos/optional-apps/sakura-llm
+    # ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/syncthing.nix
@@ -97,16 +94,16 @@
   lantian.btrbk.storage = "/mnt/storage/backups/btrbk";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
 
-  services.ollama.models = "/mnt/storage/ollama";
-  systemd.tmpfiles.settings = {
-    ollama = {
-      "/mnt/storage/ollama".d = {
-        mode = "755";
-        inherit (config.services.ollama) user;
-        inherit (config.services.ollama) group;
-      };
-    };
-  };
+  # services.ollama.models = "/mnt/storage/ollama";
+  # systemd.tmpfiles.settings = {
+  #   ollama = {
+  #     "/mnt/storage/ollama".d = {
+  #       mode = "755";
+  #       inherit (config.services.ollama) user;
+  #       inherit (config.services.ollama) group;
+  #     };
+  #   };
+  # };
 
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {
