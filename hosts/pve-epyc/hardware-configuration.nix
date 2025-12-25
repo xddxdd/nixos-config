@@ -40,7 +40,11 @@
   boot.extraModulePackages = [ ];
 
   # Try to workaround issues with passthrough P40
-  boot.kernelParams = [ "video=efifb:off" ];
+  boot.kernelParams = [
+    "video=astdrmfb"
+    "video=vesafb:off"
+    "video=efifb:off"
+  ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/815E-3292";
