@@ -10,9 +10,19 @@
     ../../nixos/optional-apps/samba.nix
   ];
 
-  services.nfs.server.exports = ''
-    /run/nfs/storage 198.18.0.0/24(rw,insecure,no_subtree_check,mountpoint,all_squash,fsid=1,anonuid=${builtins.toString config.users.users.lantian.uid},anongid=${builtins.toString config.users.groups.lantian.gid})
-  '';
+  services.nfs.server.exports =
+    let
+      opts = "rw,insecure,no_subtree_check,mountpoint,all_squash,fsid=1,anonuid=${builtins.toString config.users.users.lantian.uid},anongid=${builtins.toString config.users.groups.lantian.gid}";
+      hostOpts = lib.concatMapStringsSep " " (ip: "${ip}(${opts})") [
+        LT.hosts.lt-dell-wyse.ltnet.IPv4
+        LT.hosts.lt-dell-wyse-thin.ltnet.IPv4
+        LT.hosts.lt-home-test.ltnet.IPv4
+        LT.hosts.lt-hp-omen.ltnet.IPv4
+      ];
+    in
+    ''
+      /run/nfs/storage ${hostOpts}
+    '';
 
   services.samba.settings = {
     "storage" = {

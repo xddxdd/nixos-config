@@ -13,7 +13,7 @@
     statdPort = LT.port.NFS.StatD;
 
     exports = ''
-      /run/nfs 198.18.0.0/24(rw,fsid=0,no_subtree_check)
+      /run/nfs 198.18.0.0/24(ro,fsid=0,no_subtree_check)
     '';
   };
 
