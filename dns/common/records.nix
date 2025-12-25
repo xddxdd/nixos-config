@@ -125,6 +125,11 @@
       # MXRoute
       {
         recordType = "TXT";
+        name = "_da-verify-a5191e89fc7b72b3b9e7fe33726b5eb1";
+        contents = "domain-verified";
+      }
+      {
+        recordType = "TXT";
         name = "x._domainkey";
         contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnoMpO+zy8KOzcOnUJzKXAHPIZUqusUQjCgJj6ErpKR8oi5kXA5yLLeAZaNl6fh3Au2GfHJTFTkYCUSfL4dt4A7x8FV8rNlrpTmU/SQ1+VfvtS/Qn5uwROmAiKMmjhL8KvuyCEEvTHsBZLIpDDhu+K10N5s3khy4KlVetNhFeahV6wFn/GbnfKHjsfkF3IWLvOtafqNFb8/VH8LsgsCtUJjniecD9D37iqcwxGqUPolx30D8ZXnuMpcS9Ylh6HvCbUHwbdiGm4YmplhvwiWRiTFDL9hyyLOL1cddtoMHZLm3cUP87d2nGIINQJoRHQTWuOp8UsgHJ6eNZ6E62WsYeTQIDAQAB";
       }
