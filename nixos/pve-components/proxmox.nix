@@ -1,4 +1,6 @@
 _: {
+  imports = [ ../hardware/vfio.nix ];
+
   services.proxmox-ve.enable = true;
 
   systemd.services.pvescheduler.serviceConfig = {

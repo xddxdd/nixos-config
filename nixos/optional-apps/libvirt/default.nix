@@ -1,5 +1,7 @@
-{ lib, config, ... }:
+{ ... }:
 {
+  imports = [ ../../hardware/vfio.nix ];
+
   environment.etc."ssdt1.dat".source = ./ssdt1.dat;
 
   security.polkit.enable = true;
@@ -22,12 +24,4 @@
   };
 
   users.users.lantian.extraGroups = [ "libvirtd" ];
-
-  boot.kernelParams =
-    (lib.optionals config.hardware.cpu.intel.updateMicrocode [
-      "intel_iommu=on"
-      "iommu=pt"
-    ])
-    ++ (lib.optionals config.hardware.cpu.amd.updateMicrocode [ "amd_iommu=on" ])
-    ++ [ "pcie_acs_override=downstream,multifunction" ];
 }

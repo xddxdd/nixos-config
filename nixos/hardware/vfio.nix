@@ -31,6 +31,7 @@ in
       "intel_iommu=on"
       "iommu=pt"
       "amd_iommu=on"
+      "pcie_acs_override=downstream,multifunction"
     ]
     ++ lib.optionals (cfg.isolcpus != null) [
       "isolcpus=${cfg.isolcpus}"

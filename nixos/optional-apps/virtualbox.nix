@@ -1,4 +1,6 @@
 _: {
+  imports = [ ../hardware/vfio.nix ];
+
   virtualisation.virtualbox.host = {
     enable = true;
     addNetworkInterface = false;
