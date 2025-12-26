@@ -16,7 +16,7 @@
       hostOpts = lib.concatMapStringsSep " " (ip: "${ip}(${opts})") [
         LT.hosts.lt-dell-wyse.ltnet.IPv4
         LT.hosts.lt-dell-wyse-thin.ltnet.IPv4
-        LT.hosts.lt-home-test.ltnet.IPv4
+        LT.hosts.lt-home-rdp.ltnet.IPv4
         LT.hosts.lt-hp-omen.ltnet.IPv4
       ];
     in

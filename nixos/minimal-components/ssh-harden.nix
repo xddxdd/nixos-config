@@ -162,7 +162,7 @@ in
       ${ltnetSSHConfig}
 
     Host vscode-remote
-      HostName lt-home-test.ltnet.xuyh0120.win
+      HostName lt-home-rdp.ltnet.xuyh0120.win
       User lantian
       ${ltnetSSHConfig}
 
