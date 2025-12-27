@@ -130,6 +130,7 @@ in
         steam-run
         synadm
         tigervnc
+        ulauncher
         unar
         ventoy-full
         virt-manager
