@@ -68,11 +68,6 @@ _: {
         comment = "Start terminal with Python";
         key = "Calculator";
       };
-      ulauncher-toggle = {
-        command = "ulauncher-toggle";
-        comment = "Toggle Ulauncher search bar";
-        key = "Meta+Space";
-      };
       noop = {
         command = "true";
         comment = "No Operation";
@@ -187,45 +182,6 @@ _: {
     session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
 
     window-rules = [
-      {
-        description = "Ulauncher";
-        match.window-class = {
-          match-whole = false;
-          type = "exact";
-          value = "ulauncher";
-        };
-        apply = {
-          above = {
-            apply = "force";
-            value = true;
-          };
-          fpplevel = {
-            apply = "force";
-            value = 3;
-          };
-          noborder = {
-            apply = "force";
-            value = true;
-          };
-          position = {
-            apply = "initially";
-            # FIXME: calculate based on screen size
-            value = "550,160";
-          };
-          skippager = {
-            apply = "force";
-            value = true;
-          };
-          skipswitcher = {
-            apply = "force";
-            value = true;
-          };
-          skiptaskbar = {
-            apply = "force";
-            value = true;
-          };
-        };
-      }
       {
         description = "Discord minimize by default";
         match.window-class = {

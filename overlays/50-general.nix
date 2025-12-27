@@ -134,19 +134,6 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
-  ulauncher = prev.ulauncher.overrideAttrs (old: {
-    nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
-
-    propagatedBuildInputs =
-      with prev.python3Packages;
-      old.propagatedBuildInputs
-      ++ [
-        fuzzywuzzy
-        pint
-        pytz
-        simpleeval
-      ];
-  });
   yt-dlp = prev.yt-dlp.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       # Modified from https://github.com/yt-dlp/yt-dlp/issues/14498#issuecomment-3391106164

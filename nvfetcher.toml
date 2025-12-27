@@ -50,38 +50,6 @@ src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "PiDanShouRouZhouXD/Sakura_Launcher_GUI"
 src.git = "https://github.com/PiDanShouRouZhouXD/Sakura_Launcher_GUI.git"
 
-[ulauncher-albert-calculate-anything]
-fetch.github = "tchar/ulauncher-albert-calculate-anything"
-src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
-
-[ulauncher-colorconverter]
-fetch.github = "sergius02/ulauncher-colorconverter"
-src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
-
-[ulauncher-emoji]
-fetch.github = "Ulauncher/ulauncher-emoji"
-src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
-
-[ulauncher-kill]
-fetch.github = "Ulauncher/ulauncher-kill"
-src.git = "https://github.com/Ulauncher/ulauncher-kill.git"
-
-[ulauncher-meme-my-text]
-fetch.github = "RNairn01/ulauncher-meme-my-text"
-src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
-
-[ulauncher-tldr]
-fetch.github = "dhelmr/ulauncher-tldr"
-src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
-
-[ulauncher-virtualbox]
-fetch.github = "luispabon/ulauncher-virtualbox"
-src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
-
-[ulauncher-vscode-recent]
-fetch.github = "plibither8/ulauncher-vscode-recent"
-src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
-
 [um-react]
 fetch.url = "https://git.um-react.app/um/um-react/releases/download/v$ver/um-react-$ver.zip"
 src.webpage = "https://git.um-react.app/um/um-react/releases"
