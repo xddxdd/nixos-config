@@ -22,9 +22,8 @@ in
     };
 
     settingsPerApplication = {
-      mpv = {
-        no_display = true;
-      };
+      mpv.no_display = true;
+      zeditor.no_display = true;
     };
   };
 }
