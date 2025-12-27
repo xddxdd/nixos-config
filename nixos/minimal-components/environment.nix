@@ -114,6 +114,7 @@
 
   services.ananicy = {
     enable = LT.this.hasTag LT.tags.client;
+    package = pkgs.ananicy-cpp;
     rulesProvider = pkgs.ananicy-rules-cachyos;
   };
 
