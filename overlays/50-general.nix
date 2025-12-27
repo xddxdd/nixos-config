@@ -141,10 +141,13 @@ rec {
       with prev.python3Packages;
       old.propagatedBuildInputs
       ++ [
+        # keep-sorted start
+        faker
         fuzzywuzzy
         pint
         pytz
         simpleeval
+        # keep-sorted end
       ];
   });
   yt-dlp = prev.yt-dlp.overrideAttrs (old: {

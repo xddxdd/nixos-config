@@ -54,13 +54,37 @@ src.git = "https://github.com/PiDanShouRouZhouXD/Sakura_Launcher_GUI.git"
 fetch.github = "tchar/ulauncher-albert-calculate-anything"
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 
+[ulauncher-antigravity-launcher]
+fetch.github = "TheFury-BOY/antigravity-ulauncher"
+src.git = "https://github.com/TheFury-BOY/antigravity-ulauncher.git"
+
+[ulauncher-chrome-profiles]
+fetch.github = "FloydJohn/ulauncher-chrome-profiles"
+src.git = "https://github.com/FloydJohn/ulauncher-chrome-profiles.git"
+
 [ulauncher-colorconverter]
 fetch.github = "sergius02/ulauncher-colorconverter"
 src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
 
+[ulauncher-cursor-projects]
+fetch.github = "rlvendramini/ulauncher-cursor-projects-ext"
+src.git = "https://github.com/rlvendramini/ulauncher-cursor-projects-ext.git"
+
 [ulauncher-emoji]
 fetch.github = "Ulauncher/ulauncher-emoji"
 src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
+
+[ulauncher-extension-list]
+fetch.github = "ralcaidev/ulauncher-extension-list"
+src.git = "https://github.com/ralcaidev/ulauncher-extension-list.git"
+
+[ulauncher-faker]
+fetch.github = "brpaz/ulauncher-faker"
+src.git = "https://github.com/brpaz/ulauncher-faker.git"
+
+[ulauncher-firefox-launcher]
+fetch.github = "freisatz/ulauncher-firefox-launcher"
+src.git = "https://github.com/freisatz/ulauncher-firefox-launcher.git"
 
 [ulauncher-kill]
 fetch.github = "Ulauncher/ulauncher-kill"
@@ -70,13 +94,21 @@ src.git = "https://github.com/Ulauncher/ulauncher-kill.git"
 fetch.github = "RNairn01/ulauncher-meme-my-text"
 src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
 
+[ulauncher-pwgen]
+fetch.github = "brpaz/ulauncher-pwgen"
+src.git = "https://github.com/brpaz/ulauncher-pwgen.git"
+
+[ulauncher-timestamp]
+fetch.github = "brpaz/ulauncher-timestamp"
+src.git = "https://github.com/brpaz/ulauncher-timestamp.git"
+
+[ulauncher-timezone]
+fetch.github = "Epholys/ultz"
+src.git = "https://github.com/Epholys/ultz.git"
+
 [ulauncher-tldr]
 fetch.github = "dhelmr/ulauncher-tldr"
 src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
-
-[ulauncher-virtualbox]
-fetch.github = "luispabon/ulauncher-virtualbox"
-src.git = "https://github.com/luispabon/ulauncher-virtualbox.git"
 
 [ulauncher-vscode-recent]
 fetch.github = "plibither8/ulauncher-vscode-recent"

@@ -258,6 +258,48 @@
         },
         "version": "037965a44e6f6f496e7ad71ec1651b9edfcde32d"
     },
+    "ulauncher-antigravity-launcher": {
+        "cargoLocks": null,
+        "date": "2025-11-19",
+        "extract": null,
+        "name": "ulauncher-antigravity-launcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "TheFury-BOY",
+            "repo": "antigravity-ulauncher",
+            "rev": "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4",
+            "sha256": "sha256-K+VYB9rtcTNwqjV3fkJ5iy6o8JndcOaFK8WnB+qV7k8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4"
+    },
+    "ulauncher-chrome-profiles": {
+        "cargoLocks": null,
+        "date": "2019-06-30",
+        "extract": null,
+        "name": "ulauncher-chrome-profiles",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "FloydJohn",
+            "repo": "ulauncher-chrome-profiles",
+            "rev": "486fead44fcd195abdc62d60569a5facfb433d70",
+            "sha256": "sha256-ggUBTW8VxnGpTsnnir+CG6iQfJMx9qVMVUsx1oR8MpI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "486fead44fcd195abdc62d60569a5facfb433d70"
+    },
     "ulauncher-colorconverter": {
         "cargoLocks": null,
         "date": "2020-12-06",
@@ -279,6 +321,27 @@
         },
         "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a"
     },
+    "ulauncher-cursor-projects": {
+        "cargoLocks": null,
+        "date": "2025-11-03",
+        "extract": null,
+        "name": "ulauncher-cursor-projects",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rlvendramini",
+            "repo": "ulauncher-cursor-projects-ext",
+            "rev": "bd674a35959e8de9f5b59513a8f13ddd1d4ada74",
+            "sha256": "sha256-TdTpc4rlsQRdpEm4LJHu7ivIN25G1lie4vlRGsoHQF8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "bd674a35959e8de9f5b59513a8f13ddd1d4ada74"
+    },
     "ulauncher-emoji": {
         "cargoLocks": null,
         "date": "2025-10-05",
@@ -299,6 +362,69 @@
             "type": "github"
         },
         "version": "195d167ea0cfdbb2169906b5acaac8097db84767"
+    },
+    "ulauncher-extension-list": {
+        "cargoLocks": null,
+        "date": "2022-11-10",
+        "extract": null,
+        "name": "ulauncher-extension-list",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ralcaidev",
+            "repo": "ulauncher-extension-list",
+            "rev": "27d65fae4abc036e37a09792c8244287017dbc73",
+            "sha256": "sha256-E0o9WYWSnxPivxbXm7d2ohFzDeiYZ1NfpERnxoP0gyQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "27d65fae4abc036e37a09792c8244287017dbc73"
+    },
+    "ulauncher-faker": {
+        "cargoLocks": null,
+        "date": "2021-12-12",
+        "extract": null,
+        "name": "ulauncher-faker",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "brpaz",
+            "repo": "ulauncher-faker",
+            "rev": "58832c94acc671a9f603ea7fbf5d4405110bb902",
+            "sha256": "sha256-oFlgKVZYY33NJVn3mS5YmvMHaKot10IsfLTwTCrquVY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "58832c94acc671a9f603ea7fbf5d4405110bb902"
+    },
+    "ulauncher-firefox-launcher": {
+        "cargoLocks": null,
+        "date": "2025-04-13",
+        "extract": null,
+        "name": "ulauncher-firefox-launcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "freisatz",
+            "repo": "ulauncher-firefox-launcher",
+            "rev": "1dc79cbaba76998b144881028bbe3567218d8836",
+            "sha256": "sha256-fewsb8DdRshH6PTJW6dK/v7tTleL1lIrpZTsG/P75B8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1dc79cbaba76998b144881028bbe3567218d8836"
     },
     "ulauncher-kill": {
         "cargoLocks": null,
@@ -342,6 +468,69 @@
         },
         "version": "5d62830a7a92983a731e15645831f53d48dad913"
     },
+    "ulauncher-pwgen": {
+        "cargoLocks": null,
+        "date": "2021-12-12",
+        "extract": null,
+        "name": "ulauncher-pwgen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "brpaz",
+            "repo": "ulauncher-pwgen",
+            "rev": "96880bb135720cae1ad039b6635062a9e285ca71",
+            "sha256": "sha256-oqPXrMzOXHvbN1ZKZBr2PP+2liD76x71p6hLtLwXYOQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "96880bb135720cae1ad039b6635062a9e285ca71"
+    },
+    "ulauncher-timestamp": {
+        "cargoLocks": null,
+        "date": "2021-12-12",
+        "extract": null,
+        "name": "ulauncher-timestamp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "brpaz",
+            "repo": "ulauncher-timestamp",
+            "rev": "e366a81f92b8130dddc0b1bddecad253124c49b9",
+            "sha256": "sha256-os3mbadDRB1XicEgyEa74fLgeFtN9mb4+7Oqc54Tv2s=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e366a81f92b8130dddc0b1bddecad253124c49b9"
+    },
+    "ulauncher-timezone": {
+        "cargoLocks": null,
+        "date": "2021-05-12",
+        "extract": null,
+        "name": "ulauncher-timezone",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Epholys",
+            "repo": "ultz",
+            "rev": "9f0749d6ab1fcb99545dae75934b698e5ff975b6",
+            "sha256": "sha256-p2ESZTkVKiKQp+Z3esGz6vlsXxUs3wJxXce14bLOCCE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "9f0749d6ab1fcb99545dae75934b698e5ff975b6"
+    },
     "ulauncher-tldr": {
         "cargoLocks": null,
         "date": "2023-07-29",
@@ -362,27 +551,6 @@
             "type": "github"
         },
         "version": "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c"
-    },
-    "ulauncher-virtualbox": {
-        "cargoLocks": null,
-        "date": "2020-09-23",
-        "extract": null,
-        "name": "ulauncher-virtualbox",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "luispabon",
-            "repo": "ulauncher-virtualbox",
-            "rev": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
-            "sha256": "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "d8f495df3c7f41ee8493b207d17f06fc0372c84e"
     },
     "ulauncher-vscode-recent": {
         "cargoLocks": null,

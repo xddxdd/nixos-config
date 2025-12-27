@@ -152,6 +152,30 @@
     };
     date = "2024-05-29";
   };
+  ulauncher-antigravity-launcher = {
+    pname = "ulauncher-antigravity-launcher";
+    version = "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4";
+    src = fetchFromGitHub {
+      owner = "TheFury-BOY";
+      repo = "antigravity-ulauncher";
+      rev = "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4";
+      fetchSubmodules = false;
+      sha256 = "sha256-K+VYB9rtcTNwqjV3fkJ5iy6o8JndcOaFK8WnB+qV7k8=";
+    };
+    date = "2025-11-19";
+  };
+  ulauncher-chrome-profiles = {
+    pname = "ulauncher-chrome-profiles";
+    version = "486fead44fcd195abdc62d60569a5facfb433d70";
+    src = fetchFromGitHub {
+      owner = "FloydJohn";
+      repo = "ulauncher-chrome-profiles";
+      rev = "486fead44fcd195abdc62d60569a5facfb433d70";
+      fetchSubmodules = false;
+      sha256 = "sha256-ggUBTW8VxnGpTsnnir+CG6iQfJMx9qVMVUsx1oR8MpI=";
+    };
+    date = "2019-06-30";
+  };
   ulauncher-colorconverter = {
     pname = "ulauncher-colorconverter";
     version = "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a";
@@ -164,6 +188,18 @@
     };
     date = "2020-12-06";
   };
+  ulauncher-cursor-projects = {
+    pname = "ulauncher-cursor-projects";
+    version = "bd674a35959e8de9f5b59513a8f13ddd1d4ada74";
+    src = fetchFromGitHub {
+      owner = "rlvendramini";
+      repo = "ulauncher-cursor-projects-ext";
+      rev = "bd674a35959e8de9f5b59513a8f13ddd1d4ada74";
+      fetchSubmodules = false;
+      sha256 = "sha256-TdTpc4rlsQRdpEm4LJHu7ivIN25G1lie4vlRGsoHQF8=";
+    };
+    date = "2025-11-03";
+  };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
     version = "195d167ea0cfdbb2169906b5acaac8097db84767";
@@ -175,6 +211,42 @@
       sha256 = "sha256-DFOm8R5gP6rfvzYvGJAaBTRa6GGd1fyP+RShNR44aPA=";
     };
     date = "2025-10-05";
+  };
+  ulauncher-extension-list = {
+    pname = "ulauncher-extension-list";
+    version = "27d65fae4abc036e37a09792c8244287017dbc73";
+    src = fetchFromGitHub {
+      owner = "ralcaidev";
+      repo = "ulauncher-extension-list";
+      rev = "27d65fae4abc036e37a09792c8244287017dbc73";
+      fetchSubmodules = false;
+      sha256 = "sha256-E0o9WYWSnxPivxbXm7d2ohFzDeiYZ1NfpERnxoP0gyQ=";
+    };
+    date = "2022-11-10";
+  };
+  ulauncher-faker = {
+    pname = "ulauncher-faker";
+    version = "58832c94acc671a9f603ea7fbf5d4405110bb902";
+    src = fetchFromGitHub {
+      owner = "brpaz";
+      repo = "ulauncher-faker";
+      rev = "58832c94acc671a9f603ea7fbf5d4405110bb902";
+      fetchSubmodules = false;
+      sha256 = "sha256-oFlgKVZYY33NJVn3mS5YmvMHaKot10IsfLTwTCrquVY=";
+    };
+    date = "2021-12-12";
+  };
+  ulauncher-firefox-launcher = {
+    pname = "ulauncher-firefox-launcher";
+    version = "1dc79cbaba76998b144881028bbe3567218d8836";
+    src = fetchFromGitHub {
+      owner = "freisatz";
+      repo = "ulauncher-firefox-launcher";
+      rev = "1dc79cbaba76998b144881028bbe3567218d8836";
+      fetchSubmodules = false;
+      sha256 = "sha256-fewsb8DdRshH6PTJW6dK/v7tTleL1lIrpZTsG/P75B8=";
+    };
+    date = "2025-04-13";
   };
   ulauncher-kill = {
     pname = "ulauncher-kill";
@@ -200,6 +272,42 @@
     };
     date = "2021-05-07";
   };
+  ulauncher-pwgen = {
+    pname = "ulauncher-pwgen";
+    version = "96880bb135720cae1ad039b6635062a9e285ca71";
+    src = fetchFromGitHub {
+      owner = "brpaz";
+      repo = "ulauncher-pwgen";
+      rev = "96880bb135720cae1ad039b6635062a9e285ca71";
+      fetchSubmodules = false;
+      sha256 = "sha256-oqPXrMzOXHvbN1ZKZBr2PP+2liD76x71p6hLtLwXYOQ=";
+    };
+    date = "2021-12-12";
+  };
+  ulauncher-timestamp = {
+    pname = "ulauncher-timestamp";
+    version = "e366a81f92b8130dddc0b1bddecad253124c49b9";
+    src = fetchFromGitHub {
+      owner = "brpaz";
+      repo = "ulauncher-timestamp";
+      rev = "e366a81f92b8130dddc0b1bddecad253124c49b9";
+      fetchSubmodules = false;
+      sha256 = "sha256-os3mbadDRB1XicEgyEa74fLgeFtN9mb4+7Oqc54Tv2s=";
+    };
+    date = "2021-12-12";
+  };
+  ulauncher-timezone = {
+    pname = "ulauncher-timezone";
+    version = "9f0749d6ab1fcb99545dae75934b698e5ff975b6";
+    src = fetchFromGitHub {
+      owner = "Epholys";
+      repo = "ultz";
+      rev = "9f0749d6ab1fcb99545dae75934b698e5ff975b6";
+      fetchSubmodules = false;
+      sha256 = "sha256-p2ESZTkVKiKQp+Z3esGz6vlsXxUs3wJxXce14bLOCCE=";
+    };
+    date = "2021-05-12";
+  };
   ulauncher-tldr = {
     pname = "ulauncher-tldr";
     version = "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c";
@@ -211,18 +319,6 @@
       sha256 = "sha256-B/17gbGFUar2+PVfVQWZc7Eq8zADK4CeGW3XHQMqiAg=";
     };
     date = "2023-07-29";
-  };
-  ulauncher-virtualbox = {
-    pname = "ulauncher-virtualbox";
-    version = "d8f495df3c7f41ee8493b207d17f06fc0372c84e";
-    src = fetchFromGitHub {
-      owner = "luispabon";
-      repo = "ulauncher-virtualbox";
-      rev = "d8f495df3c7f41ee8493b207d17f06fc0372c84e";
-      fetchSubmodules = false;
-      sha256 = "sha256-IT1qsXpwYkl5vKGEBI9WySpWm6zOfe9ewj5oNgC8/Ro=";
-    };
-    date = "2020-09-23";
   };
   ulauncher-vscode-recent = {
     pname = "ulauncher-vscode-recent";
