@@ -28,6 +28,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
+
       - name: Install nix
         uses: cachix/install-nix-action@v30
         with:
@@ -36,28 +41,8 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
             extra-experimental-features = nix-command flakes ca-derivations
+            build-dir = /nix/tmpdir
             log-lines = 25
-
-      - name: Set nix daemon tmpdir path
-        run: |
-          sudo mkdir -p /nix/tmpdir
-          sudo chown "$(whoami)" /nix/tmpdir
-
-          cat > override.conf <<EOF
-          [Service]
-          Environment="TMPDIR=/nix/tmpdir"
-          EOF
-          sudo mkdir /etc/systemd/system/nix-daemon.service.d/
-          sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
-          sudo systemctl daemon-reload
-          sudo systemctl restart nix-daemon
-
-      - name: Setup SSH key
-        run: |
-          mkdir -p "$HOME/.ssh"
-          echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/id_ed25519"
-          echo "StrictHostKeyChecking no" > "$HOME/.ssh/config"
-          chmod -R 500 "$HOME/.ssh"
 
       - name: Build nix packages
         run: |

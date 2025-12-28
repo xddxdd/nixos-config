@@ -85,6 +85,7 @@ in
       allowed-users = lib.mkForce allowedUsers;
       auto-allocate-uids = true;
       auto-optimise-store = true;
+      build-dir = "/var/cache/nix";
       builders-use-substitutes = true;
       connect-timeout = 5;
       download-buffer-size = 1024 * 1024 * 1024;
@@ -116,9 +117,6 @@ in
   };
 
   systemd.services.nix-daemon = {
-    environment = {
-      TMPDIR = "/var/cache/nix";
-    };
     serviceConfig = {
       CacheDirectory = "nix";
       Nice = 19;
