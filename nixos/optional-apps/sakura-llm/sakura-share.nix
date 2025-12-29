@@ -18,8 +18,14 @@ in
 
   systemd.services.sakura-share = {
     description = "Share client for sakura-share.one";
-    after = [ "network.target" ];
-    requires = [ "network.target" ];
+    after = [
+      "network.target"
+      "podman-sglang-sakura-llm.service"
+    ];
+    requires = [
+      "network.target"
+      "podman-sglang-sakura-llm.service"
+    ];
     bindsTo = [ "podman-sglang-sakura-llm.service" ];
     wantedBy = [ "multi-user.target" ];
 
