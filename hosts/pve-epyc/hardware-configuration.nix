@@ -78,7 +78,7 @@
     ];
   };
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
   systemd.services.nvidia-power-limit = {
