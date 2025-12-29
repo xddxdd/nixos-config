@@ -47,6 +47,7 @@
       "--context-length=4096"
       "--attention-backend=fa3"
       "--enable-deterministic-inference"
+      "--sleep-on-idle"
     ];
   };
 
