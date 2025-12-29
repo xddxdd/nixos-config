@@ -35,19 +35,21 @@
       "python3"
       "-m"
       "sglang.launch_server"
-      "--model-path=reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2"
-      "--host=127.0.0.1"
-      "--port=${LT.portStr.SakuraLLM}"
+      # keep-sorted start
+      "--attention-backend=fa3"
+      "--context-length=4096"
       "--disable-overlap"
+      "--disable-radix-cache"
+      "--enable-deterministic-inference"
       "--enable-metrics"
       "--enable-torch-compile"
-      "--torch-compile-max-bs=1"
+      "--host=127.0.0.1"
       "--mem-fraction-static=0.8"
+      "--model-path=reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2"
+      "--port=${LT.portStr.SakuraLLM}"
       "--quantization=w8a8_int8"
-      "--context-length=4096"
-      "--attention-backend=fa3"
-      "--enable-deterministic-inference"
       "--sleep-on-idle"
+      # keep-sorted end
     ];
   };
 
