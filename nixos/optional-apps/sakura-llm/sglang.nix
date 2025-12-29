@@ -72,9 +72,9 @@
     path = with pkgs; [ curl ];
     postStart = ''
       curl -fsSL \
-        --retry 100 \
+        --retry 200 \
         --retry-delay 5 \
-        --retry-max-time 300 \
+        --retry-max-time 600 \
         --retry-all-errors \
         http://127.0.0.1:${LT.portStr.SakuraLLM}/health
     '';
