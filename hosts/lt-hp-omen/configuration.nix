@@ -161,6 +161,11 @@
       fsType = "fuse.bindfs";
       options = LT.constants.bindfsMountOptions;
     };
+    "/home/lantian/Videos/VideoArchive" = lib.mkForce {
+      device = "/nix/persistent/media/VideoArchive";
+      fsType = "fuse.bindfs";
+      options = LT.constants.bindfsMountOptions;
+    };
     # keep-sorted end
   };
 
