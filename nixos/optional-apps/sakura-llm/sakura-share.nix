@@ -44,7 +44,9 @@ in
 
     serviceConfig = LT.serviceHarden // {
       Restart = "on-failure";
-      RestartSec = 10;
+      # Wait 60s for sglang to clear all queued tasks, otherwise batched tasks
+      # cause inference inconsistency and fail validation
+      RestartSec = 60;
       EnvironmentFile = config.age.secrets.sakura-share-env.path;
 
       User = "llama-cpp";

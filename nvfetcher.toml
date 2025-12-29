@@ -47,8 +47,8 @@ fetch.github = "openspeedtest/Speed-Test"
 src.git = "https://github.com/openspeedtest/Speed-Test.git"
 
 [sakura-share]
-fetch.github = "PiDanShouRouZhouXD/Sakura_Launcher_GUI"
-src.git = "https://github.com/PiDanShouRouZhouXD/Sakura_Launcher_GUI.git"
+fetch.github = "xddxdd/Sakura_Launcher_GUI"
+src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 
 [ulauncher-albert-calculate-anything]
 fetch.github = "tchar/ulauncher-albert-calculate-anything"
