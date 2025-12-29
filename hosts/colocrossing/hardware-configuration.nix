@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ../../nixos/hardware/crashdump.nix
+    # ../../nixos/hardware/crashdump.nix
     ../../nixos/hardware/ecc-ram.nix
   ];
 
