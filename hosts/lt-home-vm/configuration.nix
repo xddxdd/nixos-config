@@ -30,7 +30,6 @@
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     # ../../nixos/optional-apps/palworld.nix
-    # ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/syncthing.nix
