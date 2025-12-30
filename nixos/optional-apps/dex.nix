@@ -26,48 +26,30 @@ let
     };
     connectors = [
       {
-        type = "ldap";
-        name = "LDAP";
-        id = "ldap";
+        type = "oidc";
+        name = "Pocket ID";
+        id = "ldap"; # Backwards compatibility
         config = {
-          host = "[fdbc:f9dc:67ad:2547::389]:${LT.portStr.LDAPS}";
-          insecureNoSSL = false;
-          insecureSkipVerify = true;
-
-          bindDN = "cn=serviceuser,dc=lantian,dc=pub";
-          bindPW = {
-            _secret = config.age.secrets.glauth-bindpw.path;
+          issuer = "https://id.lantian.pub";
+          scopes = [
+            "email"
+            "profile"
+            "groups"
+            "offline_access"
+          ];
+          clientID = {
+            _secret = config.age.secrets.dex-pocket-id-client-id.path;
           };
-
-          usernamePrompt = "Username";
-
-          userSearch = {
-            baseDN = "dc=lantian,dc=pub";
-            filter = "(objectClass=posixAccount)";
-            username = "uid";
-            idAttr = "uid";
-            emailAttr = "mail";
-            nameAttr = "displayName";
-            preferredUsernameAttr = "uid";
+          clientSecret = {
+            _secret = config.age.secrets.dex-pocket-id-client-secret.path;
           };
-          groupSearch = {
-            baseDN = "dc=lantian,dc=pub";
-            filter = "(objectClass=posixGroup)";
-            userMatchers = [
-              {
-                userAttr = "gidNumber";
-                groupAttr = "gidNumber";
-              }
-            ];
-            nameAttr = "cn";
-          };
+          redirectURI = "https://login.lantian.pub/callback";
+          insecureSkipEmailVerified = true;
+          insecureEnableGroups = true;
+          getUserInfo = true;
         };
       }
     ];
-    twoFactorAuthn = {
-      issuer = "dex";
-      connectors = [ "ldap" ];
-    };
     staticClients = [
       # keep-sorted start block=yes
       {
@@ -139,6 +121,16 @@ in
     glauth-bindpw = {
       file = inputs.secrets + "/glauth-bindpw.age";
       mode = "0444";
+    };
+    dex-pocket-id-client-id = {
+      file = inputs.secrets + "/dex/pocket-id-client-id.age";
+      owner = "dex";
+      group = "dex";
+    };
+    dex-pocket-id-client-secret = {
+      file = inputs.secrets + "/dex/pocket-id-client-secret.age";
+      owner = "dex";
+      group = "dex";
     };
   }
   // builtins.listToAttrs (

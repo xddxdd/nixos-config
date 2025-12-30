@@ -1,26 +1,13 @@
 diff --git a/server/handlers.go b/server/handlers.go
-index d71bb672..19e173e1 100644
+index f8d0ed64..fd30bc34 100644
 --- a/server/handlers.go
 +++ b/server/handlers.go
-@@ -588,7 +588,7 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+@@ -581,7 +581,7 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
  	}
  
- 	// we can skip the redirect to /approval and /totp and go ahead and send code if it's not required
--	if s.skipApproval && !authReq.ForceApprovalPrompt && !s.totp.enabledForConnector(authReq.ConnectorID) {
-+	if s.skipApproval && !s.totp.enabledForConnector(authReq.ConnectorID) {
+ 	// we can skip the redirect to /approval and go ahead and send code if it's not required
+-	if s.skipApproval && !authReq.ForceApprovalPrompt {
++	if s.skipApproval {
  		return "", true, nil
  	}
  
-diff --git a/server/totphandler.go b/server/totphandler.go
-index 699bed1b..686320f9 100644
---- a/server/totphandler.go
-+++ b/server/totphandler.go
-@@ -105,7 +105,7 @@ func (s *Server) handleTOTPVerify(w http.ResponseWriter, r *http.Request) {
- 		}
- 
- 		// we can skip the redirect to /approval and go ahead and send code if it's not required
--		if s.skipApproval && !authReq.ForceApprovalPrompt {
-+		if s.skipApproval {
- 			authReq, err = s.storage.GetAuthRequest(ctx, authReq.ID)
- 			if err != nil {
- 				s.logger.ErrorContext(r.Context(), "failed to get finalized auth request", "err", err)

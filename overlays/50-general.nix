@@ -41,10 +41,9 @@ rec {
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/dex-glob-match-redirect-uri.patch
-      ../patches/dex-2fa.patch
       ../patches/dex-skip-approval-screen.patch
     ];
-    vendorHash = "sha256-zrAlsSb67f+6UNHuUbFv7wnd50pZ4itO9+J1gZPF/+c=";
+    vendorHash = "sha256-FCcIKej106jDLvPdsYBtpB61QfD2nQpXwVpOtc2WdW0=";
     doCheck = false;
   });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
