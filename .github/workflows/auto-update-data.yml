@@ -51,7 +51,7 @@ jobs:
           github = "${{ secrets.GH_PRIVATE_REPO_TOKEN }}"
           EOF
 
-          env TMPDIR=/nix/tmpdir nix run .#update-data
+          nix run .#update-data
 
           rm -f secrets.toml
 
