@@ -49,14 +49,15 @@
       LDAP_USER_SEARCH_FILTER = "(&(objectClass=posixAccount)(!(ou=svcaccts)))";
       LDAP_USER_GROUP_SEARCH_FILTER = "(objectClass=posixGroup)";
       LDAP_SOFT_DELETE_USERS = true;
+      LDAP_ADMIN_GROUP_NAME = "admin";
       LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER = "uid";
       LDAP_ATTRIBUTE_USER_USERNAME = "uid";
       LDAP_ATTRIBUTE_USER_EMAIL = "mail";
       LDAP_ATTRIBUTE_USER_FIRST_NAME = "givenName";
       LDAP_ATTRIBUTE_USER_LAST_NAME = "sn";
+      LDAP_ATTRIBUTE_GROUP_MEMBER = "uniqueMember";
       LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER = "cn";
       LDAP_ATTRIBUTE_GROUP_NAME = "cn";
-      LDAP_ATTRIBUTE_ADMIN_GROUP = "admin";
     };
   };
 
