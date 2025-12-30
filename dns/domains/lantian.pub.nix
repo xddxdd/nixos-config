@@ -116,6 +116,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "id";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "lab";
       target = "terrahost";
       ttl = "1h";

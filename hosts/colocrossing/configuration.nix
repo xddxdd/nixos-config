@@ -26,6 +26,7 @@
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/plausible
+    ../../nixos/optional-apps/pocket-id.nix
     ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     ../../nixos/optional-apps/rsshub.nix
