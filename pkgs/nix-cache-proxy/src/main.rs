@@ -1,52 +1,44 @@
 mod config;
+mod listener;
 mod proxy;
 mod url_rewriter;
 
 use anyhow::Result;
-use axum::{
-    extract::{Path, State},
-    routing::get,
-    Router,
-};
 use config::Config;
+use listener::serve_connections;
 use proxy::AppState;
 use std::sync::Arc;
-use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging
-    tracing_subscriber::registry()
-        .with(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "nix_cache_proxy=info,tower_http=info".into()),
-        )
-        .with(tracing_subscriber::fmt::layer())
-        .init();
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
     // Load configuration from CLI arguments
     let config = Config::parse_args()?;
-    tracing::info!("Loaded configuration: {:?}", config);
+    log::info!("Loaded configuration: {:?}", config);
 
     // Create shared state
+    let https = hyper_rustls::HttpsConnectorBuilder::new()
+        .with_webpki_roots()
+        .https_or_http()
+        .enable_http1()
+        .build();
+
+    let client = hyper_util::client::legacy::Client::builder(hyper_util::rt::TokioExecutor::new())
+        .build(https);
+
     let state = AppState {
         config: Arc::new(config.clone()),
-        client: reqwest::Client::builder()
-            .timeout(std::time::Duration::from_secs(config.timeout_secs))
-            .build()?,
+        client,
     };
-
-    // Build router
-    let app = Router::new()
-        .route("/{*path}", get(handle_request))
-        .with_state(state);
 
     // Create listener based on configuration
     match &config.listen_mode {
         config::ListenMode::Tcp(addr) => {
             let listener = tokio::net::TcpListener::bind(addr).await?;
-            tracing::info!("Nix cache proxy listening on {}", addr);
-            axum::serve(listener, app).await?;
+            log::info!("Nix cache proxy listening on {}", addr);
+            serve_connections(listener, state).await
         }
         config::ListenMode::Unix(path) => {
             // Remove existing socket file if it exists
@@ -55,17 +47,11 @@ async fn main() -> Result<()> {
             }
 
             let listener = tokio::net::UnixListener::bind(path)?;
-            tracing::info!(
+            log::info!(
                 "Nix cache proxy listening on unix socket: {}",
                 path.display()
             );
-
-            axum::serve(listener, app).await?;
-
-            // Cleanup socket file on exit
-            if path.exists() {
-                std::fs::remove_file(path)?;
-            }
+            serve_connections(listener, state).await
         }
         config::ListenMode::Systemd => {
             let mut listenfd = listenfd::ListenFd::from_env();
@@ -75,8 +61,8 @@ async fn main() -> Result<()> {
                 listener.set_nonblocking(true)?;
                 let listener = tokio::net::TcpListener::from_std(listener)?;
 
-                tracing::info!("Nix cache proxy using systemd socket activation");
-                axum::serve(listener, app).await?;
+                log::info!("Nix cache proxy using systemd socket activation");
+                serve_connections(listener, state).await
             } else {
                 anyhow::bail!(
                     "No systemd socket found. Make sure to run with systemd socket activation."
@@ -84,14 +70,4 @@ async fn main() -> Result<()> {
             }
         }
     }
-
-    Ok(())
-}
-
-async fn handle_request(
-    State(state): State<AppState>,
-    Path(path): Path<String>,
-) -> impl axum::response::IntoResponse {
-    tracing::info!("Received request for: {}", path);
-    proxy::proxy_handler(State(state), path).await
 }

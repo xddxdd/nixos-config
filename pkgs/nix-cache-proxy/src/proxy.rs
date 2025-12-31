@@ -1,36 +1,39 @@
 use crate::config::Config;
 use crate::url_rewriter::rewrite_narinfo_url;
 use anyhow::Result;
-use axum::{
-    body::Body,
-    extract::State,
-    http::{Response, StatusCode},
-    response::IntoResponse,
-};
+use http_body_util::{BodyExt, Empty, Full};
+use hyper::body::Bytes;
+use hyper::{Request, Response, StatusCode};
+use hyper_util::client::legacy::Client;
 use std::collections::VecDeque;
 use std::sync::Arc;
+
+type HttpClient = Client<
+    hyper_rustls::HttpsConnector<hyper_util::client::legacy::connect::HttpConnector>,
+    Empty<Bytes>,
+>;
 
 #[derive(Clone)]
 pub struct AppState {
     pub config: Arc<Config>,
-    pub client: reqwest::Client,
+    pub client: HttpClient,
 }
 
 /// Proxy handler for .narinfo requests
-pub async fn proxy_handler(State(state): State<AppState>, path: String) -> impl IntoResponse {
+pub async fn proxy_handler(state: AppState, path: String) -> Response<Full<Bytes>> {
     match proxy_request(&state, &path).await {
         Ok(response) => response,
         Err(e) => {
-            tracing::error!("Proxy error: {}", e);
+            log::error!("Proxy error: {}", e);
             Response::builder()
                 .status(StatusCode::BAD_GATEWAY)
-                .body(Body::from(format!("Proxy error: {}", e)))
+                .body(Full::new(Bytes::from(format!("Proxy error: {}", e))))
                 .unwrap()
         }
     }
 }
 
-async fn proxy_request(state: &AppState, path: &str) -> Result<Response<Body>> {
+async fn proxy_request(state: &AppState, path: &str) -> Result<Response<Full<Bytes>>> {
     // Spawn parallel requests to all upstreams and collect their handles in a queue
     let mut handles = VecDeque::new();
 
@@ -42,17 +45,27 @@ async fn proxy_request(state: &AppState, path: &str) -> Result<Response<Body>> {
 
         let handle = tokio::spawn(async move {
             let url = upstream.join(&path)?;
-            tracing::debug!("Requesting from upstream {}: {}", upstream, url);
+            log::debug!("Requesting from upstream {}: {}", upstream, url);
 
-            let response = client.get(url.as_str()).send().await?;
-            let status = response.status();
+            let uri: hyper::Uri = url.as_str().parse()?;
+            let request = Request::builder().uri(uri).body(Empty::<Bytes>::new())?;
 
-            if status.is_success() {
-                let body = response.text().await?;
-                Ok::<_, anyhow::Error>(Some((upstream, body)))
-            } else {
-                tracing::debug!("Upstream {} returned status {}", upstream, status);
-                Ok(None)
+            let response = client.request(request).await;
+
+            match response {
+                Ok(resp) if resp.status() == StatusCode::OK => {
+                    let body_bytes = resp.into_body().collect().await?.to_bytes();
+                    let body = String::from_utf8(body_bytes.to_vec())?;
+                    Ok::<_, anyhow::Error>(Some((upstream, body)))
+                }
+                Ok(resp) => {
+                    log::debug!("Upstream {} returned status {}", upstream, resp.status());
+                    Ok(None)
+                }
+                Err(e) => {
+                    log::debug!("Upstream {} request failed: {}", upstream, e);
+                    Ok(None)
+                }
             }
         });
 
@@ -63,32 +76,35 @@ async fn proxy_request(state: &AppState, path: &str) -> Result<Response<Body>> {
     while let Some(handle) = handles.pop_front() {
         match handle.await {
             Ok(Ok(Some((upstream, body)))) => {
-                tracing::debug!("Upstream {} succeeded", upstream);
+                log::debug!("Upstream {} succeeded", upstream);
 
                 // Rewrite URLs in the response
                 let rewritten_body = rewrite_narinfo_url(&body, &upstream)?;
 
-                tracing::info!("Returning response from upstream: {}", upstream);
+                log::debug!("Returning response from upstream: {}", upstream);
 
                 return Ok(Response::builder()
                     .status(StatusCode::OK)
                     .header("Content-Type", "text/x-nix-narinfo")
-                    .body(Body::from(rewritten_body))?);
+                    .body(Full::new(Bytes::from(rewritten_body)))?);
             }
             Ok(Ok(None)) => {
                 // Upstream returned non-success, continue to next
             }
             Ok(Err(e)) => {
-                tracing::warn!("Upstream request failed: {}", e);
+                log::warn!("Upstream request failed: {}", e);
             }
             Err(e) => {
-                tracing::warn!("Task join error: {}", e);
+                log::warn!("Task join error: {}", e);
             }
         }
     }
 
     // No successful responses from any upstream
+    log::debug!("No upstream returned a successful response");
     Ok(Response::builder()
         .status(StatusCode::NOT_FOUND)
-        .body(Body::from("No upstream returned a successful response"))?)
+        .body(Full::new(Bytes::from(
+            "No upstream returned a successful response",
+        )))?)
 }

@@ -1,14 +1,13 @@
 [dependencies]
-tokio = {version = "1.42", features = ["full"]}
-axum = "0.8"
-reqwest = {version = "0.12", default-features = false, features = [
-  "rustls-tls",
-  "stream"
-]}
+tokio = {version = "1.42", features = ["rt-multi-thread", "net", "macros"]}
+hyper = {version = "1.5", features = ["server", "http1", "client"]}
+hyper-util = {version = "0.1", features = ["tokio", "server", "client-legacy"]}
+hyper-rustls = {version = "0.27", default-features = false, features = ["http1", "ring", "tls12", "webpki-roots"]}
+http-body-util = "0.1"
 url = "2.5"
 anyhow = "1.0"
-tracing = "0.1"
-tracing-subscriber = {version = "0.3", features = ["env-filter"]}
+log = "0.4"
+env_logger = "0.11"
 listenfd = "1.0"
 clap = {version = "4.5", features = ["derive"]}
 
