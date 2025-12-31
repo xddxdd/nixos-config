@@ -1,0 +1,18 @@
+[dependencies]
+tokio = {version = "1.42", features = ["full"]}
+axum = "0.8"
+reqwest = {version = "0.12", default-features = false, features = [
+  "rustls-tls",
+  "stream"
+]}
+url = "2.5"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = {version = "0.3", features = ["env-filter"]}
+listenfd = "1.0"
+clap = {version = "4.5", features = ["derive"]}
+
+[package]
+name = "nix-cache-proxy"
+version = "0.1.0"
+edition = "2021"

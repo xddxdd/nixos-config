@@ -69,6 +69,7 @@ rec {
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
+    NixCacheProxy = 13627;
     Vaultwarden = 13772;
     MTranServer = 13791;
     Plausible = 13800;
