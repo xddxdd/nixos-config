@@ -110,8 +110,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
@@ -139,7 +138,6 @@
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.jjolly.dev:3443",
-    "tls://ygg.mnpnk.com:443",
-    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
+    "tls://ygg.mnpnk.com:443"
   ]
 }
