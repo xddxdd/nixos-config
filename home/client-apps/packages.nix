@@ -69,6 +69,7 @@ in
         cherry-studio
         code-cursor
         colmena
+        dbeaver-bin
         distrobox
         ecapture
         exiftool
