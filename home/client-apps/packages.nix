@@ -125,6 +125,7 @@ in
         powertop
         prismlauncher
         pwgen
+        qrcp
         quasselClient
         rar
         rustdesk
