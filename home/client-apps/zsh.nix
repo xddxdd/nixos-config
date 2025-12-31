@@ -67,7 +67,7 @@
       if [ "$TERM_PROGRAM" != "vscode" ]; then
         export EDITOR="nano"
       else
-        export EDITOR="code --wait"
+        export EDITOR="''${VSCODE_GIT_ASKPASS_NODE:-code} --wait"
       fi
 
       alias nb="nix build -L"
