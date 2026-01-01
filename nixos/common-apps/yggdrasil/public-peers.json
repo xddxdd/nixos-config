@@ -138,6 +138,7 @@
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.jjolly.dev:3443",
-    "tls://ygg.mnpnk.com:443"
+    "tls://ygg.mnpnk.com:443",
+    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ]
 }
