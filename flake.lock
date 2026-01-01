@@ -725,6 +725,29 @@
         "type": "github"
       }
     },
+    "nix-cache-proxy": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767305820,
+        "narHash": "sha256-s5TUuaSZRuNPB7gsy0n4K2VAP4f5ee4d7c3Z6tY4uHE=",
+        "owner": "xddxdd",
+        "repo": "nix-cache-proxy",
+        "rev": "761e60d18c6b1af0aeefdade8fe430e3f01145aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "nix-cache-proxy",
+        "type": "github"
+      }
+    },
     "nix-cachyos-kernel": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
@@ -1212,6 +1235,7 @@
         "home-manager": "home-manager",
         "nil": "nil",
         "nix-alien": "nix-alien",
+        "nix-cache-proxy": "nix-cache-proxy",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",

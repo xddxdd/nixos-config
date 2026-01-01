@@ -41,6 +41,7 @@ let
       inputs.angrr.nixosModules.angrr
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager
+      inputs.nix-cache-proxy.nixosModules.nix-cache-proxy
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic
       inputs.nur-xddxdd.nixosModules.nix-cache-garnix
