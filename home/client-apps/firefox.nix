@@ -68,6 +68,8 @@ let
         "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
         "extensions.update.enabled" = false;
         "extensions.webextensions.ExtensionStorageIDB.enabled" = false; # Make home-manager extension config work
+        "font.size.monospace.x-western" = lib.mkForce 16;
+        "font.size.variable.x-western" = lib.mkForce 16;
         "geo.provider.network.url" = lib.mkForce "https://api.beacondb.net/v1/geolocate";
         "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
         "gfx.wayland.hdr" = false; # FIXME: causes crashes
