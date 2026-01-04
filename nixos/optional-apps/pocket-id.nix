@@ -81,7 +81,7 @@
           export ENCRYPTION_KEY=$(cat ${config.age.secrets.pocket-id-encryption-key.path})
           export SMTP_PASSWORD=$(cat ${config.age.secrets.smtp-pass.path})
           export LDAP_BIND_PASSWORD=$(cat ${config.age.secrets.glauth-bindpw.path})
-          exec ${pkgs.pocket-id}/bin/pocket-id
+          exec ${lib.getExe pkgs.pocket-id}
         ''
       )
     );

@@ -62,7 +62,7 @@ in
     '';
 
     postStart = ''
-      ${pkgs.curl}/bin/curl -fsSL \
+      ${lib.getExe pkgs.curl} -fsSL \
         --retry 10 \
         --retry-delay 5 \
         --retry-max-time 60 \

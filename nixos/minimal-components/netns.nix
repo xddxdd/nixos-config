@@ -253,7 +253,7 @@ in
                 bindsTo = value.birdBindTo;
                 serviceConfig = LT.networkToolHarden // {
                   Restart = "on-failure";
-                  ExecStart = "${pkgs.bird2}/bin/bird -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
+                  ExecStart = "${lib.getExe' pkgs.bird2 "bird"} -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
                   CPUQuota = "10%";
 
                   User = "bird";

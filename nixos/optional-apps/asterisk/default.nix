@@ -212,7 +212,7 @@ in
       let
         skip-silence = pkgs.callPackage ../../../pkgs/skip-silence { };
         ffmpeg-wrapped = pkgs.writeShellScriptBin "ffmpeg" ''
-          ${pkgs.ffmpeg}/bin/ffmpeg "$@" | ${skip-silence}/bin/skip-silence
+          ${lib.getExe pkgs.ffmpeg} "$@" | ${lib.getExe skip-silence}
         '';
       in
       [ ffmpeg-wrapped ];

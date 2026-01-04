@@ -1,4 +1,4 @@
-{ pkgs, LT, ... }:
+{ lib, pkgs, LT, ... }:
 let
   hp-keyboard-backlight = pkgs.callPackage ../../pkgs/hp-keyboard-backlight { };
 in
@@ -10,7 +10,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${hp-keyboard-backlight}/bin/hp-keyboard-backlight";
+      ExecStart = "${lib.getExe hp-keyboard-backlight}";
 
       ProcSubset = "all";
       ProtectKernelTunables = false;

@@ -49,7 +49,7 @@ in
         type = "basic";
         source = pkgs.writeShellScript "coredns" ''
           echo "Reloading CoreDNS"
-          ${pkgs.systemd}/bin/systemctl reload coredns.service
+          ${lib.getExe' pkgs.systemd "systemctl"} reload coredns.service
         '';
       }
     ];

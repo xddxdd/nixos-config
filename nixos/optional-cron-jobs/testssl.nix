@@ -30,7 +30,7 @@ in
         unitConfig.OnFailure = "notify-email@%n.service";
         path = with pkgs; [ gawk ];
         script = ''
-          ${pkgs.testssl}/bin/testssl.sh \
+          ${lib.getExe pkgs.testssl} \
             -9 --wide --color 3 \
             -oH "/tmp/testssl.${k}.htm" \
             ${k} \

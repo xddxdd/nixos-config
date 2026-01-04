@@ -1,4 +1,4 @@
-{ statix, ... }:
+{ lib, statix, ... }:
 ''
-  ${statix}/bin/statix check . -i _sources
+  ${lib.getExe statix} check . -i _sources
 ''

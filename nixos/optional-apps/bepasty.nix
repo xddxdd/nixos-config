@@ -53,7 +53,7 @@ in
 
     ExecStart = lib.mkForce (
       pkgs.writeShellScript "bepasty-start" ''
-        ${pkgs.python3Packages.gunicorn}/bin/gunicorn \
+        ${lib.getExe pkgs.python3Packages.gunicorn} \
           bepasty.wsgi \
           --name "pb.ltn.pw" \
           --workers 3 \

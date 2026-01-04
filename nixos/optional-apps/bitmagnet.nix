@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   LT,
   config,
   ...
@@ -28,7 +29,7 @@ let
     script = ''
       export TMDB_API_KEY=$(cat ${config.age.secrets.tmdb-api-key.path})
       export PROCESSOR_CONCURRENCY=$(nproc)
-      exec ${bitmagnet}/bin/bitmagnet worker run --keys=${worker}
+      exec ${lib.getExe bitmagnet} worker run --keys=${worker}
     '';
     serviceConfig = LT.serviceHarden // {
       Type = "simple";

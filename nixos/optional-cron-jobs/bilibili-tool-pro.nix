@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   bilibili-tool-pro = pkgs.writeShellScriptBin "bilibili-tool-pro" ''
-    exec ${pkgs.podman}/bin/podman run \
+    exec ${lib.getExe pkgs.podman} run \
       --rm \
       -v '/var/lib/bilibili-tool-pro/appsettings.json:/app/appsettings.json' \
       -v '/var/lib/bilibili-tool-pro/cookies.json:/app/cookies.json' \
@@ -18,7 +18,7 @@ in
 
   systemd.services.bilibili-tool-pro = {
     script = ''
-      ${bilibili-tool-pro}/bin/bilibili-tool-pro --runTasks=Daily | tee run.log 2>&1
+      ${lib.getExe bilibili-tool-pro} --runTasks=Daily | tee run.log 2>&1
       grep "请检查Cookie" run.log && exit 1 || exit 0
     '';
 

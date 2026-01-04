@@ -13,7 +13,7 @@
     };
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.python3}/bin/python3 ${./check.py}";
+      ExecStart = "${lib.getExe pkgs.python3} ${./check.py}";
       Restart = "no";
     };
     unitConfig = {

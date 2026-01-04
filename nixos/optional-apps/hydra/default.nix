@@ -62,7 +62,7 @@ in
   systemd.services.hydra-notify = {
     preStart = ''
       if [ ! -f "$HOME/.config/attic/config.toml" ]; then
-        ${pkgs.attic-client}/bin/attic login --set-default lantian \
+        ${lib.getExe pkgs.attic-client} login --set-default lantian \
           https://attic.colocrossing.xuyh0120.win \
           $(cat ${config.age.secrets.attic-upload-key.path})
       fi

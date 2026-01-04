@@ -1,5 +1,6 @@
 {
   callPackage,
+  lib,
   pkgs,
   rsync,
   ...
@@ -16,7 +17,7 @@ in
     exit 1
   fi
 
-  ${rsync}/bin/rsync -avzrP \
+  ${lib.getExe rsync} -avzrP \
     --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r \
     --include-from=${files} \
     --exclude=* \

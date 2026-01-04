@@ -174,7 +174,7 @@ in
     ];
     script = ''
       ${utils.genJqSecretsReplacementSnippet cfg "/run/dex/config.yaml"}
-      exec ${pkgs.dex-oidc}/bin/dex serve /run/dex/config.yaml
+      exec ${lib.getExe pkgs.dex-oidc} serve /run/dex/config.yaml
     '';
     serviceConfig = LT.serviceHarden // {
       DynamicUser = lib.mkForce false;

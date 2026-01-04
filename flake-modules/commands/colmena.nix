@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 ''
   ACTION=$1; shift;
   if [ "$ACTION" = "apply" ] || [ "$ACTION" = "build" ]; then
-    ${pkgs.colmena}/bin/colmena $ACTION \
+    ${lib.getExe pkgs.colmena} $ACTION \
       --eval-node-limit 5 \
       --parallel 0 \
       --keep-result \
@@ -10,7 +10,7 @@
       $*
     exit $?
   else
-    ${pkgs.colmena}/bin/colmena $ACTION $*
+    ${lib.getExe pkgs.colmena} $ACTION $*
     exit $?
   fi
 ''

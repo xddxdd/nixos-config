@@ -89,7 +89,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.glauth}/bin/glauth -c ${cfg}";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.glauth} -c ${cfg}";
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
     };

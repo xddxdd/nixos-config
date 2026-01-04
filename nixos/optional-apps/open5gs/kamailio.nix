@@ -108,7 +108,7 @@ in
           Group = "kamailio";
 
           PIDFile = "/run/kamailio_${i}/kamailio_${i}.pid";
-          ExecStart = "${kamailioPkg}/bin/kamailio -P /run/kamailio_${i}/kamailio_${i}.pid -f $CFGFILE -m $SHM_MEMORY -M $PKG_MEMORY --atexit=no";
+          ExecStart = "${lib.getExe kamailioPkg} -P /run/kamailio_${i}/kamailio_${i}.pid -f $CFGFILE -m $SHM_MEMORY -M $PKG_MEMORY --atexit=no";
 
           Restart = "always";
           RestartSec = "5";

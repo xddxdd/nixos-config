@@ -54,7 +54,7 @@ in
     systemd.services.nginx-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = LT.serviceHarden // {
-        ExecStart = "${config.services.nginx.package}/bin/nginx -c ${nginxConfig}";
+        ExecStart = "${lib.getExe config.services.nginx.package} -c ${nginxConfig}";
         Restart = "always";
         RestartSec = "10s";
 

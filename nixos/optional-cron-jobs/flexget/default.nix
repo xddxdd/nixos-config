@@ -97,14 +97,14 @@ in
       WorkingDirectory = "/var/lib/flexget";
     };
     script = ''
-      cat ${flexgetTemplate} | ${pkgs.envsubst}/bin/envsubst > flexget.yml
+      cat ${flexgetTemplate} | ${lib.getExe pkgs.envsubst} > flexget.yml
 
       mkdir -p plugins
       ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
-      ${pkgs.flexget}/bin/flexget -c flexget.yml backlog clear
-      ${pkgs.flexget}/bin/flexget -c flexget.yml failed clear
-      exec ${pkgs.flexget}/bin/flexget -c flexget.yml execute
+      ${lib.getExe pkgs.flexget} -c flexget.yml backlog clear
+      ${lib.getExe pkgs.flexget} -c flexget.yml failed clear
+      exec ${lib.getExe pkgs.flexget} -c flexget.yml execute
     '';
   };
 

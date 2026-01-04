@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.services.zerotierone.controller;
-  ztcurl = ''${pkgs.curl}/bin/curl -fsSL -H "X-ZT1-AUTH: $(cat /var/lib/zerotier-one-controller/authtoken.secret)"'';
+  ztcurl = ''${lib.getExe pkgs.curl} -fsSL -H "X-ZT1-AUTH: $(cat /var/lib/zerotier-one-controller/authtoken.secret)"'';
   zturl = "http://localhost:${builtins.toString cfg.port}";
 
   ipAssignmentPoolOptions = _: {
@@ -72,7 +72,7 @@ let
           ;
       };
       generatedSetupScript = ''
-        ZTADDR=$(${ztcurl} "${zturl}/status" | ${pkgs.jq}/bin/jq -r ".address")
+        ZTADDR=$(${ztcurl} "${zturl}/status" | ${lib.getExe pkgs.jq} -r ".address")
         ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}" -d ${lib.escapeShellArg jsonPayload}
       ''
       + (lib.concatStrings (
@@ -165,7 +165,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = LT.serviceHarden // {
-        ExecStart = "${pkgs.zerotierone}/bin/zerotier-one -p${builtins.toString cfg.port} -U /var/lib/zerotier-one-controller";
+        ExecStart = "${lib.getExe' pkgs.zerotierone "zerotier-one"} -p${builtins.toString cfg.port} -U /var/lib/zerotier-one-controller";
         StateDirectory = "zerotier-one-controller";
         WorkingDirectory = "/var/lib/zerotier-one-controller";
 

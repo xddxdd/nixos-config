@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -32,7 +33,7 @@ in
     serviceConfig = LT.serviceHarden // {
       Type = "idle";
       KillSignal = "SIGINT";
-      ExecStart = "${llama-cpp}/bin/llama-server --host 127.0.0.1 --port ${LT.portStr.LlamaCpp.Qwen3Reranker} -m 'Qwen3-Reranker-8B.gguf' --ctx-size 32768 --rerank";
+      ExecStart = "${lib.getExe' llama-cpp "llama-server"} --host 127.0.0.1 --port ${LT.portStr.LlamaCpp.Qwen3Reranker} -m 'Qwen3-Reranker-8B.gguf' --ctx-size 32768 --rerank";
       Restart = "on-failure";
       RestartSec = 300;
       TimeoutStartSec = 600;

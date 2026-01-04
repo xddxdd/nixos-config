@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   age,
   ...
@@ -42,14 +43,14 @@ in
     cp -r "$CURR_DIR/zones" "$TEMP_DIR/zones"
   fi
 
-  ${age}/bin/age \
+  ${lib.getExe age} \
     -i "$HOME/.ssh/id_ed25519" \
     --decrypt -o "$TEMP_DIR/creds.json" \
     "${inputs.secrets}/dnscontrol.age"
   mkdir -p "$TEMP_DIR/zones"
 
   cd "$TEMP_DIR"
-  ${dnscontrol}/bin/dnscontrol $* && RET=0 || RET=$?
+  ${lib.getExe dnscontrol} $* && RET=0 || RET=$?
   rm -rf "$CURR_DIR/zones"
   mv "$TEMP_DIR/zones" "$CURR_DIR/zones"
 

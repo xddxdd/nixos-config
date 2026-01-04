@@ -63,8 +63,8 @@ in
   systemd.services.bird.serviceConfig = lib.mkForce (
     LT.networkToolHarden
     // {
-      ExecStart = "${pkgs.bird2}/bin/bird -f -c /etc/bird/bird.conf";
-      ExecReload = "${pkgs.bird2}/bin/birdc configure";
+      ExecStart = "${lib.getExe' pkgs.bird2 "bird"} -f -c /etc/bird/bird.conf";
+      ExecReload = "${lib.getExe' pkgs.bird2 "birdc"} configure";
 
       CPUQuota = "10%";
       Restart = lib.mkForce "always";

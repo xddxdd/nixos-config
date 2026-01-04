@@ -1,9 +1,9 @@
-{ pkgs, LT, ... }:
+{ lib, pkgs, LT, ... }:
 {
   systemd.services.oci-arm-host-capacity = {
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${pkgs.php}/bin/php ${pkgs.nur-xddxdd.oci-arm-host-capacity}/index.php env";
+      ExecStart = "${lib.getExe pkgs.php} ${pkgs.nur-xddxdd.oci-arm-host-capacity}/index.php env";
       StateDirectory = "oci-arm-host-capacity";
       WorkingDirectory = "/var/lib/oci-arm-host-capacity";
     };
