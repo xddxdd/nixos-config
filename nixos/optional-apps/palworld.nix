@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   ...
 }:
@@ -43,16 +44,6 @@
       fi
     '';
 
-    script = ''
-      steam-run \
-        /var/lib/palworld/PalServer.sh \
-          -useperfthreads \
-          -NoAsyncLoadingThread \
-          -UseMultithreadForDS
-    '';
-
-    restartIfChanged = false;
-
     serviceConfig = {
       User = "palworld";
       Group = "palworld";
@@ -68,6 +59,14 @@
       ProcSubset = "all";
       RestrictNamespaces = false;
       SystemCallFilter = [ ];
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${lib.getExe pkgs.steam-run}"
+        "/var/lib/palworld/PalServer.sh"
+        "-useperfthreads"
+        "-NoAsyncLoadingThread"
+        "-UseMultithreadForDS"
+      ];
     };
   };
 

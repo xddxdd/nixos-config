@@ -10,24 +10,6 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    script = ''
-      exec ${pkgs.dump1090-fa}/bin/dump1090 \
-        --quiet \
-        --device stx:1090:0 \
-        --net \
-        --net-bind-address 127.0.0.1 \
-        --net-ri-port ${LT.portStr.Dump1090.RawInput} \
-        --net-ro-port ${LT.portStr.Dump1090.RawOutput} \
-        --net-sbs-port ${LT.portStr.Dump1090.BaseStation} \
-        --net-bi-port ${LT.portStr.Dump1090.BeastInput} \
-        --net-bo-port ${LT.portStr.Dump1090.BeastOutput} \
-        --net-stratux-port ${LT.portStr.Dump1090.Stratux} \
-        --write-json /run/dump1090 \
-        --forward-mlat \
-        --lat ${LT.this.city.lat} \
-        --lon ${LT.this.city.lng}
-    '';
-
     serviceConfig = LT.serviceHarden // {
       PrivateDevices = false;
       RestrictAddressFamilies = "";
@@ -38,6 +20,24 @@
 
       Restart = "always";
       RestartSec = "5";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.dump1090-fa}/bin/dump1090"
+        "--quiet"
+        "--device stx:1090:0"
+        "--net"
+        "--net-bind-address 127.0.0.1"
+        "--net-ri-port ${LT.portStr.Dump1090.RawInput}"
+        "--net-ro-port ${LT.portStr.Dump1090.RawOutput}"
+        "--net-sbs-port ${LT.portStr.Dump1090.BaseStation}"
+        "--net-bi-port ${LT.portStr.Dump1090.BeastInput}"
+        "--net-bo-port ${LT.portStr.Dump1090.BeastOutput}"
+        "--net-stratux-port ${LT.portStr.Dump1090.Stratux}"
+        "--write-json /run/dump1090"
+        "--forward-mlat"
+        "--lat ${LT.this.city.lat}"
+        "--lon ${LT.this.city.lng}"
+      ];
     };
   };
 

@@ -13,16 +13,6 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    script = ''
-      exec ${pkgs.nur-xddxdd.rtpengine}/bin/rtpengine \
-        -f \
-        -E \
-        --interface=192.168.0.9 \
-        --no-log-timestamps \
-        --pidfile /run/rtpengine/ngcp-rtpengine-daemon.pid \
-        --config-file ${./rtpengine.conf}
-    '';
-
     serviceConfig = LT.serviceHarden // {
       RuntimeDirectory = "rtpengine";
       CacheDirectory = "rtpengine";
@@ -51,6 +41,16 @@
 
       Restart = "always";
       RestartSec = "5";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.nur-xddxdd.rtpengine}/bin/rtpengine"
+        "-f"
+        "-E"
+        "--interface=192.168.0.9"
+        "--no-log-timestamps"
+        "--pidfile /run/rtpengine/ngcp-rtpengine-daemon.pid"
+        "--config-file ${./rtpengine.conf}"
+      ];
     };
   };
 

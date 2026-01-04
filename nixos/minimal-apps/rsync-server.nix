@@ -54,24 +54,23 @@ in
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       BindPaths = [ "/nix/persistent/sync-servers" ];
+      ExecStart =
+        if config.networking.hostName != primaryServer then
+          builtins.concatStringsSep " " [
+            "${lib.getExe pkgs.rsync}"
+            "-aczrq"
+            "--delete-after"
+            "--timeout=300"
+            "rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/"
+            "/nix/persistent/sync-servers/"
+          ]
+        else
+          # For primary server, do not run sync, but still run reload
+          "${lib.getExe' pkgs.coreutils "true"}";
     };
-    path = [
-      pkgs.rsync
-      pkgs.systemd
-    ];
-    script =
-      if config.networking.hostName != primaryServer then
-        ''
-          exec rsync \
-            -aczrq --delete-after --timeout=300 \
-            rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/ \
-            /nix/persistent/sync-servers/
-        ''
-      else
-        # For primary server, do not run sync, but still run reload
-        ''
-          exit 0
-        '';
+
+    path = [ pkgs.rsync ];
+
     postStart = ''
       set -x
     ''

@@ -12,16 +12,6 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     requires = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    script = ''
-      exec ${pkgs.stayrtr}/bin/stayrtr \
-        --bind 127.0.0.1:${LT.portStr.StayRTR.RPKI} \
-        --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.RPKI} \
-        --cache /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf \
-        --rtr.expire 86400 \
-        --rtr.refresh 60 \
-        --rtr.retry 60
-    '';
-
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
@@ -29,6 +19,16 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
 
       User = "stayrtr";
       Group = "stayrtr";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.stayrtr}/bin/stayrtr"
+        "--bind 127.0.0.1:${LT.portStr.StayRTR.RPKI}"
+        "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.RPKI}"
+        "--cache /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf"
+        "--rtr.expire 86400"
+        "--rtr.refresh 60"
+        "--rtr.retry 60"
+      ];
     };
   };
 
@@ -39,16 +39,6 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     requires = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    script = ''
-      exec ${pkgs.stayrtr}/bin/stayrtr \
-        --bind 127.0.0.1:${LT.portStr.StayRTR.FlapAlerted} \
-        --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.FlapAlerted} \
-        --cache https://flapalerted.lantian.pub/flaps/active/roa \
-        --rtr.expire 3600 \
-        --rtr.refresh 60 \
-        --rtr.retry 60
-    '';
-
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
@@ -56,6 +46,16 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
 
       User = "stayrtr";
       Group = "stayrtr";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.stayrtr}/bin/stayrtr"
+        "--bind 127.0.0.1:${LT.portStr.StayRTR.FlapAlerted}"
+        "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.FlapAlerted}"
+        "--cache https://flapalerted.lantian.pub/flaps/active/roa"
+        "--rtr.expire 3600"
+        "--rtr.refresh 60"
+        "--rtr.retry 60"
+      ];
     };
   };
 
@@ -66,16 +66,6 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     requires = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    script = ''
-      exec ${pkgs.stayrtr}/bin/stayrtr \
-        --bind 127.0.0.1:${LT.portStr.StayRTR.Flap42} \
-        --metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.Flap42} \
-        --cache https://flap42-data.strexp.net/min_3.json \
-        --rtr.expire 3600 \
-        --rtr.refresh 300 \
-        --rtr.retry 300
-    '';
-
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
@@ -83,6 +73,16 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
 
       User = "stayrtr";
       Group = "stayrtr";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.stayrtr}/bin/stayrtr"
+        "--bind 127.0.0.1:${LT.portStr.StayRTR.Flap42}"
+        "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.Flap42}"
+        "--cache https://flap42-data.strexp.net/min_3.json"
+        "--rtr.expire 3600"
+        "--rtr.refresh 300"
+        "--rtr.retry 300"
+      ];
     };
   };
 

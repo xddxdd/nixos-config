@@ -14,16 +14,6 @@ in
     after = [ "network.target" ];
     requires = [ "network.target" ];
 
-    script = ''
-      exec ${lib.getExe flapalerted} \
-        --asn 4242422547 \
-        --bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP} \
-        --httpAPIListenAddress /run/flapalerted/flapalerted.sock \
-        -routeChangeCounter 120 \
-        -overThresholdTarget 5 \
-        -underThresholdTarget 30
-    '';
-
     serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
@@ -34,6 +24,16 @@ in
 
       Group = "bird";
       User = "bird";
+
+      ExecStart = builtins.concatStringsSep " " [
+        "${lib.getExe flapalerted}"
+        "--asn 4242422547"
+        "--bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP}"
+        "--httpAPIListenAddress /run/flapalerted/flapalerted.sock"
+        "-routeChangeCounter 120"
+        "-overThresholdTarget 5"
+        "-underThresholdTarget 30"
+      ];
     };
   };
 
