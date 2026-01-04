@@ -20,7 +20,7 @@ in
     };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${lib.getExe' py "python3"} ${./checkin.py} ${config.age.secrets.veloera-checkin-config.path}";
+      ExecStart = "${lib.getExe py} ${./checkin.py} ${config.age.secrets.veloera-checkin-config.path}";
       Restart = "no";
     };
     unitConfig = {

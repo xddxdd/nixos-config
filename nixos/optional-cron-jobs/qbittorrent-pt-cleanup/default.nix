@@ -15,7 +15,7 @@ in
     };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${lib.getExe' py "python3"} ${./cleanup.py}";
+      ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
     };
     unitConfig = {

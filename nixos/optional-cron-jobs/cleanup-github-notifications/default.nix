@@ -17,7 +17,7 @@ in
     serviceConfig = LT.serviceHarden // {
       EnvironmentFile = config.age.secrets.cleanup-github-notifications-env.path;
       Type = "oneshot";
-      ExecStart = "${lib.getExe' py "python3"} ${./cleanup.py}";
+      ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
     };
     after = [ "network.target" ];
