@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 {
   systemd.services.bgp-flowspec = {
     enable = false;
@@ -16,7 +20,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.nur-xddxdd.hack3ric-flow}"
+        (lib.getExe pkgs.nur-xddxdd.hack3ric-flow)
         "run"
         "--bind [::1]:${LT.portStr.Hack3ricFlow}"
         "--local-as 65000"

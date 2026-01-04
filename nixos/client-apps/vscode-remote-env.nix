@@ -51,6 +51,6 @@ in
   environment.variables = {
     VSCODE_SERVER_CUSTOM_GLIBC_LINKER = "/placeholder/path";
     VSCODE_SERVER_CUSTOM_GLIBC_PATH = "/placeholder/path";
-    VSCODE_SERVER_PATCHELF_PATH = "${lib.getExe' fakePatchelf "patchelf"}";
+    VSCODE_SERVER_PATCHELF_PATH = lib.getExe' fakePatchelf "patchelf";
   };
 }

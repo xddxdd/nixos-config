@@ -61,7 +61,7 @@
       SystemCallFilter = [ ];
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.steam-run}"
+        (lib.getExe pkgs.steam-run)
         "/var/lib/palworld/PalServer.sh"
         "-useperfthreads"
         "-NoAsyncLoadingThread"

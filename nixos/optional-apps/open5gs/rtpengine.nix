@@ -44,7 +44,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.nur-xddxdd.rtpengine}"
+        (lib.getExe pkgs.nur-xddxdd.rtpengine)
         "-f"
         "-E"
         "--interface=192.168.0.9"
