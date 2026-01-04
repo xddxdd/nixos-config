@@ -127,7 +127,7 @@ in
   systemd.tmpfiles.settings = {
     nix-privkey = {
       "/run/nix-privkey.pem"."L+" = {
-        argument = "${config.age.secrets.nix-privkey.path}";
+        argument = config.age.secrets.nix-privkey.path;
       };
     };
   };

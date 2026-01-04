@@ -32,7 +32,7 @@ let
         cp -rsHf /usr/lib/wsl usr/lib/wsl
       fi
     '';
-    runScript = "${lib.getExe pkgs.nodejs}";
+    runScript = lib.getExe pkgs.nodejs;
     meta = {
       description = ''
         Wrapped variant of Node.js which launches in an FHS compatible envrionment,

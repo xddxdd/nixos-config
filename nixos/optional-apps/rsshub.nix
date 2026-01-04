@@ -16,7 +16,7 @@
       User = "rsshub";
       Group = "rsshub";
 
-      ExecStart = "${lib.getExe pkgs.rsshub}";
+      ExecStart = lib.getExe pkgs.rsshub;
 
       RestrictAddressFamilies = [
         "AF_INET"

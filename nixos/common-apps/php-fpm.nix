@@ -63,7 +63,7 @@ in
         group = "root";
       };
       "/etc/qqwry/qqwry.dat"."L+" = {
-        argument = "${qqwryDB}";
+        argument = toString qqwryDB;
       };
     };
   };

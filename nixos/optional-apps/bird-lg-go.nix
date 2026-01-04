@@ -44,7 +44,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${lib.getExe pkgs.nur-xddxdd.bird-lg-go}";
+      ExecStart = lib.getExe pkgs.nur-xddxdd.bird-lg-go;
       RuntimeDirectory = "bird-lg-go";
       User = "bird-lg-go";
       Group = "bird-lg-go";

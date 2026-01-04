@@ -26,7 +26,7 @@
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${lib.getExe pkgs.nur-xddxdd.vlmcsd}";
+      ExecStart = lib.getExe pkgs.nur-xddxdd.vlmcsd;
       DynamicUser = true;
     };
   };

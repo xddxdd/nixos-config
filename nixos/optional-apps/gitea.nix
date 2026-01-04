@@ -104,7 +104,7 @@ in
         ENABLED = true;
         FROM = "postmaster@lantian.pub";
         PROTOCOL = "sendmail";
-        SENDMAIL_PATH = "${lib.getExe pkgs.msmtp}";
+        SENDMAIL_PATH = lib.getExe pkgs.msmtp;
         SENDMAIL_ARGS = "--";
       };
       "git.timeout" = {

@@ -21,7 +21,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
       Group = "stayrtr";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.stayrtr}"
+        (lib.getExe pkgs.stayrtr)
         "--bind 127.0.0.1:${LT.portStr.StayRTR.RPKI}"
         "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.RPKI}"
         "--cache /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf"
@@ -48,7 +48,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
       Group = "stayrtr";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.stayrtr}"
+        (lib.getExe pkgs.stayrtr)
         "--bind 127.0.0.1:${LT.portStr.StayRTR.FlapAlerted}"
         "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.FlapAlerted}"
         "--cache https://flapalerted.lantian.pub/flaps/active/roa"
@@ -75,7 +75,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
       Group = "stayrtr";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.stayrtr}"
+        (lib.getExe pkgs.stayrtr)
         "--bind 127.0.0.1:${LT.portStr.StayRTR.Flap42}"
         "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.Flap42}"
         "--cache https://flap42-data.strexp.net/min_3.json"

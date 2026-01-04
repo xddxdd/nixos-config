@@ -36,7 +36,7 @@ in
     port = 22;
     extraOptions = [
       "-f"
-      "${cfg}"
+      (toString cfg)
     ];
   };
 }

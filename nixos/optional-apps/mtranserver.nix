@@ -32,7 +32,7 @@ in
     };
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${lib.getExe pkgs.nur-xddxdd.linguaspark-server-x86-64-v3}";
+      ExecStart = lib.getExe pkgs.nur-xddxdd.linguaspark-server-x86-64-v3;
       User = "mtranserver";
       Group = "mtranserver";
 

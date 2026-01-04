@@ -21,7 +21,7 @@
       Group = "peerbanhelper";
       Restart = "on-failure";
 
-      ExecStart = "${lib.getExe pkgs.nur-xddxdd.peerbanhelper}";
+      ExecStart = lib.getExe pkgs.nur-xddxdd.peerbanhelper;
       MemoryDenyWriteExecute = false;
 
       StateDirectory = "peerbanhelper";

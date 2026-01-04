@@ -57,16 +57,16 @@ in
       ExecStart =
         if config.networking.hostName != primaryServer then
           builtins.concatStringsSep " " [
-            "${lib.getExe pkgs.rsync}"
+            (lib.getExe pkgs.rsync)
             "-aczrq"
             "--delete-after"
             "--timeout=300"
-            "rsync://${LT.hosts."${primaryServer}".ltnet.IPv4}/sync-servers/"
+            "rsync://${LT.hosts.${primaryServer}.ltnet.IPv4}/sync-servers/"
             "/nix/persistent/sync-servers/"
           ]
         else
           # For primary server, do not run sync, but still run reload
-          "${lib.getExe' pkgs.coreutils "true"}";
+          (lib.getExe' pkgs.coreutils "true");
     };
 
     path = [ pkgs.rsync ];

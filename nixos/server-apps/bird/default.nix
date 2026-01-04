@@ -128,7 +128,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${lib.getExe pkgs.nur-xddxdd.bird-lgproxy-go}";
+      ExecStart = lib.getExe pkgs.nur-xddxdd.bird-lgproxy-go;
 
       # Needed by mtr and traceroute
       AmbientCapabilities = [

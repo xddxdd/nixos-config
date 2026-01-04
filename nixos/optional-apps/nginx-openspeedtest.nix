@@ -22,7 +22,7 @@
       listenHTTP.enable = true;
       listenHTTPS.enable = false;
 
-      root = "${LT.sources.openspeedtest.src}";
+      root = LT.sources.openspeedtest.src;
 
       locations."/" = {
         disableLiveCompression = true;

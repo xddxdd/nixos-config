@@ -23,7 +23,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe pkgs.dump1090-fa}"
+        (lib.getExe pkgs.dump1090-fa)
         "--quiet"
         "--device stx:1090:0"
         "--net"

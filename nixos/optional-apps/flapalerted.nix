@@ -26,7 +26,7 @@ in
       User = "bird";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${lib.getExe flapalerted}"
+        (lib.getExe flapalerted)
         "--asn 4242422547"
         "--bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP}"
         "--httpAPIListenAddress /run/flapalerted/flapalerted.sock"

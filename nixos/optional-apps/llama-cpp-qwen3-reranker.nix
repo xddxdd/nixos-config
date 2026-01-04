@@ -37,7 +37,7 @@ in
       Restart = "on-failure";
       RestartSec = 300;
       TimeoutStartSec = 600;
-      WorkingDirectory = "${model}";
+      WorkingDirectory = toString model;
 
       User = "llama-cpp";
       Group = "llama-cpp";

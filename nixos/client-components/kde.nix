@@ -52,7 +52,7 @@
 
   programs.dconf.enable = true;
 
-  programs.ssh.askPassword = "${lib.getExe pkgs.kdePackages.ksshaskpass}";
+  programs.ssh.askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
 
   programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid;
 }
