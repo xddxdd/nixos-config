@@ -66,6 +66,7 @@ rec {
     Dex = 13403;
     Ollama = 13434;
     UniAPI = 13437;
+    CLIProxyAPI = 13438;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;

@@ -107,7 +107,7 @@
       url = "github:xddxdd/nur-packages";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-index-database.follows = "nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";

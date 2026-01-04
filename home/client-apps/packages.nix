@@ -105,13 +105,14 @@ in
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bilibili
         nur-xddxdd.dingtalk
+        nur-xddxdd.easycli
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
-        nur-xddxdd.kikoplay
+        # nur-xddxdd.kikoplay
         nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
-        nur-xddxdd.qqsp
+        # nur-xddxdd.qqsp
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
