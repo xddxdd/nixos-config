@@ -82,7 +82,7 @@ in
         "${startupScript}:${startupScript}:ro"
         "/run/postgresql:/run/postgresql"
       ];
-      entrypoint = startupScript;
+      entrypoint = builtins.toString startupScript;
     };
   };
 
