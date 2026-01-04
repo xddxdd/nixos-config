@@ -7,4 +7,5 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
   };
+  meta.mainProgram = "hp-keyboard-backlight";
 }

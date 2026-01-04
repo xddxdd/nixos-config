@@ -96,7 +96,7 @@ let
           "IDE"
         ];
       };
-      xdg_icon_cmd_prefix = "env XDG_DATA_HOME=$out/share ${pkgs.xdg-utils}/bin/xdg-icon-resource install --novendor --size $size --mode user";
+      xdg_icon_cmd_prefix = "env XDG_DATA_HOME=$out/share ${lib.getExe' pkgs.xdg-utils "xdg-icon-resource"} install --novendor --size $size --mode user";
     in
     pkgs.buildFHSEnvChroot {
       inherit name;

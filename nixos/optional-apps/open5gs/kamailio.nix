@@ -63,6 +63,8 @@ let
       pkgs.libuuid
       pkgs.lksctp-tools
     ];
+
+    meta.mainProgram = "kamailio";
   });
 in
 {

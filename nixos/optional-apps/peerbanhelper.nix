@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   LT,
   ...
@@ -20,7 +21,7 @@
       Group = "peerbanhelper";
       Restart = "on-failure";
 
-      ExecStart = "${pkgs.nur-xddxdd.peerbanhelper}/bin/peerbanhelper";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.peerbanhelper}";
       MemoryDenyWriteExecute = false;
 
       StateDirectory = "peerbanhelper";

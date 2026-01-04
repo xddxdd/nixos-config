@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 {
   programs.adb.enable = true;
 
@@ -8,8 +9,8 @@
     serviceConfig = {
       Type = "forking";
       User = "root";
-      ExecStart = "${pkgs.android-tools}/bin/adb start-server";
-      ExecStop = "${pkgs.android-tools}/bin/adb kill-server";
+      ExecStart = "${lib.getExe' pkgs.android-tools "adb"} start-server";
+      ExecStop = "${lib.getExe' pkgs.android-tools "adb"} kill-server";
       Restart = "always";
       RestartSec = 5;
     };

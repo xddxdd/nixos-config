@@ -2,11 +2,12 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 let
   startScript = pkgs.writeShellScript "epic-awesome-gamer" ''
-    ${pkgs.gnupatch}/bin/patch -p1 < ${./fix.patch}
+    ${lib.getExe pkgs.gnupatch} -p1 < ${./fix.patch}
     xvfb-run --auto-servernum --server-num=1 --server-args='-screen 0, 1920x1080x24' uv run app/deploy.py
   '';
 in

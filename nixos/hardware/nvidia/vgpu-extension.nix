@@ -38,8 +38,8 @@ in
     serviceConfig = {
       Type = "forking";
       Restart = "no";
-      ExecStart = "-${nvidia_x11.bin}/bin/nvidia-vgpud --verbose";
-      ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpud";
+      ExecStart = "-${lib.getExe' nvidia_x11.bin "nvidia-vgpud"} --verbose";
+      ExecStopPost = "${lib.getExe' pkgs.coreutils "rm"} -rf /var/run/nvidia-vgpud";
     };
   };
 
@@ -63,8 +63,8 @@ in
       Type = "forking";
       Restart = "always";
       KillMode = "process";
-      ExecStart = "${nvidia_x11.bin}/bin/nvidia-vgpu-mgr --verbose";
-      ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-vgpu-mgr";
+      ExecStart = "${lib.getExe' nvidia_x11.bin "nvidia-vgpu-mgr"} --verbose";
+      ExecStopPost = "${lib.getExe' pkgs.coreutils "rm"} -rf /var/run/nvidia-vgpu-mgr";
     };
   };
 

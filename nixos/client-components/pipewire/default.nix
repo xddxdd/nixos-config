@@ -90,7 +90,7 @@ in
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${pkgs.netcat-openbsd}/bin/nc -U /run/pipewire/pipewire-0";
+      ExecStart = "${lib.getExe pkgs.netcat-openbsd} -U /run/pipewire/pipewire-0";
       User = "pipewire";
       Group = "pipewire";
       Restart = "always";

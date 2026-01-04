@@ -143,7 +143,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         DynamicUser = lib.mkForce false;
         ExecReload = [
           ""
-          "${pkgs.pdns-recursor}/bin/rec_control reload-zones"
+          "${lib.getExe' pkgs.pdns-recursor "rec_control"} reload-zones"
         ];
         User = lib.mkForce "pdns-recursor";
         Group = lib.mkForce "pdns-recursor";

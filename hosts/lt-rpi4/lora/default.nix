@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   utils,
   ...
@@ -69,9 +70,9 @@ in
 
     script = ''
       set -euo pipefail
-      TTN_IP=$(${pkgs.dnsutils}/bin/dig +short nam1.cloud.thethings.network | head -n1)
+      TTN_IP=$(${lib.getExe' pkgs.dnsutils "dig"} +short nam1.cloud.thethings.network | head -n1)
 
-      sleep infinity | ${gwmp-mux}/bin/gwmp-mux \
+      sleep infinity | ${lib.getExe' gwmp-mux "gwmp-mux"} \
         --host 1681 \
         --client $TTN_IP:1700
     '';
@@ -100,7 +101,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${sx1302Hal}/bin/lora_pkt_fwd -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
+      ExecStart = "${lib.getExe' sx1302Hal "lora_pkt_fwd"} -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
     };

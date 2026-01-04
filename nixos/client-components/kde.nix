@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -35,7 +36,7 @@
     restart = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd}/bin/agreety --cmd startplasma-wayland";
+        command = "${lib.getExe' pkgs.greetd "agreety"} --cmd startplasma-wayland";
         user = "greeter";
       };
       initial_session = {
@@ -51,7 +52,7 @@
 
   programs.dconf.enable = true;
 
-  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+  programs.ssh.askPassword = "${lib.getExe pkgs.kdePackages.ksshaskpass}";
 
   programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid;
 }

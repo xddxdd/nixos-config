@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   ...
 }:
@@ -12,7 +13,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.sidestore-vpn}/bin/sidestore-vpn";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.sidestore-vpn}";
       DynamicUser = true;
     };
   };

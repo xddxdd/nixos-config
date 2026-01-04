@@ -30,11 +30,11 @@ let
       --option eval-profile-file nix.profile \
       "$@"
     sed -i -E "s#/nix/store/([a-z0-9]{32})-##g" nix.profile
-    ${pkgs.flamegraph}/bin/flamegraph.pl nix.profile > flamegraph.svg
+    ${lib.getExe pkgs.flamegraph} nix.profile > flamegraph.svg
   '';
 
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
-    exec ${pkgs.sg3_utils}/bin/sg_raw "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
+    exec ${lib.getExe' pkgs.sg3_utils "sg_raw"} "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
 in
 {

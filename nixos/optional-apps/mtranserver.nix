@@ -2,6 +2,7 @@
   LT,
   config,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -15,7 +16,7 @@ let
     mkdir -p $out
     cp -r ${models}/models/base-memory/* $out/
     chmod -R +w $out
-    ${pkgs.gzip}/bin/gunzip -r $out
+    ${lib.getExe' pkgs.gzip "gunzip"} -r $out
   '';
 in
 {
@@ -31,7 +32,7 @@ in
     };
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${pkgs.nur-xddxdd.linguaspark-server-x86-64-v3}/bin/linguaspark-server";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.linguaspark-server-x86-64-v3}";
       User = "mtranserver";
       Group = "mtranserver";
 

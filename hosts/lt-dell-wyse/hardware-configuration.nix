@@ -28,7 +28,7 @@
 
   boot.extraModprobeConfig = ''
     blacklist r8169
-    install r8169 ${pkgs.coreutils}/bin/true
+    install r8169 ${lib.getExe' pkgs.coreutils "true"}
   '';
 
   fileSystems."/boot" = {

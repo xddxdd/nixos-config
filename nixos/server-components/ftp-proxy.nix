@@ -30,7 +30,7 @@
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.ftp-proxy}/bin/ftp.proxy -D 21 -m ${
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.ftp-proxy} -D 21 -m ${
         config.services."ftp-proxy".target
       }";
 

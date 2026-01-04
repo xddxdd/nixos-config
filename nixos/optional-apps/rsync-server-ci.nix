@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   LT,
@@ -17,7 +18,7 @@ in
     isNormalUser = true;
     uid = 1001;
     openssh.authorizedKeys.keys = builtins.map (
-      key: "command=\"${pkgs.rrsync}/bin/rrsync ${config.users.users.ci.home}\",restrict ${key}"
+      key: "command=\"${lib.getExe pkgs.rrsync} ${config.users.users.ci.home}\",restrict ${key}"
     ) sshKeys;
   };
 

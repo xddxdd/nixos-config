@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 let
   looking-glass-client-override =
     pkgs.runCommand "looking-glass-client-override" { nativeBuildInputs = with pkgs; [ makeWrapper ]; }
@@ -6,7 +7,7 @@ let
         mkdir -p $out/bin $out/share/applications
 
         makeWrapper \
-          ${pkgs.looking-glass-client}/bin/looking-glass-client \
+          ${lib.getExe pkgs.looking-glass-client} \
           $out/bin/looking-glass-client \
           ${LT.constants.forceX11WrapperArgs}
 

@@ -44,7 +44,7 @@
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${pkgs.nur-xddxdd.route-chain}/bin/route-chain ${
+        ExecStart = "${lib.getExe pkgs.nur-xddxdd.route-chain} ${
           builtins.concatStringsSep " " config.services.route-chain.routes
         }";
         DynamicUser = true;

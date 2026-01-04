@@ -14,7 +14,7 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
 
     preStart = ''
       if [ ! -f config.json ]; then
-        yes | ${pkgs.nur-xddxdd.usque}/bin/usque register
+        yes | ${lib.getExe pkgs.nur-xddxdd.usque} register
       fi
     '';
 
@@ -36,7 +36,7 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
       Restart = "always";
       RestartSec = "3";
       ExecStart =
-        "${pkgs.nur-xddxdd.usque}/bin/usque nativetun --interface-name usque"
+        "${lib.getExe pkgs.nur-xddxdd.usque} nativetun --interface-name usque"
         + (lib.optionalString (LT.this.hasTag LT.tags.ipv6-only) " --ipv6");
 
       User = "usque";

@@ -57,7 +57,7 @@ in
     '';
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${php-iyuu}/bin/php /var/lib/iyuu/start.php start";
+      ExecStart = "${lib.getExe' php-iyuu "php"} /var/lib/iyuu/start.php start";
       StateDirectory = "iyuu";
       WorkingDirectory = "/var/lib/iyuu";
       User = "iyuu";

@@ -16,28 +16,28 @@ let
     let
       mtu =
         lib.optionalString (v.tunnel.mtu != null) ''
-          ${pkgs.iproute2}/bin/ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
+          ${lib.getExe' pkgs.iproute2 "ip"} link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
         ''
         + ''
-          ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
+          ${lib.getExe' pkgs.iproute2 "ip"} addr add ${v.addressing.myIPv6LinkLocal}/10 dev ${interfaceName}
         '';
 
       ipv4 = ''
-        ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv4}/${builtins.toString v.addressing.IPv4SubnetMask} dev ${interfaceName}
+        ${lib.getExe' pkgs.iproute2 "ip"} addr add ${v.addressing.myIPv4}/${builtins.toString v.addressing.IPv4SubnetMask} dev ${interfaceName}
       '';
 
       ipv6 = ''
-        ${pkgs.iproute2}/bin/ip addr add ${v.addressing.myIPv6}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
+        ${lib.getExe' pkgs.iproute2 "ip"} addr add ${v.addressing.myIPv6}/${builtins.toString v.addressing.IPv6SubnetMask} dev ${interfaceName}
       '';
 
       sysctl = ''
-        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.autoconf=0
-        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.accept_ra=0
-        ${pkgs.procps}/bin/sysctl -w net.ipv6.conf.${interfaceName}.addr_gen_mode=1
+        ${lib.getExe' pkgs.procps "sysctl"} -w net.ipv6.conf.${interfaceName}.autoconf=0
+        ${lib.getExe' pkgs.procps "sysctl"} -w net.ipv6.conf.${interfaceName}.accept_ra=0
+        ${lib.getExe' pkgs.procps "sysctl"} -w net.ipv6.conf.${interfaceName}.addr_gen_mode=1
       '';
 
       up = ''
-        ${pkgs.iproute2}/bin/ip link set ${interfaceName} up
+        ${lib.getExe' pkgs.iproute2 "ip"} link set ${interfaceName} up
       '';
     in
     mtu + ipv4 + ipv6 + sysctl + up;

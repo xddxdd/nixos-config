@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -18,7 +19,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${pkgs.nur-xddxdd.dump978}/bin/dump978-fa"
+        "${lib.getExe pkgs.nur-xddxdd.dump978}"
         "--sdr driver=rtlsdr,serial=stx:978:0"
         "--raw-port ${LT.portStr.Dump978.Raw}"
         "--json-port ${LT.portStr.Dump978.Json}"
@@ -44,7 +45,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${pkgs.nur-xddxdd.dump978}/bin/skyaware978"
+        "${lib.getExe' pkgs.nur-xddxdd.dump978 "skyaware978"}"
         "--connect 127.0.0.1:${LT.portStr.Dump978.Raw}"
         "--reconnect-interval 5"
         "--json-dir /run/skyaware978"

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -34,7 +35,7 @@
       npm run build
     '';
     serviceConfig = {
-      ExecStart = "${pkgs.nodejs}/bin/npm run start";
+      ExecStart = "${lib.getExe' pkgs.nodejs "npm"} run start";
       CacheDirectory = "open5gs";
       WorkingDirectory = "/var/cache/open5gs";
       User = "open5gs";

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   inputs,
   config,
@@ -36,7 +37,7 @@
     wantedBy = [ "multi-user.target" ];
 
     script = ''
-      exec ${pkgs.nur-xddxdd.fr24feed}/bin/fr24feed \
+      exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24feed/decoder.txt \
         --fr24key=$(cat ${config.age.secrets.flightradar24-key.path}) \
         --bs=no \
@@ -70,7 +71,7 @@
     wantedBy = [ "multi-user.target" ];
 
     script = ''
-      exec ${pkgs.nur-xddxdd.fr24feed}/bin/fr24feed \
+      exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24uat-feed/decoder.txt \
         --fr24key=$(cat ${config.age.secrets.flightradar24-uat-key.path}) \
         --http-listen-port=8755 \

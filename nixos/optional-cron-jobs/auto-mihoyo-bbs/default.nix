@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 let
   py = pkgs.python3.withPackages (
     p: with p; [
@@ -34,7 +35,7 @@ in
       export AutoMihoyoBBS_appkey=$(cat /var/lib/auto-mihoyo-bbs/appkey)
       grep -E "^enable: true" config.yaml
       sed -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml || true
-      exec ${py}/bin/python ${files}/main.py
+      exec ${lib.getExe' py "python"} ${files}/main.py
     '';
   };
 

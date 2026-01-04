@@ -1,4 +1,5 @@
-{ LT, pkgs, ... }:
+{ LT, pkgs,
+  lib, ... }:
 {
   systemd.services.rsshub = {
     description = "RSSHub";
@@ -15,7 +16,7 @@
       User = "rsshub";
       Group = "rsshub";
 
-      ExecStart = "${pkgs.rsshub}/bin/rsshub";
+      ExecStart = "${lib.getExe pkgs.rsshub}";
 
       RestrictAddressFamilies = [
         "AF_INET"

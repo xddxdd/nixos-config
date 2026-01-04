@@ -58,7 +58,7 @@ let
       export RESTIC_CACHE_DIR=/var/cache/restic
       export RESTIC_COMPRESSION=max
 
-      exec ${pkgs.restic}/bin/restic "$@"
+      exec ${lib.getExe pkgs.restic} "$@"
     ''
   ) resticRepos;
 
@@ -117,8 +117,8 @@ in
 
     preStart = ''
       # Btrfs snapshot
-      [ -e "$SNAPSHOT_DIR" ] && ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /nix $SNAPSHOT_DIR
+      [ -e "$SNAPSHOT_DIR" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete $SNAPSHOT_DIR
+      ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r /nix $SNAPSHOT_DIR
     '';
 
     script = ''
@@ -135,7 +135,7 @@ in
 
     # Remove snapshot
     postStop = ''
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume delete $SNAPSHOT_DIR
+      ${lib.getExe pkgs.btrfs-progs} subvolume delete $SNAPSHOT_DIR
     '';
   };
 

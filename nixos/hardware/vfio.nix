@@ -45,7 +45,7 @@ in
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
       blacklist ${n}
-      install ${n} ${pkgs.coreutils}/bin/true
+      install ${n} ${lib.getExe' pkgs.coreutils "true"}
     '') cfg.blacklistedModules);
   };
 }

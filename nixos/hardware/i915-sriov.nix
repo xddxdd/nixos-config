@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -21,7 +22,7 @@
       echo 0 > "$I915_PATH/sriov_drivers_autoprobe"
       echo "$NUMVFS" > "$I915_PATH/sriov_numvfs"
 
-      ${pkgs.kmod}/bin/modprobe -v vfio-pci
+      ${lib.getExe' pkgs.kmod "modprobe"} -v vfio-pci
 
       for VF in $I915_PATH/virtfn*; do
         PCI_ADDR=$(readlink -f $VF)

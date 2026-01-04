@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 {
   systemd.services.decluttarr = {
     wantedBy = [ "multi-user.target" ];
@@ -33,7 +34,7 @@
     script = ''
       export RADARR_KEY=$(cat /var/lib/radarr/config.xml  | grep -E -o "[0-9a-f]{32}")
       export SONARR_KEY=$(cat /var/lib/sonarr/config.xml  | grep -E -o "[0-9a-f]{32}")
-      exec ${pkgs.nur-xddxdd.decluttarr}/bin/decluttarr
+      exec ${lib.getExe pkgs.nur-xddxdd.decluttarr}
     '';
 
     serviceConfig = LT.serviceHarden // {

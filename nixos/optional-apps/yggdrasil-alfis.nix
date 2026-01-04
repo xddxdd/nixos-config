@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   LT,
   ...
@@ -47,7 +48,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.alfis-nogui}/bin/alfis -n -c ${configFile}";
+      ExecStart = "${lib.getExe pkgs.alfis-nogui} -n -c ${configFile}";
 
       WorkingDirectory = "/var/lib/yggdrasil-alfis";
       StateDirectory = "yggdrasil-alfis";

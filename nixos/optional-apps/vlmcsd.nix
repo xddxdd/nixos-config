@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -25,7 +26,7 @@
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.vlmcsd}/bin/vlmcsd";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.vlmcsd}";
       DynamicUser = true;
     };
   };

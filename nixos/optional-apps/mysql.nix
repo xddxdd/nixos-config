@@ -109,7 +109,7 @@ in
       // {
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${pkgs.prometheus-mysqld-exporter}/bin/mysqld_exporter --config.my-cnf=${myCnf} --web.listen-address=${LT.this.ltnet.IPv4}:${LT.portStr.Prometheus.MySQLExporter}";
+        ExecStart = "${lib.getExe pkgs.prometheus-mysqld-exporter} --config.my-cnf=${myCnf} --web.listen-address=${LT.this.ltnet.IPv4}:${LT.portStr.Prometheus.MySQLExporter}";
 
         User = "prometheus-mysqld-exporter";
         Group = "prometheus-mysqld-exporter";

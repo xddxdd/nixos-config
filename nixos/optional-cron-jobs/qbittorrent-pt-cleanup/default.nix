@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 let
   py = pkgs.python3.withPackages (
     p: with p; [
@@ -14,7 +15,7 @@ in
     };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${py}/bin/python3 ${./cleanup.py}";
+      ExecStart = "${lib.getExe' py "python3"} ${./cleanup.py}";
       Restart = "no";
     };
     unitConfig = {

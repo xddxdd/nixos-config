@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ pkgs,
+  lib, ... }:
 let
   cdemuDBusService = pkgs.stdenv.mkDerivation {
     pname = "cdemu-dbus-service";
@@ -10,7 +11,7 @@ let
       [D-BUS Service]
       Name=net.sf.cdemu.CDEmuDaemon
       SystemdService=cdemu-daemon.service
-      Exec=${pkgs.coreutils}/bin/true
+      Exec=${lib.getExe' pkgs.coreutils "true"}
       EOF
     '';
   };
@@ -29,7 +30,7 @@ in
     serviceConfig = {
       Type = "dbus";
       BusName = "net.sf.cdemu.CDEmuDaemon";
-      ExecStart = "${pkgs.cdemu-daemon}/bin/cdemu-daemon --config-file \"%h/.config/cdemu-daemon\"";
+      ExecStart = "${lib.getExe pkgs.cdemu-daemon} --config-file \"%h/.config/cdemu-daemon\"";
       Restart = "no";
     };
   };

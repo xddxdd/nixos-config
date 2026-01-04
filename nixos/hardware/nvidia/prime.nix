@@ -8,7 +8,7 @@ let
   steam-offload = lib.hiPrio (
     pkgs.runCommand "steam-override" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
       mkdir -p $out/bin
-      makeWrapper ${config.programs.steam.package}/bin/steam $out/bin/steam \
+      makeWrapper ${lib.getExe' config.programs.steam.package "steam"} $out/bin/steam \
         --set __NV_PRIME_RENDER_OFFLOAD 1 \
         --set __NV_PRIME_RENDER_OFFLOAD_PROVIDER NVIDIA-G0 \
         --set __GLX_VENDOR_LIBRARY_NAME nvidia \

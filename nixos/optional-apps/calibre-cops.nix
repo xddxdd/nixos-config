@@ -85,7 +85,7 @@ in
       $config['cops_full_url'] = 'https://books.xuyh0120.win/';
       $config['cops_generate_invalid_opds_stream'] = '1';
       $config['cops_ignored_categories'] = array('publisher', 'rating');
-      $config['cops_kepubify_path'] = '${pkgs.kepubify}/bin/kepubify';
+      $config['cops_kepubify_path'] = '${lib.getExe' pkgs.kepubify "kepubify"}';
       $config['cops_max_item_per_page'] = '-1';
       $config['cops_prefered_format'] = array('EPUB', 'PDF', 'TXT');
       $config['cops_provide_kepub'] = '1';

@@ -102,9 +102,9 @@ in
       mkdir -p plugins
       ln -sf ${nexusphpPlugin} plugins/nexusphp.py
 
-      ${lib.getExe pkgs.flexget} -c flexget.yml backlog clear
-      ${lib.getExe pkgs.flexget} -c flexget.yml failed clear
-      exec ${lib.getExe pkgs.flexget} -c flexget.yml execute
+      ${lib.getExe' pkgs.flexget "flexget"} -c flexget.yml backlog clear
+      ${lib.getExe' pkgs.flexget "flexget"} -c flexget.yml failed clear
+      exec ${lib.getExe' pkgs.flexget "flexget"} -c flexget.yml execute
     '';
   };
 

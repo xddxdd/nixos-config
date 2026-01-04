@@ -63,7 +63,7 @@
 
     script = ''
       export AUTH_LDAP_BIND_PASSWORD=$(cat ${config.age.secrets.glauth-bindpw.path})
-      exec ${pkgs.quasselDaemon}/bin/quasselcore \
+      exec ${lib.getExe pkgs.quasselDaemon} \
         --listen=0.0.0.0,:: \
         --port=${LT.portStr.Quassel.Main} \
         --configdir=/run/quassel \

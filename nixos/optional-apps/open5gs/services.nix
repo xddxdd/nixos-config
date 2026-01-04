@@ -27,8 +27,8 @@ in
           "open5gs-certs.service"
         ];
         serviceConfig = {
-          ExecStart = "${pkgs.open5gs}/bin/open5gs-${svc}d -c ${./config}/${svc}.yaml";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          ExecStart = "${lib.getExe' pkgs.open5gs "open5gs-"}${svc}d -c ${./config}/${svc}.yaml";
+          ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -HUP $MAINPID";
           LogsDirectory = "open5gs";
           User = "open5gs";
           Group = "open5gs";

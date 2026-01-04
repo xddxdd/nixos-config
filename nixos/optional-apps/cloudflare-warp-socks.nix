@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   ...
 }:
@@ -12,7 +13,7 @@
 
     preStart = ''
       if [ ! -f config.json ]; then
-        yes | ${pkgs.nur-xddxdd.usque}/bin/usque register
+        yes | ${lib.getExe pkgs.nur-xddxdd.usque} register
       fi
     '';
 
@@ -20,7 +21,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.usque}/bin/usque socks -b 127.0.0.1 -p ${LT.portStr.Usque}";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.usque} socks -b 127.0.0.1 -p ${LT.portStr.Usque}";
 
       User = "usque";
       Group = "usque";

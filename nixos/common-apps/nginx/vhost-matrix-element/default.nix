@@ -38,7 +38,7 @@ let
       dontUnpack = true;
       postInstall = ''
         mkdir -p $out
-        ${pkgs.jq}/bin/jq -s -c '.[0] * $conf' "${pkgs.element-web}/config.json" --argjson "conf" '${elementConfig}' > "$out/config.json"
+        ${lib.getExe pkgs.jq} -s -c '.[0] * $conf' "${pkgs.element-web}/config.json" --argjson "conf" '${elementConfig}' > "$out/config.json"
       '';
     }
   );

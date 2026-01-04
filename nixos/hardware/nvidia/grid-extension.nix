@@ -36,9 +36,9 @@ in
     serviceConfig = {
       Type = "forking";
       Restart = "always";
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/lib/nvidia/GridLicensing";
-      ExecStart = "${nvidia_x11.bin}/bin/nvidia-gridd --verbose";
-      ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-gridd";
+      ExecStartPre = "${lib.getExe' pkgs.coreutils "mkdir"} -p /var/lib/nvidia/GridLicensing";
+      ExecStart = "${lib.getExe' nvidia_x11.bin "nvidia-gridd"} --verbose";
+      ExecStopPost = "${lib.getExe' pkgs.coreutils "rm"} -rf /var/run/nvidia-gridd";
     };
   };
 }

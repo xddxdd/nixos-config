@@ -36,7 +36,7 @@ in
     export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}"
 
     jq . "$HYDRA_JSON"
-    exec ${py}/bin/python3 ${./post-build.py} "$HYDRA_JSON"
+    exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
   '';
   environment.etc."hydra/machines".text = ''
     localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -32,7 +33,7 @@
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.fastapi-dls}/bin/fastapi-dls --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.fastapi-dls} --uds /run/fastapi-dls/fastapi-dls.sock --proxy-headers";
       RuntimeDirectory = "fastapi-dls";
       StateDirectory = "fastapi-dls";
       User = "fastapi-dls";

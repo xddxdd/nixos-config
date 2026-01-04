@@ -24,8 +24,8 @@ let
   );
 
   jamesdsp-toggle = pkgs.writeShellScriptBin "jamesdsp-toggle" ''
-    NEW_STATE=$([ $(${pkgs.jamesdsp}/bin/jamesdsp --get master_enable) = "true" ] && echo "false" || echo "true")
-    ${pkgs.jamesdsp}/bin/jamesdsp --set master_enable=$NEW_STATE
+    NEW_STATE=$([ $(${lib.getExe pkgs.jamesdsp} --get master_enable) = "true" ] && echo "false" || echo "true")
+    ${lib.getExe pkgs.jamesdsp} --set master_enable=$NEW_STATE
     exit 0
   '';
 

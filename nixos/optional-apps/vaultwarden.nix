@@ -3,6 +3,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -34,7 +35,7 @@
       DATABASE_URL = "mysql:///vaultwarden";
 
       USE_SENDMAIL = "true";
-      SENDMAIL_COMMAND = "${pkgs.msmtp}/bin/msmtp";
+      SENDMAIL_COMMAND = "${lib.getExe pkgs.msmtp}";
       SMTP_FROM = config.programs.msmtp.accounts.default.from;
       SMTP_FROM_NAME = "Vaultwarden";
     };

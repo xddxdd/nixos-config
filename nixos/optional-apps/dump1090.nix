@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -22,7 +23,7 @@
       RestartSec = "5";
 
       ExecStart = builtins.concatStringsSep " " [
-        "${pkgs.dump1090-fa}/bin/dump1090"
+        "${lib.getExe pkgs.dump1090-fa}"
         "--quiet"
         "--device stx:1090:0"
         "--net"

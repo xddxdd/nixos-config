@@ -22,9 +22,9 @@ let
       #           makeFlags =
       #             (platform.linux-kernel.makeFlags or [])
       #             ++ [
-      #               "CC=${newStdenv.cc}/bin/cc"
-      #               "HOSTCC=${newStdenv.cc}/bin/cc"
-      #               "HOSTCXX=${newStdenv.cc}/bin/c++"
+      #               "CC=${lib.getExe' newStdenv.cc "cc"}"
+      #               "HOSTCC=${lib.getExe' newStdenv.cc "cc"}"
+      #               "HOSTCXX=${lib.getExe' newStdenv.cc "c"}++"
       #             ];
       #         };
       #     };

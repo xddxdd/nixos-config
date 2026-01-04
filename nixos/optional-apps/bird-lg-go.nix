@@ -44,7 +44,7 @@ in
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.nur-xddxdd.bird-lg-go}/bin/frontend";
+      ExecStart = "${lib.getExe pkgs.nur-xddxdd.bird-lg-go}";
       RuntimeDirectory = "bird-lg-go";
       User = "bird-lg-go";
       Group = "bird-lg-go";

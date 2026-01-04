@@ -1,4 +1,5 @@
-{ pkgs, config, ... }:
+{ pkgs,
+  lib, config, ... }:
 {
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi-ec ];
   boot.kernelModules = [ "acpi_ec" ];
@@ -20,7 +21,7 @@
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${pkgs.nur-xddxdd.lantianCustomized.nbfc-linux}/bin/nbfc_service -c ${cfg}";
+        ExecStart = "${lib.getExe' pkgs.nur-xddxdd.lantianCustomized.nbfc-linux "nbfc_service"} -c ${cfg}";
         TimeoutStopSec = "5";
       };
     };

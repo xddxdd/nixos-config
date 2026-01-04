@@ -1,4 +1,5 @@
-{ pkgs, LT, ... }:
+{ pkgs,
+  lib, LT, ... }:
 {
   imports = [ ./postgresql.nix ];
 
@@ -21,7 +22,7 @@
       WorkingDirectory = "/var/lib/step-ca";
       StateDirectory = "step-ca";
 
-      ExecStart = "${pkgs.step-ca}/bin/step-ca /var/lib/step-ca/config/ca.json --password-file /var/lib/step-ca/password.txt";
+      ExecStart = "${lib.getExe pkgs.step-ca} /var/lib/step-ca/config/ca.json --password-file /var/lib/step-ca/password.txt";
 
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

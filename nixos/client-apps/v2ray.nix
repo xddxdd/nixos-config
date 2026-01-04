@@ -196,7 +196,7 @@ in
 
       ${utils.genJqSecretsReplacementSnippet v2rayConf "/run/v2ray/config.json"}
 
-      exec ${pkgs.xray}/bin/xray -config /run/v2ray/config.json
+      exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
       User = "nginx";

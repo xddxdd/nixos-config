@@ -179,14 +179,14 @@ in
         test -f '${settingsFile}' && rm -f '${settingsFile}'
         old_umask=$(umask)
         umask 0177
-        ${pkgs.envsubst}/bin/envsubst \
+        ${lib.getExe pkgs.envsubst} \
           -o '${settingsFile}' \
           -i '${settingsFileUnsubstituted}'
         umask $old_umask
 
         # generate the appservice's registration file if absent
         if [ ! -f '${registrationFile}' ]; then
-          ${cfg.package}/bin/mautrix-gmessages \
+          ${lib.getExe' cfg.package "mautrix-gmessages"} \
             --generate-registration \
             --config='${settingsFile}' \
             --registration='${registrationFile}'
@@ -199,9 +199,9 @@ in
             cat <<EOF > '${doublePuppetFile}'
           id: gmessages-doublepuppet
           url:
-          as_token: $(${pkgs.pwgen}/bin/pwgen -s 64)
-          hs_token: $(${pkgs.pwgen}/bin/pwgen -s 64)
-          sender_localpart: $(${pkgs.pwgen}/bin/pwgen -s 32)
+          as_token: $(${lib.getExe pkgs.pwgen} -s 64)
+          hs_token: $(${lib.getExe pkgs.pwgen} -s 64)
+          sender_localpart: $(${lib.getExe pkgs.pwgen} -s 32)
           rate_limited: false
           namespaces:
             users:
@@ -214,7 +214,7 @@ in
 
         umask 0177
         # Overwrite registration tokens in config
-        ${pkgs.yq}/bin/yq -s '.[0].appservice.as_token = .[1].as_token
+        ${lib.getExe pkgs.yq} -s '.[0].appservice.as_token = .[1].as_token
           | .[0].appservice.hs_token = .[1].hs_token
           ${lib.optionalString cfg.doublePuppet "| .[0].double_puppet.secrets.\"${cfg.settings.homeserver.domain}\" = \"as_token:\" + .[2].as_token"}
           | .[0]' \
@@ -230,7 +230,7 @@ in
         StateDirectory = baseNameOf dataDir;
         WorkingDirectory = dataDir;
         ExecStart = ''
-          ${cfg.package}/bin/mautrix-gmessages \
+          ${lib.getExe' cfg.package "mautrix-gmessages"} \
           --config='${settingsFile}' \
           --registration='${registrationFile}'
         '';

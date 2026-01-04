@@ -58,7 +58,7 @@ in
 
     script = ''
       ${utils.genJqSecretsReplacementSnippet uniApiConfig "api.yaml"}
-      exec ${pkgs.nur-xddxdd.uni-api}/bin/uni-api
+      exec ${lib.getExe pkgs.nur-xddxdd.uni-api}
     '';
 
     postStart = ''

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 let
@@ -31,7 +32,7 @@ let
         cp -rsHf /usr/lib/wsl usr/lib/wsl
       fi
     '';
-    runScript = "${pkgs.nodejs}/bin/node";
+    runScript = "${lib.getExe pkgs.nodejs}";
     meta = {
       description = ''
         Wrapped variant of Node.js which launches in an FHS compatible envrionment,
@@ -43,13 +44,13 @@ let
   fakePatchelf = pkgs.writeShellScriptBin "patchelf" ''
     LAST_ARG="''${@: -1}"
     rm -f "$LAST_ARG"
-    ln -sf ${nodejsFHS}/bin/node "$LAST_ARG"
+    ln -sf ${lib.getExe' nodejsFHS "node"} "$LAST_ARG"
   '';
 in
 {
   environment.variables = {
     VSCODE_SERVER_CUSTOM_GLIBC_LINKER = "/placeholder/path";
     VSCODE_SERVER_CUSTOM_GLIBC_PATH = "/placeholder/path";
-    VSCODE_SERVER_PATCHELF_PATH = "${fakePatchelf}/bin/patchelf";
+    VSCODE_SERVER_PATCHELF_PATH = "${lib.getExe' fakePatchelf "patchelf"}";
   };
 }

@@ -1,4 +1,5 @@
-{ pkgs, config, ... }:
+{ pkgs,
+  lib, config, ... }:
 let
   nvidia_x11 = config.hardware.nvidia.package;
 
@@ -94,8 +95,8 @@ in
         Type = "forking";
         Restart = "always";
         PIDFile = "/var/run/nvidia-persistenced/nvidia-persistenced.pid";
-        ExecStart = "${nvidia_x11.persistenced}/bin/nvidia-persistenced --verbose";
-        ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-persistenced";
+        ExecStart = "${lib.getExe' nvidia_x11.persistenced "nvidia-persistenced"} --verbose";
+        ExecStopPost = "${lib.getExe' pkgs.coreutils "rm"} -rf /var/run/nvidia-persistenced";
       };
     };
   };
