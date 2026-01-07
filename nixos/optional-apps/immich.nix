@@ -33,6 +33,10 @@
       host = "127.0.0.1";
       port = LT.port.Immich;
       mediaLocation = "/run/immich";
+      database = {
+        enableVectorChord = true;
+        enableVectors = false;
+      };
     };
 
     lantian.nginxVhosts = {
