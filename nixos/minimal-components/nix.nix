@@ -65,7 +65,7 @@ in
   };
 
   nix = {
-    package = pkgs.lixPackageSets.latest.lix;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       !include ${config.age.secrets.nix-access-token.path}
     '';
@@ -88,9 +88,9 @@ in
       build-dir = "/var/cache/nix";
       builders-use-substitutes = true;
       connect-timeout = 5;
-      # download-buffer-size = 1024 * 1024 * 1024;  # Removed in Lix
-      experimental-features = lib.mkForce "nix-command flakes auto-allocate-uids cgroups";
-      extra-experimental-features = lib.mkForce "nix-command flakes auto-allocate-uids cgroups";
+      download-buffer-size = 1024 * 1024 * 1024;
+      experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
+      extra-experimental-features = lib.mkForce "nix-command flakes ca-derivations auto-allocate-uids cgroups";
       fallback = true;
       keep-going = true;
       keep-outputs = true;
