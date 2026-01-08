@@ -134,6 +134,7 @@ in
         steam-run
         synadm
         tigervnc
+        tor-browser
         ulauncher
         unar
         ventoy-full

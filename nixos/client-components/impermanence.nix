@@ -56,6 +56,7 @@
           ".runpod"
           ".steam"
           ".terraform.d"
+          ".tor project"
           ".thunderbird"
           ".vscode"
           ".vscode-server"
