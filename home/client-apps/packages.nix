@@ -86,6 +86,7 @@ in
         jamesdsp
         jamesdsp-toggle
         kdePackages.ark
+        kdePackages.isoimagewriter
         kdePackages.kdenlive
         kdePackages.kpat
         kdePackages.neochat
