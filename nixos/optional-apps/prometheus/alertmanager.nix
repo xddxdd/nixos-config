@@ -126,7 +126,7 @@ in
                 {
                   alert = "bird_shortlived_peers";
                   expr = ''bird_protocol_uptime{name=~"^dn42_(.*)$", name!~"^dn42_grc_(.*)$", proto="BGP"} < 300'';
-                  for = "15m";
+                  for = "30m";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
