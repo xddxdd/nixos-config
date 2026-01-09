@@ -30,6 +30,7 @@
         config.common.nameservers.DN42
         (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.dn42.")
         (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.dn42.")
+        (config.common.poem true "fdbc:f9dc:67ad:6d61:6e6f:7361:6261:")
       ];
     }
 
@@ -86,6 +87,7 @@
         config.common.nameservers.NeoNetwork
         (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.neo.")
         (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.neo.")
+        (config.common.poem true "fd10:127:10:6d61:6e6f:7361:6261:")
       ];
     }
   ];

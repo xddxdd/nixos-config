@@ -22,6 +22,8 @@
   config = {
     services.route-chain.routes = [
       "172.22.76.97/29"
+      "fdbc:f9dc:67ad:6d61:6e6f:7361:6261::/120"
+      "fd10:127:10:6d61:6e6f:7361:6261::/120"
     ]
     ++ lib.optionals config.networking.henet.enable (
       builtins.map (
@@ -45,9 +47,7 @@
         Type = "simple";
         Restart = "always";
         RestartSec = "3";
-        ExecStart = "${lib.getExe pkgs.nur-xddxdd.route-chain} ${
-          builtins.concatStringsSep " " config.services.route-chain.routes
-        }";
+        ExecStart = "${lib.getExe pkgs.nur-xddxdd.route-chain} ${builtins.concatStringsSep " " config.services.route-chain.routes}";
         DynamicUser = true;
       };
     };
