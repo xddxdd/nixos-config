@@ -347,11 +347,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767833853,
-        "narHash": "sha256-Kvib2VREhxkq6XkrhBwcaW+uCYFKr4fCd2rRaVy6FmQ=",
+        "lastModified": 1767920263,
+        "narHash": "sha256-/y7abdUEVHvgTMJNpsq04RCnlVNOYKi5sRS32BtJHDs=",
         "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
-        "rev": "e6dbc34dd8bf96938f0b81e22754bd1c715c2fd2",
+        "rev": "f57152269387ec9d2db327c2a9534f00f4601e4d",
         "type": "github"
       },
       "original": {
