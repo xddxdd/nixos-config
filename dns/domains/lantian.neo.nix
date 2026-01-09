@@ -78,6 +78,12 @@
           };
         })
 
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "fd10:127:10:6d61:6e6f:7361:6261:14";
+        }
+
         config.common.nameservers.NeoNetwork
         (config.common.hostRecs.NeoNetwork "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")

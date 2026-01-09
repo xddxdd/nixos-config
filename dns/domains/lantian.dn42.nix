@@ -78,6 +78,12 @@
           };
         })
 
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "fdbc:f9dc:67ad:6d61:6e6f:7361:6261:14";
+        }
+
         config.common.nameservers.DN42
         (config.common.hostRecs.DN42 "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
