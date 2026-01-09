@@ -64,7 +64,7 @@
 
         config.common.nameservers.DN42
         (config.common.hostRecs.DN42ReverseIPv4 "lantian.dn42." 96 127)
-        (config.common.poem "" 98)
+        (config.common.poem false "" 98)
       ];
     }
 

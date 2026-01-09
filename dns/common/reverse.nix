@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  common.reverse =
+  common.reverse6 =
     { prefix, target }:
     let
       prefixSplitted = lib.splitString "/" prefix;
@@ -22,7 +22,7 @@
           name = "${prefixIP}1";
           inherit target;
         }
-        (config.common.poem "${prefixIP}" 2)
+        (config.common.manosaba true "${prefixIP}" 2)
       ];
     };
 }
