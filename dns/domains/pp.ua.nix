@@ -19,6 +19,12 @@
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
+
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "2001:470:8c19::14";
+        }
       ];
     }
 
@@ -40,6 +46,12 @@
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
+
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "2001:470:8c19::14";
+        }
       ];
     }
 
@@ -61,6 +73,12 @@
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
+
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "2001:470:8c19::14";
+        }
       ];
     }
   ];

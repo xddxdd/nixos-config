@@ -144,6 +144,11 @@ let
       ttl = "1h";
     }
     {
+      recordType = "AAAA";
+      name = "manosaba";
+      address = "2001:470:8c19::14";
+    }
+    {
       recordType = "fakeALIAS";
       name = "matrix";
       target = "colocrossing";

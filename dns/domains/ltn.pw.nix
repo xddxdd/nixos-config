@@ -60,6 +60,11 @@
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
 
         {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "2001:470:8c19::14";
+        }
+        {
           recordType = "TXT";
           name = "@";
           contents = "google-site-verification=Yam2tN9AuaNbnuf_RIgizJX0bDD1l8LoMEjPE9dxvAE";

@@ -33,6 +33,11 @@
           name = "www";
           target = "${domain}.";
         }
+        {
+          recordType = "AAAA";
+          name = "manosaba";
+          address = "2001:470:8c19::14";
+        }
 
         # VirMach free host
         {
