@@ -37,6 +37,7 @@
       inherit (config.services.route-chain) enable;
       description = "Route Chain";
       wantedBy = [ "multi-user.target" ];
+      environment.IFNAME = "route-chain";
       unitConfig = {
         After = "network.target";
       };
