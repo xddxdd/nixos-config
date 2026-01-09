@@ -233,6 +233,9 @@ let
         ip6 saddr @RESERVED_IPV6 return
       ''}
 
+      # Allow route-chain
+      oifname "tun0" accept
+
       # Block forwarding from WAN
       reject with icmpx type admin-prohibited
     }
