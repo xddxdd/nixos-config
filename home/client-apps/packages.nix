@@ -61,7 +61,6 @@ in
         aria2
         attic-client
         audacious
-        bambu-studio
         brotli
         bzip2
         calibre
@@ -104,6 +103,7 @@ in
         nur-xddxdd.adspower
         nur-xddxdd.baidunetdisk
         nur-xddxdd.baidupcs-go
+        nur-xddxdd.bambu-studio-bin
         nur-xddxdd.bilibili
         nur-xddxdd.dingtalk
         nur-xddxdd.easycli
