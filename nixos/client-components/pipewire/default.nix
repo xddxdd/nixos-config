@@ -13,7 +13,6 @@ in
   imports = [
     ./pipewire-airplay.nix
     ./pipewire-latency-adjust.nix
-    ./pipewire-noise-cancelling.nix
     ./pipewire-rtprio.nix
     ./pipewire-surround.nix
     ./wireplumber-bluez.nix
