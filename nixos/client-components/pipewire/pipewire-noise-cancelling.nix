@@ -1,5 +1,11 @@
-{ pkgs, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+# Fix crashing
+lib.mkIf (config.networking.hostName != "lt-dell-wyse") {
   services.pipewire.extraConfig.pipewire = {
     "50-noise-cancelling" = {
       "context.modules" = [
