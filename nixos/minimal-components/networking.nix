@@ -1,6 +1,5 @@
 {
   lib,
-  LT,
   config,
   ...
 }:
@@ -140,21 +139,6 @@ in
         '')}
       '';
     };
-
-  # Multicast DNS
-  services.avahi = {
-    enable = LT.this.hasTag LT.tags.client;
-    nssmdns4 = true;
-    reflector = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      domain = true;
-      hinfo = true;
-      userServices = true;
-      workstation = true;
-    };
-  };
 
   # Support network namespaces
   systemd.tmpfiles.settings = {
