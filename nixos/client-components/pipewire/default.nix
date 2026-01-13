@@ -76,12 +76,6 @@ in
     };
   };
 
-  systemd.services.pipewire.serviceConfig = {
-    AmbientCapabilities = lib.mkForce "";
-    CPUSchedulingPolicy = "fifo";
-    CPUSchedulingPriority = "20";
-  };
-
   systemd.services.pipewire-auto-start = {
     description = "Keep PipeWire running";
     after = [ "pipewire.socket" ];
@@ -99,5 +93,6 @@ in
 
   users.users.lantian.extraGroups = [
     "audio"
-  ] ++ lib.optionals config.services.pipewire.systemWide [ "pipewire" ];
+  ]
+  ++ lib.optionals config.services.pipewire.systemWide [ "pipewire" ];
 }
