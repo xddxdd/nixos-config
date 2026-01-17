@@ -116,6 +116,6 @@ in
     };
   };
   programs.librewolf = lib.recursiveUpdate args {
-    package = pkgs.librewolf-bin;
+    package = pkgs.librewolf;
   };
 }

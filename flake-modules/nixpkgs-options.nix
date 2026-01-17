@@ -27,7 +27,7 @@ in
             "libsoup-2.74.3"
             "mbedtls-2.28.10"
             "olm-3.2.16"
-            "ventoy-1.1.07"
+            "ventoy-1.1.10"
             # keep-sorted end
           ];
           overlays = [
@@ -36,7 +36,6 @@ in
             inputs.angrr.overlays.default
             inputs.colmena.overlay
             inputs.firefox-addons.overlays.default
-            inputs.nil.overlays.nil
             inputs.nix-alien.overlays.default
             inputs.nix-cache-proxy.overlays.default
             inputs.nixd.overlays.default

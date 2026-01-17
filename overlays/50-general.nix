@@ -17,6 +17,11 @@ rec {
     vendorHash = "sha256-FCcIKej106jDLvPdsYBtpB61QfD2nQpXwVpOtc2WdW0=";
     doCheck = false;
   });
+  dump1090-fa = prev.dump1090-fa.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/dump1090-gcc15-fix.patch
+    ];
+  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;

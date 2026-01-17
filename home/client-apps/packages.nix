@@ -79,7 +79,7 @@ in
         gcdemu
         gedit
         gimp
-        gopher
+        # gopher
         imagemagick
         immich-cli
         jamesdsp
@@ -92,8 +92,8 @@ in
         kicad
         lbzip2
         libfaketime
-        libreoffice-qt6-fresh
-        # linphone
+        # libreoffice-qt6-fresh
+        linphone
         lx-music-desktop
         macchanger
         mediainfo

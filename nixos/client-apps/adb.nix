@@ -1,7 +1,11 @@
-{ pkgs,
-  lib, LT, ... }:
 {
-  programs.adb.enable = true;
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
+{
+  environment.systemPackages = [ pkgs.android-tools ];
 
   systemd.services.adbd = {
     description = "ADB Daemon";

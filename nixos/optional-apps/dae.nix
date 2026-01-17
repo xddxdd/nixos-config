@@ -87,6 +87,7 @@ in
   };
 
   systemd.services.dae.serviceConfig = {
+    Type = "simple"; # Do not block boot on network online
     Restart = "on-failure";
     RestartSec = "5";
   };

@@ -99,6 +99,7 @@ in
       }
     ];
     settings = {
+      AcceptEnv = lib.mkForce null;
       PermitRootLogin = lib.mkForce "prohibit-password";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;

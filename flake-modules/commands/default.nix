@@ -16,6 +16,7 @@
     in
     {
       commands = lib.mapAttrs (k: v: pkgs.callPackage v extraArgs) {
+        add-pr = ./add-pr.nix;
         asterisk-music-deploy = ./asterisk-music-deploy.nix;
         ci = ./ci.nix;
         colmena = ./colmena.nix;

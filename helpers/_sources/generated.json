@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLocks": null,
-        "date": "2025-11-24",
+        "date": "2026-01-17",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3c729ab7cbb3f1c0684b40e57fba37e96db20e84",
-            "sha256": "sha256-WTR1Ga1sLdznfAFvqQdetwGnugrESq07cOX0GXYRyuA=",
+            "rev": "d19c5c7e80f85ca310e1d96760ad65af4951bca8",
+            "sha256": "sha256-zYGrTanq/dH1IdKopkj7Ws7LBXtmiORE/DnTfMtzCdY=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "3c729ab7cbb3f1c0684b40e57fba37e96db20e84"
+        "version": "d19c5c7e80f85ca310e1d96760ad65af4951bca8"
     },
     "firefox-translations-models": {
         "cargoLocks": null,
@@ -64,15 +64,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9skliIZ/Ezb6GOMNRhO4DUEvS+b89qlYCZDyAL/FXUE=",
+            "sha256": "sha256-GHA4kHqzfa8bdldL/Bk+7oBa3lIraLz9dqwOJ1LsRlE=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.6.0/yesoreyeram-infinity-datasource-3.6.0.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.0/yesoreyeram-infinity-datasource-3.7.0.zip"
         },
-        "version": "3.6.0"
+        "version": "3.7.0"
     },
     "lobe-icons": {
         "cargoLocks": null,
-        "date": "2025-12-18",
+        "date": "2026-01-11",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,17 +82,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "38f2462eecc674d35187a791c0b45d64842492ad",
-            "sha256": "sha256-MYsjRao4ifswF349X7DToNpW2SWZOtMexIt5wFcqjvE=",
+            "rev": "fb5665c01df8619f9acec6fbced4607427f9067a",
+            "sha256": "sha256-JvAI0OTm1vxqlI3Ki8/b+m6qNkG9O2s4tqj5V17OuRU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "38f2462eecc674d35187a791c0b45d64842492ad"
+        "version": "fb5665c01df8619f9acec6fbced4607427f9067a"
     },
     "mihoyo-bbs-tools": {
         "cargoLocks": null,
-        "date": "2025-10-01",
+        "date": "2026-01-04",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -104,12 +104,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "b0e1b6d42ad25b38396cca5c942e7c3f71be12c3",
-            "sha256": "sha256-YUzNWadWIJUUmH6L+lHhQ9YaLid8RBcyGSKGoGUGTn4=",
+            "rev": "405d4cc3c90c975b8d71a63d0413e79cf59b016e",
+            "sha256": "sha256-GYolDoWmWvEEnwng81MCYp38fmg57ih2A8ysO132D2Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b0e1b6d42ad25b38396cca5c942e7c3f71be12c3"
+        "version": "405d4cc3c90c975b8d71a63d0413e79cf59b016e"
     },
     "mpv-sockets": {
         "cargoLocks": null,
@@ -134,7 +134,7 @@
     },
     "nvidia-patch": {
         "cargoLocks": null,
-        "date": "2025-12-12",
+        "date": "2026-01-06",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -146,12 +146,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "fe7fd8c41b8db649491fbfcd1af1cc87745077b4",
-            "sha256": "sha256-FnWkyU1Qt9kqoX4vtDLCqokcKHm789YqQhTj7FQxhHI=",
+            "rev": "be3f1616b976c47d33b0abf2956f4129d759824a",
+            "sha256": "sha256-PmbWjUOWDUI4A1zFL14Q5cjdpsZKxF9Qbvtdukr6tCU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fe7fd8c41b8db649491fbfcd1af1cc87745077b4"
+        "version": "be3f1616b976c47d33b0abf2956f4129d759824a"
     },
     "open5gs": {
         "cargoLocks": null,
@@ -602,12 +602,12 @@
             "name": null,
             "owner": "YOURLS",
             "repo": "YOURLS",
-            "rev": "1.10.2",
-            "sha256": "sha256-/pn+LIYm2kNdGTmKkseQuGVVn400x7i+hI4/OZdT6NQ=",
+            "rev": "1.10.3",
+            "sha256": "sha256-wGzsNd5e9TwCZhNMPpa32j1kPh/sa63bJVuQ3+cGBAY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.10.2"
+        "version": "1.10.3"
     },
     "yourls-404-if-not-found": {
         "cargoLocks": null,
