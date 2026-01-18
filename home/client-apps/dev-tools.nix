@@ -141,6 +141,7 @@ in
     conda
     # FIXME: broken
     # micromamba
+    ruff
     uv
     virtualenv
     yapf
