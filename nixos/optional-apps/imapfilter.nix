@@ -22,6 +22,12 @@ in
     ipSuffix = "93";
   };
 
+  age.secrets.imapfilter-gmail = {
+    file = inputs.secrets + "/imapfilter/gmail.age";
+    owner = "imapfilter";
+    group = "imapfilter";
+  };
+
   environment.systemPackages = [ email-oauth2-proxy ];
 
   systemd.services.email-oauth2-proxy = netns.bind {
@@ -74,6 +80,41 @@ in
     timerConfig = {
       OnCalendar = "daily";
       Persistent = true;
+      RandomizedDelaySec = "4h";
+    };
+  };
+
+  systemd.services.imapfilter-gmail = netns.bind {
+    environment = {
+      PASSWORD_FILE = config.age.secrets.imapfilter-gmail.path;
+    };
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/gmail.lua"}";
+
+      User = "imapfilter";
+      Group = "imapfilter";
+
+      WorkingDirectory = "/var/cache/imapfilter";
+      CacheDirectory = "imapfilter";
+      CacheDirectoryMode = "0750";
+
+      # Lua requirements
+      MemoryDenyWriteExecute = lib.mkForce false;
+      SystemCallFilter = lib.mkForce [ ];
+      LimitMEMLOCK = "infinity";
+    };
+    unitConfig = {
+      OnFailure = "notify-email@%n.service";
+    };
+  };
+
+  systemd.timers.imapfilter-gmail = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      RandomizedDelaySec = "4h";
     };
   };
 
