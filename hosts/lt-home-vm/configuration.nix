@@ -33,7 +33,7 @@
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
-    ../../nixos/optional-apps/syncthing.nix
+    ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/uni-api
     ../../nixos/optional-apps/vlmcsd.nix

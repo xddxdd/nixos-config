@@ -2,6 +2,7 @@
   lib,
   LT,
   config,
+  pkgs,
   ...
 }:
 {
@@ -64,8 +65,15 @@
         ReadWritePaths = [ "/run/syncthing-files" ];
         RuntimeDirectory = "syncthing";
         StateDirectory = "syncthing";
+
+        ExecStartPre = let
+          settingsJSON = pkgs.writeText "syncthing-config.json" (builtins.toJSON config.services.syncthing.settings);
+        in "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml";
       };
     };
+
+    # Replaced by custom config script
+    systemd.services.syncthing-init.enable = lib.mkForce false;
 
     systemd.tmpfiles.settings = {
       syncthing = {

@@ -17,7 +17,7 @@
     # ../../nixos/optional-apps/pipewire-network-audio-receive.nix
     ../../nixos/optional-apps/pipewire-roc-source.nix
     ../../nixos/optional-apps/pipewire-vban-recv.nix
-    ../../nixos/optional-apps/syncthing.nix
+    ../../nixos/optional-apps/syncthing
   ];
 
   lantian.hidpi = 1.5;

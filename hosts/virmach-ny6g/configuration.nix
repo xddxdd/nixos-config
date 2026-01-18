@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/glauth.nix
-    ../../nixos/optional-apps/syncthing.nix
+    ../../nixos/optional-apps/syncthing
   ];
 
   systemd.network.networks.eth0 = {
