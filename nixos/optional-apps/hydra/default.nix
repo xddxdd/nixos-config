@@ -60,6 +60,8 @@ in
         job = *:*:*
         command = /etc/hydra/post-build
       </runcommand>
+
+      allow_import_from_derivation = true
     '';
   };
 
