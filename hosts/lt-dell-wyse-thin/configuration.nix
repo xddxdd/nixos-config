@@ -19,8 +19,6 @@
 
   lantian.hidpi = 1.5;
 
-  services.fwupd.enable = true;
-
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;

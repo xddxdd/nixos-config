@@ -32,8 +32,6 @@
   # For updating Intel GPU firmware
   environment.systemPackages = [ pkgs.nur-xddxdd.igsc ];
 
-  services.fwupd.enable = true;
-
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";
     TLP_PERSISTENT_DEFAULT = 1;
