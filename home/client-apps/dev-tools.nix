@@ -101,6 +101,7 @@ in
 
     # Lua
     luajit
+    stylua
 
     # Nix
     inputs.agenix.packages."${system}".agenix
