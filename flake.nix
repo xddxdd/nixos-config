@@ -177,6 +177,11 @@
             lib.filterAttrs (n: v: v.pkgs.stdenv.hostPlatform.system == system) self.nixosConfigurations
           )
         ) self.allSystems;
+
+        hydraJobs = {
+          inherit (self) packages;
+          nixosConfigurations = lib.mapAttrs (n: v: v.config.system.build.toplevel) self.nixosConfigurations;
+        };
       };
 
       perSystem =
