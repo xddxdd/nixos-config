@@ -1,0 +1,14 @@
+diff --git a/src/root/jobset.tt b/src/root/jobset.tt
+index 33139c747..9cf1202a4 100644
+--- a/src/root/jobset.tt
++++ b/src/root/jobset.tt
+@@ -51,9 +51,7 @@
+       <ul class="dropdown-menu">
+         [% UNLESS project.declfile %]
+         [% INCLUDE menuItem title="Edit configuration" icon="icon-edit" uri=c.uri_for(c.controller('Jobset').action_for('edit'), c.req.captures) %]
+-        <!--
+         [% INCLUDE menuItem title="Delete this jobset" icon="icon-trash" uri="javascript:deleteJobset()" %]
+-        -->
+         [% INCLUDE menuItem title="Clone this jobset" uri=c.uri_for(c.controller('Jobset').action_for('edit'), c.req.captures, { cloneJobset => 1 }) %]
+         [% END %]
+         [% INCLUDE menuItem title="Evaluate this jobset" uri="javascript:confirmEvaluateJobset()" %]

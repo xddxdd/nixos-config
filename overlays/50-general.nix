@@ -22,6 +22,9 @@ rec {
       ../patches/dump1090-gcc15-fix.patch
     ];
   });
+  hydra = prev.hydra.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/hydra-enable-delete-jobset.patch ];
+  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
