@@ -21,6 +21,10 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
     };
+    disableFramebuffer = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = {
@@ -37,6 +41,10 @@ in
       "isolcpus=${cfg.isolcpus}"
       "nohz_full=${cfg.isolcpus}"
       "rcu_nocbs=${cfg.isolcpus}"
+    ]
+    ++ lib.optionals cfg.disableFramebuffer [
+      # https://forum.proxmox.com/threads/problem-with-gpu-passthrough.55918/post-478351
+      "initcall_blacklist=sysfb_init"
     ];
     boot.extraModprobeConfig = ''
       softdep drm pre: vfio-pci
