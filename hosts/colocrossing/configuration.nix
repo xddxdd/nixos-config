@@ -21,6 +21,7 @@
     ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
+    ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
