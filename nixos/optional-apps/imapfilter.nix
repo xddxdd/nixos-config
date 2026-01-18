@@ -54,6 +54,8 @@ in
   users.groups.email-oauth2-proxy = { };
 
   systemd.services.imapfilter-outlook = netns.bind {
+    after = [ "email-oauth2-proxy.service" ];
+    requires = [ "email-oauth2-proxy.service" ];
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/outlook.lua"}";
