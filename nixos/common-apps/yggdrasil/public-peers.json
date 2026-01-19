@@ -94,8 +94,10 @@
     "tls://ip4.01.tom.ru.dioni.su:9003",
     "tls://ip6.01.ekb.ru.dioni.su:9003",
     "tls://ip6.01.msk.ru.dioni.su:9003",
+    "tls://kursk.cleverfox.org:15015",
     "tls://srv.itrus.su:7992",
     "tls://yg-vvo.magicum.net:29331",
+    "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
