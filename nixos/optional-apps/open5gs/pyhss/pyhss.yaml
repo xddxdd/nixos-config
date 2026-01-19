@@ -38,12 +38,6 @@ hss:
   #The maximum time to wait, in seconds, before discarding a diameter request.
   diameter_request_timeout: 3
 
-  # Whether to send a DWR to connected peers.
-  send_dwr: False
-
-  # How often to send a DWR to connected peers if enabled, in seconds.
-  send_dwr_interval: 5
-
   #The amount of time, in seconds, before purging a disconnected client from the Active Diameter Peers key in redis.
   active_diameter_peers_timeout: 10
 
@@ -51,7 +45,7 @@ hss:
   lock_provisioning: False
 
   #Provisioning Key for this HSS, alias for an API key. Required to be present in the header of requests to this HSS' api, if lock_provisioning is True.
-  provisioning_key: 'changeThisKeyInProduction'
+  provisioning_key: "hss"
 
   #If enabled sends CLRs to old MME when new MME attaches active sub
   CancelLocationRequest_Enabled: False
@@ -66,21 +60,9 @@ hss:
   #Default Sh User Data
   Default_Sh_UserData: 'default_sh_user_data.xml'
 
-  #Whether to use an external socket service
-  use_external_socket_service: False
-
-  #The Redis key used to store active diameter peers
-  diameter_peer_key: diameterPeers
-
-  # Send requests via a DRA (if connected) when a given peer can't be found
-  use_dra_fallback: False
-
-  # How long an emergency subscriber entry will last for in the table before expiring, in minutes.
-  emergency_subscriber_expiry: 3600
-
   #S-CSCF Pool
   scscf_pool:
-    - 'scscf.ims.mnc010.mcc315.3gppnetwork.org'
+    - 'sip:scscf.ims.mnc010.mcc315.3gppnetwork.org:6060'
 
   roaming:
     outbound:
@@ -105,12 +87,10 @@ benchmarking:
   reporting_interval: 3600
 
 eir:
-  imsi_imei_logging: True #Store current IMEI / IMSI pair in backend
-  no_match_response: 2 #Greylist
-  store_offnet_imsi: False # Whether or not to store an IMEI / IMSI pair that doesn't exist in the AUC
+  imsi_imei_logging: True    #Store current IMEI / IMSI pair in backend
+  no_match_response: 2       #Greylist
+  store_offnet_imsi: False  # Whether or not to store an IMEI / IMSI pair that doesn't exist in the AUC
   simSwapNotification: False # If the IMEI for a stored IMSI/IMEI combo changes, notify the webhook endpoint
-  # Define an optional TAC csv file path
-  #tac_database_csv: '/etc/pyhss/tac_database.csv'
 
 logging:
   level: INFO
@@ -119,6 +99,7 @@ logging:
     diameter_logging_file: /var/log/pyhss_diameter.log
     geored_logging_file: /var/log/pyhss_geored.log
     metric_logging_file: /var/log/pyhss_metrics.log
+  log_to_terminal: True
   sqlalchemy_sql_echo: False
   sqlalchemy_pool_recycle: 15
   sqlalchemy_pool_size: 30
@@ -140,17 +121,11 @@ webhooks:
   endpoints:
     - 'http://127.0.0.1:8181'
 
-### Notifications to OCS on Credit Control Requests
-ocs:
-  enabled: False
-  endpoints:
-    - 'http://127.0.0.1:8282'
-
 ## Geographic Redundancy Parameters
 geored:
   enabled: False
-  sync_actions: ['HSS', 'IMS', 'PCRF', 'EIR'] #What event actions should be synced
-  endpoints: #List of PyHSS API Endpoints to update
+  sync_actions: ['HSS', 'IMS', 'PCRF', 'EIR']    #What event actions should be synced
+  sync_endpoints:                         #List of PyHSS API Endpoints to update
     - 'http://hss01.mnc001.mcc001.3gppnetwork.org:8080'
     - 'http://hss02.mnc001.mcc001.3gppnetwork.org:8080'
 
@@ -174,16 +149,8 @@ redis:
 
 prometheus:
   enabled: False
-  port: 8081 #If the API is run the API runs on the next port number up from this
-  async_subscriber_count: False #If enabled the subscriber count will be updated asynchronously for Prometheus
-
-influxdb:
-  enabled: False
-  host: '127.0.0.1'
-  port: 8086
-  username: exampleUser
-  password: examplePassword
-  database: example
+  port: 8081    #If the API is run the API runs on the next port number up from this
+  async_subscriber_count: False    #If enabled the subscriber count will be updated asynchronously for Prometheus
 
 snmp:
   port: 1161

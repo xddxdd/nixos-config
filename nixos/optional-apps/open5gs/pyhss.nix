@@ -6,12 +6,10 @@
 }:
 let
   pyhss = pkgs.nur-xddxdd.pyhss.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace services/apiService.py \
-          --replace-fail "0.0.0.0" "127.0.0.8"
-      '';
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace services/apiService.py \
+        --replace-fail "0.0.0.0" "127.0.0.8"
+    '';
   });
 in
 {
@@ -51,9 +49,9 @@ in
           wantedBy = [ "multi-user.target" ];
 
           script = ''
-            ln -sf ${./pyhss.yaml} config.yaml
-            ln -sf ${pyhss}/opt/default_ifc.xml default_ifc.xml
-            ln -sf ${pyhss}/opt/default_sh_user_data.xml default_sh_user_data.xml
+            ln -sf ${./pyhss/pyhss.yaml} config.yaml
+            ln -sf ${./pyhss/default_ifc.xml} default_ifc.xml
+            ln -sf ${./pyhss/default_sh_user_data.xml} default_sh_user_data.xml
 
             exec ${pyhss}/bin/${svc}Service
           '';
