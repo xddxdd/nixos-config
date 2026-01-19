@@ -5,7 +5,7 @@ logger:
 
 global:
   max:
-    ue: 1024  # The number of UE can be increased depending on memory size.
+    ue: 1024 # The number of UE can be increased depending on memory size.
 #    peer: 64
 
 mme:
@@ -21,6 +21,20 @@ mme:
         - address: 127.0.0.3
       smf:
         - address: 127.0.0.4
+  sgsap:
+    server:
+      - address: 198.18.110.31
+        map:
+          tai:
+            plmn_id:
+              mcc: 315
+              mnc: 010
+            tac: 1
+          lai:
+            plmn_id:
+              mcc: 315
+              mnc: 010
+            lac: 1
   metrics:
     server:
       - address: 127.0.0.2
@@ -37,8 +51,8 @@ mme:
         mnc: 010
       tac: 1
   security:
-    integrity_order : [ EIA2, EIA1, EIA0 ]
-    ciphering_order : [ EEA0, EEA1, EEA2 ]
+    integrity_order: [EIA2, EIA1, EIA0]
+    ciphering_order: [EEA0, EEA1, EEA2]
   network_name:
     full: Lan Tian Mobile
     short: LTMobile

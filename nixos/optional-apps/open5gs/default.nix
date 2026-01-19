@@ -3,6 +3,7 @@
   imports = [
     ./kamailio.nix
     ./open5gs-certs.nix
+    ./osmo.nix
     ./pyhss.nix
     ./rtpengine.nix
     ./services.nix
