@@ -208,6 +208,44 @@
                       ;
                   };
                 }).config._dnsconfig_js;
+
+            dn42-geofeed =
+              let
+                hostEntries =
+                  host:
+                  let
+                    allowedPrefixes = [
+                      "172.2"
+                      "10.127."
+                      "fdbc:f9dc:67ad:"
+                      "fd10:127:10:"
+                    ];
+                    includedAddresses = builtins.filter (
+                      a: builtins.any (p: lib.hasPrefix p a) allowedPrefixes
+                    ) host._addresses;
+                    convertedAddresses = builtins.map (
+                      a:
+                      if lib.hasSuffix "::1/128" a && !(lib.hasPrefix "fdbc:f9dc:67ad::" a) then
+                        "${lib.removeSuffix "::1/128" a}::/64"
+                      else
+                        a
+                    ) includedAddresses;
+                    adminInfo =
+                      if host.city.admin1 != "" && host.city.admin2 != "" then
+                        "${host.city.admin1}-${host.city.admin2}"
+                      else
+                        "${host.city.admin1}${host.city.admin2}";
+                  in
+                  lib.concatMapStrings (
+                    a: "${a},${host.city.country},${adminInfo},${host.city.name},\n"
+                  ) convertedAddresses;
+              in
+              pkgs.writeTextDir "dn42-geofeed.csv" (
+                ''
+                  # prefix,country_code,region_code,city,postal
+                ''
+                + (lib.concatMapStrings hostEntries (builtins.attrValues (LT.hostsWithTag LT.tags.dn42)))
+              );
           };
 
           devshells.default = {

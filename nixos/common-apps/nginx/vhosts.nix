@@ -2,6 +2,8 @@
   lib,
   LT,
   config,
+  self,
+  pkgs,
   ...
 }:
 let
@@ -75,6 +77,9 @@ let
           proxy_ssl_server_name on;
           ${enableCompression}
         '';
+        "= /dn42-geofeed.csv" = {
+          root = builtins.toString self.packages.${pkgs.stdenv.hostPlatform.system}.dn42-geofeed;
+        };
       };
 
       root = "/nix/persistent/sync-servers/www/lantian.pub";
