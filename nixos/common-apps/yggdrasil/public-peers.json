@@ -13,7 +13,6 @@
     "tls://[2a02:1b8:10:147::1:1ea]:65534"
   ],
   "chile": [
-    "tls://satori.nadeko.net:44442",
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
@@ -98,6 +97,7 @@
     "tls://srv.itrus.su:7992",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
+    "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
