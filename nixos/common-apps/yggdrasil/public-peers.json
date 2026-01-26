@@ -10,7 +10,11 @@
   ],
   "austria": [
     "tls://109.176.250.101:65534",
-    "tls://[2a02:1b8:10:147::1:1ea]:65534"
+    "tls://[2a02:1b8:10:147::1:1ea]:65534",
+    "tls://ygg7.mk16.de:1338?key=000000086278b5f3ba1eb63acb5b7f6e406f04ce83990dee9c07f49011e375ae"
+  ],
+  "canada": [
+    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ],
   "chile": [
     "tls://satori.nadeko.net:44442",
@@ -31,6 +35,7 @@
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://s2.i2pd.xyz:39575",
     "tls://ygg.jholden.org:1555",
+    "tls://ygg6.mk16.de:1338?key=0000005e5ced06fd4d465bc651c5deb6d70cbe82d36efb68c0450268eaaa5384",
     "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
@@ -51,7 +56,8 @@
     "tls://yggdrasil.su:62586"
   ],
   "hong-kong": [
-    "tls://yg-hkg.magicum.net:32333"
+    "tls://yg-hkg.magicum.net:32333",
+    "tls://ygg5.mk16.de:1338?key=0000009611ae5391dc0aceea9f3fa6a0dc1279f4306059339e84bfb8b74d2f9b"
   ],
   "hungary": [
     "tls://ygg1.grin.hu:42444"
@@ -96,7 +102,6 @@
     "tls://ip6.01.msk.ru.dioni.su:9003",
     "tls://kursk.cleverfox.org:15015",
     "tls://srv.itrus.su:7992",
-    "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
@@ -142,6 +147,7 @@
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.jjolly.dev:3443",
     "tls://ygg.mnpnk.com:443",
-    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
+    "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1",
+    "tls://ygg4.mk16.de:1338?key=000000573433e11f23768b078bcdc10b42712a7b131d6d04b82042ffc0c97df0"
   ]
 }
