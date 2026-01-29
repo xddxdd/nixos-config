@@ -16,20 +16,20 @@ in
   mkLetsEncryptCert = domain: {
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = rsaRenewInterval;
     };
     "lets-encrypt-${domain}-ecc" = {
       inherit domain;
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = eccRenewInterval;
     };
   };
@@ -38,21 +38,21 @@ in
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = rsaRenewInterval;
     };
     "lets-encrypt-${domain}-ecc" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = eccRenewInterval;
     };
   };
@@ -60,20 +60,20 @@ in
   mkLetsEncryptTestCert = domain: {
     "lets-encrypt-test-${domain}-rsa" = {
       inherit domain;
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = rsaRenewInterval;
     };
     "lets-encrypt-test-${domain}-ecc" = {
       inherit domain;
-      extraLegoRunFlags = [ "--profile=tlsserver" ];
-      extraLegoRenewFlags = [ "--profile=tlsserver" ];
+      extraLegoRunFlags = [ "--profile=shortlived" ];
+      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      validMinDays = 30;
+      validMinDays = 3;
       renewInterval = eccRenewInterval;
     };
   };

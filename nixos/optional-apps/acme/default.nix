@@ -46,7 +46,7 @@ in
         for F in /var/lib/acme/*/cert.pem; do
           echo "$F"
           # Check for 10 days of validity
-          if openssl x509 -checkend 864000 -noout -in "$F"; then
+          if openssl x509 -checkend 172800 -noout -in "$F"; then
             ERRORS=$((ERRORS + 0))
           else
             ERRORS=$((ERRORS + 1))
