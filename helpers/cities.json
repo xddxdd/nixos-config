@@ -86,5 +86,13 @@
     "lat": "52.22977",
     "lng": "21.01178",
     "name": "Warsaw"
+  },
+  {
+    "admin1": "IA",
+    "admin2": "155",
+    "country": "US",
+    "lat": "41.26194",
+    "lng": "-95.86083",
+    "name": "Council Bluffs"
   }
 ]
