@@ -159,12 +159,10 @@ in
     taplo
 
     # Others
-    azure-cli
     cdrkit
     dhcpcd
     elfx86exts
     flamegraph
-    gemini-cli
     gh
     just
     linkzoneAdb
@@ -172,7 +170,6 @@ in
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
     opencode
-    qwen-code
     scc
     tldr
   ];
