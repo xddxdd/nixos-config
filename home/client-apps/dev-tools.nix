@@ -171,6 +171,7 @@ in
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
+    opencode
     qwen-code
     scc
     tldr
