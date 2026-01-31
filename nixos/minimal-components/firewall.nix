@@ -115,7 +115,11 @@ let
       oifname "zt*" udp dport 5353 reject
 
       # Pipewire DSCP to lt-dell-wyse
-      oifname @INTERFACE_WAN ip daddr 192.168.0.207 udp dport 10001-10003 ip dscp set ef
+  ''
+  + (lib.concatMapStrings (ip: ''
+    oifname @INTERFACE_WAN ip daddr ${ip} udp dport 10001-10003 ip dscp set ef
+  '') (config.lantian.pipewire.roc-sink-ip or [ ]))
+  + ''
     }
 
     chain NAT_PREROUTING {
