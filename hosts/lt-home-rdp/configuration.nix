@@ -11,7 +11,7 @@
 
     ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix
-    ../../nixos/optional-apps/sakura-llm
+    # ../../nixos/optional-apps/sakura-llm
     ../../nixos/optional-apps/sunshine.nix
   ];
 
