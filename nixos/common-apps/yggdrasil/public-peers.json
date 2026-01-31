@@ -17,7 +17,6 @@
     "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ],
   "chile": [
-    "tls://satori.nadeko.net:44442",
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
@@ -89,6 +88,7 @@
   ],
   "russia": [
     "tls://188.225.9.167:18227",
+    "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
     "tls://[2a00:b700::a:279]:443",
@@ -141,7 +141,6 @@
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://srv.newsdeef.eu:59999",
     "tls://ygg-kcmo.incognet.io:8884",
-    "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.jjolly.dev:3443",
     "tls://ygg.mnpnk.com:443",
