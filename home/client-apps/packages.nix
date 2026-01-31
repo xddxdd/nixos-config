@@ -86,7 +86,7 @@ in
         jamesdsp-toggle
         kdePackages.ark
         kdePackages.isoimagewriter
-        kdePackages.kdenlive
+        # kdePackages.kdenlive
         kdePackages.kpat
         kdePackages.neochat
         kicad
@@ -105,7 +105,7 @@ in
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bambu-studio-bin
         nur-xddxdd.bilibili
-        nur-xddxdd.dingtalk
+        # nur-xddxdd.dingtalk
         nur-xddxdd.easycli
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus

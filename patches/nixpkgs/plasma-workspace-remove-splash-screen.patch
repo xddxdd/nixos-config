@@ -1,11 +1,11 @@
 diff --git a/pkgs/kde/plasma/plasma-workspace/default.nix b/pkgs/kde/plasma/plasma-workspace/default.nix
-index b5a8b5d3657f..ef8df9083956 100644
+index 71c8699e1484..fc68de5f833a 100644
 --- a/pkgs/kde/plasma/plasma-workspace/default.nix
 +++ b/pkgs/kde/plasma/plasma-workspace/default.nix
-@@ -68,6 +68,9 @@ mkKdeDerivation {
+@@ -73,6 +73,9 @@ mkKdeDerivation {
    postFixup = ''
      mkdir -p $out/nix-support
-     echo "${lsof} ${xorg.xmessage} ${xorg.xrdb}" > $out/nix-support/depends
+     echo "${lsof} ${xmessage} ${xrdb}" > $out/nix-support/depends
 +
 +    # Force remove all login splash screens
 +    rm -rf $out/share/plasma/look-and-feel/*/contents/splash

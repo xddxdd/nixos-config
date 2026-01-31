@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
-        "cargoLocks": null,
-        "date": "2026-01-17",
+        "cargoLock": null,
+        "date": "2026-01-30",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,16 +11,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d19c5c7e80f85ca310e1d96760ad65af4951bca8",
-            "sha256": "sha256-zYGrTanq/dH1IdKopkj7Ws7LBXtmiORE/DnTfMtzCdY=",
+            "rev": "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a",
+            "sha256": "sha256-aXcxgn2mhhT75ws7BgTLizjiLqDy00oX9hcdKUoffz4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "d19c5c7e80f85ca310e1d96760ad65af4951bca8"
+        "version": "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a"
     },
     "firefox-translations-models": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-12-15",
         "extract": null,
         "name": "firefox-translations-models",
@@ -41,7 +41,7 @@
         "version": "e7957fc407441a5e3e35bbcbf9d60d9b35764618"
     },
     "grafana-falconlogscale-datasource": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "grafana-falconlogscale-datasource",
@@ -49,14 +49,14 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-c207II6j6SuwxmN57RSBYvPBI8n4YhtIfe5W2qOayLk=",
+            "sha256": "sha256-n0z2sRObiP8oo9VzFczeCXHrvY5yT16Fg16VYDHOsKM=",
             "type": "url",
-            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.8.6/grafana-falconlogscale-datasource-1.8.6.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.0/grafana-falconlogscale-datasource-1.9.0.zip"
         },
-        "version": "1.8.6"
+        "version": "1.9.0"
     },
     "grafana-yesoreyeram-infinity-datasource": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "grafana-yesoreyeram-infinity-datasource",
@@ -71,8 +71,8 @@
         "version": "3.7.0"
     },
     "lobe-icons": {
-        "cargoLocks": null,
-        "date": "2026-01-11",
+        "cargoLock": null,
+        "date": "2026-01-30",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,16 +82,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fb5665c01df8619f9acec6fbced4607427f9067a",
-            "sha256": "sha256-JvAI0OTm1vxqlI3Ki8/b+m6qNkG9O2s4tqj5V17OuRU=",
+            "rev": "0d63d776c1b843bd5846c9068cfc12a1be62a879",
+            "sha256": "sha256-/60RFl9TCJqy/8I6S9Yn/QimDtkpDCIuJ6bfL/MAmGs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "fb5665c01df8619f9acec6fbced4607427f9067a"
+        "version": "0d63d776c1b843bd5846c9068cfc12a1be62a879"
     },
     "mihoyo-bbs-tools": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-04",
         "extract": null,
         "name": "mihoyo-bbs-tools",
@@ -112,7 +112,7 @@
         "version": "405d4cc3c90c975b8d71a63d0413e79cf59b016e"
     },
     "mpv-sockets": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-02-13",
         "extract": null,
         "name": "mpv-sockets",
@@ -133,8 +133,8 @@
         "version": "3b3f430074a67c63572a582847ed1fa69330c668"
     },
     "nvidia-patch": {
-        "cargoLocks": null,
-        "date": "2026-01-06",
+        "cargoLock": null,
+        "date": "2026-01-31",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -146,15 +146,15 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "be3f1616b976c47d33b0abf2956f4129d759824a",
-            "sha256": "sha256-PmbWjUOWDUI4A1zFL14Q5cjdpsZKxF9Qbvtdukr6tCU=",
+            "rev": "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2",
+            "sha256": "sha256-UeCF9IZuktu6d5f6yfAUnAKlkPwH8tec7z5ZxwThs88=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "be3f1616b976c47d33b0abf2956f4129d759824a"
+        "version": "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2"
     },
     "open5gs": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "open5gs",
@@ -175,7 +175,7 @@
         "version": "v2.7.6"
     },
     "open5gs-freediameter": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-05-31",
         "extract": null,
         "name": "open5gs-freediameter",
@@ -196,7 +196,7 @@
         "version": "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290"
     },
     "openspeedtest": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-06-04",
         "extract": null,
         "name": "openspeedtest",
@@ -217,7 +217,7 @@
         "version": "3ec39a31ec64858642629991caf0dd14ce7c34ca"
     },
     "sakura-share": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-12-29",
         "extract": null,
         "name": "sakura-share",
@@ -238,7 +238,7 @@
         "version": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd"
     },
     "ulauncher-albert-calculate-anything": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-05-29",
         "extract": null,
         "name": "ulauncher-albert-calculate-anything",
@@ -259,7 +259,7 @@
         "version": "037965a44e6f6f496e7ad71ec1651b9edfcde32d"
     },
     "ulauncher-antigravity-launcher": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-11-19",
         "extract": null,
         "name": "ulauncher-antigravity-launcher",
@@ -280,7 +280,7 @@
         "version": "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4"
     },
     "ulauncher-chrome-profiles": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2019-06-30",
         "extract": null,
         "name": "ulauncher-chrome-profiles",
@@ -301,7 +301,7 @@
         "version": "486fead44fcd195abdc62d60569a5facfb433d70"
     },
     "ulauncher-colorconverter": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2020-12-06",
         "extract": null,
         "name": "ulauncher-colorconverter",
@@ -322,7 +322,7 @@
         "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a"
     },
     "ulauncher-cursor-projects": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-11-03",
         "extract": null,
         "name": "ulauncher-cursor-projects",
@@ -343,7 +343,7 @@
         "version": "bd674a35959e8de9f5b59513a8f13ddd1d4ada74"
     },
     "ulauncher-emoji": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-10-05",
         "extract": null,
         "name": "ulauncher-emoji",
@@ -364,7 +364,7 @@
         "version": "195d167ea0cfdbb2169906b5acaac8097db84767"
     },
     "ulauncher-extension-list": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-11-10",
         "extract": null,
         "name": "ulauncher-extension-list",
@@ -385,7 +385,7 @@
         "version": "27d65fae4abc036e37a09792c8244287017dbc73"
     },
     "ulauncher-faker": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2021-12-12",
         "extract": null,
         "name": "ulauncher-faker",
@@ -406,7 +406,7 @@
         "version": "58832c94acc671a9f603ea7fbf5d4405110bb902"
     },
     "ulauncher-firefox-launcher": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-04-13",
         "extract": null,
         "name": "ulauncher-firefox-launcher",
@@ -427,7 +427,7 @@
         "version": "1dc79cbaba76998b144881028bbe3567218d8836"
     },
     "ulauncher-kill": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-11-26",
         "extract": null,
         "name": "ulauncher-kill",
@@ -448,7 +448,7 @@
         "version": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f"
     },
     "ulauncher-meme-my-text": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2021-05-07",
         "extract": null,
         "name": "ulauncher-meme-my-text",
@@ -469,7 +469,7 @@
         "version": "5d62830a7a92983a731e15645831f53d48dad913"
     },
     "ulauncher-pwgen": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2021-12-12",
         "extract": null,
         "name": "ulauncher-pwgen",
@@ -490,7 +490,7 @@
         "version": "96880bb135720cae1ad039b6635062a9e285ca71"
     },
     "ulauncher-timestamp": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2021-12-12",
         "extract": null,
         "name": "ulauncher-timestamp",
@@ -511,7 +511,7 @@
         "version": "e366a81f92b8130dddc0b1bddecad253124c49b9"
     },
     "ulauncher-timezone": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2021-05-12",
         "extract": null,
         "name": "ulauncher-timezone",
@@ -532,7 +532,7 @@
         "version": "9f0749d6ab1fcb99545dae75934b698e5ff975b6"
     },
     "ulauncher-tldr": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-07-29",
         "extract": null,
         "name": "ulauncher-tldr",
@@ -553,7 +553,7 @@
         "version": "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c"
     },
     "ulauncher-vscode-recent": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-12-01",
         "extract": null,
         "name": "ulauncher-vscode-recent",
@@ -574,7 +574,7 @@
         "version": "60a5106821478f965e4e24dbe1833f6af0d437f1"
     },
     "um-react": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "um-react",
@@ -589,7 +589,7 @@
         "version": "0.6.0"
     },
     "yourls": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "yourls",
@@ -610,7 +610,7 @@
         "version": "1.10.3"
     },
     "yourls-404-if-not-found": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-12-16",
         "extract": null,
         "name": "yourls-404-if-not-found",
@@ -631,7 +631,7 @@
         "version": "a611040c6f33cd6d00b07ddb824b9842ed2de2de"
     },
     "yourls-always-302": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2020-08-22",
         "extract": null,
         "name": "yourls-always-302",
@@ -652,7 +652,7 @@
         "version": "c704f3d285fae60e0c49445c499a5bf4b235d411"
     },
     "yourls-dont-track-admins": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-05-30",
         "extract": null,
         "name": "yourls-dont-track-admins",
@@ -673,7 +673,7 @@
         "version": "be87e385a52fb452d6b8c70e9fc28ca060a63f62"
     },
     "yourls-login-timeout": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2019-04-01",
         "extract": null,
         "name": "yourls-login-timeout",
@@ -694,7 +694,7 @@
         "version": "1a8eee5a5104c15660952abc49b79486d81917c6"
     },
     "yourls-sleeky": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-25",
         "extract": null,
         "name": "yourls-sleeky",
