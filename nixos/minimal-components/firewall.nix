@@ -113,6 +113,9 @@ let
       # Block Avahi Multicast DNS on ZeroTier
       oifname "zt*" udp sport 5353 reject
       oifname "zt*" udp dport 5353 reject
+
+      # Pipewire DSCP to lt-dell-wyse
+      oifname @INTERFACE_WAN ip daddr 192.168.0.207 udp dport 10001-10003 ip dscp set ef
     }
 
     chain NAT_PREROUTING {
