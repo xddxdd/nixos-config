@@ -95,6 +95,8 @@ in
   systemd.services.open-webui-auto-setup = {
     description = "Auto set Open WebUI model configs";
     wantedBy = [ "multi-user.target" ];
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
     before = [ "open-webui.service" ];
     requiredBy = [ "open-webui.service" ];
     path = [
