@@ -24,8 +24,13 @@
 
   # Edifier speaker has 0.05s latency, so adjust other devices to compensate for that
   lantian.pipewire.latencyAdjust = {
-    "alsa_output.pci-0000_00_0e.0.analog-stereo" = 0.05;
-    "alsa_output.usb-EDIFIER_USB_Composite_Device_EDI00000X07-00.pro-output-0" = 0;
+    "alsa_output.pci-0000_00_0e.0.analog-stereo" = {
+      delay = 0.05;
+    };
+    "alsa_output.usb-EDIFIER_USB_Composite_Device_EDI00000X07-00.pro-output-0" = {
+      delay = 0;
+      position = "AUX1,AUX0";
+    };
   };
 
   # For updating Intel GPU firmware

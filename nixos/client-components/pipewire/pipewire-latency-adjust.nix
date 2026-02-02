@@ -1,11 +1,24 @@
 { config, lib, ... }:
 let
   cfg = config.lantian.pipewire.latencyAdjust;
+
+  latencyAdjustOptions = _: {
+    options = {
+      delay = lib.mkOption {
+        type = lib.types.number;
+        default = { };
+      };
+      position = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = "FL,FR";
+      };
+    };
+  };
 in
 {
   options = {
     lantian.pipewire.latencyAdjust = lib.mkOption {
-      type = lib.types.attrsOf lib.types.number;
+      type = lib.types.attrsOf (lib.types.submodule latencyAdjustOptions);
       default = { };
     };
   };
@@ -17,7 +30,7 @@ in
         args = {
           "node.name" = "latency_adjust_${n}";
           "node.description" = "Latency Adjustment for ${n}";
-          "target.delay.sec" = v;
+          "target.delay.sec" = v.delay;
           "capture.props" = {
             "node.name" = "latency_adjust.${n}";
             "media.class" = "Audio/Sink";
@@ -26,6 +39,9 @@ in
             "node.name" = "playback.latency_adjust.${n}";
             "media.class" = "Stream/Output/Audio";
             "target.object" = n;
+          }
+          // lib.optionalAttrs (v.position != null) {
+            "audio.position" = v.position;
           };
         };
       }) cfg;
