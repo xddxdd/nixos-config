@@ -49,6 +49,10 @@ in
     }
 
     chain VLAN_ISOLATE {
+      # Allow ZeroTier
+      tcp dport 9993 accept
+      udp dport 9993 accept
+
       # Allow user VLAN to access anything
       iifname "eth0" accept
       # Allow homelab VLAN to access IoT VLAN
