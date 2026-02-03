@@ -55,6 +55,7 @@ _: {
           Gateway = "fc00:192:168::9";
         }
       ];
+      networkConfig.IPv6SendRA = "yes";
     };
 
     # VLAN interfaces with static IPs
@@ -65,6 +66,7 @@ _: {
         "2001:470:e997:1::1/64"
         "fc00:192:168:1::1/64"
       ];
+      networkConfig.IPv6SendRA = "yes";
     };
     "eth0.2" = {
       matchConfig.Name = "eth0.2";
@@ -73,6 +75,7 @@ _: {
         "2001:470:e997:2::254/64"
         "fc00:192:168:2::254/64"
       ];
+      networkConfig.IPv6SendRA = "yes";
     };
     "eth0.5" = {
       matchConfig.Name = "eth0.5";
@@ -81,6 +84,7 @@ _: {
         "2001:470:e997:5::1/64"
         "fc00:192:168:5::1/64"
       ];
+      networkConfig.IPv6SendRA = "yes";
     };
 
     # WAN interface

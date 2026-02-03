@@ -107,7 +107,8 @@ in
     chain NAT_POSTROUTING {
       type nat hook postrouting priority 105; policy accept;
 
-      oifname != "eth0*" masquerade
+      meta nfproto ipv4 oifname != "eth0*" masquerade
+      oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48
     }
 
     # IP Sets
