@@ -22,7 +22,7 @@ let
   '';
 in
 {
-  networking.nftables.tables.lantian.content = lib.mkForce ''
+  lantian.nftables = lib.mkForce ''
     chain FILTER_INPUT {
       type filter hook input priority 5; policy accept;
 
