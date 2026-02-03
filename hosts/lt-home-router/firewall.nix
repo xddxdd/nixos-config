@@ -52,9 +52,9 @@ in
     }
 
     chain VLAN_ISOLATE {
-      # Allow ZeroTier
-      tcp dport 9993 accept
-      udp dport 9993 accept
+      # Allow ZeroTier & Syncthing
+      tcp dport { 9993, 22000 } accept
+      udp dport { 9993, 22000 } accept
 
       # Allow user VLAN to access anything
       iifname "eth0" accept
