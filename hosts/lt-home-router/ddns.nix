@@ -18,10 +18,11 @@
 
   services.inadyn = {
     enable = true;
+    interval = "hourly";
     settings = {
       allow-ipv6 = true;
-      period = 300;
-      forced-update = 86400;
+      period = 1;
+      forced-update = 1;
       provider = {
         "default@duckdns.org" = {
           hostname = "xddxdd.duckdns.org";
