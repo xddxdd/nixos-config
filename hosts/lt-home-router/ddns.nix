@@ -28,7 +28,7 @@
           hostname = "xddxdd.duckdns.org";
           include = config.age.secrets.ddns-duckdns.path;
         };
-        "default@dynv6.com" = {
+        "default@ipv4.dynv6.com" = {
           hostname = "lantian.dns.army";
           include = config.age.secrets.ddns-dynv6.path;
         };
