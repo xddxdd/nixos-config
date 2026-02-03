@@ -2,7 +2,6 @@
   lib,
   LT,
   config,
-  pkgs,
   ...
 }:
 let
@@ -242,34 +241,11 @@ let
   '';
 in
 {
-  options.lantian.nftables = lib.mkOption {
-    type = lib.types.str;
-    default = nftRules;
-  };
-
-  config = {
-    environment.systemPackages = [ pkgs.nftables ];
-    networking.nftables.enable = lib.mkForce false;
-    systemd.services.nftables = {
-      description = "Nftables rules";
-      wantedBy = [ "multi-user.target" ];
-      unitConfig = {
-        After = "network.target";
-      };
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart =
-          let
-            nftRulesFile = pkgs.writeText "nft.conf" ''
-              table inet lantian
-              delete table inet lantian
-              table inet lantian {
-                ${config.lantian.nftables}
-              }
-            '';
-          in
-          "${pkgs.nftables}/bin/nft -f ${nftRulesFile}";
-      };
+  networking.nftables = {
+    enable = true;
+    tables.lantian = {
+      family = "inet";
+      content = nftRules;
     };
   };
 }
