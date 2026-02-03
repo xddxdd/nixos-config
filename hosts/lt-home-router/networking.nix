@@ -56,6 +56,12 @@ _: {
         }
       ];
       networkConfig.IPv6SendRA = "yes";
+      ipv6SendRAConfig = {
+        EmitDNS = true;
+        DNS = "2001:470:e997::1";
+        Managed = true;
+        OtherInformation = true;
+      };
     };
 
     # VLAN interfaces with static IPs
@@ -67,6 +73,12 @@ _: {
         "fc00:192:168:1::1/64"
       ];
       networkConfig.IPv6SendRA = "yes";
+      ipv6SendRAConfig = {
+        EmitDNS = true;
+        DNS = "2001:470:e997:1::1";
+        Managed = true;
+        OtherInformation = true;
+      };
     };
     "eth0.2" = {
       matchConfig.Name = "eth0.2";
@@ -75,7 +87,6 @@ _: {
         "2001:470:e997:2::254/64"
         "fc00:192:168:2::254/64"
       ];
-      networkConfig.IPv6SendRA = "yes";
     };
     "eth0.5" = {
       matchConfig.Name = "eth0.5";
@@ -85,6 +96,12 @@ _: {
         "fc00:192:168:5::1/64"
       ];
       networkConfig.IPv6SendRA = "yes";
+      ipv6SendRAConfig = {
+        EmitDNS = true;
+        DNS = "2001:470:e997:5::1";
+        Managed = true;
+        OtherInformation = true;
+      };
     };
 
     # WAN interface
