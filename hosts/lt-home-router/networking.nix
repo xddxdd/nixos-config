@@ -62,6 +62,7 @@ _: {
         Managed = true;
         OtherInformation = true;
       };
+      ipv6Prefixes = [ { Prefix = "2001:470:e997::/64"; } ];
     };
 
     # VLAN interfaces with static IPs
@@ -79,6 +80,7 @@ _: {
         Managed = true;
         OtherInformation = true;
       };
+      ipv6Prefixes = [ { Prefix = "2001:470:e997:1::/64"; } ];
     };
     "eth0.2" = {
       matchConfig.Name = "eth0.2";
@@ -102,6 +104,7 @@ _: {
         Managed = true;
         OtherInformation = true;
       };
+      ipv6Prefixes = [ { Prefix = "2001:470:e997:5::/64"; } ];
     };
 
     # WAN interface
