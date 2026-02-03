@@ -44,6 +44,9 @@ in
       # Allow existing connections
       ct state { established, related } accept
 
+      # Allow DNATed connections
+      ct status dnat accept
+
       # Homelab VLAN isolation rules
       iifname "eth0*" oifname "eth0*" jump VLAN_ISOLATE
     }

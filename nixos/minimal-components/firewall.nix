@@ -96,6 +96,9 @@ let
       # Allow existing connections
       ct state { established, related } accept
 
+      # Allow DNATed connections
+      ct status dnat accept
+
       # Block forwarding from public internet
       iifname @INTERFACE_WAN jump PUBLIC_FORWARD
       iifname @INTERFACE_OVERLAY jump PUBLIC_FORWARD
