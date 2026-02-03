@@ -3,13 +3,23 @@
   imports = [
     ../../nixos/minimal.nix
 
+    ./ddns.nix
+    ./dhcp.nix
+    ./firewall.nix
     ./hardware-configuration.nix
+    ./networking.nix
+
+    ../../nixos/common-apps/coredns.nix
+    ../../nixos/optional-apps/miniupnpd.nix
   ];
 
-  systemd.network.networks.eth0 = {
-    # FIXME
-    address = [ "192.168.0.249/24" ];
-    gateway = [ "192.168.0.1" ];
-    matchConfig.Name = "eth0";
+  services.miniupnpd = {
+    externalInterface = "eth1";
+    internalIPs = [
+      "eth0"
+      "eth0.1"
+      "eth0.2"
+      # "eth0.5" # IoT devices not allowed UPnP
+    ];
   };
 }
