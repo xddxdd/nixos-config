@@ -39,7 +39,7 @@ let
     }
   '') LT.constants.interfacePrefixes;
 
-  tnl-buyvm =
+  tnl-buyvm = lib.optionalString (config.networking.hostName == "buyvm") (
     (lib.optionalString (LT.this.public.IPv4 != null) (
       lib.concatMapAttrsStringSep "" (
         n:
@@ -64,7 +64,8 @@ let
       lib.concatMapAttrsStringSep "" (n: v: ''
         ip6 daddr ${LT.this.public.IPv6Subnet}${builtins.toString v.index} dnat to fdbc:f9dc:67ad:${builtins.toString v.index}::192
       '') LT.hosts
-    ));
+    ))
+  );
 
   nftRules = ''
     chain FILTER_INPUT {
@@ -172,8 +173,6 @@ let
 
     chain NAT_POSTROUTING {
       type nat hook postrouting priority 105; policy accept;
-
-      # tnl-buyvm
   ''
   + (lib.optionalString (LT.this.neonetwork.IPv4 != null) ''
     # give LAN access to NeoNetwork
