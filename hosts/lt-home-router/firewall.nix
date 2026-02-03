@@ -45,7 +45,7 @@ in
       ct state { established, related } accept
 
       # Homelab VLAN isolation rules
-      iifname "eth0*" jump VLAN_ISOLATE
+      iifname "eth0*" oifname "eth0*" jump VLAN_ISOLATE
     }
 
     chain VLAN_ISOLATE {
