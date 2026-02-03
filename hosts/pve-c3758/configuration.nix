@@ -3,7 +3,6 @@
   imports = [
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
-    ../../nixos/server-components/sidestore-vpn.nix
 
     ./hardware-configuration.nix
     ./openvswitch-dpdk.nix
