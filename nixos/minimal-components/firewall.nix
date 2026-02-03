@@ -96,10 +96,6 @@ let
       # Allow existing connections
       ct state { established, related } accept
 
-      # Block forwarding from public internet
-      iifname @INTERFACE_WAN jump PUBLIC_FORWARD
-      iifname @INTERFACE_OVERLAY jump PUBLIC_FORWARD
-
       # DN42 firewall rules
       iifname @INTERFACE_DN42 jump DN42_FORWARD
 
@@ -234,25 +230,13 @@ let
       return
     }
 
-    chain PUBLIC_FORWARD {
-      ${lib.optionalString (LT.this.hasTag LT.tags.lan-access) ''
-        ip saddr @RESERVED_IPV4 return
-        ip6 saddr @RESERVED_IPV6 return
-      ''}
-
-      # Allow route-chain
-      oifname "route-chain" accept
-
-      # Block forwarding from WAN
-      reject with icmpx type admin-prohibited
-    }
-
     chain DN42_FORWARD {
       fib daddr type local return
       ip daddr @DN42_IPV4 return
       ip6 daddr @DN42_IPV6 return
       oifname @INTERFACE_DN42 return
-      reject with icmpx type admin-prohibited
+      oifname @INTERFACE_WAN reject with icmpx type admin-prohibited
+      oifname @INTERFACE_OVERLAY reject with icmpx type admin-prohibited
     }
   '';
 in
