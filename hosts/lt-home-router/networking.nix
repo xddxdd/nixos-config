@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # VLAN netdevs
   systemd.network.netdevs = {
     # VLAN for homelab hosts
@@ -89,5 +88,17 @@ _:
       matchConfig.Name = "eth1";
       networkConfig.DHCP = "yes";
     };
+  };
+
+  networking.henet = {
+    enable = true;
+    remote = "216.218.226.238";
+    addresses = [
+      "2001:470:a:3af::2/64"
+      "2001:470:b:3af::1/64"
+      "2001:470:e997::1/48"
+    ];
+    gateway = "2001:470:a:3af::1";
+    attachToInterface = "eth1";
   };
 }
