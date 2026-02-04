@@ -24,4 +24,7 @@
       # "eth0.5" # IoT devices not allowed UPnP
     ];
   };
+
+  # Do not enable acceleration for IoT devices
+  lantian.dae.lanInterfaces = [ "eth0" ];
 }
