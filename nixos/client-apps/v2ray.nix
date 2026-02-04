@@ -169,8 +169,8 @@ in
 {
   age.secrets = lib.genAttrs [ "v2ray-key" "v2ray-unblock-cn-host" "v2ray-unblock-cn-pass" ] (n: {
     file = inputs.secrets + "/${n}.age";
-    owner = "nginx";
-    group = "nginx";
+    owner = "v2ray";
+    group = "v2ray";
   });
 
   systemd.services.v2ray = {
@@ -199,11 +199,17 @@ in
       exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
-      User = "nginx";
-      Group = "nginx";
+      User = "v2ray";
+      Group = "v2ray";
       RuntimeDirectory = "v2ray";
       Restart = "always";
       RestartSec = 5;
     };
   };
+
+  users.users.v2ray = {
+    group = "v2ray";
+    isSystemUser = true;
+  };
+  users.groups.v2ray = { };
 }
