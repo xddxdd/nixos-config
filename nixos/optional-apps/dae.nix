@@ -23,6 +23,10 @@ in
       type = lib.types.str;
       default = "direct";
     };
+    gameAccelAction = lib.mkOption {
+      type = lib.types.str;
+      default = "proxy";
+    };
   };
 
   config = {
@@ -97,7 +101,7 @@ in
           pname(qqmusic) -> ${cfg.cnAction}
 
           # Mihoyo games acceleration
-          dip(geoip:cn) && dport(22100-22110) -> ${cfg.cnAction}
+          dip(geoip:cn) && dport(22100-22110) -> ${cfg.gameAccelAction}
 
           domain(geosite:category-ads) -> block
           domain(geosite:category-ads-all) -> block
