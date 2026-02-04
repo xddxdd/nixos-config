@@ -49,6 +49,9 @@ in
 
       # Homelab VLAN isolation rules
       iifname "eth0*" oifname "eth0*" jump VLAN_ISOLATE
+
+      # Block forwarding from public interface
+      iifname eth1 drop
     }
 
     chain VLAN_ISOLATE {
@@ -90,6 +93,8 @@ in
       fib daddr type local udp dport 31010-31019 iifname "eth1" dnat ip to 192.168.1.10
       fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1" dnat ip to 192.168.1.10
       fib daddr type local udp dport 22547 iifname "eth1" dnat ip to 192.168.1.10
+      # Hairpin NAT
+      fib daddr type local iifname "eth0*" ip daddr 104.156.105.0/24 dnat ip to 192.168.1.10
 
       # Redirect to lt-home-builder
       fib daddr type local tcp dport 2223 iifname "eth1" dnat ip to 192.168.1.12:2222
