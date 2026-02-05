@@ -4,7 +4,6 @@
   tags = with tags; [
     client
     # cuda
-    nix-builder
   ];
   cpuThreads = 16;
   city = geo.cities."US Seattle";
