@@ -1,0 +1,14 @@
+[dependencies]
+pulsectl-rs = "0.3"
+libpulse-binding = "2"
+axum = "0.7"
+tokio = {version = "1", features = ["full"]}
+serde = {version = "1", features = ["derive"]}
+serde_json = "1"
+clap = {version = "4", features = ["derive"]}
+tokio-listener = {version = "0.4", features = ["axum07", "clap", "unix", "sd_listen"]}
+
+[package]
+name = "pipewire-volume-control"
+version = "0.1.0"
+edition = "2021"
