@@ -91,7 +91,7 @@
         }
       }
 
-      submission tcp://[::]:587 {
+      submission tls://[::]:465 tls://[::]:587 {
         limits {
           all rate 50 1s
         }
@@ -149,7 +149,7 @@
         }
       }
 
-      imap tcp://[::]:143 {
+      imap tls://[::]:993 {
         auth &local_authdb
         storage &local_mailboxes
       }
