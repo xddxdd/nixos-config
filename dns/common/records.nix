@@ -1,4 +1,9 @@
-{ config, LT, ... }:
+{
+  config,
+  LT,
+  lib,
+  ...
+}:
 {
   common.records = rec {
     Autoconfig = domain: [
@@ -155,7 +160,11 @@
     DN42Email = domain: [
       (config.common.hostRecs.mapAddresses {
         name = "mx.${domain}.";
-        addresses = LT.hosts."colocrossing".neonetwork;
+        addresses =
+          if lib.hasSuffix ".neo" domain then
+            LT.hosts."colocrossing".neonetwork
+          else
+            LT.hosts."colocrossing".dn42;
       })
       {
         recordType = "MX";
