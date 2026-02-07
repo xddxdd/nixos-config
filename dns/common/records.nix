@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, LT, ... }:
 {
   common.records = rec {
     Autoconfig = domain: [
@@ -149,6 +149,39 @@
         recordType = "CNAME";
         name = "ocirp-nrt1";
         target = "nrt1.rp.oracleemaildelivery.com.";
+      }
+    ];
+
+    DN42Email = domain: [
+      (config.common.hostRecs.mapAddresses {
+        name = "mx.${domain}.";
+        addresses = LT.hosts."colocrossing".neonetwork;
+      })
+      {
+        recordType = "MX";
+        name = "@";
+        priority = 10;
+        target = "mx.${domain}.";
+      }
+      {
+        recordType = "TXT";
+        name = "@";
+        contents = "v=spf1 mx ~all";
+      }
+      {
+        recordType = "TXT";
+        name = "mx.${domain}.";
+        contents = "v=spf1 a ~all";
+      }
+      {
+        recordType = "TXT";
+        name = "@";
+        contents = "v=DMARC1; p=quarantine; ruf=mailto:lantian@${domain}";
+      }
+      {
+        recordType = "TXT";
+        name = "_dmarc";
+        contents = "v=DMARC1; p=quarantine; ruf=mailto:lantian@${domain}";
       }
     ];
 

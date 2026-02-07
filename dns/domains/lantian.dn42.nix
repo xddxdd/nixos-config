@@ -78,6 +78,8 @@
           };
         })
 
+        (config.common.records.DN42Email domain)
+
         {
           recordType = "AAAA";
           name = "manosaba";
