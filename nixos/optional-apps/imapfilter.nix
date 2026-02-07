@@ -27,6 +27,11 @@ in
     owner = "imapfilter";
     group = "imapfilter";
   };
+  age.secrets.imapfilter-lantian = {
+    file = inputs.secrets + "/imapfilter/lantian.age";
+    owner = "imapfilter";
+    group = "imapfilter";
+  };
 
   environment.systemPackages = [ email-oauth2-proxy ];
 
@@ -80,9 +85,9 @@ in
   systemd.timers.imapfilter-outlook = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "daily";
+      OnCalendar = "hourly";
       Persistent = true;
-      RandomizedDelaySec = "4h";
+      RandomizedDelaySec = "1h";
     };
   };
 
@@ -114,9 +119,43 @@ in
   systemd.timers.imapfilter-gmail = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "daily";
+      OnCalendar = "hourly";
       Persistent = true;
-      RandomizedDelaySec = "4h";
+      RandomizedDelaySec = "1h";
+    };
+  };
+
+  systemd.services.imapfilter-lantian = netns.bind {
+    environment = {
+      PASSWORD_FILE = config.age.secrets.imapfilter-lantian.path;
+    };
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/lantian.lua"}";
+
+      User = "imapfilter";
+      Group = "imapfilter";
+
+      WorkingDirectory = "/var/cache/imapfilter";
+      CacheDirectory = "imapfilter";
+      CacheDirectoryMode = "0750";
+
+      # Lua requirements
+      MemoryDenyWriteExecute = lib.mkForce false;
+      SystemCallFilter = lib.mkForce [ ];
+      LimitMEMLOCK = "infinity";
+    };
+    unitConfig = {
+      OnFailure = "notify-email@%n.service";
+    };
+  };
+
+  systemd.timers.imapfilter-lantian = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";
+      Persistent = true;
+      RandomizedDelaySec = "1h";
     };
   };
 
