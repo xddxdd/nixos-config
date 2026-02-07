@@ -79,6 +79,11 @@
         })
 
         (config.common.records.DN42Email domain)
+        {
+          recordType = "TXT";
+          name = "default._domainkey";
+          contents = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv9N9lG6S9PcWRK/BsUHnzZNffkw+IQcQdy4kZY6XcSlaJyNf3S2UTsx8RzxTavI5h2VvwI0ha0pIbdrsKXLUCC33RoeEQuIMR+z1l8GYT0Ng8qpQIN/bqzgiXEVmxLlaPEx9R88kyh8B9ajGXMUbR+l07QTsZ4J1vmQr8wyE+1J9ODkjUEx6IAenuxezZyb5XPE2lyFKfBifTCKrNa+tDmUK9474NOFAKXPECNiZyvBcaKHumA3kgi4JP4aBFMP7oMeNsp9l8Q3L+EI2HNduU4aFzEK5mSdSKsHJkgoYj+Rf/M7kg8jLQEvKOb7uHarpNSIFFrvwL/QhtPij+qpqRQIDAQAB";
+        }
 
         {
           recordType = "AAAA";
