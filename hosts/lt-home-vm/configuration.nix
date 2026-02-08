@@ -39,7 +39,7 @@
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/webdav.nix
 
-    # ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
+    ../../nixos/optional-cron-jobs/oci-arm-host-capacity.nix
     ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
