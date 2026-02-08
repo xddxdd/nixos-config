@@ -121,7 +121,7 @@ in
         MINIO_BUCKET = "lantian-gitea";
         MINIO_LOCATION = "us-west-1";
         MINIO_USE_SSL = true;
-        # Telnyx storage does not work well with serve direct
+        # Telnyx storage does not support regular presigned URLs, will expose key
         SERVE_DIRECT = false;
       };
     };
