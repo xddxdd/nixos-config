@@ -26,6 +26,8 @@ let
           supportedFeatures = [ ];
           mandatoryFeatures = [ ];
         }
+      ]
+      ++ lib.optionals (v.cpuThreads >= 8) [
         {
           inherit (v) system;
           hostName = "${n}.lantian.pub";
@@ -55,15 +57,14 @@ in
 {
   nix = {
     distributedBuilds = true;
-    buildMachines = lib.flatten (
-      [
-        nixBuildNet
-      ]
-      ++ (lib.filter (v: v != null) (
-        lib.mapAttrsToList mkBuildMachine (
-          lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+    buildMachines =
+      lib.flatten (
+        lib.filter (v: v != null) (
+          lib.mapAttrsToList mkBuildMachine (
+            lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+          )
         )
-      ))
-    );
+      )
+      ++ [ nixBuildNet ];
   };
 }
