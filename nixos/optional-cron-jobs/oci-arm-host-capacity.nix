@@ -1,9 +1,18 @@
-{ lib, pkgs, LT, ... }:
+{
+  lib,
+  pkgs,
+  LT,
+  ...
+}:
 {
   systemd.services.oci-arm-host-capacity = {
+    script = ''
+      ${lib.getExe pkgs.php} ${pkgs.nur-xddxdd.oci-arm-host-capacity}/index.php env 2>&1 | tee log.txt
+      grep "Already have an instance" log.txt && exit 1 || exit 0
+    '';
+
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.php} ${pkgs.nur-xddxdd.oci-arm-host-capacity}/index.php env";
       StateDirectory = "oci-arm-host-capacity";
       WorkingDirectory = "/var/lib/oci-arm-host-capacity";
     };
