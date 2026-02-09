@@ -11,12 +11,17 @@
       flake = false;
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    systems.url = "github:nix-systems/default";
 
     agenix = {
       url = "github:ryantm/agenix";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
     angrr = {
       url = "github:linyinfeng/angrr";
@@ -29,6 +34,7 @@
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
     };
     colmena = {
       url = "github:zhaofengli/colmena";
@@ -37,19 +43,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
     };
-    determinate-nix = {
-      url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
-      inputs.flake-parts.follows = "flake-parts";
-    };
     firefox-addons = {
       url = "github:petrkozorezov/firefox-addons-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     flat-flake = {
       url = "github:linyinfeng/flat-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
       inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };
     home-manager = {
@@ -120,6 +124,7 @@
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
+      inputs.agenix.follows = "agenix";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur-xddxdd.follows = "nur-xddxdd";
@@ -133,6 +138,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
