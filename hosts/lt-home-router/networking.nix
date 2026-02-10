@@ -111,6 +111,20 @@ _: {
     eth1 = {
       matchConfig.Name = "eth1";
       networkConfig.DHCP = "yes";
+      cakeConfig = {
+        Bandwidth = "1G";
+        FlowIsolationMode = "dual-src-host";
+        NAT = true;
+        PriorityQueueingPreset = "diffserv8";
+      };
+    };
+
+    # WAN IPv6 Tunnel
+    henet.cakeConfig = {
+      Bandwidth = "1G";
+      FlowIsolationMode = "dual-src-host";
+      NAT = true;
+      PriorityQueueingPreset = "diffserv8";
     };
   };
 
