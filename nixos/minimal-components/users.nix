@@ -43,6 +43,7 @@ in
     lantian = {
       hashedPassword = lib.mkForce unixHashedPassword;
       isNormalUser = true;
+      isSystemUser = lib.mkForce false;
       description = "Lan Tian";
       group = "lantian";
       extraGroups = [
@@ -60,6 +61,7 @@ in
     };
     nix-builder = lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
       isNormalUser = true;
+      isSystemUser = lib.mkForce false;
       group = "nix-builder";
       openssh.authorizedKeys.keys = sshKeysForNixBuilder;
       linger = false;
