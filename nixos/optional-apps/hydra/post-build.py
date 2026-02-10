@@ -179,6 +179,14 @@ if __name__ == "__main__":
     try:
         if event.successful:
             output_paths = [o.path for o in event.outputs]
-            subprocess.run(["attic", "push", "lantian", *output_paths], check=False)
+            for _ in range(3):
+                try:
+                    subprocess.run(
+                        ["attic", "push", "lantian", *output_paths], check=True
+                    )
+                    break
+                except subprocess.CalledProcessError:
+                    logging.exception("Attic push failed")
+                    continue
     except Exception:
         logging.exception(f"Error in attic push")
