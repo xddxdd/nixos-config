@@ -1,11 +1,15 @@
 {
   LT,
   config,
+  pkgs,
   ...
 }:
 {
   services.ollama = {
     enable = true;
+    package = pkgs.ollama-cuda.override {
+      cudaArches = [ "sm_61" ] ++ pkgs.cudaPackages.flags.realArches;
+    };
     port = LT.port.Ollama;
     user = "ollama";
     group = "ollama";
