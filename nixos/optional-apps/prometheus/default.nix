@@ -50,6 +50,7 @@ in
     ./alertmanager.nix
     ./blackbox-exporter.nix
     ./periodic-tasks.nix
+    ./storagebox.nix
   ];
 
   services.prometheus = {

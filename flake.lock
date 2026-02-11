@@ -1101,11 +1101,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770709784,
-        "narHash": "sha256-r1yuvma49Qdz7fv/qkjfokP+p7WMLGN17rlSMgB1HRE=",
+        "lastModified": 1770781143,
+        "narHash": "sha256-cVR2MpTujZHEcEdXULLLBZxdXR4ywPz2cXjWLZ3afqc=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "6e9e52424f7639c43f28cdadbba1a8d3947b5abd",
+        "rev": "120adecc494cd60603ce1f52fa485252080e5893",
         "type": "github"
       },
       "original": {
