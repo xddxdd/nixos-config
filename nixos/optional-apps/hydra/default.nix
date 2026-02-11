@@ -79,7 +79,7 @@ in
     script = ''
       for F in /nix/var/nix/gcroots/hydra/*; do
         STORE_PATH="/nix/store/$(basename "$F")"
-        ${lib.getExe pkgs.attic-client} push lantian "$STORE_PATH"
+        ${lib.getExe pkgs.attic-client} push lantian "$STORE_PATH" || true
       done
     '';
     serviceConfig = LT.serviceHarden // {
