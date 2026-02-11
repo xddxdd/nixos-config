@@ -9,12 +9,12 @@ let
       display: none;
     }
 
-    .calendar-month-day-box-list-item {
+    li.calendar-month-day-box-list-item {
       /* Make multi-day tasks continuous */
       margin: 2px 0 !important;
     }
 
-    .calendar-color-box {
+    calendar-month-day-box-item.calendar-color-box {
       /* 2px padding + 3px background */
       background: linear-gradient(90deg, #0000 2px, var(--item-backcolor) 2px, var(--item-backcolor) 5px, #0000 5px) !important;
       border-radius: 0 !important;
