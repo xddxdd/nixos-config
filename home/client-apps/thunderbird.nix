@@ -20,8 +20,7 @@ let
       border-radius: 0 !important;
       padding-left: 10px !important;
       box-shadow: none !important;
-      /* TODO: light/dark mode switch support */
-      color: #fff !important;
+      color: light-dark(#000, #fff) !important;
     }
 
     calendar-month-day-box-item[allday="true"].calendar-color-box {
