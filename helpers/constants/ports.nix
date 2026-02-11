@@ -37,6 +37,7 @@ rec {
     Prometheus.MySQLExporter = 9104;
     Prometheus.BlackboxExporter = 9115;
     Prometheus.PostgresExporter = 9187;
+    Prometheus.NUTExporter = 9199;
     Prometheus.CoreDNS = 9253;
     Prometheus.BirdExporter = 9324;
     Prometheus.StorageBoxExporter = 9509;

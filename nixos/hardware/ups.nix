@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  LT,
   ...
 }:
 let
@@ -41,7 +42,12 @@ let
   };
 in
 {
-  age.secrets.nut-pass.file = inputs.secrets + "/nut-pass.age";
+  age.secrets.nut-pass = {
+    file = inputs.secrets + "/nut-pass.age";
+    owner = config.services.prometheus.exporters.nut.user;
+    group = "root";
+    mode = "0440";
+  };
   power.ups = {
     enable = true;
     mode = "netserver";
@@ -86,6 +92,14 @@ in
     };
   };
 
+  services.prometheus.exporters.nut = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.NUTExporter;
+    nutUser = "root";
+    passwordPath = config.age.secrets.nut-pass.path;
+  };
+
   systemd.services.upsd = lib.mkIf config.power.ups.enable {
     serviceConfig = {
       Restart = "always";
@@ -98,4 +112,13 @@ in
       RestartSec = 5;
     };
   };
+
+  systemd.services.prometheus-nut-exporter.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+  };
+  users.users.nut-exporter = {
+    group = "nut-exporter";
+    isSystemUser = true;
+  };
+  users.groups.nut-exporter = { };
 }

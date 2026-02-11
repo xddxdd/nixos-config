@@ -23,9 +23,11 @@ let
       index ? null,
       port,
       attrPath,
+      metricsPath ? "/metrics",
     }:
     {
       job_name = jobName;
+      metrics_path = metricsPath;
       static_configs = builtins.map (
         n:
         let
@@ -172,6 +174,29 @@ in
           "prometheus"
           "exporters"
           "wireguard"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "nut";
+        port = LT.port.Prometheus.NUTExporter;
+        metricsPath = "/ups_metrics";
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "nut"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "nut-exporter";
+        port = LT.port.Prometheus.NUTExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "nut"
           "enable"
         ];
       })
