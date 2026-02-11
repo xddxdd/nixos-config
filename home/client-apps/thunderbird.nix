@@ -1,9 +1,35 @@
-{ pkgs,
-  lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 let
   userChrome = pkgs.writeText "userChrome.css" ''
     .titlebar-buttonbox-container {
-      display:none;
+      display: none;
+    }
+
+    .calendar-month-day-box-list-item {
+      /* Make multi-day tasks continuous */
+      margin: 2px 0 !important;
+    }
+
+    .calendar-color-box {
+      /* 2px padding + 3px background */
+      background: linear-gradient(90deg, #0000 2px, var(--item-backcolor) 2px, var(--item-backcolor) 5px, #0000 5px) !important;
+      border-radius: 0 !important;
+      padding-left: 10px !important;
+      box-shadow: none !important;
+      /* TODO: light/dark mode switch support */
+      color: #fff !important;
+    }
+
+    calendar-month-day-box-item[allday="true"].calendar-color-box {
+      /* Semi transparent background */
+      background: color-mix(in srgb, var(--item-backcolor) 50%, transparent) !important;
+      /* Solid border on top/bottom */
+      border-top: 1px solid var(--item-backcolor) !important;
+      border-bottom: 1px solid var(--item-backcolor) !important;
     }
   '';
 in
