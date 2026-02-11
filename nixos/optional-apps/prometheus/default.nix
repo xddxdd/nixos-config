@@ -200,6 +200,50 @@ in
           "enable"
         ];
       })
+      (scrapeByAttr {
+        jobName = "sonarr";
+        port = LT.port.Prometheus.SonarrExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "exportarr-sonarr"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "radarr";
+        port = LT.port.Prometheus.SonarrExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "exportarr-radarr"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "prowlarr";
+        port = LT.port.Prometheus.SonarrExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "exportarr-prowlarr"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
+        jobName = "bazarr";
+        port = LT.port.Prometheus.SonarrExporter;
+        attrPath = [
+          "services"
+          "prometheus"
+          "exporters"
+          "exportarr-bazarr"
+          "enable"
+        ];
+      })
       {
         job_name = "sglang-sakura-llm";
         scheme = "https";

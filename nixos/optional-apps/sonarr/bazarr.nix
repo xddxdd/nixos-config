@@ -1,4 +1,10 @@
-{ LT, config, ... }:
+{
+  LT,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   services.bazarr = {
     enable = true;
@@ -43,6 +49,28 @@
 
       noIndex.enable = true;
       accessibleBy = "localhost";
+    };
+  };
+
+  services.prometheus.exporters.exportarr-bazarr = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.BazarrExporter;
+    url = "http://bazarr.localhost";
+    environment = {
+      INTERFACE = LT.this.ltnet.IPv4;
+      PORT = LT.portStr.Prometheus.BazarrExporter;
+    };
+    inherit (config.services.bazarr) user group;
+  };
+  systemd.services.prometheus-exportarr-bazarr-exporter = {
+    preStart = ''
+      ${lib.getExe pkgs.yq-go} -r ".auth.apikey" /var/lib/bazarr/config/config.yaml > /run/prometheus-exportarr-bazarr-exporter/apikey
+    '';
+    environment.API_KEY_FILE = lib.mkForce "/run/prometheus-exportarr-bazarr-exporter/apikey";
+    serviceConfig = {
+      RuntimeDirectory = "prometheus-exportarr-bazarr-exporter";
+      RuntimeDirectoryMode = "0700";
     };
   };
 }

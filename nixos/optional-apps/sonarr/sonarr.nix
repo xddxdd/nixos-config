@@ -45,4 +45,17 @@
       accessibleBy = "localhost";
     };
   };
+
+  services.prometheus.exporters.exportarr-sonarr = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.SonarrExporter;
+    url = "http://sonarr.localhost";
+    environment = {
+      INTERFACE = LT.this.ltnet.IPv4;
+      PORT = LT.portStr.Prometheus.SonarrExporter;
+      CONFIG = "/var/lib/sonarr/config.xml";
+    };
+    inherit (config.services.sonarr) user group;
+  };
 }

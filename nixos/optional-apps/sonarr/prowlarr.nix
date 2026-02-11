@@ -46,4 +46,18 @@
       accessibleBy = "localhost";
     };
   };
+
+  services.prometheus.exporters.exportarr-prowlarr = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.ProwlarrExporter;
+    url = "http://prowlarr.localhost";
+    environment = {
+      INTERFACE = LT.this.ltnet.IPv4;
+      PORT = LT.portStr.Prometheus.ProwlarrExporter;
+      CONFIG = "/var/lib/prowlarr/config.xml";
+    };
+    user = "lantian";
+    group = "users";
+  };
 }

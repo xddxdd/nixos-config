@@ -45,4 +45,17 @@
       accessibleBy = "localhost";
     };
   };
+
+  services.prometheus.exporters.exportarr-radarr = {
+    enable = true;
+    listenAddress = LT.this.ltnet.IPv4;
+    port = LT.port.Prometheus.RadarrExporter;
+    url = "http://radarr.localhost";
+    environment = {
+      INTERFACE = LT.this.ltnet.IPv4;
+      PORT = LT.portStr.Prometheus.RadarrExporter;
+      CONFIG = "/var/lib/radarr/config.xml";
+    };
+    inherit (config.services.radarr) user group;
+  };
 }

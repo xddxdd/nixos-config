@@ -45,6 +45,10 @@ rec {
     Prometheus.RasdaemonExporter = 9629;
     Prometheus.SmartctlExporter = 9633;
     Prowlarr = 9696;
+    Prometheus.SonarrExporter = 9708;
+    Prometheus.RadarrExporter = 9709;
+    Prometheus.ProwlarrExporter = 9710;
+    Prometheus.BazarrExporter = 9711;
     Prometheus.Palworld = 9877;
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
