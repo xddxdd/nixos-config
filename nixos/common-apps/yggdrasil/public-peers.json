@@ -67,6 +67,7 @@
   ],
   "japan": [
     "tls://133.18.201.69:54232",
+    "tls://153.120.42.137:54232",
     "tls://astrra.space:55535",
     "tls://yg-tyo.magicum.net:32333"
   ],
@@ -106,8 +107,7 @@
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
-    "tls://jed-peer.ygg.sy.sa:8442",
-    "tls://ryd-peer.ygg.sy.sa:8442"
+    "tls://jed-peer.ygg.sy.sa:8442"
   ],
   "singapore": [
     "tls://asia.deinfra.org:15015"
