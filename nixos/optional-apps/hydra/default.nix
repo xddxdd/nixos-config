@@ -74,4 +74,27 @@ in
       fi
     '';
   };
+
+  systemd.services.hydra-attic-repush = {
+    script = ''
+      for F in /nix/var/nix/gcroots/hydra/*; do
+        STORE_PATH="/nix/store/$(basename "$F")"
+        ${lib.getExe pkgs.attic-client} push lantian "$STORE_PATH"
+      done
+    '';
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      User = "hydra-queue-runner";
+      Group = "hydra";
+    };
+  };
+
+  systemd.timers.hydra-attic-repush = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";
+      Persistent = true;
+      RandomizedDelaySec = "1h";
+    };
+  };
 }
