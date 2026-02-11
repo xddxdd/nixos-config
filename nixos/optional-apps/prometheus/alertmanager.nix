@@ -77,7 +77,7 @@ in
                 # MySQL Down
                 {
                   alert = "node_mysql_down";
-                  expr = ''mysql_up == 0'';
+                  expr = "mysql_up == 0";
                   for = "10m";
                   labels.severity = "critical";
                   annotations = {
@@ -89,7 +89,7 @@ in
                 # PostgreSQL Down
                 {
                   alert = "node_postgresql_down";
-                  expr = ''pg_up == 0'';
+                  expr = "pg_up == 0";
                   for = "10m";
                   labels.severity = "critical";
                   annotations = {
@@ -113,7 +113,7 @@ in
                 # RAM usage
                 rec {
                   alert = "node_ram_using_90percent";
-                  expr = ''node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1'';
+                  expr = "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
                   for = "30m";
                   labels.severity = "warning";
                   annotations = {
@@ -131,6 +131,60 @@ in
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
                     description = "{{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
+                  };
+                }
+
+                # StorageBox remaining space <100G
+                {
+                  alert = "storagebox_remaining_space";
+                  expr = "storagebox_disk_quota - storagebox_disk_usage < 100*1024*1024*1024";
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: Storage box {{$labels.name}} has <100G free space.";
+                    description = "Storage box {{$labels.name}} has <100G free space.";
+                  };
+                }
+
+                # *arr stack
+                {
+                  alert = "sonarr_system_health_issues";
+                  expr = ''sonarr_system_health_issues{source!="UpdateCheck"} > 0'';
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
+                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
+                  };
+                }
+                {
+                  alert = "radarr_system_health_issues";
+                  expr = ''radarr_system_health_issues{source!="UpdateCheck"} > 0'';
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
+                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
+                  };
+                }
+                {
+                  alert = "prowlarr_system_health_issues";
+                  expr = ''prowlarr_system_health_issues{source!="UpdateCheck"} > 0'';
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
+                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
+                  };
+                }
+                {
+                  alert = "bazarr_system_health_issues";
+                  expr = ''bazarr_system_health_issues{source!="UpdateCheck"} > 0'';
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
+                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
                   };
                 }
               ];
