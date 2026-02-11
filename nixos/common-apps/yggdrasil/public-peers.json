@@ -17,6 +17,7 @@
     "tls://ygg3.mk16.de:1338?key=000003acdaf2a60e8de2f63c3e63b7e911d02380934f09ee5c83acb758f470c1"
   ],
   "chile": [
+    "tls://satori.nadeko.net:44442",
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
@@ -66,7 +67,6 @@
   ],
   "japan": [
     "tls://133.18.201.69:54232",
-    "tls://153.120.42.137:54232",
     "tls://astrra.space:55535",
     "tls://yg-tyo.magicum.net:32333"
   ],
@@ -89,6 +89,7 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://37.192.232.33:442",
+    "tls://45.95.202.21:443",
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://ekb.itrus.su:7992",
@@ -123,6 +124,10 @@
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
+    "tls://78.27.153.163:179",
+    "tls://78.27.153.163:33166",
+    "tls://78.27.153.163:3784",
+    "tls://78.27.153.163:3785",
     "tls://yggdrasil.sunsung.fun:4443"
   ],
   "united-kingdom": [
