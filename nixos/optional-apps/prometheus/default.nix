@@ -213,7 +213,7 @@ in
       })
       (scrapeByAttr {
         jobName = "radarr";
-        port = LT.port.Prometheus.SonarrExporter;
+        port = LT.port.Prometheus.RadarrExporter;
         attrPath = [
           "services"
           "prometheus"
@@ -224,7 +224,7 @@ in
       })
       (scrapeByAttr {
         jobName = "prowlarr";
-        port = LT.port.Prometheus.SonarrExporter;
+        port = LT.port.Prometheus.ProwlarrExporter;
         attrPath = [
           "services"
           "prometheus"
@@ -235,7 +235,7 @@ in
       })
       (scrapeByAttr {
         jobName = "bazarr";
-        port = LT.port.Prometheus.SonarrExporter;
+        port = LT.port.Prometheus.BazarrExporter;
         attrPath = [
           "services"
           "prometheus"
