@@ -112,6 +112,9 @@
   "singapore": [
     "tls://asia.deinfra.org:15015"
   ],
+  "slovakia": [
+    "tls://ygg-ke.8px.sk:4321"
+  ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
@@ -121,6 +124,9 @@
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+  ],
+  "taiwan": [
+    "tls://ygg-tw.lxak.net:8880"
   ],
   "ukraine": [
     "tls://193.93.119.42:443",
@@ -145,6 +151,7 @@
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://redcatho.de:9494",
     "tls://srv.newsdeef.eu:59999",
+    "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
