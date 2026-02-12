@@ -53,4 +53,10 @@
       accessibleBy = "localhost";
     };
   };
+
+  users.users.ollama = {
+    group = "ollama";
+    isSystemUser = true;
+  };
+  users.groups.ollama = { };
 }

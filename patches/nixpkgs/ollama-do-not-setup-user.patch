@@ -1,0 +1,20 @@
+diff --git a/nixos/modules/services/misc/ollama.nix b/nixos/modules/services/misc/ollama.nix
+index 225ebd910ff7..0fa790f80c40 100644
+--- a/nixos/modules/services/misc/ollama.nix
++++ b/nixos/modules/services/misc/ollama.nix
+@@ -190,15 +190,6 @@ in
+   };
+ 
+   config = lib.mkIf cfg.enable {
+-    users = lib.mkIf staticUser {
+-      users.${cfg.user} = {
+-        inherit (cfg) home;
+-        isSystemUser = true;
+-        group = cfg.group;
+-      };
+-      groups.${cfg.group} = { };
+-    };
+-
+     systemd.services.ollama = {
+       description = "Server for local large language models";
+       wantedBy = [ "multi-user.target" ];
