@@ -40,12 +40,17 @@
   fileSystems."/mnt/share" = {
     device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
     fsType = "nfs";
+    # Use automount to handle case when ZeroTier starts slow
     options = [
       "_netdev"
       "noatime"
+      "noauto"
       "clientaddr=${LT.this.ltnet.IPv4}"
       "hard"
       "vers=4.2"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
     ];
   };
 
