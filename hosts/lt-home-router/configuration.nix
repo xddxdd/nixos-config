@@ -11,6 +11,7 @@
 
     ../../nixos/common-apps/coredns.nix
     ../../nixos/server-components/sidestore-vpn.nix
+    ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/miniupnpd.nix
   ];
 
@@ -23,4 +24,7 @@
       # "eth0.5" # IoT devices not allowed UPnP
     ];
   };
+
+  # Do not enable acceleration for IoT devices
+  lantian.dae.lanInterfaces = [ "eth0" ];
 }
