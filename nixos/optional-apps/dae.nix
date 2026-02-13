@@ -25,7 +25,7 @@ in
     };
     gameAccelAction = lib.mkOption {
       type = lib.types.str;
-      default = "proxy";
+      default = "zgocloud";
     };
   };
 
@@ -59,6 +59,7 @@ in
         node {
           v2ray: "socks5://localhost:${LT.portStr.V2Ray.SocksClient}"
           v2ray_unblock_cn: "socks5://localhost:${LT.portStr.V2Ray.UnblockCNClient}"
+          zgocloud: "socks5://${LT.hosts.zgocloud.ltnet.IPv4}:${LT.portStr.V2Ray.SocksClient}"
         }
 
         dns {
@@ -88,6 +89,10 @@ in
             filter: name(v2ray_unblock_cn)
             policy: fixed(0)
           }
+          zgocloud {
+            filter: name(zgocloud)
+            policy: fixed(0)
+          }
         }
 
         routing {
@@ -100,8 +105,10 @@ in
           # Unblock CN
           pname(qqmusic) -> ${cfg.cnAction}
 
-          # Mihoyo games acceleration
+          # 原神
           dip(geoip:cn) && dport(22100-22110) -> ${cfg.gameAccelAction}
+          # 崩铁
+          dip(geoip:cn) && dport(23300-23310) -> ${cfg.gameAccelAction}
 
           domain(geosite:category-ads) -> block
           domain(geosite:category-ads-all) -> block
