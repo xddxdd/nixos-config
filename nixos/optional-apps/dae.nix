@@ -23,10 +23,6 @@ in
       type = lib.types.str;
       default = "direct";
     };
-    gameAccelAction = lib.mkOption {
-      type = lib.types.str;
-      default = "zgocloud";
-    };
   };
 
   config = {
@@ -104,11 +100,6 @@ in
 
           # Unblock CN
           pname(qqmusic) -> ${cfg.cnAction}
-
-          # 原神
-          dip(geoip:cn) && dport(22100-22110) -> ${cfg.gameAccelAction}
-          # 崩铁
-          dip(geoip:cn) && dport(23300-23310) -> ${cfg.gameAccelAction}
 
           domain(geosite:category-ads) -> block
           domain(geosite:category-ads-all) -> block
