@@ -23,9 +23,9 @@
       extended = true;
       path = "${config.programs.zsh.dotDir}/.zsh_history";
       ignorePatterns = [
-        ''/nix/store/'' # command contains /nix/store
+        "/nix/store/" # command contains /nix/store
         ''--cookie[=\s]+'' # command contains cookie
-        ''Authorization:'' # command contains HTTP auth info
+        "Authorization:" # command contains HTTP auth info
       ];
     };
     syntaxHighlighting.enable = true;
@@ -125,6 +125,13 @@
       ZSHZ_EXCLUDE_DIRS=(/nix/store)
       ZSHZ_TILDE=1
       ZSHZ_TRAILING_SLASH=1
+
+      ########################################
+      # Claude Code config
+      ########################################
+      if [ -f "/run/agenix/claude-code-token" ]; then
+        source /run/agenix/claude-code-token
+      fi
     '';
 
     initContent = lib.mkBefore ''
