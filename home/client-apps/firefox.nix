@@ -112,6 +112,7 @@ in
         fastfox.enable = true;
         securefox.enable = true;
         peskyfox.enable = true;
+        peskyfox.ai.enable = false;
       };
     };
   };
