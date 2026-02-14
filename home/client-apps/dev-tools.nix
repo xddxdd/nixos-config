@@ -160,6 +160,7 @@ in
 
     # Others
     cdrkit
+    claude-code
     dhcpcd
     elfx86exts
     flamegraph
@@ -177,6 +178,7 @@ in
   home.sessionVariables = {
     # keep-sorted start
     AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+    CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
     FLY_CONFIG_DIR = "${config.xdg.dataHome}/fly";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
     NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
