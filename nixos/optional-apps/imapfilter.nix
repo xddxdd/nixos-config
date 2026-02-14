@@ -78,7 +78,8 @@ in
       LimitMEMLOCK = "infinity";
     };
     unitConfig = {
-      OnFailure = "notify-email@%n.service";
+      # # Outlook server is unstable
+      # OnFailure = "notify-email@%n.service";
     };
   };
 
