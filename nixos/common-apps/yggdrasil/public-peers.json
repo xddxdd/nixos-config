@@ -1,11 +1,7 @@
 {
-  "armenia": [
-    "tls://37.186.113.100:1515"
-  ],
   "australia": [
     "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
-    "tls://yg-mel.magicum.net:23800",
     "tls://yg-syd.magicum.net:23700"
   ],
   "austria": [
@@ -122,8 +118,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
   "taiwan": [
     "tls://ygg-tw.lxak.net:8880"
