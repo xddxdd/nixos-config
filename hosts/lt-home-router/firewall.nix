@@ -94,7 +94,7 @@ in
       fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1" dnat ip to 192.168.1.10
       fib daddr type local udp dport 22547 iifname "eth1" dnat ip to 192.168.1.10
       # Hairpin NAT
-      fib daddr type local iifname "eth0*" ip daddr 104.156.105.0/24 dnat ip to 192.168.1.10
+      fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
 
       # Redirect to lt-home-builder
       fib daddr type local tcp dport 2223 iifname "eth1" dnat ip to 192.168.1.12:2222
