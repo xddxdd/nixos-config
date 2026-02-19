@@ -37,6 +37,12 @@ in
       default = "eth0";
       description = "Network interface to attach the tunnel to";
     };
+
+    sourceSpecificRoutes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Source ranges for routes";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -56,8 +62,14 @@ in
     systemd.network.networks = {
       henet = {
         address = cfg.addresses;
-        gateway = [ cfg.gateway ];
+        gateway = lib.optionals (cfg.sourceSpecificRoutes == [ ]) [ cfg.gateway ];
         matchConfig.Name = "henet";
+        routes = lib.optionals (cfg.sourceSpecificRoutes != [ ]) (
+          builtins.map (s: {
+            Gateway = cfg.gateway;
+            Source = s;
+          }) cfg.sourceSpecificRoutes
+        );
       };
       ${cfg.attachToInterface}.networkConfig.Tunnel = "henet";
     };
