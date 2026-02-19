@@ -110,7 +110,10 @@ _: {
     # WAN interface
     eth1 = {
       matchConfig.Name = "eth1";
-      networkConfig.DHCP = "yes";
+      networkConfig = {
+        DHCP = "yes";
+        IPv6AcceptRA = "no";
+      };
       cakeConfig = {
         Bandwidth = "1G";
         FlowIsolationMode = "dual-src-host";
