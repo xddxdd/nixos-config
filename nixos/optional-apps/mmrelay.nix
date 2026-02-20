@@ -2,9 +2,11 @@
 let
   configFile = pkgs.writeText "config.yaml" (
     builtins.toJSON {
-      matrix.g = {
+      matrix = {
         homeserver = "https://matrix.lantian.pub";
         bot_user_id = "@meshtastic:lantian.pub";
+        prefix_enabled = true;
+        prefix_format = "[{long}/{short}]: ";
       };
       matrix_rooms = [
         {
