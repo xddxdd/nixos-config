@@ -33,6 +33,9 @@ in
       # Block Avahi Multicast DNS on ZeroTier
       iifname "zt*" udp sport 5353 reject
       iifname "zt*" udp dport 5353 reject
+
+      # Block IPv6 from Quantum Fiber
+      iifname "eth1" meta nfproto ipv6 drop
     }
 
     chain FILTER_FORWARD {
@@ -73,6 +76,9 @@ in
       # Block Avahi Multicast DNS on ZeroTier
       oifname "zt*" udp sport 5353 reject
       oifname "zt*" udp dport 5353 reject
+
+      # Block IPv6 from Quantum Fiber
+      oifname "eth1" meta nfproto ipv6 drop
     }
 
     chain NAT_PREROUTING {
