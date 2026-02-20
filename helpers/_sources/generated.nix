@@ -98,6 +98,18 @@
     };
     date = "2026-02-15";
   };
+  ohmyzsh-tirith = {
+    pname = "ohmyzsh-tirith";
+    version = "b7328455c46f8a5d3890faab4810c6ab0be8bc64";
+    src = fetchFromGitHub {
+      owner = "sheeki03";
+      repo = "ohmyzsh-tirith";
+      rev = "b7328455c46f8a5d3890faab4810c6ab0be8bc64";
+      fetchSubmodules = false;
+      sha256 = "sha256-aN2ILfpNvWq/meFBxX9Bvi5fJAtbwf57CNrozZGslsk=";
+    };
+    date = "2026-02-03";
+  };
   open5gs = {
     pname = "open5gs";
     version = "v2.7.6";

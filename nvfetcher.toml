@@ -33,6 +33,10 @@ src.git = "https://github.com/wis/mpvSockets.git"
 fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/keylase/nvidia-patch.git"
 
+[ohmyzsh-tirith]
+fetch.github = "sheeki03/ohmyzsh-tirith"
+src.git = "https://github.com/sheeki03/ohmyzsh-tirith.git"
+
 [open5gs]
 fetch.github = "open5gs/open5gs"
 src.github = "open5gs/open5gs"

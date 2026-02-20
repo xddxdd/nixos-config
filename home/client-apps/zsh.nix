@@ -2,9 +2,12 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 {
+  home.packages = [ pkgs.tirith ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -34,11 +37,14 @@
       enable = true;
       custom = builtins.toString (
         pkgs.linkFarm "oh-my-zsh-custom" {
-          "themes/powerlevel10k.zsh-theme" =
-            "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          # keep-sorted start block=yes
           "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
           "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+          "plugins/tirith" = "${LT.sources.ohmyzsh-tirith.src}";
           "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+          "themes/powerlevel10k.zsh-theme" =
+            "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          # keep-sorted end
         }
       );
       extraConfig = ''
@@ -48,6 +54,7 @@
         export FZF_BASE=${pkgs.fzf}
       '';
       plugins = [
+        # keep-sorted start
         "bd"
         "fzf"
         "gitignore"
@@ -55,8 +62,10 @@
         "nix-shell"
         "pip"
         "screen"
+        "tirith"
         "you-should-use"
         "z"
+        # keep-sorted end
       ];
       theme = "powerlevel10k";
     };
