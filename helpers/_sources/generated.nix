@@ -8,17 +8,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a";
+    version = "f5e115754ad735568a01ba3ff6e2007c26938205";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a";
+      rev = "f5e115754ad735568a01ba3ff6e2007c26938205";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-aXcxgn2mhhT75ws7BgTLizjiLqDy00oX9hcdKUoffz4=";
+      sha256 = "sha256-S3V/bN/8aMY3tyk9OHiQKNRyAQBp8WMNPQ7VLnL90Ps=";
     };
-    date = "2026-01-30";
+    date = "2026-02-13";
   };
   firefox-translations-models = {
     pname = "firefox-translations-models";
@@ -42,25 +42,25 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.7.0";
+    version = "3.7.1";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.0/yesoreyeram-infinity-datasource-3.7.0.zip";
-      sha256 = "sha256-GHA4kHqzfa8bdldL/Bk+7oBa3lIraLz9dqwOJ1LsRlE=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.1/yesoreyeram-infinity-datasource-3.7.1.zip";
+      sha256 = "sha256-S4exvjgRZeGiR6ubKE413AjF88jKgOUxqCnhoXJTmXo=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "0d63d776c1b843bd5846c9068cfc12a1be62a879";
+    version = "bde7247918e6538907357979255bd0b35c04a36c";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "0d63d776c1b843bd5846c9068cfc12a1be62a879";
+      rev = "bde7247918e6538907357979255bd0b35c04a36c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-/60RFl9TCJqy/8I6S9Yn/QimDtkpDCIuJ6bfL/MAmGs=";
+      sha256 = "sha256-auulHGNb3V7bBSH4tdTTM9PjDsBc1FtZGYime8oIrs0=";
     };
-    date = "2026-01-30";
+    date = "2026-02-14";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
@@ -88,15 +88,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2";
+    version = "0e3f16a6b60674fd801076dfdd304e6f8800e9f5";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2";
+      rev = "0e3f16a6b60674fd801076dfdd304e6f8800e9f5";
       fetchSubmodules = false;
-      sha256 = "sha256-UeCF9IZuktu6d5f6yfAUnAKlkPwH8tec7z5ZxwThs88=";
+      sha256 = "sha256-exdA2PcnEGJh/W4mHznskHwLpyOKAx/Gp7OTcP4ojTg=";
     };
-    date = "2026-01-31";
+    date = "2026-02-15";
   };
   open5gs = {
     pname = "open5gs";

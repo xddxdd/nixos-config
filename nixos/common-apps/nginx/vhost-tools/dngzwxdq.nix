@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     for FILE in $(find $out/ -name \*.html -or -name \*.htm -or -name \*.css -or -name \*.js); do
       echo "$FILE"
       # Convert charset
-      iconv -c -f gbk -t utf-8 "$FILE" > tmp
+      iconv -c -f gbk -t utf-8 "$FILE" > tmp || cp "$FILE" tmp
       mv tmp "$FILE"
       sed -i "s#http://www.163164.com/js/pc3.js##g" "$FILE"
     done

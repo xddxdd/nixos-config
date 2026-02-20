@@ -6,10 +6,18 @@
 }:
 let
   tools = {
-    cyberchef = (LT.nginx.compressStaticAssets pkgs.cyberchef) + "/share/cyberchef";
-    # FIXME: iconv broken?
-    # dngzwxdq = LT.nginx.compressStaticAssets (pkgs.callPackage ./dngzwxdq.nix { });
-    # dnyjzsxj = LT.nginx.compressStaticAssets (pkgs.callPackage ./dnyjzsxj.nix { });
+    cyberchef =
+      (LT.nginx.compressStaticAssets (
+        pkgs.cyberchef.overrideAttrs (old: {
+          postFixup = ''
+            find $out/ -name \*.gz -delete
+            find $out/ -name \*.br -delete
+          '';
+        })
+      ))
+      + "/share/cyberchef";
+    dngzwxdq = LT.nginx.compressStaticAssets (pkgs.callPackage ./dngzwxdq.nix { });
+    dnyjzsxj = LT.nginx.compressStaticAssets (pkgs.callPackage ./dnyjzsxj.nix { });
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix { };
   };
 in

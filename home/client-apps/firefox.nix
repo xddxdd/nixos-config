@@ -37,6 +37,7 @@ let
           plasma-integration
           protondb-for-steam
           pt-depiler
+          redirector
           return-youtube-dislikes
           rsshub-radar
           sponsorblock

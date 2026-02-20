@@ -144,9 +144,15 @@ let
           nvidia_x11_grid_16_12 = pkgs.nur-xddxdd.nvidia-grid.grid."16_12".override {
             inherit (final) kernel;
           };
-          nvidia_x11_vgpu_16_12 = pkgs.nur-xddxdd.nvidia-grid.vgpu."16_12".override {
-            inherit (final) kernel;
-          };
+          nvidia_x11_vgpu_16_12 =
+            (pkgs.nur-xddxdd.nvidia-grid.vgpu."16_12".override {
+              inherit (final) kernel;
+            }).overrideAttrs
+              (old: {
+                patches = (old.patches or [ ]) ++ [
+                  ../../patches/nvidia-vgpu-6_18.patch
+                ];
+              });
         }
       ))
       [
@@ -177,7 +183,7 @@ in
       kernelPackages = myKernelPackageFor config.lantian.kernel;
       kernelModules = [
         "cryptodev"
-        "nullfs"
+        "nullfsvfs"
         # Temporarily disabled for build failure
         # "nft_fullcone"
         # "ovpn-dco"
@@ -193,7 +199,7 @@ in
 
       bcache.enable = false;
       initrd = {
-        kernelModules = [ "nullfs" ];
+        kernelModules = [ "nullfsvfs" ];
 
         compressor = "zstd";
         compressorArgs = [
@@ -241,8 +247,8 @@ in
       lib.optionals pkgs.stdenv.isx86_64 [ turbostat ];
 
     fileSystems."/run/nullfs" = {
-      device = "nullfs";
-      fsType = "nullfs";
+      device = "nullfsvfs";
+      fsType = "nullfsvfs";
       options = [
         "noatime"
         "mode=777"

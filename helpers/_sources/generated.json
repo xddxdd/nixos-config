@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2026-01-30",
+        "date": "2026-02-13",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a",
-            "sha256": "sha256-aXcxgn2mhhT75ws7BgTLizjiLqDy00oX9hcdKUoffz4=",
+            "rev": "f5e115754ad735568a01ba3ff6e2007c26938205",
+            "sha256": "sha256-S3V/bN/8aMY3tyk9OHiQKNRyAQBp8WMNPQ7VLnL90Ps=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "7e498a3c39e4d1ebf61b74f6e040a5a078ee951a"
+        "version": "f5e115754ad735568a01ba3ff6e2007c26938205"
     },
     "firefox-translations-models": {
         "cargoLock": null,
@@ -64,15 +64,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GHA4kHqzfa8bdldL/Bk+7oBa3lIraLz9dqwOJ1LsRlE=",
+            "sha256": "sha256-S4exvjgRZeGiR6ubKE413AjF88jKgOUxqCnhoXJTmXo=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.0/yesoreyeram-infinity-datasource-3.7.0.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.1/yesoreyeram-infinity-datasource-3.7.1.zip"
         },
-        "version": "3.7.0"
+        "version": "3.7.1"
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-01-30",
+        "date": "2026-02-14",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,13 +82,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0d63d776c1b843bd5846c9068cfc12a1be62a879",
-            "sha256": "sha256-/60RFl9TCJqy/8I6S9Yn/QimDtkpDCIuJ6bfL/MAmGs=",
+            "rev": "bde7247918e6538907357979255bd0b35c04a36c",
+            "sha256": "sha256-auulHGNb3V7bBSH4tdTTM9PjDsBc1FtZGYime8oIrs0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "0d63d776c1b843bd5846c9068cfc12a1be62a879"
+        "version": "bde7247918e6538907357979255bd0b35c04a36c"
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
@@ -134,7 +134,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-01-31",
+        "date": "2026-02-15",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -146,12 +146,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2",
-            "sha256": "sha256-UeCF9IZuktu6d5f6yfAUnAKlkPwH8tec7z5ZxwThs88=",
+            "rev": "0e3f16a6b60674fd801076dfdd304e6f8800e9f5",
+            "sha256": "sha256-exdA2PcnEGJh/W4mHznskHwLpyOKAx/Gp7OTcP4ojTg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "23c3b8b3d35ae3cd5acdbc42aeb6986472ad28e2"
+        "version": "0e3f16a6b60674fd801076dfdd304e6f8800e9f5"
     },
     "open5gs": {
         "cargoLock": null,

@@ -116,10 +116,9 @@
     };
     preservation.url = "github:WilliButz/preservation/286737ba485f30c1687c833e66f5901a6c8dc019";
     proxmox-nixos = {
-      url = "github:xddxdd/proxmox-nixos";
+      url = "github:SaumonNet/proxmox-nixos";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";

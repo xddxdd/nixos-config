@@ -1,0 +1,44 @@
+diff --git a/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c b/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
+index ccf35f4..b0a6ebb 100644
+--- a/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
++++ b/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
+@@ -3256,7 +3256,7 @@ static int vgpu_msix_set_vector_signal(vgpu_dev_t *vgpu_dev,
+ #endif
+         eventfd_ctx_put(vgpu_dev->intr_info.msix[vector].trigger);
+         vgpu_dev->intr_info.msix[vector].trigger = NULL;
+-        vgpu_dev->intr_info.msix[vector].producer.token = NULL;
++        vgpu_dev->intr_info.msix[vector].producer.eventfd = NULL;
+         free_irq(vgpu_dev->intr_info.msix[vector].allocated_irq, vgpu_dev);
+         vgpu_dev->intr_info.msix[vector].allocated_irq = INVALID_IRQ;
+     }
+@@ -3280,18 +3280,18 @@ static int vgpu_msix_set_vector_signal(vgpu_dev_t *vgpu_dev,
+     vgpu_dev->intr_info.msix[vector].allocated_irq = irq;
+     vgpu_dev->intr_info.msix[vector].trigger = trigger;
+ 
+-    vgpu_dev->intr_info.msix[vector].producer.token = trigger;
++    vgpu_dev->intr_info.msix[vector].producer.eventfd = trigger;
+     vgpu_dev->intr_info.msix[vector].producer.irq = irq;
+ 
+ #if defined(NV_ENABLE_APICV_PRESENT)
+     if (enable_apicv == NV_TRUE)
+     {
+-        ret = irq_bypass_register_producer(&vgpu_dev->intr_info.msix[vector].producer);
++        ret = irq_bypass_register_producer(&vgpu_dev->intr_info.msix[vector].producer, trigger, irq);
+         if (ret)
+         {
+             NV_VGPU_DEV_LOG(VGPU_INFO, vgpu_dev,
+                             "Failed to register producer irq token %d\n", ret);
+-            vgpu_dev->intr_info.msix[vector].producer.token = NULL;
++            vgpu_dev->intr_info.msix[vector].producer.eventfd = NULL;
+         }
+     }
+ #endif
+@@ -3320,7 +3320,7 @@ static void vgpu_msix_disable(vgpu_dev_t *vgpu_dev)
+ #endif
+                 eventfd_ctx_put(vgpu_dev->intr_info.msix[i].trigger);
+                 vgpu_dev->intr_info.msix[i].trigger = NULL;
+-                vgpu_dev->intr_info.msix[i].producer.token = NULL;
++                vgpu_dev->intr_info.msix[i].producer.eventfd = NULL;
+                 free_irq(vgpu_dev->intr_info.msix[i].allocated_irq, vgpu_dev);
+                 vgpu_dev->intr_info.msix[i].allocated_irq = INVALID_IRQ;
+             }

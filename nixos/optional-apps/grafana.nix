@@ -75,6 +75,10 @@ in
         socket = "/run/grafana/grafana.sock";
         socket_mode = "0777";
       };
+
+      # Previously hardcoded in nixpkgs
+      security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
+
       smtp = with config.programs.msmtp.accounts.default; {
         enabled = true;
         inherit host user;
