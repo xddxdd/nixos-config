@@ -164,9 +164,19 @@ if __name__ == "__main__":
             all_complete = all(b.finished for b in builds)
             pass_count = len([b for b in builds if b.successful])
             pass_rate = pass_count / len(builds)
-            logging.info(f"{all_complete=} {pass_rate=}")
 
-            if all_complete and pass_rate >= 0.75:
+            # Do not update release branch if any test NixOS config is failing
+            nixos_config_all_successful = all(
+                [
+                    b.successful
+                    for b in builds
+                    if b.job.startswith("nixosConfigurations.")
+                ]
+            )
+
+            logging.info(f"{all_complete=} {pass_rate=} {nixos_config_all_successful=}")
+
+            if all_complete and pass_rate >= 0.75 and nixos_config_all_successful:
                 git_set_branch_to_commit(
                     "https://github.com/xddxdd/nix-cachyos-kernel.git",
                     "release",
