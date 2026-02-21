@@ -80,6 +80,15 @@ in
         ];
       }
       (scrapeByAttr {
+        jobName = "nginx";
+        port = LT.port.HTTP;
+        attrPath = [
+          "services"
+          "nginx"
+          "enable"
+        ];
+      })
+      (scrapeByAttr {
         jobName = "bird";
         port = LT.port.Prometheus.BirdExporter;
         attrPath = [
