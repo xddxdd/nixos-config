@@ -52,7 +52,7 @@ in
     boot.extraModprobeConfig = ''
       softdep drm pre: vfio-pci
       softdep nvidia pre: vfio-pci
-      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep "," cfg.ids}
+      options vfio-pci disable_denylist=1 ids=${lib.concatStringsSep "," cfg.ids} ${lib.optionalString cfg.disableFramebuffer "disable_vga=1"}
     ''
     + (lib.concatMapStringsSep "\n" (n: ''
       blacklist ${n}
