@@ -68,7 +68,7 @@ let
       iconUrl = lookupModelIconUrl name;
     in
     ''
-      INSERT INTO model (id, user_id, base_model_id, "name", meta, params, created_at, updated_at, access_control, is_active)
+      INSERT INTO model (id, user_id, base_model_id, "name", meta, params, created_at, updated_at, is_active)
       VALUES (
         '${name}',
         '$ADMIN_ID',
@@ -78,7 +78,6 @@ let
         '{"function_calling": "native"}',
         $TIMESTAMP,
         $TIMESTAMP,
-        '{"read": {"group_ids": [], "user_ids": []}, "write": {"group_ids": [], "user_ids": []}}',
         TRUE
       );
     '';
