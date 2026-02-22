@@ -81,6 +81,10 @@
       pkgs.ipmitool
     ];
     script = ''
+      # Reinitialize 3090 to avoid passthrough issues
+      echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/remove
+      echo 1 > /sys/bus/pci/rescan
+
       nvidia-smi -pl 125
 
       # Set P40 GPU fan to 80%
