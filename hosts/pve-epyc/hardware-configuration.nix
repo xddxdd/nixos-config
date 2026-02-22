@@ -76,6 +76,7 @@
   systemd.services.nvidia-power-limit = {
     description = "Set Power Limit for NVIDIA GPUs";
     wantedBy = [ "multi-user.target" ];
+    before = [ "pve-guests.service" ];
     path = [
       config.hardware.nvidia.package
       pkgs.ipmitool
@@ -93,6 +94,7 @@
       ipmitool raw 0x3a 0x01 0x00 0x00 0x00 0x00 0x20 0x50 0x00 0x00
     '';
     serviceConfig.Type = "oneshot";
+    restartIfChanged = false;
   };
 
   lantian.vfio = {
