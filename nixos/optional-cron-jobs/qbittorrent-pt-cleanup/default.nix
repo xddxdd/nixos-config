@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 let
   py = pkgs.python3.withPackages (
     p: with p; [
@@ -21,7 +25,11 @@ in
     unitConfig = {
       OnFailure = "notify-email@%n.service";
     };
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "qbittorrent-pt.service"
+    ];
+    requires = [ "qbittorrent-pt.service" ];
   };
 
   systemd.timers.qbittorrent-pt-cleanup = {
