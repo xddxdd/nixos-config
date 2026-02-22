@@ -76,6 +76,7 @@
   "netherlands": [
     "tls://23.137.249.65:444",
     "tls://62.212.82.55:443?key=00000002a957313975d1fe53b9ac641b05b1a9c37da22d4ebcef45e7a5bd4c67",
+    "tls://[2001:1af8:4010:a06c:3::112]:443?key=00000002a957313975d1fe53b9ac641b05b1a9c37da22d4ebcef45e7a5bd4c67",
     "tls://cirno.nadeko.net:44442",
     "tls://vpn.itrus.su:7992"
   ],
