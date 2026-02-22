@@ -83,7 +83,7 @@ in
   hardware.graphics.extraPackages = [ nvidia_x11.out ];
   hardware.graphics.extraPackages32 = [ nvidia_x11.lib32 ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = true;
 
   # systemd.packages = [ nvidia_x11.out ];
 

@@ -38,7 +38,7 @@ in
   hardware.nvidia.powerManagement.enable = true;
   hardware.nvidia.powerManagement.finegrained = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = true;
 
   # nvidia-settings doesn't work with clang lto
   hardware.nvidia.nvidiaSettings = false;

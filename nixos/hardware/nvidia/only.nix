@@ -5,7 +5,7 @@
   hardware.nvidia.powerManagement.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = true;
   hardware.nvidia.videoAcceleration = true;
 
   # nvidia-settings doesn't work with clang lto

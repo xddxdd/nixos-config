@@ -20,7 +20,7 @@ in
   };
 
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_12;
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = lib.mkForce false;
 
   systemd.services."nvidia-gridd" = netns.bind {
     description = "NVIDIA Grid Daemon";

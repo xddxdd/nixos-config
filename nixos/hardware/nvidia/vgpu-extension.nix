@@ -9,7 +9,7 @@ let
 in
 {
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_vgpu_16_12;
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = lib.mkForce false;
 
   boot.kernelModules = [
     "nvidia"
