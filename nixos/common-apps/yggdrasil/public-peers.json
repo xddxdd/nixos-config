@@ -126,9 +126,6 @@
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
-  "taiwan": [
-    "tls://ygg-tw.lxak.net:8880"
-  ],
   "ukraine": [
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:179",
