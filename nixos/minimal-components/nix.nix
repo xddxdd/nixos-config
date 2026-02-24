@@ -108,7 +108,7 @@ in
       # max-jobs = "auto";
       # lazy-trees = true;
 
-      substituters = lib.mkForce [ "http://127.0.0.1:${LT.portStr.NixCacheProxy}" ];
+      substituters = [ "https://cache.nixos.org" ] ++ config.nix.settings.trusted-substituters;
       trusted-substituters = LT.constants.nix.substituters;
       inherit (LT.constants.nix) trusted-public-keys;
     };
