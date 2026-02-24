@@ -39,7 +39,7 @@ in
     exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
   '';
   environment.etc."hydra/machines".text = ''
-    localhost ${platforms} - ${builtins.toString LT.this.cpuThreads} 1 kvm,nixos-test,big-parallel,benchmark - -
+    localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
   '';
 
   services.hydra = {

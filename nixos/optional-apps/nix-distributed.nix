@@ -23,8 +23,21 @@ let
           speedFactor = v.cpuThreads;
           sshKey = "/home/lantian/.ssh/id_ed25519";
           sshUser = "root";
-          supportedFeatures = [ "big-parallel" ];
+          supportedFeatures = [ ];
           mandatoryFeatures = [ ];
+        }
+      ]
+      ++ lib.optionals (v.cpuThreads >= 8) [
+        {
+          inherit (v) system;
+          hostName = "${n}.lantian.pub";
+          maxJobs = 1;
+          protocol = "ssh-ng";
+          speedFactor = v.cpuThreads;
+          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshUser = "root";
+          supportedFeatures = [ "big-parallel" ];
+          mandatoryFeatures = [ "big-parallel" ];
         }
       ];
 

@@ -86,18 +86,6 @@
     };
     date = "2024-02-13";
   };
-  nix-ubw = {
-    pname = "nix-ubw";
-    version = "d0a5e79d82bc4aadf1c48b1c9070178489d5a00a";
-    src = fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "nix-ubw";
-      rev = "d0a5e79d82bc4aadf1c48b1c9070178489d5a00a";
-      fetchSubmodules = false;
-      sha256 = "sha256-GlZeJ/XKscWGGRT6s6tKoXvsP9H3sGiNlQ41PCAyfgU=";
-    };
-    date = "2026-02-23";
-  };
   nvidia-patch = {
     pname = "nvidia-patch";
     version = "0e3f16a6b60674fd801076dfdd304e6f8800e9f5";

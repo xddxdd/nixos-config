@@ -132,27 +132,6 @@
         },
         "version": "3b3f430074a67c63572a582847ed1fa69330c668"
     },
-    "nix-ubw": {
-        "cargoLock": null,
-        "date": "2026-02-23",
-        "extract": null,
-        "name": "nix-ubw",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "xddxdd",
-            "repo": "nix-ubw",
-            "rev": "d0a5e79d82bc4aadf1c48b1c9070178489d5a00a",
-            "sha256": "sha256-GlZeJ/XKscWGGRT6s6tKoXvsP9H3sGiNlQ41PCAyfgU=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "d0a5e79d82bc4aadf1c48b1c9070178489d5a00a"
-    },
     "nvidia-patch": {
         "cargoLock": null,
         "date": "2026-02-15",
