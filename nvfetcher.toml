@@ -29,10 +29,6 @@ src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "wis/mpvSockets"
 src.git = "https://github.com/wis/mpvSockets.git"
 
-[nix-ubw]
-fetch.github = "xddxdd/nix-ubw"
-src.git = "git@github.com:xddxdd/nix-ubw.git"
-
 [nvidia-patch]
 fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/keylase/nvidia-patch.git"
