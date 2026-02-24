@@ -21,7 +21,7 @@ in
     };
     intlAction = lib.mkOption {
       type = lib.types.str;
-      default = "direct";
+      default = "must_direct";
     };
   };
 
@@ -96,18 +96,18 @@ in
           pname(v2ray) -> must_direct
           pname(xray) -> must_direct
           pname(zerotier-one) -> must_direct
-          dip(224.0.0.0/3, 'ff00::/8') -> direct
+          dip(224.0.0.0/3, 'ff00::/8') -> must_direct
 
           # Unblock CN
           pname(qqmusic) -> ${cfg.cnAction}
 
           domain(geosite:category-ads) -> block
           domain(geosite:category-ads-all) -> block
-          domain(geosite:private) -> direct
-          domain(geosite:cn) -> direct
-          domain(geosite:category-games@cn) -> direct
-          dip(geoip:private) -> direct
-          dip(geoip:cn) -> direct
+          domain(geosite:private) -> must_direct
+          domain(geosite:cn) -> must_direct
+          domain(geosite:category-games@cn) -> must_direct
+          dip(geoip:private) -> must_direct
+          dip(geoip:cn) -> must_direct
 
           # V2Ray also handles direct connections
 
