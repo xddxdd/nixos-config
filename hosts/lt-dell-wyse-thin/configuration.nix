@@ -15,6 +15,8 @@
     ../../nixos/client-components/networking.nix
     ../../nixos/client-components/pipewire
     ../../nixos/client-components/tlp.nix
+
+    ../../nixos/optional-apps/ncps-client.nix
   ];
 
   lantian.hidpi = 1.5;

@@ -93,6 +93,7 @@ rec {
     HomepageDashboard = 13812;
     Syncthing = 13834;
     Usque = 13840;
+    Ncps = 13851;
     IyuuPlus = 13878;
     LlamaCpp.Qwen3Reranker = 13880;
     ElasticSearch = 13892;

@@ -4,6 +4,8 @@
     ../../nixos/minimal.nix
 
     ../../nixos/optional-apps/lancache.nix
+    ../../nixos/optional-apps/ncps.nix
+    ../../nixos/optional-apps/ncps-client.nix
 
     ./hardware-configuration.nix
   ];
@@ -14,6 +16,11 @@
     LANCACHE_IP = "192.168.0.4";
     DNS_BIND_IP = "192.168.0.4";
     CACHE_ROOT = "/mnt/unreliable-cache/lancache";
+  };
+
+  services.ncps.cache = {
+    dataPath = "/mnt/unreliable-cache/ncps";
+    tempPath = "/mnt/unreliable-cache/ncps-tmp";
   };
 
   systemd.network.networks.eth0 = {

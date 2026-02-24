@@ -10,6 +10,7 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix

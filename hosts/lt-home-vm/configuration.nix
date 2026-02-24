@@ -28,6 +28,7 @@
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
     # ../../nixos/optional-apps/mtranserver.nix
+    ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
