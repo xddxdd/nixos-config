@@ -34,6 +34,16 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
             cache
           }
         '';
+        forwardToLancache = zone: ''
+          ${zone} {
+            any
+            bufsize 1232
+            loadbalance round_robin
+            prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+
+            forward . 192.168.0.4
+          }
+        '';
         forwardToResolvConf = zone: ''
           ${zone} {
             any
@@ -67,7 +77,12 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
         '';
 
         defaultForwarder =
-          if config.networking.networkmanager.enable then forwardToResolvConf else forwardToGoogleDNS;
+          if config.networking.hostName == "lt-home-router" then
+            forwardToLancache
+          else if config.networking.networkmanager.enable then
+            forwardToResolvConf
+          else
+            forwardToGoogleDNS;
 
         cfgEntries = [
           (defaultForwarder ".")
