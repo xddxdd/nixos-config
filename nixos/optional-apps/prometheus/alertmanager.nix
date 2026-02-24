@@ -150,7 +150,7 @@ in
                 {
                   alert = "sonarr_system_health_issues";
                   expr = ''sonarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "30m";
+                  for = "1h";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
@@ -160,7 +160,7 @@ in
                 {
                   alert = "radarr_system_health_issues";
                   expr = ''radarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "30m";
+                  for = "1h";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
@@ -170,7 +170,7 @@ in
                 {
                   alert = "prowlarr_system_health_issues";
                   expr = ''prowlarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "30m";
+                  for = "1h";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
@@ -180,7 +180,7 @@ in
                 {
                   alert = "bazarr_system_health_issues";
                   expr = ''bazarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "30m";
+                  for = "1h";
                   labels.severity = "warning";
                   annotations = {
                     summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
