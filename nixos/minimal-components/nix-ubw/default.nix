@@ -21,6 +21,8 @@ lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
 
       AmbientCapabilities = [ "CAP_SYS_PTRACE" ];
       CapabilityBoundingSet = [ "CAP_SYS_PTRACE" ];
+      Nice = "-20";
+      ProcSubset = "all";
       ProtectProc = "ptraceable";
       SystemCallFilter = [ ];
     };
