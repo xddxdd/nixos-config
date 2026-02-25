@@ -27,6 +27,15 @@ _: {
       };
       vlanConfig.Id = 5;
     };
+
+    # VLAN for WAN
+    "eth1.201" = {
+      netdevConfig = {
+        Kind = "vlan";
+        Name = "eth1.201";
+      };
+      vlanConfig.Id = 201;
+    };
   };
 
   systemd.network.networks = {
@@ -110,7 +119,11 @@ _: {
     # WAN interface
     eth1 = {
       matchConfig.Name = "eth1";
-      address = [ "192.168.255.2/24" ];
+      networkConfig.VLAN = [ "eth1.201" ];
+    };
+
+    "eth1.201" = {
+      matchConfig.Name = "eth1.201";
       networkConfig = {
         DHCP = "yes";
         IPv6AcceptRA = "no";
@@ -141,6 +154,6 @@ _: {
       "2001:470:e997::1/48"
     ];
     gateway = "2001:470:a:3af::1";
-    attachToInterface = "eth1";
+    attachToInterface = "eth1.201";
   };
 }

@@ -16,7 +16,7 @@
   ];
 
   services.miniupnpd = {
-    externalInterface = "eth1";
+    externalInterface = "eth1.201";
     internalIPs = [
       "eth0"
       "eth0.1"
