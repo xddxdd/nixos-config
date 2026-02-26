@@ -2,6 +2,7 @@
   LT,
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -25,6 +26,7 @@
   systemd.services.ollama.serviceConfig = {
     Restart = "always";
     RestartSec = 5;
+    DynamicUser = lib.mkForce false;
   };
 
   lantian.nginxVhosts = {
