@@ -35,7 +35,7 @@ in
       iifname "zt*" udp dport 5353 reject
 
       # Block IPv6 from Quantum Fiber
-      iifname "eth1" meta nfproto ipv6 drop
+      iifname "eth1*" meta nfproto ipv6 drop
     }
 
     chain FILTER_FORWARD {
@@ -54,7 +54,7 @@ in
       iifname "eth0*" oifname "eth0*" jump VLAN_ISOLATE
 
       # Block forwarding from public interface
-      iifname eth1 drop
+      iifname "eth1*" drop
     }
 
     chain VLAN_ISOLATE {
@@ -81,7 +81,7 @@ in
       oifname "zt*" udp dport 5353 reject
 
       # Block IPv6 from Quantum Fiber
-      oifname "eth1" meta nfproto ipv6 drop
+      oifname "eth1*" meta nfproto ipv6 drop
     }
 
     chain NAT_PREROUTING {
@@ -98,15 +98,15 @@ in
       fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip6 to [${config.lantian.netns.coredns-client.ipv6}]:${LT.portStr.DNS}
 
       # Redirect to lt-home-vm
-      fib daddr type local tcp dport 31010-31019 iifname "eth1" dnat ip to 192.168.1.10
-      fib daddr type local udp dport 31010-31019 iifname "eth1" dnat ip to 192.168.1.10
-      fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1" dnat ip to 192.168.1.10
-      fib daddr type local udp dport 22547 iifname "eth1" dnat ip to 192.168.1.10
+      fib daddr type local tcp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
+      fib daddr type local udp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
+      fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1*" dnat ip to 192.168.1.10
+      fib daddr type local udp dport 22547 iifname "eth1*" dnat ip to 192.168.1.10
       # Hairpin NAT
       fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
 
       # Redirect to lt-home-builder
-      fib daddr type local tcp dport 2223 iifname "eth1" dnat ip to 192.168.1.12:2222
+      fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.1.12:2222
     }
 
     chain NAT_INPUT {
