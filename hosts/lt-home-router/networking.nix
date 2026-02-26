@@ -110,7 +110,6 @@ _: {
     # WAN interface
     eth1 = {
       matchConfig.Name = "eth1";
-      address = [ "192.168.255.2/24" ];
       networkConfig = {
         DHCP = "yes";
         IPv6AcceptRA = "no";
