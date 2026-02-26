@@ -60,4 +60,7 @@
     user = "lantian";
     group = "users";
   };
+  systemd.services.prometheus-exportarr-prowlarr-exporter.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+  };
 }

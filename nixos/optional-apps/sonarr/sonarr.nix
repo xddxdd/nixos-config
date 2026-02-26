@@ -1,4 +1,9 @@
-{ LT, config, ... }:
+{
+  LT,
+  config,
+  lib,
+  ...
+}:
 {
   services.sonarr = {
     enable = true;
@@ -57,5 +62,8 @@
       CONFIG = "/var/lib/sonarr/config.xml";
     };
     inherit (config.services.sonarr) user group;
+  };
+  systemd.services.prometheus-exportarr-sonarr-exporter.serviceConfig = {
+    DynamicUser = lib.mkForce false;
   };
 }

@@ -1,4 +1,4 @@
-{ LT, config, ... }:
+{ LT, config, lib, ... }:
 {
   services.radarr = {
     enable = true;
@@ -57,5 +57,8 @@
       CONFIG = "/var/lib/radarr/config.xml";
     };
     inherit (config.services.radarr) user group;
+  };
+  systemd.services.prometheus-exportarr-radarr-exporter.serviceConfig = {
+    DynamicUser = lib.mkForce false;
   };
 }

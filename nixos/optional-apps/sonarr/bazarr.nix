@@ -71,6 +71,7 @@
     serviceConfig = {
       RuntimeDirectory = "prometheus-exportarr-bazarr-exporter";
       RuntimeDirectoryMode = "0700";
+      DynamicUser = lib.mkForce false;
     };
   };
 }
