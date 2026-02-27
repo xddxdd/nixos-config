@@ -47,7 +47,7 @@
       enableCommonLocationOptions = false;
       enableCommonVhostOptions = false;
 
-      root = "/nix/persistent/sync-servers/ltnet-registry/dn42/data";
+      root = "/nix/sync-servers/ltnet-registry/dn42/data";
       locations = {
         "/".extraConfig = ''
           set_by_lua $uri_upper "return ngx.var.uri:upper()";

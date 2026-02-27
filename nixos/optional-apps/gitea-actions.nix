@@ -33,7 +33,7 @@
       container = {
         network = "bridge";
         docker_host = "-";
-        valid_volumes = [ "/nix/persistent/sync-servers" ];
+        valid_volumes = [ "/nix/sync-servers" ];
       };
     };
   };

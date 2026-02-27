@@ -34,7 +34,7 @@ in
   '';
 
   fileSystems."/run/rsync-ci" = {
-    device = "/nix/persistent/sync-servers";
+    device = "/nix/sync-servers";
     fsType = "fuse.bindfs";
     options = LT.constants.bindfsMountOptions' [
       "force-user=ci"

@@ -24,7 +24,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
         (lib.getExe pkgs.stayrtr)
         "--bind 127.0.0.1:${LT.portStr.StayRTR.RPKI}"
         "--metrics.addr 127.0.0.1:${LT.portStr.StayRTR.Metrics.RPKI}"
-        "--cache /nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf"
+        "--cache /nix/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf"
         "--rtr.expire 86400"
         "--rtr.refresh 60"
         "--rtr.retry 60"

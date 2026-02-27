@@ -89,10 +89,10 @@ in
   systemd.tmpfiles.settings = {
     nginx-lab = {
       "${labRoot}/hobby-net"."L+" = {
-        argument = "/nix/persistent/sync-servers/ltnet-scripts";
+        argument = "/nix/sync-servers/ltnet-scripts";
       };
       "${labRoot}/testssl.html"."L+" = {
-        argument = "/nix/persistent/sync-servers/www/lab.lantian.pub/testssl.htm";
+        argument = "/nix/sync-servers/www/lab.lantian.pub/testssl.htm";
       };
     };
   };

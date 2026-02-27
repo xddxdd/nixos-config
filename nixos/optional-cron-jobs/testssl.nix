@@ -22,7 +22,7 @@ in
       lib.nameValuePair "testssl-${k}" {
         serviceConfig = LT.serviceHarden // {
           Type = "oneshot";
-          ReadWritePaths = [ "/nix/persistent/sync-servers/www/${k}" ];
+          ReadWritePaths = [ "/nix/sync-servers/www/${k}" ];
 
           # Fix ps error
           ProcSubset = "all";
@@ -36,8 +36,8 @@ in
             ${k} \
             > /dev/null \
             || true
-          rm -f "/nix/persistent/sync-servers/www/${k}/testssl.htm"
-          cat "/tmp/testssl.${k}.htm" > "/nix/persistent/sync-servers/www/${k}/testssl.htm"
+          rm -f "/nix/sync-servers/www/${k}/testssl.htm"
+          cat "/tmp/testssl.${k}.htm" > "/nix/sync-servers/www/${k}/testssl.htm"
         '';
       }
     ) targets
@@ -47,7 +47,7 @@ in
     builtins.map (
       k:
       lib.nameValuePair "testssl-${k}" {
-        "/nix/persistent/sync-servers/www/${k}".d = {
+        "/nix/sync-servers/www/${k}".d = {
           mode = "755";
           user = "root";
           group = "root";

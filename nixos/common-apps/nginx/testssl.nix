@@ -7,7 +7,7 @@ let
       prefix = lib.elemAt pair 1;
     in
     lib.nameValuePair "${name}.lantian.pub" {
-      root = "/nix/persistent/sync-servers/www/${name}.lantian.pub";
+      root = "/nix/sync-servers/www/${name}.lantian.pub";
       locations."/".index = "testssl.htm";
       sslCertificate = "${prefix}-${name}.lantian.pub";
       enableCommonLocationOptions = false;

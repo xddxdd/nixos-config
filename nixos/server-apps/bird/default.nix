@@ -77,22 +77,22 @@ in
 
   systemd.tmpfiles.settings = {
     bird-config = {
-      "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf"."f" = {
+      "/nix/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf"."f" = {
         mode = "644";
         user = "root";
         group = "root";
       };
-      "/nix/persistent/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf"."f" = {
+      "/nix/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa6.conf"."f" = {
         mode = "644";
         user = "root";
         group = "root";
       };
-      "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf"."f" = {
+      "/nix/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa4.conf"."f" = {
         mode = "644";
         user = "root";
         group = "root";
       };
-      "/nix/persistent/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf"."f" = {
+      "/nix/sync-servers/ltnet-scripts/bird/neonetwork/neonetwork_bird2_roa6.conf"."f" = {
         mode = "644";
         user = "root";
         group = "root";

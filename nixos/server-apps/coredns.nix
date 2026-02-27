@@ -25,7 +25,7 @@ let
         ${zone}:${LT.portStr.DNSLocal} {
           prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
           bind 127.0.0.1
-          file "/nix/persistent/sync-servers/${filename}.zone" {
+          file "/nix/sync-servers/${filename}.zone" {
             reload 30s
           }
         }
@@ -53,7 +53,7 @@ let
         loadbalance round_robin
         prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-        file "/nix/persistent/sync-servers/${filename}.zone" {
+        file "/nix/sync-servers/${filename}.zone" {
           reload 30s
         }
         ${dnssec dnssecKey}

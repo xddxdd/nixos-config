@@ -62,9 +62,9 @@ in
       cp /var/lib/dn42-certificate/rsa.key private.key
       openssl req -key private.key -new -out request.csr -config ${csr} -batch
       bash ${script} sign_csr lantian.dn42
-      install -Dm644 --owner=root private.key /nix/persistent/sync-servers/acme/dn42-lantian.dn42-rsa/key.pem
+      install -Dm644 --owner=root private.key /nix/sync-servers/acme/dn42-lantian.dn42-rsa/key.pem
       for F in cert.pem chain.pem fullchain.pem full.pem; do
-        install -Dm644 --owner=root signed.crt /nix/persistent/sync-servers/acme/dn42-lantian.dn42-rsa/$F
+        install -Dm644 --owner=root signed.crt /nix/sync-servers/acme/dn42-lantian.dn42-rsa/$F
       done
       rm -f private.key request.csr signed.crt
 
@@ -75,9 +75,9 @@ in
       cp /var/lib/dn42-certificate/ecc.key private.key
       openssl req -key private.key -new -out request.csr -config ${csr} -batch
       bash ${script} sign_csr lantian.dn42
-      install -Dm644 --owner=root private.key /nix/persistent/sync-servers/acme/dn42-lantian.dn42-ecc/key.pem
+      install -Dm644 --owner=root private.key /nix/sync-servers/acme/dn42-lantian.dn42-ecc/key.pem
       for F in cert.pem chain.pem fullchain.pem full.pem; do
-        install -Dm644 --owner=root signed.crt /nix/persistent/sync-servers/acme/dn42-lantian.dn42-ecc/$F
+        install -Dm644 --owner=root signed.crt /nix/sync-servers/acme/dn42-lantian.dn42-ecc/$F
       done
       rm -f private.key request.csr signed.crt
     '';
@@ -87,7 +87,7 @@ in
 
       AmbientCapabilities = [ "CAP_CHOWN" ];
       CapabilityBoundingSet = [ "CAP_CHOWN" ];
-      ReadWritePaths = [ "/nix/persistent/sync-servers/acme" ];
+      ReadWritePaths = [ "/nix/sync-servers/acme" ];
       SystemCallFilter = [ ];
 
       StateDirectory = "dn42-certificate";

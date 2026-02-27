@@ -82,7 +82,7 @@ let
         };
       };
 
-      root = "/nix/persistent/sync-servers/www/lantian.pub";
+      root = "/nix/sync-servers/www/lantian.pub";
 
       disableLiveCompression = true;
 
@@ -198,7 +198,7 @@ in
         default = true;
       };
 
-      root = "/nix/persistent/sync-servers/www/lantian.pub";
+      root = "/nix/sync-servers/www/lantian.pub";
       serverAliases = [
         "gopher.lantian.dn42"
         "gopher.lantian.neo"

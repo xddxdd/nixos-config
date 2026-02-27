@@ -32,7 +32,7 @@ in
       environmentFile = [ config.age.secrets.lego-env.path ];
       postRun = ''
         CERT=$(basename $(pwd))
-        install -Dm644 --owner=root -t /nix/persistent/sync-servers/acme/"$CERT" *
+        install -Dm644 --owner=root -t /nix/sync-servers/acme/"$CERT" *
       '';
     };
   };
