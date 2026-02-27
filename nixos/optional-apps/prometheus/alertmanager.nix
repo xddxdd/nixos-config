@@ -145,48 +145,6 @@ in
                     description = "Storage box {{$labels.name}} has <100G free space.";
                   };
                 }
-
-                # *arr stack
-                {
-                  alert = "sonarr_system_health_issues";
-                  expr = ''sonarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "1h";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
-                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
-                  };
-                }
-                {
-                  alert = "radarr_system_health_issues";
-                  expr = ''radarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "1h";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
-                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
-                  };
-                }
-                {
-                  alert = "prowlarr_system_health_issues";
-                  expr = ''prowlarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "1h";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
-                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
-                  };
-                }
-                {
-                  alert = "bazarr_system_health_issues";
-                  expr = ''bazarr_system_health_issues{source!="UpdateCheck"} > 0'';
-                  for = "1h";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: {{$labels.job}} on {{$labels.instance}} has alarms.";
-                    description = "{{$labels.job}} on {{$labels.instance}} has alarms.";
-                  };
-                }
               ];
             }
           ];
