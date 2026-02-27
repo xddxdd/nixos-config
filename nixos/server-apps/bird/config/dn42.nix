@@ -199,11 +199,13 @@ in
         next hop self yes;
         import keep filtered;
         extended next hop yes;
+        import limit 2000;
       };
       ipv6 {
         next hop self yes;
         import keep filtered;
         extended next hop yes;
+        import limit 2000;
       };
     };
   '';
