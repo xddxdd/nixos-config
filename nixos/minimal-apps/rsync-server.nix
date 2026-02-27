@@ -9,6 +9,16 @@ let
   primaryServer = "colocrossing";
 in
 {
+  systemd.tmpfiles.settings = {
+    sync-servers = {
+      "/nix/sync-servers".d = {
+        mode = "755";
+        user = "root";
+        group = "root";
+      };
+    };
+  };
+
   ########################################
   # Server
   ########################################
