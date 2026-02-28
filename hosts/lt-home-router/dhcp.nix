@@ -106,20 +106,20 @@ in
       valid-lifetime = 3600 * 12;
 
       subnet6 = [
-        # {
-        #   id = 1;
-        #   subnet = "2001:470:e997::/64";
-        #   interface = "eth0";
-        #   pools = [
-        #     { pool = "2001:470:e997::ff00 - 2001:470:e997::ffff"; }
-        #   ];
-        #   option-data = [
-        #     {
-        #       name = "dns-servers";
-        #       data = "2001:470:e997::1";
-        #     }
-        #   ];
-        # }
+        {
+          id = 1;
+          subnet = "2001:470:e997::/64";
+          interface = "eth0";
+          pools = [
+            { pool = "2001:470:e997::ff00 - 2001:470:e997::ffff"; }
+          ];
+          option-data = [
+            {
+              name = "dns-servers";
+              data = "2001:470:e997::1";
+            }
+          ];
+        }
         {
           id = 2;
           subnet = "2001:470:e997:1::/64";

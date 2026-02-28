@@ -64,14 +64,14 @@ _: {
           Gateway = "fc00:192:168::9";
         }
       ];
-      # networkConfig.IPv6SendRA = "yes";
-      # ipv6SendRAConfig = {
-      #   EmitDNS = true;
-      #   DNS = "2001:470:e997::1";
-      #   Managed = true;
-      #   OtherInformation = true;
-      # };
-      # ipv6Prefixes = [ { Prefix = "2001:470:e997::/64"; } ];
+      networkConfig.IPv6SendRA = "yes";
+      ipv6SendRAConfig = {
+        EmitDNS = true;
+        DNS = "2001:470:e997::1";
+        Managed = true;
+        OtherInformation = true;
+      };
+      ipv6Prefixes = [ { Prefix = "2001:470:e997::/64"; } ];
     };
 
     # VLAN interfaces with static IPs
