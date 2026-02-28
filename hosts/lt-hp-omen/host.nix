@@ -4,7 +4,6 @@
   tags = with tags; [
     client
     # cuda
-    ipv4-only
   ];
   cpuThreads = 16;
   city = geo.cities."US Seattle";
