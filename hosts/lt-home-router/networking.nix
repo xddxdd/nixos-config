@@ -195,4 +195,19 @@
     gateway = "2001:470:a:3af::1";
     attachToInterface = "eth1.201";
   };
+
+  services.networkd-dispatcher = {
+    enable = true;
+    rules.trigger-inadyn = {
+      onState = [ "routable" ];
+      script = ''
+        #!${pkgs.runtimeShell}
+        if [ "$IFACE" = "eth1" ]; then
+          echo "Restarting inadyn ..."
+          systemctl restart --no-block inadyn.service
+        fi
+        exit 0
+      '';
+    };
+  };
 }
