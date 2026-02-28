@@ -1,4 +1,5 @@
-_: {
+{ pkgs, lib, ... }:
+{
   # VLAN netdevs
   systemd.network.netdevs = {
     # VLAN for homelab hosts
@@ -35,6 +36,14 @@ _: {
         Name = "eth1.201";
       };
       vlanConfig.Id = 201;
+    };
+
+    # Bridge for WAN to access ONT WebUI
+    eth1-br = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "eth1-br";
+      };
     };
   };
 
@@ -119,7 +128,10 @@ _: {
     # WAN interface
     eth1 = {
       matchConfig.Name = "eth1";
-      networkConfig.VLAN = [ "eth1.201" ];
+      networkConfig = {
+        Bridge = [ "eth1-br" ];
+        VLAN = [ "eth1.201" ];
+      };
     };
 
     "eth1.201" = {
@@ -136,6 +148,9 @@ _: {
       };
     };
 
+    # WAN ONT WebUI access
+    eth1-br.matchConfig.Name = "eth1-br";
+
     # WAN IPv6 Tunnel
     henet.cakeConfig = {
       Bandwidth = "1G";
@@ -143,6 +158,30 @@ _: {
       NAT = true;
       PriorityQueueingPreset = "diffserv8";
     };
+  };
+
+  lantian.netns.ont-webui-proxy = {
+    ipSuffix = "254";
+    postStart = ''
+      ip link add link eth1-br name ont-macvlan type macvlan mode bridge
+      ip link set dev ont-macvlan netns ont-webui-proxy
+      ip netns exec ont-webui-proxy ip link set dev ont-macvlan up
+      ip netns exec ont-webui-proxy ip addr add 192.168.1.2/24 dev ont-macvlan
+
+      ip netns exec ont-webui-proxy ${lib.getExe pkgs.nftables} -f- <<EOF
+      table inet ont-webui-proxy {
+        chain prerouting {
+          type nat hook prerouting priority dstnat; policy accept;
+          fib daddr type local dnat ip to 192.168.1.1
+        }
+
+        chain postrouting {
+          type nat hook postrouting priority srcnat; policy accept;
+          oifname ont-macvlan masquerade
+        }
+      }
+      EOF
+    '';
   };
 
   networking.henet = {

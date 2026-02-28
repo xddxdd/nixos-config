@@ -34,6 +34,12 @@ let
           default = "${ltnet.IPv6Prefix}::${config.ipSuffix}";
         };
 
+        # Customization
+        postStart = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+        };
+
         # IP announcements
         announcedIPv4 = lib.mkOption {
           type = lib.types.listOf lib.types.str;
@@ -217,7 +223,8 @@ in
                 ${ipns} link set dummy0 up
                 ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv4}
                 ${lib.concatMapStringsSep "\n" (ip: "${ipns} addr add ${ip} dev dummy0") value.announcedIPv6}
-              '');
+              '')
+              + value.postStart;
 
               preStart = ''
                 # Ignore failures
