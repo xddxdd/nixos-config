@@ -110,9 +110,6 @@
   "singapore": [
     "tls://asia.deinfra.org:15015"
   ],
-  "slovakia": [
-    "tls://ygg-ke.8px.sk:4321"
-  ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
@@ -123,6 +120,7 @@
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
   "ukraine": [
+    "tls://176.117.187.69:64535",
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:179",
     "tls://78.27.153.163:33166",
