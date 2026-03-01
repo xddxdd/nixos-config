@@ -45,13 +45,13 @@ in
 
     [transport-ipv6-tcp](template-transport-common)
     protocol=tcp
-    bind=${LT.this.public.IPv6}:5060
+    bind=[${LT.this.public.IPv6}]:5060
     external_media_address=${LT.this.public.IPv6}
     external_signaling_address=${LT.this.public.IPv6}
 
     [transport-ipv6-tls](template-transport-common)
     protocol=tls
-    bind=${LT.this.public.IPv6}:5061
+    bind=[${LT.this.public.IPv6}]:5061
     ca_list_file=/etc/ssl/certs/ca-certificates.crt
     cert_file=${LT.nginx.getSSLCert "zerossl-lantian.pub-ecc"}
     priv_key_file=${LT.nginx.getSSLKey "zerossl-lantian.pub-ecc"}
@@ -64,7 +64,7 @@ in
     ; DN42
     [transport-ipv4-udp-dn42](template-transport-common)
     protocol=udp
-    bind=${LT.this.public.IPv4}:5060
+    bind=${LT.this.dn42.IPv4}:5060
     external_media_address=${LT.this.dn42.IPv4}
     external_signaling_address=${LT.this.dn42.IPv4}
 

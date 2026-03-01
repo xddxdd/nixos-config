@@ -24,5 +24,9 @@ in
     number: dialRule number [ "Dial(PJSIP/${number})" ]
   ) localNumbers;
 
+  destLocalMessage = lib.concatMapStringsSep "\n" (
+    number: dialRule number [ "MessageSend(pjsip:PJSIP/${number}@${number})" ]
+  ) localNumbers;
+
   destLocalDialPlan = lib.genAttrs localNumbers (n: "SIP user");
 }

@@ -35,4 +35,8 @@ in
   destPeers = lib.concatMapAttrsStringSep "\n" (
     k: v: dialRule "4240${k}." [ "Dial(PJSIP/\${EXTEN}@peer-${k})" ]
   ) peers;
+
+  destPeersMessage = lib.concatMapAttrsStringSep "\n" (
+    k: v: dialRule "4240${k}." [ "MessageSend(pjsip:PJSIP/\${EXTEN}@peer-${k})" ]
+  ) peers;
 }
