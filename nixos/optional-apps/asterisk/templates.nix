@@ -88,13 +88,8 @@ rec {
     context=src-local
     identify_by=username,auth_username
 
-    [template-endpoint-peer](!)
-    type=endpoint
+    [template-endpoint-peer](template-endpoint-common)
     context=src-peers
-    allow=${builtins.concatStringsSep "," codecs}
-    rtp_symmetric=no
-    force_rport=yes
-    rewrite_contact=yes
 
     [template-auth](!)
     type=auth
