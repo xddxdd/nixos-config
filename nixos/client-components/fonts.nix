@@ -11,7 +11,6 @@
       nerd-fonts.ubuntu
       nerd-fonts.ubuntu-mono
 
-      corefonts
       fira-code
       fira-code-symbols
       font-awesome
@@ -35,11 +34,16 @@
       source-serif-pro
       terminus_font_ttf
       ubuntu-classic
-      vista-fonts
-      vista-fonts-chs
-      vista-fonts-cht
       wqy_microhei
       wqy_zenhei
+
+      # https://github.com/brsvh/chinese-fonts-overlay
+      alibaba-fonts
+      foundertype-fonts
+      TH-fonts
+      tsangertype-fonts
+      trionestype-fonts
+      windows-fonts
     ];
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/

@@ -36,6 +36,10 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
+    chinese-fonts-overlay = {
+      url = "github:xddxdd/chinese-fonts-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.flake-compat.follows = "flake-compat";
