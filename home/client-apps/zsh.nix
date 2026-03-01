@@ -80,6 +80,7 @@
       fi
 
       alias nb="nix build -L"
+      alias nbl="nix build -L --builders \"\""
       function nlw { nix-locate -w "$@" | grep -v "^(" }
 
       # For Podman
