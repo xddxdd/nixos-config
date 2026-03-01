@@ -3,7 +3,8 @@
   index = 100;
   tags = with tags; [
     client
-    # cuda
+    cuda
+    nix-builder
   ];
   cpuThreads = 16;
   city = geo.cities."US Seattle";

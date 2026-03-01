@@ -62,6 +62,13 @@ in
             inherit permittedInsecurePackages overlays;
             settings = settings // {
               cudaSupport = true;
+              cudaCapabilities = [
+                "6.1" # GTX 10
+                "7.5" # RTX 20
+                "8.6" # RTX 30
+                "8.9" # RTX 40
+                "12.0" # RTX 50
+              ];
             };
           };
         };
