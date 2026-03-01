@@ -118,8 +118,6 @@ in
     };
   };
   programs.librewolf = lib.recursiveUpdate args {
-    # FIXME: disabled for heavy recompilation with CUDA
-    enable = false;
     package = pkgs.librewolf;
   };
 }
