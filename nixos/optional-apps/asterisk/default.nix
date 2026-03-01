@@ -6,6 +6,7 @@
   ...
 }@args:
 let
+  # keep-sorted start
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
@@ -13,8 +14,10 @@ let
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices destLocal;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
+  inherit (pkgs.callPackage ./peers.nix args) peers destPeers;
   inherit (pkgs.callPackage ./templates.nix args) templates;
   inherit (pkgs.callPackage ./transports.nix args) transports;
+  # keep-sorted end
 
   cfg = config.services.asterisk;
 
@@ -24,6 +27,14 @@ let
   varlibdir = "/var/lib/asterisk";
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
+
+  asterisk-cli = pkgs.runCommand "asterisk-cli" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+    mkdir -p $out/bin
+    makeWrapper ${lib.getExe config.services.asterisk.package} $out/bin/asterisk-cli \
+      --add-flag "-C" \
+      --add-flag "/etc/asterisk/asterisk.conf" \
+      --add-flag "-r"
+  '';
 in
 {
   imports = [
@@ -36,6 +47,8 @@ in
     owner = "asterisk";
     group = "asterisk";
   };
+
+  environment.systemPackages = [ asterisk-cli ];
 
   services.asterisk = {
     enable = true;
@@ -87,6 +100,9 @@ in
         ; Local devices
         ${localDevices}
 
+        ; Peers
+        ${peers}
+
         ; Include passwords
         #include ${config.age.secrets.asterisk-pw.path}
       '';
@@ -98,9 +114,16 @@ in
         ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
         ${dialRule "[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
+        [src-peers]
+        ; Allow inbound call and peering calls
+        ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+        ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
+        ${dialRule "4240." [ "Goto(dest-peers,\${EXTEN},1)" ]}
+
         [src-local]
         ${dialRule "733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
         ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+        ${dialRule "4240." [ "Goto(dest-peers,\${EXTEN},1)" ]}
         ${dialRule "XXX" [ "Dial(PJSIP/\${EXTEN}@telnyx)" ]}
         ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
         ${dialRule "777XXXXXXX" [ "Dial(PJSIP/1\${EXTEN}@callcentric)" ]}
@@ -160,6 +183,9 @@ in
           "Answer()"
           "Playback(im-sorry&check-number-dial-again)"
         ]}
+
+        [dest-peers]
+        ${destPeers}
 
         [dest-music]
         ${destMusic}

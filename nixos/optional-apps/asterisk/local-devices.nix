@@ -10,9 +10,9 @@ let
     "1004" # iPhone (Linphone)
   ];
 in
-rec {
+{
   localDevices = lib.concatMapStringsSep "\n" (number: ''
-    [${number}](template-endpoint-common,template-endpoint-local)
+    [${number}](template-endpoint-local)
     auth=${number}
     aors=${number}
     callerid=Lan Tian <${number}>

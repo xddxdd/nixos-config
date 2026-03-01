@@ -84,9 +84,17 @@ rec {
     t38_udptl_nat=yes
     fax_detect=no
 
-    [template-endpoint-local](!)
+    [template-endpoint-local](template-endpoint-common)
     context=src-local
     identify_by=username,auth_username
+
+    [template-endpoint-peer](!)
+    type=endpoint
+    context=src-peers
+    allow=${builtins.concatStringsSep "," codecs}
+    rtp_symmetric=no
+    force_rport=yes
+    rewrite_contact=yes
 
     [template-auth](!)
     type=auth
@@ -96,6 +104,5 @@ rec {
     type=aor
     max_contacts=1
     remove_existing=yes
-
   '';
 }
