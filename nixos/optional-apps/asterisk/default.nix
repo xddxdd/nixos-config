@@ -35,6 +35,7 @@ in
 {
   imports = [
     ./dialplan.nix
+    ./fax-monitor.nix
     ../fail2ban
   ];
 
