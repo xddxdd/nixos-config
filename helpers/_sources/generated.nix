@@ -62,6 +62,18 @@
     };
     date = "2026-02-14";
   };
+  lyrica-custom = {
+    pname = "lyrica-custom";
+    version = "fa4e3232b507edbf74deb1e456740bf4a7e1ad5a";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "lyrica";
+      rev = "fa4e3232b507edbf74deb1e456740bf4a7e1ad5a";
+      fetchSubmodules = false;
+      sha256 = "sha256-YEXLIGzQyLCEv3IFcUIf/U0tdG0dPvK44rRhUzXC/a4=";
+    };
+    date = "2026-03-02";
+  };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
     version = "405d4cc3c90c975b8d71a63d0413e79cf59b016e";

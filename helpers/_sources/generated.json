@@ -90,6 +90,27 @@
         },
         "version": "bde7247918e6538907357979255bd0b35c04a36c"
     },
+    "lyrica-custom": {
+        "cargoLock": null,
+        "date": "2026-03-02",
+        "extract": null,
+        "name": "lyrica-custom",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xddxdd",
+            "repo": "lyrica",
+            "rev": "fa4e3232b507edbf74deb1e456740bf4a7e1ad5a",
+            "sha256": "sha256-YEXLIGzQyLCEv3IFcUIf/U0tdG0dPvK44rRhUzXC/a4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fa4e3232b507edbf74deb1e456740bf4a7e1ad5a"
+    },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
         "date": "2026-01-04",

@@ -21,6 +21,10 @@ src.prefix = "v"
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
 src.git = "https://github.com/lobehub/lobe-icons.git"
 
+[lyrica-custom]
+fetch.github = "xddxdd/lyrica"
+src.git = "https://github.com/xddxdd/lyrica.git"
+
 [mihoyo-bbs-tools]
 fetch.github = "Womsxd/MihoyoBBSTools"
 src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
