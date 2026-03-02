@@ -92,6 +92,7 @@ rec {
     [template-endpoint-peer](template-endpoint-common)
     context=src-peers
     message_context=src-peers-message
+    allow=!all,ulaw,alaw,opus,evs
 
     [template-auth](!)
     type=auth
