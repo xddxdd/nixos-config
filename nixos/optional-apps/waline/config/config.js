@@ -14,8 +14,8 @@ Your task is to review the comments based on these criterias:
 1. The comment should not look like spam.
 2. The comment should not involve content that is not suitable for public display.
 3. The comment, including the nickname, should not include any political discussion.
-4. The comment should not be hostile towards any entity.
-5. The email should not look obviously fake.
+4. The comment, including the nickname, should not be hostile, cynical or ironic towards any entity.
+5. The email should not look obviously fake, or be from email aliasing/forwarding service.
 
 Your output should be a single word:
 - "spam": if the comment involves one of the undesirable categories specified above.
