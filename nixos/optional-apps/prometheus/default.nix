@@ -253,6 +253,15 @@ in
           "enable"
         ];
       })
+      (scrapeByAttr {
+        jobName = "asterisk";
+        port = LT.port.Prometheus.Asterisk;
+        attrPath = [
+          "services"
+          "asterisk"
+          "enable"
+        ];
+      })
       {
         job_name = "sglang-sakura-llm";
         scheme = "https";

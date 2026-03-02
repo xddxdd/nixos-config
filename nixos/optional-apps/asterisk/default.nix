@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  LT,
   ...
 }@args:
 let
@@ -107,6 +108,18 @@ in
 
       # Keep number plan in sync with dialplan.nix
       "extensions.conf" = extensions;
+
+      "http.conf" = ''
+        [general]
+        enabled=yes
+        bindaddr=${LT.this.ltnet.IPv4}
+        bindport=${LT.portStr.Prometheus.Asterisk}
+      '';
+      "prometheus.conf" = ''
+        [general]
+        enabled=yes
+        uri=metrics
+      '';
 
       "codecs.conf" = builtins.readFile ./config/codecs.conf;
       "logger.conf" = builtins.readFile ./config/logger.conf;

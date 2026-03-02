@@ -50,6 +50,7 @@ rec {
     Prometheus.ProwlarrExporter = 9710;
     Prometheus.BazarrExporter = 9711;
     Prometheus.Palworld = 9877;
+    Prometheus.Asterisk = 9878;
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
