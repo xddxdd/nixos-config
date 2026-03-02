@@ -16,7 +16,7 @@ in
     auth=${number}
     aors=${number}
     callerid=Lan Tian <${number}>
-    ${lib.optionalString (number == "1003") "allow=alaw,ulaw"}
+    ${lib.optionalString (number == "1003") "allow=!all,ulaw,alaw"}
 
     [${number}](template-aor)
   '') localNumbers;
