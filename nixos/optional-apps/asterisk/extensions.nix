@@ -61,19 +61,19 @@ let
 
     [dest-local]
     ${destLocalForwardMusic 4}
-    ${dialRule "0100" [
-      "Answer()"
-      "Milliwatt(m)"
-    ]}
-    ${dialRule "0101" [
-      "Answer()"
-      "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"
-    ]}
     ${dialRule "02XX" [
       "Answer()"
       "ConfBridge(\${EXTEN:2})"
     ]}
     ${destLocal}
+    ${dialRule "1900" [
+      "Answer()"
+      "Milliwatt(m)"
+    ]}
+    ${dialRule "1901" [
+      "Answer()"
+      "ReceiveFAX(/var/lib/asterisk/fax/\${STRFTIME(\${EPOCH},,%Y%m%d-%H%M%S)}.tiff, f)"
+    ]}
     ${dialRule "1999" [
       "Set(DIALGROUP(mygroup,add)=PJSIP/1000)"
       "Set(DIALGROUP(mygroup,add)=PJSIP/1001)"

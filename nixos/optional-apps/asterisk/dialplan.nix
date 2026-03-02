@@ -20,8 +20,8 @@ let
   dialPlan = lib.mergeAttrsList [
     {
       "0000" = "Random between all music playback";
-      "0100" = "Milliwatt (1004 Hz)";
-      "0101" = "Fax receiver";
+      "1900" = "Milliwatt (1004 Hz)";
+      "1901" = "Fax receiver";
       "1999" = "Ring group (1000 & 1001 & 1003)";
       "2000" = "Random between all call bots";
       "2001" = dialLennyDescription;
@@ -116,7 +116,6 @@ let
           <summary>sip:00XX@lantian.pub</summary>
           ${dialPlanRows' (lib.filterAttrs (k: _: lib.hasPrefix "00" k) dialPlan)}
         </details>
-        ${dialPlanRows' (lib.filterAttrs (k: _: lib.hasPrefix "01" k) dialPlan)}
         <details>
           <summary>sip:02XX@lantian.pub</summary>
           ${dialPlanRows' (lib.filterAttrs (k: _: lib.hasPrefix "02" k) dialPlan)}
