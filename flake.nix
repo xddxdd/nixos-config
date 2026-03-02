@@ -37,7 +37,7 @@
       inputs.systems.follows = "systems";
     };
     chinese-fonts-overlay = {
-      url = "github:xddxdd/chinese-fonts-overlay";
+      url = "github:brsvh/chinese-fonts-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     colmena = {

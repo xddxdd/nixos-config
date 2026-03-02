@@ -192,15 +192,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1772397600,
+        "lastModified": 1772414492,
         "narHash": "sha256-9jTp6NfyrpchkOpg2DrQnhcq/cNx+ALpE3Dt+RLsRu4=",
-        "owner": "xddxdd",
+        "owner": "brsvh",
         "repo": "chinese-fonts-overlay",
-        "rev": "1c443ba770423ac512dc5077b0404d40d01d3668",
+        "rev": "8cad567d380d5afbd50a2ca780156bd4c4b6c0dc",
         "type": "github"
       },
       "original": {
-        "owner": "xddxdd",
+        "owner": "brsvh",
         "repo": "chinese-fonts-overlay",
         "type": "github"
       }
