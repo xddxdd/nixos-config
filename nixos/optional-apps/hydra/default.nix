@@ -24,7 +24,10 @@ let
   ];
 in
 {
-  imports = [ ../postgresql.nix ];
+  imports = [
+    ../postgresql.nix
+    ./clear-build-failures.nix
+  ];
 
   age.secrets.attic-upload-key = {
     file = inputs.secrets + "/attic-upload-key.age";
