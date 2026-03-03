@@ -145,6 +145,18 @@ in
                     description = "Storage box {{$labels.name}} has <100G free space.";
                   };
                 }
+
+                # Asterisk outbound registration rejected
+                {
+                  alert = "asterisk_pjsip_outbound_registration";
+                  expr = "asterisk_pjsip_outbound_registration_status == 2";
+                  for = "30m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ Asterisk outbound registration {{$labels.domain}} is failing.";
+                    description = "Asterisk outbound registration {{$labels.domain}} (user {{$labels.username}}) is failing.";
+                  };
+                }
               ];
             }
           ];
