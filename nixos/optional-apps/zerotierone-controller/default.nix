@@ -1,6 +1,6 @@
 { LT, lib, ... }:
 let
-  defaultGatewayHost = LT.hosts.lt-home-vm;
+  defaultGatewayHost = LT.hosts.lt-home-router;
   managedIPv4Ranges = LT.constants.dn42.IPv4 ++ LT.constants.neonetwork.IPv4 ++ [ "198.18.0.0/15" ];
   managedIPv6Ranges =
     LT.constants.dn42.IPv6 ++ LT.constants.neonetwork.IPv6 ++ [ "fdbc:f9dc:67ad::/48" ];
@@ -12,7 +12,7 @@ let
     # Default routing to home router
     {
       target = "0.0.0.0/0";
-      via = "198.18.0.204";
+      via = defaultGatewayHost.ltnet.IPv4;
     }
     {
       target = "::/0";
