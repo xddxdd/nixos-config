@@ -4,6 +4,8 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/openvpn-gameaccel.nix
   ];
 
   systemd.network.networks.eth0 = {

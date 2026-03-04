@@ -58,6 +58,7 @@ rec {
     Librechat = 13080;
     FlapAlerted.BGP = 13179;
     FlareSolverr = 13191;
+    OpenVPN.GameAccel = 13194;
     Lemmy.API = 13200;
     Lemmy.UI = 13201;
     Pict-RS = 13202;

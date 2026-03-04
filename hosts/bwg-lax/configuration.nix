@@ -6,6 +6,8 @@
     (inputs.secrets + "/dn42/bwg-lax.nix")
 
     ./hardware-configuration.nix
+
+    ../../nixos/optional-apps/openvpn-gameaccel.nix
   ];
 
   systemd.network.networks.eth0 = {

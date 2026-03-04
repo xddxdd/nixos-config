@@ -86,6 +86,9 @@ let
       # Block certain ports from public internet
       iifname @INTERFACE_WAN jump PUBLIC_INPUT
       iifname @INTERFACE_OVERLAY jump PUBLIC_INPUT
+
+      # Lock down OpenVPN Game Accelerator
+      iifname "ovpn-gameacc" jump PUBLIC_INPUT
     }
 
     chain FILTER_FORWARD {
@@ -103,6 +106,9 @@ let
       # Block forwarding from public internet
       iifname @INTERFACE_WAN jump PUBLIC_FORWARD
       iifname @INTERFACE_OVERLAY jump PUBLIC_FORWARD
+
+      # Block forwarding from OpenVPN Game Accelerator to LAN
+      iifname "ovpn-gameacc" oifname != @INTERFACE_WAN drop
 
       # DN42 firewall rules
       iifname @INTERFACE_DN42 jump DN42_FORWARD
