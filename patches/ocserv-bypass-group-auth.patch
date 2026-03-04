@@ -1,0 +1,31 @@
+diff --git a/src/sec-mod-auth.c b/src/sec-mod-auth.c
+index d9ede91f..4a9d2801 100644
+--- a/src/sec-mod-auth.c
++++ b/src/sec-mod-auth.c
+@@ -411,13 +411,6 @@ static int handle_sec_auth_res(int cfd, sec_mod_st *sec, client_entry_st *e,
+ 		 * change async if we receive a message from main that the
+ 		 * user is banned */
+ 
+-		ret = check_group(sec, e);
+-		if (ret < 0) {
+-			e->status = PS_AUTH_FAILED;
+-			seclog(sec, LOG_ERR, "could not accept group.");
+-			return ret;
+-		}
+-
+ 		e->status = PS_AUTH_COMPLETED;
+ 
+ 		if (e->module) {
+diff --git a/src/vpn.h b/src/vpn.h
+index 25a3ca09..2d9de393 100644
+--- a/src/vpn.h
++++ b/src/vpn.h
+@@ -449,7 +449,7 @@ struct dtls_st;
+ #define LATENCY_WORKER_AGGREGATION_TIME 60
+ #endif
+ 
+-#define DEFAULT_CONFIG_ENTRIES 96
++#define DEFAULT_CONFIG_ENTRIES 200
+ 
+ #include <tun.h>
+ 

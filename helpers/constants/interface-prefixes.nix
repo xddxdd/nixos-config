@@ -22,6 +22,7 @@ _: {
     LAN = [
       "lan"
       "ns"
+      "ocserv"
       "vboxnet"
       "virbr"
       "wgmesh"

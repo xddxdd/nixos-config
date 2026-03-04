@@ -46,6 +46,9 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
   });
+  ocserv = prev.ocserv.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/ocserv-bypass-group-auth.patch ];
+  });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;
