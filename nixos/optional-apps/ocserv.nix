@@ -210,6 +210,20 @@ let
   ltnetRoutes = [
     "198.18.0.0/255.254.0.0"
   ];
+
+  anyconnectHostEntries =
+    lib.concatMapStrings
+      (n: ''
+        <HostEntry>
+          <HostName>${n}.lantian.pub</HostName>
+          <HostAddress>${n}.lantian.pub:444</HostAddress>
+        </HostEntry>
+      '')
+      (
+        builtins.attrNames (
+          lib.filterAttrs (n: v: v.config.services.ocserv.enable) LT.self.nixosConfigurations
+        )
+      );
 in
 {
   security.pam.services.ocserv = { };
@@ -252,6 +266,7 @@ in
       ipv4-netmask = 255.255.255.248
       dns = ${builtins.head config.networking.nameservers}
       ping-leases = false
+      user-profile = /etc/ocserv/profile.xml
 
       # Only include China and LTNET routes
       ${lib.concatMapStringsSep "\n" (r: "route = ${r}") chnroutes}
@@ -259,11 +274,23 @@ in
     '';
   };
 
+  environment.etc."ocserv/profile.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <AnyConnectProfile	xmlns="http://schemas.xmlsoap.org/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.xmlsoap.org/encoding/ AnyConnectProfile.xsd">
+      <ServerList>
+        ${anyconnectHostEntries}
+      </ServerList>
+    </AnyConnectProfile>
+  '';
+
   systemd.services.ocserv = {
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = 5;
     };
-    restartTriggers = [ config.environment.etc."ocserv/ocserv.conf".source ];
+    restartTriggers = [
+      config.environment.etc."ocserv/ocserv.conf".source
+      config.environment.etc."ocserv/profile.xml".source
+    ];
   };
 }
