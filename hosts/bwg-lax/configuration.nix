@@ -6,8 +6,6 @@
     (inputs.secrets + "/dn42/bwg-lax.nix")
 
     ./hardware-configuration.nix
-
-    ../../nixos/optional-apps/ocserv.nix
   ];
 
   systemd.network.networks.eth0 = {

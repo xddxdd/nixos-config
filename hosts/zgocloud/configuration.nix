@@ -4,8 +4,6 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
-
-    ../../nixos/optional-apps/ocserv.nix
   ];
 
   systemd.network.networks.eth0 = {
