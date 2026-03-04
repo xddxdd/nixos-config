@@ -148,6 +148,15 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ipcountry-cn-ipv4 = {
+      url = "https://www.iwik.org/ipcountry/CN.cidr";
+      flake = false;
+    };
+    ipcountry-cn-ipv6 = {
+      url = "https://www.iwik.org/ipcountry/CN.ipv6";
+      flake = false;
+    };
   };
 
   outputs =

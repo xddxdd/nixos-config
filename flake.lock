@@ -560,6 +560,30 @@
         "type": "github"
       }
     },
+    "ipcountry-cn-ipv4": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-gxfARmdI6S39iGLIdLHIMgv+1tuA1sclAvt2kK7kIHE=",
+        "type": "file",
+        "url": "https://www.iwik.org/ipcountry/CN.cidr"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.iwik.org/ipcountry/CN.cidr"
+      }
+    },
+    "ipcountry-cn-ipv6": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-O/MVi+GB15FvjYhlOvtmZKo245dnHbir9NoiaMuhJ0Y=",
+        "type": "file",
+        "url": "https://www.iwik.org/ipcountry/CN.ipv6"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.iwik.org/ipcountry/CN.ipv6"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-compat": [
@@ -1062,6 +1086,8 @@
         "flake-utils": "flake-utils",
         "flat-flake": "flat-flake",
         "home-manager": "home-manager",
+        "ipcountry-cn-ipv4": "ipcountry-cn-ipv4",
+        "ipcountry-cn-ipv6": "ipcountry-cn-ipv6",
         "nix-alien": "nix-alien",
         "nix-cache-proxy": "nix-cache-proxy",
         "nix-gaming": "nix-gaming",

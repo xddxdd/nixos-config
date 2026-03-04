@@ -2,6 +2,7 @@
   lib,
   LT,
   config,
+  inputs,
   ...
 }:
 let
@@ -30,6 +31,16 @@ let
       elements = { ${builtins.concatStringsSep ", " value} }
     }
   '';
+
+  parseCidrList =
+    file:
+    (builtins.filter (
+      l:
+      !(lib.hasPrefix "#" l)
+      # Do not trust country from HENET tunnel
+      && !(lib.hasPrefix "2001:470:" l)
+      && !(lib.hasPrefix "2001:0470:" l)
+    ) (lib.splitString "\n" (builtins.readFile file)));
 
   interfaceSets = lib.concatMapAttrsStringSep "\n" (k: v: ''
     set INTERFACE_${k} {
@@ -211,6 +222,8 @@ let
     ${ipv6Set "NEONETWORK_IPV6" LT.constants.neonetwork.IPv6}
     ${ipv4Set "LOCAL_IPV4" [ "${LT.this.ltnet.IPv4Prefix}.0/24" ]}
     ${ipv6Set "LOCAL_IPV6" [ "${LT.this.ltnet.IPv6Prefix}::/64" ]}
+    ${ipv4Set "CN_IPV4" (parseCidrList inputs.ipcountry-cn-ipv4.outPath)}
+    ${ipv6Set "CN_IPV6" (parseCidrList inputs.ipcountry-cn-ipv6.outPath)}
 
     set PUBLIC_FIREWALLED_PORTS {
       type inet_service
@@ -229,6 +242,16 @@ let
       }
     }
 
+    set CN_FIREWALLED_PORTS {
+      type inet_service
+      flags constant, interval
+      elements = {
+        ${LT.portStr.OpenVPN.GameAccel},
+        # DN42
+        20000-23999
+      }
+    }
+
     # Helper chains
     chain PUBLIC_INPUT {
       ${lib.optionalString (LT.this.hasTag LT.tags.lan-access) ''
@@ -239,6 +262,12 @@ let
       # Block ports
       tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
       udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
+
+      ip saddr @CN_IPV4 tcp dport @CN_FIREWALLED_PORTS reject with tcp reset
+      ip saddr @CN_IPV4 udp dport @CN_FIREWALLED_PORTS reject with icmpx type port-unreachable
+      ip6 saddr @CN_IPV6 tcp dport @CN_FIREWALLED_PORTS reject with tcp reset
+      ip6 saddr @CN_IPV6 udp dport @CN_FIREWALLED_PORTS reject with icmpx type port-unreachable
+
       return
     }
 
