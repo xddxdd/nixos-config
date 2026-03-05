@@ -1,6 +1,7 @@
 {
   pkgs ? { },
   lib ? pkgs.lib,
+  inputs,
   ...
 }:
 let
@@ -9,7 +10,7 @@ let
     lib.callPackageWith (
       pkgs
       // {
-        inherit lib;
+        inherit lib inputs;
       }
       // result
     ) path { };
@@ -28,7 +29,12 @@ let
   result = {
     inherit asteriskMusics;
     inherit (bindfsOptions) bindfsMountOptions bindfsMountOptions';
-    inherit (networks) dn42 neonetwork reserved;
+    inherit (networks)
+      china-mainland
+      dn42
+      neonetwork
+      reserved
+      ;
     inherit matrixWellKnown;
     inherit nix;
     inherit (ports) port portStr;

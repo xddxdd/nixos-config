@@ -304,6 +304,12 @@ let
           alias ${robotsTxt};
         }
       '')
+      + (lib.optionalString (config.accessibleBy == "public" && config.blockMainlandChina) ''
+        ${lib.concatMapStringsSep "\n" (ip: "deny ${ip};") (
+          LT.constants.china-mainland.IPv4 ++ LT.constants.china-mainland.IPv6
+        )}
+        allow all;
+      '')
       + (lib.optionalString (config.accessibleBy == "private") ''
         ${lib.concatMapStringsSep "\n" (ip: "allow ${ip};") (
           LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6
@@ -392,6 +398,11 @@ in
         "localhost"
       ];
       default = "public";
+    };
+
+    blockMainlandChina = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
     };
 
     accessBlockAction = lib.mkOption {

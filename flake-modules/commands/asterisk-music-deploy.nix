@@ -1,4 +1,5 @@
 {
+  inputs,
   callPackage,
   lib,
   pkgs,
@@ -6,7 +7,7 @@
   ...
 }:
 let
-  constants = callPackage ../../helpers/constants.nix { };
+  constants = callPackage ../../helpers/constants.nix { inherit inputs; };
   inherit (constants) asteriskMusics;
   files = pkgs.writeText "files.txt" (builtins.concatStringsSep "\n" asteriskMusics);
 in

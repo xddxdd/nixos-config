@@ -48,6 +48,7 @@ in
 
     sslCertificate = "zerossl-lantian.pub";
     noIndex.enable = true;
+    blockMainlandChina = true;
   };
 
   systemd.services.lemmy = {

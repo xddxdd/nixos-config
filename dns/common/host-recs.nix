@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -6,7 +7,7 @@
   ...
 }:
 let
-  constants = pkgs.callPackage ../../helpers/constants.nix { };
+  constants = pkgs.callPackage ../../helpers/constants.nix { inherit inputs; };
   inherit (constants) tags;
 
   replacedHosts = {

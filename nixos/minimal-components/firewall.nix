@@ -2,7 +2,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -31,16 +30,6 @@ let
       elements = { ${builtins.concatStringsSep ", " value} }
     }
   '';
-
-  parseCidrList =
-    file:
-    (builtins.filter (
-      l:
-      !(lib.hasPrefix "#" l)
-      # Do not trust country from HENET tunnel
-      && !(lib.hasPrefix "2001:470:" l)
-      && !(lib.hasPrefix "2001:0470:" l)
-    ) (lib.splitString "\n" (builtins.readFile file)));
 
   interfaceSets = lib.concatMapAttrsStringSep "\n" (k: v: ''
     set INTERFACE_${k} {
@@ -222,8 +211,8 @@ let
     ${ipv6Set "NEONETWORK_IPV6" LT.constants.neonetwork.IPv6}
     ${ipv4Set "LOCAL_IPV4" [ "${LT.this.ltnet.IPv4Prefix}.0/24" ]}
     ${ipv6Set "LOCAL_IPV6" [ "${LT.this.ltnet.IPv6Prefix}::/64" ]}
-    ${ipv4Set "CN_IPV4" (parseCidrList inputs.ipcountry-cn-ipv4.outPath)}
-    ${ipv6Set "CN_IPV6" (parseCidrList inputs.ipcountry-cn-ipv6.outPath)}
+    ${ipv4Set "CN_IPV4" LT.constants.china-mainland.IPv4}
+    ${ipv6Set "CN_IPV6" LT.constants.china-mainland.IPv6}
 
     set PUBLIC_FIREWALLED_PORTS {
       type inet_service
