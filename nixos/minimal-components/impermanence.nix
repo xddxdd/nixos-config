@@ -10,7 +10,7 @@ in
 {
   preservation.enable = true;
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder (
+    directories = LT.preservation.mkFolders (
       [
         "/var/lib"
         "/var/log"
@@ -20,7 +20,7 @@ in
         "/var/cache"
       ]
     );
-    files = builtins.map LT.preservation.mkFile [
+    files = LT.preservation.mkFiles [
       {
         file = "/etc/machine-id";
         inInitrd = true;

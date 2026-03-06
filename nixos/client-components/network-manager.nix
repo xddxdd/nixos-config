@@ -10,7 +10,7 @@ let
 in
 {
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder [
+    directories = LT.preservation.mkFolders [
       {
         directory = "/etc/NetworkManager/system-connections";
         mode = "0700";

@@ -16,7 +16,7 @@ in
   };
 
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder [ "/etc/nvidia/ClientConfigToken" ];
+    directories = LT.preservation.mkFolders [ "/etc/nvidia/ClientConfigToken" ];
   };
 
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_12;

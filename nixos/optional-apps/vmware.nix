@@ -3,7 +3,7 @@
   virtualisation.vmware.host.enable = true;
 
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder [ "/etc/vmware" ];
+    directories = LT.preservation.mkFolders [ "/etc/vmware" ];
   };
 
   systemd.services =

@@ -25,7 +25,7 @@
   preservation.preserveAt."/nix/persistent" = {
     users.root = {
       home = "/root";
-      directories = builtins.map LT.preservation.mkFolder [ ".android" ];
+      directories = LT.preservation.mkFolders [ ".android" ];
     };
   };
 }

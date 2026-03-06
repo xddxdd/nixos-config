@@ -20,7 +20,7 @@ in
 
   # Keep compatibility with PVE which expect SSH keys in standard location
   preservation.preserveAt."/nix/persistent" = {
-    files = builtins.map LT.preservation.mkFile [
+    files = LT.preservation.mkFiles [
       {
         file = "/etc/ssh/ssh_host_ed25519_key.pub";
         mode = "0644";

@@ -6,7 +6,7 @@
       "x-gdu.hide"
     ];
     users.lantian = {
-      directories = builtins.map LT.preservation.mkFolder (
+      directories = LT.preservation.mkFolders (
         builtins.filter (v: !(config.fileSystems ? "/home/lantian/${v}")) [
           # Personal folders
           "Desktop"
@@ -65,7 +65,7 @@
           ".zoom"
         ]
       );
-      files = builtins.map LT.preservation.mkFile [ ];
+      files = LT.preservation.mkFiles [ ];
     };
   };
 

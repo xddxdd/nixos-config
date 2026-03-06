@@ -4,7 +4,7 @@ rec {
     configureParent = true;
   };
 
-  mkFolder = mkFolder' { };
+  mkFolders = builtins.map (mkFolder' { });
   mkFolder' =
     a: f:
     let
@@ -18,7 +18,7 @@ rec {
     in
     attrs // args // a;
 
-  mkFile = mkFile' { };
+  mkFiles = builtins.map (mkFile' { });
   mkFile' =
     a: f:
     let
