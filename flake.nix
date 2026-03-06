@@ -278,6 +278,7 @@
                   # keep-sorted start
                   beautifulsoup4
                   curl-cffi
+                  dnspython
                   pydantic
                   requests
                   telethon
