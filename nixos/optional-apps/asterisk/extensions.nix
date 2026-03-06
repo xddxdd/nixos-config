@@ -99,7 +99,7 @@ let
     ${dialRule "X!" [
       "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
       "Log(NOTICE, Outbound URI: \${TARGET_URI})"
-      "Dial(PJSIP/anonymous/sip:\${TARGET_URI})"
+      "Dial(PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}
 
     [dest-music]
@@ -137,7 +137,7 @@ let
     ${dialRule "X!" [
       "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
       "Log(NOTICE, Outbound URI: \${TARGET_URI})"
-      "MessageSend(pjsip:PJSIP/anonymous/sip:\${TARGET_URI})"
+      "MessageSend(pjsip:PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}
 
     [dest-url-message]

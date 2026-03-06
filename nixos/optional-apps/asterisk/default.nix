@@ -103,6 +103,7 @@ in
         transport=transport-ipv4-udp-dn42
         context=src-peers-enum
         message_context=src-peers-enum-message
+        from_domain=lantian.dn42
 
         [dn42-enum-ipv4]
         type=identify
@@ -115,11 +116,15 @@ in
         transport=transport-ipv6-udp-dn42
         context=src-peers-enum
         message_context=src-peers-enum-message
+        from_domain=lantian.dn42
 
         [dn42-enum-ipv6]
         type=identify
         endpoint=dn42-enum-ipv6
         match=fd00::/8
+
+        [dn42-enum-outbound](template-endpoint-common)
+        from_domain=lantian.dn42
 
         ; Include passwords
         #include ${config.age.secrets.asterisk-pw.path}
