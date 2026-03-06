@@ -68,11 +68,72 @@ in
     external_media_address=${LT.this.dn42.IPv4}
     external_signaling_address=${LT.this.dn42.IPv4}
 
+    [transport-ipv4-tcp-dn42](template-transport-common)
+    protocol=tcp
+    bind=${LT.this.dn42.IPv4}:5060
+    external_media_address=${LT.this.dn42.IPv4}
+    external_signaling_address=${LT.this.dn42.IPv4}
+
+    [transport-ipv4-tls-dn42](template-transport-common)
+    protocol=tls
+    bind=${LT.this.dn42.IPv4}:5061
+    ca_list_file=/etc/ssl/certs/ca-certificates.crt
+    cert_file=${LT.nginx.getSSLCert "dn42-lantian.dn42-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "dn42-lantian.dn42-ecc"}
+    method=tlsv1_2
+    verify_client=no
+    verify_server=yes
+    external_media_address=${LT.this.dn42.IPv4}
+    external_signaling_address=${LT.this.dn42.IPv4}
+
     ; DN42, LTNET here is not a typo
     [transport-ipv6-udp-dn42](template-transport-common)
     protocol=udp
     bind=[${LT.this.ltnet.IPv6}]:5060
     external_media_address=${LT.this.ltnet.IPv6}
     external_signaling_address=${LT.this.ltnet.IPv6}
+
+    [transport-ipv6-tcp-dn42](template-transport-common)
+    protocol=tcp
+    bind=[${LT.this.ltnet.IPv6}]:5060
+    external_media_address=${LT.this.ltnet.IPv6}
+    external_signaling_address=${LT.this.ltnet.IPv6}
+
+    [transport-ipv6-tls-dn42](template-transport-common)
+    protocol=tls
+    bind=[${LT.this.ltnet.IPv6}]:5061
+    ca_list_file=/etc/ssl/certs/ca-certificates.crt
+    cert_file=${LT.nginx.getSSLCert "dn42-lantian.dn42-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "dn42-lantian.dn42-ecc"}
+    method=tlsv1_2
+    verify_client=no
+    verify_server=yes
+    external_media_address=${LT.this.ltnet.IPv6}
+    external_signaling_address=${LT.this.ltnet.IPv6}
+
+    ; DN42
+    [transport-ipv6-alt-udp-dn42](template-transport-common)
+    protocol=udp
+    bind=[${LT.this.dn42.IPv6}]:5060
+    external_media_address=${LT.this.dn42.IPv6}
+    external_signaling_address=${LT.this.dn42.IPv6}
+
+    [transport-ipv6-alt-tcp-dn42](template-transport-common)
+    protocol=tcp
+    bind=[${LT.this.dn42.IPv6}]:5060
+    external_media_address=${LT.this.dn42.IPv6}
+    external_signaling_address=${LT.this.dn42.IPv6}
+
+    [transport-ipv6-alt-tls-dn42](template-transport-common)
+    protocol=tls
+    bind=[${LT.this.dn42.IPv6}]:5061
+    ca_list_file=/etc/ssl/certs/ca-certificates.crt
+    cert_file=${LT.nginx.getSSLCert "dn42-lantian.dn42-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "dn42-lantian.dn42-ecc"}
+    method=tlsv1_2
+    verify_client=no
+    verify_server=yes
+    external_media_address=${LT.this.dn42.IPv6}
+    external_signaling_address=${LT.this.dn42.IPv6}
   '';
 }

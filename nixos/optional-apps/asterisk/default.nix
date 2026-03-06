@@ -101,7 +101,14 @@ in
         ; DN42 ENUM
         [dn42-enum](template-endpoint-common)
         transport=transport-ipv4-udp-dn42
+        transport=transport-ipv4-tcp-dn42
+        transport=transport-ipv4-tls-dn42
         transport=transport-ipv6-udp-dn42
+        transport=transport-ipv6-tcp-dn42
+        transport=transport-ipv6-tls-dn42
+        transport=transport-ipv6-alt-udp-dn42
+        transport=transport-ipv6-alt-tcp-dn42
+        transport=transport-ipv6-alt-tls-dn42
         context=src-peers-enum
         message_context=src-peers-enum-message
         from_domain=lantian.dn42
