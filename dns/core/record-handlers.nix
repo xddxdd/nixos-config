@@ -2,7 +2,7 @@
 let
   formatArg =
     let
-      escapeArg = arg: "'${lib.replaceStrings [ "'" "\\" ] [ "'\\''" "\\\\\\\\" ] (toString arg)}'";
+      escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
     in
     s:
     if builtins.isString s then
@@ -70,7 +70,8 @@ in
         args.preference
         args.terminalFlag
         args.service
-        args.regexp
+        # Workaround DNSControl bug
+        (lib.replaceStrings [ "\\" ] [ "\\\\\\\\" ] args.regexp)
         args.target
       ];
     NS = args: record "NS" args [ args.target ];
