@@ -7,4 +7,7 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
   };
+
+  env.RUSTC_BOOTSTRAP = 1;
+  env.RUSTFLAGS = "-Zlocation-detail=none -Zfmt-debug=none";
 }
