@@ -1,0 +1,21 @@
+[[bin]]
+name = "e164-verify"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+c-ares = "12"
+c-ares-resolver = "11"
+clap = {version = "4", features = ["derive"]}
+regex = "1"
+
+[package]
+name = "e164-verify"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

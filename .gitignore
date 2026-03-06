@@ -1,4 +1,5 @@
 result*
+!result.*
 zones/
 .gcroots
 .vscode

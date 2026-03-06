@@ -8,7 +8,7 @@ let
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
   inherit (pkgs.callPackage ./common.nix args) dialRule;
-  inherit (pkgs.callPackage ./enum-verify args) enumVerify;
+  inherit (pkgs.callPackage ./enum-verify.nix args) enumVerify;
   inherit (pkgs.callPackage ./local-devices.nix args) destLocal destLocalMessage;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
   # keep-sorted end

@@ -4,14 +4,7 @@
   ...
 }:
 let
-  # https://github.com/YukariChiba/asterisk-config/blob/master/agi/enum_verify.py
-  enumVerify = pkgs.writeShellApplication {
-    name = "enum-verify";
-    runtimeInputs = [ (pkgs.python3.withPackages (ps: [ ps.dnspython ])) ];
-    text = ''
-      python3 ${./enum_verify.py}
-    '';
-  };
+  enumVerify = pkgs.callPackage ../../../pkgs/e164-verify { };
 in
 {
   enumVerify = goto: ''
