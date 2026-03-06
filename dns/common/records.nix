@@ -201,7 +201,7 @@
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "v-ps-sea";
+        target = SIPTarget;
       }
       {
         recordType = "SRV";
@@ -209,7 +209,7 @@
         priority = 0;
         weight = 0;
         port = 5060;
-        target = "v-ps-sea";
+        target = SIPTarget;
       }
       {
         recordType = "SRV";
@@ -217,8 +217,10 @@
         priority = 0;
         weight = 0;
         port = 5061;
-        target = "v-ps-sea";
+        target = SIPTarget;
       }
     ];
+
+    SIPTarget = "v-ps-sea";
   };
 }

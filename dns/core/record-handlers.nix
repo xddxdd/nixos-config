@@ -63,6 +63,16 @@ in
         args.target
       ];
     NAMESERVER = args: record "NAMESERVER" args [ ];
+    NAPTR =
+      args:
+      record "NAPTR" args [
+        args.order
+        args.preference
+        args.terminalFlag
+        args.service
+        args.regexp
+        args.target
+      ];
     NS = args: record "NS" args [ args.target ];
     PTR = args: record "PTR" args [ args.target ];
     SRV =

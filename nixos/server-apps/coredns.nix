@@ -60,107 +60,108 @@ let
       '';
     in
     pkgs.writeText "Corefile" ''
-        # Selfhosted Root Zone
-        . {
-          # Only serve internal networks to avoid being part of DNS amplification attack
-          acl {
-            allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv4}
-            allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
-            drop
-          }
-
-          ${publicZone' "ltnet-scripts/zones/opennic.root" null}
+      # Selfhosted Root Zone
+      . {
+        # Only serve internal networks to avoid being part of DNS amplification attack
+        acl {
+          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv4}
+          allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
+          drop
         }
 
-        # DN42 Lan Tian Authoritatives
-        ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
-        ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
-        ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
+        ${publicZone' "ltnet-scripts/zones/opennic.root" null}
+      }
 
-        ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
-          "K184_29.76.22.172.in-addr.arpa.+013+08709"
-        }
-        ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
-          "K96_27.76.22.172.in-addr.arpa.+013+41969"
-        }
-        ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
-          "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
-        }
+      # DN42 Lan Tian Authoritatives
+      ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
+      ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
+      ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
 
-        # DN42 Authoritative
-        ${publicZone "dn42" "ltnet-scripts/zones/dn42" null}
-        ${publicZone "20.172.in-addr.arpa" "ltnet-scripts/zones/20.172.in-addr.arpa" null}
-        ${publicZone "21.172.in-addr.arpa" "ltnet-scripts/zones/21.172.in-addr.arpa" null}
-        ${publicZone "22.172.in-addr.arpa" "ltnet-scripts/zones/22.172.in-addr.arpa" null}
-        ${publicZone "23.172.in-addr.arpa" "ltnet-scripts/zones/23.172.in-addr.arpa" null}
-        ${publicZone "d.f.ip6.arpa" "ltnet-scripts/zones/d.f.ip6.arpa" null}
+      ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
+        "K184_29.76.22.172.in-addr.arpa.+013+08709"
+      }
+      ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
+        "K96_27.76.22.172.in-addr.arpa.+013+41969"
+      }
+      ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
+        "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
+      }
+      ${publicZone "7.4.5.2.0.4.2.4.e164.dn42" "ltnet-zones/7.4.5.2.0.4.2.4.e164.dn42" null}
 
-        # NeoNetwork Authoritative
-        ${publicZone "neo" "ltnet-scripts/zones/neo" null}
-        ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
+      # DN42 Authoritative
+      ${publicZone "dn42" "ltnet-scripts/zones/dn42" null}
+      ${publicZone "20.172.in-addr.arpa" "ltnet-scripts/zones/20.172.in-addr.arpa" null}
+      ${publicZone "21.172.in-addr.arpa" "ltnet-scripts/zones/21.172.in-addr.arpa" null}
+      ${publicZone "22.172.in-addr.arpa" "ltnet-scripts/zones/22.172.in-addr.arpa" null}
+      ${publicZone "23.172.in-addr.arpa" "ltnet-scripts/zones/23.172.in-addr.arpa" null}
+      ${publicZone "d.f.ip6.arpa" "ltnet-scripts/zones/d.f.ip6.arpa" null}
 
-        # NeoNetwork Lan Tian Authoritative
-        ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
-        ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
-        ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
+      # NeoNetwork Authoritative
+      ${publicZone "neo" "ltnet-scripts/zones/neo" null}
+      ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
 
-        ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
-          "K10.127.10.in-addr.arpa.+013+53292"
-        }
-        ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
-          "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
-        }
+      # NeoNetwork Lan Tian Authoritative
+      ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
+      ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
+      ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
 
-        # LTNET Public Facing Addressing
-        ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
+      ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
+        "K10.127.10.in-addr.arpa.+013+53292"
+      }
+      ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
+        "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
+      }
 
-        # LTNET Authoritative
-        ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
-        ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
+      # LTNET Public Facing Addressing
+      ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
 
-        # LTNET Active Directory
-        ${publicZone "ad.lantian.pub" "ltnet-scripts/zones/ad.lantian.pub" null}
-        ${publicZone "_msdcs.ad.lantian.pub" "ltnet-scripts/zones/_msdcs.ad.lantian.pub" null}
+      # LTNET Authoritative
+      ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
+      ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
 
-        # Public Internet Authoritative
-        ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
+      # LTNET Active Directory
+      ${publicZone "ad.lantian.pub" "ltnet-scripts/zones/ad.lantian.pub" null}
+      ${publicZone "_msdcs.ad.lantian.pub" "ltnet-scripts/zones/_msdcs.ad.lantian.pub" null}
 
-        # OpenNIC Authoritative
-        ${publicZone "opennic.glue" "ltnet-scripts/zones/opennic.glue" null}
-        ${publicZone "dns.opennic.glue" "ltnet-scripts/zones/dns.opennic.glue" null}
-        ${publicZone "bbs" "ltnet-scripts/zones/bbs" null}
-        ${publicZone "chan" "ltnet-scripts/zones/chan" null}
-        ${publicZone "cyb" "ltnet-scripts/zones/cyb" null}
-        ${publicZone "dyn" "ltnet-scripts/zones/dyn" null}
-        ${publicZone "epic" "ltnet-scripts/zones/epic" null}
-        ${publicZone "fur" "ltnet-scripts/zones/fur" null}
-        ${publicZone "geek" "ltnet-scripts/zones/geek" null}
-        ${publicZone "gopher" "ltnet-scripts/zones/gopher" null}
-        ${publicZone "indy" "ltnet-scripts/zones/indy" null}
-        ${publicZone "libre" "ltnet-scripts/zones/libre" null}
-        ${publicZone "null" "ltnet-scripts/zones/null" null}
-        ${publicZone "o" "ltnet-scripts/zones/o" null}
-        ${publicZone "oss" "ltnet-scripts/zones/oss" null}
-        ${publicZone "oz" "ltnet-scripts/zones/oz" null}
-        ${publicZone "parody" "ltnet-scripts/zones/parody" null}
-        ${publicZone "pirate" "ltnet-scripts/zones/pirate" null}
+      # Public Internet Authoritative
+      ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
 
-        # Lan Tian Mobile VoLTE
-        ${publicZone "mnc001.mcc001.3gppnetwork.org" "ltnet-zones/mnc001.mcc001.3gppnetwork.org" null}
-        ${publicZone "mnc010.mcc315.3gppnetwork.org" "ltnet-zones/mnc010.mcc315.3gppnetwork.org" null}
-        ${publicZone "mnc999.mcc999.3gppnetwork.org" "ltnet-zones/mnc999.mcc999.3gppnetwork.org" null}
+      # OpenNIC Authoritative
+      ${publicZone "opennic.glue" "ltnet-scripts/zones/opennic.glue" null}
+      ${publicZone "dns.opennic.glue" "ltnet-scripts/zones/dns.opennic.glue" null}
+      ${publicZone "bbs" "ltnet-scripts/zones/bbs" null}
+      ${publicZone "chan" "ltnet-scripts/zones/chan" null}
+      ${publicZone "cyb" "ltnet-scripts/zones/cyb" null}
+      ${publicZone "dyn" "ltnet-scripts/zones/dyn" null}
+      ${publicZone "epic" "ltnet-scripts/zones/epic" null}
+      ${publicZone "fur" "ltnet-scripts/zones/fur" null}
+      ${publicZone "geek" "ltnet-scripts/zones/geek" null}
+      ${publicZone "gopher" "ltnet-scripts/zones/gopher" null}
+      ${publicZone "indy" "ltnet-scripts/zones/indy" null}
+      ${publicZone "libre" "ltnet-scripts/zones/libre" null}
+      ${publicZone "null" "ltnet-scripts/zones/null" null}
+      ${publicZone "o" "ltnet-scripts/zones/o" null}
+      ${publicZone "oss" "ltnet-scripts/zones/oss" null}
+      ${publicZone "oz" "ltnet-scripts/zones/oz" null}
+      ${publicZone "parody" "ltnet-scripts/zones/parody" null}
+      ${publicZone "pirate" "ltnet-scripts/zones/pirate" null}
 
-        # Meshname
-        meshname {
-          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          meshname
-        }
+      # Lan Tian Mobile VoLTE
+      ${publicZone "mnc001.mcc001.3gppnetwork.org" "ltnet-zones/mnc001.mcc001.3gppnetwork.org" null}
+      ${publicZone "mnc010.mcc315.3gppnetwork.org" "ltnet-zones/mnc010.mcc315.3gppnetwork.org" null}
+      ${publicZone "mnc999.mcc999.3gppnetwork.org" "ltnet-zones/mnc999.mcc999.3gppnetwork.org" null}
 
-        meship {
-          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          meship
-        }
-      '';
+      # Meshname
+      meshname {
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+        meshname
+      }
+
+      meship {
+        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
+        meship
+      }
+    '';
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   age.secrets = builtins.listToAttrs (
