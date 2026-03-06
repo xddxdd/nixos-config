@@ -18,7 +18,7 @@ let
     ]
   );
   path = lib.makeBinPath [
-    pkgs.git
+    pkgs.gitMinimal
     pkgs.jq
     pkgs.attic-client
   ];
