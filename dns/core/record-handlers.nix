@@ -2,7 +2,7 @@
 let
   formatArg =
     let
-      escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
+      escapeArg = arg: "'${lib.replaceStrings [ "'" "\\" ] [ "'\\''" "\\\\" ] (toString arg)}'";
     in
     s:
     if builtins.isString s then
