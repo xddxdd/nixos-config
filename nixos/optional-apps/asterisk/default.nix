@@ -11,7 +11,6 @@ let
   inherit (pkgs.callPackage ./extensions.nix args) extensions;
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
   inherit (pkgs.callPackage ./local-devices.nix args) localDevices;
-  inherit (pkgs.callPackage ./peers.nix args) peers;
   inherit (pkgs.callPackage ./templates.nix args) templates;
   inherit (pkgs.callPackage ./transports.nix args) transports;
   # keep-sorted end
@@ -99,8 +98,28 @@ in
         ; Local devices
         ${localDevices}
 
-        ; Peers
-        ${peers}
+        ; DN42 ENUM
+        [dn42-enum-ipv4](template-endpoint-common)
+        transport=transport-ipv4-udp-dn42
+        context=src-peers-enum
+        message_context=src-peers-enum-message
+
+        [dn42-enum-ipv4]
+        type=identify
+        endpoint=dn42-enum-ipv4
+        match=172.20.0.0/14
+        match=10.0.0.0/8
+        match=172.31.0.0/16
+
+        [dn42-enum-ipv6](template-endpoint-common)
+        transport=transport-ipv6-udp-dn42
+        context=src-peers-enum
+        message_context=src-peers-enum-message
+
+        [dn42-enum-ipv6]
+        type=identify
+        endpoint=dn42-enum-ipv6
+        match=fd00::/8
 
         ; Include passwords
         #include ${config.age.secrets.asterisk-pw.path}

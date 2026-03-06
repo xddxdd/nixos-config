@@ -89,10 +89,6 @@ rec {
     message_context=src-local-message
     identify_by=username,auth_username
 
-    [template-endpoint-peer](template-endpoint-common)
-    context=src-peers
-    message_context=src-peers-message
-
     [template-auth](!)
     type=auth
     auth_type=userpass

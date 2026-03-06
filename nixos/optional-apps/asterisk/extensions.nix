@@ -8,9 +8,9 @@ let
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
   inherit (pkgs.callPackage ./common.nix args) dialRule;
+  inherit (pkgs.callPackage ./enum-verify args) enumVerify;
   inherit (pkgs.callPackage ./local-devices.nix args) destLocal destLocalMessage;
   inherit (pkgs.callPackage ./musics.nix args) destLocalForwardMusic destMusic;
-  inherit (pkgs.callPackage ./peers.nix args) destPeers destPeersMessage;
   # keep-sorted end
 
   voiceRules = ''
@@ -18,6 +18,9 @@ let
     ; Only allow anonymous inbound call to test numbers
     ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
     ${dialRule "[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
+
+    [src-peers-enum]
+    ${enumVerify "src-peers"}
 
     [src-peers]
     ; Allow inbound call and peering calls
@@ -28,7 +31,10 @@ let
     [src-local]
     ${dialRule "733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
     ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
-    ${dialRule "4240." [ "Goto(dest-peers,\${EXTEN},1)" ]}
+    ${dialRule "4240." [
+      "Set(CALLERID(num)=42402547\${CALLERID(num)})"
+      "Goto(dest-peers,\${EXTEN},1)"
+    ]}
     ${dialRule "XXX" [ "Dial(PJSIP/\${EXTEN}@telnyx)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
     ${dialRule "777XXXXXXX" [ "Dial(PJSIP/1\${EXTEN}@callcentric)" ]}
@@ -90,7 +96,11 @@ let
     ]}
 
     [dest-peers]
-    ${destPeers}
+    ${dialRule "X!" [
+      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
+      "Log(NOTICE, Outbound URI: \${TARGET_URI})"
+      "Dial(PJSIP/anonymous/sip:\${TARGET_URI})"
+    ]}
 
     [dest-music]
     ${destMusic}
@@ -111,6 +121,9 @@ let
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
     ${dialRule "X!" [ "Goto(dest-url-message,\${EXTEN},1)" ]}
 
+    [src-peers-enum-message]
+    ${enumVerify "src-peers-message"}
+
     [src-peers-message]
     ; Allow inbound call and peering calls
     ${dialRule "42402547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
@@ -121,7 +134,11 @@ let
     ${destLocalMessage}
 
     [dest-peers-message]
-    ${destPeersMessage}
+    ${dialRule "X!" [
+      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
+      "Log(NOTICE, Outbound URI: \${TARGET_URI})"
+      "MessageSend(pjsip:PJSIP/anonymous/sip:\${TARGET_URI})"
+    ]}
 
     [dest-url-message]
     ${dialRule "X!" [ "MessageSend(pjsip:PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
