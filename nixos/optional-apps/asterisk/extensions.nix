@@ -128,7 +128,10 @@ let
     ; Allow inbound call and peering calls
     ${dialRule "42402547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
-    ${dialRule "4240." [ "Goto(dest-peers-message,\${EXTEN},1)" ]}
+    ${dialRule "4240." [
+      "Set(CALLERID(num)=42402547\${CALLERID(num)})"
+      "Goto(dest-peers-message,\${EXTEN},1)"
+    ]}
 
     [dest-local-message]
     ${destLocalMessage}
