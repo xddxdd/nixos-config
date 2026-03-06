@@ -99,28 +99,19 @@ in
         ${localDevices}
 
         ; DN42 ENUM
-        [dn42-enum-ipv4](template-endpoint-common)
+        [dn42-enum](template-endpoint-common)
         transport=transport-ipv4-udp-dn42
-        context=src-peers-enum
-        message_context=src-peers-enum-message
-        from_domain=lantian.dn42
-
-        [dn42-enum-ipv4]
-        type=identify
-        endpoint=dn42-enum-ipv4
-        match=172.20.0.0/14
-        match=10.0.0.0/8
-        match=172.31.0.0/16
-
-        [dn42-enum-ipv6](template-endpoint-common)
         transport=transport-ipv6-udp-dn42
         context=src-peers-enum
         message_context=src-peers-enum-message
         from_domain=lantian.dn42
 
-        [dn42-enum-ipv6]
+        [dn42-enum]
         type=identify
-        endpoint=dn42-enum-ipv6
+        endpoint=dn42-enum
+        match=172.20.0.0/14
+        match=10.0.0.0/8
+        match=172.31.0.0/16
         match=fd00::/8
 
         [dn42-enum-outbound](template-endpoint-common)
