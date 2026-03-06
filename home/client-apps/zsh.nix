@@ -83,6 +83,16 @@
       alias nbl="nix build -L --builders \"\""
       function nlw { nix-locate -w "$@" | grep -v "^(" }
 
+      nbe() {
+        # Build default.nix
+        nix-build -E "with import <nixpkgs> {}; callPackage \"$(realpath "''${1:-default.nix}")\" {}"
+      }
+
+      nbel() {
+        # Build default.nix locally
+        nix-build -E "with import <nixpkgs> {}; callPackage \"$(realpath "''${1:-default.nix}")\" {}" --builders ""
+      }
+
       # For Podman
       export REGISTRY_AUTH_FILE="$HOME/.config/podman-registry-auth.json";
 
