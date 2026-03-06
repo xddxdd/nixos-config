@@ -10,7 +10,12 @@ let
 in
 {
   preservation.preserveAt."/nix/persistent" = {
-    directories = builtins.map LT.preservation.mkFolder [ "/etc/NetworkManager/system-connections" ];
+    directories = builtins.map LT.preservation.mkFolder [
+      {
+        directory = "/etc/NetworkManager/system-connections";
+        mode = "0700";
+      }
+    ];
   };
 
   hardware.wirelessRegulatoryDatabase = true;

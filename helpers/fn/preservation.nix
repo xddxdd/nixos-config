@@ -1,4 +1,5 @@
-_: rec {
+{ lib, ... }:
+rec {
   args = {
     configureParent = true;
   };
@@ -7,7 +8,13 @@ _: rec {
   mkFolder' =
     a: f:
     let
-      attrs = if builtins.isAttrs f then f else { directory = f; };
+      directory = if builtins.isAttrs f then f.directory else f;
+      attrs =
+        (if builtins.isAttrs f then f else { directory = f; })
+        // (lib.optionalAttrs (lib.hasPrefix "/etc/" directory) {
+          how = "symlink";
+          createLinkTarget = true;
+        });
     in
     attrs // args // a;
 
@@ -15,7 +22,13 @@ _: rec {
   mkFile' =
     a: f:
     let
-      attrs = if builtins.isAttrs f then f else { file = f; };
+      file = if builtins.isAttrs f then f.file else f;
+      attrs =
+        (if builtins.isAttrs f then f else { file = f; })
+        // (lib.optionalAttrs (lib.hasPrefix "/etc/" file) {
+          how = "symlink";
+          createLinkTarget = true;
+        });
     in
     attrs // args // a;
 }
