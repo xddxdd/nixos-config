@@ -187,6 +187,8 @@ in
         $geoip2_asn_name autonomous_system_organization;
       }
 
+      limit_req_zone $binary_remote_network zone=slow:10m rate=1r/s;
+
       port_in_redirect off;
       absolute_redirect off;
       server_name_in_redirect off;
