@@ -62,7 +62,6 @@ let
     gui = call ./fn/gui.nix;
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;
-    preservation = call ./fn/preservation.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
     inherit (call ./fn/service-harden.nix) serviceHarden networkToolHarden;
     tagsForHost = call ./fn/tags-for-host.nix;

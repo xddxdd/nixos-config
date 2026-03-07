@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  LT,
   ...
 }:
 let
@@ -15,9 +14,7 @@ in
     ipSuffix = "65";
   };
 
-  preservation.preserveAt."/nix/persistent" = {
-    directories = LT.preservation.mkFolders [ "/etc/nvidia/ClientConfigToken" ];
-  };
+  lantian.preservation.directories = [ "/etc/nvidia/ClientConfigToken" ];
 
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_12;
   hardware.nvidia.open = lib.mkForce false;

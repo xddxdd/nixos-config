@@ -9,15 +9,13 @@
     pkgs.mongosh
     pkgs.mongodb-tools
   ];
-  preservation.preserveAt."/nix/persistent" = {
-    directories = [
-      {
-        directory = config.services.mongodb.dbpath;
-        user = "mongodb";
-        group = "mongodb";
-      }
-    ];
-  };
+  lantian.preservation.directories = [
+    {
+      directory = config.services.mongodb.dbpath;
+      user = "mongodb";
+      group = "mongodb";
+    }
+  ];
 
   systemd.services.mongodb = {
     after = [ "var-db-mongodb.mount" ];

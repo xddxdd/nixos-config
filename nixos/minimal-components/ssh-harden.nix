@@ -19,26 +19,24 @@ in
   age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
 
   # Keep compatibility with PVE which expect SSH keys in standard location
-  preservation.preserveAt."/nix/persistent" = {
-    files = LT.preservation.mkFiles [
-      {
-        file = "/etc/ssh/ssh_host_ed25519_key.pub";
-        mode = "0644";
-      }
-      {
-        file = "/etc/ssh/ssh_host_ed25519_key";
-        mode = "0600";
-      }
-      {
-        file = "/etc/ssh/ssh_host_rsa_key.pub";
-        mode = "0644";
-      }
-      {
-        file = "/etc/ssh/ssh_host_rsa_key";
-        mode = "0600";
-      }
-    ];
-  };
+  lantian.preservation.files = [
+    {
+      file = "/etc/ssh/ssh_host_ed25519_key.pub";
+      mode = "0644";
+    }
+    {
+      file = "/etc/ssh/ssh_host_ed25519_key";
+      mode = "0600";
+    }
+    {
+      file = "/etc/ssh/ssh_host_rsa_key.pub";
+      mode = "0644";
+    }
+    {
+      file = "/etc/ssh/ssh_host_rsa_key";
+      mode = "0600";
+    }
+  ];
 
   programs.ssh = {
     package = pkgs.openssh_hpn;

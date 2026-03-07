@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 {
@@ -22,10 +21,5 @@
 
   users.users.lantian.extraGroups = [ "adbusers" ];
 
-  preservation.preserveAt."/nix/persistent" = {
-    users.root = {
-      home = "/root";
-      directories = LT.preservation.mkFolders [ ".android" ];
-    };
-  };
+  lantian.preservation.directories = [ "/root/.android" ];
 }

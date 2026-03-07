@@ -1,10 +1,8 @@
-{ LT, lib, ... }:
+{ lib, ... }:
 {
   virtualisation.vmware.host.enable = true;
 
-  preservation.preserveAt."/nix/persistent" = {
-    directories = LT.preservation.mkFolders [ "/etc/vmware" ];
-  };
+  lantian.preservation.directories = [ "/etc/vmware" ];
 
   systemd.services =
     lib.genAttrs [ "vmware-authdlauncher" "vmware-networks" "vmware-usbarbitrator" ]

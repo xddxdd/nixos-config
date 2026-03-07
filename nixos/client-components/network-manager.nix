@@ -9,14 +9,12 @@ let
   managedPrefix = LT.constants.interfacePrefixes.WAN ++ [ "nm-" ];
 in
 {
-  preservation.preserveAt."/nix/persistent" = {
-    directories = LT.preservation.mkFolders [
-      {
-        directory = "/etc/NetworkManager/system-connections";
-        mode = "0700";
-      }
-    ];
-  };
+  lantian.preservation.directories = [
+    {
+      directory = "/etc/NetworkManager/system-connections";
+      mode = "0700";
+    }
+  ];
 
   hardware.wirelessRegulatoryDatabase = true;
 
