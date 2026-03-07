@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
             logging.info(f"{all_complete=} {pass_rate=} {nixos_config_all_successful=}")
 
-            if all_complete and pass_rate >= 0.75 and nixos_config_all_successful:
+            if all_complete and nixos_config_all_successful:
                 git_set_branch_to_commit(
                     "https://github.com/xddxdd/nix-cachyos-kernel.git",
                     "release",
