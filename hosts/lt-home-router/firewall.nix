@@ -125,6 +125,10 @@ in
       type nat hook postrouting priority 105; policy accept;
 
       meta nfproto ipv4 oifname != "eth0*" masquerade
+
+      # Avoid using ZeroTier as return path
+      meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade
+
       oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48
     }
 
