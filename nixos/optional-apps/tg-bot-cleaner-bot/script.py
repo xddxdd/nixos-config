@@ -12,6 +12,8 @@ TG_API_ID = int(os.environ["TG_API_ID"])
 TG_API_HASH = os.environ["TG_API_HASH"]
 DEL_MESSAGE_SECONDS = 15
 
+ALLOWED_CHANNELS = [1336491306, 1476384608, 3350994802]
+
 
 class LastMessageManager:
     def __init__(self):
@@ -60,7 +62,7 @@ class LastMessageManager:
         self.db["%d,%d,reply" % (channel_id, user_id)] = str(reply)
 
     def clear(self, channel_id: int, user_id: int):
-        self.set_last_message(channel_id, user_id, None, None)
+        self.set(channel_id, user_id, None, None)
 
     def add_no_delete(self, msg_id: int):
         with self.no_delete_lock:
@@ -197,6 +199,9 @@ class MessageHandler:
         self.last_msg_manager.remove_no_delete(reply.id)
 
     async def handle(self):
+        if self.channel_id not in ALLOWED_CHANNELS:
+            return
+
         # Only handle user's message to channels
         if not isinstance(self.message.from_id, PeerUser):
             return
