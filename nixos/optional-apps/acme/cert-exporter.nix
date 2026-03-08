@@ -4,6 +4,7 @@
     enable = true;
     port = LT.port.Prometheus.NodeCertExporter;
     listenAddress = LT.this.ltnet.IPv4;
-    paths = [ "/nix/sync-servers/acme" ];
+    paths = [ ];
+    includeGlobs = [ "/nix/sync-servers/acme/*/cert.pem" ];
   };
 }
