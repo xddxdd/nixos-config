@@ -2,7 +2,6 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -38,28 +37,7 @@ in
     };
   };
 
-  systemd.services = {
-    acme-check-expiration = {
-      serviceConfig.Type = "oneshot";
-      path = [ pkgs.openssl ];
-      script = ''
-        ERRORS=0
-        for F in /var/lib/acme/*/cert.pem; do
-          echo "$F"
-          # Check for 10 days of validity
-          if openssl x509 -checkend 172800 -noout -in "$F"; then
-            ERRORS=$((ERRORS + 0))
-          else
-            ERRORS=$((ERRORS + 1))
-          fi
-        done
-        echo "Total $ERRORS errors"
-        exit $ERRORS
-      '';
-      unitConfig.OnFailure = "notify-email@%n.service";
-    };
-  }
-  // lib.mapAttrs' (
+  systemd.services = lib.mapAttrs' (
     k: v:
     lib.nameValuePair "acme-${k}" {
       environment = {
@@ -72,14 +50,4 @@ in
       };
     }
   ) config.security.acme.certs;
-
-  systemd.timers.acme-check-expiration = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "acme-check-expiration.service" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-      Unit = "acme-check-expiration.service";
-    };
-  };
 }
