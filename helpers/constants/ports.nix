@@ -36,6 +36,7 @@ rec {
     Prometheus.NodeExporter = 9100;
     Prometheus.MySQLExporter = 9104;
     Prometheus.BlackboxExporter = 9115;
+    Prometheus.NodeCertExporter = 9141;
     Prometheus.PostgresExporter = 9187;
     Prometheus.NUTExporter = 9199;
     Prometheus.CoreDNS = 9253;
