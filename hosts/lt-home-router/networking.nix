@@ -172,7 +172,7 @@
       table inet ont-webui-proxy {
         chain prerouting {
           type nat hook prerouting priority dstnat; policy accept;
-          fib daddr type local dnat ip to 192.168.1.1
+          fib daddr type local iifname eth0 dnat ip to 192.168.1.1
         }
 
         chain postrouting {
@@ -182,6 +182,10 @@
       }
       EOF
     '';
+  };
+  systemd.services.netns-instance-ont-webui-proxy = {
+    after = [ "network.target" ];
+    requires = [ "network.target" ];
   };
 
   networking.henet = {
