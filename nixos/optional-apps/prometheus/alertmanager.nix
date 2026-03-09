@@ -161,12 +161,12 @@ in
                 # ACME SSL cert expiry
                 {
                   alert = "ssl_certificate_expiry";
-                  expr = "ssl_certificate_expiry_seconds < 3 * 86400";
+                  expr = "ssl_certificate_expiry_seconds < 1.5 * 86400";
                   for = "30m";
                   labels.severity = "warning";
                   annotations = {
-                    summary = "⚠️ SSL cert {{$labels.path}} will expire in 3 days.";
-                    description = "SSL cert {{$labels.path}} will expire in 3 days.";
+                    summary = "⚠️ SSL cert {{$labels.path}} will expire in 1.5 days.";
+                    description = "SSL cert {{$labels.path}} will expire in 1.5 days.";
                   };
                 }
               ];
