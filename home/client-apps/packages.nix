@@ -154,6 +154,7 @@ in
         xca
         xdg-ninja
         yubioath-flutter
+        zapzap
         zed-editor
         zoom-us
         # keep-sorted end
