@@ -14,6 +14,7 @@ let
       extensions = {
         packages = with pkgs.firefox-addons; [
           # keep-sorted start
+          all-api-hub
           awardwallet
           bilisponsorblock
           bitwarden-password-manager
@@ -24,10 +25,10 @@ let
           downthemall
           fastforwardteam
           flagfox
+          gemini-delete-for-firefox
           i-dont-care-about-cookies
           ipfs-companion
           kiss-translator
-          linux_do-scripts
           lovely-forks
           multi-account-containers
           noscript
