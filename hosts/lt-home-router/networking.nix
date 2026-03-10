@@ -214,4 +214,28 @@
       '';
     };
   };
+
+  services.tayga = {
+    enable = true;
+    ipv4 = {
+      address = "192.0.2.0";
+      router = {
+        address = "192.0.2.1";
+      };
+      pool = {
+        address = "192.0.2.0";
+        prefixLength = 24;
+      };
+    };
+    ipv6 = {
+      address = "2001:470:e997::1";
+      router = {
+        address = "64:ff9b::1";
+      };
+      pool = {
+        address = "64:ff9b::";
+        prefixLength = 96;
+      };
+    };
+  };
 }
