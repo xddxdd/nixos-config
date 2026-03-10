@@ -28,7 +28,6 @@ let
           gemini-delete-for-firefox
           i-dont-care-about-cookies
           ipfs-companion
-          kiss-translator
           lovely-forks
           multi-account-containers
           noscript
@@ -38,6 +37,7 @@ let
           plasma-integration
           protondb-for-steam
           pt-depiler
+          read-frog-open-ai-translator
           redirector
           return-youtube-dislikes
           rsshub-radar
