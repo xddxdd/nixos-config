@@ -74,7 +74,7 @@ let
         '$ADMIN_ID',
         NULL,
         '${name}',
-        '{"profile_image_url": "${iconUrl}", "description": null, "capabilities": {"vision": true, "citations": true}, "suggestion_prompts": null, "tags": []}',
+        '{"profile_image_url": "https://ai.xuyh0120.win${iconUrl}", "description": null, "capabilities": {"vision": true, "citations": true}, "suggestion_prompts": null, "tags": []}',
         '{"function_calling": "native"}',
         $TIMESTAMP,
         $TIMESTAMP,
