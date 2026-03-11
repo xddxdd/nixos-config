@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
   mangohudForCurrentKernel = pkgs.mangohud.override {
-    inherit (config.boot.kernelPackages.nvidia_x11.settings) libXNVCtrl;
+    linuxPackages = config.boot.kernelPackages;
   };
 in
 {

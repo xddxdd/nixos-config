@@ -1,7 +1,7 @@
 {
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2026-02-13",
+        "date": "2026-03-10",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f5e115754ad735568a01ba3ff6e2007c26938205",
-            "sha256": "sha256-S3V/bN/8aMY3tyk9OHiQKNRyAQBp8WMNPQ7VLnL90Ps=",
+            "rev": "3f356e31bda992cf18b1ed45ce557657717cd8a3",
+            "sha256": "sha256-v9aau6jYXerHpRTeUHLg7KSl7CNVhRcRjRS8SUgYjw0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "f5e115754ad735568a01ba3ff6e2007c26938205"
+        "version": "3f356e31bda992cf18b1ed45ce557657717cd8a3"
     },
     "firefox-translations-models": {
         "cargoLock": null,
@@ -49,11 +49,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n0z2sRObiP8oo9VzFczeCXHrvY5yT16Fg16VYDHOsKM=",
+            "sha256": "sha256-jdZ+TiUF2p01q9zcwB6UHtI8LXQrEwhUYiUB9o8lsGA=",
             "type": "url",
-            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.0/grafana-falconlogscale-datasource-1.9.0.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.1/grafana-falconlogscale-datasource-1.9.1.zip"
         },
-        "version": "1.9.0"
+        "version": "1.9.1"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLock": null,
@@ -64,15 +64,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-S4exvjgRZeGiR6ubKE413AjF88jKgOUxqCnhoXJTmXo=",
+            "sha256": "sha256-fsBbEbb8Uys/w/vnMN15WDpYbw4heztH5G30ol2uD0g=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.1/yesoreyeram-infinity-datasource-3.7.1.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.3/yesoreyeram-infinity-datasource-3.7.3.zip"
         },
-        "version": "3.7.1"
+        "version": "3.7.3"
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-02-14",
+        "date": "2026-03-02",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,13 +82,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bde7247918e6538907357979255bd0b35c04a36c",
-            "sha256": "sha256-auulHGNb3V7bBSH4tdTTM9PjDsBc1FtZGYime8oIrs0=",
+            "rev": "a92012fe552ea7d568c41be1f3bbe0721b23e4ae",
+            "sha256": "sha256-jl9QvstwVZ7ziRmlUgihH4eqRtJROX+iN8+iaiWhd74=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "bde7247918e6538907357979255bd0b35c04a36c"
+        "version": "a92012fe552ea7d568c41be1f3bbe0721b23e4ae"
     },
     "lyrica-custom": {
         "cargoLock": null,
@@ -155,7 +155,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-02-15",
+        "date": "2026-03-05",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -167,12 +167,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "0e3f16a6b60674fd801076dfdd304e6f8800e9f5",
-            "sha256": "sha256-exdA2PcnEGJh/W4mHznskHwLpyOKAx/Gp7OTcP4ojTg=",
+            "rev": "47c2959260a330f919981cb407659f0e2790dc8a",
+            "sha256": "sha256-KjR7RGlrhyszfUfF3y41+yF/6Sp3cbH9DWideSv8AwY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0e3f16a6b60674fd801076dfdd304e6f8800e9f5"
+        "version": "47c2959260a330f919981cb407659f0e2790dc8a"
     },
     "ohmyzsh-tirith": {
         "cargoLock": null,

@@ -3,6 +3,7 @@ let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 rec {
+  inherit (final.nur-xddxdd) bepasty;
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
@@ -14,7 +15,7 @@ rec {
       ../patches/dex-glob-match-redirect-uri.patch
       ../patches/dex-skip-approval-screen.patch
     ];
-    vendorHash = "sha256-FCcIKej106jDLvPdsYBtpB61QfD2nQpXwVpOtc2WdW0=";
+    vendorHash = "sha256-7T4svxdzKsSQup1Ls43bK+l/xMgxL4mmQQ7Ck3WoKRk=";
     doCheck = false;
   });
   dump1090-fa = prev.dump1090-fa.overrideAttrs (old: {

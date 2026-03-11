@@ -1,33 +1,33 @@
 diff --git a/go.mod b/go.mod
-index 9f6006b3..462e9ed4 100644
+index f83334a6..6f46b3a1 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -16,6 +16,7 @@ require (
  	github.com/go-jose/go-jose/v4 v4.1.3
- 	github.com/go-ldap/ldap/v3 v3.4.11
+ 	github.com/go-ldap/ldap/v3 v3.4.12
  	github.com/go-sql-driver/mysql v1.9.3
 +	github.com/gobwas/glob v0.2.3
  	github.com/google/uuid v1.6.0
  	github.com/gorilla/handlers v1.5.2
  	github.com/gorilla/mux v1.8.1
 diff --git a/go.sum b/go.sum
-index cb547156..03b33259 100644
+index ed20373e..c24c567a 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -77,6 +77,8 @@ github.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1
- github.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=
- github.com/go-test/deep v1.0.3 h1:ZrJSEWsXzPOxaZnFteGEfooLba+ju3FYIbOrS+rQd68=
- github.com/go-test/deep v1.0.3/go.mod h1:wGDj63lr65AM2AQyKZd/NYHGb0R+1RLqB8NKt3aSFNA=
+@@ -84,6 +84,8 @@ github.com/go-test/deep v1.1.1 h1:0r/53hagsehfO4bzD2Pgr/+RgHqhmf+k1Bpse2cTu1U=
+ github.com/go-test/deep v1.1.1/go.mod h1:5C2ZWiW0ErCdrYzpqxLbTX7MG14M9iiw8DgHncVwcsE=
+ github.com/go-viper/mapstructure/v2 v2.4.0 h1:EBsztssimR/CONLSZZ04E8qAkxNYq4Qp9LvH92wZUgs=
+ github.com/go-viper/mapstructure/v2 v2.4.0/go.mod h1:oJDH3BJKyqBA2TXFhDsKDGDTlndYOZ6rGS0BRZIxGhM=
 +github.com/gobwas/glob v0.2.3 h1:A4xDbljILXROh+kObIiy5kIaPYD8e96x1tgBhUI5J+Y=
 +github.com/gobwas/glob v0.2.3/go.mod h1:d3Ez4x06l9bZtSvzIay5+Yzi0fmZzPgnTbPcKjJAkT8=
  github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
  github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
  github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=
 diff --git a/server/oauth2.go b/server/oauth2.go
-index 18cc3dd4..bdb7a95c 100644
+index 91879761..55b33b26 100644
 --- a/server/oauth2.go
 +++ b/server/oauth2.go
-@@ -22,6 +22,7 @@ import (
+@@ -19,6 +19,7 @@ import (
  	"time"
  
  	"github.com/go-jose/go-jose/v4"
@@ -35,7 +35,7 @@ index 18cc3dd4..bdb7a95c 100644
  
  	"github.com/dexidp/dex/connector"
  	"github.com/dexidp/dex/server/internal"
-@@ -655,7 +656,11 @@ func validateRedirectURI(client storage.Client, redirectURI string) bool {
+@@ -622,7 +623,11 @@ func validateRedirectURI(client storage.Client, redirectURI string) bool {
  	// Allow named RedirectURIs for both public and non-public clients.
  	// This is required make PKCE-enabled web apps work, when configured as public clients.
  	for _, uri := range client.RedirectURIs {
@@ -49,10 +49,10 @@ index 18cc3dd4..bdb7a95c 100644
  		}
  	}
 diff --git a/server/oauth2_test.go b/server/oauth2_test.go
-index 3dff30d6..e7946824 100644
+index ea930cb3..704ac4c7 100644
 --- a/server/oauth2_test.go
 +++ b/server/oauth2_test.go
-@@ -583,6 +583,20 @@ func TestValidRedirectURI(t *testing.T) {
+@@ -584,6 +584,20 @@ func TestValidRedirectURI(t *testing.T) {
  			redirectURI: "http://localhost.localhost:8080/",
  			wantValid:   false,
  		},

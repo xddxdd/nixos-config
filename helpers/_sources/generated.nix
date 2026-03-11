@@ -8,17 +8,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "f5e115754ad735568a01ba3ff6e2007c26938205";
+    version = "3f356e31bda992cf18b1ed45ce557657717cd8a3";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "f5e115754ad735568a01ba3ff6e2007c26938205";
+      rev = "3f356e31bda992cf18b1ed45ce557657717cd8a3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-S3V/bN/8aMY3tyk9OHiQKNRyAQBp8WMNPQ7VLnL90Ps=";
+      sha256 = "sha256-v9aau6jYXerHpRTeUHLg7KSl7CNVhRcRjRS8SUgYjw0=";
     };
-    date = "2026-02-13";
+    date = "2026-03-10";
   };
   firefox-translations-models = {
     pname = "firefox-translations-models";
@@ -34,33 +34,33 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.9.0";
+    version = "1.9.1";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.0/grafana-falconlogscale-datasource-1.9.0.zip";
-      sha256 = "sha256-n0z2sRObiP8oo9VzFczeCXHrvY5yT16Fg16VYDHOsKM=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.1/grafana-falconlogscale-datasource-1.9.1.zip";
+      sha256 = "sha256-jdZ+TiUF2p01q9zcwB6UHtI8LXQrEwhUYiUB9o8lsGA=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.7.1";
+    version = "3.7.3";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.1/yesoreyeram-infinity-datasource-3.7.1.zip";
-      sha256 = "sha256-S4exvjgRZeGiR6ubKE413AjF88jKgOUxqCnhoXJTmXo=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.3/yesoreyeram-infinity-datasource-3.7.3.zip";
+      sha256 = "sha256-fsBbEbb8Uys/w/vnMN15WDpYbw4heztH5G30ol2uD0g=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "bde7247918e6538907357979255bd0b35c04a36c";
+    version = "a92012fe552ea7d568c41be1f3bbe0721b23e4ae";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "bde7247918e6538907357979255bd0b35c04a36c";
+      rev = "a92012fe552ea7d568c41be1f3bbe0721b23e4ae";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-auulHGNb3V7bBSH4tdTTM9PjDsBc1FtZGYime8oIrs0=";
+      sha256 = "sha256-jl9QvstwVZ7ziRmlUgihH4eqRtJROX+iN8+iaiWhd74=";
     };
-    date = "2026-02-14";
+    date = "2026-03-02";
   };
   lyrica-custom = {
     pname = "lyrica-custom";
@@ -100,15 +100,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "0e3f16a6b60674fd801076dfdd304e6f8800e9f5";
+    version = "47c2959260a330f919981cb407659f0e2790dc8a";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "0e3f16a6b60674fd801076dfdd304e6f8800e9f5";
+      rev = "47c2959260a330f919981cb407659f0e2790dc8a";
       fetchSubmodules = false;
-      sha256 = "sha256-exdA2PcnEGJh/W4mHznskHwLpyOKAx/Gp7OTcP4ojTg=";
+      sha256 = "sha256-KjR7RGlrhyszfUfF3y41+yF/6Sp3cbH9DWideSv8AwY=";
     };
-    date = "2026-02-15";
+    date = "2026-03-05";
   };
   ohmyzsh-tirith = {
     pname = "ohmyzsh-tirith";

@@ -29,9 +29,9 @@ in
   '';
 
   environment.systemPackages = [
+    pkgs.crosspipe
     pkgs.pavucontrol
     pkgs.pulseaudio
-    pkgs.helvum
   ];
 
   security.rtkit.enable = true;

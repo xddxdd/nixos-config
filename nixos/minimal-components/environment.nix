@@ -187,10 +187,10 @@
 
     oomd.enable = lib.mkForce false;
 
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-    '';
+    sleep.settings.Sleep = {
+      AllowSuspend = false;
+      AllowHibernation = false;
+    };
 
     # https://github.com/systemd/systemd/issues/25376
     settings.Manager = {
