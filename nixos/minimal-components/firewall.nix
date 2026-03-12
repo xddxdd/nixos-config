@@ -211,8 +211,6 @@ let
     ${ipv6Set "NEONETWORK_IPV6" LT.constants.neonetwork.IPv6}
     ${ipv4Set "LOCAL_IPV4" [ "${LT.this.ltnet.IPv4Prefix}.0/24" ]}
     ${ipv6Set "LOCAL_IPV6" [ "${LT.this.ltnet.IPv6Prefix}::/64" ]}
-    ${ipv4Set "CN_IPV4" LT.constants.china-mainland.IPv4}
-    ${ipv6Set "CN_IPV6" LT.constants.china-mainland.IPv6}
 
     set PUBLIC_FIREWALLED_PORTS {
       type inet_service
@@ -251,11 +249,6 @@ let
       # Block ports
       tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
       udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
-
-      ip saddr @CN_IPV4 tcp dport @CN_FIREWALLED_PORTS reject with tcp reset
-      ip saddr @CN_IPV4 udp dport @CN_FIREWALLED_PORTS reject with icmpx type port-unreachable
-      ip6 saddr @CN_IPV6 tcp dport @CN_FIREWALLED_PORTS reject with tcp reset
-      ip6 saddr @CN_IPV6 udp dport @CN_FIREWALLED_PORTS reject with icmpx type port-unreachable
 
       return
     }

@@ -118,7 +118,6 @@ in
     nixd
     nixfmt-rfc-style
     nixpkgs-fmt
-    nodePackages.node2nix
     nurl
 
     # NodeJS
