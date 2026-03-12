@@ -149,7 +149,8 @@ in
                 # Asterisk outbound registration rejected
                 {
                   alert = "asterisk_pjsip_outbound_registration";
-                  expr = "asterisk_pjsip_outbound_registration_status == 2";
+                  # Filter out sip.sdf.org for unstable server
+                  expr = ''asterisk_pjsip_outbound_registration_status{domain!="sip:sip.sdf.org"} == 2'';
                   for = "30m";
                   labels.severity = "warning";
                   annotations = {
