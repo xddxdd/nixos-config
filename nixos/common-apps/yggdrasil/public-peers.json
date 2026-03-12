@@ -36,7 +36,8 @@
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://s2.i2pd.xyz:39575",
     "tls://ygg.jholden.org:1555",
-    "tls://ygg6.mk16.de:1338?key=0000005e5ced06fd4d465bc651c5deb6d70cbe82d36efb68c0450268eaaa5384"
+    "tls://ygg6.mk16.de:1338?key=0000005e5ced06fd4d465bc651c5deb6d70cbe82d36efb68c0450268eaaa5384",
+    "tls://yggpeer.tilde.green:59454"
   ],
   "germany": [
     "tls://103.109.234.106:443?key=000000035621c71b5610434589df051aed2688510f904ae79860668dc0fbf182",
