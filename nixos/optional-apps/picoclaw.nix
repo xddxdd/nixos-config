@@ -2,14 +2,20 @@
   lib,
   pkgs,
   LT,
+  config,
   ...
 }:
 {
-  environment.systemPackages = [ pkgs.picoclaw ];
+  environment.systemPackages = [
+    pkgs.github-cli
+    pkgs.picoclaw
+  ];
 
   systemd.services.picoclaw = {
     description = "PicoClaw";
     wantedBy = [ "multi-user.target" ];
+
+    path = config.environment.systemPackages;
 
     serviceConfig = LT.serviceHarden // {
       ExecStart = "${lib.getExe pkgs.picoclaw} gateway";
