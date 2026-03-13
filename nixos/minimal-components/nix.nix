@@ -12,6 +12,7 @@ let
     "@hydra"
     "nix-builder"
     "root"
+    "picoclaw"
   ];
 in
 {
