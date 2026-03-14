@@ -1061,6 +1061,29 @@
         "type": "github"
       }
     },
+    "picoforge": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772947661,
+        "narHash": "sha256-28mZils5krWsDk26AS7x3V3PqAR1sQ9rM55VUc3B5vo=",
+        "owner": "librekeys",
+        "repo": "picoforge",
+        "rev": "a65cba687654a47b209e2a1f0527ec0ddad8523b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "librekeys",
+        "repo": "picoforge",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -1174,6 +1197,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
+        "picoforge": "picoforge",
         "plasma-manager": "plasma-manager",
         "preservation": "preservation",
         "proxmox-nixos": "proxmox-nixos",

@@ -87,6 +87,7 @@ in
         # gopher
         imagemagick
         immich-cli
+        inputs.picoforge.packages."${pkgs.system}".picoforge
         jamesdsp
         jamesdsp-toggle
         kdePackages.ark

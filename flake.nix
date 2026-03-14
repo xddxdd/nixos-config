@@ -17,6 +17,7 @@
     };
     systems.url = "github:nix-systems/default";
 
+    # keep-sorted start block=yes
     agenix = {
       url = "github:ryantm/agenix";
       inputs.home-manager.follows = "home-manager";
@@ -63,6 +64,14 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ipcountry-cn-ipv4 = {
+      url = "https://www.iwik.org/ipcountry/CN.cidr";
+      flake = false;
+    };
+    ipcountry-cn-ipv6 = {
+      url = "https://www.iwik.org/ipcountry/CN.ipv6";
+      flake = false;
     };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -113,6 +122,11 @@
       inputs.nix-index-database.follows = "nix-index-database";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    picoforge = {
+      url = "github:librekeys/picoforge";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -148,15 +162,7 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ipcountry-cn-ipv4 = {
-      url = "https://www.iwik.org/ipcountry/CN.cidr";
-      flake = false;
-    };
-    ipcountry-cn-ipv6 = {
-      url = "https://www.iwik.org/ipcountry/CN.ipv6";
-      flake = false;
-    };
+    # keep-sorted end
   };
 
   outputs =
