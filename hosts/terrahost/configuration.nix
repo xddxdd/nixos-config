@@ -1,4 +1,5 @@
-_: {
+{ inputs, ... }:
+{
   imports = [
     ../../nixos/server.nix
 
@@ -9,6 +10,8 @@ _: {
     ../../nixos/optional-apps/prometheus
     ../../nixos/optional-apps/vaultwarden.nix
     ../../nixos/optional-apps/yourls.nix
+
+    "${inputs.secrets}/nixos-hidden-module/7dfa681e7463f997"
   ];
 
   systemd.network.networks.eth0 = {
