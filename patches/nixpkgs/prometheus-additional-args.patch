@@ -1,0 +1,17 @@
+diff --git a/nixos/modules/services/monitoring/prometheus/default.nix b/nixos/modules/services/monitoring/prometheus/default.nix
+index 345ed324dff1..6bd1a37f23ce 100644
+--- a/nixos/modules/services/monitoring/prometheus/default.nix
++++ b/nixos/modules/services/monitoring/prometheus/default.nix
+@@ -59,7 +59,11 @@ let
+ 
+   # This becomes the main config file for Prometheus
+   promConfig = {
+-    global = filterValidPrometheus cfg.globalConfig;
++    global = (filterValidPrometheus cfg.globalConfig) // {
++      scrape_native_histograms = true;
++      convert_classic_histograms_to_nhcb = true;
++      extra_scrape_metrics = true;
++    };
+     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
+     remote_write = filterValidPrometheus cfg.remoteWrite;
+     remote_read = filterValidPrometheus cfg.remoteRead;
