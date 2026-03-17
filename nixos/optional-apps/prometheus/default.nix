@@ -13,6 +13,7 @@
 
   services.prometheus = {
     enable = true;
+    enableReload = true;
     port = LT.port.Prometheus.Daemon;
     listenAddress = "127.0.0.1";
     webExternalUrl = "https://prometheus.xuyh0120.win";
