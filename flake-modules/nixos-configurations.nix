@@ -41,6 +41,7 @@ let
       inputs.angrr.nixosModules.angrr
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager
+      inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-cache-proxy.nixosModules.nix-cache-proxy
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic

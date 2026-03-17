@@ -65,6 +65,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    honkai-railway-grub-theme = {
+      url = "github:voidlhf/StarRailGrubThemes";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     ipcountry-cn-ipv4 = {
       url = "https://www.iwik.org/ipcountry/CN.cidr";
       flake = false;

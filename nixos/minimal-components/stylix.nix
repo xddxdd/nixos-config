@@ -14,7 +14,6 @@
     autoEnable = LT.this.hasTag LT.tags.client;
     targets = {
       console.enable = true;
-      grub.enable = true;
       # FIXME: workaround stylix bug
       qt.platform = lib.mkForce "kde";
     };

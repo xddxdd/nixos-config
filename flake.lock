@@ -606,6 +606,29 @@
         "type": "github"
       }
     },
+    "honkai-railway-grub-theme": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773539412,
+        "narHash": "sha256-xhOKk1snsJQiYd/CgIeyy+k+5jPAiWTrLMwRrqn8JbY=",
+        "owner": "voidlhf",
+        "repo": "StarRailGrubThemes",
+        "rev": "58a0693ee2249b41e70f1e3077cd35e9cd7273ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "voidlhf",
+        "repo": "StarRailGrubThemes",
+        "type": "github"
+      }
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1763762820,
@@ -1184,6 +1207,7 @@
         "flake-utils": "flake-utils",
         "flat-flake": "flat-flake",
         "home-manager": "home-manager",
+        "honkai-railway-grub-theme": "honkai-railway-grub-theme",
         "ipcountry-cn-ipv4": "ipcountry-cn-ipv4",
         "ipcountry-cn-ipv6": "ipcountry-cn-ipv6",
         "nix-alien": "nix-alien",
