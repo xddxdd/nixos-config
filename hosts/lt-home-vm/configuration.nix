@@ -27,6 +27,7 @@
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
+    ../../nixos/optional-apps/metapi.nix
     # ../../nixos/optional-apps/mtranserver.nix
     ../../nixos/optional-apps/n8n.nix
     ../../nixos/optional-apps/ncps-client.nix

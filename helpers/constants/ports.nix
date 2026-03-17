@@ -94,6 +94,7 @@ rec {
     qBitTorrent.WebUI = 13808;
     qBitTorrentPT.WebUI = 13809;
     SakuraLLM = 13810;
+    Metapi = 13811;
     HomepageDashboard = 13812;
     Syncthing = 13834;
     Usque = 13840;
