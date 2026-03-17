@@ -2,6 +2,7 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }:
 {
@@ -12,7 +13,7 @@
     default = if LT.this.hasTag LT.tags.client then "saved" else 0;
     font = lib.mkForce "${pkgs.nerd-fonts.ubuntu-mono}/share/fonts/truetype/NerdFonts/UbuntuMono/UbuntuMonoNerdFontMono-Regular.ttf";
     fontSize = lib.mkForce 16;
-    efiInstallAsRemovable = true;
+    efiInstallAsRemovable = config.boot.loader.grub.efiSupport;
   };
 
   console.earlySetup = true;
