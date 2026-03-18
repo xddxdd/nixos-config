@@ -68,6 +68,7 @@ let
     translit = call ./fn/translit.nix;
     wrapNetns = call ./fn/wrap-netns.nix;
     zerotier = call ./fn/zerotier.nix;
+    inherit (call ./fn/random.nix) random randomSelect;
   };
 in
 helpers
