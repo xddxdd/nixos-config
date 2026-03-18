@@ -47,6 +47,7 @@
     "tls://des.8px.sk:4321",
     "tls://helium.avevad.com:1337",
     "tls://vpn.ltha.de:443?key=0000006149970f245e6cec43664bce203f2514b60a153e194f31e2b229a1339d",
+    "tls://ygg-oracle.axxa.dev:18080",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
     "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
@@ -54,7 +55,6 @@
     "tls://yggdrasil.su:62586"
   ],
   "hong-kong": [
-    "tls://yg-hkg.magicum.net:32333",
     "tls://ygg5.mk16.de:1338?key=0000009611ae5391dc0aceea9f3fa6a0dc1279f4306059339e84bfb8b74d2f9b"
   ],
   "hungary": [
@@ -84,13 +84,16 @@
     "tls://[2a03:94e0:ffff:185:181:60:0:111]:1513?key=00defa4b4b243547f2d5641ac5235ff1e35d393c576e4bb9cd45baefc81e48d9"
   ],
   "romania": [
-    "tls://185.165.169.234:8443"
+    "tls://185.165.169.234:8443",
+    "tls://ygg-ro.axxa.dev:18080"
   ],
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
+    "tls://45.95.202.21:443",
     "tls://[2a00:b700::a:279]:443",
+    "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://ekb.itrus.su:7992",
     "tls://ip4.01.ekb.ru.dioni.su:9003",
