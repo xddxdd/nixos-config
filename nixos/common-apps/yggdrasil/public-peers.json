@@ -63,6 +63,9 @@
   "india": [
     "tls://ins.8px.sk:4321"
   ],
+  "indonesia": [
+    "tls://supanadit.com:15021"
+  ],
   "japan": [
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232",
