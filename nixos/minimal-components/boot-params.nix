@@ -15,6 +15,9 @@ let
       cp -r \
         ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/* \
         /boot/theme/
+      cp \
+        ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/background.png \
+        /boot/background.png
       echo "Install complete"
     else
       echo "/boot/theme not found, not installing theme"
