@@ -12,10 +12,10 @@ let
     THEME_PATH=$(ls -1 ${inputs.honkai-railway-grub-theme}/assets/themes | grep "_cn" | sort -R | head -n1)
     echo "Randomly selected theme $THEME_PATH"
     if [ -d "/boot/theme" ]; then
-      ${pkgs.rsync}/bin/rsync -ar --delete-after \
-        ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/ \
+      cp -r \
+        ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/* \
         /boot/theme/
-      echo "Rsync complete"
+      echo "Install complete"
     else
       echo "/boot/theme not found, not installing theme"
     fi
