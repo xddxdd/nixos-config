@@ -177,7 +177,6 @@ in
   home.sessionVariables = {
     # keep-sorted start
     # Claude Code 环境变量 (https://linux.do/t/topic/1513988)
-    CLAUDE_AUTOCOMPACT_PCT_OVERRIDE = "57"; # 提前触发自动压缩 (默认 200k -> 115k)
     CLAUDE_CODE_ATTRIBUTION_HEADER = "0"; # 禁用账单归属头
     CLAUDE_CODE_BLOCKING_LIMIT_OVERRIDE = "193000"; # 覆盖阻塞限制
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"; # 禁用非必要流量
