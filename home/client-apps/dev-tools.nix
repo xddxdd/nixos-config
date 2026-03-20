@@ -177,7 +177,14 @@ in
   home.sessionVariables = {
     # keep-sorted start
     AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+    CLAUDE_AUTOCOMPACT_PCT_OVERRIDE = "57";
+    CLAUDE_CODE_ATTRIBUTION_HEADER = "0";
+    CLAUDE_CODE_BLOCKING_LIMIT_OVERRIDE = "193000";
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+    CLAUDE_CODE_PROXY_RESOLVES_HOSTS = "1";
     CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
+    DISABLE_INSTALLATION_CHECKS = "1";
+    ENABLE_TOOL_SEARCH = "1";
     FLY_CONFIG_DIR = "${config.xdg.dataHome}/fly";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
     NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
