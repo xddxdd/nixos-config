@@ -34,7 +34,7 @@ let
   '';
 
   linkzoneAdb = pkgs.writeShellScriptBin "linkzone-adb" ''
-    exec ${lib.getExe pkgs.sg3_utils "sg_raw"} "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
+    exec ${lib.getExe' pkgs.sg3_utils "sg_raw"} "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
 in
 {
@@ -159,7 +159,6 @@ in
 
     # Others
     cdrkit
-    claude-code
     dhcpcd
     elfx86exts
     flamegraph
@@ -174,7 +173,7 @@ in
     tldr
   ];
 
-  programs.direnv = {
+  home.sessionVariables = {
     CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
     FLY_CONFIG_DIR = "${config.xdg.dataHome}/fly";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";

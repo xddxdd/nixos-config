@@ -1,8 +1,9 @@
+{ pkgs, ... }:
 {
-  lib,
-  ...
-}:
-{
+  home.packages = with pkgs; [
+    claude-code
+  ];
+
   home.sessionVariables = {
     CLAUDE_CODE_ATTRIBUTION_HEADER = "0";
     CLAUDE_CODE_BLOCKING_LIMIT_OVERRIDE = "193000";
