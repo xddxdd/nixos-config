@@ -37,8 +37,7 @@ let
     exec ${lib.getExe' pkgs.sg3_utils "sg_raw"} "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
 in
-import ./claude-code.nix lib
-// {
+{
   home.packages = with pkgs; [
     # Bash
     dos2unix
