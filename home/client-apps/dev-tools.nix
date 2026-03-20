@@ -37,7 +37,8 @@ let
     exec ${lib.getExe' pkgs.sg3_utils "sg_raw"} "$1" 16 f9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 -v
   '';
 in
-{
+import ./claude-code.nix lib
+// {
   home.packages = with pkgs; [
     # Bash
     dos2unix
@@ -174,17 +175,7 @@ in
     tldr
   ];
 
-  home.sessionVariables = {
-    # keep-sorted start
-    # Claude Code 环境变量 (https://linux.do/t/topic/1513988)
-    CLAUDE_CODE_ATTRIBUTION_HEADER = "0"; # 禁用账单归属头
-    CLAUDE_CODE_BLOCKING_LIMIT_OVERRIDE = "193000"; # 覆盖阻塞限制
-    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"; # 禁用非必要流量
-    CLAUDE_CODE_PROXY_RESOLVES_HOSTS = "1"; # 将 DNS 解析交给代理服务器
-    DISABLE_INSTALLATION_CHECKS = "1"; # 禁用安装检查
-    ENABLE_TOOL_SEARCH = "1"; # 强制开启 tool search (2.1.72+)
-
-    AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+  programs.direnv = {
     CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
     FLY_CONFIG_DIR = "${config.xdg.dataHome}/fly";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
