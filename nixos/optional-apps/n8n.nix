@@ -22,6 +22,7 @@
       N8N_PORT = LT.port.N8N;
       N8N_RUNNERS_AUTH_TOKEN_FILE = config.age.secrets.n8n-secret.path;
       N8N_METRICS = true;
+      N8N_RESTRICT_FILE_ACCESS_TO = "/var/cache/n8n";
 
       DB_TYPE = "postgresdb";
       DB_POSTGRESDB_DATABASE = "n8n";
@@ -34,11 +35,20 @@
         enable = true;
         command = lib.getExe' config.services.n8n.package "n8n-task-runner";
         healthCheckPort = 5681;
+        environment = {
+          NODE_FUNCTION_ALLOW_BUILTIN = "*";
+          NODE_FUNCTION_ALLOW_EXTERNAL = "*";
+        };
       };
       python = {
         enable = true;
         command = lib.getExe' config.services.n8n.package "n8n-task-runner-python";
         healthCheckPort = 5682;
+        environment = {
+          N8N_RUNNERS_STDLIB_ALLOW = "*";
+          N8N_RUNNERS_EXTERNAL_ALLOW = "*";
+          N8N_RUNNERS_BUILTINS_DENY = "";
+        };
       };
     };
   };
@@ -47,6 +57,7 @@
     User = "n8n";
     Group = "n8n";
     DynamicUser = lib.mkForce false;
+    CacheDirectory = "n8n";
   };
   systemd.services.n8n-task-runner.serviceConfig = {
     User = "n8n";
