@@ -157,6 +157,17 @@
     };
     date = "2024-06-04";
   };
+  picoclaw = {
+    pname = "picoclaw";
+    version = "v0.2.3";
+    src = fetchFromGitHub {
+      owner = "sipeed";
+      repo = "picoclaw";
+      rev = "v0.2.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-CnwfnYl7hciCbgC0P/I9anGdmrzpRalutGmPAJ6H7NI=";
+    };
+  };
   sakura-share = {
     pname = "sakura-share";
     version = "042cc4aa4444e3f90618d977d0c6a2f5de471cdd";

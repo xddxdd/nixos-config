@@ -258,6 +258,27 @@
         },
         "version": "3ec39a31ec64858642629991caf0dd14ce7c34ca"
     },
+    "picoclaw": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "picoclaw",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sipeed",
+            "repo": "picoclaw",
+            "rev": "v0.2.3",
+            "sha256": "sha256-CnwfnYl7hciCbgC0P/I9anGdmrzpRalutGmPAJ6H7NI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.3"
+    },
     "sakura-share": {
         "cargoLock": null,
         "date": "2025-12-29",
