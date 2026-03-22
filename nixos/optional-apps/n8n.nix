@@ -57,12 +57,14 @@
     User = "n8n";
     Group = "n8n";
     DynamicUser = lib.mkForce false;
+    Restart = lib.mkForce "always";
     CacheDirectory = "n8n";
   };
   systemd.services.n8n-task-runner.serviceConfig = {
     User = "n8n";
     Group = "n8n";
     DynamicUser = lib.mkForce false;
+    Restart = lib.mkForce "always";
   };
 
   services.postgresql = {
