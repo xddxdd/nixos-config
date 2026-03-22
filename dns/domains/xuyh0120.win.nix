@@ -84,6 +84,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "n8n";
+      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "netbox";
       target = "colocrossing";
       ttl = "1h";

@@ -17,7 +17,7 @@
   services.n8n = {
     enable = true;
     environment = {
-      N8N_EDITOR_BASE_URL = "https://n8n.${config.networking.hostName}.xuyh0120.win";
+      N8N_EDITOR_BASE_URL = "https://n8n.xuyh0120.win";
       N8N_LISTEN_ADDRESS = "127.0.0.1";
       N8N_PORT = LT.port.N8N;
       N8N_RUNNERS_AUTH_TOKEN_FILE = config.age.secrets.n8n-secret.path;
@@ -83,28 +83,14 @@
   };
   users.groups.n8n = { };
 
-  lantian.nginxVhosts = {
-    "n8n.${config.networking.hostName}.xuyh0120.win" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.N8N}";
-        proxyWebsockets = true;
-      };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
+  lantian.nginxVhosts."n8n.xuyh0120.win" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.N8N}";
+      proxyWebsockets = true;
     };
-    "n8n.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
 
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.N8N}";
-        proxyWebsockets = true;
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
-    };
+    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
+    noIndex.enable = true;
+    accessibleBy = "private";
   };
 }
