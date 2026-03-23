@@ -192,7 +192,9 @@ if __name__ == "__main__":
             for _ in range(3):
                 try:
                     subprocess.run(
-                        ["attic", "push", "lantian", *output_paths], check=True
+                        ["attic", "push", "lantian", *output_paths],
+                        check=True,
+                        timeout=600,
                     )
                     break
                 except subprocess.CalledProcessError:
