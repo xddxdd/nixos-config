@@ -7,6 +7,8 @@
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
+  boot.initrd.kernelModules = [ "virtiofs" ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";
@@ -18,14 +20,8 @@
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/ecba570c-c3e4-47e3-be09-5ee7baec5534";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
+    device = "virtiofs-nixos-home-rdp";
+    fsType = "virtiofs";
   };
 
   services.qemuGuest.enable = true;
