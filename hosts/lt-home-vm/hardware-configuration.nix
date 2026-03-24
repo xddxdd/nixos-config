@@ -11,22 +11,13 @@
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
-  boot.loader.grub.mirroredBoots = [
-    {
-      devices = [ "/dev/vda" ];
-      path = "/nix/boot";
-    }
-  ];
+  boot.initrd.kernelModules = [ "virtiofs" ];
+
+  boot.loader.grub.device = "/dev/vda";
 
   fileSystems."/nix" = {
-    device = "/dev/vda1";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
+    device = "virtiofs-nixos-home-vm";
+    fsType = "virtiofs";
   };
 
   fileSystems."/mnt/storage" = {
@@ -54,8 +45,12 @@
   };
 
   fileSystems."/boot" = {
-    device = "/nix/boot";
-    options = [ "bind" ];
+    device = "/dev/disk/by-uuid/22DA-8396";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   services.btrfs.autoScrub = {
@@ -64,11 +59,4 @@
   };
 
   services.qemuGuest.enable = true;
-
-  swapDevices = [
-    {
-      device = "/dev/vda2";
-      randomEncryption.enable = true;
-    }
-  ];
 }

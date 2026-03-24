@@ -16,7 +16,6 @@
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
-    ../../nixos/optional-apps/btrbk-server.nix
     ../../nixos/optional-apps/calibre-cops.nix
     # ../../nixos/optional-apps/clamav.nix
     # ../../nixos/optional-apps/cliproxyapi.nix
@@ -51,18 +50,6 @@
     # ../../nixos/optional-cron-jobs/veloera-checkin
   ];
 
-  # # Disabled for heavy IO use
-  # services.beesd.filesystems.storage = {
-  #   spec = config.fileSystems."/mnt/storage".device;
-  #   hashTableSizeMB = 128;
-  #   verbosity = "crit";
-  #   extraOptions = [
-  #     "--loadavg-target"
-  #     "4"
-  #     "--workaround-btrfs-send"
-  #   ];
-  # };
-
   services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   systemd.network.networks.eth0 = {
@@ -96,7 +83,6 @@
 
   lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
-  lantian.btrbk.storage = "/mnt/storage/backups/btrbk";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
 
   services.ollama.models = "/mnt/storage/ollama";
