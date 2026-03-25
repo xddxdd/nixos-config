@@ -9,17 +9,13 @@
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
+  boot.initrd.kernelModules = [ "virtiofs" ];
+
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {
-    device = "/dev/vda2";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
+    device = "virtiofs-nixos-home-builder";
+    fsType = "virtiofs";
   };
 
   fileSystems."/boot" = {
@@ -35,7 +31,7 @@
 
   swapDevices = [
     {
-      device = "/dev/vda3";
+      device = "/dev/vda2";
       randomEncryption.enable = true;
     }
   ];
