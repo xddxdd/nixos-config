@@ -63,4 +63,15 @@
       RestartSec = "3";
     };
   };
+
+  services.beesd.filesystems.nvme = {
+    spec = config.fileSystems."/mnt/nvme".device;
+    hashTableSizeMB = 1024;
+    verbosity = "crit";
+    extraOptions = [
+      "--loadavg-target"
+      "32"
+      "--workaround-btrfs-send"
+    ];
+  };
 }
