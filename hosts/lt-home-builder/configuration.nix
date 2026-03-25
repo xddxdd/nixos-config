@@ -10,7 +10,16 @@
     ./hardware-configuration.nix
   ];
 
-  nix.settings.build-dir = lib.mkForce "";
+  nix.settings.build-dir = lib.mkForce "/nix-build-tmp";
+  systemd.tmpfiles.settings = {
+    nix-build-dir = {
+      "/nix-build-tmp".d = {
+        user = "root";
+        group = "root";
+        mode = "700";
+      };
+    };
+  };
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.12/24" ];
