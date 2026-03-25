@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ../../nixos/minimal.nix
@@ -9,6 +9,8 @@
 
     ./hardware-configuration.nix
   ];
+
+  nix.settings.build-dir = lib.mkForce "";
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.12/24" ];
