@@ -27,11 +27,20 @@
     ];
   };
 
+  fileSystems."/mnt/tmp" = {
+    device = "/dev/vda2";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "discard"
+    ];
+  };
+
   services.qemuGuest.enable = true;
 
   swapDevices = [
     {
-      device = "/dev/vda2";
+      device = "/dev/vda3";
       randomEncryption.enable = true;
     }
   ];

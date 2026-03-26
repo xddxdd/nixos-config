@@ -10,10 +10,10 @@
     ./hardware-configuration.nix
   ];
 
-  nix.settings.build-dir = lib.mkForce "/nix-build-tmp";
+  nix.settings.build-dir = lib.mkForce "/mnt/tmp/nix-build";
   systemd.tmpfiles.settings = {
     nix-build-dir = {
-      "/nix-build-tmp".d = {
+      "/mnt/tmp/nix-build".d = {
         user = "root";
         group = "root";
         mode = "700";
