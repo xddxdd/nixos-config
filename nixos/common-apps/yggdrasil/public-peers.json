@@ -90,7 +90,6 @@
     "tls://ygg-ro.axxa.dev:18080"
   ],
   "russia": [
-    "tls://188.225.9.167:18227",
     "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
@@ -108,8 +107,7 @@
     "tls://srv.itrus.su:7992",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
-    "tls://ygg-msk-1.averyan.ru:8362",
-    "tls://yggno.de:18227"
+    "tls://ygg-msk-1.averyan.ru:8362"
   ],
   "saudi-arabia": [
     "tls://jed-peer.ygg.sy.sa:8442"
