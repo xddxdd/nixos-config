@@ -95,6 +95,11 @@ in
     };
   };
 
+  systemd.services.searx-init = {
+    after = [ "agenix-install-secrets.service" ];
+    requires = [ "agenix-install-secrets.service" ];
+  };
+
   systemd.services.uwsgi = {
     after = [ "redis-searx.service" ];
     requires = [ "redis-searx.service" ];
