@@ -66,6 +66,7 @@ in
         aria2
         attic-client
         audacious
+        bitwarden-desktop
         brotli
         bzip2
         calibre
