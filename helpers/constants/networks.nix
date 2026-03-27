@@ -2,20 +2,11 @@
 {
   china-mainland =
     let
-      parseCidrList =
-        file:
-        (builtins.filter (
-          l:
-          lib.stringLength l != 0
-          && !(lib.hasPrefix "#" l)
-          # Do not trust country from HENET tunnel
-          && !(lib.hasPrefix "2001:470:" l)
-          && !(lib.hasPrefix "2001:0470:" l)
-        ) (lib.splitString "\n" (builtins.readFile file)));
+      cnData = lib.importJSON (inputs.country-ip-blocks + "/country/cn/aggregated.json");
     in
     {
-      IPv4 = parseCidrList inputs.ipcountry-cn-ipv4.outPath;
-      IPv6 = parseCidrList inputs.ipcountry-cn-ipv6.outPath;
+      IPv4 = cnData.prefixes.ipv4;
+      IPv6 = cnData.prefixes.ipv6;
     };
 
   dn42 = {

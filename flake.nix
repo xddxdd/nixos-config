@@ -48,6 +48,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
     };
+    country-ip-blocks = {
+      url = "github:ipverse/country-ip-blocks";
+      flake = false;
+    };
     firefox-addons = {
       url = "github:petrkozorezov/firefox-addons-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,14 +73,6 @@
       url = "github:voidlhf/StarRailGrubThemes";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-    ipcountry-cn-ipv4 = {
-      url = "https://www.iwik.org/ipcountry/CN.cidr";
-      flake = false;
-    };
-    ipcountry-cn-ipv6 = {
-      url = "https://www.iwik.org/ipcountry/CN.ipv6";
-      flake = false;
     };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";

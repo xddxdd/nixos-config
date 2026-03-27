@@ -235,6 +235,22 @@
         "type": "github"
       }
     },
+    "country-ip-blocks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774579574,
+        "narHash": "sha256-zzafZksruFnK3atU9imfxMOHTSoqhIHz6YpYPr9svFY=",
+        "owner": "ipverse",
+        "repo": "country-ip-blocks",
+        "rev": "9942a970d53f45b79ab2ff71cd51547154996895",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipverse",
+        "repo": "country-ip-blocks",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1772560058,
@@ -642,30 +658,6 @@
         "owner": "vic",
         "repo": "import-tree",
         "type": "github"
-      }
-    },
-    "ipcountry-cn-ipv4": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-CJPi7rBGLx2AeFO+ZgVSultAA9jC319JYPpLyM62zbE=",
-        "type": "file",
-        "url": "https://www.iwik.org/ipcountry/CN.cidr"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://www.iwik.org/ipcountry/CN.cidr"
-      }
-    },
-    "ipcountry-cn-ipv6": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-xdECSyuF5XI4qjEAVQilocmzwu9viir1WHqwpoukRks=",
-        "type": "file",
-        "url": "https://www.iwik.org/ipcountry/CN.ipv6"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://www.iwik.org/ipcountry/CN.ipv6"
       }
     },
     "nix-alien": {
@@ -1201,6 +1193,7 @@
         "betterfox-nix": "betterfox-nix",
         "chinese-fonts-overlay": "chinese-fonts-overlay",
         "colmena": "colmena",
+        "country-ip-blocks": "country-ip-blocks",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
@@ -1208,8 +1201,6 @@
         "flat-flake": "flat-flake",
         "home-manager": "home-manager",
         "honkai-railway-grub-theme": "honkai-railway-grub-theme",
-        "ipcountry-cn-ipv4": "ipcountry-cn-ipv4",
-        "ipcountry-cn-ipv6": "ipcountry-cn-ipv6",
         "nix-alien": "nix-alien",
         "nix-cache-proxy": "nix-cache-proxy",
         "nix-gaming": "nix-gaming",
