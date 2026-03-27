@@ -58,9 +58,9 @@ in
     }
 
     chain VLAN_ISOLATE {
-      # Allow ZeroTier & Syncthing
-      tcp dport { 9993, 22000 } accept
-      udp dport { 9993, 22000 } accept
+      # Allow ZeroTier & Syncthing & NFS
+      tcp dport { 9993, 22000, 111, 2049 } accept
+      udp dport { 9993, 22000, 111, 2049 } accept
 
       # Allow accessing lt-home-lancache
       ip daddr 192.168.0.4 accept
@@ -69,6 +69,7 @@ in
       iifname "eth0" accept
       # Allow homelab VLAN to access IoT VLAN
       iifname "eth0.1" oifname "eth0.5" accept
+
       # Reject everything else
       reject with icmpx type admin-prohibited
     }
