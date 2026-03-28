@@ -9,6 +9,8 @@
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
+    ../../nixos/optional-apps/nfs.nix
+
     ./enable-smart.nix
     ./hardware-configuration.nix
     ./openvswitch.nix
@@ -19,6 +21,15 @@
     "amd_pstate=active"
     "amd_pstate.shared_mem=1"
   ];
+
+  services.nfs.server = {
+    hostName = lib.mkForce "192.168.0.2";
+    exports = lib.mkForce ''
+      /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check)
+      /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check)
+      /mnt/nvme/virtiofs/nixos-home-rdp 192.168.1.13(rw,insecure,no_subtree_check)
+    '';
+  };
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";

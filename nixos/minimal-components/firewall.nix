@@ -67,6 +67,19 @@ let
     ))
   );
 
+  publicFirewalledPorts = [
+    # Samba
+    137 138 139 445
+    # CUPS
+    631
+    # mDNS
+    5353
+    # Rsync
+    87
+  ] ++ lib.optionals (config.networking.hostName != "pve-epyc") [
+    111 2049 4000 4001 4002 20048
+  ];
+
   nftRules = ''
     chain FILTER_INPUT {
       type filter hook input priority 5; policy accept;
@@ -218,16 +231,7 @@ let
       type inet_service
       flags constant
       elements = {
-        # Samba
-        137, 138, 139, 445,
-        # NFS
-        111, 2049, 4000, 4001, 4002, 20048,
-        # CUPS
-        631,
-        # mDNS
-        5353,
-        # Rsync
-        873
+        ${lib.concatMapStringsSep "," builtins.toString publicFirewalledPorts}
       }
     }
 

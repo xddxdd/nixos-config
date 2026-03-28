@@ -1,4 +1,4 @@
-{ LT, ... }:
+{ LT, lib, config, ... }:
 {
   boot.extraModprobeConfig = ''
     options nfs nfs4_disable_idmapping=1
@@ -17,7 +17,7 @@
     '';
   };
 
-  systemd.tmpfiles.settings = {
+  systemd.tmpfiles.settings = lib.mkIf (lib.hasInfix "/run/nfs" config.services.nfs.server.exports) {
     nfs = {
       "/run/nfs"."d" = {
         mode = "755";
