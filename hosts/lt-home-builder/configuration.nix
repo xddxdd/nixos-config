@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [
     ../../nixos/minimal.nix
@@ -9,17 +9,6 @@
 
     ./hardware-configuration.nix
   ];
-
-  nix.settings.build-dir = lib.mkForce "/mnt/tmp/nix-build";
-  systemd.tmpfiles.settings = {
-    nix-build-dir = {
-      "/mnt/tmp/nix-build".d = {
-        user = "root";
-        group = "root";
-        mode = "700";
-      };
-    };
-  };
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.12/24" ];
