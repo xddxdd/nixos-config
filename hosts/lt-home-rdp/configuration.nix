@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
 
     ../../nixos/common-apps/nginx
+    ../../nixos/client-components/impermanence.nix
 
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/nix-distributed.nix
