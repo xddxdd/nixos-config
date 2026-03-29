@@ -37,6 +37,7 @@ in
             inputs.chinese-fonts-overlay.overlays.default
             inputs.colmena.overlay
             inputs.firefox-addons.overlays.default
+            inputs.llm-agents.overlays.default
             inputs.nix-alien.overlays.default
             inputs.nix-cache-proxy.overlays.default
             inputs.nixd.overlays.default

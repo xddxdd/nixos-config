@@ -54,16 +54,6 @@ rec {
   open-webui = prev.open-webui.overridePythonAttrs (old: {
     dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
   });
-  picoclaw = prev.picoclaw.overrideAttrs (old: {
-    inherit (sources.picoclaw) version src;
-    vendorHash = "sha256-S6P/o+ZHeOSGrnYPkzwezARTwBCOJxERucDa1U5QypM=";
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace pkg/tools/shell.go \
-        --replace-fail "t.guardCommand(command, cwd)" '""'
-    '';
-    doCheck = false;
-    doInstallCheck = false;
-  });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
     with all;

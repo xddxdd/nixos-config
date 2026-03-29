@@ -5,10 +5,20 @@
   config,
   ...
 }:
+let
+  picoclaw = pkgs.llm-agents.picoclaw.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace pkg/tools/shell.go \
+        --replace-fail "t.guardCommand(command, cwd)" '""'
+    '';
+    doCheck = false;
+    doInstallCheck = false;
+  });
+in
 {
   environment.systemPackages = [
     pkgs.github-cli
-    pkgs.picoclaw
+    picoclaw
   ];
 
   systemd.services.picoclaw = {
@@ -18,7 +28,7 @@
     path = config.environment.systemPackages;
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${lib.getExe pkgs.picoclaw} gateway";
+      ExecStart = "${lib.getExe picoclaw} gateway";
       User = "picoclaw";
       Group = "picoclaw";
 

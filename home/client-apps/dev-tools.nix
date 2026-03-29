@@ -168,7 +168,8 @@ in
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
-    opencode
+    llm-agents.opencode
+    llm-agents.gemini-cli
     scc
     tldr
   ];

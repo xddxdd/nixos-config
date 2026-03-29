@@ -20,18 +20,6 @@
     };
     date = "2026-03-10";
   };
-  firefox-translations-models = {
-    pname = "firefox-translations-models";
-    version = "e7957fc407441a5e3e35bbcbf9d60d9b35764618";
-    src = fetchFromGitHub {
-      owner = "mozilla";
-      repo = "firefox-translations-models";
-      rev = "e7957fc407441a5e3e35bbcbf9d60d9b35764618";
-      fetchSubmodules = true;
-      sha256 = "sha256-RG5Y2qUJmc7KapWUnUFCorA9abBgb7d7wNdACWZzvio=";
-    };
-    date = "2025-12-15";
-  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.9.1";
@@ -156,17 +144,6 @@
       sha256 = "sha256-MBVVImy0f+MQnlAYUf77mScpdqkCKi1hdOJEM7Z7KJ0=";
     };
     date = "2024-06-04";
-  };
-  picoclaw = {
-    pname = "picoclaw";
-    version = "v0.2.3";
-    src = fetchFromGitHub {
-      owner = "sipeed";
-      repo = "picoclaw";
-      rev = "v0.2.3";
-      fetchSubmodules = false;
-      sha256 = "sha256-CnwfnYl7hciCbgC0P/I9anGdmrzpRalutGmPAJ6H7NI=";
-    };
   };
   sakura-share = {
     pname = "sakura-share";

@@ -19,27 +19,6 @@
         },
         "version": "3f356e31bda992cf18b1ed45ce557657717cd8a3"
     },
-    "firefox-translations-models": {
-        "cargoLock": null,
-        "date": "2025-12-15",
-        "extract": null,
-        "name": "firefox-translations-models",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "mozilla",
-            "repo": "firefox-translations-models",
-            "rev": "e7957fc407441a5e3e35bbcbf9d60d9b35764618",
-            "sha256": "sha256-RG5Y2qUJmc7KapWUnUFCorA9abBgb7d7wNdACWZzvio=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "e7957fc407441a5e3e35bbcbf9d60d9b35764618"
-    },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
         "date": null,
@@ -257,27 +236,6 @@
             "type": "github"
         },
         "version": "3ec39a31ec64858642629991caf0dd14ce7c34ca"
-    },
-    "picoclaw": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "picoclaw",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "sipeed",
-            "repo": "picoclaw",
-            "rev": "v0.2.3",
-            "sha256": "sha256-CnwfnYl7hciCbgC0P/I9anGdmrzpRalutGmPAJ6H7NI=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.2.3"
     },
     "sakura-share": {
         "cargoLock": null,

@@ -12,7 +12,7 @@
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = lib.getExe pkgs.nur-xddxdd.cliproxyapi;
+      ExecStart = lib.getExe pkgs.llm-agents.cli-proxy-api;
       Restart = "always";
       RestartSec = "3";
 

@@ -6,11 +6,7 @@
   ...
 }:
 let
-  models = pkgs.fetchgit {
-    inherit (LT.sources.firefox-translations-models.src) url rev;
-    fetchLFS = true;
-    sha256 = "sha256-pck2oniMw+Pt6miMT0k1A1ZUMFKBAUpqA4dy3b8JSHk=";
-  };
+  models = builtins.abort "Model source not defined";
 
   enabledModels = pkgs.runCommand "mtranserver-models" { } ''
     mkdir -p $out

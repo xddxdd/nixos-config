@@ -2,11 +2,6 @@
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 
-[firefox-translations-models]
-fetch.github = "mozilla/firefox-translations-models"
-git.fetchSubmodules = true # Force use fetchgit
-src.git = "https://github.com/mozilla/firefox-translations-models.git"
-
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"
@@ -53,10 +48,6 @@ src.branch = "r1.5.0"
 [openspeedtest]
 fetch.github = "openspeedtest/Speed-Test"
 src.git = "https://github.com/openspeedtest/Speed-Test.git"
-
-[picoclaw]
-fetch.github = "sipeed/picoclaw"
-src.github = "sipeed/picoclaw"
 
 [sakura-share]
 fetch.github = "xddxdd/Sakura_Launcher_GUI"
