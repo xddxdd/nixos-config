@@ -8,17 +8,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "3f356e31bda992cf18b1ed45ce557657717cd8a3";
+    version = "d80dcc855f1ec8c0541afd1b820ec9942657de33";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "3f356e31bda992cf18b1ed45ce557657717cd8a3";
+      rev = "d80dcc855f1ec8c0541afd1b820ec9942657de33";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-v9aau6jYXerHpRTeUHLg7KSl7CNVhRcRjRS8SUgYjw0=";
+      sha256 = "sha256-+aRVAeBjYfHUGW+d2g6QaX9SZm8sTEXU+9nRCGLv5IE=";
     };
-    date = "2026-03-10";
+    date = "2026-03-29";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -30,25 +30,25 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.7.3";
+    version = "3.7.4";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.3/yesoreyeram-infinity-datasource-3.7.3.zip";
-      sha256 = "sha256-fsBbEbb8Uys/w/vnMN15WDpYbw4heztH5G30ol2uD0g=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.4/yesoreyeram-infinity-datasource-3.7.4.zip";
+      sha256 = "sha256-XRMbMRzTYGnoIN6rXefhiigZ6FX6MkF2yjlwB3bMqDQ=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "a92012fe552ea7d568c41be1f3bbe0721b23e4ae";
+    version = "30e3476d9a9b3113ef20a3b5041fb88ce9a85814";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "a92012fe552ea7d568c41be1f3bbe0721b23e4ae";
+      rev = "30e3476d9a9b3113ef20a3b5041fb88ce9a85814";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-jl9QvstwVZ7ziRmlUgihH4eqRtJROX+iN8+iaiWhd74=";
+      sha256 = "sha256-6dTsP0kG2qFU6LL2GGdiuc6ZwPNusfmV2vAfr+8xdtM=";
     };
-    date = "2026-03-02";
+    date = "2026-03-27";
   };
   lyrica-custom = {
     pname = "lyrica-custom";
@@ -88,15 +88,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "47c2959260a330f919981cb407659f0e2790dc8a";
+    version = "d0240212254372a5a7bb9984c8c2345492893a1e";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "47c2959260a330f919981cb407659f0e2790dc8a";
+      rev = "d0240212254372a5a7bb9984c8c2345492893a1e";
       fetchSubmodules = false;
-      sha256 = "sha256-KjR7RGlrhyszfUfF3y41+yF/6Sp3cbH9DWideSv8AwY=";
+      sha256 = "sha256-I2fItoCdRTPmdtOYIZuVotin35i8L12+dBc8ffRkmYY=";
     };
-    date = "2026-03-05";
+    date = "2026-03-27";
   };
   ohmyzsh-tirith = {
     pname = "ohmyzsh-tirith";
@@ -112,13 +112,13 @@
   };
   open5gs = {
     pname = "open5gs";
-    version = "v2.7.6";
+    version = "v2.7.7";
     src = fetchFromGitHub {
       owner = "open5gs";
       repo = "open5gs";
-      rev = "v2.7.6";
+      rev = "v2.7.7";
       fetchSubmodules = false;
-      sha256 = "sha256-2k+S+OXfdskJPtDUFSxb/+2UZcUiOZzRSSGgsEJWolc=";
+      sha256 = "sha256-ZK4q6m/9v+us+6dWpi0k188KfFu1b6G9pGE4VGAe4+4=";
     };
   };
   open5gs-freediameter = {
