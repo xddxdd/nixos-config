@@ -69,15 +69,24 @@ let
 
   publicFirewalledPorts = [
     # Samba
-    137 138 139 445
+    137
+    138
+    139
+    445
     # CUPS
     631
     # mDNS
     5353
     # Rsync
     87
-  ] ++ lib.optionals (config.networking.hostName != "pve-epyc") [
-    111 2049 4000 4001 4002 20048
+  ]
+  ++ lib.optionals (config.networking.hostName != "pve-epyc") [
+    111
+    2049
+    4000
+    4001
+    4002
+    20048
   ];
 
   nftRules = ''
@@ -102,6 +111,12 @@ let
 
       # Lock down OpenVPN Game Accelerator
       iifname "ovpn-gameacc" jump PUBLIC_INPUT
+
+      # DN42 specific rules
+      ip saddr @DN42_IPV4 jump DN42_INPUT
+      ip6 saddr @DN42_IPV6 jump DN42_INPUT
+      ip saddr @NEONETWORK_IPV4 jump DN42_INPUT
+      ip6 saddr @NEONETWORK_IPV6 jump DN42_INPUT
     }
 
     chain FILTER_FORWARD {
@@ -245,6 +260,15 @@ let
       }
     }
 
+    set DN42_FIREWALLED_PORTS {
+      type inet_service
+      flags constant, interval
+      elements = {
+        # Avoid running DN42 on DN42
+        20000-23999
+      }
+    }
+
     # Helper chains
     chain PUBLIC_INPUT {
       ${lib.optionalString (LT.this.hasTag LT.tags.lan-access) ''
@@ -261,6 +285,13 @@ let
       ip6 saddr @CN_IPV6 tcp dport @CN_FIREWALLED_PORTS reject with tcp reset
       ip6 saddr @CN_IPV6 udp dport @CN_FIREWALLED_PORTS reject with icmpx type port-unreachable
 
+      return
+    }
+
+    chain DN42_INPUT {
+      # Block ports
+      fib daddr type local tcp dport @DN42_FIREWALLED_PORTS reject with tcp reset
+      fib daddr type local udp dport @DN42_FIREWALLED_PORTS reject with icmpx type port-unreachable
       return
     }
 
