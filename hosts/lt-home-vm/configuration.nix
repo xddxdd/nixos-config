@@ -33,7 +33,7 @@
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/ollama.nix
-    ../../nixos/optional-apps/open-webui
+    # ../../nixos/optional-apps/open-webui
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix

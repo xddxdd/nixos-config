@@ -3,6 +3,7 @@ _: {
   xdg.userDirs = {
     enable = true;
     createDirectories = false;
+    setSessionVariables = true;
     desktop = "$HOME/Desktop";
     documents = "$HOME/Documents";
     download = "$HOME/Downloads";

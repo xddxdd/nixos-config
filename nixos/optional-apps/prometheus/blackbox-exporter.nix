@@ -36,7 +36,7 @@ let
     "https://whois.lantian.pub"
 
     # Services under xuyh0120.win
-    "https://ai.xuyh0120.win"
+    # "https://ai.xuyh0120.win"
     "https://alert.xuyh0120.win"
     "https://asf.xuyh0120.win"
     "https://attic.xuyh0120.win"

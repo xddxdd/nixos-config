@@ -23,6 +23,7 @@ in
             "dotnet-sdk-6.0.428"
             "dotnet-sdk-wrapped-6.0.428"
             "electron-36.9.5"
+            "electron-38.8.4"
             "jitsi-meet-1.0.8792"
             "libsoup-2.74.3"
             "mbedtls-2.28.10"

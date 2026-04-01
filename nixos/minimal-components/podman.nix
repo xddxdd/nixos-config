@@ -33,7 +33,8 @@
       dockerCompat = true;
       dockerSocket.enable = true;
 
-      extraPackages = [ pkgs.nftables ] ++ lib.optionals pkgs.stdenv.isx86_64 [ pkgs.gvisor ];
+      extraPackages = [ pkgs.nftables ];
+      # ++ lib.optionals pkgs.stdenv.isx86_64 [ pkgs.gvisor ];
     };
 
     systemd.services = {
