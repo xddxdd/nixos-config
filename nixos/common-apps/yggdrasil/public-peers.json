@@ -117,9 +117,6 @@
     "tls://asia.deinfra.org:15015",
     "tls://yg-sin.magicum.net:23900"
   ],
-  "slovakia": [
-    "tls://ygg-ke.8px.sk:4321"
-  ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
   ],
