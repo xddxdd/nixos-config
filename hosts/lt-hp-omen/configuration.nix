@@ -15,7 +15,7 @@
     # ./nbfc.nix
 
     ../../nixos/optional-apps/byparr.nix
-    # ../../nixos/optional-apps/clamav.nix
+    ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/mcp-roo-code.nix
