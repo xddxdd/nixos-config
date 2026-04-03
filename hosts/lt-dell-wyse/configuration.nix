@@ -20,6 +20,7 @@
     ../../nixos/optional-apps/pipewire-vban-recv.nix
     ../../nixos/optional-apps/pipewire-volume-control.nix
     ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/sunshine.nix
   ];
 
   lantian.hidpi = 1.5;
