@@ -8,17 +8,17 @@
 {
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "d80dcc855f1ec8c0541afd1b820ec9942657de33";
+    version = "d807b6051f40bf4fa337d2226de6b9c1438c4aa7";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "d80dcc855f1ec8c0541afd1b820ec9942657de33";
+      rev = "d807b6051f40bf4fa337d2226de6b9c1438c4aa7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-+aRVAeBjYfHUGW+d2g6QaX9SZm8sTEXU+9nRCGLv5IE=";
+      sha256 = "sha256-nEzJYh+mr9rAol9srzDmRCLt4Wo6Qzf93rbHYYkUC1M=";
     };
-    date = "2026-03-29";
+    date = "2026-04-03";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -88,15 +88,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "d0240212254372a5a7bb9984c8c2345492893a1e";
+    version = "80e48e9346beb9407734a090d33c5e79e9113b01";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "d0240212254372a5a7bb9984c8c2345492893a1e";
+      rev = "80e48e9346beb9407734a090d33c5e79e9113b01";
       fetchSubmodules = false;
-      sha256 = "sha256-I2fItoCdRTPmdtOYIZuVotin35i8L12+dBc8ffRkmYY=";
+      sha256 = "sha256-Lc7XJRWbrzR6c2x8enGHKCJ1hh0NE9cBOgbuoWBBF2Q=";
     };
-    date = "2026-03-27";
+    date = "2026-04-03";
   };
   ohmyzsh-tirith = {
     pname = "ohmyzsh-tirith";
