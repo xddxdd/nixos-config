@@ -57,8 +57,9 @@
   };
 
   users.users.ollama = {
+    uid = 500;
     group = "ollama";
     isSystemUser = true;
   };
-  users.groups.ollama = { };
+  users.groups.ollama.gid = 500;
 }

@@ -24,6 +24,11 @@
     fsType = "virtiofs";
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "virtiofs-mnt-storage";
+    fsType = "virtiofs";
+  };
+
   services.qemuGuest.enable = true;
 
   systemd.services.nvidia-power-limit = {

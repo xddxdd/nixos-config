@@ -21,27 +21,13 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/vdb";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-      "x-systemd.mount-timeout=infinity"
-    ];
-    neededForBoot = true;
+    device = "virtiofs-mnt-storage";
+    fsType = "virtiofs";
   };
 
   fileSystems."/mnt/ssd-temp" = {
-    device = "/dev/vdc1";
-    fsType = "ext4";
-    options = [
-      "discard"
-      "nosuid"
-      "nodev"
-      "x-systemd.mount-timeout=infinity"
-    ];
+    device = "virtiofs-mnt-ssd-temp";
+    fsType = "virtiofs";
   };
 
   fileSystems."/boot" = {

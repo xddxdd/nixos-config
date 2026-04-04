@@ -1,7 +1,5 @@
 {
   lib,
-  LT,
-  config,
   ...
 }:
 {
@@ -42,38 +40,9 @@
     ];
   };
 
-  fileSystems."/mnt/share" = {
-    device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
-    fsType = "nfs";
-    # Use automount to handle case when ZeroTier starts slow
-    options = [
-      "_netdev"
-      "noatime"
-      "noauto"
-      "clientaddr=${LT.this.ltnet.IPv4}"
-      "hard"
-      "vers=4.2"
-      "x-systemd.automount"
-      "x-systemd.device-timeout=5s"
-      "x-systemd.mount-timeout=5s"
-    ];
-  };
-
-  services.ollama = {
-    models = "/mnt/share/ollama";
-    user = lib.mkForce "lantian";
-    group = lib.mkForce "lantian";
-  };
-  systemd.tmpfiles.settings = {
-    ollama = {
-      "/mnt/share/ollama".d = {
-        mode = "755";
-        inherit (config.services.ollama) user group;
-      };
-    };
-  };
+  services.ollama.models = "/mnt/storage/ollama";
   systemd.services.ollama = {
-    requires = [ "mnt-share.mount" ];
-    after = [ "mnt-share.mount" ];
+    requires = [ "mnt-storage.mount" ];
+    after = [ "mnt-storage.mount" ];
   };
 }

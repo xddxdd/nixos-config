@@ -70,6 +70,29 @@
     ];
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "/dev/MyVolGroup/storage";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd"
+      "autodefrag"
+      "nosuid"
+      "nodev"
+      "x-systemd.mount-timeout=infinity"
+    ];
+  };
+
+  fileSystems."/mnt/ssd-temp" = {
+    device = "/dev/TempSsdGroup/ssd-temp";
+    fsType = "ext4";
+    options = [
+      "discard"
+      "nosuid"
+      "nodev"
+      "x-systemd.mount-timeout=infinity"
+    ];
+  };
+
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
