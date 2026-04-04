@@ -69,7 +69,6 @@
     python3
     ripgrep
     rsync
-    rustic
     screen
     smartmontools
     speedtest-cli

@@ -2,7 +2,6 @@
 {
   imports = [
     ../../nixos/minimal.nix
-    ../../nixos/server-components/backup
 
     # ../../nixos/optional-apps/attic-watch-store.nix
     ../../nixos/optional-apps/hydra
@@ -10,6 +9,8 @@
 
     ./hardware-configuration.nix
   ];
+
+  lantian.backup.enable = true;
 
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.12/24" ];
