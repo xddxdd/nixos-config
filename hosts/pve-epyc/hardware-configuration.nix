@@ -93,6 +93,14 @@
     ];
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [
+      "/mnt/storage"
+      "/mnt/nvme"
+    ];
+  };
+
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 

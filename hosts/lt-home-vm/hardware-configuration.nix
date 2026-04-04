@@ -39,10 +39,5 @@
     ];
   };
 
-  services.btrfs.autoScrub = {
-    enable = true;
-    fileSystems = [ "/mnt/storage" ];
-  };
-
   services.qemuGuest.enable = true;
 }
