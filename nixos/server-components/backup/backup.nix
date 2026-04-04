@@ -10,48 +10,12 @@ let
 
   inherit (pkgs.callPackage ./common.nix { inherit config; }) resticRepos resticCommands;
 
-  resticIgnored = pkgs.writeText "ignored.txt" ''
-    media/
-    sftp-server/
-    tmp/
-    var/cache/
-    var/lib/asterisk/
-    var/lib/btrfs/
-    var/lib/cni/
-    var/lib/containers/
-    var/lib/crowdsec/
-    var/lib/docker/
-    var/lib/docker-dind/
-    var/lib/filebeat/
-    var/lib/GeoIP/
-    var/lib/grafana/
-    var/lib/jellyfin/transcodes/
-    var/lib/libvirt/
-    var/lib/machines/
-    var/lib/os-prober/
-    var/lib/private/
-    var/lib/prometheus/
-    var/lib/resilio-sync/*.db
-    var/lib/resilio-sync/*.db-wal
-    var/lib/samba/private/
-    var/lib/systemd/
-    var/lib/udisks2/
-    var/lib/vm/
-    var/lib/vz/
-    var/log/
-  '';
-
   backupScript = path: repo: ''
     echo "Backing up ${path} to ${repo}"
     if [ ! -d "${path}" ]; then
       echo "${path} is not a directory, skipping"
     else
-      restic-${repo} backup \
-        ${path} \
-        --iexclude-file ${resticIgnored} \
-        --host ${config.networking.hostName} \
-        --no-scan \
-        || HAS_ERROR=1
+      rustic-${repo} backup ${path} --host ${config.networking.hostName} || HAS_ERROR=1
     fi
   '';
 in
@@ -124,7 +88,6 @@ in
     systemd.timers = lib.mapAttrs' (
       n: v:
       lib.nameValuePair "backup-${n}" {
-        enable = isBtrfsRoot;
         wantedBy = [ "timers.target" ];
         partOf = [ "backup-${n}.service" ];
         timerConfig = {

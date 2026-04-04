@@ -67,9 +67,9 @@
     pigz
     pv
     python3
-    restic
     ripgrep
     rsync
+    rustic
     screen
     smartmontools
     speedtest-cli

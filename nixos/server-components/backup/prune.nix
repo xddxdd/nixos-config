@@ -9,17 +9,7 @@ let
 
   pruneScript = repo: ''
     echo "Pruning ${repo}"
-
-    restic-${repo} unlock
-    restic-${repo} forget \
-      --keep-last=1 \
-      --keep-hourly=0 \
-      --keep-daily=7 \
-      --keep-weekly=4 \
-      --keep-monthly=1 \
-      --keep-yearly=1 \
-      --prune \
-      || HAS_ERROR=1
+    rustic-${repo} forget || HAS_ERROR=1
   '';
 in
 {
