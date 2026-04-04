@@ -8,6 +8,7 @@
   imports = [
     ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
+    ../../nixos/server-components/backup
 
     ../../nixos/optional-apps/nfs.nix
 
@@ -21,6 +22,12 @@
     "amd_pstate=active"
     "amd_pstate.shared_mem=1"
   ];
+
+  lantian.backupPaths.nvme = {
+    snapshotFrom = "/mnt/nvme";
+    snapshotTo = "/mnt/nvme/.snapshot";
+    backupPath = "/mnt/nvme/.snapshot/virtiofs";
+  };
 
   services.nfs.server = {
     hostName = lib.mkForce "192.168.0.2";
