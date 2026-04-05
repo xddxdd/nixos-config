@@ -27,6 +27,12 @@ let
         proxy_pass unix:/run/nginx/gopher.sock;
         proxy_protocol on;
       }
+      server {
+        listen 1965;
+        listen [::]:1965;
+        proxy_pass unix:/run/nginx/gemini.sock;
+        proxy_protocol on;
+      }
     }
   '';
 

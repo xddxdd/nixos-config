@@ -170,8 +170,10 @@ let
     # nginx whois & gopher server
     fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Whois}
     fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Gopher}
+    fib daddr type local tcp dport ${LT.portStr.Gemini} dnat ip to ${config.lantian.netns.nginx-proxy.ipv4}:${LT.portStr.Gemini}
     fib daddr type local tcp dport ${LT.portStr.Whois} dnat ip6 to [${config.lantian.netns.nginx-proxy.ipv6}]:${LT.portStr.Whois}
     fib daddr type local tcp dport ${LT.portStr.Gopher} dnat ip6 to [${config.lantian.netns.nginx-proxy.ipv6}]:${LT.portStr.Gopher}
+    fib daddr type local tcp dport ${LT.portStr.Gemini} dnat ip6 to [${config.lantian.netns.nginx-proxy.ipv6}]:${LT.portStr.Gemini}
   '')
   + (lib.optionalString (config.lantian.netns ? yggdrasil-alfis) ''
     # nginx whois & gopher server

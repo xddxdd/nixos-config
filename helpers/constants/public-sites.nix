@@ -9,6 +9,7 @@ _: [
   "autoconfig.xuyh0120.win"
   "avatar.lantian.pub"
   "element.lantian.pub"
+  "gemini.lantian.pub"
   "google-ssl.lantian.pub"
   "google-test-ssl.lantian.pub"
   "gopher.lantian.pub"

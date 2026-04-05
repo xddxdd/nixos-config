@@ -231,6 +231,39 @@ let
           ++ (lib.optionals config.listenPlainSocket.default (listenDefaultFlags "unix"));
         }
       ])
+      ++ (lib.optionals config.listenGemini.enable [
+        {
+          addr = "0.0.0.0";
+          inherit (config.listenGemini) port;
+          extraParameters = [
+            "ssl"
+            "gemini"
+          ]
+          ++ (lib.optionals config.listenGemini.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenGemini.default (listenDefaultFlags "tcp"));
+        }
+        {
+          addr = "[::]";
+          inherit (config.listenGemini) port;
+          extraParameters = [
+            "ssl"
+            "gemini"
+          ]
+          ++ (lib.optionals config.listenGemini.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenGemini.default (listenDefaultFlags "tcp"));
+        }
+      ])
+      ++ (lib.optionals config.listenGeminiSocket.enable [
+        {
+          addr = "unix:${config.listenGeminiSocket.socket}";
+          extraParameters = [
+            "ssl"
+            "gemini"
+          ]
+          ++ (lib.optionals config.listenGeminiSocket.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenGeminiSocket.default (listenDefaultFlags "unix"));
+        }
+      ])
     );
 
     locations = lib.mapAttrs (n: v: v._config) config._locationsWithCommon;
@@ -359,6 +392,8 @@ in
     listenHTTPS_Socket = listenSocketOptions false "/run/nginx/https-${name}.sock" true;
     listenPlain = listenOptions false 0 true;
     listenPlainSocket = listenSocketOptions false "/run/nginx/plain-${name}.sock" true;
+    listenGemini = listenOptions false LT.port.Gemini true;
+    listenGeminiSocket = listenSocketOptions false "/run/nginx/gemini-${name}.sock" true;
 
     # Customized vhost options
     enableCommonLocationOptions = (lib.mkEnableOption "Add common location options") // {

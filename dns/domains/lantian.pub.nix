@@ -98,6 +98,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "gemini";
+      target = config.common.records.GeoDNSTarget;
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "git";
       target = "colocrossing";
       ttl = "1h";

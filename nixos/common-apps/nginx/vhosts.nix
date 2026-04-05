@@ -222,5 +222,32 @@ in
         error_page 404 /404.gopher;
       '';
     };
+
+    "gemini.lantian.pub" = {
+      listenHTTP.enable = true;
+      listenGeminiSocket = {
+        enable = true;
+        socket = "/run/nginx/gemini.sock";
+        proxyProtocol = true;
+        default = true;
+      };
+
+      root = "/nix/sync-servers/www/lantian.pub";
+      serverAliases = [
+        "gemini.lantian.dn42"
+        "gemini.lantian.neo"
+      ];
+
+      locations."/".index = "index.gmi";
+
+      enableCommonLocationOptions = false;
+      noIndex.enable = true;
+
+      sslCertificate = "zerossl-lantian.pub";
+
+      extraConfig = ''
+        error_page 404 /404.gopher;
+      '';
+    };
   };
 }

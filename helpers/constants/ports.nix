@@ -16,6 +16,7 @@ rec {
     V2Ray.SocksClient = 1080;
     V2Ray.UnblockCNClient = 1081;
     KMS = 1688;
+    Gemini = 1965;
     Bitmagnet = 3333;
     NFS.StatD = 4000;
     NFS.LockD = 4001;

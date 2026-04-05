@@ -83,6 +83,10 @@ in
     '';
 
     commonHttpConfig = ''
+      types {
+        text/gemini gmi;
+      }
+
       map $http_user_agent $is_not_healthcheck_user_agent {
         default                   1;
         "~*Blackbox\ Exporter"    0;
