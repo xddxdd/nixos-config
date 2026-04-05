@@ -2,7 +2,6 @@
   lib,
   pkgs,
   LT,
-  config,
   ...
 }:
 let
@@ -25,10 +24,12 @@ in
     description = "PicoClaw";
     wantedBy = [ "multi-user.target" ];
 
-    path = config.environment.systemPackages;
+    script = ''
+      export PATH=/run/current-system/sw/bin:$PATH
+      exec ${lib.getExe picoclaw} gateway
+    '';
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = "${lib.getExe picoclaw} gateway";
       User = "picoclaw";
       Group = "picoclaw";
 
