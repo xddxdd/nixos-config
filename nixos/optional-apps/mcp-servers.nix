@@ -81,6 +81,10 @@
             _secret = config.age.secrets.mcp-brave-search-api-key.path;
           };
         };
+        alwaysAllow = [
+          "brave_web_search"
+          "brave_local_search"
+        ];
       };
       context7 = {
         command = "npx";
@@ -93,10 +97,17 @@
             _secret = config.age.secrets.mcp-context7-api-key.path;
           };
         };
+        alwaysAllow = [
+          "resolve-library-id"
+          "query-docs"
+        ];
       };
       fetch = {
         command = "uvx";
         args = [ "mcp-server-fetch" ];
+        alwaysAllow = [
+          "fetch"
+        ];
       };
       google-maps = {
         command = "npx";
@@ -109,6 +120,15 @@
             _secret = config.age.secrets.mcp-google-maps-api-key.path;
           };
         };
+        alwaysAllow = [
+          "maps_geocode"
+          "maps_reverse_geocode"
+          "maps_search_places"
+          "maps_place_details"
+          "maps_distance_matrix"
+          "maps_elevation"
+          "maps_directions"
+        ];
       };
       national-park-service = {
         command = "npx";
@@ -121,6 +141,14 @@
             _secret = config.age.secrets.mcp-national-park-service-api-key.path;
           };
         };
+        alwaysAllow = [
+          "findParks"
+          "getParkDetails"
+          "getAlerts"
+          "getVisitorCenters"
+          "getCampgrounds"
+          "getEvents"
+        ];
       };
       searxng = {
         command = "npx";
@@ -131,12 +159,20 @@
         env = {
           SEARXNG_URL = "https://searx.xuyh0120.win";
         };
+        alwaysAllow = [
+          "searxng_web_search"
+          "web_url_read"
+        ];
       };
       time = {
         command = "uvx";
         args = [
           "mcp-server-time"
           "--local-timezone=${config.time.timeZone}"
+        ];
+        alwaysAllow = [
+          "get_current_time"
+          "convert_time"
         ];
       };
       # keep-sorted end
