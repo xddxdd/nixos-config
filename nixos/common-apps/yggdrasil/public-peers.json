@@ -25,7 +25,6 @@
     "tls://[2a03:3b40:fe:ab::1]:993"
   ],
   "finland": [
-    "tls://204.168.147.93:1337",
     "tls://95.217.35.92:1337",
     "tls://[2a01:4f9:2b:2d8f::2]:1337",
     "tls://ygg-hel-1.wgos.org:45171"
@@ -76,7 +75,6 @@
   ],
   "netherlands": [
     "tls://23.137.249.65:444",
-    "tls://62.212.82.55:443?key=00000002a957313975d1fe53b9ac641b05b1a9c37da22d4ebcef45e7a5bd4c67",
     "tls://[2001:1af8:4010:a06c:3::112]:443?key=00000002a957313975d1fe53b9ac641b05b1a9c37da22d4ebcef45e7a5bd4c67",
     "tls://cirno.nadeko.net:44442",
     "tls://vpn.itrus.su:7992"
@@ -91,6 +89,7 @@
   ],
   "russia": [
     "tls://188.225.9.167:18227",
+    "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
     "tls://[2a00:b700::a:279]:443",
@@ -116,6 +115,9 @@
   "singapore": [
     "tls://asia.deinfra.org:15015",
     "tls://yg-sin.magicum.net:23900"
+  ],
+  "slovakia": [
+    "tls://ygg-ke.8px.sk:4321"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
