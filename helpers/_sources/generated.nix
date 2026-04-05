@@ -6,6 +6,17 @@
   dockerTools,
 }:
 {
+  bosl2 = {
+    pname = "bosl2";
+    version = "v2.0.731";
+    src = fetchFromGitHub {
+      owner = "BelfrySCAD";
+      repo = "BOSL2";
+      rev = "v2.0.731";
+      fetchSubmodules = false;
+      sha256 = "sha256-5Lqzgne7GxP6j0OFhcr/O7hFIt7ufdB0XcaWchq1xY4=";
+    };
+  };
   delegacy-rpz = {
     pname = "delegacy-rpz";
     version = "d807b6051f40bf4fa337d2226de6b9c1438c4aa7";

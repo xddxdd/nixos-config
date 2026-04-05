@@ -125,8 +125,6 @@ in
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nvfetcher
-        openscad
-        openscad-lsp
         p7zip
         parsec-bin
         payload-dumper-go

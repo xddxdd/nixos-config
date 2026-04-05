@@ -1,3 +1,7 @@
+[bosl2]
+fetch.github = "BelfrySCAD/BOSL2"
+src.github = "BelfrySCAD/BOSL2"
+
 [delegacy-rpz]
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
