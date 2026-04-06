@@ -3,7 +3,7 @@ let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
 rec {
-  inherit (final.nur-xddxdd) bepasty;
+  # keep-sorted start block=yes
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
@@ -27,12 +27,19 @@ rec {
       })
     ];
   });
+  filezilla = prev.filezilla.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-lan.patch ];
+  });
   hydra = prev.hydra.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/hydra-enable-delete-jobset.patch ];
   });
+  inherit (final.nur-xddxdd) bepasty;
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
+  });
+  libfilezilla = prev.libfilezilla.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/libfilezilla-treat-zero-ip-as-invalid.patch ];
   });
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
@@ -47,12 +54,12 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
   });
+  open-webui = prev.open-webui.overridePythonAttrs (old: {
+    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
+  });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;
-  });
-  open-webui = prev.open-webui.overridePythonAttrs (old: {
-    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
   });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
@@ -142,4 +149,5 @@ rec {
   zerotierone = prev.zerotierone.override {
     enableUnfree = true;
   };
+  # keep-sorted end
 }

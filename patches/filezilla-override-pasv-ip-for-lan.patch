@@ -1,0 +1,13 @@
+Index: src/engine/ftp/rawtransfer.cpp
+===================================================================
+--- a/src/engine/ftp/rawtransfer.cpp	(revision 11406)
++++ b/src/engine/ftp/rawtransfer.cpp	(working copy)
+@@ -399,7 +399,7 @@
+ 	}
+ 
+ 	std::wstring const peerIP = fz::to_wstring(controlSocket_.socket_->peer_ip());
+-	if (!fz::is_routable_address(host_) && fz::is_routable_address(peerIP)) {
++	if (!fz::is_routable_address(host_)) {
+ 		if (options_.get_int(OPTION_PASVREPLYFALLBACKMODE) != 1 || bTriedActive) {
+ 			log(logmsg::status, _("Server sent passive reply with unroutable address. Using server address instead."));
+ 			log(logmsg::debug_info, L"  Reply: %s, peer: %s", host_, peerIP);

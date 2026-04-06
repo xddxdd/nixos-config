@@ -1,0 +1,12 @@
+Index: lib/iputils.cpp
+===================================================================
+--- a/lib/iputils.cpp	(revision 11406)
++++ b/lib/iputils.cpp	(working copy)
+@@ -209,6 +209,7 @@
+ 		if (address.substr(0, 3) == fzS(Char, "127") ||
+ 			address.substr(0, 3) == fzS(Char, "10.") ||
+ 			address.substr(0, 7) == fzS(Char, "192.168") ||
++			address.substr(0, 2) == fzS(Char, "0.") ||
+ 			address.substr(0, 7) == fzS(Char, "169.254"))
+ 		{
+ 			return false;
