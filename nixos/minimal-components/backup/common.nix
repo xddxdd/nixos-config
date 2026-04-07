@@ -74,7 +74,7 @@ rec {
 
       [repository.options]
       user = "u378583-sub2"
-      endpoint = "ssh://sub2.u378583.your-storagebox.de:23"
+      endpoint = "ssh://u378583-sub2.your-storagebox.de:23"
       key = "/run/agenix/sftp-privkey"
       root = "/home"
       known_hosts_strategy = "Accept"

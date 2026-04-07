@@ -127,14 +127,12 @@ in
       Port 22
       PubkeyAcceptedKeyTypes ssh-ed25519
 
-    Host sub1.u378583.your-storagebox.de
-      HostName u378583.your-storagebox.de
+    Host u378583-sub1.your-storagebox.de
       User u378583-sub1
       Port 23
       IdentityFile ${config.age.secrets.sftp-privkey.path}
 
-    Host sub2.u378583.your-storagebox.de
-      HostName u378583.your-storagebox.de
+    Host u378583-sub2.your-storagebox.de
       User u378583-sub2
       Port 23
       IdentityFile ${config.age.secrets.sftp-privkey.path}
