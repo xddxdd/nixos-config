@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
@@ -19,6 +20,8 @@
     ../../nixos/optional-apps/picoclaw.nix
     # ../../nixos/optional-apps/sakura-llm
   ];
+
+  environment.systemPackages = [ pkgs.comfy-ui-cuda ];
 
   networking.networkmanager.enable = lib.mkForce false;
 

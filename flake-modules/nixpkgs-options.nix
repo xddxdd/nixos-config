@@ -37,6 +37,7 @@ in
             inputs.angrr.overlays.default
             inputs.chinese-fonts-overlay.overlays.default
             inputs.colmena.overlay
+            inputs.comfyui-nix.overlays.default
             inputs.firefox-addons.overlays.default
             inputs.llm-agents.overlays.default
             inputs.nix-alien.overlays.default

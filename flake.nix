@@ -48,6 +48,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
     };
+    comfyui-nix = {
+      url = "github:utensils/comfyui-nix";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     country-ip-blocks = {
       url = "github:ipverse/country-ip-blocks";
       flake = false;
