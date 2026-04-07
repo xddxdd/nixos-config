@@ -38,6 +38,7 @@
   lantian.hidpi = 1.5;
 
   environment.systemPackages = [
+    pkgs.comfy-ui-cuda
     pkgs.nur-xddxdd.unigine-heaven
     pkgs.nur-xddxdd.unigine-sanctuary
     pkgs.nur-xddxdd.unigine-superposition
