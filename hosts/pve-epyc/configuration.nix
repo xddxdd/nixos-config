@@ -23,10 +23,17 @@
   ];
 
   lantian.backup.enable = true;
-  lantian.backup.paths.nvme = {
-    snapshotFrom = "/mnt/nvme";
-    snapshotTo = "/mnt/nvme/.snapshot";
-    backupPath = "/mnt/nvme/.snapshot/virtiofs";
+  lantian.backup.paths = {
+    nvme-nixos-home-rdp = {
+      snapshotFrom = "/mnt/nvme";
+      snapshotTo = "/mnt/nvme/.snapshot-nixos-home-rdp";
+      backupPath = "/mnt/nvme/.snapshot-nixos-home-rdp/virtiofs/nixos-home-rdp/persistent";
+    };
+    nvme-nixos-home-vm = {
+      snapshotFrom = "/mnt/nvme";
+      snapshotTo = "/mnt/nvme/.snapshot-nixos-home-vm";
+      backupPath = "/mnt/nvme/.snapshot-nixos-home-vm/virtiofs/nixos-home-vm/persistent";
+    };
   };
 
   services.nfs.server = {

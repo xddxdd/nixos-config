@@ -67,6 +67,7 @@ in
             Type = "oneshot";
             CPUQuota = "40%";
             OOMScoreAdjust = "1000";
+            TimeoutStopSec = 600;
           };
           unitConfig.OnFailure = "notify-email@%n.service";
 
