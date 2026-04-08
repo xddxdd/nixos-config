@@ -72,7 +72,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-03-27",
+        "date": "2026-04-07",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -82,13 +82,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "30e3476d9a9b3113ef20a3b5041fb88ce9a85814",
-            "sha256": "sha256-6dTsP0kG2qFU6LL2GGdiuc6ZwPNusfmV2vAfr+8xdtM=",
+            "rev": "927cbf8dd2e93132a688cd0cb10960a9591a7ed0",
+            "sha256": "sha256-GqQGar+FDPSjq6rl2wqk/BDdLqmg+ER6YFIQaOUj1QI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "30e3476d9a9b3113ef20a3b5041fb88ce9a85814"
+        "version": "927cbf8dd2e93132a688cd0cb10960a9591a7ed0"
     },
     "lyrica-custom": {
         "cargoLock": null,
@@ -113,7 +113,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
-        "date": "2026-01-04",
+        "date": "2026-04-07",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -125,12 +125,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "405d4cc3c90c975b8d71a63d0413e79cf59b016e",
-            "sha256": "sha256-GYolDoWmWvEEnwng81MCYp38fmg57ih2A8ysO132D2Y=",
+            "rev": "0184e605e5677823751e58b22092e1415b59a8e6",
+            "sha256": "sha256-rEI6rq6lb8LPiwORCBPzEgyLqeiJ0wb1xXCbP8XStQA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "405d4cc3c90c975b8d71a63d0413e79cf59b016e"
+        "version": "0184e605e5677823751e58b22092e1415b59a8e6"
     },
     "mpv-sockets": {
         "cargoLock": null,

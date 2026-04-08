@@ -49,17 +49,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "30e3476d9a9b3113ef20a3b5041fb88ce9a85814";
+    version = "927cbf8dd2e93132a688cd0cb10960a9591a7ed0";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "30e3476d9a9b3113ef20a3b5041fb88ce9a85814";
+      rev = "927cbf8dd2e93132a688cd0cb10960a9591a7ed0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-6dTsP0kG2qFU6LL2GGdiuc6ZwPNusfmV2vAfr+8xdtM=";
+      sha256 = "sha256-GqQGar+FDPSjq6rl2wqk/BDdLqmg+ER6YFIQaOUj1QI=";
     };
-    date = "2026-03-27";
+    date = "2026-04-07";
   };
   lyrica-custom = {
     pname = "lyrica-custom";
@@ -75,15 +75,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "405d4cc3c90c975b8d71a63d0413e79cf59b016e";
+    version = "0184e605e5677823751e58b22092e1415b59a8e6";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "405d4cc3c90c975b8d71a63d0413e79cf59b016e";
+      rev = "0184e605e5677823751e58b22092e1415b59a8e6";
       fetchSubmodules = false;
-      sha256 = "sha256-GYolDoWmWvEEnwng81MCYp38fmg57ih2A8ysO132D2Y=";
+      sha256 = "sha256-rEI6rq6lb8LPiwORCBPzEgyLqeiJ0wb1xXCbP8XStQA=";
     };
-    date = "2026-01-04";
+    date = "2026-04-07";
   };
   mpv-sockets = {
     pname = "mpv-sockets";
