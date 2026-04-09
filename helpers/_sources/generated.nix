@@ -41,25 +41,25 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.7.4";
+    version = "3.8.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.7.4/yesoreyeram-infinity-datasource-3.7.4.zip";
-      sha256 = "sha256-XRMbMRzTYGnoIN6rXefhiigZ6FX6MkF2yjlwB3bMqDQ=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.8.0/yesoreyeram-infinity-datasource-3.8.0.zip";
+      sha256 = "sha256-pwpQLRyWvZ/1vHT6eCLEU9BelL/PNeaHULLbor3Cmt8=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "927cbf8dd2e93132a688cd0cb10960a9591a7ed0";
+    version = "57efebfb7100e13d8ae31b34612d4d8a8debfb38";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "927cbf8dd2e93132a688cd0cb10960a9591a7ed0";
+      rev = "57efebfb7100e13d8ae31b34612d4d8a8debfb38";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-GqQGar+FDPSjq6rl2wqk/BDdLqmg+ER6YFIQaOUj1QI=";
+      sha256 = "sha256-WCdCJvcJsO3musaWHVegEAiJeHKMZo8PASU1TEiPDG4=";
     };
-    date = "2026-04-07";
+    date = "2026-04-08";
   };
   lyrica-custom = {
     pname = "lyrica-custom";
