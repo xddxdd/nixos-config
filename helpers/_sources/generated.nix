@@ -19,17 +19,17 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "d807b6051f40bf4fa337d2226de6b9c1438c4aa7";
+    version = "67a18bfc88cd86838440e1e0205eac6e5ff5ab9d";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "d807b6051f40bf4fa337d2226de6b9c1438c4aa7";
+      rev = "67a18bfc88cd86838440e1e0205eac6e5ff5ab9d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-nEzJYh+mr9rAol9srzDmRCLt4Wo6Qzf93rbHYYkUC1M=";
+      sha256 = "sha256-0JxACtUGspDEVT8qfe1r1uFS/AZVOBomfcFoP6kiafU=";
     };
-    date = "2026-04-03";
+    date = "2026-04-09";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
@@ -49,17 +49,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "57efebfb7100e13d8ae31b34612d4d8a8debfb38";
+    version = "8466f33c37a37f1c4df47938627ef2f52f192b36";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "57efebfb7100e13d8ae31b34612d4d8a8debfb38";
+      rev = "8466f33c37a37f1c4df47938627ef2f52f192b36";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-WCdCJvcJsO3musaWHVegEAiJeHKMZo8PASU1TEiPDG4=";
+      sha256 = "sha256-e6FshrxmuPcFTPtzThsVPQy6y+TwsstqcAxEd2eociQ=";
     };
-    date = "2026-04-08";
+    date = "2026-04-09";
   };
   lyrica-custom = {
     pname = "lyrica-custom";
