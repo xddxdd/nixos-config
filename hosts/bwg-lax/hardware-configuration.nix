@@ -29,6 +29,7 @@ _: {
 
   fileSystems."/boot" = {
     device = "/nix/boot";
+    fsType = "auto";
     options = [ "bind" ];
   };
 

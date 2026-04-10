@@ -42,7 +42,6 @@ in
             inputs.llm-agents.overlays.default
             inputs.nix-alien.overlays.default
             inputs.nix-cache-proxy.overlays.default
-            inputs.nixd.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs
             inputs.nur.overlays.default
             inputs.proxmox-nixos.overlays."${system}"

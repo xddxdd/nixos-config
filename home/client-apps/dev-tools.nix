@@ -122,7 +122,6 @@ in
 
     # NodeJS
     (lib.hiPrio nodejs)
-    nodePackages.npm
 
     # Packaging
     dpkg

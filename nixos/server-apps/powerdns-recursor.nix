@@ -110,7 +110,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         dofile("/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
       '';
     serveRFC1918 = false;
-    yaml-settings = {
+    settings = {
       incoming = {
         reuseport = true;
         tcp_fast_open = 128;

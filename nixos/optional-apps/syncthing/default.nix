@@ -15,6 +15,7 @@
   config = {
     fileSystems."/run/syncthing-files" = {
       device = config.lantian.syncthing.storage;
+      fsType = "auto";
       options = [ "bind" ];
     };
 
@@ -66,9 +67,13 @@
         RuntimeDirectory = "syncthing";
         StateDirectory = "syncthing";
 
-        ExecStartPre = let
-          settingsJSON = pkgs.writeText "syncthing-config.json" (builtins.toJSON config.services.syncthing.settings);
-        in "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml";
+        ExecStartPre =
+          let
+            settingsJSON = pkgs.writeText "syncthing-config.json" (
+              builtins.toJSON config.services.syncthing.settings
+            );
+          in
+          "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml";
       };
     };
 
