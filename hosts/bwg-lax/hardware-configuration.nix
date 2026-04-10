@@ -10,7 +10,7 @@ _: {
 
   boot.loader.grub.mirroredBoots = [
     {
-      devices = [ "/dev/vda" ];
+      devices = [ "/dev/sda" ];
       path = "/nix/boot";
     }
   ];
