@@ -101,6 +101,13 @@
     ];
   };
 
+  swapDevices = [
+    {
+      device = "/dev/TempSsdGroup/swap";
+      randomEncryption.enable = true;
+    }
+  ];
+
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
