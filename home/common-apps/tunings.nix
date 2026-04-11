@@ -37,8 +37,8 @@
 
   xdg.configFile = {
     "nix/nix.conf".text = ''
-      experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups
-      extra-experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups
+      experimental-features = nix-command flakes auto-allocate-uids cgroups
+      extra-experimental-features = nix-command flakes auto-allocate-uids cgroups
     '';
     "nixpkgs/config.nix".text = ''
       { allowUnfree = true; }

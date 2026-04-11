@@ -39,8 +39,8 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GH_PRIVATE_REPO_TOKEN }}
           extra_nix_config: |
-            experimental-features = nix-command flakes ca-derivations
-            extra-experimental-features = nix-command flakes ca-derivations
+            experimental-features = nix-command flakes
+            extra-experimental-features = nix-command flakes
             build-dir = /nix/tmpdir
             log-lines = 25
 
