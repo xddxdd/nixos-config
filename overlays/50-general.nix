@@ -4,12 +4,14 @@ let
 in
 rec {
   # keep-sorted start block=yes
-  colmena = prev.colmena.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ../patches/colmena-combine-logs-same-node.patch
-      ../patches/colmena-verbose-single-node.patch
-    ];
-  });
+  colmena =
+    (prev.colmena.override { inherit (prev.lixPackageSets.latest) nix-eval-jobs; }).overrideAttrs
+      (old: {
+        patches = (old.patches or [ ]) ++ [
+          ../patches/colmena-combine-logs-same-node.patch
+          ../patches/colmena-verbose-single-node.patch
+        ];
+      });
   dex-oidc = prev.dex-oidc.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/dex-glob-match-redirect-uri.patch
