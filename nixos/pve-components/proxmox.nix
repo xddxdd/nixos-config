@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
   imports = [ ../hardware/vfio.nix ];
 
   services.proxmox-ve.enable = true;
@@ -11,4 +12,6 @@ _: {
     Restart = "always";
     RestartSec = 5;
   };
+
+  zramSwap.enable = lib.mkForce false;
 }

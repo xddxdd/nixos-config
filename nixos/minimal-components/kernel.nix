@@ -231,7 +231,7 @@ in
         "vm.page-cluster" =
           if config.swapDevices != [ ] then
             3 # Kernel default
-          else if config.zramSwap.algorithm == "zstd" then
+          else if config.zramSwap.enable && config.zramSwap.algorithm == "zstd" then
             0
           else
             1;
