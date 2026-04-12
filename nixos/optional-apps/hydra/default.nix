@@ -79,6 +79,7 @@ in
   };
 
   systemd.services.hydra-attic-repush = {
+    enable = false;
     script = ''
       for F in /nix/var/nix/gcroots/hydra/*; do
         STORE_PATH="/nix/store/$(basename "$F")"
@@ -93,6 +94,7 @@ in
   };
 
   systemd.timers.hydra-attic-repush = {
+    enable = false;
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "hourly";
