@@ -140,6 +140,7 @@ in
     # FIXME: broken
     # micromamba
     ruff
+    ty
     uv
     virtualenv
     yapf
