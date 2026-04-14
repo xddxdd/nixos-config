@@ -101,29 +101,6 @@
     ];
   };
 
-  swapDevices = [
-    {
-      device = "/dev/TempSsdGroup/swap";
-      randomEncryption.enable = true;
-    }
-  ];
-  systemd.services.mkswap-dev-TempSsdGroup-swap = {
-    path = [ pkgs.util-linux ];
-    serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "5";
-      ExecStop = lib.mkForce (
-        pkgs.writeShellScript "swap-exec-stop" ''
-          swapoff /dev/TempSsdGroup/swap || true
-          ${lib.getExe pkgs.cryptsetup} luksClose dev-TempSsdGroup-swap
-        ''
-      );
-    };
-    postStart = ''
-      swapon /dev/TempSsdGroup/swap
-    '';
-  };
-
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
