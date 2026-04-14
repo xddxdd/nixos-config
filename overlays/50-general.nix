@@ -30,7 +30,7 @@ rec {
     ];
   });
   filezilla = prev.filezilla.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-lan.patch ];
+    patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });
   hydra = prev.hydra.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/hydra-enable-delete-jobset.patch ];
@@ -39,9 +39,6 @@ rec {
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
-  });
-  libfilezilla = prev.libfilezilla.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/libfilezilla-treat-zero-ip-as-invalid.patch ];
   });
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
