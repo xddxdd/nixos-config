@@ -34,6 +34,9 @@ in
     mode = "0444";
   };
 
+  # Force use original nix for Hydra hosts
+  nix.package = lib.mkForce pkgs.nixVersions.latest;
+
   environment.etc."hydra/post-build".source = pkgs.writeShellScript "post-build" ''
     export PATH="${path}:$PATH"
     export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}"
