@@ -31,7 +31,9 @@
     };
   };
 
-  systemd.services.postgresql.serviceConfig = LT.serviceHarden;
+  systemd.services.postgresql.serviceConfig = LT.serviceHarden // {
+    TimeoutStartSec = "900";
+  };
 
   services.prometheus.exporters.postgres = {
     enable = true;
