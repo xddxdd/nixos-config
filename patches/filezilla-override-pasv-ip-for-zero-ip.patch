@@ -9,7 +9,7 @@ Index: src/engine/ftp/rawtransfer.cpp
 -	if (!fz::is_routable_address(host_) && fz::is_routable_address(peerIP)) {
 +	std::wstring const zeroIP = fz::to_wstring(std::string("0.0.0.0"));
 +	if (
-+		std::wcscmp(zeroIP.c_str(), peerIP.c_str())
++		std::wcscmp(host_.c_str(), zeroIP.c_str()) == 0
 +		|| (!fz::is_routable_address(host_) && fz::is_routable_address(peerIP))
 +	) {
  		if (options_.get_int(OPTION_PASVREPLYFALLBACKMODE) != 1 || bTriedActive) {
