@@ -11,6 +11,7 @@
       core = {
         autoCrlf = "input";
       };
+      gc.auto = 1000;
       pull = {
         rebase = false;
       };
