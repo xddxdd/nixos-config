@@ -19,17 +19,17 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "ffa9858e2771a15cccf37e275e0c3ccbdbda7677";
+    version = "89d3ad8dce9c77f390e9553ff21fc6414cd8aa84";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "ffa9858e2771a15cccf37e275e0c3ccbdbda7677";
+      rev = "89d3ad8dce9c77f390e9553ff21fc6414cd8aa84";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-zqfatAx5ZGND38kjuTnjdB/S8UqIkFJkMaISjK8ucjg=";
+      sha256 = "sha256-IerHn/w7zUVceWRdaCy4f/mfk2WMuTbdIeKs7TJPA8c=";
     };
-    date = "2026-04-10";
+    date = "2026-04-14";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
