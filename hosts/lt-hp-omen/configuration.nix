@@ -37,7 +37,12 @@
   lantian.backup = {
     enable = true;
     resticRepos = [ "home" ];
-    paths = lib.mkForce {
+    paths = {
+      nix-persistent = lib.mkForce {
+        snapshotFrom = "/nix/persistent";
+        snapshotTo = "/nix/.snapshot-persistent";
+        backupPath = "/nix/.snapshot-persistent";
+      };
       home = {
         snapshotFrom = "/nix/persistent/home";
         snapshotTo = "/nix/persistent/.snapshot-home";
