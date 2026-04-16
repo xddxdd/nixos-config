@@ -2,7 +2,6 @@
   pkgs,
   lib,
   inputs,
-  LT,
   ...
 }:
 {
@@ -55,7 +54,5 @@
 
   programs.ssh.askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
 
-  programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid.overrideAttrs (old: {
-    inherit (LT.sources.lyrica-custom) version src;
-  });
+  programs.lyrica.package = pkgs.nur-xddxdd.lyrica-plasmoid;
 }
