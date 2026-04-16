@@ -55,7 +55,6 @@
     iw
     lm_sensors
     lsof
-    mbuffer # required for btrbk
     nettools
     nix-tree
     nmap

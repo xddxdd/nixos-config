@@ -4,7 +4,7 @@
   ...
 }:
 rec {
-  resticIgnored = pkgs.writeText "ignored.txt" ''
+  resticIgnored = ''
     media/
     sftp-server/
     tmp/
@@ -51,7 +51,6 @@ rec {
       enable_copy = "true"
 
       [backup]
-      custom-ignorefiles = ["${resticIgnored}"]
       git-ignore = true
       no-require-git = true
       no-scan = true
@@ -81,7 +80,6 @@ rec {
       enable_copy = "true"
 
       [backup]
-      custom-ignorefiles = ["${resticIgnored}"]
       git-ignore = true
       no-require-git = true
       no-scan = true

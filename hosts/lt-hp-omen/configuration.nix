@@ -8,7 +8,6 @@
   imports = [
     ../../nixos/client.nix
 
-    # ./backup.nix
     ./hardware-configuration.nix
     ./hp-keyboard-backlight.nix
     ./nandsim.nix
@@ -34,6 +33,31 @@
   ];
 
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
+
+  lantian.backup = {
+    enable = true;
+    resticRepos = [ "home" ];
+    paths = lib.mkForce {
+      home = {
+        snapshotFrom = "/nix/persistent/home";
+        snapshotTo = "/nix/persistent/.snapshot-home";
+        backupPath = "/nix/persistent/.snapshot-home/lantian";
+        ignored = ''
+          .antigravity/extensions
+          .cache
+          .cursor/extensions
+          .local/share/containers
+          .local/share/Steam/steamapps/common
+          .local/share/Xilinx
+          .vscode/extensions
+          .windsurf/extensions
+          Downloads
+        '';
+      };
+    };
+    schedule = "weekly";
+    persistentTimer = true;
+  };
 
   lantian.hidpi = 1.5;
 
