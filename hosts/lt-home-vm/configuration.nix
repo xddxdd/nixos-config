@@ -1,7 +1,7 @@
 {
   lib,
-  config,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -33,7 +33,6 @@
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
-    ../../nixos/optional-apps/ollama.nix
     # ../../nixos/optional-apps/open-webui
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/searxng.nix
@@ -51,6 +50,10 @@
     # ../../nixos/optional-cron-jobs/veloera-checkin
 
     "${inputs.secrets}/nixos-hidden-module/851e5310ebca4e5c"
+  ];
+
+  environment.systemPackages = [
+    (pkgs.llama-cpp.override { cudaSupport = true; })
   ];
 
   services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
@@ -87,16 +90,6 @@
   lantian.immich.storage = "/mnt/storage/immich";
   lantian.syncthing.storage = "/mnt/storage/media";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
-
-  services.ollama.models = "/mnt/storage/ollama";
-  systemd.tmpfiles.settings = {
-    ollama = {
-      "/mnt/storage/ollama".d = {
-        mode = "755";
-        inherit (config.services.ollama) user group;
-      };
-    };
-  };
 
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {

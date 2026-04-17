@@ -25,7 +25,6 @@ let
         "gitlab"
         "huggingface"
         "huggingface datasets"
-        "ollama"
         "sourcehut"
         "nixos wiki"
         "anaconda"

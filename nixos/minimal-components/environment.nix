@@ -30,7 +30,6 @@
     LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
     NIXPKGS_ALLOW_INSECURE = "1";
     NIX_REMOTE = "daemon";
-    OLLAMA_HOST = "http://ollama.localhost";
     SYSTEMD_PAGER = "";
     # keep-sorted end
   };

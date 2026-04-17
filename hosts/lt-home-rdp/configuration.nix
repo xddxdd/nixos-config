@@ -15,13 +15,15 @@
 
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/nix-distributed.nix
-    ../../nixos/optional-apps/ollama.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/picoclaw.nix
     # ../../nixos/optional-apps/sakura-llm
   ];
 
-  environment.systemPackages = [ pkgs.comfy-ui-cuda ];
+  environment.systemPackages = [
+    pkgs.comfy-ui-cuda
+    (pkgs.llama-cpp.override { cudaSupport = true; })
+  ];
 
   networking.networkmanager.enable = lib.mkForce false;
 
@@ -41,11 +43,5 @@
         Gateway = "_ipv6ra";
       }
     ];
-  };
-
-  services.ollama.models = "/mnt/storage/ollama";
-  systemd.services.ollama = {
-    requires = [ "mnt-storage.mount" ];
-    after = [ "mnt-storage.mount" ];
   };
 }

@@ -75,7 +75,6 @@ rec {
     Hydra = 13300;
     Dex = 13403;
     OpenWebUI.UI = 13433;
-    Ollama = 13434;
     OpenWebUI.Redis = 13435;
     UniAPI = 13437;
     CLIProxyAPI = 13438;

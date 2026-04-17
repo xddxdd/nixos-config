@@ -47,7 +47,6 @@
       WEBSOCKET_REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
       REDIS_URL = "redis://localhost:${LT.portStr.OpenWebUI.Redis}/0";
 
-      OLLAMA_API_BASE_URL = "https://ollama.lt-home-vm.xuyh0120.win";
       WEBUI_URL = "https://ai.xuyh0120.win";
       OPENAI_API_BASE_URL = "http://uni-api.localhost/v1";
 
