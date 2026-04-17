@@ -17,6 +17,7 @@
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
+    ../../nixos/optional-apps/mcp-opencode.nix
     ../../nixos/optional-apps/mcp-roo-code.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix

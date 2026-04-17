@@ -11,11 +11,23 @@
       type = lib.types.attrs;
       default = { };
     };
-    toJSON = lib.mkOption {
+    toRooCodeJSON = lib.mkOption {
       readOnly = true;
       default = utils.genJqSecretsReplacementSnippet {
         inherit (config.lantian.mcp) mcpServers;
       };
+    };
+    toOpenCodeJSON = lib.mkOption {
+      readOnly = true;
+      default = utils.genJqSecretsReplacementSnippet (
+        lib.mapAttrs (_: v: {
+          type = "local";
+          command = [ v.command ] ++ (v.args or [ ]);
+          environment = v.env or { };
+          enabled = true;
+          timeout = 3600 * 1000;
+        }) config.lantian.mcp.mcpServers
+      );
     };
     toAttrsWithEnvs = lib.mkOption {
       readOnly = true;

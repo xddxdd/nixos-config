@@ -19,7 +19,7 @@ in
 
     script = ''
       mkdir -p "$(dirname "${targetPath}")"
-      ${config.lantian.mcp.toJSON targetPath}
+      ${config.lantian.mcp.toRooCodeJSON targetPath}
     '';
   };
 }
