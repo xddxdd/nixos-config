@@ -112,6 +112,7 @@ rec {
     Dump978.Raw = 13978;
     Dump978.Json = 13979;
     Open5GS = 13999;
+    Hypermind = 13990;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
   };
