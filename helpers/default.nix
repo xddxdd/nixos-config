@@ -60,6 +60,12 @@ let
 
     cloudLanNetworking = call ./fn/cloud-lan-networking.nix;
     gui = call ./fn/gui.nix;
+    inherit (call ./fn/interconnect.nix)
+      interconnectIPv4For
+      publicIPv4For
+      interconnectIPv6For
+      publicIPv6For
+      ;
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;

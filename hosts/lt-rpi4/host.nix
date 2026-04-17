@@ -7,6 +7,11 @@
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ7wA62a0cowKd4FttudzWfs0GL1wLxCfEOG9QM+odgV";
   zerotier = "a53c247aa1";
   firewalled = true;
+  interconnect = {
+    name = "home-lan";
+    IPv4 = "192.168.0.6";
+    IPv6 = "2001:470:e997::6";
+  };
   dn42 = {
     IPv4 = "172.22.76.125";
     region = 42;

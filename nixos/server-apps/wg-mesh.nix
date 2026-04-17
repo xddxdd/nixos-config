@@ -8,11 +8,11 @@
 let
   wg-pubkey = import (inputs.secrets + "/wg-pubkey.nix");
   wgEndpointFor =
-    host:
-    if !(LT.this.hasTag "ipv6-only") && host.public.IPv4 != null then
-      host.public.IPv4
-    else if LT.this.public.IPv6 != null && host.public.IPv6 != null then
-      host.public.IPv6
+    name: host:
+    if !(LT.this.hasTag "ipv6-only") && LT.publicIPv4For name != null then
+      LT.publicIPv4For name
+    else if LT.this.public.IPv6 != null && LT.publicIPv6For name != null then
+      LT.publicIPv6For name
     else
       null;
   targetHosts = lib.filterAttrs (n: v: v.hasTag "server") LT.otherHosts;
@@ -27,7 +27,7 @@ in
   systemd.network.netdevs = lib.mapAttrs' (
     n: v:
     let
-      wgEndpoint = wgEndpointFor v;
+      wgEndpoint = wgEndpointFor n v;
     in
     lib.nameValuePair "wgmesh${builtins.toString v.index}" {
       netdevConfig = {

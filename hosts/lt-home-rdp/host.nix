@@ -13,4 +13,9 @@
   };
   zerotier = "fb4c304816";
   firewalled = true;
+  interconnect = {
+    name = "home-lan";
+    IPv4 = "192.168.1.13";
+    IPv6 = "2001:470:e997:1::13";
+  };
 }

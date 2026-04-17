@@ -126,6 +126,21 @@
       };
     };
 
+    interconnect = {
+      name = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
+      IPv4 = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
+      IPv6 = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
+    };
+
     dn42 = {
       IPv4 = lib.mkOption {
         type = lib.types.nullOr lib.types.str;

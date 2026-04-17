@@ -13,6 +13,10 @@
   public = {
     IPv4 = "52.229.162.161";
   };
+  interconnect = {
+    name = "azure-oci";
+    IPv4 = "10.2.1.5";
+  };
   dn42 = {
     IPv4 = "172.22.76.116";
     region = 52;

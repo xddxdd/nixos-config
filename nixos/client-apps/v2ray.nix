@@ -50,7 +50,7 @@ let
         protocol = "vless";
         settings.vnext = [
           {
-            address = LT.hosts."bwg-lax".public.IPv4;
+            address = LT.publicIPv4For "bwg-lax";
             port = 443;
             users = [
               {
@@ -85,7 +85,7 @@ let
             xhttpSettings = xhttpSettings // {
               mode = "stream-up";
               downloadSettings = {
-                address = LT.hosts."bwg-lax".public.IPv4;
+                address = LT.publicIPv4For "bwg-lax";
                 port = 443;
                 inherit
                   network
