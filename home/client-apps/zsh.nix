@@ -145,13 +145,6 @@
       ZSHZ_EXCLUDE_DIRS=(/nix/store)
       ZSHZ_TILDE=1
       ZSHZ_TRAILING_SLASH=1
-
-      ########################################
-      # Claude Code config
-      ########################################
-      if [ -f "/run/agenix/claude-code-token" ]; then
-        source /run/agenix/claude-code-token
-      fi
     '';
 
     initContent = lib.mkBefore ''
