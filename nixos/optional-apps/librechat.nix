@@ -29,7 +29,7 @@ in
   sops.secrets.librechat-openid-session-secret.sopsFile = inputs.secrets + "/librechat.yaml";
   sops.secrets.librechat-uni-api-secret = {
     sopsFile = inputs.secrets + "/uni-api/keys.yaml";
-    key = "uni-api/admin-api-key";
+    key = "uni-api-admin-api-key";
   };
 
   services.librechat = {

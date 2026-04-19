@@ -31,7 +31,7 @@ let
     api_keys = [
       {
         api = {
-          _secret = config.sops.secrets."uni-api/admin-api-key".path;
+          _secret = config.sops.secrets."uni-api-admin-api-key".path;
         };
         role = "admin";
       }
@@ -67,7 +67,7 @@ in
         --retry-delay 5 \
         --retry-max-time 60 \
         --retry-all-errors \
-        -H "Authorization: Bearer $(cat ${config.sops.secrets."uni-api/admin-api-key".path})" \
+        -H "Authorization: Bearer $(cat ${config.sops.secrets."uni-api-admin-api-key".path})" \
         http://uni-api.localhost/v1/models
     '';
 

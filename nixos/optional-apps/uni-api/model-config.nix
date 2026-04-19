@@ -36,7 +36,7 @@ let
         };
         apiKeyPath = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
-          default = osConfig.sops.secrets."uni-api/${config.name}-api-key".path;
+          default = osConfig.sops.secrets."uni-api-${config.name}-api-key".path;
         };
         cloudflareAccountIdPath = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
