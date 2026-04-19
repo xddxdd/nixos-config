@@ -6,8 +6,8 @@
   ...
 }:
 {
-  age.secrets.default-pw = {
-    file = inputs.secrets + "/default-pw.age";
+  sops.secrets.default-pw = {
+    sopsFile = inputs.secrets + "/common/default-pw.yaml";
     mode = "0444";
   };
 

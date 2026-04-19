@@ -79,6 +79,7 @@ in
     };
 
     age.identityPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
+    sops.age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
 
     fileSystems = {
       "/" = {

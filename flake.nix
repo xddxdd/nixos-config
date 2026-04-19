@@ -153,6 +153,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur-xddxdd.follows = "nur-xddxdd";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     srvos = {
       url = "github:nix-community/srvos";
       inputs.nixpkgs.follows = "nixpkgs";

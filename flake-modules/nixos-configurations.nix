@@ -53,6 +53,7 @@ let
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
       inputs.preservation.nixosModules.preservation
       inputs.proxmox-nixos.nixosModules.proxmox-ve
+      inputs.sops-nix.nixosModules.sops
       inputs.srvos.nixosModules.mixins-terminfo
       inputs.srvos.nixosModules.mixins-trusted-nix-caches
       inputs.stylix.nixosModules.stylix
