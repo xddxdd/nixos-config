@@ -82,17 +82,6 @@
     ];
   };
 
-  fileSystems."/mnt/ssd-temp" = {
-    device = "/dev/TempSsdGroup/ssd-temp";
-    fsType = "ext4";
-    options = [
-      "discard"
-      "nosuid"
-      "nodev"
-      "x-systemd.mount-timeout=infinity"
-    ];
-  };
-
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [

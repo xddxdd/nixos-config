@@ -30,13 +30,13 @@ let
         };
         downloads-auto = {
           qbittorrent = {
-            path = "/mnt/ssd-temp/.downloads-auto";
+            path = "/mnt/storage/.downloads-auto";
             host = "localhost";
             port = LT.port.qBitTorrentPT.WebUI;
             label = "flexget-auto";
           };
           free_space = {
-            path = "/mnt/ssd-temp/.downloads-auto";
+            path = "/mnt/storage/.downloads-auto";
             space = 200 * 1024; # 200GB
           };
         };

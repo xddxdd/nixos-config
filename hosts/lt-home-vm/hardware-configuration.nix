@@ -25,11 +25,6 @@
     fsType = "virtiofs";
   };
 
-  fileSystems."/mnt/ssd-temp" = {
-    device = "virtiofs-mnt-ssd-temp";
-    fsType = "virtiofs";
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/22DA-8396";
     fsType = "vfat";

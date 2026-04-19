@@ -48,7 +48,7 @@ class Torrent(BaseModel):
 
 # Filter function
 def should_include_torrent(torrent: Torrent) -> bool:
-    if torrent.save_path != "/mnt/ssd-temp/.downloads-auto":
+    if torrent.save_path != "/mnt/storage/.downloads-auto":
         return False
 
     if not torrent.is_completed and torrent.time_since_creation > timedelta(hours=36):
