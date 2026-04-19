@@ -51,6 +51,9 @@ jobs:
           echo "StrictHostKeyChecking no" > "$HOME/.ssh/config"
           chmod -R 500 "$HOME/.ssh"
 
+          mkdir -p "$HOME/.config/sops/age"
+          nix run nixpkgs#ssh-to-age -- -private-key -i "$HOME/.ssh/id_ed25519" > "$HOME/.config/sops/age/keys.txt"
+
       - name: Rsync zone files over SSH
         run: |
           sudo apt-get install -y rsync
