@@ -123,7 +123,7 @@ class Build(BaseModel):
 
 
 def git_set_branch_to_commit(git_url: str, branch_name: str, commit_id: str):
-    with open("/run/agenix/nix-access-token") as f:
+    with open("/run/secrets/nix-access-token") as f:
         match = re.search(r"(ghp_[0-9a-zA-Z]+)", f.read())
         if not match:
             raise ValueError("Cannot get GitHub access token")

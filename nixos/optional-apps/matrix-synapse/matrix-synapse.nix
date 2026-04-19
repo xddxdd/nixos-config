@@ -11,8 +11,8 @@ in
 {
   imports = [ ../postgresql.nix ];
 
-  age.secrets.glauth-bindpw = {
-    file = inputs.secrets + "/glauth-bindpw.age";
+  sops.secrets.glauth-bindpw = {
+    sopsFile = inputs.secrets + "/common/glauth.yaml";
     mode = "0444";
   };
 
@@ -123,7 +123,7 @@ in
             };
           };
           bind_dn = "cn=serviceuser,dc=lantian,dc=pub";
-          bind_password_file = config.age.secrets.glauth-bindpw.path;
+          bind_password_file = config.sops.secrets.glauth-bindpw.path;
           filter = "(&(objectClass=posixAccount)(!(ou=svcaccts)))";
         }
         {

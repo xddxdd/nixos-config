@@ -22,13 +22,13 @@ in
     ipSuffix = "93";
   };
 
-  age.secrets.imapfilter-gmail = {
-    file = inputs.secrets + "/imapfilter/gmail.age";
+  sops.secrets.imapfilter-gmail = {
+    sopsFile = inputs.secrets + "/imapfilter/keys.yaml";
     owner = "imapfilter";
     group = "imapfilter";
   };
-  age.secrets.imapfilter-lantian = {
-    file = inputs.secrets + "/imapfilter/lantian.age";
+  sops.secrets.imapfilter-lantian = {
+    sopsFile = inputs.secrets + "/imapfilter/keys.yaml";
     owner = "imapfilter";
     group = "imapfilter";
   };
@@ -94,7 +94,7 @@ in
 
   systemd.services.imapfilter-gmail = netns.bind {
     environment = {
-      PASSWORD_FILE = config.age.secrets.imapfilter-gmail.path;
+      PASSWORD_FILE = config.sops.secrets.imapfilter-gmail.path;
     };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
@@ -128,7 +128,7 @@ in
 
   systemd.services.imapfilter-lantian = netns.bind {
     environment = {
-      PASSWORD_FILE = config.age.secrets.imapfilter-lantian.path;
+      PASSWORD_FILE = config.sops.secrets.imapfilter-lantian.path;
     };
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";

@@ -9,8 +9,8 @@ let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 in
 {
-  age.secrets.smtp-pass = {
-    file = inputs.secrets + "/smtp-pass.age";
+  sops.secrets.smtp-pass = {
+    sopsFile = inputs.secrets + "/common/smtp.yaml";
     mode = "0444";
   };
 
@@ -32,7 +32,7 @@ in
       port = 587;
       from = "postmaster@lantian.pub";
       user = "LyRZoFKp7S";
-      passwordeval = "cat ${config.age.secrets.smtp-pass.path}";
+      passwordeval = "cat ${config.sops.secrets.smtp-pass.path}";
       tls = true;
       tls_starttls = true;
       tls_trust_file = "/etc/ssl/certs/ca-certificates.crt";

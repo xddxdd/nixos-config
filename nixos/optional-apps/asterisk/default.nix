@@ -39,8 +39,8 @@ in
     ../fail2ban
   ];
 
-  age.secrets.asterisk-pw = {
-    file = inputs.secrets + "/asterisk-pw.age";
+  sops.secrets.asterisk-pw = {
+    sopsFile = inputs.secrets + "/asterisk.yaml";
     owner = "asterisk";
     group = "asterisk";
   };
@@ -125,7 +125,7 @@ in
         from_domain=lantian.dn42
 
         ; Include passwords
-        #include ${config.age.secrets.asterisk-pw.path}
+        #include ${config.sops.secrets.asterisk-pw.path}
       '';
 
       # Keep number plan in sync with dialplan.nix

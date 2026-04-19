@@ -18,12 +18,12 @@
     ../uni-api
   ];
 
-  age.secrets.open-webui-env.file = inputs.secrets + "/open-webui-env.age";
+  sops.secrets.open-webui-env.sopsFile = inputs.secrets + "/open-webui.yaml";
 
   services.open-webui = {
     enable = true;
     port = LT.port.OpenWebUI.UI;
-    environmentFile = config.age.secrets.open-webui-env.path;
+    environmentFile = config.sops.secrets.open-webui-env.path;
     environment = {
       ENV = "prod";
       DATABASE_URL = "postgresql:///open-webui?host=/run/postgresql";

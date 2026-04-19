@@ -16,17 +16,16 @@ let
   ];
 in
 {
-  age.secrets.nix-access-token = {
-    file = inputs.secrets + "/nix/access-token.age";
+  sops.secrets.nix-access-token = {
+    sopsFile = inputs.secrets + "/common/nix.yaml";
     group = "wheel";
     mode = "0444";
   };
-  age.secrets.nix-privkey = {
-    name = "nix-privkey.pem";
-    file = inputs.secrets + "/nix/privkey.age";
+  sops.secrets.nix-privkey = {
+    sopsFile = inputs.secrets + "/common/nix.yaml";
   };
-  age.secrets.nix-netrc = {
-    file = inputs.secrets + "/nix/netrc.age";
+  sops.secrets.nix-netrc = {
+    sopsFile = inputs.secrets + "/common/nix.yaml";
     group = "wheel";
     mode = "0444";
   };
@@ -68,7 +67,7 @@ in
   nix = {
     package = pkgs.lixPackageSets.latest.lix;
     extraOptions = ''
-      !include ${config.age.secrets.nix-access-token.path}
+      !include ${config.sops.secrets.nix-access-token.path}
     '';
 
     daemonCPUSchedPolicy = if LT.this.hasTag LT.tags.client then "idle" else "batch";
@@ -101,7 +100,7 @@ in
       trusted-users = allowedUsers;
       use-cgroups = true;
       warn-dirty = false;
-      netrc-file = config.age.secrets.nix-netrc.path;
+      netrc-file = config.sops.secrets.nix-netrc.path;
       use-xdg-base-directories = true;
 
       # # Determinate Nix specific
@@ -128,7 +127,7 @@ in
   systemd.tmpfiles.settings = {
     nix-privkey = {
       "/run/nix-privkey.pem"."L+" = {
-        argument = config.age.secrets.nix-privkey.path;
+        argument = config.sops.secrets.nix-privkey.path;
       };
     };
   };

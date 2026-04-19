@@ -9,8 +9,8 @@
 {
   imports = [ "${inputs.secrets}/homepage-dashboard-config.nix" ];
 
-  age.secrets.homepage-dashboard-env = {
-    file = inputs.secrets + "/homepage-dashboard-env.age";
+  sops.secrets.homepage-dashboard-env = {
+    sopsFile = inputs.secrets + "/homepage-dashboard.yaml";
     owner = "homepage-dashboard";
     group = "homepage-dashboard";
   };
@@ -19,7 +19,7 @@
     enable = true;
     package = pkgs.homepage-dashboard.override { enableLocalIcons = true; };
     listenPort = LT.port.HomepageDashboard;
-    environmentFile = config.age.secrets.homepage-dashboard-env.path;
+    environmentFile = config.sops.secrets.homepage-dashboard-env.path;
 
     settings = {
       title = "Lan Tian @ Dashboard";

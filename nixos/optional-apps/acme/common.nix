@@ -6,7 +6,7 @@ in
 {
   # # For temporarily setting one time use EAB credentials:
   # environmentFile = [
-  #   config.age.secrets.lego-env.path
+  #   config.sops.secrets.lego-env.path
   #   (pkgs.writeText "env" ''
   #     LEGO_EAB_KID=123456
   #     LEGO_EAB_HMAC=abcdef

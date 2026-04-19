@@ -8,8 +8,8 @@
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.n8n-secret = {
-    file = inputs.secrets + "/n8n-secret.age";
+  sops.secrets.n8n-secret = {
+    sopsFile = inputs.secrets + "/n8n.yaml";
     owner = "n8n";
     group = "n8n";
   };
@@ -20,7 +20,7 @@
       N8N_EDITOR_BASE_URL = "https://n8n.xuyh0120.win";
       N8N_LISTEN_ADDRESS = "127.0.0.1";
       N8N_PORT = LT.port.N8N;
-      N8N_RUNNERS_AUTH_TOKEN_FILE = config.age.secrets.n8n-secret.path;
+      N8N_RUNNERS_AUTH_TOKEN_FILE = config.sops.secrets.n8n-secret.path;
       N8N_METRICS = true;
       N8N_RESTRICT_FILE_ACCESS_TO = "/var/cache/n8n";
 

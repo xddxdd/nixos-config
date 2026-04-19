@@ -50,8 +50,8 @@ let
       ];
 in
 {
-  age.secrets.searxng-env = {
-    file = inputs.secrets + "/searxng-env.age";
+  sops.secrets.searxng-env = {
+    sopsFile = inputs.secrets + "/searxng.yaml";
     owner = "searx";
     group = "searx";
   };
@@ -65,7 +65,7 @@ in
       socket = "/run/searx/searx.sock";
       chmod-socket = "660";
     };
-    environmentFile = config.age.secrets.searxng-env.path;
+    environmentFile = config.sops.secrets.searxng-env.path;
     settings = {
       server.secret_key = "@SEARX_SERVER_SECRET_KEY@";
       search = {
@@ -95,8 +95,8 @@ in
   };
 
   systemd.services.searx-init = {
-    after = [ "agenix-install-secrets.service" ];
-    requires = [ "agenix-install-secrets.service" ];
+    after = [ "sops-install-secrets.service" ];
+    requires = [ "sops-install-secrets.service" ];
   };
 
   systemd.services.uwsgi = {

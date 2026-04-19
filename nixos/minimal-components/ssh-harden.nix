@@ -16,7 +16,7 @@ let
   '';
 in
 {
-  age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
+  sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
 
   # Keep compatibility with PVE which expect SSH keys in standard location
   lantian.preservation.files = [
@@ -130,17 +130,17 @@ in
     Host u378583-sub1.your-storagebox.de
       User u378583-sub1
       Port 23
-      IdentityFile ${config.age.secrets.sftp-privkey.path}
+      IdentityFile ${config.sops.secrets.sftp-privkey.path}
 
     Host u378583-sub2.your-storagebox.de
       User u378583-sub2
       Port 23
-      IdentityFile ${config.age.secrets.sftp-privkey.path}
+      IdentityFile ${config.sops.secrets.sftp-privkey.path}
 
     Host sftp.lt-home-vm.ltnet.xuyh0120.win
       HostName lt-home-vm.ltnet.xuyh0120.win
       User sftp
-      IdentityFile ${config.age.secrets.sftp-privkey.path}
+      IdentityFile ${config.sops.secrets.sftp-privkey.path}
       ${ltnetSSHConfig}
 
     Host git.lantian.pub

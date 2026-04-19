@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 rec {
@@ -39,13 +40,13 @@ rec {
     home = ''
       [repository]
       repository = "opendal:sftp"
-      password-file = "/run/agenix/restic-pw"
+      password-file = "${config.sops.secrets.restic-pw.path}"
       cache-dir = "/var/cache/restic"
 
       [repository.options]
       user = "sftp"
       endpoint = "ssh://sftp.lt-home-vm.ltnet.xuyh0120.win:2222"
-      key = "/run/agenix/sftp-privkey"
+      key = "${config.sops.secrets.sftp-privkey.path}"
       root = "/backups/restic"
       known_hosts_strategy = "Accept"
       enable_copy = "true"
@@ -68,13 +69,13 @@ rec {
     storagebox = ''
       [repository]
       repository = "opendal:sftp"
-      password-file = "/run/agenix/restic-pw"
+      password-file = "${config.sops.secrets.restic-pw.path}"
       cache-dir = "/var/cache/restic"
 
       [repository.options]
       user = "u378583-sub2"
       endpoint = "ssh://u378583-sub2.your-storagebox.de:23"
-      key = "/run/agenix/sftp-privkey"
+      key = "${config.sops.secrets.sftp-privkey.path}"
       root = "/home"
       known_hosts_strategy = "Accept"
       enable_copy = "true"

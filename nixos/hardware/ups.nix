@@ -42,8 +42,8 @@ let
   };
 in
 {
-  age.secrets.nut-pass = {
-    file = inputs.secrets + "/nut-pass.age";
+  sops.secrets.nut-pass = {
+    sopsFile = inputs.secrets + "/common/nut.yaml";
     owner = config.services.prometheus.exporters.nut.user;
     group = "root";
     mode = "0440";
@@ -58,7 +58,7 @@ in
     };
     users.root = {
       upsmon = "primary";
-      passwordFile = config.age.secrets.nut-pass.path;
+      passwordFile = config.sops.secrets.nut-pass.path;
       instcmds = [ "ALL" ];
       actions = [
         "SET"
@@ -70,7 +70,7 @@ in
       user = "root";
       type = "primary";
       system = "ups@localhost";
-      passwordFile = config.age.secrets.nut-pass.path;
+      passwordFile = config.sops.secrets.nut-pass.path;
       powerValue = 1;
     };
 
@@ -97,7 +97,7 @@ in
     listenAddress = LT.this.ltnet.IPv4;
     port = LT.port.Prometheus.NUTExporter;
     nutUser = "root";
-    passwordPath = config.age.secrets.nut-pass.path;
+    passwordPath = config.sops.secrets.nut-pass.path;
   };
 
   systemd.services.upsd = lib.mkIf config.power.ups.enable {

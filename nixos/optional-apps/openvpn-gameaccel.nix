@@ -208,18 +208,18 @@ let
   ];
 in
 {
-  age.secrets.openvpn-gameaccel-ca = {
-    file = inputs.secrets + "/openvpn-gameaccel/ca.age";
+  sops.secrets.openvpn-gameaccel-ca = {
+    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };
-  age.secrets.openvpn-gameaccel-server-cert = {
-    file = inputs.secrets + "/openvpn-gameaccel/server-cert.age";
+  sops.secrets.openvpn-gameaccel-server-cert = {
+    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };
-  age.secrets.openvpn-gameaccel-server-key = {
-    file = inputs.secrets + "/openvpn-gameaccel/server-key.age";
+  sops.secrets.openvpn-gameaccel-server-key = {
+    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };
@@ -230,9 +230,9 @@ in
     dev-type tun
     dev ovpn-gameacc
 
-    ca ${config.age.secrets.openvpn-gameaccel-ca.path}
-    cert ${config.age.secrets.openvpn-gameaccel-server-cert.path}
-    key ${config.age.secrets.openvpn-gameaccel-server-key.path}
+    ca ${config.sops.secrets.openvpn-gameaccel-ca.path}
+    cert ${config.sops.secrets.openvpn-gameaccel-server-cert.path}
+    key ${config.sops.secrets.openvpn-gameaccel-server-key.path}
     dh ${../common-apps/nginx/files/dhparam.pem}
 
     user openvpn

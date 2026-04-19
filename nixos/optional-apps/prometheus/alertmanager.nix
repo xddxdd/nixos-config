@@ -192,7 +192,7 @@ in
           + builtins.toString config.programs.msmtp.accounts.default.port;
         smtp_auth_username = config.programs.msmtp.accounts.default.user;
         smtp_auth_password = {
-          _secret = config.age.secrets.smtp-pass.path;
+          _secret = config.sops.secrets.smtp-pass.path;
         };
         smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
       };

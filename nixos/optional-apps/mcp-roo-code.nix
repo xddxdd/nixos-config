@@ -7,8 +7,8 @@ in
 
   systemd.services.mcp-roo-code-setup = {
     description = "Setup Roo Code config";
-    after = [ "agenix-install-secrets.service" ];
-    requires = [ "agenix-install-secrets.service" ];
+    after = [ "sops-install-secrets.service" ];
+    requires = [ "sops-install-secrets.service" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {

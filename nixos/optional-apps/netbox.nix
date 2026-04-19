@@ -8,13 +8,13 @@
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.netbox-pepper = {
-    file = inputs.secrets + "/netbox-pepper.age";
+  sops.secrets.netbox-pepper = {
+    sopsFile = inputs.secrets + "/netbox.yaml";
     owner = "netbox";
     group = "netbox";
   };
-  age.secrets.netbox-secret = {
-    file = inputs.secrets + "/netbox-secret.age";
+  sops.secrets.netbox-secret = {
+    sopsFile = inputs.secrets + "/netbox.yaml";
     owner = "netbox";
     group = "netbox";
   };
@@ -23,8 +23,8 @@
     enable = true;
     package = pkgs.netbox;
     unixSocket = "/run/netbox/netbox.sock";
-    apiTokenPeppersFile = config.age.secrets.netbox-pepper.path;
-    secretKeyFile = config.age.secrets.netbox-secret.path;
+    apiTokenPeppersFile = config.sops.secrets.netbox-pepper.path;
+    secretKeyFile = config.sops.secrets.netbox-secret.path;
     settings = {
       CSRF_TRUSTED_ORIGINS = [ "https://netbox.xuyh0120.win" ];
       REMOTE_AUTH_AUTO_CREATE_GROUPS = true;

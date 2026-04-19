@@ -5,7 +5,7 @@
   ...
 }:
 {
-  age.secrets.metapi-env.file = inputs.secrets + "/metapi-env.age";
+  sops.secrets.metapi-env.sopsFile = inputs.secrets + "/metapi.yaml";
 
   virtualisation.oci-containers.containers.metapi = {
     image = "ghcr.io/cita-777/metapi:latest";
@@ -23,7 +23,7 @@
       DATA_DIR = "/app/data";
       TZ = config.time.timeZone;
     };
-    environmentFiles = [ config.age.secrets.metapi-env.path ];
+    environmentFiles = [ config.sops.secrets.metapi-env.path ];
   };
 
   systemd.tmpfiles.settings = {

@@ -104,7 +104,6 @@ in
     stylua
 
     # Nix
-    inputs.agenix.packages."${system}".agenix
     inputs.flat-flake.packages."${system}".flat-flake
     alejandra
     nil

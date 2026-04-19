@@ -9,8 +9,8 @@
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.attic-credentials = {
-    file = inputs.secrets + "/attic-credentials.age";
+  sops.secrets.attic-credentials = {
+    sopsFile = inputs.secrets + "/common/attic.yaml";
     owner = "atticd";
     group = "atticd";
   };
@@ -18,7 +18,7 @@
   services.atticd = {
     enable = true;
     package = pkgs.nur-xddxdd.lantianCustomized.attic-telnyx-compatible;
-    environmentFile = config.age.secrets.attic-credentials.path;
+    environmentFile = config.sops.secrets.attic-credentials.path;
     mode = "monolithic";
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";

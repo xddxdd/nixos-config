@@ -6,7 +6,7 @@
   ...
 }:
 {
-  age.secrets.huggingface-token-env.file = inputs.secrets + "/huggingface-token-env.age";
+  sops.secrets.huggingface-token-env.sopsFile = inputs.secrets + "/huggingface.yaml";
 
   virtualisation.oci-containers.containers.sglang-sakura-llm = {
     extraOptions = [
@@ -23,7 +23,7 @@
       TORCHINDUCTOR_CACHE_DIR = "/var/cache/torchinductor";
     };
     environmentFiles = [
-      config.age.secrets.huggingface-token-env.path
+      config.sops.secrets.huggingface-token-env.path
     ];
     volumes = [
       "/var/cache/huggingface:/root/.cache/huggingface"

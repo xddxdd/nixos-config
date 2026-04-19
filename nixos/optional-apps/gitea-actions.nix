@@ -6,7 +6,7 @@
   ...
 }:
 {
-  age.secrets.gitea-actions-token.file = inputs.secrets + "/gitea-actions-token.age";
+  sops.secrets.gitea-actions-token.sopsFile = inputs.secrets + "/gitea.yaml";
 
   lantian.enablePodman = lib.mkForce true;
 
@@ -25,7 +25,7 @@
       "ubuntu-22.04-full"
       "ubuntu-20.04-full"
     ];
-    tokenFile = config.age.secrets.gitea-actions-token.path;
+    tokenFile = config.sops.secrets.gitea-actions-token.path;
 
     settings = {
       log.level = "info";

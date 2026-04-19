@@ -31,8 +31,8 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.iyuu-env = {
-    file = inputs.secrets + "/iyuu-env.age";
+  sops.secrets.iyuu-env = {
+    sopsFile = inputs.secrets + "/iyuu.yaml";
     owner = "iyuu";
     group = "iyuu";
   };
@@ -53,7 +53,7 @@ in
       fi
 
       sed -E -i "s#'listen'.*#'listen' => 'http://127.0.0.1:${LT.portStr.IyuuPlus}',#g" config/server.php
-      install -Dm644 ${config.age.secrets.iyuu-env.path} .env
+      install -Dm644 ${config.sops.secrets.iyuu-env.path} .env
     '';
 
     serviceConfig = LT.serviceHarden // {

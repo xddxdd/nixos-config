@@ -9,7 +9,7 @@
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.vaultwarden-env.file = inputs.secrets + "/vaultwarden-env.age";
+  sops.secrets.vaultwarden-env.sopsFile = inputs.secrets + "/vaultwarden.yaml";
 
   services.mysql = {
     ensureDatabases = [ "vaultwarden" ];
@@ -39,7 +39,7 @@
       SMTP_FROM = config.programs.msmtp.accounts.default.from;
       SMTP_FROM_NAME = "Vaultwarden";
     };
-    environmentFile = config.age.secrets.vaultwarden-env.path;
+    environmentFile = config.sops.secrets.vaultwarden-env.path;
   };
 
   lantian.nginxVhosts."bitwarden.xuyh0120.win" = {

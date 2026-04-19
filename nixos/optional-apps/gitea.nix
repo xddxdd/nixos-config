@@ -26,13 +26,13 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.gitea-storage-access-key = {
-    file = inputs.secrets + "/gitea-storage-access-key.age";
+  sops.secrets.gitea-storage-access-key = {
+    sopsFile = inputs.secrets + "/gitea.yaml";
     owner = "git";
     group = "gitea";
   };
-  age.secrets.gitea-storage-secret-key = {
-    file = inputs.secrets + "/gitea-storage-secret-key.age";
+  sops.secrets.gitea-storage-secret-key = {
+    sopsFile = inputs.secrets + "/gitea.yaml";
     owner = "git";
     group = "gitea";
   };
@@ -48,11 +48,11 @@ in
       createDatabase = false;
     };
     lfs.enable = true;
-    mailerPasswordFile = config.age.secrets.smtp-pass.path;
+    mailerPasswordFile = config.sops.secrets.smtp-pass.path;
     user = "git";
 
-    minioAccessKeyId = config.age.secrets.gitea-storage-access-key.path;
-    minioSecretAccessKey = config.age.secrets.gitea-storage-secret-key.path;
+    minioAccessKeyId = config.sops.secrets.gitea-storage-access-key.path;
+    minioSecretAccessKey = config.sops.secrets.gitea-storage-secret-key.path;
 
     settings = {
       ui = {

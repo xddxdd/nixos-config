@@ -38,10 +38,10 @@ let
             "offline_access"
           ];
           clientID = {
-            _secret = config.age.secrets.dex-pocket-id-client-id.path;
+            _secret = config.sops.secrets.dex-pocket-id-client-id.path;
           };
           clientSecret = {
-            _secret = config.age.secrets.dex-pocket-id-client-secret.path;
+            _secret = config.sops.secrets.dex-pocket-id-client-secret.path;
           };
           redirectURI = "https://login.lantian.pub/callback";
           insecureSkipEmailVerified = true;
@@ -56,7 +56,7 @@ let
         id = "gitea";
         name = "Gitea";
         secret = {
-          _secret = config.age.secrets.dex-gitea-secret.path;
+          _secret = config.sops.secrets.dex-gitea-secret.path;
         };
         redirectURIs = [ "https://git.lantian.pub/user/oauth2/Dex/callback" ];
       }
@@ -64,7 +64,7 @@ let
         id = "grafana";
         name = "Grafana";
         secret = {
-          _secret = config.age.secrets.dex-grafana-secret.path;
+          _secret = config.sops.secrets.dex-grafana-secret.path;
         };
         redirectURIs = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
       }
@@ -72,7 +72,7 @@ let
         id = "immich";
         name = "Immich";
         secret = {
-          _secret = config.age.secrets.dex-immich-secret.path;
+          _secret = config.sops.secrets.dex-immich-secret.path;
         };
         redirectURIs = [
           "https://immich.xuyh0120.win/auth/login"
@@ -85,7 +85,7 @@ let
         id = "librechat";
         name = "Librechat";
         secret = {
-          _secret = config.age.secrets.dex-librechat-secret.path;
+          _secret = config.sops.secrets.dex-librechat-secret.path;
         };
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
       }
@@ -93,7 +93,7 @@ let
         id = "oauth-proxy";
         name = "OAuth2 Proxy";
         secret = {
-          _secret = config.age.secrets.dex-oauth2-proxy-secret.path;
+          _secret = config.sops.secrets.dex-oauth2-proxy-secret.path;
         };
         redirectURIs = [
           "https://*.lantian.pub/oauth2/callback"
@@ -106,7 +106,7 @@ let
         id = "open-webui";
         name = "Open WebUI";
         secret = {
-          _secret = config.age.secrets.dex-open-webui-secret.path;
+          _secret = config.sops.secrets.dex-open-webui-secret.path;
         };
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
       }
@@ -117,18 +117,18 @@ in
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets = {
+  sops.secrets = {
     glauth-bindpw = {
-      file = inputs.secrets + "/glauth-bindpw.age";
+      sopsFile = inputs.secrets + "/common/glauth.yaml";
       mode = "0444";
     };
     dex-pocket-id-client-id = {
-      file = inputs.secrets + "/dex/pocket-id-client-id.age";
+      sopsFile = inputs.secrets + "/dex.yaml";
       owner = "dex";
       group = "dex";
     };
     dex-pocket-id-client-secret = {
-      file = inputs.secrets + "/dex/pocket-id-client-secret.age";
+      sopsFile = inputs.secrets + "/dex.yaml";
       owner = "dex";
       group = "dex";
     };
@@ -138,7 +138,7 @@ in
       (
         f:
         lib.nameValuePair "dex-${f}-secret" {
-          file = inputs.secrets + "/dex/${f}-secret.age";
+          sopsFile = inputs.secrets + "/dex.yaml";
           owner = "dex";
           group = "dex";
         }

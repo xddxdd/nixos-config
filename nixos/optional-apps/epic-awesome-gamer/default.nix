@@ -12,7 +12,7 @@ let
   '';
 in
 {
-  age.secrets.epic-awesome-gamer-env.file = inputs.secrets + "/epic-awesome-gamer-env.age";
+  sops.secrets.epic-awesome-gamer-env.sopsFile = inputs.secrets + "/epic-awesome-gamer.yaml";
 
   virtualisation.oci-containers.containers.epic-awesome-gamer = {
     image = "ghcr.io/qin2dim/epic-awesome-gamer:latest";
@@ -20,7 +20,7 @@ in
       "io.containers.autoupdate" = "registry";
     };
     cmd = [ "${startScript}" ];
-    environmentFiles = [ config.age.secrets.epic-awesome-gamer-env.path ];
+    environmentFiles = [ config.sops.secrets.epic-awesome-gamer-env.path ];
     volumes = [
       "/var/lib/epic-awesome-gamer:/app/app/volumes"
       "/nix/store:/nix/store:ro"

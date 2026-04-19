@@ -70,8 +70,8 @@ in
 
   config = lib.mkMerge [
     {
-      age.secrets.restic-pw.file = inputs.secrets + "/restic/pw.age";
-      age.secrets.sftp-privkey.file = inputs.secrets + "/sftp-privkey.age";
+      sops.secrets.restic-pw.sopsFile = inputs.secrets + "/common/restic.yaml";
+      sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
 
       environment.systemPackages = resticCommands ++ [ pkgs.rustic ];
     }

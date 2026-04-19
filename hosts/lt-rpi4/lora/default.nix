@@ -26,7 +26,7 @@ let
 
   sx1302ServerConfig = {
     "gateway_ID" = {
-      _secret = config.age.secrets.lora-euid.path;
+      _secret = config.sops.secrets.lora-euid.path;
     };
     "server_address" = "127.0.0.1";
     "serv_port_up" = 1681;
@@ -62,7 +62,7 @@ let
   };
 in
 {
-  age.secrets.lora-euid.file = inputs.secrets + "/lora-euid.age";
+  sops.secrets.lora-euid.sopsFile = inputs.secrets + "/lora.yaml";
 
   systemd.services.lora-gwmp-mux = {
     description = "LoRa GWMP Mux";

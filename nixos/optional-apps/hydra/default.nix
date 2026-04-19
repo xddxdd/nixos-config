@@ -29,8 +29,8 @@ in
     ./clear-build-failures.nix
   ];
 
-  age.secrets.attic-upload-key = {
-    file = inputs.secrets + "/attic-upload-key.age";
+  sops.secrets.attic-upload-key = {
+    sopsFile = inputs.secrets + "/common/attic.yaml";
     mode = "0444";
   };
 
@@ -76,7 +76,7 @@ in
       if [ ! -f "$HOME/.config/attic/config.toml" ]; then
         ${lib.getExe pkgs.attic-client} login --set-default lantian \
           https://attic.colocrossing.xuyh0120.win \
-          $(cat ${config.age.secrets.attic-upload-key.path})
+          $(cat ${config.sops.secrets.attic-upload-key.path})
       fi
     '';
   };

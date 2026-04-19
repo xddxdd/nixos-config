@@ -6,7 +6,7 @@ This repository holds the configuration files for all my NixOS systems.
 
 - [Full system root-on-tmpfs](nixos/minimal-components/impermanence.nix), using [impermanence](https://github.com/nix-community/impermanence)
 - [Nftables instead of iptables](nixos/minimal-components/firewall/nft-rules.nix)
-- Secret management with [agenix](https://github.com/ryantm/agenix)
+- Secret management with [sops-nix](https://github.com/Mic92/sops-nix)
 - [QEMU user mode emulation for most architectures](https://github.com/xddxdd/nur-packages/blob/master/modules/qemu-user-static-binfmt.nix)
 - [Nix Flakes with Nixpkgs patching](flake.nix)
 - Additional kernel modules from [my NUR repo](https://github.com/xddxdd/nur-packages)

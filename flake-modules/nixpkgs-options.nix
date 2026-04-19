@@ -33,7 +33,6 @@ in
           ];
           overlays = [
             # keep-sorted start
-            inputs.agenix.overlays.default
             inputs.angrr.overlays.default
             inputs.chinese-fonts-overlay.overlays.default
             inputs.colmena.overlay

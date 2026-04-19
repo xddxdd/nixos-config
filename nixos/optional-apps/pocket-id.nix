@@ -9,8 +9,8 @@
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.pocket-id-encryption-key = {
-    file = inputs.secrets + "/pocket-id-encryption-key.age";
+  sops.secrets.pocket-id-encryption-key = {
+    sopsFile = inputs.secrets + "/pocket-id.yaml";
     owner = "pocket-id";
     group = "pocket-id";
   };
@@ -78,9 +78,9 @@
       builtins.toString (
         pkgs.writeShellScript "pocket-id-start" ''
           set -euo pipefail
-          export ENCRYPTION_KEY=$(cat ${config.age.secrets.pocket-id-encryption-key.path})
-          export SMTP_PASSWORD=$(cat ${config.age.secrets.smtp-pass.path})
-          export LDAP_BIND_PASSWORD=$(cat ${config.age.secrets.glauth-bindpw.path})
+          export ENCRYPTION_KEY=$(cat ${config.sops.secrets.pocket-id-encryption-key.path})
+          export SMTP_PASSWORD=$(cat ${config.sops.secrets.smtp-pass.path})
+          export LDAP_BIND_PASSWORD=$(cat ${config.sops.secrets.glauth-bindpw.path})
           exec ${lib.getExe pkgs.pocket-id}
         ''
       )

@@ -18,8 +18,8 @@ let
   targetHosts = lib.filterAttrs (n: v: v.hasTag "server") LT.otherHosts;
 in
 {
-  age.secrets.wg-priv = {
-    file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
+  sops.secrets.wg-priv = {
+    sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
     group = "systemd-network";
     mode = "0660";
   };
@@ -35,7 +35,7 @@ in
         Kind = "wireguard";
       };
       wireguardConfig = {
-        PrivateKeyFile = config.age.secrets.wg-priv.path;
+        PrivateKeyFile = config.sops.secrets.wg-priv.path;
         ListenPort = LT.port.WGMesh.Start + v.index;
       };
       wireguardPeers = [

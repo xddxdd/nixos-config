@@ -37,7 +37,7 @@
 
 Flake 入口文件，定义了：
 
-- **inputs**：所有外部依赖，包括 nixpkgs、home-manager、agenix、colmena 等 30+ 个输入
+- **inputs**：所有外部依赖，包括 nixpkgs、home-manager、sops-nix、colmena 等 30+ 个输入
 - **outputs**：使用 flake-parts 组织输出，导入 flake-modules 下的模块
 - **系统支持**：x86_64-linux 和 aarch64-linux
 
@@ -386,7 +386,7 @@ graph TB
     subgraph Flake Inputs
         nixpkgs[nixpkgs]
         home-manager[home-manager]
-        agenix[agenix]
+        agenix[sops-nix]
         colmena[colmena]
         nur-xddxdd[nur-xddxdd]
         others[其他 30+ 输入]

@@ -55,7 +55,7 @@ let
             users = [
               {
                 id = {
-                  _secret = config.age.secrets.v2ray-key.path;
+                  _secret = config.sops.secrets.v2ray-key.path;
                 };
                 encryption = "none";
               }
@@ -113,13 +113,13 @@ let
         settings.servers = [
           {
             address = {
-              _secret = config.age.secrets.v2ray-unblock-cn-host.path;
+              _secret = config.sops.secrets.v2ray-unblock-cn-host.path;
             };
             port = 10076;
             method = "chacha20-ietf-poly1305";
             ota = true;
             password = {
-              _secret = config.age.secrets.v2ray-unblock-cn-pass.path;
+              _secret = config.sops.secrets.v2ray-unblock-cn-pass.path;
             };
           }
         ];
@@ -167,8 +167,8 @@ let
   };
 in
 {
-  age.secrets = lib.genAttrs [ "v2ray-key" "v2ray-unblock-cn-host" "v2ray-unblock-cn-pass" ] (n: {
-    file = inputs.secrets + "/${n}.age";
+  sops.secrets = lib.genAttrs [ "v2ray-key" "v2ray-unblock-cn-host" "v2ray-unblock-cn-pass" ] (_: {
+    sopsFile = inputs.secrets + "/common/v2ray.yaml";
     owner = "v2ray";
     group = "v2ray";
   });

@@ -22,8 +22,8 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  age.secrets.grafana-oauth = {
-    file = inputs.secrets + "/grafana-oauth.age";
+  sops.secrets.grafana-oauth = {
+    sopsFile = inputs.secrets + "/grafana.yaml";
     owner = "grafana";
     group = "grafana";
   };
@@ -82,7 +82,7 @@ in
       smtp = with config.programs.msmtp.accounts.default; {
         enabled = true;
         inherit host user;
-        password = "$__file{${config.age.secrets.smtp-pass.path}}";
+        password = "$__file{${config.sops.secrets.smtp-pass.path}}";
         from_address = from;
       };
       unified_alerting = {
@@ -92,7 +92,7 @@ in
   };
 
   systemd.services.grafana.serviceConfig = {
-    EnvironmentFile = config.age.secrets.grafana-oauth.path;
+    EnvironmentFile = config.sops.secrets.grafana-oauth.path;
     Restart = "on-failure";
     SystemCallFilter = [ "@chown" ];
   };

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  age.secrets.attic-upload-key.file = inputs.secrets + "/attic-upload-key.age";
+  sops.secrets.attic-upload-key.sopsFile = inputs.secrets + "/common/attic.yaml";
 
   systemd.services.attic-watch-store = {
     description = "Attic auto upload artifacts";
@@ -16,7 +16,7 @@
     environment.HOME = "/var/cache/attic-watch-store";
 
     script = ''
-      attic login --set-default lantian https://attic.colocrossing.xuyh0120.win $(cat ${config.age.secrets.attic-upload-key.path})
+      attic login --set-default lantian https://attic.colocrossing.xuyh0120.win $(cat ${config.sops.secrets.attic-upload-key.path})
       exec attic watch-store lantian
     '';
 

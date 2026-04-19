@@ -16,7 +16,7 @@ let
         if key != null then
           ''
             dnssec {
-              key file "${config.age.secrets."${key}.private".path}"
+              key file "${config.sops.secrets."${key}.private".path}"
             }
           ''
         else
@@ -164,25 +164,25 @@ let
     '';
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
-  age.secrets = builtins.listToAttrs (
+  sops.secrets = builtins.listToAttrs (
     lib.flatten (
       builtins.map (n: [
         {
           name = "${n}.key";
           value = {
-            name = "${n}.key";
+            sopsFile = inputs.secrets + "/common/dnssec.yaml";
+            key = "dnssec/${n}.key";
             owner = "coredns";
             group = "coredns";
-            file = inputs.secrets + "/dnssec/${n}.key.age";
           };
         }
         {
           name = "${n}.private";
           value = {
-            name = "${n}.private";
+            sopsFile = inputs.secrets + "/common/dnssec.yaml";
+            key = "dnssec/${n}.private";
             owner = "coredns";
             group = "coredns";
-            file = inputs.secrets + "/dnssec/${n}.private.age";
           };
         }
       ]) (import (inputs.secrets + "/dnssec.nix"))

@@ -6,7 +6,7 @@
   ...
 }:
 {
-  age.secrets.oauth2-proxy-conf.file = inputs.secrets + "/oauth2-proxy-conf.age";
+  sops.secrets.oauth2-proxy-conf.sopsFile = inputs.secrets + "/common/oauth2-proxy.yaml";
 
   services.oauth2-proxy = {
     enable = builtins.any (v: v) (
@@ -20,7 +20,7 @@
     };
     email.domains = [ "*" ];
     httpAddress = "unix:///run/oauth2-proxy/oauth2-proxy.sock";
-    keyFile = config.age.secrets.oauth2-proxy-conf.path;
+    keyFile = config.sops.secrets.oauth2-proxy-conf.path;
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {

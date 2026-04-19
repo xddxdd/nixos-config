@@ -5,8 +5,8 @@
   ...
 }:
 {
-  age.secrets.glauth-bindpw = {
-    file = inputs.secrets + "/glauth-bindpw.age";
+  sops.secrets.glauth-bindpw = {
+    sopsFile = inputs.secrets + "/common/glauth.yaml";
     mode = "0444";
   };
 
@@ -19,7 +19,7 @@
         ldap_uri = "ldap://[fdbc:f9dc:67ad:2547::389]";
         ldap_base = "dc=lantian,dc=pub";
         ldap_reader_dn = "cn=serviceuser,dc=lantian,dc=pub";
-        ldap_secret_file = config.age.secrets.glauth-bindpw.path;
+        ldap_secret_file = config.sops.secrets.glauth-bindpw.path;
         ldap_filter = "(&(cn={0})(objectClass=posixAccount)(!(ou=svcaccts)))";
         ldap_user_attribute = "cn";
       };

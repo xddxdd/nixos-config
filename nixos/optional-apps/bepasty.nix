@@ -10,13 +10,13 @@ let
   host = "pb.ltn.pw";
 in
 {
-  age.secrets.bepasty = {
-    file = inputs.secrets + "/bepasty.age";
+  sops.secrets.bepasty = {
+    sopsFile = inputs.secrets + "/bepasty.yaml";
     owner = "bepasty";
     group = "bepasty";
   };
-  age.secrets.bepasty-extra-config = {
-    file = inputs.secrets + "/bepasty-extra-config.age";
+  sops.secrets.bepasty-extra-config = {
+    sopsFile = inputs.secrets + "/bepasty.yaml";
     owner = "bepasty";
     group = "bepasty";
   };
@@ -26,11 +26,11 @@ in
     servers."${host}" = {
       dataDir = "/var/lib/bepasty/data";
       workDir = "/var/lib/bepasty";
-      secretKeyFile = config.age.secrets.bepasty.path;
+      secretKeyFile = config.sops.secrets.bepasty.path;
       extraConfig = ''
         PERMANENT_SESSION=True
       '';
-      extraConfigFile = config.age.secrets.bepasty-extra-config.path;
+      extraConfigFile = config.sops.secrets.bepasty-extra-config.path;
     };
   };
 

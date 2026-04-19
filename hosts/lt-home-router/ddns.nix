@@ -1,17 +1,17 @@
 { config, inputs, ... }:
 {
-  age.secrets.ddns-duckdns = {
-    file = inputs.secrets + "/ddns/duckdns.age";
+  sops.secrets.ddns-duckdns = {
+    sopsFile = inputs.secrets + "/ddns.yaml";
     owner = config.services.inadyn.user;
     inherit (config.services.inadyn) group;
   };
-  age.secrets.ddns-dynv6 = {
-    file = inputs.secrets + "/ddns/dynv6.age";
+  sops.secrets.ddns-dynv6 = {
+    sopsFile = inputs.secrets + "/ddns.yaml";
     owner = config.services.inadyn.user;
     inherit (config.services.inadyn) group;
   };
-  age.secrets.ddns-tunnelbroker = {
-    file = inputs.secrets + "/ddns/tunnelbroker.age";
+  sops.secrets.ddns-tunnelbroker = {
+    sopsFile = inputs.secrets + "/ddns.yaml";
     owner = config.services.inadyn.user;
     inherit (config.services.inadyn) group;
   };
@@ -26,15 +26,15 @@
       provider = {
         "default@duckdns.org" = {
           hostname = "xddxdd.duckdns.org";
-          include = config.age.secrets.ddns-duckdns.path;
+          include = config.sops.secrets.ddns-duckdns.path;
         };
         "default@ipv4.dynv6.com" = {
           hostname = "lantian.dns.army";
-          include = config.age.secrets.ddns-dynv6.path;
+          include = config.sops.secrets.ddns-dynv6.path;
         };
         "default@tunnelbroker.net" = {
           hostname = "897326";
-          include = config.age.secrets.ddns-tunnelbroker.path;
+          include = config.sops.secrets.ddns-tunnelbroker.path;
         };
       };
     };

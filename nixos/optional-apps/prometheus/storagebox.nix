@@ -5,8 +5,8 @@
   ...
 }:
 {
-  age.secrets.hetzner-storagebox-metrics-token = {
-    file = inputs.secrets + "/hetzner-storagebox-metrics-token.age";
+  sops.secrets.hetzner-storagebox-metrics-token = {
+    sopsFile = inputs.secrets + "/hetzner-storagebox-metrics.yaml";
     owner = config.services.prometheus.exporters.storagebox.user;
     inherit (config.services.prometheus.exporters.storagebox) group;
   };
@@ -15,7 +15,7 @@
     enable = true;
     port = LT.port.Prometheus.StorageBoxExporter;
     listenAddress = "127.0.0.1";
-    tokenFile = config.age.secrets.hetzner-storagebox-metrics-token.path;
+    tokenFile = config.sops.secrets.hetzner-storagebox-metrics-token.path;
   };
 
   services.prometheus.scrapeConfigs = [

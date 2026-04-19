@@ -11,8 +11,8 @@ in
 
   systemd.services.mcp-opencode-setup = {
     description = "Setup OpenCode MCP config";
-    after = [ "agenix-install-secrets.service" ];
-    requires = [ "agenix-install-secrets.service" ];
+    after = [ "sops-install-secrets.service" ];
+    requires = [ "sops-install-secrets.service" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {

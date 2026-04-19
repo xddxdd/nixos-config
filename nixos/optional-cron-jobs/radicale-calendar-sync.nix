@@ -7,14 +7,14 @@
   ...
 }:
 {
-  age.secrets.radicale-calendar-sync.file =
-    inputs.secrets + "/radicale-calendar-sync/${config.networking.hostName}.age";
+  sops.secrets.radicale-calendar-sync.sopsFile =
+    inputs.secrets + "/per-host/radicale-calendar-sync/${config.networking.hostName}.yaml";
 
   systemd.services.radicale-calendar-sync = {
     path = with pkgs; [ curl ];
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.bash} -euo pipefail ${config.age.secrets.radicale-calendar-sync.path}";
+      ExecStart = "${lib.getExe pkgs.bash} -euo pipefail ${config.sops.secrets.radicale-calendar-sync.path}";
       RuntimeDirectory = "radicale-calendar-sync";
       WorkingDirectory = "/run/radicale-calendar-sync";
     };

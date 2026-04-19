@@ -27,7 +27,7 @@ let
       TMDB_ENABLED = "true";
     };
     script = ''
-      export TMDB_API_KEY=$(cat ${config.age.secrets.tmdb-api-key.path})
+      export TMDB_API_KEY=$(cat ${config.sops.secrets.tmdb-api-key.path})
       export PROCESSOR_CONCURRENCY=$(nproc)
       exec ${lib.getExe bitmagnet} worker run --keys=${worker}
     '';
@@ -47,8 +47,8 @@ in
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.tmdb-api-key = {
-    file = inputs.secrets + "/tmdb-api-key.age";
+  sops.secrets.tmdb-api-key = {
+    sopsFile = inputs.secrets + "/tmdb.yaml";
     owner = "bitmagnet";
     group = "bitmagnet";
   };

@@ -10,12 +10,12 @@ let
   py = pkgs.python3.withPackages (p: with p; [ requests ]);
 in
 {
-  age.secrets.cleanup-github-notifications-env.file =
-    inputs.secrets + "/cleanup-github-notifications-env.age";
+  sops.secrets.cleanup-github-notifications-env.sopsFile =
+    inputs.secrets + "/cleanup-github-notifications-env.yaml";
 
   systemd.services.cleanup-github-notifications = {
     serviceConfig = LT.serviceHarden // {
-      EnvironmentFile = config.age.secrets.cleanup-github-notifications-env.path;
+      EnvironmentFile = config.sops.secrets.cleanup-github-notifications-env.path;
       Type = "oneshot";
       ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";

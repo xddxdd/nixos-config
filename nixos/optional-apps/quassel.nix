@@ -9,8 +9,8 @@
 {
   imports = [ ./postgresql.nix ];
 
-  age.secrets.glauth-bindpw = {
-    file = inputs.secrets + "/glauth-bindpw.age";
+  sops.secrets.glauth-bindpw = {
+    sopsFile = inputs.secrets + "/common/glauth.yaml";
     mode = "0444";
   };
 
@@ -62,7 +62,7 @@
     };
 
     script = ''
-      export AUTH_LDAP_BIND_PASSWORD=$(cat ${config.age.secrets.glauth-bindpw.path})
+      export AUTH_LDAP_BIND_PASSWORD=$(cat ${config.sops.secrets.glauth-bindpw.path})
       exec ${lib.getExe pkgs.quasselDaemon} \
         --listen=0.0.0.0,:: \
         --port=${LT.portStr.Quassel.Main} \

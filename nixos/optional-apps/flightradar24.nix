@@ -12,13 +12,13 @@
     ./dump978.nix
   ];
 
-  age.secrets.flightradar24-key = {
-    file = inputs.secrets + "/flightradar24-key.age";
+  sops.secrets.flightradar24-key = {
+    sopsFile = inputs.secrets + "/flightradar24.yaml";
     owner = "fr24";
     group = "fr24";
   };
-  age.secrets.flightradar24-uat-key = {
-    file = inputs.secrets + "/flightradar24-uat-key.age";
+  sops.secrets.flightradar24-uat-key = {
+    sopsFile = inputs.secrets + "/flightradar24.yaml";
     owner = "fr24";
     group = "fr24";
   };
@@ -39,7 +39,7 @@
     script = ''
       exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24feed/decoder.txt \
-        --fr24key=$(cat ${config.age.secrets.flightradar24-key.path}) \
+        --fr24key=$(cat ${config.sops.secrets.flightradar24-key.path}) \
         --bs=no \
         --raw=no \
         --mlat=no \
@@ -73,7 +73,7 @@
     script = ''
       exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24uat-feed/decoder.txt \
-        --fr24key=$(cat ${config.age.secrets.flightradar24-uat-key.path}) \
+        --fr24key=$(cat ${config.sops.secrets.flightradar24-uat-key.path}) \
         --http-listen-port=8755 \
         --unit=fr24uat-feed \
         --receiver=uat-tcp \

@@ -37,7 +37,7 @@ let
   '';
 in
 {
-  age.secrets.dn42-certificate-token.file = inputs.secrets + "/dn42-certificate-token.age";
+  sops.secrets.dn42-certificate-token.sopsFile = inputs.secrets + "/dn42-certificate-token.yaml";
 
   systemd.services.dn42-certificate = {
     description = "Get DN42 Certificate";
@@ -56,7 +56,7 @@ in
         openssl ecparam -name secp384r1 -genkey -noout -out /var/lib/dn42-certificate/ecc.key
       fi
 
-      cat ${config.age.secrets.dn42-certificate-token.path} > token.txt
+      cat ${config.sops.secrets.dn42-certificate-token.path} > token.txt
 
       # RSA cert
       cp /var/lib/dn42-certificate/rsa.key private.key

@@ -18,15 +18,19 @@ in
     ./uni-api
   ];
 
-  age.secrets.librechat-creds-key.file = inputs.secrets + "/librechat-creds-key.age";
-  age.secrets.librechat-creds-iv.file = inputs.secrets + "/librechat-creds-iv.age";
-  age.secrets.librechat-jwt-secret.file = inputs.secrets + "/librechat-jwt-secret.age";
-  age.secrets.librechat-jwt-refresh-secret.file =
-    inputs.secrets + "/librechat-jwt-refresh-secret.age";
-  age.secrets.librechat-openid-client-secret.file = inputs.secrets + "/dex/librechat-secret.age";
-  age.secrets.librechat-openid-session-secret.file =
-    inputs.secrets + "/librechat-openid-session-secret.age";
-  age.secrets.librechat-uni-api-secret.file = inputs.secrets + "/uni-api/keys/admin-api-key.age";
+  sops.secrets.librechat-creds-key.sopsFile = inputs.secrets + "/librechat.yaml";
+  sops.secrets.librechat-creds-iv.sopsFile = inputs.secrets + "/librechat.yaml";
+  sops.secrets.librechat-jwt-secret.sopsFile = inputs.secrets + "/librechat.yaml";
+  sops.secrets.librechat-jwt-refresh-secret.sopsFile = inputs.secrets + "/librechat.yaml";
+  sops.secrets.librechat-openid-client-secret = {
+    sopsFile = inputs.secrets + "/dex.yaml";
+    key = "dex-librechat-secret";
+  };
+  sops.secrets.librechat-openid-session-secret.sopsFile = inputs.secrets + "/librechat.yaml";
+  sops.secrets.librechat-uni-api-secret = {
+    sopsFile = inputs.secrets + "/uni-api/keys.yaml";
+    key = "uni-api/admin-api-key";
+  };
 
   services.librechat = {
     enable = true;
@@ -56,13 +60,13 @@ in
       DISABLE_COMPRESSION = "true";
     };
     credentials = {
-      CREDS_KEY = config.age.secrets.librechat-creds-key.path;
-      CREDS_IV = config.age.secrets.librechat-creds-iv.path;
-      JWT_SECRET = config.age.secrets.librechat-jwt-secret.path;
-      JWT_REFRESH_SECRET = config.age.secrets.librechat-jwt-refresh-secret.path;
-      OPENID_CLIENT_SECRET = config.age.secrets.librechat-openid-client-secret.path;
-      OPENID_SESSION_SECRET = config.age.secrets.librechat-openid-session-secret.path;
-      UNI_API_KEY = config.age.secrets.librechat-uni-api-secret.path;
+      CREDS_KEY = config.sops.secrets.librechat-creds-key.path;
+      CREDS_IV = config.sops.secrets.librechat-creds-iv.path;
+      JWT_SECRET = config.sops.secrets.librechat-jwt-secret.path;
+      JWT_REFRESH_SECRET = config.sops.secrets.librechat-jwt-refresh-secret.path;
+      OPENID_CLIENT_SECRET = config.sops.secrets.librechat-openid-client-secret.path;
+      OPENID_SESSION_SECRET = config.sops.secrets.librechat-openid-session-secret.path;
+      UNI_API_KEY = config.sops.secrets.librechat-uni-api-secret.path;
     }
     // config.lantian.mcp.toCredentials;
     settings = {

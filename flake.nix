@@ -18,12 +18,6 @@
     systems.url = "github:nix-systems/default";
 
     # keep-sorted start block=yes
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-    };
     angrr = {
       url = "github:linyinfeng/angrr";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -148,7 +142,6 @@
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
-      inputs.agenix.follows = "agenix";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur-xddxdd.follows = "nur-xddxdd";

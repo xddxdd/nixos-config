@@ -7,7 +7,7 @@
   ...
 }:
 {
-  age.secrets.filebeat-elasticsearch-pw.file = inputs.secrets + "/filebeat-elasticsearch-pw.age";
+  sops.secrets.filebeat-elasticsearch-pw.sopsFile = inputs.secrets + "/common/flebeat.yaml";
 
   services.filebeat = {
     enable = !(LT.this.hasTag LT.tags.low-ram);
@@ -39,7 +39,7 @@
         hosts = [ "https://cloud.community.humio.com:9200" ];
         username = "any-organization";
         password = {
-          _secret = config.age.secrets.filebeat-elasticsearch-pw.path;
+          _secret = config.sops.secrets.filebeat-elasticsearch-pw.path;
         };
         compression_level = 6;
         index = "beat";

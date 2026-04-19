@@ -70,7 +70,7 @@ let
   );
 in
 {
-  age.secrets.flexget-env.file = inputs.secrets + "/flexget-env.age";
+  sops.secrets.flexget-env.sopsFile = inputs.secrets + "/flexget.yaml";
 
   environment.systemPackages = [ flexget-override ];
 
@@ -90,7 +90,7 @@ in
       PROWLARR_URL = "http://127.0.0.1:${LT.portStr.Prowlarr}";
     };
     serviceConfig = LT.serviceHarden // {
-      EnvironmentFile = config.age.secrets.flexget-env.path;
+      EnvironmentFile = config.sops.secrets.flexget-env.path;
       Type = "oneshot";
       TimeoutSec = 3600;
       StateDirectory = "flexget";

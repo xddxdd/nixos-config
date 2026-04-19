@@ -18,7 +18,7 @@ in
 {
   imports = [ ../postgresql.nix ];
 
-  age.secrets.waline-env.file = inputs.secrets + "/waline-env.age";
+  sops.secrets.waline-env.sopsFile = inputs.secrets + "/waline.yaml";
 
   lantian.nginxVhosts = {
     "comments.lantian.pub" = {
@@ -76,7 +76,7 @@ in
         SENDER_EMAIL = config.programs.msmtp.accounts.default.from;
         SENDER_NAME = "Lan Tian @ Blog";
       };
-      environmentFiles = [ config.age.secrets.waline-env.path ];
+      environmentFiles = [ config.sops.secrets.waline-env.path ];
       volumes = [
         "${configPath}:${configPath}:ro"
         "${startupScript}:${startupScript}:ro"

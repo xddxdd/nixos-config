@@ -14,8 +14,8 @@ in
     ./testssl.nix
   ];
 
-  age.secrets.lego-env = {
-    file = inputs.secrets + "/lego-env.age";
+  sops.secrets.lego-env = {
+    sopsFile = inputs.secrets + "/lego.yaml";
     owner = "acme";
     group = "acme";
   };
@@ -29,7 +29,7 @@ in
       dnsResolver = "8.8.8.8:53";
       dnsPropagationCheck = false;
       email = glauthUsers.lantian.mail;
-      environmentFile = [ config.age.secrets.lego-env.path ];
+      environmentFile = [ config.sops.secrets.lego-env.path ];
       postRun = ''
         CERT=$(basename $(pwd))
         install -Dm644 --owner=root -t /nix/sync-servers/acme/"$CERT" *

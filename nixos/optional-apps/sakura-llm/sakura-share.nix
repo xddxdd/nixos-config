@@ -14,7 +14,7 @@ let
   );
 in
 {
-  age.secrets.sakura-share-env.file = inputs.secrets + "/sakura-share-env.age";
+  sops.secrets.sakura-share-env.sopsFile = inputs.secrets + "/sakura-share.yaml";
 
   systemd.services.sakura-share = {
     description = "Share client for sakura-share.one";
@@ -53,7 +53,7 @@ in
       # Wait 60s for sglang to clear all queued tasks, otherwise batched tasks
       # cause inference inconsistency and fail validation
       RestartSec = 60;
-      EnvironmentFile = config.age.secrets.sakura-share-env.path;
+      EnvironmentFile = config.sops.secrets.sakura-share-env.path;
 
       User = "llama-cpp";
       Group = "llama-cpp";

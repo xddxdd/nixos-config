@@ -18,7 +18,7 @@ let
           clients = [
             {
               id = {
-                _secret = config.age.secrets.v2ray-key.path;
+                _secret = config.sops.secrets.v2ray-key.path;
               };
             }
           ];
@@ -102,8 +102,8 @@ let
   };
 in
 {
-  age.secrets.v2ray-key = {
-    file = inputs.secrets + "/v2ray-key.age";
+  sops.secrets.v2ray-key = {
+    sopsFile = inputs.secrets + "/common/v2ray.yaml";
     owner = "nginx";
     group = "nginx";
   };

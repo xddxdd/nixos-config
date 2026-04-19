@@ -63,20 +63,20 @@
   };
 
   config = {
-    age.secrets.mcp-brave-search-api-key = {
-      file = inputs.secrets + "/mcp-brave-search-api-key.age";
+    sops.secrets.mcp-brave-search-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
-    age.secrets.mcp-context7-api-key = {
-      file = inputs.secrets + "/mcp-context7-api-key.age";
+    sops.secrets.mcp-context7-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
-    age.secrets.mcp-google-maps-api-key = {
-      file = inputs.secrets + "/mcp-google-maps-api-key.age";
+    sops.secrets.mcp-google-maps-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
-    age.secrets.mcp-national-park-service-api-key = {
-      file = inputs.secrets + "/mcp-national-park-service-api-key.age";
+    sops.secrets.mcp-national-park-service-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
 
@@ -90,7 +90,7 @@
         ];
         env = {
           BRAVE_API_KEY = {
-            _secret = config.age.secrets.mcp-brave-search-api-key.path;
+            _secret = config.sops.secrets.mcp-brave-search-api-key.path;
           };
         };
         alwaysAllow = [
@@ -106,7 +106,7 @@
         ];
         env = {
           CONTEXT7_API_KEY = {
-            _secret = config.age.secrets.mcp-context7-api-key.path;
+            _secret = config.sops.secrets.mcp-context7-api-key.path;
           };
         };
         alwaysAllow = [
@@ -129,7 +129,7 @@
         ];
         env = {
           GOOGLE_MAPS_API_KEY = {
-            _secret = config.age.secrets.mcp-google-maps-api-key.path;
+            _secret = config.sops.secrets.mcp-google-maps-api-key.path;
           };
         };
         alwaysAllow = [
@@ -150,7 +150,7 @@
         ];
         env = {
           NPS_API_KEY = {
-            _secret = config.age.secrets.mcp-national-park-service-api-key.path;
+            _secret = config.sops.secrets.mcp-national-park-service-api-key.path;
           };
         };
         alwaysAllow = [

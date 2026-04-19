@@ -43,7 +43,7 @@ let
     mtu + ipv4 + ipv6 + sysctl + up;
 in
 {
-  config.age.secrets.wg-priv.file = inputs.secrets + "/wg-priv/${config.networking.hostName}.age";
+  config.sops.secrets.wg-priv.sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
 
   options.services.dn42 = lib.mkOption {
     type = lib.types.attrsOf (
@@ -212,7 +212,7 @@ in
             }
           ];
           postSetup = setupAddressing interfaceName v;
-          privateKeyFile = config.age.secrets.wg-priv.path;
+          privateKeyFile = config.sops.secrets.wg-priv.path;
         };
     in
     lib.mapAttrs' cfgToWg (filterType "wireguard" config.services.dn42);

@@ -10,14 +10,14 @@ let
   python = pkgs.python3.withPackages pythonPackages;
 in
 {
-  age.secrets.tg-bot-cleaner-bot.file = inputs.secrets + "/tg-bot-cleaner-bot.age";
+  sops.secrets.tg-bot-cleaner-bot.sopsFile = inputs.secrets + "/tg-bot-cleaner-bot.yaml";
 
   systemd.services.tg-bot-cleaner-bot = {
     description = "A Bot that cleans other Telegram Bot messages";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     serviceConfig = LT.serviceHarden // {
-      EnvironmentFile = config.age.secrets.tg-bot-cleaner-bot.path;
+      EnvironmentFile = config.sops.secrets.tg-bot-cleaner-bot.path;
       Restart = "always";
       RestartSec = "5s";
       WorkingDirectory = "/var/lib/tg-bot-cleaner-bot";

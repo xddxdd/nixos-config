@@ -13,8 +13,8 @@ in
 {
   imports = [ ../postgresql.nix ];
 
-  age.secrets.plausible-secret = {
-    file = inputs.secrets + "/plausible-secret.age";
+  sops.secrets.plausible-secret = {
+    sopsFile = inputs.secrets + "/plausible.yaml";
     owner = "plausible";
     group = "plausible";
   };
@@ -43,14 +43,14 @@ in
       smtp.hostPort = config.programs.msmtp.accounts.default.port;
       smtp.hostAddr = config.programs.msmtp.accounts.default.host;
       smtp.enableSSL = config.programs.msmtp.accounts.default.tls;
-      smtp.passwordFile = config.age.secrets.smtp-pass.path;
+      smtp.passwordFile = config.sops.secrets.smtp-pass.path;
     };
 
     server = {
       port = LT.port.Plausible;
       baseUrl = "https://stats.xuyh0120.win";
       disableRegistration = true;
-      secretKeybaseFile = config.age.secrets.plausible-secret.path;
+      secretKeybaseFile = config.sops.secrets.plausible-secret.path;
     };
   };
 

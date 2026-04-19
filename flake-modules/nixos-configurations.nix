@@ -37,7 +37,6 @@ let
       # keep-sorted start
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
-      inputs.agenix.nixosModules.age
       inputs.angrr.nixosModules.angrr
       inputs.colmena.nixosModules.deploymentOptions
       inputs.home-manager.nixosModules.home-manager
