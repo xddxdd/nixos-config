@@ -2,6 +2,7 @@
   LT,
   config,
   inputs,
+  lib,
   ...
 }:
 {
@@ -17,6 +18,14 @@
     listenAddress = "127.0.0.1";
     tokenFile = config.sops.secrets.hetzner-storagebox-metrics-token.path;
   };
+  systemd.services.prometheus-storagebox-exporter.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+  };
+  users.users.storagebox-exporter = {
+    group = "storagebox-exporter";
+    isSystemUser = true;
+  };
+  users.groups.storagebox-exporter = { };
 
   services.prometheus.scrapeConfigs = [
     {
