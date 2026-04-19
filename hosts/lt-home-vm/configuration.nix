@@ -47,7 +47,6 @@
     ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
-    # ../../nixos/optional-cron-jobs/veloera-checkin
 
     "${inputs.secrets}/nixos-hidden-module/851e5310ebca4e5c"
   ];
