@@ -153,27 +153,6 @@
         },
         "version": "80e48e9346beb9407734a090d33c5e79e9113b01"
     },
-    "ohmyzsh-tirith": {
-        "cargoLock": null,
-        "date": "2026-02-03",
-        "extract": null,
-        "name": "ohmyzsh-tirith",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "sheeki03",
-            "repo": "ohmyzsh-tirith",
-            "rev": "b7328455c46f8a5d3890faab4810c6ab0be8bc64",
-            "sha256": "sha256-aN2ILfpNvWq/meFBxX9Bvi5fJAtbwf57CNrozZGslsk=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "b7328455c46f8a5d3890faab4810c6ab0be8bc64"
-    },
     "open5gs": {
         "cargoLock": null,
         "date": null,

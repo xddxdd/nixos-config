@@ -2,12 +2,9 @@
   pkgs,
   lib,
   config,
-  LT,
   ...
 }:
 {
-  home.packages = [ pkgs.tirith ];
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -40,7 +37,6 @@
           # keep-sorted start block=yes
           "plugins/bd" = "${pkgs.zsh-bd}/share/zsh-bd";
           "plugins/nix-shell" = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-          "plugins/tirith" = "${LT.sources.ohmyzsh-tirith.src}";
           "plugins/you-should-use" = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
           "themes/powerlevel10k.zsh-theme" =
             "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
@@ -62,7 +58,6 @@
         "nix-shell"
         "pip"
         "screen"
-        "tirith"
         "you-should-use"
         "z"
         # keep-sorted end
