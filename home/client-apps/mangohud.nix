@@ -12,7 +12,7 @@ in
 {
   programs.mangohud = {
     enable = true;
-    enableSessionWide = true;
+    enableSessionWide = false;
     package = mangohudForCurrentKernel;
 
     settings = lib.mapAttrs (_: lib.mkForce) {
