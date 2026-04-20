@@ -180,8 +180,6 @@ in
 
   programs.zapzap.enable = true;
 
-  programs.zed-editor.enable = true;
-
   services.remmina = {
     enable = true;
     addRdpMimeTypeAssoc = true;

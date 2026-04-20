@@ -1,12 +1,11 @@
 {
   LT,
   pkgs,
-  lib,
   config,
   ...
 }:
 {
-  imports = [ ./mcp-servers.nix ];
+  imports = [ ../client-apps/mcp-servers.nix ];
 
   virtualisation.oci-containers.containers.mcpo = {
     ports = [
@@ -14,20 +13,17 @@
     ];
     cmd = [
       "--port=${LT.portStr.Mcpo}"
-      "--config=/config.json"
+      "--config=${config.lantian.mcp.mcpJsonFile}"
     ];
     image = "ghcr.io/open-webui/mcpo:latest";
     labels = {
       "io.containers.autoupdate" = "registry";
     };
-    volumes = [ "/run/mcpo/config.json:/config.json" ];
+    volumes = [ "/nix/store:/nix/store:ro" ];
   };
 
   systemd.services.podman-mcpo = {
     path = with pkgs; [ curl ];
-    preStart = lib.mkBefore ''
-      ${config.lantian.mcp.toJSON "/run/mcpo/config.json"}
-    '';
     postStart = ''
       curl -fsSL \
         --retry 100 \

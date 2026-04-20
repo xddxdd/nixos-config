@@ -204,18 +204,6 @@ in
 
   programs.nix-init.enable = true;
 
-  programs.opencode = {
-    enable = true;
-    package = pkgs.llm-agents.opencode;
-    settings.plugin = [ "oh-my-openagent@latest" ];
-  };
-  xdg.configFile."opencode/opencode.json".force = true;
-
-  programs.gemini-cli = {
-    enable = true;
-    package = pkgs.llm-agents.gemini-cli;
-  };
-
   programs.ruff.enable = true;
   programs.ty.enable = true;
   programs.uv.enable = true;

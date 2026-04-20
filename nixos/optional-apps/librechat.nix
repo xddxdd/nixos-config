@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    ./mcp-servers.nix
+    ../client-apps/mcp-servers.nix
     ./mongodb.nix
     ./uni-api
   ];
@@ -67,8 +67,7 @@ in
       OPENID_CLIENT_SECRET = config.sops.secrets.librechat-openid-client-secret.path;
       OPENID_SESSION_SECRET = config.sops.secrets.librechat-openid-session-secret.path;
       UNI_API_KEY = config.sops.secrets.librechat-uni-api-secret.path;
-    }
-    // config.lantian.mcp.toCredentials;
+    };
     settings = {
       version = "1.2.5";
       cache = true;
@@ -89,7 +88,7 @@ in
           }
         ];
       };
-      mcpServers = config.lantian.mcp.toAttrsWithEnvs;
+      inherit (config.lantian.mcp) mcpServers;
     };
   };
 
