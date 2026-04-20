@@ -107,7 +107,6 @@ in
     inputs.flat-flake.packages."${system}".flat-flake
     alejandra
     nil
-    nix-init
     nix-output-monitor
     nix-prefetch
     nix-prefetch-scripts
@@ -138,9 +137,6 @@ in
     conda
     # FIXME: broken
     # micromamba
-    ruff
-    ty
-    uv
     virtualenv
     yapf
 
@@ -161,14 +157,11 @@ in
     dhcpcd
     elfx86exts
     flamegraph
-    gh
     just
     linkzoneAdb
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
-    llm-agents.opencode
-    llm-agents.gemini-cli
     scc
     tldr
   ];
@@ -206,4 +199,24 @@ in
   # Do not create default config file for pylint
   programs.pylint.enable = true;
   home.file.".pylintrc".enable = false;
+
+  programs.gh.enable = true;
+
+  programs.nix-init.enable = true;
+
+  programs.opencode = {
+    enable = true;
+    package = pkgs.llm-agents.opencode;
+    settings.plugin = [ "oh-my-openagent@latest" ];
+  };
+  xdg.configFile."opencode/opencode.json".force = true;
+
+  programs.gemini-cli = {
+    enable = true;
+    package = pkgs.llm-agents.gemini-cli;
+  };
+
+  programs.ruff.enable = true;
+  programs.ty.enable = true;
+  programs.uv.enable = true;
 }

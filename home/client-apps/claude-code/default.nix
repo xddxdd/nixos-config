@@ -23,5 +23,8 @@ let
   });
 in
 {
-  home.packages = [ claude-code ];
+  programs.claude-code = {
+    enable = true;
+    package = claude-code;
+  };
 }

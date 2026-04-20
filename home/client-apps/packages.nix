@@ -60,22 +60,16 @@ in
         (hashcat.override { cudaSupport = true; })
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
         (lib.hiPrio nur-xddxdd.qq)
-        (lutris.override { extraPkgs = p: with p; [ xdelta ]; })
         antigravity
         apache-directory-studio
-        aria2
         attic-client
         audacious
         bitwarden-desktop
         brotli
         bzip2
-        calibre
-        calibre-override-desktop
         cherry-studio
         code-cursor
         colmena
-        dbeaver-bin
-        distrobox
         ecapture
         exiftool
         feishin
@@ -130,7 +124,6 @@ in
         payload-dumper-go
         piliplus
         powertop
-        prismlauncher
         pwgen
         qrcp
         quasselClient
@@ -154,8 +147,6 @@ in
         xca
         xdg-ninja
         yubioath-flutter
-        zapzap
-        zed-editor
         zoom-us
         # keep-sorted end
       ]
@@ -165,6 +156,31 @@ in
   programs.nix-index.enable = true;
   programs.nix-index.symlinkToCacheHome = true;
   programs.nix-index-database.comma.enable = true;
+
+  programs.aria2.enable = true;
+
+  programs.calibre = {
+    enable = true;
+    package = calibre-override-desktop;
+  };
+
+  programs.dbeaver = {
+    enable = true;
+    package = pkgs.dbeaver-bin;
+  };
+
+  programs.distrobox.enable = true;
+
+  programs.lutris = {
+    enable = true;
+    package = pkgs.lutris.override { extraPkgs = p: with p; [ xdelta ]; };
+  };
+
+  programs.prismlauncher.enable = true;
+
+  programs.zapzap.enable = true;
+
+  programs.zed-editor.enable = true;
 
   services.remmina = {
     enable = true;

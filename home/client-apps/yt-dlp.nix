@@ -1,10 +1,11 @@
-{ pkgs, ... }:
-{
-  home.packages = [ pkgs.yt-dlp ];
-  xdg.configFile."yt-dlp/config".text = ''
-    --cookies-from-browser firefox
-    --concurrent-fragments 5
-    --retries infinite
-    --format "bv+ba/b"
-  '';
+_: {
+  programs.yt-dlp = {
+    enable = true;
+    settings = {
+      cookies-from-browser = "firefox";
+      concurrent-fragments = 5;
+      retries = "infinite";
+      format = "bv+ba/b";
+    };
+  };
 }
