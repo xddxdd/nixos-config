@@ -13,6 +13,7 @@
     ../../nixos/client-apps/gnupg.nix
     ../../nixos/client-components/impermanence.nix
 
+    ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/opencl.nix
@@ -22,7 +23,6 @@
 
   environment.systemPackages = [
     pkgs.comfy-ui-cuda
-    (pkgs.llama-cpp.override { cudaSupport = true; })
   ];
 
   networking.networkmanager.enable = lib.mkForce false;

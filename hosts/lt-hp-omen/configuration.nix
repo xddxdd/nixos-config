@@ -17,6 +17,7 @@
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
+    ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/mcp-opencode.nix
     ../../nixos/optional-apps/mcp-roo-code.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
@@ -73,7 +74,6 @@
     pkgs.nur-xddxdd.unigine-superposition
     pkgs.nur-xddxdd.unigine-tropics
     pkgs.nur-xddxdd.unigine-valley
-    (pkgs.llama-cpp.override { cudaSupport = true; })
   ];
 
   hardware.bluetooth = {

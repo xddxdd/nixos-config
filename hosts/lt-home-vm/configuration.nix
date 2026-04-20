@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -27,6 +26,7 @@
     # ../../nixos/optional-apps/homepage-dashboard.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
+    ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/metapi.nix
     # ../../nixos/optional-apps/mtranserver.nix
     ../../nixos/optional-apps/n8n.nix
@@ -49,10 +49,6 @@
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
 
     "${inputs.secrets}/nixos-hidden-module/851e5310ebca4e5c"
-  ];
-
-  environment.systemPackages = [
-    (pkgs.llama-cpp.override { cudaSupport = true; })
   ];
 
   services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
