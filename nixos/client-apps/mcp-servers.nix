@@ -39,52 +39,27 @@
       mode = "0444";
     };
 
-    sops.templates.mcp-brave-search-cmd = {
-      content = ''
-        #!/bin/sh
-        export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
-        exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
-      '';
-      mode = "0555";
-    };
-    sops.templates.mcp-context7-cmd = {
-      content = ''
-        #!/bin/sh
-        export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
-        exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
-      '';
-      mode = "0555";
-    };
-    sops.templates.mcp-google-maps-cmd = {
-      content = ''
-        #!/bin/sh
-        export GOOGLE_MAPS_API_KEY=$(cat "${config.sops.secrets.mcp-google-maps-api-key.path}")
-        exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-google-maps
-      '';
-      mode = "0555";
-    };
-    sops.templates.mcp-national-park-service-cmd = {
-      content = ''
-        #!/bin/sh
-        export NPS_API_KEY=$(cat "${config.sops.secrets.mcp-national-park-service-api-key.path}")
-        exec ${pkgs.nodejs}/bin/npx -y mcp-server-nationalparks
-      '';
-      mode = "0555";
-    };
-
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
       brave-search = {
-        command = lib.getExe pkgs.bash;
-        args = [ config.sops.templates.mcp-brave-search-cmd.path ];
+        command = toString (
+          pkgs.writeShellScript "mcp-brave-search" ''
+            export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
+          ''
+        );
         alwaysAllow = [
           "brave_web_search"
           "brave_local_search"
         ];
       };
       context7 = {
-        command = lib.getExe pkgs.bash;
-        args = [ config.sops.templates.mcp-context7-cmd.path ];
+        command = toString (
+          pkgs.writeShellScript "mcp-context7" ''
+            export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
+          ''
+        );
         alwaysAllow = [
           "resolve-library-id"
           "query-docs"
@@ -98,8 +73,12 @@
         ];
       };
       google-maps = {
-        command = lib.getExe pkgs.bash;
-        args = [ config.sops.templates.mcp-google-maps-cmd.path ];
+        command = toString (
+          pkgs.writeShellScript "mcp-google-maps" ''
+            export GOOGLE_MAPS_API_KEY=$(cat "${config.sops.secrets.mcp-google-maps-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-google-maps
+          ''
+        );
         alwaysAllow = [
           "maps_geocode"
           "maps_reverse_geocode"
@@ -111,8 +90,12 @@
         ];
       };
       national-park-service = {
-        command = lib.getExe pkgs.bash;
-        args = [ config.sops.templates.mcp-national-park-service-cmd.path ];
+        command = toString (
+          pkgs.writeShellScript "mcp-national-park-service" ''
+            export NPS_API_KEY=$(cat "${config.sops.secrets.mcp-national-park-service-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y mcp-server-nationalparks
+          ''
+        );
         alwaysAllow = [
           "findParks"
           "getParkDetails"
