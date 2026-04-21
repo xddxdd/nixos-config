@@ -23,7 +23,7 @@ in
   sops.secrets.librechat-jwt-secret.sopsFile = inputs.secrets + "/librechat.yaml";
   sops.secrets.librechat-jwt-refresh-secret.sopsFile = inputs.secrets + "/librechat.yaml";
   sops.secrets.librechat-openid-client-secret = {
-    sopsFile = inputs.secrets + "/dex.yaml";
+    sopsFile = inputs.secrets + "/common/dex.yaml";
     key = "dex-librechat-secret";
   };
   sops.secrets.librechat-openid-session-secret.sopsFile = inputs.secrets + "/librechat.yaml";

@@ -123,12 +123,12 @@ in
       mode = "0444";
     };
     dex-pocket-id-client-id = {
-      sopsFile = inputs.secrets + "/dex.yaml";
+      sopsFile = inputs.secrets + "/common/dex.yaml";
       owner = "dex";
       group = "dex";
     };
     dex-pocket-id-client-secret = {
-      sopsFile = inputs.secrets + "/dex.yaml";
+      sopsFile = inputs.secrets + "/common/dex.yaml";
       owner = "dex";
       group = "dex";
     };
@@ -138,7 +138,7 @@ in
       (
         f:
         lib.nameValuePair "dex-${f}-secret" {
-          sopsFile = inputs.secrets + "/dex.yaml";
+          sopsFile = inputs.secrets + "/common/dex.yaml";
           owner = "dex";
           group = "dex";
         }
