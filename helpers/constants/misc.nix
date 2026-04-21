@@ -8,7 +8,7 @@
     "--unset WAYLAND_DISPLAY"
   ];
 
-  stateVersion = "24.05";
+  stateVersion = "26.05";
 
   tags = lib.genAttrs [
     # Usage

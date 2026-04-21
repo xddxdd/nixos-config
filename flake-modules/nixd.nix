@@ -13,7 +13,7 @@ in
         pkgs = patchedPkgsFor "x86_64-linux";
         modules = [
           {
-            home.stateVersion = "24.05";
+            home.stateVersion = "26.05";
             home.username = "user";
             home.homeDirectory = "/home/user";
           }
