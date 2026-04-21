@@ -33,10 +33,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.9.1";
+    version = "1.10.0";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.9.1/grafana-falconlogscale-datasource-1.9.1.zip";
-      sha256 = "sha256-jdZ+TiUF2p01q9zcwB6UHtI8LXQrEwhUYiUB9o8lsGA=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.0/grafana-falconlogscale-datasource-1.10.0.zip";
+      sha256 = "sha256-aB8bYJJpNgDVFhZ2uS7nXTjKC4UhMa4OQOBXFxW0bq4=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
