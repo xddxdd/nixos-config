@@ -122,15 +122,15 @@
   };
   openspeedtest = {
     pname = "openspeedtest";
-    version = "3ec39a31ec64858642629991caf0dd14ce7c34ca";
+    version = "f4263546f50694a154fdd27a03000390949068df";
     src = fetchFromGitHub {
       owner = "openspeedtest";
       repo = "Speed-Test";
-      rev = "3ec39a31ec64858642629991caf0dd14ce7c34ca";
+      rev = "f4263546f50694a154fdd27a03000390949068df";
       fetchSubmodules = false;
-      sha256 = "sha256-MBVVImy0f+MQnlAYUf77mScpdqkCKi1hdOJEM7Z7KJ0=";
+      sha256 = "sha256-CkVFfG2LS7tWS0hycGK/py5cvDqmFQbm5AoKsMDrC10=";
     };
-    date = "2024-06-04";
+    date = "2026-04-22";
   };
   sakura-share = {
     pname = "sakura-share";
