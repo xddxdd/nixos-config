@@ -2,6 +2,7 @@
   lib,
   LT,
   config,
+  pkgs,
   ...
 }:
 let
@@ -67,4 +68,13 @@ in
       )
       ++ [ nixBuildNet ];
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "nix-remote-build-off" ''
+      sudo rm -f /etc/nix/machines
+    '')
+    (pkgs.writeShellScriptBin "nix-remote-build-on" ''
+      sudo ln -s ${config.environment.etc."nix/machines".source} /etc/nix/machines
+    '')
+  ];
 }
