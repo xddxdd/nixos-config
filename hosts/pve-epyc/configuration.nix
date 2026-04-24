@@ -77,11 +77,7 @@
     script = ''
       while true; do
         if [ -f "/run/qemu-server/101.pid" ]; then
-          if chrt -p $(cat "/run/qemu-server/101.pid") | grep SCHED_IDLE >/dev/null; then
-            true
-          else
-            chrt --idle -a -p 0 $(cat "/run/qemu-server/101.pid")
-          fi
+          renice -n 19 -p $(cat "/run/qemu-server/101.pid")
         fi
         sleep 10
       done
