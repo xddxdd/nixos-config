@@ -5,7 +5,7 @@
 }:
 {
   services.nix-cache-proxy = {
-    enable = true;
+    enable = false;
     listenAddress = "127.0.0.1:${LT.portStr.NixCacheProxy}";
     upstreams = [ "https://cache.nixos.org" ] ++ config.nix.settings.trusted-substituters;
   };
