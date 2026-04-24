@@ -70,7 +70,7 @@ in
       !include ${config.sops.secrets.nix-access-token.path}
     '';
 
-    daemonCPUSchedPolicy = if LT.this.hasTag LT.tags.client then "idle" else "batch";
+    daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
