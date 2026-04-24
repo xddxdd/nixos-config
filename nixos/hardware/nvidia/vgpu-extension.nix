@@ -75,4 +75,7 @@ in
       };
     };
   };
+
+  virtualisation.docker.enableNvidia = lib.mkForce false;
+  hardware.nvidia-container-toolkit.enable = lib.mkForce false;
 }
