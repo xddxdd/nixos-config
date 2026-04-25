@@ -8,7 +8,6 @@ let
   periodicTasks = [
     # keep-sorted start
     "auto-mihoyo-bbs"
-    "bilibili-tool-pro"
     # keep-sorted end
   ];
 in

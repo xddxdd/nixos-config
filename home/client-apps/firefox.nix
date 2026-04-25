@@ -108,6 +108,7 @@ in
 
   programs.firefox = lib.recursiveUpdate args {
     package = null;
+    configPath = ".mozilla/firefox";
     betterfox = {
       enable = true;
       profiles.lantian.settings = {

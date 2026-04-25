@@ -3,7 +3,7 @@
 
   inputs = {
     # Common libraries
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     flake-compat = {
@@ -51,7 +51,7 @@
       flake = false;
     };
     firefox-addons = {
-      url = "github:petrkozorezov/firefox-addons-nix";
+      url = "github:xddxdd/firefox-addons-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

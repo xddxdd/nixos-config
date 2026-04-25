@@ -110,7 +110,7 @@ in
         nur-xddxdd.easycli
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
-        # nur-xddxdd.kikoplay
+        nur-xddxdd.kikoplay
         nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
@@ -171,10 +171,11 @@ in
 
   programs.distrobox.enable = true;
 
-  programs.lutris = {
-    enable = true;
-    package = pkgs.lutris.override { extraPkgs = p: with p; [ xdelta ]; };
-  };
+  # # FIXME: https://github.com/NixOS/nixpkgs/issues/513245
+  # programs.lutris = {
+  #   enable = true;
+  #   package = pkgs.lutris.override { extraPkgs = p: with p; [ xdelta ]; };
+  # };
 
   programs.prismlauncher.enable = true;
 
