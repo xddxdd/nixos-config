@@ -40,7 +40,7 @@ in
       PORT = LT.portStr.N8N-OpenAI-Bridge;
       DISABLE_RATE_LIMIT = "true";
       MODEL_LOADER_TYPE = "n8n-api";
-      N8N_BASE_URL = "https://n8n.xuyh0120.win";
+      N8N_BASE_URL = "http://127.0.0.1:${LT.portStr.N8N}";
       AUTO_DISCOVERY_TAG = "n8n-openai-bridge";
       AUTO_DISCOVERY_POLL_INTERVAL = "300";
     };
