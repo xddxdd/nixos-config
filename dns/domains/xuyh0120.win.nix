@@ -206,6 +206,7 @@ in
         {
           recordType = "IGNORE";
           name = "home-ddns";
+          type = "A,AAAA";
         }
 
         externalServices
