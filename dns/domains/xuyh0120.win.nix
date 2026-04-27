@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  homeDdnsTarget = "lantian.dns.army.";
+  homeDdnsTarget = "home-ddns.xuyh0120.win.";
 
   externalServices = [
     {
@@ -203,6 +203,10 @@ in
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
+        {
+          recordType = "IGNORE";
+          name = "home-ddns";
+        }
 
         externalServices
         internalServices

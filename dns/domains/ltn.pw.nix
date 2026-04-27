@@ -29,7 +29,7 @@
         {
           recordType = "CNAME";
           name = "pl.${domain}.";
-          target = "lantian.dns.army.";
+          target = "home-ddns.xuyh0120.win.";
           ttl = "10m";
         }
         {
