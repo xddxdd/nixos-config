@@ -53,24 +53,6 @@
           "brave_local_search"
         ];
       };
-      browser-control-mcp = {
-        command = toString (
-          pkgs.writeShellScript "mcp-browser-control" ''
-            export EXTENSION_SECRET=$(cat '/home/lantian/.mozilla/firefox/lantian/browser-extension-data/{6ba257e0-fbce-4d50-8471-25de7f024c1e}/storage.js' | ${lib.getExe pkgs.jq} -r .config.secret)
-            exec ${lib.getExe pkgs.nur-xddxdd.browser-control-mcp}
-          ''
-        );
-        alwaysAllow = [
-          "open-browser-tab"
-          "close-browser-tabs"
-          "get-list-of-open-tabs"
-          "get-recent-browser-history"
-          "get-tab-web-content"
-          "reorder-browser-tabs"
-          "find-highlight-in-browser-tab"
-          "group-browser-tabs"
-        ];
-      };
       context7 = {
         command = toString (
           pkgs.writeShellScript "mcp-context7" ''
