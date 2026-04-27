@@ -85,7 +85,7 @@ let
     {
       recordType = "CNAME";
       name = "n8n";
-      target = "lt-home-vm.ltnet.xuyh0120.win.";
+      target = homeDdnsTarget;
       ttl = "1h";
     }
     {

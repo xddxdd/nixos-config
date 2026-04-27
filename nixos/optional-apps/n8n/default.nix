@@ -91,9 +91,17 @@
       proxyPass = "http://127.0.0.1:${LT.portStr.N8N}";
       proxyWebsockets = true;
     };
+    locations."/webhook/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.N8N}";
+      proxyWebsockets = true;
+      extraConfig = ''
+        allow 127.0.0.1;
+        allow ::1;
+        deny all;
+      '';
+    };
 
     sslCertificate = "zerossl-xuyh0120.win";
     noIndex.enable = true;
-    accessibleBy = "private";
   };
 }
