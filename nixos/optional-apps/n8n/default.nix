@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ ./postgresql.nix ];
+  imports = [
+    ../postgresql.nix
+    ./n8n-openai-bridge.nix
+  ];
 
   sops.secrets.n8n-secret = {
     sopsFile = inputs.secrets + "/n8n.yaml";

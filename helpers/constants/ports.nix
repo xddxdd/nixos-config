@@ -73,6 +73,7 @@ rec {
     StayRTR.Metrics.FlapAlerted = 13251;
     StayRTR.Metrics.Flap42 = 13252;
     Hydra = 13300;
+    N8N-OpenAI-Bridge = 13333;
     Dex = 13403;
     OpenWebUI.UI = 13433;
     OpenWebUI.Redis = 13435;

@@ -29,7 +29,7 @@
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/metapi.nix
     # ../../nixos/optional-apps/mtranserver.nix
-    ../../nixos/optional-apps/n8n.nix
+    ../../nixos/optional-apps/n8n
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix

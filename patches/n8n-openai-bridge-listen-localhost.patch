@@ -1,0 +1,13 @@
+diff --git a/src/server.js b/src/server.js
+index 1aff18f..ddc8b9c 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -110,7 +110,7 @@ async function startServer() {
+ 
+   // Start HTTP server
+   const PORT = bootstrap.config.port;
+-  const server = app.listen(PORT, () => {
++  const server = app.listen(PORT, '127.0.0.1', () => {
+     // Apply server timeout configuration
+     server.timeout = bootstrap.config.serverTimeout;
+     server.keepAliveTimeout = bootstrap.config.serverKeepAliveTimeout;
