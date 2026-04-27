@@ -13,9 +13,13 @@ let
       {
         provider = v.name;
         api = if v.apiKeyPath != null then { _secret = v.apiKeyPath; } else "sk-123456";
-        model = builtins.map (m: {
-          "${m.name}" = m.value;
-        }) v._models;
+        model =
+          if v._models != { } then
+            builtins.map (m: {
+              "${m.name}" = m.value;
+            }) v._models
+          else
+            null;
       }
       // (lib.optionalAttrs (v.baseURL != null) {
         base_url = v.baseURL;

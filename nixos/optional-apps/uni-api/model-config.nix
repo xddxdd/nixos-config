@@ -46,33 +46,37 @@ let
           type = lib.types.listOf (lib.types.enum (builtins.attrNames providerTags));
         };
         modelJsonFile = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.nullOr lib.types.path;
           default = inputs.secrets + "/uni-api/apis/${config.name}.json";
         };
 
         _models = lib.mkOption {
           readOnly = true;
-          default = lib.flatten (
-            lib.mapAttrsToList (
-              k: v:
-              let
-                modelNameWithSuffix =
-                  if lib.hasInfix ":" v then
-                    lib.replaceStrings [ ":" ] [ ":${config.name}-" ] v
-                  else
-                    "${v}:${config.name}";
-                isGeminiConversationModel =
-                  config.engine == "gemini" && lib.hasPrefix "gemini" k && !lib.hasInfix "embed" k;
-                modelNameWithSearchSuffix = "${modelNameWithSuffix}-search";
-              in
-              [
-                (lib.nameValuePair k modelNameWithSuffix)
-              ]
-              ++ lib.optionals isGeminiConversationModel [
-                (lib.nameValuePair k modelNameWithSearchSuffix)
-              ]
-            ) (lib.importJSON config.modelJsonFile)
-          );
+          default =
+            if config.modelJsonFile != null then
+              lib.flatten (
+                lib.mapAttrsToList (
+                  k: v:
+                  let
+                    modelNameWithSuffix =
+                      if lib.hasInfix ":" v then
+                        lib.replaceStrings [ ":" ] [ ":${config.name}-" ] v
+                      else
+                        "${v}:${config.name}";
+                    isGeminiConversationModel =
+                      config.engine == "gemini" && lib.hasPrefix "gemini" k && !lib.hasInfix "embed" k;
+                    modelNameWithSearchSuffix = "${modelNameWithSuffix}-search";
+                  in
+                  [
+                    (lib.nameValuePair k modelNameWithSuffix)
+                  ]
+                  ++ lib.optionals isGeminiConversationModel [
+                    (lib.nameValuePair k modelNameWithSearchSuffix)
+                  ]
+                ) (lib.importJSON config.modelJsonFile)
+              )
+            else
+              { };
         };
         _score = lib.mkOption {
           readOnly = true;

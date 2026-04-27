@@ -71,4 +71,14 @@ in
     proxyPass = "http://127.0.0.1:${LT.portStr.N8N-OpenAI-Bridge}";
     proxyNoTimeout = true;
   };
+
+  lantian.llm-providers = lib.mkBefore [
+    {
+      name = "n8n";
+      baseURL = "http://127.0.0.1:${LT.portStr.N8N-OpenAI-Bridge}/v1/chat/completions";
+      providerTags = [ "paid" ];
+      apiKeyPath = config.sops.secrets."uni-api-admin-api-key".path;
+      modelJsonFile = null;
+    }
+  ];
 }
