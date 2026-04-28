@@ -42,7 +42,6 @@
     "tls://103.109.234.106:443?key=000000035621c71b5610434589df051aed2688510f904ae79860668dc0fbf182",
     "tls://[2a0f:b240:e:162::1]:443?key=000000035621c71b5610434589df051aed2688510f904ae79860668dc0fbf182",
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
-    "tls://des.8px.sk:4321",
     "tls://helium.avevad.com:1337",
     "tls://ygg-oracle.axxa.dev:18080",
     "tls://ygg.mkg20001.io:443",
@@ -59,9 +58,6 @@
   ],
   "india": [
     "tls://ins.8px.sk:4321"
-  ],
-  "indonesia": [
-    "tls://supanadit.com:15021"
   ],
   "japan": [
     "tls://133.18.201.69:54232",
@@ -98,6 +94,7 @@
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://ygg-ru.lskd.pw:30042",
+    "tls://ygg.med-dev-systems.ru:6221",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
@@ -144,6 +141,7 @@
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://srv.newsdeef.eu:59999",
+    "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
     "tls://ygg-kcmo.incognet.io:8884",
