@@ -132,6 +132,27 @@
         },
         "version": "3b3f430074a67c63572a582847ed1fa69330c668"
     },
+    "n8n-openai-bridge-customized": {
+        "cargoLock": null,
+        "date": "2026-04-27",
+        "extract": null,
+        "name": "n8n-openai-bridge-customized",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xddxdd",
+            "repo": "n8n-openai-bridge",
+            "rev": "46df0398f3397fa240619f5d91db98351b1ead5f",
+            "sha256": "sha256-jbUefUfzsatjNDtXK/GdpVC2AzzuCcTyhG9NXb3g0U8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "46df0398f3397fa240619f5d91db98351b1ead5f"
+    },
     "nvidia-patch": {
         "cargoLock": null,
         "date": "2026-04-03",

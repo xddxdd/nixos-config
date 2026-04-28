@@ -28,6 +28,10 @@ src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "wis/mpvSockets"
 src.git = "https://github.com/wis/mpvSockets.git"
 
+[n8n-openai-bridge-customized]
+fetch.github = "xddxdd/n8n-openai-bridge"
+src.git = "https://github.com/xddxdd/n8n-openai-bridge.git"
+
 [nvidia-patch]
 fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/keylase/nvidia-patch.git"

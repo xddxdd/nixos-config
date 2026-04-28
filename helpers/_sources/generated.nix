@@ -85,6 +85,18 @@
     };
     date = "2024-02-13";
   };
+  n8n-openai-bridge-customized = {
+    pname = "n8n-openai-bridge-customized";
+    version = "46df0398f3397fa240619f5d91db98351b1ead5f";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "n8n-openai-bridge";
+      rev = "46df0398f3397fa240619f5d91db98351b1ead5f";
+      fetchSubmodules = false;
+      sha256 = "sha256-jbUefUfzsatjNDtXK/GdpVC2AzzuCcTyhG9NXb3g0U8=";
+    };
+    date = "2026-04-27";
+  };
   nvidia-patch = {
     pname = "nvidia-patch";
     version = "80e48e9346beb9407734a090d33c5e79e9113b01";

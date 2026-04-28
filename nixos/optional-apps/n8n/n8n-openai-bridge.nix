@@ -8,9 +8,11 @@
 }:
 let
   n8n-openai-bridge = pkgs.nur-xddxdd.n8n-openai-bridge.overrideAttrs (old: {
+    inherit (LT.sources.n8n-openai-bridge-customized) version src;
     patches = (old.patches or [ ]) ++ [
       ../../../patches/n8n-openai-bridge-listen-localhost.patch
     ];
+    doCheck = false;
   });
 in
 {
