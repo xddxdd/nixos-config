@@ -251,10 +251,10 @@ index 0000000000..461bc12926
 +- [AI Agent](../../agent/Agent.node.md)
 diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts
 new file mode 100644
-index 0000000000..5518053846
+index 0000000000..61aa06a507
 --- /dev/null
 +++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts
-@@ -0,0 +1,188 @@
+@@ -0,0 +1,182 @@
 +import { BaseDocumentCompressor } from '@langchain/core/retrievers/document_compressors';
 +import type { DocumentInterface } from '@langchain/core/documents';
 +import type { Callbacks } from '@langchain/core/callbacks/manager';
@@ -299,62 +299,56 @@ index 0000000000..5518053846
 +			return [];
 +		}
 +
-+		try {
-+			// Prepare the request payload for reranking API
-+			const requestBody = {
-+				model: this.model,
-+				query,
-+				documents: documents.map((doc) => doc.pageContent),
-+				top_n: this.topK || documents.length,
-+			};
++		// Prepare the request payload for reranking API
++		const requestBody = {
++			model: this.model,
++			query,
++			documents: documents.map((doc) => doc.pageContent),
++			top_n: this.topK || documents.length,
++		};
 +
-+			const response = await fetch(`${this.baseURL}/v1/rerank`, {
-+				method: 'POST',
-+				headers: {
-+					'Content-Type': 'application/json',
-+					Authorization: `Bearer ${this.apiKey}`,
-+				},
-+				body: JSON.stringify(requestBody),
-+			});
++		const response = await fetch(`${this.baseURL}/rerank`, {
++			method: 'POST',
++			headers: {
++				'Content-Type': 'application/json',
++				Authorization: `Bearer ${this.apiKey}`,
++			},
++			body: JSON.stringify(requestBody),
++		});
 +
-+			if (!response.ok) {
-+				throw new Error(`HTTP error! status: ${response.status}`);
-+			}
-+
-+			const result = await response.json();
-+
-+			// Handle the response format
-+			if (result.results && Array.isArray(result.results)) {
-+				// Sort by relevance score (descending) and map back to documents
-+				const rankedResults = result.results
-+					.sort((a: any, b: any) => (b.relevance_score || 0) - (a.relevance_score || 0))
-+					.filter((item: any) => {
-+						// Validate index is within bounds
-+						return typeof item.index === 'number' &&
-+							   item.index >= 0 &&
-+							   item.index < documents.length;
-+					})
-+					.slice(0, this.topK) // Limit to topK results after filtering
-+					.map((item: any) => {
-+						const originalDoc = documents[item.index];
-+						return {
-+							...originalDoc,
-+							metadata: {
-+								...originalDoc.metadata,
-+								relevanceScore: item.relevance_score,
-+							},
-+						};
-+					});
-+
-+				return rankedResults;
-+			}
-+
-+			// Fallback: return original documents if response format is unexpected
-+			return documents;
-+		} catch (error) {
-+			// Fallback: return original documents on error
-+			return documents;
++		if (!response.ok) {
++			throw new Error(`HTTP error! status: ${response.status}`);
 +		}
++
++		const result = await response.json();
++
++		// Handle the response format
++		if (result.results && Array.isArray(result.results)) {
++			// Sort by relevance score (descending) and map back to documents
++			const rankedResults = result.results
++				.sort((a: any, b: any) => (b.relevance_score || 0) - (a.relevance_score || 0))
++				.filter((item: any) => {
++					// Validate index is within bounds
++					return typeof item.index === 'number' &&
++							item.index >= 0 &&
++							item.index < documents.length;
++				})
++				.slice(0, this.topK) // Limit to topK results after filtering
++				.map((item: any) => {
++					const originalDoc = documents[item.index];
++					return {
++						...originalDoc,
++						metadata: {
++							...originalDoc.metadata,
++							relevanceScore: item.relevance_score,
++						},
++					};
++				});
++
++			return rankedResults;
++		}
++
++		throw new Error('Unexpected response from Rerank endpoint');
 +	}
 +}
 +
