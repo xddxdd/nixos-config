@@ -1,0 +1,475 @@
+diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/README.md b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/README.md
+new file mode 100644
+index 0000000000..a1fa3239b3
+--- /dev/null
++++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/README.md
+@@ -0,0 +1,99 @@
++# OpenAI-Compatible Reranker Node for n8n
++
++This directory contains the implementation of an OpenAI-compatible reranker node for n8n's LangChain integration.
++
++## Overview
++
++The OpenAI Reranker node allows users to reorder documents after retrieval from a vector store by relevance to a given query using any OpenAI-compatible reranking API.
++
++## Features
++
++- **OpenAI-Compatible API Support**: Works with any service that implements OpenAI-compatible reranker APIs
++- **Configurable Endpoint**: Users can specify custom API URLs (not limited to OpenAI)
++- **Flexible Model Selection**: Supports any model name through configuration
++- **Customizable Top-K**: Allows users to specify the maximum number of documents to return
++- **Error Handling**: Gracefully falls back to original document order on API errors
++
++## Files
++
++- `RerankerOpenAI.node.ts` - Main node implementation
++- `openai.svg` - Light theme icon
++- `openai.dark.svg` - Dark theme icon
++- `test/RerankerOpenAI.node.test.ts` - Unit tests
++- `README.md` - This documentation file
++
++## Configuration
++
++### Credentials (OpenAI API)
++
++The node requires the following credentials:
++
++- **API Key**: Authentication key for the reranking service
++- **Base URL**: The base URL for the API endpoint (e.g., `https://api.openai.com`)
++- **Model Name**: Default model name to use for reranking
++
++### Node Parameters
++
++- **Model**: Override the model name from credentials (optional)
++- **Top K**: Maximum number of documents to return after reranking (default: 10)
++
++## API Compatibility
++
++The implementation expects the reranking API to follow this format:
++
++### Request
++```json
++POST /v1/rerank
++{
++  "model": "rerank-1",
++  "query": "search query",
++  "documents": ["document 1", "document 2", ...],
++  "top_k": 10
++}
++```
++
++### Response
++```json
++{
++  "results": [
++    {
++      "index": 0,
++      "relevance_score": 0.95
++    },
++    {
++      "index": 2,
++      "relevance_score": 0.87
++    }
++  ]
++}
++```
++
++## Usage
++
++1. Configure the OpenAI API credentials with your endpoint details
++2. Add the Reranker OpenAI node to your workflow
++3. Connect it to your retrieval chain
++4. Configure the model name and top-k parameters as needed
++
++## Error Handling
++
++If the API request fails or returns an unexpected format, the node will:
++1. Log the error for debugging
++2. Return the original documents in their original order
++3. Continue the workflow execution
++
++This ensures that workflows remain robust even when the reranking service is unavailable.
++
++## Testing
++
++Run the unit tests with:
++```bash
++npm test -- RerankerOpenAI.node.test.ts
++```
++
++## Implementation Notes
++
++- The node extends `BaseDocumentCompressor` from LangChain
++- Documents are ranked by relevance score in descending order
++- Original document metadata is preserved and enhanced with relevance scores
++- The implementation is designed to be compatible with various OpenAI-compatible reranking services
+diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.md b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.md
+new file mode 100644
+index 0000000000..461bc12926
+--- /dev/null
++++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.md
+@@ -0,0 +1,140 @@
++# Reranker OpenAI
++
++The Reranker OpenAI node allows you to reorder documents retrieved from a vector store by their relevance to a given query using OpenAI-compatible reranking APIs.
++
++## Node Reference
++
++### Credentials
++
++This node requires [OpenAI API credentials](../../../credentials/OpenAIApi.credentials.md).
++
++### Parameters
++
++#### Model
++- **Type**: String
++- **Required**: Yes
++- **Default**: `rerank-1`
++- **Description**: The model that should be used to rerank the documents. Specify the exact model name as provided by your OpenAI-compatible API service.
++
++#### Top N
++- **Type**: Number
++- **Default**: 10
++- **Range**: 1-100
++- **Description**: Maximum number of documents to return after reranking. The reranker will return the top N most relevant documents based on their relevance scores.
++
++## Usage
++
++### Basic Setup
++
++1. **Add the Reranker OpenAI node** to your workflow
++2. **Configure credentials**: Set up your OpenAI API credentials with:
++   - **API Key**: Your API key for the OpenAI-compatible service
++   - **Base URL**: The base URL for your API endpoint (e.g., `https://api.siliconflow.cn`)
++3. **Set the model name**: Specify the reranking model you want to use
++4. **Configure Top N**: Set the maximum number of documents to return
++
++### Connection
++
++The Reranker OpenAI node should be connected to a Vector Store node that has the "Use Reranker" option enabled:
++
++```
++Vector Store (with "Use Reranker" enabled) → Reranker OpenAI → AI Agent
++```
++
++### Example Workflow
++
++Here's a typical workflow using the Reranker OpenAI node:
++
++1. **Chat Trigger**: Receives user queries
++2. **Vector Store**: Retrieves similar documents (e.g., top 10)
++3. **Reranker OpenAI**: Reranks and returns top 3 most relevant documents
++4. **AI Agent**: Uses the reranked documents to generate responses
++
++## Supported APIs
++
++This node works with any OpenAI-compatible reranking API that supports the following endpoint:
++
++```
++POST /v1/rerank
++```
++
++### Request Format
++```json
++{
++  "model": "your-model-name",
++  "query": "user query",
++  "documents": ["document 1", "document 2", "..."],
++  "top_n": 3
++}
++```
++
++### Response Format
++```json
++{
++  "results": [
++    {
++      "index": 0,
++      "relevance_score": 0.95
++    },
++    {
++      "index": 2,
++      "relevance_score": 0.87
++    }
++  ]
++}
++```
++
++## Compatible Services
++
++- **SiliconFlow**: Use models like `Qwen/Qwen3-Reranker-8B`
++- **OpenAI**: When reranking APIs become available
++- **Custom APIs**: Any service implementing the OpenAI reranking API format
++
++## Best Practices
++
++### Model Selection
++- Choose models appropriate for your content language and domain
++- Consider model size vs. performance trade-offs
++- Test different models to find the best fit for your use case
++
++### Top N Configuration
++- Set Top N based on your downstream processing needs
++- Higher values provide more options but may include less relevant documents
++- Lower values focus on the most relevant documents but may miss important information
++
++### Performance Optimization
++- Use reranking after initial vector similarity search to improve relevance
++- Consider the cost implications of reranking large document sets
++- Monitor token usage and adjust Top N accordingly
++
++## Troubleshooting
++
++### Common Issues
++
++**"The resource you are requesting could not be found"**
++- Verify your Base URL is correct and doesn't include the `/v1/rerank` path
++- Check that your API key has the necessary permissions
++- Ensure the model name is exactly as specified by your API provider
++
++**"No documents returned"**
++- Check that the Vector Store has "Use Reranker" enabled
++- Verify the Reranker node is properly connected to the Vector Store
++- Ensure your query returns documents from the Vector Store
++
++**"HTTP error! status: 429"**
++- You've hit rate limits; implement retry logic or reduce request frequency
++- Consider upgrading your API plan if needed
++
++### Debug Tips
++
++1. **Check API connectivity**: Test your credentials with a simple API call
++2. **Verify document flow**: Ensure documents are flowing from Vector Store to Reranker
++3. **Monitor token usage**: Check your API dashboard for usage patterns
++4. **Test with simple queries**: Start with basic queries to verify functionality
++
++## Related Nodes
++
++- [Vector Store MongoDB Atlas](../../vector_store/VectorStoreMongoDBAtlas/VectorStoreMongoDBAtlas.node.md)
++- [Vector Store Pinecone](../../vector_store/VectorStorePinecone/VectorStorePinecone.node.md)
++- [Reranker Cohere](../RerankerCohere/RerankerCohere.node.md)
++- [AI Agent](../../agent/Agent.node.md)
+diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts
+new file mode 100644
+index 0000000000..5518053846
+--- /dev/null
++++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.ts
+@@ -0,0 +1,188 @@
++import { BaseDocumentCompressor } from '@langchain/core/retrievers/document_compressors';
++import type { DocumentInterface } from '@langchain/core/documents';
++import type { Callbacks } from '@langchain/core/callbacks/manager';
++import {
++	NodeConnectionTypes,
++	type INodeType,
++	type INodeTypeDescription,
++	type ISupplyDataFunctions,
++	type SupplyData,
++} from 'n8n-workflow';
++
++import { logWrapper } from '@n8n/ai-utilities';
++
++/**
++ * Custom OpenAI-compatible reranker implementation
++ */
++class OpenAIRerank extends BaseDocumentCompressor {
++	private apiKey: string;
++	private baseURL: string;
++	private model: string;
++	private topK?: number;
++
++	constructor(fields: {
++		apiKey: string;
++		baseURL: string;
++		model: string;
++		topK?: number;
++	}) {
++		super();
++		this.apiKey = fields.apiKey;
++		this.baseURL = fields.baseURL.replace(/\/$/, ''); // Remove trailing slash
++		this.model = fields.model;
++		this.topK = fields.topK;
++	}
++
++	async compressDocuments(
++		documents: DocumentInterface[],
++		query: string,
++		_callbacks?: Callbacks,
++	): Promise<DocumentInterface[]> {
++		if (documents.length === 0) {
++			return [];
++		}
++
++		try {
++			// Prepare the request payload for reranking API
++			const requestBody = {
++				model: this.model,
++				query,
++				documents: documents.map((doc) => doc.pageContent),
++				top_n: this.topK || documents.length,
++			};
++
++			const response = await fetch(`${this.baseURL}/v1/rerank`, {
++				method: 'POST',
++				headers: {
++					'Content-Type': 'application/json',
++					Authorization: `Bearer ${this.apiKey}`,
++				},
++				body: JSON.stringify(requestBody),
++			});
++
++			if (!response.ok) {
++				throw new Error(`HTTP error! status: ${response.status}`);
++			}
++
++			const result = await response.json();
++
++			// Handle the response format
++			if (result.results && Array.isArray(result.results)) {
++				// Sort by relevance score (descending) and map back to documents
++				const rankedResults = result.results
++					.sort((a: any, b: any) => (b.relevance_score || 0) - (a.relevance_score || 0))
++					.filter((item: any) => {
++						// Validate index is within bounds
++						return typeof item.index === 'number' &&
++							   item.index >= 0 &&
++							   item.index < documents.length;
++					})
++					.slice(0, this.topK) // Limit to topK results after filtering
++					.map((item: any) => {
++						const originalDoc = documents[item.index];
++						return {
++							...originalDoc,
++							metadata: {
++								...originalDoc.metadata,
++								relevanceScore: item.relevance_score,
++							},
++						};
++					});
++
++				return rankedResults;
++			}
++
++			// Fallback: return original documents if response format is unexpected
++			return documents;
++		} catch (error) {
++			// Fallback: return original documents on error
++			return documents;
++		}
++	}
++}
++
++export class RerankerOpenAI implements INodeType {
++	description: INodeTypeDescription = {
++		displayName: 'Reranker OpenAI',
++		name: 'rerankerOpenAI',
++		icon: { light: 'file:openai.svg', dark: 'file:openai.dark.svg' },
++		group: ['transform'],
++		version: 1,
++		description:
++			'Use OpenAI-compatible Reranker to reorder documents after retrieval from a vector store by relevance to the given query.',
++		defaults: {
++			name: 'Reranker OpenAI',
++		},
++		requestDefaults: {
++			ignoreHttpStatusErrors: true,
++			baseURL: '={{ $credentials.url }}',
++		},
++		credentials: [
++			{
++				name: 'openAiApi',
++				required: true,
++			},
++		],
++		codex: {
++			categories: ['AI'],
++			subcategories: {
++				AI: ['Rerankers'],
++			},
++			resources: {
++				primaryDocumentation: [
++					{
++						url: 'https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.rerankeropenai/',
++					},
++				],
++			},
++		},
++		inputs: [],
++		outputs: [NodeConnectionTypes.AiReranker],
++		outputNames: ['Reranker'],
++		properties: [
++			{
++				displayName: 'Model',
++				name: 'modelName',
++				type: 'string',
++				description: 'The model that should be used to rerank the documents',
++				default: 'Qwen/Qwen3-Reranker-8B',
++				placeholder: 'Qwen/Qwen3-Reranker-8B',
++				required: true,
++			},
++			{
++				displayName: 'Top N',
++				name: 'topN',
++				type: 'number',
++				description: 'Maximum number of documents to return after reranking',
++				default: 10,
++				typeOptions: {
++					minValue: 1,
++					maxValue: 100,
++				},
++			},
++		],
++	};
++
++	async supplyData(this: ISupplyDataFunctions, itemIndex: number): Promise<SupplyData> {
++		this.logger.debug('Supply data for reranking OpenAI');
++
++		const modelName = this.getNodeParameter('modelName', itemIndex) as string;
++		const topN = this.getNodeParameter('topN', itemIndex, 10) as number;
++		const credentials = await this.getCredentials<{
++			apiKey: string;
++			url: string;
++		}>('openAiApi');
++
++		const reranker = new OpenAIRerank({
++			apiKey: credentials.apiKey,
++			baseURL: credentials.url,
++			model: modelName,
++			topK: topN,
++		});
++
++		return {
++			response: logWrapper(reranker, this),
++		};
++	}
++}
++
+diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.dark.svg b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.dark.svg
+new file mode 100644
+index 0000000000..5766a68e7e
+--- /dev/null
++++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.dark.svg
+@@ -0,0 +1,3 @@
++<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
++  <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#FFFFFF"/>
++</svg>
+diff --git a/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.svg b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.svg
+new file mode 100644
+index 0000000000..65e40ede1e
+--- /dev/null
++++ b/packages/@n8n/nodes-langchain/nodes/rerankers/RerankerOpenAI/openai.svg
+@@ -0,0 +1,3 @@
++<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
++  <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#10A37F"/>
++</svg>
+diff --git a/packages/@n8n/nodes-langchain/package.json b/packages/@n8n/nodes-langchain/package.json
+index 873eb6094d..3ca6e2b577 100644
+--- a/packages/@n8n/nodes-langchain/package.json
++++ b/packages/@n8n/nodes-langchain/package.json
+@@ -153,6 +153,7 @@
+       "dist/nodes/output_parser/OutputParserAutofixing/OutputParserAutofixing.node.js",
+       "dist/nodes/output_parser/OutputParserItemList/OutputParserItemList.node.js",
+       "dist/nodes/output_parser/OutputParserStructured/OutputParserStructured.node.js",
++      "dist/nodes/rerankers/RerankerOpenAI/RerankerOpenAI.node.js",
+       "dist/nodes/rerankers/RerankerCohere/RerankerCohere.node.js",
+       "dist/nodes/retrievers/RetrieverContextualCompression/RetrieverContextualCompression.node.js",
+       "dist/nodes/retrievers/RetrieverVectorStore/RetrieverVectorStore.node.js",

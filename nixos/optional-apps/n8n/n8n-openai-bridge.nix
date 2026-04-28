@@ -12,7 +12,6 @@ let
     patches = (old.patches or [ ]) ++ [
       ../../../patches/n8n-openai-bridge-listen-localhost.patch
     ];
-    doCheck = false;
   });
 in
 {
