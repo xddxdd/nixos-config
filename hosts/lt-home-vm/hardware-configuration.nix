@@ -21,8 +21,15 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "virtiofs-mnt-storage";
-    fsType = "virtiofs";
+    device = "192.168.0.2:/mnt/storage";
+    fsType = "nfs";
+    options = [
+      "_netdev"
+      "noatime"
+      "clientaddr=192.168.1.10"
+      "hard"
+      "vers=4.2"
+    ];
   };
 
   fileSystems."/boot" = {

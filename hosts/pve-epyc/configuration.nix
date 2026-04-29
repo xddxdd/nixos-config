@@ -42,7 +42,18 @@
       /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check)
       /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check)
       /mnt/nvme/virtiofs/nixos-home-rdp 192.168.1.13(rw,insecure,no_subtree_check)
+      /mnt/storage 192.168.1.10(rw,insecure,no_subtree_check) 192.168.1.13(rw,insecure,no_subtree_check)
     '';
+  };
+  systemd.services.nfs-server = {
+    after = [
+      "mnt-storage.mount"
+      "mnt-nvme.mount"
+    ];
+    requires = [
+      "mnt-storage.mount"
+      "mnt-nvme.mount"
+    ];
   };
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
