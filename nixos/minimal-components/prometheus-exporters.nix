@@ -2,7 +2,7 @@
 {
   services.prometheus.exporters = {
     node = {
-      enable = true;
+      enable = !(LT.this.hasTag LT.tags.client);
       port = LT.port.Prometheus.NodeExporter;
       listenAddress = LT.this.ltnet.IPv4;
       enabledCollectors = [ "systemd" ];
