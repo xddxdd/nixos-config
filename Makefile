@@ -4,11 +4,17 @@ servers: FORCE
 all: FORCE
 	@nix run .#colmena -- apply --on @default
 
+all-all: FORCE
+	@nix run .#colmena -- apply --on @all
+
 all-boot: FORCE
 	@nix run .#colmena -- apply boot --on @default
 
 all-reboot: FORCE
 	@nix run .#colmena -- apply --reboot --on @default-non-local
+
+all-all-reboot: FORCE
+	@nix run .#colmena -- apply --reboot --on @non-local
 
 build: FORCE
 	@nix run .#colmena -- build
