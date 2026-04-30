@@ -18,6 +18,8 @@
     nur-xddxdd.red-star-os-wallpapers
   ];
 
+  environment.variables.LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
+
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
     kate

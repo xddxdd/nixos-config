@@ -27,7 +27,6 @@
     # keep-sorted start
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
-    LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
     NIXPKGS_ALLOW_INSECURE = "1";
     NIX_REMOTE = "daemon";
     SYSTEMD_PAGER = "";
