@@ -38,10 +38,10 @@
   services.nfs.server = {
     hostName = lib.mkForce "192.168.0.2";
     exports = lib.mkForce ''
-      /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check)
-      /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check)
-      /mnt/nvme/virtiofs/nixos-home-rdp 192.168.1.13(rw,insecure,no_subtree_check)
-      /mnt/storage 192.168.1.10(rw,insecure,no_subtree_check) 192.168.1.13(rw,insecure,no_subtree_check)
+      /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check,no_root_squash)
+      /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check,no_root_squash)
+      /mnt/nvme/virtiofs/nixos-home-rdp 192.168.1.13(rw,insecure,no_subtree_check,no_root_squash)
+      /mnt/storage 192.168.1.10(rw,insecure,no_subtree_check,no_root_squash) 192.168.1.13(rw,insecure,no_subtree_check,no_root_squash)
     '';
   };
   systemd.services.nfs-server = {
