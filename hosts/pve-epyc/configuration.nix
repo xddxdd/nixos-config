@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -77,27 +76,6 @@
     gateway = [ "192.168.0.1" ];
     matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
-  };
-
-  systemd.services.renice-nix-builder = {
-    after = [ "pve-cluster.service" ];
-    wants = [ "pve-cluster.service" ];
-    wantedBy = [ "multi-user.target" ];
-
-    path = [ pkgs.util-linux ];
-    script = ''
-      while true; do
-        if [ -f "/run/qemu-server/101.pid" ]; then
-          renice -n 19 -p $(cat "/run/qemu-server/101.pid")
-        fi
-        sleep 10
-      done
-    '';
-
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = "3";
-    };
   };
 
   services.beesd.filesystems.nvme = {
