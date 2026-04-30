@@ -201,18 +201,22 @@ in
           "alertname"
           "alias"
         ];
-        group_wait = "30s";
-        group_interval = "2m";
+        group_wait = "1m";
+        group_interval = "10m";
         repeat_interval = "24h";
         receiver = "admin";
       };
       receivers = [
         {
-          "name" = "admin";
-          "email_configs" = [
+          name = "admin";
+          email_configs = [
             {
-              "to" = glauthUsers.lantian.mail;
-              "send_resolved" = true;
+              to = glauthUsers.lantian.mail;
+              send_resolved = true;
+              threading = {
+                enabled = true;
+                thread_by_date = "daily";
+              };
             }
           ];
         }
