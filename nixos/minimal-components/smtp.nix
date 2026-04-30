@@ -55,7 +55,7 @@ in
 
       [ "$MONITOR_SERVICE_RESULT" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
 
-      cat <<EOF | cut -c 1-80 | sendmail -t
+      cat <<EOF | sendmail -t
       To: $MAILTO
       Subject: $FLAG $MONITOR_UNIT on $HOSTNAME
 
