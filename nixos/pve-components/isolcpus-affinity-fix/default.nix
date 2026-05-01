@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   systemd.services.isolcpus-affinity-fix = {
+    enable = false;
     after = [ "pve-cluster.service" ];
     wants = [ "pve-cluster.service" ];
     wantedBy = [ "multi-user.target" ];
