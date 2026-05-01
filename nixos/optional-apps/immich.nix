@@ -14,25 +14,11 @@
   };
 
   config = {
-    fileSystems."/run/immich" = {
-      device = config.lantian.immich.storage;
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions' [
-        "force-user=${config.services.immich.user}"
-        "force-group=${config.services.immich.group}"
-        "perms=700"
-        "create-for-user=lantian"
-        "create-for-group=users"
-        "create-with-perms=755"
-        "chmod-ignore"
-      ];
-    };
-
     services.immich = {
       enable = true;
       host = "127.0.0.1";
       port = LT.port.Immich;
-      mediaLocation = "/run/immich";
+      mediaLocation = config.lantian.immich.storage;
     };
 
     lantian.nginxVhosts = {
@@ -66,14 +52,8 @@
     };
 
     systemd.services.immich-server = {
-      after = [
-        "run-immich.mount"
-        "redis-immich.service"
-      ];
-      requires = [
-        "run-immich.mount"
-        "redis-immich.service"
-      ];
+      after = [ "redis-immich.service" ];
+      requires = [ "redis-immich.service" ];
     };
 
     systemd.services.immich-machine-learning.serviceConfig = {
@@ -84,8 +64,8 @@
       immich = {
         "${config.lantian.immich.storage}".d = {
           mode = "755";
-          user = "lantian";
-          group = "users";
+          user = "immich";
+          group = "immich";
         };
       };
     };
