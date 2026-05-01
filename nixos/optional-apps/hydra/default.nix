@@ -27,6 +27,7 @@ in
   imports = [
     ../postgresql.nix
     ./clear-build-failures.nix
+    ./watchdog.nix
   ];
 
   sops.secrets.attic-upload-key = {
