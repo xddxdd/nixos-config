@@ -33,6 +33,7 @@
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
+    ../../nixos/optional-apps/nginx-witchsweapon.nix
     # ../../nixos/optional-apps/open-webui
     # ../../nixos/optional-apps/palworld.nix
     ../../nixos/optional-apps/searxng.nix
