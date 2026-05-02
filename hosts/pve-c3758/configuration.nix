@@ -1,7 +1,6 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
   imports = [
-    ../../nixos/client-components/tlp.nix
     ../../nixos/pve.nix
 
     ./hardware-configuration.nix
@@ -14,13 +13,6 @@
     "hugepagesz=1G"
     "hugepages=24"
   ];
-
-  services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
-    TLP_DEFAULT_MODE = "AC";
-    TLP_PERSISTENT_DEFAULT = 1;
-    CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-  };
 
   services.proxmox-ve.bridges = [ "br0" ];
   services.proxmox-ve.ipAddress = "192.168.0.5";
