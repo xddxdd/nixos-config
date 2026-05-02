@@ -75,7 +75,10 @@
   systemd.services.qat-sriov = {
     description = "Enable Intel QAT SRIOV";
     wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-modules-load.service" ];
+    after = [
+      "systemd-modules-load.service"
+      "systemd-udev-trigger.service"
+    ];
     requires = [ "systemd-modules-load.service" ];
     before = [
       "pve-guests.service"
@@ -89,9 +92,6 @@
     };
     restartIfChanged = false;
     script = ''
-      modprobe -rv qat_c3xxx || true
-      modprobe -v qat_c3xxx
-
       DEVICE_PATH=/sys/devices/pci0000:00/0000:00:06.0/0000:01:00.0
       NUMVFS=$(cat "$DEVICE_PATH/sriov_totalvfs")
       echo "$NUMVFS" > "$DEVICE_PATH/sriov_numvfs"
