@@ -88,6 +88,9 @@ in
     chain NAT_PREROUTING {
       type nat hook prerouting priority -95; policy accept;
 
+      # Redirect SideStore requests
+      ip daddr 10.7.0.1 ip daddr set ip saddr ip saddr set 10.7.0.1 notrack
+
       # Redirect all KMS requests to internal server
       tcp dport ${LT.portStr.KMS} iifname "eth0*" dnat ip to 198.19.0.252:${LT.portStr.KMS}
       tcp dport ${LT.portStr.KMS} iifname "eth0*" dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}

@@ -11,7 +11,6 @@
     ./networking.nix
 
     ../../nixos/common-apps/coredns.nix
-    ../../nixos/server-components/sidestore-vpn.nix
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/ncps-client.nix
   ];

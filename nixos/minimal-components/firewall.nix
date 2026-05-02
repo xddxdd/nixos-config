@@ -162,6 +162,9 @@ let
 
     chain NAT_PREROUTING {
       type nat hook prerouting priority -95; policy accept;
+
+      # Redirect SideStore requests
+      ip daddr 10.7.0.1 ip daddr set ip saddr ip saddr set 10.7.0.1 notrack
   ''
   + (lib.optionalString (config.services ? proxmox-ve && config.services.proxmox-ve.enable) ''
     fib daddr type local tcp dport 443 redirect to :8006
