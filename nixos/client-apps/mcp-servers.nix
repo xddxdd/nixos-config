@@ -53,6 +53,20 @@
           "brave_local_search"
         ];
       };
+      caldav = {
+        command = toString (
+          pkgs.writeShellScript "mcp-caldav" ''
+            export CALDAV_BASE_URL=https://cal.xuyh0120.win
+            export CALDAV_USERNAME=lantian
+            export CALDAV_PASSWORD=$(cat "${config.sops.secrets.default-pw.path}")
+            exec ${pkgs.nodejs}/bin/npx -y caldav-mcp
+          ''
+        );
+        alwaysAllow = [
+          "list-events"
+          "list-calendars"
+        ];
+      };
       context7 = {
         command = toString (
           pkgs.writeShellScript "mcp-context7" ''
