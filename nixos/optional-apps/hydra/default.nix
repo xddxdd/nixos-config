@@ -26,6 +26,7 @@ in
 {
   imports = [
     ../postgresql.nix
+    ./cancel-old-builds.nix
     ./clear-build-failures.nix
     ./watchdog.nix
   ];
