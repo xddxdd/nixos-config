@@ -27,6 +27,8 @@
       "clientaddr=192.168.1.13"
       "hard"
       "vers=4.2"
+      # https://wiki.nixos.org/wiki/NFS#Nix_store_on_NFS
+      "local_lock=all"
     ];
   };
 
