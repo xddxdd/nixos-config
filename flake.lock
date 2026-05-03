@@ -986,6 +986,30 @@
         "type": "github"
       }
     },
+    "nixfmt-rs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "nur-xddxdd",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777822456,
+        "narHash": "sha256-H4APJn0NGaD2LrkjcJ7io+fu3aKoO0Cn2BJk731YlqQ=",
+        "owner": "Mic92",
+        "repo": "nixfmt-rs",
+        "rev": "d348e45c9c48e62da0909cfff80089ad53a81b1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nixfmt-rs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1766902085,
@@ -1314,6 +1338,7 @@
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",
         "nixcord": "nixcord",
+        "nixfmt-rs": "nixfmt-rs",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",

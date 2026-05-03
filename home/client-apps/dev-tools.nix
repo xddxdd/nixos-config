@@ -114,7 +114,7 @@ in
     nix-search-cli
     nix-store-add
     nixd
-    nixfmt
+    nixfmt-rs
     nixpkgs-fmt
     nurl
 
