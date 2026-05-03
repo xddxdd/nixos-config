@@ -1,4 +1,9 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   glauthUsers = import (inputs.secrets + "/glauth-users.nix");
 in

@@ -1,5 +1,4 @@
-_:
-rec {
+_: rec {
   bindfsMountOptions = bindfsMountOptions' [
     "force-user=lantian"
     "force-group=lantian"

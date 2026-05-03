@@ -1,5 +1,4 @@
-_:
-[
+_: [
   "蔡健雅 - Nightglow.flac"
   "周深 - Rubia.flac"
   "不才;三体宇宙 - 夜航星 (Night Voyager).flac"

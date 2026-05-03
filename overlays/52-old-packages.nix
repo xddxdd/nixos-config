@@ -1,5 +1,3 @@
-_:
-final: prev:
-rec {
+_: final: prev: rec {
   # inherit (pkgs-stable) linphone;
 }

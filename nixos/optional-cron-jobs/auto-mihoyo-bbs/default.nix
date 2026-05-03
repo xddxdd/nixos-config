@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 let
   py = pkgs.python3.withPackages (
     p: with p; [

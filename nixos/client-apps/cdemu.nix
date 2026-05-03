@@ -1,5 +1,8 @@
-{ pkgs,
-  lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 let
   cdemuDBusService = pkgs.stdenv.mkDerivation {
     pname = "cdemu-dbus-service";

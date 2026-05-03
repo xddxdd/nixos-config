@@ -1,4 +1,9 @@
-{ LT, config, lib, ... }:
+{
+  LT,
+  config,
+  lib,
+  ...
+}:
 {
   services.radarr = {
     enable = true;

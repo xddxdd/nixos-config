@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 {
   imports = [ ./postgresql.nix ];
 

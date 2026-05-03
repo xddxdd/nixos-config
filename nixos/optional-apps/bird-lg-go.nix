@@ -10,7 +10,8 @@ let
   lgproxyDomain = "ltnet.lantian.pub";
 in
 {
-  networking.hosts = builtins.listToAttrs (builtins.map (
+  networking.hosts = builtins.listToAttrs (
+    builtins.map (
       n:
       let
         ptrPrefix = lib.replaceStrings [ "_" ] [ "-" ] LT.hosts.${n}.city.sanitized;
@@ -25,7 +26,8 @@ in
           "local.${lgproxyDomain}"
         ];
       }
-    ) lgproxyHosts);
+    ) lgproxyHosts
+  );
 
   systemd.services.bird-lg-go = {
     description = "Bird-lg-go";

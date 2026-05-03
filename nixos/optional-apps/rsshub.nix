@@ -1,5 +1,9 @@
-{ LT, pkgs,
-  lib, ... }:
+{
+  LT,
+  pkgs,
+  lib,
+  ...
+}:
 {
   systemd.services.rsshub = {
     description = "RSSHub";

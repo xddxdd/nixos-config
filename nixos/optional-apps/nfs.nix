@@ -1,4 +1,9 @@
-{ LT, lib, config, ... }:
+{
+  LT,
+  lib,
+  config,
+  ...
+}:
 {
   boot.extraModprobeConfig = ''
     options nfs nfs4_disable_idmapping=1

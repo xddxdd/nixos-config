@@ -1,4 +1,9 @@
-{ lib, pkgs, LT, ... }:
+{
+  lib,
+  pkgs,
+  LT,
+  ...
+}:
 let
   hp-keyboard-backlight = pkgs.callPackage ../../pkgs/hp-keyboard-backlight { };
 in

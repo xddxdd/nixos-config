@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 {
   systemd.services.decluttarr = {
     wantedBy = [ "multi-user.target" ];

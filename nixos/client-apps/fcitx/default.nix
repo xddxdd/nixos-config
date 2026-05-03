@@ -22,14 +22,12 @@ let
       (old: {
         # Prebuild schema data
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.parallel ];
-        postInstall =
-          (old.postInstall or "")
-          + ''
-            for F in $out/share/rime-data/*.schema.yaml; do
-              echo "rime_deployer --compile "$F" $out/share/rime-data $out/share/rime-data $out/share/rime-data/build" >> parallel.lst
-            done
-            parallel -j$(nproc) < parallel.lst || true
-          '';
+        postInstall = (old.postInstall or "") + ''
+          for F in $out/share/rime-data/*.schema.yaml; do
+            echo "rime_deployer --compile "$F" $out/share/rime-data $out/share/rime-data $out/share/rime-data/build" >> parallel.lst
+          done
+          parallel -j$(nproc) < parallel.lst || true
+        '';
       });
 in
 {

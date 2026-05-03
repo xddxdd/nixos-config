@@ -40,10 +40,11 @@
     description = "Quassel IRC client daemon";
 
     wantedBy = [ "multi-user.target" ];
-    after =
-      [ "network.target" ]
-      ++ lib.optional config.services.postgresql.enable "postgresql.service"
-      ++ lib.optional config.services.mysql.enable "mysql.service";
+    after = [
+      "network.target"
+    ]
+    ++ lib.optional config.services.postgresql.enable "postgresql.service"
+    ++ lib.optional config.services.mysql.enable "mysql.service";
 
     environment = {
       DB_BACKEND = "PostgreSQL";

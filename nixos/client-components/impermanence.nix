@@ -1,5 +1,4 @@
-_:
-{
+_: {
   lantian.preservation.directories = [
     {
       directory = "/home/lantian";

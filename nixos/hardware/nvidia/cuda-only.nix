@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   nvidia_x11 = config.hardware.nvidia.package;
 

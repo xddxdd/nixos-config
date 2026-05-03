@@ -1,5 +1,4 @@
-_:
-{
+_: {
   system.forbiddenDependenciesRegexes = [
     # Disallow compiling firefox/thunderbird ourselves
     "firefox-[0-9]{3,9}$"

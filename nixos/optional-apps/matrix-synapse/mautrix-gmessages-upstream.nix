@@ -152,7 +152,8 @@ in
     services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
       settings.app_service_config_files = [
         registrationFile
-      ] ++ lib.optionals cfg.doublePuppet [ doublePuppetFile ];
+      ]
+      ++ lib.optionals cfg.doublePuppet [ doublePuppetFile ];
     };
     systemd.services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
       serviceConfig.SupplementaryGroups = [ "mautrix-gmessages" ];

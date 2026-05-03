@@ -8,20 +8,16 @@
 }:
 let
   gwmp-mux = pkgs.nur-xddxdd.gwmp-mux.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace src/gwmp_mux.rs \
-          --replace-fail "[0, 0, 0, 0]" "[127, 0, 0, 1]"
-      '';
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace src/gwmp_mux.rs \
+        --replace-fail "[0, 0, 0, 0]" "[127, 0, 0, 1]"
+    '';
   });
 
   sx1302Hal = pkgs.nur-xddxdd.sx1302-hal.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        find . -type f -exec sed -i 's#system("./reset_lgw.sh#system("reset_lgw.sh#g' {} \;
-      '';
+    postPatch = (old.postPatch or "") + ''
+      find . -type f -exec sed -i 's#system("./reset_lgw.sh#system("reset_lgw.sh#g' {} \;
+    '';
   });
 
   sx1302ServerConfig = {

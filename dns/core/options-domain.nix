@@ -66,7 +66,7 @@ in
         if config.enableWildcard then
           recordStrings
         else
-          builtins.filter (v: !((lib.hasInfix ''("*'' v) || (lib.hasInfix ''('*'' v))) recordStrings;
+          builtins.filter (v: !((lib.hasInfix ''("*'' v) || (lib.hasInfix "('*" v))) recordStrings;
     in
     builtins.concatStringsSep "\n" (
       [

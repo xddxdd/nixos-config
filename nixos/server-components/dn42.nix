@@ -43,7 +43,8 @@ let
     mtu + ipv4 + ipv6 + sysctl + up;
 in
 {
-  config.sops.secrets.wg-priv.sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
+  config.sops.secrets.wg-priv.sopsFile =
+    inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
 
   options.services.dn42 = lib.mkOption {
     type = lib.types.attrsOf (

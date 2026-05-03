@@ -67,37 +67,36 @@ in
           );
       };
     };
-    config =
-      {
-        # HDR on supported displays
-        vo = "gpu-next";
-        target-colorspace-hint = true;
-        gpu-api = "vulkan";
-        gpu-context = "waylandvk";
-        window-maximized = true;
+    config = {
+      # HDR on supported displays
+      vo = "gpu-next";
+      target-colorspace-hint = true;
+      gpu-api = "vulkan";
+      gpu-context = "waylandvk";
+      window-maximized = true;
 
-        # High quality scaling
-        cscale = "ewa_lanczossharp";
-        hr-seek-framedrop = false;
-        hwdec = "auto-copy";
-        hwdec-codecs = "all";
-        resume-playback = false;
-        scale = "ewa_lanczossharp";
+      # High quality scaling
+      cscale = "ewa_lanczossharp";
+      hr-seek-framedrop = false;
+      hwdec = "auto-copy";
+      hwdec-codecs = "all";
+      resume-playback = false;
+      scale = "ewa_lanczossharp";
 
-        # Prefer subtitles and audios: Chinese > English
-        alang = "chi,zho,cmn,zh,eng,en";
-        slang = "chi,zho,cmn,zh,eng,en";
-      }
-      // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
-        hwdec = "vaapi";
-        scale = "lanczos";
-        dither = false;
-        correct-downscaling = false;
-        linear-downscaling = false;
-        sigmoid-upscaling = false;
-        hdr-compute-peak = false;
-        allow-delayed-peak-detect = true;
-      });
+      # Prefer subtitles and audios: Chinese > English
+      alang = "chi,zho,cmn,zh,eng,en";
+      slang = "chi,zho,cmn,zh,eng,en";
+    }
+    // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
+      hwdec = "vaapi";
+      scale = "lanczos";
+      dither = false;
+      correct-downscaling = false;
+      linear-downscaling = false;
+      sigmoid-upscaling = false;
+      hdr-compute-peak = false;
+      allow-delayed-peak-detect = true;
+    });
     extraInput = anime4KInputs;
   };
 }

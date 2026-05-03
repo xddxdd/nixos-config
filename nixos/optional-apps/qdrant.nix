@@ -1,5 +1,4 @@
-_:
-{
+_: {
   services.qdrant = {
     enable = true;
     settings = {

@@ -1,6 +1,5 @@
 { lib, ... }:
-_:
-{
+_: {
   freeformType = lib.types.attrsOf lib.types.anything;
   options = {
     name = lib.mkOption { type = lib.types.str; };

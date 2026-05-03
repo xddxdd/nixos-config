@@ -1,5 +1,4 @@
-_:
-{
+_: {
   boot.kernelParams = [ "memhp_default_state=online" ];
 
   services.udev.extraRules = ''

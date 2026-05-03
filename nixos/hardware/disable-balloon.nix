@@ -1,5 +1,8 @@
-{ pkgs,
-  lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   boot.extraModprobeConfig = ''
     blacklist virtio_balloon

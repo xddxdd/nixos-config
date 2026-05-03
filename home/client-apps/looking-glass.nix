@@ -1,5 +1,9 @@
-{ pkgs,
-  lib, LT, ... }:
+{
+  pkgs,
+  lib,
+  LT,
+  ...
+}:
 let
   looking-glass-client-override =
     pkgs.runCommand "looking-glass-client-override" { nativeBuildInputs = with pkgs; [ makeWrapper ]; }

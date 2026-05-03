@@ -7,8 +7,7 @@
 
 let
   publicPeers = lib.importJSON ./public-peers.json;
-  regionsToServers =
-    regions: lib.concatMap (region: publicPeers."${region}" or [ ]) regions;
+  regionsToServers = regions: lib.concatMap (region: publicPeers."${region}" or [ ]) regions;
 
   regionMappings = {
     "CN" = [
