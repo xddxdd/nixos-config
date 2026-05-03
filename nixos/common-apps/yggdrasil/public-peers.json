@@ -27,6 +27,7 @@
   "finland": [
     "tls://95.217.35.92:1337",
     "tls://[2a01:4f9:2b:2d8f::2]:1337",
+    "tls://vpn2.strcat.su:8443",
     "tls://ygg-hel-1.wgos.org:45171"
   ],
   "france": [
@@ -65,6 +66,9 @@
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232",
     "tls://yg-tyo.magicum.net:32333"
+  ],
+  "latvia": [
+    "tls://vpn1.strcat.su:8443"
   ],
   "luxembourg": [
     "tls://srl.newsdeef.eu:59999"
@@ -118,6 +122,7 @@
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "taiwan": [
+    "tls://cowgl.tech:1337",
     "tls://ygg-tw.lxak.net:8880"
   ],
   "ukraine": [
