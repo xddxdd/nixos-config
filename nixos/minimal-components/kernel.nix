@@ -3,9 +3,13 @@
   lib,
   LT,
   config,
+  inputs,
   ...
 }:
 let
+  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
+  unixHashedPassword = glauthUsers.lantian.passBcrypt;
+
   myKernelPackageFor =
     kernel:
     let
@@ -206,6 +210,7 @@ in
           "-T0"
         ];
         systemd.enable = true;
+        systemd.emergencyAccess = unixHashedPassword;
       };
 
       kernel.sysctl = {
