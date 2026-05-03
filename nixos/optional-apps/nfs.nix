@@ -17,6 +17,11 @@
     '';
   };
 
+  systemd.services.nfs-server.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "5";
+  };
+
   systemd.tmpfiles.settings = lib.mkIf (lib.hasInfix "/run/nfs" config.services.nfs.server.exports) {
     nfs = {
       "/run/nfs"."d" = {
