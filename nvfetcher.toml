@@ -6,6 +6,12 @@ src.github = "BelfrySCAD/BOSL2"
 fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
 
+[dn42-certificate-authority-client]
+fetch.url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=$ver"
+src.webpage = "https://dn42.g-load.eu/about/certificate-authority/client.sh"
+src.regex = "# Version ([0-9\\.]+)"
+url.name = "client.sh"
+
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"

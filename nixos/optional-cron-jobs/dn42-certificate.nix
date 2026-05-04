@@ -6,10 +6,7 @@
   ...
 }:
 let
-  script = pkgs.fetchurl {
-    url = "https://dn42.g-load.eu/about/certificate-authority/client.sh";
-    hash = "sha256-eRxfPy2agoq0fynmA82FUTbxkHo1MVCc/bK0LjxWTIM=";
-  };
+  script = LT.sources.dn42-certificate-authority-client.src;
 
   csr = pkgs.writeText "csr.conf" ''
     [ req ]

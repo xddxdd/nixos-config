@@ -40,6 +40,21 @@
         },
         "version": "c00fcb1c0b2a7b90f9a1b5f113396fab5fa13795"
     },
+    "dn42-certificate-authority-client": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dn42-certificate-authority-client",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "client.sh",
+            "sha256": "sha256-o2Ohcu2GETpXVZpj2N9u9azXtlYgvoW8w4n2K91W3Xo=",
+            "type": "url",
+            "url": "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=1.1.0"
+        },
+        "version": "1.1.0"
+    },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
         "date": null,
