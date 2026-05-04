@@ -23,7 +23,7 @@ let
           protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
           sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
+          sshUser = "nix-builder";
           supportedFeatures = [ ];
           mandatoryFeatures = [ ];
         }
@@ -36,7 +36,7 @@ let
           protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
           sshKey = "/home/lantian/.ssh/id_ed25519";
-          sshUser = "root";
+          sshUser = "nix-builder";
           supportedFeatures = [ "big-parallel" ];
           mandatoryFeatures = [ "big-parallel" ];
         }
