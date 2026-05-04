@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   ...
 }:
@@ -12,6 +11,7 @@
     ./shares.nix
 
     ../../nixos/client-components/cups.nix
+    ../../nixos/client-components/multicast-dns.nix
 
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
@@ -72,7 +72,6 @@
     ];
   };
 
-  services.avahi.enable = lib.mkForce true;
   services.printing = {
     browsing = true;
     defaultShared = true;
