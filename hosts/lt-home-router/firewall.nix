@@ -122,12 +122,16 @@ in
       fib daddr type local tcp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
       fib daddr type local udp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
       fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1*" dnat ip to 192.168.1.10
+      fib daddr type local tcp dport { 80, 443, 2222 } iifname "henet" dnat ip6 to [2001:470:e997:1::10]
       fib daddr type local udp dport 22547 iifname "eth1*" dnat ip to 192.168.1.10
+      fib daddr type local udp dport 22547 iifname "henet" dnat ip6 to [2001:470:e997:1::10]
+
       # Hairpin NAT
       fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
 
       # Redirect to lt-home-builder
       fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.1.12:2222
+      fib daddr type local tcp dport 2223 iifname "henet" dnat ip6 to [2001:470:e997:1::12]:2222
     }
 
     chain NAT_INPUT {
