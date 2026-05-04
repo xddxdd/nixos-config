@@ -8,7 +8,7 @@
 let
   script = pkgs.fetchurl {
     url = "https://dn42.g-load.eu/about/certificate-authority/client.sh";
-    hash = "sha256-eRxfPy2agoq0fynmA82FUTbxkHo1MVCc/bK0LjxWTIM=";
+    hash = "sha256-o2Ohcu2GETpXVZpj2N9u9azXtlYgvoW8w4n2K91W3Xo=";
   };
 
   csr = pkgs.writeText "csr.conf" ''
