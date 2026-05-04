@@ -75,8 +75,6 @@ let
     445
     # CUPS
     631
-    # mDNS
-    5353
     # Rsync
     87
   ]

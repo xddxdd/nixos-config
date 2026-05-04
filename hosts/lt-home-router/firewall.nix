@@ -83,6 +83,10 @@ in
 
       # Block IPv6 from Quantum Fiber
       oifname "eth1*" meta nfproto ipv6 drop
+
+      # Block mDNS on WAN
+      oifname "eth1*" udp sport 5353 reject
+      oifname "eth1*" udp dport 5353 reject
     }
 
     chain NAT_PREROUTING {
