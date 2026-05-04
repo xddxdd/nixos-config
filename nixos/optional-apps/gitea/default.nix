@@ -24,7 +24,7 @@ let
   };
 in
 {
-  imports = [ ./mysql.nix ];
+  imports = [ ../mysql.nix ];
 
   sops.secrets.gitea-storage-access-key = {
     sopsFile = inputs.secrets + "/gitea.yaml";
@@ -165,10 +165,7 @@ in
       };
       "/backup/dn42-registry/" = emailReplaceArgs;
       "/backup/neonetwork-registry/" = emailReplaceArgs;
-      "= /robots.txt".alias = pkgs.fetchurl {
-        url = "https://gitea.com/robots.txt";
-        sha256 = "1kby4pdvx9dvmvv81y6pi90rza9kvdqml7lkmk8ppl6l8l5ib4a5";
-      };
+      "= /robots.txt".alias = ./robots.txt;
       "= /user/login".return = "307 /user/oauth2/Dex";
     };
 

@@ -1,0 +1,91 @@
+User-agent: *
+Disallow: /api/*
+Disallow: /avatars
+Disallow: /user/*
+Disallow: /*/*/src/commit/*
+Disallow: /*/*/commit/*
+Disallow: /*/*/*/refs/*
+Disallow: /*/*/*/star
+Disallow: /*/*/*/watch
+Disallow: /*/*/labels
+Disallow: /*/*/activity/*
+Disallow: /vendor/*
+Disallow: /swagger.*.json
+
+# Language spam
+Disallow: /*?lang=
+
+# from Github, to be cleaned
+Allow: /*/*/tree/master
+Allow: /*/*/blob/master
+Disallow: /*/*/pulse
+Disallow: /*/*/tree/*
+Disallow: /*/*/blob/*
+Disallow: /*/*/wiki/*/*
+Disallow: /gist/*/*/*
+Disallow: /oembed
+Disallow: /*/forks
+Disallow: /*/stars
+Disallow: /*/download
+Disallow: /*/revisions
+Disallow: /*/*/issues/new
+Disallow: /*/*/issues/search
+Disallow: /*/*/commits/*/*
+Disallow: /*/*/commits/*?author
+Disallow: /*/*/commits/*?path
+Disallow: /*/*/branches
+Disallow: /*/*/tags
+Disallow: /*/*/contributors
+Disallow: /*/*/comments
+Disallow: /*/*/stargazers
+Disallow: /*/*/search
+Disallow: /*/tarball/
+Disallow: /*/zipball/
+Disallow: /*/*/archive/
+Disallow: /raw/*
+Disallow: /*/followers
+Disallow: /*/following
+Disallow: /stars/*
+Disallow: /*/blame/
+Disallow: /*/watchers
+Disallow: /*/network
+Disallow: /*/graphs
+Disallow: /*/raw/
+Disallow: /*/compare/
+Disallow: /*/cache/
+Disallow: /*/*/blame/
+Disallow: /*/*/watchers
+Disallow: /*/*/network
+Disallow: /*/*/graphs
+Disallow: /*/*/raw/
+Disallow: /*/*/compare/
+Disallow: /*/*/cache/
+Disallow: /.git/
+Disallow: /*/.git/
+Disallow: /*.git$
+Disallow: /*/sitemap.xml
+Disallow: /search/advanced
+Disallow: /search
+Disallow: /*q=
+Disallow: /*.atom
+
+Crawl-delay: 2
+
+# temporarily disable these bots
+# contact support if these rules negatively impact you
+User-agent: OAI-SearchBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: PerplexityBot
+Disallow: /
+User-agent: anthropic-ai
+Disallow: /
+User-agent: Claude-Web
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: GPTBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /

@@ -18,8 +18,8 @@
     ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/dex.nix
     ../../nixos/optional-apps/flapalerted.nix
+    ../../nixos/optional-apps/gitea
     ../../nixos/optional-apps/gitea-actions.nix
-    ../../nixos/optional-apps/gitea.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/lemmy.nix
