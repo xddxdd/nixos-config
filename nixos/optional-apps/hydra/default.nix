@@ -53,8 +53,8 @@ in
     exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
   '';
   environment.etc."hydra/machines".text = ''
+    ssh://root@eu.nixbuild.net armv7l-linux,aarch64-linux ${config.sops.secrets.hydra-ssh-privkey.path} 100 100 benchmark,big-parallel - -
     localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
-    ssh://root@eu.nixbuild.net aarch64-linux ${config.sops.secrets.hydra-ssh-privkey.path} 100 100 benchmark,big-parallel - -
   '';
 
   services.hydra = {

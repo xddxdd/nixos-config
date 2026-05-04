@@ -44,7 +44,10 @@ let
 
   nixBuildNet = {
     hostName = "eu.nixbuild.net";
-    systems = [ "aarch64-linux" ];
+    systems = [
+      "armv7l-linux"
+      "aarch64-linux"
+    ];
     sshKey = "/home/lantian/.ssh/id_ed25519";
     sshUser = "root";
     maxJobs = 100;
