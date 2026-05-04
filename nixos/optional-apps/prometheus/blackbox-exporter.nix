@@ -96,7 +96,20 @@ in
           https_2xx = {
             prober = "http";
             timeout = "15s";
-            http.fail_if_not_ssl = true;
+            http = {
+              fail_if_not_ssl = true;
+              valid_status_codes = [
+                200
+                204
+                206
+                301
+                302
+                304
+                307
+                308
+              ];
+              follow_redirects = false;
+            };
           };
           dns = {
             prober = "dns";
