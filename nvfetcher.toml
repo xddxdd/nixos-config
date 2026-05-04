@@ -32,6 +32,10 @@ src.git = "https://github.com/wis/mpvSockets.git"
 fetch.github = "xddxdd/n8n-openai-bridge"
 src.git = "https://github.com/xddxdd/n8n-openai-bridge.git"
 
+[nmea-static-gps-server]
+fetch.github = "evert/nmea-static-gps-server"
+src.git = "https://github.com/evert/nmea-static-gps-server.git"
+
 [nvidia-patch]
 fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/keylase/nvidia-patch.git"

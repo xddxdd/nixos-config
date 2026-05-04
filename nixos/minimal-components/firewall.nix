@@ -73,10 +73,8 @@ let
     138
     139
     445
-    # CUPS
-    631
-    # Rsync
-    87
+    LT.port.CUPS
+    LT.port.Rsync
   ]
   ++ lib.optionals (config.networking.hostName != "pve-epyc") [
     111

@@ -153,6 +153,27 @@
         },
         "version": "46df0398f3397fa240619f5d91db98351b1ead5f"
     },
+    "nmea-static-gps-server": {
+        "cargoLock": null,
+        "date": "2026-05-03",
+        "extract": null,
+        "name": "nmea-static-gps-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "evert",
+            "repo": "nmea-static-gps-server",
+            "rev": "cb2e67796026a7250c91e89834ece3618500954b",
+            "sha256": "sha256-vNiVapM5a7r3enLXpME5Bf3gkfmEFK4RiynzBqS0X7E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cb2e67796026a7250c91e89834ece3618500954b"
+    },
     "nvidia-patch": {
         "cargoLock": null,
         "date": "2026-04-30",

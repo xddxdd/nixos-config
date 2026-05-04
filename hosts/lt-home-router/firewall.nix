@@ -20,6 +20,18 @@ let
       elements = { ${builtins.concatStringsSep ", " value} }
     }
   '';
+
+  publicFirewalledPorts = [
+    # Samba
+    137
+    138
+    139
+    445
+    LT.port.CUPS
+    LT.port.Rsync
+    LT.port.NMEA
+    LT.port.mDNS
+  ];
 in
 {
   networking.nftables.tables.lantian.content = lib.mkForce ''
@@ -36,6 +48,8 @@ in
 
       # Block IPv6 from Quantum Fiber
       iifname "eth1*" meta nfproto ipv6 drop
+
+      iifname "eth1*" jump PUBLIC_INPUT
     }
 
     chain FILTER_FORWARD {
@@ -85,8 +99,7 @@ in
       oifname "eth1*" meta nfproto ipv6 drop
 
       # Block mDNS on WAN
-      oifname "eth1*" udp sport 5353 reject
-      oifname "eth1*" udp dport 5353 reject
+      fib saddr type local oifname "eth1*" jump PUBLIC_OUTPUT
     }
 
     chain NAT_PREROUTING {
@@ -138,6 +151,34 @@ in
       meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade
 
       oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48
+    }
+
+    set PUBLIC_FIREWALLED_PORTS {
+      type inet_service
+      flags constant
+      elements = {
+        ${lib.concatMapStringsSep "," builtins.toString publicFirewalledPorts}
+      }
+    }
+
+    set PUBLIC_BLOCK_OUTBOUND_SRC_PORTS {
+      type inet_service
+      flags constant
+      elements = {
+        5353
+      }
+    }
+
+    chain PUBLIC_INPUT {
+      tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
+      udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
+      return
+    }
+
+    chain PUBLIC_OUTPUT {
+      tcp sport @PUBLIC_FIREWALLED_PORTS drop
+      udp sport @PUBLIC_FIREWALLED_PORTS drop
+      return
     }
 
     # IP Sets

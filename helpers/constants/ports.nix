@@ -11,6 +11,7 @@ rec {
     Hack3ricFlow = 180;
     LDAP = 389;
     HTTPS = 443;
+    CUPS = 631;
     LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
@@ -25,6 +26,7 @@ rec {
     Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
     IPerf = 5201;
+    mDNS = 5353;
     Bazarr = 6767;
     Radarr = 7878;
     ArchiveTeam = 8001;
@@ -58,6 +60,7 @@ rec {
     WGMesh.End = 10255;
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
+    NMEA = 13110;
     FlapAlerted.BGP = 13179;
     FlareSolverr = 13191;
     OpenVPN.GameAccel = 13194;

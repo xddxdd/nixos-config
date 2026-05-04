@@ -97,6 +97,18 @@
     };
     date = "2026-04-27";
   };
+  nmea-static-gps-server = {
+    pname = "nmea-static-gps-server";
+    version = "cb2e67796026a7250c91e89834ece3618500954b";
+    src = fetchFromGitHub {
+      owner = "evert";
+      repo = "nmea-static-gps-server";
+      rev = "cb2e67796026a7250c91e89834ece3618500954b";
+      fetchSubmodules = false;
+      sha256 = "sha256-vNiVapM5a7r3enLXpME5Bf3gkfmEFK4RiynzBqS0X7E=";
+    };
+    date = "2026-05-03";
+  };
   nvidia-patch = {
     pname = "nvidia-patch";
     version = "8fc8830e3dd262e42a7456809c73d88adab6e53c";

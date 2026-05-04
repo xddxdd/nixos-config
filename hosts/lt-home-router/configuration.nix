@@ -13,6 +13,7 @@
     ../../nixos/common-apps/coredns.nix
     ../../nixos/client-components/multicast-dns.nix
     ../../nixos/optional-apps/miniupnpd.nix
+    ../../nixos/optional-apps/nmea-static-gps-server.nix
     ../../nixos/optional-apps/ncps-client.nix
   ];
 
