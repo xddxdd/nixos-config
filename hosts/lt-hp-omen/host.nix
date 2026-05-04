@@ -6,7 +6,7 @@
     # cuda
   ];
   cpuThreads = 16;
-  city = geo.cities."US Seattle";
+  city = geo.cities."US Bellevue";
   hostname = "127.0.0.1";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZp2mN9BALoEjCyvAK27k5AZwOmQqU6ZWi+SXvYezBe";
   zerotier = "9dfea6fa27";

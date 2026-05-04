@@ -5,7 +5,7 @@
     client
   ];
   cpuThreads = 4;
-  city = geo.cities."US Seattle";
+  city = geo.cities."US Bellevue";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjBBTtlrrqBSfPS+AMrmKIXqJ0Hlf0isl8tQkAqnNg8";
   zerotier = "b82755cf85";
   firewalled = true;

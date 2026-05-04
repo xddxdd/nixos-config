@@ -2,7 +2,7 @@
 {
   index = 107;
   tags = with tags; [ ];
-  city = geo.cities."US Seattle";
+  city = geo.cities."US Bellevue";
   cpuThreads = 8;
   hostname = "192.168.0.5";
   manualDeploy = true;

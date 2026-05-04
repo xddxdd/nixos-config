@@ -94,5 +94,13 @@
     "lat": "41.26194",
     "lng": "-95.86083",
     "name": "Council Bluffs"
+  },
+  {
+    "admin1": "WA",
+    "admin2": "033",
+    "country": "US",
+    "lat": "47.61038",
+    "lng": "-122.20068",
+    "name": "Bellevue"
   }
 ]

@@ -6,7 +6,7 @@
     nix-builder
   ];
   cpuThreads = 64;
-  city = geo.cities."US Seattle";
+  city = geo.cities."US Bellevue";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMi22OSbQGOsXgYWtfMTkHB9IS1y0EKDfrQRqvafAeKN";
   zerotier = "3030836111";
   firewalled = true;
