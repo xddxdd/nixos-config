@@ -13,7 +13,7 @@
       domain = true;
       hinfo = !(LT.this.hasTag LT.tags.client);
       userServices = true;
-      workstation = true;
+      workstation = !(LT.this.hasTag LT.tags.client);
     };
   };
 }
