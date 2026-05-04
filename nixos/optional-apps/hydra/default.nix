@@ -35,6 +35,12 @@ in
     sopsFile = inputs.secrets + "/common/attic.yaml";
     mode = "0444";
   };
+  sops.secrets.hydra-ssh-privkey = {
+    sopsFile = inputs.secrets + "/hydra.yaml";
+    mode = "0440";
+    owner = "hydra";
+    group = "hydra";
+  };
 
   # Force use original nix for Hydra hosts
   nix.package = lib.mkForce pkgs.nixVersions.latest;
@@ -48,6 +54,7 @@ in
   '';
   environment.etc."hydra/machines".text = ''
     localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
+    ssh://root@eu.nixbuild.net aarch64-linux ${config.sops.secrets.hydra-ssh-privkey.path} 100 100 benchmark,big-parallel - -
   '';
 
   services.hydra = {
