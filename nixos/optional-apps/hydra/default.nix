@@ -7,10 +7,6 @@
   ...
 }:
 let
-  platforms = builtins.concatStringsSep "," (
-    lib.uniqueStrings (config.nix.settings.extra-platforms ++ [ pkgs.stdenv.hostPlatform.system ])
-  );
-
   py = pkgs.python3.withPackages (
     ps: with ps; [
       pydantic
@@ -25,6 +21,7 @@ let
 in
 {
   imports = [
+    ../nix-distributed.nix
     ../postgresql.nix
     ./cancel-old-builds.nix
     ./clear-build-failures.nix
@@ -42,6 +39,8 @@ in
     group = "hydra";
   };
 
+  lantian.nix-distributed.sshKeyPath = config.sops.secrets.hydra-ssh-privkey.path;
+
   # Force use original nix for Hydra hosts
   nix.package = lib.mkForce pkgs.nixVersions.latest;
 
@@ -51,10 +50,6 @@ in
 
     jq . "$HYDRA_JSON"
     exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
-  '';
-  environment.etc."hydra/machines".text = ''
-    ssh://root@eu.nixbuild.net armv7l-linux,aarch64-linux ${config.sops.secrets.hydra-ssh-privkey.path} 100 100 benchmark,big-parallel - -
-    localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
   '';
 
   services.hydra = {
@@ -67,7 +62,7 @@ in
     listenHost = LT.this.ltnet.IPv4;
     notificationSender = "postmaster@lantian.pub";
     port = LT.port.Hydra;
-    buildMachinesFiles = [ "/etc/hydra/machines" ];
+    buildMachinesFiles = [ "/etc/nix/machines-with-localhost" ];
     useSubstitutes = true;
 
     extraConfig = ''

@@ -6,6 +6,8 @@
   ...
 }:
 let
+  cfg = config.lantian.nix-distributed;
+
   mkBuildMachine =
     n: v:
     let
@@ -22,7 +24,7 @@ let
           maxJobs = v.cpuThreads;
           protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
           supportedFeatures = [ ];
           mandatoryFeatures = [ ];
@@ -35,7 +37,7 @@ let
           maxJobs = 1;
           protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
-          sshKey = "/home/lantian/.ssh/id_ed25519";
+          sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
           supportedFeatures = [ "big-parallel" ];
           mandatoryFeatures = [ "big-parallel" ];
@@ -48,7 +50,7 @@ let
       "armv7l-linux"
       "aarch64-linux"
     ];
-    sshKey = "/home/lantian/.ssh/id_ed25519";
+    sshKey = cfg.sshKeyPath;
     sshUser = "root";
     maxJobs = 100;
     speedFactor = 100;
@@ -57,27 +59,42 @@ let
       "big-parallel"
     ];
   };
+
+  platforms = builtins.concatStringsSep "," (
+    lib.uniqueStrings (config.nix.settings.extra-platforms ++ [ pkgs.stdenv.hostPlatform.system ])
+  );
 in
 {
-  nix = {
-    distributedBuilds = true;
-    buildMachines =
-      lib.flatten (
-        lib.filter (v: v != null) (
-          lib.mapAttrsToList mkBuildMachine (
-            lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
-          )
-        )
-      )
-      ++ [ nixBuildNet ];
+  options.lantian.nix-distributed.sshKeyPath = lib.mkOption {
+    type = lib.types.str;
+    default = "/home/lantian/.ssh/id_ed25519";
   };
 
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "nix-remote-build-off" ''
-      sudo rm -f /etc/nix/machines
-    '')
-    (pkgs.writeShellScriptBin "nix-remote-build-on" ''
-      sudo ln -s ${config.environment.etc."nix/machines".source} /etc/nix/machines
-    '')
-  ];
+  config = {
+    nix = {
+      distributedBuilds = true;
+      buildMachines =
+        lib.flatten (
+          lib.filter (v: v != null) (
+            lib.mapAttrsToList mkBuildMachine (
+              lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+            )
+          )
+        )
+        ++ [ nixBuildNet ];
+    };
+
+    environment.etc."nix/machines-with-localhost".text = config.environment.etc."nix/machines".text + ''
+      localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
+    '';
+
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "nix-remote-build-off" ''
+        sudo rm -f /etc/nix/machines
+      '')
+      (pkgs.writeShellScriptBin "nix-remote-build-on" ''
+        sudo ln -s ${config.environment.etc."nix/machines".source} /etc/nix/machines
+      '')
+    ];
+  };
 }
