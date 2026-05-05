@@ -25,8 +25,6 @@ let
   });
 in
 {
-  imports = [ ./oh-my-openagent.nix ];
-
   programs.mcp = {
     enable = true;
     servers = osConfig.lantian.mcp.mcpServers or { };
@@ -43,7 +41,6 @@ in
     enableMcpIntegration = true;
     package = pkgs.llm-agents.opencode;
     settings = {
-      plugin = [ "oh-my-openagent@latest" ];
       autoupdate = false;
     };
   };
