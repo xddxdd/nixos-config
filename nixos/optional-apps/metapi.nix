@@ -5,7 +5,14 @@
   ...
 }:
 {
-  sops.secrets.metapi-env.sopsFile = inputs.secrets + "/metapi.yaml";
+  sops.secrets.metapi-admin-key = {
+    sopsFile = inputs.secrets + "/uni-api/keys.yaml";
+    key = "uni-api-admin-api-key";
+  };
+  sops.templates.metapi-env.content = ''
+    AUTH_TOKEN=${config.sops.placeholder.default-pw}
+    PROXY_TOKEN=${config.sops.placeholder.metapi-admin-key}
+  '';
 
   virtualisation.oci-containers.containers.metapi = {
     image = "ghcr.io/cita-777/metapi:latest";
@@ -23,7 +30,7 @@
       DATA_DIR = "/app/data";
       TZ = config.time.timeZone;
     };
-    environmentFiles = [ config.sops.secrets.metapi-env.path ];
+    environmentFiles = [ config.sops.templates.metapi-env.path ];
   };
 
   systemd.tmpfiles.settings = {
