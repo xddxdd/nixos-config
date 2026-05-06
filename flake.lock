@@ -212,11 +212,11 @@
     "cachyos-kernel": {
       "flake": false,
       "locked": {
-        "lastModified": 1777886926,
-        "narHash": "sha256-rcoMKM3n/WIxpt6XKLWublUrAf23RCC89TFqfFNKqbE=",
+        "lastModified": 1776881435,
+        "narHash": "sha256-j8AobLjMzeKJugseObrVC4O5k7/aZCWoft2sCS3jWYs=",
         "owner": "CachyOS",
         "repo": "linux-cachyos",
-        "rev": "2de2942338b54e89531e7a2c38b3b9f29d93df52",
+        "rev": "1c61dfd1c3ad7762faa0db8b06c6af6c59cc4340",
         "type": "github"
       },
       "original": {
@@ -226,22 +226,6 @@
       }
     },
     "cachyos-kernel-patches": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1777876120,
-        "narHash": "sha256-fdFgVCoua3rsQyyHkgxcnwi0hUktR8UtcI/suS8jcbg=",
-        "owner": "CachyOS",
-        "repo": "kernel-patches",
-        "rev": "e80ce8172953b8c199daf6a2850974bb12731ae9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "CachyOS",
-        "repo": "kernel-patches",
-        "type": "github"
-      }
-    },
-    "cachyos-kernel-patches_2": {
       "flake": false,
       "locked": {
         "lastModified": 1777002108,
@@ -254,22 +238,6 @@
       "original": {
         "owner": "CachyOS",
         "repo": "kernel-patches",
-        "type": "github"
-      }
-    },
-    "cachyos-kernel_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776881435,
-        "narHash": "sha256-j8AobLjMzeKJugseObrVC4O5k7/aZCWoft2sCS3jWYs=",
-        "owner": "CachyOS",
-        "repo": "linux-cachyos",
-        "rev": "1c61dfd1c3ad7762faa0db8b06c6af6c59cc4340",
-        "type": "github"
-      },
-      "original": {
-        "owner": "CachyOS",
-        "repo": "linux-cachyos",
         "type": "github"
       }
     },
@@ -522,22 +490,6 @@
         "type": "github"
       }
     },
-    "flake-compat_5": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767039857,
-        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
-        "owner": "NixOS",
-        "repo": "flake-compat",
-        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -548,24 +500,6 @@
         "owner": "hercules-ci",
         "repo": "flake-parts",
         "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_2": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_2"
-      },
-      "locked": {
-        "lastModified": 1777988971,
-        "narHash": "sha256-qIoWPDs+0/8JecyYgE3gpKQxW/4bLW/gp45vow9ioCQ=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "0678d8986be1661af6bb555f3489f2fdfc31f6ff",
         "type": "github"
       },
       "original": {
@@ -647,7 +581,7 @@
     },
     "git-hooks": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
         "nixpkgs": [
           "nix-gaming",
@@ -894,35 +828,12 @@
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
         "cachyos-kernel-patches": "cachyos-kernel-patches",
-        "flake-compat": "flake-compat_2",
-        "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1778007484,
-        "narHash": "sha256-Cja25jpugHHkNeilyzPaESAv7q+DjbyOPrN3o3a93z8=",
-        "owner": "xddxdd",
-        "repo": "nix-cachyos-kernel",
-        "rev": "108bde94436f76f0ef63ef03ce103281da35197a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xddxdd",
-        "ref": "release",
-        "repo": "nix-cachyos-kernel",
-        "type": "github"
-      }
-    },
-    "nix-cachyos-kernel_2": {
-      "inputs": {
-        "cachyos-kernel": "cachyos-kernel_2",
-        "cachyos-kernel-patches": "cachyos-kernel-patches_2",
-        "flake-compat": "flake-compat_4",
+        "flake-compat": "flake-compat_3",
         "flake-parts": [
           "nur-xddxdd",
           "flake-parts"
         ],
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1777227006,
@@ -1171,21 +1082,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-lib_2": {
-      "locked": {
-        "lastModified": 1777168982,
-        "narHash": "sha256-GOkGPcboWE9BmGCRMLX3worL4EMnsnG8MyKmXNeYuhQ=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "f5901329dade4a6ea039af1433fb087bd9c1fe14",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
     "nixpkgs-libvncserver": {
       "locked": {
         "lastModified": 1750111231,
@@ -1252,22 +1148,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1777973815,
-        "narHash": "sha256-MrCLnhvI7jvZZGqZIX2WcehUQvF8BAVSEm++0BMYBrE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "fdea16057723a4957f29571da8a38cabd255c5fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1776877367,
         "narHash": "sha256-EHq1/OX139R1RvBzOJ0aMRT3xnWyqtHBRUBuO1gFzjI=",
         "owner": "NixOS",
@@ -1282,7 +1162,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1777187199,
         "narHash": "sha256-RJlLGrl+xHndIVK1NbPkIsItePNB3X4PIe8UTk3AHnw=",
@@ -1327,7 +1207,7 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "nix-cachyos-kernel": "nix-cachyos-kernel_2",
+        "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-index-database": [
           "nix-index-database"
         ],
@@ -1400,7 +1280,7 @@
     },
     "pre-commit-hooks-nix": {
       "inputs": {
-        "flake-compat": "flake-compat_5",
+        "flake-compat": "flake-compat_4",
         "gitignore": "gitignore_2",
         "nixpkgs": [
           "nur-xddxdd",
@@ -1480,13 +1360,12 @@
         "llm-agents": "llm-agents",
         "nix-alien": "nix-alien",
         "nix-cache-proxy": "nix-cache-proxy",
-        "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",
         "nixcord": "nixcord",
         "nixfmt-rs": "nixfmt-rs",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",

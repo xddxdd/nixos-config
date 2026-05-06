@@ -90,7 +90,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
