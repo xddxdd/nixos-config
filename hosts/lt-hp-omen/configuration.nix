@@ -2,6 +2,7 @@
   lib,
   LT,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -35,6 +36,8 @@
 
   # Try fix qtwebengine issue
   hardware.nvidia.open = lib.mkForce false;
+
+  lantian.kernel = inputs.nix-cachyos-kernel.packages.x86_64-linux.linux-cachyos-latest-lto;
 
   lantian.backup = {
     enable = true;

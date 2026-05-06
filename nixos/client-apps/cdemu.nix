@@ -19,7 +19,7 @@ let
     '';
   };
 in
-{
+lib.mkIf false {
   programs.cdemu = {
     enable = true;
     group = "wheel";
