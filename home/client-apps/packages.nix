@@ -147,6 +147,7 @@ in
         xca
         xdg-ninja
         yubioath-flutter
+        z-library-desktop
         zoom-us
         # keep-sorted end
       ]
