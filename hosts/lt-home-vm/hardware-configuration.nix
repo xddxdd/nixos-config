@@ -17,7 +17,7 @@
   boot.loader.grub.device = "/dev/vda";
 
   fileSystems."/nix" = {
-    device = "192.168.0.2:/mnt/nvme/virtiofs/nixos-home-vm";
+    device = "192.168.1.2:/mnt/nvme/virtiofs/nixos-home-vm";
     fsType = "nfs";
     options = [
       "_netdev"
@@ -31,7 +31,7 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "192.168.0.2:/mnt/storage";
+    device = "192.168.1.2:/mnt/storage";
     fsType = "nfs";
     options = [
       "_netdev"
