@@ -35,7 +35,7 @@
   };
 
   services.nfs.server = {
-    hostName = lib.mkForce "192.168.0.2";
+    hostName = lib.mkForce "0.0.0.0";
     exports = lib.mkForce ''
       /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check,no_root_squash)
       /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check,no_root_squash)
@@ -61,11 +61,32 @@
     "192.168.0.2" = [ config.networking.hostName ];
   };
 
+  systemd.network.netdevs."br0.1" = {
+    netdevConfig = {
+      Kind = "vlan";
+      Name = "br0.1";
+    };
+    vlanConfig.Id = 1;
+  };
+
   systemd.network.networks.br0 = {
     address = [ "192.168.0.2/24" ];
     gateway = [ "192.168.0.1" ];
     matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
+    networkConfig.IPv6AcceptRA = "yes";
+    ipv6AcceptRAConfig = {
+      Token = "::2";
+      DHCPv6Client = "no";
+    };
+    networkConfig.VLAN = [ "br0.1" ];
+  };
+
+  systemd.network.networks."br0.1" = {
+    address = [ "192.168.1.2/24" ];
+    matchConfig.Name = "br0.1";
+    linkConfig.MTUBytes = "9000";
+    networkConfig.IPv6AcceptRA = "no";
   };
 
   services.beesd.filesystems.nvme = {
