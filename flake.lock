@@ -775,6 +775,26 @@
         "type": "github"
       }
     },
+    "markdown-apa7th-docx": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778137662,
+        "narHash": "sha256-cf1GewPzjiFOk5Ro+3afSjY35Krr39kLlPPOYi3xYsY=",
+        "owner": "xddxdd",
+        "repo": "markdown-apa7th-docx",
+        "rev": "ffdb1a099c4f394fa7bc5b753cfea148c57ea542",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "markdown-apa7th-docx",
+        "type": "github"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-compat": [
@@ -1358,6 +1378,7 @@
         "home-manager": "home-manager",
         "honkai-railway-grub-theme": "honkai-railway-grub-theme",
         "llm-agents": "llm-agents",
+        "markdown-apa7th-docx": "markdown-apa7th-docx",
         "nix-alien": "nix-alien",
         "nix-cache-proxy": "nix-cache-proxy",
         "nix-gaming": "nix-gaming",

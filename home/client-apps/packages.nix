@@ -82,6 +82,7 @@ in
         # gopher
         imagemagick
         immich-cli
+        inputs.markdown-apa7th-docx.packages."${pkgs.system}".default
         inputs.picoforge.packages."${pkgs.system}".picoforge
         jamesdsp
         jamesdsp-toggle

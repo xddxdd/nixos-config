@@ -79,6 +79,10 @@
       inputs.systems.follows = "systems";
       inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };
+    markdown-apa7th-docx = {
+      url = "github:xddxdd/markdown-apa7th-docx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.flake-compat.follows = "flake-compat";
