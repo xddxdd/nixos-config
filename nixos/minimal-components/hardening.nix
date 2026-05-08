@@ -1,9 +1,23 @@
 {
   lib,
+  pkgs,
   ...
 }:
 # Hardening adapted from https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix
 {
+  # Blacklist kernel modules vulnerable to Dirty Frag (CVE-2025-XXXX)
+  # https://github.com/V4bel/dirtyfrag
+  # Using extraModprobeConfig instead of blacklistedKernelModules to also
+  # override the install command, preventing accidental/manual loading.
+  boot.extraModprobeConfig = ''
+    blacklist esp4
+    install esp4 ${lib.getExe' pkgs.coreutils "true"}
+    blacklist esp6
+    install esp6 ${lib.getExe' pkgs.coreutils "true"}
+    blacklist rxrpc
+    install rxrpc ${lib.getExe' pkgs.coreutils "true"}
+  '';
+
   boot.specialFileSystems = {
     "/dev/shm".options = [ "noexec" ];
     "/run".options = [ "noexec" ];
