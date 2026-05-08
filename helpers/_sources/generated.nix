@@ -58,17 +58,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "b9765e861d66bb7f29d28ec1e6753c28541bc8c5";
+    version = "0c66d0a318b2eeee1e04d005ba0f7df7121ecdf4";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "b9765e861d66bb7f29d28ec1e6753c28541bc8c5";
+      rev = "0c66d0a318b2eeee1e04d005ba0f7df7121ecdf4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Sbtwaoihk/4rKGc9/W9to9tSbqkSBPsFHU7u6oZGp6E=";
+      sha256 = "sha256-Af9suJv5jwdIVWqVyRfyTAUTqDe1EP9iiFQfNzdQQZw=";
     };
-    date = "2026-04-27";
+    date = "2026-05-07";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
