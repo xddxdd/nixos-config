@@ -42,6 +42,21 @@ in
     package = pkgs.llm-agents.opencode;
     settings = {
       autoupdate = false;
+      permission = {
+        bash = "allow";
+        edit = "allow";
+        write = "allow";
+        read = "allow";
+        grep = "allow";
+        glob = "allow";
+        lsp = "allow";
+        apply_patch = "allow";
+        skill = "allow";
+        todowrite = "allow";
+        webfetch = "allow";
+        websearch = "allow";
+        question = "allow";
+      };
     };
   };
   xdg.configFile."opencode/opencode.json".force = true;
