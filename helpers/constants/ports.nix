@@ -100,6 +100,7 @@ rec {
     SakuraLLM = 13810;
     Metapi = 13811;
     HomepageDashboard = 13812;
+    Pyison = 13813;
     Syncthing = 13834;
     Usque = 13840;
     Ncps = 13851;

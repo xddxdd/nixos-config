@@ -21,6 +21,7 @@ _: [
   "letsencrypt-ssl.lantian.pub"
   "letsencrypt-test-ssl.lantian.pub"
   "ltn.pw"
+  "posts.lantian.pub"
   "sip.lantian.pub"
   "stage1.whois.local"
   "stage2.whois.local"
