@@ -60,7 +60,6 @@ let
               && ((v.overrideAttrs or null) != null)
             then
               v.overrideAttrs (old: {
-                makeFlags = (old.makeFlags or [ ]) ++ kernelPackages_.kernel.commonMakeFlags;
                 postPatch = (if (old.postPatch or null) == null then "" else old.postPatch) + ''
                   if [ -f Makefile ]; then
                     substituteInPlace Makefile --replace "gcc" "cc"

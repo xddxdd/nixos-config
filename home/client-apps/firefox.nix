@@ -112,7 +112,6 @@ in
     betterfox = {
       enable = true;
       profiles.lantian.settings = {
-        fastfox.enable = true;
         securefox.enable = true;
         peskyfox.enable = true;
         peskyfox.ai.enable = false;

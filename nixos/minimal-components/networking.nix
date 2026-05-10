@@ -8,6 +8,10 @@ let
     "8.8.8.8"
     "2001:4860:4860::8888"
   ];
+
+  cfg = config.networking;
+
+  staticResolvConf = !cfg.networkmanager.enable;
 in
 {
   boot.extraModprobeConfig = ''
@@ -124,21 +128,18 @@ in
   systemd.services.systemd-networkd.stopIfChanged = false;
   systemd.services.systemd-resolved.stopIfChanged = false;
 
-  environment.etc."resolv.conf" =
-    let
-      cfg = config.networking;
-    in
-    lib.mkIf (!cfg.networkmanager.enable) {
-      text = ''
-        ${lib.optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
-          domain ${cfg.domain}
-        ''}
-        ${lib.optionalString (cfg.search != [ ]) ("search " + lib.concatStringsSep " " cfg.search)}
-        ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
-          nameserver ${ns}
-        '')}
-      '';
-    };
+  networking.resolvconf.enable = !staticResolvConf;
+  environment.etc."resolv.conf" = lib.mkIf staticResolvConf {
+    text = ''
+      ${lib.optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
+        domain ${cfg.domain}
+      ''}
+      ${lib.optionalString (cfg.search != [ ]) ("search " + lib.concatStringsSep " " cfg.search)}
+      ${lib.flip lib.concatMapStrings cfg.nameservers (ns: ''
+        nameserver ${ns}
+      '')}
+    '';
+  };
 
   # Support network namespaces
   systemd.tmpfiles.settings = {
