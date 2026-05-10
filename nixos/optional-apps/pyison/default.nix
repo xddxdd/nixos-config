@@ -72,7 +72,10 @@ in
       "io.containers.autoupdate" = "registry";
     };
     ports = [ "127.0.0.1:${LT.portStr.Pyison}:${LT.portStr.Pyison}" ];
-    volumes = [ "${configDir}:/var/www/config:ro" ];
+    volumes = [
+      "${configDir}:/var/www/config:ro"
+      "${./assets}:/var/www/assets:ro"
+    ];
   };
 
   lantian.nginxVhosts."posts.lantian.pub" = {
