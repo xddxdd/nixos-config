@@ -105,7 +105,7 @@ in
     };
   };
 
-  boot.extraModulePackages = [ (nvidia_x11.mod or nvidia_x11.bin) ];
+  boot.extraModulePackages = [ nvidia_x11.mod ];
 
   # nvidia-uvm is required by CUDA applications.
   boot.kernelModules = [ "nvidia-uvm" ];
