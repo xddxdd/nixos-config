@@ -76,7 +76,7 @@ let
                 ) (lib.importJSON config.modelJsonFile)
               )
             else
-              { };
+              [ ];
         };
         _score = lib.mkOption {
           readOnly = true;
