@@ -110,6 +110,7 @@ in
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bambu-studio-bin
         nur-xddxdd.bilibili
+        nur-xddxdd.browseros
         # nur-xddxdd.dingtalk
         nur-xddxdd.easycli
         nur-xddxdd.google-earth-pro
@@ -122,7 +123,6 @@ in
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
-        nur.repos.cawilliamson.browseros
         nvfetcher
         p7zip
         parsec-bin
