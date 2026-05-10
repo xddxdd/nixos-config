@@ -80,6 +80,7 @@ in
         gedit
         gimp
         # gopher
+        handbrake
         imagemagick
         immich-cli
         inputs.markdown-apa7th-docx.packages."${pkgs.system}".default

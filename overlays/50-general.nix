@@ -32,6 +32,15 @@ rec {
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });
+  handbrake = prev.handbrake.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
+    postFixup = ''
+      for F in $out/bin/*; do
+        wrapProgram "$F" \
+          --suffix LD_LIBRARY_PATH : "/run/opengl-driver/lib"
+      done
+    '';
+  });
   hydra = prev.hydra.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/hydra-enable-delete-jobset.patch ];
   });
