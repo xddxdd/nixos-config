@@ -31,6 +31,7 @@ in
         disableLiveCompression = true;
       };
       "/hobby-net".enableAutoIndex = true;
+      "/public".enableAutoIndex = true;
       "/zjui-ece385-scoreboard".disableLiveCompression = true;
 
       # 307 to tools.lantian.pub
