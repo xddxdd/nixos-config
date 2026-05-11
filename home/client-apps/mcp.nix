@@ -36,6 +36,10 @@
         webfetch = "allow";
         websearch = "allow";
         question = "allow";
+        external_directory = {
+          "/nix/store" = "allow";
+          "~/Projects" = "allow";
+        };
       };
     };
   };
