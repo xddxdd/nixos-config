@@ -13,6 +13,7 @@
     ../../nixos/client-apps/gnupg.nix
     ../../nixos/client-components/impermanence.nix
 
+    ../../nixos/optional-apps/handbrake-server.nix
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/nix-distributed.nix
