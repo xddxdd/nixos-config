@@ -206,5 +206,30 @@ in
 
   programs.ruff.enable = true;
   programs.ty.enable = true;
-  programs.uv.enable = true;
+
+  programs.uv = {
+    enable = true;
+    settings = {
+      exclude-newer = "3 days ago";
+    };
+  };
+
+  programs.npm = {
+    enable = true;
+    settings = {
+      min-release-age = 3;
+      ignore-scripts = true;
+    };
+  };
+
+  programs.bun = {
+    enable = true;
+    settings = {
+      install.minimumReleaseAge = 259200;
+    };
+  };
+
+  xdg.configFile."pnpm/rc".text = ''
+    minimum-release-age=4320
+  '';
 }
