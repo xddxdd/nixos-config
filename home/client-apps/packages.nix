@@ -87,6 +87,7 @@ in
         inputs.picoforge.packages."${pkgs.system}".picoforge
         jamesdsp
         jamesdsp-toggle
+        jpegoptim
         kdePackages.ark
         kdePackages.isoimagewriter
         # kdePackages.kdenlive
@@ -124,6 +125,7 @@ in
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nvfetcher
+        optipng
         p7zip
         parsec-bin
         payload-dumper-go
