@@ -1,4 +1,19 @@
 {
+    "auto-novel-addon": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "auto-novel-addon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Mcso+Q0F9Pbx9tJHdB8a7TJtnJmHoFACqFEC2UmGIiQ=",
+            "type": "url",
+            "url": "https://github.com/auto-novel/addon/releases/download/v1.4.4/addon-1.4.4-firefox.xpi"
+        },
+        "version": "1.4.4"
+    },
     "bosl2": {
         "cargoLock": null,
         "date": null,

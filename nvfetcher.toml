@@ -1,3 +1,8 @@
+[auto-novel-addon]
+fetch.url = "https://github.com/auto-novel/addon/releases/download/v$ver/addon-$ver-firefox.xpi"
+src.github = "auto-novel/addon"
+src.prefix = "v"
+
 [bosl2]
 fetch.github = "BelfrySCAD/BOSL2"
 src.github = "BelfrySCAD/BOSL2"

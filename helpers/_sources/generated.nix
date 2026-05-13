@@ -6,6 +6,14 @@
   dockerTools,
 }:
 {
+  auto-novel-addon = {
+    pname = "auto-novel-addon";
+    version = "1.4.4";
+    src = fetchurl {
+      url = "https://github.com/auto-novel/addon/releases/download/v1.4.4/addon-1.4.4-firefox.xpi";
+      sha256 = "sha256-Mcso+Q0F9Pbx9tJHdB8a7TJtnJmHoFACqFEC2UmGIiQ=";
+    };
+  };
   bosl2 = {
     pname = "bosl2";
     version = "v2.0.739";

@@ -7,6 +7,26 @@
   ...
 }:
 let
+  auto-novel-addon =
+    let
+      inherit (LT.sources.auto-novel-addon) pname version src;
+      addonId = "addon2@n.novelia.cc";
+    in
+    pkgs.runCommandLocal "firefox-addon-${pname}-${version}"
+      {
+        inherit src;
+        meta = {
+          addonName = pname;
+          platform = pkgs.platforms.all;
+          license = lib.licenses.gpl3Only;
+        };
+      }
+      ''
+        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+        mkdir -p "$dst"
+        install -v -m644 "$src" "$dst/${addonId}.xpi"
+      '';
+
   args = {
     enable = true;
     package = null; # Already installed system wide
@@ -15,6 +35,7 @@ let
         packages = with pkgs.firefox-addons; [
           # keep-sorted start
           all-api-hub
+          auto-novel-addon
           awardwallet
           bilisponsorblock
           bitwarden-password-manager
