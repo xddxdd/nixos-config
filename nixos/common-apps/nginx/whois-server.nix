@@ -1,5 +1,6 @@
-{ config, ... }:
-{
+{ config, lib, ... }:
+# Taken offline for nginx vulnerability
+lib.mkIf false {
   lantian.nginxVhosts = {
     "whois.lantian.pub" = {
       listenHTTP.enable = true;
