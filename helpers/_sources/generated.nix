@@ -8,10 +8,10 @@
 {
   auto-novel-addon = {
     pname = "auto-novel-addon";
-    version = "1.5.0";
+    version = "1.5.2";
     src = fetchurl {
-      url = "https://github.com/auto-novel/addon/releases/download/v1.5.0/addon-1.5.0-firefox.xpi";
-      sha256 = "sha256-YePM4K31rWy+Z5YiB0ZVeQ4G37phVgvGz2Pr4z5iEOM=";
+      url = "https://github.com/auto-novel/addon/releases/download/v1.5.2/addon-1.5.2-firefox.xpi";
+      sha256 = "sha256-pzQUZKCAzrEaZwwJEl/bAKN7SCG2gAIlN67veoMbwaI=";
     };
   };
   bosl2 = {
