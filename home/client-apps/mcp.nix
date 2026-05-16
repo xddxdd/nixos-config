@@ -57,10 +57,10 @@
   };
 
   home.activation = lib.mkIf (osConfig.lantian ? mcp) {
-    setup-roo-code-mcp = ''
+    setup-zoo-code-mcp = ''
       ${pkgs.coreutils}/bin/install -Dm644 \
         "${osConfig.lantian.mcp.mcpJsonFile}" \
-        "$HOME/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json"
+        "$HOME/.config/Code/User/globalStorage/zoocodeorganization.zoo-code/settings/mcp_settings.json"
     '';
   };
 }
