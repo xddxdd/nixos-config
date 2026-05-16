@@ -178,6 +178,12 @@ in
       enableCommonLocationOptions = false;
       sslCertificate = "zerossl-xuyh0120.win";
     };
+    "xn--gmqs02au1c935d.pub" = {
+      serverAliases = [ "www.xn--gmqs02au1c935d.pub" ];
+      locations."/".return = "307 https://lantian.pub$request_uri";
+      enableCommonLocationOptions = false;
+      sslCertificate = "zerossl-xn--gmqs02au1c935d.pub";
+    };
     "lab.xuyh0120.win" = {
       locations."/".return = "307 https://lab.lantian.pub$request_uri";
       enableCommonLocationOptions = false;

@@ -29,6 +29,7 @@ _: [
   "whois.lantian.pub"
   "www.lantian.pub"
   "www.ltn.pw"
+  "xn--gmqs02au1c935d.pub"
   "xuyh0120.win"
   "zerossl.lantian.pub"
   # keep-sorted end
