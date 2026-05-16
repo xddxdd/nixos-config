@@ -123,7 +123,9 @@
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "taiwan": [
-    "tls://cowgl.tech:1337"
+    "tls://cowgl.tech:1337",
+    "tls://ygg-tw.lxak.net:443",
+    "tls://ygg-tw.lxak.net:8880"
   ],
   "ukraine": [
     "tls://176.117.187.69:64535",
