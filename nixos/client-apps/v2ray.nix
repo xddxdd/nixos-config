@@ -40,6 +40,21 @@ let
         };
         tag = "inbound-unblock-cn";
       }
+      {
+        listen = "127.0.0.1";
+        port = LT.port.V2Ray.IPv4OnlyClient;
+        protocol = "socks";
+        settings.udp = true;
+        sniffing = {
+          destOverride = [
+            "http"
+            "tls"
+            "quic"
+          ];
+          enabled = true;
+        };
+        tag = "inbound-ipv4-only";
+      }
     ];
     log = {
       access = "none";
@@ -138,6 +153,11 @@ let
         {
           inboundTag = [ "inbound-unblock-cn" ];
           outboundTag = "unblock-cn";
+          type = "field";
+        }
+        {
+          inboundTag = [ "inbound-ipv4-only" ];
+          outboundTag = "direct";
           type = "field";
         }
         {
