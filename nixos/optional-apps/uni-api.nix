@@ -4,6 +4,7 @@
   LT,
   config,
   utils,
+  inputs,
   ...
 }:
 let
@@ -43,7 +44,7 @@ let
   };
 in
 {
-  imports = [ ./model-config.nix ];
+  imports = [ (inputs.secrets + "/uni-api") ];
 
   systemd.services.uni-api = {
     description = "Uni-API Server";

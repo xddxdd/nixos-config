@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
@@ -89,7 +90,7 @@ let
   sqlFile = pkgs.writeText "open-webui-setup.sql" (lib.concatMapStrings mkSQLForModel models);
 in
 {
-  imports = [ ../uni-api/model-config.nix ];
+  imports = [ (inputs.secrets + "/uni-api/model-config.nix") ];
 
   systemd.services.open-webui-auto-setup = {
     description = "Auto set Open WebUI model configs";

@@ -15,7 +15,7 @@
     # ../openedai-speech.nix
     ../postgresql.nix
     ../tika.nix
-    ../uni-api
+    ../uni-api.nix
   ];
 
   sops.secrets.open-webui-env.sopsFile = inputs.secrets + "/open-webui.yaml";

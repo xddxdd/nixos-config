@@ -42,7 +42,7 @@
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
-    ../../nixos/optional-apps/uni-api
+    ../../nixos/optional-apps/uni-api.nix
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/webdav.nix
 

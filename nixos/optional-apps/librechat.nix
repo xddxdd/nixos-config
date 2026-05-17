@@ -15,7 +15,7 @@ in
   imports = [
     ../client-apps/mcp-servers.nix
     ./mongodb.nix
-    ./uni-api
+    ./uni-api.nix
   ];
 
   sops.secrets.librechat-creds-key.sopsFile = inputs.secrets + "/librechat.yaml";
