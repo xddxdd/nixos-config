@@ -19,7 +19,7 @@
   # https://github.com/mozilla/policy-templates/blob/master/README.md
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
+    package = pkgs.firefox;
     languagePacks = [ "zh-CN" ];
     policies = {
       # Extension versions are specified in home manager config

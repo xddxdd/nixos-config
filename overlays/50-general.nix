@@ -32,6 +32,17 @@ rec {
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });
+  firefox = prev.wrapFirefox (prev.firefox-unwrapped.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      for F in ${sources.firefox-stealth.src}/*.patch; do
+        echo "$F"
+        patch -p1 < "$F"
+      done
+
+      # Remove mozconfig changes causing build failure
+      rm .mozconfig
+    '';
+  })) { };
   handbrake = prev.handbrake.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
     postFixup = ''

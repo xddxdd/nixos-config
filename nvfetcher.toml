@@ -17,6 +17,10 @@ src.webpage = "https://dn42.g-load.eu/about/certificate-authority/client.sh"
 src.regex = "# Version ([0-9\\.]+)"
 url.name = "client.sh"
 
+[firefox-stealth]
+fetch.github = "feder-cr/firefox-stealth"
+src.git = "https://github.com/feder-cr/firefox-stealth.git"
+
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"

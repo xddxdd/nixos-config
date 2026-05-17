@@ -125,7 +125,10 @@ let
   };
 in
 {
-  imports = [ inputs.betterfox-nix.homeModules.betterfox ];
+  imports = [
+    inputs.betterfox-nix.homeModules.betterfox
+    ./anti-fingerprinting.nix
+  ];
 
   programs.firefox = lib.recursiveUpdate args {
     package = null;
