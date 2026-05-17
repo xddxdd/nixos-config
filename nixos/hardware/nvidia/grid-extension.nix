@@ -16,7 +16,7 @@ in
 
   lantian.preservation.directories = [ "/etc/nvidia/ClientConfigToken" ];
 
-  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_12;
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_grid_16_14;
   hardware.nvidia.open = lib.mkForce false;
 
   systemd.services."nvidia-gridd" = netns.bind {
