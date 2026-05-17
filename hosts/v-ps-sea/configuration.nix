@@ -7,6 +7,7 @@
 
     ../../nixos/optional-apps/asterisk
     ../../nixos/optional-apps/openvpn-gameaccel.nix
+    ../../nixos/optional-apps/uni-api
 
     ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
     # ../../nixos/optional-cron-jobs/bilibili-tool-pro.nix

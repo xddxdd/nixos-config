@@ -19,6 +19,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "ai-api";
+      target = "v-ps-sea";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "alert";
       target = "terrahost";
       ttl = "1h";

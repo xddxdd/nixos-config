@@ -118,5 +118,17 @@ in
       noIndex.enable = true;
       accessibleBy = "localhost";
     };
+  }
+  // lib.optionalAttrs (config.networking.hostName == "v-ps-sea") {
+    "ai-api.xuyh0120.win" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";
+        proxyNoTimeout = true;
+        proxyOverrideHost = "localhost";
+      };
+
+      sslCertificate = "zerossl-xuyh0120.win";
+      noIndex.enable = true;
+    };
   };
 }

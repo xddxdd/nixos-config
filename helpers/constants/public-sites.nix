@@ -36,6 +36,7 @@ _: [
 
   # Has own authentication system
   # keep-sorted start
+  "ai-api.xuyh0120.win"
   "ai.xuyh0120.win"
   "attic.colocrossing.xuyh0120.win"
   "attic.xuyh0120.win"
