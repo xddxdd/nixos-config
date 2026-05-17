@@ -83,15 +83,15 @@ in
       WorkingDirectory = "/run/uni-api";
 
       User = "uni-api";
-      Group = "uni-api";
+      Group = "ai-gateways";
     };
   };
 
   users.users.uni-api = {
-    group = "uni-api";
+    group = "ai-gateways";
     isSystemUser = true;
   };
-  users.groups.uni-api.members = [ "nginx" ];
+  users.groups.ai-gateways.members = [ "nginx" ];
 
   lantian.nginxVhosts = {
     "uni-api.${config.networking.hostName}.xuyh0120.win" = {

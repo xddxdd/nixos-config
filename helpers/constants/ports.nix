@@ -81,6 +81,7 @@ rec {
     Dex = 13403;
     OpenWebUI.UI = 13433;
     OpenWebUI.Redis = 13435;
+    Bifrost = 13436;
     UniAPI = 13437;
     CLIProxyAPI = 13438;
     Mcpo = 13439;

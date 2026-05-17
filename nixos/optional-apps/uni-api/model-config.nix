@@ -30,6 +30,10 @@ let
         baseURL = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
         };
+        bifrostType = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = "openai";
+        };
         engine = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
           default = null;
