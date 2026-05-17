@@ -48,18 +48,6 @@
       sha256 = "sha256-o2Ohcu2GETpXVZpj2N9u9azXtlYgvoW8w4n2K91W3Xo=";
     };
   };
-  firefox-stealth = {
-    pname = "firefox-stealth";
-    version = "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e";
-    src = fetchFromGitHub {
-      owner = "feder-cr";
-      repo = "firefox-stealth";
-      rev = "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e";
-      fetchSubmodules = false;
-      sha256 = "sha256-gA11Fs+oq8csLTZxvcQBCjvD8uRw69xrg11nRFApGEs=";
-    };
-    date = "2026-05-16";
-  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.10.0";

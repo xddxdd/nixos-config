@@ -70,27 +70,6 @@
         },
         "version": "1.1.0"
     },
-    "firefox-stealth": {
-        "cargoLock": null,
-        "date": "2026-05-16",
-        "extract": null,
-        "name": "firefox-stealth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "feder-cr",
-            "repo": "firefox-stealth",
-            "rev": "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e",
-            "sha256": "sha256-gA11Fs+oq8csLTZxvcQBCjvD8uRw69xrg11nRFApGEs=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e"
-    },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
         "date": null,
