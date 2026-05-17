@@ -45,7 +45,6 @@ let
           dont-track-me-google1
           downthemall
           fastforwardteam
-          flagfox
           gemini-delete-for-firefox
           i-dont-care-about-cookies
           ipfs-companion
