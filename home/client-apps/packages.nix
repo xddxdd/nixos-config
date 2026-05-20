@@ -98,8 +98,8 @@ in
         libfaketime
         # libreoffice-qt6-fresh
         linphone
+        llm-agents.agentsview
         llm-agents.ccusage
-        llm-agents.ccusage-opencode
         lx-music-desktop
         macchanger
         mediainfo
