@@ -195,16 +195,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1778445566,
+        "lastModified": 1778446047,
         "narHash": "sha256-oQvcadh2BCkrog+SGrG6YffKJrveYpjj3TdQJWaKhaM=",
         "owner": "nix-community",
         "repo": "bun2nix",
-        "rev": "2499dedd70744dba1815875b854818a3019e9e4c",
+        "rev": "f2bc12af1a6369648aac41041ceeaa0b866599c6",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "staging-2.1.0",
         "repo": "bun2nix",
         "type": "github"
       }
@@ -762,11 +761,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779152497,
-        "narHash": "sha256-PX4XVYfCqrde1k5Fk/2EawkXDKjPLvpRBUnmAL4G+EI=",
+        "lastModified": 1779239252,
+        "narHash": "sha256-vqSXzqzeC8VXZ4dKUNPcBz6py3rkSkfMC6dstYdxZok=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "e6a5204f5d8933f99730ec9f00f0eab7de9f3249",
+        "rev": "7c72587e3ed4e4b36560e43f1775d5a13fc46cac",
         "type": "github"
       },
       "original": {
@@ -1438,11 +1437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779101502,
-        "narHash": "sha256-5pRYmT6jevsNJoDL0eTshJh+bQM4E8DP4fH+RW1dJzs=",
+        "lastModified": 1779186600,
+        "narHash": "sha256-ihHl6dIVWvNUX4gzNMIAyDGNioGbFLxtUX8LTobIvNw=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "813ee54dd0532a5144db1a238972b3393c308fa2",
+        "rev": "85c4a37bbdec1dafdf03d04fae5dd2c242c98a87",
         "type": "github"
       },
       "original": {
