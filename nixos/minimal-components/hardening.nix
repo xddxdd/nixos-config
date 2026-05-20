@@ -16,6 +16,10 @@
     install esp6 ${lib.getExe' pkgs.coreutils "true"}
     blacklist rxrpc
     install rxrpc ${lib.getExe' pkgs.coreutils "true"}
+    blacklist rds
+    install rds ${lib.getExe' pkgs.coreutils "true"}
+    blacklist rds_tcp
+    install rds_tcp ${lib.getExe' pkgs.coreutils "true"}
   '';
 
   boot.specialFileSystems = {
