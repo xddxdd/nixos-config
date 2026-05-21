@@ -330,27 +330,6 @@
         },
         "version": "037965a44e6f6f496e7ad71ec1651b9edfcde32d"
     },
-    "ulauncher-antigravity-launcher": {
-        "cargoLock": null,
-        "date": "2025-11-19",
-        "extract": null,
-        "name": "ulauncher-antigravity-launcher",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "TheFury-BOY",
-            "repo": "antigravity-ulauncher",
-            "rev": "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4",
-            "sha256": "sha256-K+VYB9rtcTNwqjV3fkJ5iy6o8JndcOaFK8WnB+qV7k8=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4"
-    },
     "ulauncher-chrome-profiles": {
         "cargoLock": null,
         "date": "2019-06-30",

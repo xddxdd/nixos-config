@@ -72,10 +72,6 @@ src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 fetch.github = "tchar/ulauncher-albert-calculate-anything"
 src.git = "https://github.com/tchar/ulauncher-albert-calculate-anything.git"
 
-[ulauncher-antigravity-launcher]
-fetch.github = "TheFury-BOY/antigravity-ulauncher"
-src.git = "https://github.com/TheFury-BOY/antigravity-ulauncher.git"
-
 [ulauncher-chrome-profiles]
 fetch.github = "FloydJohn/ulauncher-chrome-profiles"
 src.git = "https://github.com/FloydJohn/ulauncher-chrome-profiles.git"

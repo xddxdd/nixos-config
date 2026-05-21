@@ -50,7 +50,6 @@
         snapshotTo = "/nix/persistent/.snapshot-home";
         backupPath = "/nix/persistent/.snapshot-home/lantian";
         ignored = ''
-          .antigravity/extensions
           .cache
           .cursor/extensions
           .local/share/containers

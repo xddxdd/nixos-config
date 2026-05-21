@@ -45,12 +45,6 @@
   };
   xdg.configFile."opencode/opencode.json".force = true;
 
-  programs.gemini-cli = {
-    enable = true;
-    enableMcpIntegration = true;
-    package = pkgs.llm-agents.gemini-cli;
-  };
-
   programs.zed-editor = {
     enable = true;
     enableMcpIntegration = true;

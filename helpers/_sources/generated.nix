@@ -197,18 +197,6 @@
     };
     date = "2024-05-29";
   };
-  ulauncher-antigravity-launcher = {
-    pname = "ulauncher-antigravity-launcher";
-    version = "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4";
-    src = fetchFromGitHub {
-      owner = "TheFury-BOY";
-      repo = "antigravity-ulauncher";
-      rev = "fcbd4bb9af4ca55cd1dbaaa2a1e476aa0ccc00c4";
-      fetchSubmodules = false;
-      sha256 = "sha256-K+VYB9rtcTNwqjV3fkJ5iy6o8JndcOaFK8WnB+qV7k8=";
-    };
-    date = "2025-11-19";
-  };
   ulauncher-chrome-profiles = {
     pname = "ulauncher-chrome-profiles";
     version = "486fead44fcd195abdc62d60569a5facfb433d70";
