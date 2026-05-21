@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pzQUZKCAzrEaZwwJEl/bAKN7SCG2gAIlN67veoMbwaI=",
+            "sha256": "sha256-3E6bVkmHFwmr4khr9Jt7MVQ8Rm5a0Qh0C+n41h/LN1k=",
             "type": "url",
-            "url": "https://github.com/auto-novel/addon/releases/download/v1.5.2/addon-1.5.2-firefox.xpi"
+            "url": "https://github.com/auto-novel/addon/releases/download/v1.6.1/addon-1.6.1-firefox.xpi"
         },
-        "version": "1.5.2"
+        "version": "1.6.1"
     },
     "bosl2": {
         "cargoLock": null,
