@@ -82,6 +82,18 @@
     ];
   };
 
+  fileSystems."/mnt/hmsmr" = {
+    device = "/dev/disk/by-id/ata-ST25000NM000E-3L9103_ZX28SA2W";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd"
+      "autodefrag"
+      "nosuid"
+      "nodev"
+      "x-systemd.mount-timeout=infinity"
+    ];
+  };
+
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [
