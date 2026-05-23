@@ -14,7 +14,10 @@
   systemd.services.i915-sriov = {
     description = "Enable i915 SRIOV";
     wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-modules-load.service" ];
+    after = [
+      "systemd-modules-load.service"
+      "systemd-udev-trigger.service"
+    ];
     requires = [ "systemd-modules-load.service" ];
     serviceConfig.Type = "oneshot";
     script = ''

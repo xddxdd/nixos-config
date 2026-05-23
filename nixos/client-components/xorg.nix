@@ -11,7 +11,9 @@
     in
     [
       "i915.enable_guc=${builtins.toString enableGucFlag}"
-      "i915.enable_fbc=1"
+      # Use XE driver for i7-11800H
+      "i915.force_probe=!9a60"
+      "xe.force_probe=9a60"
     ];
 
   boot.kernel.sysctl = {
