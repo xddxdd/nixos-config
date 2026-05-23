@@ -5,13 +5,14 @@
   ...
 }:
 {
-  boot.extraModprobeConfig =
+  boot.kernelParams =
     let
       enableGucFlag = if config.virtualisation.kvmgt.enable then 0 else 3;
     in
-    ''
-      options i915 enable_fbc=1 enable_guc=${builtins.toString enableGucFlag}
-    '';
+    [
+      "i915.enable_guc=${builtins.toString enableGucFlag}"
+      "i915.enable_fbc=1"
+    ];
 
   boot.kernel.sysctl = {
     "dev.i915.perf_stream_paranoid" = 0;

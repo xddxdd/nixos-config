@@ -5,9 +5,10 @@
   ...
 }:
 {
-  boot.extraModprobeConfig = ''
-    options i915 max_vfs=7
-  '';
+  boot.kernelParams = [
+    "i915.modeset=1"
+    "i915.max_vfs=7"
+  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.i915-sriov ];
 
   systemd.services.i915-sriov = {
@@ -32,5 +33,4 @@
       done
     '';
   };
-
 }
