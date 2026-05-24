@@ -8,10 +8,10 @@
 {
   auto-novel-addon = {
     pname = "auto-novel-addon";
-    version = "1.6.2";
+    version = "1.7.1";
     src = fetchurl {
-      url = "https://github.com/auto-novel/addon/releases/download/v1.6.2/addon-1.6.2-firefox.xpi";
-      sha256 = "sha256-oQ6AUmSIjh0qjQHp+7ActH+9dKWKVXShh6aGTKqdaTI=";
+      url = "https://github.com/auto-novel/addon/releases/download/v1.7.1/addon-1.7.1-firefox.xpi";
+      sha256 = "sha256-SIOD7eNsTVHDoNqJQKy7YBUuW/W4bpY5ATKRyU7qy7I=";
     };
   };
   bosl2 = {
@@ -375,13 +375,13 @@
   };
   yourls = {
     pname = "yourls";
-    version = "1.10.3";
+    version = "1.10.4";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "YOURLS";
-      rev = "1.10.3";
+      rev = "1.10.4";
       fetchSubmodules = false;
-      sha256 = "sha256-wGzsNd5e9TwCZhNMPpa32j1kPh/sa63bJVuQ3+cGBAY=";
+      sha256 = "sha256-sNz4wHi0FuJYIanStc20UJT4LdFQodAi+1r0VtxCcC4=";
     };
   };
   yourls-404-if-not-found = {
