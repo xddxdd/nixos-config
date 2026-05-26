@@ -2,8 +2,14 @@
   pkgs,
   osConfig,
   lib,
+  LT,
   ...
 }:
+let
+  context = builtins.concatStringsSep "\n" (
+    builtins.map (f: "# ${builtins.baseNameOf f}\n" + builtins.readFile f) (LT.ls ./rules)
+  );
+in
 {
   programs.mcp = {
     enable = true;
@@ -14,6 +20,7 @@
     enable = true;
     enableMcpIntegration = true;
     package = pkgs.llm-agents.claude-code;
+    inherit context;
   };
 
   programs.opencode = {
@@ -42,6 +49,7 @@
         };
       };
     };
+    inherit context;
   };
   xdg.configFile."opencode/opencode.json".force = true;
 
@@ -57,4 +65,6 @@
         "$HOME/.config/Code/User/globalStorage/zoocodeorganization.zoo-code/settings/mcp_settings.json"
     '';
   };
+
+  home.file.".roo/rules".source = ./rules;
 }
