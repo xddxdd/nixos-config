@@ -46,6 +46,7 @@ in
         external_directory = {
           "/nix/store" = "allow";
           "~/Projects" = "allow";
+          "/tmp" = "allow";
         };
       };
     };
