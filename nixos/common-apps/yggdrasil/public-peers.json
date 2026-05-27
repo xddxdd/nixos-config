@@ -95,7 +95,6 @@
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
-    "tls://ygg-ru.lskd.pw:30042",
     "tls://ygg.med-dev-systems.ru:6221",
     "tls://yggno.de:18227"
   ],
@@ -105,9 +104,6 @@
   "singapore": [
     "tls://asia.deinfra.org:15015",
     "tls://yg-sin.magicum.net:23900"
-  ],
-  "slovakia": [
-    "tls://ygg-ke.8px.sk:4321"
   ],
   "south-africa": [
     "tls://yggdrasil.deavmi.assigned.network:2001"
@@ -146,7 +142,6 @@
     "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
-    "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.mnpnk.com:443",
