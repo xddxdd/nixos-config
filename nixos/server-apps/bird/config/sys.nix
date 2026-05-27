@@ -4,7 +4,7 @@
   ...
 }@args:
 let
-  inherit (import ./common.nix args) community DN42_AS;
+  inherit (import ./common.nix args) community DN42_AS blacklistedASNs;
 
   commonStaticRoutesIPv4 = [
     "172.22.76.184/29"
@@ -179,6 +179,10 @@ in
 
     define RESERVED_IPv6 = [
     ${lib.concatMapStringsSep ",\n" (t: t + "+") LT.constants.reserved.IPv6}
+    ];
+
+    define BLACKLISTED_ASN = [
+    ${lib.concatMapStringsSep ",\n" builtins.toString blacklistedASNs}
     ];
   '';
 

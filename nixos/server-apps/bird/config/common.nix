@@ -5,6 +5,11 @@ rec {
   DN42_REGION = builtins.toString LT.this.dn42.region;
   NEO_AS = "4201270010";
 
+  blacklistedASNs = [
+    4242423264 # Risk of DoS attacks
+    4242423419 # Hijack + flapping
+  ];
+
   community = {
     LT_POLICY_NO_KERNEL = "(${DN42_AS}, 1, 3)";
     LT_ROA_FAIL = "(${DN42_AS}, 2547, 0)";

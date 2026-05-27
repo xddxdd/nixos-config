@@ -107,6 +107,11 @@ in
 {
   common = ''
     function dn42_import_filter_ipv4(int local_asn) {
+      # Block bad ASNs
+      if (bgp_path ~ BLACKLISTED_ASN) then {
+        reject;
+      }
+
       if (roa_check(roa_v4, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
         bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
@@ -147,6 +152,11 @@ in
     }
 
     function dn42_import_filter_ipv6(int local_asn) {
+      # Block bad ASNs
+      if (bgp_path ~ BLACKLISTED_ASN) then {
+        reject;
+      }
+
       if (roa_check(roa_v6, net, bgp_path.last) = ROA_INVALID) then {
         bgp_large_community.add(${community.LT_ROA_FAIL});
         bgp_large_community.add(${community.LT_POLICY_NO_KERNEL});
