@@ -2,6 +2,7 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }:
 {
@@ -27,7 +28,7 @@
 
   lantian.preservation.directories = [ "/root/.cache/pandemonium" ];
 
-  systemd.services.scx.serviceConfig = {
+  systemd.services.scx.serviceConfig = lib.mkIf config.services.scx.enable {
     Restart = lib.mkForce "always";
     RestartSec = "3";
   };
