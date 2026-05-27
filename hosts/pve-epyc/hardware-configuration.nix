@@ -71,7 +71,7 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/MyVolGroup/storage";
+    device = "/dev/MyVolGroup/storage1";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
