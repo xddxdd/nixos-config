@@ -9,7 +9,7 @@
       "--ipc=host"
       "--gpus=all"
     ];
-    image = "docker.io/zocker160/handbrake-nvenc:latest";
+    image = "docker.io/zocker160/handbrake-nvenc:18x";
     labels = {
       "io.containers.autoupdate" = "registry";
     };
