@@ -39,6 +39,9 @@ let
 in
 {
   home.packages = with pkgs; [
+    # Android
+    android-studio
+
     # Bash
     dos2unix
     shellcheck
