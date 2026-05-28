@@ -49,6 +49,7 @@ in
       extraGroups = [
         # keep-sorted start
         "dialout"
+        "kvm"
         "systemd-journal"
         "users"
         "wheel"
