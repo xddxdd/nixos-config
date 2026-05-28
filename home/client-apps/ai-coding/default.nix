@@ -23,6 +23,28 @@ in
     inherit context;
   };
 
+  programs.codex = {
+    enable = true;
+    enableMcpIntegration = true;
+    inherit context;
+
+    settings = {
+      analytics.enabled = false;
+      check_for_update_on_startup = false;
+      default_permissions = ":workspace";
+
+      model = "gpt-5.5";
+      model_provider = "anyrouter";
+      model_reasoning_effort = "xhigh";
+      preferred_auth_method = "apikey";
+      model_providers.anyrouter = {
+        name = "AnyRouter";
+        base_url = "https://anyrouter.top/v1";
+        wire_api = "responses";
+      };
+    };
+  };
+
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
