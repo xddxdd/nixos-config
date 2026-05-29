@@ -85,6 +85,9 @@ in
     gotests
     impl
 
+    # Java
+    jdk
+
     # Jsonnet
     jsonnet
 
@@ -196,6 +199,8 @@ in
       GOPATH = "${config.xdg.dataHome}/go";
     };
   };
+
+  programs.gradle.enable = true;
 
   programs.pyenv.enable = true;
 
