@@ -41,6 +41,8 @@ in
         name = "AnyRouter";
         base_url = "https://anyrouter.top/v1";
         wire_api = "responses";
+        request_max_retries = 99;
+        stream_max_retries = 99;
       };
     };
   };
