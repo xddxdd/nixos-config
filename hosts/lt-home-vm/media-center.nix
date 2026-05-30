@@ -39,6 +39,11 @@ in
         user = "root";
         group = "root";
       };
+      "${defaultDownloadPath}".d = {
+        mode = "755";
+        user = "lantian";
+        group = "users";
+      };
       "${flexgetAutoDownloadPath}".d = {
         mode = "755";
         user = "lantian";
