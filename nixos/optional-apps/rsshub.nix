@@ -1,45 +1,16 @@
 {
   LT,
-  pkgs,
-  lib,
   ...
 }:
 {
-  systemd.services.rsshub = {
-    description = "RSSHub";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-
-    environment = {
-      PORT = LT.portStr.RSSHub;
-      LISTEN_INADDR_ANY = "0";
+  services.rsshub = {
+    enable = true;
+    settings = {
+      PORT = LT.port.RSSHub;
       CACHE_CONTENT_EXPIRE = "600";
     };
-
-    serviceConfig = LT.serviceHarden // {
-      User = "rsshub";
-      Group = "rsshub";
-
-      ExecStart = lib.getExe pkgs.rsshub;
-
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-        "AF_NETLINK"
-      ];
-
-      MemoryDenyWriteExecute = false;
-      Restart = "always";
-      RestartSec = 5;
-    };
+    redis.createLocally = true;
   };
-
-  users.users.rsshub = {
-    group = "rsshub";
-    isSystemUser = true;
-  };
-  users.groups.rsshub = { };
 
   lantian.nginxVhosts."rsshub.xuyh0120.win" = {
     locations = {
