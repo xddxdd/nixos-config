@@ -208,6 +208,7 @@
       "clientaddr=${LT.this.ltnet.IPv4}"
       "hard"
       "vers=4.2"
+      "nconnect=16"
       "x-systemd.automount"
       "x-systemd.device-timeout=5s"
       "x-systemd.idle-timeout=60"
