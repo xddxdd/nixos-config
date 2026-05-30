@@ -12,6 +12,7 @@
 
   services.nfs.server = {
     enable = true;
+    nproc = 64;
     hostName = LT.this.ltnet.IPv4;
     lockdPort = LT.port.NFS.LockD;
     mountdPort = LT.port.NFS.MountD;
