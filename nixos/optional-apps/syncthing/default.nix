@@ -84,8 +84,8 @@
       syncthing = {
         "${config.lantian.syncthing.storage}"."d" = {
           mode = "755";
-          user = "root";
-          group = "root";
+          user = "syncthing";
+          group = "syncthing";
         };
       };
     };
