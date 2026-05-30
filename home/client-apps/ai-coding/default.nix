@@ -68,9 +68,9 @@ in
         websearch = "allow";
         question = "allow";
         external_directory = {
-          "/nix/store" = "allow";
-          "~/Projects" = "allow";
-          "/tmp" = "allow";
+          "/nix/store/**" = "allow";
+          "~/Projects/**" = "allow";
+          "/tmp/**" = "allow";
         };
       };
     };
