@@ -49,7 +49,7 @@
           "aio read size" = 16384;
           "aio write size" = 16384;
           "server multi channel support" = "yes";
-          "interface" = builtins.map (i: "${i}*") (
+          "interfaces" = builtins.map (i: "${i}*") (
             LT.constants.interfacePrefixes.WAN ++ LT.constants.interfacePrefixes.LAN
           );
 
