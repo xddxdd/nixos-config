@@ -44,7 +44,7 @@ in
         );
       in
       ''
-        CONFIG_DIR=/var/lib/picoclaw/.picoclaw
+        CONFIG_DIR=$HOME/.picoclaw
         CONFIG_FILE=$CONFIG_DIR/config.json
 
         mkdir -p "$CONFIG_DIR"
@@ -62,21 +62,14 @@ in
       '';
 
     serviceConfig = LT.serviceHarden // {
-      User = "picoclaw";
-      Group = "picoclaw";
+      User = "lantian";
+      Group = "lantian";
 
       MemoryDenyWriteExecute = false;
-      StateDirectory = "picoclaw";
+      ProtectHome = false;
 
       Restart = "always";
       RestartSec = "5";
     };
   };
-
-  users.users.picoclaw = {
-    group = "picoclaw";
-    isSystemUser = true;
-    home = "/var/lib/picoclaw";
-  };
-  users.groups.picoclaw = { };
 }
