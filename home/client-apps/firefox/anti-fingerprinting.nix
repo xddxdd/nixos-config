@@ -1,4 +1,9 @@
-{ lib, osConfig, ... }:
+{
+  lib,
+  osConfig,
+  LT,
+  ...
+}:
 {
   programs.firefox.profiles.lantian.settings = {
     # Anti fingerprint
@@ -27,6 +32,7 @@
     "media.peerconnection.ice.proxy_only" = false;
     "media.peerconnection.ice.relay_only" = false;
     "media.peerconnection.use_document_iceservers" = true;
+    "zoom.stealth.webrtc.host_ip" = "192.168.0.${builtins.toString LT.this.index}";
 
     # Proxy — route DNS through SOCKS proxies to avoid local DNS leaks.
     "network.proxy.socks_remote_dns" = true;
@@ -138,11 +144,18 @@
     "general.oscpu.override" = "Windows NT 10.0; Win64; x64";
     "general.appversion.override" = "5.0 (Windows)";
 
+    # Audio
+    "zoom.stealth.audio.max_channel_count" = 2;
+    "zoom.stealth.audio.output_latency_ms" = 40;
+    "zoom.stealth.audio.sample_rate" = 48000;
+
     # WebGL Renderer
     "zoom.stealth.webgl.renderer" =
-      "ANGLE (Intel, Intel(R) UHD Graphics 770 (0x00004690) Direct3D11 vs_5_0 ps_5_0, D3D11)";
-    "zoom.stealth.webgl.vendor" = "Google Inc. (Intel)";
-    "zoom.stealth.canvas.noise_skip_mask" = 15;
+      "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0, D3D11)";
+    "zoom.stealth.webgl.vendor" = "Google Inc. (NVIDIA)";
+    "zoom.stealth.canvas.noise_skip_mask" = 7;
+    "zoom.stealth.fpp.hw_seed" = 42;
+    "zoom.stealth.seed" = 42;
 
     # MSAA
     "zoom.stealth.webgl.msaa" = 4;
@@ -152,5 +165,7 @@
     # Fonts, not enabled since it break UI fonts
     "zoom.stealth.font.whitelist" = "";
     "zoom.stealth.font.metrics" = "";
+    # Disable upstream usage stats
+    "invisible_firefox.usage_ping.enabled" = false;
   };
 }
