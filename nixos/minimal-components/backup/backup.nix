@@ -104,6 +104,8 @@ in
             # Btrfs snapshot
             [ -e "${v.snapshotTo}" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete "${v.snapshotTo}"
             ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r "${v.snapshotFrom}" "${v.snapshotTo}"
+
+            mkdir -p /var/cache/restic/${n}
           '';
 
           script = ''
@@ -117,6 +119,8 @@ in
           # Remove snapshot
           postStop = ''
             ${lib.getExe pkgs.btrfs-progs} subvolume delete ${v.snapshotTo}
+
+            rm -rf /var/cache/restic/${n}
           '';
         }
       ) cfg.paths;

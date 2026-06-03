@@ -41,7 +41,7 @@ rec {
       [repository]
       repository = "opendal:sftp"
       password-file = "${config.sops.secrets.restic-pw.path}"
-      cache-dir = "/var/cache/restic"
+      cache-dir = "/var/cache/restic/home"
 
       [repository.options]
       user = "sftp"
@@ -70,7 +70,7 @@ rec {
       [repository]
       repository = "opendal:sftp"
       password-file = "${config.sops.secrets.restic-pw.path}"
-      cache-dir = "/var/cache/restic"
+      cache-dir = "/var/cache/restic/storagebox"
 
       [repository.options]
       user = "u378583-sub2"
