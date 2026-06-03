@@ -73,16 +73,8 @@
     system-login.failDelay.delay = "5000000";
   };
 
-  # Get extra entropy since we disabled hardware entropy sources
-  # Read more about why at the following URLs:
-  # https://github.com/smuellerDD/jitterentropy-rngd/issues/27
-  # https://blogs.oracle.com/linux/post/rngd1
-  services.jitterentropy-rngd.enable = true;
-  boot.kernelModules = [ "jitterentropy_rng" ];
-  systemd.services.jitterentropy.serviceConfig = {
-    Restart = "always";
-    RestartSec = 5;
-  };
+  # Disabled for frequent segfault
+  services.jitterentropy-rngd.enable = false;
 
   # zram allows swapping to RAM by compressing memory. This reduces the chance
   # that sensitive data is written to disk, and eliminates it if zram is used
