@@ -79,6 +79,10 @@
   # https://blogs.oracle.com/linux/post/rngd1
   services.jitterentropy-rngd.enable = true;
   boot.kernelModules = [ "jitterentropy_rng" ];
+  systemd.services.jitterentropy.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
 
   # zram allows swapping to RAM by compressing memory. This reduces the chance
   # that sensitive data is written to disk, and eliminates it if zram is used

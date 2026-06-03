@@ -75,8 +75,7 @@
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.flake-parts.follows = "flake-parts";
-      # To use latest packages from nixpkgs without updating main input
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
       inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };

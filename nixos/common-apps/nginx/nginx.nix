@@ -47,6 +47,7 @@ let
       ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
       ssl_session_tickets on;
       ssl_prefer_server_ciphers off;
+      ssl_dhparam ${./files/dhparam.pem}
     ''
     + lib.optionalString (!isStream) ''
       ssl_early_data on;
@@ -72,7 +73,6 @@ in
     };
     sslProtocols = "TLSv1.2 TLSv1.3";
     sslCiphers = null;
-    sslDhparam = ./files/dhparam.pem;
     defaultMimeTypes = "${config.services.nginx.package}/conf/mime.types";
 
     appendConfig = ''

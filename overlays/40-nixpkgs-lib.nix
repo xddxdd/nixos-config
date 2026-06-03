@@ -8,8 +8,9 @@ _: final: prev: {
           passAsFile = [ "text" ];
         }
         ''
-          # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
-          awk -f ${prev.writers.awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
+          cp "$textPath" $out
+          ${final.lib.getExe final.nginx-config-formatter} --max-empty-lines 0 $out
+          ${final.lib.getExe final.gnused} -i 's/ ;/;/g' $out
         '';
   };
 }

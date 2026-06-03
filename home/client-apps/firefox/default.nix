@@ -45,6 +45,7 @@ let
           dont-track-me-google1
           downthemall
           fastforwardteam
+          foxyproxy-standard
           gemini-delete-for-firefox
           i-dont-care-about-cookies
           ipfs-companion
