@@ -94,8 +94,19 @@
     hashTableSizeMB = 1024;
     verbosity = "crit";
     extraOptions = [
-      "--loadavg-target"
-      "32"
+      "--loadavg-target=32"
+      "--throttle-factor=10"
+      "--workaround-btrfs-send"
+    ];
+  };
+
+  services.beesd.filesystems.storage = {
+    spec = config.fileSystems."/mnt/storage".device;
+    hashTableSizeMB = 16384;
+    verbosity = "crit";
+    extraOptions = [
+      "--loadavg-target=32"
+      "--throttle-factor=10"
       "--workaround-btrfs-send"
     ];
   };
