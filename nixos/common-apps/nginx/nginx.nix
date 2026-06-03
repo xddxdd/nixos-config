@@ -47,7 +47,7 @@ let
       ssl_session_cache shared:${if isStream then "SSL_STREAM" else "SSL_HTTP"}:10m;
       ssl_session_tickets on;
       ssl_prefer_server_ciphers off;
-      ssl_dhparam ${./files/dhparam.pem}
+      ssl_dhparam ${./files/dhparam.pem};
     ''
     + lib.optionalString (!isStream) ''
       ssl_early_data on;
