@@ -7,10 +7,16 @@
   inputs,
   ...
 }:
-let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-in
 {
+  sops.secrets.telegram-bot-token = {
+    sopsFile = inputs.secrets + "/common/telegram.yaml";
+    mode = "0444";
+  };
+  sops.secrets.telegram-bot-chat-id = {
+    sopsFile = inputs.secrets + "/common/telegram.yaml";
+    mode = "0444";
+  };
+
   services.prometheus = {
     alertmanagers = [
       {
@@ -209,14 +215,20 @@ in
       receivers = [
         {
           name = "admin";
-          email_configs = [
+          # email_configs = [
+          #   {
+          #     to = glauthUsers.lantian.mail;
+          #     send_resolved = true;
+          #     threading = {
+          #       enabled = true;
+          #       thread_by_date = "daily";
+          #     };
+          #   }
+          # ];
+          telegram_configs = [
             {
-              to = glauthUsers.lantian.mail;
-              send_resolved = true;
-              threading = {
-                enabled = true;
-                thread_by_date = "daily";
-              };
+              bot_token_file = config.sops.secrets.telegram-bot-token.path;
+              chat_id_file = config.sops.secrets.telegram-bot-chat-id.path;
             }
           ];
         }
