@@ -111,6 +111,7 @@ in
         nur-xddxdd.bambu-studio-bin
         nur-xddxdd.bilibili
         nur-xddxdd.browseros
+        nur-xddxdd.cardpointers-cli
         nur-xddxdd.command-code
         # nur-xddxdd.dingtalk
         nur-xddxdd.easycli

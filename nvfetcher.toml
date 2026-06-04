@@ -125,8 +125,8 @@ fetch.github = "dhelmr/ulauncher-tldr"
 src.git = "https://github.com/dhelmr/ulauncher-tldr.git"
 
 [ulauncher-vscode-recent]
-fetch.github = "plibither8/ulauncher-vscode-recent"
-src.git = "https://github.com/plibither8/ulauncher-vscode-recent.git"
+fetch.github = "MoveCloudROY/ulauncher-vscode-recent"
+src.git = "https://github.com/MoveCloudROY/ulauncher-vscode-recent.git"
 
 [um-react]
 fetch.url = "https://git.um-react.app/um/um-react/releases/download/v$ver/um-react-$ver.zip"

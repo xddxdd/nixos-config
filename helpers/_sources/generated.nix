@@ -355,15 +355,15 @@
   };
   ulauncher-vscode-recent = {
     pname = "ulauncher-vscode-recent";
-    version = "60a5106821478f965e4e24dbe1833f6af0d437f1";
+    version = "4d879f70b7399de6580ee7de7b9aa6a4b2eed7a7";
     src = fetchFromGitHub {
-      owner = "plibither8";
+      owner = "MoveCloudROY";
       repo = "ulauncher-vscode-recent";
-      rev = "60a5106821478f965e4e24dbe1833f6af0d437f1";
+      rev = "4d879f70b7399de6580ee7de7b9aa6a4b2eed7a7";
       fetchSubmodules = false;
-      sha256 = "sha256-sJJzHXp8S/Powqz0FgSCqfWL81q/mXqBi1KucRFB2LE=";
+      sha256 = "sha256-QO+Rsx+SBwNwKN3NFmt8eIt5lkvQDHYlk0rY01cQxTY=";
     };
-    date = "2023-12-01";
+    date = "2026-05-12";
   };
   um-react = {
     pname = "um-react";
