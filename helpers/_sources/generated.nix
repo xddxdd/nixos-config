@@ -27,17 +27,17 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "13c8bc177e9b2d60c422fad44146cc8441d7cbbd";
+    version = "fbc957b28fbc818f0f8f3e09b698efda3673a53e";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "13c8bc177e9b2d60c422fad44146cc8441d7cbbd";
+      rev = "fbc957b28fbc818f0f8f3e09b698efda3673a53e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-j2SWm1VJvWbZgXUgAUm4Y1le7FTqNf7YtwrzLyOvkTY=";
+      sha256 = "sha256-IXa0xFXvNi0iIbwLv87s0YYCWocW3cyTWGKjbDHlCvQ=";
     };
-    date = "2026-06-02";
+    date = "2026-06-03";
   };
   dn42-certificate-authority-client = {
     pname = "dn42-certificate-authority-client";
