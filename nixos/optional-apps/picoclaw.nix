@@ -18,10 +18,7 @@ in
 {
   imports = [ ../client-apps/mcp-servers.nix ];
 
-  environment.systemPackages = [
-    pkgs.github-cli
-    picoclaw
-  ];
+  environment.systemPackages = [ picoclaw ];
 
   systemd.services.picoclaw = {
     description = "PicoClaw";
@@ -57,7 +54,7 @@ in
         jq --slurpfile mcp "${mcpJsonFile}" '.tools.mcp.servers = $mcp[0].mcpServers' "$CONFIG_FILE" > "$tmp_file"
         mv "$tmp_file" "$CONFIG_FILE"
 
-        export PATH=/run/current-system/sw/bin:$PATH
+        export PATH=/etc/profiles/per-user/lantian/bin:/run/current-system/sw/bin:$PATH
         exec ${lib.getExe picoclaw} gateway
       '';
 
