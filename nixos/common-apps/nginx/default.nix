@@ -12,6 +12,7 @@
     ./security.nix
     ./testssl.nix
     ./vhost-hydra-proxy.nix
+    ./vhost-lab.nix
     ./vhost-matrix-element
     ./vhost-options
     ./vhost-tools
