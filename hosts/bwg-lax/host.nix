@@ -3,7 +3,6 @@
   index = 3;
   tags = with tags; [
     dn42
-    low-ram # Temporary until coredns ram usage is fixed
     public-facing
     server
   ];
