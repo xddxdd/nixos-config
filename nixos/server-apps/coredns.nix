@@ -21,42 +21,15 @@ let
           ''
         else
           "";
-      localZone = zone: filename: ''
-        ${zone}:${LT.portStr.DNSLocal} {
-          prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-          bind 127.0.0.1
-          file "/nix/sync-servers/${filename}.zone" {
-            reload 30s
-          }
-        }
-      '';
-      localForward = zone: dnssecKey: ''
+      forwardZone = zone: dnssecKey: ''
         ${zone} {
           any
           bufsize 1232
           loadbalance round_robin
           prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
           forward . 127.0.0.1:${LT.portStr.DNSLocal}
           ${dnssec dnssecKey}
         }
-      '';
-      publicZone = zone: filename: dnssecKey: ''
-        ${zone} {
-          ${publicZone' filename dnssecKey}
-        }
-      '';
-
-      publicZone' = filename: dnssecKey: ''
-        any
-        bufsize 1232
-        loadbalance round_robin
-        prometheus ${config.lantian.netns.coredns-authoritative.ipv4}:${LT.portStr.Prometheus.CoreDNS}
-
-        file "/nix/sync-servers/${filename}.zone" {
-          reload 30s
-        }
-        ${dnssec dnssecKey}
       '';
     in
     pkgs.writeText "Corefile" ''
@@ -68,88 +41,48 @@ let
           allow net ${builtins.concatStringsSep " " LT.constants.reserved.IPv6}
           drop
         }
-
-        ${publicZone' "ltnet-scripts/zones/opennic.root" null}
+        any
+        bufsize 1232
+        loadbalance round_robin
+        forward . 127.0.0.1:${LT.portStr.DNSLocal}
+        ${dnssec null}
       }
 
       # DN42 Lan Tian Authoritatives
-      ${localZone "lantian.dn42" "ltnet-zones/lantian.dn42"}
-      ${localZone "asn.lantian.dn42" "ltnet-scripts/zones/asn.lantian.dn42"}
-      ${localForward "lantian.dn42" "Klantian.dn42.+013+20109"}
-
-      ${publicZone "184/29.76.22.172.in-addr.arpa" "ltnet-zones/184_29.76.22.172.in-addr.arpa"
-        "K184_29.76.22.172.in-addr.arpa.+013+08709"
-      }
-      ${publicZone "96/27.76.22.172.in-addr.arpa" "ltnet-zones/96_27.76.22.172.in-addr.arpa"
-        "K96_27.76.22.172.in-addr.arpa.+013+41969"
-      }
-      ${publicZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa"
-        "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"
-      }
-      ${publicZone "7.4.5.2.0.4.2.4.e164.dn42" "ltnet-zones/7.4.5.2.0.4.2.4.e164.dn42" null}
-
-      # DN42 Authoritative
-      ${publicZone "dn42" "ltnet-scripts/zones/dn42" null}
-      ${publicZone "20.172.in-addr.arpa" "ltnet-scripts/zones/20.172.in-addr.arpa" null}
-      ${publicZone "21.172.in-addr.arpa" "ltnet-scripts/zones/21.172.in-addr.arpa" null}
-      ${publicZone "22.172.in-addr.arpa" "ltnet-scripts/zones/22.172.in-addr.arpa" null}
-      ${publicZone "23.172.in-addr.arpa" "ltnet-scripts/zones/23.172.in-addr.arpa" null}
-      ${publicZone "d.f.ip6.arpa" "ltnet-scripts/zones/d.f.ip6.arpa" null}
-
-      # NeoNetwork Authoritative
-      ${publicZone "neo" "ltnet-scripts/zones/neo" null}
-      ${publicZone "127.10.in-addr.arpa" "ltnet-scripts/zones/127.10.in-addr.arpa" null}
-
-      # NeoNetwork Lan Tian Authoritative
-      ${localZone "lantian.neo" "ltnet-zones/lantian.neo"}
-      ${localZone "asn.lantian.neo" "ltnet-scripts/zones/asn.lantian.neo"}
-      ${localForward "lantian.neo" "Klantian.neo.+013+47346"}
-
-      ${publicZone "10.127.10.in-addr.arpa" "ltnet-zones/10.127.10.in-addr.arpa"
-        "K10.127.10.in-addr.arpa.+013+53292"
-      }
-      ${publicZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa"
-        "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"
-      }
-
-      # LTNET Public Facing Addressing
-      ${publicZone "asn.lantian.pub" "ltnet-scripts/zones/asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
-
-      # LTNET Authoritative
-      ${publicZone "18.198.in-addr.arpa" "ltnet-zones/18.198.in-addr.arpa" null}
-      ${publicZone "19.198.in-addr.arpa" "ltnet-zones/19.198.in-addr.arpa" null}
+      ${forwardZone "lantian.dn42" "Klantian.dn42.+013+20109"}
+      ${forwardZone "asn.lantian.dn42" null}
+      ${forwardZone "184/29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
+      ${forwardZone "96/27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
+      ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
+      ${forwardZone "7.4.5.2.0.4.2.4.e164.dn42" null}
 
       # LTNET Active Directory
-      ${publicZone "ad.lantian.pub" "ltnet-scripts/zones/ad.lantian.pub" null}
-      ${publicZone "_msdcs.ad.lantian.pub" "ltnet-scripts/zones/_msdcs.ad.lantian.pub" null}
+      ${forwardZone "ad.lantian.pub" null}
+
+      # NeoNetwork Lan Tian Authoritative
+      ${forwardZone "lantian.neo" "Klantian.neo.+013+47346"}
+      ${forwardZone "asn.lantian.neo" null}
+      ${forwardZone "10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
+      ${forwardZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
+
+      # LTNET Public Facing Addressing
+      ${forwardZone "asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
+
+      # LTNET Authoritative
+      ${forwardZone "18.198.in-addr.arpa" null}
+      ${forwardZone "19.198.in-addr.arpa" null}
 
       # Public Internet Authoritative
-      ${publicZone "lantian.eu.org" "ltnet-zones/lantian.eu.org" "Klantian.eu.org.+013+37106"}
+      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+37106"}
 
-      # OpenNIC Authoritative
-      ${publicZone "opennic.glue" "ltnet-scripts/zones/opennic.glue" null}
-      ${publicZone "dns.opennic.glue" "ltnet-scripts/zones/dns.opennic.glue" null}
-      ${publicZone "bbs" "ltnet-scripts/zones/bbs" null}
-      ${publicZone "chan" "ltnet-scripts/zones/chan" null}
-      ${publicZone "cyb" "ltnet-scripts/zones/cyb" null}
-      ${publicZone "dyn" "ltnet-scripts/zones/dyn" null}
-      ${publicZone "epic" "ltnet-scripts/zones/epic" null}
-      ${publicZone "fur" "ltnet-scripts/zones/fur" null}
-      ${publicZone "geek" "ltnet-scripts/zones/geek" null}
-      ${publicZone "gopher" "ltnet-scripts/zones/gopher" null}
-      ${publicZone "indy" "ltnet-scripts/zones/indy" null}
-      ${publicZone "libre" "ltnet-scripts/zones/libre" null}
-      ${publicZone "null" "ltnet-scripts/zones/null" null}
-      ${publicZone "o" "ltnet-scripts/zones/o" null}
-      ${publicZone "oss" "ltnet-scripts/zones/oss" null}
-      ${publicZone "oz" "ltnet-scripts/zones/oz" null}
-      ${publicZone "parody" "ltnet-scripts/zones/parody" null}
-      ${publicZone "pirate" "ltnet-scripts/zones/pirate" null}
+      # NeoNetwork Authoritative
+      ${forwardZone "neo" null}
+      ${forwardZone "127.10.in-addr.arpa" null}
 
       # Lan Tian Mobile VoLTE
-      ${publicZone "mnc001.mcc001.3gppnetwork.org" "ltnet-zones/mnc001.mcc001.3gppnetwork.org" null}
-      ${publicZone "mnc010.mcc315.3gppnetwork.org" "ltnet-zones/mnc010.mcc315.3gppnetwork.org" null}
-      ${publicZone "mnc999.mcc999.3gppnetwork.org" "ltnet-zones/mnc999.mcc999.3gppnetwork.org" null}
+      ${forwardZone "mnc001.mcc001.3gppnetwork.org" null}
+      ${forwardZone "mnc010.mcc315.3gppnetwork.org" null}
+      ${forwardZone "mnc999.mcc999.3gppnetwork.org" null}
 
       # Meshname
       meshname {
@@ -162,6 +95,7 @@ let
         meship
       }
     '';
+
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   sops.secrets = builtins.listToAttrs (
@@ -203,6 +137,250 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     birdBindTo = [ "coredns-authoritative.service" ];
   };
 
+  services.knot =
+    let
+      mkDn42Zone = name: {
+        domain = name;
+        storage = "/var/cache/zones/";
+        file = "${name}.zone";
+        refresh-min-interval = "1m";
+        refresh-max-interval = "1d";
+        master = "dn42";
+        acl = [
+          "dn42_notify"
+          "allow_transfer"
+        ];
+      };
+      mkOpennicZone = name: {
+        domain = name;
+        storage = "/var/cache/zones/";
+        file = "${if name == "." then "root" else name}.zone";
+        refresh-min-interval = "1h";
+        refresh-max-interval = "1d";
+        master = "opennic";
+        acl = [
+          "opennic_notify"
+          "allow_transfer"
+        ];
+      };
+      mkLocalZone = domain: path: {
+        inherit domain;
+        file = "${builtins.baseNameOf path}.zone";
+        storage = "/nix/sync-servers/${builtins.dirOf path}";
+      };
+    in
+    {
+      enable = true;
+      checkConfig = false;
+      settings = {
+        server = {
+          listen = [
+            "127.0.0.1@${LT.portStr.DNSLocal}"
+            "::1@${LT.portStr.DNSLocal}"
+          ];
+          identity = "lantian";
+          version = "2.3.3";
+          nsid = "lantian";
+          edns-client-subnet = true;
+          answer-rotation = true;
+        };
+
+        log = [
+          {
+            target = "stdout";
+            any = "info";
+          }
+        ];
+
+        remote = [
+          {
+            id = "dn42";
+            via = [
+              config.lantian.netns.coredns-authoritative.ipv4
+              config.lantian.netns.coredns-authoritative.ipv6
+            ];
+            address = [
+              "fd42:180:3de0:30::1@${LT.portStr.DNS}"
+              "fd42:180:3de0:10:5054:ff:fe87:ea39@${LT.portStr.DNS}"
+            ];
+          }
+          {
+            id = "opennic";
+            via = [
+              config.lantian.netns.coredns-authoritative.ipv4
+              config.lantian.netns.coredns-authoritative.ipv6
+            ];
+            address = [
+              "161.97.219.84@${LT.portStr.DNS}"
+              "94.103.153.176@${LT.portStr.DNS}"
+              "178.63.116.152@${LT.portStr.DNS}"
+              "188.226.146.136@${LT.portStr.DNS}"
+              "144.76.103.143@${LT.portStr.DNS}"
+              "2001:470:4212:10:0:100:53:10@${LT.portStr.DNS}"
+              "2a02:990:219:1:ba:1337:cafe:3@${LT.portStr.DNS}"
+              "2a01:4f8:141:4281::999@${LT.portStr.DNS}"
+              "2a03:b0c0:0:1010::13f:6001@${LT.portStr.DNS}"
+              "2a01:4f8:192:43a5::2@${LT.portStr.DNS}"
+            ];
+          }
+        ];
+
+        acl = [
+          {
+            id = "dn42_notify";
+            action = "notify";
+            address = [
+              "fd42:180:3de0:30::1"
+              "fd42:180:3de0:10:5054:ff:fe87:ea39"
+            ];
+          }
+          {
+            id = "opennic_notify";
+            action = "notify";
+            address = [
+              "161.97.219.84"
+              "94.103.153.176"
+              "178.63.116.152"
+              "188.226.146.136"
+              "144.76.103.143"
+              "2001:470:4212:10:0:100:53:10"
+              "2a02:990:219:1:ba:1337:cafe:3"
+              "2a01:4f8:141:4281::999"
+              "2a03:b0c0:0:1010::13f:6001"
+              "2a01:4f8:192:43a5::2"
+            ];
+          }
+          {
+            id = "allow_transfer";
+            action = "transfer";
+            address = [
+              "0.0.0.0/0"
+              "::/0"
+            ];
+          }
+        ];
+
+        zone =
+          (map mkDn42Zone [
+            "dn42"
+            "10.in-addr.arpa"
+            "20.172.in-addr.arpa"
+            "21.172.in-addr.arpa"
+            "22.172.in-addr.arpa"
+            "23.172.in-addr.arpa"
+            "31.172.in-addr.arpa"
+            "d.f.ip6.arpa"
+          ])
+          ++ (map mkOpennicZone [
+            "."
+            "opennic.glue"
+            "dns.opennic.glue"
+            "bbs"
+            "chan"
+            "cyb"
+            "dyn"
+            "epic"
+            "fur"
+            "geek"
+            "gopher"
+            "indy"
+            "libre"
+            "null"
+            "o"
+            "oss"
+            "oz"
+            "parody"
+            "pirate"
+          ])
+          ++ (map (z: mkLocalZone z.domain z.path) [
+            {
+              domain = "lantian.dn42";
+              path = "ltnet-zones/lantian.dn42";
+            }
+            {
+              domain = "asn.lantian.dn42";
+              path = "ltnet-scripts/zones/asn.lantian.dn42";
+            }
+            {
+              domain = "184/29.76.22.172.in-addr.arpa";
+              path = "ltnet-zones/184_29.76.22.172.in-addr.arpa";
+            }
+            {
+              domain = "96/27.76.22.172.in-addr.arpa";
+              path = "ltnet-zones/96_27.76.22.172.in-addr.arpa";
+            }
+            {
+              domain = "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa";
+              path = "ltnet-zones/d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa";
+            }
+            {
+              domain = "7.4.5.2.0.4.2.4.e164.dn42";
+              path = "ltnet-zones/7.4.5.2.0.4.2.4.e164.dn42";
+            }
+            {
+              domain = "lantian.neo";
+              path = "ltnet-zones/lantian.neo";
+            }
+            {
+              domain = "asn.lantian.neo";
+              path = "ltnet-scripts/zones/asn.lantian.neo";
+            }
+            {
+              domain = "10.127.10.in-addr.arpa";
+              path = "ltnet-zones/10.127.10.in-addr.arpa";
+            }
+            {
+              domain = "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa";
+              path = "ltnet-zones/0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa";
+            }
+            {
+              domain = "asn.lantian.pub";
+              path = "ltnet-scripts/zones/asn.lantian.pub";
+            }
+            {
+              domain = "18.198.in-addr.arpa";
+              path = "ltnet-zones/18.198.in-addr.arpa";
+            }
+            {
+              domain = "19.198.in-addr.arpa";
+              path = "ltnet-zones/19.198.in-addr.arpa";
+            }
+            {
+              domain = "lantian.eu.org";
+              path = "ltnet-zones/lantian.eu.org";
+            }
+            {
+              domain = "neo";
+              path = "ltnet-scripts/zones/neo";
+            }
+            {
+              domain = "127.10.in-addr.arpa";
+              path = "ltnet-scripts/zones/127.10.in-addr.arpa";
+            }
+            {
+              domain = "mnc001.mcc001.3gppnetwork.org";
+              path = "ltnet-zones/mnc001.mcc001.3gppnetwork.org";
+            }
+            {
+              domain = "mnc010.mcc315.3gppnetwork.org";
+              path = "ltnet-zones/mnc010.mcc315.3gppnetwork.org";
+            }
+            {
+              domain = "mnc999.mcc999.3gppnetwork.org";
+              path = "ltnet-zones/mnc999.mcc999.3gppnetwork.org";
+            }
+            {
+              domain = "ad.lantian.pub";
+              path = "ltnet-scripts/zones/ad.lantian.pub";
+            }
+            {
+              domain = "_msdcs.ad.lantian.pub";
+              path = "ltnet-scripts/zones/_msdcs.ad.lantian.pub";
+            }
+          ]);
+      };
+    };
+
   systemd.services = {
     coredns-authoritative = netns.bind {
       description = "Coredns for authoritative zones";
@@ -211,8 +389,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       serviceConfig = LT.serviceHarden // {
         LimitNPROC = 512;
         LimitNOFILE = 1048576;
-        MemoryMax = "400M";
-        MemorySwapMax = "100M";
+        MemoryMax = "256M";
+        MemorySwapMax = "64M";
 
         ExecStart = "${lib.getExe pkgs.nur-xddxdd.lantianCustomized.coredns} -conf=${corednsConfig}";
         ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -SIGUSR1 $MAINPID";
@@ -228,6 +406,13 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           "AF_UNIX"
           "AF_NETLINK"
         ];
+      };
+    };
+
+    knot = netns.bind {
+      serviceConfig = {
+        ReadWritePaths = [ "/tmp" ];
+        CacheDirectory = "zones";
       };
     };
   };
