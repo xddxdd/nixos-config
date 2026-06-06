@@ -34,7 +34,6 @@
     "tls://62.210.85.80:39575",
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://s2.i2pd.xyz:39575",
-    "tls://ygg.jholden.org:1555",
     "tls://ygg6.mk16.de:1338?key=0000005e5ced06fd4d465bc651c5deb6d70cbe82d36efb68c0450268eaaa5384",
     "tls://yggpeer.tilde.green:59454"
   ],
@@ -79,7 +78,6 @@
     "tls://145.239.92.251:51811?key=63190e3dfc084ca063169a607b1786b4829193ebc8623ac0abdfd6608cd8ee6a"
   ],
   "romania": [
-    "tls://nuket0wn.mystora.su:443",
     "tls://ygg-ro.axxa.dev:18080"
   ],
   "russia": [
