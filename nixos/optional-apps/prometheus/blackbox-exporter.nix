@@ -118,9 +118,6 @@ in
             dns = {
               query_name = "lantian.dn42";
               query_type = "A";
-              validate_authority_rrs.fail_if_none_matches_regexp = [
-                "\\.lantian\\.dn42\\.$"
-              ];
             };
           };
           gopher = {
