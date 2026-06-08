@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   LT,
   config,
@@ -16,6 +17,7 @@
 
   services.atticd = {
     enable = true;
+    package = pkgs.nur-xddxdd.lantianCustomized.attic-telnyx-compatible;
     environmentFile = config.sops.secrets.attic-credentials.path;
     mode = "monolithic";
     settings = lib.mkForce {
@@ -27,9 +29,9 @@
       require-proof-of-possession = false;
       storage = {
         type = "s3";
-        region = "enam";
+        region = "us-central-1";
         bucket = "lantian-nix-cache";
-        endpoint = "https://2d8c04d248c430fff57494a2b722ff49.r2.cloudflarestorage.com";
+        endpoint = "https://us-central-1.telnyxstorage.com";
       };
       # Disable chunking to use S3 direct download
       chunking = {
