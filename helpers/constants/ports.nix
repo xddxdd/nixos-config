@@ -45,6 +45,7 @@ rec {
     Prometheus.NUTExporter = 9199;
     Prometheus.CoreDNS = 9253;
     Prometheus.BirdExporter = 9324;
+    Prometheus.KnotExporter = 9433;
     Prometheus.StorageBoxExporter = 9509;
     Prometheus.WireGuardExporter = 9586;
     Prometheus.RasdaemonExporter = 9629;

@@ -379,6 +379,12 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       };
     };
 
+  services.prometheus.exporters.knot = {
+    enable = true;
+    port = LT.port.Prometheus.KnotExporter;
+    listenAddress = LT.this.ltnet.IPv4;
+  };
+
   systemd.services = {
     coredns-authoritative = netns.bind {
       description = "Coredns for authoritative zones";

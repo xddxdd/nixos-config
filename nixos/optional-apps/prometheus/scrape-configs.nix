@@ -190,6 +190,17 @@ in
       ];
     })
     (scrapeByAttr {
+      jobName = "knot";
+      port = LT.port.Prometheus.KnotExporter;
+      attrPath = [
+        "services"
+        "prometheus"
+        "exporters"
+        "knot"
+        "enable"
+      ];
+    })
+    (scrapeByAttr {
       jobName = "sonarr";
       port = LT.port.Prometheus.SonarrExporter;
       attrPath = [
