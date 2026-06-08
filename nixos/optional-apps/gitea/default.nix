@@ -117,12 +117,11 @@ in
       };
       storage = {
         STORAGE_TYPE = "minio";
-        MINIO_ENDPOINT = "us-west-1.telnyxstorage.com";
+        MINIO_ENDPOINT = "2d8c04d248c430fff57494a2b722ff49.r2.cloudflarestorage.com";
         MINIO_BUCKET = "lantian-gitea";
-        MINIO_LOCATION = "us-west-1";
+        MINIO_LOCATION = "enam";
         MINIO_USE_SSL = true;
-        # Telnyx storage does not support regular presigned URLs, will expose key
-        SERVE_DIRECT = false;
+        SERVE_DIRECT = true;
       };
     };
   };
