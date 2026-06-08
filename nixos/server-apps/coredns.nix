@@ -163,6 +163,18 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           "allow_transfer"
         ];
       };
+      mkLtnetAdZone = name: {
+        domain = name;
+        storage = "/var/cache/zones/";
+        file = "${if name == "." then "root" else name}.zone";
+        refresh-min-interval = "1h";
+        refresh-max-interval = "1d";
+        master = "ltnet_ad";
+        acl = [
+          "ltnet_ad_notify"
+          "allow_transfer"
+        ];
+      };
       mkLocalZone = domain: path: {
         inherit domain;
         file = "${builtins.baseNameOf path}.zone";
@@ -223,6 +235,17 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
               "2a01:4f8:192:43a5::2@${LT.portStr.DNS}"
             ];
           }
+          {
+            id = "ltnet_ad";
+            via = [
+              config.lantian.netns.coredns-authoritative.ipv4
+              config.lantian.netns.coredns-authoritative.ipv6
+            ];
+            address = [
+              "198.18.0.202@${LT.portStr.DNS}"
+              "fdbc:f9dc:67ad::202@${LT.portStr.DNS}"
+            ];
+          }
         ];
 
         acl = [
@@ -251,6 +274,14 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             ];
           }
           {
+            id = "ltnet_ad_notify";
+            action = "notify";
+            address = [
+              "198.18.0.202"
+              "fdbc:f9dc:67ad::202"
+            ];
+          }
+          {
             id = "allow_transfer";
             action = "transfer";
             address = [
@@ -263,6 +294,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         zone =
           (map mkDn42Zone LT.constants.zones.DN42)
           ++ (map mkOpennicZone ([ "." ] ++ LT.constants.zones.OpenNIC))
+          ++ (map mkLtnetAdZone [
+            "ad.lantian.pub"
+            "_msdcs.ad.lantian.pub"
+          ])
           ++ (map (z: mkLocalZone z.domain z.path) [
             {
               domain = "lantian.dn42";
@@ -339,14 +374,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             {
               domain = "mnc999.mcc999.3gppnetwork.org";
               path = "ltnet-zones/mnc999.mcc999.3gppnetwork.org";
-            }
-            {
-              domain = "ad.lantian.pub";
-              path = "ltnet-scripts/zones/ad.lantian.pub";
-            }
-            {
-              domain = "_msdcs.ad.lantian.pub";
-              path = "ltnet-scripts/zones/_msdcs.ad.lantian.pub";
             }
           ]);
       };
