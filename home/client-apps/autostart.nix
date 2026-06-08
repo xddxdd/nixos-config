@@ -8,8 +8,6 @@
   xdg.configFile = LT.gui.autostart (
     (lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       # keep-sorted start
-      "bitwarden"
-      "cherry-studio --start-minimized"
       "discord --start-minimized"
       "materialgram -autostart"
       "neochat"
