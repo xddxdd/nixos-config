@@ -19,7 +19,6 @@ _: {
       "dns.opennic.glue"
       "dyn"
       "epic"
-      "fur"
       "geek"
       "gopher"
       "indy"

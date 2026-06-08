@@ -261,37 +261,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ];
 
         zone =
-          (map mkDn42Zone [
-            "dn42"
-            "10.in-addr.arpa"
-            "20.172.in-addr.arpa"
-            "21.172.in-addr.arpa"
-            "22.172.in-addr.arpa"
-            "23.172.in-addr.arpa"
-            "31.172.in-addr.arpa"
-            "d.f.ip6.arpa"
-          ])
-          ++ (map mkOpennicZone [
-            "."
-            "opennic.glue"
-            "dns.opennic.glue"
-            "bbs"
-            "chan"
-            "cyb"
-            "dyn"
-            "epic"
-            "fur"
-            "geek"
-            "gopher"
-            "indy"
-            "libre"
-            "null"
-            "o"
-            "oss"
-            "oz"
-            "parody"
-            "pirate"
-          ])
+          (map mkDn42Zone LT.constants.zones.DN42)
+          ++ (map mkOpennicZone ([ "." ] ++ LT.constants.zones.OpenNIC))
           ++ (map (z: mkLocalZone z.domain z.path) [
             {
               domain = "lantian.dn42";
