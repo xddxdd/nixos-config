@@ -200,7 +200,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         log = [
           {
             target = "stdout";
-            any = "info";
+            server = "warning";
+            control = "warning";
+            zone = "info";
+            quic = "warning";
           }
         ];
 
