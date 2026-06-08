@@ -19,7 +19,7 @@
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/picoclaw.nix
-    # ../../nixos/optional-apps/sakura-llm
+    ../../nixos/optional-apps/sakura-llm
   ];
 
   environment.systemPackages = [
