@@ -95,7 +95,8 @@ in
         ip neigh add ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} router \
           || ip neigh replace ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} router
       '') v.ipAssignments
-    ) LT.zerotier.hosts;
+    ) LT.zerotier.managedHosts;
+    # Do not include additional hosts, ZeroTier Windows calculate mac differently
   };
 
   systemd.network.networks."99-zerotier" = lib.mkIf (LT.this.hasTag LT.tags.server) {

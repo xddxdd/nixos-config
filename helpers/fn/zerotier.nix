@@ -41,6 +41,7 @@ let
   );
 in
 {
+  managedHosts = ztMembers;
   hosts = ztMembers // additionalMembers;
 
   clientManagedIPv4Ranges = constants.dn42.IPv4 ++ constants.neonetwork.IPv4 ++ [ "198.18.0.0/15" ];
