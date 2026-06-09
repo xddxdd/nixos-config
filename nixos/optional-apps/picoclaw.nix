@@ -34,9 +34,7 @@ in
       let
         mcpJsonFile = pkgs.writeText "picoclaw-mcp.json" (
           builtins.toJSON {
-            mcpServers = lib.mapAttrs (
-              k: v: (lib.removeAttrs v [ "alwaysAllow" ]) // { enabled = true; }
-            ) config.lantian.mcp.mcpServers;
+            mcpServers = lib.mapAttrs (k: v: v // { enabled = true; }) config.lantian.mcp.mcpServers;
           }
         );
       in

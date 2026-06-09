@@ -46,6 +46,15 @@
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
+      adsb-lol = {
+        command = "uvx";
+        args = [
+          "awslabs.openapi-mcp-server@latest"
+          "--api-name=adsb.lol"
+          "--api-url=https://api.adsb.lol"
+          "--spec-url=https://api.adsb.lol/api/openapi.json"
+        ];
+      };
       airplanes-live = {
         command =
           let
@@ -60,17 +69,6 @@
               exec ${py}/bin/python ${LT.sources.airplanes-live-mcp.src}/airplane_server.py
             ''
           );
-        alwaysAllow = [
-          "aircraft_by_hex"
-          "aircraft_by_callsign"
-          "aircraft_by_registration"
-          "aircraft_by_type"
-          "aircraft_by_squawk"
-          "aircraft_near_position"
-          "military_aircraft"
-          "ladd_aircraft"
-          "pia_aircraft"
-        ];
       };
       brave-search = {
         command = toString (
@@ -79,10 +77,6 @@
             exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
           ''
         );
-        alwaysAllow = [
-          "brave_web_search"
-          "brave_local_search"
-        ];
       };
       caldav = {
         command = toString (
@@ -93,10 +87,6 @@
             exec ${pkgs.nodejs}/bin/npx -y caldav-mcp
           ''
         );
-        alwaysAllow = [
-          "list-events"
-          "list-calendars"
-        ];
       };
       context7 = {
         command = toString (
@@ -105,17 +95,10 @@
             exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
           ''
         );
-        alwaysAllow = [
-          "resolve-library-id"
-          "query-docs"
-        ];
       };
       fetch = {
         command = "uvx";
         args = [ "mcp-server-fetch" ];
-        alwaysAllow = [
-          "fetch"
-        ];
       };
       flightaware = {
         command = toString (
@@ -125,10 +108,6 @@
             exec ${pkgs.uv}/bin/uvx flightaware-mcp
           ''
         );
-        alwaysAllow = [
-          "search_flights"
-          "iata_to_icao"
-        ];
       };
       google-maps = {
         command = toString (
@@ -137,15 +116,6 @@
             exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-google-maps
           ''
         );
-        alwaysAllow = [
-          "maps_geocode"
-          "maps_reverse_geocode"
-          "maps_search_places"
-          "maps_place_details"
-          "maps_distance_matrix"
-          "maps_elevation"
-          "maps_directions"
-        ];
       };
       national-park-service = {
         command = toString (
@@ -154,14 +124,6 @@
             exec ${pkgs.nodejs}/bin/npx -y mcp-server-nationalparks
           ''
         );
-        alwaysAllow = [
-          "findParks"
-          "getParkDetails"
-          "getAlerts"
-          "getVisitorCenters"
-          "getCampgrounds"
-          "getEvents"
-        ];
       };
       searxng = {
         command = "npx";
@@ -172,20 +134,12 @@
         env = {
           SEARXNG_URL = "https://searx.xuyh0120.win";
         };
-        alwaysAllow = [
-          "searxng_web_search"
-          "web_url_read"
-        ];
       };
       time = {
         command = "uvx";
         args = [
           "mcp-server-time"
           "--local-timezone=${config.time.timeZone}"
-        ];
-        alwaysAllow = [
-          "get_current_time"
-          "convert_time"
         ];
       };
       # keep-sorted end

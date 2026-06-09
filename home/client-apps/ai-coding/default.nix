@@ -84,11 +84,19 @@ in
   };
 
   home.activation = lib.mkIf (osConfig.lantian ? mcp) {
-    setup-zoo-code-mcp = ''
-      ${pkgs.coreutils}/bin/install -Dm644 \
-        "${osConfig.lantian.mcp.mcpJsonFile}" \
-        "$HOME/.config/Code/User/globalStorage/zoocodeorganization.zoo-code/settings/mcp_settings.json"
-    '';
+    setup-zoo-code-mcp =
+      let
+        mcpJsonFile = pkgs.writeText "mcp.json" (
+          builtins.toJSON {
+            mcpServers = lib.mapAttrs (_: v: v // { alwaysAllow = [ "*" ]; }) osConfig.lantian.mcp.mcpServers;
+          }
+        );
+      in
+      ''
+        ${pkgs.coreutils}/bin/install -Dm644 \
+          "${mcpJsonFile}" \
+          "$HOME/.config/Code/User/globalStorage/zoocodeorganization.zoo-code/settings/mcp_settings.json"
+      '';
   };
 
   home.file.".roo/rules".source = ./rules;
