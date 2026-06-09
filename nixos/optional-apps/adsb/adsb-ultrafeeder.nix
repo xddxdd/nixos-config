@@ -1,17 +1,10 @@
 {
-  inputs,
   lib,
   LT,
   config,
   ...
 }:
 {
-  imports = [ ./dump978.nix ];
-
-  sops.secrets.adsb-lat.sopsFile = inputs.secrets + "/adsb.yaml";
-  sops.secrets.adsb-lon.sopsFile = inputs.secrets + "/adsb.yaml";
-  sops.secrets.adsb-alt.sopsFile = inputs.secrets + "/adsb.yaml";
-  sops.secrets.adsb-uuid.sopsFile = inputs.secrets + "/adsb.yaml";
   sops.templates.adsb-ultrafeeder-env.content = ''
     LAT=${config.sops.placeholder.adsb-lat}
     LONG=${config.sops.placeholder.adsb-lon}
@@ -29,11 +22,13 @@
       "--device-cgroup-rule=c 189:* rwm"
     ];
     ports = [
-      "127.0.0.1:${LT.portStr.Dump1090.RawInput}:30001"
-      "127.0.0.1:${LT.portStr.Dump1090.RawOutput}:30002"
-      "127.0.0.1:${LT.portStr.Dump1090.BaseStation}:30003"
-      "127.0.0.1:${LT.portStr.Dump1090.BeastInput}:30004"
-      "127.0.0.1:${LT.portStr.Dump1090.BeastOutput}:30005"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.RawInput}:30001"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.RawOutput}:30002"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.BaseStation}:30003"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.BeastInput}:30004"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.BeastOutput}:30005"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.UltraFeeder.MlatHubBeastInput}:31004"
+      "${LT.this.ltnet.IPv4}:${LT.portStr.UltraFeeder.MlatHubBeastOutput}:31005"
       "127.0.0.1:${LT.portStr.UltraFeeder.HTTP}:80"
     ];
     environmentFiles = [ config.sops.templates.adsb-ultrafeeder-env.path ];
@@ -58,6 +53,9 @@
       ULTRAFEEDER_CONFIG = lib.join ";" [
         # Dump978 connection
         "adsb,${LT.this.ltnet.IPv4},${LT.portStr.Dump978.Raw},uat_in"
+
+        # External connection
+        "mlathub,${LT.this.ltnet.IPv4},${LT.portStr.UltraFeeder.PlaneWatch},beast_in"
 
         # ADSB/MLAT feeds
         # keep-sorted start

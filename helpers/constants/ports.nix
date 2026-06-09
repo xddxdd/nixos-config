@@ -118,6 +118,9 @@ rec {
     Dump1090.BeastOutput = 13905;
     Dump1090.Stratux = 13906;
     UltraFeeder.HTTP = 13907;
+    UltraFeeder.MlatHubBeastInput = 13914;
+    UltraFeeder.MlatHubBeastOutput = 13915;
+    UltraFeeder.PlaneWatch = 13919;
     Dump978.Raw = 13978;
     Dump978.Json = 13979;
     ClawEmail = 13997;

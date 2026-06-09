@@ -5,8 +5,7 @@
     ../../nixos/common-apps/nginx
     ../../nixos/minimal.nix
 
-    ../../nixos/optional-apps/adsb-ultrafeeder.nix
-    ../../nixos/optional-apps/flightradar24.nix
+    ../../nixos/optional-apps/adsb
     ../../nixos/optional-apps/ncps-client.nix
 
     ./hardware-configuration.nix
