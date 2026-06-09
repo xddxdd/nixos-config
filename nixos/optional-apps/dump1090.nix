@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   LT,
@@ -6,10 +7,31 @@
   ...
 }:
 {
+  sops.secrets.adsb-lat.sopsFile = inputs.secrets + "/adsb.yaml";
+  sops.secrets.adsb-lon.sopsFile = inputs.secrets + "/adsb.yaml";
+
   systemd.services.dump1090 = {
     description = "dump1090 ADS-B receiver";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+
+    script = ''
+      exec ${lib.getExe pkgs.dump1090-fa} \
+        --quiet \
+        --device stx:1090:0 \
+        --net \
+        --net-bind-address 127.0.0.1 \
+        --net-ri-port ${LT.portStr.Dump1090.RawInput} \
+        --net-ro-port ${LT.portStr.Dump1090.RawOutput} \
+        --net-sbs-port ${LT.portStr.Dump1090.BaseStation} \
+        --net-bi-port ${LT.portStr.Dump1090.BeastInput} \
+        --net-bo-port ${LT.portStr.Dump1090.BeastOutput} \
+        --net-stratux-port ${LT.portStr.Dump1090.Stratux} \
+        --write-json /run/dump1090 \
+        --forward-mlat \
+        --lat $(cat ${config.sops.secrets.adsb-lat.path}) \
+        --lon $(cat ${config.sops.secrets.adsb-lon.path})
+    '';
 
     serviceConfig = LT.serviceHarden // {
       PrivateDevices = false;
@@ -21,24 +43,6 @@
 
       Restart = "always";
       RestartSec = "5";
-
-      ExecStart = builtins.concatStringsSep " " [
-        (lib.getExe pkgs.dump1090-fa)
-        "--quiet"
-        "--device stx:1090:0"
-        "--net"
-        "--net-bind-address 127.0.0.1"
-        "--net-ri-port ${LT.portStr.Dump1090.RawInput}"
-        "--net-ro-port ${LT.portStr.Dump1090.RawOutput}"
-        "--net-sbs-port ${LT.portStr.Dump1090.BaseStation}"
-        "--net-bi-port ${LT.portStr.Dump1090.BeastInput}"
-        "--net-bo-port ${LT.portStr.Dump1090.BeastOutput}"
-        "--net-stratux-port ${LT.portStr.Dump1090.Stratux}"
-        "--write-json /run/dump1090"
-        "--forward-mlat"
-        "--lat ${LT.this.city.lat}"
-        "--lon ${LT.this.city.lng}"
-      ];
     };
   };
 

@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-    ./dump1090.nix
+    ./adsb-ultrafeeder.nix
     ./dump978.nix
   ];
 
@@ -29,10 +29,10 @@
     description = "Flightradar24 Feeder";
     after = [
       "network.target"
-      "dump1090.service"
+      "podman-adsb-ultrafeeder.service"
     ];
     requires = [
-      "dump1090.service"
+      "podman-adsb-ultrafeeder.service"
     ];
     wantedBy = [ "multi-user.target" ];
 

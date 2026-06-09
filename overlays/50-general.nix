@@ -20,15 +20,6 @@ rec {
     vendorHash = "sha256-7T4svxdzKsSQup1Ls43bK+l/xMgxL4mmQQ7Ck3WoKRk=";
     doCheck = false;
   });
-  dump1090-fa = prev.dump1090-fa.overrideAttrs (old: {
-    # Original patch is broken
-    patches = [
-      (final.fetchpatch2 {
-        url = "https://github.com/flightaware/dump1090/commit/93be1da123215e8ac15a0deaffedd480e8899f77.patch";
-        hash = "sha256-KSvES/FhMBQ3CRpDF++n2A5sFyRPalNBGUegqQX7UsY=";
-      })
-    ];
-  });
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });

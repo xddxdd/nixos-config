@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   LT,
@@ -6,6 +7,9 @@
   ...
 }:
 {
+  sops.secrets.adsb-lat.sopsFile = inputs.secrets + "/adsb.yaml";
+  sops.secrets.adsb-lon.sopsFile = inputs.secrets + "/adsb.yaml";
+
   systemd.services.dump978 = {
     description = "dump978 UAT receiver";
     after = [ "network.target" ];
@@ -36,6 +40,15 @@
     requires = [ "dump978.service" ];
     wantedBy = [ "multi-user.target" ];
 
+    script = ''
+      exec ${lib.getExe' pkgs.nur-xddxdd.dump978 "skyaware978"} \
+        --connect 127.0.0.1:${LT.portStr.Dump978.Raw} \
+        --reconnect-interval 5 \
+        --json-dir /run/skyaware978 \
+        --lat $(cat ${config.sops.secrets.adsb-lat.path}) \
+        --lon $(cat ${config.sops.secrets.adsb-lon.path})
+    '';
+
     serviceConfig = LT.serviceHarden // {
       RuntimeDirectory = "skyaware978";
       RuntimeDirectoryMode = "755";
@@ -43,15 +56,6 @@
 
       Restart = "always";
       RestartSec = "5";
-
-      ExecStart = builtins.concatStringsSep " " [
-        (lib.getExe' pkgs.nur-xddxdd.dump978 "skyaware978")
-        "--connect 127.0.0.1:${LT.portStr.Dump978.Raw}"
-        "--reconnect-interval 5"
-        "--json-dir /run/skyaware978"
-        "--lat ${LT.this.city.lat}"
-        "--lon ${LT.this.city.lng}"
-      ];
     };
   };
 

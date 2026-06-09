@@ -117,6 +117,7 @@ rec {
     Dump1090.BeastInput = 13904;
     Dump1090.BeastOutput = 13905;
     Dump1090.Stratux = 13906;
+    UltraFeeder.HTTP = 13907;
     Dump978.Raw = 13978;
     Dump978.Json = 13979;
     ClawEmail = 13997;
