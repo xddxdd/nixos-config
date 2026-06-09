@@ -5,7 +5,7 @@
     nssmdns4 = true;
     nssmdns6 = true;
     reflector = !(LT.this.hasTag LT.tags.client);
-    wideArea = true;
+    wideArea = false; # CVE-2024-52615
 
     publish = {
       enable = true;
