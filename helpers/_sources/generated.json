@@ -1,4 +1,24 @@
 {
+    "airplanes-live-mcp": {
+        "cargoLock": null,
+        "date": "2025-10-23",
+        "extract": null,
+        "name": "airplanes-live-mcp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "df9b1499b45d3cc67c709afeb993453032943b7b",
+            "sha256": "sha256-GNmQ3RCFdMzDWjL+ygfpFyCWmXPTOxdBaedL8gmSr6s=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/Bellaposa/airplanes-live-mcp.git"
+        },
+        "version": "df9b1499b45d3cc67c709afeb993453032943b7b"
+    },
     "auto-novel-addon": {
         "cargoLock": null,
         "date": null,

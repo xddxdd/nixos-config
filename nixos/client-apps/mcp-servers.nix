@@ -3,6 +3,7 @@
   lib,
   inputs,
   config,
+  LT,
   ...
 }:
 {
@@ -45,6 +46,32 @@
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
+      airplanes-live = {
+        command =
+          let
+            py = pkgs.python3.withPackages (ps: [
+              ps.mcp
+              ps.fastmcp
+              ps.httpx
+            ]);
+          in
+          toString (
+            pkgs.writeShellScript "mcp-airplanes-live" ''
+              exec ${py}/bin/python ${LT.sources.airplanes-live-mcp.src}/airplane_server.py
+            ''
+          );
+        alwaysAllow = [
+          "aircraft_by_hex"
+          "aircraft_by_callsign"
+          "aircraft_by_registration"
+          "aircraft_by_type"
+          "aircraft_by_squawk"
+          "aircraft_near_position"
+          "military_aircraft"
+          "ladd_aircraft"
+          "pia_aircraft"
+        ];
+      };
       brave-search = {
         command = toString (
           pkgs.writeShellScript "mcp-brave-search" ''

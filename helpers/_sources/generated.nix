@@ -6,6 +6,20 @@
   dockerTools,
 }:
 {
+  airplanes-live-mcp = {
+    pname = "airplanes-live-mcp";
+    version = "df9b1499b45d3cc67c709afeb993453032943b7b";
+    src = fetchgit {
+      url = "https://github.com/Bellaposa/airplanes-live-mcp.git";
+      rev = "df9b1499b45d3cc67c709afeb993453032943b7b";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-GNmQ3RCFdMzDWjL+ygfpFyCWmXPTOxdBaedL8gmSr6s=";
+    };
+    date = "2025-10-23";
+  };
   auto-novel-addon = {
     pname = "auto-novel-addon";
     version = "1.8.1";
