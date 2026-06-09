@@ -30,6 +30,10 @@
       sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
+    sops.secrets.mcp-flightaware-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
+      mode = "0444";
+    };
     sops.secrets.mcp-google-maps-api-key = {
       sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
@@ -84,6 +88,19 @@
         args = [ "mcp-server-fetch" ];
         alwaysAllow = [
           "fetch"
+        ];
+      };
+      flightaware = {
+        command = toString (
+          pkgs.writeShellScript "mcp-flightaware" ''
+            export AEROAPI_KEY=$(cat "${config.sops.secrets.mcp-flightaware-api-key.path}")
+            export HISHEL_CACHE_PATH=/tmp/mcp-flightaware-cache.db
+            exec ${pkgs.uv}/bin/uvx flightaware-mcp
+          ''
+        );
+        alwaysAllow = [
+          "search_flights"
+          "iata_to_icao"
         ];
       };
       google-maps = {
