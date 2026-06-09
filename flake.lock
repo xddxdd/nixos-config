@@ -761,11 +761,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780881774,
-        "narHash": "sha256-rerEuAetLDa/0drxCKlG3FOm+IaERC85bjePsEAgNqI=",
+        "lastModified": 1780968254,
+        "narHash": "sha256-XetM3ACVYFpAoLTBVmpM6bY1I7ObXWp8WPN8EerPN9Y=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "d2516f1045bcce250f7116232899b33252c2866a",
+        "rev": "01273c66aa45c8ddd9573831c6e40eb0a39ae07d",
         "type": "github"
       },
       "original": {
@@ -1437,11 +1437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780903547,
-        "narHash": "sha256-Df5q/NnX3lyQ9ZbpgP8Z8K+Og3NpwwilQS24MYuvtNI=",
+        "lastModified": 1780918407,
+        "narHash": "sha256-zmimBAnXI26y2pLqT2cxsVCj1jYAUlUatgpvJYkV6Lc=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "2b942592bdf4cf13cd9ec9c09ea2dc0bb12836c2",
+        "rev": "a13fa7f1367ce647e2d028f7ed0e1d32b91c1540",
         "type": "github"
       },
       "original": {
