@@ -386,6 +386,30 @@
         "type": "github"
       }
     },
+    "fast-nix-gc": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "nur-xddxdd",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781026002,
+        "narHash": "sha256-alFh+W4/YRlj94+UA7vLDg1/maK2gz8WxDsSFFIExCs=",
+        "owner": "Mic92",
+        "repo": "fast-nix-gc",
+        "rev": "512c7868656fcd988de632ad0ac989348bb3bd88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "fast-nix-gc",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": [
@@ -1369,6 +1393,7 @@
         "colmena": "colmena",
         "comfyui-nix": "comfyui-nix",
         "country-ip-blocks": "country-ip-blocks",
+        "fast-nix-gc": "fast-nix-gc",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",

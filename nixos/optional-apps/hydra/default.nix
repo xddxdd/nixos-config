@@ -75,6 +75,9 @@ in
     '';
   };
 
+  # Disable SQLite VACUUM to avoid database lockup
+  services.fast-nix-gc.noVacuum = true;
+
   systemd.services.hydra-notify = {
     preStart = ''
       if [ ! -f "$HOME/.config/attic/config.toml" ]; then

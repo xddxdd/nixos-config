@@ -50,6 +50,11 @@
       url = "github:ipverse/country-ip-blocks";
       flake = false;
     };
+    fast-nix-gc = {
+      url = "github:Mic92/fast-nix-gc";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+    };
     firefox-addons = {
       url = "github:xddxdd/firefox-addons-nix";
       inputs.nixpkgs.follows = "nixpkgs";

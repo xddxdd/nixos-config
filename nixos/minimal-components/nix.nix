@@ -74,13 +74,15 @@ in
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
+    # Use fast-nix-gc instead
     gc = {
-      automatic = true;
+      automatic = false;
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
+    optimise.automatic = false;
+
     nrBuildUsers = 0;
-    optimise.automatic = true;
     settings = {
       allowed-users = lib.mkForce allowedUsers;
       auto-allocate-uids = true;
@@ -114,6 +116,21 @@ in
     };
   };
 
+  services.fast-nix-gc = {
+    enable = true;
+    automatic = true;
+    dates = "daily";
+    randomizedDelaySec = "1h";
+    deleteOlderThan = "7d";
+  };
+  services.fast-nix-optimise = {
+    enable = true;
+    automatic = true;
+    dates = "daily";
+    randomizedDelaySec = "1h";
+  };
+  systemd.services.nix-optimise.enable = false;
+
   systemd.services.nix-daemon = {
     serviceConfig = {
       CacheDirectory = "nix";
@@ -121,8 +138,6 @@ in
       OOMScoreAdjust = 250;
     };
   };
-
-  systemd.timers.nix-gc.timerConfig.Persistent = lib.mkForce "false";
 
   systemd.tmpfiles.settings = {
     nix-privkey = {
