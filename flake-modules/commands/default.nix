@@ -11,7 +11,7 @@
       extraArgs = {
         inherit inputs;
         LT = import ../../helpers { inherit lib inputs pkgs; };
-        packages = self.packages."${pkgs.system}";
+        packages = self.packages."${pkgs.stdenv.hostPlatform.system}";
       };
     in
     {

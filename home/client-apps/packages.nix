@@ -29,22 +29,24 @@ let
     exit 0
   '';
 
-  wine' = inputs.nix-gaming.packages."${pkgs.system}".wine-tkg.overrideAttrs (old: {
-    prePatch =
-      let
-        oldPrepatch = old.prePatch or "";
-      in
-      (if oldPrepatch == null then "" else oldPrepatch)
-      + ''
-        substituteInPlace "loader/wine.inf.in" --replace-warn \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
-      '';
+  wine' =
+    inputs.nix-gaming.packages."${pkgs.stdenv.hostPlatform.system}".wine-tkg.overrideAttrs
+      (old: {
+        prePatch =
+          let
+            oldPrepatch = old.prePatch or "";
+          in
+          (if oldPrepatch == null then "" else oldPrepatch)
+          + ''
+            substituteInPlace "loader/wine.inf.in" --replace-warn \
+              'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
+              'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
+          '';
 
-    postFixup = ''
-      ln -sf $out/bin/wine $out/bin/wine64
-    '';
-  });
+        postFixup = ''
+          ln -sf $out/bin/wine $out/bin/wine64
+        '';
+      });
 in
 {
   imports = [ inputs.nix-index-database.homeModules.nix-index ];
@@ -82,8 +84,8 @@ in
         handbrake
         imagemagick
         immich-cli
-        inputs.markdown-apa7th-docx.packages."${pkgs.system}".default
-        inputs.picoforge.packages."${pkgs.system}".picoforge
+        inputs.markdown-apa7th-docx.packages."${pkgs.stdenv.hostPlatform.system}".default
+        inputs.picoforge.packages."${pkgs.stdenv.hostPlatform.system}".picoforge
         jamesdsp
         jamesdsp-toggle
         jpegoptim
