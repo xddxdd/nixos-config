@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 {
@@ -28,7 +29,9 @@
         "Authorization:" # command contains HTTP auth info
       ];
     };
-    syntaxHighlighting.enable = true;
+
+    # Replaced by zsh-patina
+    syntaxHighlighting.enable = false;
 
     oh-my-zsh = {
       enable = true;
@@ -147,6 +150,10 @@
 
       # Fix Cline VSCode Integration
       [[ "$TERM_PROGRAM" == "vscode" ]] && . "${pkgs.vscode}/lib/vscode/resources/app/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
+
+      eval "$(${
+        lib.getExe inputs.zsh-patina.packages.${pkgs.stdenv.hostPlatform.system}.default
+      } activate)"
     '';
   };
 }
