@@ -110,6 +110,7 @@ rec {
     Ncps = 13851;
     IyuuPlus = 13878;
     LlamaCpp.Qwen3Reranker = 13880;
+    LlamaCpp.Qwen3_6 = 13881;
     ElasticSearch = 13892;
     Dump1090.RawInput = 13901;
     Dump1090.RawOutput = 13902;
