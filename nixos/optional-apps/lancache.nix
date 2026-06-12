@@ -75,9 +75,7 @@ in
 
     virtualisation.oci-containers.containers.lancache-dns = {
       environment = env;
-      labels = {
-        "io.containers.autoupdate" = "registry";
-      };
+      labels."io.containers.autoupdate" = "registry";
       image = "docker.io/lancachenet/lancache-dns:latest";
       ports = [
         "53:53/udp"
@@ -87,9 +85,7 @@ in
 
     virtualisation.oci-containers.containers.lancache-monolithic = {
       environment = env;
-      labels = {
-        "io.containers.autoupdate" = "registry";
-      };
+      labels."io.containers.autoupdate" = "registry";
       image = "docker.io/lancachenet/monolithic:latest";
       ports = [
         "80:80/tcp"

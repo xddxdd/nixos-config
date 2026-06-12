@@ -10,9 +10,7 @@
       "--gpus=all"
     ];
     image = "docker.io/zocker160/handbrake-nvenc:18x";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     ports = [ "127.0.0.1:${LT.portStr.HandBrake}:5800" ];
     environment = {
       USER_ID = "1000";

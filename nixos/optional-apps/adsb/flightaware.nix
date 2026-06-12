@@ -13,9 +13,7 @@
 
   virtualisation.oci-containers.containers.adsb-flightaware = {
     image = "ghcr.io/sdr-enthusiasts/docker-piaware";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     environmentFiles = [ config.sops.templates.adsb-flightaware-env.path ];
     environment = {
       TZ = config.time.timeZone;

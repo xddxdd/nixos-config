@@ -19,9 +19,7 @@
         REVERSE_PROXY_USER_HEADER = "X-Remote-User";
         REVERSE_PROXY_WHITELIST = "10.88.0.1/32";
       };
-      labels = {
-        "io.containers.autoupdate" = "registry";
-      };
+      labels."io.containers.autoupdate" = "registry";
       image = "docker.io/archivebox/archivebox:latest";
       ports = [ "127.0.0.1:${LT.portStr.ArchiveBox}:8000" ];
       volumes = [ "${config.lantian.archivebox.storage}:/data" ];

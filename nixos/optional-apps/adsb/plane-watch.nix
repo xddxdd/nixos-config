@@ -16,9 +16,7 @@
 
   virtualisation.oci-containers.containers.adsb-plane-watch = {
     image = "ghcr.io/plane-watch/docker-plane-watch";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     ports = [
       "${LT.this.ltnet.IPv4}:${LT.portStr.UltraFeeder.PlaneWatch}:30105"
     ];

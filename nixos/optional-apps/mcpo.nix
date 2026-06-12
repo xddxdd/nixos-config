@@ -16,9 +16,7 @@
       "--config=${config.lantian.mcp.mcpJsonFile}"
     ];
     image = "ghcr.io/open-webui/mcpo:latest";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     volumes = [ "/nix/store:/nix/store:ro" ];
   };
 

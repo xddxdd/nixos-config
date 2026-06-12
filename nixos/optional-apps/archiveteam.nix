@@ -5,9 +5,7 @@
       DOWNLOADER = "lantian";
       SELECTED_PROJECT = "auto";
     };
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     image = "atdr.meo.ws/archiveteam/warrior-dockerfile";
     ports = [ "127.0.0.1:${LT.portStr.ArchiveTeam}:8001" ];
     volumes = [ "/var/lib/archiveteam:/home/warrior/projects" ];

@@ -14,9 +14,7 @@
 
   virtualisation.oci-containers.containers.adsb-ultrafeeder = {
     image = "ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     extraOptions = [
       "--device=/dev/bus/usb"
       "--device-cgroup-rule=c 189:* rwm"

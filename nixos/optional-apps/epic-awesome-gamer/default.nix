@@ -16,9 +16,7 @@ in
 
   virtualisation.oci-containers.containers.epic-awesome-gamer = {
     image = "ghcr.io/qin2dim/epic-awesome-gamer:latest";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     cmd = [ "${startScript}" ];
     environmentFiles = [ config.sops.secrets.epic-awesome-gamer-env.path ];
     volumes = [

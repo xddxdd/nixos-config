@@ -10,9 +10,7 @@
 
   virtualisation.oci-containers.containers.clawemail = {
     image = "ghcr.io/wangxingfan/clawemail:latest";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     ports = [ "127.0.0.1:${LT.portStr.ClawEmail}:${LT.portStr.ClawEmail}" ];
     volumes = [ "/var/lib/clawemail:/app/data" ];
     environmentFiles = [ config.sops.templates.clawemail-env.path ];

@@ -6,9 +6,7 @@
 {
   virtualisation.oci-containers.containers.byparr = {
     image = "ghcr.io/thephaseless/byparr:main";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     environment = {
       USE_HEADLESS = "false";
       USE_XVFB = "true";

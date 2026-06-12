@@ -5,9 +5,7 @@
   virtualisation.oci-containers.containers.tachidesk = {
     extraOptions = [ "--net=host" ];
     image = "ghcr.io/suwayomi/tachidesk:preview";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     environment = {
       TZ = config.time.timeZone;
       BIND_IP = "127.0.0.1";

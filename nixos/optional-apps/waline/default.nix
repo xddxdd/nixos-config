@@ -54,9 +54,7 @@ in
         "--gidmap=0:65532:1"
       ];
       image = "docker.io/lizheming/waline";
-      labels = {
-        "io.containers.autoupdate" = "registry";
-      };
+      labels."io.containers.autoupdate" = "registry";
       ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.Waline}:8360" ];
       environment = {
         PG_DB = "waline";

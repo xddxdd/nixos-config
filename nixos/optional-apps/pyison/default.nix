@@ -68,9 +68,7 @@ in
 {
   virtualisation.oci-containers.containers.pyison = {
     image = "ghcr.io/jonaslong/pyison:main";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     ports = [ "127.0.0.1:${LT.portStr.Pyison}:${LT.portStr.Pyison}" ];
     volumes = [
       "${configDir}:/var/www/config:ro"

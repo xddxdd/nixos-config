@@ -16,9 +16,7 @@
 
   virtualisation.oci-containers.containers.metapi = {
     image = "ghcr.io/cita-777/metapi:latest";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     ports = [ "127.0.0.1:${LT.portStr.Metapi}:4000" ];
     volumes = [
       "/var/lib/metapi:/app/data"

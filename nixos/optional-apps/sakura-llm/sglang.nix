@@ -16,9 +16,7 @@
     ];
     # Later versions do not work with W8A8 models
     image = "docker.io/lmsysorg/sglang:v0.5.6.post2-cu130-amd64-runtime";
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     environment = {
       TORCHINDUCTOR_CACHE_DIR = "/var/cache/torchinductor";
     };

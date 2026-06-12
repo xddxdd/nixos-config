@@ -54,9 +54,7 @@ let
 in
 {
   virtualisation.oci-containers.containers.mmrelay = {
-    labels = {
-      "io.containers.autoupdate" = "registry";
-    };
+    labels."io.containers.autoupdate" = "registry";
     image = "ghcr.io/jeremiah-k/mmrelay:latest";
     user = "root:root";
     privileged = true;
