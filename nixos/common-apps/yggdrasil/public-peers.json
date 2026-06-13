@@ -100,7 +100,8 @@
     "tls://jed-peer.ygg.sy.sa:8442"
   ],
   "singapore": [
-    "tls://asia.deinfra.org:15015"
+    "tls://asia.deinfra.org:15015",
+    "tls://yg-sin.magicum.net:23900"
   ],
   "slovakia": [
     "tls://ygg-ke.8px.sk:4321"
@@ -138,7 +139,6 @@
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
     "tls://marisa.nadeko.net:44442",
-    "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
