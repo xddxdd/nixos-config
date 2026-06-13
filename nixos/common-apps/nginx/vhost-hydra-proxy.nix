@@ -5,6 +5,10 @@
       locations = {
         "/" = {
           proxyPass = "http://${LT.hosts.lt-home-builder.ltnet.IPv4}:${LT.portStr.Hydra}";
+          extraConfig = ''
+            limit_req zone=slow burst=20 nodelay;
+            limit_req_status 429;
+          '';
         };
       };
 
