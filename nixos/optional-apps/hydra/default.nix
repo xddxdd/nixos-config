@@ -65,6 +65,10 @@ in
     buildMachinesFiles = [ "/etc/nix/machines-with-localhost" ];
     useSubstitutes = true;
 
+    maxServers = 10;
+    maxSpareServers = 2;
+    minSpareServers = 1;
+
     extraConfig = ''
       <runcommand>
         job = *:*:*
