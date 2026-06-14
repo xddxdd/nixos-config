@@ -181,11 +181,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zsh-patina = {
       url = "github:michel-kraemer/zsh-patina";
       inputs.nixpkgs.follows = "nixpkgs";
