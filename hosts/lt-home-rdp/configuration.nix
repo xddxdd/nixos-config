@@ -11,6 +11,7 @@
 
     ../../nixos/common-apps/nginx
     ../../nixos/client-apps/gnupg.nix
+    ../../nixos/client-apps/vscode-remote-env.nix
     ../../nixos/client-components/impermanence.nix
 
     ../../nixos/optional-apps/handbrake-server.nix
