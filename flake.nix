@@ -99,6 +99,11 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
@@ -133,6 +138,7 @@
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.nix-cachyos-kernel.follows = "nix-cachyos-kernel";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
