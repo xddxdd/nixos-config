@@ -106,6 +106,7 @@ in
         mediainfo
         megatools
         microcom
+        microfetch
         moonlight-qt
         nur-xddxdd.adspower
         nur-xddxdd.baidunetdisk
