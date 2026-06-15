@@ -2,44 +2,54 @@
   LT,
   config,
   inputs,
+  lib,
+  pkgs,
   ...
 }:
 {
   sops.secrets.metapi-admin-key = {
     sopsFile = inputs.secrets + "/uni-api/keys.yaml";
     key = "uni-api-admin-api-key";
+    owner = "metapi";
+    group = "metapi";
   };
-  sops.templates.metapi-env.content = ''
-    AUTH_TOKEN=${config.sops.placeholder.default-pw}
-    PROXY_TOKEN=${config.sops.placeholder.metapi-admin-key}
-  '';
 
-  virtualisation.oci-containers.containers.metapi = {
-    image = "ghcr.io/cita-777/metapi:latest";
-    labels."io.containers.autoupdate" = "registry";
-    ports = [ "127.0.0.1:${LT.portStr.Metapi}:4000" ];
-    volumes = [
-      "/var/lib/metapi:/app/data"
-    ];
+  systemd.services.metapi = {
+    description = "Metapi";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
     environment = {
       CHECKIN_CRON = "0 8 * * *";
       BALANCE_REFRESH_CRON = "0 * * * *";
-      PORT = "4000";
-      DATA_DIR = "/app/data";
+      HOST = "127.0.0.1";
+      PORT = LT.portStr.Metapi;
+      DATA_DIR = "/var/lib/metapi";
       TZ = config.time.timeZone;
     };
-    environmentFiles = [ config.sops.templates.metapi-env.path ];
-  };
 
-  systemd.tmpfiles.settings = {
-    metapi = {
-      "/var/lib/metapi"."d" = {
-        mode = "755";
-        user = "root";
-        group = "root";
-      };
+    script = ''
+      export AUTH_TOKEN=$(cat ${config.sops.secrets.default-pw.path})
+      export PROXY_TOKEN=$(cat ${config.sops.secrets.metapi-admin-key.path})
+      exec ${lib.getExe pkgs.nur-xddxdd.metapi}
+    '';
+
+    serviceConfig = LT.serviceHarden // {
+      Restart = "always";
+      RestartSec = "5";
+      User = "metapi";
+      Group = "metapi";
+      MemoryDenyWriteExecute = lib.mkForce false;
+      StateDirectory = "metapi";
+      WorkingDirectory = "/var/lib/metapi";
     };
   };
+
+  users.users.metapi = {
+    group = "metapi";
+    isSystemUser = true;
+  };
+  users.groups.metapi = { };
 
   lantian.nginxVhosts."metapi.${config.networking.hostName}.xuyh0120.win" = {
     locations = {
