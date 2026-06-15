@@ -55,6 +55,7 @@
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Metapi}";
+        proxyNoTimeout = true;
         proxyWebsockets = true;
       };
     };
