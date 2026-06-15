@@ -37,7 +37,7 @@ in
 
   programs.mcp = {
     enable = true;
-    servers = osConfig.lantian.mcp.mcpServers or { };
+    servers = osConfig.lantian.mcp.codingMcpServers or { };
   };
 
   programs.claude-code = {
@@ -121,7 +121,7 @@ in
               // {
                 alwaysAllow = [ "*" ];
               }
-            ) osConfig.lantian.mcp.mcpServers;
+            ) osConfig.lantian.mcp.codingMcpServers;
           }
         );
       in

@@ -12,6 +12,10 @@
       type = lib.types.attrs;
       default = { };
     };
+    codingMcpServers = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+    };
     mcpJsonFile = lib.mkOption {
       readOnly = true;
       default = pkgs.writeText "mcp.json" (
@@ -52,7 +56,51 @@
       mode = "0444";
     };
 
-    lantian.mcp.mcpServers = {
+    lantian.mcp.codingMcpServers = {
+      # keep-sorted start block=yes
+      brave-search = {
+        command = toString (
+          pkgs.writeShellScript "mcp-brave-search" ''
+            export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
+          ''
+        );
+      };
+      context7 = {
+        command = toString (
+          pkgs.writeShellScript "mcp-context7" ''
+            export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
+            exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
+          ''
+        );
+      };
+      deepwiki = {
+        type = "remote";
+        url = "https://mcp.deepwiki.com/mcp";
+      };
+      grok-search-rs = {
+        command = toString (
+          pkgs.writeShellScript "mcp-grok-search-rs" ''
+            export GROK_SEARCH_API_KEY=$(cat "${config.sops.secrets.mcp-grok-api-key.path}")
+            export GROK_SEARCH_MODEL=grok-4.3-fast-reasoning
+            export GROK_SEARCH_WEB_SEARCH=true
+            export GROK_SEARCH_X_SEARCH=true
+            export TAVILY_API_KEY=$(cat "${config.sops.secrets.mcp-tavily-api-key.path}")
+            exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
+          ''
+        );
+      };
+      time = {
+        command = "uvx";
+        args = [
+          "mcp-server-time"
+          "--local-timezone=${config.time.timeZone}"
+        ];
+      };
+      # keep-sorted end
+    };
+
+    lantian.mcp.mcpServers = config.lantian.mcp.codingMcpServers // {
       # keep-sorted start block=yes
       adsb-lol = {
         command = "uvx";
@@ -78,14 +126,6 @@
             ''
           );
       };
-      brave-search = {
-        command = toString (
-          pkgs.writeShellScript "mcp-brave-search" ''
-            export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
-            exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
-          ''
-        );
-      };
       caldav = {
         command = toString (
           pkgs.writeShellScript "mcp-caldav" ''
@@ -95,18 +135,6 @@
             exec ${pkgs.nodejs}/bin/npx -y caldav-mcp
           ''
         );
-      };
-      context7 = {
-        command = toString (
-          pkgs.writeShellScript "mcp-context7" ''
-            export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
-            exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
-          ''
-        );
-      };
-      deepwiki = {
-        type = "remote";
-        url = "https://mcp.deepwiki.com/mcp";
       };
       flightaware = {
         command = toString (
@@ -125,18 +153,6 @@
           ''
         );
       };
-      grok-search-rs = {
-        command = toString (
-          pkgs.writeShellScript "mcp-grok-search-rs" ''
-            export GROK_SEARCH_API_KEY=$(cat "${config.sops.secrets.mcp-grok-api-key.path}")
-            export GROK_SEARCH_MODEL=grok-4.3-fast-reasoning
-            export GROK_SEARCH_WEB_SEARCH=true
-            export GROK_SEARCH_X_SEARCH=true
-            export TAVILY_API_KEY=$(cat "${config.sops.secrets.mcp-tavily-api-key.path}")
-            exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
-          ''
-        );
-      };
       national-park-service = {
         command = toString (
           pkgs.writeShellScript "mcp-national-park-service" ''
@@ -145,12 +161,15 @@
           ''
         );
       };
-      time = {
-        command = "uvx";
+      weather = {
+        command = "npx";
         args = [
-          "mcp-server-time"
-          "--local-timezone=${config.time.timeZone}"
+          "-y"
+          "@dangahagan/weather-mcp@latest"
         ];
+        env = {
+          ENABLED_TOOLS = "full";
+        };
       };
       # keep-sorted end
     };
