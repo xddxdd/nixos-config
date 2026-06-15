@@ -56,7 +56,7 @@
       inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
     };
     firefox-addons = {
-      url = "github:xddxdd/firefox-addons-nix";
+      url = "github:petrkozorezov/firefox-addons-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

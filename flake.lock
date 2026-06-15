@@ -420,15 +420,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1780114044,
-        "narHash": "sha256-wa7jPT74epf10dHEgSaDfoR/NKlr757uRAw9HoIRFNA=",
-        "owner": "xddxdd",
+        "lastModified": 1781491175,
+        "narHash": "sha256-Beea3ua3I2uLQUpZ7yWraglj/q1dQxnxE5jhU0NVfRQ=",
+        "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
-        "rev": "782e8f3fe64eb9d9f59052470043d2c269529964",
+        "rev": "446079e41dfba7966299b784c4b36b2b018e9a70",
         "type": "github"
       },
       "original": {
-        "owner": "xddxdd",
+        "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
         "type": "github"
       }
