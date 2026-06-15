@@ -113,14 +113,7 @@ in
         mcpJsonFile = pkgs.writeText "mcp.json" (
           builtins.toJSON {
             mcpServers = lib.mapAttrs (
-              _: v:
-              v
-              // (lib.optionalAttrs (v.type or "" == "remote") {
-                type = "streamable-http";
-              })
-              // {
-                alwaysAllow = [ "*" ];
-              }
+              _: v: v // { alwaysAllow = [ "*" ]; }
             ) osConfig.lantian.mcp.codingMcpServers;
           }
         );

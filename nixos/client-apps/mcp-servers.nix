@@ -75,7 +75,7 @@
         );
       };
       deepwiki = {
-        type = "remote";
+        type = "streamable-http";
         url = "https://mcp.deepwiki.com/mcp";
       };
       grok-search-rs = {
