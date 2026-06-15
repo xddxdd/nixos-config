@@ -43,6 +43,14 @@
       sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
+    sops.secrets.mcp-grok-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
+      mode = "0444";
+    };
+    sops.secrets.mcp-tavily-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
+      mode = "0444";
+    };
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
@@ -96,9 +104,9 @@
           ''
         );
       };
-      fetch = {
-        command = "uvx";
-        args = [ "mcp-server-fetch" ];
+      deepwiki = {
+        type = "remote";
+        url = "https://mcp.deepwiki.com/mcp";
       };
       flightaware = {
         command = toString (
@@ -117,6 +125,18 @@
           ''
         );
       };
+      grok-search-rs = {
+        command = toString (
+          pkgs.writeShellScript "mcp-grok-search-rs" ''
+            export GROK_SEARCH_API_KEY=$(cat "${config.sops.secrets.mcp-grok-api-key.path}")
+            export GROK_SEARCH_MODEL=grok-4.3-fast-reasoning
+            export GROK_SEARCH_WEB_SEARCH=true
+            export GROK_SEARCH_X_SEARCH=true
+            export TAVILY_API_KEY=$(cat "${config.sops.secrets.mcp-tavily-api-key.path}")
+            exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
+          ''
+        );
+      };
       national-park-service = {
         command = toString (
           pkgs.writeShellScript "mcp-national-park-service" ''
@@ -124,16 +144,6 @@
             exec ${pkgs.nodejs}/bin/npx -y mcp-server-nationalparks
           ''
         );
-      };
-      searxng = {
-        command = "npx";
-        args = [
-          "-y"
-          "mcp-searxng"
-        ];
-        env = {
-          SEARXNG_URL = "https://searx.xuyh0120.win";
-        };
       };
       time = {
         command = "uvx";

@@ -88,7 +88,16 @@ in
       let
         mcpJsonFile = pkgs.writeText "mcp.json" (
           builtins.toJSON {
-            mcpServers = lib.mapAttrs (_: v: v // { alwaysAllow = [ "*" ]; }) osConfig.lantian.mcp.mcpServers;
+            mcpServers = lib.mapAttrs (
+              _: v:
+              v
+              // (lib.optionalAttrs (v.type or "" == "remote") {
+                type = "streamable-http";
+              })
+              // {
+                alwaysAllow = [ "*" ];
+              }
+            ) osConfig.lantian.mcp.mcpServers;
           }
         );
       in
