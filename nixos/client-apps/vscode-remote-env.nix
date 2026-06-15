@@ -21,7 +21,7 @@ let
     krb5
   ];
 
-  nodejsFHS = pkgs.buildFHSEnv {
+  nodejsFHS = pkgs.buildFHSEnvBubblewrap {
     name = "node";
     targetPkgs = _: runtimeDependencies;
     extraBuildCommands = ''
@@ -32,6 +32,9 @@ let
         cp -rsHf /usr/lib/wsl usr/lib/wsl
       fi
     '';
+    extraBwrapArgs = [
+      "--symlink /.host-etc/ssh /etc/ssh"
+    ];
     runScript = lib.getExe pkgs.nodejs;
     meta = {
       description = ''
