@@ -5,7 +5,6 @@
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
-    ../../nixos/hardware/nfs-root.nix
     ../../nixos/hardware/nvidia/cuda-only.nix
     ../../nixos/hardware/nvidia/grid-extension.nix
     ../../nixos/hardware/qemu.nix
@@ -17,16 +16,8 @@
   boot.loader.grub.device = "/dev/vda";
 
   fileSystems."/nix" = {
-    device = "192.168.1.2:/mnt/nvme/virtiofs/nixos-home-vm";
-    fsType = "nfs";
-    options = [
-      "_netdev"
-      "noatime"
-      "clientaddr=192.168.1.10"
-      "hard"
-      "vers=4.2"
-      "nconnect=16"
-    ];
+    device = "virtiofs-nixos-home-vm";
+    fsType = "virtiofs";
   };
 
   fileSystems."/mnt/storage" = {
