@@ -3,14 +3,38 @@
   osConfig,
   lib,
   LT,
+  config,
   ...
 }:
 let
   context = builtins.concatStringsSep "\n" (
     builtins.map (f: "# ${builtins.baseNameOf f}\n" + builtins.readFile f) (LT.ls ./rules)
   );
+
+  # https://github.com/openai/codex/issues/14599#issuecomment-4098754431
+  codexWrapper = pkgs.writers.writePython3Bin "codex" { } ''
+    import json
+    import os
+    import sys
+    from pathlib import Path
+
+
+    CODEX = "${lib.getExe config.programs.codex.package}"
+
+
+    def main() -> None:
+        project = json.dumps(str(Path.cwd()))
+        config = f'projects={{{project}={{trust_level="trusted"}}}}'
+        os.execvp(CODEX, [CODEX, "-c", config, *sys.argv[1:]])
+
+
+    if __name__ == "__main__":
+        main()
+  '';
 in
 {
+  home.packages = [ (lib.hiPrio codexWrapper) ];
+
   programs.mcp = {
     enable = true;
     servers = osConfig.lantian.mcp.mcpServers or { };
