@@ -27,7 +27,7 @@
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
-    ../../nixos/optional-apps/plausible
+    ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
     ../../nixos/optional-apps/pyison
     ../../nixos/optional-apps/quassel.nix

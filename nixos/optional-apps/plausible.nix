@@ -7,11 +7,13 @@
   ...
 }:
 let
-
   netns = config.lantian.netns.plausible;
 in
 {
-  imports = [ ../postgresql.nix ];
+  imports = [
+    ./clickhouse.nix
+    ./postgresql.nix
+  ];
 
   sops.secrets.plausible-secret = {
     sopsFile = inputs.secrets + "/plausible.yaml";
@@ -21,13 +23,6 @@ in
 
   lantian.netns.plausible = {
     ipSuffix = "138";
-  };
-
-  services.clickhouse.enable = true;
-  environment.etc = {
-    # With changes from https://theorangeone.net/posts/calming-down-clickhouse/
-    "clickhouse-server/config.d/custom.xml".source = lib.mkForce ./custom-config.xml;
-    "clickhouse-server/users.d/custom.xml".source = lib.mkForce ./custom-users.xml;
   };
 
   services.epmd.enable = lib.mkForce false;
