@@ -30,6 +30,9 @@
 
   networking.networkmanager.enable = lib.mkForce false;
 
+  # Disable local build
+  nix.settings.max-jobs = lib.mkForce 0;
+
   systemd.network.networks.eth0 = {
     address = [ "192.168.1.13/24" ];
     gateway = [ "192.168.1.1" ];
