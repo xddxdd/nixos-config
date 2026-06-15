@@ -25,6 +25,8 @@
         PERCENT_CPU
         PERCENT_MEM
         IO_RATE
+        116 # PERCENT_IO_DELAY
+        117 # PERCENT_SWAP_DELAY
         COMM
       ];
     }
