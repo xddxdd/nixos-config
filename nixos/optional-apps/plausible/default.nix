@@ -58,6 +58,7 @@ in
     locations = {
       "/" = {
         proxyPass = "http://${config.lantian.netns.plausible.ipv4}:${LT.portStr.Plausible}";
+        proxyWebsockets = true;
       };
     };
 
