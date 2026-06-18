@@ -33,6 +33,7 @@
     "tls://62.210.85.80:39575",
     "tls://[2001:470:1f13:e56::64]:39575",
     "tls://s2.i2pd.xyz:39575",
+    "tls://ygg.jholden.org:1555",
     "tls://ygg6.mk16.de:1338?key=0000005e5ced06fd4d465bc651c5deb6d70cbe82d36efb68c0450268eaaa5384",
     "tls://yggpeer.tilde.green:59454"
   ],
@@ -82,7 +83,6 @@
     "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
     "tls://45.95.202.21:443",
-    "tls://[2a00:b700::a:279]:443",
     "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
     "tls://kursk.cleverfox.org:15015",
@@ -91,6 +91,7 @@
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://ygg-ru.lskd.pw:30042",
+    "tls://ygg.med-dev-systems.ru:6221",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
