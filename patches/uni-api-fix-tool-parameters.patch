@@ -1,0 +1,26 @@
+--- a/core/models.py
++++ b/core/models.py
+@@ -173,22 +173,6 @@ class RequestModel(BaseRequest):
+                         if item.type == "text" and item.text:
+                             return item.text
+         return ""
+ 
+-    def model_dump(self, **kwargs):
+-        data = super().model_dump(**kwargs)
+-
+-        # 检查并处理 tools 字段
+-        if 'tools' in data and data['tools']:
+-            for tool in data['tools']:
+-                if 'function' in tool:
+-                    function_data = tool['function']
+-                    # 如果 parameters 为空或没有 properties，则移除
+-                    if 'parameters' in function_data and (
+-                        function_data['parameters'] is None or
+-                        not function_data['parameters'].get('properties')
+-                    ):
+-                        function_data.pop('parameters', None)
+-
+-        return data
+ 
+ class ImageGenerationRequest(BaseRequest):
+     prompt: str
