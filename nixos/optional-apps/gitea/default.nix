@@ -8,6 +8,7 @@
 let
   emailReplaceArgs = {
     proxyPass = "http://unix:/run/gitea/gitea.sock";
+    proxyNoTimeout = true;
     extraConfig = ''
       header_filter_by_lua_block {
         if ngx.header.content_type:find("^text/html") ~= nil then
@@ -162,6 +163,7 @@ in
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/gitea/gitea.sock";
+        proxyNoTimeout = true;
       };
       "/backup/dn42-registry/" = emailReplaceArgs;
       "/backup/neonetwork-registry/" = emailReplaceArgs;
