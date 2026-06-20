@@ -21,7 +21,9 @@
   ],
   "czechia": [
     "tls://37.205.14.171:993",
-    "tls://[2a03:3b40:fe:ab::1]:993"
+    "tls://37.205.14.171:993?key=0009e16b9e3afe7b13c3612560410434d3dfc70c8a8a0a63e51e0470cb8124f6",
+    "tls://[2a03:3b40:fe:ab::1]:993",
+    "tls://[2a03:3b40:fe:ab::1]:993?key=0009e16b9e3afe7b13c3612560410434d3dfc70c8a8a0a63e51e0470cb8124f6"
   ],
   "finland": [
     "tls://95.217.35.92:1337",
@@ -134,6 +136,7 @@
   "united-states": [
     "tls://23.184.48.86:1443",
     "tls://31.22.111.195:32000",
+    "tls://ca.us.ygg.informatics.coop:443?key=0000000023fc6ffb62afb79448aefb0943df2e4472cf08bd489f5407378300a2",
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
     "tls://marisa.nadeko.net:44442",
