@@ -20,9 +20,7 @@
     "tls://ygg.nadeko.net:44442"
   ],
   "czechia": [
-    "tls://37.205.14.171:993",
     "tls://37.205.14.171:993?key=0009e16b9e3afe7b13c3612560410434d3dfc70c8a8a0a63e51e0470cb8124f6",
-    "tls://[2a03:3b40:fe:ab::1]:993",
     "tls://[2a03:3b40:fe:ab::1]:993?key=0009e16b9e3afe7b13c3612560410434d3dfc70c8a8a0a63e51e0470cb8124f6"
   ],
   "finland": [
@@ -142,7 +140,6 @@
     "tls://marisa.nadeko.net:44442",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
-    "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
     "tls://ygg-pa.incognet.io:8884",
