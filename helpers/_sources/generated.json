@@ -48,12 +48,12 @@
             "name": null,
             "owner": "BelfrySCAD",
             "repo": "BOSL2",
-            "rev": "v2.0.743",
-            "sha256": "sha256-SEZ29j8rGE63UcbqZMQ7sLv1qNhxeJfpjqOfBlqweqc=",
+            "rev": "v2.0.745",
+            "sha256": "sha256-HXgC4FcV3hhcF7FB/k3JvHdSRRPPx6Q9WaInUhNSpxQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.743"
+        "version": "v2.0.745"
     },
     "delegacy-rpz": {
         "cargoLock": null,
@@ -259,12 +259,12 @@
             "name": null,
             "owner": "open5gs",
             "repo": "open5gs",
-            "rev": "v2.7.7",
-            "sha256": "sha256-ZK4q6m/9v+us+6dWpi0k188KfFu1b6G9pGE4VGAe4+4=",
+            "rev": "v2.8.0",
+            "sha256": "sha256-e8iCcgJRJFEdVN3TeNwFFbBkShZebxKqvsCpBv/WLVk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.7"
+        "version": "v2.8.0"
     },
     "open5gs-freediameter": {
         "cargoLock": null,

@@ -30,13 +30,13 @@
   };
   bosl2 = {
     pname = "bosl2";
-    version = "v2.0.743";
+    version = "v2.0.745";
     src = fetchFromGitHub {
       owner = "BelfrySCAD";
       repo = "BOSL2";
-      rev = "v2.0.743";
+      rev = "v2.0.745";
       fetchSubmodules = false;
-      sha256 = "sha256-SEZ29j8rGE63UcbqZMQ7sLv1qNhxeJfpjqOfBlqweqc=";
+      sha256 = "sha256-HXgC4FcV3hhcF7FB/k3JvHdSRRPPx6Q9WaInUhNSpxQ=";
     };
   };
   delegacy-rpz = {
@@ -154,13 +154,13 @@
   };
   open5gs = {
     pname = "open5gs";
-    version = "v2.7.7";
+    version = "v2.8.0";
     src = fetchFromGitHub {
       owner = "open5gs";
       repo = "open5gs";
-      rev = "v2.7.7";
+      rev = "v2.8.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ZK4q6m/9v+us+6dWpi0k188KfFu1b6G9pGE4VGAe4+4=";
+      sha256 = "sha256-e8iCcgJRJFEdVN3TeNwFFbBkShZebxKqvsCpBv/WLVk=";
     };
   };
   open5gs-freediameter = {
