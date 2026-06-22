@@ -90,6 +90,10 @@
           ''
         );
       };
+      nixos = {
+        command = "uvx";
+        args = [ "mcp-nixos" ];
+      };
       time = {
         command = "uvx";
         args = [
