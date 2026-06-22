@@ -127,7 +127,17 @@ in
   systemd.services.systemd-networkd.restartIfChanged = false;
   services.resolved.enable = false;
 
-  services.mptcpd.enable = !cfg.networkmanager.enable;
+  services.mptcpd = {
+    enable = !cfg.networkmanager.enable;
+    extraMptcpdFlags = [
+      "--addr-flags=subflow"
+      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+    ];
+  };
+  systemd.services.mptcp.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "3";
+  };
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;
