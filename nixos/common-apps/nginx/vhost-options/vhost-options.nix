@@ -119,6 +119,7 @@ let
       "reuseport"
       "deferred"
       "so_keepalive=600:10:6"
+      "multipath"
     ])
     ++ (lib.optionals (protocol == "udp") [ "reuseport" ]);
 

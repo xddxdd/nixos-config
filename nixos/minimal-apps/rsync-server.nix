@@ -53,7 +53,10 @@ in
 
   systemd.sockets.rsync = {
     listenStreams = lib.mkForce [ "${LT.this.ltnet.IPv4}:${LT.portStr.Rsync}" ];
-    socketConfig.FreeBind = true;
+    socketConfig = {
+      FreeBind = true;
+      SocketProtocol = "mptcp";
+    };
   };
 
   ########################################

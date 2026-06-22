@@ -19,9 +19,12 @@ in
     options iwlwifi power_save=Y power_level=5
   '';
 
+  boot.kernelModules = [ "mptcp" ];
+
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.mptcp.enabled" = 1;
 
     # https://wiki.archlinux.org/title/sysctl
     "net.ipv4.tcp_fastopen" = 3;
@@ -123,6 +126,8 @@ in
 
   systemd.services.systemd-networkd.restartIfChanged = false;
   services.resolved.enable = false;
+
+  services.mptcpd.enable = !cfg.networkmanager.enable;
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;
