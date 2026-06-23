@@ -55,11 +55,11 @@
   };
   dn42-certificate-authority-client = {
     pname = "dn42-certificate-authority-client";
-    version = "1.1.0";
+    version = "1.1.1";
     src = fetchurl {
-      url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=1.1.0";
+      url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=1.1.1";
       name = "client.sh";
-      sha256 = "sha256-o2Ohcu2GETpXVZpj2N9u9azXtlYgvoW8w4n2K91W3Xo=";
+      sha256 = "sha256-Q4FhNwlEaC10xJ5dXyWzE/tNzvah8z9RdPhxHUiVamY=";
     };
   };
   grafana-falconlogscale-datasource = {

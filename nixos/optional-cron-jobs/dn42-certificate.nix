@@ -30,7 +30,8 @@ let
     subjectAltName = @alt_names
 
     [alt_names]
-    DNS.1 = *.lantian.dn42
+    DNS.1 = lantian.dn42
+    DNS.2 = *.lantian.dn42
   '';
 in
 {
@@ -55,14 +56,10 @@ in
 
       install -Dm644 ${config.sops.secrets.dn42-certificate-token.path} token.txt
 
-      # HACK: fix bug in script
-      install -Dm755 ${script} client.sh
-      sed -i "s/perform_request/performRequest/g" client.sh
-
       # RSA cert
       cp /var/lib/dn42-certificate/rsa.key private.key
       openssl req -key private.key -new -out request.csr -config ${csr} -batch
-      bash client.sh sign_csr request.csr
+      bash ${script} sign_csr request.csr
       install -Dm644 --owner=root private.key /nix/sync-servers/acme/dn42-lantian.dn42-rsa/key.pem
       for F in cert.pem chain.pem fullchain.pem full.pem; do
         install -Dm644 --owner=root signed.crt /nix/sync-servers/acme/dn42-lantian.dn42-rsa/$F
@@ -75,7 +72,7 @@ in
       # ECC cert
       cp /var/lib/dn42-certificate/ecc.key private.key
       openssl req -key private.key -new -out request.csr -config ${csr} -batch
-      bash client.sh sign_csr request.csr
+      bash ${script} sign_csr request.csr
       install -Dm644 --owner=root private.key /nix/sync-servers/acme/dn42-lantian.dn42-ecc/key.pem
       for F in cert.pem chain.pem fullchain.pem full.pem; do
         install -Dm644 --owner=root signed.crt /nix/sync-servers/acme/dn42-lantian.dn42-ecc/$F
