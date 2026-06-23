@@ -54,7 +54,7 @@ let
       ${forwardZone "184/29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
       ${forwardZone "96/27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
       ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
-      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+33218"}
+      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+33346"}
 
       # LTNET Active Directory
       ${forwardZone "ad.lantian.pub" null}
