@@ -6,7 +6,7 @@
 {
   domains = [
     rec {
-      domain = "7.4.5.2.0.4.2.4.e164.dn42";
+      domain = "7.4.5.2.4.2.4.0.tel.dn42";
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.DN42

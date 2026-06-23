@@ -1,6 +1,6 @@
 use std::fmt;
 
-/// Result of an e164.dn42 SIP caller verification.
+/// Result of an tel.dn42 SIP caller verification.
 #[derive(Debug, PartialEq, Eq)]
 pub enum VerifyResult {
     /// Source IP matched a registered SIP server for this number.

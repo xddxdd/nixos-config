@@ -16,7 +16,7 @@ let
   voiceRules = ''
     [src-anonymous]
     ; Only allow anonymous inbound call to test numbers
-    ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+    ${dialRule "04242547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
     ${dialRule "[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
     [src-peers-enum]
@@ -24,15 +24,15 @@ let
 
     [src-peers]
     ; Allow inbound call and peering calls
-    ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+    ${dialRule "04242547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
-    ${dialRule "4240." [ "Goto(dest-peers,\${EXTEN},1)" ]}
+    ${dialRule "0424." [ "Goto(dest-peers,\${EXTEN},1)" ]}
 
     [src-local]
     ${dialRule "733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
-    ${dialRule "42402547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
-    ${dialRule "4240." [
-      "Set(CALLERID(num)=42402547\${CALLERID(num)})"
+    ${dialRule "04242547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
+    ${dialRule "0424." [
+      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
       "Goto(dest-peers,\${EXTEN},1)"
     ]}
     ${dialRule "XXX" [ "Dial(PJSIP/\${EXTEN}@telnyx)" ]}
@@ -97,7 +97,7 @@ let
 
     [dest-peers]
     ${dialRule "X!" [
-      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
+      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,tel.dn42)})"
       "Log(NOTICE, Outbound URI: \${TARGET_URI})"
       "Dial(PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}
@@ -112,12 +112,12 @@ let
   messageRules = ''
     [src-anonymous-message]
     ; Only allow anonymous inbound call to test numbers
-    ${dialRule "42402547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
+    ${dialRule "04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
     ${dialRule "[02-9]XXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
 
     [src-local-message]
-    ${dialRule "42402547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
-    ${dialRule "4240." [ "Goto(dest-peers-message,\${EXTEN},1)" ]}
+    ${dialRule "04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
+    ${dialRule "0424." [ "Goto(dest-peers-message,\${EXTEN},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
     ${dialRule "X!" [ "Goto(dest-url-message,\${EXTEN},1)" ]}
 
@@ -126,10 +126,10 @@ let
 
     [src-peers-message]
     ; Allow inbound call and peering calls
-    ${dialRule "42402547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
+    ${dialRule "04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
-    ${dialRule "4240." [
-      "Set(CALLERID(num)=42402547\${CALLERID(num)})"
+    ${dialRule "0424." [
+      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
       "Goto(dest-peers-message,\${EXTEN},1)"
     ]}
 
@@ -138,7 +138,7 @@ let
 
     [dest-peers-message]
     ${dialRule "X!" [
-      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,e164.dn42)})"
+      "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,tel.dn42)})"
       "Log(NOTICE, Outbound URI: \${TARGET_URI})"
       "MessageSend(pjsip:PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}

@@ -19,7 +19,7 @@ use resolve::resolve_sip_ips;
 use result::VerifyResult;
 use source_ip::parse_source_ip;
 
-/// Verify that a SIP caller's source IP matches an e164.dn42 DNS entry.
+/// Verify that a SIP caller's source IP matches an tel.dn42 DNS entry.
 ///
 /// AGI script: reads Key: Value environment lines from stdin until a blank
 /// line, then writes `SET VARIABLE ENUM_VERIFY_RESULT "<result>"` to stdout.
@@ -89,7 +89,7 @@ fn run(args: Args) -> VerifyResult {
         }
     };
 
-    // 3. Build e164.dn42 query domain
+    // 3. Build tel.dn42 query domain
     let domain = build_e164_domain(&digits);
     eprintln!("Querying NAPTR records for: {}", domain);
     eprintln!("Source IP to verify: {}", source_ip);
