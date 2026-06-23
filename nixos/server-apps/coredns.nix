@@ -54,7 +54,7 @@ let
       ${forwardZone "184/29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
       ${forwardZone "96/27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
       ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
-      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" null}
+      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+33218"}
 
       # LTNET Active Directory
       ${forwardZone "ad.lantian.pub" null}
@@ -98,30 +98,19 @@ let
 
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
-  sops.secrets = builtins.listToAttrs (
-    lib.flatten (
-      builtins.map (n: [
-        {
-          name = "${n}.key";
-          value = {
-            sopsFile = inputs.secrets + "/common/dnssec.yaml";
-            key = "dnssec/${n}.key";
-            owner = "coredns";
-            group = "coredns";
-          };
-        }
-        {
-          name = "${n}.private";
-          value = {
-            sopsFile = inputs.secrets + "/common/dnssec.yaml";
-            key = "dnssec/${n}.private";
-            owner = "coredns";
-            group = "coredns";
-          };
-        }
-      ]) (import (inputs.secrets + "/dnssec.nix"))
-    )
-  );
+  sops.secrets =
+    let
+      lines = lib.splitString "\n" (builtins.readFile (inputs.secrets + "/common/dnssec.yaml"));
+      keyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
+        builtins.filter (lib.hasPrefix "    K") lines
+      );
+    in
+    lib.genAttrs keyNames (n: {
+      sopsFile = inputs.secrets + "/common/dnssec.yaml";
+      key = "dnssec/${n}";
+      owner = "coredns";
+      group = "coredns";
+    });
 
   lantian.netns.coredns-authoritative = {
     ipSuffix = "54";

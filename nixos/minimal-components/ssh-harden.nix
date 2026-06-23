@@ -41,6 +41,9 @@ in
   programs.ssh = {
     package = pkgs.openssh_hpn;
 
+    # Useless and breaks in FHS environment
+    systemd-ssh-proxy.enable = false;
+
     knownHosts =
       (builtins.listToAttrs (
         lib.flatten (
