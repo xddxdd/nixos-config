@@ -92,6 +92,7 @@
         }
 
         config.common.nameservers.DN42
+        config.common.soa.DN42
         (config.common.hostRecs.DN42 "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
       ];

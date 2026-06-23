@@ -76,6 +76,16 @@ in
       ];
     NS = args: record "NS" args [ args.target ];
     PTR = args: record "PTR" args [ args.target ];
+    SOA =
+      args:
+      record "SOA" args [
+        args.nameserver
+        args.email
+        args.refresh
+        args.retry
+        args.expire
+        args.minimum
+      ];
     SRV =
       args:
       record "SRV" args [

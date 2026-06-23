@@ -92,6 +92,7 @@
         }
 
         config.common.nameservers.NeoNetwork
+        config.common.soa.NeoNetwork
         (config.common.hostRecs.NeoNetwork "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
       ];

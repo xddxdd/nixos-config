@@ -17,20 +17,10 @@ let
   ];
 
   DN42Servers = [
-    "ns1.lantian.dn42."
-    "ns2.lantian.dn42."
-    "ns3.lantian.dn42."
-    "ns4.lantian.dn42."
-    "ns5.lantian.dn42."
     "ns-anycast.lantian.dn42."
   ];
 
   NeoNetworkServers = [
-    "ns1.lantian.neo."
-    "ns2.lantian.neo."
-    "ns3.lantian.neo."
-    "ns4.lantian.neo."
-    "ns5.lantian.neo."
     "ns-anycast.lantian.neo."
   ];
 
@@ -59,5 +49,28 @@ in
 
     NeoNetwork = mapNameservers NeoNetworkServers;
     NeoNetworkRecords = mapNSRecords NeoNetworkServers;
+  };
+
+  common.soa = {
+    DN42 = {
+      recordType = "SOA";
+      name = "@";
+      nameserver = "ns-anycast.lantian.dn42.";
+      email = "lantian.lantian.dn42.";
+      refresh = 360;
+      retry = 600;
+      expire = 604800;
+      minimum = 600;
+    };
+    NeoNetwork = {
+      recordType = "SOA";
+      name = "@";
+      nameserver = "ns-anycast.lantian.neo.";
+      email = "lantian.lantian.neo.";
+      refresh = 360;
+      retry = 600;
+      expire = 604800;
+      minimum = 600;
+    };
   };
 }

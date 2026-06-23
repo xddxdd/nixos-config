@@ -28,6 +28,7 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.DN42
+        config.common.soa.DN42
         (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.dn42.")
         (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.dn42.")
         (config.common.manosaba true "fdbc:f9dc:67ad:6d61:6e6f:7361:6261:" 2)
@@ -39,6 +40,7 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.DN42
+        config.common.soa.DN42
         (config.common.hostRecs.DN42ReverseIPv4 "lantian.dn42." 184 191)
       ];
     }
@@ -64,6 +66,7 @@
         }
 
         config.common.nameservers.DN42
+        config.common.soa.DN42
         (config.common.hostRecs.DN42ReverseIPv4 "lantian.dn42." 96 127)
         (config.common.poem false "" 98)
       ];
@@ -75,6 +78,7 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.NeoNetwork
+        config.common.soa.NeoNetwork
         (config.common.hostRecs.LTNetReverseIPv4_24 "lantian.neo.")
       ];
     }
@@ -85,6 +89,7 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.NeoNetwork
+        config.common.soa.NeoNetwork
         (config.common.hostRecs.LTNetReverseIPv6_48 "lantian.neo.")
         (config.common.hostRecs.LTNetReverseIPv6_64in48 "lantian.neo.")
         (config.common.manosaba true "fd10:127:10:6d61:6e6f:7361:6261:" 2)

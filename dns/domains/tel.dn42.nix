@@ -10,6 +10,7 @@
       providers = [ "bind" ];
       records = lib.flatten [
         config.common.nameservers.DN42
+        config.common.soa.DN42
 
         {
           recordType = "NAPTR";
