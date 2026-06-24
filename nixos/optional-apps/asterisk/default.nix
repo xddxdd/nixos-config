@@ -36,6 +36,7 @@ in
   imports = [
     ./dialplan.nix
     ./fax-monitor.nix
+    ./never-gonna-audiosocket.nix
     ../fail2ban
   ];
 

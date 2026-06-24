@@ -88,6 +88,10 @@
       url = "github:xddxdd/markdown-apa7th-docx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    never-gonna-rust = {
+      url = "github:xddxdd/never-gonna-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.flake-compat.follows = "flake-compat";

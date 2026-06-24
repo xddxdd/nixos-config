@@ -56,6 +56,7 @@ rec {
     Prometheus.ProwlarrExporter = 9710;
     Prometheus.BazarrExporter = 9711;
     Prometheus.Palworld = 9877;
+    Asterisk.AudioSocket = 13980;
     Prometheus.Asterisk = 9878;
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;

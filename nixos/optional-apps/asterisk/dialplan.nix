@@ -6,6 +6,7 @@ let
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapperDescription;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverlyDescription;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLennyDescription;
+  inherit (pkgs.callPackage ./apps/never-gonna.nix args) dialNeverGonnaDescription;
 
   destConferenceDialPlan = builtins.listToAttrs (
     lib.genList (
@@ -27,6 +28,7 @@ let
       "2001" = dialLennyDescription;
       "2002" = dialAstyCrapperDescription;
       "2003" = dialBeverlyDescription;
+      "2004" = dialNeverGonnaDescription;
     }
     destLocalDialPlan
     destMusicDialPlan
