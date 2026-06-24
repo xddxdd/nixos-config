@@ -829,11 +829,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1782318349,
-        "narHash": "sha256-VrufM/Om0LviLfgPlP3bjtNTwdAOU9echeVVVLAQL1s=",
+        "lastModified": 1782322321,
+        "narHash": "sha256-EM5ItgOZHcqBgLad2nHxK83CTaJi146PIP/ERi02Kz8=",
         "owner": "xddxdd",
         "repo": "never-gonna-rust",
-        "rev": "e8fe161cad5ed2398f606db19faee3e039f9253b",
+        "rev": "62da5e1f81bbd342f13e4489f5d75ff820da3523",
         "type": "github"
       },
       "original": {
