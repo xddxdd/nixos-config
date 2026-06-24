@@ -66,6 +66,10 @@
           ''
         );
       };
+      mdn = {
+        type = "streamable-http";
+        url = "https://mcp.mdn.mozilla.net/";
+      };
       context7 = {
         command = toString (
           pkgs.writeShellScript "mcp-context7" ''
