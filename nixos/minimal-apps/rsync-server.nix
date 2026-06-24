@@ -92,6 +92,9 @@ in
     '')
     + (lib.optionalString config.services.pdns-recursor.enable ''
       systemctl reload pdns-recursor.service || true
+    '')
+    + (lib.optionalString config.services.knot.enable ''
+      systemctl reload knot.service || true
     '');
   };
 
