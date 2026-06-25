@@ -66,10 +66,6 @@
           ''
         );
       };
-      mdn = {
-        type = "streamable-http";
-        url = "https://mcp.mdn.mozilla.net/";
-      };
       context7 = {
         command = toString (
           pkgs.writeShellScript "mcp-context7" ''
@@ -93,6 +89,10 @@
             exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
           ''
         );
+      };
+      mdn = {
+        type = "streamable-http";
+        url = "https://mcp.mdn.mozilla.net/";
       };
       nixos = {
         command = "uvx";
