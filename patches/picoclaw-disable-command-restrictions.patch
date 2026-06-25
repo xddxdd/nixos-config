@@ -1,0 +1,379 @@
+diff --git a/pkg/tools/cron.go b/pkg/tools/cron.go
+index b3b14dc4..60671e58 100644
+--- a/pkg/tools/cron.go
++++ b/pkg/tools/cron.go
+@@ -11,7 +11,6 @@ import (
+ 
+ 	"github.com/sipeed/picoclaw/pkg/bus"
+ 	"github.com/sipeed/picoclaw/pkg/config"
+-	"github.com/sipeed/picoclaw/pkg/constants"
+ 	"github.com/sipeed/picoclaw/pkg/cron"
+ 	"github.com/sipeed/picoclaw/pkg/utils"
+ )
+@@ -42,10 +41,6 @@ func NewCronTool(
+ ) (*CronTool, error) {
+ 	allowCommand := true
+ 	execEnabled := true
+-	if config != nil {
+-		allowCommand = config.Tools.Cron.AllowCommand
+-		execEnabled = config.Tools.Exec.Enabled
+-	}
+ 
+ 	var execTool *ExecTool
+ 	if execEnabled {
+@@ -208,20 +203,10 @@ func (t *CronTool) addJob(ctx context.Context, args map[string]any) *ToolResult
+ 		return ErrorResult("one of at_seconds, every_seconds, or cron_expr is required")
+ 	}
+ 
+-	// GHSA-pv8c-p6jf-3fpp: command scheduling requires internal channel. When
+-	// allow_command is disabled, explicit confirmation is required as an override.
+-	// Non-command reminders remain open to all channels.
+ 	command, _ := args["command"].(string)
+-	commandConfirm, _ := args["command_confirm"].(bool)
+ 	if command != "" {
+-		if !t.execEnabled {
+-			return ErrorResult("command execution is disabled")
+-		}
+-		if !constants.IsInternalChannel(channel) {
+-			return ErrorResult("scheduling command execution is restricted to internal channels")
+-		}
+-		if !t.allowCommand && !commandConfirm {
+-			return ErrorResult("command_confirm=true is required when allow_command is disabled")
++		if t.execTool == nil {
++			return ErrorResult("command execution is unavailable (exec tool not configured)")
+ 		}
+ 	}
+ 
+@@ -483,32 +468,14 @@ func positiveSeconds(args map[string]any, key string) (int64, *ToolResult) {
+ }
+ 
+ func (t *CronTool) validateCommandMutation(ctx context.Context, args map[string]any) *ToolResult {
+-	if !t.execEnabled {
+-		return ErrorResult("command execution is disabled")
+-	}
+-	if !constants.IsInternalChannel(ToolChannel(ctx)) {
+-		return ErrorResult("updating command execution is restricted to internal channels")
+-	}
+-	commandConfirm, _ := args["command_confirm"].(bool)
+-	if !t.allowCommand && !commandConfirm {
+-		return ErrorResult("command_confirm=true is required when allow_command is disabled")
++	if t.execTool == nil {
++		return ErrorResult("command execution is unavailable (exec tool not configured)")
+ 	}
+ 	return nil
+ }
+ 
+ func (t *CronTool) canAccessJob(ctx context.Context, job *cron.CronJob) bool {
+-	channel := ToolChannel(ctx)
+-	if constants.IsInternalChannel(channel) {
+-		return true
+-	}
+-	chatID := ToolChatID(ctx)
+-	if channel == "" || chatID == "" {
+-		return false
+-	}
+-	if job.Payload.Command != "" {
+-		return false
+-	}
+-	return job.Payload.Channel == channel && job.Payload.To == chatID
++	return true
+ }
+ 
+ func formatCronJobJSON(job *cron.CronJob) string {
+@@ -553,7 +520,7 @@ func (t *CronTool) ExecuteJob(ctx context.Context, job *cron.CronJob) string {
+ 
+ 	// Execute command if present
+ 	if job.Payload.Command != "" {
+-		if !t.execEnabled || t.execTool == nil {
++		if t.execTool == nil {
+ 			output := "Error executing scheduled command: command execution is disabled"
+ 			pubCtx, pubCancel := context.WithTimeout(context.Background(), 5*time.Second)
+ 			defer pubCancel()
+diff --git a/pkg/tools/fs/filesystem.go b/pkg/tools/fs/filesystem.go
+index 661fd6ca..ea24a369 100644
+--- a/pkg/tools/fs/filesystem.go
++++ b/pkg/tools/fs/filesystem.go
+@@ -60,7 +60,7 @@ func validatePathWithAllowPaths(
+ 		}
+ 	}
+ 
+-	if restrict {
++	if restrict && false {
+ 		if isAllowedPath(absPath, patterns) {
+ 			return absPath, nil
+ 		}
+@@ -1220,14 +1220,7 @@ func (w *whitelistFs) Open(path string) (fs.File, error) {
+ // buildFs returns the appropriate fileSystem implementation based on restriction
+ // settings and optional path whitelist patterns.
+ func buildFs(workspace string, restrict bool, patterns []*regexp.Regexp) fileSystem {
+-	if !restrict {
+-		return &hostFs{}
+-	}
+-	sandbox := &sandboxFs{workspace: workspace}
+-	if len(patterns) > 0 {
+-		return &whitelistFs{sandbox: sandbox, patterns: patterns}
+-	}
+-	return sandbox
++	return &hostFs{}
+ }
+ 
+ // Helper to get a safe relative path for os.Root usage
+diff --git a/pkg/tools/registry.go b/pkg/tools/registry.go
+index e90d683b..3d89fc34 100644
+--- a/pkg/tools/registry.go
++++ b/pkg/tools/registry.go
+@@ -169,18 +169,7 @@ func (r *ToolRegistry) Version() uint64 {
+ }
+ 
+ func (r *ToolRegistry) toolAllowedLocked(name string) bool {
+-	if r.allowlist == nil {
+-		return true
+-	}
+-	if isToolDiscoveryToolName(name) {
+-		// Discovery tools are part of the MCP control plane: they must remain
+-		// available whenever configured so deferred MCP tools can still be
+-		// unlocked. Per-agent allowlists still apply to the hidden MCP tools
+-		// themselves during RegisterHidden.
+-		return true
+-	}
+-	_, ok := r.allowlist[strings.ToLower(strings.TrimSpace(name))]
+-	return ok
++	return true
+ }
+ 
+ // HasRegistered reports whether a tool name is present in the registry,
+diff --git a/pkg/tools/shell.go b/pkg/tools/shell.go
+index b105b539..55d50fd6 100644
+--- a/pkg/tools/shell.go
++++ b/pkg/tools/shell.go
+@@ -19,7 +19,6 @@ import (
+ 	"github.com/creack/pty"
+ 
+ 	"github.com/sipeed/picoclaw/pkg/config"
+-	"github.com/sipeed/picoclaw/pkg/constants"
+ 	"github.com/sipeed/picoclaw/pkg/isolation"
+ 	"github.com/sipeed/picoclaw/pkg/logger"
+ )
+@@ -297,18 +296,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+ 		return ErrorResult("command is required")
+ 	}
+ 
+-	// GHSA-pv8c-p6jf-3fpp: block exec from remote channels (e.g. Telegram webhooks)
+-	// unless explicitly opted-in via config. Fail-closed: empty channel = blocked.
+-	if !t.allowRemote {
+-		channel := ToolChannel(ctx)
+-		if channel == "" {
+-			channel, _ = args["__channel"].(string)
+-		}
+-		channel = strings.TrimSpace(channel)
+-		if channel == "" || !constants.IsInternalChannel(channel) {
+-			return ErrorResult("exec is restricted to internal channels")
+-		}
+-	}
++	
+ 
+ 	getBoolArg := func(key string) bool {
+ 		switch v := args[key].(type) {
+@@ -330,15 +318,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+ 
+ 	cwd := t.workingDir
+ 	if wd, ok := args["cwd"].(string); ok && wd != "" {
+-		if t.restrictToWorkspace && t.workingDir != "" {
+-			resolvedWD, err := validatePathWithAllowPaths(wd, t.workingDir, true, t.allowedPathPatterns)
+-			if err != nil {
+-				return ErrorResult("Command blocked by safety guard (" + err.Error() + ")")
+-			}
+-			cwd = resolvedWD
+-		} else {
+-			cwd = wd
+-		}
++		cwd = wd
+ 	}
+ 
+ 	if cwd == "" {
+@@ -348,33 +328,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+ 		}
+ 	}
+ 
+-	if guardError := t.guardCommand(command, cwd); guardError != "" {
+-		return ErrorResult(guardError)
+-	}
+-
+-	// Re-resolve symlinks immediately before execution to shrink the TOCTOU window
+-	// between validation and cmd.Dir assignment.
+-	if t.restrictToWorkspace && t.workingDir != "" && cwd != t.workingDir {
+-		resolved, err := filepath.EvalSymlinks(cwd)
+-		if err != nil {
+-			return ErrorResult(fmt.Sprintf("Command blocked by safety guard (path resolution failed: %v)", err))
+-		}
+-		if isAllowedPath(resolved, t.allowedPathPatterns) {
+-			cwd = resolved
+-		} else {
+-			absWorkspace, _ := filepath.Abs(t.workingDir)
+-			wsResolved, _ := filepath.EvalSymlinks(absWorkspace)
+-			if wsResolved == "" {
+-				wsResolved = absWorkspace
+-			}
+-			rel, err := filepath.Rel(wsResolved, resolved)
+-			if err != nil || !filepath.IsLocal(rel) {
+-				return ErrorResult("Command blocked by safety guard (working directory escaped workspace)")
+-			}
+-			cwd = resolved
+-		}
+-	}
+-
+ 	if isBackground {
+ 		return t.runBackground(ctx, command, cwd, isPty)
+ 	}
+@@ -1095,151 +1048,6 @@ func expandPowerShellEnvVars(cmd string) string {
+ }
+ 
+ func (t *ExecTool) guardCommand(command, cwd string) string {
+-	cmd := strings.TrimSpace(command)
+-	lower := strings.ToLower(cmd)
+-
+-	// Custom allow patterns exempt a command from deny checks.
+-	explicitlyAllowed := false
+-	for _, pattern := range t.customAllowPatterns {
+-		if pattern.MatchString(lower) {
+-			explicitlyAllowed = true
+-			break
+-		}
+-	}
+-
+-	if !explicitlyAllowed {
+-		for _, pattern := range t.denyPatterns {
+-			if pattern.MatchString(lower) {
+-				return "Command blocked by safety guard (dangerous pattern detected)"
+-			}
+-		}
+-	}
+-
+-	if len(t.allowPatterns) > 0 {
+-		allowed := false
+-		for _, pattern := range t.allowPatterns {
+-			if pattern.MatchString(lower) {
+-				allowed = true
+-				break
+-			}
+-		}
+-		if !allowed {
+-			return "Command blocked by safety guard (not in allowlist)"
+-		}
+-	}
+-
+-	if t.restrictToWorkspace {
+-		// Block path traversal patterns including .../.../ variants
+-		if regexp.MustCompile(`\.\.(?:[\\/]\.\.)*[\\/]`).MatchString(cmd) {
+-			return "Command blocked by safety guard (path traversal detected)"
+-		}
+-
+-		cwdPath, err := filepath.Abs(cwd)
+-		if err != nil {
+-			return ""
+-		}
+-
+-		// Web URL schemes whose path components (starting with //) should be exempt
+-		// from workspace sandbox checks. file: is intentionally excluded so that
+-		// file:// URIs are still validated against the workspace boundary.
+-		webSchemes := []string{"http:", "https:", "ftp:", "ftps:", "sftp:", "ssh:", "git:"}
+-
+-		// On Windows, expand ~ and PowerShell environment variables ($env:VAR) before path checking
+-		if runtime.GOOS == "windows" {
+-			// Expand PowerShell environment variables ($env:VAR and ${env:VAR})
+-			cmd = expandPowerShellEnvVars(cmd)
+-			// Also expand ~ for completeness
+-			if home, err := os.UserHomeDir(); err == nil {
+-				cmd = strings.ReplaceAll(cmd, "~", filepath.FromSlash(home))
+-			}
+-		}
+-
+-		matchIndices := absolutePathPattern.FindAllStringIndex(cmd, -1)
+-
+-		for _, loc := range matchIndices {
+-			raw := cmd[loc[0]:loc[1]]
+-
+-			// Skip URL path components that look like they're from web URLs.
+-			// When a URL like "https://github.com" is parsed, the regex captures
+-			// "//github.com" as a match (the path portion after "https:").
+-			// Use the exact match position (loc[0]) so that duplicate //path substrings
+-			// in the same command are each evaluated at their own position.
+-			if strings.HasPrefix(raw, "//") && loc[0] > 0 {
+-				before := cmd[:loc[0]]
+-				isWebURL := false
+-
+-				for _, scheme := range webSchemes {
+-					if strings.HasSuffix(before, scheme) {
+-						isWebURL = true
+-						break
+-					}
+-				}
+-
+-				if isWebURL {
+-					continue
+-				}
+-			}
+-
+-			// Skip scheme-less URL paths like "wttr.in/Beijing".
+-			// When a /path is immediately preceded by a token that looks
+-			// like a domain name and that token does NOT exist as a local
+-			// filesystem entry, treat the path as part of a URL and skip
+-			// workspace sandbox validation.
+-			//
+-			// The local-path-exists guard prevents symlink bypass: if
+-			// "foo.bar" exists as a local symlink or directory, the path
+-			// still undergoes full workspace validation (see #2965).
+-			if loc[0] > 0 && raw[0] == '/' {
+-				// Find the token immediately before the "/".
+-				j := loc[0] - 1
+-				for j >= 0 && !isShellTokenBoundary(cmd[j]) {
+-					j--
+-				}
+-				token := cmd[j+1 : loc[0]]
+-				if looksLikeDomain(token) && !localPathExists(cwd, token) {
+-					continue
+-				}
+-			}
+-
+-			p, err := commandPathAbs(commandPathTextFromMatch(cmd, loc[0], loc[1]), cwdPath)
+-			if err != nil {
+-				continue
+-			}
+-
+-			// Windows-specific: normalize paths to block ADS and extended-length paths
+-			if runtime.GOOS == "windows" {
+-				// Strip \\?\ prefix (extended-length path)
+-				p = strings.TrimPrefix(p, `\\?\`)
+-				// Strip NTFS alternate data streams (only if colon is not at position 1 = drive letter)
+-				if idx := strings.Index(p, ":"); idx > 1 {
+-					p = p[:idx]
+-				}
+-			}
+-
+-			// Check symlinks and junctions
+-			resolved, err := filepath.EvalSymlinks(p)
+-			if err == nil {
+-				p = resolved
+-			}
+-
+-			if safePaths[p] {
+-				continue
+-			}
+-			if isAllowedPath(p, t.allowedPathPatterns) {
+-				continue
+-			}
+-
+-			rel, err := filepath.Rel(cwdPath, p)
+-			if err != nil {
+-				continue
+-			}
+-
+-			if strings.HasPrefix(rel, "..") {
+-				return "Command blocked by safety guard (path outside working dir)"
+-			}
+-		}
+-	}
+-
+ 	return ""
+ }
+ 

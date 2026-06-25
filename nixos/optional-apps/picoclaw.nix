@@ -7,10 +7,7 @@
 }:
 let
   picoclaw = pkgs.llm-agents.picoclaw.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace pkg/tools/shell.go \
-        --replace-fail "t.guardCommand(command, cwd)" '""'
-    '';
+    patches = (old.patches or [ ]) ++ [ ../../patches/picoclaw-disable-command-restrictions.patch ];
     doCheck = false;
     doInstallCheck = false;
   });
