@@ -106,7 +106,7 @@ let
     ]}
 
     [dest-peers]
-    ${dialRule "X!" [
+    ${dialRule "." [
       "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,tel.dn42)})"
       "Log(NOTICE, Outbound URI: \${TARGET_URI})"
       "Dial(PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
@@ -116,7 +116,7 @@ let
     ${destMusic}
 
     [dest-url]
-    ${dialRule "X!" [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
+    ${dialRule "." [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
   '';
 
   messageRules = ''
