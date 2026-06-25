@@ -134,6 +134,10 @@
             ''
           );
       };
+      akasha-terminal = {
+        type = "streamable-http";
+        url = "https://agent.zlb.ink/api/mcp/";
+      };
       caldav = {
         command = toString (
           pkgs.writeShellScript "mcp-caldav" ''
