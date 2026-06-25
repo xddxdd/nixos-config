@@ -45,6 +45,8 @@ let
         role = "admin";
       }
     ];
+
+    preferences.cooldown_period = 5;
   };
 in
 {
