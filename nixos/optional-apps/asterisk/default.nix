@@ -46,7 +46,10 @@ in
     group = "asterisk";
   };
 
-  environment.systemPackages = [ asterisk-cli ];
+  environment.systemPackages = [
+    asterisk-cli
+    pkgs.sngrep
+  ];
 
   services.asterisk = {
     enable = true;

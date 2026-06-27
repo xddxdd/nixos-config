@@ -22,57 +22,55 @@ let
     ${dialRule "[02-9]XXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
 
     [src-peers-enum]
-    ${enumVerify "src-peers"}
+    ${enumVerify false "src-peers"}
 
     [src-peers]
-    ; Allow inbound call and peering calls
+    ; Allow inbound calls
     ${dialRule "04242547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
     ${dialRule "+04242547XXXX" [ "Goto(dest-local,\${EXTEN:9},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
-    ${dialRule "0424." [ "Goto(dest-peers,+\${EXTEN},1)" ]}
-    ${dialRule "+0424." [ "Goto(dest-peers,\${EXTEN},1)" ]}
 
     [src-local]
     ${dialRule "733XXXX" [ "Dial(PJSIP/\${EXTEN:3}@sdf)" ]}
     ${dialRule "04242547XXXX" [ "Goto(dest-local,\${EXTEN:8},1)" ]}
     ${dialRule "+04242547XXXX" [ "Goto(dest-local,\${EXTEN:9},1)" ]}
-    ${dialRule "0424." [
-      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
+    ${dialRule "042." [
+      "Set(CALLERID(num)=+04242547\${CALLERID(num)})"
       "Goto(dest-peers,+\${EXTEN},1)"
     ]}
-    ${dialRule "+0424." [
-      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
+    ${dialRule "+042." [
+      "Set(CALLERID(num)=+04242547\${CALLERID(num)})"
       "Goto(dest-peers,\${EXTEN},1)"
     ]}
     ${dialRule "XXX" [ "Dial(PJSIP/\${EXTEN}@telnyx)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local,\${EXTEN},1)" ]}
     ${dialRule "777XXXXXXX" [ "Dial(PJSIP/1\${EXTEN}@callcentric)" ]}
     ${dialRule "NXXNXXXXXX" [ "Dial(PJSIP/+1\${EXTEN}@telnyx)" ]}
-    ${dialRule "X!" [ "Goto(dest-url,\${EXTEN},1)" ]}
+    ${dialRule "." [ "Goto(dest-url,\${EXTEN},1)" ]}
 
     [src-callcentric]
     ; Remove international call prefix
     ${dialRule "+X!" [ "Goto(src-callcentric,\${EXTEN:1},1)" ]}
     ; All calls go to 0000
-    ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
+    ${dialRule "." [ "Goto(dest-local,0000,1)" ]}
 
     [src-sdf]
     ; Remove international call prefix
     ${dialRule "+X!" [ "Goto(src-sdf,\${EXTEN:1},1)" ]}
     ; All calls go to 0000
-    ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
+    ${dialRule "." [ "Goto(dest-local,0000,1)" ]}
 
     [src-telnyx]
     ; Remove international call prefix
     ${dialRule "+X!" [ "Goto(src-telnyx,\${EXTEN:1},1)" ]}
     ; All calls go to ring group
-    ${dialRule "X!" [ "Goto(dest-local,1999,1)" ]}
+    ${dialRule "." [ "Goto(dest-local,1999,1)" ]}
 
     [src-zadarma]
     ; Remove international call prefix
     ${dialRule "+X!" [ "Goto(src-zadarma,\${EXTEN:1},1)" ]}
     ; All calls go to 0000
-    ${dialRule "X!" [ "Goto(dest-local,0000,1)" ]}
+    ${dialRule "." [ "Goto(dest-local,0000,1)" ]}
 
     [dest-local]
     ${destLocalForwardMusic 4}
@@ -100,15 +98,16 @@ let
     ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
     ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
     ${dialRule "2004" [ "Goto(app-never-gonna,b,1)" ]}
-    ${dialRule "X!" [
+    ${dialRule "." [
       "Answer()"
       "Playback(im-sorry&check-number-dial-again)"
     ]}
 
     [dest-peers]
     ${dialRule "." [
+      "Log(NOTICE, Call From: \${CALLERID(num)})"
       "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,tel.dn42)})"
-      "Log(NOTICE, Outbound URI: \${TARGET_URI})"
+      "Log(NOTICE, Call Outbound URI: \${TARGET_URI})"
       "Dial(PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}
 
@@ -116,7 +115,10 @@ let
     ${destMusic}
 
     [dest-url]
-    ${dialRule "." [ "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
+    ${dialRule "." [
+      "Log(NOTICE, Call to anonymous SIP: \${EXTEN}@\${SIPDOMAIN})"
+      "Dial(PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"
+    ]}
   '';
 
   messageRules = ''
@@ -129,40 +131,54 @@ let
     [src-local-message]
     ${dialRule "04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
     ${dialRule "+04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:9},1)" ]}
-    ${dialRule "0424." [ "Goto(dest-peers-message,+\${EXTEN},1)" ]}
-    ${dialRule "+0424." [ "Goto(dest-peers-message,\${EXTEN},1)" ]}
+    ${dialRule "042." [
+      "Set(USER=\${CUT(CUT(MESSAGE(from),@,1),:,2)})"
+      "Set(MESSAGE(from)=<sip:+04242547\${USER}@lantian.dn42>)"
+      "Goto(dest-peers-message,+\${EXTEN},1)"
+    ]}
+    ${dialRule "+042." [
+      "Set(USER=\${CUT(CUT(MESSAGE(from),@,1),:,2)})"
+      "Set(MESSAGE(from)=<sip:+04242547\${USER}@lantian.dn42>)"
+      "Goto(dest-peers-message,\${EXTEN},1)"
+    ]}
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
-    ${dialRule "X!" [ "Goto(dest-url-message,\${EXTEN},1)" ]}
+    ${dialRule "." [ "Goto(dest-url-message,\${EXTEN},1)" ]}
 
     [src-peers-enum-message]
-    ${enumVerify "src-peers-message"}
+    ${enumVerify true "src-peers-message-rewrite"}
+
+    [src-peers-message-rewrite]
+    ${dialRule "." [
+      # Force rewrite MESSAGE(from) so Linphone works correctly
+      "Set(USER=\${CUT(CUT(MESSAGE(from),@,1),:,2)})"
+      "Set(MESSAGE(from)=<sip:\${USER}@lantian.pub>)"
+      "Goto(src-peers-message,\${EXTEN},1)"
+    ]}
 
     [src-peers-message]
-    ; Allow inbound call and peering calls
+    ; Allow inbound calls
     ${dialRule "04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:8},1)" ]}
     ${dialRule "+04242547XXXX" [ "Goto(dest-local-message,\${EXTEN:9},1)" ]}
     ${dialRule "XXXX" [ "Goto(dest-local-message,\${EXTEN},1)" ]}
-    ${dialRule "0424." [
-      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
-      "Goto(dest-peers-message,+\${EXTEN},1)"
-    ]}
-    ${dialRule "+0424." [
-      "Set(CALLERID(num)=04242547\${CALLERID(num)})"
-      "Goto(dest-peers-message,\${EXTEN},1)"
-    ]}
 
     [dest-local-message]
     ${destLocalMessage}
 
     [dest-peers-message]
-    ${dialRule "X!" [
+    ${dialRule "." [
+      "Log(NOTICE, Message From: \${MESSAGE(from)})"
       "Set(TARGET_URI=\${ENUMLOOKUP(\${EXTEN},sip,,,tel.dn42)})"
-      "Log(NOTICE, Outbound URI: \${TARGET_URI})"
-      "MessageSend(pjsip:PJSIP/dn42-enum-outbound/sip:\${TARGET_URI})"
+      "Log(NOTICE, Message Outbound URI: \${TARGET_URI})"
+      "Set(MESSAGE(to)=<sip:\${CUT(TARGET_URI,:,1)}>)"
+      "Log(NOTICE, Message To: \${MESSAGE(to)})"
+      "MessageSend(pjsip:dn42-enum-outbound/sip:\${TARGET_URI})"
     ]}
 
     [dest-url-message]
-    ${dialRule "X!" [ "MessageSend(pjsip:PJSIP/anonymous/sip:\${EXTEN}@\${SIPDOMAIN})" ]}
+    ${dialRule "." [
+      "Log(NOTICE, Message to anonymous SIP: \${EXTEN}@\${SIPDOMAIN})"
+      "MessageSend(pjsip:anonymous/sip:\${EXTEN}@\${SIPDOMAIN})"
+    ]}
   '';
 in
 {
