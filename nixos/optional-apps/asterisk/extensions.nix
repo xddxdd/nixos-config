@@ -169,7 +169,7 @@ let
       "Log(NOTICE, Generating auto reply to \${USER})"
       "Set(MESSAGE(from)=<sip:\${EXTEN}@lantian.pub>)"
       "Set(MESSAGE(to)=<sip:\${USER}@lantian.pub>)"
-      "Set(MESSAGE(body)=ACK message from \${USER})"
+      "Set(MESSAGE(body)=ACK: received message from \${USER})"
       "Goto(src-local-message,\${USER},1)"
     ]}
 
