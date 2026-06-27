@@ -95,7 +95,11 @@ fn run(args: Args) -> VerifyResult {
     eprintln!("Source IP to verify: {}", source_ip);
 
     // 4. Create c-ares blocking resolver (reads /etc/resolv.conf automatically).
-    let resolver = match BlockingResolver::new() {
+    // Configure 5 tries with 5s timeout per try for reliability against flaky DNS servers.
+    let mut options = c_ares_resolver::Options::new();
+    options.set_timeout(5000);
+    options.set_tries(5);
+    let resolver = match BlockingResolver::with_options(options) {
         Ok(r) => r,
         Err(e) => {
             eprintln!("Failed to create resolver: {}", e);
