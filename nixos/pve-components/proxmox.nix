@@ -13,6 +13,5 @@
     RestartSec = 5;
   };
 
-  services.scx.enable = lib.mkForce false;
   zramSwap.enable = lib.mkForce false;
 }
