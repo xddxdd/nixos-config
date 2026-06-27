@@ -163,6 +163,15 @@ let
 
     [dest-local-message]
     ${destLocalMessage}
+    ${dialRule "1902" [
+      # Auto reply for testing SMS
+      "Set(USER=\${CUT(CUT(MESSAGE(from),@,1),:,2)})"
+      "Log(NOTICE, Generating auto reply to \${USER})"
+      "Set(MESSAGE(from)=<sip:\${EXTEN}@lantian.pub>)"
+      "Set(MESSAGE(to)=<sip:\${USER}@lantian.pub>)"
+      "Set(MESSAGE(body)=ACK message from \${USER})"
+      "Goto(src-local-message,\${USER},1)"
+    ]}
 
     [dest-peers-message]
     ${dialRule "." [

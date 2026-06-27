@@ -23,6 +23,7 @@ let
       "0000" = "Random between all music playback";
       "1900" = "Milliwatt (1004 Hz)";
       "1901" = "Fax receiver";
+      "1902" = "SMS auto reply";
       "1999" = "Ring group (1000 & 1001 & 1003)";
       "2000" = "Random between all call bots";
       "2001" = dialLennyDescription;
