@@ -83,6 +83,7 @@ rec {
     t38_udptl_ec=redundancy
     t38_udptl_nat=yes
     fax_detect=no
+    send_pai=yes
 
     [template-endpoint-local](template-endpoint-common)
     context=src-local

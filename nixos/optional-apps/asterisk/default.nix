@@ -57,6 +57,9 @@ in
 
     confFiles = {
       "pjsip.conf" = ''
+        [system]
+        timer_b=8000
+
         ; Transports
         ${transports}
 

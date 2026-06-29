@@ -6,6 +6,10 @@ let
 in
 {
   transports = ''
+    [global]
+    type=global
+    endpoint_identifier_order=auth_username,username,ip
+
     [template-transport-common](!)
     type=transport
     tos=cs3
