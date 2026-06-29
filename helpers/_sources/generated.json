@@ -48,16 +48,16 @@
             "name": null,
             "owner": "BelfrySCAD",
             "repo": "BOSL2",
-            "rev": "v2.0.745",
-            "sha256": "sha256-HXgC4FcV3hhcF7FB/k3JvHdSRRPPx6Q9WaInUhNSpxQ=",
+            "rev": "v2.0.746",
+            "sha256": "sha256-hSue6iBQAIaZe1ubsiEvy61LXW1jb0soK3xck1LQhAw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.745"
+        "version": "v2.0.746"
     },
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2026-06-19",
+        "date": "2026-06-26",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -67,13 +67,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "25e3d3b7aebbe64188f26fb18cdba9510254e16f",
-            "sha256": "sha256-ThVvDE7/pNCsCogI5tPVtVOyEQ1OYnjSPYs8rsf+YEo=",
+            "rev": "cfc339420c6fb044dbc73cb0767b0e60ab16406a",
+            "sha256": "sha256-Gt+JE724VUdB+1wj0E3JqaXSqs0e3XV8viiQy3NiFjQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "25e3d3b7aebbe64188f26fb18cdba9510254e16f"
+        "version": "cfc339420c6fb044dbc73cb0767b0e60ab16406a"
     },
     "dn42-certificate-authority-client": {
         "cargoLock": null,
@@ -268,7 +268,7 @@
     },
     "open5gs-freediameter": {
         "cargoLock": null,
-        "date": "2025-05-31",
+        "date": "2026-06-26",
         "extract": null,
         "name": "open5gs-freediameter",
         "passthru": null,
@@ -280,12 +280,12 @@
             "name": null,
             "owner": "open5gs",
             "repo": "freeDiameter",
-            "rev": "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290",
-            "sha256": "sha256-S8jL+9rW9RDwQc7NU8MOzMe9/iRbshWa2QLqXoiV85Q=",
+            "rev": "14725af3ba0edbf9ff61c4e3239ed42464423b2e",
+            "sha256": "sha256-HCRJZFfoJFAEOQnZRCSMpk8lxk603vLvLkM42k3oaU0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290"
+        "version": "14725af3ba0edbf9ff61c4e3239ed42464423b2e"
     },
     "openspeedtest": {
         "cargoLock": null,

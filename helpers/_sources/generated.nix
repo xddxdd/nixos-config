@@ -30,28 +30,28 @@
   };
   bosl2 = {
     pname = "bosl2";
-    version = "v2.0.745";
+    version = "v2.0.746";
     src = fetchFromGitHub {
       owner = "BelfrySCAD";
       repo = "BOSL2";
-      rev = "v2.0.745";
+      rev = "v2.0.746";
       fetchSubmodules = false;
-      sha256 = "sha256-HXgC4FcV3hhcF7FB/k3JvHdSRRPPx6Q9WaInUhNSpxQ=";
+      sha256 = "sha256-hSue6iBQAIaZe1ubsiEvy61LXW1jb0soK3xck1LQhAw=";
     };
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "25e3d3b7aebbe64188f26fb18cdba9510254e16f";
+    version = "cfc339420c6fb044dbc73cb0767b0e60ab16406a";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "25e3d3b7aebbe64188f26fb18cdba9510254e16f";
+      rev = "cfc339420c6fb044dbc73cb0767b0e60ab16406a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ThVvDE7/pNCsCogI5tPVtVOyEQ1OYnjSPYs8rsf+YEo=";
+      sha256 = "sha256-Gt+JE724VUdB+1wj0E3JqaXSqs0e3XV8viiQy3NiFjQ=";
     };
-    date = "2026-06-19";
+    date = "2026-06-26";
   };
   dn42-certificate-authority-client = {
     pname = "dn42-certificate-authority-client";
@@ -165,15 +165,15 @@
   };
   open5gs-freediameter = {
     pname = "open5gs-freediameter";
-    version = "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290";
+    version = "14725af3ba0edbf9ff61c4e3239ed42464423b2e";
     src = fetchFromGitHub {
       owner = "open5gs";
       repo = "freeDiameter";
-      rev = "13f5a5996b5fa1a46ed780635c7fc6fcd09b4290";
+      rev = "14725af3ba0edbf9ff61c4e3239ed42464423b2e";
       fetchSubmodules = false;
-      sha256 = "sha256-S8jL+9rW9RDwQc7NU8MOzMe9/iRbshWa2QLqXoiV85Q=";
+      sha256 = "sha256-HCRJZFfoJFAEOQnZRCSMpk8lxk603vLvLkM42k3oaU0=";
     };
-    date = "2025-05-31";
+    date = "2026-06-26";
   };
   openspeedtest = {
     pname = "openspeedtest";
