@@ -261,6 +261,23 @@ in
         text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
         destination = "/etc/udev/rules.d/70-ntsync.rules";
       })
+      (pkgs.writeTextFile {
+        name = "cachyos-ioschedulers-udev-rules";
+        text = ''
+          # HDD
+          ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", \
+              ATTR{queue/scheduler}="bfq"
+
+          # SSD
+          ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", \
+              ATTR{queue/scheduler}="adios"
+
+          # NVMe SSD
+          ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", \
+              ATTR{queue/scheduler}="adios"
+        '';
+        destination = "/etc/udev/rules.d/60-ioschedulers.rules";
+      })
     ];
 
     systemd.services.systemd-sysctl = {
