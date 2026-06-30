@@ -80,6 +80,10 @@ in
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.Pyison}";
+        extraConfig = ''
+          limit_req zone=slow burst=5 nodelay;
+          limit_req_status 429;
+        '';
       };
     };
     sslCertificate = "zerossl-lantian.pub";

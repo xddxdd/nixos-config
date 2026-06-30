@@ -193,6 +193,7 @@ in
       }
 
       limit_req_zone $binary_remote_network zone=slow:10m rate=1r/s;
+      limit_req_log_level info;
 
       port_in_redirect off;
       absolute_redirect off;
