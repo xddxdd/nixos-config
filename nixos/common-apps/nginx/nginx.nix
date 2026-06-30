@@ -77,6 +77,7 @@ in
 
     appendConfig = ''
       worker_processes auto;
+      worker_rlimit_nofile 1048576;
     '';
     eventsConfig = ''
       worker_connections 4096;
@@ -223,6 +224,7 @@ in
       MemoryDenyWriteExecute = lib.mkForce false;
       SystemCallFilter = lib.mkForce [ ];
       LimitMEMLOCK = "infinity";
+      LimitNOFILE = "1048576";
     };
   };
 }

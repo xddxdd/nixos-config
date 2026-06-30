@@ -82,7 +82,7 @@ in
         proxyPass = "http://127.0.0.1:${LT.portStr.Pyison}";
       };
     };
-
     sslCertificate = "zerossl-lantian.pub";
+    noIndex.enable = true;
   };
 }
