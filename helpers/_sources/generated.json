@@ -57,7 +57,7 @@
     },
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2026-06-26",
+        "date": "2026-06-29",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -67,13 +67,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cfc339420c6fb044dbc73cb0767b0e60ab16406a",
-            "sha256": "sha256-Gt+JE724VUdB+1wj0E3JqaXSqs0e3XV8viiQy3NiFjQ=",
+            "rev": "45e75c04c1f8a37db61c7f68b08455211927304f",
+            "sha256": "sha256-NDan1/NbfGbH152I34S4No3lqlFECC+JXXdVs74jMOQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "cfc339420c6fb044dbc73cb0767b0e60ab16406a"
+        "version": "45e75c04c1f8a37db61c7f68b08455211927304f"
     },
     "dn42-certificate-authority-client": {
         "cargoLock": null,
