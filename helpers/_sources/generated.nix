@@ -94,15 +94,15 @@
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
-    version = "0184e605e5677823751e58b22092e1415b59a8e6";
+    version = "f062d1fda8fab88fd312a5ca3a89537f6351943b";
     src = fetchFromGitHub {
       owner = "Womsxd";
       repo = "MihoyoBBSTools";
-      rev = "0184e605e5677823751e58b22092e1415b59a8e6";
+      rev = "f062d1fda8fab88fd312a5ca3a89537f6351943b";
       fetchSubmodules = false;
-      sha256 = "sha256-rEI6rq6lb8LPiwORCBPzEgyLqeiJ0wb1xXCbP8XStQA=";
+      sha256 = "sha256-gIzfBKC8qc79zfMEtzeLoD3r+t3VPKCr8E3PG7usJn8=";
     };
-    date = "2026-04-07";
+    date = "2026-06-30";
   };
   mpv-sockets = {
     pname = "mpv-sockets";

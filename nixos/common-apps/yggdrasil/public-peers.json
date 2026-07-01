@@ -56,6 +56,9 @@
   "india": [
     "tls://ins.8px.sk:4321"
   ],
+  "indonesia": [
+    "tls://supanadit.com:15021"
+  ],
   "japan": [
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232"
@@ -108,7 +111,8 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
+    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "taiwan": [
     "tls://cowgl.tech:1337",
