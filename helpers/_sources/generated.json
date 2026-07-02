@@ -122,7 +122,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-05-28",
+        "date": "2026-07-01",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -132,13 +132,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4b837f489c8fcff97c159917308a501632f92a25",
-            "sha256": "sha256-sNc54FnpT2vytNPHWzFxwlhP/kTTpytDS+qVm0t+V3A=",
+            "rev": "d7de8926a603276b71f50f139eeb282fe011a35e",
+            "sha256": "sha256-R5X4soyKu3ydl0c60Z6FMMwjz5UBPoQYC0R4aPfbcAU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "4b837f489c8fcff97c159917308a501632f92a25"
+        "version": "d7de8926a603276b71f50f139eeb282fe011a35e"
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
