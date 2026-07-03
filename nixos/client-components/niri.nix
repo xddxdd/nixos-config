@@ -13,6 +13,14 @@
   ];
   services.udev.packages = [ pkgs.brightnessctl ];
 
+  security.wrappers.brightnessctl = {
+    source = pkgs.brightnessctl + "/bin/brightnessctl";
+    owner = "root";
+    group = "root";
+    setuid = true;
+    setgid = true;
+  };
+
   services.greetd = {
     enable = true;
     restart = true;
