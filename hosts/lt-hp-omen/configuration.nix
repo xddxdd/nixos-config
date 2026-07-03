@@ -14,7 +14,7 @@
     # ./nbfc.nix
 
     ../../nixos/optional-apps/byparr.nix
-    ../../nixos/optional-apps/clamav.nix
+    # ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
@@ -24,7 +24,7 @@
     ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/pipewire-noise-cancelling.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
-    ../../nixos/optional-apps/qdrant.nix
+    # ../../nixos/optional-apps/qdrant.nix
     ../../nixos/optional-apps/samba.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/virtualbox.nix
