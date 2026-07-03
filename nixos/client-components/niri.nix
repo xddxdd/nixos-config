@@ -9,6 +9,7 @@
     pkgs.playerctl
     # Components usually available in desktop environment
     pkgs.nautilus
+    pkgs.xwayland-satellite
   ];
   services.udev.packages = [ pkgs.brightnessctl ];
 

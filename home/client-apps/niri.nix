@@ -16,7 +16,7 @@
     enable = true;
     niri = {
       enableKeybinds = false;
-      enableSpawn = true;
+      enableSpawn = false;
       includes = {
         enable = true;
         override = true;
@@ -64,14 +64,7 @@
       "modalCustomAnimationDuration" = 150;
       "enableRippleEffects" = true;
       "blurEnabled" = false;
-      "blurForegroundLayers" = true;
-      "blurLayerOutlineOpacity" = 0.12;
-      "blurBorderColor" = "outline";
-      "blurBorderCustomColor" = "#ffffff";
-      "blurBorderOpacity" = 0.35;
       "wallpaperFillMode" = "Fill";
-      "blurredWallpaperLayer" = false;
-      "blurWallpaperOnOverview" = false;
       "showLauncherButton" = true;
       "showWorkspaceSwitcher" = true;
       "showFocusedWindow" = true;
@@ -169,8 +162,6 @@
       "workspaceUnfocusedColorMode" = "default";
       "workspaceUrgentColorMode" = "default";
       "workspaceFocusedBorderEnabled" = false;
-      "workspaceFocusedBorderColor" = "primary";
-      "workspaceFocusedBorderThickness" = 2;
       "workspaceNameIcons" = { };
       "waveProgressEnabled" = true;
       "scrollTitleEnabled" = false;
@@ -217,8 +208,6 @@
       "niriOverviewOverlayEnabled" = true;
       "dankLauncherV2Size" = "compact";
       "dankLauncherV2BorderEnabled" = false;
-      "dankLauncherV2BorderThickness" = 2;
-      "dankLauncherV2BorderColor" = "primary";
       "dankLauncherV2ShowFooter" = true;
       "dankLauncherV2UnloadOnClose" = false;
       "useAutoLocation" = false;
@@ -259,10 +248,6 @@
       "notepadTransparencyOverride" = -1;
       "notepadLastCustomTransparency" = 0.7;
       "soundsEnabled" = false;
-      "useSystemSoundTheme" = false;
-      "soundNewNotification" = true;
-      "soundVolumeChanged" = true;
-      "soundPluggedIn" = true;
       "acMonitorTimeout" = 0;
       "acLockTimeout" = 0;
       "acSuspendTimeout" = 0;
@@ -292,57 +277,9 @@
       "terminalsAlwaysDark" = false;
       "muxType" = "tmux";
       "muxUseCustomCommand" = false;
-      "muxCustomCommand" = "";
       "muxSessionFilter" = "";
       "runDmsMatugenTemplates" = false;
-      "matugenTemplateGtk" = true;
-      "matugenTemplateNiri" = true;
-      "matugenTemplateHyprland" = true;
-      "matugenTemplateMangowc" = true;
-      "matugenTemplateQt5ct" = true;
-      "matugenTemplateQt6ct" = true;
-      "matugenTemplateFirefox" = true;
-      "matugenTemplatePywalfox" = true;
-      "matugenTemplateZenBrowser" = true;
-      "matugenTemplateVesktop" = true;
-      "matugenTemplateEquibop" = true;
-      "matugenTemplateGhostty" = true;
-      "matugenTemplateKitty" = true;
-      "matugenTemplateFoot" = true;
-      "matugenTemplateAlacritty" = true;
-      "matugenTemplateNeovim" = false;
-      "matugenTemplateWezterm" = true;
-      "matugenTemplateDgop" = true;
-      "matugenTemplateKcolorscheme" = true;
-      "matugenTemplateVscode" = true;
-      "matugenTemplateEmacs" = true;
-      "matugenTemplateZed" = true;
       "showDock" = false;
-      "dockAutoHide" = false;
-      "dockSmartAutoHide" = false;
-      "dockGroupByApp" = false;
-      "dockOpenOnOverview" = false;
-      "dockPosition" = 1;
-      "dockSpacing" = 4;
-      "dockBottomGap" = 0;
-      "dockMargin" = 0;
-      "dockIconSize" = 40;
-      "dockIndicatorStyle" = "circle";
-      "dockBorderEnabled" = false;
-      "dockBorderColor" = "surfaceText";
-      "dockBorderOpacity" = 1;
-      "dockBorderThickness" = 1;
-      "dockIsolateDisplays" = false;
-      "dockLauncherEnabled" = false;
-      "dockLauncherLogoMode" = "apps";
-      "dockLauncherLogoCustomPath" = "";
-      "dockLauncherLogoColorOverride" = "";
-      "dockLauncherLogoSizeOffset" = 0;
-      "dockLauncherLogoBrightness" = 0.5;
-      "dockLauncherLogoContrast" = 1;
-      "dockMaxVisibleApps" = 0;
-      "dockMaxVisibleRunningApps" = 0;
-      "dockShowOverflowBadge" = true;
       "notificationOverlayEnabled" = false;
       "notificationPopupShadowEnabled" = true;
       "notificationPopupPrivacyMode" = false;
@@ -357,9 +294,7 @@
       "lockScreenPowerOffMonitorsOnLock" = false;
       "lockAtStartup" = false;
       "enableFprint" = false;
-      "maxFprintTries" = 15;
       "enableU2f" = false;
-      "u2fMode" = "or";
       "lockScreenActiveMonitor" = "all";
       "lockScreenInactiveColor" = "#000000";
       "lockScreenNotificationMode" = 0;
@@ -395,7 +330,6 @@
         "reboot"
         "logout"
         "poweroff"
-        "lock"
         "suspend"
         "restart"
       ];
@@ -409,7 +343,6 @@
       "customPowerActionPowerOff" = "";
       "updaterHideWidget" = false;
       "updaterUseCustomCommand" = false;
-      "updaterCustomCommand" = "";
       "updaterTerminalAdditionalParams" = "";
       "displayNameMode" = "system";
       "screenPreferences" = { };
@@ -475,16 +408,8 @@
           "removeWidgetPadding" = false;
           "widgetPadding" = 8;
           "gothCornersEnabled" = false;
-          "gothCornerRadiusOverride" = false;
-          "gothCornerRadiusValue" = 12;
           "borderEnabled" = false;
-          "borderColor" = "surfaceText";
-          "borderOpacity" = 1;
-          "borderThickness" = 1;
           "widgetOutlineEnabled" = false;
-          "widgetOutlineColor" = "primary";
-          "widgetOutlineOpacity" = 1;
-          "widgetOutlineThickness" = 1;
           "fontScale" = 1.2;
           "iconScale" = 1.2;
           "autoHide" = false;
@@ -506,72 +431,7 @@
         }
       ];
       "desktopClockEnabled" = false;
-      "desktopClockStyle" = "analog";
-      "desktopClockTransparency" = 0.8;
-      "desktopClockColorMode" = "primary";
-      "desktopClockCustomColor" = {
-        "r" = 1;
-        "g" = 1;
-        "b" = 1;
-        "a" = 1;
-        "hsvHue" = -1;
-        "hsvSaturation" = 0;
-        "hsvValue" = 1;
-        "hslHue" = -1;
-        "hslSaturation" = 0;
-        "hslLightness" = 1;
-        "valid" = true;
-      };
-      "desktopClockShowDate" = true;
-      "desktopClockShowAnalogNumbers" = false;
-      "desktopClockShowAnalogSeconds" = true;
-      "desktopClockX" = -1;
-      "desktopClockY" = -1;
-      "desktopClockWidth" = 280;
-      "desktopClockHeight" = 180;
-      "desktopClockDisplayPreferences" = [
-        "all"
-      ];
       "systemMonitorEnabled" = false;
-      "systemMonitorShowHeader" = true;
-      "systemMonitorTransparency" = 0.8;
-      "systemMonitorColorMode" = "primary";
-      "systemMonitorCustomColor" = {
-        "r" = 1;
-        "g" = 1;
-        "b" = 1;
-        "a" = 1;
-        "hsvHue" = -1;
-        "hsvSaturation" = 0;
-        "hsvValue" = 1;
-        "hslHue" = -1;
-        "hslSaturation" = 0;
-        "hslLightness" = 1;
-        "valid" = true;
-      };
-      "systemMonitorShowCpu" = true;
-      "systemMonitorShowCpuGraph" = true;
-      "systemMonitorShowCpuTemp" = true;
-      "systemMonitorShowGpuTemp" = false;
-      "systemMonitorGpuPciId" = "";
-      "systemMonitorShowMemory" = true;
-      "systemMonitorShowMemoryGraph" = true;
-      "systemMonitorShowNetwork" = true;
-      "systemMonitorShowNetworkGraph" = true;
-      "systemMonitorShowDisk" = true;
-      "systemMonitorShowTopProcesses" = false;
-      "systemMonitorTopProcessCount" = 3;
-      "systemMonitorTopProcessSortBy" = "cpu";
-      "systemMonitorGraphInterval" = 60;
-      "systemMonitorLayoutMode" = "auto";
-      "systemMonitorX" = -1;
-      "systemMonitorY" = -1;
-      "systemMonitorWidth" = 320;
-      "systemMonitorHeight" = 480;
-      "systemMonitorDisplayPreferences" = [
-        "all"
-      ];
-      "systemMonitorVariants" = [ ];
       "desktopWidgetPositions" = { };
       "desktopWidgetGridSettings" = { };
       "desktopWidgetInstances" = [ ];
@@ -608,10 +468,6 @@
         "portal"
       ];
       "wallpaperCyclingEnabled" = false;
-      "wallpaperCyclingMode" = "interval";
-      "wallpaperCyclingInterval" = 300;
-      "wallpaperCyclingTime" = "06:00";
-      "monitorCyclingSettings" = { };
       "nightModeEnabled" = false;
       "nightModeTemperature" = 4500;
       "nightModeHighTemperature" = 6500;
@@ -636,7 +492,9 @@
       "weatherCoordinates" = "${toString LT.this.city.lat},${toString LT.this.city.lng}";
       "barPinnedApps" = [
         "firefox"
+        "org.gnome.Nautilus"
         "com.mitchellh.ghostty"
+        "audacious"
       ];
       "dockLauncherPosition" = 0;
       "hiddenTrayIds" = [ ];
@@ -678,6 +536,8 @@
           accel-profile = "flat";
         };
       };
+
+      hotkey-overlay.skip-at-startup = true;
 
       layout = {
         gaps = 8;
@@ -766,6 +626,10 @@
           repeat = false;
         };
         "Mod+Q" = {
+          action.close-window = [ ];
+          repeat = false;
+        };
+        "Alt+F4" = {
           action.close-window = [ ];
           repeat = false;
         };

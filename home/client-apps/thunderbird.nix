@@ -5,10 +5,6 @@
 }:
 let
   userChrome = pkgs.writeText "userChrome.css" ''
-    .titlebar-buttonbox-container {
-      display: none;
-    }
-
     li.calendar-month-day-box-list-item {
       /* Make multi-day tasks continuous */
       margin: 2px 0 !important;
