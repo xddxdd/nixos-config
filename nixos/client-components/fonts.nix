@@ -39,10 +39,14 @@
 
       # https://github.com/brsvh/chinese-fonts-overlay
       alibaba-fonts
+      alimama-fonts
+      dingtalk-fonts
       foundertype-fonts
-      TH-fonts
-      tsangertype-fonts
+      justfont-fonts
+      taobao-fonts
+      tianheng-fonts
       trionestype-fonts
+      tsangertype-fonts
       windows-fonts
     ];
 

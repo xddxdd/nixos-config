@@ -118,6 +118,7 @@ in
         nur-xddxdd.command-code
         # nur-xddxdd.dingtalk
         nur-xddxdd.easycli
+        nur-xddxdd.epub-to-xtc-converter
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.kikoplay
@@ -131,6 +132,7 @@ in
         nvfetcher
         optipng
         p7zip
+        parallel
         parsec-bin
         payload-dumper-go
         piliplus
@@ -151,7 +153,6 @@ in
         vlc
         vopono
         vscode
-        windsurf
         wine'
         winetricks
         wpsoffice

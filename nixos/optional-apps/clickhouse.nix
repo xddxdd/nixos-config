@@ -1,6 +1,8 @@
-_: {
+{ pkgs, ... }:
+{
   services.clickhouse = {
     enable = true;
+    package = pkgs.clickhouse-lts;
 
     # With changes from https://theorangeone.net/posts/calming-down-clickhouse/
     extraServerConfig = ''

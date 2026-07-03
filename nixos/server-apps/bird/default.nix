@@ -110,9 +110,7 @@ in
   };
 
   systemd.services.bird-lgproxy-go = {
-    # FIXME
-    # enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
-    enable = false;
+    enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [

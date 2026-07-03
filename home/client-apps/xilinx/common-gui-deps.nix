@@ -5,7 +5,7 @@ pkgs:
 (with pkgs; [
   bash
   coreutils
-  # fool buildFHSEnvChroot to think we are not on an FHS environment. See also:
+  # fool buildFHSEnv to think we are not on an FHS environment. See also:
   # https://unix.stackexchange.com/a/527763/135796
   (writeTextFile {
     name = "xilinx-fhs-etc_issue";

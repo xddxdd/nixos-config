@@ -98,7 +98,7 @@ let
       };
       xdg_icon_cmd_prefix = "env XDG_DATA_HOME=$out/share ${lib.getExe' pkgs.xdg-utils "xdg-icon-resource"} install --novendor --size $size --mode user";
     in
-    pkgs.buildFHSEnvChroot {
+    pkgs.buildFHSEnv {
       inherit name;
       targetPkgs = guiTargetPkgs;
       runScript = pkgs.writeScript "xilinx-${product}-runner" (
@@ -154,7 +154,7 @@ let
       p.zlib.dev
       # https://github.com/NixOS/nixpkgs/issues/218534
       # postFixup would create symlinks for the non-unicode version but since it breaks
-      # in buildFHSEnvChroot, we just install both variants
+      # in buildFHSEnv, we just install both variants
       ncurses5'
       ncurses5'.dev
       ncurses5'-unicode
@@ -188,7 +188,7 @@ let
     '';
 in
 {
-  xilinx-shell = pkgs.buildFHSEnvChroot {
+  xilinx-shell = pkgs.buildFHSEnv {
     name = "xilinx-shell";
     targetPkgs = guiTargetPkgs;
     runScript = pkgs.writeScript "xilinx-shell-runner" (
@@ -207,7 +207,7 @@ in
       description = "A bash shell from which you can install xilinx tools or launch them from CLI";
     };
   };
-  petalinux-install-shell = pkgs.buildFHSEnvChroot {
+  petalinux-install-shell = pkgs.buildFHSEnv {
     name = "petalinux-install-shell";
     targetPkgs = petalinuxTargetPkgs;
     runScript = pkgs.writeScript "petalinux-install-shell-script" (
@@ -227,7 +227,7 @@ in
       description = "A bash shell from which you can install petalinux tools or launch them from CLI";
     };
   };
-  petalinux = pkgs.buildFHSEnvChroot {
+  petalinux = pkgs.buildFHSEnv {
     name = "petalinux";
     targetPkgs = petalinuxTargetPkgs;
     runScript = pkgs.writeShellScript "petalinux-wrapper" (
@@ -239,7 +239,7 @@ in
       ''
     );
     extraInstallCommands = ''
-      # Can't use nativeBuildInputs with buildFHSEnvChroot
+      # Can't use nativeBuildInputs with buildFHSEnv
       source ${pkgs.makeWrapper}/nix-support/setup-hook
     ''
     +

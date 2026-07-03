@@ -29,6 +29,7 @@ in
             "libsoup-2.74.3"
             "mbedtls-2.28.10"
             "olm-3.2.16"
+            "pnpm-10.29.2"
             "ventoy-1.1.12"
             # keep-sorted end
           ];

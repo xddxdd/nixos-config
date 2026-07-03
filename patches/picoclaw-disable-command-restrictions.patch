@@ -1,5 +1,5 @@
 diff --git a/pkg/tools/cron.go b/pkg/tools/cron.go
-index b3b14dc4..60671e58 100644
+index a8ccdfdf..fcd79a5f 100644
 --- a/pkg/tools/cron.go
 +++ b/pkg/tools/cron.go
 @@ -11,7 +11,6 @@ import (
@@ -10,18 +10,19 @@ index b3b14dc4..60671e58 100644
  	"github.com/sipeed/picoclaw/pkg/cron"
  	"github.com/sipeed/picoclaw/pkg/utils"
  )
-@@ -42,10 +41,6 @@ func NewCronTool(
- ) (*CronTool, error) {
+@@ -44,11 +43,6 @@ func NewCronTool(
  	allowCommand := true
  	execEnabled := true
+ 	var commandAllowedRemotes []string
 -	if config != nil {
 -		allowCommand = config.Tools.Cron.AllowCommand
 -		execEnabled = config.Tools.Exec.Enabled
+-		commandAllowedRemotes = config.Tools.Cron.CommandAllowedRemotes
 -	}
  
  	var execTool *ExecTool
  	if execEnabled {
-@@ -208,20 +203,10 @@ func (t *CronTool) addJob(ctx context.Context, args map[string]any) *ToolResult
+@@ -212,22 +206,10 @@ func (t *CronTool) addJob(ctx context.Context, args map[string]any) *ToolResult
  		return ErrorResult("one of at_seconds, every_seconds, or cron_expr is required")
  	}
  
@@ -34,8 +35,10 @@ index b3b14dc4..60671e58 100644
 -		if !t.execEnabled {
 -			return ErrorResult("command execution is disabled")
 -		}
--		if !constants.IsInternalChannel(channel) {
--			return ErrorResult("scheduling command execution is restricted to internal channels")
+-		if !constants.IsInternalChannel(channel) && !isCommandAllowedRemote(channel, chatID, t.commandAllowedRemotes) {
+-			return ErrorResult(
+-				"scheduling command execution is restricted to internal channels or configured remote channels",
+-			)
 -		}
 -		if !t.allowCommand && !commandConfirm {
 -			return ErrorResult("command_confirm=true is required when allow_command is disabled")
@@ -44,15 +47,19 @@ index b3b14dc4..60671e58 100644
  		}
  	}
  
-@@ -483,32 +468,14 @@ func positiveSeconds(args map[string]any, key string) (int64, *ToolResult) {
+@@ -497,19 +479,8 @@ func positiveSeconds(args map[string]any, key string) (int64, *ToolResult) {
  }
  
  func (t *CronTool) validateCommandMutation(ctx context.Context, args map[string]any) *ToolResult {
+-	channel := ToolChannel(ctx)
+-	chatID := ToolChatID(ctx)
 -	if !t.execEnabled {
 -		return ErrorResult("command execution is disabled")
 -	}
--	if !constants.IsInternalChannel(ToolChannel(ctx)) {
--		return ErrorResult("updating command execution is restricted to internal channels")
+-	if !constants.IsInternalChannel(channel) && !isCommandAllowedRemote(channel, chatID, t.commandAllowedRemotes) {
+-		return ErrorResult(
+-			"updating command execution is restricted to internal channels or configured remote channels",
+-		)
 -	}
 -	commandConfirm, _ := args["command_confirm"].(bool)
 -	if !t.allowCommand && !commandConfirm {
@@ -62,25 +69,29 @@ index b3b14dc4..60671e58 100644
  	}
  	return nil
  }
+@@ -538,21 +509,6 @@ func isCommandAllowedRemote(channel, chatID string, allowed []string) bool {
+ }
  
  func (t *CronTool) canAccessJob(ctx context.Context, job *cron.CronJob) bool {
 -	channel := ToolChannel(ctx)
 -	if constants.IsInternalChannel(channel) {
 -		return true
 -	}
+-
 -	chatID := ToolChatID(ctx)
 -	if channel == "" || chatID == "" {
 -		return false
 -	}
--	if job.Payload.Command != "" {
+-	if job.Payload.Channel != channel || job.Payload.To != chatID {
 -		return false
 -	}
--	return job.Payload.Channel == channel && job.Payload.To == chatID
-+	return true
+-	if job.Payload.Command != "" {
+-		return isCommandAllowedRemote(channel, chatID, t.commandAllowedRemotes)
+-	}
+ 	return true
  }
  
- func formatCronJobJSON(job *cron.CronJob) string {
-@@ -553,7 +520,7 @@ func (t *CronTool) ExecuteJob(ctx context.Context, job *cron.CronJob) string {
+@@ -606,7 +562,7 @@ func (t *CronTool) ExecuteJob(ctx context.Context, job *cron.CronJob) string {
  
  	// Execute command if present
  	if job.Payload.Command != "" {
@@ -143,10 +154,10 @@ index e90d683b..3d89fc34 100644
  
  // HasRegistered reports whether a tool name is present in the registry,
 diff --git a/pkg/tools/shell.go b/pkg/tools/shell.go
-index b105b539..55d50fd6 100644
+index 873d4fcb..2804d24a 100644
 --- a/pkg/tools/shell.go
 +++ b/pkg/tools/shell.go
-@@ -19,7 +19,6 @@ import (
+@@ -20,7 +20,6 @@ import (
  	"github.com/creack/pty"
  
  	"github.com/sipeed/picoclaw/pkg/config"
@@ -154,7 +165,7 @@ index b105b539..55d50fd6 100644
  	"github.com/sipeed/picoclaw/pkg/isolation"
  	"github.com/sipeed/picoclaw/pkg/logger"
  )
-@@ -297,18 +296,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+@@ -298,18 +297,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  		return ErrorResult("command is required")
  	}
  
@@ -174,7 +185,7 @@ index b105b539..55d50fd6 100644
  
  	getBoolArg := func(key string) bool {
  		switch v := args[key].(type) {
-@@ -330,15 +318,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+@@ -331,15 +319,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  
  	cwd := t.workingDir
  	if wd, ok := args["cwd"].(string); ok && wd != "" {
@@ -191,7 +202,7 @@ index b105b539..55d50fd6 100644
  	}
  
  	if cwd == "" {
-@@ -348,33 +328,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+@@ -349,33 +329,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  		}
  	}
  
@@ -225,7 +236,7 @@ index b105b539..55d50fd6 100644
  	if isBackground {
  		return t.runBackground(ctx, command, cwd, isPty)
  	}
-@@ -1095,151 +1048,6 @@ func expandPowerShellEnvVars(cmd string) string {
+@@ -1136,151 +1089,6 @@ func expandPowerShellEnvVars(cmd string) string {
  }
  
  func (t *ExecTool) guardCommand(command, cwd string) string {

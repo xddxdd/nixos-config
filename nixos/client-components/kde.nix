@@ -31,7 +31,7 @@
     enable = true;
     enableQt5Integration = true;
   };
-  services.displayManager.defaultSession = "plasmawayland";
+  services.displayManager.defaultSession = "plasma";
 
   services.greetd = {
     enable = true;
