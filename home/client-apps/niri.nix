@@ -377,24 +377,19 @@
               "id" = "workspaceSwitcher";
               "enabled" = true;
             }
-            {
-              "id" = "focusedWindow";
-              "enabled" = true;
-            }
           ];
-          "centerWidgets" = [
-            "music"
-            "clock"
-            "weather"
-          ];
+          "centerWidgets" = [ ];
           "rightWidgets" = [
+            "music"
             "systemTray"
+            "weather"
             "clipboard"
             "cpuUsage"
             "memUsage"
             "notificationButton"
             "battery"
             "controlCenterButton"
+            "clock"
           ];
           "spacing" = 0;
           "innerPadding" = 10;
