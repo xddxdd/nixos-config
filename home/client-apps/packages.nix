@@ -146,7 +146,6 @@ in
         synadm
         tigervnc
         tor-browser
-        ulauncher
         unar
         ventoy-full
         virt-manager

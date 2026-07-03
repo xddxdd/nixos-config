@@ -20,7 +20,6 @@
     ++ [
       # keep-sorted start
       "gcdemu"
-      "ulauncher --hide-window"
       # keep-sorted end
     ]
   );

@@ -50,6 +50,10 @@
       url = "github:ipverse/country-ip-blocks";
       flake = false;
     };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     fast-nix-gc = {
       url = "github:Mic92/fast-nix-gc";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +94,10 @@
     };
     never-gonna-rust = {
       url = "github:xddxdd/never-gonna-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-alien = {
@@ -179,7 +187,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:nix-community/stylix";
+      url = "github:make-42/stylix/matugen";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -249,6 +257,8 @@
           };
         in
         {
+          pre-commit.settings.hooks.check-added-large-files.enable = lib.mkForce false;
+
           packages = rec {
             # DNSControl
             dnscontrol-config =

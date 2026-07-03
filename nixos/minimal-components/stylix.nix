@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   LT,
   config,
   ...
@@ -9,13 +8,14 @@
   stylix = {
     enable = true;
     enableReleaseChecks = false;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/oceanicnext.yaml";
+
+    image = ../../helpers/wallpaper/wallpaper.jpg;
+    colorGeneration.scheme = "vibrant";
+    colorGeneration.polarity = "dark";
 
     autoEnable = LT.this.hasTag LT.tags.client;
     targets = {
       console.enable = true;
-      # FIXME: workaround stylix bug
-      qt.platform = lib.mkForce "kde";
       # Kmscon uses removed options
       kmscon.enable = false;
     };
