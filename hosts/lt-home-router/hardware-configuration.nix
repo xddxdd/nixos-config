@@ -27,5 +27,16 @@
     ];
   };
 
+  fileSystems."/mnt/unreliable-cache" = {
+    device = "/dev/disk/by-uuid/76857abf-54dd-432b-9ebb-ae26e529e0cc";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd"
+      "autodefrag"
+      "nosuid"
+      "nodev"
+    ];
+  };
+
   services.qemuGuest.enable = true;
 }

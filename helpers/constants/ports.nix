@@ -87,6 +87,7 @@ rec {
     UniAPI = 13437;
     CLIProxyAPI = 13438;
     Mcpo = 13439;
+    LanCacheDNS = 13453;
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;

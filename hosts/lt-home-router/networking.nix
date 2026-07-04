@@ -60,6 +60,8 @@
         "192.168.0.1/24"
         "2001:470:e997::1/64"
         "fc00:192:168::1/64"
+        # lt-home-lancache backward compatibility
+        "192.168.0.4/24"
       ];
       routes = [
         {

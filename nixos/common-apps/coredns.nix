@@ -41,7 +41,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
             loadbalance round_robin
             prometheus ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.Prometheus.CoreDNS}
 
-            forward . 192.168.0.4
+            forward . 192.168.0.4:${LT.portStr.LanCacheDNS}
           }
         '';
         forwardToResolvConf = zone: ''
@@ -77,7 +77,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
         '';
 
         defaultForwarder =
-          if config.networking.hostName == "lt-home-router" then
+          if config.services.lancache.enable or false then
             forwardToLancache
           else if config.networking.networkmanager.enable then
             forwardToResolvConf

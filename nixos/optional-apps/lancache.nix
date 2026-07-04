@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  LT,
   ...
 }:
 let
@@ -8,10 +9,16 @@ let
 in
 {
   options = {
-    services.lancache.environment = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
+    services.lancache = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+      };
+      environment = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
+    };
   };
 
-  config = {
+  config = lib.mkIf config.services.lancache.enable {
     services.lancache.environment = lib.mapAttrs (_: lib.mkDefault) {
       ## See the "Settings" section in README.md for more details
 
@@ -78,8 +85,8 @@ in
       labels."io.containers.autoupdate" = "registry";
       image = "docker.io/lancachenet/lancache-dns:latest";
       ports = [
-        "53:53/udp"
-        "53:53/tcp"
+        "${env.DNS_BIND_IP}:${LT.portStr.LanCacheDNS}:53/udp"
+        "${env.DNS_BIND_IP}:${LT.portStr.LanCacheDNS}:53/tcp"
       ];
     };
 
@@ -88,8 +95,8 @@ in
       labels."io.containers.autoupdate" = "registry";
       image = "docker.io/lancachenet/monolithic:latest";
       ports = [
-        "80:80/tcp"
-        "443:443/tcp"
+        "${env.LANCACHE_IP}:80:80/tcp"
+        "${env.LANCACHE_IP}:443:443/tcp"
       ];
       volumes = [
         "${env.CACHE_ROOT}/cache:/data/cache"
