@@ -16,6 +16,19 @@ let
     "dpdk-0d000" = "0000:0d:00.0";
     "dpdk-0d001" = "0000:0d:00.1";
   };
+
+  vmInterfaceVLANs = {
+    "vhost0" = null;
+    "vhost1" = null;
+    "vhost2" = null;
+    "vhost3" = null;
+    "vhost4" = 1;
+    "vhost5" = null;
+    "vhost6" = 1;
+    "vhost7" = null;
+    "vhost8" = null;
+    "vhost9" = null;
+  };
 in
 {
   virtualisation.vswitch = {
@@ -64,14 +77,15 @@ in
         options:rx-steering=rss+lacp \
         || true
     '') interfaces)
-    + (lib.concatMapStringsSep "\n" (i: ''
-      ovs-vsctl --may-exist add-port br0 vhost${builtins.toString i} || true
-      ovs-vsctl set Interface vhost${builtins.toString i} \
-        type=dpdkvhostuserclient \
-        options:vhost-server-path=/run/ovs-vhost${builtins.toString i}.sock \
+    + (lib.concatMapAttrsStringSep "\n" (n: v: ''
+      ovs-vsctl --may-exist add-port br0 ${n} ${
+        lib.optionalString (v != null) "tag=${toString v}"
+      } || true
+      ovs-vsctl set Interface ${n} type=dpdkvhostuserclient \
+        options:vhost-server-path=/run/ovs-${n}.sock \
         mtu_request=9000 \
         || true
-    '') (lib.range 0 9))
+    '') vmInterfaceVLANs)
     + ''
       # Workaround OVS hijacking all net devices
       ovs-appctl netdev-dpdk/detach 0000:08:00.0 || true
