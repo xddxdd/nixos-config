@@ -2,6 +2,10 @@
 fetch.git = "https://github.com/Bellaposa/airplanes-live-mcp.git"
 src.git = "https://github.com/Bellaposa/airplanes-live-mcp.git"
 
+[anti-fooling-hot-line]
+fetch.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"
+src.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"
+
 [auto-novel-addon]
 fetch.url = "https://github.com/auto-novel/addon/releases/download/v$ver/addon-$ver-firefox.xpi"
 src.github = "auto-novel/addon"

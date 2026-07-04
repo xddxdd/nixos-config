@@ -4,6 +4,7 @@
 }@args:
 let
   # keep-sorted start
+  inherit (pkgs.callPackage ./apps/anti-fooling.nix args) dialAntiFooling;
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapper;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverly;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLenny;
@@ -93,11 +94,12 @@ let
       "Set(DIALGROUP(mygroup,add)=PJSIP/1003)"
       "Dial(\${DIALGROUP(mygroup)})"
     ]}
-    ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2004)},1)" ]}
+    ${dialRule "2000" [ "Goto(dest-local,\${RAND(2001,2005)},1)" ]}
     ${dialRule "2001" [ "Goto(app-lenny,b,1)" ]}
     ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
     ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
     ${dialRule "2004" [ "Goto(app-never-gonna,b,1)" ]}
+    ${dialRule "2005" [ "Goto(防忽悠咨询热线,s,1)" ]}
     ${dialRule "." [
       "Answer()"
       "Playback(im-sorry&check-number-dial-again)"
@@ -191,5 +193,12 @@ let
   '';
 in
 {
-  extensions = voiceRules + messageRules + dialAstyCrapper + dialBeverly + dialLenny + dialNeverGonna;
+  extensions =
+    voiceRules
+    + messageRules
+    + dialAntiFooling
+    + dialAstyCrapper
+    + dialBeverly
+    + dialLenny
+    + dialNeverGonna;
 }

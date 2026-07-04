@@ -19,6 +19,26 @@
         },
         "version": "df9b1499b45d3cc67c709afeb993453032943b7b"
     },
+    "anti-fooling-hot-line": {
+        "cargoLock": null,
+        "date": "2017-05-04",
+        "extract": null,
+        "name": "anti-fooling-hot-line",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "02c8e86c20b8011ffe535a016e61287f3989164c",
+            "sha256": "sha256-uRziLulzwWKbRzBqo8lGLZyV2yjeXnGkmff8dEFZubU=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/moontide/Anti-fooling-Hot-Line.git"
+        },
+        "version": "02c8e86c20b8011ffe535a016e61287f3989164c"
+    },
     "auto-novel-addon": {
         "cargoLock": null,
         "date": null,

@@ -20,6 +20,20 @@
     };
     date = "2025-10-23";
   };
+  anti-fooling-hot-line = {
+    pname = "anti-fooling-hot-line";
+    version = "02c8e86c20b8011ffe535a016e61287f3989164c";
+    src = fetchgit {
+      url = "https://github.com/moontide/Anti-fooling-Hot-Line.git";
+      rev = "02c8e86c20b8011ffe535a016e61287f3989164c";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-uRziLulzwWKbRzBqo8lGLZyV2yjeXnGkmff8dEFZubU=";
+    };
+    date = "2017-05-04";
+  };
   auto-novel-addon = {
     pname = "auto-novel-addon";
     version = "1.8.1";

@@ -217,6 +217,9 @@ in
         user = "asterisk";
         group = "asterisk";
       };
+      "/var/lib/asterisk/sounds/en/防忽悠咨询热线"."L+" = {
+        argument = "${LT.sources.anti-fooling-hot-line.src}";
+      };
     };
   };
 }

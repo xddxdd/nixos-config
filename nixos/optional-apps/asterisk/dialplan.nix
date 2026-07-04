@@ -3,6 +3,7 @@ let
   inherit (pkgs.callPackage ./common.nix args) prefixZeros;
   inherit (pkgs.callPackage ./local-devices.nix args) destLocalDialPlan;
   inherit (pkgs.callPackage ./musics.nix args) destMusicDialPlan;
+  inherit (pkgs.callPackage ./apps/anti-fooling.nix args) dialAntiFoolingDescription;
   inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapperDescription;
   inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverlyDescription;
   inherit (pkgs.callPackage ./apps/lenny.nix args) dialLennyDescription;
@@ -30,6 +31,7 @@ let
       "2002" = dialAstyCrapperDescription;
       "2003" = dialBeverlyDescription;
       "2004" = dialNeverGonnaDescription;
+      "2005" = dialAntiFoolingDescription;
     }
     destLocalDialPlan
     destMusicDialPlan
