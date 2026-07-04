@@ -33,6 +33,7 @@
       worldClock.enable = true;
       nixPackageRunner.enable = true;
       vscodeLauncher.enable = true;
+      liveLyrics.enable = true;
     };
 
     settings = {
@@ -140,16 +141,6 @@
         }
         {
           "id" = "audioInput";
-          "enabled" = true;
-          "width" = 50;
-        }
-        {
-          "id" = "nightMode";
-          "enabled" = true;
-          "width" = 50;
-        }
-        {
-          "id" = "darkMode";
           "enabled" = true;
           "width" = 50;
         }
@@ -375,18 +366,12 @@
           ];
           "showOnLastDisplay" = true;
           "leftWidgets" = [
-            {
-              "id" = "launcherButton";
-              "enabled" = true;
-            }
-            {
-              "id" = "appsDock";
-              "enabled" = true;
-            }
+            "launcherButton"
+            "appsDock"
           ];
           "centerWidgets" = [ ];
           "rightWidgets" = [
-            "music"
+            "liveLyrics"
             "systemTray"
             "weather"
             "clipboard"
