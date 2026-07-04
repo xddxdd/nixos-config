@@ -18,7 +18,7 @@ let
   };
 
   vmInterfaceVLANs = {
-    "vhost0" = null;
+    "vhost0" = 1;
     "vhost1" = null;
     "vhost2" = null;
     "vhost3" = null;

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../nixos/pve.nix
@@ -27,4 +27,7 @@
     matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
   };
+
+  # Doesn't work correctly on this host
+  services.scx.enable = lib.mkForce false;
 }
