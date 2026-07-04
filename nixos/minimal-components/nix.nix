@@ -134,7 +134,7 @@ in
     serviceConfig = {
       CacheDirectory = "nix";
       Nice = 19;
-      OOMScoreAdjust = 250;
+      OOMScoreAdjust = 1000;
     };
   };
 
