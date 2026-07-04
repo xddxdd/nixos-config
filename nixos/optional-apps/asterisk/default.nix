@@ -187,6 +187,9 @@ in
   };
 
   systemd.services.asterisk = {
+    wants = [ "asterisk-never-gonna.socket" ];
+    after = [ "asterisk-never-gonna.socket" ];
+
     path =
       let
         skip-silence = pkgs.callPackage ../../../pkgs/skip-silence { };
