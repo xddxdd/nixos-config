@@ -408,6 +408,26 @@
         "type": "github"
       }
     },
+    "dms-plugin-registry": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783146329,
+        "narHash": "sha256-koldAEI5lE97dQA6GD2/ZqZrpAVXkNy1ojq0YSBwObg=",
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "rev": "0cd752bbf6550c53926fee5f2f301828d4847097",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "type": "github"
+      }
+    },
     "fast-nix-gc": {
       "inputs": {
         "nix-darwin": "nix-darwin_2",
@@ -1441,11 +1461,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1783041171,
-        "narHash": "sha256-xV3KpeB5PuTn7zUyh5OwtAqx6C8kgza8kOGtpBgnsDE=",
+        "lastModified": 1783198239,
+        "narHash": "sha256-f/YT7CRmoeBRx7xzgjsBdCe1Hsgr6ZRXDP+SP/+tZeY=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "1d89378a6a21269f48a8bb924ea8559255c2e8da",
+        "rev": "7908a31c0955426a8cd4fccb2e60bbb8612bbfda",
         "type": "github"
       },
       "original": {
@@ -1594,6 +1614,7 @@
         "comfyui-nix": "comfyui-nix",
         "country-ip-blocks": "country-ip-blocks",
         "dms": "dms",
+        "dms-plugin-registry": "dms-plugin-registry",
         "fast-nix-gc": "fast-nix-gc",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",

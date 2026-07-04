@@ -10,6 +10,7 @@
     inputs.niri-flake.homeModules.config
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
+    inputs.dms-plugin-registry.homeModules.default
   ];
 
   programs.dank-material-shell = {
@@ -23,6 +24,15 @@
         originalFileName = "niri-nixos";
         filesToInclude = [ "outputs" ];
       };
+    };
+
+    plugins = {
+      emojiLauncher.enable = true;
+      calculator.enable = true;
+      niriWindows.enable = true;
+      worldClock.enable = true;
+      nixPackageRunner.enable = true;
+      vscodeLauncher.enable = true;
     };
 
     settings = {
@@ -186,8 +196,8 @@
       "runningAppsCurrentMonitor" = false;
       "appIdSubstitutions" = [ ];
       "centeringMode" = "index";
-      "clockDateFormat" = "";
-      "lockDateFormat" = "";
+      "clockDateFormat" = "yyyy-MM-dd";
+      "lockDateFormat" = "yyyy-MM-dd";
       "greeterRememberLastSession" = true;
       "greeterRememberLastUser" = true;
       "greeterEnableFprint" = false;
@@ -371,10 +381,6 @@
             }
             {
               "id" = "appsDock";
-              "enabled" = true;
-            }
-            {
-              "id" = "workspaceSwitcher";
               "enabled" = true;
             }
           ];
