@@ -56,6 +56,19 @@ let
       ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
       ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+33346"}
 
+      # DN42 Authoritative
+      ${forwardZone "dn42" null}
+      ${forwardZone "20.172.in-addr.arpa" null}
+      ${forwardZone "21.172.in-addr.arpa" null}
+      ${forwardZone "22.172.in-addr.arpa" null}
+      ${forwardZone "23.172.in-addr.arpa" null}
+      ${forwardZone "d.f.ip6.arpa" null}
+      ${forwardZone "tel.dn42" null}
+
+      # NeoNetwork Authoritative
+      ${forwardZone "neo" null}
+      ${forwardZone "127.10.in-addr.arpa" null}
+
       # LTNET Active Directory
       ${forwardZone "ad.lantian.pub" null}
 
@@ -75,9 +88,25 @@ let
       # Public Internet Authoritative
       ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+37106"}
 
-      # NeoNetwork Authoritative
-      ${forwardZone "neo" null}
-      ${forwardZone "127.10.in-addr.arpa" null}
+      # OpenNIC Authoritative
+      ${forwardZone "opennic.glue" null}
+      ${forwardZone "dns.opennic.glue" null}
+      ${forwardZone "bbs" null}
+      ${forwardZone "chan" null}
+      ${forwardZone "cyb" null}
+      ${forwardZone "dyn" null}
+      ${forwardZone "epic" null}
+      ${forwardZone "fur" null}
+      ${forwardZone "geek" null}
+      ${forwardZone "gopher" null}
+      ${forwardZone "indy" null}
+      ${forwardZone "libre" null}
+      ${forwardZone "null" null}
+      ${forwardZone "o" null}
+      ${forwardZone "oss" null}
+      ${forwardZone "oz" null}
+      ${forwardZone "parody" null}
+      ${forwardZone "pirate" null}
 
       # Lan Tian Mobile VoLTE
       ${forwardZone "mnc001.mcc001.3gppnetwork.org" null}
@@ -314,6 +343,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             {
               domain = "7.4.5.2.4.2.4.0.tel.dn42";
               path = "ltnet-zones/7.4.5.2.4.2.4.0.tel.dn42";
+            }
+            {
+              domain = "tel.dn42";
+              path = "ltnet-scripts/zones/tel.dn42";
             }
             {
               domain = "lantian.neo";
