@@ -3,8 +3,13 @@
   pkgs,
   LT,
   osConfig,
+  config,
+  lib,
   ...
 }:
+let
+  cfg = config.programs.dank-material-shell;
+in
 {
   imports = [
     inputs.niri-flake.homeModules.config
@@ -33,7 +38,11 @@
       worldClock.enable = true;
       nixPackageRunner.enable = true;
       vscodeLauncher.enable = true;
-      liveLyrics.enable = true;
+
+      lyrica = {
+        enable = true;
+        src = LT.sources.lyrica-customized.src + "/frontend/dms";
+      };
     };
 
     settings = {
@@ -371,7 +380,7 @@
           ];
           "centerWidgets" = [ ];
           "rightWidgets" = [
-            "liveLyrics"
+            "lyrica"
             "systemTray"
             "weather"
             "clipboard"
@@ -725,5 +734,20 @@
         };
       };
     };
+  };
+
+  systemd.user.services.lyrica = {
+    Unit = {
+      Description = "Lyrica";
+      PartOf = [ cfg.systemd.target ];
+      After = [ cfg.systemd.target ];
+    };
+
+    Service = {
+      ExecStart = lib.getExe pkgs.nur-xddxdd.lyrica;
+      Restart = "always";
+    };
+
+    Install.WantedBy = [ cfg.systemd.target ];
   };
 }

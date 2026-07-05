@@ -10,6 +10,8 @@
     # Components usually available in desktop environment
     pkgs.nautilus
     pkgs.xwayland-satellite
+    # DMS plugin requirements
+    pkgs.kdePackages.qtwebsockets
   ];
   services.udev.packages = [ pkgs.brightnessctl ];
 

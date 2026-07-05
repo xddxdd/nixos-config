@@ -160,6 +160,26 @@
         },
         "version": "d7de8926a603276b71f50f139eeb282fe011a35e"
     },
+    "lyrica-customized": {
+        "cargoLock": null,
+        "date": "2026-07-05",
+        "extract": null,
+        "name": "lyrica-customized",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "8459e045792166092445c7ec96502f62ce88db49",
+            "sha256": "sha256-ZyZjroyiD/9IQVGl4QXBkMkQVaLOzt6d+gz85zEt/HI=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/xddxdd/lyrica.git"
+        },
+        "version": "8459e045792166092445c7ec96502f62ce88db49"
+    },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
         "date": "2026-06-30",
