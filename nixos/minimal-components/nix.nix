@@ -64,7 +64,7 @@ in
   };
 
   nix = {
-    package = pkgs.lixPackageSets.latest.lix;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       !include ${config.sops.secrets.nix-access-token.path}
     '';
