@@ -23,8 +23,6 @@
     device = "nodev";
   };
 
-  boot.zfs.extraPools = [ "nvme-zfs" ];
-
   networking.usePredictableInterfaceNames = lib.mkForce true;
 
   boot.initrd.availableKernelModules = [
@@ -49,17 +47,6 @@
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/fad6832b-1bde-4bda-90ba-51520e0feef4";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
-  };
-
-  fileSystems."/mnt/nvme" = {
     device = "/dev/disk/by-uuid/e2c5bd1d-8aa8-44ae-9c2a-b8976a446b4f";
     fsType = "btrfs";
     options = [
@@ -96,7 +83,7 @@
     enable = true;
     fileSystems = [
       "/mnt/storage"
-      "/mnt/nvme"
+      "/nix"
     ];
   };
 

@@ -23,35 +23,26 @@
   lantian.backup.enable = true;
   lantian.backup.paths = {
     nvme-nixos-home-rdp = {
-      snapshotFrom = "/mnt/nvme";
-      snapshotTo = "/mnt/nvme/.snapshot-nixos-home-rdp";
-      backupPath = "/mnt/nvme/.snapshot-nixos-home-rdp/virtiofs/nixos-home-rdp/persistent";
+      snapshotFrom = "/nix/persistent/var/lib/vz/virtiofs";
+      snapshotTo = "/nix/persistent/var/lib/vz/virtiofs/.snapshot-nixos-home-rdp";
+      backupPath = "/nix/persistent/var/lib/vz/virtiofs/.snapshot-nixos-home-rdp/virtiofs/nixos-home-rdp/persistent";
     };
     nvme-nixos-home-vm = {
-      snapshotFrom = "/mnt/nvme";
-      snapshotTo = "/mnt/nvme/.snapshot-nixos-home-vm";
-      backupPath = "/mnt/nvme/.snapshot-nixos-home-vm/virtiofs/nixos-home-vm/persistent";
+      snapshotFrom = "/nix/persistent/var/lib/vz/virtiofs";
+      snapshotTo = "/nix/persistent/var/lib/vz/virtiofs/.snapshot-nixos-home-vm";
+      backupPath = "/nix/persistent/var/lib/vz/virtiofs/.snapshot-nixos-home-vm/virtiofs/nixos-home-vm/persistent";
     };
   };
 
   services.nfs.server = {
     hostName = lib.mkForce "0.0.0.0";
     exports = lib.mkForce ''
-      /mnt/nvme/virtiofs/nixos-home-vm 192.168.1.10(rw,insecure,no_subtree_check,no_root_squash)
-      /mnt/nvme/virtiofs/nixos-home-builder 192.168.1.12(rw,insecure,no_subtree_check,no_root_squash)
-      /mnt/nvme/virtiofs/nixos-home-rdp 192.168.1.13(rw,insecure,no_subtree_check,no_root_squash)
       /mnt/storage 192.168.1.10(rw,insecure,no_subtree_check,no_root_squash) 192.168.1.13(rw,insecure,no_subtree_check,no_root_squash)
     '';
   };
   systemd.services.nfs-server = {
-    after = [
-      "mnt-storage.mount"
-      "mnt-nvme.mount"
-    ];
-    requires = [
-      "mnt-storage.mount"
-      "mnt-nvme.mount"
-    ];
+    after = [ "mnt-storage.mount" ];
+    requires = [ "mnt-storage.mount" ];
   };
 
   services.proxmox-ve.bridges = [ "br0" ];
@@ -88,27 +79,4 @@
     linkConfig.MTUBytes = "9000";
     networkConfig.IPv6AcceptRA = "no";
   };
-
-  services.beesd.filesystems.nvme = {
-    spec = config.fileSystems."/mnt/nvme".device;
-    hashTableSizeMB = 1024;
-    verbosity = "crit";
-    extraOptions = [
-      "--loadavg-target=32"
-      "--throttle-factor=10"
-      "--workaround-btrfs-send"
-    ];
-  };
-
-  # Too high RAM usage
-  # services.beesd.filesystems.storage = {
-  #   spec = config.fileSystems."/mnt/storage".device;
-  #   hashTableSizeMB = 16384;
-  #   verbosity = "crit";
-  #   extraOptions = [
-  #     "--loadavg-target=32"
-  #     "--throttle-factor=10"
-  #     "--workaround-btrfs-send"
-  #   ];
-  # };
 }
