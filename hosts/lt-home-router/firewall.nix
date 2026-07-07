@@ -129,9 +129,9 @@ in
       # Hairpin NAT
       fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
 
-      # Redirect to lt-home-builder
-      fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.1.12:2222
-      fib daddr type local tcp dport 2223 iifname "henet" dnat ip6 to [2001:470:e997:1::12]:2222
+      # Redirect to pve-epyc
+      fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.0.2:2222
+      fib daddr type local tcp dport 2223 iifname "henet" dnat ip6 to [2001:470:e997::2]:2222
     }
 
     chain NAT_INPUT {
