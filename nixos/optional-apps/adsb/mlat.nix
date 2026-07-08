@@ -14,7 +14,7 @@
             protocol = "beast";
             mode = "connect";
             host = LT.this.ltnet.IPv4;
-            port = LT.port.UltraFeeder.MlatHubBeastInput;
+            port = LT.port.ADSB.MlatHubBeastInput;
           }
         ];
 
@@ -22,7 +22,7 @@
         longitudeFile = config.sops.secrets.adsb-lon.path;
         altitudeFile = config.sops.secrets.adsb-alt.path;
 
-        inputConnect = "${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.BeastOutput}";
+        inputConnect = "${LT.this.ltnet.IPv4}:${LT.portStr.ADSB.BeastOutput}";
         mlatUser = "lantian";
         uuidFile = config.sops.secrets.adsb-uuid.path;
       })

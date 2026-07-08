@@ -40,7 +40,7 @@
         --mlat=no \
         --mlat-without-gps=no \
         --receiver=beast-tcp \
-        --host=${LT.this.ltnet.IPv4}:${LT.portStr.Dump1090.BeastOutput}
+        --host=${LT.this.ltnet.IPv4}:${LT.portStr.ADSB.BeastOutput}
     '';
 
     serviceConfig = {
@@ -72,7 +72,7 @@
         --http-listen-port=8755 \
         --unit=fr24uat-feed \
         --receiver=uat-tcp \
-        --uat-port="${LT.portStr.Dump978.Raw}"
+        --uat-port="${LT.portStr.ADSB.RawOutput978}"
     '';
 
     serviceConfig = {

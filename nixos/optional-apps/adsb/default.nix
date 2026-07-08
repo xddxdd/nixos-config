@@ -2,7 +2,6 @@
 {
   imports = [
     ./dump978.nix
-    # ./dump1090.nix
     ./flightradar24.nix
     ./flightaware.nix
     ./mlat.nix

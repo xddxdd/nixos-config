@@ -19,9 +19,9 @@
       TZ = config.time.timeZone;
       RECEIVER_TYPE = "relay";
       BEASTHOST = LT.this.ltnet.IPv4;
-      BEASTPORT = LT.portStr.Dump1090.BeastOutput;
+      BEASTPORT = LT.portStr.ADSB.BeastOutput;
       MLAT_RESULTS_BEASTHOST = LT.this.ltnet.IPv4;
-      MLAT_RESULTS_BEASTPORT = LT.portStr.UltraFeeder.MlatHubBeastInput;
+      MLAT_RESULTS_BEASTPORT = LT.portStr.ADSB.MlatHubBeastInput;
     };
   };
 }

@@ -1,21 +1,26 @@
 { LT, config, ... }:
+let
+  commonArgs = {
+    enableNetworking = true;
+    latitudeFile = config.sops.secrets.adsb-lat.path;
+    longitudeFile = config.sops.secrets.adsb-lon.path;
+
+    uuidFile = config.sops.secrets.adsb-uuid.path;
+
+    netBindAddress = LT.this.ltnet.IPv4;
+    netHeartbeat = 35;
+
+    extraOptions = [ "--quiet" ];
+  };
+in
 {
   services.readsb = {
-    adsb-1090 = {
-      enableNetworking = true;
-      latitudeFile = config.sops.secrets.adsb-lat.path;
-      longitudeFile = config.sops.secrets.adsb-lon.path;
-
-      uuidFile = config.sops.secrets.adsb-uuid.path;
-
-      netBindAddress = LT.this.ltnet.IPv4;
-      netHeartbeat = 35;
-
-      netRawInputPort = LT.port.Dump1090.RawInput;
-      netRawOutputPort = LT.port.Dump1090.RawOutput;
-      netBaseStationOutputPort = LT.port.Dump1090.BaseStation;
-      netBeastInputPort = LT.port.Dump1090.BeastInput;
-      netBeastOutputPort = LT.port.Dump1090.BeastOutput;
+    adsb = commonArgs // {
+      netRawInputPort = LT.port.ADSB.RawInput;
+      netRawOutputPort = LT.port.ADSB.RawOutput;
+      netBaseStationOutputPort = LT.port.ADSB.BaseStationOutput;
+      netBeastInputPort = LT.port.ADSB.BeastInput;
+      netBeastOutputPort = LT.port.ADSB.BeastOutput;
 
       deviceType = "rtlsdr";
       device = "stx:1090:0";
@@ -25,7 +30,7 @@
         # 978MHz in
         {
           host = LT.this.ltnet.IPv4;
-          port = LT.port.Dump978.Raw;
+          port = LT.port.ADSB.RawOutput978;
           protocol = "uat_in";
         }
 
@@ -77,34 +82,23 @@
         }
         # keep-sorted end
       ];
-
-      extraOptions = [ "--quiet" ];
     };
 
-    mlat = {
-      enableNetworking = true;
-      latitudeFile = config.sops.secrets.adsb-lat.path;
-      longitudeFile = config.sops.secrets.adsb-lon.path;
-
-      uuidFile = config.sops.secrets.adsb-uuid.path;
-
-      netBindAddress = LT.this.ltnet.IPv4;
-      netHeartbeat = 35;
-
-      netBeastInputPort = LT.port.UltraFeeder.MlatHubBeastInput;
-      netBeastOutputPort = LT.port.UltraFeeder.MlatHubBeastOutput;
+    mlat = commonArgs // {
+      netBeastInputPort = LT.port.ADSB.MlatHubBeastInput;
+      netBeastOutputPort = LT.port.ADSB.MlatHubBeastOutput;
 
       netConnector = [
         # Feed MLAT result back to ADSB 1090MHz instance
         {
           host = LT.this.ltnet.IPv4;
-          port = LT.port.Dump1090.BeastInput;
+          port = LT.port.ADSB.BeastInput;
           protocol = "beast_out";
         }
         # PlaneWatch
         {
           host = LT.this.ltnet.IPv4;
-          port = LT.port.UltraFeeder.PlaneWatch;
+          port = LT.port.ADSB.PlaneWatch;
           protocol = "beast_in";
         }
       ];
