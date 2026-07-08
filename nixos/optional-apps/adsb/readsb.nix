@@ -1,4 +1,9 @@
-{ LT, config, ... }:
+{
+  LT,
+  config,
+  pkgs,
+  ...
+}:
 let
   commonArgs = {
     enableNetworking = true;
@@ -25,6 +30,12 @@ in
       deviceType = "rtlsdr";
       device = "stx:1090:0";
       gain = "auto";
+
+      writeJson = "/run/readsb-adsb";
+      jsonReliable = 1;
+
+      dbFile = LT.sources.tar1090-db.src + "/aircraft.csv.gz";
+      dbFileLt = true;
 
       netConnector = [
         # 978MHz in
@@ -103,5 +114,21 @@ in
         }
       ];
     };
+  };
+
+  systemd.services.readsb-adsb.serviceConfig = {
+    RuntimeDirectory = "readsb-adsb";
+    RuntimeDirectoryMode = "0755";
+  };
+
+  lantian.nginxVhosts."adsb.${config.networking.hostName}.xuyh0120.win" = {
+    root = "${pkgs.dump1090-fa}/share/dump1090";
+    locations = {
+      "/data/".alias = "/run/readsb-adsb/";
+    };
+
+    accessibleBy = "private";
+    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
+    noIndex.enable = true;
   };
 }

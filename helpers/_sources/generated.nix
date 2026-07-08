@@ -227,6 +227,18 @@
     };
     date = "2025-12-29";
   };
+  tar1090-db = {
+    pname = "tar1090-db";
+    version = "8661aac00ad9caf09aac9f8ebe614ad1c35632bc";
+    src = fetchFromGitHub {
+      owner = "wiedehopf";
+      repo = "tar1090-db";
+      rev = "8661aac00ad9caf09aac9f8ebe614ad1c35632bc";
+      fetchSubmodules = false;
+      sha256 = "sha256-dFqcTVAT7sBlbUtCqUtj1uLbBLLOhk0Gt0bPTJVjEyc=";
+    };
+    date = "2026-06-22";
+  };
   um-react = {
     pname = "um-react";
     version = "0.6.0";

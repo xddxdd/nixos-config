@@ -80,6 +80,11 @@ src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "xddxdd/Sakura_Launcher_GUI"
 src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 
+[tar1090-db]
+fetch.github = "wiedehopf/tar1090-db"
+src.git = "https://github.com/wiedehopf/tar1090-db.git"
+src.branch = "csv"
+
 [um-react]
 fetch.url = "https://git.um-react.app/um/um-react/releases/download/v$ver/um-react-$ver.zip"
 src.webpage = "https://git.um-react.app/um/um-react/releases"

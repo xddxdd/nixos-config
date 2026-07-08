@@ -369,6 +369,27 @@
         },
         "version": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd"
     },
+    "tar1090-db": {
+        "cargoLock": null,
+        "date": "2026-06-22",
+        "extract": null,
+        "name": "tar1090-db",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wiedehopf",
+            "repo": "tar1090-db",
+            "rev": "8661aac00ad9caf09aac9f8ebe614ad1c35632bc",
+            "sha256": "sha256-dFqcTVAT7sBlbUtCqUtj1uLbBLLOhk0Gt0bPTJVjEyc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "8661aac00ad9caf09aac9f8ebe614ad1c35632bc"
+    },
     "um-react": {
         "cargoLock": null,
         "date": null,
