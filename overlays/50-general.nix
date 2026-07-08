@@ -51,6 +51,9 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
   });
+  niri = prev.niri.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/niri-swap-swipe.patch ];
+  });
   open-webui = prev.open-webui.overridePythonAttrs (old: {
     dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.postgres;
   });
