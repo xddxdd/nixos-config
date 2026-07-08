@@ -1,4 +1,9 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./dump978.nix
@@ -24,9 +29,13 @@
         mode = "0440";
       });
 
+  services.udev.packages = [ pkgs.rtl-sdr ];
+  users.groups.plugdev = { };
+
   users.users.adsb = {
     group = "adsb";
     isSystemUser = true;
+    extraGroups = [ "plugdev" ];
   };
   users.groups.adsb = { };
 

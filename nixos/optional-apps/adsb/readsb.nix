@@ -121,6 +121,8 @@ in
     RuntimeDirectoryMode = "0755";
   };
 
+  users.users.readsb.extraGroups = [ "plugdev" ];
+
   lantian.nginxVhosts."adsb.${config.networking.hostName}.xuyh0120.win" = {
     root = "${pkgs.dump1090-fa}/share/dump1090";
     locations = {

@@ -210,10 +210,6 @@ let
         Group = cfg.group;
         Restart = "always";
         RestartSec = "5";
-
-        # FIXME: workaround for RTL SDR permission error
-        AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
-        CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
       };
     };
 in

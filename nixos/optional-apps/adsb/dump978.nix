@@ -14,6 +14,9 @@
       PrivateDevices = false;
       RestrictAddressFamilies = "";
 
+      User = "adsb";
+      Group = "adsb";
+
       Restart = "always";
       RestartSec = "5";
 
