@@ -1,7 +1,5 @@
 { LT, config, ... }:
 {
-  imports = [ ./readsb-module.nix ];
-
   services.readsb = {
     adsb-1090 = {
       enableNetworking = true;

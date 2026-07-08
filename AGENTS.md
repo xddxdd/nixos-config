@@ -85,9 +85,9 @@ Flake 入口文件，定义了：
 
 | 文件          | 说明            | 包含的模块                                                                        |
 | ------------- | --------------- | --------------------------------------------------------------------------------- |
-| `minimal.nix` | 最小化配置      | minimal-apps + minimal-components                                                 |
-| `server.nix`  | 服务器配置      | minimal-apps + common-apps + server-apps + minimal-components + server-components |
-| `client.nix`  | 客户端配置      | minimal-apps + common-apps + client-apps + minimal-components + client-components |
+| `minimal.nix` | 最小化配置      | minimal-apps + minimal-components + minimal-modules                                                 |
+| `server.nix`  | 服务器配置      | minimal-apps + common-apps + server-apps + minimal-components + server-components + minimal-modules |
+| `client.nix`  | 客户端配置      | minimal-apps + common-apps + client-apps + minimal-components + client-components + minimal-modules |
 | `pve.nix`     | Proxmox VE 配置 | -                                                                                 |
 
 ### 模块目录
@@ -99,6 +99,7 @@ Flake 入口文件，定义了：
 | `server-apps/`        | 服务器应用（coredns、dn42-pingfinder、iperf、bird 等） |
 | `client-apps/`        | 客户端应用（firefox、steam、thunderbird、fcitx 等）    |
 | `minimal-components/` | 最小化组件（boot、networking、nix、ssh 等）            |
+| `minimal-modules/`    | 可上游化模块（独立工作、默认禁用，仅添加 options）     |
 | `server-components/`  | 服务器组件（backup、dn42、logging 等）                 |
 | `client-components/`  | 客户端组件                                             |
 | `hardware/`           | 硬件相关配置                                           |
@@ -252,6 +253,7 @@ nix flake lock --update-input input-name
 | 服务器应用 | `nixos/server-apps/`        | server                  |
 | 客户端应用 | `nixos/client-apps/`        | client                  |
 | 最小化组件 | `nixos/minimal-components/` | minimal, server, client |
+| 可上游化模块 | `nixos/minimal-modules/`  | minimal, server, client |
 | 服务器组件 | `nixos/server-components/`  | server                  |
 | 客户端组件 | `nixos/client-components/`  | client                  |
 

@@ -8,5 +8,6 @@
     ++ (ls ./common-apps)
     ++ (ls ./client-apps)
     ++ (ls ./minimal-components)
-    ++ (ls ./client-components);
+    ++ (ls ./client-components)
+    ++ (ls ./minimal-modules);
 }

@@ -50,6 +50,7 @@ My hosts are categorized into three types:
     - `minimal-apps`: Apps used by all nodes.
     - `minimal-components`: System options used by all nodes.
       - Components differ from "Apps" in that a component is a fundamental part in the system (often by tuning kernel core parameters), while an app provides service on the userspace level.
+    - `minimal-modules`: Self-contained NixOS modules that are theoretically upstreamable to nixpkgs. They work independently and are disabled by default, only adding options without enabling services unless explicitly configured. Applied to all host types.
 
   - Used by client nodes
 

@@ -38,7 +38,7 @@
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/yggdrasil-alfis.nix
-    ../../nixos/optional-apps/zerotierone-controller
+    ../../nixos/optional-apps/zerotierone-controller.nix
 
     ../../nixos/optional-cron-jobs/cleanup-github-notifications
     ../../nixos/optional-cron-jobs/dn42-certificate.nix

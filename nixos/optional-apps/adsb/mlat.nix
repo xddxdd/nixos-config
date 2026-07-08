@@ -5,8 +5,6 @@
   ...
 }:
 {
-  imports = [ ./mlat-module.nix ];
-
   services.mlat-client =
     lib.mapAttrs
       (_: v: {

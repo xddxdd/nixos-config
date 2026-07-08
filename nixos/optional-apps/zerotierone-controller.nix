@@ -36,8 +36,6 @@ let
   }) managedIPv6Ranges);
 in
 {
-  imports = [ ./upstreamable.nix ];
-
   services.zerotierone.controller = {
     enable = true;
     port = 9994;
