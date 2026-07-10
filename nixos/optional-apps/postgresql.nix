@@ -28,8 +28,8 @@
     '';
     settings = {
       io_method = "io_uring";
-      idle_in_transaction_session_timeout = "300";
-      idle_session_timeout = "300";
+      idle_in_transaction_session_timeout = "0";
+      idle_session_timeout = "0";
     };
   };
 
