@@ -100,8 +100,22 @@ Flake 入口文件，定义了：
 | `client-apps/`        | 客户端应用（firefox、steam、thunderbird、fcitx 等）    |
 | `minimal-components/` | 最小化组件（boot、networking、nix、ssh 等）            |
 | `minimal-modules/`    | 可上游化模块（独立工作、默认禁用，仅添加 options）     |
+| `minimal-policies/`   | 配置策略断言（assertions，检查配置正确性，自动导入到所有角色配置） |
 | `server-components/`  | 服务器组件（backup、dn42、logging 等）                 |
 | `client-components/`  | 客户端组件                                             |
+
+### 策略断言说明
+
+`nixos/minimal-policies/` 目录存放配置策略断言（assertions），用于在构建时检查配置是否符合预期约束。该目录会被 `minimal.nix`、`server.nix`、`client.nix`、`pve.nix` 等所有角色配置自动导入。
+
+当前包含的策略：
+
+| 文件                                  | 说明                                                          |
+| ------------------------------------- | ------------------------------------------------------------- |
+| `ensure-dynamicuser-correctness.nix`  | 确保自定义用户未启用 DynamicUser                              |
+| `ensure-service-restart.nix`          | 确保所有 systemd 服务设置了 Restart 属性                      |
+| `nginx-security.nix`                  | 确保 Nginx 虚拟主机的安全配置正确（localhost/public 访问控制） |
+| `podman-ensure-autoupdate.nix`        | 确保所有 Podman 容器启用了自动更新                            |
 | `hardware/`           | 硬件相关配置                                           |
 | `optional-apps/`      | 可选应用                                               |
 | `optional-cron-jobs/` | 可选定时任务                                           |

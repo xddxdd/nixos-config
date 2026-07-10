@@ -19,6 +19,6 @@
           || v.locations."/".enableBasicAuth or false;
         message = "${n} is publicly accessible without authentication";
       }
-    ]) config.lantian.nginxVhosts
+    ]) (config.lantian.nginxVhosts or { })
   );
 }

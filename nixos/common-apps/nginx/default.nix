@@ -9,7 +9,6 @@
     ./nginx.nix
     ./oauth2-proxy.nix
     ./proxy.nix
-    ./security.nix
     ./testssl.nix
     ./vhost-hydra-proxy.nix
     ./vhost-lab.nix

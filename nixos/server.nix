@@ -9,5 +9,6 @@
     ++ (ls ./server-apps)
     ++ (ls ./minimal-components)
     ++ (ls ./server-components)
-    ++ (ls ./minimal-modules);
+    ++ (ls ./minimal-modules)
+    ++ (ls ./minimal-policies);
 }
