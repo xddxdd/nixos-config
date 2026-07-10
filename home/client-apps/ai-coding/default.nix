@@ -84,6 +84,12 @@ in
           options.baseURL = "https://api.generalcompute.com/v1";
           models."minimax-m2.7".name = "MiniMax M2.7";
         };
+        linuxdo-hub = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "Linux.DO Hub";
+          options.baseURL = "https://hub.linux.do/v1";
+          models."glm-5.2".name = "GLM 5.2";
+        };
       };
       permission = {
         bash = "allow";

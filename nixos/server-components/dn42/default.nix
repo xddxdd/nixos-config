@@ -43,9 +43,6 @@ let
     mtu + ipv4 + ipv6 + sysctl + up;
 in
 {
-  config.sops.secrets.wg-priv.sopsFile =
-    inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
-
   options.services.dn42 = lib.mkOption {
     type = lib.types.attrsOf (
       lib.types.submodule {
@@ -130,7 +127,7 @@ in
                   };
                   greUseIPv6 = lib.mkOption {
                     type = lib.types.bool;
-                    default = lib.hasInfix ":" config.remoteAddress;
+                    default = lib.hasInfix ":" (if config.remoteAddress != null then config.remoteAddress else "");
                   };
                   mtu = lib.mkOption {
                     type = lib.types.int;
@@ -187,108 +184,123 @@ in
     default = { };
   };
 
-  config.networking.wireguard.enable = true;
-  config.networking.wireguard.useNetworkd = false;
-  config.networking.wireguard.interfaces =
-    let
-      cfgToWg =
-        n: v:
-        let
-          interfaceName = "${v.peering.network}-${n}";
-        in
-        lib.nameValuePair interfaceName {
-          allowedIPsAsRoutes = false;
-          listenPort = v.tunnel.localPort;
-          peers = [
-            {
-              allowedIPs = [
-                "0.0.0.0/0"
-                "::/0"
-              ];
-              endpoint = lib.mkIf (
-                v.tunnel.remoteAddress != null
-              ) "${v.tunnel.remoteAddress}:${builtins.toString v.tunnel.remotePort}";
-              publicKey = v.tunnel.wireguardPubkey;
-              presharedKeyFile = v.tunnel.wireguardPresharedKeyFile;
-            }
-          ];
-          postSetup = setupAddressing interfaceName v;
-          privateKeyFile = config.sops.secrets.wg-priv.path;
-        };
-    in
-    lib.mapAttrs' cfgToWg (filterType "wireguard" config.services.dn42);
+  config = {
+    sops.secrets.wg-priv.sopsFile =
+      inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
 
-  config.services.openvpn.servers =
-    let
-      cfgToOpenVPN =
-        n: v:
-        let
-          interfaceName = "${v.peering.network}-${n}";
-        in
-        lib.nameValuePair interfaceName {
-          config = ''
-            proto         udp
-            mode          p2p
-            remote        ${v.tunnel.remoteAddress}
-            rport         ${builtins.toString v.tunnel.remotePort}
-            local         ${LT.this.public.IPv4}
-            lport         ${builtins.toString v.tunnel.localPort}
-            dev-type      tun
-            resolv-retry  infinite
-            dev           ${interfaceName}
-            comp-lzo
-            persist-key
-            persist-tun
-            cipher        aes-256-cbc
-            secret        ${v.tunnel.openvpnStaticKeyPath}
-          '';
-          up = setupAddressing interfaceName v;
-        };
-    in
-    lib.mapAttrs' cfgToOpenVPN (filterType "openvpn" config.services.dn42);
+    networking.wireguard.enable = true;
+    networking.wireguard.useNetworkd = false;
+    networking.wireguard.interfaces =
+      let
+        cfgToWg =
+          n: v:
+          let
+            interfaceName = "${v.peering.network}-${n}";
+          in
+          lib.nameValuePair interfaceName {
+            allowedIPsAsRoutes = false;
+            listenPort = v.tunnel.localPort;
+            peers = [
+              {
+                allowedIPs = [
+                  "0.0.0.0/0"
+                  "::/0"
+                ];
+                endpoint = lib.mkIf (
+                  v.tunnel.remoteAddress != null
+                ) "${v.tunnel.remoteAddress}:${builtins.toString v.tunnel.remotePort}";
+                publicKey = v.tunnel.wireguardPubkey;
+                presharedKeyFile = v.tunnel.wireguardPresharedKeyFile;
+              }
+            ];
+            postSetup = setupAddressing interfaceName v;
+            privateKeyFile = config.sops.secrets.wg-priv.path;
+          };
+      in
+      lib.mapAttrs' cfgToWg (filterType "wireguard" config.services.dn42);
 
-  config.systemd.services =
-    let
-      cfgToGRE =
-        n: v:
-        let
-          interfaceName = "${v.peering.network}-${n}";
-        in
-        lib.nameValuePair "gre-${interfaceName}" {
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          path = with pkgs; [
-            glibc.getent
-            iproute2
-          ];
+    services.openvpn.servers =
+      let
+        cfgToOpenVPN =
+          n: v:
+          let
+            interfaceName = "${v.peering.network}-${n}";
+          in
+          lib.nameValuePair interfaceName {
+            config = ''
+              proto         udp
+              mode          p2p
+              remote        ${v.tunnel.remoteAddress}
+              rport         ${builtins.toString v.tunnel.remotePort}
+              local         ${LT.this.public.IPv4}
+              lport         ${builtins.toString v.tunnel.localPort}
+              dev-type      tun
+              resolv-retry  infinite
+              dev           ${interfaceName}
+              comp-lzo
+              persist-key
+              persist-tun
+              cipher        aes-256-cbc
+              secret        ${v.tunnel.openvpnStaticKeyPath}
+            '';
+            up = setupAddressing interfaceName v;
+          };
+      in
+      lib.mapAttrs' cfgToOpenVPN (filterType "openvpn" config.services.dn42);
 
-          script =
-            (
-              if v.tunnel.greUseIPv6 then
-                ''
-                  set -euo pipefail
-                  REMOTE_IPV6=$(getent ahostsv6 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
-                  ip tunnel add ${interfaceName} mode ip6gre remote $REMOTE_IPV6 local ${LT.this.public.IPv6} ttl 255
-                  ip link set ${interfaceName} up
-                ''
-              else
-                ''
-                  set -euo pipefail
-                  REMOTE_IPV4=$(getent ahostsv4 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
-                  ip tunnel add ${interfaceName} mode gre remote $REMOTE_IPV4 local ${LT.this.public.IPv4} ttl 255
-                  ip link set ${interfaceName} up
-                ''
-            )
-            + lib.optionalString (v.tunnel.mtu != null) ''
-              ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
-            ''
-            + setupAddressing interfaceName v;
-          preStop = ''
-            ip tunnel del ${interfaceName}
-          '';
-        };
-    in
-    lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
+    systemd.services =
+      let
+        cfgToGRE =
+          n: v:
+          let
+            interfaceName = "${v.peering.network}-${n}";
+          in
+          lib.nameValuePair "gre-${interfaceName}" {
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+            path = with pkgs; [
+              glibc.getent
+              iproute2
+            ];
+
+            script =
+              (
+                if v.tunnel.greUseIPv6 then
+                  ''
+                    set -euo pipefail
+                    REMOTE_IPV6=$(getent ahostsv6 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
+                    ip tunnel add ${interfaceName} mode ip6gre remote $REMOTE_IPV6 local ${LT.this.public.IPv6} ttl 255
+                    ip link set ${interfaceName} up
+                  ''
+                else
+                  ''
+                    set -euo pipefail
+                    REMOTE_IPV4=$(getent ahostsv4 "${v.tunnel.remoteAddress}" | grep RAW | cut -d' ' -f1)
+                    ip tunnel add ${interfaceName} mode gre remote $REMOTE_IPV4 local ${LT.this.public.IPv4} ttl 255
+                    ip link set ${interfaceName} up
+                  ''
+              )
+              + lib.optionalString (v.tunnel.mtu != null) ''
+                ip link set ${interfaceName} mtu ${builtins.toString v.tunnel.mtu}
+              ''
+              + setupAddressing interfaceName v;
+            preStop = ''
+              ip tunnel del ${interfaceName}
+            '';
+          };
+      in
+      lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
+
+    environment.etc."dn42.json".text = builtins.toJSON config.services.dn42;
+
+    environment.systemPackages = [
+      (pkgs.runCommand "dn42-ping" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+        mkdir -p $out/bin
+        makeWrapper ${lib.getExe pkgs.python3} $out/bin/dn42-ping \
+          --add-flag "${./ping.py}"
+      '')
+    ];
+  };
 }
