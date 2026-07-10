@@ -14,18 +14,8 @@
   ];
 
   systemd.network.networks.eth0 = {
-    address = [
-      "5.102.125.26/24"
-      "2a14:67c0:306:211::a/128"
-    ];
-    gateway = [ "5.102.125.1" ];
-    routes = [
-      {
-        # Special config since gateway isn't in subnet
-        Gateway = "2a14:67c0:306::1";
-        GatewayOnLink = true;
-      }
-    ];
+    address = [ "2.26.205.141/23" ];
+    gateway = [ "2.26.204.1" ];
     matchConfig.Name = "eth0";
   };
 

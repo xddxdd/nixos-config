@@ -13,7 +13,7 @@ _: {
   };
 
   fileSystems."/nix" = {
-    device = "/dev/vda3";
+    device = "/dev/sda3";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
@@ -24,7 +24,7 @@ _: {
   };
 
   fileSystems."/boot" = {
-    device = "/dev/vda2";
+    device = "/dev/sda2";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -34,7 +34,7 @@ _: {
 
   swapDevices = [
     {
-      device = "/dev/vda4";
+      device = "/dev/sda4";
       randomEncryption.enable = true;
     }
   ];
