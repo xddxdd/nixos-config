@@ -72,9 +72,6 @@
     "tls://cirno.nadeko.net:44442",
     "tls://vpn.itrus.su:7992"
   ],
-  "poland": [
-    "tls://145.239.92.251:51811?key=63190e3dfc084ca063169a607b1786b4829193ebc8623ac0abdfd6608cd8ee6a"
-  ],
   "romania": [
     "tls://ygg-ro.axxa.dev:18080"
   ],
@@ -109,8 +106,7 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
-    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884"
   ],
   "taiwan": [
     "tls://cowgl.tech:1337",
@@ -130,12 +126,12 @@
   "united-states": [
     "tls://23.184.48.86:1443",
     "tls://31.22.111.195:32000",
+    "tls://ca.us.ygg.informatics.coop:443?key=0000000023fc6ffb62afb79448aefb0943df2e4472cf08bd489f5407378300a2",
     "tls://leo.node.3dt.net:9003",
     "tls://longseason.1200bps.xyz:13122",
     "tls://marisa.nadeko.net:44442",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
-    "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
     "tls://ygg-pa.incognet.io:8884",
