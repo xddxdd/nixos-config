@@ -77,6 +77,14 @@ in
     package = pkgs.llm-agents.opencode;
     settings = {
       autoupdate = false;
+      provider = {
+        generalcompute = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "General Compute";
+          options.baseURL = "https://api.generalcompute.com/v1";
+          models."minimax-m2.7".name = "MiniMax M2.7";
+        };
+      };
       permission = {
         bash = "allow";
         edit = "allow";
