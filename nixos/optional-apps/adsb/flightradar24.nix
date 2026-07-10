@@ -22,13 +22,7 @@
 
   systemd.services.fr24feed = {
     description = "Flightradar24 Feeder";
-    after = [
-      "network.target"
-      "podman-adsb-ultrafeeder.service"
-    ];
-    requires = [
-      "podman-adsb-ultrafeeder.service"
-    ];
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
     script = ''
