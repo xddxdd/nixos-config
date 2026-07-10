@@ -1,4 +1,9 @@
-{ tags, geo, ... }:
+{
+  tags,
+  geo,
+  constants,
+  ...
+}:
 {
   index = 100;
   tags = with tags; [
@@ -13,6 +18,6 @@
   firewalled = true;
   dn42 = {
     IPv4 = "172.22.76.114";
-    region = 42;
+    region = constants.dn42.region.North-America-E;
   };
 }

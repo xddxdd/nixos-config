@@ -1,4 +1,9 @@
-{ tags, geo, ... }:
+{
+  tags,
+  geo,
+  constants,
+  ...
+}:
 {
   index = 6;
   tags = with tags; [
@@ -19,7 +24,7 @@
   };
   dn42 = {
     IPv4 = "172.22.76.116";
-    region = 52;
+    region = constants.dn42.region.Asia-E;
   };
   additionalRoutes = [
     "168.63.129.16/32" # Azure private DNS server

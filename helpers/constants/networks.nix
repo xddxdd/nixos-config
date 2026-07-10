@@ -17,6 +17,26 @@
     ];
 
     IPv6 = [ "fd00::/8" ];
+
+    region = {
+      Europe = 41;
+      North-America-E = 42;
+      North-America-C = 43;
+      North-America-W = 44;
+      Central-America = 45;
+      South-America-E = 46;
+      South-America-W = 47;
+      Africa-N = 48;
+      Africa-S = 49;
+      Asia-S = 50;
+      Asia-SE = 51;
+      Asia-E = 52;
+      Pacific-Oceania = 53;
+      Antarctica = 54;
+      Asia-N = 55;
+      Asia-W = 56;
+      Central-Asia = 57;
+    };
   };
 
   neonetwork = {

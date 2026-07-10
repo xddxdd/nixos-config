@@ -1,4 +1,9 @@
-{ tags, geo, ... }:
+{
+  tags,
+  geo,
+  constants,
+  ...
+}:
 {
   index = 106;
   system = "aarch64-linux";
@@ -14,6 +19,6 @@
   };
   dn42 = {
     IPv4 = "172.22.76.125";
-    region = 42;
+    region = constants.dn42.region.North-America-E;
   };
 }
