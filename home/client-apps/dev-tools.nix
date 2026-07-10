@@ -168,8 +168,8 @@ in
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
-    scc
     tldr
+    tokei
   ];
 
   home.sessionVariables = {
