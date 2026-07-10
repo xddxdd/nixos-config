@@ -304,14 +304,12 @@ in
 
       bgp_local_pref = 200;
 
-      # # Disabled since I removed latency records for peerings
+      if dn42_get_region() = ${DN42_REGION} && dn42_latency <= 5 then {
+        bgp_local_pref = bgp_local_pref + 100;
+      }
 
-      # if dn42_get_region() = ${DN42_REGION} && dn42_latency <= 5 then {
-      #   bgp_local_pref = bgp_local_pref + 100;
-      # }
-
-      # bgp_local_pref = bgp_local_pref - dn42_latency;
-      # bgp_local_pref = bgp_local_pref - 10 * bgp_path.len;
+      bgp_local_pref = bgp_local_pref - dn42_latency;
+      bgp_local_pref = bgp_local_pref - 10 * bgp_path.len;
 
       return true;
     }
