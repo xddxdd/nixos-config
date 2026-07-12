@@ -74,6 +74,7 @@
     pkgs.nur-xddxdd.unigine-superposition
     pkgs.nur-xddxdd.unigine-tropics
     pkgs.nur-xddxdd.unigine-valley
+    (pkgs.whisper-cpp.override { cudaSupport = true; })
   ];
 
   hardware.bluetooth = {
