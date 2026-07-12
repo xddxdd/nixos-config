@@ -38,7 +38,6 @@ in
       worldClock.enable = true;
       nixPackageRunner.enable = true;
       vscodeLauncher.enable = true;
-      dgpuStatus.enable = true;
 
       lyrica = {
         enable = true;
@@ -387,7 +386,6 @@ in
             "clipboard"
             "cpuUsage"
             "memUsage"
-            "dgpuStatus"
             "notificationButton"
             "battery"
             "controlCenterButton"

@@ -46,14 +46,4 @@ in
   virtualisation.docker.enableNvidia = true;
   hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
-
-  # Cardwire for on demand GPU blocking
-  services.cardwire = {
-    enable = true;
-    settings = {
-      auto_apply_gpu_state = true;
-      experimental_nvidia_block = true;
-      battery_auto_switch = false;
-    };
-  };
 }
