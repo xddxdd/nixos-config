@@ -162,9 +162,6 @@
     "webgl.msaa-samples" = 4;
     "webgl.msaa-force" = true;
 
-    # Fonts, not enabled since it break UI fonts
-    "zoom.stealth.font.whitelist" = "";
-    "zoom.stealth.font.metrics" = "";
     # Disable upstream usage stats
     "invisible_firefox.usage_ping.enabled" = false;
   };
