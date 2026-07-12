@@ -145,30 +145,12 @@ in
     GEO =
       { filter, ... }@args:
       let
-        geodnsFilter = "country,false;default,false;geodistance,false;first_n,false,1";
-
-        meta =
-          k: v:
-          {
-            gcore_filters = geodnsFilter;
-            gcore_latitude = "${builtins.toString v.city.lat}";
-            gcore_longitude = "${builtins.toString v.city.lng}";
-            gcore_notes = k;
-          }
-          // (lib.optionalAttrs (args ? healthcheck) {
-            gcore_filters = "healthcheck,false;${geodnsFilter}";
-            gcore_failover_protocol = "HTTP";
-            gcore_failover_port = "443";
-            gcore_failover_frequency = "30";
-            gcore_failover_timeout = "10";
-            gcore_failover_method = "GET";
-            gcore_failover_url = "/";
-            gcore_failover_tls = "true";
-            gcore_failover_host = args.healthcheck;
-          })
-          // (lib.optionalAttrs (k == "zgocloud") {
-            gcore_countries = "cn";
-          });
+        meta = k: v: {
+          bunny_monitor_type = "http";
+          bunny_smart_routing_type = "geographic";
+          bunny_geolocation_latitude = builtins.toString v.city.lat;
+          bunny_geolocation_longitude = builtins.toString v.city.lng;
+        };
       in
       lib.flatten (
         lib.mapAttrsToList (

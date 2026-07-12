@@ -5,30 +5,23 @@
   ...
 }:
 let
-  inherit (pkgs) dnscontrol;
-  # dnscontrol = pkgs.buildGoModule rec {
-  #   pname = "dnscontrol";
-  #   version = "cfb1c2d551991ff95dd9ab5c7be36beefa530711";
+  sources = pkgs.callPackage ../../helpers/_sources/generated.nix { };
+  dnscontrol = pkgs.buildGoModule rec {
+    inherit (sources.dnscontrol-xddxdd) pname version src;
+    vendorHash = "sha256-8YMOjHGzmWhPvgsrWXOER5elu327AugUYIECcqdR5n0=";
 
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "xddxdd";
-  #     repo = "dnscontrol";
-  #     rev = version;
-  #     sha256 = "sha256-fpwv+Yl6dPBcvWSDmCyQNg1onfKFI+4+oyR8m/29XMo=";
-  #   };
+    ldflags = [
+      "-s"
+      "-w"
+    ];
 
-  #   vendorHash = "sha256-8KSqPDEI5gmxzcgFsaCzeXzYN6tO9Fjq7rnQN/vSThw=";
+    preCheck = ''
+      # requires network
+      rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
+    '';
 
-  #   ldflags = [
-  #     "-s"
-  #     "-w"
-  #   ];
-
-  #   preCheck = ''
-  #     # requires network
-  #     rm pkg/spflib/flatten_test.go pkg/spflib/parse_test.go
-  #   '';
-  # };
+    meta.mainProgram = "dnscontrol";
+  };
 in
 ''
   set -euxo pipefail

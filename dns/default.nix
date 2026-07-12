@@ -16,6 +16,7 @@
   ];
   providers = [
     "bind"
+    "bunny"
     "cloudflare"
     "desec"
     "gcore"

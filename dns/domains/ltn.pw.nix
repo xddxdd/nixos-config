@@ -4,7 +4,7 @@
     rec {
       domain = "ltn.pw";
       registrar = "porkbun";
-      providers = [ "gcore" ];
+      providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
         {

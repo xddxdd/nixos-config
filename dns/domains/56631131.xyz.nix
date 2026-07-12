@@ -4,7 +4,7 @@
     rec {
       domain = "56631131.xyz";
       registrar = "porkbun";
-      providers = [ "gcore" ];
+      providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
         config.common.hostRecs.CAA

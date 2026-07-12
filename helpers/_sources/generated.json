@@ -110,6 +110,27 @@
         },
         "version": "1.1.1"
     },
+    "dnscontrol-xddxdd": {
+        "cargoLock": null,
+        "date": "2026-07-12",
+        "extract": null,
+        "name": "dnscontrol-xddxdd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xddxdd",
+            "repo": "dnscontrol",
+            "rev": "b913207bcfd5c549b143c1341d5c416e4ae866bb",
+            "sha256": "sha256-UWUWVvHJdCtSmyT0Z06ORxS3VZKtYJJdcIqi+5R4+9g=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b913207bcfd5c549b143c1341d5c416e4ae866bb"
+    },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
         "date": null,

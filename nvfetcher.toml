@@ -25,6 +25,10 @@ src.webpage = "https://dn42.g-load.eu/about/certificate-authority/client.sh"
 src.regex = "# Version ([0-9\\.]+)"
 url.name = "client.sh"
 
+[dnscontrol-xddxdd]
+fetch.github = "xddxdd/dnscontrol"
+src.git = "https://github.com/xddxdd/dnscontrol.git"
+
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"

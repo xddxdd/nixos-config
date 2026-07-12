@@ -161,7 +161,7 @@ in
     rec {
       domain = "xuyh0120.win";
       registrar = "porkbun";
-      providers = [ "gcore" ];
+      providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
         # ALIAS record cannot coexist with HTTPS on Gcore

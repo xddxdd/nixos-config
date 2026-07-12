@@ -185,7 +185,9 @@ let
       # GeoDNS for servers with sufficient storage
       name = "tools";
       ttl = "5m";
-      filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk"));
+      # Alice host is slow from China mainland
+      filter =
+        n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk")) && n != "alice";
       healthcheck = "tools.lantian.pub";
     }
     {
@@ -257,7 +259,7 @@ in
     rec {
       domain = "lantian.pub";
       registrar = "porkbun";
-      providers = [ "gcore" ];
+      providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
         {
@@ -265,7 +267,8 @@ in
           # GeoDNS for public facing servers
           name = "@";
           ttl = "5m";
-          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing");
+          # Alice host is slow from China mainland
+          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && n != "alice";
           healthcheck = "lantian.pub";
         }
         {

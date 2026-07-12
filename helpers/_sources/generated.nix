@@ -76,6 +76,18 @@
       sha256 = "sha256-Q4FhNwlEaC10xJ5dXyWzE/tNzvah8z9RdPhxHUiVamY=";
     };
   };
+  dnscontrol-xddxdd = {
+    pname = "dnscontrol-xddxdd";
+    version = "b913207bcfd5c549b143c1341d5c416e4ae866bb";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "dnscontrol";
+      rev = "b913207bcfd5c549b143c1341d5c416e4ae866bb";
+      fetchSubmodules = false;
+      sha256 = "sha256-UWUWVvHJdCtSmyT0Z06ORxS3VZKtYJJdcIqi+5R4+9g=";
+    };
+    date = "2026-07-12";
+  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.10.0";

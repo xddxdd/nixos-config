@@ -4,7 +4,7 @@
     rec {
       domain = "xn--gmqs02au1c935d.pub";
       registrar = "porkbun";
-      providers = [ "gcore" ];
+      providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
         {
