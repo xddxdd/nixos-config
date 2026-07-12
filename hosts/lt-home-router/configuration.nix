@@ -4,7 +4,7 @@
     ../../nixos/minimal.nix
 
     ./ddns.nix
-    ./ddns-gcore.nix
+    ./ddns-bunny.nix
     ./dhcp.nix
     ./firewall.nix
     ./hardware-configuration.nix

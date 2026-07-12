@@ -211,8 +211,8 @@
         if [ "$IFACE" = "eth1" ]; then
           echo "Restarting inadyn ..."
           systemctl restart --no-block inadyn.service
-          echo "Restarting GCore DDNS ..."
-          systemctl restart --no-block ddns-gcore.service
+          echo "Restarting Bunny DDNS ..."
+          systemctl restart --no-block ddns-bunny.service
         fi
         exit 0
       '';
