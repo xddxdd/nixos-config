@@ -30,7 +30,6 @@ rec {
       done
     '';
   });
-  inherit (final.nur-xddxdd) bepasty;
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
