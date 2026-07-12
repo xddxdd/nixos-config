@@ -31,6 +31,10 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
+    cardwire = {
+      url = "github:opengamingcollective/cardwire";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     chinese-fonts-overlay = {
       url = "github:brsvh/chinese-fonts-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
