@@ -25,7 +25,7 @@ in
     maxConcurrentRenewals = 0;
 
     defaults = {
-      dnsProvider = "gcore";
+      dnsProvider = "bunny";
       dnsResolver = "8.8.8.8:53";
       dnsPropagationCheck = false;
       email = glauthUsers.lantian.mail;
