@@ -46,7 +46,6 @@ let
           downthemall
           fastforwardteam
           foxyproxy-standard
-          gemini-delete-for-firefox
           i-dont-care-about-cookies
           ipfs-companion
           lovely-forks

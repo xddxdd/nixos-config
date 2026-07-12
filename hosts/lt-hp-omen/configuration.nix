@@ -29,6 +29,7 @@
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/vlmcsd.nix
+    ../../nixos/optional-apps/whisper-cpp.nix
   ];
 
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
@@ -74,7 +75,6 @@
     pkgs.nur-xddxdd.unigine-superposition
     pkgs.nur-xddxdd.unigine-tropics
     pkgs.nur-xddxdd.unigine-valley
-    (pkgs.whisper-cpp.override { cudaSupport = true; })
   ];
 
   hardware.bluetooth = {
