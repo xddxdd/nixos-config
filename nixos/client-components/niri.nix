@@ -12,6 +12,8 @@
     pkgs.xwayland-satellite
     # DMS plugin requirements
     pkgs.kdePackages.qtwebsockets
+    # GNOME Keyring
+    pkgs.seahorse
   ];
   services.udev.packages = [ pkgs.brightnessctl ];
 
