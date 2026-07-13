@@ -40,7 +40,6 @@ in
             inputs.colmena.overlay
             inputs.comfyui-nix.overlays.default
             inputs.firefox-addons.overlays.default
-            inputs.llm-agents.overlays.default
             inputs.nix-alien.overlays.default
             inputs.nix-cache-proxy.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs

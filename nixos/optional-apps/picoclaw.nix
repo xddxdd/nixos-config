@@ -3,14 +3,17 @@
   pkgs,
   LT,
   config,
+  inputs,
   ...
 }:
 let
-  picoclaw = pkgs.llm-agents.picoclaw.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../../patches/picoclaw-disable-command-restrictions.patch ];
-    doCheck = false;
-    doInstallCheck = false;
-  });
+  picoclaw =
+    inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".picoclaw.overrideAttrs
+      (old: {
+        patches = (old.patches or [ ]) ++ [ ../../patches/picoclaw-disable-command-restrictions.patch ];
+        doCheck = false;
+        doInstallCheck = false;
+      });
 in
 {
   imports = [ ../client-apps/mcp-servers.nix ];

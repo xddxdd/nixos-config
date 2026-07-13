@@ -4,6 +4,7 @@
   lib,
   LT,
   config,
+  inputs,
   ...
 }:
 let
@@ -43,7 +44,7 @@ in
   programs.claude-code = {
     enable = true;
     enableMcpIntegration = true;
-    package = pkgs.llm-agents.claude-code;
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".claude-code;
     inherit context;
   };
 
@@ -74,7 +75,7 @@ in
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
-    package = pkgs.llm-agents.opencode;
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".opencode;
     settings = {
       autoupdate = false;
       provider = {
