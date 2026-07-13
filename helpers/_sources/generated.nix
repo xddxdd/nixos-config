@@ -55,17 +55,17 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "85b85fba773614595eef71f9e5053578207ebefa";
+    version = "9862e3cd1ad64a2d7855f351433b6d37ed15ffc0";
     src = fetchgit {
       url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git";
-      rev = "85b85fba773614595eef71f9e5053578207ebefa";
+      rev = "9862e3cd1ad64a2d7855f351433b6d37ed15ffc0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-UgO4liOaISwfw9ljnmAZluW0PtqViscTTM/JUJatVlU=";
+      sha256 = "sha256-m/yannlxDwgYrc16K4Rii9T4jMUoWunTuI/6i1Wd0ic=";
     };
-    date = "2026-07-10";
+    date = "2026-07-12";
   };
   dn42-certificate-authority-client = {
     pname = "dn42-certificate-authority-client";
@@ -78,13 +78,13 @@
   };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
-    version = "b913207bcfd5c549b143c1341d5c416e4ae866bb";
+    version = "f78305bbf4357b9448111b15397cfa84d9444185";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
-      rev = "b913207bcfd5c549b143c1341d5c416e4ae866bb";
+      rev = "f78305bbf4357b9448111b15397cfa84d9444185";
       fetchSubmodules = false;
-      sha256 = "sha256-UWUWVvHJdCtSmyT0Z06ORxS3VZKtYJJdcIqi+5R4+9g=";
+      sha256 = "sha256-c8PWIM5sUboRT8G65WWnn/i7EJnFuV+TQeiXIAMCHYI=";
     };
     date = "2026-07-12";
   };
@@ -182,15 +182,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "884d205af2e5492e66234450d6b838cfc842691d";
+    version = "6f519cc565d5c056669d80b0a9da51208945768b";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "884d205af2e5492e66234450d6b838cfc842691d";
+      rev = "6f519cc565d5c056669d80b0a9da51208945768b";
       fetchSubmodules = false;
-      sha256 = "sha256-m8puowrKGngB+pigCkgmA8RFuZDnsLYm4wLxjba0SZE=";
+      sha256 = "sha256-q5jcmynXYbRwLvN1qUi0g9XfIZM3X4fBP51D5Sc2AUk=";
     };
-    date = "2026-07-06";
+    date = "2026-07-12";
   };
   open5gs = {
     pname = "open5gs";

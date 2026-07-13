@@ -150,31 +150,6 @@
         "type": "github"
       }
     },
-    "blueprint": {
-      "inputs": {
-        "nixpkgs": [
-          "llm-agents",
-          "nixpkgs"
-        ],
-        "systems": [
-          "llm-agents",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776249299,
-        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
-        "owner": "numtide",
-        "repo": "blueprint",
-        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "blueprint",
-        "type": "github"
-      }
-    },
     "bun2nix": {
       "inputs": {
         "flake-parts": [
@@ -463,11 +438,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783733362,
-        "narHash": "sha256-I9DcXRWZoAEU0/xQrjNOXTwyBlayfNJqkCw2UvtIji8=",
+        "lastModified": 1783819856,
+        "narHash": "sha256-l/6KrgOyCCxT2akP9UjmJqndyWDAnxoMeh3ez3AHXYY=",
         "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
-        "rev": "86c490f7be2bdece086020c21fc788196d921954",
+        "rev": "38e43eb9074a6182e2e65a506f8bbb5e6a2fc13c",
         "type": "github"
       },
       "original": {
@@ -796,7 +771,6 @@
     },
     "llm-agents": {
       "inputs": {
-        "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": [
           "flake-parts"
@@ -813,11 +787,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783807796,
-        "narHash": "sha256-6ld88DeBB3XnGu5qc76DL1aAI3SFMwGjhBFdYG98udc=",
+        "lastModified": 1783894722,
+        "narHash": "sha256-XyPTs8RQ5sa28KlNCB+QRGvyNivmgxQLuykn4SHkhVo=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "2a62f66322ebe08f7a199f6a8d121bb57851d477",
+        "rev": "eacaf2df85462b8637506345b29e60ee8fa06c6c",
         "type": "github"
       },
       "original": {
@@ -1116,11 +1090,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783414108,
-        "narHash": "sha256-RY8e+gR2/DhXsYDxGDL6Hhe9+POD9u4+llwxMBqMQDs=",
+        "lastModified": 1783864904,
+        "narHash": "sha256-BQxN5UMg9FOevAsgBRwPxfxlh51Puj+dNn/8Dsi3sPM=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "96d6de10eb281b98f5cfcd1841394c03da5df77c",
+        "rev": "1111b9bc836afb7e31a7014e8d1272de9b1c917d",
         "type": "github"
       },
       "original": {

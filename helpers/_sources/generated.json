@@ -77,7 +77,7 @@
     },
     "delegacy-rpz": {
         "cargoLock": null,
-        "date": "2026-07-10",
+        "date": "2026-07-12",
         "extract": null,
         "name": "delegacy-rpz",
         "passthru": null,
@@ -87,13 +87,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "85b85fba773614595eef71f9e5053578207ebefa",
-            "sha256": "sha256-UgO4liOaISwfw9ljnmAZluW0PtqViscTTM/JUJatVlU=",
+            "rev": "9862e3cd1ad64a2d7855f351433b6d37ed15ffc0",
+            "sha256": "sha256-m/yannlxDwgYrc16K4Rii9T4jMUoWunTuI/6i1Wd0ic=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
         },
-        "version": "85b85fba773614595eef71f9e5053578207ebefa"
+        "version": "9862e3cd1ad64a2d7855f351433b6d37ed15ffc0"
     },
     "dn42-certificate-authority-client": {
         "cargoLock": null,
@@ -124,12 +124,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "dnscontrol",
-            "rev": "b913207bcfd5c549b143c1341d5c416e4ae866bb",
-            "sha256": "sha256-UWUWVvHJdCtSmyT0Z06ORxS3VZKtYJJdcIqi+5R4+9g=",
+            "rev": "f78305bbf4357b9448111b15397cfa84d9444185",
+            "sha256": "sha256-c8PWIM5sUboRT8G65WWnn/i7EJnFuV+TQeiXIAMCHYI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b913207bcfd5c549b143c1341d5c416e4ae866bb"
+        "version": "f78305bbf4357b9448111b15397cfa84d9444185"
     },
     "grafana-falconlogscale-datasource": {
         "cargoLock": null,
@@ -287,7 +287,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-07-06",
+        "date": "2026-07-12",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -299,12 +299,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "884d205af2e5492e66234450d6b838cfc842691d",
-            "sha256": "sha256-m8puowrKGngB+pigCkgmA8RFuZDnsLYm4wLxjba0SZE=",
+            "rev": "6f519cc565d5c056669d80b0a9da51208945768b",
+            "sha256": "sha256-q5jcmynXYbRwLvN1qUi0g9XfIZM3X4fBP51D5Sc2AUk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "884d205af2e5492e66234450d6b838cfc842691d"
+        "version": "6f519cc565d5c056669d80b0a9da51208945768b"
     },
     "open5gs": {
         "cargoLock": null,
