@@ -68,11 +68,11 @@ _: {
         comment = "Start terminal with Python";
         key = "Calculator";
       };
-      # ulauncher-toggle = {
-      #   command = "ulauncher-toggle";
-      #   comment = "Toggle Ulauncher search bar";
-      #   key = "Meta+Space";
-      # };
+      ulauncher-toggle = {
+        command = "ulauncher-toggle";
+        comment = "Toggle Ulauncher search bar";
+        key = "Meta+Space";
+      };
       noop = {
         command = "true";
         comment = "No Operation";
