@@ -16,8 +16,9 @@ fetch.github = "BelfrySCAD/BOSL2"
 src.github = "BelfrySCAD/BOSL2"
 
 [delegacy-rpz]
-fetch.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
-src.git = "https://codeberg.org/IPv6-Monostack/delegacy-rpz.git"
+fetch.url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v$ver/rpz.delegacy.monostack.org.zone"
+src.webpage = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases"
+src.regex = "href=\"https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v([0-9]+)/rpz.delegacy.monostack.org.zone\""
 
 [dn42-certificate-authority-client]
 fetch.url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=$ver"
