@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   LT,
   config,
   ...
@@ -16,6 +17,8 @@
     autoEnable = LT.this.hasTag LT.tags.client;
     targets = {
       console.enable = true;
+      # FIXME: workaround stylix bug
+      qt.platform = lib.mkForce "qtct";
       # Kmscon uses removed options
       kmscon.enable = false;
     };
