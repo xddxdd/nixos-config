@@ -287,7 +287,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-07-12",
+        "date": "2026-07-13",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -299,12 +299,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "6f519cc565d5c056669d80b0a9da51208945768b",
-            "sha256": "sha256-q5jcmynXYbRwLvN1qUi0g9XfIZM3X4fBP51D5Sc2AUk=",
+            "rev": "ad462e42c97fea52c0d58ce0507fe6dc36da675b",
+            "sha256": "sha256-3qoGL7/S6W47fZfSr20giiFxXisdLQ323le38iQIJMI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6f519cc565d5c056669d80b0a9da51208945768b"
+        "version": "ad462e42c97fea52c0d58ce0507fe6dc36da675b"
     },
     "open5gs": {
         "cargoLock": null,
