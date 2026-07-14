@@ -92,10 +92,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
         ]
         # Not working well
         # ++ lib.optional config.services.avahi.enable (mdns "local")
-        ++ (builtins.map forwardToLtnet (
-          with LT.constants.zones;
-          (DN42 ++ NeoNetwork ++ OpenNIC ++ Emercoin ++ CRXN ++ Meshname ++ YggdrasilAlfis ++ Ltnet ++ Others)
-        ));
+        ++ (builtins.map forwardToLtnet LT.constants.zones.all);
       in
       lib.concatStrings cfgEntries;
   };
