@@ -51,7 +51,7 @@ rec {
     doCheck = false;
   });
   open-webui = prev.open-webui.overridePythonAttrs (old: {
-    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.postgres;
+    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
   });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;

@@ -88,7 +88,13 @@ in
           }
         ];
       };
-      inherit (config.lantian.mcp) mcpServers;
+      mcpServers = lib.mapAttrs (
+        _: v:
+        v
+        // lib.optionalAttrs (v.type or null == null && v.args or null == null) {
+          args = [ ];
+        }
+      ) config.lantian.mcp.toolMcpServers;
     };
   };
 

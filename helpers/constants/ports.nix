@@ -81,12 +81,9 @@ rec {
     Hydra = 13300;
     N8N-OpenAI-Bridge = 13333;
     Dex = 13403;
-    OpenWebUI.UI = 13433;
-    OpenWebUI.Redis = 13435;
     Bifrost = 13436;
     UniAPI = 13437;
     CLIProxyAPI = 13438;
-    Mcpo = 13439;
     LanCacheDNS = 13453;
     Immich = 13466;
     Radicale = 13532;

@@ -10,9 +10,13 @@
   options.lantian.mcp = {
     mcpServers = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = config.lantian.mcp.codingMcpServers // config.lantian.mcp.toolMcpServers;
     };
     codingMcpServers = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+    };
+    toolMcpServers = lib.mkOption {
       type = lib.types.attrs;
       default = { };
     };
@@ -108,7 +112,7 @@
       # keep-sorted end
     };
 
-    lantian.mcp.mcpServers = config.lantian.mcp.codingMcpServers // {
+    lantian.mcp.toolMcpServers = {
       # keep-sorted start block=yes
       adsb-lol = {
         command = "uvx";
