@@ -18,7 +18,7 @@
     targets = {
       console.enable = true;
       # FIXME: workaround stylix bug
-      qt.platform = lib.mkForce "qtct";
+      qt.platform = lib.mkForce "kde";
       # Kmscon uses removed options
       kmscon.enable = false;
     };
