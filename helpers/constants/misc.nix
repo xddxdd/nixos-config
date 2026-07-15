@@ -13,6 +13,7 @@
   tags = lib.genAttrs [
     # Usage
     "client"
+    "cn-accel"
     "dn42"
     "nix-builder"
     "public-facing"

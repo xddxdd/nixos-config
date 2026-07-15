@@ -7,6 +7,7 @@
 {
   index = 9;
   tags = with tags; [
+    cn-accel
     ipv4-only
     public-facing
     server

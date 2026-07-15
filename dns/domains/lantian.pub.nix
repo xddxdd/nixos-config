@@ -272,6 +272,22 @@ in
           healthcheck = "lantian.pub";
         }
         {
+          recordType = "GEO";
+          # GeoDNS for public facing servers
+          name = "geo-global";
+          ttl = "5m";
+          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing");
+          healthcheck = "lantian.pub";
+        }
+        {
+          recordType = "GEO";
+          # GeoDNS for public facing servers
+          name = "geo-cn";
+          ttl = "5m";
+          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (v.hasTag "cn-accel");
+          healthcheck = "lantian.pub";
+        }
+        {
           recordType = "HTTPS";
           name = "@";
           priority = 1;

@@ -7,6 +7,7 @@
 {
   index = 10;
   tags = with tags; [
+    cn-accel
     public-facing
     server
   ];
