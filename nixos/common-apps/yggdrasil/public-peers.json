@@ -89,7 +89,6 @@
     "tls://ru2.cert.dev:7041",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
-    "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
@@ -117,6 +116,7 @@
     "tls://ygg-tw.lxak.net:443"
   ],
   "ukraine": [
+    "tls://176.117.187.69:64535",
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:179",
     "tls://78.27.153.163:33166",
