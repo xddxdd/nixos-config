@@ -45,25 +45,8 @@ let
           forwarders = [ "172.31.0.5" ];
         }
       ];
-
-      t-me = [
-        {
-          zone = "t.me";
-          # Google domain resolvers
-          forwarders = [
-            "216.239.32.107"
-            "216.239.34.107"
-            "216.239.36.107"
-            "216.239.38.107"
-            "2001:4860:4802:38::6b"
-            "2001:4860:4802:36::6b"
-            "2001:4860:4802:34::6b"
-            "2001:4860:4802:32::6b"
-          ];
-        }
-      ];
     in
-    authoritative ++ emercoin ++ yggdrasilAlfis ++ hack ++ t-me;
+    authoritative ++ emercoin ++ yggdrasilAlfis ++ hack;
 
   forwardZonesRecurse =
     let

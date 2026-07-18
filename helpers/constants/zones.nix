@@ -71,7 +71,6 @@ let
     Others = [
       # Custom overrides
       "database.azure.com"
-      "t.me"
     ];
   };
 in
