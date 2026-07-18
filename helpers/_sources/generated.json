@@ -158,7 +158,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-07-14",
+        "date": "2026-07-17",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -168,13 +168,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "918a629a17684ed8765993d346def1fbd457c514",
-            "sha256": "sha256-ZqYTMiotCi+bKpUIZ28UpXFhYj4hu4sVWH7GcCdmE7c=",
+            "rev": "fbd2d56e3f734e889f1373e71c8368cc4e60e0d7",
+            "sha256": "sha256-0EYlAdWqk7mVAK2cuSYJUTK5EFKWdIpFERbggxgke9I=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "918a629a17684ed8765993d346def1fbd457c514"
+        "version": "fbd2d56e3f734e889f1373e71c8368cc4e60e0d7"
     },
     "lyrica-customized": {
         "cargoLock": null,
