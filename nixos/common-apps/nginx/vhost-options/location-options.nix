@@ -163,7 +163,7 @@ let
       '')
       + (lib.optionalString config.blockBadTLSSignatures ''
         if ($tls_sig_like_bot) {
-          return 429;
+          return 418;
         }
       '')
       + (lib.optionalString config.enableFcgiwrap ''
