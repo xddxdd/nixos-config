@@ -13,7 +13,7 @@ let
       ''
         mkdir -p $out/bin
         makeWrapper ${lib.getExe pkgs.nur-xddxdd.ncmm} $out/bin/ncmm \
-          --add-flag "--home /var/lib/ncmm"
+          --add-flags "--home /var/lib/ncmm"
       '';
 in
 {
