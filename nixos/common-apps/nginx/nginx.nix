@@ -173,6 +173,11 @@ in
         ~*sqlmap          1;
       }
 
+      map $http_ssl_ja4 $tls_sig_like_bot {
+        default 0;
+        t13d1516h2_8daaf6152771_d8a2da3f94cd 1;
+      }
+
       geoip2 /etc/geoip/GeoLite2-City.mmdb {
         auto_reload 5m;
         $geoip2_continent_code continent code;

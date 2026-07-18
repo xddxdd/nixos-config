@@ -161,6 +161,11 @@ let
           return 403;
         }
       '')
+      + (lib.optionalString config.blockBadTLSSignatures ''
+        if ($tls_sig_like_bot) {
+          return 429;
+        }
+      '')
       + (lib.optionalString config.enableFcgiwrap ''
         try_files $fastcgi_script_name =404;
         fastcgi_pass unix:${osConfig.services.fcgiwrap.instances.nginx.socket.address};
@@ -233,6 +238,7 @@ in
 
     allowCORS = lib.mkEnableOption "Allow all CORS requests";
     blockBadUserAgents = lib.mkEnableOption "Block bad user agents";
+    blockBadTLSSignatures = lib.mkEnableOption "Block bad TLS signatures";
     enableAutoIndex = lib.mkEnableOption "Auto show index for content";
     enableBasicAuth = lib.mkEnableOption "Require basic auth for access";
     enableFcgiwrap = lib.mkEnableOption "Fcgiwrap";

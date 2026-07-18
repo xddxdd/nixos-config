@@ -5,6 +5,8 @@
       locations = {
         "/" = {
           proxyPass = "http://${LT.hosts.pve-epyc.ltnet.IPv4}:${LT.portStr.Hydra}";
+          blockBadUserAgents = true;
+          blockBadTLSSignatures = true;
           extraConfig = ''
             limit_req zone=slow burst=20 nodelay;
             limit_req_status 429;
