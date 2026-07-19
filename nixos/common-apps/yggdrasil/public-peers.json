@@ -128,7 +128,6 @@
   ],
   "united-states": [
     "tls://192.3.13.16:8118",
-    "tls://23.184.48.86:1443",
     "tls://31.22.111.195:32000",
     "tls://ca.us.ygg.informatics.coop:443?key=0000000023fc6ffb62afb79448aefb0943df2e4472cf08bd489f5407378300a2",
     "tls://leo.node.3dt.net:9003",
