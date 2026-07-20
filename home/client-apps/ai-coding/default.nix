@@ -79,12 +79,6 @@ in
     settings = {
       autoupdate = false;
       provider = {
-        generalcompute = {
-          npm = "@ai-sdk/openai-compatible";
-          name = "General Compute";
-          options.baseURL = "https://api.generalcompute.com/v1";
-          models."minimax-m2.7".name = "MiniMax M2.7";
-        };
         linuxdo-hub = {
           npm = "@ai-sdk/openai-compatible";
           name = "Linux.DO Hub";
@@ -116,6 +110,51 @@ in
     inherit context;
   };
   xdg.configFile."opencode/opencode.json".force = true;
+
+  programs.pi-coding-agent = {
+    enable = true;
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi;
+    # # Not implemented correctly in home manager
+    # configDir = "${config.xdg.configHome}/pi/agent";
+    inherit context;
+
+    extraPackages = [
+      pkgs.nodejs
+      pkgs.bun
+    ];
+
+    models.providers = {
+      linuxdo-hub = {
+        api = "openai-completions";
+        baseUrl = "https://hub.linux.do/v1";
+        models = [
+          { id = "glm-5.2"; }
+        ];
+      };
+    };
+
+    settings = {
+      quietStartup = true;
+      collapseChangelog = true;
+      enableInstallTelemetry = false;
+      enableAnalytics = false;
+      defaultProvider = "ollama-cloud";
+      defaultModel = "glm-5.2";
+      defaultThinkingLevel = "xhigh";
+      showCacheMissNotices = true;
+
+      packages = [
+        # keep-sorted start
+        "npm:@juicesharp/rpiv-ask-user-question"
+        "npm:@juicesharp/rpiv-todo"
+        "npm:@monotykamary/pi-tps"
+        "npm:pi-mcp-adapter"
+        "npm:pi-ollama-cloud"
+        "npm:pi-subagents"
+        # keep-sorted end
+      ];
+    };
+  };
 
   programs.zed-editor = {
     enable = true;

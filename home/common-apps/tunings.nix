@@ -34,7 +34,10 @@
   home.sessionVariables.PARALLEL_HOME = "${config.xdg.configHome}/parallel";
   xdg.configFile."parallel/will-cite".text = "";
 
-  home.packages = [ pkgs.git-filter-repo ];
+  home.packages = [
+    pkgs.git-filter-repo
+    pkgs.git-absorb
+  ];
 
   xdg.configFile = {
     "nix/nix.conf".text = ''
