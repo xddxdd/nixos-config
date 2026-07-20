@@ -1541,11 +1541,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784363406,
-        "narHash": "sha256-8UJm4ZvualFqGgfkGBi/fpd5eEnIfOt/OMkywb0hXDo=",
+        "lastModified": 1784532616,
+        "narHash": "sha256-PnHNTOD3gA4q9eWRP9+k4ZT9zXDRKg7rFmjQEAcRNtc=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "756db219e292ef6e0f4bea3c53ded38b266dcf98",
+        "rev": "78e399735fd0f5f9b2a22c1ff2f8dfd40314f68a",
         "type": "github"
       },
       "original": {
