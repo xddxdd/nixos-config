@@ -22,7 +22,7 @@ in
 
   security.acme = {
     acceptTerms = true;
-    maxConcurrentRenewals = 1;
+    maxConcurrentRenewals = 0;
 
     defaults = {
       dnsProvider = "bunny";
