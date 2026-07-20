@@ -27,7 +27,7 @@ in
     defaults = {
       dnsProvider = "bunny";
       dnsResolver = "8.8.8.8:53";
-      dnsPropagationCheck = false;
+      dnsPropagationCheck = true;
       email = glauthUsers.lantian.mail;
       environmentFile = [ config.sops.secrets.lego-env.path ];
       postRun = ''
@@ -37,17 +37,15 @@ in
     };
   };
 
-  systemd.services = lib.mapAttrs' (
-    k: v:
-    lib.nameValuePair "acme-${k}" {
-      environment = {
-        LEGO_DEBUG_CLIENT_VERBOSE_ERROR = "true";
-        LEGO_DEBUG_ACME_HTTP_CLIENT = "true";
+  systemd.services =
+    let
+      cfg = {
+        serviceConfig = {
+          Restart = "on-failure";
+          TimeoutStartSec = "900";
+        };
       };
-      serviceConfig = {
-        Restart = "on-failure";
-        TimeoutStartSec = "900";
-      };
-    }
-  ) config.security.acme.certs;
+    in
+    (lib.mapAttrs' (k: v: lib.nameValuePair "acme-${k}" cfg) config.security.acme.certs)
+    // (lib.mapAttrs' (k: v: lib.nameValuePair "acme-order-renew-${k}" cfg) config.security.acme.certs);
 }
