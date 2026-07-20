@@ -113,7 +113,9 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi;
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi.overrideAttrs (old: {
+      postInstall = lib.replaceStrings [ "PI_SKIP_VERSION_CHECK" ] [ "PI_OFFLINE" ] old.postInstall;
+    });
     # # Not implemented correctly in home manager
     # configDir = "${config.xdg.configHome}/pi/agent";
     inherit context;
