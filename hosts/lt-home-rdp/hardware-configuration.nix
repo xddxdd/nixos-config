@@ -25,16 +25,8 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "192.168.1.2:/mnt/storage";
-    fsType = "nfs";
-    options = [
-      "_netdev"
-      "noatime"
-      "clientaddr=192.168.1.13"
-      "hard"
-      "vers=4.2"
-      "nconnect=16"
-    ];
+    device = "virtiofs-mnt-storage";
+    fsType = "virtiofs";
   };
 
   services.qemuGuest.enable = true;
