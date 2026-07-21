@@ -89,6 +89,19 @@
   lantian.syncthing.storage = "/mnt/storage/media";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
 
+  lantian.nginxVhosts."ha.xuyh0120.win" = {
+    locations = {
+      "/" = {
+        proxyPass = "http://192.168.1.123:8123";
+        proxyWebsockets = true;
+        proxyNoTimeout = true;
+      };
+    };
+
+    sslCertificate = "zerossl-xuyh0120.win";
+    noIndex.enable = true;
+  };
+
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {
     AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];

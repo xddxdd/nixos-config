@@ -45,6 +45,7 @@ _: [
   "comments.lantian.pub"
   "dashboard.xuyh0120.win"
   "git.lantian.pub"
+  "ha.xuyh0120.win"
   "hydra.lantian.pub"
   "id.lantian.pub"
   "immich.xuyh0120.win"

@@ -67,6 +67,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "ha";
+      target = homeDdnsTarget;
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "immich";
       target = homeDdnsTarget;
       ttl = "1h";
