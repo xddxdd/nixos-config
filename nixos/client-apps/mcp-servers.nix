@@ -16,6 +16,7 @@ let
           export GROK_SEARCH_MODEL=grok-4.3-fast-reasoning
           export GROK_SEARCH_WEB_SEARCH=true
           export GROK_SEARCH_X_SEARCH=true
+          export FIRECRAWL_API_KEY=$(cat "${config.sops.secrets.mcp-firecrawl-api-key.path}")
           export TAVILY_API_KEY=$(cat "${config.sops.secrets.mcp-tavily-api-key.path}")
           exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
         ''
@@ -77,6 +78,10 @@ in
       mode = "0444";
     };
     sops.secrets.mcp-grok-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
+      mode = "0444";
+    };
+    sops.secrets.mcp-firecrawl-api-key = {
       sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
