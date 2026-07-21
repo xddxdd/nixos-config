@@ -92,10 +92,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.8.0";
+    version = "3.11.0";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.8.0/yesoreyeram-infinity-datasource-3.8.0.zip";
-      sha256 = "sha256-pwpQLRyWvZ/1vHT6eCLEU9BelL/PNeaHULLbor3Cmt8=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.0/yesoreyeram-infinity-datasource-3.11.0.zip";
+      sha256 = "sha256-DWtZUz7K9OUkyvRZ8g09T2tG4xRMHEcJQbj5E/tcz5U=";
     };
   };
   lobe-icons = {

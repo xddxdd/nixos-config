@@ -65,9 +65,6 @@
     "tls://133.18.201.69:54232",
     "tls://153.120.42.137:54232"
   ],
-  "luxembourg": [
-    "tls://srl.newsdeef.eu:59999"
-  ],
   "netherlands": [
     "tls://cirno.nadeko.net:44442",
     "tls://vpn.itrus.su:7992"
@@ -139,6 +136,7 @@
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
+    "tls://ygg-kcmo.incognet.io:8884",
     "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.mnpnk.com:443",
