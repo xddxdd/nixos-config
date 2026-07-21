@@ -1,48 +1,11 @@
-{ pkgs, lib, ... }@args:
+{
+  pkgs,
+  lib,
+  dialPlan,
+  dn42Prefix,
+  prefixZeros,
+}:
 let
-  inherit (pkgs.callPackage ./common.nix args) prefixZeros;
-  inherit (pkgs.callPackage ./local-devices.nix args) destLocalDialPlan;
-  inherit (pkgs.callPackage ./musics.nix args) destMusicDialPlan;
-  inherit (pkgs.callPackage ./apps/anti-fooling.nix args) dialAntiFoolingDescription;
-  inherit (pkgs.callPackage ./apps/astycrapper.nix args) dialAstyCrapperDescription;
-  inherit (pkgs.callPackage ./apps/beverly.nix args) dialBeverlyDescription;
-  inherit (pkgs.callPackage ./apps/lenny.nix args) dialLennyDescription;
-  inherit (pkgs.callPackage ./apps/never-gonna.nix args) dialNeverGonnaDescription;
-
-  destConferenceDialPlan = builtins.listToAttrs (
-    lib.genList (
-      i:
-      let
-        n = if i < 10 then "0${builtins.toString i}" else builtins.toString i;
-      in
-      lib.nameValuePair "02${n}" "Conference room #${n}"
-    ) 100
-  );
-
-  dialPlan = lib.mergeAttrsList [
-    {
-      "0000" = "Random between all music playback";
-      "1900" = "Milliwatt (1004 Hz)";
-      "1901" = "Fax receiver";
-      "1902" = "SMS auto reply";
-      "1999" = "Ring group (1000 & 1001 & 1003)";
-      "2000" = "Random between all call bots";
-      "2001" = dialLennyDescription;
-      "2002" = dialAstyCrapperDescription;
-      "2003" = dialBeverlyDescription;
-      "2004" = dialNeverGonnaDescription;
-      "2005" = dialAntiFoolingDescription;
-    }
-    destLocalDialPlan
-    destMusicDialPlan
-    destConferenceDialPlan
-  ];
-
-  # DN42 phone numbers prepend this 8-digit prefix to the 4-digit local
-  # extension, matching the 04242547XXXX inbound rule in extensions.conf
-  # (04242547 + 1234 = 042425471234).
-  dn42Prefix = "04242547";
-
   # Build a dial plan page. linkGen turns a 4-digit number into a clickable
   # link, summaryGen produces the <summary> text for a 2-digit group prefix.
   makeHtml =
@@ -64,8 +27,9 @@ let
             "<p>${linkGen number} ${v}</p>"
           ) numbers
         );
-      # Menu row: "Public" (index.html) and "DN42" (dn42.html).
-      # The current page is bold, the other is a regular link.
+      # Menu row: "Public" (index.html), "DN42" (dn42.html), and "CardDAV"
+      # (dn42.vcf). The current page is bold; the CardDAV file is always a
+      # regular link since it is never the active page.
       menu = lib.concatStringsSep " " (
         map
           (
@@ -85,6 +49,11 @@ let
               key = "dn42";
               label = "DN42";
               href = "dn42.html";
+            }
+            {
+              key = "carddav";
+              label = "CardDAV";
+              href = "dn42.vcf";
             }
           ]
       );
@@ -188,19 +157,8 @@ let
         "${dn42Prefix}${number}";
     summaryGen = prefix: "${dn42Prefix}${prefix}XX";
   };
-
-  dialPlanDir = pkgs.symlinkJoin {
-    name = "sip-dial-plan";
-    paths = [
-      (pkgs.writeTextDir "index.html" indexHtml)
-      (pkgs.writeTextDir "dn42.html" dn42Html)
-    ];
-  };
 in
-{
-  lantian.nginxVhosts."sip.lantian.pub" = {
-    root = dialPlanDir;
-    sslCertificate = "zerossl-lantian.pub";
-    noIndex.enable = true;
-  };
-}
+[
+  (pkgs.writeTextDir "index.html" indexHtml)
+  (pkgs.writeTextDir "dn42.html" dn42Html)
+]

@@ -34,7 +34,7 @@ let
 in
 {
   imports = [
-    ./dialplan.nix
+    ./dialplan
     ./fax-monitor.nix
     ./never-gonna-audiosocket.nix
     ../fail2ban
@@ -135,7 +135,7 @@ in
         #include ${config.sops.secrets.asterisk-pw.path}
       '';
 
-      # Keep number plan in sync with dialplan.nix
+      # Keep number plan in sync with dialplan/
       "extensions.conf" = extensions;
 
       "http.conf" = ''
