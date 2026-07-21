@@ -54,7 +54,6 @@ let
       inputs.proxmox-nixos.nixosModules.proxmox-ve
       inputs.sops-nix.nixosModules.sops
       inputs.srvos.nixosModules.mixins-terminfo
-      inputs.srvos.nixosModules.mixins-trusted-nix-caches
       inputs.stylix.nixosModules.stylix
       # keep-sorted end
 
