@@ -34,7 +34,10 @@ let
   '';
 in
 {
-  home.packages = [ (lib.hiPrio codexWrapper) ];
+  home.packages = [
+    (lib.hiPrio codexWrapper)
+    pkgs.rtk
+  ];
 
   programs.mcp = {
     enable = true;
@@ -113,9 +116,7 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi.overrideAttrs (old: {
-      postInstall = lib.replaceStrings [ "PI_SKIP_VERSION_CHECK" ] [ "PI_OFFLINE" ] old.postInstall;
-    });
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi;
     # # Not implemented correctly in home manager
     # configDir = "${config.xdg.configHome}/pi/agent";
     inherit context;
@@ -150,12 +151,27 @@ in
         "npm:@juicesharp/rpiv-ask-user-question"
         "npm:@juicesharp/rpiv-todo"
         "npm:@monotykamary/pi-tps"
+        "npm:pi-btw"
+        "npm:pi-lens"
         "npm:pi-mcp-adapter"
         "npm:pi-ollama-cloud"
+        "npm:pi-rtk-optimizer"
+        "npm:pi-simplify"
         "npm:pi-subagents"
         # keep-sorted end
       ];
     };
+  };
+  home.file.".pi/agent/mcp.json".text = builtins.toJSON {
+    settings = {
+      directTools = true;
+      disableProxyTool = true;
+      idleTimeout = 5;
+      requestTimeoutMs = 60000;
+    };
+  };
+  home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
+    webTools = false;
   };
 
   programs.zed-editor = {
