@@ -1,0 +1,18 @@
+diff --git a/src/service/avatar.js b/src/service/avatar.js
+index 508e8bbc..f434ca91 100644
+--- a/src/service/avatar.js
++++ b/src/service/avatar.js
+@@ -7,8 +7,11 @@ const { GRAVATAR_STR } = process.env;
+ 
+ const env = new nunjucks.Environment();
+ 
+-env.addFilter('md5', (str) => helper.md5(str));
+-env.addFilter('sha256', (str) => crypto.createHash('sha256').update(str).digest('hex'));
++// Libravatar/Gravatar spec requires normalising the email (trim + lowercase) before hashing
++const normalize = (str) => String(str).trim().toLowerCase();
++
++env.addFilter('md5', (str) => helper.md5(normalize(str)));
++env.addFilter('sha256', (str) => crypto.createHash('sha256').update(normalize(str)).digest('hex'));
+ 
+ const DEFAULT_GRAVATAR_STR = `{%- set numExp = r/^[0-9]+$/g -%}
+ {%- set qqMailExp = r/^[0-9]+@qq.com$/ig -%}

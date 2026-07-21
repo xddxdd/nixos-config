@@ -1,19 +1,25 @@
 {
   LT,
   config,
+  lib,
   inputs,
   pkgs,
   ...
 }:
 let
-  configPath = ./config;
-  startupScript = pkgs.writeScript "waline-startup" ''
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cp ${configPath}/* node_modules/@waline/vercel/
-    sed -i "s/logSql: true/logSql: false/g" node_modules/@waline/vercel/src/config/adapter.js
-    exec node node_modules/@waline/vercel/vanilla.js
-  '';
+  waline = pkgs.nur-xddxdd.waline.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../../patches/waline-fix-avatar.patch
+      ../../../patches/waline-force-load-config.patch
+    ];
+
+    postFixup = (old.postFixup or "") + ''
+      substituteInPlace $out/lib/node_modules/@waline/vercel/src/config/adapter.js \
+        --replace-fail "logSql: true" "logSql: false"
+
+      cp -r ${./config}/* $out/lib/node_modules/@waline/vercel/
+    '';
+  });
 in
 {
   imports = [ ../postgresql.nix ];
@@ -47,46 +53,48 @@ in
     ];
   };
 
-  virtualisation.oci-containers.containers = {
-    waline = {
-      extraOptions = [
-        "--uidmap=0:65532:1"
-        "--gidmap=0:65532:1"
-      ];
-      image = "docker.io/lizheming/waline";
-      labels."io.containers.autoupdate" = "registry";
-      ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.Waline}:8360" ];
-      environment = {
-        PG_DB = "waline";
-        PG_USER = "waline";
-        PG_PASSWORD = "";
-        PG_PORT = "5432";
-        PG_HOST = "/run/postgresql";
+  systemd.services.waline = {
+    description = "Waline comment system";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
 
-        SITE_NAME = "Lan Tian @ Blog";
-        SITE_URL = "https://lantian.pub";
-        AKISMET_KEY = "false";
+    environment = {
+      WALINE_RUNTIME_PATH = "/run/waline";
+      HOST = LT.this.ltnet.IPv4;
+      PORT = LT.portStr.Waline;
 
-        SMTP_HOST = config.programs.msmtp.accounts.default.host;
-        SMTP_PORT = builtins.toString config.programs.msmtp.accounts.default.port;
-        SMTP_USER = config.programs.msmtp.accounts.default.user;
-        SMTP_SECURE = if (!config.programs.msmtp.accounts.default.tls_starttls) then "true" else "false";
-        SENDER_EMAIL = config.programs.msmtp.accounts.default.from;
-        SENDER_NAME = "Lan Tian @ Blog";
-      };
-      environmentFiles = [ config.sops.secrets.waline-env.path ];
-      volumes = [
-        "${configPath}:${configPath}:ro"
-        "${startupScript}:${startupScript}:ro"
-        "/run/postgresql:/run/postgresql"
-      ];
-      entrypoint = builtins.toString startupScript;
+      PG_DB = "waline";
+      PG_USER = "waline";
+      PG_PASSWORD = "";
+      PG_PORT = "5432";
+      PG_HOST = "/run/postgresql";
+
+      SITE_NAME = "Lan Tian @ Blog";
+      SITE_URL = "https://lantian.pub";
+      AKISMET_KEY = "false";
+
+      SMTP_HOST = config.programs.msmtp.accounts.default.host;
+      SMTP_PORT = builtins.toString config.programs.msmtp.accounts.default.port;
+      SMTP_USER = config.programs.msmtp.accounts.default.user;
+      SMTP_SECURE = if (!config.programs.msmtp.accounts.default.tls_starttls) then "true" else "false";
+      SENDER_EMAIL = config.programs.msmtp.accounts.default.from;
+      SENDER_NAME = "Lan Tian @ Blog";
     };
-  };
 
-  systemd.services.podman-waline = {
-    after = [ "postgresql.service" ];
-    requires = [ "postgresql.service" ];
+    serviceConfig = LT.serviceHarden // {
+      ExecStart = lib.getExe waline;
+      EnvironmentFile = config.sops.secrets.waline-env.path;
+      Restart = "always";
+      RestartSec = 3;
+      User = "waline";
+      Group = "waline";
+
+      RuntimeDirectory = "waline";
+      WorkingDirectory = "${waline}/lib/node_modules/@waline/vercel";
+
+      MemoryDenyWriteExecute = lib.mkForce false;
+      SystemCallFilter = lib.mkForce [ ];
+    };
   };
 
   users.users.waline = {

@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const nunjucks = require('nunjucks');
 
 // https://github.com/wnwd/waline-notification-telegram-bot

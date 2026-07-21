@@ -28,6 +28,8 @@ Under ANY circumstances, your output must be a single word "approved", "waiting"
 process.stdout.write('Loading custom config...');
 
 module.exports = {
+  host: process.env.HOST,
+  port: process.env.PORT,
   plugins: [
     GPTReviewer({
       openaiBaseUrl: 'https://openrouter.ai/api',

@@ -1,0 +1,19 @@
+diff --git a/vanilla.js b/vanilla.js
+index e29984c5..4d55206e 100644
+--- a/vanilla.js
++++ b/vanilla.js
+@@ -11,13 +11,8 @@ const instance = new Application({
+ 
+ instance.run();
+ 
+-let config = {};
++const config = require('./config.js');
+ 
+-try {
+-  config = require('./config.js');
+-} catch {
+-  // do nothing
+-}
+ for (const k in config) {
+   think.config(k, config[k]);
+ }
