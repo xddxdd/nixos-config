@@ -92,7 +92,7 @@
   lantian.nginxVhosts."ha.xuyh0120.win" = {
     locations = {
       "/" = {
-        proxyPass = "http://192.168.1.123:8123";
+        proxyPass = "http://192.168.1.101:8123";
         proxyWebsockets = true;
         proxyNoTimeout = true;
       };
