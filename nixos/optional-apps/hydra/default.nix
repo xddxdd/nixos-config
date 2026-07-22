@@ -94,10 +94,9 @@ in
 
   systemd.services.hydra-attic-repush = {
     script = ''
-      for F in /nix/var/nix/gcroots/hydra/*; do
-        STORE_PATH="/nix/store/$(basename "$F")"
-        ${lib.getExe pkgs.attic-client} push lantian "$STORE_PATH" || true
-      done
+      (for F in /nix/var/nix/gcroots/hydra/*; do
+        echo "/nix/store/$(basename "$F")"
+      done) | xargs -n10 ${lib.getExe pkgs.attic-client} push lantian || true
     '';
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
