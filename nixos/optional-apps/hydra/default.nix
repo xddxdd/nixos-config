@@ -92,6 +92,10 @@ in
     '';
   };
 
+  systemd.services.hydra-queue-runner.serviceConfig = {
+    OOMScoreAdjust = "1000";
+  };
+
   systemd.services.hydra-attic-repush = {
     script = ''
       (for F in /nix/var/nix/gcroots/hydra/*; do
