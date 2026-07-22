@@ -27,6 +27,7 @@
       host all all fdbc:f9dc:67ad::/48 md5
     '';
     settings = {
+      max_connections = "1000";
       io_method = "io_uring";
       idle_in_transaction_session_timeout = "0";
       idle_session_timeout = "0";
@@ -35,6 +36,8 @@
 
   systemd.services.postgresql.serviceConfig = LT.serviceHarden // {
     TimeoutStartSec = "900";
+    LimitMEMLOCK = "infinity";
+    LimitNOFILE = "1048576";
   };
 
   services.prometheus.exporters.postgres = {

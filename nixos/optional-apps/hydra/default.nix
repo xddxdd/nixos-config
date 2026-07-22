@@ -114,22 +114,4 @@ in
       RandomizedDelaySec = "1h";
     };
   };
-
-  systemd.services.hydra-kill-idle-db-conn = {
-    serviceConfig = LT.serviceHarden // {
-      ExecStart = ''${lib.getExe' config.services.postgresql.package "psql"} -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'hydra' AND pid <> pg_backend_pid() AND state = 'idle' AND state_change < current_timestamp - INTERVAL '10' MINUTE;"'';
-      Type = "oneshot";
-      User = "hydra";
-      Group = "hydra";
-    };
-  };
-
-  systemd.timers.hydra-kill-idle-db-conn = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*:0/10";
-      Persistent = true;
-      RandomizedDelaySec = "10min";
-    };
-  };
 }
