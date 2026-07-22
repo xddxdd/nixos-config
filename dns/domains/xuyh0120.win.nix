@@ -13,6 +13,12 @@ let
   internalServices = [
     {
       recordType = "CNAME";
+      name = "actual";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "ai";
       target = homeDdnsTarget;
       ttl = "1h";

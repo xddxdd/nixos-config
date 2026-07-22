@@ -112,6 +112,7 @@ rec {
     IyuuPlus = 13878;
     LlamaCpp.Qwen3Reranker = 13880;
     LlamaCpp.Qwen3_6 = 13881;
+    Actual = 13882;
     ElasticSearch = 13892;
     ADSB.RawInput = 13901;
     ADSB.RawOutput = 13902;
