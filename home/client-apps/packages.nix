@@ -108,25 +108,17 @@ in
         microcom
         microfetch
         moonlight-qt
-        nur-xddxdd.adspower
-        nur-xddxdd.baidunetdisk
         nur-xddxdd.baidupcs-go
         nur-xddxdd.bambu-studio-bin
-        nur-xddxdd.bilibili
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
         nur-xddxdd.command-code
-        # nur-xddxdd.dingtalk
-        nur-xddxdd.easycli
-        nur-xddxdd.epub-to-xtc-converter
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
-        nur-xddxdd.kikoplay
         nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
-        # nur-xddxdd.qqsp
-        nur-xddxdd.runpodctl
+        # nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nvfetcher
