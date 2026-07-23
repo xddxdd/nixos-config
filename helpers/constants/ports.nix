@@ -15,7 +15,6 @@ rec {
     LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
-    V2Ray.UnblockCNClient = 1081;
     V2Ray.IPv4OnlyClient = 1082;
     KMS = 1688;
     Gemini = 1965;

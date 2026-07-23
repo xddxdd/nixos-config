@@ -2,6 +2,7 @@
   LT,
   lib,
   config,
+  inputs,
   ...
 }:
 let
@@ -26,6 +27,8 @@ in
   };
 
   config = {
+    sops.secrets.ss-unblock-cn.sopsFile = inputs.secrets + "/common/dae.yaml";
+
     services.dae = {
       enable = true;
       config = ''
@@ -37,11 +40,12 @@ in
             cfg.lanInterfaces != [ ]
           ) "lan_interface: ${builtins.concatStringsSep "," cfg.lanInterfaces}"}
           auto_config_kernel_parameter: false
+          log_level: warn
 
-          tcp_check_url: 'http://cp.cloudflare.com,1.1.1.1,2606:4700:4700::1111'
+          tcp_check_url: 'http://example.com'
           tcp_check_http_method: HEAD
           udp_check_dns: 'dns.google:53,8.8.8.8,2001:4860:4860::8888'
-          check_interval: 30s
+          check_interval: 600s
           check_tolerance: 50ms
 
           dial_mode: domain
@@ -50,11 +54,16 @@ in
 
           tls_implementation: utls
           utls_imitate: firefox_auto
+
+          mptcp: true
+        }
+
+        subscription {
+          ss_unblock_cn: "file://cn.sub"
         }
 
         node {
           v2ray: "socks5://localhost:${LT.portStr.V2Ray.SocksClient}"
-          v2ray_unblock_cn: "socks5://localhost:${LT.portStr.V2Ray.UnblockCNClient}"
           zgocloud: "socks5://${LT.hosts.zgocloud.ltnet.IPv4}:${LT.portStr.V2Ray.SocksClient}"
         }
 
@@ -82,8 +91,8 @@ in
             policy: fixed(0)
           }
           unblock_cn {
-            filter: name(v2ray_unblock_cn)
-            policy: fixed(0)
+            filter: subtag(ss_unblock_cn)
+            policy: min_moving_avg
           }
           zgocloud {
             filter: name(zgocloud)
@@ -100,6 +109,10 @@ in
 
           # Unblock CN
           pname(qqmusic) -> ${cfg.cnAction}
+          domain(geosite:cn) && dport(80) -> ${cfg.cnAction}
+          domain(geosite:cn) && dport(443) -> ${cfg.cnAction}
+          dip(geoip:cn) && dport(80) -> ${cfg.cnAction}
+          dip(geoip:cn) && dport(443) -> ${cfg.cnAction}
 
           domain(geosite:category-ads) -> block
           domain(geosite:category-ads-all) -> block
@@ -116,10 +129,18 @@ in
       '';
     };
 
-    systemd.services.dae.serviceConfig = {
-      Type = "simple"; # Do not block boot on network online
-      Restart = "on-failure";
-      RestartSec = "5";
+    systemd.services.dae = {
+      after = [ "sops-install-secrets.service" ];
+      requires = [ "sops-install-secrets.service" ];
+      serviceConfig = {
+        Type = "simple"; # Do not block boot on network online
+        Restart = "on-failure";
+        RestartSec = "5";
+
+        LoadCredential = [
+          "cn.sub:${config.sops.secrets.ss-unblock-cn.path}"
+        ];
+      };
     };
   };
 }
