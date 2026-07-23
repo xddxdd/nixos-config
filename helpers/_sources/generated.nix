@@ -84,18 +84,18 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.10.0";
+    version = "1.10.1";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.0/grafana-falconlogscale-datasource-1.10.0.zip";
-      sha256 = "sha256-aB8bYJJpNgDVFhZ2uS7nXTjKC4UhMa4OQOBXFxW0bq4=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.1/grafana-falconlogscale-datasource-1.10.1.zip";
+      sha256 = "sha256-QvEMAElkVVl29Lo1IKWfYW9vnbSRxjAdl6Tr3+EEcwg=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.11.0";
+    version = "3.11.1";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.0/yesoreyeram-infinity-datasource-3.11.0.zip";
-      sha256 = "sha256-DWtZUz7K9OUkyvRZ8g09T2tG4xRMHEcJQbj5E/tcz5U=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.1/yesoreyeram-infinity-datasource-3.11.1.zip";
+      sha256 = "sha256-r8JdbT3NqogPkw/6Qsut5aSjk3809n/qbj8bLVEdKW0=";
     };
   };
   lobe-icons = {
