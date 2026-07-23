@@ -53,6 +53,14 @@ let
     staticClients = [
       # keep-sorted start block=yes
       {
+        id = "actual";
+        name = "Actual Budget";
+        secret = {
+          _secret = config.sops.secrets.dex-actual-secret.path;
+        };
+        redirectURIs = [ "https://actual.xuyh0120.win/openid/callback" ];
+      }
+      {
         id = "gitea";
         name = "Gitea";
         secret = {
@@ -145,6 +153,7 @@ in
       )
       [
         # keep-sorted start
+        "actual"
         "gitea"
         "grafana"
         "immich"
