@@ -15,7 +15,6 @@
 
     ../../nixos/optional-apps/byparr.nix
     # ../../nixos/optional-apps/clamav.nix
-    ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix

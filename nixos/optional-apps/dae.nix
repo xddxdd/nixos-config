@@ -12,6 +12,10 @@ in
   imports = [ ../client-apps/v2ray.nix ];
 
   options.lantian.dae = {
+    wanInterface = lib.mkOption {
+      type = lib.types.str;
+      default = "auto";
+    };
     lanInterfaces = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
@@ -35,7 +39,7 @@ in
         global {
           tproxy_port: 1
           tproxy_port_protect: true
-          wan_interface: auto
+          wan_interface: ${cfg.wanInterface}
           ${lib.optionalString (
             cfg.lanInterfaces != [ ]
           ) "lan_interface: ${builtins.concatStringsSep "," cfg.lanInterfaces}"}

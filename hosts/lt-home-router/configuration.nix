@@ -12,12 +12,19 @@
 
     ../../nixos/common-apps/coredns.nix
     ../../nixos/client-components/multicast-dns.nix
+    ../../nixos/optional-apps/dae.nix
     ../../nixos/optional-apps/lancache.nix
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/nmea-static-gps-server.nix
     ../../nixos/optional-apps/ncps.nix
     ../../nixos/optional-apps/ncps-client.nix
   ];
+
+  lantian.dae = {
+    wanInterface = "eth1.201";
+    # Only enable proxy for personal devices
+    lanInterfaces = [ "eth0" ];
+  };
 
   services.miniupnpd = {
     externalInterface = "eth1.201";
