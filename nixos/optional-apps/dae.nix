@@ -42,7 +42,7 @@ in
           auto_config_kernel_parameter: false
           log_level: warn
 
-          tcp_check_url: 'http://example.com'
+          tcp_check_url: 'https://example.com'
           tcp_check_http_method: HEAD
           udp_check_dns: 'dns.google:53,8.8.8.8,2001:4860:4860::8888'
           check_interval: 600s
