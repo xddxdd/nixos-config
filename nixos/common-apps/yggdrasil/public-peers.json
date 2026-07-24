@@ -79,9 +79,8 @@
     "tls://188.225.9.167:18227",
     "tls://37.192.232.33:442",
     "tls://45.147.200.202:443",
-    "tls://45.95.202.21:443",
-    "tls://[2a09:5302:ffff::992]:443",
     "tls://box.paulll.cc:13338",
+    "tls://kursk.cleverfox.org:15015",
     "tls://ru2.cert.dev:7041",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
@@ -109,7 +108,6 @@
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "taiwan": [
-    "tls://cowgl.tech:1337",
     "tls://ygg-tw.lxak.net:443"
   ],
   "ukraine": [
