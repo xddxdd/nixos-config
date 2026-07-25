@@ -239,10 +239,6 @@ in
       swraid.enable = false;
     };
 
-    environment.systemPackages =
-      with config.boot.kernelPackages;
-      lib.optionals pkgs.stdenv.isx86_64 [ turbostat ];
-
     fileSystems."/run/nullfs" = {
       device = "nullfsvfs";
       fsType = "nullfsvfs";
