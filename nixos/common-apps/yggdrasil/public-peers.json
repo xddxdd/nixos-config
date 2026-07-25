@@ -72,6 +72,9 @@
   "norway": [
     "tls://no0.yggdrasil.netralex.com:65534?key=f4b9fe4f9923834b1c20f84e13b14d90ecde443f78613ec54cf484eea6880fea"
   ],
+  "poland": [
+    "tls://waw01.yggdrasil.hosted-by.skhron.eu:8884?key=030602cee88a761c68f5f14e1dad430f25238a703b69dc382321a38f833035b0"
+  ],
   "romania": [
     "tls://ygg-ro.axxa.dev:18080"
   ],
@@ -84,6 +87,7 @@
     "tls://ru2.cert.dev:7041",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
+    "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "saudi-arabia": [
@@ -105,9 +109,11 @@
   ],
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
   "taiwan": [
+    "tls://cowgl.tech:1337",
     "tls://ygg-tw.lxak.net:443"
   ],
   "ukraine": [
