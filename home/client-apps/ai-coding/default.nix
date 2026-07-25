@@ -143,7 +143,7 @@ in
       enableAnalytics = false;
       defaultProvider = "ollama-cloud";
       defaultModel = "glm-5.2";
-      defaultThinkingLevel = "xhigh";
+      defaultThinkingLevel = "high";
       showCacheMissNotices = true;
 
       packages = [

@@ -93,6 +93,7 @@ rec {
     Tika = 13787;
     OpenAIEdgeTTS = 13789;
     MTranServer = 13791;
+    Mihomo = 13792;
     Plausible = 13800;
     ArchiveBox = 13801;
     Attic = 13803;

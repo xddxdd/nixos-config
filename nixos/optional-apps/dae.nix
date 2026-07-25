@@ -2,7 +2,6 @@
   LT,
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -31,8 +30,6 @@ in
   };
 
   config = {
-    sops.secrets.ss-unblock-cn.sopsFile = inputs.secrets + "/common/dae.yaml";
-
     services.dae = {
       enable = true;
       config = ''
@@ -62,12 +59,9 @@ in
           mptcp: true
         }
 
-        subscription {
-          ss_unblock_cn: "file://cn.sub"
-        }
-
         node {
           v2ray: "socks5://localhost:${LT.portStr.V2Ray.SocksClient}"
+          mihomo_unblock_cn: "socks5://${LT.hosts.bwg-lax.ltnet.IPv4}:${LT.portStr.Mihomo}"
           zgocloud: "socks5://${LT.hosts.zgocloud.ltnet.IPv4}:${LT.portStr.V2Ray.SocksClient}"
         }
 
@@ -95,7 +89,7 @@ in
             policy: fixed(0)
           }
           unblock_cn {
-            filter: subtag(ss_unblock_cn)
+            filter: name(mihomo_unblock_cn)
             policy: min_moving_avg
           }
           zgocloud {
@@ -140,10 +134,6 @@ in
         Type = "simple"; # Do not block boot on network online
         Restart = "on-failure";
         RestartSec = "5";
-
-        LoadCredential = [
-          "cn.sub:${config.sops.secrets.ss-unblock-cn.path}"
-        ];
       };
     };
   };

@@ -207,7 +207,7 @@ let
     "223.128.0.0 255.128.0.0"
   ];
 in
-{
+lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   sops.secrets.openvpn-gameaccel-ca = {
     sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
