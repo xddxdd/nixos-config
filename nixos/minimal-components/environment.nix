@@ -174,6 +174,7 @@
   };
 
   system.disableInstallerTools = !LT.this.hasTag LT.tags.client;
+  system.etc.useSetupEtcNg = true;
   system.fsPackages = [ pkgs.bindfs ];
 
   systemd = {
