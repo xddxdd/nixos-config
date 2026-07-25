@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../nixos/hardware/disable-watchdog.nix
@@ -6,6 +6,8 @@
     ../../nixos/hardware/qemu.nix
     ../../nixos/hardware/qemu-hotplug.nix
   ];
+
+  lantian.hostType = lib.mkForce "vm-passthrough";
 
   boot.initrd.kernelModules = [ "virtiofs" ];
 

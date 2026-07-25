@@ -51,7 +51,6 @@
     dig
     duf
     e2fsprogs # chattr, lsattr
-    ethtool
     eza
     fuc
     fzf
@@ -59,30 +58,23 @@
     gzip
     inetutils
     iperf3
-    iw
-    lm_sensors
     lsof
     nettools
     nix-tree
-    nmap
     nur-xddxdd.lantianCustomized.ls-iommu
     nur-xddxdd.lantianCustomized.nixos-cleanup
     nur-xddxdd.lantianCustomized.x86-arch-level
     openssl
-    pciutils
     pigz
     pv
     python3
     ripgrep
     rsync
     screen
-    smartmontools
-    speedtest-cli
     sqlite
     strace
     tcpdump
     unzip
-    usbutils
     wget
     wireguard-tools
     zip

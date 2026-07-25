@@ -11,6 +11,8 @@
     ../../nixos/hardware/hdr.nix
   ];
 
+  lantian.hostType = lib.mkForce "physical";
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

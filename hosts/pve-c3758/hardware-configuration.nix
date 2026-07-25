@@ -8,6 +8,8 @@
     ../../nixos/hardware/smart.nix
   ];
 
+  lantian.hostType = lib.mkForce "physical";
+
   boot.kernelModules = [ "qat_c3xxx" ];
 
   boot.loader.grub = {

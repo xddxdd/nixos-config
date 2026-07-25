@@ -18,6 +18,8 @@
     ../../nixos/hardware/vfio.nix
   ];
 
+  lantian.hostType = lib.mkForce "physical";
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

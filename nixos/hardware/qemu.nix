@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 {
@@ -25,5 +24,5 @@
     "virtio_rng"
   ];
 
-  programs.htop.package = pkgs.htop.override { sensorsSupport = false; };
+  lantian.hostType = "vm";
 }

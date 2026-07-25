@@ -11,6 +11,8 @@
     ../../nixos/hardware/ecc-ram.nix
   ];
 
+  lantian.hostType = lib.mkForce "physical";
+
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   boot.initrd.availableKernelModules = [
