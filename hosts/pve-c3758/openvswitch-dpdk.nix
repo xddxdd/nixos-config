@@ -53,7 +53,7 @@ in
     script = ''
       ovs-vsctl set Open_vSwitch . "other_config:dpdk-init=true"
       ovs-vsctl set Open_vSwitch . "other_config:dpdk-lcore-mask=0xc0"
-      ovs-vsctl set Open_vSwitch . "other_config:pmd-cpu-mask=0xc0"
+      ovs-vsctl set Open_vSwitch . "other_config:pmd-cpu-mask=0x80"
       ovs-vsctl set Open_vSwitch . "other_config:dpdk-socket-mem=2048"
       ovs-vsctl set Open_vSwitch . "other_config:dpdk-socket-limit=2048"
       ovs-vsctl set Open_vSwitch . "other_config:vhost-iommu-support=true"

@@ -69,7 +69,7 @@
       "ixgbe" # Intel X553
       "qat_c3xxxvf" # Intel QAT C3000 VF
     ];
-    isolcpus = "6-7";
+    isolcpus = "7";
   };
 
   systemd.services.qat-sriov = {
