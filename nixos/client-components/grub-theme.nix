@@ -1,0 +1,52 @@
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  installRandomStarRailGrubTheme = pkgs.writeShellScript "install-random-star-rail-grub-theme" ''
+    # Select random Star Rail Grub theme
+    THEME_PATH=$(ls -1 ${inputs.honkai-railway-grub-theme}/assets/themes | grep "_cn" | sort -R | head -n1)
+    echo "Randomly selected theme $THEME_PATH"
+    if [ -d "/boot/theme" ]; then
+      cp -r \
+        ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/* \
+        /boot/theme/
+      cp \
+        ${inputs.honkai-railway-grub-theme}/assets/themes/$THEME_PATH/background.png \
+        /boot/background.png
+      echo "Install complete"
+    else
+      echo "/boot/theme not found, not installing theme"
+    fi
+  '';
+in
+{
+  boot.loader.grub.extraInstallCommands = lib.mkForce ''
+    ${installRandomStarRailGrubTheme}
+  '';
+
+  honkai-railway-grub-theme = {
+    enable = true;
+    theme = "Evernight_cn";
+  };
+  stylix.targets.grub.enable = lib.mkForce false;
+  systemd.services.install-random-star-rail-grub-theme = {
+    description = "Install Random Star Rail Grub Theme";
+    after = [ "boot.mount" ];
+    requires = [ "boot.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${installRandomStarRailGrubTheme}";
+      Type = "oneshot";
+    };
+  };
+
+  systemd.services.systemd-sysctl.serviceConfig = {
+    ExecStart = [
+      ""
+      "/bin/sh -c \"${pkgs.systemd}/lib/systemd/systemd-sysctl; exit 0\""
+    ];
+  };
+}
