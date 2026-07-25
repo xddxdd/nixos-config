@@ -26,8 +26,11 @@
 
   lantian.preservation.directories = [ "/root/.cache/pandemonium" ];
 
-  systemd.services.scx.serviceConfig = lib.mkIf config.services.scx.enable {
-    Restart = lib.mkForce "always";
-    RestartSec = "3";
+  systemd.services.scx = {
+    inherit (config.services.scx) enable;
+    serviceConfig = lib.mkIf config.services.scx.enable {
+      Restart = lib.mkForce "always";
+      RestartSec = "3";
+    };
   };
 }
