@@ -99,9 +99,6 @@ in
     kubernetes-helm
     lens
 
-    # LaTeX
-    texlive.combined.scheme-full
-
     # Linux headers
     LT.config.boot.kernelPackages.kernel.dev
 
