@@ -16,6 +16,13 @@
 - **不要**从源码手动 `make install`
 - **不要**使用 `curl | sh` 等方式安装软件
 
+### 禁止从根目录搜索
+
+- **不要**执行 `find /`、`grep -r /`、`fd /`、`rg /` 等从根目录（`/`）开始的搜索命令
+- 在 NixOS 上，`/nix/store` 包含大量文件，从根目录遍历会极其缓慢，可能耗时数分钟甚至卡死
+- 需要搜索时，应限定在具体目录内，例如 `find /etc`、`rg . /home/user/project`
+- 如需查找系统文件，优先使用 `which`、`whereis`、`nix-locate` 等针对性工具
+
 ## devShell 集成
 
 ### 判断是否应加入 devShell
