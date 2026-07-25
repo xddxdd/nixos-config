@@ -114,6 +114,7 @@ rec {
     LlamaCpp.Qwen3_6 = 13881;
     Actual = 13882;
     ElasticSearch = 13892;
+    DN42Peerfinder = 13900;
     ADSB.RawInput = 13901;
     ADSB.RawOutput = 13902;
     ADSB.BaseStationOutput = 13903;

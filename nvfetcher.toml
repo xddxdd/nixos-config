@@ -26,6 +26,12 @@ src.webpage = "https://dn42.g-load.eu/about/certificate-authority/client.sh"
 src.regex = "# Version ([0-9\\.]+)"
 url.name = "client.sh"
 
+[dn42-peerfinder-client]
+fetch.url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=$ver"
+src.webpage = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py"
+src.regex = "AGENT_VERSION = \"([0-9\\.]+)\""
+url.name = "peerfinder-agent.py"
+
 [dnscontrol-xddxdd]
 fetch.github = "xddxdd/dnscontrol"
 src.git = "https://github.com/xddxdd/dnscontrol.git"

@@ -96,7 +96,7 @@ Flake 入口文件，定义了：
 | --------------------- | ------------------------------------------------------ |
 | `minimal-apps/`       | 最小化应用（geoip、nginx-proxy、rsync-server）         |
 | `common-apps/`        | 通用应用                                               |
-| `server-apps/`        | 服务器应用（coredns、dn42-pingfinder、iperf、bird 等） |
+| `server-apps/`        | 服务器应用（coredns、dn42-peerfinder、iperf、bird 等） |
 | `client-apps/`        | 客户端应用（firefox、steam、thunderbird、fcitx 等）    |
 | `minimal-components/` | 最小化组件（boot、networking、nix、ssh 等）            |
 | `minimal-modules/`    | 可上游化模块（独立工作、默认禁用，仅添加 options）     |

@@ -70,6 +70,15 @@
       sha256 = "sha256-Q4FhNwlEaC10xJ5dXyWzE/tNzvah8z9RdPhxHUiVamY=";
     };
   };
+  dn42-peerfinder-client = {
+    pname = "dn42-peerfinder-client";
+    version = "1.0.4";
+    src = fetchurl {
+      url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.4";
+      name = "peerfinder-agent.py";
+      sha256 = "sha256-gfZcDwW4BOPUlbDjdFa/NlYSzCNuqOMj4JNI1ysW3lE=";
+    };
+  };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
     version = "8dd76ec7fdc2c8e4db6c30001d3abf344dc5f627";

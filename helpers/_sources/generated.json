@@ -105,6 +105,21 @@
         },
         "version": "1.1.1"
     },
+    "dn42-peerfinder-client": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dn42-peerfinder-client",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "peerfinder-agent.py",
+            "sha256": "sha256-gfZcDwW4BOPUlbDjdFa/NlYSzCNuqOMj4JNI1ysW3lE=",
+            "type": "url",
+            "url": "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.4"
+        },
+        "version": "1.0.4"
+    },
     "dnscontrol-xddxdd": {
         "cargoLock": null,
         "date": "2026-07-14",
