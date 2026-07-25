@@ -152,6 +152,7 @@ in
         "npm:@juicesharp/rpiv-todo"
         "npm:@monotykamary/pi-tps"
         "npm:pi-btw"
+        "npm:pi-codex-goal"
         "npm:pi-lens"
         "npm:pi-mcp-adapter"
         "npm:pi-ollama-cloud"
