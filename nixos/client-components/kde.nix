@@ -26,6 +26,7 @@
     khelpcenter
     konsole
   ];
+  programs.kde-pim.enable = false;
 
   services.desktopManager.plasma6 = {
     enable = true;
