@@ -1,0 +1,2676 @@
+diff --git a/nixos/modules/system/boot/loader/grub/grub.nix b/nixos/modules/system/boot/loader/grub/grub.nix
+index 042fd63cd254..069700608a29 100644
+--- a/nixos/modules/system/boot/loader/grub/grub.nix
++++ b/nixos/modules/system/boot/loader/grub/grub.nix
+@@ -64,82 +64,86 @@ let
+     let
+       efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
+       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
++      writer =
++        if cfg.useInstallNg then
++          (pkgs.formats.json { }).generate "grub-config.json"
++        else
++          (s: pkgs.writeText "grub-config.xml" (builtins.toXML s));
+     in
+-    pkgs.writeText "grub-config.xml" (
+-      builtins.toXML {
+-        splashImage = f cfg.splashImage;
+-        splashMode = f cfg.splashMode;
+-        backgroundColor = f cfg.backgroundColor;
+-        entryOptions = f cfg.entryOptions;
+-        subEntryOptions = f cfg.subEntryOptions;
+-        # PC platforms (like x86_64-linux) have a non-EFI target (`grubTarget`), but other platforms
+-        # (like aarch64-linux) have an undefined `grubTarget`. Avoid providing the path to a non-EFI
+-        # GRUB on those platforms.
+-        grub = f (if (grub.grubTarget or "") != "" then grub else "");
+-        grubTarget = f (grub.grubTarget or "");
+-        shell = "${pkgs.runtimeShell}";
+-        fullName = lib.getName realGrub;
+-        fullVersion = lib.getVersion realGrub;
+-        grubEfi = f grubEfi;
+-        grubTargetEfi = optionalString cfg.efiSupport (f (grubEfi.grubTarget or ""));
+-        bootPath = args.path;
+-        storePath = config.boot.loader.grub.storePath;
+-        bootloaderId =
+-          if args.efiBootloaderId == null then
+-            "${config.system.nixos.distroName}${efiSysMountPoint'}"
+-          else
+-            args.efiBootloaderId;
+-        timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+-        theme = f cfg.theme;
+-        inherit efiSysMountPoint;
+-        inherit (args) devices;
+-        inherit (efi) canTouchEfiVariables;
+-        inherit (cfg)
+-          extraConfig
+-          extraPerEntryConfig
+-          extraEntries
+-          forceInstall
+-          useOSProber
+-          extraGrubInstallArgs
+-          extraEntriesBeforeNixOS
+-          extraPrepareConfig
+-          configurationLimit
+-          copyKernels
+-          default
+-          fsIdentifier
+-          efiSupport
+-          efiInstallAsRemovable
+-          gfxmodeEfi
+-          gfxmodeBios
+-          gfxpayloadEfi
+-          gfxpayloadBios
+-          users
+-          timeoutStyle
+-          ;
+-        path =
+-          with pkgs;
+-          makeBinPath (
+-            [
+-              coreutils
+-              gnused
+-              gnugrep
+-              findutils
+-              diffutils
+-              btrfs-progs
+-              util-linux
+-              mdadm
+-            ]
+-            ++ optional cfg.efiSupport efibootmgr
+-            ++ optionals cfg.useOSProber [
+-              busybox
+-              os-prober
+-            ]
+-          );
+-        font = lib.optionalString (cfg.font != null) (
+-          if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}"
++    writer {
++      splashImage = f cfg.splashImage;
++      splashMode = f cfg.splashMode;
++      backgroundColor = f cfg.backgroundColor;
++      entryOptions = f cfg.entryOptions;
++      subEntryOptions = f cfg.subEntryOptions;
++      # PC platforms (like x86_64-linux) have a non-EFI target (`grubTarget`), but other platforms
++      # (like aarch64-linux) have an undefined `grubTarget`. Avoid providing the path to a non-EFI
++      # GRUB on those platforms.
++      grub = f (if (grub.grubTarget or "") != "" then grub else "");
++      grubTarget = f (grub.grubTarget or "");
++      shell = "${pkgs.runtimeShell}";
++      fullName = lib.getName realGrub;
++      fullVersion = lib.getVersion realGrub;
++      grubEfi = f grubEfi;
++      grubTargetEfi = optionalString cfg.efiSupport (f (grubEfi.grubTarget or ""));
++      bootPath = args.path;
++      storePath = config.boot.loader.grub.storePath;
++      bootloaderId =
++        if args.efiBootloaderId == null then
++          "${config.system.nixos.distroName}${efiSysMountPoint'}"
++        else
++          args.efiBootloaderId;
++      timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
++      theme = f cfg.theme;
++      inherit efiSysMountPoint;
++      inherit (builtins) storeDir;
++      inherit (args) devices;
++      inherit (efi) canTouchEfiVariables;
++      inherit (cfg)
++        extraConfig
++        extraPerEntryConfig
++        extraEntries
++        forceInstall
++        useOSProber
++        extraGrubInstallArgs
++        extraEntriesBeforeNixOS
++        extraPrepareConfig
++        configurationLimit
++        copyKernels
++        default
++        fsIdentifier
++        efiSupport
++        efiInstallAsRemovable
++        gfxmodeEfi
++        gfxmodeBios
++        gfxpayloadEfi
++        gfxpayloadBios
++        users
++        timeoutStyle
++        ;
++      path =
++        with pkgs;
++        makeBinPath (
++          [
++            coreutils
++            gnused
++            gnugrep
++            findutils
++            diffutils
++            btrfs-progs
++            util-linux
++            mdadm
++          ]
++          ++ optional cfg.efiSupport efibootmgr
++          ++ optionals cfg.useOSProber [
++            busybox
++            os-prober
++          ]
+         );
+-      }
+-    );
++      font = lib.optionalString (cfg.font != null) (
++        if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}"
++      );
++    };
+ 
+   bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
+     concatMap (args: args.devices) cfg.mirroredBoots
+@@ -769,6 +773,15 @@ in
+         '';
+       };
+ 
++      useInstallNg = mkOption {
++        default = false;
++        type = types.bool;
++        description = ''
++          Whether to use `install-grub-ng`, an experimental rewrite of `install-grub`
++          in Rust, with the goal of replacing the original Perl script.
++        '';
++      };
++
+     };
+ 
+   };
+@@ -824,6 +837,15 @@ in
+               JSON
+             ]
+           );
++          ng = pkgs.install-grub-ng.override {
++            inherit (config.system.nixos) distroName;
++          };
++          genRun =
++            args:
++            if cfg.useInstallNg then
++              "${lib.getExe ng} ${grubConfig args} \"$@\"\n"
++            else
++              "${lib.getExe perl} ${install-grub-pl} ${grubConfig args} \"$@\"\n";
+         in
+         pkgs.writeScript "install-grub.sh" (
+           ''
+@@ -831,9 +853,7 @@ in
+             set -e
+             ${optionalString cfg.enableCryptodisk "export GRUB_ENABLE_CRYPTODISK=y"}
+           ''
+-          + flip concatMapStrings cfg.mirroredBoots (args: ''
+-            ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
+-          '')
++          + flip concatMapStrings cfg.mirroredBoots genRun
+           + cfg.extraInstallCommands
+         );
+ 
+diff --git a/pkgs/by-name/in/install-grub-ng/Cargo.lock b/pkgs/by-name/in/install-grub-ng/Cargo.lock
+new file mode 100644
+index 000000000000..3475a9ca44eb
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/Cargo.lock
+@@ -0,0 +1,357 @@
++# This file is automatically @generated by Cargo.
++# It is not intended for manual editing.
++version = 4
++
++[[package]]
++name = "bitflags"
++version = "2.6.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b048fb63fd8b5923fc5aa7b340d8e156aec7ec02f0c78fa8a6ddc2613f6f71de"
++
++[[package]]
++name = "cfg-if"
++version = "1.0.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
++
++[[package]]
++name = "cfg_aliases"
++version = "0.2.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
++
++[[package]]
++name = "deranged"
++version = "0.3.11"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b42b6fa04a440b495c8b04d0e71b707c585f83cb9cb28cf8cd0d976c315e31b4"
++dependencies = [
++ "powerfmt",
++]
++
++[[package]]
++name = "errno"
++version = "0.3.10"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "33d852cb9b869c2a9b3df2f71a3074817f01e1844f839a144f5fcef059a4eb5d"
++dependencies = [
++ "libc",
++ "windows-sys 0.59.0",
++]
++
++[[package]]
++name = "eyre"
++version = "0.6.12"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "7cd915d99f24784cdc19fd37ef22b97e3ff0ae756c7e492e9fbfe897d61e2aec"
++dependencies = [
++ "indenter",
++ "once_cell",
++]
++
++[[package]]
++name = "fastrand"
++version = "2.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "486f806e73c5707928240ddc295403b1b93c96a02038563881c4a2fd84b81ac4"
++
++[[package]]
++name = "indenter"
++version = "0.3.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "ce23b50ad8242c51a442f3ff322d56b02f08852c77e4c0b4d3fd684abc89c683"
++
++[[package]]
++name = "install-grub"
++version = "0.1.0"
++dependencies = [
++ "eyre",
++ "nix",
++ "serde",
++ "serde_json",
++ "tempfile",
++ "time",
++ "walkdir",
++]
++
++[[package]]
++name = "itoa"
++version = "1.0.14"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d75a2a4b1b190afb6f5425f10f6a8f959d2ea0b9c2b1d79553551850539e4674"
++
++[[package]]
++name = "libc"
++version = "0.2.167"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "09d6582e104315a817dff97f75133544b2e094ee22447d2acf4a74e189ba06fc"
++
++[[package]]
++name = "linux-raw-sys"
++version = "0.4.14"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
++
++[[package]]
++name = "memchr"
++version = "2.7.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
++
++[[package]]
++name = "nix"
++version = "0.29.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "71e2746dc3a24dd78b3cfcb7be93368c6de9963d30f43a6a73998a9cf4b17b46"
++dependencies = [
++ "bitflags",
++ "cfg-if",
++ "cfg_aliases",
++ "libc",
++]
++
++[[package]]
++name = "num-conv"
++version = "0.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "51d515d32fb182ee37cda2ccdcb92950d6a3c2893aa280e540671c2cd0f3b1d9"
++
++[[package]]
++name = "once_cell"
++version = "1.20.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1261fe7e33c73b354eab43b1273a57c8f967d0391e80353e51f764ac02cf6775"
++
++[[package]]
++name = "powerfmt"
++version = "0.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391"
++
++[[package]]
++name = "proc-macro2"
++version = "1.0.92"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "37d3544b3f2748c54e147655edb5025752e2303145b5aefb3c3ea2c78b973bb0"
++dependencies = [
++ "unicode-ident",
++]
++
++[[package]]
++name = "quote"
++version = "1.0.37"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
++dependencies = [
++ "proc-macro2",
++]
++
++[[package]]
++name = "rustix"
++version = "0.38.41"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d7f649912bc1495e167a6edee79151c84b1bad49748cb4f1f1167f459f6224f6"
++dependencies = [
++ "bitflags",
++ "errno",
++ "libc",
++ "linux-raw-sys",
++ "windows-sys 0.52.0",
++]
++
++[[package]]
++name = "ryu"
++version = "1.0.18"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
++
++[[package]]
++name = "same-file"
++version = "1.0.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
++dependencies = [
++ "winapi-util",
++]
++
++[[package]]
++name = "serde"
++version = "1.0.215"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6513c1ad0b11a9376da888e3e0baa0077f1aed55c17f50e7b2397136129fb88f"
++dependencies = [
++ "serde_derive",
++]
++
++[[package]]
++name = "serde_derive"
++version = "1.0.215"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "ad1e866f866923f252f05c889987993144fb74e722403468a4ebd70c3cd756c0"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn",
++]
++
++[[package]]
++name = "serde_json"
++version = "1.0.133"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c7fceb2473b9166b2294ef05efcb65a3db80803f0b03ef86a5fc88a2b85ee377"
++dependencies = [
++ "itoa",
++ "memchr",
++ "ryu",
++ "serde",
++]
++
++[[package]]
++name = "syn"
++version = "2.0.90"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "919d3b74a5dd0ccd15aeb8f93e7006bd9e14c295087c9896a110f490752bcf31"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "unicode-ident",
++]
++
++[[package]]
++name = "tempfile"
++version = "3.14.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "28cce251fcbc87fac86a866eeb0d6c2d536fc16d06f184bb61aeae11aa4cee0c"
++dependencies = [
++ "cfg-if",
++ "fastrand",
++ "once_cell",
++ "rustix",
++ "windows-sys 0.59.0",
++]
++
++[[package]]
++name = "time"
++version = "0.3.37"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "35e7868883861bd0e56d9ac6efcaaca0d6d5d82a2a7ec8209ff492c07cf37b21"
++dependencies = [
++ "deranged",
++ "num-conv",
++ "powerfmt",
++ "serde",
++ "time-core",
++]
++
++[[package]]
++name = "time-core"
++version = "0.1.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "ef927ca75afb808a4d64dd374f00a2adf8d0fcff8e7b184af886c3c87ec4a3f3"
++
++[[package]]
++name = "unicode-ident"
++version = "1.0.14"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "adb9e6ca4f869e1180728b7950e35922a7fc6397f7b641499e8f3ef06e50dc83"
++
++[[package]]
++name = "walkdir"
++version = "2.5.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "29790946404f91d9c5d06f9874efddea1dc06c5efe94541a7d6863108e3a5e4b"
++dependencies = [
++ "same-file",
++ "winapi-util",
++]
++
++[[package]]
++name = "winapi-util"
++version = "0.1.9"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
++dependencies = [
++ "windows-sys 0.59.0",
++]
++
++[[package]]
++name = "windows-sys"
++version = "0.52.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
++dependencies = [
++ "windows-targets",
++]
++
++[[package]]
++name = "windows-sys"
++version = "0.59.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1e38bc4d79ed67fd075bcc251a1c39b32a1776bbe92e5bef1f0bf1f8c531853b"
++dependencies = [
++ "windows-targets",
++]
++
++[[package]]
++name = "windows-targets"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "9b724f72796e036ab90c1021d4780d4d3d648aca59e491e6b98e725b84e99973"
++dependencies = [
++ "windows_aarch64_gnullvm",
++ "windows_aarch64_msvc",
++ "windows_i686_gnu",
++ "windows_i686_gnullvm",
++ "windows_i686_msvc",
++ "windows_x86_64_gnu",
++ "windows_x86_64_gnullvm",
++ "windows_x86_64_msvc",
++]
++
++[[package]]
++name = "windows_aarch64_gnullvm"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "32a4622180e7a0ec044bb555404c800bc9fd9ec262ec147edd5989ccd0c02cd3"
++
++[[package]]
++name = "windows_aarch64_msvc"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "09ec2a7bb152e2252b53fa7803150007879548bc709c039df7627cabbd05d469"
++
++[[package]]
++name = "windows_i686_gnu"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8e9b5ad5ab802e97eb8e295ac6720e509ee4c243f69d781394014ebfe8bbfa0b"
++
++[[package]]
++name = "windows_i686_gnullvm"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "0eee52d38c090b3caa76c563b86c3a4bd71ef1a819287c19d586d7334ae8ed66"
++
++[[package]]
++name = "windows_i686_msvc"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "240948bc05c5e7c6dabba28bf89d89ffce3e303022809e73deaefe4f6ec56c66"
++
++[[package]]
++name = "windows_x86_64_gnu"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "147a5c80aabfbf0c7d901cb5895d1de30ef2907eb21fbbab29ca94c5b08b1a78"
++
++[[package]]
++name = "windows_x86_64_gnullvm"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "24d5b23dc417412679681396f2b49f3de8c1473deb516bd34410872eff51ed0d"
++
++[[package]]
++name = "windows_x86_64_msvc"
++version = "0.52.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
+diff --git a/pkgs/by-name/in/install-grub-ng/Cargo.toml b/pkgs/by-name/in/install-grub-ng/Cargo.toml
+new file mode 100644
+index 000000000000..121ea75f4002
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/Cargo.toml
+@@ -0,0 +1,17 @@
++[package]
++name = "install-grub"
++version = "0.1.0"
++edition = "2021"
++
++[dependencies]
++eyre = "0.6.12"
++nix = { version = "0.29.0", features = ["fs"] }
++serde = { version = "1.0.203", features = ["derive"] }
++serde_json = "1.0.117"
++tempfile = "3.10.1"
++time = "0.3.36"
++walkdir = "2.5.0"
++
++[profile.release]
++strip = true
++lto = true
+diff --git a/pkgs/by-name/in/install-grub-ng/package.nix b/pkgs/by-name/in/install-grub-ng/package.nix
+new file mode 100644
+index 000000000000..86c7da8322e1
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/package.nix
+@@ -0,0 +1,42 @@
++{
++  lib,
++  rustPlatform,
++  btrfs-progs,
++  util-linux,
++
++  distroName ? "NixOS",
++}:
++let
++  inherit (lib.importTOML ./Cargo.toml) package;
++in
++rustPlatform.buildRustPackage {
++  pname = package.name;
++  inherit (package) version;
++
++  src = lib.fileset.toSource {
++    root = ./.;
++    fileset = lib.fileset.unions [
++      ./Cargo.lock
++      ./Cargo.toml
++      ./src
++    ];
++  };
++
++  cargoLock.lockFile = ./Cargo.lock;
++
++  env = {
++    BLKID = lib.getExe' util-linux "blkid";
++    BTRFS = lib.getExe' btrfs-progs "btrfs";
++    DISTRO_NAME = distroName;
++  };
++
++  meta = {
++    description = "GRUB configurator and installer for NixOS (internal use)";
++    mainProgram = "install-grub";
++    maintainers = with lib.maintainers; [ pluiedev ];
++    license = with lib.licenses; [
++      mit
++      asl20
++    ];
++  };
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/builder.rs b/pkgs/by-name/in/install-grub-ng/src/builder.rs
+new file mode 100644
+index 000000000000..4c6b31124617
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/builder.rs
+@@ -0,0 +1,165 @@
++mod appearance;
++mod entries;
++mod install;
++
++use std::{
++    collections::HashSet,
++    fmt::Write as _,
++    fs,
++    os::{linux::fs::MetadataExt, unix::fs::PermissionsExt},
++    path::{Path, PathBuf},
++    sync::LazyLock,
++};
++
++use eyre::{Context, Result};
++
++use crate::{config::Config, grub::Grub};
++
++pub struct Builder<'conf> {
++    config: Config<'conf>,
++
++    grub_boot: Grub,
++    grub_store: Option<Grub>,
++
++    default_config: &'conf Path,
++    copied: HashSet<PathBuf>,
++
++    inner: String,
++}
++
++impl<'conf> Builder<'conf> {
++    pub fn new(mut config: Config<'conf>, default_config: &'conf Path) -> Result<Self> {
++        unless_dry_run(|| {
++            let grub = config.boot_path.join("grub");
++            fs::create_dir_all(&grub).context("Failed to create GRUB directory in boot path")?;
++            fs::set_permissions(&grub, fs::Permissions::from_mode(0o700))
++                .context("Failed to make GRUB directory executable")?;
++            Ok(())
++        })?;
++
++        // Discover whether the bootPath is on the same filesystem as / and
++        // the Nix store.  If not, then all kernels and initrds must be copied
++        // to the bootPath.
++        if let Ok(metadata) = config.boot_path.metadata() {
++            if metadata.st_dev() != Path::new(config.store_dir).metadata()?.st_dev() {
++                config.copy_kernels = true;
++            }
++        }
++
++        let grub_boot = Grub::new(config.boot_path, &config)?;
++        let grub_store = if !config.copy_kernels {
++            Some(Grub::new(config.store_path, &config)?)
++        } else {
++            None
++        };
++
++        Ok(Self {
++            config,
++            grub_boot,
++            grub_store,
++            default_config,
++            copied: HashSet::new(),
++            inner: String::from("# Automatically generated.  DO NOT EDIT THIS FILE!\n\n"),
++        })
++    }
++
++    pub fn users(&mut self) -> Result<&mut Self> {
++        for (name, password) in self.config.users.0.iter() {
++            writeln!(
++                &mut self.inner,
++                "{} {name} {}",
++                if password.is_hashed {
++                    "password_pbkdf2"
++                } else {
++                    "password"
++                },
++                password.content
++            )?
++        }
++
++        let usernames: Vec<_> = self.config.users.0.keys().copied().collect();
++        if !usernames.is_empty() {
++            writeln!(
++                &mut self.inner,
++                r#"set superusers="{}""#,
++                usernames.join(" ")
++            )?;
++        }
++
++        if let Some(store) = &self.grub_store {
++            writeln!(&mut self.inner, "{}", store.search)?;
++        }
++
++        Ok(self)
++    }
++
++    pub fn default_entry(&mut self) -> Result<&mut Self> {
++        // FIXME: should use grub-mkconfig.
++        let default_entry = if self.config.save_default() {
++            r#""${saved_entry}""#
++        } else {
++            self.config.default_entry
++        };
++
++        let Config {
++            timeout,
++            timeout_style,
++            ..
++        } = &self.config;
++
++        writeln!(
++            &mut self.inner,
++            r#"{search}
++if [ -s $prefix/grubenv ]; then
++  load_env
++fi
++
++# ‘grub-reboot’ sets a one-time saved entry, which we process here and
++# then delete.
++if [ "${{next_entry}}" ]; then
++  set default="${{next_entry}}"
++  set next_entry=
++  save_env next_entry
++  set timeout=1
++  set boot_once=true
++else
++  set default={default_entry}
++  set timeout={timeout}
++fi
++set timeout_style={timeout_style}
++
++function savedefault {{
++  if [ -z "${{boot_once}}"]; then
++    saved_entry="${{chosen}}"
++    save_env saved_entry
++  fi
++}}
++
++# Setup the graphics stack for bios and efi systems
++if [ "${{grub_platform}}" = "efi" ]; then
++  insmod efi_gop
++  insmod efi_uga
++else
++  insmod vbe
++fi
++"#,
++            search = self.grub_boot.search,
++        )?;
++
++        Ok(self)
++    }
++}
++
++pub(crate) fn is_dry_run() -> bool {
++    static DRY_RUN: LazyLock<bool> =
++        LazyLock::new(|| std::env::var("DRY_RUN").as_deref() == Ok("true"));
++    *DRY_RUN
++}
++
++pub(crate) fn unless_dry_run(f: impl FnOnce() -> Result<()>) -> Result<()> {
++    if !is_dry_run() {
++        f()
++    } else {
++        Ok(())
++    }
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs b/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs
+new file mode 100644
+index 000000000000..6c6e2800c408
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs
+@@ -0,0 +1,199 @@
++use std::{collections::HashSet, fmt::Write as _, fs, path::PathBuf};
++
++use eyre::{bail, Result, WrapErr};
++use walkdir::WalkDir;
++
++use super::{unless_dry_run, Builder};
++use crate::config::Config;
++
++impl Builder<'_> {
++    pub fn appearance(&mut self) -> Result<&mut Self> {
++        self.append_font().context("Writing font settings")?;
++        self.append_splash().context("Writing splash settings")?;
++        self.append_theme().context("Writing theme settings")?;
++        self.append_extra_config().context("Writing extra config")?;
++
++        Ok(self)
++    }
++
++    pub fn append_font(&mut self) -> Result<()> {
++        let Config {
++            font,
++            boot_path,
++            gfx_mode_efi,
++            gfx_payload_efi,
++            gfx_mode_bios,
++            gfx_payload_bios,
++            ..
++        } = &self.config;
++
++        let Some(font) = font else {
++            return Ok(());
++        };
++
++        let new_font = "converted-font.pf2";
++        let font_path = boot_path.join(new_font);
++
++        unless_dry_run(|| {
++            fs::copy(font, font_path).with_context(|| {
++                format!("Cannot copy {} to {}", font.display(), boot_path.display())
++            })?;
++            Ok(())
++        })?;
++
++        writeln!(
++            &mut self.inner,
++            r#"insmod font
++if loadfont {font}; then
++  insmod gfxterm
++  if [ "${{grub_platform}}" = "efi" ]; then
++    set gfxmode={gfx_mode_efi}
++    set gfxpayload={gfx_payload_efi}
++  else
++    set gfxmode={gfx_mode_bios}
++    set gfxpayload={gfx_payload_bios}
++  fi
++  terminal_output gfxterm
++fi
++"#,
++            font = self.grub_boot.path.join(new_font).display(),
++        )?;
++
++        Ok(())
++    }
++
++    pub fn append_splash(&mut self) -> Result<()> {
++        let Config {
++            splash_image,
++            background_color,
++            boot_path,
++            splash_mode,
++            ..
++        } = &self.config;
++
++        let Some(splash_image) = splash_image else {
++            return Ok(());
++        };
++
++        let Some(ext) = splash_image.extension() else {
++            bail!("Splash image has no extension - could not decide which module to load!")
++        };
++        let Some(ext) = ext.to_str() else {
++            bail!("Extension is not UTF-8");
++        };
++        // The module for jpg is jpeg.
++        let ext = if ext == "jpg" { "jpeg" } else { ext };
++
++        let mut target = PathBuf::from("background");
++        target.set_extension(ext);
++
++        if !background_color.is_empty() {
++            writeln!(&mut self.inner, "background_color '{background_color}'")?;
++        }
++
++        unless_dry_run(|| {
++            fs::copy(splash_image, boot_path.join(&target)).with_context(|| {
++                format!(
++                    "Cannot copy {} to {}",
++                    splash_image.display(),
++                    boot_path.display()
++                )
++            })?;
++            Ok(())
++        })?;
++
++        writeln!(
++            &mut self.inner,
++            r#"insmod {ext}
++if background_image --mode '{splash_mode}' {target}; then
++  set color_normal=white/black
++  set color_highlight=black/white
++else
++  set menu_color_normal=cyan/blue
++  set menu_color_highlight=white/blue
++fi
++"#,
++            target = self.grub_boot.path.join(target).display(),
++        )?;
++
++        Ok(())
++    }
++
++    pub fn append_theme(&mut self) -> Result<()> {
++        let Config {
++            boot_path, theme, ..
++        } = &self.config;
++        let theme_dir = boot_path.join("theme");
++
++        if theme_dir.exists() {
++            unless_dry_run(|| {
++                fs::remove_dir_all(&theme_dir).with_context(|| {
++                    format!("Cannot clean up theme folder in {}", boot_path.display())
++                })
++            })?;
++        }
++
++        let Some(theme) = theme else {
++            return Ok(());
++        };
++
++        let mut modules_to_load = HashSet::new();
++        let mut fonts = vec![];
++
++        // TODO: Could be parallelized
++        for entry in WalkDir::new(theme) {
++            let entry = entry?;
++            let relative = entry.path().strip_prefix(theme)?;
++
++            if let Some(ext) = entry.path().extension().and_then(|e| e.to_str()) {
++                match ext {
++                    "png" => _ = modules_to_load.insert("png"),
++                    "jpeg" | "jpg" => _ = modules_to_load.insert("jpeg"),
++                    "pf2" => fonts.push(relative.to_owned()),
++                    _ => {}
++                }
++            }
++
++            unless_dry_run(|| {
++                let dst = theme_dir.join(relative);
++                if entry.file_type().is_dir() {
++                    fs::create_dir_all(&dst)?;
++                } else {
++                    fs::copy(entry.path(), &dst)?;
++                }
++                Ok(())
++            })?;
++        }
++
++        for module in modules_to_load {
++            writeln!(&mut self.inner, "insmod {module}")?;
++        }
++
++        let boot_font_path = self.grub_boot.path.join("theme");
++
++        writeln!(
++            &mut self.inner,
++            r#"# Sets theme.
++set theme={}
++export theme
++# Load theme fonts, if any
++"#,
++            boot_font_path.join("theme.txt").display(),
++        )?;
++
++        for font in fonts {
++            writeln!(
++                &mut self.inner,
++                "loadfont {}",
++                boot_font_path.join(font).display()
++            )?;
++        }
++
++        Ok(())
++    }
++
++    pub fn append_extra_config(&mut self) -> Result<()> {
++        writeln!(&mut self.inner, "{}\n", self.config.extra_config)?;
++        Ok(())
++    }
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
+new file mode 100644
+index 000000000000..859e5d56cafc
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
+@@ -0,0 +1,450 @@
++use std::{
++    cmp::Reverse,
++    fmt::Write as _,
++    fs,
++    os::unix::fs::PermissionsExt,
++    path::{Path, PathBuf},
++    process::Command,
++    sync::LazyLock,
++};
++
++use eyre::{bail, eyre, Context, Result};
++use nix::sys::stat::{umask, Mode};
++use tempfile::NamedTempFile;
++
++use super::{unless_dry_run, Builder};
++
++static DISTRO_NAME: LazyLock<String> =
++    LazyLock::new(|| std::env::var("DISTRO_NAME").unwrap_or("NixOS".into()));
++
++impl Builder<'_> {
++    pub fn entries(&mut self) -> Result<&mut Self> {
++        self.append_default_entries()?;
++        self.append_profiles()?;
++
++        Ok(self)
++    }
++
++    fn append_default_entries(&mut self) -> Result<()> {
++        // extraEntries could refer to @bootRoot@, which we have to substitute
++        let Some(boot_root) = self.grub_boot.path.to_str() else {
++            bail!("GRUB boot path must be valid UTF-8");
++        };
++        let extra_entries = self.config.extra_entries.replace("@bootRoot@", boot_root);
++
++        let entry_options = self.config.entry_options.clone();
++
++        if self.config.extra_entries_before_nixos {
++            writeln!(&mut self.inner, "{extra_entries}")?;
++        }
++
++        self.add_generation(&*DISTRO_NAME, "", self.default_config, &entry_options, true)?;
++
++        if !self.config.extra_entries_before_nixos {
++            writeln!(&mut self.inner, "{extra_entries}")?;
++        }
++
++        Ok(())
++    }
++
++    fn append_profiles(&mut self) -> Result<()> {
++        self.add_profile(
++            Path::new("/nix/var/nix/profiles/system"),
++            &format!("{} - All configurations", &*DISTRO_NAME),
++        )?;
++
++        if let Ok(system_profiles) = fs::read_dir("/nix/var/nix/profiles/system-profiles") {
++            for profile in system_profiles {
++                let profile = profile?;
++                let file_name = profile.file_name();
++                let Some(name) = file_name.to_str() else {
++                    continue;
++                };
++
++                if name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
++                    self.add_profile(
++                        &profile.path(),
++                        &format!("{} - Profile '{name}'", &*DISTRO_NAME),
++                    )?;
++                }
++            }
++        };
++
++        Ok(())
++    }
++
++    // Helpers
++    fn add_profile(&mut self, profile: &Path, description: &str) -> Result<()> {
++        writeln!(
++            &mut self.inner,
++            r#"submenu "{description}" --class submenu {{"#
++        )?;
++
++        let Some(parent) = profile.parent() else {
++            bail!("Profile directory should not be root!")
++        };
++        let Some(name) = profile.file_name() else {
++            bail!(
++                "Profile `{}` somehow does not have a file name!",
++                profile.display()
++            )
++        };
++
++        let mut links = fs::read_dir(parent)?
++            .filter_map(|m| {
++                let m = m.ok()?;
++                let filename = m.file_name();
++                let file = filename.to_str()?;
++
++                // Extract the generation from the file name
++                // The file name would look something like "system-263-link",
++                // here `system` is the profile name.
++                let Some((generation, "link")) = file.rsplit_once('-') else {
++                    return None;
++                };
++                let (profile, generation) = generation.rsplit_once('-')?;
++
++                if profile == name {
++                    Some((m.path(), generation.parse::<u32>().ok()?))
++                } else {
++                    None
++                }
++            })
++            .collect::<Vec<_>>();
++
++        links.sort_by_key(|&(_, generation)| Reverse(generation));
++
++        let sub_entry_options = self.config.sub_entry_options.clone();
++        for (link, generation) in links.into_iter().take(self.config.configuration_limit) {
++            let Ok(version) = std::fs::read_to_string(link.join("nixos-version")) else {
++                eprintln!("skipping corrupt system profile entry '{}'", link.display());
++                continue;
++            };
++            let date = Self::generation_date_from_link(&link)?;
++
++            self.add_generation(
++                &format!("{} - Configuration {generation}", &*DISTRO_NAME),
++                &format!(" ({date} - {version})"),
++                &link,
++                &sub_entry_options,
++                false,
++            )?;
++        }
++
++        writeln!(&mut self.inner, "}}")?;
++        Ok(())
++    }
++
++    fn add_generation(
++        &mut self,
++        name: &str,
++        name_suffix: &str,
++        path: &Path,
++        options: &str,
++        current: bool,
++    ) -> Result<()> {
++        // Do not search for grandchildren
++        let mut links = if let Ok(links) = fs::read_dir(path.join("specialisation")) {
++            links
++                .map(|d| d.map(|p| p.path()))
++                .collect::<Result<Vec<_>, _>>()?
++        } else {
++            vec![]
++        };
++
++        links.sort();
++
++        if !current && !links.is_empty() {
++            writeln!(
++                &mut self.inner,
++                r#"submenu "> {name}{name_suffix}" --class submenu {{"#
++            )?;
++        }
++
++        self.add_entry(
++            &format!(
++                "{name}{}{name_suffix}",
++                if !links.is_empty() { " - Default" } else { "" }
++            ),
++            path,
++            Some(options),
++            current,
++        )?;
++
++        // Find all the children of the current default configuration
++        // Do not search for grand children
++        for link in &links {
++            // FIXME:
++            // This currently returns 1970-01-01 no matter what.
++            // These links seem to be have the correct creation date set, but not their
++            // modified date...?
++            let date = Self::generation_date_from_link(link)?;
++
++            let version = if let Ok(version) = fs::read_to_string(link.join("nixos-version")) {
++                version
++            } else {
++                let modules = link
++                    .join("kernel")
++                    .canonicalize()?
++                    .parent()
++                    .ok_or_else(|| {
++                        eyre!("Somehow {}/kernel doesn't have a parent..?", link.display())
++                    })?
++                    .join("lib/modules");
++
++                let Some(version) = fs::read_dir(&modules)?.find_map(|module| {
++                    let path = module.ok()?.path();
++                    let file_name = path.file_name()?.to_str()?;
++                    Some(file_name.to_owned())
++                }) else {
++                    bail!("Could not deduce the current NixOS version")
++                };
++
++                version
++            };
++
++            let entry_name =
++                fs::read_to_string(link.join("configuration-name")).unwrap_or_else(|_| {
++                    let link_name = link
++                        .file_name()
++                        .and_then(|f| f.to_str())
++                        .unwrap_or_default();
++                    format!("({link_name} - {date} - {version})",)
++                });
++
++            self.add_entry(&format!("{name} - {entry_name}"), link, None, true)?;
++        }
++
++        if !current && !links.is_empty() {
++            writeln!(&mut self.inner, "}}")?;
++        }
++
++        Ok(())
++    }
++
++    fn generation_date_from_link(link: &Path) -> Result<time::Date> {
++        let sys_time = link.symlink_metadata()?.modified()?;
++
++        Ok(time::OffsetDateTime::from(sys_time).date())
++    }
++
++    fn add_entry(
++        &mut self,
++        name: &str,
++        path: &Path,
++        options: Option<&str>,
++        current: bool,
++    ) -> Result<()> {
++        let kernel_dir = path.join("kernel");
++        let initrd_dir = path.join("initrd");
++
++        if !(kernel_dir.exists() && initrd_dir.exists()) {
++            return Ok(());
++        }
++
++        let kernel_dir = self.copy_to_kernels_dir(&kernel_dir)?;
++        let initrd_dir = self.copy_to_kernels_dir(&initrd_dir)?;
++
++        // Include second initrd with secrets
++        let secrets_dir = self.append_initrd_secrets(name, path, current)?;
++
++        let kernel_params = format!(
++            "init={} {}",
++            path.join("init").canonicalize()?.display(),
++            fs::read_to_string(path.join("kernel-params"))?
++        );
++
++        // A Xen hypervisor image, if present, turns the kernel/initrd lines into
++        // multiboot/module lines.
++        let xen = if path.join("xen.gz").exists() {
++            Some(self.copy_to_kernels_dir(&path.join("xen.gz").canonicalize()?)?)
++        } else {
++            None
++        };
++        let xen_params = if xen.is_some() && path.join("xen-params").exists() {
++            fs::read_to_string(path.join("xen-params"))?
++        } else {
++            String::new()
++        };
++
++        write!(&mut self.inner, r#"menuentry "{name}" "#)?;
++        if let Some(options) = options {
++            write!(&mut self.inner, "{options} ")?;
++        }
++        writeln!(&mut self.inner, "{{")?;
++
++        if self.config.save_default() {
++            writeln!(&mut self.inner, "  savedefault")?;
++        }
++        writeln!(&mut self.inner, "{}", self.grub_boot.search)?;
++        if let Some(store) = &self.grub_store {
++            writeln!(&mut self.inner, "  {}", store.search)?;
++        }
++        if !self.config.extra_per_entry_config.is_empty() {
++            writeln!(&mut self.inner, "  {}", self.config.extra_per_entry_config)?;
++        }
++        if let Some(xen) = &xen {
++            writeln!(
++                &mut self.inner,
++                "  multiboot {} {}",
++                xen.display(),
++                xen_params
++            )?;
++        }
++        let kernel_loader = if xen.is_some() { "module" } else { "linux" };
++        writeln!(
++            &mut self.inner,
++            "  {kernel_loader} {kernel} {kernel_params}",
++            kernel = kernel_dir.display(),
++        )?;
++        let initrd_loader = if xen.is_some() { "module" } else { "initrd" };
++        if let Some(secrets) = &secrets_dir {
++            writeln!(
++                &mut self.inner,
++                "  {initrd_loader} {initrd} {secrets}",
++                initrd = initrd_dir.display(),
++                secrets = secrets.display(),
++            )?;
++        } else {
++            writeln!(
++                &mut self.inner,
++                "  {initrd_loader} {initrd}",
++                initrd = initrd_dir.display(),
++            )?;
++        }
++        writeln!(&mut self.inner, "}}")?;
++
++        Ok(())
++    }
++
++    fn append_initrd_secrets(
++        &mut self,
++        name: &str,
++        path: &Path,
++        current: bool,
++    ) -> Result<Option<PathBuf>> {
++        let append_initrd_secrets = path.join("append-initrd-secrets");
++        let Ok(metadata) = fs::metadata(&append_initrd_secrets) else {
++            return Ok(None);
++        };
++
++        // Check if it's an executable file
++        if !(metadata.is_file() && metadata.permissions().mode() & 0b111 != 0) {
++            return Ok(None);
++        }
++
++        let canonicalized = path.canonicalize()?;
++        let Some(system_name) = canonicalized.file_name().and_then(|s| s.to_str()) else {
++            bail!(
++                "Entry path {} somehow doesn't have a file name?",
++                path.display()
++            )
++        };
++
++        let kernels = self.config.boot_path.join("kernels");
++        let secrets_name = format!("{system_name}-secrets");
++        let initrd_secrets_path = kernels.join(&secrets_name);
++
++        let mut secrets_added = true;
++        unless_dry_run(|| {
++            fs::create_dir_all(&kernels)?;
++            fs::set_permissions(&kernels, PermissionsExt::from_mode(0o755))?;
++
++            // Create a temporary file (next to the final path, like the Perl
++            // script's mktemp) for `append-initrd-secrets` to append the secrets
++            // CPIO to. `append-initrd-secrets` expects an initrd *file* path, not
++            // a directory, and appends to it with `>>`.
++            let initrd_secrets_path_temp = NamedTempFile::new_in(&kernels)?;
++
++            // Make sure initrd is not world readable (won't work if /boot is FAT)
++            let old_umask = umask(Mode::from_bits_truncate(0o137));
++
++            let status = Command::new(&append_initrd_secrets)
++                .arg(initrd_secrets_path_temp.path())
++                .status()?;
++
++            if !status.success() {
++                if current {
++                    bail!("Failed to create initrd secrets ({status})");
++                } else {
++                    eprintln!("warning: failed to create initrd secrets for \"{name}\", an older generation");
++                    eprintln!(" note: this is normal after having removed or renamed a file in `boot.initrd.secrets`");
++                }
++            }
++
++            // Restore umask
++            umask(old_umask);
++
++            // Check whether any secrets were actually added
++            if initrd_secrets_path_temp.as_file().metadata()?.len() > 0 {
++                initrd_secrets_path_temp
++                    .persist(&initrd_secrets_path)
++                    .context("Failed to move initrd secrets into place")?;
++
++                self.copied.insert(initrd_secrets_path);
++            } else {
++                secrets_added = false;
++            }
++
++            Ok(())
++        })?;
++
++        Ok(if secrets_added {
++            let mut secrets_dir = self.grub_boot.path.join("kernels");
++            secrets_dir.push(&secrets_name);
++            Some(secrets_dir)
++        } else {
++            None
++        })
++    }
++
++    fn copy_to_kernels_dir(&mut self, path: &Path) -> Result<PathBuf> {
++        let path = path.canonicalize()?;
++
++        let Ok(path) = path.strip_prefix(self.config.store_dir) else {
++            bail!(
++                "Path {} is not in Nix store ({})!",
++                path.display(),
++                self.config.store_dir.display(),
++            );
++        };
++        let Some(path) = path.to_str() else {
++            bail!("Kernel file path {} is not valid UTF-8", path.display());
++        };
++
++        // GRUB store exists, which means the kernels and initrds are on the same
++        // filesystem as / and the Nix store. No need to copy!
++        if let Some(store) = &self.grub_store {
++            return Ok(store.path.join(path));
++        }
++
++        let name = path.replace('/', "-");
++        let mut dst = self.config.boot_path.join("kernels");
++        dst.push(&name);
++
++        // Don't copy the file if `dst` already exists.  This means that we
++        // have to create `dst` atomically to prevent partially copied
++        // kernels or initrd if this script is ever interrupted.
++        if !dst.exists() {
++            unless_dry_run(|| {
++                let Some(mut name) = dst.file_name().map(|s| s.to_os_string()) else {
++                    bail!(
++                        "Somehow path {} does not have a file name...? This shouldn't be possible!",
++                        dst.display()
++                    )
++                };
++                name.push(".tmp");
++                let tmp = dst.with_file_name(name);
++
++                fs::copy(path, &tmp)
++                    .with_context(|| format!("Cannot copy {path} to {}", tmp.display()))?;
++                fs::rename(&tmp, &dst)
++                    .with_context(|| format!("Cannot rename {path} to {}", tmp.display()))?;
++                Ok(())
++            })?;
++        }
++
++        self.copied.insert(dst);
++        Ok(self.grub_boot.path.join("kernels").join(name))
++    }
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/install.rs b/pkgs/by-name/in/install-grub-ng/src/builder/install.rs
+new file mode 100644
+index 000000000000..21f826f360c3
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/builder/install.rs
+@@ -0,0 +1,452 @@
++use std::{
++	collections::HashSet,
++	fs,
++	io::{BufRead, BufReader, BufWriter, Write},
++	os::unix::fs::symlink,
++	path::{Path, PathBuf},
++	process::Command,
++};
++
++use eyre::{bail, eyre, Context, Result};
++
++use super::{is_dry_run, unless_dry_run, Builder};
++use crate::config::{BiosTarget, Config, EfiTarget, Target};
++
++impl Builder<'_> {
++	pub fn install(&mut self) -> Result<&mut Self> {
++        if is_dry_run() {
++		println!("{}", self.inner);
++        }
++
++		unless_dry_run(|| {
++			let conf = self.config.boot_path.join("grub/grub.cfg");
++			let temp = self.config.boot_path.join("grub/grub.cfg.tmp");
++
++			eprintln!("{}", conf.display());
++
++			let mut tempfile = fs::File::options()
++				.create(true)
++				.append(true)
++				.open(&temp)
++				.context("Failed to create temporary config file")?;
++
++			tempfile
++				.write(self.inner.as_ref())
++				.context("Failed to write config to temporary config file")?;
++
++			self.append_prepare_config()
++				.context("While writing prepare config")?;
++			self.run_os_prober(tempfile)
++				.context("While running os-prober")?;
++
++			// Atomically switch to the new config
++			fs::rename(&temp, &conf).with_context(|| {
++				format!(
++					"Cannot move temporary config file {} to {}",
++					temp.display(),
++					conf.display()
++				)
++			})?;
++
++			self.remove_old_kernels()
++				.context("While removing old kernel images")?;
++
++            // Handle the deprecated NIXOS_INSTALL_GRUB env var before deciding
++            // whether to (re)install, matching the Perl script's ordering.
++				if std::env::var("NIXOS_INSTALL_GRUB").as_deref() == Ok("1") {
++                eprintln!("NIXOS_INSTALL_GRUB env var deprecated, use NIXOS_INSTALL_BOOTLOADER");
++					std::env::set_var("NIXOS_INSTALL_BOOTLOADER", "1");
++				}
++
++            let mut grub_state = GrubState::load(&self.config);
++            let dirty = grub_state.update(&self.config, &self.config.target);
++            let require_new_install =
++                dirty || std::env::var("NIXOS_INSTALL_BOOTLOADER").as_deref() == Ok("1");
++
++            if require_new_install {
++				if let Some(bios) = &self.config.target.bios {
++					self.install_bios(bios)
++						.context("While installing GRUB to BIOS")?;
++				}
++				if let Some(efi) = &self.config.target.efi {
++					self.install_efi(efi)
++						.context("While installing EFI to BIOS")?;
++				}
++
++				grub_state.save()?;
++			} else {
++				eprintln!("GRUB state has not been modified - skipping installation")
++			};
++			Ok(())
++		})?;
++
++		Ok(self)
++	}
++
++	fn append_prepare_config(&self) -> Result<()> {
++		let Some(boot_path) = self.config.boot_path.to_str() else {
++			bail!("Boot path is not UTF-8");
++		};
++
++		let extra_prepare_config = self
++			.config
++			.extra_prepare_config
++			.replace("@bootPath@", boot_path);
++
++		if !extra_prepare_config.is_empty() {
++			Command::new(self.config.shell)
++				.arg("-c")
++				.arg(extra_prepare_config)
++				.status()?;
++		}
++
++		Ok(())
++	}
++
++	fn run_os_prober(&self, temp: fs::File) -> Result<()> {
++		if !self.config.use_os_prober {
++			return Ok(());
++		}
++
++		let target_package = if let Some(efi) = &self.config.target.efi {
++			efi.package
++		} else if let Some(bios) = &self.config.target.bios {
++			bios.package
++		} else {
++			bail!("GRUB has to be installed to either EFI or BIOS to run os-prober");
++		};
++
++		// Using the shell is stinky.
++		let os_prober = target_package.join("etc/grub.d/30_os-prober");
++		let pkg_data_dir = target_package.join("share/grub");
++
++		let mut cmd = Command::new(&os_prober);
++		cmd.stdout(temp).env("pkgdatadir", &pkg_data_dir);
++
++		if self.config.save_default() {
++			cmd.env("GRUB_SAVEDEFAULT", "true");
++		}
++
++		let status = cmd.status().context("Failed to spawn os-prober")?;
++
++		if !status.success() {
++			bail!("os-prober failed with error: {status}");
++		}
++
++		Ok(())
++	}
++
++	fn remove_old_kernels(&self) -> Result<()> {
++		// Remove obsolete files from $bootPath/kernels
++		if let Ok(kernels) = fs::read_dir(self.config.boot_path.join("kernels")) {
++			for file in kernels {
++				let file = file?;
++				let path = file.path();
++
++				// Ignore files we have copied over ourselves
++				if self.copied.contains(&path) {
++					continue;
++				}
++				eprintln!("removing obsolete file {}", path.display());
++				fs::remove_file(path).context("Failed to remove kernel file")?;
++			}
++		}
++
++		Ok(())
++	}
++
++	fn install_bios(&self, bios: &BiosTarget) -> Result<()> {
++		// install a symlink so that grub can detect the boot drive
++		let tmp_dir = tempfile::tempdir().context("Failed to create temporary space")?;
++		symlink(self.config.boot_path, tmp_dir.path().join("boot"))
++			.with_context(|| format!("Failed to symlink {}/boot", tmp_dir.path().display()))?;
++
++		for dev in &self.config.devices {
++			if *dev == Path::new("nodev") {
++				continue;
++			}
++
++			eprintln!("installing the GRUB 2 boot loader on {}...", dev.display());
++
++			let install = bios.package.join("sbin/grub-install");
++			let mut cmd = Command::new(&install);
++			let dev = dev
++				.canonicalize()
++				.with_context(|| format!("Failed to canonicalize device path {}", dev.display()))?;
++
++			cmd.arg("--recheck")
++				.arg(format!("--root-directory={}", tmp_dir.path().display()))
++				.arg(&dev)
++				.args(&self.config.extra_grub_install_args);
++
++			if self.config.force_install {
++				cmd.arg("--force");
++			}
++			if let Some(target) = bios.target {
++				cmd.arg(format!("--target={}", target.display()));
++			}
++			let status = cmd
++				.status()
++				.context("Failed to start grub-install command")?;
++
++			if !status.success() {
++				bail!(
++					"{}: installation of GRUB on {} failed: ({status})",
++					install.display(),
++					dev.display()
++				);
++			}
++		}
++
++		Ok(())
++	}
++
++	fn install_efi(&self, efi: &EfiTarget) -> Result<()> {
++		eprintln!(
++			"installing the GRUB 2 boot loader into {}...",
++			self.config.efi_sys_mount_point.display()
++		);
++
++		let install = efi.package.join("sbin/grub-install");
++		let mut cmd = Command::new(&install);
++		cmd.arg("--recheck")
++			.arg(format!("--target={}", efi.target.display()))
++			.arg(format!(
++				"--boot-directory={}",
++				self.config.boot_path.display()
++			))
++			.arg(format!(
++				"--efi-directory={}",
++				self.config.efi_sys_mount_point.display()
++			))
++			.args(&self.config.extra_grub_install_args);
++
++		if self.config.force_install {
++			cmd.arg("--force");
++		}
++		cmd.arg(format!("--bootloader-id={}", self.config.bootloader_id));
++
++		if !self.config.can_touch_efi_variables {
++			cmd.arg("--no-nvram");
++			if self.config.efi_install_as_removable {
++				cmd.arg("--removable");
++			}
++		}
++
++		let status = cmd
++			.status()
++			.context("Failed to start grub-install command")?;
++
++		if !status.success() {
++			bail!(
++				"{}: installation of GRUB EFI into {} failed: ({status})",
++				install.display(),
++				self.config.efi_sys_mount_point.display()
++			);
++		}
++
++		Ok(())
++	}
++}
++
++#[derive(Clone, Debug, Default)]
++struct GrubState {
++	path: PathBuf,
++
++	name: String,
++	version: String,
++	efi: String,
++	devices: Vec<PathBuf>,
++	efi_mount_point: PathBuf,
++	extra_grub_install_args: Vec<String>,
++    // Store paths of the GRUB packages, used to detect when the package
++    // changes (which may not bump the version number) and trigger a reinstall.
++    grub: String,
++    grub_efi: String,
++}
++impl GrubState {
++	fn load(config: &Config) -> Self {
++		let path = config.boot_path.join("grub/state");
++		let state = Self::parse(&path).unwrap_or_default();
++
++		Self { path, ..state }
++	}
++
++	fn parse(path: &Path) -> Option<Self> {
++		let file = fs::File::open(path).ok()?;
++		let mut lines = BufReader::new(file).lines();
++
++		let name = lines.next()?.ok()?;
++		let version = lines.next()?.ok()?;
++		let efi = lines.next()?.ok()?;
++		let devices = lines
++			.next()?
++			.ok()?
++			.split(',')
++			.map(PathBuf::from)
++			.collect::<Vec<_>>();
++		let efi_mount_point = PathBuf::from(lines.next()?.ok()?);
++
++		// Historically, arguments in the state file were one per each line, but that
++		// gets really messy when newlines are involved, structured arguments
++		// like lists are needed (they have to have a separator encoding), or even
++		// worse, when we need to remove a setting in the future. Thus, the 6th line is
++		// a JSON object that can store structured data, with named keys, and all new
++		// state should go in there.
++		let json_state = lines.next().and_then(|l| l.ok());
++		let json_state = match json_state.as_deref() {
++			Some("") | None => "{}", // empty JSON object
++			Some(s) => s,
++		};
++
++		let GrubJsonState {
++			extra_grub_install_args,
++            grub,
++            grub_efi,
++		} = serde_json::from_str(json_state).ok()?;
++
++		Some(Self {
++			name,
++			version,
++			efi,
++			devices,
++			efi_mount_point,
++			extra_grub_install_args,
++            grub,
++            grub_efi,
++			..Default::default()
++		})
++	}
++
++	fn save(&self) -> Result<()> {
++		let temp = self.path.with_extension("tmp");
++		{
++			let mut temp = BufWriter::new(fs::File::create(&temp)?);
++
++			writeln!(&mut temp, "{}", self.name)?;
++			writeln!(&mut temp, "{}", self.version)?;
++			writeln!(&mut temp, "{}", self.efi)?;
++			writeln!(
++				&mut temp,
++				"{}",
++				self.devices
++					.iter()
++					.map(|s| s.to_str().ok_or(eyre!("Device path is not UTF-8")))
++					.collect::<Result<Vec<_>>>()?
++					.join(",")
++			)?;
++			writeln!(&mut temp, "{}", self.efi_mount_point.display())?;
++
++            serde_json::to_writer(
++                &mut temp,
++                &GrubJsonState {
++				extra_grub_install_args: self.extra_grub_install_args.clone(),
++                    grub: self.grub.clone(),
++                    grub_efi: self.grub_efi.clone(),
++                },
++            )?;
++			writeln!(&mut temp)?;
++		}
++
++		fs::rename(&temp, &self.path).with_context(|| {
++			format!(
++				"Cannot rename {} to {}",
++				temp.display(),
++				self.path.display()
++			)
++		})?;
++
++		Ok(())
++	}
++
++	fn update(&mut self, config: &Config, efi_target: &Target) -> bool {
++		let mut dirty = false;
++
++		let device_targets = config.devices.iter().copied().collect::<HashSet<_>>();
++		let prev_device_targets = self
++			.devices
++			.iter()
++			.map(|p| p.as_ref())
++			.collect::<HashSet<_>>();
++
++		// Devices differ
++        if device_targets != prev_device_targets {
++			dirty = true;
++			self.devices = config.devices.iter().map(|&p| p.to_owned()).collect();
++		}
++
++		let extra_grub_install_args = config
++			.extra_grub_install_args
++			.iter()
++			.copied()
++			.collect::<HashSet<_>>();
++		let prev_extra_grub_install_args = self
++			.extra_grub_install_args
++			.iter()
++			.map(|p| p.as_ref())
++			.collect::<HashSet<_>>();
++
++		// Install args differ
++        if extra_grub_install_args != prev_extra_grub_install_args {
++			dirty = true;
++			self.extra_grub_install_args = config
++				.extra_grub_install_args
++				.iter()
++				.map(|&p| p.to_owned())
++				.collect();
++		}
++
++        // Re-installing grub once the package store path changes is necessary,
++        // because introducing patches or adjusting builds does not always bump the
++        // version number. The name/version are still saved below but, matching the
++        // Perl script, do not on their own trigger a reinstall.
++        let grub = config
++            .target
++            .bios
++            .map(|b| b.package.display().to_string())
++            .unwrap_or_default();
++        let grub_efi = config
++            .target
++            .efi
++            .map(|e| e.package.display().to_string())
++            .unwrap_or_default();
++        if grub != self.grub {
++            dirty = true;
++            self.grub = grub;
++        }
++        if grub_efi != self.grub_efi {
++            dirty = true;
++            self.grub_efi = grub_efi;
++        }
++
++		if config.full_name != self.name {
++			config.full_name.clone_into(&mut self.name);
++		}
++		if config.full_version != self.version {
++			config.full_version.clone_into(&mut self.version);
++		}
++		if efi_target.to_str() != self.efi {
++			dirty = true;
++			efi_target.to_str().clone_into(&mut self.efi);
++		}
++		if config.efi_sys_mount_point != self.efi_mount_point {
++			dirty = true;
++			config
++				.efi_sys_mount_point
++				.clone_into(&mut self.efi_mount_point);
++		}
++
++		dirty
++	}
++}
++
++#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
++#[serde(rename_all = "camelCase")]
++struct GrubJsonState {
++	#[serde(default)]
++	extra_grub_install_args: Vec<String>,
++    #[serde(default)]
++    grub: String,
++    #[serde(default)]
++    grub_efi: String,
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/config.rs b/pkgs/by-name/in/install-grub-ng/src/config.rs
+new file mode 100644
+index 000000000000..d7e265fd9b71
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/config.rs
+@@ -0,0 +1,371 @@
++use std::{borrow::Cow, collections::HashMap, path::Path};
++
++use eyre::{Context, Result};
++use serde::{de, Deserialize, Deserializer};
++
++#[derive(Deserialize)]
++#[serde(rename_all = "camelCase")]
++pub struct Config<'a> {
++    #[serde(flatten)]
++    pub target: Target<'a>,
++
++    // These fields hold free-form GRUB config snippets / menuentry options
++    // that may contain escape sequences (newlines, quotes) in the JSON, so
++    // they are deserialized as owned strings rather than borrowed.
++    pub extra_config: String,
++    pub extra_prepare_config: String,
++    pub extra_per_entry_config: String,
++    pub extra_entries: String,
++    #[serde(rename = "extraEntriesBeforeNixOS")]
++    pub extra_entries_before_nixos: bool,
++
++    #[serde(deserialize_with = "empty_is_none")]
++    pub splash_image: Option<&'a Path>,
++    pub splash_mode: SplashMode,
++    pub background_color: &'a str,
++
++    pub entry_options: String,
++    pub sub_entry_options: String,
++
++    pub configuration_limit: usize,
++    pub copy_kernels: bool,
++
++    pub timeout: Timeout,
++    pub timeout_style: TimeoutStyle,
++
++    #[serde(rename = "default")]
++    pub default_entry: &'a str,
++    pub fs_identifier: FsIdentifier,
++
++    pub boot_path: &'a Path,
++    pub store_path: &'a Path,
++    pub store_dir: &'a Path,
++
++    #[serde(rename = "gfxmodeEfi")]
++    pub gfx_mode_efi: &'a str,
++    #[serde(rename = "gfxmodeBios")]
++    pub gfx_mode_bios: &'a str,
++    #[serde(rename = "gfxpayloadEfi")]
++    pub gfx_payload_efi: &'a str,
++    #[serde(rename = "gfxpayloadBios")]
++    pub gfx_payload_bios: &'a str,
++
++    #[serde(deserialize_with = "empty_is_none")]
++    pub font: Option<&'a Path>,
++    #[serde(deserialize_with = "empty_is_none")]
++    pub theme: Option<&'a Path>,
++    pub shell: &'a Path,
++    pub path: &'a str,
++
++    pub users: Users<'a>,
++
++    #[serde(rename = "useOSProber")]
++    pub use_os_prober: bool,
++
++    pub can_touch_efi_variables: bool,
++    pub efi_install_as_removable: bool,
++    pub efi_sys_mount_point: &'a Path,
++
++    pub bootloader_id: &'a str,
++    pub force_install: bool,
++
++    pub devices: Vec<&'a Path>,
++    pub extra_grub_install_args: Vec<&'a str>,
++    pub full_name: &'a str,
++    pub full_version: &'a str,
++}
++
++#[derive(Clone, Debug, Deserialize)]
++pub struct Users<'a>(#[serde(borrow)] pub HashMap<&'a str, Password<'a>>);
++
++#[derive(Clone, Debug, PartialEq, Eq)]
++pub struct Password<'a> {
++    pub content: Cow<'a, str>,
++    pub is_hashed: bool,
++}
++
++#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
++#[serde(rename_all = "camelCase")]
++pub enum FsIdentifier {
++    Uuid,
++    Label,
++    Provided,
++}
++
++#[derive(Clone, Debug, PartialEq, Eq)]
++pub struct Timeout(pub Option<u64>);
++
++#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
++#[serde(rename_all = "camelCase")]
++pub enum TimeoutStyle {
++    Menu,
++    Countdown,
++    Hidden,
++}
++
++#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
++#[serde(rename_all = "camelCase")]
++pub enum SplashMode {
++    Normal,
++    Stretch,
++}
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct Target<'a> {
++    pub bios: Option<BiosTarget<'a>>,
++    pub efi: Option<EfiTarget<'a>>,
++}
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct BiosTarget<'a> {
++    pub package: &'a Path,
++    pub target: Option<&'a Path>,
++}
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct EfiTarget<'a> {
++    pub package: &'a Path,
++    pub target: &'a Path,
++}
++
++impl Config<'_> {
++    pub fn save_default(&self) -> bool {
++        self.default_entry == "saved"
++    }
++}
++
++fn empty_is_none<'de, D>(deserializer: D) -> Result<Option<&'de Path>, D::Error>
++where
++    D: Deserializer<'de>,
++{
++    <&Path as Deserialize>::deserialize(deserializer).map(|r| {
++        if r.as_os_str().is_empty() {
++            None
++        } else {
++            Some(r)
++        }
++    })
++}
++
++impl<'a, 'de: 'a> Deserialize<'de> for Password<'a> {
++    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
++    where
++        D: serde::Deserializer<'de>,
++    {
++        // TODO: This sucks. It should've just been an attrTag in the nix code, but it
++        // predates that...
++
++        #[derive(Deserialize)]
++        #[serde(rename_all = "camelCase")]
++        struct PasswordInner<'a> {
++            password: Option<&'a str>,
++            password_file: Option<&'a Path>,
++            hashed_password: Option<&'a str>,
++            hashed_password_file: Option<&'a Path>,
++        }
++        let password = PasswordInner::deserialize(deserializer)?;
++
++        let password = if let Some(file) = password.hashed_password_file {
++            Self {
++                content: std::fs::read_to_string(file)
++                    .context("While reading hashed password file")
++                    .map_err(de::Error::custom)?
++                    .into(),
++                is_hashed: true,
++            }
++        } else if let Some(text) = password.hashed_password {
++            Self {
++                content: text.into(),
++                is_hashed: true,
++            }
++        } else if let Some(file) = password.password_file {
++            Self {
++                content: std::fs::read_to_string(file)
++                    .context("While reading hashed password file")
++                    .map_err(de::Error::custom)?
++                    .into(),
++                is_hashed: false,
++            }
++        } else if let Some(text) = password.password {
++            Self {
++                content: text.into(),
++                is_hashed: false,
++            }
++        } else {
++            return Err(de::Error::custom("No password found"));
++        };
++
++        if password.is_hashed && !password.content.starts_with("grub.pbkdf2") {
++            return Err(de::Error::custom(format!(
++                "Invalid hashed password ('{}'): hashes should always start with `grub.pbkdf2`!",
++                password.content
++            )));
++        }
++
++        Ok(password)
++    }
++}
++
++impl<'de> Deserialize<'de> for Timeout {
++    fn deserialize<D>(deserializer: D) -> Result<Timeout, D::Error>
++    where
++        D: Deserializer<'de>,
++    {
++        struct Visitor;
++        impl<'de> de::Visitor<'de> for Visitor {
++            type Value = Timeout;
++
++            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
++                write!(formatter, "either -1 or an unsigned 64-bit integer")
++            }
++
++            fn visit_i64<E>(self, v: i64) -> Result<Self::Value, E>
++            where
++                E: de::Error,
++            {
++                if v == -1 {
++                    Ok(Timeout(None))
++                } else {
++                    Err(de::Error::invalid_value(de::Unexpected::Signed(v), &self))
++                }
++            }
++
++            fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
++            where
++                E: de::Error,
++            {
++                Ok(Timeout(Some(v)))
++            }
++        }
++
++        deserializer.deserialize_any(Visitor)
++    }
++}
++
++impl std::fmt::Display for Timeout {
++    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
++        match self.0 {
++            Some(t) => write!(f, "{t}"),
++            None => write!(f, "-1"),
++        }
++    }
++}
++
++impl std::fmt::Display for TimeoutStyle {
++    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
++        f.write_str(match self {
++            Self::Menu => "menu",
++            Self::Countdown => "countdown",
++            Self::Hidden => "hidden",
++        })
++    }
++}
++
++impl std::fmt::Display for SplashMode {
++    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
++        f.write_str(match self {
++            Self::Normal => "normal",
++            Self::Stretch => "stretch",
++        })
++    }
++}
++
++impl<'a> Target<'a> {
++    pub(crate) fn to_str(&self) -> &'static str {
++        match (&self.bios, &self.efi) {
++            (Some(_), Some(_)) => "both",
++            (Some(_), None) => "no",
++            (None, Some(_)) => "only",
++            (None, None) => "neither",
++        }
++    }
++}
++
++impl<'a, 'de: 'a> Deserialize<'de> for Target<'a> {
++    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
++    where
++        D: Deserializer<'de>,
++    {
++        #[derive(Deserialize)]
++        #[serde(rename_all = "camelCase")]
++        struct TargetInner<'a> {
++            #[serde(deserialize_with = "empty_is_none", borrow)]
++            pub grub: Option<&'a Path>,
++            #[serde(deserialize_with = "empty_is_none", borrow)]
++            pub grub_target: Option<&'a Path>,
++            #[serde(deserialize_with = "empty_is_none", borrow)]
++            pub grub_efi: Option<&'a Path>,
++            #[serde(deserialize_with = "empty_is_none", borrow)]
++            pub grub_target_efi: Option<&'a Path>,
++        }
++
++        let inner = TargetInner::deserialize(deserializer)?;
++
++        match inner {
++            TargetInner {
++                grub: Some(bios),
++                grub_efi: Some(efi),
++                grub_target,
++                grub_target_efi,
++            } => match (grub_target, grub_target_efi) {
++                (Some(bios_target), Some(efi_target)) => Ok(Self {
++                    bios: Some(BiosTarget {
++                        package: bios,
++                        target: Some(bios_target),
++                    }),
++                    efi: Some(EfiTarget {
++                        package: efi,
++                        target: efi_target,
++                    }),
++                }),
++                _ => Err(de::Error::custom(
++                    "EFI can only be installed when target is set; a target is also required then \
++					 for non-EFI grub",
++                )),
++            },
++            // TODO:
++            // It would be safer to disallow non-EFI grub installation if no target is
++            // given. If no target is given, then grub auto-detects the target which can
++            // lead to errors. E.g. it seems as if grub would auto-detect a EFI target based
++            // on the availability of a EFI partition.
++            // However, it seems as auto-detection is currently relied on for non-x86_64 and
++            // non-i386 architectures in NixOS. That would have to be fixed in the nixos
++            // modules first.
++            TargetInner {
++                grub: Some(bios),
++                grub_efi: None,
++                grub_target,
++                ..
++            } => Ok(Self {
++                bios: Some(BiosTarget {
++                    package: bios,
++                    target: grub_target,
++                }),
++                efi: None,
++            }),
++            TargetInner {
++                grub: None,
++                grub_efi: Some(efi),
++                grub_target_efi,
++                ..
++            } => match grub_target_efi {
++                Some(efi_target) => Ok(Self {
++                    bios: None,
++                    efi: Some(EfiTarget {
++                        package: efi,
++                        target: efi_target,
++                    }),
++                }),
++                None => Err(de::Error::custom(
++                    "EFI can only be installed when target is set",
++                )),
++            },
++            TargetInner {
++                grub: None,
++                grub_efi: None,
++                ..
++            } => Ok(Self {
++                bios: None,
++                efi: None,
++            }),
++        }
++    }
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/grub.rs b/pkgs/by-name/in/install-grub-ng/src/grub.rs
+new file mode 100644
+index 000000000000..fafaaedc9ddb
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/grub.rs
+@@ -0,0 +1,313 @@
++use std::{
++    fs,
++    io::{BufRead, BufReader},
++    path::{Path, PathBuf},
++    process::{Command, Output},
++    sync::atomic::{AtomicUsize, Ordering::SeqCst},
++};
++
++use eyre::{bail, Result, WrapErr};
++
++use crate::config::{Config, FsIdentifier};
++
++#[derive(Clone, Debug, Default)]
++pub struct Grub {
++    pub path: PathBuf,
++    pub search: String,
++}
++impl Grub {
++    pub fn new(dir: &Path, config: &Config) -> Result<Self> {
++        let fs = Fs::new(dir, config.store_dir)?;
++
++        let stripped = dir.strip_prefix(&fs.mount)?.to_owned();
++
++        let (search, path) = if fs.fs_type == "zfs" {
++            // ZFS is completely separate logic as zpools are always identified by a label
++            // or custom UUID
++            let mut new_path = PathBuf::from("/");
++
++            let mut components = fs.device.components();
++            let label = if let Some(label) = components.next() {
++                new_path.push(components.as_path());
++
++                Path::new(label.as_os_str())
++            } else {
++                &fs.device
++            };
++
++            new_path.push("@");
++            new_path.push(&stripped);
++
++            (format!("--label {}", label.display()), new_path)
++        } else {
++            let search = config.fs_identifier.to_search(&fs)?;
++            // BTRFS is a special case in that we need to fix the referenced path based on
++            // subvolumes
++            let mut path = Self::alter_path_for_btrfs(&fs, stripped)?;
++            // Ensure the path is absolute, matching the Perl implementation: the stripped
++            // path gets a leading "/" prepended (and the root mount maps to "/"). This
++            // keeps `loadfont`/`background_image`/`linux`/`initrd` paths rooted rather
++            // than relative when no drive search is emitted.
++            if !path.has_root() {
++                path = Path::new("/").join(path);
++            }
++            (search, path)
++        };
++
++        if !search.is_empty() {
++            static DRIVE_ID: AtomicUsize = AtomicUsize::new(1);
++            let drive_id = DRIVE_ID.fetch_add(1, SeqCst);
++            // Use string concatenation (like the Perl script) rather than `PathBuf::push`,
++            // which would replace the prefix with an absolute path (e.g. for btrfs
++            // subvolumes, where `alter_path_for_btrfs` already returns an absolute path).
++            let path = PathBuf::from(format!("($drive{drive_id}){}", path.display()));
++
++            Ok(Grub {
++                path,
++                search: format!("search --set=drive{drive_id} {search}"),
++            })
++        } else {
++            Ok(Grub { path, search })
++        }
++    }
++
++    fn alter_path_for_btrfs(fs: &Fs, path: PathBuf) -> Result<PathBuf> {
++        if fs.fs_type != "btrfs" {
++            return Ok(path);
++        }
++
++        let btrfs = env!("BTRFS");
++
++        let subvol_id = {
++            let Output {
++                status,
++                stdout: id_info,
++                ..
++            } = Command::new(btrfs)
++                .arg("subvol")
++                .arg("show")
++                .arg(&fs.mount)
++                .output()
++                .context("Failed to execute btrfs subvol show")?;
++
++            if !status.success() {
++                bail!(
++                    "Failed to retrieve subvolume info for {}",
++                    fs.mount.display()
++                );
++            }
++
++            let mut ids = id_info.lines().filter_map(|line| {
++                if let Ok(l) = line {
++                    l.trim()
++                        .strip_prefix("Subvolume ID:")
++                        .map(|s| s.trim().to_owned())
++                } else {
++                    None
++                }
++            });
++
++            let Some(id) = ids.next() else {
++                return Ok(path);
++            };
++
++            if ids.next().is_some() {
++                bail!(
++                    "Btrfs subvol name for {} listed multiple times in mount",
++                    fs.mount.display()
++                );
++            }
++
++            id
++        };
++
++        let prefix = {
++            let Output {
++                status,
++                stdout: path_info,
++                ..
++            } = Command::new(btrfs)
++                .arg("subvol")
++                .arg("list")
++                .arg(&fs.mount)
++                .output()
++                .context("Failed to execute btrfs subvol list")?;
++
++            if !status.success() {
++                bail!(
++                    "Failed to find {} subvolume info from btrfs",
++                    fs.mount.display()
++                );
++            }
++
++            let mut paths = path_info.lines().filter_map(|line| {
++                let Ok(l) = line else {
++                    return None;
++                };
++
++                let mut split = l.split(' ');
++                if split.nth(1) != Some(&subvol_id) {
++                    return None;
++                }
++
++                split.skip_while(|&p| p != "path").nth(1).map(String::from)
++            });
++
++            let Some(path) = paths.next() else {
++                bail!("Could not find a subvolume ID for {}", fs.mount.display())
++            };
++
++            if paths.next().is_some() {
++                bail!(
++                    "Btrfs returned multiple paths for a single subvolume id, mountpoint {}",
++                    fs.mount.display()
++                );
++            }
++
++            path
++        };
++
++        let mut new = Path::new("/").join(prefix);
++        new.push(path);
++        Ok(new)
++    }
++}
++
++#[derive(Clone, Debug, Default)]
++struct Fs {
++    device: PathBuf,
++    fs_type: String,
++    mount: PathBuf,
++}
++impl Fs {
++    fn new(dir: &Path, store_dir: &Path) -> Result<Self> {
++        let mut best = Self::default();
++        let mount_info = BufReader::new(fs::File::open("/proc/self/mountinfo")?);
++
++        for line in mount_info.lines() {
++            let line = line?;
++
++            let mut fields = line.split(' ');
++            let Some(mount_point) = fields.nth(4).map(Path::new) else {
++                bail!("Mount point not found in mountinfo entry: {line}")
++            };
++            // TODO: This is completely unused in the Perl version. Why is it here?
++            let Some(_mount_options) = fields.next().map(|s| s.split(',')) else {
++                bail!("Mount options not found in mountinfo entry: {line}")
++            };
++
++            // Skip the optional fields.
++            let mut fields = fields.skip_while(|&field| field != "-").skip(1);
++
++            let Some(fs_type) = fields.next() else {
++                bail!("Filesystem type not found in mountinfo entry: {line}")
++            };
++            let Some(device) = fields.next() else {
++                bail!("Device not found in mountinfo entry: {line}")
++            };
++            let Some(mut super_options) = fields.next().map(|s| s.split(',')) else {
++                bail!("Super options not found in mountinfo entry: {line}")
++            };
++
++            // Skip the bind-mount for the Nix store.
++            if mount_point == store_dir && super_options.any(|s| s == "rw") {
++                continue;
++            }
++
++            // Skip mountpoint generated by systemd-efi-boot-generator?
++            if fs_type == "autofs" {
++                continue;
++            }
++
++            // Ensure this matches the intended directory
++            if !dir.starts_with(mount_point) {
++                continue;
++            }
++
++            // Is this better than our current match?
++            if mount_point.as_os_str().len() > best.mount.as_os_str().len()
++			  // `is_dir` performs a stat, which can hang forever on network file systems, so
++			  // we only make this call last, when it's likely that this is the mount point.
++				&& mount_point.is_dir()
++            {
++                best = Fs {
++                    device: PathBuf::from(device),
++                    fs_type: fs_type.to_owned(),
++                    mount: PathBuf::from(mount_point),
++                }
++            }
++        }
++
++        Ok(best)
++    }
++}
++
++impl FsIdentifier {
++    fn to_flag(self) -> &'static str {
++        match self {
++            Self::Uuid => "--fs-uuid",
++            Self::Label => "--label",
++            _ => unreachable!(),
++        }
++    }
++
++    fn to_search(self, fs: &Fs) -> Result<String> {
++        match self {
++            Self::Uuid => self.query_blkid(fs, "UUID"),
++            Self::Label => self.query_blkid(fs, "LABEL"),
++            Self::Provided => Ok(Self::provided_search(&fs.device).unwrap_or_default()),
++        }
++    }
++
++    fn provided_search(device: &Path) -> Option<String> {
++        // If the provided dev is identifying the partition using a label or uuid,
++        // we should get the label / uuid and do a proper search
++        let flag = match device.to_str() {
++            Some(s) if s.starts_with("/dev/disk/by-label/") => "--label",
++            Some(s) if s.starts_with("/dev/disk/by-uuid/") => "--fs-uuid",
++            _ => return None,
++        };
++
++        Some(format!(
++            "{flag}={}",
++            device
++                .file_name()?
++                .to_str()
++                .expect("Device name must be valid UTF-8")
++        ))
++    }
++
++    fn query_blkid(&self, fs: &Fs, key: &str) -> Result<String> {
++        // Based on the type pull in the identifier from the system
++
++        let Output {
++            status,
++            stdout: dev_info,
++            ..
++        } = Command::new("blkid")
++            .arg("-o")
++            .arg("export")
++            .arg(&fs.device)
++            .output()
++            .context("Failed to execute blkid")?;
++
++        if !status.success() {
++            bail!(
++                "Failed to get blkid info ({status}) for {} on {}",
++                fs.mount.display(),
++                fs.device.display(),
++            );
++        }
++
++        for line in dev_info.lines() {
++            let line = line?;
++            let Some((k, v)) = line.split_once('=') else {
++                continue;
++            };
++            if key == k {
++                return Ok(format!("{} {v}", self.to_flag()));
++            }
++        }
++        bail!("Couldn't find a {key} for {}", fs.device.display());
++    }
++}
+diff --git a/pkgs/by-name/in/install-grub-ng/src/main.rs b/pkgs/by-name/in/install-grub-ng/src/main.rs
+new file mode 100644
+index 000000000000..5b44ec5f0229
+--- /dev/null
++++ b/pkgs/by-name/in/install-grub-ng/src/main.rs
+@@ -0,0 +1,42 @@
++mod builder;
++mod config;
++mod grub;
++
++use std::path::Path;
++
++use eyre::{Context, Result, bail};
++
++use crate::{builder::Builder, config::Config};
++
++fn main() -> Result<()> {
++	let mut args = std::env::args().skip(1);
++	let Some(config_file) = args.next() else {
++		bail!("Missing first argument: should be path to config file")
++	};
++	let Some(default_config) = args.next() else {
++		bail!("Missing second argument: should be path to default config")
++	};
++
++	let config_file = std::fs::read_to_string(config_file).context("While reading config file")?;
++	let config: Config = serde_json::from_str(&config_file).context("While parsing config file")?;
++
++	eprintln!("updating GRUB 2 menu...");
++
++	// TODO: move to wrapper
++	std::env::set_var("PATH", config.path);
++
++	Builder::new(config, Path::new(&default_config))
++		.context("While initializing builder")?
++		.users()
++		.context("While writing user configs")?
++		.default_entry()
++		.context("While writing default entries")?
++		.appearance()
++		.context("While writing appearance settings")?
++		.entries()
++		.context("While writing entries")?
++		.install()
++		.context("While installing GRUB")?;
++
++	Ok(())
++}

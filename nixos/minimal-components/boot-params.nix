@@ -10,6 +10,7 @@
 
   boot.loader.grub = {
     enable = true;
+    useInstallNg = true;
     default = if LT.this.hasTag LT.tags.client then "saved" else 0;
     font = lib.mkForce "${pkgs.nerd-fonts.ubuntu-mono}/share/fonts/truetype/NerdFonts/UbuntuMono/UbuntuMonoNerdFontMono-Regular.ttf";
     fontSize = lib.mkForce 16;
