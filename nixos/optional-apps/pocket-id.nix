@@ -9,6 +9,8 @@
 {
   imports = [ ./postgresql.nix ];
 
+  lantian.geoip.enable = true;
+
   sops.secrets.pocket-id-encryption-key = {
     sopsFile = inputs.secrets + "/pocket-id.yaml";
     owner = "pocket-id";

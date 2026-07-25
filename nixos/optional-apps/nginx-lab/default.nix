@@ -16,6 +16,8 @@ in
     group = "nginx";
   };
 
+  lantian.geoip.enable = true;
+
   lantian.nginxVhosts."lab.lantian.pub" = {
     listenHTTP.enable = true;
     root = labRoot;

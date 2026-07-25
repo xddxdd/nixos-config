@@ -1,11 +1,4 @@
-{ pkgs, ... }:
-let
-  qqwryDB = pkgs.fetchurl {
-    url = "https://github.com/out0fmemory/qqwry.dat/raw/master/qqwry_lastest.dat";
-    hash = "sha256-ZfzgGSd+hOIFvqAgKE6GajZwN4GaDRx+awqYwMPh5kI=";
-  };
-in
-{
+_: {
   services.phpfpm = {
     phpOptions = ''
       engine = On
@@ -53,18 +46,5 @@ in
       allow_url_include = Off
       default_socket_timeout = 60
     '';
-  };
-
-  systemd.tmpfiles.settings = {
-    qqwry = {
-      "/etc/qqwry".d = {
-        mode = "755";
-        user = "root";
-        group = "root";
-      };
-      "/etc/qqwry/qqwry.dat"."L+" = {
-        argument = toString qqwryDB;
-      };
-    };
   };
 }

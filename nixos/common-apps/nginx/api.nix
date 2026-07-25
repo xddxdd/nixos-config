@@ -1,4 +1,6 @@
 _: {
+  lantian.geoip.enable = true;
+
   lantian.nginxVhosts."api.lantian.pub" = {
     root = "/var/empty";
     locations = {
