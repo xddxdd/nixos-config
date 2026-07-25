@@ -69,7 +69,7 @@ let
     {
       recordType = "CNAME";
       name = "api";
-      target = config.common.records.GeoDNSTarget;
+      target = "colocrossing";
       ttl = "1h";
     }
     {

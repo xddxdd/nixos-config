@@ -2,7 +2,6 @@
 {
   imports = [
     # keep-sorted start
-    ./api.nix
     ./autoconfig.nix
     ./hosts.nix
     ./libravatar.nix
