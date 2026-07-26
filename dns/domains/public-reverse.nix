@@ -1,5 +1,6 @@
-{ config, ... }:
-{
+{ config, lib, ... }:
+# Disabled for henet provider failure
+lib.mkIf false {
   domains = [
     (config.common.reverse6 {
       prefix = "2001:470:8a6d::/48";

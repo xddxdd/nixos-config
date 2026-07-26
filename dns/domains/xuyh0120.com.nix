@@ -3,7 +3,7 @@
   domains = [
     rec {
       domain = "xuyh0120.com";
-      providers = [ "henet" ];
+      providers = [ "bunny" ];
       records = lib.flatten [
         {
           recordType = "ALIAS";

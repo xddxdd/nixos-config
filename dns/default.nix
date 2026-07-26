@@ -20,6 +20,7 @@
     "cloudflare"
     "desec"
     "gcore"
-    "henet"
+    # # Disabled for henet provider failure
+    # "henet"
   ];
 }

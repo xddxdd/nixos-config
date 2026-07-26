@@ -5,7 +5,8 @@
       domain = "lantian.pp.ua";
       registrar = "doh";
       providers = [
-        "henet"
+        # # Disabled for henet provider failure
+        # "henet"
         "desec"
       ];
       records = lib.flatten [
@@ -32,7 +33,8 @@
       domain = "ltn.pp.ua";
       registrar = "doh";
       providers = [
-        "henet"
+        # # Disabled for henet provider failure
+        # "henet"
         "desec"
       ];
       records = lib.flatten [
@@ -59,7 +61,8 @@
       domain = "xuyh0120.pp.ua";
       registrar = "doh";
       providers = [
-        "henet"
+        # # Disabled for henet provider failure
+        # "henet"
         "desec"
       ];
       records = lib.flatten [
