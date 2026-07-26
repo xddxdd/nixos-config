@@ -30,6 +30,9 @@ rec {
       done
     '';
   });
+  hydra = prev.hydra.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/hydra-protect-private-project.patch ];
+  });
   knot-dns = prev.knot-dns.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;

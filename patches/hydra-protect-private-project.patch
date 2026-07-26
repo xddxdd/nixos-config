@@ -1,0 +1,145 @@
+diff --git a/subprojects/hydra/lib/Hydra/Controller/API.pm b/subprojects/hydra/lib/Hydra/Controller/API.pm
+index 49f816f0..98035fbe 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/API.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/API.pm
+@@ -56,6 +56,8 @@ sub latestbuilds : Chained('api') PathPart('latestbuilds') Args(0) {
+     my $job = $c->request->params->{job};
+     my $system = $c->request->params->{system};
+ 
++    requireProjectView($c, $project);
++
+     my $filter = {finished => 1};
+     $filter->{"jobset.project"} = $project if defined $project && $project ne "";
+     $filter->{"jobset.name"} = $jobset if defined $jobset && $jobset ne "";
+@@ -106,6 +108,8 @@ sub jobsets : Chained('api') PathPart('jobsets') Args(0) {
+     my $projectName = $c->request->params->{project};
+     error($c, "Parameter 'project' not defined!") if !defined $projectName;
+ 
++    requireProjectView($c, $projectName);
++
+     my $project = $c->model('DB::Projects')->find($projectName)
+         or notFound($c, "Project $projectName doesn't exist.");
+ 
+@@ -162,6 +166,8 @@ sub nrbuilds : Chained('api') PathPart('nrbuilds') Args(0) {
+     my $job = $c->request->params->{job};
+     my $system = $c->request->params->{system};
+ 
++    requireProjectView($c, $project);
++
+     my $filter = {finished => 1};
+     $filter->{"jobset.project"} = $project if defined $project && $project ne "";
+     $filter->{"jobset.name"} = $jobset if defined $jobset && $jobset ne "";
+diff --git a/subprojects/hydra/lib/Hydra/Controller/Build.pm b/subprojects/hydra/lib/Hydra/Controller/Build.pm
+index ca9a22cf..7c3fd997 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/Build.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/Build.pm
+@@ -38,6 +38,8 @@ sub buildChain :Chained('/') :PathPart('build') :CaptureArgs(1) {
+ 
+     $c->stash->{project} = $c->stash->{build}->project;
+     $c->stash->{jobset} = $c->stash->{build}->jobset;
++
++    requireProjectView($c, $c->stash->{project}->name);
+     $c->stash->{job} = $c->stash->{build}->job;
+     $c->stash->{runcommandlogs} = [$c->stash->{build}->runcommandlogs->search({}, {order_by => ["id DESC"]})];
+ 
+diff --git a/subprojects/hydra/lib/Hydra/Controller/Channel.pm b/subprojects/hydra/lib/Hydra/Controller/Channel.pm
+index 67de61ae..b4263ccb 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/Channel.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/Channel.pm
+@@ -8,6 +8,8 @@ use base 'Hydra::Base::Controller::REST';
+ sub channel : Chained('/') PathPart('channel/custom') CaptureArgs(3) {
+     my ($self, $c, $projectName, $jobsetName, $channelName) = @_;
+ 
++    requireProjectView($c, $projectName);
++
+     $c->stash->{project} = $c->model('DB::Projects')->find($projectName);
+ 
+     notFound($c, "Project $projectName doesn't exist.")
+diff --git a/subprojects/hydra/lib/Hydra/Controller/Job.pm b/subprojects/hydra/lib/Hydra/Controller/Job.pm
+index b392e8e1..9de15290 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/Job.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/Job.pm
+@@ -12,6 +12,8 @@ use Net::Prometheus;
+ sub job : Chained('/') PathPart('job') CaptureArgs(3) {
+     my ($self, $c, $projectName, $jobsetName, $jobName) = @_;
+ 
++    requireProjectView($c, $projectName);
++
+     $c->stash->{jobset} = $c->model('DB::Jobsets')->find({ project => $projectName, name => $jobsetName });
+ 
+     if (!$c->stash->{jobset}) {
+diff --git a/subprojects/hydra/lib/Hydra/Controller/Jobset.pm b/subprojects/hydra/lib/Hydra/Controller/Jobset.pm
+index bc7d7444..89a5c4cb 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/Jobset.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/Jobset.pm
+@@ -11,6 +11,8 @@ use Hydra::Helper::CatalystUtils;
+ sub jobsetChain :Chained('/') :PathPart('jobset') :CaptureArgs(2) {
+     my ($self, $c, $projectName, $jobsetName) = @_;
+ 
++    requireProjectView($c, $projectName);
++
+     my $project = $c->model('DB::Projects')->find($projectName);
+ 
+     notFound($c, "Project ‘$projectName’ doesn't exist.") if !$project;
+diff --git a/subprojects/hydra/lib/Hydra/Controller/JobsetEval.pm b/subprojects/hydra/lib/Hydra/Controller/JobsetEval.pm
+index 77c01a84..ef8925bb 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/JobsetEval.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/JobsetEval.pm
+@@ -19,6 +19,8 @@ sub evalChain : Chained('/') PathPart('eval') CaptureArgs(1) {
+     $c->stash->{eval} = $eval;
+     $c->stash->{jobset} = $eval->jobset;
+     $c->stash->{project} = $eval->jobset->project;
++
++    requireProjectView($c, $c->stash->{project}->name);
+ }
+ 
+ 
+diff --git a/subprojects/hydra/lib/Hydra/Controller/Project.pm b/subprojects/hydra/lib/Hydra/Controller/Project.pm
+index 1141de4a..04f1985a 100644
+--- a/subprojects/hydra/lib/Hydra/Controller/Project.pm
++++ b/subprojects/hydra/lib/Hydra/Controller/Project.pm
+@@ -10,6 +10,9 @@ use Hydra::Helper::CatalystUtils;
+ 
+ sub projectChain :Chained('/') :PathPart('project') :CaptureArgs(1) {
+     my ($self, $c, $projectName) = @_;
++
++    requireProjectView($c, $projectName);
++
+     $c->stash->{params}->{name} //= $projectName;
+ 
+     my $isCreate = $c->action->name eq "project" && $c->request->method eq "PUT";
+diff --git a/subprojects/hydra/lib/Hydra/Helper/CatalystUtils.pm b/subprojects/hydra/lib/Hydra/Helper/CatalystUtils.pm
+index 6ccdbc4d..655a40ed 100644
+--- a/subprojects/hydra/lib/Hydra/Helper/CatalystUtils.pm
++++ b/subprojects/hydra/lib/Hydra/Helper/CatalystUtils.pm
+@@ -16,6 +16,7 @@ our @EXPORT = qw(
+     requireBumpPrivileges
+     requireCancelBuildPrivileges
+     requireEvalJobsetPrivileges
++    isProtectedProject requireProjectView
+     trim
+     getLatestFinishedEval getFirstEval
+     paramToList
+@@ -297,6 +298,22 @@ sub requirePost {
+     error($c, "Request must be POSTed.", 405) if $c->request->method ne "POST";
+ }
+ 
++# Projects whose project details and build status are restricted to
++# authenticated users. Any logged-in user may view them; anonymous users may not.
++my @protectedProjects = ("lantian-private");
++
++sub isProtectedProject {
++    my ($projectName) = @_;
++    return 0 unless defined $projectName;
++    foreach my $p (@protectedProjects) { return 1 if $projectName eq $p; }
++    return 0;
++}
++
++sub requireProjectView {
++    my ($c, $projectName) = @_;
++    requireUser($c) if isProtectedProject($projectName);
++}
++
+ 
+ sub trim {
+     my $s = shift // "";
