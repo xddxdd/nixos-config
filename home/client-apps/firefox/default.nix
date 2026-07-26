@@ -34,7 +34,6 @@ let
       extensions = {
         packages = with pkgs.firefox-addons; [
           # keep-sorted start
-          all-api-hub
           auto-novel-addon
           awardwallet
           bilisponsorblock

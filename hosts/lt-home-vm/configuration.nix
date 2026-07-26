@@ -16,7 +16,6 @@
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
-    ../../nixos/optional-apps/axonhub.nix
     # ../../nixos/optional-apps/bifrost.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
