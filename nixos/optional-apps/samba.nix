@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -36,9 +35,16 @@
         "aio read size" = 16384;
         "aio write size" = 16384;
         "server multi channel support" = "yes";
-        "interfaces" = builtins.map (i: "${i}*") (
-          LT.constants.interfacePrefixes.WAN ++ LT.constants.interfacePrefixes.LAN
-        );
+        # NOTE: Do NOT set "interfaces" to glob patterns like "br*"/"en*".
+        # Samba's `net` tool resolves every entry in `interfaces` via
+        # gethostbyname(), and a glob (e.g. "br*") is not an interface name, so
+        # it falls through to a DNS NXDOMAIN lookup taking ~0.25s each. With
+        # ~14 patterns this stalls any `net` invocation (notably
+        # `net usershare info`, which Dolphin runs synchronously on startup)
+        # for ~6 seconds, freezing the file manager on every launch.
+        # `bind interfaces only` is not enabled, so `interfaces` would not
+        # restrict listening sockets anyway; leaving it unset lets Samba use all
+        # interfaces and keeps `net` instant.
 
         # Windows XP access
         "server min protocol" = "NT1";
