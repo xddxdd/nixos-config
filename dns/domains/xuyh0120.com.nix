@@ -27,7 +27,6 @@
 
         config.common.hostRecs.CAA
         (config.common.hostRecs.Normal "${domain}.")
-        (config.common.hostRecs.SSHFP "${domain}.")
         (config.common.records.Autoconfig "${domain}.")
         config.common.records.Email
         {
