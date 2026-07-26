@@ -63,6 +63,7 @@ jobs:
         run: nix run ".#dnscontrol" -- push
 
       - name: Rsync zone files over SSH
+        if: '!cancelled()'
         run: |
           sudo apt-get install -y rsync
           rsync -avzr --delete-after -e "ssh -p2222" zones/ ci@rsync-ci.xuyh0120.win:/ltnet-zones/
