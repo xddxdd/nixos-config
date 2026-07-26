@@ -108,7 +108,6 @@
     "tls://spain.magicum.net:36901"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884",
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
@@ -137,7 +136,6 @@
     "tls://marisa.nadeko.net:44442",
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
-    "tls://ygg-atvps.axxa.dev:18080",
     "tls://ygg-dc.lxak.net:8880",
     "tls://ygg-google.axxa.dev:18080",
     "tls://ygg-kcmo.incognet.io:8884",

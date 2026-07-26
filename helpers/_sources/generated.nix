@@ -63,20 +63,20 @@
   };
   dn42-certificate-authority-client = {
     pname = "dn42-certificate-authority-client";
-    version = "1.1.1";
+    version = "1.1.2";
     src = fetchurl {
-      url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=1.1.1";
+      url = "https://dn42.g-load.eu/about/certificate-authority/client.sh?ver=1.1.2";
       name = "client.sh";
-      sha256 = "sha256-Q4FhNwlEaC10xJ5dXyWzE/tNzvah8z9RdPhxHUiVamY=";
+      sha256 = "sha256-1/QOigfUcc6LUGM9/Ud7CRo9odYSBtfEjDUfOYDxBT0=";
     };
   };
   dn42-peerfinder-client = {
     pname = "dn42-peerfinder-client";
-    version = "1.0.4";
+    version = "1.0.6";
     src = fetchurl {
-      url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.4";
+      url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.6";
       name = "peerfinder-agent.py";
-      sha256 = "sha256-gfZcDwW4BOPUlbDjdFa/NlYSzCNuqOMj4JNI1ysW3lE=";
+      sha256 = "sha256-C6x25s3SlFI+ibREBxRsuVyYYkPPfNUw7u6wpG5NK7w=";
     };
   };
   dnscontrol-xddxdd = {
