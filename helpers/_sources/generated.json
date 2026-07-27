@@ -114,7 +114,7 @@
         "pinned": false,
         "src": {
             "name": "peerfinder-agent.py",
-            "sha256": "sha256-C6x25s3SlFI+ibREBxRsuVyYYkPPfNUw7u6wpG5NK7w=",
+            "sha256": "sha256-BQqbTJGkYMFZYV9G/VnvP2Ma8QVbo5CGJqs2WhYUJjo=",
             "type": "url",
             "url": "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.6"
         },
