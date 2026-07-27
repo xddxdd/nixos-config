@@ -129,10 +129,12 @@ in
 
   services.mptcpd = {
     enable = !cfg.networkmanager.enable;
-    extraMptcpdFlags = [
-      "--addr-flags=subflow"
-      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
-    ];
+    settings = {
+      core = {
+        addr-flags = "subflow";
+        notify-flags = "existing,skip_link_local,skip_loopback,check_route";
+      };
+    };
   };
   systemd.services.mptcp.serviceConfig = {
     Restart = "on-failure";

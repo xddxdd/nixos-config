@@ -112,7 +112,6 @@ in
         nur-xddxdd.bambu-studio-bin
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
-        nur-xddxdd.command-code
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.lantianCustomized.materialgram
