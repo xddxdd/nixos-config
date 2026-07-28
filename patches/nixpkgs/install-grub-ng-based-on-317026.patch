@@ -1018,10 +1018,10 @@ index 000000000000..6c6e2800c408
 +}
 diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
 new file mode 100644
-index 000000000000..859e5d56cafc
+index 000000000000..8db62f5d9b1a
 --- /dev/null
 +++ b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
-@@ -0,0 +1,450 @@
+@@ -0,0 +1,452 @@
 +use std::{
 +    cmp::Reverse,
 +    fmt::Write as _,
@@ -1423,26 +1423,26 @@ index 000000000000..859e5d56cafc
 +    }
 +
 +    fn copy_to_kernels_dir(&mut self, path: &Path) -> Result<PathBuf> {
-+        let path = path.canonicalize()?;
++        let src = path.canonicalize()?;
 +
-+        let Ok(path) = path.strip_prefix(self.config.store_dir) else {
++        let Ok(rel) = src.strip_prefix(self.config.store_dir) else {
 +            bail!(
 +                "Path {} is not in Nix store ({})!",
-+                path.display(),
++                src.display(),
 +                self.config.store_dir.display(),
 +            );
 +        };
-+        let Some(path) = path.to_str() else {
-+            bail!("Kernel file path {} is not valid UTF-8", path.display());
++        let Some(rel) = rel.to_str() else {
++            bail!("Kernel file path {} is not valid UTF-8", rel.display());
 +        };
 +
 +        // GRUB store exists, which means the kernels and initrds are on the same
 +        // filesystem as / and the Nix store. No need to copy!
 +        if let Some(store) = &self.grub_store {
-+            return Ok(store.path.join(path));
++            return Ok(store.path.join(rel));
 +        }
 +
-+        let name = path.replace('/', "-");
++        let name = rel.replace('/', "-");
 +        let mut dst = self.config.boot_path.join("kernels");
 +        dst.push(&name);
 +
@@ -1460,10 +1460,12 @@ index 000000000000..859e5d56cafc
 +                name.push(".tmp");
 +                let tmp = dst.with_file_name(name);
 +
-+                fs::copy(path, &tmp)
-+                    .with_context(|| format!("Cannot copy {path} to {}", tmp.display()))?;
-+                fs::rename(&tmp, &dst)
-+                    .with_context(|| format!("Cannot rename {path} to {}", tmp.display()))?;
++                fs::copy(&src, &tmp).with_context(|| {
++                    format!("Cannot copy {} to {}", src.display(), tmp.display())
++                })?;
++                fs::rename(&tmp, &dst).with_context(|| {
++                    format!("Cannot rename {} to {}", tmp.display(), dst.display())
++                })?;
 +                Ok(())
 +            })?;
 +        }
