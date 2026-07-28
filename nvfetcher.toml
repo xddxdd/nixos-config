@@ -91,6 +91,10 @@ src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "xddxdd/Sakura_Launcher_GUI"
 src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 
+[skyland-auto-checkin]
+fetch.github = "devnakx/skyland_auto_checkin"
+src.git = "https://github.com/devnakx/skyland_auto_checkin.git"
+
 [tar1090-db]
 fetch.github = "wiedehopf/tar1090-db"
 src.git = "https://github.com/wiedehopf/tar1090-db.git"

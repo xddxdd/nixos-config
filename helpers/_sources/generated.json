@@ -400,6 +400,27 @@
         },
         "version": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd"
     },
+    "skyland-auto-checkin": {
+        "cargoLock": null,
+        "date": "2026-03-26",
+        "extract": null,
+        "name": "skyland-auto-checkin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "devnakx",
+            "repo": "skyland_auto_checkin",
+            "rev": "c3234ce1845df4623d9d7727e6b5b6c1dd543ba4",
+            "sha256": "sha256-j1iyuzpB0XNlGtMW7sByg94SAaE/MJNyS/SksD1asCo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "c3234ce1845df4623d9d7727e6b5b6c1dd543ba4"
+    },
     "tar1090-db": {
         "cargoLock": null,
         "date": "2026-06-22",

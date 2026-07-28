@@ -242,6 +242,18 @@
     };
     date = "2025-12-29";
   };
+  skyland-auto-checkin = {
+    pname = "skyland-auto-checkin";
+    version = "c3234ce1845df4623d9d7727e6b5b6c1dd543ba4";
+    src = fetchFromGitHub {
+      owner = "devnakx";
+      repo = "skyland_auto_checkin";
+      rev = "c3234ce1845df4623d9d7727e6b5b6c1dd543ba4";
+      fetchSubmodules = false;
+      sha256 = "sha256-j1iyuzpB0XNlGtMW7sByg94SAaE/MJNyS/SksD1asCo=";
+    };
+    date = "2026-03-26";
+  };
   tar1090-db = {
     pname = "tar1090-db";
     version = "8661aac00ad9caf09aac9f8ebe614ad1c35632bc";
