@@ -228,7 +228,7 @@
         ) self.allSystems;
 
         hydraJobs = {
-          inherit (self) packages;
+          inherit (self) apps packages devShells;
           nixosConfigurations = lib.mapAttrs (n: v: v.config.system.build.toplevel) self.nixosConfigurations;
         };
       };
