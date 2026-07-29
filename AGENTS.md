@@ -16,6 +16,7 @@
 
 ```
 .
+├── .github/               # GitHub Actions 工作流
 ├── flake.nix              # Flake 入口文件
 ├── flake.lock             # Flake 锁文件
 ├── Makefile               # 构建命令
@@ -28,7 +29,8 @@
 ├── nixos/                 # NixOS 模块
 ├── overlays/              # Nixpkgs 覆盖层
 ├── patches/               # 软件补丁
-└── pkgs/                  # 自定义包
+├── pkgs/                  # 自定义包
+└── tools/                 # 辅助工具脚本
 ```
 
 ## 关键文件说明
@@ -65,16 +67,19 @@ Flake 入口文件，定义了：
 
 ### 可用标签
 
-| 标签          | 说明                 |
-| ------------- | -------------------- |
-| `server`      | 服务器配置           |
-| `client`      | 客户端配置（带 GUI） |
-| `dn42`        | DN42 节点            |
-| `nix-builder` | Nix 远程构建节点     |
-| `low-ram`     | 低内存优化           |
-| `ipv4-only`   | 仅 IPv4              |
-| `lan-access`  | 局域网访问           |
-| `cuda`        | NVIDIA CUDA 支持     |
+| 标签             | 说明                                                       |
+| ---------------- | ---------------------------------------------------------- |
+| `client`         | 客户端配置（带 GUI）                                       |
+| `cn-accel`       | 中国网络加速节点（启用 v2ray、mihomo、openvpn-gameaccel）  |
+| `dn42`           | DN42 节点                                                  |
+| `nix-builder`    | Nix 远程构建节点                                           |
+| `public-facing`  | 公网可访问节点（用于 Prometheus blackbox 监控等）          |
+| `server`         | 服务器配置                                                 |
+| `ipv4-only`      | 仅 IPv4                                                    |
+| `ipv6-only`      | 仅 IPv6                                                    |
+| `lan-access`     | 局域网访问                                                 |
+| `cuda`           | NVIDIA CUDA 支持                                           |
+| `low-ram`        | 低内存优化                                                 |
 
 ## 模块系统说明
 
@@ -84,10 +89,10 @@ Flake 入口文件，定义了：
 
 | 文件          | 说明            | 包含的模块                                                                        |
 | ------------- | --------------- | --------------------------------------------------------------------------------- |
-| `minimal.nix` | 最小化配置      | minimal-apps + minimal-components + minimal-modules                                                 |
-| `server.nix`  | 服务器配置      | minimal-apps + common-apps + server-apps + minimal-components + server-components + minimal-modules |
-| `client.nix`  | 客户端配置      | minimal-apps + common-apps + client-apps + minimal-components + client-components + minimal-modules |
-| `pve.nix`     | Proxmox VE 配置 | -                                                                                 |
+| `minimal.nix` | 最小化配置      | minimal-apps + minimal-components + minimal-modules + minimal-policies                                                 |
+| `server.nix`  | 服务器配置      | minimal-apps + common-apps + server-apps + minimal-components + server-components + minimal-modules + minimal-policies |
+| `client.nix`  | 客户端配置      | minimal-apps + common-apps + client-apps + minimal-components + client-components + minimal-modules + minimal-policies |
+| `pve.nix`     | Proxmox VE 配置 | minimal-components + pve-components + minimal-modules + minimal-policies                                                 |
 
 ### 模块目录
 
@@ -102,6 +107,10 @@ Flake 入口文件，定义了：
 | `minimal-policies/`   | 配置策略断言（assertions，检查配置正确性，自动导入到所有角色配置） |
 | `server-components/`  | 服务器组件（backup、dn42、logging 等）                 |
 | `client-components/`  | 客户端组件                                             |
+| `pve-components/`     | Proxmox VE 组件（自动导入到 pve.nix）                  |
+| `hardware/`           | 通用硬件配置片段（LVM、QEMU、NVIDIA 等，需在主机配置中手动导入） |
+| `optional-apps/`      | 可选应用（部分主机使用，需在主机配置中手动导入）        |
+| `optional-cron-jobs/` | 可选定时任务（部分主机使用，需在主机配置中手动导入）    |
 
 ### 策略断言说明
 
@@ -115,10 +124,6 @@ Flake 入口文件，定义了：
 | `ensure-service-restart.nix`          | 确保所有 systemd 服务设置了 Restart 属性                      |
 | `nginx-security.nix`                  | 确保 Nginx 虚拟主机的安全配置正确（localhost/public 访问控制） |
 | `podman-ensure-autoupdate.nix`        | 确保所有 Podman 容器启用了自动更新                            |
-| `hardware/`           | 硬件相关配置                                           |
-| `optional-apps/`      | 可选应用                                               |
-| `optional-cron-jobs/` | 可选定时任务                                           |
-| `pve-components/`     | Proxmox VE 组件                                        |
 
 ## 自定义包说明
 
