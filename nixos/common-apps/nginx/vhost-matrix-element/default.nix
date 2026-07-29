@@ -43,7 +43,7 @@ let
     }
   );
 in
-lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
+{
   lantian.nginxVhosts."element.lantian.pub" = {
     listenHTTP.enable = true;
     root = builtins.toString (LT.nginx.compressStaticAssets pkgs.element-web);

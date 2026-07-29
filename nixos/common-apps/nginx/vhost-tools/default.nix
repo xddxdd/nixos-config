@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   LT,
   ...
 }:
@@ -21,7 +20,7 @@ let
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix { };
   };
 in
-lib.mkIf (!(LT.this.hasTag LT.tags.low-disk)) {
+{
   lantian.nginxVhosts."tools.lantian.pub" = {
     root = pkgs.linkFarm "tools" tools;
     locations = {

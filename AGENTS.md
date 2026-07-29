@@ -71,7 +71,6 @@ Flake 入口文件，定义了：
 | `client`      | 客户端配置（带 GUI） |
 | `dn42`        | DN42 节点            |
 | `nix-builder` | Nix 远程构建节点     |
-| `low-disk`    | 低磁盘空间优化       |
 | `low-ram`     | 低内存优化           |
 | `ipv4-only`   | 仅 IPv4              |
 | `lan-access`  | 局域网访问           |

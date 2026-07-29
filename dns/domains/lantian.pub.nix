@@ -181,14 +181,10 @@ let
       ttl = "1h";
     }
     {
-      recordType = "GEO";
-      # GeoDNS for servers with sufficient storage
+      recordType = "CNAME";
       name = "tools";
-      ttl = "5m";
-      # Alice host is slow from China mainland
-      filter =
-        n: v: (v.hasTag "server") && (v.hasTag "public-facing") && (!(v.hasTag "low-disk")) && n != "alice";
-      healthcheck = "tools.lantian.pub";
+      target = config.common.records.GeoDNSTarget;
+      ttl = "1h";
     }
     {
       recordType = "CNAME";

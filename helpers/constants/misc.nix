@@ -24,7 +24,6 @@
 
     # Hardware
     "cuda"
-    "low-disk"
     "low-ram"
   ] (v: v);
 }
