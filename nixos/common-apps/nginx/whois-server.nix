@@ -1,5 +1,10 @@
-{ config, ... }:
 {
+  config,
+  lib,
+  LT,
+  ...
+}:
+lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
   lantian.nginxVhosts = {
     "whois.lantian.pub" = {
       listenHTTP.enable = true;

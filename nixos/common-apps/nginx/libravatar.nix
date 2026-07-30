@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  LT,
+  ...
+}:
 let
   avatars = pkgs.stdenv.mkDerivation rec {
     pname = "avatars";
@@ -18,7 +23,7 @@ let
     '';
   };
 in
-{
+lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
   lantian.nginxVhosts."avatar.lantian.pub" = {
     root = avatars;
     locations = {

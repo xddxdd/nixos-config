@@ -1,5 +1,6 @@
 {
   lib,
+  LT,
   ...
 }:
 let
@@ -210,7 +211,7 @@ let
       </plist>
     '';
 in
-{
+lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
   lantian.nginxVhosts = builtins.listToAttrs (
     builtins.map (
       domain:

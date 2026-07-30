@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, LT, ... }:
 let
   mkTestSSL =
     pair:
@@ -13,7 +13,7 @@ let
       enableCommonLocationOptions = false;
     };
 in
-{
+lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
   lantian.nginxVhosts = builtins.listToAttrs (
     builtins.map mkTestSSL [
       [

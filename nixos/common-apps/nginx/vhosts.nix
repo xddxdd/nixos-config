@@ -194,7 +194,8 @@ in
       enableCommonLocationOptions = false;
       sslCertificate = "zerossl-ltn.pw";
     };
-
+  }
+  // lib.optionalAttrs (LT.this.hasTag LT.tags.public-facing) {
     "gopher.lantian.pub" = {
       listenHTTP.enable = true;
       listenPlainSocket = {
