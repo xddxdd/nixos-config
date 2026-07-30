@@ -76,7 +76,7 @@
     src = fetchurl {
       url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.6";
       name = "peerfinder-agent.py";
-      sha256 = "sha256-C6x25s3SlFI+ibREBxRsuVyYYkPPfNUw7u6wpG5NK7w=";
+      sha256 = "sha256-BQqbTJGkYMFZYV9G/VnvP2Ma8QVbo5CGJqs2WhYUJjo=";
     };
   };
   dnscontrol-xddxdd = {
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "ad462e42c97fea52c0d58ce0507fe6dc36da675b";
+    version = "5e81f93e79cabd3921ddf451f57026a97fabe2cc";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "ad462e42c97fea52c0d58ce0507fe6dc36da675b";
+      rev = "5e81f93e79cabd3921ddf451f57026a97fabe2cc";
       fetchSubmodules = false;
-      sha256 = "sha256-3qoGL7/S6W47fZfSr20giiFxXisdLQ323le38iQIJMI=";
+      sha256 = "sha256-TO3bv9Em/KB2sVpEgk6b2xyLlv8BJ36FQ8DVW4UhxT8=";
     };
-    date = "2026-07-13";
+    date = "2026-07-29";
   };
   open5gs = {
     pname = "open5gs";
