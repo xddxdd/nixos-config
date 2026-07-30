@@ -1,0 +1,91 @@
+diff --git a/configure.ac b/configure.ac
+index 073d07d..df12bef 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -351,5 +351,13 @@ AC_SEARCH_LIBS(clock_nanosleep, [rt posix4])
+ # Check for clock_nanosleep support
+ AC_CHECK_FUNCS([clock_nanosleep])
+ 
++#
++# Check for systemd to support socket-based activation
++#
++AC_CHECK_HEADERS([systemd/sd-daemon.h],
++		 AC_DEFINE([HAVE_SD_DAEMON_H], [1], [Have sd-daemon support.])
++		 AC_SEARCH_LIBS(sd_listen_fds, [systemd]))
++
++
+ AC_CONFIG_FILES([Makefile src/Makefile src/version.h examples/Makefile iperf3.spec])
+ AC_OUTPUT
+diff --git a/contrib/iperf3_@.service b/contrib/iperf3_@.service
+new file mode 100644
+index 0000000..9d8a3ed
+--- /dev/null
++++ b/contrib/iperf3_@.service
+@@ -0,0 +1,5 @@
++[Unit]
++Description=Socket-Activated iperf3
++
++[Service]
++ExecStart=/usr/local/bin/iperf3 -s -1 -p %i --forceflush
+diff --git a/contrib/iperf3_@.socket b/contrib/iperf3_@.socket
+new file mode 100644
+index 0000000..53ca047
+--- /dev/null
++++ b/contrib/iperf3_@.socket
+@@ -0,0 +1,6 @@
++[Socket]
++ListenStream=%i
++
++[Install]
++WantedBy=sockets.target
++
+diff --git a/src/iperf_config.h.in b/src/iperf_config.h.in
+index 217aee3..b222078 100644
+--- a/src/iperf_config.h.in
++++ b/src/iperf_config.h.in
+@@ -66,6 +66,9 @@
+ /* Have SCTP support. */
+ #undef HAVE_SCTP_H
+ 
++/* Have sd-daemon support. */
++#undef HAVE_SD_DAEMON_H
++
+ /* Define to 1 if you have the 'sendfile' function. */
+ #undef HAVE_SENDFILE
+ 
+diff --git a/src/iperf_server_api.c b/src/iperf_server_api.c
+index 9727cdd..6c91195 100644
+--- a/src/iperf_server_api.c
++++ b/src/iperf_server_api.c
+@@ -65,6 +65,10 @@
+ #endif /* TCP_CA_NAME_MAX */
+ #endif /* HAVE_TCP_CONGESTION */
+ 
++#if defined(HAVE_SD_DAEMON_H)
++#include <systemd/sd-daemon.h>
++#endif
++
+ void *
+ iperf_server_worker_run(void *s) {
+     struct iperf_stream *sp = (struct iperf_stream *) s;
+@@ -112,8 +116,19 @@ iperf_server_worker_run(void *s) {
+ int
+ iperf_server_listen(struct iperf_test *test)
+ {
++    int n_systemd_fds = 0;
+     retry:
+-    if((test->listener = netannounce(test->settings->domain, Ptcp, test->bind_address, test->bind_dev, test->server_port)) < 0) {
++#if defined(HAVE_SD_DAEMON_H)
++    n_systemd_fds  = sd_listen_fds(0);
++    // Got more than one fd from systemd, or sd_listen_fds encountered an error:
++    if (n_systemd_fds > 1 || n_systemd_fds < 0)
++            return -1;
++
++    if (1 == n_systemd_fds)
++            test->listener = SD_LISTEN_FDS_START + 0;
++#endif
++
++    if (0 == n_systemd_fds && (test->listener = netannounce(test->settings->domain, Ptcp, test->bind_address, test->bind_dev, test->server_port)) < 0) {
+ 	if (errno == EAFNOSUPPORT && (test->settings->domain == AF_INET6 || test->settings->domain == AF_UNSPEC)) {
+ 	    /* If we get "Address family not supported by protocol", that
+ 	    ** probably means we were compiled with IPv6 but the running
