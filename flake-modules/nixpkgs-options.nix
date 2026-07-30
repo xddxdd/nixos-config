@@ -41,7 +41,6 @@ in
             inputs.comfyui-nix.overlays.default
             inputs.firefox-addons.overlays.default
             inputs.nix-alien.overlays.default
-            inputs.nix-cache-proxy.overlays.default
             inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs
             inputs.nur.overlays.default
             inputs.proxmox-nixos.overlays."${system}"

@@ -87,7 +87,6 @@ rec {
     Immich = 13466;
     Radicale = 13532;
     Tachidesk = 13567;
-    NixCacheProxy = 13627;
     N8N = 13678;
     Vaultwarden = 13772;
     Tika = 13787;
