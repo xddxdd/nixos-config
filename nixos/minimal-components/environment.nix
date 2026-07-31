@@ -71,6 +71,7 @@
     ripgrep
     rsync
     screen
+    speedtest-go
     sqlite
     strace
     tcpdump
