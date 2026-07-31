@@ -128,6 +128,18 @@
                   };
                 }
 
+                # Netfilter conntrack table usage
+                rec {
+                  alert = "node_nf_conntrack_using_90percent";
+                  expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.9";
+                  for = "10m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table almost full.";
+                    description = "{{$labels.alias}} is using over 90% of its netfilter conntrack table for ${for}.";
+                  };
+                }
+
                 # Bird shortlived peers (frequent reconnects)
                 {
                   alert = "bird_shortlived_peers";
