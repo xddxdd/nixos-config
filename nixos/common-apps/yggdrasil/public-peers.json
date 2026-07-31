@@ -1,7 +1,4 @@
 {
-  "armenia": [
-    "tls://37.186.113.100:1515"
-  ],
   "australia": [
     "tls://sirsegv.moe:7676",
     "tls://syd.joel.net.au:8443",
@@ -73,9 +70,6 @@
   "poland": [
     "tls://waw01.yggdrasil.hosted-by.skhron.eu:8884?key=030602cee88a761c68f5f14e1dad430f25238a703b69dc382321a38f833035b0"
   ],
-  "romania": [
-    "tls://ygg-ro.axxa.dev:18080"
-  ],
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://37.192.232.33:442",
@@ -107,9 +101,6 @@
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
-  ],
-  "taiwan": [
-    "tls://cowgl.tech:1337"
   ],
   "ukraine": [
     "tls://176.117.187.69:64535",
