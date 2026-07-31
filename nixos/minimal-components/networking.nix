@@ -74,6 +74,9 @@ in
 
     # Throttle port unreachable ICMP messages
     "net.ipv4.icmp_msgs_per_sec" = 10;
+
+    # Increase nftables max connections
+    "net.nf_conntrack_max" = 131072;
   };
 
   networking = {
