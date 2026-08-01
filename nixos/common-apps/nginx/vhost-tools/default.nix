@@ -16,6 +16,15 @@ let
         })
       ))
       + "/share/cyberchef";
+    it-tools =
+      (LT.nginx.compressStaticAssets (
+        pkgs.it-tools.overrideAttrs (old: {
+          env = (old.env or { }) // {
+            BASE_URL = "/it-tools/";
+          };
+        })
+      ))
+      + "/lib";
     dngzwxdq = LT.nginx.compressStaticAssets (pkgs.callPackage ./dngzwxdq.nix { });
     dnyjzsxj = LT.nginx.compressStaticAssets (pkgs.callPackage ./dnyjzsxj.nix { });
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix { };

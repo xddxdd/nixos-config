@@ -87,8 +87,7 @@ let
     {
       recordType = "CNAME";
       name = "element";
-      # GeoDNS target for servers with sufficient storage
-      target = "tools";
+      target = config.common.records.GeoDNSTarget;
     }
     {
       recordType = "CNAME";

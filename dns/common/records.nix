@@ -70,7 +70,6 @@
     ];
 
     GeoDNSTarget = "lantian.pub.";
-    GeoStorDNSTarget = "tools.lantian.pub.";
 
     Libravatar = [
       {
