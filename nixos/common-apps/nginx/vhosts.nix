@@ -68,15 +68,8 @@ let
             ${enableCompression}
           '';
         };
-        "= /.well-known/webfinger".extraConfig = ''
-          # Manually setup proxy to avoid passing proxy headers
-          # Add a variable to force use URL set by me
-          set $account "lantian@mastodon.social";
-          proxy_pass "https://mastodon.social/.well-known/webfinger?resource=acct:$account";
-          proxy_ssl_name mastodon.social;
-          proxy_ssl_server_name on;
-          ${enableCompression}
-        '';
+        "= /.well-known/webfinger".return =
+          "302 'https://mastodon.social/.well-known/webfinger?resource=acct:lantian@mastodon.social'";
         "= /dn42-geofeed.csv" = {
           root = builtins.toString self.packages.${pkgs.stdenv.hostPlatform.system}.dn42-geofeed;
         };
