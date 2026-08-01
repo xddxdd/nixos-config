@@ -134,14 +134,11 @@ let
         final: prev: {
           # Custom kernel packages
           acpi-ec = pkgs.nur-xddxdd.acpi-ec.override { inherit (final) kernel; };
-          cryptodev = pkgs.nur-xddxdd.cryptodev-unstable.override { inherit (final) kernel; };
           crystalhd = pkgs.nur-xddxdd.crystalhd.override { inherit (final) kernel; };
           dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
           i915-sriov = pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; };
           nft-fullcone = pkgs.nur-xddxdd.nft-fullcone.override { inherit (final) kernel; };
           nullfsvfs = pkgs.nur-xddxdd.nullfsvfs.override { inherit (final) kernel; };
-          r8125 = pkgs.nur-xddxdd.r8125.override { inherit (final) kernel; };
-          r8168 = pkgs.nur-xddxdd.r8168.override { inherit (final) kernel; };
           xt_rtpengine = pkgs.nur-xddxdd.xt_rtpengine.override { inherit (final) kernel; };
 
           nvidia_x11_grid_16_14 = pkgs.nur-xddxdd.nvidia-grid.grid."16_14".override {
