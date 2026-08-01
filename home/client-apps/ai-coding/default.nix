@@ -154,7 +154,6 @@ in
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
-        "npm:pi-lens"
         "npm:pi-mcp-adapter"
         "npm:pi-ollama-cloud"
         "npm:pi-rtk-optimizer"
