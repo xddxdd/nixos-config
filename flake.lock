@@ -1203,6 +1203,9 @@
     },
     "nur-xddxdd": {
       "inputs": {
+        "chinese-fonts-overlay": [
+          "chinese-fonts-overlay"
+        ],
         "devshell": "devshell",
         "flake-parts": [
           "flake-parts"
@@ -1221,11 +1224,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1785656221,
-        "narHash": "sha256-2D7Lw4uP9tGxC0smzfLgkRdtahc6dAj5xWbXnfSrkvQ=",
+        "lastModified": 1785726972,
+        "narHash": "sha256-sqLHsHpXBrv3xc35b43dWWroxZvTRZ9Z+kTm3oCQflA=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "55076f2d9e2f4abc828f5ceeab928a66a2b6d4a9",
+        "rev": "6269158a887db850767d091726ba753163d8491d",
         "type": "github"
       },
       "original": {
