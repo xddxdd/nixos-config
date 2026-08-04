@@ -64,8 +64,7 @@
     lib.mkForce (settingsFormat.generate "tranquil-pds.toml" config.services.tranquil-pds.settings);
 
   lantian.nginxVhosts."at.lantian.pub" = {
-    # # FIXME: Seems unused?
-    # serverAliases = [ "*.at.lantian.pub" ];
+    serverAliases = [ "*.at.lantian.pub" ];
 
     locations."/" = {
       proxyPass = "http://127.0.0.1:${LT.portStr.TranquilPDS}";
