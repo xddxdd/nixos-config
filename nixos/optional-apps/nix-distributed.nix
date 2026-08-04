@@ -22,7 +22,8 @@ let
           inherit (v) system;
           hostName = "${n}.lantian.pub";
           maxJobs = v.cpuThreads;
-          protocol = "ssh-ng";
+          # Use legacy protocol for Hydra
+          protocol = "ssh";
           speedFactor = v.cpuThreads;
           sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
@@ -35,7 +36,8 @@ let
           inherit (v) system;
           hostName = "${n}.lantian.pub";
           maxJobs = 1;
-          protocol = "ssh-ng";
+          # Use legacy protocol for Hydra
+          protocol = "ssh";
           speedFactor = v.cpuThreads;
           sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
