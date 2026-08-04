@@ -129,6 +129,10 @@ rec {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
   });
+  radicle-node = prev.radicle-node.overrideAttrs (old: {
+    # Radicle check fails with HPN SSH
+    doCheck = false;
+  });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
 

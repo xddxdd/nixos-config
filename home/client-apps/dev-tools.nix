@@ -165,6 +165,7 @@ in
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
+    radicle-node
     tldr
     tokei
   ];
