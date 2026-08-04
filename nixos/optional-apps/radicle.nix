@@ -44,7 +44,7 @@
             "[${LT.this.public.IPv6}]:8776"
           ]);
         network = "main";
-        log = "INFO";
+        log = "WARN";
         relay = "auto";
         limits = {
           routingMaxSize = 1000;
