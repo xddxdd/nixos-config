@@ -55,7 +55,6 @@ rec {
     Prometheus.ProwlarrExporter = 9710;
     Prometheus.BazarrExporter = 9711;
     Prometheus.Palworld = 9877;
-    Asterisk.AudioSocket = 13980;
     Prometheus.Asterisk = 9878;
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
@@ -79,6 +78,7 @@ rec {
     StayRTR.Metrics.Flap42 = 13252;
     Hydra = 13300;
     N8N-OpenAI-Bridge = 13333;
+    TranquilPDS = 13380;
     Dex = 13403;
     Bifrost = 13436;
     UniAPI = 13437;
@@ -123,6 +123,7 @@ rec {
     ADSB.MlatHubBeastOutput = 13915;
     ADSB.PlaneWatch = 13919;
     ADSB.RawOutput978 = 13978;
+    Asterisk.AudioSocket = 13980;
     ClawEmail = 13997;
     Open5GS = 13999;
     WGLanTian.ForwardStart = 30010;

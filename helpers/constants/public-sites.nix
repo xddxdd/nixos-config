@@ -39,6 +39,7 @@ _: [
   "actual.xuyh0120.win"
   "ai-api.xuyh0120.win"
   "ai.xuyh0120.win"
+  "at.lantian.pub"
   "attic.colocrossing.xuyh0120.win"
   "attic.xuyh0120.win"
   "bitwarden.xuyh0120.win"

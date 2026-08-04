@@ -118,6 +118,15 @@ let
         };
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
       }
+      {
+        id = "tranquil-pds";
+        name = "Tranquil PDS";
+        secret = {
+          _secret = config.sops.secrets.dex-tranquil-pds-secret.path;
+        };
+        # FIXME
+        redirectURIs = [ "https://at.lantian.pub/oauth/sso/callback" ];
+      }
       # keep-sorted end
     ];
   };
@@ -161,6 +170,7 @@ in
         "netbox"
         "oauth2-proxy"
         "open-webui"
+        "tranquil-pds"
         # keep-sorted end
       ]
   );

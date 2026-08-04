@@ -38,6 +38,7 @@
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tg-bot-cleaner-bot
+    ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/yggdrasil-alfis.nix
     ../../nixos/optional-apps/zerotierone-controller.nix

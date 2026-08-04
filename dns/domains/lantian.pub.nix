@@ -74,6 +74,18 @@ let
     }
     {
       recordType = "CNAME";
+      name = "*.at";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
+      name = "at";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "ca";
       target = "colocrossing";
       ttl = "1h";
