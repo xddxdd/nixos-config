@@ -26,6 +26,10 @@ in
       (mkZeroSSLWildcardCert "56631131.xyz")
       (mkZeroSSLWildcardCert "ltn.pw")
       (mkZeroSSLWildcardCert "xn--gmqs02au1c935d.pub")
+
+      # ATproto PDS
+      (mkLetsEncryptWildcardCert "lantian.pub")
+      (mkZeroSSLWildcardCert "at.lantian.pub")
     ]
     ++ (builtins.map mkLetsEncryptWildcardCert hostSubdomains)
     ++ (builtins.map mkZeroSSLWildcardCert hostSubdomains)
