@@ -101,7 +101,7 @@ let
         id = "oauth-proxy";
         name = "OAuth2 Proxy";
         secret = {
-          _secret = config.sops.secrets.dex-oauth2-proxy-secret.path;
+          _secret = config.sops.secrets.dex-oauth-proxy-secret.path;
         };
         redirectURIs = [
           "https://*.lantian.pub/oauth2/callback"
@@ -151,28 +151,14 @@ in
     };
   }
   // builtins.listToAttrs (
-    builtins.map
-      (
-        f:
-        lib.nameValuePair "dex-${f}-secret" {
-          sopsFile = inputs.secrets + "/common/dex.yaml";
-          owner = "dex";
-          group = "dex";
-        }
-      )
-      [
-        # keep-sorted start
-        "actual"
-        "gitea"
-        "grafana"
-        "immich"
-        "librechat"
-        "netbox"
-        "oauth2-proxy"
-        "open-webui"
-        "tranquil-pds"
-        # keep-sorted end
-      ]
+    builtins.map (
+      f:
+      lib.nameValuePair "dex-${f.id}-secret" {
+        sopsFile = inputs.secrets + "/common/dex.yaml";
+        owner = "dex";
+        group = "dex";
+      }
+    ) cfg.staticClients
   );
 
   services.postgresql = {

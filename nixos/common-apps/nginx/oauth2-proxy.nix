@@ -6,7 +6,12 @@
   ...
 }:
 {
-  sops.secrets.oauth2-proxy-conf.sopsFile = inputs.secrets + "/common/oauth2-proxy.yaml";
+  sops.secrets.dex-oauth-proxy-secret.sopsFile = inputs.secrets + "/common/dex.yaml";
+  sops.secrets.oauth2-proxy-cookie-secret.sopsFile = inputs.secrets + "/common/oauth2-proxy.yaml";
+  sops.templates.oauth2-proxy-keys.content = ''
+    OAUTH2_PROXY_COOKIE_SECRET=${config.sops.placeholder.oauth2-proxy-cookie-secret}
+    OAUTH2_PROXY_CLIENT_SECRET=${config.sops.placeholder.dex-oauth-proxy-secret}
+  '';
 
   services.oauth2-proxy = {
     enable = builtins.any (v: v) (
@@ -20,7 +25,7 @@
     };
     email.domains = [ "*" ];
     httpAddress = "unix:///run/oauth2-proxy/oauth2-proxy.sock";
-    keyFile = config.sops.secrets.oauth2-proxy-conf.path;
+    keyFile = config.sops.templates.oauth2-proxy-keys.path;
     provider = "oidc";
     setXauthrequest = true;
     extraConfig = {
