@@ -74,18 +74,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "*.at";
-      target = "colocrossing";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "at";
-      target = "colocrossing";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "ca";
       target = "colocrossing";
       ttl = "1h";
@@ -260,6 +248,26 @@ let
       ttl = "1h";
     }
   ];
+
+  ATProto = [
+    {
+      recordType = "CNAME";
+      name = "*.at";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
+      name = "at";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "TXT";
+      name = "_atproto";
+      contents = "did=did:plc:bojfoltwtzihrpbrkpkj3ijm";
+    }
+  ];
 in
 {
   domains = [
@@ -326,6 +334,7 @@ in
 
         externalServices
         internalServices
+        ATProto
       ];
     }
   ];

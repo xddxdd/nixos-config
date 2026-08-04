@@ -70,6 +70,11 @@ let
         };
         "= /.well-known/webfinger".return =
           "302 'https://mastodon.social/.well-known/webfinger?resource=acct:lantian@mastodon.social'";
+
+        # ATproto
+        "= /.well-known/atproto-did".return = "200 'did:plc:bojfoltwtzihrpbrkpkj3ijm'";
+
+        # DN42
         "= /dn42-geofeed.csv" = {
           root = builtins.toString self.packages.${pkgs.stdenv.hostPlatform.system}.dn42-geofeed;
         };
