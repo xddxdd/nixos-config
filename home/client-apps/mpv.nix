@@ -31,10 +31,7 @@ let
   '';
 
   anime4KInputs =
-    if osConfig.networking.hostName != "high_end_not_used_for_now" then
-      anime4K_LowEnd
-    else
-      anime4K_HighEnd;
+    if osConfig.networking.hostName != "lt-hp-omen" then anime4K_LowEnd else anime4K_HighEnd;
 
   mpvSockets =
     pkgs.runCommand "mpv-sockets"
