@@ -66,5 +66,6 @@ _: [
   "flapalerted.lantian.pub"
   "lg.lantian.dn42"
   "lg.lantian.pub"
+  "radicle.lantian.pub"
   # keep-sorted end
 ]

@@ -33,6 +33,7 @@ rec {
     JProxy = 8117;
     Waline = 8360;
     Matrix.Public = 8448;
+    Radicle.Node = 8776;
     Sonarr = 8989;
     Prometheus.Daemon = 9090;
     Prometheus.AlertManager = 9093;
@@ -125,6 +126,7 @@ rec {
     ADSB.RawOutput978 = 13978;
     Asterisk.AudioSocket = 13980;
     ClawEmail = 13997;
+    Radicle.HTTPd = 13998;
     Open5GS = 13999;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;

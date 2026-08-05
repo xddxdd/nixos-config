@@ -175,6 +175,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "radicle";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "sip";
       target = "v-ps-sea";
       ttl = "1h";
