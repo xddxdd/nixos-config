@@ -1224,11 +1224,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1785825564,
-        "narHash": "sha256-pT445hbulKRpYxwHuH53gXVK2fugaYo99aEMIf6VcJc=",
+        "lastModified": 1785905924,
+        "narHash": "sha256-KYiqAI/t7H6jlNpZ3ztPUq2C0HaatHyF82dk5hp6NYY=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "07cc43ffdadd33655cc433c8acf26cf2eeae81d5",
+        "rev": "899c4c350f4af1d37463c370a601f75c8cc81253",
         "type": "github"
       },
       "original": {
