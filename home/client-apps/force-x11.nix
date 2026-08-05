@@ -24,6 +24,7 @@ in
       # keep-sorted start
       apache-directory-studio
       freecad
+      thunderbird-bin # Fix auto close on shutdown
       # keep-sorted end
     ]
   );
