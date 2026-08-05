@@ -119,20 +119,25 @@ in
       fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip6 to [${config.lantian.netns.coredns-client.ipv6}]:${LT.portStr.DNS}
 
       # Redirect to lt-home-vm
-      fib daddr type local tcp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
-      fib daddr type local udp dport 31010-31019 iifname "eth1*" dnat ip to 192.168.1.10
-      fib daddr type local tcp dport { 80, 443, 2222 } iifname "eth1*" dnat ip to 192.168.1.10
-      fib daddr type local tcp dport { 80, 443, 2222 } iifname "henet" dnat ip6 to [2001:470:e997:1::10]
-      fib daddr type local udp dport 22547 iifname "eth1*" dnat ip to 192.168.1.10
-      fib daddr type local udp dport 22547 iifname "henet" dnat ip6 to [2001:470:e997:1::10]
+      fib daddr type local iifname "eth1*" jump NAT_PORT_FORWARD
+      fib daddr type local iifname "henet" jump NAT_PORT_FORWARD
 
       # Hairpin NAT
-      fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
-      fib daddr type local iifname "eth0*" ip6 daddr != @RESERVED_IPV6 dnat ip6 to [2001:470:e997:1::10]
+      fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 jump NAT_PORT_FORWARD
+      fib daddr type local iifname "eth0*" ip6 daddr != @RESERVED_IPV6 jump NAT_PORT_FORWARD
 
       # Redirect to pve-epyc
       fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.0.2:2222
       fib daddr type local tcp dport 2223 iifname "henet" dnat ip6 to [2001:470:e997::2]:2222
+    }
+
+    chain NAT_PORT_FORWARD {
+      meta nfproto ipv4 tcp dport 31010-31019 dnat ip to 192.168.1.10
+      meta nfproto ipv4 udp dport 31010-31019 dnat ip to 192.168.1.10
+      meta nfproto ipv4 tcp dport { 80, 443, 2222 } dnat ip to 192.168.1.10
+      meta nfproto ipv6 tcp dport { 80, 443, 2222 } dnat ip6 to [2001:470:e997:1::10]
+      meta nfproto ipv4 udp dport 22547 dnat ip to 192.168.1.10
+      meta nfproto ipv6 udp dport 22547 dnat ip6 to [2001:470:e997:1::10]
     }
 
     chain NAT_INPUT {
