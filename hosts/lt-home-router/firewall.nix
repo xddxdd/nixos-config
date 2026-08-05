@@ -128,6 +128,7 @@ in
 
       # Hairpin NAT
       fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 dnat ip to 192.168.1.10
+      fib daddr type local iifname "eth0*" ip6 daddr != @RESERVED_IPV6 dnat ip6 to [2001:470:e997:1::10]
 
       # Redirect to pve-epyc
       fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.0.2:2222
