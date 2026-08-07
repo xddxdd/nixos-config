@@ -174,6 +174,13 @@ in
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
   };
+  home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
+    parallel = {
+      maxTasks = 100;
+      concurrency = 100;
+    };
+    maxSubagentSpawnsPerSession = 10000;
+  };
 
   programs.zed-editor = {
     enable = true;
