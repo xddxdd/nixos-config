@@ -101,10 +101,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.11.1";
+    version = "3.11.2";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.1/yesoreyeram-infinity-datasource-3.11.1.zip";
-      sha256 = "sha256-r8JdbT3NqogPkw/6Qsut5aSjk3809n/qbj8bLVEdKW0=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.2/yesoreyeram-infinity-datasource-3.11.2.zip";
+      sha256 = "sha256-tjx2E0pKbF2I0UPBIWZ0H5ejKHsuYbuW8tDB1hy3vpo=";
     };
   };
   lobe-icons = {
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "5e81f93e79cabd3921ddf451f57026a97fabe2cc";
+    version = "2c3adf1ed8c89e40748ecc2681d2a1c1ae90494f";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "5e81f93e79cabd3921ddf451f57026a97fabe2cc";
+      rev = "2c3adf1ed8c89e40748ecc2681d2a1c1ae90494f";
       fetchSubmodules = false;
-      sha256 = "sha256-TO3bv9Em/KB2sVpEgk6b2xyLlv8BJ36FQ8DVW4UhxT8=";
+      sha256 = "sha256-doHm+3nttIY3H7S6K0Ucl0W9zzgdOT41CpmKgwy6FQQ=";
     };
-    date = "2026-07-29";
+    date = "2026-08-06";
   };
   open5gs = {
     pname = "open5gs";

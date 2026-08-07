@@ -105,6 +105,9 @@
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
     "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
   ],
+  "taiwan": [
+    "tls://cowgl.tech:1337"
+  ],
   "ukraine": [
     "tls://193.93.119.42:443",
     "tls://78.27.153.163:33166",
