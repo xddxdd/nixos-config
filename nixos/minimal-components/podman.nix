@@ -47,7 +47,10 @@
       }
     ) config.virtualisation.oci-containers.containers);
 
-    systemd.timers.podman-auto-update.enable = true;
+    systemd.timers.podman-auto-update = {
+      enable = true;
+      wantedBy = [ "timers.target" ];
+    };
 
     systemd.tmpfiles.settings = {
       podman-download = {
