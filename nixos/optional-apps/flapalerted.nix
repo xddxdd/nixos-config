@@ -30,9 +30,9 @@ in
         "--asn 4242422547"
         "--bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP}"
         "--httpAPIListenAddress /run/flapalerted/flapalerted.sock"
-        "-routeChangeCounter 120"
-        "-overThresholdTarget 5"
-        "-underThresholdTarget 30"
+        "--routeChangeCounter 15"
+        "--overThresholdTarget 2"
+        "--underThresholdTarget 15"
       ];
     };
   };
