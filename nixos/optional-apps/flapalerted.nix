@@ -31,8 +31,8 @@ in
         "--bgpListenAddress [${LT.this.ltnet.IPv6}]:${LT.portStr.FlapAlerted.BGP}"
         "--httpAPIListenAddress /run/flapalerted/flapalerted.sock"
         "--routeChangeCounter 15"
-        "--overThresholdTarget 3"
-        "--underThresholdTarget 15"
+        "--overThresholdTarget 5"
+        "--underThresholdTarget 30"
       ];
     };
   };
