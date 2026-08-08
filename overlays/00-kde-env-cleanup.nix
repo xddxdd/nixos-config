@@ -1,4 +1,5 @@
-# https://github.com/NixOS/nixpkgs/issues/126590#issuecomment-3194531220
+# https://github.com/NixOS/nixpkgs/issues/126590#issuecomment-3694376547
+# https://github.com/NixOS/nixpkgs/issues/126590#issuecomment-3741634437
 _: final: prev: {
   kdePackages = prev.kdePackages // {
     plasma-workspace =
@@ -19,8 +20,7 @@ _: final: prev: {
             ( IFS=:
               for DIR in $XDG_DATA_DIRS; do
                 if [[ -d "$DIR" ]]; then
-                  cp -r $DIR/. $out/share/
-                  chmod -R u+w $out/share
+                  ${final.lib.getExe final.lndir} -silent "$DIR" $out
                 fi
               done
             )
