@@ -56,6 +56,9 @@ in
       # DO NOT USE: causes delayed updates when network is unstable
       # long lived graceful restart yes;
 
+      # Combat route flaps
+      prefer older yes;
+
       ipv4 {
         next hop self yes;
         import keep filtered;
