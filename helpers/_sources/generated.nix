@@ -72,11 +72,11 @@
   };
   dn42-peerfinder-client = {
     pname = "dn42-peerfinder-client";
-    version = "1.0.6";
+    version = "1.2.0";
     src = fetchurl {
-      url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.0.6";
+      url = "https://peerfinder.dn42.dev/agent/peerfinder-agent.py?ver=1.2.0";
       name = "peerfinder-agent.py";
-      sha256 = "sha256-BQqbTJGkYMFZYV9G/VnvP2Ma8QVbo5CGJqs2WhYUJjo=";
+      sha256 = "sha256-nL4sIU3EQmKiTyGV+ljk4erz7ihYTsWkO0WlCzeKVV4=";
     };
   };
   dnscontrol-xddxdd = {
