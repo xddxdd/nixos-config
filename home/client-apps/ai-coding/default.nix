@@ -148,9 +148,8 @@ in
 
       packages = [
         # keep-sorted start
-        "npm:@juicesharp/rpiv-ask-user-question"
-        "npm:@juicesharp/rpiv-todo"
         "npm:@monotykamary/pi-tps"
+        "npm:@rwese/pi-question"
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
@@ -165,8 +164,8 @@ in
   };
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     settings = {
-      directTools = true;
-      disableProxyTool = true;
+      directTools = false;
+      disableProxyTool = false;
       idleTimeout = 5;
       requestTimeoutMs = 60000;
     };
@@ -175,6 +174,7 @@ in
     webTools = false;
   };
   home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
+    toolDescriptionMode = "compact";
     parallel = {
       maxTasks = 100;
       concurrency = 100;
