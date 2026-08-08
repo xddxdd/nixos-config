@@ -227,6 +227,13 @@
           inherit (self) apps packages devShells;
           nixosConfigurations = lib.mapAttrs (n: v: v.config.system.build.toplevel) self.nixosConfigurations;
         };
+
+        ipv4List = builtins.concatStringsSep "\n" (
+          lib.filter (v: v != "" && v != null) (lib.mapAttrsToList (k: v: v.public.IPv4) LT.hosts)
+        );
+        ipv6List = builtins.concatStringsSep "\n" (
+          lib.filter (v: v != "" && v != null) (lib.mapAttrsToList (k: v: v.public.IPv6) LT.hosts)
+        );
       };
 
       perSystem =
