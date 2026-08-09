@@ -36,10 +36,10 @@
   };
   auto-novel-addon = {
     pname = "auto-novel-addon";
-    version = "1.8.1";
+    version = "1.9.0";
     src = fetchurl {
-      url = "https://github.com/auto-novel/addon/releases/download/v1.8.1/addon-1.8.1-firefox.xpi";
-      sha256 = "sha256-ntCyjpGVxLcjssxmgSY9j0SRL3RW6Wdz5hWrYTepXww=";
+      url = "https://github.com/auto-novel/addon/releases/download/v1.9.0/addon-1.9.0-firefox.xpi";
+      sha256 = "sha256-ixhcid5jV0ZIAcSZF6lPAs+Y8yxfQyPsg069oD42zpk=";
     };
   };
   bosl2 = {
@@ -81,15 +81,15 @@
   };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
-    version = "8dd76ec7fdc2c8e4db6c30001d3abf344dc5f627";
+    version = "913a94772c1ba09f3e5b623cd50d572951b9ea79";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
-      rev = "8dd76ec7fdc2c8e4db6c30001d3abf344dc5f627";
+      rev = "913a94772c1ba09f3e5b623cd50d572951b9ea79";
       fetchSubmodules = false;
-      sha256 = "sha256-h3wdV7tkPIFnRAjbDBxMPspeV9rl6kqWWY6gpgIJHx4=";
+      sha256 = "sha256-wHMKwgEPSAw0GlS7euhvl/QQxIyPTd+fw+JcMqR6QlQ=";
     };
-    date = "2026-07-14";
+    date = "2026-08-08";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
