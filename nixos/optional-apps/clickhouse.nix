@@ -10,7 +10,7 @@
       <clickhouse>
         <logger>
           <level>warning</level>
-          <console>true</console>
+          <console>false</console>
         </logger>
         <query_thread_log remove="remove"/>
         <query_log remove="remove"/>
