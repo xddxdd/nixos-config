@@ -23,11 +23,15 @@
       kmscon.enable = false;
     };
 
-    cursor = {
-      package = pkgs.nur-xddxdd.sam-toki-mouse-cursors;
-      name = "STMCS_601_Genshin_Furina";
-      size = 32;
-    };
+    cursor =
+      if LT.this.hasTag LT.tags.client then
+        {
+          package = pkgs.nur-xddxdd.sam-toki-mouse-cursors;
+          name = "STMCS_601_Genshin_Furina";
+          size = 32;
+        }
+      else
+        null;
 
     fonts = {
       serif = {

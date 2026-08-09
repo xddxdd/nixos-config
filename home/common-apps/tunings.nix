@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  LT,
+  ...
+}:
 {
   home.sessionPath = [ "$HOME/.local/bin" ];
 
@@ -6,7 +11,7 @@
   programs.git = {
     enable = true;
     package = pkgs.gitMinimal;
-    lfs.enable = true;
+    lfs.enable = LT.this.hasTag LT.tags.client;
     settings = {
       core = {
         autoCrlf = "input";
