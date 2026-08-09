@@ -21,6 +21,8 @@ in
     enableRegistrationScript = false;
     configureRedisLocally = true;
 
+    log.root.level = "WARNING";
+
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-http-rendezvous-synapse
       matrix-synapse-ldap3
