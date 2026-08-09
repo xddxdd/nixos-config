@@ -12,7 +12,6 @@
     ./wireplumber-disable-hdmi-audio.nix
     # ./xvcd.nix
 
-    ../../nixos/optional-apps/mmrelay.nix
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/pipewire-combined-sink-alsa.nix
     # ../../nixos/optional-apps/pipewire-network-audio-receive.nix
