@@ -128,6 +128,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ];
       };
 
+      logging.loglevel = 4;
+
       # # Only enable when debugging!
       # dnssec.log_bogus = true;
       # logging.trace = "fail";
