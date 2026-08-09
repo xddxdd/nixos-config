@@ -61,7 +61,7 @@
         '';
       };
     };
-    schedule = "weekly";
+    schedule = "daily";
     persistentTimer = true;
   };
 
