@@ -11,4 +11,9 @@
     gateway = [ "38.175.199.254" ];
     matchConfig.Name = "eth0";
   };
+
+  lantian.firewall = {
+    wanARPSubnets = [ "38.175.199.0/24" ];
+    wanICMPv6Subnets = [ ];
+  };
 }

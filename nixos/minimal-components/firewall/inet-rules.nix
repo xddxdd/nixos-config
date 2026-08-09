@@ -5,6 +5,8 @@
   ...
 }:
 let
+  inherit (import ./common.nix { inherit lib LT; }) ipv4Set ipv6Set interfaceSets;
+
   serverPortForwards =
     lib.optionalString (config.lantian.netns.coredns-authoritative.enable or false)
       ''
@@ -14,30 +16,6 @@ let
         fib daddr type local tcp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
         fib daddr type local udp dport ${LT.portStr.DNS} dnat ip6 to [${config.lantian.netns.coredns-authoritative.ipv6}]:${LT.portStr.DNS}
       '';
-
-  ipv4Set = name: value: ''
-    set ${name} {
-      type ipv4_addr
-      flags constant, interval
-      elements = { ${builtins.concatStringsSep ", " value} }
-    }
-  '';
-
-  ipv6Set = name: value: ''
-    set ${name} {
-      type ipv6_addr
-      flags constant, interval
-      elements = { ${builtins.concatStringsSep ", " value} }
-    }
-  '';
-
-  interfaceSets = lib.concatMapAttrsStringSep "\n" (k: v: ''
-    set INTERFACE_${k} {
-      type ifname
-      flags constant, interval
-      elements = { ${lib.concatMapStringsSep ", " (v: v + "*") v} }
-    }
-  '') LT.constants.interfacePrefixes;
 
   tnl-buyvm = lib.optionalString (config.networking.hostName == "buyvm") (
     (lib.optionalString (LT.this.public.IPv4 != null) (

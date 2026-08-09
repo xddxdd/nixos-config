@@ -24,4 +24,9 @@
     addresses = [ "2607:8700:5501:574f::2/64" ];
     gateway = "2607:8700:5501:574f::1";
   };
+
+  lantian.firewall = {
+    wanARPSubnets = [ "64.64.228.0/22" ];
+    wanICMPv6Subnets = [ ];
+  };
 }

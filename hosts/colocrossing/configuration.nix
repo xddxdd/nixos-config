@@ -73,6 +73,11 @@
     attachToInterface = "eth1";
   };
 
+  lantian.firewall = {
+    wanARPSubnets = [ "23.94.65.216/30" ];
+    wanICMPv6Subnets = [ ];
+  };
+
   virtualisation.oci-containers.containers.byparr.ports = [
     "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
   ];

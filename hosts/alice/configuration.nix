@@ -25,4 +25,9 @@
 
   # DN42 legacy address
   systemd.network.networks.dummy0.address = [ "fdbc:f9dc:67ad::8b:c606:ba01/128" ];
+
+  lantian.firewall = {
+    wanARPSubnets = [ "2.26.204.0/23" ];
+    wanICMPv6Subnets = [ "2a14:67c4:12::/64" ];
+  };
 }
