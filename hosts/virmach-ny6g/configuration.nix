@@ -15,8 +15,5 @@
     matchConfig.Name = "eth0";
   };
 
-  lantian.firewall = {
-    wanARPSubnets = [ "45.42.214.0/24" ];
-    wanICMPv6Subnets = [ ];
-  };
+  lantian.firewall.wanARPSubnets = [ "45.42.214.0/24" ];
 }

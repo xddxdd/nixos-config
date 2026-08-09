@@ -29,11 +29,5 @@
     "2605:6400:cac6::1/120"
   ];
 
-  lantian.firewall = {
-    wanARPSubnets = [ "107.189.12.0/24" ];
-    wanICMPv6Subnets = [
-      "2605:6400:30::/48"
-      "2605:6400:cac6::/48"
-    ];
-  };
+  lantian.firewall.wanARPSubnets = [ "107.189.12.0/24" ];
 }
