@@ -38,6 +38,7 @@ in
     ];
   };
 
+  systemd.services.lemmy.environment.RUST_LOG = "error";
   systemd.services.lemmy-ui.enable = lib.mkForce false;
 
   lantian.nginxVhosts."lemmy.lantian.pub" = {

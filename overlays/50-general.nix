@@ -43,6 +43,9 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/knot-disable-semantic-check.patch ];
     doCheck = false;
   });
+  lemmy-server = prev.lemmy-server.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/lemmy-disable-specific-error.patch ];
+  });
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/matrix-synapse-listen-unix.patch ];
