@@ -60,6 +60,7 @@
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.RadarrExporter;
       CONFIG = "/var/lib/radarr/config.xml";
+      LOG_LEVEL = "warn";
     };
     inherit (config.services.radarr) user group;
   };

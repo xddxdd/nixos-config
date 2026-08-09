@@ -60,6 +60,7 @@
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.SonarrExporter;
       CONFIG = "/var/lib/sonarr/config.xml";
+      LOG_LEVEL = "warn";
     };
     inherit (config.services.sonarr) user group;
   };

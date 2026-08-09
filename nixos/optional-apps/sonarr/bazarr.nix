@@ -60,6 +60,7 @@
     environment = {
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.BazarrExporter;
+      LOG_LEVEL = "warn";
     };
     inherit (config.services.bazarr) user group;
   };

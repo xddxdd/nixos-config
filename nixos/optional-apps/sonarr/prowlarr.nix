@@ -56,6 +56,7 @@
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.ProwlarrExporter;
       CONFIG = "/var/lib/prowlarr/config.xml";
+      LOG_LEVEL = "warn";
     };
     user = "lantian";
     group = "users";
