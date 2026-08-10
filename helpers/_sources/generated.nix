@@ -44,13 +44,13 @@
   };
   bosl2 = {
     pname = "bosl2";
-    version = "v2.0.747";
+    version = "v2.0.749";
     src = fetchFromGitHub {
       owner = "BelfrySCAD";
       repo = "BOSL2";
-      rev = "v2.0.747";
+      rev = "v2.0.749";
       fetchSubmodules = false;
-      sha256 = "sha256-3MGHTzMRJkhh/R83fD1PJwnR+RGgcFLyuEY3aTPx9jE=";
+      sha256 = "sha256-YUJGllNgkw+w1fzsa8rzxyjKq2ZawrcuoRpqY7rTAxc=";
     };
   };
   delegacy-rpz = {
