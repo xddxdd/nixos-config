@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
     ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/common-apps/nginx
     ../../nixos/minimal.nix
@@ -12,8 +14,12 @@
     ./lora
   ];
 
-  # GPIO doesn't work with mainline kernel
-  lantian.kernel = pkgs.linux_rpi4;
+  # GPIO doesn't work with mainline kernel; use the Raspberry Pi vendor kernel
+  # recipe from nixos-hardware (built with our own nixpkgs) instead of the
+  # deprecated pkgs.linux_rpi4 alias.
+  lantian.kernel = pkgs.callPackage (inputs.nixos-hardware + "/raspberry-pi/common/kernel.nix") {
+    rpiVersion = 4;
+  };
 
   boot.initrd.systemd.tpm2.enable = false;
 
