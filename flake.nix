@@ -168,7 +168,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:make-42/stylix/matugen";
+      url = "github:make-42/stylix/step-2-inputmapping-clean-root";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
