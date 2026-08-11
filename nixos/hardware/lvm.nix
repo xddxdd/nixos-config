@@ -11,7 +11,10 @@
     "raid456"
   ];
 
-  boot.swraid.enable = lib.mkForce true;
+  boot.swraid = {
+    enable = lib.mkForce true;
+    mdadmConf = "MAILADDR root";
+  };
 
   services.lvm.dmeventd.enable = true;
 

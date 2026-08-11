@@ -10,9 +10,11 @@
   services.llama-cpp = {
     enable = true;
     package = pkgs.llama-cpp.override { cudaSupport = true; };
-    host = "127.0.0.1";
-    port = LT.port.LlamaCpp.Qwen3_6;
-    settings.hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ4_XS";
+    settings = {
+      host = "127.0.0.1";
+      port = LT.port.LlamaCpp.Qwen3_6;
+      hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ4_XS";
+    };
   };
 
   lantian.nginxVhosts = {

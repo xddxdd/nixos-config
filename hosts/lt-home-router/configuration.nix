@@ -36,7 +36,7 @@
   };
 
   services.ncps.cache = {
-    dataPath = "/mnt/unreliable-cache/ncps";
+    storage.local = "/mnt/unreliable-cache/ncps";
     tempPath = "/mnt/unreliable-cache/ncps-tmp";
   };
 }

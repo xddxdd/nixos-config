@@ -22,10 +22,8 @@
     settings = {
       APP_URL = "https://id.lantian.pub";
       TRUST_PROXY = true;
-      DB_PROVIDER = "postgres";
       DB_CONNECTION_STRING = "postgres://pocket-id?host=/run/postgresql&user=pocket-id";
       FILE_BACKEND = "database";
-      KEYS_STORAGE = "database";
       GEOLITE_DB_PATH = "/etc/geoip/GeoLite2-City.mmdb";
       UNIX_SOCKET = "/run/pocket-id/pocket-id.sock";
       UNIX_SOCKET_MODE = "0660";

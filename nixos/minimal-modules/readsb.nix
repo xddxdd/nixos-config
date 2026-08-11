@@ -200,7 +200,7 @@ let
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        exec ${lib.getExe cfg.package} ${lib.concatStringsSep " " (buildArgs cfg)}
+        exec ${lib.getExe' cfg.package "readsb"} ${lib.concatStringsSep " " (buildArgs cfg)}
       '';
 
       serviceConfig = LT.serviceHarden // {

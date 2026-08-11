@@ -107,7 +107,7 @@ in
     stylua
 
     # Nix
-    inputs.flat-flake.packages."${system}".flat-flake
+    inputs.flat-flake.packages."${pkgs.stdenv.hostPlatform.system}".flat-flake
     alejandra
     nil
     nix-output-monitor

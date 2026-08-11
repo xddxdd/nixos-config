@@ -14,6 +14,7 @@ _: {
 
   home.pointerCursor = {
     # Tidy home folder
+    enable = true;
     dotIcons.enable = false;
   };
 }

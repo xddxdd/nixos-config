@@ -23,7 +23,7 @@
     enable = true;
     package = pkgs.netbox;
     bind = "unix:/run/netbox/netbox.sock";
-    apiTokenPeppersFile = config.sops.secrets.netbox-pepper.path;
+    apiTokenPepperFiles."1" = config.sops.secrets.netbox-pepper.path;
     secretKeyFile = config.sops.secrets.netbox-secret.path;
     settings = {
       CSRF_TRUSTED_ORIGINS = [ "https://netbox.xuyh0120.win" ];
