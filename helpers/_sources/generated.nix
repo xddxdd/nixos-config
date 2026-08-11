@@ -36,10 +36,10 @@
   };
   auto-novel-addon = {
     pname = "auto-novel-addon";
-    version = "1.9.0";
+    version = "1.9.1";
     src = fetchurl {
-      url = "https://github.com/auto-novel/addon/releases/download/v1.9.0/addon-1.9.0-firefox.xpi";
-      sha256 = "sha256-ixhcid5jV0ZIAcSZF6lPAs+Y8yxfQyPsg069oD42zpk=";
+      url = "https://github.com/auto-novel/addon/releases/download/v1.9.1/addon-1.9.1-firefox.xpi";
+      sha256 = "sha256-eN0fQNpvd3DZX8CnzKZ6JlbuJMuqdovz15GwP6Dlx70=";
     };
   };
   bosl2 = {
@@ -101,10 +101,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "3.11.2";
+    version = "3.11.3";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.2/yesoreyeram-infinity-datasource-3.11.2.zip";
-      sha256 = "sha256-tjx2E0pKbF2I0UPBIWZ0H5ejKHsuYbuW8tDB1hy3vpo=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.3/yesoreyeram-infinity-datasource-3.11.3.zip";
+      sha256 = "sha256-Gy4IHCX3F3T6yZl9DlCuMPutSjW3qiBKGHHrrKVUvvo=";
     };
   };
   lobe-icons = {
@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "39e51141e669cf7d4db8c927c3f44ff9f487eb58";
+    version = "6c295185f80803e1516fbb88acbb6271946f61c8";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "39e51141e669cf7d4db8c927c3f44ff9f487eb58";
+      rev = "6c295185f80803e1516fbb88acbb6271946f61c8";
       fetchSubmodules = false;
-      sha256 = "sha256-BMlVQC889inBymyXjeBzVBfwmybSMwQqQkxKIDqz6Go=";
+      sha256 = "sha256-l5GNkv+3kgSJQ6ijtSRyCLH4OsbmHAIrNQq8ZBJwZWg=";
     };
-    date = "2026-08-03";
+    date = "2026-08-10";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

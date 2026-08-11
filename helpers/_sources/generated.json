@@ -48,11 +48,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ixhcid5jV0ZIAcSZF6lPAs+Y8yxfQyPsg069oD42zpk=",
+            "sha256": "sha256-eN0fQNpvd3DZX8CnzKZ6JlbuJMuqdovz15GwP6Dlx70=",
             "type": "url",
-            "url": "https://github.com/auto-novel/addon/releases/download/v1.9.0/addon-1.9.0-firefox.xpi"
+            "url": "https://github.com/auto-novel/addon/releases/download/v1.9.1/addon-1.9.1-firefox.xpi"
         },
-        "version": "1.9.0"
+        "version": "1.9.1"
     },
     "bosl2": {
         "cargoLock": null,
@@ -165,11 +165,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tjx2E0pKbF2I0UPBIWZ0H5ejKHsuYbuW8tDB1hy3vpo=",
+            "sha256": "sha256-Gy4IHCX3F3T6yZl9DlCuMPutSjW3qiBKGHHrrKVUvvo=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.2/yesoreyeram-infinity-datasource-3.11.2.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v3.11.3/yesoreyeram-infinity-datasource-3.11.3.zip"
         },
-        "version": "3.11.2"
+        "version": "3.11.3"
     },
     "lobe-icons": {
         "cargoLock": null,
@@ -423,7 +423,7 @@
     },
     "tar1090-db": {
         "cargoLock": null,
-        "date": "2026-08-03",
+        "date": "2026-08-10",
         "extract": null,
         "name": "tar1090-db",
         "passthru": null,
@@ -435,12 +435,12 @@
             "name": null,
             "owner": "wiedehopf",
             "repo": "tar1090-db",
-            "rev": "39e51141e669cf7d4db8c927c3f44ff9f487eb58",
-            "sha256": "sha256-BMlVQC889inBymyXjeBzVBfwmybSMwQqQkxKIDqz6Go=",
+            "rev": "6c295185f80803e1516fbb88acbb6271946f61c8",
+            "sha256": "sha256-l5GNkv+3kgSJQ6ijtSRyCLH4OsbmHAIrNQq8ZBJwZWg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "39e51141e669cf7d4db8c927c3f44ff9f487eb58"
+        "version": "6c295185f80803e1516fbb88acbb6271946f61c8"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLock": null,
