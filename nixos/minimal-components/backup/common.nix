@@ -59,10 +59,10 @@ rec {
 
       [forget]
       keep-last = 1
-      keep-hourly = 0
-      keep-daily = 7
-      keep-weekly = 4
-      keep-monthly = 1
+      keep-hourly = 1
+      keep-daily = 14
+      keep-weekly = 8
+      keep-monthly = 12
       keep-yearly = 1
       prune = true
     '';
