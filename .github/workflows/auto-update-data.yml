@@ -55,9 +55,30 @@ jobs:
 
           rm -f secrets.toml
 
-      - name: Commit back to repository
+      - name: Commit updated packages back to repository
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'auto: update packages'
           commit_user_name: 'xddxdd-bot'
           commit_user_email: 'xddxdd-bot@users.noreply.github.com'
+
+      - name: Update flake inputs
+        run: |
+          cat > secrets.toml <<EOF
+          [keys]
+          github = "${{ secrets.GH_PRIVATE_REPO_TOKEN }}"
+          EOF
+
+          nix flake update
+
+          rm -f secrets.toml
+
+      - name: Push flake update to auto-update branch
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'auto: update flake inputs'
+          commit_user_name: 'xddxdd-bot'
+          commit_user_email: 'xddxdd-bot@users.noreply.github.com'
+          branch: auto-update
+          create_branch: true
+          push_options: '--force'
