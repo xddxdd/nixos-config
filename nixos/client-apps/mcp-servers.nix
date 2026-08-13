@@ -13,7 +13,7 @@ let
       command = toString (
         pkgs.writeShellScript "mcp-grok-search-rs" ''
           export GROK_SEARCH_API_KEY=$(cat "${config.sops.secrets.mcp-grok-api-key.path}")
-          export GROK_SEARCH_MODEL=grok-4.3-fast-reasoning
+          export GROK_SEARCH_MODEL=grok-latest
           export GROK_SEARCH_WEB_SEARCH=true
           export GROK_SEARCH_X_SEARCH=true
           export FIRECRAWL_API_KEY=$(cat "${config.sops.secrets.mcp-firecrawl-api-key.path}")
