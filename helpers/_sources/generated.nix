@@ -109,17 +109,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "f07e9be35aef452ce735f95ea8204a14ecc513f7";
+    version = "befa2f8022c22985891e5d28aa706f9fba8c578d";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "f07e9be35aef452ce735f95ea8204a14ecc513f7";
+      rev = "befa2f8022c22985891e5d28aa706f9fba8c578d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-fpzHJ/OdvhVcRWfG6skxdrleXPfbuMF+D4PdAoUzH/U=";
+      sha256 = "sha256-QTpxFlRUL7F6JNNZCDemKHkqv8jfeDAlAwGKeZRYju4=";
     };
-    date = "2026-07-24";
+    date = "2026-08-12";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "2c3adf1ed8c89e40748ecc2681d2a1c1ae90494f";
+    version = "401f91a4a744e929970eb97697e71ce88db99725";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "2c3adf1ed8c89e40748ecc2681d2a1c1ae90494f";
+      rev = "401f91a4a744e929970eb97697e71ce88db99725";
       fetchSubmodules = false;
-      sha256 = "sha256-doHm+3nttIY3H7S6K0Ucl0W9zzgdOT41CpmKgwy6FQQ=";
+      sha256 = "sha256-nVa4jnrT04HVyDYNxqr0cM8YCcaKYSzjD8KHII42oxA=";
     };
-    date = "2026-08-06";
+    date = "2026-08-12";
   };
   open5gs = {
     pname = "open5gs";
