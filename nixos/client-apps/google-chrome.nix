@@ -60,8 +60,7 @@
       CloudPrintProxyEnabled = false;
 
       # Startup, Home page and New Tab page
-      # HomepageLocation = "chrome://new-tab-page";
-      HomepageLocation = "https://homepage.lt-home-vm.xuyh0120.win";
+      HomepageLocation = "chrome://new-tab-page";
       ShowHomeButton = true;
     };
   };
