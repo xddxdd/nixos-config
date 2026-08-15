@@ -45,24 +45,22 @@ in
 {
   programs.mpv = {
     enable = true;
-    package = pkgs.nur-xddxdd.svp-mpv.override {
-      # Workaround wrapper override of svp-mpv
-      mpv-unwrapped = pkgs.mpv-unwrapped // {
-        wrapper =
-          args:
-          pkgs.mpv-unwrapped.wrapper (
-            args
-            // {
-              scripts = [
-                mpvSockets
-                pkgs.mpvScripts.dynamic-crop
-                pkgs.mpvScripts.modernz
-                pkgs.mpvScripts.mpris
-                pkgs.mpvScripts.thumbfast
-              ];
-            }
-          );
-      };
+    package = pkgs.mpv.override {
+      mpv-unwrapped = pkgs.mpv-unwrapped.override { vapoursynthSupport = true; };
+      extraMakeWrapperArgs = [
+        # Add paths to required libraries
+        "--prefix"
+        "LD_LIBRARY_PATH"
+        ":"
+        "/run/opengl-driver/lib:${lib.makeLibraryPath [ pkgs.ocl-icd ]}"
+      ];
+      scripts = [
+        mpvSockets
+        pkgs.mpvScripts.dynamic-crop
+        pkgs.mpvScripts.modernz
+        pkgs.mpvScripts.mpris
+        pkgs.mpvScripts.thumbfast
+      ];
     };
     config = {
       # HDR on supported displays
