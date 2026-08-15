@@ -45,7 +45,7 @@
     fast-nix-gc = {
       url = "github:Mic92/fast-nix-gc";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     firefox-addons = {
       url = "github:petrkozorezov/firefox-addons-nix";
@@ -58,7 +58,13 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
-      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -74,7 +80,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
-      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     markdown-apa7th-docx = {
       url = "github:xddxdd/markdown-apa7th-docx";
@@ -83,6 +89,8 @@
     never-gonna-rust = {
       url = "github:xddxdd/never-gonna-rust";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -99,6 +107,8 @@
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.git-hooks.follows = "git-hooks";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -118,7 +128,7 @@
     nixfmt-rs = {
       url = "github:Mic92/nixfmt-rs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "nur-xddxdd/treefmt-nix";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
@@ -137,6 +147,9 @@
       inputs.nix-cachyos-kernel.follows = "nix-cachyos-kernel";
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixfmt-rs.follows = "nixfmt-rs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.pre-commit-hooks-nix.follows = "git-hooks";
     };
     picoforge = {
       url = "github:librekeys/picoforge";
@@ -155,12 +168,18 @@
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     secrets = {
       # url = "/home/lantian/Projects/nixos-secrets";
       url = "github:xddxdd/nixos-secrets";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur-xddxdd.follows = "nur-xddxdd";
+      inputs.agenix.inputs.home-manager.follows = "home-manager";
+      inputs.agenix.inputs.systems.follows = "systems";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -176,6 +195,10 @@
       inputs.nur.follows = "nur";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     zsh-patina = {
       url = "github:michel-kraemer/zsh-patina";
