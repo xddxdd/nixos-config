@@ -54,7 +54,6 @@ in
       packages = [
         # keep-sorted start
         "npm:@czottmann/pi-automode"
-        "npm:@monotykamary/pi-retry"
         "npm:@monotykamary/pi-tps"
         "npm:@rwese/pi-question"
         "npm:pi-btw"
