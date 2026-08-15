@@ -8,7 +8,7 @@ let
   sources = pkgs.callPackage ../../helpers/_sources/generated.nix { };
   dnscontrol = pkgs.buildGoModule rec {
     inherit (sources.dnscontrol-xddxdd) pname version src;
-    vendorHash = "sha256-8YMOjHGzmWhPvgsrWXOER5elu327AugUYIECcqdR5n0=";
+    vendorHash = "sha256-MhF/ZUPj3slDD9Pn3j4Gy0WT3iGHlF7o7sMjo6DS+y8=";
 
     ldflags = [
       "-s"
