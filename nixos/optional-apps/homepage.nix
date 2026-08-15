@@ -41,84 +41,64 @@ let
       ) otherConfigs
     );
 
-  # Keep an entry when:
-  #  - it is not an internal catch-all (serverName starting with "_"),
-  #  - it is not a wildcard vhost (name containing "*"),
-  #  - it ends with .lantian.pub, .xuyh0120.win, or .localhost,
-  #  - .localhost entries are only kept from the current host (they are per-host),
-  #  - it is not the redundant per-host top-level alias <host>.lantian.pub or
-  #    <host>.xuyh0120.win (subdomains like <svc>.<host>.<domain> are kept).
-  keep =
+  # Split a hostname into the scheme/proto prefix, the subdomain label to
+  # highlight, and the trailing domain suffix to dim. The longest matching
+  # suffix wins so that a per-host suffix like ".<host>.xuyh0120.win" dims more
+  # than the bare ".xuyh0120.win". Nix's regex engine is POSIX (no lazy
+  # quantifiers), so `^(.*)(suffix)$` would give the prefix the longest match and
+  # the suffix the shortest. Instead we anchor only the suffix at `$` and let
+  # builtins.split find the leftmost match: the earliest position from which a
+  # suffix reaches the end is the longest suffix, and POSIX leftmost-longest then
+  # resolves ties between alternatives.
+  splitName =
     e:
     let
-      inherit (e) name src;
-      suffixOk =
-        lib.hasSuffix ".lantian.pub" name
-        || lib.hasSuffix ".xuyh0120.win" name
-        || lib.hasSuffix ".localhost" name;
-      localhostOk = !lib.hasSuffix ".localhost" name || src == thisHost;
-      hostAliasOk = !(name == "${src}.lantian.pub" || name == "${src}.xuyh0120.win");
+      inherit (e) scheme name src;
+      proto = "${scheme}://";
+      pattern = "(\\.${src}\\.lantian\\.pub|\\.${src}\\.xuyh0120\\.win|\\.lantian\\.pub|\\.xuyh0120\\.win|\\.localhost|lantian\\.pub|xuyh0120\\.win)$";
+      parts = builtins.split pattern name;
     in
-    (!lib.hasPrefix "_" name)
-    && !lib.hasInfix "*" name
-    && !lib.hasPrefix "www." name
-    && suffixOk
-    && localhostOk
-    && hostAliasOk;
+    if builtins.length parts == 1 then
+      {
+        url = "${proto}${name}";
+        inherit proto;
+        highlight = name;
+        suffix = "";
+      }
+    else
+      {
+        url = "${proto}${name}";
+        inherit proto;
+        highlight = builtins.elemAt parts 0;
+        suffix = builtins.elemAt (builtins.elemAt parts 1) 0;
+      };
 
-  # Split a hostname into the subdomain label to highlight and the trailing
-  # domain suffix to dim. The longest matching suffix wins so that a per-host
-  # suffix like ".<host>.xuyh0120.win" dims more than the bare ".xuyh0120.win".
-  splitName =
-    name: src:
-    let
-      candidates = [
-        ".${src}.lantian.pub"
-        ".${src}.xuyh0120.win"
-        ".lantian.pub"
-        ".xuyh0120.win"
-        ".localhost"
-        "lantian.pub"
-        "xuyh0120.win"
-      ];
-      matched = builtins.foldl' (
-        acc: c:
-        if lib.hasSuffix c name && (acc == null || builtins.stringLength c > acc.len) then
-          {
-            inherit c;
-            len = builtins.stringLength c;
-          }
-        else
-          acc
-      ) null candidates;
-      suffix = if matched == null then "" else matched.c;
-      hl = builtins.substring 0 (builtins.stringLength name - builtins.stringLength suffix) name;
-    in
-    {
-      highlight = hl;
-      inherit suffix;
-    };
+  linkRecords = lib.pipe allEntries [
+    # Not an internal catch-all (serverName starting with "_")
+    (builtins.filter (e: !lib.hasPrefix "_" e.name))
+    # Not a wildcard vhost (name containing "*")
+    (builtins.filter (e: !lib.hasInfix "*" e.name))
+    (builtins.filter (e: !lib.hasPrefix "www." e.name))
+    # Ends with .lantian.pub, .xuyh0120.win, or .localhost
+    (builtins.filter (
+      e:
+      lib.hasSuffix ".lantian.pub" e.name
+      || lib.hasSuffix ".xuyh0120.win" e.name
+      || lib.hasSuffix ".localhost" e.name
+    ))
+    # .localhost entries are only kept from the current host (they are per-host)
+    (builtins.filter (e: !lib.hasSuffix ".localhost" e.name || e.src == thisHost))
+    # Not the redundant per-host top-level alias <host>.lantian.pub or
+    # <host>.xuyh0120.win (subdomains like <svc>.<host>.<domain> are kept)
+    (builtins.filter (e: !(e.name == "${e.src}.lantian.pub" || e.name == "${e.src}.xuyh0120.win")))
+    (builtins.map splitName)
+    (builtins.foldl' (acc: r: if builtins.any (x: x.url == r.url) acc then acc else acc ++ [ r ]) [ ])
+    (builtins.sort (a: b: a.url < b.url))
+  ];
 
-  linkRecords =
-    let
-      records = builtins.map (
-        e:
-        let
-          parts = splitName e.name e.src;
-        in
-        {
-          url = "${e.scheme}://${e.name}";
-          proto = "${e.scheme}://";
-          inherit (parts) highlight suffix;
-        }
-      ) (builtins.filter keep allEntries);
-      dedup = acc: r: if builtins.any (x: x.url == r.url) acc then acc else acc ++ [ r ];
-    in
-    builtins.sort (a: b: a.url < b.url) (builtins.foldl' dedup [ ] records);
-
-  linksHtml = lib.concatMapStringsSep "\n" (
-    r: ''<li><a href="${r.url}">${r.proto}<span class="hl">${r.highlight}</span>${r.suffix}</a></li>''
-  ) linkRecords;
+  linksHtml = lib.concatMapStringsSep "\n" (r: ''
+    <li><a href="${r.url}" target="_blank">${r.proto}<span class="hl">${r.highlight}</span>${r.suffix}</a></li>
+  '') linkRecords;
 
   html = ''
     <!DOCTYPE html>
