@@ -70,8 +70,8 @@ in
   };
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     settings = {
-      directTools = false;
-      disableProxyTool = false;
+      directTools = true;
+      disableProxyTool = true;
       idleTimeout = 5;
       requestTimeoutMs = 60000;
     };
