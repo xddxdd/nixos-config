@@ -73,7 +73,9 @@ in
     settings = {
       directTools = true;
       disableProxyTool = true;
+      freezeDirectTools = true;
       idleTimeout = 5;
+      mcpFooterStatus = "off";
       requestTimeoutMs = 60000;
       scriptMode = false;
     };
