@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 {
   home.file.".gitignore".text = ''
+    .pi
     .pi-*
   '';
 
