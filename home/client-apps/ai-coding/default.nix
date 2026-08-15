@@ -73,7 +73,8 @@ in
     settings = {
       directTools = true;
       disableProxyTool = true;
-      freezeDirectTools = true;
+      # Disabled for extra logging to TUI
+      freezeDirectTools = false;
       idleTimeout = 5;
       mcpFooterStatus = "off";
       requestTimeoutMs = 60000;
