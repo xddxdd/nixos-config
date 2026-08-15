@@ -74,6 +74,7 @@ in
       disableProxyTool = true;
       idleTimeout = 5;
       requestTimeoutMs = 60000;
+      scriptMode = false;
     };
   };
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
