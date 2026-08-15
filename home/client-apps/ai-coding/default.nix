@@ -84,6 +84,7 @@ in
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
   };
+  home.file.".pi/agent/extensions/no-update-check.ts".source = ./extensions/no-update-check.ts;
   home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
     toolDescriptionMode = "compact";
     parallel = {
