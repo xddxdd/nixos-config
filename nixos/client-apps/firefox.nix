@@ -93,7 +93,7 @@
           p11-kit = "/etc/firefox/pkcs11/p11-kit-trust.so";
         };
       };
-      ShowHomeButton = false;
+      ShowHomeButton = true;
       SupportMenu = {
         Title = "Lan Tian @ Blog";
         URL = "https://lantian.pub";
