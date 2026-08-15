@@ -80,7 +80,7 @@ in
         gcdemu
         gedit
         gimp
-        # gopher
+        gopher
         handbrake
         imagemagick
         immich-cli
@@ -93,13 +93,12 @@ in
         jpegoptim
         kdePackages.ark
         kdePackages.isoimagewriter
-        # kdePackages.kdenlive
+        kdePackages.kdenlive
         kdePackages.kpat
         kdePackages.neochat
         kicad
         lbzip2
         libfaketime
-        # libreoffice-qt6-fresh
         linphone
         lx-music-desktop
         macchanger
@@ -118,7 +117,7 @@ in
         nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
-        # nur-xddxdd.runpodctl
+        nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nvfetcher
@@ -155,7 +154,7 @@ in
         zoom-us
         # keep-sorted end
       ]
-      ++ lib.optionals (osConfig.networking.hostName != "lt-dell-wyse") [ nur-xddxdd.svp_4_6 ]
+      ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [ nur-xddxdd.svp_4_6 ]
     );
 
   programs.nix-index.enable = true;
