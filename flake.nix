@@ -178,6 +178,8 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur-xddxdd.follows = "nur-xddxdd";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.treefmt-nix.follows = "treefmt-nix";
       inputs.agenix.inputs.home-manager.follows = "home-manager";
       inputs.agenix.inputs.systems.follows = "systems";
     };
