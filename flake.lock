@@ -3,16 +3,12 @@
     "agenix": {
       "inputs": {
         "darwin": "darwin",
-        "home-manager": [
-          "home-manager"
-        ],
+        "home-manager": "home-manager_2",
         "nixpkgs": [
           "secrets",
           "nixpkgs"
         ],
-        "systems": [
-          "systems"
-        ]
+        "systems": "systems"
       },
       "locked": {
         "lastModified": 1770165109,
@@ -23,9 +19,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "ryantm",
-        "repo": "agenix",
-        "type": "github"
+        "id": "agenix",
+        "type": "indirect"
       }
     },
     "base16": {
@@ -368,11 +363,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786669243,
-        "narHash": "sha256-OAaOQVyZZI0loKJ7YLoN9cmik9uuZrMhmFoLqdTLg1U=",
+        "lastModified": 1786754155,
+        "narHash": "sha256-MeRfuor2EMMonDi61Nlhcj8f48V+tfBEZelJEyOiZow=",
         "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
-        "rev": "e0d4b05b451629ff4ed10b7bcee8a3354b909329",
+        "rev": "0a24b0b6eec180d12f489c628df7a9c85b48c36e",
         "type": "github"
       },
       "original": {
@@ -565,6 +560,28 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "secrets",
+          "agenix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745494811,
+        "narHash": "sha256-YZCh2o9Ua1n9uCvrvi5pRxtuVNml8X2a03qIFfRKpFs=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "abfad3d2958c9e6300a883bd443512c55dfeb1be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "honkai-railway-grub-theme": {
       "inputs": {
         "flake-utils": [
@@ -620,11 +637,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786742679,
-        "narHash": "sha256-6sju4TSwpiZJHMeAKMSGv3zgLqBbLUfs/bUMqHoACVs=",
+        "lastModified": 1786832361,
+        "narHash": "sha256-rxGCv86TXB742cfK57chSHsTMC2ll5MP4VCG7DYvG1Y=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "b658905d3b2e03e33fd41af512e392e4dc247b6c",
+        "rev": "daa4b601ba189c95c4c90c049a97189c1e85a112",
         "type": "github"
       },
       "original": {
@@ -1234,7 +1251,7 @@
         "sops-nix": "sops-nix",
         "srvos": "srvos",
         "stylix": "stylix",
-        "systems": "systems",
+        "systems": "systems_2",
         "treefmt-nix": "treefmt-nix",
         "zsh-patina": "zsh-patina"
       }
@@ -1274,11 +1291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786694809,
-        "narHash": "sha256-aqide+pDcuU6WP9QYXEntOpiwJbz8kyrjc+DRORRkdI=",
+        "lastModified": 1786778347,
+        "narHash": "sha256-Nw0GtsCjm8xi5hI0H1WniLyeDV9+HuDdCBjlP6/6m1I=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "bae42f00b43ec5d1acf72b7e478400b287842587",
+        "rev": "389c55a37b5dc43d9399c3168aa3ff65e735a5bb",
         "type": "github"
       },
       "original": {
@@ -1368,6 +1385,21 @@
       }
     },
     "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
