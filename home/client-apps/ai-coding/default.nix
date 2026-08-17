@@ -53,7 +53,6 @@ in
 
       packages = [
         # keep-sorted start
-        "npm:@czottmann/pi-automode"
         "npm:@monotykamary/pi-tps"
         "npm:@rwese/pi-question"
         "npm:pi-btw"
@@ -91,17 +90,6 @@ in
       concurrency = 100;
     };
     maxSubagentSpawnsPerSession = 10000;
-  };
-  home.file.".pi/agent/automode.json".text = builtins.toJSON {
-    autoMode = {
-      classifierReasoningLevel = "low";
-      allowInsideWorkingDirectory = true;
-    };
-    permissions.deny = [
-      "bash(find / *)"
-      "bash(find /nix *)"
-      "bash(find /nix/store *)"
-    ];
   };
 
   home.activation = lib.mkIf (osConfig.lantian ? mcp) {
