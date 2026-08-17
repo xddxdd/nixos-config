@@ -25,6 +25,7 @@ let
     time = {
       command = "uvx";
       args = [
+        "--with=mcp<2"
         "mcp-server-time"
         "--local-timezone=${config.time.timeZone}"
       ];
