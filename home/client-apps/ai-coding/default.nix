@@ -1,7 +1,6 @@
 {
   pkgs,
   osConfig,
-  lib,
   LT,
   inputs,
   ...
@@ -91,24 +90,4 @@ in
     };
     maxSubagentSpawnsPerSession = 10000;
   };
-
-  home.activation = lib.mkIf (osConfig.lantian ? mcp) {
-    setup-zoo-code-mcp =
-      let
-        mcpJsonFile = pkgs.writeText "mcp.json" (
-          builtins.toJSON {
-            mcpServers = lib.mapAttrs (
-              _: v: v // { alwaysAllow = [ "*" ]; }
-            ) osConfig.lantian.mcp.codingMcpServers;
-          }
-        );
-      in
-      ''
-        ${pkgs.coreutils}/bin/install -Dm644 \
-          "${mcpJsonFile}" \
-          "$HOME/.config/Code/User/globalStorage/zoocodeorganization.zoo-code/settings/mcp_settings.json"
-      '';
-  };
-
-  home.file.".roo/rules".source = ./rules;
 }
