@@ -46,7 +46,7 @@ in
       enableInstallTelemetry = false;
       enableAnalytics = false;
       defaultProvider = "ollama-cloud";
-      defaultModel = "glm-5.2";
+      defaultModel = "deepseek-v4-flash:0731";
       defaultThinkingLevel = "high";
       showCacheMissNotices = true;
 
