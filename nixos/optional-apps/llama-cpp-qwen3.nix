@@ -13,7 +13,7 @@
     settings = {
       host = "127.0.0.1";
       port = LT.port.LlamaCpp.Qwen3;
-      hf-repo = "unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
+      hf-repo = "unsloth/Qwen3.8-27B-GGUF:IQ4_XS";
       cache-type-k = "q4_0";
       cache-type-v = "q4_0";
       mmproj-url = "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf";
