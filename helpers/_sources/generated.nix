@@ -36,21 +36,21 @@
   };
   auto-novel-addon = {
     pname = "auto-novel-addon";
-    version = "1.9.2";
+    version = "1.9.3";
     src = fetchurl {
-      url = "https://github.com/auto-novel/addon/releases/download/v1.9.2/addon-1.9.2-firefox.xpi";
-      sha256 = "sha256-dx0Ppzkz1PwFG6IsuUbVX+Ja6im29SYEbzb+zUQc8ss=";
+      url = "https://github.com/auto-novel/addon/releases/download/v1.9.3/addon-1.9.3-firefox.xpi";
+      sha256 = "sha256-KgCa4bQ+i6Omb0XZMb+1zjKpQDEHS4SNpdxRv0cpneo=";
     };
   };
   bosl2 = {
     pname = "bosl2";
-    version = "v2.0.749";
+    version = "v2.0.750";
     src = fetchFromGitHub {
       owner = "BelfrySCAD";
       repo = "BOSL2";
-      rev = "v2.0.749";
+      rev = "v2.0.750";
       fetchSubmodules = false;
-      sha256 = "sha256-YUJGllNgkw+w1fzsa8rzxyjKq2ZawrcuoRpqY7rTAxc=";
+      sha256 = "sha256-ErSJxw1hLlnyUQCXBChwBrN9kS6+l4KXYvu9bBO1m6w=";
     };
   };
   delegacy-rpz = {
@@ -109,17 +109,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "befa2f8022c22985891e5d28aa706f9fba8c578d";
+    version = "4aaf4ee1fb2678a7f989ea570f0f6ce14a9abf75";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "befa2f8022c22985891e5d28aa706f9fba8c578d";
+      rev = "4aaf4ee1fb2678a7f989ea570f0f6ce14a9abf75";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-QTpxFlRUL7F6JNNZCDemKHkqv8jfeDAlAwGKeZRYju4=";
+      sha256 = "sha256-8zzLFY4wcPMzc99DaugHOpJqmbYx1zfnOp6Rl/kBpdE=";
     };
-    date = "2026-08-12";
+    date = "2026-08-16";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "e7a28468a9ed1c105b141fc046ca14e05b6e1d46";
+    version = "7b022ce1e016c6522d4075ba6ad13e99f7bbc9be";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "e7a28468a9ed1c105b141fc046ca14e05b6e1d46";
+      rev = "7b022ce1e016c6522d4075ba6ad13e99f7bbc9be";
       fetchSubmodules = false;
-      sha256 = "sha256-biL3A3MiLjuOIwPcrKPgz5p6dvx7BuK3LbKxzHR5Wqo=";
+      sha256 = "sha256-nRZghtBXvkvaLeDk8iIXD8fK+rT9yyMFLOEsOoA2xaM=";
     };
-    date = "2026-08-14";
+    date = "2026-08-17";
   };
   open5gs = {
     pname = "open5gs";
@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "6c295185f80803e1516fbb88acbb6271946f61c8";
+    version = "fb4d1dca28bf9c434f22309f0fe56d993a87960f";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "6c295185f80803e1516fbb88acbb6271946f61c8";
+      rev = "fb4d1dca28bf9c434f22309f0fe56d993a87960f";
       fetchSubmodules = false;
-      sha256 = "sha256-l5GNkv+3kgSJQ6ijtSRyCLH4OsbmHAIrNQq8ZBJwZWg=";
+      sha256 = "sha256-RmakggL76dqPmawaiHevgVG8498fcb//x1gIyJWvHcQ=";
     };
-    date = "2026-08-10";
+    date = "2026-08-17";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
