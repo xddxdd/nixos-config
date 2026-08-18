@@ -34,9 +34,10 @@ in
       linuxdo-hub = {
         api = "openai-completions";
         baseUrl = "https://hub.linux.do/v1";
-        models = [
-          { id = "glm-5.2"; }
-        ];
+      };
+      uni-api = {
+        api = "openai-completions";
+        baseUrl = "https://ai-api.xuyh0120.win/v1";
       };
     };
 
@@ -58,6 +59,7 @@ in
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
         "npm:pi-mcp-adapter"
+        "npm:pi-model-discovery"
         "npm:pi-ollama-cloud"
         "npm:pi-rtk-optimizer"
         "npm:pi-simplify"
