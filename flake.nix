@@ -142,7 +142,6 @@
     nur-xddxdd = {
       # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
-      inputs.chinese-fonts-overlay.follows = "chinese-fonts-overlay";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-cachyos-kernel.follows = "nix-cachyos-kernel";
       inputs.nix-index-database.follows = "nix-index-database";
@@ -180,8 +179,6 @@
       inputs.nur-xddxdd.follows = "nur-xddxdd";
       inputs.flake-compat.follows = "flake-compat";
       inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.agenix.inputs.home-manager.follows = "home-manager";
-      inputs.agenix.inputs.systems.follows = "systems";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
