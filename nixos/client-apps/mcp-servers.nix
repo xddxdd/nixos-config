@@ -9,6 +9,16 @@
 let
   common = {
     # keep-sorted start block=yes
+    exa = {
+      command = toString (
+        pkgs.writeShellScript "mcp-exa" ''
+          exec ${pkgs.uv}/bin/uvx '--with=mcp<2' mcp-proxy \
+            -H Authorization "Bearer $(cat ${config.sops.secrets.mcp-exa-api-key.path})" \
+            --transport streamablehttp \
+            "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa"
+        ''
+      );
+    };
     grok-search-rs = {
       command = toString (
         pkgs.writeShellScript "mcp-grok-search-rs" ''
@@ -63,6 +73,10 @@ in
       mode = "0444";
     };
     sops.secrets.mcp-context7-api-key = {
+      sopsFile = inputs.secrets + "/common/mcp.yaml";
+      mode = "0444";
+    };
+    sops.secrets.mcp-exa-api-key = {
       sopsFile = inputs.secrets + "/common/mcp.yaml";
       mode = "0444";
     };
