@@ -70,7 +70,7 @@ Flake 入口文件，定义了：
 | 标签             | 说明                                                       |
 | ---------------- | ---------------------------------------------------------- |
 | `client`         | 客户端配置（带 GUI）                                       |
-| `cn-accel`       | 中国网络加速节点（启用 v2ray、mihomo、openvpn-gameaccel）  |
+| `cn-accel`       | 中国网络加速节点（启用 v2ray、openvpn-gameaccel）  |
 | `dn42`           | DN42 节点                                                  |
 | `nix-builder`    | Nix 远程构建节点                                           |
 | `public-facing`  | 公网可访问节点（用于 Prometheus blackbox 监控等）          |

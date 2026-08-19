@@ -21,7 +21,7 @@ in
     };
     cnAction = lib.mkOption {
       type = lib.types.str;
-      default = "unblock_cn";
+      default = "must_direct";
     };
     intlAction = lib.mkOption {
       type = lib.types.str;
@@ -61,7 +61,6 @@ in
 
         node {
           v2ray: "socks5://localhost:${LT.portStr.V2Ray.SocksClient}"
-          mihomo_unblock_cn: "socks5://${LT.hosts.bwg-lax.ltnet.IPv4}:${LT.portStr.Mihomo}"
           zgocloud: "socks5://${LT.hosts.zgocloud.ltnet.IPv4}:${LT.portStr.V2Ray.SocksClient}"
         }
 
@@ -87,10 +86,6 @@ in
           proxy {
             filter: name(v2ray)
             policy: fixed(0)
-          }
-          unblock_cn {
-            filter: name(mihomo_unblock_cn)
-            policy: min_moving_avg
           }
           zgocloud {
             filter: name(zgocloud)
