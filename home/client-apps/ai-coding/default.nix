@@ -58,6 +58,7 @@ in
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
+        "npm:pi-langfuse"
         "npm:pi-mcp-adapter"
         "npm:pi-model-discovery"
         "npm:pi-ollama-cloud"
