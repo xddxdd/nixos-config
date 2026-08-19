@@ -54,11 +54,11 @@ in
       packages = [
         # keep-sorted start
         "npm:@monotykamary/pi-tps"
+        "npm:@narumitw/pi-langfuse"
         "npm:@rwese/pi-question"
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
-        "npm:pi-langfuse"
         "npm:pi-mcp-adapter"
         "npm:pi-model-discovery"
         "npm:pi-ollama-cloud"
