@@ -125,6 +125,7 @@ rec {
     ADSB.PlaneWatch = 13919;
     ADSB.RawOutput978 = 13978;
     Asterisk.AudioSocket = 13980;
+    Resin = 13995;
     ClawEmail = 13997;
     Radicle.HTTPd = 13998;
     Open5GS = 13999;
