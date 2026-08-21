@@ -158,8 +158,12 @@ in
       ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [ nur-xddxdd.svp_4_6 ]
     );
 
-  programs.nix-index.enable = true;
-  programs.nix-index.symlinkToCacheHome = true;
+  programs.nix-index = {
+    enable = true;
+    symlinkToCacheHome = true;
+    enableBashIntegration = false;
+    enableZshIntegration = false;
+  };
   programs.nix-index-database.comma.enable = true;
 
   programs.aria2.enable = true;
