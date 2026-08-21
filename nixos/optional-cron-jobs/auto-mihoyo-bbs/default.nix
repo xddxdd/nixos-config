@@ -48,11 +48,11 @@ in
     partOf = [ "auto-mihoyo-bbs.service" ];
     timerConfig = {
       OnCalendar = [
-        "*-*-* 02:30:00"
-        "*-*-* 14:30:00"
+        "*-*-* 04:00:00 Asia/Shanghai"
+        "*-*-* 16:00:00 Asia/Shanghai"
       ];
       Persistent = true;
-      RandomizedDelaySec = "4h";
+      RandomizedDelaySec = "2h";
       Unit = "auto-mihoyo-bbs.service";
     };
   };
