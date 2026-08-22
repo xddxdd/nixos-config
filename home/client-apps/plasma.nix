@@ -1,4 +1,5 @@
-_: {
+{ pkgs, ... }:
+{
   programs.okular = {
     enable = true;
     package = null;
@@ -273,4 +274,9 @@ _: {
       };
     };
   };
+
+  # Fix performance issue
+  # https://github.com/NixOS/nixpkgs/issues/363068#issuecomment-5209282821
+  xdg.dataFile."plasma/desktoptheme/default/translucent/colors".source =
+    pkgs.kdePackages.libplasma + "/share/plasma/desktoptheme/breeze-dark/colors";
 }
