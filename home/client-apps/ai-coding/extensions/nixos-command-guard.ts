@@ -1,5 +1,6 @@
 // Enforces ../rules/04-nixos.md: blocks non-Nix package managers,
-// `make install`, `curl | sh` installers, and searches rooted at /.
+// `make install`, `curl | sh` installers, and commands passing `/` or
+// `/nix/store(/)` as a single argument.
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
@@ -21,12 +22,20 @@ const rules: Array<{ pattern: RegExp; reason: string }> = [
       "Piping curl/wget into a shell to install software is forbidden on this NixOS system. Use Nix to install software instead.",
   },
   {
-    // Bare `/` or /nix/store as the search path; `find /etc` etc. stay allowed.
-    pattern: /\b(find|fd|grep|rg|ag|ack)\b[^|&;]*\s(\/(?:\s|$)|\/nix\/store(?:\/|\s|$))/,
+    // Bare `/` as a single argument (quoted or not), e.g. `find /`, `du -sh /`.
+    pattern: /(?:^|\s)(?:"\/"|'\/'|\/)(?=\s|$)/,
     reason:
-      "Searching from / or /nix/store is forbidden on NixOS: /nix/store contains a huge number of files " +
-      "and traversing it is extremely slow. " +
-      "Restrict the search to a specific directory, or use `which`, `whereis`, or `nix-locate` to locate system files.",
+      "Passing `/` as a command argument is forbidden on this NixOS system: " +
+      "searching from `/` traverses the entire filesystem (extremely slow), and destructive commands like `rm -rf /` are catastrophic. " +
+      "Restrict the argument to a specific directory.",
+  },
+  {
+    // `/nix/store` or `/nix/store/` as a single argument (quoted or not).
+    pattern: /(?:^|\s)(?:"\/nix\/store\/?"|'\/nix\/store\/?'|\/nix\/store\/?)(?=\s|$)/,
+    reason:
+      "Passing `/nix/store` as a command argument is forbidden on this NixOS system: " +
+      "it contains a huge number of files and traversing it is extremely slow, and destructive commands on it are catastrophic. " +
+      "Restrict the argument to a specific path inside it, or use `which`, `whereis`, or `nix-locate` to locate system files.",
   },
 ];
 
