@@ -18,6 +18,10 @@
     systems.url = "github:nix-systems/default";
 
     # keep-sorted start block=yes
+    audio-cpp = {
+      url = "github:0xShug0/audio.cpp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";

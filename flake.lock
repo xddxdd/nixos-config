@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "audio-cpp": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787424092,
+        "narHash": "sha256-mBwtjaPaLwIxe9Mn3TkSLDc1d4SNyOuD/qbwmrcAFa0=",
+        "owner": "0xShug0",
+        "repo": "audio.cpp",
+        "rev": "4513f27f3427b12450dc56ac9f4d0ff067ba491f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xShug0",
+        "repo": "audio.cpp",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1121,6 +1141,7 @@
     },
     "root": {
       "inputs": {
+        "audio-cpp": "audio-cpp",
         "betterfox-nix": "betterfox-nix",
         "chinese-fonts-overlay": "chinese-fonts-overlay",
         "colmena": "colmena",
