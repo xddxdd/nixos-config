@@ -34,7 +34,7 @@
       dockerSocket.enable = true;
 
       extraPackages = [ pkgs.nftables ];
-      # ++ lib.optionals pkgs.stdenv.isx86_64 [ pkgs.gvisor ];
+      # ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ pkgs.gvisor ];
     };
 
     systemd.services = {

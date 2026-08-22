@@ -9,7 +9,7 @@
   services.scx = {
     # Broken on aarch64
     # Only enable on client, uncertain improvements on server
-    enable = pkgs.stdenv.isx86_64 && LT.this.hasTag LT.tags.client;
+    enable = pkgs.stdenv.hostPlatform.isx86_64 && LT.this.hasTag LT.tags.client;
     scheduler = "scx_flash";
     extraArgs =
       if LT.this.hasTag LT.tags.client then

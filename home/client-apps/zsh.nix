@@ -2,12 +2,8 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
-let
-  zsh-patina = inputs.zsh-patina.packages.${pkgs.stdenv.hostPlatform.system}.default;
-in
 {
   programs.zsh = {
     enable = true;
@@ -154,7 +150,7 @@ in
       # Fix Cline VSCode Integration
       [[ "$TERM_PROGRAM" == "vscode" ]] && . "${pkgs.vscode}/lib/vscode/resources/app/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
 
-      eval "$(${zsh-patina}/bin/zsh-patina activate)"
+      eval "$(${pkgs.zsh-patina}/bin/zsh-patina activate)"
     '';
   };
 }

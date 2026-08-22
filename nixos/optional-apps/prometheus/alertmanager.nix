@@ -201,6 +201,10 @@
     port = LT.port.Prometheus.AlertManager;
     listenAddress = "127.0.0.1";
     webExternalUrl = "https://alert.xuyh0120.win";
+
+    # Not compatible with genJqSecretsReplacementSnippet
+    checkConfig = false;
+
     configuration = {
       global = {
         smtp_from = config.programs.msmtp.accounts.default.from;

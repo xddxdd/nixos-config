@@ -41,6 +41,8 @@
       qt.platform = lib.mkForce "kde";
       # Kmscon uses removed options
       kmscon.enable = false;
+      # Regreet isn't updated in matugen fork
+      regreet.enable = false;
     };
 
     cursor =

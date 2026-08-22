@@ -162,7 +162,11 @@ in
   options = {
     lantian.kernel = lib.mkOption {
       type = lib.types.attrs;
-      default = if pkgs.stdenv.isx86_64 then pkgs.nur-xddxdd.lantianLinuxCachyOS.lts-lto else pkgs.linux;
+      default =
+        if pkgs.stdenv.hostPlatform.isx86_64 then
+          pkgs.nur-xddxdd.lantianLinuxCachyOS.lts-lto
+        else
+          pkgs.linux;
     };
   };
   config = {
@@ -186,7 +190,7 @@ in
         # "nft_fullcone"
         # "ovpn-dco"
       ]
-      ++ lib.optionals pkgs.stdenv.isx86_64 [ "ntsync" ];
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ "ntsync" ];
       extraModulePackages = with config.boot.kernelPackages; [
         cryptodev
         emperors-scepter

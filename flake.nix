@@ -4,6 +4,7 @@
   inputs = {
     # Common libraries
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -121,7 +122,6 @@
     };
     nixcord = {
       url = "github:kaylorben/nixcord";
-      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -197,10 +197,6 @@
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zsh-patina = {
-      url = "github:michel-kraemer/zsh-patina";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # keep-sorted end
