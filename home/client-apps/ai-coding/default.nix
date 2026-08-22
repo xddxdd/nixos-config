@@ -51,6 +51,17 @@ in
       defaultThinkingLevel = "high";
       showCacheMissNotices = true;
 
+      retry = {
+        enabled = true;
+        maxRetries = 3;
+        baseDelayMs = 2000;
+        provider = {
+          timeoutMs = 3600 * 1000;
+          maxRetries = 3;
+          maxRetryDelayMs = 60 * 1000;
+        };
+      };
+
       packages = [
         # keep-sorted start
         "npm:@monotykamary/pi-tps"
