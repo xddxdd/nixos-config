@@ -35,6 +35,10 @@ in
         api = "openai-completions";
         baseUrl = "https://hub.linux.do/v1";
       };
+      tokenrhythm = {
+        api = "openai-completions";
+        baseUrl = "https://tokenrhythm.studio/v1";
+      };
       uni-api = {
         api = "openai-completions";
         baseUrl = "https://ai-api.xuyh0120.win/v1";
