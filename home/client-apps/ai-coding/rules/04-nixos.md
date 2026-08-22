@@ -12,14 +12,14 @@
 
 ### 禁止的操作
 
-- **不要**使用 `apt`、`yum`、`dnf`、`pacman` 等非 Nix 包管理器
-- **不要**从源码手动 `make install`
-- **不要**使用 `curl | sh` 等方式安装软件
+- **不要**使用 `apt`、`apt-get`、`aptitude`、`yum`、`dnf`、`pacman`、`brew`、`snap`、`zypper` 等非 Nix 包管理器
+- **不要**从源码手动 `make install`（包括 `sudo make install`、`make -jN install` 等带参数的形式）
+- **不要**使用 `curl | sh`、`wget | sh` 等管道到 shell 的方式安装软件
 
 ### 禁止从根目录搜索
 
-- **不要**执行 `find /`、`grep -r /`、`fd /`、`rg /` 等从根目录（`/`）开始的搜索命令
-- 在 NixOS 上，`/nix/store` 包含大量文件，从根目录遍历会极其缓慢，可能耗时数分钟甚至卡死
+- **不要**执行 `find /`、`grep -r /`、`fd /`、`rg /` 等搜索命令，即 `find`、`fd`、`grep`、`rg`、`ag`、`ack` 以根目录（`/`）或 `/nix/store` 为搜索路径的用法
+- 在 NixOS 上，`/nix/store` 包含大量文件，从根目录或 `/nix/store` 遍历会极其缓慢，可能耗时数分钟甚至卡死
 - 需要搜索时，应限定在具体目录内，例如 `find /etc`、`rg . /home/user/project`
 - 如需查找系统文件，优先使用 `which`、`whereis`、`nix-locate` 等针对性工具
 

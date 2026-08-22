@@ -1,0 +1,45 @@
+// Enforces ../rules/04-nixos.md: blocks non-Nix package managers,
+// `make install`, `curl | sh` installers, and searches rooted at /.
+
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+
+const rules: Array<{ pattern: RegExp; reason: string }> = [
+  {
+    pattern: /\b(apt|apt-get|aptitude|yum|dnf|pacman|brew|snap|zypper)\b/,
+    reason:
+      "Non-Nix package managers are forbidden on this NixOS system. Use `nix` (e.g. `nix shell nixpkgs#<pkg>`) " +
+      "or add the package to the Nix configuration instead.",
+  },
+  {
+    pattern: /\bmake(\s+-[\w=.-]+)*\s+install\b/,
+    reason:
+      "Building from source with `make install` is forbidden on this NixOS system. Package the software with Nix instead.",
+  },
+  {
+    pattern: /\b(curl|wget)\b[^|]*\|\s*(sudo\s+)?(ba|z|da)?sh\b/,
+    reason:
+      "Piping curl/wget into a shell to install software is forbidden on this NixOS system. Use Nix to install software instead.",
+  },
+  {
+    // Bare `/` or /nix/store as the search path; `find /etc` etc. stay allowed.
+    pattern: /\b(find|fd|grep|rg|ag|ack)\b[^|&;]*\s(\/(?:\s|$)|\/nix\/store(?:\/|\s|$))/,
+    reason:
+      "Searching from / or /nix/store is forbidden on NixOS: /nix/store contains a huge number of files " +
+      "and traversing it is extremely slow. " +
+      "Restrict the search to a specific directory, or use `which`, `whereis`, or `nix-locate` to locate system files.",
+  },
+];
+
+export default function (pi: ExtensionAPI) {
+  pi.on("tool_call", async (event, _ctx) => {
+    if (event.toolName !== "bash") return undefined;
+
+    const command = event.input.command as string;
+    for (const rule of rules) {
+      if (rule.pattern.test(command)) {
+        return { block: true, reason: rule.reason };
+      }
+    }
+    return undefined;
+  });
+}

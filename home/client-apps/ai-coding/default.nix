@@ -96,6 +96,8 @@ in
     webTools = false;
   };
   home.file.".pi/agent/extensions/no-update-check.ts".source = ./extensions/no-update-check.ts;
+  home.file.".pi/agent/extensions/nixos-command-guard.ts".source =
+    ./extensions/nixos-command-guard.ts;
   home.file.".pi/agent/extensions/model-favorites.ts".source = ./extensions/model-favorites.ts;
   home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
     toolDescriptionMode = "compact";
