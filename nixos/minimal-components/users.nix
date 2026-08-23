@@ -12,21 +12,6 @@ let
   sshKeysForNixBuilder = import (inputs.secrets + "/ssh/nix-builder.nix");
 in
 {
-  environment.etc.subuid = {
-    mode = "0644";
-    text = ''
-      root:100000:65536
-      lantian:200000:65536
-    '';
-  };
-  environment.etc.subgid = {
-    mode = "0644";
-    text = ''
-      root:100000:65536
-      lantian:200000:65536
-    '';
-  };
-
   services.userborn = {
     enable = true;
     passwordFilesLocation = "/nix/persistent/var/lib/nixos";
@@ -39,6 +24,12 @@ in
       hashedPassword = lib.mkForce unixHashedPassword;
       openssh.authorizedKeys.keys = sshKeys;
       linger = LT.this.hasTag LT.tags.client;
+      subUidRanges = [
+        {
+          startUid = 100000;
+          count = 65536;
+        }
+      ];
     };
     lantian = {
       hashedPassword = lib.mkForce unixHashedPassword;
@@ -59,6 +50,12 @@ in
       openssh.authorizedKeys.keys = sshKeys;
       createHome = true;
       linger = LT.this.hasTag LT.tags.client;
+      subUidRanges = [
+        {
+          startUid = 200000;
+          count = 65536;
+        }
+      ];
     };
     nix-builder = lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
       isNormalUser = true;
