@@ -20,15 +20,14 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi;
+    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi.override {
+      useBun = false;
+    };
     # # Not implemented correctly in home manager
     # configDir = "${config.xdg.configHome}/pi/agent";
     inherit context;
 
-    extraPackages = [
-      pkgs.nodejs
-      pkgs.bun
-    ];
+    extraPackages = [ pkgs.nodejs ];
 
     models.providers = {
       linuxdo-hub = {
