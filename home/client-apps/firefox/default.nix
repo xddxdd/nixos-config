@@ -56,7 +56,7 @@ let
           phantom-app
           plasma-integration
           protondb-for-steam
-          # pt-depiler
+          pt-depiler
           read-frog-open-ai-translator
           redirector
           return-youtube-dislikes
