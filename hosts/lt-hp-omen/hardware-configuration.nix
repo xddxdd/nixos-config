@@ -4,6 +4,7 @@
 { config, lib, ... }:
 {
   imports = [
+    ../../nixos/hardware/ch341.nix
     ../../nixos/hardware/crashdump.nix
     ../../nixos/hardware/hdr.nix
     # ../../nixos/hardware/i915-sriov.nix
