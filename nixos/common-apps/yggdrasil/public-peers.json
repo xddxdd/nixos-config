@@ -90,11 +90,7 @@
     "tls://yg-sin.magicum.net:23900"
   ],
   "south-africa": [
-    "tls://r1.worcester.yggdrasil.novasredes.network:2001",
     "tls://r2.worcester.yggdrasil.novasredes.network:2001"
-  ],
-  "spain": [
-    "tls://spain.magicum.net:36901"
   ],
   "sweden": [
     "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
