@@ -6,14 +6,16 @@
   ...
 }:
 let
-  models = builtins.abort "Model source not defined";
-
-  enabledModels = pkgs.runCommand "mtranserver-models" { } ''
-    mkdir -p $out
-    cp -r ${models}/models/base-memory/* $out/
-    chmod -R +w $out
-    ${lib.getExe' pkgs.gzip "gunzip"} -r $out
-  '';
+  modelsData = builtins.fromJSON (builtins.readFile ./models.json);
+  modelsDir = pkgs.linkFarm "mtranserver-models" (
+    lib.mapAttrs (
+      _: f:
+      pkgs.fetchurl {
+        inherit (f) url;
+        hash = "sha256:${f.sha256}";
+      }
+    ) modelsData.files
+  );
 in
 {
   systemd.services.mtranserver = {
@@ -23,7 +25,7 @@ in
     environment = {
       IP = "127.0.0.1";
       PORT = LT.portStr.MTranServer;
-      MODELS_DIR = builtins.toString enabledModels;
+      MODELS_DIR = builtins.toString modelsDir;
       NUM_WORKERS = "4";
     };
 
