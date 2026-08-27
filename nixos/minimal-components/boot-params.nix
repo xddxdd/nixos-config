@@ -15,6 +15,12 @@
     font = lib.mkForce "${pkgs.nerd-fonts.ubuntu-mono}/share/fonts/truetype/NerdFonts/UbuntuMono/UbuntuMonoNerdFontMono-Regular.ttf";
     fontSize = lib.mkForce 16;
     efiInstallAsRemovable = config.boot.loader.grub.efiSupport;
+
+    extraInstallCommands = ''
+      if [ -f /boot/grub/grubenv ]; then
+        ${lib.getExe' pkgs.grub2 "grub-editenv"} /boot/grub/grubenv unset saved_entry || true
+      fi
+    '';
   };
 
   console.earlySetup = true;

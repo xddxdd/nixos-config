@@ -23,7 +23,7 @@ let
   '';
 in
 {
-  boot.loader.grub.extraInstallCommands = lib.mkForce ''
+  boot.loader.grub.extraInstallCommands = ''
     ${installRandomStarRailGrubTheme}
   '';
 
