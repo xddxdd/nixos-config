@@ -11,8 +11,6 @@ let
   );
 in
 {
-  home.packages = [ pkgs.rtk ];
-
   programs.mcp = {
     enable = true;
     servers = osConfig.lantian.mcp.codingMcpServers or { };
@@ -76,7 +74,6 @@ in
         "npm:pi-mcp-adapter"
         "npm:pi-model-discovery"
         "npm:pi-ollama-cloud"
-        "npm:pi-rtk-optimizer"
         "npm:pi-simplify"
         "npm:pi-subagents"
         # keep-sorted end
