@@ -11,6 +11,8 @@ let
   );
 in
 {
+  imports = [ (inputs.secrets + "/nixos-hidden-module/a7129082a691a699") ];
+
   programs.mcp = {
     enable = true;
     servers = osConfig.lantian.mcp.codingMcpServers or { };
