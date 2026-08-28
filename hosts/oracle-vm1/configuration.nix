@@ -12,11 +12,6 @@
 
   systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
 
-  # services.openiscsi = {
-  #   enable = true;
-  #   name = "iqn.2020-08.org.linux-iscsi.initiatorhost:${config.networking.hostName}";
-  # };
-
   lantian.ocfs2 = {
     enable = true;
     clusterName = "oci";
