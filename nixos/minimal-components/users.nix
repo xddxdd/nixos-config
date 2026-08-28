@@ -72,4 +72,8 @@ in
     };
     nix-builder = { };
   };
+
+  # Disable builtin subuid/subgid file management
+  environment.etc.subuid.enable = false;
+  environment.etc.subgid.enable = false;
 }
