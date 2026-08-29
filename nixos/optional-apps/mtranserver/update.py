@@ -75,7 +75,7 @@ def load_existing():
     if not os.path.exists(path):
         return {}
     try:
-        return json.load(open(path)).get("files", {})
+        return json.load(open(path))
     except Exception:
         return {}
 
@@ -121,12 +121,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
         hashes.update(dict(zip(todo.keys(), ex.map(sha256_of, todo.values()))))
 
-    out = {
-        "generated": registry["generated"],
-        "registryUrl": REGISTRY_URL,
-        "baseUrl": base_url,
-        "files": {k: {"url": targets[k], "sha256": hashes[k]} for k in sorted(targets)},
-    }
+    out = {k: {"url": targets[k], "sha256": hashes[k]} for k in sorted(targets)}
     with open(os.path.join(SCRIPT_DIR, "models.json"), "w") as fh:
         json.dump(out, fh, indent=2, sort_keys=True)
         fh.write("\n")

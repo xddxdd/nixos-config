@@ -13,7 +13,7 @@ let
         inherit (f) url;
         hash = "sha256:${f.sha256}";
       }
-    ) modelsData.files
+    ) modelsData
   );
 in
 {
