@@ -8,43 +8,57 @@ let
   llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
   llama-server = lib.getExe' llama-cpp "llama-server";
 
+  mkEmbedding = repo: quant: ''
+    ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    --hf-repo ${repo}:${quant} \
+    --embeddings --pooling last \
+    --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
+  '';
+
+  mkReranker = repo: quant: ''
+    ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    --hf-repo ${repo}:${quant} \
+    --rerank --ctx-size 32768
+  '';
+
   # Model IDs (API-facing names) must always be lower case; display `name`s use proper casing
   models = {
     # keep-sorted start block=yes
     "nomic-embed-code" = {
       name = "Nomic Embed Code";
-      cmd = ''
-        ${llama-server} --port ''${PORT} --host 127.0.0.1 \
-        --hf-repo nomic-ai/nomic-embed-code-GGUF:Q4_K_M \
-        --embeddings --pooling last \
-        --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
-      '';
+      cmd = mkEmbedding "nomic-ai/nomic-embed-code-GGUF" (
+        if LT.this.vramGB <= 8 then "Q4_K_M" else "Q8_0"
+      );
     };
     "qwen3-embedding-0.6b" = {
       name = "Qwen3 Embedding 0.6B";
-      cmd = ''
-        ${llama-server} --port ''${PORT} --host 127.0.0.1 \
-        --hf-repo Qwen/Qwen3-Embedding-0.6B-GGUF:F16 \
-        --embeddings --pooling last \
-        --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
-      '';
+      cmd = mkEmbedding "Qwen/Qwen3-Embedding-0.6B-GGUF" "F16";
     };
     "qwen3-embedding-4b" = {
       name = "Qwen3 Embedding 4B";
-      cmd = ''
-        ${llama-server} --port ''${PORT} --host 127.0.0.1 \
-        --hf-repo Qwen/Qwen3-Embedding-4B-GGUF:Q8_0 \
-        --embeddings --pooling last \
-        --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
-      '';
+      cmd = mkEmbedding "Qwen/Qwen3-Embedding-4B-GGUF" (if LT.this.vramGB <= 8 then "Q8_0" else "F16");
+    };
+    "qwen3-reranker-0.6b" = {
+      name = "Qwen3 Reranker 0.6B";
+      cmd = mkReranker "mradermacher/Qwen3-Reranker-0.6B-GGUF" "F16";
+    };
+    "qwen3-reranker-4b" = {
+      name = "Qwen3 Reranker 4B";
+      cmd = mkReranker "mradermacher/Qwen3-Reranker-4B-GGUF" (
+        if LT.this.vramGB <= 8 then "Q8_0" else "F16"
+      );
+    };
+    # keep-sorted end
+  }
+  // lib.optionalAttrs (LT.this.vramGB >= 24) {
+    # keep-sorted start block=yes
+    "qwen3-embedding-8b" = {
+      name = "Qwen3 Embedding 8B";
+      cmd = mkEmbedding "Qwen/Qwen3-Embedding-8B-GGUF" "Q8_0";
     };
     "qwen3-reranker-8b" = {
       name = "Qwen3 Reranker 8B";
-      cmd = ''
-        ${llama-server} --port ''${PORT} --host 127.0.0.1 \
-        --hf-repo QuantFactory/Qwen3-Reranker-8B-GGUF:Q4_K_M \
-        --rerank --ctx-size 32768
-      '';
+      cmd = mkReranker "QuantFactory/Qwen3-Reranker-8B-GGUF" "Q8_0";
     };
     "qwen3.8-27b" = {
       name = "Qwen3.8 27B";
@@ -63,6 +77,13 @@ let
 in
 {
   imports = [ ./llama-cpp.nix ];
+
+  assertions = [
+    {
+      assertion = LT.this.vramGB > 0;
+      message = "llama-swap requires vramGB > 0";
+    }
+  ];
 
   services.llama-swap = {
     enable = true;

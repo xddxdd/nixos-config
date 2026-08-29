@@ -40,6 +40,10 @@
       type = lib.types.int;
       default = 0;
     };
+    vramGB = lib.mkOption {
+      type = lib.types.int;
+      default = 0;
+    };
 
     # Geolocation
     city = {

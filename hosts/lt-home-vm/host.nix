@@ -12,6 +12,7 @@
     server
   ];
   cpuThreads = 64;
+  vramGB = 8;
   city = geo.cities."US Bellevue";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID2yEmewk6E2jKDjJOdrC4k4It2SN+/ihSOwsVmd9fnW";
   zerotier = "606bdb9703";

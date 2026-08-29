@@ -6,6 +6,7 @@
     lan-access
   ];
   cpuThreads = 8;
+  vramGB = 24;
   city = geo.cities."US Bellevue";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHq9gnvAZdEt84vZf83s4+T+3AhPVY/xz2o5qbqR8ftx";
   public = {
