@@ -35,6 +35,8 @@
         "Blobmoji"
       ];
       font-size = 10;
+
+      background-opacity = 0;
     };
   };
 }

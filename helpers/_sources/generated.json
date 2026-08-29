@@ -772,6 +772,27 @@
         },
         "version": "0.6.0"
     },
+    "vscode-vibrancy-continued": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vscode-vibrancy-continued",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "illixion",
+            "repo": "vscode-vibrancy-continued",
+            "rev": "v1.1.93",
+            "sha256": "sha256-ngu1/fkA86oHiia/ZAH1qQbA7ibV2zOutdkL+qIVbik=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.1.93"
+    },
     "yourls": {
         "cargoLock": null,
         "date": null,

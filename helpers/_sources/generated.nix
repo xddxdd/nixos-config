@@ -3,7 +3,6 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -452,6 +451,17 @@
     src = fetchurl {
       url = "https://git.um-react.app/um/um-react/releases/download/v0.6.0/um-react-0.6.0.zip";
       sha256 = "sha256-hHYQv+ihBg4tizhYiHY3iER4tDBNc/ubHz3fAR/7bvc=";
+    };
+  };
+  vscode-vibrancy-continued = {
+    pname = "vscode-vibrancy-continued";
+    version = "v1.1.93";
+    src = fetchFromGitHub {
+      owner = "illixion";
+      repo = "vscode-vibrancy-continued";
+      rev = "v1.1.93";
+      fetchSubmodules = false;
+      sha256 = "sha256-ngu1/fkA86oHiia/ZAH1qQbA7ibV2zOutdkL+qIVbik=";
     };
   };
   yourls = {

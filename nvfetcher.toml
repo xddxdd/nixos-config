@@ -165,6 +165,10 @@ fetch.url = "https://git.um-react.app/um/um-react/releases/download/v$ver/um-rea
 src.webpage = "https://git.um-react.app/um/um-react/releases"
 src.regex = "href=\"/um/um-react/src/tag/v([0-9\\.]+)\""
 
+[vscode-vibrancy-continued]
+fetch.github = "illixion/vscode-vibrancy-continued"
+src.github = "illixion/vscode-vibrancy-continued"
+
 [yourls]
 fetch.github = "YOURLS/YOURLS"
 src.github = "YOURLS/YOURLS"

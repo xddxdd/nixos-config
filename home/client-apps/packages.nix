@@ -144,7 +144,6 @@ in
         virt-manager
         vlc
         vopono
-        vscode
         wine'
         winetricks
         wpsoffice

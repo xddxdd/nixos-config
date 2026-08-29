@@ -540,6 +540,29 @@
         "type": "github"
       }
     },
+    "kwin-effects-better-blur-dx": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786045873,
+        "narHash": "sha256-2s0wSFq3yQ7zXxgt7GxRn8d6qJ02X3hMVEAciyFBPBA=",
+        "owner": "xarblu",
+        "repo": "kwin-effects-better-blur-dx",
+        "rev": "4f659e86b933111f757e25ba4b04e53188684c68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xarblu",
+        "repo": "kwin-effects-better-blur-dx",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -1156,6 +1179,7 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "honkai-railway-grub-theme": "honkai-railway-grub-theme",
+        "kwin-effects-better-blur-dx": "kwin-effects-better-blur-dx",
         "llm-agents": "llm-agents",
         "markdown-apa7th-docx": "markdown-apa7th-docx",
         "never-gonna-rust": "never-gonna-rust",
