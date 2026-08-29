@@ -51,7 +51,7 @@ in
 
     clusterPort = lib.mkOption {
       type = lib.types.port;
-      default = 7777;
+      default = LT.port.OCFS2;
       description = "O2CB inter-node communication port.";
     };
 

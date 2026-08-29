@@ -255,6 +255,15 @@ let
         ip6 saddr @RESERVED_IPV6 return
       ''}
 
+      # OCFS2 cluster traffic shares the WAN interface, so filter by source
+      # address: only private addresses may reach the O2CB port.
+      ${lib.optionalString (config.lantian.ocfs2.enable or false) ''
+        ip saddr @RESERVED_IPV4 tcp dport ${LT.portStr.OCFS2} accept
+        ip6 saddr @RESERVED_IPV6 tcp dport ${LT.portStr.OCFS2} accept
+        tcp dport ${LT.portStr.OCFS2} reject with tcp reset
+        udp dport ${LT.portStr.OCFS2} reject with icmpx type port-unreachable
+      ''}
+
       # Block ports
       tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
       udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable

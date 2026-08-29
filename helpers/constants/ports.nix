@@ -28,6 +28,7 @@ rec {
     IPerf = 5201;
     mDNS = 5353;
     Bazarr = 6767;
+    OCFS2 = 7777;
     Radarr = 7878;
     ArchiveTeam = 8001;
     JProxy = 8117;
