@@ -786,12 +786,12 @@
             "name": null,
             "owner": "YOURLS",
             "repo": "YOURLS",
-            "rev": "1.10.4",
-            "sha256": "sha256-sNz4wHi0FuJYIanStc20UJT4LdFQodAi+1r0VtxCcC4=",
+            "rev": "1.10.5",
+            "sha256": "sha256-let+wK/xC14qIb89PWinQEerAItmK7iCufJBt+/JIx0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.10.4"
+        "version": "1.10.5"
     },
     "yourls-404-if-not-found": {
         "cargoLock": null,

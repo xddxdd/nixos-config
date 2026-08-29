@@ -456,13 +456,13 @@
   };
   yourls = {
     pname = "yourls";
-    version = "1.10.4";
+    version = "1.10.5";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "YOURLS";
-      rev = "1.10.4";
+      rev = "1.10.5";
       fetchSubmodules = false;
-      sha256 = "sha256-sNz4wHi0FuJYIanStc20UJT4LdFQodAi+1r0VtxCcC4=";
+      sha256 = "sha256-let+wK/xC14qIb89PWinQEerAItmK7iCufJBt+/JIx0=";
     };
   };
   yourls-404-if-not-found = {
