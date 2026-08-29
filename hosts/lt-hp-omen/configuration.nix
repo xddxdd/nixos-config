@@ -19,6 +19,7 @@
     ../../nixos/optional-apps/homepage.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
+    ../../nixos/optional-apps/llama-swap.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix

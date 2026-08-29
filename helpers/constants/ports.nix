@@ -109,8 +109,7 @@ rec {
     Usque = 13840;
     Ncps = 13851;
     IyuuPlus = 13878;
-    LlamaCpp.Qwen3Reranker = 13880;
-    LlamaCpp.Qwen3 = 13881;
+    LlamaSwap = 13880;
     Actual = 13882;
     ElasticSearch = 13892;
     DN42Peerfinder = 13900;
