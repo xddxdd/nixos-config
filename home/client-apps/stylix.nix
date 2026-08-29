@@ -9,6 +9,7 @@ _: {
         colorTheme.enable = true;
         profileNames = [ "lantian" ];
       };
+      kde.useWallpaper = false;
     };
   };
 
