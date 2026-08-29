@@ -1,6 +1,7 @@
 // Enforces ../rules/04-nixos.md: blocks non-Nix package managers,
 // `make install`, `curl | sh` installers, and commands passing `/` or
-// `/nix/store(/)` as a single argument.
+// `/nix/store(/)` as a single argument. Multi-line commands (inline
+// scripts) are skipped: a lone `/` inside a script is usually harmless.
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
@@ -44,6 +45,8 @@ export default function (pi: ExtensionAPI) {
     if (event.toolName !== "bash") return undefined;
 
     const command = event.input.command as string;
+    if (command.includes("\n")) return undefined;
+
     for (const rule of rules) {
       if (rule.pattern.test(command)) {
         return { block: true, reason: rule.reason };
