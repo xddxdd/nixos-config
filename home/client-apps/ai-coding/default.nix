@@ -68,6 +68,7 @@ in
       packages = [
         # keep-sorted start
         "npm:@cortexkit/pi-magic-context"
+        "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-langfuse"
         "npm:@rwese/pi-question"
