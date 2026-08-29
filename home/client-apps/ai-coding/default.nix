@@ -50,7 +50,7 @@ in
       enableInstallTelemetry = false;
       enableAnalytics = false;
       defaultProvider = "ollama-cloud";
-      defaultModel = "glm-5.2";
+      defaultModel = "glm-5.3";
       defaultThinkingLevel = "high";
       showCacheMissNotices = true;
 
@@ -67,6 +67,7 @@ in
 
       packages = [
         # keep-sorted start
+        "npm:@cortexkit/pi-magic-context"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-langfuse"
         "npm:@rwese/pi-question"
@@ -96,6 +97,20 @@ in
   };
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
+  };
+  # https://github.com/cortexkit/magic-context/blob/master/CONFIGURATION.md
+  home.file.".config/cortexkit/magic-context.jsonc".text = builtins.toJSON {
+    enabled = true;
+    auto_update = false;
+    allow_home_project = true;
+    historian.pi.model = "ollama-cloud/glm-5.3";
+    dreamer.pi.model = "ollama-cloud/glm-5.3";
+    sidekick.model = "ollama-cloud/glm-5.3";
+    embedding = {
+      provider = "openai-compatible";
+      model = "nomic-embed-code";
+      endpoint = "http://127.0.0.1:${LT.portStr.LlamaSwap}/v1";
+    };
   };
   home.file.".pi/agent/extensions/no-update-check.ts".source = ./extensions/no-update-check.ts;
   home.file.".pi/agent/extensions/nixos-command-guard.ts".source =
