@@ -98,6 +98,7 @@ in
   };
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
+    usageStatus = true;
   };
   # https://github.com/cortexkit/magic-context/blob/master/CONFIGURATION.md
   home.file.".config/cortexkit/magic-context.jsonc".text = builtins.toJSON {
