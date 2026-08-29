@@ -252,11 +252,11 @@
     };
   };
 
-  systemd.services.alertmanager = {
-    preStart = lib.mkForce ''
+  systemd.services.alertmanager.serviceConfig.ExecStartPre = lib.mkForce (
+    pkgs.writeShellScript "alertmanager-pre-start" ''
       ${utils.genJqSecretsReplacementSnippet config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml"}
-    '';
-  };
+    ''
+  );
 
   lantian.nginxVhosts."alert.xuyh0120.win" = {
     locations = {
