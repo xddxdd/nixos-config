@@ -57,14 +57,11 @@
     };
   };
 
-  lantian.nginxVhosts."handbrake.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.handbrake = {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.HandBrake}";
       };
     };
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    accessibleBy = "private";
-    noIndex.enable = true;
   };
 }

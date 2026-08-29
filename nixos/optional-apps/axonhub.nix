@@ -1,6 +1,5 @@
 {
   LT,
-  config,
   lib,
   pkgs,
   ...
@@ -61,7 +60,7 @@
   };
   users.groups.axonhub = { };
 
-  lantian.nginxVhosts."axonhub.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.axonhub = {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.AxonHub.Web}";
@@ -69,9 +68,5 @@
         proxyWebsockets = true;
       };
     };
-
-    accessibleBy = "private";
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

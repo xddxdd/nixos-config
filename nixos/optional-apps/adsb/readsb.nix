@@ -123,14 +123,10 @@ in
 
   users.users.readsb.extraGroups = [ "plugdev" ];
 
-  lantian.nginxVhosts."adsb.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.adsb = {
     root = "${pkgs.dump1090-fa}/share/dump1090";
     locations = {
       "/data/".alias = "/run/readsb-adsb/";
     };
-
-    accessibleBy = "private";
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

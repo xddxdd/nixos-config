@@ -1,4 +1,4 @@
-{ LT, config, ... }:
+{ LT, ... }:
 {
   virtualisation.oci-containers.containers.archiveteam = {
     environment = {
@@ -21,30 +21,11 @@
     };
   };
 
-  lantian.nginxVhosts = {
-    "archiveteam.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
-        };
+  lantian.localVhosts.archiveteam = {
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
       };
-
-      accessibleBy = "private";
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-    };
-    "archiveteam.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
-        };
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 }

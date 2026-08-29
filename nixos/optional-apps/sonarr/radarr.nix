@@ -24,30 +24,11 @@
     };
   };
 
-  lantian.nginxVhosts = {
-    "radarr.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
-        };
+  lantian.localVhosts.radarr = {
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
       };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
-    };
-    "radarr.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.Radarr}";
-        };
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 

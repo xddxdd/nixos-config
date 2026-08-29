@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   ...
 }:
 {
@@ -46,30 +45,11 @@
     };
   };
 
-  lantian.nginxVhosts = {
-    "jproxy.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.JProxy}";
-        };
+  lantian.localVhosts.jproxy = {
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.JProxy}";
       };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
-    };
-    "jproxy.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.JProxy}";
-        };
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 }

@@ -92,4 +92,11 @@ in
     isSystemUser = true;
   };
   users.groups.llama-swap = { };
+
+  lantian.localVhosts."llama-swap" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.LlamaSwap}";
+      proxyNoTimeout = true;
+    };
+  };
 }

@@ -55,7 +55,7 @@
   };
   users.groups.resin = { };
 
-  lantian.nginxVhosts."resin.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.resin = {
     locations = {
       "/" = {
         proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Resin}";
@@ -63,9 +63,5 @@
         proxyNoTimeout = true;
       };
     };
-
-    accessibleBy = "private";
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

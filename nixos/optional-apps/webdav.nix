@@ -1,8 +1,4 @@
-{
-  config,
-  ...
-}:
-{
+_: {
   services.webdav = {
     enable = true;
     user = "lantian";
@@ -31,7 +27,8 @@
     };
   };
 
-  lantian.nginxVhosts."dav.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.dav = {
+    accessibleBy = "public";
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/webdav/webdav.sock";
@@ -39,8 +36,5 @@
         enableBasicAuth = true;
       };
     };
-
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

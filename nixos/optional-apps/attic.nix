@@ -84,16 +84,15 @@
       sslCertificate = "zerossl-xuyh0120.win";
       noIndex.enable = true;
     };
-    "attic.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          proxyPass = "http://[::1]:${LT.portStr.Attic}";
-          proxyNoTimeout = true;
-        };
-      };
+  };
 
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
+  lantian.localVhosts.attic = {
+    accessibleBy = "public";
+    locations = {
+      "/" = {
+        proxyPass = "http://[::1]:${LT.portStr.Attic}";
+        proxyNoTimeout = true;
+      };
     };
   };
 }

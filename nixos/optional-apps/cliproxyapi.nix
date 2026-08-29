@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   inputs,
   ...
 }:
@@ -33,30 +32,11 @@
   };
   users.groups.cliproxyapi.members = [ "nginx" ];
 
-  lantian.nginxVhosts = {
-    "cliproxyapi.${config.networking.hostName}.xuyh0120.win" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
-        proxyNoTimeout = true;
-        proxyOverrideHost = "localhost";
-      };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
-    };
-    "cliproxyapi.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
-        proxyNoTimeout = true;
-        proxyOverrideHost = "localhost";
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
+  lantian.localVhosts.cliproxyapi = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+      proxyNoTimeout = true;
+      proxyOverrideHost = "localhost";
     };
   };
 }

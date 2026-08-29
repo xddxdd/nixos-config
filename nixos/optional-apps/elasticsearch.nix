@@ -1,7 +1,6 @@
 {
   LT,
   pkgs,
-  config,
   inputs,
   ...
 }:
@@ -21,15 +20,12 @@
     '';
   };
 
-  lantian.nginxVhosts."es.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.es = {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.ElasticSearch}";
         enableBasicAuth = true;
       };
     };
-    accessibleBy = "private";
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

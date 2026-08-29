@@ -1,7 +1,6 @@
 {
   pkgs,
   LT,
-  config,
   ...
 }:
 {
@@ -27,32 +26,12 @@
     IOSchedulingPriority = "7";
   };
 
-  lantian.nginxVhosts = {
-    "bt.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-        };
+  lantian.localVhosts.bt = {
+    locations = {
+      "/" = {
+        allowCORS = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
       };
-
-      accessibleBy = "private";
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-    };
-    "bt.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrent.WebUI}";
-        };
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 }

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   ...
 }:
 {
@@ -45,17 +44,11 @@
     };
   };
 
-  lantian.nginxVhosts = {
-    "open5gs.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          proxyPass = "http://127.0.0.1:${LT.portStr.Open5GS}";
-        };
+  lantian.localVhosts.open5gs = {
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.Open5GS}";
       };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
     };
   };
 }

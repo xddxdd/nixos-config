@@ -1,6 +1,5 @@
 {
   LT,
-  config,
   pkgs,
   lib,
   ...
@@ -45,16 +44,12 @@ in
   };
   users.groups.mtranserver = { };
 
-  lantian.nginxVhosts."mtranserver.${config.networking.hostName}.xuyh0120.win" = {
+  lantian.localVhosts.mtranserver = {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.MTranServer}";
         proxyNoTimeout = true;
       };
     };
-
-    accessibleBy = "private";
-    sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-    noIndex.enable = true;
   };
 }

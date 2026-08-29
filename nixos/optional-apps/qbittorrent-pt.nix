@@ -1,7 +1,6 @@
 {
   pkgs,
   LT,
-  config,
   lib,
   utils,
   ...
@@ -66,32 +65,12 @@ in
     };
   };
 
-  lantian.nginxVhosts = {
-    "pt.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrentPT.WebUI}";
-        };
+  lantian.localVhosts.pt = {
+    locations = {
+      "/" = {
+        allowCORS = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrentPT.WebUI}";
       };
-
-      accessibleBy = "private";
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-    };
-    "pt.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/" = {
-          allowCORS = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.qBitTorrentPT.WebUI}";
-        };
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
     };
   };
 }

@@ -35,32 +35,14 @@
       };
     };
 
-    lantian.nginxVhosts = {
-      "archivebox.${config.networking.hostName}.xuyh0120.win" = {
-        locations = {
-          "/" = {
-            enableOAuth = true;
-            proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveBox}";
-          };
+    lantian.localVhosts.archivebox = {
+      locations = {
+        "/" = {
+          enableOAuth = true;
+          proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveBox}";
         };
-
-        accessibleBy = "private";
-        sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-        noIndex.enable = true;
-      };
-      "archivebox.localhost" = {
-        listenHTTP.enable = true;
-        listenHTTPS.enable = false;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveBox}";
-          };
-        };
-
-        noIndex.enable = true;
-        accessibleBy = "localhost";
       };
     };
+    lantian.nginxVhosts."archivebox.localhost".locations."/".enableOAuth = lib.mkForce false;
   };
 }

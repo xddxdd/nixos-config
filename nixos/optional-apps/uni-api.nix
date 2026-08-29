@@ -100,33 +100,15 @@ in
   };
   users.groups.ai-gateways.members = [ "nginx" ];
 
-  lantian.nginxVhosts = {
-    "uni-api.${config.networking.hostName}.xuyh0120.win" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";
-        proxyNoTimeout = true;
-        proxyOverrideHost = "localhost";
-      };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
+  lantian.localVhosts."uni-api" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";
+      proxyNoTimeout = true;
+      proxyOverrideHost = "localhost";
     };
-    "uni-api.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
+  };
 
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";
-        proxyNoTimeout = true;
-        proxyOverrideHost = "localhost";
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
-    };
-  }
-  // lib.optionalAttrs (config.networking.hostName == "v-ps-sea") {
+  lantian.nginxVhosts = lib.optionalAttrs (config.networking.hostName == "v-ps-sea") {
     "ai-api.xuyh0120.win" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.UniAPI}";

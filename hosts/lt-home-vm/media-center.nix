@@ -140,18 +140,10 @@ in
     };
   };
 
-  lantian.nginxVhosts = {
-    "bt.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
-      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "bt.localhost".locations."/".proxyPass =
-      lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    "bitmagnet.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
-      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "bitmagnet.localhost".locations."/".proxyPass =
-      lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
-    "peerbanhelper.${config.networking.hostName}.xuyh0120.win".locations."/".proxyPass =
-      lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
-    "peerbanhelper.localhost".locations."/".proxyPass =
+  lantian.localVhosts = {
+    bt.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
+    bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    peerbanhelper.locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
   };
 }
