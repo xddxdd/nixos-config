@@ -1,17 +1,8 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }:
-let
-  pyhss = pkgs.nur-xddxdd.pyhss.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace services/apiService.py \
-        --replace-fail "0.0.0.0" "127.0.0.8"
-    '';
-  });
-in
 {
   imports = [ ../postgresql.nix ];
 
@@ -53,7 +44,7 @@ in
             ln -sf ${./pyhss/default_ifc.xml} default_ifc.xml
             ln -sf ${./pyhss/default_sh_user_data.xml} default_sh_user_data.xml
 
-            exec ${pyhss}/bin/${svc}Service
+            exec ${pkgs.nur-xddxdd.pyhss}/bin/${svc}Service
           '';
 
           serviceConfig = {
@@ -82,32 +73,12 @@ in
   };
   users.groups.pyhss = { };
 
-  lantian.nginxVhosts = {
-    "pyhss.${config.networking.hostName}.xuyh0120.win" = {
-      locations = {
-        "/".proxyPass = "http://127.0.0.8:8080";
-        "/swaggerui/".alias =
-          "${pkgs.python3Packages.flask-swagger-ui}/lib/python${pkgs.python3.pythonVersion}/site-packages/flask_swagger_ui/dist/";
-        "= /".return = "302 /docs/";
-      };
-
-      sslCertificate = "zerossl-${config.networking.hostName}.xuyh0120.win";
-      noIndex.enable = true;
-      accessibleBy = "private";
-    };
-    "pyhss.localhost" = {
-      listenHTTP.enable = true;
-      listenHTTPS.enable = false;
-
-      locations = {
-        "/".proxyPass = "http://127.0.0.8:8080";
-        "/swaggerui/".alias =
-          "${pkgs.python3Packages.flask-swagger-ui}/lib/python${pkgs.python3.pythonVersion}/site-packages/flask_swagger_ui/dist/";
-        "= /".return = "302 /docs/";
-      };
-
-      noIndex.enable = true;
-      accessibleBy = "localhost";
+  lantian.localVhosts.pyhss = {
+    locations = {
+      "/".proxyPass = "http://127.0.0.8:8080";
+      "/swaggerui/".alias =
+        "${pkgs.python3Packages.flask-swagger-ui}/lib/python${pkgs.python3.pythonVersion}/site-packages/flask_swagger_ui/dist/";
+      "= /".return = "302 /docs/";
     };
   };
 }

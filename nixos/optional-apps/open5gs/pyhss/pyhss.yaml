@@ -76,6 +76,8 @@ hss:
     rtoInitial: 1000
 
 api:
+  bind_ip: "127.0.0.8"
+  bind_port: 8080
   page_size: 200
   # Whether or not to return key-based data when querying the AUC. Disable in production systems.
   enable_insecure_auc: False
