@@ -92,7 +92,7 @@ Flake 入口文件，定义了：
 | `minimal.nix` | 最小化配置      | minimal-apps + minimal-components + minimal-modules + minimal-policies                                                 |
 | `server.nix`  | 服务器配置      | minimal-apps + common-apps + server-apps + minimal-components + server-components + minimal-modules + minimal-policies |
 | `client.nix`  | 客户端配置      | minimal-apps + common-apps + client-apps + minimal-components + client-components + minimal-modules + minimal-policies |
-| `pve.nix`     | Proxmox VE 配置 | minimal-components + pve-components + minimal-modules + minimal-policies                                                 |
+| `pve.nix`     | Proxmox VE 配置 | minimal-apps + minimal-components + pve-components + minimal-modules + minimal-policies                                       |
 
 ### 模块目录
 

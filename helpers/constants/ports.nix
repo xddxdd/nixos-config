@@ -31,6 +31,7 @@ rec {
     OCFS2 = 7777;
     Radarr = 7878;
     ArchiveTeam = 8001;
+    Proxmox = 8006;
     JProxy = 8117;
     Waline = 8360;
     Matrix.Public = 8448;
