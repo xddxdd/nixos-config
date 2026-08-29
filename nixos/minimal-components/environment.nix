@@ -75,6 +75,7 @@
     sqlite
     strace
     tcpdump
+    tinyxxd
     unzip
     wget
     wireguard-tools
