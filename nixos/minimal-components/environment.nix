@@ -6,6 +6,19 @@
   config,
   ...
 }:
+let
+  findbin = pkgs.writeShellScriptBin "findbin" ''
+    p=$(type -P "$1") || exit 1
+    echo "$p"
+    while t=$(readlink "$p"); do
+      case "$t" in
+        /*) p=$t ;;
+        *) p=$(dirname "$p")/$t ;;
+      esac
+      echo "$p"
+    done
+  '';
+in
 {
   sops.secrets.default-pw = {
     sopsFile = inputs.secrets + "/common/default-pw.yaml";
@@ -52,6 +65,7 @@
     duf
     e2fsprogs # chattr, lsattr
     eza
+    findbin
     fuc
     fzf
     gitMinimal
