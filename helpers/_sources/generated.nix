@@ -3,7 +3,6 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -316,15 +315,15 @@
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";
-    version = "195d167ea0cfdbb2169906b5acaac8097db84767";
+    version = "3ea26a6c07195c9e954ca254133aa56b608e6e53";
     src = fetchFromGitHub {
       owner = "Ulauncher";
       repo = "ulauncher-emoji";
-      rev = "195d167ea0cfdbb2169906b5acaac8097db84767";
+      rev = "3ea26a6c07195c9e954ca254133aa56b608e6e53";
       fetchSubmodules = false;
-      sha256 = "sha256-DFOm8R5gP6rfvzYvGJAaBTRa6GGd1fyP+RShNR44aPA=";
+      sha256 = "sha256-AaO9qPkVTWlFSFg9wSEGqJrM34/yTAqFMRx6h7kUp/U=";
     };
-    date = "2025-10-05";
+    date = "2026-08-30";
   };
   ulauncher-extension-list = {
     pname = "ulauncher-extension-list";
@@ -397,6 +396,18 @@
       sha256 = "sha256-oqPXrMzOXHvbN1ZKZBr2PP+2liD76x71p6hLtLwXYOQ=";
     };
     date = "2021-12-12";
+  };
+  ulauncher-theme-trans = {
+    pname = "ulauncher-theme-trans";
+    version = "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3";
+    src = fetchFromGitHub {
+      owner = "oriewancu";
+      repo = "ulauncher-theme-trans";
+      rev = "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3";
+      fetchSubmodules = false;
+      sha256 = "sha256-et4NkdIZbOU5NLCQZFDyrfilyMuacvEYkT7EF64Vu+U=";
+    };
+    date = "2026-02-05";
   };
   ulauncher-timestamp = {
     pname = "ulauncher-timestamp";

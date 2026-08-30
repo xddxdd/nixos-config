@@ -5,7 +5,9 @@
   ...
 }:
 let
-  extensions = lib.filterAttrs (k: v: lib.hasPrefix "ulauncher-" k) LT.sources;
+  extensions = lib.filterAttrs (
+    k: _: lib.hasPrefix "ulauncher-" k && !(lib.hasPrefix "ulauncher-theme-" k)
+  ) LT.sources;
 in
 {
   xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" (

@@ -224,7 +224,7 @@
           position = {
             apply = "initially";
             # FIXME: calculate based on screen size
-            value = "550,160";
+            value = "550,120";
           };
           skippager = {
             apply = "force";

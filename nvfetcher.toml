@@ -144,6 +144,10 @@ src.git = "https://github.com/RNairn01/ulauncher-meme-my-text.git"
 fetch.github = "brpaz/ulauncher-pwgen"
 src.git = "https://github.com/brpaz/ulauncher-pwgen.git"
 
+[ulauncher-theme-trans]
+fetch.github = "oriewancu/ulauncher-theme-trans"
+src.git = "https://github.com/oriewancu/ulauncher-theme-trans.git"
+
 [ulauncher-timestamp]
 fetch.github = "brpaz/ulauncher-timestamp"
 src.git = "https://github.com/brpaz/ulauncher-timestamp.git"
