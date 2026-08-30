@@ -47,7 +47,8 @@
         BlurMenus = true;
         BlurNonMatching = true;
         BlurStrength = 4;
-        Brightness = 33;
+        Brightness = 25;
+        NoiseStrength = 0;
       };
       # Disable wallpaper scrolling on workspace switch
       Effect-slide.SlideBackground = false;
