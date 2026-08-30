@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, osConfig, ... }:
 {
   programs.okular = {
     enable = true;
@@ -23,21 +23,33 @@
     immutableByDefault = true;
     overrideConfig = false;
     resetFiles = [
-      "khotkeysrc"
+      # keep-sorted start
       "kglobalshortcutsrc"
+      "khotkeysrc"
       "kscreenlockerrc"
       "ksmserverrc"
       "ksplashrc"
+      "kwinrc"
       "kwinrulesrc"
       "okularpartrc"
       "powerdevilrc"
+      # keep-sorted end
     ];
 
     configFile.kwinrc = {
+      Compositing = {
+        GLCore = true;
+        LatencyPolicy = "ExtremelyLow";
+        OpenGLIsUnsafe = false;
+        WindowsBlockCompositing = false;
+      };
       "Wayland".InputMethod = {
         shellExpand = true;
         value = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       };
+      Xwayland.Scale = osConfig.lantian.hidpi or 1;
+      Windows.RollOverDesktops = true;
+      "org.kde.kdecoration2".ShowToolTips = false;
 
       Plugins.better_blur_dxEnabled = true;
       Effect-better-blur-dx = {
