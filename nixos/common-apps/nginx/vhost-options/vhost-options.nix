@@ -105,7 +105,7 @@ let
         // lib.optionalAttrs blockDotfiles {
           "~ /\\.(?!well-known).*".extraConfig = lib.optionalString blockDotfiles ''
             access_log off;
-            return 403;
+            return 418;
           '';
         }
       )

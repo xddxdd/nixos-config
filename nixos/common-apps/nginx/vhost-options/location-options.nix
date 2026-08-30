@@ -158,7 +158,7 @@ let
       + (lib.optionalString config.blockBadUserAgents ''
         if ($untrusted_user_agent) {
           access_log off;
-          return 403;
+          return 418;
         }
       '')
       + (lib.optionalString config.blockBadTLSSignatures ''
