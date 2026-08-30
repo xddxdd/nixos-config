@@ -49,6 +49,8 @@
         BlurStrength = 4;
         Brightness = 33;
       };
+      # Disable wallpaper scrolling on workspace switch
+      Effect-slide.SlideBackground = false;
     };
 
     desktop = {
