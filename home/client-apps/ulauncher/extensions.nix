@@ -5,9 +5,7 @@
   ...
 }:
 let
-  extensions = lib.filterAttrs (
-    k: _: lib.hasPrefix "ulauncher-" k && !(lib.hasPrefix "ulauncher-theme-" k)
-  ) LT.sources;
+  extensions = lib.filterAttrs (k: _: lib.hasPrefix "ulauncher-" k) LT.sources;
 in
 {
   xdg.dataFile."ulauncher/extensions".source = pkgs.linkFarm "ulauncher-extensions" (
@@ -16,8 +14,8 @@ in
       "ulauncher-vscode-recent" = pkgs.applyPatches {
         inherit (LT.sources.ulauncher-vscode-recent) src;
         patches = [
-          ../../patches/ulauncher-vscode-recent-path.patch
-          ../../patches/ulauncher-vscode-exclude-nonexistent-path.patch
+          ../../../patches/ulauncher-vscode-recent-path.patch
+          ../../../patches/ulauncher-vscode-exclude-nonexistent-path.patch
         ];
       };
     }

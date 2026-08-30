@@ -673,27 +673,6 @@
         },
         "version": "96880bb135720cae1ad039b6635062a9e285ca71"
     },
-    "ulauncher-theme-trans": {
-        "cargoLock": null,
-        "date": "2026-02-05",
-        "extract": null,
-        "name": "ulauncher-theme-trans",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "oriewancu",
-            "repo": "ulauncher-theme-trans",
-            "rev": "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3",
-            "sha256": "sha256-et4NkdIZbOU5NLCQZFDyrfilyMuacvEYkT7EF64Vu+U=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3"
-    },
     "ulauncher-timestamp": {
         "cargoLock": null,
         "date": "2021-12-12",

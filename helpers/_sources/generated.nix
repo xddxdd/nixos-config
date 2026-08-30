@@ -397,18 +397,6 @@
     };
     date = "2021-12-12";
   };
-  ulauncher-theme-trans = {
-    pname = "ulauncher-theme-trans";
-    version = "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3";
-    src = fetchFromGitHub {
-      owner = "oriewancu";
-      repo = "ulauncher-theme-trans";
-      rev = "9675fccdc42f741f0fa8d9b641fb098fc5a00ad3";
-      fetchSubmodules = false;
-      sha256 = "sha256-et4NkdIZbOU5NLCQZFDyrfilyMuacvEYkT7EF64Vu+U=";
-    };
-    date = "2026-02-05";
-  };
   ulauncher-timestamp = {
     pname = "ulauncher-timestamp";
     version = "e366a81f92b8130dddc0b1bddecad253124c49b9";
