@@ -18,7 +18,11 @@ log = logging.getLogger(__name__)
 
 
 def fetch_json(url: str) -> dict:
-    resp = requests.get(url, headers={"Accept": "application/json"}, timeout=30)
+    resp = requests.get(
+        url,
+        headers={"Accept": "application/json", "User-Agent": "hydra-watchdog"},
+        timeout=30,
+    )
     resp.raise_for_status()
     return resp.json()
 

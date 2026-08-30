@@ -88,7 +88,7 @@ class JobsetEvals(BaseModel):
     def from_api(cls, project: str, jobset: str) -> Self:
         r = requests.get(
             f"{HYDRA_URL}/jobset/{project}/{jobset}/evals",
-            headers={"Accept": "application/json"},
+            headers={"Accept": "application/json", "User-Agent": "hydra-post-build"},
         )
         r.raise_for_status()
         return cls.model_validate_json(r.text)
@@ -116,7 +116,8 @@ class Build(BaseModel):
     @classmethod
     def from_id(cls, build_id: int) -> Self:
         r = requests.get(
-            f"{HYDRA_URL}/build/{build_id}", headers={"Accept": "application/json"}
+            f"{HYDRA_URL}/build/{build_id}",
+            headers={"Accept": "application/json", "User-Agent": "hydra-post-build"},
         )
         r.raise_for_status()
         return cls.model_validate_json(r.text)
