@@ -60,8 +60,7 @@
     "tls://supanadit.com:15021"
   ],
   "japan": [
-    "tls://133.18.201.69:54232",
-    "tls://153.120.42.137:54232"
+    "tls://133.18.201.69:54232"
   ],
   "netherlands": [
     "tls://5.252.118.13:443",
@@ -81,14 +80,12 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://box.paulll.cc:13338",
-    "tls://kursk.cleverfox.org:15015",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "singapore": [
-    "tls://asia.deinfra.org:15015",
     "tls://yg-sin.magicum.net:23900"
   ],
   "slovakia": [

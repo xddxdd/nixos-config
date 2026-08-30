@@ -3,6 +3,7 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -184,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "7b022ce1e016c6522d4075ba6ad13e99f7bbc9be";
+    version = "7406cb6fb0a4fc17fcfccbb3662a90a92fd3d35c";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "7b022ce1e016c6522d4075ba6ad13e99f7bbc9be";
+      rev = "7406cb6fb0a4fc17fcfccbb3662a90a92fd3d35c";
       fetchSubmodules = false;
-      sha256 = "sha256-nRZghtBXvkvaLeDk8iIXD8fK+rT9yyMFLOEsOoA2xaM=";
+      sha256 = "sha256-4VV0h4i/h7l6xqOv/zke28RVbINjZo0Bd8+09LDzgwo=";
     };
-    date = "2026-08-17";
+    date = "2026-08-29";
   };
   open5gs = {
     pname = "open5gs";
