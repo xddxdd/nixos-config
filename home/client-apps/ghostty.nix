@@ -1,9 +1,31 @@
-{ lib, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  ghostty-service-wrapper = lib.hiPrio (
+    pkgs.runCommand "ghostty-service-wrapper" { } ''
+      install -Dm644 \
+        ${config.programs.ghostty.package}/share/applications/com.mitchellh.ghostty.desktop \
+        $out/share/applications/com.mitchellh.ghostty.desktop
+      substituteInPlace $out/share/applications/com.mitchellh.ghostty.desktop \
+        --replace-fail "DBusActivatable=true" "DBusActivatable=false"
+
+      mkdir -p $out/share/systemd/user
+      ln -sf /dev/null $out/share/systemd/user/app-com.mitchellh.ghostty.service
+    ''
+  );
+in
+{
+  home.packages = [ ghostty-service-wrapper ];
+
   programs.ghostty = {
     enable = true;
     enableZshIntegration = true;
     installBatSyntax = true;
+    systemd.enable = false;
     settings = {
       auto-update = "off";
       keybind = [
