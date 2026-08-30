@@ -33,9 +33,22 @@
       "powerdevilrc"
     ];
 
-    configFile.kwinrc."Wayland".InputMethod = {
-      shellExpand = true;
-      value = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+    configFile.kwinrc = {
+      "Wayland".InputMethod = {
+        shellExpand = true;
+        value = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      };
+
+      Plugins.better_blur_dxEnabled = true;
+      Effect-better-blur-dx = {
+        BlitMode = "WALLPAPER";
+        BlurDecorations = true;
+        BlurMatching = false;
+        BlurMenus = true;
+        BlurNonMatching = true;
+        BlurStrength = 4;
+        Brightness = 33;
+      };
     };
 
     desktop = {
@@ -96,11 +109,6 @@
       edgeBarrier = 100;
 
       effects = {
-        blur = {
-          enable = true;
-          noiseStrength = 5;
-          strength = 15;
-        };
         cube.enable = false;
         desktopSwitching.animation = "slide";
         dimAdminMode.enable = true;
@@ -113,7 +121,10 @@
         snapHelper.enable = false;
         translucency.enable = false;
         windowOpenClose.animation = "scale";
-        wobblyWindows.enable = true;
+
+        # Conflict with Better Blur DX
+        blur.enable = false;
+        wobblyWindows.enable = false;
       };
 
       nightLight.enable = false;
