@@ -77,6 +77,7 @@ in
 
     # Increase nftables max connections
     "net.nf_conntrack_max" = 131072;
+    "net.netfilter.nf_conntrack_max" = 131072;
   };
 
   networking = {
