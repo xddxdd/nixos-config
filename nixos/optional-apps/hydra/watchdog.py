@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 import logging
+import os
 import subprocess
 import time
 
 import requests
 
-HYDRA_QUEUE_URL = "https://hydra.lantian.pub/queue"
-HYDRA_STATUS_URL = "https://hydra.lantian.pub/status"
+BASE_URL = os.environ["BASE_URL"]
+HYDRA_QUEUE_URL = f"{BASE_URL}/queue"
+HYDRA_STATUS_URL = f"{BASE_URL}/status"
 CONSECUTIVE_THRESHOLD = 5
 CHECK_INTERVAL = 60
 

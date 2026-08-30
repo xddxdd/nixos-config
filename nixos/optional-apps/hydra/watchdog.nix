@@ -12,6 +12,10 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
+    environment = {
+      BASE_URL = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}";
+    };
+
     path = [ pkgs.systemd ];
 
     serviceConfig = LT.serviceHarden // {
