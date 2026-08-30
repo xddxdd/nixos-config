@@ -1,6 +1,16 @@
-{ LT, lib, ... }:
+{
+  LT,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  src = LT.sources.ulauncher-theme-trans.src;
+  src = pkgs.applyPatches {
+    src = LT.sources.ulauncher-theme-trans.src;
+    postPatch = ''
+      sed -i -E 's/border-radius:[^;]*;/border-radius: 0;/' ulauncher-theme-trans-*/theme.css
+    '';
+  };
   themes = [
     "ulauncher-theme-trans-dark"
     "ulauncher-theme-trans-light"
