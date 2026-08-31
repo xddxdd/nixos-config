@@ -23,6 +23,10 @@
 - 需要搜索时，应限定在具体目录内，例如 `find /etc`、`rg . /home/user/project`
 - 如需查找系统文件，优先使用 `which`、`whereis`、`nix-locate` 等针对性工具
 
+## 创建 Flake
+
+当被要求创建 Nix Flake 时，**必须使用 flake-parts** 管理 outputs，而非 flake-utils。
+
 ## devShell 集成
 
 ### 判断是否应加入 devShell
