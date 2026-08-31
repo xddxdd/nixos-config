@@ -23,6 +23,9 @@
       CRON_SCHEDULE = "0 9 * * *";
       RUN_ON_START = "true";
       SKIP_RANDOM_SLEEP = "false";
+
+      CONFIG_WEBHOOK_LOG_FILTER_ENABLED = "true";
+      CONFIG_WEBHOOK_LOG_FILTER_LEVELS = "error";
     };
     environmentFiles = [
       config.sops.secrets.microsoft-rewards-script-env.path
