@@ -43,6 +43,5 @@
         };
       };
     };
-    lantian.nginxVhosts."archivebox.localhost".locations."/".enableOAuth = lib.mkForce false;
   };
 }

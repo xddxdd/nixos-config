@@ -83,6 +83,16 @@
             enable = false;
           };
           accessibleBy = "localhost";
+
+          # Force disable auth for localhost
+          locations = lib.mapAttrs (
+            _: l:
+            l
+            // {
+              enableBasicAuth = false;
+              enableOAuth = false;
+            }
+          ) shared.locations;
         };
       }
     ) config.lantian.localVhosts;

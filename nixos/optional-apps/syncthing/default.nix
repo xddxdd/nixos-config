@@ -98,6 +98,5 @@
         };
       };
     };
-    lantian.nginxVhosts."syncthing.localhost".locations."/".enableOAuth = lib.mkForce false;
   };
 }
