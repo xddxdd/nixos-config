@@ -3,6 +3,7 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -43,13 +44,13 @@
   };
   bosl2 = {
     pname = "bosl2";
-    version = "v2.0.751";
+    version = "v2.0.752";
     src = fetchFromGitHub {
       owner = "BelfrySCAD";
       repo = "BOSL2";
-      rev = "v2.0.751";
+      rev = "v2.0.752";
       fetchSubmodules = false;
-      sha256 = "sha256-WyTUmyCYcK/e+adYJysn0A2yVdYbcyGzN6ODJnIutMQ=";
+      sha256 = "sha256-gHtgMRKhs0U/mz0oflvMUjeT8i0BRbYOTs1ammKQSmU=";
     };
   };
   delegacy-rpz = {
@@ -466,13 +467,13 @@
   };
   yourls = {
     pname = "yourls";
-    version = "1.10.5";
+    version = "1.10.6";
     src = fetchFromGitHub {
       owner = "YOURLS";
       repo = "YOURLS";
-      rev = "1.10.5";
+      rev = "1.10.6";
       fetchSubmodules = false;
-      sha256 = "sha256-let+wK/xC14qIb89PWinQEerAItmK7iCufJBt+/JIx0=";
+      sha256 = "sha256-aGnrrCosgdyAkWhIc+6cRbtMXi2hKf3x74ofiTMhcl0=";
     };
   };
   yourls-404-if-not-found = {

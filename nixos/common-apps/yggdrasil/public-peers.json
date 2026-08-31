@@ -60,7 +60,8 @@
     "tls://supanadit.com:15021"
   ],
   "japan": [
-    "tls://133.18.201.69:54232"
+    "tls://133.18.201.69:54232",
+    "tls://153.120.42.137:54232"
   ],
   "netherlands": [
     "tls://5.252.118.13:443",
@@ -108,9 +109,6 @@
     "tls://78.27.153.163:3784",
     "tls://78.27.153.163:3785",
     "tls://yggdrasil.sunsung.fun:4443"
-  ],
-  "united-kingdom": [
-    "tls://london.sabretruth.org:18472"
   ],
   "united-states": [
     "tls://192.3.13.16:8118",
