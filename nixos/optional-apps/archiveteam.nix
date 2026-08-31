@@ -25,7 +25,9 @@
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.ArchiveTeam}";
+        enableOAuth = true;
       };
     };
+    accessibleBy = "public";
   };
 }
