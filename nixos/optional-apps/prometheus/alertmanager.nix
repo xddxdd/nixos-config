@@ -139,6 +139,17 @@
                     description = "{{$labels.alias}} is using over 90% of its netfilter conntrack table for ${for}.";
                   };
                 }
+                # Netfilter conntrack low maximum limit
+                rec {
+                  alert = "node_nf_conntrack_limit_too_low";
+                  expr = "node_nf_conntrack_entries_limit < 131072";
+                  for = "10m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table maximum limit is too low.";
+                    description = "{{$labels.alias}} has a low limit for maximum limit of its netfilter conntrack table for ${for}.";
+                  };
+                }
 
                 # Bird shortlived peers (frequent reconnects)
                 {
