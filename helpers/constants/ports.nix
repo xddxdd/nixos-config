@@ -114,6 +114,7 @@ rec {
     LlamaSwap = 13880;
     Actual = 13882;
     ElasticSearch = 13892;
+    PiWeb = 13893;
     DN42Peerfinder = 13900;
     ADSB.RawInput = 13901;
     ADSB.RawOutput = 13902;
