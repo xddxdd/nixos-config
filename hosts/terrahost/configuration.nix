@@ -5,6 +5,7 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/grafana.nix
     ../../nixos/optional-apps/nginx-lab
     ../../nixos/optional-apps/prometheus
