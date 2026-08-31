@@ -19,7 +19,7 @@
     IPv4 = "52.229.162.161";
   };
   interconnect = {
-    name = "azure-oci";
+    name = "azure";
     IPv4 = "10.2.1.5";
   };
   dn42 = {

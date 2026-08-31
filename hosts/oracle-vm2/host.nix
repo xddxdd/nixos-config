@@ -19,7 +19,7 @@
     IPv6 = "2603:c021:8000:aaaa:3::1";
   };
   interconnect = {
-    name = "azure-oci";
+    name = "oci";
     IPv4 = "172.18.126.3";
   };
   dn42 = {
