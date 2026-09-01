@@ -54,8 +54,13 @@
       overwriteprotocol = "https";
       "integrity.check.disabled" = true;
       maintenance_window_start = 1;
+
+      mail_domain = "lantian.pub";
+      mail_smtpmode = "sendmail";
+      mail_sendmailmode = "pipe";
     };
   };
+  systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
 
   services.redis.servers.nextcloud = {
     enable = true;

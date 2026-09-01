@@ -103,7 +103,7 @@ in
       };
       mailer = {
         ENABLED = true;
-        FROM = "postmaster@lantian.pub";
+        FROM = config.programs.msmtp.accounts.default.from;
         PROTOCOL = "sendmail";
         SENDMAIL_PATH = lib.getExe pkgs.msmtp;
         SENDMAIL_ARGS = "--";
