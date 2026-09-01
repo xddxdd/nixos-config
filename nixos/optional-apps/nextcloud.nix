@@ -82,9 +82,10 @@
       oidc_login_client_id = "nextcloud";
       oidc_login_auto_redirect = true;
       oidc_login_hide_password_form = true;
+      oidc_login_use_id_token = true;
       oidc_login_attributes = {
         id = "preferred_username";
-        name = "preferred_username";
+        name = "name";
         mail = "email";
         groups = "groups";
       };
