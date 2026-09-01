@@ -1,6 +1,7 @@
 {
   pkgs,
   LT,
+  config,
   ...
 }:
 let
@@ -26,7 +27,11 @@ in
         createLocally = true;
         name = "wordpress";
       };
-      settings.WPLANG = "zh_CN";
+      settings = {
+        WPLANG = "zh_CN";
+        # wp-cron.php is triggered by a systemd timer instead
+        DISABLE_WP_CRON = true;
+      };
       languages = [
         (pkgs.stdenv.mkDerivation {
           name = "language-zh_CN";
@@ -80,6 +85,36 @@ in
       port = "http,https";
       maxretry = 5;
       bantime = "1h";
+    };
+  };
+
+  # Run wp-cron.php locally via PHP CLI, instead of WP's default
+  # HTTP-triggered cron
+  systemd.services.wordpress-cron = {
+    after = [ "mysql.service" ];
+    serviceConfig = LT.serviceHarden // {
+      Type = "oneshot";
+      User = "wordpress";
+      Group = config.services.nginx.group;
+      ReadWritePaths = [
+        config.services.wordpress.sites."wp.xuyh0120.win".cacheDir
+        config.services.wordpress.sites."wp.xuyh0120.win".uploadsDir
+      ];
+    };
+    # Reuse the php-fpm pool's PHP to guarantee the same extension set
+    path = [ config.services.phpfpm.pools."wordpress-wp.xuyh0120.win".phpPackage ];
+    script = ''
+      php ${config.services.wordpress.sites."wp.xuyh0120.win".finalPackage}/share/wordpress/wp-cron.php
+    '';
+  };
+
+  systemd.timers.wordpress-cron = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "wordpress-cron.service" ];
+    timerConfig = {
+      OnCalendar = "*:0/5";
+      RandomizedDelaySec = "5min";
+      Unit = "wordpress-cron.service";
     };
   };
 
