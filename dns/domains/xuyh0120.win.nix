@@ -67,6 +67,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "cloud";
+      target = "oracle-vm-arm1";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "dashboard";
       target = "terrahost";
       ttl = "1h";

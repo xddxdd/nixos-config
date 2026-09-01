@@ -3,6 +3,8 @@
   imports = [
     ../../nixos/server.nix
 
+    ../../nixos/optional-apps/nextcloud.nix
+
     ./hardware-configuration.nix
   ];
 

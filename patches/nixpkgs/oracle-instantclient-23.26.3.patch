@@ -1,0 +1,79 @@
+--- a/pkgs/by-name/or/oracle-instantclient/package.nix	2026-08-31 16:47:16.481222500 -0700
++++ b/pkgs/by-name/or/oracle-instantclient/package.nix	2026-08-31 16:47:16.495847506 -0700
+@@ -31,16 +31,16 @@
+   # determine the version number, there might be different ones per architecture
+   version =
+     {
+-      x86_64-linux = "21.10.0.0.0";
+-      aarch64-linux = "19.10.0.0.0";
++      x86_64-linux = "23.26.3.0.0";
++      aarch64-linux = "23.26.3.0.0";
+       aarch64-darwin = "23.3.0.23.09";
+     }
+     .${stdenv.hostPlatform.system} or throwSystem;
+ 
+   directory =
+     {
+-      x86_64-linux = "2110000";
+-      aarch64-linux = "191000";
++      x86_64-linux = "2326300";
++      aarch64-linux = "2326300";
+       aarch64-darwin = "233023";
+     }
+     .${stdenv.hostPlatform.system} or throwSystem;
+@@ -49,18 +49,18 @@
+   hashes =
+     {
+       x86_64-linux = {
+-        basic = "sha256-uo0QBOmx7TQyroD+As60IhjEkz//+0Cm1tWvLI3edaE=";
+-        sdk = "sha256-TIBFi1jHLJh+SUNFvuL7aJpxh61hG6gXhFIhvdPgpts=";
+-        sqlplus = "sha256-mF9kLjhZXe/fasYDfmZrYPL2CzAp3xDbi624RJDA4lM=";
+-        tools = "sha256-ay8ynzo1fPHbCg9GoIT5ja//iZPIZA2yXI/auVExiRY=";
+-        odbc = "sha256-3M6/cEtUrIFzQay8eHNiLGE+L0UF+VTmzp4cSBcrzlk=";
++        basic = "sha256-/OSFNhMykn+DKOpLaNmJaMaw6hJOYkcN6MnQzviAEw4=";
++        sdk = "sha256-esE1h7qKc0rnzAbPQnU7v9vmmDna+HvVk1pJyD3szP0=";
++        sqlplus = "sha256-ZXDXk5hWdnzbtUm1HhQj1qX1MUPFfDDAFWaXBvZaYyo=";
++        tools = "sha256-aAtubzt64Tly1MOVmz3E870HWgvtUeXVshkV1VNfNQs=";
++        odbc = "sha256-Jjz8d7uruWSEcg7fF+g6+5bJF9lvBTrnYhhvCrzm9Aw=";
+       };
+       aarch64-linux = {
+-        basic = "sha256-DNntH20BAmo5kOz7uEgW2NXaNfwdvJ8l8oMnp50BOsY=";
+-        sdk = "sha256-8VpkNyLyFMUfQwbZpSDV/CB95RoXfaMr8w58cRt/syw=";
+-        sqlplus = "sha256-iHcyijHhAvjsAqN9R+Rxo2R47k940VvPbScc2MWYn0Q=";
+-        tools = "sha256-4QY0EwcnctwPm6ZGDZLudOFM4UycLFmRIluKGXVwR0M=";
+-        odbc = "sha256-T+RIIKzZ9xEg/E72pfs5xqHz2WuIWKx/oRfDrQbw3ms=";
++        basic = "sha256-dLB0TXvxvij2DD2QoTXl2arKGUa6sK3MDI21+8LMl1g=";
++        sdk = "sha256-X7A7RhXYbKemRTpBozT8J9ysbYOd1+VBF3MiqvOe4xg=";
++        sqlplus = "sha256-w8Dvwac0ZV5ITHHzFkYEGKBrpapa8AxV0e2h2racbak=";
++        tools = "sha256-0lzr6PX96IYT7PKcvI99OpMB8SxHPAseFvzTFlLLrME=";
++        odbc = "sha256-YlsMBi3tSjyGdjb5QRsny58aGJmWvxDKCxbw4UIEbEQ=";
+       };
+       aarch64-darwin = {
+         basic = "sha256-G83bWDhw9wwjLVee24oy/VhJcCik7/GtKOzgOXuo1/4=";
+@@ -101,6 +101,8 @@
+ 
+   suffix =
+     {
++      x86_64-linux = ".zip";
++      aarch64-linux = ".zip";
+       aarch64-darwin = ".dmg";
+     }
+     .${stdenv.hostPlatform.system} or "dbru.zip";
+@@ -132,6 +134,8 @@
+ stdenv.mkDerivation {
+   inherit pname version srcs;
+ 
++  sourceRoot = if isDarwinAarch64 then "instantclient" else "instantclient_23_26";
++
+   buildInputs = [
+     (lib.getLib stdenv.cc.cc)
+   ]
+@@ -151,7 +155,7 @@
+     "lib"
+   ];
+ 
+-  unpackCmd = if isDarwinAarch64 then "7zz x $curSrc -aoa -oinstantclient" else "unzip $curSrc";
++  unpackCmd = if isDarwinAarch64 then "7zz x $curSrc -aoa -oinstantclient" else "unzip -o $curSrc";
+ 
+   installPhase = ''
+     mkdir -p "$out/"{bin,include,lib,"share/java","share/${pname}-${version}/demo/"} $lib/lib

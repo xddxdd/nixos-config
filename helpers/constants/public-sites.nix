@@ -44,6 +44,7 @@ _: [
   "attic.xuyh0120.win"
   "bitwarden.xuyh0120.win"
   "cal.xuyh0120.win"
+  "cloud.xuyh0120.win"
   "comments.lantian.pub"
   "dashboard.xuyh0120.win"
   "git.lantian.pub"

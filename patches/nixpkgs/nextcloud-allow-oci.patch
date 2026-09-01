@@ -1,0 +1,12 @@
+diff --git a/nixos/modules/services/web-apps/nextcloud.nix b/nixos/modules/services/web-apps/nextcloud.nix
+index ab087cbce682..2e2c0c3c6046 100644
+--- a/nixos/modules/services/web-apps/nextcloud.nix
++++ b/nixos/modules/services/web-apps/nextcloud.nix
+@@ -619,6 +619,7 @@ in
+             "sqlite"
+             "pgsql"
+             "mysql"
++            "oci"
+           ]
+         );
+         default = null;
