@@ -98,6 +98,14 @@ let
         redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
       }
       {
+        id = "nextcloud";
+        name = "nextcloud";
+        secret = {
+          _secret = config.sops.secrets.dex-nextcloud-secret.path;
+        };
+        redirectURIs = [ "https://cloud.xuyh0120.win/apps/oidc_login/oidc" ];
+      }
+      {
         id = "oauth-proxy";
         name = "OAuth2 Proxy";
         secret = {

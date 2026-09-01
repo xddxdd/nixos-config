@@ -5,6 +5,11 @@
   ...
 }:
 {
+  sops.secrets.dex-nextcloud-secret = {
+    sopsFile = inputs.secrets + "/common/dex.yaml";
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
   sops.secrets.remote-db-pw = {
     sopsFile = inputs.secrets + "/common/remote-db-pw.yaml";
     mode = "0444";
@@ -41,6 +46,17 @@
     https = true;
     webfinger = true;
 
+    appstoreEnable = false;
+    extraApps = {
+      inherit (pkgs.nextcloud34Packages.apps)
+        calendar
+        checksum
+        contacts
+        oidc_login
+        tasks
+        ;
+    };
+
     phpOptions = {
       "opcache.memory_consumption" = 512;
       "opcache.interned_strings_buffer" = 64;
@@ -58,6 +74,25 @@
       mail_domain = "lantian.pub";
       mail_smtpmode = "sendmail";
       mail_sendmailmode = "pipe";
+
+      allow_user_to_change_display_name = false;
+      lost_password_link = "disabled";
+      oidc_login_provider_url = "https://login.lantian.pub";
+      oidc_login_end_session_redirect = false;
+      oidc_login_client_id = "nextcloud";
+      oidc_login_auto_redirect = true;
+      oidc_login_hide_password_form = true;
+      oidc_login_attributes = {
+        id = "preferred_username";
+        name = "preferred_username";
+        mail = "email";
+        groups = "groups";
+      };
+      oidc_login_scope = "openid profile email groups";
+      oidc_login_code_challenge_method = "S256";
+    };
+    secrets = {
+      oidc_login_client_secret = config.sops.secrets.dex-nextcloud-secret.path;
     };
   };
   systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
