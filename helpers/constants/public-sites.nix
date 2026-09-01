@@ -58,6 +58,7 @@ _: [
   "matrix-client.lantian.pub"
   "matrix-federation.lantian.pub"
   "n8n.xuyh0120.win"
+  "oidc-tester.lantian.pub"
   "pb.ltn.pw"
   "stats.xuyh0120.win"
   # keep-sorted end

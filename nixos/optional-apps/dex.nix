@@ -119,6 +119,14 @@ let
         ];
       }
       {
+        id = "oidc-tester";
+        name = "OIDC Tester";
+        secret = {
+          _secret = config.sops.secrets.dex-oidc-tester-secret.path;
+        };
+        redirectURIs = [ "https://oidc-tester.lantian.pub/oauth2/callback" ];
+      }
+      {
         id = "open-webui";
         name = "Open WebUI";
         secret = {

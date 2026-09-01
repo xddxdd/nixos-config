@@ -1,0 +1,55 @@
+diff --git a/types.go b/types.go
+index cada230..9d6ced6 100644
+--- a/types.go
++++ b/types.go
+@@ -1,5 +1,32 @@
+ package main
+ 
++import "encoding/json"
++
++// Strings unmarshals a claim that may be either a plain JSON string
++// or an array of strings into a []string.
++type Strings []string
++
++func (s *Strings) UnmarshalJSON(data []byte) error {
++	if string(data) == "null" {
++		*s = nil
++		return nil
++	}
++
++	var single string
++	if err := json.Unmarshal(data, &single); err == nil {
++		*s = Strings{single}
++		return nil
++	}
++
++	var multi []string
++	if err := json.Unmarshal(data, &multi); err != nil {
++		return err
++	}
++
++	*s = multi
++	return nil
++}
++
+ type Claims struct {
+ 	JWTIdentifier                       string   `json:"jti"`
+ 	Issuer                              string   `json:"iss"`
+@@ -10,13 +37,13 @@ type Claims struct {
+ 	RequestedAt                         int64    `json:"rat"`
+ 	AuthorizeTime                       int64    `json:"auth_time"`
+ 	NotBefore                           int64    `json:"nbf"`
+-	Audience                            []string `json:"aud"`
+-	Scope                               []string `json:"scp"`
+-	ScopeString                         string   `json:"scope"`
++	Audience                            Strings  `json:"aud"`
++	Scope                               Strings  `json:"scp"`
++	ScopeClaim                          Strings  `json:"scope"`
+ 	AccessTokenHash                     string   `json:"at_hash"`
+ 	CodeHash                            string   `json:"c_hash"`
+ 	AuthenticationContextClassReference string   `json:"acr"`
+-	AuthenticationMethodsReference      []string `json:"amr"`
++	AuthenticationMethodsReference      Strings  `json:"amr"`
+ 
+ 	Name                string       `json:"name"`
+ 	GivenName           string       `json:"given_name"`

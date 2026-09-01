@@ -107,6 +107,7 @@ rec {
     HandBrake = 13814;
     AxonHub.Web = 13815;
     AxonHub.Redis = 13816;
+    OidcTester = 13817;
     Syncthing = 13834;
     Usque = 13840;
     Ncps = 13851;

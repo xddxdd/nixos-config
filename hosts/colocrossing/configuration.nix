@@ -30,6 +30,7 @@
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
     ../../nixos/optional-apps/nginx-api.nix
+    ../../nixos/optional-apps/oidc-tester.nix
     ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
     ../../nixos/optional-apps/pyison

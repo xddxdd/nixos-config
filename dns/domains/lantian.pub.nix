@@ -169,6 +169,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "oidc-tester";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "posts";
       target = "colocrossing";
       ttl = "1h";
