@@ -793,6 +793,126 @@
         },
         "version": "v1.1.93"
     },
+    "wordpress-theme-twentyeleven": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentyeleven",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iCKJtUFXDXPCMtpuYxoZFujwaZ3yIhRQObByCItKKAI=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentyeleven.5.2.zip"
+        },
+        "version": "5.2"
+    },
+    "wordpress-theme-twentyfifteen": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentyfifteen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-P5Gsj4vD+iy0Q3wtkq6beJOaLJNVqDb7IU05NiYdFc8=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentyfifteen.4.3.zip"
+        },
+        "version": "4.3"
+    },
+    "wordpress-theme-twentyfourteen": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentyfourteen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-nTRifJYyuFZhSdkN8SC9X27A/pHXpIs6EczsdpXJDFo=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentyfourteen.4.6.zip"
+        },
+        "version": "4.6"
+    },
+    "wordpress-theme-twentyseventeen": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentyseventeen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-BOwSkIQqLKOjNWmCM6g9/AP4mX3UwM+eXPY9SNYE8ZI=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentyseventeen.4.2.zip"
+        },
+        "version": "4.2"
+    },
+    "wordpress-theme-twentysixteen": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentysixteen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-lHXdUnxDaJDjJAiFvn94KsFQz7dYPDlpXX5wt5A0Z88=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentysixteen.3.9.zip"
+        },
+        "version": "3.9"
+    },
+    "wordpress-theme-twentyten": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentyten",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-A+ez3OvUCt1VZCAQ3J9CSdJG9FfPnoWqS4ZySWJEqmw=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentyten.4.7.zip"
+        },
+        "version": "4.7"
+    },
+    "wordpress-theme-twentythirteen": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentythirteen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ZOsC+AwXZdED6+6VjQQGfAbZLBdAKmXph8oNPuUxOn0=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentythirteen.4.7.zip"
+        },
+        "version": "4.7"
+    },
+    "wordpress-theme-twentytwelve": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wordpress-theme-twentytwelve",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-oVHsA4dn1+SaSrs0CLF1TOgJipAvPK1LvDRZBdZBW54=",
+            "type": "url",
+            "url": "https://downloads.wordpress.org/theme/twentytwelve.4.9.zip"
+        },
+        "version": "4.9"
+    },
     "yourls": {
         "cargoLock": null,
         "date": null,

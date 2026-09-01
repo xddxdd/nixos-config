@@ -3,7 +3,6 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -463,6 +462,70 @@
       rev = "v1.1.93";
       fetchSubmodules = false;
       sha256 = "sha256-ngu1/fkA86oHiia/ZAH1qQbA7ibV2zOutdkL+qIVbik=";
+    };
+  };
+  wordpress-theme-twentyeleven = {
+    pname = "wordpress-theme-twentyeleven";
+    version = "5.2";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentyeleven.5.2.zip";
+      sha256 = "sha256-iCKJtUFXDXPCMtpuYxoZFujwaZ3yIhRQObByCItKKAI=";
+    };
+  };
+  wordpress-theme-twentyfifteen = {
+    pname = "wordpress-theme-twentyfifteen";
+    version = "4.3";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentyfifteen.4.3.zip";
+      sha256 = "sha256-P5Gsj4vD+iy0Q3wtkq6beJOaLJNVqDb7IU05NiYdFc8=";
+    };
+  };
+  wordpress-theme-twentyfourteen = {
+    pname = "wordpress-theme-twentyfourteen";
+    version = "4.6";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentyfourteen.4.6.zip";
+      sha256 = "sha256-nTRifJYyuFZhSdkN8SC9X27A/pHXpIs6EczsdpXJDFo=";
+    };
+  };
+  wordpress-theme-twentyseventeen = {
+    pname = "wordpress-theme-twentyseventeen";
+    version = "4.2";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentyseventeen.4.2.zip";
+      sha256 = "sha256-BOwSkIQqLKOjNWmCM6g9/AP4mX3UwM+eXPY9SNYE8ZI=";
+    };
+  };
+  wordpress-theme-twentysixteen = {
+    pname = "wordpress-theme-twentysixteen";
+    version = "3.9";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentysixteen.3.9.zip";
+      sha256 = "sha256-lHXdUnxDaJDjJAiFvn94KsFQz7dYPDlpXX5wt5A0Z88=";
+    };
+  };
+  wordpress-theme-twentyten = {
+    pname = "wordpress-theme-twentyten";
+    version = "4.7";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentyten.4.7.zip";
+      sha256 = "sha256-A+ez3OvUCt1VZCAQ3J9CSdJG9FfPnoWqS4ZySWJEqmw=";
+    };
+  };
+  wordpress-theme-twentythirteen = {
+    pname = "wordpress-theme-twentythirteen";
+    version = "4.7";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentythirteen.4.7.zip";
+      sha256 = "sha256-ZOsC+AwXZdED6+6VjQQGfAbZLBdAKmXph8oNPuUxOn0=";
+    };
+  };
+  wordpress-theme-twentytwelve = {
+    pname = "wordpress-theme-twentytwelve";
+    version = "4.9";
+    src = fetchurl {
+      url = "https://downloads.wordpress.org/theme/twentytwelve.4.9.zip";
+      sha256 = "sha256-oVHsA4dn1+SaSrs0CLF1TOgJipAvPK1LvDRZBdZBW54=";
     };
   };
   yourls = {

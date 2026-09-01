@@ -1,9 +1,23 @@
 {
   pkgs,
+  LT,
   ...
 }:
+let
+  officialTheme =
+    src:
+    pkgs.stdenvNoCC.mkDerivation {
+      inherit (src) pname;
+      inherit (src) version src;
+      nativeBuildInputs = [ pkgs.unzip ];
+      installPhase = "mkdir -p $out; cp -r . $out/";
+    };
+in
 {
-  imports = [ ./mysql.nix ];
+  imports = [
+    ./mysql.nix
+    ./fail2ban
+  ];
 
   services.wordpress = {
     webserver = "nginx";
@@ -23,7 +37,57 @@
           installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
         })
       ];
+      plugins = {
+        inherit (pkgs.wordpressPackages.plugins) disable-xml-rpc wp-fail2ban wp-fastest-cache;
+      };
+      themes = {
+        twentyten = officialTheme LT.sources.wordpress-theme-twentyten;
+        twentyeleven = officialTheme LT.sources.wordpress-theme-twentyeleven;
+        twentytwelve = officialTheme LT.sources.wordpress-theme-twentytwelve;
+        twentythirteen = officialTheme LT.sources.wordpress-theme-twentythirteen;
+        twentyfourteen = officialTheme LT.sources.wordpress-theme-twentyfourteen;
+        twentyfifteen = officialTheme LT.sources.wordpress-theme-twentyfifteen;
+        twentysixteen = officialTheme LT.sources.wordpress-theme-twentysixteen;
+        twentyseventeen = officialTheme LT.sources.wordpress-theme-twentyseventeen;
+        inherit (pkgs.wordpressPackages.themes)
+          twentynineteen
+          twentytwenty
+          twentytwentyone
+          twentytwentytwo
+          twentytwentythree
+          twentytwentyfour
+          twentytwentyfive
+          ;
+      };
     };
+  };
+
+  # WP fail2ban plugin logs to syslog (identifier "wordpress"); wire the
+  # filters shipped by the plugin into fail2ban
+  services.fail2ban.jails = {
+    wordpress-hard.settings = {
+      enabled = true;
+      filter = "wordpress-hard";
+      journalmatch = "SYSLOG_IDENTIFIER=wordpress";
+      port = "http,https";
+      maxretry = 1;
+      bantime = "24h";
+    };
+    wordpress-soft.settings = {
+      enabled = true;
+      filter = "wordpress-soft";
+      journalmatch = "SYSLOG_IDENTIFIER=wordpress";
+      port = "http,https";
+      maxretry = 5;
+      bantime = "1h";
+    };
+  };
+
+  environment.etc = {
+    "fail2ban/filter.d/wordpress-hard.conf".source =
+      "${pkgs.wordpressPackages.plugins.wp-fail2ban}/filters.d/wordpress-hard.conf";
+    "fail2ban/filter.d/wordpress-soft.conf".source =
+      "${pkgs.wordpressPackages.plugins.wp-fail2ban}/filters.d/wordpress-soft.conf";
   };
 
   lantian.nginxVhosts."wp.xuyh0120.win" = {

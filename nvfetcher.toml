@@ -169,6 +169,46 @@ src.regex = "href=\"/um/um-react/src/tag/v([0-9\\.]+)\""
 fetch.github = "illixion/vscode-vibrancy-continued"
 src.github = "illixion/vscode-vibrancy-continued"
 
+[wordpress-theme-twentyeleven]
+fetch.url = "https://downloads.wordpress.org/theme/twentyeleven.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentyeleven"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentyfifteen]
+fetch.url = "https://downloads.wordpress.org/theme/twentyfifteen.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentyfifteen"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentyfourteen]
+fetch.url = "https://downloads.wordpress.org/theme/twentyfourteen.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentyfourteen"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentyseventeen]
+fetch.url = "https://downloads.wordpress.org/theme/twentyseventeen.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentyseventeen"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentysixteen]
+fetch.url = "https://downloads.wordpress.org/theme/twentysixteen.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentysixteen"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentyten]
+fetch.url = "https://downloads.wordpress.org/theme/twentyten.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentyten"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentythirteen]
+fetch.url = "https://downloads.wordpress.org/theme/twentythirteen.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentythirteen"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
+[wordpress-theme-twentytwelve]
+fetch.url = "https://downloads.wordpress.org/theme/twentytwelve.$ver.zip"
+src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentytwelve"
+src.regex = "\"version\":\"([0-9\\.]+)\""
+
 [yourls]
 fetch.github = "YOURLS/YOURLS"
 src.github = "YOURLS/YOURLS"
