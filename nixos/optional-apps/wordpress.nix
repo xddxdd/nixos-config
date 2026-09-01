@@ -29,8 +29,15 @@ in
       };
       settings = {
         WPLANG = "zh_CN";
-        # wp-cron.php is triggered by a systemd timer instead
-        DISABLE_WP_CRON = true;
+        WP_SITEURL = "https://wp.xuyh0120.win";
+        WP_HOME = "https://wp.xuyh0120.win";
+        DISABLE_WP_CRON = true; # wp-cron.php is triggered by a systemd timer instead
+        EMPTY_TRASH_DAYS = 0;
+        DISALLOW_FILE_EDIT = true;
+        DISALLOW_FILE_MODS = true;
+        FORCE_SSL_ADMIN = true;
+        AUTOMATIC_UPDATER_DISABLED = true;
+        WP_AUTO_UPDATE_CORE = false;
       };
       languages = [
         (pkgs.stdenv.mkDerivation {
