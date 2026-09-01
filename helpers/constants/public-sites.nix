@@ -61,6 +61,7 @@ _: [
   "oidc-tester.lantian.pub"
   "pb.ltn.pw"
   "stats.xuyh0120.win"
+  "wp.xuyh0120.win"
   # keep-sorted end
 
   # Intentionally public without authentication

@@ -43,6 +43,7 @@
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
+    ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/yggdrasil-alfis.nix
     ../../nixos/optional-apps/zerotierone-controller.nix
 

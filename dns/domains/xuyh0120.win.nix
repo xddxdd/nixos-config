@@ -172,6 +172,12 @@ let
       target = "lt-home-vm.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
+    {
+      recordType = "CNAME";
+      name = "wp";
+      target = "colocrossing";
+      ttl = "1h";
+    }
   ];
 in
 {
