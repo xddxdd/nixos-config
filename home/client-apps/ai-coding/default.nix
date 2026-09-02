@@ -67,6 +67,7 @@ in
 
       packages = [
         # keep-sorted start
+        "git:github.com/xddxdd/pi-model-discovery@v0.3.1"
         "npm:@cortexkit/pi-magic-context"
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
@@ -76,7 +77,6 @@ in
         "npm:pi-codex-goal"
         "npm:pi-fast-resume"
         "npm:pi-mcp-adapter"
-        "npm:pi-model-discovery"
         "npm:pi-ollama-cloud"
         "npm:pi-simplify"
         "npm:pi-subagents"
