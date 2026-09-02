@@ -20,7 +20,7 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".pi.override {
+    package = pkgs.llm-agents.pi.override {
       useBun = false;
     };
     # # Not implemented correctly in home manager

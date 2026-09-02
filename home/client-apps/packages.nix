@@ -85,8 +85,6 @@ in
         handbrake
         imagemagick
         immich-cli
-        inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".agentsview
-        inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".ccusage
         inputs.markdown-apa7th-docx.packages."${pkgs.stdenv.hostPlatform.system}".default
         inputs.picoforge.packages."${pkgs.stdenv.hostPlatform.system}".picoforge
         jamesdsp
@@ -101,6 +99,8 @@ in
         lbzip2
         libfaketime
         linphone
+        llm-agents.agentsview
+        llm-agents.ccusage
         lx-music-desktop
         macchanger
         mediainfo
