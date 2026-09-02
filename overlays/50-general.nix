@@ -1,4 +1,5 @@
-_: final: prev:
+{ inputs, ... }:
+final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
 in
@@ -53,7 +54,11 @@ rec {
     doInstallCheck = false;
   });
   mpv-unwrapped = prev.mpv-unwrapped.override {
-    inherit (final.nur-xddxdd.lantianCustomized) ffmpeg;
+    ffmpeg =
+      if final.stdenv.hostPlatform.isx86_64 then
+        final.callPackage (inputs.secrets + "/pkgs/b6cdd51f4ca52153") { }
+      else
+        final.ffmpeg;
   };
   n8n = prev.n8n.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/n8n-17954-openai-compatible-reranker.patch ];
