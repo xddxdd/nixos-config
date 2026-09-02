@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -107,7 +106,7 @@ in
     stylua
 
     # Nix
-    inputs.flat-flake.packages."${pkgs.stdenv.hostPlatform.system}".flat-flake
+    pkgs.flat-flake
     alejandra
     nil
     nix-output-monitor

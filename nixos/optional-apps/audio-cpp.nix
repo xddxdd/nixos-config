@@ -1,6 +1,6 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = [
-    inputs.audio-cpp.packages."${pkgs.stdenv.hostPlatform.system}".cuda
+    pkgs.audio-cpp-cuda
   ];
 }

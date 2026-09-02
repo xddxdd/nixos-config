@@ -17,7 +17,7 @@
 
     nur-xddxdd.red-star-os-wallpapers
 
-    inputs.kwin-effects-better-blur-dx.packages.${pkgs.stdenv.hostPlatform.system}.default
+    kwin-effects-better-blur-dx
   ];
 
   environment.variables.LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
