@@ -71,6 +71,8 @@
           firefox
         '';
       };
+      # Disable corner activated actions
+      Effect-overview.BorderActivate = 9;
       # Disable wallpaper scrolling on workspace switch
       Effect-slide.SlideBackground = false;
     };
