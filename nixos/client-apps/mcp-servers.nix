@@ -105,38 +105,46 @@ in
       mode = "0444";
     };
 
-    lantian.mcp.codingMcpServers = common // {
-      # keep-sorted start block=yes
-      brave-search = {
-        command = toString (
-          pkgs.writeShellScript "mcp-brave-search" ''
-            export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
-            exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
-          ''
-        );
+    lantian.mcp.codingMcpServers =
+      common
+      // {
+        # keep-sorted start block=yes
+        brave-search = {
+          command = toString (
+            pkgs.writeShellScript "mcp-brave-search" ''
+              export BRAVE_API_KEY=$(cat "${config.sops.secrets.mcp-brave-search-api-key.path}")
+              exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-brave-search
+            ''
+          );
+        };
+        context7 = {
+          command = toString (
+            pkgs.writeShellScript "mcp-context7" ''
+              export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
+              exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
+            ''
+          );
+        };
+        deepwiki = {
+          type = "streamable-http";
+          url = "https://mcp.deepwiki.com/mcp";
+        };
+        mdn = {
+          type = "streamable-http";
+          url = "https://mcp.mdn.mozilla.net/";
+        };
+        nixos = {
+          command = "uvx";
+          args = [ "mcp-nixos" ];
+        };
+        # keep-sorted end
+      }
+      // lib.optionalAttrs (config.networking.hostName == "lt-hp-omen") {
+        browseros = {
+          type = "streamable-http";
+          url = "http://127.0.0.1:9000/mcp";
+        };
       };
-      context7 = {
-        command = toString (
-          pkgs.writeShellScript "mcp-context7" ''
-            export CONTEXT7_API_KEY=$(cat "${config.sops.secrets.mcp-context7-api-key.path}")
-            exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp@latest
-          ''
-        );
-      };
-      deepwiki = {
-        type = "streamable-http";
-        url = "https://mcp.deepwiki.com/mcp";
-      };
-      mdn = {
-        type = "streamable-http";
-        url = "https://mcp.mdn.mozilla.net/";
-      };
-      nixos = {
-        command = "uvx";
-        args = [ "mcp-nixos" ];
-      };
-      # keep-sorted end
-    };
 
     lantian.mcp.toolMcpServers = common // {
       # keep-sorted start block=yes
