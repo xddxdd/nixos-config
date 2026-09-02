@@ -601,11 +601,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778226603,
-        "narHash": "sha256-FJSFEioYwogSXeHC17yds1q1B9ATVTx/2212kEkB0+k=",
+        "lastModified": 1788386533,
+        "narHash": "sha256-eh8K/BizrdyUJz16plxVRNA7rKf/bCJaK4eyy7xiYBI=",
         "owner": "xddxdd",
         "repo": "markdown-apa7th-docx",
-        "rev": "b7b90c55c945a6be0aab2a3f3841d06493e51bf7",
+        "rev": "228e78032106114452180fa151fbecb0a9b03641",
         "type": "github"
       },
       "original": {
