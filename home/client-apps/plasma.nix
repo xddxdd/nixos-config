@@ -1,4 +1,9 @@
-{ pkgs, osConfig, ... }:
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 {
   programs.okular = {
     enable = true;
@@ -61,6 +66,10 @@
         BlurStrength = 4;
         Brightness = 25;
         NoiseStrength = 0;
+        WindowClasses = lib.trim ''
+          mpv
+          firefox
+        '';
       };
       # Disable wallpaper scrolling on workspace switch
       Effect-slide.SlideBackground = false;
