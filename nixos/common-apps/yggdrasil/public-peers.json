@@ -39,6 +39,7 @@
     "tls://91.98.161.68:9001?key=0e638944bfd6b277fa5e0dddbeb4444778eea8bece63a9862c661797022a8f05",
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
     "tls://des.8px.sk:4321",
+    "tls://ygg-oracle.axxa.dev:18080",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
     "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
@@ -59,7 +60,8 @@
   ],
   "japan": [
     "tls://133.18.201.69:54232",
-    "tls://153.120.42.137:54232"
+    "tls://153.120.42.137:54232",
+    "tls://yg-tyo.magicum.net:32333"
   ],
   "netherlands": [
     "tls://5.252.118.13:443",
