@@ -33,7 +33,7 @@ module.exports = {
   plugins: [
     GPTReviewer({
       openaiBaseUrl: 'https://openrouter.ai/api',
-      openaiModel: 'z-ai/glm-4.7:nitro',
+      openaiModel: 'minimax/minimax-m2.7:nitro',
       openaiApiKey: process.env.OPENAI_API_KEY,
       openaiPrompt: LLM_PROMPT,
     }),
