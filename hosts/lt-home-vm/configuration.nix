@@ -21,6 +21,7 @@
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/clawemail.nix
     # ../../nixos/optional-apps/cliproxyapi.nix
+    ../../nixos/optional-apps/dlx.nix
     # ../../nixos/optional-apps/elasticsearch.nix
     ../../nixos/optional-apps/epic-awesome-gamer
     ../../nixos/optional-apps/fastapi-dls.nix

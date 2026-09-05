@@ -114,6 +114,7 @@ rec {
     IyuuPlus = 13878;
     LlamaSwap = 13880;
     Actual = 13882;
+    DLX = 13888;
     ElasticSearch = 13892;
     PiWeb = 13893;
     DN42Peerfinder = 13900;
