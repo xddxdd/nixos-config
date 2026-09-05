@@ -6,7 +6,7 @@
 }:
 {
   assertions = lib.flatten (
-    lib.mapAttrsToList (n: v: [
+    (lib.mapAttrsToList (n: v: [
       {
         assertion = lib.hasSuffix ".localhost" n -> v.accessibleBy == "localhost";
         message = "${n}'s accessibleBy is not set to localhost";
@@ -19,6 +19,16 @@
           || v.locations."/".enableBasicAuth or false;
         message = "${n} is publicly accessible without authentication";
       }
-    ]) (config.lantian.nginxVhosts or { })
+    ]) (config.lantian.nginxVhosts or { }))
+    ++ (lib.mapAttrsToList (n: v: [
+      {
+        assertion =
+          # Prevent lt-hp-omen from exposing to private LAN without auth
+          !builtins.elem config.networking.hostName [ "lt-hp-omen" ]
+          || v.locations."/".enableOAuth or false
+          || v.locations."/".enableBasicAuth or false;
+        message = "${n} is LAN accessible without authentication";
+      }
+    ]) (config.lantian.localVhosts or { }))
   );
 }

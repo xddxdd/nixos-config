@@ -106,6 +106,12 @@
     };
   };
 
+  lantian.localVhosts = {
+    lab.locations."/".enableOAuth = true;
+    llama-swap.locations."/".enableOAuth = true;
+    pi-web.locations."/".enableOAuth = true;
+  };
+
   services.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
   services.libinput.touchpad = {
     accelSpeed = "0.4";
