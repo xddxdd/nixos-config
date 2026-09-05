@@ -4,6 +4,13 @@
   LT,
   ...
 }:
+let
+  dlx = pkgs.nur-xddxdd.dlx.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../patches/dlx-fingerprint.patch
+    ];
+  });
+in
 {
   systemd.services.dlx = {
     description = "DLX";
@@ -15,7 +22,7 @@
     };
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = lib.getExe pkgs.nur-xddxdd.dlx;
+      ExecStart = lib.getExe dlx;
       User = "dlx";
       Group = "dlx";
 

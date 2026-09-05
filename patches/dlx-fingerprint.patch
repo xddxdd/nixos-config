@@ -1,0 +1,255 @@
+diff --git a/go.mod b/go.mod
+index 7f8c98b..6e0a60f 100644
+--- a/go.mod
++++ b/go.mod
+@@ -7,6 +7,7 @@ require (
+ 	github.com/gin-contrib/cors v1.7.6
+ 	github.com/gin-gonic/gin v1.11.0
+ 	github.com/imroc/req/v3 v3.60.0
++	github.com/refraction-networking/utls v1.8.2
+ 	github.com/tidwall/gjson v1.19.0
+ )
+ 
+@@ -34,7 +35,6 @@ require (
+ 	github.com/pelletier/go-toml/v2 v2.3.1 // indirect
+ 	github.com/quic-go/qpack v0.6.0 // indirect
+ 	github.com/quic-go/quic-go v0.61.0 // indirect
+-	github.com/refraction-networking/utls v1.8.2 // indirect
+ 	github.com/tidwall/match v1.2.0 // indirect
+ 	github.com/tidwall/pretty v1.2.1 // indirect
+ 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
+diff --git a/translate/ios_tls.go b/translate/ios_tls.go
+new file mode 100644
+index 0000000..fd49236
+--- /dev/null
++++ b/translate/ios_tls.go
+@@ -0,0 +1,134 @@
++/*
++ * @Author: Vincent Young
++ * @Date: 2024-09-16 11:59:24
++ * @LastEditors: Vincent Yang
++ * @LastEditTime: 2026-08-07 00:00:00
++ * @FilePath: /DLX/translate/ios_tls.go
++ * @Telegram: https://t.me/missuo
++ * @GitHub: https://github.com/missuo
++ *
++ * Copyright © 2024 by Vincent, All Rights Reserved.
++ */
++
++package translate
++
++import (
++	utls "github.com/refraction-networking/utls"
++)
++
++// urlSessionHello is the TLS ClientHello sent to DeepL — a byte-exact
++// replica of the real DeepL iOS app's hello, captured from an iOS 27
++// beta device connecting to ita-free.www.deepl.com (ClientHello is
++// plaintext in the TLS handshake, so no decryption was needed).
++//
++// Capture reference (dump.pcap, frame 35, SNI ita-free.www.deepl.com):
++//   JA3 ecdf4f49dd59effc439639da29186671
++//   JA4 t13d2013h1_a09f3c656075_7f0f34a4126d
++// Notable Apple-stack traits it preserves:
++//   - TLS 1.3 suites ordered 1302/1303/1301 (not 1301/1302/1303)
++//   - DRAFT ChaCha20 codepoints 0xcca9/0xcca8 (Apple never adopted the
++//     final 0xccac/0xccaa; Safari-browser captures differ here)
++//   - X25519MLKEM768 post-quantum group + 1216-byte key share (new in
++//     the iOS 27 stack — absent from Safari 26 captures)
++//   - 3DES fallback suites still present (0xc008/0xc012/0x000a)
++//   - NO session_ticket and NO padding extension (Safari sends both;
++//     URLSession sends neither)
++//   - duplicated rsa_pss_rsae_sha384 sigalg, SHA-1 fallback sigalgs
++//   - ALPN: http/1.1 ONLY — the app talks plain HTTP/1.1 to ita-free,
++//     so no HTTP/2 fingerprint is involved at all
++//
++// Why this matters — DeepL's oneshot WAF fingerprint-gates by HOST:
++//   - oneshot-free.www.deepl.com is the Chrome extension's host. There,
++//     any Apple-family hello paired with an iOS-app story is checked
++//     against a denylist of published impersonation templates (utls
++//     HelloIOS_Auto/HelloIOS_11..14, curl-impersonate safari*_ios, …).
++//     The old SetTLSFingerprintIOS() (utls HelloIOS_14, an iOS 14-era
++//     template) was the HTTP 429 breakage; even this byte-exact app
++//     hello 429s there, because the real app never uses that host.
++//   - ita-free.www.deepl.com is the app's own host (ItaClient). There,
++//     the byte-exact app hello passes cleanly (verified 9/9 incl. the
++//     x-app-* headers and iOS app_information).
++// Hence translate.go targets ita-free for the free tier.
++//
++// Do NOT "simplify" this spec toward a Safari/browser capture or a utls
++// bundled template: both the field values and their order are load-bearing
++// parts of the app's real fingerprint.
++func urlSessionHello() utls.ClientHelloSpec {
++	return utls.ClientHelloSpec{
++		// 21 suites incl. GREASE, exact capture order.
++		CipherSuites: []uint16{
++			utls.GREASE_PLACEHOLDER,
++			utls.TLS_AES_256_GCM_SHA384,
++			utls.TLS_CHACHA20_POLY1305_SHA256,
++			utls.TLS_AES_128_GCM_SHA256,
++			utls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
++			utls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
++			0xcca9, // TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, draft codepoint (Apple)
++			utls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
++			utls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
++			0xcca8, // TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, draft codepoint (Apple)
++			utls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
++			utls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
++			utls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
++			utls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
++			utls.TLS_RSA_WITH_AES_256_GCM_SHA384,
++			utls.TLS_RSA_WITH_AES_128_GCM_SHA256,
++			utls.TLS_RSA_WITH_AES_256_CBC_SHA,
++			utls.TLS_RSA_WITH_AES_128_CBC_SHA,
++			0xc008, // TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA
++			utls.TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
++			utls.TLS_RSA_WITH_3DES_EDE_CBC_SHA,
++		},
++		CompressionMethods: []byte{0x00},
++		// Extension set and order exactly as captured.
++		Extensions: []utls.TLSExtension{
++			&utls.UtlsGREASEExtension{},
++			&utls.SNIExtension{},
++			&utls.ExtendedMasterSecretExtension{},
++			&utls.RenegotiationInfoExtension{Renegotiation: utls.RenegotiateOnceAsClient},
++			&utls.SupportedCurvesExtension{Curves: []utls.CurveID{
++				utls.CurveID(utls.GREASE_PLACEHOLDER),
++				utls.X25519MLKEM768,
++				utls.X25519,
++				utls.CurveP256,
++				utls.CurveP384,
++				utls.CurveP521,
++			}},
++			&utls.SupportedPointsExtension{SupportedPoints: []byte{0x00}},
++			// The app negotiates plain HTTP/1.1 with ita-free — do not
++			// add "h2" here; over ita-free the app never offers it.
++			&utls.ALPNExtension{AlpnProtocols: []string{"http/1.1"}},
++			&utls.StatusRequestExtension{},
++			&utls.SignatureAlgorithmsExtension{SupportedSignatureAlgorithms: []utls.SignatureScheme{
++				utls.ECDSAWithP256AndSHA256,
++				utls.PSSWithSHA256,
++				utls.PKCS1WithSHA256,
++				utls.ECDSAWithP384AndSHA384,
++				utls.PSSWithSHA384,
++				utls.PSSWithSHA384, // Apple sends rsa_pss_rsae_sha384 twice
++				utls.PKCS1WithSHA384,
++				utls.PSSWithSHA512,
++				utls.PKCS1WithSHA512,
++				utls.PKCS1WithSHA1,
++			}},
++			&utls.SCTExtension{},
++			// MLKEM entry with empty Data: utls generates the fresh
++			// 1216-byte X25519MLKEM768 share per handshake.
++			&utls.KeyShareExtension{KeyShares: []utls.KeyShare{
++				{Group: utls.CurveID(utls.GREASE_PLACEHOLDER), Data: []byte{0}},
++				{Group: utls.X25519MLKEM768},
++				{Group: utls.X25519},
++			}},
++			&utls.PSKKeyExchangeModesExtension{Modes: []uint8{utls.PskModeDHE}},
++			&utls.SupportedVersionsExtension{Versions: []uint16{
++				utls.GREASE_PLACEHOLDER,
++				utls.VersionTLS13,
++				utls.VersionTLS12,
++			}},
++			&utls.UtlsCompressCertExtension{Algorithms: []utls.CertCompressionAlgo{utls.CertCompressionZlib}},
++			&utls.UtlsGREASEExtension{},
++			// No SessionTicketExtension, no UtlsPaddingExtension —
++			// the captured app hello contains neither.
++		},
++	}
++}
+\ No newline at end of file
+diff --git a/translate/translate.go b/translate/translate.go
+index 9aebc0c..ca78f65 100644
+--- a/translate/translate.go
++++ b/translate/translate.go
+@@ -48,9 +48,13 @@ import (
+ //   Transport
+ //     ItaClient oneshot uses Ktor Darwin engine
+ //     (io.ktor.client.engine.darwin.KtorNSURLSessionDelegate) → real
+-//     URLSession TLS. We approximate that ClientHello with utls HelloIOS.
++//     URLSession TLS. The ClientHello is a byte-exact replica of the
++//     real app's captured hello (see ios_tls.go); the app negotiates
++//     plain HTTP/1.1 with its ita-free host, so no HTTP/2 layer is
++//     involved. utls's bundled HelloIOS templates must NOT be used —
++//     their JA3s sit on DeepL's impersonation-template denylist.
+ //
+-//   Free URL   → https://oneshot-free.www.deepl.com/v1/translate
++//   Free URL   → https://ita-free.www.deepl.com/v1/translate (ItaClient host)
+ //   Pro URL    → https://oneshot. + <cell> + .pro.deepl.com/v1/translate
+ //                (we keep oneshot-pro.www as the free-tier Pro fallback)
+ //
+@@ -68,20 +72,29 @@ import (
+ //
+ // DeepL rate-limits / temporarily bans clients whose TLS + UA + app_information
+ // story is inconsistent (e.g. iOS TLS fingerprint + "iOS 27.0" in the UA when
+-// 27 is not a shipping OS). Keep every field on one coherent iOS profile.
++// 27 is not a shipping OS), and separately denylists the JA3 hashes of
++// published iOS/Safari impersonation templates when the story claims the
++// iOS app. Keep every field on one coherent, non-template iOS profile
++// (see ios_tls.go).
+ const (
+-	oneshotFreeEndpoint = "https://oneshot-free.www.deepl.com/v1/translate"
++	// ita-free is the host the iOS app's ItaClient actually talks to
++	// (captured from a real device). The extension's oneshot-free host
++	// fingerprint-gates Apple hellos claiming the iOS app — see the
++	// comment in ios_tls.go before switching this back.
++	itaFreeEndpoint     = "https://ita-free.www.deepl.com/v1/translate"
+ 	oneshotProEndpoint  = "https://oneshot-pro.www.deepl.com/v1/translate"
+ 
+ 	// Pinned to DeepL iOS IPA (CFBundleShortVersionString / CFBundleVersion).
+ 	iosAppVersion = "26.42"
+ 	iosAppBuild   = "5443737"
+ 
+-	// Reported OS version for app_information.os_version + x-app-os-version.
+-	// IPA is built against iphoneos26.5 (DTPlatformVersion). Must be a real
+-	// shipping major — a future value (e.g. 27.0) combined with an iOS TLS
+-	// fingerprint is rejected with HTTP 429 and can temp-ban the IP.
+-	iosOSVersion = "26.0"
++	// Device OS reported in app_information.os_version + x-app-os-version.
++	// The captured device runs iOS 27 beta; the app (26.42, MinimumOSVersion
++	// 17.0) runs on it fine, and the X25519MLKEM768 in our ClientHello only
++	// exists from the iOS 27 stack onward — so 27.0 is the one value that
++	// matches the hello we actually send. The old "27.0 gets 429" lore was
++	// an artifact of the denylisted utls HelloIOS template, not the version.
++	iosOSVersion = "27.0"
+ 
+ 	// CFNetwork / Darwin versions that accompany URLSession User-Agents on
+ 	// the same OS generation as DTPlatformVersion 26.x (build machine
+@@ -137,7 +150,7 @@ func sharedCookieJar() http.CookieJar {
+ }
+ 
+ // warmCookies primes the shared jar by GETting www.deepl.com once.
+-// The Set-Cookie response lands on .deepl.com (eTLD+1 of oneshot-free),
++// The Set-Cookie response lands on .deepl.com (eTLD+1 of ita-free),
+ // so subsequent POSTs carry those cookies automatically.
+ func warmCookies(client *req.Client) {
+ 	cookieWarmer.Do(func() {
+@@ -302,12 +315,16 @@ func getOneshotClient(proxyURL string) (*req.Client, error) {
+ 
+ func newOneshotClient(proxyURL string) (*req.Client, error) {
+ 	// Match ItaClient's Ktor Darwin / URLSession profile:
+-	//   - TLS ClientHello ≈ real iOS (utls HelloIOS_Auto)
++	//   - TLS ClientHello ≈ real iOS (urlSessionHello in ios_tls.go)
+ 	//   - Cookie jar shared like URLSession's HTTPCookieStorage
+ 	//   - Common headers = what URLSession attaches by default
+ 	// Per-request headers (Authorization, x-app-*) are set in callOneshot.
+ 	client := req.C().
+-		SetTLSFingerprintIOS().
++		// Byte-exact replica of the app's captured URLSession ClientHello
++		// (see ios_tls.go). SetTLSFingerprintIOS — utls's iOS 14-era template —
++		// was the HTTP 429 breakage; do not reintroduce it. The spec's ALPN is
++		// http/1.1 only, matching the app, so no HTTP/2 settings are involved.
++		SetTLSFingerprintSpec(urlSessionHello).
+ 		SetCookieJar(sharedCookieJar()).
+ 		SetTimeout(oneshotTimeout).
+ 		SetUserAgent(iosUserAgent()).
+@@ -451,7 +468,7 @@ func TranslateByDLX(sourceLang, targetLang, text string, tagHandling string, pro
+ 	}
+ 	bodyBytes, _ := json.Marshal(reqStruct)
+ 
+-	endpoint := oneshotFreeEndpoint
++	endpoint := itaFreeEndpoint
+ 	if dlSession != "" {
+ 		endpoint = oneshotProEndpoint
+ 	}
