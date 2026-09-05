@@ -2,6 +2,8 @@
   pkgs,
   lib,
   LT,
+  config,
+  inputs,
   ...
 }:
 let
@@ -12,6 +14,24 @@ let
   });
 in
 {
+  sops.secrets.dlx-proxy-user = {
+    sopsFile = inputs.secrets + "/dlx.yaml";
+    owner = "dlx";
+    group = "dlx";
+  };
+  sops.secrets.dlx-proxy-pass = {
+    sopsFile = inputs.secrets + "/dlx.yaml";
+    owner = "dlx";
+    group = "dlx";
+  };
+  sops.templates.dlx-env = {
+    content = ''
+      PROXY=http://${config.sops.placeholder.dlx-proxy-user}:${config.sops.placeholder.dlx-proxy-pass}@${LT.this.ltnet.IPv4}:${LT.portStr.Resin}
+    '';
+    owner = "dlx";
+    group = "dlx";
+  };
+
   systemd.services.dlx = {
     description = "DLX";
     wantedBy = [ "multi-user.target" ];
@@ -22,6 +42,7 @@ in
     };
 
     serviceConfig = LT.serviceHarden // {
+      EnvironmentFile = config.sops.templates.dlx-env.path;
       ExecStart = lib.getExe dlx;
       User = "dlx";
       Group = "dlx";
