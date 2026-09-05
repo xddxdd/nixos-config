@@ -55,10 +55,10 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "2026070201";
+    version = "2026090400";
     src = fetchurl {
-      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026070201/rpz.delegacy.monostack.org.zone";
-      sha256 = "sha256-dZDUlatFR5wggefe+0GNLUZW11zLtHFPooqVuFlhodI=";
+      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026090400/rpz.delegacy.monostack.org.zone";
+      sha256 = "sha256-GUyiSHbcxtVDzL04N2R/nI6+VsCZTnlSZ7TpJ8yAIGs=";
     };
   };
   dn42-certificate-authority-client = {
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "7406cb6fb0a4fc17fcfccbb3662a90a92fd3d35c";
+    version = "37653ea391d600bd0a43af4ca08e9bb5298f7edf";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "7406cb6fb0a4fc17fcfccbb3662a90a92fd3d35c";
+      rev = "37653ea391d600bd0a43af4ca08e9bb5298f7edf";
       fetchSubmodules = false;
-      sha256 = "sha256-4VV0h4i/h7l6xqOv/zke28RVbINjZo0Bd8+09LDzgwo=";
+      sha256 = "sha256-kboA0s8SubAHNvRNa6TMS//Xz97VpmdnH3rOhKODa+M=";
     };
-    date = "2026-08-29";
+    date = "2026-09-04";
   };
   open5gs = {
     pname = "open5gs";

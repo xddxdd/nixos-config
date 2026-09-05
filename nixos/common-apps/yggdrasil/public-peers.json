@@ -39,7 +39,6 @@
     "tls://91.98.161.68:9001?key=0e638944bfd6b277fa5e0dddbeb4444778eea8bece63a9862c661797022a8f05",
     "tls://bode.theender.net:42169?key=f91b909f43829f8b20732b3bcf80cbc4bb078dd47b41638379a078e35984c9a4",
     "tls://des.8px.sk:4321",
-    "tls://ygg-oracle.axxa.dev:18080",
     "tls://ygg.mkg20001.io:443",
     "tls://ygg1.mk16.de:1338?key=0000000087ee9949eeab56bd430ee8f324cad55abf3993ed9b9be63ce693e18a",
     "tls://ygg2.mk16.de:1338?key=000000d80a2d7b3126ea65c8c08fc751088c491a5cdd47eff11c86fa1e4644ae",
@@ -81,12 +80,14 @@
   "russia": [
     "tls://188.225.9.167:18227",
     "tls://box.paulll.cc:13338",
+    "tls://kursk.cleverfox.org:15015",
     "tls://vix.duckdns.org:36014",
     "tls://yg-vvo.magicum.net:29331",
     "tls://ygg-msk-1.averyan.ru:8362",
     "tls://yggno.de:18227"
   ],
   "singapore": [
+    "tls://asia.deinfra.org:15015",
     "tls://yg-sin.magicum.net:23900"
   ],
   "slovakia": [
@@ -97,8 +98,7 @@
     "tls://r2.worcester.yggdrasil.novasredes.network:2001"
   ],
   "sweden": [
-    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c",
-    "tls://ygg.ace.ctrl-c.liu.se:9999?key=5636b3af4738c3998284c4805d91209cab38921159c66a6f359f3f692af1c908"
+    "tls://sto01.yggdrasil.hosted-by.skhron.eu:8884?key=ce8cfa43b8c9e71c1fe31832b39403f23166f2bac12d52c755d9ac68f55da81c"
   ],
   "taiwan": [
     "tls://cowgl.tech:1337"
