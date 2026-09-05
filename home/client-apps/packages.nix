@@ -64,6 +64,7 @@ in
         apache-directory-studio
         attic-client
         audacious
+        bambu-studio
         bitwarden-desktop
         brotli
         bzip2
@@ -106,7 +107,6 @@ in
         microfetch
         moonlight-qt
         nur-xddxdd.baidupcs-go
-        nur-xddxdd.bambu-studio-bin
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
         nur-xddxdd.google-earth-pro

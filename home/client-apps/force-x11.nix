@@ -24,7 +24,6 @@ in
       # keep-sorted start
       apache-directory-studio
       freecad
-      nur-xddxdd.bambu-studio-bin
       thunderbird-bin # Fix auto close on shutdown
       # keep-sorted end
     ]
