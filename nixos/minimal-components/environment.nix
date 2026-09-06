@@ -41,6 +41,7 @@ in
     # keep-sorted start
     DXVK_LOG_PATH = "none";
     DXVK_STATE_CACHE_PATH = "/tmp";
+    NIXOS_NO_SYNC = if config.fileSystems."/nix".fsType == "virtiofs" then "1" else "0"; # sync on virtiofs is unstable
     NIXPKGS_ALLOW_INSECURE = "1";
     NIX_REMOTE = "daemon";
     SYSTEMD_PAGER = "";
