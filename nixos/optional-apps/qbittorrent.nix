@@ -1,6 +1,7 @@
 {
   pkgs,
   LT,
+  lib,
   ...
 }:
 {
@@ -24,6 +25,7 @@
     LimitNOFILE = 1048576;
     IOSchedulingClass = "idle";
     IOSchedulingPriority = "7";
+    MemoryDenyWriteExecute = lib.mkForce false;
   };
 
   lantian.localVhosts.bt = {
