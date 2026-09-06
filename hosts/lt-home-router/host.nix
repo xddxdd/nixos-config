@@ -1,6 +1,7 @@
 { tags, geo, ... }:
 {
   index = 112;
+  x86ArchLevel = 2;
   tags = with tags; [ ];
   hostname = "192.168.0.1";
   cpuThreads = 4;

@@ -6,6 +6,7 @@
 }:
 {
   index = 10;
+  x86ArchLevel = 2;
   tags = with tags; [
     cn-accel
     public-facing

@@ -12,6 +12,11 @@ let
     n: v:
     let
       isLocal = n == config.networking.hostName;
+      gccarchFeatures =
+        lib.optionals (v.system == "x86_64-linux") [ "gccarch-x86-64" ]
+        ++ lib.optionals (v.x86ArchLevel != null && v.x86ArchLevel >= 2) [ "gccarch-x86-64-v2" ]
+        ++ lib.optionals (v.x86ArchLevel != null && v.x86ArchLevel >= 3) [ "gccarch-x86-64-v3" ]
+        ++ lib.optionals (v.x86ArchLevel != null && v.x86ArchLevel >= 4) [ "gccarch-x86-64-v4" ];
     in
     assert v.cpuThreads > 0;
     if isLocal then
@@ -27,7 +32,7 @@ let
           speedFactor = v.cpuThreads;
           sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
-          supportedFeatures = [ ];
+          supportedFeatures = gccarchFeatures;
           mandatoryFeatures = [ ];
         }
       ]
@@ -41,7 +46,7 @@ let
           speedFactor = v.cpuThreads;
           sshKey = cfg.sshKeyPath;
           sshUser = "nix-builder";
-          supportedFeatures = [ "big-parallel" ];
+          supportedFeatures = [ "big-parallel" ] ++ gccarchFeatures;
           mandatoryFeatures = [ "big-parallel" ];
         }
       ];

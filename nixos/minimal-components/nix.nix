@@ -110,6 +110,13 @@ in
       # lazy-trees = true;
 
       substituters = [ "https://cache.nixos.org" ] ++ config.nix.settings.trusted-substituters;
+      system-features =
+        lib.optionals (LT.this.system == "x86_64-linux") [ "gccarch-x86-64" ]
+        ++ lib.optionals (LT.this.x86ArchLevel != null && LT.this.x86ArchLevel >= 2) [ "gccarch-x86-64-v2" ]
+        ++ lib.optionals (LT.this.x86ArchLevel != null && LT.this.x86ArchLevel >= 3) [ "gccarch-x86-64-v3" ]
+        ++ lib.optionals (LT.this.x86ArchLevel != null && LT.this.x86ArchLevel >= 4) [
+          "gccarch-x86-64-v4"
+        ];
       trusted-substituters = LT.constants.nix.substituters;
       inherit (LT.constants.nix) trusted-public-keys;
     };

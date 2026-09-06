@@ -6,6 +6,7 @@
 }:
 {
   index = 100;
+  x86ArchLevel = 4;
   tags = with tags; [
     client
     # cuda

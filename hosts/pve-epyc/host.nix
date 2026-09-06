@@ -1,6 +1,7 @@
 { tags, geo, ... }:
 {
   index = 108;
+  x86ArchLevel = 3;
   tags = with tags; [
     lan-access
     nix-builder

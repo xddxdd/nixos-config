@@ -1,6 +1,7 @@
 { tags, geo, ... }:
 {
   index = 107;
+  x86ArchLevel = 2;
   tags = with tags; [ ];
   city = geo.cities."US Bellevue";
   cpuThreads = 8;

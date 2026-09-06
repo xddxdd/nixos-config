@@ -6,6 +6,7 @@
 }:
 {
   index = 101;
+  x86ArchLevel = 3;
   tags = with tags; [
     # cuda
     lan-access

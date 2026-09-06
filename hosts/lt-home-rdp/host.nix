@@ -1,6 +1,7 @@
 { tags, geo, ... }:
 {
   index = 102;
+  x86ArchLevel = 3;
   tags = with tags; [
     client
     lan-access

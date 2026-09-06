@@ -6,6 +6,7 @@
 }:
 {
   index = 12;
+  x86ArchLevel = 4;
   tags = with tags; [
     ipv4-only
     server

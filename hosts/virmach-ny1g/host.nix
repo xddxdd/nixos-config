@@ -6,6 +6,7 @@
 }:
 {
   index = 8;
+  x86ArchLevel = 3;
   tags = with tags; [
     dn42
     server

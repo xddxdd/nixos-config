@@ -6,6 +6,7 @@
 }:
 {
   index = 9;
+  x86ArchLevel = 3;
   tags = with tags; [
     cn-accel
     ipv4-only

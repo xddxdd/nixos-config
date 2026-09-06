@@ -6,6 +6,7 @@
 }:
 {
   index = 11;
+  x86ArchLevel = 3;
   tags = with tags; [
     public-facing
     server

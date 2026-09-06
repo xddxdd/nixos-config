@@ -6,6 +6,7 @@
 }:
 {
   index = 104;
+  x86ArchLevel = 2;
   tags = with tags; [
     client
   ];

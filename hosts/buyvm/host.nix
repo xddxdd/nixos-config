@@ -6,6 +6,7 @@
 }:
 {
   index = 2;
+  x86ArchLevel = 4;
   tags = with tags; [
     dn42
     low-ram
