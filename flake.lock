@@ -904,22 +904,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-libvncserver": {
-      "locked": {
-        "lastModified": 1750111231,
-        "narHash": "sha256-3a7Tha/RwYlzH/v3PJrG7+HjOj4c6YOv2K8sqdGsHVQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e6f23dc08d3624daab7094b701aa3954923c6bbb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e6f23dc08d3624daab7094b701aa3954923c6bbb",
-        "type": "github"
-      }
-    },
     "nixpkgs-multiverse": {
       "locked": {
         "lastModified": 1787432830,
@@ -927,21 +911,6 @@
         "owner": "fzakaria",
         "repo": "nixpkgs-multiverse",
         "rev": "83a703cda645262d46f27b10a5392baf15355ec4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fzakaria",
-        "repo": "nixpkgs-multiverse",
-        "type": "github"
-      }
-    },
-    "nixpkgs-multiverse_2": {
-      "locked": {
-        "lastModified": 1788596457,
-        "narHash": "sha256-6iJ0N8hUClykevMfX8Qwt2ObOBaQF6yK7wf12OoOovk=",
-        "owner": "fzakaria",
-        "repo": "nixpkgs-multiverse",
-        "rev": "5caf7ed36b0ddf54878ef30a738fd327c9682ffa",
         "type": "github"
       },
       "original": {
@@ -962,22 +931,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-stable": {
-      "locked": {
-        "lastModified": 1769318308,
-        "narHash": "sha256-Mjx6p96Pkefks3+aA+72lu1xVehb6mv2yTUUqmSet6Q=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1cd347bf3355fce6c64ab37d3967b4a2cb4b878c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1143,22 +1096,26 @@
         "flake-compat": [
           "flake-compat"
         ],
-        "nixpkgs-libvncserver": "nixpkgs-libvncserver",
-        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-libvncserver": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [
+          "nixpkgs"
+        ],
         "utils": [
           "flake-utils"
         ]
       },
       "locked": {
-        "lastModified": 1785398293,
-        "narHash": "sha256-nuJnNs6XfGPKtlwqZpqbwwQmacNbVfYEypDkvwqlh1g=",
-        "owner": "xddxdd",
+        "lastModified": 1788008982,
+        "narHash": "sha256-as9VXaqYCEMptluj6N0ugwZ4WWBw/c3jBrYwisoHmqs=",
+        "owner": "SaumonNet",
         "repo": "proxmox-nixos",
-        "rev": "cf637e3f34537f0cbfb22d2b855e574172770939",
+        "rev": "89bf7bb1439a5dc6f8210b7178cbd76421a178e2",
         "type": "github"
       },
       "original": {
-        "owner": "xddxdd",
+        "owner": "SaumonNet",
         "repo": "proxmox-nixos",
         "type": "github"
       }
@@ -1240,7 +1197,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-multiverse": "nixpkgs-multiverse_2",
+        "nixpkgs-multiverse": [
+          "nixpkgs-multiverse"
+        ],
         "nur-xddxdd": [
           "nur-xddxdd"
         ],
