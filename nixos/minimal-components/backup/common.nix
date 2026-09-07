@@ -45,7 +45,7 @@ rec {
 
       [repository.options]
       user = "sftp"
-      endpoint = "ssh://sftp.lt-home-vm.ltnet.xuyh0120.win:2222"
+      endpoint = "ssh://sftp.pve-epyc.ltnet.xuyh0120.win:2222"
       key = "${config.sops.secrets.sftp-privkey.path}"
       root = "/backups/restic"
       known_hosts_strategy = "Accept"
@@ -99,7 +99,7 @@ rec {
 
   maintenanceHosts = {
     "terrahost" = [ "storagebox" ];
-    "lt-home-vm" = [ "home" ];
+    "pve-epyc" = [ "home" ];
   };
 
   resticCommands = lib.mapAttrsToList (

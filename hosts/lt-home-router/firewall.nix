@@ -118,7 +118,7 @@ in
       fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip to ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.DNS}
       fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip6 to [${config.lantian.netns.coredns-client.ipv6}]:${LT.portStr.DNS}
 
-      # Redirect to lt-home-vm
+      # Redirect to pve-epyc
       fib daddr type local iifname "eth1*" jump NAT_PORT_FORWARD
       fib daddr type local iifname "henet" jump NAT_PORT_FORWARD
 
@@ -132,12 +132,12 @@ in
     }
 
     chain NAT_PORT_FORWARD {
-      meta nfproto ipv4 tcp dport 31010-31019 dnat ip to 192.168.1.10
-      meta nfproto ipv4 udp dport 31010-31019 dnat ip to 192.168.1.10
-      meta nfproto ipv4 tcp dport { 80, 443, 2222 } dnat ip to 192.168.1.10
-      meta nfproto ipv6 tcp dport { 80, 443, 2222 } dnat ip6 to [2001:470:e997:1::10]
-      meta nfproto ipv4 udp dport 22547 dnat ip to 192.168.1.10
-      meta nfproto ipv6 udp dport 22547 dnat ip6 to [2001:470:e997:1::10]
+      meta nfproto ipv4 tcp dport 31080-31089 dnat ip to 192.168.0.2
+      meta nfproto ipv4 udp dport 31080-31089 dnat ip to 192.168.0.2
+      meta nfproto ipv4 tcp dport { 80, 443, 2222 } dnat ip to 192.168.0.2
+      meta nfproto ipv6 tcp dport { 80, 443, 2222 } dnat ip6 to [2001:470:e997::2]
+      meta nfproto ipv4 udp dport 22547 dnat ip to 192.168.0.2
+      meta nfproto ipv6 udp dport 22547 dnat ip6 to [2001:470:e997::2]
     }
 
     chain NAT_INPUT {

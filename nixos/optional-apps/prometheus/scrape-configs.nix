@@ -268,7 +268,7 @@ in
       job_name = "sglang-sakura-llm";
       scheme = "https";
       static_configs = [
-        { targets = [ "sakura-llm.lt-home-rdp.xuyh0120.win" ]; }
+        { targets = [ "sakura-llm.pve-epyc.xuyh0120.win" ]; }
       ];
     }
     {

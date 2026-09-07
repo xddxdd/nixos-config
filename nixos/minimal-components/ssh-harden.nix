@@ -140,8 +140,8 @@ in
       Port 23
       IdentityFile ${config.sops.secrets.sftp-privkey.path}
 
-    Host sftp.lt-home-vm.ltnet.xuyh0120.win
-      HostName lt-home-vm.ltnet.xuyh0120.win
+    Host sftp.pve-epyc.ltnet.xuyh0120.win
+      HostName pve-epyc.ltnet.xuyh0120.win
       User sftp
       IdentityFile ${config.sops.secrets.sftp-privkey.path}
       ${ltnetSSHConfig}
@@ -162,7 +162,7 @@ in
       ${ltnetSSHConfig}
 
     Host vscode-remote
-      HostName lt-home-rdp.ltnet.xuyh0120.win
+      HostName pve-epyc.ltnet.xuyh0120.win
       User lantian
       ${ltnetSSHConfig}
 

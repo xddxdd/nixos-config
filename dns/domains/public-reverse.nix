@@ -22,11 +22,11 @@ lib.mkIf false {
 
     (config.common.reverse6 {
       prefix = "2001:470:e997::/48";
-      target = "lt-home-vm.lantian.pub.";
+      target = "pve-epyc.lantian.pub.";
     })
     (config.common.reverse6 {
       prefix = "2001:470:b:3af::/64";
-      target = "lt-home-vm.lantian.pub.";
+      target = "pve-epyc.lantian.pub.";
     })
 
     (config.common.reverse6 {

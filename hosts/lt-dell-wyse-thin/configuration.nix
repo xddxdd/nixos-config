@@ -29,7 +29,7 @@
   };
 
   fileSystems."/mnt/share" = {
-    device = "${LT.hosts."lt-home-vm".ltnet.IPv4}:/storage";
+    device = "${LT.hosts."pve-epyc".ltnet.IPv4}:/storage";
     fsType = "nfs";
     options = [
       "_netdev"

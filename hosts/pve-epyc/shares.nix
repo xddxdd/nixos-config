@@ -16,13 +16,22 @@
       hostOpts = lib.concatMapStringsSep " " (ip: "${ip}(${opts})") [
         LT.hosts.lt-dell-wyse.ltnet.IPv4
         LT.hosts.lt-dell-wyse-thin.ltnet.IPv4
-        LT.hosts.lt-home-rdp.ltnet.IPv4
         LT.hosts.lt-hp-omen.ltnet.IPv4
       ];
     in
     ''
       /run/nfs/storage ${hostOpts}
     '';
+  systemd.services.nfs-server = {
+    after = [
+      "mnt-storage.mount"
+      "run-nfs-storage.mount"
+    ];
+    requires = [
+      "mnt-storage.mount"
+      "run-nfs-storage.mount"
+    ];
+  };
 
   services.samba.settings = {
     "storage" = {

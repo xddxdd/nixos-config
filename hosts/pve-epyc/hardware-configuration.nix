@@ -10,12 +10,10 @@
 {
   imports = [
     ../../nixos/hardware/ecc-ram.nix
-    ../../nixos/hardware/nvidia/cuda-only.nix
-    ../../nixos/hardware/nvidia/vgpu-extension.nix
+    ../../nixos/hardware/nvidia/only.nix
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/smart.nix
     ../../nixos/hardware/ups.nix
-    ../../nixos/hardware/vfio.nix
   ];
 
   lantian.hostType = lib.mkForce "physical";
@@ -26,6 +24,9 @@
   };
 
   networking.usePredictableInterfaceNames = lib.mkForce true;
+
+  # 580 driver is the last one that supports P40
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -110,16 +111,5 @@
     '';
     serviceConfig.Type = "oneshot";
     restartIfChanged = false;
-  };
-
-  lantian.vfio = {
-    ids = [
-      "10de:2204" # NVIDIA RTX 3090
-      "10de:1aef" # NVIDIA RTX 3090 HD Audio
-    ];
-    blacklistedModules = [
-      "nouveau"
-    ];
-    disableFramebuffer = true;
   };
 }

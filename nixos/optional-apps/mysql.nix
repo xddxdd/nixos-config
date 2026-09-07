@@ -58,7 +58,7 @@ in
           "gcomm://"
           + lib.concatMapStringsSep "," (n: LT.hosts."${n}".ltnet.IPv4) [
             "colocrossing"
-            "lt-home-vm"
+            "pve-epyc"
             "terrahost"
             "virmach-ny6g"
           ];
