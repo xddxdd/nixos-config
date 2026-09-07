@@ -125,10 +125,6 @@ in
       # Hairpin NAT
       fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 jump NAT_PORT_FORWARD
       fib daddr type local iifname "eth0*" ip6 daddr != @RESERVED_IPV6 jump NAT_PORT_FORWARD
-
-      # Redirect to pve-epyc
-      fib daddr type local tcp dport 2223 iifname "eth1*" dnat ip to 192.168.0.2:2222
-      fib daddr type local tcp dport 2223 iifname "henet" dnat ip6 to [2001:470:e997::2]:2222
     }
 
     chain NAT_PORT_FORWARD {
@@ -138,6 +134,9 @@ in
       meta nfproto ipv6 tcp dport { 80, 443, 2222 } dnat ip6 to [2001:470:e997::2]
       meta nfproto ipv4 udp dport 22547 dnat ip to 192.168.0.2
       meta nfproto ipv6 udp dport 22547 dnat ip6 to [2001:470:e997::2]
+      # Historical forward for nix-builder port
+      meta nfproto ipv4 tcp dport 2223 dnat ip to 192.168.0.2:2222
+      meta nfproto ipv6 tcp dport 2223 dnat ip6 to [2001:470:e997::2]:2222
     }
 
     chain NAT_INPUT {
@@ -159,6 +158,9 @@ in
 
       # Avoid using ZeroTier as return path
       meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade
+
+      # Hairpin NAT
+      meta iifname "eth0" oifname "eth0" masquerade
 
       oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48
     }
