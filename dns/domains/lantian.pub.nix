@@ -5,11 +5,6 @@ let
   externalServices = [
     {
       recordType = "CNAME";
-      name = "axisnow";
-      target = "8a2a43f9.alidns-1.com.";
-    }
-    {
-      recordType = "CNAME";
       name = "gcore";
       target = "cl-47f440a2.gcdn.co.";
     }
@@ -266,6 +261,44 @@ let
     }
   ];
 
+  axisnowCDK = [
+    {
+      recordType = "CNAME";
+      name = "3amcloud";
+      target = "f1bf99a1.alidns-2.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "anti-ddos";
+      target = "a166f2a0.alidns-2.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "axisnow";
+      target = "8a2a43f9.alidns-1.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "deepedge";
+      target = "deepedge-free.alidns-2.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "dreamcloud";
+      target = "f4ecf8bf.alidns-3.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "moack";
+      target = "5b0bb56c.alidns-3.com.";
+    }
+    {
+      recordType = "CNAME";
+      name = "starvm";
+      target = "5541177a.alidns-2.com.";
+    }
+  ];
+
   ATProto = [
     {
       recordType = "CNAME";
@@ -352,6 +385,7 @@ in
         externalServices
         internalServices
         ATProto
+        axisnowCDK
       ];
     }
   ];
