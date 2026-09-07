@@ -505,27 +505,6 @@
         },
         "version": "2d5e2bc17e89f1f1dc561f73e68ea574e0be844a"
     },
-    "ulauncher-cursor-projects": {
-        "cargoLock": null,
-        "date": "2025-11-03",
-        "extract": null,
-        "name": "ulauncher-cursor-projects",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "rlvendramini",
-            "repo": "ulauncher-cursor-projects-ext",
-            "rev": "bd674a35959e8de9f5b59513a8f13ddd1d4ada74",
-            "sha256": "sha256-TdTpc4rlsQRdpEm4LJHu7ivIN25G1lie4vlRGsoHQF8=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "bd674a35959e8de9f5b59513a8f13ddd1d4ada74"
-    },
     "ulauncher-emoji": {
         "cargoLock": null,
         "date": "2026-08-30",

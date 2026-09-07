@@ -3,7 +3,6 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -301,18 +300,6 @@
       sha256 = "sha256-UfRU7BpQUj26THzE8kYLIRUfe7voGvAcGDBTsl+yCwU=";
     };
     date = "2020-12-06";
-  };
-  ulauncher-cursor-projects = {
-    pname = "ulauncher-cursor-projects";
-    version = "bd674a35959e8de9f5b59513a8f13ddd1d4ada74";
-    src = fetchFromGitHub {
-      owner = "rlvendramini";
-      repo = "ulauncher-cursor-projects-ext";
-      rev = "bd674a35959e8de9f5b59513a8f13ddd1d4ada74";
-      fetchSubmodules = false;
-      sha256 = "sha256-TdTpc4rlsQRdpEm4LJHu7ivIN25G1lie4vlRGsoHQF8=";
-    };
-    date = "2025-11-03";
   };
   ulauncher-emoji = {
     pname = "ulauncher-emoji";

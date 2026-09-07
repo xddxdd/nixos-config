@@ -39,6 +39,6 @@ in
       pkgs.ghostty
     ])
     ++ (mkFcitxIM [
-      pkgs.cherry-studio
+      # empty for now
     ]);
 }

@@ -68,8 +68,6 @@ in
         bitwarden-desktop
         brotli
         bzip2
-        cherry-studio
-        code-cursor
         colmena
         ecapture
         exiftool

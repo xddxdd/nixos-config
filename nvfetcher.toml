@@ -112,10 +112,6 @@ src.git = "https://github.com/FloydJohn/ulauncher-chrome-profiles.git"
 fetch.github = "sergius02/ulauncher-colorconverter"
 src.git = "https://github.com/sergius02/ulauncher-colorconverter.git"
 
-[ulauncher-cursor-projects]
-fetch.github = "rlvendramini/ulauncher-cursor-projects-ext"
-src.git = "https://github.com/rlvendramini/ulauncher-cursor-projects-ext.git"
-
 [ulauncher-emoji]
 fetch.github = "Ulauncher/ulauncher-emoji"
 src.git = "https://github.com/Ulauncher/ulauncher-emoji.git"
