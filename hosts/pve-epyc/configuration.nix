@@ -27,12 +27,10 @@
     ../../nixos/optional-apps/fastapi-dls.nix
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/handbrake-server.nix
-    ../../nixos/optional-apps/handbrake-server.nix
-    # ../../nixos/optional-apps/hydra
+    ../../nixos/optional-apps/hydra
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/librechat.nix
-    ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-swap.nix
     ../../nixos/optional-apps/metapi.nix
@@ -40,12 +38,11 @@
     ../../nixos/optional-apps/mtranserver
     ../../nixos/optional-apps/n8n
     ../../nixos/optional-apps/ncps-client.nix
-    ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
-    # ../../nixos/optional-apps/picoclaw.nix
+    ../../nixos/optional-apps/picoclaw.nix
     ../../nixos/optional-apps/resin.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
