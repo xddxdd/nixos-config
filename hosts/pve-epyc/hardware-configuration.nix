@@ -105,7 +105,8 @@
       pkgs.ipmitool
     ];
     script = ''
-      nvidia-smi -pl 125
+      nvidia-smi -i 01:00.0 -pl 250
+      nvidia-smi -i c1:00.0 -pl 125
 
       # Set P40 GPU fan to 80%
       # Set noisy fan to 32%
