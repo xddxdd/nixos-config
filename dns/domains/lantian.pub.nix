@@ -5,6 +5,11 @@ let
   externalServices = [
     {
       recordType = "CNAME";
+      name = "axisnow";
+      target = "8a2a43f9.alidns-1.com.";
+    }
+    {
+      recordType = "CNAME";
       name = "gcore";
       target = "cl-47f440a2.gcdn.co.";
     }
