@@ -131,14 +131,14 @@ in
   services.fstrim.enable = true;
   services.irqbalance.enable = LT.this.cpuThreads > 1;
 
-  services.journald.extraConfig = ''
-    ForwardToConsole=no
-    ForwardToKMsg=no
-    ForwardToWall=no
-    Storage=persistent
-    SystemMaxFileSize=10M
-    SystemMaxUse=100M
-  '';
+  services.journald.settings.Journal = {
+    ForwardToConsole = false;
+    ForwardToKMsg = false;
+    ForwardToWall = false;
+    Storage = "persistent";
+    SystemMaxFileSize = "10M";
+    SystemMaxUse = "100M";
+  };
 
   security.openssl = {
     oqs-provider = {

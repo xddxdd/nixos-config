@@ -22,6 +22,10 @@ rec {
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });
+  flashrom = prev.flashrom.overrideAttrs (old: {
+    # Fix dangling stack-local chip pointer in tests, from https://github.com/NixOS/nixpkgs/issues/558302#issuecomment-5552862912
+    patches = (old.patches or [ ]) ++ [ ../patches/flashrom-fix-dangling-mock-chip-pointer.patch ];
+  });
   handbrake = prev.handbrake.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
     postFixup = ''
@@ -84,7 +88,6 @@ rec {
       ctype
       curl
       dom
-      event
       exif
       ffi
       ftp

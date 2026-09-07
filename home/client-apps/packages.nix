@@ -69,7 +69,7 @@ in
         brotli
         bzip2
         colmena
-        ecapture
+        # ecapture
         exiftool
         feishin
         ffmpeg-full

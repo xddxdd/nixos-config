@@ -3,6 +3,7 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   airplanes-live-mcp = {
@@ -255,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "c6eb3206923173e023f95407c5f84afd875d8fe9";
+    version = "a52dee9e00ff33db2eaad678b636ae88b490b58e";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "c6eb3206923173e023f95407c5f84afd875d8fe9";
+      rev = "a52dee9e00ff33db2eaad678b636ae88b490b58e";
       fetchSubmodules = false;
-      sha256 = "sha256-4NuWt2RUuzwV0ZXFdEafyJg7/YoToogx2iHOPq45LDA=";
+      sha256 = "sha256-AJ9kGO84oaXMGB0Rwk0DAREtLvIO1QJvv78HnmQkKGE=";
     };
-    date = "2026-08-31";
+    date = "2026-09-07";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
