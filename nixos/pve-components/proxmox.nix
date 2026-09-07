@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [ ../hardware/vfio.nix ];
 
@@ -12,6 +12,4 @@
     Restart = "always";
     RestartSec = 5;
   };
-
-  zramSwap.enable = lib.mkForce false;
 }
