@@ -111,7 +111,7 @@ let
         "sidebar.verticalTabs" = true;
         "svg.context-properties.content.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "webgl.disabled" = true;
+        "webgl.disabled" = false;
         # keep-sorted end
       }
       // builtins.listToAttrs (
