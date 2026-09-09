@@ -188,13 +188,6 @@ in
                 # Setup namespace
                 ip netns add ${name}
                 ${ipns} link set lo up
-                # Disable auto generated IPv6 link local address
-                ${sysctl} -w net.ipv6.conf.default.autoconf=0
-                ${sysctl} -w net.ipv6.conf.all.autoconf=0
-                ${sysctl} -w net.ipv6.conf.default.accept_ra=0
-                ${sysctl} -w net.ipv6.conf.all.accept_ra=0
-                ${sysctl} -w net.ipv6.conf.default.addr_gen_mode=1 || true
-                ${sysctl} -w net.ipv6.conf.all.addr_gen_mode=1 || true
                 # Setup veth pair
                 ip link add ns-${interface} type veth peer eth0 netns ${name}
                 # https://serverfault.com/questions/935366/why-does-arp-ignore-1-break-arp-on-pointopoint-interfaces-kvm-guest
