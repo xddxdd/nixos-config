@@ -24,7 +24,6 @@
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/opencl.nix
-    ../../nixos/optional-apps/pi-web.nix
     # ../../nixos/optional-apps/pipewire-noise-cancelling.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     # ../../nixos/optional-apps/qdrant.nix
@@ -109,7 +108,6 @@
   lantian.localVhosts = {
     lab.locations."/".enableOAuth = true;
     llama-swap.locations."/".enableOAuth = true;
-    pi-web.locations."/".enableOAuth = true;
   };
 
   services.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
