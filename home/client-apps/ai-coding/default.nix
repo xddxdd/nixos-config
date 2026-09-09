@@ -48,7 +48,7 @@ in
       defaultProvider = "ollama-cloud";
       defaultModel = "glm-5.3-flash";
       defaultThinkingLevel = "high";
-      showCacheMissNotices = true;
+      showCacheMissNotices = false;
 
       retry = {
         enabled = true;
