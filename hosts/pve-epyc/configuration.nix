@@ -80,15 +80,17 @@
   };
 
   systemd.network.networks.br0 = {
-    address = [ "192.168.0.2/24" ];
-    gateway = [ "192.168.0.1" ];
+    address = [
+      "192.168.0.2/24"
+      "2001:470:e997::2/64"
+    ];
+    gateway = [
+      "192.168.0.1"
+      "2001:470:e997::1"
+    ];
     matchConfig.Name = "br0";
     linkConfig.MTUBytes = "9000";
-    networkConfig.IPv6AcceptRA = "yes";
-    ipv6AcceptRAConfig = {
-      Token = "::2";
-      DHCPv6Client = "no";
-    };
+    networkConfig.IPv6AcceptRA = "no";
     networkConfig.VLAN = [ "br0.1" ];
   };
 
