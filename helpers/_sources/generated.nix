@@ -81,15 +81,15 @@
   };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
-    version = "3967a0bb93f09d6dfc8fb604a977f30458f61071";
+    version = "aae5bfb1e5c2128cf3319ddb2388117f750c4dfa";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
-      rev = "3967a0bb93f09d6dfc8fb604a977f30458f61071";
+      rev = "aae5bfb1e5c2128cf3319ddb2388117f750c4dfa";
       fetchSubmodules = false;
-      sha256 = "sha256-YKyhrV20t6jgt+OXPzYy2rDPRfxWrD3a6vslCwtB/F8=";
+      sha256 = "sha256-HTSYExYkuZok+UBiYGz23qS7IW9BDYd+bQsuVHMuBPw=";
     };
-    date = "2026-09-09";
+    date = "2026-09-10";
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
