@@ -7,12 +7,7 @@
       providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
-        {
-          recordType = "fakeALIAS";
-          name = "@";
-          target = "bwg-lax";
-          ttl = "10m";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";

@@ -15,12 +15,7 @@
         (config.common.hostRecs.DN42 "dn42.${domain}.")
         (config.common.hostRecs.NeoNetwork "neo.${domain}.")
 
-        {
-          recordType = "fakeALIAS";
-          name = "@";
-          target = "colocrossing";
-          ttl = "1h";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";

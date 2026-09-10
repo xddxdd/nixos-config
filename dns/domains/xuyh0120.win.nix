@@ -188,13 +188,7 @@ in
       providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
-        # ALIAS record cannot coexist with HTTPS on Gcore
-        {
-          recordType = "fakeALIAS";
-          name = "@";
-          target = "bwg-lax";
-          ttl = "10m";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";

@@ -327,15 +327,7 @@ in
       providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
-        {
-          recordType = "GEO";
-          # GeoDNS for public facing servers
-          name = "@";
-          ttl = "5m";
-          # Alice host is slow from China mainland
-          filter = n: v: (v.hasTag "server") && (v.hasTag "public-facing") && n != "alice";
-          healthcheck = "lantian.pub";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";
