@@ -11,7 +11,10 @@ let
   );
 in
 {
-  imports = [ (inputs.secrets + "/nixos-hidden-module/a7129082a691a699") ];
+  imports = [
+    (inputs.secrets + "/nixos-hidden-module/09e0a4212f82100c")
+    (inputs.secrets + "/nixos-hidden-module/a7129082a691a699")
+  ];
 
   programs.mcp = {
     enable = true;
