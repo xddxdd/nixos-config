@@ -29,20 +29,20 @@
       recordType = "BUNNY_DNS_SCRIPT";
       inherit name;
       code = ''
-        var globalServers4 = new Array(
-          ${serverArray baseFilter "A"}
-        );
-        var globalServers6 = new Array(
-          ${serverArray baseFilter "AAAA"}
-        );
-        var greaterChinaServers4 = new Array(
-          ${serverArray greaterChinaFilter "A"}
-        );
-        var greaterChinaServers6 = new Array(
-          ${serverArray greaterChinaFilter "AAAA"}
-        );
-
         export default function handleQuery(query) {
+          var globalServers4 = new Array(
+            ${serverArray baseFilter "A"}
+          );
+          var globalServers6 = new Array(
+            ${serverArray baseFilter "AAAA"}
+          );
+          var greaterChinaServers4 = new Array(
+            ${serverArray greaterChinaFilter "A"}
+          );
+          var greaterChinaServers6 = new Array(
+            ${serverArray greaterChinaFilter "AAAA"}
+          );
+
           var greaterChina = [ "CN", "HK", "MO", "TW" ].indexOf(query.request.geoLocation.country) != -1;
           if (query.request.queryType === "A") {
             var servers = greaterChina ? greaterChinaServers4 : globalServers4;
