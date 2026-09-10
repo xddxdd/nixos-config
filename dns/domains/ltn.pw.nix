@@ -7,12 +7,7 @@
       providers = [ "bunny" ];
       dnssec = true;
       records = lib.flatten [
-        {
-          recordType = "fakeALIAS";
-          name = "@";
-          target = "terrahost";
-          ttl = "10m";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";
@@ -20,6 +15,7 @@
           target = ".";
           modifiers = "alpn=h3,h2";
         }
+
         {
           recordType = "CNAME";
           name = "pb.${domain}.";

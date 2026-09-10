@@ -13,6 +13,7 @@
   };
 
   imports = [
+    ./geo-scripted-servers.nix
     ./host-recs.nix
     ./nameservers.nix
     ./poem.nix

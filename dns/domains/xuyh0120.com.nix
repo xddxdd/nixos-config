@@ -5,12 +5,7 @@
       domain = "xuyh0120.com";
       providers = [ "bunny" ];
       records = lib.flatten [
-        {
-          recordType = "ALIAS";
-          name = "@";
-          target = config.common.records.GeoDNSTarget;
-          ttl = "10m";
-        }
+        (config.common.records.GeoScriptedServers "@")
         {
           recordType = "HTTPS";
           name = "@";

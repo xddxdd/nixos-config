@@ -1,26 +1,16 @@
 { pkgs, lib, ... }:
 let
-  formatArg =
-    let
-      escapeArg = arg: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
-    in
-    s:
-    if builtins.isString s then
-      escapeArg s
-    else if builtins.isAttrs s then
-      builtins.toJSON s
-    else
-      builtins.toString s;
-  formatName = name: reverse: if reverse then "REV(${formatArg name})" else (formatArg name);
+  formatName =
+    name: reverse: if reverse then "REV(${builtins.toJSON name})" else (builtins.toJSON name);
 
   record =
     recordType: args: params:
     let
       configString = builtins.concatStringsSep ", " (
         [ (formatName args.name args.reverse) ]
-        ++ (builtins.map formatArg params)
-        ++ (lib.optionals (args ? meta) (builtins.map formatArg [ args.meta ]))
-        ++ (lib.optional (args.ttl != null) "TTL(${formatArg (builtins.toString args.ttl)})")
+        ++ (builtins.map builtins.toJSON params)
+        ++ (lib.optionals (args ? meta) (builtins.map builtins.toJSON [ args.meta ]))
+        ++ (lib.optional (args.ttl != null) "TTL(${builtins.toJSON (builtins.toString args.ttl)})")
         ++ (lib.optional (args.cloudflare != null && args.cloudflare) "CF_PROXY_ON")
         ++ (lib.optional (args.cloudflare != null && !args.cloudflare) "CF_PROXY_OFF")
       );
@@ -33,6 +23,11 @@ in
     AAAA = args: record "AAAA" args [ args.address ];
     ALIAS = args: record "ALIAS" args [ args.target ];
     AUTO = args: if lib.hasInfix ":" args.address then AAAA args else A args;
+    BUNNY_DNS_SCRIPT =
+      args:
+      record "BUNNY_DNS_SCRIPT" args [
+        args.code
+      ];
     CAA =
       args:
       record "CAA" args [
@@ -127,7 +122,7 @@ in
           type = 1;
           value = builtins.readFile (
             pkgs.runCommandLocal "sshfp-rsa-sha1.txt" { } ''
-              echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
+              echo ${builtins.toJSON pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
             ''
           );
         }
@@ -141,7 +136,7 @@ in
           type = 2;
           value = builtins.readFile (
             pkgs.runCommandLocal "sshfp-rsa-sha256.txt" { } ''
-              echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
+              echo ${builtins.toJSON pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
             ''
           );
         }
@@ -155,7 +150,7 @@ in
           type = 1;
           value = builtins.readFile (
             pkgs.runCommandLocal "sshfp-ed25519-sha1.txt" { } ''
-              echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
+              echo ${builtins.toJSON pubkey} | cut -d' ' -f2 | base64 --decode | sha1sum | cut -d' ' -f1 | tr -d '\n' > $out
             ''
           );
         }
@@ -169,7 +164,7 @@ in
           type = 2;
           value = builtins.readFile (
             pkgs.runCommandLocal "sshfp-ed25519-sha256.txt" { } ''
-              echo ${formatArg pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
+              echo ${builtins.toJSON pubkey} | cut -d' ' -f2 | base64 --decode | sha256sum | cut -d' ' -f1 | tr -d '\n' > $out
             ''
           );
         }
