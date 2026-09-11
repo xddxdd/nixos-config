@@ -82,7 +82,7 @@ in
       alang = "chi,zho,cmn,zh,eng,en";
       slang = "chi,zho,cmn,zh,eng,en";
     }
-    // (lib.optionalAttrs (osConfig.networking.hostName == "lt-dell-wyse") {
+    // (lib.optionalAttrs (LT.this.hasTag LT.tags.low-gpu) {
       hwdec = "vaapi";
       scale = "lanczos";
       dither = false;

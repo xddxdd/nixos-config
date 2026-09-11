@@ -79,6 +79,7 @@ Flake 入口文件，定义了：
 | `ipv6-only`      | 仅 IPv6                                                    |
 | `lan-access`     | 局域网访问                                                 |
 | `cuda`           | NVIDIA CUDA 支持                                           |
+| `low-gpu`        | 低性能 GPU 优化（禁用桌面模糊、简化 mpv 缩放）             |
 | `low-ram`        | 低内存优化                                                 |
 
 ## 模块系统说明

@@ -24,6 +24,7 @@
 
     # Hardware
     "cuda"
+    "low-gpu"
     "low-ram"
   ] (v: v);
 }

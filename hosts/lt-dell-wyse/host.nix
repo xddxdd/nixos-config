@@ -9,6 +9,7 @@
   x86ArchLevel = 2;
   tags = with tags; [
     client
+    low-gpu
   ];
   cpuThreads = 4;
   city = geo.cities."US Bellevue";
