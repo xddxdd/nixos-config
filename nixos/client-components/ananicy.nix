@@ -23,6 +23,12 @@
         rtprio = 99;
         ioclass = "realtime";
       }
+      {
+        name = "fluidsynth";
+        sched = "fifo";
+        rtprio = 99;
+        ioclass = "realtime";
+      }
     ];
   };
 }
