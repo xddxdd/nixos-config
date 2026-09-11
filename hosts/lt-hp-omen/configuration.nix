@@ -89,6 +89,9 @@
     "192.168.0.207"
   ];
 
+  # ClamAV daemon doesn't have permission to user home folder
+  services.clamav.daemon.enable = lib.mkForce false;
+
   services.samba.settings = {
     "lantian" = {
       "path" = "/home/lantian";

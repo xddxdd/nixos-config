@@ -1,4 +1,4 @@
-_: {
+{ config, lib, ... }: {
   services.clamav = {
     daemon.enable = true;
     updater.enable = true;
@@ -12,7 +12,7 @@ _: {
     };
   };
 
-  systemd.services.clamav-daemon.serviceConfig = {
+  systemd.services.clamav-daemon.serviceConfig = lib.mkIf config.services.clamav.daemon.enable {
     Restart = "always";
     RestartSec = 5;
   };
