@@ -1,54 +1,54 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   fonts.fontDir.enable = true;
   fonts.packages =
     with pkgs;
-    lib.mkForce [
-      nerd-fonts.fira-code
-      nerd-fonts.fira-mono
-      nerd-fonts.noto
-      nerd-fonts.terminess-ttf
-      nerd-fonts.ubuntu
-      nerd-fonts.ubuntu-mono
+    lib.mkForce (
+      [
+        nerd-fonts.fira-code
+        nerd-fonts.fira-mono
+        nerd-fonts.noto
+        nerd-fonts.terminess-ttf
+        nerd-fonts.ubuntu
+        nerd-fonts.ubuntu-mono
 
-      fira-code
-      fira-code-symbols
-      font-awesome
-      hanazono
-      liberation_ttf
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-      noto-fonts-emoji-blob-bin
-      nur-xddxdd.hoyo-glyphs
-      nur-xddxdd.kaixinsong-fonts
-      nur-xddxdd.plangothic-fonts
-      source-code-pro
-      source-han-code-jp
-      source-han-mono
-      source-han-sans
-      source-han-serif
-      source-sans
-      source-sans-pro
-      source-serif
-      source-serif-pro
-      terminus_font_ttf
-      ubuntu-classic
-      wqy_microhei
-      wqy_zenhei
-
-      # https://github.com/brsvh/chinese-fonts-overlay
-      alibaba-fonts
-      alimama-fonts
-      dingtalk-fonts
-      foundertype-fonts
-      justfont-fonts
-      taobao-fonts
-      tianheng-fonts
-      trionestype-fonts
-      tsangertype-fonts
-      windows-fonts
-    ];
+        fira-code
+        fira-code-symbols
+        font-awesome
+        hanazono
+        liberation_ttf
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-emoji-blob-bin
+        nur-xddxdd.hoyo-glyphs
+        nur-xddxdd.kaixinsong-fonts
+        nur-xddxdd.plangothic-fonts
+        source-code-pro
+        source-han-code-jp
+        source-han-mono
+        source-han-sans
+        source-han-serif
+        source-sans
+        source-sans-pro
+        source-serif
+        source-serif-pro
+        terminus_font_ttf
+        ubuntu-classic
+        wqy_microhei
+        wqy_zenhei
+      ]
+      ++ builtins.attrValues (
+        lib.removeAttrs inputs.chinese-fonts-overlay.packages."${pkgs.stdenv.hostPlatform.system}" [
+          "xiaomi-fonts"
+        ]
+      )
+    );
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
   fonts.fontconfig = {

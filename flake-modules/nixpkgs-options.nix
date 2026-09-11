@@ -34,7 +34,6 @@ in
         ];
         overlays = [
           # keep-sorted start
-          inputs.chinese-fonts-overlay.overlays.default
           inputs.colmena.overlay
           inputs.comfyui-nix.overlays.default
           inputs.firefox-addons.overlays.default
