@@ -77,6 +77,7 @@ in
         "npm:pi-fast-resume"
         "npm:pi-mcp-adapter"
         "npm:pi-ollama-cloud"
+        "npm:pi-secret-mask"
         "npm:pi-simplify"
         "npm:pi-subagents"
         # keep-sorted end
@@ -117,6 +118,34 @@ in
   home.file.".pi/agent/extensions/nixos-command-guard.ts".source =
     ./extensions/nixos-command-guard.ts;
   home.file.".pi/agent/extensions/model-favorites.ts".source = ./extensions/model-favorites.ts;
+  home.file.".pi/agent/extensions/pi-secret-mask/config.json".text = builtins.toJSON {
+    mode = "auto";
+    allowCommands = [ ];
+    dotenv = {
+      enabled = true;
+      files = [
+        ".env"
+        ".env.local"
+        ".env.production"
+        ".env.development"
+      ];
+      exclude = [
+        ".env.example"
+        ".env.sample"
+      ];
+    };
+    patterns = {
+      openai = true;
+      github = true;
+      google = true;
+      aws = true;
+      jwt = true;
+      pem = true;
+      base64 = false;
+    };
+    extraSecrets = [ ];
+    customPatterns = [ ];
+  };
   home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
     toolDescriptionMode = "compact";
     parallel = {
