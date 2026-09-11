@@ -52,6 +52,49 @@
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/
   fonts.fontconfig = {
+    aliases = {
+      # Old Traditional Chinese software expects MingLiU/PMingLiU, which is not
+      # installed; fall back to Noto Serif CJK TC (MingLiU is a serif face)
+      MingLiU = {
+        binding = "weak";
+        accept = [ "Noto Serif CJK TC" ];
+      };
+      "細明體" = {
+        binding = "weak";
+        accept = [ "Noto Serif CJK TC" ];
+      };
+      PMingLiU = {
+        binding = "weak";
+        accept = [ "Noto Serif CJK TC" ];
+      };
+      "新細明體" = {
+        binding = "weak";
+        accept = [ "Noto Serif CJK TC" ];
+      };
+      # Vista renamed KaiTi_GB2312/FangSong_GB2312 to KaiTi/FangSong
+      KaiTi_GB2312 = {
+        binding = "weak";
+        accept = [ "KaiTi" ];
+      };
+      "楷体_GB2312" = {
+        binding = "weak";
+        accept = [ "KaiTi" ];
+      };
+      FangSong_GB2312 = {
+        binding = "weak";
+        accept = [ "FangSong" ];
+      };
+      "仿宋_GB2312" = {
+        binding = "weak";
+        accept = [ "FangSong" ];
+      };
+      # Bitmap font dropped after XP
+      "MS Sans Serif" = {
+        binding = "weak";
+        accept = [ "Tahoma" ];
+      };
+    };
+
     cache32Bit = true;
     subpixel.rgba = "rgb";
 
