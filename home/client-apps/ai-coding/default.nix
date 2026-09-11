@@ -2,6 +2,8 @@
   pkgs,
   osConfig,
   LT,
+  lib,
+  config,
   inputs,
   ...
 }:
@@ -84,6 +86,20 @@ in
       ];
     };
   };
+  # Pi loads TS extensions through jiti, whose transpile cache lives in
+  # $TMPDIR/jiti. /tmp is tmpfs here, so the cache is wiped on every reboot
+  # and the first pi launch after boot recompiles ~400 modules (~14 s).
+  # Symlink the cache to a persistent location; verified:
+  # cold 14.4 s -> warm 1.8 s, and with the symlink warm stays 1.8 s.
+  home.activation.link-jiti-cache = lib.optionalString (config.home.username == "lantian") ''
+    mkdir -p "$HOME/.cache/jiti"
+    # jiti may have created a real directory before this link existed
+    if [ -d /tmp/jiti ] && [ ! -L /tmp/jiti ]; then
+      rm -rf /tmp/jiti
+    fi
+    ln -sfn "$HOME/.cache/jiti" /tmp/jiti
+  '';
+
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     settings = {
       directTools = true;
