@@ -19,16 +19,21 @@ let
         ''
       );
     };
-    grok-search-rs = {
+    firecrawl = {
       command = toString (
-        pkgs.writeShellScript "mcp-grok-search-rs" ''
-          export GROK_SEARCH_API_KEY=$(cat "${config.sops.secrets.mcp-grok-api-key.path}")
-          export GROK_SEARCH_MODEL=grok-4.3
-          export GROK_SEARCH_WEB_SEARCH=true
-          export GROK_SEARCH_X_SEARCH=true
+        pkgs.writeShellScript "mcp-firecrawl" ''
           export FIRECRAWL_API_KEY=$(cat "${config.sops.secrets.mcp-firecrawl-api-key.path}")
-          export TAVILY_API_KEY=$(cat "${config.sops.secrets.mcp-tavily-api-key.path}")
-          exec ${lib.getExe pkgs.nur-xddxdd.grok-search-rs}
+          exec ${pkgs.nodejs}/bin/npx -y firecrawl-mcp
+        ''
+      );
+    };
+    tavily = {
+      command = toString (
+        pkgs.writeShellScript "mcp-tavily" ''
+          exec ${pkgs.uv}/bin/uvx '--with=mcp<2' mcp-proxy \
+            -H Authorization "Bearer $(cat ${config.sops.secrets.mcp-tavily-api-key.path})" \
+            --transport streamablehttp \
+            "https://mcp.tavily.com/mcp"
         ''
       );
     };
@@ -135,7 +140,10 @@ in
         };
         nixos = {
           command = "uvx";
-          args = [ "mcp-nixos" ];
+          args = [
+            "--with=mcp<2"
+            "mcp-nixos"
+          ];
         };
         # keep-sorted end
       }
@@ -148,15 +156,6 @@ in
 
     lantian.mcp.toolMcpServers = common // {
       # keep-sorted start block=yes
-      adsb-lol = {
-        command = "uvx";
-        args = [
-          "awslabs.openapi-mcp-server@latest"
-          "--api-name=adsb.lol"
-          "--api-url=https://api.adsb.lol"
-          "--spec-url=https://api.adsb.lol/api/openapi.json"
-        ];
-      };
       airplanes-live = {
         command =
           let
@@ -191,7 +190,7 @@ in
           pkgs.writeShellScript "mcp-flightaware" ''
             export AEROAPI_KEY=$(cat "${config.sops.secrets.mcp-flightaware-api-key.path}")
             export HISHEL_CACHE_PATH=/tmp/mcp-flightaware-cache.db
-            exec ${pkgs.uv}/bin/uvx flightaware-mcp
+            exec ${pkgs.uv}/bin/uvx '--with=mcp<2' flightaware-mcp
           ''
         );
       };
