@@ -14,8 +14,8 @@ let
     win11 = false;
     config = {
       type = "auto";
-      opacity = 0;
-      backgroundOverride = "";
+      opacity = 0.75;
+      backgroundOverride = "#000000";
       theme = "Default Dark";
       enableAutoTheme = false;
       preferredDarkTheme = "Default Dark";

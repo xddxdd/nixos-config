@@ -27,7 +27,7 @@
 @define-color item_shortcut_shadow_sel darker(@item_box_selected);
 
 .app {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.75);
     border-color: alpha(@window_border_color, 0.7);
 }
 

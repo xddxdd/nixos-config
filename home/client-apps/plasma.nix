@@ -64,7 +64,7 @@
         BlurMenus = true;
         BlurNonMatching = true;
         BlurStrength = 4;
-        Brightness = 25;
+        Brightness = 100;
         NoiseStrength = 0;
         WindowClasses = lib.trim ''
           mpv

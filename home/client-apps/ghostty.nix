@@ -58,7 +58,8 @@ in
       ];
       font-size = 10;
 
-      background-opacity = 0;
+      background = "#000000";
+      background-opacity = 0.75;
     };
   };
 }
