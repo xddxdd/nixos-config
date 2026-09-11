@@ -57,7 +57,7 @@
       Windows.RollOverDesktops = true;
       "org.kde.kdecoration2".ShowToolTips = false;
 
-      Plugins.better_blur_dxEnabled = LT.this.hasTag LT.tags.low-gpu;
+      Plugins.better_blur_dxEnabled = !LT.this.hasTag LT.tags.low-gpu;
       Effect-better-blur-dx = {
         BlitMode = "WALLPAPER";
         BlurDecorations = true;
