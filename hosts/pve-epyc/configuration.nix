@@ -135,4 +135,9 @@
     AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
     CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
   };
+
+  systemd.services.immich-machine-learning.environment = {
+    CUDA_DEVICE_ORDER = "PCI_BUS_ID";
+    CUDA_VISIBLE_DEVICES = "1";
+  };
 }

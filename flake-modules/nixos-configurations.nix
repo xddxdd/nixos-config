@@ -11,13 +11,19 @@ let
 
   pkgsNameFor = n: if LT.hosts."${n}".hasTag LT.tags.cuda then "pkgsWithCuda" else "pkgs";
 
-  specialArgsFor = n: {
-    inherit self inputs;
-    LT = import ../helpers {
-      inherit lib inputs self;
-      inherit (self.nixosConfigurations."${n}") config pkgs;
+  specialArgsFor =
+    n:
+    let
+      inherit (LT.hosts."${n}") system;
+    in
+    {
+      inherit self inputs;
+      pkgsWithCuda = patchedPkgsFor system "pkgsWithCuda";
+      LT = import ../helpers {
+        inherit lib inputs self;
+        inherit (self.nixosConfigurations."${n}") config pkgs;
+      };
     };
-  };
 
   modulesFor =
     n:

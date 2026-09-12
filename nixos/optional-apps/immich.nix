@@ -16,9 +16,12 @@
   config = {
     services.immich = {
       enable = true;
+      # Very long build time
+      # package = pkgsWithCuda.immich;
       host = "127.0.0.1";
       port = LT.port.Immich;
       mediaLocation = config.lantian.immich.storage;
+      accelerationDevices = null; # Enable all GPUs
     };
 
     lantian.nginxVhosts = {
@@ -54,10 +57,6 @@
     systemd.services.immich-server = {
       after = [ "redis-immich.service" ];
       requires = [ "redis-immich.service" ];
-    };
-
-    systemd.services.immich-machine-learning.serviceConfig = {
-      PrivateDevices = lib.mkForce false;
     };
 
     systemd.tmpfiles.settings = {
