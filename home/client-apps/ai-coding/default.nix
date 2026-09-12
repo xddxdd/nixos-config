@@ -134,6 +134,7 @@ in
   home.file.".pi/agent/extensions/nixos-command-guard.ts".source =
     ./extensions/nixos-command-guard.ts;
   home.file.".pi/agent/extensions/model-favorites.ts".source = ./extensions/model-favorites.ts;
+  home.file.".pi/agent/extensions/last-model.ts".source = ./extensions/last-model.ts;
   home.file.".pi/agent/extensions/pi-secret-mask/config.json".text = builtins.toJSON {
     mode = "auto";
     allowCommands = [ ];
