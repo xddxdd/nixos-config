@@ -8,15 +8,17 @@ let
   llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
   llama-server = lib.getExe' llama-cpp "llama-server";
 
+  useCudaDevice = id: "env CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=${builtins.toString id}";
+
   mkEmbedding = repo: quant: ''
-    ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --embeddings --pooling last \
     --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
   '';
 
   mkReranker = repo: quant: ''
-    ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --rerank --ctx-size 32768
   '';
@@ -63,12 +65,13 @@ let
     "qwen3.8-27b" = {
       name = "Qwen3.8 27B";
       cmd = ''
-        ${llama-server} --port ''${PORT} --host 127.0.0.1 \
-        --hf-repo unsloth/Qwen3.8-27B-GGUF:UD-IQ4_XS \
-        --mmproj-url https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf \
+        ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+        --hf-repo huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF \
+        --hf-file Huihui-Qwen3.8-27B-abliterated-GSQ-RCO-IQ3_S-mtp.gguf \
         --cache-type-k q4_0 --cache-type-v q4_0 \
         --spec-type draft-mtp --spec-draft-n-max 2 \
-        --ctx-size 128000 --batch-size 1024 --ubatch-size 512 \
+        --ctx-size 200000 --batch-size 1024 --ubatch-size 512 \
+        --reasoning-preserve \
         --image-min-tokens 1024
       '';
     };
