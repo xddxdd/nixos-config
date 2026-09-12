@@ -10,7 +10,7 @@
       # keep-sorted start
       "discord --start-minimized"
       "materialgram -autostart"
-      "neochat"
+      "nheko"
       "steam -silent"
       "thunderbird"
       "vesktop --start-minimized"

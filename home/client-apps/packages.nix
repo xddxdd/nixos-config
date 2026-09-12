@@ -89,7 +89,6 @@ in
         kdePackages.isoimagewriter
         kdePackages.kdenlive
         kdePackages.kpat
-        kdePackages.neochat
         kicad
         lbzip2
         libfaketime
@@ -104,6 +103,7 @@ in
         microcom
         microfetch
         moonlight-qt
+        nheko
         nur-xddxdd.baidupcs-go
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
