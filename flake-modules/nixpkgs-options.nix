@@ -48,6 +48,13 @@ in
         ++ (import ../overlays { inherit inputs; });
         settings = {
           android_sdk.accept_license = true;
+          cudaCapabilities = [
+            "6.1"
+            "7.5"
+            "8.6"
+            "8.9"
+            "12.0"
+          ];
         };
       in
       {
