@@ -32,7 +32,7 @@ function saveLastModel(model: LastModel): void {
 }
 
 export default function lastModel(pi: ExtensionAPI): void {
-  // Record explicit user choices (/model, Ctrl+P). "restore" (resumed session)
+  // Record explicit user choices (/model, Ctrl+P). "resume" (resumed session)
   // is skipped so an old session's model does not leak into new sessions.
   pi.on('model_select', async (event) => {
     if (event.source === 'set' || event.source === 'cycle') {
@@ -41,7 +41,7 @@ export default function lastModel(pi: ExtensionAPI): void {
   });
 
   pi.on('session_start', async (event, ctx) => {
-    if (event.reason !== 'startup') return;
+    if (event.reason !== 'startup' && event.reason !== 'new') return;
     // Resumed sessions restore their own recorded model; only fresh sessions
     // (no messages yet) get the last-used model applied over the settings default.
     if (ctx.sessionManager.getBranch().some((entry) => entry.type === 'message')) return;
