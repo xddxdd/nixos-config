@@ -18,6 +18,8 @@ in
     (inputs.secrets + "/nixos-hidden-module/a7129082a691a699")
   ];
 
+  home.packages = [ pkgs.llm-agents.zcode ];
+
   programs.mcp = {
     enable = true;
     servers = osConfig.lantian.mcp.codingMcpServers or { };
