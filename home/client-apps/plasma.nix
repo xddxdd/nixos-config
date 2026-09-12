@@ -61,15 +61,17 @@
       Effect-better-blur-dx = {
         BlitMode = "WALLPAPER";
         BlurDecorations = true;
-        BlurMatching = false;
+        BlurMatching = true;
         BlurMenus = true;
-        BlurNonMatching = true;
+        BlurNonMatching = false;
         BlurStrength = 4;
         Brightness = 100;
         NoiseStrength = 0;
         WindowClasses = lib.trim ''
-          mpv
-          firefox
+          code
+          ghostty
+          plasmashell
+          ulauncher
         '';
       };
       # Disable corner activated actions
