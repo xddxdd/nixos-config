@@ -1016,11 +1016,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788733001,
-        "narHash": "sha256-KhuoJmrvDr72HH5xSlZCGKO3jHqf3PwQy9s/U6pt+as=",
+        "lastModified": 1789243446,
+        "narHash": "sha256-CSOUcWmlQ2IgbooNC8gspgq0xDQyU9RTbJwLOX+6d/c=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "2ee8138b986de79134f34b97079eb775cb6e6f68",
+        "rev": "03c2c2facfd430315e65ed887a2d41e20586f421",
         "type": "github"
       },
       "original": {

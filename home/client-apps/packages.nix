@@ -111,6 +111,7 @@ in
         nur-xddxdd.gopherus
         nur-xddxdd.kuake-cli
         nur-xddxdd.lantianCustomized.materialgram
+        nur-xddxdd.mages-bin
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
         nur-xddxdd.runpodctl
