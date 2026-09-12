@@ -152,9 +152,13 @@ if __name__ == "__main__":
     with open(sys.argv[1]) as f:
         event = BuildEvent.model_validate_json(f.read())
 
-    # If nix-cachyos-kernel build is >=75% successful, update GitHub branch
+    # If all example NixOS configs are successful, update GitHub branch
     try:
-        if event.project == "lantian" and event.jobset == "nix-cachyos-kernel":
+        kernel_repos = {
+            "nix-cachyos-kernel": "https://github.com/xddxdd/nix-cachyos-kernel.git",
+            "nix-xanmod-kernel": "https://github.com/xddxdd/nix-xanmod-kernel.git",
+        }
+        if event.project == "lantian" and event.jobset in kernel_repos:
             logging.info("Checking if all builds are complete")
             evals = JobsetEvals.from_api(event.project, event.jobset)
             eval = evals.find_by_build_id(event.build)
@@ -179,7 +183,7 @@ if __name__ == "__main__":
 
             if all_complete and nixos_config_all_successful:
                 git_set_branch_to_commit(
-                    "https://github.com/xddxdd/nix-cachyos-kernel.git",
+                    kernel_repos[event.jobset],
                     "release",
                     commit_id,
                 )
