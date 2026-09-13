@@ -57,6 +57,9 @@ let
         proxy_set_header Host ${
           if config.proxyOverrideHost != null then config.proxyOverrideHost else "$host"
         };
+        proxy_set_header Origin ${
+          if config.proxyOverrideOrigin != null then config.proxyOverrideOrigin else "$http_origin"
+        };
         proxy_set_header X-Real-IP ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
         proxy_set_header X-Forwarded-For ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
         proxy_set_header X-Forwarded-Host $host:${LT.portStr.HTTPS};
@@ -83,6 +86,9 @@ let
 
         grpc_set_header Host ${
           if config.proxyOverrideHost != null then config.proxyOverrideHost else "$host"
+        };
+        grpc_set_header Origin ${
+          if config.proxyOverrideOrigin != null then config.proxyOverrideOrigin else "$http_origin"
         };
         grpc_set_header X-Real-IP ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
         grpc_set_header X-Forwarded-For ${if config.proxyHideIP then "127.0.0.1" else "$remote_addr"};
@@ -220,6 +226,15 @@ in
       example = "www.example.org";
       description = ''
         Override host passed to backend server.
+      '';
+    };
+    proxyOverrideOrigin = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "https://www.example.org";
+      description = ''
+        Override Origin header passed to backend server. Should be a full
+        origin URL (scheme included) if the backend parses it as a URL.
       '';
     };
 
