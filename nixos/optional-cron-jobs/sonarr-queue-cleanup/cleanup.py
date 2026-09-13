@@ -1,8 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p python3 -p python3Packages.requests
-# Remove Sonarr queue entries stuck on "Episode file already imported",
-# "Not a Custom Format upgrade for existing episode file(s)" or "Not an
-# upgrade for existing episode file(s)".
+# Remove Sonarr queue entries stuck on "Episode file already imported".
 #
 # These appear when a release is tracked as a season pack but the torrent
 # only contains a single episode file: the file gets imported (or discarded
@@ -11,14 +9,10 @@
 # from such a download, so it can be safely removed, including the torrent
 # from the download client.
 #
-# A download is only deleted when ALL of its queue entries carry one of
-# those messages, all meaning the entry has nothing left to import:
-# "Episode file already imported" is Sonarr's download-level accounting
-# that every file it contains was already imported, while the two "not an
-# upgrade" messages mean the library already holds a file at least as good
-# as what the download offers. If any entry of the download carries none
-# of them, the download may still hold unimported content and is left
-# untouched.
+# A download is only deleted when ALL of its queue entries carry that
+# message, which is Sonarr's download-level accounting that every file it
+# contains was already imported. If any entry of the download is missing
+# it, the download may still hold unimported content and is left untouched.
 
 import os
 import sys
@@ -30,12 +24,7 @@ SONARR_URL = os.environ["SONARR_URL"].rstrip("/")
 CONFIG_XML = os.environ.get("SONARR_CONFIG", "/var/lib/sonarr/config.xml")
 DRY_RUN = "DRY_RUN" in os.environ
 PAGE_SIZE = 200
-# Status messages that mean a queue entry has nothing left to import.
-MARKERS = [
-    "episode file already imported",
-    "not a custom format upgrade",
-    "not an upgrade for existing episode file",
-]
+MARKER = "episode file already imported"
 
 
 def get_api_key():
@@ -76,7 +65,7 @@ def is_affected(record):
         for status_message in record.get("statusMessages") or []
         for message in status_message.get("messages") or []
     ]
-    return any(marker in message.lower() for message in messages for marker in MARKERS)
+    return any(MARKER in message.lower() for message in messages)
 
 
 def select_targets(records):
@@ -89,8 +78,8 @@ def select_targets(records):
         if record.get("downloadId"):
             entries_by_download.setdefault(record["downloadId"], []).append(record)
 
-    # Only delete a download when every queue entry of that download has
-    # nothing left to import; otherwise it may still hold unimported content.
+    # Only delete a download when every queue entry of that download is
+    # already imported; otherwise it may still hold unimported content.
     targets = []
     skipped = []
     handled_downloads = set()
@@ -155,8 +144,8 @@ def main():
         return
 
     print(
-        f"Found {len(affected)} eligible queue entries "
-        "(already imported / not an upgrade); "
+        f"Found {len(affected)} queue entries stuck on "
+        "'Episode file already imported'; "
         f"deleting {len(targets)} entries from {len({r.get('downloadId') for r in targets if r.get('downloadId')})} "
         "fully imported downloads."
     )
