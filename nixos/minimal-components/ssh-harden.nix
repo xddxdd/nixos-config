@@ -104,6 +104,8 @@ in
       PermitRootLogin = lib.mkForce "prohibit-password";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      # Handle high concurrency from rustic
+      MaxStartups = 1000;
       # https://www.sshaudit.com/
       Ciphers = [
         "aes256-gcm@openssh.com"
