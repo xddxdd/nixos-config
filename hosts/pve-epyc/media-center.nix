@@ -26,6 +26,7 @@ in
     ../../nixos/optional-apps/qbittorrent.nix
     ../../nixos/optional-apps/qbittorrent-pt.nix
     ../../nixos/optional-apps/sonarr
+    ../../nixos/optional-cron-jobs/sonarr-queue-cleanup
 
     # ../../nixos/optional-cron-jobs/flexget
   ];
