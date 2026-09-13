@@ -107,6 +107,7 @@ in
         nur-xddxdd.baidupcs-go
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
+        nur-xddxdd.flashbrowser
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.kuake-cli
