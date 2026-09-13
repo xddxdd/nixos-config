@@ -144,6 +144,13 @@ rec {
     # Radicle check fails with HPN SSH
     doCheck = false;
   });
+  rustic = prev.rustic.overrideAttrs (old: {
+    # Patch vendored rustic_core dependency
+    # Stop tree workers after receiver closes, from https://github.com/rustic-rs/rustic_core/pull/546
+    postPatch = (old.postPatch or "") + ''
+      patch -d "$cargoDepsCopy"/source-registry-0/rustic_core-* -p1 < ${../patches/rustic-core-stop-tree-workers-after-receiver-closes.patch}
+    '';
+  });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
 
