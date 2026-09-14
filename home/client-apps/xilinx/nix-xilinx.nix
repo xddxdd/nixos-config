@@ -104,6 +104,7 @@ let
       runScript = pkgs.writeScript "xilinx-${product}-runner" (
         (runScriptPrefix { })
         + ''
+          LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
           if [[ -d $INSTALL_DIR/${product} ]]; then
             $INSTALL_DIR/${product}/bin/${name} "$@"
           else
@@ -199,7 +200,7 @@ in
       })
       + (installShellMessage "Vivado & Vitis")
       + ''
-        exec bash
+        LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH exec bash
       ''
     );
     meta = metaCommon // {
