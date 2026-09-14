@@ -75,6 +75,9 @@ in
     # Fly.io
     flyctl
 
+    # FPGA
+    quartus-prime-lite
+
     # Golang
     delve
     go-outline
