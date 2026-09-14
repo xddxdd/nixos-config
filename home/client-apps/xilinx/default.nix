@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   xilinxPkgs = pkgs.callPackage ./nix-xilinx.nix { };
 in
 {
+  imports = [
+    (inputs.secrets + "/nixos-hidden-module/da4fbe694da377db")
+  ];
+
   home.packages = [
     xilinxPkgs.model_composer
     xilinxPkgs.vitis
