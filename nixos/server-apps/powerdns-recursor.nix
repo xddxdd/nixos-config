@@ -8,6 +8,16 @@
 let
   netns = config.lantian.netns.powerdns-recursor;
 
+  # repology.org answers with these addresses directly; they are server hosts, not nameservers,
+  # so the records are forced via RPZ local data instead of a forward zone
+  repologyRpz = pkgs.writeText "repology.rpz" ''
+    $TTL 300
+    @ IN SOA repology.rpz. root.repology.rpz. (1 3600 1200 604800 300)
+    @ IN NS localhost.
+    repology.org. IN A 92.63.176.157
+    repology.org. IN AAAA 2a03:6f01:1:2::f159
+  '';
+
   forwardZones =
     let
       authoritative =
@@ -101,6 +111,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ntaRecords = lib.concatMapStringsSep "\n" (n: "addNTA(\"${n}\")") LT.constants.zones.all;
       in
       ''
+        rpzFile("${repologyRpz}")
+
         rpzFile("${LT.sources.delegacy-rpz.src}")
 
         ${ntaRecords}
