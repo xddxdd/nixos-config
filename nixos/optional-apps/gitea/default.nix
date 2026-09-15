@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -27,17 +26,6 @@ in
 {
   imports = [ ../mysql.nix ];
 
-  sops.secrets.gitea-storage-access-key = {
-    sopsFile = inputs.secrets + "/gitea.yaml";
-    owner = "git";
-    group = "gitea";
-  };
-  sops.secrets.gitea-storage-secret-key = {
-    sopsFile = inputs.secrets + "/gitea.yaml";
-    owner = "git";
-    group = "gitea";
-  };
-
   services.gitea = {
     enable = true;
     appName = "Lan Tian @ Git";
@@ -51,9 +39,6 @@ in
     lfs.enable = true;
     mailerPasswordFile = config.sops.secrets.smtp-pass.path;
     user = "git";
-
-    minioAccessKeyId = config.sops.secrets.gitea-storage-access-key.path;
-    minioSecretAccessKey = config.sops.secrets.gitea-storage-secret-key.path;
 
     settings = {
       ui = {
@@ -117,13 +102,7 @@ in
         GC = 3600;
       };
       storage = {
-        STORAGE_TYPE = "minio";
-        MINIO_ENDPOINT = "us-west-1.telnyxstorage.com";
-        MINIO_BUCKET = "lantian-gitea";
-        MINIO_LOCATION = "us-west-1";
-        MINIO_USE_SSL = true;
-        # Telnyx storage does not support regular presigned URLs, will expose key
-        SERVE_DIRECT = false;
+        STORAGE_TYPE = "local";
       };
     };
   };
