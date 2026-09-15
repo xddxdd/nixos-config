@@ -54,27 +54,6 @@
         },
         "version": "1.9.3"
     },
-    "bosl2": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "bosl2",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "BelfrySCAD",
-            "repo": "BOSL2",
-            "rev": "v2.0.755",
-            "sha256": "sha256-4LlMyXBXtSoy1FTAE9j7gmApDHYgtZZh/XnkzGUG2DE=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v2.0.755"
-    },
     "delegacy-rpz": {
         "cargoLock": null,
         "date": null,

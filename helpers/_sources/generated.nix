@@ -42,17 +42,6 @@
       sha256 = "sha256-KgCa4bQ+i6Omb0XZMb+1zjKpQDEHS4SNpdxRv0cpneo=";
     };
   };
-  bosl2 = {
-    pname = "bosl2";
-    version = "v2.0.755";
-    src = fetchFromGitHub {
-      owner = "BelfrySCAD";
-      repo = "BOSL2";
-      rev = "v2.0.755";
-      fetchSubmodules = false;
-      sha256 = "sha256-4LlMyXBXtSoy1FTAE9j7gmApDHYgtZZh/XnkzGUG2DE=";
-    };
-  };
   delegacy-rpz = {
     pname = "delegacy-rpz";
     version = "2026090400";

@@ -1,9 +1,9 @@
-{ pkgs, LT, ... }:
+{ pkgs, ... }:
 {
   home.packages = [
-    pkgs.openscad
+    pkgs.openscad-unstable
     pkgs.openscad-lsp
+    pkgs.openscadPackages.bosl
+    pkgs.openscadPackages.bosl2
   ];
-
-  xdg.dataFile."OpenSCAD/libraries/BOSL2".source = LT.sources.bosl2.src;
 }
