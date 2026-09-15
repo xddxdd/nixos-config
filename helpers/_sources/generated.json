@@ -423,7 +423,7 @@
     },
     "tar1090-db": {
         "cargoLock": null,
-        "date": "2026-09-07",
+        "date": "2026-09-14",
         "extract": null,
         "name": "tar1090-db",
         "passthru": null,
@@ -435,12 +435,12 @@
             "name": null,
             "owner": "wiedehopf",
             "repo": "tar1090-db",
-            "rev": "a52dee9e00ff33db2eaad678b636ae88b490b58e",
-            "sha256": "sha256-AJ9kGO84oaXMGB0Rwk0DAREtLvIO1QJvv78HnmQkKGE=",
+            "rev": "5bc1a9928a6d1c9dc3c9136ea66d7e815b8440e0",
+            "sha256": "sha256-RB4BJl7ZtPggt9w+aQKPdY5G8HfZdr+LBPCNM5tNDuk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a52dee9e00ff33db2eaad678b636ae88b490b58e"
+        "version": "5bc1a9928a6d1c9dc3c9136ea66d7e815b8440e0"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLock": null,
