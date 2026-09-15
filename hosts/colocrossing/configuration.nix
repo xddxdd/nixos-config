@@ -10,6 +10,7 @@
     ../../nixos/server.nix
 
     ./hardware-configuration.nix
+    ./s3-backup.nix
 
     ../../nixos/optional-apps/acme
     ../../nixos/optional-apps/actual.nix

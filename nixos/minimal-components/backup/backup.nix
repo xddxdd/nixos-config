@@ -49,10 +49,12 @@ in
         lib.types.submodule {
           options = {
             snapshotFrom = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
             };
             snapshotTo = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
             };
             backupPath = lib.mkOption {
               type = lib.types.str;
@@ -100,13 +102,15 @@ in
           ]
           ++ resticCommands;
 
-          preStart = ''
-            # Btrfs snapshot
-            [ -e "${v.snapshotTo}" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete "${v.snapshotTo}"
-            ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r "${v.snapshotFrom}" "${v.snapshotTo}"
-
-            mkdir -p /var/cache/restic/${n}
-          '';
+          preStart =
+            lib.optionalString (v.snapshotFrom != null && v.snapshotTo != null) ''
+              # Btrfs snapshot
+              [ -e "${v.snapshotTo}" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete "${v.snapshotTo}"
+              ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r "${v.snapshotFrom}" "${v.snapshotTo}"
+            ''
+            + ''
+              mkdir -p /var/cache/restic/${n}
+            '';
 
           script = ''
             HAS_ERROR=0
@@ -117,11 +121,13 @@ in
           '';
 
           # Remove snapshot
-          postStop = ''
-            ${lib.getExe pkgs.btrfs-progs} subvolume delete ${v.snapshotTo}
-
-            rm -rf /var/cache/restic/${n}
-          '';
+          postStop =
+            lib.optionalString (v.snapshotFrom != null && v.snapshotTo != null) ''
+              ${lib.getExe pkgs.btrfs-progs} subvolume delete ${v.snapshotTo}
+            ''
+            + ''
+              rm -rf /var/cache/restic/${n}
+            '';
         }
       ) cfg.paths;
 
