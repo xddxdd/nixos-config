@@ -1,12 +1,24 @@
 {
   config,
+  lib,
   LT,
+  pkgs,
   ...
 }:
 let
   port = builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.IPFS);
 in
 {
+  environment.systemPackages = [
+    (lib.hiPrio (
+      pkgs.runCommand "ipfs-cli" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+        mkdir -p $out/bin
+        makeWrapper ${lib.getExe config.services.kubo.package} $out/bin/ipfs \
+          --add-flags "--api=/unix/run/ipfs.sock"
+      ''
+    ))
+  ];
+
   services.kubo = {
     enable = true;
     settings.Addresses = {
