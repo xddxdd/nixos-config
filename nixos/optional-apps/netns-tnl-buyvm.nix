@@ -1,8 +1,18 @@
 {
   LT,
+  lib,
+  config,
   ...
 }:
 {
+  assertions = [
+    {
+      assertion =
+        (lib.filterAttrs (n: _: lib.hasPrefix "wgmesh" n) config.systemd.network.netdevs) != { };
+      message = "WireGuard mesh not configured";
+    }
+  ];
+
   environment.etc."netns/tnl-buyvm/resolv.conf".text = ''
     nameserver 8.8.8.8
     options single-request edns0
