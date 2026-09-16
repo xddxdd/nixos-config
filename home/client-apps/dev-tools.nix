@@ -167,6 +167,7 @@ in
     minicom
     nur-xddxdd.bin-cpuflags-x86
     oci-cli
+    s3cmd
     tldr
     tokei
   ];
