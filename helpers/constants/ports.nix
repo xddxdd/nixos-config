@@ -25,6 +25,7 @@ rec {
     Quassel.Main = 4242;
     Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
+    IPFS.API = 5001;
     IPerf = 5201;
     mDNS = 5353;
     Bazarr = 6767;
@@ -137,4 +138,10 @@ rec {
   };
 
   portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
+
+  portForwardOffset = {
+    qBitTorrent = 0;
+    qBitTorrentPT = 1;
+    IPFS = 2;
+  };
 }

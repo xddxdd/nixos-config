@@ -12,7 +12,7 @@
     group = "users";
     profileDir = "/var/lib/qbittorrent";
     webuiPort = LT.port.qBitTorrent.WebUI;
-    torrentingPort = LT.this.wg-lantian.forwardStart;
+    torrentingPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrent;
     extraArgs = [
       "--confirm-legal-notice"
     ];

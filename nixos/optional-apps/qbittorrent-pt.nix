@@ -30,7 +30,9 @@ in
         (lib.getExe pkgs.qbittorrent-nox)
         "--profile=/var/lib/qbittorrent-pt"
         "--webui-port=${LT.portStr.qBitTorrentPT.WebUI}"
-        "--torrenting-port=${builtins.toString (LT.this.wg-lantian.forwardStart + 1)}"
+        "--torrenting-port=${
+          builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrentPT)
+        }"
         "--confirm-legal-notice"
       ];
       TimeoutStopSec = 1800;

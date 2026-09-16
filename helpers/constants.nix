@@ -37,7 +37,7 @@ let
       ;
     inherit matrixWellKnown;
     inherit nix;
-    inherit (ports) port portStr;
+    inherit (ports) port portStr portForwardOffset;
     inherit (misc)
       forceX11WrapperArgs
       stateVersion

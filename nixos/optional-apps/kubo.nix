@@ -1,13 +1,46 @@
 {
   config,
+  LT,
   ...
 }:
+let
+  port = builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.IPFS);
+in
 {
-  services.kubo.enable = true;
+  services.kubo = {
+    enable = true;
+    settings.Addresses = {
+      API = [
+        "/ip4/127.0.0.1/tcp/${LT.portStr.IPFS.API}"
+        "/ip6/::1/tcp/${LT.portStr.IPFS.API}"
+      ];
+      Gateway = "/unix/run/ipfs-gateway.sock";
+      Swarm = [
+        "/ip4/0.0.0.0/tcp/${port}"
+        "/ip6/::/tcp/${port}"
+        "/ip4/0.0.0.0/udp/${port}/quic-v1"
+        "/ip4/0.0.0.0/udp/${port}/quic-v1/webtransport"
+        "/ip4/0.0.0.0/udp/${port}/webrtc-direct"
+        "/ip6/::/udp/${port}/quic-v1"
+        "/ip6/::/udp/${port}/quic-v1/webtransport"
+        "/ip6/::/udp/${port}/webrtc-direct"
+      ];
+    };
+  };
 
   systemd.services.ipfs = config.lantian.netns.tnl-buyvm.bind {
     serviceConfig.Restart = "on-failure";
   };
 
   users.users.lantian.extraGroups = [ config.services.kubo.group ];
+  users.users.nginx.extraGroups = [ config.services.kubo.group ];
+
+  lantian.localVhosts.ipfs = {
+    locations = {
+      "/" = {
+        proxyPass = "http://unix:/run/ipfs-gateway.sock";
+        enableOAuth = true;
+      };
+    };
+  };
 }

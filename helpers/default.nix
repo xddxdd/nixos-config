@@ -29,6 +29,7 @@ let
     inherit (constants)
       port
       portStr
+      portForwardOffset
       tags
       interfacePrefixes
       zones
