@@ -174,15 +174,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "9e4f1cd723c89e58715de2d56c8cf8db2da4a34b";
+    version = "b68d0ed0c19d20a2c336879be18804b08bb63e89";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "9e4f1cd723c89e58715de2d56c8cf8db2da4a34b";
+      rev = "b68d0ed0c19d20a2c336879be18804b08bb63e89";
       fetchSubmodules = false;
-      sha256 = "sha256-cJP4BL8cgvk539Qa+adnRHAxmqVrdk/4564fEK77aog=";
+      sha256 = "sha256-gPDcYTAZRhxMl5Tb2SPoPmj/Jv38+5bPHoKMVFqlk6k=";
     };
-    date = "2026-09-07";
+    date = "2026-09-15";
   };
   open5gs = {
     pname = "open5gs";
