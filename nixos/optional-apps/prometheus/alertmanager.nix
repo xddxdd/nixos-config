@@ -199,6 +199,18 @@
                     description = "SSL cert {{$labels.path}} will expire in 1.5 days.";
                   };
                 }
+
+                # WireGuard connectivity between servers
+                {
+                  alert = "wireguard_handshake_no_activity";
+                  expr = "time() - wireguard_latest_handshake_seconds{interface=~\"wgmesh[0-9]{1,2}\"} > 300";
+                  for = "5m";
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "⚠️ {{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
+                    description = "{{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
+                  };
+                }
               ];
             }
           ];
