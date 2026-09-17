@@ -83,7 +83,8 @@ in
           Destination = "::/0";
           Table = 10000 + v.index;
         }
-      ];
+      ]
+      ++ builtins.map (r: { Destination = r; }) v._routes;
     }
   ) targetHosts;
 
