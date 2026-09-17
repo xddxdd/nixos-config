@@ -2,6 +2,7 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }:
 let
@@ -18,6 +19,9 @@ let
 
     sudo zerotier-cli set ${ltnet} allowDefault=$1
   '';
+
+  wgmeshEnabled =
+    (lib.filterAttrs (n: _: lib.hasPrefix "wgmesh" n) config.systemd.network.netdevs) != { };
 in
 {
   environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
@@ -56,8 +60,8 @@ in
   systemd.services.zerotierone = {
     preStart = ''
       rm -rf /var/lib/zerotier-one/peers.d
-    ''
-    + lib.optionalString (LT.this.hasTag LT.tags.server) ''
+
+      # Manage IP with custom logic on all NixOS hosts
       cat > /var/lib/zerotier-one/networks.d/${ltnet}.local.conf <<EOF
       allowManaged=0
       allowGlobal=0
@@ -99,7 +103,7 @@ in
     # Do not include additional hosts, ZeroTier Windows calculate mac differently
   };
 
-  systemd.network.networks."99-zerotier" = lib.mkIf (LT.this.hasTag LT.tags.server) {
+  systemd.network.networks."99-zerotier" = {
     matchConfig.Name = "ztje7axwd2";
     address = [
       "198.18.0.${builtins.toString LT.this.index}/24"
@@ -117,11 +121,28 @@ in
             route: !lib.hasPrefix "198.18.0." route && !lib.hasPrefix "fdbc:f9dc:67ad::" route
           ) v._routes;
         in
-        builtins.map (r: {
-          Destination = r;
-          Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
-        }) routes
-      ) (LT.otherHostsWithoutTag LT.tags.server)
+        builtins.map (
+          r:
+          [
+            {
+              Destination = r;
+              Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+            }
+          ]
+          ++ lib.optionals (!wgmeshEnabled) [
+            {
+              Destination = "0.0.0.0/0";
+              Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+              Table = 10000 + v.index;
+            }
+            {
+              Destination = "::/0";
+              Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+              Table = 10000 + v.index;
+            }
+          ]
+        ) routes
+      ) (if wgmeshEnabled then LT.otherHostsWithoutTag LT.tags.server else LT.otherHosts)
     );
   };
 }
