@@ -40,6 +40,11 @@ in
       linuxdo-hub = {
         api = "openai-completions";
         baseUrl = "https://hub.linux.do/v1";
+        compat.supportsDeveloperRole = false;
+      };
+      llama-swap = {
+        api = "openai-completions";
+        baseUrl = "https://llama-swap.pve-epyc.xuyh0120.win/v1";
       };
       uni-api = {
         api = "openai-completions";
