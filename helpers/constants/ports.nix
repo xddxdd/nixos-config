@@ -26,6 +26,7 @@ rec {
     Yggdrasil.Alfis = 4244;
     Pipewire.TCP = 4713;
     IPFS.API = 5001;
+    IPFS.Gateway = 5002;
     IPerf = 5201;
     mDNS = 5353;
     Bazarr = 6767;

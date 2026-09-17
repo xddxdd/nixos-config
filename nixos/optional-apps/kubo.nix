@@ -26,7 +26,12 @@ in
         "/ip4/127.0.0.1/tcp/${LT.portStr.IPFS.API}"
         "/ip6/::1/tcp/${LT.portStr.IPFS.API}"
       ];
-      Gateway = "/unix/run/ipfs-gateway.sock";
+      Gateway = [
+        "/unix/run/ipfs-gateway.sock"
+        # For browser access
+        "/ip4/127.0.0.1/tcp/${LT.portStr.IPFS.Gateway}"
+        "/ip6/::1/tcp/${LT.portStr.IPFS.Gateway}"
+      ];
       Swarm = [
         "/ip4/0.0.0.0/tcp/${port}"
         "/ip6/::/tcp/${port}"
@@ -47,11 +52,21 @@ in
   users.users.lantian.extraGroups = [ config.services.kubo.group ];
   users.users.nginx.extraGroups = [ config.services.kubo.group ];
 
-  lantian.localVhosts.ipfs = {
-    locations = {
-      "/" = {
-        proxyPass = "http://unix:/run/ipfs-gateway.sock";
-        enableOAuth = true;
+  lantian.localVhosts = {
+    ipfs = {
+      locations = {
+        "/" = {
+          proxyPass = "http://unix:/run/ipfs-gateway.sock";
+          enableOAuth = true;
+        };
+      };
+    };
+    ipfs-api = {
+      locations = {
+        "/" = {
+          proxyPass = "http://unix:/run/ipfs.sock";
+          enableOAuth = true;
+        };
       };
     };
   };
