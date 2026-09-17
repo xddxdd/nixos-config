@@ -45,6 +45,22 @@ in
       llama-swap = {
         api = "openai-completions";
         baseUrl = "https://llama-swap.pve-epyc.xuyh0120.win/v1";
+        models = [
+          {
+            id = "qwen3.8-27b";
+            name = "qwen3.8-27b";
+            reasoning = true;
+            input = [
+              "text"
+              "image"
+            ];
+            contextWindow = 200000;
+            maxTokens = 65536;
+            thinkingLevelMap = {
+              high = "xhigh";
+            };
+          }
+        ];
       };
       uni-api = {
         api = "openai-completions";
@@ -77,6 +93,7 @@ in
         # keep-sorted start
         "git:github.com/xddxdd/pi-model-discovery@v0.3.1"
         "npm:@cortexkit/pi-magic-context"
+        "npm:@fradser/pi-utils"
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-langfuse"
