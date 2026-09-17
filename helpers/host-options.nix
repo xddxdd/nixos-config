@@ -247,5 +247,10 @@
       readOnly = true;
       default = builtins.filter (route: lib.hasInfix ":" route) config._routes;
     };
+
+    _publiclyAccessible = lib.mkOption {
+      readOnly = true;
+      default = !config.firewalled && config.public.IPv4 != null;
+    };
   };
 }
