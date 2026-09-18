@@ -8,11 +8,24 @@
 
   services.suricata = {
     enable = true;
+    reloadOnRulesetUpdate = true;
 
     disabledRules = [
       "re:modbus"
       "re:dnp3"
       "re:enip"
+
+      # Suricata's own event rules (*-events.rules shipped with suricata;
+      # files.rules kept as it powers filestore/fileinfo)
+      "group:*-events.rules"
+      "re:STUN Binding"
+      "re:ZeroTier"
+      "re:Syncthing"
+      "group:emerging-dyn_dns.rules"
+      "re:Query for \\.[a-z]+ TLD"
+      "re:Query to a .* domain - Likely Hostile"
+      "re:DNS request .*extension\""
+      "re:extension observed\""
     ];
 
     settings.outputs = [
