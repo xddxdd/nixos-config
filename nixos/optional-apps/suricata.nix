@@ -29,6 +29,7 @@
       # classtype-based: Potential Corporate Privacy Violation / Misc activity
       "re:classtype:policy-violation"
       "re:classtype:misc-activity"
+      "re:classtype:misc-attack"
     ];
 
     enabledRules = [
