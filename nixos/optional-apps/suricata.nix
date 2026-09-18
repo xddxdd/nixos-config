@@ -31,6 +31,13 @@
       "re:classtype:misc-activity"
     ];
 
+    enabledRules = [
+      # TrafficID rules: alert on >X uploaded to a public IP via TLS/SSH
+      # (possible data exfiltration; thresholds 10MB-10GB); disabled by
+      # default in the ruleset
+      "re:Possible data exfiltration"
+    ];
+
     settings.outputs = [
       {
         eve-log = {
