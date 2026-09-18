@@ -9,7 +9,6 @@
     ./firewall.nix
     ./hardware-configuration.nix
     ./networking.nix
-    ./suricata.nix
 
     ../../nixos/common-apps/coredns.nix
     ../../nixos/client-components/multicast-dns.nix
@@ -18,6 +17,7 @@
     ../../nixos/optional-apps/nmea-static-gps-server.nix
     ../../nixos/optional-apps/ncps.nix
     ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/suricata.nix
   ];
 
   services.miniupnpd = {
@@ -39,5 +39,19 @@
   services.ncps.cache = {
     storage.local = "/mnt/unreliable-cache/ncps";
     tempPath = "/mnt/unreliable-cache/ncps-tmp";
+  };
+
+  services.suricata.settings = {
+    host-mode = "router";
+
+    vars.address-groups.HOME_NET = "[192.168.0.0/24]";
+
+    af-packet = [
+      {
+        interface = "eth0";
+        cluster-id = "1";
+        cluster-type = "cluster_flow";
+      }
+    ];
   };
 }
