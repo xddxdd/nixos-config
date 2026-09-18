@@ -26,10 +26,10 @@
       "re:extension observed\""
       "re:Query for Suspicious"
 
-      # classtype-based: Potential Corporate Privacy Violation / Misc activity
       "re:classtype:policy-violation"
       "re:classtype:misc-activity"
       "re:classtype:misc-attack"
+      "re:classtype:network-scan"
     ];
 
     enabledRules = [
