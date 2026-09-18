@@ -69,31 +69,76 @@
             {
               alert = {
                 tagged-packets = "yes";
+                verdict = "yes";
+                metadata = {
+                  app-layer = true;
+                  flow = true;
+                  rule = {
+                    metadata = true;
+                    raw = true;
+                    reference = true;
+                  };
+                };
               };
             }
             {
               dns = {
                 requests = "yes";
-                responses = "no";
+                responses = "yes";
               };
             }
             {
               http = {
-                metadata = "no";
+                extended = "yes";
+                dump-all-headers = "both";
               };
             }
-            { tls = { }; }
             {
-              files = {
-                force-magic = "no";
+              tls = {
+                extended = "yes";
+                session-resumption = "yes";
               };
             }
-            { stats = { }; }
+            { files.force-magic = "yes"; }
+            {
+              stats = {
+                totals = "yes";
+                threads = "yes";
+                deltas = "yes";
+              };
+            }
+            { smtp.extended = "yes"; }
+            { arp.enabled = "yes"; }
+            { dhcp.extended = "yes"; }
+            { dcerpc = { }; }
+            { doh2 = { }; }
+            { flow = { }; }
+            { ftp = { }; }
+            { http2 = { }; }
+            { ike = { }; }
+            { krb5 = { }; }
+            { ldap = { }; }
+            { mdns = { }; }
+            { metadata = { }; }
+            { mqtt = { }; }
+            { nfs = { }; }
+            { pop3 = { }; }
+            { quic = { }; }
+            { rdp = { }; }
+            { rfb = { }; }
+            { sip = { }; }
+            { smb = { }; }
+            { snmp = { }; }
+            { ssh = { }; }
+            { tftp = { }; }
+            { websocket = { }; }
           ];
         };
       }
     ];
   };
+
+  systemd.services.suricata.serviceConfig.TimeoutStartSec = "5min";
 
   services.logrotate = {
     enable = true;
