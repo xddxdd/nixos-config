@@ -18,14 +18,17 @@
       # Suricata's own event rules (*-events.rules shipped with suricata;
       # files.rules kept as it powers filestore/fileinfo)
       "group:*-events.rules"
-      "re:STUN Binding"
       "re:ZeroTier"
-      "re:Syncthing"
       "group:emerging-dyn_dns.rules"
       "re:Query for \\.[a-z]+ TLD"
       "re:Query to a .* domain - Likely Hostile"
       "re:DNS request .*extension\""
       "re:extension observed\""
+      "re:Query for Suspicious"
+
+      # classtype-based: Potential Corporate Privacy Violation / Misc activity
+      "re:classtype:policy-violation"
+      "re:classtype:misc-activity"
     ];
 
     settings.outputs = [
