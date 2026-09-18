@@ -9,6 +9,7 @@
     ./firewall.nix
     ./hardware-configuration.nix
     ./networking.nix
+    ./suricata.nix
 
     ../../nixos/common-apps/coredns.nix
     ../../nixos/client-components/multicast-dns.nix
