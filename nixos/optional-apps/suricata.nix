@@ -39,6 +39,25 @@
       "re:Possible data exfiltration"
     ];
 
+    # Whitelist 88.99.66.151: suppress all alert rules
+    # for connections to it (gen_id 0 / sig_id 0 = all rules)
+    settings.threshold-file = builtins.toString (
+      pkgs.writeText "suricata-threshold.config" (
+        ''
+          # eu.nixbuild.net
+          suppress gen_id 0, sig_id 0, track by_dst, ip 88.99.66.151
+          # u378583.your-storagebox.de
+          suppress gen_id 0, sig_id 0, track by_dst, ip 91.98.242.217
+        ''
+        + lib.concatMapStrings (
+          v:
+          lib.concatMapStrings (ip: ''
+            suppress gen_id 0, sig_id 0, track by_either, ip ${ip}
+          '') v._addresses
+        ) (builtins.attrValues LT.hosts)
+      )
+    );
+
     settings.outputs = [
       {
         eve-log = {
