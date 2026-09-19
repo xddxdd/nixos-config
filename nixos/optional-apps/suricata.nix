@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ./elasticsearch.nix
+    ./logstash.nix
+  ];
 
   services.suricata = {
     enable = true;
@@ -168,9 +172,6 @@
   };
 
   services.logstash = {
-    enable = true;
-    package = pkgs.logstash7-oss;
-    logLevel = "error";
     inputConfig = ''
       redis {
         host => "127.0.0.1"
@@ -195,8 +196,6 @@
       CacheDirectory = "suricata";
     };
   };
-
-  systemd.services.logstash.serviceConfig.Restart = "always";
 
   systemd.tmpfiles.settings = {
     suricata."/var/cache/suricata".d.age = "3d";

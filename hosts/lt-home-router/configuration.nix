@@ -13,7 +13,6 @@
     ../../nixos/common-apps/coredns.nix
     ../../nixos/common-apps/nginx/vhost-options
     ../../nixos/client-components/multicast-dns.nix
-    ../../nixos/optional-apps/elasticsearch.nix
     ../../nixos/optional-apps/lancache.nix
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/nmea-static-gps-server.nix
