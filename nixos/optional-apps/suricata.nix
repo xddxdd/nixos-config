@@ -43,110 +43,127 @@
 
     # Whitelist 88.99.66.151: suppress all alert rules
     # for connections to it (gen_id 0 / sig_id 0 = all rules)
-    settings.threshold-file = builtins.toString (
-      pkgs.writeText "suricata-threshold.config" (
-        ''
-          # eu.nixbuild.net
-          suppress gen_id 0, sig_id 0, track by_dst, ip 88.99.66.151
-          # u378583.your-storagebox.de
-          suppress gen_id 0, sig_id 0, track by_dst, ip 91.98.242.217
-        ''
-        + lib.concatMapStrings (
-          v:
-          lib.optionalString (v.public.IPv4 != null) ''
-            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv4}
+    settings = {
+      threshold-file = builtins.toString (
+        pkgs.writeText "suricata-threshold.config" (
           ''
-          + lib.optionalString (v.public.IPv6 != null) ''
-            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6}
+            # eu.nixbuild.net
+            suppress gen_id 0, sig_id 0, track by_dst, ip 88.99.66.151
+            # u378583.your-storagebox.de
+            suppress gen_id 0, sig_id 0, track by_dst, ip 91.98.242.217
           ''
-          + lib.optionalString (v.public.IPv6Alt != null) ''
-            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6Alt}
-          ''
-        ) (builtins.attrValues LT.hosts)
-      )
-    );
+          + lib.concatMapStrings (
+            v:
+            lib.optionalString (v.public.IPv4 != null) ''
+              suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv4}
+            ''
+            + lib.optionalString (v.public.IPv6 != null) ''
+              suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6}
+            ''
+            + lib.optionalString (v.public.IPv6Alt != null) ''
+              suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6Alt}
+            ''
+          ) (builtins.attrValues LT.hosts)
+        )
+      );
 
-    settings.outputs = [
-      {
-        eve-log = {
-          enabled = true;
-          filetype = "regular";
-          filename = "eve.json";
-          community-id = true;
-          types = [
-            {
-              alert = {
-                tagged-packets = "yes";
-                verdict = "yes";
-                metadata = {
-                  app-layer = true;
-                  flow = true;
-                  rule = {
-                    metadata = true;
-                    raw = true;
-                    reference = true;
+      mpm-algo = "hs";
+      spm-algo = "hs";
+
+      detect = {
+        sgh-mpm-caching = "yes";
+        sgh-mpm-caching-path = "/var/cache/suricata";
+      };
+
+      outputs = [
+        {
+          eve-log = {
+            enabled = true;
+            filetype = "regular";
+            filename = "eve.json";
+            community-id = true;
+            types = [
+              {
+                alert = {
+                  tagged-packets = "yes";
+                  verdict = "yes";
+                  metadata = {
+                    app-layer = true;
+                    flow = true;
+                    rule = {
+                      metadata = true;
+                      raw = true;
+                      reference = true;
+                    };
                   };
                 };
-              };
-            }
-            {
-              dns = {
-                requests = "yes";
-                responses = "yes";
-              };
-            }
-            {
-              http = {
-                extended = "yes";
-                dump-all-headers = "both";
-              };
-            }
-            {
-              tls = {
-                extended = "yes";
-                session-resumption = "yes";
-              };
-            }
-            { files.force-magic = "yes"; }
-            {
-              stats = {
-                totals = "yes";
-                threads = "yes";
-                deltas = "yes";
-              };
-            }
-            { smtp.extended = "yes"; }
-            { arp.enabled = "yes"; }
-            { dhcp.extended = "yes"; }
-            { dcerpc = { }; }
-            { doh2 = { }; }
-            { flow = { }; }
-            { ftp = { }; }
-            { http2 = { }; }
-            { ike = { }; }
-            { krb5 = { }; }
-            { ldap = { }; }
-            { mdns = { }; }
-            { metadata = { }; }
-            { mqtt = { }; }
-            { nfs = { }; }
-            { pop3 = { }; }
-            { quic = { }; }
-            { rdp = { }; }
-            { rfb = { }; }
-            { sip = { }; }
-            { smb = { }; }
-            { snmp = { }; }
-            { ssh = { }; }
-            { tftp = { }; }
-            { websocket = { }; }
-          ];
-        };
-      }
-    ];
+              }
+              {
+                dns = {
+                  requests = "yes";
+                  responses = "yes";
+                };
+              }
+              {
+                http = {
+                  extended = "yes";
+                  dump-all-headers = "both";
+                };
+              }
+              {
+                tls = {
+                  extended = "yes";
+                  session-resumption = "yes";
+                };
+              }
+              { files.force-magic = "yes"; }
+              {
+                stats = {
+                  totals = "yes";
+                  threads = "yes";
+                  deltas = "yes";
+                };
+              }
+              { smtp.extended = "yes"; }
+              { arp.enabled = "yes"; }
+              { dhcp.extended = "yes"; }
+              { dcerpc = { }; }
+              { doh2 = { }; }
+              { flow = { }; }
+              { ftp = { }; }
+              { http2 = { }; }
+              { ike = { }; }
+              { krb5 = { }; }
+              { ldap = { }; }
+              { mdns = { }; }
+              { metadata = { }; }
+              { mqtt = { }; }
+              { nfs = { }; }
+              { pop3 = { }; }
+              { quic = { }; }
+              { rdp = { }; }
+              { rfb = { }; }
+              { sip = { }; }
+              { smb = { }; }
+              { snmp = { }; }
+              { ssh = { }; }
+              { tftp = { }; }
+              { websocket = { }; }
+            ];
+          };
+        }
+      ];
+    };
   };
 
-  systemd.services.suricata.serviceConfig.TimeoutStartSec = "5min";
+  systemd.services.suricata.serviceConfig = {
+    TimeoutStartSec = "5min";
+    CacheDirectory = "suricata";
+  };
+
+  systemd.tmpfiles.settings = {
+    suricata."/var/cache/suricata".d.age = "3d";
+  };
 
   services.logrotate = {
     enable = true;
