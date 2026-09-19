@@ -142,6 +142,13 @@ in
             }
           ]
         ) routes
+        ++ lib.optionals (n == LT.defaultGatewayHostName && !config.services.bird.enable) (
+          # If BIRD is enabled then BGP handle these routes
+          builtins.map (r: {
+            Destination = r;
+            Gateway = if lib.hasInfix ":" r then "fdbc:f9dc:67ad::${i}" else "198.18.0.${i}";
+          }) (LT.defaultGatewayHostIPv4Routes ++ LT.defaultGatewayHostIPv6Routes)
+        )
       ) (if wgmeshEnabled then LT.otherHostsWithoutTag LT.tags.server else LT.otherHosts)
     );
   };

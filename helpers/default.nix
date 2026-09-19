@@ -32,6 +32,9 @@ let
       portForwardOffset
       tags
       interfacePrefixes
+      defaultGatewayHostName
+      defaultGatewayHostIPv4Routes
+      defaultGatewayHostIPv6Routes
       zones
       reserved
       stateVersion
@@ -50,6 +53,7 @@ let
     hosts = call ./fn/hosts.nix;
     this = hosts."${config.networking.hostName}";
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
+    defaultGatewayHost = hosts."${defaultGatewayHostName}";
 
     hostsWithTag = tag: lib.filterAttrs (n: v: v.hasTag tag) hosts;
     hostsWithoutTag = tag: lib.filterAttrs (n: v: !(v.hasTag tag)) hosts;
