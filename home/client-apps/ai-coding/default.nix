@@ -95,6 +95,7 @@ in
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-langfuse"
+        "npm:@narumitw/pi-usage"
         "npm:@rwese/pi-question"
         "npm:pi-btw"
         "npm:pi-codex-goal"
