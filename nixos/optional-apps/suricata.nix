@@ -79,8 +79,13 @@
         {
           eve-log = {
             enabled = true;
-            filetype = "regular";
-            filename = "eve.json";
+            filetype = "redis";
+            redis = {
+              server = "127.0.0.1";
+              port = LT.port.Suricata.Redis;
+              mode = "rpush";
+              key = "suricata";
+            };
             community-id = true;
             types = [
               {
@@ -156,40 +161,58 @@
     };
   };
 
-  systemd.services.suricata.serviceConfig = {
-    TimeoutStartSec = "5min";
-    CacheDirectory = "suricata";
+  services.redis.servers.suricata = {
+    enable = true;
+    port = LT.port.Suricata.Redis;
+    databases = 1;
   };
+
+  services.logstash = {
+    enable = true;
+    package = pkgs.logstash7-oss;
+    logLevel = "error";
+    inputConfig = ''
+      redis {
+        host => "127.0.0.1"
+        port => ${toString LT.port.Suricata.Redis}
+        data_type => "list"
+        key => "suricata"
+        codec => json
+      }
+    '';
+    outputConfig = ''
+      elasticsearch {
+        hosts => [ "127.0.0.1:${LT.portStr.ElasticSearch}" ]
+      }
+    '';
+  };
+
+  systemd.services.suricata = {
+    after = [ "redis-suricata.service" ];
+    wants = [ "redis-suricata.service" ];
+    serviceConfig = {
+      TimeoutStartSec = "5min";
+      CacheDirectory = "suricata";
+    };
+  };
+
+  systemd.services.logstash.serviceConfig.Restart = "always";
 
   systemd.tmpfiles.settings = {
     suricata."/var/cache/suricata".d.age = "3d";
   };
 
-  services.logrotate = {
-    enable = true;
-    settings = {
-      suricata = {
-        files = "/var/log/suricata/*";
-        su = "suricata suricata";
-        frequency = "daily";
-        rotate = 5;
-        copytruncate = true;
-        compress = true;
-      };
-    };
-  };
-
   systemd.services.evebox = {
     description = "EveBox (Suricata event viewer)";
     wantedBy = [ "multi-user.target" ];
-    after = [ "suricata.service" ];
+    after = [ "elasticsearch.service" ];
     serviceConfig = LT.serviceHarden // {
       # FIXME: hardcoded IP
       ExecStart = ''
-        ${lib.getExe pkgs.evebox} server --sqlite \
+        ${lib.getExe pkgs.evebox} server \
           --data-directory /var/lib/evebox \
-          --input /var/log/suricata/eve.json --end \
-          --host 192.168.0.1 --port 5636
+          -e http://127.0.0.1:${LT.portStr.ElasticSearch} \
+          --host 192.168.0.1 --port ${LT.portStr.Suricata.EveBox}
       '';
       StateDirectory = "evebox";
       User = "suricata";

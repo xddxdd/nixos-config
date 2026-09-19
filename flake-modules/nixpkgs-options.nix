@@ -20,6 +20,7 @@ in
           "aspnetcore-runtime-wrapped-6.0.36"
           "dotnet-sdk-6.0.428"
           "dotnet-sdk-wrapped-6.0.428"
+          "elasticsearch-7.17.27"
           "electron-36.9.5"
           "electron-38.8.4"
           "electron-39.8.10"

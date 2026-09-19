@@ -32,6 +32,10 @@ url.name = "peerfinder-agent.py"
 fetch.github = "xddxdd/dnscontrol"
 src.git = "https://github.com/xddxdd/dnscontrol.git"
 
+[evebox]
+fetch.github = "jasonish/evebox"
+src.github = "jasonish/evebox"
+
 [grafana-falconlogscale-datasource]
 fetch.url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v$ver/grafana-falconlogscale-datasource-$ver.zip"
 src.github = "grafana/falconlogscale-datasource"

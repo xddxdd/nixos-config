@@ -154,7 +154,7 @@ in
     chain NAT_POSTROUTING {
       type nat hook postrouting priority 105; policy accept;
 
-      meta nfproto ipv4 oifname != "eth0*" masquerade
+      meta nfproto ipv4 oifname != "eth0*" oifname != "lo" masquerade
 
       # Avoid using ZeroTier as return path
       meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade

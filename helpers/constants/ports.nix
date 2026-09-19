@@ -128,6 +128,8 @@ rec {
     ADSB.MlatHubBeastInput = 13914;
     ADSB.MlatHubBeastOutput = 13915;
     ADSB.PlaneWatch = 13919;
+    Suricata.Redis = 13920;
+    Suricata.EveBox = 13921;
     ADSB.RawOutput978 = 13978;
     Asterisk.AudioSocket = 13980;
     Resin = 13995;
