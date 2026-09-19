@@ -11,6 +11,7 @@
     reloadOnRulesetUpdate = true;
 
     disabledRules = [
+      # Disabled protocols
       "re:modbus"
       "re:dnp3"
       "re:enip"
@@ -20,16 +21,17 @@
       "group:*-events.rules"
       "re:ZeroTier"
       "group:emerging-dyn_dns.rules"
-      "re:Query for \\.[a-z]+ TLD"
-      "re:Query to a .* domain - Likely Hostile"
-      "re:DNS request .*extension\""
-      "re:extension observed\""
       "re:Query for Suspicious"
+
+      # PawPatRules Darkvision RAT C2 Server answer flow (false alarm)
+      "3300720"
 
       "re:classtype:policy-violation"
       "re:classtype:misc-activity"
       "re:classtype:misc-attack"
       "re:classtype:network-scan"
+      "re:classtype:bad-unknown"
+      "re:classtype:external-ip-check"
     ];
 
     enabledRules = [
@@ -51,9 +53,15 @@
         ''
         + lib.concatMapStrings (
           v:
-          lib.concatMapStrings (ip: ''
-            suppress gen_id 0, sig_id 0, track by_either, ip ${ip}
-          '') v._addresses
+          lib.optionalString (v.public.IPv4 != null) ''
+            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv4}
+          ''
+          + lib.optionalString (v.public.IPv6 != null) ''
+            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6}
+          ''
+          + lib.optionalString (v.public.IPv6Alt != null) ''
+            suppress gen_id 0, sig_id 0, track by_either, ip ${v.public.IPv6Alt}
+          ''
         ) (builtins.attrValues LT.hosts)
       )
     );
