@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+let
+  mv = inputs.nixpkgs-multiverse.multiverse.${pkgs.stdenv.hostPlatform.system};
+in
 {
   services.clickhouse = {
     enable = true;
-    package = pkgs.clickhouse-lts;
+    # Newer clickhouse versions cause SIGILL
+    package = mv.versions.clickhouse-lts."26.3.10.62-lts";
 
     # With changes from https://theorangeone.net/posts/calming-down-clickhouse/
     extraServerConfig = ''
