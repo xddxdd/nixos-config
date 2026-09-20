@@ -54,6 +54,15 @@ let
   }
   // lib.optionalAttrs (LT.this.vramGB >= 24) {
     # keep-sorted start block=yes
+    "gemma4-26b-a4b" = {
+      name = "Gemma 4 26B A4B";
+      cmd = ''
+        ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+        --hf-repo huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF:Q4_0 \
+        --cache-type-k q8_0 --cache-type-v q8_0 \
+        --ctx-size 256000 --batch-size 1024 --ubatch-size 512
+      '';
+    };
     "qwen3-embedding-8b" = {
       name = "Qwen3 Embedding 8B";
       cmd = mkEmbedding "Qwen/Qwen3-Embedding-8B-GGUF" "Q8_0";
