@@ -44,7 +44,7 @@ in
           name = "language-zh_CN";
           src = pkgs.fetchurl {
             url = "https://zh.wordpress.org/wordpress-${pkgs.wordpress.version}-zh_CN.tar.gz";
-            sha256 = "sha256-oAzo/+6mEk4+CYXGN/a61An3GpnSfnfQka56HchhXsE=";
+            sha256 = "sha256-wUQWRTDqXjLkdmjj+pfGkWUhRlLVK3LVPVB7PhhWPZw=";
           };
           installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
         })

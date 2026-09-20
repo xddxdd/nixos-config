@@ -8,10 +8,6 @@
   ...
 }:
 let
-  uni-api-patched = pkgs.nur-xddxdd.uni-api.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../../patches/uni-api-fix-tool-parameters.patch ];
-  });
-
   uniApiConfig = {
     providers = builtins.map (
       v:
@@ -69,7 +65,7 @@ in
 
     script = ''
       ${utils.genJqSecretsReplacementSnippet uniApiConfig "api.yaml"}
-      exec ${lib.getExe uni-api-patched}
+      exec ${lib.getExe pkgs.nur-xddxdd.uni-api}
     '';
 
     postStart = ''
