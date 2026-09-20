@@ -50,7 +50,6 @@ in
     automake
     binutils
     bison
-    clang-analyzer
     clang-tools
     cmake
     cppcheck
