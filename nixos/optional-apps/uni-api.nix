@@ -8,6 +8,9 @@
   ...
 }:
 let
+  uniApi = pkgs.nur-xddxdd.uni-api.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../../patches/uni-api-custom-listen-host.patch ];
+  });
   uniApiConfig = {
     providers = builtins.map (
       v:
@@ -59,13 +62,13 @@ in
 
     environment = {
       DISABLE_DATABASE = "true";
-      UVICORN_HOST = "127.0.0.1";
-      UVICORN_PORT = LT.portStr.UniAPI;
+      HOST = "127.0.0.1";
+      PORT = LT.portStr.UniAPI;
     };
 
     script = ''
       ${utils.genJqSecretsReplacementSnippet uniApiConfig "api.yaml"}
-      exec ${lib.getExe pkgs.nur-xddxdd.uni-api}
+      exec ${lib.getExe uniApi}
     '';
 
     postStart = ''
