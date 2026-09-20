@@ -231,7 +231,7 @@ in
         # https://github.com/NixOS/nixpkgs/pull/268121/files
         "vm.watermark_boost_factor" = 0;
         "vm.watermark_scale_factor" = 125;
-        "vm.swappiness" = if LT.this.hasTag LT.tags.nix-builder then 0 else 10;
+        "vm.swappiness" = 10; # Must be >0 for swap to kick in
         "vm.page-cluster" =
           if config.swapDevices != [ ] then
             3 # Kernel default
