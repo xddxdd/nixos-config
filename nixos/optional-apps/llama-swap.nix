@@ -11,14 +11,16 @@ let
   useCudaDevice = id: "env CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=${builtins.toString id}";
 
   mkEmbedding = repo: quant: ''
-    ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    ${useCudaDevice 0} ${llama-server} \
+    --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --embeddings --pooling last \
     --ctx-size 8192 --batch-size 2048 --ubatch-size 2048
   '';
 
   mkReranker = repo: quant: ''
-    ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+    ${useCudaDevice 0} ${llama-server} \
+    --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --rerank --ctx-size 32768
   '';
@@ -57,7 +59,8 @@ let
     "gemma4-26b-a4b" = {
       name = "Gemma 4 26B A4B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+        ${useCudaDevice 0} ${llama-server} \
+        --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF:Q4_0 \
         --cache-type-k q8_0 --cache-type-v q8_0 \
         --ctx-size 256000 --batch-size 1024 --ubatch-size 512
@@ -71,10 +74,25 @@ let
       name = "Qwen3 Reranker 8B";
       cmd = mkReranker "QuantFactory/Qwen3-Reranker-8B-GGUF" "Q8_0";
     };
+    "qwen3.6-35b-a3b" = {
+      name = "Qwen3.6 35B A3B";
+      cmd = ''
+        ${useCudaDevice 0} ${llama-server} \
+        --port ''${PORT} --host 127.0.0.1 \
+        --hf-repo huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF \
+        --hf-file Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf \
+        --cache-type-k q8_0 --cache-type-v q8_0 \
+        --spec-type draft-mtp --spec-draft-n-max 2 \
+        --ctx-size 256000 --batch-size 1024 --ubatch-size 512 \
+        --reasoning-preserve \
+        --image-min-tokens 1024
+      '';
+    };
     "qwen3.8-27b" = {
       name = "Qwen3.8 27B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} --port ''${PORT} --host 127.0.0.1 \
+        ${useCudaDevice 0} ${llama-server} \
+        --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF \
         --hf-file Huihui-Qwen3.8-27B-abliterated-GSQ-RCO-IQ3_S-mtp.gguf \
         --cache-type-k q4_0 --cache-type-v q4_0 \
