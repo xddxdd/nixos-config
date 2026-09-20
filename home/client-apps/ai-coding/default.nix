@@ -45,6 +45,40 @@ in
         baseUrl = "https://llama-swap.pve-epyc.xuyh0120.win/v1";
         models = [
           {
+            id = "gemma4-26b-a4b";
+            name = "gemma4-26b-a4b";
+            reasoning = true;
+            input = [
+              "text"
+              "image"
+            ];
+            contextWindow = 256000;
+            maxTokens = 65536;
+            compat.thinkingFormat = "qwen-chat-template";
+            thinkingLevelMap = {
+              minimal = null;
+              low = null;
+              medium = null;
+            };
+          }
+          {
+            id = "qwen3.6-35b-a3b";
+            name = "qwen3.6-35b-a3b";
+            reasoning = true;
+            input = [
+              "text"
+              "image"
+            ];
+            contextWindow = 256000;
+            maxTokens = 65536;
+            compat.thinkingFormat = "qwen-chat-template";
+            thinkingLevelMap = {
+              minimal = null;
+              low = null;
+              medium = null;
+            };
+          }
+          {
             id = "qwen3.8-27b";
             name = "qwen3.8-27b";
             reasoning = true;
@@ -55,6 +89,10 @@ in
             contextWindow = 200000;
             maxTokens = 65536;
             thinkingLevelMap = {
+              off = "none";
+              minimal = null;
+              low = "low";
+              medium = "medium";
               high = "xhigh";
             };
           }
