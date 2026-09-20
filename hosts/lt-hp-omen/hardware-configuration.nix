@@ -105,6 +105,13 @@
     neededForBoot = true;
   };
 
+  swapDevices = [
+    {
+      device = "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23083N800902-part3";
+      randomEncryption.enable = true;
+    }
+  ];
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;

@@ -93,6 +93,17 @@
     ];
   };
 
+  swapDevices = [
+    {
+      device = "/dev/MyVolGroup/swap1";
+      randomEncryption.enable = true;
+    }
+    {
+      device = "/dev/MyVolGroup/swap2";
+      randomEncryption.enable = true;
+    }
+  ];
+
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
