@@ -138,6 +138,7 @@ in
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-commandcode-provider"
+        "npm:pi-copy-message"
         "npm:pi-fast-resume"
         "npm:pi-mcp-adapter"
         "npm:pi-ollama-cloud"
