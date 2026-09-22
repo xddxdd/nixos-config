@@ -96,6 +96,24 @@ in
               high = "xhigh";
             };
           }
+          {
+            id = "ternary-bonsai-27b";
+            name = "ternary-bonsai-27b";
+            reasoning = true;
+            input = [
+              "text"
+              "image"
+            ];
+            contextWindow = 256000;
+            maxTokens = 65536;
+            thinkingLevelMap = {
+              off = "none";
+              minimal = null;
+              low = "low";
+              medium = "medium";
+              high = "xhigh";
+            };
+          }
         ];
       };
       uni-api = {

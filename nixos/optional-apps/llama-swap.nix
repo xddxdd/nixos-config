@@ -102,6 +102,19 @@ let
         --image-min-tokens 1024
       '';
     };
+    "ternary-bonsai-27b" = {
+      name = "Ternary Bonsai 27B";
+      cmd = ''
+        ${useCudaDevice 0} ${llama-server} \
+        --port ''${PORT} --host 127.0.0.1 \
+        --hf-repo huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF \
+        --hf-file Huihui-Qwen3.8-27B-abliterated-Ternary-Bonsai-PQ2_0.gguf \
+        --cache-type-k f16 --cache-type-v f16 \
+        --ctx-size 256000 --batch-size 1024 --ubatch-size 512 \
+        --reasoning-preserve \
+        --image-min-tokens 1024
+      '';
+    };
     # keep-sorted end
   };
 in
