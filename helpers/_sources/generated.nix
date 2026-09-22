@@ -109,17 +109,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "a94750e3f5f8fc33757b839d85030e742284e43a";
+    version = "2e76c48721e91b9aaa40803a0fa2eb8aca7399c4";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "a94750e3f5f8fc33757b839d85030e742284e43a";
+      rev = "2e76c48721e91b9aaa40803a0fa2eb8aca7399c4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-eFbIBC97lXdbe7JqKX2q8nhD6qs7ONPG4MaKtLWP9zk=";
+      sha256 = "sha256-4UIgV3DTvpoyXkywe3GYxY07fIouEKjzd6u+u4h6oBA=";
     };
-    date = "2026-09-05";
+    date = "2026-09-21";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "5bc1a9928a6d1c9dc3c9136ea66d7e815b8440e0";
+    version = "d9459d758c9e6306484c91cf90daff47151db8bf";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "5bc1a9928a6d1c9dc3c9136ea66d7e815b8440e0";
+      rev = "d9459d758c9e6306484c91cf90daff47151db8bf";
       fetchSubmodules = false;
-      sha256 = "sha256-RB4BJl7ZtPggt9w+aQKPdY5G8HfZdr+LBPCNM5tNDuk=";
+      sha256 = "sha256-ThZRPcWsvWt9Xys+qSIYgwL79xinWanEgJFDc90PG3I=";
     };
-    date = "2026-09-14";
+    date = "2026-09-21";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
