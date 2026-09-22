@@ -41,6 +41,11 @@ export default function lastModel(pi: ExtensionAPI): void {
   });
 
   pi.on('session_start', async (event, ctx) => {
+    // Subagent children (pi-subagents runner sessions) bind extensions in
+    // print mode; their model must stay whatever the launch specified.
+    // Tradeoff: manual `pi -p` (also print mode) no longer restores the
+    // last-used model and falls back to the settings default.
+    if (ctx.mode !== 'tui') return;
     if (event.reason !== 'startup' && event.reason !== 'new') return;
     // Resumed sessions restore their own recorded model; only fresh sessions
     // (no messages yet) get the last-used model applied over the settings default.
