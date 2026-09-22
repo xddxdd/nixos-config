@@ -9,6 +9,8 @@ let
   port = builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.IPFS);
 in
 {
+  imports = [ ./netns-tnl-buyvm.nix ];
+
   environment.systemPackages = [
     (lib.hiPrio (
       pkgs.runCommand "ipfs-cli" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
