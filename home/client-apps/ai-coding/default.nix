@@ -140,6 +140,7 @@ in
         "npm:pi-copy-message"
         "npm:pi-fast-resume"
         "npm:pi-mcp-adapter"
+        "npm:pi-multi-pass"
         "npm:pi-ollama-cloud"
         "npm:pi-secret-mask"
         "npm:pi-simplify"
