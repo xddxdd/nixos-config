@@ -48,7 +48,6 @@ let
           foxyproxy-standard
           i-dont-care-about-cookies
           ipfs-companion
-          lovely-forks
           multi-account-containers
           noscript
           pakkujs
