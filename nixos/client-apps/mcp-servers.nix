@@ -152,6 +152,11 @@ in
           type = "streamable-http";
           url = "http://127.0.0.1:9000/mcp";
         };
+      }
+      // lib.optionalAttrs config.virtualisation.libvirtd.enable {
+        libvirt = {
+          command = lib.getExe pkgs.mcp-libvirt;
+        };
       };
 
     lantian.mcp.toolMcpServers = common // {

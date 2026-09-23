@@ -211,6 +211,26 @@
         },
         "version": "8459e045792166092445c7ec96502f62ce88db49"
     },
+    "mcp-libvirt": {
+        "cargoLock": null,
+        "date": "2026-09-22",
+        "extract": null,
+        "name": "mcp-libvirt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "0d12a31b09dd5263ec5fc7742df406682a97bc90",
+            "sha256": "sha256-251bURu7sebPgBDd7bu3URCVja8iehHDp8O1ROQyckA=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/xddxdd/mcp-libvirt-vm-use.git"
+        },
+        "version": "0d12a31b09dd5263ec5fc7742df406682a97bc90"
+    },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
         "date": "2026-06-30",
