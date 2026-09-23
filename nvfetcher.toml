@@ -54,10 +54,6 @@ src.git = "https://github.com/lobehub/lobe-icons.git"
 fetch.git = "https://github.com/xddxdd/lyrica.git"
 src.git = "https://github.com/xddxdd/lyrica.git"
 
-[mcp-libvirt]
-fetch.git = "https://github.com/xddxdd/mcp-libvirt-vm-use.git"
-src.git = "https://github.com/xddxdd/mcp-libvirt-vm-use.git"
-
 [mihoyo-bbs-tools]
 fetch.github = "Womsxd/MihoyoBBSTools"
 src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"

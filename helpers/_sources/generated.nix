@@ -135,20 +135,6 @@
     };
     date = "2026-07-05";
   };
-  mcp-libvirt = {
-    pname = "mcp-libvirt";
-    version = "0d12a31b09dd5263ec5fc7742df406682a97bc90";
-    src = fetchgit {
-      url = "https://github.com/xddxdd/mcp-libvirt-vm-use.git";
-      rev = "0d12a31b09dd5263ec5fc7742df406682a97bc90";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-251bURu7sebPgBDd7bu3URCVja8iehHDp8O1ROQyckA=";
-    };
-    date = "2026-09-22";
-  };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
     version = "f062d1fda8fab88fd312a5ca3a89537f6351943b";

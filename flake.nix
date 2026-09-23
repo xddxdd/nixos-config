@@ -96,6 +96,11 @@
       url = "github:xddxdd/markdown-apa7th-docx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcp-libvirt-vm-use = {
+      url = "github:xddxdd/mcp-libvirt-vm-use";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     never-gonna-rust = {
       url = "github:xddxdd/never-gonna-rust";
       inputs.nixpkgs.follows = "nixpkgs";

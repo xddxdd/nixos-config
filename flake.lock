@@ -614,6 +614,29 @@
         "type": "github"
       }
     },
+    "mcp-libvirt-vm-use": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790129405,
+        "narHash": "sha256-Ty1zh7/klX26cB1cI4f6DvgANHISMOCu/fO5mMyanIs=",
+        "owner": "xddxdd",
+        "repo": "mcp-libvirt-vm-use",
+        "rev": "634b68ac64a7c70bbc6e39f206a1d6e9f17066d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "mcp-libvirt-vm-use",
+        "type": "github"
+      }
+    },
     "never-gonna-rust": {
       "inputs": {
         "flake-parts": [
@@ -1146,6 +1169,7 @@
         "kwin-effects-better-blur-dx": "kwin-effects-better-blur-dx",
         "llm-agents": "llm-agents",
         "markdown-apa7th-docx": "markdown-apa7th-docx",
+        "mcp-libvirt-vm-use": "mcp-libvirt-vm-use",
         "never-gonna-rust": "never-gonna-rust",
         "nix-alien": "nix-alien",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
