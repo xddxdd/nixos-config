@@ -1,22 +1,10 @@
-// Enforces ../rules/04-nixos.md: blocks non-Nix package managers,
-// `make install`, `curl | sh` installers, and commands passing `/` or
+// Enforces ../rules/04-nixos.md: blocks commands passing `/` or
 // `/nix/store(/)` as a single argument. Multi-line commands (inline
 // scripts) are skipped: a lone `/` inside a script is usually harmless.
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const rules: Array<{ pattern: RegExp; reason: string }> = [
-  {
-    pattern: /\b(apt|apt-get|aptitude|yum|dnf|pacman|brew|snap|zypper)\b/,
-    reason:
-      "Non-Nix package managers are forbidden on this NixOS system. Use `nix` (e.g. `nix shell nixpkgs#<pkg>`) " +
-      "or add the package to the Nix configuration instead.",
-  },
-  {
-    pattern: /\bmake(\s+-[\w=.-]+)*\s+install\b/,
-    reason:
-      "Building from source with `make install` is forbidden on this NixOS system. Package the software with Nix instead.",
-  },
   {
     pattern: /\b(curl|wget)\b[^|]*\|\s*(sudo\s+)?(ba|z|da)?sh\b/,
     reason:
