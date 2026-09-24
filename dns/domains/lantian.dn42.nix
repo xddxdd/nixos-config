@@ -22,7 +22,8 @@
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns3.${domain}.";
-          addresses = LT.hosts."virmach-ny1g".dn42;
+          # FIXME: replace once we have a new host in DN42
+          addresses = LT.hosts."colocrossing".dn42;
         })
         (config.common.hostRecs.mapAddresses {
           name = "ns4.${domain}.";

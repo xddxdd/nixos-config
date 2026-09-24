@@ -5,7 +5,7 @@
   ...
 }:
 {
-  index = 18;
+  index = 8;
   x86ArchLevel = 2;
   tags = with tags; [
     dn42
@@ -24,7 +24,7 @@
     IPv6Subnet = "2001:470:8c19:ffff::";
   };
   dn42 = {
-    IPv4 = "172.22.76.117";
+    IPv4 = "172.22.76.190";
     region = constants.dn42.region.North-America-E;
   };
 }

@@ -60,7 +60,6 @@ in
             "colocrossing"
             "pve-epyc"
             "terrahost"
-            "virmach-ny6g"
           ];
         wsrep_sst_method = "rsync_wan";
         wsrep_node_address = LT.this.ltnet.IPv4;

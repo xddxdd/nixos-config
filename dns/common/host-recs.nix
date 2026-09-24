@@ -21,7 +21,9 @@ let
     soyoustart = LT.hosts."colocrossing";
     v-ps-hkg = LT.hosts."alice";
     v-ps-sjc = LT.hosts."bwg-lax";
-    virmach-ny3ip = LT.hosts."virmach-ny6g";
+    virmach-ny1g = LT.hosts."colocrossing";
+    virmach-ny3ip = LT.hosts."colocrossing";
+    virmach-ny6g = LT.hosts."colocrossing";
     virtono = LT.hosts."buyvm";
     # keep-sorted end
   };

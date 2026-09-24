@@ -3,15 +3,6 @@
 lib.mkIf false {
   domains = [
     (config.common.reverse6 {
-      prefix = "2001:470:8a6d::/48";
-      target = "virmach-ny1g.lantian.pub.";
-    })
-    (config.common.reverse6 {
-      prefix = "2001:470:1f07:54d::/64";
-      target = "virmach-ny1g.lantian.pub.";
-    })
-
-    (config.common.reverse6 {
       prefix = "2001:470:8c19::/48";
       target = "colocrossing.lantian.pub.";
     })

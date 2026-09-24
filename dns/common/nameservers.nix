@@ -3,7 +3,6 @@ let
   PublicServers = [
     "zgocloud.lantian.pub."
     "bwg-lax.lantian.pub."
-    "virmach-ny1g.lantian.pub."
     "colocrossing.lantian.pub."
     "buyvm.lantian.pub."
   ];
@@ -11,7 +10,6 @@ let
   LTNetServers = [
     "zgocloud.ltnet.lantian.pub."
     "bwg-lax.ltnet.lantian.pub."
-    "virmach-ny1g.ltnet.lantian.pub."
     "colocrossing.ltnet.lantian.pub."
     "buyvm.ltnet.lantian.pub."
   ];

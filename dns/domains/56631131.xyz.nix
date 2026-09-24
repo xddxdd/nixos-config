@@ -34,13 +34,6 @@
           address = "2001:470:8c19::14";
         }
 
-        # VirMach free host
-        {
-          recordType = "A";
-          name = "virmach-host";
-          address = "5.253.38.3";
-        }
-
         # SSLIP.io
         {
           recordType = "NS";
