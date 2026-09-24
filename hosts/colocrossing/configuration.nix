@@ -9,6 +9,8 @@
   imports = [
     ../../nixos/server.nix
 
+    (inputs.secrets + "/dn42/colocrossing.nix")
+
     ./hardware-configuration.nix
 
     ../../nixos/optional-apps/acme
