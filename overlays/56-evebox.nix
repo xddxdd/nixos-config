@@ -50,6 +50,7 @@ in
       homepage = "https://evebox.org/";
       changelog = "https://github.com/jasonish/evebox/releases/tag/${sources.evebox.version}";
       license = final.lib.licenses.mit;
+      mainProgram = "evebox";
       broken = final.stdenv.hostPlatform.isDarwin;
     };
   };

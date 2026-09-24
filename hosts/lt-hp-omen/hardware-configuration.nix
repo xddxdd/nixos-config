@@ -116,5 +116,5 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
   hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  programs.solaar.enable = true;
 }
