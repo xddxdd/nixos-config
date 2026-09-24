@@ -16,6 +16,12 @@ in
   virtualisation.vswitch.enable = true;
 
   systemd.services.ovs-vswitchd.serviceConfig = {
+    ExecStart = lib.mkForce ''
+      ${config.virtualisation.vswitch.package}/bin/ovs-vswitchd \
+      --pidfile=/run/openvswitch/ovs-vswitchd.pid \
+      --mlockall \
+      --detach
+    '';
     Nice = "-20";
   };
 
