@@ -45,6 +45,9 @@ in
           echo '{}' > "$CONFIG_FILE"
         fi
 
+        # Remove leftover PID file
+        rm -f $CONFIG_DIR/.picoclaw.pid
+
         tmp_file=$(mktemp)
         jq --slurpfile mcp "${mcpJsonFile}" '.tools.mcp.servers = $mcp[0].mcpServers' "$CONFIG_FILE" > "$tmp_file"
         mv "$tmp_file" "$CONFIG_FILE"
