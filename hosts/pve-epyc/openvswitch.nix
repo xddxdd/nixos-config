@@ -15,6 +15,10 @@ in
 {
   virtualisation.vswitch.enable = true;
 
+  systemd.services.ovs-vswitchd.serviceConfig = {
+    Nice = "-20";
+  };
+
   systemd.services.ovsdb-setup = {
     description = "Setup OpenVSwitch database";
     wantedBy = [ "multi-user.target" ];
