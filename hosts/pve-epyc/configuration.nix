@@ -146,5 +146,5 @@
   services.scx.enable = lib.mkForce true;
 
   # Avoid freezing
-  nix.settings.cores = LT.this.cpuThreads - 8;
+  nix.settings.cores = LT.this.cpuThreads - 16;
 }
