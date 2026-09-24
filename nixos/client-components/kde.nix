@@ -18,6 +18,8 @@
     nur-xddxdd.red-star-os-wallpapers
 
     kwin-effects-better-blur-dx
+
+    wl-clipboard-rs
   ];
 
   environment.variables.LD_PRELOAD = "${pkgs.nur-xddxdd.env-dedup}/lib/libenv_dedup.so";
