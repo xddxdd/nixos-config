@@ -74,6 +74,14 @@ let
       generatedSetupScript = ''
         ZTADDR=$(${ztcurl} "${zturl}/status" | ${lib.getExe pkgs.jq} -r ".address")
         ${ztcurl} -XPOST "${zturl}/controller/network/''${ZTADDR}${name}" -d ${lib.escapeShellArg jsonPayload}
+
+        echo "Deleting unknown members"
+        ${ztcurl} "${zturl}/controller/network/''${ZTADDR}${name}/member" \
+          | ${lib.getExe pkgs.jq} -r --argjson keep ${lib.escapeShellArg (builtins.toJSON (builtins.attrNames config.members))} 'keys - $keep | .[]' \
+          | while read -r member; do
+              ${ztcurl} -XDELETE "${zturl}/controller/network/''${ZTADDR}${name}/member/$member"
+            done
+        echo "Adding/reconfiguring members"
       ''
       + (lib.concatStrings (
         lib.mapAttrsToList (n: v: ''
