@@ -93,7 +93,7 @@ let
     (builtins.filter (e: !(e.name == "${e.src}.lantian.pub" || e.name == "${e.src}.xuyh0120.win")))
     (builtins.map splitName)
     (builtins.foldl' (acc: r: if builtins.any (x: x.url == r.url) acc then acc else acc ++ [ r ]) [ ])
-    (builtins.sort (a: b: a.url < b.url))
+    (builtins.sort (a: b: (a.highlight + a.suffix) < (b.highlight + b.suffix)))
   ];
 
   linksHtml = lib.concatMapStringsSep "\n" (r: ''
