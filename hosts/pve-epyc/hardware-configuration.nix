@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/hardware/ecc-ram.nix
     ../../nixos/hardware/nvidia/only.nix
     ../../nixos/hardware/lvm.nix
