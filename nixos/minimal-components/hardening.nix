@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 # Hardening adapted from https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix
@@ -81,7 +82,7 @@
   # to completely replace swap to disk. Generally *improves* storage lifespan
   # and performance, there usually isn't a need to disable this.
   zramSwap = {
-    enable = true;
+    enable = config.swapDevices == [ ];
     algorithm = "zstd";
     memoryPercent = 50;
   };
