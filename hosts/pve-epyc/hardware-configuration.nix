@@ -72,8 +72,6 @@
       "nosuid"
       "nodev"
       "x-systemd.mount-timeout=infinity"
-      "x-systemd.requires=vgchange-activate-all.service"
-      "x-systemd.after=vgchange-activate-all.service"
     ];
   };
 
@@ -105,31 +103,6 @@
       randomEncryption.enable = true;
     }
   ];
-
-  systemd.services.vgchange-activate-all = {
-    description = "Activate all available LVM volume groups";
-    wantedBy = [ "local-fs.target" ];
-    before = [
-      "mnt-storage.mount"
-      "mkswap-dev-MyVolGroup-swap1.service"
-      "mkswap-dev-MyVolGroup-swap2.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${lib.getExe' config.services.lvm.package "vgchange"} -ay";
-    };
-  };
-
-  systemd.services."mkswap-dev-MyVolGroup-swap1" = {
-    requires = [ "vgchange-activate-all.service" ];
-    after = [ "vgchange-activate-all.service" ];
-  };
-
-  systemd.services."mkswap-dev-MyVolGroup-swap2" = {
-    requires = [ "vgchange-activate-all.service" ];
-    after = [ "vgchange-activate-all.service" ];
-  };
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
