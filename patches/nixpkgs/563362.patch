@@ -1,0 +1,130 @@
+diff --git a/pkgs/by-name/ba/bambu-studio/package.nix b/pkgs/by-name/ba/bambu-studio/package.nix
+index de4e328..7d9f9c8 100644
+--- a/pkgs/by-name/ba/bambu-studio/package.nix
++++ b/pkgs/by-name/ba/bambu-studio/package.nix
+@@ -28,6 +28,7 @@
+   libpng,
+   libsecret,
+   makeFontsConf,
++  makeWrapper,
+   libnoise,
+   mpfr,
+   nanum,
+@@ -36,6 +37,7 @@
+   openvdb,
+   openexr,
+   opencv,
++  symlinkJoin,
+   systemd,
+   onetbb,
+   webkitgtk_4_1,
+@@ -67,8 +69,8 @@ let
+   fontsConf = makeFontsConf { fontDirectories = [ nanum ]; };
+ 
+   caBundle = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+-in
+-stdenv.mkDerivation (finalAttrs: {
++
++  package = stdenv.mkDerivation (finalAttrs: {
+   pname = "bambu-studio";
+   version = "02.08.02.61";
+ 
+@@ -217,12 +219,6 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+       --set FONTCONFIG_FILE "${fontsConf}"
+ 
+-      ${lib.optionalString withNvidiaGLWorkaround ''
+-        --set __GLX_VENDOR_LIBRARY_NAME mesa
+-        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json
+-        --set MESA_LOADER_DRIVER_OVERRIDE zink
+-        --set GALLIUM_DRIVER zink
+-      ''}
+     )
+   '';
+ 
+@@ -256,4 +252,20 @@ stdenv.mkDerivation (finalAttrs: {
+     mainProgram = "bambu-studio";
+     platforms = lib.platforms.linux;
+   };
+-})
++});
++in
++if withNvidiaGLWorkaround then
++  symlinkJoin {
++    inherit (package) meta name;
++    paths = [ package ];
++    nativeBuildInputs = [ makeWrapper ];
++    postBuild = ''
++      wrapProgram $out/bin/bambu-studio \
++        --set __GLX_VENDOR_LIBRARY_NAME mesa \
++        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json \
++        --set MESA_LOADER_DRIVER_OVERRIDE zink \
++        --set GALLIUM_DRIVER zink
++    '';
++  }
++else
++  package
+diff --git a/pkgs/by-name/or/orca-slicer/package.nix b/pkgs/by-name/or/orca-slicer/package.nix
+index 50cbdef..2ead117 100644
+--- a/pkgs/by-name/or/orca-slicer/package.nix
++++ b/pkgs/by-name/or/orca-slicer/package.nix
+@@ -39,6 +39,8 @@
+   wxwidgets_3_3,
+   libx11,
+   libnoise,
++  makeWrapper,
++  symlinkJoin,
+   withSystemd ? clangStdenv.hostPlatform.isLinux,
+   withNvidiaGLWorkaround ? false,
+ }:
+@@ -57,11 +59,11 @@ let
+           "--enable-secretstore"
+         ];
+       });
+-in
++
+ # Build with clang even on Linux, because GCC uses absolutely obscene amounts of memory
+ # on this particular code base (OOM with 32GB memory and --cores 16 on GCC, succeeds
+ # with --cores 32 on clang).
+-clangStdenv.mkDerivation (finalAttrs: {
++package = clangStdenv.mkDerivation (finalAttrs: {
+   pname = "orca-slicer";
+   version = "2.4.2";
+ 
+@@ -214,13 +216,6 @@ clangStdenv.mkDerivation (finalAttrs: {
+         ]
+       }"
+       --set WEBKIT_DISABLE_COMPOSITING_MODE 1
+-      ${lib.optionalString withNvidiaGLWorkaround ''
+-        --set __GLX_VENDOR_LIBRARY_NAME mesa
+-        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json
+-        --set MESA_LOADER_DRIVER_OVERRIDE zink
+-        --set GALLIUM_DRIVER zink
+-        --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+-      ''}
+     )
+   '';
+ 
+@@ -243,4 +238,21 @@ clangStdenv.mkDerivation (finalAttrs: {
+     mainProgram = "orca-slicer";
+     platforms = lib.platforms.linux;
+   };
+-})
++});
++in
++if withNvidiaGLWorkaround then
++  symlinkJoin {
++    inherit (package) meta name;
++    paths = [ package ];
++    nativeBuildInputs = [ makeWrapper ];
++    postBuild = ''
++      wrapProgram $out/bin/orca-slicer \
++        --set __GLX_VENDOR_LIBRARY_NAME mesa \
++        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json \
++        --set MESA_LOADER_DRIVER_OVERRIDE zink \
++        --set GALLIUM_DRIVER zink \
++        --set WEBKIT_DISABLE_DMABUF_RENDERER 1
++    '';
++  }
++else
++  package
