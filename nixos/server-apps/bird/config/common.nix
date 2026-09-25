@@ -6,6 +6,7 @@ rec {
   NEO_AS = "4201270010";
 
   blacklistedASNs = [
+    4242422717 # Flapping + Uncontactable
     4242423264 # Risk of DoS attacks
     4242423419 # Hijack + flapping
   ];
