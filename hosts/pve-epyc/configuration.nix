@@ -31,6 +31,7 @@
     ../../nixos/optional-apps/hydra
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
+    ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-swap.nix
