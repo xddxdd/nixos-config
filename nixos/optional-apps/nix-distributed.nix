@@ -93,7 +93,7 @@ in
 
     # FIXME: hydra might be unable to handle duplicate entries
     environment.etc."nix/machines-with-localhost".text = config.environment.etc."nix/machines".text + ''
-      localhost ${platforms} - 4 1 kvm,nixos-test,big-parallel,benchmark - -
+      localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
     '';
 
     environment.systemPackages = [
