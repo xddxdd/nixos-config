@@ -93,10 +93,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.10.2";
+    version = "1.10.3";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.2/grafana-falconlogscale-datasource-1.10.2.zip";
-      sha256 = "sha256-HLQz9x6D/NNJTpJQ/A0aWz6T6OhR6J/ftI2WkNz9zqk=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.3/grafana-falconlogscale-datasource-1.10.3.zip";
+      sha256 = "sha256-DwV0m69bNncPrSa8RxycIE+V7vtRvGBZcTr+WeC8+eE=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -109,17 +109,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "5c1ecb4fb06b92519a39102482d4e8273f000422";
+    version = "329f378cbd1a88f45b60cd096b9111ce16f3ea39";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "5c1ecb4fb06b92519a39102482d4e8273f000422";
+      rev = "329f378cbd1a88f45b60cd096b9111ce16f3ea39";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-SXpw9RKV7Qsvbg6KLmu5PrxCXhWLB1J6Te5RzkSdVQA=";
+      sha256 = "sha256-/JprQVc5nYEu+nbpbn0xRJMilZLRILp7dWd4tdgVB9c=";
     };
-    date = "2026-09-23";
+    date = "2026-09-24";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -185,15 +185,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "b68d0ed0c19d20a2c336879be18804b08bb63e89";
+    version = "bf2965a1269639363e3d59148964583d3d027c73";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "b68d0ed0c19d20a2c336879be18804b08bb63e89";
+      rev = "bf2965a1269639363e3d59148964583d3d027c73";
       fetchSubmodules = false;
-      sha256 = "sha256-gPDcYTAZRhxMl5Tb2SPoPmj/Jv38+5bPHoKMVFqlk6k=";
+      sha256 = "sha256-owI6rlCTjdzG50V3ZLXy7Be9MnrW/+rqdZyz++3q3io=";
     };
-    date = "2026-09-15";
+    date = "2026-09-24";
   };
   open5gs = {
     pname = "open5gs";
