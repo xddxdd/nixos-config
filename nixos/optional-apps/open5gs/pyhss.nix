@@ -23,6 +23,8 @@
     group = "pyhss";
   };
 
+  environment.etc."pyhss".source = ./pyhss;
+
   systemd.services = builtins.listToAttrs (
     builtins.map
       (
@@ -39,17 +41,11 @@
           ];
           wantedBy = [ "multi-user.target" ];
 
-          script = ''
-            ln -sf ${./pyhss/pyhss.yaml} config.yaml
-            ln -sf ${./pyhss/default_ifc.xml} default_ifc.xml
-            ln -sf ${./pyhss/default_sh_user_data.xml} default_sh_user_data.xml
-
-            exec ${pkgs.nur-xddxdd.pyhss}/bin/${svc}Service
-          '';
-
           serviceConfig = {
             User = "pyhss";
             Group = "pyhss";
+
+            ExecStart = "${pkgs.nur-xddxdd.pyhss}/bin/${svc}Service";
 
             LogsDirectory = "pyhss";
             RuntimeDirectory = "pyhss-${svc}";
