@@ -53,6 +53,7 @@ let
     445
     LT.port.CUPS
     LT.port.Rsync
+    LT.port.BGP
   ]
   ++ lib.optionals (config.networking.hostName != "pve-epyc") [
     111

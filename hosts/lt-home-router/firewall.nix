@@ -31,6 +31,7 @@ let
     LT.port.Rsync
     LT.port.NMEA
     LT.port.mDNS
+    LT.port.BGP
   ];
 in
 {
