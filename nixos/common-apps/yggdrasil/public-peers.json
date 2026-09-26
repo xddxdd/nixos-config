@@ -75,6 +75,9 @@
   "poland": [
     "tls://waw01.yggdrasil.hosted-by.skhron.eu:8884?key=030602cee88a761c68f5f14e1dad430f25238a703b69dc382321a38f833035b0"
   ],
+  "romania": [
+    "tls://ygg-ro.axxa.dev:18080"
+  ],
   "russia": [
     "tls://37.192.232.33:442",
     "tls://box.paulll.cc:13338",
@@ -119,6 +122,7 @@
     "tls://mn.us.ygg.triplebit.org:993",
     "tls://mo.us.ygg.triplebit.org:993",
     "tls://ygg-kcmo.incognet.io:8884",
+    "tls://ygg-pa.incognet.io:8884",
     "tls://ygg-wa.incognet.io:8884",
     "tls://ygg.mnpnk.com:443",
     "tls://ygg4.mk16.de:1338?key=000000573433e11f23768b078bcdc10b42712a7b131d6d04b82042ffc0c97df0",
