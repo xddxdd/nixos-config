@@ -210,10 +210,6 @@ in
       # Combat route flaps
       prefer older yes;
 
-      # Combat traffic consumption
-      enable route refresh off;
-      enable enhanced route refresh off;
-
       ipv4 {
         next hop self yes;
         import keep filtered;
