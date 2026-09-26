@@ -103,6 +103,7 @@ in
         microcom
         microfetch
         moonlight-qt
+        ncdu
         nheko
         nur-xddxdd.baidupcs-go
         nur-xddxdd.browseros
