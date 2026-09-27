@@ -1,0 +1,17 @@
+diff --git a/nixos/modules/services/networking/i2pd.nix b/nixos/modules/services/networking/i2pd.nix
+--- a/nixos/modules/services/networking/i2pd.nix
++++ b/nixos/modules/services/networking/i2pd.nix
+@@ -429,9 +429,12 @@
+       i2pdCheckedConfig = gen "placeholder" (
+         lib.recursiveUpdate cfg.settings (
+           {
+-            # Disable connectivity, in case build sandbox is disabled
++            # The build sandbox has no configured host addresses.
+             ipv4 = false;
+             ipv6 = false;
++            httpproxy.address = "127.0.0.1";
++            sam.address = "127.0.0.1";
++            socksproxy.address = "127.0.0.1";
+           }
+           // lib.optionalAttrs (cfg.settings.meshnets.yggdrasil or false) {
+             # Yggdrasil is unavailable in the check environment, so provide a usable transport.

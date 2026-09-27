@@ -33,6 +33,7 @@ let
       china-mainland
       dn42
       neonetwork
+      localHost
       reserved
       ;
     inherit matrixWellKnown;

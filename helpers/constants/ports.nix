@@ -24,12 +24,15 @@ rec {
     NFS.MountD = 4002;
     Quassel.Main = 4242;
     Yggdrasil.Alfis = 4244;
+    I2P.HTTPProxy = 4444;
+    I2P.SocksProxy = 4447;
     Pipewire.TCP = 4713;
     IPFS.API = 5001;
     IPFS.Gateway = 5002;
     IPerf = 5201;
     mDNS = 5353;
     Bazarr = 6767;
+    I2P.SAM = 7656;
     OCFS2 = 7777;
     Radarr = 7878;
     ArchiveTeam = 8001;
@@ -39,6 +42,7 @@ rec {
     Matrix.Public = 8448;
     Radicle.Node = 8776;
     Sonarr = 8989;
+    Tor.Socks = 9050;
     Prometheus.Daemon = 9090;
     Prometheus.AlertManager = 9093;
     Prometheus.NodeExporter = 9100;

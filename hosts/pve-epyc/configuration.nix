@@ -29,6 +29,7 @@
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/handbrake-server.nix
     ../../nixos/optional-apps/hydra
+    ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/kubo.nix
@@ -50,6 +51,7 @@
     ../../nixos/optional-apps/sftp-server.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
+    ../../nixos/optional-apps/tor.nix
     ../../nixos/optional-apps/uni-api.nix
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/webdav.nix
