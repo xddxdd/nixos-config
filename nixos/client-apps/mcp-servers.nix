@@ -12,7 +12,7 @@ let
     exa = {
       command = toString (
         pkgs.writeShellScript "mcp-exa" ''
-          exec ${pkgs.uv}/bin/uvx '--with=mcp<2' mcp-proxy \
+          exec ${lib.getExe pkgs.mcp-proxy} \
             -H Authorization "Bearer $(cat ${config.sops.secrets.mcp-exa-api-key.path})" \
             --transport streamablehttp \
             "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa"
@@ -30,7 +30,7 @@ let
     tavily = {
       command = toString (
         pkgs.writeShellScript "mcp-tavily" ''
-          exec ${pkgs.uv}/bin/uvx '--with=mcp<2' mcp-proxy \
+          exec ${lib.getExe pkgs.mcp-proxy} \
             -H Authorization "Bearer $(cat ${config.sops.secrets.mcp-tavily-api-key.path})" \
             --transport streamablehttp \
             "https://mcp.tavily.com/mcp"
@@ -38,10 +38,8 @@ let
       );
     };
     time = {
-      command = "uvx";
+      command = lib.getExe pkgs.mcp-server-time;
       args = [
-        "--with=mcp<2"
-        "mcp-server-time"
         "--local-timezone=${config.time.timeZone}"
       ];
     };
