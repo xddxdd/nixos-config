@@ -3,7 +3,7 @@
   virtualisation.oci-containers.containers.asf = {
     image = "ghcr.io/justarchinet/archisteamfarm:released";
     labels."io.containers.autoupdate" = "registry";
-    ports = [ "${LT.this.ltnet.IPv4}:${LT.portStr.ASF}:1242" ];
+    ports = [ "${LT.constants.localHost.IPv4}:${LT.portStr.ASF}:1242" ];
     volumes = [
       "/var/lib/asf/config:/app/config"
       "/var/lib/asf/plugins:/app/plugins"
@@ -34,11 +34,11 @@
     locations = {
       "/" = {
         enableOAuth = true;
-        proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF}";
+        proxyPass = "http://${LT.constants.localHost.IPv4}:${LT.portStr.ASF}";
       };
       "~* /Api/NLog" = {
         enableOAuth = true;
-        proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.ASF}";
+        proxyPass = "http://${LT.constants.localHost.IPv4}:${LT.portStr.ASF}";
         proxyWebsockets = true;
       };
     };

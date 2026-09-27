@@ -12,7 +12,7 @@ let
 
     uuidFile = config.sops.secrets.adsb-uuid.path;
 
-    netBindAddress = LT.this.ltnet.IPv4;
+    netBindAddress = LT.constants.localHost.IPv4;
     netHeartbeat = 35;
 
     extraOptions = [ "--quiet" ];
@@ -40,7 +40,7 @@ in
       netConnector = [
         # 978MHz in
         {
-          host = LT.this.ltnet.IPv4;
+          host = LT.constants.localHost.IPv4;
           port = LT.port.ADSB.RawOutput978;
           protocol = "uat_in";
         }
@@ -102,13 +102,13 @@ in
       netConnector = [
         # Feed MLAT result back to ADSB 1090MHz instance
         {
-          host = LT.this.ltnet.IPv4;
+          host = LT.constants.localHost.IPv4;
           port = LT.port.ADSB.BeastInput;
           protocol = "beast_out";
         }
         # PlaneWatch
         {
-          host = LT.this.ltnet.IPv4;
+          host = LT.constants.localHost.IPv4;
           port = LT.port.ADSB.PlaneWatch;
           protocol = "beast_in";
         }

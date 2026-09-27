@@ -34,7 +34,7 @@
         --mlat=no \
         --mlat-without-gps=no \
         --receiver=beast-tcp \
-        --host=${LT.this.ltnet.IPv4}:${LT.portStr.ADSB.BeastOutput}
+        --host=${LT.constants.localHost.IPv4}:${LT.portStr.ADSB.BeastOutput}
     '';
 
     serviceConfig = {

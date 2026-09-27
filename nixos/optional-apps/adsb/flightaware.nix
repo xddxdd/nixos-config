@@ -18,9 +18,9 @@
     environment = {
       TZ = config.time.timeZone;
       RECEIVER_TYPE = "relay";
-      BEASTHOST = LT.this.ltnet.IPv4;
+      BEASTHOST = LT.constants.localHost.IPv4;
       BEASTPORT = LT.portStr.ADSB.BeastOutput;
-      MLAT_RESULTS_BEASTHOST = LT.this.ltnet.IPv4;
+      MLAT_RESULTS_BEASTHOST = LT.constants.localHost.IPv4;
       MLAT_RESULTS_BEASTPORT = LT.portStr.ADSB.MlatHubBeastInput;
     };
   };
