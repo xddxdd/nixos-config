@@ -16,6 +16,10 @@
 - **不要**从源码手动 `make install`（包括 `sudo make install`、`make -jN install` 等带参数的形式）
 - **不要**使用 `curl | sh`、`wget | sh` 等管道到 shell 的方式安装软件
 
+#### 运行非 NixOS 二进制文件
+
+需要运行未针对 NixOS 编译的外部二进制文件时，使用 `steam-run` 处理动态链接器问题。
+
 ### 禁止从根目录搜索
 
 - **不要**执行 `find /`、`grep -r /`、`fd /`、`rg /` 等搜索命令，即 `find`、`fd`、`grep`、`rg`、`ag`、`ack` 以根目录（`/`）或 `/nix/store` 为搜索路径的用法
