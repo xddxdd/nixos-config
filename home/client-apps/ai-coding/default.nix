@@ -148,10 +148,10 @@ in
         "git:github.com/xddxdd/pi-model-discovery@v0.3.1"
         "npm:@cortexkit/pi-magic-context"
         "npm:@fradser/pi-utils"
+        "npm:@gamaraan/ask-tool"
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-usage"
-        "npm:@rwese/pi-question"
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-commandcode-provider"
@@ -196,6 +196,10 @@ in
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
     usageStatus = true;
+  };
+  home.file.".pi/agent/ask-tool.json".text = builtins.toJSON {
+    notify = true;
+    timeoutSeconds = 300;
   };
   # https://github.com/cortexkit/magic-context/blob/master/CONFIGURATION.md
   home.file.".config/cortexkit/magic-context.jsonc".text = builtins.toJSON {
