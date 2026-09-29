@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "d9459d758c9e6306484c91cf90daff47151db8bf";
+    version = "655afe27950658a4124d15d75766538b1ae9ea3b";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "d9459d758c9e6306484c91cf90daff47151db8bf";
+      rev = "655afe27950658a4124d15d75766538b1ae9ea3b";
       fetchSubmodules = false;
-      sha256 = "sha256-ThZRPcWsvWt9Xys+qSIYgwL79xinWanEgJFDc90PG3I=";
+      sha256 = "sha256-1h0bFHaJp6s03Rar4C1d5baPuvvzZqzixrEPH8nKG+Q=";
     };
-    date = "2026-09-21";
+    date = "2026-09-28";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
