@@ -70,15 +70,15 @@
   };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
-    version = "726a150d0841f8e45dfcb2f5c2dd54bd3f586e19";
+    version = "54d7758e6dcdfa83a0717a7af53ccd2952780d0d";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
-      rev = "726a150d0841f8e45dfcb2f5c2dd54bd3f586e19";
+      rev = "54d7758e6dcdfa83a0717a7af53ccd2952780d0d";
       fetchSubmodules = false;
-      sha256 = "sha256-K89RiGrHSW6ItFnLZFA4L+gqPHgga/MoVDLZOVKNA/E=";
+      sha256 = "sha256-ryWw5UdhcED+JxTOSdnsVWNOuE5VNVwLwop1oI+Cpls=";
     };
-    date = "2026-09-26";
+    date = "2026-09-28";
   };
   evebox = {
     pname = "evebox";

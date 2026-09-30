@@ -101,7 +101,7 @@
     },
     "dnscontrol-xddxdd": {
         "cargoLock": null,
-        "date": "2026-09-26",
+        "date": "2026-09-28",
         "extract": null,
         "name": "dnscontrol-xddxdd",
         "passthru": null,
@@ -113,12 +113,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "dnscontrol",
-            "rev": "726a150d0841f8e45dfcb2f5c2dd54bd3f586e19",
-            "sha256": "sha256-K89RiGrHSW6ItFnLZFA4L+gqPHgga/MoVDLZOVKNA/E=",
+            "rev": "54d7758e6dcdfa83a0717a7af53ccd2952780d0d",
+            "sha256": "sha256-ryWw5UdhcED+JxTOSdnsVWNOuE5VNVwLwop1oI+Cpls=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "726a150d0841f8e45dfcb2f5c2dd54bd3f586e19"
+        "version": "54d7758e6dcdfa83a0717a7af53ccd2952780d0d"
     },
     "evebox": {
         "cargoLock": null,
