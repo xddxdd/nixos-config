@@ -45,7 +45,24 @@ in
           TimeoutStartSec = "900";
         };
       };
+
+      # Renewal jobs of the same domain (RSA/ECC, ZeroSSL/Let's Encrypt)
+      # exclude each other, so at most one runs at a time.
+      certsByDomain = lib.groupBy (name: config.security.acme.certs.${name}.domain) (
+        builtins.attrNames config.security.acme.certs
+      );
+
+      orderRenewCfg =
+        name: conf:
+        cfg
+        // {
+          conflicts = map (other: "acme-order-renew-${other}.service") (
+            builtins.filter (other: other != name) certsByDomain.${conf.domain}
+          );
+        };
     in
     (lib.mapAttrs' (k: v: lib.nameValuePair "acme-${k}" cfg) config.security.acme.certs)
-    // (lib.mapAttrs' (k: v: lib.nameValuePair "acme-order-renew-${k}" cfg) config.security.acme.certs);
+    // (lib.mapAttrs' (
+      k: v: lib.nameValuePair "acme-order-renew-${k}" (orderRenewCfg k v)
+    ) config.security.acme.certs);
 }
