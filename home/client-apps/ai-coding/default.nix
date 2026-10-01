@@ -128,7 +128,7 @@ in
       enableInstallTelemetry = false;
       enableAnalytics = false;
       defaultProvider = "ollama-cloud";
-      defaultModel = "deepseek-v4.1-flash";
+      defaultModel = "glm-5.3-flash";
       defaultThinkingLevel = "high";
       showCacheMissNotices = false;
 
@@ -198,9 +198,9 @@ in
     enabled = true;
     auto_update = false;
     allow_home_project = true;
-    historian.pi.model = "ollama-cloud/deepseek-v4.1-flash";
-    dreamer.pi.model = "ollama-cloud/deepseek-v4.1-flash";
-    sidekick.model = "ollama-cloud/deepseek-v4.1-flash";
+    historian.pi.model = "ollama-cloud/glm-5.3-flash";
+    dreamer.pi.model = "ollama-cloud/glm-5.3-flash";
+    sidekick.model = "ollama-cloud/glm-5.3-flash";
     embedding = {
       provider = "openai-compatible";
       model = "nomic-embed-code";
