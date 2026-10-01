@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  LT,
+  ...
+}:
 {
   imports = [
     # ./kamailio.nix
@@ -40,4 +44,26 @@
     };
     matchConfig.Name = "ogstun";
   };
+
+  lantian.firewall.chains.FILTER_INPUT.rules = [
+    {
+      priority = LT.firewallPriorities.preService;
+      text = ''
+        iifname "ogstun" tcp dport 853 reject
+        iifname "ogstun" udp dport 853 reject
+      '';
+    }
+  ];
+  lantian.firewall.chains.NAT_PREROUTING.dnat =
+    map
+      (proto: {
+        priority = LT.firewallPriorities.preService;
+        matches = [ ''iifname "ogstun" ${proto} dport 53'' ];
+        ipv4 = "192.168.0.1:53";
+        ipv6 = "[fc00:192:168::1]:53";
+      })
+      [
+        "tcp"
+        "udp"
+      ];
 }

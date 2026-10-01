@@ -142,6 +142,20 @@ in
 
     environment.etc."ocfs2/cluster.conf".text = clusterConf;
 
+    # OCFS2 cluster traffic shares the WAN interface, so filter by source
+    # address: only private addresses may reach the O2CB port.
+    lantian.firewall.chains.PUBLIC_INPUT.rules = [
+      {
+        priority = LT.firewallPriorities.preService;
+        text = ''
+          ip saddr @RESERVED_IPV4 tcp dport ${LT.portStr.OCFS2} accept
+          ip6 saddr @RESERVED_IPV6 tcp dport ${LT.portStr.OCFS2} accept
+          tcp dport ${LT.portStr.OCFS2} reject with tcp reset
+          udp dport ${LT.portStr.OCFS2} reject with icmpx type port-unreachable
+        '';
+      }
+    ];
+
     assertions = [
       {
         assertion = builtins.length cfg.nodes > 0;

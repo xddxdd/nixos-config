@@ -5,6 +5,7 @@
 
     (inputs.secrets + "/dn42/buyvm.nix")
 
+    ./firewall.nix
     ./hardware-configuration.nix
   ];
 

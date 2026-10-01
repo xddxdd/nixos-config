@@ -1,4 +1,5 @@
 {
+  LT,
   config,
   lib,
   ...
@@ -67,6 +68,12 @@
     "amd_pstate=active"
     "amd_pstate.shared_mem=1"
   ];
+
+  # NFS & related ports are intentionally reachable from public interfaces
+  lantian.nfs.firewallPorts = false;
+  lantian.firewall.presets.public-firewall.firewalledPorts =
+    lib.mkIf config.services.printing.enable
+      [ LT.port.CUPS ];
 
   services.proxmox-ve.bridges = [ "br0" ];
   services.proxmox-ve.ipAddress = "192.168.0.2";

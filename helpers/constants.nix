@@ -19,6 +19,7 @@ let
   bindfsOptions = call ./constants/bindfs-options.nix;
   networks = call ./constants/networks.nix;
   ports = call ./constants/ports.nix;
+  firewall = call ./constants/firewall-priorities.nix;
   matrixWellKnown = call ./constants/matrix-well-known.nix;
   nix = call ./constants/nix.nix;
   misc = call ./constants/misc.nix;
@@ -39,6 +40,7 @@ let
     inherit matrixWellKnown;
     inherit nix;
     inherit (ports) port portStr portForwardOffset;
+    inherit (firewall) firewallPriorities;
     inherit (misc)
       defaultGatewayHostName
       defaultGatewayHostIPv4Routes

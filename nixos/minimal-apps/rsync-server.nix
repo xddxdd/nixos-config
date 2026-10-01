@@ -9,6 +9,10 @@ let
   primaryServer = "colocrossing";
 in
 {
+  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.rsyncd.enable [
+    LT.port.Rsync
+  ];
+
   systemd.tmpfiles.settings = {
     sync-servers = {
       "/nix/sync-servers".d = {

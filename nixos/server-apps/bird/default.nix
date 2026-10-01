@@ -2,6 +2,7 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }@args:
 let
@@ -11,6 +12,10 @@ let
   sys = import ./config/sys.nix args;
 in
 {
+  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.bird.enable [
+    LT.port.BGP
+  ];
+
   imports = [
     ./bgp-flowspec.nix
     ./stayrtr.nix

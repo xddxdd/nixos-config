@@ -1,6 +1,7 @@
 {
   imports = [
-    ./inet-rules.nix
+    ./options.nix
+    ./presets.nix
     ./arp.nix
   ];
 }

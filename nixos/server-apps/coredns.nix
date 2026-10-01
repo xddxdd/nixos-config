@@ -155,6 +155,11 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     birdBindTo = [ "coredns-authoritative.service" ];
   };
 
+  lantian.firewall.presets.dns-redirect = {
+    enable = lib.mkIf config.lantian.netns.coredns-authoritative.enable true;
+    netns = "coredns-authoritative";
+  };
+
   services.knot =
     let
       mkDn42Zone = name: {

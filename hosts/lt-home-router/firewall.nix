@@ -1,201 +1,132 @@
 {
   LT,
-  lib,
-  config,
   ...
 }:
-let
-  ipv4Set = name: value: ''
-    set ${name} {
-      type ipv4_addr
-      flags constant, interval
-      elements = { ${builtins.concatStringsSep ", " value} }
-    }
-  '';
-
-  ipv6Set = name: value: ''
-    set ${name} {
-      type ipv6_addr
-      flags constant, interval
-      elements = { ${builtins.concatStringsSep ", " value} }
-    }
-  '';
-
-  publicFirewalledPorts = [
-    # Samba
-    137
-    138
-    139
-    445
-    LT.port.CUPS
-    LT.port.Rsync
-    LT.port.NMEA
-    LT.port.mDNS
-    LT.port.BGP
-  ];
-in
 {
-  networking.nftables.tables.lantian.content = lib.mkForce ''
-    chain FILTER_INPUT {
-      type filter hook input priority 5; policy accept;
+  lantian.firewall.presets = {
+    # Generic presets that don't apply to this router
+    interface-sets.enable = false;
+    dn42.enable = false;
+    block-cn-ports.enable = false;
+    ltnet-fallback-snat.enable = false;
+    masquerade.enable = false;
 
-      # Drop timestamp ICMP pkts
-      meta l4proto icmp icmp type timestamp-reply drop
-      meta l4proto icmp icmp type timestamp-request drop
+    public-firewall = {
+      inputInterfaces = [ ''"eth1*"'' ];
+      forwardInterfaces = [ ];
+    };
 
-      # Block Avahi Multicast DNS on ZeroTier
-      iifname "zt*" udp sport 5353 reject
-      iifname "zt*" udp dport 5353 reject
+    kms-redirect.lanInterfaces = [ ''"eth0*"'' ];
 
-      # Block IPv6 from Quantum Fiber
-      iifname "eth1*" meta nfproto ipv6 drop
+    # Block IPv6 from Quantum Fiber
+    block-ipv6 = {
+      enable = true;
+      interfaces = [ ''"eth1*"'' ];
+    };
 
-      iifname "eth1*" jump PUBLIC_INPUT
-    }
+    dns-redirect = {
+      enable = true;
+      netns = "coredns-client";
+      lanInterfaces = [ ''"eth0*"'' ];
+    };
 
-    chain FILTER_FORWARD {
-      type filter hook forward priority 5; policy accept;
+    vlan-isolate = {
+      enable = true;
+      interfaces = [ ''"eth0*"'' ];
+      allowDestIPs = [ "192.168.0.4" ];
+      allowFromInterfaces = [ ''"eth0"'' ];
+      allowInterfacePairs = [
+        {
+          from = ''"eth0.1"'';
+          to = ''"eth0.5"'';
+        }
+      ];
+    };
 
-      # Clamp TCP MSS
-      tcp flags syn tcp option maxseg size set rt mtu
+    port-forward = {
+      enable = true;
+      wanInterfaces = [
+        ''"eth1*"''
+        ''"henet"''
+      ];
+      hairpinInterfaces = [ ''"eth0*"'' ];
+      hairpinMasqueradeInterfaces = [ ''"eth0"'' ];
+    };
 
-      # Allow existing connections
-      ct state { established, related } accept
+    masquerade-outbound = {
+      enable = true;
+      excludeInterfaces = [
+        ''"eth0*"''
+        ''"lo"''
+      ];
+    };
 
-      # Allow DNATed connections
-      ct status dnat accept
+    block-outbound-src-ports = {
+      enable = true;
+      outputInterfaces = [ ''"eth1*"'' ];
+    };
+  };
 
-      # Homelab VLAN isolation rules
-      iifname "eth0*" oifname "eth0*" jump VLAN_ISOLATE
-
-      # Block forwarding from public interface
-      iifname "eth1*" drop
-    }
-
-    chain VLAN_ISOLATE {
-      # Allow ZeroTier & Syncthing & NFS
-      tcp dport { 9993, 22000, 111, 2049 } accept
-      udp dport { 9993, 22000, 111, 2049 } accept
-
-      # Allow accessing lt-home-lancache
-      ip daddr 192.168.0.4 accept
-
-      # Allow user VLAN to access anything
-      iifname "eth0" accept
-      # Allow homelab VLAN to access IoT VLAN
-      iifname "eth0.1" oifname "eth0.5" accept
-
-      # Reject everything else
-      reject with icmpx type admin-prohibited
-    }
-
-    chain FILTER_OUTPUT {
-      type filter hook output priority 5; policy accept;
-
-      # Block Avahi Multicast DNS on ZeroTier
-      oifname "zt*" udp sport 5353 reject
-      oifname "zt*" udp dport 5353 reject
-
-      # Block IPv6 from Quantum Fiber
-      oifname "eth1*" meta nfproto ipv6 drop
-
-      # Block mDNS on WAN
-      fib saddr type local oifname "eth1*" jump PUBLIC_OUTPUT
-    }
-
-    chain NAT_PREROUTING {
-      type nat hook prerouting priority -95; policy accept;
-
-      # Redirect SideStore requests
-      ip daddr 10.7.0.1 ip daddr set ip saddr ip saddr set 10.7.0.1 notrack
-
-      # Redirect all KMS requests to internal server
-      tcp dport ${LT.portStr.KMS} iifname "eth0*" dnat ip to 198.19.0.252:${LT.portStr.KMS}
-      tcp dport ${LT.portStr.KMS} iifname "eth0*" dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
-
-      # Redirect DNS requests to CoreDNS
-      fib daddr type local tcp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip to ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.DNS}
-      fib daddr type local tcp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip6 to [${config.lantian.netns.coredns-client.ipv6}]:${LT.portStr.DNS}
-      fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip to ${config.lantian.netns.coredns-client.ipv4}:${LT.portStr.DNS}
-      fib daddr type local udp dport ${LT.portStr.DNS} iifname "eth0*" dnat ip6 to [${config.lantian.netns.coredns-client.ipv6}]:${LT.portStr.DNS}
-
-      # Redirect to pve-epyc
-      fib daddr type local iifname "eth1*" jump NAT_PORT_FORWARD
-      fib daddr type local iifname "henet" jump NAT_PORT_FORWARD
-
-      # Hairpin NAT
-      fib daddr type local iifname "eth0*" ip daddr != @RESERVED_IPV4 jump NAT_PORT_FORWARD
-      fib daddr type local iifname "eth0*" ip6 daddr != @RESERVED_IPV6 jump NAT_PORT_FORWARD
-    }
-
-    chain NAT_PORT_FORWARD {
-      meta nfproto ipv4 tcp dport 31080-31089 dnat ip to 192.168.0.2
-      meta nfproto ipv4 udp dport 31080-31089 dnat ip to 192.168.0.2
-      meta nfproto ipv4 tcp dport { 80, 443, 2222 } dnat ip to 192.168.0.2
-      meta nfproto ipv6 tcp dport { 80, 443, 2222 } dnat ip6 to [2001:470:e997::2]
-      meta nfproto ipv4 udp dport 22547 dnat ip to 192.168.0.2
-      meta nfproto ipv6 udp dport 22547 dnat ip6 to [2001:470:e997::2]
+  lantian.firewall.chains = {
+    NAT_PORT_FORWARD.dnat = [
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [
+          "meta nfproto ipv4 tcp dport 31080-31089"
+          "meta nfproto ipv4 udp dport 31080-31089"
+          "meta nfproto ipv4 tcp dport { 80, 443, 2222 }"
+        ];
+        ipv4 = "192.168.0.2";
+      }
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [ "meta nfproto ipv6 tcp dport { 80, 443, 2222 }" ];
+        ipv6 = "[2001:470:e997::2]";
+      }
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [ "meta nfproto ipv4 udp dport 22547" ];
+        ipv4 = "192.168.0.2";
+      }
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [ "meta nfproto ipv6 udp dport 22547" ];
+        ipv6 = "[2001:470:e997::2]";
+      }
       # Historical forward for nix-builder port
-      meta nfproto ipv4 tcp dport 2223 dnat ip to 192.168.0.2:2222
-      meta nfproto ipv6 tcp dport 2223 dnat ip6 to [2001:470:e997::2]:2222
-    }
-
-    chain NAT_INPUT {
-      type nat hook input priority 105; policy accept;
-    }
-
-    chain NAT_OUTPUT {
-      type nat hook output priority -95; policy accept;
-
-      # Redirect all KMS requests to internal server
-      tcp dport ${LT.portStr.KMS} dnat ip to 198.19.0.252:${LT.portStr.KMS}
-      tcp dport ${LT.portStr.KMS} dnat ip6 to [fdbc:f9dc:67ad:2547::1688]:${LT.portStr.KMS}
-    }
-
-    chain NAT_POSTROUTING {
-      type nat hook postrouting priority 105; policy accept;
-
-      meta nfproto ipv4 oifname != "eth0*" oifname != "lo" masquerade
-
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [ "meta nfproto ipv4 tcp dport 2223" ];
+        ipv4 = "192.168.0.2:2222";
+      }
+      {
+        priority = LT.firewallPriorities.early;
+        matches = [ "meta nfproto ipv6 tcp dport 2223" ];
+        ipv6 = "[2001:470:e997::2]:2222";
+      }
+    ];
+    FILTER_FORWARD.rules = [
+      {
+        priority = LT.firewallPriorities.terminal;
+        text = ''iifname "eth1*" drop'';
+      }
+    ];
+    NAT_POSTROUTING.rules = [
       # Avoid using ZeroTier as return path
-      meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade
-
-      # Hairpin NAT
-      meta iifname "eth0" oifname "eth0" masquerade
-
-      oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48
-    }
-
-    set PUBLIC_FIREWALLED_PORTS {
-      type inet_service
-      flags constant
-      elements = {
-        ${lib.concatMapStringsSep "," builtins.toString publicFirewalledPorts}
+      {
+        priority = LT.firewallPriorities.preService;
+        text = ''meta nfproto ipv4 iifname "ns-*" oifname "eth0*" masquerade'';
       }
-    }
-
-    set PUBLIC_BLOCK_OUTBOUND_SRC_PORTS {
-      type inet_service
-      flags constant
-      elements = {
-        5353
+      {
+        priority = LT.firewallPriorities.terminal;
+        text = ''oifname "henet" ip6 saddr fc00:192:168::/48 snat ip6 prefix to 2001:470:e997::/48'';
       }
-    }
+    ];
+  };
 
-    chain PUBLIC_INPUT {
-      tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
-      udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
-      return
-    }
-
-    chain PUBLIC_OUTPUT {
-      tcp sport @PUBLIC_FIREWALLED_PORTS drop
-      udp sport @PUBLIC_FIREWALLED_PORTS drop
-      return
-    }
-
-    # IP Sets
-    ${ipv4Set "RESERVED_IPV4" LT.constants.reserved.IPv4}
-    ${ipv6Set "RESERVED_IPV6" LT.constants.reserved.IPv6}
-  '';
+  lantian.firewall.ipsets.PUBLIC_BLOCK_OUTBOUND_SRC_PORTS = {
+    type = "inet_service";
+    flags = [ "constant" ];
+    elements = [ 5353 ];
+  };
 }

@@ -1,5 +1,14 @@
-{ LT, ... }:
 {
+  LT,
+  lib,
+  config,
+  ...
+}:
+{
+  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.avahi.enable [
+    LT.port.mDNS
+  ];
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;

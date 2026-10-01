@@ -126,6 +126,17 @@ Flake 入口文件，定义了：
 | `nginx-security.nix`                  | 确保 Nginx 虚拟主机的安全配置正确（localhost/public 访问控制） |
 | `podman-ensure-autoupdate.nix`        | 确保所有 Podman 容器启用了自动更新                            |
 
+### 防火墙选项系统
+
+`nftables` 防火墙表 `lantian` 不再由硬编码字符串拼接，而是由 `lantian.firewall` 下的选项拼装（定义在 `nixos/minimal-components/firewall/`，含 `options.nix`、`presets.nix`、`arp.nix`）：
+
+- `lantian.firewall.chains.<链名>.rules`：链的普通规则列表，每条规则为 `{ priority = LT.firewallPriorities.<档位>; text = "nft 语句"; }`；同优先级的连续规则可写在同一个多行 `text` 中。链的 `type`/`hook`/`priority`/`policy` 选项声明基链。
+- `lantian.firewall.chains.<链名>.dnat`：结构化 DNAT 列表，每项提供 `priority`、`matches`（匹配表达式列表）、可选的 `ipv4` 和 `ipv6` 目标；每个已设置的目标各生成对应地址族的规则。与普通规则一起按优先级稳定排序；类型和生成逻辑均位于 `nixos/minimal-components/firewall/options.nix`，生成内容不附加缩进或空行。独立网络命名空间的规则不由此选项管理。
+- `LT.firewallPriorities`：在 `helpers/constants/firewall-priorities.nix` 定义，仅有 `early = 100`、`preService = 200`、`service = 300`、`terminal = 400` 四个常量（基链 hook 的优先级另算）。数字较小的规则先执行，同档按定义顺序排列；新增规则应复用相应档位，不要另写数字或随意改变顺序。
+- `lantian.firewall.ipsets.<集合名>`：nft 集合（`type`、`flags`、`elements`），多个模块可向同一集合追加 `elements`（如游戏加速器向 `CN_FIREWALLED_PORTS` 追加端口）。
+- `lantian.firewall.presets.<名称>.enable` 及各预设自己的选项：功能开关。通用预设在 `presets.nix` 定义；服务专属规则定义在各自服务模块中（如 `openvpn-gameaccel.nix`、`open5gs`、`ocfs2.nix`、`nginx-proxy.nix`、`yggdrasil-alfis.nix`、`server-apps/coredns.nix`、`pipewire-roc-sink.nix`、`route-chain.nix`、`netns-tnl-buyvm.nix`）。`public-firewall.firewalledPorts` 默认为空，由启用的 Samba、CUPS、Rsync、BIRD、Avahi、NMEA、NFS 服务模块分别追加；`lantian.nfs.firewallPorts = false` 可让 NFS 端口从公网接口可达。
+- 规则引用 `@INTERFACE_*` 集合时需确保 `interface-sets` 预设已启用（相关规则已用 `mkIf` 保护）。
+
 ## 自定义包说明
 
 `pkgs/` 目录包含自定义 Nix 包。每个包目录包含：

@@ -40,6 +40,15 @@ in
     birdBindTo = [ "yggdrasil-alfis.service" ];
   };
 
+  lantian.firewall.chains.NAT_PREROUTING.dnat = lib.mkIf config.lantian.netns.yggdrasil-alfis.enable [
+    {
+      priority = LT.firewallPriorities.preService;
+      matches = [ "fib daddr type local tcp dport ${LT.portStr.Yggdrasil.Alfis}" ];
+      ipv4 = "${netns.ipv4}:${LT.portStr.Yggdrasil.Alfis}";
+      ipv6 = "[${netns.ipv6}]:${LT.portStr.Yggdrasil.Alfis}";
+    }
+  ];
+
   systemd.services.yggdrasil-alfis = netns.bind {
     description = "Alternative Free Identity System";
     wantedBy = [ "multi-user.target" ];

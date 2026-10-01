@@ -57,6 +57,32 @@ in
       birdBindTo = [ "nginx-proxy.service" ];
     };
 
+    lantian.firewall.chains.NAT_PREROUTING.dnat =
+      (map
+        (port: {
+          priority = LT.firewallPriorities.preService;
+          matches = [ "fib daddr type local tcp dport ${port}" ];
+          ipv4 = "${netns.ipv4}:${port}";
+        })
+        [
+          LT.portStr.Whois
+          LT.portStr.Gopher
+          LT.portStr.Gemini
+        ]
+      )
+      ++ (map
+        (port: {
+          priority = LT.firewallPriorities.preService;
+          matches = [ "fib daddr type local tcp dport ${port}" ];
+          ipv6 = "[${netns.ipv6}]:${port}";
+        })
+        [
+          LT.portStr.Whois
+          LT.portStr.Gopher
+          LT.portStr.Gemini
+        ]
+      );
+
     systemd.services.nginx-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = LT.serviceHarden // {

@@ -5,6 +5,13 @@
   ...
 }:
 {
+  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.samba.enable [
+    137
+    138
+    139
+    445
+  ];
+
   services.samba = {
     enable = true;
     nmbd.enable = true;

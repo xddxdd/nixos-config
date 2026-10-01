@@ -30,6 +30,7 @@ let
       port
       portStr
       portForwardOffset
+      firewallPriorities
       tags
       interfacePrefixes
       defaultGatewayHostName

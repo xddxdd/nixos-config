@@ -250,6 +250,24 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
     persist-tun
   '';
 
+  lantian.firewall.chains.FILTER_INPUT.rules =
+    lib.mkIf config.lantian.firewall.presets.public-firewall.enable
+      [
+        {
+          priority = LT.firewallPriorities.service;
+          text = ''iifname "ovpn-gameacc" jump PUBLIC_INPUT'';
+        }
+      ];
+  lantian.firewall.chains.FILTER_FORWARD.rules =
+    lib.mkIf config.lantian.firewall.presets.interface-sets.enable
+      [
+        {
+          priority = LT.firewallPriorities.service;
+          text = ''iifname "ovpn-gameacc" oifname != @INTERFACE_WAN drop'';
+        }
+      ];
+  lantian.firewall.ipsets.CN_FIREWALLED_PORTS.elements = [ LT.port.OpenVPN.GameAccel ];
+
   users.users.openvpn = {
     group = "openvpn";
     isSystemUser = true;

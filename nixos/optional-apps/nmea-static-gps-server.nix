@@ -2,9 +2,14 @@
   pkgs,
   lib,
   LT,
+  config,
   ...
 }:
 {
+  lantian.firewall.presets.public-firewall.firewalledPorts =
+    lib.mkIf config.systemd.services.nmea-static-gps-server.enable
+      [ LT.port.NMEA ];
+
   systemd.services.nmea-static-gps-server = {
     description = "NMEA Static GPS Server";
     after = [
