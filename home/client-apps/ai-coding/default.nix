@@ -157,7 +157,6 @@ in
         "npm:pi-commandcode-provider"
         "npm:pi-copy-message"
         "npm:pi-fast-resume"
-        "npm:pi-mcp-adapter"
         "npm:pi-multi-pass"
         "npm:pi-ollama-cloud"
         "npm:pi-secret-mask"
@@ -182,16 +181,9 @@ in
   '';
 
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
-    settings = {
-      directTools = true;
-      disableProxyTool = true;
-      # Disabled for extra logging to TUI
-      freezeDirectTools = false;
-      idleTimeout = 5;
-      mcpFooterStatus = "off";
-      requestTimeoutMs = 60000;
-      scriptMode = false;
-    };
+    mcpServers = lib.mapAttrs (_: server: server // { exposure = "direct"; }) (
+      osConfig.lantian.mcp.codingMcpServers or { }
+    );
   };
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
