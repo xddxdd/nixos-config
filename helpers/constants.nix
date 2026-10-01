@@ -19,6 +19,7 @@ let
   bindfsOptions = call ./constants/bindfs-options.nix;
   networks = call ./constants/networks.nix;
   ports = call ./constants/ports.nix;
+  replacedHosts = call ./constants/replaced-hosts.nix;
   firewall = call ./constants/firewall-priorities.nix;
   matrixWellKnown = call ./constants/matrix-well-known.nix;
   nix = call ./constants/nix.nix;
@@ -52,6 +53,7 @@ let
     inherit (interfacePrefixesAttrs) interfacePrefixes;
     inherit (zonesAttrs) zones;
     inherit publicSites;
+    inherit replacedHosts;
   };
 in
 result

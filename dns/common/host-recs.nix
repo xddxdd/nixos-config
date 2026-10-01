@@ -10,23 +10,7 @@ let
   constants = pkgs.callPackage ../../helpers/constants.nix { inherit inputs; };
   inherit (constants) tags;
 
-  replacedHosts = {
-    # keep-sorted start
-    "50kvm" = LT.hosts."alice";
-    gigsgigscloud = LT.hosts."alice";
-    hetzner-de = LT.hosts."colocrossing";
-    hostdare = LT.hosts."bwg-lax";
-    linkin = LT.hosts."alice";
-    oneprovider = LT.hosts."colocrossing";
-    soyoustart = LT.hosts."colocrossing";
-    v-ps-hkg = LT.hosts."alice";
-    v-ps-sjc = LT.hosts."bwg-lax";
-    virmach-ny1g = LT.hosts."colocrossing";
-    virmach-ny3ip = LT.hosts."colocrossing";
-    virmach-ny6g = LT.hosts."colocrossing";
-    virtono = LT.hosts."buyvm";
-    # keep-sorted end
-  };
+  replacedHosts = lib.mapAttrs (n: v: LT.hosts."${v}") LT.replacedHosts;
 
   forEachActiveHost = mapFunc: (lib.mapAttrsToList mapFunc LT.hosts);
   forEachHost = mapFunc: (lib.mapAttrsToList mapFunc (LT.hosts // replacedHosts));

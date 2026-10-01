@@ -46,6 +46,7 @@ let
       neonetwork
       matrixWellKnown
       nix
+      replacedHosts
       ;
     geo = call ./geo.nix;
 

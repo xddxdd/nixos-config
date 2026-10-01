@@ -1,4 +1,5 @@
-_: [
+{ lib, replacedHosts, ... }:
+[
   # Public static pages
   # keep-sorted start
   "_default_http"
@@ -72,3 +73,5 @@ _: [
   "radicle.lantian.pub"
   # keep-sorted end
 ]
+# 301 redirect vhosts for replaced old host names: serve no content, just redirect
+++ (lib.mapAttrsToList (n: _: "*.${n}.xuyh0120.win") replacedHosts)

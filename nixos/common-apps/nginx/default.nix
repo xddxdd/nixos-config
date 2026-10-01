@@ -13,6 +13,7 @@
     ./vhost-lab.nix
     ./vhost-matrix-element
     ./vhost-options
+    ./vhost-replaced-hosts.nix
     ./vhost-tools
     ./vhost-um
     ./vhosts-default.nix
