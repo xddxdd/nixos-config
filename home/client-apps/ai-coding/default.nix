@@ -149,6 +149,7 @@ in
         "npm:@cortexkit/pi-magic-context"
         "npm:@fradser/pi-utils"
         "npm:@gamaraan/ask-tool"
+        "npm:@mjakl/pi-subagent"
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-usage"
@@ -161,7 +162,6 @@ in
         "npm:pi-ollama-cloud"
         "npm:pi-secret-mask"
         "npm:pi-simplify"
-        "npm:pi-subagents"
         # keep-sorted end
       ];
     };
@@ -241,13 +241,5 @@ in
     };
     extraSecrets = [ ];
     customPatterns = [ ];
-  };
-  home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
-    toolDescriptionMode = "compact";
-    parallel = {
-      maxTasks = 100;
-      concurrency = 100;
-    };
-    maxSubagentSpawnsPerSession = 10000;
   };
 }
