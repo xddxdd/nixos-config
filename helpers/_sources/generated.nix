@@ -444,13 +444,13 @@
   };
   vscode-vibrancy-continued = {
     pname = "vscode-vibrancy-continued";
-    version = "v1.1.93";
+    version = "v1.3.1";
     src = fetchFromGitHub {
       owner = "illixion";
       repo = "vscode-vibrancy-continued";
-      rev = "v1.1.93";
+      rev = "v1.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ngu1/fkA86oHiia/ZAH1qQbA7ibV2zOutdkL+qIVbik=";
+      sha256 = "sha256-iSTQesloOUb03ikQHT1bcSmNUPkV9Cvmt6UPrTJlkHk=";
     };
   };
   wordpress-theme-twentyeleven = {

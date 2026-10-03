@@ -765,12 +765,12 @@
             "name": null,
             "owner": "illixion",
             "repo": "vscode-vibrancy-continued",
-            "rev": "v1.1.93",
-            "sha256": "sha256-ngu1/fkA86oHiia/ZAH1qQbA7ibV2zOutdkL+qIVbik=",
+            "rev": "v1.3.1",
+            "sha256": "sha256-iSTQesloOUb03ikQHT1bcSmNUPkV9Cvmt6UPrTJlkHk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.93"
+        "version": "v1.3.1"
     },
     "wordpress-theme-twentyeleven": {
         "cargoLock": null,
