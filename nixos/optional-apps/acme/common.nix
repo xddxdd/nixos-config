@@ -16,6 +16,7 @@ in
   mkLetsEncryptCert = domain: {
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
@@ -25,6 +26,7 @@ in
     };
     "lets-encrypt-${domain}-ecc" = {
       inherit domain;
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
@@ -38,6 +40,7 @@ in
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
@@ -48,6 +51,7 @@ in
     "lets-encrypt-${domain}-ecc" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
@@ -60,6 +64,7 @@ in
   mkLetsEncryptTestCert = domain: {
     "lets-encrypt-test-${domain}-rsa" = {
       inherit domain;
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
@@ -69,6 +74,7 @@ in
     };
     "lets-encrypt-test-${domain}-ecc" = {
       inherit domain;
+      extraLegoFlags = [ "--dns.propagation.wait=60s" ];
       extraLegoRunFlags = [ "--profile=shortlived" ];
       extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
@@ -81,7 +87,10 @@ in
   mkGoogleCert = domain: {
     "google-${domain}-rsa" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "rsa4096";
       server = "https://dv.acme-v02.api.pki.goog/directory";
       validMinDays = 30;
@@ -89,7 +98,10 @@ in
     };
     "google-${domain}-ecc" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "ec384";
       server = "https://dv.acme-v02.api.pki.goog/directory";
       validMinDays = 30;
@@ -100,7 +112,10 @@ in
   mkGoogleTestCert = domain: {
     "google-test-${domain}-rsa" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "rsa4096";
       server = "https://dv.acme-v02.test-api.pki.goog/directory";
       validMinDays = 30;
@@ -108,7 +123,10 @@ in
     };
     "google-test-${domain}-ecc" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "ec384";
       server = "https://dv.acme-v02.test-api.pki.goog/directory";
       validMinDays = 30;
@@ -119,7 +137,10 @@ in
   mkZeroSSLCert = domain: {
     "zerossl-${domain}-rsa" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "rsa4096";
       server = "https://acme.zerossl.com/v2/DV90";
       validMinDays = 30;
@@ -127,7 +148,10 @@ in
     };
     "zerossl-${domain}-ecc" = {
       inherit domain;
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "ec384";
       server = "https://acme.zerossl.com/v2/DV90";
       validMinDays = 30;
@@ -139,7 +163,10 @@ in
     "zerossl-${domain}-rsa" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "rsa4096";
       server = "https://acme.zerossl.com/v2/DV90";
       validMinDays = 30;
@@ -148,7 +175,10 @@ in
     "zerossl-${domain}-ecc" = {
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
-      extraLegoFlags = [ "--eab" ];
+      extraLegoFlags = [
+        "--eab"
+        "--dns.propagation.wait=60s"
+      ];
       keyType = "ec384";
       server = "https://acme.zerossl.com/v2/DV90";
       validMinDays = 30;
