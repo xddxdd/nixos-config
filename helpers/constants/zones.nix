@@ -71,7 +71,6 @@ let
     Others = [
       # Custom overrides
       "database.azure.com"
-      "repology.org"
     ];
   };
 in
