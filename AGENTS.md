@@ -144,6 +144,9 @@ Flake 入口文件，定义了：
 - `default.nix` - Nix 构建定义
 - `Cargo.toml` / `Cargo.lock` - Rust 依赖配置（适用于 Rust 包）
 - `src/` - 源代码
+- `build.rs`、`data/`、`assets/` - 构建脚本、编译期内嵌数据与运行时资产（如该包需要）
+
+包由使用处通过 `pkgs.callPackage ../../pkgs/<名> { }` 引入（示例见 `nixos/optional-apps/pipewire-volume-control.nix`）。若包带有运行时才读取的资产，约定在 `postInstall` 中安装到 `$out/share/<pname>/`，由服务单元以参数指向该路径。
 
 ## 覆盖层说明
 
