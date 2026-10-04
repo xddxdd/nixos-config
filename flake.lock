@@ -306,11 +306,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790910042,
-        "narHash": "sha256-sGJ+Xarv+ywOu/vpFfHmj3UOhHzkzIKf0dQkDwoqXrw=",
+        "lastModified": 1790995603,
+        "narHash": "sha256-f6bcXGH3glNwAqPT/C4TFBxJFZjTbPIzttlzcQKBcOo=",
         "owner": "petrkozorezov",
         "repo": "firefox-addons-nix",
-        "rev": "b5428867107cca129af676979c954e06c6e83d95",
+        "rev": "593f49c7fac45bd89a39591935d9fe2471a85fd8",
         "type": "github"
       },
       "original": {
@@ -581,11 +581,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790983003,
-        "narHash": "sha256-IG8ZzzTIaXCM78zS3C8LIvwW5LKy+iG3dhXrs4L43K0=",
+        "lastModified": 1791072324,
+        "narHash": "sha256-hm+VeaOyLQLe37IvSADW4IKIxTvm9W/nZDd+S7flKzU=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f86fdf7df0a871d33c0532e962afccf32d3a9da2",
+        "rev": "4e0a04f23b1113a125efb0246f57752674ade3d9",
         "type": "github"
       },
       "original": {
@@ -1238,11 +1238,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790947081,
-        "narHash": "sha256-QvxMV0UrvxqyK7rAAve/bUowkQCiKsvb71pQXiTynls=",
+        "lastModified": 1791029356,
+        "narHash": "sha256-IwsggzXBpM9PAT32obyhmnk9RL5jkuHOFIBNKTlM7dU=",
         "owner": "xddxdd",
         "repo": "nixos-secrets",
-        "rev": "6565e5d1b0a4069813ed7e9b1f7192f32881c77b",
+        "rev": "01e3539d6934c6cd77acb5dc16d7e61426e6f3c8",
         "type": "github"
       },
       "original": {

@@ -109,17 +109,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "79b551cf26aab9ea4ac701fb807160950a5b860f";
+    version = "82e641b4fece9d1028a127149af9ded00df5ac0c";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "79b551cf26aab9ea4ac701fb807160950a5b860f";
+      rev = "82e641b4fece9d1028a127149af9ded00df5ac0c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yAQ4BDZD7ZNuKrsh5Uk6jd1lffW5vZzMk/xHF8Ro/Ro=";
+      sha256 = "sha256-4zgie22hc6gbqPBuKO908ikrM745DE6CNa7pu5qpHjY=";
     };
-    date = "2026-10-01";
+    date = "2026-10-03";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
