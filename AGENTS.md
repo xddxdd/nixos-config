@@ -148,6 +148,12 @@ Flake 入口文件，定义了：
 
 包由使用处通过 `pkgs.callPackage ../../pkgs/<名> { }` 引入（示例见 `nixos/optional-apps/pipewire-volume-control.nix`）。若包带有运行时才读取的资产，约定在 `postInstall` 中安装到 `$out/share/<pname>/`，由服务单元以参数指向该路径。
 
+`home/client-apps/firefox/addons/` 是 Firefox 扩展包集合（仅由同目录的 firefox 配置使用，故不放在 `pkgs/`），不再依赖外部 flake 输入：`addons.json` 固定 `home/client-apps/firefox/default.nix` 所用扩展（除由 nvfetcher 跟踪的 `auto-novel-addon`）的 AMO 版本、下载 URL、SRI hash 与 `addonId`，`default.nix` 据此生成把 `.xpi` 安装到 `share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/<addonId>.xpi` 并带 `passthru.addonId` 的包，`update.py` 通过 AMO API 重新生成 `addons.json`。`update.py` 由 `nix run .#update-data` 自动执行。
+
+`home/client-apps/thunderbird/addons/` 同理管理 Thunderbird 扩展（目录结构、`default.nix` 构建器与 firefox 一致）：`addons.json` 固定 8 个 ATN 扩展，`update.py` 走 ATN v4 API（`https://addons.thunderbird.net/api/v4/addons/addon/<slug>/`，文件在 `current_version.files[]` 而非 `.file`）。
+
+Thunderbird 配置在 `home/client-apps/thunderbird/default.nix`，通过 `programs.thunderbird.profiles."ayx6omhb.default".extensions`（`isDefault = true`、`package = pkgs.thunderbird-bin`、`extensions.autoDisableScopes = 0`）安装这些扩展，并强制接管 Thunderbird 原本自行生成的 `profiles.ini`（`home.file.".thunderbird/profiles.ini".force = true`）。中文语言包不属于扩展列表：`thunderbird-bin` 不支持 `programs.thunderbird.languagePacks` 所需的 `override`，改由 `nixos/client-apps/thunderbird.nix` 的 `policies.json` 用 `RequestedLocales` + `ExtensionSettings` 管理。注意 Home Manager 以递归方式链接 profile 的 `extensions` 目录，已有的未托管 `.xpi`（如手动安装的扩展）不会被自动删除。
+
 ## 覆盖层说明
 
 `overlays/` 目录包含 Nixpkgs 覆盖层，按数字前缀排序执行。文件命名格式为 `数字前缀-描述.nix`，数字越小越先执行。

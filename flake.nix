@@ -52,11 +52,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
-    firefox-addons = {
-      url = "github:petrkozorezov/firefox-addons-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     flat-flake = {
       url = "github:linyinfeng/flat-flake";
       inputs.nixpkgs.follows = "nixpkgs";

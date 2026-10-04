@@ -296,29 +296,6 @@
         "type": "github"
       }
     },
-    "firefox-addons": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790995603,
-        "narHash": "sha256-f6bcXGH3glNwAqPT/C4TFBxJFZjTbPIzttlzcQKBcOo=",
-        "owner": "petrkozorezov",
-        "repo": "firefox-addons-nix",
-        "rev": "593f49c7fac45bd89a39591935d9fe2471a85fd8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "petrkozorezov",
-        "repo": "firefox-addons-nix",
-        "type": "github"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -1158,7 +1135,6 @@
         "comfyui-nix": "comfyui-nix",
         "country-ip-blocks": "country-ip-blocks",
         "fast-nix-gc": "fast-nix-gc",
-        "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",

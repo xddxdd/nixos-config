@@ -1,0 +1,240 @@
+[
+  {
+    "pname": "adnauseam",
+    "version": "3.28.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4909199/adnauseam-3.28.8.xpi",
+    "hash": "sha256-+iqpnEo8dmUU1yqencwps+W1+LWAcrDXxJXwyJW3LOA=",
+    "addonId": "adnauseam@rednoise.org"
+  },
+  {
+    "pname": "all-api-hub",
+    "version": "4.2.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5071084/all_api_hub-4.2.0.xpi",
+    "hash": "sha256-wRDg695uZz6JfaP209alrWpGctmDvxsCl6Ga+AIsDd0=",
+    "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
+  },
+  {
+    "pname": "awardwallet",
+    "version": "3.7.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5054303/awardwallet-3.7.8.xpi",
+    "hash": "sha256-UIvbFGqQF+eiPE+pAFOzPij74UFwPdZQcBgyY3NpFG4=",
+    "addonId": "6200cc7406cd11e1a68a12313d1adcbe@jetpack"
+  },
+  {
+    "pname": "bilisponsorblock",
+    "version": "0.15.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5057692/bilisponsorblock-0.15.0.xpi",
+    "hash": "sha256-CVksEkLawRmPMMZpMNJZn8MzFDi7P4dNLQ9OcAjNgiU=",
+    "addonId": "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}"
+  },
+  {
+    "pname": "bitwarden-password-manager",
+    "version": "2026.9.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5076543/bitwarden_password_manager-2026.9.3.xpi",
+    "hash": "sha256-XdbvpdIo2+rHoMaog/lReH3GbleYUyLOVJIQsN+NBUw=",
+    "addonId": "{446900e4-71c2-419f-a6a7-df9c091e268b}"
+  },
+  {
+    "pname": "cardpointers-x",
+    "version": "8.0.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5029608/cardpointers_x-8.0.1.xpi",
+    "hash": "sha256-nxVgHi8dmZTScbaBS0kg0jtp6mm2dH5gJbS1mDt7TE8=",
+    "addonId": "firefox@cardpointers.com"
+  },
+  {
+    "pname": "clearurls",
+    "version": "1.27.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4432106/clearurls-1.27.3.xpi",
+    "hash": "sha256-VJJrbkJ01ZNaX8DapjIPHTcePS8aWHdGfKOrIqZcTyA=",
+    "addonId": "{74145f27-f039-47ce-a470-a662b129930a}"
+  },
+  {
+    "pname": "darkreader",
+    "version": "4.9.133",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5055786/darkreader-4.9.133.xpi",
+    "hash": "sha256-6wbFCW12FhbH8dlUwRUkykv/T+cikETcH84oiowIU6s=",
+    "addonId": "addon@darkreader.org"
+  },
+  {
+    "pname": "dont-track-me-google1",
+    "version": "4.30",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4998037/dont_track_me_google1-4.30.xpi",
+    "hash": "sha256-MRpGovlqAgzCxbFVDLLkHg+4MIvfbnKSmo4ZvkoTcek=",
+    "addonId": "dont-track-me-google@robwu.nl"
+  },
+  {
+    "pname": "downthemall",
+    "version": "4.15.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi",
+    "hash": "sha256-pvU4IrcItMtZUZXyWBj7DutpDhJEyi1/wNC2RcTcXek=",
+    "addonId": "{DDC359D1-844A-42a7-9AA1-88A850A938A8}"
+  },
+  {
+    "pname": "fastforwardteam",
+    "version": "0.2383",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4258067/fastforwardteam-0.2383.xpi",
+    "hash": "sha256-7sYyjfPfGv4stqMx9pB2adgEI1VR6nZtSGVfj4Mcryg=",
+    "addonId": "addon@fastforward.team"
+  },
+  {
+    "pname": "foxyproxy-standard",
+    "version": "9.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5029813/foxyproxy_standard-9.8.xpi",
+    "hash": "sha256-NzUPP1fqD4jtElE/ojPESGwAb/NSEp1EShLaTiIoBAM=",
+    "addonId": "foxyproxy@eric.h.jung"
+  },
+  {
+    "pname": "i-dont-care-about-cookies",
+    "version": "3.5.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4202634/i_dont_care_about_cookies-3.5.0.xpi",
+    "hash": "sha256-TeKERUIX/EvuB0T7Cq2ODhD6VA3AMlEBOvw+5MIOSbA=",
+    "addonId": "jid1-KKzOGWgsW3Ao4Q@jetpack"
+  },
+  {
+    "pname": "ipfs-companion",
+    "version": "3.4.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4912161/ipfs_companion-3.4.0.xpi",
+    "hash": "sha256-K7XoB2Q7M34VqeeayL4mJTMsgmDlCPTd2GsKwp6fnVE=",
+    "addonId": "ipfs-firefox-addon@lidel.org"
+  },
+  {
+    "pname": "lovely-forks",
+    "version": "3.7.4",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4863232/lovely_forks-3.7.4.xpi",
+    "hash": "sha256-FugTn8hCnIzjBmD5TtVz2cD9lHY9xJU/YURGhgLSn8o=",
+    "addonId": "github-forks-addon@musicallyut.in"
+  },
+  {
+    "pname": "multi-account-containers",
+    "version": "8.3.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4867303/multi_account_containers-8.3.8.xpi",
+    "hash": "sha256-MGopSEU2PxWnR46WILQ/keoXYQiHJ4COIye//xbBREc=",
+    "addonId": "@testpilot-containers"
+  },
+  {
+    "pname": "noscript",
+    "version": "13.6.36",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5075209/noscript-13.6.36.xpi",
+    "hash": "sha256-EIY4UdGP50poDkbkqBP9WVULtKNWolTN4+j4XIDbAHg=",
+    "addonId": "{73a6fe31-595d-460b-a920-fcc0f8843232}"
+  },
+  {
+    "pname": "pakkujs",
+    "version": "2026.5.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4784327/pakkujs-2026.5.1.xpi",
+    "hash": "sha256-3BgW2LzEUx6nwFcKrug06oArD+VC3WdsYXNveTMluAY=",
+    "addonId": "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}"
+  },
+  {
+    "pname": "pay-by-privacy",
+    "version": "2.4.17",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4823381/pay_by_privacy-2.4.17.xpi",
+    "hash": "sha256-jKpTzg5i4EzTcXCKJQMvJzfUTg5yYwFZ/ybILHLJiXU=",
+    "addonId": "privacy@privacy.com"
+  },
+  {
+    "pname": "phantom-app",
+    "version": "25.16.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4488518/phantom_app-25.16.0.xpi",
+    "hash": "sha256-HeG5v4MaVyBWdIY46TtLieB9/8wlwPcfX1wZhUbD9T4=",
+    "addonId": "{7c42eea1-b3e4-4be4-a56f-82a5852b12dc}"
+  },
+  {
+    "pname": "plasma-integration",
+    "version": "2.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4614817/plasma_integration-2.1.xpi",
+    "hash": "sha256-Nb+jdm4JcWDnT1Jb3lTZe7upDXJdqkJbneb+9uxenUQ=",
+    "addonId": "plasma-browser-integration@kde.org"
+  },
+  {
+    "pname": "protondb-for-steam",
+    "version": "2.3.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4490230/protondb_for_steam-2.3.0.xpi",
+    "hash": "sha256-5auNWUzXHHo0WmaUYgrZxKOruXFhoZG3JIT1uTS6lsU=",
+    "addonId": "{30280527-c46c-4e03-bb16-2e3ed94fa57c}"
+  },
+  {
+    "pname": "pt-depiler",
+    "version": "0.0.6.1940",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5077253/pt_depiler-0.0.6.1940.xpi",
+    "hash": "sha256-lhTLrqqGSYxuNAGCs10EU6D4N7zCrIAfVjvEuRnCiOs=",
+    "addonId": "ptdepiler.ptplugins@gmail.com"
+  },
+  {
+    "pname": "read-frog-open-ai-translator",
+    "version": "1.50.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5079597/read_frog_open_ai_translator-1.50.0.xpi",
+    "hash": "sha256-8B+MTMh1+zGM1/wpKhkKOyk7wnd2BDyUHEcMX0wPu4U=",
+    "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
+  },
+  {
+    "pname": "redirector",
+    "version": "3.5.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3535009/redirector-3.5.3.xpi",
+    "hash": "sha256-7dvT1ZROdI0L1uy22enPDgwC3O1vQtshqrZBkOccD3E=",
+    "addonId": "redirector@einaregilsson.com"
+  },
+  {
+    "pname": "return-youtube-dislikes",
+    "version": "4.0.6",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi",
+    "hash": "sha256-WXGXSfbfOMFgHKXznAIVjV8AXEPp7uofGVJ/RoyUEhc=",
+    "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}"
+  },
+  {
+    "pname": "rsshub-radar",
+    "version": "1.10.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4197124/rsshub_radar-1.10.3.xpi",
+    "hash": "sha256-ZqKuxPZ+J91qSnaO6Oh7OzIbrFOF4yQbFmS5Wq4lB30=",
+    "addonId": "i@diygod.me"
+  },
+  {
+    "pname": "sponsorblock",
+    "version": "6.1.7",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4897574/sponsorblock-6.1.7.xpi",
+    "hash": "sha256-DVDhYyxvFe4VpUPmcOHFcpdGBaXAJiKRbgjgJoA9+D8=",
+    "addonId": "sponsorBlocker@ajay.app"
+  },
+  {
+    "pname": "steam-database",
+    "version": "4.37",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4967437/steam_database-4.37.xpi",
+    "hash": "sha256-0oDZqL5/6Lzf/WBpfa9ZA8tNpnkSVpUQ+3qL1oVi1sw=",
+    "addonId": "firefox-extension@steamdb.info"
+  },
+  {
+    "pname": "tab-reloader",
+    "version": "0.6.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4805316/tab_reloader-0.6.8.xpi",
+    "hash": "sha256-0DP1xSfQUNFCTeoogi0RsiPBuQO5x8ECCftevb9qWCk=",
+    "addonId": "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack"
+  },
+  {
+    "pname": "tampermonkey",
+    "version": "5.5.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4797143/tampermonkey-5.5.0.xpi",
+    "hash": "sha256-GQAxx428VpYRSDVgHyyOa4Va0eE0313yePj8FYwGWQg=",
+    "addonId": "firefox@tampermonkey.net"
+  },
+  {
+    "pname": "tweaks-for-youtube",
+    "version": "3.93.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5053593/tweaks_for_youtube-3.93.0.xpi",
+    "hash": "sha256-LvZZl7kg6xnmMjKBPUzNdqbGGCtxu1iS6KdIlmfZPtQ=",
+    "addonId": "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}"
+  },
+  {
+    "pname": "ublacklist",
+    "version": "10.1.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5040970/ublacklist-10.1.1.xpi",
+    "hash": "sha256-dm6+6XoFeaIMGTkYkKzhjk/q3c8jl4sn00CO4lX93Pc=",
+    "addonId": "@ublacklist"
+  },
+  {
+    "pname": "wappalyzer",
+    "version": "6.12.6",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4982523/wappalyzer-6.12.6.xpi",
+    "hash": "sha256-OjaeVYChtIZAAcAh4PW1JKfwiWi0OPt9XXy+iH6M7ok=",
+    "addonId": "wappalyzer@crunchlabz.com"
+  }
+]

@@ -27,14 +27,17 @@ let
         install -v -m644 "$src" "$dst/${addonId}.xpi"
       '';
 
+  firefox-addons = pkgs.callPackage ./addons { };
+
   args = {
     enable = true;
     package = null; # Already installed system wide
     profiles.lantian = {
       extensions = {
-        packages = with pkgs.firefox-addons; [
+        packages = with firefox-addons; [
           # keep-sorted start
           adnauseam
+          all-api-hub
           auto-novel-addon
           awardwallet
           bilisponsorblock
@@ -48,6 +51,7 @@ let
           foxyproxy-standard
           i-dont-care-about-cookies
           ipfs-companion
+          lovely-forks
           multi-account-containers
           noscript
           pakkujs
