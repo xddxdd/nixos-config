@@ -20,7 +20,7 @@ in
 
   programs.mcp = {
     enable = true;
-    servers = osConfig.lantian.mcp.codingMcpServers or { };
+    servers = osConfig.lantian.mcp.mcpServers or { };
   };
 
   programs.pi-coding-agent = {
@@ -182,7 +182,7 @@ in
 
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     mcpServers = lib.mapAttrs (_: server: server // { exposure = "direct"; }) (
-      osConfig.lantian.mcp.codingMcpServers or { }
+      osConfig.lantian.mcp.mcpServers or { }
     );
   };
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
