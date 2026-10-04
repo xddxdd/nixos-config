@@ -72,6 +72,9 @@
 
   lantian.hidpi = 1.5;
 
+  # Firewalled host, so the public firewall preset is off by default.
+  lantian.firewall.presets.public-firewall.enable = true;
+
   environment.systemPackages = [
     pkgs.comfy-ui-cuda
     pkgs.nur-xddxdd.unigine-heaven

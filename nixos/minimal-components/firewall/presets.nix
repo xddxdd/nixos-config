@@ -42,7 +42,7 @@ in
     public-firewall = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = !LT.this.firewalled;
         description = "Reject configured service ports on WAN/overlay interfaces (PUBLIC_INPUT/PUBLIC_FORWARD chains).";
       };
       firewalledPorts = lib.mkOption {
