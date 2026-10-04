@@ -28,7 +28,6 @@
       gutenprintBin
       hplip
       hplipWithPlugin
-      samsung-unified-linux-driver
       splix
     ];
 

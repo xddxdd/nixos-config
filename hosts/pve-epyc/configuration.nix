@@ -16,6 +16,7 @@
 
     ../../nixos/client-apps/gnupg.nix
     ../../nixos/client-apps/vscode-remote-env.nix
+    ../../nixos/client-components/cups.nix
     ../../nixos/client-components/impermanence.nix
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
