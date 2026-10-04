@@ -1,0 +1,58 @@
+[
+  {
+    "pname": "betterunsubscribe",
+    "version": "2.9.1",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1046526/betterunsubscribe-2.9.1-tb.xpi?src=",
+    "hash": "sha256-QA4zeHj1Ht1sXn6ySyUqs3/cN6mKpiKsPNgD15Yzd6A=",
+    "addonId": "{4753278b-acea-4b2b-a111-1fc9450d239d}"
+  },
+  {
+    "pname": "display-mail-user-agent-t",
+    "version": "2.9.14",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1045772/display_mail_user_agent_t-2.9.14-tb.xpi?src=",
+    "hash": "sha256-uZZTiM67yJP+ZsCdnbOFIiEgontUipS6Txxms8KeaAE=",
+    "addonId": "DisplayMailUserAgent-T@Toshi_"
+  },
+  {
+    "pname": "dkim-verifier",
+    "version": "6.3.0",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1047394/dkim_verifier-6.3.0-tb.xpi?src=",
+    "hash": "sha256-WulbTVYCV7Llci4dOCSkAx+3TV1Xt5DfwS92oR3BUBo=",
+    "addonId": "dkim_verifier@pl"
+  },
+  {
+    "pname": "get-all-mail-button-for-tb78",
+    "version": "4.0.0",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1036549/get_all_mail_button_for_tb78-4.0.0-tb.xpi?src=",
+    "hash": "sha256-3siLeqnpDBxVU3SY052JvMoLO/YEbyL6Nzqm4Jhcs3Y=",
+    "addonId": "gamb@pharqcon.com"
+  },
+  {
+    "pname": "identity-chooser",
+    "version": "4.5",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1047557/identity_chooser-4.5-tb.xpi?src=",
+    "hash": "sha256-JB6+MLeulWT16d7p1DRt+6M4KK77ncGnJpndUQwP1iU=",
+    "addonId": "identitychooser@janek.org"
+  },
+  {
+    "pname": "search-for",
+    "version": "1.0.1",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1018034/search_for-1.0.1-tb.xpi?src=",
+    "hash": "sha256-J84+Kw9wJR0aIQe6Hp4M5FOOffCYaxjnTdZjzwayYoM=",
+    "addonId": "searchfor@infonny.com"
+  },
+  {
+    "pname": "simple-startup-minimizer",
+    "version": "0.6",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1019470/simple_startup_minimizer-0.6-tb.xpi?src=",
+    "hash": "sha256-oWuzyFoR8bikZrPSXMnQ2AOYAC4MQnWtKIK7rnyf+HM=",
+    "addonId": "farahats9@yahoo.com"
+  },
+  {
+    "pname": "ublock-origin",
+    "version": "1.49.2",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1021926/ublock_origin-1.49.2-tb.xpi?src=",
+    "hash": "sha256-I7J6OdP3JRRnsUgozgMPCv6xxqQGttVowBivO2DjXcg=",
+    "addonId": "uBlock0@raymondhill.net"
+  }
+]

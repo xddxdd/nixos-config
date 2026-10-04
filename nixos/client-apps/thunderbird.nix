@@ -18,6 +18,15 @@ in
       NetworkPrediction = false;
       OfferToSaveLogins = true;
       PasswordManagerEnabled = true;
+      # Managed here rather than via programs.thunderbird.languagePacks, which
+      # needs a package supporting `override` and thunderbird-bin does not.
+      RequestedLocales = "zh-CN,en-US";
+      ExtensionSettings = {
+        "langpack-zh-CN@thunderbird.mozilla.org" = {
+          installation_mode = "normal_installed";
+          install_url = "https://releases.mozilla.org/pub/thunderbird/releases/${pkgs.thunderbird-bin.version}/linux-x86_64/xpi/zh-CN.xpi";
+        };
+      };
       Preferences = lib.mapAttrs (k: mkValue) {
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;

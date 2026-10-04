@@ -27,8 +27,34 @@ let
       border-bottom: 1px solid var(--item-backcolor) !important;
     }
   '';
+
+  thunderbird-addons = pkgs.callPackage ./addons { };
 in
 {
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-bin; # Building Thunderbird from source is forbidden
+    profiles."ayx6omhb.default" = {
+      isDefault = true;
+      extensions = with thunderbird-addons; [
+        # keep-sorted start
+        betterunsubscribe
+        display-mail-user-agent-t
+        dkim-verifier
+        get-all-mail-button-for-tb78
+        identity-chooser
+        search-for
+        simple-startup-minimizer
+        ublock-origin
+        # keep-sorted end
+      ];
+      settings."extensions.autoDisableScopes" = 0; # Auto enable installed extensions
+    };
+  };
+
+  # Home Manager now owns profiles.ini, which Thunderbird generated until now
+  home.file.".thunderbird/profiles.ini".force = true;
+
   home.activation.setup-thunderbird-userchrome-css = ''
     if [ -f "$HOME/.thunderbird/profiles.ini" ]; then
       for F in $(cat "$HOME/.thunderbird/profiles.ini" | grep Path | cut -d= -f2); do
