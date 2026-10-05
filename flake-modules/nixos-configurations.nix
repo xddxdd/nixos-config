@@ -44,7 +44,6 @@ let
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.colmena.nixosModules.deploymentOptions
-      inputs.fast-nix-gc.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-gaming.nixosModules.platformOptimizations

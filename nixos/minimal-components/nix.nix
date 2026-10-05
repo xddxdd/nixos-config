@@ -73,13 +73,12 @@ in
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
-    # Use fast-nix-gc instead
     gc = {
-      automatic = false;
+      automatic = true;
       options = "--delete-older-than 7d";
       randomizedDelaySec = "1h";
     };
-    optimise.automatic = false;
+    optimise.automatic = true;
 
     nrBuildUsers = 0;
     settings = {
@@ -131,21 +130,6 @@ in
       inherit (LT.constants.nix) trusted-public-keys;
     };
   };
-
-  services.fast-nix-gc = {
-    enable = true;
-    automatic = true;
-    dates = "daily";
-    randomizedDelaySec = "1h";
-    deleteOlderThan = "7d";
-  };
-  services.fast-nix-optimise = {
-    enable = true;
-    automatic = true;
-    dates = "daily";
-    randomizedDelaySec = "1h";
-  };
-  systemd.services.nix-optimise.enable = false;
 
   systemd.services.nix-daemon = {
     serviceConfig = {

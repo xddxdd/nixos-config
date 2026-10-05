@@ -47,19 +47,9 @@
       url = "github:ipverse/country-ip-blocks";
       flake = false;
     };
-    fast-nix-gc = {
-      url = "github:Mic92/fast-nix-gc";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-    };
     flat-flake = {
       url = "github:linyinfeng/flat-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
