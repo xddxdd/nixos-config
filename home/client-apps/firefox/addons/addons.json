@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.2.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5071084/all_api_hub-4.2.0.xpi",
-    "hash": "sha256-wRDg695uZz6JfaP209alrWpGctmDvxsCl6Ga+AIsDd0=",
+    "version": "4.3.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5085980/all_api_hub-4.3.0.xpi",
+    "hash": "sha256-4Qo1iXakmuIXs51VjkDhIK1jNsOhvuSZ6k8Hh2/k1lw=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
