@@ -1,11 +1,18 @@
 {
   pkgs,
   lib,
+  LT,
   config,
   ...
 }:
 let
   luaPackage = pkgs.callPackage ./lua { };
+
+  inherit (import ./vhost-options/helpers.nix { inherit lib LT; }) listenDefaultFlags;
+
+  # All HTTPS vhosts on TCP 443 share this UNIX socket; server blocks are
+  # selected by SNI/Host after TLS termination in the HTTP server
+  httpsSocket = "/run/nginx/https.sock";
 
   nginxSslConf =
     isStream:
@@ -217,6 +224,19 @@ in
 
       ssl_protocols ${sslProtocols};
       ${nginxSslConf true}
+
+      # Front TCP 443 to the HTTP server over the shared UNIX socket by default;
+      # other SNI names can be routed to other targets via the map below
+      map $ssl_preread_server_name $lt_https_backend {
+        default         unix:${httpsSocket};
+      }
+      server {
+        listen 443 ${lib.concatStringsSep " " (listenDefaultFlags "tcp")};
+        listen [::]:443 ${lib.concatStringsSep " " (listenDefaultFlags "tcp")};
+        ssl_preread on;
+        proxy_pass $lt_https_backend;
+        proxy_protocol on;
+      }
 
       lua_package_path '${luaPackage}/?.lua;;';
     '';
