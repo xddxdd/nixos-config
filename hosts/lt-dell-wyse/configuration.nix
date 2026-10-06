@@ -10,7 +10,6 @@
 
     ./hardware-configuration.nix
     ./wireplumber-disable-hdmi-audio.nix
-    # ./xvcd.nix
 
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/pipewire-combined-sink-alsa.nix
