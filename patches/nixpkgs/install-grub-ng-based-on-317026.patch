@@ -813,10 +813,10 @@ index 000000000000..4c6b31124617
 +}
 diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs b/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs
 new file mode 100644
-index 000000000000..6c6e2800c408
+index 000000000000..0515efe90fbb
 --- /dev/null
 +++ b/pkgs/by-name/in/install-grub-ng/src/builder/appearance.rs
-@@ -0,0 +1,199 @@
+@@ -0,0 +1,202 @@
 +use std::{collections::HashSet, fmt::Write as _, fs, path::PathBuf};
 +
 +use eyre::{bail, Result, WrapErr};
@@ -978,6 +978,9 @@ index 000000000000..6c6e2800c408
 +                if entry.file_type().is_dir() {
 +                    fs::create_dir_all(&dst)?;
 +                } else {
++                    if let Some(parent) = dst.parent() {
++                        fs::create_dir_all(parent)?;
++                    }
 +                    fs::copy(entry.path(), &dst)?;
 +                }
 +                Ok(())
@@ -1018,10 +1021,10 @@ index 000000000000..6c6e2800c408
 +}
 diff --git a/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
 new file mode 100644
-index 000000000000..8db62f5d9b1a
+index 000000000000..9dbcf01228cc
 --- /dev/null
 +++ b/pkgs/by-name/in/install-grub-ng/src/builder/entries.rs
-@@ -0,0 +1,452 @@
+@@ -0,0 +1,463 @@
 +use std::{
 +    cmp::Reverse,
 +    fmt::Write as _,
@@ -1451,6 +1454,17 @@ index 000000000000..8db62f5d9b1a
 +        // kernels or initrd if this script is ever interrupted.
 +        if !dst.exists() {
 +            unless_dry_run(|| {
++                let Some(kernels) = dst.parent() else {
++                    bail!(
++                        "Somehow path {} does not have a parent directory...? This shouldn't be possible!",
++                        dst.display()
++                    )
++                };
++                fs::create_dir_all(kernels)
++                    .context("Failed to create kernels directory in boot path")?;
++                fs::set_permissions(kernels, PermissionsExt::from_mode(0o755))
++                    .context("Failed to make kernels directory executable")?;
++
 +                let Some(mut name) = dst.file_name().map(|s| s.to_os_string()) else {
 +                    bail!(
 +                        "Somehow path {} does not have a file name...? This shouldn't be possible!",
