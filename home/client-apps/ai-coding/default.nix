@@ -124,6 +124,7 @@ in
 
     settings = {
       quietStartup = true;
+      tuiMode = "regular";
       collapseChangelog = true;
       enableInstallTelemetry = false;
       enableAnalytics = false;
@@ -131,6 +132,13 @@ in
       defaultModel = "glm-5.3-flash";
       defaultThinkingLevel = "high";
       showCacheMissNotices = false;
+
+      steeringMode = "all";
+      followUpMode = "all";
+      doubleEscapeAction = "tree";
+      treeFilterMode = "user-only";
+
+      compaction.enabled = false; # Handled by magic context plugin
 
       retry = {
         enabled = true;
