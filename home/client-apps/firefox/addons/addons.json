@@ -22,9 +22,9 @@
   },
   {
     "pname": "bilisponsorblock",
-    "version": "0.15.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5057692/bilisponsorblock-0.15.0.xpi",
-    "hash": "sha256-CVksEkLawRmPMMZpMNJZn8MzFDi7P4dNLQ9OcAjNgiU=",
+    "version": "0.16.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5086418/bilisponsorblock-0.16.0.xpi",
+    "hash": "sha256-83nNqqupJTvCSX5e0WugleWy8VevHIzJSJ+WBI2gmE0=",
     "addonId": "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}"
   },
   {
@@ -148,9 +148,9 @@
   },
   {
     "pname": "protondb-for-steam",
-    "version": "2.3.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4490230/protondb_for_steam-2.3.0.xpi",
-    "hash": "sha256-5auNWUzXHHo0WmaUYgrZxKOruXFhoZG3JIT1uTS6lsU=",
+    "version": "2.3.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5021069/protondb_for_steam-2.3.1.xpi",
+    "hash": "sha256-mzGw6hibkJ/lJRPpHyENRbNmgXqWbJUSeE+72Xvsesw=",
     "addonId": "{30280527-c46c-4e03-bb16-2e3ed94fa57c}"
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.50.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5079597/read_frog_open_ai_translator-1.50.0.xpi",
-    "hash": "sha256-8B+MTMh1+zGM1/wpKhkKOyk7wnd2BDyUHEcMX0wPu4U=",
+    "version": "1.50.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5086968/read_frog_open_ai_translator-1.50.1.xpi",
+    "hash": "sha256-RV6AocK2OrXdebUI/xik848t0PGfpmI5ccPv480GvTA=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -232,9 +232,9 @@
   },
   {
     "pname": "wappalyzer",
-    "version": "6.12.6",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4982523/wappalyzer-6.12.6.xpi",
-    "hash": "sha256-OjaeVYChtIZAAcAh4PW1JKfwiWi0OPt9XXy+iH6M7ok=",
+    "version": "6.12.7",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5067215/wappalyzer-6.12.7.xpi",
+    "hash": "sha256-joK8gvKSYScwnye89kqqvBzzrtkYuTJ7RgCvNpt1d0s=",
     "addonId": "wappalyzer@crunchlabz.com"
   }
 ]

@@ -23,6 +23,18 @@
     "sha256": "c379c52857c2f0886ae52a255ac770e5992524782ee20bb0966deca079e9595f",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/ar-en/retrain_base-memory_X9fDxFreTOCslPKzb1CXTg/exported/vocab.aren.spm.gz"
   },
+  "be-en/lex.50.50.been.s2t.bin.gz": {
+    "sha256": "536b0b7aed18dee1879c449c35d626b8fdba738f11a4380971d76afa9cfa8359",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/be-en/next26-distil-bt_XYnREECUTc2uO371KfMnkA/exported/lex.50.50.been.s2t.bin.gz"
+  },
+  "be-en/model.been.intgemm.alphas.bin.gz": {
+    "sha256": "4c67c2497ae726e32400e8c2dd92f17fac92e15aac8515562352fd2454667fcd",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/be-en/next26-distil-bt_XYnREECUTc2uO371KfMnkA/exported/model.been.intgemm.alphas.bin.gz"
+  },
+  "be-en/vocab.been.spm.gz": {
+    "sha256": "5b34ef9ff5f6fd0321d72a08a1e84c9127c6373711f646ec68df451ea1e543ae",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/be-en/next26-distil-bt_XYnREECUTc2uO371KfMnkA/exported/vocab.been.spm.gz"
+  },
   "bg-en/lex.50.50.bgen.s2t.bin.gz": {
     "sha256": "54e5f362ad9d24aa33e928cf388cc7f26269304ae86f862204ae755449cc8e61",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/bg-en/retrain_hr_WvwHu4k6TgmJ2YTvL4Mu2g/exported/lex.50.50.bgen.s2t.bin.gz"
@@ -132,16 +144,28 @@
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-ar/retrain_base-memory_G3CmhwG_TZext3cys-udHg/exported/vocab.enar.spm.gz"
   },
   "en-az/lex.50.50.enaz.s2t.bin.gz": {
-    "sha256": "bda45d9414370c67fb4a4abed10081d7d8274fbbc2cd904fcdc3843ff47cc225",
-    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/h1-2025_fu1HFuR0QY-zVBcKYQkJIA/exported/lex.50.50.enaz.s2t.bin.gz"
+    "sha256": "0549d1da8a27ec001ccdf0a23222b2d473a8c79201780b72ef4050f58ff5ddaa",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/next26_ZfHA551CQiOdY5lzUcGhVA/exported/lex.50.50.enaz.s2t.bin.gz"
   },
   "en-az/model.enaz.intgemm.alphas.bin.gz": {
-    "sha256": "53332b07a693493d713e891306735d8eb8c8caacd649443cf5c3442b53c9972b",
-    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/h1-2025_fu1HFuR0QY-zVBcKYQkJIA/exported/model.enaz.intgemm.alphas.bin.gz"
+    "sha256": "62e4fb429410269722bdb173dcae806498729283c74f57b9b8581da2de86554c",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/next26_ZfHA551CQiOdY5lzUcGhVA/exported/model.enaz.intgemm.alphas.bin.gz"
   },
   "en-az/vocab.enaz.spm.gz": {
-    "sha256": "c614d42d85269a4c53efdb9f8389227d8b18e099955b6e88d2515bb740cf0a35",
-    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/h1-2025_fu1HFuR0QY-zVBcKYQkJIA/exported/vocab.enaz.spm.gz"
+    "sha256": "4e38edb28396535c8632677ae4f6d7b7ded62d982a695440ef6b9bf16334a9e4",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-az/next26_ZfHA551CQiOdY5lzUcGhVA/exported/vocab.enaz.spm.gz"
+  },
+  "en-be/lex.50.50.enbe.s2t.bin.gz": {
+    "sha256": "efb5cf5599c41a2d7734c3021fd0c6be5281e4b4e960e2da552cbda8b4620288",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-be/next26-beam4_EsLoydFIQ42maj5NJ8d6Qg/exported/lex.50.50.enbe.s2t.bin.gz"
+  },
+  "en-be/model.enbe.intgemm.alphas.bin.gz": {
+    "sha256": "9e9e5666212faa538dfc81bb06032851243c4250f3807d37db35c9ddd5905b83",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-be/next26-beam4_EsLoydFIQ42maj5NJ8d6Qg/exported/model.enbe.intgemm.alphas.bin.gz"
+  },
+  "en-be/vocab.enbe.spm.gz": {
+    "sha256": "a53745ded24566724ae91a0e67e9a89df209e359ec50304d1b3ec775d3c62f98",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-be/next26-beam4_EsLoydFIQ42maj5NJ8d6Qg/exported/vocab.enbe.spm.gz"
   },
   "en-bg/lex.50.50.enbg.s2t.bin.gz": {
     "sha256": "622efe6dd21c6b142d87457be6d045fb18625b14dedc0ce7e875fe9ee3d5d05c",
@@ -627,6 +651,18 @@
     "sha256": "07d9137c7e54457325d6b5220382b5f184d34903fa99cabc10f7b98869220124",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-sl/h1-2025_Ph0DK4RhRMe7z4cLk-f7eg/exported/vocab.ensl.spm.gz"
   },
+  "en-sq/lex.50.50.ensq.s2t.bin.gz": {
+    "sha256": "5574cfe5535581928b3bd7a84a064ae99e454662a28c8b25552de2aed2c8b685",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-sq/h1-2025_HIreYm8_RDymI1qFdn0V5Q/exported/lex.50.50.ensq.s2t.bin.gz"
+  },
+  "en-sq/model.ensq.intgemm.alphas.bin.gz": {
+    "sha256": "d4e05ecf916e215e0d94e411217100ddfe61a1ea8057d47b5aa6e0296fa32f19",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-sq/h1-2025_HIreYm8_RDymI1qFdn0V5Q/exported/model.ensq.intgemm.alphas.bin.gz"
+  },
+  "en-sq/vocab.ensq.spm.gz": {
+    "sha256": "ad4bf4db75d99c491f6ab972deec4e9af3777b1721666c55f71bb01c7d92025d",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-sq/h1-2025_HIreYm8_RDymI1qFdn0V5Q/exported/vocab.ensq.spm.gz"
+  },
   "en-sr/lex.50.50.ensr.s2t.bin.gz": {
     "sha256": "70f341b44df4810a74610acc8da8e2ccfb952ae429ce30bcc3eb1cfc88c6f44a",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-sr/hbs-topk10_KZK68xhrQWWeK6xcMRtd9A/exported/lex.50.50.ensr.s2t.bin.gz"
@@ -687,6 +723,18 @@
     "sha256": "afa8d8be186df4c9b4acb684d9473e2dfd9f33e4f12b862fcef8cec34d323ecd",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-th/new-opuscleaner-en-th-onestage-topk10_WIvJuHhrSyiXLtJBJOUrsA/exported/vocab.enth.spm.gz"
   },
+  "en-tl/lex.50.50.entl.s2t.bin.gz": {
+    "sha256": "51e74c9c75fc915dafad998f4fe41a5607c1c37237f58178056b90a46d178748",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-tl/next26-nllb-bc09_DGa0cH2-QKOhfrPkVbnJFQ/exported/lex.50.50.entl.s2t.bin.gz"
+  },
+  "en-tl/model.entl.intgemm.alphas.bin.gz": {
+    "sha256": "b04d64df4bcc1eef3c8a697052a0e4542cbce1c56192e6a6d044b4766b787786",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-tl/next26-nllb-bc09_DGa0cH2-QKOhfrPkVbnJFQ/exported/model.entl.intgemm.alphas.bin.gz"
+  },
+  "en-tl/vocab.entl.spm.gz": {
+    "sha256": "8744f8a824935e4d5703ced3582180737ee52088da8be8d94ce321f0fea02627",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-tl/next26-nllb-bc09_DGa0cH2-QKOhfrPkVbnJFQ/exported/vocab.entl.spm.gz"
+  },
   "en-tr/lex.50.50.entr.s2t.bin.gz": {
     "sha256": "cf74d4edec0b51affd30a43e6bd2c2274bf4ce7fd54c24fd293db2c5c4bf043d",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-tr/spring-2024_LiFGeNrEQpKdNlziG2qP_A/exported/lex.50.50.entr.s2t.bin.gz"
@@ -698,6 +746,18 @@
   "en-tr/vocab.entr.spm.gz": {
     "sha256": "01e55973e65a34c5efbdce3968857d4e53998b4bef131c5125a19f8e44d8f87c",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-tr/spring-2024_LiFGeNrEQpKdNlziG2qP_A/exported/vocab.entr.spm.gz"
+  },
+  "en-ug/lex.50.50.enug.s2t.bin.gz": {
+    "sha256": "565a6a52a99efc2567fe5f59bacf6c89fc60522a0ed47965eab22c73ec4fb9c9",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-ug/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/lex.50.50.enug.s2t.bin.gz"
+  },
+  "en-ug/model.enug.intgemm.alphas.bin.gz": {
+    "sha256": "383d92e0d75e809d34b7f660fbfe0244274a50170c173750acba28c3ac50087e",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-ug/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/model.enug.intgemm.alphas.bin.gz"
+  },
+  "en-ug/vocab.enug.spm.gz": {
+    "sha256": "a4b7e3d1b265393cc9b2cbe12681853c47f8336876417d225031a8be832e64ff",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/en-ug/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/vocab.enug.spm.gz"
   },
   "en-uk/lex.50.50.enuk.s2t.bin.gz": {
     "sha256": "0c368488f43c5165c341b5112a02e42a1fabcc7bd0103d56262da025a9b3196f",
@@ -1183,6 +1243,18 @@
     "sha256": "75744883f180dbe53b5298e1b7bc3b24083ce1a3dfa54911306347f96bb897c6",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/th-en/new-opuscleaner-en-th_aIiNAAZbRny4ODcYGOMlEA/exported/vocab.then.spm.gz"
   },
+  "tl-en/lex.50.50.tlen.s2t.bin.gz": {
+    "sha256": "adba11d0558900238dad1e88bdaf0047f36cb8e99c68f64586f7a232608c266f",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/tl-en/next26-nllb-bc09_d-OV7HWbQLiAMXe-r1_EoA/exported/lex.50.50.tlen.s2t.bin.gz"
+  },
+  "tl-en/model.tlen.intgemm.alphas.bin.gz": {
+    "sha256": "15036df3f096c21291c9559e71da6ba315d0363c93de30debb9219b87080084c",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/tl-en/next26-nllb-bc09_d-OV7HWbQLiAMXe-r1_EoA/exported/model.tlen.intgemm.alphas.bin.gz"
+  },
+  "tl-en/vocab.tlen.spm.gz": {
+    "sha256": "546a5117cc9767ce42d031d74cedac01c6c8e05864b7fd465aaa56b8e868c8eb",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/tl-en/next26-nllb-bc09_d-OV7HWbQLiAMXe-r1_EoA/exported/vocab.tlen.spm.gz"
+  },
   "tr-en/lex.50.50.tren.s2t.bin.gz": {
     "sha256": "e06304247fc4dfd55fcab21bfc9656a28f81fcf8efb2ccb0a5796b296bfeac1b",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/tr-en/statmt_xxxxxxxxRxSxxxxxxxxxxA/exported/lex.50.50.tren.s2t.bin.gz"
@@ -1194,6 +1266,18 @@
   "tr-en/vocab.tren.spm.gz": {
     "sha256": "dfa22c3d15a6bdfb7765edc9e42c77daff8597a9ebe088fe886094ff0baeaef1",
     "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/tr-en/statmt_xxxxxxxxRxSxxxxxxxxxxA/exported/vocab.tren.spm.gz"
+  },
+  "ug-en/lex.50.50.ugen.s2t.bin.gz": {
+    "sha256": "1424888ac2d83695241fd80c34485d6fbfe744f762ac174db175b98d5ee0b96d",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/ug-en/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/lex.50.50.ugen.s2t.bin.gz"
+  },
+  "ug-en/model.ugen.intgemm.alphas.bin.gz": {
+    "sha256": "1b8e3a46d74a52a6fd3bc9e46b22c60c725a7f6d4ed8dca1f61768578f68300c",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/ug-en/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/model.ugen.intgemm.alphas.bin.gz"
+  },
+  "ug-en/vocab.ugen.spm.gz": {
+    "sha256": "ff3dcf8aa92393744ab1c3fd843e6cebd0feca5042d0cc654dfe8d9f07e20122",
+    "url": "https://storage.googleapis.com/moz-fx-translations-data--303e-prod-translations-data/models/ug-en/davidv-hymt2_xxxxxxxxRxSxxxxxxxxxxA/exported/vocab.ugen.spm.gz"
   },
   "uk-en/lex.50.50.uken.s2t.bin.gz": {
     "sha256": "86af22d2c43268f87fc5b5ba32485d25defceba5ed38195b27e6c25c44c07ab9",

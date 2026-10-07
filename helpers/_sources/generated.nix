@@ -70,15 +70,15 @@
   };
   dnscontrol-xddxdd = {
     pname = "dnscontrol-xddxdd";
-    version = "54d7758e6dcdfa83a0717a7af53ccd2952780d0d";
+    version = "eae23ad6bff7059ef832bc77a395e69f2479840c";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "dnscontrol";
-      rev = "54d7758e6dcdfa83a0717a7af53ccd2952780d0d";
+      rev = "eae23ad6bff7059ef832bc77a395e69f2479840c";
       fetchSubmodules = false;
-      sha256 = "sha256-ryWw5UdhcED+JxTOSdnsVWNOuE5VNVwLwop1oI+Cpls=";
+      sha256 = "sha256-EJJdJZVow8YYV7O1aq6b0JyvLLjKzfi+Z200i9tejlc=";
     };
-    date = "2026-09-28";
+    date = "2026-10-05";
   };
   evebox = {
     pname = "evebox";
@@ -101,25 +101,25 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "4.0.0";
+    version = "4.1.1";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.0.0/yesoreyeram-infinity-datasource-4.0.0.zip";
-      sha256 = "sha256-CqM422CPS/8v1cE1kwYh7L1qCnL42Om8aLtYY2ly78k=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.1/yesoreyeram-infinity-datasource-4.1.1.zip";
+      sha256 = "sha256-GRBOEkaPiyEfwWQXRrERmGF/qXTOanaj9moyxpC5G1Y=";
     };
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "82e641b4fece9d1028a127149af9ded00df5ac0c";
+    version = "c385b2b8d1f9e19aa86e628d4e23c91ee1111a47";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "82e641b4fece9d1028a127149af9ded00df5ac0c";
+      rev = "c385b2b8d1f9e19aa86e628d4e23c91ee1111a47";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-4zgie22hc6gbqPBuKO908ikrM745DE6CNa7pu5qpHjY=";
+      sha256 = "sha256-HnKAHwoNuDEFice6zetBvhpXjwT6QDPvaLLY6CWUBjE=";
     };
-    date = "2026-10-03";
+    date = "2026-10-07";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "655afe27950658a4124d15d75766538b1ae9ea3b";
+    version = "c30c58641ca5e46f8efaccc6fb58fbfd9adc5eea";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "655afe27950658a4124d15d75766538b1ae9ea3b";
+      rev = "c30c58641ca5e46f8efaccc6fb58fbfd9adc5eea";
       fetchSubmodules = false;
-      sha256 = "sha256-1h0bFHaJp6s03Rar4C1d5baPuvvzZqzixrEPH8nKG+Q=";
+      sha256 = "sha256-gf5cMRzx+whruYFxA//EyBKWyABaRu6LFpkjprg9M3U=";
     };
-    date = "2026-09-28";
+    date = "2026-10-05";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
@@ -444,13 +444,13 @@
   };
   vscode-vibrancy-continued = {
     pname = "vscode-vibrancy-continued";
-    version = "v1.3.1";
+    version = "v1.4.0";
     src = fetchFromGitHub {
       owner = "illixion";
       repo = "vscode-vibrancy-continued";
-      rev = "v1.3.1";
+      rev = "v1.4.0";
       fetchSubmodules = false;
-      sha256 = "sha256-iSTQesloOUb03ikQHT1bcSmNUPkV9Cvmt6UPrTJlkHk=";
+      sha256 = "sha256-4PCIGND6PjMGQHYQPiMvhAbjvT0UBXSElmuHhgjQbVg=";
     };
   };
   wordpress-theme-twentyeleven = {
