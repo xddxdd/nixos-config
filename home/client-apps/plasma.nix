@@ -96,11 +96,6 @@
     };
 
     hotkeys.commands = {
-      jamesdsp-toggle = {
-        command = "jamesdsp-toggle";
-        comment = "Toggle JamesDSP on/off";
-        key = "Launch (8)";
-      };
       terminal = {
         command = "ghostty";
         comment = "Start terminal";

@@ -23,12 +23,6 @@ let
     ''
   );
 
-  jamesdsp-toggle = pkgs.writeShellScriptBin "jamesdsp-toggle" ''
-    NEW_STATE=$([ $(${lib.getExe pkgs.jamesdsp} --get master_enable) = "true" ] && echo "false" || echo "true")
-    ${lib.getExe pkgs.jamesdsp} --set master_enable=$NEW_STATE
-    exit 0
-  '';
-
   wine' = pkgs.wine-tkg.overrideAttrs (old: {
     prePatch =
       let
@@ -54,8 +48,6 @@ in
     (
       [
         # keep-sorted start
-        (LT.wrapNetns "tnl-buyvm" deluge)
-        (LT.wrapNetns "tnl-buyvm" nur-xddxdd.amule-dlp)
         (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
         (bambu-studio.override { withNvidiaGLWorkaround = osConfig.hardware.nvidia.enabled; })
         (hashcat.override { cudaSupport = true; })
@@ -69,12 +61,9 @@ in
         brotli
         bzip2
         colmena
-        # ecapture
         exiftool
-        feishin
         ffmpeg-full
         filezilla
-        freecad
         gcdemu
         gedit
         gimp
@@ -82,8 +71,6 @@ in
         handbrake
         imagemagick
         immich-cli
-        jamesdsp
-        jamesdsp-toggle
         jpegoptim
         kdePackages.ark
         kdePackages.isoimagewriter
@@ -132,7 +119,6 @@ in
         qrcp
         quasselClient
         rar
-        rustdesk
         steam-run
         synadm
         tigervnc
@@ -142,7 +128,6 @@ in
         ventoy-full
         virt-manager
         vlc
-        vopono
         wine'
         winetricks
         wpsoffice
