@@ -5,6 +5,13 @@ let
 in
 rec {
   # keep-sorted start block=yes
+  clickhouse-lts = prev.clickhouse-lts.overrideAttrs (old: {
+    # ld.lld -r from the LLVM 21.1.8 in the locked nixpkgs produces a broken
+    # combined object for the Rust workspace archives (over 0xffff sections,
+    # section symbols get st_shndx = SHN_UNDEF), and the final link then fails
+    # with "undefined symbol: ". The stripping is only a size optimization.
+    patches = (old.patches or [ ]) ++ [ ../patches/clickhouse-disable-rust-symbol-strip.patch ];
+  });
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
@@ -18,6 +25,11 @@ rec {
     ];
     vendorHash = "sha256-7T4svxdzKsSQup1Ls43bK+l/xMgxL4mmQQ7Ck3WoKRk=";
     doCheck = false;
+  });
+  dump1090-fa = prev.dump1090-fa.overrideAttrs (old: {
+    # glibc 2.44's fortified snprintf diagnoses a too-small buffer in
+    # interactive.c while dump1090 builds with -Werror
+    NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error=format-truncation";
   });
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
@@ -71,6 +83,13 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
   });
+  obs-studio-plugins = prev.obs-studio-plugins // {
+    obs-noise = prev.obs-studio-plugins.obs-noise.overrideAttrs (old: {
+      # GCC 15 diagnoses a discarded const qualifier and the OBS plugin helper
+      # adds -Werror
+      NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
+    });
+  };
   open-webui = prev.open-webui.overridePythonAttrs (old: {
     dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
   });

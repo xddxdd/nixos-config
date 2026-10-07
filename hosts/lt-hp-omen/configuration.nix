@@ -13,7 +13,6 @@
     ./nandsim.nix
     # ./nbfc.nix
 
-    ../../nixos/optional-apps/audio-cpp.nix
     ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/homepage.nix

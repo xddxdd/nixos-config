@@ -46,7 +46,7 @@ in
 
   environment.etc."hydra/post-build".source = pkgs.writeShellScript "post-build" ''
     export PATH="${path}:$PATH"
-    export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}"
+    export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}"
 
     jq . "$HYDRA_JSON"
     exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
@@ -61,13 +61,31 @@ in
     hydraURL = "https://hydra.lantian.pub";
     listenHost = LT.this.ltnet.IPv4;
     notificationSender = "postmaster@lantian.pub";
-    port = LT.port.Hydra;
-    buildMachinesFiles = [ "/etc/nix/machines-with-localhost" ];
+    port = LT.port.Hydra.WebUI;
     useSubstitutes = true;
 
     maxServers = 10;
     maxSpareServers = 2;
     minSpareServers = 1;
+
+    queueRunner = {
+      grpc = {
+        address = "127.0.0.1";
+        port = LT.port.Hydra.QueueRunnerGRPC;
+      };
+      rest = {
+        address = "127.0.0.1";
+        port = LT.port.Hydra.QueueRunnerREST;
+      };
+      settings = {
+        # https://github.com/nixos-cuda/infra/pull/144
+        maxOutputSize = 1024 * 1024 * 1024 * 1024; # 1TB
+        machineFreeFn = "DynamicWithMaxJobLimit";
+        maxUnsupportedTimeInS = 3600; # Avoid unstable queue runners aborting builds
+        # FIXME: generate separate secrcet for Hydra
+        tokenPaths = [ config.sops.secrets.default-pw.path ];
+      };
+    };
 
     extraConfig = ''
       <runcommand>
@@ -77,6 +95,12 @@ in
 
       allow_import_from_derivation = true
     '';
+  };
+
+  services.hydra-builder = {
+    enable = true;
+    authorizationFile = config.sops.secrets.default-pw.path;
+    queueRunnerAddr = "http://127.0.0.1:${LT.portStr.Hydra.QueueRunnerGRPC}";
   };
 
   systemd.services.hydra-notify = {

@@ -18,10 +18,6 @@
     systems.url = "github:nix-systems/default";
 
     # keep-sorted start block=yes
-    audio-cpp = {
-      url = "github:0xShug0/audio.cpp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     betterfox-nix = {
       url = "github:HeitorAugustoLN/betterfox-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,9 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     colmena = {
-      url = "github:zhaofengli/colmena";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
+      url = "github:nix-community/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.stable.follows = "nixpkgs";
     };
@@ -122,7 +116,6 @@
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-nixcord.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
     nixfmt-rs = {

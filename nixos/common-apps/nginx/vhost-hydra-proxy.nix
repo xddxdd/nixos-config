@@ -4,7 +4,7 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
     "hydra.lantian.pub" = {
       locations = {
         "/" = {
-          proxyPass = "http://${LT.hosts.pve-epyc.ltnet.IPv4}:${LT.portStr.Hydra}";
+          proxyPass = "http://${LT.hosts.pve-epyc.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}";
           blockBadUserAgents = true;
           blockBadTLSSignatures = true;
           extraConfig = ''

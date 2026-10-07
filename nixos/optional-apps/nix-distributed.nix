@@ -66,10 +66,6 @@ let
       "big-parallel"
     ];
   };
-
-  platforms = builtins.concatStringsSep "," (
-    lib.uniqueStrings (config.nix.settings.extra-platforms ++ [ pkgs.stdenv.hostPlatform.system ])
-  );
 in
 {
   options.lantian.nix-distributed.sshKeyPath = lib.mkOption {
@@ -90,11 +86,6 @@ in
         )
         ++ [ nixBuildNet ];
     };
-
-    # FIXME: hydra might be unable to handle duplicate entries
-    environment.etc."nix/machines-with-localhost".text = config.environment.etc."nix/machines".text + ''
-      localhost ${platforms} - 2 1 kvm,nixos-test,big-parallel,benchmark - -
-    '';
 
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nix-remote-build-off" ''

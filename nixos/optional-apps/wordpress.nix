@@ -40,13 +40,12 @@ in
         WP_AUTO_UPDATE_CORE = false;
       };
       languages = [
-        (pkgs.stdenv.mkDerivation {
-          name = "language-zh_CN";
-          src = pkgs.fetchurl {
-            url = "https://zh.wordpress.org/wordpress-${pkgs.wordpress.version}-zh_CN.tar.gz";
-            sha256 = "sha256-wUQWRTDqXjLkdmjj+pfGkWUhRlLVK3LVPVB7PhhWPZw=";
-          };
-          installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
+        (pkgs.fetchzip {
+          # The zh.wordpress.org full-package tarball lags behind WordPress
+          # core releases, while the translation-only zip is published for
+          # every released version.
+          url = "https://downloads.wordpress.org/translation/core/${pkgs.wordpress.version}/zh_CN.zip";
+          hash = "sha256-4w9ghAopyFuMpJ4jVPaNMY51cQtLXtSyYTodvyCVaMA=";
         })
       ];
       plugins = {

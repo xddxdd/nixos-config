@@ -1,0 +1,30 @@
+--- a/rust/workspace/CMakeLists.txt
++++ b/rust/workspace/CMakeLists.txt
+@@ -44,7 +44,12 @@
+         # Use ld.lld for partial linking — it's a cross-linker that handles all ELF architectures,
+         # unlike the host ld which may not support the target architecture.
+         find_program(_LLD_FOR_STRIP NAMES "ld.lld-${COMPILER_VERSION_MAJOR}" "ld.lld")
+-        if (_LLD_FOR_STRIP)
++        # Disabled: the partial link of the whole archive pushes the combined
++        # object past 0xffff sections, and ld.lld from the LLVM 21.1.8 in the
++        # locked nixpkgs then writes section symbols with st_shndx = SHN_UNDEF
++        # nondeterministically. The final link fails with "undefined symbol: ".
++        # The stripping is only a size optimization, so skip it.
++        if (FALSE)
+             set(_prql_lib "${CMAKE_CURRENT_BINARY_DIR}/lib_ch_rust_prql.a")
+             add_custom_target(strip_prql_symbols
+                 COMMAND bash "${ClickHouse_SOURCE_DIR}/cmake/strip_rust_symbols.sh"
+@@ -71,7 +76,12 @@
+     if (NOT CMAKE_AR MATCHES "dummy_compiler_linker" AND NOT SANITIZE AND NOT OS_DARWIN
+         AND NOT CMAKE_SYSTEM_PROCESSOR STREQUAL "ppc64le")
+         find_program(_LLD_FOR_STRIP NAMES "ld.lld-${COMPILER_VERSION_MAJOR}" "ld.lld")
+-        if (_LLD_FOR_STRIP)
++        # Disabled: the partial link of the whole archive pushes the combined
++        # object past 0xffff sections, and ld.lld from the LLVM 21.1.8 in the
++        # locked nixpkgs then writes section symbols with st_shndx = SHN_UNDEF
++        # nondeterministically. The final link fails with "undefined symbol: ".
++        # The stripping is only a size optimization, so skip it.
++        if (FALSE)
+             set(_polyglot_lib "${CMAKE_CURRENT_BINARY_DIR}/lib_ch_rust_polyglot.a")
+             add_custom_target(strip_polyglot_symbols
+                 COMMAND bash "${ClickHouse_SOURCE_DIR}/cmake/strip_rust_symbols.sh"

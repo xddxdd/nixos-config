@@ -54,7 +54,6 @@ in
         LEVEL = "Error";
       };
       server = {
-        DOMAIN = "git.lantian.pub";
         LANDING_PAGE = "explore";
         PROTOCOL = "http+unix";
         ROOT_URL = "https://git.lantian.pub/";

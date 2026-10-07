@@ -1,25 +1,25 @@
-diff --git a/rust/uni-api-native/src/bin/uni-api-front/main.rs b/rust/uni-api-native/src/bin/uni-api-front/main.rs
-index dab2cf0..ba7d14e 100644
---- a/rust/uni-api-native/src/bin/uni-api-front/main.rs
-+++ b/rust/uni-api-native/src/bin/uni-api-front/main.rs
-@@ -36,6 +36,7 @@ use proxy::AppState;
+diff --git a/src/app.rs b/src/app.rs
+index 0061336..257890f 100644
+--- a/src/app.rs
++++ b/src/app.rs
+@@ -5,6 +5,7 @@ use axum::Router;
+ use std::net::{IpAddr, Ipv4Addr, SocketAddr};
  
- #[tokio::main]
- async fn main() -> Result<(), Box<dyn std::error::Error>> {
+ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
 +    let public_host = env_ip("HOST", IpAddr::V4(Ipv4Addr::UNSPECIFIED))?;
      let public_port = env_u16("PORT", 8000)?;
      let database_disabled = env_bool("DISABLE_DATABASE", false);
      let publisher = RuntimeConfigPublisher::discover(database_disabled)?;
-@@ -54,7 +55,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
+@@ -20,7 +21,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
      let app = Router::new()
-         .fallback(any(proxy::handler))
+         .fallback(any(crate::api::handler::handler))
          .with_state(state);
 -    let address = SocketAddr::new(IpAddr::V4(Ipv4Addr::UNSPECIFIED), public_port);
 +    let address = SocketAddr::new(public_host, public_port);
      let listener = tokio::net::TcpListener::bind(address).await?;
      eprintln!("uni-api Rust runtime listening on {address}");
      axum::serve(listener, app)
-@@ -63,6 +64,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
+@@ -29,6 +30,12 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
      Ok(())
  }
  

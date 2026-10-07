@@ -16,6 +16,7 @@ in
       let
         permittedInsecurePackages = [
           # keep-sorted start
+          "NetworkManager-sstp-gnome-1.3.2"
           "aspnetcore-runtime-6.0.36"
           "aspnetcore-runtime-wrapped-6.0.36"
           "dotnet-sdk-6.0.428"
@@ -30,17 +31,17 @@ in
           "mbedtls-2.28.10"
           "olm-3.2.16"
           "pnpm-10.29.2"
+          "radicle-node-1.10.3"
           "ventoy-1.1.17"
           # keep-sorted end
         ];
         overlays = [
           # keep-sorted start
-          inputs.colmena.overlay
           inputs.comfyui-nix.overlays.default
           inputs.flat-flake.overlays.default
           inputs.llm-agents.overlays.shared-nixpkgs
           inputs.nix-alien.overlays.default
-          inputs.nur-xddxdd.overlays.inSubTree-pinnedNixpkgs
+          inputs.nur-xddxdd.overlays.inSubTree
           inputs.nur.overlays.default
           inputs.secrets.overlays.default
           # keep-sorted end

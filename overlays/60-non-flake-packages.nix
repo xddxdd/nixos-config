@@ -1,6 +1,5 @@
 { inputs, ... }:
 final: prev: {
-  audio-cpp-cuda = inputs.audio-cpp.packages."${prev.stdenv.hostPlatform.system}".cuda;
   kwin-effects-better-blur-dx =
     inputs.kwin-effects-better-blur-dx.packages."${prev.stdenv.hostPlatform.system}".default;
   markdown-apa7th-docx =

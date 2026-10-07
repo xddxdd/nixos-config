@@ -13,7 +13,7 @@ in
     wantedBy = [ "multi-user.target" ];
 
     environment = {
-      BASE_URL = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra}";
+      BASE_URL = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}";
     };
 
     path = [ pkgs.systemd ];
