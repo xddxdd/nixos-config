@@ -7,6 +7,10 @@
   ...
 }:
 {
+  imports = [
+    ../../nixos/hardware/xilinx.nix
+  ];
+
   lantian.hostType = lib.mkForce "physical";
 
   boot.loader.grub = {

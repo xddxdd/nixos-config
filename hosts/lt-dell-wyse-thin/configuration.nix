@@ -8,7 +8,6 @@
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
-    ./xvcd.nix
 
     ../../nixos/client-components/fwupd.nix
     ../../nixos/client-components/hidpi.nix
