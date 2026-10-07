@@ -11,6 +11,14 @@ _: final: prev: {
     ];
   });
 
+  # Host gcc-16 emits new warnings (unused-but-set-variable in StringFuncs.c,
+  # discarded-qualifiers in EfiRom.c, ...) that BaseTools' -Wall -Werror turns
+  # into errors; BaseTools are host-only build tools, keep warnings but not
+  # -Werror for them
+  pve-edk2-firmware = prev.pve-edk2-firmware.overrideAttrs (old: {
+    NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
+  });
+
   # proxmox-nixos replaces the installPhase of font-awesome_4 and expects
   # css/fonts/less at the source root, but nixpkgs now sets sourceRoot
   # to source/fonts
