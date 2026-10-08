@@ -37,7 +37,6 @@
     ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-swap.nix
-    ../../nixos/optional-apps/metapi.nix
     ../../nixos/optional-apps/microsoft-rewards-script.nix
     ../../nixos/optional-apps/mtranserver
     ../../nixos/optional-apps/n8n
