@@ -28,10 +28,8 @@
       };
       require-proof-of-possession = false;
       storage = {
-        type = "s3";
-        region = "us-central-1";
-        bucket = "lantian-nix-cache";
-        endpoint = "https://us-central-1.telnyxstorage.com";
+        type = "local";
+        path = "/var/cache/attic";
       };
       # Disable chunking to use S3 direct download
       chunking = {
@@ -54,6 +52,7 @@
   systemd.services.atticd.serviceConfig = LT.serviceHarden // {
     DynamicUser = lib.mkForce false;
     StateDirectory = lib.mkForce "";
+    CacheDirectory = lib.mkForce "attic";
   };
 
   users.users.atticd = {
