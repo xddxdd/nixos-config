@@ -25,9 +25,7 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = pkgs.llm-agents.pi.override {
-      useBun = false;
-    };
+    package = pkgs.llm-agents.pi;
     # # Not implemented correctly in home manager
     # configDir = "${config.xdg.configHome}/pi/agent";
     inherit context;
