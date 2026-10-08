@@ -81,9 +81,6 @@
 
   lantian.firewall.wanARPSubnets = [ "23.94.65.216/30" ];
 
-  # Put syncthing on RAID0 storage as data is available elsewhere
-  lantian.syncthing.storage = "/var/cache/syncthing-media";
-
   virtualisation.oci-containers.containers.byparr.ports = [
     "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
   ];
