@@ -48,7 +48,7 @@
 
     appstoreEnable = false;
     extraApps = {
-      inherit (pkgs.nextcloud34Packages.apps)
+      inherit (pkgs.nextcloud35Packages.apps)
         calendar
         checksum
         contacts
