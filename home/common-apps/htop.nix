@@ -1,5 +1,6 @@
 {
   config,
+  LT,
   ...
 }:
 {
@@ -33,7 +34,7 @@
     // (
       with config.lib.htop;
       leftMeters [
-        (bar "LeftCPUs2")
+        (bar (if LT.this.cpuThreads > 16 then "LeftCPUs4" else "LeftCPUs2"))
         (bar "Memory")
         (bar "Swap")
         (text "DiskIO")
@@ -43,7 +44,7 @@
     // (
       with config.lib.htop;
       rightMeters [
-        (bar "RightCPUs2")
+        (bar (if LT.this.cpuThreads > 16 then "RightCPUs4" else "RightCPUs2"))
         (text "Blank")
         (text "Tasks")
         (text "LoadAverage")
