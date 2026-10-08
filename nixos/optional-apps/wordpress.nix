@@ -45,6 +45,8 @@ in
           # core releases, while the translation-only zip is published for
           # every released version.
           url = "https://downloads.wordpress.org/translation/core/${pkgs.wordpress.version}/zh_CN.zip";
+          # Upstream switched to a flat zip layout (no wrapping directory)
+          stripRoot = false;
           hash = "sha256-4w9ghAopyFuMpJ4jVPaNMY51cQtLXtSyYTodvyCVaMA=";
         })
       ];
