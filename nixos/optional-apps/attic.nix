@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   LT,
   config,
@@ -17,7 +16,6 @@
 
   services.atticd = {
     enable = true;
-    package = pkgs.nur-xddxdd.lantianCustomized.attic-telnyx-compatible;
     environmentFile = config.sops.secrets.attic-credentials.path;
     mode = "monolithic";
     settings = lib.mkForce {
@@ -44,7 +42,7 @@
       };
       garbage-collection = {
         interval = "12 hours";
-        default-retention-period = "3 month";
+        default-retention-period = "1 month";
       };
     };
   };
