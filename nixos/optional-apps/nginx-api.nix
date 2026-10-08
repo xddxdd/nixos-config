@@ -64,8 +64,6 @@ _: {
               ja4ts = "$http_ssl_ja4ts";
               ja4ts_string = "$http_ssl_ja4ts_string";
               ja4l = "$http_ssl_ja4l";
-              ja4x = "$https_ssl_ja4x";
-              ja4x_string = "$https_ssl_ja4x_string";
             };
           in
           "200 '${json}'";
