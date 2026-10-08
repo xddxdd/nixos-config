@@ -106,6 +106,7 @@ in
         nur-xddxdd.runpodctl
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
+        nur-xddxdd.witch-weapon
         nvfetcher
         optipng
         p7zip
