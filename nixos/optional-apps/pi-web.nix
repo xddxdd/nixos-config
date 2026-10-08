@@ -1,12 +1,12 @@
 { LT, ... }:
 {
-  lantian.localVhosts.pi-web = {
+  lantian.localVhosts.pi = {
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.PiWeb}";
         proxyWebsockets = true;
-        proxyOverrideHost = "pi-web.localhost";
-        proxyOverrideOrigin = "https://pi-web.localhost";
+        proxyOverrideHost = "pi.localhost";
+        proxyOverrideOrigin = "https://pi.localhost";
         proxyNoTimeout = true;
       };
     };
