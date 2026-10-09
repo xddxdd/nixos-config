@@ -59,8 +59,15 @@ let
     ];
     SystemCallFilter = [ ];
   };
+
+  realtimeArgs = {
+    CPUSchedulingPolicy = "fifo";
+    CPUSchedulingPriority = 99;
+    IOSchedulingClass = "realtime";
+  };
 in
 {
   serviceHarden = lib.mapAttrs (k: lib.mkOptionDefault) serviceHardenArgs;
   networkToolHarden = lib.mapAttrs (k: lib.mkOptionDefault) networkToolHardenArgs;
+  realtime = lib.mapAttrs (k: lib.mkOptionDefault) realtimeArgs;
 }

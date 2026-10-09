@@ -76,7 +76,7 @@ let
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
-    inherit (call ./fn/service-harden.nix) serviceHarden networkToolHarden;
+    inherit (call ./fn/service-harden.nix) serviceHarden networkToolHarden realtime;
     tagsForHost = call ./fn/tags-for-host.nix;
     translit = call ./fn/translit.nix;
     wrapNetns = call ./fn/wrap-netns.nix;

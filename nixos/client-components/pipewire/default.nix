@@ -91,6 +91,9 @@ in
     };
   };
 
+  systemd.services.pipewire.serviceConfig = LT.realtime;
+  systemd.services.pipewire-pulse.serviceConfig = LT.realtime;
+
   users.users.lantian.extraGroups = [
     "audio"
   ]

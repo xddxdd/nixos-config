@@ -28,9 +28,12 @@
 
   systemd.services.scx = {
     inherit (config.services.scx) enable;
-    serviceConfig = lib.mkIf config.services.scx.enable {
-      Restart = lib.mkForce "always";
-      RestartSec = "3";
-    };
+    serviceConfig = lib.mkIf config.services.scx.enable (
+      LT.realtime
+      // {
+        Restart = lib.mkForce "always";
+        RestartSec = "3";
+      }
+    );
   };
 }

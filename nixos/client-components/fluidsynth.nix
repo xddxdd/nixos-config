@@ -20,13 +20,16 @@ in
     after = [ "pipewire-pulse.service" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
-      # Needs /dev/snd/seq for ALSA sequencer MIDI input
-      PrivateDevices = false;
-      ExecStart = "${lib.getExe pkgs.fluidsynth} -a pulseaudio -si ${soundfontPath}";
-      User = "lantian";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
+    serviceConfig =
+      LT.serviceHarden
+      // LT.realtime
+      // {
+        # Needs /dev/snd/seq for ALSA sequencer MIDI input
+        PrivateDevices = false;
+        ExecStart = "${lib.getExe pkgs.fluidsynth} -a pulseaudio -si ${soundfontPath}";
+        User = "lantian";
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
   };
 }

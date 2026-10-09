@@ -19,7 +19,7 @@ in
               name = "libpipewire-module-rt";
               args = {
                 "nice.level" = -11;
-                "rt.prio" = 88;
+                "rt.prio" = 99;
                 "rt.time.soft" = realtimeLimitUS;
                 "rt.time.hard" = realtimeLimitUS;
               };
