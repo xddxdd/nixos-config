@@ -47,6 +47,20 @@ Flake 入口文件，定义了：
 
 锁定所有输入的版本，确保可重现构建。
 
+flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"nodes"` 中根 Flake 的输入集合（节点名通常也叫 `root`）；每个节点的 `inputs` 把输入名映射到另一个锁定节点。
+
+**注意：根 Flake 的 `nixpkgs` 输入未必对应名为 `nixpkgs` 的节点**。本仓库中根输入 `nixpkgs` 映射到节点 `nixpkgs_2`，而名为 `nixpkgs` 的节点只是其他第三方输入内部的依赖版本，**不是**系统求值用的 nixpkgs。
+
+### 查找实际生效的 nixpkgs 版本
+
+任何需要查阅 nixpkgs 源码（NixOS 模块、包定义、默认值）时，都**必须**先按以下流程确定实际生效的版本，禁止直接假设节点名或使用已知旧版本：
+
+1. 解析 `flake.lock`：读取 `nodes[root].inputs.nixpkgs` 得到节点名，再读取该节点的 `locked` 字段（含 `rev`、`type`、`url`）。
+2. 若根输入带 `follows` 链（如某输入 `inputs.nixpkgs.follows = "nixpkgs"`），需顺着映射继续解引用，直到得到 `locked` 非空的节点。
+3. 用该 `rev` 直接从 GitHub 拉取源码，例如：`https://raw.githubusercontent.com/NixOS/nixpkgs/<rev>/nixos/modules/...`（tarball 类型输入的短 rev 同样适用于 GitHub raw）。
+
+实例（2025 年时点）：`nodes[root].inputs.nixpkgs = "nixpkgs_2"`，对应 GitHub rev `151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4`（26.11pre tarball）。当时节点 `nixpkgs`（rev `545c226a`）与生效版本不一致：Hydra 的 `services.hydra.queueRunner` / `services.hydra-builder` 选项只存在于 `nixpkgs_2` 对应的模块中，在错误版本上查询会得出“选项不存在”的错误结论。
+
 ### Makefile
 
 提供常用构建命令的快捷方式。
