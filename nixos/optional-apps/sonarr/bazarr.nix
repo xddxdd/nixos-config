@@ -8,9 +8,9 @@
 {
   services.bazarr = {
     enable = true;
-    listenPort = LT.port.Bazarr;
     user = "lantian";
     group = "users";
+    settings.general.port = LT.port.Bazarr;
   };
   systemd.services.bazarr = {
     serviceConfig = LT.serviceHarden // {
