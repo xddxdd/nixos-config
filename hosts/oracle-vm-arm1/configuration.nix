@@ -10,7 +10,19 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
-  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
+  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0" 1024;
+
+  systemd.network.networks.eth1 = (LT.cloudLanNetworking "eth1" 2048) // {
+    networkConfig.DHCP = "no";
+    address = [ "172.18.126.17/24" ];
+    routes = [
+      {
+        Destination = "0.0.0.0/0";
+        Gateway = "172.18.126.1";
+        Metric = 2048;
+      }
+    ];
+  };
 
   lantian.ocfs2 = {
     enable = true;

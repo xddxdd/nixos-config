@@ -10,7 +10,7 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
-  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
+  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0" 1024;
 
   lantian.ocfs2 = {
     enable = true;

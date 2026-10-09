@@ -1,18 +1,17 @@
-_: interface: {
+_: interface: metric: {
   networkConfig.DHCP = "yes";
   matchConfig.Name = interface;
-  routes = [
-    {
-      Destination = "10.0.0.0/8";
-      Gateway = "_dhcp4";
-    }
-    {
-      Destination = "172.16.0.0/12";
-      Gateway = "_dhcp4";
-    }
-    {
-      Destination = "192.168.0.0/16";
-      Gateway = "_dhcp4";
-    }
-  ];
+  ipv6AcceptRAConfig.RouteMetric = metric;
+  routes =
+    map
+      (dest: {
+        Destination = dest;
+        Gateway = "_dhcp4";
+        Metric = metric;
+      })
+      [
+        "10.0.0.0/8"
+        "172.16.0.0/12"
+        "192.168.0.0/16"
+      ];
 }

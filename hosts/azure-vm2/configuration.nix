@@ -6,5 +6,5 @@
     ./hardware-configuration.nix
   ];
 
-  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0";
+  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0" 1024;
 }
