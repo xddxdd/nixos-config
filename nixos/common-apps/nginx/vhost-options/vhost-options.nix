@@ -11,7 +11,7 @@ let
 in
 { name, config, ... }:
 let
-  inherit (import ./helpers.nix args) fastcgiParams listenDefaultFlags;
+  inherit (import ./helpers.nix args) fastcgiParams;
 
   listenOptions = enableDefault: portDefault: defaultDefault: {
     enable = (lib.mkEnableOption "Listener") // {
@@ -27,13 +27,11 @@ let
       default = defaultDefault;
     };
   };
-  listenSocketOptions = enableDefault: proxyProtocolDefault: socketDefault: defaultDefault: {
+  listenSocketOptions = enableDefault: socketDefault: defaultDefault: {
     enable = (lib.mkEnableOption "Listener") // {
       default = enableDefault;
     };
-    proxyProtocol = (lib.mkEnableOption "Proxy Protocol") // {
-      default = proxyProtocolDefault;
-    };
+    proxyProtocol = lib.mkEnableOption "Proxy Protocol";
     socket = lib.mkOption {
       type = lib.types.path;
       default = socketDefault;
@@ -113,6 +111,18 @@ let
       )
     );
 
+  listenDefaultFlags =
+    protocol:
+    [ "default_server" ]
+    ++ (lib.optionals (protocol == "tcp") [
+      "fastopen=100"
+      "reuseport"
+      "deferred"
+      "so_keepalive=600:10:6"
+      "multipath"
+    ])
+    ++ (lib.optionals (protocol == "udp") [ "reuseport" ]);
+
   robotsTxt = pkgs.writeText "robots.txt" ''
     User-agent: *
     Disallow: /
@@ -144,7 +154,7 @@ let
             ++ (lib.optionals config.listenHTTP_Socket.default (listenDefaultFlags "unix"));
         }
       ])
-      ++ (lib.optionals (config.listenHTTPS.enable && config.listenHTTPS.port != LT.port.HTTPS) [
+      ++ (lib.optionals config.listenHTTPS.enable [
         {
           addr = "0.0.0.0";
           inherit (config.listenHTTPS) port;
@@ -153,6 +163,15 @@ let
           ]
           ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
           ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
+        }
+        {
+          addr = "0.0.0.0";
+          inherit (config.listenHTTPS) port;
+          extraParameters = [
+            "quic"
+          ]
+          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
+          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
         }
         {
           addr = "[::]";
@@ -162,17 +181,6 @@ let
           ]
           ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
           ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "tcp"));
-        }
-      ])
-      ++ (lib.optionals config.listenHTTPS.enable [
-        {
-          addr = "0.0.0.0";
-          inherit (config.listenHTTPS) port;
-          extraParameters = [
-            "quic"
-          ]
-          ++ (lib.optionals config.listenHTTPS.proxyProtocol [ "proxy_protocol" ])
-          ++ (lib.optionals config.listenHTTPS.default (listenDefaultFlags "udp"));
         }
         {
           addr = "[::]";
@@ -315,7 +323,6 @@ let
           || (config.listenPlainSocket.enable && config.listenPlainSocket.proxyProtocol)
         )
         ''
-          set_real_ip_from unix:;
           set_real_ip_from 127.0.0.0/8;
           set_real_ip_from 198.18.0.0/15;
           set_real_ip_from fe80::/16;
@@ -381,13 +388,13 @@ in
   options = {
     # Customized listen options
     listenHTTP = listenOptions false LT.port.HTTP false;
-    listenHTTP_Socket = listenSocketOptions false false "/run/nginx/http-${name}.sock" true;
+    listenHTTP_Socket = listenSocketOptions false "/run/nginx/http-${name}.sock" true;
     listenHTTPS = listenOptions true LT.port.HTTPS false;
-    listenHTTPS_Socket = listenSocketOptions false true "/run/nginx/https.sock" true;
+    listenHTTPS_Socket = listenSocketOptions false "/run/nginx/https-${name}.sock" true;
     listenPlain = listenOptions false 0 true;
-    listenPlainSocket = listenSocketOptions false false "/run/nginx/plain-${name}.sock" true;
+    listenPlainSocket = listenSocketOptions false "/run/nginx/plain-${name}.sock" true;
     listenGemini = listenOptions false LT.port.Gemini true;
-    listenGeminiSocket = listenSocketOptions false false "/run/nginx/gemini-${name}.sock" true;
+    listenGeminiSocket = listenSocketOptions false "/run/nginx/gemini-${name}.sock" true;
 
     # Customized vhost options
     enableCommonLocationOptions = (lib.mkEnableOption "Add common location options") // {
@@ -502,15 +509,5 @@ in
       readOnly = true;
       default = generatedVhostOptions;
     };
-  };
-
-  # The SNI-routed HTTPS UNIX socket is only meaningful when the vhost does HTTPS
-  # on the SNI-fronted TCP port; its default_server flag is inherited from
-  # listenHTTPS so exactly one vhost ("_default_https") stays the default
-  config = {
-    listenHTTPS_Socket.enable = lib.mkDefault (
-      config.listenHTTPS.enable && config.listenHTTPS.port == LT.port.HTTPS
-    );
-    listenHTTPS_Socket.default = lib.mkDefault config.listenHTTPS.default;
   };
 }

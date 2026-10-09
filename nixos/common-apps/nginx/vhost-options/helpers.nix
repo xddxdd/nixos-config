@@ -1,17 +1,5 @@
-{ LT, lib, ... }:
+{ LT, ... }:
 {
-  listenDefaultFlags =
-    protocol:
-    [ "default_server" ]
-    ++ (lib.optionals (protocol == "tcp") [
-      "fastopen=100"
-      "reuseport"
-      "deferred"
-      "so_keepalive=600:10:6"
-      "multipath"
-    ])
-    ++ (lib.optionals (protocol == "udp") [ "reuseport" ]);
-
   fastcgiParams = ''
     set $path_info $fastcgi_path_info;
 
