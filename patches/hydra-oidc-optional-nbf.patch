@@ -1,0 +1,22 @@
+diff -ruN a/lib/Hydra/Helper/OIDC.pm b/lib/Hydra/Helper/OIDC.pm
+--- a/lib/Hydra/Helper/OIDC.pm	2026-10-08 17:53:25.080559295 -0700
++++ b/lib/Hydra/Helper/OIDC.pm	2026-10-08 17:53:25.097370230 -0700
+@@ -270,6 +270,7 @@
+     # Crypt::JWT handles the standard ID token validation required by OIDC
+     # Core 1.0 §3.1.3.7 for us: signature verification against JWKS, issuer
+     # match, audience match, exp/nbf time checks, and rejection of alg=none.
++    # nbf is an optional claim in JWT (RFC 7519) and not set by some providers;
+     # It does NOT verify the nonce (OIDC-specific) or sub presence, which we
+     # check separately below.
+     my $claims;
+@@ -287,7 +288,9 @@
+                     grep { $_ eq $self->{conf}->{client_id} } ref $aud eq 'ARRAY' ? @$aud : ($aud)
+                 },
+                 verify_exp => 1,
+-                verify_nbf => 1,
++                # Check nbf only when present; e.g. Dex doesn't set the claim,
++                # while Crypt::JWT's verify_nbf => 1 rejects tokens lacking it.
++                verify_nbf => undef,
+             );
+         } catch ($e) {
+             next if $e =~ /kid_keys lookup failed/ && !$force_refresh;

@@ -77,6 +77,14 @@ let
         redirectURIs = [ "https://dashboard.xuyh0120.win/login/generic_oauth" ];
       }
       {
+        id = "hydra";
+        name = "Hydra";
+        secret = {
+          _secret = config.sops.secrets.dex-hydra-secret.path;
+        };
+        redirectURIs = [ "https://hydra.lantian.pub/oidc-callback/dex" ];
+      }
+      {
         id = "immich";
         name = "Immich";
         secret = {

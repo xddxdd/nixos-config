@@ -31,7 +31,23 @@ in
     sopsFile = inputs.secrets + "/common/attic.yaml";
     mode = "0444";
   };
+  # Read by hydra-server at startup, so it must be readable by the hydra user
+  sops.secrets.dex-hydra-secret = {
+    sopsFile = inputs.secrets + "/common/dex.yaml";
+    mode = "0440";
+    owner = "hydra";
+    group = "hydra";
+  };
+
   sops.secrets.hydra-ssh-privkey = {
+    sopsFile = inputs.secrets + "/hydra.yaml";
+    mode = "0440";
+    owner = "hydra";
+    group = "hydra";
+  };
+  # Shared by the queue runner (tokenPaths) and hydra-builder (authorizationFile);
+  # both services run under group hydra
+  sops.secrets.hydra-queue-runner-token = {
     sopsFile = inputs.secrets + "/hydra.yaml";
     mode = "0440";
     owner = "hydra";
@@ -81,16 +97,34 @@ in
         maxOutputSize = 1024 * 1024 * 1024 * 1024; # 1TB
         machineFreeFn = "DynamicWithMaxJobLimit";
         maxUnsupportedTimeInS = 3600; # Avoid unstable queue runners aborting builds
-        # FIXME: generate separate secrcet for Hydra
-        tokenPaths = [ config.sops.secrets.default-pw.path ];
+        tokenPaths = [ config.sops.secrets.hydra-queue-runner-token.path ];
       };
     };
 
     extraConfig = ''
+      local_auth_enabled = 0
+
       <runcommand>
         job = *:*:*
         command = /etc/hydra/post-build
       </runcommand>
+
+      <oidc>
+        <provider dex>
+          display_name = "Dex"
+          discovery_url = "https://login.lantian.pub/.well-known/openid-configuration"
+          client_id = "hydra"
+          client_secret_file = "${config.sops.secrets.dex-hydra-secret.path}"
+          # Dex only puts `groups` into the issued ID token when the client
+          # requests the `groups` scope; group name convention follows
+          # grafana.nix / nextcloud.nix
+          extra_scopes = "groups"
+          role_claim = "groups"
+          <role_mapping>
+            admin = admin
+          </role_mapping>
+        </provider>
+      </oidc>
 
       allow_import_from_derivation = true
     '';
@@ -98,7 +132,7 @@ in
 
   services.hydra-builder = {
     enable = true;
-    authorizationFile = config.sops.secrets.default-pw.path;
+    authorizationFile = config.sops.secrets.hydra-queue-runner-token.path;
     queueRunnerAddr = "http://127.0.0.1:${LT.portStr.Hydra.QueueRunnerGRPC}";
   };
 

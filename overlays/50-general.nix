@@ -48,7 +48,10 @@ rec {
     '';
   });
   hydra = prev.hydra.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/hydra-protect-private-project.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../patches/hydra-protect-private-project.patch
+      ../patches/hydra-oidc-optional-nbf.patch
+    ];
   });
   # Systemd socket activation support, from https://github.com/esnet/iperf/pull/1171
   iperf3 = prev.iperf3.overrideAttrs (old: {
