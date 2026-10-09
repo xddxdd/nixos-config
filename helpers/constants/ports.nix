@@ -88,6 +88,7 @@ rec {
     Hydra.WebUI = 13300;
     Hydra.QueueRunnerGRPC = 13301;
     Hydra.QueueRunnerREST = 1332;
+    Hydra.WebSocket = 13303;
     N8N-OpenAI-Bridge = 13333;
     TranquilPDS = 13380;
     Dex = 13403;

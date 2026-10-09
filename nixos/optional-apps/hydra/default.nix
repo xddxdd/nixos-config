@@ -101,8 +101,18 @@ in
       };
     };
 
+    ws = {
+      bind = {
+        address = LT.this.ltnet.IPv4;
+        port = LT.port.Hydra.WebSocket;
+      };
+    };
+
     extraConfig = ''
       local_auth_enabled = 0
+      # Read by Hydra::Helper::LogEndpoints; any path works, hydra-ws accepts
+      # upgrades on every path. Proxied at /ws on the public-facing hosts.
+      ws_endpoint = wss://hydra.lantian.pub/ws
 
       <runcommand>
         job = *:*:*
