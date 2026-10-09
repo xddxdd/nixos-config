@@ -95,7 +95,7 @@ in
       settings = {
         # https://github.com/nixos-cuda/infra/pull/144
         maxOutputSize = 1024 * 1024 * 1024 * 1024; # 1TB
-        machineFreeFn = "Dynamic";
+        machineFreeFn = "DynamicWithMaxJobLimit";
         maxUnsupportedTimeInS = 3600; # Avoid unstable queue runners aborting builds
         tokenPaths = [ config.sops.secrets.hydra-queue-runner-token.path ];
       };
