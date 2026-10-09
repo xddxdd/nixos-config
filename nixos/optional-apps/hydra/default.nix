@@ -23,7 +23,6 @@ in
   imports = [
     ../nix-distributed.nix
     ../postgresql.nix
-    ./cancel-old-builds.nix
     ./clear-build-failures.nix
   ];
 
