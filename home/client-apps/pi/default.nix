@@ -121,6 +121,15 @@ in
     };
 
     settings = {
+      # Enable all built-in tools on top of the defaults (read/bash/edit/write);
+      # codemode and tool_search are built-in extensions, off by default.
+      defaultTools = [
+        "+grep"
+        "+find"
+        "+ls"
+        "+codemode"
+        "+tool_search"
+      ];
       quietStartup = true;
       tuiMode = "regular";
       collapseChangelog = true;
