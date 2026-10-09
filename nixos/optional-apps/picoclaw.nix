@@ -2,12 +2,14 @@
   lib,
   pkgs,
   LT,
-  config,
   ...
 }:
 let
   picoclaw = pkgs.llm-agents.picoclaw.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../../patches/picoclaw-disable-command-restrictions.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../../patches/picoclaw-disable-command-restrictions.patch
+      ../../patches/picoclaw-mcp-json.patch
+    ];
     doCheck = false;
     doInstallCheck = false;
   });
@@ -22,39 +24,26 @@ in
     wantedBy = [ "multi-user.target" ];
 
     path = [
-      pkgs.jq
       pkgs.nodejs
       pkgs.uv
     ];
 
-    script =
-      let
-        mcpJsonFile = pkgs.writeText "picoclaw-mcp.json" (
-          builtins.toJSON {
-            mcpServers = lib.mapAttrs (k: v: v // { enabled = true; }) config.lantian.mcp.mcpServers;
-          }
-        );
-      in
-      ''
-        CONFIG_DIR=$HOME/.picoclaw
-        CONFIG_FILE=$CONFIG_DIR/config.json
+    script = ''
+      CONFIG_DIR=$HOME/.picoclaw
+      CONFIG_FILE=$CONFIG_DIR/config.json
 
-        mkdir -p "$CONFIG_DIR"
+      mkdir -p "$CONFIG_DIR"
 
-        if [ ! -f "$CONFIG_FILE" ]; then
-          echo '{}' > "$CONFIG_FILE"
-        fi
+      if [ ! -f "$CONFIG_FILE" ]; then
+        echo '{}' > "$CONFIG_FILE"
+      fi
 
-        # Remove leftover PID file
-        rm -f $CONFIG_DIR/.picoclaw.pid
+      # Remove leftover PID file
+      rm -f $CONFIG_DIR/.picoclaw.pid
 
-        tmp_file=$(mktemp)
-        jq --slurpfile mcp "${mcpJsonFile}" '.tools.mcp.servers = $mcp[0].mcpServers' "$CONFIG_FILE" > "$tmp_file"
-        mv "$tmp_file" "$CONFIG_FILE"
-
-        export PATH=/etc/profiles/per-user/lantian/bin:/run/current-system/sw/bin:$PATH
-        exec ${lib.getExe picoclaw} gateway
-      '';
+      export PATH=/etc/profiles/per-user/lantian/bin:/run/current-system/sw/bin:$PATH
+      exec ${lib.getExe picoclaw} gateway
+    '';
 
     serviceConfig = LT.serviceHarden // {
       User = "lantian";

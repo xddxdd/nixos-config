@@ -1,0 +1,56 @@
+--- a/pkg/config/config.go
++++ b/pkg/config/config.go
+@@ -1486,6 +1486,10 @@
+ 		return nil, fmt.Errorf("unsupported config version: %d", versionInfo.Version)
+ 	}
+ 
++	if err = applyMCPFileConfig(cfg); err != nil {
++		return nil, err
++	}
++
+ 	applyLegacyBindingsMigration(data, cfg)
+ 
+ 	gatewayHostBeforeEnv := cfg.Gateway.Host
+@@ -1526,6 +1530,42 @@
+ 	return cfg, nil
+ }
+ 
++// applyMCPFileConfig replaces the MCP server set with definitions from the
++// optional <picoclaw home>/mcp.json file.
++//
++// The mcp.json file is a standalone MCP config of the shape
++// {"mcpServers": {"name": {...server config...}}}. Whenever the file exists,
++// it fully defines tools.mcp.servers, so config.json loses all say over MCP
++// servers and entries left there by other tools are ignored. A missing
++// mcp.json is a no-op.
++func applyMCPFileConfig(cfg *Config) error {
++	if cfg == nil {
++		return fmt.Errorf("config is nil")
++	}
++
++	mcpPath := filepath.Join(GetHome(), "mcp.json")
++	data, err := os.ReadFile(mcpPath)
++	if err != nil {
++		if os.IsNotExist(err) {
++			return nil
++		}
++		return fmt.Errorf("failed to read %s: %w", mcpPath, err)
++	}
++
++	var doc struct {
++		Servers map[string]MCPServerConfig `json:"mcpServers"`
++	}
++	if e := decodeJSONWithDiagnostics(data, &doc, "mcp.json"); e != nil {
++		return fmt.Errorf("failed to parse %s: %w", mcpPath, e)
++	}
++
++	// mcp.json, when present, is always the authoritative source of MCP
++	// servers: an empty or absent mcpServers key yields an empty set rather
++	// than falling back to config.json entries.
++	cfg.Tools.MCP.Servers = doc.Servers
++	return nil
++}
++
+ func applySkillsRegistryEnvCompat(cfg *Config) {
+ 	if cfg == nil {
+ 		return
