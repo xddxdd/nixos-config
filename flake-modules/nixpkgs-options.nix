@@ -37,7 +37,6 @@ in
         ];
         overlays = [
           # keep-sorted start
-          inputs.comfyui-nix.overlays.default
           inputs.flat-flake.overlays.default
           inputs.llm-agents.overlays.shared-nixpkgs
           inputs.nix-alien.overlays.default
