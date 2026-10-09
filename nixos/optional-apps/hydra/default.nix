@@ -136,6 +136,12 @@ in
       </oidc>
 
       allow_import_from_derivation = true
+
+      # Read by hydra-eval-jobset; passed to nix-eval-jobs as --workers and
+      # --max-memory-size. Enforced budget is workers * max-memory-size per
+      # jobset eval, in MiB.
+      evaluator_workers = 16
+      evaluator_max_memory_size = 8192
     '';
   };
 
