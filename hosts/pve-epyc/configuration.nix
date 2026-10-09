@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  LT,
   ...
 }:
 {
@@ -146,4 +147,10 @@
   };
 
   services.scx.enable = lib.mkForce true;
+
+  # Avoid nix builds saturating CPU
+  systemd.services.nix-daemon.serviceConfig.CPUAffinity = "16-${
+    builtins.toString (LT.this.cpuThreads - 1)
+  }";
+  nix.settings.cores = LT.this.cpuThreads - 16;
 }
