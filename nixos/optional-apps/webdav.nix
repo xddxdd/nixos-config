@@ -1,4 +1,9 @@
-_: {
+{
+  config,
+  LT,
+  ...
+}:
+{
   services.webdav = {
     enable = true;
     user = "lantian";
@@ -18,6 +23,7 @@ _: {
   };
 
   systemd.services.webdav = {
+    unitConfig.RequiresMountsFor = [ (LT.escapeMountPath config.services.webdav.settings.directory) ];
     postStart = ''
       while [ ! -S /run/webdav/webdav.sock ]; do sleep 1; done
       chmod 777 /run/webdav/webdav.sock

@@ -55,6 +55,7 @@
     };
 
     systemd.services.immich-server = {
+      unitConfig.RequiresMountsFor = [ (LT.escapeMountPath config.services.immich.mediaLocation) ];
       after = [ "redis-immich.service" ];
       requires = [ "redis-immich.service" ];
     };

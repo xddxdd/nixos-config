@@ -208,6 +208,8 @@ Thunderbird 配置在 `home/client-apps/thunderbird/default.nix`，通过 `progr
 | `constants/`       | 各类常量（端口、网络、区域等）              |
 | `fn/`              | 辅助函数（nginx、hosts、service-harden 等） |
 
+`helpers/fn/systemd.nix` 导出 `LT.escapeMountPath`，用于 `RequiresMountsFor` 的字面路径转义：按词去除引号，不解码 C 转义，不能用单元名称或 Exec 转义辅助函数替代；拒绝包含 LF/CR 的路径。
+
 ### dns/ 目录
 
 DNS 配置，使用 DNSControl 管理：

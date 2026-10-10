@@ -33,6 +33,14 @@
     ];
   };
 
+  systemd.services = {
+    samba-smbd.unitConfig.RequiresMountsFor = "/mnt/storage";
+    nfs-mountd.unitConfig.RequiresMountsFor = [
+      "/mnt/storage"
+      "/run/nfs/storage"
+    ];
+  };
+
   services.samba.settings = {
     "storage" = {
       "path" = "/mnt/storage";

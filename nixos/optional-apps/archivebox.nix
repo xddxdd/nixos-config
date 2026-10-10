@@ -25,6 +25,10 @@
       volumes = [ "${config.lantian.archivebox.storage}:/data" ];
     };
 
+    systemd.services.podman-archivebox.unitConfig.RequiresMountsFor = [
+      (LT.escapeMountPath config.lantian.archivebox.storage)
+    ];
+
     systemd.tmpfiles.settings = {
       archivebox = {
         "${config.lantian.archivebox.storage}"."d" = {

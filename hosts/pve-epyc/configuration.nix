@@ -122,6 +122,19 @@
   lantian.syncthing.storage = "/mnt/storage/media";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
 
+  systemd.services = {
+    backup-nix-persistent.unitConfig.RequiresMountsFor = [
+      "/mnt/storage"
+      "/run/sftp"
+    ];
+    backup-prune.unitConfig.RequiresMountsFor = [
+      "/mnt/storage"
+      "/run/sftp"
+    ];
+    systemd-tmpfiles-setup.unitConfig.RequiresMountsFor = "/mnt/storage";
+    systemd-tmpfiles-resetup.unitConfig.RequiresMountsFor = "/mnt/storage";
+  };
+
   lantian.nginxVhosts."ha.xuyh0120.win" = {
     locations = {
       "/" = {

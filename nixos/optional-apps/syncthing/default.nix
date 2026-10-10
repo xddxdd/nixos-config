@@ -54,6 +54,10 @@
     environment.systemPackages = [ config.services.syncthing.package ];
 
     systemd.services.syncthing = {
+      unitConfig.RequiresMountsFor = map LT.escapeMountPath [
+        config.lantian.syncthing.storage
+        config.services.syncthing.dataDir
+      ];
       serviceConfig = {
         AmbientCapabilities = [
           "CAP_DAC_OVERRIDE"

@@ -81,6 +81,7 @@ in
   systemd.services.bitmagnet-queue = netns.bind { };
   systemd.services.bitmagnet-dht = netns.bind { };
   systemd.services.peerbanhelper = netns.bind { };
+  systemd.services.jellyfin.unitConfig.RequiresMountsFor = "/mnt/storage";
 
   systemd.services.radarr = {
     after = [ "mnt-storage.mount" ];
