@@ -97,6 +97,8 @@ in
         machineFreeFn = "DynamicWithMaxJobLimit";
         maxUnsupportedTimeInS = 3600; # Avoid unstable queue runners aborting builds
         tokenPaths = [ config.sops.secrets.hydra-queue-runner-token.path ];
+        maxSilentTime = 6 * 3600;
+        buildTimeout = 12 * 3600;
       };
     };
 
