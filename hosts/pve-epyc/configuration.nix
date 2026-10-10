@@ -37,7 +37,6 @@
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
-    ../../nixos/optional-apps/llama-swap.nix
     ../../nixos/optional-apps/microsoft-rewards-script.nix
     ../../nixos/optional-apps/mtranserver
     ../../nixos/optional-apps/n8n
@@ -50,6 +49,7 @@
     ../../nixos/optional-apps/resin.nix
     ../../nixos/optional-apps/searxng.nix
     ../../nixos/optional-apps/sftp-server.nix
+    # ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tor.nix

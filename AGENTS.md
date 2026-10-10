@@ -127,6 +127,18 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | `optional-apps/`      | 可选应用（部分主机使用，需在主机配置中手动导入）        |
 | `optional-cron-jobs/` | 可选定时任务（部分主机使用，需在主机配置中手动导入）    |
 
+### Strata 本地推理
+
+仅 Strata 服务将 `ProcSubset` 覆盖为 `all`，让 `setup.py` 的 `ram_gb` 能读取 `/proc/meminfo`（`pid` 会隐藏非进程相关的 proc 文件），保留继承的 `ProtectProc=invisible` 和其他现有加固设置。
+
+`nixos/optional-apps/strata.nix` 在 `pve-epyc` 替代 llama-swap，使用 NUR 的现有 Strata 包定义，监听 `127.0.0.1:13881`，通过 `strata.<主机名>.xuyh0120.win`（HTTPS）和 `strata.localhost`（HTTP）反向代理访问。`lt-hp-omen` 仍使用 llama-swap，保留端口 13880；此次不修改客户端。
+
+服务使用静态 `strata` 用户和持久目录 `/var/lib/strata`：`runtime/strata` 是包复制的可写运行副本（含模型运行配置，包装器在版本变化时删除并重新复制，触发配置重新生成），`config/strata/settings.json` 保存上游设置，`data` 保存模型文件。启动前以服务用户创建这些父目录；模型数据必须放在运行副本之外，避免升级时丢失。
+
+首次启动用 `--yes` 自动选择并下载上游推荐模型，需要网络和充足磁盘空间；不固定 `--model` / `--family`，避免每次重启重新设置。`--vision no` 禁用视觉。模块仅为 Strata 从当前 `pkgs.path` 创建独立包集合，沿用当前平台、覆盖层和配置，只从 `cudaCapabilities` 删除 `6.1`；使用该集合的 `nur-xddxdd.strata`，其余已配置能力、全局包集合和包的 `cudaArchitectures` 均不变。不能只对现有 CUDA 构造器做 `.override`：CUDA 13 的清单仍引用原集合的后端，可能先触发原配置的断言。按 PCI 顺序仅使用 GPU0 和 CUDA 13，不能使用次要 P40（Pascal，不受该 CUDA 13 包支持）。Strata 不提供原 llama-swap 的 embedding / reranker 配置对等替代。
+
+反向代理允许主机名通过上游 `STRATA_ALLOWED_HOSTS`（逗号分隔）指定，不使用通配符。现有代理保留 `Host` 和 `Origin`，浏览器控制满足同源检查；上游 `trusted_origins` 是模型运行 JSON 配置项，没有对应环境变量，若将来代理改写主机名或使用非默认端口，应添加对应可信来源。
+
 ### 策略断言说明
 
 `nixos/minimal-policies/` 目录存放配置策略断言（assertions），用于在构建时检查配置是否符合预期约束。该目录会被 `minimal.nix`、`server.nix`、`client.nix`、`pve.nix` 等所有角色配置自动导入。

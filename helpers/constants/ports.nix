@@ -121,6 +121,7 @@ rec {
     Ncps = 13851;
     IyuuPlus = 13878;
     LlamaSwap = 13880;
+    Strata = 13881;
     Actual = 13882;
     DLX = 13888;
     ElasticSearch = 13892;

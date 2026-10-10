@@ -1,5 +1,5 @@
 diff --git a/go.mod b/go.mod
-index 7f8c98b..6e0a60f 100644
+index c5fd2b6..186e635 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -7,6 +7,7 @@ require (
@@ -160,10 +160,10 @@ index 0000000..fd49236
 +}
 \ No newline at end of file
 diff --git a/translate/translate.go b/translate/translate.go
-index 9aebc0c..ca78f65 100644
+index da50755..6c512da 100644
 --- a/translate/translate.go
 +++ b/translate/translate.go
-@@ -48,9 +48,13 @@ import (
+@@ -51,9 +51,13 @@ import (
  //   Transport
  //     ItaClient oneshot uses Ktor Darwin engine
  //     (io.ktor.client.engine.darwin.KtorNSURLSessionDelegate) → real
@@ -179,7 +179,7 @@ index 9aebc0c..ca78f65 100644
  //   Pro URL    → https://oneshot. + <cell> + .pro.deepl.com/v1/translate
  //                (we keep oneshot-pro.www as the free-tier Pro fallback)
  //
-@@ -68,20 +72,29 @@ import (
+@@ -71,25 +75,34 @@ import (
  //
  // DeepL rate-limits / temporarily bans clients whose TLS + UA + app_information
  // story is inconsistent (e.g. iOS TLS fingerprint + "iOS 27.0" in the UA when
@@ -197,8 +197,13 @@ index 9aebc0c..ca78f65 100644
 +	itaFreeEndpoint     = "https://ita-free.www.deepl.com/v1/translate"
  	oneshotProEndpoint  = "https://oneshot-pro.www.deepl.com/v1/translate"
  
- 	// Pinned to DeepL iOS IPA (CFBundleShortVersionString / CFBundleVersion).
- 	iosAppVersion = "26.42"
+ 	// Fallback DeepL iOS version, used only when the runtime App Store
+ 	// lookup fails (appversion.go). Keep it tracking DeepL's current App Store
+ 	// release: a stale version is answered with HTTP 429 on every request
+ 	// ("your IP has been blocked by DeepL temporarily"), from any IP. The build
+ 	// number stays pinned because Apple's lookup API does not expose
+ 	// CFBundleVersion.
+ 	iosAppVersion = "26.52"
  	iosAppBuild   = "5443737"
  
 -	// Reported OS version for app_information.os_version + x-app-os-version.
@@ -216,7 +221,7 @@ index 9aebc0c..ca78f65 100644
  
  	// CFNetwork / Darwin versions that accompany URLSession User-Agents on
  	// the same OS generation as DTPlatformVersion 26.x (build machine
-@@ -137,7 +150,7 @@ func sharedCookieJar() http.CookieJar {
+@@ -145,7 +158,7 @@ func sharedCookieJar() http.CookieJar {
  }
  
  // warmCookies primes the shared jar by GETting www.deepl.com once.
@@ -225,7 +230,7 @@ index 9aebc0c..ca78f65 100644
  // so subsequent POSTs carry those cookies automatically.
  func warmCookies(client *req.Client) {
  	cookieWarmer.Do(func() {
-@@ -302,12 +315,16 @@ func getOneshotClient(proxyURL string) (*req.Client, error) {
+@@ -318,13 +331,17 @@ func getOneshotClient(proxyURL string) (*req.Client, error) {
  
  func newOneshotClient(proxyURL string) (*req.Client, error) {
  	// Match ItaClient's Ktor Darwin / URLSession profile:
@@ -233,7 +238,8 @@ index 9aebc0c..ca78f65 100644
 +	//   - TLS ClientHello ≈ real iOS (urlSessionHello in ios_tls.go)
  	//   - Cookie jar shared like URLSession's HTTPCookieStorage
  	//   - Common headers = what URLSession attaches by default
- 	// Per-request headers (Authorization, x-app-*) are set in callOneshot.
+ 	// Per-request headers (Authorization, User-Agent, x-app-*) are set in
+ 	// callOneshot; the client-level User-Agent is only a default.
  	client := req.C().
 -		SetTLSFingerprintIOS().
 +		// Byte-exact replica of the app's captured URLSession ClientHello
@@ -243,8 +249,8 @@ index 9aebc0c..ca78f65 100644
 +		SetTLSFingerprintSpec(urlSessionHello).
  		SetCookieJar(sharedCookieJar()).
  		SetTimeout(oneshotTimeout).
- 		SetUserAgent(iosUserAgent()).
-@@ -451,7 +468,7 @@ func TranslateByDLX(sourceLang, targetLang, text string, tagHandling string, pro
+ 		SetUserAgent(iosUserAgent(iosAppVersion)).
+@@ -475,7 +492,7 @@ func TranslateByDLX(sourceLang, targetLang, text string, tagHandling string, pro
  	}
  	bodyBytes, _ := json.Marshal(reqStruct)
  
