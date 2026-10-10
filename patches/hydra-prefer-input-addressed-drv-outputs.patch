@@ -1,0 +1,111 @@
+From: Lan Tian <b980120@hotmail.com>
+Subject: [PATCH] hydra-queue-runner: prefer .drv output paths for input-addressed derivations
+
+The queue runner resolves a derivation's inputs from its build history
+database first and only falls back to reading the `.drv` file when the
+database has no row. The database is not authoritative: substitution
+steps have historically recorded non-`out` outputs under the name `out`
+(e.g. a `bash-5.3p15-debug` path stored as the `out` output of
+`bash-5.3p15.drv`), so a database hit can feed the wrong store path into
+the resolved derivation and the build then fails inside stdenv with
+"build input ... does not exist".
+
+Flip the resolution order and drop the batched recursive SQL query
+(`resolve_drv_output_chains`) whose complete-chain results bypassed the
+per-link checks entirely. Resolve each chain link from the `.drv` file,
+which is authoritative for input-addressed outputs, and keep the
+per-link database lookup only as a fallback for outputs the file cannot
+answer: deferred (dynamic) outputs and drvs whose file is missing or
+unparseable.
+
+---
+diff --git a/subprojects/hydra-queue-runner/src/state/step_info.rs b/subprojects/hydra-queue-runner/src/state/step_info.rs
+index 7d5dcc7..4f754d7 100644
+--- a/subprojects/hydra-queue-runner/src/state/step_info.rs
++++ b/subprojects/hydra-queue-runner/src/state/step_info.rs
+@@ -89,49 +89,28 @@ impl StepInfo {
+ 
+         drv.try_resolve_force(store_dir, &mut |inputs| {
+             tokio::task::block_in_place(|| {
+-                // Flatten each SingleDerivedPath chain into (root, [outputs...])
+-                // and resolve everything in a single recursive SQL query.
+-                let chains: Vec<_> = inputs
+-                    .iter()
+-                    .map(|(drv_path, output_name)| flatten_chain(drv_path, output_name))
+-                    .collect();
+-
+-                // SQL needs forward order; OutputNameChain stores reversed.
+-                let chain_refs: Vec<_> = chains
+-                    .iter()
+-                    .map(|(root, chain)| (root, chain.0.iter().rev().collect::<Vec<_>>()))
+-                    .collect();
++                let rt = tokio::runtime::Handle::current();
+ 
+-                let sql_input: Vec<_> = chain_refs
++                // Resolve each SingleDerivedPath chain link by link. The
++                // `.drv` file is authoritative for input-addressed outputs and
++                // must be preferred over the build-history rows, which can be
++                // wrong: substitution steps have historically recorded
++                // non-`out` outputs under the name `out`, so a DB hit could
++                // feed the wrong store path into the resolved derivation and
++                // fail the build with "build input ... does not exist". The
++                // database is only consulted for outputs the file cannot
++                // answer: deferred (dynamic) outputs, and drvs whose file is
++                // missing or unparseable.
++                inputs
+                     .iter()
+-                    .map(|(root, outputs)| (*root, outputs.as_slice()))
+-                    .collect();
+-
+-                let rt = tokio::runtime::Handle::current();
+-                let results = rt
+-                    .block_on(conn.resolve_drv_output_chains(store_dir, &sql_input))
+-                    .unwrap_or_else(|e| {
+-                        tracing::warn!("resolve_drv_output_chains failed: {e}");
+-                        vec![None; inputs.len()]
+-                    });
+-
+-                // The build-history lookup can miss outputs that never got
+-                // a successful build step row. For chains the SQL couldn't
+-                // resolve, retry link by link, falling back to reading the
+-                // `.drv` file, which is authoritative for input-addressed
+-                // derivations. The per-link DB lookup matters too: a chain
+-                // can mix links known only to the DB with links whose drv
+-                // only exists on disk, and the recursive SQL stops at the
+-                // first miss.
+-                results
+-                    .into_iter()
+-                    .zip(&chain_refs)
+-                    .map(|(result, (root, outputs))| {
+-                        result.or_else(|| {
+-                            let mut current = (*root).clone();
+-                            for output_name in outputs {
+-                                current = rt
+-                                    .block_on(conn.resolve_drv_output(
++                    .map(|(drv_path, output_name)| flatten_chain(drv_path, output_name))
++                    .map(|(root, chain)| {
++                        let mut current = root.clone();
++                        // OutputNameChain stores its links reversed.
++                        for output_name in chain.0.iter().rev() {
++                            current = resolve_from_drv_file(store_dir, &current, output_name)
++                                .or_else(|| {
++                                    rt.block_on(conn.resolve_drv_output(
+                                         store_dir,
+                                         &current,
+                                         output_name,
+@@ -140,12 +119,9 @@ impl StepInfo {
+                                         tracing::warn!("resolve_drv_output failed: {e}");
+                                         None
+                                     })
+-                                    .or_else(|| {
+-                                        resolve_from_drv_file(store_dir, &current, output_name)
+-                                    })?;
+-                            }
+-                            Some(current)
+-                        })
++                                })?;
++                        }
++                        Some(current)
+                     })
+                     .collect()
+             })

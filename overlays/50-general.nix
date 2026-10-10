@@ -53,6 +53,12 @@ rec {
       ../patches/hydra-oidc-optional-nbf.patch
     ];
   });
+  hydra-queue-runner = prev.hydra-queue-runner.overrideAttrs (old: {
+    # Prefer .drv output paths for input-addressed derivations. DB build
+    # history can be wrong (substitution steps recorded non-"out" outputs
+    # under "out"), making builds fail with "build input ... does not exist".
+    patches = (old.patches or [ ]) ++ [ ../patches/hydra-prefer-input-addressed-drv-outputs.patch ];
+  });
   # Systemd socket activation support, from https://github.com/esnet/iperf/pull/1171
   iperf3 = prev.iperf3.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/iperf3-socket-activation.patch ];
