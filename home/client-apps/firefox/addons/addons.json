@@ -15,9 +15,9 @@
   },
   {
     "pname": "awardwallet",
-    "version": "3.7.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5054303/awardwallet-3.7.8.xpi",
-    "hash": "sha256-UIvbFGqQF+eiPE+pAFOzPij74UFwPdZQcBgyY3NpFG4=",
+    "version": "3.8.6",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5094413/awardwallet-3.8.6.xpi",
+    "hash": "sha256-NNEfD8bwR9jfr3viE0/T1i+z2p0nRNzpKSCnt4tgxXk=",
     "addonId": "6200cc7406cd11e1a68a12313d1adcbe@jetpack"
   },
   {
@@ -36,9 +36,9 @@
   },
   {
     "pname": "cardpointers-x",
-    "version": "8.0.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5029608/cardpointers_x-8.0.1.xpi",
-    "hash": "sha256-nxVgHi8dmZTScbaBS0kg0jtp6mm2dH5gJbS1mDt7TE8=",
+    "version": "8.0.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5096700/cardpointers_x-8.0.8.xpi",
+    "hash": "sha256-aRwofwxkDlwM79d/7UnD6eakYw7gyEYaPi/fYCIyevM=",
     "addonId": "firefox@cardpointers.com"
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.50.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5086968/read_frog_open_ai_translator-1.50.1.xpi",
-    "hash": "sha256-RV6AocK2OrXdebUI/xik848t0PGfpmI5ccPv480GvTA=",
+    "version": "1.50.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5104012/read_frog_open_ai_translator-1.50.3.xpi",
+    "hash": "sha256-1NmSuSmZeMJB7eq+JM26E3++PWu8EtiQjHVkLLbrDHA=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -225,9 +225,9 @@
   },
   {
     "pname": "ublacklist",
-    "version": "10.1.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5040970/ublacklist-10.1.1.xpi",
-    "hash": "sha256-dm6+6XoFeaIMGTkYkKzhjk/q3c8jl4sn00CO4lX93Pc=",
+    "version": "10.1.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5084901/ublacklist-10.1.2.xpi",
+    "hash": "sha256-CGrMv71oZip13XVMXxOgZzzV5iehCddi610zLSVdobI=",
     "addonId": "@ublacklist"
   },
   {
