@@ -19,6 +19,9 @@ in
       "nss-lookup.target"
     ];
     wantedBy = [ "multi-user.target" ];
+    preStart = ''
+      ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/*.lock
+    '';
 
     serviceConfig = LT.serviceHarden // {
       User = user;

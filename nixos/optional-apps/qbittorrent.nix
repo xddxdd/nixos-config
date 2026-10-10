@@ -18,6 +18,10 @@
     ];
   };
 
+  systemd.services.qbittorrent.preStart = ''
+    ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent/qBittorrent/config/*.lock
+  '';
+
   systemd.services.qbittorrent.serviceConfig = {
     Restart = "always";
     RestartSec = "5";
