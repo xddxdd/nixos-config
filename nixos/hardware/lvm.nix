@@ -2,6 +2,7 @@
 {
   boot.initrd.kernelModules = [
     "dm-cache"
+    "dm-cache-smq"
     "dm-integrity"
     "dm-raid"
     "dm-writecache"
