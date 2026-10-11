@@ -37,6 +37,10 @@ in
       grafana-polystat-panel
       grafana-worldmap-panel
 
+      loki
+      prometheus
+      grafana-lokiexplore-app
+
       (mkPlugin LT.sources.grafana-falconlogscale-datasource)
       (mkPlugin LT.sources.grafana-yesoreyeram-infinity-datasource)
     ];

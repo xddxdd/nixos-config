@@ -70,6 +70,10 @@ in
       };
 
       limits_config = {
+        ingestion_rate_mb = 1000000;
+        ingestion_burst_size_mb = 1000000;
+        per_stream_rate_limit = "1TB";
+        per_stream_rate_limit_burst = "1TB";
         retention_period = retention;
         max_query_lookback = retention;
         reject_old_samples = true;

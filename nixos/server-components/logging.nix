@@ -2,11 +2,16 @@
   lib,
   LT,
   config,
+  pkgs,
   ...
 }:
 {
   services.fluent-bit = {
     enable = !(LT.this.hasTag LT.tags.low-ram);
+    # libsystemd needs compression support to read Zstd-compressed journals.
+    package = pkgs.fluent-bit.override {
+      systemdLibs = pkgs.systemdLibs.override { withCompression = true; };
+    };
     settings = {
       service = {
         flush = 5;
