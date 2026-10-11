@@ -1,11 +1,17 @@
 {
   config,
+  lib,
   LT,
   ...
 }:
 let
   dataDir = config.services.loki.dataDir;
   retention = "720h";
+  proxyLocation = {
+    proxyPass = "http://127.0.0.1:${LT.portStr.LokiBackend}";
+    proxyWebsockets = true;
+    proxyNoTimeout = true;
+  };
 in
 {
   services.loki = {
@@ -17,10 +23,13 @@ in
 
       server = {
         log_level = "warn";
-        http_listen_address = LT.this.ltnet.IPv4;
-        http_listen_port = LT.port.Loki;
+        http_listen_address = "127.0.0.1";
+        http_listen_port = LT.port.LokiBackend;
         grpc_listen_address = "127.0.0.1";
+        register_instrumentation = true;
       };
+
+      ruler.enable_api = false;
 
       common = {
         instance_addr = "127.0.0.1";
@@ -88,6 +97,45 @@ in
   # must not replace upstream scalar settings with competing definitions.
   systemd.services.loki.serviceConfig = LT.serviceHarden // {
     ReadWritePaths = [ dataDir ];
+  };
+
+  lantian.nginxVhosts.loki = {
+    listenHTTP = {
+      enable = true;
+      port = LT.port.Loki;
+      default = true;
+    };
+    listenHTTPS.enable = false;
+    accessibleBy = "private";
+    extraConfig = ''
+      access_log off;
+    '';
+    locations = lib.genAttrs [
+      "= /loki/api/v1/push"
+      "= /api/prom/push"
+      "= /otlp/v1/logs"
+      "= /loki/api/v1/query"
+      "= /loki/api/v1/query_range"
+      "= /loki/api/v1/label"
+      "= /loki/api/v1/labels"
+      "~ ^/loki/api/v1/label/[^/]+/values$"
+      "= /loki/api/v1/series"
+      "= /loki/api/v1/index/stats"
+      "= /loki/api/v1/index/shards"
+      "= /loki/api/v1/index/volume"
+      "= /loki/api/v1/index/volume_range"
+      "= /loki/api/v1/patterns"
+      "= /loki/api/v1/detected_labels"
+      "= /loki/api/v1/detected_fields"
+      "~ ^/loki/api/v1/detected_field/[^/]+/values$"
+      "= /api/prom/query"
+      "= /api/prom/label"
+      "~ ^/api/prom/label/[^/]+/values$"
+      "= /api/prom/series"
+      "= /loki/api/v1/tail"
+      "= /api/prom/tail"
+      "= /metrics"
+    ] (_: proxyLocation);
   };
 
   # Loki has no authentication: accept its private endpoint only through the

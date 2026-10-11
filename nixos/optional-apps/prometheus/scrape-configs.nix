@@ -60,6 +60,15 @@ in
       ];
     }
     (scrapeByAttr {
+      jobName = "loki";
+      port = LT.port.Loki;
+      attrPath = [
+        "services"
+        "loki"
+        "enable"
+      ];
+    })
+    (scrapeByAttr {
       jobName = "nginx";
       port = LT.port.HTTP;
       attrPath = [
