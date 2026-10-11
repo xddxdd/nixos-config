@@ -1,0 +1,98 @@
+{
+  config,
+  LT,
+  ...
+}:
+let
+  dataDir = config.services.loki.dataDir;
+  retention = "720h";
+in
+{
+  services.loki = {
+    enable = true;
+    dataDir = "/var/lib/loki";
+    configuration = {
+      auth_enabled = false;
+      target = "all";
+
+      server = {
+        http_listen_address = LT.this.ltnet.IPv4;
+        http_listen_port = LT.port.Loki;
+        grpc_listen_address = "127.0.0.1";
+      };
+
+      common = {
+        instance_addr = "127.0.0.1";
+        path_prefix = dataDir;
+        replication_factor = 1;
+        ring.kvstore.store = "inmemory";
+        storage.filesystem = {
+          chunks_directory = "${dataDir}/chunks";
+          rules_directory = "${dataDir}/rules";
+        };
+      };
+
+      schema_config.configs = [
+        {
+          from = "2020-01-01";
+          store = "tsdb";
+          object_store = "filesystem";
+          schema = "v13";
+          index = {
+            prefix = "loki_index_";
+            period = "24h";
+          };
+        }
+      ];
+
+      storage_config.tsdb_shipper = {
+        active_index_directory = "${dataDir}/tsdb-index";
+        cache_location = "${dataDir}/tsdb-cache";
+      };
+
+      ingester = {
+        # The sample-age limit permits 30-day backlog, but existing streams still
+        # reject entries more than 24h behind their newest accepted timestamp.
+        max_chunk_age = "48h";
+        wal = {
+          enabled = true;
+          dir = "${dataDir}/wal";
+        };
+      };
+
+      compactor = {
+        working_directory = "${dataDir}/compactor";
+        retention_enabled = true;
+        delete_request_store = "filesystem";
+        retention_delete_delay = "2h";
+        retention_delete_worker_count = 10;
+      };
+
+      limits_config = {
+        retention_period = retention;
+        max_query_lookback = retention;
+        reject_old_samples = true;
+        reject_old_samples_max_age = retention;
+        unordered_writes = true;
+      };
+    };
+  };
+
+  # Keep upstream ProtectSystem=full and Restart=always; hardening defaults
+  # must not replace upstream scalar settings with competing definitions.
+  systemd.services.loki.serviceConfig = LT.serviceHarden // {
+    ReadWritePaths = [ dataDir ];
+  };
+
+  # Loki has no authentication: accept its private endpoint only through the
+  # LTnet mesh, the existing ZeroTier fallback, or local loopback traffic.
+  lantian.firewall.chains.FILTER_INPUT.rules = [
+    {
+      priority = LT.firewallPriorities.preService;
+      text = ''
+        ip daddr ${LT.this.ltnet.IPv4} tcp dport ${LT.portStr.Loki} ip saddr != 198.18.0.0/24 reject with tcp reset
+        ip daddr ${LT.this.ltnet.IPv4} tcp dport ${LT.portStr.Loki} iifname != "lo" iifname != "wgmesh*" iifname != "ztje7axwd2" reject with tcp reset
+      '';
+    }
+  ];
+}

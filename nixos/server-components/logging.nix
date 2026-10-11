@@ -1,58 +1,69 @@
 {
-  pkgs,
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 {
-  sops.secrets.filebeat-elasticsearch-pw.sopsFile = inputs.secrets + "/common/flebeat.yaml";
-
-  services.filebeat = {
+  services.fluent-bit = {
     enable = !(LT.this.hasTag LT.tags.low-ram);
-    package = pkgs.filebeat8;
-    inputs = {
-      journald = {
-        type = "journald";
-        id = "everything";
-        processors = [
+    settings = {
+      service = {
+        flush = 5;
+        log_level = "warn";
+        "storage.path" = "/var/lib/fluent-bit/storage";
+        "storage.sync" = "normal";
+        "storage.checksum" = "on";
+        "storage.max_chunks_up" = 8;
+        "storage.backlog.mem_limit" = "8M";
+      };
+      pipeline = {
+        inputs = [
           {
-            drop_event.when."or" = [
-              { equals."systemd.unit" = "filebeat.service"; }
-              { equals."systemd.unit" = "hath.service"; }
-              { equals."systemd.unit" = "matrix-synapse.service"; }
-              { equals."systemd.unit" = "podman-archiveteam.service"; }
-              { equals."systemd.unit" = "prowlarr.service"; }
-              { equals."systemd.unit" = "radarr.service"; }
-              { equals."systemd.unit" = "resilio.service"; }
-              { equals."systemd.unit" = "sonarr.service"; }
-              { equals."systemd.unit" = "yggdrasil.service"; }
-            ];
+            name = "systemd";
+            tag = "journal";
+            db = "/var/lib/fluent-bit/journal.db";
+            "db.sync" = "normal";
+            lowercase = "off";
+            strip_underscores = "off";
+            "storage.type" = "filesystem";
+          }
+        ];
+        filters = [
+          {
+            name = "grep";
+            match = "journal";
+            exclude = "_SYSTEMD_UNIT ^(filebeat|hath|matrix-synapse|podman-archiveteam|prowlarr|radarr|resilio|sonarr|yggdrasil|fluent-bit)\\.service$";
+          }
+          {
+            name = "modify";
+            match = "journal";
+            # Fluent Bit 5.1's Loki output plugin removes label source keys; copy to retain _SYSTEMD_UNIT.
+            copy = "_SYSTEMD_UNIT fluentbit_unit";
+          }
+        ];
+        outputs = [
+          {
+            name = "loki";
+            match = "journal";
+            host = LT.hosts.colocrossing.ltnet.IPv4;
+            port = LT.port.Loki;
+            tls = "off";
+            labels = "job=journal,host=${config.networking.hostName},unit=$fluentbit_unit";
+            line_format = "json";
+            drop_single_key = "off";
+            compress = "gzip";
+            "storage.total_limit_size" = "256M";
+            retry_limit = "no_limits";
           }
         ];
       };
     };
-    settings = {
-      logging.level = "warning";
-      output.elasticsearch = {
-        hosts = [ "https://cloud.community.humio.com:9200" ];
-        username = "any-organization";
-        password = {
-          _secret = config.sops.secrets.filebeat-elasticsearch-pw.path;
-        };
-        compression_level = 6;
-        index = "beat";
-      };
-      setup.template = {
-        name = "beat";
-        pattern = "beat";
-      };
-    };
   };
 
-  systemd.services.filebeat = lib.mkIf config.services.filebeat.enable {
+  systemd.services.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
     serviceConfig = LT.serviceHarden // {
+      StateDirectory = "fluent-bit";
       ProcSubset = "all";
       ReadOnlyPaths = [ "/run" ];
       RestrictAddressFamilies = [

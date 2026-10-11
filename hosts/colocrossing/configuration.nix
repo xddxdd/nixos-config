@@ -28,6 +28,7 @@
     ../../nixos/optional-apps/glauth.nix
     ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/lemmy.nix
+    ../../nixos/optional-apps/loki.nix
     ../../nixos/optional-apps/maddy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
