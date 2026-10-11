@@ -16,6 +16,7 @@ in
       target = "all";
 
       server = {
+        log_level = "warn";
         http_listen_address = LT.this.ltnet.IPv4;
         http_listen_port = LT.port.Loki;
         grpc_listen_address = "127.0.0.1";
