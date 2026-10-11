@@ -71,7 +71,6 @@ rec {
     WGMesh.End = 10255;
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
-    LokiBackend = 13100;
     NMEA = 13110;
     FlapAlerted.BGP = 13179;
     FlareSolverr = 13191;

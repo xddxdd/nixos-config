@@ -38,6 +38,9 @@ rec {
     # Fix dangling stack-local chip pointer in tests, from https://github.com/NixOS/nixpkgs/issues/558302#issuecomment-5552862912
     patches = (old.patches or [ ]) ++ [ ../patches/flashrom-fix-dangling-mock-chip-pointer.patch ];
   });
+  grafana-loki = prev.grafana-loki.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/grafana-loki-unix-socket.patch ];
+  });
   handbrake = prev.handbrake.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
     postFixup = ''

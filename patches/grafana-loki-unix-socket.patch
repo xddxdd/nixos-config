@@ -1,0 +1,15 @@
+--- a/vendor/github.com/grafana/dskit/server/server.go
++++ b/vendor/github.com/grafana/dskit/server/server.go
+@@ -311,7 +311,11 @@
+ 		network = DefaultNetwork
+ 	}
+ 	// Setup listeners first, so we can fail early if the port is in use.
+-	httpListener, err := net.Listen(network, net.JoinHostPort(cfg.HTTPListenAddress, strconv.Itoa(cfg.HTTPListenPort)))
++	httpAddress := cfg.HTTPListenAddress
++	if network != "unix" {
++		httpAddress = net.JoinHostPort(httpAddress, strconv.Itoa(cfg.HTTPListenPort))
++	}
++	httpListener, err := net.Listen(network, httpAddress)
+ 	if err != nil {
+ 		return nil, err
+ 	}

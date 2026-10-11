@@ -7,8 +7,9 @@
 let
   dataDir = config.services.loki.dataDir;
   retention = "720h";
+  httpSocket = "/run/loki/http.sock";
   proxyLocation = {
-    proxyPass = "http://127.0.0.1:${LT.portStr.LokiBackend}";
+    proxyPass = "http://unix:${httpSocket}";
     proxyWebsockets = true;
     proxyNoTimeout = true;
   };
@@ -23,8 +24,9 @@ in
 
       server = {
         log_level = "warn";
-        http_listen_address = "127.0.0.1";
-        http_listen_port = LT.port.LokiBackend;
+        http_listen_network = "unix";
+        http_listen_address = httpSocket;
+        http_listen_port = 0;
         grpc_listen_address = "127.0.0.1";
         register_instrumentation = true;
       };
@@ -97,7 +99,14 @@ in
   # must not replace upstream scalar settings with competing definitions.
   systemd.services.loki.serviceConfig = LT.serviceHarden // {
     ReadWritePaths = [ dataDir ];
+    Group = config.services.loki.group;
+    RuntimeDirectory = "loki";
+    RuntimeDirectoryMode = "0770";
+    UMask = "0007";
   };
+
+  users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
+  systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];
 
   lantian.nginxVhosts.loki = {
     listenHTTP = {
