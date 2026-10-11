@@ -70,6 +70,7 @@ in
       };
 
       limits_config = {
+        deletion_mode = "disabled";
         ingestion_rate_mb = 1000000;
         ingestion_burst_size_mb = 1000000;
         per_stream_rate_limit = "1TB";
