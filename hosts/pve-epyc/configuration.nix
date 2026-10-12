@@ -24,7 +24,6 @@
     ../../nixos/optional-apps/asf.nix
     ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
-    ../../nixos/optional-apps/cliproxyapi.nix
     ../../nixos/optional-apps/dlx.nix
     ../../nixos/optional-apps/epic-awesome-gamer
     ../../nixos/optional-apps/fastapi-dls.nix
@@ -35,7 +34,7 @@
     ../../nixos/optional-apps/immich.nix
     ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/kubo.nix
-    ../../nixos/optional-apps/librechat.nix
+    # ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/microsoft-rewards-script.nix
     ../../nixos/optional-apps/mtranserver
@@ -53,7 +52,6 @@
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tor.nix
-    ../../nixos/optional-apps/uni-api.nix
     ../../nixos/optional-apps/vlmcsd.nix
     ../../nixos/optional-apps/webdav.nix
 
