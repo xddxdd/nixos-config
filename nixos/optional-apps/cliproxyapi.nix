@@ -30,10 +30,13 @@
   users.groups.cliproxyapi.members = [ "nginx" ];
 
   lantian.localVhosts.cliproxyapi = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
-      proxyNoTimeout = true;
-      proxyOverrideHost = "localhost";
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+        proxyNoTimeout = true;
+        proxyOverrideHost = "localhost";
+      };
+      "= /".return = "302 /management.html";
     };
   };
 }
