@@ -15,12 +15,10 @@ let
   });
 in
 {
-  sops.secrets.n8n-openai-bridge-client-token = {
-    # Use same key as uni-api for consistency
-    sopsFile = inputs.secrets + "/uni-api/keys.yaml";
-    key = "uni-api-admin-api-key";
-    owner = "n8n-openai-bridge";
-    group = "n8n-openai-bridge";
+  sops.secrets.ai-api-key = {
+    # Use same key as AI API for consistency
+    sopsFile = inputs.secrets + "/ai-api.yaml";
+    mode = "0444";
   };
   sops.secrets.n8n-openai-bridge-n8n-token = {
     sopsFile = inputs.secrets + "/n8n.yaml";
@@ -47,7 +45,7 @@ in
     };
 
     script = ''
-      export BEARER_TOKEN=$(cat ${config.sops.secrets.n8n-openai-bridge-client-token.path})
+      export BEARER_TOKEN=$(cat ${config.sops.secrets.ai-api-key.path})
       export N8N_API_BEARER_TOKEN=$(cat ${config.sops.secrets.n8n-openai-bridge-n8n-token.path})
       exec ${lib.getExe n8n-openai-bridge}
     '';

@@ -15,7 +15,6 @@ in
   imports = [
     ../client-apps/mcp-servers.nix
     ./mongodb.nix
-    ./uni-api.nix
   ];
 
   sops.secrets.librechat-creds-key.sopsFile = inputs.secrets + "/librechat.yaml";
@@ -27,10 +26,8 @@ in
     key = "dex-librechat-secret";
   };
   sops.secrets.librechat-openid-session-secret.sopsFile = inputs.secrets + "/librechat.yaml";
-  sops.secrets.librechat-uni-api-secret = {
-    sopsFile = inputs.secrets + "/uni-api/keys.yaml";
-    key = "uni-api-admin-api-key";
-  };
+
+  sops.secrets.ai-api-key.sopsFile = inputs.secrets + "/ai-api.yaml";
 
   services.librechat = {
     enable = true;
@@ -66,7 +63,7 @@ in
       JWT_REFRESH_SECRET = config.sops.secrets.librechat-jwt-refresh-secret.path;
       OPENID_CLIENT_SECRET = config.sops.secrets.librechat-openid-client-secret.path;
       OPENID_SESSION_SECRET = config.sops.secrets.librechat-openid-session-secret.path;
-      UNI_API_KEY = config.sops.secrets.librechat-uni-api-secret.path;
+      AI_API_KEY = config.sops.secrets.ai-api-key.path;
     };
     settings = {
       version = "1.2.5";
@@ -78,9 +75,9 @@ in
       endpoints = {
         custom = [
           {
-            name = "UniAPI";
-            apiKey = "\${UNI_API_KEY}";
-            baseURL = "http://uni-api.localhost/v1";
+            name = "Lan Tian";
+            apiKey = "\${AI_API_KEY}";
+            baseURL = "http://ai-api.xuyh0120.win/v1";
             models = {
               default = models;
               fetch = false;

@@ -33,7 +33,7 @@ in
     extraPackages = [ pkgs.nodejs ];
 
     models.providers = {
-      uni-api = {
+      lantian = {
         api = "openai-completions";
         baseUrl = "https://ai-api.xuyh0120.win/v1";
       };
