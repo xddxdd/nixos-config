@@ -67,6 +67,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "cliproxyapi";
+      target = "v-ps-sea.ltnet.xuyh0120.win.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "cloud";
       target = "oracle-vm-arm1";
       ttl = "1h";

@@ -32,6 +32,17 @@
     };
   };
 
+  lantian.localVhosts.cliproxyapi = {
+    locations = {
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+        proxyNoTimeout = true;
+        proxyOverrideHost = "localhost";
+      };
+      "= /".return = "302 /management.html";
+    };
+  };
+
   lantian.nginxVhosts = {
     "ai-api.xuyh0120.win" = {
       locations."/v1/" = {
@@ -40,6 +51,20 @@
         proxyOverrideHost = "localhost";
       };
 
+      sslCertificate = "zerossl-xuyh0120.win";
+      noIndex.enable = true;
+    };
+    "cliproxyapi.xuyh0120.win" = {
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+          proxyNoTimeout = true;
+          proxyOverrideHost = "localhost";
+        };
+        "= /".return = "302 /management.html";
+      };
+
+      accessibleBy = "private";
       sslCertificate = "zerossl-xuyh0120.win";
       noIndex.enable = true;
     };
