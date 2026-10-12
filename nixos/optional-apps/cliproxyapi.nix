@@ -45,10 +45,18 @@
 
   lantian.nginxVhosts = {
     "ai-api.xuyh0120.win" = {
-      locations."/v1/" = {
-        proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
-        proxyNoTimeout = true;
-        proxyOverrideHost = "localhost";
+      locations = {
+        "/".return = "404";
+        "/v1/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+          proxyNoTimeout = true;
+          proxyOverrideHost = "localhost";
+        };
+        "/backend-api/" = {
+          proxyPass = "http://127.0.0.1:${LT.portStr.CLIProxyAPI}";
+          proxyNoTimeout = true;
+          proxyOverrideHost = "localhost";
+        };
       };
 
       sslCertificate = "zerossl-xuyh0120.win";

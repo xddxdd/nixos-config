@@ -34,13 +34,6 @@ in
 
     extraPackages = [ pkgs.nodejs ];
 
-    models.providers = {
-      lantian = {
-        api = "openai-completions";
-        baseUrl = "https://ai-api.xuyh0120.win/v1";
-      };
-    };
-
     settings = {
       # Enable all built-in tools on top of the defaults (read/bash/edit/write);
       # codemode and tool_search are built-in extensions, off by default.
@@ -81,7 +74,6 @@ in
 
       packages = [
         # keep-sorted start
-        "git:github.com/xddxdd/pi-model-discovery@v0.3.1"
         "npm:@cortexkit/pi-magic-context"
         "npm:@fradser/pi-utils"
         "npm:@gamaraan/ask-tool"
@@ -89,6 +81,7 @@ in
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-usage"
+        "npm:@router-for-me/pi-cliproxyapi-provider"
         "npm:pi-btw"
         "npm:pi-codex-goal"
         "npm:pi-copy-message"
