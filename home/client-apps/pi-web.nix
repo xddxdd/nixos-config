@@ -6,6 +6,11 @@
   pkgs,
   ...
 }:
+let
+  pi-web = pkgs.nur-xddxdd.pi-web.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../../patches/pi-web-raw-model-id.patch ];
+  });
+in
 lib.mkIf (osConfig.networking.hostName == "lt-hp-omen" && config.home.username == "lantian") {
   systemd.user.services.pi-web = {
     Unit = {
@@ -20,7 +25,7 @@ lib.mkIf (osConfig.networking.hostName == "lt-hp-omen" && config.home.username =
         "PI_WEB_NO_OPEN=1"
         "PI_WEB_ALLOWED_HOSTS=pi.localhost"
       ];
-      ExecStart = lib.getExe pkgs.nur-xddxdd.pi-web;
+      ExecStart = lib.getExe pi-web;
       Restart = "always";
       RestartSec = "5";
     };

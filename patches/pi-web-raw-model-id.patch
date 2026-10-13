@@ -1,0 +1,30 @@
+Always display the raw model ID instead of the provider-supplied model name.
+
+The runtime registry (and CLIProxyAPI's upstream listing) carries prettified
+display names like "GPT 6.1 Sol" for id "gpt-6.1-sol"; pi-web shows raw IDs.
+
+diff --git a/app/api/models/route.ts b/app/api/models/route.ts
+--- a/app/api/models/route.ts
++++ b/app/api/models/route.ts
+@@ -47,5 +47,5 @@
+   modelList = orderSelectorModels(scope).map((m) => ({
+     id: m.id,
+-    name: m.name,
++    name: m.id,
+     provider: m.provider,
+     input: m.input,
+@@ -53,5 +53,5 @@
+   for (const m of visible) {
+     const key = `${m.provider}:${m.id}`;
+-    nameMap.set(key, m.name);
++    nameMap.set(key, m.id);
+     thinkingLevels[key] = getSupportedThinkingLevels(m);
+     if (m.thinkingLevelMap) thinkingLevelMaps[key] = m.thinkingLevelMap;
+diff --git a/lib/enabled-models-runtime.ts b/lib/enabled-models-runtime.ts
+--- a/lib/enabled-models-runtime.ts
++++ b/lib/enabled-models-runtime.ts
+@@ -158,3 +158,3 @@
+       id: model.id,
+-      name: model.name || model.id,
++      name: model.id,
+       ref,
