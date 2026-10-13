@@ -1,4 +1,4 @@
-{ LT, ... }:
+{ LT, pkgs, ... }:
 {
   virtualisation.oci-containers.containers.asf = {
     image = "ghcr.io/justarchinet/archisteamfarm:released";
@@ -9,6 +9,9 @@
       "/var/lib/asf/plugins:/app/plugins"
     ];
   };
+
+  systemd.services.asf.serviceConfig.ExecStartPre =
+    "${pkgs.coreutils}/bin/rm -f /var/lib/asf/config/ASF.crash";
 
   systemd.tmpfiles.settings = {
     asf = {
