@@ -173,7 +173,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-10-07",
+        "date": "2026-10-13",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -183,13 +183,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c385b2b8d1f9e19aa86e628d4e23c91ee1111a47",
-            "sha256": "sha256-HnKAHwoNuDEFice6zetBvhpXjwT6QDPvaLLY6CWUBjE=",
+            "rev": "67c955577316c56c276dd406c4c5b7c2b9715b4b",
+            "sha256": "sha256-4gz73O2/5nvfChlHgNnEc4y4SDvAXWMm3b17zZ52VMM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "c385b2b8d1f9e19aa86e628d4e23c91ee1111a47"
+        "version": "67c955577316c56c276dd406c4c5b7c2b9715b4b"
     },
     "lyrica-customized": {
         "cargoLock": null,
@@ -423,7 +423,7 @@
     },
     "tar1090-db": {
         "cargoLock": null,
-        "date": "2026-10-05",
+        "date": "2026-10-12",
         "extract": null,
         "name": "tar1090-db",
         "passthru": null,
@@ -435,12 +435,12 @@
             "name": null,
             "owner": "wiedehopf",
             "repo": "tar1090-db",
-            "rev": "c30c58641ca5e46f8efaccc6fb58fbfd9adc5eea",
-            "sha256": "sha256-gf5cMRzx+whruYFxA//EyBKWyABaRu6LFpkjprg9M3U=",
+            "rev": "1aac99e37f595874c024dcb2a54b33c06a49c370",
+            "sha256": "sha256-V9FLgxmrvoZhPKWZkWQGh3P6Ubg78Tm6IwqBQFZaG98=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c30c58641ca5e46f8efaccc6fb58fbfd9adc5eea"
+        "version": "1aac99e37f595874c024dcb2a54b33c06a49c370"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLock": null,
