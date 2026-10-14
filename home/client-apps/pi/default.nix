@@ -75,7 +75,6 @@ in
       packages = [
         # keep-sorted start
         "npm:@cortexkit/pi-magic-context"
-        "npm:@fradser/pi-utils"
         "npm:@gamaraan/ask-tool"
         "npm:@mjakl/pi-subagent"
         "npm:@moguw/pi-session-migrate"
