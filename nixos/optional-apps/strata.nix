@@ -25,9 +25,9 @@ in
 
     path = [ config.hardware.nvidia.package ];
     environment = {
-      HOME = "/var/lib/strata";
-      XDG_DATA_HOME = "/var/lib/strata/runtime";
-      XDG_CONFIG_HOME = "/var/lib/strata/config";
+      HOME = "/var/cache/strata";
+      XDG_DATA_HOME = "/var/cache/strata/runtime";
+      XDG_CONFIG_HOME = "/var/cache/strata/config";
       CUDA_DEVICE_ORDER = "PCI_BUS_ID";
       CUDA_VISIBLE_DEVICES = "0";
       STRATA_ALLOWED_HOSTS = "strata.${config.networking.hostName}.xuyh0120.win,strata.localhost";
@@ -35,7 +35,7 @@ in
 
     # The package wrapper copies into runtime/strata but does not create its parent.
     preStart = ''
-      mkdir -p /var/lib/strata/runtime /var/lib/strata/config /var/lib/strata/data
+      mkdir -p /var/cache/strata/runtime /var/cache/strata/config /var/cache/strata/data
     '';
 
     serviceConfig = LT.serviceHarden // {
@@ -45,8 +45,8 @@ in
       Restart = "always";
       RestartSec = "5s";
       TimeoutStopSec = 60;
-      StateDirectory = "strata";
-      WorkingDirectory = "/var/lib/strata";
+      CacheDirectory = "strata";
+      WorkingDirectory = "/var/cache/strata";
       PrivateDevices = false;
       MemoryDenyWriteExecute = false;
       LimitMEMLOCK = "infinity";
@@ -55,7 +55,7 @@ in
 
       # Model data must stay outside runtime/strata, which is replaced on package updates.
       # Explicit --model/--family would force setup on every restart.
-      ExecStart = "${lib.getExe strata} --yes --vision no --no-browser --host 127.0.0.1 --port ${LT.portStr.Strata} --gpu 0 --data-dir /var/lib/strata/data";
+      ExecStart = "${lib.getExe strata} --yes --vision no --no-browser --host 127.0.0.1 --port ${LT.portStr.Strata} --gpu 0 --data-dir /var/cache/strata/data";
     };
   };
 
