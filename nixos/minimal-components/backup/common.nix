@@ -7,29 +7,39 @@
 rec {
   resticIgnored = ''
     media/
+    root/.cache/
     sftp-server/
     tmp/
     var/cache/
+    var/lib/archiveteam/
     var/lib/asterisk/
     var/lib/btrfs/
+    var/lib/clamav/
     var/lib/cni/
     var/lib/containers/
     var/lib/crowdsec/
     var/lib/docker/
     var/lib/docker-dind/
     var/lib/filebeat/
+    var/lib/fluent-bit/
     var/lib/GeoIP/
     var/lib/grafana/
     var/lib/jellyfin/transcodes/
+    var/lib/lancache/
     var/lib/libvirt/
     var/lib/machines/
+    var/lib/matrix-synapse/remote-media/
+    var/lib/ncps/
+    var/lib/open5gs-certs/
     var/lib/os-prober/
     var/lib/private/
     var/lib/prometheus/
+    var/lib/redis-*/
     var/lib/resilio-sync/*.db
     var/lib/resilio-sync/*.db-wal
-    var/lib/samba/private/
+    var/lib/samba/
     var/lib/systemd/
+    var/lib/tor/
     var/lib/udisks2/
     var/lib/vm/
     var/lib/vz/
