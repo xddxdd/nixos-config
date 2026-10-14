@@ -93,10 +93,10 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.10.3";
+    version = "1.10.4";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.3/grafana-falconlogscale-datasource-1.10.3.zip";
-      sha256 = "sha256-DwV0m69bNncPrSa8RxycIE+V7vtRvGBZcTr+WeC8+eE=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.4/grafana-falconlogscale-datasource-1.10.4.zip";
+      sha256 = "sha256-Y5CkephVDn/k83O1MRGC2Wjfc+Nf1VzMYjwh8oPFlng=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
@@ -109,15 +109,15 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "67c955577316c56c276dd406c4c5b7c2b9715b4b";
+    version = "05a9b8c41e4735a4a2b6d2f1e43574bd8ec6c8cb";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "67c955577316c56c276dd406c4c5b7c2b9715b4b";
+      rev = "05a9b8c41e4735a4a2b6d2f1e43574bd8ec6c8cb";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-4gz73O2/5nvfChlHgNnEc4y4SDvAXWMm3b17zZ52VMM=";
+      sha256 = "sha256-SX4F0uq3SGu8aWlHkhkRHDHqJr7PYKk1kCEZ0eDXaXU=";
     };
     date = "2026-10-13";
   };

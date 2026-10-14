@@ -150,11 +150,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DwV0m69bNncPrSa8RxycIE+V7vtRvGBZcTr+WeC8+eE=",
+            "sha256": "sha256-Y5CkephVDn/k83O1MRGC2Wjfc+Nf1VzMYjwh8oPFlng=",
             "type": "url",
-            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.3/grafana-falconlogscale-datasource-1.10.3.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.4/grafana-falconlogscale-datasource-1.10.4.zip"
         },
-        "version": "1.10.3"
+        "version": "1.10.4"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLock": null,
@@ -183,13 +183,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "67c955577316c56c276dd406c4c5b7c2b9715b4b",
-            "sha256": "sha256-4gz73O2/5nvfChlHgNnEc4y4SDvAXWMm3b17zZ52VMM=",
+            "rev": "05a9b8c41e4735a4a2b6d2f1e43574bd8ec6c8cb",
+            "sha256": "sha256-SX4F0uq3SGu8aWlHkhkRHDHqJr7PYKk1kCEZ0eDXaXU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "67c955577316c56c276dd406c4c5b7c2b9715b4b"
+        "version": "05a9b8c41e4735a4a2b6d2f1e43574bd8ec6c8cb"
     },
     "lyrica-customized": {
         "cargoLock": null,
