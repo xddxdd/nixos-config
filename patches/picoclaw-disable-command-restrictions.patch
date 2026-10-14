@@ -1,5 +1,5 @@
 diff --git a/pkg/tools/cron.go b/pkg/tools/cron.go
-index a8ccdfdf..fcd79a5f 100644
+index d78b2b8..d75d94d 100644
 --- a/pkg/tools/cron.go
 +++ b/pkg/tools/cron.go
 @@ -11,7 +11,6 @@ import (
@@ -47,7 +47,7 @@ index a8ccdfdf..fcd79a5f 100644
  		}
  	}
  
-@@ -497,19 +479,8 @@ func positiveSeconds(args map[string]any, key string) (int64, *ToolResult) {
+@@ -499,19 +481,8 @@ func positiveSeconds(args map[string]any, key string) (int64, *ToolResult) {
  }
  
  func (t *CronTool) validateCommandMutation(ctx context.Context, args map[string]any) *ToolResult {
@@ -69,7 +69,7 @@ index a8ccdfdf..fcd79a5f 100644
  	}
  	return nil
  }
-@@ -538,21 +509,6 @@ func isCommandAllowedRemote(channel, chatID string, allowed []string) bool {
+@@ -540,21 +511,6 @@ func isCommandAllowedRemote(channel, chatID string, allowed []string) bool {
  }
  
  func (t *CronTool) canAccessJob(ctx context.Context, job *cron.CronJob) bool {
@@ -91,7 +91,7 @@ index a8ccdfdf..fcd79a5f 100644
  	return true
  }
  
-@@ -606,7 +562,7 @@ func (t *CronTool) ExecuteJob(ctx context.Context, job *cron.CronJob) string {
+@@ -608,7 +564,7 @@ func (t *CronTool) ExecuteJob(ctx context.Context, job *cron.CronJob) string {
  
  	// Execute command if present
  	if job.Payload.Command != "" {
@@ -101,10 +101,10 @@ index a8ccdfdf..fcd79a5f 100644
  			pubCtx, pubCancel := context.WithTimeout(context.Background(), 5*time.Second)
  			defer pubCancel()
 diff --git a/pkg/tools/fs/filesystem.go b/pkg/tools/fs/filesystem.go
-index 661fd6ca..ea24a369 100644
+index 0cdffc7..4c5cdab 100644
 --- a/pkg/tools/fs/filesystem.go
 +++ b/pkg/tools/fs/filesystem.go
-@@ -60,7 +60,7 @@ func validatePathWithAllowPaths(
+@@ -77,7 +77,7 @@ func validatePathWithAllowPaths(
  		}
  	}
  
@@ -113,27 +113,24 @@ index 661fd6ca..ea24a369 100644
  		if isAllowedPath(absPath, patterns) {
  			return absPath, nil
  		}
-@@ -1220,14 +1220,7 @@ func (w *whitelistFs) Open(path string) (fs.File, error) {
- // buildFs returns the appropriate fileSystem implementation based on restriction
- // settings and optional path whitelist patterns.
+@@ -1310,11 +1310,7 @@ func (w *whitelistFs) Open(path string) (fs.File, error) {
+ 
+ // buildFs applies the read policy to every filesystem tool that can inspect files.
  func buildFs(workspace string, restrict bool, patterns []*regexp.Regexp) fileSystem {
--	if !restrict {
--		return &hostFs{}
+-	return &protectedReadFs{
+-		fileSystem: buildBaseFs(workspace, restrict, patterns),
+-		workspace:  workspace,
+-		restrict:   restrict,
 -	}
--	sandbox := &sandboxFs{workspace: workspace}
--	if len(patterns) > 0 {
--		return &whitelistFs{sandbox: sandbox, patterns: patterns}
--	}
--	return sandbox
 +	return &hostFs{}
  }
  
- // Helper to get a safe relative path for os.Root usage
+ // buildBaseFs leaves write_file able to check whether a protected file exists
 diff --git a/pkg/tools/registry.go b/pkg/tools/registry.go
-index e90d683b..3d89fc34 100644
+index e9ce681..b5d3228 100644
 --- a/pkg/tools/registry.go
 +++ b/pkg/tools/registry.go
-@@ -169,18 +169,7 @@ func (r *ToolRegistry) Version() uint64 {
+@@ -200,18 +200,7 @@ func (r *ToolRegistry) Version() uint64 {
  }
  
  func (r *ToolRegistry) toolAllowedLocked(name string) bool {
@@ -154,18 +151,21 @@ index e90d683b..3d89fc34 100644
  
  // HasRegistered reports whether a tool name is present in the registry,
 diff --git a/pkg/tools/shell.go b/pkg/tools/shell.go
-index 873d4fcb..2804d24a 100644
+index 73efbdd..99e2f51 100644
 --- a/pkg/tools/shell.go
 +++ b/pkg/tools/shell.go
-@@ -20,7 +20,6 @@ import (
+@@ -21,10 +21,8 @@ import (
  	"github.com/creack/pty"
  
  	"github.com/sipeed/picoclaw/pkg/config"
 -	"github.com/sipeed/picoclaw/pkg/constants"
  	"github.com/sipeed/picoclaw/pkg/isolation"
  	"github.com/sipeed/picoclaw/pkg/logger"
+-	fstools "github.com/sipeed/picoclaw/pkg/tools/fs"
  )
-@@ -298,18 +297,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+ 
+ var (
+@@ -329,19 +327,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  		return ErrorResult("command is required")
  	}
  
@@ -181,16 +181,16 @@ index 873d4fcb..2804d24a 100644
 -			return ErrorResult("exec is restricted to internal channels")
 -		}
 -	}
-+	
- 
+-
  	getBoolArg := func(key string) bool {
  		switch v := args[key].(type) {
-@@ -331,15 +319,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+ 		case bool:
+@@ -377,15 +362,7 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  
  	cwd := t.workingDir
  	if wd, ok := args["cwd"].(string); ok && wd != "" {
 -		if t.restrictToWorkspace && t.workingDir != "" {
--			resolvedWD, err := validatePathWithAllowPaths(wd, t.workingDir, true, t.allowedPathPatterns)
+-			resolvedWD, err := fstools.ValidatePathWithAllowPaths(wd, t.workingDir, true, t.allowedPathPatterns)
 -			if err != nil {
 -				return ErrorResult("Command blocked by safety guard (" + err.Error() + ")")
 -			}
@@ -202,7 +202,7 @@ index 873d4fcb..2804d24a 100644
  	}
  
  	if cwd == "" {
-@@ -349,33 +329,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
+@@ -395,33 +372,6 @@ func (t *ExecTool) executeRun(ctx context.Context, args map[string]any) *ToolRes
  		}
  	}
  
@@ -217,7 +217,7 @@ index 873d4fcb..2804d24a 100644
 -		if err != nil {
 -			return ErrorResult(fmt.Sprintf("Command blocked by safety guard (path resolution failed: %v)", err))
 -		}
--		if isAllowedPath(resolved, t.allowedPathPatterns) {
+-		if fstools.IsAllowedPath(resolved, t.allowedPathPatterns) {
 -			cwd = resolved
 -		} else {
 -			absWorkspace, _ := filepath.Abs(t.workingDir)
@@ -236,39 +236,24 @@ index 873d4fcb..2804d24a 100644
  	if isBackground {
  		return t.runBackground(ctx, command, cwd, isPty)
  	}
-@@ -1136,151 +1089,6 @@ func expandPowerShellEnvVars(cmd string) string {
+@@ -1196,136 +1146,6 @@ func (t *ExecTool) commandMatchesAllowPattern(lower string) bool {
  }
  
  func (t *ExecTool) guardCommand(command, cwd string) string {
 -	cmd := strings.TrimSpace(command)
 -	lower := strings.ToLower(cmd)
 -
--	// Custom allow patterns exempt a command from deny checks.
--	explicitlyAllowed := false
--	for _, pattern := range t.customAllowPatterns {
+-	// Deny patterns always apply, even when a command matches a custom allow rule.
+-	// Custom allow rules can permit a command, but must not disable secret-safety
+-	// deny rules such as jq env access checks (#3079).
+-	for _, pattern := range t.denyPatterns {
 -		if pattern.MatchString(lower) {
--			explicitlyAllowed = true
--			break
--		}
--	}
--
--	if !explicitlyAllowed {
--		for _, pattern := range t.denyPatterns {
--			if pattern.MatchString(lower) {
--				return "Command blocked by safety guard (dangerous pattern detected)"
--			}
+-			return "Command blocked by safety guard (dangerous pattern detected)"
 -		}
 -	}
 -
 -	if len(t.allowPatterns) > 0 {
--		allowed := false
--		for _, pattern := range t.allowPatterns {
--			if pattern.MatchString(lower) {
--				allowed = true
--				break
--			}
--		}
--		if !allowed {
+-		if !t.commandMatchesAllowPattern(lower) {
 -			return "Command blocked by safety guard (not in allowlist)"
 -		}
 -	}
@@ -370,7 +355,7 @@ index 873d4fcb..2804d24a 100644
 -			if safePaths[p] {
 -				continue
 -			}
--			if isAllowedPath(p, t.allowedPathPatterns) {
+-			if fstools.IsAllowedPath(p, t.allowedPathPatterns) {
 -				continue
 -			}
 -

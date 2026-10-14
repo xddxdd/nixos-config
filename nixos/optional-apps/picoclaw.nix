@@ -5,14 +5,8 @@
   ...
 }:
 let
-  picoclaw = pkgs.llm-agents.picoclaw.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ../../patches/picoclaw-disable-command-restrictions.patch
-      ../../patches/picoclaw-mcp-json.patch
-    ];
-    doCheck = false;
-    doInstallCheck = false;
-  });
+  # Upstream llm-agents.nix removed picoclaw; repackage the afjcjsbx fork locally
+  picoclaw = pkgs.callPackage ../../pkgs/picoclaw { };
 in
 {
   imports = [ ../client-apps/mcp-servers.nix ];

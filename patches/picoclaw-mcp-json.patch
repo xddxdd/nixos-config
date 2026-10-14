@@ -1,6 +1,8 @@
+diff --git a/pkg/config/config.go b/pkg/config/config.go
+index 956bd74..b68a54e 100644
 --- a/pkg/config/config.go
 +++ b/pkg/config/config.go
-@@ -1486,6 +1486,10 @@
+@@ -1725,6 +1725,10 @@ func LoadConfig(path string) (*Config, error) {
  		return nil, fmt.Errorf("unsupported config version: %d", versionInfo.Version)
  	}
  
@@ -11,7 +13,7 @@
  	applyLegacyBindingsMigration(data, cfg)
  
  	gatewayHostBeforeEnv := cfg.Gateway.Host
-@@ -1526,6 +1530,42 @@
+@@ -1765,6 +1769,42 @@ func LoadConfig(path string) (*Config, error) {
  	return cfg, nil
  }
  
