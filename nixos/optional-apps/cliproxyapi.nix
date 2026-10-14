@@ -4,6 +4,18 @@
   LT,
   ...
 }:
+let
+  # Patched cli-proxy-api (numtide/llm-agents.nix):
+  # /v1/models etc. hide original model IDs that are also listed under an
+  # alias or provider-prefixed ID, while routing keeps accepting bare IDs.
+  cli-proxy-api = pkgs.llm-agents.cli-proxy-api.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../patches/cliproxyapi-hide-original-models.patch
+    ];
+    doCheck = false;
+    doInstallCheck = false;
+  });
+in
 {
   systemd.services.cliproxyapi = {
     description = "CLIProxyAPI";
@@ -11,7 +23,7 @@
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = LT.serviceHarden // {
-      ExecStart = lib.getExe pkgs.llm-agents.cli-proxy-api;
+      ExecStart = lib.getExe cli-proxy-api;
       Restart = "always";
       RestartSec = "3";
 

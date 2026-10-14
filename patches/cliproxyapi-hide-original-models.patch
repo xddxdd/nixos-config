@@ -1,0 +1,72 @@
+diff --git a/internal/registry/model_registry.go b/internal/registry/model_registry.go
+index b1c3bde..d6d242f 100644
+--- a/internal/registry/model_registry.go
++++ b/internal/registry/model_registry.go
+@@ -1387,6 +1387,8 @@ func (r *ModelRegistry) buildAvailableModelsLocked(handlerType string, now time.
+ 	models := make([]map[string]any, 0, len(r.models))
+ 	var expiresAt time.Time
+ 
++	aliasedOriginals := r.aliasedOriginalIDsLocked(now)
++
+ 	for _, registration := range r.models {
+ 		available, registrationExpiresAt := modelRegistrationAvailability(registration, now)
+ 		if !registrationExpiresAt.IsZero() && (expiresAt.IsZero() || registrationExpiresAt.Before(expiresAt)) {
+@@ -1396,6 +1398,10 @@ func (r *ModelRegistry) buildAvailableModelsLocked(handlerType string, now time.
+ 			continue
+ 		}
+ 
++		if !modelInfoListed(registration.Info, aliasedOriginals) {
++			continue
++		}
++
+ 		model := r.convertModelToMap(registration.Info, handlerType)
+ 		if model != nil {
+ 			models = append(models, model)
+@@ -1405,6 +1411,47 @@ func (r *ModelRegistry) buildAvailableModelsLocked(handlerType string, now time.
+ 	return models, expiresAt
+ }
+ 
++// aliasedOriginalIDsLocked collects canonical model IDs that are currently
++// listed under an alias or provider-prefixed ID. Alias and prefix clones keep
++// MetadataModelID pointing at the original model ID while listing a different
++// ID themselves, so when such a clone is listed the original bare entry is
++// hidden from model listings to avoid duplicate-looking IDs (routing still
++// resolves the original ID, because only the listing is filtered).
++func (r *ModelRegistry) aliasedOriginalIDsLocked(now time.Time) map[string]struct{} {
++	originals := make(map[string]struct{}, len(r.models))
++	for _, registration := range r.models {
++		if registration == nil || registration.Info == nil {
++			continue
++		}
++		available, _ := modelRegistrationAvailability(registration, now)
++		if !available {
++			continue
++		}
++		listedID := strings.TrimSpace(registration.Info.ID)
++		canonicalID := strings.TrimSpace(registration.Info.MetadataModelID)
++		if listedID == "" || canonicalID == "" || strings.EqualFold(listedID, canonicalID) {
++			continue
++		}
++		originals[strings.ToLower(canonicalID)] = struct{}{}
++	}
++	return originals
++}
++
++// modelInfoListed reports whether a registered model info should appear in
++// model listings: entries whose canonical form is also listed under an
++// alias/prefixed ID are hidden.
++func modelInfoListed(info *ModelInfo, aliasedOriginals map[string]struct{}) bool {
++	if info == nil {
++		return false
++	}
++	infoID := strings.TrimSpace(info.ID)
++	if infoID == "" {
++		return false
++	}
++	_, isAliasedOriginal := aliasedOriginals[strings.ToLower(infoID)]
++	return !isAliasedOriginal
++}
++
+ func cloneModelMaps(models []map[string]any) []map[string]any {
+ 	cloned := make([]map[string]any, 0, len(models))
+ 	for _, model := range models {
