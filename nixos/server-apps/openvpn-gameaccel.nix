@@ -273,4 +273,6 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
     isSystemUser = true;
   };
   users.groups.openvpn = { };
+
+  systemd.services."openvpn-gameaccel".serviceConfig.RestartSec = "5s";
 }

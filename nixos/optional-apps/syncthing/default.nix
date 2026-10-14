@@ -59,6 +59,7 @@
         config.services.syncthing.dataDir
       ];
       serviceConfig = {
+        RestartSec = "5s";
         AmbientCapabilities = [
           "CAP_DAC_OVERRIDE"
           "CAP_FOWNER"

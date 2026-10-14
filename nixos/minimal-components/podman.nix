@@ -44,6 +44,7 @@
       k: v:
       lib.nameValuePair "podman-${k}" {
         environment.TMPDIR = "/var/cache/podman-download";
+        serviceConfig.RestartSec = "5s";
       }
     ) config.virtualisation.oci-containers.containers);
 

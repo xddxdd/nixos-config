@@ -72,6 +72,7 @@
   };
 
   systemd.services.pocket-id.serviceConfig = {
+    RestartSec = lib.mkForce 5;
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";
     ExecStart = lib.mkForce (

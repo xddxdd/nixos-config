@@ -13,6 +13,7 @@
   };
   systemd.services.sonarr = {
     serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_INET"
         "AF_INET6"
@@ -47,5 +48,6 @@
   };
   systemd.services.prometheus-exportarr-sonarr-exporter.serviceConfig = {
     DynamicUser = lib.mkForce false;
+    RestartSec = "5s";
   };
 }

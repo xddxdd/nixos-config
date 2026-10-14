@@ -10,4 +10,6 @@
       };
     };
   };
+
+  systemd.services.tor.serviceConfig.RestartSec = "5s";
 }

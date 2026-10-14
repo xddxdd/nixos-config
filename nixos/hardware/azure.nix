@@ -1,4 +1,6 @@
 _: {
+  systemd.services.waagent.serviceConfig.RestartSec = "5s";
+
   services.waagent = {
     enable = true;
     settings = {

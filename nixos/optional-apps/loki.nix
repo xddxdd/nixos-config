@@ -98,6 +98,7 @@ in
   # Keep upstream ProtectSystem=full and Restart=always; hardening defaults
   # must not replace upstream scalar settings with competing definitions.
   systemd.services.loki.serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
     ReadWritePaths = [ dataDir ];
     Group = config.services.loki.group;
     RuntimeDirectory = "loki";

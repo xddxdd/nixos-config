@@ -98,6 +98,7 @@ in
       serviceConfig = {
         Type = "forking";
         Restart = "always";
+        RestartSec = "5s";
         PIDFile = "/var/run/nvidia-persistenced/nvidia-persistenced.pid";
         ExecStart = "${lib.getExe' nvidia_x11.persistenced "nvidia-persistenced"} --verbose";
         ExecStopPost = "${lib.getExe' pkgs.coreutils "rm"} -rf /var/run/nvidia-persistenced";

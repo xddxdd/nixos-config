@@ -27,6 +27,10 @@ in
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
+
+  # Upstream nvidia module doesn't set RestartSec, below the ensure-service-restart policy
+  systemd.services."nvidia-persistenced".serviceConfig.RestartSec =
+    lib.mkIf config.hardware.nvidia.nvidiaPersistenced "5s";
   hardware.nvidia.prime = {
     offload = {
       enable = true;

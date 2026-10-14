@@ -49,6 +49,7 @@ in
     TimeoutStartSec = "900";
     LimitMEMLOCK = "infinity";
     LimitNOFILE = "1048576";
+    RestartSec = "5s";
   };
 
   services.prometheus.exporters.postgres = {
@@ -57,4 +58,6 @@ in
     listenAddress = LT.this.ltnet.IPv4;
     runAsLocalSuperUser = true;
   };
+
+  systemd.services."prometheus-postgres-exporter".serviceConfig.RestartSec = "5s";
 }

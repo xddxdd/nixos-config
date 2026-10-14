@@ -97,6 +97,7 @@
     };
   };
   systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
+  systemd.services.phpfpm-nextcloud.serviceConfig.RestartSec = "5s";
 
   services.redis.servers.nextcloud = {
     enable = true;

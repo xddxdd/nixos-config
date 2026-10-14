@@ -103,5 +103,8 @@ in
         "${env.CACHE_ROOT}/logs:/data/logs"
       ];
     };
+
+    systemd.services."podman-lancache-dns".serviceConfig.RestartSec = "5s";
+    systemd.services."podman-lancache-monolithic".serviceConfig.RestartSec = "5s";
   };
 }

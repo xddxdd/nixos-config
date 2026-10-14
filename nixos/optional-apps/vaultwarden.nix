@@ -56,6 +56,7 @@
     after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
     serviceConfig = {
+      RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_UNIX"
         "AF_INET"

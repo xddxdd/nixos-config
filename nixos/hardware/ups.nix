@@ -121,4 +121,6 @@ in
     isSystemUser = true;
   };
   users.groups.nut-exporter = { };
+
+  systemd.services."prometheus-nut-exporter".serviceConfig.RestartSec = "5s";
 }

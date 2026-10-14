@@ -66,6 +66,7 @@ in
     };
 
     systemd.services.yggdrasil.serviceConfig = {
+      RestartSec = "5s";
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "yggdrasil";
       Group = lib.mkForce "yggdrasil";

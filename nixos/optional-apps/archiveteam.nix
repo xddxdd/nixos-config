@@ -11,6 +11,8 @@
     volumes = [ "/var/lib/archiveteam:/home/warrior/projects" ];
   };
 
+  systemd.services."podman-archiveteam".serviceConfig.RestartSec = "5s";
+
   systemd.tmpfiles.settings = {
     archiveteam = {
       "/var/lib/archiveteam"."d" = {

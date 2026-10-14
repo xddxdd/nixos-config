@@ -17,6 +17,7 @@
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "lantian";
       Group = lib.mkForce "users";
+      RestartSec = "5s";
     };
   };
   lantian.localVhosts.prowlarr = {
@@ -43,5 +44,6 @@
   };
   systemd.services.prometheus-exportarr-prowlarr-exporter.serviceConfig = {
     DynamicUser = lib.mkForce false;
+    RestartSec = "5s";
   };
 }

@@ -24,5 +24,9 @@
     "virtio_rng"
   ];
 
+  # Upstream qemu-guest-agent module sets RestartSec = 0, below the
+  # ensure-service-restart policy (RestartSec >= 3s)
+  systemd.services.qemu-guest-agent.serviceConfig.RestartSec = lib.mkForce "5s";
+
   lantian.hostType = "vm";
 }

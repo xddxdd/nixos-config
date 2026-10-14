@@ -16,6 +16,7 @@
     requires = [ "network.target" ];
 
     serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
       User = "peerbanhelper";
       Group = "peerbanhelper";
       Restart = "on-failure";

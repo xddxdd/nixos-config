@@ -68,6 +68,7 @@
 
   systemd.services.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
     serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
       StateDirectory = "fluent-bit";
       ProcSubset = "all";
       ReadOnlyPaths = [ "/run" ];

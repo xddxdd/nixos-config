@@ -148,7 +148,7 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | 文件                                  | 说明                                                          |
 | ------------------------------------- | ------------------------------------------------------------- |
 | `ensure-dynamicuser-correctness.nix`  | 确保自定义用户未启用 DynamicUser                              |
-| `ensure-service-restart.nix`          | 确保所有 systemd 服务设置了 Restart 属性                      |
+| `ensure-service-restart.nix`          | 确保所有 systemd 服务设置了 Restart 属性；且 restart 已启用的服务 RestartSec 必须 ≥ 3s（默认 100ms 会触发 systemd 的 5 次/10 秒 启动速限），未达标时策略自动设置为 5s |
 | `nginx-security.nix`                  | 确保 Nginx 虚拟主机的安全配置正确（localhost/public 访问控制） |
 | `podman-ensure-autoupdate.nix`        | 确保所有 Podman 容器启用了自动更新                            |
 

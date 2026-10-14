@@ -14,6 +14,7 @@
   };
   systemd.services.bazarr = {
     serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_INET"
         "AF_INET6"
@@ -54,6 +55,7 @@
       RuntimeDirectory = "prometheus-exportarr-bazarr-exporter";
       RuntimeDirectoryMode = "0700";
       DynamicUser = lib.mkForce false;
+      RestartSec = "5s";
     };
   };
 }

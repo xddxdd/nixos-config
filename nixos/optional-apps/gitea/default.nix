@@ -111,6 +111,7 @@ in
 
   systemd.services.gitea.serviceConfig = {
     RuntimeDirectoryMode = lib.mkForce "0755";
+    RestartSec = "5s";
   };
 
   services.mysql = {

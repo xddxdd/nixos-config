@@ -242,4 +242,6 @@
       };
     };
   };
+
+  systemd.services.tayga.serviceConfig.RestartSec = "5s";
 }

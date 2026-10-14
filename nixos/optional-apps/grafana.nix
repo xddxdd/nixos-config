@@ -96,6 +96,7 @@ in
   };
 
   systemd.services.grafana.serviceConfig = {
+    RestartSec = "5s";
     EnvironmentFile = config.sops.secrets.grafana-oauth.path;
     Restart = "on-failure";
     SystemCallFilter = [ "@chown" ];

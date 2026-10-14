@@ -49,7 +49,10 @@ in
   };
 
   systemd.services.ipfs = config.lantian.netns.tnl-buyvm.bind {
-    serviceConfig.Restart = "on-failure";
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
   };
 
   users.users.lantian.extraGroups = [ config.services.kubo.group ];

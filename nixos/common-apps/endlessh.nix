@@ -39,4 +39,6 @@ in
       (toString cfg)
     ];
   };
+
+  systemd.services.endlessh.serviceConfig.RestartSec = "5s";
 }

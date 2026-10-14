@@ -211,6 +211,7 @@ in
     '';
 
     serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = "5s";
   };
 
   systemd.tmpfiles.settings = {

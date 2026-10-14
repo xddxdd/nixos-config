@@ -71,6 +71,7 @@ in
     '';
 
     serviceConfig = LT.networkToolHarden // {
+      RestartSec = "5s";
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
       Nice = "-20";

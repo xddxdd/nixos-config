@@ -280,6 +280,8 @@
     };
   };
 
+  systemd.services.alertmanager.serviceConfig.RestartSec = "5s";
+
   systemd.services.alertmanager.serviceConfig.ExecStartPre = lib.mkForce (
     pkgs.writeShellScript "alertmanager-pre-start" ''
       ${utils.genJqSecretsReplacementSnippet config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml"}

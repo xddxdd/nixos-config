@@ -100,4 +100,6 @@ in
       };
     };
   };
+
+  systemd.services."phpfpm-lab".serviceConfig.RestartSec = "5s";
 }

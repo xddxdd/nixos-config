@@ -44,6 +44,8 @@
     Group = lib.mkForce "gitea-actions";
 
     CacheDirectory = "gitea-actions";
+    # Upstream module sets RestartSec = 2, below the ensure-service-restart policy
+    RestartSec = lib.mkForce "5s";
   };
 
   users.users.gitea-actions = {

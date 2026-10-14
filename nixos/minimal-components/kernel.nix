@@ -292,6 +292,7 @@ in
       # after = ["bin.mount"];
       # requires = ["bin.mount"];
       serviceConfig = {
+        RestartSec = "5s";
         Restart = "on-failure";
       };
     };

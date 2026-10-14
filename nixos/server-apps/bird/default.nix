@@ -73,6 +73,7 @@ in
 
       CPUQuota = "10%";
       Restart = lib.mkForce "always";
+      RestartSec = "5s";
 
       User = "bird";
       Group = "bird";
@@ -113,6 +114,8 @@ in
       birdSocket = "/var/run/bird/bird.ctl";
     };
   };
+
+  systemd.services."prometheus-bird-exporter".serviceConfig.RestartSec = "5s";
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;

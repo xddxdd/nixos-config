@@ -23,6 +23,8 @@
     wantedBy = lib.mkForce [ ];
     requires = [ "iperf3.socket" ];
     after = [ "iperf3.socket" ];
+    # Upstream module sets RestartSec = 2, below the ensure-service-restart policy
+    serviceConfig.RestartSec = lib.mkForce "5s";
   };
 
   systemd.sockets.iperf3 = {

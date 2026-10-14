@@ -29,6 +29,7 @@
       chmod 777 /run/webdav/webdav.sock
     '';
     serviceConfig = {
+      RestartSec = "5s";
       RuntimeDirectory = "webdav";
     };
   };

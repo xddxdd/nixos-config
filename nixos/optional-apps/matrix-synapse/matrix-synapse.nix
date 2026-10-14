@@ -230,22 +230,30 @@ in
 
   users.groups.matrix-synapse.members = [ "nginx" ];
 
-  systemd.services.matrix-synapse = {
-    environment = {
-      SYNAPSE_ASYNC_IO_REACTOR = "1";
+  systemd.services = {
+    matrix-synapse = {
+      environment = {
+        SYNAPSE_ASYNC_IO_REACTOR = "1";
+      };
+      serviceConfig = LT.serviceHarden // {
+        RestartSec = "5s";
+        MemoryDenyWriteExecute = false;
+        StateDirectory = "matrix-synapse";
+        RuntimeDirectory = "matrix-synapse";
+        RuntimeDirectoryPreserve = lib.mkForce false;
+      };
     };
-    serviceConfig = LT.serviceHarden // {
-      MemoryDenyWriteExecute = false;
-      StateDirectory = "matrix-synapse";
-      RuntimeDirectory = "matrix-synapse";
-      RuntimeDirectoryPreserve = lib.mkForce false;
+    redis-matrix-synapse.serviceConfig = {
+      Restart = "always";
+      RestartSec = 5;
     };
-  };
-
-  systemd.services.redis-matrix-synapse.serviceConfig = {
-    Restart = "always";
-    RestartSec = 5;
-  };
+  }
+  // (lib.mapAttrs' (
+    n: _:
+    lib.nameValuePair "matrix-synapse-worker-${n}" {
+      serviceConfig.RestartSec = "5s";
+    }
+  ) config.services.matrix-synapse.workers);
 
   services.postgresql = {
     ensureDatabases = [ "matrix-synapse" ];

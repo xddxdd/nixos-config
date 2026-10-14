@@ -18,4 +18,6 @@
       };
     };
   };
+
+  systemd.services.i2pd.serviceConfig.RestartSec = "5s";
 }

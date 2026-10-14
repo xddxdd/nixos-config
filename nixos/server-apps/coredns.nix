@@ -415,6 +415,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     listenAddress = LT.this.ltnet.IPv4;
   };
 
+  systemd.services."prometheus-knot-exporter".serviceConfig.RestartSec = "5s";
+
   systemd.services = {
     coredns-authoritative = netns.bind {
       description = "Coredns for authoritative zones";
@@ -429,6 +431,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ExecStart = "${lib.getExe pkgs.nur-xddxdd.lantianCustomized.coredns} -conf=${corednsConfig}";
         ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -SIGUSR1 $MAINPID";
         Restart = "on-failure";
+        RestartSec = "5s";
 
         User = "coredns";
         Group = "coredns";
@@ -447,6 +450,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       serviceConfig = {
         ReadWritePaths = [ "/tmp" ];
         CacheDirectory = "zones";
+        RestartSec = "5s";
       };
     };
   };

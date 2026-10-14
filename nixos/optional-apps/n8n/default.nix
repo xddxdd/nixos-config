@@ -63,6 +63,7 @@
   };
 
   systemd.services.n8n.serviceConfig = {
+    RestartSec = "5s";
     User = "n8n";
     Group = "n8n";
     DynamicUser = lib.mkForce false;
@@ -70,6 +71,7 @@
     CacheDirectory = "n8n";
   };
   systemd.services.n8n-task-runner.serviceConfig = {
+    RestartSec = "5s";
     User = "n8n";
     Group = "n8n";
     DynamicUser = lib.mkForce false;

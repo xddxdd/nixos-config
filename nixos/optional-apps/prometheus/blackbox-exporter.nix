@@ -233,4 +233,6 @@ in
       }
     ))
   ];
+
+  systemd.services."prometheus-blackbox-exporter".serviceConfig.RestartSec = "5s";
 }

@@ -105,4 +105,6 @@ in
   };
 
   users.groups.yourls = { };
+
+  systemd.services."phpfpm-yourls".serviceConfig.RestartSec = "5s";
 }

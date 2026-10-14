@@ -104,5 +104,7 @@ in
       $config['cops_x_accel_redirect'] = "X-Accel-Redirect";
       $config['default_timezone'] = '${config.time.timeZone}';
     '';
+
+    systemd.services."phpfpm-calibre-cops".serviceConfig.RestartSec = "5s";
   };
 }

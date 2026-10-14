@@ -66,6 +66,7 @@ in
       JELLYFIN_PublishedServerUrl = "https://jellyfin.xuyh0120.win";
     };
     serviceConfig = {
+      RestartSec = "5s";
       RuntimeDirectory = "jellyfin";
       ExecStartPre = pkgs.writeShellScript "jellyfin-pre" ''
         ${utils.genJqSecretsReplacementSnippet loggingConf "/var/lib/jellyfin/config/logging.json"}

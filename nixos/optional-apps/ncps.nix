@@ -18,4 +18,6 @@
       };
     };
   };
+
+  systemd.services.ncps.serviceConfig.RestartSec = "5s";
 }

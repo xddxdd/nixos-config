@@ -53,6 +53,8 @@
     };
   };
 
+  systemd.services.greetd.serviceConfig.RestartSec = "5s";
+
   environment.etc."greetd/environments".text = ''
     startplasma-wayland
   '';

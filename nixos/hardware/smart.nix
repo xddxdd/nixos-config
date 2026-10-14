@@ -7,4 +7,6 @@
     listenAddress = LT.this.ltnet.IPv4;
     port = LT.port.Prometheus.SmartctlExporter;
   };
+
+  systemd.services."prometheus-smartctl-exporter".serviceConfig.RestartSec = "5s";
 }

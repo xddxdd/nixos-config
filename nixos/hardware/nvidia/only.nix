@@ -2,6 +2,9 @@
 {
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
+
+  # Upstream nvidia module doesn't set RestartSec, below the ensure-service-restart policy
+  systemd.services."nvidia-persistenced".serviceConfig.RestartSec = "5s";
   hardware.nvidia.powerManagement.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;

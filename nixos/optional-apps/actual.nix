@@ -31,6 +31,7 @@
       ACTUAL_USER_CREATION_MODE = "login";
     };
     serviceConfig = {
+      RestartSec = "5s";
       EnvironmentFile = config.sops.templates.actual-env.path;
     };
   };

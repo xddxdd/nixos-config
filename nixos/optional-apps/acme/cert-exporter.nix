@@ -7,4 +7,6 @@
     paths = [ ];
     includeGlobs = [ "/nix/sync-servers/acme/*/cert.pem" ];
   };
+
+  systemd.services."prometheus-node-cert-exporter".serviceConfig.RestartSec = "5s";
 }

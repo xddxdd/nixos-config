@@ -126,6 +126,7 @@
 
   services.usbmuxd.enable = true;
   systemd.services.usbmuxd.serviceConfig.Restart = "always";
+  systemd.services.usbmuxd.serviceConfig.RestartSec = "5s";
 
   virtualisation.waydroid.enable = true;
 
