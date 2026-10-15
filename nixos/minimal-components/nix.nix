@@ -20,9 +20,6 @@ in
     group = "wheel";
     mode = "0444";
   };
-  sops.secrets.nix-privkey = {
-    sopsFile = inputs.secrets + "/common/nix.yaml";
-  };
   sops.secrets.nix-netrc = {
     sopsFile = inputs.secrets + "/common/nix.yaml";
     group = "wheel";
@@ -136,14 +133,6 @@ in
       CacheDirectory = "nix";
       Nice = 19;
       OOMScoreAdjust = 1000;
-    };
-  };
-
-  systemd.tmpfiles.settings = {
-    nix-privkey = {
-      "/run/nix-privkey.pem"."L+" = {
-        argument = config.sops.secrets.nix-privkey.path;
-      };
     };
   };
 }
