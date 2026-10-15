@@ -26,7 +26,7 @@ let
     {
       recordType = "CNAME";
       name = "ai-api";
-      target = "v-ps-sea";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
@@ -68,7 +68,7 @@ let
     {
       recordType = "CNAME";
       name = "cliproxyapi";
-      target = "v-ps-sea.ltnet.xuyh0120.win.";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {

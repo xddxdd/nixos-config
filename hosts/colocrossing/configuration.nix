@@ -20,6 +20,7 @@
     ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
     ../../nixos/optional-apps/byparr.nix
+    ../../nixos/optional-apps/cliproxyapi.nix
     ../../nixos/optional-apps/dex.nix
     ../../nixos/optional-apps/fastpit.nix
     ../../nixos/optional-apps/flapalerted.nix
@@ -49,7 +50,6 @@
     ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/wordpress.nix
-    ../../nixos/optional-apps/yggdrasil-alfis.nix
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     ../../nixos/optional-cron-jobs/cleanup-github-notifications
