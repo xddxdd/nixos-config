@@ -932,11 +932,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792045377,
-        "narHash": "sha256-G3ZoTH3wCfXwZeUJCwSizip13uf/KRbde/W+GOvoc7A=",
+        "lastModified": 1792048073,
+        "narHash": "sha256-s2IeszPxsN4lXpotgLR3RNvKpN2qW9Ov1ZPobSet/WE=",
         "ref": "refs/heads/main",
-        "rev": "fe1fd37611203578a396d681378736831648938b",
-        "revCount": 8,
+        "rev": "cb16c65c3617395514dbc8a011e0c2960833b651",
+        "revCount": 9,
         "type": "git",
         "url": "https://git.lantian.pub/lantian/ollama-cpa-honeypot"
       },
