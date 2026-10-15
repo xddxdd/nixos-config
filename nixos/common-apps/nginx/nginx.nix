@@ -223,6 +223,7 @@ in
   };
 
   systemd.services.nginx = {
+    enable = false; # FIXME: compromised
     environment = {
       inherit (config.environment.variables) OPENSSL_CONF;
     };
