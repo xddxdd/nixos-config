@@ -231,6 +231,4 @@
       "x-systemd.mount-timeout=5s"
     ];
   };
-
-  services.yggdrasil.regions = [ "united-states" ];
 }

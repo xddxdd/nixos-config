@@ -1,5 +1,9 @@
 # Lan Tian's NixOS Configuration
 
+## 文档范围
+
+本文件仅记录项目通用规则、目录结构和开发流程。禁止添加或恢复具体应用、服务或模块的配置细节、选项说明、实现细节及主机部署记录；此类内容应放在对应代码或专属文档中，不得因功能新增或变更而补充到本文件。
+
 ## 项目概述
 
 这是一个基于 Nix Flakes 的 NixOS 配置项目，用于管理多台主机的系统配置。项目采用模块化设计，支持服务器、客户端和最小化三种配置类型，集成了大量自定义包、覆盖层和补丁。
@@ -58,8 +62,6 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 1. 解析 `flake.lock`：读取 `nodes[root].inputs.nixpkgs` 得到节点名，再读取该节点的 `locked` 字段（含 `rev`、`type`、`url`）。
 2. 若根输入带 `follows` 链（如某输入 `inputs.nixpkgs.follows = "nixpkgs"`），需顺着映射继续解引用，直到得到 `locked` 非空的节点。
 3. 用该 `rev` 直接从 GitHub 拉取源码，例如：`https://raw.githubusercontent.com/NixOS/nixpkgs/<rev>/nixos/modules/...`（tarball 类型输入的短 rev 同样适用于 GitHub raw）。
-
-实例（2025 年时点）：`nodes[root].inputs.nixpkgs = "nixpkgs_2"`，对应 GitHub rev `151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4`（26.11pre tarball）。当时节点 `nixpkgs`（rev `545c226a`）与生效版本不一致：Hydra 的 `services.hydra.queueRunner` / `services.hydra-builder` 选项只存在于 `nixpkgs_2` 对应的模块中，在错误版本上查询会得出“选项不存在”的错误结论。
 
 ### Makefile
 
@@ -127,41 +129,9 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | `optional-apps/`      | 可选应用（部分主机使用，需在主机配置中手动导入）        |
 | `optional-cron-jobs/` | 可选定时任务（部分主机使用，需在主机配置中手动导入）    |
 
-### Strata 本地推理
-
-仅 Strata 服务将 `ProcSubset` 覆盖为 `all`，让 `setup.py` 的 `ram_gb` 能读取 `/proc/meminfo`（`pid` 会隐藏非进程相关的 proc 文件），保留继承的 `ProtectProc=invisible` 和其他现有加固设置。
-
-`nixos/optional-apps/strata.nix` 在 `pve-epyc` 替代 llama-swap，使用 NUR 的现有 Strata 包定义，监听 `127.0.0.1:13881`，通过 `strata.<主机名>.xuyh0120.win`（HTTPS）和 `strata.localhost`（HTTP）反向代理访问。`lt-hp-omen` 仍使用 llama-swap，保留端口 13880；此次不修改客户端。
-
-服务使用静态 `strata` 用户和持久目录 `/var/lib/strata`：`runtime/strata` 是包复制的可写运行副本（含模型运行配置，包装器在版本变化时删除并重新复制，触发配置重新生成），`config/strata/settings.json` 保存上游设置，`data` 保存模型文件。启动前以服务用户创建这些父目录；模型数据必须放在运行副本之外，避免升级时丢失。
-
-首次启动用 `--yes` 自动选择并下载上游推荐模型，需要网络和充足磁盘空间；不固定 `--model` / `--family`，避免每次重启重新设置。`--vision no` 禁用视觉。模块仅为 Strata 从当前 `pkgs.path` 创建独立包集合，沿用当前平台、覆盖层和配置，只从 `cudaCapabilities` 删除 `6.1`；使用该集合的 `nur-xddxdd.strata`，其余已配置能力、全局包集合和包的 `cudaArchitectures` 均不变。不能只对现有 CUDA 构造器做 `.override`：CUDA 13 的清单仍引用原集合的后端，可能先触发原配置的断言。按 PCI 顺序仅使用 GPU0 和 CUDA 13，不能使用次要 P40（Pascal，不受该 CUDA 13 包支持）。Strata 不提供原 llama-swap 的 embedding / reranker 配置对等替代。
-
-反向代理允许主机名通过上游 `STRATA_ALLOWED_HOSTS`（逗号分隔）指定，不使用通配符。现有代理保留 `Host` 和 `Origin`，浏览器控制满足同源检查；上游 `trusted_origins` 是模型运行 JSON 配置项，没有对应环境变量，若将来代理改写主机名或使用非默认端口，应添加对应可信来源。
-
 ### 策略断言说明
 
 `nixos/minimal-policies/` 目录存放配置策略断言（assertions），用于在构建时检查配置是否符合预期约束。该目录会被 `minimal.nix`、`server.nix`、`client.nix`、`pve.nix` 等所有角色配置自动导入。
-
-当前包含的策略：
-
-| 文件                                  | 说明                                                          |
-| ------------------------------------- | ------------------------------------------------------------- |
-| `ensure-dynamicuser-correctness.nix`  | 确保自定义用户未启用 DynamicUser                              |
-| `ensure-service-restart.nix`          | 确保所有 systemd 服务设置了 Restart 属性；且 restart 已启用的服务 RestartSec 必须 ≥ 3s（默认 100ms 会触发 systemd 的 5 次/10 秒 启动速限），未达标时策略自动设置为 5s |
-| `nginx-security.nix`                  | 确保 Nginx 虚拟主机的安全配置正确（localhost/public 访问控制） |
-| `podman-ensure-autoupdate.nix`        | 确保所有 Podman 容器启用了自动更新                            |
-
-### 防火墙选项系统
-
-`nftables` 防火墙表 `lantian` 不再由硬编码字符串拼接，而是由 `lantian.firewall` 下的选项拼装（定义在 `nixos/minimal-components/firewall/`，含 `options.nix`、`presets.nix`、`arp.nix`）：
-
-- `lantian.firewall.chains.<链名>.rules`：链的普通规则列表，每条规则为 `{ priority = LT.firewallPriorities.<档位>; text = "nft 语句"; }`；同优先级的连续规则可写在同一个多行 `text` 中。链的 `type`/`hook`/`priority`/`policy` 选项声明基链。
-- `lantian.firewall.chains.<链名>.dnat`：结构化 DNAT 列表，每项提供 `priority`、`matches`（匹配表达式列表）、可选的 `ipv4` 和 `ipv6` 目标；每个已设置的目标各生成对应地址族的规则。与普通规则一起按优先级稳定排序；类型和生成逻辑均位于 `nixos/minimal-components/firewall/options.nix`，生成内容不附加缩进或空行。独立网络命名空间的规则不由此选项管理。
-- `LT.firewallPriorities`：在 `helpers/constants/firewall-priorities.nix` 定义，仅有 `early = 100`、`preService = 200`、`service = 300`、`terminal = 400` 四个常量（基链 hook 的优先级另算）。数字较小的规则先执行，同档按定义顺序排列；新增规则应复用相应档位，不要另写数字或随意改变顺序。
-- `lantian.firewall.ipsets.<集合名>`：nft 集合（`type`、`flags`、`elements`），多个模块可向同一集合追加 `elements`（如游戏加速器向 `CN_FIREWALLED_PORTS` 追加端口）。
-- `lantian.firewall.presets.<名称>.enable` 及各预设自己的选项：功能开关。通用预设在 `presets.nix` 定义；服务专属规则定义在各自服务模块中（如 `openvpn-gameaccel.nix`、`open5gs`、`ocfs2.nix`、`nginx-proxy.nix`、`yggdrasil-alfis.nix`、`server-apps/coredns.nix`、`pipewire-roc-sink.nix`、`route-chain.nix`、`netns-tnl-buyvm.nix`）。`public-firewall.enable` 默认值为 `!LT.this.firewalled`（仅在非 firewalled、即公网可达的主机上默认启用，firewalled 主机需显式开启）。`public-firewall.firewalledPorts` 默认为空，由启用的 Samba、CUPS、Rsync、BIRD、Avahi、NMEA、NFS 服务模块分别追加；NFS 端口在 `services.nfs.server.enable` 时无条件追加，已无 `lantian.nfs.firewallPorts` 开关。
-- 规则引用 `@INTERFACE_*` 集合时需确保 `interface-sets` 预设已启用（相关规则已用 `mkIf` 保护）。
 
 ## 自定义包说明
 
@@ -172,13 +142,7 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 - `src/` - 源代码
 - `build.rs`、`data/`、`assets/` - 构建脚本、编译期内嵌数据与运行时资产（如该包需要）
 
-包由使用处通过 `pkgs.callPackage ../../pkgs/<名> { }` 引入（示例见 `nixos/optional-apps/pipewire-volume-control.nix`）。若包带有运行时才读取的资产，约定在 `postInstall` 中安装到 `$out/share/<pname>/`，由服务单元以参数指向该路径。
-
-`home/client-apps/firefox/addons/` 是 Firefox 扩展包集合（仅由同目录的 firefox 配置使用，故不放在 `pkgs/`），不再依赖外部 flake 输入：`addons.json` 固定 `home/client-apps/firefox/default.nix` 所用扩展（除由 nvfetcher 跟踪的 `auto-novel-addon`）的 AMO 版本、下载 URL、SRI hash 与 `addonId`，`default.nix` 据此生成把 `.xpi` 安装到 `share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/<addonId>.xpi` 并带 `passthru.addonId` 的包，`update.py` 通过 AMO API 重新生成 `addons.json`。`update.py` 由 `nix run .#update-data` 自动执行。
-
-`home/client-apps/thunderbird/addons/` 同理管理 Thunderbird 扩展（目录结构、`default.nix` 构建器与 firefox 一致）：`addons.json` 固定 8 个 ATN 扩展，`update.py` 走 ATN v4 API（`https://addons.thunderbird.net/api/v4/addons/addon/<slug>/`，文件在 `current_version.files[]` 而非 `.file`）。
-
-Thunderbird 配置在 `home/client-apps/thunderbird/default.nix`，通过 `programs.thunderbird.profiles."ayx6omhb.default".extensions`（`isDefault = true`、`package = pkgs.thunderbird-bin`、`extensions.autoDisableScopes = 0`）安装这些扩展，并强制接管 Thunderbird 原本自行生成的 `profiles.ini`（`home.file.".thunderbird/profiles.ini".force = true`）。中文语言包不属于扩展列表：`thunderbird-bin` 不支持 `programs.thunderbird.languagePacks` 所需的 `override`，改由 `nixos/client-apps/thunderbird.nix` 的 `policies.json` 用 `RequestedLocales` + `ExtensionSettings` 管理。注意 Home Manager 以递归方式链接 profile 的 `extensions` 目录，已有的未托管 `.xpi`（如手动安装的扩展）不会被自动删除。
+包由使用处通过 `pkgs.callPackage ../../pkgs/<名> { }` 引入。若包带有运行时才读取的资产，约定在 `postInstall` 中安装到 `$out/share/<pname>/`，由服务单元以参数指向该路径。
 
 ## 覆盖层说明
 
@@ -219,8 +183,6 @@ Thunderbird 配置在 `home/client-apps/thunderbird/default.nix`，通过 `progr
 | `cities.json`      | 城市数据                                    |
 | `constants/`       | 各类常量（端口、网络、区域等）              |
 | `fn/`              | 辅助函数（nginx、hosts、service-harden 等） |
-
-`helpers/fn/systemd.nix` 导出 `LT.escapeMountPath`，用于 `RequiresMountsFor` 的字面路径转义：按词去除引号，不解码 C 转义，不能用单元名称或 Exec 转义辅助函数替代；拒绝包含 LF/CR 的路径。
 
 ### dns/ 目录
 
