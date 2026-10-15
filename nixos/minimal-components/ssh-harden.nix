@@ -51,6 +51,8 @@ in
             n: v:
             let
               hostNames = [
+                "${n}"
+                "[${n}]:2222"
                 "${n}.lantian.pub"
                 "[${n}.lantian.pub]:2222"
                 "${n}.xuyh0120.win"
@@ -152,11 +154,7 @@ in
       User git
       ${ltnetSSHConfig}
 
-    Host *.lantian.pub
-      User root
-      ${ltnetSSHConfig}
-
-    Host *.xuyh0120.win
+    Host *.lantian.pub *.xuyh0120.win ${lib.concatStringsSep " " (builtins.attrNames LT.hosts)}
       User root
       ${ltnetSSHConfig}
 
