@@ -49,6 +49,7 @@
       StateDirectory = "ollama-cpa-honeypot";
       Restart = "always";
       RestartSec = "5s";
+      Nice = 19;
     };
   };
 }
