@@ -70,6 +70,8 @@
   "flapalerted.lantian.pub"
   "lg.lantian.dn42"
   "lg.lantian.pub"
+  "ollama-cpa-honeypot-cpa"
+  "ollama-cpa-honeypot-ollama"
   "radicle.lantian.pub"
   # keep-sorted end
 ]

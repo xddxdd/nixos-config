@@ -6,6 +6,8 @@ final: prev: {
     inputs.markdown-apa7th-docx.packages."${prev.stdenv.hostPlatform.system}".default;
   nixfmt-rs = inputs.nixfmt-rs.packages."${prev.stdenv.hostPlatform.system}".default;
   never-gonna = inputs.never-gonna-rust.packages."${prev.stdenv.hostPlatform.system}".default;
+  ollama-cpa-honeypot =
+    inputs.ollama-cpa-honeypot.packages."${prev.stdenv.hostPlatform.system}".ollama-cpa-honeypot;
   picoforge = inputs.picoforge.packages."${prev.stdenv.hostPlatform.system}".picoforge;
   wine-tkg = inputs.nix-gaming.packages."${prev.stdenv.hostPlatform.system}".wine-tkg;
 }

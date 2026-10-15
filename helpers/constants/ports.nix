@@ -39,6 +39,7 @@ rec {
     ArchiveTeam = 8001;
     Proxmox = 8006;
     JProxy = 8117;
+    OllamaCpaHoneypot.CpaListener = 8317;
     Waline = 8360;
     Matrix.Public = 8448;
     Radicle.Node = 8776;
@@ -69,6 +70,7 @@ rec {
     PeerBanHelper = 9898;
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
+    OllamaCpaHoneypot.OllamaListener = 11434;
     Yggdrasil.Multicast = 13059;
     Librechat = 13080;
     NMEA = 13110;
@@ -138,6 +140,8 @@ rec {
     ADSB.PlaneWatch = 13919;
     Suricata.Redis = 13920;
     Suricata.EveBox = 13921;
+    OllamaCpaHoneypot.Ollama = 13922;
+    OllamaCpaHoneypot.Cpa = 13923;
     ADSB.RawOutput978 = 13978;
     Asterisk.AudioSocket = 13980;
     Resin = 13995;
