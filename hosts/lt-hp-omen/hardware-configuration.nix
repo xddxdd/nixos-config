@@ -47,18 +47,6 @@
     ];
   };
 
-  fileSystems."/nix/persistent/home" = {
-    device = "/dev/mapper/root";
-    fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
-  };
-
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
     fsType = "ntfs";
@@ -69,40 +57,16 @@
     ];
   };
 
-  fileSystems."/mnt/root" = {
-    device = "/dev/mapper/root";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
-  };
-
   fileSystems."/nix" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
     options = [
-      "subvol=nix"
+      "subvol=@nix"
       "compress-force=zstd"
       "autodefrag"
       "nosuid"
       "nodev"
     ];
-  };
-
-  fileSystems."/nix/persistent" = {
-    device = "/dev/mapper/root";
-    fsType = "btrfs";
-    options = [
-      "subvol=persistent"
-      "compress-force=zstd"
-      "autodefrag"
-      "nosuid"
-      "nodev"
-    ];
-    neededForBoot = true;
   };
 
   swapDevices = [
