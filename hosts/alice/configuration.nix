@@ -6,7 +6,7 @@
   imports = [
     ../../nixos/minimal.nix
 
-    (inputs.secrets + "/dn42/alice.nix")
+    # (inputs.secrets + "/dn42/alice.nix")
 
     ./hardware-configuration.nix
   ];

@@ -9,7 +9,7 @@
   imports = [
     ../../nixos/minimal.nix
 
-    (inputs.secrets + "/dn42/colocrossing.nix")
+    # (inputs.secrets + "/dn42/colocrossing.nix")
 
     ./hardware-configuration.nix
 

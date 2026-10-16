@@ -3,7 +3,7 @@
   imports = [
     ../../nixos/minimal.nix
 
-    (inputs.secrets + "/dn42/bwg-lax.nix")
+    # (inputs.secrets + "/dn42/bwg-lax.nix")
 
     ./hardware-configuration.nix
   ];

@@ -3,7 +3,7 @@
   imports = [
     ../../nixos/minimal.nix
 
-    (inputs.secrets + "/dn42/oracle-vm1.nix")
+    # (inputs.secrets + "/dn42/oracle-vm1.nix")
 
     #../../nixos/optional-apps/archiveteam.nix
 
