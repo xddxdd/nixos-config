@@ -17,7 +17,7 @@
     package = lib.mkForce pkgs.git;
     settings.core.excludesfile = "${config.xdg.configHome}/git/ignore";
     signing = {
-      key = "B50EC319385FCB0D";
+      key = "BC4819E4C4909BD3";
       format = "openpgp";
       signByDefault = true;
     };
