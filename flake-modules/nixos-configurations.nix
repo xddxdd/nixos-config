@@ -50,6 +50,7 @@ let
       inputs.nur-xddxdd.nixosModules.openssl-conf
       inputs.nur-xddxdd.nixosModules.openssl-gost-engine
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
+      inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links
       inputs.preservation.nixosModules.preservation
       inputs.proxmox-nixos.nixosModules.proxmox-ve
