@@ -75,7 +75,7 @@ in
     flyctl
 
     # FPGA
-    quartus-prime-lite
+    # quartus-prime-lite
 
     # Golang
     delve

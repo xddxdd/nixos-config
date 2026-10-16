@@ -1,9 +1,9 @@
 { LT, ... }:
 {
   imports = [
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
-    ../../nixos/optional-apps/nextcloud.nix
+    #../../nixos/optional-apps/nextcloud.nix
 
     ./hardware-configuration.nix
   ];

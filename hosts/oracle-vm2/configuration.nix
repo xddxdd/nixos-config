@@ -1,9 +1,9 @@
 { LT, ... }:
 {
   imports = [
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
-    ../../nixos/optional-apps/archiveteam.nix
+    #../../nixos/optional-apps/archiveteam.nix
 
     ./hardware-configuration.nix
   ];

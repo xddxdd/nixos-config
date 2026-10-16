@@ -168,7 +168,7 @@ in
       type = lib.types.attrs;
       default =
         if pkgs.stdenv.hostPlatform.isx86_64 then
-          pkgs.nur-xddxdd.lantianLinuxCachyOS.lts-lto
+          pkgs.linux
         else
           pkgs.linux;
     };

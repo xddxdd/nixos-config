@@ -49,15 +49,19 @@ in
       [
         # keep-sorted start
         (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
-        (bambu-studio.override { withNvidiaGLWorkaround = osConfig.hardware.nvidia.enabled; })
+        # FIXME
+        # (bambu-studio.override { withNvidiaGLWorkaround = osConfig.hardware.nvidia.enabled; })
         (hashcat.override { cudaSupport = true; })
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
-        (lib.hiPrio nur-xddxdd.qq)
-        _86box-with-roms
+        # FIXME
+        # (lib.hiPrio nur-xddxdd.qq)
+        # FIXME
+        # _86box-with-roms
         apache-directory-studio
         attic-client
         audacious
-        bitwarden-desktop
+        # FIXME
+        # bitwarden-desktop
         brotli
         bzip2
         colmena
@@ -99,7 +103,8 @@ in
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.kuake-cli
-        nur-xddxdd.lantianCustomized.materialgram
+        # FIXME
+        # nur-xddxdd.lantianCustomized.materialgram
         nur-xddxdd.mages-bin
         nur-xddxdd.ncmdump-rs
         nur-xddxdd.qqmusic
@@ -107,13 +112,15 @@ in
         nur-xddxdd.space-cadet-pinball-full-tilt
         nur-xddxdd.wechat-uos-sandboxed
         nur-xddxdd.witch-weapon
-        nvfetcher
+        # FIXME
+        # nvfetcher
         optipng
         p7zip
         parallel
         parsec-bin
         payload-dumper-go
-        picoforge
+        # FIXME
+        # picoforge
         piliplus
         powertop
         pwgen
@@ -129,8 +136,8 @@ in
         ventoy-full
         virt-manager
         vlc
-        wine'
-        winetricks
+        # wine'
+        # winetricks
         wpsoffice
         xca
         xdg-ninja
@@ -152,10 +159,11 @@ in
 
   programs.aria2.enable = true;
 
-  programs.calibre = {
-    enable = true;
-    package = calibre-override-desktop;
-  };
+  # FIXME
+  # programs.calibre = {
+  #   enable = true;
+  #   package = calibre-override-desktop;
+  # };
 
   programs.dbeaver = {
     enable = true;

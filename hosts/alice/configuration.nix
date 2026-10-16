@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
     (inputs.secrets + "/dn42/alice.nix")
 

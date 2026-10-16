@@ -7,7 +7,7 @@
 {
   imports = [
     ../../nixos/pve.nix
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
     ./enable-smart.nix
     ./hardware-configuration.nix

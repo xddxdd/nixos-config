@@ -4,11 +4,11 @@
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     ../../nixos/hardware/disable-watchdog.nix
-    ../../nixos/common-apps/nginx
+    #../../nixos/common-apps/nginx
     ../../nixos/minimal.nix
 
-    ../../nixos/optional-apps/adsb
-    ../../nixos/optional-apps/ncps-client.nix
+    #../../nixos/optional-apps/adsb
+    #../../nixos/optional-apps/ncps-client.nix
 
     ./hardware-configuration.nix
     ./lora

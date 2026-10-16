@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    ../../nixos/server.nix
+    ../../nixos/minimal.nix
 
     (inputs.secrets + "/dn42/bwg-lax.nix")
 
