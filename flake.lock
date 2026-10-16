@@ -1122,8 +1122,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1792129903,
-        "narHash": "sha256-6uprD783ifD3Vq6T636RP7+ZLclPcwHCyQjHXlK9adA=",
+        "lastModified": 1792140835,
+        "narHash": "sha256-UW5N/ZIHF3+gDjJCANZ5BueXgH+rn23y5fgi0PQbGco=",
         "path": "/home/lantian/Projects/nixos-secrets",
         "type": "path"
       },
