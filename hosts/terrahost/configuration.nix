@@ -5,14 +5,14 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/optional-apps/archiveteam.nix
-    ../../nixos/optional-apps/grafana.nix
-    ../../nixos/optional-apps/nginx-lab
-    ../../nixos/optional-apps/prometheus
-    ../../nixos/optional-apps/vaultwarden.nix
-    ../../nixos/optional-apps/yourls.nix
+    # ../../nixos/optional-apps/archiveteam.nix
+    # ../../nixos/optional-apps/grafana.nix
+    # ../../nixos/optional-apps/nginx-lab
+    # ../../nixos/optional-apps/prometheus
+    # ../../nixos/optional-apps/vaultwarden.nix
+    # ../../nixos/optional-apps/yourls.nix
 
-    "${inputs.secrets}/nixos-hidden-module/7dfa681e7463f997"
+    # "${inputs.secrets}/nixos-hidden-module/7dfa681e7463f997"
   ];
 
   systemd.network.networks.eth0 = {

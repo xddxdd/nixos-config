@@ -5,11 +5,11 @@
 
     ./hardware-configuration.nix
 
-    ../../nixos/common-apps/nginx
+    # ../../nixos/common-apps/nginx
 
-    ../../nixos/optional-apps/mysql.nix
-    ../../nixos/optional-apps/ncps-client.nix
-    ../../nixos/optional-apps/open5gs
+    # ../../nixos/optional-apps/mysql.nix
+    # ../../nixos/optional-apps/ncps-client.nix
+    # ../../nixos/optional-apps/open5gs
   ];
 
   networking.nameservers = lib.mkForce [ "192.168.0.1" ];
