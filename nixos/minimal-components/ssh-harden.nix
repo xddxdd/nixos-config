@@ -12,7 +12,7 @@ let
     HostKeyAlgorithms ssh-ed25519
     KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com
     Ciphers aes256-gcm@openssh.com
-    PubkeyAcceptedAlgorithms ssh-ed25519
+    PubkeyAcceptedAlgorithms ssh-ed25519,sk-ssh-ed25519@openssh.com
   '';
 in
 {
