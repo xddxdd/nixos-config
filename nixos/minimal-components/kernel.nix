@@ -7,8 +7,7 @@
   ...
 }:
 let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-  unixHashedPassword = glauthUsers.lantian.passBcrypt;
+  unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
 
   myKernelPackageFor =
     kernel:
@@ -166,11 +165,7 @@ in
   options = {
     lantian.kernel = lib.mkOption {
       type = lib.types.attrs;
-      default =
-        if pkgs.stdenv.hostPlatform.isx86_64 then
-          pkgs.linux
-        else
-          pkgs.linux;
+      default = if pkgs.stdenv.hostPlatform.isx86_64 then pkgs.linux else pkgs.linux;
     };
   };
   config = {

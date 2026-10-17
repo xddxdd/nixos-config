@@ -5,9 +5,7 @@
   ...
 }:
 let
-  # unixHashedPassword = import (inputs.secrets + "/unix-hashed-pw.nix");
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-  unixHashedPassword = glauthUsers.lantian.passBcrypt;
+  unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
   sshKeysForNixBuilder = import (inputs.secrets + "/ssh/nix-builder.nix");
 in
