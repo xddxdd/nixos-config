@@ -17,9 +17,7 @@
   providers = [
     "bind"
     "bunny"
-    "cloudflare"
     "desec"
-    "gcore"
     # # Disabled for henet provider failure
     # "henet"
   ];

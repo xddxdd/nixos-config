@@ -35,10 +35,7 @@ in
     cp -r "$CURR_DIR/zones" "$TEMP_DIR/zones"
   fi
 
-  ${lib.getExe pkgs.ssh-to-age} -private-key -i "$HOME/.ssh/id_ed25519" \
-    > "$TEMP_DIR/age_key"
-  SOPS_AGE_KEY_FILE="$TEMP_DIR/age_key" \
-    ${lib.getExe pkgs.sops} decrypt \
+  ${lib.getExe pkgs.sops} decrypt \
     --extract '["dnscontrol"]' \
     --output "$TEMP_DIR/creds.json" \
     "${inputs.secrets}/dnscontrol.yaml"
