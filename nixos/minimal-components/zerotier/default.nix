@@ -9,7 +9,7 @@ let
   whitelistToBlacklist = pkgs.callPackage ./whitelist_to_blacklist.nix { };
   calculateMac = pkgs.callPackage ./mac-calculator.nix { };
 
-  ltnet = "91450bd87b000001";
+  ltnet = "607f84e867000001";
 
   zerotier-default = pkgs.writeShellScriptBin "zerotier-default" ''
     if [ -z "$1" ]; then
@@ -86,7 +86,7 @@ in
     serviceConfig.Type = "oneshot";
     path = [ pkgs.iproute2 ];
     script = ''
-      while ! ip link show ztje7axwd2; do
+      while ! ip link show ztramij2dg; do
         echo "Waiting for ZeroTier to setup device"
         sleep 1
       done
@@ -97,15 +97,15 @@ in
         # ${n}
       ''
       + lib.concatMapStringsSep "\n" (ip: ''
-        ip neigh add ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} router \
-          || ip neigh replace ${ip} dev ztje7axwd2 lladdr ${calculateMac ltnet n} router
+        ip neigh add ${ip} dev ztramij2dg lladdr ${calculateMac ltnet n} router \
+          || ip neigh replace ${ip} dev ztramij2dg lladdr ${calculateMac ltnet n} router
       '') v.ipAssignments
     ) LT.zerotier.managedHosts;
     # Do not include additional hosts, ZeroTier Windows calculate mac differently
   };
 
   systemd.network.networks."99-zerotier" = {
-    matchConfig.Name = "ztje7axwd2";
+    matchConfig.Name = "ztramij2dg";
     address = [
       "198.18.0.${builtins.toString LT.this.index}/24"
       "fdbc:f9dc:67ad::${builtins.toString LT.this.index}/64"

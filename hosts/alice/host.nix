@@ -13,8 +13,7 @@
     server
   ];
   city = geo.cities."CN Hong Kong";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBiZ0rtz7/Ge4NkaVYDCkm7KEjgXOkslc8HmFhOr86dX";
-  zerotier = "a863150d72";
+  zerotier = null;
   public = {
     IPv4 = "2.26.205.141";
     IPv6 = "2a14:67c4:12::c3";

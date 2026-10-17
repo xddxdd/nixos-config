@@ -14,8 +14,8 @@
   ];
   city = geo.cities."US Seattle";
   cpuThreads = 2;
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKXYFTOUNHp3n1M/oPBhqrgAWCTJm7wys098P4NPzou";
-  zerotier = "4b1e8d0849";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP3zpIbcutFqoXYWsPttYqkyJgSYYv/3Nkcp65fBecbm root@v-ps-sea";
+  zerotier = "93c4e6fa67";
   public = {
     IPv4 = "23.145.48.11";
     IPv6 = "2605:3a40:4::142";

@@ -13,9 +13,10 @@
   ];
   cpuThreads = 4;
   city = geo.cities."US Bellevue";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjBBTtlrrqBSfPS+AMrmKIXqJ0Hlf0isl8tQkAqnNg8";
-  zerotier = "b82755cf85";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+nkuHwpntl59FxnDY//bUUjDZgxFiV90TdIa9zcl5M root@lt-dell-wyse";
+  zerotier = "91a183015a";
   firewalled = true;
+  hostname = "192.168.0.207";
   interconnect = {
     name = "home-lan";
     IPv4 = "192.168.0.207";

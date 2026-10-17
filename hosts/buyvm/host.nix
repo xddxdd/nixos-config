@@ -14,8 +14,8 @@
   ];
   hostname = "107.189.12.254";
   city = geo.cities."CH Bern";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKncnTrQSX37j2kODCMb/d6+qoDgMg5zJIVgPCOYolNK";
-  zerotier = "f01c76d61a";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBQbVssLNg4QyFNxPdho4VJ6eS+VGpbOfLUdf8ZTgYuQ root@buyvm";
+  zerotier = "0cb952ba4b";
   public = {
     IPv4 = "107.189.12.254";
     IPv6 = "2605:6400:30:f22f::1";

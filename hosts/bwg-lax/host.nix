@@ -14,8 +14,8 @@
     server
   ];
   city = geo.cities."US Los Angeles";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH7jqK5IsCqMJqJUhAk2oQBQHhvxEb2q39BKNi1VsyOg";
-  zerotier = "e6c4934cd7";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICfV+vW0y8805c8MuGKwM+1lHWrGlEc+wLz66SzorqYw root@bwg-lax";
+  zerotier = "a5bfc7d835";
   public = {
     IPv4 = "64.64.231.82";
     IPv6 = "2607:8700:5501:574f::2";

@@ -14,8 +14,8 @@
   ];
   city = geo.cities."JP Tokyo";
   cpuThreads = 2;
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErp+D8ITlOFi946F3/GEq+QWsDX9myFeVAwaFBLfqfJ";
-  zerotier = "67b3f2d622";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICDuJQ41IRTSvYUql9hAQlH9DRTS5bA+taoUPWz+E5mR root@oracle-vm1";
+  zerotier = "412b169dc6";
   public = {
     IPv4 = "132.145.123.138";
     IPv6 = "2603:c021:8000:aaaa:2::1";

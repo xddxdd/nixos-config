@@ -51,7 +51,7 @@
     # ../../nixos/optional-apps/tranquil-pds.nix
     # ../../nixos/optional-apps/waline
     # ../../nixos/optional-apps/wordpress.nix
-    # ../../nixos/optional-apps/zerotierone-controller.nix
+    ../../nixos/optional-apps/zerotierone-controller.nix
 
     # ../../nixos/optional-cron-jobs/cleanup-github-notifications
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix

@@ -12,8 +12,8 @@
     server
   ];
   city = geo.cities."NO Sandefjord";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3gI3Xp4vuhLA7syB110Dt46tAZQvBm+TEQ7Pg25HY7";
-  zerotier = "1c6f6dc3de";
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM/cnITTzfVRdAbforhVZUXemDZ4DCLNOVVOdP6tCECn root@terrahost";
+  zerotier = null;
   public = {
     IPv4 = "194.32.107.228";
     IPv6 = "2a03:94e0:ffff:194:32:107::228";

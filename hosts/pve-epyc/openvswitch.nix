@@ -6,10 +6,8 @@
 }:
 let
   interfaces = [
-    "enp65s0f0"
-    "enp65s0f1"
-    "enp194s0"
-    "enp194s0d1"
+    "enp65s0"
+    "enp65s0d1"
   ];
 in
 {

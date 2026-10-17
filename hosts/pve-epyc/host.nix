@@ -16,8 +16,7 @@
   cpuThreads = 128;
   vramGB = 48;
   hostname = "192.168.0.2";
-  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE3PpFGm+OTqrJM55qrxKWLnkwrnnzzMAprNfaXWk/gp";
-  zerotier = "e6a5b508a4";
+  zerotier = null;
   firewalled = true;
   public = {
     IPv6 = "2001:470:e997::2";
