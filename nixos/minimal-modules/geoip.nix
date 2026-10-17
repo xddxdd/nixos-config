@@ -17,7 +17,8 @@ in
     environment.etc."geoip".source = pkgs.symlinkJoin {
       name = "geoip";
       paths = [
-        pkgs.nur-xddxdd.dbip-lite
+        # FIXME: 404
+        # pkgs.nur-xddxdd.dbip-lite
         pkgs.nur-xddxdd.geolite2
       ];
     };

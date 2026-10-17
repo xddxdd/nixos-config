@@ -69,13 +69,13 @@ let
     {
       recordType = "CNAME";
       name = "api";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "ca";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {
@@ -122,7 +122,7 @@ let
     {
       recordType = "CNAME";
       name = "id";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {
@@ -145,7 +145,7 @@ let
     {
       recordType = "CNAME";
       name = "login";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {
@@ -170,7 +170,7 @@ let
     {
       recordType = "CNAME";
       name = "oidc-tester";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {
@@ -182,7 +182,7 @@ let
     {
       recordType = "CNAME";
       name = "radicle";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.lantian.pub.";
       ttl = "1h";
     }
     {

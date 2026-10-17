@@ -41,7 +41,7 @@
     # ../../nixos/optional-apps/oidc-tester.nix
     # ../../nixos/optional-apps/ollama-cpa-honeypot.nix
     # ../../nixos/optional-apps/plausible.nix
-    # ../../nixos/optional-apps/pocket-id.nix
+    ../../nixos/optional-apps/pocket-id.nix
     # ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     # ../../nixos/optional-apps/radicle.nix

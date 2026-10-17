@@ -41,23 +41,6 @@
       SMTP_USER = config.programs.msmtp.accounts.default.user;
       SMTP_TLS = if config.programs.msmtp.accounts.default.tls_starttls then "starttls" else "tls";
       EMAIL_ONE_TIME_ACCESS_AS_ADMIN_ENABLED = true;
-
-      LDAP_ENABLED = true;
-      LDAP_URL = "ldap://[fdbc:f9dc:67ad:2547::389]:${LT.portStr.LDAP}";
-      LDAP_BIND_DN = "cn=serviceuser,dc=lantian,dc=pub";
-      LDAP_BASE = "dc=lantian,dc=pub";
-      LDAP_USER_SEARCH_FILTER = "(&(objectClass=posixAccount)(!(ou=svcaccts)))";
-      LDAP_USER_GROUP_SEARCH_FILTER = "(objectClass=posixGroup)";
-      LDAP_SOFT_DELETE_USERS = true;
-      LDAP_ADMIN_GROUP_NAME = "admin";
-      LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER = "uid";
-      LDAP_ATTRIBUTE_USER_USERNAME = "uid";
-      LDAP_ATTRIBUTE_USER_EMAIL = "mail";
-      LDAP_ATTRIBUTE_USER_FIRST_NAME = "givenName";
-      LDAP_ATTRIBUTE_USER_LAST_NAME = "sn";
-      LDAP_ATTRIBUTE_GROUP_MEMBER = "uniqueMember";
-      LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER = "cn";
-      LDAP_ATTRIBUTE_GROUP_NAME = "cn";
     };
   };
 
@@ -81,7 +64,6 @@
           set -euo pipefail
           export ENCRYPTION_KEY=$(cat ${config.sops.secrets.pocket-id-encryption-key.path})
           export SMTP_PASSWORD=$(cat ${config.sops.secrets.smtp-pass.path})
-          export LDAP_BIND_PASSWORD=$(cat ${config.sops.secrets.glauth-bindpw.path})
           exec ${lib.getExe pkgs.pocket-id}
         ''
       )
@@ -94,6 +76,7 @@
       proxyPass = "http://unix:/run/pocket-id/pocket-id.sock";
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
