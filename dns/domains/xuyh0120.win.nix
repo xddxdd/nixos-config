@@ -1,12 +1,16 @@
 { config, lib, ... }:
 let
-  homeDdnsTarget = "home-ddns.xuyh0120.win.";
-
   externalServices = [
     {
       recordType = "TXT";
       name = "@";
       contents = "google-site-verification=dFXi0jyD7Qm4WrRUaC79-XQWAJ4UwcdNSbGNTI9IvLg";
+    }
+    {
+      recordType = "CNAME";
+      name = "lab";
+      target = "lab.lantian.pub.";
+      ttl = "1h";
     }
   ];
 
@@ -14,55 +18,55 @@ let
     {
       recordType = "CNAME";
       name = "actual";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "ai";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "ai-api";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "alert";
-      target = "terrahost";
+      target = "terrahost.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "asf";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "attic";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "books";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "bitwarden";
-      target = "terrahost";
+      target = "terrahost.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "cal";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -74,37 +78,31 @@ let
     {
       recordType = "CNAME";
       name = "cloud";
-      target = "oracle-vm-arm1";
+      target = "oracle-vm-arm1.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "dashboard";
-      target = "terrahost";
+      target = "terrahost.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "ha";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "immich";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "jellyfin";
-      target = homeDdnsTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "lab";
-      target = "lab.lantian.pub.";
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -115,25 +113,25 @@ let
     {
       recordType = "CNAME";
       name = "n8n";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "netbox";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "prometheus";
-      target = "terrahost";
+      target = "terrahost.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "rss";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -145,7 +143,7 @@ let
     {
       recordType = "CNAME";
       name = "rsync-ci";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -163,13 +161,13 @@ let
     {
       recordType = "CNAME";
       name = "stats";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
       recordType = "CNAME";
       name = "tachidesk";
-      target = homeDdnsTarget;
+      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {
@@ -181,7 +179,7 @@ let
     {
       recordType = "CNAME";
       name = "wp";
-      target = "colocrossing";
+      target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
   ];
