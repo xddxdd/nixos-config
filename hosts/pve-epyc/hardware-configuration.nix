@@ -109,32 +109,4 @@
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
-
-  systemd.services.nvidia-power-limit = {
-    description = "Set Power Limit for NVIDIA GPUs";
-    wantedBy = [ "multi-user.target" ];
-    before = [ "pve-guests.service" ];
-    path = [ config.hardware.nvidia.package ];
-    script = ''
-      nvidia-smi -i 01:00.0 -pl 250
-      nvidia-smi -i c1:00.0 -pl 125
-    '';
-    serviceConfig.Type = "oneshot";
-    restartIfChanged = false;
-  };
-
-  systemd.services.ipmi-fan-control = {
-    description = "Set Fan Speed via IPMI";
-    wantedBy = [ "multi-user.target" ];
-    before = [ "pve-guests.service" ];
-    path = [ pkgs.ipmitool ];
-    script = ''
-      # Set P40 GPU fan to 80%
-      # Set noisy fan to 32%
-      # https://forums.servethehome.com/index.php?threads/asrock-rack-bmc-fan-control.26941/post-249035
-      ipmitool raw 0x3a 0x01 0x00 0x00 0x00 0x20 0x20 0x50 0x00 0x00
-    '';
-    serviceConfig.Type = "oneshot";
-    restartIfChanged = false;
-  };
 }
