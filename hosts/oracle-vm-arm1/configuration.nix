@@ -24,6 +24,9 @@
     ];
   };
 
+  # FIXME
+  lantian.backup.enable = false;
+
   lantian.ocfs2 = {
     enable = true;
     clusterName = "oci";

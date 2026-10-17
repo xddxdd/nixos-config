@@ -68,87 +68,84 @@ in
     };
   };
 
-  config = lib.mkMerge [
-    {
-      sops.secrets.restic-pw.sopsFile = inputs.secrets + "/common/restic.yaml";
-      sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
+  config = lib.mkIf cfg.enable {
+    sops.secrets.restic-pw.sopsFile = inputs.secrets + "/common/restic.yaml";
+    sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
 
-      environment.systemPackages = resticCommands ++ [ pkgs.rustic ];
-    }
-    (lib.mkIf cfg.enable {
-      lantian.backup.paths.nix-persistent = lib.mkIf isBtrfsRoot {
-        snapshotFrom = "/nix";
-        snapshotTo = "/nix/.snapshot";
-        backupPath = "/nix/.snapshot/persistent";
-      };
+    environment.systemPackages = resticCommands ++ [ pkgs.rustic ];
 
-      systemd.services = lib.mapAttrs' (
-        n: v:
-        lib.nameValuePair "backup-${n}" {
-          serviceConfig = {
-            Type = "oneshot";
-            CPUQuota = "40%";
-            OOMScoreAdjust = "1000";
-            TimeoutStopSec = 600;
-          };
-          unitConfig = lib.optionalAttrs (!(LT.this.hasTag LT.tags.client)) {
-            OnFailure = "notify-email@%n.service";
-          };
+    lantian.backup.paths.nix-persistent = lib.mkIf isBtrfsRoot {
+      snapshotFrom = "/nix";
+      snapshotTo = "/nix/.snapshot";
+      backupPath = "/nix/.snapshot/persistent";
+    };
 
-          path = [
-            pkgs.openssh
-          ]
-          ++ resticCommands;
+    systemd.services = lib.mapAttrs' (
+      n: v:
+      lib.nameValuePair "backup-${n}" {
+        serviceConfig = {
+          Type = "oneshot";
+          CPUQuota = "40%";
+          OOMScoreAdjust = "1000";
+          TimeoutStopSec = 600;
+        };
+        unitConfig = lib.optionalAttrs (!(LT.this.hasTag LT.tags.client)) {
+          OnFailure = "notify-email@%n.service";
+        };
 
-          preStart = ''
-            # Btrfs snapshot
-            [ -e "${v.snapshotTo}" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete "${v.snapshotTo}"
-            ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r "${v.snapshotFrom}" "${v.snapshotTo}"
+        path = [
+          pkgs.openssh
+        ]
+        ++ resticCommands;
 
-            mkdir -p /var/cache/restic/${n}
-          '';
+        preStart = ''
+          # Btrfs snapshot
+          [ -e "${v.snapshotTo}" ] && ${lib.getExe pkgs.btrfs-progs} subvolume delete "${v.snapshotTo}"
+          ${lib.getExe pkgs.btrfs-progs} subvolume snapshot -r "${v.snapshotFrom}" "${v.snapshotTo}"
 
-          script = ''
-            HAS_ERROR=0
-            ${lib.concatMapStringsSep "\n" (
-              repo: backupScript v.backupPath repo (pkgs.writeText "ignored.txt" v.ignored)
-            ) cfg.resticRepos}
-            exit $HAS_ERROR
-          '';
+          mkdir -p /var/cache/restic/${n}
+        '';
 
-          # Remove snapshot
-          postStop = ''
-            ${lib.getExe pkgs.btrfs-progs} subvolume delete ${v.snapshotTo}
+        script = ''
+          HAS_ERROR=0
+          ${lib.concatMapStringsSep "\n" (
+            repo: backupScript v.backupPath repo (pkgs.writeText "ignored.txt" v.ignored)
+          ) cfg.resticRepos}
+          exit $HAS_ERROR
+        '';
 
-            rm -rf /var/cache/restic/${n}
-          '';
-        }
-      ) cfg.paths;
+        # Remove snapshot
+        postStop = ''
+          ${lib.getExe pkgs.btrfs-progs} subvolume delete ${v.snapshotTo}
 
-      systemd.timers = lib.mapAttrs' (
-        n: v:
-        lib.nameValuePair "backup-${n}" {
-          enable = cfg.schedule != null;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "backup-${n}.service" ];
-          timerConfig = {
-            OnCalendar = cfg.schedule;
-            RandomizedDelaySec = "1h";
-            Unit = "backup-${n}.service";
-            Persistent = cfg.persistentTimer;
-          };
-        }
-      ) cfg.paths;
+          rm -rf /var/cache/restic/${n}
+        '';
+      }
+    ) cfg.paths;
 
-      systemd.tmpfiles.settings = {
-        restic = {
-          "/var/cache/restic".d = {
-            mode = "700";
-            user = "root";
-            group = "root";
-          };
+    systemd.timers = lib.mapAttrs' (
+      n: v:
+      lib.nameValuePair "backup-${n}" {
+        enable = cfg.schedule != null;
+        wantedBy = [ "timers.target" ];
+        partOf = [ "backup-${n}.service" ];
+        timerConfig = {
+          OnCalendar = cfg.schedule;
+          RandomizedDelaySec = "1h";
+          Unit = "backup-${n}.service";
+          Persistent = cfg.persistentTimer;
+        };
+      }
+    ) cfg.paths;
+
+    systemd.tmpfiles.settings = {
+      restic = {
+        "/var/cache/restic".d = {
+          mode = "700";
+          user = "root";
+          group = "root";
         };
       };
-    })
-  ];
+    };
+  };
 }
