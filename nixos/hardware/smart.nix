@@ -10,5 +10,10 @@
 
   systemd.services."prometheus-smartctl-exporter".serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
+    # Reads SMART data via device ioctls
+    PrivateUsers = false;
+    PrivateDevices = false;
   };
+
+  systemd.services."prometheus-smartctl-exporter".confinement = { enable = true; fullUnit = true; };
 }

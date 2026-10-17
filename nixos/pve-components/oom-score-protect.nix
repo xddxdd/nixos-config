@@ -25,6 +25,9 @@
       ProtectProc = "default";
       ProcSubset = "all";
       SystemCallFilter = [ ];
+      # Needs host capabilities and full host /proc view (sees QEMU PIDs),
+      # which a confinement chroot cannot provide
+      PrivateUsers = false;
     };
   };
 }

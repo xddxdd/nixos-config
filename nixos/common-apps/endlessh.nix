@@ -40,6 +40,7 @@ in
     ];
   };
 
+  # Upstream module already chroots endlessh (RootDirectory=/run/endlessh)
   systemd.services.endlessh.serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
   };

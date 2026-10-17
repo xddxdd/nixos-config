@@ -78,8 +78,20 @@ in
       User = "bird";
       Group = "bird";
       RuntimeDirectory = "bird";
+      # Manages host kernel routes
+      PrivateUsers = false;
+      # chroot's tmpfs root is ephemeral; bind control socket through (used by
+      # birdc, bird-lgproxy-go and the bird exporter outside the chroot).
+      # /etc/bird on the host is a symlink chain to /etc/static, whose
+      # store target isn't in the closure, so bind the real store file
+      BindPaths = [ "/run/bird" ];
+      BindReadOnlyPaths = [
+        "${config.environment.etc."bird/bird.conf".source}:/etc/bird/bird.conf"
+      ];
     }
   );
+
+  systemd.services.bird.confinement = { enable = true; fullUnit = true; };
 
   systemd.tmpfiles.settings = {
     bird-config = {
@@ -119,7 +131,9 @@ in
     RestartSec = "5s";
     ProcSubset = "all";
     ProtectProc = "default";
+    BindReadOnlyPaths = [ "/run/bird" ];
   };
+  systemd.services."prometheus-bird-exporter".confinement = { enable = true; fullUnit = true; };
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
@@ -157,6 +171,11 @@ in
       User = "bird";
 
       CPUQuota = "10%";
+      # Privileged operations need host-level capabilities
+      PrivateUsers = false;
+      BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
+
+  systemd.services.bird-lgproxy-go.confinement = { enable = true; fullUnit = true; };
 }

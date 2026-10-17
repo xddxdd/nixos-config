@@ -58,6 +58,23 @@
     RestartSec = lib.mkForce 5;
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";
+    # chroot's tmpfs root is ephemeral; bind state dir + socket through; the
+    # socket is accessed by nginx outside the chroot
+    BindPaths = [
+      "/var/lib/pocket-id"
+      "/run/pocket-id"
+    ];
+    # sops secrets, postgres unix socket, CA certs for SMTP TLS
+    BindReadOnlyPaths = [
+      "/run/postgresql"
+      "/run/secrets/pocket-id-encryption-key"
+      "/run/secrets/smtp-pass"
+      "/etc/ssl/certs"
+      # Peer auth to postgres and the GeoLite DB need the real uid/hosts
+      # environment; user namespace would break postgres peer auth
+      "${config.environment.etc."geoip".source}:/etc/geoip"
+    ];
+    PrivateUsers = lib.mkForce false;
     ExecStart = lib.mkForce (
       builtins.toString (
         pkgs.writeShellScript "pocket-id-start" ''
@@ -69,6 +86,7 @@
       )
     );
   };
+  systemd.services.pocket-id.confinement = { enable = true; fullUnit = true; };
   users.groups.pocket-id.members = [ "nginx" ];
 
   lantian.nginxVhosts."id.lantian.pub" = {

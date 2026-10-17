@@ -66,8 +66,13 @@ let
     IOSchedulingClass = "realtime";
   };
 in
+#
+# Presets keep mkOptionDefault (weaker than mkDefault): upstream modules
+# plainly defining the same keys must win; where the confinement module's
+# mkDefault would clobber a preset value needed for operation, the affected
+# service sets that key plainly.
 {
-  inherit serviceHardenArgs;
+  inherit serviceHardenArgs networkToolHardenArgs realtimeArgs;
   serviceHarden = lib.mapAttrs (k: lib.mkOptionDefault) serviceHardenArgs;
   networkToolHarden = lib.mapAttrs (k: lib.mkOptionDefault) networkToolHardenArgs;
   realtime = lib.mapAttrs (k: lib.mkOptionDefault) realtimeArgs;

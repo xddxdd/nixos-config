@@ -223,11 +223,42 @@ in
       inherit (config.environment.variables) OPENSSL_CONF;
     };
     serviceConfig = {
+      # Nginx binds privileged ports 80/443
+      PrivateUsers = false;
+      # chroot's tmpfs root is ephemeral; bind sockets and cache/logs through.
+      # BindReadOnlyPaths first, then BindPaths override at these paths.
+      BindReadOnlyPaths =
+        [
+          # App unix sockets (nginx only connects; FS permissions still apply)
+          "/run"
+          # Name resolution and TLS client verification
+          "/etc/hosts"
+          "/etc/resolv.conf"
+          "/etc/ssl/certs"
+          "/etc/localtime"
+          # Config: /etc/nginx/* are symlinks to /etc/static, whose store target
+          # is not in the unit closure, so bind the real store files instead
+          "${config.environment.etc."nginx/nginx.conf".source}:/etc/nginx/nginx.conf"
+          "${config.environment.etc."nginx/htpasswd".source}:/etc/nginx/htpasswd"
+        ]
+        ++ lib.optionals config.lantian.geoip.enable [
+          "${config.environment.etc."geoip".source}:/etc/geoip"
+        ]
+        ++ [
+          # ACME certs and synced vhost content, maintained by rsync-server
+          "/nix/sync-servers"
+        ];
+      BindPaths = [
+        "/run/nginx"
+        "/var/cache/nginx"
+        "/var/log/nginx"
+      ];
       SystemCallErrorNumber = "EPERM";
       SystemCallFilter = lib.mkForce [ ];
       LimitMEMLOCK = "infinity";
       LimitNOFILE = "1048576";
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   environment.etc."nginx/htpasswd".text = ''

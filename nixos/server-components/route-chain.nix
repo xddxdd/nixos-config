@@ -48,9 +48,23 @@
         Restart = "always";
         RestartSec = "3";
         ExecStart = "${lib.getExe pkgs.nur-xddxdd.route-chain} ${builtins.concatStringsSep " " config.services.route-chain.routes}";
-        DynamicUser = true;
+        # DynamicUser implies PrivateDevices=true (fresh /dev without
+        # /dev/net/tun), breaking tun_create inside the confinement chroot
+        User = "route-chain";
+        Group = "route-chain";
+        # Drives host netlink and needs /dev/net/tun
+        PrivateDevices = lib.mkForce false;
+        PrivateUsers = false;
       };
+
+      confinement = { enable = true; fullUnit = true; };
     };
+
+    users.users.route-chain = {
+      isSystemUser = true;
+      group = "route-chain";
+    };
+    users.groups.route-chain = { };
 
     lantian.firewall.chains.PUBLIC_FORWARD.rules = lib.mkIf config.services.route-chain.enable [
       {

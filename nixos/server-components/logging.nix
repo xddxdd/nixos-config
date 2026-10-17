@@ -69,15 +69,54 @@
   systemd.services.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
     serviceConfig = LT.serviceHarden // {
       RestartSec = "5s";
-      StateDirectory = "fluent-bit";
       ProcSubset = "all";
-      ReadOnlyPaths = [ "/run" ];
       RestrictAddressFamilies = [
         "AF_UNIX"
         "AF_INET"
         "AF_INET6"
         "AF_NETLINK"
       ];
+      # Reads journald files; chroot tmpfs root is ephemeral, so bind the
+      # host state dir through
+      # Fixed user instead of upstream DynamicUser: with the confinement
+      # chroot + user namespace, host-side files land as nobody:nogroup and
+      # are unwritable
+      DynamicUser = lib.mkForce false;
+      User = "fluent-bit";
+      Group = "fluent-bit";
+      PrivateUsers = false;
+      BindReadOnlyPaths = [
+        "/var/log/journal"
+        "/run/log/journal"
+        "/run/systemd/journal"
+        "/etc/machine-id"
+      ];
+      BindPaths = [ "/var/lib/fluent-bit" ];
+    };
+
+    confinement = { enable = true; fullUnit = true; };
+  };
+
+  # State dir is bind-mounted through the confinement chroot; create it on
+  # fresh hosts (can't use preservation, /var/lib is already preserved);
+  # R rule fixes ownership of files previously created under a user namespace
+  systemd.tmpfiles.settings = {
+    fluent-bit = {
+      "/var/lib/fluent-bit"."d" = {
+        mode = "750";
+        user = "fluent-bit";
+        group = "fluent-bit";
+      };
+      "/var/lib/fluent-bit"."R" = {
+        user = "fluent-bit";
+        group = "fluent-bit";
+      };
     };
   };
+
+  users.users.fluent-bit = {
+    isSystemUser = true;
+    group = "fluent-bit";
+  };
+  users.groups.fluent-bit = { };
 }

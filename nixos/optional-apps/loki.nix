@@ -99,12 +99,19 @@ in
   # must not replace upstream scalar settings with competing definitions.
   systemd.services.loki.serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
-    ReadWritePaths = [ dataDir ];
     Group = config.services.loki.group;
     RuntimeDirectory = "loki";
     RuntimeDirectoryMode = "0770";
     UMask = "0007";
+    # chroot's tmpfs root is ephemeral; bind host state dir and socket
+    # (read and proxied by nginx through its group membership)
+    BindPaths = [
+      "/var/lib/loki"
+      "/run/loki"
+    ];
   };
+
+  systemd.services.loki.confinement = { enable = true; fullUnit = true; };
 
   users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
   systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];

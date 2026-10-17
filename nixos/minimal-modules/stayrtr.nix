@@ -116,7 +116,13 @@ let
           RestartSec = "3";
           User = cfg.user;
           Group = cfg.group;
+          # Reads RPKI cache files (and needs CA certs for https caches)
+          BindReadOnlyPaths = [
+            "/etc/ssl/certs"
+            "/nix/sync-servers"
+          ];
         };
+        confinement = { enable = true; fullUnit = true; };
       }
     );
 in

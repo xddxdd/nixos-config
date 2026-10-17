@@ -12,7 +12,11 @@
   systemd.services.radicale.serviceConfig = LT.serviceHarden // {
     Restart = "always";
     RestartSec = 5;
+    # chroot's tmpfs root is ephemeral; bind host data dir through
+    BindPaths = [ "/var/lib/radicale/collections" ];
   };
+
+  systemd.services.radicale.confinement = { enable = true; fullUnit = true; };
 
   lantian.nginxVhosts."cal.xuyh0120.win" = {
     locations = {

@@ -50,7 +50,24 @@ in
     LimitMEMLOCK = "infinity";
     LimitNOFILE = "1048576";
     RestartSec = "5s";
+    # Postgres resolves peer-socket credentials with host uid→name mapping;
+    # a user namespace would make that unmapped and break peer auth
+    PrivateUsers = false;
+    # chroot's tmpfs root is ephemeral; bind data dir + unix socket through;
+    # the socket is accessed by exporters and apps outside the chroot
+    BindPaths = [
+      "/var/lib/postgresql"
+      "/run/postgresql"
+    ];
+    BindReadOnlyPaths = [
+      "/etc/localtime"
+      # Peer auth resolves peer uid→name via nss files
+      "/etc/passwd"
+      "/etc/group"
+    ];
   };
+
+  systemd.services.postgresql.confinement = { enable = true; fullUnit = true; };
 
   services.prometheus.exporters.postgres = {
     enable = true;
@@ -63,5 +80,7 @@ in
     RestartSec = "5s";
     ProcSubset = "all";
     ProtectProc = "default";
+    BindReadOnlyPaths = [ "/run/postgresql" ];
   };
+  systemd.services."prometheus-postgres-exporter".confinement = { enable = true; fullUnit = true; };
 }

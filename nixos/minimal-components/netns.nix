@@ -260,7 +260,11 @@ in
                   User = "bird";
                   Group = "bird";
                   RuntimeDirectory = "bird-${name}";
+                  # Joins host-owned network namespace via NetworkNamespacePath
+                  PrivateUsers = false;
+                  BindReadOnlyPaths = [ "/run/netns" ];
                 };
+                confinement = { enable = true; fullUnit = true; };
               }
             ))
           ]

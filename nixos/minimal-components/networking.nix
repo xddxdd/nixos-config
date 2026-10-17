@@ -147,10 +147,14 @@ in
   systemd.services.mptcp.serviceConfig = LT.networkToolHarden // {
     Restart = "on-failure";
     RestartSec = "3";
-    # mptcpd probes /proc/sys/net/mptcp for kernel support
-    ProtectProc = "default";
+    # mptcpd probes /proc/sys/net/mptcp for kernel support and drives host
+    # netlink
+    PrivateUsers = false;
     ProcSubset = "all";
+    ProtectProc = "default";
   };
+
+  systemd.services.mptcp.confinement = { enable = true; fullUnit = true; };
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;

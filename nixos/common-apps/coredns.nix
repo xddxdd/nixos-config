@@ -101,6 +101,17 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
     serviceConfig = LT.serviceHarden // {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "5";
+      # Joins host-owned network namespace via NetworkNamespacePath
+      PrivateUsers = false;
+      BindReadOnlyPaths = [
+        "/run/netns"
+        # DoT upstream verification
+        "/etc/ssl/certs"
+      ]
+      ++ lib.optionals config.networking.networkmanager.enable [
+        "/run/NetworkManager/no-stub-resolv.conf:/run/NetworkManager/no-stub-resolv.conf"
+      ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 }

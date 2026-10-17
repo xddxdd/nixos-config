@@ -75,7 +75,14 @@ in
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
       Nice = "-20";
+      # Opens /dev/net/tun and drives host network
+      PrivateUsers = false;
+      PrivateDevices = false;
+      # chroot's tmpfs root is ephemeral; bind host state dir through
+      BindPaths = [ "/var/lib/zerotier-one" ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   systemd.services.zerotierone-setup-neighbors = {

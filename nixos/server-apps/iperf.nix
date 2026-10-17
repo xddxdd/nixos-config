@@ -27,6 +27,8 @@
     serviceConfig = LT.serviceHarden // {
       RestartSec = lib.mkForce "5s";
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   systemd.sockets.iperf3 = {

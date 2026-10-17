@@ -10,5 +10,9 @@
 
   systemd.services."prometheus-node-cert-exporter".serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
+    # Reads ACME cert files
+    BindReadOnlyPaths = [ "/nix/sync-servers" ];
   };
+
+  systemd.services."prometheus-node-cert-exporter".confinement = { enable = true; fullUnit = true; };
 }
