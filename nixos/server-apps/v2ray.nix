@@ -101,7 +101,13 @@ let
     };
   };
 in
-lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
+# Disabled: common/v2ray.yaml (vless key) removed from nixos-secrets
+# (7bcc13f). Restore file + secret, then change the gate below back to
+# `LT.this.hasTag LT.tags.cn-accel`.
+lib.mkIf false
+
+# lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
+{
   sops.secrets.v2ray-key = {
     sopsFile = inputs.secrets + "/common/v2ray.yaml";
     owner = "nginx";

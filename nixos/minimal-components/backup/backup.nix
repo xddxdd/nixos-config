@@ -30,7 +30,10 @@ in
   options.lantian.backup = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = LT.this.hasTag LT.tags.server;
+      # Disabled: common/restic.yaml + common/sftp.yaml removed from
+      # nixos-secrets (7bcc13f); re-enable (and lt-hp-omen's explicit opt-in)
+      # once the restic + sftp secrets are re-provisioned.
+      default = false;
     };
     resticRepos = lib.mkOption {
       type = lib.types.listOf lib.types.str;

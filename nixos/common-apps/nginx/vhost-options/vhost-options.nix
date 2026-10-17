@@ -8,6 +8,16 @@
 }@args:
 let
   osConfig = config;
+
+  # Replacement for ssl-cert-snakeoil.{pem,key} that used to live in the
+  # secrets repo (removed in 7bcc13f): a self-signed cert generated locally
+  # for the catch-all HTTPS listen, so nginx does not depend on secrets.
+  snakeoilCert = pkgs.runCommand "ssl-cert-snakeoil" { } ''
+    ${pkgs.openssl}/bin/openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:P-384 \
+      -sha512 -nodes -days 36500 -subj '/CN=snakeoil.lantian.pub' \
+      -addext 'subjectAltName=DNS:snakeoil.lantian.pub,DNS:*.lantian.pub,DNS:*.xuyh0120.win' \
+      -keyout "$out/snakeoil.key" -out "$out/snakeoil.pem"
+  '';
 in
 { name, config, ... }:
 let
@@ -283,8 +293,9 @@ let
           ''
         else
           ''
-            ssl_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
-            ssl_certificate_key ${inputs.secrets + "/ssl-cert-snakeoil.key"};
+            # Snakeoil pair is generated locally (see snakeoilCert in let-block)
+            ssl_certificate ${snakeoilCert}/snakeoil.pem;
+            ssl_certificate_key ${snakeoilCert}/snakeoil.key;
           ''
       ))
       + (lib.optionalString config.enableCommonVhostOptions ''

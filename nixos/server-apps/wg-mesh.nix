@@ -17,6 +17,10 @@ let
       null;
   targetHosts = lib.filterAttrs (n: v: v.hasTag "server") LT.otherHosts;
 in
+# Disabled: per-host/wg-priv/${hostname}.yaml files removed from nixos-secrets
+# (7bcc13f); mesh private keys unavailable. Restore the directory + files,
+# then remove this gate.
+lib.mkIf false
 {
   sops.secrets.wg-priv = {
     sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";

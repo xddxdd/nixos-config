@@ -107,10 +107,10 @@ rec {
     '';
   };
 
-  maintenanceHosts = {
-    "terrahost" = [ "storagebox" ];
-    "pve-epyc" = [ "home" ];
-  };
+  # Disabled: restic/sftp secrets removed from nixos-secrets (7bcc13f);
+  # backup infra (rustic + sftp to pve-epyc / StorageBox) is out until the
+  # secrets are re-provisioned. Entries and resticRepos via git history.
+  maintenanceHosts = { };
 
   resticCommands = lib.mapAttrsToList (
     k: v:

@@ -20,10 +20,8 @@ let
   '';
 in
 {
-  sops.secrets.default-pw = {
-    sopsFile = inputs.secrets + "/common/default-pw.yaml";
-    mode = "0444";
-  };
+  # Disabled: common/default-pw.yaml removed from nixos-secrets (7bcc13f).
+  # Restore from git history once the secret is re-provisioned.
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";

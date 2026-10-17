@@ -16,7 +16,9 @@ let
   '';
 in
 {
-  sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
+  # Disabled: common/sftp.yaml removed from nixos-secrets (7bcc13f);
+  # sftp-privkey (StorageBox / sftp.pve-epyc) unavailable until re-provisioned.
+  #  sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
 
   # Keep compatibility with PVE which expect SSH keys in standard location
   lantian.preservation.files = [
@@ -134,21 +136,22 @@ in
       Port 22
       PubkeyAcceptedKeyTypes ssh-ed25519
 
-    Host u378583-sub1.your-storagebox.de
-      User u378583-sub1
-      Port 23
-      IdentityFile ${config.sops.secrets.sftp-privkey.path}
+    # Disabled with sftp-privkey secret (below), see note at top of file
+    #  Host u378583-sub1.your-storagebox.de
+    #    User u378583-sub1
+    #    Port 23
+    #    IdentityFile ''${config.sops.secrets.sftp-privkey.path}
 
-    Host u378583-sub2.your-storagebox.de
-      User u378583-sub2
-      Port 23
-      IdentityFile ${config.sops.secrets.sftp-privkey.path}
+    #  Host u378583-sub2.your-storagebox.de
+    #    User u378583-sub2
+    #    Port 23
+    #    IdentityFile ''${config.sops.secrets.sftp-privkey.path}
 
-    Host sftp.pve-epyc.ltnet.xuyh0120.win
-      HostName pve-epyc.ltnet.xuyh0120.win
-      User sftp
-      IdentityFile ${config.sops.secrets.sftp-privkey.path}
-      ${ltnetSSHConfig}
+    #  Host sftp.pve-epyc.ltnet.xuyh0120.win
+    #    HostName pve-epyc.ltnet.xuyh0120.win
+    #    User sftp
+    #    IdentityFile ''${config.sops.secrets.sftp-privkey.path}
+    #    ''${ltnetSSHConfig}
 
     Host git.lantian.pub
       User git

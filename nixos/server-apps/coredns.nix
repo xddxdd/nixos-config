@@ -11,16 +11,10 @@ let
 
   corednsConfig =
     let
-      dnssec =
-        key:
-        if key != null then
-          ''
-            dnssec {
-              key file "${config.sops.secrets."${key}.private".path}"
-            }
-          ''
-        else
-          "";
+      # Disabled: common/dnssec.yaml (DNSSEC key set) removed from
+      # nixos-secrets (7bcc13f); zones are served unsigned for now. Restore
+      # the file and revert this to re-enable DNSSEC.
+      dnssec = _key: "";
       forwardZone = zone: dnssecKey: ''
         ${zone} {
           any
@@ -127,19 +121,22 @@ let
 
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
-  sops.secrets =
-    let
-      lines = lib.splitString "\n" (builtins.readFile (inputs.secrets + "/common/dnssec.yaml"));
-      keyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
-        builtins.filter (lib.hasPrefix "    K") lines
-      );
-    in
-    lib.genAttrs keyNames (n: {
-      sopsFile = inputs.secrets + "/common/dnssec.yaml";
-      key = "dnssec/${n}";
-      owner = "coredns";
-      group = "coredns";
-    });
+  # Disabled: common/dnssec.yaml removed from nixos-secrets (7bcc13f);
+  # restore from git history together with the DNSSEC gate in the Corefile.
+  # sops.secrets =
+  #   let
+  #     lines = lib.splitString "\n" (builtins.readFile (inputs.secrets + 
+  #       "/common/dnssec.yaml"));
+  #     keyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
+  #       builtins.filter (lib.hasPrefix "    K") lines
+  #     );
+  #   in
+  #   lib.genAttrs keyNames (n: {
+  #     sopsFile = inputs.secrets + "/common/dnssec.yaml";
+  #     key = "dnssec/''${n}";
+  #     owner = "coredns";
+  #     group = "coredns";
+  #   });
 
   lantian.netns.coredns-authoritative = {
     ipSuffix = "54";

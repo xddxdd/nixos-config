@@ -149,6 +149,9 @@ let
     };
   };
 in
+# Disabled: common/v2ray.yaml (vless key) removed from nixos-secrets
+# (7bcc13f). Restore file + secret, then replace this with `lib.mkIf true`.
+lib.mkIf false
 {
   sops.secrets = lib.genAttrs [ "v2ray-key" ] (_: {
     sopsFile = inputs.secrets + "/common/v2ray.yaml";

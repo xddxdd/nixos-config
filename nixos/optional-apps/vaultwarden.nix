@@ -31,10 +31,12 @@
 
       DATABASE_URL = "mysql:///vaultwarden";
 
-      USE_SENDMAIL = "true";
-      SENDMAIL_COMMAND = lib.getExe pkgs.msmtp;
-      SMTP_FROM = config.programs.msmtp.accounts.default.from;
-      SMTP_FROM_NAME = "Vaultwarden";
+      # Disabled: USE_SENDMAIL / SMTP_* removed — msmtp (minimal smtp.nix) is
+      # disabled while common/smtp.yaml is gone from nixos-secrets (7bcc13f).
+      #  USE_SENDMAIL = "true";
+      #  SENDMAIL_COMMAND = lib.getExe pkgs.msmtp;
+      #  SMTP_FROM = config.programs.msmtp.accounts.default.from;
+      #  SMTP_FROM_NAME = "Vaultwarden";
     };
   };
 

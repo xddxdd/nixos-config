@@ -207,7 +207,13 @@ let
     "223.128.0.0 255.128.0.0"
   ];
 in
-lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
+# Disabled: openvpn-gameaccel.yaml (CA / cert / key) removed from
+# nixos-secrets (7bcc13f). Restore file + secret, then change the gate below
+# back to `LT.this.hasTag LT.tags.cn-accel`.
+lib.mkIf false
+
+# lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
+{
   sops.secrets.openvpn-gameaccel-ca = {
     sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
