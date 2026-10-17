@@ -55,7 +55,7 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
       "= /config.json".root = elementConfigPath;
     };
 
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
     disableLiveCompression = true;
   };

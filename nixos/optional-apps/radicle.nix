@@ -119,7 +119,7 @@ in
       };
     };
 
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     disableLiveCompression = true;
   };
 }

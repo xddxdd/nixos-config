@@ -41,7 +41,7 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
         '';
       };
 
-      sslCertificate = "zerossl-lantian.pub";
+      sslCertificate = "lets-encrypt-lantian.pub";
     };
 
     "stage1.whois.local" = {

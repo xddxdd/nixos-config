@@ -33,8 +33,8 @@ in
     protocol=tls
     bind=${LT.this.public.IPv4}:5061
     ca_list_file=/etc/ssl/certs/ca-certificates.crt
-    cert_file=${LT.nginx.getSSLCert "zerossl-lantian.pub-ecc"}
-    priv_key_file=${LT.nginx.getSSLKey "zerossl-lantian.pub-ecc"}
+    cert_file=${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"}
     method=tlsv1_2
     verify_client=no
     verify_server=yes
@@ -57,8 +57,8 @@ in
     protocol=tls
     bind=[${LT.this.public.IPv6}]:5061
     ca_list_file=/etc/ssl/certs/ca-certificates.crt
-    cert_file=${LT.nginx.getSSLCert "zerossl-lantian.pub-ecc"}
-    priv_key_file=${LT.nginx.getSSLKey "zerossl-lantian.pub-ecc"}
+    cert_file=${LT.nginx.getSSLCert "lets-encrypt-lantian.pub-ecc"}
+    priv_key_file=${LT.nginx.getSSLKey "lets-encrypt-lantian.pub-ecc"}
     method=tlsv1_2
     verify_client=no
     verify_server=yes

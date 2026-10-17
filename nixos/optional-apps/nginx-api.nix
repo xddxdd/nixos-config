@@ -80,7 +80,7 @@ _: {
       };
     };
 
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 }

@@ -11,7 +11,6 @@ in
   imports = [
     ./base-domains.nix
     ./cert-exporter.nix
-    ./testssl.nix
   ];
 
   sops.secrets.lego-env = {

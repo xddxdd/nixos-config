@@ -24,7 +24,7 @@ in
         serverName = "~^(?<sub>[^.]+)\\.${lib.escapeRegex domain}$";
         locations."/".return = "301 https://$sub.${new}.xuyh0120.win$request_uri";
         enableCommonLocationOptions = false;
-        sslCertificate = "zerossl-${old}.xuyh0120.win";
+        sslCertificate = "lets-encrypt-${old}.xuyh0120.win";
       };
     }
   ) replacedOnThisHost;

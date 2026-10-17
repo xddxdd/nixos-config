@@ -17,8 +17,6 @@ in
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
@@ -27,8 +25,6 @@ in
     "lets-encrypt-${domain}-ecc" = {
       inherit domain;
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
@@ -41,8 +37,6 @@ in
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
@@ -52,8 +46,6 @@ in
       inherit domain;
       extraDomainNames = [ "*.${domain}" ];
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
@@ -65,8 +57,6 @@ in
     "lets-encrypt-test-${domain}-rsa" = {
       inherit domain;
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "rsa4096";
       server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
@@ -75,113 +65,9 @@ in
     "lets-encrypt-test-${domain}-ecc" = {
       inherit domain;
       extraLegoFlags = [ "--dns.propagation.wait=60s" ];
-      extraLegoRunFlags = [ "--profile=shortlived" ];
-      extraLegoRenewFlags = [ "--profile=shortlived" ];
       keyType = "ec384";
       server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       validMinDays = 3;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
-  mkGoogleCert = domain: {
-    "google-${domain}-rsa" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "rsa4096";
-      server = "https://dv.acme-v02.api.pki.goog/directory";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "google-${domain}-ecc" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "ec384";
-      server = "https://dv.acme-v02.api.pki.goog/directory";
-      validMinDays = 30;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
-  mkGoogleTestCert = domain: {
-    "google-test-${domain}-rsa" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "rsa4096";
-      server = "https://dv.acme-v02.test-api.pki.goog/directory";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "google-test-${domain}-ecc" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "ec384";
-      server = "https://dv.acme-v02.test-api.pki.goog/directory";
-      validMinDays = 30;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
-  mkZeroSSLCert = domain: {
-    "zerossl-${domain}-rsa" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "rsa4096";
-      server = "https://acme.zerossl.com/v2/DV90";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "zerossl-${domain}-ecc" = {
-      inherit domain;
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "ec384";
-      server = "https://acme.zerossl.com/v2/DV90";
-      validMinDays = 30;
-      renewInterval = eccRenewInterval;
-    };
-  };
-
-  mkZeroSSLWildcardCert = domain: {
-    "zerossl-${domain}-rsa" = {
-      inherit domain;
-      extraDomainNames = [ "*.${domain}" ];
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "rsa4096";
-      server = "https://acme.zerossl.com/v2/DV90";
-      validMinDays = 30;
-      renewInterval = rsaRenewInterval;
-    };
-    "zerossl-${domain}-ecc" = {
-      inherit domain;
-      extraDomainNames = [ "*.${domain}" ];
-      extraLegoFlags = [
-        "--eab"
-        "--dns.propagation.wait=60s"
-      ];
-      keyType = "ec384";
-      server = "https://acme.zerossl.com/v2/DV90";
-      validMinDays = 30;
       renewInterval = eccRenewInterval;
     };
   };

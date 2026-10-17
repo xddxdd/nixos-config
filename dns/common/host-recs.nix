@@ -191,20 +191,7 @@ in
         tag = "issuewild";
         value = "letsencrypt.org";
       }
-      # Google
-      {
-        recordType = "CAA";
-        name = "@";
-        tag = "issue";
-        value = "pki.goog; cansignhttpexchanges=yes";
-      }
-      {
-        recordType = "CAA";
-        name = "@";
-        tag = "issuewild";
-        value = "pki.goog; cansignhttpexchanges=yes";
-      }
-      # ZeroSSL
+      # ZeroSSL and others
       {
         recordType = "CAA";
         name = "@";

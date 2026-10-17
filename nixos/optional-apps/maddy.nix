@@ -30,8 +30,8 @@
             keyPath = LT.nginx.getSSLKey v;
           })
           [
-            "zerossl-lantian.pub-ecc"
-            "zerossl-xuyh0120.win-ecc"
+            "lets-encrypt-lantian.pub-ecc"
+            "lets-encrypt-xuyh0120.win-ecc"
             "dn42-lantian.dn42-ecc"
           ];
     };

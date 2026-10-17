@@ -47,7 +47,7 @@ in
       proxyWebsockets = true;
     };
 
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
     blockMainlandChina = true;
   };

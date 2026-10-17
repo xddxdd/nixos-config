@@ -62,7 +62,7 @@ in
     # Conflict with oidc-tester paths
     enableCommonLocationOptions = false;
 
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 }

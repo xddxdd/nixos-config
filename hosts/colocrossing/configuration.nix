@@ -13,7 +13,7 @@
 
     ./hardware-configuration.nix
 
-    # ../../nixos/optional-apps/acme
+    ../../nixos/optional-apps/acme
     # ../../nixos/optional-apps/actual.nix
     # ../../nixos/optional-apps/archiveteam.nix
     # ../../nixos/optional-apps/attic.nix
@@ -56,7 +56,6 @@
     # ../../nixos/optional-cron-jobs/cleanup-github-notifications
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix
     # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
-    # ../../nixos/optional-cron-jobs/testssl.nix
 
     # "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
     # "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"

@@ -46,7 +46,7 @@ in
     };
 
     phpfpmSocket = config.services.phpfpm.pools.lab.socket;
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 
@@ -94,9 +94,6 @@ in
     nginx-lab = {
       "${labRoot}/hobby-net"."L+" = {
         argument = "/nix/sync-servers/ltnet-scripts";
-      };
-      "${labRoot}/testssl.html"."L+" = {
-        argument = "/nix/sync-servers/www/lab.lantian.pub/testssl.htm";
       };
     };
   };

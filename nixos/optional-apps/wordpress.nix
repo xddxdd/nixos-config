@@ -134,7 +134,7 @@ in
   };
 
   lantian.nginxVhosts."wp.xuyh0120.win" = {
-    sslCertificate = "zerossl-xuyh0120.win";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
   };
 
   systemd.services."phpfpm-wordpress-wp.xuyh0120.win".serviceConfig.RestartSec = "5s";

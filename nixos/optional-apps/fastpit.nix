@@ -32,7 +32,7 @@ in
         proxyPass = "http://unix:/run/fastpit/fastpit.sock";
       };
     };
-    sslCertificate = "zerossl-lantian.pub";
+    sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
 

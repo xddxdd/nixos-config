@@ -271,7 +271,7 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
             }
           '';
         };
-        sslCertificate = "zerossl-${domain}";
+        sslCertificate = "lets-encrypt-${domain}";
         noIndex.enable = true;
       }
     ) domains

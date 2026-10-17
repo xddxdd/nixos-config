@@ -57,7 +57,7 @@ in
         };
       };
 
-      sslCertificate = "zerossl-xuyh0120.win";
+      sslCertificate = "lets-encrypt-xuyh0120.win";
       noIndex.enable = true;
     };
     "cliproxyapi.xuyh0120.win" = {
@@ -71,7 +71,7 @@ in
       };
 
       accessibleBy = "private";
-      sslCertificate = "zerossl-xuyh0120.win";
+      sslCertificate = "lets-encrypt-xuyh0120.win";
       noIndex.enable = true;
     };
   };

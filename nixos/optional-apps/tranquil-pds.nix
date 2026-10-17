@@ -71,7 +71,7 @@
       proxyNoTimeout = true;
     };
 
-    sslCertificate = "zerossl-at.lantian.pub";
+    sslCertificate = "lets-encrypt-at.lantian.pub";
     noIndex.enable = true;
   };
 }

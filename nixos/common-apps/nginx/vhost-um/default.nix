@@ -10,7 +10,7 @@ in
   lantian.nginxVhosts."um.xuyh0120.win" = {
     root = um;
     accessibleBy = "private";
-    sslCertificate = "zerossl-xuyh0120.win";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
     disableLiveCompression = true;
   };

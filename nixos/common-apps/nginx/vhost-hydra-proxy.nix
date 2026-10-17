@@ -21,7 +21,7 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
 
       blockDotfiles = false;
       enableCommonLocationOptions = false;
-      sslCertificate = "zerossl-lantian.pub";
+      sslCertificate = "lets-encrypt-lantian.pub";
       noIndex.enable = true;
     };
   };

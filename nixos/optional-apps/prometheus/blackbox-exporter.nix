@@ -17,10 +17,6 @@ let
     "https://render.lantian.pub"
     "https://vercel.lantian.pub"
 
-    # SSL tests
-    "https://letsencrypt-ssl.lantian.pub"
-    "https://zerossl.lantian.pub"
-
     # Services under lantian.pub
     "https://comments.lantian.pub"
     "https://element.lantian.pub"

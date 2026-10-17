@@ -11,16 +11,12 @@
   "avatar.lantian.pub"
   "element.lantian.pub"
   "gemini.lantian.pub"
-  "google-ssl.lantian.pub"
-  "google-test-ssl.lantian.pub"
   "gopher.lantian.pub"
   "lab.lantian.pub"
   "lab.xuyh0120.win"
   "lantian.dn42"
   "lantian.neo"
   "lantian.pub"
-  "letsencrypt-ssl.lantian.pub"
-  "letsencrypt-test-ssl.lantian.pub"
   "ltn.pw"
   "posts.lantian.pub"
   "sip.lantian.pub"
@@ -32,7 +28,6 @@
   "www.ltn.pw"
   "xn--gmqs02au1c935d.pub"
   "xuyh0120.win"
-  "zerossl.lantian.pub"
   # keep-sorted end
 
   # Has own authentication system

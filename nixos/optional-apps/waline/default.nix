@@ -38,7 +38,7 @@ in
         "= /".return = "307 /ui/";
       };
 
-      sslCertificate = "zerossl-lantian.pub";
+      sslCertificate = "lets-encrypt-lantian.pub";
       noIndex.enable = true;
     };
   };

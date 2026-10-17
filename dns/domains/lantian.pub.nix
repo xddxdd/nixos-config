@@ -227,38 +227,6 @@ let
 
     # Active Directory
     (PublicNSRecords "ad")
-
-    # SSL tests
-    {
-      recordType = "CNAME";
-      name = "google-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "google-test-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "letsencrypt-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "letsencrypt-test-ssl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "zerossl";
-      target = config.common.records.GeoDNSTarget;
-      ttl = "1h";
-    }
   ];
 
   axisnowCDK = [
