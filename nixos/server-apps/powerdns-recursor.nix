@@ -68,7 +68,9 @@ let
     in
     azurePrivateDNS ++ all;
 in
-lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
+# FIXME: temporarily disabled
+lib.mkIf false {
+  # lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   networking.nameservers = lib.mkBefore [ "198.19.0.253" ];
 
   lantian.netns.powerdns-recursor = {

@@ -1,11 +1,11 @@
 { LT, inputs, ... }:
 {
   imports = [
-    ../../nixos/minimal.nix
+    ../../nixos/server.nix
 
     # (inputs.secrets + "/dn42/oracle-vm1.nix")
 
-    #../../nixos/optional-apps/archiveteam.nix
+    # ../../nixos/optional-apps/archiveteam.nix
 
     ./hardware-configuration.nix
   ];

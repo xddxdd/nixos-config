@@ -1,7 +1,7 @@
 { LT, ... }:
 {
   imports = [
-    ../../nixos/minimal.nix
+    ../../nixos/server.nix
 
     ./hardware-configuration.nix
   ];
