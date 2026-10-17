@@ -101,7 +101,7 @@ in
   hardware.ksm.enable = true;
 
   lantian.qemu-user-static-binfmt = {
-    enable = LT.this.hasTag LT.tags.nix-builder || LT.this.hasTag LT.tags.client;
+    enable = LT.this.hasTag LT.tags.nix-builder;
     package = pkgs.nur-xddxdd.qemu-user-static;
   };
 

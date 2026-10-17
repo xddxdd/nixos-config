@@ -2,7 +2,6 @@
   lib,
   LT,
   config,
-  inputs,
   pkgs,
   ...
 }:
@@ -15,17 +14,6 @@ let
   ];
 in
 {
-  sops.secrets.nix-access-token = {
-    sopsFile = inputs.secrets + "/common/nix.yaml";
-    group = "wheel";
-    mode = "0444";
-  };
-  sops.secrets.nix-netrc = {
-    sopsFile = inputs.secrets + "/common/nix.yaml";
-    group = "wheel";
-    mode = "0444";
-  };
-
   services.angrr = {
     enable = true;
     settings = {
@@ -62,9 +50,6 @@ in
 
   nix = {
     package = pkgs.nixVersions.latest;
-    extraOptions = ''
-      !include ${config.sops.secrets.nix-access-token.path}
-    '';
 
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
@@ -107,7 +92,6 @@ in
       trusted-users = allowedUsers;
       use-cgroups = true;
       warn-dirty = false;
-      netrc-file = config.sops.secrets.nix-netrc.path;
       use-xdg-base-directories = true;
 
       # # Determinate Nix specific
