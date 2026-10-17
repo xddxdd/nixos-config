@@ -2,9 +2,12 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
+  unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
+
   nginxSslConf =
     isStream:
     let
@@ -225,4 +228,8 @@ in
       LimitNOFILE = "1048576";
     };
   };
+
+  environment.etc."nginx/htpasswd".text = ''
+    lantian:${unixHashedPassword}
+  '';
 }

@@ -43,7 +43,7 @@
     # ../../nixos/optional-apps/plausible.nix
     # ../../nixos/optional-apps/pocket-id.nix
     # ../../nixos/optional-apps/quassel.nix
-    # ../../nixos/optional-apps/radicale.nix
+    ../../nixos/optional-apps/radicale.nix
     # ../../nixos/optional-apps/radicle.nix
     # ../../nixos/optional-apps/renovate.nix
     # ../../nixos/optional-apps/rsshub.nix

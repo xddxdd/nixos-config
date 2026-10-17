@@ -1,28 +1,10 @@
+{ LT, ... }:
 {
-  LT,
-  config,
-  inputs,
-  ...
-}:
-{
-  sops.secrets.glauth-bindpw = {
-    sopsFile = inputs.secrets + "/common/glauth.yaml";
-    mode = "0444";
-  };
-
   services.radicale = {
     enable = true;
     settings = {
       server.hosts = [ "127.0.0.1:${LT.portStr.Radicale}" ];
-      auth = {
-        type = "ldap";
-        ldap_uri = "ldap://[fdbc:f9dc:67ad:2547::389]";
-        ldap_base = "dc=lantian,dc=pub";
-        ldap_reader_dn = "cn=serviceuser,dc=lantian,dc=pub";
-        ldap_secret_file = config.sops.secrets.glauth-bindpw.path;
-        ldap_filter = "(&(cn={0})(objectClass=posixAccount)(!(ou=svcaccts)))";
-        ldap_user_attribute = "cn";
-      };
+      auth.type = "http_x_remote_user";
       storage.filesystem_folder = "/var/lib/radicale/collections";
     };
   };
@@ -34,7 +16,10 @@
 
   lantian.nginxVhosts."cal.xuyh0120.win" = {
     locations = {
-      "/".proxyPass = "http://127.0.0.1:${LT.portStr.Radicale}";
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.Radicale}";
+        enableBasicAuth = true;
+      };
     };
 
     sslCertificate = "lets-encrypt-xuyh0120.win";
