@@ -1098,14 +1098,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1792225073,
-        "narHash": "sha256-JXVPH9O3k8Xe7mxafGNR2b4yVFHYUJ3BQm1ZiAXb0yw=",
-        "path": "/home/lantian/Projects/nixos-secrets",
-        "type": "path"
+        "lastModified": 1792225929,
+        "narHash": "sha256-kqwjTBknX96Mx6ugqSILOsHn1yXsPE8OBfLBvDsP0fY=",
+        "owner": "xddxdd",
+        "repo": "nixos-secrets",
+        "rev": "f083a5680263c43de56eeba3b930b2a59d45e687",
+        "type": "github"
       },
       "original": {
-        "path": "/home/lantian/Projects/nixos-secrets",
-        "type": "path"
+        "owner": "xddxdd",
+        "repo": "nixos-secrets",
+        "type": "github"
       }
     },
     "sops-nix": {
