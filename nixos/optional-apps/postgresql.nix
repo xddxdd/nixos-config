@@ -59,5 +59,9 @@ in
     runAsLocalSuperUser = true;
   };
 
-  systemd.services."prometheus-postgres-exporter".serviceConfig.RestartSec = "5s";
+  systemd.services."prometheus-postgres-exporter".serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+    ProcSubset = "all";
+    ProtectProc = "default";
+  };
 }

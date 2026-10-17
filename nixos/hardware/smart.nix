@@ -8,5 +8,7 @@
     port = LT.port.Prometheus.SmartctlExporter;
   };
 
-  systemd.services."prometheus-smartctl-exporter".serviceConfig.RestartSec = "5s";
+  systemd.services."prometheus-smartctl-exporter".serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+  };
 }

@@ -223,6 +223,7 @@ in
       inherit (config.environment.variables) OPENSSL_CONF;
     };
     serviceConfig = {
+      SystemCallErrorNumber = "EPERM";
       SystemCallFilter = lib.mkForce [ ];
       LimitMEMLOCK = "infinity";
       LimitNOFILE = "1048576";

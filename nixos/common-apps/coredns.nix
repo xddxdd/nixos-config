@@ -98,7 +98,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
   };
 
   systemd.services.coredns = netns.bind {
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "5";
     };

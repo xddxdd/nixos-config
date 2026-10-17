@@ -412,7 +412,11 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     listenAddress = LT.this.ltnet.IPv4;
   };
 
-  systemd.services."prometheus-knot-exporter".serviceConfig.RestartSec = "5s";
+  systemd.services."prometheus-knot-exporter".serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+    ProcSubset = "all";
+    ProtectProc = "default";
+  };
 
   systemd.services = {
     coredns-authoritative = netns.bind {
@@ -448,6 +452,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         ReadWritePaths = [ "/tmp" ];
         CacheDirectory = "zones";
         RestartSec = "5s";
+        PrivateMounts = true;
+        SystemCallErrorNumber = "EPERM";
       };
     };
   };

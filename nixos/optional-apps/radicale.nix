@@ -9,7 +9,7 @@
     };
   };
 
-  systemd.services.radicale.serviceConfig = {
+  systemd.services.radicale.serviceConfig = LT.serviceHarden // {
     Restart = "always";
     RestartSec = 5;
   };

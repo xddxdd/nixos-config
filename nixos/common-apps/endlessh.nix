@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
@@ -40,5 +40,7 @@ in
     ];
   };
 
-  systemd.services.endlessh.serviceConfig.RestartSec = "5s";
+  systemd.services.endlessh.serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+  };
 }

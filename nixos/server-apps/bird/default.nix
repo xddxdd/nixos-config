@@ -115,7 +115,11 @@ in
     };
   };
 
-  systemd.services."prometheus-bird-exporter".serviceConfig.RestartSec = "5s";
+  systemd.services."prometheus-bird-exporter".serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+    ProcSubset = "all";
+    ProtectProc = "default";
+  };
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;

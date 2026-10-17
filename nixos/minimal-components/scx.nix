@@ -30,9 +30,28 @@
     inherit (config.services.scx) enable;
     serviceConfig = lib.mkIf config.services.scx.enable (
       LT.realtime
+      // LT.serviceHarden
       // {
         Restart = lib.mkForce "always";
         RestartSec = "3";
+        # scx loads BPF schedulers and needs realtime scheduling privileges;
+        # proc/capability isolation and syscall filters would block it
+        AmbientCapabilities = [
+          "CAP_SYS_ADMIN"
+          "CAP_BPF"
+          "CAP_PERFMON"
+          "CAP_SYS_NICE"
+        ];
+        CapabilityBoundingSet = [
+          "CAP_SYS_ADMIN"
+          "CAP_BPF"
+          "CAP_PERFMON"
+          "CAP_SYS_NICE"
+        ];
+        PrivateDevices = false;
+        ProtectProc = "default";
+        ProcSubset = "all";
+        SystemCallFilter = [ ];
       }
     );
   };

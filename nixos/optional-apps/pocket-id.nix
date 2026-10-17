@@ -54,7 +54,7 @@
     ];
   };
 
-  systemd.services.pocket-id.serviceConfig = {
+  systemd.services.pocket-id.serviceConfig = LT.serviceHarden // {
     RestartSec = lib.mkForce 5;
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";

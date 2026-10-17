@@ -67,6 +67,7 @@ let
   };
 in
 {
+  inherit serviceHardenArgs;
   serviceHarden = lib.mapAttrs (k: lib.mkOptionDefault) serviceHardenArgs;
   networkToolHarden = lib.mapAttrs (k: lib.mkOptionDefault) networkToolHardenArgs;
   realtime = lib.mapAttrs (k: lib.mkOptionDefault) realtimeArgs;

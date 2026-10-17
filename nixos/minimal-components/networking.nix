@@ -1,5 +1,6 @@
 {
   lib,
+  LT,
   config,
   ...
 }:
@@ -143,9 +144,12 @@ in
       };
     };
   };
-  systemd.services.mptcp.serviceConfig = {
+  systemd.services.mptcp.serviceConfig = LT.networkToolHarden // {
     Restart = "on-failure";
     RestartSec = "3";
+    # mptcpd probes /proc/sys/net/mptcp for kernel support
+    ProtectProc = "default";
+    ProcSubset = "all";
   };
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
