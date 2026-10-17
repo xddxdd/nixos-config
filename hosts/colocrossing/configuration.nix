@@ -13,6 +13,8 @@
 
     ./hardware-configuration.nix
 
+    ../../nixos/common-apps/nginx
+
     ../../nixos/optional-apps/acme
     # ../../nixos/optional-apps/actual.nix
     # ../../nixos/optional-apps/archiveteam.nix

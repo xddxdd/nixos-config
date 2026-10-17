@@ -1,10 +1,10 @@
 {
   config,
   lib,
-  LT,
   ...
 }:
-lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
+# FIXME: refactor without lua
+lib.mkIf false {
   lantian.nginxVhosts = {
     "whois.lantian.pub" = {
       listenHTTP.enable = true;

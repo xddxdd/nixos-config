@@ -274,8 +274,9 @@ let
       + (lib.optionalString (config.listenHTTPS.enable || config.listenHTTPS_Socket.enable) (
         if config.sslCertificate != null then
           ''
-            ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-rsa"};
-            ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-rsa"};
+            # FIXME: reenable when RSA certs ready
+            #ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-rsa"};
+            #ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-rsa"};
 
             ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-ecc"};
             ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-ecc"};
@@ -303,8 +304,6 @@ let
         add_header Cache-Control 'private';
         add_header Referrer-Policy strict-origin-when-cross-origin;
         add_header Permissions-Policy 'interest-cohort=()';
-
-        more_clear_headers 'X-Powered-By' 'X-Runtime' 'X-Version' 'X-AspNet-Version';
       '')
       + (lib.optionalString
         (config.enableCommonVhostOptions && (config.listenHTTPS.enable || config.listenHTTPS_Socket.enable))

@@ -223,53 +223,12 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
               add_header 'Content-Type' 'text/xml; charset=utf-8';
             '';
           };
-          "/email.mobileconfig".extraConfig = ''
-            add_header 'Content-Type' 'text/xml; charset=utf-8';
-
-            content_by_lua_block {
-              function get_email()
-                local xml = require "xmlSimple"
-                local parser = xml.newParser()
-                local email = ngx.var.arg_email
-                -- Escape string
-                return parser:ToXmlString(email)
-              end
-
-              local template = '${mobileconfigTemplate (emailConfigFor domain)}'
-              local email = get_email()
-              local substituted = string.gsub(template, "__EMAIL__", email)
-              ngx.say(substituted)
-            }
-          '';
           "/autodiscover/autodiscover.json" = {
             return = "200 '${autodiscoverJsonTemplate (emailConfigFor domain)}'";
             extraConfig = ''
               default_type application/json;
             '';
           };
-          "/autodiscover/autodiscover.xml".extraConfig = ''
-            add_header 'Content-Type' 'text/xml; charset=utf-8';
-
-            content_by_lua_block {
-              function get_email()
-                ngx.req.read_body()
-                local req_body = ngx.req.get_body_data()
-                if req_body == nil then return "" end
-
-                local xml = require "xmlSimple"
-                local parser = xml.newParser()
-                local parsed = parser:ParseXmlText(req_body)
-                local email = parsed.Autodiscover.Request.EMailAddress:value()
-                -- Escape string
-                return parser:ToXmlString(email)
-              end
-
-              local template = '${autodiscoverTemplate (emailConfigFor domain)}'
-              local email = get_email()
-              local substituted = string.gsub(template, "__EMAIL__", email)
-              ngx.say(substituted)
-            }
-          '';
         };
         sslCertificate = "lets-encrypt-${domain}";
         noIndex.enable = true;

@@ -96,11 +96,12 @@ in
       serverAliases = [ "${config.networking.hostName}.lantian.pub" ];
       sslCertificate = "lets-encrypt-lantian.pub";
     };
-    "lantian.dn42" = addConfLantianPub {
-      listenHTTP.enable = true;
-      serverAliases = [ "${config.networking.hostName}.lantian.dn42" ];
-      sslCertificate = "dn42-lantian.dn42";
-    };
+    # FIXME
+    # "lantian.dn42" = addConfLantianPub {
+    #   listenHTTP.enable = true;
+    #   serverAliases = [ "${config.networking.hostName}.lantian.dn42" ];
+    #   sslCertificate = "dn42-lantian.dn42";
+    # };
     "lantian.neo" = addConfLantianPub {
       listenHTTP.enable = true;
       listenHTTPS.enable = false;

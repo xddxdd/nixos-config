@@ -32,32 +32,7 @@
 
   # Has own authentication system
   # keep-sorted start
-  "actual.xuyh0120.win"
-  "ai-api.xuyh0120.win"
-  "ai.xuyh0120.win"
-  "at.lantian.pub"
-  "attic.colocrossing.xuyh0120.win"
-  "attic.xuyh0120.win"
-  "bitwarden.xuyh0120.win"
-  "cal.xuyh0120.win"
-  "cloud.xuyh0120.win"
-  "comments.lantian.pub"
-  "dashboard.xuyh0120.win"
-  "git.lantian.pub"
-  "ha.xuyh0120.win"
   "hydra.lantian.pub"
-  "id.lantian.pub"
-  "immich.xuyh0120.win"
-  "jellyfin.xuyh0120.win"
-  "lemmy.lantian.pub"
-  "login.lantian.pub"
-  "matrix-client.lantian.pub"
-  "matrix-federation.lantian.pub"
-  "n8n.xuyh0120.win"
-  "oidc-tester.lantian.pub"
-  "pb.ltn.pw"
-  "stats.xuyh0120.win"
-  "wp.xuyh0120.win"
   # keep-sorted end
 
   # Intentionally public without authentication
