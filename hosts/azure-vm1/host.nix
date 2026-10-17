@@ -14,7 +14,8 @@
   hostname = "52.229.162.161";
   city = geo.cities."CN Hong Kong";
   cpuThreads = 2;
-  zerotier = null;
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJFlxELcQaifrrNXGIoivl9e6Ht+HWz52SnbIDd5n37b";
+  zerotier = "f362194ea3";
   public = {
     IPv4 = "52.229.162.161";
   };
