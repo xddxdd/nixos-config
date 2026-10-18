@@ -260,7 +260,18 @@ in
         [ "[Service]" ]
         ++ builtins.map (n: "BindReadOnlyPaths=${n}") (
           builtins.filter (v: v != null) (
-            lib.unique (lib.mapAttrsToList (_: v: v.root) config.lantian.nginxVhosts)
+            lib.unique (
+              lib.flatten (
+                lib.mapAttrsToList (
+                  _: v:
+                  [ v.root ]
+                  ++ lib.mapAttrsToList (_: v: [
+                    v.root
+                    v.alias
+                  ]) v.locations
+                ) config.lantian.nginxVhosts
+              )
+            )
           )
         )
       );
