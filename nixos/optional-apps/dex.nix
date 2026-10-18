@@ -98,14 +98,6 @@ let
         ];
       }
       {
-        id = "librechat";
-        name = "Librechat";
-        secret = {
-          _secret = config.sops.secrets.dex-librechat-secret.path;
-        };
-        redirectURIs = [ "https://ai.xuyh0120.win/oauth/openid/callback" ];
-      }
-      {
         id = "nextcloud";
         name = "nextcloud";
         secret = {
@@ -135,14 +127,6 @@ let
         redirectURIs = [ "https://oidc-tester.lantian.pub/oauth2/callback" ];
       }
       {
-        id = "open-webui";
-        name = "Open WebUI";
-        secret = {
-          _secret = config.sops.secrets.dex-open-webui-secret.path;
-        };
-        redirectURIs = [ "https://ai.xuyh0120.win/oauth/oidc/callback" ];
-      }
-      {
         id = "tranquil-pds";
         name = "Tranquil PDS";
         secret = {
@@ -159,17 +143,13 @@ in
   imports = [ ./postgresql.nix ];
 
   sops.secrets = {
-    glauth-bindpw = {
-      sopsFile = inputs.secrets + "/common/glauth.yaml";
-      mode = "0444";
-    };
     dex-pocket-id-client-id = {
-      sopsFile = inputs.secrets + "/common/dex.yaml";
+      sopsFile = inputs.secrets + "/dex/pocket-id.yaml";
       owner = "dex";
       group = "dex";
     };
     dex-pocket-id-client-secret = {
-      sopsFile = inputs.secrets + "/common/dex.yaml";
+      sopsFile = inputs.secrets + "/dex/pocket-id.yaml";
       owner = "dex";
       group = "dex";
     };
@@ -178,7 +158,7 @@ in
     builtins.map (
       f:
       lib.nameValuePair "dex-${f.id}-secret" {
-        sopsFile = inputs.secrets + "/common/dex.yaml";
+        sopsFile = inputs.secrets + "/dex/${f.id}.yaml";
         owner = "dex";
         group = "dex";
       }
@@ -212,6 +192,18 @@ in
       RuntimeDirectory = "dex";
       Restart = "always";
       RestartSec = "5";
+      BindReadOnlyPaths = [
+        "/etc/resolv.conf"
+        "${config.security.pki.caBundle}:/etc/ssl/certs/ca-certificates.crt"
+      ];
+      # FIXME: hardening to access secrets without direct access
+      BindPaths = [
+        "/run"
+      ];
+    };
+    confinement = {
+      enable = true;
+      fullUnit = true;
     };
   };
 
@@ -226,6 +218,7 @@ in
       proxyPass = "http://127.0.0.1:${LT.portStr.Dex}";
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };

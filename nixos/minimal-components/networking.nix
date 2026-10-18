@@ -154,7 +154,10 @@ in
     ProtectProc = "default";
   };
 
-  systemd.services.mptcp.confinement = { enable = true; fullUnit = true; };
+  systemd.services.mptcp.confinement = {
+    enable = true;
+    fullUnit = true;
+  };
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;
@@ -171,6 +174,7 @@ in
         nameserver ${ns}
       '')}
     '';
+    mode = "0444";
   };
 
   # Support network namespaces
