@@ -36,6 +36,7 @@ let
       dn42
       neonetwork
       localHost
+      ltnet
       reserved
       ;
     inherit matrixWellKnown;

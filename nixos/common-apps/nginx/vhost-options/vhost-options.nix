@@ -345,7 +345,7 @@ let
       '')
       + (lib.optionalString (config.accessibleBy == "private") ''
         ${lib.concatMapStringsSep "\n" (ip: "allow ${ip};") (
-          LT.constants.reserved.IPv4 ++ LT.constants.reserved.IPv6
+          LT.constants.ltnet.IPv4 ++ LT.constants.ltnet.IPv6
         )}
         allow 127.0.0.1;
         allow ::1;

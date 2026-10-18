@@ -44,7 +44,6 @@ in
   managedHosts = ztMembers;
   hosts = ztMembers // additionalMembers;
 
-  clientManagedIPv4Ranges = constants.dn42.IPv4 ++ constants.neonetwork.IPv4 ++ [ "198.18.0.0/15" ];
-  clientManagedIPv6Ranges =
-    constants.dn42.IPv6 ++ constants.neonetwork.IPv6 ++ [ "fdbc:f9dc:67ad::/48" ];
+  clientManagedIPv4Ranges = constants.dn42.IPv4 ++ constants.neonetwork.IPv4 ++ constants.ltnet.IPv4;
+  clientManagedIPv6Ranges = constants.dn42.IPv6 ++ constants.neonetwork.IPv6 ++ constants.ltnet.IPv6;
 }

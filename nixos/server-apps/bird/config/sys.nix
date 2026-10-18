@@ -127,15 +127,11 @@ in
     ];
 
     define LTNET_IPv4 = [
-      10.127.10.0/24+,
-      198.18.0.0/15+,
-      172.22.76.184/29+,
-      172.22.76.96/27+
+    ${lib.concatMapStringsSep ",\n" (t: t + "+") LT.constants.ltnet.IPv4}
     ];
 
     define LTNET_IPv6 = [
-      fdbc:f9dc:67ad::/48+,
-      fd10:127:10::/48+
+    ${lib.concatMapStringsSep ",\n" (t: t + "+") LT.constants.ltnet.IPv6}
     ];
 
     # IP ranges managed by other networking tools
