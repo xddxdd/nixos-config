@@ -101,13 +101,7 @@ let
     };
   };
 in
-# Disabled: common/v2ray.yaml (vless key) removed from nixos-secrets
-# (7bcc13f). Restore file + secret, then change the gate below back to
-# `LT.this.hasTag LT.tags.cn-accel`.
-lib.mkIf false
-
-# lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
-{
+lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   sops.secrets.v2ray-key = {
     sopsFile = inputs.secrets + "/common/v2ray.yaml";
     owner = "nginx";
@@ -145,6 +139,18 @@ lib.mkIf false
       RuntimeDirectory = "v2ray";
       Restart = "always";
       RestartSec = 5;
+      # Secret is owned by the nginx user; user namespace would unmap that uid
+      PrivateUsers = false;
+      # chroot's tmpfs root is ephemeral; bind sockets and resolver/TLS config
+      BindReadOnlyPaths = [
+        "/run"
+        "/etc/hosts"
+        "/etc/resolv.conf"
+        "/etc/ssl/certs"
+        "/etc/localtime"
+      ];
+      BindPaths = [ "/run/v2ray" ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 }

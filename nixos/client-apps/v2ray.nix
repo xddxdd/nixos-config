@@ -149,9 +149,6 @@ let
     };
   };
 in
-# Disabled: common/v2ray.yaml (vless key) removed from nixos-secrets
-# (7bcc13f). Restore file + secret, then replace this with `lib.mkIf true`.
-lib.mkIf false
 {
   sops.secrets = lib.genAttrs [ "v2ray-key" ] (_: {
     sopsFile = inputs.secrets + "/common/v2ray.yaml";
@@ -190,7 +187,19 @@ lib.mkIf false
       RuntimeDirectory = "v2ray";
       Restart = "always";
       RestartSec = 5;
+      # Secret is owned by the v2ray user; user namespace would unmap that uid
+      PrivateUsers = false;
+      # chroot's tmpfs root is ephemeral; bind sockets and resolver/TLS config
+      BindReadOnlyPaths = [
+        "/run"
+        "/etc/hosts"
+        "/etc/resolv.conf"
+        "/etc/ssl/certs"
+        "/etc/localtime"
+      ];
+      BindPaths = [ "/run/v2ray" ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   users.users.v2ray = {

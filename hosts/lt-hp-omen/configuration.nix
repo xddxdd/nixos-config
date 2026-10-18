@@ -41,8 +41,7 @@
   hardware.nvidia.open = lib.mkForce false;
 
   lantian.backup = {
-    # Disabled: restic/sftp secrets removed from nixos-secrets (7bcc13f)
-    enable = false;
+    enable = true;
     resticRepos = [ "home" ];
     paths = {
       nix-persistent = lib.mkForce {
