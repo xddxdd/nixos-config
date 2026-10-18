@@ -24,12 +24,6 @@
         }
         {
           recordType = "CNAME";
-          name = "pl.${domain}.";
-          target = "home-ddns.xuyh0120.win.";
-          ttl = "10m";
-        }
-        {
-          recordType = "CNAME";
           name = "www";
           target = "terrahost.ltn.pw.";
           ttl = "10m";
