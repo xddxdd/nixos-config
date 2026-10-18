@@ -1,7 +1,68 @@
-# Disabled: common/dex.yaml + common/oauth2-proxy.yaml (oauth2-proxy client
-# secret + cookie secret) were removed from the nixos-secrets repo
-# (7bcc13f), and the dex issuer (login.lantian.pub) was on a vhost fed by
-# the same module. Restore this file from git history once both secrets
-# are re-provisioned. Vhosts that set enableOAuth keep their location
-# directives but the backing socket and upstream login no longer exist.
-{ }
+{
+  lib,
+  LT,
+  config,
+  inputs,
+  ...
+}:
+{
+  sops.secrets.dex-oauth-proxy-secret.sopsFile = inputs.secrets + "/dex/oauth-proxy.yaml";
+  sops.secrets.oauth-proxy-cookie-secret.sopsFile = inputs.secrets + "/common/oauth-proxy.yaml";
+  sops.templates.oauth2-proxy-keys.content = ''
+    OAUTH2_PROXY_COOKIE_SECRET=${config.sops.placeholder.oauth-proxy-cookie-secret}
+    OAUTH2_PROXY_CLIENT_SECRET=${config.sops.placeholder.dex-oauth-proxy-secret}
+  '';
+
+  services.oauth2-proxy = {
+    enable = builtins.any (v: v) (
+      lib.mapAttrsToList (
+        n: v: builtins.any (v: v) (lib.mapAttrsToList (n: v: v.enableOAuth) v.locations)
+      ) config.lantian.nginxVhosts
+    );
+    clientID = "oauth-proxy";
+    cookie = {
+      expire = "24h";
+    };
+    email.domains = [ "*" ];
+    httpAddress = "unix:///run/oauth2-proxy/oauth2-proxy.sock";
+    keyFile = config.sops.templates.oauth2-proxy-keys.path;
+    provider = "oidc";
+    setXauthrequest = true;
+    extraConfig = {
+      code-challenge-method = "S256";
+      cookie-csrf-expire = "15m";
+      cookie-csrf-per-request = true;
+      oidc-issuer-url = "https://login.lantian.pub";
+      insecure-oidc-skip-issuer-verification = "true";
+      insecure-oidc-allow-unverified-email = "true";
+      scope = "openid profile email groups";
+      whitelist-domain = [
+        "lantian.pub"
+        "*.lantian.pub"
+        "xuyh0120.win"
+        "*.xuyh0120.win"
+      ];
+    };
+  };
+  users.users.oauth2-proxy = {
+    group = "oauth2-proxy";
+    isSystemUser = true;
+  };
+  users.groups.oauth2-proxy.members = [ "nginx" ];
+
+  systemd.services.oauth2-proxy = lib.mkIf config.services.oauth2-proxy.enable {
+    after = [
+      "network.target"
+      "nginx.service"
+    ];
+    serviceConfig = LT.serviceHarden // {
+      Restart = "always";
+      RestartSec = "3";
+      RuntimeDirectory = "oauth2-proxy";
+      UMask = "007";
+      # FIXME: secret
+      BindReadOnlyPaths = [ "/run" ];
+    };
+  };
+  lantian.harden.oauth2-proxy = config.services.oauth2-proxy.enable;
+}
