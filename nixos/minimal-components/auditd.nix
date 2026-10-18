@@ -6,7 +6,8 @@
   ...
 }:
 {
-  config = {
+  # FIXME: too noisy
+  config = lib.mkIf false {
     security.auditd.enable = lib.mkDefault true;
 
     security.audit = {
