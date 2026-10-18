@@ -7,7 +7,8 @@
   cpuThreads = 4;
   manualDeploy = true;
   city = geo.cities."US Bellevue";
-  zerotier = null;
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINl+fW7Bw2TqA484dejYWzP71Jsf5G9IndhbAvA2dtKV";
+  zerotier = "2572d756cd";
   interconnect = {
     name = "home-lan";
     IPv4 = "192.168.0.1";

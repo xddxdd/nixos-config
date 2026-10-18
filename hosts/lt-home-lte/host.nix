@@ -6,7 +6,8 @@
   hostname = "192.168.0.9";
   cpuThreads = 4;
   city = geo.cities."US Bellevue";
-  zerotier = null;
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIInAD9aw3Y8tSGIAU+rkDMBSjbPItd1e2cgQ9O7CPFfw";
+  zerotier = "4f0273241a";
   firewalled = true;
   interconnect = {
     name = "home-lan";

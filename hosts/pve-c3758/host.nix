@@ -7,5 +7,6 @@
   cpuThreads = 8;
   hostname = "192.168.0.5";
   manualDeploy = true;
-  zerotier = null;
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINl+OQjgmeZfmDxIbkATN2uQKcAhdaXDC3wVq7UmNg4I";
+  zerotier = "73ed411f98";
 }

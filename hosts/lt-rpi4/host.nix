@@ -9,7 +9,8 @@
   system = "aarch64-linux";
   tags = with tags; [ lan-access ];
   city = geo.cities."US Bellevue";
-  zerotier = null;
+  ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC26HkVR4xcLafS7hhivVRiY8rBqHz9UtFmQYXdvnmuN";
+  zerotier = "d30cb25554";
   firewalled = true;
   interconnect = {
     name = "home-lan";
