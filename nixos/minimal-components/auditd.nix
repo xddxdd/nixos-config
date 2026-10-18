@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  LT,
   ...
 }:
 {
@@ -58,6 +59,26 @@
       max_log_file_action = "rotate";
       num_logs = 5;
       max_log_file = 25;
+    };
+
+    systemd.services.auditd = {
+      serviceConfig = LT.serviceHarden // {
+        Restart = "on-failure";
+        RestartSec = "5s";
+        # Controls the kernel audit subsystem over netlink
+        AmbientCapabilities = [
+          "CAP_AUDIT_CONTROL"
+          "CAP_AUDIT_READ"
+        ];
+        CapabilityBoundingSet = [
+          "CAP_AUDIT_CONTROL"
+          "CAP_AUDIT_READ"
+        ];
+        PrivateUsers = false;
+        ProcSubset = "all";
+        ProtectProc = "default";
+        SystemCallFilter = [ ];
+      };
     };
   };
 }
