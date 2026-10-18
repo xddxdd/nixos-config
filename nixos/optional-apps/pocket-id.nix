@@ -69,7 +69,6 @@
       "/run/postgresql"
       "/run/secrets/pocket-id-encryption-key"
       "/run/secrets/smtp-pass"
-      "/etc/ssl/certs"
       # Peer auth to postgres and the GeoLite DB need the real uid/hosts
       # environment; user namespace would break postgres peer auth
       "${config.environment.etc."geoip".source}:/etc/geoip"
@@ -86,8 +85,8 @@
       )
     );
   };
-  systemd.services.pocket-id.confinement = { enable = true; fullUnit = true; };
   users.groups.pocket-id.members = [ "nginx" ];
+  lantian.harden.pocket-id = true;
 
   lantian.nginxVhosts."id.lantian.pub" = {
     locations."/" = {

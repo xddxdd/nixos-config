@@ -29,12 +29,10 @@
       Restart = "always";
       RestartSec = 5;
       RuntimeDirectory = "adbd-home";
-      BindPaths = [ "/root/.android:/run/adbd-home" ];
-      BindReadOnlyPaths = [ "/etc/localtime" ];
+      BindPaths = [ "/root/.android:/run/adbd-home/.android" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.adbd = true;
 
   users.users.lantian.extraGroups = [ "adbusers" ];
 

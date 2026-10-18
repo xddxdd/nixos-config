@@ -153,11 +153,7 @@ in
     ProcSubset = "all";
     ProtectProc = "default";
   };
-
-  systemd.services.mptcp.confinement = {
-    enable = true;
-    fullUnit = true;
-  };
+  lantian.harden.mptcp = true;
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;

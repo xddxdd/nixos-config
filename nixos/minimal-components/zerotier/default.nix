@@ -81,9 +81,9 @@ in
       # chroot's tmpfs root is ephemeral; bind host state dir through
       BindPaths = [ "/var/lib/zerotier-one" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+
+  lantian.harden.zerotierone = true;
 
   systemd.services.zerotierone-setup-neighbors = {
     description = "Setup neighbors entry for ZeroTier";

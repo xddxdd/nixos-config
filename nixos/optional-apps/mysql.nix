@@ -98,14 +98,12 @@ in
         "/run/mysqld"
       ];
       BindReadOnlyPaths = [
-        "/etc/localtime"
         "/etc/passwd"
         "/etc/group"
       ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.mysql = true;
 
   systemd.services.prometheus-mysqld-exporter = {
     description = "Prometheus MySQL Exporter";
@@ -129,11 +127,9 @@ in
         Group = "prometheus-mysqld-exporter";
         # Connects to the mysqld unix socket
         BindPaths = [ "/run/mysqld" ];
-        BindReadOnlyPaths = [ "/etc/localtime" ];
       };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.prometheus-mysqld-exporter = true;
 
   users.users.prometheus-mysqld-exporter = {
     group = "prometheus-mysqld-exporter";

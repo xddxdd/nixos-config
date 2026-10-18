@@ -36,9 +36,7 @@ in
           "/dev/snd"
           "/run/user/1000"
         ];
-        BindReadOnlyPaths = [ "/etc/localtime" ];
       };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.fluidsynth = true;
 }

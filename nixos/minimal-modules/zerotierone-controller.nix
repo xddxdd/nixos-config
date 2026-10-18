@@ -185,9 +185,8 @@ in
         # chroot's tmpfs root is ephemeral; bind host state dir through
         BindPaths = [ "/var/lib/zerotier-one-controller" ];
       };
-
-      confinement = { enable = true; fullUnit = true; };
     };
+    lantian.harden.zerotierone-controller = true;
 
     systemd.services.zerotierone-controller-setup = {
       description = "ZeroTier One Controller Setup";

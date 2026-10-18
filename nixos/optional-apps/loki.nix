@@ -111,10 +111,7 @@ in
     ];
   };
 
-  systemd.services.loki.confinement = {
-    enable = true;
-    fullUnit = true;
-  };
+  lantian.harden.loki = true;
 
   users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
   systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];

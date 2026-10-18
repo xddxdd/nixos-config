@@ -105,13 +105,11 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
       PrivateUsers = false;
       BindReadOnlyPaths = [
         "/run/netns"
-        # DoT upstream verification
-        "/etc/ssl/certs"
       ]
       ++ lib.optionals config.networking.networkmanager.enable [
         "/run/NetworkManager/no-stub-resolv.conf:/run/NetworkManager/no-stub-resolv.conf"
       ];
     };
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.coredns = true;
 }

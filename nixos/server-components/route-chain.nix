@@ -56,9 +56,8 @@
         PrivateDevices = lib.mkForce false;
         PrivateUsers = false;
       };
-
-      confinement = { enable = true; fullUnit = true; };
     };
+    lantian.harden.route-chain = true;
 
     users.users.route-chain = {
       isSystemUser = true;

@@ -189,18 +189,9 @@ in
       RestartSec = 5;
       # Secret is owned by the v2ray user; user namespace would unmap that uid
       PrivateUsers = false;
-      # chroot's tmpfs root is ephemeral; bind sockets and resolver/TLS config
-      BindReadOnlyPaths = [
-        "/run"
-        "/etc/hosts"
-        "/etc/resolv.conf"
-        "/etc/ssl/certs"
-        "/etc/localtime"
-      ];
-      BindPaths = [ "/run/v2ray" ];
     };
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.v2ray = true;
 
   users.users.v2ray = {
     group = "v2ray";

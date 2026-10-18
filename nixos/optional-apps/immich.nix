@@ -64,31 +64,16 @@
           "/run/postgresql"
           "/run/redis-immich"
         ];
-        BindReadOnlyPaths = [
-          "/etc/resolv.conf"
-          "${config.environment.etc.hosts.source}:/etc/hosts"
-        ];
       };
       after = [ "redis-immich.service" ];
       requires = [ "redis-immich.service" ];
-      confinement = {
-        enable = true;
-        fullUnit = true;
-      };
     };
+    lantian.harden.immich-server = true;
 
     systemd.services.immich-machine-learning = {
-      serviceConfig = LT.serviceHarden // {
-        BindReadOnlyPaths = [
-          "/etc/resolv.conf"
-          "${config.environment.etc.hosts.source}:/etc/hosts"
-        ];
-      };
-      confinement = {
-        enable = true;
-        fullUnit = true;
-      };
+      serviceConfig = LT.serviceHarden;
     };
+    lantian.harden.immich-machine-learning = true;
 
     systemd.tmpfiles.settings = {
       immich = {

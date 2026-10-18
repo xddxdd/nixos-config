@@ -10,7 +10,7 @@
     BindReadOnlyPaths = [ "/run/systemd/private" ];
   };
 
-  systemd.services."prometheus-node-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden."prometheus-node-exporter" = true;
 
   services.prometheus.exporters = {
     node = {

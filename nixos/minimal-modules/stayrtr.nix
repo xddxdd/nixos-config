@@ -116,13 +116,8 @@ let
           RestartSec = "3";
           User = cfg.user;
           Group = cfg.group;
-          # Reads RPKI cache files (and needs CA certs for https caches)
-          BindReadOnlyPaths = [
-            "/etc/ssl/certs"
-            "/nix/sync-servers"
-          ];
+          BindReadOnlyPaths = [ "/nix/sync-servers" ];
         };
-        confinement = { enable = true; fullUnit = true; };
       }
     );
 in
@@ -142,6 +137,9 @@ in
     })
     {
       systemd.services = lib.mapAttrs' mkInstance config.services.stayrtr;
+      lantian.harden = lib.mapAttrs' (
+        n: v: lib.nameValuePair "stayrtr-${n}" true
+      ) config.services.stayrtr;
     }
   ];
 }

@@ -264,12 +264,14 @@ in
                   PrivateUsers = false;
                   BindReadOnlyPaths = [ "/run/netns" ];
                 };
-                confinement = { enable = true; fullUnit = true; };
               }
             ))
           ]
         ) config.lantian.netns
       )
     );
+    lantian.harden = lib.mapAttrs' (
+      n: v: lib.nameValuePair "netns-bird-${n}" true
+    ) config.lantian.netns;
   };
 }

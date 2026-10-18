@@ -93,9 +93,8 @@
       ];
       BindPaths = [ "/var/lib/fluent-bit" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.fluent-bit = true;
 
   # State dir is bind-mounted through the confinement chroot; create it on
   # fresh hosts (can't use preservation, /var/lib is already preserved);

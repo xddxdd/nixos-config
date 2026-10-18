@@ -3,7 +3,6 @@
   imports = [
     # keep-sorted start
     ./autoconfig.nix
-    ./hosts.nix
     ./libravatar.nix
     ./nginx.nix
     ./oauth2-proxy.nix

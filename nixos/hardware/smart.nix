@@ -14,6 +14,5 @@
     PrivateUsers = false;
     PrivateDevices = false;
   };
-
-  systemd.services."prometheus-smartctl-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden."prometheus-smartctl-exporter" = true;
 }

@@ -43,10 +43,8 @@
     BindPaths = [ "/var/lib/tayga" ];
     # Config file is a symlink chain resolved outside the confinement chroot
     BindReadOnlyPaths = [
-      "/etc/localtime"
       "/etc/tayga.conf"
     ];
   };
-
-  systemd.services.tayga.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.tayga = true;
 }

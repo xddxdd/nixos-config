@@ -23,7 +23,8 @@
     PrivateUsers = false;
     BindPaths = [ "/var/lib/rasdaemon" ];
   };
-  systemd.services.rasdaemon.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.rasdaemon = true;
+
   systemd.services."prometheus-rasdaemon-exporter".serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
     # Reads rasdaemon's host-wide event files
@@ -31,5 +32,5 @@
     ProtectProc = "default";
     BindReadOnlyPaths = [ "/var/lib/rasdaemon" ];
   };
-  systemd.services."prometheus-rasdaemon-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden."prometheus-rasdaemon-exporter" = true;
 }

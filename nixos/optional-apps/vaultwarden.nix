@@ -67,9 +67,7 @@
         "/var/lib/vaultwarden"
         "/run/mysqld"
       ];
-      BindReadOnlyPaths = [ "/etc/localtime" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.vaultwarden = true;
 }

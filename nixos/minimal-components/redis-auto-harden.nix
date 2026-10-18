@@ -9,10 +9,10 @@
     k: v:
     lib.nameValuePair "redis-${k}" {
       serviceConfig = LT.serviceHarden;
-      confinement = {
-        enable = true;
-        fullUnit = true;
-      };
     }
+  ) config.services.redis.servers;
+
+  lantian.harden = lib.mapAttrs' (
+    k: v: lib.nameValuePair "redis-${k}" true
   ) config.services.redis.servers;
 }

@@ -20,8 +20,7 @@ in
     # Clock adjustment needs host-level capabilities
     PrivateUsers = false;
   };
-
-  systemd.services.ntpd-rs.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.ntpd-rs = true;
 
   services.ntpd-rs = {
     enable = true;

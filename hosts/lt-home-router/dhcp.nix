@@ -174,7 +174,6 @@ in
       "/run/kea"
     ];
     BindReadOnlyPaths = [
-      "/etc/localtime"
       "/etc/kea"
     ];
     RestrictAddressFamilies = [
@@ -186,10 +185,7 @@ in
     ];
   };
   environment.etc."kea/dhcp4-server.conf".mode = "0444";
-  systemd.services.kea-dhcp4-server.confinement = {
-    enable = true;
-    fullUnit = true;
-  };
+  lantian.harden.kea-dhcp4-server = true;
   systemd.services.kea-dhcp6-server.serviceConfig = LT.networkToolHarden // {
     Restart = lib.mkForce "always";
     RestartSec = 3;
@@ -200,7 +196,6 @@ in
       "/run/kea"
     ];
     BindReadOnlyPaths = [
-      "/etc/localtime"
       "/etc/kea"
     ];
     RestrictAddressFamilies = [
@@ -212,8 +207,5 @@ in
     ];
   };
   environment.etc."kea/dhcp6-server.conf".mode = "0444";
-  systemd.services.kea-dhcp6-server.confinement = {
-    enable = true;
-    fullUnit = true;
-  };
+  lantian.harden.kea-dhcp6-server = true;
 }

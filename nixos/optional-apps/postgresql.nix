@@ -60,14 +60,12 @@ in
       "/run/postgresql"
     ];
     BindReadOnlyPaths = [
-      "/etc/localtime"
       # Peer auth resolves peer uid→name via nss files
       "/etc/passwd"
       "/etc/group"
     ];
   };
-
-  systemd.services.postgresql.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.postgresql = true;
 
   services.prometheus.exporters.postgres = {
     enable = true;
@@ -82,5 +80,5 @@ in
     ProtectProc = "default";
     BindReadOnlyPaths = [ "/run/postgresql" ];
   };
-  systemd.services."prometheus-postgres-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden.prometheus-postgres-exporter = true;
 }

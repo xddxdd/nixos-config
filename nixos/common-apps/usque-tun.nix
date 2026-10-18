@@ -49,11 +49,9 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
       # Drives the TUN interface via netlink/ioctls
       PrivateUsers = false;
       BindPaths = [ "/var/lib/usque-tun" ];
-      BindReadOnlyPaths = [ "/etc/localtime" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.usque-tun = true;
 
   users.users.usque = {
     group = "usque";

@@ -192,20 +192,14 @@ in
       RuntimeDirectory = "dex";
       Restart = "always";
       RestartSec = "5";
-      BindReadOnlyPaths = [
-        "/etc/resolv.conf"
-        "${config.security.pki.caBundle}:/etc/ssl/certs/ca-certificates.crt"
-      ];
       # FIXME: hardening to access secrets without direct access
       BindPaths = [
         "/run"
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
   };
+
+  lantian.harden.dex = true;
 
   users.users.dex = {
     group = "dex";

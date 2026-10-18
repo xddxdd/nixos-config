@@ -125,7 +125,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   # restore from git history together with the DNSSEC gate in the Corefile.
   # sops.secrets =
   #   let
-  #     lines = lib.splitString "\n" (builtins.readFile (inputs.secrets + 
+  #     lines = lib.splitString "\n" (builtins.readFile (inputs.secrets +
   #       "/common/dnssec.yaml"));
   #     keyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
   #       builtins.filter (lib.hasPrefix "    K") lines
@@ -419,7 +419,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     # Queries knot control socket
     BindReadOnlyPaths = [ "/run/knot" ];
   };
-  systemd.services."prometheus-knot-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden.prometheus-knot-exporter = true;
 
   systemd.services = {
     coredns-authoritative = netns.bind {
@@ -451,7 +451,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         PrivateUsers = false;
         BindReadOnlyPaths = [ "/run/netns" ];
       };
-      confinement = { enable = true; fullUnit = true; };
     };
 
     knot = netns.bind {
@@ -468,9 +467,10 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           "/var/cache/zones"
         ];
       };
-      confinement = { enable = true; fullUnit = true; };
     };
   };
+  lantian.harden.coredns-authoritative = true;
+  lantian.harden.knot = true;
 
   users.users.coredns = {
     group = "coredns";

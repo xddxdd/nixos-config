@@ -142,15 +142,8 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
       # Secret is owned by the nginx user; user namespace would unmap that uid
       PrivateUsers = false;
       # chroot's tmpfs root is ephemeral; bind sockets and resolver/TLS config
-      BindReadOnlyPaths = [
-        "/run"
-        "/etc/hosts"
-        "/etc/resolv.conf"
-        "/etc/ssl/certs"
-        "/etc/localtime"
-      ];
       BindPaths = [ "/run/v2ray" ];
     };
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.v2ray = true;
 }

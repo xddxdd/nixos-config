@@ -90,8 +90,7 @@ in
       ];
     }
   );
-
-  systemd.services.bird.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.bird = true;
 
   systemd.tmpfiles.settings = {
     bird-config = {
@@ -133,7 +132,7 @@ in
     ProtectProc = "default";
     BindReadOnlyPaths = [ "/run/bird" ];
   };
-  systemd.services."prometheus-bird-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden.prometheus-bird-exporter = true;
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
@@ -176,6 +175,5 @@ in
       BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
-
-  systemd.services.bird-lgproxy-go.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.bird-lgproxy-go = true;
 }

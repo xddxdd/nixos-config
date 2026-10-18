@@ -51,18 +51,10 @@ in
       User = "bird-lg-go";
       Group = "bird-lg-go";
       UMask = "007";
-      # chroot's tmpfs root is ephemeral; bind socket dir through; the
-      # socket is accessed by nginx outside the chroot
-      BindPaths = [ "/run/bird-lg-go" ];
-      # Hostname resolution for configured upstreams
-      BindReadOnlyPaths = [
-        "/etc/hosts"
-        "/etc/resolv.conf"
-      ];
     };
   };
 
-  systemd.services.bird-lg-go.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.bird-lg-go = true;
   systemd.services.bird-lgproxy-go.enable = lib.mkForce true;
 
   lantian.nginxVhosts = {

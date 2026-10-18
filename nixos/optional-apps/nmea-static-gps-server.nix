@@ -32,11 +32,8 @@
       Restart = "always";
       RestartSec = "5";
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
   };
+  lantian.harden.nmea-static-gps-server = true;
 
   # Announce NMEA service via mDNS so LAN clients can discover it
   services.avahi.extraServiceFiles = {

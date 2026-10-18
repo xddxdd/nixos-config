@@ -28,9 +28,6 @@
       Restart = "always";
       RestartSec = "3";
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
   };
+  lantian.harden.miniupnpd = true;
 }

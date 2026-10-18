@@ -91,9 +91,8 @@ in
       # Connects to the pipewire control UNIX socket
       BindPaths = [ "/run/pipewire" ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.pipewire = true;
 
   systemd.services.pipewire.serviceConfig = LT.realtime;
   systemd.services.pipewire-pulse.serviceConfig = LT.realtime;

@@ -110,11 +110,7 @@
           lib.filterAttrs (n: _: lib.hasPrefix "audit/" n) config.environment.etc
         );
       };
-
-      confinement = {
-        enable = true;
-        fullUnit = true;
-      };
     };
+    lantian.harden.auditd = true;
   };
 }

@@ -34,10 +34,9 @@
     PrivateDevices = false;
     PrivateUsers = false;
     BindPaths = [ "/dev/virtio-ports" ];
-    BindReadOnlyPaths = [ "/etc/localtime" ];
   };
 
-  systemd.services.qemu-guest-agent.confinement = { enable = true; fullUnit = true; };
+  lantian.harden.qemu-guest-agent = true;
 
   lantian.hostType = "vm";
 }

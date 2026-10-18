@@ -27,9 +27,8 @@
     serviceConfig = LT.serviceHarden // {
       RestartSec = lib.mkForce "5s";
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
+  lantian.harden.iperf3 = true;
 
   systemd.sockets.iperf3 = {
     listenStreams = [ "${LT.this.ltnet.IPv4}:${LT.portStr.IPerf}" ];

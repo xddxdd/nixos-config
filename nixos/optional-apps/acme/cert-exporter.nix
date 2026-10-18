@@ -13,6 +13,5 @@
     # Reads ACME cert files
     BindReadOnlyPaths = [ "/nix/sync-servers" ];
   };
-
-  systemd.services."prometheus-node-cert-exporter".confinement = { enable = true; fullUnit = true; };
+  lantian.harden.prometheus-node-cert-exporter = true;
 }
