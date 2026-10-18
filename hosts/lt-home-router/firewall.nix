@@ -25,9 +25,7 @@
     };
 
     dns-redirect = {
-      # Disabled: coredns-client netns (common-apps/coredns) disabled on this
-      # host; re-enable both together.
-      enable = false;
+      enable = true;
       netns = "coredns-client";
       lanInterfaces = [ ''"eth0*"'' ];
     };

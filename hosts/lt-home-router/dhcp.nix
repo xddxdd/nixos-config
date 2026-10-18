@@ -177,6 +177,13 @@ in
       "/etc/localtime"
       "/etc/kea"
     ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+      "AF_NETLINK"
+      "AF_PACKET"
+    ];
   };
   environment.etc."kea/dhcp4-server.conf".mode = "0444";
   systemd.services.kea-dhcp4-server.confinement = {
@@ -195,6 +202,13 @@ in
     BindReadOnlyPaths = [
       "/etc/localtime"
       "/etc/kea"
+    ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+      "AF_NETLINK"
+      "AF_PACKET"
     ];
   };
   environment.etc."kea/dhcp6-server.conf".mode = "0444";
