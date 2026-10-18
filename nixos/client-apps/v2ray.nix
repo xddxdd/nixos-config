@@ -189,6 +189,10 @@ in
       RestartSec = 5;
       # Secret is owned by the v2ray user; user namespace would unmap that uid
       PrivateUsers = false;
+      # FIXME: hardening to access secrets without direct access
+      BindReadOnlyPaths = [
+        "/run"
+      ];
     };
   };
   lantian.harden.v2ray = true;
