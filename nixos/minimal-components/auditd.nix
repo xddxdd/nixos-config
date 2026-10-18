@@ -37,7 +37,7 @@
             "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
             "-a always,exit -F arch=b64 -S clock_settime -k time-change"
             "-a always,exit -F arch=b64 -S mount -S umount2 -k mounts"
-            "-a always,exit -F arch=b64 -S unlinkat -S rmdir -k deletion"
+            "-a always,exit -F arch=b64 -S unlinkat -k deletion"
             "-a always,exit -F arch=b64 -S fchmodat -k perm-mod"
             "-a always,exit -F arch=b64 -S fchown -S fchownat -k perm-mod"
             "-a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -S setresuid -S setresgid -k identity-change"

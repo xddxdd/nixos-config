@@ -41,6 +41,7 @@ let
     "sshd"
     "usbmuxd"
     "waagent" # Azure provisioning agent; manages disks/network/hostname
+    "xvcd" # USB JTAG daemon; raw USB hardware access like usbmuxd
     # keep-sorted end
   ];
 

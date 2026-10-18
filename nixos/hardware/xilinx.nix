@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -15,20 +14,10 @@
     description = "Xilinx Virtual Cable Daemon";
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pkgs.nur-xddxdd.xvcd} -P 0x6015";
       Restart = "always";
       RestartSec = "3";
-      # Talks to USB JTAG cables via libusb's usbfs
-      PrivateDevices = false;
-      PrivateUsers = false;
-      BindPaths = [ "/dev/bus" ];
-      BindReadOnlyPaths = [
-        "/etc/localtime"
-        "/etc/udev"
-      ];
     };
-
-    confinement = { enable = true; fullUnit = true; };
   };
 }
