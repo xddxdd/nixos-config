@@ -78,6 +78,8 @@
           "CAP_SYS_NICE"
         ];
         PrivateUsers = false;
+        # audit netlink socket
+        RestrictAddressFamilies = [ "AF_NETLINK" ];
         ProcSubset = "all";
         ProtectProc = "default";
         SystemCallFilter = [ ];
