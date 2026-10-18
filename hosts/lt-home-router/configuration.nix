@@ -3,10 +3,7 @@
   imports = [
     ../../nixos/minimal.nix
 
-    # Disabled: ddns.yaml (ddclient/ddns credentials) removed from
-    # nixos-secrets (7bcc13f). Restore secret + these imports to re-enable.
-    # ./ddns.nix
-    # ./ddns-bunny.nix
+    ./ddns.nix
     ./dhcp.nix
     ./firewall.nix
     ./hardware-configuration.nix
