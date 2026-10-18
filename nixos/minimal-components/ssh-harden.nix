@@ -17,6 +17,7 @@ let
 in
 {
   sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
+  sops.secrets.rsync-internal-key.sopsFile = inputs.secrets + "/common/rsync-internal.yaml";
 
   # Keep compatibility with PVE which expect SSH keys in standard location
   lantian.preservation.files = [
@@ -148,6 +149,12 @@ in
       HostName pve-epyc.ltnet.xuyh0120.win
       User sftp
       IdentityFile ${config.sops.secrets.sftp-privkey.path}
+      ${ltnetSSHConfig}
+
+    Host rsync-internal
+      HostName colocrossing.ltnet.xuyh0120.win
+      User rsync-internal
+      IdentityFile ${config.sops.secrets.rsync-internal-key.path}
       ${ltnetSSHConfig}
 
     Host git.lantian.pub

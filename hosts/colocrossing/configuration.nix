@@ -47,7 +47,8 @@
     # ../../nixos/optional-apps/radicle.nix
     # ../../nixos/optional-apps/renovate.nix
     # ../../nixos/optional-apps/rsshub.nix
-    # ../../nixos/optional-apps/rsync-server-ci.nix
+    ../../nixos/optional-apps/rsync-server-ci.nix
+    ../../nixos/optional-apps/rsync-server-internal.nix
     # ../../nixos/optional-apps/syncthing
     # ../../nixos/optional-apps/tg-bot-cleaner-bot
     # ../../nixos/optional-apps/tranquil-pds.nix
