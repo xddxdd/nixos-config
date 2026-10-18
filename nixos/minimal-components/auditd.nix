@@ -65,14 +65,17 @@
       serviceConfig = LT.serviceHarden // {
         Restart = "on-failure";
         RestartSec = "5s";
-        # Controls the kernel audit subsystem over netlink
+        # Controls the kernel audit subsystem over netlink; also raises its
+        # own scheduling priority at startup (CAP_SYS_NICE)
         AmbientCapabilities = [
           "CAP_AUDIT_CONTROL"
           "CAP_AUDIT_READ"
+          "CAP_SYS_NICE"
         ];
         CapabilityBoundingSet = [
           "CAP_AUDIT_CONTROL"
           "CAP_AUDIT_READ"
+          "CAP_SYS_NICE"
         ];
         PrivateUsers = false;
         ProcSubset = "all";
