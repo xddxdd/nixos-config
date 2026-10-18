@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 {
@@ -11,11 +12,25 @@
     natpmp = true;
   };
 
-  systemd.services.miniupnpd.serviceConfig = {
-    ExecStartPre = "${lib.getExe pkgs.bash} -x ${pkgs.miniupnpd}/etc/miniupnpd/iptables_init.sh -i ${config.services.miniupnpd.externalInterface}";
-    ExecStopPost = "${lib.getExe pkgs.bash} -x ${pkgs.miniupnpd}/etc/miniupnpd/iptables_removeall.sh -i ${config.services.miniupnpd.externalInterface}";
+  systemd.services.miniupnpd = {
+    serviceConfig = LT.networkToolHarden // {
+      ExecStartPre = "${lib.getExe pkgs.bash} -x ${pkgs.miniupnpd}/etc/miniupnpd/iptables_init.sh -i ${config.services.miniupnpd.externalInterface}";
+      ExecStopPost = "${lib.getExe pkgs.bash} -x ${pkgs.miniupnpd}/etc/miniupnpd/iptables_removeall.sh -i ${config.services.miniupnpd.externalInterface}";
 
-    Restart = "always";
-    RestartSec = "3";
+      ProtectKernelModules = false;
+      ProtectKernelTunables = false;
+
+      BindPaths = [
+        "/run"
+        "/var/run"
+      ];
+
+      Restart = "always";
+      RestartSec = "3";
+    };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 }

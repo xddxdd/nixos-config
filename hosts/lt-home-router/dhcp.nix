@@ -1,8 +1,20 @@
-{ lib, inputs, LT, ... }:
+{
+  lib,
+  inputs,
+  LT,
+  ...
+}:
 let
   reservations = import (inputs.secrets + "/dhcp-reservations.nix");
 in
 {
+  # Explicit user instead of relying on the nixpkgs module's DynamicUser
+  users.users.kea = {
+    isSystemUser = true;
+    group = "kea";
+  };
+  users.groups.kea = { };
+
   services.kea.dhcp4 = {
     enable = true;
     settings = {
@@ -152,29 +164,42 @@ in
     };
   };
 
-  systemd.services.kea-dhcp4-server.serviceConfig = LT.serviceHarden // {
+  systemd.services.kea-dhcp4-server.serviceConfig = LT.networkToolHarden // {
     Restart = lib.mkForce "always";
     RestartSec = 3;
-    # Binds privileged DHCP ports, writes leases
-    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+    DynamicUser = lib.mkForce false;
+    PrivateUsers = false;
     BindPaths = [
       "/var/lib/kea"
       "/run/kea"
     ];
-    BindReadOnlyPaths = [ "/etc/localtime" ];
+    BindReadOnlyPaths = [
+      "/etc/localtime"
+      "/etc/kea"
+    ];
   };
-  systemd.services.kea-dhcp4-server.confinement = { enable = true; fullUnit = true; };
-  systemd.services.kea-dhcp6-server.serviceConfig = LT.serviceHarden // {
+  environment.etc."kea/dhcp4-server.conf".mode = "0444";
+  systemd.services.kea-dhcp4-server.confinement = {
+    enable = true;
+    fullUnit = true;
+  };
+  systemd.services.kea-dhcp6-server.serviceConfig = LT.networkToolHarden // {
     Restart = lib.mkForce "always";
     RestartSec = 3;
-    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+    DynamicUser = lib.mkForce false;
+    PrivateUsers = false;
     BindPaths = [
       "/var/lib/kea"
       "/run/kea"
     ];
-    BindReadOnlyPaths = [ "/etc/localtime" ];
+    BindReadOnlyPaths = [
+      "/etc/localtime"
+      "/etc/kea"
+    ];
   };
-  systemd.services.kea-dhcp6-server.confinement = { enable = true; fullUnit = true; };
+  environment.etc."kea/dhcp6-server.conf".mode = "0444";
+  systemd.services.kea-dhcp6-server.confinement = {
+    enable = true;
+    fullUnit = true;
+  };
 }

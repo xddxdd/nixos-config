@@ -84,47 +84,41 @@ let
       "oneshot"
       "dbus"
     ])
+    # Podman containers
+    || lib.hasPrefix "podman-" n
     # Core system services
     || isCoreService n;
 
   # builtins.hasAttr instead of the `?` operator: on Nix 2.35, `set ? var`
   # with a variable key always returns false (broken dynamic attrpath check),
   # which would flag fully hardened services as missing everything
-  missingKeys =
-    n: v:
-    lib.filter (k: !builtins.hasAttr k v.serviceConfig) requiredKeys;
+  missingKeys = n: v: lib.filter (k: !builtins.hasAttr k v.serviceConfig) requiredKeys;
 in
 {
   # 1. Every eligible service must set all keys from LT.serviceHarden
   # 2. Every eligible service must run inside a confinement chroot
   #    (systemd.services.<name>.confinement)
-  assertions = lib.mapAttrsToList (
-    n: v:
-    let
-      missing = missingKeys n v;
-    in
-    {
-      assertion = exempt n v || missing == [ ];
-      message = "${n} is missing systemd service hardening options (LT.serviceHarden): ${
-        lib.concatStringsSep ", " missing
-      }";
-    }
-  ) config.systemd.services
-  ++ lib.mapAttrsToList (
-    n: v:
-    let
-      # Services already chrooted outside of the confinement module count too:
-      # upstream endlessh sets RootDirectory itself
-      confined =
-        (v.confinement.enable or false)
-        || (v.serviceConfig.RootDirectory or null) != null;
-    in
-    {
-      assertion =
-        exempt n v
-        || builtins.elem n confinementIgnored
-        || confined;
-      message = "${n} must enable systemd.services.<name>.confinement (RootDirectory+BindPaths whitelist); bind any needed state/socket paths inside the chroot";
-    }
-  ) config.systemd.services;
+  assertions =
+    lib.mapAttrsToList (
+      n: v:
+      let
+        missing = missingKeys n v;
+      in
+      {
+        assertion = exempt n v || missing == [ ];
+        message = "${n} is missing systemd service hardening options (LT.serviceHarden): ${lib.concatStringsSep ", " missing}";
+      }
+    ) config.systemd.services
+    ++ lib.mapAttrsToList (
+      n: v:
+      let
+        # Services already chrooted outside of the confinement module count too:
+        # upstream endlessh sets RootDirectory itself
+        confined = (v.confinement.enable or false) || (v.serviceConfig.RootDirectory or null) != null;
+      in
+      {
+        assertion = exempt n v || builtins.elem n confinementIgnored || confined;
+        message = "${n} must enable systemd.services.<name>.confinement (RootDirectory+BindPaths whitelist); bind any needed state/socket paths inside the chroot";
+      }
+    ) config.systemd.services;
 }

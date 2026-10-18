@@ -12,12 +12,13 @@
     ./hardware-configuration.nix
     ./networking.nix
 
-    # ../../nixos/common-apps/coredns.nix
-    # ../../nixos/common-apps/nginx/vhost-options
-    # ../../nixos/client-components/multicast-dns.nix
-    # ../../nixos/optional-apps/lancache.nix
-    # ../../nixos/optional-apps/miniupnpd.nix
-    # ../../nixos/optional-apps/nmea-static-gps-server.nix
+    ../../nixos/common-apps/coredns.nix
+    ../../nixos/common-apps/nginx/vhost-options
+    ../../nixos/client-components/multicast-dns.nix
+    ../../nixos/optional-apps/lancache.nix
+    ../../nixos/optional-apps/miniupnpd.nix
+    ../../nixos/optional-apps/nmea-static-gps-server.nix
+    ../../nixos/optional-apps/tayga.nix
     # ../../nixos/optional-apps/ncps.nix
     # ../../nixos/optional-apps/ncps-client.nix
   ];
@@ -32,11 +33,11 @@
     ];
   };
 
-  # services.lancache.environment = {
-  #   LANCACHE_IP = "192.168.0.4";
-  #   DNS_BIND_IP = "192.168.0.4";
-  #   CACHE_ROOT = "/mnt/unreliable-cache/lancache";
-  # };
+  services.lancache.environment = {
+    LANCACHE_IP = "192.168.0.4";
+    DNS_BIND_IP = "192.168.0.4";
+    CACHE_ROOT = "/mnt/unreliable-cache/lancache";
+  };
 
   # services.ncps.cache = {
   #   storage.local = "/mnt/unreliable-cache/ncps";

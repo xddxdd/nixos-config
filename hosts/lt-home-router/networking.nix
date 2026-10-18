@@ -219,38 +219,5 @@
     };
   };
 
-  services.tayga = {
-    enable = true;
-    ipv4 = {
-      address = "192.0.2.0";
-      router = {
-        address = "192.0.2.1";
-      };
-      pool = {
-        address = "192.0.2.0";
-        prefixLength = 24;
-      };
-    };
-    ipv6 = {
-      address = "2001:470:e997::1";
-      router = {
-        address = "64:ff9b::1";
-      };
-      pool = {
-        address = "64:ff9b::";
-        prefixLength = 96;
-      };
-    };
-  };
 
-  systemd.services.tayga.serviceConfig = LT.networkToolHarden // {
-    RestartSec = "5s";
-    # NAT64 TUN device; tayga creates its own unix datagram socket
-    PrivateDevices = false;
-    PrivateUsers = lib.mkForce false;
-    BindPaths = [ "/var/lib/tayga" ];
-    BindReadOnlyPaths = [ "/etc/localtime" ];
-  };
-
-  systemd.services.tayga.confinement = { enable = true; fullUnit = true; };
 }
