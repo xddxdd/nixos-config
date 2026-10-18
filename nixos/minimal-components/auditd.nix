@@ -27,9 +27,10 @@
         "-w /etc/hosts -p wa -k network-config"
         "-w /etc/wireguard -p wa -k network-config"
 
-        # Time change
+        # Time change (no stime: missing on some architectures' 32-bit
+        # compat tables and fails auditctl -R, aborting all later rules)
         "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
-        "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change"
+        "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -k time-change"
         "-a always,exit -F arch=b64 -S clock_settime -k time-change"
         "-a always,exit -F arch=b32 -S clock_settime -k time-change"
 
@@ -83,7 +84,20 @@
         ProcSubset = "all";
         ProtectProc = "default";
         SystemCallFilter = [ ];
+        # chroot's tmpfs root is ephemeral; bind log dir, socket dir and config
+        # store files (host /etc/audit are symlink chains) through
+        BindPaths = [
+          "/var/log/audit"
+          "/run/audit"
+        ];
+        BindReadOnlyPaths = lib.mapAttrsToList (
+          n: v: "${v.source}:${n}"
+        ) (lib.filterAttrs (
+          n: _: lib.hasPrefix "audit/" n
+        ) config.environment.etc);
       };
+
+      confinement = { enable = true; fullUnit = true; };
     };
   };
 }

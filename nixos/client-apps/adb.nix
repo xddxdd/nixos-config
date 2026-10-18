@@ -24,7 +24,13 @@
       ExecStop = "${lib.getExe' pkgs.android-tools "adb"} kill-server";
       Restart = "always";
       RestartSec = 5;
+      # adb server stores its keys and state under /root/.android; bind it
+      # through the chroot (preserved on the host)
+      BindPaths = [ "/root/.android" ];
+      BindReadOnlyPaths = [ "/etc/localtime" ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   users.users.lantian.extraGroups = [ "adbusers" ];

@@ -30,6 +30,15 @@ in
         User = "lantian";
         Restart = "on-failure";
         RestartSec = 3;
+        # chroot's tmpfs root is ephemeral; bind audio devices and the
+        # pipewire-pulse UNIX socket through
+        BindPaths = [
+          "/dev/snd"
+          "/run/user/1000"
+        ];
+        BindReadOnlyPaths = [ "/etc/localtime" ];
       };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 }

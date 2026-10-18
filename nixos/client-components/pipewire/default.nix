@@ -88,7 +88,11 @@ in
       Group = "pipewire";
       Restart = "always";
       RestartSec = "3";
+      # Connects to the pipewire control UNIX socket
+      BindPaths = [ "/run/pipewire" ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   systemd.services.pipewire.serviceConfig = LT.realtime;
