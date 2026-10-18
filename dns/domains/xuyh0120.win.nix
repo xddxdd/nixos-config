@@ -143,7 +143,7 @@ let
     {
       recordType = "CNAME";
       name = "rsync-ci";
-      target = "colocrossing.ltnet.xuyh0120.win.";
+      target = "colocrossing";
       ttl = "1h";
     }
     {
