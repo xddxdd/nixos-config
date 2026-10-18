@@ -124,9 +124,6 @@ in
     };
     listenHTTPS.enable = false;
     accessibleBy = "private";
-    extraConfig = ''
-      access_log off;
-    '';
     locations = lib.genAttrs [
       "= /loki/api/v1/push"
       "= /api/prom/push"
