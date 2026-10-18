@@ -36,11 +36,6 @@
         ];
         filters = [
           {
-            name = "grep";
-            match = "journal";
-            exclude = "_SYSTEMD_UNIT ^(filebeat|hath|matrix-synapse|podman-archiveteam|prowlarr|radarr|resilio|sonarr|yggdrasil|fluent-bit)\\.service$";
-          }
-          {
             name = "modify";
             match = "journal";
             # Fluent Bit 5.1's Loki output plugin removes label source keys; copy to retain _SYSTEMD_UNIT.
