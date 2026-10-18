@@ -43,6 +43,11 @@
         wqy_microhei
         wqy_zenhei
       ]
+      ++ builtins.attrValues (
+        lib.removeAttrs inputs.chinese-fonts-overlay.packages."${pkgs.stdenv.hostPlatform.system}" [
+          "xiaomi-fonts"
+        ]
+      )
     );
 
   # https://keqingrong.cn/blog/2019-10-01-how-to-display-all-chinese-characters-on-the-computer/

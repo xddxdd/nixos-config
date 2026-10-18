@@ -75,6 +75,7 @@ in
     flyctl
 
     # FPGA
+    # FIXME
     # quartus-prime-lite
 
     # Golang
