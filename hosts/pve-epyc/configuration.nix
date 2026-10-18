@@ -41,13 +41,13 @@
     # # ../../nixos/optional-apps/n8n # compromised
     # ../../nixos/optional-apps/ncps-client.nix
     # ../../nixos/optional-apps/netns-tnl-buyvm.nix
-    # ../../nixos/optional-apps/nfs.nix
+    ../../nixos/optional-apps/nfs.nix
     # ../../nixos/optional-apps/nginx-openspeedtest.nix
     # ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/picoclaw.nix
     # ../../nixos/optional-apps/resin.nix
     # ../../nixos/optional-apps/searxng.nix
-    # ../../nixos/optional-apps/sftp-server.nix
+    ../../nixos/optional-apps/sftp-server.nix
     # # ../../nixos/optional-apps/strata.nix
     # ../../nixos/optional-apps/syncthing
     # ../../nixos/optional-apps/tachidesk.nix
