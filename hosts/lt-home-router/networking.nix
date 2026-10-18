@@ -247,7 +247,7 @@
     RestartSec = "5s";
     # NAT64 TUN device; tayga creates its own unix datagram socket
     PrivateDevices = false;
-    PrivateUsers = false;
+    PrivateUsers = lib.mkForce false;
     BindPaths = [ "/var/lib/tayga" ];
     BindReadOnlyPaths = [ "/etc/localtime" ];
   };

@@ -19,9 +19,14 @@
       ExecStart = "${lib.getExe pkgs.nur-xddxdd.xvcd} -P 0x6015";
       Restart = "always";
       RestartSec = "3";
-      # Talks to USB JTAG cables
+      # Talks to USB JTAG cables via libusb's usbfs
       PrivateDevices = false;
-      BindReadOnlyPaths = [ "/etc/localtime" ];
+      PrivateUsers = false;
+      BindPaths = [ "/dev/bus" ];
+      BindReadOnlyPaths = [
+        "/etc/localtime"
+        "/etc/udev"
+      ];
     };
 
     confinement = { enable = true; fullUnit = true; };
