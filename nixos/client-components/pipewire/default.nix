@@ -92,7 +92,7 @@ in
       BindPaths = [ "/run/pipewire" ];
     };
   };
-  lantian.harden.pipewire = true;
+  lantian.harden.pipewire-auto-start = true;
 
   systemd.services.pipewire.serviceConfig = LT.realtime;
   systemd.services.pipewire-pulse.serviceConfig = LT.realtime;
