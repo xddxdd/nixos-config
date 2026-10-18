@@ -20,13 +20,4 @@
     ./whois-server.nix
     # keep-sorted end
   ];
-
-  # FIXME: disable external nginx access
-  lantian.firewall.presets.public-firewall.firewalledPorts = [
-    LT.port.HTTP
-    LT.port.HTTPS
-    LT.port.Gopher
-    LT.port.Gemini
-    LT.port.Matrix.Public
-  ];
 }
