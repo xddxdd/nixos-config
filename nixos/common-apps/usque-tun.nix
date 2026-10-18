@@ -44,7 +44,15 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
 
       StateDirectory = "usque-tun";
       WorkingDirectory = "/var/lib/usque-tun";
+      # Needs the TUN device
+      PrivateDevices = false;
+      # Drives the TUN interface via netlink/ioctls
+      PrivateUsers = false;
+      BindPaths = [ "/var/lib/usque-tun" ];
+      BindReadOnlyPaths = [ "/etc/localtime" ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   users.users.usque = {

@@ -243,5 +243,14 @@
     };
   };
 
-  systemd.services.tayga.serviceConfig.RestartSec = "5s";
+  systemd.services.tayga.serviceConfig = LT.networkToolHarden // {
+    RestartSec = "5s";
+    # NAT64 TUN device; tayga creates its own unix datagram socket
+    PrivateDevices = false;
+    PrivateUsers = false;
+    BindPaths = [ "/var/lib/tayga" ];
+    BindReadOnlyPaths = [ "/etc/localtime" ];
+  };
+
+  systemd.services.tayga.confinement = { enable = true; fullUnit = true; };
 }

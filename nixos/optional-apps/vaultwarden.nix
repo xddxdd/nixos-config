@@ -54,7 +54,7 @@
   systemd.services.vaultwarden = {
     after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_UNIX"
@@ -63,6 +63,15 @@
         "AF_LOCAL"
         "AF_NETLINK"
       ];
+      # chroot's tmpfs root is ephemeral; bind data dir and the mysqld unix
+      # socket through
+      BindPaths = [
+        "/var/lib/vaultwarden"
+        "/run/mysqld"
+      ];
+      BindReadOnlyPaths = [ "/etc/localtime" ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 }

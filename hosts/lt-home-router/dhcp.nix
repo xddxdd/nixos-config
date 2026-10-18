@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, inputs, LT, ... }:
 let
   reservations = import (inputs.secrets + "/dhcp-reservations.nix");
 in
@@ -152,12 +152,29 @@ in
     };
   };
 
-  systemd.services.kea-dhcp4-server.serviceConfig = {
+  systemd.services.kea-dhcp4-server.serviceConfig = LT.serviceHarden // {
     Restart = lib.mkForce "always";
     RestartSec = 3;
+    # Binds privileged DHCP ports, writes leases
+    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+    BindPaths = [
+      "/var/lib/kea"
+      "/run/kea"
+    ];
+    BindReadOnlyPaths = [ "/etc/localtime" ];
   };
-  systemd.services.kea-dhcp6-server.serviceConfig = {
+  systemd.services.kea-dhcp4-server.confinement = { enable = true; fullUnit = true; };
+  systemd.services.kea-dhcp6-server.serviceConfig = LT.serviceHarden // {
     Restart = lib.mkForce "always";
     RestartSec = 3;
+    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+    BindPaths = [
+      "/var/lib/kea"
+      "/run/kea"
+    ];
+    BindReadOnlyPaths = [ "/etc/localtime" ];
   };
+  systemd.services.kea-dhcp6-server.confinement = { enable = true; fullUnit = true; };
 }

@@ -86,10 +86,25 @@ in
       mysqlenv-rsync
     ];
     restartIfChanged = false;
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Restart = lib.mkForce "on-failure";
       TimeoutStartSec = 300;
+      # chroot's tmpfs root is ephemeral; bind data dir and unix socket
+      # through; the socket is accessed by apps outside the chroot.
+      # Peer/auth uid resolution needs nss files
+      PrivateUsers = false;
+      BindPaths = [
+        "/var/lib/mysql"
+        "/run/mysqld"
+      ];
+      BindReadOnlyPaths = [
+        "/etc/localtime"
+        "/etc/passwd"
+        "/etc/group"
+      ];
     };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   systemd.services.prometheus-mysqld-exporter = {
@@ -112,7 +127,12 @@ in
 
         User = "prometheus-mysqld-exporter";
         Group = "prometheus-mysqld-exporter";
+        # Connects to the mysqld unix socket
+        BindPaths = [ "/run/mysqld" ];
+        BindReadOnlyPaths = [ "/etc/localtime" ];
       };
+
+    confinement = { enable = true; fullUnit = true; };
   };
 
   users.users.prometheus-mysqld-exporter = {

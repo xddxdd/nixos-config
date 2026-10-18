@@ -40,6 +40,7 @@ let
     "spiceproxy"
     "sshd"
     "usbmuxd"
+    "waagent" # Azure provisioning agent; manages disks/network/hostname
     # keep-sorted end
   ];
 
