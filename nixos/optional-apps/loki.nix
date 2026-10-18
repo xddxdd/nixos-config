@@ -111,7 +111,10 @@ in
     ];
   };
 
-  systemd.services.loki.confinement = { enable = true; fullUnit = true; };
+  systemd.services.loki.confinement = {
+    enable = true;
+    fullUnit = true;
+  };
 
   users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
   systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];
@@ -158,8 +161,8 @@ in
     {
       priority = LT.firewallPriorities.preService;
       text = ''
-        ip daddr ${LT.this.ltnet.IPv4} tcp dport ${LT.portStr.Loki} ip saddr != 198.18.0.0/24 reject with tcp reset
-        ip daddr ${LT.this.ltnet.IPv4} tcp dport ${LT.portStr.Loki} iifname != "lo" iifname != "wgmesh*" iifname != "ztramij2dg" reject with tcp reset
+        fib daddr type local tcp dport ${LT.portStr.Loki} ip saddr != 198.18.0.0/24 reject with tcp reset
+        fib daddr type local tcp dport ${LT.portStr.Loki} iifname != "lo" iifname != "wgmesh*" iifname != "ztramij2dg" reject with tcp reset
       '';
     }
   ];
