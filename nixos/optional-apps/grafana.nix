@@ -7,7 +7,6 @@
   ...
 }:
 let
-
   mkPlugin =
     pluginSrc:
     (pkgs.grafanaPlugins.grafanaPlugin {
@@ -22,11 +21,11 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  sops.secrets.grafana-oauth = {
-    sopsFile = inputs.secrets + "/grafana.yaml";
-    owner = "grafana";
-    group = "grafana";
-  };
+  sops.secrets.dex-grafana-secret.sopsFile = inputs.secrets + "/dex/grafana.yaml";
+  sops.templates.grafana-env.content = ''
+    GF_AUTH_GENERIC_OAUTH_CLIENT_ID=grafana
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${config.sops.placeholder.dex-grafana-secret}
+  '';
 
   services.grafana = {
     enable = true;
@@ -95,12 +94,17 @@ in
     };
   };
 
-  systemd.services.grafana.serviceConfig = {
+  systemd.services.grafana.serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
-    EnvironmentFile = config.sops.secrets.grafana-oauth.path;
+    EnvironmentFile = config.sops.templates.grafana-env.path;
     Restart = "on-failure";
+    StateDirectory = "grafana";
     SystemCallFilter = [ "@chown" ];
+    ProcSubset = "all";
+    # FIXME: secret
+    BindReadOnlyPaths = [ "/run" ];
   };
+  lantian.harden.grafana = true;
 
   users.users.nginx.extraGroups = [ "grafana" ];
 
@@ -127,6 +131,7 @@ in
       };
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
   };
