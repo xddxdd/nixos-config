@@ -48,7 +48,7 @@ let
     {
       recordType = "CNAME";
       name = "attic";
-      target = "colocrossing.ltnet.xuyh0120.win.";
+      target = "colocrossing";
       ttl = "1h";
     }
     {

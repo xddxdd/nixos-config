@@ -32,6 +32,7 @@
 
   # Has own authentication system
   # keep-sorted start
+  "attic.xuyh0120.win" # currently showing compromised warning
   "hydra.lantian.pub"
   # keep-sorted end
 
