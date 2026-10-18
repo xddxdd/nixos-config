@@ -1,0 +1,21 @@
+diff --git a/nixos/modules/services/databases/redis.nix b/nixos/modules/services/databases/redis.nix
+index 79f5a8324bb2..00178c92a31a 100644
+--- a/nixos/modules/services/databases/redis.nix
++++ b/nixos/modules/services/databases/redis.nix
+@@ -606,7 +606,7 @@ in
+           # This is an intentional deviation from strict declarative semantics and
+           # is required for correct Sentinel operation.
+           ExecStartPre =
+-            "+"
++            ""
+             + pkgs.writeShellScript "${redisName name}-prep-conf" (
+               let
+                 redisConfVar = "/var/lib/${redisName name}/redis.conf";
+@@ -615,7 +615,6 @@ in
+               in
+               ''
+                 touch "${redisConfVar}" "${redisConfRun}"
+-                chown '${conf.user}':'${conf.group}' "${redisConfVar}" "${redisConfRun}"
+                 chmod 0600 "${redisConfVar}" "${redisConfRun}"
+                 if [ ! -s ${redisConfVar} ]; then
+                   echo 'include "${redisConfRun}"' > "${redisConfVar}"

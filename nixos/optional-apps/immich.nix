@@ -34,6 +34,7 @@
           };
         };
 
+        accessibleBy = "private";
         sslCertificate = "lets-encrypt-xuyh0120.win";
         noIndex.enable = true;
       };
@@ -56,8 +57,37 @@
 
     systemd.services.immich-server = {
       unitConfig.RequiresMountsFor = [ (LT.escapeMountPath config.services.immich.mediaLocation) ];
+      serviceConfig = LT.serviceHarden // {
+        MemoryDenyWriteExecute = lib.mkForce false;
+        BindPaths = [
+          config.services.immich.mediaLocation
+          "/run/postgresql"
+          "/run/redis-immich"
+        ];
+        BindReadOnlyPaths = [
+          "/etc/resolv.conf"
+          "${config.environment.etc.hosts.source}:/etc/hosts"
+        ];
+      };
       after = [ "redis-immich.service" ];
       requires = [ "redis-immich.service" ];
+      confinement = {
+        enable = true;
+        fullUnit = true;
+      };
+    };
+
+    systemd.services.immich-machine-learning = {
+      serviceConfig = LT.serviceHarden // {
+        BindReadOnlyPaths = [
+          "/etc/resolv.conf"
+          "${config.environment.etc.hosts.source}:/etc/hosts"
+        ];
+      };
+      confinement = {
+        enable = true;
+        fullUnit = true;
+      };
     };
 
     systemd.tmpfiles.settings = {

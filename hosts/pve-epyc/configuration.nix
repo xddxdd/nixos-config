@@ -31,7 +31,7 @@
     # # ../../nixos/optional-apps/handbrake-server.nix
     # ../../nixos/optional-apps/hydra
     # ../../nixos/optional-apps/i2pd.nix
-    # # ../../nixos/optional-apps/immich.nix # compromised
+    ../../nixos/optional-apps/immich.nix
     # ../../nixos/optional-apps/iyuuplus.nix
     # ../../nixos/optional-apps/kubo.nix
     # # ../../nixos/optional-apps/librechat.nix
@@ -116,7 +116,7 @@
     allowFrom = [ "all" ];
   };
 
-  # lantian.immich.storage = "/mnt/storage/immich";
+  lantian.immich.storage = "/mnt/storage/immich";
   # lantian.syncthing.storage = "/mnt/storage/media";
   # lantian.archivebox.storage = "/mnt/storage/archivebox";
 
