@@ -1,5 +1,6 @@
 {
   LT,
+  config,
   ...
 }:
 {
@@ -27,8 +28,12 @@
   };
 
   systemd.services.prometheus.serviceConfig = LT.serviceHarden // {
+    BindReadOnlyPaths = [
+      "${config.environment.etc."prometheus/prometheus.yaml".source}:/etc/prometheus/prometheus.yaml"
+    ];
     RestartSec = "5s";
   };
+  lantian.harden.prometheus = true;
 
   lantian.nginxVhosts."prometheus.xuyh0120.win" = {
     locations = {
@@ -38,6 +43,7 @@
       };
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
   };

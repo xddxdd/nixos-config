@@ -230,5 +230,8 @@ in
     ))
   ];
 
-  systemd.services."prometheus-blackbox-exporter".serviceConfig.RestartSec = "5s";
+  systemd.services."prometheus-blackbox-exporter".serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+  };
+  lantian.harden.prometheus-blackbox-exporter = true;
 }

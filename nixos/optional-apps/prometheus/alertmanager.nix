@@ -8,16 +8,14 @@
   ...
 }:
 {
-  # Disabled: common/telegram.yaml + smtp-pass removed from nixos-secrets
-  # (7bcc13f); notification channels gone, alertmanager service off.
-  #  sops.secrets.telegram-bot-token = {
-  #    sopsFile = inputs.secrets + "/common/telegram.yaml";
-  #    mode = "0444";
-  #  };
-  #  sops.secrets.telegram-bot-chat-id = {
-  #    sopsFile = inputs.secrets + "/common/telegram.yaml";
-  #    mode = "0444";
-  #  };
+  sops.secrets.telegram-bot-token = {
+    sopsFile = inputs.secrets + "/telegram.yaml";
+    mode = "0444";
+  };
+  sops.secrets.telegram-bot-chat-id = {
+    sopsFile = inputs.secrets + "/telegram.yaml";
+    mode = "0444";
+  };
 
   services.prometheus = {
     alertmanagers = [
@@ -221,88 +219,91 @@
     ];
   };
 
-  # Disabled: alertmanager depends on telegram/smtp secrets removed from
-  # nixos-secrets (7bcc13f) and on msmtp from minimal smtp.nix (also
-  # disabled). Rules above are kept. Revert via git history.
-  # services.prometheus.alertmanager = {
-  # enable = true;
-  # port = LT.port.Prometheus.AlertManager;
-  # listenAddress = "127.0.0.1";
-  # webExternalUrl = "https://alert.xuyh0120.win";
+  services.prometheus.alertmanager = {
+    enable = true;
+    port = LT.port.Prometheus.AlertManager;
+    listenAddress = "127.0.0.1";
+    webExternalUrl = "https://alert.xuyh0120.win";
 
-  # # Not compatible with genJqSecretsReplacementSnippet
-  # checkConfig = false;
+    # Not compatible with genJqSecretsReplacementSnippet
+    checkConfig = false;
 
-  # configuration = {
-  # global = {
-  # smtp_from = config.programs.msmtp.accounts.default.from;
-  # smtp_smarthost =
-  # config.programs.msmtp.accounts.default.host
-  # + ":"
-  # + builtins.toString config.programs.msmtp.accounts.default.port;
-  # smtp_auth_username = config.programs.msmtp.accounts.default.user;
-  # smtp_auth_password = {
-  # _secret = config.sops.secrets.smtp-pass.path;
-  # };
-  # smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
-  # };
-  # route = {
-  # group_by = [
-  # "alertname"
-  # "alias"
-  # ];
-  # group_wait = "1m";
-  # group_interval = "10m";
-  # repeat_interval = "24h";
-  # receiver = "admin";
-  # };
-  # receivers = [
-  # {
-  # name = "admin";
-  # # email_configs = [
-  # #   {
-  # #     to = glauthUsers.lantian.mail;
-  # #     send_resolved = true;
-  # #     threading = {
-  # #       enabled = true;
-  # #       thread_by_date = "daily";
-  # #     };
-  # #   }
-  # # ];
-  # telegram_configs = [
-  # {
-  # bot_token_file = config.sops.secrets.telegram-bot-token.path;
-  # chat_id_file = config.sops.secrets.telegram-bot-chat-id.path;
-  # message = lib.trim ''
-  # {{ range .Alerts.Firing }}🔥 {{ .Labels.alertname }} - {{ .Labels.instance }} - {{ .Annotations.summary }}
-  # {{ end }}{{ range .Alerts.Resolved }}✅ {{ .Labels.alertname }} - {{ .Labels.instance }} - {{ .Annotations.summary }}
-  # {{ end }}
-  # '';
-  # }
-  # ];
-  # }
-  # ];
-  # };
-  # };
+    configuration = {
+      global = {
+        smtp_from = config.programs.msmtp.accounts.default.from;
+        smtp_smarthost =
+          config.programs.msmtp.accounts.default.host
+          + ":"
+          + builtins.toString config.programs.msmtp.accounts.default.port;
+        smtp_auth_username = config.programs.msmtp.accounts.default.user;
+        smtp_auth_password = {
+          _secret = config.sops.secrets.smtp-pass.path;
+        };
+        smtp_require_tls = config.programs.msmtp.accounts.default.tls_starttls;
+      };
+      route = {
+        group_by = [
+          "alertname"
+          "alias"
+        ];
+        group_wait = "1m";
+        group_interval = "10m";
+        repeat_interval = "24h";
+        receiver = "admin";
+      };
+      receivers = [
+        {
+          name = "admin";
+          # email_configs = [
+          #   {
+          #     to = glauthUsers.lantian.mail;
+          #     send_resolved = true;
+          #     threading = {
+          #       enabled = true;
+          #       thread_by_date = "daily";
+          #     };
+          #   }
+          # ];
+          telegram_configs = [
+            {
+              bot_token_file = config.sops.secrets.telegram-bot-token.path;
+              chat_id_file = config.sops.secrets.telegram-bot-chat-id.path;
+              message = lib.trim ''
+                {{ range .Alerts.Firing }}🔥 {{ .Labels.alertname }} - {{ .Labels.instance }} - {{ .Annotations.summary }}
+                {{ end }}{{ range .Alerts.Resolved }}✅ {{ .Labels.alertname }} - {{ .Labels.instance }} - {{ .Annotations.summary }}
+                {{ end }}
+              '';
+            }
+          ];
+        }
+      ];
+    };
+  };
 
+  systemd.services.alertmanager = {
+    serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
+      ExecStartPre = lib.mkForce (
+        pkgs.writeShellScript "alertmanager-pre-start" ''
+          ${utils.genJqSecretsReplacementSnippet config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml"}
+        ''
+      );
+      # FIXME: secret
+      BindReadOnlyPaths = [ "/run" ];
+    };
+  };
+  lantian.harden.alertmanager = true;
 
-  #  systemd.services.alertmanager.serviceConfig.RestartSec = "5s";
+  lantian.nginxVhosts."alert.xuyh0120.win" = {
+    locations = {
+      "/" = {
+        enableOAuth = true;
+        proxyPass = "http://127.0.0.1:${LT.portStr.Prometheus.AlertManager}";
+      };
+    };
 
-  #  systemd.services.alertmanager.serviceConfig.ExecStartPre = lib.mkForce (
-  #    pkgs.writeShellScript "alertmanager-pre-start" ''
-  #      ''${utils.genJqSecretsReplacementSnippet config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml"}
-  #    ''
-  #  );
-
-  #  lantian.nginxVhosts."alert.xuyh0120.win" = {
-  #    locations = {
-  #      "/" = {
-  #        enableOAuth = true;
-  #        proxyPass = "http://127.0.0.1:''${LT.portStr.Prometheus.AlertManager}";
-  #      };
-  #    };
-
-  #    sslCertificate = "lets-encrypt-xuyh0120.win";
-  #    noIndex.enable = true;
-  #  };
+    accessibleBy = "private";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
+    noIndex.enable = true;
+  };
 }
