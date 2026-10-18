@@ -48,16 +48,12 @@ jobs:
         run: |
           mkdir -p "$HOME/.ssh"
           echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/id_ed25519"
-          echo "StrictHostKeyChecking no" > "$HOME/.ssh/config"
+          echo "${{ secrets.SOPS_KEY }}" > "$HOME/.ssh/id_ed25519_sops"
+          echo "rsync-ci.xuyh0120.win ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ1UoThuUBGlXtwI8shM2+ge/9VWBzwUE7kDvW2BvHgK" > $HOME/.ssh/known_hosts
           chmod -R 500 "$HOME/.ssh"
 
           mkdir -p "$HOME/.config/sops/age"
-          nix run nixpkgs#ssh-to-age -- -private-key -i "$HOME/.ssh/id_ed25519" > "$HOME/.config/sops/age/keys.txt"
-
-      - name: Rsync zone files over SSH
-        run: |
-          sudo apt-get install -y rsync
-          rsync -avzr -e "ssh -p2222" ci@rsync-ci.xuyh0120.win:/ltnet-zones/ zones/ || true
+          nix run nixpkgs#ssh-to-age -- -private-key -i "$HOME/.ssh/id_ed25519_sops" > "$HOME/.config/sops/age/keys.txt"
 
       - name: Apply DNSControl changes
         run: nix run ".#dnscontrol" -- push
@@ -66,4 +62,4 @@ jobs:
         if: '!cancelled()'
         run: |
           sudo apt-get install -y rsync
-          rsync -avzr --delete-after -e "ssh -p2222" zones/ ci@rsync-ci.xuyh0120.win:/ltnet-zones/
+          rsync -avzr --delete-after -e "ssh -p2222" zones/ ci@rsync-ci.xuyh0120.win:ltnet-zones/
