@@ -25,20 +25,27 @@ in
 
   systemd.services.rsync-nix-sync-servers = {
     enable = !isPrimaryServer;
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
-      BindPaths = [ "/nix/sync-servers" ];
       ExecStart = builtins.concatStringsSep " " [
         (lib.getExe pkgs.rsync)
-        "-aczrq"
+        "-czrq"
         "--delete-after"
         "--timeout=300"
+        "--owner"
+        "--group"
+        "--chown=root:root"
+        "--chmod=755"
         "rsync-internal:."
         "/nix/sync-servers/"
       ];
     };
 
-    path = [ pkgs.rsync ];
+    path = [
+      pkgs.rsync
+      pkgs.openssh_hpn
+      pkgs.systemd
+    ];
 
     postStart = ''
       set -x
