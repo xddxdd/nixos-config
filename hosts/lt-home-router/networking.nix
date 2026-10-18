@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, LT, ... }:
 {
   # VLAN netdevs
   systemd.network.netdevs = {
