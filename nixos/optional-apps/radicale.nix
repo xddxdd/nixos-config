@@ -16,7 +16,10 @@
     BindPaths = [ "/var/lib/radicale/collections" ];
   };
 
-  systemd.services.radicale.confinement = { enable = true; fullUnit = true; };
+  systemd.services.radicale.confinement = {
+    enable = true;
+    fullUnit = true;
+  };
 
   lantian.nginxVhosts."cal.xuyh0120.win" = {
     locations = {
@@ -26,6 +29,7 @@
       };
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     blockDotfiles = false;
     noIndex.enable = true;
