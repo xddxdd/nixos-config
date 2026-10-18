@@ -133,8 +133,8 @@ in
     ForwardToKMsg = false;
     ForwardToWall = false;
     Storage = "persistent";
-    SystemMaxFileSize = "10M";
-    SystemMaxUse = "100M";
+    SystemMaxFileSize = "100M";
+    SystemMaxUse = "1G";
   };
 
   security.openssl = {
