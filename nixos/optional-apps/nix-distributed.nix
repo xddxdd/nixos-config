@@ -3,11 +3,10 @@
   LT,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
-  cfg = config.lantian.nix-distributed;
-
   mkBuildMachine =
     n: v:
     let
@@ -30,7 +29,7 @@ let
           # Use legacy protocol for Hydra
           protocol = "ssh";
           speedFactor = v.cpuThreads;
-          sshKey = cfg.sshKeyPath;
+          sshKey = config.sops.secrets.nix-ssh-privkey.path;
           sshUser = "nix-builder";
           supportedFeatures = gccarchFeatures;
           mandatoryFeatures = [ ];
@@ -44,7 +43,7 @@ let
           # Use legacy protocol for Hydra
           protocol = "ssh";
           speedFactor = v.cpuThreads;
-          sshKey = cfg.sshKeyPath;
+          sshKey = config.sops.secrets.nix-ssh-privkey.path;
           sshUser = "nix-builder";
           supportedFeatures = [ "big-parallel" ] ++ gccarchFeatures;
           mandatoryFeatures = [ "big-parallel" ];
@@ -57,7 +56,7 @@ let
       "armv7l-linux"
       "aarch64-linux"
     ];
-    sshKey = cfg.sshKeyPath;
+    sshKey = config.sops.secrets.nix-ssh-privkey.path;
     sshUser = "root";
     maxJobs = 100;
     speedFactor = 100;
@@ -68,32 +67,27 @@ let
   };
 in
 {
-  options.lantian.nix-distributed.sshKeyPath = lib.mkOption {
-    type = lib.types.str;
-    default = "/home/lantian/.ssh/id_ed25519";
-  };
+  sops.secrets.nix-ssh-privkey.sopsFile = inputs.secrets + "/nix-client.yaml";
 
-  config = {
-    nix = {
-      distributedBuilds = true;
-      buildMachines =
-        lib.flatten (
-          lib.filter (v: v != null) (
-            lib.mapAttrsToList mkBuildMachine (
-              lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
-            )
+  nix = {
+    distributedBuilds = true;
+    buildMachines =
+      lib.flatten (
+        lib.filter (v: v != null) (
+          lib.mapAttrsToList mkBuildMachine (
+            lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
           )
         )
-        ++ [ nixBuildNet ];
-    };
-
-    environment.systemPackages = [
-      (pkgs.writeShellScriptBin "nix-remote-build-off" ''
-        sudo rm -f /etc/nix/machines
-      '')
-      (pkgs.writeShellScriptBin "nix-remote-build-on" ''
-        sudo ln -s ${config.environment.etc."nix/machines".source} /etc/nix/machines
-      '')
-    ];
+      )
+      ++ [ nixBuildNet ];
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "nix-remote-build-off" ''
+      sudo rm -f /etc/nix/machines
+    '')
+    (pkgs.writeShellScriptBin "nix-remote-build-on" ''
+      sudo ln -s ${config.environment.etc."nix/machines".source} /etc/nix/machines
+    '')
+  ];
 }
