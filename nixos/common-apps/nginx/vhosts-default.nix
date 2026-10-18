@@ -33,10 +33,6 @@ in
 
       enableCommonLocationOptions = false;
       enableCommonVhostOptions = false;
-
-      extraConfig = ''
-        access_log off;
-      '';
     };
 
     "_default_https" = {
@@ -50,10 +46,6 @@ in
 
       enableCommonLocationOptions = false;
       enableCommonVhostOptions = false;
-
-      extraConfig = ''
-        access_log off;
-      '';
     };
 
     "localhost" = {

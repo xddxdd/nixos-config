@@ -354,8 +354,6 @@ let
         error_page 403 ${config.accessBlockAction};
       '')
       + (lib.optionalString (config.accessibleBy == "localhost") ''
-        access_log off;
-
         ${lib.concatMapStringsSep "\n" (ip: "allow ${ip};") LT.this._addresses}
         allow 127.0.0.1;
         allow ::1;

@@ -8,7 +8,6 @@
         proxyOverrideHost = "openspeedtest.localhost";
         disableLiveCompression = true;
         extraConfig = ''
-          access_log off;
           client_max_body_size 35m;
           proxy_http_version 1.1;
         '';
@@ -45,7 +44,6 @@
               return 200;
           }
 
-          access_log off;
           client_max_body_size 35m;
           error_page 405 =200 $uri;
         '';
