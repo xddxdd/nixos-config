@@ -56,4 +56,12 @@ in
       accessibleBy = "localhost";
     };
   };
+
+  systemd.tmpfiles.settings.nginx = {
+    "/var/www/localhost"."d" = {
+      mode = "755";
+      user = "root";
+      group = "root";
+    };
+  };
 }

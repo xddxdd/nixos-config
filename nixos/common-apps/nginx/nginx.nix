@@ -234,13 +234,11 @@ in
         # is not in the unit closure, so bind the real store files instead
         "${config.environment.etc."nginx/nginx.conf".source}:/etc/nginx/nginx.conf"
         "${config.environment.etc."nginx/htpasswd".source}:/etc/nginx/htpasswd"
+        # ACME certs
+        "/nix/sync-servers/acme"
       ]
       ++ lib.optionals config.lantian.geoip.enable [
         "${config.environment.etc."geoip".source}:/etc/geoip"
-      ]
-      ++ [
-        # ACME certs and synced vhost content, maintained by rsync-server
-        "/nix/sync-servers"
       ];
       SystemCallErrorNumber = "EPERM";
       SystemCallFilter = lib.mkForce [ ];
@@ -253,4 +251,19 @@ in
   environment.etc."nginx/htpasswd".text = ''
     lantian:${unixHashedPassword}
   '';
+
+  systemd.packages = [
+    (pkgs.writeTextFile {
+      name = "nginx-confinement";
+      destination = "/lib/systemd/system/nginx.service.d/nginx-root.conf";
+      text = builtins.concatStringsSep "\n" (
+        [ "[Service]" ]
+        ++ builtins.map (n: "BindReadOnlyPaths=${n}") (
+          builtins.filter (v: v != null) (
+            lib.unique (lib.mapAttrsToList (_: v: v.root) config.lantian.nginxVhosts)
+          )
+        )
+      );
+    })
+  ];
 }

@@ -107,4 +107,12 @@ in
   users.groups.yourls = { };
 
   systemd.services."phpfpm-yourls".serviceConfig.RestartSec = "5s";
+
+  systemd.tmpfiles.settings.nginx = {
+    "${root}"."d" = {
+      mode = "755";
+      user = "root";
+      group = "root";
+    };
+  };
 }

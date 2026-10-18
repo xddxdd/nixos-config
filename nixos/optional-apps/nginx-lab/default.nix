@@ -99,4 +99,12 @@ in
   };
 
   systemd.services."phpfpm-lab".serviceConfig.RestartSec = "5s";
+
+  systemd.tmpfiles.settings.nginx = {
+    "/var/www/lab.lantian.pub"."d" = {
+      mode = "755";
+      user = "root";
+      group = "root";
+    };
+  };
 }
