@@ -104,11 +104,15 @@ in
       # module's mkDefault
       PrivateDevices = false;
       PrivateUsers = false;
+      ProtectKernelTunables = false;
       ExecStart = "${lib.getExe' sx1302Hal "lora_pkt_fwd"} -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
-      # Sops secret lives under /run/secrets, outside the confinement chroot
-      BindReadOnlyPaths = [ "/run/secrets" ];
+      # Sops secret lives under /run, outside the confinement chroot
+      BindReadOnlyPaths = [
+        "/run"
+        "${lib.getExe' pkgs.coreutils "env"}:/usr/bin/env"
+      ];
     };
   };
 

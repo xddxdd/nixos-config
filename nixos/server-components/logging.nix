@@ -101,7 +101,8 @@
         user = "fluent-bit";
         group = "fluent-bit";
       };
-      "/var/lib/fluent-bit"."R" = {
+      "/var/lib/fluent-bit/storage"."d" = {
+        mode = "750";
         user = "fluent-bit";
         group = "fluent-bit";
       };

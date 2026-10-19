@@ -207,8 +207,7 @@ let
     "223.128.0.0 255.128.0.0"
   ];
 in
-lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
-{
+lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   sops.secrets.openvpn-gameaccel-ca = {
     sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";
@@ -235,9 +234,6 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
     cert ${config.sops.secrets.openvpn-gameaccel-server-cert.path}
     key ${config.sops.secrets.openvpn-gameaccel-server-key.path}
     dh ${../common-apps/nginx/files/dhparam.pem}
-
-    user openvpn
-    group openvpn
 
     data-ciphers AES-256-GCM:AES-128-GCM:?CHACHA20-POLY1305
     topology subnet
@@ -279,7 +275,15 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
   # (per service-harden preset rules), plus /run bind to reach sops secrets
   systemd.services."openvpn-gameaccel".serviceConfig = LT.networkToolHarden // {
     RestartSec = "5s";
-    BindPaths = [ "/run" ];
+    PrivateUsers = false;
+    PrivateDevices = false;
+    BindPaths = [
+      "/run"
+      "/etc/passwd"
+      "/etc/group"
+    ];
+    User = "openvpn";
+    Group = "openvpn";
   };
   lantian.harden."openvpn-gameaccel" = true;
 }
