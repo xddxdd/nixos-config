@@ -2,6 +2,7 @@
   lib,
   pkgs,
   LT,
+  config,
   ...
 }:
 let
@@ -153,7 +154,6 @@ in
       ProcSubset = "all";
     };
   };
-  lantian.harden.llama-swap = true;
 
   users.users.llama-swap = {
     group = "llama-swap";

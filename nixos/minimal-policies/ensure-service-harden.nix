@@ -23,6 +23,7 @@ let
     "cups-browsed"
     "enable-ksm"
     "greetd"
+    "llama-swap" # CUDA
     "nvidia-persistenced"
     "ovs-vswitchd"
     "ovsdb"
