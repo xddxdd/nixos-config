@@ -35,6 +35,8 @@
   "attic.xuyh0120.win" # currently showing compromised warning
   "git.lantian.pub"
   "hydra.lantian.pub"
+  "matrix-client.lantian.pub"
+  "matrix-federation.lantian.pub"
   # keep-sorted end
 
   # Intentionally public without authentication

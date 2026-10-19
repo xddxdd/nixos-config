@@ -34,7 +34,7 @@
     # ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/loki.nix
     # ../../nixos/optional-apps/maddy.nix
-    # ../../nixos/optional-apps/matrix-synapse
+    ../../nixos/optional-apps/matrix-synapse
     # ../../nixos/optional-apps/miniflux.nix
     # ../../nixos/optional-apps/netbox.nix
     # ../../nixos/optional-apps/netns-tnl-buyvm.nix
