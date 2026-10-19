@@ -35,28 +35,6 @@
   lantian.backup = {
     enable = true;
     resticRepos = [ "home" ];
-    paths = {
-      nix-persistent = lib.mkForce {
-        snapshotFrom = "/nix/persistent";
-        snapshotTo = "/nix/.snapshot-persistent";
-        backupPath = "/nix/.snapshot-persistent";
-      };
-      home = {
-        snapshotFrom = "/nix/persistent/home";
-        snapshotTo = "/nix/persistent/.snapshot-home";
-        backupPath = "/nix/persistent/.snapshot-home/lantian";
-        ignored = ''
-          .cache
-          .cursor/extensions
-          .local/share/containers
-          .local/share/Steam/steamapps/common
-          .local/share/Xilinx
-          .vscode/extensions
-          .windsurf/extensions
-          Downloads
-        '';
-      };
-    };
     schedule = "daily";
     persistentTimer = true;
   };
@@ -74,22 +52,6 @@
 
   # ClamAV daemon doesn't have permission to user home folder
   services.clamav.daemon.enable = lib.mkForce false;
-
-  services.samba.settings = {
-    "lantian" = {
-      "path" = "/home/lantian";
-      "browseable" = "yes";
-      "read only" = "no";
-      "guest ok" = "no";
-      "create mask" = "0644";
-      "directory mask" = "0755";
-      "force user" = "lantian";
-      "force group" = "lantian";
-      "valid users" = "lantian";
-      "veto files" = "/._*/.DS_Store/Thumbs.db/";
-      "delete veto files" = "yes";
-    };
-  };
 
   lantian.localVhosts = {
     lab.locations."/".enableOAuth = true;
