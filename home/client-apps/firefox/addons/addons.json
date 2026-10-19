@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.4.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5106395/all_api_hub-4.4.0.xpi",
-    "hash": "sha256-/vKXJPFx+6OMGWfXwgs8KDWoLwriXgXTOv2uCGrom+w=",
+    "version": "4.5.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5128645/all_api_hub-4.5.0.xpi",
+    "hash": "sha256-LwmQo8uIrpGeDAQE2S0X67QJvW/N+DlKVIsQE979vDI=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
@@ -22,16 +22,16 @@
   },
   {
     "pname": "bilisponsorblock",
-    "version": "0.16.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5086418/bilisponsorblock-0.16.0.xpi",
-    "hash": "sha256-83nNqqupJTvCSX5e0WugleWy8VevHIzJSJ+WBI2gmE0=",
+    "version": "0.17.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5129607/bilisponsorblock-0.17.0.xpi",
+    "hash": "sha256-En27xVc3T0CsRx7wNdIyKQ7pV//FMb7B0aftnVdxpQM=",
     "addonId": "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}"
   },
   {
     "pname": "bitwarden-password-manager",
-    "version": "2026.9.3",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5076543/bitwarden_password_manager-2026.9.3.xpi",
-    "hash": "sha256-XdbvpdIo2+rHoMaog/lReH3GbleYUyLOVJIQsN+NBUw=",
+    "version": "2026.10.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5125667/bitwarden_password_manager-2026.10.0.xpi",
+    "hash": "sha256-ol4C6WH0/87NoSWE8y8ZkxAq11CenKhFguUocQn1vSA=",
     "addonId": "{446900e4-71c2-419f-a6a7-df9c091e268b}"
   },
   {
@@ -64,9 +64,9 @@
   },
   {
     "pname": "downthemall",
-    "version": "4.15.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi",
-    "hash": "sha256-pvU4IrcItMtZUZXyWBj7DutpDhJEyi1/wNC2RcTcXek=",
+    "version": "4.16.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5133532/downthemall-4.16.1.xpi",
+    "hash": "sha256-xSSew+VEG1p8ZRV2LWEscg0rg15RfNyT3SoAslfy9FY=",
     "addonId": "{DDC359D1-844A-42a7-9AA1-88A850A938A8}"
   },
   {
@@ -155,16 +155,16 @@
   },
   {
     "pname": "pt-depiler",
-    "version": "0.0.6.1940",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5077253/pt_depiler-0.0.6.1940.xpi",
-    "hash": "sha256-lhTLrqqGSYxuNAGCs10EU6D4N7zCrIAfVjvEuRnCiOs=",
+    "version": "0.0.6.1998",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5126863/pt_depiler-0.0.6.1998.xpi",
+    "hash": "sha256-nCc2TMOyP43GWCj5V+LCu8QGL0VwV5d9sRI8HvQ+WEA=",
     "addonId": "ptdepiler.ptplugins@gmail.com"
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.51.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5111184/read_frog_open_ai_translator-1.51.0.xpi",
-    "hash": "sha256-7qL9Qj+KyAE2vFwwrG66NDa2yW9dcHcHyAd30nBSN8E=",
+    "version": "1.52.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5136507/read_frog_open_ai_translator-1.52.0.xpi",
+    "hash": "sha256-5u9lo2yFcHBnfQztMlwLbyAn2LAcI+JAjG5+DNb7nIs=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
