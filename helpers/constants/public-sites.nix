@@ -33,6 +33,7 @@
   # Has own authentication system
   # keep-sorted start
   "attic.xuyh0120.win" # currently showing compromised warning
+  "comments.lantian.pub"
   "git.lantian.pub"
   "hydra.lantian.pub"
   "matrix-client.lantian.pub"

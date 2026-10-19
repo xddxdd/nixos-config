@@ -40,4 +40,11 @@
       </clickhouse>
     '';
   };
+  systemd.services.clickhouse.serviceConfig = {
+    BindReadOnlyPaths = [
+      "/etc/clickhouse-server"
+      "/etc/static/clickhouse-server"
+    ];
+  };
+  lantian.harden.clickhouse = true;
 }

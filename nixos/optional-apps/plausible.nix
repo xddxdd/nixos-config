@@ -57,6 +57,7 @@ in
       };
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
   };
 
@@ -100,9 +101,14 @@ in
         StateDirectory = lib.mkForce "plausible";
         RuntimeDirectory = "plausible";
         WorkingDirectory = lib.mkForce "/run/plausible";
+        BindReadOnlyPaths = [
+          "/etc/geoip"
+          "/run/postgresql"
+        ];
       };
     };
   };
+  lantian.harden.plausible = true;
 
   users.users.plausible = {
     group = "plausible";

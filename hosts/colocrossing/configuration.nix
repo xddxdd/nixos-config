@@ -31,33 +31,30 @@
     # ../../nixos/optional-apps/gitea-actions.nix
     # ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/imapfilter.nix
-    # ../../nixos/optional-apps/lemmy.nix
     ../../nixos/optional-apps/loki.nix
     # ../../nixos/optional-apps/maddy.nix
     ../../nixos/optional-apps/matrix-synapse
-    # ../../nixos/optional-apps/miniflux.nix
+    ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
     # ../../nixos/optional-apps/netns-tnl-buyvm.nix
     # ../../nixos/optional-apps/nginx-api.nix
     ../../nixos/optional-apps/oidc-tester.nix
     ../../nixos/optional-apps/ollama-cpa-honeypot.nix
-    # ../../nixos/optional-apps/plausible.nix
+    ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
     # ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     # ../../nixos/optional-apps/radicle.nix
     ../../nixos/optional-apps/renovate.nix
-    # ../../nixos/optional-apps/rsshub.nix
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/rsync-server-internal.nix
     # ../../nixos/optional-apps/syncthing
     # ../../nixos/optional-apps/tg-bot-cleaner-bot
     # ../../nixos/optional-apps/tranquil-pds.nix
-    # ../../nixos/optional-apps/waline
+    ../../nixos/optional-apps/waline
     # ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/zerotierone-controller.nix
 
-    # ../../nixos/optional-cron-jobs/cleanup-github-notifications
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix
     # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
