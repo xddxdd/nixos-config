@@ -23,7 +23,7 @@
     # ../../nixos/optional-apps/bepasty.nix
     # ../../nixos/optional-apps/bird-lg-go.nix
     # ../../nixos/optional-apps/byparr.nix
-    # ../../nixos/optional-apps/cliproxyapi.nix
+    ../../nixos/optional-apps/cliproxyapi.nix
     ../../nixos/optional-apps/dex.nix
     # ../../nixos/optional-apps/fastpit.nix
     # ../../nixos/optional-apps/flapalerted.nix

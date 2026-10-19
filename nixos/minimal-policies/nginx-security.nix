@@ -13,7 +13,7 @@
       }
       {
         assertion = builtins.elem n LT.constants.publicSites || v.accessibleBy != "public";
-        message = "${n} is publicly accessible without authentication";
+        message = "${n} is publicly accessible";
       }
     ]) (config.lantian.nginxVhosts or { }))
     ++ (lib.mapAttrsToList (n: v: [
@@ -26,7 +26,7 @@
             "lab"
             "llama-swap"
           ];
-        message = "${n} is LAN accessible without authentication";
+        message = "${n} is LAN accessible";
       }
     ]) (config.lantian.localVhosts or { }))
   );

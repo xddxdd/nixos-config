@@ -34,6 +34,7 @@ in
       Group = "cliproxyapi";
     };
   };
+  lantian.harden.cliproxyapi = true;
 
   users.users.cliproxyapi = {
     group = "cliproxyapi";
@@ -57,6 +58,7 @@ in
         };
       };
 
+      accessibleBy = "private";
       sslCertificate = "lets-encrypt-xuyh0120.win";
       noIndex.enable = true;
     };
