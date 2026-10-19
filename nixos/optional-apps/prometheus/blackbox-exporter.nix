@@ -104,6 +104,7 @@ in
                 304
                 307
                 308
+                401
               ];
               follow_redirects = false;
             };
