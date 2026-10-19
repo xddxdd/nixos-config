@@ -51,6 +51,7 @@
       "/static/".alias = config.services.netbox.settings.STATIC_ROOT + "/";
     };
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
   };
@@ -60,13 +61,20 @@
     requires = [ "redis-netbox.service" ];
     serviceConfig = LT.networkToolHarden // {
       RuntimeDirectory = "netbox";
+      # FIXME: secret
+      BindReadOnlyPaths = [ "/run" ];
     };
   };
   systemd.services.netbox-rq = {
     after = [ "redis-netbox.service" ];
     requires = [ "redis-netbox.service" ];
-    serviceConfig = LT.serviceHarden;
+    serviceConfig = LT.serviceHarden // {
+      # FIXME: secret
+      BindReadOnlyPaths = [ "/run" ];
+    };
   };
+  lantian.harden.netbox = true;
+  lantian.harden.netbox-rq = true;
 
   users.groups.netbox.members = [ "nginx" ];
 }

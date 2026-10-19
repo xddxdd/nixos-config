@@ -152,15 +152,5 @@ in
     ] (_: proxyLocation);
   };
 
-  # Loki has no authentication: accept its private endpoint only through the
-  # LTnet mesh, the existing ZeroTier fallback, or local loopback traffic.
-  lantian.firewall.chains.FILTER_INPUT.rules = [
-    {
-      priority = LT.firewallPriorities.preService;
-      text = ''
-        fib daddr type local tcp dport ${LT.portStr.Loki} ip saddr != 198.18.0.0/24 reject with tcp reset
-        fib daddr type local tcp dport ${LT.portStr.Loki} iifname != "lo" iifname != "wgmesh*" iifname != "ztramij2dg" reject with tcp reset
-      '';
-    }
-  ];
+  lantian.firewall.presets.public-firewall.firewalledPorts = [ LT.port.Loki ];
 }

@@ -36,7 +36,7 @@
     # ../../nixos/optional-apps/maddy.nix
     ../../nixos/optional-apps/matrix-synapse
     # ../../nixos/optional-apps/miniflux.nix
-    # ../../nixos/optional-apps/netbox.nix
+    ../../nixos/optional-apps/netbox.nix
     # ../../nixos/optional-apps/netns-tnl-buyvm.nix
     # ../../nixos/optional-apps/nginx-api.nix
     ../../nixos/optional-apps/oidc-tester.nix
