@@ -5,9 +5,6 @@
   pkgs,
   ...
 }:
-let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-in
 {
   imports = [
     ./base-domains.nix
@@ -31,7 +28,7 @@ in
       dnsProvider = "bunny";
       dnsResolver = "8.8.8.8:53";
       dnsPropagationCheck = true;
-      email = glauthUsers.lantian.mail;
+      email = "lantian@lantian.pub";
       environmentFile = [ config.sops.templates.lego-env.path ];
       postRun = ''
         CERT=$(basename $(pwd))

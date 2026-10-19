@@ -118,7 +118,6 @@ in
         powertop
         pwgen
         qrcp
-        quasselClient
         rar
         steam-run
         synadm

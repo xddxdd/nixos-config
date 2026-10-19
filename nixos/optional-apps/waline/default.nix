@@ -82,7 +82,7 @@ in
 
       SITE_NAME = "Lan Tian @ Blog";
       SITE_URL = "https://lantian.pub";
-      AUTHOR_EMAIL = "b980120@hotmail.com";
+      AUTHOR_EMAIL = "lantian@lantian.pub";
       AKISMET_KEY = "false";
 
       SMTP_HOST = config.programs.msmtp.accounts.default.host;

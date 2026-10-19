@@ -1,12 +1,8 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
-let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-in
 {
   systemd.services.asterisk-fax-monitor = {
     description = "Asterisk Fax Monitor";
@@ -19,7 +15,7 @@ in
     ];
     script = ''
       FAX_DIR="/var/lib/asterisk/fax"
-      MAILTO="${glauthUsers.lantian.mail}"
+      MAILTO="lantian@lantian.pub"
       FROM="${config.programs.msmtp.accounts.default.from}"
 
       mkdir -p "$FAX_DIR"

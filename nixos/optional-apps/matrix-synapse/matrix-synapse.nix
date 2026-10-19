@@ -5,9 +5,6 @@
   inputs,
   ...
 }:
-let
-  glauthUsers = import (inputs.secrets + "/glauth-users.nix");
-in
 {
   imports = [ ../postgresql.nix ];
 
@@ -20,7 +17,6 @@ in
 
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-http-rendezvous-synapse
-      matrix-synapse-ldap3
       matrix-synapse-mjolnir-antispam
     ];
 

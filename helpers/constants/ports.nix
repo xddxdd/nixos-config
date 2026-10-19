@@ -6,13 +6,10 @@ rec {
     DNSLocal = 54; # CoreDNS local-only service port
     Gopher = 70;
     HTTP = 80;
-    Quassel.Ident = 113;
     BGP = 179;
     Hack3ricFlow = 180;
-    LDAP = 389;
     HTTPS = 443;
     CUPS = 631;
-    LDAPS = 636;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
     V2Ray.IPv4OnlyClient = 1082;
@@ -23,7 +20,6 @@ rec {
     NFS.StatD = 4000;
     NFS.LockD = 4001;
     NFS.MountD = 4002;
-    Quassel.Main = 4242;
     Yggdrasil.Alfis = 4244;
     I2P.HTTPProxy = 4444;
     I2P.SocksProxy = 4447;

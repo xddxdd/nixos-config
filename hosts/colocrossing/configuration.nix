@@ -29,7 +29,6 @@
     ../../nixos/optional-apps/flapalerted.nix
     ../../nixos/optional-apps/gitea
     # ../../nixos/optional-apps/gitea-actions.nix
-    # ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/loki.nix
     # ../../nixos/optional-apps/maddy.nix
@@ -42,7 +41,6 @@
     ../../nixos/optional-apps/ollama-cpa-honeypot.nix
     ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
-    # ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     # ../../nixos/optional-apps/radicle.nix
     ../../nixos/optional-apps/renovate.nix

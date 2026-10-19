@@ -254,16 +254,6 @@
       receivers = [
         {
           name = "admin";
-          # email_configs = [
-          #   {
-          #     to = glauthUsers.lantian.mail;
-          #     send_resolved = true;
-          #     threading = {
-          #       enabled = true;
-          #       thread_by_date = "daily";
-          #     };
-          #   }
-          # ];
           telegram_configs = [
             {
               bot_token_file = config.sops.secrets.telegram-bot-token.path;
