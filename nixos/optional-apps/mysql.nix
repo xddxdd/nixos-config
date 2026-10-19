@@ -98,6 +98,7 @@ in
         "/run/mysqld"
       ];
       BindReadOnlyPaths = [
+        "${config.environment.etc."my.cnf".source}:/etc/my.cnf"
         "/etc/passwd"
         "/etc/group"
       ];

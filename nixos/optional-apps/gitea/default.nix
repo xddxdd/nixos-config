@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  LT,
   ...
 }:
 {
@@ -57,8 +58,8 @@
         DISABLE_REGISTRATION = true;
         ENABLE_CAPTCHA = false;
         ENABLE_NOTIFY_MAIL = true;
-        ENABLE_BASIC_AUTHENTICATION = false;
-        ENABLE_PASSWORD_SIGNIN_FORM = false;
+        ENABLE_BASIC_AUTHENTICATION = true;
+        ENABLE_PASSWORD_SIGNIN_FORM = true;
         ENABLE_PASSKEY_AUTHENTICATION = false;
         NO_REPLY_ADDRESS = "hidden.lantian.pub";
         REGISTER_EMAIL_CONFIRM = false;
@@ -90,10 +91,14 @@
     };
   };
 
-  systemd.services.gitea.serviceConfig = {
+  systemd.services.gitea.serviceConfig = LT.serviceHarden // {
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
+    StateDirectory = "gitea";
+    # FIXME: secrets
+    BindReadOnlyPaths = [ "/run" ];
   };
+  lantian.harden.gitea = true;
 
   services.mysql = {
     ensureDatabases = [ "gitea" ];
@@ -129,7 +134,7 @@
         proxyNoTimeout = true;
       };
       "= /robots.txt".alias = ./robots.txt;
-      "= /user/login".return = "307 /user/oauth2/Dex";
+      # "= /user/login".return = "307 /user/oauth2/Dex";
     };
 
     blockDotfiles = false;

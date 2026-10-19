@@ -1,11 +1,11 @@
 { config, inputs, ... }:
 {
-  sops.secrets.renovate-token.sopsFile = inputs.secrets + "/renovate.yaml";
+  sops.secrets.renovate-key.sopsFile = inputs.secrets + "/renovate.yaml";
 
   services.renovate = {
     enable = true;
     schedule = "hourly";
-    credentials.RENOVATE_TOKEN = config.sops.secrets.renovate-token.path;
+    credentials.RENOVATE_TOKEN = config.sops.secrets.renovate-key.path;
     settings = {
       platform = "gitea";
       endpoint = "https://git.lantian.pub/";

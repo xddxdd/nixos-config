@@ -27,7 +27,7 @@
     ../../nixos/optional-apps/dex.nix
     # ../../nixos/optional-apps/fastpit.nix
     # ../../nixos/optional-apps/flapalerted.nix
-    # ../../nixos/optional-apps/gitea
+    ../../nixos/optional-apps/gitea
     # ../../nixos/optional-apps/gitea-actions.nix
     # ../../nixos/optional-apps/glauth.nix
     # ../../nixos/optional-apps/imapfilter.nix
@@ -39,14 +39,14 @@
     # ../../nixos/optional-apps/netbox.nix
     # ../../nixos/optional-apps/netns-tnl-buyvm.nix
     # ../../nixos/optional-apps/nginx-api.nix
-    # ../../nixos/optional-apps/oidc-tester.nix
-    # ../../nixos/optional-apps/ollama-cpa-honeypot.nix
+    ../../nixos/optional-apps/oidc-tester.nix
+    ../../nixos/optional-apps/ollama-cpa-honeypot.nix
     # ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
     # ../../nixos/optional-apps/quassel.nix
     ../../nixos/optional-apps/radicale.nix
     # ../../nixos/optional-apps/radicle.nix
-    # ../../nixos/optional-apps/renovate.nix
+    ../../nixos/optional-apps/renovate.nix
     # ../../nixos/optional-apps/rsshub.nix
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/rsync-server-internal.nix

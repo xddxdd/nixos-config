@@ -14,12 +14,7 @@ let
   });
 in
 {
-  sops.secrets.oidc-tester-dex-secret = {
-    sopsFile = inputs.secrets + "/common/dex.yaml";
-    key = "dex-oidc-tester-secret";
-    owner = "oidc-tester";
-    group = "oidc-tester";
-  };
+  sops.secrets.dex-oidc-tester-secret.sopsFile = inputs.secrets + "/dex/oidc-tester.yaml";
 
   systemd.services.oidc-tester = {
     description = "OIDC Tester App";
@@ -33,7 +28,7 @@ in
         --public-url https://oidc-tester.lantian.pub/ \
         --id oidc-tester \
         --issuer https://login.lantian.pub \
-        --secret "$(cat ${config.sops.secrets.oidc-tester-dex-secret.path})"
+        --secret "$(cat $CREDENTIALS_DIRECTORY/secret)"
     '';
 
     serviceConfig = LT.serviceHarden // {
@@ -43,8 +38,13 @@ in
 
       User = "oidc-tester";
       Group = "oidc-tester";
+
+      LoadCredential = [
+        "secret:${config.sops.secrets.dex-oidc-tester-secret.path}"
+      ];
     };
   };
+  lantian.harden.oidc-tester = true;
 
   users.users.oidc-tester = {
     group = "oidc-tester";
@@ -62,6 +62,7 @@ in
     # Conflict with oidc-tester paths
     enableCommonLocationOptions = false;
 
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-lantian.pub";
     noIndex.enable = true;
   };
