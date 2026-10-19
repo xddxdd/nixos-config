@@ -54,7 +54,7 @@
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix
-    # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
+    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
     # "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
     # "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
