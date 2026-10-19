@@ -20,7 +20,7 @@ in
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
-    ../../nixos/optional-apps/bitmagnet.nix
+    # ../../nixos/optional-apps/bitmagnet.nix # missing regenerated secret tmdb.yaml
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/peerbanhelper.nix
     ../../nixos/optional-apps/qbittorrent.nix
@@ -73,13 +73,24 @@ in
     };
   };
 
+  # Recursive ownership fix for restored state trees (systemd StateDirectory
+  # only chowns the top directory); runs via tmpfiles on every activation
+  systemd.tmpfiles.settings."arr-state-ownership" = {
+    "/var/lib/radarr"."Z" = {
+      mode = "-";
+      user = "lantian";
+      group = "users";
+    };
+  };
+
   ########################################
   # Sonarr
   ########################################
 
-  systemd.services.bitmagnet-http = netns.bind { };
-  systemd.services.bitmagnet-queue = netns.bind { };
-  systemd.services.bitmagnet-dht = netns.bind { };
+  # BitMagnet disabled: missing regenerated secret tmdb.yaml
+  # systemd.services.bitmagnet-http = netns.bind { };
+  # systemd.services.bitmagnet-queue = netns.bind { };
+  # systemd.services.bitmagnet-dht = netns.bind { };
   systemd.services.peerbanhelper = netns.bind { };
   systemd.services.jellyfin.unitConfig.RequiresMountsFor = "/mnt/storage";
 
@@ -87,11 +98,16 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
+      StateDirectory = lib.mkForce "radarr radarr/asp";
       BindPaths = [
         radarrMediaPath
         qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
+    };
+    confinement = {
+      enable = true;
+      fullUnit = true;
     };
   };
 
@@ -105,6 +121,10 @@ in
         qBitTorrentSonarrDownloadPath
       ];
     };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   systemd.services.bazarr = {
@@ -117,34 +137,49 @@ in
         sonarrMediaPath
       ];
     };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
-    serviceConfig = {
+    environment.XDG_CACHE_HOME = "/var/lib/qbittorrent/qBittorrent/cache";
+    environment.XDG_CONFIG_HOME = "/var/lib/qbittorrent/qBittorrent/config";
+    environment.XDG_DATA_HOME = "/var/lib/qbittorrent/qBittorrent/data";
+    serviceConfig = LT.serviceHarden // {
+      StateDirectory = "qbittorrent";
       BindPaths = [
         defaultDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   systemd.services.qbittorrent-pt = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
-    serviceConfig = {
+    environment.XDG_CACHE_HOME = "/var/lib/qbittorrent-pt/qBittorrent/cache";
+    environment.XDG_CONFIG_HOME = "/var/lib/qbittorrent-pt/qBittorrent/config";
+    environment.XDG_DATA_HOME = "/var/lib/qbittorrent-pt/qBittorrent/data";
+    serviceConfig = LT.serviceHarden // {
+      StateDirectory = "qbittorrent-pt";
       BindPaths = [
         defaultDownloadPath
         flexgetAutoDownloadPath
         qBitTorrentPTSonarrDownloadPath
       ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   lantian.localVhosts = {
+    # bitmagnet disabled: missing regenerated secret tmdb.yaml
+    # bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
     bt.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
-    bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
     peerbanhelper.locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";
   };

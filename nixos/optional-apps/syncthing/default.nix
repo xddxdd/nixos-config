@@ -53,12 +53,15 @@
 
     environment.systemPackages = [ config.services.syncthing.package ];
 
+    # Keep off the public internet; OAuth already required
+    # (accessibleBy defaults to private)
+
     systemd.services.syncthing = {
       unitConfig.RequiresMountsFor = map LT.escapeMountPath [
         config.lantian.syncthing.storage
         config.services.syncthing.dataDir
       ];
-      serviceConfig = {
+      serviceConfig = LT.serviceHarden // {
         RestartSec = "5s";
         AmbientCapabilities = [
           "CAP_DAC_OVERRIDE"
@@ -71,6 +74,8 @@
         ReadWritePaths = [ "/run/syncthing-files" ];
         RuntimeDirectory = "syncthing";
         StateDirectory = "syncthing";
+        # chroot's tmpfs root is ephemeral; bind the served data through
+        BindPaths = [ config.services.syncthing.dataDir ];
 
         ExecStartPre =
           let
@@ -81,6 +86,7 @@
           "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml";
       };
     };
+    lantian.harden.syncthing = true;
 
     # Replaced by custom config script
     systemd.services.syncthing-init.enable = lib.mkForce false;
@@ -96,7 +102,6 @@
     };
 
     lantian.localVhosts.syncthing = {
-      accessibleBy = "public";
       locations = {
         "/" = {
           enableOAuth = true;

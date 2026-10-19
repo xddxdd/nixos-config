@@ -38,8 +38,11 @@
       StateDirectory = "fastapi-dls";
       User = "fastapi-dls";
       Group = "fastapi-dls";
+      # chroot's tmpfs root is ephemeral; bind state directory through
+      BindPaths = [ "/var/lib/fastapi-dls" ];
     };
   };
+  lantian.harden.fastapi-dls = true;
 
   lantian.localVhosts."fastapi-dls" = {
     locations = {

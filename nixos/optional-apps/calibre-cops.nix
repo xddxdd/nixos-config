@@ -22,6 +22,11 @@ in
       (LT.escapeMountPath calibreLibrary)
     ];
     systemd.services.nginx.unitConfig.RequiresMountsFor = [ (LT.escapeMountPath calibreLibrary) ];
+    # nginx confinement: bind the calibre library read-only for the internal
+    # X-Accel alias
+    systemd.services.nginx.serviceConfig.BindReadOnlyPaths = [
+      (LT.escapeMountPath calibreLibrary)
+    ];
 
     services.phpfpm.pools.calibre-cops = {
       phpPackage = pkgs.php.withExtensions (
@@ -51,6 +56,8 @@ in
     lantian.nginxVhosts = {
       "books.xuyh0120.win" = {
         root = pkgs.nur-xddxdd.calibre-cops;
+        # Keep off the public internet; basic auth already required
+        accessibleBy = "private";
         locations = {
           "/" = {
             tryFiles = "$uri $uri/ /index.php$uri";
@@ -105,6 +112,32 @@ in
       $config['default_timezone'] = '${config.time.timeZone}';
     '';
 
-    systemd.services."phpfpm-calibre-cops".serviceConfig.RestartSec = "5s";
+    # phpfpm-calibre-cops: hardening keys + confinement; chroot's tmpfs root
+    # is ephemeral, so bind the host library through
+    systemd.services.phpfpm-calibre-cops = {
+      serviceConfig = LT.serviceHarden // {
+        Restart = "always";
+        RestartSec = "5s";
+        MemoryDenyWriteExecute = false;
+
+        # php-fpm chowns the FastCGI socket to the pool user; the chown call
+        # needs to survive the seccomp filter (@privileged normally denied)
+        AmbientCapabilities = [ "CAP_CHOWN" "CAP_FOWNER" ];
+        CapabilityBoundingSet = [ "CAP_CHOWN" "CAP_FOWNER" ];
+        SystemCallFilter = lib.mkForce [
+          "@system-service"
+          "~@clock @cpu-emulation @debug @module @obsolete @raw-io @reboot @swap"
+        ];
+
+        # php-fpm resolves pool users at runtime; bind passwd/group read-only,
+        # plus the library for the internal directory listing
+        BindReadOnlyPaths = [
+          "/etc/passwd"
+          "/etc/group"
+          (LT.escapeMountPath calibreLibrary)
+        ];
+      };
+
+    };
   };
 }

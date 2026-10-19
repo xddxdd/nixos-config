@@ -42,9 +42,26 @@
 
   services.system-config-printer.enable = true;
 
+  # Note: cupsd is deliberately NOT hardened: it spawns printer filter and
+  # driver helper binaries (cups-driverd aborts with EPERM 101 under any
+  # hardening key set), so it is exempted in ensure-service-harden along with
+  # cups-browsed. Only restart + writable dirs are configured here.
   systemd.services.cups.serviceConfig = {
     Restart = "on-failure";
     RestartSec = "3";
+    ReadWritePaths = [
+      "/etc/cups"
+      "/var/cache/cups"
+      "/var/spool/cups"
+      "/var/lib/cups"
+      "/var/lib/cups-pdf"
+    ];
+  };
+
+  systemd.tmpfiles.settings.cups = {
+    "/var/cache/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
+    "/var/spool/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
+    "/var/lib/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
   };
 
   systemd.services.cups-browsed.serviceConfig = {

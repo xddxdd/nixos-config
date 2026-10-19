@@ -11,53 +11,53 @@
 
     ./enable-smart.nix
     ./hardware-configuration.nix
-    # ./media-center.nix
+    ./media-center.nix
     ./openvswitch.nix
-    # ./shares.nix
+    ./shares.nix
 
-    # ../../nixos/client-apps/gnupg.nix
-    # ../../nixos/client-apps/vscode-remote-env.nix
-    # ../../nixos/client-components/cups.nix
-    # ../../nixos/client-components/impermanence.nix
-    # ../../nixos/optional-apps/archivebox.nix
-    # ../../nixos/optional-apps/archiveteam.nix
-    # ../../nixos/optional-apps/asf.nix
-    # ../../nixos/optional-apps/calibre-cops.nix
-    # ../../nixos/optional-apps/clamav.nix
-    # ../../nixos/optional-apps/dlx.nix
-    # ../../nixos/optional-apps/epic-awesome-gamer
-    # ../../nixos/optional-apps/fastapi-dls.nix
+    ../../nixos/client-apps/gnupg.nix
+    ../../nixos/client-apps/vscode-remote-env.nix
+    ../../nixos/client-components/cups.nix
+    ../../nixos/client-components/impermanence.nix
+    ../../nixos/optional-apps/archivebox.nix
+    ../../nixos/optional-apps/archiveteam.nix
+    ../../nixos/optional-apps/asf.nix
+    ../../nixos/optional-apps/calibre-cops.nix
+    ../../nixos/optional-apps/clamav.nix
+    # ../../nixos/optional-apps/dlx.nix # missing regenerated secret dlx.yaml
+    # ../../nixos/optional-apps/epic-awesome-gamer # missing regenerated secret epic-awesome-gamer.yaml
+    ../../nixos/optional-apps/fastapi-dls.nix
     # # ../../nixos/optional-apps/handbrake-server.nix
-    # ../../nixos/optional-apps/hydra
-    # ../../nixos/optional-apps/i2pd.nix
+    # ../../nixos/optional-apps/hydra # missing regenerated secrets attic/dex/hydra yaml
+    ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
-    # ../../nixos/optional-apps/iyuuplus.nix
-    # ../../nixos/optional-apps/kubo.nix
+    # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml
+    ../../nixos/optional-apps/kubo.nix
     # # ../../nixos/optional-apps/librechat.nix
-    # ../../nixos/optional-apps/llama-cpp.nix
-    # ../../nixos/optional-apps/microsoft-rewards-script.nix
+    ../../nixos/optional-apps/llama-cpp.nix
+    # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets
     # ../../nixos/optional-apps/mtranserver
     # # ../../nixos/optional-apps/n8n # compromised
-    # ../../nixos/optional-apps/ncps-client.nix
-    # ../../nixos/optional-apps/netns-tnl-buyvm.nix
+    ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nfs.nix
-    # ../../nixos/optional-apps/nginx-openspeedtest.nix
-    # ../../nixos/optional-apps/opencl.nix
-    # ../../nixos/optional-apps/picoclaw.nix
-    # ../../nixos/optional-apps/resin.nix
-    # ../../nixos/optional-apps/searxng.nix
+    ../../nixos/optional-apps/nginx-openspeedtest.nix
+    ../../nixos/optional-apps/opencl.nix
+    # ../../nixos/optional-apps/picoclaw.nix # missing ~/.picoclaw gateway model config (API keys)
+    # ../../nixos/optional-apps/resin.nix # missing regenerated secret resin.yaml
+    # ../../nixos/optional-apps/searxng.nix # missing regenerated secret searxng.yaml
     ../../nixos/optional-apps/sftp-server.nix
     # # ../../nixos/optional-apps/strata.nix
-    # ../../nixos/optional-apps/syncthing
-    # ../../nixos/optional-apps/tachidesk.nix
-    # ../../nixos/optional-apps/tor.nix
-    # ../../nixos/optional-apps/vlmcsd.nix
-    # ../../nixos/optional-apps/webdav.nix
+    ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/tachidesk.nix
+    ../../nixos/optional-apps/tor.nix
+    ../../nixos/optional-apps/vlmcsd.nix
+    ../../nixos/optional-apps/webdav.nix
 
-    # ../../nixos/optional-cron-jobs/ncmm.nix
-    # ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
-    # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
-    # ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
+    ../../nixos/optional-cron-jobs/ncmm.nix
+    ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
+    # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix # missing regenerated secret
+    ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
   ];
 
   boot.kernelParams = [
@@ -103,11 +103,13 @@
     networkConfig.IPv6AcceptRA = "no";
   };
 
-  # services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
+  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   services.printing = {
     browsing = true;
     defaultShared = true;
+    # XXX: temporary debug level to diagnose lpadmin/driverd failure
+    logLevel = "debug2";
     listenAddresses = [
       "127.0.0.1:631"
       "192.168.0.2:631"
@@ -117,7 +119,7 @@
 
   lantian.immich.storage = "/mnt/storage/immich";
   # lantian.syncthing.storage = "/mnt/storage/media";
-  # lantian.archivebox.storage = "/mnt/storage/archivebox";
+  lantian.archivebox.storage = "/mnt/storage/archivebox";
 
   systemd.services = {
     backup-nix-persistent.unitConfig.RequiresMountsFor = [
@@ -132,18 +134,19 @@
     systemd-tmpfiles-resetup.unitConfig.RequiresMountsFor = "/mnt/storage";
   };
 
-  # lantian.nginxVhosts."ha.xuyh0120.win" = {
-  #   locations = {
-  #     "/" = {
-  #       proxyPass = "http://192.168.1.101:8123";
-  #       proxyWebsockets = true;
-  #       proxyNoTimeout = true;
-  #     };
-  #   };
+  lantian.nginxVhosts."ha.xuyh0120.win" = {
+    locations = {
+      "/" = {
+        proxyPass = "http://192.168.1.101:8123";
+        proxyWebsockets = true;
+        proxyNoTimeout = true;
+      };
+    };
 
-  #   sslCertificate = "lets-encrypt-xuyh0120.win";
-  #   noIndex.enable = true;
-  # };
+    accessibleBy = "private";
+    sslCertificate = "lets-encrypt-xuyh0120.win";
+    noIndex.enable = true;
+  };
 
   # Allow Radicale calendar sync task to access *arr config
   systemd.services.radicale-calendar-sync.serviceConfig = {

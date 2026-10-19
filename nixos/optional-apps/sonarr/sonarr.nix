@@ -22,7 +22,9 @@
       ];
       StateDirectory = "sonarr";
       MemoryDenyWriteExecute = false;
+      BindPaths = [ "/var/lib/sonarr" ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   lantian.localVhosts.sonarr = {
@@ -37,7 +39,8 @@
     enable = true;
     listenAddress = LT.this.ltnet.IPv4;
     port = LT.port.Prometheus.SonarrExporter;
-    url = "http://sonarr.localhost";
+    # sonarr.localhost /etc/hosts entries are gone; use the loopback direct
+    url = "http://127.0.0.1:${LT.portStr.Sonarr}";
     environment = {
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.SonarrExporter;
@@ -49,5 +52,11 @@
   systemd.services.prometheus-exportarr-sonarr-exporter.serviceConfig = {
     DynamicUser = lib.mkForce false;
     RestartSec = "5s";
+    # chroot's tmpfs root is ephemeral; bind data dir through
+    BindReadOnlyPaths = [ "/var/lib/sonarr" ];
+
+    AmbientCapabilities = [ "" ];
+    SystemCallErrorNumber = "EPERM";
   };
+  lantian.harden."prometheus-exportarr-sonarr-exporter" = true;
 }

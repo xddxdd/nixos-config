@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  LT,
   config,
   ...
 }:
@@ -72,9 +73,51 @@
   };
 
   systemd.services = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (n: {
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Restart = "always";
       RestartSec = 5;
+
+      # samba dlopens NSS modules at runtime, and enumerates network
+      # interfaces over netlink; per-connection uid/gid switching and
+      # file access need extra capabilities
+      AmbientCapabilities = lib.mkForce [
+        "CAP_CHOWN"
+        "CAP_DAC_OVERRIDE"
+        "CAP_DAC_READ_SEARCH"
+        "CAP_FOWNER"
+        "CAP_NET_BIND_SERVICE"
+        "CAP_SETGID"
+        "CAP_SETUID"
+      ];
+      CapabilityBoundingSet = lib.mkForce [
+        "CAP_CHOWN"
+        "CAP_DAC_OVERRIDE"
+        "CAP_DAC_READ_SEARCH"
+        "CAP_FOWNER"
+        "CAP_NET_BIND_SERVICE"
+        "CAP_SETGID"
+        "CAP_SETUID"
+      ];
+      MemoryDenyWriteExecute = lib.mkForce false;
+      RestrictAddressFamilies = lib.mkForce [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+      # keep @privileged allowed: smbd needs setuid/setgroups per connection
+      SystemCallFilter = lib.mkForce [
+        "@system-service"
+        "~@clock @cpu-emulation @debug @obsolete @raw-io @reboot @swap"
+      ];
+
+      # Writable samba state and log directories
+      ReadWritePaths = [
+        "/var/lib/samba"
+        "/var/cache/samba"
+        "/var/log/samba"
+      ];
     };
   });
+
+  systemd.tmpfiles.settings.samba = {
+    "/var/lib/samba"."d" = { mode = "0700"; user = "root"; group = "root"; };
+    "/var/cache/samba"."d" = { mode = "0755"; user = "root"; group = "root"; };
+    "/var/log/samba"."d" = { mode = "0755"; user = "root"; group = "root"; };
+  };
 }

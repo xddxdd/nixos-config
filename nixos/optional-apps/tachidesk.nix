@@ -51,6 +51,8 @@
       };
     };
 
+    # Keep off the public internet; basic auth already required
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     noIndex.enable = true;
   };

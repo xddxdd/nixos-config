@@ -65,7 +65,10 @@ def main():
         updates = json.load(f)
 
     config_path = Path(sys.argv[2])
-    update_config(config_path, updates)
+    if not config_path.exists():
+        # Fresh state: syncthing will generate the config on first start,
+        # settings get applied on the next run
+        return
 
 
 if __name__ == "__main__":

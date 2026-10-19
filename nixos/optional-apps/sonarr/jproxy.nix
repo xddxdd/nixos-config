@@ -39,11 +39,13 @@
 
       StateDirectory = "jproxy";
       WorkingDirectory = "/var/lib/jproxy";
+      BindPaths = [ "/var/lib/jproxy" ];
 
       User = "lantian";
       Group = "users";
     };
   };
+  lantian.harden.jproxy = true;
 
   lantian.localVhosts.jproxy = {
     locations = {

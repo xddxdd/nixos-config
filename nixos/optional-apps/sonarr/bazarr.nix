@@ -23,7 +23,9 @@
       ];
       StateDirectory = "bazarr";
       MemoryDenyWriteExecute = false;
+      BindPaths = [ "/var/lib/bazarr" ];
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 
   lantian.localVhosts.bazarr = {
@@ -38,7 +40,8 @@
     enable = true;
     listenAddress = LT.this.ltnet.IPv4;
     port = LT.port.Prometheus.BazarrExporter;
-    url = "http://bazarr.localhost";
+    # sonarr.localhost /etc/hosts entries are gone; use the loopback direct
+    url = "http://127.0.0.1:${LT.portStr.Bazarr}";
     environment = {
       INTERFACE = LT.this.ltnet.IPv4;
       PORT = LT.portStr.Prometheus.BazarrExporter;
@@ -56,6 +59,13 @@
       RuntimeDirectoryMode = "0700";
       DynamicUser = lib.mkForce false;
       RestartSec = "5s";
+      # chroot's tmpfs root is ephemeral; bind data dir through
+      BindReadOnlyPaths = [ "/var/lib/bazarr" ];
+
+      AmbientCapabilities = [ "" ];
+      PrivateMounts = true;
+      SystemCallErrorNumber = "EPERM";
     };
+    confinement = { enable = true; fullUnit = true; };
   };
 }

@@ -2,6 +2,7 @@
   pkgs,
   config,
   utils,
+  LT,
   ...
 }:
 let
@@ -37,6 +38,8 @@ in
         };
       };
 
+      # Keep off the public internet
+      accessibleBy = "private";
       sslCertificate = "lets-encrypt-xuyh0120.win";
       noIndex.enable = true;
     };
@@ -65,12 +68,38 @@ in
       JELLYFIN_kestrel__socketPermissions = "0777";
       JELLYFIN_PublishedServerUrl = "https://jellyfin.xuyh0120.win";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       RestartSec = "5s";
       RuntimeDirectory = "jellyfin";
       ExecStartPre = pkgs.writeShellScript "jellyfin-pre" ''
         ${utils.genJqSecretsReplacementSnippet loggingConf "/var/lib/jellyfin/config/logging.json"}
       '';
+
+      # .NET runtime and hardware transcoding are incompatible with some keys
+      MemoryDenyWriteExecute = false;
+      PrivateDevices = false;
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_NETLINK"
+      ];
+      # chroot's tmpfs root is ephemeral; bind host state and GPU through
+      BindPaths = [
+        "/var/lib/jellyfin"
+        "/run/jellyfin"
+        "/var/cache"
+        "/dev/dri"
+      ];
+    };
+  };
+  lantian.harden.jellyfin = true;
+
+  systemd.tmpfiles.settings.jellyfin = {
+    "/var/cache/jellyfin"."d" = {
+      mode = "755";
+      user = "jellyfin";
+      group = "jellyfin";
     };
   };
 

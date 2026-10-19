@@ -30,6 +30,5 @@
         enableOAuth = true;
       };
     };
-    accessibleBy = "public";
   };
 }

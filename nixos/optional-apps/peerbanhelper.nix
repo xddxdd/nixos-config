@@ -26,8 +26,10 @@
 
       StateDirectory = "peerbanhelper";
       WorkingDirectory = "/var/lib/peerbanhelper";
+      BindPaths = [ "/var/lib/peerbanhelper" ];
     };
   };
+  lantian.harden.peerbanhelper = true;
 
   lantian.localVhosts.peerbanhelper = {
     locations = {

@@ -20,6 +20,7 @@ let
     "acpid"
     "bluetooth"
     "corosync"
+    "cups" # spawns driver/filter helper binaries; breaks under hardening
     "cups-browsed"
     "enable-ksm"
     "greetd"
@@ -34,6 +35,8 @@ let
     "pveproxy"
     "pvescheduler"
     "pvestatd"
+    # Runs as user lantian with full $HOME access (~/.picoclaw); not confinable
+    "picoclaw"
     "qmeventd"
     "reload-systemd-vconsole-setup"
     "rrdcached"
@@ -65,7 +68,16 @@ let
   # confinement), oom-score-protect tunes /proc/1's children host-wide
   confinementIgnored = [
     # keep-sorted start
+    "cups" # spawns driver-dependent printer filter binaries
+    "jellyfin" # GPU transcoding and .NET JIT need full filesystem access
+    # php-fpm chowns the FastCGI socket at startup; chown inside the
+    # confinement tmpfs chroot fails, so pools stay unconfined
+    "phpfpm-calibre-cops"
     "oom-score-protect"
+    "samba-nmbd" # samba dlopens NSS modules and spawns per-connection processes
+    "samba-smbd"
+    "samba-winbindd"
+    "samba-wsdd"
     "scx"
     # keep-sorted end
   ];

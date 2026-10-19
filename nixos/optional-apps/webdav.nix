@@ -28,14 +28,19 @@
       while [ ! -S /run/webdav/webdav.sock ]; do sleep 1; done
       chmod 777 /run/webdav/webdav.sock
     '';
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       RestartSec = "5s";
       RuntimeDirectory = "webdav";
+      # chroot's tmpfs root is ephemeral; bind served directory through
+      BindPaths = [ "/mnt/storage" "/run/webdav" ];
+    };
+    confinement = {
+      enable = true;
+      fullUnit = true;
     };
   };
 
   lantian.localVhosts.dav = {
-    accessibleBy = "public";
     locations = {
       "/" = {
         proxyPass = "http://unix:/run/webdav/webdav.sock";

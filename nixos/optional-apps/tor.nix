@@ -11,5 +11,8 @@
     };
   };
 
-  systemd.services.tor.serviceConfig.RestartSec = "5s";
+  # Upstream already confines via RootDirectory; add the harden key set
+  systemd.services.tor.serviceConfig = LT.serviceHarden // {
+    RestartSec = "5s";
+  };
 }
