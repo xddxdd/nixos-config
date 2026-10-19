@@ -50,6 +50,8 @@
       Restart = "always";
       RestartSec = "5s";
       Nice = 19;
+      BindReadOnlyPaths = [ "/run/postgresql" ];
     };
   };
+  lantian.harden.ollama-cpa-honeypot = true;
 }

@@ -8,10 +8,8 @@ let
   llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
   llama-server = lib.getExe' llama-cpp "llama-server";
 
-  useCudaDevice = id: "env CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=${builtins.toString id}";
-
   mkEmbedding = repo: quant: ''
-    ${useCudaDevice 0} ${llama-server} \
+    ${llama-server} \
     --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --embeddings --pooling last \
@@ -19,7 +17,7 @@ let
   '';
 
   mkReranker = repo: quant: ''
-    ${useCudaDevice 0} ${llama-server} \
+    ${llama-server} \
     --port ''${PORT} --host 127.0.0.1 \
     --hf-repo ${repo}:${quant} \
     --rerank --ctx-size 32768
@@ -59,7 +57,7 @@ let
     "gemma4-26b-a4b" = {
       name = "Gemma 4 26B A4B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} \
+        ${llama-server} \
         --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF:Q4_0 \
         --cache-type-k q8_0 --cache-type-v q8_0 \
@@ -77,7 +75,7 @@ let
     "qwen3.6-35b-a3b" = {
       name = "Qwen3.6 35B A3B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} \
+        ${llama-server} \
         --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF \
         --hf-file Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf \
@@ -91,7 +89,7 @@ let
     "qwen3.8-27b" = {
       name = "Qwen3.8 27B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} \
+        ${llama-server} \
         --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF \
         --hf-file Huihui-Qwen3.8-27B-abliterated-GSQ-RCO-IQ3_S-mtp.gguf \
@@ -105,7 +103,7 @@ let
     "ternary-bonsai-27b" = {
       name = "Ternary Bonsai 27B";
       cmd = ''
-        ${useCudaDevice 0} ${llama-server} \
+        ${llama-server} \
         --port ''${PORT} --host 127.0.0.1 \
         --hf-repo huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF \
         --hf-file Huihui-Qwen3.8-27B-abliterated-Ternary-Bonsai-PQ2_0.gguf \
@@ -145,11 +143,17 @@ in
     };
   };
 
-  systemd.services.llama-swap.serviceConfig = {
-    User = "llama-swap";
-    Group = "llama-swap";
-    DynamicUser = lib.mkForce false;
+  systemd.services.llama-swap = {
+    serviceConfig = {
+      User = "llama-swap";
+      Group = "llama-swap";
+      DynamicUser = lib.mkForce false;
+      AmbientCapabilities = lib.mkForce [ ];
+      CapabilityBoundingSet = lib.mkForce [ ];
+      ProcSubset = "all";
+    };
   };
+  lantian.harden.llama-swap = true;
 
   users.users.llama-swap = {
     group = "llama-swap";

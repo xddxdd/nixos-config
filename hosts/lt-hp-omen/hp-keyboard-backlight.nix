@@ -21,4 +21,5 @@ in
       ProtectKernelTunables = false;
     };
   };
+  lantian.harden.hp-keyboard-backlight = true;
 }
