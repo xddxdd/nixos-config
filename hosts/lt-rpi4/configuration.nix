@@ -11,9 +11,7 @@
     #../../nixos/optional-apps/ncps-client.nix
 
     ./hardware-configuration.nix
-    # Disabled: lora.yaml (LoRa hardware UUID) removed from nixos-secrets
-    # (7bcc13f). Restore secret + this import to re-enable.
-    # ./lora
+    ./lora
   ];
 
   # GPIO doesn't work with mainline kernel; use the Raspberry Pi vendor kernel

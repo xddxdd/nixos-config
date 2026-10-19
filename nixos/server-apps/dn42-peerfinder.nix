@@ -29,6 +29,8 @@
 
       path = [ pkgs.iputils ];
       serviceConfig = LT.serviceHarden // {
+        # Sops secret lives under /run/secrets, outside the confinement chroot
+        BindPaths = [ "/run" ];
         ExecStart = "${lib.getExe pkgs.python3} ${LT.sources.dn42-peerfinder-client.src}";
 
         # Needed by ping
@@ -44,6 +46,8 @@
         CPUQuota = "10%";
       };
     };
+
+    lantian.harden."dn42-peerfinder" = true;
 
     users.users.dn42-peerfinder = {
       group = "dn42-peerfinder";

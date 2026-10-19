@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  LT,
   utils,
   ...
 }:
@@ -73,12 +74,14 @@ in
         --client $TTN_IP:1700
     '';
 
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
     };
   };
+
+  lantian.harden."lora-gwmp-mux" = true;
 
   systemd.services.lora-sx1302-hal = {
     description = "LoRa SX1302 HAL";
@@ -93,15 +96,23 @@ in
       ${utils.genJqSecretsReplacementSnippet sx1302HalConfig "local_conf.json"}
     '';
 
-    serviceConfig = {
+    serviceConfig = LT.networkToolHarden // {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
+      # Needs SPI/i2c device access; plain values to beat the confinement
+      # module's mkDefault
+      PrivateDevices = false;
+      PrivateUsers = false;
       ExecStart = "${lib.getExe' sx1302Hal "lora_pkt_fwd"} -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
+      # Sops secret lives under /run/secrets, outside the confinement chroot
+      BindReadOnlyPaths = [ "/run/secrets" ];
     };
   };
+
+  lantian.harden."lora-sx1302-hal" = true;
 
   systemd.services.lora-watchdog = {
     description = "LoRa Watchdog";
@@ -124,11 +135,18 @@ in
       systemctl restart lora-sx1302-hal.service lora-gwmp-mux.service
     '';
 
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       Type = "simple";
       Restart = "no";
+      # netstat scans host-wide /proc/net
+      ProcSubset = "all";
+      ProtectProc = "default";
+      # systemctl restart talks to the host systemd over its private socket
+      BindReadOnlyPaths = [ "/run/systemd/private" ];
     };
   };
+
+  lantian.harden."lora-watchdog" = true;
 
   systemd.timers.lora-watchdog = {
     wantedBy = [ "timers.target" ];

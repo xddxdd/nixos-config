@@ -3,7 +3,7 @@
   imports = [
     ../../nixos/server.nix
 
-    # (inputs.secrets + "/dn42/buyvm.nix")
+    (inputs.secrets + "/dn42/buyvm.nix")
 
     ./firewall.nix
     ./hardware-configuration.nix

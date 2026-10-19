@@ -275,5 +275,11 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel)
   };
   users.groups.openvpn = { };
 
-  systemd.services."openvpn-gameaccel".serviceConfig.RestartSec = "5s";
+  # VPN server manages a TUN device and routes, so networkToolHarden applies
+  # (per service-harden preset rules), plus /run bind to reach sops secrets
+  systemd.services."openvpn-gameaccel".serviceConfig = LT.networkToolHarden // {
+    RestartSec = "5s";
+    BindPaths = [ "/run" ];
+  };
+  lantian.harden."openvpn-gameaccel" = true;
 }
