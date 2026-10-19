@@ -36,6 +36,7 @@ in
       ];
     };
   };
+  lantian.harden.flapalerted = true;
 
   users.groups.bird.members = [ "nginx" ];
 

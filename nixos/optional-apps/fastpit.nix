@@ -25,6 +25,7 @@ in
       Group = "fastpit";
     };
   };
+  lantian.harden.fastpit = true;
 
   lantian.nginxVhosts."posts.lantian.pub" = {
     locations = {
