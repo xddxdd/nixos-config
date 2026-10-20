@@ -2,116 +2,150 @@
   config,
   lib,
   LT,
-  pkgs,
   ...
 }:
+let
+  hardenArgs = (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs;
+  auditFiles = lib.filterAttrs (name: _: lib.hasPrefix "audit/" name) config.environment.etc;
+  auditedSecrets = lib.filterAttrs (_: secret: secret.audit) config.lantian.secrets;
+  serviceRule =
+    path: key: field:
+    "-a always,exit -S all -F dir=${path} -F ${field}>=1 -F ${field}<=999 -k ${key}";
+  homeRules =
+    lib.concatMap
+      (
+        path:
+        map (serviceRule path "service-home") [
+          "uid"
+          "euid"
+          "fsuid"
+        ]
+      )
+      [
+        "/home"
+        "/root"
+      ];
+  secretRules = map (secret: "-a always,exit -S all -F path=${secret.path} -k credential-access") (
+    lib.attrValues auditedSecrets
+  );
+in
 {
-  # FIXME: too noisy
-  config = lib.mkIf false {
-    security.auditd.enable = lib.mkDefault true;
-
-    security.audit = {
-      enable = lib.mkDefault true;
-      rules = [
-        # System-wide changes
-        "-w /etc/passwd -p wa -k identity"
-        "-w /etc/group -p wa -k identity"
-        "-w /etc/shadow -p wa -k identity"
-        "-w /etc/gshadow -p wa -k identity"
-        "-w /etc/sudoers -p wa -k sudoers"
-        "-w /etc/sudoers.d -p wa -k sudoers"
-        "-w /etc/ssh/sshd_config -p wa -k sshd-config"
-        "-w /etc/ssh/sshd_config.d -p wa -k sshd-config"
-        "-w /etc/systemd/system -p wa -k systemd-units"
-        "-w /run/systemd/units -p wa -k systemd-runtime-units"
-        "-w /etc/systemd/network -p wa -k network-config"
-        "-w /etc/resolv.conf -p wa -k network-config"
-        "-w /etc/hosts -p wa -k network-config"
-        "-w /etc/wireguard -p wa -k network-config"
-      ]
-      ++ (
-        if pkgs.stdenv.hostPlatform.isAarch64 then
-          [
-            # arm64's syscall table lacks the legacy syscalls (unlink, chmod,
-            # mount-b32, stime, ...) and a single bad line makes auditctl -R
-            # abort, dropping ALL later rules
-            "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
-            "-a always,exit -F arch=b64 -S clock_settime -k time-change"
-            "-a always,exit -F arch=b64 -S mount -S umount2 -k mounts"
-            "-a always,exit -F arch=b64 -S unlinkat -k deletion"
-            "-a always,exit -F arch=b64 -S fchmodat -k perm-mod"
-            "-a always,exit -F arch=b64 -S fchown -S fchownat -k perm-mod"
-            "-a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -S setresuid -S setresgid -k identity-change"
-            "-a always,exit -F arch=b64 -S execve -F euid=0 -F auid>=1000 -F auid!=unset -k root-exec"
-            "-a always,exit -F arch=b64 -S execve -F euid=0 -F auid=0 -F auid!=unset -k privileged-user-exec"
-          ]
-        else
-          [
-            # Time change (no stime: missing on some architectures' 32-bit
-            # compat tables and fails auditctl -R, aborting all later rules)
-            "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
-            "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -k time-change"
-            "-a always,exit -F arch=b64 -S clock_settime -k time-change"
-            "-a always,exit -F arch=b32 -S clock_settime -k time-change"
-            "-a always,exit -F arch=b64 -S mount -S umount2 -k mounts"
-            "-a always,exit -F arch=b32 -S mount -S umount -S umount2 -k mounts"
-            "-a always,exit -F arch=b64 -S unlink -S unlinkat -S rmdir -k deletion"
-            "-a always,exit -F arch=b32 -S unlink -S unlinkat -S rmdir -k deletion"
-            "-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -k perm-mod"
-            "-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -k perm-mod"
-            "-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -k perm-mod"
-            "-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -k perm-mod"
-            "-a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -S setresuid -S setresgid -S setfsuid -S setfsgid -k identity-change"
-            "-a always,exit -F arch=b32 -S setuid -S setgid -S setreuid -S setregid -S setresuid -S setresgid -S setfsuid -S setfsgid -k identity-change"
-            "-a always,exit -F arch=b64 -S execve -F euid=0 -F auid>=1000 -F auid!=unset -k root-exec"
-            "-a always,exit -F arch=b32 -S execve -F euid=0 -F auid>=1000 -F auid!=unset -k root-exec"
-            "-a always,exit -F arch=b64 -S execve -F euid=0 -F auid=0 -F auid!=unset -k privileged-user-exec"
-          ]
+  assertions = [
+    {
+      # auditctl -R splits fields on whitespace; it does not shell-unquote paths.
+      assertion = lib.all (secret: builtins.match ".*[[:space:]].*" secret.path == null) (
+        lib.attrValues auditedSecrets
       );
-    };
+      message = "Audited lantian.secrets paths cannot contain whitespace in the native auditctl rule file.";
+    }
+  ];
+  security.auditd.enable = true;
+  security.audit = {
+    enable = true;
+    backlogLimit = lib.mkDefault 8192;
+    # First match wins: file-specific rules precede broader directory watches.
+    rules = lib.mkBefore (
+      secretRules
+      ++ homeRules
+      ++ map (serviceRule "/nix/persistent" "persistent-access") [
+        "uid"
+        "euid"
+        "fsuid"
+      ]
+      ++ [
+        # An inaccessible ancestor prevents inode/path rules from matching. Log
+        # denials globally so these attempted accesses are not silently missed.
+        "-a always,exit -S all -F exit=-EACCES -k access-denied"
+        "-a always,exit -S all -F exit=-EPERM -k access-denied"
+      ]
+    );
+  };
 
-    # auditd writes to /var/log/audit; journald picks up events through the
-    # syslog plugin, which then ships to central Loki via fluent-bit
-    security.auditd.settings = {
-      log_file = "/var/log/audit/audit.log";
-      max_log_file_action = "rotate";
-      num_logs = 5;
-      max_log_file = 25;
-    };
+  security.auditd.settings = {
+    log_file = "/var/log/audit/audit.log";
+    max_log_file_action = "rotate";
+    num_logs = 5;
+    max_log_file = 25;
+  };
+  # journald lives under /nix/persistent too. Forwarding every record into it
+  # recursively audits the forwarding writes; keep the native auditd trail.
+  security.auditd.plugins.syslog.active = false;
 
-    systemd.services.auditd = {
-      serviceConfig = LT.serviceHarden // {
-        Restart = "on-failure";
-        RestartSec = "5s";
-        # Controls the kernel audit subsystem over netlink; also raises its
-        # own scheduling priority at startup (CAP_SYS_NICE)
-        AmbientCapabilities = [
-          "CAP_AUDIT_CONTROL"
-          "CAP_AUDIT_READ"
-          "CAP_SYS_NICE"
-        ];
-        CapabilityBoundingSet = [
-          "CAP_AUDIT_CONTROL"
-          "CAP_AUDIT_READ"
-          "CAP_SYS_NICE"
-        ];
-        PrivateUsers = false;
-        # audit netlink socket
-        RestrictAddressFamilies = [ "AF_NETLINK" ];
-        ProcSubset = "all";
-        ProtectProc = "default";
-        SystemCallFilter = [ ];
-        # chroot's tmpfs root is ephemeral; bind log dir, socket dir and config
-        # store files (host /etc/audit are symlink chains) through
-        BindPaths = [
-          "/var/log/audit"
-          "/run/audit"
-        ];
-        BindReadOnlyPaths = lib.mapAttrsToList (n: v: "${v.source}:${n}") (
-          lib.filterAttrs (n: _: lib.hasPrefix "audit/" n) config.environment.etc
-        );
-      };
+  systemd.services.audit-rules-nixos = {
+    partOf = [
+      "auditd.service"
+    ]
+    ++ lib.optional (config.lantian.secrets != { }) "lantian-secrets.service";
+    after = [
+      "local-fs.target"
+      "systemd-tmpfiles-setup.service"
+      "auditd.service"
+    ]
+    ++ lib.optional (config.lantian.secrets != { }) "lantian-secrets.service";
+    requires = [
+      "auditd.service"
+    ]
+    ++ lib.optional (config.lantian.secrets != { }) "lantian-secrets.service";
+    unitConfig.RequiresMountsFor = [
+      "/home"
+      "/root"
+      "/nix/persistent"
+    ];
+    # Load after existing filesystems and credentials; the kernel tags subtrees
+    # already mounted when the native NixOS auditctl -R loader installs watches.
+    serviceConfig = {
+      TimeoutStartSec = "2min";
+      NoNewPrivileges = true;
+      CapabilityBoundingSet = [
+        "CAP_AUDIT_CONTROL"
+        "CAP_DAC_READ_SEARCH"
+      ];
     };
-    lantian.harden.auditd = true;
+  };
+
+  systemd.services.auditd = {
+    # Config files are bound into its private root; reload alone leaves those
+    # mounts pointing at the previous configuration's store paths.
+    restartTriggers = lib.mapAttrsToList (_: value: value.source) auditFiles;
+    # A switch must recreate the confinement when config store paths change.
+    unitConfig.RefuseManualStop = false;
+    serviceConfig = LT.serviceHarden // {
+      Restart = "on-failure";
+      RestartSec = "5s";
+      AmbientCapabilities = [
+        "CAP_AUDIT_CONTROL"
+        "CAP_AUDIT_READ"
+        "CAP_SYS_NICE"
+      ];
+      CapabilityBoundingSet = [
+        "CAP_AUDIT_CONTROL"
+        "CAP_AUDIT_READ"
+        "CAP_SYS_NICE"
+      ];
+      PrivateUsers = false;
+      RestrictAddressFamilies = [
+        "AF_NETLINK"
+        "AF_UNIX"
+      ];
+      ProcSubset = "all";
+      ProtectProc = "default";
+      OOMScoreAdjust = -1000;
+      # auditd changes log ownership and scheduling priority as it rotates.
+      SystemCallFilter = hardenArgs.SystemCallFilter ++ [
+        "@chown"
+        "@resources"
+      ];
+      BindPaths = [
+        "/var/log/audit"
+        "/run/audit"
+      ];
+      BindReadOnlyPaths = lib.mapAttrsToList (name: value: "${value.source}:/etc/${name}") auditFiles;
+    };
+    # This early kernel/syslog daemon needs no DNS or CA bindings. In particular,
+    # /etc/resolv.conf may not exist before the network manager starts.
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 }

@@ -221,6 +221,8 @@ in
   };
 
   systemd.services.nginx = {
+    after = [ "lantian-secrets.service" ];
+    requires = [ "lantian-secrets.service" ];
     environment = {
       inherit (config.environment.variables) OPENSSL_CONF;
     };
@@ -236,6 +238,7 @@ in
         # is not in the unit closure, so bind the real store files instead
         "${config.environment.etc."nginx/nginx.conf".source}:/etc/nginx/nginx.conf"
         "${config.environment.etc."nginx/htpasswd".source}:/etc/nginx/htpasswd"
+        config.lantian.secrets.tls-snakeoil.path
         # ACME certs
         "/nix/sync-servers/acme"
       ]
@@ -252,7 +255,11 @@ in
 
   # The synchronous helper must outlive nginx's 90s reload deadline; under
   # deployment I/O pressure a successful reload exceeded its upstream 60s limit.
-  systemd.services.nginx-config-reload.serviceConfig.TimeoutStartSec = "120s";
+  systemd.services.nginx-config-reload = {
+    after = [ "lantian-secrets.service" ];
+    requires = [ "lantian-secrets.service" ];
+    serviceConfig.TimeoutStartSec = "120s";
+  };
 
   environment.etc."nginx/htpasswd".text = ''
     lantian:${unixHashedPassword}

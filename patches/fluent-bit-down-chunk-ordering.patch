@@ -1,0 +1,21 @@
+diff --git a/src/flb_input_chunk.c b/src/flb_input_chunk.c
+--- a/src/flb_input_chunk.c
++++ b/src/flb_input_chunk.c
+@@ -2783,6 +2783,17 @@ static struct flb_input_chunk *input_chunk_get(struct flb_input_instance *in,
+         ic->event_type = event_type;
+     }
+
++    /* Creation may return a down chunk when the mmap budget is exhausted.
++     * Read its metadata only after opening/mapping it, then let the caller
++     * restore the down state after writing as it already does. */
++    if (cio_chunk_is_up(ic->chunk) == CIO_FALSE) {
++        ret = cio_chunk_up_force(ic->chunk);
++        if (ret != CIO_OK) {
++            return NULL;
++        }
++        *set_down = FLB_TRUE;
++    }
++
+     /*
+      * If buffering this block of data will exceed one of the limit among all output instances
+      * that the chunk will flush to, we need to modify the routes_mask of the oldest chunks

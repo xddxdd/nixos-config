@@ -288,9 +288,9 @@ nix flake lock --update-input input-name
 
 #### 步骤 2：创建模块文件
 
-在对应目录下创建 `.nix` 文件。模块会自动被配置类型导入，无需手动注册。
+在对应目录下创建 `.nix` 文件，或创建包含 `default.nix` 的模块子目录。模块会自动被配置类型导入，无需手动注册。
 
-自动导入机制：各配置文件（[`minimal.nix`](nixos/minimal.nix)、[`server.nix`](nixos/server.nix)、[`client.nix`](nixos/client.nix)）使用 `builtins.readDir` 自动加载对应目录下的所有 `.nix` 文件。
+自动导入机制：各配置文件（[`minimal.nix`](nixos/minimal.nix)、[`server.nix`](nixos/server.nix)、[`client.nix`](nixos/client.nix)）使用 `builtins.readDir` 导入对应目录的所有直接子项；目录通过 `default.nix` 导入。辅助脚本、测试及专属文档应放在模块子目录中，不要直接放在这些自动导入目录的根层。
 
 ### 添加 Overlay
 

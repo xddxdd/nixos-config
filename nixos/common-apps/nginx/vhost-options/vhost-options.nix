@@ -283,8 +283,8 @@ let
           ''
         else
           ''
-            ssl_certificate ${inputs.secrets + "/ssl-cert-snakeoil.pem"};
-            ssl_certificate_key ${inputs.secrets + "/ssl-cert-snakeoil.key"};
+            ssl_certificate ${osConfig.lantian.secrets.tls-snakeoil.path};
+            ssl_certificate_key ${osConfig.lantian.secrets.tls-snakeoil.path};
           ''
       ))
       + (lib.optionalString config.enableCommonVhostOptions ''
