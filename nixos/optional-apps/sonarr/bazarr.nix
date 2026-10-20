@@ -24,8 +24,12 @@
       StateDirectory = "bazarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/bazarr" ];
+      BindReadOnlyPaths = [ "/etc/resolv.conf" ];
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   lantian.localVhosts.bazarr = {
@@ -66,6 +70,9 @@
       PrivateMounts = true;
       SystemCallErrorNumber = "EPERM";
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 }

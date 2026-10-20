@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   LT,
   lib,
   utils,
@@ -27,6 +28,14 @@ in
       User = user;
       Group = group;
       StateDirectory = "qbittorrent-pt";
+      BindReadOnlyPaths = [
+        "/etc/resolv.conf"
+        "${config.environment.etc.hosts.source}:/etc/hosts"
+        "${
+          config.environment.etc."ssl/certs/ca-certificates.crt".source
+        }:/etc/ssl/certs/ca-certificates.crt"
+        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+      ];
 
       # For PT sites qBit enhanced is unnecessary
       ExecStart = utils.escapeSystemdExecArgs [

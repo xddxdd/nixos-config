@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   LT,
   lib,
   ...
@@ -23,6 +24,13 @@
   '';
 
   systemd.services.qbittorrent.serviceConfig = {
+    BindReadOnlyPaths = [
+      "${config.environment.etc.hosts.source}:/etc/hosts"
+      "${
+        config.environment.etc."ssl/certs/ca-certificates.crt".source
+      }:/etc/ssl/certs/ca-certificates.crt"
+      "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+    ];
     Restart = "always";
     RestartSec = "5";
     UMask = "0002";

@@ -10,10 +10,12 @@
     after = [
       "radarr.service"
       "sonarr.service"
+      "prowlarr.service"
     ];
     requires = [
       "radarr.service"
       "sonarr.service"
+      "prowlarr.service"
     ];
 
     script = ''

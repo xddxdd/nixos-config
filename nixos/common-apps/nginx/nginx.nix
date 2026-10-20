@@ -60,7 +60,9 @@ in
   services.nginx = rec {
     enable = true;
     enableReload = true;
-    package = pkgs.nur-xddxdd.lantianCustomized.nginx;
+    package = pkgs.nur-xddxdd.lantianCustomized.nginx.overrideAttrs (old: {
+      patches = old.patches ++ [ ../../../patches/nginx-ktls-lingering-close.patch ];
+    });
     enableQuicBPF = false;
     proxyResolveWhileRunning = true;
     proxyTimeout = "1h";

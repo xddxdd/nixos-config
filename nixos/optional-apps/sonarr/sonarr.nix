@@ -23,8 +23,19 @@
       StateDirectory = "sonarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/sonarr" ];
+      BindReadOnlyPaths = [
+        "/etc/resolv.conf"
+        "${config.environment.etc.hosts.source}:/etc/hosts"
+        "${
+          config.environment.etc."ssl/certs/ca-certificates.crt".source
+        }:/etc/ssl/certs/ca-certificates.crt"
+        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+      ];
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   lantian.localVhosts.sonarr = {

@@ -14,6 +14,21 @@ let
   flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
+
+  # Preserve stored bt.localhost endpoints only in these two application views.
+  arrReadOnlyPaths = [
+    "/etc/resolv.conf"
+    "${
+      pkgs.concatText "radarr-hosts" [
+        config.environment.etc.hosts.source
+        (pkgs.writeText "radarr-bt-localhost" "127.0.0.1 bt.localhost\n")
+      ]
+    }:/etc/hosts"
+    "${
+      config.environment.etc."ssl/certs/ca-certificates.crt".source
+    }:/etc/ssl/certs/ca-certificates.crt"
+    "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+  ];
 in
 {
   imports = [
@@ -99,7 +114,9 @@ in
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
       StateDirectory = lib.mkForce "radarr radarr/asp";
+      BindReadOnlyPaths = lib.mkForce arrReadOnlyPaths;
       BindPaths = [
+        defaultDownloadPath
         radarrMediaPath
         qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
@@ -115,7 +132,9 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     serviceConfig = LT.serviceHarden // {
+      BindReadOnlyPaths = lib.mkForce arrReadOnlyPaths;
       BindPaths = [
+        defaultDownloadPath
         sonarrMediaPath
         qBitTorrentPTSonarrDownloadPath
         qBitTorrentSonarrDownloadPath
@@ -151,12 +170,16 @@ in
     environment.XDG_DATA_HOME = "/var/lib/qbittorrent/qBittorrent/data";
     serviceConfig = LT.serviceHarden // {
       StateDirectory = "qbittorrent";
+      BindReadOnlyPaths = [ "/etc/netns/tnl-buyvm/resolv.conf:/etc/resolv.conf" ];
       BindPaths = [
         defaultDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   systemd.services.qbittorrent-pt = {
@@ -173,7 +196,10 @@ in
         qBitTorrentPTSonarrDownloadPath
       ];
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   lantian.localVhosts = {

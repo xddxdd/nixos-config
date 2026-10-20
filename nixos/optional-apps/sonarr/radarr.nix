@@ -10,6 +10,17 @@
     user = "lantian";
     group = "users";
     dataDir = "/var/lib/radarr";
+    settings.server.allowedHosts = lib.concatStringsSep "," (
+      [
+        "localhost"
+        "127.0.0.1"
+        "[::1]"
+        "radarr.localhost"
+        "radarr.${config.networking.hostName}.xuyh0120.win"
+        LT.this.ltnet.IPv4
+      ]
+      ++ config.lantian.localVhosts.radarr.serverAliases
+    );
   };
   systemd.services.radarr = {
     serviceConfig = LT.serviceHarden // {
@@ -23,8 +34,20 @@
       StateDirectory = "radarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/radarr" ];
+      BindReadOnlyPaths = [
+        "/etc/resolv.conf"
+        # The configured local download client uses localhost.
+        "${config.environment.etc.hosts.source}:/etc/hosts"
+        "${
+          config.environment.etc."ssl/certs/ca-certificates.crt".source
+        }:/etc/ssl/certs/ca-certificates.crt"
+        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+      ];
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
 
   lantian.localVhosts.radarr = {

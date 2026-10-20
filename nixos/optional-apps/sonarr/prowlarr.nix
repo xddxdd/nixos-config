@@ -1,14 +1,36 @@
 {
   lib,
+  config,
   LT,
   ...
 }:
 {
-  services.prowlarr.enable = true;
+  services.prowlarr = {
+    enable = true;
+    settings.server.allowedHosts = lib.concatStringsSep "," (
+      [
+        "localhost"
+        "127.0.0.1"
+        "[::1]"
+        "prowlarr.localhost"
+        "prowlarr.${config.networking.hostName}.xuyh0120.win"
+        LT.this.ltnet.IPv4
+      ]
+      ++ config.lantian.localVhosts.prowlarr.serverAliases
+    );
+  };
   systemd.services.prowlarr = {
     serviceConfig = LT.serviceHarden // {
       StateDirectory = "prowlarr";
       BindPaths = [ "/var/lib/prowlarr" ];
+      BindReadOnlyPaths = [
+        "/etc/resolv.conf"
+        "${config.environment.etc.hosts.source}:/etc/hosts"
+        "${
+          config.environment.etc."ssl/certs/ca-certificates.crt".source
+        }:/etc/ssl/certs/ca-certificates.crt"
+        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
+      ];
       RestrictAddressFamilies = [
         "AF_INET"
         "AF_INET6"
@@ -21,7 +43,10 @@
       Group = lib.mkForce "users";
       RestartSec = "5s";
     };
-    confinement = { enable = true; fullUnit = true; };
+    confinement = {
+      enable = true;
+      fullUnit = true;
+    };
   };
   lantian.localVhosts.prowlarr = {
     locations = {
