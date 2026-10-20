@@ -165,11 +165,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GRBOEkaPiyEfwWQXRrERmGF/qXTOanaj9moyxpC5G1Y=",
+            "sha256": "sha256-YPS+I9f29LsYb/3plfdogfOECOUyBzty3knpbh9Xetc=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.1/yesoreyeram-infinity-datasource-4.1.1.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.2/yesoreyeram-infinity-datasource-4.1.2.zip"
         },
-        "version": "4.1.1"
+        "version": "4.1.2"
     },
     "lobe-icons": {
         "cargoLock": null,
@@ -423,7 +423,7 @@
     },
     "tar1090-db": {
         "cargoLock": null,
-        "date": "2026-10-12",
+        "date": "2026-10-19",
         "extract": null,
         "name": "tar1090-db",
         "passthru": null,
@@ -435,12 +435,12 @@
             "name": null,
             "owner": "wiedehopf",
             "repo": "tar1090-db",
-            "rev": "1aac99e37f595874c024dcb2a54b33c06a49c370",
-            "sha256": "sha256-V9FLgxmrvoZhPKWZkWQGh3P6Ubg78Tm6IwqBQFZaG98=",
+            "rev": "522f3da995fcd52ea7a84583fbcd6e8f43197407",
+            "sha256": "sha256-xVNXs6f0c7xdrXRddBBP4VSfuCGsO+Zq6QHsuOTtx0w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1aac99e37f595874c024dcb2a54b33c06a49c370"
+        "version": "522f3da995fcd52ea7a84583fbcd6e8f43197407"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLock": null,
