@@ -101,10 +101,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "4.1.1";
+    version = "4.1.2";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.1/yesoreyeram-infinity-datasource-4.1.1.zip";
-      sha256 = "sha256-GRBOEkaPiyEfwWQXRrERmGF/qXTOanaj9moyxpC5G1Y=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.2/yesoreyeram-infinity-datasource-4.1.2.zip";
+      sha256 = "sha256-YPS+I9f29LsYb/3plfdogfOECOUyBzty3knpbh9Xetc=";
     };
   };
   lobe-icons = {
@@ -256,15 +256,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "1aac99e37f595874c024dcb2a54b33c06a49c370";
+    version = "522f3da995fcd52ea7a84583fbcd6e8f43197407";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "1aac99e37f595874c024dcb2a54b33c06a49c370";
+      rev = "522f3da995fcd52ea7a84583fbcd6e8f43197407";
       fetchSubmodules = false;
-      sha256 = "sha256-V9FLgxmrvoZhPKWZkWQGh3P6Ubg78Tm6IwqBQFZaG98=";
+      sha256 = "sha256-xVNXs6f0c7xdrXRddBBP4VSfuCGsO+Zq6QHsuOTtx0w=";
     };
-    date = "2026-10-12";
+    date = "2026-10-19";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";
