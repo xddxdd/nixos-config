@@ -1,8 +1,21 @@
 {
   lib,
   pkgs,
+  LT,
+  config,
   ...
 }:
+let
+  pyhss = pkgs.nur-xddxdd.pyhss.overrideAttrs (old: {
+    # Match the OriginHost Redis namespace used by diameterService/hssService.
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace services/apiService.py \
+        --replace-fail 'originHostname = socket.gethostname()' "originHostname = config['hss']['OriginHost']"
+      substituteInPlace lib/diameter.py \
+        --replace-fail 'self.hostname = socket.gethostname()' 'self.hostname = originHost'
+    '';
+  });
+in
 {
   imports = [ ../postgresql.nix ];
 
@@ -23,7 +36,12 @@
     group = "pyhss";
   };
 
-  environment.etc."pyhss".source = ./pyhss;
+  # diameter.py loads XML templates from both ../ and ./ relative to cwd.
+  environment.etc."pyhss".source = pkgs.runCommand "pyhss-config" { } ''
+    mkdir -p "$out/services"
+    cp ${./pyhss}/* "$out/"
+    ln -s ../default_sh_user_data.xml "$out/services/default_sh_user_data.xml"
+  '';
 
   systemd.services = builtins.listToAttrs (
     builtins.map
@@ -41,18 +59,29 @@
           ];
           wantedBy = [ "multi-user.target" ];
 
-          serviceConfig = {
+          serviceConfig = LT.serviceHarden // {
             User = "pyhss";
             Group = "pyhss";
 
-            ExecStart = "${pkgs.nur-xddxdd.pyhss}/bin/${svc}Service";
+            ExecStart = "${pyhss}/bin/${svc}Service";
 
             LogsDirectory = "pyhss";
-            RuntimeDirectory = "pyhss-${svc}";
-            WorkingDirectory = "/run/pyhss-${svc}";
+            WorkingDirectory = "/etc/pyhss/services";
+            IPAddressDeny = "any";
+            IPAddressAllow = "localhost";
 
             Restart = "always";
             RestartSec = "5";
+
+            BindReadOnlyPaths = [
+              "${config.environment.etc."pyhss".source}:/etc/pyhss"
+              "/run/postgresql"
+              "/run/redis-pyhss"
+            ];
+          };
+          confinement = {
+            enable = true;
+            fullUnit = true;
           };
         }
       )
@@ -69,7 +98,14 @@
   };
   users.groups.pyhss = { };
 
+  lantian.harden = lib.genAttrs [
+    "pyhss-api"
+    "pyhss-diameter"
+    "pyhss-hss"
+  ] (_: true);
+
   lantian.localVhosts.pyhss = {
+    accessibleBy = "private";
     locations = {
       "/".proxyPass = "http://127.0.0.8:8080";
       "/swaggerui/".alias =

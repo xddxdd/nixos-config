@@ -50,6 +50,8 @@ in
     LimitMEMLOCK = "infinity";
     LimitNOFILE = "1048576";
     RestartSec = "5s";
+    # Keep consumers' bound socket-directory inode valid across stops and restarts.
+    RuntimeDirectoryPreserve = true;
     # Postgres resolves peer-socket credentials with host uid→name mapping;
     # a user namespace would make that unmapped and break peer auth
     PrivateUsers = false;
@@ -74,11 +76,18 @@ in
     runAsLocalSuperUser = true;
   };
 
-  systemd.services."prometheus-postgres-exporter".serviceConfig = LT.serviceHarden // {
-    RestartSec = "5s";
-    ProcSubset = "all";
-    ProtectProc = "default";
-    BindReadOnlyPaths = [ "/run/postgresql" ];
+  systemd.services."prometheus-postgres-exporter" = {
+    # A same-UID exporter thread can reuse a stale postmaster PID after boot.
+    # Stop it before PostgreSQL restarts, and start it only after PostgreSQL is ready.
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
+    partOf = [ "postgresql.service" ];
+    serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
+      ProcSubset = "all";
+      ProtectProc = "default";
+      BindReadOnlyPaths = [ "/run/postgresql" ];
+    };
   };
   lantian.harden.prometheus-postgres-exporter = true;
 }

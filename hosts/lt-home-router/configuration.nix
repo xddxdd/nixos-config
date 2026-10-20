@@ -16,8 +16,8 @@
     ../../nixos/optional-apps/miniupnpd.nix
     ../../nixos/optional-apps/nmea-static-gps-server.nix
     ../../nixos/optional-apps/tayga.nix
-    # ../../nixos/optional-apps/ncps.nix
-    # ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/ncps.nix
+    ../../nixos/optional-apps/ncps-client.nix
   ];
 
   services.miniupnpd = {
@@ -36,8 +36,20 @@
     CACHE_ROOT = "/mnt/unreliable-cache/lancache";
   };
 
-  # services.ncps.cache = {
-  #   storage.local = "/mnt/unreliable-cache/ncps";
-  #   tempPath = "/mnt/unreliable-cache/ncps-tmp";
-  # };
+  services.ncps.cache = {
+    storage.local = "/mnt/unreliable-cache/ncps";
+    tempPath = "/mnt/unreliable-cache/ncps-tmp";
+  };
+
+  # Restored cache files can retain the previous system account's numeric UID.
+  systemd.tmpfiles.settings.ncps-restored = {
+    "/mnt/unreliable-cache/ncps"."Z" = {
+      user = "ncps";
+      group = "ncps";
+    };
+    "/mnt/unreliable-cache/ncps-tmp"."Z" = {
+      user = "ncps";
+      group = "ncps";
+    };
+  };
 }

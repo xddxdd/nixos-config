@@ -12,17 +12,18 @@
     ./hp-keyboard-backlight.nix
 
     ../../nixos/optional-apps/clamav.nix
-    # ../../nixos/optional-apps/kubo.nix
+    ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-swap.nix
-    # ../../nixos/optional-apps/netns-tnl-buyvm.nix
+    ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
     ../../nixos/optional-apps/obs-studio.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/pi-web.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
-    # ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/whisper-cpp.nix
   ];

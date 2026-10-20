@@ -16,13 +16,13 @@
     ../../nixos/common-apps/nginx
 
     ../../nixos/optional-apps/acme
-    # ../../nixos/optional-apps/actual.nix
-    # ../../nixos/optional-apps/archiveteam.nix
-    # ../../nixos/optional-apps/attic.nix
+    ../../nixos/optional-apps/actual.nix
+    ../../nixos/optional-apps/archiveteam.nix
+    # ../../nixos/optional-apps/attic.nix # intentionally disabled by request
     ../../nixos/optional-apps/attic-placeholder.nix
     # ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
-    # ../../nixos/optional-apps/byparr.nix
+    ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/cliproxyapi.nix
     ../../nixos/optional-apps/dex.nix
     ../../nixos/optional-apps/fastpit.nix
@@ -31,12 +31,13 @@
     # ../../nixos/optional-apps/gitea-actions.nix
     # ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/loki.nix
+    # DN42 TLS certificate is not yet restored.
     # ../../nixos/optional-apps/maddy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
-    # ../../nixos/optional-apps/netns-tnl-buyvm.nix
-    # ../../nixos/optional-apps/nginx-api.nix
+    ../../nixos/optional-apps/netns-tnl-buyvm.nix
+    ../../nixos/optional-apps/nginx-api.nix
     ../../nixos/optional-apps/oidc-tester.nix
     ../../nixos/optional-apps/ollama-cpa-honeypot.nix
     ../../nixos/optional-apps/plausible.nix
@@ -46,18 +47,19 @@
     ../../nixos/optional-apps/renovate.nix
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/rsync-server-internal.nix
-    # ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/rsshub.nix
+    ../../nixos/optional-apps/syncthing
     # ../../nixos/optional-apps/tg-bot-cleaner-bot
     # ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
-    # ../../nixos/optional-apps/wordpress.nix
+    ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
-    # "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
-    # "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
+    "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
+    "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
     # "${inputs.secrets}/nixos-hidden-module/c9f6c0c333e73062"
     # "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
@@ -82,10 +84,10 @@
 
   lantian.firewall.wanARPSubnets = [ "23.94.65.216/30" ];
 
-  # virtualisation.oci-containers.containers.byparr.ports = [
-  #   "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
-  # ];
-  # systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
-  #   environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
-  # };
+  virtualisation.oci-containers.containers.byparr.ports = [
+    "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
+  ];
+  systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
+    environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
+  };
 }

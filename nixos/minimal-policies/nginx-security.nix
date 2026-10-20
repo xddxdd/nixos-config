@@ -22,9 +22,12 @@
         assertion =
           (!builtins.elem config.networking.hostName [ "lt-hp-omen" ])
           || builtins.elem n [
-            "pi"
+            "ipfs"
+            "ipfs-api"
             "lab"
             "llama-swap"
+            "pi"
+            "syncthing"
           ];
         message = "${n} is LAN accessible";
       }

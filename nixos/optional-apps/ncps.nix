@@ -19,5 +19,27 @@
     };
   };
 
+  # Fill the keys required by ensure-service-harden that upstream does not
+  # set; ncps itself is already heavily hardened by the upstream module
+  systemd.services.ncps.serviceConfig = {
+    AmbientCapabilities = "";
+    RemoveIPC = true;
+    SystemCallErrorNumber = "EPERM";
+
+    # The cache and migration lock must survive the confinement's tmpfs root.
+    BindPaths = [
+      config.services.ncps.cache.storage.local
+      config.services.ncps.cache.tempPath
+      "/run/ncps"
+    ];
+    # OpenTelemetry resolves the service UID even when exporting is disabled.
+    BindReadOnlyPaths = [
+      "/etc/passwd"
+      "/etc/group"
+    ];
+  };
+
+  lantian.harden.ncps = true;
+
   systemd.services.ncps.serviceConfig.RestartSec = "5s";
 }

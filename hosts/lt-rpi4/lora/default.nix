@@ -145,8 +145,13 @@ in
       # netstat scans host-wide /proc/net
       ProcSubset = "all";
       ProtectProc = "default";
-      # systemctl restart talks to the host systemd over its private socket
-      BindReadOnlyPaths = [ "/run/systemd/private" ];
+      # netstat must identify the host mux process, outside a private user namespace.
+      PrivateUsers = false;
+      # systemctl checks sd_booted() before connecting to the private manager bus.
+      BindReadOnlyPaths = [
+        "/run/systemd/system"
+        "/run/systemd/private"
+      ];
     };
   };
 

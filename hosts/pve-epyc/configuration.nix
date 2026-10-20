@@ -28,7 +28,7 @@
     # ../../nixos/optional-apps/epic-awesome-gamer # missing regenerated secret epic-awesome-gamer.yaml
     ../../nixos/optional-apps/fastapi-dls.nix
     # # ../../nixos/optional-apps/handbrake-server.nix
-    # ../../nixos/optional-apps/hydra # missing regenerated secrets attic/dex/hydra yaml
+    # ../../nixos/optional-apps/hydra # intentionally disabled by request
     ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
     # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml
@@ -36,7 +36,7 @@
     # # ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets
-    # ../../nixos/optional-apps/mtranserver
+    ../../nixos/optional-apps/mtranserver
     # # ../../nixos/optional-apps/n8n # compromised
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
@@ -132,20 +132,6 @@
     ];
     systemd-tmpfiles-setup.unitConfig.RequiresMountsFor = "/mnt/storage";
     systemd-tmpfiles-resetup.unitConfig.RequiresMountsFor = "/mnt/storage";
-  };
-
-  lantian.nginxVhosts."ha.xuyh0120.win" = {
-    locations = {
-      "/" = {
-        proxyPass = "http://192.168.1.101:8123";
-        proxyWebsockets = true;
-        proxyNoTimeout = true;
-      };
-    };
-
-    accessibleBy = "private";
-    sslCertificate = "lets-encrypt-xuyh0120.win";
-    noIndex.enable = true;
   };
 
   # Allow Radicale calendar sync task to access *arr config

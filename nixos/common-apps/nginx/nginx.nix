@@ -248,6 +248,10 @@ in
   };
   lantian.harden.nginx = true;
 
+  # The synchronous helper must outlive nginx's 90s reload deadline; under
+  # deployment I/O pressure a successful reload exceeded its upstream 60s limit.
+  systemd.services.nginx-config-reload.serviceConfig.TimeoutStartSec = "120s";
+
   environment.etc."nginx/htpasswd".text = ''
     lantian:${unixHashedPassword}
   '';

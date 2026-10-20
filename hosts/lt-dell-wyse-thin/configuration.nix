@@ -16,10 +16,10 @@
     ../../nixos/client-components/pipewire
     ../../nixos/client-components/tlp.nix
 
-    # ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/ncps-client.nix
   ];
 
-  # lantian.hidpi = 1.5;
+  lantian.hidpi = 1.5;
 
   services.tlp.settings = lib.mapAttrs (n: lib.mkForce) {
     TLP_DEFAULT_MODE = "AC";

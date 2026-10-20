@@ -133,6 +133,8 @@ in
   };
 
   systemd.services.systemd-networkd.restartIfChanged = false;
+  # Read restored .netdev files without restarting networkd or the uplinks.
+  systemd.services.systemd-networkd.reloadIfChanged = true;
   services.resolved.enable = false;
 
   services.mptcpd = {

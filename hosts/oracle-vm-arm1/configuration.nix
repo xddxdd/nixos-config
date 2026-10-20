@@ -10,7 +10,27 @@
 
   boot.kernelParams = [ "console=ttyS0,115200" ];
 
-  systemd.network.networks.eth0 = LT.cloudLanNetworking "eth0" 1024;
+  systemd.network.networks.eth0 =
+    let
+      lan = LT.cloudLanNetworking "eth0" 1024;
+    in
+    lan
+    // {
+      # O2CB binds eth0's address; eth1's same-subnet route otherwise wins.
+      routes =
+        lan.routes
+        ++
+          map
+            (ip: {
+              Destination = "${ip}/32";
+              Scope = "link";
+              PreferredSource = "172.18.126.16";
+            })
+            [
+              "172.18.126.2"
+              "172.18.126.3"
+            ];
+    };
 
   systemd.network.networks.eth1 = (LT.cloudLanNetworking "eth1" 2048) // {
     networkConfig.DHCP = "no";
@@ -23,9 +43,6 @@
       }
     ];
   };
-
-  # FIXME
-  lantian.backup.enable = false;
 
   lantian.ocfs2 = {
     enable = true;

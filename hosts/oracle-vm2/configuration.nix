@@ -3,7 +3,7 @@
   imports = [
     ../../nixos/server.nix
 
-    # ../../nixos/optional-apps/archiveteam.nix
+    ../../nixos/optional-apps/archiveteam.nix
 
     ./hardware-configuration.nix
   ];

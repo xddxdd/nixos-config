@@ -11,13 +11,13 @@
     ./hardware-configuration.nix
     ./wireplumber-disable-hdmi-audio.nix
 
-    # ../../nixos/optional-apps/ncps-client.nix
-    # ../../nixos/optional-apps/pipewire-combined-sink-alsa.nix
+    ../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/pipewire-combined-sink-alsa.nix
     # # ../../nixos/optional-apps/pipewire-network-audio-receive.nix
-    # ../../nixos/optional-apps/pipewire-roc-source.nix
-    # ../../nixos/optional-apps/pipewire-vban-recv.nix
-    # ../../nixos/optional-apps/pipewire-volume-control.nix
-    # ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/pipewire-roc-source.nix
+    ../../nixos/optional-apps/pipewire-vban-recv.nix
+    ../../nixos/optional-apps/pipewire-volume-control.nix
+    ../../nixos/optional-apps/syncthing
     # ../../nixos/optional-apps/sunshine.nix
   ];
 

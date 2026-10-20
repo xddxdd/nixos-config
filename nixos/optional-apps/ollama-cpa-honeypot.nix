@@ -30,6 +30,7 @@
       "postgresql.service"
     ];
     requires = [ "postgresql.service" ];
+    partOf = [ "postgresql.service" ];
     wantedBy = [ "multi-user.target" ];
 
     # sys1's auto-responder downloads its model via hf-hub; HF_HOME honours the

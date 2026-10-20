@@ -75,6 +75,7 @@ in
       };
     };
     plausible = netns.bind {
+      partOf = [ "postgresql.service" ];
       environment = {
         LOG_LEVEL = "warning";
         RELEASE_DISTRIBUTION = "none";

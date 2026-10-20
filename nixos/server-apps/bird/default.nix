@@ -78,6 +78,8 @@ in
       User = "bird";
       Group = "bird";
       RuntimeDirectory = "bird";
+      # Confined clients must retain this inode even across a full stop/start.
+      RuntimeDirectoryPreserve = "yes";
       # Manages host kernel routes
       PrivateUsers = false;
       # chroot's tmpfs root is ephemeral; bind control socket through (used by
@@ -122,15 +124,19 @@ in
       enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
       port = LT.port.Prometheus.BirdExporter;
       listenAddress = LT.this.ltnet.IPv4;
-      birdSocket = "/var/run/bird/bird.ctl";
+      birdSocket = "/run/bird/bird.ctl";
     };
   };
 
-  systemd.services."prometheus-bird-exporter".serviceConfig = LT.serviceHarden // {
-    RestartSec = "5s";
-    ProcSubset = "all";
-    ProtectProc = "default";
-    BindReadOnlyPaths = [ "/run/bird" ];
+  systemd.services."prometheus-bird-exporter" = {
+    wants = [ "bird.service" ];
+    after = [ "bird.service" ];
+    serviceConfig = LT.serviceHarden // {
+      RestartSec = "5s";
+      ProcSubset = "all";
+      ProtectProc = "default";
+      BindReadOnlyPaths = [ "/run/bird" ];
+    };
   };
   lantian.harden.prometheus-bird-exporter = true;
 

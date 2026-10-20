@@ -1,7 +1,24 @@
-_: {
+{ lib, LT, ... }:
+{
   lantian.geoip.enable = true;
 
+  # Location return directives run before nginx's allow/deny access phase.
+  services.nginx.appendHttpConfig = ''
+    geo $api_internal_client {
+      default 0;
+      127.0.0.1/32 1;
+      ::1/128 1;
+      ${lib.concatMapStringsSep "\n" (ip: "${ip} 1;") (
+        LT.constants.ltnet.IPv4 ++ LT.constants.ltnet.IPv6
+      )}
+    }
+  '';
+
   lantian.nginxVhosts."api.lantian.pub" = {
+    accessibleBy = "private";
+    extraConfig = ''
+      if ($api_internal_client = 0) { return 444; }
+    '';
     root = "/var/empty";
     locations = {
       # https://soha.moe/post/test-capport-rfc.html

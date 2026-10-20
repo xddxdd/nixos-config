@@ -46,6 +46,7 @@
     noIndex.enable = true;
   };
 
+  systemd.services.miniflux.partOf = [ "postgresql.service" ];
   systemd.services.miniflux.serviceConfig = LT.serviceHarden // {
     DynamicUser = lib.mkForce false;
     RuntimeDirectoryMode = lib.mkForce "0770";

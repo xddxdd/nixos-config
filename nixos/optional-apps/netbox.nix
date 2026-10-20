@@ -57,8 +57,14 @@
   };
 
   systemd.services.netbox = {
-    after = [ "redis-netbox.service" ];
-    requires = [ "redis-netbox.service" ];
+    after = [
+      "redis-netbox.service"
+      "postgresql.target"
+    ];
+    requires = [
+      "redis-netbox.service"
+      "postgresql.target"
+    ];
     serviceConfig = LT.networkToolHarden // {
       RuntimeDirectory = "netbox";
       # FIXME: secret
@@ -66,8 +72,14 @@
     };
   };
   systemd.services.netbox-rq = {
-    after = [ "redis-netbox.service" ];
-    requires = [ "redis-netbox.service" ];
+    after = [
+      "redis-netbox.service"
+      "postgresql.target"
+    ];
+    requires = [
+      "redis-netbox.service"
+      "postgresql.target"
+    ];
     serviceConfig = LT.serviceHarden // {
       # FIXME: secret
       BindReadOnlyPaths = [ "/run" ];

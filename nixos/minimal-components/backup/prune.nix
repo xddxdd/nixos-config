@@ -9,7 +9,8 @@ let
 
   pruneScript = repo: ''
     echo "Pruning ${repo}"
-    rustic-${repo} forget || HAS_ERROR=1
+    # Concurrent reads of one pack race on rustic_core's fixed cache temporary filename.
+    rustic-${repo} --no-cache forget || HAS_ERROR=1
   '';
 in
 {

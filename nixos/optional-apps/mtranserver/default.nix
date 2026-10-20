@@ -21,6 +21,11 @@ in
     description = "MTranServer";
     wantedBy = [ "multi-user.target" ];
 
+    confinement = {
+      enable = true;
+      packages = [ modelsDir ];
+    };
+
     environment = {
       IP = "127.0.0.1";
       PORT = LT.portStr.MTranServer;
@@ -45,6 +50,7 @@ in
   users.groups.mtranserver = { };
 
   lantian.localVhosts.mtranserver = {
+    accessibleBy = "private";
     locations = {
       "/" = {
         proxyPass = "http://127.0.0.1:${LT.portStr.MTranServer}";

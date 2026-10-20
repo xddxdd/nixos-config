@@ -13,6 +13,12 @@
     ./services.nix
   ];
 
+  # mariadb-install-db chowns its already mysql-owned data directory.
+  systemd.services.mysql.serviceConfig.SystemCallFilter = [
+    "@system-service"
+    "~@clock @cpu-emulation @debug @module @mount @obsolete @raw-io @reboot @swap"
+  ];
+
   # environment.etc."freeDiameter/hss.conf".source = ./freeDiameter/hss.conf;
   environment.etc."freeDiameter/mme.conf".source = ./freeDiameter/mme.conf;
   environment.etc."freeDiameter/pcrf.conf".source = ./freeDiameter/pcrf.conf;
@@ -25,6 +31,9 @@
     "127.0.0.8" = [ "hss.epc.mnc010.mcc315.3gppnetwork.org" ];
     "127.0.0.9" = [ "pcrf.epc.mnc010.mcc315.3gppnetwork.org" ];
   };
+
+  # Networkd restarts are disabled globally; reload to pick up the new TUN files.
+  systemd.services.systemd-networkd.reloadIfChanged = true;
 
   systemd.network.netdevs.open5gs = {
     netdevConfig = {

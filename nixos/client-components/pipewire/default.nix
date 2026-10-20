@@ -8,6 +8,11 @@
 let
   # Change pipewire-rtprio.nix as well
   realtimeLimitUS = 5000000;
+  cfg = config.services.pipewire;
+  pipewireService = {
+    serviceConfig = LT.realtime;
+    restartTriggers = [ config.environment.etc.pipewire.source ];
+  };
 in
 {
   imports = [
@@ -76,7 +81,7 @@ in
     };
   };
 
-  systemd.services.pipewire-auto-start = {
+  systemd.services.pipewire-auto-start = lib.mkIf (cfg.enable && cfg.systemWide) {
     description = "Keep PipeWire running";
     after = [ "pipewire.socket" ];
     requires = [ "pipewire.socket" ];
@@ -92,10 +97,16 @@ in
       BindPaths = [ "/run/pipewire" ];
     };
   };
-  lantian.harden.pipewire-auto-start = true;
+  lantian.harden.pipewire-auto-start = lib.mkIf (cfg.enable && cfg.systemWide) true;
 
-  systemd.services.pipewire.serviceConfig = LT.realtime;
-  systemd.services.pipewire-pulse.serviceConfig = LT.realtime;
+  systemd.services.pipewire = lib.mkIf (cfg.enable && cfg.systemWide) pipewireService;
+  systemd.services.pipewire-pulse = lib.mkIf (
+    cfg.enable && cfg.systemWide && cfg.pulse.enable
+  ) pipewireService;
+  systemd.user.services.pipewire = lib.mkIf (cfg.enable && !cfg.systemWide) pipewireService;
+  systemd.user.services.pipewire-pulse = lib.mkIf (
+    cfg.enable && !cfg.systemWide && cfg.pulse.enable
+  ) pipewireService;
 
   users.users.lantian.extraGroups = [
     "audio"

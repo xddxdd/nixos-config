@@ -63,6 +63,13 @@
       ];
       serviceConfig = LT.serviceHarden // {
         RestartSec = "5s";
+        # Go uses netlink to enumerate interfaces for discovery and NAT traversal.
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         AmbientCapabilities = [
           "CAP_DAC_OVERRIDE"
           "CAP_FOWNER"
@@ -83,7 +90,7 @@
               builtins.toJSON config.services.syncthing.settings
             );
           in
-          "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml";
+          "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml ${lib.getExe config.services.syncthing.package}";
       };
     };
     lantian.harden.syncthing = true;

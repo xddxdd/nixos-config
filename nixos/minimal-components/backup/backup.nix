@@ -22,7 +22,9 @@ let
     if [ ! -d "${path}" ]; then
       echo "${path} is not a directory, skipping"
     else
-      rustic-${repo} backup ${path} --host ${config.networking.hostName} --custom-ignorefile ${ignoreFile} || HAS_ERROR=1
+      rustic-${repo} ${
+        lib.optionalString (!cfg.useCache) "--no-cache"
+      } backup ${path} --host ${config.networking.hostName} --custom-ignorefile ${ignoreFile} || HAS_ERROR=1
     fi
   '';
 in
@@ -35,6 +37,11 @@ in
     resticRepos = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = builtins.attrNames resticRepos;
+    };
+    useCache = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Cache repository metadata locally during backups.";
     };
     schedule = lib.mkOption {
       type = lib.types.nullOr lib.types.str;

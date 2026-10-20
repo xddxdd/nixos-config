@@ -134,8 +134,27 @@ in
   };
 
   lantian.nginxVhosts."wp.xuyh0120.win" = {
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
   };
 
-  systemd.services."phpfpm-wordpress-wp.xuyh0120.win".serviceConfig.RestartSec = "5s";
+  systemd.services."phpfpm-wordpress-wp.xuyh0120.win" = {
+    # Rebind the database socket when MySQL recreates its RuntimeDirectory.
+    after = [ "mysql.service" ];
+    requires = [ "mysql.service" ];
+    partOf = [ "mysql.service" ];
+    confinement.packages = [ config.services.wordpress.sites."wp.xuyh0120.win".finalPackage ];
+    serviceConfig = {
+      BindReadOnlyPaths = [
+        "/run/mysqld"
+        "/var/lib/wordpress/wp.xuyh0120.win/secret-keys.php"
+      ];
+      BindPaths = with config.services.wordpress.sites."wp.xuyh0120.win"; [
+        cacheDir
+        uploadsDir
+        fontsDir
+      ];
+
+    };
+  };
 }

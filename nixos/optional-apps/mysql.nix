@@ -6,6 +6,7 @@
   ...
 }:
 let
+  userbornEnabled = config.services.userborn.enable && !config.services.userborn.static;
   mysqlenv-common = pkgs.buildEnv {
     name = "mysql-path-env-common";
     pathsToLink = [ "/bin" ];
@@ -79,16 +80,21 @@ in
     ];
   };
 
-  systemd.services.mysql = {
+  systemd.services.mysql = lib.mkIf config.services.mysql.enable {
     path = [
       config.services.mysql.package
       mysqlenv-common
       mysqlenv-rsync
     ];
-    restartIfChanged = false;
+    # Rebind passwd/group after userborn atomically replaces their inodes.
+    restartIfChanged = lib.mkForce true;
+    restartTriggers = lib.optionals userbornEnabled config.systemd.services.userborn.restartTriggers;
+    after = lib.optional userbornEnabled "userborn.service";
     serviceConfig = LT.serviceHarden // {
       Restart = lib.mkForce "on-failure";
       TimeoutStartSec = 300;
+      # Keep socket-directory inodes stable for confined clients across stop/start.
+      RuntimeDirectoryPreserve = "yes";
       # chroot's tmpfs root is ephemeral; bind data dir and unix socket
       # through; the socket is accessed by apps outside the chroot.
       # Peer/auth uid resolution needs nss files
@@ -109,6 +115,8 @@ in
   systemd.services.prometheus-mysqld-exporter = {
     description = "Prometheus MySQL Exporter";
     wantedBy = [ "multi-user.target" ];
+    wants = [ "mysql.service" ];
+    after = [ "mysql.service" ];
     serviceConfig =
       let
         myCnf = pkgs.writeText "my.cnf" ''

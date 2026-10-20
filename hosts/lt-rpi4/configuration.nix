@@ -8,7 +8,7 @@
     ../../nixos/minimal.nix
 
     #../../nixos/optional-apps/adsb
-    #../../nixos/optional-apps/ncps-client.nix
+    ../../nixos/optional-apps/ncps-client.nix
 
     ./hardware-configuration.nix
     ./lora

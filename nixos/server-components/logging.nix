@@ -9,9 +9,37 @@
   services.fluent-bit = {
     enable = !(LT.this.hasTag LT.tags.low-ram);
     # libsystemd needs compression support to read Zstd-compressed journals.
-    package = pkgs.fluent-bit.override {
-      systemdLibs = pkgs.systemdLibs.override { withCompression = true; };
-    };
+    package =
+      (pkgs.fluent-bit.override {
+        systemdLibs = pkgs.systemdLibs.override { withCompression = true; };
+      }).overrideAttrs
+        (old: {
+          patches = (old.patches or [ ]) ++ [
+            (pkgs.writeText "fluent-bit-down-chunk-ordering.patch" ''
+              diff --git a/src/flb_input_chunk.c b/src/flb_input_chunk.c
+              --- a/src/flb_input_chunk.c
+              +++ b/src/flb_input_chunk.c
+              @@ -2783,6 +2783,17 @@ static struct flb_input_chunk *input_chunk_get(struct flb_input_instance *in,
+                       ic->event_type = event_type;
+                   }
+              ${" "}
+              +    /* Creation may return a down chunk when the mmap budget is exhausted.
+              +     * Read its metadata only after opening/mapping it, then let the caller
+              +     * restore the down state after writing as it already does. */
+              +    if (cio_chunk_is_up(ic->chunk) == CIO_FALSE) {
+              +        ret = cio_chunk_up_force(ic->chunk);
+              +        if (ret != CIO_OK) {
+              +            return NULL;
+              +        }
+              +        *set_down = FLB_TRUE;
+              +    }
+              +
+                   /*
+                    * If buffering this block of data will exceed one of the limit among all output instances
+                    * that the chunk will flush to, we need to modify the routes_mask of the oldest chunks
+            '')
+          ];
+        });
     settings = {
       service = {
         flush = 5;
@@ -62,6 +90,10 @@
   };
 
   systemd.services.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
+    # Run inside the mounted state directory, not before its host mount exists.
+    preStart = ''
+      ${pkgs.coreutils}/bin/install -d -m 0750 /var/lib/fluent-bit/storage
+    '';
     serviceConfig = LT.serviceHarden // {
       RestartSec = "5s";
       ProcSubset = "all";
@@ -71,8 +103,6 @@
         "AF_INET6"
         "AF_NETLINK"
       ];
-      # Reads journald files; chroot tmpfs root is ephemeral, so bind the
-      # host state dir through
       # Fixed user instead of upstream DynamicUser: with the confinement
       # chroot + user namespace, host-side files land as nobody:nogroup and
       # are unwritable
@@ -86,28 +116,12 @@
         "/run/systemd/journal"
         "/etc/machine-id"
       ];
-      BindPaths = [ "/var/lib/fluent-bit" ];
+      # StateDirectory survives stops and is mounted through the confinement root.
+      StateDirectory = "fluent-bit";
+      StateDirectoryMode = "0750";
     };
   };
   lantian.harden.fluent-bit = true;
-
-  # State dir is bind-mounted through the confinement chroot; create it on
-  # fresh hosts (can't use preservation, /var/lib is already preserved);
-  # R rule fixes ownership of files previously created under a user namespace
-  systemd.tmpfiles.settings = {
-    fluent-bit = {
-      "/var/lib/fluent-bit"."d" = {
-        mode = "750";
-        user = "fluent-bit";
-        group = "fluent-bit";
-      };
-      "/var/lib/fluent-bit/storage"."d" = {
-        mode = "750";
-        user = "fluent-bit";
-        group = "fluent-bit";
-      };
-    };
-  };
 
   users.users.fluent-bit = {
     isSystemUser = true;

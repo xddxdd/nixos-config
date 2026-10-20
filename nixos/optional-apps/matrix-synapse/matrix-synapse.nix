@@ -221,6 +221,7 @@
     in
     {
       matrix-synapse = {
+        after = [ "postgresql.target" ];
         environment = {
           SYNAPSE_ASYNC_IO_REACTOR = "1";
         };

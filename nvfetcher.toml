@@ -204,27 +204,3 @@ src.regex = "\"version\":\"([0-9\\.]+)\""
 fetch.url = "https://downloads.wordpress.org/theme/twentytwelve.$ver.zip"
 src.webpage = "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request%5Bslug%5D=twentytwelve"
 src.regex = "\"version\":\"([0-9\\.]+)\""
-
-[yourls]
-fetch.github = "YOURLS/YOURLS"
-src.github = "YOURLS/YOURLS"
-
-[yourls-404-if-not-found]
-fetch.github = "YOURLS/404-if-not-found"
-src.git = "https://github.com/YOURLS/404-if-not-found.git"
-
-[yourls-always-302]
-fetch.github = "tinjaw/Always-302"
-src.git = "https://github.com/tinjaw/Always-302.git"
-
-[yourls-dont-track-admins]
-fetch.github = "dgw/yourls-dont-track-admins"
-src.git = "https://github.com/dgw/yourls-dont-track-admins.git"
-
-[yourls-login-timeout]
-fetch.github = "reanimus/yourls-login-timeout"
-src.git = "https://github.com/reanimus/yourls-login-timeout.git"
-
-[yourls-sleeky]
-fetch.github = "Flynntes/Sleeky"
-src.git = "https://github.com/Flynntes/Sleeky"

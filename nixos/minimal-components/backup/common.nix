@@ -83,6 +83,8 @@ rec {
       cache-dir = "/var/cache/restic/storagebox"
 
       [repository.options]
+      # Storagebox rejects authentication when concurrent SFTP sessions exhaust its limit.
+      connections = "1"
       user = "u378583-sub2"
       endpoint = "ssh://u378583-sub2.your-storagebox.de:23"
       key = "${config.sops.secrets.sftp-privkey.path}"
@@ -112,14 +114,22 @@ rec {
     "pve-epyc" = [ "home" ];
   };
 
-  resticCommands = lib.mapAttrsToList (
-    k: v:
+  resticCommands =
     let
-      configFile = pkgs.writeText "rustic-${k}.toml" v;
+      # openssh-rs defaults to an immortal master; process termination skips its Drop cleanup.
+      ssh = pkgs.writeShellScriptBin "ssh" ''
+        exec ${lib.getExe pkgs.openssh} -o ControlPersist=15 "$@"
+      '';
     in
-    pkgs.writeShellScriptBin "rustic-${k}" ''
-      export RUSTIC_USE_PROFILE=${configFile}
-      exec ${lib.getExe pkgs.rustic} "$@"
-    ''
-  ) resticRepos;
+    lib.mapAttrsToList (
+      k: v:
+      let
+        configFile = pkgs.writeText "rustic-${k}.toml" v;
+      in
+      pkgs.writeShellScriptBin "rustic-${k}" ''
+        export PATH=${ssh}/bin:$PATH
+        export RUSTIC_USE_PROFILE=${configFile}
+        exec ${lib.getExe pkgs.rustic} "$@"
+      ''
+    ) resticRepos;
 }

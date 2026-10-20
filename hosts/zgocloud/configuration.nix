@@ -13,4 +13,7 @@
   };
 
   lantian.firewall.wanARPSubnets = [ "38.175.199.0/24" ];
+
+  # Avoid repeatedly caching repository indexes on this small filesystem.
+  lantian.backup.useCache = false;
 }

@@ -179,8 +179,9 @@ in
     wantedBy = [ "multi-user.target" ];
     after = [
       "networking.target"
-      "postgresql.service"
+      "postgresql.target"
     ];
+    requires = [ "postgresql.target" ];
     script = ''
       ${utils.genJqSecretsReplacementSnippet cfg "/run/dex/config.yaml"}
       exec ${lib.getExe pkgs.dex-oidc} serve /run/dex/config.yaml

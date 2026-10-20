@@ -3,11 +3,11 @@
 Syncthing 配置文件修改工具
 
 用法:
-    python3 update-syncthing-config.py <json 文件路径> <xml 文件路径>
-    python3 update-syncthing-config.py updates.json /var/lib/syncthing/config.xml
+    python3 update-config.py <json 文件路径> <xml 文件路径> <syncthing 路径>
 """
 
 import json
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -15,7 +15,9 @@ from pathlib import Path
 
 def update_xml_element(parent, key, value):
     """递归更新 XML 元素"""
-    if isinstance(value, dict):
+    if key in parent.attrib and not isinstance(value, dict):
+        parent.set(key, str(value).lower() if isinstance(value, bool) else str(value))
+    elif isinstance(value, dict):
         element = parent.find(key)
         if element is None:
             element = ET.SubElement(parent, key)
@@ -66,9 +68,15 @@ def main():
 
     config_path = Path(sys.argv[2])
     if not config_path.exists():
-        # Fresh state: syncthing will generate the config on first start,
-        # settings get applied on the next run
-        return
+        # 缺失配置但已有状态时拒绝生成，避免重置身份或丢失文件夹配置。
+        if any(config_path.parent.iterdir()):
+            raise FileNotFoundError(f"Refusing to regenerate missing {config_path}: existing state")
+        subprocess.run(
+            [sys.argv[3], "generate", "--home", str(config_path.parent), "--no-port-probing"],
+            check=True,
+        )
+
+    update_config(config_path, updates)
 
 
 if __name__ == "__main__":

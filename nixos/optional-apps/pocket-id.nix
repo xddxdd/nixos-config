@@ -54,6 +54,8 @@
     ];
   };
 
+  systemd.services.pocket-id.after = [ "postgresql.target" ];
+  systemd.services.pocket-id.requires = [ "postgresql.target" ];
   systemd.services.pocket-id.serviceConfig = LT.serviceHarden // {
     RestartSec = lib.mkForce 5;
     RuntimeDirectory = "pocket-id";

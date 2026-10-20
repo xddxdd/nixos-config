@@ -70,9 +70,6 @@ let
     # keep-sorted start
     "cups" # spawns driver-dependent printer filter binaries
     "jellyfin" # GPU transcoding and .NET JIT need full filesystem access
-    # php-fpm chowns the FastCGI socket at startup; chown inside the
-    # confinement tmpfs chroot fails, so pools stay unconfined
-    "phpfpm-calibre-cops"
     "oom-score-protect"
     "samba-nmbd" # samba dlopens NSS modules and spawns per-connection processes
     "samba-smbd"

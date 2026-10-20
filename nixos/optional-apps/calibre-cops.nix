@@ -112,32 +112,16 @@ in
       $config['default_timezone'] = '${config.time.timeZone}';
     '';
 
-    # phpfpm-calibre-cops: hardening keys + confinement; chroot's tmpfs root
-    # is ephemeral, so bind the host library through
     systemd.services.phpfpm-calibre-cops = {
-      serviceConfig = LT.serviceHarden // {
-        Restart = "always";
-        RestartSec = "5s";
-        MemoryDenyWriteExecute = false;
-
-        # php-fpm chowns the FastCGI socket to the pool user; the chown call
-        # needs to survive the seccomp filter (@privileged normally denied)
-        AmbientCapabilities = [ "CAP_CHOWN" "CAP_FOWNER" ];
-        CapabilityBoundingSet = [ "CAP_CHOWN" "CAP_FOWNER" ];
-        SystemCallFilter = lib.mkForce [
-          "@system-service"
-          "~@clock @cpu-emulation @debug @module @obsolete @raw-io @reboot @swap"
-        ];
-
-        # php-fpm resolves pool users at runtime; bind passwd/group read-only,
-        # plus the library for the internal directory listing
-        BindReadOnlyPaths = [
-          "/etc/passwd"
-          "/etc/group"
-          (LT.escapeMountPath calibreLibrary)
-        ];
-      };
-
+      confinement.packages = [
+        pkgs.nur-xddxdd.calibre-cops
+        pkgs.kepubify
+        config.environment.etc."calibre-cops/config_local.php".source
+      ];
+      serviceConfig.BindReadOnlyPaths = [
+        (LT.escapeMountPath calibreLibrary)
+        "/etc/calibre-cops/config_local.php"
+      ];
     };
   };
 }

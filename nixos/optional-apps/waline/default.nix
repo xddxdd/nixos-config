@@ -66,7 +66,12 @@ in
 
   systemd.services.waline = {
     description = "Waline comment system";
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "postgresql.target"
+    ];
+    requires = [ "postgresql.target" ];
+    partOf = [ "postgresql.service" ];
     wantedBy = [ "multi-user.target" ];
 
     environment = {

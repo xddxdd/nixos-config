@@ -5,7 +5,7 @@
   ...
 }:
 {
-  sops.secrets.dex-actual-secret.sopsFile = inputs.secrets + "/common/dex.yaml";
+  sops.secrets.dex-actual-secret.sopsFile = inputs.secrets + "/dex/actual.yaml";
   sops.templates.actual-env.content = ''
     ACTUAL_OPENID_CLIENT_SECRET=${config.sops.placeholder.dex-actual-secret}
   '';
@@ -30,13 +30,18 @@
       ACTUAL_TOKEN_EXPIRATION = "openid-provider";
       ACTUAL_USER_CREATION_MODE = "login";
     };
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
+      # Node's V8 JIT needs executable memory.
+      MemoryDenyWriteExecute = false;
       RestartSec = "5s";
       EnvironmentFile = config.sops.templates.actual-env.path;
     };
   };
 
+  lantian.harden.actual = true;
+
   lantian.nginxVhosts."actual.xuyh0120.win" = {
+    accessibleBy = "private";
     locations."/" = {
       proxyPass = "http://127.0.0.1:${LT.portStr.Actual}";
       # Budget sync/upload can be large and long-running.
