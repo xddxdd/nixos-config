@@ -19,7 +19,6 @@
     ../../nixos/client-apps/vscode-remote-env.nix
     ../../nixos/client-components/cups.nix
     ../../nixos/client-components/impermanence.nix
-    ../../nixos/hardware/ups.nix
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix

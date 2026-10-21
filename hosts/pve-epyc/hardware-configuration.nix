@@ -14,9 +14,7 @@
     ../../nixos/hardware/nvidia/only.nix
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/smart.nix
-    # Disabled: common/nut.yaml (UPS credentials) removed from nixos-secrets
-    # (7bcc13f). Restore secret + this import to re-enable.
-    #  ../../nixos/hardware/ups.nix
+    ../../nixos/hardware/ups.nix
   ];
 
   lantian.hostType = lib.mkForce "physical";
