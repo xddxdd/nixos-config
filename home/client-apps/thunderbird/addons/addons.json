@@ -15,9 +15,9 @@
   },
   {
     "pname": "dkim-verifier",
-    "version": "6.3.0",
-    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1047394/dkim_verifier-6.3.0-tb.xpi?src=",
-    "hash": "sha256-WulbTVYCV7Llci4dOCSkAx+3TV1Xt5DfwS92oR3BUBo=",
+    "version": "6.4.0",
+    "url": "https://addons.thunderbird.net/thunderbird/downloads/file/1053810/dkim_verifier-6.4.0-tb.xpi?src=",
+    "hash": "sha256-gOh2+Rrvfcl/FT8vTdasyLLHwV6ilunuFhrM1yMhZyA=",
     "addonId": "dkim_verifier@pl"
   },
   {

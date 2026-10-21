@@ -150,11 +150,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y5CkephVDn/k83O1MRGC2Wjfc+Nf1VzMYjwh8oPFlng=",
+            "sha256": "sha256-S1drVJFFKlvkCg6E5FjE9XpLdE7vlv/9B3Wp87zw0OQ=",
             "type": "url",
-            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.4/grafana-falconlogscale-datasource-1.10.4.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.5/grafana-falconlogscale-datasource-1.10.5.zip"
         },
-        "version": "1.10.4"
+        "version": "1.10.5"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLock": null,
