@@ -23,15 +23,17 @@ let
   filterJob =
     account:
     netns.bind {
-      wantedBy = lib.optionals (account != "outlook") [ "multi-user.target" ];
       after = lib.optional (account == "outlook") "email-oauth2-proxy.service";
       requires = lib.optional (account == "outlook") "email-oauth2-proxy.service";
-      environment.PASSWORD_FILE = config.sops.secrets."imapfilter-${account}".path;
+      script = ''
+        export PASSWORD_FILE=$CREDENTIALS_DIRECTORY/password
+        exec ${lib.getExe pkgs.imapfilter} -t /etc/ssl/certs/ca-certificates.crt -c ${
+          inputs.secrets + "/imapfilter/${account}.lua"
+        }
+      '';
       serviceConfig = LT.serviceHarden // {
         Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.imapfilter} -t /etc/ssl/certs/ca-certificates.crt -c ${
-          inputs.secrets + "/imapfilter/${account}.lua"
-        }";
+        LoadCredential = [ "password:${config.sops.secrets."imapfilter-${account}".path}" ];
         User = "imapfilter";
         Group = "imapfilter";
         WorkingDirectory = "/var/cache/imapfilter";
