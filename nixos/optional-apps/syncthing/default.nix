@@ -102,8 +102,7 @@
       syncthing = {
         "${config.lantian.syncthing.storage}"."d" = {
           mode = "755";
-          user = "syncthing";
-          group = "syncthing";
+          inherit (config.services.syncthing) user group;
         };
       };
     };

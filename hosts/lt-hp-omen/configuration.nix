@@ -67,6 +67,11 @@
     disableWhileTyping = false;
   };
 
+  services.syncthing = {
+    user = lib.mkForce "lantian";
+    group = lib.mkForce "lantian";
+  };
+
   services.usbmuxd.enable = true;
   systemd.services.usbmuxd.serviceConfig.Restart = "always";
   systemd.services.usbmuxd.serviceConfig.RestartSec = "5s";
@@ -85,77 +90,6 @@
       KEYBOARD_KEY_4c=bookmarks
       KEYBOARD_KEY_4d=computer
   '';
-
-  # Bind mounts
-  fileSystems = {
-    # keep-sorted start block=yes
-    "/home/lantian/.local/share/ManosabaMod" = lib.mkForce {
-      device = "/nix/persistent/media/ManosabaMod";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/.local/share/yuzu" = lib.mkForce {
-      device = "/nix/persistent/media/Yuzu";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Backups" = lib.mkForce {
-      device = "/nix/persistent/media/Backups";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Books" = lib.mkForce {
-      device = "/nix/persistent/media/Books";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Calibre Library" = lib.mkForce {
-      device = "/nix/persistent/media/Calibre Library";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Documents" = lib.mkForce {
-      device = "/nix/persistent/media/Documents";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/LegacyOS" = lib.mkForce {
-      device = "/nix/persistent/media/LegacyOS";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Music/CloudMusic" = lib.mkForce {
-      device = "/nix/persistent/media/CloudMusic";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Music/CloudMusicArchive" = lib.mkForce {
-      device = "/nix/persistent/media/CloudMusicArchive";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Pictures" = lib.mkForce {
-      device = "/nix/persistent/media/Pictures";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Secrets" = lib.mkForce {
-      device = "/nix/persistent/media/Secrets";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Software" = lib.mkForce {
-      device = "/nix/persistent/media/Software";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    "/home/lantian/Videos/VideoArchive" = lib.mkForce {
-      device = "/nix/persistent/media/VideoArchive";
-      fsType = "fuse.bindfs";
-      options = LT.constants.bindfsMountOptions;
-    };
-    # keep-sorted end
-  };
 
   fileSystems."/mnt/share" = {
     device = "${LT.hosts."pve-epyc".ltnet.IPv4}:/storage";
