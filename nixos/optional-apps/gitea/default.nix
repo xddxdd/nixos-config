@@ -58,8 +58,8 @@
         DISABLE_REGISTRATION = true;
         ENABLE_CAPTCHA = false;
         ENABLE_NOTIFY_MAIL = true;
-        ENABLE_BASIC_AUTHENTICATION = true;
-        ENABLE_PASSWORD_SIGNIN_FORM = true;
+        ENABLE_BASIC_AUTHENTICATION = false;
+        ENABLE_PASSWORD_SIGNIN_FORM = false;
         ENABLE_PASSKEY_AUTHENTICATION = false;
         NO_REPLY_ADDRESS = "hidden.lantian.pub";
         REGISTER_EMAIL_CONFIRM = false;
@@ -141,7 +141,7 @@
         proxyNoTimeout = true;
       };
       "= /robots.txt".alias = ./robots.txt;
-      # "= /user/login".return = "307 /user/oauth2/Dex";
+      "= /user/login".return = "307 /user/oauth2/Dex";
     };
 
     blockDotfiles = false;
