@@ -29,6 +29,7 @@ in
 
       # ATproto PDS
       (mkLetsEncryptWildcardCert "lantian.pub")
+      (mkLetsEncryptWildcardCert "at.lantian.pub")
     ]
     ++ (builtins.map mkLetsEncryptWildcardCert hostSubdomains)
     ++ (builtins.map mkLetsEncryptWildcardCert replacedHostSubdomains)

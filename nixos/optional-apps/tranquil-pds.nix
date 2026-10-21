@@ -74,16 +74,15 @@
   # Bypass config validation that doesn't recognize secrets
   environment.etc."tranquil-pds/config.toml".enable = false;
 
-  # # FIXME
-  # lantian.nginxVhosts."at.lantian.pub" = {
-  #   serverAliases = [ "*.at.lantian.pub" ];
+  lantian.nginxVhosts."at.lantian.pub" = {
+    serverAliases = [ "*.at.lantian.pub" ];
 
-  #   locations."/" = {
-  #     proxyPass = "http://127.0.0.1:${LT.portStr.TranquilPDS}";
-  #     proxyNoTimeout = true;
-  #   };
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${LT.portStr.TranquilPDS}";
+      proxyNoTimeout = true;
+    };
 
-  #   sslCertificate = "lets-encrypt-at.lantian.pub";
-  #   noIndex.enable = true;
-  # };
+    sslCertificate = "lets-encrypt-at.lantian.pub";
+    noIndex.enable = true;
+  };
 }
