@@ -4,6 +4,8 @@
   ...
 }:
 {
+  sops.secrets.smtp-pass.restartUnits = [ "asterisk-fax-monitor.service" ];
+
   systemd.services.asterisk-fax-monitor = {
     description = "Asterisk Fax Monitor";
     after = [ "network.target" ];
@@ -52,6 +54,10 @@
     serviceConfig = {
       User = "asterisk";
       Group = "asterisk";
+      BindReadOnlyPaths = [
+        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+        config.sops.secrets.smtp-pass.path
+      ];
       Restart = "always";
       RestartSec = 5;
     };

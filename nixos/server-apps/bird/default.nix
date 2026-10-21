@@ -144,13 +144,11 @@ in
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
     description = "Bird-lgproxy-go";
     wantedBy = [ "multi-user.target" ];
-    path = with pkgs; [
-      # mtr
-      traceroute
-    ];
+    path = [ pkgs.traceroute ];
     environment = {
       BIRD_SOCKET = "/run/bird/bird.ctl";
       BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
+      BIRDLG_TRACEROUTE_BIN = lib.getExe' pkgs.traceroute "traceroute";
     };
     unitConfig = {
       After = "bird.service";

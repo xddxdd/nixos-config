@@ -24,6 +24,8 @@
       StateDirectory = "prowlarr";
       BindPaths = [ "/var/lib/prowlarr" ];
       BindReadOnlyPaths = [
+        "/etc/passwd"
+        "/etc/group"
         "/etc/resolv.conf"
         "${config.environment.etc.hosts.source}:/etc/hosts"
         "${

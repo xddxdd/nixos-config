@@ -388,7 +388,12 @@ portStr.MyService  # 返回 "13xxx" 而非 13xxx
 
 ### 常用命令
 
+构建全部 NixOS 主机配置时，使用 `make build`，不要自行拼接逐主机构建命令替代。
+
 ```bash
+# 构建全部主机配置
+make build
+
 # 检查配置
 nix flake check
 

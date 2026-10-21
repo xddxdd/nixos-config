@@ -17,6 +17,8 @@ let
 
   # Preserve stored bt.localhost endpoints only in these two application views.
   arrReadOnlyPaths = [
+    "/etc/passwd"
+    "/etc/group"
     "/etc/resolv.conf"
     "${
       pkgs.concatText "radarr-hosts" [

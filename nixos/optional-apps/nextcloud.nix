@@ -96,8 +96,23 @@
       oidc_login_client_secret = config.sops.secrets.dex-nextcloud-secret.path;
     };
   };
+  sops.secrets.smtp-pass.restartUnits = [ "phpfpm-nextcloud.service" ];
+
   systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
-  systemd.services.phpfpm-nextcloud.serviceConfig.RestartSec = "5s";
+  systemd.services.phpfpm-nextcloud.serviceConfig = {
+    RestartSec = "5s";
+    BindReadOnlyPaths = [
+      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+      config.sops.secrets.smtp-pass.path
+    ];
+  };
+  systemd.services.nextcloud-cron = {
+    path = [ pkgs.msmtp ];
+    serviceConfig.BindReadOnlyPaths = [
+      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+      config.sops.secrets.smtp-pass.path
+    ];
+  };
 
   services.redis.servers.nextcloud = {
     enable = true;

@@ -8,7 +8,11 @@
 }:
 let
   netns = config.lantian.netns.imapfilter;
-
+  accounts = [
+    "gmail"
+    "lantian"
+    "outlook"
+  ];
   email-oauth2-proxy = pkgs.writeShellScriptBin "emailproxy" ''
     exec ${lib.getExe pkgs.nur-xddxdd.email-oauth2-proxy} \
       --no-gui \
@@ -16,150 +20,86 @@ let
       --config-file ${inputs.secrets + "/imapfilter/emailproxy.config"} \
       --cache-store /var/lib/email-oauth2-proxy/emailproxy.cache
   '';
+  filterJob =
+    account:
+    netns.bind {
+      wantedBy = lib.optionals (account != "outlook") [ "multi-user.target" ];
+      after = lib.optional (account == "outlook") "email-oauth2-proxy.service";
+      requires = lib.optional (account == "outlook") "email-oauth2-proxy.service";
+      environment.PASSWORD_FILE = config.sops.secrets."imapfilter-${account}".path;
+      serviceConfig = LT.serviceHarden // {
+        Type = "oneshot";
+        ExecStart = "${lib.getExe pkgs.imapfilter} -t /etc/ssl/certs/ca-certificates.crt -c ${
+          inputs.secrets + "/imapfilter/${account}.lua"
+        }";
+        User = "imapfilter";
+        Group = "imapfilter";
+        WorkingDirectory = "/var/cache/imapfilter";
+        CacheDirectory = "imapfilter";
+        CacheDirectoryMode = "0750";
+        # Joins the host-owned network namespace; Lua needs executable mappings.
+        PrivateUsers = false;
+        MemoryDenyWriteExecute = lib.mkForce false;
+        SystemCallFilter = lib.mkForce [ ];
+        LimitMEMLOCK = "infinity";
+        BindReadOnlyPaths = [ config.sops.secrets."imapfilter-${account}".path ];
+      };
+      unitConfig = lib.optionalAttrs (account != "outlook") {
+        OnFailure = "notify-email@%n.service";
+      };
+    };
 in
 {
-  lantian.netns.imapfilter = {
-    ipSuffix = "93";
-  };
-
-  sops.secrets.imapfilter-gmail = {
+  lantian.netns.imapfilter.ipSuffix = "93";
+  sops.secrets = lib.genAttrs (map (name: "imapfilter-${name}") accounts) (_: {
     sopsFile = inputs.secrets + "/imapfilter/keys.yaml";
     owner = "imapfilter";
     group = "imapfilter";
-  };
-  sops.secrets.imapfilter-lantian = {
-    sopsFile = inputs.secrets + "/imapfilter/keys.yaml";
-    owner = "imapfilter";
-    group = "imapfilter";
-  };
+  });
 
   environment.systemPackages = [ email-oauth2-proxy ];
-
-  systemd.services.email-oauth2-proxy = netns.bind {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "3";
-      ExecStart = lib.getExe email-oauth2-proxy;
-
-      User = "email-oauth2-proxy";
-      Group = "email-oauth2-proxy";
-
-      WorkingDirectory = "/var/lib/email-oauth2-proxy";
-      StateDirectory = "email-oauth2-proxy";
-      StateDirectoryMode = "0750";
+  systemd.services = {
+    email-oauth2-proxy = netns.bind {
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = LT.serviceHarden // {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+        ExecStart = lib.getExe email-oauth2-proxy;
+        User = "email-oauth2-proxy";
+        Group = "email-oauth2-proxy";
+        WorkingDirectory = "/var/lib/email-oauth2-proxy";
+        StateDirectory = "email-oauth2-proxy";
+        StateDirectoryMode = "0750";
+        PrivateUsers = false;
+      };
     };
-  };
+  }
+  // lib.listToAttrs (map (name: lib.nameValuePair "imapfilter-${name}" (filterJob name)) accounts);
+  systemd.timers = lib.listToAttrs (
+    map (
+      name:
+      lib.nameValuePair "imapfilter-${name}" {
+        # Provision the proxy password now, but wait for Microsoft OAuth enrollment.
+        enable = name != "outlook";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "hourly";
+          Persistent = true;
+          RandomizedDelaySec = "1h";
+        };
+      }
+    ) accounts
+  );
+  lantian.harden = lib.genAttrs (
+    [ "email-oauth2-proxy" ] ++ map (name: "imapfilter-${name}") accounts
+  ) (_: true);
 
   users.users.email-oauth2-proxy = {
     group = "email-oauth2-proxy";
     isSystemUser = true;
   };
   users.groups.email-oauth2-proxy = { };
-
-  systemd.services.imapfilter-outlook = netns.bind {
-    after = [ "email-oauth2-proxy.service" ];
-    requires = [ "email-oauth2-proxy.service" ];
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/outlook.lua"}";
-
-      User = "imapfilter";
-      Group = "imapfilter";
-
-      WorkingDirectory = "/var/cache/imapfilter";
-      CacheDirectory = "imapfilter";
-      CacheDirectoryMode = "0750";
-
-      # Lua requirements
-      MemoryDenyWriteExecute = lib.mkForce false;
-      SystemCallFilter = lib.mkForce [ ];
-      LimitMEMLOCK = "infinity";
-    };
-    unitConfig = {
-      # # Outlook server is unstable
-      # OnFailure = "notify-email@%n.service";
-    };
-  };
-
-  systemd.timers.imapfilter-outlook = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "hourly";
-      Persistent = true;
-      RandomizedDelaySec = "1h";
-    };
-  };
-
-  systemd.services.imapfilter-gmail = netns.bind {
-    environment = {
-      PASSWORD_FILE = config.sops.secrets.imapfilter-gmail.path;
-    };
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/gmail.lua"}";
-
-      User = "imapfilter";
-      Group = "imapfilter";
-
-      WorkingDirectory = "/var/cache/imapfilter";
-      CacheDirectory = "imapfilter";
-      CacheDirectoryMode = "0750";
-
-      # Lua requirements
-      MemoryDenyWriteExecute = lib.mkForce false;
-      SystemCallFilter = lib.mkForce [ ];
-      LimitMEMLOCK = "infinity";
-    };
-    unitConfig = {
-      OnFailure = "notify-email@%n.service";
-    };
-  };
-
-  systemd.timers.imapfilter-gmail = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "hourly";
-      Persistent = true;
-      RandomizedDelaySec = "1h";
-    };
-  };
-
-  systemd.services.imapfilter-lantian = netns.bind {
-    environment = {
-      PASSWORD_FILE = config.sops.secrets.imapfilter-lantian.path;
-    };
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.imapfilter} -c ${inputs.secrets + "/imapfilter/lantian.lua"}";
-
-      User = "imapfilter";
-      Group = "imapfilter";
-
-      WorkingDirectory = "/var/cache/imapfilter";
-      CacheDirectory = "imapfilter";
-      CacheDirectoryMode = "0750";
-
-      # Lua requirements
-      MemoryDenyWriteExecute = lib.mkForce false;
-      SystemCallFilter = lib.mkForce [ ];
-      LimitMEMLOCK = "infinity";
-    };
-    unitConfig = {
-      OnFailure = "notify-email@%n.service";
-    };
-  };
-
-  systemd.timers.imapfilter-lantian = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "hourly";
-      Persistent = true;
-      RandomizedDelaySec = "1h";
-    };
-  };
-
   users.users.imapfilter = {
     group = "imapfilter";
     isSystemUser = true;

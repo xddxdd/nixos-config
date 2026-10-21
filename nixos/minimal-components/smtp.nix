@@ -70,6 +70,10 @@
 
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
+      BindReadOnlyPaths = [
+        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+        config.sops.secrets.smtp-pass.path
+      ];
     };
   };
 }

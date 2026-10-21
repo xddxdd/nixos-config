@@ -19,10 +19,11 @@
     ../../nixos/client-apps/vscode-remote-env.nix
     ../../nixos/client-components/cups.nix
     ../../nixos/client-components/impermanence.nix
+    ../../nixos/hardware/ups.nix
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
-    ../../nixos/optional-apps/calibre-cops.nix
+    # ../../nixos/optional-apps/calibre-cops.nix # PHP services disabled by request
     ../../nixos/optional-apps/clamav.nix
     # ../../nixos/optional-apps/dlx.nix # missing regenerated secret dlx.yaml
     # ../../nixos/optional-apps/epic-awesome-gamer # missing regenerated secret epic-awesome-gamer.yaml
@@ -33,7 +34,6 @@
     ../../nixos/optional-apps/immich.nix
     # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml
     ../../nixos/optional-apps/kubo.nix
-    # # ../../nixos/optional-apps/librechat.nix
     ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets
     ../../nixos/optional-apps/mtranserver
@@ -43,7 +43,6 @@
     ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
-    # ../../nixos/optional-apps/picoclaw.nix # missing ~/.picoclaw gateway model config (API keys)
     # ../../nixos/optional-apps/resin.nix # missing regenerated secret resin.yaml
     # ../../nixos/optional-apps/searxng.nix # missing regenerated secret searxng.yaml
     ../../nixos/optional-apps/sftp-server.nix
@@ -102,8 +101,6 @@
     linkConfig.MTUBytes = "9000";
     networkConfig.IPv6AcceptRA = "no";
   };
-
-  services.calibre-cops.libraryPath = "/mnt/storage/media/Calibre Library";
 
   services.printing = {
     browsing = true;

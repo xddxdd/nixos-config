@@ -17,6 +17,8 @@ in
 {
   services.loki = {
     enable = true;
+    # userborn preserves existing UIDs, so use a new collector identity.
+    user = "loki-collector";
     dataDir = "/var/lib/loki";
     configuration = {
       auth_enabled = false;
@@ -99,6 +101,10 @@ in
   # must not replace upstream scalar settings with competing definitions.
   systemd.services.loki.serviceConfig = LT.serviceHarden // {
     RestartSec = "5s";
+    # PID 1 migrates ownership of the existing exclusive data tree when the
+    # collector UID changes; keep its contents and restrictive permissions.
+    StateDirectory = "loki";
+    StateDirectoryMode = "0700";
     Group = config.services.loki.group;
     RuntimeDirectory = "loki";
     RuntimeDirectoryMode = "0770";
@@ -112,6 +118,14 @@ in
   };
 
   lantian.harden.loki = true;
+
+  # Collector writes must not generate the audit records it receives. Reserve
+  # a static UID above the watched 1-999 range and below DynamicUser's range.
+  users.users.${config.services.loki.user} = {
+    uid = 60000;
+    # Leave ownership migration solely to StateDirectory, including descendants.
+    createHome = lib.mkForce false;
+  };
 
   users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
   systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];

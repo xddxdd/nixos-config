@@ -24,7 +24,11 @@
       StateDirectory = "bazarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/bazarr" ];
-      BindReadOnlyPaths = [ "/etc/resolv.conf" ];
+      BindReadOnlyPaths = [
+        "/etc/passwd"
+        "/etc/group"
+        "/etc/resolv.conf"
+      ];
     };
     confinement = {
       enable = true;

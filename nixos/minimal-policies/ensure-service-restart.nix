@@ -123,8 +123,4 @@ in
   # which would fail the assertion above
   systemd.services.nscd.serviceConfig.RestartSec = "5s";
 
-  # phpfpm pools for solusvm/virtualizor are defined in the secrets repo's
-  # hidden modules, which cannot be edited here
-  systemd.services."phpfpm-solusvm".serviceConfig.RestartSec = "5s";
-  systemd.services."phpfpm-virtualizor".serviceConfig.RestartSec = "5s";
 }

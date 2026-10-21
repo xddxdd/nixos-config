@@ -39,9 +39,11 @@
 
 规则声明在 `security.audit.rules` 中，由 NixOS 原生 `auditctl -R` 服务加载，没有自定义加载脚本。文件规则、服务 UID 的 home/root 规则、持久目录规则依次匹配；规则在本地文件系统和秘密文件就绪后加载，内核会标记此时已挂载的子树，已监视 inode 的 bind 别名也会命中。之后新挂入的独立文件系统仍需重新加载规则或配置等价关系，不能假定自动覆盖。原生规则文件按空白分词，因此 `audit = true` 的文件路径不能包含空白字符；不启用审计的生成路径没有这个限制。
 
-记录保存在 `/var/log/audit/audit.log`，单文件 25 MiB、轮转保留 5 份。syslog 转发保持关闭：journald 的持久文件也在审计树内，全量回送会使写日志再次触发审计，形成反馈。日志包含访问路径、身份和命令行，应当作为敏感日志管理；不记录文件正文，但命令行本身也可能含敏感信息。
+记录保存在 `/var/log/audit/audit.log`，单文件 25 MiB、轮转保留 5 份。syslog 转发和 `systemd-journald-audit.socket` 都保持关闭，避免两条独立路径把审计记录送回 journald。运行中的 journald 会保留已继承的 netlink FD，因此 `journald.nix` 在 socket 路由变化时触发重启；仅 mask socket 不能完成在线切换。日志包含访问路径、身份和命令行，应当作为敏感日志管理；不记录文件正文，但命令行本身也可能含敏感信息。
 
 `nixos/minimal-components/audit-loki.nix` 启动独立 Fluent Bit，直接读取原生 audit 文件并发送到现有 LTnet Loki，标签为 `job="audit",host="<主机名>"`。它用 DynamicUser（61184–65519）运行，启动时验证 UID 大于 999，因此读取和持久化队列操作不匹配服务 UID 范围。只授予 confined 根内读取 root 私有日志所需的 `CAP_DAC_READ_SEARCH`，原生日志保持只读。该实例不读取 journald；自身诊断写入 `/run/audit-loki/forwarder.log`，标准输出/错误不回送 journal，避免诊断再触发普通日志转发器。
+
+接收端 Loki 同样不能用受监视的 UID 写入持久目录。本项目的 `loki.nix` 使用独立 `loki-collector` 账户（UID 60000），保持原 Loki group 和 socket 权限。固定版本的 userborn 不修改已有账户的 UID，所以迁移使用新账户，由 systemd `StateDirectory` 迁移既有数据树的属主，不删除或重建数据。普通 journald 日志仍由原 Fluent Bit 转发。
 
 读取位置和队列保存在 `/var/lib/audit-loki`，内存映射块数受限，磁盘队列上限 64 MiB；临时诊断文件有轮转。网络失败会重试，但这不是无限期或零丢失承诺：长时间离线、队列满、轮转竞争或本地 audit 丢失都可能造成缺口。Loki 时间戳是转发读取时间，原始内核事件时间仍在文本中。完整性的本地依据仍是 auditd 文件和 `auditctl -s` 的 lost/backlog，而不是仅看 Loki 是否有记录。
 

@@ -102,9 +102,6 @@ rec {
       NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
     });
   };
-  open-webui = prev.open-webui.overridePythonAttrs (old: {
-    dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.all;
-  });
   open5gs = prev.open5gs.overrideAttrs (_old: {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;
@@ -170,10 +167,6 @@ rec {
   qbittorrent-nox = prev.qbittorrent-nox.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
-  radicle-node = prev.radicle-node.overrideAttrs (old: {
-    # Radicle check fails with HPN SSH
-    doCheck = false;
   });
   rustic = prev.rustic.overrideAttrs (old: {
     # Patch vendored rustic_core dependency

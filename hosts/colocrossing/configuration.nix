@@ -29,7 +29,7 @@
     ../../nixos/optional-apps/flapalerted.nix
     ../../nixos/optional-apps/gitea
     # ../../nixos/optional-apps/gitea-actions.nix
-    # ../../nixos/optional-apps/imapfilter.nix
+    ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/loki.nix
     # DN42 TLS certificate is not yet restored.
     # ../../nixos/optional-apps/maddy.nix
@@ -43,7 +43,6 @@
     ../../nixos/optional-apps/plausible.nix
     ../../nixos/optional-apps/pocket-id.nix
     ../../nixos/optional-apps/radicale.nix
-    # ../../nixos/optional-apps/radicle.nix
     ../../nixos/optional-apps/renovate.nix
     ../../nixos/optional-apps/rsync-server-ci.nix
     ../../nixos/optional-apps/rsync-server-internal.nix
@@ -52,14 +51,12 @@
     # ../../nixos/optional-apps/tg-bot-cleaner-bot
     # ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
-    ../../nixos/optional-apps/wordpress.nix
+    # ../../nixos/optional-apps/wordpress.nix # PHP services disabled by request
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     # ../../nixos/optional-cron-jobs/dn42-certificate.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
-    "${inputs.secrets}/nixos-hidden-module/11116c7374949a7a"
-    "${inputs.secrets}/nixos-hidden-module/35c68fea6f2bde77"
     # "${inputs.secrets}/nixos-hidden-module/c9f6c0c333e73062"
     # "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];

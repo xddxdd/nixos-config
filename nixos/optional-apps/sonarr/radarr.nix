@@ -35,6 +35,8 @@
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/radarr" ];
       BindReadOnlyPaths = [
+        "/etc/passwd"
+        "/etc/group"
         "/etc/resolv.conf"
         # The configured local download client uses localhost.
         "${config.environment.etc.hosts.source}:/etc/hosts"

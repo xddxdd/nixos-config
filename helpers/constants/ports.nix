@@ -38,7 +38,6 @@ rec {
     OllamaCpaHoneypot.CpaListener = 8317;
     Waline = 8360;
     Matrix.Public = 8448;
-    Radicle.Node = 8776;
     Sonarr = 8989;
     Tor.Socks = 9050;
     Prometheus.Daemon = 9090;
@@ -68,7 +67,6 @@ rec {
     WGMesh.End = 10255;
     OllamaCpaHoneypot.OllamaListener = 11434;
     Yggdrasil.Multicast = 13059;
-    Librechat = 13080;
     NMEA = 13110;
     FlapAlerted.BGP = 13179;
     FlareSolverr = 13191;
@@ -142,7 +140,6 @@ rec {
     Asterisk.AudioSocket = 13980;
     Resin = 13995;
     ClawEmail = 13997;
-    Radicle.HTTPd = 13998;
     Open5GS = 13999;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;

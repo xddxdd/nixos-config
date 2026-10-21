@@ -49,7 +49,10 @@
     noIndex.enable = true;
   };
 
+  sops.secrets.smtp-pass.restartUnits = [ "vaultwarden.service" ];
+
   systemd.services.vaultwarden = {
+    path = [ pkgs.msmtp ];
     after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
     serviceConfig = LT.serviceHarden // {
@@ -66,6 +69,10 @@
       BindPaths = [
         "/var/lib/vaultwarden"
         "/run/mysqld"
+      ];
+      BindReadOnlyPaths = [
+        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+        config.sops.secrets.smtp-pass.path
       ];
     };
   };

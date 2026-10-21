@@ -31,7 +31,6 @@ in
           "mbedtls-2.28.10"
           "olm-3.2.16"
           "pnpm-10.29.2"
-          "radicle-node-1.10.3"
           "ventoy-1.1.17"
           # keep-sorted end
         ];

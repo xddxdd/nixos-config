@@ -35,8 +35,6 @@ let
     "pveproxy"
     "pvescheduler"
     "pvestatd"
-    # Runs as user lantian with full $HOME access (~/.picoclaw); not confinable
-    "picoclaw"
     "qmeventd"
     "reload-systemd-vconsole-setup"
     "rrdcached"

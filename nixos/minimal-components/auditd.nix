@@ -70,6 +70,9 @@ in
   # journald lives under /nix/persistent too. Forwarding every record into it
   # recursively audits the forwarding writes; keep the native auditd trail.
   security.auditd.plugins.syslog.active = false;
+  # The journal's audit-netlink socket is a separate route around that plugin.
+  # Its records otherwise make the regular journal shipper audit its own I/O.
+  systemd.sockets.systemd-journald-audit.enable = false;
 
   systemd.services.audit-rules-nixos = {
     partOf = [

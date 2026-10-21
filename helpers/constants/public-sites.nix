@@ -47,7 +47,6 @@
   "lg.lantian.pub"
   "ollama-cpa-honeypot-cpa"
   "ollama-cpa-honeypot-ollama"
-  "radicle.lantian.pub"
   # keep-sorted end
 ]
 # 301 redirect vhosts for replaced old host names: serve no content, just redirect

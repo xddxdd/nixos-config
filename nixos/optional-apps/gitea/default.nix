@@ -91,12 +91,19 @@
     };
   };
 
+  sops.secrets.smtp-pass.restartUnits = [ "gitea.service" ];
+
+  systemd.services.gitea.path = [ pkgs.msmtp ];
   systemd.services.gitea.serviceConfig = LT.serviceHarden // {
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
     # FIXME: secrets
-    BindReadOnlyPaths = [ "/run" ];
+    BindReadOnlyPaths = [
+      "/run"
+      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+      config.sops.secrets.smtp-pass.path
+    ];
   };
   lantian.harden.gitea = true;
 

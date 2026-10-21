@@ -24,6 +24,8 @@
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/sonarr" ];
       BindReadOnlyPaths = [
+        "/etc/passwd"
+        "/etc/group"
         "/etc/resolv.conf"
         "${config.environment.etc.hosts.source}:/etc/hosts"
         "${
