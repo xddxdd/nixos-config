@@ -14,6 +14,7 @@
     ./media-center.nix
     ./openvswitch.nix
     ./shares.nix
+    ./smfc
 
     ../../nixos/client-apps/gnupg.nix
     ../../nixos/client-apps/vscode-remote-env.nix
