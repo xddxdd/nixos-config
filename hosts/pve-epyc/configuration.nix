@@ -28,7 +28,7 @@
     # ../../nixos/optional-apps/epic-awesome-gamer # missing regenerated secret epic-awesome-gamer.yaml
     ../../nixos/optional-apps/fastapi-dls.nix
     # # ../../nixos/optional-apps/handbrake-server.nix
-    # ../../nixos/optional-apps/hydra # intentionally disabled by request
+    ../../nixos/optional-apps/hydra
     ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
     # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml

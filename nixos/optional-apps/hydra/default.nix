@@ -7,17 +7,43 @@
   ...
 }:
 let
+  atticPushEnabled = false;
+  hydraServices = [
+    "hydra-builder"
+    "hydra-check-space"
+    "hydra-compress-logs"
+    "hydra-evaluator"
+    "hydra-notify"
+    "hydra-queue-runner"
+    "hydra-send-stats"
+    "hydra-server"
+    "hydra-update-gc-roots"
+    "hydra-ws"
+  ];
+  hydraConf = pkgs.writeScript "hydra.conf" config.services.hydra.extraConfig;
+  queueRunnerToken = config.lantian.secrets.hydra-queue-runner-token.path;
   py = pkgs.python3.withPackages (
     ps: with ps; [
       pydantic
       requests
     ]
   );
-  path = lib.makeBinPath [
-    pkgs.gitMinimal
-    pkgs.jq
-    pkgs.attic-client
-  ];
+  path = lib.makeBinPath (
+    [
+      pkgs.gitMinimal
+      pkgs.jq
+    ]
+    ++ lib.optional atticPushEnabled pkgs.attic-client
+  );
+
+  hydra-post-build = pkgs.writeShellScript "post-build" ''
+    export PATH="${path}:$PATH"
+    export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}"
+    export HYDRA_ATTIC_PUSH="${lib.boolToString atticPushEnabled}"
+
+    jq . "$HYDRA_JSON"
+    exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
+  '';
 in
 {
   imports = [
@@ -25,45 +51,28 @@ in
     ../postgresql.nix
   ];
 
-  sops.secrets.attic-upload-key = {
+  sops.secrets.attic-upload-key = lib.mkIf atticPushEnabled {
     sopsFile = inputs.secrets + "/common/attic.yaml";
-    mode = "0444";
+    mode = "0440";
+    owner = "hydra-queue-runner";
+    group = "hydra";
   };
-  # Read by hydra-server at startup, so it must be readable by the hydra user
+  # hydra-server runs as hydra-www, with primary group hydra.
   sops.secrets.dex-hydra-secret = {
-    sopsFile = inputs.secrets + "/common/dex.yaml";
+    sopsFile = inputs.secrets + "/dex/hydra.yaml";
     mode = "0440";
     owner = "hydra";
     group = "hydra";
   };
 
-  sops.secrets.hydra-ssh-privkey = {
-    sopsFile = inputs.secrets + "/hydra.yaml";
+  # Only the local builder connects to the loopback queue runner.
+  lantian.secrets.hydra-queue-runner-token = {
     mode = "0440";
-    owner = "hydra";
     group = "hydra";
   };
-  # Shared by the queue runner (tokenPaths) and hydra-builder (authorizationFile);
-  # both services run under group hydra
-  sops.secrets.hydra-queue-runner-token = {
-    sopsFile = inputs.secrets + "/hydra.yaml";
-    mode = "0440";
-    owner = "hydra";
-    group = "hydra";
-  };
-
-  lantian.nix-distributed.sshKeyPath = config.sops.secrets.hydra-ssh-privkey.path;
 
   # Force use original nix for Hydra hosts
   nix.package = lib.mkForce pkgs.nixVersions.latest;
-
-  environment.etc."hydra/post-build".source = pkgs.writeShellScript "post-build" ''
-    export PATH="${path}:$PATH"
-    export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}"
-
-    jq . "$HYDRA_JSON"
-    exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
-  '';
 
   services.hydra = {
     enable = true;
@@ -96,7 +105,7 @@ in
         maxOutputSize = 1024 * 1024 * 1024 * 1024; # 1TB
         machineFreeFn = "DynamicWithMaxJobLimit";
         maxUnsupportedTimeInS = 3600; # Avoid unstable queue runners aborting builds
-        tokenPaths = [ config.sops.secrets.hydra-queue-runner-token.path ];
+        tokenPaths = [ queueRunnerToken ];
         maxSilentTime = 6 * 3600;
         buildTimeout = 12 * 3600;
       };
@@ -117,7 +126,7 @@ in
 
       <runcommand>
         job = *:*:*
-        command = /etc/hydra/post-build
+        command = ${hydra-post-build}
       </runcommand>
 
       <oidc>
@@ -149,41 +158,199 @@ in
 
   services.hydra-builder = {
     enable = true;
-    authorizationFile = config.sops.secrets.hydra-queue-runner-token.path;
+    authorizationFile = queueRunnerToken;
     queueRunnerAddr = "http://127.0.0.1:${LT.portStr.Hydra.QueueRunnerGRPC}";
   };
 
-  systemd.services.hydra-server.serviceConfig.RestartSec = "5s";
-  systemd.services.hydra-evaluator.serviceConfig.RestartSec = "5s";
+  lantian.harden = lib.genAttrs hydraServices (_: true);
 
-  systemd.services.hydra-notify = {
-    preStart = ''
-      if [ ! -f "$HOME/.config/attic/config.toml" ]; then
-        ${lib.getExe pkgs.attic-client} login --set-default lantian \
-          https://attic.colocrossing.xuyh0120.win \
-          $(cat ${config.sops.secrets.attic-upload-key.path})
-      fi
-    '';
-  };
+  systemd.services = lib.mkMerge [
+    (lib.genAttrs hydraServices (_: {
+      requires = [ "hydra-init.service" ];
+      after = [ "hydra-init.service" ];
+      serviceConfig = LT.serviceHarden // {
+        BindReadOnlyPaths = [
+          "/etc/passwd"
+          "/etc/group"
+          "${hydraConf}:/var/lib/hydra/hydra.conf"
+        ];
+      };
+    }))
+    {
+      hydra-init = {
+        requires = [ "sops-install-secrets.service" ];
+        after = [ "sops-install-secrets.service" ];
+      };
 
-  systemd.services.hydra-queue-runner.serviceConfig = {
-    OOMScoreAdjust = "1000";
-  };
+      hydra-server.serviceConfig = {
+        RestartSec = "5s";
+        BindPaths = [
+          "/var/lib/hydra/www"
+          config.services.hydra.gcRootsDir
+        ];
+        BindReadOnlyPaths = [
+          # FIXME: secrets
+          "/run"
+          "/nix/store"
+          "/nix/var/nix/daemon-socket"
+          "/etc/nix"
+          "/etc/static/nix"
+          "/var/lib/hydra/build-logs"
+          "/var/lib/hydra/runcommand-logs"
+        ];
+      };
 
-  systemd.services.hydra-attic-repush = {
-    script = ''
-      (for F in /nix/var/nix/gcroots/hydra/*; do
-        echo "/nix/store/$(basename "$F")"
-      done) | xargs -n10 ${lib.getExe pkgs.attic-client} push lantian || true
-    '';
-    serviceConfig = LT.serviceHarden // {
-      Type = "oneshot";
-      User = "hydra-queue-runner";
-      Group = "hydra";
-    };
-  };
+      hydra-evaluator.serviceConfig = {
+        RestartSec = "5s";
+        BindPaths = [
+          "/var/lib/hydra"
+          config.services.hydra.gcRootsDir
+        ];
+        BindReadOnlyPaths = [
+          "/run/postgresql"
+          "/nix/store"
+          "/nix/var/nix/daemon-socket"
+          "/etc/nix"
+          "/etc/static/nix"
+          "/etc/hydra"
+          "/etc/static/hydra"
+          config.sops.templates.nix-include.path
+        ];
+      };
 
-  systemd.timers.hydra-attic-repush = {
+      hydra-notify = {
+        environment.GITHUB_TOKEN_FILE = "%d/github-token";
+        preStart = lib.mkIf atticPushEnabled ''
+          if [ ! -f "$HOME/.config/attic/config.toml" ]; then
+            ${lib.getExe pkgs.attic-client} login --set-default lantian \
+              https://attic.colocrossing.xuyh0120.win \
+              $(cat ${config.sops.secrets.attic-upload-key.path})
+          fi
+        '';
+        serviceConfig = {
+          LoadCredential = [ "github-token:${config.sops.secrets.nix-github-key.path}" ];
+          BindPaths = [ "/var/lib/hydra/runcommand-logs" ];
+          BindReadOnlyPaths = [
+            "/run/postgresql"
+            "/nix/store"
+            "/nix/var/nix/daemon-socket"
+            "/etc/nix"
+            "/etc/static/nix"
+            "/var/lib/hydra"
+          ];
+        };
+      };
+
+      hydra-queue-runner = {
+        requires = [ "lantian-secrets.service" ];
+        after = [ "lantian-secrets.service" ];
+        serviceConfig = {
+          OOMScoreAdjust = "1000";
+          BindPaths = [
+            "/var/lib/hydra/build-logs"
+            "/var/lib/hydra/queue-runner"
+            config.services.hydra.gcRootsDir
+          ];
+          BindReadOnlyPaths = [
+            "/run/postgresql"
+            "/nix/store"
+            "/nix/var/nix/daemon-socket"
+            "/etc/hydra"
+            "/etc/static/hydra"
+            queueRunnerToken
+          ];
+        };
+      };
+
+      hydra-builder = {
+        requires = [
+          "lantian-secrets.service"
+          "nix-daemon.service"
+        ];
+        after = [
+          "lantian-secrets.service"
+          "nix-daemon.service"
+        ];
+        serviceConfig = {
+          # Builder capacity and pressure reporting reads /proc/{meminfo,cpuinfo,pressure}.
+          ProcSubset = "all";
+          BindPaths = [ "/nix/var/nix/gcroots" ];
+          BindReadOnlyPaths = [
+            "/nix/store"
+            "/nix/var/nix/daemon-socket"
+            "/etc/nix"
+            "/etc/static/nix"
+            "/etc/hydra"
+            "/etc/static/hydra"
+            config.nix.settings.build-dir
+            config.sops.templates.nix-include.path
+            queueRunnerToken
+          ];
+        };
+      };
+
+      hydra-ws.serviceConfig.BindReadOnlyPaths = [
+        "/run/postgresql"
+        "/var/lib/hydra/build-logs"
+        "/etc/hydra"
+        "/etc/static/hydra"
+      ];
+
+      hydra-send-stats.serviceConfig = {
+        Restart = "always";
+        RestartSec = "5s";
+        # hydra-send-stats reads /proc/meminfo for its Dirty metric.
+        ProcSubset = "all";
+      };
+
+      hydra-update-gc-roots.serviceConfig = {
+        Type = "oneshot";
+        BindPaths = [ config.services.hydra.gcRootsDir ];
+        BindReadOnlyPaths = [
+          "/run/postgresql"
+          "/nix/store"
+          "/nix/var/nix/daemon-socket"
+          "/etc/nix"
+          "/etc/static/nix"
+        ];
+      };
+
+      hydra-check-space = {
+        # Allow this confined watchdog to call the host manager's stop operation.
+        environment.SYSTEMD_IN_CHROOT = "0";
+        serviceConfig = {
+          Type = "oneshot";
+          BindReadOnlyPaths = [
+            "/nix/store"
+            "/run/systemd/private"
+            "/run/systemd/system"
+          ];
+        };
+      };
+
+      hydra-compress-logs.serviceConfig = {
+        Type = "oneshot";
+        User = "hydra-queue-runner";
+        Group = "hydra";
+        BindPaths = [ "/var/lib/hydra/build-logs" ];
+      };
+
+      hydra-attic-repush = lib.mkIf atticPushEnabled {
+        script = ''
+          (for F in /nix/var/nix/gcroots/hydra/*; do
+            echo "/nix/store/$(basename "$F")"
+          done) | xargs -n10 ${lib.getExe pkgs.attic-client} push lantian || true
+        '';
+        serviceConfig = LT.serviceHarden // {
+          Type = "oneshot";
+          User = "hydra-queue-runner";
+          Group = "hydra";
+        };
+      };
+    }
+  ];
+
+  systemd.timers.hydra-attic-repush = lib.mkIf atticPushEnabled {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "hourly";

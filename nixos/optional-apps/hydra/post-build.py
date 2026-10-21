@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import base64
 import logging
 import os
 import re
@@ -124,27 +125,32 @@ class Build(BaseModel):
 
 
 def git_set_branch_to_commit(git_url: str, branch_name: str, commit_id: str):
-    with open("/run/secrets/nix-access-token") as f:
-        match = re.search(r"(ghp_[0-9a-zA-Z]+)", f.read())
-        if not match:
+    with open(os.environ["GITHUB_TOKEN_FILE"]) as f:
+        github_token = f.read().strip()
+        if not github_token:
             raise ValueError("Cannot get GitHub access token")
-        github_token = match[1]
 
-    # Inject GitHub access token
-    git_url = git_url.replace(
-        "https://github.com/", f"https://api:{github_token}@github.com/"
-    )
+    # Keep the token out of Git URLs, arguments and exception logs.
+    authorization = base64.b64encode(f"api:{github_token}".encode()).decode()
+    git_env = os.environ | {
+        "GIT_CONFIG_COUNT": "1",
+        "GIT_CONFIG_KEY_0": "http.https://github.com/.extraheader",
+        "GIT_CONFIG_VALUE_0": f"Authorization: Basic {authorization}",
+    }
 
     with tempfile.TemporaryDirectory(prefix="hydra-post-build-") as d:
         logging.info(f"Temp dir: {d}")
-        subprocess.run(["git", "clone", git_url, d], check=True)
+        subprocess.run(["git", "clone", git_url, d], check=True, env=git_env)
         try:
             subprocess.run(["git", "checkout", branch_name], check=True, cwd=d)
         except subprocess.CalledProcessError:
             subprocess.run(["git", "checkout", "-b", branch_name], check=True, cwd=d)
         subprocess.run(["git", "reset", "--hard", commit_id], check=True, cwd=d)
         subprocess.run(
-            ["git", "push", "-u", "origin", branch_name, "--force"], check=True, cwd=d
+            ["git", "push", "-u", "origin", branch_name, "--force"],
+            check=True,
+            cwd=d,
+            env=git_env,
         )
 
 
@@ -192,7 +198,7 @@ if __name__ == "__main__":
 
     # If build is successful, trigger attic for output paths
     try:
-        if event.successful:
+        if os.environ.get("HYDRA_ATTIC_PUSH") == "true" and event.successful:
             output_paths = [o.path for o in event.outputs]
             for _ in range(3):
                 try:
