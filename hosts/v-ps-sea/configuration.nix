@@ -7,9 +7,9 @@
 
     # ../../nixos/optional-apps/asterisk
 
-    # ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
-    # # ../../nixos/optional-cron-jobs/bilibili-tool-pro.nix
-    # ../../nixos/optional-cron-jobs/skyland-auto-checkin.nix
+    ../../nixos/optional-cron-jobs/auto-mihoyo-bbs
+    # ../../nixos/optional-cron-jobs/bilibili-tool-pro.nix
+    ../../nixos/optional-cron-jobs/skyland-auto-checkin.nix
   ];
 
   systemd.network.networks.eth0 = {

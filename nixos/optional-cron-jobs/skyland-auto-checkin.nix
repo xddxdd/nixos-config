@@ -46,6 +46,7 @@ in
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
+  lantian.harden.skyland-auto-checkin = true;
 
   systemd.timers.skyland-auto-checkin = {
     wantedBy = [ "timers.target" ];

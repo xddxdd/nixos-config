@@ -42,6 +42,7 @@ in
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
+  lantian.harden.auto-mihoyo-bbs = true;
 
   systemd.timers.auto-mihoyo-bbs = {
     wantedBy = [ "timers.target" ];
