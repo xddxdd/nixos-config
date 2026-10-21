@@ -80,8 +80,6 @@ in
     map (
       name:
       lib.nameValuePair "imapfilter-${name}" {
-        # Provision the proxy password now, but wait for Microsoft OAuth enrollment.
-        enable = name != "outlook";
         wantedBy = [ "timers.target" ];
         timerConfig = {
           OnCalendar = "hourly";

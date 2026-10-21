@@ -9,7 +9,7 @@
 {
   imports = [ ./postgresql.nix ];
 
-  sops.secrets.dex-tranquil-pds-secret.sopsFile = inputs.secrets + "/common/dex.yaml";
+  sops.secrets.dex-tranquil-pds-secret.sopsFile = inputs.secrets + "/dex/tranquil-pds.yaml";
   sops.secrets.tranquil-pds-jwt-secret.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
   sops.secrets.tranquil-pds-dpop-secret.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
   sops.secrets.tranquil-pds-master-key.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
@@ -35,6 +35,7 @@
         trusted_proxy_count = 1;
       };
       database = {
+        url = "postgresql:///tranquil-pds?host=/run/postgresql&user=tranquil-pds";
         max_connections = 10;
         min_connections = 1;
       };
@@ -55,23 +56,34 @@
       };
     };
   };
-
-  # Bypass config validation that doesn't recognize secretsenvironment.etc = {
-  environment.etc."tranquil-pds/config.toml".source =
-    let
-      settingsFormat = pkgs.formats.toml { };
-    in
-    lib.mkForce (settingsFormat.generate "tranquil-pds.toml" config.services.tranquil-pds.settings);
-
-  lantian.nginxVhosts."at.lantian.pub" = {
-    serverAliases = [ "*.at.lantian.pub" ];
-
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${LT.portStr.TranquilPDS}";
-      proxyNoTimeout = true;
-    };
-
-    sslCertificate = "lets-encrypt-at.lantian.pub";
-    noIndex.enable = true;
+  systemd.services.tranquil-pds.serviceConfig = {
+    AmbientCapabilities = [ ];
+    SystemCallErrorNumber = "EPERM";
+    BindReadOnlyPaths =
+      let
+        settingsFormat = pkgs.formats.toml { };
+        cfg = settingsFormat.generate "tranquil-pds.toml" config.services.tranquil-pds.settings;
+      in
+      [
+        "${cfg}:/etc/tranquil-pds/config.toml"
+        "/run/postgresql"
+      ];
   };
+  lantian.harden.tranquil-pds = true;
+
+  # Bypass config validation that doesn't recognize secrets
+  environment.etc."tranquil-pds/config.toml".enable = false;
+
+  # # FIXME
+  # lantian.nginxVhosts."at.lantian.pub" = {
+  #   serverAliases = [ "*.at.lantian.pub" ];
+
+  #   locations."/" = {
+  #     proxyPass = "http://127.0.0.1:${LT.portStr.TranquilPDS}";
+  #     proxyNoTimeout = true;
+  #   };
+
+  #   sslCertificate = "lets-encrypt-at.lantian.pub";
+  #   noIndex.enable = true;
+  # };
 }
