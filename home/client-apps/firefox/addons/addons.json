@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.52.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5136507/read_frog_open_ai_translator-1.52.0.xpi",
-    "hash": "sha256-5u9lo2yFcHBnfQztMlwLbyAn2LAcI+JAjG5+DNb7nIs=",
+    "version": "1.52.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5146533/read_frog_open_ai_translator-1.52.1.xpi",
+    "hash": "sha256-RCMB/mqSnvr76hVXnV0plebWFsjx8qSFzl1nyZB5/5w=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -218,9 +218,9 @@
   },
   {
     "pname": "tweaks-for-youtube",
-    "version": "3.93.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5053593/tweaks_for_youtube-3.93.0.xpi",
-    "hash": "sha256-LvZZl7kg6xnmMjKBPUzNdqbGGCtxu1iS6KdIlmfZPtQ=",
+    "version": "3.94.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5148767/tweaks_for_youtube-3.94.0.xpi",
+    "hash": "sha256-UdP3HgTEPGflbwWsVsAZHIk9OQPZbarm6kXw/3sEowI=",
     "addonId": "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}"
   },
   {
