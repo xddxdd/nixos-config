@@ -75,7 +75,7 @@ in
       lib.flatten (
         lib.filter (v: v != null) (
           lib.mapAttrsToList mkBuildMachine (
-            lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder) LT.otherHosts
+            lib.filterAttrs (n: v: v.hasTag LT.tags.nix-builder && !v.hasTag LT.tags.client) LT.otherHosts
           )
         )
       )
