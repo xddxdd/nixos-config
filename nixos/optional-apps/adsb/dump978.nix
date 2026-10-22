@@ -14,6 +14,10 @@
       PrivateDevices = false;
       RestrictAddressFamilies = "";
 
+      # Direct SDR access needs USB device ioctls on nodes owned by the
+      # initial user namespace; user namespace would break them
+      PrivateUsers = false;
+
       User = "adsb";
       Group = "adsb";
 
@@ -27,4 +31,6 @@
       ];
     };
   };
+
+  lantian.harden.dump978 = true;
 }

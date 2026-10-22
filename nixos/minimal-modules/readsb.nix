@@ -206,10 +206,23 @@ let
       serviceConfig = LT.serviceHarden // {
         PrivateDevices = false;
         RestrictAddressFamilies = "";
+
+        # Direct SDR access needs USB device ioctls on nodes owned by the
+        # initial user namespace; user namespace would break them
+        PrivateUsers = lib.mkIf (cfg.deviceType != null) false;
+
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
         RestartSec = "5";
+
+        # Positioning/UUID files are read by the script; they may live outside
+        # the confinement chroot (e.g. sops secrets at /run/secrets)
+        BindReadOnlyPaths = lib.filter (f: f != null) [
+          cfg.latitudeFile
+          cfg.longitudeFile
+          cfg.uuidFile
+        ];
       };
     };
 in
@@ -229,6 +242,11 @@ in
     })
     {
       systemd.services = lib.mapAttrs' mkInstance config.services.readsb;
+    }
+    {
+      lantian.harden = lib.mapAttrs' (
+        name: _: lib.nameValuePair "readsb-${name}" true
+      ) config.services.readsb;
     }
   ];
 }

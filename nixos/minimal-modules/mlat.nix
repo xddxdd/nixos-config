@@ -176,6 +176,15 @@ let
         Group = cfg.group;
         Restart = "always";
         RestartSec = "5";
+
+        # Location/UUID files are read by the script; they may live outside
+        # the confinement chroot (e.g. sops secrets at /run/secrets)
+        BindReadOnlyPaths = lib.filter (f: f != null) [
+          cfg.latitudeFile
+          cfg.longitudeFile
+          cfg.altitudeFile
+          cfg.uuidFile
+        ];
       };
     };
 in
@@ -195,6 +204,11 @@ in
     })
     {
       systemd.services = lib.mapAttrs' mkInstance config.services.mlat-client;
+    }
+    {
+      lantian.harden = lib.mapAttrs' (
+        name: _: lib.nameValuePair "mlat-client-${name}" true
+      ) config.services.mlat-client;
     }
   ];
 }
