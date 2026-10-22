@@ -115,7 +115,7 @@
   };
 
   lantian.immich.storage = "/mnt/storage/immich";
-  # lantian.syncthing.storage = "/mnt/storage/media";
+  lantian.syncthing.storage = "/mnt/storage/syncthing";
   lantian.archivebox.storage = "/mnt/storage/archivebox";
 
   systemd.services = {

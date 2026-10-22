@@ -71,6 +71,11 @@
     user = lib.mkForce "lantian";
     group = lib.mkForce "lantian";
   };
+  lantian.syncthing.storage = "/home/lantian";
+  systemd.services.syncthing.serviceConfig = {
+    ProtectHome = false;
+    BindPaths = [ "/home/lantian" ];
+  };
 
   services.usbmuxd.enable = true;
   systemd.services.usbmuxd.serviceConfig.Restart = "always";

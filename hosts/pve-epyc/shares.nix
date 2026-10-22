@@ -57,8 +57,6 @@
     };
   };
 
-  lantian.syncthing.storage = "/mnt/storage/media";
-
   fileSystems = {
     "/run/sftp" = lib.mkForce {
       device = "/mnt/storage";

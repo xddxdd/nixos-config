@@ -13,10 +13,10 @@
     script = ''
       IFS=$'\n'
 
-      for FILE in $(find /mnt/storage/media/CloudMusic -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
+      for FILE in $(find /mnt/storage/syncthing/CloudMusic -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
         echo "rsgain custom --skip-existing --tagmode=i --loudness=-14 \"$FILE\"" >> parallel.lst
       done
-      for FILE in $(find /mnt/storage/media/CloudMusicArchive -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
+      for FILE in $(find /mnt/storage/syncthing/CloudMusicArchive -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
         echo "rsgain custom --skip-existing --tagmode=i --loudness=-14 \"$FILE\"" >> parallel.lst
       done
       parallel -j$(nproc) < parallel.lst
@@ -25,8 +25,8 @@
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
       ReadWritePaths = [
-        "/mnt/storage/media/CloudMusic"
-        "/mnt/storage/media/CloudMusicArchive"
+        "/mnt/storage/syncthing/CloudMusic"
+        "/mnt/storage/syncthing/CloudMusicArchive"
       ];
       RuntimeDirectory = "rsgain-cloudmusic";
       WorkingDirectory = "/run/rsgain-cloudmusic";
