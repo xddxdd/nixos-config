@@ -129,7 +129,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur-xddxdd = {
-      # url = "/home/lantian/Projects/nur-packages";
       url = "github:xddxdd/nur-packages";
       inputs.flake-parts.follows = "flake-parts";
       inputs.nix-cachyos-kernel.follows = "nix-cachyos-kernel";

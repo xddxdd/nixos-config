@@ -61,7 +61,9 @@ in
     enable = true;
     enableReload = true;
     package = pkgs.nur-xddxdd.lantianCustomized.nginx.overrideAttrs (old: {
-      patches = old.patches ++ [ ../../../patches/nginx-ktls-lingering-close.patch ];
+      patches = old.patches ++ [
+        ../../../patches/nginx-ktls-lingering-close.patch
+      ];
     });
     enableQuicBPF = false;
     proxyResolveWhileRunning = true;

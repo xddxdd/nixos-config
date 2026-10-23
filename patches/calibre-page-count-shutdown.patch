@@ -1,0 +1,11 @@
+--- a/src/calibre/library/page_count.py
++++ b/src/calibre/library/page_count.py
+@@ -244,5 +244,7 @@ class Server:
+             assert w_stdin is not None
+             w_stdin.close()
+-            if w.wait(1) is None:
++            try:
++                w.wait(1)
++            except subprocess.TimeoutExpired:
+                 w.kill()
+                 w.wait()

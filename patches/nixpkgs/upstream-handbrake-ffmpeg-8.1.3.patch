@@ -1,0 +1,25 @@
+From f6064193720a72fc1e37527ca0119b265486397d Mon Sep 17 00:00:00 2001
+From: Eva Emmerich <eva@evaemmerich.com>
+Date: Tue, 20 Oct 2026 15:28:25 +0200
+Subject: [PATCH] handbrake: fix compile with ffmpeg 8.1.3 by dropping pgs
+ patch
+
+the patch doesnt apply cleanly on ffmpeg 8.1.3 (or ffmpeg 9)
+as part of the handbrake upgrade to ffmpeg 9, it was dropped
+https://github.com/HandBrake/HandBrake/pull/8021
+---
+ pkgs/by-name/ha/handbrake/package.nix | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/pkgs/by-name/ha/handbrake/package.nix b/pkgs/by-name/ha/handbrake/package.nix
+index 05dab88964872..3168578f6116d 100644
+--- a/pkgs/by-name/ha/handbrake/package.nix
++++ b/pkgs/by-name/ha/handbrake/package.nix
+@@ -143,7 +143,6 @@ let
+       "${src}/contrib/ffmpeg/A12-ccaption_dec-fix-pts-in-real_time-mode.patch"
+       "${src}/contrib/ffmpeg/A13-avformat-matroskaenc-return-error-if-aac-extradata-c.patch"
+       "${src}/contrib/ffmpeg/A14-Expose-the-unmodified-Dolby-Vision-RPU-T35-buffers.patch"
+-      "${src}/contrib/ffmpeg/A15-lavc-pgssubdec-Add-graphic-plane-and-cropping.patch"
+       "${src}/contrib/ffmpeg/A16-libavcodec-qsvenc.c-update-has_b_frames-value-after-.patch"
+       "${src}/contrib/ffmpeg/A17-qsv-enable-av1-scc.patch"
+       "${src}/contrib/ffmpeg/A18-fixed-BT2020-BT709-conversion-via-VPP.patch"

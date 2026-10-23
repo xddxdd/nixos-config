@@ -31,7 +31,7 @@ in
           "mbedtls-2.28.10"
           "olm-3.2.16"
           "pnpm-10.29.2"
-          "ventoy-1.1.17"
+          "ventoy-1.1.18"
           # keep-sorted end
         ];
         overlays = [
@@ -47,13 +47,6 @@ in
         ++ (import ../overlays { inherit inputs; });
         settings = {
           android_sdk.accept_license = true;
-          cudaCapabilities = [
-            "6.1"
-            "7.5"
-            "8.6"
-            "8.9"
-            "12.0"
-          ];
         };
       in
       {

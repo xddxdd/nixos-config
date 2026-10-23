@@ -1,7 +1,6 @@
 {
   lib,
   LT,
-  pkgs,
   ...
 }:
 {
@@ -14,8 +13,8 @@
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/libvirt
-    ../../nixos/optional-apps/llama-cpp.nix
-    ../../nixos/optional-apps/llama-swap.nix
+    # ../../nixos/optional-apps/llama-cpp.nix
+    # ../../nixos/optional-apps/llama-swap.nix
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix

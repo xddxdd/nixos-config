@@ -1,0 +1,30 @@
+From c92df9c42a5ed6d30e643f1bbdf7d727a9e5c545 Mon Sep 17 00:00:00 2001
+From: Martin Joerg <martin.joerg@gmail.com>
+Date: Mon, 19 Oct 2026 18:19:05 +0000
+Subject: [PATCH] speechd: build python library
+
+fixes 75f645ed324881bf4e106e392f5d48688b588c13
+---
+ pkgs/by-name/sp/speechd/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/sp/speechd/package.nix b/pkgs/by-name/sp/speechd/package.nix
+index bf6b7304bf7fc..ccd086d62595e 100644
+--- a/pkgs/by-name/sp/speechd/package.nix
++++ b/pkgs/by-name/sp/speechd/package.nix
+@@ -78,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
+     libtool
+     itstool
+     texinfo
++    python3Packages.python
+     python3Packages.wrapPython
+   ];
+
+@@ -87,7 +88,6 @@ stdenv.mkDerivation (finalAttrs: {
+     libsndfile
+     libao
+     libpulseaudio
+-    python3Packages.python
+   ]
+   ++ lib.optionals withSystemd [
+     systemdLibs

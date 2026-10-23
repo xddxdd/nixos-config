@@ -5,6 +5,9 @@ let
 in
 rec {
   # keep-sorted start block=yes
+  calibre = prev.calibre.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/calibre-page-count-shutdown.patch ];
+  });
   clickhouse-lts = prev.clickhouse-lts.overrideAttrs (old: {
     # ld.lld -r from the LLVM 21.1.8 in the locked nixpkgs produces a broken
     # combined object for the Rust workspace archives (over 0xffff sections,
@@ -25,11 +28,6 @@ rec {
     ];
     vendorHash = "sha256-7T4svxdzKsSQup1Ls43bK+l/xMgxL4mmQQ7Ck3WoKRk=";
     doCheck = false;
-  });
-  dump1090-fa = prev.dump1090-fa.overrideAttrs (old: {
-    # glibc 2.44's fortified snprintf diagnoses a too-small buffer in
-    # interactive.c while dump1090 builds with -Werror
-    NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error=format-truncation";
   });
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
@@ -155,6 +153,37 @@ rec {
         jdk-bin-8
       ]);
   };
+  pythonPackagesExtensions = (prev.pythonPackagesExtensions or [ ]) ++ [
+    (pythonFinal: pythonPrev: {
+      flask-swagger-ui = pythonPrev.flask-swagger-ui.overridePythonAttrs (_: {
+        format = "pyproject";
+        build-system = [ pythonFinal.setuptools ];
+        pythonImportsCheck = [ "flask_swagger_ui" ];
+      });
+      pyopenjtalk-plus = pythonPrev.pyopenjtalk-plus.overridePythonAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          (final.fetchpatch {
+            name = "fix-cython-3.3.0.patch";
+            url = "https://github.com/tsukumijima/pyopenjtalk-plus/commit/90b644f9e9d397882e6eafe4dcd1843a4fde6a63.patch";
+            includes = [ "tests/test_frontend.py" ];
+            hash = "sha256-Jb7T/bRUHxqwBLwV6xYC/teaFHm5GmqJxA7sCX+oiNI=";
+          })
+        ];
+      });
+      scikit-learn = pythonPrev.scikit-learn.overridePythonAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ../patches/scikit-learn-callback-pickle.patch ];
+      });
+      websockify = pythonPrev.websockify.overridePythonAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          (final.fetchurl {
+            name = "websockify-jwcrypto-key-size.patch";
+            url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
+            hash = "sha256-EjnE6jui6JJsbO8arq5wAMBIW2SVsXQTHZtiw2P846A=";
+          })
+        ];
+      });
+    })
+  ];
   qbittorrent-enhanced-nox = prev.qbittorrent-enhanced-nox.overrideAttrs (old: {
     # Sonarr retries with different release when adding existing torrent
     patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];

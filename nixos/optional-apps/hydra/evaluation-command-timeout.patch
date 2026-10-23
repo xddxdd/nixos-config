@@ -1,15 +1,15 @@
 --- a/script/hydra-eval-jobset
 +++ b/script/hydra-eval-jobset
-@@ -751,7 +751,7 @@
-         # Use `nix store cat` so the physical store location is resolved
-         # by the store itself (handles root= stores where physical != logical).
-         my ($res, $declText, $catErr) = captureStdoutStderr(
--            60,
-+            3600,
-             "nix", "--extra-experimental-features", "nix-command",
-             "store", "cat", $declFile);
-         die "Couldn't read declarative specification file $declFile: $catErr\n" if $res != 0;
-@@ -803,7 +803,7 @@
+@@ -788,7 +788,7 @@
+         # `hydra-prepare-declarative-jobset` applies the specification; see
+         # there for what it replies.
+         my ($res, $stdout, $stderr) = captureStdoutStderr(
+-            600, "hydra-prepare-declarative-jobset", $project->name, $declFile);
++            3600, "hydra-prepare-declarative-jobset", $project->name, $declFile);
+         $stderr = decode("utf-8", $stderr // "");
+         if ($res) {
+             chomp $stderr;
+@@ -820,7 +820,7 @@
      my $flakeRef = $jobset->flake;
      if (defined $flakeRef) {
          (my $res, my $json, my $stderr) = captureStdoutStderr(
@@ -18,3 +18,16 @@
          die "'nix flake metadata' returned " . ($res & 127 ? "signal $res" : "exit code " . ($res >> 8))
              . ":\n" . ($stderr ? decode("utf-8", $stderr) : "(no output)\n")
              if $res;
+--- a/script/hydra-prepare-declarative-jobset
++++ b/script/hydra-prepare-declarative-jobset
+@@ -42,9 +42,9 @@
+     or die "project `$projectName' does not exist\n";
+
+ # `nix store cat`, so the store resolves the physical location itself.
+-my ($res, $declText, $catErr) = captureStdoutStderr(60,
++my ($res, $declText, $catErr) = captureStdoutStderr(3600,
+     "nix", "--extra-experimental-features", "nix-command", "store", "cat", $declFile);
+ die "Couldn't read declarative specification file $declFile: $catErr\n" if $res != 0;
+
+ my $declSpec = eval { decode_json($declText) };
+ die "Declarative specification file $declFile not valid JSON: $@\n" if $@;

@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -26,11 +25,7 @@
 
   networking.usePredictableInterfaceNames = lib.mkForce true;
 
-  # 580 driver is the last one that supports P40
-  hardware.nvidia = {
-    package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    open = lib.mkForce false;
-  };
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"

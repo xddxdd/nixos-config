@@ -34,7 +34,7 @@
     ../../nixos/optional-apps/immich.nix
     # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml
     ../../nixos/optional-apps/kubo.nix
-    ../../nixos/optional-apps/llama-cpp.nix
+    # ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets
     ../../nixos/optional-apps/mtranserver
     # # ../../nixos/optional-apps/n8n # compromised

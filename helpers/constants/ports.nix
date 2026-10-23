@@ -132,8 +132,6 @@ rec {
     ADSB.MlatHubBeastInput = 13914;
     ADSB.MlatHubBeastOutput = 13915;
     ADSB.PlaneWatch = 13919;
-    Suricata.Redis = 13920;
-    Suricata.EveBox = 13921;
     OllamaCpaHoneypot.Ollama = 13922;
     OllamaCpaHoneypot.Cpa = 13923;
     ADSB.RawOutput978 = 13978;

@@ -15,7 +15,7 @@ pkgs.stdenv.mkDerivation {
       [ -f "$F" ] || continue
       cat > $out/bin/$(basename $F) <<EOF
     #!/bin/sh
-    /run/wrappers/bin/netns-exec-dbus ${netns} $F \$*
+    ${pkgs.nur-xddxdd.netns-exec}/bin/netns-exec-dbus ${netns} $F \$*
     EOF
       chmod +x $out/bin/$(basename $F)
     done

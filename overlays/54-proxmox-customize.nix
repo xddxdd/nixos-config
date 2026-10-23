@@ -5,6 +5,15 @@ _: final: prev: {
       grep -q NoMoreNagging $out/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
     '';
   });
+  pve-docs = prev.pve-docs.override {
+    asciidoc = prev.asciidoc.overrideAttrs (old: {
+      # The PVE dblatex wrapper installs bin/dblatex, not bin/dblatex-wrapped.
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace asciidoc/a2x.py \
+          --replace-fail "/bin/dblatex-wrapped'" "/bin/dblatex'"
+      '';
+    });
+  };
   pve-qemu-server = prev.pve-qemu-server.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/pve-virtiofs-force-inode-handles.patch

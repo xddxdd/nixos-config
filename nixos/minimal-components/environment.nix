@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  inputs,
   config,
   ...
 }:
@@ -73,6 +72,7 @@ in
     nur-xddxdd.lantianCustomized.ls-iommu
     nur-xddxdd.lantianCustomized.nixos-cleanup
     nur-xddxdd.lantianCustomized.x86-arch-level
+    nur-xddxdd.netns-exec
     openssl
     pigz
     pv
@@ -145,10 +145,6 @@ in
         "p256_bikel1"
       ];
     };
-    gost-engine = {
-      enable = true;
-      package = pkgs.nur-xddxdd.gost-engine;
-    };
   };
 
   security.wrappers = {
@@ -161,13 +157,6 @@ in
     };
     netns-exec = {
       source = pkgs.nur-xddxdd.netns-exec + "/bin/netns-exec";
-      owner = "root";
-      group = "root";
-      setuid = true;
-      setgid = true;
-    };
-    netns-exec-dbus = {
-      source = pkgs.nur-xddxdd.netns-exec + "/bin/netns-exec-dbus";
       owner = "root";
       group = "root";
       setuid = true;

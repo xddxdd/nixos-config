@@ -1,0 +1,22 @@
+--- a/pkgs/os-specific/linux/kmod/aggregator.nix
++++ b/pkgs/os-specific/linux/kmod/aggregator.nix
+@@ -37,11 +37,14 @@
+         ${kmod}/bin/depmod -b $out -C $out/etc/depmod.d -a $kernelVersion
+         cd -- "$out/lib/modules/$kernelVersion"
+
+-        # Merge the single‐module certificates for external modules.
+-        cp --no-preserve=mode,ownership --remove-destination \
+-          -- "$(readlink -f modules.cer)" modules.cer
+-        sed "1,$(wc -l < modules.order)d; s/\.ko.*/.ko.cer/" modules.dep \
+-            | xargs -d'\n' cat >> modules.cer
++        # Prebuilt kernels from before kmodigest do not ship modules.cer.
++        if test -f modules.cer; then
++            # Merge the single‐module certificates for external modules.
++            cp --no-preserve=mode,ownership --remove-destination \
++              -- "$(readlink -f modules.cer)" modules.cer
++            sed "1,$(wc -l < modules.order)d; s/\.ko.*/.ko.cer/" modules.dep \
++                | xargs -d'\n' cat >> modules.cer
++        fi
+     fi
+   '';
+ }

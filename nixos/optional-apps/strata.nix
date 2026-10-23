@@ -6,15 +6,7 @@
   ...
 }:
 let
-  # CUDA manifests reference their original backend, so a scope override still forces its assertions.
-  strataPkgs = import pkgs.path {
-    localSystem = pkgs.stdenv.hostPlatform;
-    inherit (pkgs) overlays;
-    config = pkgs.config // {
-      cudaCapabilities = lib.filter (cap: cap != "6.1") pkgs.config.cudaCapabilities;
-    };
-  };
-  strata = strataPkgs.nur-xddxdd.strata;
+  strata = pkgs.nur-xddxdd.strata;
 in
 {
   systemd.services.strata = {

@@ -4,6 +4,7 @@ let
   vibrancy = sources.vscode-vibrancy-continued.src;
 
   appOut = "resources/app/out";
+  mainJs = "${appOut}/mainImpl.js";
   runtimeDir = "vscode-vibrancy-runtime-v6";
   runtimeEntry = "$out/lib/vscode/${appOut}/${runtimeDir}/index.cjs";
 
@@ -40,7 +41,7 @@ let
     };
   };
 
-  # Appended to out/main.js exactly like the extension's generateNewJS().
+  # Appended to the main implementation like the extension's generateNewJS().
   bootstrapJs = final.writeText "vscode-vibrancy-bootstrap.js" ''
 
     /* !! VSCODE-VIBRANCY-START !! */
@@ -55,7 +56,7 @@ in
   vscode = prev.vscode.overrideAttrs (old: {
     postPatch = (old.postPatch or "") + ''
       chmod u+w resources/app "${appOut}" \
-        "${appOut}/main.js" \
+        "${mainJs}" \
         "${appOut}/vs/code/electron-browser/workbench" \
         "${appOut}/vs/code/electron-browser/workbench/workbench.html"
 
@@ -63,14 +64,14 @@ in
       cp -r "${vibrancy}/runtime-pre-esm" "${appOut}/${runtimeDir}"
 
       # modifyElectronJSFile(): frameless + transparent BrowserWindow (Linux auto)
-      sed -i 's/experimentalDarkMode/frame:false,transparent:true,experimentalDarkMode/g' "${appOut}/main.js"
-      grep -q 'frame:false,transparent:true,experimentalDarkMode' "${appOut}/main.js"
+      sed -i 's/experimentalDarkMode/frame:false,transparent:true,experimentalDarkMode/g' "${mainJs}"
+      grep -q 'frame:false,transparent:true,experimentalDarkMode' "${mainJs}"
 
       # installJS(): append the runtime bootstrap
       substitute ${bootstrapJs} vscode-vibrancy-bootstrap.js \
         --replace-fail "@vibrancyBase@" "${runtimeEntry}" \
         --replace-fail "@vibrancyRuntimeUrl@" "file://${runtimeEntry}"
-      cat vscode-vibrancy-bootstrap.js >> "${appOut}/main.js"
+      cat vscode-vibrancy-bootstrap.js >> "${mainJs}"
       rm vscode-vibrancy-bootstrap.js
 
       # installHTML(): allow the runtime's Trusted Types policy

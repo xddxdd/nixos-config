@@ -48,7 +48,6 @@ let
       inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.openssl-conf
-      inputs.nur-xddxdd.nixosModules.openssl-gost-engine
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
       inputs.nur-xddxdd.nixosModules.wireguard-remove-lingering-links

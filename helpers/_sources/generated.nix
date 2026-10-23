@@ -80,17 +80,6 @@
     };
     date = "2026-10-05";
   };
-  evebox = {
-    pname = "evebox";
-    version = "0.28.0";
-    src = fetchFromGitHub {
-      owner = "jasonish";
-      repo = "evebox";
-      rev = "0.28.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-+aXq665DeZlBHVrXRc2ubLsnuYhkZ7WahirCqrKxgVM=";
-    };
-  };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
     version = "1.10.5";
