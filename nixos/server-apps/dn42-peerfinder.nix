@@ -23,14 +23,13 @@
 
       environment = {
         LISTEN_PORT = LT.portStr.DN42Peerfinder;
-        SECRET_KEY_FILE = config.services.dn42-peerfinder.secretFile;
+        SECRET_KEY_FILE = "%d/secret";
         LANG = "C.UTF-8";
       };
 
       path = [ pkgs.iputils ];
       serviceConfig = LT.serviceHarden // {
-        # Sops secret lives under /run/secrets, outside the confinement chroot
-        BindPaths = [ "/run" ];
+        LoadCredential = [ "secret:${config.services.dn42-peerfinder.secretFile}" ];
         ExecStart = "${lib.getExe pkgs.python3} ${LT.sources.dn42-peerfinder-client.src}";
 
         # Needed by ping

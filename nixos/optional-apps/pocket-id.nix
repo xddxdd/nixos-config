@@ -3,7 +3,6 @@
   lib,
   config,
   LT,
-  pkgs,
   ...
 }:
 {
@@ -16,6 +15,10 @@
     owner = "pocket-id";
     group = "pocket-id";
   };
+  sops.secrets.pocket-id-env.content = ''
+    ENCRYPTION_KEY=${config.sops.placeholder.pocket-id-encryption-key}
+    SMTP_PASSWORD=${config.sops.placeholder.smtp-pass}
+  '';
 
   services.pocket-id = {
     enable = true;
@@ -58,34 +61,15 @@
   systemd.services.pocket-id.requires = [ "postgresql.target" ];
   systemd.services.pocket-id.serviceConfig = LT.serviceHarden // {
     RestartSec = lib.mkForce 5;
+    EnvironmentFiles = [ config.sops.secrets.pocket-id-env ];
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";
-    # chroot's tmpfs root is ephemeral; bind state dir + socket through; the
-    # socket is accessed by nginx outside the chroot
-    BindPaths = [
-      "/var/lib/pocket-id"
-      "/run/pocket-id"
-    ];
-    # sops secrets, postgres unix socket, CA certs for SMTP TLS
     BindReadOnlyPaths = [
       "/run/postgresql"
-      "/run/secrets/pocket-id-encryption-key"
-      "/run/secrets/smtp-pass"
-      # Peer auth to postgres and the GeoLite DB need the real uid/hosts
-      # environment; user namespace would break postgres peer auth
       "${config.environment.etc."geoip".source}:/etc/geoip"
     ];
     PrivateUsers = lib.mkForce false;
-    ExecStart = lib.mkForce (
-      builtins.toString (
-        pkgs.writeShellScript "pocket-id-start" ''
-          set -euo pipefail
-          export ENCRYPTION_KEY=$(cat ${config.sops.secrets.pocket-id-encryption-key.path})
-          export SMTP_PASSWORD=$(cat ${config.sops.secrets.smtp-pass.path})
-          exec ${lib.getExe pkgs.pocket-id}
-        ''
-      )
-    );
+    StateDirectory = "pocket-id";
   };
   users.groups.pocket-id.members = [ "nginx" ];
   lantian.harden.pocket-id = true;

@@ -60,8 +60,6 @@
       RestartSec = "3";
       RuntimeDirectory = "oauth2-proxy";
       UMask = "007";
-      # FIXME: secret
-      BindReadOnlyPaths = [ "/run" ];
     };
   };
   lantian.harden.oauth2-proxy = config.services.oauth2-proxy.enable;

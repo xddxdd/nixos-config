@@ -57,6 +57,10 @@ let
   resetLgw = pkgs.linkFarm "reset-lgw" {
     "bin/reset_lgw.sh" = ./reset_lgw.sh;
   };
+
+  jqSecrets = utils.genJqSecretsReplacement {
+    loadCredential = true;
+  } sx1302HalConfig "local_conf.json";
 in
 {
   sops.secrets.lora-euid.sopsFile = inputs.secrets + "/lora.yaml";
@@ -92,9 +96,7 @@ in
       pkgs.bash
     ];
 
-    preStart = ''
-      ${utils.genJqSecretsReplacementSnippet sx1302HalConfig "local_conf.json"}
-    '';
+    preStart = jqSecrets.script;
 
     serviceConfig = LT.networkToolHarden // {
       Type = "simple";
@@ -108,9 +110,8 @@ in
       ExecStart = "${lib.getExe' sx1302Hal "lora_pkt_fwd"} -c ${sx1302Hal}/conf/global_conf.json.sx1250.US915";
       RuntimeDirectory = "sx1302-hal";
       WorkingDirectory = "/run/sx1302-hal";
-      # Sops secret lives under /run, outside the confinement chroot
+      LoadCredential = jqSecrets.credentials;
       BindReadOnlyPaths = [
-        "/run"
         "${lib.getExe' pkgs.coreutils "env"}:/usr/bin/env"
       ];
     };

@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   LT,
@@ -7,6 +6,10 @@
 }:
 {
   imports = [ ../mysql.nix ];
+
+  sops.templates.gitea-env.content = ''
+    GITEA_mailer_PASSWD=${config.sops.placeholder.smtp-pass}
+  '';
 
   services.gitea = {
     enable = true;
@@ -73,9 +76,11 @@
       mailer = {
         ENABLED = true;
         FROM = config.programs.msmtp.accounts.default.from;
-        PROTOCOL = "sendmail";
-        SENDMAIL_PATH = lib.getExe pkgs.msmtp;
-        SENDMAIL_ARGS = "--";
+        PROTOCOL = "smtp+starttls";
+        SMTP_ADDR = config.programs.msmtp.accounts.default.host;
+        SMTP_PORT = config.programs.msmtp.accounts.default.port;
+        USER = config.programs.msmtp.accounts.default.user;
+        # PASSWD is set via env var
       };
       "git.timeout" = {
         DEFAULT = 3600;
@@ -93,17 +98,11 @@
 
   sops.secrets.smtp-pass.restartUnits = [ "gitea.service" ];
 
-  systemd.services.gitea.path = [ pkgs.msmtp ];
   systemd.services.gitea.serviceConfig = LT.serviceHarden // {
+    EnvironmentFile = [ config.sops.templates.gitea-env.path ];
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
-    # FIXME: secrets
-    BindReadOnlyPaths = [
-      "/run"
-      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
-      config.sops.secrets.smtp-pass.path
-    ];
   };
   lantian.harden.gitea = true;
 

@@ -25,6 +25,7 @@ in
   sops.templates.grafana-env.content = ''
     GF_AUTH_GENERIC_OAUTH_CLIENT_ID=grafana
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${config.sops.placeholder.dex-grafana-secret}
+    GF_SMTP_PASSWORD=${config.sops.placeholder.smtp-pass}
   '';
 
   services.grafana = {
@@ -85,7 +86,6 @@ in
       smtp = with config.programs.msmtp.accounts.default; {
         enabled = true;
         inherit host user;
-        password = "$__file{${config.sops.secrets.smtp-pass.path}}";
         from_address = from;
       };
       unified_alerting = {
@@ -101,8 +101,7 @@ in
     StateDirectory = "grafana";
     SystemCallFilter = [ "@chown" ];
     ProcSubset = "all";
-    # FIXME: secret
-    BindReadOnlyPaths = [ "/run" ];
+    BindReadOnlyPaths = [ "/run/mysql" ];
   };
   lantian.harden.grafana = true;
 

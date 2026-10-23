@@ -285,7 +285,6 @@ in
         ''
       );
       LoadCredential = jqSecrets.credentials;
-      BindReadOnlyPaths = [ "/run" ];
     };
   };
   lantian.harden.alertmanager = true;
