@@ -24,9 +24,6 @@
       ]
       (_: {
         sopsFile = inputs.secrets + "/adsb.yaml";
-        owner = "adsb";
-        group = "adsb";
-        mode = "0440";
       });
 
   services.udev.packages = [ pkgs.rtl-sdr ];

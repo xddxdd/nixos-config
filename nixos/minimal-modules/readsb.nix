@@ -63,7 +63,7 @@ let
       uuidFile = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description = "Path passed to `--uuid-file`.";
+        description = "Path passed to `--uuid-file`. A sops secret path is loaded as a credential and read from `\$CREDENTIALS_DIRECTORY`.";
       };
 
       mlat = mkFlagOption false;
@@ -142,7 +142,7 @@ let
       (lib.optional cfg.netSbsReduce "--net-sbs-reduce")
       (lib.optional cfg.statsRange "--stats-range")
 
-      (arg' "--uuid-file" cfg.uuidFile)
+      (if cfg.uuidFile != null then [ "--uuid-file=$CREDENTIALS_DIRECTORY/uuid" ] else [ ])
       (arg' "--write-json" cfg.writeJson)
       (arg' "--write-state" cfg.writeState)
       (arg' "--json-reliable" cfg.jsonReliable)
@@ -173,13 +173,13 @@ let
       (arg' "--ppm" cfg.ppm)
       (
         if cfg.latitudeFile != null then
-          [ "--lat=$(cat ${lib.escapeShellArg cfg.latitudeFile})" ]
+          [ ''--lat=$(cat "$CREDENTIALS_DIRECTORY/lat")'' ]
         else
           (arg' "--lat" cfg.latitude)
       )
       (
         if cfg.longitudeFile != null then
-          [ "--lon=$(cat ${lib.escapeShellArg cfg.longitudeFile})" ]
+          [ ''--lon=$(cat "$CREDENTIALS_DIRECTORY/lon")'' ]
         else
           (arg' "--lon" cfg.longitude)
       )
@@ -216,12 +216,12 @@ let
         Restart = "always";
         RestartSec = "5";
 
-        # Positioning/UUID files are read by the script; they may live outside
-        # the confinement chroot (e.g. sops secrets at /run/secrets)
-        BindReadOnlyPaths = lib.filter (f: f != null) [
-          cfg.latitudeFile
-          cfg.longitudeFile
-          cfg.uuidFile
+        # *File options (e.g. sops secret paths) are delivered as credentials;
+        # systemd mounts the credential dir inside the unit's namespace
+        LoadCredential = lib.filter (c: c != null) [
+          (if cfg.latitudeFile != null then "lat:${cfg.latitudeFile}" else null)
+          (if cfg.longitudeFile != null then "lon:${cfg.longitudeFile}" else null)
+          (if cfg.uuidFile != null then "uuid:${cfg.uuidFile}" else null)
         ];
       };
     };
