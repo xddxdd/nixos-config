@@ -42,6 +42,7 @@ in
       RestartSec = "5";
     };
   };
+  lantian.harden.dlx = true;
 
   users.users.dlx = {
     group = "dlx";
