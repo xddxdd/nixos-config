@@ -15,7 +15,7 @@
     owner = "pocket-id";
     group = "pocket-id";
   };
-  sops.secrets.pocket-id-env.content = ''
+  sops.templates.pocket-id-env.content = ''
     ENCRYPTION_KEY=${config.sops.placeholder.pocket-id-encryption-key}
     SMTP_PASSWORD=${config.sops.placeholder.smtp-pass}
   '';
@@ -61,7 +61,7 @@
   systemd.services.pocket-id.requires = [ "postgresql.target" ];
   systemd.services.pocket-id.serviceConfig = LT.serviceHarden // {
     RestartSec = lib.mkForce 5;
-    EnvironmentFiles = [ config.sops.secrets.pocket-id-env ];
+    EnvironmentFile = [ config.sops.templates.pocket-id-env.path ];
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";
     BindReadOnlyPaths = [

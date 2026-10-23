@@ -22,7 +22,6 @@
       createDatabase = false;
     };
     lfs.enable = true;
-    mailerPasswordFile = config.sops.secrets.smtp-pass.path;
     user = "git";
 
     settings = {
@@ -96,13 +95,12 @@
     };
   };
 
-  sops.secrets.smtp-pass.restartUnits = [ "gitea.service" ];
-
   systemd.services.gitea.serviceConfig = LT.serviceHarden // {
     EnvironmentFile = [ config.sops.templates.gitea-env.path ];
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
+    BindReadOnlyPaths = [ "/run/mysqld" ];
   };
   lantian.harden.gitea = true;
 

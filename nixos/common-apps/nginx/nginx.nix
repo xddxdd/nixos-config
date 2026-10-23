@@ -81,7 +81,6 @@ in
     defaultMimeTypes = "${config.services.nginx.package}/conf/mime.types";
 
     appendConfig = ''
-      worker_processes auto;
       worker_rlimit_nofile 1048576;
     '';
     eventsConfig = ''
