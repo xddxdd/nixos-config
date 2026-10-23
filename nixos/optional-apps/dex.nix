@@ -160,12 +160,7 @@ in
   }
   // builtins.listToAttrs (
     builtins.map (
-      f:
-      lib.nameValuePair "dex-${f.id}-secret" {
-        sopsFile = inputs.secrets + "/dex/${f.id}.yaml";
-        owner = "dex";
-        group = "dex";
-      }
+      f: lib.nameValuePair "dex-${f.id}-secret" { sopsFile = inputs.secrets + "/dex/${f.id}.yaml"; }
     ) cfg.staticClients
   );
 

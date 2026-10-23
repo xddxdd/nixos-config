@@ -14,7 +14,8 @@
     path = with pkgs; [ curl ];
     serviceConfig = LT.serviceHarden // {
       Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.bash} -euo pipefail ${config.sops.secrets.radicale-calendar-sync.path}";
+      ExecStart = "${lib.getExe pkgs.bash} -euo pipefail %d/radicale-calendar-sync";
+      LoadCredential = [ "radicale-calendar-sync:${config.sops.secrets.radicale-calendar-sync.path}" ];
       RuntimeDirectory = "radicale-calendar-sync";
       WorkingDirectory = "/run/radicale-calendar-sync";
     };

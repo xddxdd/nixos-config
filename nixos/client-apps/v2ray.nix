@@ -154,11 +154,7 @@ let
   } v2rayConf "/run/v2ray/config.json";
 in
 {
-  sops.secrets = lib.genAttrs [ "v2ray-key" ] (_: {
-    sopsFile = inputs.secrets + "/common/v2ray.yaml";
-    owner = "v2ray";
-    group = "v2ray";
-  });
+  sops.secrets.v2ray-key.sopsFile = inputs.secrets + "/common/v2ray.yaml";
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";

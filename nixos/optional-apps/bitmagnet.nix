@@ -25,16 +25,14 @@ let
       POSTGRES_NAME = "bitmagnet";
       POSTGRES_USER = "bitmagnet";
       TMDB_ENABLED = "true";
+      PROCESSOR_CONCURRENCY = builtins.toString LT.this.cpuThreads;
     };
-    script = ''
-      export TMDB_API_KEY=$(cat ${config.sops.secrets.tmdb-api-key.path})
-      export PROCESSOR_CONCURRENCY=$(nproc)
-      exec ${lib.getExe bitmagnet} worker run --keys=${worker}
-    '';
     serviceConfig = LT.serviceHarden // {
+      ExecStart = "${lib.getExe bitmagnet} worker run --keys=${worker}";
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
+      EnvironmentFile = config.sops.templates.bitmagnet-env.path;
       RuntimeDirectory = "bitmagnet";
       StateDirectory = "bitmagnet";
       WorkingDirectory = "/var/lib/bitmagnet";
@@ -52,6 +50,10 @@ in
     owner = "bitmagnet";
     group = "bitmagnet";
   };
+
+  sops.templates.bitmagnet-env.content = ''
+    TMDB_API_KEY=${config.sops.placeholder.tmdb-api-key}
+  '';
 
   systemd.services.bitmagnet-http = mkBitmagnetService "http_server";
   systemd.services.bitmagnet-queue = mkBitmagnetService "queue_server";

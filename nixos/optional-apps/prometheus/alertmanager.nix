@@ -13,14 +13,8 @@ let
   } config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml";
 in
 {
-  sops.secrets.telegram-bot-token = {
-    sopsFile = inputs.secrets + "/telegram.yaml";
-    mode = "0444";
-  };
-  sops.secrets.telegram-bot-chat-id = {
-    sopsFile = inputs.secrets + "/telegram.yaml";
-    mode = "0444";
-  };
+  sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/telegram.yaml";
+  sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/telegram.yaml";
 
   services.prometheus = {
     alertmanagers = [

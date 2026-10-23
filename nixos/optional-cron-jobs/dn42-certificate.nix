@@ -54,7 +54,7 @@ in
         openssl ecparam -name secp384r1 -genkey -noout -out /var/lib/dn42-certificate/ecc.key
       fi
 
-      install -Dm644 ${config.sops.secrets.dn42-certificate-token.path} token.txt
+      install -Dm644 "$CREDENTIALS_DIRECTORY/dn42-certificate-token" token.txt
 
       # RSA cert
       cp /var/lib/dn42-certificate/rsa.key private.key
@@ -93,6 +93,7 @@ in
       RuntimeDirectory = "dn42-certificate";
       RuntimeDirectoryMode = "700";
       WorkingDirectory = "/run/dn42-certificate";
+      LoadCredential = [ "dn42-certificate-token:${config.sops.secrets.dn42-certificate-token.path}" ];
     };
     unitConfig = {
       OnFailure = "notify-email@%n.service";
