@@ -82,7 +82,7 @@ in
         linphone
         llm-agents.agentsview
         llm-agents.ccusage
-        lx-music-desktop
+        # lx-music-desktop
         macchanger
         markdown-apa7th-docx
         mediainfo
@@ -134,7 +134,7 @@ in
         xca
         xdg-ninja
         yubioath-flutter
-        z-library-desktop
+        # z-library-desktop
         zoom-us
         # keep-sorted end
       ]
