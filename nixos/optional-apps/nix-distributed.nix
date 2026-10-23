@@ -26,11 +26,10 @@ let
           inherit (v) system;
           hostName = "${n}.lantian.pub";
           maxJobs = v.cpuThreads;
-          # Use legacy protocol for Hydra
-          protocol = "ssh";
+          protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
           sshKey = config.sops.secrets.nix-ssh-privkey.path;
-          sshUser = "nix-builder";
+          sshUser = "nix-ssh";
           supportedFeatures = gccarchFeatures;
           mandatoryFeatures = [ ];
         }
@@ -40,11 +39,10 @@ let
           inherit (v) system;
           hostName = "${n}.lantian.pub";
           maxJobs = 1;
-          # Use legacy protocol for Hydra
-          protocol = "ssh";
+          protocol = "ssh-ng";
           speedFactor = v.cpuThreads;
           sshKey = config.sops.secrets.nix-ssh-privkey.path;
-          sshUser = "nix-builder";
+          sshUser = "nix-ssh";
           supportedFeatures = [ "big-parallel" ] ++ gccarchFeatures;
           mandatoryFeatures = [ "big-parallel" ];
         }

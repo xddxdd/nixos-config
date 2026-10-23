@@ -3,15 +3,17 @@
   LT,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
   allowedUsers = [
     "@wheel"
     "@hydra"
-    "nix-builder"
+    "nix-ssh"
     "root"
   ];
+  sshKeysForNixServe = import (inputs.secrets + "/ssh/nix-builder.nix");
 in
 {
   services.angrr = {
@@ -50,6 +52,14 @@ in
 
   nix = {
     package = pkgs.nixVersions.latest;
+
+    sshServe = {
+      enable = LT.this.hasTag LT.tags.nix-builder;
+      # nix-ssh must stay in allowedUsers above for trusted-users/allowed-users
+      # access; nix.sshServe.trusted would only duplicate the entry.
+      keys = sshKeysForNixServe;
+      protocol = "ssh-ng";
+    };
 
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";

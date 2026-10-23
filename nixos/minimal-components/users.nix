@@ -7,7 +7,6 @@
 let
   unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
   sshKeys = import (inputs.secrets + "/ssh/lantian.nix");
-  sshKeysForNixBuilder = import (inputs.secrets + "/ssh/nix-builder.nix");
 in
 {
   services.userborn = {
@@ -55,20 +54,12 @@ in
         }
       ];
     };
-    nix-builder = lib.mkIf (LT.this.hasTag LT.tags.nix-builder) {
-      isNormalUser = true;
-      isSystemUser = lib.mkForce false;
-      group = "nix-builder";
-      openssh.authorizedKeys.keys = sshKeysForNixBuilder;
-      linger = false;
-    };
   };
 
   users.groups = {
     lantian = {
       gid = 1000;
     };
-    nix-builder = { };
   };
 
   # Disable builtin subuid/subgid file management
