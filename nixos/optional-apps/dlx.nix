@@ -14,19 +14,10 @@ let
   });
 in
 {
-  sops.secrets.dlx-proxy-user = {
-    sopsFile = inputs.secrets + "/dlx.yaml";
-    owner = "dlx";
-    group = "dlx";
-  };
-  sops.secrets.dlx-proxy-pass = {
-    sopsFile = inputs.secrets + "/dlx.yaml";
-    owner = "dlx";
-    group = "dlx";
-  };
+  sops.secrets.resin-proxy-token.sopsFile = inputs.secrets + "/resin.yaml";
   sops.templates.dlx-env = {
     content = ''
-      PROXY=http://${config.sops.placeholder.dlx-proxy-user}:${config.sops.placeholder.dlx-proxy-pass}@${LT.this.ltnet.IPv4}:${LT.portStr.Resin}
+      PROXY=http://Default:${config.sops.placeholder.resin-proxy-token}@${LT.this.ltnet.IPv4}:${LT.portStr.Resin}
     '';
     owner = "dlx";
     group = "dlx";

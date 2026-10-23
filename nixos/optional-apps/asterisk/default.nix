@@ -17,16 +17,13 @@ let
 
   cfg = config.services.asterisk;
 
-  asteriskUser = "asterisk";
-  asteriskGroup = "asterisk";
-
   varlibdir = "/var/lib/asterisk";
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
 
   asterisk-cli = pkgs.runCommand "asterisk-cli" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
     mkdir -p $out/bin
-    makeWrapper ${lib.getExe config.services.asterisk.package} $out/bin/asterisk-cli \
+    makeWrapper ${lib.getExe cfg.package} $out/bin/asterisk-cli \
       --add-flag "-C" \
       --add-flag "/etc/asterisk/asterisk.conf" \
       --add-flag "-r"
@@ -197,21 +194,55 @@ in
           ${lib.getExe pkgs.ffmpeg} "$@" | ${lib.getExe skip-silence}
         '';
       in
-      [ ffmpeg-wrapped ];
-    reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") config.services.asterisk.confFiles;
+      [
+        ffmpeg-wrapped
+        pkgs.coreutils
+        pkgs.findutils
+      ];
+    reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") cfg.confFiles;
 
-    preStart = ''
+    preStart = lib.mkForce ''
       # Copy skeleton directory tree to /var
       for d in '${varlibdir}' '${spooldir}' '${logdir}'; do
-        mkdir -p "$d"
-        cp --recursive ${cfg.package}/"$d"/* "$d"/
-        chown --recursive ${asteriskUser}:${asteriskGroup} "$d"
-        find "$d" -type d | xargs chmod 0755
+        if [ ! -f "$d/.initialized" ]; then
+          mkdir -p "$d"
+          cp --recursive ${cfg.package}/"$d"/* "$d"/
+          find "$d" -type d | xargs chmod 0755
+          touch "$d/.initialized"
+        fi
       done
     '';
+    serviceConfig = LT.serviceHarden // {
+      User = "asterisk";
+      Group = "asterisk";
+      Restart = "always";
+      RestartSec = "5s";
+      # Do not switch user with -U flag
+      ExecStart = lib.mkForce "${lib.getExe cfg.package} -C /etc/asterisk/asterisk.conf -F";
+      BindReadOnlyPaths = [
+        "/nix/sync-servers/acme"
+        "/run" # For secret access
+      ]
+      ++ lib.mapAttrsToList (n: v: "${v.source}:/etc/${n}") (
+        lib.filterAttrs (n: v: lib.hasPrefix "asterisk/" n && v.enable) config.environment.etc
+      );
+      BindPaths = [
+        "/var/spool/asterisk"
+      ];
+      LogsDirectory = "asterisk";
+      RuntimeDirectory = "asterisk";
+      StateDirectory = "asterisk";
+    };
+    confinement.packages = [
+      # sounds symlink target created by tmpfiles, absent from unit closure
+      LT.sources.anti-fooling-hot-line.src
+    ];
+  };
+  lantian.harden.asterisk = true;
 
-    serviceConfig.Restart = "always";
-    serviceConfig.RestartSec = "5s";
+  environment.etc = {
+    "asterisk/cdr_syslog.conf".enable = false;
+    "asterisk/phone.conf".enable = false;
   };
 
   systemd.tmpfiles.settings = {

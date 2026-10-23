@@ -50,6 +50,10 @@
   };
   hardware.xpadneo.enable = true;
 
+  lantian.pipewire.roc-sink-ip = [
+    "192.168.0.207"
+  ];
+
   # ClamAV daemon doesn't have permission to user home folder
   services.clamav.daemon.enable = lib.mkForce false;
 

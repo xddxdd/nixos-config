@@ -45,6 +45,7 @@
       WorkingDirectory = "/var/lib/resin";
     };
   };
+  lantian.harden.resin = true;
 
   users.users.resin = {
     group = "resin";

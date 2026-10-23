@@ -34,6 +34,7 @@
   # keep-sorted start
   "at.lantian.pub"
   "attic.xuyh0120.win" # currently showing compromised warning
+  "cache.lantian.pub"
   "comments.lantian.pub"
   "git.lantian.pub"
   "hydra.lantian.pub"

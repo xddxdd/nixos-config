@@ -18,7 +18,7 @@
     ../../nixos/optional-apps/acme
     ../../nixos/optional-apps/actual.nix
     ../../nixos/optional-apps/archiveteam.nix
-    # ../../nixos/optional-apps/attic.nix # intentionally disabled by request
+    ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/attic-placeholder.nix
     # ../../nixos/optional-apps/bepasty.nix
     ../../nixos/optional-apps/bird-lg-go.nix
@@ -31,8 +31,6 @@
     # ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/loki.nix
-    # DN42 TLS certificate is not yet restored.
-    # ../../nixos/optional-apps/maddy.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
@@ -52,7 +50,7 @@
     # ../../nixos/optional-apps/wordpress.nix # PHP services disabled by request
     ../../nixos/optional-apps/zerotierone-controller.nix
 
-    # ../../nixos/optional-cron-jobs/dn42-certificate.nix
+    ../../nixos/optional-cron-jobs/dn42-certificate.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
 
     # "${inputs.secrets}/nixos-hidden-module/c9f6c0c333e73062"

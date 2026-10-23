@@ -80,6 +80,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "cache";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "comments";
       target = "colocrossing";
       ttl = "1h";

@@ -37,7 +37,7 @@ in
     ../../nixos/client-components/hidpi.nix
     ../../nixos/client-components/xorg.nix
 
-    # ../../nixos/optional-apps/bitmagnet.nix # missing regenerated secret tmdb.yaml
+    ../../nixos/optional-apps/bitmagnet.nix
     ../../nixos/optional-apps/jellyfin.nix
     ../../nixos/optional-apps/peerbanhelper.nix
     ../../nixos/optional-apps/qbittorrent.nix
@@ -104,10 +104,9 @@ in
   # Sonarr
   ########################################
 
-  # BitMagnet disabled: missing regenerated secret tmdb.yaml
-  # systemd.services.bitmagnet-http = netns.bind { };
-  # systemd.services.bitmagnet-queue = netns.bind { };
-  # systemd.services.bitmagnet-dht = netns.bind { };
+  systemd.services.bitmagnet-http = netns.bind { };
+  systemd.services.bitmagnet-queue = netns.bind { };
+  systemd.services.bitmagnet-dht = netns.bind { };
   systemd.services.peerbanhelper = netns.bind { };
   systemd.services.jellyfin.unitConfig.RequiresMountsFor = "/mnt/storage";
 
@@ -205,8 +204,7 @@ in
   };
 
   lantian.localVhosts = {
-    # bitmagnet disabled: missing regenerated secret tmdb.yaml
-    # bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
+    bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";
     bt.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.qBitTorrent.WebUI}";
     peerbanhelper.locations."/".proxyPass =
       lib.mkForce "http://${netns.ipv4}:${LT.portStr.PeerBanHelper}";

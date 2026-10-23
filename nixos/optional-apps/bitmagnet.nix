@@ -39,6 +39,7 @@ let
 
       User = "bitmagnet";
       Group = "bitmagnet";
+      BindReadOnlyPaths = [ "/run/postgresql" ];
     };
   };
 in
@@ -75,6 +76,12 @@ in
         proxyPass = "http://127.0.0.1:${LT.portStr.Bitmagnet}";
       };
     };
+  };
+
+  lantian.harden = {
+    bitmagnet-http = true;
+    bitmagnet-queue = true;
+    bitmagnet-dht = true;
   };
 
   users.users.bitmagnet = {

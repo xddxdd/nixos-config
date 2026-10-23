@@ -18,6 +18,7 @@ let
     "https://vercel.lantian.pub"
 
     # Services under lantian.pub
+    "https://cache.lantian.pub"
     "https://comments.lantian.pub"
     "https://element.lantian.pub"
     "https://flapalerted.lantian.pub"
@@ -34,7 +35,6 @@ let
     # "https://ai.xuyh0120.win"
     "https://alert.xuyh0120.win"
     "https://asf.xuyh0120.win"
-    "https://attic.xuyh0120.win"
     # "https://books.xuyh0120.win"
     "https://bitwarden.xuyh0120.win"
     "https://cal.xuyh0120.win"

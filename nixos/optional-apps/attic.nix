@@ -51,7 +51,9 @@
     DynamicUser = lib.mkForce false;
     StateDirectory = lib.mkForce "";
     CacheDirectory = lib.mkForce "attic";
+    BindReadOnlyPaths = [ "/run/postgresql" ];
   };
+  lantian.harden.atticd = true;
 
   users.users.atticd = {
     group = "atticd";
@@ -70,7 +72,7 @@
   };
 
   lantian.nginxVhosts = {
-    "attic.xuyh0120.win" = {
+    "cache.lantian.pub" = {
       locations = {
         "/" = {
           proxyPass = "http://[::1]:${LT.portStr.Attic}";
@@ -78,13 +80,12 @@
         };
       };
 
-      sslCertificate = "lets-encrypt-xuyh0120.win";
+      sslCertificate = "lets-encrypt-lantian.pub";
       noIndex.enable = true;
     };
   };
 
   lantian.localVhosts.attic = {
-    accessibleBy = "public";
     locations = {
       "/" = {
         proxyPass = "http://[::1]:${LT.portStr.Attic}";

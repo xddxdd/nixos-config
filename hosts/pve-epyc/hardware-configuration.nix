@@ -13,7 +13,7 @@
     ../../nixos/hardware/nvidia/only.nix
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/smart.nix
-    ../../nixos/hardware/ups.nix
+    # ../../nixos/hardware/ups.nix # communication unstable
   ];
 
   lantian.hostType = lib.mkForce "physical";

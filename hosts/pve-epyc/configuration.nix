@@ -25,10 +25,9 @@
     ../../nixos/optional-apps/asf.nix
     # ../../nixos/optional-apps/calibre-cops.nix # PHP services disabled by request
     ../../nixos/optional-apps/clamav.nix
-    # ../../nixos/optional-apps/dlx.nix # missing regenerated secret dlx.yaml
-    # ../../nixos/optional-apps/epic-awesome-gamer # missing regenerated secret epic-awesome-gamer.yaml
+    ../../nixos/optional-apps/dlx.nix
     ../../nixos/optional-apps/fastapi-dls.nix
-    # # ../../nixos/optional-apps/handbrake-server.nix
+    # ../../nixos/optional-apps/handbrake-server.nix
     ../../nixos/optional-apps/hydra
     ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
@@ -42,9 +41,9 @@
     ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
-    # ../../nixos/optional-apps/resin.nix # missing regenerated secret resin.yaml
+    ../../nixos/optional-apps/resin.nix
     ../../nixos/optional-apps/sftp-server.nix
-    # # ../../nixos/optional-apps/strata.nix
+    # ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tor.nix
@@ -53,7 +52,7 @@
 
     ../../nixos/optional-cron-jobs/ncmm.nix
     ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
-    # ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix # missing regenerated secret
+    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
   ];
 

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  LT,
   ...
 }:
 {
@@ -51,7 +52,7 @@
         echo "Emailed $FILE"
       done
     '';
-    serviceConfig = {
+    serviceConfig = LT.serviceHarden // {
       User = "asterisk";
       Group = "asterisk";
       BindReadOnlyPaths = [
@@ -60,6 +61,11 @@
       ];
       Restart = "always";
       RestartSec = 5;
+      BindPaths = [ "/var/lib/asterisk/fax" ];
+      # create /var/lib/asterisk/fax before mount namespacing
+      StateDirectory = "asterisk/fax";
+      SystemCallFilter = [ ];
     };
   };
+  lantian.harden.asterisk-fax-monitor = true;
 }
