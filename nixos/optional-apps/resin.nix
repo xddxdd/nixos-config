@@ -7,14 +7,11 @@
   ...
 }:
 {
-  sops.secrets.resin-proxy-token = {
-    sopsFile = inputs.secrets + "/resin.yaml";
-    owner = "resin";
-    group = "resin";
-  };
+  sops.secrets.resin-admin-token.sopsFile = inputs.secrets + "/resin.yaml";
+  sops.secrets.resin-proxy-token.sopsFile = inputs.secrets + "/resin.yaml";
   sops.templates.resin-env = {
     content = ''
-      RESIN_ADMIN_TOKEN=${config.sops.placeholder.default-pw}
+      RESIN_ADMIN_TOKEN=${config.sops.placeholder.resin-admin-token}
       RESIN_PROXY_TOKEN=${config.sops.placeholder.resin-proxy-token}
     '';
     owner = "resin";

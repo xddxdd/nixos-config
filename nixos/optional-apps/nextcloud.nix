@@ -10,8 +10,12 @@
     owner = "nextcloud";
     group = "nextcloud";
   };
-  sops.secrets.remote-db-pw = {
-    sopsFile = inputs.secrets + "/common/remote-db-pw.yaml";
+  sops.secrets.nextcloud-admin-pw = {
+    sopsFile = inputs.secrets + "/nextcloud.yaml";
+    mode = "0444";
+  };
+  sops.secrets.nextcloud-dbpw = {
+    sopsFile = inputs.secrets + "/nextcloud.yaml";
     mode = "0444";
   };
 
@@ -34,13 +38,13 @@
       redis = true;
     };
     config = {
-      adminpassFile = config.sops.secrets.default-pw.path;
+      adminpassFile = config.sops.secrets.nextcloud-admin-pw.path;
       adminuser = "lantian";
       dbtype = "oci";
       dbhost = "";
       dbname = "(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1521)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=ufjybiswtxi7xyl_lantianfree_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
       dbuser = "admin";
-      dbpassFile = config.sops.secrets.remote-db-pw.path;
+      dbpassFile = config.sops.secrets.nextcloud-dbpw.path;
     };
     hostName = "cloud.xuyh0120.win";
     https = true;
