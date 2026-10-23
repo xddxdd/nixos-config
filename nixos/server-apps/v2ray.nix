@@ -100,6 +100,10 @@ let
       ];
     };
   };
+
+  jqSecrets = utils.genJqSecretsReplacement {
+    loadCredential = true;
+  } v2rayConf "/run/v2ray/config.json";
 in
 lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   sops.secrets.v2ray-key = {
@@ -129,11 +133,12 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
     script = ''
       rm -f /run/v2ray/v2ray.sock
 
-      ${utils.genJqSecretsReplacementSnippet v2rayConf "/run/v2ray/config.json"}
+      ${jqSecrets.script}
 
       exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
+      LoadCredential = jqSecrets.credentials;
       User = "nginx";
       Group = "nginx";
       RuntimeDirectory = "v2ray";
@@ -141,10 +146,8 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
       RestartSec = 5;
       # Secret is owned by the nginx user; user namespace would unmap that uid
       PrivateUsers = false;
-      # FIXME: hardening to access secrets without direct access
-      BindReadOnlyPaths = [
-        "/run"
-      ];
+      # RuntimeDirectory is mounted from the host into this confined unit's
+      # namespace, so the unix socket stays reachable by nginx at /run/v2ray
     };
   };
   lantian.harden.v2ray = true;

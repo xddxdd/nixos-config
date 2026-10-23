@@ -138,6 +138,10 @@ let
       # keep-sorted end
     ];
   };
+
+  jqSecrets = utils.genJqSecretsReplacement {
+    loadCredential = true;
+  } cfg "/run/dex/config.yaml";
 in
 {
   imports = [ ./postgresql.nix ];
@@ -183,19 +187,21 @@ in
     ];
     requires = [ "postgresql.target" ];
     script = ''
-      ${utils.genJqSecretsReplacementSnippet cfg "/run/dex/config.yaml"}
+      ${jqSecrets.script}
       exec ${lib.getExe pkgs.dex-oidc} serve /run/dex/config.yaml
     '';
     serviceConfig = LT.serviceHarden // {
+      LoadCredential = jqSecrets.credentials;
       DynamicUser = lib.mkForce false;
       User = "dex";
       Group = "dex";
       RuntimeDirectory = "dex";
       Restart = "always";
       RestartSec = "5";
-      # FIXME: hardening to access secrets without direct access
-      BindPaths = [
-        "/run"
+      # Postgres unix socket; RuntimeDirectory config.yaml is mounted from the
+      # host automatically
+      BindReadOnlyPaths = [
+        "/run/postgresql"
       ];
     };
   };

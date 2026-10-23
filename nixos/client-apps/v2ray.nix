@@ -148,6 +148,10 @@ let
       ];
     };
   };
+
+  jqSecrets = utils.genJqSecretsReplacement {
+    loadCredential = true;
+  } v2rayConf "/run/v2ray/config.json";
 in
 {
   sops.secrets = lib.genAttrs [ "v2ray-key" ] (_: {
@@ -177,11 +181,12 @@ in
     script = ''
       rm -f /run/v2ray/v2ray.sock
 
-      ${utils.genJqSecretsReplacementSnippet v2rayConf "/run/v2ray/config.json"}
+      ${jqSecrets.script}
 
       exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
     serviceConfig = LT.serviceHarden // {
+      LoadCredential = jqSecrets.credentials;
       User = "v2ray";
       Group = "v2ray";
       RuntimeDirectory = "v2ray";
@@ -189,10 +194,8 @@ in
       RestartSec = 5;
       # Secret is owned by the v2ray user; user namespace would unmap that uid
       PrivateUsers = false;
-      # FIXME: hardening to access secrets without direct access
-      BindReadOnlyPaths = [
-        "/run"
-      ];
+      # RuntimeDirectory is mounted from the host into this confined unit's
+      # namespace, so the unix socket stays reachable at /run/v2ray
     };
   };
   lantian.harden.v2ray = true;
