@@ -922,29 +922,6 @@
         "type": "github"
       }
     },
-    "ollama-cpa-honeypot": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792048073,
-        "narHash": "sha256-s2IeszPxsN4lXpotgLR3RNvKpN2qW9Ov1ZPobSet/WE=",
-        "ref": "refs/heads/main",
-        "rev": "cb16c65c3617395514dbc8a011e0c2960833b651",
-        "revCount": 9,
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/ollama-cpa-honeypot"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/ollama-cpa-honeypot"
-      }
-    },
     "picoforge": {
       "inputs": {
         "flake-parts": [
@@ -1066,7 +1043,6 @@
         "nixpkgs-multiverse": "nixpkgs-multiverse",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
-        "ollama-cpa-honeypot": "ollama-cpa-honeypot",
         "picoforge": "picoforge",
         "plasma-manager": "plasma-manager",
         "preservation": "preservation",

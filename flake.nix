@@ -138,11 +138,6 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
       inputs.pre-commit-hooks-nix.follows = "git-hooks";
     };
-    ollama-cpa-honeypot = {
-      url = "git+https://git.lantian.pub/lantian/ollama-cpa-honeypot";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     picoforge = {
       url = "github:librekeys/picoforge";
       inputs.flake-parts.follows = "flake-parts";

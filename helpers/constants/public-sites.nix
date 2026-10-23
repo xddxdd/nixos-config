@@ -46,8 +46,6 @@
   "flapalerted.lantian.pub"
   "lg.lantian.dn42"
   "lg.lantian.pub"
-  "ollama-cpa-honeypot-cpa"
-  "ollama-cpa-honeypot-ollama"
   # keep-sorted end
 ]
 # 301 redirect vhosts for replaced old host names: serve no content, just redirect
