@@ -112,12 +112,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "n8n";
-      target = "pve-epyc.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "netbox";
       target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
@@ -136,20 +130,8 @@ let
     }
     {
       recordType = "CNAME";
-      name = "rsshub";
-      target = "colocrossing.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "rsync-ci";
       target = "colocrossing";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "searx";
-      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {

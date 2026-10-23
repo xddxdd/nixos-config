@@ -274,13 +274,6 @@ in
       ];
     })
     {
-      job_name = "sglang-sakura-llm";
-      scheme = "https";
-      static_configs = [
-        { targets = [ "sakura-llm.pve-epyc.xuyh0120.win" ]; }
-      ];
-    }
-    {
       job_name = "sakura-share";
       scheme = "https";
       static_configs = [

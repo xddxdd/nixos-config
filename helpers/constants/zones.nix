@@ -38,18 +38,6 @@ let
       "emc"
       "lib"
     ];
-    YggdrasilAlfis = [
-      "anon"
-      "btn"
-      "conf"
-      "index"
-      "merch"
-      "mirror"
-      "mob"
-      "screen"
-      "srv"
-      "ygg"
-    ];
     CRXN = [ "crxn" ];
     Meshname = [
       "meshname"

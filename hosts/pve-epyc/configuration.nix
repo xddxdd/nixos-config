@@ -37,14 +37,12 @@
     # ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets
     ../../nixos/optional-apps/mtranserver
-    # # ../../nixos/optional-apps/n8n # compromised
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nfs.nix
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
     # ../../nixos/optional-apps/resin.nix # missing regenerated secret resin.yaml
-    # ../../nixos/optional-apps/searxng.nix # missing regenerated secret searxng.yaml
     ../../nixos/optional-apps/sftp-server.nix
     # # ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/syncthing

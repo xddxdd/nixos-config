@@ -58,10 +58,6 @@ src.git = "https://github.com/Womsxd/MihoyoBBSTools.git"
 fetch.github = "wis/mpvSockets"
 src.git = "https://github.com/wis/mpvSockets.git"
 
-[n8n-openai-bridge-customized]
-fetch.github = "xddxdd/n8n-openai-bridge"
-src.git = "https://github.com/xddxdd/n8n-openai-bridge.git"
-
 [nmea-static-gps-server]
 fetch.github = "evert/nmea-static-gps-server"
 src.git = "https://github.com/evert/nmea-static-gps-server.git"

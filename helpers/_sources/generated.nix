@@ -148,18 +148,6 @@
     };
     date = "2024-02-13";
   };
-  n8n-openai-bridge-customized = {
-    pname = "n8n-openai-bridge-customized";
-    version = "46df0398f3397fa240619f5d91db98351b1ead5f";
-    src = fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "n8n-openai-bridge";
-      rev = "46df0398f3397fa240619f5d91db98351b1ead5f";
-      fetchSubmodules = false;
-      sha256 = "sha256-jbUefUfzsatjNDtXK/GdpVC2AzzuCcTyhG9NXb3g0U8=";
-    };
-    date = "2026-04-27";
-  };
   nmea-static-gps-server = {
     pname = "nmea-static-gps-server";
     version = "cb2e67796026a7250c91e89834ece3618500954b";

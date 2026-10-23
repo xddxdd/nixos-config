@@ -23,7 +23,6 @@ let
     "https://flapalerted.lantian.pub"
     "https://git.lantian.pub"
     "https://lab.lantian.pub"
-    "https://lemmy.lantian.pub"
     "https://lg.lantian.pub"
     "https://login.lantian.pub"
     "https://matrix.lantian.pub/_matrix/client/versions"
@@ -45,8 +44,6 @@ let
     "https://netbox.xuyh0120.win"
     "https://prometheus.xuyh0120.win"
     "https://rss.xuyh0120.win"
-    "https://rsshub.xuyh0120.win"
-    "https://searx.xuyh0120.win"
     "https://stats.xuyh0120.win"
     # "https://tachidesk.xuyh0120.win"
   ];

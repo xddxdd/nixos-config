@@ -63,7 +63,6 @@ let
           read-frog-open-ai-translator
           redirector
           return-youtube-dislikes
-          rsshub-radar
           sponsorblock
           steam-database
           tab-reloader

@@ -133,12 +133,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "lemmy";
-      target = "colocrossing";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "lg";
       target = "colocrossing";
     }

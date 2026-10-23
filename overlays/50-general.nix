@@ -81,9 +81,6 @@ rec {
       else
         final.ffmpeg;
   };
-  n8n = prev.n8n.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/n8n-17954-openai-compatible-reranker.patch ];
-  });
   netavark = prev.netavark.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
