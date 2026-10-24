@@ -9,12 +9,27 @@
 let
   netns = config.lantian.netns.coredns-authoritative;
 
+  # DNSSEC key file names parsed from the sops-encrypted nixos-secrets
+  # keyset; each gets a sops secret declaration, and private halves are
+  # passed as systemd credentials.
+  dnssecKeyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
+    builtins.filter (lib.hasPrefix "    K") (
+      lib.splitString "\n" (builtins.readFile (inputs.secrets + "/common/dnssec.yaml"))
+    )
+  );
+
   corednsConfig =
     let
-      # Disabled: common/dnssec.yaml (DNSSEC key set) removed from
-      # nixos-secrets (7bcc13f); zones are served unsigned for now. Restore
-      # the file and revert this to re-enable DNSSEC.
-      dnssec = _key: "";
+      dnssec =
+        key:
+        if key != null then
+          ''
+            dnssec {
+              key file "$CREDENTIALS_DIRECTORY/${key}.private"
+            }
+          ''
+        else
+          "";
       forwardZone = zone: dnssecKey: ''
         ${zone} {
           any
@@ -43,12 +58,12 @@ let
       }
 
       # DN42 Lan Tian Authoritatives
-      ${forwardZone "lantian.dn42" "Klantian.dn42.+013+20109"}
+      ${forwardZone "lantian.dn42" "Klantian.dn42.+013+13904"}
       ${forwardZone "asn.lantian.dn42" null}
-      ${forwardZone "184/29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+08709"}
-      ${forwardZone "96/27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+41969"}
-      ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+18344"}
-      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+33346"}
+      ${forwardZone "184/29.76.22.172.in-addr.arpa" "K184_29.76.22.172.in-addr.arpa.+013+37708"}
+      ${forwardZone "96/27.76.22.172.in-addr.arpa" "K96_27.76.22.172.in-addr.arpa.+013+60900"}
+      ${forwardZone "d.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa" "Kd.a.7.6.c.d.9.f.c.b.d.f.ip6.arpa.+013+39604"}
+      ${forwardZone "7.4.5.2.4.2.4.0.tel.dn42" "K7.4.5.2.4.2.4.0.tel.dn42.+013+12192"}
 
       # DN42 Authoritative
       ${forwardZone "dn42" null}
@@ -67,20 +82,20 @@ let
       ${forwardZone "ad.lantian.pub" null}
 
       # NeoNetwork Lan Tian Authoritative
-      ${forwardZone "lantian.neo" "Klantian.neo.+013+47346"}
+      ${forwardZone "lantian.neo" "Klantian.neo.+013+42520"}
       ${forwardZone "asn.lantian.neo" null}
-      ${forwardZone "10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+53292"}
-      ${forwardZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+11807"}
+      ${forwardZone "10.127.10.in-addr.arpa" "K10.127.10.in-addr.arpa.+013+09857"}
+      ${forwardZone "0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa" "K0.1.0.0.7.2.1.0.0.1.d.f.ip6.arpa.+013+63734"}
 
       # LTNET Public Facing Addressing
-      ${forwardZone "asn.lantian.pub" "Kasn.lantian.pub.+013+48539"}
+      ${forwardZone "asn.lantian.pub" "Kasn.lantian.pub.+013+65412"}
 
       # LTNET Authoritative
       ${forwardZone "18.198.in-addr.arpa" null}
       ${forwardZone "19.198.in-addr.arpa" null}
 
       # Public Internet Authoritative
-      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+37106"}
+      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+52244"}
 
       # OpenNIC Authoritative
       ${forwardZone "opennic.glue" null}
@@ -121,22 +136,10 @@ let
 
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
-  # Disabled: common/dnssec.yaml removed from nixos-secrets (7bcc13f);
-  # restore from git history together with the DNSSEC gate in the Corefile.
-  # sops.secrets =
-  #   let
-  #     lines = lib.splitString "\n" (builtins.readFile (inputs.secrets +
-  #       "/common/dnssec.yaml"));
-  #     keyNames = builtins.map (l: lib.trim (builtins.head (lib.splitString ":" l))) (
-  #       builtins.filter (lib.hasPrefix "    K") lines
-  #     );
-  #   in
-  #   lib.genAttrs keyNames (n: {
-  #     sopsFile = inputs.secrets + "/common/dnssec.yaml";
-  #     key = "dnssec/''${n}";
-  #     owner = "coredns";
-  #     group = "coredns";
-  #   });
+  sops.secrets = lib.genAttrs dnssecKeyNames (n: {
+    sopsFile = inputs.secrets + "/common/dnssec.yaml";
+    key = "dnssec/${n}";
+  });
 
   lantian.netns.coredns-authoritative = {
     ipSuffix = "54";
@@ -432,7 +435,13 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         MemoryMax = "256M";
         MemorySwapMax = "64M";
 
-        ExecStart = "${lib.getExe pkgs.nur-xddxdd.lantianCustomized.coredns} -conf=${corednsConfig}";
+        # Render the Corefile template: it references $CREDENTIALS_DIRECTORY,
+        # which systemd exposes only at unit runtime. coredns reads the
+        # rendered static copy instead.
+        ExecStartPre = "${lib.getExe pkgs.bash} -c \"${lib.getExe pkgs.envsubst} < ${corednsConfig} > /run/coredns-authoritative/Corefile\"";
+        ExecStart = "${lib.getExe pkgs.nur-xddxdd.lantianCustomized.coredns} -conf=/run/coredns-authoritative/Corefile";
+        LoadCredential = map (n: "${n}:${config.sops.secrets."${n}".path}") dnssecKeyNames;
+        RuntimeDirectory = "coredns-authoritative";
         ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -SIGUSR1 $MAINPID";
         Restart = "on-failure";
         RestartSec = "5s";

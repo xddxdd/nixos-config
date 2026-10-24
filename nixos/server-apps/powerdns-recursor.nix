@@ -61,9 +61,7 @@ let
     in
     azurePrivateDNS ++ all;
 in
-# FIXME: temporarily disabled
-lib.mkIf false {
-  # lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
+lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   networking.nameservers = lib.mkBefore [ "198.19.0.253" ];
 
   lantian.netns.powerdns-recursor = {
@@ -99,7 +97,8 @@ lib.mkIf false {
         rpzFile("${LT.sources.delegacy-rpz.src}")
 
         ${ntaRecords}
-        dofile("/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
+        -- FIXME
+        -- dofile("/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
       '';
     serveRFC1918 = false;
     settings = {
@@ -111,7 +110,8 @@ lib.mkIf false {
         any_to_tcp = true;
         qname_minimization = false;
         server_id = "${config.networking.hostName}.lantian.pub";
-        forward_zones_file = "/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
+        # FIXME
+        # forward_zones_file = "/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
         forward_zones = forwardZones;
         forward_zones_recurse = forwardZonesRecurse;
       };

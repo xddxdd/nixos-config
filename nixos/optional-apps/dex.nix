@@ -132,7 +132,6 @@ let
         secret = {
           _secret = config.sops.secrets.dex-tranquil-pds-secret.path;
         };
-        # FIXME
         redirectURIs = [ "https://at.lantian.pub/oauth/sso/callback" ];
       }
       # keep-sorted end

@@ -274,9 +274,8 @@ let
       + (lib.optionalString (config.listenHTTPS.enable || config.listenHTTPS_Socket.enable) (
         if config.sslCertificate != null then
           ''
-            # FIXME: reenable when RSA certs ready
-            #ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-rsa"};
-            #ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-rsa"};
+            ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-rsa"};
+            ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-rsa"};
 
             ssl_certificate ${LT.nginx.getSSLCert "${config.sslCertificate}-ecc"};
             ssl_certificate_key ${LT.nginx.getSSLKey "${config.sslCertificate}-ecc"};

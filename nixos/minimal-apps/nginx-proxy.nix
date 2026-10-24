@@ -85,6 +85,8 @@ in
 
     systemd.services.nginx-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];
+      after = [ "nginx.service" ];
+      requires = [ "nginx.service" ];
       serviceConfig = LT.serviceHarden // {
         ExecStart = "${lib.getExe config.services.nginx.package} -c ${nginxConfig}";
         Restart = "always";
@@ -98,12 +100,17 @@ in
           "CAP_NET_BIND_SERVICE"
           "CAP_SYS_RESOURCE"
         ];
+        PrivateUsers = false; # For binding to privileged ports
+
         User = config.services.nginx.user;
         Group = config.services.nginx.group;
         MemoryDenyWriteExecute = lib.mkForce false;
         TemporaryFileSystem = [ "/var/log/nginx:mode=0777" ];
+        BindReadOnlyPaths = [ "/run/nginx" ];
         LimitMEMLOCK = "infinity";
+        SystemCallFilter = [ ];
       };
     };
+    lantian.harden.nginx-proxy = true;
   };
 }
