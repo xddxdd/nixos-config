@@ -1,8 +1,5 @@
 {
   inputs,
-  config,
-  lib,
-  LT,
   ...
 }:
 {
@@ -76,11 +73,4 @@
   };
 
   lantian.firewall.wanARPSubnets = [ "23.94.65.216/30" ];
-
-  virtualisation.oci-containers.containers.byparr.ports = [
-    "${LT.this.ltnet.IPv4}:${LT.portStr.FlareSolverr}:8191"
-  ];
-  systemd.services.flaresolverr = lib.mkIf config.services.flaresolverr.enable {
-    environment.HOST = lib.mkForce LT.this.ltnet.IPv4;
-  };
 }

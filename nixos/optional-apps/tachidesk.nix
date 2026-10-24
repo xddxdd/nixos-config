@@ -26,7 +26,7 @@
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
       ];
       FLARESOLVERR_ENABLED = "true";
-      FLARESOLVERR_URL = "http://127.0.0.1:${LT.portStr.FlareSolverr}";
+      FLARESOLVERR_URL = "http://198.19.0.1:${LT.portStr.FlareSolverr}";
       SOCKS_PROXY_ENABLED = "false";
     };
     volumes = [ "/var/lib/tachidesk:/home/suwayomi/.local/share/Tachidesk" ];

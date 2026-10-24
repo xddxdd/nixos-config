@@ -11,7 +11,6 @@ let
   defaultDownloadPath = "/mnt/storage/downloads";
   qBitTorrentPTSonarrDownloadPath = "/mnt/storage/.downloads-qb-pt";
   qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
-  flexgetAutoDownloadPath = "/mnt/storage/.downloads-auto";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
 
@@ -44,8 +43,6 @@ in
     ../../nixos/optional-apps/qbittorrent-pt.nix
     ../../nixos/optional-apps/sonarr
     ../../nixos/optional-cron-jobs/sonarr-queue-cleanup
-
-    # ../../nixos/optional-cron-jobs/flexget
   ];
 
   services.xserver.enable = lib.mkForce false;
@@ -58,11 +55,6 @@ in
         group = "root";
       };
       "${defaultDownloadPath}".d = {
-        mode = "755";
-        user = "lantian";
-        group = "users";
-      };
-      "${flexgetAutoDownloadPath}".d = {
         mode = "755";
         user = "lantian";
         group = "users";
@@ -193,7 +185,6 @@ in
       StateDirectory = "qbittorrent-pt";
       BindPaths = [
         defaultDownloadPath
-        flexgetAutoDownloadPath
         qBitTorrentPTSonarrDownloadPath
       ];
     };

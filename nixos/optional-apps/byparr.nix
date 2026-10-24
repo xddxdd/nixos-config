@@ -11,7 +11,7 @@
       USE_HEADLESS = "false";
       USE_XVFB = "true";
     };
-    ports = [ "127.0.0.1:${LT.portStr.FlareSolverr}:8191" ];
+    ports = [ "198.19.0.1:${LT.portStr.FlareSolverr}:8191" ];
   };
 
   services.flaresolverr.enable = lib.mkForce false;
