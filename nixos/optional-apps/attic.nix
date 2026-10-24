@@ -8,15 +8,14 @@
 {
   imports = [ ./postgresql.nix ];
 
-  sops.secrets.attic-credentials = {
-    sopsFile = inputs.secrets + "/common/attic.yaml";
-    owner = "atticd";
-    group = "atticd";
-  };
+  sops.secrets.attic-server-token.sopsFile = inputs.secrets + "/attic.yaml";
+  sops.templates.attic-env.content = ''
+    ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64=${config.sops.placeholder.attic-server-token}
+  '';
 
   services.atticd = {
     enable = true;
-    environmentFile = config.sops.secrets.attic-credentials.path;
+    environmentFile = config.sops.templates.attic-env.path;
     mode = "monolithic";
     settings = lib.mkForce {
       listen = "[::1]:${LT.portStr.Attic}";
