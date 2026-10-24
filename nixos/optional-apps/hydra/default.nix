@@ -45,6 +45,7 @@ in
   imports = [
     ../nix-distributed.nix
     ../postgresql.nix
+    ./cancel-old-builds.nix
   ];
 
   sops.secrets.hydra-attic-push-token = {
@@ -53,6 +54,7 @@ in
     owner = "hydra-queue-runner";
     group = "hydra";
   };
+  sops.secrets.hydra-script-password.sopsFile = inputs.secrets + "/hydra.yaml";
   # hydra-server runs as hydra-www, with primary group hydra.
   sops.secrets.dex-hydra-secret = {
     sopsFile = inputs.secrets + "/dex/hydra.yaml";
