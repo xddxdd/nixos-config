@@ -139,7 +139,7 @@
     CUDA_VISIBLE_DEVICES = "1";
   };
 
-  services.scx.enable = lib.mkForce true;
+  services.scx.enable = lib.mkForce false;
 
   # Avoid nix builds saturating CPU
   systemd.services.nix-daemon.serviceConfig.CPUAffinity = "16-${
