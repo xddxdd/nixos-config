@@ -53,7 +53,10 @@
     ];
     serviceConfig = LT.networkToolHarden // {
       RuntimeDirectory = "netbox";
-      BindReadOnlyPaths = [ "/run/postgresql" ];
+      BindReadOnlyPaths = [
+        "/run/postgresql"
+        "/run/redis-netbox"
+      ];
     };
   };
   systemd.services.netbox-rq = {
@@ -66,7 +69,10 @@
       "postgresql.target"
     ];
     serviceConfig = LT.serviceHarden // {
-      BindReadOnlyPaths = [ "/run/postgresql" ];
+      BindReadOnlyPaths = [
+        "/run/postgresql"
+        "/run/redis-netbox"
+      ];
     };
   };
   lantian.harden.netbox = true;

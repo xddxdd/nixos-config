@@ -2,6 +2,7 @@
   lib,
   config,
   LT,
+  pkgs,
   ...
 }:
 {
@@ -102,7 +103,10 @@
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
-    BindReadOnlyPaths = [ "/run" ]; # for SMTP password
+    BindReadOnlyPaths = [
+      "/run" # for SMTP password
+      "${lib.getExe' pkgs.coreutils "env"}:/usr/bin/env" # for hooks
+    ];
   };
   lantian.harden.gitea = true;
 
