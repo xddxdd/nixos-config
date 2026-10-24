@@ -47,6 +47,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "attic";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "books";
       target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";

@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
     # If build is successful, trigger attic for output paths
     try:
-        if os.environ.get("HYDRA_ATTIC_PUSH") == "true" and event.successful:
+        if event.successful:
             output_paths = [o.path for o in event.outputs]
             for _ in range(3):
                 try:

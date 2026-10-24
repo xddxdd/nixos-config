@@ -7,7 +7,6 @@
   ...
 }:
 let
-  atticPushEnabled = false;
   hydraServices = [
     "hydra-builder"
     "hydra-check-space"
@@ -28,18 +27,15 @@ let
       requests
     ]
   );
-  path = lib.makeBinPath (
-    [
-      pkgs.gitMinimal
-      pkgs.jq
-    ]
-    ++ lib.optional atticPushEnabled pkgs.attic-client
-  );
+  path = lib.makeBinPath [
+    pkgs.attic-client
+    pkgs.gitMinimal
+    pkgs.jq
+  ];
 
   hydra-post-build = pkgs.writeShellScript "post-build" ''
     export PATH="${path}:$PATH"
     export HYDRA_URL="http://${LT.this.ltnet.IPv4}:${LT.portStr.Hydra.WebUI}"
-    export HYDRA_ATTIC_PUSH="${lib.boolToString atticPushEnabled}"
 
     jq . "$HYDRA_JSON"
     exec ${lib.getExe' py "python3"} ${./post-build.py} "$HYDRA_JSON"
@@ -51,8 +47,8 @@ in
     ../postgresql.nix
   ];
 
-  sops.secrets.attic-upload-key = lib.mkIf atticPushEnabled {
-    sopsFile = inputs.secrets + "/common/attic.yaml";
+  sops.secrets.hydra-attic-push-token = {
+    sopsFile = inputs.secrets + "/hydra.yaml";
     mode = "0440";
     owner = "hydra-queue-runner";
     group = "hydra";
@@ -220,16 +216,22 @@ in
 
       hydra-notify = {
         environment.GITHUB_TOKEN_FILE = "%d/github-token";
-        preStart = lib.mkIf atticPushEnabled ''
+        preStart = ''
           if [ ! -f "$HOME/.config/attic/config.toml" ]; then
             ${lib.getExe pkgs.attic-client} login --set-default lantian \
-              https://attic.colocrossing.xuyh0120.win \
-              $(cat ${config.sops.secrets.attic-upload-key.path})
+              https://cache.lantian.pub \
+              $(cat $CREDENTIALS_DIRECTORY/hydra-attic-push-token)
           fi
         '';
         serviceConfig = {
-          LoadCredential = [ "github-token:${config.sops.secrets.nix-github-key.path}" ];
-          BindPaths = [ "/var/lib/hydra/runcommand-logs" ];
+          LoadCredential = [
+            "github-token:${config.sops.secrets.nix-github-key.path}"
+            "hydra-attic-push-token:${config.sops.secrets.hydra-attic-push-token.path}"
+          ];
+          BindPaths = [
+            "/var/lib/hydra/runcommand-logs"
+            "/var/lib/hydra/queue-runner"
+          ];
           BindReadOnlyPaths = [
             "/run/postgresql"
             "/nix/store"
@@ -335,7 +337,7 @@ in
         BindPaths = [ "/var/lib/hydra/build-logs" ];
       };
 
-      hydra-attic-repush = lib.mkIf atticPushEnabled {
+      hydra-attic-repush = {
         script = ''
           (for F in /nix/var/nix/gcroots/hydra/*; do
             echo "/nix/store/$(basename "$F")"
@@ -350,7 +352,7 @@ in
     }
   ];
 
-  systemd.timers.hydra-attic-repush = lib.mkIf atticPushEnabled {
+  systemd.timers.hydra-attic-repush = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "hourly";
