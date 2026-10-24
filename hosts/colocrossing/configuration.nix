@@ -28,7 +28,7 @@
     ../../nixos/optional-apps/fastpit.nix
     ../../nixos/optional-apps/flapalerted.nix
     ../../nixos/optional-apps/gitea
-    # ../../nixos/optional-apps/gitea-actions.nix
+    ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/imapfilter.nix
     ../../nixos/optional-apps/loki.nix
     ../../nixos/optional-apps/matrix-synapse

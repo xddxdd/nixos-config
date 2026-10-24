@@ -6,7 +6,7 @@
   ...
 }:
 {
-  sops.secrets.gitea-actions-token.sopsFile = inputs.secrets + "/gitea.yaml";
+  sops.secrets.gitea-actions-token.sopsFile = inputs.secrets + "/gitea-actions.yaml";
 
   lantian.enablePodman = lib.mkForce true;
 
@@ -16,14 +16,8 @@
     url = "https://git.lantian.pub";
     labels = builtins.map (n: "${n}:docker://gitea/runner-images:${n}") [
       "ubuntu-latest"
-      "ubuntu-22.04"
-      "ubuntu-20.04"
       "ubuntu-latest-slim"
-      "ubuntu-22.04-slim"
-      "ubuntu-20.04-slim"
       "ubuntu-latest-full"
-      "ubuntu-22.04-full"
-      "ubuntu-20.04-full"
     ];
     tokenFile = config.sops.secrets.gitea-actions-token.path;
 
@@ -44,9 +38,10 @@
     Group = lib.mkForce "gitea-actions";
 
     CacheDirectory = "gitea-actions";
-    # Upstream module sets RestartSec = 2, below the ensure-service-restart policy
     RestartSec = lib.mkForce "5s";
+    BindReadOnlyPaths = [ "/run" ]; # Docker/podman socket
   };
+  lantian.harden.gitea-runner-default = true;
 
   users.users.gitea-actions = {
     group = "gitea-actions";
