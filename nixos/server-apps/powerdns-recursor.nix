@@ -97,8 +97,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         rpzFile("${LT.sources.delegacy-rpz.src}")
 
         ${ntaRecords}
-        -- FIXME
-        -- dofile("/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
+
+        dofile("/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.lua")
       '';
     serveRFC1918 = false;
     settings = {
@@ -110,8 +110,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         any_to_tcp = true;
         qname_minimization = false;
         server_id = "${config.networking.hostName}.lantian.pub";
-        # FIXME
-        # forward_zones_file = "/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
+        forward_zones_file = "/nix/sync-servers/ltnet-scripts/pdns-recursor-conf/fwd-dn42-interconnect.yml";
         forward_zones = forwardZones;
         forward_zones_recurse = forwardZonesRecurse;
       };
