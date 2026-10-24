@@ -20,7 +20,7 @@
   };
 
   systemd.services.qbittorrent.preStart = ''
-    ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/lockfile
+    ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent/qBittorrent/config/lockfile
   '';
 
   systemd.services.qbittorrent.serviceConfig = {
