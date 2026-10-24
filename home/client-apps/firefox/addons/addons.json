@@ -22,9 +22,9 @@
   },
   {
     "pname": "bilisponsorblock",
-    "version": "0.17.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5129607/bilisponsorblock-0.17.0.xpi",
-    "hash": "sha256-En27xVc3T0CsRx7wNdIyKQ7pV//FMb7B0aftnVdxpQM=",
+    "version": "0.17.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5157710/bilisponsorblock-0.17.1.xpi",
+    "hash": "sha256-dpl16OFg3Vl2YFPgX9M6QkkFQUqZ4RHOz7LzO+QVHdc=",
     "addonId": "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}"
   },
   {
