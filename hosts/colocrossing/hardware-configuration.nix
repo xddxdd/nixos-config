@@ -8,6 +8,7 @@
 {
   imports = [
     # ../../nixos/hardware/crashdump.nix
+    ../../nixos/hardware/disable-watchdog.nix # reboot under heavy load
     ../../nixos/hardware/ecc-ram.nix
   ];
 
