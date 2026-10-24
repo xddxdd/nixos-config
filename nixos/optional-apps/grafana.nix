@@ -101,7 +101,7 @@ in
     StateDirectory = "grafana";
     SystemCallFilter = [ "@chown" ];
     ProcSubset = "all";
-    BindReadOnlyPaths = [ "/run/mysql" ];
+    BindReadOnlyPaths = [ "/run/mysqld" ];
   };
   lantian.harden.grafana = true;
 
