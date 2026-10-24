@@ -47,6 +47,7 @@ let
       inputs.home-manager.nixosModules.home-manager
       inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-gaming.nixosModules.platformOptimizations
+      inputs.nur-xddxdd.nixosModules.nix-cache-attic
       inputs.nur-xddxdd.nixosModules.openssl-conf
       inputs.nur-xddxdd.nixosModules.openssl-oqs-provider
       inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
