@@ -6,13 +6,19 @@ _: final: prev: {
     '';
   });
   pve-docs = prev.pve-docs.override {
-    asciidoc = prev.asciidoc.overrideAttrs (old: {
-      # The PVE dblatex wrapper installs bin/dblatex, not bin/dblatex-wrapped.
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace asciidoc/a2x.py \
-          --replace-fail "/bin/dblatex-wrapped'" "/bin/dblatex'"
-      '';
-    });
+    asciidoc = prev.asciidoc // {
+      # PVE passes its dblatex wrapper here; set metadata before getExe uses it.
+      override =
+        args:
+        prev.asciidoc.override (
+          args
+          // {
+            dblatexFull = args.dblatexFull.overrideAttrs {
+              meta.mainProgram = "dblatex";
+            };
+          }
+        );
+    };
   };
   pve-qemu-server = prev.pve-qemu-server.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [

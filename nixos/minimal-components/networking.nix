@@ -132,9 +132,16 @@ in
     };
   };
 
-  systemd.services.systemd-networkd.restartIfChanged = false;
-  # Read restored .netdev files without restarting networkd or the uplinks.
-  systemd.services.systemd-networkd.reloadIfChanged = true;
+  systemd.services.systemd-networkd = {
+    restartIfChanged = false;
+    # Read restored .netdev files without restarting networkd or the uplinks.
+    reloadIfChanged = true;
+    # reloadIfChanged also reloads on restartTriggers; keep all triggers there.
+    reloadTriggers = lib.mkForce [ ];
+    restartTriggers = lib.mapAttrsToList (name: unit: "${unit.unit}/${name}") (
+      lib.filterAttrs (name: _: lib.hasSuffix ".network" name) config.systemd.network.units
+    );
+  };
   services.resolved.enable = false;
 
   services.mptcpd = {
