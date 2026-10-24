@@ -21,7 +21,7 @@ in
     ];
     wantedBy = [ "multi-user.target" ];
     preStart = ''
-      ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/*.lock
+      ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/lockfile
     '';
 
     serviceConfig = LT.serviceHarden // {
