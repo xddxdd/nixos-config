@@ -7,10 +7,6 @@
 {
   imports = [ ../mysql.nix ];
 
-  sops.templates.gitea-env.content = ''
-    GITEA__mailer__PASSWD=${config.sops.placeholder.smtp-pass}
-  '';
-
   services.gitea = {
     enable = true;
     appName = "Lan Tian @ Git";
@@ -23,6 +19,7 @@
     };
     lfs.enable = true;
     user = "git";
+    mailerPasswordFile = config.sops.secrets.smtp-pass.path;
 
     settings = {
       ui = {
@@ -79,7 +76,6 @@
         SMTP_ADDR = config.programs.msmtp.accounts.default.host;
         SMTP_PORT = config.programs.msmtp.accounts.default.port;
         USER = config.programs.msmtp.accounts.default.user;
-        # PASSWD is set via env var
       };
       "git.timeout" = {
         DEFAULT = 3600;
@@ -103,11 +99,10 @@
   };
 
   systemd.services.gitea.serviceConfig = LT.serviceHarden // {
-    EnvironmentFile = [ config.sops.templates.gitea-env.path ];
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
-    BindReadOnlyPaths = [ "/run/mysqld" ];
+    BindReadOnlyPaths = [ "/run" ]; # for SMTP password
   };
   lantian.harden.gitea = true;
 
