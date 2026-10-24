@@ -115,7 +115,8 @@ in
     };
 
     extraConfig = ''
-      local_auth_enabled = 0
+      # Required for custom scripts
+      local_auth_enabled = 1
       # Read by Hydra::Helper::LogEndpoints; any path works, hydra-ws accepts
       # upgrades on every path. Proxied at /ws on the public-facing hosts.
       ws_endpoint = wss://hydra.lantian.pub/ws
@@ -181,7 +182,7 @@ in
       hydra-server.serviceConfig = {
         RestartSec = "5s";
         BindPaths = [
-          "/var/lib/hydra/www"
+          "/var/lib/hydra"
           config.services.hydra.gcRootsDir
         ];
         BindReadOnlyPaths = [
@@ -229,8 +230,8 @@ in
             "hydra-attic-push-token:${config.sops.secrets.hydra-attic-push-token.path}"
           ];
           BindPaths = [
-            "/var/lib/hydra/runcommand-logs"
-            "/var/lib/hydra/queue-runner"
+            "/var/lib/hydra"
+            config.services.hydra.gcRootsDir
           ];
           BindReadOnlyPaths = [
             "/run/postgresql"
@@ -249,8 +250,7 @@ in
         serviceConfig = {
           OOMScoreAdjust = "1000";
           BindPaths = [
-            "/var/lib/hydra/build-logs"
-            "/var/lib/hydra/queue-runner"
+            "/var/lib/hydra"
             config.services.hydra.gcRootsDir
           ];
           BindReadOnlyPaths = [
@@ -276,7 +276,11 @@ in
         serviceConfig = {
           # Builder capacity and pressure reporting reads /proc/{meminfo,cpuinfo,pressure}.
           ProcSubset = "all";
-          BindPaths = [ "/nix/var/nix/gcroots" ];
+          BindPaths = [
+            "/nix/var/nix/gcroots"
+            "/var/lib/hydra"
+            config.services.hydra.gcRootsDir
+          ];
           BindReadOnlyPaths = [
             "/nix/store"
             "/nix/var/nix/daemon-socket"
@@ -307,7 +311,10 @@ in
 
       hydra-update-gc-roots.serviceConfig = {
         Type = "oneshot";
-        BindPaths = [ config.services.hydra.gcRootsDir ];
+        BindPaths = [
+          "/var/lib/hydra"
+          config.services.hydra.gcRootsDir
+        ];
         BindReadOnlyPaths = [
           "/run/postgresql"
           "/nix/store"
@@ -334,7 +341,10 @@ in
         Type = "oneshot";
         User = "hydra-queue-runner";
         Group = "hydra";
-        BindPaths = [ "/var/lib/hydra/build-logs" ];
+        BindPaths = [
+          "/var/lib/hydra"
+          config.services.hydra.gcRootsDir
+        ];
       };
 
       hydra-attic-repush = {
