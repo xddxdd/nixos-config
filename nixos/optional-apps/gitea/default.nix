@@ -8,7 +8,7 @@
   imports = [ ../mysql.nix ];
 
   sops.templates.gitea-env.content = ''
-    GITEA_mailer_PASSWD=${config.sops.placeholder.smtp-pass}
+    GITEA__mailer__PASSWD=${config.sops.placeholder.smtp-pass}
   '';
 
   services.gitea = {
@@ -91,6 +91,13 @@
       };
       storage = {
         STORAGE_TYPE = "local";
+      };
+      actions = {
+        ARTIFACT_RETENTION_DAYS = 90;
+        RUN_RETENTION_DAYS = 90;
+        ZOMBIE_TASK_TIMEOUT = "3h";
+        ENDLESS_TASK_TIMEOUT = "24h";
+        ABANDONED_JOB_TIMEOUT = "24h";
       };
     };
   };
