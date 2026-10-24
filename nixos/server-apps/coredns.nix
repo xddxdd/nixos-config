@@ -474,6 +474,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
           "/run/knot"
           "/var/lib/knot"
           "/var/cache/zones"
+          "/nix/sync-servers/ltnet-scripts"
+          "/nix/sync-servers/ltnet-zones"
         ];
       };
     };
