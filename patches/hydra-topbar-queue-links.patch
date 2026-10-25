@@ -1,0 +1,17 @@
+diff -ruN a/root/topbar.tt b/root/topbar.tt
+--- a/root/topbar.tt	2026-10-25 00:17:41.324702238 -0700
++++ b/root/topbar.tt	2026-10-25 00:17:41.339207461 -0700
+@@ -17,9 +17,12 @@
+ 
+   [% WRAPPER makeSubMenu title="Status" %]
+     [% INCLUDE menuItem
+-       uri = c.uri_for(c.controller('Root').action_for('queue_summary'))
++       uri = c.uri_for(c.controller('Root').action_for('queue'))
+        title = "Queue ("_ nrRunningBuilds _"/"_ nrQueuedBuilds _")" %]
+     [% INCLUDE menuItem
++       uri = c.uri_for(c.controller('Root').action_for('queue_summary'))
++       title = "Queue Summary" %]
++    [% INCLUDE menuItem
+        uri = c.uri_for(c.controller('Root').action_for('status'))
+        title = "Running builds" %]
+     [% INCLUDE menuItem

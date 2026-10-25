@@ -53,6 +53,7 @@ rec {
       ../patches/hydra-protect-private-project.patch
       ../patches/hydra-oidc-optional-nbf.patch
       ../patches/hydra-oidc-allow-unverified-email.patch
+      ../patches/hydra-topbar-queue-links.patch
     ];
   });
   # Systemd socket activation support, from https://github.com/esnet/iperf/pull/1171
