@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  boot.kernelParams = [ "gpu_unlock.targets=0000:81:00.0" ];
+  boot.kernelParams = [ "gpu_unlock.targets=all" ];
 
   # The unlock must finish before the NVIDIA driver binds the GPU.
   boot.initrd.kernelModules = [ "gpu_unlock" ];
