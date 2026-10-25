@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   LT,
   ...
 }:
@@ -215,7 +216,61 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
   lantian.nginxVhosts = builtins.listToAttrs (
     builtins.map (
       domain:
+      let
+        autoconfigScript = pkgs.writeText "autoconfig-${domain}.js" ''
+          import xml from 'xml';
+          import querystring from 'querystring';
+
+          function respond(r, template, email) {
+            if (typeof email !== 'string' || /[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]/.test(email)) {
+              r.return(400);
+              return;
+            }
+
+            const escaped = email.replace(/[&<>"']/g, c => ({
+              '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;'
+            })[c]);
+            r.headersOut['Content-Type'] = 'text/xml; charset=utf-8';
+            r.return(200, template.split('__EMAIL__').join(escaped) + '\n');
+          }
+
+          function mobileconfig(r) {
+            // QuickJS r.args decodes separators before splitting in njs 1.0.1.
+            const email = querystring.parse(r.variables.args || "").email;
+            if (!email) {
+              r.return(400);
+              return;
+            }
+            respond(r, ${builtins.toJSON (mobileconfigTemplate (emailConfigFor domain))}, email);
+          }
+
+          function autodiscover(r) {
+            let email = "";
+            if (r.requestText) {
+              // Restrict encodings so a DTD cannot bypass the check below.
+              if (/\x00|<!DOCTYPE/.test(r.requestText)
+                  || /<\?xml[^?]*\bencoding\s*=\s*["'](?!utf-8["'])/i.test(r.requestText)) {
+                r.return(400);
+                return;
+              }
+              try {
+                email = xml.parse(r.requestText).Autodiscover.Request.EMailAddress.$text;
+              } catch (e) {
+                r.return(400);
+                return;
+              }
+            }
+            respond(r, ${builtins.toJSON (autodiscoverTemplate (emailConfigFor domain))}, email);
+          }
+
+          export default { mobileconfig, autodiscover };
+        '';
+      in
       lib.nameValuePair "autoconfig.${domain}" {
+        extraConfig = ''
+          js_engine qjs;
+          js_import autoconfig from ${autoconfigScript};
+        '';
         locations = {
           "/mail/config-v1.1.xml" = {
             return = "200 '${autoconfigTemplate (emailConfigFor domain)}'";
@@ -223,6 +278,14 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
               add_header 'Content-Type' 'text/xml; charset=utf-8';
             '';
           };
+          "/email.mobileconfig".extraConfig = ''
+            js_content autoconfig.mobileconfig;
+          '';
+          "/autodiscover/autodiscover.xml".extraConfig = ''
+            client_max_body_size 64k;
+            client_body_buffer_size 64k;
+            js_content autoconfig.autodiscover;
+          '';
           "/autodiscover/autodiscover.json" = {
             return = "200 '${autodiscoverJsonTemplate (emailConfigFor domain)}'";
             extraConfig = ''
