@@ -9,9 +9,9 @@ let
   # same file as LT.serviceHarden (same key set as LT.networkToolHarden).
   # Imported directly instead of via LT to track the raw args without the
   # mkOptionDefault wrappers.
-  requiredKeys = builtins.attrNames (
-    (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs
-  );
+  requiredKeys =
+    builtins.attrNames
+      (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs;
 
   # Services legitimately needing full/hardware access: PVE cluster daemons,
   # sshd, OVS, hardware monitors, upstream system services
@@ -41,6 +41,7 @@ let
     "rtkit-daemon"
     "spiceproxy"
     "sshd"
+    "strata" # temporary exception for CUDA inference and runtime-managed model files
     "usbmuxd"
     "virtlockd"
     "virtlogd"

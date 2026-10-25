@@ -25,7 +25,6 @@ in
       STRATA_ALLOWED_HOSTS = "strata.${config.networking.hostName}.xuyh0120.win,strata.localhost";
     };
 
-    # The package wrapper copies into runtime/strata but does not create its parent.
     preStart = ''
       mkdir -p /var/cache/strata/runtime /var/cache/strata/config /var/cache/strata/data
     '';
@@ -46,8 +45,8 @@ in
       ProcSubset = "all";
 
       # Model data must stay outside runtime/strata, which is replaced on package updates.
-      # Explicit --model/--family would force setup on every restart.
-      ExecStart = "${lib.getExe strata} --yes --vision no --no-browser --host 127.0.0.1 --port ${LT.portStr.Strata} --gpu 0 --data-dir /var/cache/strata/data";
+      # Keep the family and quantization explicit instead of selecting the default IQ3_S.
+      ExecStart = "${lib.getExe strata} --yes --family unsloth --model UD-Q4_K_XL --backend cuda --source huggingface --context 32768 --kv int8 --mtp on --parallel 1 --vision no --no-browser --host 127.0.0.1 --port ${LT.portStr.Strata} --gpu 0 --data-dir /var/cache/strata/data";
     };
   };
 

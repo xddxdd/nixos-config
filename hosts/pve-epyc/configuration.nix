@@ -43,7 +43,7 @@
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/resin.nix
     ../../nixos/optional-apps/sftp-server.nix
-    # ../../nixos/optional-apps/strata.nix
+    ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tor.nix
