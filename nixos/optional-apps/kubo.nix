@@ -49,14 +49,14 @@ in
   };
 
   systemd.services.ipfs = config.lantian.netns.tnl-buyvm.bind {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "on-failure";
       RestartSec = "5s";
       # chroot's tmpfs root is ephemeral; bind host data dir through
       BindPaths = [ "/var/lib/ipfs" ];
     };
   };
-  lantian.harden.ipfs = true;
+  lantian.harden.ipfs.enable = true;
 
   users.users.lantian.extraGroups = [ config.services.kubo.group ];
   users.users.nginx.extraGroups = [ config.services.kubo.group ];

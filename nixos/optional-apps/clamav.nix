@@ -1,4 +1,4 @@
-{ config, lib, LT, ... }: {
+_: {
   services.clamav = {
     daemon.enable = true;
     updater.enable = true;
@@ -12,15 +12,14 @@
     };
   };
 
-  systemd.services.clamav-daemon.serviceConfig = LT.serviceHarden // {
+  systemd.services.clamav-daemon.serviceConfig = {
     Restart = "always";
     RestartSec = 5;
-    # confinement chroot: bind the generated config read-only
-    BindReadOnlyPaths = [
-      "${config.environment.etc."clamav/clamd.conf".source}:/etc/clamav/clamd.conf"
-    ];
   };
-  lantian.harden.clamav-daemon = true;
+  lantian.harden.clamav-daemon = {
+    enable = true;
+    etc."clamav/clamd.conf" = true;
+  };
   systemd.services.clamav-freshclam.requires = [ "network-online.target" ];
   systemd.services.clamav-fangfrisch.requires = [ "network-online.target" ];
 }

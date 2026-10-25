@@ -110,14 +110,9 @@ in
         "-/proc/rtpengine"
       ];
     };
-
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
   };
 
-  lantian.harden.rtpengine = true;
+  lantian.harden.rtpengine.enable = true;
 
   users.users.rtpengine = {
     group = "rtpengine";

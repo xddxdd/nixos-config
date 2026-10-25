@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  LT,
   ...
 }:
 let
@@ -171,7 +170,7 @@ let
         exec ${lib.getExe cfg.package} ${lib.concatStringsSep " " (buildArgs cfg)}
       '';
 
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
@@ -207,7 +206,7 @@ in
     }
     {
       lantian.harden = lib.mapAttrs' (
-        name: _: lib.nameValuePair "mlat-client-${name}" true
+        name: _: lib.nameValuePair "mlat-client-${name}" { enable = true; }
       ) config.services.mlat-client;
     }
   ];

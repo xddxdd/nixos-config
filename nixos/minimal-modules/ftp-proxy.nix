@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -19,6 +18,10 @@
     };
   };
 
+  config.lantian.harden.ftp-proxy = {
+    enable = true;
+    enableConfinement = false;
+  };
   config.systemd.services.ftp-proxy = {
     inherit (config.services."ftp-proxy") enable;
     description = "FTP Proxy";
@@ -26,7 +29,7 @@
     unitConfig = {
       After = "network.target";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "forking";
       Restart = "always";
       RestartSec = "3";

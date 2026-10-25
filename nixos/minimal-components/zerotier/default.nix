@@ -70,7 +70,7 @@ in
       EOF
     '';
 
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       StateDirectory = "zerotier-one";
       MemoryMax = "64M";
@@ -83,7 +83,7 @@ in
     };
   };
 
-  lantian.harden.zerotierone = true;
+  lantian.harden.zerotierone.enable = "network";
 
   systemd.services.zerotierone-setup-neighbors = {
     description = "Setup neighbors entry for ZeroTier";

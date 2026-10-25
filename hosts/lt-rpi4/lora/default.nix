@@ -3,7 +3,6 @@
   pkgs,
   lib,
   inputs,
-  LT,
   utils,
   ...
 }:
@@ -78,14 +77,14 @@ in
         --client $TTN_IP:1700
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
     };
   };
 
-  lantian.harden."lora-gwmp-mux" = true;
+  lantian.harden."lora-gwmp-mux".enable = true;
 
   systemd.services.lora-sx1302-hal = {
     description = "LoRa SX1302 HAL";
@@ -98,7 +97,7 @@ in
 
     preStart = jqSecrets.script;
 
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -117,7 +116,7 @@ in
     };
   };
 
-  lantian.harden."lora-sx1302-hal" = true;
+  lantian.harden."lora-sx1302-hal".enable = "network";
 
   systemd.services.lora-watchdog = {
     description = "LoRa Watchdog";
@@ -140,7 +139,7 @@ in
       systemctl restart lora-sx1302-hal.service lora-gwmp-mux.service
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "no";
       # netstat scans host-wide /proc/net
@@ -156,7 +155,7 @@ in
     };
   };
 
-  lantian.harden."lora-watchdog" = true;
+  lantian.harden."lora-watchdog".enable = true;
 
   systemd.timers.lora-watchdog = {
     wantedBy = [ "timers.target" ];

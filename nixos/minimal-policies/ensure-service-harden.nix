@@ -1,17 +1,14 @@
 {
   config,
   lib,
+  serviceHardenArgs,
   ...
 }:
 let
   # Only key presence is checked: values may be overridden for legit reasons,
-  # so any explicit value satisfies the assertion. Keys are imported from the
-  # same file as LT.serviceHarden (same key set as LT.networkToolHarden).
-  # Imported directly instead of via LT to track the raw args without the
-  # mkOptionDefault wrappers.
-  requiredKeys =
-    builtins.attrNames
-      (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs;
+  # so any explicit value satisfies the assertion. Both lantian.harden presets
+  # have the same key set as the injected raw serviceHardenArgs.
+  requiredKeys = builtins.attrNames serviceHardenArgs;
 
   # Services legitimately needing full/hardware access: PVE cluster daemons,
   # sshd, OVS, hardware monitors, upstream system services
@@ -67,6 +64,9 @@ let
   # confinement), oom-score-protect tunes /proc/1's children host-wide
   confinementIgnored = [
     # keep-sorted start
+    # Whole-set mkForce previously discarded BIRD's effective RootDirectory;
+    # preserve that non-confinement baseline at the user's explicit request.
+    "bird"
     "cups" # spawns driver-dependent printer filter binaries
     "jellyfin" # GPU transcoding and .NET JIT need full filesystem access
     "oom-score-protect"
@@ -106,7 +106,7 @@ let
   missingKeys = n: v: lib.filter (k: !builtins.hasAttr k v.serviceConfig) requiredKeys;
 in
 {
-  # 1. Every eligible service must set all keys from LT.serviceHarden
+  # 1. Every eligible service must set all keys from lantian.harden's preset
   # 2. Every eligible service must run inside a confinement chroot
   #    (systemd.services.<name>.confinement)
   assertions =
@@ -117,7 +117,7 @@ in
       in
       {
         assertion = exempt n v || missing == [ ];
-        message = "${n} is missing systemd service hardening options (LT.serviceHarden): ${lib.concatStringsSep ", " missing}";
+        message = "${n} is missing systemd service hardening options (lantian.harden): ${lib.concatStringsSep ", " missing}";
       }
     ) config.systemd.services
     ++ lib.mapAttrsToList (

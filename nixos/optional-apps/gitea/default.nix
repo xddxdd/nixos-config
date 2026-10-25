@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  LT,
   pkgs,
   ...
 }:
@@ -99,16 +98,18 @@
     };
   };
 
-  systemd.services.gitea.serviceConfig = LT.serviceHarden // {
+  systemd.services.gitea.serviceConfig = {
     RuntimeDirectoryMode = lib.mkForce "0755";
     RestartSec = "5s";
     StateDirectory = "gitea";
     BindReadOnlyPaths = [
-      "/run" # for SMTP password
       "${lib.getExe' pkgs.coreutils "env"}:/usr/bin/env" # for hooks
     ];
   };
-  lantian.harden.gitea = true;
+  lantian.harden.gitea = {
+    enable = true;
+    secret = true;
+  };
 
   services.mysql = {
     ensureDatabases = [ "gitea" ];

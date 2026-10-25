@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 {
@@ -14,7 +13,7 @@
     # the confinement chroot, so redirect it to a runtime dir with the host
     # keyring bound in
     environment.HOME = "/run/adbd-home";
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "forking";
       User = "root";
       # adbd needs to open USB/network ADB transport sockets
@@ -32,7 +31,7 @@
       BindPaths = [ "/root/.android:/run/adbd-home/.android" ];
     };
   };
-  lantian.harden.adbd = true;
+  lantian.harden.adbd.enable = true;
 
   users.users.lantian.extraGroups = [ "adbusers" ];
 

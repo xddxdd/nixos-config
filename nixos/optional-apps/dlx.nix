@@ -32,7 +32,7 @@ in
       PORT = LT.portStr.DLX;
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       EnvironmentFile = config.sops.templates.dlx-env.path;
       ExecStart = lib.getExe dlx;
       User = "dlx";
@@ -42,7 +42,7 @@ in
       RestartSec = "5";
     };
   };
-  lantian.harden.dlx = true;
+  lantian.harden.dlx.enable = true;
 
   users.users.dlx = {
     group = "dlx";

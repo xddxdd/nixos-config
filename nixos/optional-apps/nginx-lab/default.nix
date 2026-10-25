@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   config,
   inputs,
   ...
@@ -85,9 +84,14 @@ in
       jq
     ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ReadWritePaths = [ "/var/www/lab.lantian.pub" ];
     };
+  };
+
+  lantian.harden.fcgiwrap-nginx = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.tmpfiles.settings = {

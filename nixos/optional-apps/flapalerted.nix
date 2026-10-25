@@ -14,7 +14,7 @@ in
     after = [ "network.target" ];
     requires = [ "network.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -36,7 +36,7 @@ in
       ];
     };
   };
-  lantian.harden.flapalerted = true;
+  lantian.harden.flapalerted.enable = true;
 
   users.groups.bird.members = [ "nginx" ];
 

@@ -19,10 +19,10 @@
     listenAddress = "127.0.0.1";
     tokenFile = config.sops.secrets.hetzner-storagebox-metrics-api-key.path;
   };
-  systemd.services.prometheus-storagebox-exporter.serviceConfig = LT.serviceHarden // {
+  systemd.services.prometheus-storagebox-exporter.serviceConfig = {
     DynamicUser = lib.mkForce false;
   };
-  lantian.harden.prometheus-storagebox-exporter = true;
+  lantian.harden.prometheus-storagebox-exporter.enable = true;
   users.users.storagebox-exporter = {
     group = "storagebox-exporter";
     isSystemUser = true;

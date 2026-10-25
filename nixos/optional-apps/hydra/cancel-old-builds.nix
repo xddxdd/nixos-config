@@ -18,14 +18,14 @@ in
       export PASSWORD=$(cat $CREDENTIALS_DIRECTORY/password)
       exec ${lib.getExe py} ${./cancel-old-builds.py}
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       Restart = "no";
       LoadCredential = [ "password:${config.sops.secrets.hydra-script-password.path}" ];
     };
     after = [ "network.target" ];
   };
-  lantian.harden.hydra-cancel-old-builds = true;
+  lantian.harden.hydra-cancel-old-builds.enable = true;
 
   systemd.timers.hydra-cancel-old-builds = {
     wantedBy = [ "timers.target" ];

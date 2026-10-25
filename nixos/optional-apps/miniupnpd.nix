@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  LT,
   ...
 }:
 {
@@ -13,7 +12,7 @@
   };
 
   systemd.services.miniupnpd = {
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       # The NixOS module owns the nftables chains; legacy hooks are iptables-only.
       ExecStartPre =
         lib.mkIf (!config.networking.nftables.enable)
@@ -38,5 +37,5 @@
       RestartSec = "3";
     };
   };
-  lantian.harden.miniupnpd = true;
+  lantian.harden.miniupnpd.enable = "network";
 }

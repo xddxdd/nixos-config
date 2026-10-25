@@ -29,7 +29,7 @@ in
       mkdir -p /var/cache/strata/runtime /var/cache/strata/config /var/cache/strata/data
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       User = "strata";
       Group = "strata";
@@ -68,6 +68,11 @@ in
         "--data-dir /var/cache/strata/data"
       ];
     };
+  };
+
+  lantian.harden.strata = {
+    enable = true;
+    enableConfinement = false;
   };
 
   users.users.strata = {

@@ -15,7 +15,7 @@
     ];
     requires = [ "network.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       User = "peerbanhelper";
       Group = "peerbanhelper";
@@ -29,7 +29,7 @@
       BindPaths = [ "/var/lib/peerbanhelper" ];
     };
   };
-  lantian.harden.peerbanhelper = true;
+  lantian.harden.peerbanhelper.enable = true;
 
   lantian.localVhosts.peerbanhelper = {
     locations = {

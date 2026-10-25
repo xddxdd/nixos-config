@@ -2,7 +2,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 {
@@ -207,16 +206,12 @@
 
   systemd.services =
     let
-      args = LT.serviceHarden // {
+      args = {
         RestartSec = "5s";
         MemoryDenyWriteExecute = false;
         StateDirectory = "matrix-synapse";
         RuntimeDirectory = "matrix-synapse";
         RuntimeDirectoryPreserve = lib.mkForce true;
-        BindReadOnlyPaths = [
-          "/run/postgresql"
-          "/run/redis-matrix-synapse"
-        ];
       };
     in
     {
@@ -240,10 +235,19 @@
     ) config.services.matrix-synapse.workers);
 
   lantian.harden = {
-    matrix-synapse = true;
+    matrix-synapse = {
+      enable = true;
+      postgresql = true;
+      redis = "matrix-synapse";
+    };
   }
   // (lib.mapAttrs' (
-    n: _: lib.nameValuePair "matrix-synapse-worker-${n}" true
+    n: _:
+    lib.nameValuePair "matrix-synapse-worker-${n}" {
+      enable = true;
+      postgresql = true;
+      redis = "matrix-synapse";
+    }
   ) config.services.matrix-synapse.workers);
 
   services.postgresql = {

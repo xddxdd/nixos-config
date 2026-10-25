@@ -79,7 +79,7 @@ in
       done
       rm -f private.key request.csr signed.crt
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       Restart = "no";
 
@@ -98,6 +98,11 @@ in
     unitConfig = {
       OnFailure = "notify-email@%n.service";
     };
+  };
+
+  lantian.harden.dn42-certificate = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.dn42-certificate = {

@@ -251,7 +251,7 @@ in
                 description = "BIRD (in netns ${name})";
                 wantedBy = [ "multi-user.target" ];
                 bindsTo = value.birdBindTo;
-                serviceConfig = LT.networkToolHarden // {
+                serviceConfig = {
                   Restart = "on-failure";
                   RestartSec = "5s";
                   ExecStart = "${lib.getExe' pkgs.bird2 "bird"} -f -c ${birdConfig} -s /run/bird-${name}/bird-${name}.ctl";
@@ -271,7 +271,7 @@ in
       )
     );
     lantian.harden = lib.mapAttrs' (
-      n: v: lib.nameValuePair "netns-bird-${n}" true
+      n: v: lib.nameValuePair "netns-bird-${n}" { enable = "network"; }
     ) config.lantian.netns;
   };
 }

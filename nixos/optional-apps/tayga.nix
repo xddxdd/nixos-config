@@ -1,4 +1,4 @@
-{ lib, LT, ... }:
+{ lib, ... }:
 {
   services.tayga = {
     enable = true;
@@ -32,7 +32,7 @@
   };
   users.groups.tayga = { };
 
-  systemd.services.tayga.serviceConfig = LT.networkToolHarden // {
+  systemd.services.tayga.serviceConfig = {
     RestartSec = "5s";
     DynamicUser = lib.mkForce false;
     User = "tayga";
@@ -41,10 +41,10 @@
     PrivateDevices = false;
     PrivateUsers = lib.mkForce false;
     BindPaths = [ "/var/lib/tayga" ];
-    # Config file is a symlink chain resolved outside the confinement chroot
-    BindReadOnlyPaths = [
-      "/etc/tayga.conf"
-    ];
   };
-  lantian.harden.tayga = true;
+  lantian.harden.tayga = {
+    enable = "network";
+    # Config file is a symlink chain resolved outside the confinement chroot.
+    etc."tayga.conf" = true;
+  };
 }

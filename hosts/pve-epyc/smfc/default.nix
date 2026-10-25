@@ -1,7 +1,5 @@
 {
   pkgs,
-  config,
-  LT,
   ...
 }:
 {
@@ -19,7 +17,7 @@
       exec python3 ${./smfc.py} -c ${./smfc.conf} -l 3
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -29,5 +27,5 @@
       PrivateDevices = false;
     };
   };
-  lantian.harden.smfc = true;
+  lantian.harden.smfc.enable = true;
 }

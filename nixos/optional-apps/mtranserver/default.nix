@@ -22,7 +22,6 @@ in
     wantedBy = [ "multi-user.target" ];
 
     confinement = {
-      enable = true;
       packages = [ modelsDir ];
     };
 
@@ -33,7 +32,7 @@ in
       NUM_WORKERS = "4";
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = lib.getExe pkgs.nur-xddxdd.linguaspark-server-x86-64-v3;
       User = "mtranserver";
       Group = "mtranserver";
@@ -41,6 +40,10 @@ in
       Restart = "always";
       RestartSec = "5";
     };
+  };
+
+  lantian.harden.mtranserver = {
+    enable = true;
   };
 
   users.users.mtranserver = {

@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   inputs,
   ...
@@ -46,7 +45,7 @@ in
     noIndex.enable = true;
   };
 
-  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig = LT.networkToolHarden // {
+  systemd.services."bepasty-server-pb.ltn.pw-gunicorn".serviceConfig = {
     Group = "bepasty";
     StateDirectory = "bepasty";
     User = "bepasty";
@@ -66,6 +65,11 @@ in
 
     Restart = "always";
     RestartSec = 5;
+  };
+
+  lantian.harden."bepasty-server-pb.ltn.pw-gunicorn" = {
+    enable = "network";
+    enableConfinement = false;
   };
 
   users.groups.bepasty.members = [ "nginx" ];

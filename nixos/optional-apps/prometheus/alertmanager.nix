@@ -277,7 +277,7 @@ in
   };
 
   systemd.services.alertmanager = {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       ExecStartPre = lib.mkForce (
         pkgs.writeShellScript "alertmanager-pre-start" ''
@@ -287,7 +287,7 @@ in
       LoadCredential = jqSecrets.credentials;
     };
   };
-  lantian.harden.alertmanager = true;
+  lantian.harden.alertmanager.enable = true;
 
   lantian.nginxVhosts."alert.xuyh0120.win" = {
     locations = {

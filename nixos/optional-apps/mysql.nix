@@ -90,7 +90,7 @@ in
     restartIfChanged = lib.mkForce true;
     restartTriggers = lib.optionals userbornEnabled config.systemd.services.userborn.restartTriggers;
     after = lib.optional userbornEnabled "userborn.service";
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = lib.mkForce "on-failure";
       TimeoutStartSec = 300;
       # Keep socket-directory inodes stable for confined clients across stop/start.
@@ -103,20 +103,18 @@ in
         "/var/lib/mysql"
         "/run/mysqld"
       ];
-      BindReadOnlyPaths = [
-        "${config.environment.etc."my.cnf".source}:/etc/my.cnf"
-        "/etc/passwd"
-        "/etc/group"
-      ];
     };
   };
-  lantian.harden.mysql = true;
+  lantian.harden.mysql = {
+    enable = true;
+    passwd = true;
+    etc."my.cnf" = true;
+  };
 
   systemd.services.prometheus-mysqld-exporter = {
     description = "Prometheus MySQL Exporter";
     wantedBy = [ "multi-user.target" ];
     wants = [ "mysql.service" ];
-    after = [ "mysql.service" ];
     serviceConfig =
       let
         myCnf = pkgs.writeText "my.cnf" ''
@@ -126,19 +124,19 @@ in
           user = prometheus-mysqld-exporter
         '';
       in
-      LT.serviceHarden
-      // {
+      {
         Restart = "always";
         RestartSec = "3";
         ExecStart = "${lib.getExe pkgs.prometheus-mysqld-exporter} --config.my-cnf=${myCnf} --web.listen-address=${LT.this.ltnet.IPv4}:${LT.portStr.Prometheus.MySQLExporter}";
 
         User = "prometheus-mysqld-exporter";
         Group = "prometheus-mysqld-exporter";
-        # Connects to the mysqld unix socket
-        BindPaths = [ "/run/mysqld" ];
       };
   };
-  lantian.harden.prometheus-mysqld-exporter = true;
+  lantian.harden.prometheus-mysqld-exporter = {
+    enable = true;
+    mysql = true;
+  };
 
   users.users.prometheus-mysqld-exporter = {
     group = "prometheus-mysqld-exporter";

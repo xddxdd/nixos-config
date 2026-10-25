@@ -99,7 +99,7 @@ in
 
   # Keep upstream ProtectSystem=full and Restart=always; hardening defaults
   # must not replace upstream scalar settings with competing definitions.
-  systemd.services.loki.serviceConfig = LT.serviceHarden // {
+  systemd.services.loki.serviceConfig = {
     RestartSec = "5s";
     # PID 1 migrates ownership of the existing exclusive data tree when the
     # collector UID changes; keep its contents and restrictive permissions.
@@ -117,7 +117,7 @@ in
     ];
   };
 
-  lantian.harden.loki = true;
+  lantian.harden.loki.enable = true;
 
   # Collector writes must not generate the audit records it receives. Reserve
   # a static UID above the watched 1-999 range and below DynamicUser's range.

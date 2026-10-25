@@ -65,12 +65,12 @@
     };
   };
 
-  systemd.services.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
+  systemd.services.fluent-bit = {
     # Run inside the mounted state directory, not before its host mount exists.
-    preStart = ''
+    preStart = lib.mkIf config.services.fluent-bit.enable ''
       ${pkgs.coreutils}/bin/install -d -m 0750 /var/lib/fluent-bit/storage
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = lib.mkIf config.services.fluent-bit.enable {
       RestartSec = "5s";
       ProcSubset = "all";
       RestrictAddressFamilies = [
@@ -90,14 +90,16 @@
         "/var/log/journal"
         "/run/log/journal"
         "/run/systemd/journal"
-        "/etc/machine-id"
       ];
       # StateDirectory survives stops and is mounted through the confinement root.
       StateDirectory = "fluent-bit";
       StateDirectoryMode = "0750";
     };
   };
-  lantian.harden.fluent-bit = true;
+  lantian.harden.fluent-bit = {
+    enable = config.services.fluent-bit.enable;
+    enableConfinement = true;
+  };
 
   users.users.fluent-bit = {
     isSystemUser = true;

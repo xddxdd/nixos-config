@@ -12,7 +12,11 @@
   };
 
   # Upstream already confines via RootDirectory; add the harden key set
-  systemd.services.tor.serviceConfig = LT.serviceHarden // {
+  systemd.services.tor.serviceConfig = {
     RestartSec = "5s";
+  };
+  lantian.harden.tor = {
+    enable = true;
+    enableConfinement = false;
   };
 }

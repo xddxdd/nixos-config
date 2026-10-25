@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  LT,
   ...
 }:
 {
@@ -52,11 +51,10 @@
         echo "Emailed $FILE"
       done
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       User = "asterisk";
       Group = "asterisk";
       BindReadOnlyPaths = [
-        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
         config.sops.secrets.smtp-pass.path
       ];
       Restart = "always";
@@ -67,5 +65,8 @@
       SystemCallFilter = [ ];
     };
   };
-  lantian.harden.asterisk-fax-monitor = true;
+  lantian.harden.asterisk-fax-monitor = {
+    enable = true;
+    etc.msmtprc = true;
+  };
 }

@@ -63,7 +63,7 @@ in
 
   systemd.services = {
     clickhouse = netns.bind {
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         MemoryDenyWriteExecute = lib.mkForce false;
         RestrictAddressFamilies = [
           "AF_INET"
@@ -93,7 +93,7 @@ in
         RELEASE_TMP = lib.mkForce "/run/plausible/tmp";
         HOME = lib.mkForce "/run/plausible";
       };
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         Restart = "always";
         RestartSec = "3";
         DynamicUser = lib.mkForce false;
@@ -102,14 +102,14 @@ in
         StateDirectory = lib.mkForce "plausible";
         RuntimeDirectory = "plausible";
         WorkingDirectory = lib.mkForce "/run/plausible";
-        BindReadOnlyPaths = [
-          "/etc/geoip"
-          "/run/postgresql"
-        ];
       };
     };
   };
-  lantian.harden.plausible = true;
+  lantian.harden.plausible = {
+    enable = true;
+    postgresql = true;
+    etc.geoip = true;
+  };
 
   users.users.plausible = {
     group = "plausible";

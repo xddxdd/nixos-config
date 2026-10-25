@@ -12,7 +12,7 @@ in
     environment = {
       SONARR_URL = "http://127.0.0.1:${LT.portStr.Sonarr}";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
@@ -25,6 +25,11 @@ in
       "sonarr.service"
     ];
     requires = [ "sonarr.service" ];
+  };
+
+  lantian.harden.sonarr-queue-cleanup = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.sonarr-queue-cleanup = {

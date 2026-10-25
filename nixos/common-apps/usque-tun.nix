@@ -31,7 +31,7 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
       ip route add default dev usque
     '';
 
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -51,7 +51,7 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
       BindPaths = [ "/var/lib/usque-tun" ];
     };
   };
-  lantian.harden.usque-tun = true;
+  lantian.harden.usque-tun.enable = "network";
 
   users.users.usque = {
     group = "usque";

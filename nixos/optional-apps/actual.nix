@@ -30,7 +30,7 @@
       ACTUAL_TOKEN_EXPIRATION = "openid-provider";
       ACTUAL_USER_CREATION_MODE = "login";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       # Node's V8 JIT needs executable memory.
       MemoryDenyWriteExecute = false;
       RestartSec = "5s";
@@ -38,7 +38,7 @@
     };
   };
 
-  lantian.harden.actual = true;
+  lantian.harden.actual.enable = true;
 
   lantian.nginxVhosts."actual.xuyh0120.win" = {
     accessibleBy = "private";

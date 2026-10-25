@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   ...
 }:
 {
@@ -33,12 +32,16 @@
         fi
       done
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       User = "open5gs";
       Group = "open5gs";
       StateDirectory = "open5gs-certs";
       WorkingDirectory = "/var/lib/open5gs-certs";
     };
+  };
+  lantian.harden.open5gs-certs = {
+    enable = true;
+    enableConfinement = false;
   };
 }

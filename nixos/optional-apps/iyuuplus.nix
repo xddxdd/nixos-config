@@ -56,7 +56,7 @@ in
       install -Dm644 ${config.sops.secrets.iyuu-env.path} .env
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe' php-iyuu "php"} /var/lib/iyuu/start.php start";
       StateDirectory = "iyuu";
       WorkingDirectory = "/var/lib/iyuu";
@@ -67,6 +67,11 @@ in
       Restart = "always";
       RestartSec = "5";
     };
+  };
+
+  lantian.harden.iyuuplus = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.tmpfiles.settings = {

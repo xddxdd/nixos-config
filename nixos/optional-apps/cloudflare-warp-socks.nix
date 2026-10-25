@@ -17,7 +17,7 @@
       fi
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -29,6 +29,11 @@
       StateDirectory = "usque";
       WorkingDirectory = "/var/lib/usque";
     };
+  };
+
+  lantian.harden.usque = {
+    enable = true;
+    enableConfinement = false;
   };
 
   users.users.usque = {

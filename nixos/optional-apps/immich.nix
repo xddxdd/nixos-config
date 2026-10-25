@@ -57,23 +57,19 @@
 
     systemd.services.immich-server = {
       unitConfig.RequiresMountsFor = [ (LT.escapeMountPath config.services.immich.mediaLocation) ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         MemoryDenyWriteExecute = lib.mkForce false;
-        BindPaths = [
-          config.services.immich.mediaLocation
-          "/run/postgresql"
-          "/run/redis-immich"
-        ];
+        BindPaths = [ config.services.immich.mediaLocation ];
       };
-      after = [ "redis-immich.service" ];
       requires = [ "redis-immich.service" ];
     };
-    lantian.harden.immich-server = true;
-
-    systemd.services.immich-machine-learning = {
-      serviceConfig = LT.serviceHarden;
+    lantian.harden.immich-server = {
+      enable = true;
+      postgresql = true;
+      redis = "immich";
     };
-    lantian.harden.immich-machine-learning = true;
+
+    lantian.harden.immich-machine-learning.enable = true;
 
     systemd.tmpfiles.settings = {
       immich = {

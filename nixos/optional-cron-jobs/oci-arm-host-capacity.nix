@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  LT,
   ...
 }:
 {
@@ -11,11 +10,16 @@
       grep "Already have an instance" log.txt && exit 1 || exit 0
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       StateDirectory = "oci-arm-host-capacity";
       WorkingDirectory = "/var/lib/oci-arm-host-capacity";
     };
+  };
+
+  lantian.harden.oci-arm-host-capacity = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.oci-arm-host-capacity = {

@@ -31,7 +31,7 @@ in
         --secret "$(cat $CREDENTIALS_DIRECTORY/secret)"
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -44,7 +44,7 @@ in
       ];
     };
   };
-  lantian.harden.oidc-tester = true;
+  lantian.harden.oidc-tester.enable = true;
 
   users.users.oidc-tester = {
     group = "oidc-tester";

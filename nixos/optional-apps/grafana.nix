@@ -94,16 +94,18 @@ in
     };
   };
 
-  systemd.services.grafana.serviceConfig = LT.serviceHarden // {
+  systemd.services.grafana.serviceConfig = {
     RestartSec = "5s";
     EnvironmentFile = config.sops.templates.grafana-env.path;
     Restart = "on-failure";
     StateDirectory = "grafana";
     SystemCallFilter = [ "@chown" ];
     ProcSubset = "all";
-    BindReadOnlyPaths = [ "/run/mysqld" ];
   };
-  lantian.harden.grafana = true;
+  lantian.harden.grafana = {
+    enable = true;
+    mysql = true;
+  };
 
   users.users.nginx.extraGroups = [ "grafana" ];
 

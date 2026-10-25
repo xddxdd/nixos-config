@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   config,
   ...
 }:
@@ -51,12 +50,8 @@
       "redis-netbox.service"
       "postgresql.target"
     ];
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       RuntimeDirectory = "netbox";
-      BindReadOnlyPaths = [
-        "/run/postgresql"
-        "/run/redis-netbox"
-      ];
     };
   };
   systemd.services.netbox-rq = {
@@ -68,15 +63,17 @@
       "redis-netbox.service"
       "postgresql.target"
     ];
-    serviceConfig = LT.serviceHarden // {
-      BindReadOnlyPaths = [
-        "/run/postgresql"
-        "/run/redis-netbox"
-      ];
-    };
   };
-  lantian.harden.netbox = true;
-  lantian.harden.netbox-rq = true;
+  lantian.harden.netbox = {
+    enable = "network";
+    postgresql = true;
+    redis = "netbox";
+  };
+  lantian.harden.netbox-rq = {
+    enable = true;
+    postgresql = true;
+    redis = "netbox";
+  };
 
   users.groups.netbox.members = [ "nginx" ];
 }

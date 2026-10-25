@@ -36,6 +36,13 @@
     };
   };
 
+  lantian.harden."notify-email@" = {
+    enable = true;
+    enableConfinement = false;
+    etc = {
+      msmtprc = true;
+    };
+  };
   systemd.services."notify-email@" = {
     environment = {
       HOSTNAME = config.networking.hostName;
@@ -68,10 +75,9 @@
       EOF
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       BindReadOnlyPaths = [
-        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
         config.sops.secrets.smtp-pass.path
       ];
     };

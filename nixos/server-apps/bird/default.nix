@@ -65,34 +65,41 @@ in
     groups.bird = { };
   };
 
-  systemd.services.bird.serviceConfig = lib.mkForce (
-    LT.networkToolHarden
-    // {
-      ExecStart = "${lib.getExe' pkgs.bird2 "bird"} -f -c /etc/bird/bird.conf";
-      ExecReload = "${lib.getExe' pkgs.bird2 "birdc"} configure";
+  environment.etc."bird/bird.conf".mode = "0444";
 
-      CPUQuota = "10%";
-      Restart = lib.mkForce "always";
-      RestartSec = "5s";
+  systemd.services.bird.serviceConfig = {
+    # Keep the original foreground command and host-filesystem access.
+    Type = lib.mkForce "simple";
+    ExecStart = lib.mkForce "${lib.getExe' pkgs.bird2 "bird"} -f -c /etc/bird/bird.conf";
+    ExecReload = lib.mkForce "${lib.getExe' pkgs.bird2 "birdc"} configure";
+    ExecStop = lib.mkForce "";
 
-      User = "bird";
-      Group = "bird";
-      RuntimeDirectory = "bird";
-      # Confined clients must retain this inode even across a full stop/start.
-      RuntimeDirectoryPreserve = "yes";
-      # Manages host kernel routes
-      PrivateUsers = false;
-      # chroot's tmpfs root is ephemeral; bind control socket through (used by
-      # birdc, bird-lgproxy-go and the bird exporter outside the chroot).
-      # /etc/bird on the host is a symlink chain to /etc/static, whose
-      # store target isn't in the closure, so bind the real store file
-      BindPaths = [ "/run/bird" ];
-      BindReadOnlyPaths = [
-        "${config.environment.etc."bird/bird.conf".source}:/etc/bird/bird.conf"
-      ];
-    }
-  );
-  lantian.harden.bird = true;
+    CPUQuota = "10%";
+    Restart = lib.mkForce "always";
+    RestartSec = "5s";
+
+    User = "bird";
+    Group = "bird";
+    RuntimeDirectory = lib.mkForce "bird";
+    # Confined clients must retain this inode even across a full stop/start.
+    RuntimeDirectoryPreserve = "yes";
+    # Preserve the network preset where upstream defines conflicting values.
+    PrivateDevices = lib.mkForce false;
+    ProtectControlGroups = lib.mkForce false;
+    ProtectSystem = lib.mkForce "strict";
+    ProtectHome = lib.mkForce true;
+    MemoryDenyWriteExecute = lib.mkForce true;
+    SystemCallFilter = lib.mkForce [ ];
+    # Manages host kernel routes
+    PrivateUsers = false;
+    # Keep the control socket reachable by birdc and confined consumers.
+    BindPaths = [ "/run/bird" ];
+    BindReadOnlyPaths = [ "/etc/bird" ];
+  };
+  lantian.harden.bird = {
+    enable = "network";
+    enableConfinement = false;
+  };
 
   systemd.tmpfiles.settings = {
     bird-config = {
@@ -131,14 +138,14 @@ in
   systemd.services."prometheus-bird-exporter" = {
     wants = [ "bird.service" ];
     after = [ "bird.service" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       ProcSubset = "all";
       ProtectProc = "default";
       BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
-  lantian.harden.prometheus-bird-exporter = true;
+  lantian.harden.prometheus-bird-exporter.enable = true;
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
@@ -153,7 +160,7 @@ in
     unitConfig = {
       After = "bird.service";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -179,5 +186,5 @@ in
       BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
-  lantian.harden.bird-lgproxy-go = true;
+  lantian.harden.bird-lgproxy-go.enable = true;
 }

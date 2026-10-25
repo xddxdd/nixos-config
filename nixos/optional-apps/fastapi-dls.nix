@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -29,7 +28,7 @@
       fi
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -42,7 +41,7 @@
       BindPaths = [ "/var/lib/fastapi-dls" ];
     };
   };
-  lantian.harden.fastapi-dls = true;
+  lantian.harden.fastapi-dls.enable = true;
 
   lantian.localVhosts."fastapi-dls" = {
     locations = {

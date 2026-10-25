@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  LT,
   ...
 }:
 let
@@ -110,7 +109,7 @@ let
           exec ${lib.getExe cfg.package} ${lib.concatStringsSep " " (buildArgs cfg)}
         '';
 
-        serviceConfig = LT.serviceHarden // {
+        serviceConfig = {
           Type = "simple";
           Restart = "always";
           RestartSec = "3";
@@ -138,7 +137,7 @@ in
     {
       systemd.services = lib.mapAttrs' mkInstance config.services.stayrtr;
       lantian.harden = lib.mapAttrs' (
-        n: v: lib.nameValuePair "stayrtr-${n}" true
+        n: v: lib.nameValuePair "stayrtr-${n}" { enable = true; }
       ) config.services.stayrtr;
     }
   ];

@@ -2,7 +2,6 @@
   inputs,
   config,
   LT,
-  lib,
   pkgs,
   ...
 }:
@@ -59,17 +58,14 @@
   systemd.services.tranquil-pds.serviceConfig = {
     AmbientCapabilities = [ ];
     SystemCallErrorNumber = "EPERM";
-    BindReadOnlyPaths =
-      let
-        settingsFormat = pkgs.formats.toml { };
-        cfg = settingsFormat.generate "tranquil-pds.toml" config.services.tranquil-pds.settings;
-      in
-      [
-        "${cfg}:/etc/tranquil-pds/config.toml"
-        "/run/postgresql"
-      ];
   };
-  lantian.harden.tranquil-pds = true;
+  lantian.harden.tranquil-pds = {
+    enable = true;
+    postgresql = true;
+    etc."tranquil-pds/config.toml" =
+      (pkgs.formats.toml { }).generate "tranquil-pds.toml"
+        config.services.tranquil-pds.settings;
+  };
 
   # Bypass config validation that doesn't recognize secrets
   environment.etc."tranquil-pds/config.toml".enable = false;

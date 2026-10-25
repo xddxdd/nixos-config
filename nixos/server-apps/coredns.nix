@@ -415,21 +415,21 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     listenAddress = LT.this.ltnet.IPv4;
   };
 
-  systemd.services."prometheus-knot-exporter".serviceConfig = LT.serviceHarden // {
+  systemd.services."prometheus-knot-exporter".serviceConfig = {
     RestartSec = "5s";
     ProcSubset = "all";
     ProtectProc = "default";
     # Queries knot control socket
     BindReadOnlyPaths = [ "/run/knot" ];
   };
-  lantian.harden.prometheus-knot-exporter = true;
+  lantian.harden.prometheus-knot-exporter.enable = true;
 
   systemd.services = {
     coredns-authoritative = netns.bind {
       description = "Coredns for authoritative zones";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         LimitNPROC = 512;
         LimitNOFILE = 1048576;
         MemoryMax = "256M";
@@ -480,8 +480,8 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
       };
     };
   };
-  lantian.harden.coredns-authoritative = true;
-  lantian.harden.knot = true;
+  lantian.harden.coredns-authoritative.enable = true;
+  lantian.harden.knot.enable = true;
 
   users.users.coredns = {
     group = "coredns";

@@ -2,10 +2,10 @@
   config,
   lib,
   LT,
+  serviceHardenArgs,
   ...
 }:
 let
-  hardening = import ../../helpers/fn/service-harden.nix { inherit lib; };
   pools = config.services.phpfpm.pools;
 in
 {
@@ -44,7 +44,14 @@ in
   };
 
   config = {
-    lantian.harden = lib.mapAttrs' (name: _: lib.nameValuePair "phpfpm-${name}" true) pools;
+    lantian.harden = lib.mapAttrs' (
+      name: _:
+      lib.nameValuePair "phpfpm-${name}" {
+        enable = true;
+        passwd = true;
+        etc."nsswitch.conf" = true;
+      }
+    ) pools;
     assertions = lib.mapAttrsToList (name: pool: {
       assertion =
         (config.systemd.services."phpfpm-${name}".serviceConfig.User or "root") == pool.masterUser
@@ -79,7 +86,7 @@ in
       in
       lib.nameValuePair serviceName {
         confinement.packages = roots;
-        serviceConfig = LT.serviceHarden // {
+        serviceConfig = {
           User = lib.mkDefault pool.masterUser;
           Group = lib.mkDefault (if rootMaster then "root" else pool.group);
           RestartSec = lib.mkDefault "5s";
@@ -96,16 +103,13 @@ in
           AmbientCapabilities = capabilities;
           CapabilityBoundingSet = capabilities;
           SystemCallFilter = lib.mkForce (
-            hardening.serviceHardenArgs.SystemCallFilter ++ [ "@chown" ] ++ lib.optional rootMaster "@setuid"
+            serviceHardenArgs.SystemCallFilter ++ [ "@chown" ] ++ lib.optional rootMaster "@setuid"
           );
           RuntimeDirectory = lib.mkForce [
             "phpfpm-${name}"
             "confinement/%n"
           ];
           BindReadOnlyPaths = [
-            "/etc/passwd"
-            "/etc/group"
-            "/etc/nsswitch.conf"
             "/run/systemd/journal/dev-log:/dev/log"
           ]
           ++ map LT.escapeMountPath (lib.filter (root: !lib.hasPrefix "${builtins.storeDir}/" root) roots);

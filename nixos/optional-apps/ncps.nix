@@ -32,14 +32,13 @@
       config.services.ncps.cache.tempPath
       "/run/ncps"
     ];
-    # OpenTelemetry resolves the service UID even when exporting is disabled.
-    BindReadOnlyPaths = [
-      "/etc/passwd"
-      "/etc/group"
-    ];
   };
 
-  lantian.harden.ncps = true;
+  lantian.harden.ncps = {
+    enable = true;
+    # OpenTelemetry resolves the service UID even when exporting is disabled.
+    passwd = true;
+  };
 
   systemd.services.ncps.serviceConfig.RestartSec = "5s";
 }

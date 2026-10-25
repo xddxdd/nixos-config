@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -73,7 +72,7 @@
   };
 
   systemd.services = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (n: {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = 5;
 
@@ -99,7 +98,12 @@
         "CAP_SETUID"
       ];
       MemoryDenyWriteExecute = lib.mkForce false;
-      RestrictAddressFamilies = lib.mkForce [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+      RestrictAddressFamilies = lib.mkForce [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_NETLINK"
+      ];
       # keep @privileged allowed: smbd needs setuid/setgroups per connection
       SystemCallFilter = lib.mkForce [
         "@system-service"
@@ -115,9 +119,26 @@
     };
   });
 
+  lantian.harden = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (_: {
+    enable = true;
+    enableConfinement = false;
+  });
+
   systemd.tmpfiles.settings.samba = {
-    "/var/lib/samba"."d" = { mode = "0700"; user = "root"; group = "root"; };
-    "/var/cache/samba"."d" = { mode = "0755"; user = "root"; group = "root"; };
-    "/var/log/samba"."d" = { mode = "0755"; user = "root"; group = "root"; };
+    "/var/lib/samba"."d" = {
+      mode = "0700";
+      user = "root";
+      group = "root";
+    };
+    "/var/cache/samba"."d" = {
+      mode = "0755";
+      user = "root";
+      group = "root";
+    };
+    "/var/log/samba"."d" = {
+      mode = "0755";
+      user = "root";
+      group = "root";
+    };
   };
 }

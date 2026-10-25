@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 let
@@ -20,23 +19,23 @@ in
     after = [ "pipewire-pulse.service" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig =
-      LT.serviceHarden
-      // LT.realtime
-      // {
-        # Needs /dev/snd/seq for ALSA sequencer MIDI input
-        PrivateDevices = false;
-        ExecStart = "${lib.getExe pkgs.fluidsynth} -a pulseaudio -si ${soundfontPath}";
-        User = "lantian";
-        Restart = "on-failure";
-        RestartSec = 3;
-        # chroot's tmpfs root is ephemeral; bind audio devices and the
-        # pipewire-pulse UNIX socket through
-        BindPaths = [
-          "/dev/snd"
-          "/run/user/1000"
-        ];
-      };
+    serviceConfig = {
+      # Needs /dev/snd/seq for ALSA sequencer MIDI input
+      PrivateDevices = false;
+      ExecStart = "${lib.getExe pkgs.fluidsynth} -a pulseaudio -si ${soundfontPath}";
+      User = "lantian";
+      Restart = "on-failure";
+      RestartSec = 3;
+      # chroot's tmpfs root is ephemeral; bind audio devices and the
+      # pipewire-pulse UNIX socket through
+      BindPaths = [
+        "/dev/snd"
+        "/run/user/1000"
+      ];
+    };
   };
-  lantian.harden.fluidsynth = true;
+  lantian.harden.fluidsynth = {
+    enable = true;
+    realtime = true;
+  };
 }

@@ -24,11 +24,11 @@
     requires = [ "iperf3.socket" ];
     after = [ "iperf3.socket" ];
     # Upstream module sets RestartSec = 2, below the ensure-service-restart policy
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = lib.mkForce "5s";
     };
   };
-  lantian.harden.iperf3 = true;
+  lantian.harden.iperf3.enable = true;
 
   systemd.sockets.iperf3 = {
     listenStreams = [ "${LT.this.ltnet.IPv4}:${LT.portStr.IPerf}" ];

@@ -73,7 +73,7 @@ in
         test "$(${pkgs.coreutils}/bin/id -u)" -gt 999
         ${pkgs.coreutils}/bin/mkdir -p /var/lib/audit-loki/storage
       '';
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         ExecStart = "${lib.getExe package} --config ${configuration}";
         Restart = "on-failure";
         RestartSec = "10s";
@@ -94,7 +94,7 @@ in
         StandardError = "null";
       };
     };
-    lantian.harden.audit-loki = true;
+    lantian.harden.audit-loki.enable = true;
     services.logrotate.settings.audit-loki = {
       files = [ "/run/audit-loki/forwarder.log" ];
       frequency = "hourly";

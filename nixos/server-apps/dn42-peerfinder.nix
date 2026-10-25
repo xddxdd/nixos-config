@@ -28,7 +28,7 @@
       };
 
       path = [ pkgs.iputils ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         LoadCredential = [ "secret:${config.services.dn42-peerfinder.secretFile}" ];
         ExecStart = "${lib.getExe pkgs.python3} ${LT.sources.dn42-peerfinder-client.src}";
 
@@ -46,7 +46,7 @@
       };
     };
 
-    lantian.harden."dn42-peerfinder" = true;
+    lantian.harden."dn42-peerfinder".enable = true;
 
     users.users.dn42-peerfinder = {
       group = "dn42-peerfinder";

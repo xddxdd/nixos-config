@@ -26,14 +26,14 @@
       NMEA_PORT = LT.portStr.NMEA;
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pkgs.python3} ${LT.sources.nmea-static-gps-server.src}/nmea_server.py";
 
       Restart = "always";
       RestartSec = "5";
     };
   };
-  lantian.harden.nmea-static-gps-server = true;
+  lantian.harden.nmea-static-gps-server.enable = true;
 
   # Announce NMEA service via mDNS so LAN clients can discover it
   services.avahi.extraServiceFiles = {

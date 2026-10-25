@@ -17,7 +17,7 @@ in
     environment = {
       QBITTORRENT_URL = "http://127.0.0.1:${LT.portStr.qBitTorrentPT.WebUI}";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
@@ -30,6 +30,11 @@ in
       "qbittorrent-pt.service"
     ];
     requires = [ "qbittorrent-pt.service" ];
+  };
+
+  lantian.harden.qbittorrent-pt-cleanup = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.qbittorrent-pt-cleanup = {

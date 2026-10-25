@@ -98,7 +98,7 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
   };
 
   systemd.services.coredns = netns.bind {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "5";
       # Joins host-owned network namespace via NetworkNamespacePath
@@ -111,5 +111,5 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
       ];
     };
   };
-  lantian.harden.coredns = true;
+  lantian.harden.coredns.enable = true;
 }

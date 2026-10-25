@@ -46,13 +46,15 @@
     };
   };
 
-  systemd.services.atticd.serviceConfig = LT.serviceHarden // {
+  systemd.services.atticd.serviceConfig = {
     DynamicUser = lib.mkForce false;
     StateDirectory = lib.mkForce "";
     CacheDirectory = lib.mkForce "attic";
-    BindReadOnlyPaths = [ "/run/postgresql" ];
   };
-  lantian.harden.atticd = true;
+  lantian.harden.atticd = {
+    enable = true;
+    postgresql = true;
+  };
 
   users.users.atticd = {
     group = "atticd";

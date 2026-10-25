@@ -24,13 +24,6 @@
   '';
 
   systemd.services.qbittorrent.serviceConfig = {
-    BindReadOnlyPaths = [
-      "${config.environment.etc.hosts.source}:/etc/hosts"
-      "${
-        config.environment.etc."ssl/certs/ca-certificates.crt".source
-      }:/etc/ssl/certs/ca-certificates.crt"
-      "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
-    ];
     Restart = "always";
     RestartSec = "5";
     UMask = "0002";
@@ -38,6 +31,14 @@
     IOSchedulingClass = "idle";
     IOSchedulingPriority = "7";
     MemoryDenyWriteExecute = lib.mkForce false;
+  };
+
+  lantian.harden.qbittorrent.etc = {
+    hosts = lib.mkDefault true;
+    "ssl/certs/ca-certificates.crt" = lib.mkDefault true;
+    "ssl/certs/ca-bundle.crt" =
+      lib.mkDefault
+        config.environment.etc."ssl/certs/ca-certificates.crt".source;
   };
 
   lantian.localVhosts.bt = {

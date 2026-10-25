@@ -1,5 +1,9 @@
-{ pkgs, LT, ... }:
+{ pkgs, ... }:
 {
+  lantian.harden.oom-score-protect = {
+    enable = true;
+    enableConfinement = false;
+  };
   systemd.services.oom-score-protect = {
     after = [ "pve-cluster.service" ];
     wants = [ "pve-cluster.service" ];
@@ -16,7 +20,7 @@
       done
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = "3";
       # Adjusts oom_score_adj of host-side QEMU processes

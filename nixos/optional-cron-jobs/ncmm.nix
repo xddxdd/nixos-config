@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  LT,
   ...
 }:
 let
@@ -23,7 +22,7 @@ in
     unitConfig = {
       OnFailure = "notify-email@%n.service";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${ncmmWrapped}/bin/ncmm musician-vip";
       Type = "oneshot";
       StateDirectory = "ncmm";
@@ -31,6 +30,11 @@ in
       User = "ncmm";
       Group = "ncmm";
     };
+  };
+
+  lantian.harden.ncmm = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.ncmm = {

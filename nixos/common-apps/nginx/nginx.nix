@@ -220,6 +220,7 @@ in
   systemd.services.nginx = {
     after = [ "lantian-secrets.service" ];
     requires = [ "lantian-secrets.service" ];
+    confinement.packages = [ "${./files/dhparam.pem}" ];
     environment = {
       inherit (config.environment.variables) OPENSSL_CONF;
     };
@@ -229,18 +230,11 @@ in
       # chroot's tmpfs root is ephemeral; bind sockets and cache/logs through.
       # BindReadOnlyPaths first, then BindPaths override at these paths.
       BindReadOnlyPaths = [
-        # App unix sockets (nginx only connects; FS permissions still apply)
-        "/run"
-        # Config: /etc/nginx/* are symlinks to /etc/static, whose store target
-        # is not in the unit closure, so bind the real store files instead
-        "${config.environment.etc."nginx/nginx.conf".source}:/etc/nginx/nginx.conf"
-        "${config.environment.etc."nginx/htpasswd".source}:/etc/nginx/htpasswd"
+        # Bind the directory so atomic config replacements remain visible.
+        "/etc/nginx"
         config.lantian.secrets.tls-snakeoil.path
         # ACME certs
         "/nix/sync-servers/acme"
-      ]
-      ++ lib.optionals config.lantian.geoip.enable [
-        "${config.environment.etc."geoip".source}:/etc/geoip"
       ];
       SystemCallErrorNumber = "EPERM";
       SystemCallFilter = lib.mkForce [ ];
@@ -248,19 +242,54 @@ in
       LimitNOFILE = "1048576";
     };
   };
-  lantian.harden.nginx = true;
+  lantian.harden.nginx = {
+    enable = true;
+    # App unix sockets (nginx only connects; FS permissions still apply).
+    secret = true;
+    etc = lib.optionalAttrs config.lantian.geoip.enable {
+      geoip = true;
+    };
+  };
 
   # The synchronous helper must outlive nginx's 90s reload deadline; under
   # deployment I/O pressure a successful reload exceeded its upstream 60s limit.
   systemd.services.nginx-config-reload = {
     after = [ "lantian-secrets.service" ];
     requires = [ "lantian-secrets.service" ];
+    # Keep copied leaf contents and metadata out of the main unit's closure.
+    restartTriggers =
+      lib.mapAttrsToList
+        (
+          _: entry:
+          builtins.toJSON {
+            inherit (entry)
+              source
+              target
+              mode
+              uid
+              gid
+              user
+              group
+              ;
+          }
+        )
+        (
+          lib.filterAttrs (
+            _: entry: entry.enable && lib.hasPrefix "nginx/" entry.target
+          ) config.environment.etc
+        );
     serviceConfig.TimeoutStartSec = "120s";
   };
 
-  environment.etc."nginx/htpasswd".text = ''
-    lantian:${unixHashedPassword}
-  '';
+  environment.etc = {
+    "nginx/nginx.conf".mode = "0444";
+    "nginx/htpasswd" = {
+      mode = "0444";
+      text = ''
+        lantian:${unixHashedPassword}
+      '';
+    };
+  };
 
   systemd.packages = [
     (pkgs.writeTextFile {

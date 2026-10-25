@@ -27,7 +27,7 @@ in
       AutoMihoyoBBS_config_path = "/var/lib/skyland-auto-checkin";
     };
     path = with pkgs; [ gitMinimal ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       TimeoutSec = 3600;
       StateDirectory = "skyland-auto-checkin";
@@ -46,7 +46,7 @@ in
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
-  lantian.harden.skyland-auto-checkin = true;
+  lantian.harden.skyland-auto-checkin.enable = true;
 
   systemd.timers.skyland-auto-checkin = {
     wantedBy = [ "timers.target" ];

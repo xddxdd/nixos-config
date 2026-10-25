@@ -1,6 +1,5 @@
 {
   lib,
-  LT,
   config,
   ...
 }:
@@ -153,7 +152,7 @@ in
       };
     };
   };
-  systemd.services.mptcp.serviceConfig = LT.networkToolHarden // {
+  systemd.services.mptcp.serviceConfig = {
     Restart = "on-failure";
     RestartSec = "3";
     # mptcpd probes /proc/sys/net/mptcp for kernel support and drives host
@@ -162,7 +161,7 @@ in
     ProcSubset = "all";
     ProtectProc = "default";
   };
-  lantian.harden.mptcp = true;
+  lantian.harden.mptcp.enable = "network";
 
   # https://github.com/nix-community/srvos/blob/main/nixos/common/networking.nix
   systemd.services.systemd-networkd.stopIfChanged = false;

@@ -1,8 +1,6 @@
 {
-  config,
   pkgs,
   lib,
-  LT,
   ...
 }:
 let
@@ -38,65 +36,66 @@ in
           "network.target"
           "open5gs-certs.service"
         ];
-        serviceConfig =
-          LT.serviceHarden
-          // (
-            {
-              ExecStart = "${lib.getExe' pkgs.open5gs "open5gs-"}${svc}d -c ${
-                if svc == "mme" then mmeConfig else "${./config}/${svc}.yaml"
-              }";
-              ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -HUP $MAINPID";
-              LogsDirectory = "open5gs";
-              User = "open5gs";
-              Group = "open5gs";
-              Restart = "always";
-              RestartSec = "5";
-              RestartPreventExitStatus = "1";
-              IPAddressDeny = "any";
-              IPAddressAllow = [
-                "localhost"
-                "192.168.0.0/24"
-                "198.18.110.0/24"
-              ];
-              # Interface discovery uses getifaddrs(), including for dev: eth0.
-              RestrictAddressFamilies = [
-                "AF_UNIX"
-                "AF_INET"
-                "AF_INET6"
-                "AF_NETLINK"
-              ];
-            }
-            # freeDiameter configs and extension modules are read from /etc at
-            # runtime; bind the real store files into the confinement chroot
-            // (lib.optionalAttrs (builtins.pathExists ./freeDiameter/${svc}.conf) {
-              BindReadOnlyPaths = [
-                "${./freeDiameter}/${svc}.conf:/etc/freeDiameter/${svc}.conf"
-                "${config.environment.etc."freeDiameter/lib".source}:/etc/freeDiameter/lib"
-                "/var/lib/open5gs-certs/ca.crt"
-                "/var/lib/open5gs-certs/${svc}.crt"
-                "/var/lib/open5gs-certs/${svc}.key"
-              ];
-            })
-            # TUNSETIFF needs CAP_NET_ADMIN in the host's user namespace.
-            // (lib.optionalAttrs (svc == "upf") {
-              PrivateDevices = false;
-              PrivateUsers = false;
-              DevicePolicy = "closed";
-              DeviceAllow = [ "/dev/net/tun rw" ];
-              BindPaths = [ "/dev/net/tun" ];
-              AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-              CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
-            })
-          );
-        confinement = {
-          enable = true;
-          fullUnit = true;
-        };
+        serviceConfig = {
+          ExecStart = "${lib.getExe' pkgs.open5gs "open5gs-"}${svc}d -c ${
+            if svc == "mme" then mmeConfig else "${./config}/${svc}.yaml"
+          }";
+          ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -HUP $MAINPID";
+          LogsDirectory = "open5gs";
+          User = "open5gs";
+          Group = "open5gs";
+          Restart = "always";
+          RestartSec = "5";
+          RestartPreventExitStatus = "1";
+          IPAddressDeny = "any";
+          IPAddressAllow = [
+            "localhost"
+            "192.168.0.0/24"
+            "198.18.110.0/24"
+          ];
+          # Interface discovery uses getifaddrs(), including for dev: eth0.
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+          ];
+        }
+        // (lib.optionalAttrs (builtins.pathExists ./freeDiameter/${svc}.conf) {
+          BindReadOnlyPaths = [
+            "/var/lib/open5gs-certs/ca.crt"
+            "/var/lib/open5gs-certs/${svc}.crt"
+            "/var/lib/open5gs-certs/${svc}.key"
+          ];
+        })
+        # TUNSETIFF needs CAP_NET_ADMIN in the host's user namespace.
+        // (lib.optionalAttrs (svc == "upf") {
+          PrivateDevices = false;
+          PrivateUsers = false;
+          DevicePolicy = "closed";
+          DeviceAllow = [ "/dev/net/tun rw" ];
+          BindPaths = [ "/dev/net/tun" ];
+          AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+          CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+        });
       };
     }) services
   );
 
-  lantian.harden = lib.genAttrs (map (svc: "open5gs-${svc}d") services) (_: true);
+  lantian.harden = lib.listToAttrs (
+    map (
+      svc:
+      lib.nameValuePair "open5gs-${svc}d" {
+        enable = true;
+        # freeDiameter configs and extension modules are read from /etc at
+        # runtime; bind the real store files into the confinement chroot.
+        etc = lib.optionalAttrs (builtins.pathExists ./freeDiameter/${svc}.conf) {
+          "freeDiameter/${svc}.conf" = true;
+          "freeDiameter/lib" = true;
+        };
+      }
+    ) services
+  );
 
   users.users.open5gs = {
     group = "open5gs";

@@ -45,7 +45,7 @@ in
     });
   };
 
-  systemd.services.postgresql.serviceConfig = LT.serviceHarden // {
+  systemd.services.postgresql.serviceConfig = {
     TimeoutStartSec = "900";
     LimitMEMLOCK = "infinity";
     LimitNOFILE = "1048576";
@@ -61,13 +61,12 @@ in
       "/var/lib/postgresql"
       "/run/postgresql"
     ];
-    BindReadOnlyPaths = [
-      # Peer auth resolves peer uid→name via nss files
-      "/etc/passwd"
-      "/etc/group"
-    ];
   };
-  lantian.harden.postgresql = true;
+  lantian.harden.postgresql = {
+    enable = true;
+    # Peer auth resolves peer uid→name via nss files.
+    passwd = true;
+  };
 
   services.prometheus.exporters.postgres = {
     enable = true;
@@ -79,15 +78,16 @@ in
   systemd.services."prometheus-postgres-exporter" = {
     # A same-UID exporter thread can reuse a stale postmaster PID after boot.
     # Stop it before PostgreSQL restarts, and start it only after PostgreSQL is ready.
-    after = [ "postgresql.service" ];
     requires = [ "postgresql.service" ];
     partOf = [ "postgresql.service" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       ProcSubset = "all";
       ProtectProc = "default";
-      BindReadOnlyPaths = [ "/run/postgresql" ];
     };
   };
-  lantian.harden.prometheus-postgres-exporter = true;
+  lantian.harden.prometheus-postgres-exporter = {
+    enable = true;
+    postgresql = true;
+  };
 }

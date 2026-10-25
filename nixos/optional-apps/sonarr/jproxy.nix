@@ -33,7 +33,7 @@
       exec ${lib.getExe pkgs.nur-xddxdd.jproxy} -Dspring.config.location=/var/lib/jproxy/
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = "5";
 
@@ -47,7 +47,7 @@
       Group = "users";
     };
   };
-  lantian.harden.jproxy = true;
+  lantian.harden.jproxy.enable = true;
 
   lantian.localVhosts.jproxy = {
     locations = {

@@ -1,6 +1,5 @@
 {
   lib,
-  LT,
   config,
   inputs,
   ...
@@ -32,16 +31,18 @@
     };
   };
 
-  systemd.services.gitea-runner-default.serviceConfig = LT.serviceHarden // {
+  systemd.services.gitea-runner-default.serviceConfig = {
     DynamicUser = lib.mkForce false;
     User = lib.mkForce "gitea-actions";
     Group = lib.mkForce "gitea-actions";
 
     CacheDirectory = "gitea-actions";
     RestartSec = lib.mkForce "5s";
-    BindReadOnlyPaths = [ "/run" ]; # Docker/podman socket
   };
-  lantian.harden.gitea-runner-default = true;
+  lantian.harden.gitea-runner-default = {
+    enable = true;
+    secret = true; # Docker/podman socket
+  };
 
   users.users.gitea-actions = {
     group = "gitea-actions";

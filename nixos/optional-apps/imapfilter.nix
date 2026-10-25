@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   config,
   lib,
   inputs,
@@ -31,7 +30,7 @@ let
           inputs.secrets + "/imapfilter/${account}.lua"
         }
       '';
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         Type = "oneshot";
         LoadCredential = [ "password:${config.sops.secrets."imapfilter-${account}".path}" ];
         User = "imapfilter";
@@ -63,7 +62,7 @@ in
   systemd.services = {
     email-oauth2-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         Type = "simple";
         Restart = "always";
         RestartSec = "5s";
@@ -91,9 +90,11 @@ in
       }
     ) accounts
   );
-  lantian.harden = lib.genAttrs (
-    [ "email-oauth2-proxy" ] ++ map (name: "imapfilter-${name}") accounts
-  ) (_: true);
+  lantian.harden =
+    lib.genAttrs ([ "email-oauth2-proxy" ] ++ map (name: "imapfilter-${name}") accounts)
+      (_: {
+        enable = true;
+      });
 
   users.users.email-oauth2-proxy = {
     group = "email-oauth2-proxy";

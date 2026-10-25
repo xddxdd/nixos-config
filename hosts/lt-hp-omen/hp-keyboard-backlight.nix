@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  LT,
   ...
 }:
 let
@@ -11,7 +10,7 @@ in
   systemd.services.hp-keyboard-backlight = {
     description = "HP Omen Keyboard Backlight";
     wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -21,5 +20,5 @@ in
       ProtectKernelTunables = false;
     };
   };
-  lantian.harden.hp-keyboard-backlight = true;
+  lantian.harden.hp-keyboard-backlight.enable = true;
 }

@@ -10,7 +10,7 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       PrivateDevices = false;
       RestrictAddressFamilies = "";
 
@@ -32,5 +32,5 @@
     };
   };
 
-  lantian.harden.dump978 = true;
+  lantian.harden.dump978.enable = true;
 }

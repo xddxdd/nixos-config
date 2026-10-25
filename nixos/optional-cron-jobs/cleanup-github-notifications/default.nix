@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   inputs,
   config,
   ...
@@ -14,13 +13,18 @@ in
     inputs.secrets + "/cleanup-github-notifications-env.yaml";
 
   systemd.services.cleanup-github-notifications = {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       EnvironmentFile = config.sops.secrets.cleanup-github-notifications-env.path;
       Type = "oneshot";
       ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
     };
     after = [ "network.target" ];
+  };
+
+  lantian.harden.cleanup-github-notifications = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.cleanup-github-notifications = {

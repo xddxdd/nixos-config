@@ -212,20 +212,14 @@ in
         fi
       done
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       User = "asterisk";
       Group = "asterisk";
       Restart = "always";
       RestartSec = "5s";
       # Do not switch user with -U flag
       ExecStart = lib.mkForce "${lib.getExe cfg.package} -C /etc/asterisk/asterisk.conf -F";
-      BindReadOnlyPaths = [
-        "/nix/sync-servers/acme"
-        "/run" # For secret access
-      ]
-      ++ lib.mapAttrsToList (n: v: "${v.source}:/etc/${n}") (
-        lib.filterAttrs (n: v: lib.hasPrefix "asterisk/" n && v.enable) config.environment.etc
-      );
+      BindReadOnlyPaths = [ "/nix/sync-servers/acme" ];
       BindPaths = [
         "/var/spool/asterisk"
       ];
@@ -238,7 +232,13 @@ in
       LT.sources.anti-fooling-hot-line.src
     ];
   };
-  lantian.harden.asterisk = true;
+  lantian.harden.asterisk = {
+    enable = true;
+    secret = true;
+    etc = lib.mapAttrs (_: _: true) (
+      lib.filterAttrs (n: v: lib.hasPrefix "asterisk/" n && v.enable) config.environment.etc
+    );
+  };
 
   environment.etc = {
     "asterisk/cdr_syslog.conf".enable = false;

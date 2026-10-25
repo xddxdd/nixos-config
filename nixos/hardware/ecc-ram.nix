@@ -8,7 +8,7 @@
     port = LT.port.Prometheus.RasdaemonExporter;
   };
 
-  systemd.services.rasdaemon.serviceConfig = LT.serviceHarden // {
+  systemd.services.rasdaemon.serviceConfig = {
     RestartSec = "5s";
     # rasdaemon reads /proc/{mounts,cpuinfo}, EDAC/mce state, mounts
     # debugfs/tracefs itself and writes tracepoint filters
@@ -23,14 +23,14 @@
     PrivateUsers = false;
     BindPaths = [ "/var/lib/rasdaemon" ];
   };
-  lantian.harden.rasdaemon = true;
+  lantian.harden.rasdaemon.enable = true;
 
-  systemd.services."prometheus-rasdaemon-exporter".serviceConfig = LT.serviceHarden // {
+  systemd.services."prometheus-rasdaemon-exporter".serviceConfig = {
     RestartSec = "5s";
     # Reads rasdaemon's host-wide event files
     ProcSubset = "all";
     ProtectProc = "default";
     BindReadOnlyPaths = [ "/var/lib/rasdaemon" ];
   };
-  lantian.harden."prometheus-rasdaemon-exporter" = true;
+  lantian.harden."prometheus-rasdaemon-exporter".enable = true;
 }

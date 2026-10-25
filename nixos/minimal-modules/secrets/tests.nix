@@ -20,7 +20,7 @@ pkgs.testers.runNixOSTest {
         ../../minimal-components/audit-loki.nix
         ../../minimal-components/snakeoil-tls.nix
       ];
-      _module.args.LT = (import ../../../helpers/fn/service-harden.nix { inherit lib; }) // {
+      _module.args.LT = {
         hosts.colocrossing.ltnet.IPv4 = "127.0.0.1";
         port.Loki = 3100;
       };

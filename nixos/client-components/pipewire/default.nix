@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  LT,
+  realtimeArgs,
   config,
   ...
 }:
@@ -10,8 +10,10 @@ let
   realtimeLimitUS = 5000000;
   cfg = config.services.pipewire;
   pipewireService = {
-    serviceConfig = LT.realtime;
     restartTriggers = [ config.environment.etc.pipewire.source ];
+  };
+  userPipewireService = pipewireService // {
+    serviceConfig = lib.mapAttrs (_: lib.mkOptionDefault) realtimeArgs;
   };
 in
 {
@@ -87,7 +89,7 @@ in
     requires = [ "pipewire.socket" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pkgs.netcat-openbsd} -U /run/pipewire/pipewire-0";
       User = "pipewire";
       Group = "pipewire";
@@ -97,16 +99,23 @@ in
       BindPaths = [ "/run/pipewire" ];
     };
   };
-  lantian.harden.pipewire-auto-start = lib.mkIf (cfg.enable && cfg.systemWide) true;
+  lantian.harden.pipewire-auto-start.enable = lib.mkIf (cfg.enable && cfg.systemWide) true;
+
+  lantian.harden.pipewire = lib.mkIf (cfg.enable && cfg.systemWide) {
+    realtime = true;
+  };
+  lantian.harden.pipewire-pulse = lib.mkIf (cfg.enable && cfg.systemWide && cfg.pulse.enable) {
+    realtime = true;
+  };
 
   systemd.services.pipewire = lib.mkIf (cfg.enable && cfg.systemWide) pipewireService;
   systemd.services.pipewire-pulse = lib.mkIf (
     cfg.enable && cfg.systemWide && cfg.pulse.enable
   ) pipewireService;
-  systemd.user.services.pipewire = lib.mkIf (cfg.enable && !cfg.systemWide) pipewireService;
+  systemd.user.services.pipewire = lib.mkIf (cfg.enable && !cfg.systemWide) userPipewireService;
   systemd.user.services.pipewire-pulse = lib.mkIf (
     cfg.enable && !cfg.systemWide && cfg.pulse.enable
-  ) pipewireService;
+  ) userPipewireService;
 
   users.users.lantian.extraGroups = [
     "audio"

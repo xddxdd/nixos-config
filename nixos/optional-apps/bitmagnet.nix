@@ -12,10 +12,7 @@ let
   mkBitmagnetService = worker: {
     description = "BitMagnet ${worker}";
     wantedBy = [ "multi-user.target" ];
-    after = [
-      "network.target"
-      "postgresql.service"
-    ];
+    after = [ "network.target" ];
     wants = [
       "network.target"
       "postgresql.service"
@@ -27,7 +24,7 @@ let
       TMDB_ENABLED = "true";
       PROCESSOR_CONCURRENCY = builtins.toString LT.this.cpuThreads;
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe bitmagnet} worker run --keys=${worker}";
       Type = "simple";
       Restart = "always";
@@ -39,7 +36,6 @@ let
 
       User = "bitmagnet";
       Group = "bitmagnet";
-      BindReadOnlyPaths = [ "/run/postgresql" ];
     };
   };
 in
@@ -79,9 +75,18 @@ in
   };
 
   lantian.harden = {
-    bitmagnet-http = true;
-    bitmagnet-queue = true;
-    bitmagnet-dht = true;
+    bitmagnet-http = {
+      enable = true;
+      postgresql = true;
+    };
+    bitmagnet-queue = {
+      enable = true;
+      postgresql = true;
+    };
+    bitmagnet-dht = {
+      enable = true;
+      postgresql = true;
+    };
   };
 
   users.users.bitmagnet = {

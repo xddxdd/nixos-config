@@ -133,7 +133,7 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
 
       exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       LoadCredential = jqSecrets.credentials;
       User = "nginx";
       Group = "nginx";
@@ -146,5 +146,5 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
       # namespace, so the unix socket stays reachable by nginx at /run/v2ray
     };
   };
-  lantian.harden.v2ray = true;
+  lantian.harden.v2ray.enable = true;
 }

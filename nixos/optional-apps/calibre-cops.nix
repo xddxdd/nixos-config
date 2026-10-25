@@ -112,6 +112,8 @@ in
       $config['default_timezone'] = '${config.time.timeZone}';
     '';
 
+    lantian.harden.phpfpm-calibre-cops.etc."calibre-cops/config_local.php" = true;
+
     systemd.services.phpfpm-calibre-cops = {
       confinement.packages = [
         pkgs.nur-xddxdd.calibre-cops
@@ -120,7 +122,6 @@ in
       ];
       serviceConfig.BindReadOnlyPaths = [
         (LT.escapeMountPath calibreLibrary)
-        "/etc/calibre-cops/config_local.php"
       ];
     };
   };

@@ -1,11 +1,10 @@
 {
   config,
   lib,
-  LT,
+  serviceHardenArgs,
   ...
 }:
 let
-  hardenArgs = (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs;
   auditFiles = lib.filterAttrs (name: _: lib.hasPrefix "audit/" name) config.environment.etc;
   auditedSecrets = lib.filterAttrs (_: secret: secret.audit) config.lantian.secrets;
   serviceRule =
@@ -112,7 +111,7 @@ in
     restartTriggers = lib.mapAttrsToList (_: value: value.source) auditFiles;
     # A switch must recreate the confinement when config store paths change.
     unitConfig.RefuseManualStop = false;
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "on-failure";
       RestartSec = "5s";
       AmbientCapabilities = [
@@ -134,7 +133,7 @@ in
       ProtectProc = "default";
       OOMScoreAdjust = -1000;
       # auditd changes log ownership and scheduling priority as it rotates.
-      SystemCallFilter = hardenArgs.SystemCallFilter ++ [
+      SystemCallFilter = serviceHardenArgs.SystemCallFilter ++ [
         "@chown"
         "@resources"
       ];
@@ -142,13 +141,11 @@ in
         "/var/log/audit"
         "/run/audit"
       ];
-      BindReadOnlyPaths = lib.mapAttrsToList (name: value: "${value.source}:/etc/${name}") auditFiles;
     };
-    # This early kernel/syslog daemon needs no DNS or CA bindings. In particular,
-    # /etc/resolv.conf may not exist before the network manager starts.
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
+  };
+  lantian.harden.auditd = {
+    enable = true;
+    # Bind the generated audit configuration alongside the standard /etc files.
+    etc = lib.mapAttrs (_: _: true) auditFiles;
   };
 }

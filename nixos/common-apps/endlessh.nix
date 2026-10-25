@@ -1,4 +1,4 @@
-{ pkgs, LT, ... }:
+{ pkgs, ... }:
 let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
@@ -41,7 +41,11 @@ in
   };
 
   # Upstream module already chroots endlessh (RootDirectory=/run/endlessh)
-  systemd.services.endlessh.serviceConfig = LT.serviceHarden // {
-    RestartSec = "5s";
+  systemd.services.endlessh = {
+    serviceConfig.RestartSec = "5s";
+  };
+  lantian.harden.endlessh = {
+    enable = true;
+    enableConfinement = false;
   };
 }

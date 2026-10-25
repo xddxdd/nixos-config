@@ -20,19 +20,9 @@
     );
   };
   systemd.services.prowlarr = {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       StateDirectory = "prowlarr";
       BindPaths = [ "/var/lib/prowlarr" ];
-      BindReadOnlyPaths = [
-        "/etc/passwd"
-        "/etc/group"
-        "/etc/resolv.conf"
-        "${config.environment.etc.hosts.source}:/etc/hosts"
-        "${
-          config.environment.etc."ssl/certs/ca-certificates.crt".source
-        }:/etc/ssl/certs/ca-certificates.crt"
-        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
-      ];
       RestrictAddressFamilies = [
         "AF_INET"
         "AF_INET6"
@@ -45,9 +35,14 @@
       Group = lib.mkForce "users";
       RestartSec = "5s";
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.prowlarr = {
+    enable = true;
+    passwd = true;
+    etc = {
+      "resolv.conf" = true;
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
   lantian.localVhosts.prowlarr = {
@@ -82,5 +77,5 @@
     AmbientCapabilities = [ "" ];
     SystemCallErrorNumber = "EPERM";
   };
-  lantian.harden."prometheus-exportarr-prowlarr-exporter" = true;
+  lantian.harden."prometheus-exportarr-prowlarr-exporter".enable = true;
 }

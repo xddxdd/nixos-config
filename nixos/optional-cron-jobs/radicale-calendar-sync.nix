@@ -3,7 +3,6 @@
   config,
   lib,
   pkgs,
-  LT,
   ...
 }:
 {
@@ -12,7 +11,7 @@
 
   systemd.services.radicale-calendar-sync = {
     path = with pkgs; [ curl ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       ExecStart = "${lib.getExe pkgs.bash} -euo pipefail %d/radicale-calendar-sync";
       LoadCredential = [ "radicale-calendar-sync:${config.sops.secrets.radicale-calendar-sync.path}" ];
@@ -22,6 +21,11 @@
     unitConfig = {
       OnFailure = "notify-email@%n.service";
     };
+  };
+
+  lantian.harden.radicale-calendar-sync = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.radicale-calendar-sync = {

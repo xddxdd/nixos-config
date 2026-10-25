@@ -1,4 +1,4 @@
-{ LT, ... }:
+_:
 let
   ntpServers = [ ];
   ntpPools = [
@@ -12,7 +12,7 @@ in
 {
   networking.timeServers = ntpServers;
 
-  systemd.services.ntpd-rs.serviceConfig = LT.serviceHarden // {
+  systemd.services.ntpd-rs.serviceConfig = {
     # ntpd-rs sets the system clock; ProtectClock and the ~@clock syscall
     # block in serviceHarden would block its adjtimex calls
     ProtectClock = false;
@@ -20,7 +20,7 @@ in
     # Clock adjustment needs host-level capabilities
     PrivateUsers = false;
   };
-  lantian.harden.ntpd-rs = true;
+  lantian.harden.ntpd-rs.enable = true;
 
   services.ntpd-rs = {
     enable = true;

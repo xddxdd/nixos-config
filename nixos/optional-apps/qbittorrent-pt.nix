@@ -24,18 +24,10 @@ in
       ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/lockfile
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       User = user;
       Group = group;
       StateDirectory = "qbittorrent-pt";
-      BindReadOnlyPaths = [
-        "/etc/resolv.conf"
-        "${config.environment.etc.hosts.source}:/etc/hosts"
-        "${
-          config.environment.etc."ssl/certs/ca-certificates.crt".source
-        }:/etc/ssl/certs/ca-certificates.crt"
-        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
-      ];
 
       # For PT sites qBit enhanced is unnecessary
       ExecStart = utils.escapeSystemdExecArgs [
@@ -65,6 +57,17 @@ in
       IOSchedulingClass = "idle";
       IOSchedulingPriority = "7";
       MemoryDenyWriteExecute = lib.mkForce false;
+    };
+  };
+  lantian.harden.qbittorrent-pt = {
+    enable = true;
+    etc = {
+      "resolv.conf" = lib.mkDefault true;
+      hosts = lib.mkDefault true;
+      "ssl/certs/ca-certificates.crt" = lib.mkDefault true;
+      "ssl/certs/ca-bundle.crt" =
+        lib.mkDefault
+          config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
   systemd.tmpfiles.settings = {

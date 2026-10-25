@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 let
@@ -18,7 +17,7 @@ in
       XDG_CONFIG_HOME = "/run/pipewire-volume-control";
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pipewire-volume-control} --listen /run/pipewire-volume-control/listen.sock";
       Restart = "always";
       RestartSec = "3";
@@ -35,13 +34,14 @@ in
       BindReadOnlyPaths = [
         "/home/lantian/.config/pulse/cookie:/run/pipewire-volume-control/pulse-cookie"
         "/run/pulse"
-        "/etc/passwd"
-        "/etc/group"
       ];
     };
   };
 
-  lantian.harden.pipewire-volume-control = true;
+  lantian.harden.pipewire-volume-control = {
+    enable = true;
+    passwd = true;
+  };
 
   lantian.localVhosts.volume = {
     locations."/" = {

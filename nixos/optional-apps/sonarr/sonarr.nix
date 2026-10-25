@@ -12,7 +12,7 @@
     dataDir = "/var/lib/sonarr";
   };
   systemd.services.sonarr = {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_INET"
@@ -23,20 +23,15 @@
       StateDirectory = "sonarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/sonarr" ];
-      BindReadOnlyPaths = [
-        "/etc/passwd"
-        "/etc/group"
-        "/etc/resolv.conf"
-        "${config.environment.etc.hosts.source}:/etc/hosts"
-        "${
-          config.environment.etc."ssl/certs/ca-certificates.crt".source
-        }:/etc/ssl/certs/ca-certificates.crt"
-        "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
-      ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.sonarr = {
+    enable = true;
+    passwd = true;
+    etc = {
+      "resolv.conf" = true;
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
 
@@ -71,5 +66,5 @@
     AmbientCapabilities = [ "" ];
     SystemCallErrorNumber = "EPERM";
   };
-  lantian.harden."prometheus-exportarr-sonarr-exporter" = true;
+  lantian.harden."prometheus-exportarr-sonarr-exporter".enable = true;
 }

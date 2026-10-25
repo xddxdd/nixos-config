@@ -2,7 +2,6 @@
   inputs,
   lib,
   config,
-  LT,
   ...
 }:
 {
@@ -59,20 +58,20 @@
 
   systemd.services.pocket-id.after = [ "postgresql.target" ];
   systemd.services.pocket-id.requires = [ "postgresql.target" ];
-  systemd.services.pocket-id.serviceConfig = LT.serviceHarden // {
+  systemd.services.pocket-id.serviceConfig = {
     RestartSec = lib.mkForce 5;
     EnvironmentFile = [ config.sops.templates.pocket-id-env.path ];
     RuntimeDirectory = "pocket-id";
     RuntimeDirectoryMode = "750";
-    BindReadOnlyPaths = [
-      "/run/postgresql"
-      "${config.environment.etc."geoip".source}:/etc/geoip"
-    ];
     PrivateUsers = lib.mkForce false;
     StateDirectory = "pocket-id";
   };
   users.groups.pocket-id.members = [ "nginx" ];
-  lantian.harden.pocket-id = true;
+  lantian.harden.pocket-id = {
+    enable = true;
+    postgresql = true;
+    etc.geoip = true;
+  };
 
   lantian.nginxVhosts."id.lantian.pub" = {
     locations."/" = {

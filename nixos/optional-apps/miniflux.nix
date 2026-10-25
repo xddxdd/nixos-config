@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 {
@@ -47,15 +46,17 @@
   };
 
   systemd.services.miniflux.partOf = [ "postgresql.service" ];
-  systemd.services.miniflux.serviceConfig = LT.serviceHarden // {
+  systemd.services.miniflux.serviceConfig = {
     DynamicUser = lib.mkForce false;
     RuntimeDirectoryMode = lib.mkForce "0770";
     UMask = lib.mkForce "0007";
     User = "miniflux";
     Group = "miniflux";
-    BindReadOnlyPaths = [ "/run/postgresql" ];
   };
-  lantian.harden.miniflux = true;
+  lantian.harden.miniflux = {
+    enable = true;
+    postgresql = true;
+  };
 
   users.users.miniflux = {
     group = "miniflux";

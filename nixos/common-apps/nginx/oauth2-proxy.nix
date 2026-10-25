@@ -1,6 +1,5 @@
 {
   lib,
-  LT,
   config,
   inputs,
   ...
@@ -50,17 +49,17 @@
   };
   users.groups.oauth2-proxy.members = [ "nginx" ];
 
-  systemd.services.oauth2-proxy = lib.mkIf config.services.oauth2-proxy.enable {
-    after = [
+  systemd.services.oauth2-proxy = {
+    after = lib.mkIf config.services.oauth2-proxy.enable [
       "network.target"
       "nginx.service"
     ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = lib.mkIf config.services.oauth2-proxy.enable {
       Restart = "always";
       RestartSec = "3";
       RuntimeDirectory = "oauth2-proxy";
       UMask = "007";
     };
   };
-  lantian.harden.oauth2-proxy = config.services.oauth2-proxy.enable;
+  lantian.harden.oauth2-proxy.enable = config.services.oauth2-proxy.enable;
 }

@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 let
@@ -13,7 +12,7 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe fastpit} --socket /run/fastpit/fastpit.sock --seed 2547 --asset-dir ${fastpit}/share/fastpit/assets";
       Restart = "always";
       RestartSec = "3";
@@ -25,7 +24,7 @@ in
       Group = "fastpit";
     };
   };
-  lantian.harden.fastpit = true;
+  lantian.harden.fastpit.enable = true;
 
   lantian.nginxVhosts."posts.lantian.pub" = {
     locations = {

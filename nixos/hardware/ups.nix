@@ -3,10 +3,10 @@
   pkgs,
   lib,
   LT,
+  serviceHardenArgs,
   ...
 }:
 let
-  hardenArgs = (import ../../helpers/fn/service-harden.nix { inherit lib; }).serviceHardenArgs;
   emailNotificationScript = pkgs.writeShellScript "email.sh" ''
     MAILTO="lantian@lantian.pub"
 
@@ -107,7 +107,7 @@ in
     ];
     requires = [ "lantian-secrets.service" ];
     environment.NUT_CONFPATH = lib.mkForce "/run/nut";
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = 5;
       PrivateUsers = false;
@@ -117,7 +117,7 @@ in
         "CAP_SETGID"
       ];
       # NUT drops identities; its credential installer changes file ownership.
-      SystemCallFilter = hardenArgs.SystemCallFilter ++ [
+      SystemCallFilter = serviceHardenArgs.SystemCallFilter ++ [
         "@chown"
         "@setuid"
       ];
@@ -131,8 +131,6 @@ in
         "${config.environment.etc."nut/ups.conf".source}:/run/nut/ups.conf"
         "${config.environment.etc."nut/upsd.conf".source}:/run/nut/upsd.conf"
         "/run/systemd/journal/dev-log:/dev/log"
-        "/etc/passwd"
-        "/etc/group"
       ];
     };
   };
@@ -157,7 +155,7 @@ in
       NUT_CONFPATH = lib.mkForce "/run/nut";
       NUT_PIDPATH = "/run/nut";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = 5;
       PrivateUsers = false;
@@ -168,7 +166,7 @@ in
         "CAP_SETUID"
         "CAP_SETGID"
       ];
-      SystemCallFilter = hardenArgs.SystemCallFilter ++ [
+      SystemCallFilter = serviceHardenArgs.SystemCallFilter ++ [
         "@chown"
         "@setuid"
       ];
@@ -180,11 +178,8 @@ in
       BindReadOnlyPaths = [
         "${config.environment.etc."nut/nut.conf".source}:/run/nut/nut.conf"
         "/run/systemd/journal/dev-log:/dev/log"
-        "/etc/passwd"
-        "/etc/group"
         "/run/systemd/private"
         "/run/dbus/system_bus_socket"
-        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
         config.sops.secrets.smtp-pass.path
       ];
     };
@@ -200,7 +195,7 @@ in
       "upsd.service"
     ];
     partOf = [ "upsd.service" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       DynamicUser = lib.mkForce false;
       RestartSec = "5s";
       BindReadOnlyPaths = [ config.lantian.secrets.nut-pass.path ];
@@ -214,8 +209,15 @@ in
 
   # Keep the shared runtime directory stable across daemon/monitor restarts.
   systemd.tmpfiles.rules = [ "d /run/nut 0755 root root - -" ];
-  lantian.harden.upsd = true;
-  lantian.harden.upsmon = true;
-  lantian.harden.prometheus-nut-exporter = true;
+  lantian.harden.upsd = {
+    enable = true;
+    passwd = true;
+  };
+  lantian.harden.upsmon = {
+    enable = true;
+    passwd = true;
+    etc.msmtprc = true;
+  };
+  lantian.harden.prometheus-nut-exporter.enable = true;
 
 }

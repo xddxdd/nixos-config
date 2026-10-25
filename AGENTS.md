@@ -182,7 +182,7 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | `host-options.nix` | 主机选项定义                                |
 | `cities.json`      | 城市数据                                    |
 | `constants/`       | 各类常量（端口、网络、区域等）              |
-| `fn/`              | 辅助函数（nginx、hosts、service-harden 等） |
+| `fn/`              | 辅助函数（nginx、hosts、systemd 等） |
 
 ### dns/ 目录
 

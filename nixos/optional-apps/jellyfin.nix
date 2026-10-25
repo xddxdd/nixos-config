@@ -2,7 +2,6 @@
   pkgs,
   config,
   utils,
-  LT,
   ...
 }:
 let
@@ -68,7 +67,7 @@ in
       JELLYFIN_kestrel__socketPermissions = "0777";
       JELLYFIN_PublishedServerUrl = "https://jellyfin.xuyh0120.win";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       RuntimeDirectory = "jellyfin";
       ExecStartPre = pkgs.writeShellScript "jellyfin-pre" ''
@@ -93,7 +92,7 @@ in
       ];
     };
   };
-  lantian.harden.jellyfin = true;
+  lantian.harden.jellyfin.enable = true;
 
   systemd.tmpfiles.settings.jellyfin = {
     "/var/cache/jellyfin"."d" = {

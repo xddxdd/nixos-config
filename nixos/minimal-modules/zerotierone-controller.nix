@@ -1,5 +1,4 @@
 {
-  LT,
   pkgs,
   lib,
   config,
@@ -172,7 +171,7 @@ in
       description = "ZeroTier One Controller";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         ExecStart = "${lib.getExe' pkgs.zerotierone "zerotier-one"} -p${builtins.toString cfg.port} -U /var/lib/zerotier-one-controller";
         StateDirectory = "zerotier-one-controller";
         WorkingDirectory = "/var/lib/zerotier-one-controller";
@@ -186,7 +185,11 @@ in
         BindPaths = [ "/var/lib/zerotier-one-controller" ];
       };
     };
-    lantian.harden.zerotierone-controller = true;
+    lantian.harden.zerotierone-controller.enable = true;
+    lantian.harden.zerotierone-controller-setup = {
+      enable = true;
+      enableConfinement = false;
+    };
 
     systemd.services.zerotierone-controller-setup = {
       description = "ZeroTier One Controller Setup";
@@ -196,7 +199,7 @@ in
 
       script = lib.concatStrings (lib.mapAttrsToList (n: v: v._script) cfg.networks);
 
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         Type = "oneshot";
         StateDirectory = "zerotier-one-controller";
         WorkingDirectory = "/var/lib/zerotier-one-controller";

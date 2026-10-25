@@ -181,7 +181,7 @@ in
 
       exec ${lib.getExe pkgs.xray} -config /run/v2ray/config.json
     '';
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       LoadCredential = jqSecrets.credentials;
       User = "v2ray";
       Group = "v2ray";
@@ -194,7 +194,7 @@ in
       # namespace, so the unix socket stays reachable at /run/v2ray
     };
   };
-  lantian.harden.v2ray = true;
+  lantian.harden.v2ray.enable = true;
 
   users.users.v2ray = {
     group = "v2ray";

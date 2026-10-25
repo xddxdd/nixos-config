@@ -61,7 +61,7 @@
         config.lantian.syncthing.storage
         config.services.syncthing.dataDir
       ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         RestartSec = "5s";
         # Go uses netlink to enumerate interfaces for discovery and NAT traversal.
         RestrictAddressFamilies = [
@@ -93,7 +93,7 @@
           "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml ${lib.getExe config.services.syncthing.package}";
       };
     };
-    lantian.harden.syncthing = true;
+    lantian.harden.syncthing.enable = true;
 
     # Replaced by custom config script
     systemd.services.syncthing-init.enable = lib.mkForce false;

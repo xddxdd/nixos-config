@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  LT,
   ...
 }:
 {
@@ -22,7 +21,7 @@
       parallel -j$(nproc) < parallel.lst
     '';
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       ReadWritePaths = [
         "/mnt/storage/syncthing/CloudMusic"
@@ -39,6 +38,11 @@
       RequiresMountsFor = config.systemd.services.rsgain-cloudmusic.serviceConfig.ReadWritePaths;
       OnFailure = "notify-email@%n.service";
     };
+  };
+
+  lantian.harden.rsgain-cloudmusic = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.rsgain-cloudmusic = {

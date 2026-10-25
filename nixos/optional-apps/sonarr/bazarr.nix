@@ -13,7 +13,7 @@
     settings.general.port = LT.port.Bazarr;
   };
   systemd.services.bazarr = {
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_INET"
@@ -24,15 +24,13 @@
       StateDirectory = "bazarr";
       MemoryDenyWriteExecute = false;
       BindPaths = [ "/var/lib/bazarr" ];
-      BindReadOnlyPaths = [
-        "/etc/passwd"
-        "/etc/group"
-        "/etc/resolv.conf"
-      ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.bazarr = {
+    enable = true;
+    passwd = true;
+    etc = {
+      "resolv.conf" = true;
     };
   };
 
@@ -74,9 +72,8 @@
       PrivateMounts = true;
       SystemCallErrorNumber = "EPERM";
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
+  };
+  lantian.harden.prometheus-exportarr-bazarr-exporter = {
+    enable = true;
   };
 }

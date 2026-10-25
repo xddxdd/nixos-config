@@ -53,9 +53,8 @@
 
   systemd.services.vaultwarden = {
     path = [ pkgs.msmtp ];
-    after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       RestartSec = "5s";
       RestrictAddressFamilies = [
         "AF_UNIX"
@@ -64,17 +63,14 @@
         "AF_LOCAL"
         "AF_NETLINK"
       ];
-      # chroot's tmpfs root is ephemeral; bind data dir and the mysqld unix
-      # socket through
-      BindPaths = [
-        "/var/lib/vaultwarden"
-        "/run/mysqld"
-      ];
-      BindReadOnlyPaths = [
-        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
-        config.sops.secrets.smtp-pass.path
-      ];
+      # chroot's tmpfs root is ephemeral; bind data dir through.
+      BindPaths = [ "/var/lib/vaultwarden" ];
+      BindReadOnlyPaths = [ config.sops.secrets.smtp-pass.path ];
     };
   };
-  lantian.harden.vaultwarden = true;
+  lantian.harden.vaultwarden = {
+    enable = true;
+    mysql = true;
+    etc.msmtprc = true;
+  };
 }

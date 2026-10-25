@@ -1,8 +1,6 @@
 {
   lib,
   pkgs,
-  LT,
-  config,
   ...
 }:
 let
@@ -53,13 +51,9 @@ in
             "redis-pyhss.service"
             "postgresql.service"
           ];
-          after = [
-            "redis-pyhss.service"
-            "postgresql.service"
-          ];
           wantedBy = [ "multi-user.target" ];
 
-          serviceConfig = LT.serviceHarden // {
+          serviceConfig = {
             User = "pyhss";
             Group = "pyhss";
 
@@ -72,16 +66,6 @@ in
 
             Restart = "always";
             RestartSec = "5";
-
-            BindReadOnlyPaths = [
-              "${config.environment.etc."pyhss".source}:/etc/pyhss"
-              "/run/postgresql"
-              "/run/redis-pyhss"
-            ];
-          };
-          confinement = {
-            enable = true;
-            fullUnit = true;
           };
         }
       )
@@ -98,11 +82,19 @@ in
   };
   users.groups.pyhss = { };
 
-  lantian.harden = lib.genAttrs [
-    "pyhss-api"
-    "pyhss-diameter"
-    "pyhss-hss"
-  ] (_: true);
+  lantian.harden =
+    lib.genAttrs
+      [
+        "pyhss-api"
+        "pyhss-diameter"
+        "pyhss-hss"
+      ]
+      (_: {
+        enable = true;
+        postgresql = true;
+        redis = "pyhss";
+        etc.pyhss = true;
+      });
 
   lantian.localVhosts.pyhss = {
     accessibleBy = "private";

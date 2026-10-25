@@ -105,11 +105,9 @@
   systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
   systemd.services.phpfpm-nextcloud.serviceConfig = {
     RestartSec = "5s";
-    BindReadOnlyPaths = [
-      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
-      config.sops.secrets.smtp-pass.path
-    ];
+    BindReadOnlyPaths = [ config.sops.secrets.smtp-pass.path ];
   };
+  lantian.harden.phpfpm-nextcloud.etc.msmtprc = true;
   systemd.services.nextcloud-cron = {
     path = [ pkgs.msmtp ];
     serviceConfig.BindReadOnlyPaths = [

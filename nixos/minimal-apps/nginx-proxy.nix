@@ -87,7 +87,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "nginx.service" ];
       requires = [ "nginx.service" ];
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         ExecStart = "${lib.getExe config.services.nginx.package} -c ${nginxConfig}";
         Restart = "always";
         RestartSec = "10s";
@@ -111,6 +111,6 @@ in
         SystemCallFilter = [ ];
       };
     };
-    lantian.harden.nginx-proxy = true;
+    lantian.harden.nginx-proxy.enable = true;
   };
 }

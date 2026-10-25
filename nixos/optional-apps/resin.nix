@@ -32,7 +32,7 @@
       TZ = config.time.timeZone;
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       EnvironmentFile = config.sops.templates.resin-env.path;
       ExecStart = lib.getExe pkgs.nur-xddxdd.resin;
       Restart = "always";
@@ -45,7 +45,7 @@
       WorkingDirectory = "/var/lib/resin";
     };
   };
-  lantian.harden.resin = true;
+  lantian.harden.resin.enable = true;
 
   users.users.resin = {
     group = "resin";

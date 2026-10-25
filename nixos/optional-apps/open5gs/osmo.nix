@@ -15,7 +15,7 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pkgs.osmo-hlr} -c ${./osmo-hlr.cfg}";
       StateDirectory = "osmo-hlr";
       WorkingDirectory = "/var/lib/osmo-hlr";
@@ -40,7 +40,7 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = "${lib.getExe pkgs.osmo-msc} -c ${./osmo-msc.cfg}";
       StateDirectory = "osmo-msc";
       WorkingDirectory = "/var/lib/osmo-msc";
@@ -59,6 +59,6 @@
     };
   };
 
-  lantian.harden.osmo-hlr = true;
-  lantian.harden.osmo-msc = true;
+  lantian.harden.osmo-hlr.enable = true;
+  lantian.harden.osmo-msc.enable = true;
 }

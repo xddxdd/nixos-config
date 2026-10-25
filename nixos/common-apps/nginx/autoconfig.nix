@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   LT,
   ...
 }:
@@ -213,11 +212,12 @@ let
     '';
 in
 lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
-  lantian.nginxVhosts = builtins.listToAttrs (
+  environment.etc = builtins.listToAttrs (
     builtins.map (
       domain:
-      let
-        autoconfigScript = pkgs.writeText "autoconfig-${domain}.js" ''
+      lib.nameValuePair "nginx/autoconfig-${domain}.js" {
+        mode = "0444";
+        text = ''
           import xml from 'xml';
           import querystring from 'querystring';
 
@@ -265,11 +265,17 @@ lib.mkIf (LT.this.hasTag LT.tags.public-facing) {
 
           export default { mobileconfig, autodiscover };
         '';
-      in
+      }
+    ) domains
+  );
+
+  lantian.nginxVhosts = builtins.listToAttrs (
+    builtins.map (
+      domain:
       lib.nameValuePair "autoconfig.${domain}" {
         extraConfig = ''
           js_engine qjs;
-          js_import autoconfig from ${autoconfigScript};
+          js_import autoconfig from /etc/nginx/autoconfig-${domain}.js;
         '';
         locations = {
           "/mail/config-v1.1.xml" = {

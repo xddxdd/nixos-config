@@ -22,7 +22,7 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = lib.getExe cli-proxy-api;
       Restart = "always";
       RestartSec = "3";
@@ -34,7 +34,7 @@ in
       Group = "cliproxyapi";
     };
   };
-  lantian.harden.cliproxyapi = true;
+  lantian.harden.cliproxyapi.enable = true;
 
   users.users.cliproxyapi = {
     group = "cliproxyapi";

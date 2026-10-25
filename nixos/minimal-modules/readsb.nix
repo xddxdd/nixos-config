@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  LT,
   ...
 }:
 let
@@ -203,7 +202,7 @@ let
         exec ${lib.getExe' cfg.package "readsb"} ${lib.concatStringsSep " " (buildArgs cfg)}
       '';
 
-      serviceConfig = LT.serviceHarden // {
+      serviceConfig = {
         PrivateDevices = false;
         RestrictAddressFamilies = "";
 
@@ -245,7 +244,7 @@ in
     }
     {
       lantian.harden = lib.mapAttrs' (
-        name: _: lib.nameValuePair "readsb-${name}" true
+        name: _: lib.nameValuePair "readsb-${name}" { enable = true; }
       ) config.services.readsb;
     }
   ];

@@ -3,6 +3,7 @@
   lib,
   LT,
   config,
+  serviceHardenArgs,
   ...
 }:
 let
@@ -14,22 +15,6 @@ let
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
 
-  # Preserve stored bt.localhost endpoints only in these two application views.
-  arrReadOnlyPaths = [
-    "/etc/passwd"
-    "/etc/group"
-    "/etc/resolv.conf"
-    "${
-      pkgs.concatText "radarr-hosts" [
-        config.environment.etc.hosts.source
-        (pkgs.writeText "radarr-bt-localhost" "127.0.0.1 bt.localhost\n")
-      ]
-    }:/etc/hosts"
-    "${
-      config.environment.etc."ssl/certs/ca-certificates.crt".source
-    }:/etc/ssl/certs/ca-certificates.crt"
-    "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-bundle.crt"
-  ];
 in
 {
   imports = [
@@ -105,9 +90,8 @@ in
   systemd.services.radarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       StateDirectory = lib.mkForce "radarr radarr/asp";
-      BindReadOnlyPaths = lib.mkForce arrReadOnlyPaths;
       BindPaths = [
         defaultDownloadPath
         radarrMediaPath
@@ -115,17 +99,26 @@ in
         qBitTorrentSonarrDownloadPath
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.radarr = {
+    enable = true;
+    passwd = true;
+    etc = {
+      "resolv.conf" = true;
+      # Preserve stored bt.localhost endpoints only in this application's view.
+      hosts = pkgs.concatText "radarr-hosts" [
+        config.environment.etc.hosts.source
+        (pkgs.writeText "radarr-bt-localhost" "127.0.0.1 bt.localhost\n")
+      ];
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
 
   systemd.services.sonarr = {
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
-    serviceConfig = LT.serviceHarden // {
-      BindReadOnlyPaths = lib.mkForce arrReadOnlyPaths;
+    serviceConfig = {
       BindPaths = [
         defaultDownloadPath
         sonarrMediaPath
@@ -133,9 +126,19 @@ in
         qBitTorrentSonarrDownloadPath
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.sonarr = {
+    enable = true;
+    passwd = true;
+    etc = {
+      "resolv.conf" = true;
+      # Preserve stored bt.localhost endpoints only in this application's view.
+      hosts = pkgs.concatText "radarr-hosts" [
+        config.environment.etc.hosts.source
+        (pkgs.writeText "radarr-bt-localhost" "127.0.0.1 bt.localhost\n")
+      ];
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
 
@@ -143,17 +146,14 @@ in
     after = [ "mnt-storage.mount" ];
     requires = [ "mnt-storage.mount" ];
     path = with pkgs; [ mediainfo ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       BindPaths = [
         radarrMediaPath
         sonarrMediaPath
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
-    };
   };
+  lantian.harden.bazarr.enable = true;
 
   systemd.services.qbittorrent = netns.bind {
     after = [ "mnt-storage.mount" ];
@@ -161,17 +161,21 @@ in
     environment.XDG_CACHE_HOME = "/var/lib/qbittorrent/qBittorrent/cache";
     environment.XDG_CONFIG_HOME = "/var/lib/qbittorrent/qBittorrent/config";
     environment.XDG_DATA_HOME = "/var/lib/qbittorrent/qBittorrent/data";
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       StateDirectory = "qbittorrent";
-      BindReadOnlyPaths = [ "/etc/netns/tnl-buyvm/resolv.conf:/etc/resolv.conf" ];
       BindPaths = [
         defaultDownloadPath
         qBitTorrentSonarrDownloadPath
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.qbittorrent = {
+    enable = true;
+    etc = {
+      "resolv.conf" = "/etc/netns/tnl-buyvm/resolv.conf";
+      hosts = true;
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
 
@@ -181,16 +185,23 @@ in
     environment.XDG_CACHE_HOME = "/var/lib/qbittorrent-pt/qBittorrent/cache";
     environment.XDG_CONFIG_HOME = "/var/lib/qbittorrent-pt/qBittorrent/config";
     environment.XDG_DATA_HOME = "/var/lib/qbittorrent-pt/qBittorrent/data";
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
+      # Preserve the two original merged preset sequences verbatim.
+      SystemCallFilter = serviceHardenArgs.SystemCallFilter ++ serviceHardenArgs.SystemCallFilter;
       StateDirectory = "qbittorrent-pt";
       BindPaths = [
         defaultDownloadPath
         qBitTorrentPTSonarrDownloadPath
       ];
     };
-    confinement = {
-      enable = true;
-      fullUnit = true;
+  };
+  lantian.harden.qbittorrent-pt = {
+    enable = true;
+    etc = {
+      "resolv.conf" = true;
+      hosts = true;
+      "ssl/certs/ca-certificates.crt" = true;
+      "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
 

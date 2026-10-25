@@ -42,7 +42,7 @@ in
       BIRDLG_TELEGRAM_BOT_NAME = "lantian_lg_bot";
       BIRDLG_WHOIS = "172.22.76.108";
     };
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "simple";
       Restart = "always";
       RestartSec = "3";
@@ -54,7 +54,7 @@ in
     };
   };
 
-  lantian.harden.bird-lg-go = true;
+  lantian.harden.bird-lg-go.enable = true;
   systemd.services.bird-lgproxy-go.enable = lib.mkForce true;
 
   lantian.nginxVhosts = {

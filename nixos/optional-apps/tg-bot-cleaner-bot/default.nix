@@ -1,6 +1,5 @@
 {
   pkgs,
-  LT,
   config,
   inputs,
   ...
@@ -21,7 +20,7 @@ in
     description = "A Bot that cleans other Telegram Bot messages";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       EnvironmentFile = config.sops.templates.tg-bot-cleaner-bot.path;
       Restart = "always";
       RestartSec = "5s";
@@ -34,7 +33,7 @@ in
       exec ${python}/bin/python3 -u ${./script.py}
     '';
   };
-  lantian.harden.tg-bot-cleaner-bot = true;
+  lantian.harden.tg-bot-cleaner-bot.enable = true;
 
   users.users.tg-bot-cleaner-bot = {
     group = "tg-bot-cleaner-bot";

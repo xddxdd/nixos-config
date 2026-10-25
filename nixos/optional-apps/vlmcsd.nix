@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  LT,
   config,
   ...
 }:
@@ -22,7 +21,7 @@
   systemd.services.vlmcsd = config.lantian.netns.kms.bind {
     description = "Vlmcsd";
     wantedBy = [ "multi-user.target" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "forking";
       Restart = "always";
       RestartSec = "3";
@@ -30,5 +29,5 @@
       DynamicUser = true;
     };
   };
-  lantian.harden.vlmcsd = true;
+  lantian.harden.vlmcsd.enable = true;
 }

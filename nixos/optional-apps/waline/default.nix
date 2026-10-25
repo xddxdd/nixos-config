@@ -98,7 +98,7 @@ in
       SENDER_NAME = "Lan Tian @ Blog";
     };
 
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       ExecStart = lib.getExe waline;
       EnvironmentFile = config.sops.templates.waline-env.path;
       Restart = "always";
@@ -108,13 +108,15 @@ in
 
       RuntimeDirectory = "waline";
       WorkingDirectory = "${waline}/lib/node_modules/@waline/vercel";
-      BindReadOnlyPaths = [ "/run/postgresql" ];
 
       MemoryDenyWriteExecute = lib.mkForce false;
       SystemCallFilter = lib.mkForce [ ];
     };
   };
-  lantian.harden.waline = true;
+  lantian.harden.waline = {
+    enable = true;
+    postgresql = true;
+  };
 
   users.users.waline = {
     group = "waline";

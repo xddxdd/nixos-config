@@ -100,7 +100,7 @@ in
   # HTTP-triggered cron
   systemd.services.wordpress-cron = {
     after = [ "mysql.service" ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       User = "wordpress";
       Group = config.services.nginx.group;
@@ -114,6 +114,11 @@ in
     script = ''
       php ${config.services.wordpress.sites."wp.xuyh0120.win".finalPackage}/share/wordpress/wp-cron.php
     '';
+  };
+
+  lantian.harden.wordpress-cron = {
+    enable = true;
+    enableConfinement = false;
   };
 
   systemd.timers.wordpress-cron = {
@@ -138,15 +143,14 @@ in
     sslCertificate = "lets-encrypt-xuyh0120.win";
   };
 
+  lantian.harden."phpfpm-wordpress-wp.xuyh0120.win".mysql = true;
   systemd.services."phpfpm-wordpress-wp.xuyh0120.win" = {
     # Rebind the database socket when MySQL recreates its RuntimeDirectory.
-    after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
     partOf = [ "mysql.service" ];
     confinement.packages = [ config.services.wordpress.sites."wp.xuyh0120.win".finalPackage ];
     serviceConfig = {
       BindReadOnlyPaths = [
-        "/run/mysqld"
         "/var/lib/wordpress/wp.xuyh0120.win/secret-keys.php"
       ];
       BindPaths = with config.services.wordpress.sites."wp.xuyh0120.win"; [

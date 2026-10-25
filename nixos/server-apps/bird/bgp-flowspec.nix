@@ -15,7 +15,7 @@
       pkgs.nftables
     ];
 
-    serviceConfig = LT.networkToolHarden // {
+    serviceConfig = {
       Restart = "always";
       RestartSec = "5";
 
@@ -28,5 +28,9 @@
         "--allowed-ips ::1/128"
       ];
     };
+  };
+  lantian.harden.bgp-flowspec = {
+    enable = "network";
+    enableConfinement = false;
   };
 }

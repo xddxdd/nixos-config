@@ -22,7 +22,7 @@ in
       AutoMihoyoBBS_config_path = "/var/lib/auto-mihoyo-bbs";
     };
     path = with pkgs; [ gitMinimal ];
-    serviceConfig = LT.serviceHarden // {
+    serviceConfig = {
       Type = "oneshot";
       TimeoutSec = 3600;
       StateDirectory = "auto-mihoyo-bbs";
@@ -42,7 +42,7 @@ in
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
-  lantian.harden.auto-mihoyo-bbs = true;
+  lantian.harden.auto-mihoyo-bbs.enable = true;
 
   systemd.timers.auto-mihoyo-bbs = {
     wantedBy = [ "timers.target" ];

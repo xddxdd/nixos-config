@@ -19,8 +19,8 @@
     };
   };
 
-  systemd.services.i2pd.serviceConfig = LT.serviceHarden // {
+  systemd.services.i2pd.serviceConfig = {
     RestartSec = "5s";
   };
-  lantian.harden.i2pd = true;
+  lantian.harden.i2pd.enable = true;
 }
