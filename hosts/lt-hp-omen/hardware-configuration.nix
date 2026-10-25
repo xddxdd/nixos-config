@@ -6,6 +6,7 @@
   imports = [
     ../../nixos/hardware/ch341.nix
     ../../nixos/hardware/crashdump.nix
+    ../../nixos/hardware/gpu-unlock.nix
     ../../nixos/hardware/hdr.nix
     # ../../nixos/hardware/i915-sriov.nix
     ../../nixos/hardware/nvidia/prime.nix # Bambu studio is unstable on NVIDIA
