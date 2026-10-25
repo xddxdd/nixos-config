@@ -17,14 +17,22 @@ let
         builtins.filter (v: v != null) (
           lib.unique (
             lib.flatten (
-              lib.mapAttrsToList (
-                _: v:
-                [ v.root ]
-                ++ lib.mapAttrsToList (_: v: [
-                  v.root
-                  v.alias
-                ]) v.locations
-              ) config.lantian.nginxVhosts
+              lib.concatMap
+                (
+                  vhosts:
+                  lib.mapAttrsToList (
+                    _: v:
+                    [ v.root ]
+                    ++ lib.mapAttrsToList (_: v: [
+                      v.root
+                      v.alias
+                    ]) v.locations
+                  ) vhosts
+                )
+                [
+                  config.lantian.nginxVhosts
+                  config.services.nginx.virtualHosts
+                ]
             )
           )
         )

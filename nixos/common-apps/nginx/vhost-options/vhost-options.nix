@@ -267,7 +267,11 @@ let
       ])
     );
 
-    locations = lib.mapAttrs (n: v: v._config) config._locationsWithCommon;
+    locations =
+      lib.mapAttrs (n: v: v._config) config._locationsWithCommon
+      // lib.optionalAttrs (config.noIndex.enable && config.noIndex.serveRobotsTxt) {
+        "= /robots.txt".alias = robotsTxt;
+      };
 
     extraConfig =
       config.extraConfig
@@ -330,11 +334,6 @@ let
       )
       + (lib.optionalString config.noIndex.enable ''
         add_header X-Robots-Tag 'noindex, nofollow';
-      '')
-      + (lib.optionalString (config.noIndex.enable && config.noIndex.serveRobotsTxt) ''
-        location = /robots.txt {
-          alias ${robotsTxt};
-        }
       '')
       + (lib.optionalString (config.accessibleBy == "public" && config.blockMainlandChina) ''
         ${lib.concatMapStringsSep "\n" (ip: "deny ${ip};") (
