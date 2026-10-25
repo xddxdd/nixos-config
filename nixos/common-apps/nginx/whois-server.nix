@@ -1,225 +1,77 @@
 {
-  config,
   lib,
+  pkgs,
   ...
 }:
-# FIXME: refactor without lua
+let
+  whoisDelegations =
+    pkgs.runCommandLocal "whois-delegations.js"
+      {
+        nativeBuildInputs = [ pkgs.python3 ];
+      }
+      ''
+        python3 ${./whois-server/delegations.py} ${pkgs.whois.src} > "$out"
+      '';
+  whoisScript = pkgs.writeText "whois.js" (
+    builtins.replaceStrings [ "@delegations@" ] [ "${whoisDelegations}" ] (
+      builtins.readFile ./whois-server/handler.js
+    )
+  );
+in
+# Keep offline pending validation of the custom plain-protocol boundaries.
 lib.mkIf false {
-  lantian.nginxVhosts = {
-    "whois.lantian.pub" = {
-      listenHTTP.enable = true;
-      listenPlainSocket = {
-        enable = true;
-        socket = "/run/nginx/whois.sock";
-        proxyProtocol = true;
-        default = true;
-      };
-
-      enableCommonLocationOptions = false;
-      enableCommonVhostOptions = false;
-
-      serverAliases = [
-        "whois.lantian.dn42"
-        "whois.lantian.neo"
-      ];
-      locations = {
-        "/".extraConfig = ''
-          rewrite "^/([^ ]+) .*$" /$1 break;
-
-          proxy_pass http://unix:${config.lantian.nginxVhosts."stage1.whois.local".listenHTTP_Socket.socket};
-          proxy_set_header Host "stage1.whois.local";
-          add_before_body /lantian-prepend;
-
-          limit_req zone=slow burst=5 nodelay;
-          limit_req_status 429;
-        '';
-
-        # Prepend isn't working now, not sure why
-        "/lantian-prepend".extraConfig = ''
-          internal;
-          return 200 "% Lan Tian Nginx-based WHOIS Server\n% GET $request_uri:\n\n";
-        '';
-      };
-
-      sslCertificate = "lets-encrypt-lantian.pub";
+  lantian.nginxVhosts."whois.lantian.pub" = {
+    listenHTTP.enable = true;
+    listenPlainSocket = {
+      enable = true;
+      socket = "/run/nginx/whois.sock";
+      proxyProtocol = true;
+      default = true;
     };
-
-    "stage1.whois.local" = {
-      listenHTTPS.enable = false;
-      listenHTTP_Socket = {
-        enable = true;
-        socket = "/run/nginx/whois-stage1.sock";
-        default = true;
-      };
-
-      enableCommonLocationOptions = false;
-      enableCommonVhostOptions = false;
-
-      root = "/nix/sync-servers/ltnet-registry/dn42/data";
-      locations = {
-        "/".extraConfig = ''
-          set_by_lua $uri_upper "return ngx.var.uri:upper()";
-          set_by_lua $uri_lower "return ngx.var.uri:lower()";
-
-          rewrite "^/([0-9]{1})$" /AS424242000$1 last;
-          rewrite "^/([0-9]{2})$" /AS42424200$1 last;
-          rewrite "^/([0-9]{3})$" /AS4242420$1 last;
-          rewrite "^/([0-9]{4})$" /AS424242$1 last;
-          rewrite "^/([0-9]+)$" /AS$1 last;
-          rewrite "^/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$" /$1.$2.$3.$4/32 last;
-          rewrite "^/([0-9a-fA-F:]+)$" /$1/128 last;
-
-          try_files /aut-num$uri_upper
-                    /inetnum$uri_upper
-                    /inet6num$uri_upper
-                    /person$uri_upper
-                    /mntner$uri_upper
-                    /schema$uri_upper
-                    /organisation$uri_upper
-                    /tinc-keyset$uri_upper
-                    /tinc-key$uri_upper
-                    /route-set$uri_upper
-                    /as-block$uri_upper
-                    /as-set$uri_upper
-                    /dns$uri_lower
-                    $uri
-                    @fallback;
-        '';
-
-        "~* \"^/([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)/([0-9]+)$\"".extraConfig = ''
-          set $ip $1;
-          set $mask $2;
-
-          content_by_lua_block {
-            local lantian_whois = require "lantian_whois";
-
-            local ip_target = lantian_whois.ipv4_find("inetnum", ngx.var.ip, ngx.var.mask)
-            local ip_content = lantian_whois.file_read(ip_target)
-            local route_target = lantian_whois.ipv4_find("route", ngx.var.ip, ngx.var.mask)
-            local route_content = lantian_whois.file_read(route_target)
-
-            if ip_content == nil then
-              ngx.exec('@fallback')
-            else
-              ngx.print(ip_content)
-              ngx.say("\n% Relevant route object:")
-              if route_content then
-                ngx.print(route_content)
-              else
-                ngx.say("% 404")
-              end
-            end
-          }
-        '';
-
-        "~* \"^/([0-9a-fA-F:]+)/([0-9]+)$\"".extraConfig = ''
-          set $ip $1;
-          set $mask $2;
-
-          content_by_lua_block {
-            local lantian_whois = require "lantian_whois";
-
-            local ip_target = lantian_whois.ipv6_find("inet6num", ngx.var.ip, ngx.var.mask)
-            local ip_content = lantian_whois.file_read(ip_target)
-            local route_target = lantian_whois.ipv6_find("route6", ngx.var.ip, ngx.var.mask)
-            local route_content = lantian_whois.file_read(route_target)
-
-            if ip_content == nil then
-              ngx.exec('@fallback')
-            else
-              ngx.print(ip_content)
-              ngx.say("\n% Relevant route object:")
-              if route_content then
-                ngx.print(route_content)
-              else
-                ngx.say("% 404")
-              end
-            end
-          }
-        '';
-
-        "@fallback".extraConfig = ''
-          internal;
-          proxy_pass http://unix:${config.lantian.nginxVhosts."stage2.whois.local".listenHTTP_Socket.socket};
-          proxy_set_header Host "stage2.whois.local";
-        '';
-      };
+    enableCommonLocationOptions = false;
+    enableCommonVhostOptions = false;
+    serverAliases = [
+      "whois.lantian.dn42"
+      "whois.lantian.neo"
+    ];
+    root = "/nix/sync-servers/ltnet-registry/dn42/data";
+    extraConfig = ''
+      js_engine qjs;
+      js_import whois from ${whoisScript};
+      js_var $whois_backend;
+      js_var $whois_query;
+      js_var $whois_prefix_sent;
+      error_page 400 = /whois-invalid.internal;
+      error_page 429 = @whois-limited;
+    '';
+    locations = {
+      "/".extraConfig = ''
+        limit_req zone=slow burst=5 nodelay;
+        limit_req_status 429;
+        js_content whois.lookup;
+      '';
+      "@whois-remote".extraConfig = ''
+        proxy_pass http://$whois_backend:43/$whois_query;
+        proxy_http_version plain;
+        # The plain-proxy patch still emits Host unless explicitly cleared.
+        proxy_set_header Host "";
+        proxy_pass_request_headers off;
+        proxy_pass_request_body off;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 15s;
+        proxy_send_timeout 5s;
+        proxy_buffering off;
+        js_header_filter whois.remoteHeaders;
+        js_body_filter whois.prepend buffer_type=buffer;
+      '';
+      "= /whois-invalid.internal".extraConfig = ''
+        internal;
+        js_content whois.invalid;
+      '';
+      "@whois-limited".extraConfig = ''
+        js_content whois.limited;
+      '';
     };
-
-    "stage2.whois.local" = {
-      listenHTTPS.enable = false;
-      listenHTTP_Socket = {
-        enable = true;
-        socket = "/run/nginx/whois-stage2.sock";
-        default = true;
-      };
-
-      enableCommonLocationOptions = false;
-      enableCommonVhostOptions = false;
-
-      locations = {
-        "/".extraConfig = ''
-          rewrite "^/([0-9]+)$" /AS$1 last;
-          rewrite "^/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$" /$1.$2.$3.$4/32 last;
-          rewrite "^/([0-9a-fA-F:]+)$" /$1/128 last;
-          return 200 "% Lan Tian Nginx-based WHOIS Server\n% GET $request_uri:\n% 404 Not Found\n";
-        '';
-
-        "~* \"^/[Aa][Ss]([0-9]+)$\"".extraConfig = ''
-          set $asn $1;
-          set_by_lua_block $backend {
-            local lantian_nginx = require "lantian_nginx";
-            return lantian_nginx.whois_asn_lookup(ngx.var.asn);
-          }
-
-          proxy_pass http://$backend:43/AS$1;
-          proxy_http_version plain;
-        '';
-
-        "~* \"^/([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)/([0-9]+)$\"".extraConfig = ''
-          set $ip $1;
-          set_by_lua_block $backend {
-            local lantian_nginx = require "lantian_nginx";
-            return lantian_nginx.whois_ip_lookup(ngx.var.ip);
-          }
-
-          proxy_pass http://$backend:43/$ip;
-          proxy_http_version plain;
-        '';
-
-        "~* \"^/([0-9a-fA-F:]+)/([0-9]+)$\"".extraConfig = ''
-          set $ip $1;
-          set_by_lua_block $backend {
-            local lantian_nginx = require "lantian_nginx";
-            return lantian_nginx.whois_ip_lookup(ngx.var.ip);
-          }
-
-          proxy_pass http://$backend:43/$ip;
-          proxy_http_version plain;
-        '';
-
-        "~* \"^/(.*)-([a-zA-Z0-9]+)$\"".extraConfig = ''
-          set_by_lua $query_upper "return ngx.var.uri:upper():sub(2)";
-          set_by_lua_block $backend {
-            local lantian_nginx = require "lantian_nginx";
-            return lantian_nginx.whois_nic_handle_lookup(ngx.var.query_upper);
-          }
-
-          proxy_pass http://$backend:43/$query_upper;
-          proxy_http_version plain;
-        '';
-
-        "~* \"^/(.*)\\.([a-zA-Z0-9]+)$\"".extraConfig = ''
-          set_by_lua $query_lower "return ngx.var.uri:lower():sub(2)";
-          set_by_lua_block $backend {
-            local lantian_nginx = require "lantian_nginx";
-            return lantian_nginx.whois_domain_lookup(ngx.var.query_lower);
-          }
-
-          proxy_pass http://$backend:43/$query_lower;
-          proxy_http_version plain;
-        '';
-      };
-    };
+    sslCertificate = "lets-encrypt-lantian.pub";
   };
 }
