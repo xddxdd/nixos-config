@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import ipaddress
 import json
-from pathlib import Path
 import re
 import sys
-
+from pathlib import Path
 
 ABBREVIATIONS = {
     name: f"whois.{name}.net"
@@ -71,7 +70,9 @@ for key, filename, version in (
         network = ipaddress.ip_network(cidr, strict=False)
         if network.version != version:
             raise ValueError(f"Wrong address family in {filename}: {cidr}")
-        data[key].append([str(int(network.network_address)), network.prefixlen, server(host)])
+        data[key].append(
+            [str(int(network.network_address)), network.prefixlen, server(host)]
+        )
     data[key].sort(key=lambda row: -row[1])
 
 for line in (resources / "nic_handles_list").read_text(encoding="utf-8").splitlines():
