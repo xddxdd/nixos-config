@@ -8,6 +8,30 @@
 let
   unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
 
+  nginxConfinement = pkgs.writeTextFile {
+    name = "nginx-confinement";
+    destination = "/lib/systemd/system/nginx.service.d/nginx-root.conf";
+    text = builtins.concatStringsSep "\n" (
+      [ "[Service]" ]
+      ++ builtins.map (n: "BindReadOnlyPaths=${n}") (
+        builtins.filter (v: v != null) (
+          lib.unique (
+            lib.flatten (
+              lib.mapAttrsToList (
+                _: v:
+                [ v.root ]
+                ++ lib.mapAttrsToList (_: v: [
+                  v.root
+                  v.alias
+                ]) v.locations
+              ) config.lantian.nginxVhosts
+            )
+          )
+        )
+      )
+    );
+  };
+
   nginxSslConf =
     isStream:
     let
@@ -220,7 +244,11 @@ in
   systemd.services.nginx = {
     after = [ "lantian-secrets.service" ];
     requires = [ "lantian-secrets.service" ];
-    confinement.packages = [ "${./files/dhparam.pem}" ];
+    # Directory-bound config no longer carries the closures of symlinked static assets.
+    confinement.packages = [
+      "${./files/dhparam.pem}"
+      nginxConfinement
+    ];
     environment = {
       inherit (config.environment.variables) OPENSSL_CONF;
     };
@@ -291,29 +319,5 @@ in
     };
   };
 
-  systemd.packages = [
-    (pkgs.writeTextFile {
-      name = "nginx-confinement";
-      destination = "/lib/systemd/system/nginx.service.d/nginx-root.conf";
-      text = builtins.concatStringsSep "\n" (
-        [ "[Service]" ]
-        ++ builtins.map (n: "BindReadOnlyPaths=${n}") (
-          builtins.filter (v: v != null) (
-            lib.unique (
-              lib.flatten (
-                lib.mapAttrsToList (
-                  _: v:
-                  [ v.root ]
-                  ++ lib.mapAttrsToList (_: v: [
-                    v.root
-                    v.alias
-                  ]) v.locations
-                ) config.lantian.nginxVhosts
-              )
-            )
-          )
-        )
-      );
-    })
-  ];
+  systemd.packages = [ nginxConfinement ];
 }
