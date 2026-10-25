@@ -45,8 +45,28 @@ in
       ProcSubset = "all";
 
       # Model data must stay outside runtime/strata, which is replaced on package updates.
-      # Keep the family and quantization explicit instead of selecting the default IQ3_S.
-      ExecStart = "${lib.getExe strata} --yes --family unsloth --model UD-Q4_K_XL --backend cuda --source huggingface --context 32768 --kv int8 --mtp on --parallel 1 --vision no --no-browser --host 127.0.0.1 --port ${LT.portStr.Strata} --gpu 0 --data-dir /var/cache/strata/data";
+      # The speed projection's refusal-direction control vector is only applied for the
+      # qwen/coder families (upstream gate in setup.py), which is why the quant is IQ3_S
+      # (the qwen family's 3.5-bit GSQ-RCO pick), not one of the unsloth UD quants.
+      ExecStart = builtins.concatStringsSep " " [
+        (lib.getExe strata)
+        "--yes"
+        "--family qwen"
+        "--model IQ3_S"
+        "--backend cuda"
+        "--source huggingface"
+        "--context 204800"
+        "--kv int8"
+        "--mtp on"
+        "--parallel 1"
+        "--vision yes"
+        "--experimental-speed-projection on"
+        "--no-browser"
+        "--host 127.0.0.1"
+        "--port ${LT.portStr.Strata}"
+        "--gpu 0"
+        "--data-dir /var/cache/strata/data"
+      ];
     };
   };
 
