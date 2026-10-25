@@ -49,7 +49,6 @@ in
       [
         # keep-sorted start
         (LT.wrapNetns "tnl-buyvm" qbittorrent-enhanced)
-        (bambu-studio.override { withNvidiaGLWorkaround = osConfig.hardware.nvidia.enabled; })
         (hashcat.override { cudaSupport = true; })
         # error: collision between `/nix/store/2vkk2dnf693fzhlx7v2wn2kcvflgkih9-qqmusic-1.1.5/opt/LICENSE.electron.txt' and `/nix/store/zwgihw847calnxy6ff341l1qkilmn8hm-qq-3.2.2-18394/opt/LICENSE.electron.txt'
         # FIXME
@@ -138,7 +137,10 @@ in
         zoom-us
         # keep-sorted end
       ]
-      ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [ nur-xddxdd.svp_4_6 ]
+      ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
+        bambu-studio
+        nur-xddxdd.svp_4_6
+      ]
     );
 
   programs.nix-index = {
