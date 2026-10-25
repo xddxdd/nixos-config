@@ -35,11 +35,10 @@ in
     extraPackages = [ pkgs.nodejs ];
 
     settings = {
-      # Enable all built-in tools on top of the defaults (read/bash/edit/write);
-      # codemode and tool_search are built-in extensions, off by default.
+      # grep/find built-ins are disabled here; the pi-fff package below replaces
+      # them with ffgrep/fffind/fff-multi-grep. codemode and tool_search are
+      # built-in extensions, off by default.
       defaultTools = [
-        "+grep"
-        "+find"
         "+ls"
         "+codemode"
         "+tool_search"
@@ -75,6 +74,7 @@ in
       packages = [
         # keep-sorted start
         "npm:@cortexkit/pi-magic-context"
+        "npm:@ff-labs/pi-fff"
         "npm:@gamaraan/ask-tool"
         "npm:@mjakl/pi-subagent"
         "npm:@moguw/pi-session-migrate"
@@ -113,6 +113,32 @@ in
   home.file.".pi/agent/ollama-cloud.json".text = builtins.toJSON {
     webTools = false;
     usageStatus = true;
+  };
+  # Strata inference server on pve-epyc (nixos/optional-apps/strata.nix),
+  # exposed through the private vhost. The server takes any API key and any
+  # model name; the id below matches what the deployed quant reports via
+  # /v1/models (n_ctx 204800, text+image input).
+  home.file.".pi/agent/models.json".text = builtins.toJSON {
+    "$schema" = "https://pi.dev/schemas/models.schema.json";
+    providers.strata = {
+      name = "Strata (pve-epyc)";
+      baseUrl = "https://strata.pve-epyc.xuyh0120.win/v1";
+      api = "openai-completions";
+      apiKey = "strata";
+      models = [
+        {
+          id = "qwen3.8-flash-next-iq3_s";
+          name = "Qwen 3.8 Flash Next (pve-epyc)";
+          reasoning = true;
+          input = [
+            "text"
+            "image"
+          ];
+          contextWindow = 204800;
+          maxTokens = 8192;
+        }
+      ];
+    };
   };
   home.file.".pi/agent/ask-tool.json".text = builtins.toJSON {
     notify = true;
