@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   programs.obs-studio = {
     enable = true;
@@ -17,9 +17,7 @@
     ];
   };
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-  # Don't autoload as it conflicts with physical camera on some programs
-  # boot.kernelModules = [ "v4l2loopback" ];
+  # Temporarily omit v4l2loopback: its modules.alias conflicts with the kernel module tree.
 
   users.users.lantian.extraGroups = [ "video" ];
 }
