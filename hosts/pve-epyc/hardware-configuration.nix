@@ -9,6 +9,7 @@
 {
   imports = [
     ../../nixos/hardware/ecc-ram.nix
+    ../../nixos/hardware/gpu-unlock.nix
     ../../nixos/hardware/nvidia/only.nix
     ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/smart.nix

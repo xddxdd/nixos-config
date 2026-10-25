@@ -138,6 +138,7 @@ let
           crystalhd = pkgs.nur-xddxdd.crystalhd.override { inherit (final) kernel; };
           dpdk-kmod = pkgs.nur-xddxdd.dpdk-kmod.override { inherit (final) kernel; };
           emperors-scepter = pkgs.nur-xddxdd.emperors-scepter.override { inherit (final) kernel; };
+          gpu-unlock = pkgs.nur-xddxdd.gpu-unlock.override { inherit (final) kernel; };
           i915-sriov = pkgs.nur-xddxdd.i915-sriov.override { inherit (final) kernel; };
           nft-fullcone = pkgs.nur-xddxdd.nft-fullcone.override { inherit (final) kernel; };
           nullfsvfs = pkgs.nur-xddxdd.nullfsvfs.override { inherit (final) kernel; };
