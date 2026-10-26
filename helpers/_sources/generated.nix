@@ -98,17 +98,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "21b2144f4ebe87ead9b7c0e10067759ae261b03e";
+    version = "cc639da879a3f404f5ded8ec41cdfdc63abd8317";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "21b2144f4ebe87ead9b7c0e10067759ae261b03e";
+      rev = "cc639da879a3f404f5ded8ec41cdfdc63abd8317";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-AjczJvlq6UYQGfgcTT94iDcMhM9OSno4E8pa4REcy4Y=";
+      sha256 = "sha256-mdah2KrvZcFkBRpR7gA07uEIBK8iD9pqOBT9/SJwRow=";
     };
-    date = "2026-10-21";
+    date = "2026-10-25";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -162,15 +162,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1";
+    version = "9b487a584ab02fd87ee1955ff9ae09522e452fd0";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1";
+      rev = "9b487a584ab02fd87ee1955ff9ae09522e452fd0";
       fetchSubmodules = false;
-      sha256 = "sha256-9lFrgNaFMEszWgRB75yJJzVf5bEBsPBG32mXhxXvnCk=";
+      sha256 = "sha256-RUhAFqgK3ngXmYIcPg4pem9Iy0eKSQupMty2aQuU02s=";
     };
-    date = "2026-10-21";
+    date = "2026-10-23";
   };
   open5gs = {
     pname = "open5gs";
@@ -421,13 +421,13 @@
   };
   vscode-vibrancy-continued = {
     pname = "vscode-vibrancy-continued";
-    version = "v1.5.0";
+    version = "v1.6.0";
     src = fetchFromGitHub {
       owner = "illixion";
       repo = "vscode-vibrancy-continued";
-      rev = "v1.5.0";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-qB2lFNSxT5P2pucDJGNLXGOVenaVZczwYXb+GWQ+j/I=";
+      sha256 = "sha256-b5PxrMBF/XgqKFbvzjiBEfQNKaBATh9BoLL+u773/5k=";
     };
   };
   wordpress-theme-twentyeleven = {

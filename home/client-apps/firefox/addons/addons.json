@@ -22,9 +22,9 @@
   },
   {
     "pname": "bilisponsorblock",
-    "version": "0.17.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5129607/bilisponsorblock-0.17.0.xpi",
-    "hash": "sha256-En27xVc3T0CsRx7wNdIyKQ7pV//FMb7B0aftnVdxpQM=",
+    "version": "0.17.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5157710/bilisponsorblock-0.17.1.xpi",
+    "hash": "sha256-dpl16OFg3Vl2YFPgX9M6QkkFQUqZ4RHOz7LzO+QVHdc=",
     "addonId": "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}"
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.52.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5146533/read_frog_open_ai_translator-1.52.1.xpi",
-    "hash": "sha256-RCMB/mqSnvr76hVXnV0plebWFsjx8qSFzl1nyZB5/5w=",
+    "version": "1.53.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5163242/read_frog_open_ai_translator-1.53.0.xpi",
+    "hash": "sha256-TFhw0ZoyOXm8hIGeI8Os5UJjIZ5jDDudp1sNjohZBQM=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -232,9 +232,9 @@
   },
   {
     "pname": "wappalyzer",
-    "version": "6.12.7",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5067215/wappalyzer-6.12.7.xpi",
-    "hash": "sha256-joK8gvKSYScwnye89kqqvBzzrtkYuTJ7RgCvNpt1d0s=",
+    "version": "6.12.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5166528/wappalyzer-6.12.8.xpi",
+    "hash": "sha256-ILtgBSGQ4AIElw/J1DDlx3Vuq5Co4p8wBuefLtn477g=",
     "addonId": "wappalyzer@crunchlabz.com"
   }
 ]
