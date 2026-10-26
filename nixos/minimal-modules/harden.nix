@@ -85,6 +85,7 @@ in
             realtime = lib.mkEnableOption "the realtime scheduling preset independently of hardening and confinement";
             passwd = lib.mkEnableOption "read-only passwd/group binds from services.userborn.passwordFilesLocation";
             secret = lib.mkEnableOption "a read-only bind of the entire host /run directory";
+            cuda = lib.mkEnableOption "read-only graphics driver environment binds for CUDA, including their store closures";
             mysql = lib.mkEnableOption "a read-only /run/mysqld bind and ordering after mysql.service";
             postgresql = lib.mkEnableOption "a read-only /run/postgresql bind and ordering after postgresql.service";
 
@@ -191,6 +192,18 @@ in
                   "${config.services.userborn.passwordFilesLocation}/group:/etc/group"
                 ]
                 ++ lib.optional cfg.secret "/run"
+                ++ lib.optional cfg.cuda "${config.hardware.graphics.driversEnv}:/run/opengl-driver"
+                ++
+                  lib.optionals
+                    (cfg.cuda && (config.hardware.graphics.enable32Bit || pkgs.stdenv.hostPlatform.isi686))
+                    [
+                      "${
+                        if pkgs.stdenv.hostPlatform.isi686 then
+                          config.hardware.graphics.driversEnv
+                        else
+                          config.hardware.graphics.driversEnv32
+                      }:/run/opengl-driver-32"
+                    ]
                 ++ lib.optional cfg.mysql "/run/mysqld"
                 ++ lib.optional cfg.postgresql "/run/postgresql"
                 ++ lib.optional (cfg.redis != null) "/run/${redisName}"

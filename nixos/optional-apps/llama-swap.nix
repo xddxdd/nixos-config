@@ -2,7 +2,6 @@
   lib,
   pkgs,
   LT,
-  config,
   ...
 }:
 let
@@ -153,6 +152,11 @@ in
       CapabilityBoundingSet = lib.mkForce [ ];
       ProcSubset = "all";
     };
+  };
+
+  lantian.harden.llama-swap = {
+    enable = true;
+    cuda = true;
   };
 
   users.users.llama-swap = {

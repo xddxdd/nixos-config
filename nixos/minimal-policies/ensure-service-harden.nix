@@ -21,7 +21,6 @@ let
     "cups-browsed"
     "enable-ksm"
     "greetd"
-    "llama-swap" # CUDA
     "nvidia-persistenced"
     "ovs-vswitchd"
     "ovsdb"
@@ -38,7 +37,6 @@ let
     "rtkit-daemon"
     "spiceproxy"
     "sshd"
-    "strata" # temporary exception for CUDA inference and runtime-managed model files
     "usbmuxd"
     "virtlockd"
     "virtlogd"

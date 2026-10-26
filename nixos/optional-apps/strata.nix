@@ -72,7 +72,7 @@ in
 
   lantian.harden.strata = {
     enable = true;
-    enableConfinement = false;
+    cuda = true;
   };
 
   users.users.strata = {

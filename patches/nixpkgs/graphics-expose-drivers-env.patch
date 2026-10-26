@@ -1,0 +1,69 @@
+--- a/nixos/modules/hardware/graphics.nix
++++ b/nixos/modules/hardware/graphics.nix
+@@ -6,16 +6,6 @@
+ }:
+ let
+   cfg = config.hardware.graphics;
+-
+-  driversEnv = pkgs.buildEnv {
+-    name = "graphics-drivers";
+-    paths = [ cfg.package ] ++ cfg.extraPackages;
+-  };
+-
+-  driversEnv32 = pkgs.buildEnv {
+-    name = "graphics-drivers-32bit";
+-    paths = [ cfg.package32 ] ++ cfg.extraPackages32;
+-  };
+ in
+ {
+   imports = [
+@@ -89,6 +79,34 @@
+       type = lib.types.package;
+     };
+ 
++    driversEnv = lib.mkOption {
++      type = lib.types.package;
++      readOnly = true;
++      default = pkgs.buildEnv {
++        name = "graphics-drivers";
++        paths = [ cfg.package ] ++ cfg.extraPackages;
++      };
++      defaultText = lib.literalExpression "pkgs.buildEnv { paths = [ cfg.package ] ++ cfg.extraPackages; ... }";
++      description = ''
++        The graphics driver environment linked at {file}`/run/opengl-driver`.
++      '';
++    };
++
++    driversEnv32 = lib.mkOption {
++      type = lib.types.package;
++      readOnly = true;
++      default = pkgs.buildEnv {
++        name = "graphics-drivers-32bit";
++        paths = [ cfg.package32 ] ++ cfg.extraPackages32;
++      };
++      defaultText = lib.literalExpression "pkgs.buildEnv { paths = [ cfg.package32 ] ++ cfg.extraPackages32; ... }";
++      description = ''
++        The 32-bit graphics driver environment linked at
++        {file}`/run/opengl-driver-32` when {option}`enable32Bit` is enabled.
++        On 32-bit x86 systems that link uses {option}`driversEnv` instead.
++      '';
++    };
++
+     extraPackages = lib.mkOption {
+       description = ''
+         Additional packages to add to the default graphics driver lookup path.
+@@ -131,12 +149,12 @@
+     ];
+ 
+     systemd.tmpfiles.settings.graphics-driver = {
+-      "/run/opengl-driver"."L+".argument = toString driversEnv;
++      "/run/opengl-driver"."L+".argument = toString cfg.driversEnv;
+       "/run/opengl-driver-32" =
+         if pkgs.stdenv.hostPlatform.isi686 then
+           { "L+".argument = "opengl-driver"; }
+         else if cfg.enable32Bit then
+-          { "L+".argument = toString driversEnv32; }
++          { "L+".argument = toString cfg.driversEnv32; }
+         else
+           { "r" = { }; };
+     };
