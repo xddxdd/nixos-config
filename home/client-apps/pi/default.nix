@@ -11,6 +11,12 @@ let
   context = builtins.concatStringsSep "\n" (
     builtins.map (f: "# ${builtins.baseNameOf f}\n" + builtins.readFile f) (LT.ls ./rules)
   );
+
+  api_key =
+    if builtins.hasAttr "pi-magic-context-openrouter-key" osConfig.sops.secrets then
+      "{file:${osConfig.sops.secrets.pi-magic-context-openrouter-key.path}}"
+    else
+      "";
 in
 {
   imports = [
@@ -154,8 +160,17 @@ in
     sidekick.model = "ollama-cloud/glm-5.3-flash";
     embedding = {
       provider = "openai-compatible";
-      model = "nomic-embed-code";
-      endpoint = "http://127.0.0.1:${LT.portStr.LlamaSwap}/v1";
+      model = "qwen/qwen3-embedding-8b";
+      endpoint = "http://openrouter.ai/v1";
+      inherit api_key;
+    };
+    rerank = {
+      provider = "remote";
+      endpoint = "http://openrouter.ai/v1";
+      model = "qwen/qwen3-reranker-8b";
+      inherit api_key;
+      timeout_ms = 5000;
+      top_n = 20;
     };
   };
   home.file.".pi/agent/extensions/no-update-check.ts".source = ./extensions/no-update-check.ts;
