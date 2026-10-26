@@ -1,7 +1,3 @@
-[airplanes-live-mcp]
-fetch.git = "https://github.com/Bellaposa/airplanes-live-mcp.git"
-src.git = "https://github.com/Bellaposa/airplanes-live-mcp.git"
-
 [anti-fooling-hot-line]
 fetch.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"
 src.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"

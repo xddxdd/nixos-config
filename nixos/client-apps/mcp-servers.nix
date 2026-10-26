@@ -3,7 +3,6 @@
   lib,
   inputs,
   config,
-  LT,
   ...
 }:
 let
@@ -50,21 +49,6 @@ in
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
-      airplanes-live = {
-        command =
-          let
-            py = pkgs.python3.withPackages (ps: [
-              ps.mcp
-              ps.fastmcp
-              ps.httpx
-            ]);
-          in
-          toString (
-            pkgs.writeShellScript "mcp-airplanes-live" ''
-              exec ${py}/bin/python ${LT.sources.airplanes-live-mcp.src}/airplane_server.py
-            ''
-          );
-      };
       akasha-terminal = {
         type = "streamable-http";
         url = "https://agent.zlb.ink/api/mcp/";
@@ -82,12 +66,6 @@ in
         args = [
           "--with=mcp<2"
           "mcp-nixos"
-        ];
-      };
-      time = {
-        command = lib.getExe pkgs.mcp-server-time;
-        args = [
-          "--local-timezone=${config.time.timeZone}"
         ];
       };
       weather = {

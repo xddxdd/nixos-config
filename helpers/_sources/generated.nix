@@ -6,20 +6,6 @@
   dockerTools,
 }:
 {
-  airplanes-live-mcp = {
-    pname = "airplanes-live-mcp";
-    version = "df9b1499b45d3cc67c709afeb993453032943b7b";
-    src = fetchgit {
-      url = "https://github.com/Bellaposa/airplanes-live-mcp.git";
-      rev = "df9b1499b45d3cc67c709afeb993453032943b7b";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-GNmQ3RCFdMzDWjL+ygfpFyCWmXPTOxdBaedL8gmSr6s=";
-    };
-    date = "2025-10-23";
-  };
   anti-fooling-hot-line = {
     pname = "anti-fooling-hot-line";
     version = "02c8e86c20b8011ffe535a016e61287f3989164c";
@@ -98,17 +84,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "cc639da879a3f404f5ded8ec41cdfdc63abd8317";
+    version = "21b2144f4ebe87ead9b7c0e10067759ae261b03e";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "cc639da879a3f404f5ded8ec41cdfdc63abd8317";
+      rev = "21b2144f4ebe87ead9b7c0e10067759ae261b03e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-mdah2KrvZcFkBRpR7gA07uEIBK8iD9pqOBT9/SJwRow=";
+      sha256 = "sha256-AjczJvlq6UYQGfgcTT94iDcMhM9OSno4E8pa4REcy4Y=";
     };
-    date = "2026-10-25";
+    date = "2026-10-21";
   };
   lyrica-customized = {
     pname = "lyrica-customized";
@@ -162,15 +148,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "9b487a584ab02fd87ee1955ff9ae09522e452fd0";
+    version = "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "9b487a584ab02fd87ee1955ff9ae09522e452fd0";
+      rev = "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1";
       fetchSubmodules = false;
-      sha256 = "sha256-RUhAFqgK3ngXmYIcPg4pem9Iy0eKSQupMty2aQuU02s=";
+      sha256 = "sha256-9lFrgNaFMEszWgRB75yJJzVf5bEBsPBG32mXhxXvnCk=";
     };
-    date = "2026-10-23";
+    date = "2026-10-21";
   };
   open5gs = {
     pname = "open5gs";
@@ -421,13 +407,13 @@
   };
   vscode-vibrancy-continued = {
     pname = "vscode-vibrancy-continued";
-    version = "v1.6.0";
+    version = "v1.5.0";
     src = fetchFromGitHub {
       owner = "illixion";
       repo = "vscode-vibrancy-continued";
-      rev = "v1.6.0";
+      rev = "v1.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-b5PxrMBF/XgqKFbvzjiBEfQNKaBATh9BoLL+u773/5k=";
+      sha256 = "sha256-qB2lFNSxT5P2pucDJGNLXGOVenaVZczwYXb+GWQ+j/I=";
     };
   };
   wordpress-theme-twentyeleven = {

@@ -22,23 +22,6 @@ let
       done
     ''
   );
-
-  wine' = pkgs.wine-tkg.overrideAttrs (old: {
-    prePatch =
-      let
-        oldPrepatch = old.prePatch or "";
-      in
-      (if oldPrepatch == null then "" else oldPrepatch)
-      + ''
-        substituteInPlace "loader/wine.inf.in" --replace-warn \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"' \
-          'HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -r"'
-      '';
-
-    postFixup = ''
-      ln -sf $out/bin/wine $out/bin/wine64
-    '';
-  });
 in
 {
   imports = [ inputs.nix-index-database.homeModules.nix-index ];
@@ -112,7 +95,7 @@ in
         parallel
         parsec-bin
         payload-dumper-go
-        picoforge
+        # picoforge
         piliplus
         powertop
         pwgen
@@ -127,7 +110,6 @@ in
         ventoy-full
         virt-manager
         vlc
-        wine'
         winetricks
         wpsoffice
         xca
@@ -138,7 +120,7 @@ in
         # keep-sorted end
       ]
       ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
-        bambu-studio
+        nur-xddxdd.bambu-studio-bin
         nur-xddxdd.svp_4_6
       ]
     );

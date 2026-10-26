@@ -182,14 +182,6 @@ rec {
       });
     })
   ];
-  qbittorrent-enhanced-nox = prev.qbittorrent-enhanced-nox.overrideAttrs (old: {
-    # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
-  qbittorrent-nox = prev.qbittorrent-nox.overrideAttrs (old: {
-    # Sonarr retries with different release when adding existing torrent
-    patches = (old.patches or [ ]) ++ [ ../patches/qbittorrent-return-success-on-dup-torrent.patch ];
-  });
   rustic = prev.rustic.overrideAttrs (old: {
     # Patch vendored rustic_core dependency
     # Stop tree workers after receiver closes, from https://github.com/rustic-rs/rustic_core/pull/546

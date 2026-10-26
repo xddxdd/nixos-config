@@ -213,7 +213,6 @@ in
           "-19"
           "-T0"
         ];
-        systemd.enable = true;
         systemd.emergencyAccess = unixHashedPassword;
       };
 

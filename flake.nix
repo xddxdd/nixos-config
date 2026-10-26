@@ -148,7 +148,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    preservation.url = "github:WilliButz/preservation/286737ba485f30c1687c833e66f5901a6c8dc019";
+    # Scripted initrd removed in nixpkgs breaks upstream preservation's assertion
+    # on boot.initrd.systemd.enable; pin to assertion-removal fix (PR #36, unmerged)
+    # until it lands upstream, then switch back to nix-community/WilliButz
+    preservation.url = "github:mjm/preservation/push-knrxkotwwtyr";
     proxmox-nixos = {
       url = "github:SaumonNet/proxmox-nixos";
       inputs.nixpkgs-stable.follows = "nixpkgs";
