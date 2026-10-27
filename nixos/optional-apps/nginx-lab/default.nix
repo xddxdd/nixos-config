@@ -94,6 +94,12 @@ in
     };
   };
 
+  # The docroot symlink hobby-net -> /nix/sync-servers/ltnet-scripts must stay
+  # resolvable from nginx's confinement chroot; bind its target read-only.
+  systemd.services.nginx.serviceConfig.BindReadOnlyPaths = [
+    "/nix/sync-servers/ltnet-scripts"
+  ];
+
   systemd.services."phpfpm-lab".serviceConfig.RestartSec = "5s";
 
   systemd.tmpfiles.settings.nginx = {
