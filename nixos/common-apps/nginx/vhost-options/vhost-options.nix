@@ -93,6 +93,17 @@ let
         // lib.optionalAttrs (phpfpmSocket != null) {
           "~ ^.+?\\.php(/.*)?$".extraConfig = ''
             try_files $fastcgi_script_name =404;
+          ''
+          # A PHP location may serve as the fallback target of a try_files
+          # directive in another location (e.g. "/"); inherit that location's
+          # basic auth so PHP is not reachable without it.
+          + lib.optionalString (config.locations."/".enableBasicAuth or false) ''
+            auth_basic "Restricted";
+            auth_basic_user_file /etc/nginx/htpasswd;
+            proxy_set_header X-User $remote_user;
+            proxy_set_header X-Remote-User $remote_user;
+          ''
+          + ''
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             fastcgi_pass unix:${phpfpmSocket};
             fastcgi_index index.php;
