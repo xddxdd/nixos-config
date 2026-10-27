@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/pi-web.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/whisper-cpp.nix
   ];
@@ -41,6 +42,13 @@
   };
 
   lantian.hidpi = 1.5;
+
+  # 62 GB RAM + 8 GB VRAM is below IQ3_S's footprint, so run the 2-bit i-quant (68 GB download,
+  # 35.5 GB of experts) instead of the pve-epyc default.
+  lantian.strata.model = "IQ2_XS";
+
+  # Not started at boot; launch with `systemctl start strata` when needed.
+  systemd.services.strata.wantedBy = lib.mkForce [ ];
 
   # Firewalled host, so the public firewall preset is off by default.
   lantian.firewall.presets.public-firewall.enable = true;
@@ -62,6 +70,7 @@
     lab.locations."/".enableOAuth = true;
     llama-swap.locations."/".enableOAuth = true;
     pi.locations."/".enableOAuth = true;
+    strata.locations."/".enableOAuth = true;
   };
 
   services.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";

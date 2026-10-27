@@ -27,6 +27,7 @@
             "lab"
             "llama-swap"
             "pi"
+            "strata"
             "syncthing"
           ];
         message = "${n} is LAN accessible";
