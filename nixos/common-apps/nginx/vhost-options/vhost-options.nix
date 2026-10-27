@@ -12,6 +12,7 @@ in
 { name, config, ... }:
 let
   inherit (import ./helpers.nix args) fastcgiParams;
+  authFragments = import ./auth-fragments.nix { inherit lib; };
 
   listenOptions = enableDefault: portDefault: defaultDefault: {
     enable = (lib.mkEnableOption "Listener") // {
@@ -96,13 +97,9 @@ let
           ''
           # A PHP location may serve as the fallback target of a try_files
           # directive in another location (e.g. "/"); inherit that location's
-          # basic auth so PHP is not reachable without it.
-          + lib.optionalString (config.locations."/".enableBasicAuth or false) ''
-            auth_basic "Restricted";
-            auth_basic_user_file /etc/nginx/htpasswd;
-            proxy_set_header X-User $remote_user;
-            proxy_set_header X-Remote-User $remote_user;
-          ''
+          # auth rules so PHP is not reachable without them.
+          + authFragments.oauth config.locations."/"
+          + authFragments.basicAuth config.locations."/"
           + ''
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             fastcgi_pass unix:${phpfpmSocket};
