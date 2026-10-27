@@ -23,7 +23,7 @@
     ../../nixos/optional-apps/archivebox.nix
     ../../nixos/optional-apps/archiveteam.nix
     ../../nixos/optional-apps/asf.nix
-    # ../../nixos/optional-apps/calibre-cops.nix # PHP services disabled by request
+    ../../nixos/optional-apps/calibre-cops.nix
     ../../nixos/optional-apps/clamav.nix
     ../../nixos/optional-apps/dlx.nix
     ../../nixos/optional-apps/fastapi-dls.nix
@@ -31,7 +31,7 @@
     ../../nixos/optional-apps/hydra
     ../../nixos/optional-apps/i2pd.nix
     ../../nixos/optional-apps/immich.nix
-    # ../../nixos/optional-apps/iyuuplus.nix # missing regenerated secret iyuu.yaml
+    ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/microsoft-rewards-script.nix # missing regenerated secrets

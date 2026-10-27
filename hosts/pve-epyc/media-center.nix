@@ -14,6 +14,7 @@ let
   qBitTorrentSonarrDownloadPath = "/mnt/storage/.downloads-qb";
   radarrMediaPath = "/mnt/storage/media-radarr";
   sonarrMediaPath = "/mnt/storage/media-sonarr";
+  calibreLibraryPath = "/mnt/storage/syncthing/Calibre Library";
 
 in
 {
@@ -204,6 +205,9 @@ in
       "ssl/certs/ca-bundle.crt" = config.environment.etc."ssl/certs/ca-certificates.crt".source;
     };
   };
+
+  # Calibre-COPS with its library on the storage mount
+  services.calibre-cops.libraryPath = calibreLibraryPath;
 
   lantian.localVhosts = {
     bitmagnet.locations."/".proxyPass = lib.mkForce "http://${netns.ipv4}:${LT.portStr.Bitmagnet}";

@@ -66,6 +66,7 @@ let
     # preserve that non-confinement baseline at the user's explicit request.
     "bird"
     "cups" # spawns driver-dependent printer filter binaries
+    "iyuuplus" # runtime git clone/fetch of its own source and config rewrites
     "jellyfin" # GPU transcoding and .NET JIT need full filesystem access
     "oom-score-protect"
     "samba-nmbd" # samba dlopens NSS modules and spawns per-connection processes
