@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -18,8 +17,7 @@ let
     )
   );
 in
-# Keep offline pending validation of the custom plain-protocol boundaries.
-lib.mkIf false {
+{
   lantian.nginxVhosts."whois.lantian.pub" = {
     listenHTTP.enable = true;
     listenPlainSocket = {
@@ -74,4 +72,6 @@ lib.mkIf false {
     };
     sslCertificate = "lets-encrypt-lantian.pub";
   };
+
+  systemd.services.nginx.confinement.packages = [ whoisScript ];
 }
