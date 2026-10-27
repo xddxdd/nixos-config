@@ -84,7 +84,6 @@ let
         # keep-sorted start
         "browser.aboutConfig.showWarning" = false;
         # AI Sidebar
-        "browser.ml.chat.provider" = "https://ai.xuyh0120.win";
         "browser.tabs.groups.enabled" = false;
         "browser.tabs.unloadTabInContextMenu" = true;
         "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
