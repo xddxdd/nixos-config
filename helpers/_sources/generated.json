@@ -132,7 +132,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-10-21",
+        "date": "2026-10-26",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -142,13 +142,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "21b2144f4ebe87ead9b7c0e10067759ae261b03e",
-            "sha256": "sha256-AjczJvlq6UYQGfgcTT94iDcMhM9OSno4E8pa4REcy4Y=",
+            "rev": "8b7bbc433d38437fa2b0cca58ae896917162b812",
+            "sha256": "sha256-gYaJOSgwhpAf1+Tiy9GmAz0Q9G8QoYnQTJfCGRrFJUc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "21b2144f4ebe87ead9b7c0e10067759ae261b03e"
+        "version": "8b7bbc433d38437fa2b0cca58ae896917162b812"
     },
     "lyrica-customized": {
         "cargoLock": null,
@@ -235,7 +235,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-10-21",
+        "date": "2026-10-23",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -247,12 +247,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1",
-            "sha256": "sha256-9lFrgNaFMEszWgRB75yJJzVf5bEBsPBG32mXhxXvnCk=",
+            "rev": "9b487a584ab02fd87ee1955ff9ae09522e452fd0",
+            "sha256": "sha256-RUhAFqgK3ngXmYIcPg4pem9Iy0eKSQupMty2aQuU02s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5f35e7ed2ace51bf8d2da07552c4bff74ef280a1"
+        "version": "9b487a584ab02fd87ee1955ff9ae09522e452fd0"
     },
     "open5gs": {
         "cargoLock": null,
@@ -361,7 +361,7 @@
     },
     "tar1090-db": {
         "cargoLock": null,
-        "date": "2026-10-19",
+        "date": "2026-10-26",
         "extract": null,
         "name": "tar1090-db",
         "passthru": null,
@@ -373,12 +373,12 @@
             "name": null,
             "owner": "wiedehopf",
             "repo": "tar1090-db",
-            "rev": "522f3da995fcd52ea7a84583fbcd6e8f43197407",
-            "sha256": "sha256-xVNXs6f0c7xdrXRddBBP4VSfuCGsO+Zq6QHsuOTtx0w=",
+            "rev": "df22c2ef05e8bb42247d0043aebb02a10c5ab3e9",
+            "sha256": "sha256-VpDnsz2IexojiLWmhqgKTd9vw4gJFFj9fXzPoF90Umo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "522f3da995fcd52ea7a84583fbcd6e8f43197407"
+        "version": "df22c2ef05e8bb42247d0043aebb02a10c5ab3e9"
     },
     "ulauncher-albert-calculate-anything": {
         "cargoLock": null,
@@ -703,12 +703,12 @@
             "name": null,
             "owner": "illixion",
             "repo": "vscode-vibrancy-continued",
-            "rev": "v1.5.0",
-            "sha256": "sha256-qB2lFNSxT5P2pucDJGNLXGOVenaVZczwYXb+GWQ+j/I=",
+            "rev": "v1.6.0",
+            "sha256": "sha256-b5PxrMBF/XgqKFbvzjiBEfQNKaBATh9BoLL+u773/5k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.0"
+        "version": "v1.6.0"
     },
     "wordpress-theme-twentyeleven": {
         "cargoLock": null,
