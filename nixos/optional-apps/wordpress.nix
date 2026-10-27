@@ -47,7 +47,7 @@ in
           url = "https://downloads.wordpress.org/translation/core/${pkgs.wordpress.version}/zh_CN.zip";
           # Upstream switched to a flat zip layout (no wrapping directory)
           stripRoot = false;
-          hash = "sha256-4w9ghAopyFuMpJ4jVPaNMY51cQtLXtSyYTodvyCVaMA=";
+          hash = "sha256-KnTO0xZk2T94qFypj58UCTRMrWGOuEar5/SmScKTWdE=";
         })
       ];
       plugins = {

@@ -1,12 +1,21 @@
 {
+  lib,
   pkgs,
   config,
   inputs,
   ...
 }:
+let
+  overrideConfigPath = lib.last (
+    lib.splitString " " (
+      builtins.head (builtins.filter (lib.hasInfix "override.config.php") config.systemd.tmpfiles.rules)
+    )
+  );
+  oracleCaBundle = config.environment.etc."pki/tls/cert.pem".source;
+in
 {
   sops.secrets.dex-nextcloud-secret = {
-    sopsFile = inputs.secrets + "/common/dex.yaml";
+    sopsFile = inputs.secrets + "/dex/nextcloud.yaml";
     owner = "nextcloud";
     group = "nextcloud";
   };
@@ -38,8 +47,6 @@
       redis = true;
     };
     config = {
-      adminpassFile = config.sops.secrets.nextcloud-admin-pw.path;
-      adminuser = "lantian";
       dbtype = "oci";
       dbhost = "";
       dbname = "(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1521)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=ufjybiswtxi7xyl_lantianfree_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
@@ -102,18 +109,84 @@
   };
   sops.secrets.smtp-pass.restartUnits = [ "phpfpm-nextcloud.service" ];
 
+  # The upstream module publishes config overrides as an L+ tmpfiles symlink
+  # into /nix/store; the phpfpm pool unit picks up the target via
+  # restartTriggers, but nextcloud-cron / nextcloud-update-db don't reference
+  # it in their own unit text, so their confinement closure misses it and php
+  # dies with "FATAL: Could not open the config file". Pull the symlink target
+  # into their chroots explicitly.
+
   systemd.services.phpfpm-nextcloud.path = [ pkgs.msmtp ];
   systemd.services.phpfpm-nextcloud.serviceConfig = {
     RestartSec = "5s";
     BindReadOnlyPaths = [ config.sops.secrets.smtp-pass.path ];
+    # Workers read/write the whole Nextcloud tree (config.php, data/, previews)
+    BindPaths = [ config.services.nextcloud.datadir ];
+    # Recreate /run/phpfpm-nextcloud on every start: it must always be owned
+    # by the unit user, and the socket has no value while workers restart
+    # with the master anyway.
+    RuntimeDirectoryPreserve = lib.mkForce false;
   };
-  lantian.harden.phpfpm-nextcloud.etc.msmtprc = true;
+  # Run the whole pool as the nextcloud user: socket, runtime dir and the
+  # upstream credential-copy preStart all end up owned by that single user,
+  # so the confined master needs no ownership-shuffling capabilities. nginx
+  # reaches the socket through the nextcloud group.
+  services.phpfpm.pools.nextcloud.masterUser = "nextcloud";
+  services.nextcloud.poolSettings = {
+    "listen.owner" = "nextcloud";
+    "listen.group" = "nextcloud";
+    # Same ondemand shape as calibre-cops: idle-scaled workers on the
+    # low-traffic private instance
+    "pm" = "ondemand";
+    "pm.max_children" = "8";
+    "pm.max_requests" = "1000";
+    "pm.process_idle_timeout" = "10s";
+    "request_terminate_timeout" = "300";
+    "pm.status_path" = "/status";
+  };
+  lantian.harden.phpfpm-nextcloud = {
+    etc.msmtprc = true;
+    # Oracle instant client requires the CERTIFICATE-only bundle; bind the
+    # generated bundle directly, like the harden /etc/ssl defaults do
+    etc."pki/tls/cert.pem" = oracleCaBundle;
+    redis = "nextcloud";
+  };
   systemd.services.nextcloud-cron = {
     path = [ pkgs.msmtp ];
-    serviceConfig.BindReadOnlyPaths = [
-      "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
-      config.sops.secrets.smtp-pass.path
-    ];
+    confinement.packages = [ overrideConfigPath ];
+    serviceConfig = {
+      BindReadOnlyPaths = [
+        "${config.environment.etc.msmtprc.source}:/etc/msmtprc"
+        config.sops.secrets.smtp-pass.path
+      ];
+      BindPaths = [ config.services.nextcloud.datadir ];
+      # PHP's JIT emits executable memory
+      MemoryDenyWriteExecute = false;
+    };
+  };
+  lantian.harden.nextcloud-cron = {
+    enable = true;
+    passwd = true;
+    etc."nsswitch.conf" = true;
+    # Oracle instant client requires the CERTIFICATE-only bundle; bind the
+    # generated bundle directly, like the harden /etc/ssl defaults do
+    etc."pki/tls/cert.pem" = oracleCaBundle;
+    redis = "nextcloud";
+  };
+  lantian.harden.nextcloud-update-db = {
+    enable = true;
+    passwd = true;
+    etc."nsswitch.conf" = true;
+    etc."pki/tls/cert.pem" = oracleCaBundle;
+    redis = "nextcloud";
+  };
+  systemd.services.nextcloud-update-db = {
+    confinement.packages = [ overrideConfigPath ];
+    # PHP's JIT emits executable memory
+    serviceConfig = {
+      BindPaths = [ config.services.nextcloud.datadir ];
+      MemoryDenyWriteExecute = false;
+    };
   };
 
   services.redis.servers.nextcloud = {
@@ -129,6 +202,7 @@
 
   lantian.nginxVhosts."cloud.xuyh0120.win" = {
     # Nextcloud sends "X-Robots-Tag: none" itself, no need for noIndex
+    accessibleBy = "private";
     sslCertificate = "lets-encrypt-xuyh0120.win";
     enableCommonLocationOptions = false;
     enableCommonVhostOptions = false;

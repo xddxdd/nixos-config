@@ -44,7 +44,7 @@
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
-    # ../../nixos/optional-apps/wordpress.nix # PHP services disabled by request
+    ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     ../../nixos/optional-cron-jobs/dn42-certificate.nix
