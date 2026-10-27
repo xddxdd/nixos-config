@@ -18,12 +18,6 @@
 
         {
           recordType = "CNAME";
-          name = "pb.${domain}.";
-          target = "colocrossing.ltn.pw.";
-          ttl = "10m";
-        }
-        {
-          recordType = "CNAME";
           name = "www";
           target = "terrahost.ltn.pw.";
           ttl = "10m";

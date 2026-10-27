@@ -23,12 +23,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "ai";
-      target = "pve-epyc.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "ai-api";
       target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
@@ -89,12 +83,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "ha";
-      target = "pve-epyc.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "immich";
       target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
@@ -132,12 +120,6 @@ let
       recordType = "CNAME";
       name = "rsync-ci";
       target = "colocrossing";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "stable-diffusion";
-      target = "pve-epyc.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
     {

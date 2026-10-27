@@ -74,12 +74,6 @@ let
     }
     {
       recordType = "CNAME";
-      name = "ca";
-      target = "colocrossing.ltnet.lantian.pub.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
       name = "cache";
       target = "colocrossing";
       ttl = "1h";
