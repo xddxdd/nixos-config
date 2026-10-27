@@ -150,6 +150,10 @@ in
     notify = true;
     timeoutSeconds = 300;
   };
+  home.file.".pi/agent/pi-fff.json".text = builtins.toJSON {
+    enableFsRootScanning = false;
+    enableHomeDirScanning = false;
+  };
   # https://github.com/cortexkit/magic-context/blob/master/CONFIGURATION.md
   home.file.".config/cortexkit/magic-context.jsonc".text = builtins.toJSON {
     enabled = true;
@@ -161,12 +165,13 @@ in
     embedding = {
       provider = "openai-compatible";
       model = "qwen/qwen3-embedding-8b";
-      endpoint = "http://openrouter.ai/v1";
+      endpoint = "https://openrouter.ai/api/v1";
       inherit api_key;
+      max_input_tokens = 32768;
     };
     rerank = {
       provider = "remote";
-      endpoint = "http://openrouter.ai/v1";
+      endpoint = "https://openrouter.ai/api/v1";
       model = "qwen/qwen3-reranker-8b";
       inherit api_key;
       timeout_ms = 5000;
