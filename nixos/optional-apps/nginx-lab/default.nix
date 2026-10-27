@@ -25,7 +25,10 @@ in
       };
       "/hobby-net".enableAutoIndex = true;
       "/public".enableAutoIndex = true;
-      "/zjui-ece385-scoreboard".disableLiveCompression = true;
+      "/zjui-ece385-scoreboard" = {
+        disableLiveCompression = true;
+        index = "index.php";
+      };
 
       # 307 to tools.lantian.pub
       "/dngzwxdq".return = "307 https://tools.lantian.pub$request_uri";
