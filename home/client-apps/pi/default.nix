@@ -123,7 +123,7 @@ in
   # Strata inference server on pve-epyc (nixos/optional-apps/strata.nix),
   # exposed through the private vhost. The server takes any API key and any
   # model name; the id below matches what the deployed quant reports via
-  # /v1/models (n_ctx 204800, text+image input).
+  # /v1/models (n_ctx 262144, text+image input).
   home.file.".pi/agent/models.json".text = builtins.toJSON {
     "$schema" = "https://pi.dev/schemas/models.schema.json";
     providers.strata = {
@@ -140,7 +140,7 @@ in
             "text"
             "image"
           ];
-          contextWindow = 204800;
+          contextWindow = 262144;
           maxTokens = 8192;
         }
       ];

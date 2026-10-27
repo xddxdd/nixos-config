@@ -69,7 +69,7 @@ in
           "--model ${config.lantian.strata.model}"
           "--backend cuda"
           "--source huggingface"
-          "--context 204800"
+          "--context 262144"
           "--kv int8"
           "--mtp on"
           "--parallel 1"
