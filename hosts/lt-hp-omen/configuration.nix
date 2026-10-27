@@ -11,6 +11,7 @@
     ./hp-keyboard-backlight.nix
 
     ../../nixos/optional-apps/clamav.nix
+    ../../nixos/optional-apps/homepage.nix
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
