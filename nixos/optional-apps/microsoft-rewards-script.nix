@@ -6,8 +6,8 @@
 {
   sops.secrets.microsoft-rewards-script-env.sopsFile =
     inputs.secrets + "/microsoft-rewards-script.yaml";
-  sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/common/telegram.yaml";
-  sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/common/telegram.yaml";
+  sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/telegram.yaml";
+  sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/telegram.yaml";
   sops.templates.microsoft-rewards-script-additional-env.content = ''
     CONFIG_TELEGRAM_ENABLED=true
     CONFIG_TELEGRAM_BOTTOKEN=${config.sops.placeholder.telegram-bot-token}
