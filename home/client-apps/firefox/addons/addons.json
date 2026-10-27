@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.6.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5144960/all_api_hub-4.6.0.xpi",
-    "hash": "sha256-Xkp/fzUvig/D/suC4zBAIxelxNrhjr+jRm46CDlny9s=",
+    "version": "4.7.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5169664/all_api_hub-4.7.0.xpi",
+    "hash": "sha256-UKXXHmTAZyXwDSYRJ6yOcO5GKzMrLm7m6Pg+76WP6dI=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.53.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5163242/read_frog_open_ai_translator-1.53.0.xpi",
-    "hash": "sha256-TFhw0ZoyOXm8hIGeI8Os5UJjIZ5jDDudp1sNjohZBQM=",
+    "version": "1.54.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5170373/read_frog_open_ai_translator-1.54.0.xpi",
+    "hash": "sha256-vQ9FpFBPXEErtVDZKLolummagq9HGRudnU20vgwiC9U=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -204,9 +204,9 @@
   },
   {
     "pname": "tab-reloader",
-    "version": "0.6.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4805316/tab_reloader-0.6.8.xpi",
-    "hash": "sha256-0DP1xSfQUNFCTeoogi0RsiPBuQO5x8ECCftevb9qWCk=",
+    "version": "0.7.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5168257/tab_reloader-0.7.0.xpi",
+    "hash": "sha256-Kov42Lp4gYXnkohmgmbpHq9gsNJGM77Mm3pJWiEIUPc=",
     "addonId": "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack"
   },
   {
