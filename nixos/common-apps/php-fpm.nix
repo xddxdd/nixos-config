@@ -45,6 +45,13 @@ _: {
       allow_url_fopen = On
       allow_url_include = Off
       default_socket_timeout = 60
+      # CVE-2026-109619 hardening, per
+      # https://blog.nekoid.cc/post/php-nodejs-cve/
+      # Disable session upload progress (the primary RCE attack surface) and
+      # fatal error backtraces; display_errors stays On, diagnostics are kept
+      # visible on purpose. PHP < 8.5 silently ignores fatal_error_backtraces.
+      session.upload_progress.enabled = 0
+      fatal_error_backtraces = 0
     '';
   };
 }
