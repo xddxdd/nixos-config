@@ -1,20 +1,12 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
   labRoot = "/var/www/lab.lantian.pub";
 in
 {
-  sops.secrets.nginx-cgi-ssh-key = {
-    sopsFile = inputs.secrets + "/ssh-id-ed25519.yaml";
-    key = "ssh-id-ed25519";
-    owner = "nginx";
-    group = "nginx";
-  };
-
   lantian.geoip.enable = true;
 
   lantian.nginxVhosts."lab.lantian.pub" = {
