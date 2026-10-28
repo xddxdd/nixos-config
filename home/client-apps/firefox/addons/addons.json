@@ -1,9 +1,9 @@
 [
   {
     "pname": "adnauseam",
-    "version": "3.28.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4909199/adnauseam-3.28.8.xpi",
-    "hash": "sha256-+iqpnEo8dmUU1yqencwps+W1+LWAcrDXxJXwyJW3LOA=",
+    "version": "3.29.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5058842/adnauseam-3.29.2.xpi",
+    "hash": "sha256-qDhCE+Beh7fRin5xBgTEgqkeHcxFIFsHS/fZuUVLEGQ=",
     "addonId": "adnauseam@rednoise.org"
   },
   {
@@ -50,9 +50,9 @@
   },
   {
     "pname": "darkreader",
-    "version": "4.9.133",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5055786/darkreader-4.9.133.xpi",
-    "hash": "sha256-6wbFCW12FhbH8dlUwRUkykv/T+cikETcH84oiowIU6s=",
+    "version": "4.9.134",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi",
+    "hash": "sha256-cAYzOVqi9jmhvtQlPicwnrZ280bVmbCuK3oEUyMuCuw=",
     "addonId": "addon@darkreader.org"
   },
   {
@@ -113,9 +113,9 @@
   },
   {
     "pname": "noscript",
-    "version": "13.6.36",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5075209/noscript-13.6.36.xpi",
-    "hash": "sha256-EIY4UdGP50poDkbkqBP9WVULtKNWolTN4+j4XIDbAHg=",
+    "version": "13.6.37",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5173524/noscript-13.6.37.xpi",
+    "hash": "sha256-pHM+4jg6Tg3rzUkwoqbh/gqKUmMywsvtqsjRpWO6khs=",
     "addonId": "{73a6fe31-595d-460b-a920-fcc0f8843232}"
   },
   {
