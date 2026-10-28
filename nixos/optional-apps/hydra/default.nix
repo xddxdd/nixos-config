@@ -168,7 +168,6 @@ in
     }))
     {
       hydra-server = {
-        # FIXME: secrets
         secret = true;
         etc = {
           nix = true;

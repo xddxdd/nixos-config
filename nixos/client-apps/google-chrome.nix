@@ -1,11 +1,8 @@
 { pkgs, ... }:
 {
-  # FIXME
-  stylix.targets.chromium.enable = false;
-
   # https://chromeenterprise.google/policies/
   programs.chromium = {
-    enable = false; # FIXME
+    enable = true;
     enablePlasmaBrowserIntegration = true;
     extraOpts = {
       # Miscellaneous

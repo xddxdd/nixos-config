@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
   wine' = pkgs.wine-tkg.overrideAttrs (old: {
     prePatch =
@@ -17,7 +17,6 @@ let
     '';
   });
 in
-# FIXME: temporarily unused
-lib.mkIf false {
+{
   home.packages = [ wine' ];
 }
