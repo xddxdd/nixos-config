@@ -105,40 +105,48 @@ let
   # which would flag fully hardened services as missing everything
   missingKeys = n: v: lib.filter (k: !builtins.hasAttr k v.serviceConfig) requiredKeys;
 
-  # Mountpoints bound both writable and read-only on the same service
+  # Mountpoints bound both writable and read-only on the same service.
+  # systemd.exec(5): each entry is "source[:destination[:options]]", optionally
+  # "-" prefixed to ignore missing paths; entries may be emitted quoted
+  # (helpers/fn/systemd.nix escapeMountPath). The mountpoint inside the
+  # namespace is the destination when present, else the source bound onto
+  # itself. Both list values and single-entry strings are accepted (systemd
+  # accepts both; e.g. colocrossing acme-setup binds from a string); a string
+  # value is treated as one entry and never split on whitespace
   bindPathMountpoints =
     opt: v:
     let
       value = v.serviceConfig.${opt} or null;
-
-      mountpoints = map (
+    in
+    map
+      (
         entry:
         lib.last (
           lib.take 2 (
             lib.splitString ":" (lib.removePrefix "-" (builtins.replaceStrings [ "\"" ] [ "" ] entry))
           )
         )
-      ) (if value == null then [ ] else value);
-    in
-    lib.seq mountpoints mountpoints;
+      )
+      (
+        if value == null then
+          [ ]
+        else if builtins.isString value then
+          [ value ]
+        else
+          value
+      );
 
   bindPathConflicts =
     v:
-    let
-      rwSet = lib.unique (bindPathMountpoints "BindPaths" v);
-      roSet = lib.unique (bindPathMountpoints "BindReadOnlyPaths" v);
-      # force both sides: lib.intersectLists only evaluates the side with
-      # elements, which would lazily skip a string value on the other option
-    in
-    lib.seq rwSet (lib.seq roSet (lib.intersectLists rwSet roSet));
+    lib.intersectLists (lib.unique (bindPathMountpoints "BindPaths" v)) (
+      lib.unique (bindPathMountpoints "BindReadOnlyPaths" v)
+    );
 in
 {
   # 1. Every eligible service must set all keys from lantian.harden's preset
   # 2. Every eligible service must run inside a confinement chroot
   #    (systemd.services.<name>.confinement)
   # 3. No path may be bound in both BindPaths and BindReadOnlyPaths
-  # 4. BindPaths/BindReadOnlyPaths string values hard-fail evaluation
-  #    (map over a string errors out)
   assertions =
     lib.mapAttrsToList (
       n: v:
