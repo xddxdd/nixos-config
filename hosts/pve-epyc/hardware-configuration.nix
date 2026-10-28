@@ -8,6 +8,7 @@
 }:
 {
   imports = [
+    ../../nixos/hardware/disable-watchdog.nix
     ../../nixos/hardware/ecc-ram.nix
     ../../nixos/hardware/gpu-unlock.nix
     ../../nixos/hardware/nvidia/only.nix
