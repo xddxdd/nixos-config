@@ -91,7 +91,7 @@
       actions = {
         ARTIFACT_RETENTION_DAYS = 90;
         RUN_RETENTION_DAYS = 90;
-        ZOMBIE_TASK_TIMEOUT = "3h";
+        ZOMBIE_TASK_TIMEOUT = "24h";
         ENDLESS_TASK_TIMEOUT = "24h";
         ABANDONED_JOB_TIMEOUT = "24h";
       };
