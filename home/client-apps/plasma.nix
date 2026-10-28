@@ -243,11 +243,6 @@
             apply = "force";
             value = true;
           };
-          position = {
-            apply = "initially";
-            # FIXME: calculate based on screen size
-            value = "550,120";
-          };
           skippager = {
             apply = "force";
             value = true;
