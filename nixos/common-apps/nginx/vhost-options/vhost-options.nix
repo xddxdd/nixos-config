@@ -283,6 +283,13 @@ let
 
     extraConfig =
       config.extraConfig
+      + ''
+        # Reject brotli-compressed request bodies
+        # (libbrotli OOB write, CVE-2026-111497)
+        if ($http_content_encoding ~* "\bbr\b") {
+          return 415;
+        }
+      ''
       + (lib.optionalString (config.listenHTTPS.enable || config.listenHTTPS_Socket.enable) (
         if config.sslCertificate != null then
           ''
