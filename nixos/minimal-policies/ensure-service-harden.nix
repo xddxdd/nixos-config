@@ -104,11 +104,41 @@ let
   # with a variable key always returns false (broken dynamic attrpath check),
   # which would flag fully hardened services as missing everything
   missingKeys = n: v: lib.filter (k: !builtins.hasAttr k v.serviceConfig) requiredKeys;
+
+  # Mountpoints bound both writable and read-only on the same service
+  bindPathMountpoints =
+    opt: v:
+    let
+      value = v.serviceConfig.${opt} or null;
+
+      mountpoints = map (
+        entry:
+        lib.last (
+          lib.take 2 (
+            lib.splitString ":" (lib.removePrefix "-" (builtins.replaceStrings [ "\"" ] [ "" ] entry))
+          )
+        )
+      ) (if value == null then [ ] else value);
+    in
+    lib.seq mountpoints mountpoints;
+
+  bindPathConflicts =
+    v:
+    let
+      rwSet = lib.unique (bindPathMountpoints "BindPaths" v);
+      roSet = lib.unique (bindPathMountpoints "BindReadOnlyPaths" v);
+      # force both sides: lib.intersectLists only evaluates the side with
+      # elements, which would lazily skip a string value on the other option
+    in
+    lib.seq rwSet (lib.seq roSet (lib.intersectLists rwSet roSet));
 in
 {
   # 1. Every eligible service must set all keys from lantian.harden's preset
   # 2. Every eligible service must run inside a confinement chroot
   #    (systemd.services.<name>.confinement)
+  # 3. No path may be bound in both BindPaths and BindReadOnlyPaths
+  # 4. BindPaths/BindReadOnlyPaths string values hard-fail evaluation
+  #    (map over a string errors out)
   assertions =
     lib.mapAttrsToList (
       n: v:
@@ -130,6 +160,20 @@ in
       {
         assertion = exempt n v || builtins.elem n confinementIgnored || confined;
         message = "${n} must enable systemd.services.<name>.confinement (RootDirectory+BindPaths whitelist); bind any needed state/socket paths inside the chroot";
+      }
+    ) config.systemd.services
+    ++ lib.mapAttrsToList (
+      n: v:
+      let
+        conflicts = bindPathConflicts v;
+
+        # systemd src/core/namespace.c drop_duplicates(): duplicate mountpoints
+        # are deduplicated and the more restrictive read-only bind wins, so the
+        # other binding is silently discarded
+      in
+      {
+        assertion = !(v.enable or true) || conflicts == [ ];
+        message = "${n} binds the same paths in both BindPaths and BindReadOnlyPaths (systemd discards the duplicate; the read-only bind wins): ${lib.concatStringsSep ", " conflicts}";
       }
     ) config.systemd.services;
 }

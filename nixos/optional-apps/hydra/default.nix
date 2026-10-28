@@ -284,7 +284,6 @@ in
           BindReadOnlyPaths = [
             "/nix/store"
             "/nix/var/nix/daemon-socket"
-            "/var/lib/hydra"
           ];
         };
       };
