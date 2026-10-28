@@ -3,7 +3,7 @@ _: {
     "attic.xuyh0120.win" = {
       locations = {
         "/".return =
-          "503 'Binary cache unavailable due to server compromise: https://github.com/xddxdd/nix-cachyos-kernel/issues/110'";
+          "400 'Binary cache migrated: https://github.com/xddxdd/nix-cachyos-kernel/issues/110#issuecomment-6386974695'";
       };
 
       sslCertificate = "lets-encrypt-xuyh0120.win";
