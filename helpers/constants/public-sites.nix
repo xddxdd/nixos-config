@@ -20,8 +20,6 @@
   "ltn.pw"
   "posts.lantian.pub"
   "sip.lantian.pub"
-  "stage1.whois.local"
-  "stage2.whois.local"
   "tools.lantian.pub"
   "whois.lantian.pub"
   "www.lantian.pub"

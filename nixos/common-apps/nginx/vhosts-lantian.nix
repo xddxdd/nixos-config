@@ -129,6 +129,11 @@ in
       enableCommonLocationOptions = false;
       sslCertificate = "lets-encrypt-xuyh0120.win";
     };
+    "ltn.pw" = {
+      locations."/".return = "307 https://ltn.pw$request_uri";
+      enableCommonLocationOptions = false;
+      sslCertificate = "lets-encrypt-ltn.pw";
+    };
     "www.ltn.pw" = {
       locations."/".return = "307 https://ltn.pw$request_uri";
       enableCommonLocationOptions = false;
