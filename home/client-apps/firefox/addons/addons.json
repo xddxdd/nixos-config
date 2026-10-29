@@ -15,9 +15,9 @@
   },
   {
     "pname": "awardwallet",
-    "version": "3.8.6",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5094413/awardwallet-3.8.6.xpi",
-    "hash": "sha256-NNEfD8bwR9jfr3viE0/T1i+z2p0nRNzpKSCnt4tgxXk=",
+    "version": "3.8.8",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5175855/awardwallet-3.8.8.xpi",
+    "hash": "sha256-Rr13zYhWaZmBiaA8eTDrujCpECCA7K1JFaTxkejOOOQ=",
     "addonId": "6200cc7406cd11e1a68a12313d1adcbe@jetpack"
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.54.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5170373/read_frog_open_ai_translator-1.54.0.xpi",
-    "hash": "sha256-vQ9FpFBPXEErtVDZKLolummagq9HGRudnU20vgwiC9U=",
+    "version": "1.54.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5179853/read_frog_open_ai_translator-1.54.1.xpi",
+    "hash": "sha256-WNXoQR1LpLc4QKbhhu8c4oJTjt+NkLZD2AAOeUDwGi8=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
