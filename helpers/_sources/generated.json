@@ -130,26 +130,6 @@
         },
         "version": "4.1.4"
     },
-    "invisible-core": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "invisible-core",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "v53.48.0",
-            "sha256": "sha256-8be2/Lb/bqc3l+Ka1wv5zltBsER6RvRr5GxKi2AmLk8=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/feder-cr/invisible_core.git"
-        },
-        "version": "v53.48.0"
-    },
     "lobe-icons": {
         "cargoLock": null,
         "date": "2026-10-26",

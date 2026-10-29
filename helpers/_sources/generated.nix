@@ -82,19 +82,6 @@
       sha256 = "sha256-vKsW1LE5jB/Sm6e0tBr4br+H8AfC43BUC2DpzkUUwLM=";
     };
   };
-  invisible-core = {
-    pname = "invisible-core";
-    version = "v53.48.0";
-    src = fetchgit {
-      url = "https://github.com/feder-cr/invisible_core.git";
-      rev = "v53.48.0";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-8be2/Lb/bqc3l+Ka1wv5zltBsER6RvRr5GxKi2AmLk8=";
-    };
-  };
   lobe-icons = {
     pname = "lobe-icons";
     version = "8b7bbc433d38437fa2b0cca58ae896917162b812";

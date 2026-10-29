@@ -80,46 +80,44 @@ let
         force = true;
       };
 
-      settings = lib.mapAttrs (_: lib.mkForce) (
-        {
-          # keep-sorted start
-          "browser.aboutConfig.showWarning" = false;
-          # AI Sidebar
-          "browser.tabs.groups.enabled" = false;
-          "browser.tabs.unloadTabInContextMenu" = true;
-          "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
-          "extensions.update.enabled" = false;
-          "extensions.webextensions.ExtensionStorageIDB.enabled" = false; # Make home-manager extension config work
-          "font.size.monospace.x-western" = 16;
-          "font.size.variable.x-western" = 16;
-          "geo.provider.network.url" = "https://api.beacondb.net/v1/geolocate";
-          "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
-          "gfx.wayland.hdr" = false; # FIXME: causes crashes
-          "gfx.wayland.hdr.force-enabled" = false; # FIXME: causes crashes
-          "gfx.webrender.all" = true;
-          "gfx.webrender.compositor.force-enabled" = false; # FIXME: causes crashes
-          "gfx.x11-egl.force-enabled" = true;
-          "image.avif.enabled" = true;
-          "image.jxl.enabled" = true;
-          "media.av1.enabled" = true;
-          "media.ffmpeg.vaapi.enabled" = true;
-          "media.hardware-video-decoding.force-enabled" = true;
-          "media.hevc.enabled" = true;
-          "media.hls.enabled" = true;
-          "media.videocontrols.picture-in-picture.enabled" = false;
-          "security.insecure_connection_text.enabled" = true;
-          "security.insecure_connection_text.pbmode.enabled" = true;
-          "security.osclientcerts.autoload" = true;
-          "sidebar.verticalTabs" = true;
-          "svg.context-properties.content.enabled" = true;
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-          "webgl.disabled" = true;
-          # keep-sorted end
-        }
-        // builtins.listToAttrs (
-          builtins.map (suffix: lib.nameValuePair "browser.fixup.domainsuffixwhitelist.${suffix}" true) (
-            lib.filter (s: !lib.hasInfix "." s) (lib.flatten (builtins.attrValues LT.constants.zones))
-          )
+      settings = {
+        # keep-sorted start
+        "browser.aboutConfig.showWarning" = false;
+        # AI Sidebar
+        "browser.tabs.groups.enabled" = false;
+        "browser.tabs.unloadTabInContextMenu" = true;
+        "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
+        "extensions.update.enabled" = false;
+        "extensions.webextensions.ExtensionStorageIDB.enabled" = false; # Make home-manager extension config work
+        "font.size.monospace.x-western" = lib.mkForce 16;
+        "font.size.variable.x-western" = lib.mkForce 16;
+        "geo.provider.network.url" = lib.mkForce "https://api.beacondb.net/v1/geolocate";
+        "geo.provider.use_geoclue" = osConfig.services.geoclue2.enable;
+        "gfx.wayland.hdr" = false; # FIXME: causes crashes
+        "gfx.wayland.hdr.force-enabled" = false; # FIXME: causes crashes
+        "gfx.webrender.all" = true;
+        "gfx.webrender.compositor.force-enabled" = false; # FIXME: causes crashes
+        "gfx.x11-egl.force-enabled" = true;
+        "image.avif.enabled" = true;
+        "image.jxl.enabled" = true;
+        "media.av1.enabled" = true;
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.hardware-video-decoding.force-enabled" = true;
+        "media.hevc.enabled" = true;
+        "media.hls.enabled" = true;
+        "media.videocontrols.picture-in-picture.enabled" = false;
+        "security.insecure_connection_text.enabled" = true;
+        "security.insecure_connection_text.pbmode.enabled" = true;
+        "security.osclientcerts.autoload" = true;
+        "sidebar.verticalTabs" = true;
+        "svg.context-properties.content.enabled" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "webgl.disabled" = true;
+        # keep-sorted end
+      }
+      // builtins.listToAttrs (
+        builtins.map (suffix: lib.nameValuePair "browser.fixup.domainsuffixwhitelist.${suffix}" true) (
+          lib.filter (s: !lib.hasInfix "." s) (lib.flatten (builtins.attrValues LT.constants.zones))
         )
       );
     };
