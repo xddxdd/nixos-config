@@ -24,6 +24,7 @@
     ../../nixos/optional-apps/pi-secrets.nix
     ../../nixos/optional-apps/pi-web.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
+    ../../nixos/optional-apps/postgresql.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/virtualbox.nix
