@@ -255,6 +255,11 @@ in
       "/var/lib/asterisk/sounds/en/防忽悠咨询热线"."L+" = {
         argument = "${LT.sources.anti-fooling-hot-line.src}";
       };
+      "/var/spool/asterisk".d = {
+        mode = "755";
+        user = "asterisk";
+        group = "asterisk";
+      };
     };
   };
 }
