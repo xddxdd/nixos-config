@@ -19,7 +19,14 @@
   # https://github.com/mozilla/policy-templates/blob/master/README.md
   programs.firefox = {
     enable = true;
-    package = pkgs.wrapFirefox pkgs.nur-xddxdd.lantianCustomized.firefox-unwrapped { };
+    # Wire the wrapper here instead of using the NUR's pre-wrapped
+    # attribute: the NUR package's outer `override` shadows the wrapper's and
+    # cannot take the NixOS firefox module's `cfg` injection. `.unwrapped`
+    # never triggers the outer call, and all policies flow through the
+    # module's /etc/firefox/policies/policies.json, not the package.
+    package = pkgs.wrapFirefox pkgs.nur-xddxdd.invisible-firefox-bin.unwrapped {
+      pname = "invisible-firefox-bin";
+    };
     languagePacks = [ "zh-CN" ];
     policies = {
       # Extension versions are specified in home manager config

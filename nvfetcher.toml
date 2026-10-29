@@ -38,6 +38,10 @@ fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/dow
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
 
+[invisible-core]
+fetch.git = "https://github.com/feder-cr/invisible_core.git"
+src.github = "feder-cr/invisible_core"
+
 [lobe-icons]
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
 src.git = "https://github.com/lobehub/lobe-icons.git"
