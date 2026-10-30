@@ -33,9 +33,6 @@
 
   boot.kernelParams = [ "cfg80211.ieee80211_regdom=US" ];
 
-  # Try fix qtwebengine issue
-  hardware.nvidia.open = lib.mkForce false;
-
   lantian.backup = {
     enable = true;
     resticRepos = [ "home" ];

@@ -173,6 +173,7 @@ in
     ]
     ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       # FPGA
+      nur-xddxdd.vivado
       quartus-prime-lite
     ];
 
