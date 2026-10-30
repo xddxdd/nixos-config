@@ -338,6 +338,26 @@
         },
         "version": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd"
     },
+    "scam-dn42-miner": {
+        "cargoLock": null,
+        "date": "2026-10-29",
+        "extract": null,
+        "name": "scam-dn42-miner",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "44bb64d3731bc85a9f9a1fef034da6c6fdc6ac1e",
+            "sha256": "sha256-ZBeHzlKdhaEQMKtlkwNwFksVZKxj18I2Y1Y6UBRCOgw=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://git.lantian.pub/lantian/scam-dn42-miner.git"
+        },
+        "version": "44bb64d3731bc85a9f9a1fef034da6c6fdc6ac1e"
+    },
     "skyland-auto-checkin": {
         "cargoLock": null,
         "date": "2026-03-26",

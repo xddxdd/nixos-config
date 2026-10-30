@@ -79,6 +79,11 @@ src.git = "https://github.com/openspeedtest/Speed-Test.git"
 fetch.github = "xddxdd/Sakura_Launcher_GUI"
 src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
 
+[scam-dn42-miner]
+fetch.git = "https://git.lantian.pub/lantian/scam-dn42-miner.git"
+src.git = "https://git.lantian.pub/lantian/scam-dn42-miner.git"
+src.branch = "fpga"
+
 [skyland-auto-checkin]
 fetch.github = "devnakx/skyland_auto_checkin"
 src.git = "https://github.com/devnakx/skyland_auto_checkin.git"

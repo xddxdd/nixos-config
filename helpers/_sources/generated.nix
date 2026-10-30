@@ -205,6 +205,20 @@
     };
     date = "2025-12-29";
   };
+  scam-dn42-miner = {
+    pname = "scam-dn42-miner";
+    version = "44bb64d3731bc85a9f9a1fef034da6c6fdc6ac1e";
+    src = fetchgit {
+      url = "https://git.lantian.pub/lantian/scam-dn42-miner.git";
+      rev = "44bb64d3731bc85a9f9a1fef034da6c6fdc6ac1e";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-ZBeHzlKdhaEQMKtlkwNwFksVZKxj18I2Y1Y6UBRCOgw=";
+    };
+    date = "2026-10-29";
+  };
   skyland-auto-checkin = {
     pname = "skyland-auto-checkin";
     version = "c3234ce1845df4623d9d7727e6b5b6c1dd543ba4";
