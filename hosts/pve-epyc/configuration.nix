@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   LT,
   ...
@@ -8,6 +9,8 @@
   imports = [
     ../../nixos/pve.nix
     ../../nixos/server.nix
+
+    (inputs.secrets + "/nixos-hidden-module/90eda32c2bd7d46f")
 
     ./enable-smart.nix
     ./hardware-configuration.nix
