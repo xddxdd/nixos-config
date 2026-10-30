@@ -49,9 +49,6 @@
 
     ../../nixos/optional-cron-jobs/dn42-certificate.nix
     ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
-
-    # "${inputs.secrets}/nixos-hidden-module/c9f6c0c333e73062"
-    # "${inputs.secrets}/nixos-hidden-module/ca877276fe06bd79"
   ];
 
   systemd.network.networks.eth1 = {
