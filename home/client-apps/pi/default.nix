@@ -159,9 +159,9 @@ in
     enabled = true;
     auto_update = false;
     allow_home_project = true;
-    historian.pi.model = "ollama-cloud/glm-5.3-flash";
-    dreamer.pi.model = "ollama-cloud/glm-5.3-flash";
-    sidekick.model = "ollama-cloud/glm-5.3-flash";
+    historian.pi.model = "cliproxyapi/lantian/coding-fast";
+    dreamer.pi.model = "cliproxyapi/lantian/coding-fast";
+    sidekick.model = "cliproxyapi/lantian/coding-fast";
     embedding = {
       provider = "openai-compatible";
       model = "qwen/qwen3-embedding-8b";
