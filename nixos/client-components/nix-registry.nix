@@ -28,9 +28,5 @@ in
     );
   };
 
-  # Disable conflicting settings from nixpkgs
-  nixpkgs.flake = {
-    setFlakeRegistry = false;
-    setNixPath = false;
-  };
+  # nixpkgs.flake.set* disabled in nixos/minimal-components/nix.nix
 }

@@ -95,4 +95,10 @@ in
       OOMScoreAdjust = 1000;
     };
   };
+
+  # Save disk space
+  nixpkgs.flake = {
+    setFlakeRegistry = false;
+    setNixPath = false;
+  };
 }
