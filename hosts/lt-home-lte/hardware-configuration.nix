@@ -13,6 +13,13 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/12CE-A600";
     fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+      "nosuid"
+      "nodev"
+      "noexec"
+    ];
   };
 
   fileSystems."/nix" = {

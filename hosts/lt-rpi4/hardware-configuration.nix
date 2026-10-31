@@ -35,6 +35,11 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/23df8a17-50e6-4262-b95d-ac4ab9bb90e4";
     fsType = "ext4";
+    options = [
+      "nosuid"
+      "nodev"
+      "noexec"
+    ];
   };
 
   fileSystems."/boot/firmware" = {
@@ -43,6 +48,9 @@
     options = [
       "fmask=0077"
       "dmask=0077"
+      "nosuid"
+      "nodev"
+      "noexec"
     ];
   };
 

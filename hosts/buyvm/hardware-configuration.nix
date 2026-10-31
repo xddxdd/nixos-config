@@ -24,6 +24,11 @@ _: {
   fileSystems."/boot" = {
     device = "/dev/vda1";
     fsType = "ext4";
+    options = [
+      "nosuid"
+      "nodev"
+      "noexec"
+    ];
   };
 
   # Needed, or kopia backup fails
