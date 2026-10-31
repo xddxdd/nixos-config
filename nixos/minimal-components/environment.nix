@@ -63,13 +63,6 @@ in
     "8250.nr_uarts=1"
   ];
 
-  # Disable algif_aead kernel module due to the "Copy-on-Write on Demand" vulnerability:
-  # https://copy.fail/
-  boot.extraModprobeConfig = lib.optionalString (!config.networking.networkmanager.enable) ''
-    blacklist algif_aead
-    install algif_aead ${lib.getExe' pkgs.coreutils "true"}
-  '';
-
   environment.systemPackages = with pkgs; [
     # keep-sorted start
     bat

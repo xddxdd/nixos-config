@@ -21,6 +21,12 @@
     install rds ${lib.getExe' pkgs.coreutils "true"}
     blacklist rds_tcp
     install rds_tcp ${lib.getExe' pkgs.coreutils "true"}
+  ''
+  # Disable algif_aead kernel module due to the "Copy-on-Write on Demand" vulnerability:
+  # https://copy.fail/
+  + lib.optionalString (!config.networking.networkmanager.enable) ''
+    blacklist algif_aead
+    install algif_aead ${lib.getExe' pkgs.coreutils "true"}
   '';
 
   boot.specialFileSystems = {
