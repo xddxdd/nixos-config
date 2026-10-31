@@ -37,7 +37,11 @@ in
                 config.user;
             description = "PHP-FPM master identity; non-root masters must own their socket and cannot switch worker IDs.";
           };
-          config.listen = lib.mkDefault "/run/phpfpm-${name}/${name}.sock";
+          # Keep sockets inside each pool's private RuntimeDirectory. The upstream
+          # socket option is read-only, so transform its computed path.
+          options.socket = lib.mkOption {
+            apply = _: "/run/phpfpm-${name}/${name}.sock";
+          };
         }
       )
     );
