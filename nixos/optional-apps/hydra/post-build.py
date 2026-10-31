@@ -205,7 +205,7 @@ if __name__ == "__main__":
                     subprocess.run(
                         ["attic", "push", "lantian", *output_paths],
                         check=True,
-                        timeout=600,
+                        timeout=3600,
                     )
                     break
                 except subprocess.CalledProcessError:
