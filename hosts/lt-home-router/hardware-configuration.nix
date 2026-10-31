@@ -5,6 +5,8 @@
     ../../nixos/hardware/qemu-hotplug.nix
   ];
 
+  boot.availableKernelModules = [ "igc" ];
+
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

@@ -1,4 +1,28 @@
-_: {
+{ config, lib, ... }:
+{
+  boot.pruneKernelModules = true;
+  boot.availableKernelModules = [
+    "dmi_sysfs"
+    "evdev"
+    "hv_balloon"
+    "hv_sock"
+    "hyperv_drm"
+    "joydev"
+    "mac_hid"
+    "mousedev"
+    "rtc_cmos"
+    "serio_raw"
+    "vmgenid"
+  ];
+  # waagent mounts its resource disk outside fileSystems.
+  boot.supportedFilesystems = lib.optional config.services.waagent.settings.ResourceDisk.Format config.services.waagent.settings.ResourceDisk.FileSystem;
+  boot.initrd.includeDefaultModules = false;
+  boot.initrd.availableKernelModules = [
+    "hid_hyperv"
+    "hyperv_keyboard"
+    "sd_mod"
+  ];
+
   # WireServer belongs to this VM's Azure fabric, not another Azure mesh peer.
   systemd.network.networks.eth0 = {
     routes = [
@@ -37,12 +61,14 @@ _: {
     "earlyprintk=ttyS0"
     "rootdelay=300"
   ];
-  boot.initrd.kernelModules = [
-    "hv_vmbus"
-    "hv_netvsc"
-    "hv_utils"
-    "hv_storvsc"
-  ];
+  boot.initrd.kernelModules = {
+    # Upstream waagent requests legacy ATA; these guests use Hyper-V storage.
+    ata_piix = lib.mkForce false;
+    hv_vmbus = true;
+    hv_netvsc = true;
+    hv_utils = true;
+    hv_storvsc = true;
+  };
 
   lantian.hostType = "vm";
 }

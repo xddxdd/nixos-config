@@ -1,10 +1,16 @@
 {
   pkgs,
   lib,
-  LT,
   ...
 }:
 {
+  boot.availableKernelModules = [
+    "8021q"
+    "bridge"
+    "macvlan"
+    "sch_cake"
+  ];
+
   # VLAN netdevs
   systemd.network.netdevs = {
     # VLAN for homelab hosts

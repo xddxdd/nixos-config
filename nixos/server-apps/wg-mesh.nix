@@ -18,6 +18,8 @@ let
   targetHosts = lib.filterAttrs (n: v: v.hasTag "server") LT.otherHosts;
 in
 {
+  boot.availableKernelModules = [ "wireguard" ];
+
   sops.secrets.wg-priv = {
     sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
     group = "systemd-network";

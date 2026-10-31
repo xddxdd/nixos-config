@@ -13,6 +13,11 @@
     ./services.nix
   ];
 
+  boot.availableKernelModules = [
+    "sctp"
+    "tun"
+  ];
+
   # mariadb-install-db chowns its already mysql-owned data directory.
   systemd.services.mysql.serviceConfig.SystemCallFilter = [
     "@system-service"

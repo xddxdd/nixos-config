@@ -181,6 +181,16 @@ in
   };
 
   config = {
+    boot.availableKernelModules = [
+      "nf_tables"
+      "nft_chain_nat"
+      "nft_ct"
+      "nft_fib_inet"
+      "nft_masq"
+      "nft_nat"
+      "nft_reject_inet"
+    ];
+
     lantian.firewall.chains = {
       FILTER_INPUT = {
         type = "filter";

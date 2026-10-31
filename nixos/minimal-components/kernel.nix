@@ -186,28 +186,8 @@ in
       ]
       ++ (lib.optionals (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ]);
       kernelPackages = myKernelPackageFor config.lantian.kernel;
-      kernelModules = [
-        "cryptodev"
-        "emperors-scepter"
-        "nullfsvfs"
-        # Temporarily disabled for build failure
-        # "nft_fullcone"
-        # "ovpn-dco"
-      ]
-      ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ "ntsync" ];
-      extraModulePackages = with config.boot.kernelPackages; [
-        cryptodev
-        emperors-scepter
-        nullfsvfs
-        nft-fullcone
-        r8125
-        r8168
-      ];
-
       bcache.enable = false;
       initrd = {
-        kernelModules = [ "nullfsvfs" ];
-
         compressor = "zstd";
         compressorArgs = [
           "-19"

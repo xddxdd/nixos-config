@@ -12,6 +12,12 @@
   };
 
   config = lib.mkIf config.lantian.enablePodman {
+    boot.availableKernelModules = [
+      "bridge"
+      "overlay"
+      "veth"
+    ];
+
     environment.systemPackages = config.virtualisation.podman.extraPackages;
 
     virtualisation.containers.containersConf.settings = {

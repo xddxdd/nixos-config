@@ -185,6 +185,23 @@ in
   };
 
   config = {
+    boot.availableKernelModules = lib.unique (
+      lib.concatMap (
+        v:
+        if v.tunnel.type == "gre" then
+          [ (if v.tunnel.greUseIPv6 then "ip6_gre" else "ip_gre") ]
+        else if v.tunnel.type == "openvpn" then
+          [
+            "tun"
+            "ovpn"
+          ]
+        else if v.tunnel.type == "wireguard" then
+          [ "wireguard" ]
+        else
+          [ ]
+      ) (builtins.attrValues config.services.dn42)
+    );
+
     sops.secrets.wg-priv.sopsFile =
       inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
     networking.wireguard.enable = true;

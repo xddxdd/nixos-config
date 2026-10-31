@@ -208,6 +208,11 @@ let
   ];
 in
 lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
+  boot.availableKernelModules = [
+    "tun"
+    "ovpn"
+  ];
+
   sops.secrets.openvpn-gameaccel-ca = {
     sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
     owner = "openvpn";

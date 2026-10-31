@@ -24,6 +24,8 @@ let
     (lib.filterAttrs (n: _: lib.hasPrefix "wgmesh" n) config.systemd.network.netdevs) != { };
 in
 {
+  boot.availableKernelModules = [ "tun" ];
+
   environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
 
   services.zerotierone = {

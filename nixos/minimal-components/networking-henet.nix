@@ -40,6 +40,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    boot.availableKernelModules = [ "sit" ];
+
     systemd.network.netdevs.henet = {
       netdevConfig = {
         Kind = "sit";

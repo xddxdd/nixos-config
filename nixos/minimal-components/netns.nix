@@ -105,6 +105,12 @@ in
   };
 
   config = {
+    boot.availableKernelModules =
+      lib.mkIf (lib.any (v: v.enable) (builtins.attrValues config.lantian.netns))
+        [
+          "veth"
+        ];
+
     systemd.services = builtins.listToAttrs (
       lib.flatten (
         lib.mapAttrsToList (

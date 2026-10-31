@@ -5,6 +5,8 @@
   ...
 }:
 lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) {
+  boot.availableKernelModules = [ "tun" ];
+
   systemd.services.usque-tun = {
     description = "Usque Tunnel";
     after = [ "network.target" ];

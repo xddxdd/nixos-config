@@ -6,8 +6,6 @@ _: {
     ../../nixos/hardware/qemu.nix
   ];
 
-  boot.initrd.kernelModules = [ "nvme" ];
-
   boot.loader.grub = {
     efiSupport = true;
     device = "nodev";

@@ -19,7 +19,16 @@ in
     options iwlwifi power_save=Y power_level=5
   '';
 
-  boot.kernelModules = [ "mptcp" ];
+  # MPTCP is built into the VM kernels, not a loadable module.
+  boot.kernelModules = lib.optionals (!config.boot.pruneKernelModules) [ "mptcp" ];
+  boot.availableKernelModules = [
+    "af_packet"
+    "mptcp_diag"
+    "sch_fq"
+    "tcp_bbr"
+    "tcp_diag"
+    "udp_diag"
+  ];
 
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "fq";

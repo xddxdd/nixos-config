@@ -6,8 +6,6 @@ _: {
     ../../nixos/hardware/qemu.nix
   ];
 
-  boot.kernelModules = [ "kvm-amd" ];
-
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   fileSystems."/nix" = {

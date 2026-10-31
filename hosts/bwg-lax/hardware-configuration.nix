@@ -6,8 +6,6 @@ _: {
     ../../nixos/hardware/qemu.nix
   ];
 
-  boot.initrd.kernelModules = [ "nvme" ];
-
   boot.loader.grub.mirroredBoots = [
     {
       devices = [ "/dev/sda" ];

@@ -3,6 +3,8 @@
   ...
 }:
 {
+  boot.availableKernelModules = [ "dummy" ];
+
   systemd.network.netdevs.dummy0 = {
     netdevConfig = {
       Kind = "dummy";
