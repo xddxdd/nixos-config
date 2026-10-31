@@ -9,6 +9,7 @@
     ../../nixos/hardware/gpu-unlock.nix
     ../../nixos/hardware/hdr.nix
     # ../../nixos/hardware/i915-sriov.nix
+    ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/nvidia/prime.nix # Bambu studio is unstable on NVIDIA
     ../../nixos/hardware/smart.nix
   ];

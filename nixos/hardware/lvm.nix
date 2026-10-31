@@ -17,6 +17,7 @@
     mdadmConf = "MAILADDR root";
   };
 
+  services.lvm.enable = true;
   services.lvm.dmeventd.enable = true;
 
   environment.etc."lvm/lvm.conf".text = ''
