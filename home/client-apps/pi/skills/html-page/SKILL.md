@@ -1,3 +1,8 @@
+---
+name: html-page
+description: 创建新的 HTML 页面时使用。通过 prefers-color-scheme 自动支持明暗模式；用户明确指定固定主题时遵从其要求。
+---
+
 # HTML 页面明暗模式规则
 
 ## 适用范围

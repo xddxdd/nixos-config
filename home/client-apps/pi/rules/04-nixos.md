@@ -10,32 +10,6 @@
 
 需要安装任何软件时，**必须优先使用 Nix**，而非其他包管理器（如 apt、yum、brew 等）。
 
-### 禁止的操作
-
-- **不要**使用 `apt`、`apt-get`、`aptitude`、`yum`、`dnf`、`pacman`、`brew`、`snap`、`zypper` 等非 Nix 包管理器
-- **不要**从源码手动 `make install`（包括 `sudo make install`、`make -jN install` 等带参数的形式）
-- **不要**使用 `curl | sh`、`wget | sh` 等管道到 shell 的方式安装软件
-
 #### 运行非 NixOS 二进制文件
 
 需要运行未针对 NixOS 编译的外部二进制文件时，使用 `steam-run` 处理动态链接器问题。
-
-### 禁止从根目录搜索
-
-- **不要**执行 `find /`、`grep -r /`、`fd /`、`rg /` 等搜索命令，即 `find`、`fd`、`grep`、`rg`、`ag`、`ack` 以根目录（`/`）或 `/nix/store` 为搜索路径的用法
-- 在 NixOS 上，`/nix/store` 包含大量文件，从根目录或 `/nix/store` 遍历会极其缓慢，可能耗时数分钟甚至卡死
-- 需要搜索时，应限定在具体目录内，例如 `find /etc`、`rg . /home/user/project`
-- 如需查找系统文件，优先使用 `which`、`whereis`、`nix-locate` 等针对性工具
-
-## 创建 Flake
-
-当被要求创建 Nix Flake 时，**必须使用 flake-parts** 管理 outputs，而非 flake-utils。
-
-## devShell 集成
-
-### 判断是否应加入 devShell
-
-如果当前项目包含 flake.nix 并使用 flake-parts 管理输出，并且某个工具满足以下条件，应考虑将其加入 devShell：
-
-1. **会重复使用**：非一次性需求
-2. **与项目开发相关**：用于构建、检查、部署等开发流程

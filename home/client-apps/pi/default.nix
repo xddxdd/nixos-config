@@ -111,6 +111,11 @@ in
     ln -sfn "$HOME/.cache/jiti" /tmp/jiti
   '';
 
+  home.file.".pi/agent/skills" = {
+    source = ./skills;
+    recursive = true;
+  };
+
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     mcpServers = lib.mapAttrs (_: server: server // { exposure = "direct"; }) (
       osConfig.lantian.mcp.mcpServers or { }
