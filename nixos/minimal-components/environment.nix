@@ -43,6 +43,22 @@ in
 
   environment.defaultPackages = [ ];
 
+  # https://lowendspirit.com/discussion/11543/shrinking-nixos-ram-footprint-and-resource-requirements-to-the-bare-minimum
+  documentation.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
+  fonts.fontconfig.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
+  xdg = {
+    mime.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
+    icons.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
+    sounds.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
+  };
+
+  # Disable kernel allocation/debugging overhead, not audit or PSI.
+  boot.kernelParams = [
+    "sysctl.vm.mem_profiling=never"
+    "kfence.sample_interval=0"
+    "damon_stat.enabled=N"
+  ];
+
   # Disable algif_aead kernel module due to the "Copy-on-Write on Demand" vulnerability:
   # https://copy.fail/
   boot.extraModprobeConfig = lib.optionalString (!config.networking.networkmanager.enable) ''
@@ -93,7 +109,7 @@ in
     # keep-sorted end
   ];
 
-  hardware.ksm.enable = true;
+  hardware.ksm.enable = lib.mkDefault true;
 
   lantian.qemu-user-static-binfmt = {
     enable = LT.this.hasTag LT.tags.nix-builder;
@@ -175,6 +191,11 @@ in
     enableEmergencyMode = LT.this.hasTag LT.tags.client;
 
     oomd.enable = lib.mkForce false;
+
+    suppressedSystemUnits = lib.optionals (!LT.this.hasTag LT.tags.client) [
+      "systemd-importd.service"
+      "systemd-importd.socket"
+    ];
 
     sleep.settings.Sleep = {
       AllowSuspend = false;

@@ -1,8 +1,25 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
+  # https://lowendspirit.com/discussion/11543/shrinking-nixos-ram-footprint-and-resource-requirements-to-the-bare-minimum
+  # Avoid a second KSM scanner and THP reservations inside the guest.
+  boot.kernelParams = [
+    "initcall_blacklist=ksm_init"
+    "transparent_hugepage=never"
+  ]
+  ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
+    "ras=cec_disable"
+    "8250.nr_uarts=1"
+  ];
+  hardware.ksm.enable = false;
+
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="vd[a-z]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none", ATTR{queue/read_ahead_kb}="128"
+  '';
+
   boot.initrd.availableKernelModules = [
     "virtio_net"
     "virtio_pci"
