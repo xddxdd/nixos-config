@@ -201,14 +201,12 @@ DNS 配置，使用 DNSControl 管理：
 
 ### home/ 目录
 
-Home Manager 配置：
+Home Manager 仅由客户端角色通过 `nixos/client-components/home-manager.nix` 接入；其他角色不导入 Home Manager。
 
 | 文件               | 说明                     |
 | ------------------ | ------------------------ |
 | `client.nix`       | 客户端 Home Manager 配置 |
-| `none.nix`         | 空 Home Manager 配置     |
 | `common-apps/`     | 通用应用配置             |
-| `non-client-apps/` | 非客户端应用配置         |
 
 ## 操作指南
 

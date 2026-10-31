@@ -119,7 +119,6 @@ in
   programs = {
     bash.vteIntegration = LT.this.hasTag LT.tags.client;
     command-not-found.enable = false;
-    htop.enable = true;
     iftop.enable = true;
     less = {
       enable = true;

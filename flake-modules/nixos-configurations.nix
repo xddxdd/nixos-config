@@ -32,7 +32,6 @@ let
     in
     [
       (_: {
-        home-manager.extraSpecialArgs = specialArgsFor n;
         networking.hostName = lib.mkForce (lib.removePrefix "_" n);
         system.stateVersion = LT.constants.stateVersion;
 
@@ -44,7 +43,6 @@ let
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
       inputs.colmena.nixosModules.deploymentOptions
-      inputs.home-manager.nixosModules.home-manager
       inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-gaming.nixosModules.platformOptimizations
       inputs.nur-xddxdd.nixosModules.nix-cache-attic
