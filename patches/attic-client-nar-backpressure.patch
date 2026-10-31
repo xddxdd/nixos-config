@@ -1,0 +1,248 @@
+diff --git a/attic/src/nix_store/bindings/mod.rs b/attic/src/nix_store/bindings/mod.rs
+index 7487ee0..5b7ee5d 100644
+--- a/attic/src/nix_store/bindings/mod.rs
++++ b/attic/src/nix_store/bindings/mod.rs
+@@ -7,6 +7,7 @@ use std::task::{Context, Poll};
+ 
+ use futures::stream::{Stream, StreamExt};
+ use tokio::io::{AsyncWrite, AsyncWriteExt};
++use tokio::sync::mpsc;
+ 
+ use crate::{AtticError, AtticResult};
+ 
+@@ -39,15 +40,6 @@ pub unsafe fn open_nix_store() -> AtticResult<FfiNixStore> {
+     }
+ }
+ 
+-// TODO: Benchmark different implementations
+-// (tokio, crossbeam, flume)
+-mod mpsc {
+-    // Tokio
+-    pub use tokio::sync::mpsc::{
+-        UnboundedReceiver, UnboundedSender, error::SendError, unbounded_channel,
+-    };
+-}
+-
+ /// Async write request.
+ #[derive(Debug)]
+ enum AsyncWriteMessage {
+@@ -59,18 +51,23 @@ enum AsyncWriteMessage {
+ /// Async write request sender.
+ #[derive(Clone)]
+ pub struct AsyncWriteSender {
+-    sender: mpsc::UnboundedSender<AsyncWriteMessage>,
++    sender: mpsc::Sender<AsyncWriteMessage>,
+ }
+ 
+ impl AsyncWriteSender {
+-    fn send(&mut self, data: &[u8]) -> Result<(), mpsc::SendError<AsyncWriteMessage>> {
+-        let message = AsyncWriteMessage::Data(Vec::from(data));
+-        self.sender.send(message)
++    fn send(&mut self, data: &[u8]) -> Result<(), mpsc::error::SendError<AsyncWriteMessage>> {
++        // Bound bytes as well as messages: libnixstore may pass arbitrarily large slices.
++        // This runs on the blocking NAR producer, never on a Tokio runtime thread.
++        for chunk in data.chunks(64 * 1024) {
++            let message = AsyncWriteMessage::Data(Vec::from(chunk));
++            self.sender.blocking_send(message)?;
++        }
++        Ok(())
+     }
+ 
+-    fn eof(&mut self) -> Result<(), mpsc::SendError<AsyncWriteMessage>> {
++    fn eof(&mut self) -> Result<(), mpsc::error::SendError<AsyncWriteMessage>> {
+         let message = AsyncWriteMessage::Eof;
+-        self.sender.send(message)
++        self.sender.blocking_send(message)
+     }
+ 
+     pub(crate) fn rust_error(
+@@ -78,19 +75,20 @@ impl AsyncWriteSender {
+         error: impl std::error::Error,
+     ) -> Result<(), impl std::error::Error> {
+         let message = AsyncWriteMessage::Error(error.to_string());
+-        self.sender.send(message)
++        self.sender.blocking_send(message)
+     }
+ }
+ 
+ /// A wrapper of the `AsyncWrite` trait for the synchronous Nix C++ land.
+ pub struct AsyncWriteAdapter {
+-    receiver: mpsc::UnboundedReceiver<AsyncWriteMessage>,
++    receiver: mpsc::Receiver<AsyncWriteMessage>,
+     eof: bool,
+ }
+ 
+ impl AsyncWriteAdapter {
+     pub fn new() -> (Self, Box<AsyncWriteSender>) {
+-        let (sender, receiver) = mpsc::unbounded_channel();
++        // At most 1 MiB of queued NAR data per upload, regardless of archive size.
++        let (sender, receiver) = mpsc::channel(16);
+ 
+         let r = Self {
+             receiver,
+@@ -155,6 +153,165 @@ impl Stream for AsyncWriteAdapter {
+     }
+ }
+ 
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::time::Duration;
++    use tokio::task::spawn_blocking;
++    use tokio::time::{sleep, timeout};
++
++    #[tokio::test]
++    async fn test_large_write_preserves_bytes() {
++        let (mut stream, mut sender) = AsyncWriteAdapter::new();
++        let data: Vec<u8> = (0usize..2 * 1024 * 1024 + 17)
++            .map(|i| (i ^ (i >> 16)) as u8)
++            .collect();
++        let expected = data.clone();
++        let producer = spawn_blocking(move || {
++            sender.send(&[]).unwrap();
++            sender.send(&data).unwrap();
++            sender.eof().unwrap();
++        });
++
++        let mut actual = Vec::new();
++        let mut largest_chunk = 0;
++        while let Some(chunk) = stream.next().await {
++            let chunk = chunk.unwrap();
++            largest_chunk = largest_chunk.max(chunk.len());
++            actual.extend_from_slice(&chunk);
++        }
++        producer.await.unwrap();
++
++        assert_eq!(actual, expected);
++        assert!(stream.eof);
++        assert!(largest_chunk <= 64 * 1024, "chunk size: {largest_chunk}");
++    }
++
++    #[tokio::test]
++    async fn test_slow_consumer_backpressures_producer() {
++        let (mut stream, mut sender) = AsyncWriteAdapter::new();
++        let (started, ready) = tokio::sync::oneshot::channel();
++        let producer = spawn_blocking(move || {
++            for _ in 0..16 {
++                sender.send(&[42; 64 * 1024]).unwrap();
++            }
++            started.send(()).unwrap();
++            for _ in 16..256 {
++                sender.send(&[42; 64 * 1024]).unwrap();
++            }
++            sender.eof().unwrap();
++        });
++
++        ready.await.unwrap();
++        sleep(Duration::from_millis(100)).await;
++        let blocked = !producer.is_finished();
++        let queued = stream.receiver.len();
++        let mut size = 0;
++        while let Some(chunk) = stream.next().await {
++            let chunk = chunk.unwrap();
++            assert!(chunk.iter().all(|&b| b == 42));
++            size += chunk.len();
++        }
++        producer.await.unwrap();
++
++        assert_eq!(size, 16 * 1024 * 1024);
++        assert_eq!(queued, 16);
++        assert!(
++            blocked,
++            "producer buffered the entire NAR without a consumer"
++        );
++    }
++
++    #[tokio::test]
++    async fn test_dropped_consumer_unblocks_data_sender() {
++        let (stream, mut sender) = AsyncWriteAdapter::new();
++        let (started, ready) = tokio::sync::oneshot::channel();
++        let producer = spawn_blocking(move || {
++            for _ in 0..16 {
++                sender.send(&[42]).unwrap();
++            }
++            started.send(()).unwrap();
++            sender.send(&vec![42; 2 * 1024 * 1024])
++        });
++
++        ready.await.unwrap();
++        sleep(Duration::from_millis(100)).await;
++        let blocked = !producer.is_finished();
++        let queued = stream.receiver.len();
++        drop(stream);
++        let result = timeout(Duration::from_secs(2), producer)
++            .await
++            .unwrap()
++            .unwrap();
++
++        assert_eq!(queued, 16);
++        assert!(blocked, "large write did not block");
++        assert!(result.is_err());
++    }
++
++    #[tokio::test]
++    async fn test_dropped_consumer_unblocks_terminal_sender() {
++        for error in [false, true] {
++            let (stream, mut sender) = AsyncWriteAdapter::new();
++            let (started, ready) = tokio::sync::oneshot::channel();
++            let producer = spawn_blocking(move || {
++                for _ in 0..16 {
++                    sender.send(&[42]).unwrap();
++                }
++                started.send(()).unwrap();
++                if error {
++                    sender.rust_error(io::Error::other("NAR failed")).is_err()
++                } else {
++                    sender.eof().is_err()
++                }
++            });
++
++            ready.await.unwrap();
++            sleep(Duration::from_millis(100)).await;
++            let blocked = !producer.is_finished();
++            let queued = stream.receiver.len();
++            drop(stream);
++            let failed = timeout(Duration::from_secs(2), producer)
++                .await
++                .unwrap()
++                .unwrap();
++
++            assert_eq!(queued, 16);
++            assert!(blocked, "terminal message did not block");
++            assert!(failed);
++        }
++    }
++
++    #[tokio::test]
++    async fn test_error_follows_data() {
++        let (mut stream, mut sender) = AsyncWriteAdapter::new();
++        let producer = spawn_blocking(move || {
++            for i in 0..32 {
++                sender.send(&[i]).unwrap();
++            }
++            sender.rust_error(io::Error::other("NAR failed")).unwrap();
++        });
++
++        for i in 0..32 {
++            assert_eq!(stream.next().await.unwrap().unwrap(), [i]);
++        }
++        match stream.next().await.unwrap().unwrap_err() {
++            AtticError::CxxError { exception } => assert_eq!(exception, "NAR failed"),
++            error => panic!("unexpected error: {error}"),
++        }
++        producer.await.unwrap();
++        assert!(!stream.eof);
++    }
++
++    #[tokio::test]
++    async fn test_missing_eof_is_an_error() {
++        let (mut stream, sender) = AsyncWriteAdapter::new();
++        drop(sender);
++        assert!(stream.next().await.unwrap().is_err());
++        assert!(!stream.eof);
++    }
++}
++
+ #[cxx::bridge]
+ /// Generated by `cxx.rs`.
+ ///
