@@ -1,0 +1,13 @@
+[dependencies]
+brotli = "3.3.4"
+clap = { version = "4.4.8", features = ["derive"] }
+flate2 = { version = "1.0.27", features = ["zlib-ng"] }
+rayon = "1.8.0"
+tempfile = "3.8.0"
+walkdir = "2.4.0"
+zstd = "0.12.4"
+
+[package]
+name = "web-compressor"
+version = "0.1.0"
+edition = "2021"
