@@ -57,7 +57,18 @@ in
     "sysctl.vm.mem_profiling=never"
     "kfence.sample_interval=0"
     "damon_stat.enabled=N"
-  ];
+  ]
+  ++ lib.optionals (config.lantian.hostType == "vm") (
+    # Avoid a second KSM scanner and THP reservations inside the guest.
+    [
+      "initcall_blacklist=ksm_init"
+      "transparent_hugepage=never"
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
+      "ras=cec_disable"
+      "8250.nr_uarts=1"
+    ]
+  );
 
   # Disable algif_aead kernel module due to the "Copy-on-Write on Demand" vulnerability:
   # https://copy.fail/
@@ -109,7 +120,7 @@ in
     # keep-sorted end
   ];
 
-  hardware.ksm.enable = lib.mkDefault true;
+  hardware.ksm.enable = lib.mkDefault (config.lantian.hostType != "vm");
 
   lantian.qemu-user-static-binfmt = {
     enable = LT.this.hasTag LT.tags.nix-builder;
@@ -139,6 +150,9 @@ in
 
   services.fstrim.enable = true;
   services.irqbalance.enable = LT.this.cpuThreads > 1;
+  services.udev.extraRules = lib.mkIf (config.lantian.hostType == "vm") ''
+    ACTION=="add|change", KERNEL=="vd[a-z]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none", ATTR{queue/read_ahead_kb}="128"
+  '';
 
   security.openssl = {
     oqs-provider = {

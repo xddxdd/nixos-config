@@ -43,4 +43,6 @@ _: {
     "hv_utils"
     "hv_storvsc"
   ];
+
+  lantian.hostType = "vm";
 }
