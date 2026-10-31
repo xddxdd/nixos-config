@@ -65,6 +65,15 @@
     };
   };
 
+  # Directory audit filters must exist before audit-rules-nixos loads them.
+  systemd.tmpfiles.settings.fluent-bit = lib.mkIf config.services.fluent-bit.enable {
+    "/var/lib/fluent-bit".d = {
+      mode = "0750";
+      user = "fluent-bit";
+      group = "fluent-bit";
+    };
+  };
+
   systemd.services.fluent-bit = {
     # Run inside the mounted state directory, not before its host mount exists.
     preStart = lib.mkIf config.services.fluent-bit.enable ''

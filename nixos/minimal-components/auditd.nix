@@ -46,6 +46,12 @@ in
     rules = lib.mkBefore (
       secretRules
       ++ homeRules
+      ++ lib.optionals config.services.fluent-bit.enable [
+        # Ignore successful housekeeping only in the journal shipper's own state.
+        "-a never,exit -S all -F dir=/var/lib/fluent-bit -F exe=${lib.getExe config.services.fluent-bit.package} -F uid=fluent-bit -F euid=fluent-bit -F fsuid=fluent-bit -F success=1"
+        # Keep journal shipping reads out of the persistent-access trail too.
+        "-a never,exit -S all -F dir=/var/log/journal -F perm=r -F exe=${lib.getExe config.services.fluent-bit.package} -F uid=fluent-bit -F euid=fluent-bit -F fsuid=fluent-bit -F success=1"
+      ]
       ++ map (serviceRule "/nix/persistent" "persistent-access") [
         "uid"
         "euid"

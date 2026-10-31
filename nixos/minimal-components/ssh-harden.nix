@@ -204,4 +204,12 @@ in
   # Prevent regular OpenSSH from sneaking in
   # FIXME: PVE depends on regular OpenSSH
   # system.forbiddenDependenciesRegexes = [ "openssh-[0-9p\\.]+$" ];
+
+  security.pam.services.sshd = {
+    setLoginUid = true;
+    ttyAudit = {
+      enable = true;
+      enablePattern = "*";
+    };
+  };
 }
