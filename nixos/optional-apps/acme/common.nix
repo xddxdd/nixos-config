@@ -4,15 +4,6 @@ let
   eccRenewInterval = "*-*-* 13:00:00";
 in
 {
-  # # For temporarily setting one time use EAB credentials:
-  # environmentFile = [
-  #   config.sops.secrets.lego-env.path
-  #   (pkgs.writeText "env" ''
-  #     LEGO_EAB_KID=123456
-  #     LEGO_EAB_HMAC=abcdef
-  #   '')
-  # ];
-
   mkLetsEncryptCert = domain: {
     "lets-encrypt-${domain}-rsa" = {
       inherit domain;

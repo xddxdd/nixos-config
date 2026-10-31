@@ -62,6 +62,24 @@ in
       "/run/postgresql"
     ];
   };
+  systemd.services.postgresql-setup.postStart = ''
+    if [[ -f "${config.services.postgresql.dataDir}/standby.signal" ]]; then
+      exit 0
+    fi
+  ''
+  +
+    lib.concatMapStrings
+      (database: ''
+        psql -tAc 'ALTER DATABASE "${database}" REFRESH COLLATION VERSION'
+      '')
+      (
+        [
+          "postgres"
+          "template1"
+        ]
+        ++ config.services.postgresql.ensureDatabases
+      );
+
   lantian.harden.postgresql = {
     enable = true;
     # Peer auth resolves peer uid→name via nss files.
