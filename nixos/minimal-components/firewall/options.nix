@@ -181,14 +181,19 @@ in
   };
 
   config = {
-    boot.availableKernelModules = [
-      "nf_tables"
-      "nft_chain_nat"
-      "nft_ct"
-      "nft_fib_inet"
-      "nft_masq"
-      "nft_nat"
-      "nft_reject_inet"
+    boot.availableKernelModules = [ "nf_tables" ];
+    # Include future Netfilter features and external nft/xt modules without
+    # adding individual roots; modules remain load-on-demand.
+    boot.availableKernelModulePatterns = [
+      "*/netfilter/*.ko*"
+      "*/br_netfilter.ko*"
+      "*/nf_*.ko*"
+      "*/nft_*.ko*"
+      "*/xt_*.ko*"
+      "*/ipt_*.ko*"
+      "*/ip6t_*.ko*"
+      "*/arpt_*.ko*"
+      "*/ebt_*.ko*"
     ];
 
     lantian.firewall.chains = {
