@@ -17,7 +17,7 @@
     ../../nixos/client-components/tlp.nix
 
     ../../nixos/optional-apps/ncps-client.nix
-    # ../../nixos/optional-apps/scam-dn42-miner.nix # overheat
+    ../../nixos/optional-apps/scam-dn42-miner.nix
   ];
 
   lantian.hidpi = 1.5;
