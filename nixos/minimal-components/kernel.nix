@@ -244,8 +244,6 @@ in
             1;
       };
 
-      supportedFilesystems = [ "ntfs" ];
-
       swraid.enable = false;
     };
 

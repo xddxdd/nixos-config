@@ -117,6 +117,7 @@ in
       nix-profiling
       nix-search-cli
       nix-store-add
+      nix-tree
       nixd
       nixfmt-rs
       nixpkgs-fmt
