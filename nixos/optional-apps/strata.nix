@@ -36,6 +36,7 @@ in
         CUDA_DEVICE_ORDER = "PCI_BUS_ID";
         CUDA_VISIBLE_DEVICES = "0";
         STRATA_ALLOWED_HOSTS = "strata.${config.networking.hostName}.xuyh0120.win,strata.localhost";
+        STRATA_ROUTE_PRIOR = "0"; # https://github.com/Niko1221/Strata/releases/tag/v0.2.7
       };
 
       preStart = ''
