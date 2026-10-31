@@ -106,9 +106,9 @@
   },
   {
     "pname": "multi-account-containers",
-    "version": "8.3.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4867303/multi_account_containers-8.3.8.xpi",
-    "hash": "sha256-MGopSEU2PxWnR46WILQ/keoXYQiHJ4COIye//xbBREc=",
+    "version": "8.4.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5168122/multi_account_containers-8.4.0.xpi",
+    "hash": "sha256-EJNtaC4XvS6K+gGL3pT5J7UM8Flz1u+Mo8VPgHss97o=",
     "addonId": "@testpilot-containers"
   },
   {
