@@ -91,6 +91,7 @@
       "/" = {
         proxyPass = "http://[::1]:${LT.portStr.Attic}";
         proxyNoTimeout = true;
+        proxyRequestBuffering = false;
       };
     };
   };

@@ -137,6 +137,8 @@ in
       directio 1m;
       # sendfile on; # defined by recommendedOptimisation
 
+      client_body_temp_path /var/cache/nginx 2 2 2;
+
       http2 on;
       http3 on;
       http3_hq on;
@@ -272,6 +274,7 @@ in
         # ACME certs
         "/nix/sync-servers/acme"
       ];
+      CacheDirectory = "nginx";
       SystemCallErrorNumber = "EPERM";
       SystemCallFilter = lib.mkForce [ ];
       LimitMEMLOCK = "infinity";

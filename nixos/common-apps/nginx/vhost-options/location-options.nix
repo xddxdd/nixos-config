@@ -44,7 +44,7 @@ let
         proxy_set_header Early-Data $ssl_early_data;
 
         proxy_buffering off;
-        proxy_request_buffering on;
+        proxy_request_buffering ${if config.proxyRequestBuffering then "on" else "off"};
         proxy_redirect off;
         chunked_transfer_encoding off;
       '')
@@ -186,6 +186,10 @@ in
       description = ''
         Adds grpc_pass directive and sets recommended proxy headers.
       '';
+    };
+    proxyRequestBuffering = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
     };
     proxyOverrideHost = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
