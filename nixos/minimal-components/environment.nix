@@ -66,17 +66,11 @@ in
 
   environment.systemPackages = with pkgs; [
     # keep-sorted start
-    bat
     bridge-utils
     curl
     dig
-    duf
     e2fsprogs # chattr, lsattr
-    eza
     findbin
-    fuc
-    fzf
-    gitMinimal
     gzip
     inetutils
     iperf3
@@ -89,7 +83,6 @@ in
     openssl
     pigz
     pv
-    ripgrep
     rsync
     screen
     speedtest-go

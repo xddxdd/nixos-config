@@ -171,6 +171,14 @@ in
       sops
       tldr
       tokei
+
+      # Other unix tools
+      bat
+      duf
+      eza
+      fuc
+      fzf
+      ripgrep
     ]
     ++ lib.optionals (osConfig.networking.hostName == "lt-hp-omen") [
       # FPGA
