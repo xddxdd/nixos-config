@@ -1,8 +1,8 @@
 [dependencies]
 hmac = "0.12"
 regex = "1"
-serde = {version = "1", features = ["derive"]}
-serde_json = {version = "1", features = ["raw_value"]}
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["raw_value"] }
 sha2 = "0.10"
 socket2 = "0.6"
 

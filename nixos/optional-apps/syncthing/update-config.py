@@ -70,9 +70,17 @@ def main():
     if not config_path.exists():
         # 缺失配置但已有状态时拒绝生成，避免重置身份或丢失文件夹配置。
         if any(config_path.parent.iterdir()):
-            raise FileNotFoundError(f"Refusing to regenerate missing {config_path}: existing state")
+            raise FileNotFoundError(
+                f"Refusing to regenerate missing {config_path}: existing state"
+            )
         subprocess.run(
-            [sys.argv[3], "generate", "--home", str(config_path.parent), "--no-port-probing"],
+            [
+                sys.argv[3],
+                "generate",
+                "--home",
+                str(config_path.parent),
+                "--no-port-probing",
+            ],
             check=True,
         )
 

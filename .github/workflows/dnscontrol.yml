@@ -49,7 +49,7 @@ jobs:
           mkdir -p "$HOME/.ssh"
           echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/id_ed25519"
           echo "${{ secrets.SOPS_KEY }}" > "$HOME/.ssh/id_ed25519_sops"
-          echo "rsync-ci.xuyh0120.win ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ1UoThuUBGlXtwI8shM2+ge/9VWBzwUE7kDvW2BvHgK" > $HOME/.ssh/known_hosts
+          echo "rsync-ci.xuyh0120.win ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ1UoThuUBGlXtwI8shM2+ge/9VWBzwUE7kDvW2BvHgK" > "$HOME/.ssh/known_hosts"
           chmod -R 500 "$HOME/.ssh"
 
           mkdir -p "$HOME/.config/sops/age"

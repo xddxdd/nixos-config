@@ -59,9 +59,21 @@
   };
 
   systemd.tmpfiles.settings.cups = {
-    "/var/cache/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
-    "/var/spool/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
-    "/var/lib/cups"."d" = { mode = "0700"; user = "root"; group = "root"; };
+    "/var/cache/cups"."d" = {
+      mode = "0700";
+      user = "root";
+      group = "root";
+    };
+    "/var/spool/cups"."d" = {
+      mode = "0700";
+      user = "root";
+      group = "root";
+    };
+    "/var/lib/cups"."d" = {
+      mode = "0700";
+      user = "root";
+      group = "root";
+    };
   };
 
   systemd.services.cups-browsed.serviceConfig = {

@@ -3,8 +3,8 @@ capnpc = "0.25"
 
 [dependencies]
 axum = "0.8"
-tokio = {version = "1", features = ["rt-multi-thread", "net"]}
-capnp = {version = "0.25", features = ["unaligned"]}
+tokio = { version = "1", features = ["rt-multi-thread", "net"] }
+capnp = { version = "0.25", features = ["unaligned"] }
 memmap2 = "0.9"
 rand = "0.9"
 rand_xoshiro = "0.7"

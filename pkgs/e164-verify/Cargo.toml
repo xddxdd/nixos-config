@@ -6,7 +6,7 @@ path = "src/main.rs"
 anyhow = "1"
 c-ares = "12"
 c-ares-resolver = "11"
-clap = {version = "4", features = ["derive"]}
+clap = { version = "4", features = ["derive"] }
 regex = "1"
 
 [package]
