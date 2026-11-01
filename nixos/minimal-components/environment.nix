@@ -133,7 +133,12 @@ in
 
   services.fstrim.enable = true;
   services.irqbalance.enable = LT.this.cpuThreads > 1;
-  services.lvm.enable = lib.mkDefault false;
+
+  # Random-encrypted swap needs LVM's device-mapper udev completion rules.
+  services.lvm.enable = lib.mkDefault (
+    lib.any (swap: swap.randomEncryption.enable) config.swapDevices
+  );
+
   services.udev.extraRules = lib.mkIf (config.lantian.hostType == "vm") ''
     ACTION=="add|change", KERNEL=="vd[a-z]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none", ATTR{queue/read_ahead_kb}="128"
   '';
