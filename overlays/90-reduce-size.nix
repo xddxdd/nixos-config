@@ -29,6 +29,10 @@ _: final: prev: rec {
     ];
   });
 
+  nano = prev.nano.override {
+    enableTiny = true;
+  };
+
   stayrtr-minimal = prev.stayrtr.overrideAttrs (_: {
     pname = "stayrtr-minimal";
     subPackages = [ "cmd/stayrtr" ];
