@@ -25,7 +25,7 @@
     ../../nixos/optional-apps/pi-web.nix
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/postgresql.nix
-    ../../nixos/optional-apps/syncthing
+    ../../nixos/optional-apps/syncthing/run-as-lantian.nix
     ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/whisper-cpp.nix
@@ -77,16 +77,6 @@
     accelSpeed = "0.4";
     clickMethod = "clickfinger";
     disableWhileTyping = false;
-  };
-
-  services.syncthing = {
-    user = lib.mkForce "lantian";
-    group = lib.mkForce "lantian";
-  };
-  lantian.syncthing.storage = "/home/lantian";
-  systemd.services.syncthing.serviceConfig = {
-    ProtectHome = false;
-    BindPaths = [ "/home/lantian" ];
   };
 
   services.usbmuxd.enable = true;
