@@ -42,6 +42,7 @@ in
   };
 
   environment.defaultPackages = [ ];
+  environment.etc."udev/hwdb.bin".enable = config.lantian.hostType != "vm";
 
   # https://lowendspirit.com/discussion/11543/shrinking-nixos-ram-footprint-and-resource-requirements-to-the-bare-minimum
   documentation.enable = lib.mkDefault (LT.this.hasTag LT.tags.client);
@@ -128,7 +129,12 @@ in
     steam.platformOptimizations.enable = true;
   };
 
-  services.dbus.implementation = "broker";
+  services.dbus = {
+    implementation = "broker";
+    brokerPackage = pkgs.dbus-broker.override {
+      systemd = config.systemd.package;
+    };
+  };
 
   services.fstrim.enable = true;
   services.irqbalance.enable = LT.this.cpuThreads > 1;

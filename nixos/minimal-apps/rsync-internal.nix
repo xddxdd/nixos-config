@@ -43,7 +43,7 @@ in
     path = [
       pkgs.rsync
       pkgs.openssh_hpn
-      pkgs.systemd
+      config.systemd.package
     ];
 
     postStart = ''

@@ -79,6 +79,7 @@ in
     };
 
     sops.age.sshKeyPaths = [ "/nix/persistent/etc/ssh/ssh_host_ed25519_key" ];
+    sops.gnupg.sshKeyPaths = [ ];
 
     fileSystems = {
       "/" = {

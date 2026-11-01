@@ -1,4 +1,9 @@
 _: final: prev: rec {
+  msmtp = prev.msmtp.override {
+    withScripts = false;
+    withKeyring = false;
+  };
+
   # Disable Oh My Zsh's compdump call
   oh-my-zsh = prev.oh-my-zsh.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/oh-my-zsh-disable-compdump.patch ];
@@ -22,5 +27,10 @@ _: final: prev: rec {
       # Disable this behavior so I can configure SFTP properly.
       ../patches/openssh-disable-chroot-permission-check.patch
     ];
+  });
+
+  stayrtr-minimal = prev.stayrtr.overrideAttrs (_: {
+    pname = "stayrtr-minimal";
+    subPackages = [ "cmd/stayrtr" ];
   });
 }

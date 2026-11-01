@@ -60,7 +60,7 @@
 
   systemd.services.filebeat = lib.mkIf config.services.filebeat.enable {
     # Filebeat's journald input invokes journalctl by name.
-    path = [ pkgs.systemd ];
+    path = [ config.systemd.package ];
     serviceConfig = {
       RestartSec = "5s";
       ProcSubset = "all";

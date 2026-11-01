@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   inputs,
   ...
 }:
@@ -46,7 +47,7 @@ in
   systemd.services.systemd-sysctl.serviceConfig = {
     ExecStart = [
       ""
-      "/bin/sh -c \"${pkgs.systemd}/lib/systemd/systemd-sysctl; exit 0\""
+      "/bin/sh -c \"${config.systemd.package}/lib/systemd/systemd-sysctl; exit 0\""
     ];
   };
 }

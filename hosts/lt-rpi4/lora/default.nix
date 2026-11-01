@@ -124,7 +124,7 @@ in
 
     path = [
       pkgs.nettools
-      pkgs.systemd
+      config.systemd.package
     ];
 
     script = ''

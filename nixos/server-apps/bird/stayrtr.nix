@@ -1,11 +1,13 @@
 {
   LT,
   lib,
+  pkgs,
   ...
 }:
 lib.mkIf (LT.this.hasTag LT.tags.dn42) {
   services.stayrtr = {
     rpki = {
+      package = pkgs.stayrtr-minimal;
       port = LT.port.StayRTR.RPKI;
       metricsPort = LT.port.StayRTR.Metrics.RPKI;
       cache = "/nix/sync-servers/ltnet-scripts/bird/dn42/dn42_stayrtr.conf";
@@ -15,6 +17,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     };
 
     flapalerted = {
+      package = pkgs.stayrtr-minimal;
       port = LT.port.StayRTR.FlapAlerted;
       metricsPort = LT.port.StayRTR.Metrics.FlapAlerted;
       cache = "https://flapalerted.lantian.pub/flaps/active/roa";
@@ -24,6 +27,7 @@ lib.mkIf (LT.this.hasTag LT.tags.dn42) {
     };
 
     "flap42-strexp" = {
+      package = pkgs.stayrtr-minimal;
       port = LT.port.StayRTR.Flap42;
       metricsPort = LT.port.StayRTR.Metrics.Flap42;
       cache = "https://flap42-data.strexp.net/min_3.json";
