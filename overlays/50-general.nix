@@ -162,27 +162,6 @@ rec {
         jdk-bin-8
       ]);
   };
-  pythonPackagesExtensions = (prev.pythonPackagesExtensions or [ ]) ++ [
-    (pythonFinal: pythonPrev: {
-      flask-swagger-ui = pythonPrev.flask-swagger-ui.overridePythonAttrs (_: {
-        format = "pyproject";
-        build-system = [ pythonFinal.setuptools ];
-        pythonImportsCheck = [ "flask_swagger_ui" ];
-      });
-      scikit-learn = pythonPrev.scikit-learn.overridePythonAttrs (old: {
-        patches = (old.patches or [ ]) ++ [ ../patches/scikit-learn-callback-pickle.patch ];
-      });
-      websockify = pythonPrev.websockify.overridePythonAttrs (old: {
-        patches = (old.patches or [ ]) ++ [
-          (final.fetchurl {
-            name = "websockify-jwcrypto-key-size.patch";
-            url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
-            hash = "sha256-EjnE6jui6JJsbO8arq5wAMBIW2SVsXQTHZtiw2P846A=";
-          })
-        ];
-      });
-    })
-  ];
   rustic = prev.rustic.overrideAttrs (old: {
     # Patch vendored rustic_core dependency
     # Stop tree workers after receiver closes, from https://github.com/rustic-rs/rustic_core/pull/546

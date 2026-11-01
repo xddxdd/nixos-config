@@ -1,8 +1,8 @@
 diff --git a/src/firewall/nft.rs b/src/firewall/nft.rs
-index 3d96e7b8..c3156999 100644
+index 4d149685..4dfede61 100644
 --- a/src/firewall/nft.rs
 +++ b/src/firewall/nft.rs
-@@ -224,34 +224,6 @@ impl firewall::FirewallDriver for Nftables {
+@@ -227,34 +227,6 @@ impl firewall::FirewallDriver for Nftables {
              ));
          }
  
@@ -34,6 +34,6 @@ index 3d96e7b8..c3156999 100644
 -            ));
 -        }
 -
-         // Forward chain: jump NETAVARK-ISOLATION-1
-         if get_matching_rules_in_chain(
-             &existing_rules,
+         let match_dnat_mask = |r: &schema::Rule| -> bool {
+             // Match on any rule that matches against DNAT_MASK
+             for statement in r.expr.deref() {

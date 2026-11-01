@@ -9,14 +9,11 @@
 let
   mkPlugin =
     pluginSrc:
-    (pkgs.grafanaPlugins.grafanaPlugin {
+    pkgs.grafanaPlugins.grafanaPlugin {
       pname = lib.removePrefix "grafana-" pluginSrc.pname;
       inherit (pluginSrc) version;
-      zipHash = "placeholder";
-    }).overrideAttrs
-      (_old: {
-        inherit (pluginSrc) src;
-      });
+      packages.any = { inherit (pluginSrc.src) url hash; };
+    };
 in
 {
   imports = [ ./mysql.nix ];

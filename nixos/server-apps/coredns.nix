@@ -422,7 +422,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         cfg = config.services.prometheus.exporters.knot;
       in
       lib.mkForce ''
-        ${lib.getExe pkgs.knot-exporter} \
+        ${lib.getExe pkgs.nur-xddxdd.prometheus-knot-exporter-go} \
           --web-listen-addr ${cfg.listenAddress} \
           --web-listen-port ${toString cfg.port} \
           --knot-socket-path ${cfg.knotSocketPath} \

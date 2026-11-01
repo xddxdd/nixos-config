@@ -130,27 +130,6 @@
         },
         "version": "4.1.5"
     },
-    "knot-exporter-go": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "knot-exporter-go",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "CZ-NIC",
-            "repo": "knot-exporter",
-            "rev": "e9b4344da7f53bb38cc34928705e920b93922ca3",
-            "sha256": "sha256-5/fD1kt31UDXnOhWvu53LkuKokxfA1BiGPvKvjBiELs=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "e9b4344da7f53bb38cc34928705e920b93922ca3"
-    },
     "lobe-icons": {
         "cargoLock": null,
         "date": "2026-10-26",

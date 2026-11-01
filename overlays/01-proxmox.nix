@@ -23,6 +23,7 @@ import (inputs.proxmox-nixos + "/pkgs") {
         final.lib.callPackageWith (
           final
           // {
+            fuse = mv.versions.fuse."2.9.9";
             # PVE depends on GlusterFS support removed in later QEMU
             qemu = mv.versions.qemu."10.2.2";
             libvncserver = mv.versions.libvncserver."0.9.14";
