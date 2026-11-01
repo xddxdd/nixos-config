@@ -1,6 +1,6 @@
 # 机器本地秘密文件
 
-`lantian.secrets.<name>` 只声明生成方式和文件属性；值在机器启动时生成，不进入 Nix store。
+`lantian.secrets.<name>` 只声明生成方式和文件属性；值在机器启动时生成，不进入 Nix store。所有主机统一使用 overlay 中的 Rust 包 `pkgs.lantian-secrets`，生成命令由 Bash 执行。
 
 ```nix
 {
@@ -17,9 +17,10 @@
 支持 `path`、`command`、`owner`、`group`、`mode` 和 `audit`。默认命令是 `pwgen -s 64 1`，默认属主/属组为 root、模式为 0600。`pwgen` 已加入服务 PATH；其他生成工具应使用 `${pkgs.<package>}/bin/<command>` 等明确路径。
 
 - 命令的标准输出成为文件内容；命令文本是公开的 store 内容，不能嵌入已有凭据。
-- 每个命令在独立临时目录运行，必须成功且输出非空。标准输出和错误输出都不会进入 journal。
+- 每个命令在 `TMPDIR` 下独立的 0700 临时目录运行，继承 0077 umask，必须成功且输出非空。标准输入和错误输出指向 `/dev/null`，标准输出直接写入临时文件，不会进入 journal；执行后清理工作目录。
 - 已有文件不会重新生成，包括空文件；每次服务执行仍会修正其 owner/group/mode。
-- 原子发布不替换并发创建的文件；拒绝路径中的符号链接、非普通文件和有额外硬链接的文件。已有父目录的权限不变，新父目录由指定用户拥有且模式为 0700。
+- 通过目录 FD 逐级以 `O_NOFOLLOW` 打开路径；已有文件以 `O_NONBLOCK` 打开，拒绝符号链接、非普通文件和有额外硬链接的文件。已有父目录的权限不变，新父目录由指定用户拥有且模式为 0700。
+- 临时文件设置属主和权限并 `fsync` 后，通过 `renameat2(RENAME_NOREPLACE)` 原子发布，再 `fsync` 父目录。不会覆盖并发创建的文件；竞争失败者重新校验胜者并修正其属性，然后清理自己的临时文件。
 - owner/group 必须已经存在。消费者可通过 `after`/`requires = [ "lantian-secrets.service" ]` 明确依赖生成服务；不要在 Nix 求值中读取文件内容。
 - 默认目录在本项目已持久化的 `/var/lib` 中。自定义到临时根文件系统的路径会在重启后重新生成，因为文件已经不存在；本模块不会为了保留旧值接管其他目录或覆盖现有凭据。
 
@@ -59,11 +60,20 @@ nginx 的 snakeoil 分支用此文件替代 secrets repo 的共享私钥/证书�
 
 ## 验证
 
+开发机上的 CLI 测试只需 Cargo 和 Python，不运行 Nix 求值或部署：
+
 ```sh
-PYTHONDONTWRITEBYTECODE=1 python3 nixos/minimal-modules/secrets/test_generate.py
+CARGO_TARGET_DIR=/tmp/lantian-secrets-target cargo build --locked --manifest-path pkgs/lantian-secrets/Cargo.toml
+LANTIAN_SECRETS_GENERATOR=/tmp/lantian-secrets-target/debug/lantian-secrets \
+  PYTHONDONTWRITEBYTECODE=1 python3 nixos/minimal-modules/secrets/test_generate.py
+```
+
+`test_generate.py` 仅供开发验证，不随服务部署。`LANTIAN_SECRETS_GENERATOR` 指定被测可执行文件。测试覆盖已有值保留、权限和属组恢复、路径拒绝、二进制输出、并发及竞争胜者校验、目录 FD 固定、Bash 严格选项、输出隔离和临时目录清理；完整属主切换和系统服务集成仍需 VM 验证。
+
+```sh
 nix build --impure --no-link --file nixos/minimal-modules/secrets/tests.nix
 ```
 
-第二条启动一次性 NixOS 测试 VM，不激活任何生产主机配置。它检查生成/不重生成、权限恢复、有效/文件系统 UID、边界 UID、`service-home`/`persistent-access` 对 root/普通用户的排除、诱饵读取、拒绝访问、子挂载/bind 别名、auditd 重启、零丢失计数和重启后的持久值。还验证独立转发器的 UID、mock Loki 实际接收、故障期间缓存后补送且不审计自身、key/certificate 配对、nginx TLS 握手及证书跨重启持久化。
+此命令启动一次性 NixOS 测试 VM，不激活任何生产主机配置。它检查生成/不重生成、权限恢复、有效/文件系统 UID、边界 UID、`service-home`/`persistent-access` 对 root/普通用户的排除、诱饵读取、拒绝访问、子挂载/bind 别名、auditd 重启、零丢失计数和重启后的持久值。还验证独立转发器的 UID、mock Loki 实际接收、故障期间缓存后补送且不审计自身、key/certificate 配对、nginx TLS 握手及证书跨重启持久化。
 
 新文件尚未进入 Git 索引时，用 `path:$PWD` 的 flake 引用求值；Git flake 只包含已跟踪文件。

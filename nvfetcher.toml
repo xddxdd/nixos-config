@@ -38,6 +38,10 @@ fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/dow
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
 
+[knot-exporter-go]
+fetch.github = "CZ-NIC/knot-exporter"
+src.manual = "e9b4344da7f53bb38cc34928705e920b93922ca3"
+
 [lobe-icons]
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
 src.git = "https://github.com/lobehub/lobe-icons.git"

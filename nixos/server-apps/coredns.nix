@@ -416,6 +416,19 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   };
 
   systemd.services."prometheus-knot-exporter".serviceConfig = {
+    # The Go exporter uses milliseconds; the NixOS timeout option is in seconds.
+    ExecStart =
+      let
+        cfg = config.services.prometheus.exporters.knot;
+      in
+      lib.mkForce ''
+        ${lib.getExe pkgs.knot-exporter} \
+          --web-listen-addr ${cfg.listenAddress} \
+          --web-listen-port ${toString cfg.port} \
+          --knot-socket-path ${cfg.knotSocketPath} \
+          --knot-socket-timeout ${toString (cfg.knotSocketTimeout * 1000)} \
+          ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
+      '';
     RestartSec = "5s";
     ProcSubset = "all";
     ProtectProc = "default";

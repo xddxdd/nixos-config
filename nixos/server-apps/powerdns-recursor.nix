@@ -151,5 +151,4 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     isSystemUser = true;
   };
   users.groups.pdns-recursor = { };
-
 }

@@ -82,6 +82,17 @@
       sha256 = "sha256-QEoMbS63M5j0dog94IjBNQbsSnYozZyJ/mzDxUI8KYE=";
     };
   };
+  knot-exporter-go = {
+    pname = "knot-exporter-go";
+    version = "e9b4344da7f53bb38cc34928705e920b93922ca3";
+    src = fetchFromGitHub {
+      owner = "CZ-NIC";
+      repo = "knot-exporter";
+      rev = "e9b4344da7f53bb38cc34928705e920b93922ca3";
+      fetchSubmodules = false;
+      sha256 = "sha256-5/fD1kt31UDXnOhWvu53LkuKokxfA1BiGPvKvjBiELs=";
+    };
+  };
   lobe-icons = {
     pname = "lobe-icons";
     version = "8b7bbc433d38437fa2b0cca58ae896917162b812";

@@ -309,14 +309,43 @@ in
       in
       lib.mapAttrs' cfgToGRE (filterType "gre" config.services.dn42);
 
-    environment.etc."dn42.json".text = builtins.toJSON config.services.dn42;
-
     environment.systemPackages = [
-      (pkgs.runCommand "dn42-ping" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-        mkdir -p $out/bin
-        makeWrapper ${lib.getExe pkgs.python3} $out/bin/dn42-ping \
-          --add-flag "${./ping.py}"
-      '')
+      (pkgs.writeShellApplication {
+        name = "dn42-ping";
+        # Generated targets and JSON keys are deliberately single-quoted literals.
+        excludeShellChecks = [ "SC2016" ];
+        runtimeInputs = with pkgs; [
+          coreutils
+          gawk
+          iputils
+        ];
+        text = builtins.readFile ./ping.sh + ''
+          printf '{\n'
+          ${lib.concatStringsSep "\nprintf ',\\n'\n" (
+            lib.mapAttrsToList (name: peer: ''
+              printf '  %s: ' ${lib.escapeShellArg (builtins.toJSON name)}
+              ${
+                lib.concatMapStrings (args: "ping_target ${lib.escapeShellArgs args} || ") (
+                  lib.optional (peer.addressing.peerIPv6LinkLocal != null && peer.addressing.peerIPv6LinkLocal != "")
+                    [
+                      "-I"
+                      "dn42-${name}"
+                      peer.addressing.peerIPv6LinkLocal
+                    ]
+                  ++ map (address: [ address ]) (
+                    builtins.filter (address: address != null && address != "") [
+                      peer.addressing.peerIPv4
+                      peer.addressing.peerIPv6
+                      peer.tunnel.remoteAddress
+                    ]
+                  )
+                )
+              }printf 'null'
+            '') config.services.dn42
+          )}
+          printf '\n}\n'
+        '';
+      })
     ];
   };
 }
