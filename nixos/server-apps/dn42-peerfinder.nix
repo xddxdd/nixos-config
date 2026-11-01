@@ -30,7 +30,7 @@
       path = [ pkgs.iputils ];
       serviceConfig = {
         LoadCredential = [ "secret:${config.services.dn42-peerfinder.secretFile}" ];
-        ExecStart = "${lib.getExe pkgs.python3} ${LT.sources.dn42-peerfinder-client.src}";
+        ExecStart = lib.getExe pkgs.dn42-peerfinder;
 
         # Needed by ping
         AmbientCapabilities = [ "CAP_NET_RAW" ];

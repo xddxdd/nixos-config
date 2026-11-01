@@ -90,7 +90,7 @@ in
         Type = "oneshot";
         RemainAfterExit = true;
         TimeoutStartSec = "5min";
-        ExecStart = "${pkgs.python3}/bin/python3 ${./generate.py} ${specification} ${pkgs.bash}/bin/bash";
+        ExecStart = "${lib.getExe pkgs.lantian-secrets} ${specification} ${pkgs.bash}/bin/bash";
         UMask = "0077";
         RuntimeDirectory = "lantian-secrets";
         RuntimeDirectoryMode = "0700";

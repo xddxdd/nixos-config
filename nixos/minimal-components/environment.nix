@@ -88,7 +88,6 @@ in
     openssl
     pigz
     pv
-    python3
     ripgrep
     rsync
     screen

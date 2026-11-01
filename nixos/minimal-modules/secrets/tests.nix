@@ -1,6 +1,8 @@
 let
   flake = builtins.getFlake "path:${toString ../../..}";
-  pkgs = flake.inputs.nixpkgs.legacyPackages.x86_64-linux;
+  pkgs = flake.inputs.nixpkgs.legacyPackages.x86_64-linux.extend (
+    import ../../../overlays/60-non-flake-packages.nix { inherit (flake) inputs; }
+  );
 in
 pkgs.testers.runNixOSTest {
   name = "lantian-secrets-audit";
