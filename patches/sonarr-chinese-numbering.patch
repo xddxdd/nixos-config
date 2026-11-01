@@ -1,0 +1,399 @@
+diff --git a/src/NzbDrone.Core/Parser/Parser.cs b/src/NzbDrone.Core/Parser/Parser.cs
+--- a/src/NzbDrone.Core/Parser/Parser.cs
++++ b/src/NzbDrone.Core/Parser/Parser.cs
+@@ -15,6 +15,8 @@
+ {
+     public static class Parser
+     {
++        private const string ChineseNumberPattern = @"(?:[0-9０-９零〇一二三四五六七八九两兩]{1,4}|[一二三四五六七八九两兩]?十[一二三四五六七八九]?|一?百)";
++
+         private static readonly Logger Logger = NzbDroneLogger.GetLogger(typeof(Parser));
+ 
+         private static readonly RegexReplace[] PreSubstitutionRegex = new[]
+@@ -63,6 +65,10 @@
+ //                new Regex(@"^(?:(?<absoluteepisode>\d{2,3})(?:_|-|\s|\.)+)+(?<title>.+?)(?:\W|_)+(?:S?(?<season>(?<!\d+)\d{1,2}(?!\d+))(?:(?:\-|[ex]|\W[ex]){1,2}(?<episode>\d{2}(?!\d+)))+)",
+ //                          RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
++                // Separate season-relative and absolute episode numbers, not an episode range ([S4][23_95]).
++                new Regex($@"^(?:\[(?<subgroup>[^\]]+)\][-_. ]*)?\[?(?<title>[^\[\]]*?)\]?[-_. ]*\[S(?<season>{ChineseNumberPattern})\][-_. ]*\[(?<episode>{ChineseNumberPattern})_(?<absoluteepisode>{ChineseNumberPattern})\].*?(?<hash>[(\[][0-9A-F]{{8}}[)\]])?$",
++                          RegexOptions.IgnoreCase | RegexOptions.Compiled),
++
+                 // Daily episode with year in series title and air time after date (Plex DVR format)
+                 new Regex(@"^^(?<title>.+?\((?<titleyear>\d{4})\))[-_. ]+(?<airyear>19[4-9]\d|20\d\d)(?<sep>[-_]?)(?<airmonth>0\d|1[0-2])\k<sep>(?<airday>[0-2]\d|3[01])[-_. ]\d{2}[-_. ]\d{2}[-_. ]\d{2}",
+                 RegexOptions.IgnoreCase | RegexOptions.Compiled),
+@@ -88,7 +94,7 @@
+                           RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // Episodes without a title, Single (S01E05, 1x05)
+-                new Regex(@"^(?:S?(?<season>(?<!\d+)(?:\d{1,2}|\d{4})(?!\d+))(?:(?:[-_ ]?[ex])(?<episode>\d{2,3}(?!\d+))))",
++                new Regex(@"^(?:S?(?<season>(?<!\d+)\d{1,4}(?!\d+))(?:(?:[-_ ]?[ex])(?<episode>\d{2,3}(?!\d+))))",
+                           RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // Anime - [SubGroup] Title Absolute (Season+Episode)
+@@ -100,7 +106,7 @@
+                     RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // Anime - [SubGroup] Title Season+Episode
+-                new Regex(@"^(?:\[(?<subgroup>.+?)\](?:_|-|\s|\.)?)(?<title>.+?)(?:[-_\W](?<![()\[!]))+(?:S?(?<season>(?<!\d+)\d{1,2}(?!\d+))(?:(?:[ex]|\W[ex]){1,2}(?<episode>\d{2}(?!\d+)))+)(?:v\d+)?(?:[_. ](?!\d+)).*?(?<hash>[(\[]\w{8}[)\]])?$",
++                new Regex(@"^(?:\[(?<subgroup>.+?)\](?:_|-|\s|\.)?)(?<title>.+?)(?:[-_\W](?<![()\[!]))+(?:S?(?<season>(?<!\d+)\d{1,3}(?!\d+))(?:(?:[ex]|\W[ex]){1,2}(?<episode>\d{2,3}(?!\d+)))+)(?:v\d+)?(?:[_. ](?!\d+)).*?(?<hash>[(\[]\w{8}[)\]])?$",
+                     RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // Anime - [SubGroup] Title Episode Absolute Episode Number ([SubGroup] Series Title Episode 01)
+@@ -304,7 +310,7 @@
+                           RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // 3 digit season S010E05
+-                new Regex(@"(?:.*(?:\""|^))(?<title>.*?)(?:\W?|_)S(?<season>(?<!\d+)\d{3}(?!\d+))(?:\W|_)?E(?<episode>(?<!\d+)\d{1,2}(?!\d+))",
++                new Regex(@"(?:.*(?:\""|^))(?<title>.*?)(?:\W?|_)S(?<season>(?<!\d+)\d{3}(?!\d+))(?:\W|_)?E(?<episode>(?<!\d+)\d{1,3}(?!\d+))",
+                           RegexOptions.IgnoreCase | RegexOptions.Compiled),
+ 
+                 // 5 digit episode number with a title
+@@ -523,6 +529,8 @@
+         private static readonly RegexReplace NormalizeRegex = new RegexReplace(@"((?:\b|_)(?<!^)([aà](?!$)|an|the|and|or|of)(?!$)(?:\b|_))|\W|_",
+                                                                 string.Empty,
+                                                                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
++
++        private static readonly Regex ChineseEpisodeRegex = new Regex($@"^(?:\[(?<subgroup>(?!第{ChineseNumberPattern}季\])[^\]]+)\][-_. ]*)?\[?(?<title>[^\[\]]*?)[-_. \[\]]*(?:第(?<season>{ChineseNumberPattern})季[-_. \[\]]*)?(?<numbering>第(?<episode>{ChineseNumberPattern})[话話集])(?![\p{{L}}\p{{N}}])\]?", RegexOptions.Compiled);
+ 
+         private static readonly Regex PercentRegex = new Regex(@"(?<=\b\d+)%", RegexOptions.Compiled);
+ 
+@@ -583,8 +591,8 @@
+         private static readonly Regex ArticleWordRegex = new Regex(@"^(a|an|the)\s", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+         private static readonly Regex SpecialEpisodeWordRegex = new Regex(@"\b(part|special|edition|christmas)\b\s?", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+         private static readonly Regex DuplicateSpacesRegex = new Regex(@"\s{2,}", RegexOptions.Compiled);
+-        private static readonly Regex SeasonFolderRegex = new Regex(@"^(?:S|Season|Saison|Series|Stagione)[-_. ]*(?<season>(?<!\d+)\d{1,4}(?!\d+))(?:[_. ]+(?!\d+)|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+-        private static readonly Regex SimpleEpisodeNumberRegex = new Regex(@"^[ex]?(?<episode>(?<!\d+)\d{1,3}(?!\d+))(?:[ex-](?<episode>(?<!\d+)\d{1,3}(?!\d+)))?(?:[_. ](?!\d+)(?<remaining>.+)|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
++        private static readonly Regex SeasonFolderRegex = new Regex($@"^(?:(?:S|Season|Saison|Series|Stagione)[-_. ]*(?<season>(?<!\d+)\d{{1,4}}(?!\d+))|第(?<season>{ChineseNumberPattern})季)(?:[_. ]+(?!\d+)|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
++        private static readonly Regex SimpleEpisodeNumberRegex = new Regex($@"^(?:[ex]?(?<episode>(?<!\d+)\d{{1,3}}(?!\d+))(?:[ex-](?<episode>(?<!\d+)\d{{1,3}}(?!\d+)))?|第(?<episode>{ChineseNumberPattern})[话話集])(?:[_. ](?!\d+)(?<remaining>.+)|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+ 
+         private static readonly Regex RequestInfoRegex = new Regex(@"^(?:\[.+?\])+", RegexOptions.Compiled);
+ 
+@@ -600,7 +608,7 @@
+             // Parse using the folder and file separately, but combine if they both parse correctly.
+             var episodeNumberMatch = SimpleEpisodeNumberRegex.Match(fileInfo.Name);
+ 
+-            if (episodeNumberMatch.Success && fileInfo.Directory?.Name != null && (result == null || result.IsMiniSeries || result.AbsoluteEpisodeNumbers.Any()))
++            if (episodeNumberMatch.Success && fileInfo.Directory?.Name != null && (result == null || result.IsMiniSeries || (result.AbsoluteEpisodeNumbers.Any() && !result.EpisodeNumbers.Any())))
+             {
+                 var seasonMatch = SeasonFolderRegex.Match(fileInfo.Directory.Name);
+ 
+@@ -609,7 +617,7 @@
+                     var episodeCaptures = episodeNumberMatch.Groups["episode"].Captures.Cast<Capture>().ToList();
+                     var first = ParseNumber(episodeCaptures.First().Value);
+                     var last = ParseNumber(episodeCaptures.Last().Value);
+-                    var pathTitle = $"S{seasonMatch.Groups["season"].Value}E{first:00}";
++                    var pathTitle = $"S{ParseNumber(seasonMatch.Groups["season"].Value)}E{first:00}";
+ 
+                     if (first != last)
+                     {
+@@ -716,6 +724,11 @@
+                 var releaseTitle = RemoveFileExtension(title);
+ 
+                 releaseTitle = releaseTitle.Replace("【", "[").Replace("】", "]");
++
++                // Normalize explicit numbering before the Chinese release substitutions can discard a season as title text.
++                releaseTitle = ChineseEpisodeRegex.Replace(releaseTitle, m => m.Groups["season"].Success
++                    ? NormalizeChineseEpisode(m)
++                    : m.Value.Replace(m.Groups["numbering"].Value, $"第{ParseNumber(m.Groups["episode"].Value):00}话"));
+ 
+                 foreach (var replace in PreSubstitutionRegex)
+                 {
+@@ -725,6 +738,9 @@
+                         Logger.Debug("Substituted with " + releaseTitle);
+                     }
+                 }
++
++                // Keep the existing bilingual title selection before normalizing any remaining episode markers.
++                releaseTitle = ChineseEpisodeRegex.Replace(releaseTitle, NormalizeChineseEpisode);
+ 
+                 var simpleTitle = SimpleTitleRegex.Replace(releaseTitle);
+ 
+@@ -1140,7 +1156,7 @@
+ 
+                 foreach (Capture seasonCapture in matchCollection[0].Groups["season"].Captures)
+                 {
+-                    if (int.TryParse(seasonCapture.Value, out var parsedSeason))
++                    if (int.TryParse(ConvertToNumerals(seasonCapture.Value.Normalize(NormalizationForm.FormKC)), out var parsedSeason))
+                     {
+                         seasons.Add(parsedSeason);
+ 
+@@ -1320,6 +1336,16 @@
+             return string.Empty;
+         }
+ 
++        private static string NormalizeChineseEpisode(Match match)
++        {
++            var prefix = match.Groups["subgroup"].Success ? $"[{match.Groups["subgroup"].Value}] " : string.Empty;
++            var seriesTitle = match.Groups["title"].Value.Trim(' ', '.', '_', '-');
++            var episode = ParseNumber(match.Groups["episode"].Value);
++            var numbering = match.Groups["season"].Success ? $"S{ParseNumber(match.Groups["season"].Value):00}E{episode:00}" : $"- {episode:00}";
++
++            return $"{prefix}{seriesTitle} {numbering} ".TrimStart();
++        }
++
+         private static int ParseNumber(string value)
+         {
+             var normalized = ConvertToNumerals(value.Normalize(NormalizationForm.FormKC));
+@@ -1353,11 +1379,30 @@
+ 
+         private static string ConvertToNumerals(string input)
+         {
++            if (input is "百" or "一百")
++            {
++                return "100";
++            }
++
++            var tens = input.Split('十');
++            if (tens.Length == 2)
++            {
++                var number = (tens[0].Length == 0 ? 1 : ParseNumber(tens[0])) * 10;
++                number += tens[1].Length == 0 ? 0 : ParseNumber(tens[1]);
++                return number.ToString(CultureInfo.InvariantCulture);
++            }
++
++            input = input.Replace('零', '〇').Replace('两', '二').Replace('兩', '二');
+             var result = new StringBuilder(input.Length);
+ 
+             foreach (var c in input.ToCharArray())
+             {
+-                if (char.IsNumber(c))
++                var chineseDigit = "〇一二三四五六七八九".IndexOf(c);
++                if (chineseDigit >= 0)
++                {
++                    result.Append(chineseDigit);
++                }
++                else if (char.IsNumber(c))
+                 {
+                     result.Append(char.GetNumericValue(c));
+                 }
+diff --git a/src/NzbDrone.Core.Test/ParserTests/UnicodeReleaseParserFixture.cs b/src/NzbDrone.Core.Test/ParserTests/UnicodeReleaseParserFixture.cs
+--- a/src/NzbDrone.Core.Test/ParserTests/UnicodeReleaseParserFixture.cs
++++ b/src/NzbDrone.Core.Test/ParserTests/UnicodeReleaseParserFixture.cs
+@@ -1,3 +1,5 @@
++using System.Collections.Generic;
++using System.Globalization;
+ using System.Linq;
+ using FluentAssertions;
+ using NUnit.Framework;
+@@ -9,6 +11,176 @@
+     [TestFixture]
+     public class UnicodeReleaseParserFixture : CoreTest
+     {
++        private static IEnumerable<TestCaseData> ChineseNumberCases()
++        {
++            var numbers = ("一 二 三 四 五 六 七 八 九 十 " +
++                           "十一 十二 十三 十四 十五 十六 十七 十八 十九 二十 " +
++                           "二十一 二十二 二十三 二十四 二十五 二十六 二十七 二十八 二十九 三十 " +
++                           "三十一 三十二 三十三 三十四 三十五 三十六 三十七 三十八 三十九 四十 " +
++                           "四十一 四十二 四十三 四十四 四十五 四十六 四十七 四十八 四十九 五十 " +
++                           "五十一 五十二 五十三 五十四 五十五 五十六 五十七 五十八 五十九 六十 " +
++                           "六十一 六十二 六十三 六十四 六十五 六十六 六十七 六十八 六十九 七十 " +
++                           "七十一 七十二 七十三 七十四 七十五 七十六 七十七 七十八 七十九 八十 " +
++                           "八十一 八十二 八十三 八十四 八十五 八十六 八十七 八十八 八十九 九十 " +
++                           "九十一 九十二 九十三 九十四 九十五 九十六 九十七 九十八 九十九 一百").Split(' ');
++
++            for (var number = 1; number <= 100; number++)
++            {
++                yield return new TestCaseData(numbers[number - 1], number);
++                yield return new TestCaseData(number.ToString(CultureInfo.InvariantCulture), number);
++                yield return new TestCaseData(string.Concat(number.ToString(CultureInfo.InvariantCulture).Select(c => (char)('０' + c - '0'))), number);
++                yield return new TestCaseData(string.Concat(number.ToString("D3", CultureInfo.InvariantCulture).Select(c => "〇一二三四五六七八九"[c - '0'])), number);
++                yield return new TestCaseData(string.Concat(number.ToString("D3", CultureInfo.InvariantCulture).Select(c => "零一二三四五六七八九"[c - '0'])), number);
++            }
++        }
++
++        [TestCaseSource(nameof(ChineseNumberCases))]
++        public void should_parse_chinese_season_and_episode_numbers(string numeral, int number)
++        {
++            foreach (var suffix in new[] { "话", "話", "集" })
++            {
++                var result = Parser.Parser.ParseTitle($"Series Title 第{numeral}季 第{numeral}{suffix} 1080p.mkv");
++
++                result.Should().NotBeNull();
++                result.SeriesTitle.Should().Be("Series Title");
++                result.SeasonNumber.Should().Be(number);
++                result.EpisodeNumbers.Should().Equal(number);
++                result.AbsoluteEpisodeNumbers.Should().BeEmpty();
++                result.FullSeason.Should().BeFalse();
++            }
++        }
++
++        [TestCaseSource(nameof(ChineseNumberCases))]
++        public void should_parse_chinese_absolute_episode_numbers(string numeral, int number)
++        {
++            foreach (var suffix in new[] { "话", "話", "集" })
++            {
++                var result = Parser.Parser.ParseTitle($"[字幕组][Series Title][第{numeral}{suffix}][1080p].mkv");
++
++                result.Should().NotBeNull();
++                result.SeriesTitle.Should().Be("Series Title");
++                result.SeasonNumber.Should().Be(0);
++                result.EpisodeNumbers.Should().BeEmpty();
++                result.AbsoluteEpisodeNumbers.Should().Equal(number);
++                result.ReleaseGroup.Should().Be("字幕组");
++                result.FullSeason.Should().BeFalse();
++            }
++        }
++
++        [TestCaseSource(nameof(ChineseNumberCases))]
++        public void should_parse_bracketed_numbers_with_unicode_numerals(string numeral, int number)
++        {
++            var result = Parser.Parser.ParseTitle($"[字幕组] Series Title [S{numeral}][{numeral}_{numeral}] [1080p].mkv");
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be("Series Title");
++            result.SeasonNumber.Should().Be(number);
++            result.EpisodeNumbers.Should().Equal(number);
++            result.AbsoluteEpisodeNumbers.Should().Equal(number);
++            result.ReleaseGroup.Should().Be("字幕组");
++            result.FullSeason.Should().BeFalse();
++        }
++
++        [TestCase("动画标题第二季第四话.mkv", "动画标题", "", 2, 4)]
++        [TestCase("動畫標題第二季第四話.mkv", "動畫標題", "", 2, 4)]
++        [TestCase("[字幕组][Series Title 第二季][第四话][1080p].mkv", "Series Title", "字幕组", 2, 4)]
++        [TestCase("[字幕組][Series Title][第二季][第四話][1080p].mkv", "Series Title", "字幕組", 2, 4)]
++        [TestCase("【字幕組】【Series Title 第二季】【第十四集】【1080p】.mkv", "Series Title", "字幕組", 2, 14)]
++        [TestCase("[字幕组] Series Title 第两季 第两话 [1080p].mkv", "Series Title", "字幕组", 2, 2)]
++        [TestCase("[字幕組] Series Title 第兩季 第兩話 [1080p].mkv", "Series Title", "字幕組", 2, 2)]
++        [TestCase("Series Title 第二季 第〇四话.mkv", "Series Title", "", 2, 4)]
++        [TestCase("Series Title 第２季 第四話.mkv", "Series Title", "", 2, 4)]
++        [TestCase("Series Title 第二季 第４話.mkv", "Series Title", "", 2, 4)]
++        [TestCase("第二季第四话.mkv", "", "", 2, 4)]
++        [TestCase("第一百季第一百话.mkv", "", "", 100, 100)]
++        [TestCase("Series Title 第百季 第百話.mkv", "Series Title", "", 100, 100)]
++        [TestCase("[字幕组]第二季第四话.mkv", "", "字幕组", 2, 4)]
++        [TestCase("[字幕組][第二季][第四話].mkv", "", "字幕組", 2, 4)]
++        [TestCase("[第二季][第四话].mkv", "", "", 2, 4)]
++        [TestCase("[第２季][第０４話].mkv", "", "", 2, 4)]
++        [TestCase("[第一百季][第一百集].mkv", "", "", 100, 100)]
++        public void should_parse_chinese_numbering_layouts(string postTitle, string title, string subgroup, int season, int episode)
++        {
++            var result = Parser.Parser.ParseTitle(postTitle);
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be(title);
++            result.SeasonNumber.Should().Be(season);
++            result.EpisodeNumbers.Should().Equal(episode);
++            result.AbsoluteEpisodeNumbers.Should().BeEmpty();
++            result.FullSeason.Should().BeFalse();
++
++            if (subgroup.Length > 0)
++            {
++                result.ReleaseGroup.Should().Be(subgroup);
++            }
++        }
++
++        [TestCase("Series Title [S4][23_95] [1080p].mkv", "Series Title", "")]
++        [TestCase("[Group] Series Title [S4][23_95] [1080p].mkv", "Series Title", "Group")]
++        [TestCase("[Group][Series Title][S4][23_95][1080p].mkv", "Series Title", "Group")]
++        [TestCase("[字幕组][Series Title][S４][２３_９５][1080p].mkv", "Series Title", "字幕组")]
++        [TestCase("[字幕組][Series Title][S四][二十三_九十五][1080p].mkv", "Series Title", "字幕組")]
++        [TestCase("[S4][23_95].mkv", "", "")]
++        [TestCase("[Group][S4][23_95].mkv", "", "Group")]
++        public void should_parse_bracketed_season_episode_and_absolute_number(string postTitle, string title, string subgroup)
++        {
++            var result = Parser.Parser.ParseTitle(postTitle);
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be(title);
++            result.SeasonNumber.Should().Be(4);
++            result.EpisodeNumbers.Should().Equal(23);
++            result.AbsoluteEpisodeNumbers.Should().Equal(95);
++            result.FullSeason.Should().BeFalse();
++
++            if (subgroup.Length > 0)
++            {
++                result.ReleaseGroup.Should().Be(subgroup);
++            }
++        }
++
++        [TestCase("[字幕组] Series Title 第二季 第四话 [1080p] [ABCDEF12].mkv", 2, 4)]
++        [TestCase("[字幕组] Series Title 第二季 第四话 [1080p] (ABCDEF12).mkv", 2, 4)]
++        [TestCase("[字幕组] Series Title 第二季 第一百话 [1080p] [ABCDEF12].mkv", 2, 100)]
++        [TestCase("[字幕组] Series Title 第一百季 第四话 [1080p] (ABCDEF12).mkv", 100, 4)]
++        [TestCase("[字幕组] Series Title [S2][04_28] [1080p] [ABCDEF12].mkv", 2, 4)]
++        [TestCase("[字幕组] Series Title [S2][04_28] [1080p] (ABCDEF12).mkv", 2, 4)]
++        public void should_preserve_metadata_with_explicit_numbering(string postTitle, int season, int episode)
++        {
++            var result = Parser.Parser.ParseTitle(postTitle);
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be("Series Title");
++            result.SeasonNumber.Should().Be(season);
++            result.EpisodeNumbers.Should().Equal(episode);
++            result.ReleaseGroup.Should().Be("字幕组");
++            result.ReleaseHash.Should().Be("ABCDEF12");
++            result.Quality.Quality.Resolution.Should().Be(1080);
++        }
++
++        [TestCase("Series Title 第十十话.mkv")]
++        [TestCase("Series Title 第一百一话.mkv")]
++        [TestCase("Series Title 第四话题.mkv")]
++        [TestCase("Series Title 第四話題.mkv")]
++        public void should_not_parse_invalid_chinese_episode_markers(string postTitle)
++        {
++            Parser.Parser.ParseTitle(postTitle).Should().BeNull();
++        }
++
++        [TestCase("[Group] Series Title - 23-24 [1080p].mkv", 23, 24)]
++        [TestCase("[Group] Series Title - 23_24 [1080p].mkv", 23, 23)]
++        public void should_keep_existing_absolute_episode_numbering(string postTitle, int first, int last)
++        {
++            var result = Parser.Parser.ParseTitle(postTitle);
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be("Series Title");
++            result.EpisodeNumbers.Should().BeEmpty();
++            result.AbsoluteEpisodeNumbers.Should().Equal(Enumerable.Range(first, last - first + 1));
++            result.FullSeason.Should().BeFalse();
++        }
++
+         [TestCase("【喵萌奶茶屋】★10月新番★[哥布林杀手/Anime Series Title][12END][720p][繁体][招募翻译校对]", "Anime Series Title", "喵萌奶茶屋", 12)]
+         [TestCase("[桜都字幕组][盾之勇者成名录/Anime Series Title][01][BIG5][720P]", "Anime Series Title", "桜都字幕组", 1)]
+         [TestCase("[YMDR][輝夜姬想讓人告白～天才們的戀愛頭腦戰～][Anime Series Title][2019][02][1080p][HEVC][JAP][BIG5][MP4-AAC][繁中]", "Anime Series Title", "YMDR", 2)]
+diff --git a/src/NzbDrone.Core.Test/ParserTests/PathParserFixture.cs b/src/NzbDrone.Core.Test/ParserTests/PathParserFixture.cs
+--- a/src/NzbDrone.Core.Test/ParserTests/PathParserFixture.cs
++++ b/src/NzbDrone.Core.Test/ParserTests/PathParserFixture.cs
+@@ -34,6 +34,18 @@
+         [TestCase(@"C:\Test\Series\Season 1\02.04.24 - S01E01 - The Rabbit Hole", 1, 1)]
+         [TestCase(@"C:\Test\Series\Season 1\8 Series Rules - S01E01 - Pilot", 1, 1)]
+ 
++        [TestCase("/downloads/Series Title 第二季 第四话.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title 第二季 第四話.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title 第２季 第０４集.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/第二季/第四话.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/第二季/第四話.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/第二季/04.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/第２季/第〇四集.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/Season 2/第四話.mkv", 2, 4)]
++        [TestCase("/downloads/Series Title/Season ２/第１００集.mkv", 2, 100)]
++        [TestCase("/downloads/Series Title/第一百季/第一百集.mkv", 100, 100)]
++        [TestCase("/downloads/Series Title/第二季/Series Title 第三季 第四话.mkv", 3, 4)]
++
+         // [TestCase(@"C:\series.state.S02E04.720p.WEB-DL.DD5.1.H.264\73696S02-04.mkv", 2, 4)] //Gets treated as S01E04 (because it gets parsed as anime); 2020-01 broken test case: Expected result.EpisodeNumbers to contain 1 item(s), but found 0
+         public void should_parse_from_path(string path, int season, int episode)
+         {
+@@ -46,6 +58,22 @@
+             result.FullSeason.Should().BeFalse();
+ 
+             ExceptionVerification.IgnoreWarns();
++        }
++
++        [TestCase("/downloads/Series Title [S4][23_95].mkv", "Series Title")]
++        [TestCase("/downloads/Series Title/Season 2/Series Title [S4][23_95].mkv", "Series Title")]
++        [TestCase("/downloads/[字幕组][Series Title][S４][２３_９５][1080p].mkv", "Series Title")]
++        [TestCase("/downloads/24/Season 2/24 [S4][23_95].mkv", "24")]
++        public void should_parse_separate_episode_and_absolute_numbers_from_path(string path, string title)
++        {
++            var result = Parser.Parser.ParsePath(path.AsOsAgnostic());
++
++            result.Should().NotBeNull();
++            result.SeriesTitle.Should().Be(title);
++            result.SeasonNumber.Should().Be(4);
++            result.EpisodeNumbers.Should().Equal(23);
++            result.AbsoluteEpisodeNumbers.Should().Equal(95);
++            result.FullSeason.Should().BeFalse();
+         }
+ 
+         [TestCase("01-03\\The Series Title (2010) - 1x01-02-03 - Episode Title HDTV-720p Proper", "The Series Title (2010)", 1, new[] { 1, 2, 3 })]

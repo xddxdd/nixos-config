@@ -169,6 +169,9 @@ rec {
       patch -d "$cargoDepsCopy"/source-registry-0/rustic_core-* -p1 < ${../patches/rustic-core-stop-tree-workers-after-receiver-closes.patch}
     '';
   });
+  sonarr = prev.sonarr.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../patches/sonarr-chinese-numbering.patch ];
+  });
   ulauncher = prev.ulauncher.overrideAttrs (old: {
     nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
 
