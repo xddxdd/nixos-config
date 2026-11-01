@@ -77,6 +77,7 @@ in
         nur-xddxdd.browseros
         nur-xddxdd.cardpointers-cli
         nur-xddxdd.flashbrowser
+        nur-xddxdd.folia-major-bin
         nur-xddxdd.google-earth-pro
         nur-xddxdd.gopherus
         nur-xddxdd.kuake-cli
