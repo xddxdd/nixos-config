@@ -68,7 +68,7 @@
     mounts = [
       {
         mountPoint = "/mnt/ocfs";
-        device = "/dev/sdb1";
+        device = "/dev/disk/by-uuid/5a4e80fd-adba-4754-9723-05f0c69ec3be";
       }
     ];
   };

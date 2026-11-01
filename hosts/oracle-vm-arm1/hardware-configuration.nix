@@ -12,7 +12,7 @@ _: {
   };
 
   fileSystems."/nix" = {
-    device = "/dev/sda3";
+    device = "/dev/disk/by-uuid/7973b63c-7ce4-45ad-a70e-abeb18f3d8da";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
@@ -23,7 +23,7 @@ _: {
   };
 
   fileSystems."/boot" = {
-    device = "/dev/sda2";
+    device = "/dev/disk/by-uuid/12CE-A600";
     fsType = "vfat";
     options = [
       "fmask=0077"

@@ -12,7 +12,7 @@ _: {
   };
 
   fileSystems."/nix" = {
-    device = "/dev/sda2";
+    device = "/dev/disk/by-uuid/e03fe8bc-407a-4312-bbc0-565dd5183041";
     fsType = "btrfs";
     options = [
       "compress-force=zstd"
@@ -23,7 +23,7 @@ _: {
   };
 
   fileSystems."/boot" = {
-    device = "/dev/sda1";
+    device = "/dev/disk/by-uuid/876C-0FF7";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -36,7 +36,7 @@ _: {
 
   swapDevices = [
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-id/scsi-36059a63e07e84b708c96a17aac6f9f38-part3";
       randomEncryption.enable = true;
     }
   ];
