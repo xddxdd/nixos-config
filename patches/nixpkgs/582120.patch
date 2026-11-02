@@ -1,0 +1,16 @@
+diff --git a/pkgs/by-name/pd/pdns-recursor/package.nix b/pkgs/by-name/pd/pdns-recursor/package.nix
+index b7225a31d2437..4a1dd7c89ea99 100644
+--- a/pkgs/by-name/pd/pdns-recursor/package.nix
++++ b/pkgs/by-name/pd/pdns-recursor/package.nix
+@@ -61,6 +61,11 @@ stdenv.mkDerivation (finalAttrs: {
+     "sysconfdir=/etc/pdns-recursor"
+   ];
+ 
++  postConfigure = ''
++    sed -i config.h \
++      -e "/PDNS_CONFIG_ARGS/ s|$NIX_STORE/[a-z0-9]\{32\}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g"
++  '';
++
+   installFlags = [ "sysconfdir=$(out)/etc/pdns-recursor" ];
+ 
+   enableParallelBuilding = true;

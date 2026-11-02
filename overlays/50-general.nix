@@ -101,13 +101,6 @@ rec {
     inherit (sources.open5gs) version src;
     diameter = sources.open5gs-freediameter.src;
   });
-  pdns-recursor = prev.pdns-recursor.overrideAttrs (old: {
-    # Only --version configure arguments reference Python; retain the build input.
-    postFixup = (old.postFixup or "") + ''
-      ${final.lib.getExe final.removeReferencesTo} -t ${final.python3} "$out/bin/pdns_recursor"
-    '';
-    disallowedReferences = (old.disallowedReferences or [ ]) ++ [ final.python3 ];
-  });
   phpWithExtensions = prev.php.withExtensions (
     { enabled, all }:
     with all;
