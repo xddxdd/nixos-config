@@ -172,7 +172,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
-        "date": "2026-06-30",
+        "date": "2026-11-01",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -184,12 +184,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "f062d1fda8fab88fd312a5ca3a89537f6351943b",
-            "sha256": "sha256-gIzfBKC8qc79zfMEtzeLoD3r+t3VPKCr8E3PG7usJn8=",
+            "rev": "01be3bab9c5f99983c61ce0d494d25d9cbea8511",
+            "sha256": "sha256-9gGgoMFiCzDLxnAfgwQdocMurqbWNdtzJAJz8g17K0I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f062d1fda8fab88fd312a5ca3a89537f6351943b"
+        "version": "01be3bab9c5f99983c61ce0d494d25d9cbea8511"
     },
     "mpv-sockets": {
         "cargoLock": null,

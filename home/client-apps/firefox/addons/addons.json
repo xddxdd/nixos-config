@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.7.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5169664/all_api_hub-4.7.0.xpi",
-    "hash": "sha256-UKXXHmTAZyXwDSYRJ6yOcO5GKzMrLm7m6Pg+76WP6dI=",
+    "version": "4.8.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5195346/all_api_hub-4.8.0.xpi",
+    "hash": "sha256-sYpdSP67qJoScVcqxWeYgKOP7fXk5vjaoTdXG4FZ2K4=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "pname": "pt-depiler",
-    "version": "0.0.6.1998",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5126863/pt_depiler-0.0.6.1998.xpi",
-    "hash": "sha256-nCc2TMOyP43GWCj5V+LCu8QGL0VwV5d9sRI8HvQ+WEA=",
+    "version": "0.0.6.2063",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5195763/pt_depiler-0.0.6.2063.xpi",
+    "hash": "sha256-e1wOdKplioai2E+f0oMHaKG4zO78tGlcWkWPxVZYUIg=",
     "addonId": "ptdepiler.ptplugins@gmail.com"
   },
   {
@@ -176,9 +176,9 @@
   },
   {
     "pname": "return-youtube-dislikes",
-    "version": "4.0.6",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi",
-    "hash": "sha256-WXGXSfbfOMFgHKXznAIVjV8AXEPp7uofGVJ/RoyUEhc=",
+    "version": "4.1.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5193073/return_youtube_dislikes-4.1.2.xpi",
+    "hash": "sha256-SEmsR+yZlzUcGm3EF1nDl438Twh5ZiuyLUFvT/ZI8e0=",
     "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}"
   },
   {
