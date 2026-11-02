@@ -83,8 +83,8 @@ let
       settings = {
         # keep-sorted start
         "browser.aboutConfig.showWarning" = false;
-        # AI Sidebar
         "browser.tabs.groups.enabled" = false;
+        "browser.tabs.splitView.enabled" = false;
         "browser.tabs.unloadTabInContextMenu" = true;
         "extensions.autoDisableScopes" = 0; # Auto enable installed extensions
         "extensions.update.enabled" = false;
