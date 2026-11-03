@@ -26,6 +26,8 @@ in
         optional.files = [ ];
       };
 
+      general.show_cheatsheet = false;
+
       appearance.blur.radius = 3;
 
       appearance.corner_radius = 0;
