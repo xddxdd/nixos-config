@@ -276,7 +276,10 @@ in
     systemd.enable = true;
 
     package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ../../patches/noctalia-tray-item-size.patch ];
+      patches = (old.patches or [ ]) ++ [
+        ../../patches/noctalia-tray-item-size.patch
+        ../../patches/noctalia-switcher-no-pointer-warp.patch
+      ];
     });
 
     settings = {
