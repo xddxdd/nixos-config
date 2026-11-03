@@ -1,0 +1,48 @@
+--- a/src/shell/bar/widgets/tray_widget.h
++++ b/src/shell/bar/widgets/tray_widget.h
+@@ -38,7 +38,7 @@
+     std::size_t panelGridColumns = 3;
+     float inlineEntryGap = Style::spaceXs;
+     bool matchAdjacentSpacing = false;
+-    std::optional<float> customItemSize;
++    float customItemSize = 0.0F;
+     // Read by TrayDrawerPanel, not by TrayWidget: they live here so the tray widget definition owns their defaults.
+     double drawerItemSize = Style::baseGlyphSize;
+     bool detachedPanel = false;
+--- a/src/shell/bar/widgets/tray_widget.cpp
++++ b/src/shell/bar/widgets/tray_widget.cpp
+@@ -171,7 +171,7 @@
+       m_panelGridMode(options.panelGridMode),
+       m_panelGridColumns(std::clamp<std::size_t>(options.panelGridColumns, 1U, 5U)),
+       m_inlineEntryGap(std::max(0.0F, options.inlineEntryGap)), m_matchAdjacentSpacing(options.matchAdjacentSpacing),
+-      m_customItemSize(options.customItemSize), m_iconOverrideBlacklist(std::move(options.iconOverrideBlacklist)),
++      m_customItemSize(options.customItemSize > 0.0F ? std::optional<float>{options.customItemSize} : std::nullopt), m_iconOverrideBlacklist(std::move(options.iconOverrideBlacklist)),
+       m_iconType(options.iconType) {
+   auto normalizeTokens = [](std::vector<std::string>& tokens) {
+     std::vector<std::string> normalized;
+--- a/src/shell/bar/widgets/tray_widget_definition.cpp
++++ b/src/shell/bar/widgets/tray_widget_definition.cpp
+@@ -22,6 +22,12 @@
+               field<&Options::matchAdjacentSpacing>({
+                   .key = "match_adjacent_spacing",
+               }),
++              field<&Options::customItemSize>({
++                  .key = "item_size",
++                  .minValue = 0.0,
++                  .maxValue = 64.0,
++                  .step = 1.0,
++              }),
+               field<&Options::drawerMode>({
+                   .key = "drawer",
+                   .presentation = settings::WidgetSettingPresentation{.group = "tray.drawer"},
+--- a/src/shell/tray/tray_drawer_panel.cpp
++++ b/src/shell/tray/tray_drawer_panel.cpp
+@@ -97,7 +97,7 @@
+   options.drawerMode = false;
+   options.itemActivated = [] { PanelManager::instance().close(); };
+   options.panelGridMode = true;
+-  options.customItemSize = resolved.drawerItemSize;
++  options.customItemSize = resolved.drawerItemSize.value_or(0.0F);
+   m_drawerWidget = std::make_unique<TrayWidget>(*m_config, m_tray, std::move(options));
+   m_drawerWidget->setContentScale(contentScale());
+   if (!m_config->config().bars.empty()) {

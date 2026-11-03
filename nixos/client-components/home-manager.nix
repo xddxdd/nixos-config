@@ -22,8 +22,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
-
     users = lib.genAttrs [ "root" "lantian" ] (user: {
       home.stateVersion = LT.constants.stateVersion;
       home.enableNixpkgsReleaseCheck = false;

@@ -417,29 +417,6 @@
         "type": "github"
       }
     },
-    "kwin-effects-better-blur-dx": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": [
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1791901967,
-        "narHash": "sha256-CMRHJzMcdg3jxfi9yBo9xMmGnk2acqLewUHQp9xO+tg=",
-        "owner": "xarblu",
-        "repo": "kwin-effects-better-blur-dx",
-        "rev": "811bce88af12b15be01d1b388dc5174451450362",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xarblu",
-        "repo": "kwin-effects-better-blur-dx",
-        "type": "github"
-      }
-    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -860,6 +837,27 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793676314,
+        "narHash": "sha256-/He0g2IYutiafqOvCkR0Nb4tdb9Cnn+gAIZ0hzECIMc=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "3c7e6343efac4cb683eb102374cccb210c05dc1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "ref": "main",
+        "repo": "noctalia",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -945,29 +943,6 @@
         "type": "github"
       }
     },
-    "plasma-manager": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785762349,
-        "narHash": "sha256-jZhZkzAwc7f3exzcTDJWP2WCAchCv0iNC3UF/QsahdQ=",
-        "owner": "nix-community",
-        "repo": "plasma-manager",
-        "rev": "a19a2a029fa180911bd89c554dca1616e10f4c1d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "plasma-manager",
-        "type": "github"
-      }
-    },
     "preservation": {
       "locked": {
         "lastModified": 1792951530,
@@ -1026,7 +1001,6 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "honkai-railway-grub-theme": "honkai-railway-grub-theme",
-        "kwin-effects-better-blur-dx": "kwin-effects-better-blur-dx",
         "llm-agents": "llm-agents",
         "markdown-apa7th-docx": "markdown-apa7th-docx",
         "mcp-libvirt-vm-use": "mcp-libvirt-vm-use",
@@ -1041,10 +1015,10 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-multiverse": "nixpkgs-multiverse",
+        "noctalia": "noctalia",
         "nur": "nur",
         "nur-xddxdd": "nur-xddxdd",
         "picoforge": "picoforge",
-        "plasma-manager": "plasma-manager",
         "preservation": "preservation",
         "proxmox-nixos": "proxmox-nixos",
         "rust-overlay": "rust-overlay",
@@ -1053,7 +1027,8 @@
         "srvos": "srvos",
         "stylix": "stylix",
         "systems": "systems_2",
-        "treefmt-nix": "treefmt-nix_2"
+        "treefmt-nix": "treefmt-nix_2",
+        "umbriel": "umbriel"
       }
     },
     "rust-overlay": {
@@ -1323,6 +1298,48 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "umbriel": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
+      },
+      "locked": {
+        "lastModified": 1793669697,
+        "narHash": "sha256-zQ+Kb+qj8s+HGAU/7h2pE9gnQKeZd7jiTN+3inaCY5w=",
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "rev": "e0da106317b10831e709618f52cc00bd7a9dc793",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "ref": "main",
+        "repo": "umbriel",
+        "type": "github"
+      }
+    },
+    "xdg-desktop-portal-umbriel": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793547787,
+        "narHash": "sha256-wWrHrvqEnrI0XhizNPdutwNyi+P+qvsMovm1ptlR4gY=",
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
+        "rev": "79f087598d596ae8a81dff1036d0ab3b5c446584",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
         "type": "github"
       }
     }

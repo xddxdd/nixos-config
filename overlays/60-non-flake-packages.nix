@@ -1,8 +1,6 @@
 { inputs, ... }:
 final: prev: {
   dn42-peerfinder = final.callPackage ../pkgs/dn42-peerfinder { };
-  kwin-effects-better-blur-dx =
-    inputs.kwin-effects-better-blur-dx.packages."${prev.stdenv.hostPlatform.system}".default;
   lantian-secrets = final.callPackage ../pkgs/lantian-secrets { };
   markdown-apa7th-docx =
     inputs.markdown-apa7th-docx.packages."${prev.stdenv.hostPlatform.system}".default;
