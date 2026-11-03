@@ -96,20 +96,6 @@
     };
     date = "2026-11-02";
   };
-  lyrica-customized = {
-    pname = "lyrica-customized";
-    version = "8459e045792166092445c7ec96502f62ce88db49";
-    src = fetchgit {
-      url = "https://github.com/xddxdd/lyrica.git";
-      rev = "8459e045792166092445c7ec96502f62ce88db49";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-ZyZjroyiD/9IQVGl4QXBkMkQVaLOzt6d+gz85zEt/HI=";
-    };
-    date = "2026-07-05";
-  };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
     version = "01be3bab9c5f99983c61ce0d494d25d9cbea8511";
