@@ -15,9 +15,9 @@
   },
   {
     "pname": "awardwallet",
-    "version": "3.8.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5175855/awardwallet-3.8.8.xpi",
-    "hash": "sha256-Rr13zYhWaZmBiaA8eTDrujCpECCA7K1JFaTxkejOOOQ=",
+    "version": "3.8.10",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5198638/awardwallet-3.8.10.xpi",
+    "hash": "sha256-sbHxZSV3SIelsejhyLeqKNoy876WMTtHGLGyPjAI0LE=",
     "addonId": "6200cc7406cd11e1a68a12313d1adcbe@jetpack"
   },
   {
@@ -29,9 +29,9 @@
   },
   {
     "pname": "bitwarden-password-manager",
-    "version": "2026.10.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5182191/bitwarden_password_manager-2026.10.1.xpi",
-    "hash": "sha256-Jc1eB0YoBYR0ynV4Jpx14+E2Vp5qghoNoH1W7XYeEfo=",
+    "version": "2026.10.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5198653/bitwarden_password_manager-2026.10.2.xpi",
+    "hash": "sha256-q/nXJz3VWsBYPsxpl/f3rj0p3hHirQpIOLgOK5QdqnM=",
     "addonId": "{446900e4-71c2-419f-a6a7-df9c091e268b}"
   },
   {
@@ -78,9 +78,9 @@
   },
   {
     "pname": "foxyproxy-standard",
-    "version": "9.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5029813/foxyproxy_standard-9.8.xpi",
-    "hash": "sha256-NzUPP1fqD4jtElE/ojPESGwAb/NSEp1EShLaTiIoBAM=",
+    "version": "9.9",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5198108/foxyproxy_standard-9.9.xpi",
+    "hash": "sha256-ugafFIQ/M7OjbkFJ3WPj0FzqU2LRCNaaB0OXUYBHEwI=",
     "addonId": "foxyproxy@eric.h.jung"
   },
   {
@@ -176,9 +176,9 @@
   },
   {
     "pname": "return-youtube-dislikes",
-    "version": "4.1.2",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5193073/return_youtube_dislikes-4.1.2.xpi",
-    "hash": "sha256-SEmsR+yZlzUcGm3EF1nDl438Twh5ZiuyLUFvT/ZI8e0=",
+    "version": "4.1.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5197718/return_youtube_dislikes-4.1.3.xpi",
+    "hash": "sha256-aW7UEYl6DAzfi+qihzlNlwlvcdfhIhIXkM+TbdXhlJM=",
     "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}"
   },
   {
