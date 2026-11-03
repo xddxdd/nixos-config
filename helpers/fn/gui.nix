@@ -16,8 +16,6 @@
               Name=${name}
               Exec=${command}
               Type=Application
-              X-KDE-autostart-after=panel
-              X-KDE-autostart-phase=2
             '';
           };
         }

@@ -29,7 +29,6 @@ SLUGS = [
     "pakkujs",
     "pay-by-privacy",
     "phantom-app",
-    "plasma-integration",
     "protondb-for-steam",
     "pt-depiler",
     "read-frog-open-ai-translator",

@@ -72,7 +72,6 @@
     strata.locations."/".enableOAuth = true;
   };
 
-  services.displayManager.sddm.settings.X11.ServerArguments = "-dpi 144";
   services.libinput.touchpad = {
     accelSpeed = "0.4";
     clickMethod = "clickfinger";

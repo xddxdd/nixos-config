@@ -2,16 +2,16 @@
 let
   preferenceOrder = [
     {
-      name = "org.kde.ark.desktop";
-      mimeTypes = "application/x-deb;application/x-cd-image;application/x-bcpio;application/x-cpio;application/x-cpio-compressed;application/x-sv4cpio;application/x-sv4crc;application/x-rpm;application/x-compress;application/gzip;application/x-bzip;application/x-bzip2;application/x-lzma;application/x-xz;application/zlib;application/zstd;application/x-lz4;application/x-lzip;application/x-lrzip;application/x-lzop;application/x-source-rpm;application/vnd.debian.binary-package;application/vnd.efi.iso;application/vnd.ms-cab-compressed;application/x-xar;application/x-iso9660-appimage;application/x-archive;application/x-tar;application/x-compressed-tar;application/x-bzip-compressed-tar;application/x-bzip2-compressed-tar;application/x-tarz;application/x-xz-compressed-tar;application/x-lzma-compressed-tar;application/x-lzip-compressed-tar;application/x-tzo;application/x-lrzip-compressed-tar;application/x-lz4-compressed-tar;application/x-zstd-compressed-tar;application/x-7z-compressed;application/vnd.rar;application/zip;application/x-java-archive;application/x-lha;application/x-stuffit;application/x-arj;application/arj";
+      name = "org.gnome.FileRoller.desktop";
+      mimeTypes = "application/bzip2;application/gzip;application/vnd.android.package-archive;application/vnd.ms-cab-compressed;application/vnd.debian.binary-package;application/vnd.rar;application/x-7z-compressed;application/x-7z-compressed-tar;application/x-ace;application/x-alz;application/x-apple-diskimage;application/x-ar;application/x-archive;application/x-arj;application/x-brotli;application/x-bzip-brotli-tar;application/x-bzip;application/x-bzip-compressed-tar;application/x-bzip1;application/x-bzip1-compressed-tar;application/x-bzip3;application/x-bzip3-compressed-tar;application/x-cabinet;application/x-cd-image;application/x-compress;application/x-compressed-tar;application/x-cpio;application/x-chrome-extension;application/x-deb;application/x-ear;application/x-ms-dos-executable;application/x-gtar;application/x-gzip;application/x-gzpostscript;application/x-java-archive;application/x-lha;application/x-lhz;application/x-lrzip;application/x-lrzip-compressed-tar;application/x-lz4;application/x-lzip;application/x-lzip-compressed-tar;application/x-lzma;application/x-lzma-compressed-tar;application/x-lzop;application/x-lz4-compressed-tar;application/x-ms-wim;application/x-rar;application/x-rar-compressed;application/x-rpm;application/x-source-rpm;application/x-rzip;application/x-rzip-compressed-tar;application/x-tar;application/x-tarz;application/x-tzo;application/x-stuffit;application/x-war;application/x-xar;application/x-xz;application/x-xz-compressed-tar;application/x-zip;application/x-zip-compressed;application/x-zstd-compressed-tar;application/x-zoo;application/zip;application/zstd";
     }
     {
-      name = "org.kde.dolphin.desktop";
+      name = "org.gnome.Nautilus.desktop";
       mimeTypes = "inode/directory";
     }
     {
-      name = "org.kde.gwenview.desktop";
-      mimeTypes = "inode/directory;image/avif;image/gif;image/heif;image/jpeg;image/jxl;image/png;image/bmp;image/x-eps;image/x-icns;image/x-ico;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-xbitmap;image/x-xpixmap;image/tiff;image/x-psd;image/x-webp;image/webp;image/x-tga;image/x-xcf;application/x-krita";
+      name = "org.geeqie.Geeqie.desktop";
+      mimeTypes = "application/x-navi-animation;image/bmp;image/x-bmp;image/x-MS-bmp;image/gif;image/x-icon;image/jpeg;image/png;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-tga;image/tiff;image/x-xbitmap;image/x-xpixmap;image/svg;image/svg+xml;image/x-png;image/xpm;image/x-ico;image/heic;image/openraster;image/webp;image/avif;image/jxl";
     }
     {
       name = "audacious.desktop";

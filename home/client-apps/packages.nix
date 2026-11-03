@@ -44,19 +44,17 @@ in
         colmena
         exiftool
         ffmpeg-full
+        file-roller
         filezilla
         gcdemu
         gedit
+        geeqie
         gimp
         gopher
         handbrake
         imagemagick
         immich-cli
         jpegoptim
-        kdePackages.ark
-        kdePackages.isoimagewriter
-        kdePackages.kdenlive
-        kdePackages.kpat
         kicad
         lbzip2
         libfaketime

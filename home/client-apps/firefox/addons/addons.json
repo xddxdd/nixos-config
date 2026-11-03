@@ -140,13 +140,6 @@
     "addonId": "{7c42eea1-b3e4-4be4-a56f-82a5852b12dc}"
   },
   {
-    "pname": "plasma-integration",
-    "version": "2.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4614817/plasma_integration-2.1.xpi",
-    "hash": "sha256-Nb+jdm4JcWDnT1Jb3lTZe7upDXJdqkJbneb+9uxenUQ=",
-    "addonId": "plasma-browser-integration@kde.org"
-  },
-  {
     "pname": "protondb-for-steam",
     "version": "2.3.1",
     "url": "https://addons.mozilla.org/firefox/downloads/file/5021069/protondb_for_steam-2.3.1.xpi",
