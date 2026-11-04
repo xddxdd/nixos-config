@@ -169,16 +169,16 @@
   },
   {
     "pname": "return-youtube-dislikes",
-    "version": "4.1.3",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5197718/return_youtube_dislikes-4.1.3.xpi",
-    "hash": "sha256-aW7UEYl6DAzfi+qihzlNlwlvcdfhIhIXkM+TbdXhlJM=",
+    "version": "4.1.5",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5205580/return_youtube_dislikes-4.1.5.xpi",
+    "hash": "sha256-greAtbq2oDqvoHz4nxfExJ9NEzM4Z3cuPpdcHGyCelM=",
     "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}"
   },
   {
     "pname": "rsshub-radar",
-    "version": "1.10.3",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4197124/rsshub_radar-1.10.3.xpi",
-    "hash": "sha256-ZqKuxPZ+J91qSnaO6Oh7OzIbrFOF4yQbFmS5Wq4lB30=",
+    "version": "2.3.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5198364/rsshub_radar-2.3.1.xpi",
+    "hash": "sha256-1Phqd7e9Z1nt45GM/JTvOwwnLzeufTyOdLeEriYcYmo=",
     "addonId": "i@diygod.me"
   },
   {
