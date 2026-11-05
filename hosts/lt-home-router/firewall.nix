@@ -74,14 +74,8 @@
         matches = [
           "meta nfproto ipv4 tcp dport 31080-31089"
           "meta nfproto ipv4 udp dport 31080-31089"
-          "meta nfproto ipv4 tcp dport { 80, 443, 2222 }"
         ];
         ipv4 = "192.168.0.2";
-      }
-      {
-        priority = LT.firewallPriorities.early;
-        matches = [ "meta nfproto ipv6 tcp dport { 80, 443, 2222 }" ];
-        ipv6 = "[2001:470:e997::2]";
       }
       {
         priority = LT.firewallPriorities.early;
@@ -92,17 +86,6 @@
         priority = LT.firewallPriorities.early;
         matches = [ "meta nfproto ipv6 udp dport 22547" ];
         ipv6 = "[2001:470:e997::2]";
-      }
-      # Historical forward for nix-builder port
-      {
-        priority = LT.firewallPriorities.early;
-        matches = [ "meta nfproto ipv4 tcp dport 2223" ];
-        ipv4 = "192.168.0.2:2222";
-      }
-      {
-        priority = LT.firewallPriorities.early;
-        matches = [ "meta nfproto ipv6 tcp dport 2223" ];
-        ipv6 = "[2001:470:e997::2]:2222";
       }
     ];
     FILTER_FORWARD.rules = [
@@ -123,6 +106,15 @@
       }
     ];
   };
+
+  # WAN input drop matches TCP SYN only: blocks new inbound TCP connections
+  # while leaving UDP/ICMP/henet protocol-41 encapsulation untouched.
+  lantian.firewall.chains.FILTER_INPUT.rules = [
+    {
+      priority = LT.firewallPriorities.terminal;
+      text = ''iifname "eth1*" tcp flags & (fin | syn | rst | ack) == syn drop'';
+    }
+  ];
 
   lantian.firewall.ipsets.PUBLIC_BLOCK_OUTBOUND_SRC_PORTS = {
     type = "inet_service";
