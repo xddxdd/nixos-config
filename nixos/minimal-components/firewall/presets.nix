@@ -167,19 +167,6 @@ in
       };
     };
 
-    block-wan-tcp-syn = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Drop inbound TCP SYN (new connections) on the given WAN interfaces.";
-      };
-      interfaces = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "Interface match expressions.";
-      };
-    };
-
     vlan-isolate = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -773,26 +760,6 @@ in
           {
             priority = LT.firewallPriorities.preService;
             text = lib.concatStringsSep "\n" (map (i: "oifname ${i} meta nfproto ipv6 drop") cfg.interfaces);
-          }
-        ];
-      }
-    )
-
-    (
-      let
-        cfg = config.lantian.firewall.presets.block-wan-tcp-syn;
-      in
-      lib.mkIf cfg.enable {
-        # fib daddr type local skips non-local addresses, so delegated IPv6
-        # prefixes forwarded to other hosts are unaffected.
-        lantian.firewall.chains.FILTER_INPUT.rules = [
-          {
-            priority = LT.firewallPriorities.terminal;
-            text = lib.concatStringsSep "\n" (
-              map (
-                i: "iifname ${i} fib daddr type local tcp flags & (fin | syn | rst | ack) == syn drop"
-              ) cfg.interfaces
-            );
           }
         ];
       }

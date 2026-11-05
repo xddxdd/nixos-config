@@ -24,14 +24,6 @@
       interfaces = [ ''"eth1*"'' ];
     };
 
-    block-wan-tcp-syn = {
-      enable = true;
-      interfaces = [
-        ''"eth1*"''
-        ''"henet"''
-      ];
-    };
-
     dns-redirect = {
       enable = true;
       netns = "coredns-client";
