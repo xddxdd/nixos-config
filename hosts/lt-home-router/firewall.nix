@@ -24,6 +24,14 @@
       interfaces = [ ''"eth1*"'' ];
     };
 
+    block-wan-tcp-syn = {
+      enable = true;
+      interfaces = [
+        ''"eth1*"''
+        ''"henet"''
+      ];
+    };
+
     dns-redirect = {
       enable = true;
       netns = "coredns-client";
@@ -106,15 +114,6 @@
       }
     ];
   };
-
-  # WAN input drop matches TCP SYN only: blocks new inbound TCP connections
-  # while leaving UDP/ICMP/henet protocol-41 encapsulation untouched.
-  lantian.firewall.chains.FILTER_INPUT.rules = [
-    {
-      priority = LT.firewallPriorities.terminal;
-      text = ''iifname "eth1*" tcp flags & (fin | syn | rst | ack) == syn drop'';
-    }
-  ];
 
   lantian.firewall.ipsets.PUBLIC_BLOCK_OUTBOUND_SRC_PORTS = {
     type = "inet_service";
