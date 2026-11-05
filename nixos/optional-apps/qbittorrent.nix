@@ -6,6 +6,11 @@
   ...
 }:
 {
+  # The BT declaration port must be reachable from WAN
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrent)
+  ];
+
   services.qbittorrent = {
     enable = true;
     package = pkgs.qbittorrent-enhanced-nox;
@@ -49,4 +54,5 @@
       };
     };
   };
+
 }

@@ -99,7 +99,11 @@ let
     ${dialRule "2002" [ "Goto(app-asty-crapper,b,1)" ]}
     ${dialRule "2003" [ "Goto(app-beverly,b,1)" ]}
     ${dialRule "2004" [ "Goto(app-never-gonna,b,1)" ]}
-    ${dialRule "2005" [ "Goto(防忽悠咨询热线,s,1)" ]}
+    ${dialRule "2005" [
+      "Set(CALLERID(num)=\${FILTER(0123456789,\${CALLERID(num)})})"
+      "Set(CALLERID(dnid)=\${FILTER(0123456789,\${CALLERID(dnid)})})"
+      "Goto(防忽悠咨询热线,s,1)"
+    ]}
     ${dialRule "." [
       "Answer()"
       "Playback(im-sorry&check-number-dial-again)"

@@ -11,6 +11,7 @@
     user = "lantian";
     group = "users";
     settings.general.port = LT.port.Bazarr;
+    settings.general.ip = "127.0.0.1";
   };
   systemd.services.bazarr = {
     serviceConfig = {
@@ -76,4 +77,5 @@
   lantian.harden.prometheus-exportarr-bazarr-exporter = {
     enable = true;
   };
+
 }

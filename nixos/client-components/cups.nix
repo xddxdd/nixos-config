@@ -6,10 +6,6 @@
   ...
 }:
 {
-  lantian.firewall.presets.public-firewall.firewalledPorts =
-    lib.mkIf config.services.printing.enable
-      [ LT.port.CUPS ];
-
   services.printing = {
     enable = true;
     startWhenNeeded = false;

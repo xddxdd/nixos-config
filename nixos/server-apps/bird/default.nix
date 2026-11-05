@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  config,
   ...
 }@args:
 let
@@ -12,10 +11,6 @@ let
   sys = import ./config/sys.nix args;
 in
 {
-  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.bird.enable [
-    LT.port.BGP
-  ];
-
   imports = [
     ./bgp-flowspec.nix
     ./stayrtr.nix
@@ -96,6 +91,12 @@ in
     BindPaths = [ "/run/bird" ];
     BindReadOnlyPaths = [ "/etc/bird" ];
   };
+  # BGP listener (179) and Babel (6695) bind wildcard sockets
+  lantian.port-audit.additionalPorts = [
+    LT.port.BGP
+    LT.port.Babel
+  ];
+
   lantian.harden.bird = {
     enable = "network";
     enableConfinement = false;

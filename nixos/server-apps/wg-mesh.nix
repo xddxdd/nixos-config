@@ -115,5 +115,12 @@ in
       "AF_NETLINK"
     ];
   };
+
+  # WireGuard mesh tunnels terminate on this host's public IP at
+  # ListenPort = WGMesh.Start + per-tunnel index.
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    "${LT.portStr.WGMesh.Start}-${LT.portStr.WGMesh.End}"
+  ];
+
   lantian.harden."prometheus-wireguard-exporter".enable = true;
 }

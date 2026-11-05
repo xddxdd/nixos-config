@@ -1,14 +1,22 @@
 { lib, ... }:
 rec {
   port = {
+    Endlessh = 22;
     Whois = 43;
     DNS = 53; # CoreDNS public serving port
     DNSLocal = 54; # CoreDNS local-only service port
+    DHCP.Client = 68;
     Gopher = 70;
+    Rpcbind = 111;
     HTTP = 80;
+    Smb.NameService = 137; # NetBIOS Name Service (UDP)
+    Smb.Datagram = 138; # NetBIOS Datagram Service (UDP)
+    Smb.Session = 139; # NetBIOS Session Service (TCP)
     BGP = 179;
     Hack3ricFlow = 180;
     HTTPS = 443;
+    Smb.Tcp = 445; # SMB over TCP
+    DHCPv6.Server = 547;
     CUPS = 631;
     Rsync = 873;
     V2Ray.SocksClient = 1080;
@@ -16,18 +24,28 @@ rec {
     KMS = 1688;
     SSDP = 1900;
     Gemini = 1965;
+    GTPU = 2152; # GTP-U user plane (base station <-> LTE core)
+    SSH = 2222;
+    Xvcd = 2542; # Xilinx Virtual Cable daemon
     Loki = 3100;
+    SpiceProxy = 3128; # Proxmox VE SPICE web proxy
     Bitmagnet = 3333;
     NFS.StatD = 4000;
+    Asterisk.UDPTL.Start = 4000;
     NFS.LockD = 4001;
     NFS.MountD = 4002;
     I2P.HTTPProxy = 4444;
     I2P.SocksProxy = 4447;
     Pipewire.TCP = 4713;
+    Asterisk.UDPTL.End = 4999;
     IPFS.API = 5001;
     IPFS.Gateway = 5002;
     IPerf = 5201;
+    Asterisk.SIP.Public = 5060;
+    Asterisk.SIP.TLS = 5061;
+    NATPMP = 5351; # NAT Port Mapping Protocol (miniupnpd nat-pmp)
     mDNS = 5353;
+    Babel = 6695;
     Bazarr = 6767;
     I2P.SAM = 7656;
     OCFS2 = 7777;
@@ -62,6 +80,8 @@ rec {
     Prometheus.BazarrExporter = 9711;
     Prometheus.Asterisk = 9878;
     PeerBanHelper = 9898;
+    ZeroTier.Port = 9993;
+    ZeroTier.Controller = 9994;
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
     OllamaCpaHoneypot.OllamaListener = 11434;
@@ -99,7 +119,8 @@ rec {
     HomepageDashboard = 13812;
     HandBrake = 13814;
     OidcTester = 13817;
-    Syncthing = 13834;
+    Syncthing.P2P = 22000; # NAT-traversal listener, overloads the DN42 range
+    Syncthing.WebUI = 13834;
     Usque = 13840;
     Ncps = 13851;
     IyuuPlus = 13878;
@@ -124,8 +145,14 @@ rec {
     Asterisk.AudioSocket = 13980;
     Resin = 13995;
     Open5GS = 13999;
+    DN42.LocalPort.Start = 20000;
+    DN42.LocalPort.End = 23999;
+    Asterisk.RTP.Start = 25000;
+    Asterisk.RTP.End = 25199;
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
+    Ephemeral.Start = 32768;
+    Ephemeral.End = 60999;
   };
 
   portStr = lib.mapAttrsRecursive (k: builtins.toString) port;
@@ -134,5 +161,9 @@ rec {
     qBitTorrent = 0;
     qBitTorrentPT = 1;
     IPFS = 2;
+    # Per-host ZeroTier secondary/tertiary UDP ports
+    ZeroTier.Secondary = 3;
+    ZeroTier.Tertiary = 4;
+    I2P = 5;
   };
 }

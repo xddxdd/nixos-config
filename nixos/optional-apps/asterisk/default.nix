@@ -17,6 +17,12 @@ let
 
   cfg = config.services.asterisk;
 
+  # RTP/UDPTL media port ranges are declared in LT.port
+  # (Asterisk.RTP.Start/End, Asterisk.UDPTL.Start/End) so the firewall
+  # whitelist can accept exactly those ranges; the previous default bound a
+  # random per-call port scattered across 5000-65500 which a whitelist
+  # cannot enumerate.
+
   varlibdir = "/var/lib/asterisk";
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
@@ -53,6 +59,13 @@ in
     package = pkgs.nur-xddxdd.lantianCustomized.asterisk;
 
     confFiles = {
+      # chan_unistim (Nortel UNISTIM phones) is unused and binds a public
+      # UDP 5000 listener by default; load exactly what we configure.
+      "modules.conf" = ''
+        [modules]
+        noload => chan_unistim.so
+      '';
+
       "pjsip.conf" = ''
         [system]
         timer_b=8000
@@ -150,9 +163,51 @@ in
       "codecs.conf" = builtins.readFile ./config/codecs.conf;
       "logger.conf" = builtins.readFile ./config/logger.conf;
       "res_fax.conf" = builtins.readFile ./config/res_fax.conf;
-      "udptl.conf" = builtins.readFile ./config/udptl.conf;
+      "udptl.conf" = ''
+        ;
+        ; UDPTL Configuration (UDPTL is one of the transports for T.38)
+        ;
+        [general]
+        ;
+        ; UDPTL start and UDPTL end configure start and end addresses
+        ;
+        udptlstart=${LT.portStr.Asterisk.UDPTL.Start}
+        udptlend=${LT.portStr.Asterisk.UDPTL.End}
+        ;
+        ; Whether to enable or disable UDP checksums on UDPTL traffic
+        ;
+        ;udptlchecksums=no
+        ;
+        ; The number of error correction entries in a UDPTL packet
+        ;
+        udptlfecentries = 3
+        ;
+        ; The span over which parity is calculated for FEC in a UDPTL packet
+        ;
+        udptlfecspan = 3
+        ;
+        ; Some VoIP providers will only accept an offer with an even-numbered
+        ; UDPTL port. Set this option so that Asterisk will only attempt to
+        ; use even-numbered ports when negotiating T.38. Default is no.
+        use_even_ports = yes
+      '';
+      "rtp.conf" = ''
+        [general]
+        rtpstart=${LT.portStr.Asterisk.RTP.Start}
+        rtpend=${LT.portStr.Asterisk.RTP.End}
+      '';
     };
   };
+
+  # SIP signaling on the public IP (transports.nix) plus UDP media ranges:
+  # T.38 UDPTL and RTP. The preset applies each port/range to both TCP and
+  # UDP.
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    LT.port.Asterisk.SIP.Public
+    LT.port.Asterisk.SIP.TLS
+    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}"
+    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}"
+  ];
 
   services.fail2ban.jails = {
     asterisk = ''

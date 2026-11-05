@@ -130,6 +130,10 @@ in
   users.groups.${config.services.loki.group}.members = [ config.services.nginx.user ];
   systemd.services.nginx.serviceConfig.SupplementaryGroups = [ config.services.loki.group ];
 
+  # The Loki nginx vhost binds a wildcard HTTP listener on port 3100;
+  # it is LTnet-internal (accessibleBy = "private").
+  lantian.port-audit.additionalPorts = [ LT.port.Loki ];
+
   lantian.nginxVhosts.loki = {
     listenHTTP = {
       enable = true;
@@ -166,5 +170,4 @@ in
     ] (_: proxyLocation);
   };
 
-  lantian.firewall.presets.public-firewall.firewalledPorts = [ LT.port.Loki ];
 }

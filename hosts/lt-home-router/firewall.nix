@@ -14,6 +14,9 @@
     public-firewall = {
       inputInterfaces = [ ''"eth1*"'' ];
       forwardInterfaces = [ ];
+      # WAN-side needs: DHCPv4 replies from the ISP (dport 68) fall outside
+      # the ephemeral range.
+      allowedPorts = [ LT.port.DHCP.Client ];
     };
 
     kms-redirect.lanInterfaces = [ ''"eth0*"'' ];
@@ -61,10 +64,6 @@
       ];
     };
 
-    block-outbound-src-ports = {
-      enable = true;
-      outputInterfaces = [ ''"eth1*"'' ];
-    };
   };
 
   lantian.firewall.chains = {
@@ -107,9 +106,25 @@
     ];
   };
 
-  lantian.firewall.ipsets.PUBLIC_BLOCK_OUTBOUND_SRC_PORTS = {
-    type = "inet_service";
-    flags = [ "constant" ];
-    elements = [ 5353 ];
-  };
+  # Preserve the old block-outbound-src-ports behavior for this host: drop
+  # locally-generated SSDP/mDNS (sport 5353) leaving via the WAN interface.
+  lantian.firewall.chains.PUBLIC_OUTPUT.rules = [
+    {
+      priority = LT.firewallPriorities.early;
+      text = ''
+        tcp sport ${LT.portStr.mDNS} drop
+        udp sport ${LT.portStr.mDNS} drop
+      '';
+    }
+    {
+      priority = LT.firewallPriorities.terminal;
+      text = "return";
+    }
+  ];
+  lantian.firewall.chains.FILTER_OUTPUT.rules = [
+    {
+      priority = LT.firewallPriorities.terminal;
+      text = ''fib saddr type local oifname "eth1*" jump PUBLIC_OUTPUT'';
+    }
+  ];
 }

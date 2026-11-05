@@ -82,6 +82,20 @@
       sha256 = "sha256-wwIBt33VZ+lntXpKqVzWcNSJFHWYkKwrslb9BCrvbps=";
     };
   };
+  iyuuplus = {
+    pname = "iyuuplus";
+    version = "dd81c2bf3f54d080ec378f2cec7f936471f7e35d";
+    src = fetchgit {
+      url = "https://github.com/ledccn/iyuuplus-dev.git";
+      rev = "dd81c2bf3f54d080ec378f2cec7f936471f7e35d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-CqJbzs1Y8nKHSVOIM+HAKzMz3/A6AKB2ztIB6/iTwI8=";
+    };
+    date = "2026-08-26";
+  };
   lobe-icons = {
     pname = "lobe-icons";
     version = "ea434b96e75813517b377825e01c0df61dee8836";

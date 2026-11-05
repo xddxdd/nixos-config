@@ -1,7 +1,10 @@
 { LT, pkgs, ... }:
 {
   virtualisation.oci-containers.containers.asf = {
-    image = "ghcr.io/justarchinet/archisteamfarm:released";
+    # Pinned to the V6 stable tag: the :released tag started tracking the
+    # pre-release V7 family (built on .NET 11), against which all third-party
+    # plugins (ASFFreeGames, AutoClaimStickers, ...) fail to load.
+    image = "ghcr.io/justarchinet/archisteamfarm:6.3.11.7";
     labels."io.containers.autoupdate" = "registry";
     ports = [ "${LT.constants.localHost.IPv4}:${LT.portStr.ASF}:1242" ];
     volumes = [

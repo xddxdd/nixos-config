@@ -28,6 +28,15 @@ in
 
   environment.systemPackages = lib.optional (LT.this.hasTag LT.tags.client) zerotier-default;
 
+  # ZeroTier listens on a fixed primary TCP+UDP port and is reachable from
+  # the Internet; secondary/tertiary UDP ports are pinned per host in the
+  # host's WGLanTian block so whitelists can enumerate them all.
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    LT.port.ZeroTier.Port
+    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Secondary)
+    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Tertiary)
+  ];
+
   services.zerotierone = {
     enable = true;
     joinNetworks = [ ltnet ];
@@ -53,6 +62,8 @@ in
           with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns") (WAN ++ LAN))
         );
         softwareUpdate = "disable";
+        secondaryPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Secondary;
+        tertiaryPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Tertiary;
         portMappingEnabled = !LT.this._publiclyAccessible;
         allowTcpFallbackRelay = false;
       };

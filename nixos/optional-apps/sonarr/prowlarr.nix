@@ -7,6 +7,7 @@
 {
   services.prowlarr = {
     enable = true;
+    settings.server.bindaddress = "127.0.0.1";
     settings.server.allowedHosts = lib.concatStringsSep "," (
       [
         "localhost"
@@ -78,4 +79,5 @@
     SystemCallErrorNumber = "EPERM";
   };
   lantian.harden."prometheus-exportarr-prowlarr-exporter".enable = true;
+
 }

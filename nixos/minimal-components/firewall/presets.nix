@@ -43,12 +43,23 @@ in
       enable = lib.mkOption {
         type = lib.types.bool;
         default = !LT.this.firewalled;
-        description = "Reject configured service ports on WAN/overlay interfaces (PUBLIC_INPUT/PUBLIC_FORWARD chains).";
+        description = "Restrict traffic on WAN/overlay interfaces (PUBLIC_INPUT/PUBLIC_FORWARD chains).";
       };
-      firewalledPorts = lib.mkOption {
+      allowedPorts = lib.mkOption {
+        type = lib.types.listOf (lib.types.either lib.types.int lib.types.str);
+        default = [ ];
+        description = ''
+          Ports accepted from public interfaces (both TCP
+          and UDP); strings allow nftables port ranges like "20000-23999".
+        '';
+      };
+      allowedIpProtocols = lib.mkOption {
         type = lib.types.listOf lib.types.int;
         default = [ ];
-        description = "Ports rejected for traffic arriving from public interfaces; enabled services contribute their own ports.";
+        description = ''
+          IPv4 protocol numbers accepted from public interfaces, for
+          non-TCP/UDP encapsulations (e.g. 41 for SIT tunnels).
+        '';
       };
       inputInterfaces = lib.mkOption {
         type = lib.types.listOf lib.types.str;
@@ -341,19 +352,6 @@ in
       };
     };
 
-    block-outbound-src-ports = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Drop locally-generated packets whose source port is a firewalled port (PUBLIC_OUTPUT chain).";
-      };
-      outputInterfaces = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "Interface match expressions jumped to PUBLIC_OUTPUT.";
-      };
-    };
-
   };
 
   config = lib.mkMerge [
@@ -407,14 +405,46 @@ in
     (
       let
         cfg = config.lantian.firewall.presets.public-firewall;
+        # Linux kernel default ip_local_port_range; the repo does not override
+        # it, and return traffic of outgoing connections arrives with the
+        # local ephemeral port as destination port.
+        ephemeralPortRange = "${LT.portStr.Ephemeral.Start}-${LT.portStr.Ephemeral.End}";
+        # (lo, hi) of an allowedPorts entry: ints are single ports.
+        rangeBounds =
+          p:
+          if lib.isInt p then
+            [
+              p
+              p
+            ]
+          else
+            [
+              (lib.toInt (lib.head (lib.splitString "-" p)))
+              (lib.toInt (lib.last (lib.splitString "-" p)))
+            ];
       in
       lib.mkMerge [
-        (lib.mkIf cfg.enable {
-          lantian.firewall.ipsets.PUBLIC_FIREWALLED_PORTS = {
+        {
+          lantian.firewall.ipsets.PUBLIC_ALLOWED_PORTS = {
             type = "inet_service";
-            flags = [ "constant" ];
-            elements = cfg.firewalledPorts;
+            # interval is required for range elements like "20000-23999"
+            flags = [
+              "constant"
+              "interval"
+            ];
+            # nftables interval sets reject overlapping elements; drop
+            # standalone ports already covered by a range entry (e.g.
+            # Syncthing 22000 vs the DN42 20000-23999 range).
+            elements = lib.filter (
+              p:
+              lib.isString p
+              || !(lib.any (
+                r: r != p && p >= (builtins.elemAt (rangeBounds r) 0) && p <= (builtins.elemAt (rangeBounds r) 1)
+              ) cfg.allowedPorts)
+            ) cfg.allowedPorts;
           };
+        }
+        (lib.mkIf cfg.enable {
           lantian.firewall.chains.PUBLIC_INPUT.rules =
             (lib.optionals cfg.allowLanSources [
               {
@@ -427,15 +457,34 @@ in
             ])
             ++ [
               {
-                priority = LT.firewallPriorities.service;
+                priority = LT.firewallPriorities.preService;
                 text = ''
-                  tcp dport @PUBLIC_FIREWALLED_PORTS reject with tcp reset
-                  udp dport @PUBLIC_FIREWALLED_PORTS reject with icmpx type port-unreachable
+                  ct state { established, related } accept
+                  tcp dport ${ephemeralPortRange} accept
+                  udp dport ${ephemeralPortRange} accept
+                  meta l4proto icmp accept
+                  meta l4proto icmpv6 accept
+                '';
+              }
+              {
+                priority = LT.firewallPriorities.preService;
+                text = lib.concatStringsSep "\n" (
+                  map (n: "ip protocol ${builtins.toString n} accept") cfg.allowedIpProtocols
+                );
+              }
+              {
+                # Allowed ports are accepted after the reject rules merged in
+                # at service priority (e.g. block-cn-ports), so those keeps
+                # rejecting the listed sources on allowed ports.
+                priority = LT.firewallPriorities.service + 50;
+                text = ''
+                  tcp dport @PUBLIC_ALLOWED_PORTS accept
+                  udp dport @PUBLIC_ALLOWED_PORTS accept
                 '';
               }
               {
                 priority = LT.firewallPriorities.terminal;
-                text = "return";
+                text = "reject with icmpx type admin-prohibited";
               }
             ];
         })
@@ -906,33 +955,5 @@ in
       }
     )
 
-    (
-      let
-        cfg = config.lantian.firewall.presets.block-outbound-src-ports;
-      in
-      lib.mkIf (cfg.enable && config.lantian.firewall.presets.public-firewall.enable) {
-        lantian.firewall.chains.PUBLIC_OUTPUT.rules = [
-          {
-            priority = LT.firewallPriorities.early;
-            text = ''
-              tcp sport @PUBLIC_FIREWALLED_PORTS drop
-              udp sport @PUBLIC_FIREWALLED_PORTS drop
-            '';
-          }
-          {
-            priority = LT.firewallPriorities.terminal;
-            text = "return";
-          }
-        ];
-        lantian.firewall.chains.FILTER_OUTPUT.rules = [
-          {
-            priority = LT.firewallPriorities.terminal;
-            text = lib.concatStringsSep "\n" (
-              map (i: "fib saddr type local oifname ${i} jump PUBLIC_OUTPUT") cfg.outputInterfaces
-            );
-          }
-        ];
-      }
-    )
   ];
 }

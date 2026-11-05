@@ -32,6 +32,10 @@ let
   }) LT.defaultGatewayHostIPv6Routes);
 in
 {
+  # The ZeroTier controller is reachable from WAN by design (peers bootstrap
+  # onto it), hence allowedPorts rather than LTnet-only additionalPorts.
+  lantian.firewall.presets.public-firewall.allowedPorts = [ LT.port.ZeroTier.Controller ];
+
   services.zerotierone.controller = {
     enable = true;
     port = 9994;

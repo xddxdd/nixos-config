@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, LT, ... }:
 let
   cfg = pkgs.writeText "endlessh.conf" ''
     # The port on which to listen for new SSH connections.
-    Port 22
+    Port ${builtins.toString LT.port.Endlessh}
 
     # The endless banner is sent one line at a time. This is the delay
     # in milliseconds between individual lines.
@@ -33,12 +33,15 @@ in
 {
   services.endlessh = {
     enable = true;
-    port = 22;
+    port = LT.port.Endlessh;
     extraOptions = [
       "-f"
       (toString cfg)
     ];
   };
+
+  # Decoy SSH listener that is intentionally reachable from the Internet
+  lantian.firewall.presets.public-firewall.allowedPorts = [ LT.port.Endlessh ];
 
   # Upstream module already chroots endlessh (RootDirectory=/run/endlessh)
   systemd.services.endlessh = {

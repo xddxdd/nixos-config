@@ -38,6 +38,10 @@ fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/dow
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
 
+[iyuuplus]
+fetch.git = "https://github.com/ledccn/iyuuplus-dev.git"
+src.git = "https://github.com/ledccn/iyuuplus-dev.git"
+
 [lobe-icons]
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
 src.git = "https://github.com/lobehub/lobe-icons.git"

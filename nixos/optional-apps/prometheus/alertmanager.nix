@@ -227,6 +227,10 @@ in
     # Not compatible with genJqSecretsReplacementSnippet
     checkConfig = false;
 
+    # Cluster gossip defaults to 0.0.0.0:9094 when unset (binding all
+    # interfaces without encryption); empty string disables HA mode entirely
+    extraFlags = [ "--cluster.listen-address=" ];
+
     configuration = {
       global = {
         smtp_from = config.programs.msmtp.accounts.default.from;

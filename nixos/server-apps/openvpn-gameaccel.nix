@@ -269,6 +269,11 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
         }
       ];
   lantian.firewall.ipsets.CN_FIREWALLED_PORTS.elements = [ LT.port.OpenVPN.GameAccel ];
+  # Only the cn-accel servers actually run the OpenVPN game accelerator;
+  # keep the whitelist narrow on hosts without the service.
+  lantian.firewall.presets.public-firewall.allowedPorts = lib.mkIf (LT.this.hasTag LT.tags.cn-accel) [
+    LT.port.OpenVPN.GameAccel
+  ];
 
   users.users.openvpn = {
     group = "openvpn";

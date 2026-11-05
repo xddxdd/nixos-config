@@ -1,13 +1,10 @@
 {
   LT,
-  lib,
-  config,
   ...
 }:
 {
-  lantian.firewall.presets.public-firewall.firewalledPorts = lib.mkIf config.services.avahi.enable [
-    LT.port.mDNS
-  ];
+  # mDNS is LAN-only by policy
+  lantian.port-audit.additionalPorts = [ LT.port.mDNS ];
 
   services.avahi = {
     enable = true;

@@ -6,8 +6,11 @@
   ...
 }:
 {
-  # SSDP discovery must stay LAN-only; reject 1900 on WAN/overlay interfaces.
-  lantian.firewall.presets.public-firewall.firewalledPorts = [ LT.port.SSDP ];
+  # SSDP and NAT-PMP are LAN-only by policy
+  lantian.port-audit.additionalPorts = [
+    LT.port.SSDP
+    LT.port.NATPMP
+  ];
 
   services.miniupnpd = {
     enable = true;

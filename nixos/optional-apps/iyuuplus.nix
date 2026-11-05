@@ -28,27 +28,55 @@ let
     ]
   );
 
-  iyuuDbConfigPhp = pkgs.writeText "iyuuplus-database.php" ''
-    <?php
-    return [
-        'default' => 'mysql',
-        'connections' => [
-            'mysql' => [
-                'driver' => 'mysql',
-                'host' => getenv('DB_HOST'),
-                'port' => getenv('DB_PORT'),
-                'database' => getenv('DB_DATABASE'),
-                'username' => getenv('DB_USERNAME'),
-                'password' => getenv('DB_PASSWORD'),
-                'charset' => 'utf8mb4',
-                'collation' => 'utf8mb4_general_ci',
-                "prefix" => "",
-                'strict' => true,
-                'engine' => null,
-            ],
-        ],
-    ];
-  '';
+  commit = builtins.head (lib.splitString "-" LT.sources.iyuuplus.version);
+
+  iyuuTree =
+    pkgs.runCommand "iyuuplus-tree-${lib.substring 0 7 commit}"
+      {
+        nativeBuildInputs = [ pkgs.gnused ];
+      }
+      ''
+        mkdir -p $out
+        cp -r ${LT.sources.iyuuplus.src}/* $out/
+        chmod -R u+w $out
+
+        # mutable state is not part of the source tree
+        rm -rf $out/runtime $out/vendor $out/.env $out/.git
+
+        # Main webman server listens on the LTnet-fronted local port
+        sed -E -i "s#'listen' => .*#'listen' => 'http://127.0.0.1:${LT.portStr.IyuuPlus}',#g" \
+          $out/config/server.php
+
+        # WorkerMan push websocket/api and the cron frame listener default to
+        # 0.0.0.0; nginx fronts the websocket and both are LTnet-local
+        sed -i 's#0\.0\.0\.0#127.0.0.1#g' \
+          $out/config/plugin/webman/push/app.php \
+          $out/plugin/cron/config/crontab.php
+        # MySQL credentials resolve natively from the .env environment at
+        # runtime (upstream config/database.php reads getenv directly)
+      '';
+
+  # Store closure of the app: every static file from the patched tree plus
+  # symlinks that route the mutable parts to the real paths under /var/lib,
+  # so the unit can run directly from the store while runtime/, vendor/ and
+  # .env stay writable on disk (linkFarm-style, cf. the wordpress module).
+  iyuuplusClosure =
+    pkgs.runCommand "iyuuplus-${lib.substring 0 7 commit}-closure"
+      {
+        pname = "iyuuplus";
+        version = LT.sources.iyuuplus.version;
+        passthru.tree = iyuuTree;
+        meta.mainProgram = "start.php";
+      }
+      ''
+        mkdir -p $out
+        cp -r ${iyuuTree}/* $out/
+        # mutable state is not part of the store; route it to real paths
+        rm -rf $out/runtime $out/vendor $out/.env $out/.git
+        ln -s /var/lib/iyuu/runtime $out/runtime
+        ln -s /var/lib/iyuu/vendor $out/vendor
+        ln -s /var/lib/iyuu/.env $out/.env
+      '';
 in
 {
   imports = [ ./mysql.nix ];
@@ -58,6 +86,7 @@ in
     owner = "iyuu";
     group = "iyuu";
   };
+
   sops.templates.iyuu-env = {
     content = ''
       APP_DEBUG=false
@@ -89,32 +118,30 @@ in
     after = [ "mysql.service" ];
     requires = [ "mysql.service" ];
 
-    path = with pkgs; [ gitMinimal ];
-
     preStart = ''
-      # Systemd/tmpfiles may pre-populate the state dir (runtime/); update
-      # in place instead of cloning into a non-empty target
-      if [ -e .git ]; then
-        git fetch --all
-        git reset --hard origin/master
-      else
-        git init .
-        git remote add origin https://github.com/ledccn/iyuuplus-dev.git
-        git fetch origin
-        git reset --hard origin/master
+      # Provision the mutable state the closure's symlinks point at; this is
+      # what the app will actually write to (runtime/, vendor/, .env)
+      mkdir -p /var/lib/iyuu/runtime
+      if [ ! -e /var/lib/iyuu/.env ]; then
+        install -m644 -o iyuu -g iyuu ${config.sops.templates.iyuu-env.path} /var/lib/iyuu/.env
       fi
-      # The install-wizard gate keys off this snapshot file, which is untracked
-      # and was lost with the old state dir; runtime DB access resolves from
-      # .env, so regenerate the snapshot with the same values
-      install -m644 ${iyuuDbConfigPhp} plugin/admin/config/database.php
-      sed -E -i "s#'listen'.*#'listen' => 'http://127.0.0.1:${LT.portStr.IyuuPlus}',#g" config/server.php
-      install -Dm644 ${config.sops.templates.iyuu-env.path} .env
+
+      # One-time cleanup of the previous git-managed deployment; the app tree
+      # now lives entirely in the store closure
+      ${pkgs.coreutils}/bin/rm -rf /var/lib/iyuu/.git
+
+      # composer dependencies are mutable state, provisioned once and reused
+      # by later generations via the closure's vendor symlink
+      if [ ! -e /var/lib/iyuu/vendor/autoload.php ]; then
+        ${pkgs.php83Packages.composer}/bin/composer install \
+          --no-dev --no-interaction -d /var/lib/iyuu
+      fi
     '';
 
     serviceConfig = {
-      ExecStart = "${lib.getExe' php-iyuu "php"} /var/lib/iyuu/start.php start";
+      ExecStart = "${lib.getExe' php-iyuu "php"} ${iyuuplusClosure}/start.php start";
       StateDirectory = "iyuu";
-      WorkingDirectory = "/var/lib/iyuu";
+      WorkingDirectory = "${iyuuplusClosure}";
       User = "iyuu";
       Group = "iyuu";
       MemoryDenyWriteExecute = lib.mkForce false;

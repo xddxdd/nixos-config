@@ -28,6 +28,7 @@
       FILE_BACKEND = "database";
       GEOLITE_DB_PATH = "/etc/geoip/GeoLite2-City.mmdb";
       UNIX_SOCKET = "/run/pocket-id/pocket-id.sock";
+      ACTORS_HOST = "127.0.0.1";
       UNIX_SOCKET_MODE = "0660";
       UI_CONFIG_DISABLED = true;
       ANALYTICS_DISABLED = true;

@@ -1,4 +1,5 @@
 {
+  LT,
   pkgs,
   lib,
   config,
@@ -9,6 +10,8 @@
     qdma
     xdma
   ];
+
+  lantian.port-audit.additionalPorts = [ LT.port.Xvcd ];
 
   systemd.services.xvcd = {
     description = "Xilinx Virtual Cable Daemon";

@@ -40,6 +40,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Accept the SIT (IPv6-in-IPv4, protocol 41) encapsulation on WAN
+    # interfaces; the whitelist otherwise only passes TCP/UDP/ICMP.
+    lantian.firewall.presets.public-firewall.allowedIpProtocols = [ 41 ];
+
     boot.availableKernelModules = [ "sit" ];
 
     systemd.network.netdevs.henet = {

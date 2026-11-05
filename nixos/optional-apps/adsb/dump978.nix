@@ -27,7 +27,7 @@
       ExecStart = builtins.concatStringsSep " " [
         (lib.getExe pkgs.nur-xddxdd.dump978)
         "--sdr driver=rtlsdr,serial=stx:978:0"
-        "--raw-port ${LT.portStr.ADSB.RawOutput978}"
+        "--raw-port 127.0.0.1:${LT.portStr.ADSB.RawOutput978}"
       ];
     };
   };

@@ -11,6 +11,11 @@ let
   group = "users";
 in
 {
+  # The BT declaration port must be reachable from WAN
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrentPT)
+  ];
+
   systemd.services.qbittorrent-pt = {
     description = "qbittorrent BitTorrent client";
     wants = [ "network-online.target" ];
@@ -22,6 +27,11 @@ in
     wantedBy = [ "multi-user.target" ];
     preStart = ''
       ${pkgs.coreutils}/bin/rm -f -- /var/lib/qbittorrent-pt/qBittorrent/config/lockfile
+      # WebUI is fronted by nginx on localhost only
+      conf=/var/lib/qbittorrent-pt/qBittorrent/config/qBittorrent.conf
+      if [ -f "$conf" ]; then
+        sed -i 's/^Address=\*/Address=127.0.0.1/' "$conf"
+      fi
     '';
 
     serviceConfig = {
@@ -91,4 +101,5 @@ in
       };
     };
   };
+
 }

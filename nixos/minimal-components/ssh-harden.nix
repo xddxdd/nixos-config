@@ -8,7 +8,7 @@
 }:
 let
   ltnetSSHConfig = ''
-    Port 2222
+    Port ${LT.portStr.SSH}
     HostKeyAlgorithms ssh-ed25519
     KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com
     Ciphers aes256-gcm@openssh.com
@@ -61,11 +61,11 @@ in
             let
               hostNames = [
                 "${n}"
-                "[${n}]:2222"
+                "[${n}]:${LT.portStr.SSH}"
                 "${n}.lantian.pub"
-                "[${n}.lantian.pub]:2222"
+                "[${n}.lantian.pub]:${LT.portStr.SSH}"
                 "${n}.xuyh0120.win"
-                "[${n}.xuyh0120.win]:2222"
+                "[${n}.xuyh0120.win]:${LT.portStr.SSH}"
               ];
             in
             lib.optional (LT.hosts."${n}".ssh.ed25519 != null) {
@@ -96,7 +96,7 @@ in
 
   services.openssh = {
     enable = true;
-    ports = [ 2222 ];
+    ports = [ LT.port.SSH ];
     sftpServerExecutable = "internal-sftp";
     authorizedKeysInHomedir = false;
     hostKeys = [
@@ -212,6 +212,10 @@ in
     # XZ backdoor kill switch
     "yolAbejyiejuvnup" = "Evjtgvsh5okmkAvj";
   };
+
+  # SSH is reachable from the Internet on every host for deployment and
+  # management; port 22 is covered separately by the endlessh decoy.
+  lantian.firewall.presets.public-firewall.allowedPorts = [ LT.port.SSH ];
 
   # Prevent regular OpenSSH from sneaking in
   # FIXME: PVE depends on regular OpenSSH

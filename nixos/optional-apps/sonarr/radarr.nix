@@ -10,6 +10,7 @@
     user = "lantian";
     group = "users";
     dataDir = "/var/lib/radarr";
+    settings.server.bindaddress = "127.0.0.1";
     settings.server.allowedHosts = lib.concatStringsSep "," (
       [
         "localhost"
@@ -79,4 +80,5 @@
     SystemCallErrorNumber = "EPERM";
   };
   lantian.harden."prometheus-exportarr-radarr-exporter".enable = true;
+
 }

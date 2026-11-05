@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  LT,
   ...
 }:
 let
@@ -331,4 +332,12 @@ in
   };
 
   systemd.packages = [ nginxConfinement ];
+
+  # nginx serves the public sites on 80 (HTTP redirect) and 443; the latter
+  # also accepts UDP for HTTP/3 (the preset applies each port to both TCP and
+  # UDP).
+  lantian.firewall.presets.public-firewall.allowedPorts = [
+    LT.port.HTTP
+    LT.port.HTTPS
+  ];
 }

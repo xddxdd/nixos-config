@@ -107,7 +107,7 @@ in
                   };
                   remotePort = lib.mkOption {
                     type = lib.types.int;
-                    default = 20000 + myASNAbbr;
+                    default = LT.port.DN42.LocalPort.Start + myASNAbbr;
                   };
                   remoteAddress = lib.mkOption {
                     type = lib.types.nullOr lib.types.str;
@@ -185,6 +185,23 @@ in
   };
 
   config = {
+    # DN42/NeoNetwork WireGuard tunnels terminate on this host's public IP;
+    # each tunnel binds UDP localPort = DN42.LocalPort.Start + local ASN
+    # abbreviation (services.dn42 tunnel.localPort), inside the range that
+    # block-cn-ports already rejects for China-mainland sources.
+    # The fixed DN42 range plus any per-tunnel pinned localPort (e.g.
+    # lutoma's 64719) so every tunnel is reachable from its public IP;
+    # ports inside the fixed range are already covered and must not be
+    # repeated (nftables interval sets reject overlapping elements).
+    lantian.firewall.presets.public-firewall.allowedPorts = [
+      "${LT.portStr.DN42.LocalPort.Start}-${LT.portStr.DN42.LocalPort.End}"
+    ]
+    ++ lib.unique (
+      lib.filter (v: v > 0 && (v < LT.port.DN42.LocalPort.Start || v > LT.port.DN42.LocalPort.End)) (
+        lib.mapAttrsToList (_: v: v.tunnel.localPort) config.services.dn42
+      )
+    );
+
     boot.availableKernelModules = lib.unique (
       lib.concatMap (
         v:

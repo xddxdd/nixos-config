@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  LT,
   ...
 }:
 let
@@ -102,4 +103,8 @@ in
     isSystemUser = true;
   };
   users.groups.open5gs = { };
+
+  # GTP-U (2152) is the base station -> SGW-U/UPF user plane tunnel
+  # (S1-U/N3); it binds every address of the uplink interface by policy.
+  lantian.port-audit.additionalPorts = [ LT.port.GTPU ];
 }

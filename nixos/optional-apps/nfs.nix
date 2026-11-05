@@ -5,21 +5,18 @@
   ...
 }:
 {
-  lantian.firewall.presets.public-firewall.firewalledPorts =
-    lib.mkIf config.services.nfs.server.enable
-      [
-        111
-        2049
-        LT.port.NFS.LockD
-        LT.port.NFS.MountD
-        LT.port.NFS.StatD
-        20048
-      ];
 
   boot.extraModprobeConfig = ''
     options nfs nfs4_disable_idmapping=1
     options nfsd nfs4_disable_idmapping=1
   '';
+
+  # NFSv3 helper ports (statd/lockd/mountd) are LTnet-internal
+  lantian.port-audit.additionalPorts = [
+    LT.port.NFS.StatD
+    LT.port.NFS.LockD
+    LT.port.NFS.MountD
+  ];
 
   services.nfs.server = {
     enable = true;

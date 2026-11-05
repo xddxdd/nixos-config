@@ -130,6 +130,26 @@
         },
         "version": "4.1.6"
     },
+    "iyuuplus": {
+        "cargoLock": null,
+        "date": "2026-08-26",
+        "extract": null,
+        "name": "iyuuplus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "dd81c2bf3f54d080ec378f2cec7f936471f7e35d",
+            "sha256": "sha256-CqJbzs1Y8nKHSVOIM+HAKzMz3/A6AKB2ztIB6/iTwI8=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/ledccn/iyuuplus-dev.git"
+        },
+        "version": "dd81c2bf3f54d080ec378f2cec7f936471f7e35d"
+    },
     "lobe-icons": {
         "cargoLock": null,
         "date": "2026-11-03",

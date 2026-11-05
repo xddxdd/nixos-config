@@ -41,7 +41,7 @@
     ../../nixos/optional-apps/rsync-server-internal.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tg-bot-cleaner-bot
-    ../../nixos/optional-apps/tranquil-pds.nix
+    # ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/zerotierone-controller.nix

@@ -19,13 +19,20 @@
       options = [ "bind" ];
     };
 
+    # Syncthing P2P (TCP+UDP 22000) is reachable from WAN for NAT traversal;
+    # the firewall preset drops this element on hosts where the DN42
+    # 20000-23999 range already covers it (nftables interval conflict).
+    lantian.firewall.presets.public-firewall.allowedPorts = [
+      LT.port.Syncthing.P2P
+    ];
+
     services.syncthing = {
       enable = true;
       user = "syncthing";
       group = "syncthing";
       configDir = "/var/lib/syncthing";
       dataDir = "/run/syncthing-files";
-      guiAddress = "127.0.0.1:${LT.portStr.Syncthing}";
+      guiAddress = "127.0.0.1:${LT.portStr.Syncthing.WebUI}";
 
       overrideFolders = false;
       overrideDevices = false;
@@ -111,7 +118,7 @@
       locations = {
         "/" = {
           enableOAuth = true;
-          proxyPass = "http://127.0.0.1:${LT.portStr.Syncthing}";
+          proxyPass = "http://127.0.0.1:${LT.portStr.Syncthing.WebUI}";
         };
       };
     };

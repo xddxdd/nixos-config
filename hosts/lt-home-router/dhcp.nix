@@ -1,4 +1,5 @@
 {
+  LT,
   lib,
   inputs,
   ...
@@ -13,6 +14,9 @@ in
     group = "kea";
   };
   users.groups.kea = { };
+
+  # DHCPv6 (547) binds wildcard v6; LAN-only by policy
+  lantian.port-audit.additionalPorts = [ LT.port.DHCPv6.Server ];
 
   services.kea.dhcp4 = {
     enable = true;
