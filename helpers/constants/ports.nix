@@ -14,6 +14,7 @@ rec {
     V2Ray.SocksClient = 1080;
     V2Ray.IPv4OnlyClient = 1082;
     KMS = 1688;
+    SSDP = 1900;
     Gemini = 1965;
     Loki = 3100;
     Bitmagnet = 3333;

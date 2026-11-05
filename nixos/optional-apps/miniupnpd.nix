@@ -1,10 +1,14 @@
 {
   pkgs,
   lib,
+  LT,
   config,
   ...
 }:
 {
+  # SSDP discovery must stay LAN-only; reject 1900 on WAN/overlay interfaces.
+  lantian.firewall.presets.public-firewall.firewalledPorts = [ LT.port.SSDP ];
+
   services.miniupnpd = {
     enable = true;
     upnp = true;
