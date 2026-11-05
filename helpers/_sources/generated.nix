@@ -68,18 +68,18 @@
   };
   grafana-falconlogscale-datasource = {
     pname = "grafana-falconlogscale-datasource";
-    version = "1.10.6";
+    version = "1.10.7";
     src = fetchurl {
-      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.6/grafana-falconlogscale-datasource-1.10.6.zip";
-      sha256 = "sha256-SrqmVb7JI/tnuPEfgHa6yY3uza+vjUnJDCB9lvra3cE=";
+      url = "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.7/grafana-falconlogscale-datasource-1.10.7.zip";
+      sha256 = "sha256-a6IG0tG5RH+aAalm9ABSxM9aNw25AkO6jgaMLSBngUQ=";
     };
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "4.1.5";
+    version = "4.1.6";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.5/yesoreyeram-infinity-datasource-4.1.5.zip";
-      sha256 = "sha256-QEoMbS63M5j0dog94IjBNQbsSnYozZyJ/mzDxUI8KYE=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.6/yesoreyeram-infinity-datasource-4.1.6.zip";
+      sha256 = "sha256-wwIBt33VZ+lntXpKqVzWcNSJFHWYkKwrslb9BCrvbps=";
     };
   };
   lobe-icons = {
@@ -134,15 +134,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "8c27b6fa958121424d67107d08c80e01716f4a71";
+    version = "809fa4add10a0ab44f872096c0d787275e210cb4";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "8c27b6fa958121424d67107d08c80e01716f4a71";
+      rev = "809fa4add10a0ab44f872096c0d787275e210cb4";
       fetchSubmodules = false;
-      sha256 = "sha256-IqsDeGKe6TkCm6fTqgXrlnm7s4X4XxTpZiz6YsG5dL4=";
+      sha256 = "sha256-78oNxCCgw4zRKIaMkT/4pQz9hQfyUX0YIKJQhShrXTA=";
     };
-    date = "2026-10-29";
+    date = "2026-11-05";
   };
   open5gs = {
     pname = "open5gs";

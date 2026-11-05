@@ -109,11 +109,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SrqmVb7JI/tnuPEfgHa6yY3uza+vjUnJDCB9lvra3cE=",
+            "sha256": "sha256-a6IG0tG5RH+aAalm9ABSxM9aNw25AkO6jgaMLSBngUQ=",
             "type": "url",
-            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.6/grafana-falconlogscale-datasource-1.10.6.zip"
+            "url": "https://github.com/grafana/falconlogscale-datasource/releases/download/v1.10.7/grafana-falconlogscale-datasource-1.10.7.zip"
         },
-        "version": "1.10.6"
+        "version": "1.10.7"
     },
     "grafana-yesoreyeram-infinity-datasource": {
         "cargoLock": null,
@@ -124,11 +124,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QEoMbS63M5j0dog94IjBNQbsSnYozZyJ/mzDxUI8KYE=",
+            "sha256": "sha256-wwIBt33VZ+lntXpKqVzWcNSJFHWYkKwrslb9BCrvbps=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.5/yesoreyeram-infinity-datasource-4.1.5.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.6/yesoreyeram-infinity-datasource-4.1.6.zip"
         },
-        "version": "4.1.5"
+        "version": "4.1.6"
     },
     "lobe-icons": {
         "cargoLock": null,
@@ -215,7 +215,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-10-29",
+        "date": "2026-11-05",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -227,12 +227,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "8c27b6fa958121424d67107d08c80e01716f4a71",
-            "sha256": "sha256-IqsDeGKe6TkCm6fTqgXrlnm7s4X4XxTpZiz6YsG5dL4=",
+            "rev": "809fa4add10a0ab44f872096c0d787275e210cb4",
+            "sha256": "sha256-78oNxCCgw4zRKIaMkT/4pQz9hQfyUX0YIKJQhShrXTA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c27b6fa958121424d67107d08c80e01716f4a71"
+        "version": "809fa4add10a0ab44f872096c0d787275e210cb4"
     },
     "open5gs": {
         "cargoLock": null,
