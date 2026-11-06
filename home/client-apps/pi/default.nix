@@ -54,8 +54,8 @@ in
       collapseChangelog = true;
       enableInstallTelemetry = false;
       enableAnalytics = false;
-      defaultProvider = "ollama-cloud";
-      defaultModel = "glm-5.3-flash";
+      defaultProvider = "cliproxyapi";
+      defaultModel = "lantian/coding-fast";
       defaultThinkingLevel = "high";
       showCacheMissNotices = false;
 
