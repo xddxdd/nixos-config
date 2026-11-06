@@ -148,31 +148,31 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2";
+    version = "0ad2bbfd9d78881bfc7107cd02224e16a3d03984";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2";
+      rev = "0ad2bbfd9d78881bfc7107cd02224e16a3d03984";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-K3PjTa2hfQhd8qENJTEaA+SvpNegbqVcne70JjQ+cX4=";
+      sha256 = "sha256-1APYiVyRXXoP6VyhTVqe1NdFGQGF8VsPwNbR7cq+Iuc=";
     };
-    date = "2026-11-05";
+    date = "2026-11-06";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
-    version = "510773a6eb33e50051d7c213d0f8682fd748e9dc";
+    version = "dc7ce57ed977ba830f524ade9ceac4fad914f533";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/official-plugins.git";
-      rev = "510773a6eb33e50051d7c213d0f8682fd748e9dc";
+      rev = "dc7ce57ed977ba830f524ade9ceac4fad914f533";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-u1/L9aEYznszApSigbq68suFUbcARxSQEt3wxg8HoeY=";
+      sha256 = "sha256-WrfG5D39B/E+ArCA8H3+VZe88agbaMq3MpGKPK9PeCw=";
     };
-    date = "2026-11-01";
+    date = "2026-11-05";
   };
   nvidia-patch = {
     pname = "nvidia-patch";

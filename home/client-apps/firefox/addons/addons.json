@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.8.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5195346/all_api_hub-4.8.0.xpi",
-    "hash": "sha256-sYpdSP67qJoScVcqxWeYgKOP7fXk5vjaoTdXG4FZ2K4=",
+    "version": "4.9.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5212582/all_api_hub-4.9.0.xpi",
+    "hash": "sha256-BiDlWivKP2dKvtgyqTQ1zPdZyqDJmLNutvVcbP3EDic=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
@@ -148,16 +148,16 @@
   },
   {
     "pname": "pt-depiler",
-    "version": "0.0.6.2063",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5195763/pt_depiler-0.0.6.2063.xpi",
-    "hash": "sha256-e1wOdKplioai2E+f0oMHaKG4zO78tGlcWkWPxVZYUIg=",
+    "version": "0.0.6.2067",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5212846/pt_depiler-0.0.6.2067.xpi",
+    "hash": "sha256-eXfAgItDEtTJwZo+6gD2uBh6Jf4YbjlAYN1yWTpL1+c=",
     "addonId": "ptdepiler.ptplugins@gmail.com"
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.56.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5206069/read_frog_open_ai_translator-1.56.0.xpi",
-    "hash": "sha256-F+/RkAXTOjKiamsDrStTU80LlTiCkSmapCt0fChMcGo=",
+    "version": "1.58.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5213880/read_frog_open_ai_translator-1.58.0.xpi",
+    "hash": "sha256-tYo+EwSYdQFN+m6pGmf4m3uRgf80oz+BA2YOJARLc4g=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
