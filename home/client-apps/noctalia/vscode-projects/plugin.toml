@@ -1,0 +1,21 @@
+id = "lantian/vscode-projects"
+name = "VSCode Projects"
+version = "1.1.0"
+plugin_api = 24
+author = "lantian"
+license = "MIT"
+icon = "code"
+description = "Launcher provider (/code) for recently used VSCode projects that exist on disk outside the Nix store."
+tags = ["launcher", "utility", "development", "nixos"]
+dependencies = ["code", "python3"]
+
+[[launcher_provider]]
+id = "launcher"
+entry = "vscode-projects.luau"
+prefix = "code"
+glyph = "code"
+include_in_global_search = false
+
+[[service]]
+id = "service"
+entry = "service.luau"

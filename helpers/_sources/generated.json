@@ -233,6 +233,46 @@
         },
         "version": "cb2e67796026a7250c91e89834ece3618500954b"
     },
+    "noctalia-community-plugins": {
+        "cargoLock": null,
+        "date": "2026-11-05",
+        "extract": null,
+        "name": "noctalia-community-plugins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2",
+            "sha256": "sha256-K3PjTa2hfQhd8qENJTEaA+SvpNegbqVcne70JjQ+cX4=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/noctalia-dev/community-plugins.git"
+        },
+        "version": "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2"
+    },
+    "noctalia-official-plugins": {
+        "cargoLock": null,
+        "date": "2026-11-01",
+        "extract": null,
+        "name": "noctalia-official-plugins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "510773a6eb33e50051d7c213d0f8682fd748e9dc",
+            "sha256": "sha256-u1/L9aEYznszApSigbq68suFUbcARxSQEt3wxg8HoeY=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/noctalia-dev/official-plugins.git"
+        },
+        "version": "510773a6eb33e50051d7c213d0f8682fd748e9dc"
+    },
     "nvidia-patch": {
         "cargoLock": null,
         "date": "2026-11-05",

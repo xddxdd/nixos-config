@@ -58,6 +58,14 @@ src.git = "https://github.com/wis/mpvSockets.git"
 fetch.github = "evert/nmea-static-gps-server"
 src.git = "https://github.com/evert/nmea-static-gps-server.git"
 
+[noctalia-community-plugins]
+fetch.git = "https://github.com/noctalia-dev/community-plugins.git"
+src.git = "https://github.com/noctalia-dev/community-plugins.git"
+
+[noctalia-official-plugins]
+fetch.git = "https://github.com/noctalia-dev/official-plugins.git"
+src.git = "https://github.com/noctalia-dev/official-plugins.git"
+
 [nvidia-patch]
 fetch.github = "keylase/nvidia-patch"
 src.git = "https://github.com/keylase/nvidia-patch.git"

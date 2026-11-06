@@ -146,6 +146,34 @@
     };
     date = "2026-05-03";
   };
+  noctalia-community-plugins = {
+    pname = "noctalia-community-plugins";
+    version = "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2";
+    src = fetchgit {
+      url = "https://github.com/noctalia-dev/community-plugins.git";
+      rev = "fd31accf546c96fe8c232731d6a36eb9e4dcb6a2";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-K3PjTa2hfQhd8qENJTEaA+SvpNegbqVcne70JjQ+cX4=";
+    };
+    date = "2026-11-05";
+  };
+  noctalia-official-plugins = {
+    pname = "noctalia-official-plugins";
+    version = "510773a6eb33e50051d7c213d0f8682fd748e9dc";
+    src = fetchgit {
+      url = "https://github.com/noctalia-dev/official-plugins.git";
+      rev = "510773a6eb33e50051d7c213d0f8682fd748e9dc";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-u1/L9aEYznszApSigbq68suFUbcARxSQEt3wxg8HoeY=";
+    };
+    date = "2026-11-01";
+  };
   nvidia-patch = {
     pname = "nvidia-patch";
     version = "809fa4add10a0ab44f872096c0d787275e210cb4";
