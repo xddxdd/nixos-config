@@ -304,6 +304,7 @@ in
       shell = {
         corner_radius_scale = 0.0;
         polkit_agent = true;
+        launch_apps_as_systemd_services = true;
         window_switcher = {
           mru = true;
           style = "compact";
