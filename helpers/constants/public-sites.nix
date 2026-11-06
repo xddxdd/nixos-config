@@ -30,6 +30,7 @@
 
   # Has own authentication system
   # keep-sorted start
+  "ai-api.xuyh0120.win"
   "at.lantian.pub"
   "attic.xuyh0120.win" # currently showing compromised warning
   "cache.lantian.pub"

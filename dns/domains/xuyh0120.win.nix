@@ -8,6 +8,12 @@ let
     }
     {
       recordType = "CNAME";
+      name = "ai-api";
+      target = "colocrossing";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "lab";
       target = "lab.lantian.pub.";
       ttl = "1h";
@@ -18,12 +24,6 @@ let
     {
       recordType = "CNAME";
       name = "actual";
-      target = "colocrossing.ltnet.xuyh0120.win.";
-      ttl = "1h";
-    }
-    {
-      recordType = "CNAME";
-      name = "ai-api";
       target = "colocrossing.ltnet.xuyh0120.win.";
       ttl = "1h";
     }
