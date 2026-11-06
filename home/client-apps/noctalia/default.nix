@@ -365,9 +365,9 @@ in
         ];
         center = [ ];
         end = [
+          "lyrics"
           "tray"
           "clipboard"
-          "h465855hgg/lyrics:lyrics"
           "weather"
           "battery"
           "clock"
@@ -402,6 +402,18 @@ in
         control-center.font_scale = 1.0 / iconScale;
         clipboard.scale = iconScale;
         clipboard.font_scale = 1.0 / iconScale;
+
+        lyrics = {
+          display_mode = "lyrics";
+          double_line = true;
+          double_line_auto_fit = true;
+          enable_scroll = false;
+          force_karaoke = true;
+          show_cover = false;
+          show_romanization = true;
+          show_translation = true;
+          type = "h465855hgg/lyrics:lyrics";
+        };
       };
     };
   };
