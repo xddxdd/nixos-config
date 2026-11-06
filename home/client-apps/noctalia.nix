@@ -281,6 +281,7 @@ in
       patches = (old.patches or [ ]) ++ [
         ../../patches/noctalia-tray-item-size.patch
         ../../patches/noctalia-switcher-no-pointer-warp.patch
+        ../../patches/noctalia-taskbar-per-window-pinned.patch
       ];
     });
 

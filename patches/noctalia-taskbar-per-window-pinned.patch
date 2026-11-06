@@ -1,0 +1,81 @@
+--- a/src/shell/bar/widgets/taskbar_widget.cpp
++++ b/src/shell/bar/widgets/taskbar_widget.cpp
+@@ -366,7 +366,13 @@
+   if (m_groupByWorkspace || m_widgetName.empty()) {
+     return false;
+   }
+-  return pinnedConfigIds().size() >= 2;
++  if (pinnedConfigIds().size() < 2) {
++    return false;
++  }
++  // Drag reorder maps a tile index onto a pinned-list index, so it is only meaningful while every
++  // pinned app occupies exactly one tile.
++  const auto pinnedTiles = std::ranges::count_if(m_tasks, [](const TaskModel& task) { return task.pinned; });
++  return static_cast<std::size_t>(pinnedTiles) == pinnedConfigIds().size();
+ }
+ 
+ float TaskbarWidget::pointerMainOnStrip(const InputArea& area, float localX, float localY) const {
+@@ -711,34 +717,24 @@
+       continue;
+     }
+ 
+-    std::size_t rep = matching.front();
++    // One tile per window: a pinned app with several windows keeps every window as its own entry
++    // instead of collapsing them into a single representative tile.
+     for (const std::size_t index : matching) {
+-      if (tasks[index].active) {
+-        rep = index;
+-        break;
++      TaskModel windowTile = tasks[index];
++      windowTile.pinned = true;
++      windowTile.running = true;
++      windowTile.desktopEntryId = entry.id;
++      windowTile.instanceCount = 1;
++      if (windowTile.idLower.empty()) {
++        windowTile.idLower = entry.idLower;
+       }
+-    }
+-
+-    tile = tasks[rep];
+-    tile.pinned = true;
+-    tile.running = true;
+-    tile.desktopEntryId = entry.id;
+-    tile.instanceCount = matching.size();
+-    tile.minimizedCount = 0;
+-    for (const std::size_t index : matching) {
+-      tile.minimizedCount += tasks[index].minimizedCount;
+-    }
+-    if (tile.idLower.empty()) {
+-      tile.idLower = entry.idLower;
+-    }
+-    if (tile.startupWmClassLower.empty()) {
+-      tile.startupWmClassLower = entry.startupWmClassLower;
+-    }
+-    if (tile.icon.path.empty()) {
+-      tile.icon = resolveIcon(entry.id, entry.icon);
+-    }
+-    merged.push_back(std::move(tile));
+-    for (const std::size_t index : matching) {
++      if (windowTile.startupWmClassLower.empty()) {
++        windowTile.startupWmClassLower = entry.startupWmClassLower;
++      }
++      if (windowTile.icon.path.empty()) {
++        windowTile.icon = resolveIcon(entry.id, entry.icon);
++      }
++      merged.push_back(std::move(windowTile));
+       consumed[index] = true;
+     }
+   }
+@@ -1127,6 +1123,12 @@
+             return;
+           }
+           if (data.button == BTN_LEFT) {
++            // A pinned tile that stands for one window activates that window; launcher tiles and
++            // multi-window tiles keep the app-wide activate/cycle path.
++            if (current->running && current->instanceCount <= 1) {
++              activateTaskModel(*current, true);
++              return;
++            }
+             activateOrLaunchPinned(*current);
+             return;
+           }
