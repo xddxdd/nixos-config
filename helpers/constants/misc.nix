@@ -31,7 +31,6 @@
     "server"
     "ipv4-only"
     "ipv6-only"
-    "lan-access"
 
     # Hardware
     "cuda"

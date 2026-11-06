@@ -7,7 +7,7 @@
 }:
 {
   # SSDP and NAT-PMP are LAN-only by policy
-  lantian.port-audit.additionalPorts = [
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
     LT.port.SSDP
     LT.port.NATPMP
   ];

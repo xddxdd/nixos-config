@@ -42,7 +42,7 @@ in
     public-firewall = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = !LT.this.firewalled;
+        default = true;
         description = "Restrict traffic on WAN/overlay interfaces (PUBLIC_INPUT/PUBLIC_FORWARD chains).";
       };
       allowedPorts = lib.mkOption {
@@ -51,6 +51,18 @@ in
         description = ''
           Ports accepted from public interfaces (both TCP
           and UDP); strings allow nftables port ranges like "20000-23999".
+        '';
+      };
+      allowedInternalPorts = lib.mkOption {
+        type = lib.types.listOf (lib.types.either lib.types.int lib.types.str);
+        default = [ ];
+        description = ''
+          Ports accepted only from internal (LAN/LTnet) traffic; strings
+          allow nftables port ranges like "20000-23999". On hosts with
+          firewalled = true, public and internal traffic arrive through
+          the same path, so these are opened together with allowedPorts;
+          on directly-public hosts they stay out of
+          PUBLIC_ALLOWED_PORTS and remain internal-only.
         '';
       };
       allowedIpProtocols = lib.mkOption {
@@ -76,11 +88,6 @@ in
           "@INTERFACE_OVERLAY"
         ];
         description = "Interface match expressions jumped to PUBLIC_FORWARD.";
-      };
-      allowLanSources = lib.mkOption {
-        type = lib.types.bool;
-        default = LT.this.hasTag LT.tags.lan-access;
-        description = "Let reserved (LAN) source addresses bypass the public firewall.";
       };
     };
 
@@ -434,77 +441,63 @@ in
             ];
             # nftables interval sets reject overlapping elements; drop
             # standalone ports already covered by a range entry (e.g.
-            # Syncthing 22000 vs the DN42 20000-23999 range).
-            elements = lib.filter (
-              p:
-              lib.isString p
-              || !(lib.any (
-                r: r != p && p >= (builtins.elemAt (rangeBounds r) 0) && p <= (builtins.elemAt (rangeBounds r) 1)
-              ) cfg.allowedPorts)
-            ) cfg.allowedPorts;
+            # Syncthing 22000 vs the DN42 20000-23999 range). Internal ports
+            # are merged in only on firewalled hosts, whose public and
+            # internal traffic arrive through the same path.
+            elements =
+              let
+                allPorts = cfg.allowedPorts ++ lib.optionals LT.this.firewalled cfg.allowedInternalPorts;
+              in
+              lib.filter (
+                p:
+                lib.isString p
+                || !(lib.any (
+                  r: r != p && p >= (builtins.elemAt (rangeBounds r) 0) && p <= (builtins.elemAt (rangeBounds r) 1)
+                ) allPorts)
+              ) allPorts;
           };
         }
         (lib.mkIf cfg.enable {
-          lantian.firewall.chains.PUBLIC_INPUT.rules =
-            (lib.optionals cfg.allowLanSources [
-              {
-                priority = LT.firewallPriorities.early;
-                text = ''
-                  ip saddr @RESERVED_IPV4 return
-                  ip6 saddr @RESERVED_IPV6 return
-                '';
-              }
-            ])
-            ++ [
-              {
-                priority = LT.firewallPriorities.preService;
-                text = ''
-                  ct state { established, related } accept
-                  tcp dport ${ephemeralPortRange} accept
-                  udp dport ${ephemeralPortRange} accept
-                  meta l4proto icmp accept
-                  meta l4proto icmpv6 accept
-                '';
-              }
-              {
-                priority = LT.firewallPriorities.preService;
-                text = lib.concatStringsSep "\n" (
-                  map (n: "ip protocol ${builtins.toString n} accept") cfg.allowedIpProtocols
-                );
-              }
-              {
-                # Allowed ports are accepted after the reject rules merged in
-                # at service priority (e.g. block-cn-ports), so those keeps
-                # rejecting the listed sources on allowed ports.
-                priority = LT.firewallPriorities.service + 50;
-                text = ''
-                  tcp dport @PUBLIC_ALLOWED_PORTS accept
-                  udp dport @PUBLIC_ALLOWED_PORTS accept
-                '';
-              }
-              {
-                priority = LT.firewallPriorities.terminal;
-                text = "reject with icmpx type admin-prohibited";
-              }
-            ];
+          lantian.firewall.chains.PUBLIC_INPUT.rules = [
+            {
+              priority = LT.firewallPriorities.preService;
+              text = ''
+                ct state { established, related } accept
+                tcp dport ${ephemeralPortRange} accept
+                udp dport ${ephemeralPortRange} accept
+                meta l4proto icmp accept
+                meta l4proto icmpv6 accept
+              '';
+            }
+            {
+              priority = LT.firewallPriorities.preService;
+              text = lib.concatStringsSep "\n" (
+                map (n: "ip protocol ${builtins.toString n} accept") cfg.allowedIpProtocols
+              );
+            }
+            {
+              # Allowed ports are accepted after the reject rules merged in
+              # at service priority (e.g. block-cn-ports), so those keeps
+              # rejecting the listed sources on allowed ports.
+              priority = LT.firewallPriorities.service + 50;
+              text = ''
+                tcp dport @PUBLIC_ALLOWED_PORTS accept
+                udp dport @PUBLIC_ALLOWED_PORTS accept
+              '';
+            }
+            {
+              priority = LT.firewallPriorities.terminal;
+              text = "reject with icmpx type admin-prohibited";
+            }
+          ];
         })
         (lib.mkIf (cfg.enable && cfg.forwardInterfaces != [ ]) {
-          lantian.firewall.chains.PUBLIC_FORWARD.rules =
-            (lib.optionals cfg.allowLanSources [
-              {
-                priority = LT.firewallPriorities.early;
-                text = ''
-                  ip saddr @RESERVED_IPV4 return
-                  ip6 saddr @RESERVED_IPV6 return
-                '';
-              }
-            ])
-            ++ [
-              {
-                priority = LT.firewallPriorities.terminal;
-                text = "reject with icmpx type admin-prohibited";
-              }
-            ];
+          lantian.firewall.chains.PUBLIC_FORWARD.rules = [
+            {
+              priority = LT.firewallPriorities.terminal;
+              text = "reject with icmpx type admin-prohibited";
+            }
+          ];
         })
         (lib.mkIf (cfg.enable && ifaceRefsOk cfg.inputInterfaces) {
           lantian.firewall.chains.FILTER_INPUT.rules = [

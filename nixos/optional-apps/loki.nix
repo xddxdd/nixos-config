@@ -132,7 +132,7 @@ in
 
   # The Loki nginx vhost binds a wildcard HTTP listener on port 3100;
   # it is LTnet-internal (accessibleBy = "private").
-  lantian.port-audit.additionalPorts = [ LT.port.Loki ];
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.Loki ];
 
   lantian.nginxVhosts.loki = {
     listenHTTP = {

@@ -1,5 +1,14 @@
-args: {
-  config.services.pipewire.extraConfig.pipewire = {
+{ LT, ... }:
+{
+  # ROC receiver binds 0.0.0.0 on the source/repair/control ports; LAN/LTnet
+  # only by policy (public firewall preset rejects them from WAN).
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
+    LT.port.Pipewire.Roc.Start
+    (LT.port.Pipewire.Roc.Start + 1)
+    LT.port.Pipewire.Roc.End
+  ];
+
+  services.pipewire.extraConfig.pipewire = {
     "50-roc-source.conf" = {
       "context.modules" = [
         {

@@ -24,12 +24,19 @@ let
 
   rangesOverlap = x: y: x.lo <= y.hi && y.lo <= x.hi;
 
-  additionalPorts = config.lantian.port-audit.additionalPorts;
-  allowedPorts = config.lantian.firewall.presets.public-firewall.allowedPorts;
+  publicFirewall = config.lantian.firewall.presets.public-firewall;
+  # Internal ports are opened alongside the public ones on firewalled
+  # hosts (public and internal traffic arrive through the same path) and
+  # stay LTnet-only, WAN-blocked by policy, on public hosts.
+  allowedPorts =
+    publicFirewall.allowedPorts ++ lib.optionals LT.this.firewalled publicFirewall.allowedInternalPorts;
+  additionalPorts = lib.optionals (!LT.this.firewalled) publicFirewall.allowedInternalPorts;
 
+  # A port declared both publicly allowed and internal-only is a
+  # configuration contradiction; the binary re-checks it as well.
   overlapping = lib.filter (
-    a: lib.any (b: rangesOverlap (toRange a) (toRange b)) allowedPorts
-  ) additionalPorts;
+    a: lib.any (b: rangesOverlap (toRange a) (toRange b)) publicFirewall.allowedPorts
+  ) publicFirewall.allowedInternalPorts;
 
   portAudit = pkgs.writeShellScriptBin "port-audit" ''
     export PORT_AUDIT_ALLOWED=${lib.concatStringsSep "," (map toString allowedPorts)}
@@ -41,22 +48,11 @@ let
   '';
 in
 {
-  options.lantian.port-audit.additionalPorts = lib.mkOption {
-    type = lib.types.listOf (lib.types.either lib.types.int lib.types.str);
-    default = [ ];
-    description = ''
-      Listening ports that are expected within LTnet but must never be
-      reachable from WAN. Listeners on these ports are exempt from the
-      audit's violation report; the assertion below rejects any overlap with
-      the public firewall's allowedPorts.
-    '';
-  };
-
   config = {
     assertions = [
       {
         assertion = overlapping == [ ];
-        message = "lantian.port-audit.additionalPorts must not overlap lantian.firewall.presets.public-firewall.allowedPorts, overlapping: ${lib.concatStringsSep ", " (map toString overlapping)}";
+        message = "lantian.firewall.presets.public-firewall.allowedInternalPorts must not overlap the public firewall's allowedPorts, overlapping: ${lib.concatStringsSep ", " (map toString overlapping)}";
       }
     ];
 

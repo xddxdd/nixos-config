@@ -37,6 +37,9 @@ rec {
     I2P.HTTPProxy = 4444;
     I2P.SocksProxy = 4447;
     Pipewire.TCP = 4713;
+    Pipewire.Roc.Start = 10001; # roc sink/source source+repair+control ports
+    Pipewire.Roc.End = 10003;
+    Pipewire.VBanRecv = 6980; # libpipewire-module-vban-recv default
     Asterisk.UDPTL.End = 4999;
     IPFS.API = 5001;
     IPFS.Gateway = 5002;
@@ -45,6 +48,7 @@ rec {
     Asterisk.SIP.TLS = 5061;
     NATPMP = 5351; # NAT Port Mapping Protocol (miniupnpd nat-pmp)
     mDNS = 5353;
+    WSDD = 5357; # WS-Discovery (samba-wsdd), Windows network discovery
     Babel = 6695;
     Bazarr = 6767;
     I2P.SAM = 7656;

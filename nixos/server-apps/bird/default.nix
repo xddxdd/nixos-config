@@ -92,7 +92,7 @@ in
     BindReadOnlyPaths = [ "/etc/bird" ];
   };
   # BGP listener (179) and Babel (6695) bind wildcard sockets
-  lantian.port-audit.additionalPorts = [
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
     LT.port.BGP
     LT.port.Babel
   ];

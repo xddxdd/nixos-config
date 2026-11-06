@@ -11,7 +11,7 @@
     xdma
   ];
 
-  lantian.port-audit.additionalPorts = [ LT.port.Xvcd ];
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.Xvcd ];
 
   systemd.services.xvcd = {
     description = "Xilinx Virtual Cable Daemon";

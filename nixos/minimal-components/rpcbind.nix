@@ -4,5 +4,5 @@
 }:
 {
   # rpcbind (111) is enabled by the NixOS default; it is LAN-internal only.
-  lantian.port-audit.additionalPorts = [ LT.port.Rpcbind ];
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.Rpcbind ];
 }

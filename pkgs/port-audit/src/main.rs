@@ -6,8 +6,10 @@
 // from eval-time config; no live nftables query, no argv):
 // - PORT_AUDIT_ALLOWED: comma-separated port specs, `22` or `20000-23999`,
 //   copied verbatim from lantian.firewall.presets.public-firewall.allowedPorts
+//   plus allowedInternalPorts when the host is firewalled
 // - PORT_AUDIT_ADDITIONAL: comma-separated port specs copied verbatim from
-//   lantian.port-audit.additionalPorts; LTnet-only listeners that must never
+//   lantian.firewall.presets.public-firewall.allowedInternalPorts on
+//   non-firewalled hosts; LTnet-only listeners that must never
 //   appear in PORT_AUDIT_ALLOWED (asserted at eval time and re-checked here)
 // - PORT_AUDIT_EPHEMERAL: expected `lo-hi` ephemeral port range (defaults to
 //   the kernel/repo baseline 32768-60999 when unset)

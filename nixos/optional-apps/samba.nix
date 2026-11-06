@@ -7,11 +7,12 @@
 }:
 {
 
-  lantian.port-audit.additionalPorts = [
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
     LT.port.Smb.NameService
     LT.port.Smb.Datagram
     LT.port.Smb.Session
     LT.port.Smb.Tcp
+    LT.port.WSDD
   ];
 
   services.samba = {

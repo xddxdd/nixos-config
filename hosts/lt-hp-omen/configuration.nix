@@ -49,9 +49,6 @@
   # Not started at boot; launch with `systemctl start strata` when needed.
   systemd.services.strata.wantedBy = lib.mkForce [ ];
 
-  # Firewalled host, so the public firewall preset is off by default.
-  lantian.firewall.presets.public-firewall.enable = true;
-
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;

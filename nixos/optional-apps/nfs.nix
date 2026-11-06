@@ -12,7 +12,7 @@
   '';
 
   # NFSv3 helper ports (statd/lockd/mountd) are LTnet-internal
-  lantian.port-audit.additionalPorts = [
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
     LT.port.NFS.StatD
     LT.port.NFS.LockD
     LT.port.NFS.MountD

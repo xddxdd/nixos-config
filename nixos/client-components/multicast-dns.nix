@@ -4,7 +4,7 @@
 }:
 {
   # mDNS is LAN-only by policy
-  lantian.port-audit.additionalPorts = [ LT.port.mDNS ];
+  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.mDNS ];
 
   services.avahi = {
     enable = true;
