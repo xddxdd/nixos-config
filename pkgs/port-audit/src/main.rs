@@ -11,6 +11,10 @@
 //   lantian.firewall.presets.public-firewall.allowedInternalPorts on
 //   non-firewalled hosts; LTnet-only listeners that must never
 //   appear in PORT_AUDIT_ALLOWED (asserted at eval time and re-checked here)
+// - PORT_AUDIT_KNOWN_VIOLATIONS: comma-separated port specs copied verbatim
+//   from lantian.port-audit.knownViolations; listeners on public or wildcard
+//   addresses that the firewall deliberately keeps closed (asserted at eval
+//   time not to overlap either allowlist)
 // - PORT_AUDIT_EPHEMERAL: expected `lo-hi` ephemeral port range (defaults to
 //   the kernel/repo baseline 32768-60999 when unset)
 // - PORT_AUDIT_RESERVED_V4 / PORT_AUDIT_RESERVED_V6: comma-separated CIDRs
@@ -164,6 +168,12 @@ fn main() {
         "additional LTnet-only ports: {} spec(s) from env",
         additional_ports.len()
     ));
+    let (known_violations, parse_errors) = parse_port_specs("PORT_AUDIT_KNOWN_VIOLATIONS", false);
+    hard_errors.extend(parse_errors);
+    info.push(format!(
+        "known-violation ports: {} spec(s) from env",
+        known_violations.len()
+    ));
     // The Nix assertion already rejects overlaps; re-checking here catches
     // drifted wrappers where the env vars no longer match eval-time config.
     for a in &additional_ports {
@@ -275,6 +285,12 @@ fn main() {
             }
             if additional_ports.iter().any(|r| r.contains(l.port)) {
                 continue; // expected LTnet-only listener, WAN-blocked by policy
+            }
+            // Recorded exceptions: public or wildcard binds that the firewall
+            // keeps closed. The eval-time assertion rejects overlap with
+            // either allowlist.
+            if known_violations.iter().any(|r| r.contains(l.port)) {
+                continue;
             }
             // Ephemeral-range listeners are already accepted from WAN by the
             // ephemeral rules and are exempted from the audit per policy.

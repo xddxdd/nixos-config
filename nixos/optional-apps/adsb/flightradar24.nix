@@ -13,6 +13,14 @@
 
   environment.systemPackages = [ pkgs.nur-xddxdd.fr24feed ];
 
+  # fr24feed's embedded HTTP status server binds all addresses (8754 by
+  # default, 8755 for the UAT feed); only internal clients fetch it, and the
+  # firewall keeps both closed to WAN.
+  lantian.port-audit.knownViolations = [
+    8754
+    8755
+  ];
+
   systemd.services.fr24feed = {
     description = "Flightradar24 Feeder";
     after = [ "network.target" ];
