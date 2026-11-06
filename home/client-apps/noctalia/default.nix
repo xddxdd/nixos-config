@@ -304,8 +304,12 @@ in
       shell = {
         corner_radius_scale = 0.0;
         polkit_agent = true;
+        window_switcher = {
+          mru = true;
+          style = "compact";
+        };
+        panel.transparency_mode = "solid";
       };
-      shell.panel.transparency_mode = "solid";
 
       audio.enable_sounds = false;
 
