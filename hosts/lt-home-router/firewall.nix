@@ -1,5 +1,6 @@
 {
   LT,
+  lib,
   ...
 }:
 {
@@ -66,6 +67,21 @@
 
   };
 
+  # IPv6 addresses of hosts on the same home-lan interconnect; hosts
+  # without an interconnect IPv6 (e.g. lt-dell-wyse) contribute nothing.
+  lantian.firewall.ipsets.LAN_HOSTS_IPV6 = {
+    type = "ipv6_addr";
+    flags = [
+      "constant"
+      "interval"
+    ];
+    elements = lib.map (h: h.interconnect.IPv6) (
+      lib.filter (h: h.interconnect.name == LT.this.interconnect.name && h.interconnect.IPv6 != null) (
+        builtins.attrValues LT.hosts
+      )
+    );
+  };
+
   lantian.firewall.chains = {
     NAT_PORT_FORWARD.dnat = [
       {
@@ -89,8 +105,30 @@
     ];
     FILTER_FORWARD.rules = [
       {
+        # Access to the router itself is input-chain traffic and never hits
+        # the forward hook; accept it here explicitly so the drops below can
+        # never catch it.
+        priority = LT.firewallPriorities.preService;
+        text = "fib daddr type local accept";
+      }
+      {
+        # Whitelist config-managed hosts with IPv6 addresses in the home /48,
+        # scoped to the public ingress interface so VLAN isolation rules
+        # below keep applying to LAN-internal traffic.
+        priority = LT.firewallPriorities.preService;
+        text = ''iifname "henet" ip6 daddr @LAN_HOSTS_IPV6 accept'';
+      }
+      {
         priority = LT.firewallPriorities.terminal;
         text = ''iifname "eth1*" drop'';
+      }
+      {
+        # Default-deny IPv6 from the internet (henet tunnel) to LAN hosts.
+        # DNAT'd port-forwards are accepted earlier by the generic
+        # "ct status dnat" rule, so only direct global-address access is
+        # blocked here.
+        priority = LT.firewallPriorities.terminal;
+        text = ''iifname "henet" meta nfproto ipv6 drop'';
       }
     ];
     NAT_POSTROUTING.rules = [
