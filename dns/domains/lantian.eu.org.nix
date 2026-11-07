@@ -3,7 +3,7 @@
   domains = [
     rec {
       domain = "lantian.eu.org";
-      registrar = "doh";
+      registrar = "none"; # Does not support that many NSes
       providers = [
         "bind"
         "desec"
