@@ -70,6 +70,16 @@ let
         default = [ ];
         description = "IPv6 source CIDRs belonging to this zone.";
       };
+      sourceIPv4Exclude = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "IPv4 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
+      };
+      sourceIPv6Exclude = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "IPv6 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
+      };
       tcpPorts = lib.mkOption {
         type = lib.types.attrsOf portEntryType;
         default = { };
@@ -209,8 +219,16 @@ let
         id = zoneId z.zoneName;
       in
       lib.optionals (z.interfaces != [ ]) [ "iifname @ZONE_${id}_INTERFACES jump ZONE_${id}_${hook}" ]
-      ++ lib.optionals (z.sourceIPv4 != [ ]) [ "ip saddr @ZONE_${id}_IPV4 jump ZONE_${id}_${hook}" ]
-      ++ lib.optionals (z.sourceIPv6 != [ ]) [ "ip6 saddr @ZONE_${id}_IPV6 jump ZONE_${id}_${hook}" ]
+      ++ lib.optionals (z.sourceIPv4 != [ ]) [
+        "ip saddr @ZONE_${id}_IPV4${
+          lib.optionalString (z.sourceIPv4Exclude != [ ]) " ip saddr != @ZONE_${id}_EXCLUDE_IPV4"
+        } jump ZONE_${id}_${hook}"
+      ]
+      ++ lib.optionals (z.sourceIPv6 != [ ]) [
+        "ip6 saddr @ZONE_${id}_IPV6${
+          lib.optionalString (z.sourceIPv6Exclude != [ ]) " ip6 saddr != @ZONE_${id}_EXCLUDE_IPV6"
+        } jump ZONE_${id}_${hook}"
+      ]
     ) (builtins.filter filterFn sortedZones);
 in
 {
@@ -239,6 +257,10 @@ in
         interfaces = interfacePrefixes.DN42;
         sourceIPv4 = LT.constants.dn42.IPv4 ++ LT.constants.neonetwork.IPv4;
         sourceIPv6 = LT.constants.dn42.IPv6 ++ LT.constants.neonetwork.IPv6;
+        # Our own DN42/NeoNetwork space is trusted like LAN, not treated as
+        # foreign DN42.
+        sourceIPv4Exclude = LT.constants.ltnet.IPv4;
+        sourceIPv6Exclude = LT.constants.ltnet.IPv6;
         forwardTo = [ "DN42" ];
       };
       LAN = {
@@ -247,8 +269,10 @@ in
         # interfaces are trusted like LAN. They stay in the WAN zone too,
         # so sources outside the LAN IP ranges still get WAN policy.
         interfaces = interfacePrefixes.LAN ++ lib.optionals LT.this.firewalled interfacePrefixes.WAN;
-        sourceIPv4 = LT.constants.reserved.IPv4;
-        sourceIPv6 = LT.constants.reserved.IPv6 ++ LT.this.interconnect.internalIPv6Ranges;
+        sourceIPv4 = lib.unique (LT.constants.reserved.IPv4 ++ LT.constants.ltnet.IPv4);
+        sourceIPv6 = lib.unique (
+          LT.constants.reserved.IPv6 ++ LT.this.interconnect.internalIPv6Ranges ++ LT.constants.ltnet.IPv6
+        );
         inputPolicy = "accept";
         forwardTo = [
           "WAN"
@@ -306,6 +330,28 @@ in
               ];
               autoMerge = true;
               elements = z.sourceIPv6;
+            };
+          })
+          (lib.mkIf (z.sourceIPv4Exclude != [ ]) {
+            "ZONE_${id}_EXCLUDE_IPV4" = {
+              type = "ipv4_addr";
+              flags = [
+                "constant"
+                "interval"
+              ];
+              autoMerge = true;
+              elements = z.sourceIPv4Exclude;
+            };
+          })
+          (lib.mkIf (z.sourceIPv6Exclude != [ ]) {
+            "ZONE_${id}_EXCLUDE_IPV6" = {
+              type = "ipv6_addr";
+              flags = [
+                "constant"
+                "interval"
+              ];
+              autoMerge = true;
+              elements = z.sourceIPv6Exclude;
             };
           })
         ]

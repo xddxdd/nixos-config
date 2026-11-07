@@ -25,6 +25,7 @@ _: {
       "vboxnet"
       "virbr"
       "wgmesh"
+      "zt"
     ];
   };
 }

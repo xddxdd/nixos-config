@@ -81,8 +81,9 @@ in
       ) (lib.filterAttrs (k: v: v.zerotier != null) LT.otherHosts);
       settings = {
         interfacePrefixBlacklist = whitelistToBlacklist (
-          # Do not try to use network namespaces
-          with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns") (WAN ++ LAN))
+          # Do not try to use network namespaces or ZeroTier's own tunnel
+          # interfaces as transport.
+          with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns" && v != "zt") (WAN ++ LAN))
         );
         softwareUpdate = "disable";
         secondaryPort = LT.forwardPort.ZeroTier.Secondary;
