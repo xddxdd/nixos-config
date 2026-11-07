@@ -383,7 +383,7 @@ in
       widget = {
         cpu.type = "sysmon";
         ram.type = "sysmon";
-        clock.format = "{:%I:%M:%S %p}";
+        clock.format = "{:%Y-%m-%d}\n{:%I:%M:%S %p}";
         taskbar.icon_scale = iconScale;
         taskbar.item_spacing = itemSpacing;
         taskbar.pinned = [
