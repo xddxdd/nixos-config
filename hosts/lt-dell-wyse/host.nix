@@ -20,6 +20,7 @@
   interconnect = {
     name = "home-lan";
     IPv4 = "192.168.0.207";
+    internalIPv6Ranges = [ "2001:470:e997::/48" ];
   };
   dn42 = {
     IPv4 = "172.22.76.118";

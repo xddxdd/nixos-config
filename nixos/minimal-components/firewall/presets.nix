@@ -57,12 +57,13 @@ in
         type = lib.types.listOf (lib.types.either lib.types.int lib.types.str);
         default = [ ];
         description = ''
-          Ports accepted only from internal (LAN/LTnet) traffic; strings
-          allow nftables port ranges like "20000-23999". On hosts with
-          firewalled = true, public and internal traffic arrive through
-          the same path, so these are opened together with allowedPorts;
-          on directly-public hosts they stay out of
-          PUBLIC_ALLOWED_PORTS and remain internal-only.
+          Ports accepted only from LAN source ranges; strings allow
+          nftables port ranges like "20000-23999". The LAN ranges are
+          LT.constants.reserved plus the interconnect's
+          internalIPv6Ranges. On directly-public hosts these stay out of
+          the public accept rules entirely; on hosts with firewalled =
+          true, public and internal traffic share the same interface, so
+          these are accepted separately, from the LAN ranges only.
         '';
       };
       allowedIpProtocols = lib.mkOption {
@@ -429,6 +430,18 @@ in
               (lib.toInt (lib.head (lib.splitString "-" p)))
               (lib.toInt (lib.last (lib.splitString "-" p)))
             ];
+        # nftables interval sets reject overlapping elements; drop standalone
+        # ports already covered by a range entry (e.g. Syncthing 22000 vs the
+        # DN42 20000-23999 range).
+        dedupePorts =
+          ports:
+          lib.filter (
+            p:
+            lib.isString p
+            || !(lib.any (
+              r: r != p && p >= (builtins.elemAt (rangeBounds r) 0) && p <= (builtins.elemAt (rangeBounds r) 1)
+            ) ports)
+          ) ports;
       in
       lib.mkMerge [
         {
@@ -439,22 +452,27 @@ in
               "constant"
               "interval"
             ];
-            # nftables interval sets reject overlapping elements; drop
-            # standalone ports already covered by a range entry (e.g.
-            # Syncthing 22000 vs the DN42 20000-23999 range). Internal ports
-            # are merged in only on firewalled hosts, whose public and
-            # internal traffic arrive through the same path.
-            elements =
-              let
-                allPorts = cfg.allowedPorts ++ lib.optionals LT.this.firewalled cfg.allowedInternalPorts;
-              in
-              lib.filter (
-                p:
-                lib.isString p
-                || !(lib.any (
-                  r: r != p && p >= (builtins.elemAt (rangeBounds r) 0) && p <= (builtins.elemAt (rangeBounds r) 1)
-                ) allPorts)
-              ) allPorts;
+            elements = dedupePorts cfg.allowedPorts;
+          };
+          # Internal ports stay LAN-only on firewalled hosts, whose public and
+          # internal traffic arrive through the same interface.
+          lantian.firewall.ipsets.PUBLIC_INTERNAL_PORTS = lib.mkIf LT.this.firewalled {
+            type = "inet_service";
+            flags = [
+              "constant"
+              "interval"
+            ];
+            elements = dedupePorts cfg.allowedInternalPorts;
+          };
+          # Internal sources are the reserved ranges plus the interconnect's
+          # own ranges (e.g. the home LAN's public IPv6 prefix).
+          lantian.firewall.ipsets.INTERNAL_SRC_IPV6 = lib.mkIf LT.this.firewalled {
+            type = "ipv6_addr";
+            flags = [
+              "constant"
+              "interval"
+            ];
+            elements = LT.constants.reserved.IPv6 ++ LT.this.interconnect.internalIPv6Ranges;
           };
         }
         (lib.mkIf cfg.enable {
@@ -485,6 +503,18 @@ in
                 udp dport @PUBLIC_ALLOWED_PORTS accept
               '';
             }
+            (lib.mkIf LT.this.firewalled {
+              # Internal ports are reachable from LAN (reserved plus
+              # interconnect) source ranges only, even though they arrive on
+              # the public interface.
+              priority = LT.firewallPriorities.service + 50;
+              text = ''
+                ip saddr @RESERVED_IPV4 tcp dport @PUBLIC_INTERNAL_PORTS accept
+                ip saddr @RESERVED_IPV4 udp dport @PUBLIC_INTERNAL_PORTS accept
+                ip6 saddr @INTERNAL_SRC_IPV6 tcp dport @PUBLIC_INTERNAL_PORTS accept
+                ip6 saddr @INTERNAL_SRC_IPV6 udp dport @PUBLIC_INTERNAL_PORTS accept
+              '';
+            })
             {
               priority = LT.firewallPriorities.terminal;
               text = "reject with icmpx type admin-prohibited";

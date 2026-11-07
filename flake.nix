@@ -328,6 +328,7 @@
                   # keep-sorted end
                 ]
               ))
+              pkgs.vulnix
             ];
 
             env = [

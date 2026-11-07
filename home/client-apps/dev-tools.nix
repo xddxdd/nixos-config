@@ -166,7 +166,6 @@ in
       linkzoneAdb
       minicom
       nur-xddxdd.bin-cpuflags-x86
-      oci-cli
       s3cmd
       sops
       tldr

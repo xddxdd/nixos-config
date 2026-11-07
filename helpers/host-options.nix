@@ -147,6 +147,11 @@
         type = lib.types.nullOr lib.types.str;
         default = null;
       };
+      internalIPv6Ranges = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "IPv6 ranges treated as internal traffic sources by the firewall, on top of LT.constants.reserved.";
+      };
     };
 
     dn42 = {
