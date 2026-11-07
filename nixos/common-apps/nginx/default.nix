@@ -7,6 +7,7 @@
     ./nginx.nix
     ./oauth2-proxy.nix
     ./proxy.nix
+    ./vhost-hydra-proxy.nix
     ./vhost-lab.nix
     ./vhost-matrix-element
     ./vhost-options
