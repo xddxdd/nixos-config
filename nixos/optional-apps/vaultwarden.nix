@@ -3,10 +3,19 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
   imports = [ ./mysql.nix ];
+
+  sops.secrets.vaultwarden-push-installation-id.sopsFile = inputs.secrets + "/vaultwarden.yaml";
+  sops.secrets.vaultwarden-push-installation-key.sopsFile = inputs.secrets + "/vaultwarden.yaml";
+  sops.templates.vaultwarden-env.content = ''
+    PUSH_ENABLED=true
+    PUSH_INSTALLATION_ID=${config.sops.placeholder.vaultwarden-push-installation-id}
+    PUSH_INSTALLATION_KEY=${config.sops.placeholder.vaultwarden-push-installation-key}
+  '';
 
   services.mysql = {
     ensureDatabases = [ "vaultwarden" ];
@@ -23,6 +32,7 @@
   services.vaultwarden = {
     enable = true;
     dbBackend = "mysql";
+    environmentFile = config.sops.templates.vaultwarden-env.path;
     config = {
       SIGNUPS_ALLOWED = false;
       DOMAIN = "https://bitwarden.xuyh0120.win";
