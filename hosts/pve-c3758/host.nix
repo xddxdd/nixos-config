@@ -9,4 +9,5 @@
   manualDeploy = true;
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINl+OQjgmeZfmDxIbkATN2uQKcAhdaXDC3wVq7UmNg4I";
   zerotier = "73ed411f98";
+  firewalled = true;
 }

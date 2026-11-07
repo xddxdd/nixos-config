@@ -4,6 +4,7 @@
 { lib, ... }:
 {
   imports = [
+    ../../nixos/hardware/lvm.nix
     ../../nixos/hardware/vfio.nix
     ../../nixos/hardware/qat-sriov.nix
     ../../nixos/hardware/smart.nix
