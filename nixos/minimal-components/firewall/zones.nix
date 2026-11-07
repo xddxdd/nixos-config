@@ -217,18 +217,24 @@ let
       z:
       let
         id = zoneId z.zoneName;
-      in
-      lib.optionals (z.interfaces != [ ]) [ "iifname @ZONE_${id}_INTERFACES jump ZONE_${id}_${hook}" ]
-      ++ lib.optionals (z.sourceIPv4 != [ ]) [
-        "ip saddr @ZONE_${id}_IPV4${
+        iface = "iifname @ZONE_${id}_INTERFACES";
+        v4 = "ip saddr @ZONE_${id}_IPV4${
           lib.optionalString (z.sourceIPv4Exclude != [ ]) " ip saddr != @ZONE_${id}_EXCLUDE_IPV4"
-        } jump ZONE_${id}_${hook}"
-      ]
-      ++ lib.optionals (z.sourceIPv6 != [ ]) [
-        "ip6 saddr @ZONE_${id}_IPV6${
+        }";
+        v6 = "ip6 saddr @ZONE_${id}_IPV6${
           lib.optionalString (z.sourceIPv6Exclude != [ ]) " ip6 saddr != @ZONE_${id}_EXCLUDE_IPV6"
-        } jump ZONE_${id}_${hook}"
-      ]
+        }";
+        hasIface = z.interfaces != [ ];
+        # A zone matches only when every dimension it declares matches, so a
+        # zone listing both interfaces and sources is scoped to that
+        # interface/source pair instead of either one alone.
+        rule = match: "${lib.concatStringsSep " " match} jump ZONE_${id}_${hook}";
+      in
+      if hasIface && z.sourceIPv4 == [ ] && z.sourceIPv6 == [ ] then
+        [ (rule [ iface ]) ]
+      else
+        lib.optional (z.sourceIPv4 != [ ]) (rule (lib.optional hasIface iface ++ [ v4 ]))
+        ++ lib.optional (z.sourceIPv6 != [ ]) (rule (lib.optional hasIface iface ++ [ v6 ]))
     ) (builtins.filter filterFn sortedZones);
 in
 {
