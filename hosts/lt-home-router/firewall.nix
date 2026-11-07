@@ -53,11 +53,6 @@
     LAN.interfaces = [ "eth0" ];
     WAN = {
       interfaces = lib.mkForce [ "eth1" ];
-      # WAN-side needs: DHCPv4 replies from the ISP (dport 68) fall outside
-      # the ephemeral range.
-      udpPorts."${LT.portStr.DHCP.Client}" = {
-        type = "local";
-      };
       # Port forwards from the public IP to the homelab host.
       tcpPorts."31080-31089" = {
         type = "forward";

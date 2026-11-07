@@ -16,6 +16,7 @@ rec {
     Hack3ricFlow = 180;
     HTTPS = 443;
     Smb.Tcp = 445; # SMB over TCP
+    DHCPv6.Client = 546;
     DHCPv6.Server = 547;
     CUPS = 631;
     Rsync = 873;

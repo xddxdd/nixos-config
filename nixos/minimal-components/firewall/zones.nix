@@ -251,6 +251,16 @@ in
         priority = 100;
         interfaces = interfacePrefixes.WAN ++ interfacePrefixes.OVERLAY;
         allowEphemeral = true;
+        # DHCP client replies arrive on the WAN link before the interface has
+        # an address, so they never match the ephemeral port range.
+        udpPorts = {
+          "${LT.portStr.DHCP.Client}" = {
+            type = "local";
+          };
+          "${LT.portStr.DHCPv6.Client}" = {
+            type = "local";
+          };
+        };
       };
       DN42 = {
         priority = 20;
