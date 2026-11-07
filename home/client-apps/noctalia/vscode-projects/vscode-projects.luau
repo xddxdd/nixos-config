@@ -64,9 +64,22 @@ function onActivate(id)
 	if id == "" then
 		return
 	end
-	-- shell 字符串形式 + sleep：等 launcher 关闭后再拉起窗口
+	-- 经 systemd-run 启动，让整棵进程树落在 app.slice，而不是 shell 自己的 cgroup；
+	-- sleep 用于等 launcher 关闭后再拉起窗口
 	local dir = id:gsub("'", "'\\''")
-	if not noctalia.runAsync("sleep 0.15; code '" .. dir .. "'") then
+	if
+		not noctalia.runAsync({
+			"systemd-run",
+			"--user",
+			"--slice=app.slice",
+			"--collect",
+			"--property=ExitType=cgroup",
+			"--",
+			"/bin/sh",
+			"-c",
+			"sleep 0.15; exec code '" .. dir .. "'",
+		})
+	then
 		noctalia.notifyError("VSCode Projects", "Failed to spawn code")
 	end
 end

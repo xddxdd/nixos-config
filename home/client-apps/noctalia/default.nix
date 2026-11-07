@@ -288,6 +288,9 @@ in
     pkgs.wl-clipboard
   ];
 
+  # 部署重启 shell 时只结束 shell 自身，不连带杀掉它 fork 出来的子进程
+  systemd.user.services.noctalia.Service.KillMode = "process";
+
   programs.noctalia = {
     enable = true;
     systemd.enable = true;
