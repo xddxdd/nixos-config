@@ -76,6 +76,18 @@ let
       replacement = blackboxExporterHost;
     }
   ];
+
+  canaryIPv4Targets = lib.mapAttrsToList (_: v: "${v.public.IPv4}:${LT.portStr.FirewallCanary}") (
+    lib.filterAttrs (_: v: v.public.IPv4 != null) LT.otherHosts
+  );
+
+  canaryIPv6Targets = lib.flatten (
+    lib.mapAttrsToList (
+      _: v:
+      lib.optional (v.public.IPv6 != null) "[${v.public.IPv6}]:${LT.portStr.FirewallCanary}"
+      ++ lib.optional (v.public.IPv6Alt != null) "[${v.public.IPv6Alt}]:${LT.portStr.FirewallCanary}"
+    ) LT.otherHosts
+  );
 in
 {
   services.prometheus.exporters.blackbox = {
@@ -129,6 +141,16 @@ in
               { expect = "LANTIAN-DN42"; }
             ];
           };
+          firewall_canary_ipv4 = {
+            prober = "tcp";
+            timeout = "10s";
+            tcp.preferred_ip_protocol = "ip4";
+          };
+          firewall_canary_ipv6 = {
+            prober = "tcp";
+            timeout = "10s";
+            tcp.preferred_ip_protocol = "ip6";
+          };
         };
       }
     );
@@ -169,6 +191,22 @@ in
       metrics_path = "/probe";
       params.module = [ "whois" ];
       static_configs = [ { targets = publicFacingHostsExceptSelf 43; } ];
+      relabel_configs = relabelConfigs;
+    }
+    {
+      job_name = "firewall_canary_ipv4";
+      scrape_interval = "1m";
+      metrics_path = "/probe";
+      params.module = [ "firewall_canary_ipv4" ];
+      static_configs = [ { targets = canaryIPv4Targets; } ];
+      relabel_configs = relabelConfigs;
+    }
+    {
+      job_name = "firewall_canary_ipv6";
+      scrape_interval = "1m";
+      metrics_path = "/probe";
+      params.module = [ "firewall_canary_ipv6" ];
+      static_configs = [ { targets = canaryIPv6Targets; } ];
       relabel_configs = relabelConfigs;
     }
   ];
@@ -218,6 +256,16 @@ in
                 annotations = {
                   summary = "⚠️ {{$labels.alias}}: WHOIS service {{$labels.name}} failed.";
                   description = "{{$labels.alias}} is not returning WHOIS response for {{$labels.name}}.";
+                };
+              }
+              {
+                alert = "firewall_canary_port_open";
+                expr = ''probe_success{job=~"firewall_canary_.+"} == 1'';
+                for = "5m";
+                labels.severity = "critical";
+                annotations = {
+                  summary = "🔥 Firewall canary port ${LT.portStr.FirewallCanary} is reachable on {{$labels.instance}}.";
+                  description = "A firewall is no longer blocking TCP port ${LT.portStr.FirewallCanary} on {{$labels.instance}}.";
                 };
               }
             ];

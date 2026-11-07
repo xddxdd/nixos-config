@@ -7,6 +7,7 @@
 {
   imports = [
     ../common-apps/nginx/nginx.nix
+    ../common-apps/nginx/vhost-firewall-canary.nix
     ../common-apps/nginx/vhost-options
     ../common-apps/nginx/vhosts-default.nix
   ];

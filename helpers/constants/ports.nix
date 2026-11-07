@@ -1,6 +1,7 @@
 { lib, ... }:
 rec {
   port = {
+    FirewallCanary = 1;
     Endlessh = 22;
     Whois = 43;
     DNS = 53; # CoreDNS public serving port
