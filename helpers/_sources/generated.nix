@@ -30,10 +30,10 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "2026110602";
+    version = "2026110603";
     src = fetchurl {
-      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110602/rpz.delegacy.monostack.org.zone";
-      sha256 = "sha256-z1gx0rSNUMof2fAXBSgerH/PBsOhRMlNrJ1Ek0kXu50=";
+      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110603/rpz.delegacy.monostack.org.zone";
+      sha256 = "sha256-W29zmC0m4XElzsl0m9uQNdHnDux7oGJoyMQIYUq7q50=";
     };
   };
   dn42-certificate-authority-client = {
@@ -148,31 +148,31 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "8f965305dfda5e987bbf0a17a359352f50f0539d";
+    version = "f63f6bbbd7fc499300d32565df1fddc19a896f63";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "8f965305dfda5e987bbf0a17a359352f50f0539d";
+      rev = "f63f6bbbd7fc499300d32565df1fddc19a896f63";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-GM27H2ejbX+wEkY+IDC9JPuOHXTKclUHZCk34Vkc9ao=";
+      sha256 = "sha256-294P71q6F9tI0DMqqHm2Grsxj15WGAF9k8W6qB+ggCQ=";
     };
     date = "2026-11-06";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
-    version = "dc7ce57ed977ba830f524ade9ceac4fad914f533";
+    version = "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/official-plugins.git";
-      rev = "dc7ce57ed977ba830f524ade9ceac4fad914f533";
+      rev = "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-WrfG5D39B/E+ArCA8H3+VZe88agbaMq3MpGKPK9PeCw=";
+      sha256 = "sha256-BM6/TC2jI1jf/NL5DGA3zrWrEaWFTwm7e3GHfT6NKLI=";
     };
-    date = "2026-11-05";
+    date = "2026-11-06";
   };
   nvidia-patch = {
     pname = "nvidia-patch";

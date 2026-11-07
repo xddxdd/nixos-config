@@ -43,11 +43,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-z1gx0rSNUMof2fAXBSgerH/PBsOhRMlNrJ1Ek0kXu50=",
+            "sha256": "sha256-W29zmC0m4XElzsl0m9uQNdHnDux7oGJoyMQIYUq7q50=",
             "type": "url",
-            "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110602/rpz.delegacy.monostack.org.zone"
+            "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110603/rpz.delegacy.monostack.org.zone"
         },
-        "version": "2026110602"
+        "version": "2026110603"
     },
     "dn42-certificate-authority-client": {
         "cargoLock": null,
@@ -245,17 +245,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8f965305dfda5e987bbf0a17a359352f50f0539d",
-            "sha256": "sha256-GM27H2ejbX+wEkY+IDC9JPuOHXTKclUHZCk34Vkc9ao=",
+            "rev": "f63f6bbbd7fc499300d32565df1fddc19a896f63",
+            "sha256": "sha256-294P71q6F9tI0DMqqHm2Grsxj15WGAF9k8W6qB+ggCQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "8f965305dfda5e987bbf0a17a359352f50f0539d"
+        "version": "f63f6bbbd7fc499300d32565df1fddc19a896f63"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
-        "date": "2026-11-05",
+        "date": "2026-11-06",
         "extract": null,
         "name": "noctalia-official-plugins",
         "passthru": null,
@@ -265,13 +265,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "dc7ce57ed977ba830f524ade9ceac4fad914f533",
-            "sha256": "sha256-WrfG5D39B/E+ArCA8H3+VZe88agbaMq3MpGKPK9PeCw=",
+            "rev": "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4",
+            "sha256": "sha256-BM6/TC2jI1jf/NL5DGA3zrWrEaWFTwm7e3GHfT6NKLI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/official-plugins.git"
         },
-        "version": "dc7ce57ed977ba830f524ade9ceac4fad914f533"
+        "version": "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4"
     },
     "nvidia-patch": {
         "cargoLock": null,
