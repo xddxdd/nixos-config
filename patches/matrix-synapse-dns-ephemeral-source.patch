@@ -1,0 +1,23 @@
+--- a/synapse/http/federation/srv_resolver.py
++++ b/synapse/http/federation/srv_resolver.py
+@@ -32,6 +32,20 @@
+ 
+ from synapse.logging.context import make_deferred_yieldable
+ 
++# Twisted's DNS client binds its UDP socket to a random port in 0-65535
++# (twisted.names.dns.randomSource), which can fall outside the kernel's
++# ephemeral range and trip the port audit. Let the kernel assign the port
++# instead, as twisted.names.dns.DNSDatagramProtocol.startListening does.
++def _ephemeral_source_protocol(
++    self: client.Resolver, interface: str = ""
++) -> dns.DNSDatagramProtocol:
++    proto = dns.DNSDatagramProtocol(self, reactor=self._reactor)
++    self._reactor.listenUDP(0, proto, interface=interface)
++    return proto
++
++
++client.Resolver._connectedProtocol = _ephemeral_source_protocol
++
+ logger = logging.getLogger(__name__)
+ 
+ SERVER_CACHE: dict[bytes, list["Server"]] = {}

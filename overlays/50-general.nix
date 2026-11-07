@@ -75,7 +75,10 @@ rec {
   });
   matrix-synapse = prev.matrix-synapse.override { inherit matrix-synapse-unwrapped; };
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/matrix-synapse-listen-unix.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../patches/matrix-synapse-listen-unix.patch
+      ../patches/matrix-synapse-dns-ephemeral-source.patch
+    ];
     doCheck = false;
     doInstallCheck = false;
   });
