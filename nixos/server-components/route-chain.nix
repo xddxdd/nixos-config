@@ -67,7 +67,7 @@
     };
     users.groups.route-chain = { };
 
-    lantian.firewall.chains.PUBLIC_FORWARD.rules = lib.mkIf config.services.route-chain.enable [
+    lantian.firewall.chains.ZONE_WAN_FORWARD.rules = lib.mkIf config.services.route-chain.enable [
       {
         priority = LT.firewallPriorities.preService;
         text = ''oifname "route-chain" accept'';

@@ -144,7 +144,7 @@ in
 
     # OCFS2 cluster traffic shares the WAN interface, so filter by source
     # address: only private addresses may reach the O2CB port.
-    lantian.firewall.chains.PUBLIC_INPUT.rules = [
+    lantian.firewall.chains.ZONE_WAN_INPUT.rules = [
       {
         priority = LT.firewallPriorities.preService;
         text = ''

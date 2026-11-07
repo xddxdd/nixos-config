@@ -33,8 +33,10 @@ let
 in
 {
   # The ZeroTier controller is reachable from WAN by design (peers bootstrap
-  # onto it), hence allowedPorts rather than internal-only ports.
-  lantian.firewall.presets.public-firewall.allowedPorts = [ LT.port.ZeroTier.Controller ];
+  # onto it), hence a WAN local port rather than a LAN-only one.
+  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.ZeroTier.Controller}" = {
+    type = "local";
+  };
 
   services.zerotierone.controller = {
     enable = true;

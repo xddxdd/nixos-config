@@ -215,7 +215,12 @@ in
 
   # SSH is reachable from the Internet on every host for deployment and
   # management; port 22 is covered separately by the endlessh decoy.
-  lantian.firewall.presets.public-firewall.allowedPorts = [ LT.port.SSH ];
+  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.SSH}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.DN42.tcpPorts."${LT.portStr.SSH}" = {
+    type = "local";
+  };
 
   # Prevent regular OpenSSH from sneaking in
   # FIXME: PVE depends on regular OpenSSH

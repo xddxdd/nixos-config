@@ -252,28 +252,28 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
     persist-tun
   '';
 
-  lantian.firewall.chains.FILTER_INPUT.rules =
-    lib.mkIf config.lantian.firewall.presets.public-firewall.enable
-      [
-        {
-          priority = LT.firewallPriorities.service;
-          text = ''iifname "ovpn-gameacc" jump PUBLIC_INPUT'';
-        }
-      ];
-  lantian.firewall.chains.FILTER_FORWARD.rules =
-    lib.mkIf config.lantian.firewall.presets.interface-sets.enable
-      [
-        {
-          priority = LT.firewallPriorities.service;
-          text = ''iifname "ovpn-gameacc" oifname != @INTERFACE_WAN drop'';
-        }
-      ];
-  lantian.firewall.ipsets.CN_FIREWALLED_PORTS.elements = [ LT.port.OpenVPN.GameAccel ];
+  # Game-acceleration clients arrive on ovpn-gameacc with ltnet addresses,
+  # so they need their own zone ahead of LAN to keep the WAN allowlist.
+  lantian.firewall.zones.OVPN_GAMEACC = {
+    priority = 15;
+    interfaces = [ "ovpn-gameacc" ];
+    inputPolicy = "reject";
+    allowEphemeral = true;
+    tcpPorts = config.lantian.firewall.zones.WAN.tcpPorts;
+    udpPorts = config.lantian.firewall.zones.WAN.udpPorts;
+    allowedIpProtocols = config.lantian.firewall.zones.WAN.allowedIpProtocols;
+    forwardTo = [ "WAN" ];
+  };
+  lantian.firewall.zones.WAN_CN_BLOCKED.udpPorts."${LT.portStr.OpenVPN.GameAccel}" = {
+    type = "reject";
+  };
   # Only the cn-accel servers actually run the OpenVPN game accelerator;
   # keep the whitelist narrow on hosts without the service.
-  lantian.firewall.presets.public-firewall.allowedPorts = lib.mkIf (LT.this.hasTag LT.tags.cn-accel) [
-    LT.port.OpenVPN.GameAccel
-  ];
+  lantian.firewall.zones.WAN.udpPorts = lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
+    "${LT.portStr.OpenVPN.GameAccel}" = {
+      type = "local";
+    };
+  };
 
   users.users.openvpn = {
     group = "openvpn";

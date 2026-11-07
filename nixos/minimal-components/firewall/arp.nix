@@ -1,29 +1,28 @@
 {
   lib,
-  LT,
   config,
   ...
 }:
 let
-  inherit (import ./common.nix { inherit lib LT; }) ipv4Set interfaceSet;
+  inherit (import ./common.nix { inherit lib; }) ipv4Set ifnameSet;
 
   wanARPSubnets = config.lantian.firewall.wanARPSubnets;
-  wanInterfaceSet = interfaceSet "WAN" LT.constants.interfacePrefixes.WAN;
+  wanInterfaces = config.lantian.firewall.zones.WAN.interfaces;
 
   # An empty wanARPSubnets would make an empty set (invalid nft syntax), so a
   # dummy 0.0.0.0/32 matching no real traffic is used in block-all mode.
   arpRules = lib.optionalString (wanARPSubnets != null) ''
-    ${wanInterfaceSet}
+    ${ifnameSet "ZONE_WAN_INTERFACES" wanInterfaces}
     ${ipv4Set "WAN_ARP_SUBNETS" (if wanARPSubnets == [ ] then [ "0.0.0.0/32" ] else wanARPSubnets)}
 
     chain INPUT {
       type filter hook input priority 0; policy accept;
-      iifname @INTERFACE_WAN arp saddr ip != @WAN_ARP_SUBNETS drop
+      iifname @ZONE_WAN_INTERFACES arp saddr ip != @WAN_ARP_SUBNETS drop
     }
 
     chain OUTPUT {
       type filter hook output priority 0; policy accept;
-      oifname @INTERFACE_WAN arp daddr ip != @WAN_ARP_SUBNETS drop
+      oifname @ZONE_WAN_INTERFACES arp daddr ip != @WAN_ARP_SUBNETS drop
     }
   '';
 in

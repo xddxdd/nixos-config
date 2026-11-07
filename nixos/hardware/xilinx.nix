@@ -11,7 +11,9 @@
     xdma
   ];
 
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.Xvcd ];
+  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Xvcd}" = {
+    type = "local";
+  };
 
   systemd.services.xvcd = {
     description = "Xilinx Virtual Cable Daemon";

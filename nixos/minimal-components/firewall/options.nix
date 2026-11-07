@@ -109,6 +109,11 @@ let
         default = [ "constant" ];
         description = "nftables set flags.";
       };
+      autoMerge = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Merge overlapping and adjacent intervals instead of rejecting them.";
+      };
       elements = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.int lib.types.str);
         default = [ ];
@@ -125,6 +130,7 @@ let
         "type ${s.type}"
         "flags ${lib.concatStringsSep ", " s.flags}"
       ]
+      ++ lib.optional s.autoMerge "auto-merge"
       ++ lib.optional (
         s.elements != [ ]
       ) "elements = { ${lib.concatStringsSep ", " (map builtins.toString s.elements)} }"
@@ -233,6 +239,13 @@ in
         priority = 105;
       };
     };
+
+    lantian.firewall.chains.FILTER_INPUT.rules = [
+      {
+        priority = LT.firewallPriorities.preService;
+        text = "ct state { established, related } accept";
+      }
+    ];
 
     lantian.firewall.chains.FILTER_FORWARD.rules = [
       {

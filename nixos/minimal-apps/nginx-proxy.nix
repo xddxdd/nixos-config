@@ -37,6 +37,18 @@ let
   '';
 
   netns = config.lantian.netns.nginx-proxy;
+
+  proxyPorts =
+    lib.genAttrs
+      (map (p: LT.portStr.${p}) [
+        "Whois"
+        "Gopher"
+        "Gemini"
+      ])
+      (_: {
+        type = "forward";
+        inherit (netns) ipv4 ipv6;
+      });
 in
 {
   # Actual enable is in nixos/common-apps/nginx/proxy.nix
@@ -57,31 +69,15 @@ in
       birdBindTo = [ "nginx-proxy.service" ];
     };
 
-    lantian.firewall.chains.NAT_PREROUTING.dnat =
-      (map
-        (port: {
-          priority = LT.firewallPriorities.preService;
-          matches = [ "fib daddr type local tcp dport ${port}" ];
-          ipv4 = "${netns.ipv4}:${port}";
-        })
-        [
-          LT.portStr.Whois
-          LT.portStr.Gopher
-          LT.portStr.Gemini
-        ]
-      )
-      ++ (map
-        (port: {
-          priority = LT.firewallPriorities.preService;
-          matches = [ "fib daddr type local tcp dport ${port}" ];
-          ipv6 = "[${netns.ipv6}]:${port}";
-        })
-        [
-          LT.portStr.Whois
-          LT.portStr.Gopher
-          LT.portStr.Gemini
-        ]
-      );
+    lantian.firewall.zones.NETNS_NGINX_PROXY.forwardTo = [ "DN42" ];
+    lantian.firewall.zones.DN42.forwardTo = [ "NETNS_NGINX_PROXY" ];
+    lantian.firewall.zones.LAN.forwardTo = [ "NETNS_NGINX_PROXY" ];
+
+    lantian.firewall.zones = {
+      WAN.tcpPorts = proxyPorts;
+      DN42.tcpPorts = proxyPorts;
+      LAN.tcpPorts = proxyPorts;
+    };
 
     systemd.services.nginx-proxy = netns.bind {
       wantedBy = [ "multi-user.target" ];

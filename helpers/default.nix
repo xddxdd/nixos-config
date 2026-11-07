@@ -54,6 +54,10 @@ let
 
     hosts = call ./fn/hosts.nix;
     this = hosts."${config.networking.hostName}";
+    forwardPort = lib.mapAttrsRecursive (
+      _: offset: this.wg-lantian.forwardStart + offset
+    ) portForwardOffset;
+    forwardPortStr = lib.mapAttrsRecursive (_: p: builtins.toString p) forwardPort;
     otherHosts = builtins.removeAttrs hosts [ config.networking.hostName ];
     defaultGatewayHost = hosts."${defaultGatewayHostName}";
 

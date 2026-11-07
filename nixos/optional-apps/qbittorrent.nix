@@ -7,9 +7,12 @@
 }:
 {
   # The BT declaration port must be reachable from WAN
-  lantian.firewall.presets.public-firewall.allowedPorts = [
-    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrent)
-  ];
+  lantian.firewall.zones.WAN.tcpPorts."${LT.forwardPortStr.qBitTorrent}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.WAN.udpPorts."${LT.forwardPortStr.qBitTorrent}" = {
+    type = "local";
+  };
 
   services.qbittorrent = {
     enable = true;
@@ -18,7 +21,7 @@
     group = "users";
     profileDir = "/var/lib/qbittorrent";
     webuiPort = LT.port.qBitTorrent.WebUI;
-    torrentingPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrent;
+    torrentingPort = LT.forwardPort.qBitTorrent;
     extraArgs = [
       "--confirm-legal-notice"
     ];

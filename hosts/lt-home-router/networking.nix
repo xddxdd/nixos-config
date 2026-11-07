@@ -196,6 +196,9 @@
       EOF
     '';
   };
+
+  lantian.firewall.zones.LAN.forwardTo = [ "NETNS_ONT_WEBUI_PROXY" ];
+
   systemd.services.netns-instance-ont-webui-proxy = {
     after = [ "network.target" ];
     requires = [ "network.target" ];

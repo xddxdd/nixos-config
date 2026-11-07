@@ -2,7 +2,9 @@
 {
   # VBAN receiver binds 0.0.0.0 on its default port 6980; LAN/LTnet only
   # by policy (public firewall preset rejects it from WAN).
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.Pipewire.VBanRecv ];
+  lantian.firewall.zones.LAN.udpPorts."${LT.portStr.Pipewire.VBanRecv}" = {
+    type = "local";
+  };
 
   services.pipewire.extraConfig.pipewire = {
     "50-vban-recv.conf" = {
@@ -12,7 +14,7 @@
           args = {
             "source.name" = "VBAN Receiver";
             # Pin the receiver port; the module default (6980) is kept and
-            # declared as an internal port in the public-firewall preset.
+            # declared as a local port in the LAN zone.
             "port" = LT.port.Pipewire.VBanRecv;
             "source.props" = {
               "node.name" = "vban-recv";

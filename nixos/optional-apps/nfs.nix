@@ -12,11 +12,28 @@
   '';
 
   # NFSv3 helper ports (statd/lockd/mountd) are LTnet-internal
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
-    LT.port.NFS.StatD
-    LT.port.NFS.LockD
-    LT.port.NFS.MountD
-  ];
+  lantian.firewall.zones.LAN.tcpPorts = {
+    "${LT.portStr.NFS.StatD}" = {
+      type = "local";
+    };
+    "${LT.portStr.NFS.LockD}" = {
+      type = "local";
+    };
+    "${LT.portStr.NFS.MountD}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.LAN.udpPorts = {
+    "${LT.portStr.NFS.StatD}" = {
+      type = "local";
+    };
+    "${LT.portStr.NFS.LockD}" = {
+      type = "local";
+    };
+    "${LT.portStr.NFS.MountD}" = {
+      type = "local";
+    };
+  };
 
   services.nfs.server = {
     enable = true;

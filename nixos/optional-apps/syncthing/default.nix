@@ -22,9 +22,18 @@
     # Syncthing P2P (TCP+UDP 22000) is reachable from WAN for NAT traversal;
     # the firewall preset drops this element on hosts where the DN42
     # 20000-23999 range already covers it (nftables interval conflict).
-    lantian.firewall.presets.public-firewall.allowedPorts = [
-      LT.port.Syncthing.P2P
-    ];
+    lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.Syncthing.P2P}" = {
+      type = "local";
+    };
+    lantian.firewall.zones.WAN.udpPorts."${LT.portStr.Syncthing.P2P}" = {
+      type = "local";
+    };
+    lantian.firewall.zones.DN42.tcpPorts."${LT.portStr.Syncthing.P2P}" = {
+      type = "local";
+    };
+    lantian.firewall.zones.DN42.udpPorts."${LT.portStr.Syncthing.P2P}" = {
+      type = "local";
+    };
 
     services.syncthing = {
       enable = true;

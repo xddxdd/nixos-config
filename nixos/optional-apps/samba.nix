@@ -7,13 +7,25 @@
 }:
 {
 
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
-    LT.port.Smb.NameService
-    LT.port.Smb.Datagram
-    LT.port.Smb.Session
-    LT.port.Smb.Tcp
-    LT.port.WSDD
-  ];
+  lantian.firewall.zones.LAN.udpPorts = {
+    "${LT.portStr.Smb.NameService}" = {
+      type = "local";
+    };
+    "${LT.portStr.Smb.Datagram}" = {
+      type = "local";
+    };
+    "${LT.portStr.WSDD}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.LAN.tcpPorts = {
+    "${LT.portStr.Smb.Session}" = {
+      type = "local";
+    };
+    "${LT.portStr.Smb.Tcp}" = {
+      type = "local";
+    };
+  };
 
   services.samba = {
     enable = true;

@@ -200,14 +200,47 @@ in
   };
 
   # SIP signaling on the public IP (transports.nix) plus UDP media ranges:
-  # T.38 UDPTL and RTP. The preset applies each port/range to both TCP and
-  # UDP.
-  lantian.firewall.presets.public-firewall.allowedPorts = [
-    LT.port.Asterisk.SIP.Public
-    LT.port.Asterisk.SIP.TLS
-    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}"
-    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}"
-  ];
+  # T.38 UDPTL and RTP.
+  lantian.firewall.zones.WAN.tcpPorts = {
+    "${LT.portStr.Asterisk.SIP.Public}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.SIP.TLS}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.WAN.udpPorts = {
+    "${LT.portStr.Asterisk.SIP.Public}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}" = {
+      type = "local";
+    };
+  };
+
+  # Asterisk also binds SIP directly on the DN42 addresses (transports.nix).
+  lantian.firewall.zones.DN42.tcpPorts = {
+    "${LT.portStr.Asterisk.SIP.Public}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.SIP.TLS}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.DN42.udpPorts = {
+    "${LT.portStr.Asterisk.SIP.Public}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}" = {
+      type = "local";
+    };
+    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}" = {
+      type = "local";
+    };
+  };
 
   services.fail2ban.jails = {
     asterisk = ''

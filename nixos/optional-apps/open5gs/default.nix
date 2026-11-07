@@ -59,25 +59,30 @@
     matchConfig.Name = "ogstun";
   };
 
-  lantian.firewall.chains.FILTER_INPUT.rules = [
-    {
-      priority = LT.firewallPriorities.preService;
-      text = ''
-        iifname "ogstun" tcp dport 853 reject
-        iifname "ogstun" udp dport 853 reject
-      '';
-    }
-  ];
-  lantian.firewall.chains.NAT_PREROUTING.dnat =
-    map
-      (proto: {
-        priority = LT.firewallPriorities.preService;
-        matches = [ ''iifname "ogstun" ${proto} dport 53'' ];
-        ipv4 = "192.168.0.1:53";
-        ipv6 = "[fc00:192:168::1]:53";
-      })
-      [
-        "tcp"
-        "udp"
-      ];
+  # UE traffic from the 5G tunnel: it may reach WAN, and DNS is redirected to
+  # the host resolver. Nothing may forward into this zone.
+  lantian.firewall.zones.OGSTUN = {
+    interfaces = [ "ogstun" ];
+    forwardTo = [ "WAN" ];
+    tcpPorts = {
+      "${LT.portStr.DNS}" = {
+        type = "forward";
+        ipv4 = "192.168.0.1";
+        ipv6 = "fc00:192:168::1";
+      };
+      "853" = {
+        type = "reject";
+      };
+    };
+    udpPorts = {
+      "${LT.portStr.DNS}" = {
+        type = "forward";
+        ipv4 = "192.168.0.1";
+        ipv6 = "fc00:192:168::1";
+      };
+      "853" = {
+        type = "reject";
+      };
+    };
+  };
 }

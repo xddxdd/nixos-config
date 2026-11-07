@@ -334,10 +334,27 @@ in
   systemd.packages = [ nginxConfinement ];
 
   # nginx serves the public sites on 80 (HTTP redirect) and 443; the latter
-  # also accepts UDP for HTTP/3 (the preset applies each port to both TCP and
-  # UDP).
-  lantian.firewall.presets.public-firewall.allowedPorts = [
-    LT.port.HTTP
-    LT.port.HTTPS
-  ];
+  # also accepts UDP for HTTP/3.
+  lantian.firewall.zones.WAN.tcpPorts = {
+    "${LT.portStr.HTTP}" = {
+      type = "local";
+    };
+    "${LT.portStr.HTTPS}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.WAN.udpPorts."${LT.portStr.HTTPS}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.DN42.tcpPorts = {
+    "${LT.portStr.HTTP}" = {
+      type = "local";
+    };
+    "${LT.portStr.HTTPS}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.DN42.udpPorts."${LT.portStr.HTTPS}" = {
+    type = "local";
+  };
 }

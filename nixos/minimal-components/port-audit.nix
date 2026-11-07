@@ -25,27 +25,25 @@ let
 
   rangesOverlap = x: y: x.lo <= y.hi && y.lo <= x.hi;
 
-  publicFirewall = config.lantian.firewall.presets.public-firewall;
-  # Internal ports are opened alongside the public ones on firewalled
-  # hosts (public and internal traffic arrive through the same path) and
-  # stay LTnet-only, WAN-blocked by policy, on public hosts.
-  allowedPorts =
-    publicFirewall.allowedPorts ++ lib.optionals LT.this.firewalled publicFirewall.allowedInternalPorts;
-  additionalPorts = lib.optionals (!LT.this.firewalled) publicFirewall.allowedInternalPorts;
-
-  # A port declared both publicly allowed and internal-only is a
-  # configuration contradiction; the binary re-checks it as well.
-  overlapping = lib.filter (
-    a: lib.any (b: rangesOverlap (toRange a) (toRange b)) publicFirewall.allowedPorts
-  ) publicFirewall.allowedInternalPorts;
+  # Every zone's local port entries are deliberately exposed somewhere, so
+  # the audit accepts them regardless of which zone declares them.
+  localPorts =
+    zone:
+    lib.flatten [
+      (lib.mapAttrsToList (port: e: lib.optional (e.type == "local") port) zone.tcpPorts)
+      (lib.mapAttrsToList (port: e: lib.optional (e.type == "local") port) zone.udpPorts)
+    ];
+  allowedPorts = lib.unique (
+    lib.concatMap localPorts (builtins.attrValues config.lantian.firewall.zones)
+  );
+  additionalPorts = [ ];
 
   knownViolations = config.lantian.port-audit.knownViolations;
   # A known violation that is also allowlisted is a contradiction: the
   # firewall accepts the port, so the exception would hide a real gap
   # instead of exempting a listener that is deliberately unreachable.
-  allowlisted = publicFirewall.allowedPorts ++ publicFirewall.allowedInternalPorts;
   knownViolationOverlap = lib.filter (
-    k: lib.any (a: rangesOverlap (toRange k) (toRange a)) allowlisted
+    k: lib.any (a: rangesOverlap (toRange k) (toRange a)) allowedPorts
   ) knownViolations;
 
   # Desktop clients run applications that bind wildcard ports for LAN-only
@@ -79,21 +77,17 @@ in
       Ports that are known to be bound on public or wildcard addresses
       while the firewall keeps them closed, such as a daemon's built-in
       status listener that only serves internal clients. The audit skips
-      them rather than reporting a violation. They must not overlap
-      allowedPorts or allowedInternalPorts, since an allowlisted port is
-      reachable under firewall policy and needs no exception.
+      them rather than reporting a violation. They must not overlap any
+      zone's local ports, since an allowlisted port is reachable under
+      firewall policy and needs no exception.
     '';
   };
 
   config = {
     assertions = [
       {
-        assertion = overlapping == [ ];
-        message = "lantian.firewall.presets.public-firewall.allowedInternalPorts must not overlap the public firewall's allowedPorts, overlapping: ${lib.concatStringsSep ", " (map toString overlapping)}";
-      }
-      {
         assertion = knownViolationOverlap == [ ];
-        message = "lantian.port-audit.knownViolations must not overlap the public firewall's allowedPorts or allowedInternalPorts, overlapping: ${lib.concatStringsSep ", " (map toString knownViolationOverlap)}";
+        message = "lantian.port-audit.knownViolations must not overlap any zone's local ports, overlapping: ${lib.concatStringsSep ", " (map toString knownViolationOverlap)}";
       }
     ];
 

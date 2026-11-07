@@ -1,12 +1,12 @@
-// Audit local listening sockets against the configured public-firewall
-// allowed-port list, and pin the kernel ephemeral port range that the
-// firewall rules assume.
+// Audit local listening sockets against the configured zone local-port
+// allowlist, and pin the kernel ephemeral port range that the firewall rules
+// assume.
 //
 // All inputs are environment variables (injected by the host-specific wrapper
 // from eval-time config; no live nftables query, no argv):
 // - PORT_AUDIT_ALLOWED: comma-separated port specs, `22` or `20000-23999`,
-//   copied verbatim from lantian.firewall.presets.public-firewall.allowedPorts
-//   plus allowedInternalPorts when the host is firewalled
+//   copied verbatim from every enabled zone's tcpPorts/udpPorts entries whose
+//   type is "local"
 // - PORT_AUDIT_ADDITIONAL: comma-separated port specs copied verbatim from
 //   lantian.firewall.presets.public-firewall.allowedInternalPorts on
 //   non-firewalled hosts; LTnet-only listeners that must never
@@ -14,7 +14,7 @@
 // - PORT_AUDIT_KNOWN_VIOLATIONS: comma-separated port specs copied verbatim
 //   from lantian.port-audit.knownViolations; listeners on public or wildcard
 //   addresses that the firewall deliberately keeps closed (asserted at eval
-//   time not to overlap either allowlist)
+//   time not to overlap any zone's local ports)
 // - PORT_AUDIT_EPHEMERAL: expected `lo-hi` ephemeral port range (defaults to
 //   the kernel/repo baseline 32768-60999 when unset)
 // - PORT_AUDIT_RESERVED_V4 / PORT_AUDIT_RESERVED_V6: comma-separated CIDRs

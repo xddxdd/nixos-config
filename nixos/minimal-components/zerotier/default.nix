@@ -31,11 +31,34 @@ in
   # ZeroTier listens on a fixed primary TCP+UDP port and is reachable from
   # the Internet; secondary/tertiary UDP ports are pinned per host in the
   # host's WGLanTian block so whitelists can enumerate them all.
-  lantian.firewall.presets.public-firewall.allowedPorts = [
-    LT.port.ZeroTier.Port
-    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Secondary)
-    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Tertiary)
-  ];
+  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.ZeroTier.Port}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.WAN.udpPorts = {
+    "${LT.portStr.ZeroTier.Port}" = {
+      type = "local";
+    };
+    "${LT.forwardPortStr.ZeroTier.Secondary}" = {
+      type = "local";
+    };
+    "${LT.forwardPortStr.ZeroTier.Tertiary}" = {
+      type = "local";
+    };
+  };
+  lantian.firewall.zones.DN42.tcpPorts."${LT.portStr.ZeroTier.Port}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.DN42.udpPorts = {
+    "${LT.portStr.ZeroTier.Port}" = {
+      type = "local";
+    };
+    "${LT.forwardPortStr.ZeroTier.Secondary}" = {
+      type = "local";
+    };
+    "${LT.forwardPortStr.ZeroTier.Tertiary}" = {
+      type = "local";
+    };
+  };
 
   services.zerotierone = {
     enable = true;
@@ -62,8 +85,8 @@ in
           with LT.constants.interfacePrefixes; (builtins.filter (v: v != "ns") (WAN ++ LAN))
         );
         softwareUpdate = "disable";
-        secondaryPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Secondary;
-        tertiaryPort = LT.this.wg-lantian.forwardStart + LT.portForwardOffset.ZeroTier.Tertiary;
+        secondaryPort = LT.forwardPort.ZeroTier.Secondary;
+        tertiaryPort = LT.forwardPort.ZeroTier.Tertiary;
         portMappingEnabled = !LT.this._publiclyAccessible;
         allowTcpFallbackRelay = false;
       };

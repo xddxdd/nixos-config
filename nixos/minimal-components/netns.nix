@@ -279,5 +279,21 @@ in
     lantian.harden = lib.mapAttrs' (
       n: v: lib.nameValuePair "netns-bird-${n}" { enable = "network"; }
     ) config.lantian.netns;
+
+    # Each namespace gets its own zone so its traffic can be matched before
+    # the LAN prefix (ns-* matches the LAN interface pattern). Namespaces may
+    # reach WAN by default; individual modules widen or narrow this.
+    lantian.firewall.zones = lib.mapAttrs' (
+      name: value:
+      lib.nameValuePair "NETNS_${lib.toUpper (lib.replaceStrings [ "-" "." ] [ "_" "_" ] name)}" {
+        priority = lib.mkDefault 5;
+        interfaces = lib.mkDefault [ "ns-${builtins.substring 0 12 name}" ];
+        interfaceWildcard = lib.mkDefault false;
+        sourceIPv4 = lib.mkDefault [ value.ipv4 ];
+        sourceIPv6 = lib.mkDefault [ value.ipv6 ];
+        forwardTo = lib.mkDefault [ "WAN" ];
+        udpPorts."${LT.portStr.Babel}" = lib.mkIf value.enableBird { type = "local"; };
+      }
+    ) (lib.filterAttrs (_: v: v.enable) config.lantian.netns);
   };
 }

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  port = builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.IPFS);
+  port = LT.forwardPortStr.IPFS;
 in
 {
   imports = [ ./netns-tnl-buyvm.nix ];

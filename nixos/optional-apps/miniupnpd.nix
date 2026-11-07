@@ -7,10 +7,14 @@
 }:
 {
   # SSDP and NAT-PMP are LAN-only by policy
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [
-    LT.port.SSDP
-    LT.port.NATPMP
-  ];
+  lantian.firewall.zones.LAN.udpPorts = {
+    "${LT.portStr.SSDP}" = {
+      type = "local";
+    };
+    "${LT.portStr.NATPMP}" = {
+      type = "local";
+    };
+  };
 
   services.miniupnpd = {
     enable = true;

@@ -6,7 +6,9 @@
 }:
 {
   # NMEA GPS stream is LTnet-internal
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.NMEA ];
+  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.NMEA}" = {
+    type = "local";
+  };
 
   systemd.services.nmea-static-gps-server = {
     description = "NMEA Static GPS Server";

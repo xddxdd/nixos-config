@@ -1,6 +1,5 @@
 {
   lib,
-  LT,
   ...
 }:
 let
@@ -11,20 +10,17 @@ let
       elements = { ${builtins.concatStringsSep ", " value} }
     }
   '';
-in
-rec {
-  ipv4Set = mkIpSet "ipv4_addr";
-  ipv6Set = mkIpSet "ipv6_addr";
 
-  interfaceSet = name: prefixes: ''
-    set INTERFACE_${name} {
+  mkIfnameSet = name: prefixes: ''
+    set ${name} {
       type ifname
       flags constant, interval
       elements = { ${lib.concatMapStringsSep ", " (v: v + "*") prefixes} }
     }
   '';
-
-  interfaceSets = lib.concatMapAttrsStringSep "\n" (
-    k: v: interfaceSet k v
-  ) LT.constants.interfacePrefixes;
+in
+rec {
+  ipv4Set = mkIpSet "ipv4_addr";
+  ipv6Set = mkIpSet "ipv6_addr";
+  ifnameSet = mkIfnameSet;
 }

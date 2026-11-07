@@ -37,13 +37,13 @@
   );
 
   config.lantian.firewall.chains.FILTER_OUTPUT.rules =
-    lib.mkIf config.lantian.firewall.presets.interface-sets.enable
+    lib.mkIf config.lantian.firewall.zones.WAN.enable
       (
         lib.optional (config.lantian.pipewire.roc-sink-ip != [ ]) {
           priority = LT.firewallPriorities.preService;
           text = lib.concatStringsSep "\n" (
             map (
-              ip: "oifname @INTERFACE_WAN ip daddr ${ip} udp dport 10001-10003 ip dscp set ef"
+              ip: "oifname @ZONE_WAN_INTERFACES ip daddr ${ip} udp dport 10001-10003 ip dscp set ef"
             ) config.lantian.pipewire.roc-sink-ip
           );
         }

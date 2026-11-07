@@ -12,9 +12,12 @@ let
 in
 {
   # The BT declaration port must be reachable from WAN
-  lantian.firewall.presets.public-firewall.allowedPorts = [
-    (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrentPT)
-  ];
+  lantian.firewall.zones.WAN.tcpPorts."${LT.forwardPortStr.qBitTorrentPT}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.WAN.udpPorts."${LT.forwardPortStr.qBitTorrentPT}" = {
+    type = "local";
+  };
 
   systemd.services.qbittorrent-pt = {
     description = "qbittorrent BitTorrent client";
@@ -44,9 +47,7 @@ in
         (lib.getExe pkgs.qbittorrent-nox)
         "--profile=/var/lib/qbittorrent-pt"
         "--webui-port=${LT.portStr.qBitTorrentPT.WebUI}"
-        "--torrenting-port=${
-          builtins.toString (LT.this.wg-lantian.forwardStart + LT.portForwardOffset.qBitTorrentPT)
-        }"
+        "--torrenting-port=${LT.forwardPortStr.qBitTorrentPT}"
         "--confirm-legal-notice"
       ];
       TimeoutStopSec = 1800;

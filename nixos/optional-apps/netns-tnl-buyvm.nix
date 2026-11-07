@@ -1,7 +1,6 @@
 {
   lib,
   LT,
-  config,
   ...
 }:
 {
@@ -15,12 +14,7 @@
     overrideRoutingTable = 10000 + LT.hosts.buyvm.index;
   };
 
-  lantian.firewall.chains.FILTER_FORWARD.rules =
-    lib.mkIf config.lantian.firewall.presets.interface-sets.enable
-      [
-        {
-          priority = LT.firewallPriorities.terminal;
-          text = ''iifname "ns-tnl-*" oifname @INTERFACE_WAN drop'';
-        }
-      ];
+  # The tunnel namespace routes through its own tunnel; it must not forward
+  # to WAN or DN42 through the host.
+  lantian.firewall.zones.NETNS_TNL_BUYVM.forwardTo = lib.mkForce [ ];
 }

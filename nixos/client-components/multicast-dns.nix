@@ -4,7 +4,9 @@
 }:
 {
   # mDNS is LAN-only by policy
-  lantian.firewall.presets.public-firewall.allowedInternalPorts = [ LT.port.mDNS ];
+  lantian.firewall.zones.LAN.udpPorts."${LT.portStr.mDNS}" = {
+    type = "local";
+  };
 
   services.avahi = {
     enable = true;
