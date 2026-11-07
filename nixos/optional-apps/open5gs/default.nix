@@ -62,6 +62,7 @@
   # UE traffic from the 5G tunnel: it may reach WAN, and DNS is redirected to
   # the host resolver. Nothing may forward into this zone.
   lantian.firewall.zones.OGSTUN = {
+    priority = 110;
     interfaces = [ "ogstun" ];
     forwardTo = [ "WAN" ];
     tcpPorts = {

@@ -294,6 +294,18 @@ in
           "WAN"
           "DN42"
           "LAN"
+          "LTNET"
+        ];
+      };
+      LTNET = {
+        priority = 35;
+        interfaces = interfacePrefixes.LTNET;
+        inputPolicy = "accept";
+        forwardTo = [
+          "WAN"
+          "DN42"
+          "LAN"
+          "LTNET"
         ];
       };
       WAN_CN_BLOCKED = {

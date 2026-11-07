@@ -26,7 +26,10 @@ in
     };
     lanInterfaces = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "@ZONE_LAN_INTERFACES" ];
+      default = [
+        "@ZONE_LAN_INTERFACES"
+        "@ZONE_LTNET_INTERFACES"
+      ];
       description = "Interface match expressions the redirect applies to.";
     };
   };

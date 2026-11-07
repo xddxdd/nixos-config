@@ -19,6 +19,7 @@
   };
 
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_KMS" ];
+  lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_KMS" ];
 
   systemd.services.vlmcsd = config.lantian.netns.kms.bind {
     description = "Vlmcsd";

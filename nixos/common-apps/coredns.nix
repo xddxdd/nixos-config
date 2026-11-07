@@ -19,8 +19,10 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
     "DN42"
     "WAN"
     "LAN"
+    "LTNET"
   ];
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
+  lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
 
   services.coredns = {
     enable = true;

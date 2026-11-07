@@ -10,7 +10,10 @@
     ltnet-fallback-snat.enable = false;
     masquerade.enable = false;
 
-    kms-redirect.lanInterfaces = [ ''"eth0*"'' ];
+    kms-redirect.lanInterfaces = [
+      ''"eth0*"''
+      ''"zt*"''
+    ];
 
     # Block IPv6 from Quantum Fiber
     block-ipv6 = {

@@ -198,6 +198,7 @@
   };
 
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_ONT_WEBUI_PROXY" ];
+  lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_ONT_WEBUI_PROXY" ];
 
   systemd.services.netns-instance-ont-webui-proxy = {
     after = [ "network.target" ];

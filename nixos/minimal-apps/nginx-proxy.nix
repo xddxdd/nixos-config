@@ -71,6 +71,7 @@ in
 
     lantian.firewall.zones.DN42.forwardTo = [ "NETNS_NGINX_PROXY" ];
     lantian.firewall.zones.LAN.forwardTo = [ "NETNS_NGINX_PROXY" ];
+    lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_NGINX_PROXY" ];
 
     lantian.firewall.zones = {
       WAN.tcpPorts = proxyPorts;

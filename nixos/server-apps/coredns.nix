@@ -158,10 +158,11 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   lantian.firewall.zones.NETNS_COREDNS_AUTHORITATIVE.forwardTo = [
     "DN42"
     "WAN"
-    "LAN"
+    "LTNET"
   ];
   lantian.firewall.zones.DN42.forwardTo = [ "NETNS_COREDNS_AUTHORITATIVE" ];
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_COREDNS_AUTHORITATIVE" ];
+  lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_COREDNS_AUTHORITATIVE" ];
 
   lantian.firewall.presets.dns-redirect = {
     enable = lib.mkIf config.lantian.netns.coredns-authoritative.enable true;
