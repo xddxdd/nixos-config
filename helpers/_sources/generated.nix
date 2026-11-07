@@ -30,10 +30,10 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "2026110200";
+    version = "2026110602";
     src = fetchurl {
-      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110200/rpz.delegacy.monostack.org.zone";
-      sha256 = "sha256-/9VuVUvMC8t4RgObm+5/ooXZBX6AX6syMraiGnvKjcs=";
+      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110602/rpz.delegacy.monostack.org.zone";
+      sha256 = "sha256-z1gx0rSNUMof2fAXBSgerH/PBsOhRMlNrJ1Ek0kXu50=";
     };
   };
   dn42-certificate-authority-client = {
@@ -148,15 +148,15 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "0ad2bbfd9d78881bfc7107cd02224e16a3d03984";
+    version = "8f965305dfda5e987bbf0a17a359352f50f0539d";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "0ad2bbfd9d78881bfc7107cd02224e16a3d03984";
+      rev = "8f965305dfda5e987bbf0a17a359352f50f0539d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-1APYiVyRXXoP6VyhTVqe1NdFGQGF8VsPwNbR7cq+Iuc=";
+      sha256 = "sha256-GM27H2ejbX+wEkY+IDC9JPuOHXTKclUHZCk34Vkc9ao=";
     };
     date = "2026-11-06";
   };

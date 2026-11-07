@@ -54,7 +54,7 @@
 
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/8C60FBA460FB92E6";
-    fsType = "ntfs";
+    fsType = "ntfs3";
     options = [
       "rw"
       "uid=${builtins.toString config.users.users.lantian.uid}"

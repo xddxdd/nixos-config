@@ -40,9 +40,12 @@
       "ecb"
       "fuse"
       "gcm"
+      "xts"
+    ]
+    # GHASH/POLYVAL moved to lib/crypto and are always built in since Linux 7.3
+    ++ lib.optionals (lib.versionOlder config.boot.kernelPackages.kernel.version "7.3") [
       "ghash"
       "polyval"
-      "xts"
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ "adios" ]
     ++ lib.optionals config.zramSwap.enable [

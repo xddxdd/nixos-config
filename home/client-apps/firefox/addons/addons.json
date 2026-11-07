@@ -50,9 +50,9 @@
   },
   {
     "pname": "darkreader",
-    "version": "4.9.134",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi",
-    "hash": "sha256-cAYzOVqi9jmhvtQlPicwnrZ280bVmbCuK3oEUyMuCuw=",
+    "version": "4.9.135",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5216111/darkreader-4.9.135.xpi",
+    "hash": "sha256-v+1FkdbMaYV/XtM6LTy/vFgR1bksQyPQc10vF1fi3OQ=",
     "addonId": "addon@darkreader.org"
   },
   {

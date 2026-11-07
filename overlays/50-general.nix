@@ -8,7 +8,7 @@ rec {
   # attic-server reuses this derivation with a different crate selection.
   attic-client = prev.attic-client.overrideAttrs (
     old:
-    prev.lib.optionalAttrs (prev.lib.hasInfix "-p attic-client " old.cargoBuildFlags) {
+    prev.lib.optionalAttrs (builtins.elem "--package=attic-client" old.cargoBuildFlags) {
       patches = (old.patches or [ ]) ++ [ ../patches/attic-client-nar-backpressure.patch ];
     }
   );

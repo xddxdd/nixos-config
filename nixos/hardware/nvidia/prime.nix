@@ -24,7 +24,7 @@ in
   # Enable CUDA
   hardware.graphics.enable = true;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidia_x11_beta;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaPersistenced = true;
 
