@@ -72,6 +72,14 @@ in
   # Force use original nix for Hydra hosts
   nix.package = lib.mkForce pkgs.nixVersions.latest;
 
+  # Allow proxy access through LAN/LTNET
+  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Hydra.WebUI}" = {
+    type = "local";
+  };
+  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Hydra.WebSocket}" = {
+    type = "local";
+  };
+
   services.hydra = {
     enable = true;
     # FIXME: disable failing checks

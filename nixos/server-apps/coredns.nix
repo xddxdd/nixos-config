@@ -155,7 +155,11 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     birdBindTo = [ "coredns-authoritative.service" ];
   };
 
-  lantian.firewall.zones.NETNS_COREDNS_AUTHORITATIVE.forwardTo = [ "DN42" ];
+  lantian.firewall.zones.NETNS_COREDNS_AUTHORITATIVE.forwardTo = [
+    "DN42"
+    "WAN"
+    "LAN"
+  ];
   lantian.firewall.zones.DN42.forwardTo = [ "NETNS_COREDNS_AUTHORITATIVE" ];
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_COREDNS_AUTHORITATIVE" ];
 

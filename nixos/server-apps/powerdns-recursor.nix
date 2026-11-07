@@ -79,7 +79,12 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
     birdBindTo = [ "pdns-recursor.service" ];
   };
 
-  lantian.firewall.zones.NETNS_POWERDNS_RECURSOR.forwardTo = [ "DN42" ];
+  lantian.firewall.zones.NETNS_POWERDNS_RECURSOR.forwardTo = [
+    "DN42"
+    "WAN"
+    "LAN"
+    "NETNS_COREDNS_AUTHORITATIVE"
+  ];
   lantian.firewall.zones.DN42.forwardTo = [ "NETNS_POWERDNS_RECURSOR" ];
   lantian.firewall.zones.LAN.forwardTo = [ "NETNS_POWERDNS_RECURSOR" ];
 

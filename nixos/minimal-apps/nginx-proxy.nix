@@ -69,7 +69,6 @@ in
       birdBindTo = [ "nginx-proxy.service" ];
     };
 
-    lantian.firewall.zones.NETNS_NGINX_PROXY.forwardTo = [ "DN42" ];
     lantian.firewall.zones.DN42.forwardTo = [ "NETNS_NGINX_PROXY" ];
     lantian.firewall.zones.LAN.forwardTo = [ "NETNS_NGINX_PROXY" ];
 
