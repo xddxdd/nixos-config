@@ -1,0 +1,235 @@
+# Whitelist for `nix run .#vulnix`.
+#
+# Every entry was verified by reading the NVD description and comparing it with
+# the packaged product. An entry with a `cve` key whitelists only those CVEs;
+# an entry without one whitelists every CVE of that package version.
+#
+# Name collisions with an unrelated product are keyed on the package alone and
+# list the other product's CVEs explicitly, so a future advisory on the real
+# package still shows up. Entries that pin a version are real advisories that
+# do not apply to the packaged version; the pin makes a version bump resurface
+# them for review.
+
+["ada"]
+cve = "CVE-2024-9410"
+comment = "Ada.cx Sentry SSRF; this is the Ada programming language toolchain"
+
+["avahi"]
+cve = "CVE-2021-26720"
+comment = "Debian avahi-daemon-check-dns.sh packaging script, not upstream avahi"
+
+["brotli-1.2.1"]
+comment = "CVE-2026-111497 affects brotli 1.0.3 through 1.2.0; 1.2.1 is the fixed release"
+
+["clickhouse"]
+cve = "CVE-2026-111497"
+comment = "brotli decompression overflow, not ClickHouse"
+
+["composer"]
+cve = [
+  "CVE-2023-1596",
+  "CVE-2025-3510"
+]
+comment = "tagDiv Composer WordPress plugin; this is the PHP package manager"
+
+["cups-2.4.19"]
+cve = "CVE-2022-26691"
+comment = "Apple's macOS advisory for the same logic issue; cups 2.4.19 is not affected"
+
+["cvs"]
+cve = "CVE-2022-29037"
+comment = "Jenkins CVS Plugin stored XSS"
+
+["dbus"]
+cve = [
+  "CVE-2022-42010",
+  "CVE-2022-42011",
+  "CVE-2022-42012"
+]
+comment = "the NixOS dbus config generator is named 'dbus-1' with no version, so vulnix reads it as dbus 1 and matches dbus <1.14.4 CVEs"
+
+["emoji"]
+cve = "CVE-2023-30858"
+comment = "Denosaurs npm emoji package; this is a TeX Live package"
+
+["fancybox"]
+cve = "CVE-2025-3662"
+comment = "FancyBox for WordPress plugin; this is a TeX Live package"
+
+["game-music-emu"]
+cve = [
+  "CVE-2026-0016",
+  "CVE-2026-0017",
+  "CVE-2026-0018"
+]
+comment = "Android framework CVEs (CredentialManager, Biometric, Accessibility)"
+
+["gcc"]
+cve = "CVE-2023-4039"
+comment = "DISPUTED by GCC upstream; AArch64 -fstack-protector only"
+
+["gimp-3.2.6"]
+cve = "CVE-2025-8672"
+comment = "macOS TCC permission inheritance in the bundled Python interpreter"
+
+["git"]
+cve = [
+  "CVE-2021-21684",
+  "CVE-2022-30947",
+  "CVE-2022-36882",
+  "CVE-2022-36883",
+  "CVE-2022-36884",
+  "CVE-2022-38663"
+]
+comment = "Jenkins Git Plugin"
+
+["glibc-2.44-57"]
+cve = "CVE-2026-6238"
+comment = "affects glibc up to and including 2.43"
+
+["gmp"]
+cve = "CVE-2021-43618"
+comment = "GNU MP bignum library through 6.2.1; this is a TeX Live package"
+
+["go"]
+cve = "CVE-2023-49292"
+comment = "ecies Go module, not the Go toolchain"
+
+["grafana"]
+cve = "CVE-2023-34111"
+comment = "taosdata/grafanaplugin GitHub workflow"
+
+["highlight"]
+cve = "CVE-2023-33187"
+comment = "Highlight monitoring platform; this is the source code highlighter"
+
+["hydra"]
+cve = [
+  "CVE-2023-38701",
+  "CVE-2023-42448",
+  "CVE-2023-42449",
+  "CVE-2023-42806",
+  "CVE-2026-33504"
+]
+comment = "Cardano Hydra L2 (four) and Ory Hydra OAuth server (one); the remaining five are real Hydra CI issues"
+
+["jq-1.8.2"]
+comment = "CVE-2026-44777 affects 1.8.2rc1 and earlier; 1.8.2 is the fixed release"
+
+["kitty"]
+cve = [
+  "CVE-2024-23749",
+  "CVE-2024-25003",
+  "CVE-2024-25004"
+]
+comment = "Windows KiTTY command injection and stack overflows"
+
+["kitty-0.49.2"]
+cve = "CVE-2023-48795"
+comment = "Terrapin; kitty fixed it in 0.31.3"
+
+["lapack-3"]
+comment = "nixpkgs lapack is an ABI shim around openblas with version='3'; no LAPACK source, CVE-2021-4048 does not apply"
+
+["libmpeg2"]
+cve = "CVE-2022-37416"
+comment = "Ittiam libmpeg2 fork"
+
+["liboqs-0-unstable-2026-11-06"]
+cve = [
+  "CVE-2024-36405",
+  "CVE-2024-54137",
+  "CVE-2025-48946",
+  "CVE-2025-52473"
+]
+comment = "fixed in 0.10.1, 0.12.0, 0.13.0 and 0.14.0; packaged version is 0.15.0"
+
+["malcontent"]
+cve = [
+  "CVE-2026-24845",
+  "CVE-2026-28407"
+]
+comment = "the supply-chain/YARA tool of the same name, not the parental-control library"
+
+["mercurial"]
+cve = "CVE-2022-43410"
+comment = "Jenkins Mercurial Plugin"
+
+["navigator"]
+cve = [
+  "CVE-2021-44228",
+  "CVE-2021-45046"
+]
+comment = "Log4j; this is a LaTeX beamer theme"
+
+# perl stays version-scoped: 5.42.0 is genuinely affected by three of the four
+# CVEs that 5.42.3 fixed, so a package-level entry would hide real findings.
+["perl-5.42.3"]
+comment = "all three matches are fixed in 5.42.3-RC1"
+
+["perl-5.42.3-env"]
+comment = "same CVEs as perl-5.42.3, fixed in 5.42.3-RC1"
+
+["php-calendar"]
+cve = "CVE-2022-4455"
+comment = "sproctor/php-calendar web app; this is PHP ext/calendar"
+
+["plantuml"]
+cve = [
+  "CVE-2022-1231",
+  "CVE-2022-1379",
+  "CVE-2023-3431",
+  "CVE-2023-3432",
+  "CVE-2026-0858"
+]
+comment = "Java PlantUML server; this is the plantuml LaTeX package"
+
+["protobuf-29.6"]
+cve = "CVE-2026-0994"
+comment = "Python json_format.ParseDict, not the C++ runtime"
+
+["ruby"]
+cve = "CVE-2026-97229"
+comment = "GitLab CE/EE ReDoS-to-RCE"
+
+["shellcheck"]
+cve = "CVE-2021-28794"
+comment = "unofficial ShellCheck extension for Visual Studio Code"
+
+["slideshow"]
+cve = "CVE-2022-1299"
+comment = "Slideshow WordPress plugin; this is a TeX Live package"
+
+["snappy"]
+cve = [
+  "CVE-2023-28115",
+  "CVE-2023-41330"
+]
+comment = "PHP knp-snappy library; this is Google's C++ snappy"
+
+["subversion"]
+cve = [
+  "CVE-2021-21698",
+  "CVE-2022-29046",
+  "CVE-2022-29048"
+]
+comment = "Jenkins Subversion Plugin"
+
+["tap"]
+cve = "CVE-2023-41940"
+comment = "Jenkins TAP Plugin; this is a TeX Live package"
+
+["terraform"]
+cve = "CVE-2021-36230"
+comment = "Terraform Enterprise up to 202106-1"
+
+["thrift"]
+cve = "CVE-2021-24028"
+comment = "fixed before 0.14.0; the 25 CVEs affecting 0.22.0 are real"
+
+["zlib"]
+cve = [
+  "CVE-2023-6992",
+  "CVE-2026-27820"
+]
+comment = "Cloudflare zlib fork and the Ruby zlib gem; the remaining CVEs are real"

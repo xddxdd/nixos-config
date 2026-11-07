@@ -25,6 +25,7 @@
         nvfetcher = ./nvfetcher.nix;
         update-data = ./update-data.nix;
         update-flake = ./update-flake.nix;
+        vulnix = ./vulnix.nix;
       };
     };
 }
