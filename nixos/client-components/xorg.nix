@@ -11,7 +11,7 @@
     in
     [
       "i915.enable_guc=${builtins.toString enableGucFlag}"
-      # Use XE driver for i7-11800H
+      # Use XE driver for i7-11800H, for Windows QEMU Venera driver
       "i915.force_probe=!9a60"
       "xe.force_probe=9a60"
     ];
