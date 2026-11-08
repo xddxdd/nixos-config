@@ -24,7 +24,9 @@ pkgs.testers.runNixOSTest {
       ];
       _module.args.LT = {
         hosts.colocrossing.ltnet.IPv4 = "127.0.0.1";
-        port.Loki = 3100;
+        port.VictoriaLogs = 3100;
+        this.hasTag = _: false;
+        tags.client = "client";
       };
       time.timeZone = "UTC";
       virtualisation.memorySize = 2048;

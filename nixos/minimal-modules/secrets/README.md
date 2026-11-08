@@ -42,11 +42,11 @@
 
 记录保存在 `/var/log/audit/audit.log`，单文件 25 MiB、轮转保留 5 份。syslog 转发和 `systemd-journald-audit.socket` 都保持关闭，避免两条独立路径把审计记录送回 journald。运行中的 journald 会保留已继承的 netlink FD，因此 `journald.nix` 在 socket 路由变化时触发重启；仅 mask socket 不能完成在线切换。日志包含访问路径、身份和命令行，应当作为敏感日志管理；不记录文件正文，但命令行本身也可能含敏感信息。
 
-`nixos/minimal-components/audit-loki.nix` 启动独立 Fluent Bit，直接读取原生 audit 文件并发送到现有 LTnet Loki，标签为 `job="audit",host="<主机名>"`。它用 DynamicUser（61184–65519）运行，启动时验证 UID 大于 999，因此读取和持久化队列操作不匹配服务 UID 范围。只授予 confined 根内读取 root 私有日志所需的 `CAP_DAC_READ_SEARCH`，原生日志保持只读。该实例不读取 journald；自身诊断写入 `/run/audit-loki/forwarder.log`，标准输出/错误不回送 journal，避免诊断再触发普通日志转发器。
+`nixos/minimal-components/audit-loki.nix` 在非 client 主机上启动独立 Fluent Bit，直接读取原生 audit 文件，通过 HTTP JSON Lines 发送到 LTnet VictoriaLogs，字段为 `job="audit",host="<主机名>"`。服务名和状态目录保留 `audit-loki`，以沿用已有读取位置和待发送队列。它用 DynamicUser（61184–65519）运行，启动时验证 UID 大于 999，因此读取和持久化队列操作不匹配服务 UID 范围。只授予 confined 根内读取 root 私有日志所需的 `CAP_DAC_READ_SEARCH`，原生日志保持只读。该实例不读取 journald；自身诊断写入 `/run/audit-loki/forwarder.log`，标准输出/错误不回送 journal，避免诊断再触发普通日志转发器。
 
-接收端 Loki 同样不能用受监视的 UID 写入持久目录。本项目的 `loki.nix` 使用独立 `loki-collector` 账户（UID 60000），保持原 Loki group 和 socket 权限。固定版本的 userborn 不修改已有账户的 UID，所以迁移使用新账户，由 systemd `StateDirectory` 迁移既有数据树的属主，不删除或重建数据。普通 journald 日志仍由原 Fluent Bit 转发。
+接收端 VictoriaLogs 同样不能用受监视的 UID 写入持久目录。本项目的 `victorialogs.nix` 使用独立高 UID 账户和新的 `/var/lib/victorialogs` 数据目录，不修改或删除旧 `/var/lib/loki`。固定版本的 userborn 不修改已有账户的 UID，不能仅凭修改声明就认定旧账户已完成 UID 迁移。`nixos/minimal-components/logging-victorialogs.nix` 在所有非 client 主机上转发 journald（包括 syslog）日志，不再排除低内存主机；client 主机保留本地日志和审计，但不向 VictoriaLogs 上传。
 
-读取位置和队列保存在 `/var/lib/audit-loki`，内存映射块数受限，磁盘队列上限 64 MiB；临时诊断文件有轮转。网络失败会重试，但这不是无限期或零丢失承诺：长时间离线、队列满、轮转竞争或本地 audit 丢失都可能造成缺口。Loki 时间戳是转发读取时间，原始内核事件时间仍在文本中。完整性的本地依据仍是 auditd 文件和 `auditctl -s` 的 lost/backlog，而不是仅看 Loki 是否有记录。
+读取位置和队列保存在 `/var/lib/audit-loki`，内存映射块数受限，磁盘队列上限 64 MiB；临时诊断文件有轮转。网络失败会重试，但这不是无限期或零丢失承诺：长时间离线、队列满、轮转竞争或本地 audit 丢失都可能造成缺口。VictoriaLogs 的 audit 时间戳是转发读取时间，原始内核事件时间仍在文本中。完整性的本地依据仍是 auditd 文件和 `auditctl -s` 的 lost/backlog，而不是仅看 VictoriaLogs 是否有记录。
 
 同一 inode 可经持久化 bind 别名访问，多条规则重叠时只保留第一个匹配的 key；例如持久 home 子树的服务 UID 访问会记录为 `service-home`，不会额外产生一条 `persistent-access` 副本。应结合记录的路径和 UID 分析，而不是把单一 key 当作全部访问的集合。
 
@@ -74,6 +74,6 @@ LANTIAN_SECRETS_GENERATOR=/tmp/lantian-secrets-target/debug/lantian-secrets \
 nix build --impure --no-link --file nixos/minimal-modules/secrets/tests.nix
 ```
 
-此命令启动一次性 NixOS 测试 VM，不激活任何生产主机配置。它检查生成/不重生成、权限恢复、有效/文件系统 UID、边界 UID、`service-home`/`persistent-access` 对 root/普通用户的排除、诱饵读取、拒绝访问、子挂载/bind 别名、auditd 重启、零丢失计数和重启后的持久值。还验证独立转发器的 UID、mock Loki 实际接收、故障期间缓存后补送且不审计自身、key/certificate 配对、nginx TLS 握手及证书跨重启持久化。
+此命令启动一次性 NixOS 测试 VM，不激活任何生产主机配置。它检查生成/不重生成、权限恢复、有效/文件系统 UID、边界 UID、`service-home`/`persistent-access` 对 root/普通用户的排除、诱饵读取、拒绝访问、子挂载/bind 别名、auditd 重启、零丢失计数和重启后的持久值。还验证独立转发器的 UID、mock 接收器实际接收 JSON Lines、故障期间缓存后补送且不审计自身、key/certificate 配对、nginx TLS 握手及证书跨重启持久化。
 
 新文件尚未进入 Git 索引时，用 `path:$PWD` 的 flake 引用求值；Git flake 只包含已跟踪文件。

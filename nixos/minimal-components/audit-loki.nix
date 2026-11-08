@@ -40,13 +40,15 @@ let
       ];
       outputs = [
         {
-          name = "loki";
+          name = "http";
           match = "audit";
           host = LT.hosts.colocrossing.ltnet.IPv4;
-          port = LT.port.Loki;
+          port = LT.port.VictoriaLogs;
           tls = "off";
-          labels = "job=audit,host=${config.networking.hostName}";
-          line_format = "json";
+          uri = "/insert/jsonline?_stream_fields=job,host&_msg_field=log&_time_field=date&extra_fields=job=audit,host=${config.networking.hostName}";
+          format = "json_lines";
+          json_date_key = "date";
+          json_date_format = "iso8601";
           compress = "gzip";
           "storage.total_limit_size" = "64M";
           retry_limit = "no_limits";
@@ -56,9 +58,10 @@ let
   };
 in
 {
-  config = lib.mkIf config.security.auditd.enable {
+  config = lib.mkIf (config.security.auditd.enable && !(LT.this.hasTag LT.tags.client)) {
+    # 保留服务名和状态目录，沿用已有读取位置及待发送队列。
     systemd.services.audit-loki = {
-      description = "Stream native audit records directly to Loki";
+      description = "Stream native audit records directly to VictoriaLogs";
       wantedBy = [ "multi-user.target" ];
       after = [
         "auditd.service"

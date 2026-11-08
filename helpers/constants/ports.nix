@@ -30,7 +30,7 @@ rec {
     GTPU = 2152; # GTP-U user plane (base station <-> LTE core)
     SSH = 2222;
     Xvcd = 2542; # Xilinx Virtual Cable daemon
-    Loki = 3100;
+    VictoriaLogs = 3100;
     SpiceProxy = 3128; # Proxmox VE SPICE web proxy
     Bitmagnet = 3333;
     NFS.StatD = 4000;

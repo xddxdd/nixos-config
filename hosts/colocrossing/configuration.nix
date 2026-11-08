@@ -26,7 +26,6 @@
     ../../nixos/optional-apps/gitea
     ../../nixos/optional-apps/gitea-actions.nix
     ../../nixos/optional-apps/imapfilter.nix
-    ../../nixos/optional-apps/loki.nix
     ../../nixos/optional-apps/matrix-synapse
     ../../nixos/optional-apps/miniflux.nix
     ../../nixos/optional-apps/netbox.nix
@@ -42,6 +41,7 @@
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tg-bot-cleaner-bot
     # ../../nixos/optional-apps/tranquil-pds.nix
+    ../../nixos/optional-apps/victorialogs.nix
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/wordpress.nix
     ../../nixos/optional-apps/zerotierone-controller.nix

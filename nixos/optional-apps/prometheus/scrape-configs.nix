@@ -60,11 +60,11 @@ in
       ];
     }
     (scrapeByAttr {
-      jobName = "loki";
-      port = LT.port.Loki;
+      jobName = "victorialogs";
+      port = LT.port.VictoriaLogs;
       attrPath = [
         "services"
-        "loki"
+        "victorialogs"
         "enable"
       ];
     })
