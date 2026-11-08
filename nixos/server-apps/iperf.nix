@@ -30,6 +30,10 @@
   };
   lantian.harden.iperf3.enable = true;
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.IPerf}".type = "local";
+  };
+
   systemd.sockets.iperf3 = {
     listenStreams = [ "${LT.this.ltnet.IPv4}:${LT.portStr.IPerf}" ];
     socketConfig = {

@@ -78,4 +78,8 @@
     enable = true;
   };
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.BazarrExporter}".type = "local";
+  };
+
 }

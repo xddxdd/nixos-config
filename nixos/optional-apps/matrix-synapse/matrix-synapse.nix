@@ -261,8 +261,8 @@
   };
 
   # Matrix federation must be reachable from WAN
-  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.Matrix.Public}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN.tcpPorts."${LT.portStr.Matrix.Public}".type = "local";
   };
 
   lantian.nginxVhosts."matrix-federation.lantian.pub" = {

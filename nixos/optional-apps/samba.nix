@@ -5,26 +5,23 @@
   config,
   ...
 }:
-{
-
-  lantian.firewall.zones.LAN.udpPorts = {
-    "${LT.portStr.Smb.NameService}" = {
-      type = "local";
+let
+  sambaPorts = {
+    udpPorts = {
+      "${LT.portStr.Smb.NameService}".type = "local";
+      "${LT.portStr.Smb.Datagram}".type = "local";
+      "${LT.portStr.WSDD}".type = "local";
     };
-    "${LT.portStr.Smb.Datagram}" = {
-      type = "local";
-    };
-    "${LT.portStr.WSDD}" = {
-      type = "local";
+    tcpPorts = {
+      "${LT.portStr.Smb.Session}".type = "local";
+      "${LT.portStr.Smb.Tcp}".type = "local";
     };
   };
-  lantian.firewall.zones.LAN.tcpPorts = {
-    "${LT.portStr.Smb.Session}" = {
-      type = "local";
-    };
-    "${LT.portStr.Smb.Tcp}" = {
-      type = "local";
-    };
+in
+{
+  lantian.firewall.zones = {
+    LAN = sambaPorts;
+    LTNET = sambaPorts;
   };
 
   services.samba = {

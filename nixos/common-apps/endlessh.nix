@@ -41,8 +41,8 @@ in
   };
 
   # Decoy SSH listener that is intentionally reachable from the Internet
-  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.Endlessh}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN.tcpPorts."${LT.portStr.Endlessh}".type = "local";
   };
 
   # Upstream module already chroots endlessh (RootDirectory=/run/endlessh)

@@ -12,11 +12,9 @@ let
 in
 {
   # The BT declaration port must be reachable from WAN
-  lantian.firewall.zones.WAN.tcpPorts."${LT.forwardPortStr.qBitTorrentPT}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.WAN.udpPorts."${LT.forwardPortStr.qBitTorrentPT}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN.tcpPorts."${LT.forwardPortStr.qBitTorrentPT}".type = "local";
+    WAN.udpPorts."${LT.forwardPortStr.qBitTorrentPT}".type = "local";
   };
 
   systemd.services.qbittorrent-pt = {

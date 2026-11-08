@@ -8,6 +8,9 @@ let
   dataDir = config.services.loki.dataDir;
   retention = "720h";
   httpSocket = "/run/loki/http.sock";
+  lokiPort = {
+    "${LT.portStr.Loki}".type = "local";
+  };
   proxyLocation = {
     proxyPass = "http://unix:${httpSocket}";
     proxyWebsockets = true;
@@ -132,8 +135,8 @@ in
 
   # The Loki nginx vhost binds a wildcard HTTP listener on port 3100;
   # it is LTnet-internal (accessibleBy = "private").
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Loki}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    LTNET.tcpPorts = lokiPort;
   };
 
   lantian.nginxVhosts.loki = {

@@ -7,6 +7,23 @@
   ...
 }@args:
 let
+  sipPorts = {
+    tcpPorts = {
+      "${LT.portStr.Asterisk.SIP.Public}".type = "local";
+      "${LT.portStr.Asterisk.SIP.TLS}".type = "local";
+    };
+    udpPorts = {
+      "${LT.portStr.Asterisk.SIP.Public}".type = "local";
+      "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}".type = "local";
+      "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}".type = "local";
+    };
+  };
+  ltnetSipPorts = sipPorts // {
+    tcpPorts = sipPorts.tcpPorts // {
+      "${LT.portStr.Prometheus.Asterisk}".type = "local";
+    };
+  };
+
   # keep-sorted start
   inherit (pkgs.callPackage ./extensions.nix args) extensions;
   inherit (pkgs.callPackage ./external-trunks.nix args) externalTrunk;
@@ -199,47 +216,12 @@ in
     };
   };
 
-  # SIP signaling on the public IP (transports.nix) plus UDP media ranges:
-  # T.38 UDPTL and RTP.
-  lantian.firewall.zones.WAN.tcpPorts = {
-    "${LT.portStr.Asterisk.SIP.Public}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.SIP.TLS}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.WAN.udpPorts = {
-    "${LT.portStr.Asterisk.SIP.Public}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}" = {
-      type = "local";
-    };
-  };
-
-  # Asterisk also binds SIP directly on the DN42 addresses (transports.nix).
-  lantian.firewall.zones.DN42.tcpPorts = {
-    "${LT.portStr.Asterisk.SIP.Public}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.SIP.TLS}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.DN42.udpPorts = {
-    "${LT.portStr.Asterisk.SIP.Public}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.UDPTL.Start}-${LT.portStr.Asterisk.UDPTL.End}" = {
-      type = "local";
-    };
-    "${LT.portStr.Asterisk.RTP.Start}-${LT.portStr.Asterisk.RTP.End}" = {
-      type = "local";
-    };
+  # SIP signaling on the public IP, DN42 addresses and LTnet IPv6
+  # (transports.nix) plus UDP media ranges: T.38 UDPTL and RTP.
+  lantian.firewall.zones = {
+    WAN = sipPorts;
+    DN42 = sipPorts;
+    LTNET = ltnetSipPorts;
   };
 
   services.fail2ban.jails = {

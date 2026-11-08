@@ -254,24 +254,22 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
 
   # Game-acceleration clients arrive on ovpn-gameacc with ltnet addresses,
   # so they need their own zone ahead of LAN to keep the WAN allowlist.
-  lantian.firewall.zones.OVPN_GAMEACC = {
-    priority = 15;
-    interfaces = [ "ovpn-gameacc" ];
-    inputPolicy = "reject";
-    allowEphemeral = true;
-    tcpPorts = config.lantian.firewall.zones.WAN.tcpPorts;
-    udpPorts = config.lantian.firewall.zones.WAN.udpPorts;
-    allowedIpProtocols = config.lantian.firewall.zones.WAN.allowedIpProtocols;
-    forwardTo = [ "WAN" ];
-  };
-  lantian.firewall.zones.WAN_CN_BLOCKED.udpPorts."${LT.portStr.OpenVPN.GameAccel}" = {
-    type = "reject";
-  };
-  # Only the cn-accel servers actually run the OpenVPN game accelerator;
-  # keep the whitelist narrow on hosts without the service.
-  lantian.firewall.zones.WAN.udpPorts = lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
-    "${LT.portStr.OpenVPN.GameAccel}" = {
-      type = "local";
+  lantian.firewall.zones = {
+    OVPN_GAMEACC = {
+      priority = 15;
+      interfaces = [ "ovpn-gameacc" ];
+      inputPolicy = "reject";
+      allowEphemeral = true;
+      tcpPorts = config.lantian.firewall.zones.WAN.tcpPorts;
+      udpPorts = config.lantian.firewall.zones.WAN.udpPorts;
+      allowedIpProtocols = config.lantian.firewall.zones.WAN.allowedIpProtocols;
+      forwardTo = [ "WAN" ];
+    };
+    WAN_CN_BLOCKED.udpPorts."${LT.portStr.OpenVPN.GameAccel}".type = "reject";
+    # Only the cn-accel servers actually run the OpenVPN game accelerator;
+    # keep the whitelist narrow on hosts without the service.
+    WAN.udpPorts = lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
+      "${LT.portStr.OpenVPN.GameAccel}".type = "local";
     };
   };
 

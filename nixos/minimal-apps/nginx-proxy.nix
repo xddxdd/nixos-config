@@ -69,14 +69,20 @@ in
       birdBindTo = [ "nginx-proxy.service" ];
     };
 
-    lantian.firewall.zones.DN42.forwardTo = [ "NETNS_NGINX_PROXY" ];
-    lantian.firewall.zones.LAN.forwardTo = [ "NETNS_NGINX_PROXY" ];
-    lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_NGINX_PROXY" ];
-
     lantian.firewall.zones = {
+      DN42 = {
+        forwardTo = [ "NETNS_NGINX_PROXY" ];
+        tcpPorts = proxyPorts;
+      };
+      LAN = {
+        forwardTo = [ "NETNS_NGINX_PROXY" ];
+        tcpPorts = proxyPorts;
+      };
+      LTNET = {
+        forwardTo = [ "NETNS_NGINX_PROXY" ];
+        tcpPorts = proxyPorts;
+      };
       WAN.tcpPorts = proxyPorts;
-      DN42.tcpPorts = proxyPorts;
-      LAN.tcpPorts = proxyPorts;
     };
 
     systemd.services.nginx-proxy = netns.bind {

@@ -17,15 +17,17 @@ in
 {
   # Forward wg-lantian port ranges from this host's public addresses to each
   # host's tnl-buyvm network namespace.
-  lantian.firewall.zones.WAN.tcpPorts = lib.listToAttrs (
-    map (f: {
-      name = f.ports;
-      value = {
-        type = "forward";
-        inherit (f) ipv4 ipv6;
-      };
-    }) forwards
-  );
+  lantian.firewall.zones = {
+    WAN.tcpPorts = lib.listToAttrs (
+      map (f: {
+        name = f.ports;
+        value = {
+          type = "forward";
+          inherit (f) ipv4 ipv6;
+        };
+      }) forwards
+    );
+  };
 
   # The provider routes the whole IPv6 /48 to this host, so the per-host
   # subnet addresses are not local and need an explicit destination match.

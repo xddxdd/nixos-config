@@ -1,4 +1,8 @@
-{ serviceHardenArgs, LT, ... }:
+{
+  serviceHardenArgs,
+  LT,
+  ...
+}:
 {
   systemd.services."prometheus-node-exporter".serviceConfig = {
     RestartSec = "5s";
@@ -28,5 +32,9 @@
       listenAddress = LT.this.ltnet.IPv4;
       enabledCollectors = [ "systemd" ];
     };
+  };
+
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.NodeExporter}".type = "local";
   };
 }

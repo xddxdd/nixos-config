@@ -23,4 +23,12 @@
   };
 
   users.users.lantian.extraGroups = [ "libvirtd" ];
+
+  # libvirt's dnsmasq serves DHCP and DNS to guests on virbr*.
+  lantian.firewall.zones = {
+    LAN = {
+      ports."53".type = "local";
+      udpPorts."67".type = "local";
+    };
+  };
 }

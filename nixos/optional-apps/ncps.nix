@@ -41,4 +41,8 @@
   };
 
   systemd.services.ncps.serviceConfig.RestartSec = "5s";
+
+  lantian.firewall.zones = {
+    LAN.tcpPorts."${LT.portStr.Ncps}".type = "local";
+  };
 }

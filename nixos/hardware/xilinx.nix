@@ -11,8 +11,8 @@
     xdma
   ];
 
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Xvcd}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    LAN.tcpPorts."${LT.portStr.Xvcd}".type = "local";
   };
 
   systemd.services.xvcd = {

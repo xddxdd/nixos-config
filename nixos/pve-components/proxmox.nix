@@ -1,13 +1,15 @@
 { LT, ... }:
+let
+  proxmoxPorts = {
+    "${LT.portStr.Proxmox}".type = "local";
+    "${LT.portStr.SpiceProxy}".type = "local";
+  };
+in
 {
-  # PVE web UI and SPICE proxy are LTnet-internal
-  lantian.firewall.zones.LAN.tcpPorts = {
-    "${LT.portStr.Proxmox}" = {
-      type = "local";
-    };
-    "${LT.portStr.SpiceProxy}" = {
-      type = "local";
-    };
+  # PVE web UI and SPICE proxy are LAN/LTnet-internal
+  lantian.firewall.zones = {
+    LAN.tcpPorts = proxmoxPorts;
+    LTNET.tcpPorts = proxmoxPorts;
   };
 
   imports = [ ../hardware/vfio.nix ];

@@ -7,6 +7,11 @@
   ...
 }:
 let
+  hydraPorts = {
+    "${LT.portStr.Hydra.WebUI}".type = "local";
+    "${LT.portStr.Hydra.WebSocket}".type = "local";
+  };
+
   hydraServices = [
     "hydra-builder"
     "hydra-check-space"
@@ -72,12 +77,9 @@ in
   # Force use original nix for Hydra hosts
   nix.package = lib.mkForce pkgs.nixVersions.latest;
 
-  # Allow proxy access through LAN/LTNET
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Hydra.WebUI}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.Hydra.WebSocket}" = {
-    type = "local";
+  # Allow proxy access through LTNET
+  lantian.firewall.zones = {
+    LTNET.tcpPorts = hydraPorts;
   };
 
   services.hydra = {

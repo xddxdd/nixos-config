@@ -1,5 +1,4 @@
 {
-  lib,
   LT,
   ...
 }:
@@ -16,5 +15,7 @@
 
   # The tunnel namespace routes through its own tunnel; it must not forward
   # to WAN or DN42 through the host.
-  lantian.firewall.zones.NETNS_TNL_BUYVM.forwardTo = lib.mkForce [ ];
+  lantian.firewall.zones = {
+    NETNS_TNL_BUYVM.forwardTo = [ "LTNET" ];
+  };
 }

@@ -99,6 +99,10 @@ in
     passwordPath = config.lantian.secrets.nut-pass.path;
   };
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.NUTExporter}".type = "local";
+  };
+
   systemd.services.upsd = lib.mkIf config.power.ups.enable {
     # Upstream orders upsd after upsmon; use daemon-before-monitor instead.
     after = lib.mkForce [

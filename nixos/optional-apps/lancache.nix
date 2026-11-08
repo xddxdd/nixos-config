@@ -106,5 +106,9 @@ in
 
     systemd.services."podman-lancache-dns".serviceConfig.RestartSec = "5s";
     systemd.services."podman-lancache-monolithic".serviceConfig.RestartSec = "5s";
+
+    lantian.firewall.zones = {
+      LAN.ports."${LT.portStr.LanCacheDNS}".type = "local";
+    };
   };
 }

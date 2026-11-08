@@ -7,12 +7,10 @@
 }:
 {
   # SSDP and NAT-PMP are LAN-only by policy
-  lantian.firewall.zones.LAN.udpPorts = {
-    "${LT.portStr.SSDP}" = {
-      type = "local";
-    };
-    "${LT.portStr.NATPMP}" = {
-      type = "local";
+  lantian.firewall.zones = {
+    LAN.udpPorts = {
+      "${LT.portStr.SSDP}".type = "local";
+      "${LT.portStr.NATPMP}".type = "local";
     };
   };
 

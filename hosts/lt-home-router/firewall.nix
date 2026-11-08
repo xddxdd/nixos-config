@@ -3,6 +3,20 @@
   lib,
   ...
 }:
+let
+  # Port forwards from the public IP to the homelab host; LAN clients
+  # reaching the public IP hit the same forwards (hairpin NAT).
+  hairpinPorts = {
+    tcpPorts."31080-31089" = {
+      type = "forward";
+      ipv4 = "192.168.0.2";
+    };
+    udpPorts."22547" = {
+      type = "forward";
+      ipv4 = "192.168.0.2";
+    };
+  };
+in
 {
   lantian.firewall.presets = {
     # Generic presets that don't apply to this router
@@ -53,18 +67,13 @@
   lantian.firewall.zones = {
     # eth0* is the LAN side of this router, even though it matches the WAN
     # eth* prefix; eth1* is the actual WAN uplink.
-    LAN.interfaces = [ "eth0" ];
-    WAN = {
+    # Hairpin NAT: LAN clients reaching the router's public IP hit the same
+    # forwards as WAN clients.
+    LAN = hairpinPorts // {
+      interfaces = [ "eth0" ];
+    };
+    WAN = hairpinPorts // {
       interfaces = lib.mkForce [ "eth1" ];
-      # Port forwards from the public IP to the homelab host.
-      tcpPorts."31080-31089" = {
-        type = "forward";
-        ipv4 = "192.168.0.2";
-      };
-      udpPorts."22547" = {
-        type = "forward";
-        ipv4 = "192.168.0.2";
-      };
     };
     # henet is the IPv6 tunnel; its input was never filtered by the old
     # WAN zone, so keep it accept-all and only forward the explicit port
@@ -80,19 +89,6 @@
     };
     DN42.enable = false;
     WAN_CN_BLOCKED.enable = false;
-  };
-
-  # Hairpin NAT: LAN clients reaching the router's public IP hit the same
-  # forwards as WAN clients.
-  lantian.firewall.zones.LAN = {
-    tcpPorts."31080-31089" = {
-      type = "forward";
-      ipv4 = "192.168.0.2";
-    };
-    udpPorts."22547" = {
-      type = "forward";
-      ipv4 = "192.168.0.2";
-    };
   };
 
   # IPv6 addresses of hosts on the same home-lan interconnect; hosts

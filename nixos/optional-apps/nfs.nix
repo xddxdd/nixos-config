@@ -4,6 +4,14 @@
   config,
   ...
 }:
+let
+  nfsPorts = {
+    "${LT.portStr.NFS.Port}".type = "local";
+    "${LT.portStr.NFS.StatD}".type = "local";
+    "${LT.portStr.NFS.LockD}".type = "local";
+    "${LT.portStr.NFS.MountD}".type = "local";
+  };
+in
 {
 
   boot.extraModprobeConfig = ''
@@ -11,28 +19,10 @@
     options nfsd nfs4_disable_idmapping=1
   '';
 
-  # NFSv3 helper ports (statd/lockd/mountd) are LTnet-internal
-  lantian.firewall.zones.LAN.tcpPorts = {
-    "${LT.portStr.NFS.StatD}" = {
-      type = "local";
-    };
-    "${LT.portStr.NFS.LockD}" = {
-      type = "local";
-    };
-    "${LT.portStr.NFS.MountD}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.LAN.udpPorts = {
-    "${LT.portStr.NFS.StatD}" = {
-      type = "local";
-    };
-    "${LT.portStr.NFS.LockD}" = {
-      type = "local";
-    };
-    "${LT.portStr.NFS.MountD}" = {
-      type = "local";
-    };
+  # NFS server and v3 helper ports are LAN/LTnet-internal
+  lantian.firewall.zones = {
+    LAN.ports = nfsPorts;
+    LTNET.ports = nfsPorts;
   };
 
   services.nfs.server = {

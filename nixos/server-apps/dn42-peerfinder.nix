@@ -16,8 +16,8 @@
 
   config = lib.mkIf (config.services.dn42-peerfinder.secretFile != null) {
     # Public peer-finder endpoint
-    lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.DN42Peerfinder}" = {
-      type = "local";
+    lantian.firewall.zones = {
+      WAN.tcpPorts."${LT.portStr.DN42Peerfinder}".type = "local";
     };
 
     systemd.services.dn42-peerfinder = {

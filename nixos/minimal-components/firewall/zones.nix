@@ -35,91 +35,103 @@ let
     };
   };
 
-  zoneType = lib.types.submodule {
-    options = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
+  zoneType = lib.types.submodule (
+    { config, ... }:
+    {
+      options = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+        };
+        priority = lib.mkOption {
+          type = lib.types.int;
+          default = 100;
+          description = ''
+            Dispatch order; lower numbers match first. A subzone uses a lower
+            number than its parent so it can special-case traffic the parent
+            would otherwise claim.
+          '';
+        };
+        interfaces = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "Interface name patterns; a trailing * is appended to each unless interfaceWildcard is false.";
+        };
+        interfaceWildcard = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Append a trailing * to each interface name. Disable for exact interface names.";
+        };
+        sourceIPv4 = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "IPv4 source CIDRs belonging to this zone.";
+        };
+        sourceIPv6 = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "IPv6 source CIDRs belonging to this zone.";
+        };
+        sourceIPv4Exclude = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "IPv4 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
+        };
+        sourceIPv6Exclude = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "IPv6 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
+        };
+        tcpPorts = lib.mkOption {
+          type = lib.types.attrsOf portEntryType;
+          default = { };
+          description = "TCP ports of traffic from this zone destined to localhost.";
+        };
+        udpPorts = lib.mkOption {
+          type = lib.types.attrsOf portEntryType;
+          default = { };
+          description = "UDP ports of traffic from this zone destined to localhost.";
+        };
+        ports = lib.mkOption {
+          type = lib.types.attrsOf portEntryType;
+          default = { };
+          description = "Ports exposed on both TCP and UDP.";
+        };
+        forwardTo = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "Zones this zone may forward traffic to.";
+        };
+        inputPolicy = lib.mkOption {
+          type = lib.types.enum [
+            "accept"
+            "reject"
+            "return"
+          ];
+          default = "reject";
+          description = ''
+            Terminal policy of the zone input chain. "return" falls through to
+            the next matching zone, which is how a source-only subzone blocks a
+            subset of ports and leaves the rest to its parent.
+          '';
+        };
+        allowEphemeral = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Accept the local ephemeral port range.";
+        };
+        allowedIpProtocols = lib.mkOption {
+          type = lib.types.listOf lib.types.int;
+          default = [ ];
+          description = "IPv4 protocol numbers accepted from this zone (e.g. 41 for SIT).";
+        };
       };
-      priority = lib.mkOption {
-        type = lib.types.int;
-        default = 100;
-        description = ''
-          Dispatch order; lower numbers match first. A subzone uses a lower
-          number than its parent so it can special-case traffic the parent
-          would otherwise claim.
-        '';
+      config = {
+        tcpPorts = config.ports;
+        udpPorts = config.ports;
       };
-      interfaces = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "Interface name patterns; a trailing * is appended to each unless interfaceWildcard is false.";
-      };
-      interfaceWildcard = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Append a trailing * to each interface name. Disable for exact interface names.";
-      };
-      sourceIPv4 = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "IPv4 source CIDRs belonging to this zone.";
-      };
-      sourceIPv6 = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "IPv6 source CIDRs belonging to this zone.";
-      };
-      sourceIPv4Exclude = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "IPv4 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
-      };
-      sourceIPv6Exclude = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "IPv6 source CIDRs carved out of this zone's source match, so they fall through to a later zone.";
-      };
-      tcpPorts = lib.mkOption {
-        type = lib.types.attrsOf portEntryType;
-        default = { };
-        description = "TCP ports of traffic from this zone destined to localhost.";
-      };
-      udpPorts = lib.mkOption {
-        type = lib.types.attrsOf portEntryType;
-        default = { };
-        description = "UDP ports of traffic from this zone destined to localhost.";
-      };
-      forwardTo = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "Zones this zone may forward traffic to.";
-      };
-      inputPolicy = lib.mkOption {
-        type = lib.types.enum [
-          "accept"
-          "reject"
-          "return"
-        ];
-        default = "reject";
-        description = ''
-          Terminal policy of the zone input chain. "return" falls through to
-          the next matching zone, which is how a source-only subzone blocks a
-          subset of ports and leaves the rest to its parent.
-        '';
-      };
-      allowEphemeral = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Accept the local ephemeral port range.";
-      };
-      allowedIpProtocols = lib.mkOption {
-        type = lib.types.listOf lib.types.int;
-        default = [ ];
-        description = "IPv4 protocol numbers accepted from this zone (e.g. 41 for SIT).";
-      };
-    };
-  };
+    }
+  );
 
   zoneId = name: lib.toUpper (lib.replaceStrings [ "-" "." ] [ "_" "_" ] name);
 
@@ -129,6 +141,13 @@ let
   );
 
   ephemeralPortRange = "${LT.portStr.Ephemeral.Start}-${LT.portStr.Ephemeral.End}";
+
+  internalForwardTo = [
+    "WAN"
+    "DN42"
+    "LAN"
+    "LTNET"
+  ];
 
   portRules =
     proto: ports:
@@ -289,24 +308,12 @@ in
         sourceIPv6 = lib.unique (
           LT.constants.reserved.IPv6 ++ LT.this.interconnect.internalIPv6Ranges ++ LT.constants.ltnet.IPv6
         );
-        inputPolicy = "accept";
-        forwardTo = [
-          "WAN"
-          "DN42"
-          "LAN"
-          "LTNET"
-        ];
+        forwardTo = internalForwardTo;
       };
       LTNET = {
         priority = 35;
         interfaces = interfacePrefixes.LTNET;
-        inputPolicy = "accept";
-        forwardTo = [
-          "WAN"
-          "DN42"
-          "LAN"
-          "LTNET"
-        ];
+        forwardTo = internalForwardTo;
       };
       WAN_CN_BLOCKED = {
         priority = 50;

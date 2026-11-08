@@ -8,6 +8,10 @@
     port = LT.port.Prometheus.RasdaemonExporter;
   };
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.RasdaemonExporter}".type = "local";
+  };
+
   systemd.services.rasdaemon.serviceConfig = {
     RestartSec = "5s";
     # rasdaemon reads /proc/{mounts,cpuinfo}, EDAC/mce state, mounts

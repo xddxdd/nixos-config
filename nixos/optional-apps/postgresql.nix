@@ -108,4 +108,11 @@ in
     enable = true;
     postgresql = true;
   };
+
+  lantian.firewall.zones = {
+    LTNET.tcpPorts = {
+      "${LT.portStr.PostgreSQL}".type = "local";
+      "${LT.portStr.Prometheus.PostgresExporter}".type = "local";
+    };
+  };
 }

@@ -8,6 +8,10 @@
     port = LT.port.Prometheus.SmartctlExporter;
   };
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.SmartctlExporter}".type = "local";
+  };
+
   systemd.services."prometheus-smartctl-exporter".serviceConfig = {
     RestartSec = "5s";
     # Reads SMART data via device ioctls

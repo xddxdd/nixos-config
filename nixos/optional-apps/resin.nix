@@ -47,6 +47,10 @@
   };
   lantian.harden.resin.enable = true;
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Resin}".type = "local";
+  };
+
   users.users.resin = {
     group = "resin";
     isSystemUser = true;

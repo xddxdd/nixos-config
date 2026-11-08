@@ -2,15 +2,11 @@
 {
   # ROC receiver binds 0.0.0.0 on the source/repair/control ports; LAN/LTnet
   # only by policy (public firewall preset rejects them from WAN).
-  lantian.firewall.zones.LAN.udpPorts = {
-    "${LT.portStr.Pipewire.Roc.Start}" = {
-      type = "local";
-    };
-    "${builtins.toString (LT.port.Pipewire.Roc.Start + 1)}" = {
-      type = "local";
-    };
-    "${LT.portStr.Pipewire.Roc.End}" = {
-      type = "local";
+  lantian.firewall.zones = {
+    LAN.udpPorts = {
+      "${LT.portStr.Pipewire.Roc.Start}".type = "local";
+      "${builtins.toString (LT.port.Pipewire.Roc.Start + 1)}".type = "local";
+      "${LT.portStr.Pipewire.Roc.End}".type = "local";
     };
   };
 

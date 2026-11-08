@@ -9,6 +9,11 @@
 let
   unixHashedPassword = import (inputs.secrets + "/user-hashed-password.nix");
 
+  webPorts = {
+    tcpPorts."${LT.portStr.HTTP}".type = "local";
+    ports."${LT.portStr.HTTPS}".type = "local";
+  };
+
   nginxConfinement = pkgs.writeTextFile {
     name = "nginx-confinement";
     destination = "/lib/systemd/system/nginx.service.d/nginx-root.conf";
@@ -335,26 +340,10 @@ in
 
   # nginx serves the public sites on 80 (HTTP redirect) and 443; the latter
   # also accepts UDP for HTTP/3.
-  lantian.firewall.zones.WAN.tcpPorts = {
-    "${LT.portStr.HTTP}" = {
-      type = "local";
-    };
-    "${LT.portStr.HTTPS}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.WAN.udpPorts."${LT.portStr.HTTPS}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.DN42.tcpPorts = {
-    "${LT.portStr.HTTP}" = {
-      type = "local";
-    };
-    "${LT.portStr.HTTPS}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.DN42.udpPorts."${LT.portStr.HTTPS}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN = webPorts;
+    DN42 = webPorts;
+    LAN = webPorts;
+    LTNET = webPorts;
   };
 }

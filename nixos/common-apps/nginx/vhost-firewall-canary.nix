@@ -26,8 +26,8 @@ in
       extraConfig = "access_log off;";
     };
   };
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.FirewallCanary}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    LAN.tcpPorts."${LT.portStr.FirewallCanary}".type = "local";
   };
 
   assertions = [

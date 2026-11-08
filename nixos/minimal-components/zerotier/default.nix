@@ -31,32 +31,22 @@ in
   # ZeroTier listens on a fixed primary TCP+UDP port and is reachable from
   # the Internet; secondary/tertiary UDP ports are pinned per host in the
   # host's WGLanTian block so whitelists can enumerate them all.
-  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.ZeroTier.Port}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.WAN.udpPorts = {
-    "${LT.portStr.ZeroTier.Port}" = {
-      type = "local";
+  lantian.firewall.zones = {
+    WAN = {
+      tcpPorts."${LT.portStr.ZeroTier.Port}".type = "local";
+      udpPorts = {
+        "${LT.portStr.ZeroTier.Port}".type = "local";
+        "${LT.forwardPortStr.ZeroTier.Secondary}".type = "local";
+        "${LT.forwardPortStr.ZeroTier.Tertiary}".type = "local";
+      };
     };
-    "${LT.forwardPortStr.ZeroTier.Secondary}" = {
-      type = "local";
-    };
-    "${LT.forwardPortStr.ZeroTier.Tertiary}" = {
-      type = "local";
-    };
-  };
-  lantian.firewall.zones.DN42.tcpPorts."${LT.portStr.ZeroTier.Port}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.DN42.udpPorts = {
-    "${LT.portStr.ZeroTier.Port}" = {
-      type = "local";
-    };
-    "${LT.forwardPortStr.ZeroTier.Secondary}" = {
-      type = "local";
-    };
-    "${LT.forwardPortStr.ZeroTier.Tertiary}" = {
-      type = "local";
+    DN42 = {
+      tcpPorts."${LT.portStr.ZeroTier.Port}".type = "local";
+      udpPorts = {
+        "${LT.portStr.ZeroTier.Port}".type = "local";
+        "${LT.forwardPortStr.ZeroTier.Secondary}".type = "local";
+        "${LT.forwardPortStr.ZeroTier.Tertiary}".type = "local";
+      };
     };
   };
 

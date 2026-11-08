@@ -424,6 +424,22 @@ nix run .#update-flake
 3. 创建 `configuration.nix` 导入所需模块
 4. 运行 `nixos-generate-config` 生成 `hardware-configuration.nix`
 
+## 代码风格
+
+### 防火墙区域声明
+
+同一模块内的 `lantian.firewall.zones` 声明统一写在一个 `lantian.firewall.zones = { ... };` 属性集中，不要散落多个 `lantian.firewall.zones.<zone>... = ...` 赋值。
+
+端口条目的 `type = "local"` 使用属性路径简写，不要写成 `{ type = "local"; }`：
+
+```nix
+lantian.firewall.zones = {
+  LTNET.tcpPorts."${LT.portStr.SSH}".type = "local";
+};
+```
+
+`forward` 和 `reject` 条目仍使用属性集形式。
+
 ## 架构图
 
 ```mermaid

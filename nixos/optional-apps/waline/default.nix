@@ -118,6 +118,10 @@ in
     postgresql = true;
   };
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Waline}".type = "local";
+  };
+
   users.users.waline = {
     group = "waline";
     isSystemUser = true;

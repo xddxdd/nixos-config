@@ -118,8 +118,9 @@ in
 
   # WireGuard mesh tunnels terminate on this host's public IP at
   # ListenPort = WGMesh.Start + per-tunnel index.
-  lantian.firewall.zones.WAN.udpPorts."${LT.portStr.WGMesh.Start}-${LT.portStr.WGMesh.End}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.WireGuardExporter}".type = "local";
+    WAN.udpPorts."${LT.portStr.WGMesh.Start}-${LT.portStr.WGMesh.End}".type = "local";
   };
 
   lantian.harden."prometheus-wireguard-exporter".enable = true;

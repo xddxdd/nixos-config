@@ -4,8 +4,8 @@
 }:
 {
   # mDNS is LAN-only by policy
-  lantian.firewall.zones.LAN.udpPorts."${LT.portStr.mDNS}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    LAN.udpPorts."${LT.portStr.mDNS}".type = "local";
   };
 
   services.avahi = {

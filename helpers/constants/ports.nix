@@ -26,6 +26,7 @@ rec {
     KMS = 1688;
     SSDP = 1900;
     Gemini = 1965;
+    NFS.Port = 2049;
     GTPU = 2152; # GTP-U user plane (base station <-> LTE core)
     SSH = 2222;
     Xvcd = 2542; # Xilinx Virtual Cable daemon
@@ -51,6 +52,7 @@ rec {
     NATPMP = 5351; # NAT Port Mapping Protocol (miniupnpd nat-pmp)
     mDNS = 5353;
     WSDD = 5357; # WS-Discovery (samba-wsdd), Windows network discovery
+    PostgreSQL = 5432;
     Babel = 6695;
     Bazarr = 6767;
     I2P.SAM = 7656;

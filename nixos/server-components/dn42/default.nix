@@ -193,23 +193,23 @@ in
     # lutoma's 64719) so every tunnel is reachable from its public IP;
     # ports inside the fixed range are already covered and must not be
     # repeated (nftables interval sets reject overlapping elements).
-    lantian.firewall.zones.WAN.udpPorts = {
-      "${LT.portStr.DN42.LocalPort.Start}-${LT.portStr.DN42.LocalPort.End}" = {
-        type = "local";
-      };
-    }
-    //
-      lib.genAttrs
-        (map builtins.toString (
-          lib.unique (
-            lib.filter (v: v > 0 && (v < LT.port.DN42.LocalPort.Start || v > LT.port.DN42.LocalPort.End)) (
-              lib.mapAttrsToList (_: v: v.tunnel.localPort) config.services.dn42
+    lantian.firewall.zones = {
+      WAN.udpPorts = {
+        "${LT.portStr.DN42.LocalPort.Start}-${LT.portStr.DN42.LocalPort.End}".type = "local";
+      }
+      //
+        lib.genAttrs
+          (map builtins.toString (
+            lib.unique (
+              lib.filter (v: v > 0 && (v < LT.port.DN42.LocalPort.Start || v > LT.port.DN42.LocalPort.End)) (
+                lib.mapAttrsToList (_: v: v.tunnel.localPort) config.services.dn42
+              )
             )
-          )
-        ))
-        (_: {
-          type = "local";
-        });
+          ))
+          (_: {
+            type = "local";
+          });
+    };
     boot.availableKernelModules = lib.unique (
       lib.concatMap (
         v:

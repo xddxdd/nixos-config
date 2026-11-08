@@ -81,4 +81,8 @@
   };
   lantian.harden."prometheus-exportarr-radarr-exporter".enable = true;
 
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.RadarrExporter}".type = "local";
+  };
+
 }

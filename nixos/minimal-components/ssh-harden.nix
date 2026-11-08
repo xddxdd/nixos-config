@@ -7,6 +7,10 @@
   ...
 }:
 let
+  sshPorts = {
+    "${LT.portStr.SSH}".type = "local";
+  };
+
   ltnetSSHConfig = ''
     Port ${LT.portStr.SSH}
     HostKeyAlgorithms ssh-ed25519
@@ -215,11 +219,10 @@ in
 
   # SSH is reachable from the Internet on every host for deployment and
   # management; port 22 is covered separately by the endlessh decoy.
-  lantian.firewall.zones.WAN.tcpPorts."${LT.portStr.SSH}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.DN42.tcpPorts."${LT.portStr.SSH}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN.tcpPorts = sshPorts;
+    LAN.tcpPorts = sshPorts;
+    LTNET.tcpPorts = sshPorts;
   };
 
   # Prevent regular OpenSSH from sneaking in

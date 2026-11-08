@@ -147,4 +147,8 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
     };
   };
   lantian.harden.v2ray.enable = true;
+
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.V2Ray.SocksClient}".type = "local";
+  };
 }

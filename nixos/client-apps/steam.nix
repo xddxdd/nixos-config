@@ -19,6 +19,14 @@ in
     protontricks.enable = true;
   };
   environment.systemPackages = [ mangohudForCurrentKernel ];
+
+  # Steam Remote Play and LAN game discovery.
+  lantian.firewall.zones = {
+    LAN = {
+      tcpPorts."27036".type = "local";
+      udpPorts."27031-27036".type = "local";
+    };
+  };
   # https://www.reddit.com/r/NixOS/comments/11d76bb/comment/jaqzwyt
   hardware.graphics = {
     extraPackages = [ mangohudForCurrentKernel ];

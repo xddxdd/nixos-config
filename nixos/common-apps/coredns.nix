@@ -15,14 +15,16 @@ lib.mkIf (!config.services.pdns-recursor.enable) {
     ipSuffix = "56";
   };
 
-  lantian.firewall.zones.NETNS_COREDNS_CLIENT.forwardTo = [
-    "DN42"
-    "WAN"
-    "LAN"
-    "LTNET"
-  ];
-  lantian.firewall.zones.LAN.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
-  lantian.firewall.zones.LTNET.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
+  lantian.firewall.zones = {
+    NETNS_COREDNS_CLIENT.forwardTo = [
+      "DN42"
+      "WAN"
+      "LAN"
+      "LTNET"
+    ];
+    LAN.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
+    LTNET.forwardTo = [ "NETNS_COREDNS_CLIENT" ];
+  };
 
   services.coredns = {
     enable = true;

@@ -4,10 +4,15 @@
   LT,
   ...
 }:
+let
+  nmeaPorts = {
+    "${LT.portStr.NMEA}".type = "local";
+  };
+in
 {
-  # NMEA GPS stream is LTnet-internal
-  lantian.firewall.zones.LAN.tcpPorts."${LT.portStr.NMEA}" = {
-    type = "local";
+  # NMEA GPS stream is LAN-internal
+  lantian.firewall.zones = {
+    LAN.tcpPorts = nmeaPorts;
   };
 
   systemd.services.nmea-static-gps-server = {

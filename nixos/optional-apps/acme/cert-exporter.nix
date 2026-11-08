@@ -14,4 +14,8 @@
     BindReadOnlyPaths = [ "/nix/sync-servers" ];
   };
   lantian.harden.prometheus-node-cert-exporter.enable = true;
+
+  lantian.firewall.zones = {
+    LTNET.tcpPorts."${LT.portStr.Prometheus.NodeCertExporter}".type = "local";
+  };
 }

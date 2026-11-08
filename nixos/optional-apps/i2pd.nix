@@ -27,11 +27,9 @@
   };
 
   # I2P peers must reach the router from WAN
-  lantian.firewall.zones.WAN.tcpPorts."${LT.forwardPortStr.I2P}" = {
-    type = "local";
-  };
-  lantian.firewall.zones.WAN.udpPorts."${LT.forwardPortStr.I2P}" = {
-    type = "local";
+  lantian.firewall.zones = {
+    WAN.tcpPorts."${LT.forwardPortStr.I2P}".type = "local";
+    WAN.udpPorts."${LT.forwardPortStr.I2P}".type = "local";
   };
 
   systemd.services.i2pd.serviceConfig = {
