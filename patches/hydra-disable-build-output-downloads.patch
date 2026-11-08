@@ -1,0 +1,192 @@
+--- a/lib/Hydra/Base/Controller/ListBuilds.pm
++++ b/lib/Hydra/Base/Controller/ListBuilds.pm
+@@ -32,7 +32,7 @@
+ }
+ 
+ 
+-sub nix : Chained('get_builds') PathPart('channel/latest') CaptureArgs(0) {
++sub nix : Private {
+     my ($self, $c) = @_;
+ 
+     $c->stash->{channelName} = $c->stash->{channelBaseName} . "-latest";
+--- a/lib/Hydra/Base/Controller/NixChannel.pm
++++ b/lib/Hydra/Base/Controller/NixChannel.pm
+@@ -59,7 +59,7 @@
+ }
+ 
+ 
+-sub closure : Chained('nix') PathPart {
++sub closure : Private {
+     my ($self, $c) = @_;
+ 
+     requireLocalStore($c);
+@@ -77,7 +77,7 @@
+ }
+ 
+ 
+-sub manifest : Chained('nix') PathPart("MANIFEST") Args(0) {
++sub manifest : Private {
+     my ($self, $c) = @_;
+     requireLocalStore($c);
+     $c->stash->{current_view} = 'NixManifest';
+@@ -86,7 +86,7 @@
+ }
+ 
+ 
+-sub nixexprs : Chained('nix') PathPart('nixexprs.tar.bz2') Args(0) {
++sub nixexprs : Private {
+     my ($self, $c) = @_;
+     requireLocalStore($c);
+     $c->stash->{current_view} = 'NixExprs';
+@@ -94,7 +94,7 @@
+ }
+ 
+ 
+-sub binary_cache_url : Chained('nix') PathPart('binary-cache-url') Args(0) {
++sub binary_cache_url : Private {
+     my ($self, $c) = @_;
+     $c->stash->{'plain'} = { data => $c->uri_for('/') };
+     $c->response->content_type('text/plain');
+@@ -116,7 +116,7 @@
+ }
+ 
+ 
+-sub channel_contents : Chained('nix') PathPart('') Args(0) {
++sub channel_contents : Private {
+     my ($self, $c) = @_;
+     requireLocalStore($c);
+     # Optimistically assume that none of the packages have been
+--- a/lib/Hydra/Controller/Build.pm
++++ b/lib/Hydra/Controller/Build.pm
+@@ -250,7 +250,7 @@
+ }
+ 
+ 
+-sub download : Chained('buildChain') PathPart {
++sub download : Private {
+     my ($self, $c, $productRef, @path) = @_;
+ 
+     $productRef = 1 if !defined $productRef;
+@@ -289,7 +289,7 @@
+ }
+ 
+ 
+-sub output : Chained('buildChain') PathPart Args(1) {
++sub output : Private {
+     my ($self, $c, $outputName) = @_;
+     my $build = $c->stash->{build};
+ 
+@@ -307,7 +307,7 @@
+ # Redirect to a download with the given type.  Useful when you want to
+ # link to some build product of the latest build (i.e. in conjunction
+ # with the .../latest redirect).
+-sub download_by_type : Chained('buildChain') PathPart('download-by-type') {
++sub download_by_type : Private {
+     my ($self, $c, $type, $subtype, @path) = @_;
+ 
+     notFound($c, "You need to specify a type and a subtype in the URI.")
+@@ -322,7 +322,7 @@
+ }
+ 
+ 
+-sub contents : Chained('buildChain') PathPart Args(1) {
++sub contents : Private {
+     my ($self, $c, $productnr) = @_;
+ 
+     my $product = $c->stash->{build}->buildproducts->find({productnr => $productnr});
+@@ -488,7 +488,7 @@
+ }
+ 
+ 
+-sub nix : Chained('buildChain') PathPart('nix') CaptureArgs(0) {
++sub nix : Private {
+     my ($self, $c) = @_;
+ 
+     my $build = $c->stash->{build};
+--- a/lib/Hydra/Controller/Channel.pm
++++ b/lib/Hydra/Controller/Channel.pm
+@@ -55,7 +55,7 @@
+ }
+ 
+ 
+-sub nixexprs : Chained('channel') PathPart('') Args(1) {
++sub nixexprs : Private {
+     my ($self, $c, $productName) = @_;
+ 
+     my $product = $c->stash->{lastSuccessful}->buildproducts->find(
+@@ -73,7 +73,7 @@
+ }
+ 
+ 
+-sub binary_cache_url : Chained('channel') PathPart('binary-cache-url') Args(0) {
++sub binary_cache_url : Private {
+     my ($self, $c) = @_;
+     $c->stash->{'plain'} = { data => $c->uri_for('/') };
+     $c->response->content_type('text/plain');
+--- a/lib/Hydra/Controller/JobsetEval.pm
++++ b/lib/Hydra/Controller/JobsetEval.pm
+@@ -158,7 +158,7 @@
+ 
+ 
+ # Hydra::Base::Controller::NixChannel needs this.
+-sub nix : Chained('evalChain') PathPart('channel') CaptureArgs(0) {
++sub nix : Private {
+     my ($self, $c) = @_;
+     $c->stash->{channelName} = $c->stash->{project}->name . "-" . $c->stash->{jobset}->name . "-latest";
+     $c->stash->{channelBuilds} = $c->stash->{eval}->builds
+@@ -184,7 +184,7 @@
+ 
+ # Return the store paths of all succeeded builds of type 'nix-build'
+ # (i.e. regular packages). Used by the NixOS channel scripts.
+-sub store_paths : Chained('evalChain') PathPart('store-paths') Args(0) {
++sub store_paths : Private {
+     my ($self, $c) = @_;
+ 
+     my @builds = $c->stash->{eval}->builds
+--- a/lib/Hydra/Controller/Root.pm
++++ b/lib/Hydra/Controller/Root.pm
+@@ -360,7 +360,7 @@
+ sub serialize : ActionClass('Serialize') { }
+ 
+ 
+-sub nar :Local :Args(1) {
++sub nar :Private {
+     my ($self, $c, $path) = @_;
+ 
+     die if $path =~ /\//;
+@@ -380,7 +380,7 @@
+ }
+ 
+ 
+-sub nix_cache_info :Path('nix-cache-info') :Args(0) {
++sub nix_cache_info :Private {
+     my ($self, $c) = @_;
+ 
+     if (!isLocalStore) {
+@@ -444,7 +444,7 @@
+ }
+ 
+ 
+-sub build_trace :Path('build-trace-v2') :Args(StrMatch[BUILD_TRACE_DRV_REGEX], StrMatch[BUILD_TRACE_OUTPUT_REGEX]) {
++sub build_trace :Private {
+     my ($self, $c, $drvPath, $outputFile) = @_;
+ 
+     if (!isLocalStore) {
+@@ -479,7 +479,7 @@
+ }
+ 
+ 
+-sub narinfo :Path :Args(StrMatch[NARINFO_REGEX]) {
++sub narinfo :Private {
+     my ($self, $c, $narinfo) = @_;
+ 
+     if (!isLocalStore) {
+@@ -558,7 +558,7 @@
+ }
+ 
+ 
+-sub search :Local Args(0) {
++sub search :Private {
+     my ($self, $c) = @_;
+ 
+     if (not ($c->config->{search_enable} // "1" ne "0")) {

@@ -84,11 +84,6 @@ in
 
   services.hydra = {
     enable = true;
-    # FIXME: disable failing checks
-    package = pkgs.hydra.overrideAttrs (old: {
-      doCheck = false;
-      patches = (old.patches or [ ]) ++ [ ./evaluation-command-timeout.patch ];
-    });
     hydraURL = "https://hydra.lantian.pub";
     listenHost = LT.this.ltnet.IPv4;
     notificationSender = "postmaster@lantian.pub";
