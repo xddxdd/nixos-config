@@ -77,9 +77,10 @@ in
 
     confFiles = {
       # chan_unistim (Nortel UNISTIM phones) is unused and binds a public
-      # UDP 5000 listener by default; load exactly what we configure.
+      # UDP 5000 listener by default; retain autoload for the other modules.
       "modules.conf" = ''
         [modules]
+        autoload=yes
         noload => chan_unistim.so
       '';
 
@@ -269,6 +270,8 @@ in
         pkgs.coreutils
         pkgs.findutils
       ];
+    restartIfChanged = lib.mkForce true;
+    restartTriggers = [ config.environment.etc."asterisk/modules.conf".source ];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") cfg.confFiles;
 
     preStart = lib.mkForce ''
