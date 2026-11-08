@@ -92,6 +92,11 @@ let
           default = { };
           description = "UDP ports of traffic from this zone destined to localhost.";
         };
+        sctpPorts = lib.mkOption {
+          type = lib.types.attrsOf portEntryType;
+          default = { };
+          description = "SCTP ports of traffic from this zone destined to localhost.";
+        };
         ports = lib.mkOption {
           type = lib.types.attrsOf portEntryType;
           default = { };
@@ -179,6 +184,7 @@ let
     ++ map (n: "ip protocol ${builtins.toString n} accept") z.allowedIpProtocols
     ++ portRules "tcp" z.tcpPorts
     ++ portRules "udp" z.udpPorts
+    ++ portRules "sctp" z.sctpPorts
     ++ [
       (
         if z.inputPolicy == "accept" then
@@ -203,7 +209,9 @@ let
 
   hasForward =
     z:
-    lib.any (e: e.type == "forward") (builtins.attrValues z.tcpPorts ++ builtins.attrValues z.udpPorts);
+    lib.any (e: e.type == "forward") (
+      builtins.attrValues z.tcpPorts ++ builtins.attrValues z.udpPorts ++ builtins.attrValues z.sctpPorts
+    );
 
   preroutingRules =
     z:
@@ -221,11 +229,12 @@ let
                 entry.ipv6 != null
               ) "fib daddr type local ${proto} dport ${port} dnat ip6 to [${entry.ipv6}]"
             )
-          ) (if proto == "tcp" then z.tcpPorts else z.udpPorts)
+          ) z."${proto}Ports"
         )
         [
           "tcp"
           "udp"
+          "sctp"
         ]
     )
     ++ [ "return" ];
@@ -263,7 +272,7 @@ in
     description = ''
       Zone-based firewall policy. Each zone matches traffic by interface
       and/or source address, and declares what that traffic may reach on
-      this host (tcpPorts/udpPorts), where it may be forwarded (forwardTo),
+      this host (tcpPorts/udpPorts/sctpPorts), where it may be forwarded (forwardTo),
       and what happens to everything else (inputPolicy). Zones are matched
       in ascending priority order, so a subzone can special-case traffic
       before its parent zone.
@@ -454,7 +463,7 @@ in
     assertions =
       lib.mapAttrsToList (name: z: {
         assertion = lib.all (e: e.type != "forward" || e.ipv4 != null || e.ipv6 != null) (
-          builtins.attrValues z.tcpPorts ++ builtins.attrValues z.udpPorts
+          builtins.attrValues z.tcpPorts ++ builtins.attrValues z.udpPorts ++ builtins.attrValues z.sctpPorts
         );
         message = "lantian.firewall.zones.${name}: forward port entries need ipv4 and/or ipv6";
       }) enabledZones

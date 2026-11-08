@@ -160,6 +160,7 @@ rec {
     WGLanTian.ForwardStart = 30010;
     WGLanTian.ForwardStop = 32559;
     Ephemeral.Start = 32768;
+    S1AP = 36412;
     Ephemeral.End = 60999;
   };
 
