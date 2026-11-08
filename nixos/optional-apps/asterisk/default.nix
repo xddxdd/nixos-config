@@ -76,12 +76,111 @@ in
     package = pkgs.nur-xddxdd.lantianCustomized.asterisk;
 
     confFiles = {
-      # chan_unistim (Nortel UNISTIM phones) is unused and binds a public
-      # UDP 5000 listener by default; retain autoload for the other modules.
       "modules.conf" = ''
         [modules]
-        autoload=yes
-        noload => chan_unistim.so
+        autoload=no
+
+        ; extensions.conf、ENUM/AGI 及其依赖；res_speech 是 res_agi 的必需依赖。
+        load => pbx_config.so
+        load => res_speech.so
+        load => res_agi.so
+        load => app_audiosocket.so
+        load => res_audiosocket.so
+        load => app_confbridge.so
+        load => app_dial.so
+        load => app_milliwatt.so
+        load => app_mixmonitor.so
+        load => app_mp3.so
+        load => app_playback.so
+        load => app_read.so
+        load => app_senddtmf.so
+        load => app_talkdetect.so
+        load => app_verbose.so
+        load => func_callerid.so
+        load => func_channel.so
+        load => func_cut.so
+        load => func_dialgroup.so
+        load => func_enum.so
+        load => func_logic.so
+        load => func_rand.so
+        load => func_strings.so
+        load => func_uuid.so
+
+        ; 保留 templates.nix 中公布的音频编解码器及音视频 SDP 属性。
+        load => codec_a_mu.so
+        load => codec_alaw.so
+        load => codec_amr.so
+        load => codec_evs.so
+        load => codec_g722.so
+        load => codec_g726.so
+        load => codec_g729.so
+        load => codec_gsm.so
+        load => codec_gsm_efr.so
+        load => codec_ilbc.so
+        load => codec_opus.so
+        load => codec_resample.so
+        load => codec_silk.so
+        load => codec_siren7.so
+        load => codec_siren14.so
+        load => codec_speex.so
+        load => codec_ulaw.so
+        load => res_format_attr_amr.so
+        load => res_format_attr_evs.so
+        load => res_format_attr_g729.so
+        load => res_format_attr_h263.so
+        load => res_format_attr_h264.so
+        load => res_format_attr_ilbc.so
+        load => res_format_attr_opus.so
+        load => res_format_attr_silk.so
+        load => res_format_attr_siren7.so
+        load => res_format_attr_siren14.so
+        load => res_format_attr_vp8.so
+
+        ; 提示音、机器人录音和等待音乐；MP3Player 通过 FFmpeg 解码，无需 format_mp3。
+        load => format_gsm.so
+        load => format_pcm.so
+        load => format_wav.so
+        load => res_musiconhold.so
+        load => res_fax.so
+        load => res_fax_spandsp.so
+        load => bridge_simple.so
+        load => bridge_softmix.so
+        load => res_timing_timerfd.so
+
+        ; PJSIP 基础依赖；chan_pjsip 即使不使用订阅也需要 pubsub。
+        load => res_sorcery_config.so
+        load => res_sorcery_memory.so
+        load => res_sorcery_astdb.so
+        load => res_pjproject.so
+        load => res_pjsip.so
+        load => res_pjsip_session.so
+        load => res_pjsip_pubsub.so
+        load => chan_pjsip.so
+        load => res_rtp_asterisk.so
+        load => res_srtp.so
+
+        ; 手机注册、外部中继、匿名/ENUM 呼叫、消息、NAT、T.38 和 SIP 转接。
+        load => res_pjsip_authenticator_digest.so
+        load => res_pjsip_outbound_authenticator_digest.so
+        load => res_pjsip_registrar.so
+        load => res_pjsip_outbound_registration.so
+        load => res_pjsip_endpoint_identifier_user.so
+        load => res_pjsip_endpoint_identifier_ip.so
+        load => res_pjsip_endpoint_identifier_anonymous.so
+        load => res_pjsip_messaging.so
+        load => res_pjsip_nat.so
+        load => res_pjsip_caller_id.so
+        load => res_pjsip_sdp_rtp.so
+        load => res_pjsip_t38.so
+        load => res_pjsip_sips_contact.so
+        load => res_pjsip_refer.so
+        load => res_pjsip_diversion.so
+        load => res_pjsip_rfc3326.so
+        load => res_pjsip_dlg_options.so
+
+        ; Prometheus 与 fail2ban 使用的安全日志。
+        load => res_prometheus.so
+        load => res_security_log.so
       '';
 
       "pjsip.conf" = ''
