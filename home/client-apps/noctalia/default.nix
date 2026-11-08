@@ -416,6 +416,7 @@ in
           show_cover = false;
           show_romanization = true;
           show_translation = true;
+          text_alignment = "right";
           type = "h465855hgg/lyrics:lyrics";
         };
       };
