@@ -126,6 +126,10 @@ in
           action = "spawn noctalia msg brightness-down";
           allow_when_locked = true;
         };
+        "Print" = {
+          action = "spawn noctalia msg screenshot-region";
+          repeat = false;
+        };
         "Mod+Left" = "window-focus-left";
         "Mod+Down" = "window-focus-down";
         "Mod+Up" = "window-focus-up";
