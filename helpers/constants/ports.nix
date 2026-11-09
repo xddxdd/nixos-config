@@ -64,6 +64,7 @@ rec {
     OllamaCpaHoneypot.CpaListener = 8317;
     Waline = 8360;
     Matrix.Public = 8448;
+    Prometheus.VMAlert = 8880;
     Sonarr = 8989;
     Tor.Socks = 9050;
     Prometheus.Daemon = 9090;

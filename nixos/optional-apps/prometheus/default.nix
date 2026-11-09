@@ -1,5 +1,7 @@
 {
   LT,
+  lib,
+  config,
   ...
 }:
 {
@@ -11,27 +13,27 @@
     ./storagebox.nix
   ];
 
-  services.prometheus = {
+  services.victoriametrics = {
     enable = true;
-    enableReload = true;
-    port = LT.port.Prometheus.Daemon;
-    listenAddress = "127.0.0.1";
-    webExternalUrl = "https://prometheus.xuyh0120.win";
-    stateDir = "prometheus";
-    checkConfig = "syntax-only";
-
-    extraFlags = [
-      "--storage.tsdb.retention.time=365d"
-      "--storage.tsdb.retention.size=10GB"
+    listenAddress = "127.0.0.1:${LT.portStr.Prometheus.Daemon}";
+    retentionPeriod = "365d";
+    extraOptions = [
+      "-memory.allowedBytes=256MiB"
+      "-vmalert.proxyURL=http://127.0.0.1:${LT.portStr.Prometheus.VMAlert}"
+      # Deduplicate overlapping imports without thinning distinct millisecond timestamps.
+      "-dedup.minScrapeInterval=1ms"
     ];
   };
 
-  systemd.services.prometheus.serviceConfig = {
-    RestartSec = "5s";
-  };
-  lantian.harden.prometheus = {
-    enable = true;
-    etc."prometheus/prometheus.yaml" = true;
+  systemd.services.victoriametrics.serviceConfig.RestartSec = lib.mkForce "5s";
+  lantian.harden.victoriametrics.enable = true;
+
+  # Retain archived TSDB ownership without changing userborn and restarting MySQL.
+  users.groups.prometheus.gid = config.ids.gids.prometheus;
+  users.users.prometheus = {
+    description = "Prometheus daemon user";
+    uid = config.ids.uids.prometheus;
+    group = "prometheus";
   };
 
   lantian.nginxVhosts."prometheus.xuyh0120.win" = {

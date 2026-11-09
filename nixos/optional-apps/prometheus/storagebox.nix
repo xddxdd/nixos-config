@@ -29,7 +29,7 @@
   };
   users.groups.storagebox-exporter = { };
 
-  services.prometheus.scrapeConfigs = [
+  services.victoriametrics.prometheusConfig.scrape_configs = [
     {
       job_name = "storagebox_exporter";
       static_configs = [

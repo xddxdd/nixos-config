@@ -16,206 +16,222 @@ in
   sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/telegram.yaml";
   sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/telegram.yaml";
 
-  services.prometheus = {
-    alertmanagers = [
-      {
-        scheme = "http";
-        static_configs = [ { targets = [ "localhost:${LT.portStr.Prometheus.AlertManager}" ]; } ];
-      }
-    ];
+  services.vmalert.instances."" = {
+    enable = true;
+    settings = {
+      "httpListenAddr" = "127.0.0.1:${LT.portStr.Prometheus.VMAlert}";
+      "evaluationInterval" = "1m";
+      "datasource.url" = "http://127.0.0.1:${LT.portStr.Prometheus.Daemon}";
+      "notifier.url" = [ "http://127.0.0.1:${LT.portStr.Prometheus.AlertManager}" ];
+      "remoteWrite.url" = "http://127.0.0.1:${LT.portStr.Prometheus.Daemon}";
+      "remoteRead.url" = "http://127.0.0.1:${LT.portStr.Prometheus.Daemon}";
+      "disableAlertgroupLabel" = true;
+      "external.url" = "https://prometheus.xuyh0120.win";
+      "external.alert.source" = "vmui/#/?g0.expr={{.Expr|queryEscape}}";
+    };
 
     # https://gist.github.com/globin/02496fd10a96a36f092a8e7ea0e6c7dd
-    ruleFiles = [
-      (pkgs.writeText "prometheus.rules" (
-        builtins.toJSON {
-          groups = [
-            {
-              name = "node_exporter";
-              rules = [
-                # # SystemD service
-                # {
-                #   alert = "node_systemd_service_failed";
-                #   expr = ''node_systemd_unit_state{state="failed"} == 1'';
-                #   for = "10m";
-                #   labels.severity = "warning";
-                #   annotations = {
-                #     summary = "⚠️ {{$labels.alias}}: Service {{$labels.name}} failed to start.";
-                #     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
-                #   };
-                # }
+    rules.groups = [
+      {
+        name = "node_exporter";
+        rules = [
+          # # SystemD service
+          # {
+          #   alert = "node_systemd_service_failed";
+          #   expr = ''node_systemd_unit_state{state="failed"} == 1'';
+          #   for = "10m";
+          #   labels.severity = "warning";
+          #   annotations = {
+          #     summary = "⚠️ {{$labels.alias}}: Service {{$labels.name}} failed to start.";
+          #     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
+          #   };
+          # }
 
-                # Filesystem
-                {
-                  alert = "node_filesystem_full_90percent";
-                  expr = ''sort(node_filesystem_free_bytes{mountpoint="/nix"} < node_filesystem_size_bytes{mountpoint="/nix"} * 0.1)'';
-                  for = "10m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Filesystem is running out of space soon.";
-                    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
-                  };
-                }
-                {
-                  alert = "node_filesystem_readonly";
-                  expr = ''node_filesystem_readonly{mountpoint="/nix"} == 1'';
-                  for = "1m";
-                  labels.severity = "critical";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Filesystem is readonly.";
-                    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is readonly.";
-                  };
-                }
+          # Filesystem
+          {
+            alert = "node_filesystem_full_90percent";
+            expr = ''sort(node_filesystem_free_bytes{mountpoint="/nix"} < node_filesystem_size_bytes{mountpoint="/nix"} * 0.1)'';
+            for = "10m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Filesystem is running out of space soon.";
+              description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
+            };
+          }
+          {
+            alert = "node_filesystem_readonly";
+            expr = ''node_filesystem_readonly{mountpoint="/nix"} == 1'';
+            for = "1m";
+            labels.severity = "critical";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Filesystem is readonly.";
+              description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is readonly.";
+            };
+          }
 
-                # # System Load
-                # # Disable for spurius warnings
-                # (rec {
-                #   alert = "node_load1_90percent";
-                #   expr = ''node_load1 / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) >= 0.9'';
-                #   for = "30m";
-                #   labels.severity = "warning";
-                #   annotations = {
-                #     summary = "⚠️ {{$labels.alias}}: Running on high load.";
-                #     description = "{{$labels.alias}} is running with > 90% total load for ${for}.";
-                #   };
-                # })
+          # # System Load
+          # # Disable for spurius warnings
+          # (rec {
+          #   alert = "node_load1_90percent";
+          #   expr = ''node_load1 / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) >= 0.9'';
+          #   for = "30m";
+          #   labels.severity = "warning";
+          #   annotations = {
+          #     summary = "⚠️ {{$labels.alias}}: Running on high load.";
+          #     description = "{{$labels.alias}} is running with > 90% total load for ${for}.";
+          #   };
+          # })
 
-                # MySQL Down
-                {
-                  alert = "node_mysql_down";
-                  expr = "mysql_up == 0";
-                  for = "10m";
-                  labels.severity = "critical";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: MySQL down.";
-                    description = "{{$labels.alias}} MySQL instance is down.";
-                  };
-                }
+          # MySQL Down
+          {
+            alert = "node_mysql_down";
+            expr = "mysql_up == 0";
+            for = "10m";
+            labels.severity = "critical";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: MySQL down.";
+              description = "{{$labels.alias}} MySQL instance is down.";
+            };
+          }
 
-                # PostgreSQL Down
-                {
-                  alert = "node_postgresql_down";
-                  expr = "pg_up == 0";
-                  for = "10m";
-                  labels.severity = "critical";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: PostgreSQL down.";
-                    description = "{{$labels.alias}} PostgreSQL instance is down.";
-                  };
-                }
+          # PostgreSQL Down
+          {
+            alert = "node_postgresql_down";
+            expr = "pg_up == 0";
+            for = "10m";
+            labels.severity = "critical";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: PostgreSQL down.";
+              description = "{{$labels.alias}} PostgreSQL instance is down.";
+            };
+          }
 
-                # CPU usage
-                rec {
-                  alert = "node_cpu_util_95percent";
-                  expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.95'';
-                  for = "1h";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: High CPU utilization.";
-                    description = "{{$labels.alias}} has total CPU utilization over 95% for ${for}.";
-                  };
-                }
+          # CPU usage
+          rec {
+            alert = "node_cpu_util_95percent";
+            expr = ''1 - avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) >= 0.95'';
+            for = "1h";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: High CPU utilization.";
+              description = "{{$labels.alias}} has total CPU utilization over 95% for ${for}.";
+            };
+          }
 
-                # RAM usage
-                rec {
-                  alert = "node_ram_using_90percent";
-                  expr = "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
-                  for = "30m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Using lots of RAM.";
-                    description = "{{$labels.alias}} is using at least 90% of its RAM for ${for}.";
-                  };
-                }
+          # RAM usage
+          rec {
+            alert = "node_ram_using_90percent";
+            expr = "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
+            for = "30m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Using lots of RAM.";
+              description = "{{$labels.alias}} is using at least 90% of its RAM for ${for}.";
+            };
+          }
 
-                # Netfilter conntrack table usage
-                rec {
-                  alert = "node_nf_conntrack_using_90percent";
-                  expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.9";
-                  for = "10m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table almost full.";
-                    description = "{{$labels.alias}} is using over 90% of its netfilter conntrack table for ${for}.";
-                  };
-                }
-                # Netfilter conntrack low maximum limit
-                rec {
-                  alert = "node_nf_conntrack_limit_too_low";
-                  expr = "node_nf_conntrack_entries_limit < 131072";
-                  for = "10m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table maximum limit is too low.";
-                    description = "{{$labels.alias}} has a low limit for maximum limit of its netfilter conntrack table for ${for}.";
-                  };
-                }
+          # Netfilter conntrack table usage
+          rec {
+            alert = "node_nf_conntrack_using_90percent";
+            expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.9";
+            for = "10m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table almost full.";
+              description = "{{$labels.alias}} is using over 90% of its netfilter conntrack table for ${for}.";
+            };
+          }
+          # Netfilter conntrack low maximum limit
+          rec {
+            alert = "node_nf_conntrack_limit_too_low";
+            expr = "node_nf_conntrack_entries_limit < 131072";
+            for = "10m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Netfilter conntrack table maximum limit is too low.";
+              description = "{{$labels.alias}} has a low limit for maximum limit of its netfilter conntrack table for ${for}.";
+            };
+          }
 
-                # Bird shortlived peers (frequent reconnects)
-                {
-                  alert = "bird_shortlived_peers";
-                  expr = ''bird_protocol_uptime{name=~"^dn42_(.*)$", name!~"^dn42_grc_(.*)$", proto="BGP"} < 300'';
-                  for = "30m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
-                    description = "{{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
-                  };
-                }
+          # Bird shortlived peers (frequent reconnects)
+          {
+            alert = "bird_shortlived_peers";
+            expr = ''bird_protocol_uptime{name=~"^dn42_(.*)$", name!~"^dn42_grc_(.*)$", proto="BGP"} < 300'';
+            for = "30m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: {{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
+              description = "{{$labels.name}} on {{$labels.instance}} is frequently reconnecting.";
+            };
+          }
 
-                # StorageBox remaining space <100G
-                {
-                  alert = "storagebox_remaining_space";
-                  expr = "storagebox_disk_quota - storagebox_disk_usage < 100*1024*1024*1024";
-                  for = "30m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.alias}}: Storage box {{$labels.name}} has <100G free space.";
-                    description = "Storage box {{$labels.name}} has <100G free space.";
-                  };
-                }
+          # StorageBox remaining space <100G
+          {
+            alert = "storagebox_remaining_space";
+            expr = "storagebox_disk_quota - storagebox_disk_usage < 100*1024*1024*1024";
+            for = "30m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.alias}}: Storage box {{$labels.name}} has <100G free space.";
+              description = "Storage box {{$labels.name}} has <100G free space.";
+            };
+          }
 
-                # Asterisk outbound registration rejected
-                {
-                  alert = "asterisk_pjsip_outbound_registration";
-                  # Filter out sip.sdf.org for unstable server
-                  expr = ''asterisk_pjsip_outbound_registration_status{domain!="sip:sip.sdf.org"} == 2'';
-                  for = "30m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ Asterisk outbound registration {{$labels.domain}} is failing.";
-                    description = "Asterisk outbound registration {{$labels.domain}} (user {{$labels.username}}) is failing.";
-                  };
-                }
+          # Asterisk outbound registration rejected
+          {
+            alert = "asterisk_pjsip_outbound_registration";
+            # Filter out sip.sdf.org for unstable server
+            expr = ''asterisk_pjsip_outbound_registration_status{domain!="sip:sip.sdf.org"} == 2'';
+            for = "30m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ Asterisk outbound registration {{$labels.domain}} is failing.";
+              description = "Asterisk outbound registration {{$labels.domain}} (user {{$labels.username}}) is failing.";
+            };
+          }
 
-                # ACME SSL cert expiry
-                {
-                  alert = "ssl_certificate_expiry";
-                  expr = "ssl_certificate_expiry_seconds < 1.5 * 86400";
-                  for = "30m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ SSL cert {{$labels.path}} will expire in 1.5 days.";
-                    description = "SSL cert {{$labels.path}} will expire in 1.5 days.";
-                  };
-                }
+          # ACME SSL cert expiry
+          {
+            alert = "ssl_certificate_expiry";
+            expr = "ssl_certificate_expiry_seconds < 1.5 * 86400";
+            for = "30m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ SSL cert {{$labels.path}} will expire in 1.5 days.";
+              description = "SSL cert {{$labels.path}} will expire in 1.5 days.";
+            };
+          }
 
-                # WireGuard connectivity between servers
-                {
-                  alert = "wireguard_handshake_no_activity";
-                  expr = "time() - wireguard_latest_handshake_seconds{interface=~\"wgmesh[0-9]{1,2}\"} > 300";
-                  for = "5m";
-                  labels.severity = "warning";
-                  annotations = {
-                    summary = "⚠️ {{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
-                    description = "{{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
-                  };
-                }
-              ];
-            }
-          ];
-        }
-      ))
+          # WireGuard connectivity between servers
+          {
+            alert = "wireguard_handshake_no_activity";
+            expr = "time() - wireguard_latest_handshake_seconds{interface=~\"wgmesh[0-9]{1,2}\"} > 300";
+            for = "5m";
+            labels.severity = "warning";
+            annotations = {
+              summary = "⚠️ {{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
+              description = "{{$labels.interface}} on {{$labels.instance}} has no recent handshake.";
+            };
+          }
+        ];
+      }
     ];
+  };
+
+  systemd.services.vmalert = {
+    serviceConfig.RestartSec = "5s";
+    wants = [
+      "victoriametrics.service"
+      "alertmanager.service"
+    ];
+    after = [
+      "victoriametrics.service"
+      "alertmanager.service"
+    ];
+  };
+  lantian.harden.vmalert = {
+    enable = true;
+    etc."vmalert/rules.yml" = true;
   };
 
   services.prometheus.alertmanager = {

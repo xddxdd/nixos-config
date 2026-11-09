@@ -48,15 +48,17 @@ let
     };
 in
 {
-  services.prometheus.scrapeConfigs = [
+  services.victoriametrics.prometheusConfig.scrape_configs = [
     {
-      job_name = "prometheus";
+      job_name = "victoriametrics";
       static_configs = [
-        {
-          targets = [
-            "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}"
-          ];
-        }
+        { targets = [ config.services.victoriametrics.listenAddress ]; }
+      ];
+    }
+    {
+      job_name = "vmalert";
+      static_configs = [
+        { targets = [ config.services.vmalert.instances."".settings.httpListenAddr ]; }
       ];
     }
     (scrapeByAttr {

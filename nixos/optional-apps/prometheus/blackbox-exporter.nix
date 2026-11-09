@@ -156,7 +156,7 @@ in
     );
   };
 
-  services.prometheus.scrapeConfigs = [
+  services.victoriametrics.prometheusConfig.scrape_configs = [
     {
       job_name = "blackbox_exporter";
       static_configs = [ { targets = [ blackboxExporterHost ]; } ];
@@ -211,68 +211,62 @@ in
     }
   ];
 
-  services.prometheus.ruleFiles = [
-    (pkgs.writeText "blackbox-exporter.rules" (
-      builtins.toJSON {
-        groups = [
-          {
-            name = "blackbox_exporter";
-            rules = [
-              {
-                alert = "https_2xx_web_service_failed";
-                expr = ''probe_success{job="https_2xx"} == 0'';
-                for = "15m";
-                labels.severity = "warning";
-                annotations = {
-                  summary = "⚠️ {{$labels.alias}}: Web service {{$labels.name}} failed.";
-                  description = "{{$labels.alias}} is not returning status code 200 for {{$labels.name}}.";
-                };
-              }
-              {
-                alert = "dns_service_failed";
-                expr = ''probe_success{job="dns"} == 0'';
-                for = "15m";
-                labels.severity = "warning";
-                annotations = {
-                  summary = "⚠️ {{$labels.alias}}: DNS service {{$labels.name}} failed.";
-                  description = "{{$labels.alias}} is not returning DNS response for {{$labels.name}}.";
-                };
-              }
-              {
-                alert = "gopher_service_failed";
-                expr = ''probe_success{job="gopher"} == 0'';
-                for = "15m";
-                labels.severity = "warning";
-                annotations = {
-                  summary = "⚠️ {{$labels.alias}}: Gopher service {{$labels.name}} failed.";
-                  description = "{{$labels.alias}} is not returning Gopher response for {{$labels.name}}.";
-                };
-              }
-              {
-                alert = "whois_service_failed";
-                expr = ''probe_success{job="whois"} == 0'';
-                for = "15m";
-                labels.severity = "warning";
-                annotations = {
-                  summary = "⚠️ {{$labels.alias}}: WHOIS service {{$labels.name}} failed.";
-                  description = "{{$labels.alias}} is not returning WHOIS response for {{$labels.name}}.";
-                };
-              }
-              {
-                alert = "firewall_canary_port_open";
-                expr = ''probe_success{job=~"firewall_canary_.+"} == 1'';
-                for = "5m";
-                labels.severity = "critical";
-                annotations = {
-                  summary = "🔥 Firewall canary port ${LT.portStr.FirewallCanary} is reachable on {{$labels.instance}}.";
-                  description = "A firewall is no longer blocking TCP port ${LT.portStr.FirewallCanary} on {{$labels.instance}}.";
-                };
-              }
-            ];
-          }
-        ];
-      }
-    ))
+  services.vmalert.instances."".rules.groups = [
+    {
+      name = "blackbox_exporter";
+      rules = [
+        {
+          alert = "https_2xx_web_service_failed";
+          expr = ''probe_success{job="https_2xx"} == 0'';
+          for = "15m";
+          labels.severity = "warning";
+          annotations = {
+            summary = "⚠️ {{$labels.alias}}: Web service {{$labels.name}} failed.";
+            description = "{{$labels.alias}} is not returning status code 200 for {{$labels.name}}.";
+          };
+        }
+        {
+          alert = "dns_service_failed";
+          expr = ''probe_success{job="dns"} == 0'';
+          for = "15m";
+          labels.severity = "warning";
+          annotations = {
+            summary = "⚠️ {{$labels.alias}}: DNS service {{$labels.name}} failed.";
+            description = "{{$labels.alias}} is not returning DNS response for {{$labels.name}}.";
+          };
+        }
+        {
+          alert = "gopher_service_failed";
+          expr = ''probe_success{job="gopher"} == 0'';
+          for = "15m";
+          labels.severity = "warning";
+          annotations = {
+            summary = "⚠️ {{$labels.alias}}: Gopher service {{$labels.name}} failed.";
+            description = "{{$labels.alias}} is not returning Gopher response for {{$labels.name}}.";
+          };
+        }
+        {
+          alert = "whois_service_failed";
+          expr = ''probe_success{job="whois"} == 0'';
+          for = "15m";
+          labels.severity = "warning";
+          annotations = {
+            summary = "⚠️ {{$labels.alias}}: WHOIS service {{$labels.name}} failed.";
+            description = "{{$labels.alias}} is not returning WHOIS response for {{$labels.name}}.";
+          };
+        }
+        {
+          alert = "firewall_canary_port_open";
+          expr = ''probe_success{job=~"firewall_canary_.+"} == 1'';
+          for = "5m";
+          labels.severity = "critical";
+          annotations = {
+            summary = "🔥 Firewall canary port ${LT.portStr.FirewallCanary} is reachable on {{$labels.instance}}.";
+            description = "A firewall is no longer blocking TCP port ${LT.portStr.FirewallCanary} on {{$labels.instance}}.";
+          };
+        }
+      ];
+    }
   ];
 
   systemd.services."prometheus-blackbox-exporter".serviceConfig = {
