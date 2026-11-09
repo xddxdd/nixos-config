@@ -28,6 +28,9 @@ let
     dngzwxdq = LT.nginx.compressStaticAssets (pkgs.callPackage ./dngzwxdq.nix { });
     dnyjzsxj = LT.nginx.compressStaticAssets (pkgs.callPackage ./dnyjzsxj.nix { });
     glibc-debian-openvz-files = pkgs.callPackage ./glibc-debian-openvz-files.nix { };
+    ip-please = LT.nginx.compressStaticAssets (
+      pkgs.callPackage ./ip-please.nix { inherit (LT) sources; }
+    );
   };
 in
 lib.mkIf (LT.this.hasTag LT.tags.public-facing) {

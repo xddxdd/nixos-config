@@ -38,6 +38,10 @@ fetch.url = "https://github.com/grafana/grafana-infinity-datasource/releases/dow
 src.github = "grafana/grafana-infinity-datasource"
 src.prefix = "v"
 
+[ip-please]
+fetch.github = "ip-please/ip-please.github.io"
+src.git = "https://github.com/ip-please/ip-please.github.io.git"
+
 [iyuuplus]
 fetch.git = "https://github.com/ledccn/iyuuplus-dev.git"
 src.git = "https://github.com/ledccn/iyuuplus-dev.git"

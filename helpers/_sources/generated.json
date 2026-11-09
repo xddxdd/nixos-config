@@ -130,6 +130,27 @@
         },
         "version": "4.1.6"
     },
+    "ip-please": {
+        "cargoLock": null,
+        "date": "2026-10-23",
+        "extract": null,
+        "name": "ip-please",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ip-please",
+            "repo": "ip-please.github.io",
+            "rev": "5b6337c077ba24f6b252e522ed4ce8e3a0c0c661",
+            "sha256": "sha256-alnd3wIbiDGukKoEUYHRi/wjx5v+vtcYS6QQwktqZF8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5b6337c077ba24f6b252e522ed4ce8e3a0c0c661"
+    },
     "iyuuplus": {
         "cargoLock": null,
         "date": "2026-08-26",
