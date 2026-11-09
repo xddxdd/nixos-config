@@ -228,6 +228,10 @@ in
           title_bar = "off";
         }
         {
+          match.app_id = "^org[.]gnome[.]Loupe$";
+          title_bar = "off";
+        }
+        {
           match.app_id = "^code$|^ghostty$|^com[.]mitchellh[.]ghostty$";
           blur = true;
         }

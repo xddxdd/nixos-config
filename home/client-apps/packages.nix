@@ -49,7 +49,6 @@ in
         filezilla
         gcdemu
         gedit
-        geeqie
         gimp
         gopher
         handbrake
@@ -62,6 +61,7 @@ in
         linphone
         llm-agents.agentsview
         llm-agents.ccusage
+        loupe
         lx-music-desktop
         macchanger
         markdown-apa7th-docx

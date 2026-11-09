@@ -10,8 +10,8 @@ let
       mimeTypes = "inode/directory";
     }
     {
-      name = "org.geeqie.Geeqie.desktop";
-      mimeTypes = "application/x-navi-animation;image/bmp;image/x-bmp;image/x-MS-bmp;image/gif;image/x-icon;image/jpeg;image/png;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-tga;image/tiff;image/x-xbitmap;image/x-xpixmap;image/svg;image/svg+xml;image/x-png;image/xpm;image/x-ico;image/heic;image/openraster;image/webp;image/avif;image/jxl";
+      name = "org.gnome.Loupe.desktop";
+      mimeTypes = "image/apng;image/avif;image/bmp;image/gif;image/heic;image/jp2;image/jpeg;image/jxl;image/png;image/qoi;image/svg+xml;image/svg+xml-compressed;image/tiff;image/vnd.microsoft.icon;image/webp;image/x-dds;image/x-exr;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-qoi;image/x-tga;image/x-win-bitmap;image/x-xbitmap;image/x-xpixmap";
     }
     {
       name = "audacious.desktop";
