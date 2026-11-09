@@ -73,7 +73,10 @@ in
       interfaces = [ "eth0" ];
     };
     WAN = hairpinPorts // {
-      interfaces = lib.mkForce [ "eth1" ];
+      interfaces = lib.mkForce [
+        "eth1"
+        "henet"
+      ];
     };
     # henet is the IPv6 tunnel; its input was never filtered by the old
     # WAN zone, so keep it accept-all and only forward the explicit port
