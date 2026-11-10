@@ -1,0 +1,97 @@
+diff --git a/lib/pi-web-packages.ts b/lib/pi-web-packages.ts
+new file mode 100644
+index 0000000..f6a97da
+--- /dev/null
++++ b/lib/pi-web-packages.ts
+@@ -0,0 +1,49 @@
++import { readFileSync } from "node:fs";
++import { join } from "node:path";
++import { getAgentDir, type SettingsManager } from "@earendil-works/pi-coding-agent";
++
++type Settings = ReturnType<SettingsManager["getGlobalSettings"]>;
++
++/** Pi Web's own plugin switches, kept out of the shared pi settings. */
++const PI_WEB_PACKAGES_FILE = "pi-web.json";
++
++/**
++ * Package sources Pi Web must not load, from `pi-web.json` in the agent directory:
++ * `{ "disabledPackages": ["npm:@scope/package"] }`. Sources are matched against the
++ * settings entry as written, so a pinned source needs the same pin here.
++ */
++export function readPiWebDisabledPackages(agentDir = getAgentDir()): Set<string> {
++  try {
++    const parsed: unknown = JSON.parse(readFileSync(join(agentDir, PI_WEB_PACKAGES_FILE), "utf8"));
++    const list = (parsed as { disabledPackages?: unknown } | null)?.disabledPackages;
++    return new Set(Array.isArray(list) ? list.filter((entry): entry is string => typeof entry === "string") : []);
++  } catch {
++    return new Set();
++  }
++}
++
++function filterPackages(settings: Settings, disabled: ReadonlySet<string>): Settings {
++  const packages = settings.packages ?? [];
++  const kept = packages.filter((entry) => !disabled.has(typeof entry === "string" ? entry : entry.source));
++  return kept.length === packages.length ? settings : { ...settings, packages: kept };
++}
++
++/**
++ * Hide packages from a session without editing settings.json, so the pi CLI keeps them.
++ * The resource loader resolves packages through these getters, so a filtered list keeps the
++ * extension from ever being imported — `extensionsOverride` runs after import and cannot
++ * undo side effects such as `ctx.ui.notify`. The proxy forwards every other method to the
++ * original manager, so writes and locks still apply.
++ */
++export function withPiWebPackageFilter(settingsManager: SettingsManager, agentDir = getAgentDir()): SettingsManager {
++  const disabled = readPiWebDisabledPackages(agentDir);
++  if (disabled.size === 0) return settingsManager;
++  return new Proxy(settingsManager, {
++    get(target, property) {
++      if (property === "getGlobalSettings") return () => filterPackages(target.getGlobalSettings(), disabled);
++      if (property === "getProjectSettings") return () => filterPackages(target.getProjectSettings(), disabled);
++      const value = Reflect.get(target, property, target);
++      return typeof value === "function" ? value.bind(target) : value;
++    },
++  });
++}
+diff --git a/lib/rpc-manager.ts b/lib/rpc-manager.ts
+index 19fe63b..f70fd25 100644
+--- a/lib/rpc-manager.ts
++++ b/lib/rpc-manager.ts
+@@ -24,6 +24,7 @@ import { notifySessionComplete } from "./web-push";
+ import { hasActiveSessionLivenessProvider } from "./session-liveness";
+ import type { SlashCommandInfo } from "@earendil-works/pi-coding-agent";
+ import type { AgentSessionLike, ExtensionUiContextLike, ToolInfo } from "./pi-types";
++import { withPiWebPackageFilter } from "./pi-web-packages";
+ import type {
+   ExtensionUiRequest,
+   ExtensionUiResponse,
+@@ -3139,7 +3140,7 @@ export async function startRpcSession(
+       : chatOnly
+         ? undefined
+         : projectTrustReloadOptions(sessionCwd, agentDir);
+-    const settingsManager = SettingsManager.create(sessionCwd, agentDir);
++    const settingsManager = withPiWebPackageFilter(SettingsManager.create(sessionCwd, agentDir), agentDir);
+     // Here the allow-list is the point: extensions stay loaded, their tools and what
+     // the parent did not have stay out of the registry.
+     if (sideChatTools) toolsOption = resolveShellTools(selectedToolNames ?? [], settingsManager.getDefaultTools());
+diff --git a/lib/subagent-runtime.ts b/lib/subagent-runtime.ts
+index beb5c4a..77c0a58 100644
+--- a/lib/subagent-runtime.ts
++++ b/lib/subagent-runtime.ts
+@@ -38,6 +38,7 @@ import { buildSubagentPromptPlan } from "./subagent-prompt";
+ import { createSubagentSkillsBinding } from "./subagent-skills";
+ import { appendSubagentInputFiles, loadSubagentInputFiles, subagentInputLimits } from "./subagent-input";
+ import { projectTrustReloadOptions } from "./project-trust";
++import { withPiWebPackageFilter } from "./pi-web-packages";
+ import { createSubagentCodemodeExtension, createSubagentMcpExtensions } from "./builtin-extensions";
+ import type { McpHost } from "./mcp-host";
+ import { createSubagentMcpPolicyExtension } from "./mcp-read-only-policy";
+@@ -454,7 +455,7 @@ export function createSubagentController(
+       const turnLimit = profile.maxTurns;
+ 
+       const agentDir = getAgentDir();
+-      const settingsManager = SettingsManager.create(childCwd, agentDir);
++      const settingsManager = withPiWebPackageFilter(SettingsManager.create(childCwd, agentDir), agentDir);
+       const inheritedParentContext = inheritContext
+         ? `The following is the active conversation context from the parent session. Use it only as background for the delegated task:\n${parentContextText(parent)}`
+         : undefined;

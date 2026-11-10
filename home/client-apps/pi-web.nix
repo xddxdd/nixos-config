@@ -8,7 +8,10 @@
 }:
 let
   pi-web = pkgs.nur-xddxdd.pi-web.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../../patches/pi-web-raw-model-id.patch ];
+    patches = (old.patches or [ ]) ++ [
+      ../../patches/pi-web-raw-model-id.patch
+      ../../patches/pi-web-disabled-packages.patch
+    ];
   });
 in
 lib.mkIf (osConfig.networking.hostName == "lt-hp-omen" && config.home.username == "lantian") {

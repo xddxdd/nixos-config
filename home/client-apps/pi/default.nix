@@ -159,6 +159,13 @@ in
     enableFsRootScanning = false;
     enableHomeDirScanning = false;
   };
+  # Packages Pi Web skips while the pi CLI keeps them; see
+  # patches/pi-web-disabled-packages.patch.
+  home.file.".pi/agent/pi-web.json".text = builtins.toJSON {
+    disabledPackages = [
+      "npm:@monotykamary/pi-tps"
+    ];
+  };
   home.file.".pi/agent/pi-goal.json".text = builtins.toJSON {
     continuationLimits = {
       automaticTurns = null;
