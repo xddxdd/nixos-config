@@ -6,4 +6,5 @@
   cpuThreads = 4;
   hostname = "192.168.0.3";
   manualDeploy = true;
+  firewalled = true;
 }
