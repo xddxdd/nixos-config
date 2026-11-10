@@ -12,13 +12,20 @@
     script = ''
       IFS=$'\n'
 
+      LIST="$STATE_DIRECTORY/processed.lst"
+      QUEUE="$STATE_DIRECTORY/queue.lst"
+      touch "$LIST"
+      : > "$QUEUE"
+
       for FILE in $(find /mnt/storage/syncthing/CloudMusic -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
-        echo "rsgain custom --skip-existing --tagmode=i --loudness=-14 \"$FILE\"" >> parallel.lst
+        grep -qxF -- "$FILE" "$LIST" && continue
+        echo "rsgain custom --tagmode=i --loudness=-14 \"$FILE\" && echo \"$FILE\" >> \"$LIST\"" >> "$QUEUE"
       done
       for FILE in $(find /mnt/storage/syncthing/CloudMusicArchive -type f -iname \*.mp3 -or -iname \*.m4a -or -iname \*.ogg -or -iname \*.flac); do
-        echo "rsgain custom --skip-existing --tagmode=i --loudness=-14 \"$FILE\"" >> parallel.lst
+        grep -qxF -- "$FILE" "$LIST" && continue
+        echo "rsgain custom --tagmode=i --loudness=-14 \"$FILE\" && echo \"$FILE\" >> \"$LIST\"" >> "$QUEUE"
       done
-      parallel -j$(nproc) < parallel.lst
+      parallel -j$(nproc) < "$QUEUE"
     '';
 
     serviceConfig = {
@@ -27,8 +34,8 @@
         "/mnt/storage/syncthing/CloudMusic"
         "/mnt/storage/syncthing/CloudMusicArchive"
       ];
-      RuntimeDirectory = "rsgain-cloudmusic";
-      WorkingDirectory = "/run/rsgain-cloudmusic";
+      StateDirectory = "rsgain-cloudmusic";
+      WorkingDirectory = "/var/lib/rsgain-cloudmusic";
 
       # Allow rsgain to read/write files created by syncthing
       AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
