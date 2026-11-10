@@ -42,6 +42,7 @@ let
       # keep-sorted start
       (inputs.srvos + "/shared/common/update-diff.nix")
       (inputs.srvos + "/shared/common/well-known-hosts.nix")
+      inputs.bootvine.nixosModules.default
       inputs.colmena.nixosModules.deploymentOptions
       inputs.honkai-railway-grub-theme.nixosModules.${system}.default
       inputs.nix-gaming.nixosModules.platformOptimizations
