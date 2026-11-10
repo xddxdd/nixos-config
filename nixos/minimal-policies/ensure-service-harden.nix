@@ -24,7 +24,6 @@ let
     "nvidia-persistenced"
     "ovs-vswitchd"
     "ovsdb"
-    "pcscd"
     "polkit"
     "pve-cluster"
     "pvedaemon"
