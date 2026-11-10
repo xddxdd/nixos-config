@@ -30,10 +30,10 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "2026110603";
+    version = "2026110900";
     src = fetchurl {
-      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110603/rpz.delegacy.monostack.org.zone";
-      sha256 = "sha256-W29zmC0m4XElzsl0m9uQNdHnDux7oGJoyMQIYUq7q50=";
+      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110900/rpz.delegacy.monostack.org.zone";
+      sha256 = "sha256-Gbc+BWqVke5nOYnQGUlJy5AAwrysOEdCQKUBLJsibbg=";
     };
   };
   dn42-certificate-authority-client = {
@@ -160,43 +160,43 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "f63f6bbbd7fc499300d32565df1fddc19a896f63";
+    version = "f1d61716fa21cf8c91f86491e8fea43d13e69058";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "f63f6bbbd7fc499300d32565df1fddc19a896f63";
+      rev = "f1d61716fa21cf8c91f86491e8fea43d13e69058";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-294P71q6F9tI0DMqqHm2Grsxj15WGAF9k8W6qB+ggCQ=";
+      sha256 = "sha256-55QyZt1TfbbdSd6LjI8wpRCikx2ApVZKPTF5kDjgDOc=";
     };
-    date = "2026-11-06";
+    date = "2026-11-09";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
-    version = "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4";
+    version = "78dda05830933d296a870413367f0c4fa42cfb9c";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/official-plugins.git";
-      rev = "68d491f4633ba61bc9ead01a3f0ecb499d4d9af4";
+      rev = "78dda05830933d296a870413367f0c4fa42cfb9c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-BM6/TC2jI1jf/NL5DGA3zrWrEaWFTwm7e3GHfT6NKLI=";
+      sha256 = "sha256-g/TGt9o44TtqLc2hCuREOyFlJIY297vOqjMuBrTFKHI=";
     };
-    date = "2026-11-06";
+    date = "2026-11-09";
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "809fa4add10a0ab44f872096c0d787275e210cb4";
+    version = "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "809fa4add10a0ab44f872096c0d787275e210cb4";
+      rev = "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5";
       fetchSubmodules = false;
-      sha256 = "sha256-78oNxCCgw4zRKIaMkT/4pQz9hQfyUX0YIKJQhShrXTA=";
+      sha256 = "sha256-tZAXQQ+9C94wV/1FVx+lVDDtJm/buphdhysJlw5GSrA=";
     };
-    date = "2026-11-05";
+    date = "2026-11-08";
   };
   open5gs = {
     pname = "open5gs";
@@ -273,15 +273,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "512e1802380e7fb131ac2dec47e910ea91dd652b";
+    version = "7228d14dc1b0ff04c63e4bae24ca9d605e32460b";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "512e1802380e7fb131ac2dec47e910ea91dd652b";
+      rev = "7228d14dc1b0ff04c63e4bae24ca9d605e32460b";
       fetchSubmodules = false;
-      sha256 = "sha256-ZZYo/3c13W+wn2swaAuXcPEBS6qpGln5Zd5lnS0/yqM=";
+      sha256 = "sha256-n6bxIO82cfNfzG1G74kotXljCzfFoB/GtPH2p8vcVh0=";
     };
-    date = "2026-11-02";
+    date = "2026-11-09";
   };
   ulauncher-albert-calculate-anything = {
     pname = "ulauncher-albert-calculate-anything";

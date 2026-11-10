@@ -113,9 +113,9 @@
   },
   {
     "pname": "noscript",
-    "version": "13.6.37",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5173524/noscript-13.6.37.xpi",
-    "hash": "sha256-pHM+4jg6Tg3rzUkwoqbh/gqKUmMywsvtqsjRpWO6khs=",
+    "version": "13.6.38",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5229642/noscript-13.6.38.xpi",
+    "hash": "sha256-ZfGtvVRScAq9nvfQr2iIVNP3BBNUSpd4KQooZzuhwok=",
     "addonId": "{73a6fe31-595d-460b-a920-fcc0f8843232}"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.58.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5213880/read_frog_open_ai_translator-1.58.0.xpi",
-    "hash": "sha256-tYo+EwSYdQFN+m6pGmf4m3uRgf80oz+BA2YOJARLc4g=",
+    "version": "1.58.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5226898/read_frog_open_ai_translator-1.58.1.xpi",
+    "hash": "sha256-VvHC0UxP5q1v6vZruH4og9yApJf5ZyfO8H2PTINnCJk=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -169,9 +169,9 @@
   },
   {
     "pname": "return-youtube-dislikes",
-    "version": "4.1.5",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5205580/return_youtube_dislikes-4.1.5.xpi",
-    "hash": "sha256-greAtbq2oDqvoHz4nxfExJ9NEzM4Z3cuPpdcHGyCelM=",
+    "version": "4.1.7",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5222672/return_youtube_dislikes-4.1.7.xpi",
+    "hash": "sha256-rFLweGu/TkpmkAm+DihHwhxkLmDP41jAGoAFfFLVB9Y=",
     "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}"
   },
   {
