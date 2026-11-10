@@ -122,7 +122,7 @@ let
         };
         allowEphemeral = lib.mkOption {
           type = lib.types.bool;
-          default = false;
+          default = true;
           description = "Accept the local ephemeral port range.";
         };
         allowedIpProtocols = lib.mkOption {
@@ -284,7 +284,6 @@ in
       WAN = {
         priority = 100;
         interfaces = interfacePrefixes.WAN ++ interfacePrefixes.OVERLAY;
-        allowEphemeral = true;
         # DHCP client replies arrive on the WAN link before the interface has
         # an address, so they never match the ephemeral port range.
         udpPorts = {
