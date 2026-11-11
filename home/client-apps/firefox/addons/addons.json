@@ -15,9 +15,9 @@
   },
   {
     "pname": "awardwallet",
-    "version": "3.8.10",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5198638/awardwallet-3.8.10.xpi",
-    "hash": "sha256-sbHxZSV3SIelsejhyLeqKNoy876WMTtHGLGyPjAI0LE=",
+    "version": "3.8.13",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5232468/awardwallet-3.8.13.xpi",
+    "hash": "sha256-F/crnlTJ6WBk076amCX8jhImrOQ7kWosytBxtb8khws=",
     "addonId": "6200cc7406cd11e1a68a12313d1adcbe@jetpack"
   },
   {
