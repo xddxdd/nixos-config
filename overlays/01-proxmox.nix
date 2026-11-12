@@ -23,12 +23,14 @@ import (inputs.proxmox-nixos + "/pkgs") {
         final.lib.callPackageWith (
           final
           // {
-            fuse = mv.versions.fuse."2.9.9";
             # PVE depends on GlusterFS support removed in later QEMU
             qemu = mv.versions.qemu."10.2.2";
+            # PVE's Makefiles resolve fuse through pkg-config in the same call
+            # as glib-2.0, and fuse3 ships no fuse.pc
+            fuse = mv.versions.fuse."2.9.9";
+            # vncterm's tls-auth-pluging.patch targets the 0.9.13 source layout
+            # and no longer applies to 0.9.15
             libvncserver = mv.versions.libvncserver."0.9.14";
-            # Compilation error with latest ceph
-            inherit (mv.at "26.05") ceph;
             inherit libxcrypt;
           }
         );

@@ -29,6 +29,7 @@ in
           "jitsi-meet-1.0.8792"
           "libsoup-2.74.3"
           "mbedtls-2.28.10"
+          "mbedtls-3.6.1-unstable-2025-08-11"
           "olm-3.2.16"
           "pnpm-10.29.2"
           "ventoy-1.1.18"
