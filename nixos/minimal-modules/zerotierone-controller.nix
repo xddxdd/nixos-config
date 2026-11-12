@@ -171,6 +171,14 @@ in
       description = "ZeroTier One Controller";
       wantedBy = [ "multi-user.target" ];
 
+      # The controller joins no network, so it needs no NAT-traversal port.
+      # allowSecondaryPort=false skips the random secondary UDP port picked at
+      # startup; secondaryPort must also be nonzero to skip the offline
+      # re-randomization path, which upstream gates on secondaryPort == 0.
+      preStart = ''
+        echo '{"settings":{"allowSecondaryPort":false,"secondaryPort":65535}}' > /var/lib/zerotier-one-controller/local.conf
+      '';
+
       serviceConfig = {
         ExecStart = "${lib.getExe' pkgs.zerotierone "zerotier-one"} -p${builtins.toString cfg.port} -U /var/lib/zerotier-one-controller";
         StateDirectory = "zerotier-one-controller";
