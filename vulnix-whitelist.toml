@@ -131,6 +131,10 @@ comment = "Terrapin; kitty fixed it in 0.31.3"
 ["lapack-3"]
 comment = "nixpkgs lapack is an ABI shim around openblas with version='3'; no LAPACK source, CVE-2021-4048 does not apply"
 
+["libiff"]
+cve = "CVE-2021-32298"
+comment = "affects libiff through 20190123; the packaged snapshot is from 2024"
+
 ["libmpeg2"]
 cve = "CVE-2022-37416"
 comment = "Ittiam libmpeg2 fork"
@@ -164,6 +168,20 @@ comment = "Log4j; this is a LaTeX beamer theme"
 
 # perl stays version-scoped: 5.42.0 is genuinely affected by three of the four
 # CVEs that 5.42.3 fixed, so a package-level entry would hide real findings.
+["oh-my-zsh"]
+cve = "CVE-2021-3727"
+comment = "rand-quote/hitokoto plugin command injection, fixed upstream in 72928432 (2021)"
+
+["openvswitch"]
+cve = "CVE-2023-5366"
+comment = "ICMPv6 NA OpenFlow bypass, fixed in 3.0.2/2.17.9; NVD records a date version, the packaged release is 4.0.0"
+
+["orc"]
+cve = "CVE-2025-47436"
+comment = "Apache ORC columnar format through 2.1.1; this is the GStreamer Oil Runtime Compiler"
+
+# perl stays version-scoped: 5.42.0 is genuinely affected by three of the four
+# CVEs that 5.42.3 fixed, so a package-level entry would hide real findings.
 ["perl-5.42.3"]
 comment = "all three matches are fixed in 5.42.3-RC1"
 
@@ -173,6 +191,10 @@ comment = "same CVEs as perl-5.42.3, fixed in 5.42.3-RC1"
 ["php-calendar"]
 cve = "CVE-2022-4455"
 comment = "sproctor/php-calendar web app; this is PHP ext/calendar"
+
+["php-imap"]
+cve = "CVE-2023-35169"
+comment = "webklex/php-imap Composer library; this is PHP ext/imap"
 
 ["plantuml"]
 cve = [
