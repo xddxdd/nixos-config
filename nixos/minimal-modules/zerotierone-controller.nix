@@ -207,7 +207,15 @@ in
       after = [ "zerotierone-controller.service" ];
       requires = [ "zerotierone-controller.service" ];
 
-      script = lib.concatStrings (lib.mapAttrsToList (n: v: v._script) cfg.networks);
+      # ExecStart returns before the control plane binds its socket, so a
+      # setup run right after a controller restart races the API and would
+      # fail with curl's "connection refused".
+      script = ''
+        until ${ztcurl} -o /dev/null "${zturl}/status"; do
+          sleep 1
+        done
+      ''
+      + lib.concatStrings (lib.mapAttrsToList (n: v: v._script) cfg.networks);
 
       serviceConfig = {
         Type = "oneshot";
