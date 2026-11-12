@@ -122,12 +122,7 @@ in
     steam.platformOptimizations.enable = true;
   };
 
-  services.dbus = {
-    implementation = "broker";
-    brokerPackage = pkgs.dbus-broker.override {
-      systemd = config.systemd.package;
-    };
-  };
+  services.dbus.implementation = "broker";
 
   services.fstrim.enable = true;
   services.irqbalance.enable = LT.this.cpuThreads > 1;

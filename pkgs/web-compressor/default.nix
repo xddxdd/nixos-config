@@ -2,7 +2,9 @@
   lib,
   rustPlatform,
   cmake,
+  pkg-config,
   zlib-ng,
+  zstd,
 }:
 rustPlatform.buildRustPackage {
   pname = "web-compressor";
@@ -11,8 +13,14 @@ rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib-ng ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    zlib-ng
+    zstd
+  ];
 
   meta = {
     description = "Pre-compress static web assets with Gzip, Brotli and Zstd";

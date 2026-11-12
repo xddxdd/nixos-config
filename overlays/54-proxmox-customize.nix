@@ -44,4 +44,15 @@ _: final: prev: {
   # proxmox-nixos's own mimebase32 conflicts with nixpkgs MIMEBase32
   # (pulled in by URI >= 5.36) in pve-common's perl env
   mimebase32 = prev.perl5.pkgs.MIMEBase32;
+
+  # nixpkgs' Cargo hook forbids building system libraries internally, but
+  # zstd-sys needs pkg-config to find them
+  pve-rs = prev.pve-rs.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
+    buildInputs = (old.buildInputs or [ ]) ++ [ final.zstd ];
+  });
+  proxmox-backup-client = prev.proxmox-backup-client.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
+    buildInputs = (old.buildInputs or [ ]) ++ [ final.zstd ];
+  });
 }

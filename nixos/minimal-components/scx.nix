@@ -6,35 +6,63 @@
   ...
 }:
 {
-  services.scx = {
+  services.scx-loader = {
     # Broken on aarch64
     # Only enable on client, uncertain improvements on server
     enable = pkgs.stdenv.hostPlatform.isx86_64 && LT.this.hasTag LT.tags.client;
-    scheduler = "scx_flash";
-    extraArgs =
-      if LT.this.hasTag LT.tags.client then
-        [
-          "-m"
-          "all"
-        ]
-      else
-        [
-          "-m"
-          "performance"
-        ];
+    config = {
+      default_sched = "scx_flash";
+      default_mode = "Gaming";
+      scheds = {
+        scx_flash = {
+          gaming_mode = [
+            "-m"
+            "all"
+          ];
+          lowlatency_mode = [
+            "-m"
+            "performance"
+          ];
+        };
+        scx_lavd = {
+          gaming_mode = [
+            "--performance"
+            "--pinned-slice-us"
+            "500"
+          ];
+          lowlatency_mode = [
+            "--performance"
+            "--pinned-slice-us"
+            "500"
+          ];
+        };
+        scx_bpfland = {
+          gaming_mode = [
+            "-m"
+            "all"
+          ];
+          lowlatency_mode = [
+            "-m"
+            "performance"
+            "-w"
+          ];
+        };
+        # No mode flags upstream; runs with its own defaults
+        scx_pandemonium = { };
+      };
+    };
   };
 
   lantian.preservation.directories = [ "/root/.cache/pandemonium" ];
 
-  lantian.harden.scx = lib.mkIf config.services.scx.enable {
+  lantian.harden.scx_loader = lib.mkIf config.services.scx-loader.enable {
     enable = true;
     realtime = true;
     enableConfinement = false;
   };
 
-  systemd.services.scx = {
-    inherit (config.services.scx) enable;
-    serviceConfig = lib.mkIf config.services.scx.enable {
+  systemd.services.scx_loader = lib.mkIf config.services.scx-loader.enable {
+    serviceConfig = {
       Restart = lib.mkForce "always";
       RestartSec = "3";
       # scx loads BPF schedulers and needs realtime scheduling privileges;

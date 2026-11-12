@@ -160,6 +160,13 @@ rec {
       ]);
   };
   rustic = prev.rustic.overrideAttrs (old: {
+    # nixpkgs' Cargo hook forbids building system libraries internally, but
+    # rustic's zstd-sys/aws-lc-sys need pkg-config to find them
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
+    buildInputs = (old.buildInputs or [ ]) ++ [
+      final.zstd
+      final.aws-lc
+    ];
     # Patch vendored rustic_core dependency
     # Stop tree workers after receiver closes, from https://github.com/rustic-rs/rustic_core/pull/546
     postPatch = (old.postPatch or "") + ''

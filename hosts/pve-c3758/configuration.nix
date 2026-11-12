@@ -29,5 +29,5 @@
   };
 
   # Doesn't work correctly on this host
-  services.scx.enable = lib.mkForce false;
+  services.scx-loader.enable = lib.mkForce false;
 }
