@@ -33,9 +33,10 @@ let
 in
 {
   # The ZeroTier controller is reachable from WAN by design (peers bootstrap
-  # onto it), hence a WAN local port rather than a LAN-only one.
+  # onto it), hence WAN local ports rather than LAN-only ones: TCP is the
+  # controller HTTP API, UDP is the controller node's ZeroTier transport.
   lantian.firewall.zones = {
-    WAN.tcpPorts."${LT.portStr.ZeroTier.Controller}".type = "local";
+    WAN.ports."${LT.portStr.ZeroTier.Controller}".type = "local";
   };
 
   services.zerotierone.controller = {
