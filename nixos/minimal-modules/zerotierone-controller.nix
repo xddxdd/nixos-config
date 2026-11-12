@@ -172,11 +172,13 @@ in
       wantedBy = [ "multi-user.target" ];
 
       # The controller joins no network, so it needs no NAT-traversal port.
-      # allowSecondaryPort=false skips the random secondary UDP port picked at
-      # startup; secondaryPort must also be nonzero to skip the offline
-      # re-randomization path, which upstream gates on secondaryPort == 0.
+      # ZeroTier picks a random UDP port for both of them: the secondary one
+      # unless allowSecondaryPort=false, and the UPnP tertiary one unless
+      # portMappingEnabled=false. secondaryPort must also stay nonzero to
+      # skip the offline re-randomization path, which upstream gates on
+      # secondaryPort == 0 rather than on allowSecondaryPort.
       preStart = ''
-        echo '{"settings":{"allowSecondaryPort":false,"secondaryPort":65535}}' > /var/lib/zerotier-one-controller/local.conf
+        echo '{"settings":{"allowSecondaryPort":false,"portMappingEnabled":false,"secondaryPort":65535}}' > /var/lib/zerotier-one-controller/local.conf
       '';
 
       serviceConfig = {
