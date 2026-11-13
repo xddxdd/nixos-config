@@ -8,9 +8,9 @@
   },
   {
     "pname": "all-api-hub",
-    "version": "4.9.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5212582/all_api_hub-4.9.0.xpi",
-    "hash": "sha256-BiDlWivKP2dKvtgyqTQ1zPdZyqDJmLNutvVcbP3EDic=",
+    "version": "4.10.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5241862/all_api_hub-4.10.1.xpi",
+    "hash": "sha256-0stL4BSDbLw/YleyCUJujccwrjN+TSj6MJ7a97KGE7Q=",
     "addonId": "{bc73541a-133d-4b50-b261-36ea20df0d24}"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.58.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5226898/read_frog_open_ai_translator-1.58.1.xpi",
-    "hash": "sha256-VvHC0UxP5q1v6vZruH4og9yApJf5ZyfO8H2PTINnCJk=",
+    "version": "1.59.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5244718/read_frog_open_ai_translator-1.59.2.xpi",
+    "hash": "sha256-nyOew4Yz052SHGXIHS+4lRIkJGLRdSZraTCXS6gV1FA=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
