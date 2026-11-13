@@ -50,6 +50,7 @@ in
     ../nix-distributed.nix
     ../postgresql.nix
     ./cancel-old-builds.nix
+    ./check-kernel-jobsets.nix
   ];
 
   sops.secrets.hydra-attic-push-token = {
