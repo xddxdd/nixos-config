@@ -6,18 +6,22 @@
   ...
 }:
 {
-  # SSDP and NAT-PMP are LAN-only by policy
+  # SSDP, NAT-PMP and the UPnP HTTP description server are LAN-only by policy
   lantian.firewall.zones = {
     LAN.udpPorts = {
       "${LT.portStr.SSDP}".type = "local";
       "${LT.portStr.NATPMP}".type = "local";
     };
+    LAN.tcpPorts."${LT.portStr.MiniUPnP.HTTP}".type = "local";
   };
 
   services.miniupnpd = {
     enable = true;
     upnp = true;
     natpmp = true;
+    # Without http_port the daemon binds 0 and the kernel picks an ephemeral
+    # port, which the firewall's ephemeral rules accept from WAN.
+    appendConfig = "http_port=${LT.portStr.MiniUPnP.HTTP}";
   };
 
   systemd.services.miniupnpd = {

@@ -95,6 +95,7 @@ rec {
     WGMesh.End = 10255;
     OllamaCpaHoneypot.OllamaListener = 11434;
     NMEA = 13110;
+    MiniUPnP.HTTP = 13111;
     FlapAlerted.BGP = 13179;
     FlareSolverr = 13191;
     OpenVPN.GameAccel = 13194;
