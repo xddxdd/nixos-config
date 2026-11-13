@@ -54,10 +54,10 @@ index 0000000..f6a97da
 +  });
 +}
 diff --git a/lib/rpc-manager.ts b/lib/rpc-manager.ts
-index 19fe63b..f70fd25 100644
+index 6056897..71b8075 100644
 --- a/lib/rpc-manager.ts
 +++ b/lib/rpc-manager.ts
-@@ -24,6 +24,7 @@ import { notifySessionComplete } from "./web-push";
+@@ -26,6 +26,7 @@ import { notifySessionComplete } from "./web-push";
  import { hasActiveSessionLivenessProvider } from "./session-liveness";
  import type { SlashCommandInfo } from "@earendil-works/pi-coding-agent";
  import type { AgentSessionLike, ExtensionUiContextLike, ToolInfo } from "./pi-types";
@@ -65,33 +65,43 @@ index 19fe63b..f70fd25 100644
  import type {
    ExtensionUiRequest,
    ExtensionUiResponse,
-@@ -3139,7 +3140,7 @@ export async function startRpcSession(
-       : chatOnly
-         ? undefined
-         : projectTrustReloadOptions(sessionCwd, agentDir);
--    const settingsManager = SettingsManager.create(sessionCwd, agentDir);
-+    const settingsManager = withPiWebPackageFilter(SettingsManager.create(sessionCwd, agentDir), agentDir);
+@@ -3418,9 +3419,12 @@ export async function startRpcSession(
+     // Trusted only by the folder's decision, as `syncProjectTrust()` reads it: created trusted
+     // by default, a session that resolves no trust on load (a subagent that loads no
+     // resources, Chat only) read the project settings of a folder never trusted.
+-    const settingsManager = SettingsManager.create(sessionCwd, agentDir, {
+-      projectTrusted: getProjectTrustStatus(sessionCwd, agentDir).trusted,
+-    });
++    const settingsManager = withPiWebPackageFilter(
++      SettingsManager.create(sessionCwd, agentDir, {
++        projectTrusted: getProjectTrustStatus(sessionCwd, agentDir).trusted,
++      }),
++      agentDir,
++    );
      // Here the allow-list is the point: extensions stay loaded, their tools and what
      // the parent did not have stay out of the registry.
      if (sideChatTools) toolsOption = resolveShellTools(selectedToolNames ?? [], settingsManager.getDefaultTools());
 diff --git a/lib/subagent-runtime.ts b/lib/subagent-runtime.ts
-index beb5c4a..77c0a58 100644
+index df67421..972f6cf 100644
 --- a/lib/subagent-runtime.ts
 +++ b/lib/subagent-runtime.ts
 @@ -38,6 +38,7 @@ import { buildSubagentPromptPlan } from "./subagent-prompt";
  import { createSubagentSkillsBinding } from "./subagent-skills";
  import { appendSubagentInputFiles, loadSubagentInputFiles, subagentInputLimits } from "./subagent-input";
- import { projectTrustReloadOptions } from "./project-trust";
+ import { getProjectTrustStatus } from "./project-trust";
 +import { withPiWebPackageFilter } from "./pi-web-packages";
  import { createSubagentCodemodeExtension, createSubagentMcpExtensions } from "./builtin-extensions";
  import type { McpHost } from "./mcp-host";
  import { createSubagentMcpPolicyExtension } from "./mcp-read-only-policy";
-@@ -454,7 +455,7 @@ export function createSubagentController(
-       const turnLimit = profile.maxTurns;
- 
-       const agentDir = getAgentDir();
--      const settingsManager = SettingsManager.create(childCwd, agentDir);
-+      const settingsManager = withPiWebPackageFilter(SettingsManager.create(childCwd, agentDir), agentDir);
+@@ -467,7 +468,10 @@ export function createSubagentController(
+       // that loads no resources read the project settings of a folder never trusted; and
+       // an isolated run's throwaway worktree has no decision of its own to find.
+       const projectTrusted = getProjectTrustStatus(parent.cwd, agentDir).trusted;
+-      const settingsManager = SettingsManager.create(childCwd, agentDir, { projectTrusted });
++      const settingsManager = withPiWebPackageFilter(
++        SettingsManager.create(childCwd, agentDir, { projectTrusted }),
++        agentDir,
++      );
        const inheritedParentContext = inheritContext
          ? `The following is the active conversation context from the parent session. Use it only as background for the delegated task:\n${parentContextText(parent)}`
          : undefined;

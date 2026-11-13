@@ -4,27 +4,37 @@ The runtime registry (and CLIProxyAPI's upstream listing) carries prettified
 display names like "GPT 6.1 Sol" for id "gpt-6.1-sol"; pi-web shows raw IDs.
 
 diff --git a/app/api/models/route.ts b/app/api/models/route.ts
+index 360d8e7..ff3e24d 100644
 --- a/app/api/models/route.ts
 +++ b/app/api/models/route.ts
-@@ -47,5 +47,5 @@
+@@ -50,7 +50,7 @@ async function loadModels(cwd: string, scopeAll = false): Promise<ModelsData> {
+   const { visible, thinkingLevelPins, warnings } = scope;
    modelList = orderSelectorModels(scope).map((m) => ({
      id: m.id,
 -    name: m.name,
 +    name: m.id,
      provider: m.provider,
-     input: m.input,
-@@ -53,5 +53,5 @@
+     // The selector groups by provider id, but labels the group with its display
+     // name; models.json providers get theirs from `name` too.
+@@ -59,7 +59,7 @@ async function loadModels(cwd: string, scopeAll = false): Promise<ModelsData> {
+   }));
    for (const m of visible) {
      const key = `${m.provider}:${m.id}`;
 -    nameMap.set(key, m.name);
 +    nameMap.set(key, m.id);
      thinkingLevels[key] = getSupportedThinkingLevels(m);
      if (m.thinkingLevelMap) thinkingLevelMaps[key] = m.thinkingLevelMap;
+   }
 diff --git a/lib/enabled-models-runtime.ts b/lib/enabled-models-runtime.ts
+index 8af7ee9..e65f69d 100644
 --- a/lib/enabled-models-runtime.ts
 +++ b/lib/enabled-models-runtime.ts
-@@ -158,3 +158,3 @@
+@@ -157,7 +157,7 @@ export function buildEnabledModelsView({
+     const pin = state.pins[ref];
+     const entry: EnabledModelsModelView = {
        id: model.id,
 -      name: model.name || model.id,
 +      name: model.id,
        ref,
+       enabled: enabled.has(ref),
+       ...(model.contextWindow === undefined ? {} : { contextWindow: model.contextWindow }),
