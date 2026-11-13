@@ -382,15 +382,36 @@ in
           touch "$d/.initialized"
         fi
       done
+      # 骨架只在首次启动时复制，而 thirdparty 目录里的 xmldoc 链接携带 codec_opus
+      # 的 store hash，重建后会悬空。缺少 'opus' 配置类型文档时 config_options
+      # 拒绝注册它，codec_opus 随之 decline to load，媒体无法在 opus 与 slin 之间
+      # 转换。因此每次启动都把该链接指回当前包（ln -sfn 不能直接指向目录）。
+      mkdir -p '${varlibdir}/documentation/thirdparty'
+      ln -sfn ${cfg.package}/var/lib/asterisk/documentation/thirdparty/codec_opus_config-en_US.xml \
+        '${varlibdir}/documentation/thirdparty/codec_opus_config-en_US.xml'
     '';
     serviceConfig = {
       User = "asterisk";
       Group = "asterisk";
       Restart = "always";
       RestartSec = "5s";
+      # res_rtp_asterisk 用 getifaddrs() 枚举本地地址来生成 ICE candidate，
+      # getifaddrs() 需要 AF_NETLINK；此选项会整体覆盖加固预设的三个 family，
+      # 所以这里写全。
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_NETLINK"
+      ];
       # Do not switch user with -U flag
       ExecStart = lib.mkForce "${lib.getExe cfg.package} -C /etc/asterisk/asterisk.conf -F";
-      BindReadOnlyPaths = [ "/nix/sync-servers/acme" ];
+      # MP3Player 的曲库在 confinement chroot 之外，不绑进去就报
+      # "MP3 stream ... is broken or nonexistent"，随后 Hangup()。
+      BindReadOnlyPaths = [
+        "/nix/sync-servers/acme"
+        "/var/lib/asterisk-music"
+      ];
       BindPaths = [
         "/var/spool/asterisk"
       ];
