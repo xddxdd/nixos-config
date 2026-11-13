@@ -60,7 +60,6 @@ in
         libfaketime
         linphone
         llm-agents.agentsview
-        llm-agents.ccusage
         loupe
         lx-music-desktop
         macchanger
