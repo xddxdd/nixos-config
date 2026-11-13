@@ -16,6 +16,14 @@
     "hugepages=24"
   ];
 
+  # getty-generator only spawns gettys for consoles it can isatty() at
+  # generator time, which is before 8250_mid registers the port, so ask for
+  # the instance explicitly
+  systemd.services."serial-getty@ttyS4" = {
+    wantedBy = [ "getty.target" ];
+    environment.TERM = "vt100";
+  };
+
   services.proxmox-ve.bridges = [ "br0" ];
   services.proxmox-ve.ipAddress = "192.168.0.5";
 
