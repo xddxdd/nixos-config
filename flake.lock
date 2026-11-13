@@ -719,6 +719,32 @@
         "type": "github"
       }
     },
+    "nix-tree-rs": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787652563,
+        "narHash": "sha256-ec73Anjp5QDIid2Z/iNC9jaGRqO9aLtYOJOo95dd5YU=",
+        "owner": "Mic92",
+        "repo": "nix-tree-rs",
+        "rev": "9654bd185c7043c60ae999b4d3a9b038e85b111b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-tree-rs",
+        "type": "github"
+      }
+    },
     "nixcord": {
       "inputs": {
         "home-manager": [
@@ -1048,6 +1074,7 @@
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",
+        "nix-tree-rs": "nix-tree-rs",
         "nixcord": "nixcord",
         "nixfmt-rs": "nixfmt-rs",
         "nixos-hardware": "nixos-hardware",

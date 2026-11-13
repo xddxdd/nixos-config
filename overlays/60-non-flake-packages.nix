@@ -4,6 +4,7 @@ final: prev: {
   lantian-secrets = final.callPackage ../pkgs/lantian-secrets { };
   markdown-apa7th-docx =
     inputs.markdown-apa7th-docx.packages."${prev.stdenv.hostPlatform.system}".default;
+  nix-tree-rs = inputs.nix-tree-rs.packages."${prev.stdenv.hostPlatform.system}".default;
   nixfmt-rs = inputs.nixfmt-rs.packages."${prev.stdenv.hostPlatform.system}".default;
   never-gonna = inputs.never-gonna-rust.packages."${prev.stdenv.hostPlatform.system}".default;
   picoforge = inputs.picoforge.packages."${prev.stdenv.hostPlatform.system}".picoforge;
