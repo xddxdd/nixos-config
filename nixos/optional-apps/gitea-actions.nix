@@ -9,6 +9,10 @@
 
   lantian.enablePodman = lib.mkForce true;
 
+  lantian.firewall.zones = {
+    LAN.tcpPorts."${LT.portStr.GiteaActions.Cache}".type = "local";
+  };
+
   services.gitea-actions-runner.instances.default = {
     enable = true;
     name = config.networking.hostName;
@@ -22,7 +26,12 @@
 
     settings = {
       log.level = "info";
-      cache.dir = "/var/cache/gitea-actions";
+      cache = {
+        dir = "/var/cache/gitea-actions";
+        # Jobs run on the podman bridge, whose gateway is the host side.
+        host = "10.88.0.1";
+        port = LT.port.GiteaActions.Cache;
+      };
       container = {
         network = "bridge";
         docker_host = "-";
