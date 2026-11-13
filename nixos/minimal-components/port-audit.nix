@@ -8,8 +8,9 @@
 # Interim package roll-out: install a host-specific wrapper so `port-audit`
 # can be invoked bare (allowed ports, LTnet-only ports, known-violation ports,
 # ephemeral expectation and reserved CIDRs are injected from eval-time config).
-# Client hosts skip the listener audit; the scheduled timer will be wired on
-# top of this wrapper in a later step.
+# The hourly port-audit.timer and its notify-email alarm live in
+# nixos/server-components/port-audit.nix, so client hosts have the audit but
+# no scheduled job.
 let
   # Normalize an allowedPort/additionalPort element (`22` or `"20000-23999"`)
   # into an inclusive numeric range.
@@ -46,28 +47,20 @@ let
     k: lib.any (a: rangesOverlap (toRange k) (toRange a)) allowedPorts
   ) knownViolations;
 
-  # Desktop clients run applications that bind wildcard ports for LAN-only
-  # services (Steam Remote Play, FluidSynth's shell server, libvirt's DHCP
-  # dnsmasq, ...), so the listener audit only checks non-client hosts, where
-  # every public listener must be deliberate.
-  auditListeners = !LT.this.hasTag LT.tags.client;
-
-  portAudit = pkgs.writeShellScriptBin "port-audit" (
-    if auditListeners then
-      ''
-        export PORT_AUDIT_ALLOWED=${lib.concatStringsSep "," (map toString allowedPorts)}
-        export PORT_AUDIT_ADDITIONAL=${lib.concatStringsSep "," (map toString additionalPorts)}
-        export PORT_AUDIT_KNOWN_VIOLATIONS=${lib.concatStringsSep "," (map toString knownViolations)}
-        export PORT_AUDIT_EPHEMERAL=${LT.portStr.Ephemeral.Start}-${LT.portStr.Ephemeral.End}
-        export PORT_AUDIT_RESERVED_V4=${lib.concatStringsSep "," LT.constants.reserved.IPv4}
-        export PORT_AUDIT_RESERVED_V6=${lib.concatStringsSep "," LT.constants.reserved.IPv6}
-        exec ${lib.getExe pkgs.port-audit}
-      ''
-    else
-      ''
-        echo "port-audit: client host: listener audit skipped"
-      ''
-  );
+  # Desktop clients bind wildcard ports for LAN-only services (Steam Remote
+  # Play, FluidSynth's shell server, libvirt's DHCP dnsmasq, ...), so their
+  # listeners are expected to violate the allowlist. They still get the real
+  # audit; only the hourly port-audit.timer, which pages through
+  # notify-email@, is kept off them by living in server-components.
+  portAudit = pkgs.writeShellScriptBin "port-audit" ''
+    export PORT_AUDIT_ALLOWED=${lib.concatStringsSep "," (map toString allowedPorts)}
+    export PORT_AUDIT_ADDITIONAL=${lib.concatStringsSep "," (map toString additionalPorts)}
+    export PORT_AUDIT_KNOWN_VIOLATIONS=${lib.concatStringsSep "," (map toString knownViolations)}
+    export PORT_AUDIT_EPHEMERAL=${LT.portStr.Ephemeral.Start}-${LT.portStr.Ephemeral.End}
+    export PORT_AUDIT_RESERVED_V4=${lib.concatStringsSep "," LT.constants.reserved.IPv4}
+    export PORT_AUDIT_RESERVED_V6=${lib.concatStringsSep "," LT.constants.reserved.IPv6}
+    exec ${lib.getExe pkgs.port-audit}
+  '';
 in
 {
   options.lantian.port-audit.knownViolations = lib.mkOption {
