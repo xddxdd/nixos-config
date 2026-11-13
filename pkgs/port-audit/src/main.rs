@@ -297,9 +297,13 @@ fn main() {
             if known_violations.iter().any(|r| r.contains(l.port)) {
                 continue;
             }
-            // Ephemeral-range listeners are already accepted from WAN by the
-            // ephemeral rules and are exempted from the audit per policy.
-            if (expected_ephemeral.0..=expected_ephemeral.1).contains(&l.port) {
+            // UDP listeners in the ephemeral range are already accepted from
+            // WAN by the ephemeral rules, so the audit exempts them per policy.
+            // TCP gets no exemption: a wildcard TCP listener riding the same
+            // ephemeral rules has no allowlist entry and must be reported.
+            if l.proto == Proto::Udp
+                && (expected_ephemeral.0..=expected_ephemeral.1).contains(&l.port)
+            {
                 continue;
             }
             offending.push(l);
