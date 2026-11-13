@@ -1,13 +1,12 @@
 {
   LT,
   config,
-  inputs,
   lib,
   ...
 }:
 {
   sops.secrets.hetzner-storagebox-metrics-api-key = {
-    sopsFile = inputs.secrets + "/hetzner-storagebox-metrics.yaml";
+    sopsFile = LT.secret "hetzner-storagebox-metrics.yaml";
     owner = config.services.prometheus.exporters.storagebox.user;
     inherit (config.services.prometheus.exporters.storagebox) group;
     restartUnits = [ "prometheus-storagebox-exporter.service" ];

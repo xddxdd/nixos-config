@@ -2,7 +2,6 @@
   pkgs,
   lib,
   LT,
-  inputs,
   config,
   ...
 }:
@@ -12,7 +11,7 @@ in
 {
   imports = [ ../../optional-apps/byparr.nix ];
 
-  sops.secrets.new-api-checkin-config.sopsFile = inputs.secrets + "/new-api-checkin-config.yaml";
+  sops.secrets.new-api-checkin-config.sopsFile = LT.secret "new-api-checkin-config.yaml";
 
   systemd.services.new-api-checkin = {
     environment = {

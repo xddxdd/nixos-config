@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   LT,
   pkgs,
@@ -8,10 +7,10 @@
 {
   imports = [ ./postgresql.nix ];
 
-  sops.secrets.dex-tranquil-pds-secret.sopsFile = inputs.secrets + "/dex/tranquil-pds.yaml";
-  sops.secrets.tranquil-pds-jwt-secret.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
-  sops.secrets.tranquil-pds-dpop-secret.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
-  sops.secrets.tranquil-pds-master-key.sopsFile = inputs.secrets + "/tranquil-pds.yaml";
+  sops.secrets.dex-tranquil-pds-secret.sopsFile = LT.secret "dex/tranquil-pds.yaml";
+  sops.secrets.tranquil-pds-jwt-secret.sopsFile = LT.secret "tranquil-pds.yaml";
+  sops.secrets.tranquil-pds-dpop-secret.sopsFile = LT.secret "tranquil-pds.yaml";
+  sops.secrets.tranquil-pds-master-key.sopsFile = LT.secret "tranquil-pds.yaml";
   sops.templates.tranquil-pds-env.content = ''
     JWT_SECRET=${config.sops.placeholder.tranquil-pds-jwt-secret}
     DPOP_SECRET=${config.sops.placeholder.tranquil-pds-dpop-secret}

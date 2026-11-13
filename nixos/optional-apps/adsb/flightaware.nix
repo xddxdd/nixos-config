@@ -1,11 +1,10 @@
 {
-  inputs,
   LT,
   config,
   ...
 }:
 {
-  sops.secrets.adsb-flightaware-uuid.sopsFile = inputs.secrets + "/adsb.yaml";
+  sops.secrets.adsb-flightaware-uuid.sopsFile = LT.secret "adsb.yaml";
 
   sops.templates.adsb-flightaware-env.content = ''
     FEEDER_ID=${config.sops.placeholder.adsb-flightaware-uuid}

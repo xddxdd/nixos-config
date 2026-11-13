@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   LT,
   pkgs,
@@ -13,7 +12,7 @@ let
 in
 {
   sops.secrets.scam-dn42-token = {
-    sopsFile = inputs.secrets + "/scam-dn42.yaml";
+    sopsFile = LT.secret "scam-dn42.yaml";
     restartUnits = [ "scam-dn42-miner.service" ];
   };
   sops.templates.scam-dn42-miner-env.content = ''

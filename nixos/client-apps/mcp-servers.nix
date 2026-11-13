@@ -1,8 +1,8 @@
 {
   pkgs,
   lib,
-  inputs,
   config,
+  LT,
   ...
 }:
 let
@@ -42,7 +42,7 @@ in
           ]
         ))
         (_: {
-          sopsFile = inputs.secrets + "/mcp.yaml";
+          sopsFile = LT.secret "mcp.yaml";
           owner = "lantian";
           mode = "0400";
         });

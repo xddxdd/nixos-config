@@ -2,12 +2,11 @@
   pkgs,
   LT,
   config,
-  inputs,
   ...
 }:
 {
   sops.secrets.smtp-pass = {
-    sopsFile = inputs.secrets + "/common/smtp.yaml";
+    sopsFile = LT.secret "common/smtp.yaml";
     mode = "0444";
   };
 

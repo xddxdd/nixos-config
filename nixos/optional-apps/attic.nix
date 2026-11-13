@@ -2,13 +2,12 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 {
   imports = [ ./postgresql.nix ];
 
-  sops.secrets.attic-server-token.sopsFile = inputs.secrets + "/attic.yaml";
+  sops.secrets.attic-server-token.sopsFile = LT.secret "attic.yaml";
   sops.templates.attic-env.content = ''
     ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64=${config.sops.placeholder.attic-server-token}
   '';

@@ -1,7 +1,6 @@
 {
   LT,
   lib,
-  inputs,
   config,
   ...
 }:
@@ -214,17 +213,17 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   ];
 
   sops.secrets.openvpn-gameaccel-ca = {
-    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
+    sopsFile = LT.secret "openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };
   sops.secrets.openvpn-gameaccel-server-cert = {
-    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
+    sopsFile = LT.secret "openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };
   sops.secrets.openvpn-gameaccel-server-key = {
-    sopsFile = inputs.secrets + "/openvpn-gameaccel.yaml";
+    sopsFile = LT.secret "openvpn-gameaccel.yaml";
     owner = "openvpn";
     group = "openvpn";
   };

@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  inputs,
+  LT,
   ...
 }:
 let
@@ -9,8 +9,8 @@ let
   python = pkgs.python3.withPackages pythonPackages;
 in
 {
-  sops.secrets.tg-bot-cleaner-bot-api-id.sopsFile = inputs.secrets + "/tg-bot-cleaner-bot.yaml";
-  sops.secrets.tg-bot-cleaner-bot-api-hash.sopsFile = inputs.secrets + "/tg-bot-cleaner-bot.yaml";
+  sops.secrets.tg-bot-cleaner-bot-api-id.sopsFile = LT.secret "tg-bot-cleaner-bot.yaml";
+  sops.secrets.tg-bot-cleaner-bot-api-hash.sopsFile = LT.secret "tg-bot-cleaner-bot.yaml";
   sops.templates.tg-bot-cleaner-bot.content = ''
     TG_API_ID=${config.sops.placeholder.tg-bot-cleaner-bot-api-id}
     TG_API_HASH=${config.sops.placeholder.tg-bot-cleaner-bot-api-hash}

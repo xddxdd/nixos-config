@@ -1,13 +1,12 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
+  LT,
   ...
 }:
 {
-  sops.secrets.radicale-calendar-sync.sopsFile =
-    inputs.secrets + "/per-host/radicale-calendar-sync/${config.networking.hostName}.yaml";
+  sops.secrets.radicale-calendar-sync.sopsFile = LT.secret "per-host/radicale-calendar-sync/${config.networking.hostName}.yaml";
 
   systemd.services.radicale-calendar-sync = {
     path = with pkgs; [ curl ];

@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  inputs,
+  LT,
   ...
 }:
 {
-  sops.secrets.dex-oauth-proxy-secret.sopsFile = inputs.secrets + "/dex/oauth-proxy.yaml";
-  sops.secrets.oauth-proxy-cookie-secret.sopsFile = inputs.secrets + "/common/oauth-proxy.yaml";
+  sops.secrets.dex-oauth-proxy-secret.sopsFile = LT.secret "dex/oauth-proxy.yaml";
+  sops.secrets.oauth-proxy-cookie-secret.sopsFile = LT.secret "common/oauth-proxy.yaml";
   sops.templates.oauth2-proxy-keys.content = ''
     OAUTH2_PROXY_COOKIE_SECRET=${config.sops.placeholder.oauth-proxy-cookie-secret}
     OAUTH2_PROXY_CLIENT_SECRET=${config.sops.placeholder.dex-oauth-proxy-secret}

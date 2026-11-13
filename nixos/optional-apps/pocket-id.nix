@@ -1,7 +1,7 @@
 {
-  inputs,
   lib,
   config,
+  LT,
   ...
 }:
 {
@@ -10,7 +10,7 @@
   lantian.geoip.enable = true;
 
   sops.secrets.pocket-id-encryption-key = {
-    sopsFile = inputs.secrets + "/pocket-id.yaml";
+    sopsFile = LT.secret "pocket-id.yaml";
     owner = "pocket-id";
     group = "pocket-id";
   };

@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-  inputs,
+  LT,
   ...
 }:
 let
@@ -15,16 +15,16 @@ let
 in
 {
   sops.secrets.dex-nextcloud-secret = {
-    sopsFile = inputs.secrets + "/dex/nextcloud.yaml";
+    sopsFile = LT.secret "dex/nextcloud.yaml";
     owner = "nextcloud";
     group = "nextcloud";
   };
   sops.secrets.nextcloud-admin-pw = {
-    sopsFile = inputs.secrets + "/nextcloud.yaml";
+    sopsFile = LT.secret "nextcloud.yaml";
     mode = "0444";
   };
   sops.secrets.nextcloud-dbpw = {
-    sopsFile = inputs.secrets + "/nextcloud.yaml";
+    sopsFile = LT.secret "nextcloud.yaml";
     mode = "0444";
   };
 

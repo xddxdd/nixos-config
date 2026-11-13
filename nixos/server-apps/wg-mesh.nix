@@ -21,7 +21,7 @@ in
   boot.availableKernelModules = [ "wireguard" ];
 
   sops.secrets.wg-priv = {
-    sopsFile = inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
+    sopsFile = LT.secret "per-host/wg-priv/${config.networking.hostName}.yaml";
     group = "systemd-network";
     mode = "0660";
   };

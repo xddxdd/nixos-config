@@ -1,11 +1,10 @@
 {
   LT,
-  inputs,
   config,
   ...
 }:
 {
-  sops.secrets.dex-actual-secret.sopsFile = inputs.secrets + "/dex/actual.yaml";
+  sops.secrets.dex-actual-secret.sopsFile = LT.secret "dex/actual.yaml";
   sops.templates.actual-env.content = ''
     ACTUAL_OPENID_CLIENT_SECRET=${config.sops.placeholder.dex-actual-secret}
   '';

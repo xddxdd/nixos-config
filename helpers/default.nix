@@ -80,6 +80,7 @@ let
     ls = call ./fn/ls.nix;
     nginx = call ./fn/nginx.nix;
     sanitizeName = call ./fn/sanitize-name.nix;
+    secret = call ./fn/secret.nix;
     inherit (call ./fn/systemd.nix) escapeMountPath;
     tagsForHost = call ./fn/tags-for-host.nix;
     translit = call ./fn/translit.nix;

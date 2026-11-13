@@ -3,7 +3,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
@@ -82,7 +81,7 @@ in
   imports = [ ./mysql.nix ];
 
   sops.secrets.iyuu-token = {
-    sopsFile = inputs.secrets + "/iyuu.yaml";
+    sopsFile = LT.secret "iyuu.yaml";
     owner = "iyuu";
     group = "iyuu";
   };

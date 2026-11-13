@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -219,8 +218,7 @@ in
       ) (builtins.attrValues config.services.dn42)
     );
 
-    sops.secrets.wg-priv.sopsFile =
-      inputs.secrets + "/per-host/wg-priv/${config.networking.hostName}.yaml";
+    sops.secrets.wg-priv.sopsFile = LT.secret "per-host/wg-priv/${config.networking.hostName}.yaml";
     networking.wireguard.enable = true;
     networking.wireguard.useNetworkd = false;
     networking.wireguard.interfaces =

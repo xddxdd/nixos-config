@@ -2,7 +2,6 @@
   LT,
   config,
   lib,
-  inputs,
   pkgs,
   ...
 }:
@@ -24,10 +23,10 @@ in
 {
   imports = [ ../postgresql.nix ];
 
-  sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/telegram.yaml";
-  sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/telegram.yaml";
-  sops.secrets.waline-openrouter-key.sopsFile = inputs.secrets + "/waline.yaml";
-  sops.secrets.waline-jwt-token.sopsFile = inputs.secrets + "/waline.yaml";
+  sops.secrets.telegram-bot-token.sopsFile = LT.secret "telegram.yaml";
+  sops.secrets.telegram-bot-chat-id.sopsFile = LT.secret "telegram.yaml";
+  sops.secrets.waline-openrouter-key.sopsFile = LT.secret "waline.yaml";
+  sops.secrets.waline-jwt-token.sopsFile = LT.secret "waline.yaml";
   sops.templates.waline-env.content = ''
     SMTP_PASS=${config.sops.placeholder.smtp-pass}
     TELEGRAM_BOT_TOKEN=${config.sops.placeholder.telegram-bot-token}

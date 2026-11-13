@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ LT, ... }:
 {
   sops.secrets.pi-magic-context-openrouter-key = {
-    sopsFile = inputs.secrets + "/pi.yaml";
+    sopsFile = LT.secret "pi.yaml";
     owner = "lantian";
     group = "lantian";
   };

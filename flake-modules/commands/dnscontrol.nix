@@ -6,6 +6,7 @@
 }:
 let
   sources = pkgs.callPackage ../../helpers/_sources/generated.nix { };
+  secret = import ../../helpers/fn/secret.nix { inherit pkgs lib inputs; };
   dnscontrol = pkgs.buildGo127Module rec {
     inherit (sources.dnscontrol-xddxdd) pname version src;
     vendorHash = "sha256-jXAVs0YihE3f6HNWQn4Piy/FqMg63owmcJgeXbD+djQ=";
@@ -38,7 +39,7 @@ in
   ${lib.getExe pkgs.sops} decrypt \
     --extract '["dnscontrol"]' \
     --output "$TEMP_DIR/creds.json" \
-    "${inputs.secrets}/dnscontrol.yaml"
+    "${secret "dnscontrol.yaml"}"
   mkdir -p "$TEMP_DIR/zones"
 
   cd "$TEMP_DIR"

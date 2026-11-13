@@ -1,7 +1,7 @@
 {
-  inputs,
   lib,
   pkgs,
+  LT,
   ...
 }:
 {
@@ -23,7 +23,7 @@
         "adsb-uuid"
       ]
       (_: {
-        sopsFile = inputs.secrets + "/adsb.yaml";
+        sopsFile = LT.secret "adsb.yaml";
       });
 
   services.udev.packages = [ pkgs.rtl-sdr ];

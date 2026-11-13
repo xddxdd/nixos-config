@@ -4,7 +4,6 @@
   LT,
   config,
   utils,
-  inputs,
   ...
 }:
 let
@@ -154,7 +153,7 @@ let
   } v2rayConf "/run/v2ray/config.json";
 in
 {
-  sops.secrets.v2ray-key.sopsFile = inputs.secrets + "/common/v2ray.yaml";
+  sops.secrets.v2ray-key.sopsFile = LT.secret "common/v2ray.yaml";
 
   systemd.services.v2ray = {
     description = "v2ray Daemon";

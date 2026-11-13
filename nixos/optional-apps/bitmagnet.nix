@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   lib,
   LT,
   config,
@@ -43,7 +42,7 @@ in
   imports = [ ./postgresql.nix ];
 
   sops.secrets.tmdb-api-key = {
-    sopsFile = inputs.secrets + "/tmdb.yaml";
+    sopsFile = LT.secret "tmdb.yaml";
     owner = "bitmagnet";
     group = "bitmagnet";
   };

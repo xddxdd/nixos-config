@@ -3,12 +3,11 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 {
-  sops.secrets.resin-admin-token.sopsFile = inputs.secrets + "/resin.yaml";
-  sops.secrets.resin-proxy-token.sopsFile = inputs.secrets + "/resin.yaml";
+  sops.secrets.resin-admin-token.sopsFile = LT.secret "resin.yaml";
+  sops.secrets.resin-proxy-token.sopsFile = LT.secret "resin.yaml";
   sops.templates.resin-env = {
     content = ''
       RESIN_ADMIN_TOKEN=${config.sops.placeholder.resin-admin-token}

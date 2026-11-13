@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   LT,
   ...
 }@args:
@@ -61,7 +60,7 @@ in
   ];
 
   sops.secrets.asterisk-pw = {
-    sopsFile = inputs.secrets + "/asterisk.yaml";
+    sopsFile = LT.secret "asterisk.yaml";
     owner = "asterisk";
     group = "asterisk";
   };

@@ -440,6 +440,14 @@ lantian.firewall.zones = {
 
 `forward` 和 `reject` 条目仍使用属性集形式。
 
+### 密钥文件引用
+
+需要把 secrets 仓库中的单个文件放进 store 时（`sops.secrets.<name>.sopsFile`、`BindReadOnlyPaths`、服务命令行参数等），统一用 `LT.secret "<相对路径>"`（[`helpers/fn/secret.nix`](helpers/fn/secret.nix)），由 `pkgs.runCommand` 只复制该文件。
+
+禁止把 `inputs.secrets + "/..."` 直接用作派生依赖：该字符串携带整个 secrets 仓库的 store 路径上下文，会让整个仓库进入系统闭包并被推到二进制缓存。仅在求值期读取的 `import (inputs.secrets + "/...")`、`builtins.readFile (...)` 不受影响。
+
+[`nixos/minimal-components/secrets-closure.nix`](nixos/minimal-components/secrets-closure.nix) 把 `inputs.secrets.outPath` 加入 `system.forbiddenDependenciesRegexes` 作为兜底断言；由于 sops 文件在求值期尚不存在，该模块同时关闭 `sops.validateSopsFiles`。
+
 ## 架构图
 
 ```mermaid

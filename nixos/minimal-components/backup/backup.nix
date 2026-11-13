@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   LT,
   ...
 }:
@@ -76,8 +75,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.restic-pw.sopsFile = inputs.secrets + "/common/restic.yaml";
-    sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
+    sops.secrets.restic-pw.sopsFile = LT.secret "common/restic.yaml";
+    sops.secrets.sftp-privkey.sopsFile = LT.secret "common/sftp.yaml";
 
     environment.systemPackages = resticCommands ++ [ pkgs.rustic ];
 

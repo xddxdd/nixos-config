@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   LT,
   ...
@@ -35,7 +34,7 @@ let
   '';
 in
 {
-  sops.secrets.dn42-certificate-token.sopsFile = inputs.secrets + "/dn42-certificate-token.yaml";
+  sops.secrets.dn42-certificate-token.sopsFile = LT.secret "dn42-certificate-token.yaml";
 
   systemd.services.dn42-certificate = {
     description = "Get DN42 Certificate";

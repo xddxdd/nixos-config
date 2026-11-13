@@ -1,6 +1,10 @@
-{ config, inputs, ... }:
 {
-  sops.secrets.renovate-key.sopsFile = inputs.secrets + "/renovate.yaml";
+  config,
+  LT,
+  ...
+}:
+{
+  sops.secrets.renovate-key.sopsFile = LT.secret "renovate.yaml";
 
   services.renovate = {
     enable = true;

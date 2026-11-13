@@ -3,14 +3,13 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 {
   imports = [ ./mysql.nix ];
 
-  sops.secrets.vaultwarden-push-installation-id.sopsFile = inputs.secrets + "/vaultwarden.yaml";
-  sops.secrets.vaultwarden-push-installation-key.sopsFile = inputs.secrets + "/vaultwarden.yaml";
+  sops.secrets.vaultwarden-push-installation-id.sopsFile = LT.secret "vaultwarden.yaml";
+  sops.secrets.vaultwarden-push-installation-key.sopsFile = LT.secret "vaultwarden.yaml";
   sops.templates.vaultwarden-env.content = ''
     PUSH_ENABLED=true
     PUSH_INSTALLATION_ID=${config.sops.placeholder.vaultwarden-push-installation-id}

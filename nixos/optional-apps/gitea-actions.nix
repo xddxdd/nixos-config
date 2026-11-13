@@ -1,11 +1,11 @@
 {
   lib,
   config,
-  inputs,
+  LT,
   ...
 }:
 {
-  sops.secrets.gitea-actions-token.sopsFile = inputs.secrets + "/gitea-actions.yaml";
+  sops.secrets.gitea-actions-token.sopsFile = LT.secret "gitea-actions.yaml";
 
   lantian.enablePodman = lib.mkForce true;
 

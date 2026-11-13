@@ -1,11 +1,10 @@
 {
-  inputs,
   LT,
   config,
   ...
 }:
 {
-  sops.secrets.adsb-plane-watch-uuid.sopsFile = inputs.secrets + "/adsb.yaml";
+  sops.secrets.adsb-plane-watch-uuid.sopsFile = LT.secret "adsb.yaml";
 
   sops.templates.adsb-plane-watch-env.content = ''
     LAT=${config.sops.placeholder.adsb-lat}

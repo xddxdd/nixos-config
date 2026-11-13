@@ -3,7 +3,6 @@
   LT,
   config,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -65,7 +64,7 @@ let
   };
 in
 {
-  sops.secrets.nix-ssh-privkey.sopsFile = inputs.secrets + "/nix-client.yaml";
+  sops.secrets.nix-ssh-privkey.sopsFile = LT.secret "nix-client.yaml";
 
   nix = {
     distributedBuilds = true;

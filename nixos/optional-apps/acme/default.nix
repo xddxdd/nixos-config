@@ -1,7 +1,7 @@
 {
-  inputs,
   config,
   lib,
+  LT,
   ...
 }:
 {
@@ -10,7 +10,7 @@
     ./cert-exporter.nix
   ];
 
-  sops.secrets.bunny-api-key.sopsFile = inputs.secrets + "/bunny-dns.yaml";
+  sops.secrets.bunny-api-key.sopsFile = LT.secret "bunny-dns.yaml";
   sops.templates.lego-env = {
     content = ''
       BUNNY_API_KEY=${config.sops.placeholder.bunny-api-key}

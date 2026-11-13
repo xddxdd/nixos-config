@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   LT,
   pkgs,
@@ -14,7 +13,7 @@ let
   });
 in
 {
-  sops.secrets.dex-oidc-tester-secret.sopsFile = inputs.secrets + "/dex/oidc-tester.yaml";
+  sops.secrets.dex-oidc-tester-secret.sopsFile = LT.secret "dex/oidc-tester.yaml";
 
   systemd.services.oidc-tester = {
     description = "OIDC Tester App";

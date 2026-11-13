@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -14,7 +13,7 @@ let
   });
 in
 {
-  sops.secrets.resin-proxy-token.sopsFile = inputs.secrets + "/resin.yaml";
+  sops.secrets.resin-proxy-token.sopsFile = LT.secret "resin.yaml";
   sops.templates.dlx-env = {
     content = ''
       PROXY=http://Default:${config.sops.placeholder.resin-proxy-token}@${LT.this.ltnet.IPv4}:${LT.portStr.Resin}

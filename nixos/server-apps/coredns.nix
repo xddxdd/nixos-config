@@ -137,7 +137,7 @@ let
 in
 lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   sops.secrets = lib.genAttrs dnssecKeyNames (n: {
-    sopsFile = inputs.secrets + "/common/dnssec.yaml";
+    sopsFile = LT.secret "common/dnssec.yaml";
     key = "dnssec/${n}";
   });
 

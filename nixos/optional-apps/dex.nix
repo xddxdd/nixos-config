@@ -4,7 +4,6 @@
   LT,
   utils,
   config,
-  inputs,
   ...
 }:
 let
@@ -147,19 +146,19 @@ in
 
   sops.secrets = {
     dex-pocket-id-client-id = {
-      sopsFile = inputs.secrets + "/dex/pocket-id.yaml";
+      sopsFile = LT.secret "dex/pocket-id.yaml";
       owner = "dex";
       group = "dex";
     };
     dex-pocket-id-client-secret = {
-      sopsFile = inputs.secrets + "/dex/pocket-id.yaml";
+      sopsFile = LT.secret "dex/pocket-id.yaml";
       owner = "dex";
       group = "dex";
     };
   }
   // builtins.listToAttrs (
     builtins.map (
-      f: lib.nameValuePair "dex-${f.id}-secret" { sopsFile = inputs.secrets + "/dex/${f.id}.yaml"; }
+      f: lib.nameValuePair "dex-${f.id}-secret" { sopsFile = LT.secret "dex/${f.id}.yaml"; }
     ) cfg.staticClients
   );
 

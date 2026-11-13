@@ -2,14 +2,13 @@
   pkgs,
   lib,
   LT,
-  inputs,
   config,
   serviceHardenArgs,
   ...
 }:
 {
-  sops.secrets.adsb-flightradar24-key.sopsFile = inputs.secrets + "/adsb.yaml";
-  sops.secrets.adsb-flightradar24-uat-key.sopsFile = inputs.secrets + "/adsb.yaml";
+  sops.secrets.adsb-flightradar24-key.sopsFile = LT.secret "adsb.yaml";
+  sops.secrets.adsb-flightradar24-uat-key.sopsFile = LT.secret "adsb.yaml";
 
   environment.systemPackages = [ pkgs.nur-xddxdd.fr24feed ];
 

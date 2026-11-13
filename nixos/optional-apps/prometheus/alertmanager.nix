@@ -4,7 +4,6 @@
   LT,
   config,
   utils,
-  inputs,
   ...
 }:
 let
@@ -13,8 +12,8 @@ let
   } config.services.prometheus.alertmanager.configuration "/tmp/alert-manager-substituted.yaml";
 in
 {
-  sops.secrets.telegram-bot-token.sopsFile = inputs.secrets + "/telegram.yaml";
-  sops.secrets.telegram-bot-chat-id.sopsFile = inputs.secrets + "/telegram.yaml";
+  sops.secrets.telegram-bot-token.sopsFile = LT.secret "telegram.yaml";
+  sops.secrets.telegram-bot-chat-id.sopsFile = LT.secret "telegram.yaml";
 
   services.vmalert.instances."" = {
     enable = true;

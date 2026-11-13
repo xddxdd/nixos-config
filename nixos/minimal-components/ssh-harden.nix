@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -20,8 +19,8 @@ let
   '';
 in
 {
-  sops.secrets.sftp-privkey.sopsFile = inputs.secrets + "/common/sftp.yaml";
-  sops.secrets.rsync-internal-key.sopsFile = inputs.secrets + "/common/rsync-internal.yaml";
+  sops.secrets.sftp-privkey.sopsFile = LT.secret "common/sftp.yaml";
+  sops.secrets.rsync-internal-key.sopsFile = LT.secret "common/rsync-internal.yaml";
 
   # Keep compatibility with PVE which expect SSH keys in standard location
   lantian.preservation.files = [

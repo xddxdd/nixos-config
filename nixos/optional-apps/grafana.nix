@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   LT,
   ...
 }:
@@ -18,7 +17,7 @@ in
 {
   imports = [ ./mysql.nix ];
 
-  sops.secrets.dex-grafana-secret.sopsFile = inputs.secrets + "/dex/grafana.yaml";
+  sops.secrets.dex-grafana-secret.sopsFile = LT.secret "dex/grafana.yaml";
   sops.templates.grafana-env.content = ''
     GF_AUTH_GENERIC_OAUTH_CLIENT_ID=grafana
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${config.sops.placeholder.dex-grafana-secret}

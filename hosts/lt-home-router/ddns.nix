@@ -1,8 +1,12 @@
-{ config, inputs, ... }:
 {
-  sops.secrets.ddns-duckdns-key.sopsFile = inputs.secrets + "/ddns.yaml";
-  sops.secrets.ddns-dynv6-key.sopsFile = inputs.secrets + "/ddns.yaml";
-  sops.secrets.ddns-tunnelbroker-key.sopsFile = inputs.secrets + "/ddns.yaml";
+  config,
+  LT,
+  ...
+}:
+{
+  sops.secrets.ddns-duckdns-key.sopsFile = LT.secret "ddns.yaml";
+  sops.secrets.ddns-dynv6-key.sopsFile = LT.secret "ddns.yaml";
+  sops.secrets.ddns-tunnelbroker-key.sopsFile = LT.secret "ddns.yaml";
 
   sops.templates.ddns-duckdns = {
     content = ''

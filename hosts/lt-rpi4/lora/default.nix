@@ -2,8 +2,8 @@
   config,
   pkgs,
   lib,
-  inputs,
   utils,
+  LT,
   ...
 }:
 let
@@ -62,7 +62,7 @@ let
   } sx1302HalConfig "local_conf.json";
 in
 {
-  sops.secrets.lora-euid.sopsFile = inputs.secrets + "/lora.yaml";
+  sops.secrets.lora-euid.sopsFile = LT.secret "lora.yaml";
 
   systemd.services.lora-gwmp-mux = {
     description = "LoRa GWMP Mux";

@@ -3,12 +3,11 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 {
   sops.secrets.filebeat-humio-token = {
-    sopsFile = inputs.secrets + "/common/filebeat.yaml";
+    sopsFile = LT.secret "common/filebeat.yaml";
     restartUnits = lib.optional config.services.filebeat.enable "filebeat.service";
   };
 

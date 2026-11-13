@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  inputs,
+  LT,
   ...
 }:
 let
@@ -16,7 +16,7 @@ let
     exec ${lib.getExe pkgs.nur-xddxdd.email-oauth2-proxy} \
       --no-gui \
       --external-auth \
-      --config-file ${inputs.secrets + "/imapfilter/emailproxy.config"} \
+      --config-file ${LT.secret "imapfilter/emailproxy.config"} \
       --cache-store /var/lib/email-oauth2-proxy/emailproxy.cache
   '';
   filterJob =
@@ -26,9 +26,7 @@ let
       requires = lib.optional (account == "outlook") "email-oauth2-proxy.service";
       script = ''
         export PASSWORD_FILE=$CREDENTIALS_DIRECTORY/password
-        exec ${lib.getExe pkgs.imapfilter} -t /etc/ssl/certs/ca-certificates.crt -c ${
-          inputs.secrets + "/imapfilter/${account}.lua"
-        }
+        exec ${lib.getExe pkgs.imapfilter} -t /etc/ssl/certs/ca-certificates.crt -c ${LT.secret "imapfilter/${account}.lua"}
       '';
       serviceConfig = {
         Type = "oneshot";
@@ -53,7 +51,7 @@ in
 {
   lantian.netns.imapfilter.ipSuffix = "93";
   sops.secrets = lib.genAttrs (map (name: "imapfilter-${name}") accounts) (_: {
-    sopsFile = inputs.secrets + "/imapfilter/keys.yaml";
+    sopsFile = LT.secret "imapfilter/keys.yaml";
     owner = "imapfilter";
     group = "imapfilter";
   });

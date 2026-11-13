@@ -3,7 +3,6 @@
   lib,
   LT,
   config,
-  inputs,
   ...
 }:
 let
@@ -18,7 +17,7 @@ in
   lantian.geoip.enable = true;
 
   sops.secrets.plausible-secret = {
-    sopsFile = inputs.secrets + "/plausible.yaml";
+    sopsFile = LT.secret "plausible.yaml";
     owner = "plausible";
     group = "plausible";
   };
