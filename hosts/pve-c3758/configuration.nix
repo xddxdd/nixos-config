@@ -8,7 +8,9 @@
   ];
 
   boot.kernelParams = [
-    "console=ttyS0,115200"
+    # The SoC UART (8250_mid) enumerates as ttyS4 here; ttyS0 has no port
+    # behind it, so a console/getty on ttyS0 can never work
+    "console=ttyS4,115200"
     "default_hugepagesz=1G"
     "hugepagesz=1G"
     "hugepages=24"
