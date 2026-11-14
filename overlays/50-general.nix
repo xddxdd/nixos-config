@@ -15,13 +15,6 @@ rec {
   calibre = prev.calibre.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/calibre-page-count-shutdown.patch ];
   });
-  clickhouse-lts = prev.clickhouse-lts.overrideAttrs (old: {
-    # ld.lld -r from the LLVM 21.1.8 in the locked nixpkgs produces a broken
-    # combined object for the Rust workspace archives (over 0xffff sections,
-    # section symbols get st_shndx = SHN_UNDEF), and the final link then fails
-    # with "undefined symbol: ". The stripping is only a size optimization.
-    patches = (old.patches or [ ]) ++ [ ../patches/clickhouse-disable-rust-symbol-strip.patch ];
-  });
   colmena = prev.colmena.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../patches/colmena-combine-logs-same-node.patch
@@ -39,10 +32,6 @@ rec {
   filezilla = prev.filezilla.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
   });
-  flashrom = prev.flashrom.overrideAttrs (old: {
-    # Fix dangling stack-local chip pointer in tests, from https://github.com/NixOS/nixpkgs/issues/558302#issuecomment-5552862912
-    patches = (old.patches or [ ]) ++ [ ../patches/flashrom-fix-dangling-mock-chip-pointer.patch ];
-  });
   handbrake = prev.handbrake.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
     postFixup = ''
@@ -53,7 +42,6 @@ rec {
     '';
   });
   hydra = prev.hydra.overrideAttrs (old: {
-    # FIXME: disable failing checks
     doCheck = false;
     patches = (old.patches or [ ]) ++ [
       ../patches/hydra-protect-private-project.patch
@@ -159,20 +147,6 @@ rec {
         jdk-bin-8
       ]);
   };
-  rustic = prev.rustic.overrideAttrs (old: {
-    # nixpkgs' Cargo hook forbids building system libraries internally, but
-    # rustic's zstd-sys/aws-lc-sys need pkg-config to find them
-    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
-    buildInputs = (old.buildInputs or [ ]) ++ [
-      final.zstd
-      final.aws-lc
-    ];
-    # Patch vendored rustic_core dependency
-    # Stop tree workers after receiver closes, from https://github.com/rustic-rs/rustic_core/pull/546
-    postPatch = (old.postPatch or "") + ''
-      patch -d "$cargoDepsCopy"/source-registry-0/rustic_core-* -p1 < ${../patches/rustic-core-stop-tree-workers-after-receiver-closes.patch}
-    '';
-  });
   sonarr = prev.sonarr.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/sonarr-chinese-numbering.patch ];
   });
