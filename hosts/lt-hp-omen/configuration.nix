@@ -15,7 +15,7 @@
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/libvirt
     ../../nixos/optional-apps/llama-cpp.nix
-    ../../nixos/optional-apps/llama-swap.nix
+    ../../nixos/optional-apps/llama-swap
     ../../nixos/optional-apps/ncps-client.nix
     ../../nixos/optional-apps/netns-tnl-buyvm.nix
     ../../nixos/optional-apps/nix-distributed.nix
@@ -26,7 +26,6 @@
     ../../nixos/optional-apps/pipewire-roc-sink.nix
     ../../nixos/optional-apps/postgresql.nix
     ../../nixos/optional-apps/syncthing/run-as-lantian.nix
-    ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/virtualbox.nix
     ../../nixos/optional-apps/whisper-cpp.nix
   ];
@@ -41,13 +40,6 @@
   };
 
   lantian.hidpi = 1.5;
-
-  # 62 GB RAM + 8 GB VRAM is below IQ3_S's footprint, so run the 2-bit i-quant (68 GB download,
-  # 35.5 GB of experts) instead of the pve-epyc default.
-  lantian.strata.model = "IQ2_XS";
-
-  # Not started at boot; launch with `systemctl start strata` when needed.
-  systemd.services.strata.wantedBy = lib.mkForce [ ];
 
   hardware.bluetooth = {
     enable = true;

@@ -52,6 +52,8 @@ let
 
     sources = call _sources/generated.nix;
 
+    inherit (self) nixosConfigurations;
+
     hosts = call ./fn/hosts.nix;
     this = hosts."${config.networking.hostName}";
     forwardPort = lib.mapAttrsRecursive (

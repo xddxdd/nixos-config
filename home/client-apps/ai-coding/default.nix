@@ -17,6 +17,13 @@ let
       "{file:${osConfig.sops.secrets.pi-magic-context-openrouter-key.path}}"
     else
       "";
+
+  # The models come straight from pve-epyc's own llama-swap configuration
+  # (nixos/optional-apps/llama-swap), which already leaves out what that host
+  # cannot run; only the chat models are of use to a chat client.
+  llamaSwapModels = lib.filterAttrs (
+    _: m: m.mode == "chat"
+  ) LT.nixosConfigurations."pve-epyc".config.lantian.llama-swap.models;
 in
 {
   imports = [
@@ -138,30 +145,32 @@ in
     webTools = false;
     usageStatus = true;
   };
-  # Strata inference server on pve-epyc (nixos/optional-apps/strata.nix),
-  # exposed through the private vhost. The server takes any API key and any
-  # model name; the id below matches what the deployed quant reports via
-  # /v1/models (n_ctx 262144, text+image input).
+  # llama-swap on pve-epyc (nixos/optional-apps/llama-swap), called on its
+  # plain OpenAI-compatible API: requests name the model, llama-swap loads and
+  # swaps it as its groups dictate. Only chat models are listed; the embedding
+  # and reranker entries there serve /v1/embeddings and /v1/rerank instead.
   home.file.".pi/agent/models.json".text = builtins.toJSON {
     "$schema" = "https://pi.dev/schemas/models.schema.json";
-    providers.strata = {
-      name = "Strata (pve-epyc)";
-      baseUrl = "https://strata.pve-epyc.xuyh0120.win/v1";
+    providers.llama-swap = {
+      name = "llama-swap (pve-epyc)";
+      baseUrl = "https://llama-swap.pve-epyc.xuyh0120.win/v1";
       api = "openai-completions";
-      apiKey = "strata";
-      models = [
+      apiKey = "llama-swap";
+      models = lib.mapAttrsToList (
+        id: m:
         {
-          id = "qwen3.8-flash-next-iq3_s";
-          name = "Qwen 3.8 Flash Next (pve-epyc)";
-          reasoning = true;
+          inherit id;
+          inherit (m) name maxTokens;
+          contextWindow = m.ctxSize;
+        }
+        // lib.optionalAttrs m.thinking { reasoning = true; }
+        // lib.optionalAttrs m.vision {
           input = [
             "text"
             "image"
           ];
-          contextWindow = 262144;
-          maxTokens = 8192;
         }
-      ];
+      ) llamaSwapModels;
     };
   };
   home.file.".pi/agent/ask-tool.json".text = builtins.toJSON {

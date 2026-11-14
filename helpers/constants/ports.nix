@@ -125,6 +125,7 @@ rec {
     Attic = 13803;
     qBitTorrent.WebUI = 13808;
     qBitTorrentPT.WebUI = 13809;
+    SakuraLLM = 13810;
     Metapi = 13811;
     HomepageDashboard = 13812;
     HandBrake = 13814;
@@ -135,7 +136,6 @@ rec {
     Ncps = 13851;
     IyuuPlus = 13878;
     LlamaSwap = 13880;
-    Strata = 13881;
     Actual = 13882;
     DLX = 13888;
     GiteaActions.Cache = 13890;

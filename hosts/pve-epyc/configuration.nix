@@ -35,6 +35,7 @@
     ../../nixos/optional-apps/iyuuplus.nix
     ../../nixos/optional-apps/kubo.nix
     ../../nixos/optional-apps/llama-cpp.nix
+    ../../nixos/optional-apps/llama-swap
     ../../nixos/optional-apps/microsoft-rewards-script.nix
     ../../nixos/optional-apps/mtranserver
     ../../nixos/optional-apps/ncps-client.nix
@@ -43,8 +44,8 @@
     ../../nixos/optional-apps/nginx-openspeedtest.nix
     ../../nixos/optional-apps/opencl.nix
     ../../nixos/optional-apps/resin.nix
+    ../../nixos/optional-apps/sakura-share.nix
     ../../nixos/optional-apps/sftp-server.nix
-    ../../nixos/optional-apps/strata.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tachidesk.nix
     ../../nixos/optional-apps/tor.nix
