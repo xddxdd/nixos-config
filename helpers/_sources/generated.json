@@ -378,27 +378,6 @@
         },
         "version": "f4263546f50694a154fdd27a03000390949068df"
     },
-    "sakura-share": {
-        "cargoLock": null,
-        "date": "2025-12-29",
-        "extract": null,
-        "name": "sakura-share",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "xddxdd",
-            "repo": "Sakura_Launcher_GUI",
-            "rev": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd",
-            "sha256": "sha256-lKNej7INWs45HkCcdlDvqeY4d5f0eFNPgg540H5se1k=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "042cc4aa4444e3f90618d977d0c6a2f5de471cdd"
-    },
     "scam-dn42-miner": {
         "cargoLock": null,
         "date": "2026-10-29",

@@ -233,18 +233,6 @@
     };
     date = "2026-04-22";
   };
-  sakura-share = {
-    pname = "sakura-share";
-    version = "042cc4aa4444e3f90618d977d0c6a2f5de471cdd";
-    src = fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "Sakura_Launcher_GUI";
-      rev = "042cc4aa4444e3f90618d977d0c6a2f5de471cdd";
-      fetchSubmodules = false;
-      sha256 = "sha256-lKNej7INWs45HkCcdlDvqeY4d5f0eFNPgg540H5se1k=";
-    };
-    date = "2025-12-29";
-  };
   scam-dn42-miner = {
     pname = "scam-dn42-miner";
     version = "44bb64d3731bc85a9f9a1fef034da6c6fdc6ac1e";

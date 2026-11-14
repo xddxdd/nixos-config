@@ -87,10 +87,6 @@ src.branch = "r1.5.0"
 fetch.github = "openspeedtest/Speed-Test"
 src.git = "https://github.com/openspeedtest/Speed-Test.git"
 
-[sakura-share]
-fetch.github = "xddxdd/Sakura_Launcher_GUI"
-src.git = "https://github.com/xddxdd/Sakura_Launcher_GUI.git"
-
 [scam-dn42-miner]
 fetch.git = "https://git.lantian.pub/lantian/scam-dn42-miner.git"
 src.git = "https://git.lantian.pub/lantian/scam-dn42-miner.git"
