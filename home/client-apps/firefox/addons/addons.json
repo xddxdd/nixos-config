@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.59.2",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5244718/read_frog_open_ai_translator-1.59.2.xpi",
-    "hash": "sha256-nyOew4Yz052SHGXIHS+4lRIkJGLRdSZraTCXS6gV1FA=",
+    "version": "1.59.3",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5247238/read_frog_open_ai_translator-1.59.3.xpi",
+    "hash": "sha256-HUBAHBScWFaOr9IilkM5+/ILgzyxla0+HK8ZljckjTo=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {

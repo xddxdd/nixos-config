@@ -160,17 +160,17 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "0d394e250618b8409fee7a79dece9110d85d9062";
+    version = "76846e2b50547aa9497848abdeb5416f5b09f878";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "0d394e250618b8409fee7a79dece9110d85d9062";
+      rev = "76846e2b50547aa9497848abdeb5416f5b09f878";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-r4UXm16gOBxjlUkh9tK9OHxZmXOyEPF8/v9vxjY2cGU=";
+      sha256 = "sha256-dj6H8qqp/PnP5A1wmtmPl91klMZOdm1jM8UP7pBUqM8=";
     };
-    date = "2026-11-12";
+    date = "2026-11-14";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
