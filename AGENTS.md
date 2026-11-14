@@ -384,6 +384,18 @@ portStr.MyService  # 返回 "13xxx" 而非 13xxx
 
 ## 开发指南
 
+### 提交信息约定
+
+提交标题使用英文，格式为 `<scope>: <summary>`；需要细分范围时使用 `<scope>(<subscope>): <summary>`。
+
+- `scope` 使用小写的模块、应用或目录名；主机配置使用 `hosts(<hostname>)`。
+- `summary` 以小写的祈使动词开头，简洁描述改动，不加句号；专有名称保留原有大小写。
+- 通用维护使用 `general`，自动更新使用 `auto`，项目文档使用 `docs`；不要无故改用 `feat:`、`fix:` 等类型前缀。
+- 提交前查看近期 `git log`，沿用相关范围的命名；不同目的的改动保持独立提交。
+- 只有用户明确授权时才改写已有提交；提交、推送和部署分别取得授权。
+
+示例：`home: replace the launcher`、`hosts(example): enable the serial console`、`docs: document commit message conventions`。
+
 ### 常用命令
 
 构建全部 NixOS 主机配置时，使用 `make build`，不要自行拼接逐主机构建命令替代。
