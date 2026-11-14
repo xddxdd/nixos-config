@@ -126,7 +126,7 @@ in
           pkgs.writeShellScript "mcp-flightaware" ''
             export AEROAPI_KEY=$(cat "${config.sops.secrets.mcp-flightaware-api-key.path}")
             export HISHEL_CACHE_PATH=/tmp/mcp-flightaware-cache.db
-            exec ${pkgs.uv}/bin/uvx '--with=mcp<2' flightaware-mcp
+            exec ${pkgs.uv}/bin/uvx '--with=mcp<2' '--with=hishel<2' flightaware-mcp
           ''
         );
       };
