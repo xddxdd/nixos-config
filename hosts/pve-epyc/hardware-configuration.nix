@@ -32,10 +32,13 @@
     wantedBy = [ "multi-user.target" ];
     requires = [ "nvidia-persistenced.service" ];
     after = [ "nvidia-persistenced.service" ];
+    script = ''
+      ${config.hardware.nvidia.package.bin}/bin/nvidia-smi -i 0 --power-limit=250
+      ${config.hardware.nvidia.package.bin}/bin/nvidia-smi -i 0 --gpu-target-temp=65
+    '';
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -i 0 --power-limit=250";
     };
   };
 
