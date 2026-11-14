@@ -527,32 +527,6 @@
         "type": "github"
       }
     },
-    "never-gonna-rust": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "rust-overlay"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783131726,
-        "narHash": "sha256-TgpFMU3o91WdnczDB7sGPke3G7JZBl+9QAt4NXX7iSY=",
-        "owner": "xddxdd",
-        "repo": "never-gonna-rust",
-        "rev": "e5d17fcdca5478fde0cdf7117b307142a15ab122",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xddxdd",
-        "repo": "never-gonna-rust",
-        "type": "github"
-      }
-    },
     "nix-alien": {
       "inputs": {
         "flake-compat": [
@@ -970,11 +944,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794618199,
-        "narHash": "sha256-1EAgUkwVOv/5N0OJ4/hPEapAQ/I0ajZBIXYmmLtPl8Q=",
+        "lastModified": 1794648285,
+        "narHash": "sha256-qlmbokBmaZSxbueBFXSZbaQLaYxmS6+/FrBOQ65RCu0=",
         "owner": "xddxdd",
         "repo": "nur-packages",
-        "rev": "d3b066ea93d9083ecd8a6040c2beaf615a07183c",
+        "rev": "7bdd70a8810ab9c33b6315df09ff23143956dd1c",
         "type": "github"
       },
       "original": {
@@ -1068,7 +1042,6 @@
         "llm-agents": "llm-agents",
         "markdown-apa7th-docx": "markdown-apa7th-docx",
         "mcp-libvirt-vm-use": "mcp-libvirt-vm-use",
-        "never-gonna-rust": "never-gonna-rust",
         "nix-alien": "nix-alien",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-gaming": "nix-gaming",

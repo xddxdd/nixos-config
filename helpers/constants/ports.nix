@@ -153,7 +153,6 @@ rec {
     OllamaCpaHoneypot.Ollama = 13922;
     OllamaCpaHoneypot.Cpa = 13923;
     ADSB.RawOutput978 = 13978;
-    Asterisk.AudioSocket = 13980;
     Resin = 13995;
     Open5GS = 13999;
     DN42.LocalPort.Start = 20000;

@@ -32,6 +32,7 @@ let
   # keep-sorted end
 
   cfg = config.services.asterisk;
+  asterisk = pkgs.nur-xddxdd.lantianCustomized.asterisk;
 
   # RTP/UDPTL media port ranges are declared in LT.port
   # (Asterisk.RTP.Start/End, Asterisk.UDPTL.Start/End) so the firewall
@@ -55,7 +56,6 @@ in
   imports = [
     ./dialplan
     ./fax-monitor.nix
-    ./never-gonna-audiosocket.nix
     ../fail2ban
   ];
 
@@ -72,7 +72,20 @@ in
 
   services.asterisk = {
     enable = true;
-    package = pkgs.nur-xddxdd.lantianCustomized.asterisk;
+    package = pkgs.buildEnv {
+      inherit (asterisk) pname version meta;
+      paths = [
+        asterisk
+        (pkgs.asterisk-never-gonna.override { inherit asterisk; })
+        (pkgs.nur-xddxdd.asterisk-g72x.override { inherit asterisk; })
+      ]
+      ++ (with pkgs.nur-xddxdd.asteriskDigiumCodecs."${lib.versions.major asterisk.version}"; [
+        opus
+        silk
+        siren7
+        siren14
+      ]);
+    };
 
     confFiles = {
       "modules.conf" = ''
@@ -83,8 +96,7 @@ in
         load => pbx_config.so
         load => res_speech.so
         load => res_agi.so
-        load => app_audiosocket.so
-        load => res_audiosocket.so
+        load => app_never_gonna.so
         load => app_confbridge.so
         load => app_dial.so
         load => app_milliwatt.so
@@ -103,7 +115,6 @@ in
         load => func_logic.so
         load => func_rand.so
         load => func_strings.so
-        load => func_uuid.so
 
         ; 保留 templates.nix 中公布的音频编解码器及音视频 SDP 属性。
         load => codec_a_mu.so
@@ -353,9 +364,6 @@ in
   };
 
   systemd.services.asterisk = {
-    wants = [ "asterisk-never-gonna.socket" ];
-    after = [ "asterisk-never-gonna.socket" ];
-
     path =
       let
         skip-silence = pkgs.callPackage ../../../pkgs/skip-silence { };
@@ -369,7 +377,10 @@ in
         pkgs.findutils
       ];
     restartIfChanged = lib.mkForce true;
-    restartTriggers = [ config.environment.etc."asterisk/modules.conf".source ];
+    restartTriggers = [
+      config.environment.etc."asterisk/modules.conf".source
+      config.environment.etc."asterisk/asterisk.conf".source
+    ];
     reloadTriggers = lib.mapAttrsToList (k: v: "/etc/asterisk/${k}") cfg.confFiles;
 
     preStart = lib.mkForce ''
