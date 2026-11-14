@@ -1,13 +1,20 @@
-diff --git a/server/handlers.go b/server/handlers.go
-index f8d0ed64..fd30bc34 100644
---- a/server/handlers.go
-+++ b/server/handlers.go
-@@ -581,7 +581,7 @@ func (s *Server) finalizeLogin(ctx context.Context, identity connector.Identity,
+diff --git a/server/consent/consent.go b/server/consent/consent.go
+index e69d5da..949a634 100644
+--- a/server/consent/consent.go
++++ b/server/consent/consent.go
+@@ -50,12 +50,12 @@ func (h *Handler) buildApprovedURL(authReq storage.AuthRequest) string {
+ // function so the /auth dispatcher can decide consent from state without holding
+ // the consent Handler.
+ func Satisfied(ctx context.Context, store storage.Storage, skipApproval bool, authReq *storage.AuthRequest) bool {
+-	if authReq.ForceApprovalPrompt {
+-		return false
+-	}
+ 	if skipApproval {
+ 		return true
  	}
- 
- 	// we can skip the redirect to /approval and go ahead and send code if it's not required
--	if s.skipApproval && !authReq.ForceApprovalPrompt {
-+	if s.skipApproval {
- 		return "", true, nil
- 	}
- 
++	if authReq.ForceApprovalPrompt {
++		return false
++	}
+ 	ui, err := store.GetUserIdentity(ctx, authReq.Claims.UserID, authReq.ConnectorID)
+ 	return err == nil && scopesCoveredByConsent(ui.Consents[authReq.ClientID], authReq.Scopes)
+ }

@@ -8,7 +8,6 @@ in
     lib.genAttrs
       [
         "client"
-        "jack"
         "pipewire-pulse"
         "pipewire"
       ]

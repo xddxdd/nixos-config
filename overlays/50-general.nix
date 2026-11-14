@@ -26,7 +26,7 @@ rec {
       ../patches/dex-glob-match-redirect-uri.patch
       ../patches/dex-skip-approval-screen.patch
     ];
-    vendorHash = "sha256-7T4svxdzKsSQup1Ls43bK+l/xMgxL4mmQQ7Ck3WoKRk=";
+    vendorHash = "sha256-UKNmTziBDj7gJBT6ON9ZpR9Bh5LBtdAdxA4e1uJIcg0=";
     doCheck = false;
   });
   filezilla = prev.filezilla.overrideAttrs (old: {
