@@ -140,7 +140,7 @@ in
         podman
       ]
       # strata only runs where its model is served
-      ++ lib.optional (models ? strata && models.strata._cmd != null) strata;
+      ++ lib.optional (lib.any (m: m.kind == "strata") (builtins.attrValues served)) strata;
     };
 
     lantian.port-audit.knownViolations = [

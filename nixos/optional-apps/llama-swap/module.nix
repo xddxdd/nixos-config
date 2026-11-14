@@ -279,21 +279,21 @@ let
       vision = true;
       minVramGB = 24;
     };
-    "sakura-llm" = {
-      name = "Sakura LLM 14B";
-      kind = "sglang";
-      modelPath = "reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2";
-      ctxSize = 4096;
-      maxTokens = 2048;
-      minVramGB = 24;
-    };
-    strata = {
-      name = "Strata";
+    "qwen3.8-flash-next" = {
+      name = "Qwen3.8 Flash Next";
       kind = "strata";
       ctxSize = 262144;
       maxTokens = 8192;
       thinking = true;
       vision = true;
+      minVramGB = 24;
+    };
+    "sakura-14b-qwen2.5-v1.0" = {
+      name = "Sakura 14B Qwen2.5 v1.0";
+      kind = "sglang";
+      modelPath = "reinforce20001/SakuraLLM.Sakura-14B-Qwen2.5-v1.0-W8A8-Int8-V2";
+      ctxSize = 4096;
+      maxTokens = 2048;
       minVramGB = 24;
     };
     # keep-sorted end

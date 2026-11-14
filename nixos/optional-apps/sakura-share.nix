@@ -25,7 +25,7 @@
     bindsTo = [ "llama-swap.service" ];
 
     serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.sakura-share} --upstream http://127.0.0.1:${LT.portStr.LlamaSwap}/upstream/sakura-llm";
+      ExecStart = "${lib.getExe pkgs.sakura-share} --upstream http://127.0.0.1:${LT.portStr.LlamaSwap}/upstream/sakura-14b-qwen2.5-v1.0";
       Restart = "on-failure";
       # Wait 60s between connection attempts, otherwise batched tasks cause
       # inference inconsistency and fail validation
