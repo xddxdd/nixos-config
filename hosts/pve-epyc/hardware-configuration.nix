@@ -27,6 +27,18 @@
 
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
 
+  systemd.services.nvidia-power-limit = {
+    description = "Set NVIDIA GPU power limit to 250 W";
+    wantedBy = [ "multi-user.target" ];
+    requires = [ "nvidia-persistenced.service" ];
+    after = [ "nvidia-persistenced.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -i 0 --power-limit=250";
+    };
+  };
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
