@@ -1,0 +1,19 @@
+device = "/dev/ipmi0"
+polling_seconds = 1.0
+fan_mode_delay_seconds = 5.0
+
+[cpu]
+min_speed = 30
+max_speed = 75
+min_temp = 65.0
+max_temp = 85.0
+sensitivity = 1.0
+steps = 20
+
+[peripheral]
+min_speed = 30
+max_speed = 75
+min_temp = 65.0
+max_temp = 85.0
+sensitivity = 1.0
+steps = 20

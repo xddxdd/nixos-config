@@ -1,0 +1,12 @@
+[dependencies]
+anyhow = "1"
+ipmi-rs = { version = "=0.6.0", default-features = false, features = ["unix-file"] }
+serde = { version = "1", features = ["derive"] }
+signal-hook = "0.3"
+sd-notify = "0.4"
+toml = "0.9"
+
+[package]
+name = "smfc"
+version = "0.1.0"
+edition = "2024"

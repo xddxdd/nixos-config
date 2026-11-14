@@ -10,6 +10,7 @@ final: prev: {
   picoforge = inputs.picoforge.packages."${prev.stdenv.hostPlatform.system}".picoforge;
   port-audit = final.callPackage ../pkgs/port-audit { };
   sakura-share = final.callPackage ../pkgs/sakura-share { };
+  smfc = final.callPackage ../pkgs/smfc { };
   web-compressor = final.callPackage ../pkgs/web-compressor { };
   wine-tkg = inputs.nix-gaming.packages."${prev.stdenv.hostPlatform.system}".wine-tkg;
 }
