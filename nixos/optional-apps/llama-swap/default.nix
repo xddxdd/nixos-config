@@ -68,6 +68,12 @@ in
         assertion = LT.this.vramGB > 0;
         message = "llama-swap requires vramGB > 0";
       }
+      {
+        assertion =
+          builtins.length (builtins.attrNames entries)
+          <= LT.port.LlamaSwapInference.End - LT.port.LlamaSwapInference.Start + 1;
+        message = "llama-swap model count exceeds the allocated inference port range";
+      }
     ];
 
     # Stratas' model data must stay outside runtime/strata, which is replaced on
@@ -106,6 +112,7 @@ in
       port = LT.port.LlamaSwap;
 
       settings = {
+        startPort = LT.port.LlamaSwapInference.Start;
         globalTTL = 600;
         healthCheckTimeout = 3600;
         models = entries;
@@ -135,6 +142,10 @@ in
       # strata only runs where its model is served
       ++ lib.optional (models ? strata && models.strata._cmd != null) strata;
     };
+
+    lantian.port-audit.knownViolations = [
+      "${LT.portStr.LlamaSwapInference.Start}-${LT.portStr.LlamaSwapInference.End}"
+    ];
 
     lantian.harden.llama-swap = {
       enable = true;

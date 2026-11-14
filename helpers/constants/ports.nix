@@ -94,6 +94,8 @@ rec {
     WGMesh.Start = 10000;
     WGMesh.End = 10255;
     OllamaCpaHoneypot.OllamaListener = 11434;
+    LlamaSwapInference.Start = 13000;
+    LlamaSwapInference.End = 13099;
     NMEA = 13110;
     MiniUPnP.HTTP = 13111;
     FlapAlerted.BGP = 13179;
