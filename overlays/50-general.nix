@@ -176,22 +176,6 @@ rec {
   sonarr = prev.sonarr.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../patches/sonarr-chinese-numbering.patch ];
   });
-  ulauncher = prev.ulauncher.overrideAttrs (old: {
-    nativeBuildInputs = old.nativeBuildInputs ++ (with prev; [ gobject-introspection ]);
-
-    propagatedBuildInputs =
-      with prev.python3Packages;
-      old.propagatedBuildInputs
-      ++ [
-        # keep-sorted start
-        faker
-        fuzzywuzzy
-        pint
-        pytz
-        simpleeval
-        # keep-sorted end
-      ];
-  });
   yt-dlp = prev.yt-dlp.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       # Modified from https://github.com/yt-dlp/yt-dlp/issues/14498#issuecomment-3391106164
