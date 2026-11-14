@@ -148,7 +148,8 @@ let
     else if kind == "sglang" then
       ''
         ${podman} --remote run --rm --replace --name ''${MODEL_ID} \
-        --net=host --ipc=host --gpus=all \
+        --ipc=host --gpus=all \
+        --publish=127.0.0.1:''${PORT}:''${PORT} \
         -e TORCHINDUCTOR_CACHE_DIR=/var/cache/torchinductor \
         -v /var/cache/huggingface:/root/.cache/huggingface \
         -v /var/cache/torchinductor:/var/cache/torchinductor \
@@ -162,7 +163,7 @@ let
         --enable-deterministic-inference \
         --enable-metrics \
         --enable-torch-compile \
-        --host=127.0.0.1 \
+        --host=0.0.0.0 \
         --mem-fraction-static=0.8 \
         --model-path=${m.modelPath} \
         --port=''${PORT} \
