@@ -113,7 +113,7 @@ in
 
       settings = {
         startPort = LT.port.LlamaSwapInference.Start;
-        globalTTL = 600;
+        globalTTL = 3600;
         healthCheckTimeout = 3600;
         models = entries;
         routing.router.settings.groups.single = {
