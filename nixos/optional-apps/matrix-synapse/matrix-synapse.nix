@@ -308,6 +308,12 @@
           default_type application/json;
         '';
       };
+
+      # Block registration and email-based password recovery
+      "~ ^/_matrix/client/(r0|v3|unstable)/register($|/)".return = "418";
+      "~ ^/_matrix/client/unstable/registration/[^/]+/submit_token$".return = "418";
+      "~ ^/_matrix/client/(r0|v3|unstable)/account/password/[^/]+/requestToken$".return = "418";
+      "~ ^/_synapse/client/password_reset/".return = "418";
     };
 
     sslCertificate = "lets-encrypt-lantian.pub";

@@ -46,11 +46,23 @@ in
           '';
         };
         "= /".return = "307 /ui/";
-        "= /api/user" = {
+
+        # Waline also serves these under the deprecated unprefixed routes.
+        "^~ /api/user/password".return = "418";
+        "^~ /user/password".return = "418";
+        "~ ^/api/user(/|$)" = {
           proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline}";
           extraConfig = ''
             if ($request_method = POST) {
-              return 403;
+              return 418;
+            }
+          '';
+        };
+        "~ ^/user(/|$)" = {
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline}";
+          extraConfig = ''
+            if ($request_method = POST) {
+              return 418;
             }
           '';
         };
