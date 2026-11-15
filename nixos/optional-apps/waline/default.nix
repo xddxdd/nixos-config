@@ -46,6 +46,14 @@ in
           '';
         };
         "= /".return = "307 /ui/";
+        "= /api/user" = {
+          proxyPass = "http://${LT.this.ltnet.IPv4}:${LT.portStr.Waline}";
+          extraConfig = ''
+            if ($request_method = POST) {
+              return 403;
+            }
+          '';
+        };
       };
 
       sslCertificate = "lets-encrypt-lantian.pub";
