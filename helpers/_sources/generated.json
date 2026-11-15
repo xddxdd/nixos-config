@@ -43,11 +43,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Gbc+BWqVke5nOYnQGUlJy5AAwrysOEdCQKUBLJsibbg=",
+            "sha256": "sha256-mNb3fIAf2Jq7vXXn9RyOvYR53yc3sdE0oiRoPc3mEX4=",
             "type": "url",
-            "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110900/rpz.delegacy.monostack.org.zone"
+            "url": "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026111400/rpz.delegacy.monostack.org.zone"
         },
-        "version": "2026110900"
+        "version": "2026111400"
     },
     "dn42-certificate-authority-client": {
         "cargoLock": null,
@@ -173,7 +173,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-11-12",
+        "date": "2026-11-14",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -183,13 +183,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a177c1e817204f8ddc0c8993610ca674fc6d9767",
-            "sha256": "sha256-VLYZNRUdVd9K4H722nRRkHEEJp2ZmrE6ldt2biWCHlg=",
+            "rev": "55746b0b082258211121c70bd26e6878fd3bd292",
+            "sha256": "sha256-+cesc2VRW8743PIrV84OMyd93bGGdfkb9qdH3uundO8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "a177c1e817204f8ddc0c8993610ca674fc6d9767"
+        "version": "55746b0b082258211121c70bd26e6878fd3bd292"
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
@@ -266,13 +266,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "76846e2b50547aa9497848abdeb5416f5b09f878",
-            "sha256": "sha256-dj6H8qqp/PnP5A1wmtmPl91klMZOdm1jM8UP7pBUqM8=",
+            "rev": "3f6037a1ee9ce3a1028f66a94bf469d13276b7ec",
+            "sha256": "sha256-UXxQUp02YFqayCcYz8pr5OWPVuicDgGAGCxAasuz56g=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "76846e2b50547aa9497848abdeb5416f5b09f878"
+        "version": "3f6037a1ee9ce3a1028f66a94bf469d13276b7ec"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
@@ -296,7 +296,7 @@
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-11-08",
+        "date": "2026-11-14",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -308,12 +308,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5",
-            "sha256": "sha256-tZAXQQ+9C94wV/1FVx+lVDDtJm/buphdhysJlw5GSrA=",
+            "rev": "2a61b6107399e327a45ce0f3dedce560eb221f44",
+            "sha256": "sha256-LM6x/KZaKj+iJ8guPxUseBw52ZFQEf9S89+OBXz1I48=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5"
+        "version": "2a61b6107399e327a45ce0f3dedce560eb221f44"
     },
     "open5gs": {
         "cargoLock": null,

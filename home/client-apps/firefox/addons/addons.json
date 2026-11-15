@@ -148,9 +148,9 @@
   },
   {
     "pname": "pt-depiler",
-    "version": "0.0.6.2067",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5212846/pt_depiler-0.0.6.2067.xpi",
-    "hash": "sha256-eXfAgItDEtTJwZo+6gD2uBh6Jf4YbjlAYN1yWTpL1+c=",
+    "version": "0.0.6.2119",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5254518/pt_depiler-0.0.6.2119.xpi",
+    "hash": "sha256-LVHw2nKE8pCOUBdOsvDwWyCKabpM5o2zV+BSQMZQ9ok=",
     "addonId": "ptdepiler.ptplugins@gmail.com"
   },
   {
