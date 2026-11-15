@@ -30,10 +30,10 @@
   };
   delegacy-rpz = {
     pname = "delegacy-rpz";
-    version = "2026110900";
+    version = "2026111400";
     src = fetchurl {
-      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026110900/rpz.delegacy.monostack.org.zone";
-      sha256 = "sha256-Gbc+BWqVke5nOYnQGUlJy5AAwrysOEdCQKUBLJsibbg=";
+      url = "https://codeberg.org/IPv6-Monostack/delegacy-rpz/releases/download/v2026111400/rpz.delegacy.monostack.org.zone";
+      sha256 = "sha256-mNb3fIAf2Jq7vXXn9RyOvYR53yc3sdE0oiRoPc3mEX4=";
     };
   };
   dn42-certificate-authority-client = {
@@ -110,17 +110,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "a177c1e817204f8ddc0c8993610ca674fc6d9767";
+    version = "55746b0b082258211121c70bd26e6878fd3bd292";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "a177c1e817204f8ddc0c8993610ca674fc6d9767";
+      rev = "55746b0b082258211121c70bd26e6878fd3bd292";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-VLYZNRUdVd9K4H722nRRkHEEJp2ZmrE6ldt2biWCHlg=";
+      sha256 = "sha256-+cesc2VRW8743PIrV84OMyd93bGGdfkb9qdH3uundO8=";
     };
-    date = "2026-11-12";
+    date = "2026-11-14";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
@@ -160,15 +160,15 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "76846e2b50547aa9497848abdeb5416f5b09f878";
+    version = "3f6037a1ee9ce3a1028f66a94bf469d13276b7ec";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "76846e2b50547aa9497848abdeb5416f5b09f878";
+      rev = "3f6037a1ee9ce3a1028f66a94bf469d13276b7ec";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-dj6H8qqp/PnP5A1wmtmPl91klMZOdm1jM8UP7pBUqM8=";
+      sha256 = "sha256-UXxQUp02YFqayCcYz8pr5OWPVuicDgGAGCxAasuz56g=";
     };
     date = "2026-11-14";
   };
@@ -188,15 +188,15 @@
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5";
+    version = "2a61b6107399e327a45ce0f3dedce560eb221f44";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "620c4aa29cbff9ea32a0b1e29dad60eb62b9dba5";
+      rev = "2a61b6107399e327a45ce0f3dedce560eb221f44";
       fetchSubmodules = false;
-      sha256 = "sha256-tZAXQQ+9C94wV/1FVx+lVDDtJm/buphdhysJlw5GSrA=";
+      sha256 = "sha256-LM6x/KZaKj+iJ8guPxUseBw52ZFQEf9S89+OBXz1I48=";
     };
-    date = "2026-11-08";
+    date = "2026-11-14";
   };
   open5gs = {
     pname = "open5gs";
