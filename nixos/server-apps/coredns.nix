@@ -95,7 +95,7 @@ let
       ${forwardZone "19.198.in-addr.arpa" null}
 
       # Public Internet Authoritative
-      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+52244"}
+      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+47109"}
 
       # OpenNIC Authoritative
       ${forwardZone "opennic.glue" null}
