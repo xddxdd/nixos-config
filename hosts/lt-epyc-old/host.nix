@@ -6,7 +6,10 @@
 {
   index = 111;
   x86ArchLevel = 3;
-  tags = [ tags."cuda-pascal" ];
+  tags = with tags; [
+    cuda-pascal
+    nix-builder
+  ];
   cpuThreads = 64;
   vramGB = 48;
   city = geo.cities."US Bellevue";
@@ -14,6 +17,7 @@
   zerotier = "b207a3e590";
   firewalled = true;
   hostname = "192.168.0.7";
+  manualDeploy = true;
   interconnect = {
     name = "home-lan";
     IPv4 = "192.168.0.7";
