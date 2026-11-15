@@ -3,9 +3,18 @@
 # to /etc/nixos/configuration.nix instead.
 {
   lib,
+  config,
   ...
 }:
 {
+  imports = [
+    ../../nixos/hardware/ecc-ram.nix
+    ../../nixos/hardware/nvidia/only.nix
+  ];
+
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidia_x11_legacy580;
+  hardware.nvidia.open = lib.mkForce false;
+
   lantian.hostType = lib.mkForce "physical";
 
   boot.loader.grub = {
