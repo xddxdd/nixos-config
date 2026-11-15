@@ -34,6 +34,7 @@
 
     # Hardware
     "cuda"
+    "cuda-pascal"
     "low-gpu"
     "low-ram"
   ] (v: v);

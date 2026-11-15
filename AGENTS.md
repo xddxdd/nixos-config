@@ -95,6 +95,7 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | `ipv6-only`      | 仅 IPv6                                                    |
 | `lan-access`     | 局域网访问                                                 |
 | `cuda`           | NVIDIA CUDA 支持                                           |
+| `cuda-pascal`    | Pascal（CC 6.1）CUDA 12 包集（仅编译 CC 6.1）                |
 | `low-gpu`        | 低性能 GPU 优化（禁用桌面模糊、简化 mpv 缩放）             |
 | `low-ram`        | 低内存优化                                                 |
 
@@ -125,7 +126,7 @@ flake.lock 的标准格式：顶层 `"root"` 键是一个字符串，指向 `"no
 | `server-components/`  | 服务器组件（backup、dn42、logging 等）                 |
 | `client-components/`  | 客户端组件                                             |
 | `pve-components/`     | Proxmox VE 组件（自动导入到 pve.nix）                  |
-| `hardware/`           | 通用硬件配置片段（LVM、QEMU、NVIDIA 等，需在主机配置中手动导入） |
+| `hardware/`           | 通用硬件配置片段（LVM、QEMU、NVIDIA 等，需在主机配置中手动导入）；`nvidia/cuda-pascal.nix` 是覆盖层，由 flake 模块按主机引用 |
 | `optional-apps/`      | 可选应用（部分主机使用，需在主机配置中手动导入）        |
 | `optional-cron-jobs/` | 可选定时任务（部分主机使用，需在主机配置中手动导入）    |
 

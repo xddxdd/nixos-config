@@ -13,7 +13,7 @@
   ];
   city = geo.cities."US Bellevue";
   cpuThreads = 128;
-  vramGB = 48;
+  vramGB = 24;
   hostname = "192.168.0.2";
   ssh.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFVku0tEhzgfN+ZjGT5cN8pqx7Fy4PizhK1nrmwwZhDH";
   zerotier = "afc60015e5";

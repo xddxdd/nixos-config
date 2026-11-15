@@ -65,6 +65,17 @@ in
             cudaSupport = true;
           };
         };
+        pkgsCudaPascal = {
+          sourceInput = inputs.nixpkgs;
+          patches = LT.ls ../patches/nixpkgs;
+          inherit permittedInsecurePackages;
+          # Must come first: the NUR overlays instantiate their packages against
+          # `super`, so only overlays placed before them are visible there.
+          overlays = [ (import ../nixos/hardware/nvidia/cuda-pascal.nix) ] ++ overlays;
+          settings = settings // {
+            cudaCapabilities = [ "6.1" ];
+          };
+        };
       };
   };
 }

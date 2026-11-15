@@ -1,10 +1,14 @@
 { ... }:
 {
   imports = [
+    ../../nixos/common-apps/nginx
     ../../nixos/minimal.nix
 
     ./hardware-configuration.nix
     ./openvswitch.nix
+
+    ../../nixos/optional-apps/llama-cpp.nix
+    # ../../nixos/optional-apps/llama-swap
   ];
 
   systemd.network.networks.br0 = {
