@@ -146,6 +146,8 @@
       };
       "= /robots.txt".alias = ./robots.txt;
       "= /user/login".return = "307 /user/oauth2/Dex";
+      "= /user/forgot_password".return = "404";
+      "= /user/recover_account".return = "404";
     };
 
     blockDotfiles = false;
