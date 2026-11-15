@@ -76,10 +76,7 @@ impl Config {
             slots.iter().all(|slot| *slot < 8),
             "fan slot must be in 0..8"
         );
-        ensure!(
-            self.gpus.len() == 2,
-            "exactly two Tesla P40 GPUs must be configured"
-        );
+        ensure!(!self.gpus.is_empty(), "at least one GPU must be configured");
         let mut gpu_slots = HashSet::new();
         let mut uuids = HashSet::new();
         for gpu in &self.gpus {
@@ -145,6 +142,7 @@ gpu_uuid = "GPU-00000000-0000-0000-0000-000000000002"
         config.validate().unwrap();
         assert_eq!(config.motherboard.speed(85.0), 75);
         for text in [
+            "fan_slots = [0, 2, 4]\ngpus = []".into(),
             CONFIG.replace("[0, 2, 4]", "[]"),
             CONFIG.replace("[0, 2, 4]", "[0, 2, 2, 4]"),
             CONFIG.replace("[0, 2, 4]", "[0, 2, 4, 8]"),

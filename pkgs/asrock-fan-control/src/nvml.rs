@@ -97,10 +97,6 @@ impl Nvml {
             .to_str()?
             .to_owned();
         ensure!(
-            name == "Tesla P40",
-            "configured {uuid} is {name:?}, not Tesla P40"
-        );
-        ensure!(
             temperature <= 150,
             "implausible GPU temperature for {uuid}: {temperature}"
         );
@@ -209,10 +205,10 @@ mod tests {
     }
     unsafe extern "C" fn name(_: Device, output: *mut c_char, length: c_uint) -> c_uint {
         assert_eq!(length, 64);
-        let value = if FAILURE.get() == 2 {
-            b"Tesla P100\0"
-        } else {
-            b"Tesla P40\0\0"
+        let value = match FAILURE.get() {
+            2 => b"Tesla P100\0",
+            7 => b"Tesla P4\0\0\0",
+            _ => b"Tesla P40\0\0",
         };
         unsafe {
             std::ptr::copy_nonoverlapping(value.as_ptr(), output.cast(), value.len());
@@ -234,12 +230,12 @@ mod tests {
             return 3;
         } // NVML_ERROR_NOT_SUPPORTED
         unsafe {
-            *output = if FAILURE.get() == 6 {
-                85
-            } else if kind == 1 {
-                92
-            } else {
-                95
+            *output = match (FAILURE.get(), kind) {
+                (6, _) => 85,
+                (7, 1) => 91,
+                (7, _) => 94,
+                (_, 1) => 92,
+                _ => 95,
             };
         }
         0
@@ -263,7 +259,17 @@ mod tests {
             (reading.temperature, reading.slowdown, reading.shutdown),
             (70, 92, 95)
         );
-        for failure in 1..=6 {
+        for (scenario, expected_name, slowdown, shutdown) in
+            [(2, "Tesla P100", 92, 95), (7, "Tesla P4", 91, 94)]
+        {
+            FAILURE.set(scenario);
+            let reading = api.read("GPU-synthetic").unwrap();
+            assert_eq!(
+                (reading.name.as_str(), reading.slowdown, reading.shutdown),
+                (expected_name, slowdown, shutdown)
+            );
+        }
+        for failure in [1, 3, 4, 5, 6] {
             FAILURE.set(failure);
             assert!(
                 api.read("GPU-synthetic").is_err(),

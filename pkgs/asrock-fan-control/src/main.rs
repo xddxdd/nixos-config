@@ -428,6 +428,35 @@ mod tests {
     }
 
     #[test]
+    fn p4_third_gpu_has_an_independent_fan_target() {
+        let config: Config = toml::from_str(&format!(
+            "{}\n[[gpus]]\nfan_slot = 7\ngpu_uuid = \"GPU-00000000-0000-0000-0000-000000000003\"",
+            config::tests::CONFIG.replace("[0, 2, 4]", "[0, 2, 4, 7]")
+        ))
+        .unwrap();
+        config.validate().unwrap();
+        let readings: Vec<_> = config
+            .gpus
+            .iter()
+            .enumerate()
+            .map(|(index, gpu)| nvml::Reading {
+                uuid: gpu.gpu_uuid.clone(),
+                name: if index == 2 { "Tesla P4" } else { "Tesla P40" }.into(),
+                temperature: if index == 2 { 85 } else { 65 },
+                slowdown: if index == 2 { 91 } else { 92 },
+                shutdown: if index == 2 { 94 } else { 95 },
+            })
+            .collect();
+        let mut zones: Vec<_> = (0..=config.gpus.len())
+            .map(|_| ZoneState::default())
+            .collect();
+        assert_eq!(
+            targets(&config, 70., &readings, &mut zones).unwrap(),
+            (vec![(0, 41), (2, 30), (4, 30), (7, 75)], false)
+        );
+    }
+
+    #[test]
     fn independent_gpu_targets_shared_curve_reference_and_emergency() {
         let config: Config = toml::from_str(config::tests::CONFIG).unwrap();
         config.validate().unwrap();
