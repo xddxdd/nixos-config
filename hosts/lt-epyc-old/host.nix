@@ -8,7 +8,7 @@
   x86ArchLevel = 3;
   tags = with tags; [
     cuda-pascal
-    nix-builder
+    # nix-builder # too little RAM for now
   ];
   cpuThreads = 64;
   vramGB = 48;
