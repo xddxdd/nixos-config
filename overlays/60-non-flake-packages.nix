@@ -1,5 +1,6 @@
 { inputs, ... }:
 final: prev: {
+  asrock-fan-control = final.callPackage ../pkgs/asrock-fan-control { };
   asterisk-never-gonna = final.callPackage ../pkgs/asterisk-never-gonna { };
   dn42-peerfinder = final.callPackage ../pkgs/dn42-peerfinder { };
   lantian-secrets = final.callPackage ../pkgs/lantian-secrets { };

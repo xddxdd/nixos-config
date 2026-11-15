@@ -6,6 +6,7 @@
 
     ./hardware-configuration.nix
     ./openvswitch.nix
+    ./fan-control
 
     ../../nixos/optional-apps/llama-cpp.nix
     # ../../nixos/optional-apps/llama-swap
