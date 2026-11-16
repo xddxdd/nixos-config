@@ -44,7 +44,12 @@ let
       CUDA_VISIBLE_DEVICES = "0";
       # Any *.localhost name passes the rebinding check by itself
       STRATA_ALLOWED_HOSTS = "llama-swap.${config.networking.hostName}.xuyh0120.win";
+      # From https://www.reddit.com/r/LocalLLaMA/s/ZGY93Mx2t3
+      STRATA_HC_Q8 = "1";
+      STRATA_KVA = "0";
+      STRATA_PREFILL_CPU_SHARE = "0";
       STRATA_ROUTE_PRIOR = "0"; # https://github.com/Niko1221/Strata/releases/tag/v0.2.7
+      STRATA_ROUTE_TAIL_SKIP = "0";
       PATH = modelBinPath;
     };
   };
