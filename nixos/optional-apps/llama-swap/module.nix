@@ -127,15 +127,32 @@ let
     };
   };
 
+  strataFamily = config.lantian.strata.family;
+  strataModel = config.lantian.strata.model;
+  strataDataDir = "/var/cache/strata/data";
+  strataGpus = config.lantian.strata.gpus;
+  # only when asked for: "all" fails on a host with a single card to use
+  strataGpuFlags = lib.optionalString (strataGpus != null) "--gpus ${strataGpus} ";
+
+  # upstream ships the speed projection's control vector for qwen and coder only
+  strataSpeedProjection =
+    {
+      qwen = "on";
+      coder = "on";
+      swift = "off";
+      unsloth = "off";
+    }
+    .${strataFamily};
+
   # flags both the start and the setup take: setup is the same invocation
   # without a server to listen
   strataFlags = m: ''
-    --yes --family qwen --model ${config.lantian.strata.model} --backend cuda \
+    --yes --family ${strataFamily} --model ${strataModel} --backend cuda \
     --source huggingface --context ${toString m.ctxSize} --kv int8 --mtp on --parallel 1 \
     --vision ${
       if m.vision or false then "yes" else "no"
-    } --experimental-speed-projection on --no-browser \
-    --gpu 0 --data-dir /var/cache/strata/data'';
+    } --experimental-speed-projection ${strataSpeedProjection} \
+    --no-browser ${strataGpuFlags}--data-dir ${strataDataDir}'';
 
   provisioningOf =
     m:
@@ -361,12 +378,37 @@ let
   };
 in
 {
+  options.lantian.strata.family = lib.mkOption {
+    type = lib.types.enum [
+      "qwen"
+      "coder"
+      "swift"
+      "unsloth"
+    ];
+    default = "swift";
+    description = ''
+      Model family Strata serves: qwen, coder, swift or unsloth. The setup offers
+      the quants that family has; the speed projection exists for qwen and coder
+      only.
+    '';
+  };
+
+  options.lantian.strata.gpus = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = ''
+      Cards to split the model across, as nvidia-smi numbers them, for example
+      "all" or "0,1". Null lets Strata pick the card it fits on; "all" needs two
+      cards Strata can use together and fails setup on a single-card host.
+    '';
+  };
+
   options.lantian.strata.model = lib.mkOption {
     type = lib.types.str;
     default = "IQ3_S";
     description = ''
-      Quantization of the qwen-family model to run.
-      The default IQ3_S is the qwen family's 3.5-bit GSQ-RCO pick.
+      Quantization of the model to run.
+      The default IQ3_S is the 3.5-bit GSQ-RCO pick.
     '';
   };
 

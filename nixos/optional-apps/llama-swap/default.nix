@@ -41,7 +41,6 @@ let
       XDG_DATA_HOME = "/var/cache/strata/runtime";
       XDG_CONFIG_HOME = "/var/cache/strata/config";
       CUDA_DEVICE_ORDER = "PCI_BUS_ID";
-      CUDA_VISIBLE_DEVICES = "0";
       # Any *.localhost name passes the rebinding check by itself
       STRATA_ALLOWED_HOSTS = "llama-swap.${config.networking.hostName}.xuyh0120.win";
       # From https://www.reddit.com/r/LocalLLaMA/s/ZGY93Mx2t3
@@ -122,12 +121,11 @@ in
     ];
 
     # Stratas' model data must stay outside runtime/strata, which is replaced on
-    # package updates. The speed projection's refusal-direction control vector is
-    # only applied for the qwen/coder families (upstream gate in setup.py), which
-    # is why the quant lives in the GSQ-RCO set, not one of the unsloth UD quants.
-    # Maya hydrates its application files into data/project-maya the same way; its
-    # configs and the downloaded model live beside them. Both model servers run as
-    # children of llama-swap, so the cache belongs to its service user.
+    # package updates. Speed projection is off: upstream makes its control vector
+    # for the original model, not for Swift 1.5. Maya hydrates its application
+    # files into data/project-maya the same way; its configs and the downloaded
+    # model live beside them. Both model servers run as children of llama-swap, so
+    # the cache belongs to its service user.
     systemd.tmpfiles.settings = {
       llama-swap = {
         "/var/cache/strata"."d" = {
