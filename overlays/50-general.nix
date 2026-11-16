@@ -2,6 +2,13 @@
 final: prev:
 let
   sources = final.callPackage ../helpers/_sources/generated.nix { };
+  # nur-xddxdd wraps the Strata engine in a symlinkJoin, so the patch lands on the
+  # derivation it links and the wrapper is rebuilt around it.
+  strataUnwrapped = prev.nur-xddxdd.strata.unwrapped.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../patches/strata-huihui-abliterated-download.patch
+    ];
+  });
 in
 rec {
   # keep-sorted start block=yes
@@ -82,6 +89,14 @@ rec {
     patches = (old.patches or [ ]) ++ [ ../patches/netavark-disable-conntrack.patch ];
     doCheck = false;
   });
+  nur-xddxdd = prev.nur-xddxdd // {
+    strata = prev.nur-xddxdd.strata.overrideAttrs (old: {
+      paths = [ strataUnwrapped ];
+      passthru = (old.passthru or { }) // {
+        unwrapped = strataUnwrapped;
+      };
+    });
+  };
   obs-studio-plugins = prev.obs-studio-plugins // {
     obs-noise = prev.obs-studio-plugins.obs-noise.overrideAttrs (old: {
       # GCC 15 diagnoses a discarded const qualifier and the OBS plugin helper

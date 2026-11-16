@@ -1,0 +1,150 @@
+--- a/setup.py
++++ b/setup.py
+@@ -98,6 +98,7 @@
+     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF": "ed59f92082b1e93c0e96d60a8b11aab089b52f09",        # 2026-09-29
+     "ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF": "99bb8f7f95c7aa7b24a36a7786a4f657b30f5d3d",   # 2026-10-07 (adds IQ3_S)
+     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF": "5348543e0147355ac9cbcb031184a3546350988e",  # 2026-09-29
++    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF": "cbc7fba13f1939ac3fa42b18d77ccf43847d74ef",  # 2026-10-13 (Swift 1.5 and Unsloth shards, abliterated)
+     "unsloth/Qwen3.8-Flash-Next-GGUF": "38bb39ee97821de2c9009abb7e93950eec396e66",                   # 2026-09-30
+     "unsloth/Qwen3.6-35B-A3B-MTP-GGUF": "5bc3e238d916f48a861bac2f8a1990a0e9b7e98d",                  # 2026-10-12
+     "agentionai/Qwen3.8-Flash-Next-Gyro-GGUF": "1ada08422e404aca51ab9df665f089f34c419c6b",           # 2026-10-13
+@@ -389,24 +390,22 @@
+     "mmproj-Qwen3.8-Flash-Next-BF16.gguf":
+         (907543008, "b1a82259702816a5330d7bd7607cd9676b11780e79ff7348c21103ff3ce49bd0"),
+ }
+-# Swift 1.5's shards (Q2_0, IQ2_XS, IQ3_XXS, IQ3_S) and its picture reader, same source and form.
++# Swift 1.5's shards as huihui-ai republished the abliterated model (Q2_0 is not among
++# them: the setup offers it for the original only): the same quant sizes and file names
++# as ukisai's files, other bytes.  Its picture reader is unchanged.
+ SWIFT_FILES = {
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf":
+-        (39788473344, "ca3b302d3d1eb6eddce3ea4acc79854e6cc5fdc0583e374a6a8b6bb67327743b"),
++        (39788473344, "514a369bff816ed78f23e0054688b570eae538299ccae45173908b5a69e468c9"),
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf":
+-        (28363693824, "e4996a6de18fd49c58d9a0040fcfd73787db6407c51973f29884bee7b14c9dbb"),
++        (28363693824, "9ffb75cdd312d669bc783b4d861d587f9553ab678fbc6963765ffde6b2728234"),
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf":
+-        (44900816736, "46cb3996cd1a17fe8bc5ae1f9bb16869480de5a03f17f868d6047a20a46edd3b"),
++        (44900816736, "9cdb79ad99ef066064628f13b67ace8ef077d02d9d3848a53b11d5c3cbe94332"),
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00002-of-00002.gguf":
+-        (38842920384, "70ce6fb48a94fe34bd7e9a53a526be68066c64b5a5077cdc82fb31350b66b608"),
++        (38842920384, "04e1f010edbeacbce3a8948abf0044e858d73a37fc74a0e58abeeff98cbe4f0f"),
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf":
+-        (39785790560, "3bddaa667c750f63baca766df9433e1afd35a139f401c5ca5e7ff560ceff3d23"),
++        (39785790560, "e66b543e5b89f039c81e5d74c31d2410de60e3cb84a7b89aec1f2ce11fdd9830"),
+     "Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf":
+-        (36180282560, "b0b15f782af71eb471909d2f3313b2927c324962f86c084325c247cd411a0160"),
+-    "Swift-Qwen3.8-Flash-Next-GSQ-RCO-Q2_0-00001-of-00002.gguf":
+-        (39799117984, "79e2a3873f1b05df835a1a191b20f2e74b9e12df949cd89861d17d98b6ef9678"),
+-    "Swift-Qwen3.8-Flash-Next-GSQ-RCO-Q2_0-00002-of-00002.gguf":
+-        (26750834816, "ef3bb04fb4e14f04624abd8acf25faf1603594a034050b048df85ec152ad5ae0"),
++        (36180282560, "d219681902f80f677b200d6bbb30387010de6cea51f6cc14ef90d873a5357a85"),
+     "mmproj-Swift-Qwen3.8-Flash-Next-BF16.gguf":
+         (907543520, "cd1140f4abba943ce8d9fa92fed8407e389954d26907efde7b72153c75bd8a60"),
+ }
+@@ -548,36 +547,36 @@
+     "Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf":
+         (10946624, "4448186216b3af4cc558bbce2c3213f01608f8f8b2e5267a9767971dd3ec8082"),
+     "Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf":
+-        (49859583136, "3f342f1c1580473f1ee94ddd5b28206e8c07a70fa1a366f59d1d6c922919a6c9"),
++        (49859583136, "6f3e21a5ae10c9124c2405061d89f90b575a0704b2927f059621b7936850b276"),
+     "Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf":
+-        (49376141504, "56758f40269cad5cd9b0d3d6fbae0f40f6d5be6de49e4ab392dbe83157d9cbd3"),
++        (49376141504, "bb24c1d9c42c129ad93d427d3be6ca9a8d5ca6bf07ca9a50ddca03328d08c702"),
+     "Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf":
+-        (12087983520, "753bda48b98ba4f1636134a90a967de1b2d3908a236c026e464777342e53510a"),
++        (12087983520, "3d6a9aee4ade5740394da9bcb9fa22ea9343471f246af6914f8fcc8327ceab8e"),
+ }
+ # #621: UD-IQ4_XS's three shards at the same revision (sizes and SHA-256: the Hub's LFS pointers)
+ UNSLOTH_IQ4_XS_SHARDS = {
+     "Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf":
+         (10946624, "5ce89370720f8bf90890f439361282104c1aa1482d4013bb9a50923e758e71a4"),
+     "Qwen3.8-Flash-Next-UD-IQ4_XS-00002-of-00003.gguf":
+-        (49835229856, "577a38a2392b40ca2193cea502e1d92f60b8cd370675d308e0ec21885d9daaa7"),
++        (49835229856, "ede87d3bd3e354d43f0e710b2df6791d3479e396847e53adbe2b48be7ba6d663"),
+     "Qwen3.8-Flash-Next-UD-IQ4_XS-00003-of-00003.gguf":
+-        (43836407744, "d4634e6d84f0ebb0940be15c90d3790bf6464e3dea3a1cddc567dc0e83ad8833"),
++        (43836407744, "f8aa8bd7ba134b3b7fe4fc95b9131fc8f6678ace374a0fa6e632225031665995"),
+ }
+ # MODEL-UPDATE: UD-Q5_K_XL, UD-Q6_K_XL and Q8_0 at the same revision (sizes and SHA-256: the Hub's LFS pointers; shards
+ # 2 and 3 are byte-identical across the three)
+ UNSLOTH_BIG_SHARDS = {
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00001-of-00006.gguf":
+-        (10946618, "610922cdb1afe1094e95d7a3e86b12ee33317ebbf7320ac9344e21b6ae4bb69f"),
++        (10946624, "6c537059d79c060aeb9a942f23a2d21a1b56360c8c27b9ab380539fa4c476eb2"),
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00002-of-00006.gguf":
+         (682434912, "494ca4ed3dbf97bc28da88af3890b8877b9032f909812d00c0526a9ca5e91d2e"),
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00003-of-00006.gguf":
+         (54400261312, "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20"),
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00004-of-00006.gguf":
+-        (49990245824, "9ee6bbe462e6830864382d629101490625b1c95afa15492b7ad550c7bed2dd13"),
++        (49990245824, "d9c78b3c1d22e434feddb91bcb32f3641fc830285618a0e534e8757521130bcc"),
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00005-of-00006.gguf":
+-        (49882416192, "0b2437f661f584030cb5aeb8fb1bb70f6422518a6746bfcc0304167c7b6b8beb"),
++        (49882416192, "ea750364f06cd685634a31619009afb2656f6a62a6d72270e25d4990963e08ad"),
+     "Qwen3.8-Flash-Next-UD-Q5_K_XL-00006-of-00006.gguf":
+-        (3320101792, "55dd96c5ad0863b06b6393151b9ad0ac727b8d58a62e02a296ca5d5ddbfee4a3"),
++        (3320101792, "8cc8aaa3a3b45fdc04d921caeb4039b73b39c6878fe9d7046b5d4276d0fbc96a"),
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00001-of-00006.gguf":
+         (10946624, "8bdc6bad55b6699f46f60708829932ff4018d7ac9bd309c388534fa31753bdb7"),
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00002-of-00006.gguf":
+@@ -585,11 +584,11 @@
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00003-of-00006.gguf":
+         (54400261312, "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20"),
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00004-of-00006.gguf":
+-        (49814108512, "0ea4b599880a5a52fcd9c188ba1443f646c69c96571904ddbd6a79246a01a997"),
++        (49814108512, "6f9826d42d8befc7f31321a13031c57b67efcd27a4e5a113a5ebe5a81f0e44cf"),
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00005-of-00006.gguf":
+-        (49419317344, "9948e81ae8368144b135a7403d8c0f2cf9a6c2f9f692313865855b2832e696c9"),
++        (49419317344, "5f289eee5f01779d711c06a4028f1820829e9471a5aac866777a959635431895"),
+     "Qwen3.8-Flash-Next-UD-Q6_K_XL-00006-of-00006.gguf":
+-        (14838313984, "e4ae255234f42b18012f6d6eec5bf615b57479b7e0a0233c47436a321ffeec3f"),
++        (14838313984, "59a79c43c99f4546912e27f4eb6e23f2c9f09e60401ce59dcfd74e21a28c2db4"),
+     "Qwen3.8-Flash-Next-Q8_0-00001-of-00006.gguf":
+         (10946624, "2dabcbb53ca537a7947bc7d20414fd464eeaf4d66d43021b5b2556cc87544ad2"),
+     "Qwen3.8-Flash-Next-Q8_0-00002-of-00006.gguf":
+@@ -597,11 +596,11 @@
+     "Qwen3.8-Flash-Next-Q8_0-00003-of-00006.gguf":
+         (54400261312, "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20"),
+     "Qwen3.8-Flash-Next-Q8_0-00004-of-00006.gguf":
+-        (49446841216, "bfa634025fabbd2658bf7694bc80b90e571699c768723f844c934c7ef06c691a"),
++        (49446841216, "2c2ed17193fec793c9daad5840ab944795546bbf28fe60e29cc822cc0a8d8d45"),
+     "Qwen3.8-Flash-Next-Q8_0-00005-of-00006.gguf":
+-        (49668930400, "232a8f14cc0fa4262e7efe8593774b136fe40909e39c7a020342ddaa27259a97"),
++        (49668930400, "0c96f6ee54c026c2af5859b9c21d829158369693c3a942d1875609a6cae13e32"),
+     "Qwen3.8-Flash-Next-Q8_0-00006-of-00006.gguf":
+-        (34015618784, "538a93bca918064983409a41187ad4c68640f9aced6f29564da8f551bf86d7a5"),
++        (34015618784, "01782b8bf7094a37ea675538189ecbf7d6d698368a7e2a72b286ae99dd37ee7c"),
+ }
+ # Round 0214: the sets that are new at UNSLOTH_V31_REVISION (UD-IQ1_M, UD-Q2_0, UD-IQ2_XS, UD-Q2_K_XL, UD-IQ3_XXS, UD-Q3_K_XL and the v3.1 UD-IQ4_XS), name -> (bytes,
+ # sha256): the Hub's LFS pointers (phaseA-tests/quants0211/unsloth-head-pins.json).  The last shard of each is the n-gram table.  No name is in UNSLOTH_SHARDS,
+@@ -692,9 +691,9 @@
+              "mmproj": "mmproj-Qwen3.8-Flash-Next-BF16.gguf", "name": "qwen3.8-flash-next"},
+     "swift": {"title": "Swift 1.5", "by": "UkisAI's fine-tune of Qwen3.8-Flash-Next",
+               "about": "thinks much shorter (-63% thinking tokens, 1.8x sooner answers by its authors' numbers)",
+-              "hf": hf("ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF"),
++              "hf": hf("huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF") + "swift-{q}/",
+               "file": "Swift-Qwen3.8-Flash-Next-GSQ-RCO-{q}-0000{i}-of-00002.gguf", "tag": "swift-",
+-              "mmproj_hf": hf("ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF"),
++              "mmproj_hf": hf("huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF"),
+               "mmproj": "mmproj-Swift-Qwen3.8-Flash-Next-BF16.gguf", "name": "swift-1.5",
+               "license": "Swift Open License 1.0: https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF"},
+     # ISTA-DASLab's expert-pruned release: half of each layer's experts removed, chosen for code, agentic tool use and
+@@ -711,7 +710,7 @@
+     "unsloth": {"title": "Qwen3.8-Flash-Next (Unsloth)", "by": "Unsloth's 1- to 8-bit quantizations",
+                 "about": "UD-IQ1_M, UD-Q2_0, UD-IQ2_XS, UD-Q2_K_XL, UD-IQ3_XXS, UD-Q3_K_XL, UD-IQ4_XS, UD-IQ4_XS-v31, UD-Q4_K_XL, UD-Q5_K_XL, UD-Q6_K_XL or Q8_0 (68 to 188 GB downloads): every expert in "
+                          "RAM from ~50 GB (UD-IQ1_M) to ~136 GB (Q8_0) of RAM, else part of them read from the SSD",
+-                "hf": hf("unsloth/Qwen3.8-Flash-Next-GGUF") + "{q}/",
++                "hf": hf("huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF") + "unsloth-{q}/",
+                 "file": "Qwen3.8-Flash-Next-{q}-0000{i}-of-00004.gguf", "shards": 4, "tag": "unsloth-",
+                 "mmproj_hf": hf("ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"),
+                 "mmproj": "mmproj-Qwen3.8-Flash-Next-BF16.gguf", "name": "qwen3.8-flash-next-unsloth",
+@@ -779,7 +778,7 @@
+ # download when the server's size is not the pinned one.  The files are fetched from the commits in HF_REVISIONS.
+ REPO_PINS = {
+     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF": ISTA_FILES,
+-    "ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF": SWIFT_FILES,
++    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF": {**SWIFT_FILES, **UNSLOTH_SHARDS, **UNSLOTH_IQ4_XS_SHARDS, **UNSLOTH_BIG_SHARDS},
+     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF": CODER_FILES,
+     UNSLOTH_REPO: {**UNSLOTH_V31_SHARDS, **UNSLOTH_SHARDS, **UNSLOTH_IQ4_XS_SHARDS, **UNSLOTH_BIG_SHARDS},
+     "unsloth/Qwen3.6-35B-A3B-MTP-GGUF": QWEN36_FILES,
