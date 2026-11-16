@@ -67,6 +67,23 @@ let
           Null on hosts without the VRAM the model needs.
         '';
       };
+      _provision = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        readOnly = true;
+        description = ''
+          Command that downloads and prepares the model's data, run once per
+          host before the model is served. Null for servers that fetch their
+          own weights when they start (llama, sglang).
+        '';
+      };
+      _provisionGuard = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        readOnly = true;
+        description = ''
+          Path (glob) whose existence means the model is already provisioned,
+          as a systemd condition, so provisioning runs only when it is missing.
+        '';
+      };
       hfRepo = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
@@ -109,6 +126,37 @@ let
       };
     };
   };
+
+  # flags both the start and the setup take: setup is the same invocation
+  # without a server to listen
+  strataFlags = m: ''
+    --yes --family qwen --model ${config.lantian.strata.model} --backend cuda \
+    --source huggingface --context ${toString m.ctxSize} --kv int8 --mtp on --parallel 1 \
+    --vision ${
+      if m.vision or false then "yes" else "no"
+    } --experimental-speed-projection on --no-browser \
+    --gpu 0 --data-dir /var/cache/strata/data'';
+
+  provisioningOf =
+    m:
+    if (m.kind or "llama") == "strata" then
+      {
+        # setup.py writes strata-<family><size>.json into its data folder once
+        # the model, its pack and its config are ready
+        guard = "!/var/cache/strata/runtime/strata/strata-*.json";
+        command = "${lib.getExe pkgs.nur-xddxdd.strata} ${strataFlags m} --no-start";
+      }
+    else if (m.kind or "llama") == "maya" then
+      {
+        guard = "!/var/cache/project-maya/data/project-maya/${config.lantian.maya.config}.json";
+        command = ''
+          ${lib.getExe pkgs.nur-xddxdd.project-maya} \
+          --setup --yes --plain --download-model --model ${config.lantian.maya.model} \
+          --models-dir /var/cache/project-maya/models --no-start
+        '';
+      }
+    else
+      null;
 
   cmdOf =
     m:
@@ -173,11 +221,8 @@ let
       ''
     else if kind == "strata" then
       ''
-        ${lib.getExe pkgs.nur-xddxdd.strata} \
-        --yes --family qwen --model ${config.lantian.strata.model} --backend cuda \
-        --source huggingface --context ${toString m.ctxSize} --kv int8 --mtp on --parallel 1 \
-        --vision ${if vision then "yes" else "no"} --experimental-speed-projection on --no-browser \
-        --host 127.0.0.1 --port ''${PORT} --gpu 0 --data-dir /var/cache/strata/data
+        ${lib.getExe pkgs.nur-xddxdd.strata} ${strataFlags m} \
+        --host 127.0.0.1 --port ''${PORT}
       ''
     else
       ''
@@ -325,6 +370,14 @@ in
     '';
   };
 
+  options.lantian.maya.model = lib.mkOption {
+    type = lib.types.str;
+    default = "glm-maya-s";
+    description = ''
+      Setup id of the Maya quant to provision: the --model a --setup run takes.
+    '';
+  };
+
   options.lantian.maya.config = lib.mkOption {
     type = lib.types.str;
     default = "maya-maya-s-v2-iq2_xxs";
@@ -345,6 +398,16 @@ in
   };
 
   config.lantian.llama-swap.models = lib.mapAttrs (
-    _: m: m // { _cmd = if (m.minVramGB or 0) <= LT.this.vramGB then cmdOf m else null; }
+    _: m:
+    let
+      enabled = (m.minVramGB or 0) <= LT.this.vramGB;
+      provisioning = provisioningOf m;
+    in
+    m
+    // {
+      _cmd = if enabled then cmdOf m else null;
+      _provision = if enabled && provisioning != null then provisioning.command else null;
+      _provisionGuard = if enabled && provisioning != null then provisioning.guard else null;
+    }
   ) registry;
 }

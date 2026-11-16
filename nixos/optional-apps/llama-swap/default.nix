@@ -16,6 +16,66 @@ let
   models = config.lantian.llama-swap.models;
   served = lib.filterAttrs (_: m: m._cmd != null) models;
 
+  # The model servers run as children of llama-swap, so they share its paths
+  # and its view of the driver.
+  modelRuntimePackages = [
+    config.hardware.nvidia.package
+    pkgs.bash
+    pkgs.coreutils
+  ];
+  modelBinPath = lib.makeBinPath modelRuntimePackages;
+
+  kindEnv = {
+    maya = {
+      HOME = "/var/cache/project-maya";
+      XDG_DATA_HOME = "/var/cache/project-maya/data";
+      XDG_CONFIG_HOME = "/var/cache/project-maya/config";
+      PATH = modelBinPath;
+    };
+    sglang = {
+      CONTAINER_HOST = "unix:///run/podman/podman.sock";
+      HOME = "/var/cache/llama-swap";
+    };
+    strata = {
+      HOME = "/var/cache/strata";
+      XDG_DATA_HOME = "/var/cache/strata/runtime";
+      XDG_CONFIG_HOME = "/var/cache/strata/config";
+      CUDA_DEVICE_ORDER = "PCI_BUS_ID";
+      CUDA_VISIBLE_DEVICES = "0";
+      # Any *.localhost name passes the rebinding check by itself
+      STRATA_ALLOWED_HOSTS = "llama-swap.${config.networking.hostName}.xuyh0120.win";
+      STRATA_ROUTE_PRIOR = "0"; # https://github.com/Niko1221/Strata/releases/tag/v0.2.7
+      PATH = modelBinPath;
+    };
+  };
+
+  provisioned = lib.filterAttrs (_: m: m._provision != null) served;
+
+  # One download per host, before the model is first served: the servers keep
+  # 80-120 GB of weights outside the store, and maya refuses to start on a
+  # config it has not written yet. The guard makes the unit a no-op once the
+  # model's config exists, and re-arms it if the data folder is wiped.
+  provisionUnits = lib.mapAttrs' (
+    id: m:
+    lib.nameValuePair "llama-swap-provision-${id}" {
+      description = "Provision ${m.name} for llama-swap";
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      before = [ "llama-swap.service" ];
+      unitConfig.ConditionPathExistsGlob = m._provisionGuard;
+      # NixOS gives every unit a default PATH, so the driver comes in as path
+      environment = removeAttrs kindEnv.${m.kind} [ "PATH" ];
+      path = modelRuntimePackages;
+      serviceConfig = {
+        Type = "oneshot";
+        User = "llama-swap";
+        Group = "llama-swap";
+        ExecStart = m._provision;
+      };
+    }
+  ) provisioned;
+
   entries = lib.mapAttrs (
     _: m:
     {
@@ -30,43 +90,9 @@ let
       # The share client's worker sends bursts of parallel requests and drops the
       # websocket on any non-2xx reply, so keep headroom above the default 10.
       concurrencyLimit = 32;
-      env = [
-        "CONTAINER_HOST=unix:///run/podman/podman.sock"
-        "HOME=/var/cache/llama-swap"
-      ];
     }
-    // lib.optionalAttrs (m.kind == "maya") {
-      env = [
-        "HOME=/var/cache/project-maya"
-        "XDG_DATA_HOME=/var/cache/project-maya/data"
-        "XDG_CONFIG_HOME=/var/cache/project-maya/config"
-        "PATH=${
-          lib.makeBinPath [
-            config.hardware.nvidia.package
-            pkgs.bash
-            pkgs.coreutils
-          ]
-        }"
-      ];
-    }
-    // lib.optionalAttrs (m.kind == "strata") {
-      env = [
-        "HOME=/var/cache/strata"
-        "XDG_DATA_HOME=/var/cache/strata/runtime"
-        "XDG_CONFIG_HOME=/var/cache/strata/config"
-        "CUDA_DEVICE_ORDER=PCI_BUS_ID"
-        "CUDA_VISIBLE_DEVICES=0"
-        # Any *.localhost name passes the rebinding check by itself
-        "STRATA_ALLOWED_HOSTS=llama-swap.${config.networking.hostName}.xuyh0120.win"
-        "STRATA_ROUTE_PRIOR=0" # https://github.com/Niko1221/Strata/releases/tag/v0.2.7
-        "PATH=${
-          lib.makeBinPath [
-            config.hardware.nvidia.package
-            pkgs.bash
-            pkgs.coreutils
-          ]
-        }"
-      ];
+    // lib.optionalAttrs (builtins.hasAttr m.kind kindEnv) {
+      env = lib.mapAttrsToList (name: value: "${name}=${value}") kindEnv.${m.kind};
     }
   ) served;
 in
@@ -144,30 +170,32 @@ in
       };
     };
 
-    systemd.services.llama-swap = {
-      serviceConfig = {
-        User = "llama-swap";
-        Group = "llama-swap";
-        DynamicUser = lib.mkForce false;
-        AmbientCapabilities = lib.mkForce [ ];
-        CapabilityBoundingSet = lib.mkForce [ ];
-        ProcSubset = "all";
-        # Model servers are spawned inside the confinement chroot.
-        BindPaths = [
-          "-/var/cache/project-maya"
-          "-/var/cache/strata"
-        ];
-      };
+    systemd.services = provisionUnits // {
+      llama-swap = {
+        serviceConfig = {
+          User = "llama-swap";
+          Group = "llama-swap";
+          DynamicUser = lib.mkForce false;
+          AmbientCapabilities = lib.mkForce [ ];
+          CapabilityBoundingSet = lib.mkForce [ ];
+          ProcSubset = "all";
+          # Model servers are spawned inside the confinement chroot.
+          BindPaths = [
+            "-/var/cache/project-maya"
+            "-/var/cache/strata"
+          ];
+        };
 
-      confinement.packages = [
-        podman
-      ]
-      # strata only runs where its model is served
-      ++ lib.optional (lib.any (m: m.kind == "strata") (builtins.attrValues served)) strata
-      # maya too
-      ++ lib.optional (lib.any (m: m.kind == "maya") (
-        builtins.attrValues served
-      )) pkgs.nur-xddxdd.project-maya;
+        confinement.packages = [
+          podman
+        ]
+        # strata only runs where its model is served
+        ++ lib.optional (lib.any (m: m.kind == "strata") (builtins.attrValues served)) strata
+        # maya too
+        ++ lib.optional (lib.any (m: m.kind == "maya") (
+          builtins.attrValues served
+        )) pkgs.nur-xddxdd.project-maya;
+      };
     };
 
     lantian.port-audit.knownViolations = [
