@@ -16,20 +16,20 @@ let
       tcp_nodelay on;
       proxy_socket_keepalive on;
       server {
-        listen 43;
-        listen [::]:43;
+        listen 43 multipath;
+        listen [::]:43 multipath;
         proxy_pass unix:/run/nginx/whois.sock;
         proxy_protocol on;
       }
       server {
-        listen 70;
-        listen [::]:70;
+        listen 70 multipath;
+        listen [::]:70 multipath;
         proxy_pass unix:/run/nginx/gopher.sock;
         proxy_protocol on;
       }
       server {
-        listen 1965;
-        listen [::]:1965;
+        listen 1965 multipath;
+        listen [::]:1965 multipath;
         proxy_pass unix:/run/nginx/gemini.sock;
         proxy_protocol on;
       }
