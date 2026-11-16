@@ -19,6 +19,7 @@ let
       kind = lib.mkOption {
         type = lib.types.enum [
           "llama"
+          "maya"
           "sglang"
           "strata"
         ];
@@ -170,13 +171,19 @@ let
         --quantization=w8a8_int8 \
         --sleep-on-idle
       ''
-    else
+    else if kind == "strata" then
       ''
         ${lib.getExe pkgs.nur-xddxdd.strata} \
         --yes --family qwen --model ${config.lantian.strata.model} --backend cuda \
         --source huggingface --context ${toString m.ctxSize} --kv int8 --mtp on --parallel 1 \
         --vision ${if vision then "yes" else "no"} --experimental-speed-projection on --no-browser \
         --host 127.0.0.1 --port ''${PORT} --gpu 0 --data-dir /var/cache/strata/data
+      ''
+    else
+      ''
+        ${lib.getExe pkgs.nur-xddxdd.project-maya} \
+        --config /var/cache/project-maya/data/project-maya/${config.lantian.maya.config}.json \
+        --host 127.0.0.1 --port ''${PORT}
       '';
 
   registry = {
@@ -191,6 +198,15 @@ let
       ubatchSize = 512;
       maxTokens = 8192;
       minVramGB = 24;
+    };
+    "glm-5.3-flash" = {
+      name = "GLM-5.3-Flash";
+      kind = "maya";
+      ctxSize = 32768;
+      maxTokens = 8192;
+      thinking = true;
+      vision = true;
+      minVramGB = 48;
     };
     "nomic-embed-code" = {
       name = "Nomic Embed Code";
@@ -306,6 +322,15 @@ in
     description = ''
       Quantization of the qwen-family model to run.
       The default IQ3_S is the qwen family's 3.5-bit GSQ-RCO pick.
+    '';
+  };
+
+  options.lantian.maya.config = lib.mkOption {
+    type = lib.types.str;
+    default = "maya-maya-s-v2-iq2_xxs";
+    description = ''
+      The Project Maya config to start, without .json, as the model's setup
+      wrote it under data/project-maya: maya- plus the quant's key.
     '';
   };
 

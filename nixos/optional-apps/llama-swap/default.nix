@@ -35,6 +35,20 @@ let
         "HOME=/var/cache/llama-swap"
       ];
     }
+    // lib.optionalAttrs (m.kind == "maya") {
+      env = [
+        "HOME=/var/cache/project-maya"
+        "XDG_DATA_HOME=/var/cache/project-maya/data"
+        "XDG_CONFIG_HOME=/var/cache/project-maya/config"
+        "PATH=${
+          lib.makeBinPath [
+            config.hardware.nvidia.package
+            pkgs.bash
+            pkgs.coreutils
+          ]
+        }"
+      ];
+    }
     // lib.optionalAttrs (m.kind == "strata") {
       env = [
         "HOME=/var/cache/strata"
@@ -80,8 +94,9 @@ in
     # package updates. The speed projection's refusal-direction control vector is
     # only applied for the qwen/coder families (upstream gate in setup.py), which
     # is why the quant lives in the GSQ-RCO set, not one of the unsloth UD quants.
-    # Both model servers now run as children of llama-swap, so the cache belongs
-    # to its service user.
+    # Maya hydrates its application files into data/project-maya the same way; its
+    # configs and the downloaded model live beside them. Both model servers run as
+    # children of llama-swap, so the cache belongs to its service user.
     systemd.tmpfiles.settings = {
       llama-swap = {
         "/var/cache/strata"."d" = {
@@ -97,6 +112,11 @@ in
           mode = "0755";
           user = "root";
           group = "root";
+        };
+        "/var/cache/project-maya"."d" = {
+          mode = "0755";
+          user = "llama-swap";
+          group = "llama-swap";
         };
         "/var/cache/torchinductor"."d" = {
           mode = "0755";
@@ -133,14 +153,21 @@ in
         CapabilityBoundingSet = lib.mkForce [ ];
         ProcSubset = "all";
         # Model servers are spawned inside the confinement chroot.
-        BindPaths = [ "-/var/cache/strata" ];
+        BindPaths = [
+          "-/var/cache/project-maya"
+          "-/var/cache/strata"
+        ];
       };
 
       confinement.packages = [
         podman
       ]
       # strata only runs where its model is served
-      ++ lib.optional (lib.any (m: m.kind == "strata") (builtins.attrValues served)) strata;
+      ++ lib.optional (lib.any (m: m.kind == "strata") (builtins.attrValues served)) strata
+      # maya too
+      ++ lib.optional (lib.any (m: m.kind == "maya") (
+        builtins.attrValues served
+      )) pkgs.nur-xddxdd.project-maya;
     };
 
     lantian.port-audit.knownViolations = [
@@ -155,7 +182,8 @@ in
 
     users.users.llama-swap = {
       group = "llama-swap";
-      extraGroups = [ "podman" ]; # rootful podman socket for the sglang container
+      # rootful podman socket for the sglang container
+      extraGroups = lib.optional config.virtualisation.podman.enable "podman";
       isSystemUser = true;
     };
     users.groups.llama-swap = { };

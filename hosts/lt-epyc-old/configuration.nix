@@ -9,7 +9,7 @@
     ./fan-control
 
     ../../nixos/optional-apps/llama-cpp.nix
-    # ../../nixos/optional-apps/llama-swap
+    ../../nixos/optional-apps/llama-swap
   ];
 
   systemd.network.networks.br0 = {
