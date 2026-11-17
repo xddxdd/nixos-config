@@ -96,31 +96,31 @@
   };
   iyuuplus = {
     pname = "iyuuplus";
-    version = "dd81c2bf3f54d080ec378f2cec7f936471f7e35d";
+    version = "6610e577604eecdd5d6bc15af6c5087045eb800c";
     src = fetchgit {
       url = "https://github.com/ledccn/iyuuplus-dev.git";
-      rev = "dd81c2bf3f54d080ec378f2cec7f936471f7e35d";
+      rev = "6610e577604eecdd5d6bc15af6c5087045eb800c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-CqJbzs1Y8nKHSVOIM+HAKzMz3/A6AKB2ztIB6/iTwI8=";
+      sha256 = "sha256-ZoKAPMfGOuVKJHZg0LhA5lQnj0d03J+HM3J15l/0stA=";
     };
-    date = "2026-08-26";
+    date = "2026-11-16";
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "55746b0b082258211121c70bd26e6878fd3bd292";
+    version = "34270bc208d7122778dc00b30bd460f97ea03216";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "55746b0b082258211121c70bd26e6878fd3bd292";
+      rev = "34270bc208d7122778dc00b30bd460f97ea03216";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-+cesc2VRW8743PIrV84OMyd93bGGdfkb9qdH3uundO8=";
+      sha256 = "sha256-JE6MU0LOtctuRin+/qZyg6Og1SxhWXxGznsnPquKm0U=";
     };
-    date = "2026-11-14";
+    date = "2026-11-16";
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
@@ -160,15 +160,15 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "5413d9c1a390c9c5900c836f482d45d108840b80";
+    version = "6036d2d668d5b43c9f1121256935aa86fda1929b";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "5413d9c1a390c9c5900c836f482d45d108840b80";
+      rev = "6036d2d668d5b43c9f1121256935aa86fda1929b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-xAAUPD0KKTrWNlMTSLjeMdMDYQQLuUALAzGYFjSC+LE=";
+      sha256 = "sha256-wMLXGYGKOYtk/Lr80S5mSnPx/B+C5aoSzPI1Jbe35uA=";
     };
     date = "2026-11-16";
   };
@@ -261,15 +261,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "7228d14dc1b0ff04c63e4bae24ca9d605e32460b";
+    version = "4248a81f68f14a1a1fa3730714b99dcc238c12aa";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "7228d14dc1b0ff04c63e4bae24ca9d605e32460b";
+      rev = "4248a81f68f14a1a1fa3730714b99dcc238c12aa";
       fetchSubmodules = false;
-      sha256 = "sha256-n6bxIO82cfNfzG1G74kotXljCzfFoB/GtPH2p8vcVh0=";
+      sha256 = "sha256-TFzJ5WM7jB7i87PR3R4EFHr93VcrNIx/lChft3TDkhM=";
     };
-    date = "2026-11-09";
+    date = "2026-11-16";
   };
   um-react = {
     pname = "um-react";
