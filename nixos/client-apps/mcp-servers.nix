@@ -49,13 +49,13 @@ in
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
-      akasha-terminal = {
-        type = "streamable-http";
-        url = "https://agent.zlb.ink/api/mcp/";
-      };
       deepwiki = {
         type = "streamable-http";
         url = "https://mcp.deepwiki.com/mcp";
+      };
+      lantian-rag = {
+        type = "streamable-http";
+        url = "https://rag.pve-epyc.xuyh0120.win/mcp";
       };
       mdn = {
         type = "streamable-http";
