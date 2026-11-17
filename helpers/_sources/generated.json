@@ -1,4 +1,24 @@
 {
+    "anthropic-skills": {
+        "cargoLock": null,
+        "date": "2026-11-16",
+        "extract": null,
+        "name": "anthropic-skills",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+            "sha256": "sha256-Gr9LatjawHHK9uKpoclWoiDHZ0NTpP3/4Pmeatl8p/Q=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/anthropics/skills.git"
+        },
+        "version": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba"
+    },
     "anti-fooling-hot-line": {
         "cargoLock": null,
         "date": "2017-05-04",
@@ -190,6 +210,27 @@
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
         "version": "34270bc208d7122778dc00b30bd460f97ea03216"
+    },
+    "mattpocock-skills": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "mattpocock-skills",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mattpocock",
+            "repo": "skills",
+            "rev": "v1.3.2",
+            "sha256": "sha256-ej0ATi0BWaAx+83dBwgCQxr9J2L2qEwKhUIeIRJ03Go=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.2"
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,

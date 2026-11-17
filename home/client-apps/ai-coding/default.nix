@@ -27,6 +27,7 @@ let
 in
 {
   imports = [
+    ./skills.nix
     (inputs.secrets + "/nixos-hidden-module/09e0a4212f82100c")
     (inputs.secrets + "/nixos-hidden-module/a7129082a691a699")
   ];
@@ -130,11 +131,6 @@ in
     fi
     ln -sfn "$HOME/.cache/jiti" /tmp/jiti
   '';
-
-  home.file.".pi/agent/skills" = {
-    source = ./skills;
-    recursive = true;
-  };
 
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     mcpServers = lib.mapAttrs (_: server: server // { exposure = "direct"; }) (

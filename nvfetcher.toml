@@ -1,3 +1,7 @@
+[anthropic-skills]
+fetch.git = "https://github.com/anthropics/skills.git"
+src.git = "https://github.com/anthropics/skills.git"
+
 [anti-fooling-hot-line]
 fetch.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"
 src.git = "https://github.com/moontide/Anti-fooling-Hot-Line.git"
@@ -49,6 +53,10 @@ src.git = "https://github.com/ledccn/iyuuplus-dev.git"
 [lobe-icons]
 fetch.git = "https://github.com/lobehub/lobe-icons.git"
 src.git = "https://github.com/lobehub/lobe-icons.git"
+
+[mattpocock-skills]
+fetch.github = "mattpocock/skills"
+src.github = "mattpocock/skills"
 
 [mihoyo-bbs-tools]
 fetch.github = "Womsxd/MihoyoBBSTools"

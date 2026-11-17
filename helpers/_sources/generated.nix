@@ -6,6 +6,20 @@
   dockerTools,
 }:
 {
+  anthropic-skills = {
+    pname = "anthropic-skills";
+    version = "e4bb5d960d87126ff3b3a8af1a104b7db67560ba";
+    src = fetchgit {
+      url = "https://github.com/anthropics/skills.git";
+      rev = "e4bb5d960d87126ff3b3a8af1a104b7db67560ba";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-Gr9LatjawHHK9uKpoclWoiDHZ0NTpP3/4Pmeatl8p/Q=";
+    };
+    date = "2026-11-16";
+  };
   anti-fooling-hot-line = {
     pname = "anti-fooling-hot-line";
     version = "02c8e86c20b8011ffe535a016e61287f3989164c";
@@ -121,6 +135,17 @@
       sha256 = "sha256-JE6MU0LOtctuRin+/qZyg6Og1SxhWXxGznsnPquKm0U=";
     };
     date = "2026-11-16";
+  };
+  mattpocock-skills = {
+    pname = "mattpocock-skills";
+    version = "v1.3.2";
+    src = fetchFromGitHub {
+      owner = "mattpocock";
+      repo = "skills";
+      rev = "v1.3.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-ej0ATi0BWaAx+83dBwgCQxr9J2L2qEwKhUIeIRJ03Go=";
+    };
   };
   mihoyo-bbs-tools = {
     pname = "mihoyo-bbs-tools";
