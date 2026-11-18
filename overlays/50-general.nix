@@ -20,6 +20,9 @@ rec {
     }
   );
   calibre = prev.calibre.overrideAttrs (old: {
+    # Upstream test_folder_type_map_case fails with FileExistsError on the shared
+    # /tmp/.cache/calibre/polish-test directory left by an earlier test in the run.
+    doCheck = false;
     patches = (old.patches or [ ]) ++ [ ../patches/calibre-page-count-shutdown.patch ];
   });
   colmena = prev.colmena.overrideAttrs (old: {
