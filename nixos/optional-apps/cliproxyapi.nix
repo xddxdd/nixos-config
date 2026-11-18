@@ -6,11 +6,14 @@
 }:
 let
   # Patched cli-proxy-api (numtide/llm-agents.nix):
-  # /v1/models etc. hide original model IDs that are also listed under an
-  # alias or provider-prefixed ID, while routing keeps accepting bare IDs.
+  # A provider prefix makes the prefixed ID the only registered model name, so
+  # bare upstream names are never listed or routed. Two providers therefore
+  # cannot share one registry entry when a provider's model name happens to
+  # equal another provider's prefix plus model name.
+  # doCheck is off because upstream tests assert that bare names stay registered.
   cli-proxy-api = pkgs.llm-agents.cli-proxy-api.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
-      ../../patches/cliproxyapi-hide-original-models.patch
+      ../../patches/cliproxyapi-prefix-only-models.patch
     ];
     doCheck = false;
     doInstallCheck = false;

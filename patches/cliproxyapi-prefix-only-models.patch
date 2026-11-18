@@ -1,0 +1,13 @@
+diff --git a/sdk/cliproxy/service_models.go b/sdk/cliproxy/service_models.go
+index 7daa6ed..a977847 100644
+--- a/sdk/cliproxy/service_models.go
++++ b/sdk/cliproxy/service_models.go
+@@ -734,7 +734,7 @@ func applyModelPrefixes(models []*ModelInfo, prefix string, forceModelPrefix boo
+ 		if baseID == "" {
+ 			continue
+ 		}
+-		if !forceModelPrefix || trimmedPrefix == baseID {
++		if trimmedPrefix == baseID {
+ 			addModel(model)
+ 		}
+ 		clone := cloneModelInfoForCatalogRoute(model)
