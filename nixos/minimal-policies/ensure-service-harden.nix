@@ -16,6 +16,8 @@ let
     # keep-sorted start
     "acpid"
     "bluetooth"
+    "bootvine" # owns /dev/tty12 from initrd; PrivateDevices/TTYPath and a chroot break it
+    "bootvine-shutdown"
     "corosync"
     "cups" # spawns driver/filter helper binaries; breaks under hardening
     "cups-browsed"

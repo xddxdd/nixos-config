@@ -4,6 +4,8 @@ let
     # keep-sorted start
     "acpid"
     "bluetooth"
+    "bootvine" # takes over /dev/tty12 in initrd and runs once per boot
+    "bootvine-shutdown"
     "enable-ksm"
     "hydra-send-stats"
     "openvpn-restart"
