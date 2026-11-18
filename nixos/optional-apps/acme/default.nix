@@ -26,7 +26,8 @@
     defaults = {
       dnsProvider = "bunny";
       dnsResolver = "8.8.8.8:53";
-      dnsPropagationCheck = true;
+      dnsAuthoritativePropagationCheck = true;
+      dnsRecursivePropagationCheck = true;
       email = "lantian@lantian.pub";
       environmentFile = config.sops.templates.lego-env.path;
       postRun = ''
