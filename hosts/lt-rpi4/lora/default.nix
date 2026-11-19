@@ -93,6 +93,7 @@ in
     path = [
       resetLgw
       pkgs.bash
+      pkgs.libgpiod
     ];
 
     preStart = jqSecrets.script;
