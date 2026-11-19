@@ -4,6 +4,7 @@ final: prev: {
   asterisk-never-gonna = final.callPackage ../pkgs/asterisk-never-gonna { };
   dn42-peerfinder = final.callPackage ../pkgs/dn42-peerfinder { };
   lantian-secrets = final.callPackage ../pkgs/lantian-secrets { };
+  luciole = inputs.luciole.packages."${prev.stdenv.hostPlatform.system}".default;
   markdown-apa7th-docx =
     inputs.markdown-apa7th-docx.packages."${prev.stdenv.hostPlatform.system}".default;
   nix-tree-rs = inputs.nix-tree-rs.packages."${prev.stdenv.hostPlatform.system}".default;

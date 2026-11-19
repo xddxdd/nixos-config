@@ -224,7 +224,7 @@ in
 
       window_rule = [
         {
-          match.app_id = "^org[.]gnome[.]Nautilus$";
+          match.app_id = "^dev[.]noctalia[.]luciole$";
           title_bar = "off";
         }
         {
@@ -395,7 +395,7 @@ in
         taskbar.icon_scale = iconScale;
         taskbar.item_spacing = itemSpacing;
         taskbar.pinned = [
-          "org.gnome.Nautilus"
+          "dev.noctalia.luciole"
           "firefox"
           "com.mitchellh.ghostty"
           "audacious"

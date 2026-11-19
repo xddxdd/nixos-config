@@ -62,6 +62,10 @@
       inputs.systems.follows = "systems";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
+    luciole = {
+      url = "github:noctalia-dev/luciole/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     markdown-apa7th-docx = {
       url = "github:xddxdd/markdown-apa7th-docx";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -11,7 +11,7 @@
   services.displayManager.defaultSession = "umbriel";
 
   environment.systemPackages = [
-    pkgs.nautilus
+    pkgs.luciole
     pkgs.seahorse
   ];
 
