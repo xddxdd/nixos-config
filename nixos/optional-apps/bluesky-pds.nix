@@ -39,9 +39,13 @@
   lantian.nginxVhosts."at.lantian.pub" = {
     serverAliases = [ "*.at.lantian.pub" ];
 
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${LT.portStr.BlueskyPDS}";
-      proxyNoTimeout = true;
+    locations = {
+      "= /".return = "302 /account";
+
+      "/" = {
+        proxyPass = "http://127.0.0.1:${LT.portStr.BlueskyPDS}";
+        proxyNoTimeout = true;
+      };
     };
 
     sslCertificate = "lets-encrypt-at.lantian.pub";
