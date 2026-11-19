@@ -94,9 +94,6 @@ let
       ${forwardZone "18.198.in-addr.arpa" null}
       ${forwardZone "19.198.in-addr.arpa" null}
 
-      # Public Internet Authoritative
-      ${forwardZone "lantian.eu.org" "Klantian.eu.org.+013+47109"}
-
       # OpenNIC Authoritative
       ${forwardZone "opennic.glue" null}
       ${forwardZone "dns.opennic.glue" null}
@@ -394,10 +391,6 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
             {
               domain = "19.198.in-addr.arpa";
               path = "ltnet-zones/19.198.in-addr.arpa";
-            }
-            {
-              domain = "lantian.eu.org";
-              path = "ltnet-zones/lantian.eu.org";
             }
             {
               domain = "neo";

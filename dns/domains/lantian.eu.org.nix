@@ -3,16 +3,12 @@
   domains = [
     rec {
       domain = "lantian.eu.org";
-      registrar = "none"; # Does not support that many NSes
-      providers = [
-        "bind"
-        "desec"
-      ];
+      registrar = "none";
+      providers = [ "desec" ];
       records = lib.flatten [
         (config.common.apexRecords "${domain}.")
         (config.common.hostRecs.Normal "${domain}.")
         (config.common.hostRecs.SSHFP "${domain}.")
-        config.common.nameservers.Public
         config.common.records.Libravatar
         config.common.records.SIP
 
