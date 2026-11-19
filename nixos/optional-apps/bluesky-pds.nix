@@ -31,6 +31,11 @@
 
   systemd.services.bluesky-pds.serviceConfig.RestartSec = "5s";
 
+  # The PDS binds the wildcard address and offers no bind-address setting;
+  # nginx reaches it over loopback and no zone declares the port, so the
+  # firewall keeps it closed.
+  lantian.port-audit.knownViolations = [ LT.port.BlueskyPDS ];
+
   lantian.harden.bluesky-pds = {
     enable = true;
     secret = true;
