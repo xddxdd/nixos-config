@@ -112,6 +112,13 @@ in
       enableCommonLocationOptions = false;
       sslCertificate = "lets-encrypt-lantian.pub";
     };
+    # Disabled until the lets-encrypt-lantian.info cert is issued
+    # "lantian.info" = {
+    #   serverAliases = [ "www.lantian.info" ];
+    #   locations."/".return = "307 https://lantian.pub$request_uri";
+    #   enableCommonLocationOptions = false;
+    #   sslCertificate = "lets-encrypt-lantian.info";
+    # };
     "xuyh0120.win" = {
       serverAliases = [ "www.xuyh0120.win" ];
       locations."/".return = "307 https://lantian.pub$request_uri";
