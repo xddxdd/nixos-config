@@ -18,6 +18,7 @@
   "lantian.neo"
   "lantian.pub"
   "ltn.pw"
+  "openpgpkey.lantian.pub"
   "posts.lantian.pub"
   "sip.lantian.pub"
   "tools.lantian.pub"

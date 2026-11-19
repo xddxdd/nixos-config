@@ -11,6 +11,7 @@
     ./vhost-hydra-proxy.nix
     ./vhost-lab.nix
     ./vhost-matrix-element
+    ./vhost-openpgpkey.nix
     ./vhost-options
     ./vhost-replaced-hosts.nix
     ./vhost-tools
