@@ -6,6 +6,10 @@
   systemd.services.smfc = {
     description = "Super Micro Fan Control";
     wantedBy = [ "multi-user.target" ];
+    # DefaultDependencies adds Conflicts=/Before=shutdown.target, which stops fan
+    # control the moment shutdown starts. Keep regulating until poweroff.
+    unitConfig.DefaultDependencies = false;
+    after = [ "sysinit.target" ];
     serviceConfig = {
       Type = "notify";
       ExecStart = "${pkgs.smfc}/bin/smfc --config ${./smfc.toml}";
