@@ -27,7 +27,13 @@ let
     );
 
   # Bunny DNS cannot serve OPENPGPKEY records, so the keys live here and
-  # lantian.pub points its _openpgpkey names at them with CNAMEs
+  # lantian.pub points its _openpgpkey names at them with CNAMEs.
+  #
+  # All four keys share one owner name, so the answer is 2643 bytes behind a
+  # two hop CNAME. GnuPG 2.4.9's bundled libdns resolver fails on that with
+  # "end of file"; only its standard-resolver path parses it, and it imports
+  # the first key only. WKD over HTTPS carries the whole set, so DANE is a
+  # bonus for clients configured with standard-resolver, not the primary path.
   openPGPKeyRecords = lib.map (key: {
     recordType = "OPENPGPKEY";
     name = "${config.common.records.openPGPKeyLabel "lantian@lantian.pub"}.pgp";
