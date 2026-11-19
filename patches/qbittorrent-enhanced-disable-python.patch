@@ -1,0 +1,102 @@
+diff --git a/src/base/utils/foreignapps.cpp b/src/base/utils/foreignapps.cpp
+--- a/src/base/utils/foreignapps.cpp
++++ b/src/base/utils/foreignapps.cpp
+@@ -56,43 +56,9 @@
+ 
+ namespace
+ {
+-    bool testPythonInstallation(const Path &exePath, PythonInfo &info)
++    bool testPythonInstallation(const Path &, PythonInfo &info)
+     {
+         info = {};
+-
+-        QProcess proc;
+-#ifdef Q_OS_UNIX
+-        proc.setUnixProcessParameters(QProcess::UnixProcessFlag::CloseFileDescriptors);
+-#endif
+-        proc.start(exePath.data(), {u"--version"_s}, QIODevice::ReadOnly);
+-        if (proc.waitForFinished() && (proc.exitStatus() == QProcess::NormalExit))
+-        {
+-            QByteArray procOutput = proc.readAllStandardOutput();
+-            if (procOutput.isEmpty())
+-                procOutput = proc.readAllStandardError();
+-            procOutput = procOutput.simplified();
+-
+-            // Software 'Anaconda' installs its own python interpreter
+-            // and `python --version` returns a string like this:
+-            // "Python 3.4.3 :: Anaconda 2.3.0 (64-bit)"
+-            const QList<QByteArrayView> outputSplit = Utils::ByteArray::splitToViews(procOutput, " ");
+-            if (outputSplit.size() <= 1)
+-                return false;
+-
+-            // User reports: `python --version` -> "Python 3.6.6+"
+-            // So trim off unrelated characters
+-            const auto versionStr = QString::fromLocal8Bit(outputSplit[1]);
+-            const qsizetype idx = versionStr.indexOf(QRegularExpression(u"[^\\.\\d]"_s));
+-            const auto version = PythonInfo::Version::fromString(versionStr.left(idx));
+-            if (!version.isValid())
+-                return false;
+-
+-            info = {.executablePath = exePath, .version = version};
+-            LogMsg(QCoreApplication::translate("Utils::ForeignApps", "Found Python executable. Name: \"%1\". Version: \"%2\"")
+-                .arg(info.executablePath.toString(), info.version.toString()), Log::INFO);
+-            return true;
+-        }
+-
+         return false;
+     }
+ 
+diff --git a/src/base/search/searchhandler.cpp b/src/base/search/searchhandler.cpp
+--- a/src/base/search/searchhandler.cpp
++++ b/src/base/search/searchhandler.cpp
+@@ -129,8 +129,16 @@
+ 
+     // Launch search
+     // deferred start allows clients to handle starting-related signals
+-    QMetaObject::invokeMethod(this, [this]() { m_searchProcess->start(QIODevice::ReadOnly); }
+-        , Qt::QueuedConnection);
++    QMetaObject::invokeMethod(this, [this]()
++    {
++        if (Utils::ForeignApps::pythonInfo().executablePath.isEmpty())
++        {
++            emit searchFailed(tr("Python is not available, search engine is disabled."));
++            return;
++        }
++
++        m_searchProcess->start(QIODevice::ReadOnly);
++    }, Qt::QueuedConnection);
+ }
+ 
+ bool SearchHandler::isActive() const
+diff --git a/src/base/search/searchdownloadhandler.cpp b/src/base/search/searchdownloadhandler.cpp
+--- a/src/base/search/searchdownloadhandler.cpp
++++ b/src/base/search/searchdownloadhandler.cpp
+@@ -60,6 +60,15 @@
+         url
+     };
+     // Launch search
++    if (Utils::ForeignApps::pythonInfo().executablePath.isEmpty())
++    {
++        QMetaObject::invokeMethod(this, [this]()
++        {
++            emit downloadFinished({}, tr("Python is not available, plugin download is disabled."));
++        }, Qt::QueuedConnection);
++        return;
++    }
++
+     m_downloadProcess->start(Utils::ForeignApps::pythonInfo().executablePath.data(), params, QIODevice::ReadOnly);
+ }
+ 
+diff --git a/src/base/search/searchpluginmanager.cpp b/src/base/search/searchpluginmanager.cpp
+--- a/src/base/search/searchpluginmanager.cpp
++++ b/src/base/search/searchpluginmanager.cpp
+@@ -558,6 +558,9 @@
+         (engineLocation() / Path(u"/nova2.py"_s)).toString(),
+         u"--capabilities"_s
+     };
++    if (Utils::ForeignApps::pythonInfo().executablePath.isEmpty())
++        return;
++
+     nova.start(Utils::ForeignApps::pythonInfo().executablePath.data(), params, QIODevice::ReadOnly);
+     nova.waitForFinished();
+ 
