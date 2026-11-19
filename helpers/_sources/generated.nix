@@ -90,10 +90,10 @@
   };
   grafana-yesoreyeram-infinity-datasource = {
     pname = "grafana-yesoreyeram-infinity-datasource";
-    version = "4.1.6";
+    version = "4.1.8";
     src = fetchurl {
-      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.6/yesoreyeram-infinity-datasource-4.1.6.zip";
-      sha256 = "sha256-wwIBt33VZ+lntXpKqVzWcNSJFHWYkKwrslb9BCrvbps=";
+      url = "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.8/yesoreyeram-infinity-datasource-4.1.8.zip";
+      sha256 = "sha256-vAz2yfxW+Flufki4fZW6cEXQxhd2po8w1zhjddTQxI4=";
     };
   };
   ip-please = {
@@ -124,17 +124,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "34270bc208d7122778dc00b30bd460f97ea03216";
+    version = "9752d967494e48d8f83f2808feb2b0207bf70997";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "34270bc208d7122778dc00b30bd460f97ea03216";
+      rev = "9752d967494e48d8f83f2808feb2b0207bf70997";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-JE6MU0LOtctuRin+/qZyg6Og1SxhWXxGznsnPquKm0U=";
+      sha256 = "sha256-Iyi23NwGDHCqXpdN1qGxkG+yLeDOiUKEgwesIqRQMrk=";
     };
-    date = "2026-11-16";
+    date = "2026-11-18";
   };
   mattpocock-skills = {
     pname = "mattpocock-skills";
@@ -185,31 +185,31 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "744fe5a1909ff5ebc1da3f74b1ffbf59668b9b9c";
+    version = "b9aefd48419862beb576ac9dbb6ff065c5d37c60";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "744fe5a1909ff5ebc1da3f74b1ffbf59668b9b9c";
+      rev = "b9aefd48419862beb576ac9dbb6ff065c5d37c60";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-aDD5WkEWT5OGTZMvdzx+lGhM763w4hU3CCf+XeI4/10=";
+      sha256 = "sha256-3cBgQhHalZbTU5kCRJyqCHT9ptqHLg4fPf4rAd1cEb0=";
     };
     date = "2026-11-18";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
-    version = "5dc1d19b1aa6be331ee6506034dc8448aca5c446";
+    version = "27f56445ee60a8f63e5e97045e710c5695802dbd";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/official-plugins.git";
-      rev = "5dc1d19b1aa6be331ee6506034dc8448aca5c446";
+      rev = "27f56445ee60a8f63e5e97045e710c5695802dbd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-JQDsY3fmpL57cqG1aCcLJablwTfcwIIJ44BtXj/sowE=";
+      sha256 = "sha256-M/AZVG120D1fS1lhYeZveljdnJEW7bKGBlw70LRKY20=";
     };
-    date = "2026-11-13";
+    date = "2026-11-19";
   };
   nvidia-patch = {
     pname = "nvidia-patch";

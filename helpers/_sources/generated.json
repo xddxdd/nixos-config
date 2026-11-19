@@ -144,11 +144,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wwIBt33VZ+lntXpKqVzWcNSJFHWYkKwrslb9BCrvbps=",
+            "sha256": "sha256-vAz2yfxW+Flufki4fZW6cEXQxhd2po8w1zhjddTQxI4=",
             "type": "url",
-            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.6/yesoreyeram-infinity-datasource-4.1.6.zip"
+            "url": "https://github.com/grafana/grafana-infinity-datasource/releases/download/v4.1.8/yesoreyeram-infinity-datasource-4.1.8.zip"
         },
-        "version": "4.1.6"
+        "version": "4.1.8"
     },
     "ip-please": {
         "cargoLock": null,
@@ -193,7 +193,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-11-16",
+        "date": "2026-11-18",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -203,13 +203,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "34270bc208d7122778dc00b30bd460f97ea03216",
-            "sha256": "sha256-JE6MU0LOtctuRin+/qZyg6Og1SxhWXxGznsnPquKm0U=",
+            "rev": "9752d967494e48d8f83f2808feb2b0207bf70997",
+            "sha256": "sha256-Iyi23NwGDHCqXpdN1qGxkG+yLeDOiUKEgwesIqRQMrk=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "34270bc208d7122778dc00b30bd460f97ea03216"
+        "version": "9752d967494e48d8f83f2808feb2b0207bf70997"
     },
     "mattpocock-skills": {
         "cargoLock": null,
@@ -307,17 +307,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "744fe5a1909ff5ebc1da3f74b1ffbf59668b9b9c",
-            "sha256": "sha256-aDD5WkEWT5OGTZMvdzx+lGhM763w4hU3CCf+XeI4/10=",
+            "rev": "b9aefd48419862beb576ac9dbb6ff065c5d37c60",
+            "sha256": "sha256-3cBgQhHalZbTU5kCRJyqCHT9ptqHLg4fPf4rAd1cEb0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "744fe5a1909ff5ebc1da3f74b1ffbf59668b9b9c"
+        "version": "b9aefd48419862beb576ac9dbb6ff065c5d37c60"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
-        "date": "2026-11-13",
+        "date": "2026-11-19",
         "extract": null,
         "name": "noctalia-official-plugins",
         "passthru": null,
@@ -327,13 +327,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5dc1d19b1aa6be331ee6506034dc8448aca5c446",
-            "sha256": "sha256-JQDsY3fmpL57cqG1aCcLJablwTfcwIIJ44BtXj/sowE=",
+            "rev": "27f56445ee60a8f63e5e97045e710c5695802dbd",
+            "sha256": "sha256-M/AZVG120D1fS1lhYeZveljdnJEW7bKGBlw70LRKY20=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/official-plugins.git"
         },
-        "version": "5dc1d19b1aa6be331ee6506034dc8448aca5c446"
+        "version": "27f56445ee60a8f63e5e97045e710c5695802dbd"
     },
     "nvidia-patch": {
         "cargoLock": null,
