@@ -22,6 +22,7 @@ in
   security.acme.certs = lib.mergeAttrsList (
     [
       (mkLetsEncryptWildcardCert "lantian.pub")
+      (mkLetsEncryptWildcardCert "lantian.info")
       (mkLetsEncryptWildcardCert "xuyh0120.win")
       (mkLetsEncryptWildcardCert "56631131.xyz")
       (mkLetsEncryptWildcardCert "ltn.pw")
