@@ -1,7 +1,12 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
-  gpgKeysDir = ../../../helpers/gpg-keys;
-  gpgKeys = lib.mapAttrsToList (n: _: gpgKeysDir + "/${n}") (builtins.readDir gpgKeysDir);
+  # builtins.path copies the keys to their own store path; a plain
+  # "${gpgKeysDir}/${name}" string is a sub-path of the flake source and would
+  # not be mounted into the build sandbox
+  gpgKeys = builtins.path {
+    path = ../../../helpers/gpg-keys;
+    name = "gpg-keys";
+  };
 
   # OpenPGP Web Key Directory, advanced method. GnuPG probes
   # openpgpkey.<domain> first and, if it resolves, requests
@@ -11,7 +16,7 @@ let
 
   wkdTree = pkgs.runCommand "wkd-lantian.pub" { } ''
     install -d $out/.well-known/openpgpkey/lantian.pub/hu
-    cat ${lib.concatStringsSep " " (map toString gpgKeys)} > $out/.well-known/openpgpkey/lantian.pub/hu/${wkdHash}
+    cat ${gpgKeys}/*.pgp > $out/.well-known/openpgpkey/lantian.pub/hu/${wkdHash}
   '';
 in
 {

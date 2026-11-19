@@ -6,7 +6,16 @@
 }:
 let
   gpgKeysDir = ../../helpers/gpg-keys;
-  gpgKeys = lib.mapAttrsToList (n: _: gpgKeysDir + "/${n}") (builtins.readDir gpgKeysDir);
+  # builtins.path copies each key to its own store path; a plain
+  # "${gpgKeysDir}/${name}" string is a sub-path of the flake source and would
+  # not be mounted into the build sandbox
+  gpgKeys = lib.mapAttrsToList (
+    n: _:
+    builtins.path {
+      path = gpgKeysDir + "/${n}";
+      name = n;
+    }
+  ) (builtins.readDir gpgKeysDir);
 
   # DNSControl takes the key as hex or base64, and deSEC stores it base64-encoded
   keyBase64 =
