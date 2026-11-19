@@ -169,6 +169,20 @@ let
     }
     {
       recordType = "CNAME";
+      name = "openpgpkey";
+      target = config.common.records.GeoDNSTarget;
+      ttl = "1h";
+    }
+    {
+      # RFC 7929 DANE lookup name. Bunny DNS has no OPENPGPKEY record type, so the
+      # records themselves are hosted by deSEC under lantian.eu.org
+      recordType = "CNAME";
+      name = "${config.common.records.openPGPKeyLabel "lantian@lantian.pub"}._openpgpkey";
+      target = "${config.common.records.openPGPKeyLabel "lantian@lantian.pub"}.pgp.lantian.eu.org.";
+      ttl = "1h";
+    }
+    {
+      recordType = "CNAME";
       name = "posts";
       target = "colocrossing";
       ttl = "1h";

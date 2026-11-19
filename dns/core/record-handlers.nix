@@ -70,6 +70,7 @@ in
         args.target
       ];
     NS = args: record "NS" args [ args.target ];
+    OPENPGPKEY = args: record "OPENPGPKEY" args [ args.publicKey ];
     PTR = args: record "PTR" args [ args.target ];
     SOA =
       args:

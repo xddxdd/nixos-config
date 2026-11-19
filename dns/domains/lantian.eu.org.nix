@@ -1,4 +1,31 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  gpgKeysDir = ../../helpers/gpg-keys;
+  gpgKeys = lib.mapAttrsToList (n: _: gpgKeysDir + "/${n}") (builtins.readDir gpgKeysDir);
+
+  # DNSControl takes the key as hex or base64, and deSEC stores it base64-encoded
+  keyBase64 =
+    key:
+    builtins.readFile (
+      pkgs.runCommandLocal "gpg-key-base64" { } ''
+        base64 --wrap=0 < ${key} > $out
+      ''
+    );
+
+  # Bunny DNS cannot serve OPENPGPKEY records, so the keys live here and
+  # lantian.pub points its _openpgpkey names at them with CNAMEs
+  openPGPKeyRecords = lib.map (key: {
+    recordType = "OPENPGPKEY";
+    name = "${config.common.records.openPGPKeyLabel "lantian@lantian.pub"}.pgp";
+    publicKey = keyBase64 key;
+    ttl = "1h";
+  }) gpgKeys;
+in
 {
   domains = [
     rec {
@@ -11,6 +38,7 @@
         (config.common.hostRecs.SSHFP "${domain}.")
         config.common.records.Libravatar
         config.common.records.SIP
+        openPGPKeyRecords
 
         (config.common.hostRecs.LTNet "ltnet.${domain}.")
         (config.common.hostRecs.DN42 "dn42.${domain}.")
