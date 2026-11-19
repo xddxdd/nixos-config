@@ -13,7 +13,6 @@
       "nheko"
       "steam -silent"
       "thunderbird"
-      "vesktop --start-minimized"
       "zapzap"
       # keep-sorted end
     ])

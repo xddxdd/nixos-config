@@ -16,7 +16,6 @@
       vencord.enable = true;
       openASAR.enable = true;
     };
-    vesktop.enable = true;
 
     # Plugins
     config = {
