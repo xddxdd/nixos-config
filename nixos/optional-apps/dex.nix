@@ -125,14 +125,6 @@ let
         };
         redirectURIs = [ "https://oidc-tester.lantian.pub/oauth2/callback" ];
       }
-      {
-        id = "tranquil-pds";
-        name = "Tranquil PDS";
-        secret = {
-          _secret = config.sops.secrets.dex-tranquil-pds-secret.path;
-        };
-        redirectURIs = [ "https://at.lantian.pub/oauth/sso/callback" ];
-      }
       # keep-sorted end
     ];
   };

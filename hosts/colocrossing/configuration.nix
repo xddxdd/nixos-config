@@ -18,6 +18,7 @@
     ../../nixos/optional-apps/attic.nix
     ../../nixos/optional-apps/attic-placeholder.nix
     ../../nixos/optional-apps/bird-lg-go.nix
+    ../../nixos/optional-apps/bluesky-pds.nix
     ../../nixos/optional-apps/byparr.nix
     ../../nixos/optional-apps/cliproxyapi.nix
     ../../nixos/optional-apps/dex.nix
@@ -40,7 +41,6 @@
     ../../nixos/optional-apps/rsync-server-internal.nix
     ../../nixos/optional-apps/syncthing
     ../../nixos/optional-apps/tg-bot-cleaner-bot
-    # ../../nixos/optional-apps/tranquil-pds.nix
     ../../nixos/optional-apps/victorialogs.nix
     ../../nixos/optional-apps/waline
     ../../nixos/optional-apps/wordpress.nix

@@ -112,7 +112,7 @@ rec {
     Hydra.QueueRunnerGRPC = 13301;
     Hydra.QueueRunnerREST = 1332;
     Hydra.WebSocket = 13303;
-    TranquilPDS = 13380;
+    BlueskyPDS = 13380;
     Dex = 13403;
     UniAPI = 13437;
     CLIProxyAPI = 13438;
