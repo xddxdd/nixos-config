@@ -17,10 +17,7 @@
     unitConfig.OnFailure = "notify-email@%n.service";
   };
 
-  lantian.harden.port-audit = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.port-audit.enable = true;
 
   systemd.timers.port-audit = {
     wantedBy = [ "timers.target" ];

@@ -22,10 +22,7 @@
     };
   };
 
-  lantian.harden.radicale-calendar-sync = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.radicale-calendar-sync.enable = true;
 
   systemd.timers.radicale-calendar-sync = {
     wantedBy = [ "timers.target" ];

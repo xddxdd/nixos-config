@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
-  lantian.harden.oom-score-protect = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.oom-score-protect.enable = true;
   systemd.services.oom-score-protect = {
     after = [ "pve-cluster.service" ];
     wants = [ "pve-cluster.service" ];

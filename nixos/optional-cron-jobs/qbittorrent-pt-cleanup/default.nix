@@ -32,10 +32,7 @@ in
     requires = [ "qbittorrent-pt.service" ];
   };
 
-  lantian.harden.qbittorrent-pt-cleanup = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.qbittorrent-pt-cleanup.enable = true;
 
   systemd.timers.qbittorrent-pt-cleanup = {
     wantedBy = [ "timers.target" ];

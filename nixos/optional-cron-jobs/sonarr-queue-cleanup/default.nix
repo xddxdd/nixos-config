@@ -16,6 +16,7 @@ in
       Type = "oneshot";
       ExecStart = "${lib.getExe py} ${./cleanup.py}";
       Restart = "no";
+      BindReadOnlyPaths = [ "/var/lib/sonarr/config.xml" ];
     };
     unitConfig = {
       OnFailure = "notify-email@%n.service";
@@ -27,10 +28,7 @@ in
     requires = [ "sonarr.service" ];
   };
 
-  lantian.harden.sonarr-queue-cleanup = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.sonarr-queue-cleanup.enable = true;
 
   systemd.timers.sonarr-queue-cleanup = {
     wantedBy = [ "timers.target" ];

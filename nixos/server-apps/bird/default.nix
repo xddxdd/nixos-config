@@ -85,7 +85,7 @@ in
 
     User = "bird";
     Group = "bird";
-    RuntimeDirectory = lib.mkForce "bird";
+    RuntimeDirectory = lib.mkForce [ "confinement/%n" ];
     # Confined clients must retain this inode even across a full stop/start.
     RuntimeDirectoryPreserve = "yes";
     # Preserve the network preset where upstream defines conflicting values.
@@ -110,12 +110,14 @@ in
     LTNET = ltnetBirdPorts;
   };
 
-  lantian.harden.bird = {
-    enable = "network";
-    enableConfinement = false;
-  };
+  lantian.harden.bird.enable = "network";
 
   systemd.tmpfiles.settings = {
+    bird-run."/run/bird".d = {
+      mode = "0755";
+      user = "bird";
+      group = "bird";
+    };
     bird-config = {
       "/nix/sync-servers/ltnet-scripts/bird/dn42/dn42_bird2_roa4.conf"."f" = {
         mode = "644";

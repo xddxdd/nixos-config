@@ -104,9 +104,11 @@ in
       Type = "oneshot";
       User = "wordpress";
       Group = config.services.nginx.group;
-      ReadWritePaths = [
-        config.services.wordpress.sites."wp.xuyh0120.win".cacheDir
-        config.services.wordpress.sites."wp.xuyh0120.win".uploadsDir
+      BindReadOnlyPaths = [ "/var/lib/wordpress/wp.xuyh0120.win/secret-keys.php" ];
+      BindPaths = with config.services.wordpress.sites."wp.xuyh0120.win"; [
+        cacheDir
+        uploadsDir
+        fontsDir
       ];
     };
     # Reuse the php-fpm pool's PHP to guarantee the same extension set
@@ -118,7 +120,7 @@ in
 
   lantian.harden.wordpress-cron = {
     enable = true;
-    enableConfinement = false;
+    mysql = true;
   };
 
   systemd.timers.wordpress-cron = {

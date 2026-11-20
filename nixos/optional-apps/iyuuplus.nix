@@ -134,7 +134,7 @@ in
       # root is the read-only closure, so the vendor path comes from the env
       # and install scripts are skipped since the tree already ships its
       # config/plugin files
-      if [ ! -e /var/lib/iyuu/vendor/autoload.php ]; then
+      if [ "$(cat /var/lib/iyuu/vendor/.closure 2>/dev/null)" != "${iyuuplusClosure}" ]; then
         # a stale vendor (partial install, or the old store symlink farm whose
         # links resolve nowhere) breaks composer's own state files
         rm -rf /var/lib/iyuu/vendor
@@ -143,8 +143,14 @@ in
         COMPOSER_CACHE_DIR=/var/lib/iyuu/cache \
           ${pkgs.php83Packages.composer}/bin/composer install \
           --no-dev --no-interaction --no-scripts -d ${iyuuplusClosure}
+        echo -n "${iyuuplusClosure}" > /var/lib/iyuu/vendor/.closure
       fi
     '';
+
+    path = with pkgs; [
+      gitMinimal
+      unzip
+    ];
 
     serviceConfig = {
       ExecStart = "${lib.getExe' php-iyuu "php"} ${iyuuplusClosure}/start.php start";
@@ -163,7 +169,8 @@ in
 
   lantian.harden.iyuuplus = {
     enable = true;
-    enableConfinement = false;
+    passwd = true;
+    mysql = true;
   };
 
   systemd.tmpfiles.settings = {

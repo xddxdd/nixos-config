@@ -32,10 +32,7 @@ in
     };
   };
 
-  lantian.harden.ncmm = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.ncmm.enable = true;
 
   systemd.timers.ncmm = {
     wantedBy = [ "timers.target" ];

@@ -222,10 +222,7 @@ in
           "static/nix" = true;
         };
       };
-      hydra-attic-repush = {
-        enable = true;
-        enableConfinement = false;
-      };
+      hydra-attic-repush.enable = true;
     }
   ];
 
@@ -391,6 +388,11 @@ in
           Type = "oneshot";
           User = "hydra-queue-runner";
           Group = "hydra";
+          BindReadOnlyPaths = [
+            "/nix/store"
+            "/nix/var/nix/gcroots/hydra"
+            "/var/lib/hydra/queue-runner"
+          ];
         };
       };
     }

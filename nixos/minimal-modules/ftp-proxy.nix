@@ -18,10 +18,7 @@
     };
   };
 
-  config.lantian.harden.ftp-proxy = {
-    enable = true;
-    enableConfinement = false;
-  };
+  config.lantian.harden.ftp-proxy.enable = true;
   config.systemd.services.ftp-proxy = {
     inherit (config.services."ftp-proxy") enable;
     description = "FTP Proxy";
@@ -39,6 +36,7 @@
 
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      PrivateUsers = false;
       DynamicUser = true;
     };
   };

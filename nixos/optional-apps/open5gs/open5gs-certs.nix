@@ -40,8 +40,5 @@
       WorkingDirectory = "/var/lib/open5gs-certs";
     };
   };
-  lantian.harden.open5gs-certs = {
-    enable = true;
-    enableConfinement = false;
-  };
+  lantian.harden.open5gs-certs.enable = true;
 }

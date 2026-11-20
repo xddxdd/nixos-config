@@ -196,10 +196,7 @@ in
       };
     };
     lantian.harden.zerotierone-controller.enable = true;
-    lantian.harden.zerotierone-controller-setup = {
-      enable = true;
-      enableConfinement = false;
-    };
+    lantian.harden.zerotierone-controller-setup.enable = true;
 
     systemd.services.zerotierone-controller-setup = {
       description = "ZeroTier One Controller Setup";

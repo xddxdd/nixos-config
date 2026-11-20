@@ -84,7 +84,6 @@ in
 
       AmbientCapabilities = [ "CAP_CHOWN" ];
       CapabilityBoundingSet = [ "CAP_CHOWN" ];
-      ReadWritePaths = [ "/nix/sync-servers/acme" ];
       SystemCallFilter = [ ];
 
       StateDirectory = "dn42-certificate";
@@ -92,6 +91,7 @@ in
       RuntimeDirectory = "dn42-certificate";
       RuntimeDirectoryMode = "700";
       WorkingDirectory = "/run/dn42-certificate";
+      BindPaths = [ "/nix/sync-servers/acme" ];
       LoadCredential = [ "dn42-certificate-token:${config.sops.secrets.dn42-certificate-token.path}" ];
     };
     unitConfig = {
@@ -101,7 +101,7 @@ in
 
   lantian.harden.dn42-certificate = {
     enable = true;
-    enableConfinement = false;
+    passwd = true;
   };
 
   systemd.timers.dn42-certificate = {

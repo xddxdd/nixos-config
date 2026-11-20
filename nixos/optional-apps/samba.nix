@@ -131,10 +131,14 @@ in
     };
   });
 
-  lantian.harden = lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" "samba-wsdd" ] (_: {
-    enable = true;
-    enableConfinement = false;
-  });
+  lantian.harden =
+    lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" ] (_: {
+      enable = true;
+      enableConfinement = false;
+    })
+    // {
+      samba-wsdd.enable = true;
+    };
 
   systemd.tmpfiles.settings.samba = {
     "/var/lib/samba"."d" = {
