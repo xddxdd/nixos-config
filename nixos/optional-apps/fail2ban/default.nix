@@ -29,4 +29,16 @@
 
     jails.sshd.settings.enable = lib.mkForce false;
   };
+
+  systemd.services.fail2ban.serviceConfig.RestrictAddressFamilies = [
+    "AF_UNIX"
+    "AF_INET"
+    "AF_INET6"
+    "AF_NETLINK"
+  ];
+
+  lantian.harden.fail2ban = {
+    enable = true;
+    enableConfinement = false;
+  };
 }

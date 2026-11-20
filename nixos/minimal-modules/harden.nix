@@ -142,97 +142,102 @@ in
     message = "${name}: confinement.enable requires confinement.fullUnit = true";
   }) config.systemd.services;
 
-  config.systemd.services = lib.mapAttrs (
-    _: cfg:
-    let
-      redisName = "redis" + lib.optionalString (cfg.redis != null && cfg.redis != "") "-${cfg.redis}";
-    in
-    lib.mkIf (cfg.enable != false || cfg.enableConfinement || cfg.realtime) (
-      lib.mkMerge [
-        (lib.mkIf (cfg.enable != false || cfg.enableConfinement) {
-          after =
-            lib.optional cfg.mysql "mysql.service"
-            ++ lib.optional cfg.postgresql "postgresql.service"
-            ++ lib.optional (cfg.redis != null) "${redisName}.service";
-          serviceConfig = lib.mkMerge [
-            (lib.mkIf (cfg.enable != false) (
-              lib.mapAttrs (_: lib.mkOptionDefault) (
-                if cfg.enable == "network" then
-                  serviceHardenArgs
-                  // {
-                    PrivateDevices = false;
-                    ProtectClock = false;
-                    ProtectControlGroups = false;
-                    AmbientCapabilities = [
-                      "CAP_NET_ADMIN"
-                      "CAP_NET_BIND_SERVICE"
-                      "CAP_NET_RAW"
-                    ];
-                    CapabilityBoundingSet = [
-                      "CAP_NET_ADMIN"
-                      "CAP_NET_BIND_SERVICE"
-                      "CAP_NET_RAW"
-                    ];
-                    RestrictAddressFamilies = [
-                      "AF_UNIX"
-                      "AF_INET"
-                      "AF_INET6"
-                      "AF_NETLINK"
-                    ];
-                    SystemCallFilter = [ ];
-                  }
-                else
-                  serviceHardenArgs
-              )
-            ))
-            {
-              BindReadOnlyPaths = map (import ../../helpers/fn/systemd.nix { }).escapeMountPath (
-                lib.optionals cfg.passwd [
-                  "${config.services.userborn.passwordFilesLocation}/passwd:/etc/passwd"
-                  "${config.services.userborn.passwordFilesLocation}/group:/etc/group"
-                ]
-                ++ lib.optional cfg.secret "/run"
-                ++ lib.optional cfg.cuda "${config.hardware.graphics.driversEnv}:/run/opengl-driver"
-                ++
-                  lib.optionals
-                    (cfg.cuda && (config.hardware.graphics.enable32Bit || pkgs.stdenv.hostPlatform.isi686))
-                    [
-                      "${
-                        if pkgs.stdenv.hostPlatform.isi686 then
-                          config.hardware.graphics.driversEnv
-                        else
-                          config.hardware.graphics.driversEnv32
-                      }:/run/opengl-driver-32"
-                    ]
-                ++ lib.optional cfg.mysql "/run/mysqld"
-                ++ lib.optional cfg.postgresql "/run/postgresql"
-                ++ lib.optional (cfg.redis != null) "/run/${redisName}"
-                ++ lib.mapAttrsToList (
-                  name: source:
-                  if source == true then
-                    let
-                      # Declared but undefined NixOS options throw when forced.
-                      etcSource = builtins.tryEval (config.environment.etc.${name}.source or null);
-                    in
-                    if etcSource.success && etcSource.value != null then
-                      "${etcSource.value}:/etc/${name}"
-                    else
-                      "/etc/${name}"
+  config.systemd.services =
+    lib.mapAttrs
+      (
+        _: cfg:
+        let
+          redisName = "redis" + lib.optionalString (cfg.redis != null && cfg.redis != "") "-${cfg.redis}";
+        in
+        lib.mkMerge [
+          (lib.mkIf (cfg.enable != false || cfg.enableConfinement) {
+            after =
+              lib.optional cfg.mysql "mysql.service"
+              ++ lib.optional cfg.postgresql "postgresql.service"
+              ++ lib.optional (cfg.redis != null) "${redisName}.service";
+            serviceConfig = lib.mkMerge [
+              (lib.mkIf (cfg.enable != false) (
+                lib.mapAttrs (_: lib.mkOptionDefault) (
+                  if cfg.enable == "network" then
+                    serviceHardenArgs
+                    // {
+                      PrivateDevices = false;
+                      ProtectClock = false;
+                      ProtectControlGroups = false;
+                      AmbientCapabilities = [
+                        "CAP_NET_ADMIN"
+                        "CAP_NET_BIND_SERVICE"
+                        "CAP_NET_RAW"
+                      ];
+                      CapabilityBoundingSet = [
+                        "CAP_NET_ADMIN"
+                        "CAP_NET_BIND_SERVICE"
+                        "CAP_NET_RAW"
+                      ];
+                      RestrictAddressFamilies = [
+                        "AF_UNIX"
+                        "AF_INET"
+                        "AF_INET6"
+                        "AF_NETLINK"
+                      ];
+                      SystemCallFilter = [ ];
+                    }
                   else
-                    "${source}:/etc/${name}"
-                ) cfg.etc
-              );
-            }
-          ];
-          confinement = {
-            enable = cfg.enableConfinement;
-            fullUnit = true;
-          };
-        })
-        (lib.mkIf cfg.realtime {
-          serviceConfig = lib.mapAttrs (_: lib.mkOptionDefault) realtimeArgs;
-        })
-      ]
-    )
-  ) config.lantian.harden;
+                    serviceHardenArgs
+                )
+              ))
+              {
+                BindReadOnlyPaths = map (import ../../helpers/fn/systemd.nix { }).escapeMountPath (
+                  lib.optionals cfg.passwd [
+                    "${config.services.userborn.passwordFilesLocation}/passwd:/etc/passwd"
+                    "${config.services.userborn.passwordFilesLocation}/group:/etc/group"
+                  ]
+                  ++ lib.optional cfg.secret "/run"
+                  ++ lib.optional cfg.cuda "${config.hardware.graphics.driversEnv}:/run/opengl-driver"
+                  ++
+                    lib.optionals
+                      (cfg.cuda && (config.hardware.graphics.enable32Bit || pkgs.stdenv.hostPlatform.isi686))
+                      [
+                        "${
+                          if pkgs.stdenv.hostPlatform.isi686 then
+                            config.hardware.graphics.driversEnv
+                          else
+                            config.hardware.graphics.driversEnv32
+                        }:/run/opengl-driver-32"
+                      ]
+                  ++ lib.optional cfg.mysql "/run/mysqld"
+                  ++ lib.optional cfg.postgresql "/run/postgresql"
+                  ++ lib.optional (cfg.redis != null) "/run/${redisName}"
+                  ++ lib.mapAttrsToList (
+                    name: source:
+                    if source == true then
+                      let
+                        # Declared but undefined NixOS options throw when forced.
+                        etcSource = builtins.tryEval (config.environment.etc.${name}.source or null);
+                      in
+                      if etcSource.success && etcSource.value != null then
+                        "${etcSource.value}:/etc/${name}"
+                      else
+                        "/etc/${name}"
+                    else
+                      "${source}:/etc/${name}"
+                  ) cfg.etc
+                );
+              }
+            ];
+            confinement = {
+              enable = cfg.enableConfinement;
+              fullUnit = true;
+            };
+          })
+          (lib.mkIf cfg.realtime {
+            serviceConfig = lib.mapAttrs (_: lib.mkOptionDefault) realtimeArgs;
+          })
+        ]
+      )
+      (
+        lib.filterAttrs (
+          _: cfg: cfg.enable != false || cfg.enableConfinement || cfg.realtime
+        ) config.lantian.harden
+      );
 }

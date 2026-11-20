@@ -49,12 +49,12 @@
   };
   users.groups.oauth2-proxy.members = [ "nginx" ];
 
-  systemd.services.oauth2-proxy = {
-    after = lib.mkIf config.services.oauth2-proxy.enable [
+  systemd.services.oauth2-proxy = lib.mkIf config.services.oauth2-proxy.enable {
+    after = [
       "network.target"
       "nginx.service"
     ];
-    serviceConfig = lib.mkIf config.services.oauth2-proxy.enable {
+    serviceConfig = {
       Restart = "always";
       RestartSec = "3";
       RuntimeDirectory = "oauth2-proxy";

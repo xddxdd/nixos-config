@@ -154,8 +154,26 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
         Group = lib.mkForce "pdns-recursor";
         Restart = "always";
         RestartSec = 5;
+        AmbientCapabilities = [
+          "CAP_NET_BIND_SERVICE"
+          "CAP_CHOWN"
+        ];
+        CapabilityBoundingSet = [
+          "CAP_NET_BIND_SERVICE"
+          "CAP_CHOWN"
+        ];
+        MemoryDenyWriteExecute = false;
+        ProtectSystem = "full";
+        SystemCallFilter = [
+          "~@clock @debug @module @mount @raw-io @reboot @swap @cpu-emulation @obsolete"
+        ];
       };
     };
+  };
+
+  lantian.harden.pdns-recursor = {
+    enable = true;
+    enableConfinement = false;
   };
 
   users.users.pdns-recursor = {

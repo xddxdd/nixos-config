@@ -13,73 +13,88 @@ let
   # Services legitimately needing full/hardware access: PVE cluster daemons,
   # sshd, OVS, hardware monitors, upstream system services
   ignored = [
-    # keep-sorted start
-    "acpid"
-    "bluetooth"
-    "bootvine" # owns /dev/tty12 from initrd; PrivateDevices/TTYPath and a chroot break it
-    "bootvine-shutdown"
-    "corosync"
-    "cups" # spawns driver/filter helper binaries; breaks under hardening
-    "cups-browsed"
+    # 系统核心服务
+    "dbus-broker"
+    "dbus"
     "enable-ksm"
     "greetd"
+    "kmod-static-nodes"
+    "lastlog2-import"
+    "nix-daemon"
+    "nix-gc"
+    "nix-optimise"
+    "nscd"
+    "polkit"
+    "reload-systemd-vconsole-setup"
+    "rtkit-daemon"
+    "sshd"
+
+    # 网络管理
+    "NetworkManager"
+    "NetworkManager-dispatcher"
+    "geoclue"
+    "iwd"
+    "networkd-dispatcher"
+
+    # 硬件相关
+    "acpid"
+    "ananicy-cpp"
+    "bluetooth"
+    "fwupd"
+    "fwupd-refresh"
+    "irqbalance"
+    "lvm2-monitor"
+    "ModemManager"
+    "pipewire"
+    "pipewire-pulse"
+    "tlp"
+    "tlp-sleep"
+    "wireplumber"
+    "xfs_scrub_all"
+    "cups"
+    "cups-browsed"
     "nvidia-persistenced"
     "ovs-vswitchd"
     "ovsdb"
     "polkit"
+
+    # Proxmox VE 相关
+    "corosync"
     "pve-cluster"
     "pvedaemon"
     "pveproxy"
     "pvescheduler"
     "pvestatd"
     "qmeventd"
-    "reload-systemd-vconsole-setup"
     "rrdcached"
-    "rtkit-daemon"
     "spiceproxy"
-    "sshd"
     "usbmuxd"
+
+    # libvirt 相关
+    "libvirt-guests"
+    "libvirtd"
+    "virtchd"
     "virtlockd"
     "virtlogd"
-    "waagent" # Azure provisioning agent; manages disks/network/hostname
-    "xvcd" # USB JTAG daemon; raw USB hardware access like usbmuxd
-    # keep-sorted end
-  ];
 
-  # Core system services provided by systemd/NixOS itself, not application
-  # services; anything starting with "systemd" is covered too
-  coreServiceNames = [
-    # keep-sorted start
-    "dbus"
-    "nix-daemon"
-    "nix-gc"
-    "nix-optimise"
-    "nscd"
-    # keep-sorted end
-  ];
+    # NFS / RPC 相关
+    "auth-rpcgss-module"
+    "nfs-blkmap"
+    "nfs-idmapd"
+    "nfs-mountd"
+    "nfs-server"
+    "rpc-gssd"
+    "rpc-statd"
+    "rpcbind"
 
-  # Services that cannot run inside a confinement chroot without breaking:
-  # scx_loader writes host cgroupfs and /sys/fs/bpf (mounted read-only under
-  # confinement), oom-score-protect tunes /proc/1's children host-wide
-  confinementIgnored = [
-    # keep-sorted start
-    # Whole-set mkForce previously discarded BIRD's effective RootDirectory;
-    # preserve that non-confinement baseline at the user's explicit request.
-    "bird"
-    "cups" # spawns driver-dependent printer filter binaries
-    "fcgiwrap-nginx" # generic CGI wrapper on lab.lantian.pub; runs arbitrary user scripts
-    "iyuuplus" # runtime git clone/fetch of its own source and config rewrites
-    "jellyfin" # GPU transcoding and .NET JIT need full filesystem access
-    "oom-score-protect"
-    "samba-nmbd" # samba dlopens NSS modules and spawns per-connection processes
-    "samba-smbd"
-    "samba-winbindd"
-    "samba-wsdd"
-    "scx_loader"
-    # keep-sorted end
+    # 其它
+    "bootvine"
+    "bootvine-shutdown"
+    "httpd"
+    "podman"
+    "waagent"
+    "xvcd"
   ];
-
-  isCoreService = n: lib.hasPrefix "systemd" n || builtins.elem n coreServiceNames;
 
   exempt =
     n: v:
@@ -89,8 +104,6 @@ let
     || lib.hasInfix "@" n
     # Disabled services
     || !(v.enable or true)
-    # Services without ExecStart may be managed externally
-    || ((v.serviceConfig.ExecStart or "") == "")
     # Oneshot and dbus-activated services
     || (builtins.elem (v.serviceConfig.Type or "") [
       "oneshot"
@@ -99,7 +112,7 @@ let
     # Podman containers
     || lib.hasPrefix "podman-" n
     # Core system services
-    || isCoreService n;
+    || lib.hasPrefix "systemd" n;
 
   # builtins.hasAttr instead of the `?` operator: on Nix 2.35, `set ? var`
   # with a variable key always returns false (broken dynamic attrpath check),
@@ -163,11 +176,16 @@ in
       n: v:
       let
         # Services already chrooted outside of the confinement module count too:
-        # upstream endlessh sets RootDirectory itself
-        confined = (v.confinement.enable or false) || (v.serviceConfig.RootDirectory or null) != null;
+        # upstream endlessh sets RootDirectory itself. An explicitly declared
+        # lantian.harden.<name>.enableConfinement = false is also a valid
+        # per-service opt-out, if harden itself is enabled.
+        confined =
+          (v.confinement.enable or false)
+          || (v.serviceConfig.RootDirectory or null) != null
+          || (config.lantian.harden.${n}.enable or false) != false;
       in
       {
-        assertion = exempt n v || builtins.elem n confinementIgnored || confined;
+        assertion = exempt n v || confined;
         message = "${n} must enable systemd.services.<name>.confinement (RootDirectory+BindPaths whitelist); bind any needed state/socket paths inside the chroot";
       }
     ) config.systemd.services

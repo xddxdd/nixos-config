@@ -13,7 +13,7 @@
     ];
   };
 
-  systemd.services.asf.serviceConfig.ExecStartPre =
+  systemd.services.podman-asf.serviceConfig.ExecStartPre =
     "${pkgs.coreutils}/bin/rm -f /var/lib/asf/config/ASF.crash";
 
   systemd.tmpfiles.settings = {
