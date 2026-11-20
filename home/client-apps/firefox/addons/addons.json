@@ -1,9 +1,9 @@
 [
   {
     "pname": "adnauseam",
-    "version": "3.29.2",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5058842/adnauseam-3.29.2.xpi",
-    "hash": "sha256-qDhCE+Beh7fRin5xBgTEgqkeHcxFIFsHS/fZuUVLEGQ=",
+    "version": "3.29.4",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5248814/adnauseam-3.29.4.xpi",
+    "hash": "sha256-39ny9egav4mQfV3bUDj+XAlyvyTFILX9WNgQmlCxiAQ=",
     "addonId": "adnauseam@rednoise.org"
   },
   {
@@ -29,9 +29,9 @@
   },
   {
     "pname": "bitwarden-password-manager",
-    "version": "2026.10.2",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5198653/bitwarden_password_manager-2026.10.2.xpi",
-    "hash": "sha256-q/nXJz3VWsBYPsxpl/f3rj0p3hHirQpIOLgOK5QdqnM=",
+    "version": "2026.11.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5278513/bitwarden_password_manager-2026.11.0.xpi",
+    "hash": "sha256-YH1kM9neFRpMURNa2ecIgkYNDgSTqbWF8VqYSNXxC5c=",
     "addonId": "{446900e4-71c2-419f-a6a7-df9c091e268b}"
   },
   {
@@ -106,9 +106,9 @@
   },
   {
     "pname": "multi-account-containers",
-    "version": "8.4.0",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5168122/multi_account_containers-8.4.0.xpi",
-    "hash": "sha256-EJNtaC4XvS6K+gGL3pT5J7UM8Flz1u+Mo8VPgHss97o=",
+    "version": "8.4.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5272233/multi_account_containers-8.4.1.xpi",
+    "hash": "sha256-CV2dRwFYwsCWOLRg3uD8pEibnkf1EuoWjZSY+WTHm2Q=",
     "addonId": "@testpilot-containers"
   },
   {
