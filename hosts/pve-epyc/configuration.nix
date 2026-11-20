@@ -55,7 +55,6 @@
 
     ../../nixos/optional-cron-jobs/ncmm.nix
     ../../nixos/optional-cron-jobs/qbittorrent-pt-cleanup
-    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
     ../../nixos/optional-cron-jobs/rsgain-cloudmusic.nix
     ../../nixos/optional-cron-jobs/new-api-checkin
   ];
@@ -131,12 +130,6 @@
     systemd-tmpfiles-setup.unitConfig.RequiresMountsFor = "/mnt/storage";
     systemd-tmpfiles-resetup.unitConfig.RequiresMountsFor = "/mnt/storage";
   };
-
-  # Allow Radicale calendar sync task to access *arr config
-  systemd.services.radicale-calendar-sync.serviceConfig.BindReadOnlyPaths = [
-    "/var/lib/radarr/config.xml"
-    "/var/lib/sonarr/config.xml"
-  ];
 
   systemd.services.immich-machine-learning.environment = {
     CUDA_DEVICE_ORDER = "PCI_BUS_ID";
