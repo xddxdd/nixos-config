@@ -11,10 +11,17 @@
     group = "users";
     dataDir = "/var/lib/sonarr";
     settings.server.bindaddress = "127.0.0.1";
-    settings.server.allowedHosts =
-      "localhost,127.0.0.1,[::1]"
-      + ",${LT.this.ltnet.IPv4},"
-      + (lib.concatStringsSep "," config.lantian.localVhosts.sonarr.serverAliases);
+    settings.server.allowedHosts = lib.concatStringsSep "," (
+      [
+        "localhost"
+        "127.0.0.1"
+        "[::1]"
+        "sonarr.localhost"
+        "sonarr.${config.networking.hostName}.xuyh0120.win"
+        LT.this.ltnet.IPv4
+      ]
+      ++ config.lantian.localVhosts.sonarr.serverAliases
+    );
   };
   systemd.services.sonarr = {
     serviceConfig = {
