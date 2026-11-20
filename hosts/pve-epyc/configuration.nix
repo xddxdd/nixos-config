@@ -133,10 +133,10 @@
   };
 
   # Allow Radicale calendar sync task to access *arr config
-  systemd.services.radicale-calendar-sync.serviceConfig = {
-    AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ];
-    CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
-  };
+  systemd.services.radicale-calendar-sync.serviceConfig.BindReadOnlyPaths = [
+    "/var/lib/radarr/config.xml"
+    "/var/lib/sonarr/config.xml"
+  ];
 
   systemd.services.immich-machine-learning.environment = {
     CUDA_DEVICE_ORDER = "PCI_BUS_ID";
