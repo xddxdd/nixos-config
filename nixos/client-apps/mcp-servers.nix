@@ -45,7 +45,14 @@ in
           sopsFile = LT.secret "mcp.yaml";
           owner = "lantian";
           mode = "0400";
-        });
+        })
+      // lib.optionalAttrs credentialed {
+        mcp-caldav-password = {
+          sopsFile = LT.secret "mcp.yaml";
+          owner = "lantian";
+          mode = "0400";
+        };
+      };
 
     lantian.mcp.mcpServers = {
       # keep-sorted start block=yes
@@ -84,6 +91,16 @@ in
       browseros = {
         type = "streamable-http";
         url = "http://127.0.0.1:9000/mcp";
+      };
+      caldav = {
+        command = toString (
+          pkgs.writeShellScript "mcp-caldav" ''
+            export CALDAV_BASE_URL=https://cal.xuyh0120.win
+            export CALDAV_USERNAME=lantian
+            export CALDAV_PASSWORD=$(cat "${config.sops.secrets.mcp-caldav-password.path}")
+            exec ${pkgs.nodejs}/bin/npx -y caldav-mcp
+          ''
+        );
       };
       composio = {
         command = toString (
