@@ -47,7 +47,7 @@ in
           mode = "0400";
         })
       // lib.optionalAttrs credentialed {
-        mcp-caldav-password = {
+        mcp-caldav-calendar-url = {
           sopsFile = LT.secret "mcp.yaml";
           owner = "lantian";
           mode = "0400";
@@ -95,10 +95,9 @@ in
       caldav = {
         command = toString (
           pkgs.writeShellScript "mcp-caldav" ''
-            export CALDAV_BASE_URL=https://cal.xuyh0120.win
-            export CALDAV_USERNAME=lantian
-            export CALDAV_PASSWORD=$(cat "${config.sops.secrets.mcp-caldav-password.path}")
-            exec ${pkgs.nodejs}/bin/npx -y caldav-mcp
+            export CALDAV_URL=$(cat "${config.sops.secrets.mcp-caldav-calendar-url.path}")
+            export CALDAV_TOKEN=unused
+            exec ${pkgs.nodejs}/bin/npx -y @ni-c/caldav-mcp
           ''
         );
       };
