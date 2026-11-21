@@ -39,9 +39,6 @@ rec {
     vendorHash = "sha256-UKNmTziBDj7gJBT6ON9ZpR9Bh5LBtdAdxA4e1uJIcg0=";
     doCheck = false;
   });
-  filezilla = prev.filezilla.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../patches/filezilla-override-pasv-ip-for-zero-ip.patch ];
-  });
   handbrake = prev.handbrake.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
     postFixup = ''

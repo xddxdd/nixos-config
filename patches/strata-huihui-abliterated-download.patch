@@ -1,14 +1,16 @@
---- a/setup.py
-+++ b/setup.py
-@@ -98,6 +98,7 @@
+diff --git a/terminal/setup.py b/terminal/setup.py
+index 5d92b5d..51003d6 100644
+--- a/terminal/setup.py
++++ b/terminal/setup.py
+@@ -117,6 +117,7 @@ HF_REVISIONS = {
      "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF": "ed59f92082b1e93c0e96d60a8b11aab089b52f09",        # 2026-09-29
      "ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF": "99bb8f7f95c7aa7b24a36a7786a4f657b30f5d3d",   # 2026-10-07 (adds IQ3_S)
-     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF": "5348543e0147355ac9cbcb031184a3546350988e",  # 2026-09-29
+     "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF": "bba88856f8c3c0c9e40e45f82d05e228b814ac43",  # 2026-10-19 (the new expert-pruned shard 1)
 +    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF": "cbc7fba13f1939ac3fa42b18d77ccf43847d74ef",  # 2026-10-13 (Swift 1.5 and Unsloth shards, abliterated)
      "unsloth/Qwen3.8-Flash-Next-GGUF": "38bb39ee97821de2c9009abb7e93950eec396e66",                   # 2026-09-30
      "unsloth/Qwen3.6-35B-A3B-MTP-GGUF": "5bc3e238d916f48a861bac2f8a1990a0e9b7e98d",                  # 2026-10-12
      "agentionai/Qwen3.8-Flash-Next-Gyro-GGUF": "1ada08422e404aca51ab9df665f089f34c419c6b",           # 2026-10-13
-@@ -389,24 +390,22 @@
+@@ -424,24 +425,22 @@ ISTA_FILES = {
      "mmproj-Qwen3.8-Flash-Next-BF16.gguf":
          (907543008, "b1a82259702816a5330d7bd7607cd9676b11780e79ff7348c21103ff3ce49bd0"),
  }
@@ -42,7 +44,7 @@
      "mmproj-Swift-Qwen3.8-Flash-Next-BF16.gguf":
          (907543520, "cd1140f4abba943ce8d9fa92fed8407e389954d26907efde7b72153c75bd8a60"),
  }
-@@ -548,36 +547,36 @@
+@@ -583,36 +582,36 @@ UNSLOTH_SHARDS = {
      "Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf":
          (10946624, "4448186216b3af4cc558bbce2c3213f01608f8f8b2e5267a9767971dd3ec8082"),
      "Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf":
@@ -88,7 +90,7 @@
      "Qwen3.8-Flash-Next-UD-Q6_K_XL-00001-of-00006.gguf":
          (10946624, "8bdc6bad55b6699f46f60708829932ff4018d7ac9bd309c388534fa31753bdb7"),
      "Qwen3.8-Flash-Next-UD-Q6_K_XL-00002-of-00006.gguf":
-@@ -585,11 +584,11 @@
+@@ -620,11 +619,11 @@ UNSLOTH_BIG_SHARDS = {
      "Qwen3.8-Flash-Next-UD-Q6_K_XL-00003-of-00006.gguf":
          (54400261312, "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20"),
      "Qwen3.8-Flash-Next-UD-Q6_K_XL-00004-of-00006.gguf":
@@ -103,7 +105,7 @@
      "Qwen3.8-Flash-Next-Q8_0-00001-of-00006.gguf":
          (10946624, "2dabcbb53ca537a7947bc7d20414fd464eeaf4d66d43021b5b2556cc87544ad2"),
      "Qwen3.8-Flash-Next-Q8_0-00002-of-00006.gguf":
-@@ -597,11 +596,11 @@
+@@ -632,11 +631,11 @@ UNSLOTH_BIG_SHARDS = {
      "Qwen3.8-Flash-Next-Q8_0-00003-of-00006.gguf":
          (54400261312, "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20"),
      "Qwen3.8-Flash-Next-Q8_0-00004-of-00006.gguf":
@@ -118,7 +120,7 @@
  }
  # Round 0214: the sets that are new at UNSLOTH_V31_REVISION (UD-IQ1_M, UD-Q2_0, UD-IQ2_XS, UD-Q2_K_XL, UD-IQ3_XXS, UD-Q3_K_XL and the v3.1 UD-IQ4_XS), name -> (bytes,
  # sha256): the Hub's LFS pointers (phaseA-tests/quants0211/unsloth-head-pins.json).  The last shard of each is the n-gram table.  No name is in UNSLOTH_SHARDS,
-@@ -692,9 +691,9 @@
+@@ -729,9 +728,9 @@ FAMILIES = {
               "mmproj": "mmproj-Qwen3.8-Flash-Next-BF16.gguf", "name": "qwen3.8-flash-next"},
      "swift": {"title": "Swift 1.5", "by": "UkisAI's fine-tune of Qwen3.8-Flash-Next",
                "about": "thinks much shorter (-63% thinking tokens, 1.8x sooner answers by its authors' numbers)",
@@ -130,7 +132,7 @@
                "mmproj": "mmproj-Swift-Qwen3.8-Flash-Next-BF16.gguf", "name": "swift-1.5",
                "license": "Swift Open License 1.0: https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF"},
      # ISTA-DASLab's expert-pruned release: half of each layer's experts removed, chosen for code, agentic tool use and
-@@ -711,7 +710,7 @@
+@@ -748,7 +747,7 @@ FAMILIES = {
      "unsloth": {"title": "Qwen3.8-Flash-Next (Unsloth)", "by": "Unsloth's 1- to 8-bit quantizations",
                  "about": "UD-IQ1_M, UD-Q2_0, UD-IQ2_XS, UD-Q2_K_XL, UD-IQ3_XXS, UD-Q3_K_XL, UD-IQ4_XS, UD-IQ4_XS-v31, UD-Q4_K_XL, UD-Q5_K_XL, UD-Q6_K_XL or Q8_0 (68 to 188 GB downloads): every expert in "
                           "RAM from ~50 GB (UD-IQ1_M) to ~136 GB (Q8_0) of RAM, else part of them read from the SSD",
@@ -139,7 +141,7 @@
                  "file": "Qwen3.8-Flash-Next-{q}-0000{i}-of-00004.gguf", "shards": 4, "tag": "unsloth-",
                  "mmproj_hf": hf("ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"),
                  "mmproj": "mmproj-Qwen3.8-Flash-Next-BF16.gguf", "name": "qwen3.8-flash-next-unsloth",
-@@ -779,7 +778,7 @@
+@@ -816,7 +815,7 @@ PREVIEW_FAMILIES = OWN_PATH_FAMILIES             # the earlier name (tools and t
  # download when the server's size is not the pinned one.  The files are fetched from the commits in HF_REVISIONS.
  REPO_PINS = {
      "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF": ISTA_FILES,

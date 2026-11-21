@@ -43,9 +43,9 @@
   },
   {
     "pname": "clearurls",
-    "version": "1.27.3",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4432106/clearurls-1.27.3.xpi",
-    "hash": "sha256-VJJrbkJ01ZNaX8DapjIPHTcePS8aWHdGfKOrIqZcTyA=",
+    "version": "1.28.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5286652/clearurls-1.28.0.xpi",
+    "hash": "sha256-aTYBuh8hxpQDdPdqzC3UvTIBhpsP4QqxuSe1k+4lCNE=",
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.60.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5274046/read_frog_open_ai_translator-1.60.1.xpi",
-    "hash": "sha256-xBVMH+o1esRW39pwNKb0LaR+mWupYR1U3YuZekDg6yQ=",
+    "version": "1.61.1",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5285018/read_frog_open_ai_translator-1.61.1.xpi",
+    "hash": "sha256-8oNCoFO9JNFf0bDHmLI9F5tT6nkpv2w5PJR56sH8vPU=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {

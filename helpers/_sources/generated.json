@@ -234,7 +234,7 @@
     },
     "mihoyo-bbs-tools": {
         "cargoLock": null,
-        "date": "2026-11-01",
+        "date": "2026-11-22",
         "extract": null,
         "name": "mihoyo-bbs-tools",
         "passthru": null,
@@ -246,12 +246,12 @@
             "name": null,
             "owner": "Womsxd",
             "repo": "MihoyoBBSTools",
-            "rev": "01be3bab9c5f99983c61ce0d494d25d9cbea8511",
-            "sha256": "sha256-9gGgoMFiCzDLxnAfgwQdocMurqbWNdtzJAJz8g17K0I=",
+            "rev": "c767381226dff8a43d59d5104316219def4ee393",
+            "sha256": "sha256-RaX/GBXEYTbn9CbijCmkbvB4jteNB0ghCvS8B3S2h4g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "01be3bab9c5f99983c61ce0d494d25d9cbea8511"
+        "version": "c767381226dff8a43d59d5104316219def4ee393"
     },
     "mpv-sockets": {
         "cargoLock": null,
@@ -297,7 +297,7 @@
     },
     "noctalia-community-plugins": {
         "cargoLock": null,
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "extract": null,
         "name": "noctalia-community-plugins",
         "passthru": null,
@@ -307,13 +307,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b9aefd48419862beb576ac9dbb6ff065c5d37c60",
-            "sha256": "sha256-3cBgQhHalZbTU5kCRJyqCHT9ptqHLg4fPf4rAd1cEb0=",
+            "rev": "546e0b72fda2bcb41a6bd07acfc41e37e4508eae",
+            "sha256": "sha256-b5o9/7zz1tb9O6+argBWEmAhj0zrGOZN/aURETER5sA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "b9aefd48419862beb576ac9dbb6ff065c5d37c60"
+        "version": "546e0b72fda2bcb41a6bd07acfc41e37e4508eae"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
@@ -327,13 +327,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "27f56445ee60a8f63e5e97045e710c5695802dbd",
-            "sha256": "sha256-M/AZVG120D1fS1lhYeZveljdnJEW7bKGBlw70LRKY20=",
+            "rev": "8b99df3ca7e35822b938bf92fb32e8cc2f90027e",
+            "sha256": "sha256-iUIwljJGup34okKOYOxFMxF2woK9mv0wg7o5DuuHkB4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/official-plugins.git"
         },
-        "version": "27f56445ee60a8f63e5e97045e710c5695802dbd"
+        "version": "8b99df3ca7e35822b938bf92fb32e8cc2f90027e"
     },
     "nvidia-patch": {
         "cargoLock": null,
@@ -510,12 +510,12 @@
             "name": null,
             "owner": "illixion",
             "repo": "vscode-vibrancy-continued",
-            "rev": "v1.6.0",
-            "sha256": "sha256-b5PxrMBF/XgqKFbvzjiBEfQNKaBATh9BoLL+u773/5k=",
+            "rev": "v1.6.2",
+            "sha256": "sha256-EpFLVo/Z4tGx/v4sGk/C4OZVZHFetB859m16BX5pOk4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.0"
+        "version": "v1.6.2"
     },
     "wordpress-theme-twentyeleven": {
         "cargoLock": null,
