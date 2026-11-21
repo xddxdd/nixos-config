@@ -47,7 +47,6 @@
     ../../nixos/optional-apps/zerotierone-controller.nix
 
     ../../nixos/optional-cron-jobs/dn42-certificate.nix
-    ../../nixos/optional-cron-jobs/radicale-calendar-sync.nix
   ];
 
   systemd.network.networks.eth1 = {
