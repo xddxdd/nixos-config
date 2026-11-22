@@ -124,17 +124,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "9752d967494e48d8f83f2808feb2b0207bf70997";
+    version = "7e81f85708ada35e054c96173a14b1bfbe9b74e3";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "9752d967494e48d8f83f2808feb2b0207bf70997";
+      rev = "7e81f85708ada35e054c96173a14b1bfbe9b74e3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Iyi23NwGDHCqXpdN1qGxkG+yLeDOiUKEgwesIqRQMrk=";
+      sha256 = "sha256-cNDkE2hwNKLYMOu0V3u9qtwf8BGtqDSqEGMgc0bK2Ps=";
     };
-    date = "2026-11-18";
+    date = "2026-11-22";
   };
   mattpocock-skills = {
     pname = "mattpocock-skills";
@@ -185,17 +185,17 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "546e0b72fda2bcb41a6bd07acfc41e37e4508eae";
+    version = "106de15f8878f26feb2c513a6bd6d8b6ff423374";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "546e0b72fda2bcb41a6bd07acfc41e37e4508eae";
+      rev = "106de15f8878f26feb2c513a6bd6d8b6ff423374";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-b5o9/7zz1tb9O6+argBWEmAhj0zrGOZN/aURETER5sA=";
+      sha256 = "sha256-q7INnCUPJoMMCTsY4UOBMr+HfWvGtv3VJ4kHmjw3qrM=";
     };
-    date = "2026-11-20";
+    date = "2026-11-22";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";

@@ -193,7 +193,7 @@
     },
     "lobe-icons": {
         "cargoLock": null,
-        "date": "2026-11-18",
+        "date": "2026-11-22",
         "extract": null,
         "name": "lobe-icons",
         "passthru": null,
@@ -203,13 +203,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9752d967494e48d8f83f2808feb2b0207bf70997",
-            "sha256": "sha256-Iyi23NwGDHCqXpdN1qGxkG+yLeDOiUKEgwesIqRQMrk=",
+            "rev": "7e81f85708ada35e054c96173a14b1bfbe9b74e3",
+            "sha256": "sha256-cNDkE2hwNKLYMOu0V3u9qtwf8BGtqDSqEGMgc0bK2Ps=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lobehub/lobe-icons.git"
         },
-        "version": "9752d967494e48d8f83f2808feb2b0207bf70997"
+        "version": "7e81f85708ada35e054c96173a14b1bfbe9b74e3"
     },
     "mattpocock-skills": {
         "cargoLock": null,
@@ -297,7 +297,7 @@
     },
     "noctalia-community-plugins": {
         "cargoLock": null,
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "extract": null,
         "name": "noctalia-community-plugins",
         "passthru": null,
@@ -307,13 +307,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "546e0b72fda2bcb41a6bd07acfc41e37e4508eae",
-            "sha256": "sha256-b5o9/7zz1tb9O6+argBWEmAhj0zrGOZN/aURETER5sA=",
+            "rev": "106de15f8878f26feb2c513a6bd6d8b6ff423374",
+            "sha256": "sha256-q7INnCUPJoMMCTsY4UOBMr+HfWvGtv3VJ4kHmjw3qrM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "546e0b72fda2bcb41a6bd07acfc41e37e4508eae"
+        "version": "106de15f8878f26feb2c513a6bd6d8b6ff423374"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
