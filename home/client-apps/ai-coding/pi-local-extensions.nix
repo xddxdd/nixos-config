@@ -13,4 +13,5 @@ _: {
   home.file.".pi/agent/extensions/last-model.ts".source = ./extensions/last-model.ts;
   home.file.".pi/agent/extensions/sanitize-user-agent.ts".source =
     ./extensions/sanitize-user-agent.ts;
+  home.file.".pi/agent/extensions/no-docs.ts".source = ./extensions/no-docs.ts;
 }
