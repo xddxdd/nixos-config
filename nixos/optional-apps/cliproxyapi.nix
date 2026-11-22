@@ -18,6 +18,33 @@ let
     doCheck = false;
     doInstallCheck = false;
   });
+
+  # astrlink-guard weights for cpa-reductant, pinned to the revision the plugin
+  # verifies them against (guard.PinnedFiles).
+  guardBase = "https://huggingface.co/QuantumNous/astrlink-guard/resolve/7216b6a3b897ef903d4b1ba367ae6fb95b0fa5e4/int8";
+  cpa-reductant-model = pkgs.linkFarm "cpa-reductant-model" [
+    {
+      name = "model_int8.onnx";
+      path = pkgs.fetchurl {
+        url = "${guardBase}/model_int8.onnx";
+        hash = "sha256-CgcNMRNhXjO6O4TWvUhvZjo3fATEsFbnOBcyF59Rgyo=";
+      };
+    }
+    {
+      name = "model_int8.onnx_data";
+      path = pkgs.fetchurl {
+        url = "${guardBase}/model_int8.onnx_data";
+        hash = "sha256-C6NCFs7q0B4K4t/Y5G1Stn567oCwT3Itm3WGE6kcAGc=";
+      };
+    }
+    {
+      name = "tokenizer.json";
+      path = pkgs.fetchurl {
+        url = "${guardBase}/tokenizer.json";
+        hash = "sha256-DPOyNe8SVlgBWmyAJqX+bygIi/glEBqZDsGKECAP7vQ=";
+      };
+    }
+  ];
 in
 {
   systemd.services.cliproxyapi = {
@@ -36,6 +63,8 @@ in
       User = "cliproxyapi";
       Group = "cliproxyapi";
     };
+
+    environment.CPA_REDUCTANT_MODEL_DIR = "${cpa-reductant-model}";
   };
   lantian.harden.cliproxyapi.enable = true;
 
