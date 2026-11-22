@@ -39,9 +39,7 @@ in
 
   programs.pi-coding-agent = {
     enable = true;
-    package = pkgs.llm-agents.pi.override {
-      useBun = false;
-    };
+    package = pkgs.llm-agents.pi;
     # # Not implemented correctly in home manager
     # configDir = "${config.xdg.configHome}/pi/agent";
     inherit context;
@@ -94,8 +92,8 @@ in
         "npm:@moguw/pi-session-migrate"
         "npm:@monotykamary/pi-tps"
         "npm:@narumitw/pi-goal"
-        "npm:@router-for-me/pi-cliproxyapi-provider"
         "npm:pi-btw"
+        "npm:pi-cliproxyapi-provider"
         "npm:pi-copy-message"
         "npm:pi-fast-resume"
         "npm:pi-ollama-cloud"
