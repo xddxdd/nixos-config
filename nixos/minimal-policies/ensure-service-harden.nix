@@ -91,6 +91,7 @@ let
     "bootvine"
     "bootvine-shutdown"
     "httpd"
+    "pi-web"
     "podman"
     "waagent"
     "xvcd"
