@@ -102,6 +102,10 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-tarmac = {
+      url = "github:Mic92/nix-tarmac/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-tree-rs = {
       url = "github:Mic92/nix-tree-rs";
       inputs.nixpkgs.follows = "nixpkgs";

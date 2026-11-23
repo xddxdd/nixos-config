@@ -677,6 +677,27 @@
         "type": "github"
       }
     },
+    "nix-tarmac": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794803213,
+        "narHash": "sha256-udU9fzYZ0LLMI7fX4CQWgyls2V7iN9EituBHJV0pZyE=",
+        "owner": "Mic92",
+        "repo": "nix-tarmac",
+        "rev": "8ae9fd6b69568abd4bf3a060e04f3b5fc8493a33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "ref": "main",
+        "repo": "nix-tarmac",
+        "type": "github"
+      }
+    },
     "nix-tree-rs": {
       "inputs": {
         "flake-parts": [
@@ -1031,6 +1052,7 @@
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nix-math": "nix-math",
+        "nix-tarmac": "nix-tarmac",
         "nix-tree-rs": "nix-tree-rs",
         "nixcord": "nixcord",
         "nixfmt-rs": "nixfmt-rs",

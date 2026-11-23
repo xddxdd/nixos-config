@@ -65,7 +65,10 @@ let
       # keep-sorted end
 
       (../hosts + "/${n}/configuration.nix")
-    ];
+    ]
+    # LT.this reads config, which is still being computed while imports are collected,
+    # so the tag check has to live here where host tags are static.
+    ++ lib.optional (LT.hosts."${n}".hasTag LT.tags.nix-builder) inputs.nix-tarmac.nixosModules.default;
 
   patchedPkgsFor = system: pkgsName: self.allSystems."${system}"._module.args."${pkgsName}";
   patchedNixpkgsFor = system: pkgsName: self.packages."${system}"."${pkgsName}-patched";
