@@ -124,17 +124,17 @@
   };
   lobe-icons = {
     pname = "lobe-icons";
-    version = "7e81f85708ada35e054c96173a14b1bfbe9b74e3";
+    version = "05260484d9f4de68f90cc87a634ae68fa4043efd";
     src = fetchgit {
       url = "https://github.com/lobehub/lobe-icons.git";
-      rev = "7e81f85708ada35e054c96173a14b1bfbe9b74e3";
+      rev = "05260484d9f4de68f90cc87a634ae68fa4043efd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-cNDkE2hwNKLYMOu0V3u9qtwf8BGtqDSqEGMgc0bK2Ps=";
+      sha256 = "sha256-sN5CjGkMFdaka/kTau0qhLA66/stx9UpWVUFMmaCxtM=";
     };
-    date = "2026-11-22";
+    date = "2026-11-23";
   };
   mattpocock-skills = {
     pname = "mattpocock-skills";
@@ -286,15 +286,15 @@
   };
   tar1090-db = {
     pname = "tar1090-db";
-    version = "4248a81f68f14a1a1fa3730714b99dcc238c12aa";
+    version = "8f870d3cf3e7802d24e70f2f6fb8f91e2a7b12f4";
     src = fetchFromGitHub {
       owner = "wiedehopf";
       repo = "tar1090-db";
-      rev = "4248a81f68f14a1a1fa3730714b99dcc238c12aa";
+      rev = "8f870d3cf3e7802d24e70f2f6fb8f91e2a7b12f4";
       fetchSubmodules = false;
-      sha256 = "sha256-TFzJ5WM7jB7i87PR3R4EFHr93VcrNIx/lChft3TDkhM=";
+      sha256 = "sha256-HJvNbvFwmdU4kd2j5GQubUeD/GD8u1uPY6cSrFKXwPc=";
     };
-    date = "2026-11-16";
+    date = "2026-11-23";
   };
   um-react = {
     pname = "um-react";
