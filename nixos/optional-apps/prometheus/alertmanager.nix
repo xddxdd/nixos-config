@@ -268,6 +268,19 @@ in
         group_interval = "10m";
         repeat_interval = "24h";
         receiver = "admin";
+        routes = [
+          {
+            matchers = [ ''alertname="service_tripwire_execution"'' ];
+            group_by = [
+              "alertname"
+              "host"
+            ];
+            group_wait = "0s";
+            group_interval = "30s";
+            repeat_interval = "5m";
+            receiver = "admin";
+          }
+        ];
       };
       receivers = [
         {

@@ -65,6 +65,7 @@ rec {
     Waline = 8360;
     Matrix.Public = 8448;
     Prometheus.VMAlert = 8880;
+    Prometheus.VMAlertLogs = 8881;
     Sonarr = 8989;
     Tor.Socks = 9050;
     Prometheus.Daemon = 9090;

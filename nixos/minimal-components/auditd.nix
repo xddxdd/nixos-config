@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   serviceHardenArgs,
   ...
 }:
@@ -44,7 +45,13 @@ in
     backlogLimit = lib.mkDefault 8192;
     # First match wins: file-specific rules precede broader directory watches.
     rules = lib.mkBefore (
-      secretRules
+      lib.optionals (lib.any (cfg: cfg.enableTripwire) (lib.attrValues config.lantian.harden)) (
+        map (
+          arch:
+          "-a always,exit -F arch=${arch} -F path=${pkgs.base-commands}/libexec/base-commands -F perm=x -k exec-tripwire"
+        ) ([ "b64" ] ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "b32")
+      )
+      ++ secretRules
       ++ homeRules
       ++ lib.optionals config.services.fluent-bit.enable [
         # Ignore successful housekeeping only in the journal shipper's own state.

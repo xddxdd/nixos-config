@@ -36,7 +36,10 @@ in
       ];
     };
   };
-  lantian.harden.flapalerted.enable = true;
+  lantian.harden.flapalerted = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.groups.bird.members = [ "nginx" ];
 

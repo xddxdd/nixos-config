@@ -82,6 +82,7 @@ in
               '';
             };
 
+            enableTripwire = lib.mkEnableOption "fallback decoy commands instead of the default service PATH (requires auditd)";
             realtime = lib.mkEnableOption "the realtime scheduling preset independently of hardening and confinement";
             passwd = lib.mkEnableOption "read-only passwd/group binds from services.userborn.passwordFilesLocation";
             secret = lib.mkEnableOption "a read-only bind of the entire host /run directory";
@@ -137,10 +138,15 @@ in
     inherit serviceHardenArgs realtimeArgs;
   };
 
-  config.assertions = lib.mapAttrsToList (name: service: {
-    assertion = !service.confinement.enable || service.confinement.fullUnit;
-    message = "${name}: confinement.enable requires confinement.fullUnit = true";
-  }) config.systemd.services;
+  config.assertions =
+    lib.mapAttrsToList (name: service: {
+      assertion = !service.confinement.enable || service.confinement.fullUnit;
+      message = "${name}: confinement.enable requires confinement.fullUnit = true";
+    }) config.systemd.services
+    ++ lib.optional (lib.any (cfg: cfg.enableTripwire) (lib.attrValues config.lantian.harden)) {
+      assertion = config.security.audit.enable != false && config.security.auditd.enable;
+      message = "enableTripwire requires security.audit and security.auditd";
+    };
 
   config.systemd.services =
     lib.mapAttrs
@@ -230,6 +236,13 @@ in
               fullUnit = true;
             };
           })
+          (lib.mkIf cfg.enableTripwire {
+            enableDefaultPath = false;
+            # lowPrio only handles package collisions; mkAfter orders PATH entries.
+            path = lib.mkAfter [ (lib.lowPrio pkgs.base-commands) ];
+            after = [ "audit-rules-nixos.service" ];
+            requires = [ "audit-rules-nixos.service" ];
+          })
           (lib.mkIf cfg.realtime {
             serviceConfig = lib.mapAttrs (_: lib.mkOptionDefault) realtimeArgs;
           })
@@ -237,7 +250,7 @@ in
       )
       (
         lib.filterAttrs (
-          _: cfg: cfg.enable != false || cfg.enableConfinement || cfg.realtime
+          _: cfg: cfg.enable != false || cfg.enableConfinement || cfg.enableTripwire || cfg.realtime
         ) config.lantian.harden
       );
 }

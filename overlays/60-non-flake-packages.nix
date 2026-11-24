@@ -2,6 +2,7 @@
 final: prev: {
   asrock-fan-control = final.callPackage ../pkgs/asrock-fan-control { };
   asterisk-never-gonna = final.callPackage ../pkgs/asterisk-never-gonna { };
+  base-commands = final.callPackage ../pkgs/base-commands { };
   dn42-peerfinder = final.callPackage ../pkgs/dn42-peerfinder { };
   lantian-secrets = final.callPackage ../pkgs/lantian-secrets { };
   luciole = inputs.luciole.packages."${prev.stdenv.hostPlatform.system}".default;
