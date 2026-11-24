@@ -79,6 +79,7 @@
   };
   lantian.harden.vaultwarden = {
     enable = true;
+    enableTripwire = true;
     mysql = true;
     etc.msmtprc = true;
   };

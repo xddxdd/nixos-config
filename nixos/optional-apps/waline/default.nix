@@ -134,6 +134,7 @@ in
   };
   lantian.harden.waline = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
   };
 

@@ -44,6 +44,7 @@
   };
   lantian.harden.vmalert-logs = {
     enable = true;
+    enableTripwire = true;
     etc."vmalert-logs/rules.yml" = true;
   };
 }

@@ -135,19 +135,19 @@ let
       (lib.optional cfg.noModeacResults "--no-modeac-results")
       (
         if cfg.latitudeFile != null then
-          [ ''--lat=$(cat "$CREDENTIALS_DIRECTORY/lat")'' ]
+          [ ''--lat=$(<"$CREDENTIALS_DIRECTORY/lat")'' ]
         else
           (arg' "--lat" cfg.latitude)
       )
       (
         if cfg.longitudeFile != null then
-          [ ''--lon=$(cat "$CREDENTIALS_DIRECTORY/lon")'' ]
+          [ ''--lon=$(<"$CREDENTIALS_DIRECTORY/lon")'' ]
         else
           (arg' "--lon" cfg.longitude)
       )
       (
         if cfg.altitudeFile != null then
-          [ ''--alt=$(cat "$CREDENTIALS_DIRECTORY/alt")'' ]
+          [ ''--alt=$(<"$CREDENTIALS_DIRECTORY/alt")'' ]
         else
           (arg' "--alt" cfg.altitude)
       )
@@ -206,7 +206,11 @@ in
     }
     {
       lantian.harden = lib.mapAttrs' (
-        name: _: lib.nameValuePair "mlat-client-${name}" { enable = true; }
+        name: _:
+        lib.nameValuePair "mlat-client-${name}" {
+          enable = true;
+          enableTripwire = true;
+        }
       ) config.services.mlat-client;
     }
   ];

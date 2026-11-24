@@ -172,13 +172,13 @@ let
       (arg' "--ppm" cfg.ppm)
       (
         if cfg.latitudeFile != null then
-          [ ''--lat=$(cat "$CREDENTIALS_DIRECTORY/lat")'' ]
+          [ ''--lat=$(<"$CREDENTIALS_DIRECTORY/lat")'' ]
         else
           (arg' "--lat" cfg.latitude)
       )
       (
         if cfg.longitudeFile != null then
-          [ ''--lon=$(cat "$CREDENTIALS_DIRECTORY/lon")'' ]
+          [ ''--lon=$(<"$CREDENTIALS_DIRECTORY/lon")'' ]
         else
           (arg' "--lon" cfg.longitude)
       )
@@ -244,7 +244,11 @@ in
     }
     {
       lantian.harden = lib.mapAttrs' (
-        name: _: lib.nameValuePair "readsb-${name}" { enable = true; }
+        name: _:
+        lib.nameValuePair "readsb-${name}" {
+          enable = true;
+          enableTripwire = true;
+        }
       ) config.services.readsb;
     }
   ];
