@@ -52,6 +52,7 @@
   };
   lantian.harden.atticd = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
   };
 

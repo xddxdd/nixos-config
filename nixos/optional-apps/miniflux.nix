@@ -55,6 +55,7 @@
   };
   lantian.harden.miniflux = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
   };
 

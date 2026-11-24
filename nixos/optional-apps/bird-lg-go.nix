@@ -54,7 +54,10 @@ in
     };
   };
 
-  lantian.harden.bird-lg-go.enable = true;
+  lantian.harden.bird-lg-go = {
+    enable = true;
+    enableTripwire = true;
+  };
   systemd.services.bird-lgproxy-go.enable = lib.mkForce true;
 
   lantian.nginxVhosts = {

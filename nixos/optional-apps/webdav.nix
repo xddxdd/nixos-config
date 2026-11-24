@@ -1,6 +1,7 @@
 {
   config,
   LT,
+  pkgs,
   ...
 }:
 {
@@ -25,8 +26,8 @@
   systemd.services.webdav = {
     unitConfig.RequiresMountsFor = [ (LT.escapeMountPath config.services.webdav.settings.directory) ];
     postStart = ''
-      while [ ! -S /run/webdav/webdav.sock ]; do sleep 1; done
-      chmod 777 /run/webdav/webdav.sock
+      while [ ! -S /run/webdav/webdav.sock ]; do ${pkgs.coreutils}/bin/sleep 1; done
+      ${pkgs.coreutils}/bin/chmod 777 /run/webdav/webdav.sock
     '';
     serviceConfig = {
       RestartSec = "5s";
@@ -40,6 +41,7 @@
   };
   lantian.harden.webdav = {
     enable = true;
+    enableTripwire = true;
   };
 
   lantian.localVhosts.dav = {

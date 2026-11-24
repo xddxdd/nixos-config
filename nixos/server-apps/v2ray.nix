@@ -126,7 +126,7 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
         XRAY_LOCATION_ASSET = "${assets}/share/v2ray";
       };
     script = ''
-      rm -f /run/v2ray/v2ray.sock
+      ${lib.getExe' pkgs.coreutils "rm"} -f /run/v2ray/v2ray.sock
 
       ${jqSecrets.script}
 

@@ -89,10 +89,15 @@ in
     ) accounts
   );
   lantian.harden =
-    lib.genAttrs ([ "email-oauth2-proxy" ] ++ map (name: "imapfilter-${name}") accounts)
-      (_: {
+    lib.genAttrs (map (name: "imapfilter-${name}") accounts) (_: {
+      enable = true;
+    })
+    // {
+      email-oauth2-proxy = {
         enable = true;
-      });
+        enableTripwire = true;
+      };
+    };
 
   users.users.email-oauth2-proxy = {
     group = "email-oauth2-proxy";

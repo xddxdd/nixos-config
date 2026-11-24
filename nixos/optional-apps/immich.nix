@@ -69,7 +69,10 @@
       redis = "immich";
     };
 
-    lantian.harden.immich-machine-learning.enable = true;
+    lantian.harden.immich-machine-learning = {
+      enable = true;
+      enableTripwire = true;
+    };
 
     systemd.tmpfiles.settings = {
       immich = {

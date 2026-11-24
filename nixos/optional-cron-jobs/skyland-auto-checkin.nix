@@ -42,11 +42,14 @@ in
 
     script = ''
       set -euo pipefail
-      export SKYLAND_TOKEN=$(cat /var/lib/skyland-auto-checkin/token.txt)
+      export SKYLAND_TOKEN=$(< /var/lib/skyland-auto-checkin/token.txt)
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
-  lantian.harden.skyland-auto-checkin.enable = true;
+  lantian.harden.skyland-auto-checkin = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.skyland-auto-checkin = {
     wantedBy = [ "timers.target" ];

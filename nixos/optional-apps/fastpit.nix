@@ -24,7 +24,10 @@ in
       Group = "fastpit";
     };
   };
-  lantian.harden.fastpit.enable = true;
+  lantian.harden.fastpit = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.nginxVhosts."posts.lantian.pub" = {
     locations = {

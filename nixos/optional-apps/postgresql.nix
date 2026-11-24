@@ -106,6 +106,7 @@ in
   };
   lantian.harden.prometheus-postgres-exporter = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
   };
 

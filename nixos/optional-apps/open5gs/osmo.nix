@@ -59,6 +59,12 @@
     };
   };
 
-  lantian.harden.osmo-hlr.enable = true;
-  lantian.harden.osmo-msc.enable = true;
+  lantian.harden.osmo-hlr = {
+    enable = true;
+    enableTripwire = true;
+  };
+  lantian.harden.osmo-msc = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

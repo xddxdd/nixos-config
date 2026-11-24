@@ -123,5 +123,8 @@ in
     WAN.udpPorts."${LT.portStr.WGMesh.Start}-${LT.portStr.WGMesh.End}".type = "local";
   };
 
-  lantian.harden."prometheus-wireguard-exporter".enable = true;
+  lantian.harden.prometheus-wireguard-exporter = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

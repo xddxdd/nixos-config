@@ -40,6 +40,7 @@ in
 
   lantian.harden.pipewire-volume-control = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
   };
 

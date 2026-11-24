@@ -39,6 +39,7 @@
 
   lantian.harden.sakura-share = {
     enable = true;
+    enableTripwire = true;
     secret = true; # sops environment file below /run/secrets
   };
 

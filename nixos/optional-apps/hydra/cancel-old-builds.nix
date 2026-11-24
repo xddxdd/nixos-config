@@ -15,7 +15,7 @@ in
       USERNAME = "scripts";
     };
     script = ''
-      export PASSWORD=$(cat $CREDENTIALS_DIRECTORY/password)
+      export PASSWORD=$(< "$CREDENTIALS_DIRECTORY/password")
       exec ${lib.getExe py} ${./cancel-old-builds.py}
     '';
     serviceConfig = {
@@ -25,7 +25,10 @@ in
     };
     after = [ "network.target" ];
   };
-  lantian.harden.hydra-cancel-old-builds.enable = true;
+  lantian.harden.hydra-cancel-old-builds = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.hydra-cancel-old-builds = {
     wantedBy = [ "timers.target" ];

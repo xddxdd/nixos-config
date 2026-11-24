@@ -98,7 +98,10 @@ in
       BindPaths = [ "/run/pipewire" ];
     };
   };
-  lantian.harden.pipewire-auto-start.enable = lib.mkIf (cfg.enable && cfg.systemWide) true;
+  lantian.harden.pipewire-auto-start = lib.mkIf (cfg.enable && cfg.systemWide) {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.harden.pipewire = lib.mkIf (cfg.enable && cfg.systemWide) {
     realtime = true;

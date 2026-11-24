@@ -240,8 +240,6 @@ in
             enableDefaultPath = false;
             # lowPrio only handles package collisions; mkAfter orders PATH entries.
             path = lib.mkAfter [ (lib.lowPrio pkgs.base-commands) ];
-            after = [ "audit-rules-nixos.service" ];
-            requires = [ "audit-rules-nixos.service" ];
           })
           (lib.mkIf cfg.realtime {
             serviceConfig = lib.mapAttrs (_: lib.mkOptionDefault) realtimeArgs;

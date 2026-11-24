@@ -28,7 +28,10 @@ in
     requires = [ "sonarr.service" ];
   };
 
-  lantian.harden.sonarr-queue-cleanup.enable = true;
+  lantian.harden.sonarr-queue-cleanup = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.sonarr-queue-cleanup = {
     wantedBy = [ "timers.target" ];

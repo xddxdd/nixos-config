@@ -70,9 +70,9 @@ in
 
     script = ''
       set -euo pipefail
-      TTN_IP=$(${lib.getExe' pkgs.dnsutils "dig"} +short nam1.cloud.thethings.network | head -n1)
+      TTN_IP=$(${lib.getExe' pkgs.dnsutils "dig"} +short nam1.cloud.thethings.network | ${lib.getExe' pkgs.coreutils "head"} -n1)
 
-      sleep infinity | ${lib.getExe' gwmp-mux "gwmp-mux"} \
+      ${lib.getExe' pkgs.coreutils "sleep"} infinity | ${lib.getExe' gwmp-mux "gwmp-mux"} \
         --host 1681 \
         --client $TTN_IP:1700
     '';
@@ -84,7 +84,10 @@ in
     };
   };
 
-  lantian.harden."lora-gwmp-mux".enable = true;
+  lantian.harden.lora-gwmp-mux = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.services.lora-sx1302-hal = {
     description = "LoRa SX1302 HAL";

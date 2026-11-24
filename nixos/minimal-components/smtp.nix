@@ -2,6 +2,7 @@
   pkgs,
   LT,
   config,
+  lib,
   ...
 }:
 {
@@ -28,7 +29,7 @@
       port = 587;
       from = "postmaster@lantian.pub";
       user = "3BWqcaJjWk";
-      passwordeval = "cat ${config.sops.secrets.smtp-pass.path}";
+      passwordeval = "${pkgs.coreutils}/bin/cat ${lib.escapeShellArg config.sops.secrets.smtp-pass.path}";
       tls = true;
       tls_starttls = true;
       tls_trust_file = "/etc/ssl/certs/ca-certificates.crt";

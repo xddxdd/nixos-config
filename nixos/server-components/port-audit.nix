@@ -17,7 +17,10 @@
     unitConfig.OnFailure = "notify-email@%n.service";
   };
 
-  lantian.harden.port-audit.enable = true;
+  lantian.harden.port-audit = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.port-audit = {
     wantedBy = [ "timers.target" ];

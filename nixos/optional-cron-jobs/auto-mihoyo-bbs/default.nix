@@ -36,13 +36,16 @@ in
     after = [ "network.target" ];
     script = ''
       set -euo pipefail
-      export AutoMihoyoBBS_appkey=$(cat /var/lib/auto-mihoyo-bbs/appkey)
-      grep -E "^enable: true" config.yaml
-      sed -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml || true
+      export AutoMihoyoBBS_appkey=$(< /var/lib/auto-mihoyo-bbs/appkey)
+      ${lib.getExe' pkgs.gnugrep "grep"} -E "^enable: true" config.yaml
+      ${lib.getExe' pkgs.gnused "sed"} -i "s/auto_checkin: false/auto_checkin: true/g" config.yaml || true
       exec ${lib.getExe py} ${files}/main.py
     '';
   };
-  lantian.harden.auto-mihoyo-bbs.enable = true;
+  lantian.harden.auto-mihoyo-bbs = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.auto-mihoyo-bbs = {
     wantedBy = [ "timers.target" ];

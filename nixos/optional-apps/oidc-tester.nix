@@ -27,7 +27,7 @@ in
         --public-url https://oidc-tester.lantian.pub/ \
         --id oidc-tester \
         --issuer https://login.lantian.pub \
-        --secret "$(cat $CREDENTIALS_DIRECTORY/secret)"
+        --secret "$(< "$CREDENTIALS_DIRECTORY/secret")"
     '';
 
     serviceConfig = {
@@ -43,7 +43,10 @@ in
       ];
     };
   };
-  lantian.harden.oidc-tester.enable = true;
+  lantian.harden.oidc-tester = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.oidc-tester = {
     group = "oidc-tester";

@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   LT,
@@ -161,7 +162,10 @@ in
       BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
-  lantian.harden.prometheus-bird-exporter.enable = true;
+  lantian.harden.prometheus-bird-exporter = {
+    enable = true;
+    enableTripwire = config.services.prometheus.exporters.bird.enable;
+  };
 
   systemd.services.bird-lgproxy-go = {
     enable = LT.this.hasTag LT.tags.server && LT.this.hasTag LT.tags.dn42;
@@ -173,9 +177,7 @@ in
       BIRDLG_LISTEN = "${LT.this.ltnet.IPv4}:8000";
       BIRDLG_TRACEROUTE_BIN = lib.getExe' pkgs.traceroute "traceroute";
     };
-    unitConfig = {
-      After = "bird.service";
-    };
+    after = [ "bird.service" ];
     serviceConfig = {
       Type = "simple";
       Restart = "always";
@@ -202,5 +204,8 @@ in
       BindReadOnlyPaths = [ "/run/bird" ];
     };
   };
-  lantian.harden.bird-lgproxy-go.enable = true;
+  lantian.harden.bird-lgproxy-go = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

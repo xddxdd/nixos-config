@@ -70,6 +70,7 @@
   users.groups.pocket-id.members = [ "nginx" ];
   lantian.harden.pocket-id = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
     etc.geoip = true;
   };

@@ -42,9 +42,7 @@
       description = "Route Chain";
       wantedBy = [ "multi-user.target" ];
       environment.IFNAME = "route-chain";
-      unitConfig = {
-        After = "network.target";
-      };
+      after = [ "network.target" ];
       serviceConfig = {
         Type = "simple";
         Restart = "always";
@@ -59,7 +57,10 @@
         PrivateUsers = false;
       };
     };
-    lantian.harden.route-chain.enable = "network";
+    lantian.harden.route-chain = {
+      enable = "network";
+      enableTripwire = config.services.route-chain.enable;
+    };
 
     users.users.route-chain = {
       isSystemUser = true;

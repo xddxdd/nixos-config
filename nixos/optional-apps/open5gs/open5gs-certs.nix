@@ -7,11 +7,11 @@
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ openssl ];
     script = ''
-      mkdir -p demoCA
+      ${pkgs.coreutils}/bin/mkdir -p demoCA
       if [ ! -f "demoCA/serial" ]; then
         echo 01 > demoCA/serial
       fi
-      touch demoCA/index.txt
+      ${pkgs.coreutils}/bin/touch demoCA/index.txt
 
       # CA self certificate
       if [ ! -f "ca.crt" ]; then
@@ -40,5 +40,8 @@
       WorkingDirectory = "/var/lib/open5gs-certs";
     };
   };
-  lantian.harden.open5gs-certs.enable = true;
+  lantian.harden.open5gs-certs = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

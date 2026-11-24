@@ -41,7 +41,10 @@ in
       RestartSec = "5";
     };
   };
-  lantian.harden.dlx.enable = true;
+  lantian.harden.dlx = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.dlx = {
     group = "dlx";

@@ -76,6 +76,7 @@
   };
   lantian.harden.prometheus-exportarr-bazarr-exporter = {
     enable = true;
+    enableTripwire = true;
   };
 
   lantian.firewall.zones = {

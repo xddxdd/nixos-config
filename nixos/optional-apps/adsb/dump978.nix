@@ -32,5 +32,8 @@
     };
   };
 
-  lantian.harden.dump978.enable = true;
+  lantian.harden.dump978 = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

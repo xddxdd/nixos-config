@@ -38,7 +38,10 @@ in
       RestartSec = "5";
     };
   };
-  lantian.harden.nmea-static-gps-server.enable = true;
+  lantian.harden.nmea-static-gps-server = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   # Announce NMEA service via mDNS so LAN clients can discover it
   services.avahi.extraServiceFiles = {

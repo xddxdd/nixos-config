@@ -13,7 +13,10 @@
     # Reads ACME cert files
     BindReadOnlyPaths = [ "/nix/sync-servers" ];
   };
-  lantian.harden.prometheus-node-cert-exporter.enable = true;
+  lantian.harden.prometheus-node-cert-exporter = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.firewall.zones = {
     LTNET.tcpPorts."${LT.portStr.Prometheus.NodeCertExporter}".type = "local";

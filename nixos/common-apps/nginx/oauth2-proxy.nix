@@ -61,5 +61,8 @@
       UMask = "007";
     };
   };
-  lantian.harden.oauth2-proxy.enable = config.services.oauth2-proxy.enable;
+  lantian.harden.oauth2-proxy = {
+    inherit (config.services.oauth2-proxy) enable;
+    enableTripwire = config.services.oauth2-proxy.enable;
+  };
 }

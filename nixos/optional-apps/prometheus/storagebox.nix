@@ -21,7 +21,10 @@
   systemd.services.prometheus-storagebox-exporter.serviceConfig = {
     DynamicUser = lib.mkForce false;
   };
-  lantian.harden.prometheus-storagebox-exporter.enable = true;
+  lantian.harden.prometheus-storagebox-exporter = {
+    enable = true;
+    enableTripwire = true;
+  };
   users.users.storagebox-exporter = {
     group = "storagebox-exporter";
     isSystemUser = true;

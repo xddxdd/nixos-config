@@ -209,6 +209,7 @@ in
         "static/hydra" = true;
       };
       hydra-ws = {
+        enableTripwire = true;
         postgresql = true;
         etc = {
           hydra = true;
@@ -222,7 +223,10 @@ in
           "static/nix" = true;
         };
       };
-      hydra-attic-repush.enable = true;
+      hydra-attic-repush = {
+        enable = true;
+        enableTripwire = true;
+      };
     }
   ];
 
@@ -381,8 +385,8 @@ in
       hydra-attic-repush = {
         script = ''
           (for F in /nix/var/nix/gcroots/hydra/*; do
-            echo "/nix/store/$(basename "$F")"
-          done) | xargs -n10 ${lib.getExe pkgs.attic-client} push lantian || true
+            echo "/nix/store/''${F##*/}"
+          done) | ${pkgs.findutils}/bin/xargs -n10 ${lib.getExe pkgs.attic-client} push lantian || true
         '';
         serviceConfig = {
           Type = "oneshot";

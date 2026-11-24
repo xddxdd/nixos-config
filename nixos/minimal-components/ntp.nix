@@ -20,7 +20,10 @@ in
     # Clock adjustment needs host-level capabilities
     PrivateUsers = false;
   };
-  lantian.harden.ntpd-rs.enable = true;
+  lantian.harden.ntpd-rs = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   services.ntpd-rs = {
     enable = true;

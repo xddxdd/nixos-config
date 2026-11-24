@@ -51,7 +51,10 @@
       };
     };
 
-    lantian.harden."dn42-peerfinder".enable = true;
+    lantian.harden.dn42-peerfinder = {
+      enable = true;
+      enableTripwire = true;
+    };
 
     users.users.dn42-peerfinder = {
       group = "dn42-peerfinder";

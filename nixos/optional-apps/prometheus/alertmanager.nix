@@ -230,6 +230,7 @@ in
   };
   lantian.harden.vmalert = {
     enable = true;
+    enableTripwire = true;
     etc."vmalert/rules.yml" = true;
   };
 

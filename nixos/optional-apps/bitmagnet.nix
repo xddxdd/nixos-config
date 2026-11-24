@@ -76,14 +76,17 @@ in
   lantian.harden = {
     bitmagnet-http = {
       enable = true;
+      enableTripwire = true;
       postgresql = true;
     };
     bitmagnet-queue = {
       enable = true;
+      enableTripwire = true;
       postgresql = true;
     };
     bitmagnet-dht = {
       enable = true;
+      enableTripwire = true;
       postgresql = true;
     };
   };

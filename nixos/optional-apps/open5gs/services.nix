@@ -83,20 +83,32 @@ in
     }) services
   );
 
-  lantian.harden = lib.listToAttrs (
-    map (
-      svc:
-      lib.nameValuePair "open5gs-${svc}d" {
-        enable = true;
-        # freeDiameter configs and extension modules are read from /etc at
-        # runtime; bind the real store files into the confinement chroot.
-        etc = lib.optionalAttrs (builtins.pathExists ./freeDiameter/${svc}.conf) {
-          "freeDiameter/${svc}.conf" = true;
-          "freeDiameter/lib" = true;
-        };
-      }
-    ) services
-  );
+  lantian.harden = lib.mkMerge [
+    (lib.listToAttrs (
+      map (
+        svc:
+        lib.nameValuePair "open5gs-${svc}d" {
+          enable = true;
+          # freeDiameter configs and extension modules are read from /etc at
+          # runtime; bind the real store files into the confinement chroot.
+          etc = lib.optionalAttrs (builtins.pathExists ./freeDiameter/${svc}.conf) {
+            "freeDiameter/${svc}.conf" = true;
+            "freeDiameter/lib" = true;
+          };
+        }
+      ) services
+    ))
+    {
+      open5gs-mmed.enableTripwire = true;
+      open5gs-nrfd.enableTripwire = true;
+      open5gs-pcrfd.enableTripwire = true;
+      open5gs-scpd.enableTripwire = true;
+      open5gs-sgwcd.enableTripwire = true;
+      open5gs-sgwud.enableTripwire = true;
+      open5gs-smfd.enableTripwire = true;
+      open5gs-upfd.enableTripwire = true;
+    }
+  ];
 
   users.users.open5gs = {
     group = "open5gs";

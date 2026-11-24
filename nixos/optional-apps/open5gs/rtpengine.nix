@@ -112,7 +112,10 @@ in
     };
   };
 
-  lantian.harden.rtpengine.enable = true;
+  lantian.harden.rtpengine = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.rtpengine = {
     group = "rtpengine";

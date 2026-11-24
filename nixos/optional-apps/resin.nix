@@ -44,7 +44,10 @@
       WorkingDirectory = "/var/lib/resin";
     };
   };
-  lantian.harden.resin.enable = true;
+  lantian.harden.resin = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.firewall.zones = {
     LTNET.tcpPorts."${LT.portStr.Resin}".type = "local";

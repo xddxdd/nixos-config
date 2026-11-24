@@ -289,6 +289,7 @@ lib.mkIf (LT.this.hasTag LT.tags.cn-accel) {
   };
   lantian.harden."openvpn-gameaccel" = {
     enable = "network";
+    enableTripwire = true;
     passwd = true;
   };
 }

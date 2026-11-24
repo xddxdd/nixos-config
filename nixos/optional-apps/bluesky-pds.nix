@@ -38,6 +38,7 @@
 
   lantian.harden.bluesky-pds = {
     enable = true;
+    enableTripwire = true;
     secret = true;
   };
 

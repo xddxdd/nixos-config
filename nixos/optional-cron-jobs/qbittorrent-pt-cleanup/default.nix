@@ -32,7 +32,10 @@ in
     requires = [ "qbittorrent-pt.service" ];
   };
 
-  lantian.harden.qbittorrent-pt-cleanup.enable = true;
+  lantian.harden.qbittorrent-pt-cleanup = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.qbittorrent-pt-cleanup = {
     wantedBy = [ "timers.target" ];

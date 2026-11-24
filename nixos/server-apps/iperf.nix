@@ -28,7 +28,10 @@
       RestartSec = lib.mkForce "5s";
     };
   };
-  lantian.harden.iperf3.enable = true;
+  lantian.harden.iperf3 = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.firewall.zones = {
     LTNET.tcpPorts."${LT.portStr.IPerf}".type = "local";

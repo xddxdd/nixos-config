@@ -172,6 +172,7 @@ in
   };
   lantian.harden.qbittorrent = {
     enable = true;
+    enableTripwire = true;
     etc = {
       "resolv.conf" = "/etc/netns/tnl-buyvm/resolv.conf";
       hosts = true;

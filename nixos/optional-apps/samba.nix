@@ -137,7 +137,10 @@ in
       enableConfinement = false;
     })
     // {
-      samba-wsdd.enable = true;
+      samba-wsdd = {
+        enable = true;
+        enableTripwire = true;
+      };
     };
 
   systemd.tmpfiles.settings.samba = {

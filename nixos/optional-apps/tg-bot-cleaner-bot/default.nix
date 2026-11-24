@@ -33,7 +33,10 @@ in
       exec ${python}/bin/python3 -u ${./script.py}
     '';
   };
-  lantian.harden.tg-bot-cleaner-bot.enable = true;
+  lantian.harden.tg-bot-cleaner-bot = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.tg-bot-cleaner-bot = {
     group = "tg-bot-cleaner-bot";

@@ -41,7 +41,10 @@
       BindPaths = [ "/var/lib/fastapi-dls" ];
     };
   };
-  lantian.harden.fastapi-dls.enable = true;
+  lantian.harden.fastapi-dls = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.localVhosts."fastapi-dls" = {
     locations = {

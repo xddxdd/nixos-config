@@ -1,4 +1,5 @@
 {
+  config,
   serviceHardenArgs,
   LT,
   ...
@@ -22,6 +23,7 @@
 
   lantian.harden."prometheus-node-exporter" = {
     enable = true;
+    enableTripwire = config.services.prometheus.exporters.node.enable;
     etc."os-release" = true;
   };
 

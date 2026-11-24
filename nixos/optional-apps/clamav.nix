@@ -1,4 +1,5 @@
-_: {
+{ config, ... }:
+{
   services.clamav = {
     daemon.enable = true;
     updater.enable = true;
@@ -18,6 +19,7 @@ _: {
   };
   lantian.harden.clamav-daemon = {
     enable = true;
+    enableTripwire = config.services.clamav.daemon.enable;
     etc."clamav/clamd.conf" = true;
   };
   systemd.services.clamav-freshclam.requires = [ "network-online.target" ];

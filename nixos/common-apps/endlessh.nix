@@ -54,5 +54,6 @@ in
   lantian.harden.endlessh = {
     enable = true;
     enableConfinement = false;
+    enableTripwire = true;
   };
 }

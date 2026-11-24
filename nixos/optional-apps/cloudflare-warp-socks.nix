@@ -13,7 +13,7 @@
 
     preStart = ''
       if [ ! -f config.json ]; then
-        yes | ${lib.getExe pkgs.nur-xddxdd.usque} register
+        ${pkgs.coreutils}/bin/yes | ${lib.getExe pkgs.nur-xddxdd.usque} register
       fi
     '';
 
@@ -33,6 +33,7 @@
 
   lantian.harden.usque = {
     enable = true;
+    enableTripwire = true;
     enableConfinement = false;
   };
 

@@ -28,7 +28,10 @@ in
     };
     after = [ "network.target" ];
   };
-  lantian.harden.new-api-checkin.enable = true;
+  lantian.harden.new-api-checkin = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.new-api-checkin = {
     wantedBy = [ "timers.target" ];

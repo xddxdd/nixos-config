@@ -16,14 +16,14 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
 
     preStart = ''
       if [ ! -f config.json ]; then
-        yes | ${lib.getExe pkgs.nur-xddxdd.usque} register
+        ${lib.getExe' pkgs.coreutils "yes"} | ${lib.getExe pkgs.nur-xddxdd.usque} register
       fi
     '';
 
     postStart = ''
-      while ! ip addr show usque | grep 172.16.0.2; do
+      while ! ip addr show usque | ${lib.getExe' pkgs.gnugrep "grep"} 172.16.0.2; do
         echo "Waiting for Usque to setup IP"
-        sleep 1
+        ${lib.getExe' pkgs.coreutils "sleep"} 1
       done
     ''
     + lib.optionalString (LT.this.hasTag LT.tags.ipv4-only) ''
@@ -53,7 +53,10 @@ lib.mkIf (LT.this.hasTag LT.tags.ipv4-only || LT.this.hasTag LT.tags.ipv6-only) 
       BindPaths = [ "/var/lib/usque-tun" ];
     };
   };
-  lantian.harden.usque-tun.enable = "network";
+  lantian.harden.usque-tun = {
+    enable = "network";
+    enableTripwire = true;
+  };
 
   users.users.usque = {
     group = "usque";

@@ -272,5 +272,8 @@ in
   systemd.services."prometheus-blackbox-exporter".serviceConfig = {
     RestartSec = "5s";
   };
-  lantian.harden.prometheus-blackbox-exporter.enable = true;
+  lantian.harden.prometheus-blackbox-exporter = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

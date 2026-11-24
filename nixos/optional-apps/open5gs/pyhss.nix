@@ -82,19 +82,19 @@ in
   };
   users.groups.pyhss = { };
 
-  lantian.harden =
-    lib.genAttrs
-      [
-        "pyhss-api"
-        "pyhss-diameter"
-        "pyhss-hss"
-      ]
-      (_: {
-        enable = true;
-        postgresql = true;
-        redis = "pyhss";
-        etc.pyhss = true;
-      });
+  lantian.harden = lib.mkMerge [
+    (lib.genAttrs [ "pyhss-api" "pyhss-diameter" "pyhss-hss" ] (_: {
+      enable = true;
+      postgresql = true;
+      redis = "pyhss";
+      etc.pyhss = true;
+    }))
+    {
+      pyhss-api.enableTripwire = true;
+      pyhss-diameter.enableTripwire = true;
+      pyhss-hss.enableTripwire = true;
+    }
+  ];
 
   lantian.localVhosts.pyhss = {
     accessibleBy = "private";

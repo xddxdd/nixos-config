@@ -20,5 +20,8 @@ in
       ProtectKernelTunables = false;
     };
   };
-  lantian.harden.hp-keyboard-backlight.enable = true;
+  lantian.harden.hp-keyboard-backlight = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

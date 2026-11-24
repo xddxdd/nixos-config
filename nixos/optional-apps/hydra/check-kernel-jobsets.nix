@@ -18,7 +18,10 @@ in
     unitConfig.OnFailure = "notify-email@%n.service";
     after = [ "network.target" ];
   };
-  lantian.harden.hydra-check-kernel-jobsets.enable = true;
+  lantian.harden.hydra-check-kernel-jobsets = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.hydra-check-kernel-jobsets = {
     wantedBy = [ "timers.target" ];

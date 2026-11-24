@@ -31,7 +31,10 @@
       BindPaths = [ "/root/.android:/run/adbd-home/.android" ];
     };
   };
-  lantian.harden.adbd.enable = true;
+  lantian.harden.adbd = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.lantian.extraGroups = [ "adbusers" ];
 

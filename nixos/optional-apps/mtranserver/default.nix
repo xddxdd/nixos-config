@@ -44,6 +44,7 @@ in
 
   lantian.harden.mtranserver = {
     enable = true;
+    enableTripwire = true;
   };
 
   users.users.mtranserver = {

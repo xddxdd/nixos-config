@@ -41,6 +41,7 @@ in
   };
   lantian.harden.fluidsynth = {
     enable = true;
+    enableTripwire = true;
     realtime = true;
   };
 }
