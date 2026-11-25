@@ -111,7 +111,10 @@ in
     LTNET = ltnetBirdPorts;
   };
 
-  lantian.harden.bird.enable = "network";
+  lantian.harden.bird = {
+    enable = "network";
+    enableTripwire = true;
+  };
 
   systemd.tmpfiles.settings = {
     bird-run."/run/bird".d = {

@@ -22,6 +22,7 @@
   # Upstream already chroots the daemon with the full ProtectSystem=strict set.
   lantian.harden.tor = {
     enable = true;
+    enableTripwire = true;
     enableConfinement = false;
   };
 }

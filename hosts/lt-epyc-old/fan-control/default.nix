@@ -41,6 +41,7 @@
   };
   lantian.harden.asrock-fan-control = {
     enable = true;
+    enableTripwire = true;
     realtime = true;
     cuda = true;
   };

@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.services.zerotierone.controller;
-  ztcurl = ''${lib.getExe pkgs.curl} -fsSL -H "X-ZT1-AUTH: $(cat /var/lib/zerotier-one-controller/authtoken.secret)"'';
+  ztcurl = ''${lib.getExe pkgs.curl} -fsSL -H "X-ZT1-AUTH: $(${lib.getExe' pkgs.coreutils "cat"} /var/lib/zerotier-one-controller/authtoken.secret)"'';
   zturl = "http://localhost:${builtins.toString cfg.port}";
 
   ipAssignmentPoolOptions = _: {
@@ -195,8 +195,14 @@ in
         BindPaths = [ "/var/lib/zerotier-one-controller" ];
       };
     };
-    lantian.harden.zerotierone-controller.enable = true;
-    lantian.harden.zerotierone-controller-setup.enable = true;
+    lantian.harden.zerotierone-controller = {
+      enable = true;
+      enableTripwire = true;
+    };
+    lantian.harden.zerotierone-controller-setup = {
+      enable = true;
+      enableTripwire = true;
+    };
 
     systemd.services.zerotierone-controller-setup = {
       description = "ZeroTier One Controller Setup";
@@ -209,7 +215,7 @@ in
       # fail with curl's "connection refused".
       script = ''
         until ${ztcurl} -o /dev/null "${zturl}/status"; do
-          sleep 1
+          ${lib.getExe' pkgs.coreutils "sleep"} 1
         done
       ''
       + lib.concatStrings (lib.mapAttrsToList (n: v: v._script) cfg.networks);

@@ -37,5 +37,8 @@ in
       RestartSec = "5s";
     };
   };
-  lantian.harden.scam-dn42-miner.enable = true;
+  lantian.harden.scam-dn42-miner = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

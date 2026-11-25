@@ -54,7 +54,10 @@
     BindPaths = [ "/dev/virtio-ports" ];
   };
 
-  lantian.harden.qemu-guest-agent.enable = true;
+  lantian.harden.qemu-guest-agent = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   lantian.hostType = "vm";
 }

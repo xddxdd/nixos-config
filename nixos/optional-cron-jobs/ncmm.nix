@@ -33,6 +33,7 @@ in
   };
 
   lantian.harden.ncmm.enable = true;
+  lantian.harden.ncmm.enableTripwire = true;
 
   systemd.timers.ncmm = {
     wantedBy = [ "timers.target" ];

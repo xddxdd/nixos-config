@@ -71,6 +71,7 @@
   };
   lantian.harden.netbox-rq = {
     enable = true;
+    enableTripwire = true;
     postgresql = true;
     redis = "netbox";
   };

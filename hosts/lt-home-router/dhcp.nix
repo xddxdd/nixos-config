@@ -189,6 +189,7 @@ in
   environment.etc."kea/dhcp4-server.conf".mode = "0444";
   lantian.harden.kea-dhcp4-server = {
     enable = "network";
+    enableTripwire = true;
     etc.kea = true;
   };
   systemd.services.kea-dhcp6-server.serviceConfig = {
@@ -211,6 +212,7 @@ in
   environment.etc."kea/dhcp6-server.conf".mode = "0444";
   lantian.harden.kea-dhcp6-server = {
     enable = "network";
+    enableTripwire = true;
     etc.kea = true;
   };
 }

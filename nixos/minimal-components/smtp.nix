@@ -38,6 +38,7 @@
 
   lantian.harden."notify-email@" = {
     enable = true;
+    enableTripwire = true;
     etc = {
       msmtprc = true;
     };
@@ -59,7 +60,7 @@
 
       [ "$MONITOR_SERVICE_RESULT" = "success" ] && FLAG="⭕️ SUCCESS:" || FLAG="❌ FAILURE:"
 
-      cat <<EOF | sendmail -t
+      sendmail -t <<EOF
       To: $MAILTO
       Subject: $FLAG $MONITOR_UNIT on $HOSTNAME
 

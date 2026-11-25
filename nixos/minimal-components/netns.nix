@@ -277,7 +277,11 @@ in
       )
     );
     lantian.harden = lib.mapAttrs' (
-      n: v: lib.nameValuePair "netns-bird-${n}" { enable = "network"; }
+      n: v:
+      lib.nameValuePair "netns-bird-${n}" {
+        enable = "network";
+        enableTripwire = true;
+      }
     ) config.lantian.netns;
 
     # Each namespace gets its own zone so its traffic can be matched before

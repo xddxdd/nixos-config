@@ -86,6 +86,7 @@ in
 
   lantian.harden.fcgiwrap-nginx = {
     enable = true;
+    enableTripwire = true;
     enableConfinement = false;
   };
 

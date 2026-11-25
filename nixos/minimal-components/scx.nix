@@ -56,6 +56,7 @@
   lantian.preservation.directories = [ "/root/.cache/pandemonium" ];
 
   lantian.harden.scx_loader = lib.mkIf config.services.scx-loader.enable {
+    enableTripwire = true;
     enable = true;
     realtime = true;
     enableConfinement = false;

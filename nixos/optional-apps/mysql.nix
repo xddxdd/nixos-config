@@ -107,6 +107,7 @@ in
   };
   lantian.harden.mysql = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc."my.cnf" = true;
   };

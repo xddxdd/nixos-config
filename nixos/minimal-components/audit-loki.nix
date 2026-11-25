@@ -97,7 +97,10 @@ in
         StandardError = "null";
       };
     };
-    lantian.harden.audit-loki.enable = true;
+    lantian.harden.audit-loki = {
+      enable = true;
+      enableTripwire = true;
+    };
     services.logrotate.settings.audit-loki = {
       files = [ "/run/audit-loki/forwarder.log" ];
       frequency = "hourly";

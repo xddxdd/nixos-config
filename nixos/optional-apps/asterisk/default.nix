@@ -437,6 +437,7 @@ in
   };
   lantian.harden.asterisk = {
     enable = true;
+    enableTripwire = true;
     secret = true;
     etc = lib.mapAttrs (_: _: true) (
       lib.filterAttrs (n: v: lib.hasPrefix "asterisk/" n && v.enable) config.environment.etc

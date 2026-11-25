@@ -31,7 +31,7 @@ in
       # WebUI is fronted by nginx on localhost only
       conf=/var/lib/qbittorrent-pt/qBittorrent/config/qBittorrent.conf
       if [ -f "$conf" ]; then
-        sed -i 's/^Address=\*/Address=127.0.0.1/' "$conf"
+        ${pkgs.gnused}/bin/sed -i 's/^Address=\*/Address=127.0.0.1/' "$conf"
       fi
     '';
 
@@ -70,6 +70,7 @@ in
   };
   lantian.harden.qbittorrent-pt = {
     enable = true;
+    enableTripwire = true;
     etc = {
       "resolv.conf" = lib.mkDefault true;
       hosts = lib.mkDefault true;

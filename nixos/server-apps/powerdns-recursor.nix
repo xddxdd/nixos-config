@@ -178,6 +178,7 @@ lib.mkIf (!(LT.this.hasTag LT.tags.low-ram)) {
   };
 
   lantian.harden.pdns-recursor.enable = true;
+  lantian.harden.pdns-recursor.enableTripwire = true;
 
   users.users.pdns-recursor = {
     group = "pdns-recursor";

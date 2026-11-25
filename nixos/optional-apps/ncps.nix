@@ -36,6 +36,7 @@
 
   lantian.harden.ncps = {
     enable = true;
+    enableTripwire = true;
     # OpenTelemetry resolves the service UID even when exporting is disabled.
     passwd = true;
   };

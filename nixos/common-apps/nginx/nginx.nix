@@ -289,6 +289,7 @@ in
   };
   lantian.harden.nginx = {
     enable = true;
+    enableTripwire = true;
     # App unix sockets (nginx only connects; FS permissions still apply).
     secret = true;
     etc = lib.optionalAttrs config.lantian.geoip.enable {

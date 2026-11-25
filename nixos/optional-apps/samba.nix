@@ -135,6 +135,7 @@ in
     lib.genAttrs [ "samba-nmbd" "samba-smbd" "samba-winbindd" ] (_: {
       enable = true;
       enableConfinement = false;
+      enableTripwire = true;
     })
     // {
       samba-wsdd = {

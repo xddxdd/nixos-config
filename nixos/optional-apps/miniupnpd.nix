@@ -51,4 +51,5 @@
     };
   };
   lantian.harden.miniupnpd.enable = "network";
+  lantian.harden.miniupnpd.enableTripwire = true;
 }

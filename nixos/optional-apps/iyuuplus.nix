@@ -120,9 +120,9 @@ in
     preStart = ''
       # Provision the mutable state the closure's symlinks point at; this is
       # what the app will actually write to (runtime/, vendor/, .env)
-      mkdir -p /var/lib/iyuu/runtime
+      ${pkgs.coreutils}/bin/mkdir -p /var/lib/iyuu/runtime
       if [ ! -e /var/lib/iyuu/.env ]; then
-        install -m644 -o iyuu -g iyuu ${config.sops.templates.iyuu-env.path} /var/lib/iyuu/.env
+        ${pkgs.coreutils}/bin/install -m644 -o iyuu -g iyuu ${config.sops.templates.iyuu-env.path} /var/lib/iyuu/.env
       fi
 
       # One-time cleanup of the previous git-managed deployment; the app tree
@@ -134,11 +134,11 @@ in
       # root is the read-only closure, so the vendor path comes from the env
       # and install scripts are skipped since the tree already ships its
       # config/plugin files
-      if [ "$(cat /var/lib/iyuu/vendor/.closure 2>/dev/null)" != "${iyuuplusClosure}" ]; then
+      if [ "$(${pkgs.coreutils}/bin/cat /var/lib/iyuu/vendor/.closure 2>/dev/null)" != "${iyuuplusClosure}" ]; then
         # a stale vendor (partial install, or the old store symlink farm whose
         # links resolve nowhere) breaks composer's own state files
-        rm -rf /var/lib/iyuu/vendor
-        mkdir -p /var/lib/iyuu/vendor /var/lib/iyuu/cache
+        ${pkgs.coreutils}/bin/rm -rf /var/lib/iyuu/vendor
+        ${pkgs.coreutils}/bin/mkdir -p /var/lib/iyuu/vendor /var/lib/iyuu/cache
         COMPOSER_VENDOR_DIR=/var/lib/iyuu/vendor \
         COMPOSER_CACHE_DIR=/var/lib/iyuu/cache \
           ${pkgs.php83Packages.composer}/bin/composer install \
@@ -169,6 +169,7 @@ in
 
   lantian.harden.iyuuplus = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     mysql = true;
   };

@@ -169,6 +169,7 @@ in
   lantian.harden = lib.mkMerge [
     (lib.genAttrs hydraServices (_: {
       enable = true;
+      enableTripwire = true;
       passwd = true;
     }))
     {
@@ -209,7 +210,6 @@ in
         "static/hydra" = true;
       };
       hydra-ws = {
-        enableTripwire = true;
         postgresql = true;
         etc = {
           hydra = true;

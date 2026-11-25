@@ -41,9 +41,18 @@
     PrivateDevices = false;
     PrivateUsers = lib.mkForce false;
     BindPaths = [ "/var/lib/tayga" ];
+    # nixpkgs sets CapabilityBoundingSet = "" for its DynamicUser design, which
+    # makes systemd drop the AmbientCapabilities granted by the network preset;
+    # tayga then fails TUNSETIFF on /dev/net/tun with EPERM.
+    CapabilityBoundingSet = lib.mkForce [
+      "CAP_NET_ADMIN"
+      "CAP_NET_BIND_SERVICE"
+      "CAP_NET_RAW"
+    ];
   };
   lantian.harden.tayga = {
     enable = "network";
+    enableTripwire = true;
     # Config file is a symlink chain resolved outside the confinement chroot.
     etc."tayga.conf" = true;
   };

@@ -39,6 +39,7 @@
   };
   lantian.harden.sonarr = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc = {
       "resolv.conf" = true;

@@ -207,6 +207,7 @@ in
 
     lantian.harden.llama-swap = {
       enable = true;
+      enableTripwire = true;
       cuda = true;
       secret = true; # rootful podman socket
     };

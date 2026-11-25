@@ -66,7 +66,10 @@ in
 
     environment.CPA_REDUCTANT_MODEL_DIR = "${cpa-reductant-model}";
   };
-  lantian.harden.cliproxyapi.enable = true;
+  lantian.harden.cliproxyapi = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.cliproxyapi = {
     group = "cliproxyapi";

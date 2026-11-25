@@ -158,6 +158,7 @@ in
   };
   lantian.harden.auditd = {
     enable = true;
+    enableTripwire = true;
     # Bind the generated audit configuration alongside the standard /etc files.
     etc = lib.mapAttrs (_: _: true) auditFiles;
   };

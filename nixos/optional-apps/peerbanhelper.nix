@@ -30,6 +30,7 @@
     };
   };
   lantian.harden.peerbanhelper.enable = true;
+  lantian.harden.peerbanhelper.enableTripwire = true;
 
   lantian.localVhosts.peerbanhelper = {
     locations = {

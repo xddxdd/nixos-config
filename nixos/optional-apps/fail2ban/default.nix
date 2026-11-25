@@ -30,6 +30,8 @@
     jails.sshd.settings.enable = lib.mkForce false;
   };
 
+  systemd.services.fail2ban.path = [ pkgs.gnugrep ];
+
   systemd.services.fail2ban.serviceConfig.RestrictAddressFamilies = [
     "AF_UNIX"
     "AF_INET"
@@ -39,6 +41,7 @@
 
   lantian.harden.fail2ban = {
     enable = true;
+    enableTripwire = true;
     enableConfinement = false;
   };
 }

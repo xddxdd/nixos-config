@@ -91,6 +91,7 @@ in
   lantian.harden =
     lib.genAttrs (map (name: "imapfilter-${name}") accounts) (_: {
       enable = true;
+      enableTripwire = true;
     })
     // {
       email-oauth2-proxy = {

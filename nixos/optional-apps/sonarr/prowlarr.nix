@@ -39,6 +39,7 @@
   };
   lantian.harden.prowlarr = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc = {
       "resolv.conf" = true;

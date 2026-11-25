@@ -102,6 +102,7 @@
   lantian.harden.fluent-bit = {
     enable = config.services.fluent-bit.enable;
     enableConfinement = config.services.fluent-bit.enable;
+    enableTripwire = config.services.fluent-bit.enable;
   };
 
   users.users.fluent-bit = lib.mkIf config.services.fluent-bit.enable {

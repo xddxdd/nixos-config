@@ -6,6 +6,9 @@
 {
   systemd.services.rsgain-cloudmusic = {
     path = [
+      pkgs.coreutils
+      pkgs.findutils
+      pkgs.gnugrep
       pkgs.parallel
       pkgs.rsgain
     ];
@@ -49,6 +52,7 @@
 
   lantian.harden.rsgain-cloudmusic = {
     enable = true;
+    enableTripwire = true;
     enableConfinement = false;
   };
 

@@ -145,6 +145,7 @@ in
     "pm.status_path" = "/status";
   };
   lantian.harden.phpfpm-nextcloud = {
+    enableTripwire = lib.mkForce false;
     etc.msmtprc = true;
     # Oracle instant client requires the CERTIFICATE-only bundle; bind the
     # generated bundle directly, like the harden /etc/ssl defaults do
@@ -166,6 +167,7 @@ in
   };
   lantian.harden.nextcloud-cron = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc."nsswitch.conf" = true;
     # Oracle instant client requires the CERTIFICATE-only bundle; bind the
@@ -175,6 +177,7 @@ in
   };
   lantian.harden.nextcloud-update-db = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc."nsswitch.conf" = true;
     etc."pki/tls/cert.pem" = oracleCaBundle;

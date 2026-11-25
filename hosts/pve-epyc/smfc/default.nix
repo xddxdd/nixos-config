@@ -27,6 +27,7 @@
   };
   lantian.harden.smfc = {
     enable = true;
+    enableTripwire = true;
     realtime = true;
   };
 }

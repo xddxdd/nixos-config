@@ -107,7 +107,10 @@ in
           "${lib.getExe pkgs.python3} ${./update-config.py} ${settingsJSON} /var/lib/syncthing/config.xml ${lib.getExe config.services.syncthing.package}";
       };
     };
-    lantian.harden.syncthing.enable = true;
+    lantian.harden.syncthing = {
+      enable = true;
+      enableTripwire = true;
+    };
 
     # Replaced by custom config script
     systemd.services.syncthing-init.enable = lib.mkForce false;

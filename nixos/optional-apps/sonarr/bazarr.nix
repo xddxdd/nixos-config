@@ -29,6 +29,7 @@
   };
   lantian.harden.bazarr = {
     enable = true;
+    enableTripwire = true;
     passwd = true;
     etc = {
       "resolv.conf" = true;

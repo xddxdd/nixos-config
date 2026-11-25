@@ -132,11 +132,11 @@ in
     ];
 
     script = ''
-      for i in $(seq 1 5); do
-        if netstat -anp | grep gwmp-mux | grep ESTABLISHED >/dev/null; then
+      for i in $(${lib.getExe' pkgs.coreutils "seq"} 1 5); do
+        if netstat -anp | ${lib.getExe pkgs.gnugrep} gwmp-mux | ${lib.getExe pkgs.gnugrep} ESTABLISHED >/dev/null; then
           exit 0
         else
-          sleep 60
+          ${lib.getExe' pkgs.coreutils "sleep"} 60
         fi
       done
 
@@ -159,7 +159,10 @@ in
     };
   };
 
-  lantian.harden."lora-watchdog".enable = true;
+  lantian.harden."lora-watchdog" = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.timers.lora-watchdog = {
     wantedBy = [ "timers.target" ];

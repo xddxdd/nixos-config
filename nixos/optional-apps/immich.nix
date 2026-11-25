@@ -65,6 +65,7 @@
     };
     lantian.harden.immich-server = {
       enable = true;
+      enableTripwire = true;
       postgresql = true;
       redis = "immich";
     };

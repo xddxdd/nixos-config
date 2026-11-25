@@ -31,6 +31,7 @@
   };
   lantian.harden.bgp-flowspec = {
     enable = "network";
+    enableTripwire = true;
     enableConfinement = false;
   };
 }

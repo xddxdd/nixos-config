@@ -137,7 +137,11 @@ in
     {
       systemd.services = lib.mapAttrs' mkInstance config.services.stayrtr;
       lantian.harden = lib.mapAttrs' (
-        n: v: lib.nameValuePair "stayrtr-${n}" { enable = true; }
+        n: v:
+        lib.nameValuePair "stayrtr-${n}" {
+          enable = true;
+          enableTripwire = true;
+        }
       ) config.services.stayrtr;
     }
   ];

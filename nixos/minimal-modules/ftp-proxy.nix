@@ -19,6 +19,7 @@
   };
 
   config.lantian.harden.ftp-proxy.enable = true;
+  config.lantian.harden.ftp-proxy.enableTripwire = true;
   config.systemd.services.ftp-proxy = {
     inherit (config.services."ftp-proxy") enable;
     description = "FTP Proxy";

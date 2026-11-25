@@ -19,4 +19,5 @@
     PrivateDevices = false;
   };
   lantian.harden."prometheus-smartctl-exporter".enable = true;
+  lantian.harden."prometheus-smartctl-exporter".enableTripwire = true;
 }

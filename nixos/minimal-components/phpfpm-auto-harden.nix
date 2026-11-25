@@ -52,6 +52,7 @@ in
       name: _:
       lib.nameValuePair "phpfpm-${name}" {
         enable = true;
+        enableTripwire = true;
         passwd = true;
         etc."nsswitch.conf" = true;
       }

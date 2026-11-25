@@ -120,6 +120,7 @@ in
 
   lantian.harden.wordpress-cron = {
     enable = true;
+    enableTripwire = true;
     mysql = true;
   };
 

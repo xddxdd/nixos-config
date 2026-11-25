@@ -42,6 +42,7 @@
   };
   lantian.harden.clickhouse = {
     enable = true;
+    enableTripwire = true;
     etc = {
       "clickhouse-server" = true;
       "static/clickhouse-server" = true;

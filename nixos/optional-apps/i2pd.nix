@@ -1,5 +1,6 @@
 {
   LT,
+  pkgs,
   ...
 }:
 {
@@ -36,4 +37,9 @@
     RestartSec = "5s";
   };
   lantian.harden.i2pd.enable = true;
+  lantian.harden.i2pd.enableTripwire = true;
+  # The upstream credential loader script resolves coreutils from PATH, so keep
+  # them available ahead of the tripwire decoys; the unit itself only runs
+  # absolute binaries.
+  systemd.services.i2pd.path = [ pkgs.coreutils ];
 }

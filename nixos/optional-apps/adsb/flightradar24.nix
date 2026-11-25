@@ -28,7 +28,7 @@
     script = ''
       exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24feed/decoder.txt \
-        --fr24key="$(cat "$CREDENTIALS_DIRECTORY/fr24key")" \
+        --fr24key="$(<"$CREDENTIALS_DIRECTORY/fr24key")" \
         --bs=no \
         --raw=no \
         --mlat=no \
@@ -61,7 +61,10 @@
       RestartSec = "5";
     };
   };
-  lantian.harden.fr24feed.enable = true;
+  lantian.harden.fr24feed = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.services.fr24uat-feed = {
     description = "Flightradar24 UAT Feeder";
@@ -77,7 +80,7 @@
     script = ''
       exec ${lib.getExe pkgs.nur-xddxdd.fr24feed} \
         --monitor-file=/run/fr24uat-feed/decoder.txt \
-        --fr24key="$(cat "$CREDENTIALS_DIRECTORY/fr24key-uat")" \
+        --fr24key="$(<"$CREDENTIALS_DIRECTORY/fr24key-uat")" \
         --http-listen-port=8755 \
         --unit=fr24uat-feed \
         --receiver=uat-tcp \
@@ -106,7 +109,10 @@
       RestartSec = "5";
     };
   };
-  lantian.harden.fr24uat-feed.enable = true;
+  lantian.harden.fr24uat-feed = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   users.users.fr24 = {
     group = "fr24";

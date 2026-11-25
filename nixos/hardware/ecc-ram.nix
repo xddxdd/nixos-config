@@ -27,7 +27,10 @@
     PrivateUsers = false;
     BindPaths = [ "/var/lib/rasdaemon" ];
   };
-  lantian.harden.rasdaemon.enable = true;
+  lantian.harden.rasdaemon = {
+    enable = true;
+    enableTripwire = true;
+  };
 
   systemd.services."prometheus-rasdaemon-exporter".serviceConfig = {
     RestartSec = "5s";
@@ -36,5 +39,8 @@
     ProtectProc = "default";
     BindReadOnlyPaths = [ "/var/lib/rasdaemon" ];
   };
-  lantian.harden."prometheus-rasdaemon-exporter".enable = true;
+  lantian.harden."prometheus-rasdaemon-exporter" = {
+    enable = true;
+    enableTripwire = true;
+  };
 }

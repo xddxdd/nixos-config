@@ -114,5 +114,6 @@ in
       };
     };
     lantian.harden.nginx-proxy.enable = true;
+    lantian.harden.nginx-proxy.enableTripwire = true;
   };
 }

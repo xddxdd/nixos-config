@@ -100,6 +100,7 @@ in
   };
   lantian.harden.grafana = {
     enable = true;
+    enableTripwire = true;
     mysql = true;
   };
 
