@@ -10,6 +10,18 @@ let
     patches = (old.patches or [ ]) ++ [ ../../patches/fluent-bit-down-chunk-ordering.patch ];
   });
   configuration = (pkgs.formats.yaml { }).generate "audit-loki.yaml" {
+    parsers = [
+      {
+        name = "audit_timestamp";
+        format = "regex";
+        # Rotated files can be re-read: use the event time, not the replay time.
+        # The outer capture preserves the entire native line, including GS enrichment.
+        regex = "^(?<log>(?:node=\\S+ )?type=\\S+ msg=audit\\((?<audit_time>[0-9]+\\.[0-9]+):[0-9]+\\):.*)$";
+        time_key = "audit_time";
+        time_format = "%s.%L";
+        time_keep = false;
+      }
+    ];
     service = {
       flush = 5;
       log_level = "error";
@@ -29,6 +41,7 @@ let
           tag = "audit";
           path = "/var/log/audit/audit.log*";
           path_key = "source";
+          parser = "audit_timestamp";
           db = "/var/lib/audit-loki/offsets.db";
           "db.sync" = "normal";
           read_from_head = true;
