@@ -113,9 +113,9 @@
   },
   {
     "pname": "noscript",
-    "version": "13.6.38",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5229642/noscript-13.6.38.xpi",
-    "hash": "sha256-ZfGtvVRScAq9nvfQr2iIVNP3BBNUSpd4KQooZzuhwok=",
+    "version": "13.6.39",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5293695/noscript-13.6.39.xpi",
+    "hash": "sha256-FcoaNiAn6qvmCUDTysfzcdrhWH/kow48fhwBrp4vBz4=",
     "addonId": "{73a6fe31-595d-460b-a920-fcc0f8843232}"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.61.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5285018/read_frog_open_ai_translator-1.61.1.xpi",
-    "hash": "sha256-8oNCoFO9JNFf0bDHmLI9F5tT6nkpv2w5PJR56sH8vPU=",
+    "version": "1.61.2",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5296343/read_frog_open_ai_translator-1.61.2.xpi",
+    "hash": "sha256-8E4bTMvFR/ajUP7ruYcyaTuxd5Tz2oVsyF4QWQjDEKY=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
