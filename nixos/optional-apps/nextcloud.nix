@@ -167,7 +167,8 @@ in
   };
   lantian.harden.nextcloud-cron = {
     enable = true;
-    enableTripwire = true;
+    # OCC 的 Symfony Console 每次运行都会调用 stty -a 探测终端，造成正常触发。
+    enableTripwire = false;
     passwd = true;
     etc."nsswitch.conf" = true;
     # Oracle instant client requires the CERTIFICATE-only bundle; bind the

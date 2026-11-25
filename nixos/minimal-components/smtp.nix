@@ -38,7 +38,8 @@
 
   lantian.harden."notify-email@" = {
     enable = true;
-    enableTripwire = true;
+    # 通知脚本需要真实 journalctl 读取失败单元的日志，因此依赖 systemd。
+    enableTripwire = false;
     etc = {
       msmtprc = true;
     };

@@ -49,8 +49,6 @@ in
   };
 
   systemd.services.ipfs = config.lantian.netns.tnl-buyvm.bind {
-    # The upstream pre-start script calls rm off PATH.
-    path = [ pkgs.coreutils ];
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = "5s";
@@ -59,7 +57,8 @@ in
     };
   };
   lantian.harden.ipfs.enable = true;
-  lantian.harden.ipfs.enableTripwire = true;
+  # 上游 pre-start 脚本通过 PATH 调用 rm，不能使用诱饵。
+  lantian.harden.ipfs.enableTripwire = false;
 
   users.users.lantian.extraGroups = [ config.services.kubo.group ];
   users.users.nginx.extraGroups = [ config.services.kubo.group ];

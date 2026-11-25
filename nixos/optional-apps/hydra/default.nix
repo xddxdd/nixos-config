@@ -167,9 +167,10 @@ in
   };
 
   lantian.harden = lib.mkMerge [
-    (lib.genAttrs hydraServices (_: {
+    (lib.genAttrs hydraServices (name: {
       enable = true;
-      enableTripwire = true;
+      # check-space 每五分钟调用两次 stat 检查磁盘空间，会正常命中诱饵。
+      enableTripwire = name != "hydra-check-space";
       passwd = true;
     }))
     {

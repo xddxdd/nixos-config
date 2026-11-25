@@ -143,6 +143,27 @@ in
       assertion = !service.confinement.enable || service.confinement.fullUnit;
       message = "${name}: confinement.enable requires confinement.fullUnit = true";
     }) config.systemd.services
+    ++ lib.mapAttrsToList (
+      name: _:
+      let
+        forbidden = lib.filter (
+          package:
+          lib.any (base: toString package == toString base || lib.getName package == lib.getName base) [
+            pkgs.coreutils
+            pkgs.findutils
+            pkgs.gnugrep
+            pkgs.gnused
+            config.systemd.package
+          ]
+        ) config.systemd.services.${name}.path;
+      in
+      {
+        assertion = forbidden == [ ];
+        message = "${name}: enableTripwire forbids base command packages in systemd.services.${name}.path (${
+          lib.concatMapStringsSep ", " lib.getName forbidden
+        }); disable tripwire instead";
+      }
+    ) (lib.filterAttrs (_: cfg: cfg.enableTripwire) config.lantian.harden)
     ++ lib.optional (lib.any (cfg: cfg.enableTripwire) (lib.attrValues config.lantian.harden)) {
       assertion = config.security.audit.enable != false && config.security.auditd.enable;
       message = "enableTripwire requires security.audit and security.auditd";

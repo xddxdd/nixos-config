@@ -161,7 +161,8 @@ in
 
   lantian.harden."lora-watchdog" = {
     enable = true;
-    enableTripwire = true;
+    # 看门狗需要真实 systemctl 重启网关，不能把 systemd 放在诱饵 PATH 前面。
+    enableTripwire = false;
   };
 
   systemd.timers.lora-watchdog = {

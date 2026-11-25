@@ -437,7 +437,8 @@ in
   };
   lantian.harden.asterisk = {
     enable = true;
-    enableTripwire = true;
+    # 启动脚本复制骨架目录并通过 coreutils/findutils 设置权限，需要真实命令。
+    enableTripwire = false;
     secret = true;
     etc = lib.mapAttrs (_: _: true) (
       lib.filterAttrs (n: v: lib.hasPrefix "asterisk/" n && v.enable) config.environment.etc

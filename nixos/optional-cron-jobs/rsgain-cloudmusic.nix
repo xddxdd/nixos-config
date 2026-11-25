@@ -6,9 +6,6 @@
 {
   systemd.services.rsgain-cloudmusic = {
     path = [
-      pkgs.coreutils
-      pkgs.findutils
-      pkgs.gnugrep
       pkgs.parallel
       pkgs.rsgain
     ];
@@ -52,7 +49,8 @@
 
   lantian.harden.rsgain-cloudmusic = {
     enable = true;
-    enableTripwire = true;
+    # 扫描与处理队列依赖 find/grep/touch/nproc 等基础命令，不能使用诱饵。
+    enableTripwire = false;
     enableConfinement = false;
   };
 

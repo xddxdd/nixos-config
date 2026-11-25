@@ -41,7 +41,8 @@
 
   lantian.harden.fail2ban = {
     enable = true;
-    enableTripwire = true;
+    # journald 后端调用 systemd-path；Python 的 libc 探测还会尝试 gcc 和 ld。
+    enableTripwire = false;
     enableConfinement = false;
   };
 }
