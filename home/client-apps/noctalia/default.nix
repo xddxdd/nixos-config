@@ -402,6 +402,7 @@ in
           "dev.noctalia.luciole"
           "firefox"
           "com.mitchellh.ghostty"
+          "herdr-app"
           "audacious"
         ];
         tray.item_size = 16.0 * iconScale;
