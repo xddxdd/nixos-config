@@ -139,6 +139,7 @@ rec {
     Ncps = 13851;
     IyuuPlus = 13878;
     LlamaSwap = 13880;
+    ComfyUI = 13881;
     Actual = 13882;
     DLX = 13888;
     GiteaActions.Cache = 13890;

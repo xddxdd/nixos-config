@@ -8,6 +8,7 @@
     ./openvswitch.nix
     ./fan-control
 
+    ../../nixos/optional-apps/comfyui
     ../../nixos/optional-apps/llama-cpp.nix
     ../../nixos/optional-apps/llama-swap
   ];
