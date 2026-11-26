@@ -71,7 +71,8 @@
   };
   lantian.harden.netbox-rq = {
     enable = true;
-    enableTripwire = true;
+    # 启动时 Django/Python 的动态库与架构探测会调用 gcc、ld 和 file。
+    enableTripwire = false;
     postgresql = true;
     redis = "netbox";
   };
