@@ -80,6 +80,7 @@ in
         "npm:pi-btw"
         "npm:pi-copy-message"
         "npm:pi-fast-resume"
+        "npm:pi-nix-build"
         "npm:pi-ollama-cloud"
         "npm:pi-secret-mask"
         "npm:pi-simplify"
