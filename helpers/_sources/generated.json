@@ -307,13 +307,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "49006a8bef2c43f08b93ba108618d8bf3cddca79",
-            "sha256": "sha256-UdOcHwpfgeF80+pPHH4KIhihR37fLXuf7m3QlKeLkXY=",
+            "rev": "f428ba308165179ee5c835f6ee56a770911f5fa4",
+            "sha256": "sha256-+foVzWDKpUtBOOKvagYlWd9lYz73kdmxeUs7Z8jJUKE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "49006a8bef2c43f08b93ba108618d8bf3cddca79"
+        "version": "f428ba308165179ee5c835f6ee56a770911f5fa4"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
