@@ -223,9 +223,13 @@ in
       };
 
       window_rule = [
+        # Umbriel 没有全局默认窗口尺寸，无 match 的规则即全局兜底；
+        # 否则 stacking 下窗口按客户端自报的 preferred size 打开（Firefox 新窗口只有 638x296）
         {
-          match.app_id = "^dev[.]noctalia[.]luciole$";
-          title_bar = "off";
+          default_floating_size = {
+            width = 0.8;
+            height = 0.8;
+          };
         }
         {
           match.app_id = "^org[.]gnome[.]Loupe$";
