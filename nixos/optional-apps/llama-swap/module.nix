@@ -250,6 +250,7 @@ let
       ''
         ${lib.getExe pkgs.nur-xddxdd.project-maya} \
         --config /var/cache/project-maya/data/project-maya/${config.lantian.maya.config}.json \
+        ${lib.optionalString (config.lantian.maya.gpus != null) "--gpus ${config.lantian.maya.gpus}"} \
         --host 127.0.0.1 --port ''${PORT}
       '';
 
@@ -431,6 +432,15 @@ in
     description = ''
       The Project Maya config to start, without .json, as the model's setup
       wrote it under data/project-maya: maya- plus the quant's key.
+    '';
+  };
+
+  options.lantian.maya.gpus = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = ''
+      GPUs Maya splits the model's layers across, as nvidia-smi numbers them
+      ("0,2"); null uses every card its config names.
     '';
   };
 

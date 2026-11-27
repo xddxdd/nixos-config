@@ -13,6 +13,10 @@
     ../../nixos/optional-apps/llama-swap
   ];
 
+  # P4 left out of Maya: 8 GB, 65 W, and the decode is bound by expert
+  # transfers rather than by the third card
+  lantian.maya.gpus = "0,2";
+
   systemd.network.networks.br0 = {
     address = [
       "192.168.0.7/24"
