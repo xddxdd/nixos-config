@@ -155,9 +155,9 @@
   },
   {
     "pname": "read-frog-open-ai-translator",
-    "version": "1.62.1",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5308531/read_frog_open_ai_translator-1.62.1.xpi",
-    "hash": "sha256-To+ebgxCPYgIO7RPJrXzvx8TexcvJWzZgVWC+8hsoT4=",
+    "version": "1.63.0",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5314134/read_frog_open_ai_translator-1.63.0.xpi",
+    "hash": "sha256-IROnIr+D5vgglgVivAGxWFYPi5QpOkhdCPO4ab4xHvU=",
     "addonId": "{bd311a81-4530-4fcc-9178-74006155461b}"
   },
   {
@@ -225,9 +225,9 @@
   },
   {
     "pname": "wappalyzer",
-    "version": "6.12.8",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5166528/wappalyzer-6.12.8.xpi",
-    "hash": "sha256-ILtgBSGQ4AIElw/J1DDlx3Vuq5Co4p8wBuefLtn477g=",
+    "version": "6.12.9",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5312683/wappalyzer-6.12.9.xpi",
+    "hash": "sha256-ezh9VsO6YOkEeJDzI6FCXsjERZwg8j5ouF/XxJI2llQ=",
     "addonId": "wappalyzer@crunchlabz.com"
   }
 ]

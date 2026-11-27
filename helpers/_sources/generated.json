@@ -297,7 +297,7 @@
     },
     "noctalia-community-plugins": {
         "cargoLock": null,
-        "date": "2026-11-25",
+        "date": "2026-11-26",
         "extract": null,
         "name": "noctalia-community-plugins",
         "passthru": null,
@@ -307,13 +307,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f428ba308165179ee5c835f6ee56a770911f5fa4",
-            "sha256": "sha256-+foVzWDKpUtBOOKvagYlWd9lYz73kdmxeUs7Z8jJUKE=",
+            "rev": "b8e6bbbed56e41daa6d8440f3305858d09083bb3",
+            "sha256": "sha256-dH//QAvegTcyAhNYhDNSAwDWcHXu4T5GJoIDovrDU58=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "f428ba308165179ee5c835f6ee56a770911f5fa4"
+        "version": "b8e6bbbed56e41daa6d8440f3305858d09083bb3"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
