@@ -57,6 +57,7 @@ rec {
       ../patches/hydra-topbar-queue-links.patch
       ../patches/hydra-evaluation-command-timeout.patch
       ../patches/hydra-disable-build-output-downloads.patch
+      ../patches/hydra-lazy-influxdb-hostname.patch
     ];
   });
   # Systemd socket activation support, from https://github.com/esnet/iperf/pull/1171
