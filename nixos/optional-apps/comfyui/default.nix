@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   inputs,
@@ -9,6 +10,12 @@ let
   models = import (inputs.secrets + "/comfyui-models.nix");
 in
 {
+  sops.secrets.comfyui-huggingface-header =
+    lib.mkIf (lib.any (model: model.authenticated or false) (lib.attrValues models))
+      {
+        sopsFile = LT.secret "comfyui.yaml";
+      };
+
   services.comfyui = {
     enable = true;
     package = pkgs.comfyui-pascal;
@@ -50,11 +57,18 @@ in
           StateDirectoryMode = "0700";
           TimeoutStartSec = "infinity";
           UMask = "0077";
+          LoadCredential = lib.optionals (model.authenticated or false) [
+            "huggingface-header:${config.sops.secrets.comfyui-huggingface-header.path}"
+          ];
         };
         script = ''
           file=/var/lib/comfyui/models/${model.path}
           mkdir -p "$(dirname "$file")"
           curl --fail --location --retry 5 --continue-at - \
+            ${
+              lib.optionalString (model.authenticated or false
+              ) ''--header "@$CREDENTIALS_DIRECTORY/huggingface-header"''
+            } \
             --output "$file.part" \
             '${model.url}'
           if ! printf '%s  %s\n' '${model.sha256}' "$file.part" | sha256sum --check -; then
