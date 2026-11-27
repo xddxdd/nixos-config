@@ -144,6 +144,11 @@ let
     }
     .${strataFamily};
 
+  # setup.py names its cache entries <family tag><size>: swift-IQ3_S, iq3_s for qwen
+  strataConfig = lib.toLower "${
+    lib.optionalString (strataFamily != "qwen") "${strataFamily}-"
+  }${strataModel}";
+
   # flags both the start and the setup take: setup is the same invocation
   # without a server to listen
   strataFlags = m: ''
@@ -158,9 +163,9 @@ let
     m:
     if (m.kind or "llama") == "strata" then
       {
-        # setup.py writes strata-<family><size>.json into its data folder once
-        # the model, its pack and its config are ready
-        guard = "!/var/cache/strata/runtime/strata/strata-*.json";
+        # setup.py writes strata-<family tag><size>.json under its runtime
+        # terminal directory once the model, its pack and its config are ready
+        guard = "!/var/cache/strata/runtime/strata/terminal/strata-${strataConfig}.json";
         command = "${lib.getExe pkgs.nur-xddxdd.strata} ${strataFlags m} --no-start";
       }
     else if (m.kind or "llama") == "maya" then
