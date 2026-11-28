@@ -238,7 +238,7 @@ in
           default_maximize = true;
         }
         {
-          match.app_id = "^firefox$|^thunderbird$";
+          match.app_id = "^firefox$|^thunderbird$|^code$|^io[.]github[.]kukuruzka165[.]materialgram$";
           default_maximize = true;
         }
         {
