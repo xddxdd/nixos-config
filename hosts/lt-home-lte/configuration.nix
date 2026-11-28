@@ -12,6 +12,8 @@
     ../../nixos/optional-apps/open5gs
   ];
 
+  lantian.backup.enable = true;
+
   networking.nameservers = lib.mkForce [ "192.168.0.1" ];
 
   systemd.network.networks.eth0 = {
