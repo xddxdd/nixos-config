@@ -9,6 +9,11 @@
   lantian.netns.osmo-hlr.ipSuffix = "32";
   lantian.netns.osmo-msc.ipSuffix = "31";
 
+  # GSUP carries the HLR location update that gates combined EPS/IMSI attach.
+  lantian.firewall.zones = {
+    NETNS_OSMO_MSC.forwardTo = [ "NETNS_OSMO_HLR" ];
+  };
+
   systemd.services.osmo-hlr = config.lantian.netns.osmo-hlr.bind {
     description = "Osmo-HLR";
     requires = [ "network.target" ];
