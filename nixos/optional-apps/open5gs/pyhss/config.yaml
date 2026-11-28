@@ -26,12 +26,6 @@ hss:
   #Your Home Mobile Network Code (Used for PLMN calcluation)
   MNC: '010'
 
-  #Enable GMLC / SLh Interface
-  SLh_enabled: True
-
-  #IMSI of Test Subscriber for Unit Checks (Optional)
-  test_sub_imsi: '001021234567890'
-
   #The maximum time to wait, in seconds, before disconnecting a client when no data is received.
   client_socket_timeout: 120
 
@@ -50,13 +44,6 @@ hss:
   #If enabled sends CLRs to old MME when new MME attaches active sub
   CancelLocationRequest_Enabled: False
 
-  #Workaround for some MMEs to force an Insert Subscriber Data request to be sent immediately after ULA
-  Insert_Subscriber_Data_Force: True
-
-  #Default Initial Filter Criteria for IMS Subscribers
-  #Jinja Formatted Template, see the example for variables passed to it.
-  Default_iFC: 'default_ifc.xml'
-
   #Default Sh User Data
   Default_Sh_UserData: 'default_sh_user_data.xml'
 
@@ -65,8 +52,10 @@ hss:
     - 'sip:scscf.ims.mnc010.mcc315.3gppnetwork.org:6060'
 
   roaming:
+    inbound:
+      reject_unknown_imsis_with: "ROAMING_NOT_ALLOWED"
     outbound:
-      # Whether or not to a subscriber to connect to an undefined network when outbound roaming.
+      # Whether or not to allow a subscriber to connect to an undefined network when outbound roaming.
       allow_undefined_networks: True
 
   # SCTP Socket Parameters
@@ -101,7 +90,6 @@ logging:
     diameter_logging_file: /var/log/pyhss_diameter.log
     geored_logging_file: /var/log/pyhss_geored.log
     metric_logging_file: /var/log/pyhss_metrics.log
-  log_to_terminal: True
   sqlalchemy_sql_echo: False
   sqlalchemy_pool_recycle: 15
   sqlalchemy_pool_size: 30
@@ -114,8 +102,6 @@ database:
   username: pyhss
   password: pyhss
   database: "pyhss?host=/run/postgresql" # for sqlite, this should be a path to the database file
-  readCacheEnabled: True
-  readCacheInterval: 60
 
 ## External Webhook Notifications
 webhooks:
@@ -127,32 +113,16 @@ webhooks:
 geored:
   enabled: False
   sync_actions: ['HSS', 'IMS', 'PCRF', 'EIR']    #What event actions should be synced
-  sync_endpoints:                         #List of PyHSS API Endpoints to update
+  endpoints:                             #List of PyHSS API Endpoints to update
     - 'http://hss01.mnc001.mcc001.3gppnetwork.org:8080'
     - 'http://hss02.mnc001.mcc001.3gppnetwork.org:8080'
 
 #Redis is required to run PyHSS. An instance running on a local network is recommended for production.
 redis:
-  # Which connection type to attempt. Valid options are: tcp, unix, sentinel
-  # tcp - Connection via a standard TCP socket to a given host and port.
-  # unix - Connect to redis via a unix socket, provided by unixSocketPath.
-  # sentinel - Connect to one or more redis sentinel hosts.
-  connectionType: 'unix'
   useUnixSocket: true
   unixSocketPath: '/run/redis-pyhss/redis.sock'
   host: localhost
   port: 16379
-  sentinel:
-    masterName: exampleMaster
-    hosts:
-      - exampleSentinel.mnc001.mcc001.3gppnetwork.org:
-        port: 6379
-        password: ''
-
-prometheus:
-  enabled: False
-  port: 8081    #If the API is run the API runs on the next port number up from this
-  async_subscriber_count: False    #If enabled the subscriber count will be updated asynchronously for Prometheus
 
 snmp:
   port: 1161
