@@ -297,7 +297,7 @@
     },
     "noctalia-community-plugins": {
         "cargoLock": null,
-        "date": "2026-11-26",
+        "date": "2026-11-27",
         "extract": null,
         "name": "noctalia-community-plugins",
         "passthru": null,
@@ -307,17 +307,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b8e6bbbed56e41daa6d8440f3305858d09083bb3",
-            "sha256": "sha256-dH//QAvegTcyAhNYhDNSAwDWcHXu4T5GJoIDovrDU58=",
+            "rev": "e9d05419fda0bcc6a83a7f41a3b4b05f8d997e71",
+            "sha256": "sha256-qGRmzupMBve0sqgLQBdaZD0rnLjwHyCIT36UvPHEJHM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/community-plugins.git"
         },
-        "version": "b8e6bbbed56e41daa6d8440f3305858d09083bb3"
+        "version": "e9d05419fda0bcc6a83a7f41a3b4b05f8d997e71"
     },
     "noctalia-official-plugins": {
         "cargoLock": null,
-        "date": "2026-11-25",
+        "date": "2026-11-28",
         "extract": null,
         "name": "noctalia-official-plugins",
         "passthru": null,
@@ -327,17 +327,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "96d289f50ff1ed72030872bf33c31e7d691c9d47",
-            "sha256": "sha256-4GCFK4VSD9mlUoSW3hUAzNDVvtWdsEx4KMj3x02xhR0=",
+            "rev": "42af261c552427716748faea9426769d4b9212fe",
+            "sha256": "sha256-P5Q0+ZM4FR/f8uBO9nW86rrkWck8gZdT7qtrGPXHNJQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/noctalia-dev/official-plugins.git"
         },
-        "version": "96d289f50ff1ed72030872bf33c31e7d691c9d47"
+        "version": "42af261c552427716748faea9426769d4b9212fe"
     },
     "nvidia-patch": {
         "cargoLock": null,
-        "date": "2026-11-15",
+        "date": "2026-11-27",
         "extract": null,
         "name": "nvidia-patch",
         "passthru": null,
@@ -349,12 +349,12 @@
             "name": null,
             "owner": "keylase",
             "repo": "nvidia-patch",
-            "rev": "7f30a61d159fa4c9644a7bf9d71a679c07062f5f",
-            "sha256": "sha256-lyD4TqgaWE0YwfauX7o8PdxVxQmai4LBckqXopN+m8s=",
+            "rev": "7cff7e2aace504f46fa088cd5ee02889350494fb",
+            "sha256": "sha256-CuZF4n1kTp/UAgdD5COv/dTvcr04GlMTR2ABjPdlzEw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7f30a61d159fa4c9644a7bf9d71a679c07062f5f"
+        "version": "7cff7e2aace504f46fa088cd5ee02889350494fb"
     },
     "open5gs": {
         "cargoLock": null,

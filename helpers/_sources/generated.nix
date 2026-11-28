@@ -185,43 +185,43 @@
   };
   noctalia-community-plugins = {
     pname = "noctalia-community-plugins";
-    version = "b8e6bbbed56e41daa6d8440f3305858d09083bb3";
+    version = "e9d05419fda0bcc6a83a7f41a3b4b05f8d997e71";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/community-plugins.git";
-      rev = "b8e6bbbed56e41daa6d8440f3305858d09083bb3";
+      rev = "e9d05419fda0bcc6a83a7f41a3b4b05f8d997e71";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-dH//QAvegTcyAhNYhDNSAwDWcHXu4T5GJoIDovrDU58=";
+      sha256 = "sha256-qGRmzupMBve0sqgLQBdaZD0rnLjwHyCIT36UvPHEJHM=";
     };
-    date = "2026-11-26";
+    date = "2026-11-27";
   };
   noctalia-official-plugins = {
     pname = "noctalia-official-plugins";
-    version = "96d289f50ff1ed72030872bf33c31e7d691c9d47";
+    version = "42af261c552427716748faea9426769d4b9212fe";
     src = fetchgit {
       url = "https://github.com/noctalia-dev/official-plugins.git";
-      rev = "96d289f50ff1ed72030872bf33c31e7d691c9d47";
+      rev = "42af261c552427716748faea9426769d4b9212fe";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-4GCFK4VSD9mlUoSW3hUAzNDVvtWdsEx4KMj3x02xhR0=";
+      sha256 = "sha256-P5Q0+ZM4FR/f8uBO9nW86rrkWck8gZdT7qtrGPXHNJQ=";
     };
-    date = "2026-11-25";
+    date = "2026-11-28";
   };
   nvidia-patch = {
     pname = "nvidia-patch";
-    version = "7f30a61d159fa4c9644a7bf9d71a679c07062f5f";
+    version = "7cff7e2aace504f46fa088cd5ee02889350494fb";
     src = fetchFromGitHub {
       owner = "keylase";
       repo = "nvidia-patch";
-      rev = "7f30a61d159fa4c9644a7bf9d71a679c07062f5f";
+      rev = "7cff7e2aace504f46fa088cd5ee02889350494fb";
       fetchSubmodules = false;
-      sha256 = "sha256-lyD4TqgaWE0YwfauX7o8PdxVxQmai4LBckqXopN+m8s=";
+      sha256 = "sha256-CuZF4n1kTp/UAgdD5COv/dTvcr04GlMTR2ABjPdlzEw=";
     };
-    date = "2026-11-15";
+    date = "2026-11-27";
   };
   open5gs = {
     pname = "open5gs";
